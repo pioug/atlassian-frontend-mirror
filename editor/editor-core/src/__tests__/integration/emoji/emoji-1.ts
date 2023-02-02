@@ -92,12 +92,9 @@ runEscapeKeydownSuite({
   },
 });
 
-// FIXME: This test was automatically skipped due to failure on 24/12/2022: https://product-fabric.atlassian.net/browse/ED-16434
 BrowserTestCase(
   'emoji-1.ts: should be able to navigate between emojis',
-  {
-    skip: ['*'],
-  },
+  {},
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, { appearance: 'full-page' });

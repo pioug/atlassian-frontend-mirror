@@ -189,11 +189,11 @@ export default Text;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::bd36caff8bedb3bdc89b6f2311c6160a>>
+ * @codegen <<SignedSource::9f746e797b8b5262d58b40dfecb39e6d>>
  * @codegenId typography
  * @codegenCommand yarn codegen-styles
  * @codegenParams ["fontSize", "fontWeight", "fontFamily", "lineHeight"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-typography.tsx <<SignedSource::39bc8db0f376f5635a25be0137792642>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-typography.tsx <<SignedSource::e6bf70c53b8eecdb84ae4c79966537e3>>
  */
 const fontSizeMap = {
   'size.050': css({
@@ -287,21 +287,15 @@ export type LineHeight = keyof typeof lineHeightMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d88a2527302fee634bec7ae405e9217b>>
+ * @codegen <<SignedSource::ca24871d7a06dd779f21c85960ded8ba>>
  * @codegenId colors
  * @codegenCommand yarn codegen-styles
  * @codegenParams ["text"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::db7a1282630a6e5b9424b807614086af>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::e348c7cd343cf53ff944fdb7023c577a>>
  */
 const textColorMap = {
   'color.text': css({
     color: token('color.text', '#172B4D'),
-  }),
-  subtle: css({
-    color: token('color.text.subtle', '#42526E'),
-  }),
-  subtlest: css({
-    color: token('color.text.subtlest', '#7A869A'),
   }),
   disabled: css({
     color: token('color.text.disabled', '#A5ADBA'),
@@ -309,11 +303,11 @@ const textColorMap = {
   inverse: css({
     color: token('color.text.inverse', '#FFFFFF'),
   }),
-  brand: css({
-    color: token('color.text.brand', '#0065FF'),
-  }),
   selected: css({
     color: token('color.text.selected', '#0052CC'),
+  }),
+  brand: css({
+    color: token('color.text.brand', '#0065FF'),
   }),
   danger: css({
     color: token('color.text.danger', '#DE350B'),
@@ -332,6 +326,12 @@ const textColorMap = {
   }),
   information: css({
     color: token('color.text.information', '#0052CC'),
+  }),
+  subtlest: css({
+    color: token('color.text.subtlest', '#7A869A'),
+  }),
+  subtle: css({
+    color: token('color.text.subtle', '#42526E'),
   }),
 } as const;
 

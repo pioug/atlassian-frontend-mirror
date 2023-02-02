@@ -26,12 +26,12 @@ describe('Layouts:', () => {
   let page: PuppeteerPage;
 
   const layouts = [
-    { name: '1 column', adf: col1 },
-    { name: '2 columns', adf: col2 },
-    { name: '3 columns', adf: col3 },
-    { name: 'left sidebar', adf: colLeftSidebar },
-    { name: 'right sidebar', adf: colRightSidebar },
-    { name: '3 columns with sidebars', adf: col3WithSidebars },
+    ['1 column', col1],
+    ['2 columns', col2],
+    ['3 columns', col3],
+    ['left sidebar', colLeftSidebar],
+    ['right sidebar', colRightSidebar],
+    ['3 columns with sidebars', col3WithSidebars],
   ];
 
   const smallViewport = { width: 768, height: 400 };
@@ -65,25 +65,25 @@ describe('Layouts:', () => {
     // viewport resizes.
     // This avoids test flakiness from misaligned toolbar anchorage.
     await page.mouse.move(0, 0);
+    await page.mouse.down();
+    await page.mouse.up();
   });
 
-  layouts.forEach((layout) => {
-    describe(layout.name, () => {
-      it('should correctly render layout on laptop', async () => {
-        await initEditor(layout.adf, largeViewport);
-        await retryUntilStablePosition(
-          page,
-          () => page.click(layoutSelectors.column),
-          `[aria-label*="${layoutToolbarTitle}"]`,
-          1000,
-          true,
-        );
-      });
+  describe.each(layouts)(`%s`, (_name, adf) => {
+    it('should correctly render layout on laptop', async () => {
+      await initEditor(adf, largeViewport);
+      await retryUntilStablePosition(
+        page,
+        () => page.click(layoutSelectors.column),
+        `[aria-label*="${layoutToolbarTitle}"]`,
+        1000,
+        true,
+      );
+    });
 
-      it('should stack layout on smaller screen', async () => {
-        await initEditor(layout.adf, smallViewport);
-        await page.click(layoutSelectors.column);
-      });
+    it('should stack layout on smaller screen', async () => {
+      await initEditor(adf, smallViewport);
+      await page.click(layoutSelectors.column);
     });
   });
 

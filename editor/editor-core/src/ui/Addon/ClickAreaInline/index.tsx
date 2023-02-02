@@ -12,18 +12,28 @@ export interface Props {
   editorView?: EditorView;
 }
 
-export default class ClickAreaInline extends React.Component<Props> {
-  private handleClick = (event: React.MouseEvent<any>) => {
-    const { editorView } = this.props;
-    if (editorView) {
+export const ClickAreaInline: React.FC<Props> = ({ editorView, children }) => {
+  const handleMouseDown = React.useCallback(
+    (event) => {
+      if (!editorView) {
+        return;
+      }
+
       if (createParagraphAtEnd()(editorView.state, editorView.dispatch)) {
         editorView.focus();
         event.stopPropagation();
       }
-    }
-  };
+    },
+    [editorView],
+  );
 
-  render() {
-    return <div css={clickArea} onClick={this.handleClick} />;
-  }
-}
+  return (
+    <div
+      data-testid="click-wrapper"
+      css={clickArea}
+      onMouseDown={handleMouseDown}
+    />
+  );
+};
+
+export default ClickAreaInline;

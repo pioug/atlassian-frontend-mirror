@@ -303,6 +303,7 @@ export class ToolbarInsertBlock extends React.PureComponent<
             replacePlusMenuWithElementBrowser={
               this.props.replacePlusMenuWithElementBrowser ?? false
             }
+            showElementBrowserLink={this.props.showElementBrowserLink || false}
           />
         </span>
         {this.props.showSeparator && <span css={separatorStyles} />}

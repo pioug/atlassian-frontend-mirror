@@ -25,6 +25,7 @@ export type CardWithUrlContentProps = {
   ui?: FlexibleUiOptions;
   children?: React.ReactNode;
   showHoverPreview?: boolean;
+  showAuthTooltip?: boolean;
   analyticsEvents?: AnalyticsFacade;
   placeholder?: string;
 };

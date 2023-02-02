@@ -10,7 +10,11 @@ import spacingScale from '../../src/palettes/spacing-scale';
 import typographyPalette from '../../src/palettes/typography-palette';
 import themeConfig, { Palettes, ThemeFileNames } from '../../src/theme-config';
 
-import { ARTIFACT_OUTPUT_DIR, THEME_INPUT_DIR } from './constants';
+import {
+  ARTIFACT_OUTPUT_DIR,
+  FIGMA_ARTIFACT_OUTPUT_DIR,
+  THEME_INPUT_DIR,
+} from './constants';
 import formatterCSSVariables from './formatters/css-variables';
 import formatterFigma from './formatters/figma';
 import formatterRaw from './formatters/raw';
@@ -85,14 +89,22 @@ const createThemeConfig = (themeName: ThemeFileNames): Config => {
     platforms: {
       figma: {
         transforms: ['name/dot', 'color/palette'],
-        buildPath: path.join(ARTIFACT_OUTPUT_DIR, `/figma/${themeName}/`),
+        /**
+         * Figma artifacts are output to a separate folder, because the
+         * `@af/codegen` ESLint rule `@repo/internal/codegen/signed-source-integrity`
+         * scans all directories called `artifacts` for signed source headers.
+         *
+         * Figma artifacts are JSON so the codegen headers inserted as comments
+         * are not valid JSON.
+         */
+        buildPath: FIGMA_ARTIFACT_OUTPUT_DIR,
         options: {
           themeName,
         },
         files: [
           {
             format: 'figma/figma-sync',
-            destination: 'sync-figma-tokens.js',
+            destination: `${themeName}.json`,
           },
         ],
       },
@@ -106,6 +118,9 @@ const createThemeConfig = (themeName: ThemeFileNames): Config => {
           {
             format: 'raw',
             destination: `${themeName}.tsx`,
+            options: {
+              cleanName: true,
+            },
           },
         ],
       },

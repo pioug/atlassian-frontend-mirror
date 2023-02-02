@@ -25,9 +25,34 @@ import { Rect, TableMap } from '../table-map';
 import { CellSelectionRect, Dispatch } from '../types';
 
 import { removeColSpan } from './colspan';
+import { selectedRect } from './selection-rect';
 import { tableNodeTypes } from './table-node-types';
+import { isHeaderEnabledByType } from './toggle-header';
 
 // Utilities to help with copying and pasting table cells
+
+/**
+ * Replace any header cells with table cells.
+ *
+ * @param schema
+ * @param cells
+ * @returns Fragment with header cells converted to table cells
+ */
+function stripHeaderType(schema: Schema, cells: Fragment): Fragment {
+  const newCells: PMNode[] = [];
+  cells.forEach((cell) => {
+    // Convert to cell type if not already
+    const cellNodeType = tableNodeTypes(schema).cell;
+    const tableCell =
+      cell.type === cellNodeType
+        ? cell
+        : cellNodeType.createAndFill(cell.attrs, cell.content, cell.marks) ??
+          cell;
+
+    newCells.push(tableCell);
+  });
+  return Fragment.from(newCells);
+}
 
 // : (Slice) → ?{width: number, height: number, rows: [Fragment]}
 // Get a rectangular area of cells from a slice, or null if the outer
@@ -81,7 +106,8 @@ export function pastedCells(slice: Slice): CellSelectionRect | null {
   } else {
     return null;
   }
-  return ensureRectangular(schema, rows);
+  const rowsWithoutHeaders = rows.map((row) => stripHeaderType(schema, row));
+  return ensureRectangular(schema, rowsWithoutHeaders);
 }
 
 // : (Schema, [Fragment]) → {width: number, height: number, rows: [Fragment]}
@@ -372,6 +398,54 @@ function isolateVertical(
   return found;
 }
 
+function applyHeaderCells(
+  tr: Transaction,
+  tableMap: TableMap,
+  state: EditorState,
+  tableStart: number,
+  table: PMNode,
+  headerRowEnabled: boolean,
+  headerColumnEnabled: boolean,
+) {
+  const { schema } = state;
+
+  const setMarkup = (
+    tr: Transaction,
+    row: number,
+    col: number,
+    headerEnabled: boolean,
+  ) => {
+    const cellPos = tableStart + tableMap.positionAt(row, col, table);
+    const cell = tr.doc.nodeAt(cellPos);
+
+    const newType = headerEnabled
+      ? schema.nodes.tableHeader
+      : schema.nodes.tableCell;
+
+    const isCellTypeChanged = newType !== cell?.type;
+    const isCellTypeValid = [
+      schema.nodes.tableCell,
+      schema.nodes.tableHeader,
+    ].includes(cell?.type);
+
+    if (isCellTypeChanged && isCellTypeValid) {
+      tr.setNodeMarkup(cellPos, newType, cell?.attrs, cell?.marks);
+    }
+  };
+
+  // For row === 0 && col === 0 it is enabled if either are enabled
+  setMarkup(tr, 0, 0, headerColumnEnabled || headerRowEnabled);
+
+  // Header Column
+  for (let col = 1; col < tableMap.width; col++) {
+    setMarkup(tr, 0, col, headerRowEnabled);
+  }
+  // Header Row
+  for (let row = 1; row < tableMap.height; row++) {
+    setMarkup(tr, row, 0, headerColumnEnabled);
+  }
+}
+
 // Insert the given set of cells (as returned by `pastedCells`) into a
 // table, at the position pointed at by rect.
 export function insertCells(
@@ -382,6 +456,13 @@ export function insertCells(
   cells: CellSelectionRect,
 ): void {
   let table: PMNode | null | undefined = state.doc;
+
+  const newRect = selectedRect(state);
+  const types = tableNodeTypes(state.schema);
+
+  // Get if the header row and column are enabled on the original table
+  const headerRowEnabled = isHeaderEnabledByType('row', newRect, types);
+  const headerColumnEnabled = isHeaderEnabledByType('column', newRect, types);
 
   if (tableStart) {
     table = state.doc.nodeAt(tableStart - 1);
@@ -439,11 +520,21 @@ export function insertCells(
     );
   }
   recomp();
+  applyHeaderCells(
+    tr,
+    map,
+    state,
+    tableStart,
+    table,
+    headerRowEnabled,
+    headerColumnEnabled,
+  );
   tr.setSelection(
     new CellSelection(
       tr.doc.resolve(tableStart + map.positionAt(top, left, table)),
       tr.doc.resolve(tableStart + map.positionAt(bottom - 1, right - 1, table)),
     ),
   );
+
   dispatch(tr);
 }

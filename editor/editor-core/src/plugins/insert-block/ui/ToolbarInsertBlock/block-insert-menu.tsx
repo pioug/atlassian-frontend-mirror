@@ -18,6 +18,7 @@ export interface BlockInsertMenuProps {
   popupsScrollableElement?: HTMLElement;
   replacePlusMenuWithElementBrowser: boolean;
   spacing: 'none' | 'default';
+  showElementBrowserLink: boolean;
   onRef(el: HTMLElement): void;
   onPlusButtonRef(el: HTMLElement): void;
   onClick: React.MouseEventHandler;
@@ -67,6 +68,7 @@ export const BlockInsertMenu: React.FC<BlockInsertMenuProps> = (props) => {
         popupsScrollableElement={props.popupsScrollableElement}
         spacing={props.spacing}
         togglePlusMenuVisibility={props.togglePlusMenuVisibility}
+        showElementBrowserLink={props.showElementBrowserLink}
       />
     );
   }

@@ -9,7 +9,7 @@ describe('Traverse#filter', () => {
     ).toMatchSnapshot();
   });
 
-  it('should return all matched elements of that are satisfying predicate', () => {
+  it('should return all matched elements that are satisfying predicate', () => {
     expect(
       filter(
         emojisDoc,

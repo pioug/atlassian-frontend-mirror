@@ -98,7 +98,7 @@ const color: AttributeSchema<TextColorTokenSchema<BaseToken>> = {
           state: 'active',
           introduced: '0.0.15',
           description:
-            'Use for text to communicate a favourable outcome, such as input field success messaging.',
+            'Use for text to communicate a favorable outcome, such as input field success messaging.',
         },
       },
       discovery: {

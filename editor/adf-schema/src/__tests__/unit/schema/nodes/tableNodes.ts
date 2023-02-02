@@ -61,8 +61,8 @@ describe(`${packageName}/schema table node`, () => {
   it('should have isolating property to be true', () => {
     expect(schema.nodes.table.spec.isolating).toEqual(true);
   });
-  it('should have selectable property to be false', () => {
-    expect(schema.nodes.table.spec.selectable).toEqual(false);
+  it('should have selectable property to be true', () => {
+    expect(schema.nodes.table.spec.selectable).toEqual(true);
   });
 
   describe('parse attributes', () => {

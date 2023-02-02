@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::4466431b8da920b1737382f7e9e82009>>
+ * @codegen <<SignedSource::496467b0392d344d04df137d9d8edf4c>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -102,6 +102,28 @@ const tokens = [
       "spacing",
       "scale",
       "Space100"
+    ]
+  },
+  {
+    "value": "5rem",
+    "attributes": {
+      "group": "scale"
+    },
+    "pixelValue": "80px",
+    "filePath": "src/palettes/spacing-scale.tsx",
+    "isSource": true,
+    "original": {
+      "value": "5rem",
+      "attributes": {
+        "group": "scale"
+      },
+      "pixelValue": "80px"
+    },
+    "name": "spacing.scale.Space1000",
+    "path": [
+      "spacing",
+      "scale",
+      "Space1000"
     ]
   },
   {
@@ -267,28 +289,6 @@ const tokens = [
     ]
   },
   {
-    "value": "5rem",
-    "attributes": {
-      "group": "scale"
-    },
-    "pixelValue": "80px",
-    "filePath": "src/palettes/spacing-scale.tsx",
-    "isSource": true,
-    "original": {
-      "value": "5rem",
-      "attributes": {
-        "group": "scale"
-      },
-      "pixelValue": "80px"
-    },
-    "name": "spacing.scale.Space1000",
-    "path": [
-      "spacing",
-      "scale",
-      "Space1000"
-    ]
-  },
-  {
     "value": "0",
     "attributes": {
       "group": "scale"
@@ -381,6 +381,27 @@ const tokens = [
     "path": [
       "space",
       "Space100"
+    ]
+  },
+  {
+    "value": "5rem",
+    "attributes": {
+      "group": "scale"
+    },
+    "pixelValue": "80px",
+    "filePath": "src/palettes/spacing-scale.tsx",
+    "isSource": true,
+    "original": {
+      "value": "5rem",
+      "attributes": {
+        "group": "scale"
+      },
+      "pixelValue": "80px"
+    },
+    "name": "space.Space1000",
+    "path": [
+      "space",
+      "Space1000"
     ]
   },
   {
@@ -535,27 +556,6 @@ const tokens = [
     "path": [
       "space",
       "Space800"
-    ]
-  },
-  {
-    "value": "5rem",
-    "attributes": {
-      "group": "scale"
-    },
-    "pixelValue": "80px",
-    "filePath": "src/palettes/spacing-scale.tsx",
-    "isSource": true,
-    "original": {
-      "value": "5rem",
-      "attributes": {
-        "group": "scale"
-      },
-      "pixelValue": "80px"
-    },
-    "name": "space.Space1000",
-    "path": [
-      "space",
-      "Space1000"
     ]
   }
 ];

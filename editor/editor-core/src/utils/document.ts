@@ -266,11 +266,18 @@ export function processRawValue(
 
     if (isTransformed && dispatchAnalyticsEvent) {
       dispatchAnalyticsEvent({
-        action: ACTION.DEDUPE_MARKS_TRANSFORMED,
+        action: ACTION.DEDUPE_MARKS_TRANSFORMED_V2,
         actionSubject: ACTION_SUBJECT.EDITOR,
         eventType: EVENT_TYPE.OPERATIONAL,
         attributes: {
-          discardedMarks,
+          /** UGC WARNING
+           *
+           * DO NOT include the `mark` attributes inside, we map here to only
+           * extract the mark type as that is the only non-UGC safe information
+           * that we can add to event-attributes
+           *
+           */
+          discardedMarkTypes: discardedMarks.map((mark) => mark.type),
         },
       });
     }

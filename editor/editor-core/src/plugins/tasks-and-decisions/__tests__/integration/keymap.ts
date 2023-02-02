@@ -51,8 +51,8 @@ BrowserTestCase(
     await animationFrame(page);
     await expectToMatchSelection(page, {
       type: 'text',
-      from: 62,
-      to: 66,
+      anchor: 62,
+      head: 66,
     });
   },
 );
@@ -69,8 +69,8 @@ BrowserTestCase(
     await animationFrame(page);
     await expectToMatchSelection(page, {
       type: 'text',
-      from: 18,
-      to: 22,
+      anchor: 18,
+      head: 22,
     });
 
     if (page.isBrowser('chrome')) {
@@ -133,8 +133,8 @@ BrowserTestCase(
     await animationFrame(page);
     await expectToMatchSelection(page, {
       type: 'text',
-      from: 62,
-      to: 66,
+      anchor: 62,
+      head: 66,
     });
 
     // tab backward
@@ -144,8 +144,8 @@ BrowserTestCase(
     await animationFrame(page);
     await expectToMatchSelection(page, {
       type: 'text',
-      from: 18,
-      to: 22,
+      anchor: 18,
+      head: 22,
     });
 
     if (page.isBrowser('chrome')) {
@@ -167,8 +167,8 @@ BrowserTestCase(
     await animationFrame(page);
     await expectToMatchSelection(page, {
       type: 'text',
-      from: 64,
-      to: 68,
+      anchor: 64,
+      head: 68,
     });
 
     await clickNthDecision(page, 2);
@@ -176,8 +176,8 @@ BrowserTestCase(
     await animationFrame(page);
     await expectToMatchSelection(page, {
       type: 'text',
-      from: 64,
-      to: 68,
+      anchor: 64,
+      head: 68,
     });
   },
 );
@@ -194,8 +194,8 @@ BrowserTestCase(
     await animationFrame(page);
     await expectToMatchSelection(page, {
       type: 'text',
-      from: 18,
-      to: 22,
+      anchor: 18,
+      head: 22,
     });
 
     await clickNthDecision(page, 2);
@@ -203,8 +203,8 @@ BrowserTestCase(
     await animationFrame(page);
     await expectToMatchSelection(page, {
       type: 'text',
-      from: 18,
-      to: 22,
+      anchor: 18,
+      head: 22,
     });
 
     if (page.isBrowser('chrome')) {
@@ -238,8 +238,8 @@ BrowserTestCase(
     await animationFrame(page);
     await expectToMatchSelection(page, {
       type: 'text',
-      from: 64,
-      to: 68,
+      anchor: 64,
+      head: 68,
     });
 
     // tab backward
@@ -249,8 +249,8 @@ BrowserTestCase(
     await animationFrame(page);
     await expectToMatchSelection(page, {
       type: 'text',
-      from: 18,
-      to: 22,
+      anchor: 18,
+      head: 22,
     });
   },
 );

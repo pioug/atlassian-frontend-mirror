@@ -1,7 +1,6 @@
 import {
   PuppeteerPage,
   waitForElementCount,
-  waitForLoadedBackgroundImages,
 } from '@atlaskit/visual-regression/helper';
 import { mainToolbarSelector } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 import {
@@ -17,20 +16,18 @@ async function waitForCollabAvatars(page: PuppeteerPage) {
 
   // Wait for avatar image downloads
   const avatarSelectors = [
-    `span[aria-label="Rick Sanchez"][role="img"]`,
-    `span[aria-label="Morty Smith"][role="img"]`,
-    `span[aria-label="Summer Smith"][role="img"]`,
+    `img[alt="Rick Sanchez"]`,
+    `img[alt="Morty Smith"]`,
+    `img[alt="Summer Smith"]`,
   ];
 
-  avatarSelectors.forEach(async (selector) => {
+  for (const selector of avatarSelectors) {
     await waitForElementCount(page, selector, 2);
-    await waitForLoadedBackgroundImages(page, selector);
-  });
+  }
 }
 
 describe('Collab', () => {
-  // FIXME: This test was automatically skipped due to failure on 24/01/2023: https://product-fabric.atlassian.net/browse/ED-16632
-  it.skip('displays default collab UI', async () => {
+  it('displays default collab UI', async () => {
     const page = global.page;
     const adf = {};
 

@@ -14,7 +14,8 @@ import WithPluginState from '../../../../ui/WithPluginState';
 import { getFeatureFlags } from '../../../feature-flags-context';
 import { EditorLinkPicker, EditorLinkPickerProps } from '../EditorLinkPicker';
 
-export interface Props extends Pick<EditorLinkPickerProps, 'onCancel'> {
+export interface Props
+  extends Pick<EditorLinkPickerProps, 'onCancel' | 'invokeMethod'> {
   view: EditorView;
   providerFactory: ProviderFactory;
   onSubmit: (
@@ -54,6 +55,7 @@ export default class HyperlinkAddToolbar extends React.PureComponent<Props> {
       providerFactory,
       view,
       onCancel,
+      invokeMethod,
     } = this.props;
 
     return (
@@ -73,6 +75,11 @@ export default class HyperlinkAddToolbar extends React.PureComponent<Props> {
                 return (
                   <EditorLinkPicker
                     view={view}
+                    invokeMethod={
+                      // Provide `invokeMethod` prop as preferred value (card plugin passes as prop) otherwise assume this
+                      // is being used from inside the hyperlink plugin and use inputMethod from plugin state
+                      invokeMethod ?? hyperlinkPluginState?.inputMethod
+                    }
                     {...linkPickerOptions}
                     url={displayUrl}
                     displayText={displayText}

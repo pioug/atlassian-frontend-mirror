@@ -286,7 +286,7 @@ const createTableSpec = (): NodeSpec => {
     marks: 'unsupportedMark unsupportedNodeAttribute',
     tableRole: 'table',
     isolating: true,
-    selectable: false,
+    selectable: true,
     group: 'block',
     parseDOM: [
       {

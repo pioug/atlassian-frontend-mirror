@@ -1,5 +1,11 @@
 # @atlaskit/link-provider
 
+## 1.3.10
+
+### Patch Changes
+
+- [`7d2488dcbcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d2488dcbcf) - Upgrade lru-fast@0.2.2 to lru_map
+
 ## 1.3.9
 
 ### Patch Changes

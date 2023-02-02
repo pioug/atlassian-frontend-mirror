@@ -1,9 +1,49 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b49ec5b311f966a866a3fd882c03e43d>>
+ * @codegen <<SignedSource::04c90c279da3841c8c8952b13bddb31b>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
+  {
+    "value": "\"SFMono-Medium\", \"SF Mono\", \"Segoe UI Mono\", \"Roboto Mono\", \"Ubuntu Mono\", Menlo, Consolas, Courier, monospace",
+    "attributes": {
+      "group": "scale"
+    },
+    "filePath": "src/palettes/typography-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "\"SFMono-Medium\", \"SF Mono\", \"Segoe UI Mono\", \"Roboto Mono\", \"Ubuntu Mono\", Menlo, Consolas, Courier, monospace",
+      "attributes": {
+        "group": "scale"
+      }
+    },
+    "name": "typography.fontFamily.FontFamilyMonospace",
+    "path": [
+      "typography",
+      "fontFamily",
+      "FontFamilyMonospace"
+    ]
+  },
+  {
+    "value": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Oxygen\", \"Ubuntu\", \"Fira Sans\", \"Droid Sans\", \"Helvetica Neue\", sans-serif",
+    "attributes": {
+      "group": "scale"
+    },
+    "filePath": "src/palettes/typography-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Oxygen\", \"Ubuntu\", \"Fira Sans\", \"Droid Sans\", \"Helvetica Neue\", sans-serif",
+      "attributes": {
+        "group": "scale"
+      }
+    },
+    "name": "typography.fontFamily.FontFamilySans",
+    "path": [
+      "typography",
+      "fontFamily",
+      "FontFamilySans"
+    ]
+  },
   {
     "value": "11px",
     "attributes": {
@@ -165,23 +205,23 @@ const tokens = [
     ]
   },
   {
-    "value": "400",
+    "value": "700",
     "attributes": {
       "group": "scale"
     },
     "filePath": "src/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "400",
+      "value": "700",
       "attributes": {
         "group": "scale"
       }
     },
-    "name": "typography.fontWeight.FontWeightRegular",
+    "name": "typography.fontWeight.FontWeightBold",
     "path": [
       "typography",
       "fontWeight",
-      "FontWeightRegular"
+      "FontWeightBold"
     ]
   },
   {
@@ -205,6 +245,26 @@ const tokens = [
     ]
   },
   {
+    "value": "400",
+    "attributes": {
+      "group": "scale"
+    },
+    "filePath": "src/palettes/typography-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "400",
+      "attributes": {
+        "group": "scale"
+      }
+    },
+    "name": "typography.fontWeight.FontWeightRegular",
+    "path": [
+      "typography",
+      "fontWeight",
+      "FontWeightRegular"
+    ]
+  },
+  {
     "value": "600",
     "attributes": {
       "group": "scale"
@@ -222,66 +282,6 @@ const tokens = [
       "typography",
       "fontWeight",
       "FontWeightSemiBold"
-    ]
-  },
-  {
-    "value": "700",
-    "attributes": {
-      "group": "scale"
-    },
-    "filePath": "src/palettes/typography-palette.tsx",
-    "isSource": true,
-    "original": {
-      "value": "700",
-      "attributes": {
-        "group": "scale"
-      }
-    },
-    "name": "typography.fontWeight.FontWeightBold",
-    "path": [
-      "typography",
-      "fontWeight",
-      "FontWeightBold"
-    ]
-  },
-  {
-    "value": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Oxygen\", \"Ubuntu\", \"Fira Sans\", \"Droid Sans\", \"Helvetica Neue\", sans-serif",
-    "attributes": {
-      "group": "scale"
-    },
-    "filePath": "src/palettes/typography-palette.tsx",
-    "isSource": true,
-    "original": {
-      "value": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Oxygen\", \"Ubuntu\", \"Fira Sans\", \"Droid Sans\", \"Helvetica Neue\", sans-serif",
-      "attributes": {
-        "group": "scale"
-      }
-    },
-    "name": "typography.fontFamily.FontFamilySans",
-    "path": [
-      "typography",
-      "fontFamily",
-      "FontFamilySans"
-    ]
-  },
-  {
-    "value": "\"SFMono-Medium\", \"SF Mono\", \"Segoe UI Mono\", \"Roboto Mono\", \"Ubuntu Mono\", Menlo, Consolas, Courier, monospace",
-    "attributes": {
-      "group": "scale"
-    },
-    "filePath": "src/palettes/typography-palette.tsx",
-    "isSource": true,
-    "original": {
-      "value": "\"SFMono-Medium\", \"SF Mono\", \"Segoe UI Mono\", \"Roboto Mono\", \"Ubuntu Mono\", Menlo, Consolas, Courier, monospace",
-      "attributes": {
-        "group": "scale"
-      }
-    },
-    "name": "typography.fontFamily.FontFamilyMonospace",
-    "path": [
-      "typography",
-      "fontFamily",
-      "FontFamilyMonospace"
     ]
   },
   {

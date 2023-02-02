@@ -57,6 +57,7 @@ export function CardWithURLRenderer(props: CardProps) {
     children,
     ui,
     showHoverPreview,
+    showAuthTooltip,
     analyticsEvents,
     placeholder,
   } = props;
@@ -139,6 +140,7 @@ export function CardWithURLRenderer(props: CardProps) {
     inlinePreloaderStyle,
     ui,
     showHoverPreview,
+    showAuthTooltip,
     analyticsEvents,
     placeholder,
   };

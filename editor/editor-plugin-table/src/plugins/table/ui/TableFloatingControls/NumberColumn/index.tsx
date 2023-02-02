@@ -35,6 +35,7 @@ export default class NumberColumn extends Component<Props, any> {
               ? rowHeights[0]
               : undefined,
         }}
+        contentEditable={false}
       >
         {rowHeights.map((rowHeight, index) => (
           <div

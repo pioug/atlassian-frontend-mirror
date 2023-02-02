@@ -95,6 +95,19 @@ function shiftArrow(axis: Axis, dir: Direction): CommandWithView {
       if (end === null) {
         return false;
       }
+      const {
+        selection: { $head, $anchor },
+      } = state;
+      const maybeTableCell = $head.blockRange($anchor);
+
+      // Make sure the selection is coming from the same cell
+      const sameCell = ['tableCell', 'tableHeader'].includes(
+        maybeTableCell?.parent?.type.name || '',
+      );
+      if (!sameCell) {
+        return false;
+      }
+
       sel = new CellSelection(state.doc.resolve(end));
     }
     const $head = nextCell(sel.$headCell, axis, dir);

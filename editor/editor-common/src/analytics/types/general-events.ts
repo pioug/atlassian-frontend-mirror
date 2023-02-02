@@ -1,5 +1,4 @@
 import type { RichMediaLayout } from '@atlaskit/adf-schema';
-import type { ADFEntityMark } from '@atlaskit/adf-utils/types';
 
 import type { FeatureFlagKey } from '../../types/feature-flags';
 import { PropsDifference, ShallowPropsDifference } from '../../utils';
@@ -427,11 +426,16 @@ type TextLinkCodeMarkTransformedAEP = OperationalAEP<
 >;
 
 type DedupeMarksTransformedAEP = OperationalAEP<
-  ACTION.DEDUPE_MARKS_TRANSFORMED,
+  ACTION.DEDUPE_MARKS_TRANSFORMED_V2,
   ACTION_SUBJECT.EDITOR,
   undefined,
+  /** UGC WARNING
+   *
+   * DO NOT include `mark` attributes - only the types
+   *
+   */
   {
-    discardedMarks: ADFEntityMark[];
+    discardedMarkTypes: string[];
   },
   undefined
 >;

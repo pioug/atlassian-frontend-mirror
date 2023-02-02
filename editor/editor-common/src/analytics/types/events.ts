@@ -211,12 +211,13 @@ type ContentComponentErrorAEP = OperationalAEP<
   {
     component: CONTENT_COMPONENT;
     error: string;
-    errorStack?: string;
     selection: { [key: string]: string };
     position: number;
     docSize: number;
   },
-  undefined
+  {
+    errorStack?: string;
+  }
 >;
 
 export type ErrorEventAttributes = {

@@ -109,7 +109,7 @@ export type BlockCardNodeViewProps = Pick<SmartCardProps, 'platform'>;
 export class BlockCard extends ReactNodeView<BlockCardNodeViewProps> {
   createDomRef(): HTMLElement {
     const domRef = document.createElement('div');
-    if (browser.chrome && this.reactComponentProps.platform !== 'mobile') {
+    if (this.reactComponentProps.platform !== 'mobile') {
       // workaround Chrome bug in https://product-fabric.atlassian.net/browse/ED-5379
       // see also: https://github.com/ProseMirror/prosemirror/issues/884
       domRef.contentEditable = 'true';

@@ -1,5 +1,21 @@
 # @atlaskit/smart-card
 
+## 23.14.0
+
+### Minor Changes
+
+- [`eb2e7a0e762`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eb2e7a0e762) - Add new "showAuthTooltip" prop to SmartCard which shows Auth Tooltip on unauthorised inline Smart Links. This allows us to remove product feature flags in the future
+
+### Patch Changes
+
+- Updated dependencies
+
+## 23.13.3
+
+### Patch Changes
+
+- [`e5b8a41f4da`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e5b8a41f4da) - Hover Preview: Reduce hover content re-rendering
+
 ## 23.13.2
 
 ### Patch Changes

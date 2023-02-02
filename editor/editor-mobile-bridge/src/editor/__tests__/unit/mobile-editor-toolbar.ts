@@ -7,6 +7,7 @@ import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 jest.mock('../../web-to-native/index');
 jest.mock('@atlaskit/editor-core');
 jest.mock('prosemirror-state');
+jest.useFakeTimers();
 
 describe('Notify editing capabilities to the native bridge', () => {
   let toolbarActions: MobileEditorToolbarActions;
@@ -204,7 +205,7 @@ describe('Notify editing capabilities to the native bridge', () => {
     toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(
       floatingToolbarConfig,
     );
-
+    jest.advanceTimersByTime(1000);
     const expectedItems = JSON.stringify(expectedMobileDsl);
     expect(toNativeBridge.onNodeSelected).toBeCalledWith(
       'panel',
@@ -250,7 +251,7 @@ describe('Notify editing capabilities to the native bridge', () => {
       floatingToolbarConfigWithCallback,
       dummyNode,
     );
-
+    jest.advanceTimersByTime(1000);
     const expectedItems = JSON.stringify(expectedMobileDsl);
     expect(toNativeBridge.onNodeSelected).toBeCalledWith(
       'blockCard',
@@ -263,7 +264,7 @@ describe('Notify editing capabilities to the native bridge', () => {
       floatingToolbarConfig,
     );
     toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(undefined);
-
+    jest.advanceTimersByTime(1000);
     expect(toNativeBridge.onNodeDeselected).toBeCalled();
     expect(toNativeBridge.onNodeSelected).toBeCalledTimes(1);
   });
@@ -275,7 +276,7 @@ describe('Notify editing capabilities to the native bridge', () => {
     toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(undefined);
     toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(undefined);
     toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(undefined);
-
+    jest.advanceTimersByTime(1000);
     expect(toNativeBridge.onNodeDeselected).toBeCalledTimes(1);
     expect(toNativeBridge.onNodeSelected).toBeCalledTimes(1);
   });
@@ -290,7 +291,7 @@ describe('Notify editing capabilities to the native bridge', () => {
     toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(
       floatingToolbarConfig,
     );
-
+    jest.advanceTimersByTime(1000);
     expect(toNativeBridge.onNodeSelected).toBeCalledTimes(1);
     expect(toNativeBridge.onNodeDeselected).not.toBeCalled();
   });
@@ -326,7 +327,7 @@ describe('Notify editing capabilities to the native bridge', () => {
     toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(
       floatingToolbar2,
     );
-
+    jest.advanceTimersByTime(1000);
     expect(toNativeBridge.onNodeSelected).toBeCalledTimes(2);
     expect(toNativeBridge.onNodeDeselected).not.toBeCalled();
   });
@@ -409,7 +410,7 @@ describe('Notify editing capabilities to the native bridge', () => {
     toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(
       floatingToolbarConfig,
     );
-
+    jest.advanceTimersByTime(1000);
     const expectedMobileDsl = [
       {
         id: 'dropdown2',
@@ -479,6 +480,7 @@ describe('Notify editing capabilities to the native bridge', () => {
       floatingToolbarConfig,
     );
 
+    jest.advanceTimersByTime(1000);
     const expectedMobileDsl = [
       {
         id: 'button2',
@@ -526,7 +528,7 @@ describe('perform edit action', () => {
     const editorView = {} as EditorViewWithComposition;
 
     toolbarActions.performEditAction('0', editorView);
-
+    jest.advanceTimersByTime(1000);
     expect(mockOnClick).toBeCalled();
   });
 

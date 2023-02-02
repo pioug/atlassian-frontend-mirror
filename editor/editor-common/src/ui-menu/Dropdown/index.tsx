@@ -76,7 +76,7 @@ export class Dropdown extends PureComponent<Props, State> {
         <MenuArrowKeyNavigationProvider
           disableArrowKeyNavigation={disableArrowKeyNavigation}
           keyDownHandlerContext={keyDownHandlerContext}
-          closeonTab={true}
+          closeOnTab={true}
           handleClose={(event) =>
             onOpenChange && onOpenChange({ isOpen: false, event })
           }

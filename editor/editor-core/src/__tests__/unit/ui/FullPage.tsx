@@ -45,7 +45,7 @@ describe('full page editor', () => {
         editorDOMElement={<div />}
       />,
     );
-    fullPage.find(clickWrapperSelector).simulate('click', { clientY: 200 });
+    fullPage.find(clickWrapperSelector).simulate('mousedown', { clientY: 200 });
     expect(editorView.state.doc).toEqualDocument(
       doc(p('Hello world'), p('Hello world'), p('')),
     );
@@ -69,7 +69,7 @@ describe('full page editor', () => {
         editorDOMElement={<div />}
       />,
     );
-    fullPage.find(clickWrapperSelector).simulate('click', { clientY: 200 });
+    fullPage.find(clickWrapperSelector).simulate('mousedown', { clientY: 200 });
     expect(editorView.state.doc).toEqualDocument(
       doc(
         p('Hello world'),
@@ -94,8 +94,8 @@ describe('full page editor', () => {
     );
     fullPage
       .find(clickWrapperSelector)
-      .simulate('click', { clientY: 200 })
-      .simulate('click', { clientY: 200 });
+      .simulate('mousedown', { clientY: 200 })
+      .simulate('mousedown', { clientY: 200 });
     expect(editorView.state.doc).toEqualDocument(doc(p('Hello world'), p('')));
   });
 
@@ -121,7 +121,7 @@ describe('full page editor', () => {
         editorDOMElement={<div />}
       />,
     );
-    fullPage.find(clickWrapperSelector).simulate('click', { clientY: 300 });
+    fullPage.find(clickWrapperSelector).simulate('mousedown', { clientY: 300 });
     const { selection } = editorView.state;
     expect(selection.empty).toEqual(true);
     expect(selection.$to.pos).toEqual(sel + 2);
@@ -136,7 +136,7 @@ describe('full page editor', () => {
         editorDOMElement={<div />}
       />,
     );
-    fullPage.find(clickWrapperSelector).simulate('click', { clientY: 300 });
+    fullPage.find(clickWrapperSelector).simulate('mousedown', { clientY: 300 });
     const { selection } = editorView.state;
     expect(selection.empty).toEqual(true);
     expect(selection.$to.pos).toEqual(sel + 2);
@@ -151,16 +151,16 @@ describe('full page editor', () => {
         editorDOMElement={<div />}
       />,
     );
-    fullPage.find(clickWrapperSelector).simulate('click', { clientY: 200 });
+    fullPage.find(clickWrapperSelector).simulate('mousedown', { clientY: 200 });
     expect(editorView.state.doc).toEqualDocument(
       doc(p('Hello world'), p('Hello world'), p('')),
     );
     (editorView.dom as HTMLElement).click();
-    fullPage.find(clickWrapperSelector).simulate('click', { clientY: 200 });
+    fullPage.find(clickWrapperSelector).simulate('mousedown', { clientY: 200 });
     expect(editorView.state.doc).toEqualDocument(
       doc(p('Hello world'), p('Hello world'), p('')),
     );
-    fullPage.find(clickWrapperSelector).simulate('click', { clientY: 200 });
+    fullPage.find(clickWrapperSelector).simulate('mousedown', { clientY: 200 });
     expect(editorView.state.doc).toEqualDocument(
       doc(p('Hello world'), p('Hello world'), p('')),
     );

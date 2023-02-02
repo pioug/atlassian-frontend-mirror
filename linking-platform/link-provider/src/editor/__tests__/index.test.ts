@@ -104,7 +104,7 @@ describe('providers > editor', () => {
   beforeEach(() => {
     // Since we use module level caching,
     // we need to clear it up for clean test run
-    urlResponsePromiseCache.removeAll();
+    urlResponsePromiseCache.clear();
     mockFetch = jest.fn();
     (global as any).fetch = mockFetch;
   });

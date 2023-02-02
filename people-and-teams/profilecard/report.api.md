@@ -21,7 +21,7 @@ import { AnalyticsEventPayload } from '@atlaskit/analytics-next';
 import { ComponentType } from 'react';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { IntlShape } from 'react-intl-next';
-import { LRUCache } from 'lru-fast';
+import { LRUMap } from 'lru_map';
 import { default as React_2 } from 'react';
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 
@@ -79,7 +79,7 @@ interface CachedData<T> {
 class CachingClient<T> {
   constructor(config: CacheConfig);
   // (undocumented)
-  cache: LRUCache<string, CachedData<T>> | null;
+  cache: LRUMap<string, CachedData<T>> | null;
   // (undocumented)
   config: Required<CacheConfig>;
   // (undocumented)

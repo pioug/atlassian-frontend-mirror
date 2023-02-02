@@ -10,7 +10,7 @@ export interface Props {
   value: AlignmentState;
   label: string;
   isSelected?: boolean;
-  onClick: (value: AlignmentState) => void;
+  onClick: (value: AlignmentState, shouldClosePopup: boolean) => void;
   content: React.ReactElement<any>;
   shortcut?: Keymap;
 }
@@ -34,8 +34,11 @@ class AlignmentButton extends PureComponent<Props> {
 
   onClick = (e: any) => {
     const { onClick, value } = this.props;
+
+    // detect if the click event comes from keyboard where screenX and screenY are 0
+    const isMouseEvent = e instanceof MouseEvent;
     e.preventDefault();
-    onClick(value);
+    onClick(value, isMouseEvent);
   };
 }
 

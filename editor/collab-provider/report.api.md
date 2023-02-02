@@ -109,7 +109,7 @@ export interface CollabInitPayload extends CollabEventInitData {
 
 // @public (undocumented)
 export type CollabLocalStepsPayload = {
-  steps: Step[];
+  steps: readonly Step[];
 };
 
 // @public (undocumented)
@@ -133,6 +133,10 @@ interface Config {
   ) => Socket;
   // (undocumented)
   documentAri: string;
+  // (undocumented)
+  featureFlags?: {
+    [key: string]: boolean;
+  };
   // (undocumented)
   getUser?(userId: string): Promise<
     Pick<CollabParticipant, 'avatar' | 'email' | 'name'> & {

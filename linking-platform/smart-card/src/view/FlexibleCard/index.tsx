@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 
 import { FlexibleCardProps } from './types';
 import { SmartLinkStatus } from '../../constants';
@@ -31,7 +31,10 @@ const FlexibleCard: React.FC<FlexibleCardProps> = ({
 }: React.PropsWithChildren<FlexibleCardProps>) => {
   const { status: cardType, details } = cardState;
   const status = cardType as SmartLinkStatus;
-  const context = getContextByStatus(url, status, details, renderers);
+  const context = useMemo(
+    () => getContextByStatus(url, status, details, renderers),
+    [details, renderers, status, url],
+  );
   const retry = getRetryOptions(url, status, details, onAuthorize);
   const { title } = context || {};
 

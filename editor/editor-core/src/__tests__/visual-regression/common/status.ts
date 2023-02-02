@@ -47,8 +47,7 @@ describe('Status:', () => {
     await snapshot(page);
   });
 
-  // FIXME: This test was automatically skipped due to failure on 05/11/2022: https://product-fabric.atlassian.net/browse/ED-16066
-  it.skip('should insert status inside action item and keep focus on it', async () => {
+  it('should insert status inside action item and keep focus on it', async () => {
     await initEditorWithAdf(page, {
       adf: blank_adf,
       appearance: Appearance.fullPage,
@@ -57,9 +56,11 @@ describe('Status:', () => {
     await insertTaskFromMenu(page);
     await page.waitForSelector(ITEM_SELECTOR);
     await insertStatusFromMenu(page);
-    await page.waitForSelector(STATUS_SELECTORS.STATUS_NODE);
-    await animationFrame(page);
-    await animationFrame(page);
+
+    await page.waitForSelector(`${STATUS_SELECTORS.STATUS_POPUP_INPUT}:focus`, {
+      visible: true,
+    });
+
     await snapshot(page);
   });
 

@@ -1,4 +1,10 @@
-import React, { ReactNode, useLayoutEffect, useRef } from 'react';
+import React, {
+  ReactNode,
+  useCallback,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 
 import { KeyDownHandlerContext } from '../DropdownMenu/types';
 
@@ -13,38 +19,52 @@ export const MenuArrowKeyNavigationProvider = ({
   handleClose,
   disableArrowKeyNavigation,
   keyDownHandlerContext,
-  closeonTab,
+  closeOnTab,
+  onSelection,
 }: {
   children: ReactNode;
   handleClose?: SimpleEventHandler<KeyboardEvent>;
   disableArrowKeyNavigation?: boolean;
   keyDownHandlerContext?: KeyDownHandlerContext;
-  closeonTab?: boolean;
+  onSelection?: (index: number) => void;
+  closeOnTab?: boolean;
 }) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
-  const currentSelectedItemIndex = useRef(-1);
+  const [currentSelectedItemIndex, setCurrentSelectedItemIndex] = useState(-1);
 
-  const incrementIndex = (list: HTMLElement[]) => {
-    if (
-      currentSelectedItemIndex.current === list.length - 1 ||
-      currentSelectedItemIndex.current === -1
-    ) {
-      currentSelectedItemIndex.current = 0;
-    } else {
-      currentSelectedItemIndex.current = currentSelectedItemIndex.current + 1;
-    }
-  };
+  const incrementIndex = useCallback(
+    (list: HTMLElement[]) => {
+      const currentIndex = currentSelectedItemIndex;
+      let nextIndex = (currentIndex + 1) % list.length;
+      // Skips disabled items. Previously this function relied on a list of enabled elements which caused a
+      // difference between currentIndex and the item index in the menu.
+      while (
+        nextIndex !== currentIndex &&
+        list[nextIndex].getAttribute('aria-disabled') === 'true'
+      ) {
+        nextIndex = (nextIndex + 1) % list.length;
+      }
+      setCurrentSelectedItemIndex(nextIndex);
+      return nextIndex;
+    },
+    [currentSelectedItemIndex],
+  );
 
-  const decrementIndex = (list: HTMLElement[]) => {
-    if (
-      currentSelectedItemIndex.current === 0 ||
-      currentSelectedItemIndex.current === -1
-    ) {
-      currentSelectedItemIndex.current = list.length - 1;
-    } else {
-      currentSelectedItemIndex.current = currentSelectedItemIndex.current - 1;
-    }
-  };
+  const decrementIndex = useCallback(
+    (list: HTMLElement[]) => {
+      const currentIndex = currentSelectedItemIndex;
+      let nextIndex = (list.length + currentIndex - 1) % list.length;
+      while (
+        nextIndex !== currentIndex &&
+        list[nextIndex].getAttribute('aria-disabled') === 'true'
+      ) {
+        nextIndex = (list.length + nextIndex - 1) % list.length;
+      }
+      setCurrentSelectedItemIndex(nextIndex);
+      return nextIndex;
+    },
+    [currentSelectedItemIndex],
+  );
 
   useLayoutEffect(() => {
     if (disableArrowKeyNavigation) {
@@ -59,44 +79,36 @@ export const MenuArrowKeyNavigationProvider = ({
       const targetElement = event.target as HTMLElement;
 
       //Tab key on menu items can be handled in the parent components of dropdown menus with KeydownHandlerContext
-      if (event.key === 'Tab' && closeonTab) {
+      if (event.key === 'Tab' && closeOnTab) {
         handleClose!(event);
         keyDownHandlerContext?.handleTab();
         return;
       }
 
       //To trap the focus inside the toolbar using left and right arrow keys
-      const focusableElements = getEnabledElements(wrapperRef?.current);
+      const focusableElements = getFocusableElements(wrapperRef?.current);
       if (!focusableElements || focusableElements?.length === 0) {
         return;
       }
 
       if (!wrapperRef.current?.contains(targetElement)) {
-        currentSelectedItemIndex.current = -1;
+        setCurrentSelectedItemIndex(-1);
       }
 
       switch (event.key) {
-        case 'ArrowDown':
-          //If ArrowDown pressed
-          //If on last item
-          // Focus last item
-          //Else
-          // Focus next item
-          incrementIndex(focusableElements);
-          focusableElements[currentSelectedItemIndex.current]?.focus();
+        case 'ArrowDown': {
+          const focusIndex = incrementIndex(focusableElements);
+          focusableElements[focusIndex]?.focus();
           event.preventDefault();
           break;
+        }
 
-        case 'ArrowUp':
-          //ArrowUP pressed
-          //If on First item
-          // Focus last item
-          //Else
-          // Focus previous item
-          decrementIndex(focusableElements);
-          focusableElements[currentSelectedItemIndex.current]?.focus();
+        case 'ArrowUp': {
+          const focusIndex = decrementIndex(focusableElements);
+          focusableElements[focusIndex]?.focus();
           event.preventDefault();
           break;
+        }
 
         //ArrowLeft/Right on the menu should close the menus
         //then logic to retain the focus can be handled in the parent components with KeydownHandlerContext
@@ -105,8 +117,12 @@ export const MenuArrowKeyNavigationProvider = ({
           if (!targetElement.closest('.custom-key-handler-wrapper')) {
             return;
           }
+          if (
+            !targetElement.closest('[data-testid="editor-floating-toolbar"]')
+          ) {
+            keyDownHandlerContext?.handleArrowLeft();
+          }
           handleClose!(event);
-          keyDownHandlerContext?.handleArrowLeft();
           break;
 
         case 'ArrowRight':
@@ -114,12 +130,22 @@ export const MenuArrowKeyNavigationProvider = ({
           if (!targetElement.closest('.custom-key-handler-wrapper')) {
             return;
           }
+          if (
+            !targetElement.closest('[data-testid="editor-floating-toolbar"]')
+          ) {
+            keyDownHandlerContext?.handleArrowRight();
+          }
           handleClose!(event);
-          keyDownHandlerContext?.handleArrowRight();
           break;
 
         case 'Escape':
           handleClose!(event);
+          break;
+
+        case 'Enter':
+          if (typeof onSelection === 'function') {
+            onSelection(currentSelectedItemIndex);
+          }
           break;
 
         default:
@@ -137,11 +163,17 @@ export const MenuArrowKeyNavigationProvider = ({
     handleClose,
     disableArrowKeyNavigation,
     keyDownHandlerContext,
-    closeonTab,
+    closeOnTab,
+    onSelection,
+    incrementIndex,
+    decrementIndex,
   ]);
 
   return (
-    <div className="custom-key-handler-wrapper" ref={wrapperRef}>
+    <div
+      className="menu-key-handler-wrapper custom-key-handler-wrapper"
+      ref={wrapperRef}
+    >
       {children}
     </div>
   );
@@ -159,16 +191,4 @@ function getFocusableElements(
     ) as NodeListOf<HTMLElement>) || [];
 
   return Array.from(focusableModalElements);
-}
-
-/**
- * This method filters out all the disabled menu items
- */
-function getEnabledElements(rootNode: HTMLElement | null): Array<HTMLElement> {
-  const focusableElements = getFocusableElements(rootNode);
-  return focusableElements.filter(
-    (element) =>
-      !element.querySelector('[role="button"][aria-disabled="true"]') &&
-      !element.querySelector('[role="menuitem"][aria-disabled="true"]'),
-  );
 }

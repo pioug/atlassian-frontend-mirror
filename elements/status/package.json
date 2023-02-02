@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/status",
-  "version": "1.2.7",
+  "version": "1.2.8",
   "description": "Fabric Status React Components",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

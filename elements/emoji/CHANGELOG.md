@@ -1,5 +1,18 @@
 # @atlaskit/emoji
 
+## 67.0.4
+
+### Patch Changes
+
+- [`d260a1e3af3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d260a1e3af3) - This is a dummy changeset to force a patch bump. No files were changed.
+- [`93f02aebfa0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/93f02aebfa0) - Intangible change to fix product integration version alignment within confluence.
+
+## 67.0.3
+
+### Patch Changes
+
+- [`7d2488dcbcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d2488dcbcf) - Upgrade lru-fast@0.2.2 to lru_map
+
 ## 67.0.2
 
 ### Patch Changes

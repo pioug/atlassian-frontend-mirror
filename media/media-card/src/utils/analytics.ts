@@ -42,6 +42,7 @@ const relevantFlags = {
   mediaInline: false,
   folderUploads: false,
   memoryCacheLogging: true,
+  fetchFileStateAfterUpload: true,
 };
 
 export type CardPreviewAttributes = {

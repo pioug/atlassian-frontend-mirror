@@ -127,6 +127,44 @@ describe('LinkToolbarAppearance', () => {
       expect(queryForButtonByLabel('Embed')).toBeNull();
     });
 
+    it('should not render `Card` option when "allowBlockCards" prop is set to false', () => {
+      mockPreview('some-url-preview');
+      setup({
+        allowBlockCards: false,
+        allowEmbeds: true,
+        platform: 'web',
+      });
+      expect(queryForButtonByLabel('URL')).toBeTruthy();
+      expect(queryForButtonByLabel('Inline')).toBeTruthy();
+      expect(queryForButtonByLabel('Card')).toBeNull();
+      expect(queryForButtonByLabel('Embed')).toBeTruthy();
+    });
+
+    it('should not render `Embed` option when "allowEmbed" prop is set to false', () => {
+      mockPreview('some-url-preview');
+      setup({
+        allowEmbeds: false,
+        platform: 'web',
+      });
+      expect(queryForButtonByLabel('URL')).toBeTruthy();
+      expect(queryForButtonByLabel('Inline')).toBeTruthy();
+      expect(queryForButtonByLabel('Card')).toBeTruthy();
+      expect(queryForButtonByLabel('Embed')).toBeNull();
+    });
+
+    it('should render `Inline` and `URL` options only when "allowEmbed" & "allowBlockCards" props are set to false', () => {
+      mockPreview('some-url-preview');
+      setup({
+        allowEmbeds: false,
+        allowBlockCards: false,
+        platform: 'web',
+      });
+      expect(queryForButtonByLabel('URL')).toBeTruthy();
+      expect(queryForButtonByLabel('Inline')).toBeTruthy();
+      expect(queryForButtonByLabel('Card')).toBeNull();
+      expect(queryForButtonByLabel('Embed')).toBeNull();
+    });
+
     it('when `currentApperance` is `undefined`, only renders URL button as pressed', () => {
       mockPreview('some-url-preview');
 
@@ -249,7 +287,7 @@ describe('LinkToolbarAppearance', () => {
       await user.click(cardButton!);
 
       expect(editorView.state.doc).toEqualDocument(
-        doc(panel()(p(), blockCard(defaultCardAttributes)())),
+        doc(panel()(blockCard(defaultCardAttributes)())),
       );
     });
 

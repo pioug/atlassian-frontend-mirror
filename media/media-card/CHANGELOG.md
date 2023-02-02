@@ -1,5 +1,17 @@
 # @atlaskit/media-card
 
+## 74.5.0
+
+### Minor Changes
+
+- [`2b3859896cc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2b3859896cc) - Added new Feature Flag to control internal Media Client behaviour
+
+### Patch Changes
+
+- [`9b6f1d2a9c3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9b6f1d2a9c3) - Fix compatility issue of Intersection Observer API in old browser versions
+- [`925df13094d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/925df13094d) - Card goes to ‘processing’ status instead of ‘completed’ when a file is in processing and it is identified as non previewable
+- Updated dependencies
+
 ## 74.4.1
 
 ### Patch Changes

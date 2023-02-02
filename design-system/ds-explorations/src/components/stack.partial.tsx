@@ -107,11 +107,11 @@ export default Stack;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ac9028ae231558f3eedd10f0db04a8fe>>
+ * @codegen <<SignedSource::91d26b1ace8b38363779ae85a7ddc51b>>
  * @codegenId spacing
  * @codegenCommand yarn codegen-styles
  * @codegenParams ["rowGap"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-spacing.tsx <<SignedSource::a2b43f8447798dfdd9c6223bd22b78c7>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-spacing.tsx <<SignedSource::b0b8f1a822ed84e0407ad83e6fda5a1c>>
  */
 const rowGapMap = {
   'space.0': css({

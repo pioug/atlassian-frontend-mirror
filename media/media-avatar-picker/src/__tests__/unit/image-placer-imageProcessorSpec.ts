@@ -17,11 +17,24 @@ import {
 } from '../../image-placer/imageProcessor';
 
 describe('Image Placer Image Processing', () => {
+  let originalCSS: any;
+  beforeAll(() => {
+    originalCSS = global.CSS;
+    global.CSS = {
+      ...originalCSS,
+      supports: () => false,
+    };
+  });
+
   beforeEach(() => {
     mocks.translate.mockClear();
     mocks.scale.mockClear();
     mocks.rotate.mockClear();
     mocks.drawImage.mockClear();
+  });
+
+  afterAll(() => {
+    global.CSS = originalCSS;
   });
 
   describe('applyOrientation()', () => {

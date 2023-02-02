@@ -287,6 +287,7 @@ export default function createPluginsList(
         allowDropzoneDropLine: isFullPage,
         allowMediaSingleEditable: !isMobile,
         allowRemoteDimensionsFetch: !isMobile,
+        editorSelectionAPI,
         // This is a wild one. I didnt quite understand what the code was doing
         // so a bit of guess for now.
         allowMarkingUploadsAsIncomplete: isMobile,
@@ -380,6 +381,7 @@ export default function createPluginsList(
           allowMediaSingle: { disableLayout: true },
           allowMediaGroup: false,
           isCopyPasteEnabled: true,
+          editorSelectionAPI,
         },
       ]);
     }

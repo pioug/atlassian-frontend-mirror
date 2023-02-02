@@ -14,7 +14,7 @@ import {
   FloatingToolbarItem,
   FloatingToolbarConfig,
 } from '../../floating-toolbar/types';
-import { addAnalytics, ACTION_SUBJECT_ID } from '../../analytics';
+import { addAnalytics, ACTION_SUBJECT_ID, INPUT_METHOD } from '../../analytics';
 
 import {
   LINKPICKER_HEIGHT_IN_PX,
@@ -64,6 +64,9 @@ export class EditLinkToolbar extends React.Component<EditLinkToolbarProps> {
         providerFactory={providerFactory}
         displayUrl={url}
         displayText={text}
+        // Assumes that the smart card link picker can only ever be invoked by clicking "edit"
+        // via the floating toolbar
+        invokeMethod={INPUT_METHOD.FLOATING_TB}
         onSubmit={(href, title, displayText) => {
           this.hideLinkToolbar();
           if (onSubmit) {

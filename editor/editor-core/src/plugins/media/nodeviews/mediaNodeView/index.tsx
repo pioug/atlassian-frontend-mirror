@@ -12,7 +12,6 @@ import {
   DEFAULT_IMAGE_HEIGHT,
   DEFAULT_IMAGE_WIDTH,
 } from '@atlaskit/editor-common/ui';
-import { browser } from '@atlaskit/editor-common/utils';
 import { Node as PMNode } from 'prosemirror-model';
 import { NodeSelection } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
@@ -36,7 +35,6 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
   createDomRef(): HTMLElement {
     const domRef = document.createElement('div');
     if (
-      browser.chrome &&
       this.reactComponentProps.mediaOptions &&
       this.reactComponentProps.mediaOptions.allowMediaSingleEditable
     ) {

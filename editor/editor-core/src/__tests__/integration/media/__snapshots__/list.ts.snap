@@ -1,24 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`list: insert a media single inside a numbered list 1`] = `
+exports[`list: insert a media single inside a bullet list 1`] = `
 Object {
   "content": Array [
     Object {
-      "attrs": Object {
-        "order": 1,
-      },
       "content": Array [
         Object {
           "content": Array [
-            Object {
-              "content": Array [
-                Object {
-                  "text": "*",
-                  "type": "text",
-                },
-              ],
-              "type": "paragraph",
-            },
             Object {
               "attrs": Object {
                 "layout": "center",
@@ -32,16 +20,15 @@ Object {
                     "__external": false,
                     "__fileMimeType": "image/jpeg",
                     "__fileName": "example.png",
-                    "__fileSize": 756325,
-                    "__mediaTraceId": null,
+                    "__fileSize": 58705,
                     "alt": "",
                     "collection": "MediaServicesSample",
-                    "height": 636,
+                    "height": 628,
                     "id": "1234-5678-abcd-efgh",
                     "occurrenceKey": null,
                     "type": "file",
                     "url": null,
-                    "width": 640,
+                    "width": 2378,
                   },
                   "type": "media",
                 },
@@ -51,8 +38,79 @@ Object {
           ],
           "type": "listItem",
         },
+        Object {
+          "content": Array [
+            Object {
+              "type": "paragraph",
+            },
+          ],
+          "type": "listItem",
+        },
+      ],
+      "type": "bulletList",
+    },
+    Object {
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`list: insert a media single inside a numbered list 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "order": 1,
+      },
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "attrs": Object {
+                "layout": "center",
+                "width": null,
+              },
+              "content": Array [
+                Object {
+                  "attrs": Object {
+                    "__contextId": "DUMMY-OBJECT-ID",
+                    "__displayType": null,
+                    "__external": false,
+                    "__fileMimeType": "image/jpeg",
+                    "__fileName": "example.png",
+                    "__fileSize": 58705,
+                    "alt": "",
+                    "collection": "MediaServicesSample",
+                    "height": 628,
+                    "id": "1234-5678-abcd-efgh",
+                    "occurrenceKey": null,
+                    "type": "file",
+                    "url": null,
+                    "width": 2378,
+                  },
+                  "type": "media",
+                },
+              ],
+              "type": "mediaSingle",
+            },
+          ],
+          "type": "listItem",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "type": "paragraph",
+            },
+          ],
+          "type": "listItem",
+        },
       ],
       "type": "orderedList",
+    },
+    Object {
+      "type": "paragraph",
     },
   ],
   "type": "doc",
@@ -70,15 +128,6 @@ Object {
         Object {
           "content": Array [
             Object {
-              "content": Array [
-                Object {
-                  "text": "*",
-                  "type": "text",
-                },
-              ],
-              "type": "paragraph",
-            },
-            Object {
               "attrs": Object {
                 "layout": "center",
                 "width": null,
@@ -91,16 +140,15 @@ Object {
                     "__external": false,
                     "__fileMimeType": "image/jpeg",
                     "__fileName": "example.png",
-                    "__fileSize": 756325,
-                    "__mediaTraceId": null,
+                    "__fileSize": 58705,
                     "alt": "",
                     "collection": "MediaServicesSample",
-                    "height": 636,
+                    "height": 628,
                     "id": "1234-5678-abcd-efgh",
                     "occurrenceKey": null,
                     "type": "file",
                     "url": null,
-                    "width": 640,
+                    "width": 2378,
                   },
                   "type": "media",
                 },
@@ -110,8 +158,19 @@ Object {
           ],
           "type": "listItem",
         },
+        Object {
+          "content": Array [
+            Object {
+              "type": "paragraph",
+            },
+          ],
+          "type": "listItem",
+        },
       ],
       "type": "orderedList",
+    },
+    Object {
+      "type": "paragraph",
     },
   ],
   "type": "doc",

@@ -36,19 +36,13 @@ const ViewportObserver: React.FC<ViewportDetectorProps> = ({
         },
       );
     } catch (error: any) {
-      const errorMessage =
-        "Failed to construct 'IntersectionObserver': member root is not of type Element";
-      if (error.message?.includes(errorMessage)) {
-        intersectionObserver = new IntersectionObserver(
-          createIntersectionObserverCallback(onVisible),
-          {
-            root: null,
-            rootMargin: `${ABS_VIEWPORT_ANCHOR_OFFSET_TOP}px`,
-          },
-        );
-      } else {
-        throw error;
-      }
+      intersectionObserver = new IntersectionObserver(
+        createIntersectionObserverCallback(onVisible),
+        {
+          root: null,
+          rootMargin: `${ABS_VIEWPORT_ANCHOR_OFFSET_TOP}px`,
+        },
+      );
     }
 
     cardEl && intersectionObserver.observe(cardEl);

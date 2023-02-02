@@ -40,9 +40,17 @@ export const FormattingTextDropdownMenu: React.FC<DropdownMenuProps> =
         [items],
       );
       const onItemActivated = useCallback(
-        ({ item }: { item: MenuIconItem }) => {
+        ({
+          item,
+          shouldCloseMenu = true,
+        }: {
+          item: MenuIconItem;
+          shouldCloseMenu: boolean;
+        }) => {
           item.command(editorView.state, editorView.dispatch);
-          closeMenu();
+          if (shouldCloseMenu) {
+            closeMenu();
+          }
         },
         [editorView.state, editorView.dispatch, closeMenu],
       );

@@ -70,7 +70,7 @@ beforeEach(() => {
 
   // Since we use module level caching,
   // we need to clear it up for clean test run
-  urlResponsePromiseCache.removeAll();
+  urlResponsePromiseCache.clear();
 });
 
 afterEach(() => {

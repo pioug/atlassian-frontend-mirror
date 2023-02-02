@@ -4,19 +4,18 @@ import type { Format } from 'style-dictionary';
 import { createSignedArtifact } from '@af/codegen';
 
 import { getFullyQualifiedTokenId } from '../../../src/utils/token-ids';
+import sortTokens from '../sort-tokens';
 
 export const typescriptFormatter: Format['formatter'] = ({ dictionary }) => {
   const activeTokens: string[] = [];
 
-  dictionary.allTokens
-    .filter(
+  sortTokens(
+    dictionary.allTokens.filter(
       (token) =>
         token.attributes?.group !== 'palette' &&
         token.attributes?.state === 'active',
-    )
-    .forEach((token) =>
-      activeTokens.push(getFullyQualifiedTokenId(token.path)),
-    );
+    ),
+  ).forEach((token) => activeTokens.push(getFullyQualifiedTokenId(token.path)));
 
   if (activeTokens.length) {
     const activeTokenType = activeTokens

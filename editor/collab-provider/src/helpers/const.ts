@@ -67,9 +67,13 @@ export type AnalyticsEvent =
         error?: ErrorPayload;
         participants?: number;
         numUnconfirmedSteps?: number;
+        requiredPageRecovery?: boolean; //Record whether an document init load required a page recovery
+        ttlEnabled?: boolean; // Record whether ttl was turned on. Currently only sent for DOCUMENT_INIT type
       };
     }
   | AddStepsSuccessAnalyticsEvent
   | AddStepsFailureAnalyticsEvent;
 
 export const ACK_MAX_TRY = 30;
+
+export const CONFLUENCE = 'confluence';

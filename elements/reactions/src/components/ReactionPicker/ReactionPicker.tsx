@@ -165,6 +165,7 @@ export const ReactionPicker: React.FC<ReactionPickerProps> = React.memo(
       },
       'click',
       true,
+      settings.isOpen,
     );
 
     /**
@@ -267,6 +268,7 @@ export const ReactionPicker: React.FC<ReactionPickerProps> = React.memo(
         className={wrapperClassName}
         css={styles.pickerStyle}
         data-testid={RENDER_REACTIONPICKER_TESTID}
+        ref={wrapperRef}
       >
         <Manager>
           <Reference>
@@ -297,7 +299,7 @@ export const ReactionPicker: React.FC<ReactionPickerProps> = React.memo(
                       style={{ zIndex: layers.layer(), ...style }}
                       ref={ref}
                     >
-                      <div css={styles.popupStyle} ref={wrapperRef}>
+                      <div css={styles.popupStyle}>
                         {settings.showFullPicker ? (
                           <EmojiPicker
                             emojiProvider={emojiProvider}

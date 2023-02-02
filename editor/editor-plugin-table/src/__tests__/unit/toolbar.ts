@@ -14,6 +14,10 @@ import {
   tr as row,
   table,
   td,
+  tr,
+  tdEmpty,
+  thEmpty,
+  th,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import type {
   Command,
@@ -146,8 +150,7 @@ describe('getToolbarMenuConfig', () => {
 
 describe('getToolbarCellOptionsConfig', () => {
   const createEditor = createProsemirrorEditorFactory();
-  const { editorView } = createEditor({
-    doc: doc(table()(row(td()(p('1{cursor}'))))),
+  const props = {
     preset: new Preset<LightEditorPlugin>().add([
       tablePlugin,
       {
@@ -159,6 +162,10 @@ describe('getToolbarCellOptionsConfig', () => {
       },
     ]),
     pluginKey,
+  };
+  const { editorView } = createEditor({
+    doc: doc(table()(row(td()(p('1{cursor}'))))),
+    ...props,
   });
   const { state } = editorView;
   const getEditorContainerWidth = () => ({ width: 500 });
@@ -176,6 +183,13 @@ describe('getToolbarCellOptionsConfig', () => {
     getEditorContainerWidth,
     undefined,
   );
+
+  beforeEach(() => {
+    jest.resetAllMocks();
+    (getMergedCellsPositions as Function as jest.Mock<{}>).mockImplementation(
+      () => () => [],
+    );
+  });
 
   it('is a dropdown with the following dropdown items with the given order', () => {
     const items = cellOptionsMenu.options as Array<DropdownOptionT<Command>>;
@@ -391,6 +405,76 @@ describe('getToolbarCellOptionsConfig', () => {
     const cellOptionsMenu = getToolbarCellOptionsConfig(
       state,
       undefined,
+      rect,
+      {
+        formatMessage,
+      },
+      getEditorContainerWidth,
+      undefined,
+    );
+
+    const items = cellOptionsMenu.options as Array<DropdownOptionT<Command>>;
+    const distributeColumns = items.filter((item) =>
+      item.id?.startsWith('editor.table.distributeColumns'),
+    );
+
+    const isDisabled = distributeColumns.every((item) => item.disabled);
+    expect(isDisabled).toBeTruthy();
+  });
+
+  it('should disable distribute columns if selected cells are without colwidths', () => {
+    const { editorView } = createEditor({
+      doc: doc(
+        table()(
+          tr(th({})(p('{<cell}')), thEmpty, thEmpty),
+          tr(tdEmpty, td({})(p('{cell>}')), tdEmpty),
+          tr(tdEmpty, tdEmpty, tdEmpty),
+        ),
+      ),
+      ...props,
+    });
+
+    const { state } = editorView;
+    const rect = new Rect(1, 1, 2, 2);
+
+    const cellOptionsMenu = getToolbarCellOptionsConfig(
+      state,
+      editorView,
+      rect,
+      {
+        formatMessage,
+      },
+      getEditorContainerWidth,
+      undefined,
+    );
+
+    const items = cellOptionsMenu.options as Array<DropdownOptionT<Command>>;
+    const distributeColumns = items.filter((item) =>
+      item.id?.startsWith('editor.table.distributeColumns'),
+    );
+
+    const isDisabled = distributeColumns.every((item) => item.disabled);
+    expect(isDisabled).toBeTruthy();
+  });
+
+  it('should disable distribute columns if selection is on a single column', () => {
+    const { editorView } = createEditor({
+      doc: doc(
+        table()(
+          tr(th({})(p('{<cell}')), thEmpty, thEmpty),
+          tr(td({})(p('{cell>}')), tdEmpty, tdEmpty),
+          tr(tdEmpty, tdEmpty, tdEmpty),
+        ),
+      ),
+      ...props,
+    });
+
+    const { state } = editorView;
+    const rect = new Rect(1, 1, 1, 2);
+
+    const cellOptionsMenu = getToolbarCellOptionsConfig(
+      state,
+      editorView,
       rect,
       {
         formatMessage,

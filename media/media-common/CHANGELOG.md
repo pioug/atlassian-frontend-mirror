@@ -1,5 +1,11 @@
 # @atlaskit/media-common
 
+## 2.19.0
+
+### Minor Changes
+
+- [`2b3859896cc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2b3859896cc) - Added new Feature Flag to control internal Media Client behaviour
+
 ## 2.18.0
 
 ### Minor Changes

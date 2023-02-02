@@ -1,5 +1,11 @@
 # @atlaskit/ds-explorations
 
+## 2.0.1
+
+### Patch Changes
+
+- [`290b1f069bd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/290b1f069bd) - Regenerate codegen styles
+
 ## 2.0.0
 
 ### Major Changes

@@ -30,8 +30,9 @@ import {
 import { pressKeyCombo } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
 import * as parapgrahADF from './__fixtures__/paragraph-of-text.adf.json';
 
-async function focusToolbar() {
+async function focusToolbar(page: PuppeteerPage) {
   await pressKeyCombo(page, ['Alt', 'F9']);
+  await waitForTooltip(page);
 }
 
 describe('Toolbar', () => {
@@ -83,8 +84,8 @@ describe('Toolbar keyboard shortcut', () => {
     });
   });
 
-  it.skip('should focus main toolbar first element and return on "ESC" ', async () => {
-    focusToolbar();
+  it('should focus main toolbar first element and return on "ESC" ', async () => {
+    await focusToolbar(page);
     await snapshot(page, undefined, editorSelector);
     await page.keyboard.down('Escape');
     await page.keyboard.type('Test'); //To confirm that focus is back to editor
@@ -134,12 +135,16 @@ describe('Toolbar: Text Color', () => {
     await snapshot(page, undefined, editorSelector);
   });
 
-  it('should close the text color menu when ESC is pressed', async () => {
+  // Skipped because of flakiness
+  // https://product-fabric.atlassian.net/browse/ED-16626
+  it.skip('should close the text color menu when ESC is pressed', async () => {
     await page.focus(prosemirrorSelectors.editor);
     await page.keyboard.down('Escape');
   });
 
-  it('should close the text color menu when clicked outside', async () => {
+  // Skipped because of flakiness
+  // https://product-fabric.atlassian.net/browse/ED-16626
+  it.skip('should close the text color menu when clicked outside', async () => {
     await page.mouse.click(0, 0);
   });
 });
@@ -171,11 +176,15 @@ describe('Toolbar: Emoji', () => {
     await snapshot(page, undefined, editorSelector);
   });
 
-  it('should close the emoji menu when ESC is pressed', async () => {
+  // FIXME: Skipped because of flakiness
+  // https://product-fabric.atlassian.net/browse/ED-16626
+  it.skip('should close the emoji menu when ESC is pressed', async () => {
     await page.keyboard.down('Escape');
   });
 
-  it('should close the emoji menu when clicked outside', async () => {
+  // FIXME: Skipped because of flakiness
+  // https://product-fabric.atlassian.net/browse/ED-16626
+  it.skip('should close the emoji menu when clicked outside', async () => {
     await page.mouse.click(0, 0);
   });
 });

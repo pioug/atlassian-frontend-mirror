@@ -70,20 +70,20 @@ export default InteractionSurface;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::46f9477bc75d77a16327328d1b49c35f>>
+ * @codegen <<SignedSource::86378a9df36e53f14f179490e5850418>>
  * @codegenId interactions
  * @codegenCommand yarn codegen-styles
  * @codegenParams ["background"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::db7a1282630a6e5b9424b807614086af>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::e348c7cd343cf53ff944fdb7023c577a>>
  */
 const backgroundActiveColorMap = {
+  input: css({
+    ':active': { backgroundColor: token('color.background.input.pressed') },
+  }),
   'inverse.subtle': css({
     ':active': {
       backgroundColor: token('color.background.inverse.subtle.pressed'),
     },
-  }),
-  input: css({
-    ':active': { backgroundColor: token('color.background.input.pressed') },
   }),
   neutral: css({
     ':active': { backgroundColor: token('color.background.neutral.pressed') },
@@ -98,17 +98,17 @@ const backgroundActiveColorMap = {
       backgroundColor: token('color.background.neutral.bold.pressed'),
     },
   }),
-  'brand.bold': css({
-    ':active': {
-      backgroundColor: token('color.background.brand.bold.pressed'),
-    },
-  }),
   selected: css({
     ':active': { backgroundColor: token('color.background.selected.pressed') },
   }),
   'selected.bold': css({
     ':active': {
       backgroundColor: token('color.background.selected.bold.pressed'),
+    },
+  }),
+  'brand.bold': css({
+    ':active': {
+      backgroundColor: token('color.background.brand.bold.pressed'),
     },
   }),
   danger: css({
@@ -156,22 +156,22 @@ const backgroundActiveColorMap = {
   'elevation.surface': css({
     ':active': { backgroundColor: token('elevation.surface.pressed') },
   }),
-  'elevation.surface.raised': css({
-    ':active': { backgroundColor: token('elevation.surface.raised.pressed') },
-  }),
   'elevation.surface.overlay': css({
     ':active': { backgroundColor: token('elevation.surface.overlay.pressed') },
+  }),
+  'elevation.surface.raised': css({
+    ':active': { backgroundColor: token('elevation.surface.raised.pressed') },
   }),
 };
 
 const backgroundHoverColorMap = {
+  input: css({
+    ':hover': { backgroundColor: token('color.background.input.hovered') },
+  }),
   'inverse.subtle': css({
     ':hover': {
       backgroundColor: token('color.background.inverse.subtle.hovered'),
     },
-  }),
-  input: css({
-    ':hover': { backgroundColor: token('color.background.input.hovered') },
   }),
   neutral: css({
     ':hover': { backgroundColor: token('color.background.neutral.hovered') },
@@ -186,9 +186,6 @@ const backgroundHoverColorMap = {
       backgroundColor: token('color.background.neutral.bold.hovered'),
     },
   }),
-  'brand.bold': css({
-    ':hover': { backgroundColor: token('color.background.brand.bold.hovered') },
-  }),
   selected: css({
     ':hover': { backgroundColor: token('color.background.selected.hovered') },
   }),
@@ -196,6 +193,9 @@ const backgroundHoverColorMap = {
     ':hover': {
       backgroundColor: token('color.background.selected.bold.hovered'),
     },
+  }),
+  'brand.bold': css({
+    ':hover': { backgroundColor: token('color.background.brand.bold.hovered') },
   }),
   danger: css({
     ':hover': { backgroundColor: token('color.background.danger.hovered') },
@@ -242,11 +242,11 @@ const backgroundHoverColorMap = {
   'elevation.surface': css({
     ':hover': { backgroundColor: token('elevation.surface.hovered') },
   }),
-  'elevation.surface.raised': css({
-    ':hover': { backgroundColor: token('elevation.surface.raised.hovered') },
-  }),
   'elevation.surface.overlay': css({
     ':hover': { backgroundColor: token('elevation.surface.overlay.hovered') },
+  }),
+  'elevation.surface.raised': css({
+    ':hover': { backgroundColor: token('elevation.surface.raised.hovered') },
   }),
 };
 

@@ -1,5 +1,13 @@
 # @atlaskit/editor-tables
 
+## 2.2.4
+
+### Patch Changes
+
+- [`4080eb013ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4080eb013ef) - [ux] Fix bug where pasting inside a table did not respect the table's headers. Pasted cells are formatted based on the table they are being pasted into.
+- [`4f6a895f1d5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4f6a895f1d5) - Set selectable property for selectable nodes
+- [`4f6a895f1d5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4f6a895f1d5) - Fix arrow shift selection coming from outside of the table
+
 ## 2.2.3
 
 ### Patch Changes

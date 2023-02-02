@@ -1,5 +1,13 @@
 # @atlaskit/adf-schema
 
+## 25.1.1
+
+### Patch Changes
+
+- [`4f6a895f1d5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4f6a895f1d5) - Set selectable property for selectable nodes
+- [`5ac1c18bd04`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5ac1c18bd04) - [ux] Fix selection blocking issue where user cannot left/right arrow key past a mediaSingle
+- Updated dependencies
+
 ## 25.1.0
 
 ### Minor Changes

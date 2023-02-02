@@ -1,5 +1,11 @@
 # @atlaskit/task-decision
 
+## 17.5.8
+
+### Patch Changes
+
+- [`67dc5df7db3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/67dc5df7db3) - [ux] Fix behaviour where safari could get stuck inside a decision item when trying to use the up-arrow key.
+
 ## 17.5.7
 
 ### Patch Changes

@@ -1,25 +1,25 @@
 // eslint-disable-line no-console
 import React from 'react';
 import { Component } from 'react';
-import { IntlProvider } from 'react-intl-next';
 import {
   defaultCollectionName,
   defaultMediaPickerCollectionName,
   defaultMediaPickerAuthProvider,
-  FeatureFlagsWrapper,
 } from '@atlaskit/media-test-helpers';
 
 import Button from '@atlaskit/button/standard-button';
 import DropdownMenu, { DropdownItem } from '@atlaskit/dropdown-menu';
-import { PopupHeader, PopupContainer } from '../example-helpers/stylesWrapper';
-import { UploadPreviews } from '../example-helpers/upload-previews';
-import { AuthEnvironment } from '../example-helpers/types';
-import { UfoLoggerWrapper } from '../example-helpers/UfoWrapper';
+import {
+  MainWrapper,
+  UploadPreviews,
+  AuthEnvironment,
+  PopupHeader,
+  PopupContainer,
+} from '../example-helpers';
 import { UploadParams, BrowserConfig } from '../src/types';
 import { Browser } from '../src';
 import { FileState, MediaClient } from '@atlaskit/media-client';
 import { MediaClientConfig } from '@atlaskit/media-core';
-import { LOGGED_FEATURE_FLAGS } from '../src/util/analytics';
 
 export interface BrowserWrapperState {
   collectionName: string;
@@ -144,56 +144,50 @@ class BrowserWrapper extends Component<{}, BrowserWrapperState> {
     }
 
     return (
-      <UfoLoggerWrapper>
-        <FeatureFlagsWrapper filterFlags={LOGGED_FEATURE_FLAGS}>
-          <IntlProvider locale="en">
-            <PopupContainer>
-              <PopupHeader>
-                <DropdownMenu trigger={collectionName}>
-                  <DropdownItem onClick={this.onCollectionChange}>
-                    {defaultMediaPickerCollectionName}
-                  </DropdownItem>
-                  <DropdownItem onClick={this.onCollectionChange}>
-                    {defaultCollectionName}
-                  </DropdownItem>
-                </DropdownMenu>
-                <DropdownMenu trigger={authEnvironment}>
-                  <DropdownItem onClick={this.onAuthTypeChange}>
-                    client
-                  </DropdownItem>
-                  <DropdownItem onClick={this.onAuthTypeChange}>
-                    asap
-                  </DropdownItem>
-                </DropdownMenu>
-              </PopupHeader>
-              <FunctionalBrowserWrapper
-                mediaClient={mediaClient}
-                browseConfig={browseConfig}
+      <MainWrapper>
+        <PopupContainer>
+          <PopupHeader>
+            <DropdownMenu trigger={collectionName}>
+              <DropdownItem onClick={this.onCollectionChange}>
+                {defaultMediaPickerCollectionName}
+              </DropdownItem>
+              <DropdownItem onClick={this.onCollectionChange}>
+                {defaultCollectionName}
+              </DropdownItem>
+            </DropdownMenu>
+            <DropdownMenu trigger={authEnvironment}>
+              <DropdownItem onClick={this.onAuthTypeChange}>
+                client
+              </DropdownItem>
+              <DropdownItem onClick={this.onAuthTypeChange}>asap</DropdownItem>
+            </DropdownMenu>
+          </PopupHeader>
+          <FunctionalBrowserWrapper
+            mediaClient={mediaClient}
+            browseConfig={browseConfig}
+          >
+            {(browse) => (
+              <Button
+                style={{ margin: '5px' }}
+                appearance="primary"
+                onClick={browse}
               >
-                {(browse) => (
-                  <Button
-                    style={{ margin: '5px' }}
-                    appearance="primary"
-                    onClick={browse}
-                  >
-                    Click me to upload
-                  </Button>
-                )}
-              </FunctionalBrowserWrapper>
-              <FunctionalBrowserWrapper
-                mediaClient={mediaClient}
-                browseConfig={browseConfig}
-              >
-                {(browse) => (
-                  <div style={{ margin: '5px' }} onClick={browse}>
-                    Click me to upload. No, for real.
-                  </div>
-                )}
-              </FunctionalBrowserWrapper>
-            </PopupContainer>
-          </IntlProvider>
-        </FeatureFlagsWrapper>
-      </UfoLoggerWrapper>
+                Click me to upload
+              </Button>
+            )}
+          </FunctionalBrowserWrapper>
+          <FunctionalBrowserWrapper
+            mediaClient={mediaClient}
+            browseConfig={browseConfig}
+          >
+            {(browse) => (
+              <div style={{ margin: '5px' }} onClick={browse}>
+                Click me to upload. No, for real.
+              </div>
+            )}
+          </FunctionalBrowserWrapper>
+        </PopupContainer>
+      </MainWrapper>
     );
   }
 }

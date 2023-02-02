@@ -96,6 +96,7 @@ export class HyperlinkToolbarAppearance extends Component<
         editorView={editorView}
         editorState={editorState}
         allowEmbeds={cardOptions?.allowEmbeds}
+        allowBlockCards={cardOptions?.allowBlockCards}
         platform={platform}
       />
     );

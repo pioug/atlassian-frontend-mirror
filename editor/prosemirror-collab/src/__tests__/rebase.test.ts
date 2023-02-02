@@ -14,7 +14,7 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { defaultSchema as schema } from '@atlaskit/editor-test-helpers/schema';
 
-import { rebaseSteps } from '../collab';
+import { rebaseSteps } from '../index';
 
 function runRebase(transforms: readonly Transform[], expected: Node) {
   let start = transforms[0].before,

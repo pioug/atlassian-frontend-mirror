@@ -166,6 +166,7 @@ export default class Example extends React.Component<Props, State> {
         product: 'editor-core example',
         subProduct: 'collab provider example',
       },
+      featureFlags: { testFF: false, testAF: true },
     });
     collabProvider.on('error', (err) => {
       console.error('error from collabProvider:', {

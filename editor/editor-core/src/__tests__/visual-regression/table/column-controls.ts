@@ -46,6 +46,7 @@ describe('Table context menu: merge-split cells', () => {
     await page.waitForSelector(tableSelectors.selectedCell);
     await selectCellOption(page, tableSelectors.mergeCellsText);
     await page.mouse.move(200, 200);
+    await animationFrame(page);
     await snapshot(page, undefined, undefined, {
       captureBeyondViewport: false,
     });
@@ -59,8 +60,7 @@ describe('Table context menu: merge-split cells', () => {
     await initEditor(adf);
   });
 
-  // FIXME: This test was automatically skipped due to failure on 11/11/2022: https://product-fabric.atlassian.net/browse/ED-16154
-  it.skip(`should render column controls for each column regardless of merged cells in the first row`, async () => {
+  it(`should render column controls for each column regardless of merged cells in the first row`, async () => {
     const from = getSelectorForTableCell({
       row: 1,
       cell: 1,

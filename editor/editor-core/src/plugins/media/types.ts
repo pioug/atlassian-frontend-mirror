@@ -6,6 +6,7 @@ import { FileIdentifier } from '@atlaskit/media-client';
 import { MediaClientConfig } from '@atlaskit/media-core';
 import { MediaFeatureFlags } from '@atlaskit/media-common';
 import { UploadParams, MediaFile } from '@atlaskit/media-picker/types';
+import { EditorSelectionAPI } from '@atlaskit/editor-common/selection';
 import { PlaceholderTextOptions } from '../../plugins/placeholder-text/types';
 
 export type MediaStateStatus =
@@ -44,6 +45,7 @@ export interface MediaOptions {
   useForgePlugins?: boolean;
   allowTemplatePlaceholders?: boolean | PlaceholderTextOptions;
   alignLeftOnInsert?: boolean;
+  editorSelectionAPI?: EditorSelectionAPI;
   featureFlags?: MediaFeatureFlags;
 }
 

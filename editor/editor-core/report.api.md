@@ -48,6 +48,7 @@ import { EditorAppearance } from '@atlaskit/editor-common/types';
 import { FeatureFlags as EditorFeatureFlags } from '@atlaskit/editor-common/types';
 import { EditorPlugin } from '@atlaskit/editor-common/types';
 import { EditorReactContext } from '@atlaskit/editor-common/types';
+import { EditorSelectionAPI } from '@atlaskit/editor-common/selection';
 import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { EmojiResource } from '@atlaskit/emoji/resource';
@@ -1666,6 +1667,8 @@ export interface MediaOptions {
   // (undocumented)
   customMediaPicker?: CustomMediaPicker;
   // (undocumented)
+  editorSelectionAPI?: EditorSelectionAPI;
+  // (undocumented)
   enableDownloadButton?: boolean;
   // (undocumented)
   featureFlags?: MediaFeatureFlags;
@@ -2869,7 +2872,7 @@ export { WithPluginState };
 
 ```json
 {
-  "@atlaskit/link-provider": "^1.3.4",
+  "@atlaskit/link-provider": "^1.3.8",
   "@atlaskit/media-core": "^34.0.1",
   "react": "^16.8.0",
   "react-dom": "^16.8.0",

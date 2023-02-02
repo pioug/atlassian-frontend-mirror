@@ -122,6 +122,50 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
     [closeOnChildClick, hideCard],
   );
 
+  const content = useCallback(
+    ({ update }) => (
+      <HoverCardContent
+        onMouseEnter={initShowCard}
+        onMouseLeave={initHideCard}
+        analytics={analytics}
+        cardActions={linkActions}
+        cardState={linkState}
+        onActionClick={onActionClick}
+        onResolve={update}
+        renderers={renderers}
+        url={url}
+      />
+    ),
+    [
+      analytics,
+      initHideCard,
+      initShowCard,
+      linkActions,
+      linkState,
+      onActionClick,
+      renderers,
+      url,
+    ],
+  );
+
+  const trigger = useCallback(
+    (triggerProps) => (
+      <span ref={parentSpan}>
+        <span
+          {...triggerProps}
+          onMouseEnter={initShowCard}
+          onMouseLeave={initHideCard}
+          onMouseMove={setMousePosition}
+          onClick={onChildClick}
+          data-testid="hover-card-trigger-wrapper"
+        >
+          {children}
+        </span>
+      </span>
+    ),
+    [children, initHideCard, initShowCard, onChildClick, setMousePosition],
+  );
+
   return (
     <Popup
       testId="hover-card"
@@ -130,33 +174,8 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
       placement="bottom-start"
       offset={popupOffset.current}
       autoFocus={false}
-      content={({ update }) => (
-        <HoverCardContent
-          onMouseEnter={initShowCard}
-          onMouseLeave={initHideCard}
-          analytics={analytics}
-          cardActions={linkActions}
-          cardState={linkState}
-          onActionClick={onActionClick}
-          onResolve={update}
-          renderers={renderers}
-          url={url}
-        />
-      )}
-      trigger={(triggerProps) => (
-        <span ref={parentSpan}>
-          <span
-            {...triggerProps}
-            onMouseEnter={initShowCard}
-            onMouseLeave={initHideCard}
-            onMouseMove={setMousePosition}
-            onClick={onChildClick}
-            data-testid="hover-card-trigger-wrapper"
-          >
-            {children}
-          </span>
-        </span>
-      )}
+      content={content}
+      trigger={trigger}
       zIndex={511} // Temporary fix for Confluence inline comment on editor mod has z-index of 500, Jira issue view has z-index of 510
     />
   );

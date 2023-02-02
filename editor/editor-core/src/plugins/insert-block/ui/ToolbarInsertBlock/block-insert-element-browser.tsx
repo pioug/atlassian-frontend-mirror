@@ -19,6 +19,7 @@ export interface BlockInsertElementBrowserProps {
   popupsMountPoint?: HTMLElement;
   popupsScrollableElement?: HTMLElement;
   plusButtonRef?: HTMLElement;
+  showElementBrowserLink: boolean;
   onRef(el: HTMLElement): void;
   onClick: React.MouseEventHandler;
   onInsert: OnInsert;
@@ -45,6 +46,7 @@ export const BlockInsertElementBrowser: React.FC<
             dropdownItems={props.items}
             onInsert={props.onInsert}
             toggleVisiblity={props.togglePlusMenuVisibility}
+            showElementBrowserLink={props.showElementBrowserLink}
           />
         </Popup>
       )}

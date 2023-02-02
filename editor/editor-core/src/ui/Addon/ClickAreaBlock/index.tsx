@@ -15,28 +15,33 @@ export interface Props {
   editorDisabled?: boolean;
 }
 
-export default class ClickAreaBlock extends React.Component<Props> {
-  private handleClick = (event: React.MouseEvent<any>) => {
-    const { editorView: view, editorDisabled } = this.props;
-    if (!view) {
-      return;
-    }
+export const ClickAreaBlock: React.FC<Props> = ({
+  editorView,
+  editorDisabled,
+  children,
+}) => {
+  const handleMouseDown = React.useCallback(
+    (event) => {
+      if (!editorView) {
+        return;
+      }
 
-    if (!editorDisabled) {
-      // if the editor is disabled -- we don't want to intercept any click events
-      clickAreaClickHandler(view, event);
-    }
-  };
+      if (!editorDisabled) {
+        clickAreaClickHandler(editorView, event);
+      }
+    },
+    [editorView, editorDisabled],
+  );
 
-  render() {
-    return (
-      <div
-        data-testid="click-wrapper"
-        css={clickWrapper}
-        onClick={this.handleClick}
-      >
-        {this.props.children}
-      </div>
-    );
-  }
-}
+  return (
+    <div
+      data-testid="click-wrapper"
+      css={clickWrapper}
+      onMouseDown={handleMouseDown}
+    >
+      {children}
+    </div>
+  );
+};
+
+export default ClickAreaBlock;

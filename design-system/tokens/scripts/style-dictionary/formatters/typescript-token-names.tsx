@@ -4,22 +4,23 @@ import type { Format } from 'style-dictionary';
 import { createSignedArtifact } from '@af/codegen';
 
 import { getCSSCustomProperty, getTokenId } from '../../../src/utils/token-ids';
+import sortTokens from '../sort-tokens';
 
 export const typescriptTokenFormatter: Format['formatter'] = ({
   dictionary,
 }) => {
   const tokens: Record<string, string> = {};
 
-  dictionary.allTokens
-    .filter(
+  sortTokens(
+    dictionary.allTokens.filter(
       (token) =>
         token.attributes?.group !== 'palette' &&
         token.attributes?.group !== 'scale',
-    )
-    .forEach((token) => {
-      const tokenName = getTokenId(token.path);
-      tokens[tokenName] = getCSSCustomProperty(token.path);
-    });
+    ),
+  ).forEach((token) => {
+    const tokenName = getTokenId(token.path);
+    tokens[tokenName] = getCSSCustomProperty(token.path);
+  });
 
   const tokensKeyValues = Object.keys(tokens)
     .map((name) => `  '${name}': '${tokens[name]}',`)

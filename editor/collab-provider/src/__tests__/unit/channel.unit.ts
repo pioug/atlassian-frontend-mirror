@@ -23,7 +23,9 @@ import {
 import type { CollabSendableSelection } from '@atlaskit/editor-common/collab';
 import { createSocketIOSocket } from '../../socket-io-provider';
 import { io, Socket } from 'socket.io-client';
+import * as Analytics from '../../analytics';
 import { getProduct, getSubProduct } from '../../helpers/utils';
+import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 
 const expectValidChannel = (channel: Channel): void => {
   expect(channel).toBeDefined();
@@ -48,10 +50,18 @@ const allExpectedEventNames: string[] = [
   'status',
 ];
 
+let fakeAnalyticsWebClient: AnalyticsWebClient = {
+  sendOperationalEvent: jest.fn(),
+  sendScreenEvent: jest.fn(),
+  sendTrackEvent: jest.fn(),
+  sendUIEvent: jest.fn(),
+};
+
 const testChannelConfig: Config = {
   url: `http://dummy-url:6666`,
   documentAri: 'ari:cloud:confluence:ABC:page/testpage',
   createSocket: createSocketIOSocket,
+  analyticsClient: fakeAnalyticsWebClient,
 };
 
 const getChannel = (config: Config = testChannelConfig): Channel => {
@@ -81,6 +91,13 @@ const getExpectValidEventHandler =
 
 describe('Channel unit tests', () => {
   beforeEach(() => {
+    testChannelConfig.analyticsClient = {
+      sendOperationalEvent: jest.fn(),
+      sendScreenEvent: jest.fn(),
+      sendTrackEvent: jest.fn(),
+      sendUIEvent: jest.fn(),
+    };
+
     jest.spyOn(console, 'log').mockImplementation(() => {});
   });
 
@@ -91,6 +108,44 @@ describe('Channel unit tests', () => {
     const expectValidEventHandler = getExpectValidEventHandler(channel);
 
     allExpectedEventNames.forEach(expectValidEventHandler);
+  });
+
+  it('should return analytics upon successful initial document load', (done) => {
+    const channel = getChannel();
+
+    const triggerAnalyticsEventSpy = jest.spyOn(
+      Analytics,
+      'triggerAnalyticsEvent',
+    );
+
+    channel.on('init', (data: any) => {
+      done();
+    });
+
+    channel.getSocket()!.emit('data', <InitPayload & { type: 'initial' }>{
+      type: 'initial',
+      doc: 'ari:cloud:confluence:ABC:page/testpage',
+      version: 1234567,
+      userId: '123',
+      ttlEnabled: false,
+      requiredPageRecovery: true,
+      metadata: {
+        title: 'a-title',
+      },
+    });
+    expect(triggerAnalyticsEventSpy).toHaveBeenCalledWith(
+      {
+        attributes: {
+          documentAri: 'ari:cloud:confluence:ABC:page/testpage',
+          eventStatus: 'SUCCESS',
+          latency: undefined,
+          requiredPageRecovery: true,
+          ttlEnabled: false,
+        },
+        eventAction: 'documentInit',
+      },
+      testChannelConfig.analyticsClient,
+    );
   });
 
   it('should create connected channel as expected', (done) => {

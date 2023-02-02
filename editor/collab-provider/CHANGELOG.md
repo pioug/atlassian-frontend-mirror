@@ -1,5 +1,17 @@
 # @atlaskit/collab-provider
 
+## 8.1.0
+
+### Minor Changes
+
+- [`59e998e408f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/59e998e408f) - [ESS-2914] Switch to the forked prosemirror-collab library (based on version 1.3.0) to filter out analytics steps
+- [`ec0ebbf16bc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ec0ebbf16bc) - Adding Feature Flag to Collab Provider
+
+### Patch Changes
+
+- [`6eb720b7d3b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6eb720b7d3b) - A page recovery attribute and ttl attribute to metrics to monitor ttl effect on tti
+- Updated dependencies
+
 ## 8.0.1
 
 ### Patch Changes

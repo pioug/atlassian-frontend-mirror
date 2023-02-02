@@ -8,10 +8,11 @@ export const renderViewport = (
   canvas: HTMLCanvasElement = document.createElement('canvas'),
   outputSize?: number,
 ) => {
-  const { visibleSourceBounds, innerBounds, itemSourceBounds, orientation } =
-    viewport;
+  const { visibleSourceBounds, innerBounds, itemSourceBounds } = viewport;
   let sourceBounds = visibleSourceBounds;
-
+  const orientation = CSS.supports('image-orientation', 'from-image')
+    ? 1
+    : viewport.orientation;
   const { width, height } = innerBounds;
   const targetSizeActual = outputSize ?? width;
   const outputScaleFactor = targetSizeActual / width;

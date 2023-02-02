@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/emoji",
-  "version": "67.0.2",
+  "version": "67.0.4",
   "description": "Fabric emoji React components",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -41,7 +41,7 @@
     "@emotion/react": "^11.7.1",
     "@tanstack/react-virtual": "3.0.0-beta.22",
     "js-search": "^2.0.0",
-    "lru-fast": "^0.2.2",
+    "lru_map": "^0.4.1",
     "react-intersection-observer": "^8.26.2",
     "react-loadable": "^5.1.0",
     "uuid": "^3.1.0"

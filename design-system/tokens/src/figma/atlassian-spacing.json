@@ -1,0 +1,956 @@
+{
+  "name": "Spacing",
+  "tokens": {
+    "Spacing/spacing.scale.0": {
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "introduced": "0.10.16",
+        "description": "Equates to `0`. Can be used for resetting default spacing styles."
+      },
+      "value": "0"
+    },
+    "Spacing/spacing.scale.025": {
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "suggest": [
+          "1px",
+          "3px"
+        ],
+        "introduced": "0.10.16",
+        "description": "Use for spacing in compact scenarios. The smallest value in our scale."
+      },
+      "value": "0.125rem"
+    },
+    "Spacing/spacing.scale.050": {
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "suggest": [
+          "3px",
+          "5px"
+        ],
+        "introduced": "0.10.16",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "0.25rem"
+    },
+    "Spacing/spacing.scale.075": {
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "suggest": [
+          "5px",
+          "7px"
+        ],
+        "introduced": "0.10.16",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "0.375rem"
+    },
+    "Spacing/spacing.scale.100": {
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "suggest": [
+          "7px",
+          "9px"
+        ],
+        "introduced": "0.10.16",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "0.5rem"
+    },
+    "Spacing/spacing.scale.150": {
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "suggest": [
+          "10px",
+          "11px",
+          "13px",
+          "14px"
+        ],
+        "introduced": "0.10.16",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "0.75rem"
+    },
+    "Spacing/spacing.scale.200": {
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "suggest": [
+          "14px",
+          "15px",
+          "17px",
+          "18px"
+        ],
+        "introduced": "0.10.16",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "1rem"
+    },
+    "Spacing/spacing.scale.250": {
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "suggest": [
+          "19px",
+          "21px",
+          "22px",
+          "23px"
+        ],
+        "introduced": "0.10.16",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "1.25rem"
+    },
+    "Spacing/spacing.scale.300": {
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "suggest": [
+          "23px",
+          "25px",
+          "26px",
+          "27px",
+          "28px"
+        ],
+        "introduced": "0.10.16",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "1.5rem"
+    },
+    "Spacing/spacing.scale.400": {
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "suggest": [
+          "28px",
+          "29px",
+          "30px",
+          "31px",
+          "33px",
+          "34px",
+          "35px"
+        ],
+        "introduced": "0.10.16",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "2rem"
+    },
+    "Spacing/spacing.scale.500": {
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "suggest": [
+          "28px",
+          "29px",
+          "30px",
+          "31px",
+          "33px",
+          "34px",
+          "35px"
+        ],
+        "introduced": "0.10.16",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "2.5rem"
+    },
+    "Spacing/spacing.scale.600": {
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "introduced": "0.10.16",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "3rem"
+    },
+    "Spacing/spacing.scale.800": {
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "introduced": "0.12.0",
+        "pixelValue": "",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "4rem"
+    },
+    "Spacing/spacing.scale.1000": {
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "introduced": "0.12.0",
+        "pixelValue": "80px",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "5rem"
+    },
+    "Spacing/spacing.scaleLinear.0": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "0",
+        "introduced": "0.10.28",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "0"
+    },
+    "Spacing/spacing.scaleLinear.100": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "2px",
+        "introduced": "0.10.28",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "0.125rem"
+    },
+    "Spacing/spacing.scaleLinear.200": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "4px",
+        "introduced": "0.10.28",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "0.25rem"
+    },
+    "Spacing/spacing.scaleLinear.300": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "6px",
+        "introduced": "0.10.28",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "0.375rem"
+    },
+    "Spacing/spacing.scaleLinear.400": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "8px",
+        "introduced": "0.10.28",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "0.5rem"
+    },
+    "Spacing/spacing.scaleLinear.500": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "12px",
+        "introduced": "0.10.28",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "0.75rem"
+    },
+    "Spacing/spacing.scaleLinear.600": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "16px",
+        "introduced": "0.10.28",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "1rem"
+    },
+    "Spacing/spacing.scaleLinear.700": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "20px",
+        "introduced": "0.10.28",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "1.25rem"
+    },
+    "Spacing/spacing.scaleLinear.800": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "24px",
+        "introduced": "0.10.28",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "1.5rem"
+    },
+    "Spacing/spacing.scaleLinear.900": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "32px",
+        "introduced": "0.10.28",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "2rem"
+    },
+    "Spacing/spacing.scaleLinear.1000": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "40px",
+        "introduced": "0.10.28",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "2.5rem"
+    },
+    "Spacing/spacing.scaleLinear.1100": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "48px",
+        "introduced": "0.10.28",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "3rem"
+    },
+    "Spacing/spacing.size.none": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "0",
+        "introduced": "0.10.28",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "0"
+    },
+    "Spacing/spacing.size.xxxxSmall": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "2px",
+        "introduced": "0.10.28",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "0.125rem"
+    },
+    "Spacing/spacing.size.xxxSmall": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "4px",
+        "introduced": "0.10.28",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "0.25rem"
+    },
+    "Spacing/spacing.size.xxSmall": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "6px",
+        "introduced": "0.10.28",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "0.375rem"
+    },
+    "Spacing/spacing.size.xsmall": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "8px",
+        "introduced": "0.10.28",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "0.5rem"
+    },
+    "Spacing/spacing.size.small": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "12px",
+        "introduced": "0.10.28",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "0.75rem"
+    },
+    "Spacing/spacing.size.medium": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "16px",
+        "introduced": "0.10.28",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "1rem"
+    },
+    "Spacing/spacing.size.large": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "20px",
+        "introduced": "0.10.28",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "1.25rem"
+    },
+    "Spacing/spacing.size.xlarge": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "24px",
+        "introduced": "0.10.28",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "1.5rem"
+    },
+    "Spacing/spacing.size.xxlarge": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "32px",
+        "introduced": "0.10.28",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "2rem"
+    },
+    "Spacing/spacing.size.xxxlarge": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "40px",
+        "introduced": "0.10.28",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "2.5rem"
+    },
+    "Spacing/spacing.size.xxxxlarge": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "48px",
+        "introduced": "0.10.28",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "3rem"
+    },
+    "Spacing/spacing.gap.100": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "8px",
+        "introduced": "0.10.28",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "0.5rem"
+    },
+    "Spacing/spacing.gap.200": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "16px",
+        "introduced": "0.10.28",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "1rem"
+    },
+    "Spacing/spacing.gap.300": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "24px",
+        "introduced": "0.10.28",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "1.5rem"
+    },
+    "Spacing/spacing.inset.100": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "8px",
+        "introduced": "0.10.28",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "0.5rem"
+    },
+    "Spacing/spacing.inset.200": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "16px",
+        "introduced": "0.10.28",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "1rem"
+    },
+    "Spacing/spacing.inset.300": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "24px",
+        "introduced": "0.10.28",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "1.5rem"
+    },
+    "Spacing/spacing.ecl.container.12": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "12px",
+        "introduced": "0.10.28",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "0.75rem"
+    },
+    "Spacing/spacing.ecl.container.16": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "16px",
+        "introduced": "0.10.28",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "1rem"
+    },
+    "Spacing/spacing.ecl.container.20": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "20px",
+        "introduced": "0.10.28",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "1.25rem"
+    },
+    "Spacing/spacing.ecl.container.24": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "24px",
+        "introduced": "0.10.28",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "1.5rem"
+    },
+    "Spacing/spacing.ecl.element.2": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "2px",
+        "introduced": "0.10.28",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "0.125rem"
+    },
+    "Spacing/spacing.ecl.element.4": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "4px",
+        "introduced": "0.10.28",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "0.25rem"
+    },
+    "Spacing/spacing.ecl.element.6": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "6px",
+        "introduced": "0.10.28",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "0.375rem"
+    },
+    "Spacing/spacing.ecl.element.8": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "8px",
+        "introduced": "0.10.28",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "0.5rem"
+    },
+    "Spacing/spacing.ecl.layout.32": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "32px",
+        "introduced": "0.10.28",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "2rem"
+    },
+    "Spacing/spacing.ecl.layout.40": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "40px",
+        "introduced": "0.10.28",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "2.5rem"
+    },
+    "Spacing/spacing.ecl.layout.64": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "64px",
+        "introduced": "0.10.28",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "3rem"
+    },
+    "Spacing/spacing.ccc.component.2": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "2px",
+        "introduced": "0.10.28",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "0.125rem"
+    },
+    "Spacing/spacing.ccc.component.4": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "4px",
+        "introduced": "0.10.28",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "0.25rem"
+    },
+    "Spacing/spacing.ccc.component.6": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "6px",
+        "introduced": "0.10.28",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "0.375rem"
+    },
+    "Spacing/spacing.ccc.component.8": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "8px",
+        "introduced": "0.10.28",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "0.5rem"
+    },
+    "Spacing/spacing.ccc.container.32": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "32px",
+        "introduced": "0.10.28",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "2rem"
+    },
+    "Spacing/spacing.ccc.container.40": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "40px",
+        "introduced": "0.10.28",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "2.5rem"
+    },
+    "Spacing/spacing.ccc.container.48": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "48px",
+        "introduced": "0.10.28",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "3rem"
+    },
+    "Spacing/spacing.ccc.content.12": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "12px",
+        "introduced": "0.10.28",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "0.75rem"
+    },
+    "Spacing/spacing.ccc.content.16": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "16px",
+        "introduced": "0.10.28",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "1rem"
+    },
+    "Spacing/spacing.ccc.content.20": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "20px",
+        "introduced": "0.10.28",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "1.25rem"
+    },
+    "Spacing/spacing.ccc.content.24": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "24px",
+        "introduced": "0.10.28",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "1.5rem"
+    },
+    "Spacing/space.0": {
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "introduced": "0.12.0",
+        "pixelValue": "0px",
+        "description": "Equates to `0`. Can be used for resetting default spacing styles."
+      },
+      "value": "0"
+    },
+    "Spacing/space.025": {
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "suggest": [
+          "1px",
+          "3px"
+        ],
+        "introduced": "0.12.0",
+        "pixelValue": "2px",
+        "description": "Use for spacing in compact scenarios. The smallest value in our scale."
+      },
+      "value": "0.125rem"
+    },
+    "Spacing/space.050": {
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "suggest": [
+          "3px",
+          "5px"
+        ],
+        "introduced": "0.12.0",
+        "pixelValue": "4px",
+        "description": "Use for spacing in compact scenarios."
+      },
+      "value": "0.25rem"
+    },
+    "Spacing/space.075": {
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "suggest": [
+          "5px",
+          "7px"
+        ],
+        "introduced": "0.12.0",
+        "pixelValue": "6px",
+        "description": "Use for spacing in compact scenarios."
+      },
+      "value": "0.375rem"
+    },
+    "Spacing/space.100": {
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "suggest": [
+          "7px",
+          "9px"
+        ],
+        "introduced": "0.12.0",
+        "pixelValue": "8px",
+        "description": "Use for gutter spacing."
+      },
+      "value": "0.5rem"
+    },
+    "Spacing/space.150": {
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "suggest": [
+          "10px",
+          "11px",
+          "13px",
+          "14px"
+        ],
+        "introduced": "0.12.0",
+        "pixelValue": "12px",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "0.75rem"
+    },
+    "Spacing/space.200": {
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "suggest": [
+          "14px",
+          "15px",
+          "17px",
+          "18px"
+        ],
+        "introduced": "0.12.0",
+        "pixelValue": "16px",
+        "description": "Use for gutter spacing."
+      },
+      "value": "1rem"
+    },
+    "Spacing/space.250": {
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "suggest": [
+          "19px",
+          "21px",
+          "22px",
+          "23px"
+        ],
+        "introduced": "0.12.0",
+        "pixelValue": "20px",
+        "description": "Use for gutter spacing."
+      },
+      "value": "1.25rem"
+    },
+    "Spacing/space.300": {
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "suggest": [
+          "23px",
+          "25px",
+          "26px",
+          "27px",
+          "28px"
+        ],
+        "introduced": "0.12.0",
+        "pixelValue": "24px",
+        "description": "Use for gutter spacing."
+      },
+      "value": "1.5rem"
+    },
+    "Spacing/space.400": {
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "suggest": [
+          "28px",
+          "29px",
+          "30px",
+          "31px",
+          "33px",
+          "34px",
+          "35px"
+        ],
+        "introduced": "0.12.0",
+        "pixelValue": "32px",
+        "description": "Use for gutter spacing."
+      },
+      "value": "2rem"
+    },
+    "Spacing/space.500": {
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "introduced": "0.12.0",
+        "pixelValue": "40px",
+        "description": "Use for larger layout-specific spacing."
+      },
+      "value": "2.5rem"
+    },
+    "Spacing/space.600": {
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "introduced": "0.12.0",
+        "pixelValue": "48px",
+        "description": "Use for larger layout-specific spacing."
+      },
+      "value": "3rem"
+    },
+    "Spacing/space.800": {
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "introduced": "0.12.0",
+        "pixelValue": "64px",
+        "description": "Use for larger layout-specific spacing."
+      },
+      "value": "4rem"
+    },
+    "Spacing/space.1000": {
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "introduced": "0.12.0",
+        "pixelValue": "80px",
+        "description": "Use for larger layout-specific spacing."
+      },
+      "value": "5rem"
+    }
+  },
+  "renameMap": {
+    "Spacing/spacing.scaleLinear.0": "Spacing/0",
+    "Spacing/spacing.scaleLinear.100": "Spacing/2px",
+    "Spacing/spacing.scaleLinear.200": "Spacing/4px",
+    "Spacing/spacing.scaleLinear.300": "Spacing/6px",
+    "Spacing/spacing.scaleLinear.400": "Spacing/8px",
+    "Spacing/spacing.scaleLinear.500": "Spacing/12px",
+    "Spacing/spacing.scaleLinear.600": "Spacing/16px",
+    "Spacing/spacing.scaleLinear.700": "Spacing/20px",
+    "Spacing/spacing.scaleLinear.800": "Spacing/24px",
+    "Spacing/spacing.scaleLinear.900": "Spacing/32px",
+    "Spacing/spacing.scaleLinear.1000": "Spacing/40px",
+    "Spacing/spacing.scaleLinear.1100": "Spacing/48px",
+    "Spacing/spacing.size.none": "Spacing/0",
+    "Spacing/spacing.size.xxxxSmall": "Spacing/2px",
+    "Spacing/spacing.size.xxxSmall": "Spacing/4px",
+    "Spacing/spacing.size.xxSmall": "Spacing/6px",
+    "Spacing/spacing.size.xsmall": "Spacing/8px",
+    "Spacing/spacing.size.small": "Spacing/12px",
+    "Spacing/spacing.size.medium": "Spacing/16px",
+    "Spacing/spacing.size.large": "Spacing/20px",
+    "Spacing/spacing.size.xlarge": "Spacing/24px",
+    "Spacing/spacing.size.xxlarge": "Spacing/32px",
+    "Spacing/spacing.size.xxxlarge": "Spacing/40px",
+    "Spacing/spacing.size.xxxxlarge": "Spacing/48px",
+    "Spacing/spacing.ecl.element.2": "Spacing/2px",
+    "Spacing/spacing.ecl.element.4": "Spacing/4px",
+    "Spacing/spacing.ecl.element.6": "Spacing/6px",
+    "Spacing/spacing.ecl.element.8": "Spacing/8px",
+    "Spacing/spacing.ecl.container.12": "Spacing/12px",
+    "Spacing/spacing.ecl.container.16": "Spacing/16px",
+    "Spacing/spacing.ecl.container.20": "Spacing/20px",
+    "Spacing/spacing.ecl.container.24": "Spacing/24px",
+    "Spacing/spacing.ecl.layout.32": "Spacing/32px",
+    "Spacing/spacing.ecl.layout.40": "Spacing/40px",
+    "Spacing/spacing.ecl.layout.64": "Spacing/64px",
+    "Spacing/spacing.ccc.component.2": "Spacing/2px",
+    "Spacing/spacing.ccc.component.4": "Spacing/4px",
+    "Spacing/spacing.ccc.component.6": "Spacing/6px",
+    "Spacing/spacing.ccc.component.8": "Spacing/8px",
+    "Spacing/spacing.ccc.content.12": "Spacing/12px",
+    "Spacing/spacing.ccc.content.16": "Spacing/16px",
+    "Spacing/spacing.ccc.content.20": "Spacing/20px",
+    "Spacing/spacing.ccc.content.24": "Spacing/24px",
+    "Spacing/spacing.ccc.container.32": "Spacing/32px",
+    "Spacing/spacing.ccc.container.40": "Spacing/40px",
+    "Spacing/spacing.ccc.container.48": "Spacing/48px",
+    "Spacing/spacing.gap.100": "Spacing/8px",
+    "Spacing/spacing.gap.200": "Spacing/16px",
+    "Spacing/spacing.gap.300": "Spacing/24px",
+    "Spacing/spacing.inset.100": "Spacing/8px",
+    "Spacing/spacing.inset.200": "Spacing/16px",
+    "Spacing/spacing.inset.300": "Spacing/24px"
+  }
+}

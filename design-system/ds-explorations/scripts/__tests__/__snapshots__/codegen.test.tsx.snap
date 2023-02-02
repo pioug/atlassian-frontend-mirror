@@ -5,11 +5,11 @@ exports[`@atlaskit/design-system-explorations bg styles are generated correctly 
   disabled: css({
     backgroundColor: token('color.background.disabled', '#091e4289'),
   }),
-  'inverse.subtle': css({
-    backgroundColor: token('color.background.inverse.subtle', '#00000029'),
-  }),
   input: css({
     backgroundColor: token('color.background.input', '#FAFBFC'),
+  }),
+  'inverse.subtle': css({
+    backgroundColor: token('color.background.inverse.subtle', '#00000029'),
   }),
   neutral: css({
     backgroundColor: token('color.background.neutral', '#DFE1E6'),
@@ -20,14 +20,14 @@ exports[`@atlaskit/design-system-explorations bg styles are generated correctly 
   'neutral.bold': css({
     backgroundColor: token('color.background.neutral.bold', '#42526E'),
   }),
-  'brand.bold': css({
-    backgroundColor: token('color.background.brand.bold', '#0052CC'),
-  }),
   selected: css({
     backgroundColor: token('color.background.selected', '#DEEBFF'),
   }),
   'selected.bold': css({
     backgroundColor: token('color.background.selected.bold', '#0052CC'),
+  }),
+  'brand.bold': css({
+    backgroundColor: token('color.background.brand.bold', '#0052CC'),
   }),
   danger: css({
     backgroundColor: token('color.background.danger', '#FFEBE6'),
@@ -71,14 +71,14 @@ exports[`@atlaskit/design-system-explorations bg styles are generated correctly 
   'elevation.surface': css({
     backgroundColor: token('elevation.surface', '#FFFFFF'),
   }),
-  'elevation.surface.sunken': css({
-    backgroundColor: token('elevation.surface.sunken', '#F4F5F7'),
+  'elevation.surface.overlay': css({
+    backgroundColor: token('elevation.surface.overlay', '#FFFFFF'),
   }),
   'elevation.surface.raised': css({
     backgroundColor: token('elevation.surface.raised', '#FFFFFF'),
   }),
-  'elevation.surface.overlay': css({
-    backgroundColor: token('elevation.surface.overlay', '#FFFFFF'),
+  'elevation.surface.sunken': css({
+    backgroundColor: token('elevation.surface.sunken', '#F4F5F7'),
   }),
 } as const;
 
@@ -91,11 +91,8 @@ exports[`@atlaskit/design-system-explorations border styles are generated correc
   'color.border': css({
     borderColor: token('color.border', '#091e4221'),
   }),
-  bold: css({
-    borderColor: token('color.border.bold', '#344563'),
-  }),
-  inverse: css({
-    borderColor: token('color.border.inverse', '#FFFFFF'),
+  disabled: css({
+    borderColor: token('color.border.disabled', '#FAFBFC'),
   }),
   focused: css({
     borderColor: token('color.border.focused', '#4C9AFF'),
@@ -103,14 +100,14 @@ exports[`@atlaskit/design-system-explorations border styles are generated correc
   input: css({
     borderColor: token('color.border.input', '#FAFBFC'),
   }),
-  disabled: css({
-    borderColor: token('color.border.disabled', '#FAFBFC'),
-  }),
-  brand: css({
-    borderColor: token('color.border.brand', '#0052CC'),
+  inverse: css({
+    borderColor: token('color.border.inverse', '#FFFFFF'),
   }),
   selected: css({
     borderColor: token('color.border.selected', '#0052CC'),
+  }),
+  brand: css({
+    borderColor: token('color.border.brand', '#0052CC'),
   }),
   danger: css({
     borderColor: token('color.border.danger', '#FF5630'),
@@ -127,6 +124,9 @@ exports[`@atlaskit/design-system-explorations border styles are generated correc
   information: css({
     borderColor: token('color.border.information', '#0065FF'),
   }),
+  bold: css({
+    borderColor: token('color.border.bold', '#344563'),
+  }),
 } as const;
 
 export type BorderColor = keyof typeof borderColorMap;
@@ -135,13 +135,13 @@ export type BorderColor = keyof typeof borderColorMap;
 
 exports[`@atlaskit/design-system-explorations border styles are generated correctly 2`] = `
 "const backgroundActiveColorMap = {
+  input: css({
+    ':active': { backgroundColor: token('color.background.input.pressed') },
+  }),
   'inverse.subtle': css({
     ':active': {
       backgroundColor: token('color.background.inverse.subtle.pressed'),
     },
-  }),
-  input: css({
-    ':active': { backgroundColor: token('color.background.input.pressed') },
   }),
   neutral: css({
     ':active': { backgroundColor: token('color.background.neutral.pressed') },
@@ -156,17 +156,17 @@ exports[`@atlaskit/design-system-explorations border styles are generated correc
       backgroundColor: token('color.background.neutral.bold.pressed'),
     },
   }),
-  'brand.bold': css({
-    ':active': {
-      backgroundColor: token('color.background.brand.bold.pressed'),
-    },
-  }),
   selected: css({
     ':active': { backgroundColor: token('color.background.selected.pressed') },
   }),
   'selected.bold': css({
     ':active': {
       backgroundColor: token('color.background.selected.bold.pressed'),
+    },
+  }),
+  'brand.bold': css({
+    ':active': {
+      backgroundColor: token('color.background.brand.bold.pressed'),
     },
   }),
   danger: css({
@@ -214,22 +214,22 @@ exports[`@atlaskit/design-system-explorations border styles are generated correc
   'elevation.surface': css({
     ':active': { backgroundColor: token('elevation.surface.pressed') },
   }),
-  'elevation.surface.raised': css({
-    ':active': { backgroundColor: token('elevation.surface.raised.pressed') },
-  }),
   'elevation.surface.overlay': css({
     ':active': { backgroundColor: token('elevation.surface.overlay.pressed') },
+  }),
+  'elevation.surface.raised': css({
+    ':active': { backgroundColor: token('elevation.surface.raised.pressed') },
   }),
 };
 
 const backgroundHoverColorMap = {
+  input: css({
+    ':hover': { backgroundColor: token('color.background.input.hovered') },
+  }),
   'inverse.subtle': css({
     ':hover': {
       backgroundColor: token('color.background.inverse.subtle.hovered'),
     },
-  }),
-  input: css({
-    ':hover': { backgroundColor: token('color.background.input.hovered') },
   }),
   neutral: css({
     ':hover': { backgroundColor: token('color.background.neutral.hovered') },
@@ -244,9 +244,6 @@ const backgroundHoverColorMap = {
       backgroundColor: token('color.background.neutral.bold.hovered'),
     },
   }),
-  'brand.bold': css({
-    ':hover': { backgroundColor: token('color.background.brand.bold.hovered') },
-  }),
   selected: css({
     ':hover': { backgroundColor: token('color.background.selected.hovered') },
   }),
@@ -254,6 +251,9 @@ const backgroundHoverColorMap = {
     ':hover': {
       backgroundColor: token('color.background.selected.bold.hovered'),
     },
+  }),
+  'brand.bold': css({
+    ':hover': { backgroundColor: token('color.background.brand.bold.hovered') },
   }),
   danger: css({
     ':hover': { backgroundColor: token('color.background.danger.hovered') },
@@ -300,11 +300,11 @@ const backgroundHoverColorMap = {
   'elevation.surface': css({
     ':hover': { backgroundColor: token('elevation.surface.hovered') },
   }),
-  'elevation.surface.raised': css({
-    ':hover': { backgroundColor: token('elevation.surface.raised.hovered') },
-  }),
   'elevation.surface.overlay': css({
     ':hover': { backgroundColor: token('elevation.surface.overlay.hovered') },
+  }),
+  'elevation.surface.raised': css({
+    ':hover': { backgroundColor: token('elevation.surface.raised.hovered') },
   }),
 };
 
@@ -317,23 +317,17 @@ exports[`@atlaskit/design-system-explorations text styles are generated correctl
   'color.text': css({
     color: token('color.text', '#172B4D'),
   }),
-  subtle: css({
-    color: token('color.text.subtle', '#42526E'),
-  }),
-  subtlest: css({
-    color: token('color.text.subtlest', '#7A869A'),
-  }),
   disabled: css({
     color: token('color.text.disabled', '#A5ADBA'),
   }),
   inverse: css({
     color: token('color.text.inverse', '#FFFFFF'),
   }),
-  brand: css({
-    color: token('color.text.brand', '#0065FF'),
-  }),
   selected: css({
     color: token('color.text.selected', '#0052CC'),
+  }),
+  brand: css({
+    color: token('color.text.brand', '#0065FF'),
   }),
   danger: css({
     color: token('color.text.danger', '#DE350B'),
@@ -352,6 +346,12 @@ exports[`@atlaskit/design-system-explorations text styles are generated correctl
   }),
   information: css({
     color: token('color.text.information', '#0052CC'),
+  }),
+  subtlest: css({
+    color: token('color.text.subtlest', '#7A869A'),
+  }),
+  subtle: css({
+    color: token('color.text.subtle', '#42526E'),
   }),
 } as const;
 

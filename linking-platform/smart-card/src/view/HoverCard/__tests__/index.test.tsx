@@ -640,7 +640,7 @@ describe('HoverCard', () => {
       });
     });
 
-    describe('feature flags:', () => {
+    describe('hover preview feature flag:', () => {
       const setupWithFF = async (providerFF?: boolean, cardFF?: boolean) => {
         mockFetch = jest.fn(() => Promise.resolve(mockConfluenceResponse));
         mockClient = new (fakeFactory(mockFetch))();
@@ -686,6 +686,69 @@ describe('HoverCard', () => {
           } else {
             const { queryByTestId } = await setupWithFF(providerFF, cardFF);
             expect(queryByTestId('hover-card')).toBeNull();
+          }
+        },
+      );
+    });
+
+    describe('auth tooltip feature flag:', () => {
+      const setupWithFF = async (
+        providerFF?: 'experiment' | 'control' | 'off',
+        cardProp?: boolean,
+      ) => {
+        mockFetch = jest.fn(() => Promise.resolve(mockUnauthorisedResponse));
+        mockClient = new (fakeFactory(mockFetch))();
+        mockUrl = 'https://some.url';
+
+        const { queryByTestId, findByTestId } = render(
+          <Provider
+            client={mockClient}
+            featureFlags={{ showAuthTooltip: providerFF }}
+          >
+            <Card
+              appearance="inline"
+              url={mockUrl}
+              showAuthTooltip={cardProp}
+            />
+          </Provider>,
+        );
+
+        const element = await findByTestId('inline-card-unauthorized-view');
+        jest.useFakeTimers();
+        fireEvent.mouseEnter(element);
+        jest.runAllTimers();
+        return { findByTestId, queryByTestId };
+      };
+
+      const cases: [
+        'should' | 'should not',
+        'experiment' | 'control' | 'off' | undefined,
+        boolean | undefined,
+      ][] = [
+        ['should not', undefined, undefined],
+        ['should', 'experiment', undefined],
+        ['should not', 'off', undefined],
+        ['should not', 'control', undefined],
+        ['should', undefined, true],
+        ['should', 'experiment', true],
+        ['should not', 'off', true],
+        ['should not', 'control', true],
+        ['should not', undefined, false],
+        ['should', 'experiment', false],
+        ['should not', 'off', false],
+        ['should not', 'control', false],
+      ];
+      test.each(cases)(
+        'auth tooltip %p render when feature flag is %p on provider and prop is %p on card',
+        async (outcome, providerFF, cardProp) => {
+          if (outcome === 'should') {
+            const { findByTestId } = await setupWithFF(providerFF, cardProp);
+            expect(
+              await findByTestId('hover-card-unauthorised-view'),
+            ).toBeDefined();
+          } else {
+            const { queryByTestId } = await setupWithFF(providerFF, cardProp);
+            expect(queryByTestId('hover-card-unauthorised-view')).toBeNull();
           }
         },
       );

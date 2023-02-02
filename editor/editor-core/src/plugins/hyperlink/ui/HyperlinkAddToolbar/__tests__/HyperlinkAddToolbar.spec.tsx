@@ -1747,5 +1747,21 @@ describe('HyperlinkLinkAddToolbar', () => {
 
       expect(component.find('button').first().prop('type')).toEqual('button');
     });
+
+    it('should able to clear text even without activity provider', async () => {
+      const { component, updateInputFieldWithStateUpdated } = await setup({
+        provideActivityProvider: false,
+      });
+
+      await updateInputFieldWithStateUpdated('link-url', 'something');
+      component.update();
+
+      component.find('button').at(0).simulate('click');
+      component.update();
+
+      expect(
+        component.find(PanelTextInput).first().prop('defaultValue'),
+      ).toEqual('');
+    });
   });
 });

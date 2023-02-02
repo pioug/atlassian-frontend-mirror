@@ -1,4 +1,4 @@
-import { getVersion, sendableSteps } from 'prosemirror-collab';
+import { getVersion, sendableSteps } from '@atlaskit/prosemirror-collab';
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 
@@ -17,8 +17,8 @@ import * as Analytics from '../../analytics';
 import { AcknowledgementResponseTypes, Metadata } from '../../types';
 
 jest.mock('lodash/throttle', () => jest.fn((fn) => fn));
-jest.mock('prosemirror-collab', () => {
-  const originPC = jest.requireActual('prosemirror-collab');
+jest.mock('@atlaskit/prosemirror-collab', () => {
+  const originPC = jest.requireActual('@atlaskit/prosemirror-collab');
   return {
     ...originPC,
     sendableSteps: jest.fn(),
@@ -55,7 +55,9 @@ describe('#sendData', () => {
 
     fakeStep = new ReplaceStep(1, 1, Slice.empty);
 
-    const { collab: collabPlugin } = jest.requireActual('prosemirror-collab');
+    const { collab: collabPlugin } = jest.requireActual(
+      '@atlaskit/prosemirror-collab',
+    );
     anyEditorState = createEditorState(
       doc(p('lol')),
       collabPlugin({ clientID: 3771180701 }),

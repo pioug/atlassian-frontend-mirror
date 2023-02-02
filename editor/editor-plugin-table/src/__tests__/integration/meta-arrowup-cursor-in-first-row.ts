@@ -32,6 +32,6 @@ BrowserTestCase(
 
     await page.keys(keys, true);
 
-    await expectToMatchSelection(page, { type: 'text', to: 4, from: 4 });
+    await expectToMatchSelection(page, { type: 'text', anchor: 4, head: 4 });
   },
 );

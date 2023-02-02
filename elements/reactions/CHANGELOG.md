@@ -1,5 +1,15 @@
 # @atlaskit/reactions
 
+## 22.2.0
+
+### Minor Changes
+
+- [`c3868fc0d7a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c3868fc0d7a) - [ux] remove extra spacing around reactions
+
+### Patch Changes
+
+- [`545e6461ac1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/545e6461ac1) - Fixed incorrect trigger click behaviour
+
 ## 22.1.0
 
 ### Minor Changes

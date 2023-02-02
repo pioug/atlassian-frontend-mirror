@@ -17,6 +17,10 @@ const insideContentArea = (ref: HTMLElement | null): boolean => {
   return false;
 };
 
+const insideProseMirrorEditableArea = (ref: HTMLElement | null): boolean => {
+  return Boolean(ref?.closest('.ProseMirror'));
+};
+
 /**
  * @see ED-14699 - check if editor is inside a modal to continue to bring cursor to input when
  * any part of the editor container is clicked
@@ -42,11 +46,24 @@ const clickAreaClickHandler = (
   view: EditorView<any>,
   event: React.MouseEvent<any>,
 ) => {
-  const isTargetContentArea = event.currentTarget.querySelector(
-    '.ak-editor-content-area',
-  );
   const isEditorFocused = !!view?.hasFocus?.();
+
   const target = event.target as HTMLElement;
+  const isTargetContentArea = target.classList.contains(
+    'ak-editor-content-area',
+  );
+  const isTargetChildOfContentArea = insideContentArea(
+    target.parentNode as HTMLElement | null,
+  );
+  const isTargetInsideEditableArea = insideProseMirrorEditableArea(target);
+
+  // Any click inside ProseMirror should be managed by ProseMirror
+  if (isTargetInsideEditableArea) {
+    return false;
+  }
+  const isEventComingFromContentArea = Boolean(
+    event.currentTarget.querySelector('.ak-editor-content-area'),
+  );
 
   // @see https://product-fabric.atlassian.net/browse/ED-4287
   // click event gets triggered twice on a checkbox (on <label> first and then on <input>)
@@ -61,16 +78,51 @@ const clickAreaClickHandler = (
     target,
     'nav[aria-label="Breadcrumbs"]',
   );
-  const isTargetChildOfContentArea = insideContentArea(
-    target.parentNode as HTMLElement | null,
-  );
   const selection = window.getSelection();
   const isEditorPopupTextSelected =
     selection?.type === 'Range' &&
     closestElement(selection?.anchorNode as HTMLElement, '[data-editor-popup]');
 
+  // This is a super workaround to find when events are coming from Confluence InlineComment modal
+  // We don't own those components, so we can't change them
+  const isEventComingFromInlineCommentPopup =
+    Boolean(closestElement(event.currentTarget, 'div[offset]')) ||
+    Boolean(closestElement(target, 'div[offset]'));
+
+  const isButtonClicked =
+    Boolean(closestElement(event.currentTarget, 'button')) ||
+    Boolean(closestElement(target, 'button')) ||
+    event.currentTarget?.nodeName === 'BUTTON' ||
+    target.nodeName === 'BUTTON';
+
+  const isTargetInsideContentArea = Boolean(isTargetChildOfContentArea);
+
+  const isBetweenContentAreaAndEditableContent =
+    isTargetInsideContentArea && !isTargetInsideEditableArea;
+
+  const edgeCaseScenario1 =
+    (isBetweenContentAreaAndEditableContent || !isEventComingFromContentArea) &&
+    !isEditorFocused;
+
+  const edgeCaseScenario2 = !isTargetInsideContentArea && isEditorFocused;
+  const edgeCaseScenario3 =
+    isTargetContentArea && !isTargetInsideContentArea && !isEditorFocused;
+  const edgeCaseScenario4 =
+    isEventComingFromContentArea &&
+    !isTargetContentArea &&
+    !isTargetInsideContentArea &&
+    !isEditorFocused;
+
+  const edgeCases =
+    edgeCaseScenario1 ||
+    edgeCaseScenario2 ||
+    edgeCaseScenario3 ||
+    edgeCaseScenario4;
+
   const isClickOutsideEditor =
-    (!isTargetContentArea || !isTargetChildOfContentArea || !isEditorFocused) &&
+    edgeCases &&
+    !isEventComingFromInlineCommentPopup &&
+    !isButtonClicked &&
     !isInputClicked &&
     !isTextAreaClicked &&
     !isPopupClicked &&

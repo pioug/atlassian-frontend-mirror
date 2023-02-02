@@ -31,6 +31,7 @@ export interface Config {
     productInfo?: ProductInformation,
   ) => Socket;
   analyticsClient?: AnalyticsWebClient;
+  featureFlags?: { [key: string]: boolean };
   getUser?(
     userId: string,
   ): Promise<
@@ -88,7 +89,7 @@ export type CollabTelepointerPayload = CollabEventTelepointerData;
 export type CollabPresencePayload = CollabEventPresenceData;
 export type CollabMetadataPayload = Metadata;
 export type CollabLocalStepsPayload = {
-  steps: Step[];
+  steps: readonly Step[];
 };
 
 export interface CollabEvents {
@@ -226,9 +227,9 @@ export interface CatchupOptions {
   getUnconfirmedSteps: () =>
     | {
         version: number;
-        steps: Step<any>[];
+        steps: readonly Step<any>[];
         clientID: string | number;
-        origins: Transaction<any>[];
+        origins: readonly Transaction<any>[];
       }
     | null
     | undefined;

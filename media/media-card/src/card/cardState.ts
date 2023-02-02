@@ -38,6 +38,7 @@ export const getCardStateFromFileState = (
   const status = getCardStatus(
     fileState.status,
     extractFilePreviewStatus(fileState, isBannedLocalPreview, featureFlags),
+    featureFlags,
   );
 
   const error =

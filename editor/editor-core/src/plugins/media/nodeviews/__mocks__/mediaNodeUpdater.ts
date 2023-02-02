@@ -40,6 +40,9 @@ export class MediaNodeUpdater {
     this.handleExternalMedia =
       mockOverrides['handleExternalMedia'] ||
       jest.fn().mockReturnValue(new Promise(() => {}));
+    this.updateNodeAttrs =
+      mockOverrides['updateNodeAttrs'] ||
+      jest.fn().mockReturnValue(new Promise(() => {}));
   }
 
   static setMock(thisKey: string, value: any) {
@@ -59,5 +62,6 @@ export class MediaNodeUpdater {
   async uploadExternalMedia() {}
   isMediaBlobUrl() {}
   copyNodeFromBlobUrl() {}
+  updateNodeAttrs() {}
   async handleExternalMedia() {}
 }

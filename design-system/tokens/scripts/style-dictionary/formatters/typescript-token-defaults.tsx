@@ -5,16 +5,19 @@ import { createSignedArtifact } from '@af/codegen';
 
 import { DEFAULT_THEME } from '../../../src/constants';
 import { getTokenId } from '../../../src/utils/token-ids';
+import sortTokens from '../sort-tokens';
 
 const formatter: Format['formatter'] = ({ dictionary }) => {
   const tokens: Record<string, string> = {};
 
-  dictionary.allTokens
-    .filter((token) => token.attributes?.group !== 'palette')
-    .forEach((token) => {
-      const tokenName = getTokenId(token.path);
-      tokens[tokenName] = token.value;
-    });
+  sortTokens(
+    dictionary.allTokens.filter(
+      (token) => token.attributes?.group !== 'palette',
+    ),
+  ).forEach((token) => {
+    const tokenName = getTokenId(token.path);
+    tokens[tokenName] = token.value;
+  });
 
   const tokensDefaultKeyValues = Object.keys(tokens)
     .map((name) => `  '${name}': '${tokens[name]}',`)

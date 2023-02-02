@@ -1,5 +1,12 @@
 # @atlaskit/media-avatar-picker
 
+## 24.2.1
+
+### Patch Changes
+
+- [`564b251839c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/564b251839c) - [ux] Fixed avatar picker not showing correct orientation for images with exif data
+- Updated dependencies
+
 ## 24.2.0
 
 ### Minor Changes

@@ -30,6 +30,7 @@ export type IntlMessage = {
 export interface InsertMenuProps {
   dropdownItems: BlockMenuItem[];
   editorView: EditorView;
+  showElementBrowserLink: boolean;
   toggleVisiblity: SimpleEventHandler<MouseEvent | KeyboardEvent>;
   onInsert: OnInsert;
 }

@@ -69,7 +69,11 @@ import {
 } from '../../utils/shouldFetchRemoteFileStates';
 import { PollingFunction } from '../../utils/polling';
 import { isEmptyFile } from '../../utils/detectEmptyFile';
-import { MediaTraceContext } from '@atlaskit/media-common';
+import {
+  getMediaFeatureFlag,
+  MediaFeatureFlags,
+  MediaTraceContext,
+} from '@atlaskit/media-common';
 
 export type {
   FileFetcherErrorAttributes,
@@ -142,7 +146,10 @@ export interface FileFetcher {
 export class FileFetcherImpl implements FileFetcher {
   private readonly dataloader: Dataloader<DataloaderKey, DataloaderResult>;
 
-  constructor(private readonly mediaStore: MediaStore) {
+  constructor(
+    private readonly mediaStore: MediaStore,
+    private readonly featureFlags?: MediaFeatureFlags,
+  ) {
     this.dataloader = createFileDataloader(mediaStore);
   }
 
@@ -350,7 +357,122 @@ export class FileFetcherImpl implements FileFetcher {
     });
   }
 
-  public upload(
+  private getUploadingFileStateBase = (
+    file: UploadableFile,
+    upfrontId: UploadableFileUpfrontIds,
+  ) => {
+    // TODO: DO not modify the input parameter 'content' attribute
+    if (typeof file.content === 'string') {
+      file.content = convertBase64ToBlob(file.content);
+    }
+    const {
+      content,
+      name = '', // name property is not available in base64 image
+    } = file;
+    const { id, occurrenceKey } = upfrontId;
+    let preview: FilePreview | undefined;
+    // TODO [MSW-796]: get file size for base64
+    let size = 0;
+    let mimeType = '';
+    if (content instanceof Blob) {
+      size = content.size;
+      mimeType = content.type;
+      if (isMimeTypeSupportedByBrowser(content.type)) {
+        preview = {
+          value: content,
+          origin: 'local',
+        };
+      }
+    }
+    const mediaType = getMediaTypeFromUploadableFile(file);
+
+    return {
+      id,
+      occurrenceKey,
+      name,
+      size,
+      mediaType,
+      mimeType,
+      preview,
+    };
+  };
+
+  // TODO: make this the public upload method when the FF is removed
+  private uploadAwlaysPullFileStates(
+    file: UploadableFile,
+    controller?: UploadController,
+    uploadableFileUpfrontIds?: UploadableFileUpfrontIds,
+    traceContext?: MediaTraceContext,
+  ): MediaSubscribable<FileState> {
+    const { collection } = file;
+
+    const upfrontId =
+      uploadableFileUpfrontIds ||
+      this.generateUploadableFileUpfrontIds(collection, traceContext);
+
+    const { id, occurrenceKey } = upfrontId;
+
+    const stateBase = this.getUploadingFileStateBase(file, upfrontId);
+
+    const subject = createMediaSubject<FileState>();
+    getFileStreamsCache().set(id, subject);
+
+    const onProgress = (progress: number) => {
+      subject.next({
+        status: 'uploading',
+        ...stateBase,
+        progress,
+      });
+    };
+
+    let processingSubscription: Subscription = new Subscription();
+
+    const onUploadFinish = (error?: any) => {
+      if (error) {
+        return subject.error(error);
+      }
+      processingSubscription = this.createDownloadFileStream(
+        id,
+        collection,
+        occurrenceKey,
+      )
+        .pipe(
+          map((remoteFileState) => ({
+            // merges base state with remote state
+            ...stateBase,
+            ...remoteFileState,
+            ...overrideMediaTypeIfUnknown(remoteFileState, stateBase.mediaType),
+          })),
+        )
+        .subscribe(subject);
+    };
+
+    const { cancel } = uploadFile(
+      file,
+      this.mediaStore,
+      upfrontId,
+      {
+        onUploadFinish,
+        onProgress,
+      },
+      traceContext,
+    );
+
+    controller?.setAbort(() => {
+      cancel();
+      // TODO: filestate should turn to "Aborted" or something.
+      // Consider canceling an upload that is already finished
+      processingSubscription.unsubscribe();
+    });
+
+    // We should report progress asynchronously, since this is what consumer expects
+    // (otherwise in newUploadService file-converting event will be emitted before files-added)
+    setTimeout(onProgress, 0, 0);
+
+    return fromObservable(subject);
+  }
+
+  private uploadConditionallyPullFileStates(
     file: UploadableFile,
     controller?: UploadController,
     uploadableFileUpfrontIds?: UploadableFileUpfrontIds,
@@ -476,6 +598,33 @@ export class FileFetcherImpl implements FileFetcher {
     }
 
     return fromObservable(subject);
+  }
+
+  public upload(
+    file: UploadableFile,
+    controller?: UploadController,
+    uploadableFileUpfrontIds?: UploadableFileUpfrontIds,
+    traceContext?: MediaTraceContext,
+  ): MediaSubscribable<FileState> {
+    const shouldAlwaysFetchFileState = getMediaFeatureFlag(
+      'fetchFileStateAfterUpload',
+      this.featureFlags,
+    );
+
+    if (shouldAlwaysFetchFileState) {
+      return this.uploadAwlaysPullFileStates(
+        file,
+        controller,
+        uploadableFileUpfrontIds,
+        traceContext,
+      );
+    }
+    return this.uploadConditionallyPullFileStates(
+      file,
+      controller,
+      uploadableFileUpfrontIds,
+      traceContext,
+    );
   }
 
   // TODO: ----- ADD TICKET

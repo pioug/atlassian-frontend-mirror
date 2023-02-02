@@ -358,7 +358,7 @@ const container = document.createElement('div');
           componentName: 'dropzone',
           component: 'dropzone',
           [MEDIA_CONTEXT]: {
-            featureFlags,
+            featureFlags: expect.objectContaining(featureFlags),
           },
         },
       ];

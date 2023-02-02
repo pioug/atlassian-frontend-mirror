@@ -2,9 +2,17 @@ import type { Format } from 'style-dictionary';
 
 import { createSignedArtifact } from '@af/codegen';
 
-const formatter: Format['formatter'] = ({ dictionary }) => {
+import { getTokenId } from '../../../src/utils/token-ids';
+import sortTokens from '../sort-tokens';
+
+const formatter: Format['formatter'] = ({ dictionary, options }) => {
   const output = `const tokens = ${JSON.stringify(
-    dictionary.allTokens,
+    sortTokens(dictionary.allTokens).map((token) => ({
+      ...token,
+      ...(options.cleanName === true
+        ? { cleanName: getTokenId(token.path) }
+        : []),
+    })),
     null,
     2,
   )};

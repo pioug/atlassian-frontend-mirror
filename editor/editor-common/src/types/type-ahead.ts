@@ -62,22 +62,40 @@ export type TypeAheadForceSelect = (
 
 export type TypeAheadHandler = {
   id: TypeAheadAvailableNodes;
+
+  /** Pattern that will trigger the TypeAhead */
   trigger: string;
+
+  /** Custom regex must have a capture group around trigger so it's possible to
+   * use it without needing to scan through all triggers again */
   customRegex?: string;
+
   headless?: boolean;
+
+  /** Handler returns typeahead item based on query. Used to find which item to insert. */
   forceSelect?: TypeAheadForceSelect;
+
   onInvokeAnalytics?: TypeAheadPayload;
+
+  /** Handler executes logic when TypeAhead opens */
   onOpen?: (editorState: EditorState) => void;
+
+  /** Handler returns an array of TypeAheadItem based on query to be displayed in the TypeAhead */
   getItems: (props: {
     query: string;
     editorState: EditorState;
   }) => Promise<Array<TypeAheadItem>>;
+
+  /** Handler returns a transaction which inserts the TypeAheadItem into the doc */
   selectItem: TypeAheadSelectItem;
+
+  /** Handler executes logic when TypeAhead is dismissed */
   dismiss?: (props: {
     editorState: EditorState;
     query: string;
     stats: TypeAheadStats;
     wasItemInserted?: boolean;
   }) => void;
+
   getHighlight?: (state: EditorState) => JSX.Element | null;
 };

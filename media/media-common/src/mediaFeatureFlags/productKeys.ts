@@ -8,9 +8,10 @@ const productKeys: ProductKeys = {
     folderUploads: 'confluence.frontend.media.picker.folder.uploads',
     //TODO fill the value after https://product-fabric.atlassian.net/browse/MEX-1593
     observedWidth: '',
-    // TODO https://product-fabric.atlassian.net/browse/MEX-1620
-    timestampOnVideo: '',
+    timestampOnVideo: 'confluence.frontend.media.timestamp.on.video',
     memoryCacheLogging: 'confluence-frontend-media-card-memory-cache-logging',
+    fetchFileStateAfterUpload:
+      'confluence-frontend-media-client-fetch-file-state-after-upload',
   },
   jira: {
     newCardExperience: 'issue.details.media-cards-new-experience',
@@ -20,9 +21,10 @@ const productKeys: ProductKeys = {
     folderUploads: 'issue.details.media-picker-folder-upload',
     //TODO fill the value after https://product-fabric.atlassian.net/browse/MEX-1593
     observedWidth: '',
-    // TODO https://product-fabric.atlassian.net/browse/MEX-1620
-    timestampOnVideo: '',
+    timestampOnVideo: 'issue.details.media-cards-timestamp-on-video',
     memoryCacheLogging: 'jira-frontend-media-card-memory-cache-logging',
+    fetchFileStateAfterUpload:
+      'jira-frontend-media-client-fetch-file-state-after-upload',
   },
 };
 

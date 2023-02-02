@@ -154,7 +154,7 @@ describe('table plugin', () => {
             table({ localId: TABLE_LOCAL_ID })(
               tr(th()(p('1')), th()(p('2')), th()(p('3'))),
               tr(td()(p('4')), td()(p('5')), td()(p('6'))),
-              tr(td()(p('7')), th()(p('1')), td()(p('9'))),
+              tr(td()(p('7')), td()(p('1')), td()(p('9'))),
             ),
           ),
         );

@@ -51,8 +51,7 @@ describe('Cards:', () => {
       Appearance.chromeless,
       Appearance.mobile,
     ])('with %s editor', (appearance) => {
-      // FIXME: This test was automatically skipped due to failure on 18/11/2022: https://product-fabric.atlassian.net/browse/ED-16232
-      it.skip('displays links with correct appearance', async () => {
+      it('displays links with correct appearance', async () => {
         await initEditorWithAdf(page, {
           adf: cardAdf,
           appearance,

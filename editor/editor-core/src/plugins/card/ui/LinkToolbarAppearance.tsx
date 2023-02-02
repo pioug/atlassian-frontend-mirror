@@ -25,6 +25,7 @@ export interface LinkToolbarAppearanceProps {
   editorView?: EditorView;
   url?: string;
   allowEmbeds?: boolean;
+  allowBlockCards?: boolean;
   platform?: CardPlatform;
 }
 export class LinkToolbarAppearance extends React.Component<
@@ -36,8 +37,15 @@ export class LinkToolbarAppearance extends React.Component<
   };
 
   renderDropdown = (view?: EditorView, cardContext?: CardContext) => {
-    const { url, intl, currentAppearance, editorState, allowEmbeds, platform } =
-      this.props;
+    const {
+      url,
+      intl,
+      currentAppearance,
+      editorState,
+      allowEmbeds,
+      allowBlockCards = true,
+      platform,
+    } = this.props;
     const preview =
       allowEmbeds &&
       cardContext &&
@@ -51,11 +59,13 @@ export class LinkToolbarAppearance extends React.Component<
       }
     }
 
-    const isBlockCardLinkSupportedInParent = isSupportedInParent(
-      editorState,
-      Fragment.from(editorState.schema.nodes.blockCard.createChecked({})),
-      currentAppearance,
-    );
+    const isBlockCardLinkSupportedInParent = allowBlockCards
+      ? isSupportedInParent(
+          editorState,
+          Fragment.from(editorState.schema.nodes.blockCard.createChecked({})),
+          currentAppearance,
+        )
+      : false;
 
     const isEmbedCardLinkSupportedInParent = allowEmbeds
       ? isSupportedInParent(
@@ -78,6 +88,19 @@ export class LinkToolbarAppearance extends React.Component<
           ? undefined
           : getUnavailableMessage(editorState, intl),
       };
+
+    const blockCardOption = allowBlockCards && {
+      appearance: 'block' as const,
+      title: intl.formatMessage(messages.block),
+      onClick: setSelectedCardAppearance('block'),
+      selected: currentAppearance === 'block',
+      testId: 'block-appearance',
+      disabled: !isBlockCardLinkSupportedInParent,
+      tooltip: isBlockCardLinkSupportedInParent
+        ? undefined
+        : getUnavailableMessage(editorState, intl),
+    };
+
     const options: OptionConfig[] = [
       {
         title: intl.formatMessage(messages.url),
@@ -93,17 +116,6 @@ export class LinkToolbarAppearance extends React.Component<
         selected: currentAppearance === 'inline',
         testId: 'inline-appearance',
       },
-      {
-        appearance: 'block',
-        title: intl.formatMessage(messages.block),
-        onClick: setSelectedCardAppearance('block'),
-        selected: currentAppearance === 'block',
-        testId: 'block-appearance',
-        disabled: !isBlockCardLinkSupportedInParent,
-        tooltip: isBlockCardLinkSupportedInParent
-          ? undefined
-          : getUnavailableMessage(editorState, intl),
-      },
     ];
 
     const dispatchCommand = (fn?: Function) => {
@@ -113,6 +125,10 @@ export class LinkToolbarAppearance extends React.Component<
         view.focus();
       }
     };
+
+    if (blockCardOption) {
+      options.push(blockCardOption);
+    }
 
     if (embedOption) {
       options.push(embedOption);

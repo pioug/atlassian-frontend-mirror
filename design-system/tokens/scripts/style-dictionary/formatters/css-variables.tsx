@@ -8,6 +8,7 @@ import {
 } from '../../../src/constants';
 import themeConfig, { Themes } from '../../../src/theme-config';
 import { getCSSCustomProperty } from '../../../src/utils/token-ids';
+import sortTokens from '../sort-tokens';
 
 export const cssVariableFormatter: Format['formatter'] = ({
   dictionary,
@@ -30,12 +31,14 @@ export const cssVariableFormatter: Format['formatter'] = ({
     );
   }
 
-  dictionary.allTokens
-    .filter((token) => token.attributes && token.attributes.group !== 'palette')
-    .forEach((token) => {
-      const tokenName = getCSSCustomProperty(token.path);
-      tokens.push({ ...token, name: tokenName });
-    });
+  sortTokens(
+    dictionary.allTokens.filter(
+      (token) => token.attributes && token.attributes.group !== 'palette',
+    ),
+  ).forEach((token) => {
+    const tokenName = getCSSCustomProperty(token.path);
+    tokens.push({ ...token, name: tokenName });
+  });
 
   let output =
     theme.attributes.type === 'spacing' ||

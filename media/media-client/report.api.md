@@ -361,7 +361,10 @@ export type FileFetcherErrorReason =
 
 // @public (undocumented)
 export class FileFetcherImpl implements FileFetcher {
-  constructor(mediaStore: MediaStore);
+  constructor(
+    mediaStore: MediaStore,
+    featureFlags?: MediaFeatureFlags | undefined,
+  );
   // (undocumented)
   copyFile(
     source: CopySourceFile,

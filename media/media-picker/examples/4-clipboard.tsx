@@ -1,11 +1,9 @@
 // eslint-disable-line no-console
 import React from 'react';
 import { Component } from 'react';
-import { IntlProvider } from 'react-intl-next';
 import {
   defaultMediaPickerAuthProvider,
   defaultMediaPickerCollectionName,
-  FeatureFlagsWrapper,
 } from '@atlaskit/media-test-helpers';
 import Button from '@atlaskit/button/standard-button';
 import Toggle from '@atlaskit/toggle';
@@ -19,6 +17,7 @@ import {
   UploadErrorEventPayload,
 } from '../src/types';
 import {
+  MainWrapper,
   PopupHeader,
   PopupContainer,
   DropzoneContentWrapper,
@@ -26,10 +25,8 @@ import {
   ClipboardContainer,
   InfoContainer,
   PastedImage,
-} from '../example-helpers/stylesWrapper';
-import { UfoLoggerWrapper } from '../example-helpers/UfoWrapper';
+} from '../example-helpers';
 import { fileToDataURI } from '@atlaskit/media-ui';
-import { LOGGED_FEATURE_FLAGS } from '../src/util/analytics';
 
 export interface ClipboardWrapperState {
   isConnectedToUsersCollection: boolean;
@@ -124,44 +121,39 @@ class ClipboardWrapper extends Component<{}, ClipboardWrapperState> {
       this.state;
 
     return (
-      <UfoLoggerWrapper>
-        <FeatureFlagsWrapper filterFlags={LOGGED_FEATURE_FLAGS}>
-          <PopupContainer>
-            <PopupHeader>
-              Connected to users collection
-              <Toggle
-                defaultChecked={isConnectedToUsersCollection}
-                onChange={this.onConnectionChange}
-              />
-              Active
-              <Toggle
-                defaultChecked={isActive}
-                onChange={this.onActiveChange}
-              />
-            </PopupHeader>
-            <DropzoneContentWrapper>
-              <ClipboardContainer isWindowFocused={isWindowFocused}>
-                <h2>Clipboard example</h2>
-                <p>
-                  Use CMD+C to copy an image from finder, followed by CMD+V to
-                  paste the image when this window is focused.
-                </p>
-                <p>
-                  You can also take a screenshot with SHIFT+CTRL+COMMAND+4 (Mac)
-                  and paste with CMD+V.
-                </p>
-                <p>If you paste an image you will see a preview.</p>
-              </ClipboardContainer>
-              <DropzoneItemsInfo>
-                <h1>User collection items</h1>
-                {this.renderLastItems()}
-              </DropzoneItemsInfo>
-            </DropzoneContentWrapper>
-            {this.renderPastedImage()}
-            {this.renderClipboard()}
-          </PopupContainer>
-        </FeatureFlagsWrapper>
-      </UfoLoggerWrapper>
+      <MainWrapper>
+        <PopupContainer>
+          <PopupHeader>
+            Connected to users collection
+            <Toggle
+              defaultChecked={isConnectedToUsersCollection}
+              onChange={this.onConnectionChange}
+            />
+            Active
+            <Toggle defaultChecked={isActive} onChange={this.onActiveChange} />
+          </PopupHeader>
+          <DropzoneContentWrapper>
+            <ClipboardContainer isWindowFocused={isWindowFocused}>
+              <h2>Clipboard example</h2>
+              <p>
+                Use CMD+C to copy an image from finder, followed by CMD+V to
+                paste the image when this window is focused.
+              </p>
+              <p>
+                You can also take a screenshot with SHIFT+CTRL+COMMAND+4 (Mac)
+                and paste with CMD+V.
+              </p>
+              <p>If you paste an image you will see a preview.</p>
+            </ClipboardContainer>
+            <DropzoneItemsInfo>
+              <h1>User collection items</h1>
+              {this.renderLastItems()}
+            </DropzoneItemsInfo>
+          </DropzoneContentWrapper>
+          {this.renderPastedImage()}
+          {this.renderClipboard()}
+        </PopupContainer>
+      </MainWrapper>
     );
   }
 
@@ -238,29 +230,27 @@ class ClipboardWrapper extends Component<{}, ClipboardWrapperState> {
     const height = Math.round(pastedImgHeight / pastedImgScaleFactor);
 
     return (
-      <IntlProvider locale="en">
-        <InfoContainer>
-          {isLoading ? (
-            <Spinner size="large" />
-          ) : pastedImgSrc ? (
-            <>
-              <PastedImage
-                src={pastedImgSrc}
-                style={{ width, height }}
-                title="Click X button to close"
-              />
-              <div className="info">{`${width}x${height}`}</div>
-              <Button
-                className="close_button"
-                appearance="primary"
-                onClick={this.onCloseImg}
-              >
-                X
-              </Button>
-            </>
-          ) : null}
-        </InfoContainer>
-      </IntlProvider>
+      <InfoContainer>
+        {isLoading ? (
+          <Spinner size="large" />
+        ) : pastedImgSrc ? (
+          <>
+            <PastedImage
+              src={pastedImgSrc}
+              style={{ width, height }}
+              title="Click X button to close"
+            />
+            <div className="info">{`${width}x${height}`}</div>
+            <Button
+              className="close_button"
+              appearance="primary"
+              onClick={this.onCloseImg}
+            >
+              X
+            </Button>
+          </>
+        ) : null}
+      </InfoContainer>
     );
   }
 }

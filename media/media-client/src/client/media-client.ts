@@ -36,7 +36,7 @@ export class MediaClient {
     );
     this.config = mediaClientConfig;
     this.collection = new CollectionFetcher(this.mediaStore);
-    this.file = new FileFetcherImpl(this.mediaStore);
+    this.file = new FileFetcherImpl(this.mediaStore, featureFlags);
     this.eventEmitter = new EventEmitter2();
     this.stargate = new StargateClient(mediaClientConfig.stargateBaseUrl);
   }

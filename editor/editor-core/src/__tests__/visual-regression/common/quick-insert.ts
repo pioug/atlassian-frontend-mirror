@@ -14,6 +14,19 @@ import {
 } from '@atlaskit/editor-test-helpers/page-objects/quick-insert';
 import { pressKey } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
 
+const lastItemIsFocused =
+  'document.querySelector("#typeahaed_decoration_element_id [data-index]:last-child [aria-selected=\\"true\\"]") === document.activeElement;';
+const firstItemIsFocused =
+  'document.querySelector("#typeahaed_decoration_element_id [data-index]:first-child [aria-selected=\\"true\\"]") === document.activeElement';
+
+const secondItemUnselectedSelector =
+  '#typeahaed_decoration_element_id [data-index]:nth-child(2) [aria-selected="false"]';
+const secondItemSelectedSelector =
+  '#typeahaed_decoration_element_id [data-index]:nth-child(2) [aria-selected="true"]';
+
+const secondItemBackgroundColor = `window.getComputedStyle(document.querySelector('${secondItemUnselectedSelector}')).backgroundColor`;
+const secondItemBoxShadow = `window.getComputedStyle(document.querySelector('${secondItemSelectedSelector}')).boxShadow`;
+
 describe('Quick Insert:', () => {
   let page: PuppeteerPage;
   beforeEach(async () => {
@@ -64,8 +77,15 @@ describe('should render the quick insert menu and highlight the menu item when h
     await waitForTypeAheadMenu(page);
     await waitForMenuIconsToLoad(page, 8, '.emoji-common-emoji-sprite');
     await page.waitForSelector(selectors.typeaheadPopup, { visible: true });
-    await page.hover('[aria-label=":smile:"]');
-    await snapshot(page);
+
+    // save a non hovered background value
+    const defaultBgColor = await page.evaluate(secondItemBackgroundColor);
+    await page.hover(secondItemUnselectedSelector);
+
+    // expect the background value is different when hovered
+    expect(await page.evaluate(secondItemBackgroundColor)).not.toBe(
+      defaultBgColor,
+    );
   });
 
   it('- Mentions Menu', async () => {
@@ -77,8 +97,11 @@ describe('should render the quick insert menu and highlight the menu item when h
     await waitForTypeAheadMenu(page);
     await waitForMenuIconsToLoad(page, 6, 'img');
     await page.waitForSelector(selectors.typeaheadPopup, { visible: true });
-    await page.hover('[data-mention-name="Darryl"]');
-    await snapshot(page);
+    const defaultBgColor = await page.evaluate(secondItemBackgroundColor);
+    await page.hover(secondItemUnselectedSelector);
+    expect(await page.evaluate(secondItemBackgroundColor)).not.toBe(
+      defaultBgColor,
+    );
   });
 
   it('- General Menu', async () => {
@@ -90,8 +113,11 @@ describe('should render the quick insert menu and highlight the menu item when h
     await waitForTypeAheadMenu(page);
     await waitForMenuIconsToLoad(page, 6, 'svg');
     await page.waitForSelector(selectors.typeaheadPopup, { visible: true });
-    await page.hover('[aria-label="Expand"]');
-    await snapshot(page);
+    const defaultBgColor = await page.evaluate(secondItemBackgroundColor);
+    await page.hover(secondItemUnselectedSelector);
+    expect(await page.evaluate(secondItemBackgroundColor)).not.toBe(
+      defaultBgColor,
+    );
   });
 });
 
@@ -111,7 +137,8 @@ describe('should render the quick insert menu and visible focus style should app
     await waitForMenuIconsToLoad(page, 6, '.emoji-common-emoji-sprite');
     await page.waitForSelector(selectors.typeaheadPopup, { visible: true });
     await pressKey(page, ['ArrowDown', 'ArrowDown']);
-    await snapshot(page);
+    // the focus ring uses css box shadow so we check if it exists
+    expect(await page.evaluate(secondItemBoxShadow)).not.toBe('none');
   });
 
   it('- Mentions Menu', async () => {
@@ -124,7 +151,7 @@ describe('should render the quick insert menu and visible focus style should app
     await waitForMenuIconsToLoad(page, 6, 'img');
     await page.waitForSelector(selectors.typeaheadPopup, { visible: true });
     await pressKey(page, ['ArrowDown', 'ArrowDown']);
-    await snapshot(page);
+    expect(await page.evaluate(secondItemBoxShadow)).not.toBe('none');
   });
 
   it('- General Menu', async () => {
@@ -137,11 +164,11 @@ describe('should render the quick insert menu and visible focus style should app
     await waitForMenuIconsToLoad(page, 6, 'svg');
     await page.waitForSelector(selectors.typeaheadPopup, { visible: true });
     await pressKey(page, ['ArrowDown', 'ArrowDown']);
-    await snapshot(page);
+    expect(await page.evaluate(secondItemBoxShadow)).not.toBe('none');
   });
 });
 
-describe('should render the quick insert menu and up and down arrow key should focus the last item of the list', () => {
+describe('should render the quick insert menu and up and down arrow key should focus the last and first item of the list', () => {
   let page: PuppeteerPage;
   beforeEach(async () => {
     page = global.page;
@@ -157,9 +184,9 @@ describe('should render the quick insert menu and up and down arrow key should f
     await waitForMenuIconsToLoad(page, 6, '.emoji-common-emoji-sprite');
     await page.waitForSelector(selectors.typeaheadPopup, { visible: true });
     await pressKey(page, ['ArrowUp']);
-    await snapshot(page);
+    expect(await page.evaluate(lastItemIsFocused)).toBe(true);
     await pressKey(page, ['ArrowDown']);
-    await snapshot(page);
+    expect(await page.evaluate(firstItemIsFocused)).toBe(true);
   });
 
   it('- Mentions Menu', async () => {
@@ -172,13 +199,12 @@ describe('should render the quick insert menu and up and down arrow key should f
     await waitForMenuIconsToLoad(page, 6, 'img');
     await page.waitForSelector(selectors.typeaheadPopup, { visible: true });
     await pressKey(page, ['ArrowUp']);
-    await snapshot(page);
+    expect(await page.evaluate(lastItemIsFocused)).toBe(true);
     await pressKey(page, ['ArrowDown']);
-    await snapshot(page);
+    expect(await page.evaluate(firstItemIsFocused)).toBe(true);
   });
 
-  // FIXME: This test was automatically skipped due to failure on 22/12/2022: https://product-fabric.atlassian.net/browse/ED-16429
-  it.skip('- General Menu', async () => {
+  it('- General Menu', async () => {
     await initEditorWithAdf(page, {
       appearance: Appearance.fullPage,
       viewport: { width: 800, height: 800 },
@@ -188,8 +214,8 @@ describe('should render the quick insert menu and up and down arrow key should f
     await waitForMenuIconsToLoad(page, 6, 'svg');
     await page.waitForSelector(selectors.typeaheadPopup, { visible: true });
     await pressKey(page, ['ArrowUp']);
-    await snapshot(page);
+    expect(await page.evaluate(lastItemIsFocused)).toBe(true);
     await pressKey(page, ['ArrowDown']);
-    await snapshot(page);
+    expect(await page.evaluate(firstItemIsFocused)).toBe(true);
   });
 });

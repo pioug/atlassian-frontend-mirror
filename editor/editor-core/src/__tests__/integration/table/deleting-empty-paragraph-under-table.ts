@@ -30,7 +30,7 @@ BrowserTestCase(
 
     await setProseMirrorTextSelection(page, { anchor: 45 });
     await page.keys('Backspace');
-    await expectToMatchSelection(page, { type: 'text', to: 40, from: 40 });
+    await expectToMatchSelection(page, { type: 'text', anchor: 40, head: 40 });
     const doc = await page.$eval(editable, getDocFromElement);
     expect(doc).toMatchCustomDocSnapshot(testName);
   },
@@ -50,7 +50,7 @@ BrowserTestCase(
 
     await setProseMirrorTextSelection(page, { anchor: 45 });
     await page.keys('Backspace');
-    await expectToMatchSelection(page, { type: 'text', to: 40, from: 40 });
+    await expectToMatchSelection(page, { type: 'text', anchor: 40, head: 40 });
     const doc = await page.$eval(editable, getDocFromElement);
     expect(doc).toMatchCustomDocSnapshot(testName);
   },
@@ -70,7 +70,7 @@ BrowserTestCase(
 
     await setProseMirrorTextSelection(page, { anchor: 45 });
     await page.keys('Backspace');
-    await expectToMatchSelection(page, { type: 'text', to: 40, from: 40 });
+    await expectToMatchSelection(page, { type: 'text', anchor: 40, head: 40 });
     const doc = await page.$eval(editable, getDocFromElement);
     expect(doc).toMatchCustomDocSnapshot(testName);
   },

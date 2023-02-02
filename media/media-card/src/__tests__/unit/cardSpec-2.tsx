@@ -17,6 +17,7 @@ import type {
   ExternalImageIdentifier,
   ProcessedFileState,
   FileState,
+  FilePreview,
 } from '@atlaskit/media-client';
 import { createMediaSubject } from '@atlaskit/media-client';
 import { CardBase } from '../../card/card';
@@ -59,6 +60,11 @@ const getSSRCardPreview = jest.spyOn(getCardPreviewModule, 'getSSRCardPreview');
 const fetchAndCacheRemotePreview = jest.spyOn(
   getCardPreviewModule,
   'fetchAndCacheRemotePreview',
+);
+
+const getFilePreviewFromFileState = jest.spyOn(
+  getCardPreviewModule,
+  'getFilePreviewFromFileState',
 );
 
 const createStateUpdater = jest.spyOn(stateUpdaterModule, 'createStateUpdater');
@@ -624,7 +630,7 @@ describe('Media Card', () => {
     });
   });
 
-  describe('getCardPreview', () => {
+  describe('Card Preview', () => {
     it(`should call shouldResolvePreview on each update if it's file identifier and has file state`, () => {
       const fileState = {} as FileState;
       const status = 'processing';
@@ -676,19 +682,40 @@ describe('Media Card', () => {
     });
 
     it(`should get card preview if shouldResolvePreview returns true`, async () => {
+      const resizeMode = 'full-fit';
+      const dimensions = { height: 125, width: 156 };
       shouldResolvePreview.mockReturnValueOnce(true);
       getCardPreview.mockResolvedValueOnce(filePreviews.remote);
+      const preview = { some: 'attr' } as unknown as FilePreview;
+      getFilePreviewFromFileState.mockReturnValueOnce(preview);
 
       const mediaCard = shallow(
         <CardBase
           mediaClient={fakeMediaClient()}
           identifier={indentifiers.file}
           isLazy={false}
+          resizeMode={resizeMode}
         />,
       );
-      mediaCard.setState({ fileState: {} as FileState });
+      const fileState = { some: 'attr' } as unknown as FileState;
+      mediaCard.setState({ fileState });
+
       expect(shouldResolvePreview).toBeCalledTimes(1);
+
       expect(getCardPreview).toBeCalledTimes(1);
+      expect(getCardPreview).toBeCalledWith(
+        expect.objectContaining({
+          id: indentifiers.file.id,
+          filePreview: preview, // should pass local preview if available
+          imageUrlParams: expect.objectContaining({
+            collection: indentifiers.file.collectionName,
+            mode: 'full-fit',
+            ...dimensions,
+          }),
+        }),
+      );
+      expect(getFilePreviewFromFileState).toBeCalledTimes(1);
+      expect(getFilePreviewFromFileState).toBeCalledWith(fileState);
       // We need to flush promises after calling getCardPreview
       await flushPromises();
       expect(mediaCard.state('cardPreview')).toEqual(
@@ -779,6 +806,7 @@ describe('Media Card', () => {
         expect.objectContaining({ filePreview: undefined }),
       );
     });
+
     describe('SSR preview cache', () => {
       it(`should fetch and store in cache remote preview when lazy load is disabled and SSR is client`, () => {
         getSSRCardPreview.mockReturnValueOnce(filePreviews.ssrClient);

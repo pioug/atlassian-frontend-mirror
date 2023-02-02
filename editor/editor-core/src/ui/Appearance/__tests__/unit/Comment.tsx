@@ -32,7 +32,7 @@ describe('comment editor', () => {
 
     fullPage
       .find('div[data-testid="click-wrapper"]')
-      .simulate('click', { clientY: 200 });
+      .simulate('mousedown', { clientY: 200 });
     expect(editorView.state.doc).toEqualDocument(
       doc(p('Hello world'), p('Hello world'), p('')),
     );

@@ -1,5 +1,16 @@
 # @atlaskit/renderer
 
+## 105.1.0
+
+### Minor Changes
+
+- [`a40ac7f5614`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a40ac7f5614) - New Smartlinks prop to allow renderer to determine whether smart link component inside AK renderer should show auth tooltip on unauthenticated inline links
+
+### Patch Changes
+
+- [`a1031a55381`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a1031a55381) - [ux][ed-16466] Tooltip that notifies if expand is open or closed should not render on mobile
+- Updated dependencies
+
 ## 105.0.4
 
 ### Patch Changes

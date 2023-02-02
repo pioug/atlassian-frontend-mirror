@@ -37,7 +37,7 @@ Array [
 ]
 `;
 
-exports[`Traverse#filter should return all matched elements of that are satisfying predicate 1`] = `
+exports[`Traverse#filter should return all matched elements that are satisfying predicate 1`] = `
 Array [
   Object {
     "attrs": Object {

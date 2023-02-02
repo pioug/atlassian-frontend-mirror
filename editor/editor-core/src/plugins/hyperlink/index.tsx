@@ -69,6 +69,7 @@ const hyperlinkPlugin: NextEditorPlugin<
           const tr = insert(undefined);
           tr.setMeta(stateKey, {
             type: LinkAction.SHOW_INSERT_TOOLBAR,
+            inputMethod: INPUT_METHOD.QUICK_INSERT,
           });
 
           return addAnalytics(state, tr, {

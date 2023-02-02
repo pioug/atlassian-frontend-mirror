@@ -88,7 +88,7 @@ const color: AttributeSchema<IconColorTokenSchema<BaseToken>> = {
           state: 'active',
           introduced: '0.6.0',
           description:
-            'Use for icons communicating a favourable outcome, such as those used in success section messaged.',
+            'Use for icons communicating a favorable outcome, such as those used in success section messaged.',
         },
       },
       discovery: {

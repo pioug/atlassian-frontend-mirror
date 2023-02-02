@@ -9,7 +9,7 @@ const logger = createLogger('Catchup', 'red');
  * Some steps could be lost, if they are no longer
  * invalid after rebased.
  */
-export function rebaseSteps(steps: Step[], mapping: Mapping): Step[] {
+export function rebaseSteps(steps: readonly Step[], mapping: Mapping): Step[] {
   const newSteps: Step[] = [];
   for (const step of steps) {
     const newStep = step.map(mapping);

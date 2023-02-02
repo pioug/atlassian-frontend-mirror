@@ -23,7 +23,7 @@ import {
 } from './types/responses';
 import { InvokeRequest } from './types/requests';
 import { getStatus } from '../helpers';
-import { LRUCache } from 'lru-fast/lru';
+import { LRUMap } from 'lru_map';
 
 const MAX_BATCH_SIZE = 50;
 const MIN_TIME_BETWEEN_BATCHES = 250;
@@ -31,7 +31,7 @@ const URL_RESPONSE_CACHE_SIZE = 100;
 
 // Contains cached mapping between url and a promise of a response.
 // Note that promise can be either unsettled/ongoing OR successfully resolved (not an error or non-resolved)
-export const urlResponsePromiseCache = new LRUCache<
+export const urlResponsePromiseCache = new LRUMap<
   string,
   Promise<SuccessResponse | ErrorResponse>
 >(URL_RESPONSE_CACHE_SIZE);
@@ -141,7 +141,7 @@ export default class CardClient implements CardClientInterface {
     responsePromise = urlResponsePromiseCache.get(url);
     if (!responsePromise || force) {
       responsePromise = loader.load(url);
-      urlResponsePromiseCache.put(url, responsePromise);
+      urlResponsePromiseCache.set(url, responsePromise);
     }
 
     let response: SuccessResponse | ErrorResponse;
@@ -150,7 +150,7 @@ export default class CardClient implements CardClientInterface {
     } catch (e) {
       // Technically this never happens, since batchResolve handles errors and doesn't throw,
       // But just in case.
-      urlResponsePromiseCache.remove(url);
+      urlResponsePromiseCache.delete(url);
       throw e;
     }
 
@@ -159,7 +159,7 @@ export default class CardClient implements CardClientInterface {
       getStatus(response.body) !== 'resolved';
     if (isUnresolvedLink) {
       // We want consequent calls for fetchData() to cause actual http call
-      urlResponsePromiseCache.remove(url);
+      urlResponsePromiseCache.delete(url);
     }
 
     return response;

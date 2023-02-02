@@ -7,7 +7,7 @@ import { AnalyticsStep } from '@atlaskit/adf-schema/steps';
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import { defaultSchema as schema } from '@atlaskit/editor-test-helpers/schema';
 
-import { collab, receiveTransaction, sendableSteps } from '../collab';
+import { collab, receiveTransaction, sendableSteps } from '../index';
 
 const histPlugin = history();
 

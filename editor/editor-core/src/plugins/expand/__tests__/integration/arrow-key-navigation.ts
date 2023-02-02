@@ -68,7 +68,7 @@ describe('expand: arrow key navigation', () => {
         const page = await startEditorWithLeftGapCursor(client);
         await sendArrowRightKey(page);
 
-        await expectToMatchSelection(page, { type: 'node', from: 0 });
+        await expectToMatchSelection(page, { type: 'node', anchor: 0 });
       },
     );
 
@@ -92,7 +92,7 @@ describe('expand: arrow key navigation', () => {
         const page = await startEditorWithLeftGapCursor(client);
         await sendArrowRightKey(page, { numTimes: 3 });
 
-        await expectToMatchSelection(page, { type: 'node', from: 0 });
+        await expectToMatchSelection(page, { type: 'node', anchor: 0 });
       },
     );
 
@@ -107,7 +107,7 @@ describe('expand: arrow key navigation', () => {
         await expectToMatchSelection(page, {
           type: 'gapcursor',
           side: 'right',
-          from: 4,
+          pos: 4,
         });
       },
     );
@@ -129,7 +129,7 @@ describe('expand: arrow key navigation', () => {
         const page = await startEditorWithRightGapCursor(client);
         await sendArrowLeftKey(page);
 
-        await expectToMatchSelection(page, { type: 'node', from: 0 });
+        await expectToMatchSelection(page, { type: 'node', anchor: 0 });
       },
     );
 
@@ -153,7 +153,7 @@ describe('expand: arrow key navigation', () => {
         const page = await startEditorWithRightGapCursor(client);
         await sendArrowLeftKey(page, { numTimes: 3 });
 
-        await expectToMatchSelection(page, { type: 'node', from: 0 });
+        await expectToMatchSelection(page, { type: 'node', anchor: 0 });
       },
     );
 
@@ -168,7 +168,7 @@ describe('expand: arrow key navigation', () => {
         await expectToMatchSelection(page, {
           type: 'gapcursor',
           side: 'left',
-          from: 0,
+          pos: 0,
         });
       },
     );
@@ -213,7 +213,7 @@ describe('expand: arrow key navigation', () => {
         await expectToMatchSelection(page, {
           type: 'gapcursor',
           side: 'left',
-          from: 0,
+          pos: 0,
         });
       },
     );
@@ -229,7 +229,7 @@ describe('expand: arrow key navigation', () => {
         await expectToMatchSelection(page, {
           type: 'gapcursor',
           side: 'right',
-          from: 4,
+          pos: 4,
         });
       },
     );
@@ -243,7 +243,7 @@ describe('expand: arrow key navigation', () => {
           await page.click(selectors.expandTitleInput);
           await sendArrowLeftKey(page);
 
-          await expectToMatchSelection(page, { type: 'node', from: 0 });
+          await expectToMatchSelection(page, { type: 'node', anchor: 0 });
         },
       );
 
@@ -259,20 +259,20 @@ describe('expand: arrow key navigation', () => {
           await expectToMatchSelection(page, {
             type: 'gapcursor',
             side: 'left',
-            from: 0,
+            pos: 0,
           });
         },
       );
 
       BrowserTestCase(
-        'sets node selection when user hits right arrow',
+        'oets node selection when user hits right arrow',
         { skip: ['firefox', 'safari'] },
         async (client: any) => {
           const page = await startEditorWithNodeSelection(client);
           await page.click(selectors.expandTitleInput);
           await sendArrowRightKey(page);
 
-          await expectToMatchSelection(page, { type: 'node', from: 0 });
+          await expectToMatchSelection(page, { type: 'node', anchor: 0 });
         },
       );
 
@@ -288,7 +288,7 @@ describe('expand: arrow key navigation', () => {
           await expectToMatchSelection(page, {
             type: 'gapcursor',
             side: 'right',
-            from: 4,
+            pos: 4,
           });
         },
       );
@@ -345,7 +345,7 @@ describe('expand: arrow key navigation', () => {
         await expectToMatchSelection(page, {
           type: 'gapcursor',
           side: 'left',
-          from: 0,
+          pos: 0,
         });
       },
     );

@@ -335,7 +335,9 @@ const generateToolbarItems =
       }
       const { allowBlockCards, allowEmbeds } = cardOptions;
 
-      if ((allowBlockCards || allowEmbeds) && currentAppearance) {
+      // This code will be executed only for appearances such as "inline", "block" & "embed"
+      // For url appearance, please see HyperlinkToolbarAppearanceProps
+      if (currentAppearance) {
         toolbarItems.unshift(
           {
             type: 'custom',
@@ -349,6 +351,7 @@ const generateToolbarItems =
                 editorView={editorView}
                 editorState={state}
                 allowEmbeds={allowEmbeds}
+                allowBlockCards={allowBlockCards}
                 platform={platform}
               />
             ),

@@ -40,14 +40,14 @@ type BackgroundColor = keyof typeof backgroundColorMap;
 // @public (undocumented)
 const backgroundColorMap: {
   readonly disabled: SerializedStyles;
-  readonly 'inverse.subtle': SerializedStyles;
   readonly input: SerializedStyles;
+  readonly 'inverse.subtle': SerializedStyles;
   readonly neutral: SerializedStyles;
   readonly 'neutral.subtle': SerializedStyles;
   readonly 'neutral.bold': SerializedStyles;
-  readonly 'brand.bold': SerializedStyles;
   readonly selected: SerializedStyles;
   readonly 'selected.bold': SerializedStyles;
+  readonly 'brand.bold': SerializedStyles;
   readonly danger: SerializedStyles;
   readonly 'danger.bold': SerializedStyles;
   readonly warning: SerializedStyles;
@@ -62,21 +62,21 @@ const backgroundColorMap: {
   readonly 'color.blanket.selected': SerializedStyles;
   readonly 'color.blanket.danger': SerializedStyles;
   readonly 'elevation.surface': SerializedStyles;
-  readonly 'elevation.surface.sunken': SerializedStyles;
-  readonly 'elevation.surface.raised': SerializedStyles;
   readonly 'elevation.surface.overlay': SerializedStyles;
+  readonly 'elevation.surface.raised': SerializedStyles;
+  readonly 'elevation.surface.sunken': SerializedStyles;
 };
 
 // @public (undocumented)
 const backgroundHoverColorMap: {
-  'inverse.subtle': SerializedStyles;
   input: SerializedStyles;
+  'inverse.subtle': SerializedStyles;
   neutral: SerializedStyles;
   'neutral.subtle': SerializedStyles;
   'neutral.bold': SerializedStyles;
-  'brand.bold': SerializedStyles;
   selected: SerializedStyles;
   'selected.bold': SerializedStyles;
+  'brand.bold': SerializedStyles;
   danger: SerializedStyles;
   'danger.bold': SerializedStyles;
   warning: SerializedStyles;
@@ -88,8 +88,8 @@ const backgroundHoverColorMap: {
   information: SerializedStyles;
   'information.bold': SerializedStyles;
   'elevation.surface': SerializedStyles;
-  'elevation.surface.raised': SerializedStyles;
   'elevation.surface.overlay': SerializedStyles;
+  'elevation.surface.raised': SerializedStyles;
 };
 
 // @public (undocumented)
@@ -104,18 +104,18 @@ type BorderColor = keyof typeof borderColorMap;
 // @public
 const borderColorMap: {
   readonly 'color.border': SerializedStyles;
-  readonly bold: SerializedStyles;
-  readonly inverse: SerializedStyles;
+  readonly disabled: SerializedStyles;
   readonly focused: SerializedStyles;
   readonly input: SerializedStyles;
-  readonly disabled: SerializedStyles;
-  readonly brand: SerializedStyles;
+  readonly inverse: SerializedStyles;
   readonly selected: SerializedStyles;
+  readonly brand: SerializedStyles;
   readonly danger: SerializedStyles;
   readonly warning: SerializedStyles;
   readonly success: SerializedStyles;
   readonly discovery: SerializedStyles;
   readonly information: SerializedStyles;
+  readonly bold: SerializedStyles;
 };
 
 // @public (undocumented)
@@ -509,11 +509,11 @@ type Shadow = keyof typeof shadowMap;
 
 // @public (undocumented)
 const shadowMap: {
-  readonly raised: SerializedStyles;
   readonly overflow: SerializedStyles;
-  readonly 'overflow.spread': SerializedStyles;
   readonly 'overflow.perimeter': SerializedStyles;
+  readonly 'overflow.spread': SerializedStyles;
   readonly overlay: SerializedStyles;
+  readonly raised: SerializedStyles;
 };
 
 // @public (undocumented)
@@ -532,18 +532,18 @@ type TextColor = keyof typeof textColorMap;
 // @public
 const textColorMap: {
   readonly 'color.text': SerializedStyles;
-  readonly subtle: SerializedStyles;
-  readonly subtlest: SerializedStyles;
   readonly disabled: SerializedStyles;
   readonly inverse: SerializedStyles;
-  readonly brand: SerializedStyles;
   readonly selected: SerializedStyles;
+  readonly brand: SerializedStyles;
   readonly danger: SerializedStyles;
   readonly warning: SerializedStyles;
   readonly 'warning.inverse': SerializedStyles;
   readonly success: SerializedStyles;
   readonly discovery: SerializedStyles;
   readonly information: SerializedStyles;
+  readonly subtlest: SerializedStyles;
+  readonly subtle: SerializedStyles;
 };
 
 // @public (undocumented)

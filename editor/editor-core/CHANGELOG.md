@@ -1,5 +1,39 @@
 # @atlaskit/editor-core
 
+## 178.1.0
+
+### Minor Changes
+
+- [`59e998e408f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/59e998e408f) - [ESS-2914] Switch to the forked prosemirror-collab library (based on version 1.3.0) to filter out analytics steps
+- [`a0a35fe7fb1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a0a35fe7fb1) - Renaming contentComponent event subject to contentComponentv2. Move errorStack attribute to nonPrivacySafeAttributes
+- [`4f6a895f1d5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4f6a895f1d5) - [ux] Editor Node Block selection stabilization
+
+### Patch Changes
+
+- [`513cb2010b7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/513cb2010b7) - Users are able to select dropdown menu item using keyboard via the Enter key
+- [`f1a780414ae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f1a780414ae) - prevent ReactNodeViewState to trigger selection updates when selection hasn't changed
+- [`2f5a0f96c6d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2f5a0f96c6d) - Adds invokeMethod analytics context for link picker.
+- [`aaa6509f036`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aaa6509f036) - ED-16198 Update & restore dedupeMarksTransformed analytics event. Also addresses
+  a bug when `discardedMarks` would only return the latest discarded mark
+- [`36d661f9252`](https://bitbucket.org/atlassian/atlassian-frontend/commits/36d661f9252) - [WS-4504] Fix Editor hijacking click events inside Annotation components
+- [`af4ab0d3e60`](https://bitbucket.org/atlassian/atlassian-frontend/commits/af4ab0d3e60) - [ux] Fix for a regression issue where a link is the last node in the ADF and a user is trying to switch from 'block' to 'embed' view or vice versa.
+- [`9a36555eac5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a36555eac5) - [ux] ED-15773 InsertMenu in Toolbar should not display "View More" option when editorProp `showModal` is set to false. Although this is happening, currently the "View More" button is replaced with "Status" option and retaining the same look and feel.
+  This ticket is to remove the look and feel of "View More" option when `showModal` is set to false.
+- [`fd12b01c877`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd12b01c877) - Clear text button should still work without activity provider
+- [`8da99a328df`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8da99a328df) - [ux] This changes the behaviour of changing the appearance of a Smart Link or Smart Card.
+
+  1. Previously, upon changing the appearance of a Smart Link, the cursor would move to _before_ the Smart Link. Now, the cursor will be placed after the Smart Link. In the case of Block Card and Embed, the cursor will be placed one paragraph after the Block or Embed card (due to Block and Embed being a "block" node).
+  2. When changing an inline or hyperlink into a Block or Embed card (i.e. a block node) there will no longer be a new paragraph inserted before the Block or Embed card.
+
+- [`a6f514af105`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a6f514af105) - [ux] ED-16077 fix deleteRange deleting parent node when it shouldn't. Use tr.delete instead of tr.deleteRange because deleteRange would grow the selection to include the parent.
+- [`db7602d84c9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db7602d84c9) - [ux] ED-16527 - Fixed issue where pressing 'Esc' while a Floating Toolbar Select menu was open would focus editor instead of the Floating Toolbar
+- [`8d798b78505`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d798b78505) - Media Group no longer tries to update all Media nodes, but only the ones that belong to it.
+- [`7cc0f5b5dad`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7cc0f5b5dad) - Remove unused @atlaskit/activity dependency
+- [`a5dcaef4136`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a5dcaef4136) - [ux] Fixed keyboard navigation issues relating to the main editor toolbar and floating toolbars.
+- [`70ec535a1c6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/70ec535a1c6) - [ux] A fix for the usage of editor props 'allowBlockCards' & 'allowEmbeds'. Previously even if the prop 'allowBlockCards' was passed to editor as false, the toolbar would still allow switching to a block card option.
+- [`5ac1c18bd04`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5ac1c18bd04) - [ux] Fix selection blocking issue where user cannot left/right arrow key past a mediaSingle
+- Updated dependencies
+
 ## 178.0.2
 
 ### Patch Changes

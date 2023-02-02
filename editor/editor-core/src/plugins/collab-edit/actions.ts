@@ -1,4 +1,4 @@
-import { receiveTransaction } from 'prosemirror-collab';
+import { receiveTransaction } from '@atlaskit/prosemirror-collab';
 import { Step } from 'prosemirror-transform';
 import {
   AllSelection,

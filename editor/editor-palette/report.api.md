@@ -8,6 +8,7 @@
 ### Table of contents
 
 - [Main Entry Types](#main-entry-types)
+- [Peer Dependencies](#peer-dependencies)
 
 ### Main Entry Types
 
@@ -18,7 +19,7 @@
 type EditorBackgroundPalette = typeof editorBackgroundPalette;
 
 // @public (undocumented)
-export const editorBackgroundPalette: {
+const editorBackgroundPalette: {
   '#DEEBFF': 'var(--ds-background-accent-blue-subtlest, #DEEBFF)';
   '#B3D4FF': 'var(--ds-background-accent-blue-subtler, #B3D4FF)';
   '#4C9AFF': 'var(--ds-background-accent-blue-subtle, #4C9AFF)';
@@ -49,7 +50,7 @@ type EditorBackgroundPaletteKey = keyof EditorBackgroundPalette;
 type EditorTextPalette = typeof editorTextPalette;
 
 // @public (undocumented)
-export const editorTextPalette: {
+const editorTextPalette: {
   '#B3D4FF': 'var(--ds-background-accent-blue-subtler, #B3D4FF)';
   '#4C9AFF': 'var(--ds-icon-accent-blue, #4C9AFF)';
   '#0747A6': 'var(--ds-text-accent-blue, #0747A6)';
@@ -94,3 +95,13 @@ export function hexToEditorTextPaletteColor<HexColor extends string>(
 ```
 
 <!--SECTION END: Main Entry Types-->
+
+### Peer Dependencies
+
+<!--SECTION START: Peer Dependencies-->
+
+```json
+{}
+```
+
+<!--SECTION END: Peer Dependencies-->

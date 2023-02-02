@@ -16,7 +16,11 @@ export default () => (
       client={new CustomClient('staging')}
       featureFlags={{ showAuthTooltip: 'experiment' }}
     >
-      <Card url={'https://www.mockurl.com'} appearance="inline" />
+      <Card
+        url={'https://www.mockurl.com'}
+        appearance="inline"
+        showAuthTooltip={true}
+      />
     </Provider>
   </VRTestWrapper>
 );

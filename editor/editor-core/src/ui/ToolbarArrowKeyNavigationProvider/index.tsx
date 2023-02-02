@@ -47,19 +47,21 @@ export const ToolbarArrowKeyNavigationProvider = ({
   const selectedItemIndex = useRef(0);
 
   const incrementIndex = useCallback((list: HTMLElement[]) => {
-    if (selectedItemIndex.current === list.length - 1) {
-      selectedItemIndex.current = 0;
-    } else {
-      selectedItemIndex.current = selectedItemIndex.current + 1;
+    let index = 0;
+    if (document.activeElement) {
+      index = list.indexOf(document.activeElement as HTMLElement);
+      index = (index + 1) % list.length;
     }
+    selectedItemIndex.current = index;
   }, []);
 
   const decrementIndex = useCallback((list: HTMLElement[]) => {
-    if (selectedItemIndex.current === 0) {
-      selectedItemIndex.current = list.length - 1;
-    } else {
-      selectedItemIndex.current = selectedItemIndex.current - 1;
+    let index = 0;
+    if (document.activeElement) {
+      index = list.indexOf(document.activeElement as HTMLElement);
+      index = (list.length + index - 1) % list.length;
     }
+    selectedItemIndex.current = index;
   }, []);
 
   const handleArrowRight = (): void => {
@@ -137,6 +139,11 @@ export const ToolbarArrowKeyNavigationProvider = ({
       ) {
         return;
       }
+      const menuWrapper = document.querySelector('.menu-key-handler-wrapper');
+      if (menuWrapper) {
+        // if menu wrapper exists, then a menu is open and arrow keys will be handled by MenuArrowKeyNavigationProvider
+        return;
+      }
 
       const filteredFocusableElements = getFilteredFocusableElements(
         wrapperRef?.current,
@@ -149,7 +156,7 @@ export const ToolbarArrowKeyNavigationProvider = ({
       }
 
       //This is kind of hack to reset the current focused toolbar item
-      //to handle some usecases such as Tab in/out of main toolbar
+      //to handle some use cases such as Tab in/out of main toolbar
       if (!wrapperRef.current?.contains(targetElement)) {
         selectedItemIndex.current = -1;
       } else {

@@ -13,7 +13,6 @@ import {
   MediaSingle as RichMediaWrapper,
   findOverflowScrollParent,
 } from '@atlaskit/editor-common/ui';
-import { browser } from '@atlaskit/editor-common/utils';
 import {
   DEFAULT_EMBED_CARD_HEIGHT,
   DEFAULT_EMBED_CARD_WIDTH,
@@ -406,7 +405,7 @@ export class EmbedCard extends SelectionBasedNodeView<EmbedCardNodeViewProps> {
 
   createDomRef(): HTMLElement {
     const domRef = document.createElement('div');
-    if (browser.chrome && this.reactComponentProps.platform !== 'mobile') {
+    if (this.reactComponentProps.platform !== 'mobile') {
       // workaround Chrome bug in https://product-fabric.atlassian.net/browse/ED-5379
       // see also: https://github.com/ProseMirror/prosemirror/issues/884
       domRef.contentEditable = 'true';

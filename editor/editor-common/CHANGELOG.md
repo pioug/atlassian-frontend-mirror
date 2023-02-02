@@ -1,5 +1,20 @@
 # @atlaskit/editor-common
 
+## 72.2.0
+
+### Minor Changes
+
+- [`a0a35fe7fb1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a0a35fe7fb1) - Renaming contentComponent event subject to contentComponentv2. Move errorStack attribute to nonPrivacySafeAttributes
+
+### Patch Changes
+
+- [`513cb2010b7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/513cb2010b7) - Users are able to select dropdown menu item using keyboard via the Enter key
+- [`aaa6509f036`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aaa6509f036) - ED-16198 Update & restore dedupeMarksTransformed analytics event. Also addresses
+  a bug when `discardedMarks` would only return the latest discarded mark
+- [`314777fbb20`](https://bitbucket.org/atlassian/atlassian-frontend/commits/314777fbb20) - [ux] ED-16490 fixed bug so big margin will not occur before a Decision node on iOS
+- [`a5dcaef4136`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a5dcaef4136) - [ux] Fixed keyboard navigation issues relating to the main editor toolbar and floating toolbars.
+- Updated dependencies
+
 ## 72.1.2
 
 ### Patch Changes

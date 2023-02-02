@@ -88,6 +88,8 @@ export class FloatingContextualButtonInner extends React.Component<
             position: targetCellPosition,
             docSize: editorView.state.doc.nodeSize,
             error: error instanceof Error ? error.message : String(error),
+          },
+          nonPrivacySafeAttributes: {
             errorStack: error instanceof Error ? error.stack : undefined,
           },
         };

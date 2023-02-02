@@ -177,6 +177,7 @@ const ToolbarItems = React.memo(
 
               case 'select':
                 if (item.selectType === 'list') {
+                  const ariaLabel = item.title || item.placeholder;
                   return (
                     <Select
                       key={idx}
@@ -191,10 +192,12 @@ const ToolbarItems = React.memo(
                       onChange={(selected) =>
                         dispatchCommand(item.onChange(selected as SelectOption))
                       }
+                      ariaLabel={ariaLabel}
                       filterOption={item.filterOption}
                       setDisableParentScroll={
                         scrollable ? setDisableScroll : undefined
                       }
+                      classNamePrefix={'floating-toolbar-select'}
                     />
                   );
                 }
@@ -538,13 +541,24 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
   };
 
   private handleEscape = (event: KeyboardEvent): void => {
-    //If any dropdown is open inside the floating toolbar 'Esc' key should not
-    //focus the editorview. The event cannot be stopped as dropdown is not childnode of floating toolbar
-    if (!document.querySelector('[data-role="droplistContent"]')) {
-      this.props.editorView?.focus();
-      event.preventDefault();
-      event.stopPropagation();
+    // If any menu is open inside the floating toolbar 'Esc' key should not
+    // focus the editorview.
+    // Event can't be stopped as they are not childnodes of floating toolbar
+
+    const isDropdownOpen = !!document.querySelector(
+      '[data-role="droplistContent"]',
+    );
+    const isSelectMenuOpen = !!document.querySelector(
+      '.floating-toolbar-select__menu',
+    );
+
+    if (isDropdownOpen || isSelectMenuOpen) {
+      return;
     }
+
+    this.props.editorView?.focus();
+    event.preventDefault();
+    event.stopPropagation();
   };
 
   render() {

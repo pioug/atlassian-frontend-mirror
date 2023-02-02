@@ -1,5 +1,12 @@
 # @atlaskit/tokens
 
+## 0.13.4
+
+### Patch Changes
+
+- [`48c9ecca2c4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/48c9ecca2c4) - - `@atlaskit/tokens/figma-sync` entrypoint added to sync design tokens to the ADS Figma library (not intended for external use).
+  - Tokens are now sorted by a predefined order across artifact output, ensuring consistency across experiences.
+
 ## 0.13.3
 
 ### Patch Changes

@@ -450,7 +450,7 @@ export interface MediaImageProps {
   // (undocumented)
   onImageLoad?: (loadedImage: HTMLImageElement) => void;
   // (undocumented)
-  previewOrientation?: number;
+  previewOrientation?: 'from-image' | number;
   // (undocumented)
   stretch?: boolean;
 }

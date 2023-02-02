@@ -240,7 +240,10 @@ describe('annotation', () => {
       beforeEach(async () => {
         const mock = jest.spyOn(prosemirrorUtils, 'findDomRefAtPos');
         mock.mockImplementation((pos, domAtPos) => {
-          throw new Error('Error message from mock');
+          const error = new Error('Error message from mock');
+          error.stack = 'stack trace';
+
+          throw error;
         });
 
         const { editorView } = editor(
@@ -277,6 +280,9 @@ describe('annotation', () => {
               head: 5,
               type: 'text',
             },
+          }),
+          nonPrivacySafeAttributes: expect.objectContaining({
+            errorStack: 'stack trace',
           }),
         });
       });

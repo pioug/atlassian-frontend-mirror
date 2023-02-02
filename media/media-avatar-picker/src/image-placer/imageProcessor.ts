@@ -108,7 +108,11 @@ export async function initialiseImagePreview(
       getOrientation(fileInfo.file),
       loadImage(fileInfo.src),
     ]);
-    orientation = result[0];
+
+    if (!CSS.supports('image-orientation', 'from-image')) {
+      orientation = result[0];
+    }
+
     img = result[1];
   } catch (e) {
     return null;

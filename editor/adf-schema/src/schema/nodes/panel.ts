@@ -108,6 +108,7 @@ export const panel = (allowCustomPanel: boolean): NodeSpec => {
       '(paragraph | heading | bulletList | orderedList | blockCard | unsupportedBlock)+',
     marks: 'unsupportedMark unsupportedNodeAttribute',
     attrs: getDefaultAttrs(),
+    selectable: true,
     parseDOM: [
       {
         tag: 'div[data-panel-type]',

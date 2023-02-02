@@ -106,8 +106,9 @@ export const transformDedupeMarks = (
     text: (node) => {
       if (maybeHasDisallowedDuplicateMarks(node)) {
         const result = maybeRemoveDisallowedDuplicateMarks(node);
-        discardedMarks = result.discardedMarks;
-        if (discardedMarks.length) {
+        const resultDiscardedMarks = result.discardedMarks;
+        if (resultDiscardedMarks.length) {
+          discardedMarks.push(...resultDiscardedMarks);
           isTransformed = true;
           return result.node;
         }

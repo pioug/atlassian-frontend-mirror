@@ -10,33 +10,28 @@ import {
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
 import { selectors } from '@atlaskit/editor-test-helpers/page-objects/editor';
-import cloneDeep from 'lodash/cloneDeep';
+import sampleSchema from '@atlaskit/editor-test-helpers/schema';
+import { Node as PMNode } from 'prosemirror-model';
+import {
+  doc,
+  p,
+  mediaGroup,
+  media,
+} from '@atlaskit/editor-test-helpers/doc-builder';
 
 const editorSelector = selectors.editor;
-
-const expectUniqueGeneratedMediaAttrs = (doc: { [key: string]: any }) => {
-  expect(doc.content[1].content[0].attrs).toEqual(
-    expect.objectContaining({
-      __mediaTraceId: expect.any(String),
-    }),
-  );
-};
-
-const removeUniqueGeneratedMediaAttrs = (doc: { [key: string]: any }) => {
-  const copy = cloneDeep(doc);
-  delete copy.content[1].content[0].attrs.__mediaTraceId;
-  return copy;
-};
 
 BrowserTestCase(
   'media: when message is not a media image node does nothing',
   { skip: [] },
-  async (client: WebdriverIO.BrowserObject, testName: string) => {
+  async (client: WebdriverIO.BrowserObject) => {
     const page = await goToEditorTestingWDExample(client);
+
+    const id = 'af9310df-fee5-459a-a968-99062ecbb756';
 
     const data = `
     <div
-    data-id="af9310df-fee5-459a-a968-99062ecbb756"
+    data-id="${id}"
     data-node-type="media" data-type="file"
     data-collection="MediaServicesSample"
     title="Attachment"
@@ -54,11 +49,23 @@ BrowserTestCase(
     await page.waitForSelector(fullpage.placeholder);
     await page.paste();
 
-    const doc = await page.$eval(editorSelector, getDocFromElement);
+    const jsonDocument = await page.$eval(editorSelector, getDocFromElement);
+    const pmDocument = PMNode.fromJSON(sampleSchema, jsonDocument);
 
-    expectUniqueGeneratedMediaAttrs(doc);
-    expect(removeUniqueGeneratedMediaAttrs(doc)).toMatchCustomDocSnapshot(
-      testName,
+    const expectedDocument = doc(
+      p('text'),
+      mediaGroup(
+        media({
+          id: id,
+          type: 'file',
+          collection: 'MediaServicesSample',
+          __fileMimeType: 'pdf',
+          __contextId: 'DUMMY-OBJECT-ID',
+          __mediaTraceId: expect.any(String),
+        })(),
+      ),
     );
+
+    expect(pmDocument).toEqualDocument(expectedDocument);
   },
 );

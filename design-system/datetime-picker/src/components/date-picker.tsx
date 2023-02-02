@@ -441,6 +441,19 @@ class DatePicker extends Component<DatePickerProps, State> {
     this.setState({ isOpen: true });
   };
 
+  getSafeView = (view: string): string => {
+    // If view has a year that is greater than 9999, default to today's date
+    const yearIsOverLimit = view.match(/^\d{5,}/);
+    if (yearIsOverLimit) {
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = (today.getMonth() + 1).toString().padStart(2, '0');
+      const day = today.getDate().toString().padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    }
+    return view;
+  };
+
   onSelectKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     const { view, selectedValue } = this.getSafeState();
 
@@ -488,16 +501,19 @@ class DatePicker extends Component<DatePickerProps, State> {
         event.preventDefault();
         if (!this.isDateDisabled(view)) {
           const { value } = this.getSafeState();
-          const valueChanged = view !== value;
+          // Get a safe `view` value in case the value exceeds the maximum
+          // allowed by ISO 8601
+          const safeView = this.getSafeView(view);
+          const valueChanged = safeView !== value;
           this.setState({
             inputValue: '',
             isOpen: false,
-            selectedValue: view,
-            value: view,
-            view,
+            selectedValue: safeView,
+            value: safeView,
+            view: safeView,
           });
           if (valueChanged) {
-            this.props.onChange(view);
+            this.props.onChange(safeView);
           }
         }
         break;

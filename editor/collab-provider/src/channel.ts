@@ -242,6 +242,8 @@ export class Channel extends Emitter<ChannelEvent> {
               eventStatus: EVENT_STATUS.SUCCESS, // TODO: detect when document init fails and fire corresponding event for it
               latency: measure?.duration,
               documentAri: this.config.documentAri,
+              requiredPageRecovery: data?.requiredPageRecovery,
+              ttlEnabled: data?.ttlEnabled,
             },
           },
           this.analyticsClient,

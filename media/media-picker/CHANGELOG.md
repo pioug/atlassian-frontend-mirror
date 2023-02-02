@@ -1,5 +1,15 @@
 # @atlaskit/media-picker
 
+## 64.2.0
+
+### Minor Changes
+
+- [`2b3859896cc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2b3859896cc) - Added new Feature Flag to control internal Media Client behaviour
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 64.1.1
 
 ### Patch Changes

@@ -3,10 +3,13 @@ import { fireEvent, render, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 import '@testing-library/jest-dom/extend-expect';
 import userEvent from '@testing-library/user-event';
+import PremiumIcon from '@atlaskit/icon/glyph/premium';
 import ActionGroup from '..';
 import { ActionName } from '../../../../../../constants';
-import { ActionItem } from '../../types';
+import { ActionItem, CustomActionItem } from '../../types';
 import { messages } from '../../../../../../messages';
+import { FlexibleUiContext } from '../../../../../../state/flexible-ui-context';
+import context from '../../../../../../__fixtures__/flexible-ui-data-context';
 
 describe('ActionGroup', () => {
   const testId = 'smart-element-test';
@@ -153,4 +156,162 @@ describe('ActionGroup', () => {
       });
     },
   );
+
+  describe('renderActionItems', () => {
+    const testId = 'smart-element-test';
+    const setup = async (
+      name: ActionName,
+      hideContent: boolean,
+      hideIcon: boolean,
+      asDropDownItems: boolean = false,
+    ) => {
+      const onClick = () => {};
+      const commonProps = { onClick, testId, hideContent, hideIcon };
+      const action =
+        name === ActionName.CustomAction
+          ? ({
+              name: ActionName.CustomAction,
+              ...commonProps,
+              icon: <PremiumIcon label="magic" />,
+              content: 'Magic!',
+            } as CustomActionItem)
+          : {
+              name,
+              ...commonProps,
+            };
+
+      const visibleButtonsNum = asDropDownItems ? 0 : undefined;
+
+      const renderResult = render(
+        <IntlProvider locale="en">
+          <FlexibleUiContext.Provider value={context}>
+            <ActionGroup
+              items={[action]}
+              visibleButtonsNum={visibleButtonsNum}
+            />
+          </FlexibleUiContext.Provider>
+        </IntlProvider>,
+      );
+
+      if (asDropDownItems) {
+        const { findByTestId, findByRole } = renderResult;
+        const moreButton = await findByTestId('action-group-more-button');
+        userEvent.click(moreButton);
+        await findByRole('menu');
+      }
+
+      return renderResult;
+    };
+
+    it('should be able to render DropdownItem element', async () => {
+      const { getAllByRole } = await setup(
+        ActionName.DeleteAction,
+        false,
+        false,
+        true,
+      );
+      const elements = getAllByRole('menuitem');
+      expect(elements).toHaveLength(1);
+    });
+
+    describe.each([
+      [ActionName.DeleteAction, 'Delete', 'smart-element-test-icon'],
+    ])(
+      'with %s action',
+      (actionName: ActionName, expectedContent: string, iconTestId: string) => {
+        describe.each([
+          ['as dropdown item', true],
+          ['as button', false],
+        ])('%s', (_: string, asDropdownItem: boolean) => {
+          it('should render both content and icon', async () => {
+            const { getByTestId } = await setup(
+              actionName,
+              false,
+              false,
+              asDropdownItem,
+            );
+
+            const element = await waitFor(() => getByTestId(testId));
+            expect(element).toBeDefined();
+
+            const icon = await waitFor(() => getByTestId(iconTestId));
+            expect(icon).toBeDefined();
+
+            expect(element.textContent).toEqual(expectedContent);
+          });
+
+          it('should render only content', async () => {
+            const { getByTestId, queryByTestId } = await setup(
+              actionName,
+              false,
+              true,
+              asDropdownItem,
+            );
+
+            const element = await waitFor(() => getByTestId(testId));
+            expect(element).toBeDefined();
+
+            expect(queryByTestId(iconTestId)).toBeNull();
+
+            expect(element.textContent).toEqual(expectedContent);
+          });
+
+          if (asDropdownItem) {
+            it('should render content even if hideContent is true', async () => {
+              const { getByTestId } = await setup(
+                actionName,
+                true,
+                false,
+                asDropdownItem,
+              );
+
+              const element = await waitFor(() => getByTestId(testId));
+              expect(element).toBeDefined();
+
+              const icon = await waitFor(() => getByTestId(iconTestId));
+              expect(icon).toBeDefined();
+
+              expect(element.textContent).toEqual(expectedContent);
+            });
+          } else {
+            it('should render only icon', async () => {
+              const { getByTestId } = await setup(
+                actionName,
+                true,
+                false,
+                asDropdownItem,
+              );
+
+              const element = await waitFor(() => getByTestId(testId));
+              expect(element).toBeDefined();
+
+              const icon = await waitFor(() => getByTestId(iconTestId));
+              expect(icon).toBeDefined();
+
+              expect(element.textContent).toEqual('');
+            });
+          }
+        });
+      },
+    );
+
+    it('calls onClick when action is clicked', async () => {
+      const user = userEvent.setup();
+      const onClick = jest.fn();
+      const { findByTestId } = render(
+        <IntlProvider locale="en">
+          <FlexibleUiContext.Provider value={context}>
+            <ActionGroup
+              items={[{ name: ActionName.DeleteAction, onClick, testId }]}
+            />
+          </FlexibleUiContext.Provider>
+        </IntlProvider>,
+      );
+
+      const action = await findByTestId(testId);
+      await user.click(action);
+
+      expect(onClick).toHaveBeenCalled();
+    });
+  });
 });

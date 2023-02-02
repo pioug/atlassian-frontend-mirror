@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 18.2.2
+
+### Patch Changes
+
+- [`7d2488dcbcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d2488dcbcf) - Upgrade lru-fast@0.2.2 to lru_map
+
 ## 18.2.1
 
 ### Patch Changes

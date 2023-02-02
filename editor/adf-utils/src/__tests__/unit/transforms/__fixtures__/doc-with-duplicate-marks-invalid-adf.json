@@ -18,6 +18,12 @@
               "attrs": {
                 "type": "sub"
               }
+            },
+            {
+              "type": "subsup",
+              "attrs": {
+                "type": "sub"
+              }
             }
           ]
         },

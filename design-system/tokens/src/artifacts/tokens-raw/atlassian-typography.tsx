@@ -1,35 +1,9 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7237ae542acbfbf81d98127d8003c2dd>>
+ * @codegen <<SignedSource::7bcab6ad73069f6baf12316783222835>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
-  {
-    "attributes": {
-      "group": "fontFamily",
-      "state": "active",
-      "introduced": "0.10.33",
-      "description": "Helpful guidance goes here"
-    },
-    "value": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Oxygen\", \"Ubuntu\", \"Fira Sans\", \"Droid Sans\", \"Helvetica Neue\", sans-serif",
-    "filePath": "src/tokens/atlassian-typography/font-family.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "fontFamily",
-        "state": "active",
-        "introduced": "0.10.33",
-        "description": "Helpful guidance goes here"
-      },
-      "value": "FontFamilySans"
-    },
-    "name": "font.family.sans",
-    "path": [
-      "font",
-      "family",
-      "sans"
-    ]
-  },
   {
     "attributes": {
       "group": "fontFamily",
@@ -54,163 +28,35 @@ const tokens = [
       "font",
       "family",
       "monospace"
-    ]
+    ],
+    "cleanName": "font.family.monospace"
   },
   {
     "attributes": {
-      "group": "fontSize",
+      "group": "fontFamily",
       "state": "active",
       "introduced": "0.10.33",
       "description": "Helpful guidance goes here"
     },
-    "value": "14px",
-    "filePath": "src/tokens/atlassian-typography/font-size.tsx",
+    "value": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Oxygen\", \"Ubuntu\", \"Fira Sans\", \"Droid Sans\", \"Helvetica Neue\", sans-serif",
+    "filePath": "src/tokens/atlassian-typography/font-family.tsx",
     "isSource": true,
     "original": {
       "attributes": {
-        "group": "fontSize",
+        "group": "fontFamily",
         "state": "active",
         "introduced": "0.10.33",
         "description": "Helpful guidance goes here"
       },
-      "value": "FontSize100"
+      "value": "FontFamilySans"
     },
-    "name": "font.size.100",
+    "name": "font.family.sans",
     "path": [
       "font",
-      "size",
-      "100"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "fontSize",
-      "state": "active",
-      "introduced": "0.10.33",
-      "description": "Helpful guidance goes here"
-    },
-    "value": "16px",
-    "filePath": "src/tokens/atlassian-typography/font-size.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "fontSize",
-        "state": "active",
-        "introduced": "0.10.33",
-        "description": "Helpful guidance goes here"
-      },
-      "value": "FontSize200"
-    },
-    "name": "font.size.200",
-    "path": [
-      "font",
-      "size",
-      "200"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "fontSize",
-      "state": "active",
-      "introduced": "0.10.33",
-      "description": "Helpful guidance goes here"
-    },
-    "value": "20px",
-    "filePath": "src/tokens/atlassian-typography/font-size.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "fontSize",
-        "state": "active",
-        "introduced": "0.10.33",
-        "description": "Helpful guidance goes here"
-      },
-      "value": "FontSize300"
-    },
-    "name": "font.size.300",
-    "path": [
-      "font",
-      "size",
-      "300"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "fontSize",
-      "state": "active",
-      "introduced": "0.10.33",
-      "description": "Helpful guidance goes here"
-    },
-    "value": "24px",
-    "filePath": "src/tokens/atlassian-typography/font-size.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "fontSize",
-        "state": "active",
-        "introduced": "0.10.33",
-        "description": "Helpful guidance goes here"
-      },
-      "value": "FontSize400"
-    },
-    "name": "font.size.400",
-    "path": [
-      "font",
-      "size",
-      "400"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "fontSize",
-      "state": "active",
-      "introduced": "0.10.33",
-      "description": "Helpful guidance goes here"
-    },
-    "value": "29px",
-    "filePath": "src/tokens/atlassian-typography/font-size.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "fontSize",
-        "state": "active",
-        "introduced": "0.10.33",
-        "description": "Helpful guidance goes here"
-      },
-      "value": "FontSize500"
-    },
-    "name": "font.size.500",
-    "path": [
-      "font",
-      "size",
-      "500"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "fontSize",
-      "state": "active",
-      "introduced": "0.10.33",
-      "description": "Helpful guidance goes here"
-    },
-    "value": "35px",
-    "filePath": "src/tokens/atlassian-typography/font-size.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "fontSize",
-        "state": "active",
-        "introduced": "0.10.33",
-        "description": "Helpful guidance goes here"
-      },
-      "value": "FontSize600"
-    },
-    "name": "font.size.600",
-    "path": [
-      "font",
-      "size",
-      "600"
-    ]
+      "family",
+      "sans"
+    ],
+    "cleanName": "font.family.sans"
   },
   {
     "attributes": {
@@ -236,7 +82,8 @@ const tokens = [
       "font",
       "size",
       "050"
-    ]
+    ],
+    "cleanName": "font.size.050"
   },
   {
     "attributes": {
@@ -262,85 +109,170 @@ const tokens = [
       "font",
       "size",
       "075"
-    ]
+    ],
+    "cleanName": "font.size.075"
   },
   {
     "attributes": {
-      "group": "fontWeight",
+      "group": "fontSize",
       "state": "active",
       "introduced": "0.10.33",
       "description": "Helpful guidance goes here"
     },
-    "value": "400",
-    "filePath": "src/tokens/atlassian-typography/font-weight.tsx",
+    "value": "14px",
+    "filePath": "src/tokens/atlassian-typography/font-size.tsx",
     "isSource": true,
     "original": {
       "attributes": {
-        "group": "fontWeight",
+        "group": "fontSize",
         "state": "active",
         "introduced": "0.10.33",
         "description": "Helpful guidance goes here"
       },
-      "value": "FontWeightRegular"
+      "value": "FontSize100"
     },
-    "name": "font.weight.regular",
+    "name": "font.size.100",
     "path": [
       "font",
-      "weight",
-      "regular"
-    ]
+      "size",
+      "100"
+    ],
+    "cleanName": "font.size.100"
   },
   {
     "attributes": {
-      "group": "fontWeight",
+      "group": "fontSize",
       "state": "active",
       "introduced": "0.10.33",
       "description": "Helpful guidance goes here"
     },
-    "value": "500",
-    "filePath": "src/tokens/atlassian-typography/font-weight.tsx",
+    "value": "16px",
+    "filePath": "src/tokens/atlassian-typography/font-size.tsx",
     "isSource": true,
     "original": {
       "attributes": {
-        "group": "fontWeight",
+        "group": "fontSize",
         "state": "active",
         "introduced": "0.10.33",
         "description": "Helpful guidance goes here"
       },
-      "value": "FontWeightMedium"
+      "value": "FontSize200"
     },
-    "name": "font.weight.medium",
+    "name": "font.size.200",
     "path": [
       "font",
-      "weight",
-      "medium"
-    ]
+      "size",
+      "200"
+    ],
+    "cleanName": "font.size.200"
   },
   {
     "attributes": {
-      "group": "fontWeight",
+      "group": "fontSize",
       "state": "active",
       "introduced": "0.10.33",
       "description": "Helpful guidance goes here"
     },
-    "value": "600",
-    "filePath": "src/tokens/atlassian-typography/font-weight.tsx",
+    "value": "20px",
+    "filePath": "src/tokens/atlassian-typography/font-size.tsx",
     "isSource": true,
     "original": {
       "attributes": {
-        "group": "fontWeight",
+        "group": "fontSize",
         "state": "active",
         "introduced": "0.10.33",
         "description": "Helpful guidance goes here"
       },
-      "value": "FontWeightSemiBold"
+      "value": "FontSize300"
     },
-    "name": "font.weight.semibold",
+    "name": "font.size.300",
     "path": [
       "font",
-      "weight",
-      "semibold"
-    ]
+      "size",
+      "300"
+    ],
+    "cleanName": "font.size.300"
+  },
+  {
+    "attributes": {
+      "group": "fontSize",
+      "state": "active",
+      "introduced": "0.10.33",
+      "description": "Helpful guidance goes here"
+    },
+    "value": "24px",
+    "filePath": "src/tokens/atlassian-typography/font-size.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "fontSize",
+        "state": "active",
+        "introduced": "0.10.33",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "FontSize400"
+    },
+    "name": "font.size.400",
+    "path": [
+      "font",
+      "size",
+      "400"
+    ],
+    "cleanName": "font.size.400"
+  },
+  {
+    "attributes": {
+      "group": "fontSize",
+      "state": "active",
+      "introduced": "0.10.33",
+      "description": "Helpful guidance goes here"
+    },
+    "value": "29px",
+    "filePath": "src/tokens/atlassian-typography/font-size.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "fontSize",
+        "state": "active",
+        "introduced": "0.10.33",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "FontSize500"
+    },
+    "name": "font.size.500",
+    "path": [
+      "font",
+      "size",
+      "500"
+    ],
+    "cleanName": "font.size.500"
+  },
+  {
+    "attributes": {
+      "group": "fontSize",
+      "state": "active",
+      "introduced": "0.10.33",
+      "description": "Helpful guidance goes here"
+    },
+    "value": "35px",
+    "filePath": "src/tokens/atlassian-typography/font-size.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "fontSize",
+        "state": "active",
+        "introduced": "0.10.33",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "FontSize600"
+    },
+    "name": "font.size.600",
+    "path": [
+      "font",
+      "size",
+      "600"
+    ],
+    "cleanName": "font.size.600"
   },
   {
     "attributes": {
@@ -366,7 +298,89 @@ const tokens = [
       "font",
       "weight",
       "bold"
-    ]
+    ],
+    "cleanName": "font.weight.bold"
+  },
+  {
+    "attributes": {
+      "group": "fontWeight",
+      "state": "active",
+      "introduced": "0.10.33",
+      "description": "Helpful guidance goes here"
+    },
+    "value": "500",
+    "filePath": "src/tokens/atlassian-typography/font-weight.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "fontWeight",
+        "state": "active",
+        "introduced": "0.10.33",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "FontWeightMedium"
+    },
+    "name": "font.weight.medium",
+    "path": [
+      "font",
+      "weight",
+      "medium"
+    ],
+    "cleanName": "font.weight.medium"
+  },
+  {
+    "attributes": {
+      "group": "fontWeight",
+      "state": "active",
+      "introduced": "0.10.33",
+      "description": "Helpful guidance goes here"
+    },
+    "value": "400",
+    "filePath": "src/tokens/atlassian-typography/font-weight.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "fontWeight",
+        "state": "active",
+        "introduced": "0.10.33",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "FontWeightRegular"
+    },
+    "name": "font.weight.regular",
+    "path": [
+      "font",
+      "weight",
+      "regular"
+    ],
+    "cleanName": "font.weight.regular"
+  },
+  {
+    "attributes": {
+      "group": "fontWeight",
+      "state": "active",
+      "introduced": "0.10.33",
+      "description": "Helpful guidance goes here"
+    },
+    "value": "600",
+    "filePath": "src/tokens/atlassian-typography/font-weight.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "fontWeight",
+        "state": "active",
+        "introduced": "0.10.33",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "FontWeightSemiBold"
+    },
+    "name": "font.weight.semibold",
+    "path": [
+      "font",
+      "weight",
+      "semibold"
+    ],
+    "cleanName": "font.weight.semibold"
   },
   {
     "attributes": {
@@ -392,7 +406,8 @@ const tokens = [
       "font",
       "lineHeight",
       "100"
-    ]
+    ],
+    "cleanName": "font.lineHeight.100"
   },
   {
     "attributes": {
@@ -418,7 +433,8 @@ const tokens = [
       "font",
       "lineHeight",
       "200"
-    ]
+    ],
+    "cleanName": "font.lineHeight.200"
   },
   {
     "attributes": {
@@ -444,7 +460,8 @@ const tokens = [
       "font",
       "lineHeight",
       "300"
-    ]
+    ],
+    "cleanName": "font.lineHeight.300"
   },
   {
     "attributes": {
@@ -470,7 +487,8 @@ const tokens = [
       "font",
       "lineHeight",
       "400"
-    ]
+    ],
+    "cleanName": "font.lineHeight.400"
   },
   {
     "attributes": {
@@ -496,7 +514,8 @@ const tokens = [
       "font",
       "lineHeight",
       "500"
-    ]
+    ],
+    "cleanName": "font.lineHeight.500"
   },
   {
     "attributes": {
@@ -522,7 +541,8 @@ const tokens = [
       "font",
       "lineHeight",
       "600"
-    ]
+    ],
+    "cleanName": "font.lineHeight.600"
   }
 ];
 

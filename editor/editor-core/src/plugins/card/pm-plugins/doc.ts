@@ -1,7 +1,11 @@
+import {
+  EditorState,
+  NodeSelection,
+  TextSelection,
+  Transaction,
+} from 'prosemirror-state';
 import { closeHistory } from 'prosemirror-history';
 import { Node, NodeType, Schema } from 'prosemirror-model';
-import { EditorState, NodeSelection, Transaction } from 'prosemirror-state';
-
 import { isSafeUrl } from '@atlaskit/adf-schema';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import {
@@ -420,9 +424,22 @@ export const setSelectedCardAppearance: (
         layout: 'center',
       }
     : selectedNode.attrs;
-  const { from } = state.selection;
+  const { from, to } = state.selection;
   const nodeType = getLinkNodeType(appearance, state.schema.nodes);
   const tr = state.tr.setNodeMarkup(from, nodeType, attrs, selectedNode.marks);
+
+  // When the selected card is the last element in the doc we add a new paragraph after it for consistent replacement
+  if (tr.doc.nodeSize - 2 === to) {
+    tr.insertText(' ', to);
+  }
+
+  tr.setSelection(TextSelection.create(tr.doc, to + 1));
+  const previousNodePos = from - 1 > 0 ? from - 1 : 0;
+  const previousNode = tr.doc.nodeAt(previousNodePos);
+  if (previousNode?.type?.name === 'paragraph') {
+    tr.delete(previousNodePos, from);
+  }
+
   addAnalytics(state, tr, {
     action: ACTION.CHANGED_TYPE,
     actionSubject: ACTION_SUBJECT.SMART_LINK,

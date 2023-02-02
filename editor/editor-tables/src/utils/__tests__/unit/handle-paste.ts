@@ -6,6 +6,7 @@ import {
   p,
   table,
   td,
+  th,
   tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
@@ -24,6 +25,221 @@ describe('handle paste', () => {
       },
     });
   };
+
+  describe('paste table cells with headers', () => {
+    const localId = 'table-local-id';
+
+    // Helper functions to generate table html
+    const generateTable = (...rows: string[]) => `<meta charset='utf-8'>
+      <table>
+      <tbody>
+      ${rows.join('')}
+      </tbody>
+      </table>`;
+    const row = (...rowContents: string[]) =>
+      `<tr>${rowContents.join('')}</tr>`;
+    const headerCell = (contents: string) => `<th><p>${contents}</p></th>`;
+    const tableCell = (contents: string) => `<td><p>${contents}</p></td>`;
+
+    // Test pasting html into document
+    function test(original: DocBuilder, html: string, expected: DocBuilder) {
+      const { editorView } = editor(original);
+
+      dispatchPasteEvent(editorView, { html });
+      expect(editorView.state.doc).toEqualDocument(expected);
+    }
+
+    it('should remove header cells if table being pasted into has no headers', () => {
+      test(
+        doc(table({ localId })(tr(td()(p('{<>}'))))),
+        generateTable(row(headerCell('A'), headerCell('B'), headerCell('C'))),
+        doc(table({ localId })(tr(td()(p('A')), td()(p('B')), td()(p('C'))))),
+      );
+    });
+
+    it('should add header cells if table being pasted into has headers', () => {
+      test(
+        doc(table({ localId })(tr(th()(p('{<>}'))))),
+        generateTable(row(tableCell('A'), tableCell('B'), tableCell('C'))),
+        doc(table({ localId })(tr(th()(p('A')), th()(p('B')), th()(p('C'))))),
+      );
+    });
+
+    it('should maintain row and column header only if all pasted cells are headers', () => {
+      test(
+        doc(table({ localId })(tr(th()(p('{<>}'))))),
+        generateTable(
+          row(headerCell('A'), headerCell('B'), headerCell('C')),
+          row(headerCell('D'), headerCell('E'), headerCell('F')),
+        ),
+        doc(
+          table({ localId })(
+            tr(th()(p('A')), th()(p('B')), th()(p('C'))),
+            tr(th()(p('D')), td()(p('E')), td()(p('F'))),
+          ),
+        ),
+      );
+    });
+
+    it('should maintain original table header (row and columns) if pasting in table cells', () => {
+      test(
+        doc(
+          table({ localId })(
+            tr(th()(p('{<>}')), th()(p(''))),
+            tr(th()(p('')), td()(p(''))),
+          ),
+        ),
+        generateTable(
+          row(tableCell('A'), tableCell('B'), tableCell('C')),
+          row(tableCell('D'), tableCell('E'), tableCell('F')),
+        ),
+        doc(
+          table({ localId })(
+            tr(th()(p('A')), th()(p('B')), th()(p('C'))),
+            tr(th()(p('D')), td()(p('E')), td()(p('F'))),
+          ),
+        ),
+      );
+    });
+
+    it('should maintain original table header (row and columns) and extend table size if pasting in table cells into second row', () => {
+      test(
+        doc(
+          table({ localId })(
+            tr(th()(p('')), th()(p(''))),
+            tr(th()(p('{<>}')), td()(p(''))),
+          ),
+        ),
+        generateTable(
+          row(tableCell('A'), tableCell('B'), tableCell('C')),
+          row(tableCell('D'), tableCell('E'), tableCell('F')),
+        ),
+        doc(
+          table({ localId })(
+            tr(th()(p('')), th()(p('')), th()(p(''))),
+            tr(th()(p('A')), td()(p('B')), td()(p('C'))),
+            tr(th()(p('D')), td()(p('E')), td()(p('F'))),
+          ),
+        ),
+      );
+    });
+
+    it('should maintain original table header columns and extend table size if pasting in table cells into second row', () => {
+      test(
+        doc(
+          table({ localId })(
+            tr(th()(p('')), td()(p(''))),
+            tr(th()(p('{<>}')), td()(p(''))),
+          ),
+        ),
+        generateTable(
+          row(tableCell('A'), tableCell('B'), tableCell('C')),
+          row(tableCell('D'), tableCell('E'), tableCell('F')),
+        ),
+        doc(
+          table({ localId })(
+            tr(th()(p('')), td()(p('')), td()(p(''))),
+            tr(th()(p('A')), td()(p('B')), td()(p('C'))),
+            tr(th()(p('D')), td()(p('E')), td()(p('F'))),
+          ),
+        ),
+      );
+    });
+
+    it('should maintain original table header rows and extend table size if pasting in table cells into second row', () => {
+      test(
+        doc(
+          table({ localId })(
+            tr(th()(p('')), th()(p(''))),
+            tr(td()(p('{<>}')), td()(p(''))),
+          ),
+        ),
+        generateTable(
+          row(tableCell('A'), tableCell('B'), tableCell('C')),
+          row(tableCell('D'), tableCell('E'), tableCell('F')),
+        ),
+        doc(
+          table({ localId })(
+            tr(th()(p('')), th()(p('')), th()(p(''))),
+            tr(td()(p('A')), td()(p('B')), td()(p('C'))),
+            tr(td()(p('D')), td()(p('E')), td()(p('F'))),
+          ),
+        ),
+      );
+    });
+
+    it('should maintain original table header rows if pasting in table row', () => {
+      test(
+        doc(
+          table({ localId })(
+            tr(th()(p('')), th()(p(''))),
+            tr(td()(p('{<>}')), td()(p(''))),
+          ),
+        ),
+        row(tableCell('A'), tableCell('B'), tableCell('C')),
+        doc(
+          table({ localId })(
+            tr(th()(p('')), th()(p('')), th()(p(''))),
+            tr(td()(p('A')), td()(p('B')), td()(p('C'))),
+          ),
+        ),
+      );
+    });
+
+    it('should maintain original table header rows if pasting in table row with headers', () => {
+      test(
+        doc(
+          table({ localId })(
+            tr(th()(p('')), th()(p(''))),
+            tr(td()(p('{<>}')), td()(p(''))),
+          ),
+        ),
+        row(headerCell('A'), headerCell('B'), headerCell('C')),
+        doc(
+          table({ localId })(
+            tr(th()(p('')), th()(p('')), th()(p(''))),
+            tr(td()(p('A')), td()(p('B')), td()(p('C'))),
+          ),
+        ),
+      );
+    });
+
+    it('should maintain original table header rows if pasting in table cell with header', () => {
+      test(
+        doc(
+          table({ localId })(
+            tr(th()(p('')), th()(p(''))),
+            tr(td()(p('{<>}')), td()(p(''))),
+          ),
+        ),
+        headerCell('A'),
+        doc(
+          table({ localId })(
+            tr(th()(p('')), th()(p(''))),
+            tr(td()(p('A')), td()(p(''))),
+          ),
+        ),
+      );
+    });
+
+    it('should maintain original table header rows if pasting in table cell into header column', () => {
+      test(
+        doc(
+          table({ localId })(
+            tr(th()(p('')), th()(p(''))),
+            tr(th()(p('{<>}')), td()(p(''))),
+          ),
+        ),
+        tableCell('A'),
+        doc(
+          table({ localId })(
+            tr(th()(p('')), th()(p(''))),
+            tr(th()(p('A')), td()(p(''))),
+          ),
+        ),
+      );
+    });
+  });
 
   describe('paste table cells with resized column widths', () => {
     const htmlTableCellsWithResizedColumnWidths = `

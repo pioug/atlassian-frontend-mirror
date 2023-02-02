@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-table
 
+## 1.1.0
+
+### Minor Changes
+
+- [`a0a35fe7fb1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a0a35fe7fb1) - Renaming contentComponent event subject to contentComponentv2. Move errorStack attribute to nonPrivacySafeAttributes
+
+### Patch Changes
+
+- [`cb6dc027c6d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb6dc027c6d) - [ux] Disable content editable on a table number column to prevent selection on the number column.
+- Updated dependencies
+
 ## 1.0.3
 
 ### Patch Changes

@@ -70,8 +70,8 @@ BrowserTestCase(
     await animationFrame(page);
     await expectToMatchSelection(page, {
       type: 'text',
-      from: 64,
-      to: 68,
+      anchor: 64,
+      head: 68,
     });
   },
 );
@@ -92,8 +92,8 @@ BrowserTestCase(
     await animationFrame(page);
     await expectToMatchSelection(page, {
       type: 'text',
-      from: 64,
-      to: 68,
+      anchor: 64,
+      head: 68,
     });
   },
 );

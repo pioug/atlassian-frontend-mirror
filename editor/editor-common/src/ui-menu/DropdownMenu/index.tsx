@@ -115,6 +115,7 @@ const DropListWithOutsideListeners: any =
 export default class DropdownMenuWrapper extends PureComponent<Props, State> {
   state: State = {
     popupPlacement: ['bottom', 'left'],
+    selectionIndex: -1,
   };
 
   private handleRef = (target: HTMLElement | null) => {
@@ -131,7 +132,7 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
     }
   };
 
-  private handleCloseandFocus = () => {
+  private handleCloseAndFocus = () => {
     this.handleClose();
     this.state.target?.querySelector('button')?.focus();
   };
@@ -157,6 +158,7 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
       shouldUseDefaultRole,
       disableArrowKeyNavigation,
       keyDownHandlerContext,
+      onItemActivated,
     } = this.props;
 
     return (
@@ -173,9 +175,18 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
       >
         <MenuArrowKeyNavigationProvider
           disableArrowKeyNavigation={disableArrowKeyNavigation}
-          handleClose={this.handleCloseandFocus}
+          handleClose={this.handleCloseAndFocus}
           keyDownHandlerContext={keyDownHandlerContext}
-          closeonTab={true}
+          onSelection={(index) => {
+            let result: MenuItem[] = [];
+            if (typeof onItemActivated === 'function') {
+              result = items.reduce((result, group) => {
+                return result.concat(group.items);
+              }, result);
+              onItemActivated({ item: result[index], shouldCloseMenu: false });
+            }
+          }}
+          closeOnTab={true}
         >
           <DropListWithOutsideListeners
             isOpen={true}
@@ -185,7 +196,7 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
             shouldFitContainer={true}
             isTriggerNotTabbable={true}
             handleClickOutside={this.handleClose}
-            handleEscapeKeydown={this.handleCloseandFocus}
+            handleEscapeKeydown={this.handleCloseAndFocus}
             targetRef={this.state.target}
           >
             <div style={{ height: 0, minWidth: fitWidth || 0 }} />
@@ -263,6 +274,7 @@ function DropdownMenuItem({
     <div
       css={(theme: ThemeProps) => buttonStyles(item.isActive)({ theme })}
       tabIndex={-1}
+      aria-disabled={item.isDisabled ? 'true' : 'false'}
     >
       <CustomItem
         item={item}

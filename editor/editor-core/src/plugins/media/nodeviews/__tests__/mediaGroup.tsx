@@ -51,6 +51,7 @@ jest.mock('../mediaNodeUpdater', () => ({
     isNodeFromDifferentCollection: jest.fn(),
     getNodeContextId: jest.fn(),
     hasDifferentContextId: jest.fn(),
+    updateNodeAttrs: jest.fn(),
   })),
 }));
 
@@ -64,21 +65,6 @@ jest.spyOn(stateKey, 'getState').mockImplementation(() => pluginState);
 describe('mediaGroup', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-  });
-
-  test('updates file attrs for props change', async () => {
-    const wrapper = mountWithIntl(<MediaGroup {...getMediaGroupProps()} />);
-
-    const mediaGroup = wrapper
-      .findWhere((el) => el.name() === 'MediaGroup')
-      .instance();
-    const updateNodeAttrs = jest.spyOn(mediaGroup as any, 'updateNodeAttrs');
-
-    wrapper.setProps({
-      mediaProvider: createMediaProvider(),
-    });
-
-    expect(updateNodeAttrs).toHaveBeenCalledTimes(1);
   });
 
   test('does not update file attrs for props change if copy/paste is disabled', async () => {
@@ -127,6 +113,25 @@ describe('mediaGroup', () => {
 
     const getInputGetPos = (callNo: number) =>
       (pluginState.setMediaGroupNode as jest.Mock).mock.calls[callNo - 1][1];
+
+    test('updates file attrs for props change', async () => {
+      const props = getMediaGroupProps();
+      const nodes = createNodeList();
+      props.node.forEach = createNodeForeach(nodes);
+
+      const wrapper = mountWithIntl(<MediaGroup {...props} />);
+
+      const mediaGroup = wrapper
+        .findWhere((el) => el.name() === 'MediaGroup')
+        .instance();
+      const updateNodeAttrs = jest.spyOn(mediaGroup as any, 'updateNodeAttrs');
+
+      wrapper.setProps({
+        mediaProvider: createMediaProvider(),
+      });
+
+      expect(updateNodeAttrs).toHaveBeenCalledTimes(2);
+    });
 
     test('updates the list of media group nodes when mounted', () => {
       const props = getMediaGroupProps();

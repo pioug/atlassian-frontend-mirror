@@ -9,7 +9,7 @@ export interface MediaImageProps {
   alt?: string;
   crop?: boolean;
   stretch?: boolean;
-  previewOrientation?: number;
+  previewOrientation?: number | 'from-image';
   crossOrigin?: '' | 'anonymous' | 'use-credentials';
   onImageLoad?: (loadedImage: HTMLImageElement) => void;
   onImageError?: () => void;
@@ -83,7 +83,7 @@ export class MediaImage extends Component<MediaImageProps, MediaImageState> {
       crop,
       stretch,
       dataURI,
-      previewOrientation,
+      previewOrientation = 1,
       crossOrigin,
       onImageError,
       alt = '',
@@ -124,7 +124,8 @@ export class MediaImage extends Component<MediaImageProps, MediaImageState> {
      */
     const isFitStrategy = !crop;
 
-    const isImageRotated = isRotated(previewOrientation || 1);
+    const isImageRotated =
+      previewOrientation !== 'from-image' && isRotated(previewOrientation);
 
     /*
       When photo has orientation of 90deg or 270deg (stored in EXIF meta data)
@@ -416,7 +417,9 @@ export class MediaImage extends Component<MediaImageProps, MediaImageState> {
       style.display = 'none';
     }
 
-    if (previewOrientation && previewOrientation > 1) {
+    if (previewOrientation === 'from-image') {
+      style.imageOrientation = 'from-image';
+    } else if (previewOrientation > 1) {
       const transform = getCssFromImageOrientation(previewOrientation);
 
       style.transform += ` ${transform}`;

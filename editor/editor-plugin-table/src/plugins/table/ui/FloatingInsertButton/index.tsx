@@ -140,6 +140,8 @@ export class FloatingInsertButton extends React.Component<
             position: pos,
             docSize: editorView.state.doc.nodeSize,
             error: (error as any)?.toString(),
+          },
+          nonPrivacySafeAttributes: {
             errorStack: (error as any).stack || undefined,
           },
         };

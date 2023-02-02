@@ -199,15 +199,15 @@ export async function runInlineNodeViewTestSuite({
             adf: JSON.stringify(buildAdfTrailingSpaces({ node })),
           });
           const expectedSelections: SelectionMatch[] = [
-            { type: 'text', from: 6 },
-            { type: 'node', from: 5 },
-            { type: 'text', from: 5 },
-            { type: 'text', from: 4 },
-            { type: 'node', from: 3 },
-            { type: 'text', from: 3 },
-            { type: 'text', from: 2 },
-            { type: 'node', from: 1 },
-            { type: 'text', from: 1 },
+            { type: 'text', anchor: 6 },
+            { type: 'node', anchor: 5 },
+            { type: 'text', anchor: 5 },
+            { type: 'text', anchor: 4 },
+            { type: 'node', anchor: 3 },
+            { type: 'text', anchor: 3 },
+            { type: 'text', anchor: 2 },
+            { type: 'node', anchor: 1 },
+            { type: 'text', anchor: 1 },
           ];
           for (const selection of expectedSelections) {
             await page.keys(['ArrowLeft']);
@@ -230,14 +230,14 @@ export async function runInlineNodeViewTestSuite({
             adf: JSON.stringify(buildAdfTrailingSpaces({ node })),
           });
           const expectedSelections: SelectionMatch[] = [
-            { type: 'node', from: 1 },
-            { type: 'text', from: 2 },
-            { type: 'text', from: 3 },
-            { type: 'node', from: 3 },
-            { type: 'text', from: 4 },
-            { type: 'text', from: 5 },
-            { type: 'node', from: 5 },
-            { type: 'text', from: 6 },
+            { type: 'node', anchor: 1 },
+            { type: 'text', anchor: 2 },
+            { type: 'text', anchor: 3 },
+            { type: 'node', anchor: 3 },
+            { type: 'text', anchor: 4 },
+            { type: 'text', anchor: 5 },
+            { type: 'node', anchor: 5 },
+            { type: 'text', anchor: 6 },
           ];
           for (const selection of expectedSelections) {
             await page.keys(['ArrowRight']);
@@ -341,12 +341,12 @@ export async function runInlineNodeViewTestSuite({
           });
 
           const expectedSelections: SelectionMatch[] = [
-            { type: 'node', from: 3 },
-            { type: 'text', from: 3 },
-            { type: 'node', from: 2 },
-            { type: 'text', from: 2 },
-            { type: 'node', from: 1 },
-            { type: 'text', from: 1 },
+            { type: 'node', anchor: 3 },
+            { type: 'text', anchor: 3 },
+            { type: 'node', anchor: 2 },
+            { type: 'text', anchor: 2 },
+            { type: 'node', anchor: 1 },
+            { type: 'text', anchor: 1 },
           ];
 
           for (const selection of expectedSelections) {
@@ -371,12 +371,12 @@ export async function runInlineNodeViewTestSuite({
           });
 
           const expectedSelections: SelectionMatch[] = [
-            { type: 'node', from: 1 },
-            { type: 'text', from: 2 },
-            { type: 'node', from: 2 },
-            { type: 'text', from: 3 },
-            { type: 'node', from: 3 },
-            { type: 'text', from: 4 },
+            { type: 'node', anchor: 1 },
+            { type: 'text', anchor: 2 },
+            { type: 'node', anchor: 2 },
+            { type: 'text', anchor: 3 },
+            { type: 'node', anchor: 3 },
+            { type: 'text', anchor: 4 },
           ];
 
           for (const selection of expectedSelections) {
@@ -403,17 +403,17 @@ export async function runInlineNodeViewTestSuite({
           // positions. This behaviour needs to be fixed so it is consistent across all browsers
           // however for now we are just making sure that the selection moves and isn't blocked.
           let expectedSelections: SelectionMatch[] = [
-            { type: 'text', from: 6 },
-            { type: 'text', from: 11 },
-            { type: 'text', from: 16 },
-            { type: 'text', from: 18 },
+            { type: 'text', anchor: 6 },
+            { type: 'text', anchor: 11 },
+            { type: 'text', anchor: 16 },
+            { type: 'text', anchor: 18 },
           ];
 
           if (page.isBrowser('firefox')) {
             expectedSelections = [
-              { type: 'text', from: 3 },
-              { type: 'text', from: 8 },
-              { type: 'text', from: 13 },
+              { type: 'text', anchor: 3 },
+              { type: 'text', anchor: 8 },
+              { type: 'text', anchor: 13 },
             ];
           }
 
@@ -441,18 +441,18 @@ export async function runInlineNodeViewTestSuite({
           // positions. This behaviour needs to be fixed so it is consistent across all browsers
           // however for now we are just making sure that the selection moves and isn't blocked.
           let expectedSelections: SelectionMatch[] = [
-            { type: 'text', from: 16 },
-            { type: 'text', from: 11 },
-            { type: 'text', from: 6 },
-            { type: 'text', from: 1 },
+            { type: 'text', anchor: 16 },
+            { type: 'text', anchor: 11 },
+            { type: 'text', anchor: 6 },
+            { type: 'text', anchor: 1 },
           ];
 
           if (page.isBrowser('firefox')) {
             expectedSelections = [
-              { type: 'text', from: 13 },
-              { type: 'text', from: 8 },
-              { type: 'text', from: 3 },
-              { type: 'text', from: 1 },
+              { type: 'text', anchor: 13 },
+              { type: 'text', anchor: 8 },
+              { type: 'text', anchor: 3 },
+              { type: 'text', anchor: 1 },
             ];
           }
 
@@ -480,16 +480,16 @@ export async function runInlineNodeViewTestSuite({
           // positions. This behaviour needs to be fixed so it is consistent across all browsers
           // however for now we are just making sure that the selection moves and isn't blocked.
           let expectedSelections: SelectionMatch[] = [
-            { type: 'text', from: 11 },
-            { type: 'text', from: 16 },
-            { type: 'text', from: 18 },
+            { type: 'text', anchor: 11 },
+            { type: 'text', anchor: 16 },
+            { type: 'text', anchor: 18 },
           ];
 
           if (page.isBrowser('firefox')) {
             expectedSelections = [
-              { type: 'text', from: 9 },
-              { type: 'text', from: 14 },
-              { type: 'text', from: 18 },
+              { type: 'text', anchor: 9 },
+              { type: 'text', anchor: 14 },
+              { type: 'text', anchor: 18 },
             ];
           }
 
@@ -517,16 +517,16 @@ export async function runInlineNodeViewTestSuite({
           // positions. This behaviour needs to be fixed so it is consistent across all browsers
           // however for now we are just making sure that the selection moves and isn't blocked.
           let expectedSelections: SelectionMatch[] = [
-            { type: 'text', from: 11 },
-            { type: 'text', from: 6 },
-            { type: 'text', from: 1 },
+            { type: 'text', anchor: 11 },
+            { type: 'text', anchor: 6 },
+            { type: 'text', anchor: 1 },
           ];
 
           if (page.isBrowser('firefox')) {
             expectedSelections = [
-              { type: 'text', from: 9 },
-              { type: 'text', from: 4 },
-              { type: 'text', from: 1 },
+              { type: 'text', anchor: 9 },
+              { type: 'text', anchor: 4 },
+              { type: 'text', anchor: 1 },
             ];
           }
 

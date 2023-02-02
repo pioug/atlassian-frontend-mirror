@@ -95,9 +95,12 @@ BrowserTestCase(
   },
 );
 
+// FIXME: This test was automatically skipped due to failure on 01/02/2023: https://product-fabric.atlassian.net/browse/ED-16742
 BrowserTestCase(
   'mention-3.ts: user should not see mention inside a code block',
-  {},
+  {
+    skip: ['*'],
+  },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {

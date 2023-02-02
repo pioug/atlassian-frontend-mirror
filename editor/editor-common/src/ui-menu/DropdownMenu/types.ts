@@ -52,4 +52,5 @@ export interface MenuItem {
 export interface State {
   target?: HTMLElement;
   popupPlacement: [string, string];
+  selectionIndex: number;
 }

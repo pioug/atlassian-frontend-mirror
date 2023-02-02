@@ -95,6 +95,19 @@ const setup = (
 };
 
 describe('Image Placer', () => {
+  let originalCSS: any;
+  beforeAll(() => {
+    originalCSS = global.CSS;
+    global.CSS = {
+      ...originalCSS,
+      supports: () => false,
+    };
+  });
+
+  afterAll(() => {
+    global.CSS = originalCSS;
+  });
+
   describe('Image', () => {
     it('should show image if loads successfully', () => {
       const { wrapper } = setup();

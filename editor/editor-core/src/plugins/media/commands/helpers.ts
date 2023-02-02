@@ -106,7 +106,10 @@ export const updateAllMediaNodesAttrs =
     const validMediaNodePositions: number[] = mediaNodes.reduce<number[]>(
       (acc, { getPos }) => {
         const pos = getPos();
-        if (typeof pos === 'number' && !isMediaNode(pos, state)) {
+        if (
+          isNaN(pos) ||
+          (typeof pos === 'number' && !isMediaNode(pos, state))
+        ) {
           return acc;
         }
 
@@ -132,6 +135,25 @@ export const updateAllMediaNodesAttrs =
     }
     return true;
   };
+
+export const updateCurrentMediaNodeAttrs =
+  (attrs: object, mediaNode: MediaNodeWithPosHandler): Command =>
+  (state, dispatch) => {
+    const pos = mediaNode.getPos();
+    if (isNaN(pos) || (typeof pos === 'number' && !isMediaNode(pos, state))) {
+      return false;
+    }
+
+    const tr = state.tr;
+    tr.step(new SetAttrsStep(pos, attrs));
+    tr.setMeta('addToHistory', false);
+
+    if (dispatch) {
+      dispatch(tr);
+    }
+    return true;
+  };
+
 export const updateMediaNodeAttrs =
   (id: string, attrs: object, isMediaSingle: boolean): Command =>
   (state, dispatch) => {

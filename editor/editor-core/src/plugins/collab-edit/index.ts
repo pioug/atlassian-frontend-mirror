@@ -1,4 +1,4 @@
-import { collab } from 'prosemirror-collab';
+import { collab } from '@atlaskit/prosemirror-collab';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { CollabEditProvider } from '@atlaskit/editor-common/collab';
 import { NextEditorPlugin } from '@atlaskit/editor-common/types';

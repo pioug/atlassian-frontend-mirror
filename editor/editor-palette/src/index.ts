@@ -1,5 +1,2 @@
-export {
-  hexToEditorBackgroundPaletteColor,
-  editorBackgroundPalette,
-} from './background';
-export { hexToEditorTextPaletteColor, editorTextPalette } from './text';
+export { hexToEditorBackgroundPaletteColor } from './background';
+export { hexToEditorTextPaletteColor } from './text';

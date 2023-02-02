@@ -38,11 +38,17 @@ export const plugin = new SafePlugin({
   key: stateKey,
   view: (view: EditorView) => {
     const pluginState: ReactNodeViewState = stateKey.getState(view.state);
+    let prevFrom = -1;
+    let prevTo = -1;
 
     return {
       update: (view: EditorView) => {
         const { from, to } = view.state.selection;
-        pluginState.notifyNewSelection(from, to);
+        if (from !== prevFrom || to !== prevTo) {
+          pluginState.notifyNewSelection(from, to);
+          prevFrom = from;
+          prevTo = to;
+        }
       },
     };
   },

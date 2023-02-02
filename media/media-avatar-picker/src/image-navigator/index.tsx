@@ -160,7 +160,11 @@ export class ImageNavigator extends Component<
   onImageLoaded = (image: HTMLImageElement) => {
     this.imageElement = image;
     let { naturalWidth: width, naturalHeight: height } = image;
-    if (isRotated(this.state.imageOrientation)) {
+
+    if (
+      !CSS.supports('image-orientation', 'from-image') &&
+      isRotated(this.state.imageOrientation)
+    ) {
       [width, height] = [height, width];
     }
 
@@ -373,7 +377,11 @@ export class ImageNavigator extends Component<
                 {...(errorMessage ? messages.try_again : messages.or)}
               />
             </p>
-            <Button onClick={this.onUploadButtonClick} isDisabled={isLoading}>
+            <Button
+              onClick={this.onUploadButtonClick}
+              isDisabled={isLoading}
+              testId="upload-button"
+            >
               <FormattedMessage {...messages.upload_photo} />
               <input
                 css={fileInputStyles}

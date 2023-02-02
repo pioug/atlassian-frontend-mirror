@@ -106,52 +106,70 @@ export const createFloatingToolbarConfigForStatus = (
   intl: IntlShape,
 ): FloatingToolbarConfig => {
   const themeMode = editorConfig.getMode();
-
-  return {
-    title: 'Status',
-    nodeType,
-    items: [
-      {
-        id: 'editor.status.editText',
-        type: 'button',
-        title: intl.formatMessage(statusMessages.editText),
-        showTitle: true,
-        onClick: (state: EditorState, dispatch?: CommandDispatch) => {
-          const newInput = createInputToolbar(
-            status,
-            nodeType,
-            showStatusPickerAt,
-            intl,
-          );
-
-          refresh(newInput);
-          return true;
+  if (status.text === '') {
+    return {
+      title: 'Status',
+      nodeType,
+      items: [
+        {
+          id: 'editor.status.editText',
+          type: 'input',
+          placeholder: intl.formatMessage(statusMessages.placeholder),
+          title: intl.formatMessage(statusMessages.editText),
+          defaultValue: status.text,
+          onSubmit: (newStatusText) =>
+            onStatusTextChange(status, newStatusText, showStatusPickerAt),
+          onBlur: (value) => onBlur(value),
         },
-      },
-      {
-        type: 'separator',
-      },
-      {
-        id: 'editor.status.colorPicker',
-        type: 'select',
-        selectType: 'color',
-        title: intl.formatMessage(statusMessages.editColor),
-        defaultValue: getDefaultColorValueForMode(status, themeMode),
-        options: getColorOptionsForMode(themeMode),
-        onChange: (selected: PaletteColor) => changeColor(status, selected),
-      },
-      {
-        type: 'separator',
-      },
-      {
-        id: 'editor.status.delete',
-        type: 'button',
-        title: intl.formatMessage(messages.remove),
-        icon: RemoveIcon,
-        onClick: (state: EditorState, dispatch?: CommandDispatch) => {
-          return removeStatus(showStatusPickerAt)(state, dispatch);
+      ],
+    };
+  } else {
+    return {
+      title: 'Status',
+      nodeType,
+      items: [
+        {
+          id: 'editor.status.editText',
+          type: 'button',
+          title: intl.formatMessage(statusMessages.editText),
+          showTitle: true,
+          onClick: (state: EditorState, dispatch?: CommandDispatch) => {
+            const newInput = createInputToolbar(
+              status,
+              nodeType,
+              showStatusPickerAt,
+              intl,
+            );
+
+            refresh(newInput);
+            return true;
+          },
         },
-      },
-    ],
-  };
+        {
+          type: 'separator',
+        },
+        {
+          id: 'editor.status.colorPicker',
+          type: 'select',
+          selectType: 'color',
+          title: intl.formatMessage(statusMessages.editColor),
+          defaultValue: getDefaultColorValueForMode(status, themeMode),
+          options: getColorOptionsForMode(themeMode),
+          onChange: (selected: PaletteColor) => changeColor(status, selected),
+        },
+        {
+          type: 'separator',
+        },
+        {
+          id: 'editor.status.delete',
+          type: 'button',
+          title: intl.formatMessage(messages.remove),
+          icon: RemoveIcon,
+          onClick: (state: EditorState, dispatch?: CommandDispatch) => {
+            return removeStatus(showStatusPickerAt)(state, dispatch);
+          },
+        },
+      ],
+    };
+  }
 };

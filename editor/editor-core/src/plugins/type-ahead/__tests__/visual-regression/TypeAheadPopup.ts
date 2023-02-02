@@ -4,7 +4,10 @@ import {
   clickToolbarMenu,
   ToolbarMenuItem,
 } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import {
+  PuppeteerPage,
+  waitForTooltip,
+} from '@atlaskit/visual-regression/helper';
 import {
   Appearance,
   initEditorWithAdf,
@@ -37,6 +40,7 @@ describe('TypeAheadPopup', () => {
     await page.click('button[aria-label="Info panel"]');
 
     await clickToolbarMenu(page, ToolbarMenuItem.undo);
+    await waitForTooltip(page);
     await page.keyboard.press('ArrowRight');
     await page.keyboard.type('text after panel');
 

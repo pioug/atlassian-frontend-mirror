@@ -36,7 +36,7 @@ BrowserTestCase(
     // Click the "Display inline" to switch to inline card
     await page.click('[data-testid="inline-appearance"]');
 
-    expect(await getProseMirrorPos(page)).toEqual(4);
+    expect(await getProseMirrorPos(page)).toEqual(5);
     expect(
       await page.$eval(editable, getDocFromElement),
     ).toMatchCustomDocSnapshot(testName);

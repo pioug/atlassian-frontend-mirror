@@ -30,6 +30,6 @@ BrowserTestCase(
 
     await setProseMirrorTextSelection(page, { anchor: 5 });
     await page.keys('ArrowDown');
-    await expectToMatchSelection(page, { type: 'text', to: 10, from: 10 });
+    await expectToMatchSelection(page, { type: 'text', anchor: 10, head: 10 });
   },
 );

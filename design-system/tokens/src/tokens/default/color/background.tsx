@@ -390,7 +390,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema<BaseToken>> = {
               state: 'active',
               introduced: '0.6.0',
               description:
-                'Use for backgrounds communicating a favourable outcome, such as in success section messages.',
+                'Use for backgrounds communicating a favorable outcome, such as in success section messages.',
             },
           },
           hovered: {
@@ -417,7 +417,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema<BaseToken>> = {
               state: 'active',
               introduced: '0.6.0',
               description:
-                'A vibrant background option for communicating a favourable outcome, such as in checked toggles.',
+                'A vibrant background option for communicating a favorable outcome, such as in checked toggles.',
             },
           },
           hovered: {

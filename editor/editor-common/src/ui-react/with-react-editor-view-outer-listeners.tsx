@@ -17,7 +17,7 @@ export interface WithOutsideClickProps {
   handleEscapeKeydown?: SimpleEventHandler<KeyboardEvent>;
   handleEnterKeydown?: SimpleEventHandler<KeyboardEvent>;
   targetRef?: any;
-  closeonTab?: boolean;
+  closeOnTab?: boolean;
 }
 
 class WithOutsideClick extends PureComponent<
@@ -92,7 +92,7 @@ class WithOutsideClick extends PureComponent<
     } else if (
       evt.code === 'Tab' &&
       this.props.handleEscapeKeydown &&
-      this.props.closeonTab
+      this.props.closeOnTab
     ) {
       //The menus should be closed when the tab is pressed as it takes the focus out of the menu
       this.props.handleEscapeKeydown(evt);
@@ -119,7 +119,7 @@ export default function withReactEditorViewOuterListeners<P>(
     handleClickOutside,
     handleEnterKeydown,
     handleEscapeKeydown,
-    closeonTab,
+    closeOnTab,
     ...props
   }) => {
     const isActiveComponent = hasIsOpen(props) ? props.isOpen : true;
@@ -134,7 +134,7 @@ export default function withReactEditorViewOuterListeners<P>(
             handleClickOutside={handleClickOutside}
             handleEnterKeydown={handleEnterKeydown}
             handleEscapeKeydown={handleEscapeKeydown}
-            closeonTab={closeonTab}
+            closeOnTab={closeOnTab}
           >
             <Component {...(props as P)} />
           </WithOutsideClick>

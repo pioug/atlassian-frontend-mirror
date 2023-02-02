@@ -2,14 +2,18 @@ import type { Format } from 'style-dictionary';
 
 import { createSignedArtifact } from '@af/codegen';
 
+import sortTokens from '../sort-tokens';
+
 const formatter: Format['formatter'] = ({ dictionary }) => {
-  const tokens = dictionary.allTokens
-    .filter((token) => token.attributes && token.attributes.replacement)
-    .map((token) => ({
-      path: token.path.join('.'),
-      state: token.attributes?.state,
-      replacement: token.attributes?.replacement,
-    }));
+  const tokens = sortTokens(
+    dictionary.allTokens.filter(
+      (token) => token.attributes && token.attributes.replacement,
+    ),
+  ).map((token) => ({
+    path: token.path.join('.'),
+    state: token.attributes?.state,
+    replacement: token.attributes?.replacement,
+  }));
 
   const source = `import tokens from './token-names';
 

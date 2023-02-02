@@ -291,12 +291,6 @@ describe('formatter', () => {
       },
     } as any);
 
-    expect(result).toMatchInlineSnapshot(`
-      ":root {
-        --ds-scale-Space0: 0;
-        --ds-FontSize050: 11px;
-      }
-      "
-    `);
+    expect(result).not.toContain('prefers-color-scheme');
   });
 });

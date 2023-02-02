@@ -47,6 +47,7 @@ import { token } from '@atlaskit/tokens';
 const InsertMenu = ({
   editorView,
   dropdownItems,
+  showElementBrowserLink,
   onInsert,
   toggleVisiblity,
 }: InsertMenuProps) => {
@@ -71,7 +72,7 @@ const InsertMenu = ({
 
   const quickInsertDropdownItems = dropdownItems.map(transform);
 
-  const viewMoreItem = quickInsertDropdownItems.pop();
+  const viewMoreItem = showElementBrowserLink && quickInsertDropdownItems.pop();
 
   const onInsertItem = useCallback(
     (item) => {

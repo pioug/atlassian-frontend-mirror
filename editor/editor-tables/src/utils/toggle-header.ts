@@ -9,7 +9,7 @@ import { isInTable } from './tables';
 
 export type ToggleType = 'column' | 'row';
 
-function isHeaderEnabledByType(
+export function isHeaderEnabledByType(
   type: ToggleType,
   rect: SelectionRect,
   types: TableNodeCache,

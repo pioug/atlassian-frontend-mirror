@@ -1,0 +1,2733 @@
+{
+  "name": "Legacy dark",
+  "tokens": {
+    "Legacy dark/color.text": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for primary text, such as body copy, sentence case headers, and buttons."
+      },
+      "value": "#E6EDFA"
+    },
+    "Legacy dark/color.text.accent.red": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for red text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "#FF5630"
+    },
+    "Legacy dark/color.text.accent.red.bolder": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use on bold red accent backgrounds."
+      },
+      "value": "#FF7452"
+    },
+    "Legacy dark/color.text.accent.orange": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for orange text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "#FEC57B"
+    },
+    "Legacy dark/color.text.accent.orange.bolder": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use on bold orange accent backgrounds."
+      },
+      "value": "#F18D13"
+    },
+    "Legacy dark/color.text.accent.yellow": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for yellow text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "#FFAB00"
+    },
+    "Legacy dark/color.text.accent.yellow.bolder": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use on bold yellow accent backgrounds."
+      },
+      "value": "#FFC400"
+    },
+    "Legacy dark/color.text.accent.green": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for green text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "#36B37E"
+    },
+    "Legacy dark/color.text.accent.green.bolder": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use on bold green accent backgrounds."
+      },
+      "value": "#57D9A3"
+    },
+    "Legacy dark/color.text.accent.teal": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for teal text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "#00B8D9"
+    },
+    "Legacy dark/color.text.accent.teal.bolder": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use on bold teal accent backgrounds."
+      },
+      "value": "#00C7E6"
+    },
+    "Legacy dark/color.text.accent.blue": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for blue text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "#0065FF"
+    },
+    "Legacy dark/color.text.accent.blue.bolder": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use on bold blue accent backgrounds."
+      },
+      "value": "#2684FF"
+    },
+    "Legacy dark/color.text.accent.purple": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for purple text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "#6554C0"
+    },
+    "Legacy dark/color.text.accent.purple.bolder": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use on bold purple accent backgrounds."
+      },
+      "value": "#8777D9"
+    },
+    "Legacy dark/color.text.accent.magenta": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for magenta text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "#F797D2"
+    },
+    "Legacy dark/color.text.accent.magenta.bolder": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use on bold magenta accent backgrounds."
+      },
+      "value": "#FDD0EC"
+    },
+    "Legacy dark/color.text.accent.gray": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.10.5",
+        "description": "Use for text on non-bold gray accent backgrounds, such as colored tags."
+      },
+      "value": "#8C9CB8"
+    },
+    "Legacy dark/color.text.accent.gray.bolder": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.10.5",
+        "description": "Use for text and icons on gray subtle accent backgrounds."
+      },
+      "value": "#ABBBD6"
+    },
+    "Legacy dark/color.text.disabled": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.0.15",
+        "description": "Use for text in a disabled state."
+      },
+      "value": "#1B2638"
+    },
+    "Legacy dark/color.text.inverse": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for text on bold backgrounds."
+      },
+      "value": "#0D1424"
+    },
+    "Legacy dark/color.text.selected": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for text in selected or opened states, such as tabs and dropdown buttons."
+      },
+      "value": "#0052CC"
+    },
+    "Legacy dark/color.text.brand": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for text that reinforces our brand."
+      },
+      "value": "#0052CC"
+    },
+    "Legacy dark/color.text.danger": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.0.15",
+        "description": "Use for critical text, such as input field error messaging."
+      },
+      "value": "#FF5630"
+    },
+    "Legacy dark/color.text.warning": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.0.15",
+        "description": "Use for text to emphasize caution, such as in moved lozenges."
+      },
+      "value": "#172B4D"
+    },
+    "Legacy dark/color.text.warning.inverse": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for text when on bold warning backgrounds."
+      },
+      "value": "#0D1424"
+    },
+    "Legacy dark/color.text.success": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.0.15",
+        "description": "Use for text to communicate a favorable outcome, such as input field success messaging."
+      },
+      "value": "#36B37E"
+    },
+    "Legacy dark/color.text.discovery": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.0.15",
+        "description": "Use for text to emphasize change or something new, such as in new lozenges."
+      },
+      "value": "#6554C0"
+    },
+    "Legacy dark/color.text.information": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for informative text or to communicate something is in progress, such as in-progress lozenges."
+      },
+      "value": "#0065FF"
+    },
+    "Legacy dark/color.text.subtlest": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for tertiary text, such as meta-data, breadcrumbs, input field placeholder and helper text."
+      },
+      "value": "#7988A3"
+    },
+    "Legacy dark/color.text.subtle": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for secondary text, such as navigation, subtle button links, input field labels, and all caps subheadings."
+      },
+      "value": "#9FB0CC"
+    },
+    "Legacy dark/color.link": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for links in a default or hovered state. Add an underline for hovered states."
+      },
+      "value": "#0052CC"
+    },
+    "Legacy dark/color.link.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for links in a pressed state."
+      },
+      "value": "#0065FF"
+    },
+    "Legacy dark/color.icon": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for icon-only buttons, or icons paired with color.text"
+      },
+      "value": "#DCE5F5"
+    },
+    "Legacy dark/color.icon.accent.red": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for red icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
+      },
+      "value": "#BF2600"
+    },
+    "Legacy dark/color.icon.accent.orange": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for orange icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
+      },
+      "value": "#F18D13"
+    },
+    "Legacy dark/color.icon.accent.yellow": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for yellow icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
+      },
+      "value": "#FF8B00"
+    },
+    "Legacy dark/color.icon.accent.green": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for green icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
+      },
+      "value": "#006644"
+    },
+    "Legacy dark/color.icon.accent.teal": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for teal icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
+      },
+      "value": "#008DA6"
+    },
+    "Legacy dark/color.icon.accent.blue": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for blue icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
+      },
+      "value": "#0747A6"
+    },
+    "Legacy dark/color.icon.accent.purple": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for purple icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
+      },
+      "value": "#403294"
+    },
+    "Legacy dark/color.icon.accent.magenta": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for magenta icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
+      },
+      "value": "#DA62AC"
+    },
+    "Legacy dark/color.icon.accent.gray": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.10.5",
+        "description": "Use for icons on non-bold gray accent backgrounds, such as file type icons."
+      },
+      "value": "#B8C7E0"
+    },
+    "Legacy dark/color.icon.disabled": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for icons in a disabled state."
+      },
+      "value": "#0d14245b"
+    },
+    "Legacy dark/color.icon.inverse": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for icons on bold backgrounds."
+      },
+      "value": "#202B3D"
+    },
+    "Legacy dark/color.icon.selected": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.2",
+        "description": "Use for icons in selected or opened states, such as those used in dropdown buttons."
+      },
+      "value": "#4C9AFF"
+    },
+    "Legacy dark/color.icon.brand": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for icons that reinforce our brand."
+      },
+      "value": "#4C9AFF"
+    },
+    "Legacy dark/color.icon.danger": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for icons communicating critical information, such as those used in error handing."
+      },
+      "value": "#FF8F73"
+    },
+    "Legacy dark/color.icon.warning": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for icons communicating caution, such as those used in warning section messages."
+      },
+      "value": "#FFF0B3"
+    },
+    "Legacy dark/color.icon.warning.inverse": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for icons when on bold warning backgrounds."
+      },
+      "value": "#202B3D"
+    },
+    "Legacy dark/color.icon.success": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for icons communicating a favorable outcome, such as those used in success section messaged."
+      },
+      "value": "#57D9A3"
+    },
+    "Legacy dark/color.icon.discovery": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for icons communicating change or something new, such as discovery section messages."
+      },
+      "value": "#998DD9"
+    },
+    "Legacy dark/color.icon.information": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for icons communicating information or something in-progress, such as information section messages."
+      },
+      "value": "#B3D4FF"
+    },
+    "Legacy dark/color.icon.subtle": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for icons paired with color.text.subtle"
+      },
+      "value": "#202B3D"
+    },
+    "Legacy dark/color.border": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use to visually group or separate UI elements, such as flat cards or side panel dividers."
+      },
+      "value": "#202B3D"
+    },
+    "Legacy dark/color.border.accent.red": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for red borders on non-bold backgrounds when there is no meaning tied to the color."
+      },
+      "value": "#BF2600"
+    },
+    "Legacy dark/color.border.accent.orange": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for orange borders on non-bold backgrounds when there is no meaning tied to the color."
+      },
+      "value": "#F18D13"
+    },
+    "Legacy dark/color.border.accent.yellow": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for yellow borders on non-bold backgrounds when there is no meaning tied to the color."
+      },
+      "value": "#FF8B00"
+    },
+    "Legacy dark/color.border.accent.green": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for green borders on non-bold backgrounds when there is no meaning tied to the color."
+      },
+      "value": "#006644"
+    },
+    "Legacy dark/color.border.accent.teal": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for teal borders on non-bold backgrounds when there is no meaning tied to the color."
+      },
+      "value": "#008DA6"
+    },
+    "Legacy dark/color.border.accent.blue": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for blue borders on non-bold backgrounds when there is no meaning tied to the color."
+      },
+      "value": "#0747A6"
+    },
+    "Legacy dark/color.border.accent.purple": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for purple borders on non-bold backgrounds when there is no meaning tied to the color."
+      },
+      "value": "#403294"
+    },
+    "Legacy dark/color.border.accent.magenta": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for magenta borders on non-bold backgrounds when there is no meaning tied to the color."
+      },
+      "value": "#DA62AC"
+    },
+    "Legacy dark/color.border.accent.gray": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.10.5",
+        "description": "Use for borders on non-bold gray accent backgrounds."
+      },
+      "value": "#B8C7E0"
+    },
+    "Legacy dark/color.border.disabled": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for borders of elements in a disabled state."
+      },
+      "value": "#0E1624"
+    },
+    "Legacy dark/color.border.focused": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for focus rings of elements in a focus state."
+      },
+      "value": "#B3D4FF"
+    },
+    "Legacy dark/color.border.input": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for borders of form UI elements, such as text fields, checkboxes, and radio buttons."
+      },
+      "value": "#202B3D"
+    },
+    "Legacy dark/color.border.inverse": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for borders on bold backgrounds."
+      },
+      "value": "#0D1424"
+    },
+    "Legacy dark/color.border.selected": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.2",
+        "description": "Use for borders or visual indicators of elements in a selected or opened state, such as in tabs or menu items."
+      },
+      "value": "#0052CC"
+    },
+    "Legacy dark/color.border.brand": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for borders or visual indicators of elements that reinforce our brand, such as logos or primary buttons."
+      },
+      "value": "#0052CC"
+    },
+    "Legacy dark/color.border.danger": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for borders communicating critical information, such as the borders on invalid text fields."
+      },
+      "value": "#DE350B"
+    },
+    "Legacy dark/color.border.warning": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for borders communicating caution."
+      },
+      "value": "#FF8B00"
+    },
+    "Legacy dark/color.border.success": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for borders communicating a favorable outcome, such as the borders on validated text fields."
+      },
+      "value": "#006644"
+    },
+    "Legacy dark/color.border.discovery": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for borders communicating change or something new, such as the borders in onboarding spotlights."
+      },
+      "value": "#403294"
+    },
+    "Legacy dark/color.border.information": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for borders communicating information or something in-progress."
+      },
+      "value": "#0747A6"
+    },
+    "Legacy dark/color.border.bold": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.10.8",
+        "description": "A neutral border option that passes min 3:1 contrast ratios."
+      },
+      "value": "#7988A3"
+    },
+    "Legacy dark/color.background.accent.red.subtlest": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for red backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+      },
+      "value": "#BF2600"
+    },
+    "Legacy dark/color.background.accent.red.subtler": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for red backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "#DE350B"
+    },
+    "Legacy dark/color.background.accent.red.subtle": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for vibrant red backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "#FF5630"
+    },
+    "Legacy dark/color.background.accent.red.bolder": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for red backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+      },
+      "value": "#FF8F73"
+    },
+    "Legacy dark/color.background.accent.orange.subtlest": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for orange backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+      },
+      "value": "#43290F"
+    },
+    "Legacy dark/color.background.accent.orange.subtler": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for orange backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "#5F3811"
+    },
+    "Legacy dark/color.background.accent.orange.subtle": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for vibrant orange backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "#974F0C"
+    },
+    "Legacy dark/color.background.accent.orange.bolder": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for orange backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+      },
+      "value": "#F18D13"
+    },
+    "Legacy dark/color.background.accent.yellow.subtlest": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for yellow backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+      },
+      "value": "#FF8B00"
+    },
+    "Legacy dark/color.background.accent.yellow.subtler": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for yellow backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "#FF991F"
+    },
+    "Legacy dark/color.background.accent.yellow.subtle": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for vibrant yellow backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "#FFAB00"
+    },
+    "Legacy dark/color.background.accent.yellow.bolder": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for yellow backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+      },
+      "value": "#FFE380"
+    },
+    "Legacy dark/color.background.accent.green.subtlest": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for green backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+      },
+      "value": "#006644"
+    },
+    "Legacy dark/color.background.accent.green.subtler": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for green backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "#00875A"
+    },
+    "Legacy dark/color.background.accent.green.subtle": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for vibrant green backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "#36B37E"
+    },
+    "Legacy dark/color.background.accent.green.bolder": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for green backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+      },
+      "value": "#79F2C0"
+    },
+    "Legacy dark/color.background.accent.teal.subtlest": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for teal backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+      },
+      "value": "#008DA6"
+    },
+    "Legacy dark/color.background.accent.teal.subtler": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for teal backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "#00A3BF"
+    },
+    "Legacy dark/color.background.accent.teal.subtle": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for vibrant teal backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "#00B8D9"
+    },
+    "Legacy dark/color.background.accent.teal.bolder": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for teal backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+      },
+      "value": "#79E2F2"
+    },
+    "Legacy dark/color.background.accent.blue.subtlest": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for blue backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+      },
+      "value": "#0747A6"
+    },
+    "Legacy dark/color.background.accent.blue.subtler": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for blue backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "#0052CC"
+    },
+    "Legacy dark/color.background.accent.blue.subtle": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for vibrant blue backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "#0065FF"
+    },
+    "Legacy dark/color.background.accent.blue.bolder": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for blue backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+      },
+      "value": "#4C9AFF"
+    },
+    "Legacy dark/color.background.accent.purple.subtlest": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for purple backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+      },
+      "value": "#403294"
+    },
+    "Legacy dark/color.background.accent.purple.subtler": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for purple backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "#5243AA"
+    },
+    "Legacy dark/color.background.accent.purple.subtle": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for vibrant purple backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "#6554C0"
+    },
+    "Legacy dark/color.background.accent.purple.bolder": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for purple backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+      },
+      "value": "#998DD9"
+    },
+    "Legacy dark/color.background.accent.magenta.subtlest": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for magenta backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+      },
+      "value": "#341829"
+    },
+    "Legacy dark/color.background.accent.magenta.subtler": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for magenta backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "#50253F"
+    },
+    "Legacy dark/color.background.accent.magenta.subtle": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for vibrant magenta backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "#943D73"
+    },
+    "Legacy dark/color.background.accent.magenta.bolder": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for magenta backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+      },
+      "value": "#E774BB"
+    },
+    "Legacy dark/color.background.accent.gray.subtlest": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for gray backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+      },
+      "value": "#8C9CB8"
+    },
+    "Legacy dark/color.background.accent.gray.subtler": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for gray backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "#9FB0CC"
+    },
+    "Legacy dark/color.background.accent.gray.subtle": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for vibrant gray backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "#ABBBD6"
+    },
+    "Legacy dark/color.background.accent.gray.bolder": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for gray backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+      },
+      "value": "#CED9EB"
+    },
+    "Legacy dark/color.background.disabled": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.0.15",
+        "description": "Use for backgrounds of elements in a disabled state."
+      },
+      "value": "#3B475C"
+    },
+    "Legacy dark/color.background.input": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for background of form UI elements, such as text fields, checkboxes, and radio buttons."
+      },
+      "value": "#0E1624"
+    },
+    "Legacy dark/color.background.input.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Hovered state for color.background.input"
+      },
+      "value": "#1B2638"
+    },
+    "Legacy dark/color.background.input.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Pressed state for color.background.input"
+      },
+      "value": "#0D1424"
+    },
+    "Legacy dark/color.background.inverse.subtle": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.8.3",
+        "description": "Use for backgrounds of elements on a bold background, such as in the buttons on spotlight cards."
+      },
+      "value": "#FFFFFF29"
+    },
+    "Legacy dark/color.background.inverse.subtle.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.8.3",
+        "description": "Use for the hovered state of color.background.inverse.subtle"
+      },
+      "value": "#FFFFFF3D"
+    },
+    "Legacy dark/color.background.inverse.subtle.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.8.3",
+        "description": "Use for the pressed state of color.background.inverse.subtle"
+      },
+      "value": "#FFFFFF52"
+    },
+    "Legacy dark/color.background.neutral": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "The default background for neutral elements, such as default buttons."
+      },
+      "value": "#3B475C"
+    },
+    "Legacy dark/color.background.neutral.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Hovered state for color.background.neutral"
+      },
+      "value": "#313D52"
+    },
+    "Legacy dark/color.background.neutral.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Pressed state for color.background.neutral"
+      },
+      "value": "#B3D4FF"
+    },
+    "Legacy dark/color.background.neutral.subtle": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for the background of elements that appear to have no background in a resting state, such as subtle buttons and menu items."
+      },
+      "value": "transparent"
+    },
+    "Legacy dark/color.background.neutral.subtle.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Hovered state for color.background.neutral.subtle"
+      },
+      "value": "#313D52"
+    },
+    "Legacy dark/color.background.neutral.subtle.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Pressed state for color.background.neutral.subtle"
+      },
+      "value": "#B3D4FF"
+    },
+    "Legacy dark/color.background.neutral.bold": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "A vibrant background option for neutral UI elements, such as announcement banners."
+      },
+      "value": "#CED9EB"
+    },
+    "Legacy dark/color.background.neutral.bold.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Hovered state of color.background.neutral.bold"
+      },
+      "value": "#B8C7E0"
+    },
+    "Legacy dark/color.background.neutral.bold.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Pressed state of color.background.neutral.bold"
+      },
+      "value": "#DCE5F5"
+    },
+    "Legacy dark/color.background.selected": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.2",
+        "description": "Use for the background of elements in a selected state, such as in opened dropdown buttons."
+      },
+      "value": "#DEEBFF"
+    },
+    "Legacy dark/color.background.selected.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.2",
+        "description": "Hovered state for color.background.selected"
+      },
+      "value": "#B3D4FF"
+    },
+    "Legacy dark/color.background.selected.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.2",
+        "description": "Pressed state for color.background.selected"
+      },
+      "value": "#4C9AFF"
+    },
+    "Legacy dark/color.background.selected.bold": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.2",
+        "description": "Use for the backgrounds of elements in a selected state, such as checkboxes and radio buttons."
+      },
+      "value": "#0052CC"
+    },
+    "Legacy dark/color.background.selected.bold.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.2",
+        "description": "Hovered state of color.background.selected.bold"
+      },
+      "value": "#0065FF"
+    },
+    "Legacy dark/color.background.selected.bold.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.2",
+        "description": "Pressed state of color.background.selected.bold"
+      },
+      "value": "#0747A6"
+    },
+    "Legacy dark/color.background.brand.bold": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for the background of elements used to reinforce our brand, but with more emphasis."
+      },
+      "value": "#0052CC"
+    },
+    "Legacy dark/color.background.brand.bold.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Hovered state of color.background.brand.bold"
+      },
+      "value": "#0065FF"
+    },
+    "Legacy dark/color.background.brand.bold.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Pressed state of color.background.brand.bold"
+      },
+      "value": "#0747A6"
+    },
+    "Legacy dark/color.background.danger": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for backgrounds communicating critical information, such in error section messages."
+      },
+      "value": "#FFEBE6"
+    },
+    "Legacy dark/color.background.danger.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Hovered state for color.background.danger"
+      },
+      "value": "#FFBDAD"
+    },
+    "Legacy dark/color.background.danger.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Pressed state for color.background.danger"
+      },
+      "value": "#FF8F73"
+    },
+    "Legacy dark/color.background.danger.bold": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "A vibrant background option for communicating critical information, such as in danger buttons and error banners."
+      },
+      "value": "#FF5630"
+    },
+    "Legacy dark/color.background.danger.bold.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Hovered state of color.background.danger.bold"
+      },
+      "value": "#FF7452"
+    },
+    "Legacy dark/color.background.danger.bold.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Pressed state of color.background.danger.bold"
+      },
+      "value": "#DE350B"
+    },
+    "Legacy dark/color.background.warning": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for backgrounds communicating caution, such as in warning section messages."
+      },
+      "value": "#FFFAE6"
+    },
+    "Legacy dark/color.background.warning.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Hovered state for color.background.warning"
+      },
+      "value": "#FFF0B3"
+    },
+    "Legacy dark/color.background.warning.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Pressed state for color.background.warning"
+      },
+      "value": "#FFE380"
+    },
+    "Legacy dark/color.background.warning.bold": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "A vibrant background option for communicating caution, such as in warning buttons and warning banners."
+      },
+      "value": "#FFAB00"
+    },
+    "Legacy dark/color.background.warning.bold.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Hovered state of color.background.warning.bold"
+      },
+      "value": "#FFC400"
+    },
+    "Legacy dark/color.background.warning.bold.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Pressed state of color.background.warning.bold"
+      },
+      "value": "#FF991F"
+    },
+    "Legacy dark/color.background.success": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for backgrounds communicating a favorable outcome, such as in success section messages."
+      },
+      "value": "#E3FCEF"
+    },
+    "Legacy dark/color.background.success.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Hovered state for color.background.success"
+      },
+      "value": "#ABF5D1"
+    },
+    "Legacy dark/color.background.success.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Pressed state for color.background.success"
+      },
+      "value": "#79F2C0"
+    },
+    "Legacy dark/color.background.success.bold": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "A vibrant background option for communicating a favorable outcome, such as in checked toggles."
+      },
+      "value": "#00875A"
+    },
+    "Legacy dark/color.background.success.bold.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Hovered state of color.background.success.bold"
+      },
+      "value": "#36B37E"
+    },
+    "Legacy dark/color.background.success.bold.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Pressed state of color.background.success.bold"
+      },
+      "value": "#006644"
+    },
+    "Legacy dark/color.background.discovery": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for backgrounds communicating change or something new, such as in discovery section messages."
+      },
+      "value": "#EAE6FF"
+    },
+    "Legacy dark/color.background.discovery.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Hover state for color.background.discovery"
+      },
+      "value": "#C0B6F2"
+    },
+    "Legacy dark/color.background.discovery.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Pressed state for color.background.discovery"
+      },
+      "value": "#998DD9"
+    },
+    "Legacy dark/color.background.discovery.bold": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "A vibrant background option communicating change or something new, such as in onboarding spotlights."
+      },
+      "value": "#5243AA"
+    },
+    "Legacy dark/color.background.discovery.bold.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Hovered state of color.background.discovery.bold"
+      },
+      "value": "#6554C0"
+    },
+    "Legacy dark/color.background.discovery.bold.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Pressed state of color.background.discovery.bold"
+      },
+      "value": "#403294"
+    },
+    "Legacy dark/color.background.information": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for backgrounds communicating information or something in-progress, such as in information section messages."
+      },
+      "value": "#DEEBFF"
+    },
+    "Legacy dark/color.background.information.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Hovered state of color.background.information"
+      },
+      "value": "#B3D4FF"
+    },
+    "Legacy dark/color.background.information.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Pressed state of color.background.information"
+      },
+      "value": "#4C9AFF"
+    },
+    "Legacy dark/color.background.information.bold": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "A vibrant background option for communicating information or something in-progress."
+      },
+      "value": "#0052CC"
+    },
+    "Legacy dark/color.background.information.bold.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Hovered state of color.background.information.bold"
+      },
+      "value": "#0065FF"
+    },
+    "Legacy dark/color.background.information.bold.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Pressed state of color.background.information.bold"
+      },
+      "value": "#0747A6"
+    },
+    "Legacy dark/color.blanket": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.0.15",
+        "description": "Use for the screen overlay that appears with modal dialogs"
+      },
+      "value": "#0d1424a0"
+    },
+    "Legacy dark/color.blanket.selected": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use as an overlay to communicate selected states when a simple background color change isn't possible, such as in Editor block elements"
+      },
+      "value": "#1D7AFC14"
+    },
+    "Legacy dark/color.blanket.danger": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use as an overlay to communicate danger states when a simple background color change isn't possible, such as deletion of Editor block elements"
+      },
+      "value": "#E3493514"
+    },
+    "Legacy dark/color.interaction.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use as a background overlay for elements in a hovered state when their background color cannot change, such as avatars."
+      },
+      "value": "#ffffff33"
+    },
+    "Legacy dark/color.interaction.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use as a background overlay for elements in a pressed state when their background color cannot change, such as avatars."
+      },
+      "value": "#ffffff5c"
+    },
+    "Legacy dark/color.skeleton": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.8.0",
+        "description": "Use for skeleton loading states"
+      },
+      "value": "#0d1424f2"
+    },
+    "Legacy dark/color.skeleton.subtle": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.8.0",
+        "description": "Use for the pulse or shimmer effect in skeleton loading states"
+      },
+      "value": "#0d1424f7"
+    },
+    "Legacy dark/color.chart.categorical.1": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only. Follow numbered sequence."
+      },
+      "value": "#00B8D9"
+    },
+    "Legacy dark/color.chart.categorical.1.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.categorical.1."
+      },
+      "value": "#00C7E6"
+    },
+    "Legacy dark/color.chart.categorical.2": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only. Follow numbered sequence."
+      },
+      "value": "#6554C0"
+    },
+    "Legacy dark/color.chart.categorical.2.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.categorical.2."
+      },
+      "value": "#8777D9"
+    },
+    "Legacy dark/color.chart.categorical.3": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only. Follow numbered sequence."
+      },
+      "value": "#D97008"
+    },
+    "Legacy dark/color.chart.categorical.3.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.categorical.3."
+      },
+      "value": "#F18D13"
+    },
+    "Legacy dark/color.chart.categorical.4": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only. Follow numbered sequence."
+      },
+      "value": "#F797D2"
+    },
+    "Legacy dark/color.chart.categorical.4.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.categorical.4."
+      },
+      "value": "#FDD0EC"
+    },
+    "Legacy dark/color.chart.categorical.5": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only. Follow numbered sequence."
+      },
+      "value": "#0065FF"
+    },
+    "Legacy dark/color.chart.categorical.5.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.categorical.5."
+      },
+      "value": "#2684FF"
+    },
+    "Legacy dark/color.chart.categorical.6": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only. Follow numbered sequence."
+      },
+      "value": "#6554C0"
+    },
+    "Legacy dark/color.chart.categorical.6.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.categorical.6."
+      },
+      "value": "#8777D9"
+    },
+    "Legacy dark/color.chart.categorical.7": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only. Follow numbered sequence."
+      },
+      "value": "#FDD0EC"
+    },
+    "Legacy dark/color.chart.categorical.7.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.categorical.7."
+      },
+      "value": "#FFECF8"
+    },
+    "Legacy dark/color.chart.categorical.8": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only. Follow numbered sequence."
+      },
+      "value": "#FEC57B"
+    },
+    "Legacy dark/color.chart.categorical.8.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.categorical.8."
+      },
+      "value": "#FFE2BD"
+    },
+    "Legacy dark/color.chart.neutral": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "A secondary color for data visualisation or to communicate 'to-do' statues."
+      },
+      "value": "#B8C7E0"
+    },
+    "Legacy dark/color.chart.neutral.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.neutral."
+      },
+      "value": "#ABBBD6"
+    },
+    "Legacy dark/color.chart.red.bold": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "#BF2600"
+    },
+    "Legacy dark/color.chart.red.bold.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.red.bold."
+      },
+      "value": "#DE350B"
+    },
+    "Legacy dark/color.chart.red.bolder": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "#DE350B"
+    },
+    "Legacy dark/color.chart.red.bolder.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.red.bolder."
+      },
+      "value": "#FF5630"
+    },
+    "Legacy dark/color.chart.red.boldest": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "#FF5630"
+    },
+    "Legacy dark/color.chart.red.boldest.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.red.boldest."
+      },
+      "value": "#FF7452"
+    },
+    "Legacy dark/color.chart.orange.bold": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "#F18D13"
+    },
+    "Legacy dark/color.chart.orange.bold.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.orange.bold."
+      },
+      "value": "#FAA53D"
+    },
+    "Legacy dark/color.chart.orange.bolder": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "#FAA53D"
+    },
+    "Legacy dark/color.chart.orange.bolder.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.orange.bolder."
+      },
+      "value": "#FEC57B"
+    },
+    "Legacy dark/color.chart.orange.boldest": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "#FEC57B"
+    },
+    "Legacy dark/color.chart.orange.boldest.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.orange.boldest."
+      },
+      "value": "#FFE2BD"
+    },
+    "Legacy dark/color.chart.yellow.bold": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "#FF8B00"
+    },
+    "Legacy dark/color.chart.yellow.bold.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.yellow.bold."
+      },
+      "value": "#FF991F"
+    },
+    "Legacy dark/color.chart.yellow.bolder": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "#FF991F"
+    },
+    "Legacy dark/color.chart.yellow.bolder.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.yellow.bolder."
+      },
+      "value": "#FFAB00"
+    },
+    "Legacy dark/color.chart.yellow.boldest": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "#FFAB00"
+    },
+    "Legacy dark/color.chart.yellow.boldest.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.yellow.boldest."
+      },
+      "value": "#FFC400"
+    },
+    "Legacy dark/color.chart.green.bold": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "#006644"
+    },
+    "Legacy dark/color.chart.green.bold.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.green.bold."
+      },
+      "value": "#00875A"
+    },
+    "Legacy dark/color.chart.green.bolder": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "#00875A"
+    },
+    "Legacy dark/color.chart.green.bolder.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.green.bolder."
+      },
+      "value": "#36B37E"
+    },
+    "Legacy dark/color.chart.green.boldest": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "#36B37E"
+    },
+    "Legacy dark/color.chart.green.boldest.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.green.boldest."
+      },
+      "value": "#57D9A3"
+    },
+    "Legacy dark/color.chart.teal.bold": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "#008DA6"
+    },
+    "Legacy dark/color.chart.teal.bold.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.teal.bold."
+      },
+      "value": "#00A3BF"
+    },
+    "Legacy dark/color.chart.teal.bolder": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "#00A3BF"
+    },
+    "Legacy dark/color.chart.teal.bolder.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.teal.bolder."
+      },
+      "value": "#00B8D9"
+    },
+    "Legacy dark/color.chart.teal.boldest": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "#00B8D9"
+    },
+    "Legacy dark/color.chart.teal.boldest.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.teal.boldest."
+      },
+      "value": "#00C7E6"
+    },
+    "Legacy dark/color.chart.blue.bold": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "#0747A6"
+    },
+    "Legacy dark/color.chart.blue.bold.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.blue.bold."
+      },
+      "value": "#0052CC"
+    },
+    "Legacy dark/color.chart.blue.bolder": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "#0052CC"
+    },
+    "Legacy dark/color.chart.blue.bolder.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.blue.bolder."
+      },
+      "value": "#0065FF"
+    },
+    "Legacy dark/color.chart.blue.boldest": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "#0065FF"
+    },
+    "Legacy dark/color.chart.blue.boldest.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.blue.boldest."
+      },
+      "value": "#2684FF"
+    },
+    "Legacy dark/color.chart.purple.bold": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "#403294"
+    },
+    "Legacy dark/color.chart.purple.bold.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.purple.bold."
+      },
+      "value": "#5243AA"
+    },
+    "Legacy dark/color.chart.purple.bolder": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "#5243AA"
+    },
+    "Legacy dark/color.chart.purple.bolder.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.purple.bolder."
+      },
+      "value": "#6554C0"
+    },
+    "Legacy dark/color.chart.purple.boldest": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "#6554C0"
+    },
+    "Legacy dark/color.chart.purple.boldest.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.purple.boldest."
+      },
+      "value": "#8777D9"
+    },
+    "Legacy dark/color.chart.magenta.bold": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "#CD519D"
+    },
+    "Legacy dark/color.chart.magenta.bold.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.magenta.bold."
+      },
+      "value": "#DA62AC"
+    },
+    "Legacy dark/color.chart.magenta.bolder": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "#DA62AC"
+    },
+    "Legacy dark/color.chart.magenta.bolder.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.magenta.bolder."
+      },
+      "value": "#E774BB"
+    },
+    "Legacy dark/color.chart.magenta.boldest": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "#F797D2"
+    },
+    "Legacy dark/color.chart.magenta.boldest.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.magenta.boldest."
+      },
+      "value": "#FDD0EC"
+    },
+    "Legacy dark/color.chart.gray.bold": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "#B8C7E0"
+    },
+    "Legacy dark/color.chart.gray.bold.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.gray.bold."
+      },
+      "value": "#CED9EB"
+    },
+    "Legacy dark/color.chart.gray.bolder": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "#CED9EB"
+    },
+    "Legacy dark/color.chart.gray.bolder.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.gray.bolder."
+      },
+      "value": "#DCE5F5"
+    },
+    "Legacy dark/color.chart.gray.boldest": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "#DCE5F5"
+    },
+    "Legacy dark/color.chart.gray.boldest.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.gray.boldest."
+      },
+      "value": "#E6EDFA"
+    },
+    "Legacy dark/color.chart.brand": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Our primary color for data visualisation. Use when only one color is required."
+      },
+      "value": "#0052CC"
+    },
+    "Legacy dark/color.chart.brand.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.brand."
+      },
+      "value": "#0065FF"
+    },
+    "Legacy dark/color.chart.danger": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation communicating negative information, such as 'off track'."
+      },
+      "value": "#DE350B"
+    },
+    "Legacy dark/color.chart.danger.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.danger."
+      },
+      "value": "#FF5630"
+    },
+    "Legacy dark/color.chart.danger.bold": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "A stronger emphasis option of color.chart.danger."
+      },
+      "value": "#FF5630"
+    },
+    "Legacy dark/color.chart.danger.bold.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.danger.bold."
+      },
+      "value": "#FF7452"
+    },
+    "Legacy dark/color.chart.warning": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation communicating caution, such as 'at risk' statuses."
+      },
+      "value": "#FF991F"
+    },
+    "Legacy dark/color.chart.warning.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.warning."
+      },
+      "value": "#FFAB00"
+    },
+    "Legacy dark/color.chart.warning.bold": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "A stronger emphasis option of color.chart.warning."
+      },
+      "value": "#FFAB00"
+    },
+    "Legacy dark/color.chart.warning.bold.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.warning.bold."
+      },
+      "value": "#FFC400"
+    },
+    "Legacy dark/color.chart.success": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation communicating positive information, such as 'on track'."
+      },
+      "value": "#00875A"
+    },
+    "Legacy dark/color.chart.success.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.success."
+      },
+      "value": "#36B37E"
+    },
+    "Legacy dark/color.chart.success.bold": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "A stronger emphasis option of color.chart.success."
+      },
+      "value": "#36B37E"
+    },
+    "Legacy dark/color.chart.success.bold.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.success.bold."
+      },
+      "value": "#57D9A3"
+    },
+    "Legacy dark/color.chart.discovery": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation communicating 'new' statuses."
+      },
+      "value": "#5243AA"
+    },
+    "Legacy dark/color.chart.discovery.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.discovery."
+      },
+      "value": "#6554C0"
+    },
+    "Legacy dark/color.chart.discovery.bold": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "A stronger emphasis option of color.chart.discovery."
+      },
+      "value": "#6554C0"
+    },
+    "Legacy dark/color.chart.discovery.bold.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.discovery.bold."
+      },
+      "value": "#8777D9"
+    },
+    "Legacy dark/color.chart.information": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation communicating low priority or in-progress statuses."
+      },
+      "value": "#0052CC"
+    },
+    "Legacy dark/color.chart.information.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.information."
+      },
+      "value": "#0065FF"
+    },
+    "Legacy dark/color.chart.information.bold": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "A stronger emphasis option of color.chart.information."
+      },
+      "value": "#0065FF"
+    },
+    "Legacy dark/color.chart.information.bold.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.information.bold."
+      },
+      "value": "#2684FF"
+    },
+    "Legacy dark/elevation.surface": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use as the primary background for the UI."
+      },
+      "value": "#1B2638"
+    },
+    "Legacy dark/elevation.surface.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.10.20",
+        "description": "Hovered state of elevation.surface"
+      },
+      "value": "#202B3D"
+    },
+    "Legacy dark/elevation.surface.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.10.20",
+        "description": "Pressed state of elevation.surface"
+      },
+      "value": "#283447"
+    },
+    "Legacy dark/elevation.surface.overlay": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for the background of elements that sit on top of they UI, such as modals, dialogs, dropdown menus, floating toolbars, and floating single-action buttons. Also use for the background of raised cards in a dragged state. Combine with elevation.shadow.overlay."
+      },
+      "value": "#7988A3"
+    },
+    "Legacy dark/elevation.surface.overlay.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.10.20",
+        "description": "Hovered state of elevation.surface.overlay"
+      },
+      "value": "#8C9CB8"
+    },
+    "Legacy dark/elevation.surface.overlay.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.10.20",
+        "description": "Pressed state of elevation.surface.overlay"
+      },
+      "value": "#9FB0CC"
+    },
+    "Legacy dark/elevation.surface.raised": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for the background of cards that can be moved, such as Jira cards on a Kanban board. Combine with elevation.shadow.raised."
+      },
+      "value": "#455166"
+    },
+    "Legacy dark/elevation.surface.raised.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.10.20",
+        "description": "Hovered state of elevation.surface.raised"
+      },
+      "value": "#56637A"
+    },
+    "Legacy dark/elevation.surface.raised.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.10.20",
+        "description": "Pressed state of elevation.surface.raised"
+      },
+      "value": "#67758F"
+    },
+    "Legacy dark/elevation.surface.sunken": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "A secondary background for the UI commonly used for grouping items, such as Jira cards in columns."
+      },
+      "value": "#67758F"
+    },
+    "Legacy dark/elevation.shadow.overflow": {
+      "attributes": {
+        "group": "shadow",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use to create a shadow when content scrolls under other content."
+      },
+      "value": [
+        {
+          "radius": 12,
+          "offset": {
+            "x": 0,
+            "y": 0
+          },
+          "color": "#030404",
+          "opacity": 0.56
+        },
+        {
+          "radius": 1,
+          "offset": {
+            "x": 0,
+            "y": 0
+          },
+          "color": "#030404",
+          "opacity": 0.5
+        }
+      ]
+    },
+    "Legacy dark/elevation.shadow.overflow.perimeter": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.10.32",
+        "description": "Use only when elevation.shadow.overflow is not technically feasible to implement. Pair with elevation.shadow.overflow.spread to replicate the overflow shadow."
+      },
+      "value": "#03040480"
+    },
+    "Legacy dark/elevation.shadow.overflow.spread": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.10.32",
+        "description": "Use only when elevation.shadow.overflow is not technically feasible to implement. Pair with elevation.shadow.overflow.perimeter to replicate the overflow shadow."
+      },
+      "value": "#0304048f"
+    },
+    "Legacy dark/elevation.shadow.overlay": {
+      "attributes": {
+        "group": "shadow",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for the box shadow of elements that sit on top of the UI, such as modals, dropdown menus, flags, and inline dialogs. Combine with elevation.surface.overlay\n\nAlso use for the box shadow of raised cards in a dragged state."
+      },
+      "value": [
+        {
+          "radius": 0,
+          "spread": 1,
+          "color": "#0d142487",
+          "offset": {
+            "x": 0,
+            "y": 0
+          },
+          "opacity": 0.04,
+          "inset": true
+        },
+        {
+          "radius": 12,
+          "offset": {
+            "x": 0,
+            "y": 8
+          },
+          "color": "#0d142487",
+          "opacity": 0.36
+        },
+        {
+          "radius": 1,
+          "offset": {
+            "x": 0,
+            "y": 0
+          },
+          "color": "#0d142487",
+          "opacity": 0.5
+        }
+      ]
+    },
+    "Legacy dark/elevation.shadow.raised": {
+      "attributes": {
+        "group": "shadow",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for the box shadow of raised card elements, such as Jira cards on a Kanban board. Combine with elevation.surface.raised"
+      },
+      "value": [
+        {
+          "radius": 0,
+          "spread": 1,
+          "color": "#000000",
+          "offset": {
+            "x": 0,
+            "y": 0
+          },
+          "opacity": 0,
+          "inset": true
+        },
+        {
+          "radius": 1,
+          "offset": {
+            "x": 0,
+            "y": 1
+          },
+          "color": "#0d142487",
+          "opacity": 0.5
+        },
+        {
+          "radius": 1,
+          "offset": {
+            "x": 0,
+            "y": 0
+          },
+          "color": "#0d142487",
+          "opacity": 0.5
+        }
+      ]
+    }
+  },
+  "renameMap": {
+    "Legacy dark/color.text.highEmphasis": "Legacy dark/color.text",
+    "Legacy dark/color.text.link.pressed": "Legacy dark/color.link.pressed",
+    "Legacy dark/color.text.link.resting": "Legacy dark/color.link",
+    "Legacy dark/color.text.lowEmphasis": "Legacy dark/color.text.subtlest",
+    "Legacy dark/color.text.mediumEmphasis": "Legacy dark/color.text.subtle",
+    "Legacy dark/color.text.onBold": "Legacy dark/color.text.inverse",
+    "Legacy dark/color.text.onBoldWarning": "Legacy dark/color.text.warning.inverse",
+    "Legacy dark/color.border.focus": "Legacy dark/color.border.focused",
+    "Legacy dark/color.border.neutral": "Legacy dark/color.border",
+    "Legacy dark/color.background.accent.blue": "Legacy dark/color.background.accent.blue.subtler",
+    "Legacy dark/color.background.accent.blue.bold": "Legacy dark/color.background.accent.blue.subtle",
+    "Legacy dark/color.background.accent.red": "Legacy dark/color.background.accent.red.subtler",
+    "Legacy dark/color.background.accent.red.bold": "Legacy dark/color.background.accent.red.subtle",
+    "Legacy dark/color.background.accent.orange": "Legacy dark/color.background.accent.orange.subtler",
+    "Legacy dark/color.background.accent.orange.bold": "Legacy dark/color.background.accent.orange.subtle",
+    "Legacy dark/color.background.accent.yellow": "Legacy dark/color.background.accent.yellow.subtler",
+    "Legacy dark/color.background.accent.yellow.bold": "Legacy dark/color.background.accent.yellow.subtle",
+    "Legacy dark/color.background.accent.green": "Legacy dark/color.background.accent.green.subtler",
+    "Legacy dark/color.background.accent.green.bold": "Legacy dark/color.background.accent.green.subtle",
+    "Legacy dark/color.background.accent.teal": "Legacy dark/color.background.accent.teal.subtler",
+    "Legacy dark/color.background.accent.teal.bold": "Legacy dark/color.background.accent.teal.subtle",
+    "Legacy dark/color.background.accent.purple": "Legacy dark/color.background.accent.purple.subtler",
+    "Legacy dark/color.background.accent.purple.bold": "Legacy dark/color.background.accent.purple.subtle",
+    "Legacy dark/color.background.accent.magenta": "Legacy dark/color.background.accent.magenta.subtler",
+    "Legacy dark/color.background.accent.magenta.bold": "Legacy dark/color.background.accent.magenta.subtle",
+    "Legacy dark/color.background.inverse": "Legacy dark/color.background.inverse.subtle",
+    "Legacy dark/color.background.brand": "Legacy dark/color.background.selected",
+    "Legacy dark/color.background.brand.hovered": "Legacy dark/color.background.selected.hovered",
+    "Legacy dark/color.background.brand.pressed": "Legacy dark/color.background.selected.pressed",
+    "Legacy dark/color.background.selected.resting": "Legacy dark/color.background.selected",
+    "Legacy dark/color.background.selected.hover": "Legacy dark/color.background.selected.hovered",
+    "Legacy dark/color.background.blanket": "Legacy dark/color.blanket",
+    "Legacy dark/color.background.boldBrand.hover": "Legacy dark/color.background.brand.bold.hovered",
+    "Legacy dark/color.background.boldBrand.pressed": "Legacy dark/color.background.brand.bold.pressed",
+    "Legacy dark/color.background.boldBrand.resting": "Legacy dark/color.background.brand.bold",
+    "Legacy dark/color.background.boldDanger.hover": "Legacy dark/color.background.danger.bold.hovered",
+    "Legacy dark/color.background.boldDanger.pressed": "Legacy dark/color.background.danger.bold.pressed",
+    "Legacy dark/color.background.boldDanger.resting": "Legacy dark/color.background.danger.bold",
+    "Legacy dark/color.background.boldDiscovery.hover": "Legacy dark/color.background.discovery.bold.hovered",
+    "Legacy dark/color.background.boldDiscovery.pressed": "Legacy dark/color.background.discovery.bold.pressed",
+    "Legacy dark/color.background.boldDiscovery.resting": "Legacy dark/color.background.discovery.bold",
+    "Legacy dark/color.background.boldNeutral.hover": "Legacy dark/color.background.neutral.bold.hovered",
+    "Legacy dark/color.background.boldNeutral.pressed": "Legacy dark/color.background.neutral.bold.pressed",
+    "Legacy dark/color.background.boldNeutral.resting": "Legacy dark/color.background.neutral.bold",
+    "Legacy dark/color.background.boldSuccess.hover": "Legacy dark/color.background.success.bold.hovered",
+    "Legacy dark/color.background.boldSuccess.pressed": "Legacy dark/color.background.success.bold.pressed",
+    "Legacy dark/color.background.boldSuccess.resting": "Legacy dark/color.background.success.bold",
+    "Legacy dark/color.background.boldWarning.hover": "Legacy dark/color.background.warning.bold.hovered",
+    "Legacy dark/color.background.boldWarning.pressed": "Legacy dark/color.background.warning.bold.pressed",
+    "Legacy dark/color.background.boldWarning.resting": "Legacy dark/color.background.warning.bold",
+    "Legacy dark/color.background.card": "Legacy dark/elevation.surface.raised",
+    "Legacy dark/color.background.default": "Legacy dark/elevation.surface",
+    "Legacy dark/color.background.overlay": "Legacy dark/elevation.surface.overlay",
+    "Legacy dark/color.background.subtleBorderedNeutral.pressed": "Legacy dark/color.background.input.pressed",
+    "Legacy dark/color.background.subtleBorderedNeutral.resting": "Legacy dark/color.background.input",
+    "Legacy dark/color.background.subtleBrand.hover": "Legacy dark/color.background.selected.hovered",
+    "Legacy dark/color.background.subtleBrand.pressed": "Legacy dark/color.background.selected.pressed",
+    "Legacy dark/color.background.subtleBrand.resting": "Legacy dark/color.background.selected",
+    "Legacy dark/color.background.subtleDanger.hover": "Legacy dark/color.background.danger.hovered",
+    "Legacy dark/color.background.subtleDanger.pressed": "Legacy dark/color.background.danger.pressed",
+    "Legacy dark/color.background.subtleDanger.resting": "Legacy dark/color.background.danger",
+    "Legacy dark/color.background.subtleDiscovery.hover": "Legacy dark/color.background.discovery.hovered",
+    "Legacy dark/color.background.subtleDiscovery.pressed": "Legacy dark/color.background.discovery.pressed",
+    "Legacy dark/color.background.subtleDiscovery.resting": "Legacy dark/color.background.discovery",
+    "Legacy dark/color.background.subtleNeutral.hover": "Legacy dark/color.background.neutral.hovered",
+    "Legacy dark/color.background.subtleNeutral.pressed": "Legacy dark/color.background.neutral.pressed",
+    "Legacy dark/color.background.subtleNeutral.resting": "Legacy dark/color.background.neutral",
+    "Legacy dark/color.background.subtleSuccess.hover": "Legacy dark/color.background.success.hovered",
+    "Legacy dark/color.background.subtleSuccess.pressed": "Legacy dark/color.background.success.pressed",
+    "Legacy dark/color.background.subtleSuccess.resting": "Legacy dark/color.background.success",
+    "Legacy dark/color.background.subtleWarning.hover": "Legacy dark/color.background.warning.hovered",
+    "Legacy dark/color.background.subtleWarning.pressed": "Legacy dark/color.background.warning.pressed",
+    "Legacy dark/color.background.subtleWarning.resting": "Legacy dark/color.background.warning",
+    "Legacy dark/color.background.sunken": "Legacy dark/elevation.surface.sunken",
+    "Legacy dark/color.background.transparentNeutral.hover": "Legacy dark/color.background.neutral.subtle.hovered",
+    "Legacy dark/color.background.transparentNeutral.pressed": "Legacy dark/color.background.neutral.subtle.pressed",
+    "Legacy dark/color.interaction.inverse.hovered": "Legacy dark/color.background.inverse.subtle.hovered",
+    "Legacy dark/color.interaction.inverse.pressed": "Legacy dark/color.background.inverse.subtle.pressed",
+    "Legacy dark/color.accent.boldBlue": "Legacy dark/color.background.accent.blue.bolder",
+    "Legacy dark/color.accent.boldGreen": "Legacy dark/color.background.accent.green.bolder",
+    "Legacy dark/color.accent.boldOrange": "Legacy dark/color.background.accent.orange.bolder",
+    "Legacy dark/color.accent.boldPurple": "Legacy dark/color.background.accent.purple.bolder",
+    "Legacy dark/color.accent.boldRed": "Legacy dark/color.background.accent.red.bolder",
+    "Legacy dark/color.accent.boldTeal": "Legacy dark/color.background.accent.teal.bolder",
+    "Legacy dark/color.accent.subtleBlue": "Legacy dark/color.background.accent.blue.subtler",
+    "Legacy dark/color.accent.subtleGreen": "Legacy dark/color.background.accent.green.subtler",
+    "Legacy dark/color.accent.subtleMagenta": "Legacy dark/color.background.accent.magenta.subtler",
+    "Legacy dark/color.accent.subtleOrange": "Legacy dark/color.background.accent.orange.subtler",
+    "Legacy dark/color.accent.subtlePurple": "Legacy dark/color.background.accent.purple.subtler",
+    "Legacy dark/color.accent.subtleRed": "Legacy dark/color.background.accent.red.subtler",
+    "Legacy dark/color.accent.subtleTeal": "Legacy dark/color.background.accent.teal.subtler",
+    "Legacy dark/color.iconBorder.brand": "Legacy dark/color.icon.brand",
+    "Legacy dark/color.iconBorder.danger": "Legacy dark/color.icon.danger",
+    "Legacy dark/color.iconBorder.discovery": "Legacy dark/color.icon.discovery",
+    "Legacy dark/color.iconBorder.success": "Legacy dark/color.icon.success",
+    "Legacy dark/color.iconBorder.warning": "Legacy dark/color.icon.warning",
+    "Legacy dark/color.overlay.hover": "Legacy dark/color.interaction.hovered",
+    "Legacy dark/color.overlay.pressed": "Legacy dark/color.interaction.pressed",
+    "Legacy dark/shadow.card": "Legacy dark/elevation.shadow.raised",
+    "Legacy dark/shadow.overlay": "Legacy dark/elevation.shadow.overlay"
+  }
+}

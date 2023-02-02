@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-ui",
-  "version": "22.2.4",
+  "version": "22.3.0",
   "description": "Includes common components and utilities used by other media packages",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -45,7 +45,7 @@
     "@atlaskit/icon": "^21.11.0",
     "@atlaskit/icon-file-type": "^6.3.0",
     "@atlaskit/locale": "^2.3.0",
-    "@atlaskit/media-common": "^2.18.0",
+    "@atlaskit/media-common": "^2.19.0",
     "@atlaskit/select": "^16.1.0",
     "@atlaskit/spinner": "^15.3.0",
     "@atlaskit/theme": "^12.2.0",

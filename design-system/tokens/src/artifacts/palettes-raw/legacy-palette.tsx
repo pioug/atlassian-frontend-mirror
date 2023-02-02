@@ -1,75 +1,9 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::4413d3bf5e16367be3a572667916731e>>
+ * @codegen <<SignedSource::dedf6c0d26805cf0e48a136204fac4d2>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
-  {
-    "value": 0.2,
-    "attributes": {
-      "group": "palette",
-      "category": "opacity"
-    },
-    "filePath": "src/palettes/legacy-palette.tsx",
-    "isSource": true,
-    "original": {
-      "value": 0.2,
-      "attributes": {
-        "group": "palette",
-        "category": "opacity"
-      }
-    },
-    "name": "value.opacity.Opacity20",
-    "path": [
-      "value",
-      "opacity",
-      "Opacity20"
-    ]
-  },
-  {
-    "value": 0.4,
-    "attributes": {
-      "group": "palette",
-      "category": "opacity"
-    },
-    "filePath": "src/palettes/legacy-palette.tsx",
-    "isSource": true,
-    "original": {
-      "value": 0.4,
-      "attributes": {
-        "group": "palette",
-        "category": "opacity"
-      }
-    },
-    "name": "value.opacity.Opacity40",
-    "path": [
-      "value",
-      "opacity",
-      "Opacity40"
-    ]
-  },
-  {
-    "value": "transparent",
-    "attributes": {
-      "group": "palette",
-      "category": "red"
-    },
-    "filePath": "src/palettes/legacy-palette.tsx",
-    "isSource": true,
-    "original": {
-      "value": "transparent",
-      "attributes": {
-        "group": "palette",
-        "category": "red"
-      }
-    },
-    "name": "color.palette.transparent",
-    "path": [
-      "color",
-      "palette",
-      "transparent"
-    ]
-  },
   {
     "value": "#FFEBE6",
     "attributes": {
@@ -222,6 +156,50 @@ const tokens = [
       "color",
       "palette",
       "R500"
+    ]
+  },
+  {
+    "value": "transparent",
+    "attributes": {
+      "group": "palette",
+      "category": "red"
+    },
+    "filePath": "src/palettes/legacy-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "transparent",
+      "attributes": {
+        "group": "palette",
+        "category": "red"
+      }
+    },
+    "name": "color.palette.transparent",
+    "path": [
+      "color",
+      "palette",
+      "transparent"
+    ]
+  },
+  {
+    "value": "#974F0C",
+    "attributes": {
+      "group": "palette",
+      "category": "orange"
+    },
+    "filePath": "src/palettes/legacy-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "#974F0C",
+      "attributes": {
+        "group": "palette",
+        "category": "orange"
+      }
+    },
+    "name": "color.palette.O800",
+    "path": [
+      "color",
+      "palette",
+      "O800"
     ]
   },
   {
@@ -379,28 +357,6 @@ const tokens = [
     ]
   },
   {
-    "value": "#974F0C",
-    "attributes": {
-      "group": "palette",
-      "category": "orange"
-    },
-    "filePath": "src/palettes/legacy-palette.tsx",
-    "isSource": true,
-    "original": {
-      "value": "#974F0C",
-      "attributes": {
-        "group": "palette",
-        "category": "orange"
-      }
-    },
-    "name": "color.palette.O800",
-    "path": [
-      "color",
-      "palette",
-      "O800"
-    ]
-  },
-  {
     "value": "#E3FCEF",
     "attributes": {
       "group": "palette",
@@ -552,6 +508,160 @@ const tokens = [
       "color",
       "palette",
       "G500"
+    ]
+  },
+  {
+    "value": "#E6FCFF",
+    "attributes": {
+      "group": "palette",
+      "category": "teal"
+    },
+    "filePath": "src/palettes/legacy-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "#E6FCFF",
+      "attributes": {
+        "group": "palette",
+        "category": "teal"
+      }
+    },
+    "name": "color.palette.T50",
+    "path": [
+      "color",
+      "palette",
+      "T50"
+    ]
+  },
+  {
+    "value": "#B3F5FF",
+    "attributes": {
+      "group": "palette",
+      "category": "teal"
+    },
+    "filePath": "src/palettes/legacy-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "#B3F5FF",
+      "attributes": {
+        "group": "palette",
+        "category": "teal"
+      }
+    },
+    "name": "color.palette.T75",
+    "path": [
+      "color",
+      "palette",
+      "T75"
+    ]
+  },
+  {
+    "value": "#79E2F2",
+    "attributes": {
+      "group": "palette",
+      "category": "teal"
+    },
+    "filePath": "src/palettes/legacy-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "#79E2F2",
+      "attributes": {
+        "group": "palette",
+        "category": "teal"
+      }
+    },
+    "name": "color.palette.T100",
+    "path": [
+      "color",
+      "palette",
+      "T100"
+    ]
+  },
+  {
+    "value": "#00C7E6",
+    "attributes": {
+      "group": "palette",
+      "category": "teal"
+    },
+    "filePath": "src/palettes/legacy-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "#00C7E6",
+      "attributes": {
+        "group": "palette",
+        "category": "teal"
+      }
+    },
+    "name": "color.palette.T200",
+    "path": [
+      "color",
+      "palette",
+      "T200"
+    ]
+  },
+  {
+    "value": "#00B8D9",
+    "attributes": {
+      "group": "palette",
+      "category": "teal"
+    },
+    "filePath": "src/palettes/legacy-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "#00B8D9",
+      "attributes": {
+        "group": "palette",
+        "category": "teal"
+      }
+    },
+    "name": "color.palette.T300",
+    "path": [
+      "color",
+      "palette",
+      "T300"
+    ]
+  },
+  {
+    "value": "#00A3BF",
+    "attributes": {
+      "group": "palette",
+      "category": "teal"
+    },
+    "filePath": "src/palettes/legacy-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "#00A3BF",
+      "attributes": {
+        "group": "palette",
+        "category": "teal"
+      }
+    },
+    "name": "color.palette.T400",
+    "path": [
+      "color",
+      "palette",
+      "T400"
+    ]
+  },
+  {
+    "value": "#008DA6",
+    "attributes": {
+      "group": "palette",
+      "category": "teal"
+    },
+    "filePath": "src/palettes/legacy-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "#008DA6",
+      "attributes": {
+        "group": "palette",
+        "category": "teal"
+      }
+    },
+    "name": "color.palette.T500",
+    "path": [
+      "color",
+      "palette",
+      "T500"
     ]
   },
   {
@@ -860,160 +970,6 @@ const tokens = [
       "color",
       "palette",
       "P500"
-    ]
-  },
-  {
-    "value": "#E6FCFF",
-    "attributes": {
-      "group": "palette",
-      "category": "teal"
-    },
-    "filePath": "src/palettes/legacy-palette.tsx",
-    "isSource": true,
-    "original": {
-      "value": "#E6FCFF",
-      "attributes": {
-        "group": "palette",
-        "category": "teal"
-      }
-    },
-    "name": "color.palette.T50",
-    "path": [
-      "color",
-      "palette",
-      "T50"
-    ]
-  },
-  {
-    "value": "#B3F5FF",
-    "attributes": {
-      "group": "palette",
-      "category": "teal"
-    },
-    "filePath": "src/palettes/legacy-palette.tsx",
-    "isSource": true,
-    "original": {
-      "value": "#B3F5FF",
-      "attributes": {
-        "group": "palette",
-        "category": "teal"
-      }
-    },
-    "name": "color.palette.T75",
-    "path": [
-      "color",
-      "palette",
-      "T75"
-    ]
-  },
-  {
-    "value": "#79E2F2",
-    "attributes": {
-      "group": "palette",
-      "category": "teal"
-    },
-    "filePath": "src/palettes/legacy-palette.tsx",
-    "isSource": true,
-    "original": {
-      "value": "#79E2F2",
-      "attributes": {
-        "group": "palette",
-        "category": "teal"
-      }
-    },
-    "name": "color.palette.T100",
-    "path": [
-      "color",
-      "palette",
-      "T100"
-    ]
-  },
-  {
-    "value": "#00C7E6",
-    "attributes": {
-      "group": "palette",
-      "category": "teal"
-    },
-    "filePath": "src/palettes/legacy-palette.tsx",
-    "isSource": true,
-    "original": {
-      "value": "#00C7E6",
-      "attributes": {
-        "group": "palette",
-        "category": "teal"
-      }
-    },
-    "name": "color.palette.T200",
-    "path": [
-      "color",
-      "palette",
-      "T200"
-    ]
-  },
-  {
-    "value": "#00B8D9",
-    "attributes": {
-      "group": "palette",
-      "category": "teal"
-    },
-    "filePath": "src/palettes/legacy-palette.tsx",
-    "isSource": true,
-    "original": {
-      "value": "#00B8D9",
-      "attributes": {
-        "group": "palette",
-        "category": "teal"
-      }
-    },
-    "name": "color.palette.T300",
-    "path": [
-      "color",
-      "palette",
-      "T300"
-    ]
-  },
-  {
-    "value": "#00A3BF",
-    "attributes": {
-      "group": "palette",
-      "category": "teal"
-    },
-    "filePath": "src/palettes/legacy-palette.tsx",
-    "isSource": true,
-    "original": {
-      "value": "#00A3BF",
-      "attributes": {
-        "group": "palette",
-        "category": "teal"
-      }
-    },
-    "name": "color.palette.T400",
-    "path": [
-      "color",
-      "palette",
-      "T400"
-    ]
-  },
-  {
-    "value": "#008DA6",
-    "attributes": {
-      "group": "palette",
-      "category": "teal"
-    },
-    "filePath": "src/palettes/legacy-palette.tsx",
-    "isSource": true,
-    "original": {
-      "value": "#008DA6",
-      "attributes": {
-        "group": "palette",
-        "category": "teal"
-      }
-    },
-    "name": "color.palette.T500",
-    "path": [
-      "color",
-      "palette",
-      "T500"
     ]
   },
   {
@@ -1809,7 +1765,7 @@ const tokens = [
     ]
   },
   {
-    "value": "#E6EDFA",
+    "value": "#0D1424",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -1817,369 +1773,17 @@ const tokens = [
     "filePath": "src/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#E6EDFA",
+      "value": "#0D1424",
       "attributes": {
         "group": "palette",
         "category": "dark mode neutral"
       }
     },
-    "name": "color.palette.DN900",
+    "name": "color.palette.DN0",
     "path": [
       "color",
       "palette",
-      "DN900"
-    ]
-  },
-  {
-    "value": "#DCE5F5",
-    "attributes": {
-      "group": "palette",
-      "category": "dark mode neutral"
-    },
-    "filePath": "src/palettes/legacy-palette.tsx",
-    "isSource": true,
-    "original": {
-      "value": "#DCE5F5",
-      "attributes": {
-        "group": "palette",
-        "category": "dark mode neutral"
-      }
-    },
-    "name": "color.palette.DN800",
-    "path": [
-      "color",
-      "palette",
-      "DN800"
-    ]
-  },
-  {
-    "value": "#CED9EB",
-    "attributes": {
-      "group": "palette",
-      "category": "dark mode neutral"
-    },
-    "filePath": "src/palettes/legacy-palette.tsx",
-    "isSource": true,
-    "original": {
-      "value": "#CED9EB",
-      "attributes": {
-        "group": "palette",
-        "category": "dark mode neutral"
-      }
-    },
-    "name": "color.palette.DN700",
-    "path": [
-      "color",
-      "palette",
-      "DN700"
-    ]
-  },
-  {
-    "value": "#B8C7E0",
-    "attributes": {
-      "group": "palette",
-      "category": "dark mode neutral"
-    },
-    "filePath": "src/palettes/legacy-palette.tsx",
-    "isSource": true,
-    "original": {
-      "value": "#B8C7E0",
-      "attributes": {
-        "group": "palette",
-        "category": "dark mode neutral"
-      }
-    },
-    "name": "color.palette.DN600",
-    "path": [
-      "color",
-      "palette",
-      "DN600"
-    ]
-  },
-  {
-    "value": "#ABBBD6",
-    "attributes": {
-      "group": "palette",
-      "category": "dark mode neutral"
-    },
-    "filePath": "src/palettes/legacy-palette.tsx",
-    "isSource": true,
-    "original": {
-      "value": "#ABBBD6",
-      "attributes": {
-        "group": "palette",
-        "category": "dark mode neutral"
-      }
-    },
-    "name": "color.palette.DN500",
-    "path": [
-      "color",
-      "palette",
-      "DN500"
-    ]
-  },
-  {
-    "value": "#9FB0CC",
-    "attributes": {
-      "group": "palette",
-      "category": "dark mode neutral"
-    },
-    "filePath": "src/palettes/legacy-palette.tsx",
-    "isSource": true,
-    "original": {
-      "value": "#9FB0CC",
-      "attributes": {
-        "group": "palette",
-        "category": "dark mode neutral"
-      }
-    },
-    "name": "color.palette.DN400",
-    "path": [
-      "color",
-      "palette",
-      "DN400"
-    ]
-  },
-  {
-    "value": "#8C9CB8",
-    "attributes": {
-      "group": "palette",
-      "category": "dark mode neutral"
-    },
-    "filePath": "src/palettes/legacy-palette.tsx",
-    "isSource": true,
-    "original": {
-      "value": "#8C9CB8",
-      "attributes": {
-        "group": "palette",
-        "category": "dark mode neutral"
-      }
-    },
-    "name": "color.palette.DN300",
-    "path": [
-      "color",
-      "palette",
-      "DN300"
-    ]
-  },
-  {
-    "value": "#7988A3",
-    "attributes": {
-      "group": "palette",
-      "category": "dark mode neutral"
-    },
-    "filePath": "src/palettes/legacy-palette.tsx",
-    "isSource": true,
-    "original": {
-      "value": "#7988A3",
-      "attributes": {
-        "group": "palette",
-        "category": "dark mode neutral"
-      }
-    },
-    "name": "color.palette.DN200",
-    "path": [
-      "color",
-      "palette",
-      "DN200"
-    ]
-  },
-  {
-    "value": "#67758F",
-    "attributes": {
-      "group": "palette",
-      "category": "dark mode neutral"
-    },
-    "filePath": "src/palettes/legacy-palette.tsx",
-    "isSource": true,
-    "original": {
-      "value": "#67758F",
-      "attributes": {
-        "group": "palette",
-        "category": "dark mode neutral"
-      }
-    },
-    "name": "color.palette.DN100",
-    "path": [
-      "color",
-      "palette",
-      "DN100"
-    ]
-  },
-  {
-    "value": "#56637A",
-    "attributes": {
-      "group": "palette",
-      "category": "dark mode neutral"
-    },
-    "filePath": "src/palettes/legacy-palette.tsx",
-    "isSource": true,
-    "original": {
-      "value": "#56637A",
-      "attributes": {
-        "group": "palette",
-        "category": "dark mode neutral"
-      }
-    },
-    "name": "color.palette.DN90",
-    "path": [
-      "color",
-      "palette",
-      "DN90"
-    ]
-  },
-  {
-    "value": "#455166",
-    "attributes": {
-      "group": "palette",
-      "category": "dark mode neutral"
-    },
-    "filePath": "src/palettes/legacy-palette.tsx",
-    "isSource": true,
-    "original": {
-      "value": "#455166",
-      "attributes": {
-        "group": "palette",
-        "category": "dark mode neutral"
-      }
-    },
-    "name": "color.palette.DN80",
-    "path": [
-      "color",
-      "palette",
-      "DN80"
-    ]
-  },
-  {
-    "value": "#3B475C",
-    "attributes": {
-      "group": "palette",
-      "category": "dark mode neutral"
-    },
-    "filePath": "src/palettes/legacy-palette.tsx",
-    "isSource": true,
-    "original": {
-      "value": "#3B475C",
-      "attributes": {
-        "group": "palette",
-        "category": "dark mode neutral"
-      }
-    },
-    "name": "color.palette.DN70",
-    "path": [
-      "color",
-      "palette",
-      "DN70"
-    ]
-  },
-  {
-    "value": "#313D52",
-    "attributes": {
-      "group": "palette",
-      "category": "dark mode neutral"
-    },
-    "filePath": "src/palettes/legacy-palette.tsx",
-    "isSource": true,
-    "original": {
-      "value": "#313D52",
-      "attributes": {
-        "group": "palette",
-        "category": "dark mode neutral"
-      }
-    },
-    "name": "color.palette.DN60",
-    "path": [
-      "color",
-      "palette",
-      "DN60"
-    ]
-  },
-  {
-    "value": "#283447",
-    "attributes": {
-      "group": "palette",
-      "category": "dark mode neutral"
-    },
-    "filePath": "src/palettes/legacy-palette.tsx",
-    "isSource": true,
-    "original": {
-      "value": "#283447",
-      "attributes": {
-        "group": "palette",
-        "category": "dark mode neutral"
-      }
-    },
-    "name": "color.palette.DN50",
-    "path": [
-      "color",
-      "palette",
-      "DN50"
-    ]
-  },
-  {
-    "value": "#202B3D",
-    "attributes": {
-      "group": "palette",
-      "category": "dark mode neutral"
-    },
-    "filePath": "src/palettes/legacy-palette.tsx",
-    "isSource": true,
-    "original": {
-      "value": "#202B3D",
-      "attributes": {
-        "group": "palette",
-        "category": "dark mode neutral"
-      }
-    },
-    "name": "color.palette.DN40",
-    "path": [
-      "color",
-      "palette",
-      "DN40"
-    ]
-  },
-  {
-    "value": "#1B2638",
-    "attributes": {
-      "group": "palette",
-      "category": "dark mode neutral"
-    },
-    "filePath": "src/palettes/legacy-palette.tsx",
-    "isSource": true,
-    "original": {
-      "value": "#1B2638",
-      "attributes": {
-        "group": "palette",
-        "category": "dark mode neutral"
-      }
-    },
-    "name": "color.palette.DN30",
-    "path": [
-      "color",
-      "palette",
-      "DN30"
-    ]
-  },
-  {
-    "value": "#121A29",
-    "attributes": {
-      "group": "palette",
-      "category": "dark mode neutral"
-    },
-    "filePath": "src/palettes/legacy-palette.tsx",
-    "isSource": true,
-    "original": {
-      "value": "#121A29",
-      "attributes": {
-        "group": "palette",
-        "category": "dark mode neutral"
-      }
-    },
-    "name": "color.palette.DN20",
-    "path": [
-      "color",
-      "palette",
-      "DN20"
+      "DN0"
     ]
   },
   {
@@ -2205,7 +1809,7 @@ const tokens = [
     ]
   },
   {
-    "value": "#0D1424",
+    "value": "#121A29",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2213,21 +1817,21 @@ const tokens = [
     "filePath": "src/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#0D1424",
+      "value": "#121A29",
       "attributes": {
         "group": "palette",
         "category": "dark mode neutral"
       }
     },
-    "name": "color.palette.DN0",
+    "name": "color.palette.DN20",
     "path": [
       "color",
       "palette",
-      "DN0"
+      "DN20"
     ]
   },
   {
-    "value": "#0d1424f",
+    "value": "#1B2638",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2235,21 +1839,21 @@ const tokens = [
     "filePath": "src/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#0d1424f",
+      "value": "#1B2638",
       "attributes": {
         "group": "palette",
         "category": "dark mode neutral"
       }
     },
-    "name": "color.palette.DN800A",
+    "name": "color.palette.DN30",
     "path": [
       "color",
       "palette",
-      "DN800A"
+      "DN30"
     ]
   },
   {
-    "value": "#0d142423",
+    "value": "#202B3D",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2257,21 +1861,21 @@ const tokens = [
     "filePath": "src/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#0d142423",
+      "value": "#202B3D",
       "attributes": {
         "group": "palette",
         "category": "dark mode neutral"
       }
     },
-    "name": "color.palette.DN700A",
+    "name": "color.palette.DN40",
     "path": [
       "color",
       "palette",
-      "DN700A"
+      "DN40"
     ]
   },
   {
-    "value": "#0d14242d",
+    "value": "#283447",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2279,21 +1883,21 @@ const tokens = [
     "filePath": "src/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#0d14242d",
+      "value": "#283447",
       "attributes": {
         "group": "palette",
         "category": "dark mode neutral"
       }
     },
-    "name": "color.palette.DN600A",
+    "name": "color.palette.DN50",
     "path": [
       "color",
       "palette",
-      "DN600A"
+      "DN50"
     ]
   },
   {
-    "value": "#0d142449",
+    "value": "#313D52",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2301,21 +1905,21 @@ const tokens = [
     "filePath": "src/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#0d142449",
+      "value": "#313D52",
       "attributes": {
         "group": "palette",
         "category": "dark mode neutral"
       }
     },
-    "name": "color.palette.DN500A",
+    "name": "color.palette.DN60",
     "path": [
       "color",
       "palette",
-      "DN500A"
+      "DN60"
     ]
   },
   {
-    "value": "#0d14245b",
+    "value": "#3B475C",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2323,21 +1927,21 @@ const tokens = [
     "filePath": "src/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#0d14245b",
+      "value": "#3B475C",
       "attributes": {
         "group": "palette",
         "category": "dark mode neutral"
       }
     },
-    "name": "color.palette.DN400A",
+    "name": "color.palette.DN70",
     "path": [
       "color",
       "palette",
-      "DN400A"
+      "DN70"
     ]
   },
   {
-    "value": "#0d142466",
+    "value": "#455166",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2345,21 +1949,21 @@ const tokens = [
     "filePath": "src/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#0d142466",
+      "value": "#455166",
       "attributes": {
         "group": "palette",
         "category": "dark mode neutral"
       }
     },
-    "name": "color.palette.DN300A",
+    "name": "color.palette.DN80",
     "path": [
       "color",
       "palette",
-      "DN300A"
+      "DN80"
     ]
   },
   {
-    "value": "#0d142477",
+    "value": "#56637A",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2367,21 +1971,21 @@ const tokens = [
     "filePath": "src/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#0d142477",
+      "value": "#56637A",
       "attributes": {
         "group": "palette",
         "category": "dark mode neutral"
       }
     },
-    "name": "color.palette.DN200A",
+    "name": "color.palette.DN90",
     "path": [
       "color",
       "palette",
-      "DN200A"
+      "DN90"
     ]
   },
   {
-    "value": "#0d142487",
+    "value": "#67758F",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2389,21 +1993,21 @@ const tokens = [
     "filePath": "src/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#0d142487",
+      "value": "#67758F",
       "attributes": {
         "group": "palette",
         "category": "dark mode neutral"
       }
     },
-    "name": "color.palette.DN100A",
+    "name": "color.palette.DN100",
     "path": [
       "color",
       "palette",
-      "DN100A"
+      "DN100"
     ]
   },
   {
-    "value": "#0d1424a0",
+    "value": "#7988A3",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2411,21 +2015,21 @@ const tokens = [
     "filePath": "src/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#0d1424a0",
+      "value": "#7988A3",
       "attributes": {
         "group": "palette",
         "category": "dark mode neutral"
       }
     },
-    "name": "color.palette.DN90A",
+    "name": "color.palette.DN200",
     "path": [
       "color",
       "palette",
-      "DN90A"
+      "DN200"
     ]
   },
   {
-    "value": "#0d1424ba",
+    "value": "#8C9CB8",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2433,21 +2037,21 @@ const tokens = [
     "filePath": "src/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#0d1424ba",
+      "value": "#8C9CB8",
       "attributes": {
         "group": "palette",
         "category": "dark mode neutral"
       }
     },
-    "name": "color.palette.DN80A",
+    "name": "color.palette.DN300",
     "path": [
       "color",
       "palette",
-      "DN80A"
+      "DN300"
     ]
   },
   {
-    "value": "#0d1424c6",
+    "value": "#9FB0CC",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2455,21 +2059,21 @@ const tokens = [
     "filePath": "src/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#0d1424c6",
+      "value": "#9FB0CC",
       "attributes": {
         "group": "palette",
         "category": "dark mode neutral"
       }
     },
-    "name": "color.palette.DN70A",
+    "name": "color.palette.DN400",
     "path": [
       "color",
       "palette",
-      "DN70A"
+      "DN400"
     ]
   },
   {
-    "value": "#0d1424ce",
+    "value": "#ABBBD6",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2477,21 +2081,21 @@ const tokens = [
     "filePath": "src/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#0d1424ce",
+      "value": "#ABBBD6",
       "attributes": {
         "group": "palette",
         "category": "dark mode neutral"
       }
     },
-    "name": "color.palette.DN60A",
+    "name": "color.palette.DN500",
     "path": [
       "color",
       "palette",
-      "DN60A"
+      "DN500"
     ]
   },
   {
-    "value": "#0d1424d8",
+    "value": "#B8C7E0",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2499,21 +2103,21 @@ const tokens = [
     "filePath": "src/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#0d1424d8",
+      "value": "#B8C7E0",
       "attributes": {
         "group": "palette",
         "category": "dark mode neutral"
       }
     },
-    "name": "color.palette.DN50A",
+    "name": "color.palette.DN600",
     "path": [
       "color",
       "palette",
-      "DN50A"
+      "DN600"
     ]
   },
   {
-    "value": "#0d1424e2",
+    "value": "#CED9EB",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2521,21 +2125,21 @@ const tokens = [
     "filePath": "src/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#0d1424e2",
+      "value": "#CED9EB",
       "attributes": {
         "group": "palette",
         "category": "dark mode neutral"
       }
     },
-    "name": "color.palette.DN40A",
+    "name": "color.palette.DN700",
     "path": [
       "color",
       "palette",
-      "DN40A"
+      "DN700"
     ]
   },
   {
-    "value": "#0d1424ea",
+    "value": "#DCE5F5",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2543,17 +2147,61 @@ const tokens = [
     "filePath": "src/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#0d1424ea",
+      "value": "#DCE5F5",
       "attributes": {
         "group": "palette",
         "category": "dark mode neutral"
       }
     },
-    "name": "color.palette.DN30A",
+    "name": "color.palette.DN800",
     "path": [
       "color",
       "palette",
-      "DN30A"
+      "DN800"
+    ]
+  },
+  {
+    "value": "#E6EDFA",
+    "attributes": {
+      "group": "palette",
+      "category": "dark mode neutral"
+    },
+    "filePath": "src/palettes/legacy-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "#E6EDFA",
+      "attributes": {
+        "group": "palette",
+        "category": "dark mode neutral"
+      }
+    },
+    "name": "color.palette.DN900",
+    "path": [
+      "color",
+      "palette",
+      "DN900"
+    ]
+  },
+  {
+    "value": "#0d1424f7",
+    "attributes": {
+      "group": "palette",
+      "category": "dark mode neutral"
+    },
+    "filePath": "src/palettes/legacy-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "#0d1424f7",
+      "attributes": {
+        "group": "palette",
+        "category": "dark mode neutral"
+      }
+    },
+    "name": "color.palette.DN10A",
+    "path": [
+      "color",
+      "palette",
+      "DN10A"
     ]
   },
   {
@@ -2579,7 +2227,7 @@ const tokens = [
     ]
   },
   {
-    "value": "#0d1424f7",
+    "value": "#0d1424ea",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2587,17 +2235,369 @@ const tokens = [
     "filePath": "src/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#0d1424f7",
+      "value": "#0d1424ea",
       "attributes": {
         "group": "palette",
         "category": "dark mode neutral"
       }
     },
-    "name": "color.palette.DN10A",
+    "name": "color.palette.DN30A",
     "path": [
       "color",
       "palette",
-      "DN10A"
+      "DN30A"
+    ]
+  },
+  {
+    "value": "#0d1424e2",
+    "attributes": {
+      "group": "palette",
+      "category": "dark mode neutral"
+    },
+    "filePath": "src/palettes/legacy-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "#0d1424e2",
+      "attributes": {
+        "group": "palette",
+        "category": "dark mode neutral"
+      }
+    },
+    "name": "color.palette.DN40A",
+    "path": [
+      "color",
+      "palette",
+      "DN40A"
+    ]
+  },
+  {
+    "value": "#0d1424d8",
+    "attributes": {
+      "group": "palette",
+      "category": "dark mode neutral"
+    },
+    "filePath": "src/palettes/legacy-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "#0d1424d8",
+      "attributes": {
+        "group": "palette",
+        "category": "dark mode neutral"
+      }
+    },
+    "name": "color.palette.DN50A",
+    "path": [
+      "color",
+      "palette",
+      "DN50A"
+    ]
+  },
+  {
+    "value": "#0d1424ce",
+    "attributes": {
+      "group": "palette",
+      "category": "dark mode neutral"
+    },
+    "filePath": "src/palettes/legacy-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "#0d1424ce",
+      "attributes": {
+        "group": "palette",
+        "category": "dark mode neutral"
+      }
+    },
+    "name": "color.palette.DN60A",
+    "path": [
+      "color",
+      "palette",
+      "DN60A"
+    ]
+  },
+  {
+    "value": "#0d1424c6",
+    "attributes": {
+      "group": "palette",
+      "category": "dark mode neutral"
+    },
+    "filePath": "src/palettes/legacy-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "#0d1424c6",
+      "attributes": {
+        "group": "palette",
+        "category": "dark mode neutral"
+      }
+    },
+    "name": "color.palette.DN70A",
+    "path": [
+      "color",
+      "palette",
+      "DN70A"
+    ]
+  },
+  {
+    "value": "#0d1424ba",
+    "attributes": {
+      "group": "palette",
+      "category": "dark mode neutral"
+    },
+    "filePath": "src/palettes/legacy-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "#0d1424ba",
+      "attributes": {
+        "group": "palette",
+        "category": "dark mode neutral"
+      }
+    },
+    "name": "color.palette.DN80A",
+    "path": [
+      "color",
+      "palette",
+      "DN80A"
+    ]
+  },
+  {
+    "value": "#0d1424a0",
+    "attributes": {
+      "group": "palette",
+      "category": "dark mode neutral"
+    },
+    "filePath": "src/palettes/legacy-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "#0d1424a0",
+      "attributes": {
+        "group": "palette",
+        "category": "dark mode neutral"
+      }
+    },
+    "name": "color.palette.DN90A",
+    "path": [
+      "color",
+      "palette",
+      "DN90A"
+    ]
+  },
+  {
+    "value": "#0d142487",
+    "attributes": {
+      "group": "palette",
+      "category": "dark mode neutral"
+    },
+    "filePath": "src/palettes/legacy-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "#0d142487",
+      "attributes": {
+        "group": "palette",
+        "category": "dark mode neutral"
+      }
+    },
+    "name": "color.palette.DN100A",
+    "path": [
+      "color",
+      "palette",
+      "DN100A"
+    ]
+  },
+  {
+    "value": "#0d142477",
+    "attributes": {
+      "group": "palette",
+      "category": "dark mode neutral"
+    },
+    "filePath": "src/palettes/legacy-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "#0d142477",
+      "attributes": {
+        "group": "palette",
+        "category": "dark mode neutral"
+      }
+    },
+    "name": "color.palette.DN200A",
+    "path": [
+      "color",
+      "palette",
+      "DN200A"
+    ]
+  },
+  {
+    "value": "#0d142466",
+    "attributes": {
+      "group": "palette",
+      "category": "dark mode neutral"
+    },
+    "filePath": "src/palettes/legacy-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "#0d142466",
+      "attributes": {
+        "group": "palette",
+        "category": "dark mode neutral"
+      }
+    },
+    "name": "color.palette.DN300A",
+    "path": [
+      "color",
+      "palette",
+      "DN300A"
+    ]
+  },
+  {
+    "value": "#0d14245b",
+    "attributes": {
+      "group": "palette",
+      "category": "dark mode neutral"
+    },
+    "filePath": "src/palettes/legacy-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "#0d14245b",
+      "attributes": {
+        "group": "palette",
+        "category": "dark mode neutral"
+      }
+    },
+    "name": "color.palette.DN400A",
+    "path": [
+      "color",
+      "palette",
+      "DN400A"
+    ]
+  },
+  {
+    "value": "#0d142449",
+    "attributes": {
+      "group": "palette",
+      "category": "dark mode neutral"
+    },
+    "filePath": "src/palettes/legacy-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "#0d142449",
+      "attributes": {
+        "group": "palette",
+        "category": "dark mode neutral"
+      }
+    },
+    "name": "color.palette.DN500A",
+    "path": [
+      "color",
+      "palette",
+      "DN500A"
+    ]
+  },
+  {
+    "value": "#0d14242d",
+    "attributes": {
+      "group": "palette",
+      "category": "dark mode neutral"
+    },
+    "filePath": "src/palettes/legacy-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "#0d14242d",
+      "attributes": {
+        "group": "palette",
+        "category": "dark mode neutral"
+      }
+    },
+    "name": "color.palette.DN600A",
+    "path": [
+      "color",
+      "palette",
+      "DN600A"
+    ]
+  },
+  {
+    "value": "#0d142423",
+    "attributes": {
+      "group": "palette",
+      "category": "dark mode neutral"
+    },
+    "filePath": "src/palettes/legacy-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "#0d142423",
+      "attributes": {
+        "group": "palette",
+        "category": "dark mode neutral"
+      }
+    },
+    "name": "color.palette.DN700A",
+    "path": [
+      "color",
+      "palette",
+      "DN700A"
+    ]
+  },
+  {
+    "value": "#0d1424f",
+    "attributes": {
+      "group": "palette",
+      "category": "dark mode neutral"
+    },
+    "filePath": "src/palettes/legacy-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "#0d1424f",
+      "attributes": {
+        "group": "palette",
+        "category": "dark mode neutral"
+      }
+    },
+    "name": "color.palette.DN800A",
+    "path": [
+      "color",
+      "palette",
+      "DN800A"
+    ]
+  },
+  {
+    "value": 0.2,
+    "attributes": {
+      "group": "palette",
+      "category": "opacity"
+    },
+    "filePath": "src/palettes/legacy-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": 0.2,
+      "attributes": {
+        "group": "palette",
+        "category": "opacity"
+      }
+    },
+    "name": "value.opacity.Opacity20",
+    "path": [
+      "value",
+      "opacity",
+      "Opacity20"
+    ]
+  },
+  {
+    "value": 0.4,
+    "attributes": {
+      "group": "palette",
+      "category": "opacity"
+    },
+    "filePath": "src/palettes/legacy-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": 0.4,
+      "attributes": {
+        "group": "palette",
+        "category": "opacity"
+      }
+    },
+    "name": "value.opacity.Opacity40",
+    "path": [
+      "value",
+      "opacity",
+      "Opacity40"
     ]
   }
 ];

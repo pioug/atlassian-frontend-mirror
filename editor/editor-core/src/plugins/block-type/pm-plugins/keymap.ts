@@ -10,6 +10,7 @@ import { FeatureFlags } from '../../../types/feature-flags';
 import {
   cleanUpAtTheStartOfDocument,
   deleteAndMoveCursor,
+  deleteBlockContent,
   insertBlockTypesWithAnalytics,
 } from '../commands';
 import { deleteEmptyParagraphAndMoveBlockUp } from '../../../utils/commands';
@@ -18,11 +19,13 @@ import { isNodeAWrappingBlockNode } from '../utils';
 
 const backspace = chainCommands(
   cleanUpAtTheStartOfDocument,
+  deleteBlockContent(isNodeAWrappingBlockNode),
   deleteAndMoveCursor,
 );
 
 const del = chainCommands(
   deleteEmptyParagraphAndMoveBlockUp(isNodeAWrappingBlockNode),
+  deleteBlockContent(isNodeAWrappingBlockNode),
   deleteAndMoveCursor,
 );
 

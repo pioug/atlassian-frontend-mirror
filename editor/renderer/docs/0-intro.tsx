@@ -137,6 +137,15 @@ ${(
   />
 )}
 
+## Theming and dark mode support
+To render certain ADF content correctly in different color themes, such as light and dark mode, this package utilise
+the \`@atlaskit/editor-palette\` package, which converts colors stored in ADF to Atlassian Design Tokens.
+Learn more about this utility in the [Editor Palette docs](/packages/editor/editor-palette).
+
+Full light and dark mode support for the Editor is a work in progress. Currently, the following experiences do not yet support theming:
+- Custom table backgrounds
+- Custom panel backgrounds
+
 ${(
   <Props
     heading="Props"

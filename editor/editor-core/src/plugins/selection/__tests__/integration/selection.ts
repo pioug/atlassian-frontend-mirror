@@ -17,74 +17,74 @@ import blockNodesAdf from './__fixtures__/block-react-node-views.adf.json';
 
 const rightArrowExpectedSelections: SelectionMatch[] = [
   // panel
-  { type: 'gapcursor', from: 3, side: 'left' },
-  { type: 'node', from: 3 },
-  { type: 'text', from: 5 },
-  { type: 'text', from: 6 },
-  { type: 'node', from: 3 },
-  { type: 'gapcursor', from: 8, side: 'right' },
+  { type: 'gapcursor', pos: 3, side: 'left' },
+  { type: 'node', anchor: 3 },
+  { type: 'text', anchor: 5 },
+  { type: 'text', anchor: 6 },
+  { type: 'node', anchor: 3 },
+  { type: 'gapcursor', pos: 8, side: 'right' },
 
   // layout
-  { type: 'gapcursor', from: 8, side: 'left' },
-  { type: 'node', from: 8 },
+  { type: 'gapcursor', pos: 8, side: 'left' },
+  { type: 'node', anchor: 8 },
 
   // nested code block
-  { type: 'gapcursor', from: 10, side: 'left' },
-  { type: 'node', from: 10 },
-  { type: 'text', from: 11 },
-  { type: 'text', from: 12 },
-  { type: 'node', from: 10 },
-  { type: 'gapcursor', from: 13, side: 'right' },
+  { type: 'gapcursor', pos: 10, side: 'left' },
+  { type: 'node', anchor: 10 },
+  { type: 'text', anchor: 11 },
+  { type: 'text', anchor: 12 },
+  { type: 'node', anchor: 10 },
+  { type: 'gapcursor', pos: 13, side: 'right' },
 
   // nested panel
-  { type: 'gapcursor', from: 13, side: 'left' },
-  { type: 'node', from: 13 },
-  { type: 'text', from: 15 },
-  { type: 'node', from: 15 },
-  { type: 'text', from: 16 },
-  { type: 'node', from: 13 },
-  { type: 'gapcursor', from: 18, side: 'right' },
+  { type: 'gapcursor', pos: 13, side: 'left' },
+  { type: 'node', anchor: 13 },
+  { type: 'text', anchor: 15 },
+  { type: 'node', anchor: 15 },
+  { type: 'text', anchor: 16 },
+  { type: 'node', anchor: 13 },
+  { type: 'gapcursor', pos: 18, side: 'right' },
 
   // layout
-  { type: 'text', from: 21 },
-  { type: 'node', from: 8 },
-  { type: 'gapcursor', from: 24, side: 'right' },
+  { type: 'text', anchor: 21 },
+  { type: 'node', anchor: 8 },
+  { type: 'gapcursor', pos: 24, side: 'right' },
 ];
 
 const leftArrowExpectedSelections: SelectionMatch[] = [
   // layout
-  { type: 'gapcursor', from: 24, side: 'right' },
-  { type: 'node', from: 8 },
-  { type: 'text', from: 21 },
+  { type: 'gapcursor', pos: 24, side: 'right' },
+  { type: 'node', anchor: 8 },
+  { type: 'text', anchor: 21 },
 
   // nested panel
-  { type: 'gapcursor', from: 18, side: 'right' },
-  { type: 'node', from: 13 },
-  { type: 'text', from: 16 },
-  { type: 'node', from: 15 },
-  { type: 'text', from: 15 },
-  { type: 'node', from: 13 },
-  { type: 'gapcursor', from: 13, side: 'left' },
+  { type: 'gapcursor', pos: 18, side: 'right' },
+  { type: 'node', anchor: 13 },
+  { type: 'text', anchor: 16 },
+  { type: 'node', anchor: 15 },
+  { type: 'text', anchor: 15 },
+  { type: 'node', anchor: 13 },
+  { type: 'gapcursor', pos: 13, side: 'left' },
 
   // nested code block
-  { type: 'gapcursor', from: 13, side: 'right' },
-  { type: 'node', from: 10 },
-  { type: 'text', from: 12 },
-  { type: 'text', from: 11 },
-  { type: 'node', from: 10 },
-  { type: 'gapcursor', from: 10, side: 'left' },
+  { type: 'gapcursor', pos: 13, side: 'right' },
+  { type: 'node', anchor: 10 },
+  { type: 'text', anchor: 12 },
+  { type: 'text', anchor: 11 },
+  { type: 'node', anchor: 10 },
+  { type: 'gapcursor', pos: 10, side: 'left' },
 
   // layout
-  { type: 'node', from: 8 },
-  { type: 'gapcursor', from: 8, side: 'left' },
+  { type: 'node', anchor: 8 },
+  { type: 'gapcursor', pos: 8, side: 'left' },
 
   // panel
-  { type: 'gapcursor', from: 8, side: 'right' },
-  { type: 'node', from: 3 },
-  { type: 'text', from: 6 },
-  { type: 'text', from: 5 },
-  { type: 'node', from: 3 },
-  { type: 'gapcursor', from: 3, side: 'left' },
+  { type: 'gapcursor', pos: 8, side: 'right' },
+  { type: 'node', anchor: 3 },
+  { type: 'text', anchor: 6 },
+  { type: 'text', anchor: 5 },
+  { type: 'node', anchor: 3 },
+  { type: 'gapcursor', pos: 3, side: 'left' },
 ];
 
 const initEditor = async (
@@ -123,15 +123,16 @@ BrowserTestCase(
       ...rightArrowExpectedSelections,
 
       // decision list
-      { type: 'gapcursor', from: 24, side: 'left' },
-      { type: 'node', from: 25 },
-      { type: 'text', from: 26 },
-      { type: 'text', from: 27 },
-      { type: 'node', from: 25 },
-      { type: 'node', from: 28 },
-      { type: 'text', from: 29 },
-      { type: 'node', from: 28 },
-      { type: 'gapcursor', from: 31, side: 'right' },
+      { type: 'gapcursor', pos: 24, side: 'left' },
+      { type: 'node', anchor: 25 },
+      { type: 'text', anchor: 26 },
+      { type: 'text', anchor: 27 },
+      { type: 'node', anchor: 25 },
+      { type: 'node', anchor: 28 },
+
+      { type: 'text', anchor: 29 },
+      { type: 'node', anchor: 28 },
+      { type: 'gapcursor', pos: 31, side: 'right' },
     ];
 
     for (const selection of expectedSelections) {
@@ -150,15 +151,15 @@ BrowserTestCase(
 
     const expectedSelections: SelectionMatch[] = [
       // decision list
-      { type: 'gapcursor', from: 31, side: 'right' },
-      { type: 'node', from: 28 },
-      { type: 'text', from: 29 },
-      { type: 'node', from: 28 },
-      { type: 'node', from: 25 },
-      { type: 'text', from: 27 },
-      { type: 'text', from: 26 },
-      { type: 'node', from: 25 },
-      { type: 'gapcursor', from: 24, side: 'left' },
+      { type: 'gapcursor', pos: 31, side: 'right' },
+      { type: 'node', anchor: 28 },
+      { type: 'text', anchor: 29 },
+      { type: 'node', anchor: 28 },
+      { type: 'node', anchor: 25 },
+      { type: 'text', anchor: 27 },
+      { type: 'text', anchor: 26 },
+      { type: 'node', anchor: 25 },
+      { type: 'gapcursor', pos: 24, side: 'left' },
 
       ...leftArrowExpectedSelections,
     ];
@@ -170,17 +171,23 @@ BrowserTestCase(
   },
 );
 
+it.todo(
+  '[Firefox] - selection: shift + arrowup selection for block react node views',
+);
 BrowserTestCase(
   'selection: shift + arrowup selection for block react node views',
-  { skip: [] },
+  { skip: ['firefox'] },
   async (client: any) => {
     const page = await goToEditorTestingWDExample(client);
     await initEditor(page, blockNodesAdf, { anchor: 60 });
 
     const expectedSelections: SelectionMatch[] = [
-      { type: 'text', from: 54, to: 60 },
-      { type: 'text', from: 51, to: 60 },
-      { type: 'text', from: 1, to: 60 },
+      // bodiedExtension inside the selection
+      { type: 'text', anchor: 60, head: 55 },
+      // empty paragraph inside the selection
+      { type: 'text', anchor: 60, head: 54 },
+      // extension inside the selection
+      { type: 'text', anchor: 60, head: 52 },
     ];
 
     for (const selection of expectedSelections) {
@@ -196,17 +203,25 @@ BrowserTestCase(
   },
 );
 
+it.todo(
+  '[Safari] - selection: shift + arrowdown selection for block react node views',
+);
 BrowserTestCase(
   'selection: shift + arrowdown selection for block react node views',
-  { skip: [] },
+  { skip: ['safari'] },
   async (client: any) => {
     const page = await goToEditorTestingWDExample(client);
     await initEditor(page, blockNodesAdf, { anchor: 1 });
 
     const expectedSelections: SelectionMatch[] = [
-      { type: 'text', from: 1, to: 51 },
-      { type: 'text', from: 1, to: 54 },
-      { type: 'text', from: 1, to: 60 },
+      // table inside the selection
+      { type: 'text', anchor: 1, head: 50 },
+      // extension inside the selection
+      { type: 'text', anchor: 1, head: 53 },
+      // bodiedExtension inside the selection
+      { type: 'text', anchor: 1, head: 59 },
+      // last paragragh inside the selection
+      { type: 'text', anchor: 1, head: 60 },
     ];
 
     for (const selection of expectedSelections) {

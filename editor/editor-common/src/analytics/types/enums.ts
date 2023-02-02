@@ -90,7 +90,7 @@ export enum ACTION {
   SYNCHRONY_ENTITY_ERROR = 'synchronyEntityError',
   SYNCHRONY_ERROR = 'synchronyError',
   TEXT_LINK_MARK_TRANSFORMED = 'textLinkMarkTransformed',
-  DEDUPE_MARKS_TRANSFORMED = 'dedupeMarksTransformed',
+  DEDUPE_MARKS_TRANSFORMED_V2 = 'dedupeMarksTransformedV2',
   NODES_MISSING_CONTENT_TRANSFORMED = 'nodesMissingContentTransformed',
   INDENTATION_MARKS_TRANSFORMED = 'indentationMarksTransformed',
   INVALID_MEDIA_CONTENT_TRANSFORMED = 'invalidMediaContentTransformed',

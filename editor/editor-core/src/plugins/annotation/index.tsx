@@ -101,11 +101,13 @@ const annotationPlugin: NextEditorPlugin<
             }
 
             return (
-              <InlineCommentView
-                providers={annotationProviders}
-                editorView={editorView}
-                dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-              />
+              <div data-editor-popup="true">
+                <InlineCommentView
+                  providers={annotationProviders}
+                  editorView={editorView}
+                  dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+                />
+              </div>
             );
           }}
         />

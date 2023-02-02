@@ -127,6 +127,7 @@ describe('getCardStateFromFileState', () => {
     expect(getCardStatus).toBeCalledWith(
       'some-status',
       expect.objectContaining({ some: 'file-preview-status' }),
+      expect.objectContaining({ some: 'feature-flags' }),
     );
     expect(extractFilePreviewStatus).toBeCalledTimes(1);
     expect(extractFilePreviewStatus).toBeCalledWith(
@@ -156,6 +157,7 @@ describe('getCardStateFromFileState', () => {
     expect(getCardStatus).toBeCalledWith(
       'error',
       expect.objectContaining({ some: 'file-preview-status' }),
+      expect.objectContaining({ some: 'feature-flags' }),
     );
     expect(extractFilePreviewStatus).toBeCalledTimes(1);
     expect(extractFilePreviewStatus).toBeCalledWith(
@@ -189,6 +191,7 @@ describe('getCardStateFromFileState', () => {
     expect(getCardStatus).toBeCalledWith(
       'uploading',
       expect.objectContaining({ some: 'file-preview-status' }),
+      expect.objectContaining({ some: 'feature-flags' }),
     );
     expect(extractFilePreviewStatus).toBeCalledTimes(1);
     expect(extractFilePreviewStatus).toBeCalledWith(

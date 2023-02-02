@@ -4,9 +4,6 @@ exports[`card: should be able to switch views with view switcher with icons tool
 Object {
   "content": Array [
     Object {
-      "type": "paragraph",
-    },
-    Object {
       "attrs": Object {
         "data": null,
         "url": "https://inlineCardTestUrl",

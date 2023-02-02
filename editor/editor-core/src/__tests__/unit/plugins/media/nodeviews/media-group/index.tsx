@@ -204,8 +204,7 @@ describe('nodeviews/mediaGroup', () => {
       wrapper.setProps({
         selected: 1,
       });
-
-      expect(instances[1].updateFileAttrs).toHaveBeenCalled();
+      expect(instances[1].updateNodeAttrs).toHaveBeenCalled();
       expect(instances).toHaveLength(2);
     });
   });

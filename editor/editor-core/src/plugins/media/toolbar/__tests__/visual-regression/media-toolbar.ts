@@ -64,8 +64,7 @@ describe('Media Toolbar:', () => {
     await page.waitForSelector('[data-testid="media-viewer-error"]');
   });
 
-  // FIXME: This test was automatically skipped due to failure on 04/10/2022: https://product-fabric.atlassian.net/browse/ED-15755
-  it.skip('should show red border while hovering over the delete button', async () => {
+  it('should show red border while hovering over the delete button', async () => {
     await page.hover('[data-testid="media-toolbar-remove-button"]');
     await animationFrame(page);
     await animationFrame(page);

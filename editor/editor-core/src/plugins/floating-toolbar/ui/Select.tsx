@@ -22,6 +22,7 @@ export interface Props {
   filterOption?: ((option: SelectOption, rawInput: string) => boolean) | null;
   setDisableParentScroll?: (disable: boolean) => void;
   ariaLabel?: string;
+  classNamePrefix?: string;
 }
 
 export default function Search(props: Props) {
@@ -88,6 +89,7 @@ export default function Search(props: Props) {
       onMenuOpen={onMenuOpen}
       onMenuClose={onMenuClose}
       aria-label={props.ariaLabel}
+      classNamePrefix={props.classNamePrefix}
     />
   );
 }

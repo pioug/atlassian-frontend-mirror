@@ -1,5 +1,11 @@
 # @atlaskit/datetime-picker
 
+## 12.3.7
+
+### Patch Changes
+
+- [`98891267a5e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/98891267a5e) - [ux] Dates entered with 5+ digit years will no longer throw a RangeError
+
 ## 12.3.6
 
 ### Patch Changes

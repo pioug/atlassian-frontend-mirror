@@ -137,7 +137,7 @@ export class ToolbarTextColor extends React.Component<
           zIndex={akEditorMenuZIndex}
           fitWidth={fitWidth}
           onOpenChange={this.onOpenChange}
-          closeonTab={true}
+          closeOnTab={true}
           trigger={
             <ToolbarButton
               buttonId={TOOLBAR_BUTTON.TEXT_COLOR}

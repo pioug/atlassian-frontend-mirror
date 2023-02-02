@@ -406,7 +406,6 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
   createDomRef(): HTMLElement {
     const domRef = document.createElement('div');
     if (
-      browser.chrome &&
       this.reactComponentProps.mediaOptions &&
       this.reactComponentProps.mediaOptions.allowMediaSingleEditable
     ) {

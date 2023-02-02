@@ -275,3 +275,46 @@ describe('checkForModal', () => {
     expect(results).toBeTruthy();
   });
 });
+
+describe('when click is coming from a button', () => {
+  const createEditor = createEditorFactory();
+  const editor = (doc: DocBuilder) =>
+    createEditor({
+      doc,
+      editorProps: { allowPanel: true },
+    });
+
+  const Editor = (props: any) => (
+    <div onClick={props.handleClick}>
+      <div className="akEditor">
+        <div className="ak-editor-content-area">
+          <button id="fake-button">Button </button>
+          <div className="child-ak-editor-content-area"></div>
+        </div>
+      </div>
+      <div className="outside-ak-editor-content-area"></div>
+    </div>
+  );
+
+  const DummyComponent = (props: any) => {
+    return <Editor handleClick={props.handleClick} />;
+  };
+
+  it('should not focus on editor', () => {
+    const editorView = editor(doc(panel()(p('{<>}')))).editorView;
+    const focusSpy = jest.spyOn(editorView, 'focus');
+
+    const wrapper = mount(
+      <DummyComponent
+        handleClick={(event: React.MouseEvent<any>) => {
+          clickAreaClickHandler(editorView, event);
+        }}
+        renderInsideModal
+      />,
+    );
+
+    wrapper.find('#fake-button').simulate('click', { clientY: -10 });
+
+    expect(focusSpy).not.toHaveBeenCalled();
+  });
+});

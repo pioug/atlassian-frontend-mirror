@@ -35,6 +35,7 @@ import {
   tr,
   ul,
   DocBuilder,
+  embedCard,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 
@@ -104,7 +105,9 @@ describe('card', () => {
           allowExtension: true,
           allowPanel: true,
           allowTasksAndDecisions: true,
-          smartLinks: {},
+          smartLinks: {
+            allowEmbeds: true,
+          },
         },
         createAnalyticsEvent,
         pluginKey,
@@ -712,7 +715,7 @@ describe('card', () => {
 
         // The background color of the parent cell should be the same.
         expect(editorView.state.doc).toEqualDocument(
-          doc(panel()(p(), blockCard(getCardAdfAttrs())())),
+          doc(panel()(blockCard(getCardAdfAttrs())())),
         );
       });
 
@@ -766,6 +769,15 @@ describe('card', () => {
           storedMarks: jest.fn(),
           step: jest.fn(),
           setStoredMarks: jest.fn(),
+          setSelection: jest.fn(),
+          delete: jest.fn(),
+          doc: {
+            resolve: jest
+              .fn()
+              .mockReturnValue({ min: jest.fn(), max: jest.fn() }),
+            nodeAt: jest.fn(),
+            childAfter: jest.fn(),
+          },
           selection: {
             $from: {
               pos: 1,
@@ -789,6 +801,58 @@ describe('card', () => {
           (editorView.state.selection as NodeSelection).node.attrs,
           (editorView.state.selection as NodeSelection).node.marks,
         );
+      });
+
+      it('should correctly change the view from embed to block when it is the last node', function () {
+        const { editorView } = editor(
+          doc(
+            '{<node>}',
+            embedCard({
+              url: 'http://www.atlassian.com/',
+              layout: 'center',
+            })(),
+          ),
+        );
+
+        setSelectedCardAppearance('block')(
+          editorView.state,
+          editorView.dispatch,
+        );
+
+        const node = editorView.state.doc.childAfter(0).node;
+        expect(node).toBeDefined();
+        expect(node!.type?.name).toEqual('blockCard');
+
+        // Inserting text at current cursor / selection
+        editorView.dispatch(editorView.state.tr.insertText('some text'));
+
+        // Ensure user can continue to type without replacing block card
+        const newNode = editorView.state.doc.childAfter(0).node;
+        expect(newNode).toBeDefined();
+        expect(newNode!.type?.name).toEqual('blockCard');
+      });
+
+      it('should correctly change the view from block to embed when it is the last node', function () {
+        const { editorView } = editor(
+          doc('{<node>}', blockCard(getCardAdfAttrs())()),
+        );
+
+        setSelectedCardAppearance('embed')(
+          editorView.state,
+          editorView.dispatch,
+        );
+
+        const node = editorView.state.doc.childAfter(0).node;
+        expect(node).toBeDefined();
+        expect(node!.type?.name).toEqual('embedCard');
+
+        // Inserting text at current cursor / selection
+        editorView.dispatch(editorView.state.tr.insertText('some text'));
+
+        // Ensure user can continue to type without replacing embed card
+        const newNode = editorView.state.doc.childAfter(0).node;
+        expect(newNode).toBeDefined();
+        expect(newNode!.type?.name).toEqual('embedCard');
       });
     });
 

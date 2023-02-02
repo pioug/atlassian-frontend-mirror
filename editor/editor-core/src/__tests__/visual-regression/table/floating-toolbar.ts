@@ -49,10 +49,10 @@ describe('Table floating toolbar:fullpage', () => {
     );
   });
 
-  // FIXME: This test was automatically skipped due to failure on 14/08/2022: https://product-fabric.atlassian.net/browse/ED-15433
-  it.skip('display cell options', async () => {
+  it('display cell options', async () => {
     // Click table cell options button within the selected cell
     await clickCellOptions(page);
+    await waitForTooltip(page);
     // Wait for table cell options drop down list to be shown
     await page.waitForSelector(dropdownListSelector);
   });
@@ -62,6 +62,7 @@ describe('Table floating toolbar:fullpage', () => {
     // Wait for table cell options drop down list to be shown, then
     // select background color option and wait for color picker popout to be shown
     await selectCellOption(page, 'Cell background');
+
     await page.waitForSelector(
       `${dropdownListSelector} .pm-table-contextual-submenu`,
     );

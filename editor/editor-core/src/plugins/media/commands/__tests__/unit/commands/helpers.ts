@@ -2,7 +2,9 @@ import {
   isMediaNode,
   replaceExternalMedia,
   updateMediaNodeAttrs,
+  updateCurrentMediaNodeAttrs,
 } from '../../../helpers';
+import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
 import { stateKey as mediaPluginKey } from '../../../../pm-plugins/plugin-key';
 import { MediaPluginState } from '../../../../pm-plugins/types';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
@@ -13,6 +15,7 @@ import {
   media,
   mediaInline,
   mediaSingle,
+  mediaGroup,
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
@@ -23,6 +26,7 @@ import {
 } from '../../../../../../__tests__/unit/plugins/media/_utils';
 import { EditorState, NodeSelection } from 'prosemirror-state';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
+import { CommandDispatch } from '@atlaskit/editor-common/types';
 
 describe('media -> commands -> helpers.ts', () => {
   const mediaProvider = getFreshMediaProvider();
@@ -206,6 +210,115 @@ describe('media -> commands -> helpers.ts', () => {
         const result = update(editorView.state, editorView.dispatch);
         expect(result).toBeFalsy();
       });
+    });
+  });
+
+  describe('#updateCurrentMediaNodeAttrs', () => {
+    describe('when the media node is at the same position', () => {
+      const sourceDocument = doc(
+        // prettier-ignore
+        p('abc'),
+        mediaGroup(
+          media({
+            collection: testCollectionName,
+            id: temporaryFileId,
+            type: 'file',
+          })(),
+        ),
+      );
+      const expectedDocument = doc(
+        // prettier-ignore
+        p('abc'),
+        mediaGroup(
+          media({
+            collection: 'lol3',
+            id: temporaryFileId,
+            type: 'file',
+          })(),
+        ),
+      );
+
+      it('should replace the media attributes', () => {
+        const { editorView } = editor(sourceDocument);
+        const node = schema.nodeFromJSON({
+          type: 'media',
+          attrs: {
+            collection: 'lol3',
+            id: temporaryFileId,
+            type: 'file',
+          },
+        });
+
+        const getPos = () => 6;
+        const mediaNodeWithPos = { node, getPos };
+        const update = updateCurrentMediaNodeAttrs(
+          { collection: 'lol3' },
+          mediaNodeWithPos,
+        );
+
+        const result = update(editorView.state, editorView.dispatch);
+        expect(result).toBeTruthy();
+        expect(editorView.state.doc).toEqualDocument(expectedDocument);
+      });
+
+      it('should not replace the media attributes when getPos returns NaN', () => {
+        const { editorView } = editor(sourceDocument);
+        const dispatchSpy = jest.spyOn(
+          editorView,
+          'dispatch',
+        ) as unknown as CommandDispatch;
+        const node = schema.nodeFromJSON({
+          type: 'media',
+          attrs: {
+            collection: 'lol3',
+            id: temporaryFileId,
+            type: 'file',
+          },
+        });
+
+        const getPos = () => NaN;
+        const mediaNodeWithPos = { node, getPos };
+        const update = updateCurrentMediaNodeAttrs(
+          { collection: 'lol3' },
+          mediaNodeWithPos,
+        );
+
+        const result = update(editorView.state, dispatchSpy);
+        expect(result).toBeFalsy();
+        expect(dispatchSpy).not.toBeCalled();
+      });
+    });
+
+    it('should not update when there is no media node', () => {
+      const sourceDocument = doc(
+        // prettier-ignore
+        p('abc{<>}'),
+      );
+
+      const node = schema.nodeFromJSON({
+        type: 'media',
+        attrs: {
+          collection: 'lol3',
+          id: temporaryFileId,
+          type: 'file',
+        },
+      });
+
+      const getPos = () => 1;
+      const mediaNodeWithPos = { node, getPos };
+      const { editorView } = editor(sourceDocument);
+      const dispatchSpy = jest.spyOn(
+        editorView,
+        'dispatch',
+      ) as unknown as CommandDispatch;
+      const update = updateCurrentMediaNodeAttrs(
+        { collection: 'lol3' },
+        mediaNodeWithPos,
+      );
+
+      const result = update(editorView.state, dispatchSpy);
+      expect(result).toBeFalsy();
+      expect(dispatchSpy).not.toBeCalled();
     });
   });
 

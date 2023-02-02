@@ -1,4 +1,4 @@
-import { getVersion, sendableSteps } from 'prosemirror-collab';
+import { getVersion, sendableSteps } from '@atlaskit/prosemirror-collab';
 import type { EditorState, Transaction } from 'prosemirror-state';
 import type { Step as ProseMirrorStep } from 'prosemirror-transform';
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
@@ -84,7 +84,7 @@ const commitStep = ({
   onErrorHandled,
 }: {
   channel: Channel;
-  steps: ProseMirrorStep[];
+  steps: readonly ProseMirrorStep[];
   version: number;
   userId: string;
   clientId: number | string;
@@ -223,7 +223,6 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
     this.config = config;
     this.channel = new Channel(config);
     this.isChannelInitialized = false;
-
     if (config.analyticsClient) {
       this.analyticsClient = config.analyticsClient;
     }
@@ -318,6 +317,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 
   /**
    * Send steps from transaction to other participants
+   * It needs the superfluous arguments because we keep the interface of the send API the same as the Synchrony plugin
    */
   send(
     _tr: Transaction | null,
@@ -456,8 +456,8 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
     }
   };
 
-  private applyLocalSteps = (steps: ProseMirrorStep[]) => {
-    // Re-aply local steps
+  private applyLocalSteps = (steps: readonly ProseMirrorStep[]) => {
+    // Re-apply local steps
     this.emit('local-steps', { steps });
   };
 

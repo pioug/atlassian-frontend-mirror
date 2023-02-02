@@ -1,26 +1,22 @@
 // eslint-disable-line no-console
 import React from 'react';
 import { Component } from 'react';
-import { IntlProvider } from 'react-intl-next';
-
 import {
   defaultMediaPickerCollectionName,
   defaultMediaPickerAuthProvider,
-  FeatureFlagsWrapper,
 } from '@atlaskit/media-test-helpers';
 import Button from '@atlaskit/button/standard-button';
 import { Browser } from '../src';
 import { BrowserConfig, UploadPreviewUpdateEventPayload } from '../src/types';
 import {
-  PreviewsWrapper,
+  MainWrapper,
   PopupHeader,
   PopupContainer,
+  PreviewsWrapper,
   PreviewsTitle,
-} from '../example-helpers/stylesWrapper';
-import { UploadPreview } from '../example-helpers/upload-preview';
-import { UfoLoggerWrapper } from '../example-helpers/UfoWrapper';
+  UploadPreview,
+} from '../example-helpers';
 import { MediaClientConfig } from '@atlaskit/media-core';
-import { LOGGED_FEATURE_FLAGS } from '../src/util/analytics';
 
 export interface BrowserWrapperState {
   previewsData: any[];
@@ -98,20 +94,16 @@ class BrowserWrapper extends Component<{}, BrowserWrapperState> {
     );
 
     return (
-      <UfoLoggerWrapper>
-        <FeatureFlagsWrapper filterFlags={LOGGED_FEATURE_FLAGS}>
-          <IntlProvider locale="en">
-            <PopupContainer>
-              <PopupHeader>{buttons}</PopupHeader>
-              <PreviewsWrapper>
-                <PreviewsTitle>Upload previews</PreviewsTitle>
-                {this.renderPreviews()}
-                {browsers}
-              </PreviewsWrapper>
-            </PopupContainer>
-          </IntlProvider>
-        </FeatureFlagsWrapper>
-      </UfoLoggerWrapper>
+      <MainWrapper>
+        <PopupContainer>
+          <PopupHeader>{buttons}</PopupHeader>
+          <PreviewsWrapper>
+            <PreviewsTitle>Upload previews</PreviewsTitle>
+            {this.renderPreviews()}
+            {browsers}
+          </PreviewsWrapper>
+        </PopupContainer>
+      </MainWrapper>
     );
   }
 }

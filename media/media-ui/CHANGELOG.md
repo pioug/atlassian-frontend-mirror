@@ -1,5 +1,15 @@
 # @atlaskit/media-ui
 
+## 22.3.0
+
+### Minor Changes
+
+- [`1687a9fddf0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1687a9fddf0) - Updated previewOrientation prop to allow "from-image" orientation
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 22.2.4
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # @atlaskit/media-client
 
+## 20.0.1
+
+### Patch Changes
+
+- [`90f6203e794`](https://bitbucket.org/atlassian/atlassian-frontend/commits/90f6203e794) - Media Client now fetch remote file state regardless of file browser support (behind feature flag)
+- Updated dependencies
+
 ## 20.0.0
 
 ### Major Changes

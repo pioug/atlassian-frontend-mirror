@@ -20,33 +20,13 @@ import {
   getRangeSelectionAnalyticsPayload,
   shouldRecalcDecorations,
 } from '../utils';
+import { onKeydown } from './events/keydown';
+import { onCreateSelectionBetween } from './events/create-selection-between';
 
 export const getInitialState = (state: EditorState): SelectionPluginState => ({
   decorationSet: getDecorations(state.tr),
   selection: state.selection,
 });
-
-const toggleContentEditable = (node: ChildNode, root: boolean = false) => {
-  if (
-    root ||
-    (node as HTMLElement).getAttribute('contenteditable') === 'true'
-  ) {
-    const wasTrue =
-      (node as HTMLElement).getAttribute('contenteditable') === 'true';
-    (node as HTMLElement).setAttribute('contenteditable', 'false');
-    requestAnimationFrame(() => {
-      if (wasTrue) {
-        (node as HTMLElement).setAttribute('contenteditable', 'true');
-      } else {
-        (node as HTMLElement).removeAttribute('contenteditable');
-      }
-    });
-  }
-
-  // any children with contenteditable = true block selection from proceeding
-  const children = Array.from((node as HTMLElement).children);
-  children.forEach((child) => toggleContentEditable(child));
-};
 
 export const createPlugin = (
   dispatch: Dispatch,
@@ -128,11 +108,13 @@ export const createPlugin = (
     },
 
     props: {
+      createSelectionBetween: onCreateSelectionBetween,
       decorations(state) {
         return getPluginState(state).decorationSet;
       },
 
       handleDOMEvents: {
+        keydown: onKeydown,
         // We only want to fire analytics for a click and drag range/cell selection when
         // the user has finished, otherwise we will get an event almost every time they move
         // their mouse which is too much
@@ -146,43 +128,6 @@ export const createPlugin = (
               ) || getCellSelectionAnalyticsPayload(editorView.state);
             if (analyticsPayload) {
               dispatchAnalyticsEvent(analyticsPayload);
-            }
-          }
-          return false;
-        },
-        keydown: (editorView: EditorView, event: Event) => {
-          // Bugfix for block ReactNodeViews like table and extension
-          // They could not be selected with Shift + ArrowDown/ArrowUp
-          // Fixed when contenteditable = false, but then you couldn't edit their contents
-          // Therefore, briefly set contenteditable=false to allow the selection through, then set it back to true
-          if (
-            event instanceof KeyboardEvent &&
-            event.shiftKey &&
-            (event.key === 'ArrowDown' || event.key === 'ArrowUp')
-          ) {
-            const { state } = editorView;
-            // If current depth is on the top most level, skip that
-            if (state.selection.$head.depth <= 0) {
-              return false;
-            }
-
-            let pos;
-            if (event.key === 'ArrowDown') {
-              pos = state.selection.$head.after();
-            } else {
-              pos = Math.max(state.selection.$head.before() - 1, 0);
-              // block extensions only take up one position, dont need to get before()
-              if (!editorView.nodeDOM(pos)) {
-                pos = state.doc.resolve(pos).before();
-              }
-            }
-            const node = editorView.nodeDOM(pos);
-
-            if (
-              node instanceof HTMLDivElement &&
-              node.className.includes('View-content-wrap') // class added by ReactNodeView
-            ) {
-              toggleContentEditable(node, true);
             }
           }
           return false;

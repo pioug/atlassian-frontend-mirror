@@ -1,4 +1,4 @@
-import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 
 import { snapshot, initRendererWithADF } from './_utils';
 import * as adf from '../__fixtures__/code-block.adf.json';
@@ -22,8 +22,7 @@ describe('Snapshot Test: CodeBlock', () => {
       await snapshot(page, undefined, selectors.codeBlock);
     });
 
-    // FIXME: This test was automatically skipped due to failure on 23/12/2022: https://product-fabric.atlassian.net/browse/ED-16433
-    test.skip('should render copy-to-clipboard button correctly on hover', async () => {
+    it('should render copy-to-clipboard button correctly on hover', async () => {
       await initRendererWithADF(page, {
         appearance: 'full-page',
         rendererProps: { allowCopyToClipboard: true },
@@ -37,6 +36,16 @@ describe('Snapshot Test: CodeBlock', () => {
       await page.hover(
         `${selectors.codeBlock} ${selectors.copyToClipboardButton}`,
       );
+
+      await page.addStyleTag({
+        content: `
+          /*
+            Prevents the tooltip from displaying and blocking the copy button
+            from being visible
+          */
+          .Tooltip { display: none; }
+        `,
+      });
     });
 
     test('should render trailing newline', async () => {

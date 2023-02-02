@@ -56,8 +56,14 @@ export function ToolbarDropdown(props: DropdownProps) {
 
   const items = useItems(props);
 
-  const handleOnItemActivated = ({ item }: { item: DropdownItem }) => {
-    setIsDropdownOpen(false);
+  const handleOnItemActivated = ({
+    item,
+    shouldCloseMenu = true,
+  }: {
+    item: DropdownItem;
+    shouldCloseMenu: boolean;
+  }) => {
+    setIsDropdownOpen(!shouldCloseMenu);
     return onItemActivated({
       editorView: props.editorView,
       buttonName: item.value.name as ButtonName,

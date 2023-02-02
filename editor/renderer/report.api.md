@@ -626,6 +626,8 @@ export interface Serializer<T> {
 // @public (undocumented)
 interface SmartLinksOptions {
   // (undocumented)
+  showAuthTooltip?: boolean;
+  // (undocumented)
   ssr?: boolean;
 }
 
@@ -735,7 +737,7 @@ type VisitMediaLinkAEP = AEP<
 
 ```json
 {
-  "@atlaskit/link-provider": "^1.3.4",
+  "@atlaskit/link-provider": "^1.3.8",
   "@atlaskit/media-core": "^34.0.1",
   "react": "^16.8.0",
   "react-dom": "^16.8.0"

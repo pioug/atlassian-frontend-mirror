@@ -92,7 +92,7 @@ describe('Browser analytics instrumentation', () => {
             componentName: 'browser',
             component: 'browser',
             [MEDIA_CONTEXT]: {
-              featureFlags: someFeatureFlags,
+              featureFlags: expect.objectContaining(someFeatureFlags),
             },
           },
         ],
@@ -168,7 +168,7 @@ describe('Browser analytics instrumentation', () => {
             componentName: 'browser',
             component: 'browser',
             [MEDIA_CONTEXT]: {
-              featureFlags: someFeatureFlags,
+              featureFlags: expect.objectContaining(someFeatureFlags),
             },
           },
         ],
@@ -249,7 +249,7 @@ describe('Browser analytics instrumentation', () => {
             componentName: 'browser',
             component: 'browser',
             [MEDIA_CONTEXT]: {
-              featureFlags: someFeatureFlags,
+              featureFlags: expect.objectContaining(someFeatureFlags),
             },
           },
         ],
@@ -350,7 +350,7 @@ describe('Browser analytics instrumentation', () => {
             componentName: 'browser',
             component: 'browser',
             [MEDIA_CONTEXT]: {
-              featureFlags: someFeatureFlags,
+              featureFlags: expect.objectContaining(someFeatureFlags),
             },
           },
         ],
@@ -384,7 +384,7 @@ describe('Browser analytics instrumentation', () => {
             componentName: 'browser',
             component: 'browser',
             [MEDIA_CONTEXT]: {
-              featureFlags: someFeatureFlags,
+              featureFlags: expect.objectContaining(someFeatureFlags),
             },
           },
         ],

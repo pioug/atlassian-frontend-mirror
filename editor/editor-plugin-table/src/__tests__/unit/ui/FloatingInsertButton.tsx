@@ -81,7 +81,10 @@ describe('Floating Insert Button when findDomRefAtPos fails', () => {
 
     const mock = jest.spyOn(prosemirrorUtils, 'findDomRefAtPos');
     mock.mockImplementation(() => {
-      throw new Error('Error message from mock');
+      const error = new Error('Error message from mock');
+      error.stack = 'stack trace';
+
+      throw error;
     });
   });
 
@@ -122,6 +125,9 @@ describe('Floating Insert Button when findDomRefAtPos fails', () => {
         position: 3,
         docSize: 46,
         error: 'Error: Error message from mock',
+      }),
+      nonPrivacySafeAttributes: expect.objectContaining({
+        errorStack: 'stack trace',
       }),
     });
   });

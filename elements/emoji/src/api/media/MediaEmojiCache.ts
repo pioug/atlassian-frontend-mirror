@@ -12,7 +12,7 @@ import MediaImageLoader from './MediaImageLoader';
 import debug from '../../util/logger';
 import TokenManager from './TokenManager';
 
-import { LRUCache } from 'lru-fast';
+import { LRUMap } from 'lru_map';
 
 const getRequiredRepresentation = (
   emoji: EmojiDescription,
@@ -129,13 +129,13 @@ const maxImageSize = 10000;
  * small delay noticable to the end user.
  */
 export class MemoryCacheStrategy implements EmojiCacheStrategy {
-  private dataURLCache: LRUCache<string, string>;
+  private dataURLCache: LRUMap<string, string>;
   private mediaImageLoader: MediaImageLoader;
 
   constructor(mediaImageLoader: MediaImageLoader) {
     debug('MemoryCacheStrategy');
     this.mediaImageLoader = mediaImageLoader;
-    this.dataURLCache = new LRUCache<string, string>(maxImageCached);
+    this.dataURLCache = new LRUMap<string, string>(maxImageCached);
   }
 
   loadEmoji(
@@ -162,7 +162,7 @@ export class MemoryCacheStrategy implements EmojiCacheStrategy {
         const loadedEmoji = convertMediaToImageEmoji(emoji, dataURL, useAlt);
         if (dataURL.length <= maxImageSize) {
           // Only cache if not large than max size
-          this.dataURLCache.put(mediaPath, dataURL);
+          this.dataURLCache.set(mediaPath, dataURL);
         } else {
           debug(
             'No caching as image is too large',

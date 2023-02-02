@@ -95,6 +95,8 @@ export function InlineCommentView({
           position,
           docSize: editorView.state.doc.nodeSize,
           error: error.toString(),
+        },
+        nonPrivacySafeAttributes: {
           errorStack: error.stack || undefined,
         },
       };
@@ -115,7 +117,10 @@ export function InlineCommentView({
     //getting all text between bookmarked positions
     const textSelection = state.doc.textBetween(selection.from, selection.to);
     return (
-      <div data-testid={AnnotationTestIds.floatingComponent}>
+      <div
+        data-testid={AnnotationTestIds.floatingComponent}
+        data-editor-popup="true"
+      >
         <CreateComponent
           dom={dom}
           textSelection={textSelection}
@@ -166,6 +171,7 @@ export function InlineCommentView({
 
   return (
     <AnnotationViewWrapper
+      data-editor-popup="true"
       data-testid={AnnotationTestIds.floatingComponent}
       key={getAnnotationViewKey(activeAnnotations)}
       onViewed={onAnnotationViewed}

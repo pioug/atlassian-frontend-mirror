@@ -1,4 +1,4 @@
-import { LRUCache } from 'lru-fast';
+import { LRUMap } from 'lru_map';
 
 interface CachedData<T> {
   expire: number;
@@ -12,7 +12,7 @@ export interface CacheConfig {
 
 export default class CachingClient<T> {
   config: Required<CacheConfig>;
-  cache: LRUCache<string, CachedData<T>> | null;
+  cache: LRUMap<string, CachedData<T>> | null;
 
   constructor(config: CacheConfig) {
     const defaults = {
@@ -35,12 +35,12 @@ export default class CachingClient<T> {
     this.cache =
       !this.config.cacheMaxAge || !this.config.cacheSize
         ? null
-        : new LRUCache(this.config.cacheSize);
+        : new LRUMap(this.config.cacheSize);
   }
 
   setCachedProfile(cacheIdentifier: string, profile: T): void {
     this.cache &&
-      this.cache.put(cacheIdentifier, {
+      this.cache.set(cacheIdentifier, {
         expire: Date.now() + this.config.cacheMaxAge,
         profile,
       });
@@ -58,7 +58,7 @@ export default class CachingClient<T> {
     }
 
     if (cached.expire < Date.now()) {
-      this.cache.remove(cacheIdentifier);
+      this.cache.delete(cacheIdentifier);
       return null;
     }
 
@@ -70,7 +70,7 @@ export default class CachingClient<T> {
 
   flushCache() {
     if (this.cache) {
-      this.cache.removeAll();
+      this.cache.clear();
     }
   }
 }

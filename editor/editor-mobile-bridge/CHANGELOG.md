@@ -1,5 +1,27 @@
 # @atlaskit/editor-mobile-bridge
 
+## 36.0.0
+
+### Major Changes
+
+- [`8c89945947e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8c89945947e) - Editor bridge opens edit status when status is added
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.1.74
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.1.73
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 35.1.72
 
 ### Patch Changes

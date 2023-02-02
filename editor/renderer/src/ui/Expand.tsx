@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { useRef, useCallback } from 'react';
+import React, { useRef, useCallback, useMemo } from 'react';
 import { css, jsx } from '@emotion/react';
 import { gridSize, fontSize } from '@atlaskit/theme/constants';
 import { ThemeProps } from '@atlaskit/theme/types';
@@ -26,6 +26,8 @@ import {
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import { ActiveHeaderIdConsumer } from './active-header-id-provider';
 import _uniqueId from 'lodash/uniqueId';
+import { getPlatform } from '../utils';
+import { RendererAppearance } from './Renderer/types';
 
 export type StyleProps = {
   expanded?: boolean;
@@ -108,6 +110,7 @@ export interface ExpandProps {
   children: React.ReactNode;
   fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
   nestedHeaderIds?: Array<string>;
+  rendererAppearance?: RendererAppearance;
 }
 
 function fireExpandToggleAnalytics(
@@ -141,13 +144,18 @@ function Expand({
   intl,
   fireAnalyticsEvent,
   nestedHeaderIds,
+  rendererAppearance,
 }: ExpandProps & WrappedComponentProps) {
   const [expanded, setExpanded] = React.useState(false);
   const [focused, setFocused] = React.useState(false);
+
+  const isMobile = useMemo(
+    () => getPlatform(rendererAppearance) === 'mobile',
+    [rendererAppearance],
+  );
   const label = intl.formatMessage(
     expanded ? expandMessages.collapseNode : expandMessages.expandNode,
   );
-
   const { current: id } = useRef(_uniqueId('expand-title-'));
 
   const handleFocus = useCallback(() => setFocused(true), []);
@@ -183,15 +191,22 @@ function Expand({
         contentEditable={false}
         expanded={expanded}
       >
-        <Tooltip
-          content={label}
-          position="top"
-          tag={ExpandLayoutWrapperWithRef}
-        >
+        {isMobile ? (
           <ExpandIconWrapper expanded={expanded}>
             <ChevronRightIcon label={label} />
           </ExpandIconWrapper>
-        </Tooltip>
+        ) : (
+          <Tooltip
+            content={label}
+            position="top"
+            tag={ExpandLayoutWrapperWithRef}
+            testId={'tooltip'}
+          >
+            <ExpandIconWrapper expanded={expanded}>
+              <ChevronRightIcon label={label} />
+            </ExpandIconWrapper>
+          </Tooltip>
+        )}
         <span css={titleStyles} id={id}>
           {title || intl.formatMessage(expandMessages.expandDefaultTitle)}
         </span>

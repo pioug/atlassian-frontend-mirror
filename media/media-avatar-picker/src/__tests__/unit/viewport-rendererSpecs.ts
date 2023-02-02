@@ -23,6 +23,19 @@ const toDataURL = getCanvasMock.canvas.toDataURL! as jest.Mock;
 toDataURL.mockReturnValue('some-data-url');
 
 describe('Viewport Renderer', () => {
+  let originalCSS: any;
+  beforeAll(() => {
+    originalCSS = global.CSS;
+    global.CSS = {
+      ...originalCSS,
+      supports: () => false,
+    };
+  });
+
+  afterAll(() => {
+    global.CSS = originalCSS;
+  });
+
   beforeEach(() => {
     translate.mockClear();
     scale.mockClear();

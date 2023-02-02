@@ -16,3 +16,4 @@ export {
   transformToCodeBlockAction,
 } from './transform-to-code-block';
 export { deleteAndMoveCursor } from './delete-and-move-cursor';
+export { deleteBlockContent } from './delete-block-content';

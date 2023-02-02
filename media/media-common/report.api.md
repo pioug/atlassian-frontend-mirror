@@ -153,6 +153,8 @@ export interface MediaFeatureFlags {
   // (undocumented)
   captions?: boolean;
   // (undocumented)
+  fetchFileStateAfterUpload?: boolean;
+  // (undocumented)
   folderUploads?: boolean;
   // (undocumented)
   mediaInline?: boolean;

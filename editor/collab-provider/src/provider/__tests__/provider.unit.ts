@@ -6,7 +6,7 @@ import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 
 jest.useFakeTimers();
 
-jest.mock('prosemirror-collab', () => {
+jest.mock('@atlaskit/prosemirror-collab', () => {
   return {
     sendableSteps: function (state: any) {
       return state.collab;

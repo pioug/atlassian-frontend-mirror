@@ -25,6 +25,7 @@ import { MediaOptions } from '../types';
 import {
   replaceExternalMedia,
   updateAllMediaNodesAttrs,
+  updateCurrentMediaNodeAttrs,
   updateMediaNodeAttrs,
 } from '../commands/helpers';
 import { ProsemirrorGetPosHandler } from '../../../nodeviews';
@@ -75,8 +76,7 @@ export class MediaNodeUpdater {
     )(this.props.view.state, this.props.view.dispatch);
   };
 
-  hasFileAttributesDefined = () => {
-    const attrs = this.getAttrs();
+  private hasFileAttributesDefined = (attrs: MediaADFAttrs) => {
     return (
       attrs &&
       attrs.type === 'file' &&
@@ -87,7 +87,7 @@ export class MediaNodeUpdater {
     );
   };
 
-  updateFileAttrs = async (isMediaSingle: boolean = true) => {
+  private getNewFileAttrsForNode = async () => {
     const attrs = this.getAttrs();
     const mediaProvider = await this.props.mediaProvider;
     if (
@@ -95,20 +95,19 @@ export class MediaNodeUpdater {
       !mediaProvider.uploadParams ||
       !attrs ||
       attrs.type !== 'file' ||
-      this.hasFileAttributesDefined()
+      this.hasFileAttributesDefined(attrs)
     ) {
       return;
     }
     const mediaClientConfig = mediaProvider.viewMediaClientConfig;
     const mediaClient = getMediaClient(mediaClientConfig);
 
-    const options = {
-      collectionName: attrs.collection,
-    };
-
     let fileState: FileState;
+    const { id, collection: collectionName } = attrs;
     try {
-      fileState = await mediaClient.file.getCurrentState(attrs.id, options);
+      fileState = await mediaClient.file.getCurrentState(id, {
+        collectionName,
+      });
       if (fileState.status === 'error') {
         return;
       }
@@ -124,15 +123,34 @@ export class MediaNodeUpdater {
       __fileSize: size,
       __contextId: contextId,
     };
-    const attrsChanged = hasPrivateAttrsChanged(attrs, newAttrs);
 
-    if (attrsChanged) {
-      // TODO [MS-2258]: we should pass this.props.isMediaSingle and remove hardcoded "true"
+    if (!hasPrivateAttrsChanged(attrs, newAttrs)) {
+      return;
+    }
+
+    return newAttrs;
+  };
+
+  updateFileAttrs = async (isMediaSingle: boolean = true) => {
+    const newAttrs = await this.getNewFileAttrsForNode();
+    const { id } = this.getAttrs() as MediaAttributes;
+    if (id && newAttrs) {
       updateAllMediaNodesAttrs(
-        attrs.id,
+        id,
         newAttrs,
         isMediaSingle,
       )(this.props.view.state, this.props.view.dispatch);
+    }
+  };
+
+  updateNodeAttrs = async (getPos: ProsemirrorGetPosHandler) => {
+    const newAttrs = await this.getNewFileAttrsForNode();
+
+    if (newAttrs) {
+      updateCurrentMediaNodeAttrs(newAttrs, {
+        node: this.props.node,
+        getPos,
+      })(this.props.view.state, this.props.view.dispatch);
     }
   };
 

@@ -187,6 +187,10 @@ export function expandKeymap(): SafePlugin {
 
       if (editorView.endOfTextblock('down')) {
         const { $from } = state.selection;
+
+        if ($from.depth === 0) {
+          return false;
+        }
         const $after = state.doc.resolve($from.after());
         if (
           $after.nodeAfter &&

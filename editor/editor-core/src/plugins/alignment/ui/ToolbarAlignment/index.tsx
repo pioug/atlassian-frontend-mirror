@@ -62,14 +62,19 @@ export class AlignmentToolbar extends React.Component<
           boundariesElement={popupsBoundariesElement}
           scrollableElement={popupsScrollableElement}
           isOpen={isOpen}
-          handleClickOutside={(event: MouseEvent) =>
-            this.hide({ isOpen: false, event })
-          }
-          handleEscapeKeydown={this.hideonEsc}
-          onOpenChange={this.hide}
+          onOpenChange={({ isOpen }: { isOpen: boolean }) => {
+            this.setState({ isOpen });
+            this.toolbarItemRef?.current?.focus();
+          }}
+          handleClickOutside={(event: MouseEvent) => {
+            if (event instanceof MouseEvent) {
+              this.hide({ isOpen: false, event });
+            }
+          }}
+          handleEscapeKeydown={this.hideOnEscape}
           fitWidth={112}
           fitHeight={80}
-          closeonTab={true}
+          closeOnTab={true}
           trigger={
             <ToolbarButton
               spacing={isReducedSpacing ? 'none' : 'default'}
@@ -94,7 +99,7 @@ export class AlignmentToolbar extends React.Component<
           }
         >
           <Alignment
-            onClick={(align) => this.changeAlignment(align)}
+            onClick={(align) => this.changeAlignment(align, false)}
             selectedAlignment={pluginState.align}
           />
         </Dropdown>
@@ -103,8 +108,10 @@ export class AlignmentToolbar extends React.Component<
     );
   }
 
-  private changeAlignment = (align: AlignmentState) => {
-    this.toggleOpen();
+  private changeAlignment = (align: AlignmentState, togglePopup: boolean) => {
+    if (togglePopup) {
+      this.toggleOpen();
+    }
     return this.props.changeAlignment(align);
   };
 
@@ -128,9 +135,8 @@ export class AlignmentToolbar extends React.Component<
     }
   };
 
-  private hideonEsc = () => {
+  private hideOnEscape = () => {
     this.hide();
-    //To set the focus on the textcolor button when the menu is closed by 'Esc' only (aria guidelines)
     this.toolbarItemRef?.current?.focus();
   };
 }

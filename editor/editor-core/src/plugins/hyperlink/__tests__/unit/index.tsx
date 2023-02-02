@@ -11,6 +11,7 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+
 import analyticsPlugin from '../../../analytics';
 import tasksAndDecisionsPlugin from '../../../tasks-and-decisions';
 import floatingToolbarPlugin, {
@@ -21,6 +22,7 @@ import blockTypePlugin from '../../../block-type';
 import typeAheadPlugin from '../../../type-ahead';
 import quickInsertPlugin from '../../../quick-insert';
 import * as featureFlags from '../../../../plugins/feature-flags-context';
+import { stateKey as hyperlinkStateKey } from '../../pm-plugins/main';
 
 describe('hyperlink', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -175,6 +177,17 @@ describe('hyperlink', () => {
         nonPrivacySafeAttributes: { linkDomain: 'atlassian.com' },
         eventType: 'track',
       });
+    });
+
+    it('should set `inputMethod` plugin state as `quickInsert` when invoking quick insert', async () => {
+      const { typeAheadTool, editorView } = editor(doc(p('{<>}')));
+
+      await typeAheadTool.searchQuickInsert('Link')?.insert({ index: 0 });
+
+      const { state } = editorView;
+      const { inputMethod } = hyperlinkStateKey.getState(state)!;
+
+      expect(inputMethod).toBe('quickInsert');
     });
   });
 });

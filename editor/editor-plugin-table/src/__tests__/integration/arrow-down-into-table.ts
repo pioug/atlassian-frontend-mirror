@@ -8,7 +8,24 @@ import {
   goToEditorTestingWDExample,
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
-import tableAdf from './__fixtures__/paragraph-and-table-adf.json';
+import { documentWithParagraphAndTable } from './__fixtures__/paragraph-and-table-adf';
+
+const testArrowDown =
+  (isNumberedColumnEnabled: boolean) => async (client: any) => {
+    const page = await goToEditorTestingWDExample(
+      client,
+      'editor-plugin-table',
+    );
+    await mountEditor(page, {
+      appearance: fullpage.appearance,
+      allowTables: {},
+      defaultValue: documentWithParagraphAndTable(isNumberedColumnEnabled),
+    });
+
+    await setProseMirrorTextSelection(page, { anchor: 5 });
+    await page.keys('ArrowDown');
+    await expectToMatchSelection(page, { type: 'text', anchor: 10, head: 10 });
+  };
 
 // This keyboard navigation is actually browser functionality
 // But there was a div on our end that caused a bug where the
@@ -20,19 +37,11 @@ import tableAdf from './__fixtures__/paragraph-and-table-adf.json';
 BrowserTestCase(
   'arrow-down-into-table.ts: pressing arrow down above table should move cursor into first row',
   { skip: ['firefox'] },
-  async (client: any) => {
-    const page = await goToEditorTestingWDExample(
-      client,
-      'editor-plugin-table',
-    );
-    await mountEditor(page, {
-      appearance: fullpage.appearance,
-      allowTables: {},
-      defaultValue: tableAdf,
-    });
+  testArrowDown(false),
+);
 
-    await setProseMirrorTextSelection(page, { anchor: 5 });
-    await page.keys('ArrowDown');
-    await expectToMatchSelection(page, { type: 'text', to: 10, from: 10 });
-  },
+BrowserTestCase(
+  'arrow-down-into-table.ts: pressing arrow down above table should move cursor into first row for a numbered table',
+  { skip: ['firefox'] },
+  testArrowDown(true),
 );

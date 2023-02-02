@@ -350,11 +350,11 @@ export type Height = keyof typeof heightMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::99c5403dd8b57b15bf1240cc456b6b16>>
+ * @codegen <<SignedSource::dd066079dac7b8cd6f947965a2f1a744>>
  * @codegenId spacing
  * @codegenCommand yarn codegen-styles
  * @codegenParams ["padding", "paddingBlock", "paddingInline"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-spacing.tsx <<SignedSource::a2b43f8447798dfdd9c6223bd22b78c7>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-spacing.tsx <<SignedSource::b0b8f1a822ed84e0407ad83e6fda5a1c>>
  */
 const paddingMap = {
   'space.0': css({
@@ -503,21 +503,18 @@ export type PaddingInline = keyof typeof paddingInlineMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::201c8a6c6ff88ac47cdb02365c643ff2>>
+ * @codegen <<SignedSource::04c05379e7c6ad157383d5f77e66911a>>
  * @codegenId colors
  * @codegenCommand yarn codegen-styles
  * @codegenParams ["border", "background", "shadow"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::db7a1282630a6e5b9424b807614086af>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::e348c7cd343cf53ff944fdb7023c577a>>
  */
 const borderColorMap = {
   'color.border': css({
     borderColor: token('color.border', '#091e4221'),
   }),
-  bold: css({
-    borderColor: token('color.border.bold', '#344563'),
-  }),
-  inverse: css({
-    borderColor: token('color.border.inverse', '#FFFFFF'),
+  disabled: css({
+    borderColor: token('color.border.disabled', '#FAFBFC'),
   }),
   focused: css({
     borderColor: token('color.border.focused', '#4C9AFF'),
@@ -525,14 +522,14 @@ const borderColorMap = {
   input: css({
     borderColor: token('color.border.input', '#FAFBFC'),
   }),
-  disabled: css({
-    borderColor: token('color.border.disabled', '#FAFBFC'),
-  }),
-  brand: css({
-    borderColor: token('color.border.brand', '#0052CC'),
+  inverse: css({
+    borderColor: token('color.border.inverse', '#FFFFFF'),
   }),
   selected: css({
     borderColor: token('color.border.selected', '#0052CC'),
+  }),
+  brand: css({
+    borderColor: token('color.border.brand', '#0052CC'),
   }),
   danger: css({
     borderColor: token('color.border.danger', '#FF5630'),
@@ -549,6 +546,9 @@ const borderColorMap = {
   information: css({
     borderColor: token('color.border.information', '#0065FF'),
   }),
+  bold: css({
+    borderColor: token('color.border.bold', '#344563'),
+  }),
 } as const;
 
 export type BorderColor = keyof typeof borderColorMap;
@@ -557,11 +557,11 @@ const backgroundColorMap = {
   disabled: css({
     backgroundColor: token('color.background.disabled', '#091e4289'),
   }),
-  'inverse.subtle': css({
-    backgroundColor: token('color.background.inverse.subtle', '#00000029'),
-  }),
   input: css({
     backgroundColor: token('color.background.input', '#FAFBFC'),
+  }),
+  'inverse.subtle': css({
+    backgroundColor: token('color.background.inverse.subtle', '#00000029'),
   }),
   neutral: css({
     backgroundColor: token('color.background.neutral', '#DFE1E6'),
@@ -572,14 +572,14 @@ const backgroundColorMap = {
   'neutral.bold': css({
     backgroundColor: token('color.background.neutral.bold', '#42526E'),
   }),
-  'brand.bold': css({
-    backgroundColor: token('color.background.brand.bold', '#0052CC'),
-  }),
   selected: css({
     backgroundColor: token('color.background.selected', '#DEEBFF'),
   }),
   'selected.bold': css({
     backgroundColor: token('color.background.selected.bold', '#0052CC'),
+  }),
+  'brand.bold': css({
+    backgroundColor: token('color.background.brand.bold', '#0052CC'),
   }),
   danger: css({
     backgroundColor: token('color.background.danger', '#FFEBE6'),
@@ -623,42 +623,42 @@ const backgroundColorMap = {
   'elevation.surface': css({
     backgroundColor: token('elevation.surface', '#FFFFFF'),
   }),
-  'elevation.surface.sunken': css({
-    backgroundColor: token('elevation.surface.sunken', '#F4F5F7'),
+  'elevation.surface.overlay': css({
+    backgroundColor: token('elevation.surface.overlay', '#FFFFFF'),
   }),
   'elevation.surface.raised': css({
     backgroundColor: token('elevation.surface.raised', '#FFFFFF'),
   }),
-  'elevation.surface.overlay': css({
-    backgroundColor: token('elevation.surface.overlay', '#FFFFFF'),
+  'elevation.surface.sunken': css({
+    backgroundColor: token('elevation.surface.sunken', '#F4F5F7'),
   }),
 } as const;
 
 export type BackgroundColor = keyof typeof backgroundColorMap;
 
 const shadowMap = {
-  raised: css({
-    boxShadow: token(
-      'elevation.shadow.raised',
-      '0px 1px 1px #091e423f, 0px 0px 1px #091e4221',
-    ),
-  }),
   overflow: css({
     boxShadow: token(
       'elevation.shadow.overflow',
       '0px 0px 8px #091e423f, 0px 0px 1px #091e424f',
     ),
   }),
-  'overflow.spread': css({
-    boxShadow: token('elevation.shadow.overflow.spread', '#091e4229'),
-  }),
   'overflow.perimeter': css({
     boxShadow: token('elevation.shadow.overflow.perimeter', '#091e421f'),
+  }),
+  'overflow.spread': css({
+    boxShadow: token('elevation.shadow.overflow.spread', '#091e4229'),
   }),
   overlay: css({
     boxShadow: token(
       'elevation.shadow.overlay',
       '0px 8px 12px #091e423f, 0px 0px 1px #091e424f',
+    ),
+  }),
+  raised: css({
+    boxShadow: token(
+      'elevation.shadow.raised',
+      '0px 1px 1px #091e423f, 0px 0px 1px #091e4221',
     ),
   }),
 } as const;

@@ -68,4 +68,15 @@ describe('ToolbarAlignment', () => {
       false,
     );
   });
+
+  it('should not close menu when toolbar alignment button is selected with keyboard', () => {
+    toolbarAlignment.find('button').simulate('click');
+    toolbarAlignment
+      .find('button')
+      .at(0)
+      .simulate('keypress', { key: 'Enter' });
+    expect(toolbarAlignment.find(BaseToolbarAlignment).state('isOpen')).toBe(
+      true,
+    );
+  });
 });

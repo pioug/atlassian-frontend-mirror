@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::cdf8b6475c86cb3fac18fced92ca9f5d>>
+ * @codegen <<SignedSource::5bb3746cadd383e706124f816c33dd4b>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -9,56 +9,27 @@ const tokens = [
       "group": "paint",
       "state": "active",
       "introduced": "0.6.0",
-      "description": "Use for blue text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
+      "description": "Use for primary text, such as body copy, sentence case headers, and buttons."
     },
-    "value": "#0052CC",
-    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "value": "#172B4D",
+    "filePath": "src/tokens/atlassian-legacy-light/color/text.tsx",
     "isSource": true,
     "original": {
       "attributes": {
         "group": "paint",
         "state": "active",
         "introduced": "0.6.0",
-        "description": "Use for blue text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
+        "description": "Use for primary text, such as body copy, sentence case headers, and buttons."
       },
-      "value": "B400"
+      "value": "N800"
     },
-    "name": "color.text.accent.blue.[default]",
+    "name": "color.text.[default]",
     "path": [
       "color",
       "text",
-      "accent",
-      "blue",
       "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.7.0",
-      "description": "Use on bold blue accent backgrounds."
-    },
-    "value": "#0747A6",
-    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.7.0",
-        "description": "Use on bold blue accent backgrounds."
-      },
-      "value": "B500"
-    },
-    "name": "color.text.accent.blue.bolder",
-    "path": [
-      "color",
-      "text",
-      "accent",
-      "blue",
-      "bolder"
-    ]
+    ],
+    "cleanName": "color.text"
   },
   {
     "attributes": {
@@ -86,7 +57,8 @@ const tokens = [
       "accent",
       "red",
       "[default]"
-    ]
+    ],
+    "cleanName": "color.text.accent.red"
   },
   {
     "attributes": {
@@ -114,7 +86,8 @@ const tokens = [
       "accent",
       "red",
       "bolder"
-    ]
+    ],
+    "cleanName": "color.text.accent.red.bolder"
   },
   {
     "attributes": {
@@ -142,7 +115,8 @@ const tokens = [
       "accent",
       "orange",
       "[default]"
-    ]
+    ],
+    "cleanName": "color.text.accent.orange"
   },
   {
     "attributes": {
@@ -170,7 +144,8 @@ const tokens = [
       "accent",
       "orange",
       "bolder"
-    ]
+    ],
+    "cleanName": "color.text.accent.orange.bolder"
   },
   {
     "attributes": {
@@ -198,7 +173,8 @@ const tokens = [
       "accent",
       "yellow",
       "[default]"
-    ]
+    ],
+    "cleanName": "color.text.accent.yellow"
   },
   {
     "attributes": {
@@ -226,7 +202,8 @@ const tokens = [
       "accent",
       "yellow",
       "bolder"
-    ]
+    ],
+    "cleanName": "color.text.accent.yellow.bolder"
   },
   {
     "attributes": {
@@ -254,7 +231,8 @@ const tokens = [
       "accent",
       "green",
       "[default]"
-    ]
+    ],
+    "cleanName": "color.text.accent.green"
   },
   {
     "attributes": {
@@ -282,63 +260,8 @@ const tokens = [
       "accent",
       "green",
       "bolder"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.6.0",
-      "description": "Use for purple text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
-    },
-    "value": "#5243AA",
-    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for purple text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
-      },
-      "value": "P400"
-    },
-    "name": "color.text.accent.purple.[default]",
-    "path": [
-      "color",
-      "text",
-      "accent",
-      "purple",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.7.0",
-      "description": "Use on bold purple accent backgrounds."
-    },
-    "value": "#403294",
-    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.7.0",
-        "description": "Use on bold purple accent backgrounds."
-      },
-      "value": "P500"
-    },
-    "name": "color.text.accent.purple.bolder",
-    "path": [
-      "color",
-      "text",
-      "accent",
-      "purple",
-      "bolder"
-    ]
+    ],
+    "cleanName": "color.text.accent.green.bolder"
   },
   {
     "attributes": {
@@ -366,7 +289,8 @@ const tokens = [
       "accent",
       "teal",
       "[default]"
-    ]
+    ],
+    "cleanName": "color.text.accent.teal"
   },
   {
     "attributes": {
@@ -394,7 +318,124 @@ const tokens = [
       "accent",
       "teal",
       "bolder"
-    ]
+    ],
+    "cleanName": "color.text.accent.teal.bolder"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.6.0",
+      "description": "Use for blue text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
+    },
+    "value": "#0052CC",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for blue text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "B400"
+    },
+    "name": "color.text.accent.blue.[default]",
+    "path": [
+      "color",
+      "text",
+      "accent",
+      "blue",
+      "[default]"
+    ],
+    "cleanName": "color.text.accent.blue"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.7.0",
+      "description": "Use on bold blue accent backgrounds."
+    },
+    "value": "#0747A6",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use on bold blue accent backgrounds."
+      },
+      "value": "B500"
+    },
+    "name": "color.text.accent.blue.bolder",
+    "path": [
+      "color",
+      "text",
+      "accent",
+      "blue",
+      "bolder"
+    ],
+    "cleanName": "color.text.accent.blue.bolder"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.6.0",
+      "description": "Use for purple text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
+    },
+    "value": "#5243AA",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for purple text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "P400"
+    },
+    "name": "color.text.accent.purple.[default]",
+    "path": [
+      "color",
+      "text",
+      "accent",
+      "purple",
+      "[default]"
+    ],
+    "cleanName": "color.text.accent.purple"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.7.0",
+      "description": "Use on bold purple accent backgrounds."
+    },
+    "value": "#403294",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use on bold purple accent backgrounds."
+      },
+      "value": "P500"
+    },
+    "name": "color.text.accent.purple.bolder",
+    "path": [
+      "color",
+      "text",
+      "accent",
+      "purple",
+      "bolder"
+    ],
+    "cleanName": "color.text.accent.purple.bolder"
   },
   {
     "attributes": {
@@ -422,7 +463,8 @@ const tokens = [
       "accent",
       "magenta",
       "[default]"
-    ]
+    ],
+    "cleanName": "color.text.accent.magenta"
   },
   {
     "attributes": {
@@ -450,7 +492,8 @@ const tokens = [
       "accent",
       "magenta",
       "bolder"
-    ]
+    ],
+    "cleanName": "color.text.accent.magenta.bolder"
   },
   {
     "attributes": {
@@ -478,7 +521,8 @@ const tokens = [
       "accent",
       "gray",
       "[default]"
-    ]
+    ],
+    "cleanName": "color.text.accent.gray"
   },
   {
     "attributes": {
@@ -506,85 +550,8 @@ const tokens = [
       "accent",
       "gray",
       "bolder"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.6.0",
-      "description": "Use for primary text, such as body copy, sentence case headers, and buttons."
-    },
-    "value": "#172B4D",
-    "filePath": "src/tokens/atlassian-legacy-light/color/text.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for primary text, such as body copy, sentence case headers, and buttons."
-      },
-      "value": "N800"
-    },
-    "name": "color.text.[default]",
-    "path": [
-      "color",
-      "text",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.6.0",
-      "description": "Use for secondary text, such as navigation, subtle button links, input field labels, and all caps subheadings."
-    },
-    "value": "#42526E",
-    "filePath": "src/tokens/atlassian-legacy-light/color/text.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for secondary text, such as navigation, subtle button links, input field labels, and all caps subheadings."
-      },
-      "value": "N500"
-    },
-    "name": "color.text.subtle",
-    "path": [
-      "color",
-      "text",
-      "subtle"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.6.0",
-      "description": "Use for tertiary text, such as meta-data, breadcrumbs, input field placeholder and helper text."
-    },
-    "value": "#7A869A",
-    "filePath": "src/tokens/atlassian-legacy-light/color/text.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for tertiary text, such as meta-data, breadcrumbs, input field placeholder and helper text."
-      },
-      "value": "N100"
-    },
-    "name": "color.text.subtlest",
-    "path": [
-      "color",
-      "text",
-      "subtlest"
-    ]
+    ],
+    "cleanName": "color.text.accent.gray.bolder"
   },
   {
     "attributes": {
@@ -610,243 +577,8 @@ const tokens = [
       "color",
       "text",
       "disabled"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.6.0",
-      "description": "Use for text on bold backgrounds."
-    },
-    "value": "#FFFFFF",
-    "filePath": "src/tokens/atlassian-legacy-light/color/text.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for text on bold backgrounds."
-      },
-      "value": "N0"
-    },
-    "name": "color.text.inverse",
-    "path": [
-      "color",
-      "text",
-      "inverse"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.6.0",
-      "description": "Use for text that reinforces our brand."
-    },
-    "value": "#0065FF",
-    "filePath": "src/tokens/atlassian-legacy-light/color/text.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for text that reinforces our brand."
-      },
-      "value": "B300"
-    },
-    "name": "color.text.brand",
-    "path": [
-      "color",
-      "text",
-      "brand"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.6.0",
-      "description": "Use for text in selected or opened states, such as tabs and dropdown buttons."
-    },
-    "value": "#0052CC",
-    "filePath": "src/tokens/atlassian-legacy-light/color/text.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for text in selected or opened states, such as tabs and dropdown buttons."
-      },
-      "value": "B400"
-    },
-    "name": "color.text.selected",
-    "path": [
-      "color",
-      "text",
-      "selected"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.0.15",
-      "description": "Use for critical text, such as input field error messaging."
-    },
-    "value": "#DE350B",
-    "filePath": "src/tokens/atlassian-legacy-light/color/text.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.0.15",
-        "description": "Use for critical text, such as input field error messaging."
-      },
-      "value": "R400"
-    },
-    "name": "color.text.danger",
-    "path": [
-      "color",
-      "text",
-      "danger"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.0.15",
-      "description": "Use for text to emphasize caution, such as in moved lozenges."
-    },
-    "value": "#974F0C",
-    "filePath": "src/tokens/atlassian-legacy-light/color/text.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.0.15",
-        "description": "Use for text to emphasize caution, such as in moved lozenges."
-      },
-      "value": "O800"
-    },
-    "name": "color.text.warning.[default]",
-    "path": [
-      "color",
-      "text",
-      "warning",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.6.0",
-      "description": "Use for text when on bold warning backgrounds."
-    },
-    "value": "#172B4D",
-    "filePath": "src/tokens/atlassian-legacy-light/color/text.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for text when on bold warning backgrounds."
-      },
-      "value": "N800"
-    },
-    "name": "color.text.warning.inverse",
-    "path": [
-      "color",
-      "text",
-      "warning",
-      "inverse"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.0.15",
-      "description": "Use for text to communicate a favourable outcome, such as input field success messaging."
-    },
-    "value": "#006644",
-    "filePath": "src/tokens/atlassian-legacy-light/color/text.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.0.15",
-        "description": "Use for text to communicate a favourable outcome, such as input field success messaging."
-      },
-      "value": "G500"
-    },
-    "name": "color.text.success",
-    "path": [
-      "color",
-      "text",
-      "success"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.0.15",
-      "description": "Use for text to emphasize change or something new, such as in new lozenges."
-    },
-    "value": "#403294",
-    "filePath": "src/tokens/atlassian-legacy-light/color/text.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.0.15",
-        "description": "Use for text to emphasize change or something new, such as in new lozenges."
-      },
-      "value": "P500"
-    },
-    "name": "color.text.discovery",
-    "path": [
-      "color",
-      "text",
-      "discovery"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.6.0",
-      "description": "Use for informative text or to communicate something is in progress, such as in-progress lozenges."
-    },
-    "value": "#0052CC",
-    "filePath": "src/tokens/atlassian-legacy-light/color/text.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for informative text or to communicate something is in progress, such as in-progress lozenges."
-      },
-      "value": "B400"
-    },
-    "name": "color.text.information",
-    "path": [
-      "color",
-      "text",
-      "information"
-    ]
+    ],
+    "cleanName": "color.text.disabled"
   },
   {
     "attributes": {
@@ -878,7 +610,35 @@ const tokens = [
       "color",
       "text",
       "highEmphasis"
-    ]
+    ],
+    "cleanName": "color.text.highEmphasis"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.6.0",
+      "description": "Use for text on bold backgrounds."
+    },
+    "value": "#FFFFFF",
+    "filePath": "src/tokens/atlassian-legacy-light/color/text.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for text on bold backgrounds."
+      },
+      "value": "N0"
+    },
+    "name": "color.text.inverse",
+    "path": [
+      "color",
+      "text",
+      "inverse"
+    ],
+    "cleanName": "color.text.inverse"
   },
   {
     "attributes": {
@@ -911,7 +671,8 @@ const tokens = [
       "text",
       "link",
       "pressed"
-    ]
+    ],
+    "cleanName": "color.text.link.pressed"
   },
   {
     "attributes": {
@@ -944,7 +705,8 @@ const tokens = [
       "text",
       "link",
       "resting"
-    ]
+    ],
+    "cleanName": "color.text.link.resting"
   },
   {
     "attributes": {
@@ -976,7 +738,8 @@ const tokens = [
       "color",
       "text",
       "lowEmphasis"
-    ]
+    ],
+    "cleanName": "color.text.lowEmphasis"
   },
   {
     "attributes": {
@@ -1008,7 +771,8 @@ const tokens = [
       "color",
       "text",
       "mediumEmphasis"
-    ]
+    ],
+    "cleanName": "color.text.mediumEmphasis"
   },
   {
     "attributes": {
@@ -1040,7 +804,8 @@ const tokens = [
       "color",
       "text",
       "onBold"
-    ]
+    ],
+    "cleanName": "color.text.onBold"
   },
   {
     "attributes": {
@@ -1072,34 +837,361 @@ const tokens = [
       "color",
       "text",
       "onBoldWarning"
-    ]
+    ],
+    "cleanName": "color.text.onBoldWarning"
   },
   {
     "attributes": {
       "group": "paint",
       "state": "active",
       "introduced": "0.6.0",
-      "description": "Use for blue icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
+      "description": "Use for text in selected or opened states, such as tabs and dropdown buttons."
     },
-    "value": "#0065FF",
-    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "value": "#0052CC",
+    "filePath": "src/tokens/atlassian-legacy-light/color/text.tsx",
     "isSource": true,
     "original": {
       "attributes": {
         "group": "paint",
         "state": "active",
         "introduced": "0.6.0",
-        "description": "Use for blue icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
+        "description": "Use for text in selected or opened states, such as tabs and dropdown buttons."
+      },
+      "value": "B400"
+    },
+    "name": "color.text.selected",
+    "path": [
+      "color",
+      "text",
+      "selected"
+    ],
+    "cleanName": "color.text.selected"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.6.0",
+      "description": "Use for text that reinforces our brand."
+    },
+    "value": "#0065FF",
+    "filePath": "src/tokens/atlassian-legacy-light/color/text.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for text that reinforces our brand."
       },
       "value": "B300"
     },
-    "name": "color.icon.accent.blue",
+    "name": "color.text.brand",
+    "path": [
+      "color",
+      "text",
+      "brand"
+    ],
+    "cleanName": "color.text.brand"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.0.15",
+      "description": "Use for critical text, such as input field error messaging."
+    },
+    "value": "#DE350B",
+    "filePath": "src/tokens/atlassian-legacy-light/color/text.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.0.15",
+        "description": "Use for critical text, such as input field error messaging."
+      },
+      "value": "R400"
+    },
+    "name": "color.text.danger",
+    "path": [
+      "color",
+      "text",
+      "danger"
+    ],
+    "cleanName": "color.text.danger"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.0.15",
+      "description": "Use for text to emphasize caution, such as in moved lozenges."
+    },
+    "value": "#974F0C",
+    "filePath": "src/tokens/atlassian-legacy-light/color/text.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.0.15",
+        "description": "Use for text to emphasize caution, such as in moved lozenges."
+      },
+      "value": "O800"
+    },
+    "name": "color.text.warning.[default]",
+    "path": [
+      "color",
+      "text",
+      "warning",
+      "[default]"
+    ],
+    "cleanName": "color.text.warning"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.6.0",
+      "description": "Use for text when on bold warning backgrounds."
+    },
+    "value": "#172B4D",
+    "filePath": "src/tokens/atlassian-legacy-light/color/text.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for text when on bold warning backgrounds."
+      },
+      "value": "N800"
+    },
+    "name": "color.text.warning.inverse",
+    "path": [
+      "color",
+      "text",
+      "warning",
+      "inverse"
+    ],
+    "cleanName": "color.text.warning.inverse"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.0.15",
+      "description": "Use for text to communicate a favorable outcome, such as input field success messaging."
+    },
+    "value": "#006644",
+    "filePath": "src/tokens/atlassian-legacy-light/color/text.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.0.15",
+        "description": "Use for text to communicate a favorable outcome, such as input field success messaging."
+      },
+      "value": "G500"
+    },
+    "name": "color.text.success",
+    "path": [
+      "color",
+      "text",
+      "success"
+    ],
+    "cleanName": "color.text.success"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.0.15",
+      "description": "Use for text to emphasize change or something new, such as in new lozenges."
+    },
+    "value": "#403294",
+    "filePath": "src/tokens/atlassian-legacy-light/color/text.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.0.15",
+        "description": "Use for text to emphasize change or something new, such as in new lozenges."
+      },
+      "value": "P500"
+    },
+    "name": "color.text.discovery",
+    "path": [
+      "color",
+      "text",
+      "discovery"
+    ],
+    "cleanName": "color.text.discovery"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.6.0",
+      "description": "Use for informative text or to communicate something is in progress, such as in-progress lozenges."
+    },
+    "value": "#0052CC",
+    "filePath": "src/tokens/atlassian-legacy-light/color/text.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for informative text or to communicate something is in progress, such as in-progress lozenges."
+      },
+      "value": "B400"
+    },
+    "name": "color.text.information",
+    "path": [
+      "color",
+      "text",
+      "information"
+    ],
+    "cleanName": "color.text.information"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.6.0",
+      "description": "Use for tertiary text, such as meta-data, breadcrumbs, input field placeholder and helper text."
+    },
+    "value": "#7A869A",
+    "filePath": "src/tokens/atlassian-legacy-light/color/text.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for tertiary text, such as meta-data, breadcrumbs, input field placeholder and helper text."
+      },
+      "value": "N100"
+    },
+    "name": "color.text.subtlest",
+    "path": [
+      "color",
+      "text",
+      "subtlest"
+    ],
+    "cleanName": "color.text.subtlest"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.6.0",
+      "description": "Use for secondary text, such as navigation, subtle button links, input field labels, and all caps subheadings."
+    },
+    "value": "#42526E",
+    "filePath": "src/tokens/atlassian-legacy-light/color/text.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for secondary text, such as navigation, subtle button links, input field labels, and all caps subheadings."
+      },
+      "value": "N500"
+    },
+    "name": "color.text.subtle",
+    "path": [
+      "color",
+      "text",
+      "subtle"
+    ],
+    "cleanName": "color.text.subtle"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.6.0",
+      "description": "Use for links in a default or hovered state. Add an underline for hovered states."
+    },
+    "value": "#0052CC",
+    "filePath": "src/tokens/atlassian-legacy-light/color/text.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for links in a default or hovered state. Add an underline for hovered states."
+      },
+      "value": "B400"
+    },
+    "name": "color.link.[default]",
+    "path": [
+      "color",
+      "link",
+      "[default]"
+    ],
+    "cleanName": "color.link"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.6.0",
+      "description": "Use for links in a pressed state."
+    },
+    "value": "#0747A6",
+    "filePath": "src/tokens/atlassian-legacy-light/color/text.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for links in a pressed state."
+      },
+      "value": "B500"
+    },
+    "name": "color.link.pressed",
+    "path": [
+      "color",
+      "link",
+      "pressed"
+    ],
+    "cleanName": "color.link.pressed"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.6.0",
+      "description": "Use for icon-only buttons, or icons paired with color.text"
+    },
+    "value": "#505F79",
+    "filePath": "src/tokens/atlassian-legacy-light/color/icon.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for icon-only buttons, or icons paired with color.text"
+      },
+      "value": "N400"
+    },
+    "name": "color.icon.[default]",
     "path": [
       "color",
       "icon",
-      "accent",
-      "blue"
-    ]
+      "[default]"
+    ],
+    "cleanName": "color.icon"
   },
   {
     "attributes": {
@@ -1126,7 +1218,8 @@ const tokens = [
       "icon",
       "accent",
       "red"
-    ]
+    ],
+    "cleanName": "color.icon.accent.red"
   },
   {
     "attributes": {
@@ -1153,7 +1246,8 @@ const tokens = [
       "icon",
       "accent",
       "orange"
-    ]
+    ],
+    "cleanName": "color.icon.accent.orange"
   },
   {
     "attributes": {
@@ -1180,7 +1274,8 @@ const tokens = [
       "icon",
       "accent",
       "yellow"
-    ]
+    ],
+    "cleanName": "color.icon.accent.yellow"
   },
   {
     "attributes": {
@@ -1207,34 +1302,8 @@ const tokens = [
       "icon",
       "accent",
       "green"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.6.0",
-      "description": "Use for purple icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
-    },
-    "value": "#6554C0",
-    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for purple icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
-      },
-      "value": "P300"
-    },
-    "name": "color.icon.accent.purple",
-    "path": [
-      "color",
-      "icon",
-      "accent",
-      "purple"
-    ]
+    ],
+    "cleanName": "color.icon.accent.green"
   },
   {
     "attributes": {
@@ -1261,7 +1330,64 @@ const tokens = [
       "icon",
       "accent",
       "teal"
-    ]
+    ],
+    "cleanName": "color.icon.accent.teal"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.6.0",
+      "description": "Use for blue icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
+    },
+    "value": "#0065FF",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for blue icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
+      },
+      "value": "B300"
+    },
+    "name": "color.icon.accent.blue",
+    "path": [
+      "color",
+      "icon",
+      "accent",
+      "blue"
+    ],
+    "cleanName": "color.icon.accent.blue"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.6.0",
+      "description": "Use for purple icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
+    },
+    "value": "#6554C0",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for purple icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
+      },
+      "value": "P300"
+    },
+    "name": "color.icon.accent.purple",
+    "path": [
+      "color",
+      "icon",
+      "accent",
+      "purple"
+    ],
+    "cleanName": "color.icon.accent.purple"
   },
   {
     "attributes": {
@@ -1288,7 +1414,8 @@ const tokens = [
       "icon",
       "accent",
       "magenta"
-    ]
+    ],
+    "cleanName": "color.icon.accent.magenta"
   },
   {
     "attributes": {
@@ -1315,85 +1442,8 @@ const tokens = [
       "icon",
       "accent",
       "gray"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.6.0",
-      "description": "Use for icon-only buttons, or icons paired with color.text"
-    },
-    "value": "#505F79",
-    "filePath": "src/tokens/atlassian-legacy-light/color/icon.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for icon-only buttons, or icons paired with color.text"
-      },
-      "value": "N400"
-    },
-    "name": "color.icon.[default]",
-    "path": [
-      "color",
-      "icon",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.6.0",
-      "description": "Use for icons paired with color.text.subtle"
-    },
-    "value": "#6B778C",
-    "filePath": "src/tokens/atlassian-legacy-light/color/icon.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for icons paired with color.text.subtle"
-      },
-      "value": "N200"
-    },
-    "name": "color.icon.subtle",
-    "path": [
-      "color",
-      "icon",
-      "subtle"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.6.0",
-      "description": "Use for icons on bold backgrounds."
-    },
-    "value": "#FFFFFF",
-    "filePath": "src/tokens/atlassian-legacy-light/color/icon.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for icons on bold backgrounds."
-      },
-      "value": "N0"
-    },
-    "name": "color.icon.inverse",
-    "path": [
-      "color",
-      "icon",
-      "inverse"
-    ]
+    ],
+    "cleanName": "color.icon.accent.gray"
   },
   {
     "attributes": {
@@ -1419,16 +1469,17 @@ const tokens = [
       "color",
       "icon",
       "disabled"
-    ]
+    ],
+    "cleanName": "color.icon.disabled"
   },
   {
     "attributes": {
       "group": "paint",
       "state": "active",
       "introduced": "0.6.0",
-      "description": "Use for icons that reinforce our brand."
+      "description": "Use for icons on bold backgrounds."
     },
-    "value": "#0065FF",
+    "value": "#FFFFFF",
     "filePath": "src/tokens/atlassian-legacy-light/color/icon.tsx",
     "isSource": true,
     "original": {
@@ -1436,16 +1487,17 @@ const tokens = [
         "group": "paint",
         "state": "active",
         "introduced": "0.6.0",
-        "description": "Use for icons that reinforce our brand."
+        "description": "Use for icons on bold backgrounds."
       },
-      "value": "B300"
+      "value": "N0"
     },
-    "name": "color.icon.brand",
+    "name": "color.icon.inverse",
     "path": [
       "color",
       "icon",
-      "brand"
-    ]
+      "inverse"
+    ],
+    "cleanName": "color.icon.inverse"
   },
   {
     "attributes": {
@@ -1471,7 +1523,35 @@ const tokens = [
       "color",
       "icon",
       "selected"
-    ]
+    ],
+    "cleanName": "color.icon.selected"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.6.0",
+      "description": "Use for icons that reinforce our brand."
+    },
+    "value": "#0065FF",
+    "filePath": "src/tokens/atlassian-legacy-light/color/icon.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for icons that reinforce our brand."
+      },
+      "value": "B300"
+    },
+    "name": "color.icon.brand",
+    "path": [
+      "color",
+      "icon",
+      "brand"
+    ],
+    "cleanName": "color.icon.brand"
   },
   {
     "attributes": {
@@ -1497,7 +1577,8 @@ const tokens = [
       "color",
       "icon",
       "danger"
-    ]
+    ],
+    "cleanName": "color.icon.danger"
   },
   {
     "attributes": {
@@ -1524,7 +1605,8 @@ const tokens = [
       "icon",
       "warning",
       "[default]"
-    ]
+    ],
+    "cleanName": "color.icon.warning"
   },
   {
     "attributes": {
@@ -1551,14 +1633,15 @@ const tokens = [
       "icon",
       "warning",
       "inverse"
-    ]
+    ],
+    "cleanName": "color.icon.warning.inverse"
   },
   {
     "attributes": {
       "group": "paint",
       "state": "active",
       "introduced": "0.6.0",
-      "description": "Use for icons communicating a favourable outcome, such as those used in success section messaged."
+      "description": "Use for icons communicating a favorable outcome, such as those used in success section messaged."
     },
     "value": "#00875A",
     "filePath": "src/tokens/atlassian-legacy-light/color/icon.tsx",
@@ -1568,7 +1651,7 @@ const tokens = [
         "group": "paint",
         "state": "active",
         "introduced": "0.6.0",
-        "description": "Use for icons communicating a favourable outcome, such as those used in success section messaged."
+        "description": "Use for icons communicating a favorable outcome, such as those used in success section messaged."
       },
       "value": "G400"
     },
@@ -1577,7 +1660,8 @@ const tokens = [
       "color",
       "icon",
       "success"
-    ]
+    ],
+    "cleanName": "color.icon.success"
   },
   {
     "attributes": {
@@ -1603,7 +1687,8 @@ const tokens = [
       "color",
       "icon",
       "discovery"
-    ]
+    ],
+    "cleanName": "color.icon.discovery"
   },
   {
     "attributes": {
@@ -1629,34 +1714,62 @@ const tokens = [
       "color",
       "icon",
       "information"
-    ]
+    ],
+    "cleanName": "color.icon.information"
   },
   {
     "attributes": {
       "group": "paint",
       "state": "active",
       "introduced": "0.6.0",
-      "description": "Use for blue borders on non-bold backgrounds when there is no meaning tied to the color."
+      "description": "Use for icons paired with color.text.subtle"
     },
-    "value": "#0065FF",
-    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "value": "#6B778C",
+    "filePath": "src/tokens/atlassian-legacy-light/color/icon.tsx",
     "isSource": true,
     "original": {
       "attributes": {
         "group": "paint",
         "state": "active",
         "introduced": "0.6.0",
-        "description": "Use for blue borders on non-bold backgrounds when there is no meaning tied to the color."
+        "description": "Use for icons paired with color.text.subtle"
       },
-      "value": "B300"
+      "value": "N200"
     },
-    "name": "color.border.accent.blue",
+    "name": "color.icon.subtle",
+    "path": [
+      "color",
+      "icon",
+      "subtle"
+    ],
+    "cleanName": "color.icon.subtle"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.6.0",
+      "description": "Use to visually group or separate UI elements, such as flat cards or side panel dividers."
+    },
+    "value": "#091e4221",
+    "filePath": "src/tokens/atlassian-legacy-light/color/border.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use to visually group or separate UI elements, such as flat cards or side panel dividers."
+      },
+      "value": "N40A"
+    },
+    "name": "color.border.[default]",
     "path": [
       "color",
       "border",
-      "accent",
-      "blue"
-    ]
+      "[default]"
+    ],
+    "cleanName": "color.border"
   },
   {
     "attributes": {
@@ -1683,7 +1796,8 @@ const tokens = [
       "border",
       "accent",
       "red"
-    ]
+    ],
+    "cleanName": "color.border.accent.red"
   },
   {
     "attributes": {
@@ -1710,7 +1824,8 @@ const tokens = [
       "border",
       "accent",
       "orange"
-    ]
+    ],
+    "cleanName": "color.border.accent.orange"
   },
   {
     "attributes": {
@@ -1737,7 +1852,8 @@ const tokens = [
       "border",
       "accent",
       "yellow"
-    ]
+    ],
+    "cleanName": "color.border.accent.yellow"
   },
   {
     "attributes": {
@@ -1764,34 +1880,8 @@ const tokens = [
       "border",
       "accent",
       "green"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.6.0",
-      "description": "Use for purple borders on non-bold backgrounds when there is no meaning tied to the color."
-    },
-    "value": "#6554C0",
-    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for purple borders on non-bold backgrounds when there is no meaning tied to the color."
-      },
-      "value": "P300"
-    },
-    "name": "color.border.accent.purple",
-    "path": [
-      "color",
-      "border",
-      "accent",
-      "purple"
-    ]
+    ],
+    "cleanName": "color.border.accent.green"
   },
   {
     "attributes": {
@@ -1818,7 +1908,64 @@ const tokens = [
       "border",
       "accent",
       "teal"
-    ]
+    ],
+    "cleanName": "color.border.accent.teal"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.6.0",
+      "description": "Use for blue borders on non-bold backgrounds when there is no meaning tied to the color."
+    },
+    "value": "#0065FF",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for blue borders on non-bold backgrounds when there is no meaning tied to the color."
+      },
+      "value": "B300"
+    },
+    "name": "color.border.accent.blue",
+    "path": [
+      "color",
+      "border",
+      "accent",
+      "blue"
+    ],
+    "cleanName": "color.border.accent.blue"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.6.0",
+      "description": "Use for purple borders on non-bold backgrounds when there is no meaning tied to the color."
+    },
+    "value": "#6554C0",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for purple borders on non-bold backgrounds when there is no meaning tied to the color."
+      },
+      "value": "P300"
+    },
+    "name": "color.border.accent.purple",
+    "path": [
+      "color",
+      "border",
+      "accent",
+      "purple"
+    ],
+    "cleanName": "color.border.accent.purple"
   },
   {
     "attributes": {
@@ -1845,7 +1992,8 @@ const tokens = [
       "border",
       "accent",
       "magenta"
-    ]
+    ],
+    "cleanName": "color.border.accent.magenta"
   },
   {
     "attributes": {
@@ -1872,137 +2020,8 @@ const tokens = [
       "border",
       "accent",
       "gray"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.6.0",
-      "description": "Use to visually group or separate UI elements, such as flat cards or side panel dividers."
-    },
-    "value": "#091e4221",
-    "filePath": "src/tokens/atlassian-legacy-light/color/border.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use to visually group or separate UI elements, such as flat cards or side panel dividers."
-      },
-      "value": "N40A"
-    },
-    "name": "color.border.[default]",
-    "path": [
-      "color",
-      "border",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.10.8",
-      "description": "A neutral border option that passes min 3:1 contrast ratios."
-    },
-    "value": "#344563",
-    "filePath": "src/tokens/atlassian-legacy-light/color/border.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.10.8",
-        "description": "A neutral border option that passes min 3:1 contrast ratios."
-      },
-      "value": "N600"
-    },
-    "name": "color.border.bold",
-    "path": [
-      "color",
-      "border",
-      "bold"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.6.0",
-      "description": "Use for borders on bold backgrounds."
-    },
-    "value": "#FFFFFF",
-    "filePath": "src/tokens/atlassian-legacy-light/color/border.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for borders on bold backgrounds."
-      },
-      "value": "N0"
-    },
-    "name": "color.border.inverse",
-    "path": [
-      "color",
-      "border",
-      "inverse"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.6.0",
-      "description": "Use for focus rings of elements in a focus state."
-    },
-    "value": "#4C9AFF",
-    "filePath": "src/tokens/atlassian-legacy-light/color/border.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for focus rings of elements in a focus state."
-      },
-      "value": "B100"
-    },
-    "name": "color.border.focused",
-    "path": [
-      "color",
-      "border",
-      "focused"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.6.0",
-      "description": "Use for borders of form UI elements, such as text fields, checkboxes, and radio buttons."
-    },
-    "value": "#FAFBFC",
-    "filePath": "src/tokens/atlassian-legacy-light/color/border.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for borders of form UI elements, such as text fields, checkboxes, and radio buttons."
-      },
-      "value": "N10"
-    },
-    "name": "color.border.input",
-    "path": [
-      "color",
-      "border",
-      "input"
-    ]
+    ],
+    "cleanName": "color.border.accent.gray"
   },
   {
     "attributes": {
@@ -2028,189 +2047,8 @@ const tokens = [
       "color",
       "border",
       "disabled"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.6.0",
-      "description": "Use for borders or visual indicators of elements that reinforce our brand, such as logos or primary buttons."
-    },
-    "value": "#0052CC",
-    "filePath": "src/tokens/atlassian-legacy-light/color/border.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for borders or visual indicators of elements that reinforce our brand, such as logos or primary buttons."
-      },
-      "value": "B400"
-    },
-    "name": "color.border.brand",
-    "path": [
-      "color",
-      "border",
-      "brand"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.6.2",
-      "description": "Use for borders or visual indicators of elements in a selected or opened state, such as in tabs or menu items."
-    },
-    "value": "#0052CC",
-    "filePath": "src/tokens/atlassian-legacy-light/color/border.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.2",
-        "description": "Use for borders or visual indicators of elements in a selected or opened state, such as in tabs or menu items."
-      },
-      "value": "B400"
-    },
-    "name": "color.border.selected",
-    "path": [
-      "color",
-      "border",
-      "selected"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.6.0",
-      "description": "Use for borders communicating critical information, such as the borders on invalid text fields."
-    },
-    "value": "#FF5630",
-    "filePath": "src/tokens/atlassian-legacy-light/color/border.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for borders communicating critical information, such as the borders on invalid text fields."
-      },
-      "value": "R300"
-    },
-    "name": "color.border.danger",
-    "path": [
-      "color",
-      "border",
-      "danger"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.6.0",
-      "description": "Use for borders communicating caution."
-    },
-    "value": "#FFC400",
-    "filePath": "src/tokens/atlassian-legacy-light/color/border.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for borders communicating caution."
-      },
-      "value": "Y200"
-    },
-    "name": "color.border.warning",
-    "path": [
-      "color",
-      "border",
-      "warning"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.6.0",
-      "description": "Use for borders communicating a favourable outcome, such as the borders on validated text fields."
-    },
-    "value": "#00875A",
-    "filePath": "src/tokens/atlassian-legacy-light/color/border.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for borders communicating a favourable outcome, such as the borders on validated text fields."
-      },
-      "value": "G400"
-    },
-    "name": "color.border.success",
-    "path": [
-      "color",
-      "border",
-      "success"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.6.0",
-      "description": "Use for borders communicating change or something new, such as the borders in onboarding spotlights."
-    },
-    "value": "#998DD9",
-    "filePath": "src/tokens/atlassian-legacy-light/color/border.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for borders communicating change or something new, such as the borders in onboarding spotlights."
-      },
-      "value": "P100"
-    },
-    "name": "color.border.discovery",
-    "path": [
-      "color",
-      "border",
-      "discovery"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.6.0",
-      "description": "Use for borders communicating information or something in-progress."
-    },
-    "value": "#0065FF",
-    "filePath": "src/tokens/atlassian-legacy-light/color/border.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for borders communicating information or something in-progress."
-      },
-      "value": "B300"
-    },
-    "name": "color.border.information",
-    "path": [
-      "color",
-      "border",
-      "information"
-    ]
+    ],
+    "cleanName": "color.border.disabled"
   },
   {
     "attributes": {
@@ -2242,7 +2080,89 @@ const tokens = [
       "color",
       "border",
       "focus"
-    ]
+    ],
+    "cleanName": "color.border.focus"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.6.0",
+      "description": "Use for focus rings of elements in a focus state."
+    },
+    "value": "#4C9AFF",
+    "filePath": "src/tokens/atlassian-legacy-light/color/border.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for focus rings of elements in a focus state."
+      },
+      "value": "B100"
+    },
+    "name": "color.border.focused",
+    "path": [
+      "color",
+      "border",
+      "focused"
+    ],
+    "cleanName": "color.border.focused"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.6.0",
+      "description": "Use for borders of form UI elements, such as text fields, checkboxes, and radio buttons."
+    },
+    "value": "#FAFBFC",
+    "filePath": "src/tokens/atlassian-legacy-light/color/border.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for borders of form UI elements, such as text fields, checkboxes, and radio buttons."
+      },
+      "value": "N10"
+    },
+    "name": "color.border.input",
+    "path": [
+      "color",
+      "border",
+      "input"
+    ],
+    "cleanName": "color.border.input"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.6.0",
+      "description": "Use for borders on bold backgrounds."
+    },
+    "value": "#FFFFFF",
+    "filePath": "src/tokens/atlassian-legacy-light/color/border.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for borders on bold backgrounds."
+      },
+      "value": "N0"
+    },
+    "name": "color.border.inverse",
+    "path": [
+      "color",
+      "border",
+      "inverse"
+    ],
+    "cleanName": "color.border.inverse"
   },
   {
     "attributes": {
@@ -2274,299 +2194,224 @@ const tokens = [
       "color",
       "border",
       "neutral"
-    ]
+    ],
+    "cleanName": "color.border.neutral"
   },
   {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.7.0",
-      "description": "Use for blue backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
-    },
-    "value": "#4C9AFF",
-    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.7.0",
-        "description": "Use for blue backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
-      },
-      "value": "B100"
-    },
-    "name": "color.background.accent.blue.subtlest",
-    "path": [
-      "color",
-      "background",
-      "accent",
-      "blue",
-      "subtlest"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.7.0",
-      "description": "Use for blue backgrounds when there is no meaning tied to the color, such as colored tags."
-    },
-    "value": "#2684FF",
-    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.7.0",
-        "description": "Use for blue backgrounds when there is no meaning tied to the color, such as colored tags."
-      },
-      "value": "B200"
-    },
-    "name": "color.background.accent.blue.subtler",
-    "path": [
-      "color",
-      "background",
-      "accent",
-      "blue",
-      "subtler"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.7.0",
-      "description": "Use for vibrant blue backgrounds when there is no meaning tied to the color, such as colored tags."
+      "introduced": "0.6.2",
+      "description": "Use for borders or visual indicators of elements in a selected or opened state, such as in tabs or menu items."
     },
     "value": "#0052CC",
-    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "filePath": "src/tokens/atlassian-legacy-light/color/border.tsx",
     "isSource": true,
     "original": {
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.7.0",
-        "description": "Use for vibrant blue backgrounds when there is no meaning tied to the color, such as colored tags."
+        "introduced": "0.6.2",
+        "description": "Use for borders or visual indicators of elements in a selected or opened state, such as in tabs or menu items."
       },
       "value": "B400"
     },
-    "name": "color.background.accent.blue.subtle",
+    "name": "color.border.selected",
     "path": [
       "color",
-      "background",
-      "accent",
-      "blue",
-      "subtle"
-    ]
+      "border",
+      "selected"
+    ],
+    "cleanName": "color.border.selected"
   },
   {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.7.0",
-      "description": "Use for blue backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+      "introduced": "0.6.0",
+      "description": "Use for borders or visual indicators of elements that reinforce our brand, such as logos or primary buttons."
     },
     "value": "#0052CC",
-    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "filePath": "src/tokens/atlassian-legacy-light/color/border.tsx",
     "isSource": true,
     "original": {
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.7.0",
-        "description": "Use for blue backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+        "introduced": "0.6.0",
+        "description": "Use for borders or visual indicators of elements that reinforce our brand, such as logos or primary buttons."
       },
       "value": "B400"
     },
-    "name": "color.background.accent.blue.bolder",
+    "name": "color.border.brand",
     "path": [
       "color",
-      "background",
-      "accent",
-      "blue",
-      "bolder"
-    ]
+      "border",
+      "brand"
+    ],
+    "cleanName": "color.border.brand"
   },
   {
     "attributes": {
       "group": "paint",
-      "state": "deleted",
+      "state": "active",
       "introduced": "0.6.0",
-      "deprecated": "0.7.0",
-      "deleted": "0.8.0",
-      "replacement": "color.background.accent.blue.subtler",
-      "description": "Use for blue backgrounds when there is no meaning tied to the color, such as colored tags."
+      "description": "Use for borders communicating critical information, such as the borders on invalid text fields."
     },
-    "value": "#FA11F2",
-    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
+    "value": "#FF5630",
+    "filePath": "src/tokens/atlassian-legacy-light/color/border.tsx",
     "isSource": true,
     "original": {
       "attributes": {
         "group": "paint",
-        "state": "deleted",
+        "state": "active",
         "introduced": "0.6.0",
-        "deprecated": "0.7.0",
-        "deleted": "0.8.0",
-        "replacement": "color.background.accent.blue.subtler",
-        "description": "Use for blue backgrounds when there is no meaning tied to the color, such as colored tags."
+        "description": "Use for borders communicating critical information, such as the borders on invalid text fields."
       },
-      "value": "#FA11F2"
+      "value": "R300"
     },
-    "name": "color.background.accent.blue.[default]",
+    "name": "color.border.danger",
     "path": [
       "color",
-      "background",
-      "accent",
-      "blue",
-      "[default]"
-    ]
+      "border",
+      "danger"
+    ],
+    "cleanName": "color.border.danger"
   },
   {
     "attributes": {
       "group": "paint",
-      "state": "deleted",
+      "state": "active",
       "introduced": "0.6.0",
-      "deprecated": "0.7.0",
-      "deleted": "0.8.0",
-      "replacement": "color.background.accent.blue.subtle",
-      "description": "Use for blue backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+      "description": "Use for borders communicating caution."
     },
-    "value": "#FA11F2",
-    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
+    "value": "#FFC400",
+    "filePath": "src/tokens/atlassian-legacy-light/color/border.tsx",
     "isSource": true,
     "original": {
       "attributes": {
         "group": "paint",
-        "state": "deleted",
+        "state": "active",
         "introduced": "0.6.0",
-        "deprecated": "0.7.0",
-        "deleted": "0.8.0",
-        "replacement": "color.background.accent.blue.subtle",
-        "description": "Use for blue backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+        "description": "Use for borders communicating caution."
       },
-      "value": "#FA11F2"
+      "value": "Y200"
     },
-    "name": "color.background.accent.blue.bold",
+    "name": "color.border.warning",
     "path": [
       "color",
-      "background",
-      "accent",
-      "blue",
+      "border",
+      "warning"
+    ],
+    "cleanName": "color.border.warning"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.6.0",
+      "description": "Use for borders communicating a favorable outcome, such as the borders on validated text fields."
+    },
+    "value": "#00875A",
+    "filePath": "src/tokens/atlassian-legacy-light/color/border.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for borders communicating a favorable outcome, such as the borders on validated text fields."
+      },
+      "value": "G400"
+    },
+    "name": "color.border.success",
+    "path": [
+      "color",
+      "border",
+      "success"
+    ],
+    "cleanName": "color.border.success"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.6.0",
+      "description": "Use for borders communicating change or something new, such as the borders in onboarding spotlights."
+    },
+    "value": "#998DD9",
+    "filePath": "src/tokens/atlassian-legacy-light/color/border.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for borders communicating change or something new, such as the borders in onboarding spotlights."
+      },
+      "value": "P100"
+    },
+    "name": "color.border.discovery",
+    "path": [
+      "color",
+      "border",
+      "discovery"
+    ],
+    "cleanName": "color.border.discovery"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.6.0",
+      "description": "Use for borders communicating information or something in-progress."
+    },
+    "value": "#0065FF",
+    "filePath": "src/tokens/atlassian-legacy-light/color/border.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for borders communicating information or something in-progress."
+      },
+      "value": "B300"
+    },
+    "name": "color.border.information",
+    "path": [
+      "color",
+      "border",
+      "information"
+    ],
+    "cleanName": "color.border.information"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.10.8",
+      "description": "A neutral border option that passes min 3:1 contrast ratios."
+    },
+    "value": "#344563",
+    "filePath": "src/tokens/atlassian-legacy-light/color/border.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.10.8",
+        "description": "A neutral border option that passes min 3:1 contrast ratios."
+      },
+      "value": "N600"
+    },
+    "name": "color.border.bold",
+    "path": [
+      "color",
+      "border",
       "bold"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.7.0",
-      "description": "Use for red backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
-    },
-    "value": "#FF8F73",
-    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.7.0",
-        "description": "Use for red backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
-      },
-      "value": "R100"
-    },
-    "name": "color.background.accent.red.subtlest",
-    "path": [
-      "color",
-      "background",
-      "accent",
-      "red",
-      "subtlest"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.7.0",
-      "description": "Use for red backgrounds when there is no meaning tied to the color, such as colored tags."
-    },
-    "value": "#FF7452",
-    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.7.0",
-        "description": "Use for red backgrounds when there is no meaning tied to the color, such as colored tags."
-      },
-      "value": "R200"
-    },
-    "name": "color.background.accent.red.subtler",
-    "path": [
-      "color",
-      "background",
-      "accent",
-      "red",
-      "subtler"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.7.0",
-      "description": "Use for vibrant red backgrounds when there is no meaning tied to the color, such as colored tags."
-    },
-    "value": "#DE350B",
-    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.7.0",
-        "description": "Use for vibrant red backgrounds when there is no meaning tied to the color, such as colored tags."
-      },
-      "value": "R400"
-    },
-    "name": "color.background.accent.red.subtle",
-    "path": [
-      "color",
-      "background",
-      "accent",
-      "red",
-      "subtle"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.7.0",
-      "description": "Use for red backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
-    },
-    "value": "#DE350B",
-    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.7.0",
-        "description": "Use for red backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
-      },
-      "value": "R400"
-    },
-    "name": "color.background.accent.red.bolder",
-    "path": [
-      "color",
-      "background",
-      "accent",
-      "red",
-      "bolder"
-    ]
+    ],
+    "cleanName": "color.border.bold"
   },
   {
     "attributes": {
@@ -2600,7 +2445,95 @@ const tokens = [
       "accent",
       "red",
       "[default]"
-    ]
+    ],
+    "cleanName": "color.background.accent.red"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.7.0",
+      "description": "Use for red backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+    },
+    "value": "#FF8F73",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for red backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+      },
+      "value": "R100"
+    },
+    "name": "color.background.accent.red.subtlest",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "red",
+      "subtlest"
+    ],
+    "cleanName": "color.background.accent.red.subtlest"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.7.0",
+      "description": "Use for red backgrounds when there is no meaning tied to the color, such as colored tags."
+    },
+    "value": "#FF7452",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for red backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "R200"
+    },
+    "name": "color.background.accent.red.subtler",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "red",
+      "subtler"
+    ],
+    "cleanName": "color.background.accent.red.subtler"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.7.0",
+      "description": "Use for vibrant red backgrounds when there is no meaning tied to the color, such as colored tags."
+    },
+    "value": "#DE350B",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for vibrant red backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "R400"
+    },
+    "name": "color.background.accent.red.subtle",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "red",
+      "subtle"
+    ],
+    "cleanName": "color.background.accent.red.subtle"
   },
   {
     "attributes": {
@@ -2634,16 +2567,17 @@ const tokens = [
       "accent",
       "red",
       "bold"
-    ]
+    ],
+    "cleanName": "color.background.accent.red.bold"
   },
   {
     "attributes": {
       "group": "paint",
       "state": "active",
       "introduced": "0.7.0",
-      "description": "Use for orange backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+      "description": "Use for red backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
     },
-    "value": "#F18D13",
+    "value": "#DE350B",
     "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
     "isSource": true,
     "original": {
@@ -2651,102 +2585,19 @@ const tokens = [
         "group": "paint",
         "state": "active",
         "introduced": "0.7.0",
-        "description": "Use for orange backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+        "description": "Use for red backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
       },
-      "value": "#F18D13"
+      "value": "R400"
     },
-    "name": "color.background.accent.orange.subtlest",
+    "name": "color.background.accent.red.bolder",
     "path": [
       "color",
       "background",
       "accent",
-      "orange",
-      "subtlest"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.7.0",
-      "description": "Use for orange backgrounds when there is no meaning tied to the color, such as colored tags."
-    },
-    "value": "#B65C02",
-    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.7.0",
-        "description": "Use for orange backgrounds when there is no meaning tied to the color, such as colored tags."
-      },
-      "value": "#B65C02"
-    },
-    "name": "color.background.accent.orange.subtler",
-    "path": [
-      "color",
-      "background",
-      "accent",
-      "orange",
-      "subtler"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.7.0",
-      "description": "Use for vibrant orange backgrounds when there is no meaning tied to the color, such as colored tags."
-    },
-    "value": "#5F3811",
-    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.7.0",
-        "description": "Use for vibrant orange backgrounds when there is no meaning tied to the color, such as colored tags."
-      },
-      "value": "#5F3811"
-    },
-    "name": "color.background.accent.orange.subtle",
-    "path": [
-      "color",
-      "background",
-      "accent",
-      "orange",
-      "subtle"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.7.0",
-      "description": "Use for orange backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
-    },
-    "value": "#43290F",
-    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.7.0",
-        "description": "Use for orange backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
-      },
-      "value": "#43290F"
-    },
-    "name": "color.background.accent.orange.bolder",
-    "path": [
-      "color",
-      "background",
-      "accent",
-      "orange",
+      "red",
       "bolder"
-    ]
+    ],
+    "cleanName": "color.background.accent.red.bolder"
   },
   {
     "attributes": {
@@ -2780,7 +2631,95 @@ const tokens = [
       "accent",
       "orange",
       "[default]"
-    ]
+    ],
+    "cleanName": "color.background.accent.orange"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.7.0",
+      "description": "Use for orange backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+    },
+    "value": "#F18D13",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for orange backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+      },
+      "value": "#F18D13"
+    },
+    "name": "color.background.accent.orange.subtlest",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "orange",
+      "subtlest"
+    ],
+    "cleanName": "color.background.accent.orange.subtlest"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.7.0",
+      "description": "Use for orange backgrounds when there is no meaning tied to the color, such as colored tags."
+    },
+    "value": "#B65C02",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for orange backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "#B65C02"
+    },
+    "name": "color.background.accent.orange.subtler",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "orange",
+      "subtler"
+    ],
+    "cleanName": "color.background.accent.orange.subtler"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.7.0",
+      "description": "Use for vibrant orange backgrounds when there is no meaning tied to the color, such as colored tags."
+    },
+    "value": "#5F3811",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for vibrant orange backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "#5F3811"
+    },
+    "name": "color.background.accent.orange.subtle",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "orange",
+      "subtle"
+    ],
+    "cleanName": "color.background.accent.orange.subtle"
   },
   {
     "attributes": {
@@ -2814,16 +2753,17 @@ const tokens = [
       "accent",
       "orange",
       "bold"
-    ]
+    ],
+    "cleanName": "color.background.accent.orange.bold"
   },
   {
     "attributes": {
       "group": "paint",
       "state": "active",
       "introduced": "0.7.0",
-      "description": "Use for yellow backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+      "description": "Use for orange backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
     },
-    "value": "#FFE380",
+    "value": "#43290F",
     "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
     "isSource": true,
     "original": {
@@ -2831,102 +2771,19 @@ const tokens = [
         "group": "paint",
         "state": "active",
         "introduced": "0.7.0",
-        "description": "Use for yellow backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+        "description": "Use for orange backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
       },
-      "value": "Y100"
+      "value": "#43290F"
     },
-    "name": "color.background.accent.yellow.subtlest",
+    "name": "color.background.accent.orange.bolder",
     "path": [
       "color",
       "background",
       "accent",
-      "yellow",
-      "subtlest"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.7.0",
-      "description": "Use for yellow backgrounds when there is no meaning tied to the color, such as colored tags."
-    },
-    "value": "#FFC400",
-    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.7.0",
-        "description": "Use for yellow backgrounds when there is no meaning tied to the color, such as colored tags."
-      },
-      "value": "Y200"
-    },
-    "name": "color.background.accent.yellow.subtler",
-    "path": [
-      "color",
-      "background",
-      "accent",
-      "yellow",
-      "subtler"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.7.0",
-      "description": "Use for vibrant yellow backgrounds when there is no meaning tied to the color, such as colored tags."
-    },
-    "value": "#FF991F",
-    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.7.0",
-        "description": "Use for vibrant yellow backgrounds when there is no meaning tied to the color, such as colored tags."
-      },
-      "value": "Y400"
-    },
-    "name": "color.background.accent.yellow.subtle",
-    "path": [
-      "color",
-      "background",
-      "accent",
-      "yellow",
-      "subtle"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.7.0",
-      "description": "Use for yellow backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
-    },
-    "value": "#FF991F",
-    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.7.0",
-        "description": "Use for yellow backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
-      },
-      "value": "Y400"
-    },
-    "name": "color.background.accent.yellow.bolder",
-    "path": [
-      "color",
-      "background",
-      "accent",
-      "yellow",
+      "orange",
       "bolder"
-    ]
+    ],
+    "cleanName": "color.background.accent.orange.bolder"
   },
   {
     "attributes": {
@@ -2960,7 +2817,95 @@ const tokens = [
       "accent",
       "yellow",
       "[default]"
-    ]
+    ],
+    "cleanName": "color.background.accent.yellow"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.7.0",
+      "description": "Use for yellow backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+    },
+    "value": "#FFE380",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for yellow backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+      },
+      "value": "Y100"
+    },
+    "name": "color.background.accent.yellow.subtlest",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "yellow",
+      "subtlest"
+    ],
+    "cleanName": "color.background.accent.yellow.subtlest"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.7.0",
+      "description": "Use for yellow backgrounds when there is no meaning tied to the color, such as colored tags."
+    },
+    "value": "#FFC400",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for yellow backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "Y200"
+    },
+    "name": "color.background.accent.yellow.subtler",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "yellow",
+      "subtler"
+    ],
+    "cleanName": "color.background.accent.yellow.subtler"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.7.0",
+      "description": "Use for vibrant yellow backgrounds when there is no meaning tied to the color, such as colored tags."
+    },
+    "value": "#FF991F",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for vibrant yellow backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "Y400"
+    },
+    "name": "color.background.accent.yellow.subtle",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "yellow",
+      "subtle"
+    ],
+    "cleanName": "color.background.accent.yellow.subtle"
   },
   {
     "attributes": {
@@ -2994,16 +2939,17 @@ const tokens = [
       "accent",
       "yellow",
       "bold"
-    ]
+    ],
+    "cleanName": "color.background.accent.yellow.bold"
   },
   {
     "attributes": {
       "group": "paint",
       "state": "active",
       "introduced": "0.7.0",
-      "description": "Use for green backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+      "description": "Use for yellow backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
     },
-    "value": "#79F2C0",
+    "value": "#FF991F",
     "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
     "isSource": true,
     "original": {
@@ -3011,102 +2957,19 @@ const tokens = [
         "group": "paint",
         "state": "active",
         "introduced": "0.7.0",
-        "description": "Use for green backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+        "description": "Use for yellow backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
       },
-      "value": "G100"
+      "value": "Y400"
     },
-    "name": "color.background.accent.green.subtlest",
+    "name": "color.background.accent.yellow.bolder",
     "path": [
       "color",
       "background",
       "accent",
-      "green",
-      "subtlest"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.7.0",
-      "description": "Use for green backgrounds when there is no meaning tied to the color, such as colored tags."
-    },
-    "value": "#57D9A3",
-    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.7.0",
-        "description": "Use for green backgrounds when there is no meaning tied to the color, such as colored tags."
-      },
-      "value": "G200"
-    },
-    "name": "color.background.accent.green.subtler",
-    "path": [
-      "color",
-      "background",
-      "accent",
-      "green",
-      "subtler"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.7.0",
-      "description": "Use for vibrant green backgrounds when there is no meaning tied to the color, such as colored tags."
-    },
-    "value": "#00875A",
-    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.7.0",
-        "description": "Use for vibrant green backgrounds when there is no meaning tied to the color, such as colored tags."
-      },
-      "value": "G400"
-    },
-    "name": "color.background.accent.green.subtle",
-    "path": [
-      "color",
-      "background",
-      "accent",
-      "green",
-      "subtle"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.7.0",
-      "description": "Use for green backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
-    },
-    "value": "#00875A",
-    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.7.0",
-        "description": "Use for green backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
-      },
-      "value": "G400"
-    },
-    "name": "color.background.accent.green.bolder",
-    "path": [
-      "color",
-      "background",
-      "accent",
-      "green",
+      "yellow",
       "bolder"
-    ]
+    ],
+    "cleanName": "color.background.accent.yellow.bolder"
   },
   {
     "attributes": {
@@ -3140,7 +3003,95 @@ const tokens = [
       "accent",
       "green",
       "[default]"
-    ]
+    ],
+    "cleanName": "color.background.accent.green"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.7.0",
+      "description": "Use for green backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+    },
+    "value": "#79F2C0",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for green backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+      },
+      "value": "G100"
+    },
+    "name": "color.background.accent.green.subtlest",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "green",
+      "subtlest"
+    ],
+    "cleanName": "color.background.accent.green.subtlest"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.7.0",
+      "description": "Use for green backgrounds when there is no meaning tied to the color, such as colored tags."
+    },
+    "value": "#57D9A3",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for green backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "G200"
+    },
+    "name": "color.background.accent.green.subtler",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "green",
+      "subtler"
+    ],
+    "cleanName": "color.background.accent.green.subtler"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.7.0",
+      "description": "Use for vibrant green backgrounds when there is no meaning tied to the color, such as colored tags."
+    },
+    "value": "#00875A",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for vibrant green backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "G400"
+    },
+    "name": "color.background.accent.green.subtle",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "green",
+      "subtle"
+    ],
+    "cleanName": "color.background.accent.green.subtle"
   },
   {
     "attributes": {
@@ -3174,16 +3125,17 @@ const tokens = [
       "accent",
       "green",
       "bold"
-    ]
+    ],
+    "cleanName": "color.background.accent.green.bold"
   },
   {
     "attributes": {
       "group": "paint",
       "state": "active",
       "introduced": "0.7.0",
-      "description": "Use for teal backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+      "description": "Use for green backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
     },
-    "value": "#79E2F2",
+    "value": "#00875A",
     "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
     "isSource": true,
     "original": {
@@ -3191,102 +3143,19 @@ const tokens = [
         "group": "paint",
         "state": "active",
         "introduced": "0.7.0",
-        "description": "Use for teal backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+        "description": "Use for green backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
       },
-      "value": "T100"
+      "value": "G400"
     },
-    "name": "color.background.accent.teal.subtlest",
+    "name": "color.background.accent.green.bolder",
     "path": [
       "color",
       "background",
       "accent",
-      "teal",
-      "subtlest"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.7.0",
-      "description": "Use for teal backgrounds when there is no meaning tied to the color, such as colored tags."
-    },
-    "value": "#00C7E6",
-    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.7.0",
-        "description": "Use for teal backgrounds when there is no meaning tied to the color, such as colored tags."
-      },
-      "value": "T200"
-    },
-    "name": "color.background.accent.teal.subtler",
-    "path": [
-      "color",
-      "background",
-      "accent",
-      "teal",
-      "subtler"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.7.0",
-      "description": "Use for vibrant teal backgrounds when there is no meaning tied to the color, such as colored tags."
-    },
-    "value": "#00A3BF",
-    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.7.0",
-        "description": "Use for vibrant teal backgrounds when there is no meaning tied to the color, such as colored tags."
-      },
-      "value": "T400"
-    },
-    "name": "color.background.accent.teal.subtle",
-    "path": [
-      "color",
-      "background",
-      "accent",
-      "teal",
-      "subtle"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.7.0",
-      "description": "Use for teal backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
-    },
-    "value": "#00A3BF",
-    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.7.0",
-        "description": "Use for teal backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
-      },
-      "value": "T400"
-    },
-    "name": "color.background.accent.teal.bolder",
-    "path": [
-      "color",
-      "background",
-      "accent",
-      "teal",
+      "green",
       "bolder"
-    ]
+    ],
+    "cleanName": "color.background.accent.green.bolder"
   },
   {
     "attributes": {
@@ -3320,7 +3189,95 @@ const tokens = [
       "accent",
       "teal",
       "[default]"
-    ]
+    ],
+    "cleanName": "color.background.accent.teal"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.7.0",
+      "description": "Use for teal backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+    },
+    "value": "#79E2F2",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for teal backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+      },
+      "value": "T100"
+    },
+    "name": "color.background.accent.teal.subtlest",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "teal",
+      "subtlest"
+    ],
+    "cleanName": "color.background.accent.teal.subtlest"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.7.0",
+      "description": "Use for teal backgrounds when there is no meaning tied to the color, such as colored tags."
+    },
+    "value": "#00C7E6",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for teal backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "T200"
+    },
+    "name": "color.background.accent.teal.subtler",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "teal",
+      "subtler"
+    ],
+    "cleanName": "color.background.accent.teal.subtler"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.7.0",
+      "description": "Use for vibrant teal backgrounds when there is no meaning tied to the color, such as colored tags."
+    },
+    "value": "#00A3BF",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for vibrant teal backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "T400"
+    },
+    "name": "color.background.accent.teal.subtle",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "teal",
+      "subtle"
+    ],
+    "cleanName": "color.background.accent.teal.subtle"
   },
   {
     "attributes": {
@@ -3354,16 +3311,17 @@ const tokens = [
       "accent",
       "teal",
       "bold"
-    ]
+    ],
+    "cleanName": "color.background.accent.teal.bold"
   },
   {
     "attributes": {
       "group": "paint",
       "state": "active",
       "introduced": "0.7.0",
-      "description": "Use for purple backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+      "description": "Use for teal backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
     },
-    "value": "#998DD9",
+    "value": "#00A3BF",
     "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
     "isSource": true,
     "original": {
@@ -3371,102 +3329,205 @@ const tokens = [
         "group": "paint",
         "state": "active",
         "introduced": "0.7.0",
-        "description": "Use for purple backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+        "description": "Use for teal backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
       },
-      "value": "P100"
+      "value": "T400"
     },
-    "name": "color.background.accent.purple.subtlest",
+    "name": "color.background.accent.teal.bolder",
     "path": [
       "color",
       "background",
       "accent",
-      "purple",
-      "subtlest"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.7.0",
-      "description": "Use for purple backgrounds when there is no meaning tied to the color, such as colored tags."
-    },
-    "value": "#8777D9",
-    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.7.0",
-        "description": "Use for purple backgrounds when there is no meaning tied to the color, such as colored tags."
-      },
-      "value": "P200"
-    },
-    "name": "color.background.accent.purple.subtler",
-    "path": [
-      "color",
-      "background",
-      "accent",
-      "purple",
-      "subtler"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.7.0",
-      "description": "Use for vibrant purple backgrounds when there is no meaning tied to the color, such as colored tags."
-    },
-    "value": "#5243AA",
-    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.7.0",
-        "description": "Use for vibrant purple backgrounds when there is no meaning tied to the color, such as colored tags."
-      },
-      "value": "P400"
-    },
-    "name": "color.background.accent.purple.subtle",
-    "path": [
-      "color",
-      "background",
-      "accent",
-      "purple",
-      "subtle"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.7.0",
-      "description": "Use for purple backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
-    },
-    "value": "#5243AA",
-    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.7.0",
-        "description": "Use for purple backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
-      },
-      "value": "P400"
-    },
-    "name": "color.background.accent.purple.bolder",
-    "path": [
-      "color",
-      "background",
-      "accent",
-      "purple",
+      "teal",
       "bolder"
-    ]
+    ],
+    "cleanName": "color.background.accent.teal.bolder"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deleted",
+      "introduced": "0.6.0",
+      "deprecated": "0.7.0",
+      "deleted": "0.8.0",
+      "replacement": "color.background.accent.blue.subtler",
+      "description": "Use for blue backgrounds when there is no meaning tied to the color, such as colored tags."
+    },
+    "value": "#FA11F2",
+    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deleted",
+        "introduced": "0.6.0",
+        "deprecated": "0.7.0",
+        "deleted": "0.8.0",
+        "replacement": "color.background.accent.blue.subtler",
+        "description": "Use for blue backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "#FA11F2"
+    },
+    "name": "color.background.accent.blue.[default]",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "blue",
+      "[default]"
+    ],
+    "cleanName": "color.background.accent.blue"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.7.0",
+      "description": "Use for blue backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+    },
+    "value": "#4C9AFF",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for blue backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+      },
+      "value": "B100"
+    },
+    "name": "color.background.accent.blue.subtlest",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "blue",
+      "subtlest"
+    ],
+    "cleanName": "color.background.accent.blue.subtlest"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.7.0",
+      "description": "Use for blue backgrounds when there is no meaning tied to the color, such as colored tags."
+    },
+    "value": "#2684FF",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for blue backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "B200"
+    },
+    "name": "color.background.accent.blue.subtler",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "blue",
+      "subtler"
+    ],
+    "cleanName": "color.background.accent.blue.subtler"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.7.0",
+      "description": "Use for vibrant blue backgrounds when there is no meaning tied to the color, such as colored tags."
+    },
+    "value": "#0052CC",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for vibrant blue backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "B400"
+    },
+    "name": "color.background.accent.blue.subtle",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "blue",
+      "subtle"
+    ],
+    "cleanName": "color.background.accent.blue.subtle"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deleted",
+      "introduced": "0.6.0",
+      "deprecated": "0.7.0",
+      "deleted": "0.8.0",
+      "replacement": "color.background.accent.blue.subtle",
+      "description": "Use for blue backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+    },
+    "value": "#FA11F2",
+    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deleted",
+        "introduced": "0.6.0",
+        "deprecated": "0.7.0",
+        "deleted": "0.8.0",
+        "replacement": "color.background.accent.blue.subtle",
+        "description": "Use for blue backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+      },
+      "value": "#FA11F2"
+    },
+    "name": "color.background.accent.blue.bold",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "blue",
+      "bold"
+    ],
+    "cleanName": "color.background.accent.blue.bold"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.7.0",
+      "description": "Use for blue backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+    },
+    "value": "#0052CC",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for blue backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+      },
+      "value": "B400"
+    },
+    "name": "color.background.accent.blue.bolder",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "blue",
+      "bolder"
+    ],
+    "cleanName": "color.background.accent.blue.bolder"
   },
   {
     "attributes": {
@@ -3500,7 +3561,95 @@ const tokens = [
       "accent",
       "purple",
       "[default]"
-    ]
+    ],
+    "cleanName": "color.background.accent.purple"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.7.0",
+      "description": "Use for purple backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+    },
+    "value": "#998DD9",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for purple backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+      },
+      "value": "P100"
+    },
+    "name": "color.background.accent.purple.subtlest",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "purple",
+      "subtlest"
+    ],
+    "cleanName": "color.background.accent.purple.subtlest"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.7.0",
+      "description": "Use for purple backgrounds when there is no meaning tied to the color, such as colored tags."
+    },
+    "value": "#8777D9",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for purple backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "P200"
+    },
+    "name": "color.background.accent.purple.subtler",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "purple",
+      "subtler"
+    ],
+    "cleanName": "color.background.accent.purple.subtler"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.7.0",
+      "description": "Use for vibrant purple backgrounds when there is no meaning tied to the color, such as colored tags."
+    },
+    "value": "#5243AA",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for vibrant purple backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "P400"
+    },
+    "name": "color.background.accent.purple.subtle",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "purple",
+      "subtle"
+    ],
+    "cleanName": "color.background.accent.purple.subtle"
   },
   {
     "attributes": {
@@ -3534,16 +3683,17 @@ const tokens = [
       "accent",
       "purple",
       "bold"
-    ]
+    ],
+    "cleanName": "color.background.accent.purple.bold"
   },
   {
     "attributes": {
       "group": "paint",
       "state": "active",
       "introduced": "0.7.0",
-      "description": "Use for magenta backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+      "description": "Use for purple backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
     },
-    "value": "#E774BB",
+    "value": "#5243AA",
     "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
     "isSource": true,
     "original": {
@@ -3551,102 +3701,19 @@ const tokens = [
         "group": "paint",
         "state": "active",
         "introduced": "0.7.0",
-        "description": "Use for magenta backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+        "description": "Use for purple backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
       },
-      "value": "#E774BB"
+      "value": "P400"
     },
-    "name": "color.background.accent.magenta.subtlest",
+    "name": "color.background.accent.purple.bolder",
     "path": [
       "color",
       "background",
       "accent",
-      "magenta",
-      "subtlest"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.7.0",
-      "description": "Use for magenta backgrounds when there is no meaning tied to the color, such as colored tags."
-    },
-    "value": "#E774BB",
-    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.7.0",
-        "description": "Use for magenta backgrounds when there is no meaning tied to the color, such as colored tags."
-      },
-      "value": "#E774BB"
-    },
-    "name": "color.background.accent.magenta.subtler",
-    "path": [
-      "color",
-      "background",
-      "accent",
-      "magenta",
-      "subtler"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.7.0",
-      "description": "Use for vibrant magenta backgrounds when there is no meaning tied to the color, such as colored tags."
-    },
-    "value": "#E774BB",
-    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.7.0",
-        "description": "Use for vibrant magenta backgrounds when there is no meaning tied to the color, such as colored tags."
-      },
-      "value": "#E774BB"
-    },
-    "name": "color.background.accent.magenta.subtle",
-    "path": [
-      "color",
-      "background",
-      "accent",
-      "magenta",
-      "subtle"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.7.0",
-      "description": "Use for magenta backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
-    },
-    "value": "#E774BB",
-    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.7.0",
-        "description": "Use for magenta backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
-      },
-      "value": "#E774BB"
-    },
-    "name": "color.background.accent.magenta.bolder",
-    "path": [
-      "color",
-      "background",
-      "accent",
-      "magenta",
+      "purple",
       "bolder"
-    ]
+    ],
+    "cleanName": "color.background.accent.purple.bolder"
   },
   {
     "attributes": {
@@ -3680,7 +3747,95 @@ const tokens = [
       "accent",
       "magenta",
       "[default]"
-    ]
+    ],
+    "cleanName": "color.background.accent.magenta"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.7.0",
+      "description": "Use for magenta backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+    },
+    "value": "#E774BB",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for magenta backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+      },
+      "value": "#E774BB"
+    },
+    "name": "color.background.accent.magenta.subtlest",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "magenta",
+      "subtlest"
+    ],
+    "cleanName": "color.background.accent.magenta.subtlest"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.7.0",
+      "description": "Use for magenta backgrounds when there is no meaning tied to the color, such as colored tags."
+    },
+    "value": "#E774BB",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for magenta backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "#E774BB"
+    },
+    "name": "color.background.accent.magenta.subtler",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "magenta",
+      "subtler"
+    ],
+    "cleanName": "color.background.accent.magenta.subtler"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.7.0",
+      "description": "Use for vibrant magenta backgrounds when there is no meaning tied to the color, such as colored tags."
+    },
+    "value": "#E774BB",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for vibrant magenta backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "#E774BB"
+    },
+    "name": "color.background.accent.magenta.subtle",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "magenta",
+      "subtle"
+    ],
+    "cleanName": "color.background.accent.magenta.subtle"
   },
   {
     "attributes": {
@@ -3714,7 +3869,37 @@ const tokens = [
       "accent",
       "magenta",
       "bold"
-    ]
+    ],
+    "cleanName": "color.background.accent.magenta.bold"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.7.0",
+      "description": "Use for magenta backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+    },
+    "value": "#E774BB",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for magenta backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+      },
+      "value": "#E774BB"
+    },
+    "name": "color.background.accent.magenta.bolder",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "magenta",
+      "bolder"
+    ],
+    "cleanName": "color.background.accent.magenta.bolder"
   },
   {
     "attributes": {
@@ -3742,7 +3927,8 @@ const tokens = [
       "accent",
       "gray",
       "subtlest"
-    ]
+    ],
+    "cleanName": "color.background.accent.gray.subtlest"
   },
   {
     "attributes": {
@@ -3770,7 +3956,8 @@ const tokens = [
       "accent",
       "gray",
       "subtler"
-    ]
+    ],
+    "cleanName": "color.background.accent.gray.subtler"
   },
   {
     "attributes": {
@@ -3798,7 +3985,8 @@ const tokens = [
       "accent",
       "gray",
       "subtle"
-    ]
+    ],
+    "cleanName": "color.background.accent.gray.subtle"
   },
   {
     "attributes": {
@@ -3826,7 +4014,719 @@ const tokens = [
       "accent",
       "gray",
       "bolder"
-    ]
+    ],
+    "cleanName": "color.background.accent.gray.bolder"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deleted",
+      "introduced": "0.0.15",
+      "deprecated": "0.6.0",
+      "deleted": "0.8.0",
+      "replacement": "color.blanket.[default]",
+      "description": "Use for the screen overlay that appears with modal dialogs"
+    },
+    "value": "#FA11F2",
+    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deleted",
+        "introduced": "0.0.15",
+        "deprecated": "0.6.0",
+        "deleted": "0.8.0",
+        "replacement": "color.blanket.[default]",
+        "description": "Use for the screen overlay that appears with modal dialogs"
+      },
+      "value": "#FA11F2"
+    },
+    "name": "color.background.blanket",
+    "path": [
+      "color",
+      "background",
+      "blanket"
+    ],
+    "cleanName": "color.background.blanket"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deleted",
+      "introduced": "0.0.15",
+      "deprecated": "0.6.0",
+      "deleted": "0.8.0",
+      "replacement": "color.background.brand.bold.hovered",
+      "description": "Hover state of background.boldBrand"
+    },
+    "value": "#FA11F2",
+    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deleted",
+        "introduced": "0.0.15",
+        "deprecated": "0.6.0",
+        "deleted": "0.8.0",
+        "replacement": "color.background.brand.bold.hovered",
+        "description": "Hover state of background.boldBrand"
+      },
+      "value": "#FA11F2"
+    },
+    "name": "color.background.boldBrand.hover",
+    "path": [
+      "color",
+      "background",
+      "boldBrand",
+      "hover"
+    ],
+    "cleanName": "color.background.boldBrand.hover"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deleted",
+      "introduced": "0.0.15",
+      "deprecated": "0.6.0",
+      "deleted": "0.8.0",
+      "replacement": "color.background.brand.bold.pressed",
+      "description": "Pressed state of background.boldBrand"
+    },
+    "value": "#FA11F2",
+    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deleted",
+        "introduced": "0.0.15",
+        "deprecated": "0.6.0",
+        "deleted": "0.8.0",
+        "replacement": "color.background.brand.bold.pressed",
+        "description": "Pressed state of background.boldBrand"
+      },
+      "value": "#FA11F2"
+    },
+    "name": "color.background.boldBrand.pressed",
+    "path": [
+      "color",
+      "background",
+      "boldBrand",
+      "pressed"
+    ],
+    "cleanName": "color.background.boldBrand.pressed"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deleted",
+      "introduced": "0.0.15",
+      "deprecated": "0.6.0",
+      "deleted": "0.8.0",
+      "replacement": "color.background.brand.bold.[default]",
+      "description": "A vibrant background for small UI elements like primary buttons and bold in progress lozenges."
+    },
+    "value": "#FA11F2",
+    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deleted",
+        "introduced": "0.0.15",
+        "deprecated": "0.6.0",
+        "deleted": "0.8.0",
+        "replacement": "color.background.brand.bold.[default]",
+        "description": "A vibrant background for small UI elements like primary buttons and bold in progress lozenges."
+      },
+      "value": "#FA11F2"
+    },
+    "name": "color.background.boldBrand.resting",
+    "path": [
+      "color",
+      "background",
+      "boldBrand",
+      "resting"
+    ],
+    "cleanName": "color.background.boldBrand.resting"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deleted",
+      "introduced": "0.0.15",
+      "deprecated": "0.6.0",
+      "deleted": "0.8.0",
+      "replacement": "color.background.danger.bold.hovered",
+      "description": "Hover state of background.boldDanger"
+    },
+    "value": "#FA11F2",
+    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deleted",
+        "introduced": "0.0.15",
+        "deprecated": "0.6.0",
+        "deleted": "0.8.0",
+        "replacement": "color.background.danger.bold.hovered",
+        "description": "Hover state of background.boldDanger"
+      },
+      "value": "#FA11F2"
+    },
+    "name": "color.background.boldDanger.hover",
+    "path": [
+      "color",
+      "background",
+      "boldDanger",
+      "hover"
+    ],
+    "cleanName": "color.background.boldDanger.hover"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deleted",
+      "introduced": "0.0.15",
+      "deprecated": "0.6.0",
+      "deleted": "0.8.0",
+      "replacement": "color.background.danger.bold.pressed",
+      "description": "Pressed state of background.boldDanger"
+    },
+    "value": "#FA11F2",
+    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deleted",
+        "introduced": "0.0.15",
+        "deprecated": "0.6.0",
+        "deleted": "0.8.0",
+        "replacement": "color.background.danger.bold.pressed",
+        "description": "Pressed state of background.boldDanger"
+      },
+      "value": "#FA11F2"
+    },
+    "name": "color.background.boldDanger.pressed",
+    "path": [
+      "color",
+      "background",
+      "boldDanger",
+      "pressed"
+    ],
+    "cleanName": "color.background.boldDanger.pressed"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deleted",
+      "introduced": "0.0.15",
+      "deprecated": "0.6.0",
+      "deleted": "0.8.0",
+      "replacement": "color.background.danger.bold.[default]",
+      "description": "A vibrant background for small UI elements like danger buttons and bold removed lozenges."
+    },
+    "value": "#FA11F2",
+    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deleted",
+        "introduced": "0.0.15",
+        "deprecated": "0.6.0",
+        "deleted": "0.8.0",
+        "replacement": "color.background.danger.bold.[default]",
+        "description": "A vibrant background for small UI elements like danger buttons and bold removed lozenges."
+      },
+      "value": "#FA11F2"
+    },
+    "name": "color.background.boldDanger.resting",
+    "path": [
+      "color",
+      "background",
+      "boldDanger",
+      "resting"
+    ],
+    "cleanName": "color.background.boldDanger.resting"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deleted",
+      "introduced": "0.0.15",
+      "deprecated": "0.6.0",
+      "deleted": "0.8.0",
+      "replacement": "color.background.discovery.bold.hovered",
+      "description": "Hover state of background.boldDiscovery"
+    },
+    "value": "#FA11F2",
+    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deleted",
+        "introduced": "0.0.15",
+        "deprecated": "0.6.0",
+        "deleted": "0.8.0",
+        "replacement": "color.background.discovery.bold.hovered",
+        "description": "Hover state of background.boldDiscovery"
+      },
+      "value": "#FA11F2"
+    },
+    "name": "color.background.boldDiscovery.hover",
+    "path": [
+      "color",
+      "background",
+      "boldDiscovery",
+      "hover"
+    ],
+    "cleanName": "color.background.boldDiscovery.hover"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deleted",
+      "introduced": "0.0.15",
+      "deprecated": "0.6.0",
+      "deleted": "0.8.0",
+      "replacement": "color.background.discovery.bold.pressed",
+      "description": "Pressed state of background.boldDiscovery"
+    },
+    "value": "#FA11F2",
+    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deleted",
+        "introduced": "0.0.15",
+        "deprecated": "0.6.0",
+        "deleted": "0.8.0",
+        "replacement": "color.background.discovery.bold.pressed",
+        "description": "Pressed state of background.boldDiscovery"
+      },
+      "value": "#FA11F2"
+    },
+    "name": "color.background.boldDiscovery.pressed",
+    "path": [
+      "color",
+      "background",
+      "boldDiscovery",
+      "pressed"
+    ],
+    "cleanName": "color.background.boldDiscovery.pressed"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deleted",
+      "introduced": "0.0.15",
+      "deprecated": "0.6.0",
+      "deleted": "0.8.0",
+      "replacement": "color.background.discovery.bold.[default]",
+      "description": "A vibrant background for small UI elements like onboarding buttons and bold new lozenges."
+    },
+    "value": "#FA11F2",
+    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deleted",
+        "introduced": "0.0.15",
+        "deprecated": "0.6.0",
+        "deleted": "0.8.0",
+        "replacement": "color.background.discovery.bold.[default]",
+        "description": "A vibrant background for small UI elements like onboarding buttons and bold new lozenges."
+      },
+      "value": "#FA11F2"
+    },
+    "name": "color.background.boldDiscovery.resting",
+    "path": [
+      "color",
+      "background",
+      "boldDiscovery",
+      "resting"
+    ],
+    "cleanName": "color.background.boldDiscovery.resting"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deleted",
+      "introduced": "0.0.15",
+      "deprecated": "0.6.0",
+      "deleted": "0.8.0",
+      "replacement": "color.background.neutral.bold.hovered",
+      "description": "Hover state of background.boldNeutral"
+    },
+    "value": "#FA11F2",
+    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deleted",
+        "introduced": "0.0.15",
+        "deprecated": "0.6.0",
+        "deleted": "0.8.0",
+        "replacement": "color.background.neutral.bold.hovered",
+        "description": "Hover state of background.boldNeutral"
+      },
+      "value": "#FA11F2"
+    },
+    "name": "color.background.boldNeutral.hover",
+    "path": [
+      "color",
+      "background",
+      "boldNeutral",
+      "hover"
+    ],
+    "cleanName": "color.background.boldNeutral.hover"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deleted",
+      "introduced": "0.0.15",
+      "deprecated": "0.6.0",
+      "deleted": "0.8.0",
+      "replacement": "color.background.neutral.bold.pressed",
+      "description": "Pressed state of background.boldNeutral"
+    },
+    "value": "#FA11F2",
+    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deleted",
+        "introduced": "0.0.15",
+        "deprecated": "0.6.0",
+        "deleted": "0.8.0",
+        "replacement": "color.background.neutral.bold.pressed",
+        "description": "Pressed state of background.boldNeutral"
+      },
+      "value": "#FA11F2"
+    },
+    "name": "color.background.boldNeutral.pressed",
+    "path": [
+      "color",
+      "background",
+      "boldNeutral",
+      "pressed"
+    ],
+    "cleanName": "color.background.boldNeutral.pressed"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deleted",
+      "introduced": "0.0.15",
+      "deprecated": "0.6.0",
+      "deleted": "0.8.0",
+      "replacement": "color.background.neutral.bold.[default]",
+      "description": "A vibrant background for small UI elements like unchecked toggles and bold default lozenges."
+    },
+    "value": "#FA11F2",
+    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deleted",
+        "introduced": "0.0.15",
+        "deprecated": "0.6.0",
+        "deleted": "0.8.0",
+        "replacement": "color.background.neutral.bold.[default]",
+        "description": "A vibrant background for small UI elements like unchecked toggles and bold default lozenges."
+      },
+      "value": "#FA11F2"
+    },
+    "name": "color.background.boldNeutral.resting",
+    "path": [
+      "color",
+      "background",
+      "boldNeutral",
+      "resting"
+    ],
+    "cleanName": "color.background.boldNeutral.resting"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deleted",
+      "introduced": "0.0.15",
+      "deprecated": "0.6.0",
+      "deleted": "0.8.0",
+      "replacement": "color.background.success.bold.hovered",
+      "description": "Hover state of background.boldSuccess"
+    },
+    "value": "#FA11F2",
+    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deleted",
+        "introduced": "0.0.15",
+        "deprecated": "0.6.0",
+        "deleted": "0.8.0",
+        "replacement": "color.background.success.bold.hovered",
+        "description": "Hover state of background.boldSuccess"
+      },
+      "value": "#FA11F2"
+    },
+    "name": "color.background.boldSuccess.hover",
+    "path": [
+      "color",
+      "background",
+      "boldSuccess",
+      "hover"
+    ],
+    "cleanName": "color.background.boldSuccess.hover"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deleted",
+      "introduced": "0.0.15",
+      "deprecated": "0.6.0",
+      "deleted": "0.8.0",
+      "replacement": "color.background.success.bold.pressed",
+      "description": "Pressed state of background.boldSuccess"
+    },
+    "value": "#FA11F2",
+    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deleted",
+        "introduced": "0.0.15",
+        "deprecated": "0.6.0",
+        "deleted": "0.8.0",
+        "replacement": "color.background.success.bold.pressed",
+        "description": "Pressed state of background.boldSuccess"
+      },
+      "value": "#FA11F2"
+    },
+    "name": "color.background.boldSuccess.pressed",
+    "path": [
+      "color",
+      "background",
+      "boldSuccess",
+      "pressed"
+    ],
+    "cleanName": "color.background.boldSuccess.pressed"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deleted",
+      "introduced": "0.0.15",
+      "deprecated": "0.6.0",
+      "deleted": "0.8.0",
+      "replacement": "color.background.success.bold.[default]",
+      "description": "A vibrant background for small UI elements like checked toggles and bold success lozenges."
+    },
+    "value": "#FA11F2",
+    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deleted",
+        "introduced": "0.0.15",
+        "deprecated": "0.6.0",
+        "deleted": "0.8.0",
+        "replacement": "color.background.success.bold.[default]",
+        "description": "A vibrant background for small UI elements like checked toggles and bold success lozenges."
+      },
+      "value": "#FA11F2"
+    },
+    "name": "color.background.boldSuccess.resting",
+    "path": [
+      "color",
+      "background",
+      "boldSuccess",
+      "resting"
+    ],
+    "cleanName": "color.background.boldSuccess.resting"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deleted",
+      "introduced": "0.0.15",
+      "deprecated": "0.6.0",
+      "deleted": "0.8.0",
+      "replacement": "color.background.warning.bold.hovered",
+      "description": "Hover state of background.boldWarning"
+    },
+    "value": "#FA11F2",
+    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deleted",
+        "introduced": "0.0.15",
+        "deprecated": "0.6.0",
+        "deleted": "0.8.0",
+        "replacement": "color.background.warning.bold.hovered",
+        "description": "Hover state of background.boldWarning"
+      },
+      "value": "#FA11F2"
+    },
+    "name": "color.background.boldWarning.hover",
+    "path": [
+      "color",
+      "background",
+      "boldWarning",
+      "hover"
+    ],
+    "cleanName": "color.background.boldWarning.hover"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deleted",
+      "introduced": "0.0.15",
+      "deprecated": "0.6.0",
+      "deleted": "0.8.0",
+      "replacement": "color.background.warning.bold.pressed",
+      "description": "Pressed state of background.boldWarning"
+    },
+    "value": "#FA11F2",
+    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deleted",
+        "introduced": "0.0.15",
+        "deprecated": "0.6.0",
+        "deleted": "0.8.0",
+        "replacement": "color.background.warning.bold.pressed",
+        "description": "Pressed state of background.boldWarning"
+      },
+      "value": "#FA11F2"
+    },
+    "name": "color.background.boldWarning.pressed",
+    "path": [
+      "color",
+      "background",
+      "boldWarning",
+      "pressed"
+    ],
+    "cleanName": "color.background.boldWarning.pressed"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deleted",
+      "introduced": "0.0.15",
+      "deprecated": "0.6.0",
+      "deleted": "0.8.0",
+      "replacement": "color.background.warning.bold.[default]",
+      "description": "A vibrant background for small UI elements like warning buttons and bold moved lozenges."
+    },
+    "value": "#FA11F2",
+    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deleted",
+        "introduced": "0.0.15",
+        "deprecated": "0.6.0",
+        "deleted": "0.8.0",
+        "replacement": "color.background.warning.bold.[default]",
+        "description": "A vibrant background for small UI elements like warning buttons and bold moved lozenges."
+      },
+      "value": "#FA11F2"
+    },
+    "name": "color.background.boldWarning.resting",
+    "path": [
+      "color",
+      "background",
+      "boldWarning",
+      "resting"
+    ],
+    "cleanName": "color.background.boldWarning.resting"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deleted",
+      "introduced": "0.0.15",
+      "deprecated": "0.6.0",
+      "deleted": "0.8.0",
+      "replacement": "elevation.surface.raised.[default]",
+      "description": "Use for the background of raised cards, such as Jira cards on a Kanban board.\nCombine with shadow.card."
+    },
+    "value": "#FA11F2",
+    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deleted",
+        "introduced": "0.0.15",
+        "deprecated": "0.6.0",
+        "deleted": "0.8.0",
+        "replacement": "elevation.surface.raised.[default]",
+        "description": "Use for the background of raised cards, such as Jira cards on a Kanban board.\nCombine with shadow.card."
+      },
+      "value": "#FA11F2"
+    },
+    "name": "color.background.card",
+    "path": [
+      "color",
+      "background",
+      "card"
+    ],
+    "cleanName": "color.background.card"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deleted",
+      "introduced": "0.0.15",
+      "deprecated": "0.6.0",
+      "deleted": "0.8.0",
+      "replacement": "elevation.surface.[default].[default]",
+      "description": "Use as the primary background for the UI"
+    },
+    "value": "#FA11F2",
+    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deleted",
+        "introduced": "0.0.15",
+        "deprecated": "0.6.0",
+        "deleted": "0.8.0",
+        "replacement": "elevation.surface.[default].[default]",
+        "description": "Use as the primary background for the UI"
+      },
+      "value": "#FA11F2"
+    },
+    "name": "color.background.default",
+    "path": [
+      "color",
+      "background",
+      "default"
+    ],
+    "cleanName": "color.background.default"
   },
   {
     "attributes": {
@@ -3852,91 +4752,92 @@ const tokens = [
       "color",
       "background",
       "disabled"
-    ]
+    ],
+    "cleanName": "color.background.disabled"
   },
   {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.8.3",
-      "description": "Use for backgrounds of elements on a bold background, such as in the buttons on spotlight cards."
+      "introduced": "0.6.0",
+      "description": "Use for background of form UI elements, such as text fields, checkboxes, and radio buttons."
     },
-    "value": "#00000029",
+    "value": "#FAFBFC",
     "filePath": "src/tokens/atlassian-legacy-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.8.3",
-        "description": "Use for backgrounds of elements on a bold background, such as in the buttons on spotlight cards."
+        "introduced": "0.6.0",
+        "description": "Use for background of form UI elements, such as text fields, checkboxes, and radio buttons."
       },
-      "value": "#00000029"
+      "value": "N10"
     },
-    "name": "color.background.inverse.subtle.[default]",
+    "name": "color.background.input.[default]",
     "path": [
       "color",
       "background",
-      "inverse",
-      "subtle",
+      "input",
       "[default]"
-    ]
+    ],
+    "cleanName": "color.background.input"
   },
   {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.8.3",
-      "description": "Use for the hovered state of color.background.inverse.subtle"
+      "introduced": "0.6.0",
+      "description": "Hovered state for color.background.input"
     },
-    "value": "#0000003D",
+    "value": "#EBECF0",
     "filePath": "src/tokens/atlassian-legacy-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.8.3",
-        "description": "Use for the hovered state of color.background.inverse.subtle"
+        "introduced": "0.6.0",
+        "description": "Hovered state for color.background.input"
       },
-      "value": "#0000003D"
+      "value": "N30"
     },
-    "name": "color.background.inverse.subtle.hovered",
+    "name": "color.background.input.hovered",
     "path": [
       "color",
       "background",
-      "inverse",
-      "subtle",
+      "input",
       "hovered"
-    ]
+    ],
+    "cleanName": "color.background.input.hovered"
   },
   {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.8.3",
-      "description": "Use for the pressed state of color.background.inverse.subtle"
+      "introduced": "0.6.0",
+      "description": "Pressed state for color.background.input"
     },
-    "value": "#00000052",
+    "value": "#FFFFFF",
     "filePath": "src/tokens/atlassian-legacy-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.8.3",
-        "description": "Use for the pressed state of color.background.inverse.subtle"
+        "introduced": "0.6.0",
+        "description": "Pressed state for color.background.input"
       },
-      "value": "#00000052"
+      "value": "N0"
     },
-    "name": "color.background.inverse.subtle.pressed",
+    "name": "color.background.input.pressed",
     "path": [
       "color",
       "background",
-      "inverse",
-      "subtle",
+      "input",
       "pressed"
-    ]
+    ],
+    "cleanName": "color.background.input.pressed"
   },
   {
     "attributes": {
@@ -3969,88 +4870,95 @@ const tokens = [
       "background",
       "inverse",
       "[default]"
-    ]
+    ],
+    "cleanName": "color.background.inverse"
   },
   {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.6.0",
-      "description": "Use for background of form UI elements, such as text fields, checkboxes, and radio buttons."
+      "introduced": "0.8.3",
+      "description": "Use for backgrounds of elements on a bold background, such as in the buttons on spotlight cards."
     },
-    "value": "#FAFBFC",
+    "value": "#00000029",
     "filePath": "src/tokens/atlassian-legacy-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for background of form UI elements, such as text fields, checkboxes, and radio buttons."
+        "introduced": "0.8.3",
+        "description": "Use for backgrounds of elements on a bold background, such as in the buttons on spotlight cards."
       },
-      "value": "N10"
+      "value": "#00000029"
     },
-    "name": "color.background.input.[default]",
+    "name": "color.background.inverse.subtle.[default]",
     "path": [
       "color",
       "background",
-      "input",
+      "inverse",
+      "subtle",
       "[default]"
-    ]
+    ],
+    "cleanName": "color.background.inverse.subtle"
   },
   {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.6.0",
-      "description": "Hovered state for color.background.input"
+      "introduced": "0.8.3",
+      "description": "Use for the hovered state of color.background.inverse.subtle"
     },
-    "value": "#EBECF0",
+    "value": "#0000003D",
     "filePath": "src/tokens/atlassian-legacy-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.6.0",
-        "description": "Hovered state for color.background.input"
+        "introduced": "0.8.3",
+        "description": "Use for the hovered state of color.background.inverse.subtle"
       },
-      "value": "N30"
+      "value": "#0000003D"
     },
-    "name": "color.background.input.hovered",
+    "name": "color.background.inverse.subtle.hovered",
     "path": [
       "color",
       "background",
-      "input",
+      "inverse",
+      "subtle",
       "hovered"
-    ]
+    ],
+    "cleanName": "color.background.inverse.subtle.hovered"
   },
   {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.6.0",
-      "description": "Pressed state for color.background.input"
+      "introduced": "0.8.3",
+      "description": "Use for the pressed state of color.background.inverse.subtle"
     },
-    "value": "#FFFFFF",
+    "value": "#00000052",
     "filePath": "src/tokens/atlassian-legacy-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.6.0",
-        "description": "Pressed state for color.background.input"
+        "introduced": "0.8.3",
+        "description": "Use for the pressed state of color.background.inverse.subtle"
       },
-      "value": "N0"
+      "value": "#00000052"
     },
-    "name": "color.background.input.pressed",
+    "name": "color.background.inverse.subtle.pressed",
     "path": [
       "color",
       "background",
-      "input",
+      "inverse",
+      "subtle",
       "pressed"
-    ]
+    ],
+    "cleanName": "color.background.inverse.subtle.pressed"
   },
   {
     "attributes": {
@@ -4078,7 +4986,8 @@ const tokens = [
       "neutral",
       "[default]",
       "[default]"
-    ]
+    ],
+    "cleanName": "color.background.neutral"
   },
   {
     "attributes": {
@@ -4106,7 +5015,8 @@ const tokens = [
       "neutral",
       "[default]",
       "hovered"
-    ]
+    ],
+    "cleanName": "color.background.neutral.hovered"
   },
   {
     "attributes": {
@@ -4134,7 +5044,8 @@ const tokens = [
       "neutral",
       "[default]",
       "pressed"
-    ]
+    ],
+    "cleanName": "color.background.neutral.pressed"
   },
   {
     "attributes": {
@@ -4162,7 +5073,8 @@ const tokens = [
       "neutral",
       "subtle",
       "[default]"
-    ]
+    ],
+    "cleanName": "color.background.neutral.subtle"
   },
   {
     "attributes": {
@@ -4190,7 +5102,8 @@ const tokens = [
       "neutral",
       "subtle",
       "hovered"
-    ]
+    ],
+    "cleanName": "color.background.neutral.subtle.hovered"
   },
   {
     "attributes": {
@@ -4218,7 +5131,8 @@ const tokens = [
       "neutral",
       "subtle",
       "pressed"
-    ]
+    ],
+    "cleanName": "color.background.neutral.subtle.pressed"
   },
   {
     "attributes": {
@@ -4246,7 +5160,8 @@ const tokens = [
       "neutral",
       "bold",
       "[default]"
-    ]
+    ],
+    "cleanName": "color.background.neutral.bold"
   },
   {
     "attributes": {
@@ -4274,7 +5189,8 @@ const tokens = [
       "neutral",
       "bold",
       "hovered"
-    ]
+    ],
+    "cleanName": "color.background.neutral.bold.hovered"
   },
   {
     "attributes": {
@@ -4302,14 +5218,203 @@ const tokens = [
       "neutral",
       "bold",
       "pressed"
-    ]
+    ],
+    "cleanName": "color.background.neutral.bold.pressed"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deleted",
+      "introduced": "0.0.15",
+      "deprecated": "0.6.0",
+      "deleted": "0.8.0",
+      "replacement": "elevation.surface.overlay.[default]",
+      "description": "\nUse for the background of overlay elements, such as modals, dropdown menus, flags, and inline dialogs (i.e. elements that sit on top of the UI).\n\nAlso use for the background of raised cards in a dragged state.\n\nCombine with shadow.overlay."
+    },
+    "value": "#FA11F2",
+    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deleted",
+        "introduced": "0.0.15",
+        "deprecated": "0.6.0",
+        "deleted": "0.8.0",
+        "replacement": "elevation.surface.overlay.[default]",
+        "description": "\nUse for the background of overlay elements, such as modals, dropdown menus, flags, and inline dialogs (i.e. elements that sit on top of the UI).\n\nAlso use for the background of raised cards in a dragged state.\n\nCombine with shadow.overlay."
+      },
+      "value": "#FA11F2"
+    },
+    "name": "color.background.overlay",
+    "path": [
+      "color",
+      "background",
+      "overlay"
+    ],
+    "cleanName": "color.background.overlay"
   },
   {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.6.0",
-      "description": "Use for the background of elements used to reinforce our brand, but with more emphasis."
+      "introduced": "0.6.2",
+      "description": "Use for the background of elements in a selected state, such as in opened dropdown buttons."
+    },
+    "value": "#DEEBFF",
+    "filePath": "src/tokens/atlassian-legacy-light/color/background.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.2",
+        "description": "Use for the background of elements in a selected state, such as in opened dropdown buttons."
+      },
+      "value": "B50"
+    },
+    "name": "color.background.selected.[default].[default]",
+    "path": [
+      "color",
+      "background",
+      "selected",
+      "[default]",
+      "[default]"
+    ],
+    "cleanName": "color.background.selected"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.6.2",
+      "description": "Hovered state for color.background.selected"
+    },
+    "value": "#B3D4FF",
+    "filePath": "src/tokens/atlassian-legacy-light/color/background.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.2",
+        "description": "Hovered state for color.background.selected"
+      },
+      "value": "B75"
+    },
+    "name": "color.background.selected.[default].hovered",
+    "path": [
+      "color",
+      "background",
+      "selected",
+      "[default]",
+      "hovered"
+    ],
+    "cleanName": "color.background.selected.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.6.2",
+      "description": "Pressed state for color.background.selected"
+    },
+    "value": "#4C9AFF",
+    "filePath": "src/tokens/atlassian-legacy-light/color/background.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.2",
+        "description": "Pressed state for color.background.selected"
+      },
+      "value": "B100"
+    },
+    "name": "color.background.selected.[default].pressed",
+    "path": [
+      "color",
+      "background",
+      "selected",
+      "[default]",
+      "pressed"
+    ],
+    "cleanName": "color.background.selected.pressed"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deleted",
+      "introduced": "0.1.0",
+      "deprecated": "0.6.0",
+      "deleted": "0.10.5",
+      "replacement": "color.background.selected.[default].hovered",
+      "description": "Hover state for color.background.selected"
+    },
+    "value": "#FA11F2",
+    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deleted",
+        "introduced": "0.1.0",
+        "deprecated": "0.6.0",
+        "deleted": "0.10.5",
+        "replacement": "color.background.selected.[default].hovered",
+        "description": "Hover state for color.background.selected"
+      },
+      "value": "#FA11F2"
+    },
+    "name": "color.background.selected.hover",
+    "path": [
+      "color",
+      "background",
+      "selected",
+      "hover"
+    ],
+    "cleanName": "color.background.selected.hover"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deleted",
+      "introduced": "0.1.0",
+      "deprecated": "0.6.0",
+      "deleted": "0.10.5",
+      "replacement": "color.background.selected.[default].[default]",
+      "description": "Use for backgrounds of elements in a selected state"
+    },
+    "value": "#FA11F2",
+    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deleted",
+        "introduced": "0.1.0",
+        "deprecated": "0.6.0",
+        "deleted": "0.10.5",
+        "replacement": "color.background.selected.[default].[default]",
+        "description": "Use for backgrounds of elements in a selected state"
+      },
+      "value": "#FA11F2"
+    },
+    "name": "color.background.selected.resting",
+    "path": [
+      "color",
+      "background",
+      "selected",
+      "resting"
+    ],
+    "cleanName": "color.background.selected.resting"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.6.2",
+      "description": "Use for the backgrounds of elements in a selected state, such as checkboxes and radio buttons."
     },
     "value": "#0052CC",
     "filePath": "src/tokens/atlassian-legacy-light/color/background.tsx",
@@ -4318,75 +5423,859 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for the background of elements used to reinforce our brand, but with more emphasis."
+        "introduced": "0.6.2",
+        "description": "Use for the backgrounds of elements in a selected state, such as checkboxes and radio buttons."
       },
       "value": "B400"
     },
-    "name": "color.background.brand.bold.[default]",
+    "name": "color.background.selected.bold.[default]",
     "path": [
       "color",
       "background",
-      "brand",
+      "selected",
       "bold",
       "[default]"
-    ]
+    ],
+    "cleanName": "color.background.selected.bold"
   },
   {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.6.0",
-      "description": "Hovered state of color.background.brand.bold"
+      "introduced": "0.6.2",
+      "description": "Hovered state of color.background.selected.bold"
     },
-    "value": "#0065FF",
+    "value": "#2684FF",
     "filePath": "src/tokens/atlassian-legacy-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.6.0",
-        "description": "Hovered state of color.background.brand.bold"
+        "introduced": "0.6.2",
+        "description": "Hovered state of color.background.selected.bold"
       },
-      "value": "B300"
+      "value": "B200"
     },
-    "name": "color.background.brand.bold.hovered",
+    "name": "color.background.selected.bold.hovered",
     "path": [
       "color",
       "background",
-      "brand",
+      "selected",
       "bold",
       "hovered"
-    ]
+    ],
+    "cleanName": "color.background.selected.bold.hovered"
   },
   {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.6.0",
-      "description": "Pressed state of color.background.brand.bold"
+      "introduced": "0.6.2",
+      "description": "Pressed state of color.background.selected.bold"
     },
-    "value": "#0747A6",
+    "value": "#0052CC",
     "filePath": "src/tokens/atlassian-legacy-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.6.0",
-        "description": "Pressed state of color.background.brand.bold"
+        "introduced": "0.6.2",
+        "description": "Pressed state of color.background.selected.bold"
       },
-      "value": "B500"
+      "value": "B400"
     },
-    "name": "color.background.brand.bold.pressed",
+    "name": "color.background.selected.bold.pressed",
     "path": [
       "color",
       "background",
-      "brand",
+      "selected",
       "bold",
       "pressed"
-    ]
+    ],
+    "cleanName": "color.background.selected.bold.pressed"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deleted",
+      "introduced": "0.0.15",
+      "deprecated": "0.6.0",
+      "deleted": "0.8.0",
+      "replacement": "color.background.input.pressed",
+      "description": "Pressed state for background.subtleBorderedNeutral"
+    },
+    "value": "#FA11F2",
+    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deleted",
+        "introduced": "0.0.15",
+        "deprecated": "0.6.0",
+        "deleted": "0.8.0",
+        "replacement": "color.background.input.pressed",
+        "description": "Pressed state for background.subtleBorderedNeutral"
+      },
+      "value": "#FA11F2"
+    },
+    "name": "color.background.subtleBorderedNeutral.pressed",
+    "path": [
+      "color",
+      "background",
+      "subtleBorderedNeutral",
+      "pressed"
+    ],
+    "cleanName": "color.background.subtleBorderedNeutral.pressed"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deleted",
+      "introduced": "0.0.15",
+      "deprecated": "0.6.0",
+      "deleted": "0.8.0",
+      "replacement": "color.background.input.[default]",
+      "description": "Hover state for background.subtleBorderedNeutral"
+    },
+    "value": "#FA11F2",
+    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deleted",
+        "introduced": "0.0.15",
+        "deprecated": "0.6.0",
+        "deleted": "0.8.0",
+        "replacement": "color.background.input.[default]",
+        "description": "Hover state for background.subtleBorderedNeutral"
+      },
+      "value": "#FA11F2"
+    },
+    "name": "color.background.subtleBorderedNeutral.resting",
+    "path": [
+      "color",
+      "background",
+      "subtleBorderedNeutral",
+      "resting"
+    ],
+    "cleanName": "color.background.subtleBorderedNeutral.resting"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deleted",
+      "introduced": "0.0.15",
+      "deprecated": "0.6.0",
+      "deleted": "0.10.5",
+      "replacement": "color.background.selected.[default].hovered",
+      "description": "Hover state for background.subtleBrand"
+    },
+    "value": "#FA11F2",
+    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deleted",
+        "introduced": "0.0.15",
+        "deprecated": "0.6.0",
+        "deleted": "0.10.5",
+        "replacement": "color.background.selected.[default].hovered",
+        "description": "Hover state for background.subtleBrand"
+      },
+      "value": "#FA11F2"
+    },
+    "name": "color.background.subtleBrand.hover",
+    "path": [
+      "color",
+      "background",
+      "subtleBrand",
+      "hover"
+    ],
+    "cleanName": "color.background.subtleBrand.hover"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deleted",
+      "introduced": "0.0.15",
+      "deprecated": "0.6.0",
+      "deleted": "0.10.5",
+      "replacement": "color.background.selected.[default].pressed",
+      "description": "Pressed state for background.subtleBrand"
+    },
+    "value": "#FA11F2",
+    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deleted",
+        "introduced": "0.0.15",
+        "deprecated": "0.6.0",
+        "deleted": "0.10.5",
+        "replacement": "color.background.selected.[default].pressed",
+        "description": "Pressed state for background.subtleBrand"
+      },
+      "value": "#FA11F2"
+    },
+    "name": "color.background.subtleBrand.pressed",
+    "path": [
+      "color",
+      "background",
+      "subtleBrand",
+      "pressed"
+    ],
+    "cleanName": "color.background.subtleBrand.pressed"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deleted",
+      "introduced": "0.0.15",
+      "deprecated": "0.6.0",
+      "deleted": "0.10.5",
+      "replacement": "color.background.selected.[default].[default]",
+      "description": "Use for subdued backgrounds of UI elements like information section messages and in progress lozenges."
+    },
+    "value": "#FA11F2",
+    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deleted",
+        "introduced": "0.0.15",
+        "deprecated": "0.6.0",
+        "deleted": "0.10.5",
+        "replacement": "color.background.selected.[default].[default]",
+        "description": "Use for subdued backgrounds of UI elements like information section messages and in progress lozenges."
+      },
+      "value": "#FA11F2"
+    },
+    "name": "color.background.subtleBrand.resting",
+    "path": [
+      "color",
+      "background",
+      "subtleBrand",
+      "resting"
+    ],
+    "cleanName": "color.background.subtleBrand.resting"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deleted",
+      "introduced": "0.0.15",
+      "deprecated": "0.6.0",
+      "deleted": "0.8.0",
+      "replacement": "color.background.danger.[default].hovered",
+      "description": "Hover state for background.subtleDanger"
+    },
+    "value": "#FA11F2",
+    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deleted",
+        "introduced": "0.0.15",
+        "deprecated": "0.6.0",
+        "deleted": "0.8.0",
+        "replacement": "color.background.danger.[default].hovered",
+        "description": "Hover state for background.subtleDanger"
+      },
+      "value": "#FA11F2"
+    },
+    "name": "color.background.subtleDanger.hover",
+    "path": [
+      "color",
+      "background",
+      "subtleDanger",
+      "hover"
+    ],
+    "cleanName": "color.background.subtleDanger.hover"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deleted",
+      "introduced": "0.0.15",
+      "deprecated": "0.6.0",
+      "deleted": "0.8.0",
+      "replacement": "color.background.danger.[default].pressed",
+      "description": "Pressed state for background.subtleDanger"
+    },
+    "value": "#FA11F2",
+    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deleted",
+        "introduced": "0.0.15",
+        "deprecated": "0.6.0",
+        "deleted": "0.8.0",
+        "replacement": "color.background.danger.[default].pressed",
+        "description": "Pressed state for background.subtleDanger"
+      },
+      "value": "#FA11F2"
+    },
+    "name": "color.background.subtleDanger.pressed",
+    "path": [
+      "color",
+      "background",
+      "subtleDanger",
+      "pressed"
+    ],
+    "cleanName": "color.background.subtleDanger.pressed"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deleted",
+      "introduced": "0.0.15",
+      "deprecated": "0.6.0",
+      "deleted": "0.8.0",
+      "replacement": "color.background.danger.[default].[default]",
+      "description": "Use for subdued backgrounds of UI elements like error section messages and removed lozenges."
+    },
+    "value": "#FA11F2",
+    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deleted",
+        "introduced": "0.0.15",
+        "deprecated": "0.6.0",
+        "deleted": "0.8.0",
+        "replacement": "color.background.danger.[default].[default]",
+        "description": "Use for subdued backgrounds of UI elements like error section messages and removed lozenges."
+      },
+      "value": "#FA11F2"
+    },
+    "name": "color.background.subtleDanger.resting",
+    "path": [
+      "color",
+      "background",
+      "subtleDanger",
+      "resting"
+    ],
+    "cleanName": "color.background.subtleDanger.resting"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deleted",
+      "introduced": "0.0.15",
+      "deprecated": "0.6.0",
+      "deleted": "0.8.0",
+      "replacement": "color.background.discovery.[default].hovered",
+      "description": "Hover state for background.subtleDiscovery"
+    },
+    "value": "#FA11F2",
+    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deleted",
+        "introduced": "0.0.15",
+        "deprecated": "0.6.0",
+        "deleted": "0.8.0",
+        "replacement": "color.background.discovery.[default].hovered",
+        "description": "Hover state for background.subtleDiscovery"
+      },
+      "value": "#FA11F2"
+    },
+    "name": "color.background.subtleDiscovery.hover",
+    "path": [
+      "color",
+      "background",
+      "subtleDiscovery",
+      "hover"
+    ],
+    "cleanName": "color.background.subtleDiscovery.hover"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deleted",
+      "introduced": "0.0.15",
+      "deprecated": "0.6.0",
+      "deleted": "0.8.0",
+      "replacement": "color.background.discovery.[default].pressed",
+      "description": "Pressed state for background.subtleDiscovery"
+    },
+    "value": "#FA11F2",
+    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deleted",
+        "introduced": "0.0.15",
+        "deprecated": "0.6.0",
+        "deleted": "0.8.0",
+        "replacement": "color.background.discovery.[default].pressed",
+        "description": "Pressed state for background.subtleDiscovery"
+      },
+      "value": "#FA11F2"
+    },
+    "name": "color.background.subtleDiscovery.pressed",
+    "path": [
+      "color",
+      "background",
+      "subtleDiscovery",
+      "pressed"
+    ],
+    "cleanName": "color.background.subtleDiscovery.pressed"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deleted",
+      "introduced": "0.0.15",
+      "deprecated": "0.6.0",
+      "deleted": "0.8.0",
+      "replacement": "color.background.discovery.[default].[default]",
+      "description": "Use for subdued backgrounds of UI elements like discovery section messages and new lozenges."
+    },
+    "value": "#FA11F2",
+    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deleted",
+        "introduced": "0.0.15",
+        "deprecated": "0.6.0",
+        "deleted": "0.8.0",
+        "replacement": "color.background.discovery.[default].[default]",
+        "description": "Use for subdued backgrounds of UI elements like discovery section messages and new lozenges."
+      },
+      "value": "#FA11F2"
+    },
+    "name": "color.background.subtleDiscovery.resting",
+    "path": [
+      "color",
+      "background",
+      "subtleDiscovery",
+      "resting"
+    ],
+    "cleanName": "color.background.subtleDiscovery.resting"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deleted",
+      "introduced": "0.0.15",
+      "deprecated": "0.6.0",
+      "deleted": "0.8.0",
+      "replacement": "color.background.neutral.[default].hovered",
+      "description": "Hover state for background.subtleNeutral"
+    },
+    "value": "#FA11F2",
+    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deleted",
+        "introduced": "0.0.15",
+        "deprecated": "0.6.0",
+        "deleted": "0.8.0",
+        "replacement": "color.background.neutral.[default].hovered",
+        "description": "Hover state for background.subtleNeutral"
+      },
+      "value": "#FA11F2"
+    },
+    "name": "color.background.subtleNeutral.hover",
+    "path": [
+      "color",
+      "background",
+      "subtleNeutral",
+      "hover"
+    ],
+    "cleanName": "color.background.subtleNeutral.hover"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deleted",
+      "introduced": "0.0.15",
+      "deprecated": "0.6.0",
+      "deleted": "0.8.0",
+      "replacement": "color.background.neutral.[default].pressed",
+      "description": "Pressed state for background.subtleNeutral"
+    },
+    "value": "#FA11F2",
+    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deleted",
+        "introduced": "0.0.15",
+        "deprecated": "0.6.0",
+        "deleted": "0.8.0",
+        "replacement": "color.background.neutral.[default].pressed",
+        "description": "Pressed state for background.subtleNeutral"
+      },
+      "value": "#FA11F2"
+    },
+    "name": "color.background.subtleNeutral.pressed",
+    "path": [
+      "color",
+      "background",
+      "subtleNeutral",
+      "pressed"
+    ],
+    "cleanName": "color.background.subtleNeutral.pressed"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deleted",
+      "introduced": "0.0.15",
+      "deprecated": "0.6.0",
+      "deleted": "0.8.0",
+      "replacement": "color.background.neutral.[default].[default]",
+      "description": "Use as the default background of UI elements like buttons, lozenges, and tags."
+    },
+    "value": "#FA11F2",
+    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deleted",
+        "introduced": "0.0.15",
+        "deprecated": "0.6.0",
+        "deleted": "0.8.0",
+        "replacement": "color.background.neutral.[default].[default]",
+        "description": "Use as the default background of UI elements like buttons, lozenges, and tags."
+      },
+      "value": "#FA11F2"
+    },
+    "name": "color.background.subtleNeutral.resting",
+    "path": [
+      "color",
+      "background",
+      "subtleNeutral",
+      "resting"
+    ],
+    "cleanName": "color.background.subtleNeutral.resting"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deleted",
+      "introduced": "0.0.15",
+      "deprecated": "0.6.0",
+      "deleted": "0.8.0",
+      "replacement": "color.background.success.[default].hovered",
+      "description": "Hover state for background.subtleSuccess"
+    },
+    "value": "#FA11F2",
+    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deleted",
+        "introduced": "0.0.15",
+        "deprecated": "0.6.0",
+        "deleted": "0.8.0",
+        "replacement": "color.background.success.[default].hovered",
+        "description": "Hover state for background.subtleSuccess"
+      },
+      "value": "#FA11F2"
+    },
+    "name": "color.background.subtleSuccess.hover",
+    "path": [
+      "color",
+      "background",
+      "subtleSuccess",
+      "hover"
+    ],
+    "cleanName": "color.background.subtleSuccess.hover"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deleted",
+      "introduced": "0.0.15",
+      "deprecated": "0.6.0",
+      "deleted": "0.8.0",
+      "replacement": "color.background.success.[default].pressed",
+      "description": "Pressed state for background.subtleSuccess"
+    },
+    "value": "#FA11F2",
+    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deleted",
+        "introduced": "0.0.15",
+        "deprecated": "0.6.0",
+        "deleted": "0.8.0",
+        "replacement": "color.background.success.[default].pressed",
+        "description": "Pressed state for background.subtleSuccess"
+      },
+      "value": "#FA11F2"
+    },
+    "name": "color.background.subtleSuccess.pressed",
+    "path": [
+      "color",
+      "background",
+      "subtleSuccess",
+      "pressed"
+    ],
+    "cleanName": "color.background.subtleSuccess.pressed"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deleted",
+      "introduced": "0.0.15",
+      "deprecated": "0.6.0",
+      "deleted": "0.8.0",
+      "replacement": "color.background.success.[default].[default]",
+      "description": "Use for subdued backgrounds of UI elements like success section messages and success lozenges."
+    },
+    "value": "#FA11F2",
+    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deleted",
+        "introduced": "0.0.15",
+        "deprecated": "0.6.0",
+        "deleted": "0.8.0",
+        "replacement": "color.background.success.[default].[default]",
+        "description": "Use for subdued backgrounds of UI elements like success section messages and success lozenges."
+      },
+      "value": "#FA11F2"
+    },
+    "name": "color.background.subtleSuccess.resting",
+    "path": [
+      "color",
+      "background",
+      "subtleSuccess",
+      "resting"
+    ],
+    "cleanName": "color.background.subtleSuccess.resting"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deleted",
+      "introduced": "0.0.15",
+      "deprecated": "0.6.0",
+      "deleted": "0.8.0",
+      "replacement": "color.background.warning.[default].hovered",
+      "description": "Hover state for background.subtleWarning"
+    },
+    "value": "#FA11F2",
+    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deleted",
+        "introduced": "0.0.15",
+        "deprecated": "0.6.0",
+        "deleted": "0.8.0",
+        "replacement": "color.background.warning.[default].hovered",
+        "description": "Hover state for background.subtleWarning"
+      },
+      "value": "#FA11F2"
+    },
+    "name": "color.background.subtleWarning.hover",
+    "path": [
+      "color",
+      "background",
+      "subtleWarning",
+      "hover"
+    ],
+    "cleanName": "color.background.subtleWarning.hover"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deleted",
+      "introduced": "0.0.15",
+      "deprecated": "0.6.0",
+      "deleted": "0.8.0",
+      "replacement": "color.background.warning.[default].pressed",
+      "description": "Pressed state for background.subtleWarning"
+    },
+    "value": "#FA11F2",
+    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deleted",
+        "introduced": "0.0.15",
+        "deprecated": "0.6.0",
+        "deleted": "0.8.0",
+        "replacement": "color.background.warning.[default].pressed",
+        "description": "Pressed state for background.subtleWarning"
+      },
+      "value": "#FA11F2"
+    },
+    "name": "color.background.subtleWarning.pressed",
+    "path": [
+      "color",
+      "background",
+      "subtleWarning",
+      "pressed"
+    ],
+    "cleanName": "color.background.subtleWarning.pressed"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deleted",
+      "introduced": "0.0.15",
+      "deprecated": "0.6.0",
+      "deleted": "0.8.0",
+      "replacement": "color.background.warning.[default].[default]",
+      "description": "Use for subdued backgrounds of UI elements like warning section messages and moved lozenges."
+    },
+    "value": "#FA11F2",
+    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deleted",
+        "introduced": "0.0.15",
+        "deprecated": "0.6.0",
+        "deleted": "0.8.0",
+        "replacement": "color.background.warning.[default].[default]",
+        "description": "Use for subdued backgrounds of UI elements like warning section messages and moved lozenges."
+      },
+      "value": "#FA11F2"
+    },
+    "name": "color.background.subtleWarning.resting",
+    "path": [
+      "color",
+      "background",
+      "subtleWarning",
+      "resting"
+    ],
+    "cleanName": "color.background.subtleWarning.resting"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deleted",
+      "introduced": "0.0.15",
+      "deprecated": "0.6.0",
+      "deleted": "0.8.0",
+      "replacement": "elevation.surface.sunken",
+      "description": "Use as a secondary background for the UI"
+    },
+    "value": "#FA11F2",
+    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deleted",
+        "introduced": "0.0.15",
+        "deprecated": "0.6.0",
+        "deleted": "0.8.0",
+        "replacement": "elevation.surface.sunken",
+        "description": "Use as a secondary background for the UI"
+      },
+      "value": "#FA11F2"
+    },
+    "name": "color.background.sunken",
+    "path": [
+      "color",
+      "background",
+      "sunken"
+    ],
+    "cleanName": "color.background.sunken"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deleted",
+      "introduced": "0.0.15",
+      "deprecated": "0.6.0",
+      "deleted": "0.8.0",
+      "replacement": "color.background.neutral.subtle.hovered",
+      "description": "Hover state for UIs that do not have a default background, such as menu items or subtle buttons."
+    },
+    "value": "#FA11F2",
+    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deleted",
+        "introduced": "0.0.15",
+        "deprecated": "0.6.0",
+        "deleted": "0.8.0",
+        "replacement": "color.background.neutral.subtle.hovered",
+        "description": "Hover state for UIs that do not have a default background, such as menu items or subtle buttons."
+      },
+      "value": "#FA11F2"
+    },
+    "name": "color.background.transparentNeutral.hover",
+    "path": [
+      "color",
+      "background",
+      "transparentNeutral",
+      "hover"
+    ],
+    "cleanName": "color.background.transparentNeutral.hover"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deleted",
+      "introduced": "0.0.15",
+      "deprecated": "0.6.0",
+      "deleted": "0.8.0",
+      "replacement": "color.background.neutral.subtle.pressed",
+      "description": "Pressed state for UIs that do not have a default background, such as menu items or subtle buttons."
+    },
+    "value": "#FA11F2",
+    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deleted",
+        "introduced": "0.0.15",
+        "deprecated": "0.6.0",
+        "deleted": "0.8.0",
+        "replacement": "color.background.neutral.subtle.pressed",
+        "description": "Pressed state for UIs that do not have a default background, such as menu items or subtle buttons."
+      },
+      "value": "#FA11F2"
+    },
+    "name": "color.background.transparentNeutral.pressed",
+    "path": [
+      "color",
+      "background",
+      "transparentNeutral",
+      "pressed"
+    ],
+    "cleanName": "color.background.transparentNeutral.pressed"
   },
   {
     "attributes": {
@@ -4420,7 +6309,8 @@ const tokens = [
       "brand",
       "[default]",
       "[default]"
-    ]
+    ],
+    "cleanName": "color.background.brand"
   },
   {
     "attributes": {
@@ -4454,7 +6344,8 @@ const tokens = [
       "brand",
       "[default]",
       "hovered"
-    ]
+    ],
+    "cleanName": "color.background.brand.hovered"
   },
   {
     "attributes": {
@@ -4488,98 +6379,15 @@ const tokens = [
       "brand",
       "[default]",
       "pressed"
-    ]
+    ],
+    "cleanName": "color.background.brand.pressed"
   },
   {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.6.2",
-      "description": "Use for the background of elements in a selected state, such as in opened dropdown buttons."
-    },
-    "value": "#DEEBFF",
-    "filePath": "src/tokens/atlassian-legacy-light/color/background.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.2",
-        "description": "Use for the background of elements in a selected state, such as in opened dropdown buttons."
-      },
-      "value": "B50"
-    },
-    "name": "color.background.selected.[default].[default]",
-    "path": [
-      "color",
-      "background",
-      "selected",
-      "[default]",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.6.2",
-      "description": "Hovered state for color.background.selected"
-    },
-    "value": "#B3D4FF",
-    "filePath": "src/tokens/atlassian-legacy-light/color/background.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.2",
-        "description": "Hovered state for color.background.selected"
-      },
-      "value": "B75"
-    },
-    "name": "color.background.selected.[default].hovered",
-    "path": [
-      "color",
-      "background",
-      "selected",
-      "[default]",
-      "hovered"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.6.2",
-      "description": "Pressed state for color.background.selected"
-    },
-    "value": "#4C9AFF",
-    "filePath": "src/tokens/atlassian-legacy-light/color/background.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.2",
-        "description": "Pressed state for color.background.selected"
-      },
-      "value": "B100"
-    },
-    "name": "color.background.selected.[default].pressed",
-    "path": [
-      "color",
-      "background",
-      "selected",
-      "[default]",
-      "pressed"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.6.2",
-      "description": "Use for the backgrounds of elements in a selected state, such as checkboxes and radio buttons."
+      "introduced": "0.6.0",
+      "description": "Use for the background of elements used to reinforce our brand, but with more emphasis."
     },
     "value": "#0052CC",
     "filePath": "src/tokens/atlassian-legacy-light/color/background.tsx",
@@ -4588,141 +6396,78 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.6.2",
-        "description": "Use for the backgrounds of elements in a selected state, such as checkboxes and radio buttons."
+        "introduced": "0.6.0",
+        "description": "Use for the background of elements used to reinforce our brand, but with more emphasis."
       },
       "value": "B400"
     },
-    "name": "color.background.selected.bold.[default]",
+    "name": "color.background.brand.bold.[default]",
     "path": [
       "color",
       "background",
-      "selected",
+      "brand",
       "bold",
       "[default]"
-    ]
+    ],
+    "cleanName": "color.background.brand.bold"
   },
   {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.6.2",
-      "description": "Hovered state of color.background.selected.bold"
+      "introduced": "0.6.0",
+      "description": "Hovered state of color.background.brand.bold"
     },
-    "value": "#2684FF",
+    "value": "#0065FF",
     "filePath": "src/tokens/atlassian-legacy-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.6.2",
-        "description": "Hovered state of color.background.selected.bold"
+        "introduced": "0.6.0",
+        "description": "Hovered state of color.background.brand.bold"
       },
-      "value": "B200"
+      "value": "B300"
     },
-    "name": "color.background.selected.bold.hovered",
+    "name": "color.background.brand.bold.hovered",
     "path": [
       "color",
       "background",
-      "selected",
+      "brand",
       "bold",
       "hovered"
-    ]
+    ],
+    "cleanName": "color.background.brand.bold.hovered"
   },
   {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.6.2",
-      "description": "Pressed state of color.background.selected.bold"
+      "introduced": "0.6.0",
+      "description": "Pressed state of color.background.brand.bold"
     },
-    "value": "#0052CC",
+    "value": "#0747A6",
     "filePath": "src/tokens/atlassian-legacy-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.6.2",
-        "description": "Pressed state of color.background.selected.bold"
+        "introduced": "0.6.0",
+        "description": "Pressed state of color.background.brand.bold"
       },
-      "value": "B400"
+      "value": "B500"
     },
-    "name": "color.background.selected.bold.pressed",
+    "name": "color.background.brand.bold.pressed",
     "path": [
       "color",
       "background",
-      "selected",
+      "brand",
       "bold",
       "pressed"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "deleted",
-      "introduced": "0.1.0",
-      "deprecated": "0.6.0",
-      "deleted": "0.10.5",
-      "replacement": "color.background.selected.[default].[default]",
-      "description": "Use for backgrounds of elements in a selected state"
-    },
-    "value": "#FA11F2",
-    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "deleted",
-        "introduced": "0.1.0",
-        "deprecated": "0.6.0",
-        "deleted": "0.10.5",
-        "replacement": "color.background.selected.[default].[default]",
-        "description": "Use for backgrounds of elements in a selected state"
-      },
-      "value": "#FA11F2"
-    },
-    "name": "color.background.selected.resting",
-    "path": [
-      "color",
-      "background",
-      "selected",
-      "resting"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "deleted",
-      "introduced": "0.1.0",
-      "deprecated": "0.6.0",
-      "deleted": "0.10.5",
-      "replacement": "color.background.selected.[default].hovered",
-      "description": "Hover state for color.background.selected"
-    },
-    "value": "#FA11F2",
-    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "deleted",
-        "introduced": "0.1.0",
-        "deprecated": "0.6.0",
-        "deleted": "0.10.5",
-        "replacement": "color.background.selected.[default].hovered",
-        "description": "Hover state for color.background.selected"
-      },
-      "value": "#FA11F2"
-    },
-    "name": "color.background.selected.hover",
-    "path": [
-      "color",
-      "background",
-      "selected",
-      "hover"
-    ]
+    ],
+    "cleanName": "color.background.brand.bold.pressed"
   },
   {
     "attributes": {
@@ -4750,7 +6495,8 @@ const tokens = [
       "danger",
       "[default]",
       "[default]"
-    ]
+    ],
+    "cleanName": "color.background.danger"
   },
   {
     "attributes": {
@@ -4778,7 +6524,8 @@ const tokens = [
       "danger",
       "[default]",
       "hovered"
-    ]
+    ],
+    "cleanName": "color.background.danger.hovered"
   },
   {
     "attributes": {
@@ -4806,7 +6553,8 @@ const tokens = [
       "danger",
       "[default]",
       "pressed"
-    ]
+    ],
+    "cleanName": "color.background.danger.pressed"
   },
   {
     "attributes": {
@@ -4834,7 +6582,8 @@ const tokens = [
       "danger",
       "bold",
       "[default]"
-    ]
+    ],
+    "cleanName": "color.background.danger.bold"
   },
   {
     "attributes": {
@@ -4862,7 +6611,8 @@ const tokens = [
       "danger",
       "bold",
       "hovered"
-    ]
+    ],
+    "cleanName": "color.background.danger.bold.hovered"
   },
   {
     "attributes": {
@@ -4890,7 +6640,8 @@ const tokens = [
       "danger",
       "bold",
       "pressed"
-    ]
+    ],
+    "cleanName": "color.background.danger.bold.pressed"
   },
   {
     "attributes": {
@@ -4918,7 +6669,8 @@ const tokens = [
       "warning",
       "[default]",
       "[default]"
-    ]
+    ],
+    "cleanName": "color.background.warning"
   },
   {
     "attributes": {
@@ -4946,7 +6698,8 @@ const tokens = [
       "warning",
       "[default]",
       "hovered"
-    ]
+    ],
+    "cleanName": "color.background.warning.hovered"
   },
   {
     "attributes": {
@@ -4974,7 +6727,8 @@ const tokens = [
       "warning",
       "[default]",
       "pressed"
-    ]
+    ],
+    "cleanName": "color.background.warning.pressed"
   },
   {
     "attributes": {
@@ -5002,7 +6756,8 @@ const tokens = [
       "warning",
       "bold",
       "[default]"
-    ]
+    ],
+    "cleanName": "color.background.warning.bold"
   },
   {
     "attributes": {
@@ -5030,7 +6785,8 @@ const tokens = [
       "warning",
       "bold",
       "hovered"
-    ]
+    ],
+    "cleanName": "color.background.warning.bold.hovered"
   },
   {
     "attributes": {
@@ -5058,14 +6814,15 @@ const tokens = [
       "warning",
       "bold",
       "pressed"
-    ]
+    ],
+    "cleanName": "color.background.warning.bold.pressed"
   },
   {
     "attributes": {
       "group": "paint",
       "state": "active",
       "introduced": "0.6.0",
-      "description": "Use for backgrounds communicating a favourable outcome, such as in success section messages."
+      "description": "Use for backgrounds communicating a favorable outcome, such as in success section messages."
     },
     "value": "#E3FCEF",
     "filePath": "src/tokens/atlassian-legacy-light/color/background.tsx",
@@ -5075,7 +6832,7 @@ const tokens = [
         "group": "paint",
         "state": "active",
         "introduced": "0.6.0",
-        "description": "Use for backgrounds communicating a favourable outcome, such as in success section messages."
+        "description": "Use for backgrounds communicating a favorable outcome, such as in success section messages."
       },
       "value": "G50"
     },
@@ -5086,7 +6843,8 @@ const tokens = [
       "success",
       "[default]",
       "[default]"
-    ]
+    ],
+    "cleanName": "color.background.success"
   },
   {
     "attributes": {
@@ -5114,7 +6872,8 @@ const tokens = [
       "success",
       "[default]",
       "hovered"
-    ]
+    ],
+    "cleanName": "color.background.success.hovered"
   },
   {
     "attributes": {
@@ -5142,14 +6901,15 @@ const tokens = [
       "success",
       "[default]",
       "pressed"
-    ]
+    ],
+    "cleanName": "color.background.success.pressed"
   },
   {
     "attributes": {
       "group": "paint",
       "state": "active",
       "introduced": "0.6.0",
-      "description": "A vibrant background option for communicating a favourable outcome, such as in checked toggles."
+      "description": "A vibrant background option for communicating a favorable outcome, such as in checked toggles."
     },
     "value": "#00875A",
     "filePath": "src/tokens/atlassian-legacy-light/color/background.tsx",
@@ -5159,7 +6919,7 @@ const tokens = [
         "group": "paint",
         "state": "active",
         "introduced": "0.6.0",
-        "description": "A vibrant background option for communicating a favourable outcome, such as in checked toggles."
+        "description": "A vibrant background option for communicating a favorable outcome, such as in checked toggles."
       },
       "value": "G400"
     },
@@ -5170,7 +6930,8 @@ const tokens = [
       "success",
       "bold",
       "[default]"
-    ]
+    ],
+    "cleanName": "color.background.success.bold"
   },
   {
     "attributes": {
@@ -5198,7 +6959,8 @@ const tokens = [
       "success",
       "bold",
       "hovered"
-    ]
+    ],
+    "cleanName": "color.background.success.bold.hovered"
   },
   {
     "attributes": {
@@ -5226,7 +6988,8 @@ const tokens = [
       "success",
       "bold",
       "pressed"
-    ]
+    ],
+    "cleanName": "color.background.success.bold.pressed"
   },
   {
     "attributes": {
@@ -5254,7 +7017,8 @@ const tokens = [
       "discovery",
       "[default]",
       "[default]"
-    ]
+    ],
+    "cleanName": "color.background.discovery"
   },
   {
     "attributes": {
@@ -5282,7 +7046,8 @@ const tokens = [
       "discovery",
       "[default]",
       "hovered"
-    ]
+    ],
+    "cleanName": "color.background.discovery.hovered"
   },
   {
     "attributes": {
@@ -5310,7 +7075,8 @@ const tokens = [
       "discovery",
       "[default]",
       "pressed"
-    ]
+    ],
+    "cleanName": "color.background.discovery.pressed"
   },
   {
     "attributes": {
@@ -5338,7 +7104,8 @@ const tokens = [
       "discovery",
       "bold",
       "[default]"
-    ]
+    ],
+    "cleanName": "color.background.discovery.bold"
   },
   {
     "attributes": {
@@ -5366,7 +7133,8 @@ const tokens = [
       "discovery",
       "bold",
       "hovered"
-    ]
+    ],
+    "cleanName": "color.background.discovery.bold.hovered"
   },
   {
     "attributes": {
@@ -5394,7 +7162,8 @@ const tokens = [
       "discovery",
       "bold",
       "pressed"
-    ]
+    ],
+    "cleanName": "color.background.discovery.bold.pressed"
   },
   {
     "attributes": {
@@ -5422,7 +7191,8 @@ const tokens = [
       "information",
       "[default]",
       "[default]"
-    ]
+    ],
+    "cleanName": "color.background.information"
   },
   {
     "attributes": {
@@ -5450,7 +7220,8 @@ const tokens = [
       "information",
       "[default]",
       "hovered"
-    ]
+    ],
+    "cleanName": "color.background.information.hovered"
   },
   {
     "attributes": {
@@ -5478,7 +7249,8 @@ const tokens = [
       "information",
       "[default]",
       "pressed"
-    ]
+    ],
+    "cleanName": "color.background.information.pressed"
   },
   {
     "attributes": {
@@ -5506,7 +7278,8 @@ const tokens = [
       "information",
       "bold",
       "[default]"
-    ]
+    ],
+    "cleanName": "color.background.information.bold"
   },
   {
     "attributes": {
@@ -5534,7 +7307,8 @@ const tokens = [
       "information",
       "bold",
       "hovered"
-    ]
+    ],
+    "cleanName": "color.background.information.bold.hovered"
   },
   {
     "attributes": {
@@ -5562,1487 +7336,8 @@ const tokens = [
       "information",
       "bold",
       "pressed"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "deleted",
-      "introduced": "0.0.15",
-      "deprecated": "0.6.0",
-      "deleted": "0.8.0",
-      "replacement": "color.blanket.[default]",
-      "description": "Use for the screen overlay that appears with modal dialogs"
-    },
-    "value": "#FA11F2",
-    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "deleted",
-        "introduced": "0.0.15",
-        "deprecated": "0.6.0",
-        "deleted": "0.8.0",
-        "replacement": "color.blanket.[default]",
-        "description": "Use for the screen overlay that appears with modal dialogs"
-      },
-      "value": "#FA11F2"
-    },
-    "name": "color.background.blanket",
-    "path": [
-      "color",
-      "background",
-      "blanket"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "deleted",
-      "introduced": "0.0.15",
-      "deprecated": "0.6.0",
-      "deleted": "0.8.0",
-      "replacement": "color.background.brand.bold.hovered",
-      "description": "Hover state of background.boldBrand"
-    },
-    "value": "#FA11F2",
-    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "deleted",
-        "introduced": "0.0.15",
-        "deprecated": "0.6.0",
-        "deleted": "0.8.0",
-        "replacement": "color.background.brand.bold.hovered",
-        "description": "Hover state of background.boldBrand"
-      },
-      "value": "#FA11F2"
-    },
-    "name": "color.background.boldBrand.hover",
-    "path": [
-      "color",
-      "background",
-      "boldBrand",
-      "hover"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "deleted",
-      "introduced": "0.0.15",
-      "deprecated": "0.6.0",
-      "deleted": "0.8.0",
-      "replacement": "color.background.brand.bold.pressed",
-      "description": "Pressed state of background.boldBrand"
-    },
-    "value": "#FA11F2",
-    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "deleted",
-        "introduced": "0.0.15",
-        "deprecated": "0.6.0",
-        "deleted": "0.8.0",
-        "replacement": "color.background.brand.bold.pressed",
-        "description": "Pressed state of background.boldBrand"
-      },
-      "value": "#FA11F2"
-    },
-    "name": "color.background.boldBrand.pressed",
-    "path": [
-      "color",
-      "background",
-      "boldBrand",
-      "pressed"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "deleted",
-      "introduced": "0.0.15",
-      "deprecated": "0.6.0",
-      "deleted": "0.8.0",
-      "replacement": "color.background.brand.bold.[default]",
-      "description": "A vibrant background for small UI elements like primary buttons and bold in progress lozenges."
-    },
-    "value": "#FA11F2",
-    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "deleted",
-        "introduced": "0.0.15",
-        "deprecated": "0.6.0",
-        "deleted": "0.8.0",
-        "replacement": "color.background.brand.bold.[default]",
-        "description": "A vibrant background for small UI elements like primary buttons and bold in progress lozenges."
-      },
-      "value": "#FA11F2"
-    },
-    "name": "color.background.boldBrand.resting",
-    "path": [
-      "color",
-      "background",
-      "boldBrand",
-      "resting"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "deleted",
-      "introduced": "0.0.15",
-      "deprecated": "0.6.0",
-      "deleted": "0.8.0",
-      "replacement": "color.background.danger.bold.hovered",
-      "description": "Hover state of background.boldDanger"
-    },
-    "value": "#FA11F2",
-    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "deleted",
-        "introduced": "0.0.15",
-        "deprecated": "0.6.0",
-        "deleted": "0.8.0",
-        "replacement": "color.background.danger.bold.hovered",
-        "description": "Hover state of background.boldDanger"
-      },
-      "value": "#FA11F2"
-    },
-    "name": "color.background.boldDanger.hover",
-    "path": [
-      "color",
-      "background",
-      "boldDanger",
-      "hover"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "deleted",
-      "introduced": "0.0.15",
-      "deprecated": "0.6.0",
-      "deleted": "0.8.0",
-      "replacement": "color.background.danger.bold.pressed",
-      "description": "Pressed state of background.boldDanger"
-    },
-    "value": "#FA11F2",
-    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "deleted",
-        "introduced": "0.0.15",
-        "deprecated": "0.6.0",
-        "deleted": "0.8.0",
-        "replacement": "color.background.danger.bold.pressed",
-        "description": "Pressed state of background.boldDanger"
-      },
-      "value": "#FA11F2"
-    },
-    "name": "color.background.boldDanger.pressed",
-    "path": [
-      "color",
-      "background",
-      "boldDanger",
-      "pressed"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "deleted",
-      "introduced": "0.0.15",
-      "deprecated": "0.6.0",
-      "deleted": "0.8.0",
-      "replacement": "color.background.danger.bold.[default]",
-      "description": "A vibrant background for small UI elements like danger buttons and bold removed lozenges."
-    },
-    "value": "#FA11F2",
-    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "deleted",
-        "introduced": "0.0.15",
-        "deprecated": "0.6.0",
-        "deleted": "0.8.0",
-        "replacement": "color.background.danger.bold.[default]",
-        "description": "A vibrant background for small UI elements like danger buttons and bold removed lozenges."
-      },
-      "value": "#FA11F2"
-    },
-    "name": "color.background.boldDanger.resting",
-    "path": [
-      "color",
-      "background",
-      "boldDanger",
-      "resting"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "deleted",
-      "introduced": "0.0.15",
-      "deprecated": "0.6.0",
-      "deleted": "0.8.0",
-      "replacement": "color.background.discovery.bold.hovered",
-      "description": "Hover state of background.boldDiscovery"
-    },
-    "value": "#FA11F2",
-    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "deleted",
-        "introduced": "0.0.15",
-        "deprecated": "0.6.0",
-        "deleted": "0.8.0",
-        "replacement": "color.background.discovery.bold.hovered",
-        "description": "Hover state of background.boldDiscovery"
-      },
-      "value": "#FA11F2"
-    },
-    "name": "color.background.boldDiscovery.hover",
-    "path": [
-      "color",
-      "background",
-      "boldDiscovery",
-      "hover"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "deleted",
-      "introduced": "0.0.15",
-      "deprecated": "0.6.0",
-      "deleted": "0.8.0",
-      "replacement": "color.background.discovery.bold.pressed",
-      "description": "Pressed state of background.boldDiscovery"
-    },
-    "value": "#FA11F2",
-    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "deleted",
-        "introduced": "0.0.15",
-        "deprecated": "0.6.0",
-        "deleted": "0.8.0",
-        "replacement": "color.background.discovery.bold.pressed",
-        "description": "Pressed state of background.boldDiscovery"
-      },
-      "value": "#FA11F2"
-    },
-    "name": "color.background.boldDiscovery.pressed",
-    "path": [
-      "color",
-      "background",
-      "boldDiscovery",
-      "pressed"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "deleted",
-      "introduced": "0.0.15",
-      "deprecated": "0.6.0",
-      "deleted": "0.8.0",
-      "replacement": "color.background.discovery.bold.[default]",
-      "description": "A vibrant background for small UI elements like onboarding buttons and bold new lozenges."
-    },
-    "value": "#FA11F2",
-    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "deleted",
-        "introduced": "0.0.15",
-        "deprecated": "0.6.0",
-        "deleted": "0.8.0",
-        "replacement": "color.background.discovery.bold.[default]",
-        "description": "A vibrant background for small UI elements like onboarding buttons and bold new lozenges."
-      },
-      "value": "#FA11F2"
-    },
-    "name": "color.background.boldDiscovery.resting",
-    "path": [
-      "color",
-      "background",
-      "boldDiscovery",
-      "resting"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "deleted",
-      "introduced": "0.0.15",
-      "deprecated": "0.6.0",
-      "deleted": "0.8.0",
-      "replacement": "color.background.neutral.bold.hovered",
-      "description": "Hover state of background.boldNeutral"
-    },
-    "value": "#FA11F2",
-    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "deleted",
-        "introduced": "0.0.15",
-        "deprecated": "0.6.0",
-        "deleted": "0.8.0",
-        "replacement": "color.background.neutral.bold.hovered",
-        "description": "Hover state of background.boldNeutral"
-      },
-      "value": "#FA11F2"
-    },
-    "name": "color.background.boldNeutral.hover",
-    "path": [
-      "color",
-      "background",
-      "boldNeutral",
-      "hover"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "deleted",
-      "introduced": "0.0.15",
-      "deprecated": "0.6.0",
-      "deleted": "0.8.0",
-      "replacement": "color.background.neutral.bold.pressed",
-      "description": "Pressed state of background.boldNeutral"
-    },
-    "value": "#FA11F2",
-    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "deleted",
-        "introduced": "0.0.15",
-        "deprecated": "0.6.0",
-        "deleted": "0.8.0",
-        "replacement": "color.background.neutral.bold.pressed",
-        "description": "Pressed state of background.boldNeutral"
-      },
-      "value": "#FA11F2"
-    },
-    "name": "color.background.boldNeutral.pressed",
-    "path": [
-      "color",
-      "background",
-      "boldNeutral",
-      "pressed"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "deleted",
-      "introduced": "0.0.15",
-      "deprecated": "0.6.0",
-      "deleted": "0.8.0",
-      "replacement": "color.background.neutral.bold.[default]",
-      "description": "A vibrant background for small UI elements like unchecked toggles and bold default lozenges."
-    },
-    "value": "#FA11F2",
-    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "deleted",
-        "introduced": "0.0.15",
-        "deprecated": "0.6.0",
-        "deleted": "0.8.0",
-        "replacement": "color.background.neutral.bold.[default]",
-        "description": "A vibrant background for small UI elements like unchecked toggles and bold default lozenges."
-      },
-      "value": "#FA11F2"
-    },
-    "name": "color.background.boldNeutral.resting",
-    "path": [
-      "color",
-      "background",
-      "boldNeutral",
-      "resting"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "deleted",
-      "introduced": "0.0.15",
-      "deprecated": "0.6.0",
-      "deleted": "0.8.0",
-      "replacement": "color.background.success.bold.hovered",
-      "description": "Hover state of background.boldSuccess"
-    },
-    "value": "#FA11F2",
-    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "deleted",
-        "introduced": "0.0.15",
-        "deprecated": "0.6.0",
-        "deleted": "0.8.0",
-        "replacement": "color.background.success.bold.hovered",
-        "description": "Hover state of background.boldSuccess"
-      },
-      "value": "#FA11F2"
-    },
-    "name": "color.background.boldSuccess.hover",
-    "path": [
-      "color",
-      "background",
-      "boldSuccess",
-      "hover"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "deleted",
-      "introduced": "0.0.15",
-      "deprecated": "0.6.0",
-      "deleted": "0.8.0",
-      "replacement": "color.background.success.bold.pressed",
-      "description": "Pressed state of background.boldSuccess"
-    },
-    "value": "#FA11F2",
-    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "deleted",
-        "introduced": "0.0.15",
-        "deprecated": "0.6.0",
-        "deleted": "0.8.0",
-        "replacement": "color.background.success.bold.pressed",
-        "description": "Pressed state of background.boldSuccess"
-      },
-      "value": "#FA11F2"
-    },
-    "name": "color.background.boldSuccess.pressed",
-    "path": [
-      "color",
-      "background",
-      "boldSuccess",
-      "pressed"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "deleted",
-      "introduced": "0.0.15",
-      "deprecated": "0.6.0",
-      "deleted": "0.8.0",
-      "replacement": "color.background.success.bold.[default]",
-      "description": "A vibrant background for small UI elements like checked toggles and bold success lozenges."
-    },
-    "value": "#FA11F2",
-    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "deleted",
-        "introduced": "0.0.15",
-        "deprecated": "0.6.0",
-        "deleted": "0.8.0",
-        "replacement": "color.background.success.bold.[default]",
-        "description": "A vibrant background for small UI elements like checked toggles and bold success lozenges."
-      },
-      "value": "#FA11F2"
-    },
-    "name": "color.background.boldSuccess.resting",
-    "path": [
-      "color",
-      "background",
-      "boldSuccess",
-      "resting"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "deleted",
-      "introduced": "0.0.15",
-      "deprecated": "0.6.0",
-      "deleted": "0.8.0",
-      "replacement": "color.background.warning.bold.hovered",
-      "description": "Hover state of background.boldWarning"
-    },
-    "value": "#FA11F2",
-    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "deleted",
-        "introduced": "0.0.15",
-        "deprecated": "0.6.0",
-        "deleted": "0.8.0",
-        "replacement": "color.background.warning.bold.hovered",
-        "description": "Hover state of background.boldWarning"
-      },
-      "value": "#FA11F2"
-    },
-    "name": "color.background.boldWarning.hover",
-    "path": [
-      "color",
-      "background",
-      "boldWarning",
-      "hover"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "deleted",
-      "introduced": "0.0.15",
-      "deprecated": "0.6.0",
-      "deleted": "0.8.0",
-      "replacement": "color.background.warning.bold.pressed",
-      "description": "Pressed state of background.boldWarning"
-    },
-    "value": "#FA11F2",
-    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "deleted",
-        "introduced": "0.0.15",
-        "deprecated": "0.6.0",
-        "deleted": "0.8.0",
-        "replacement": "color.background.warning.bold.pressed",
-        "description": "Pressed state of background.boldWarning"
-      },
-      "value": "#FA11F2"
-    },
-    "name": "color.background.boldWarning.pressed",
-    "path": [
-      "color",
-      "background",
-      "boldWarning",
-      "pressed"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "deleted",
-      "introduced": "0.0.15",
-      "deprecated": "0.6.0",
-      "deleted": "0.8.0",
-      "replacement": "color.background.warning.bold.[default]",
-      "description": "A vibrant background for small UI elements like warning buttons and bold moved lozenges."
-    },
-    "value": "#FA11F2",
-    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "deleted",
-        "introduced": "0.0.15",
-        "deprecated": "0.6.0",
-        "deleted": "0.8.0",
-        "replacement": "color.background.warning.bold.[default]",
-        "description": "A vibrant background for small UI elements like warning buttons and bold moved lozenges."
-      },
-      "value": "#FA11F2"
-    },
-    "name": "color.background.boldWarning.resting",
-    "path": [
-      "color",
-      "background",
-      "boldWarning",
-      "resting"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "deleted",
-      "introduced": "0.0.15",
-      "deprecated": "0.6.0",
-      "deleted": "0.8.0",
-      "replacement": "elevation.surface.raised.[default]",
-      "description": "Use for the background of raised cards, such as Jira cards on a Kanban board.\nCombine with shadow.card."
-    },
-    "value": "#FA11F2",
-    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "deleted",
-        "introduced": "0.0.15",
-        "deprecated": "0.6.0",
-        "deleted": "0.8.0",
-        "replacement": "elevation.surface.raised.[default]",
-        "description": "Use for the background of raised cards, such as Jira cards on a Kanban board.\nCombine with shadow.card."
-      },
-      "value": "#FA11F2"
-    },
-    "name": "color.background.card",
-    "path": [
-      "color",
-      "background",
-      "card"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "deleted",
-      "introduced": "0.0.15",
-      "deprecated": "0.6.0",
-      "deleted": "0.8.0",
-      "replacement": "elevation.surface.[default].[default]",
-      "description": "Use as the primary background for the UI"
-    },
-    "value": "#FA11F2",
-    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "deleted",
-        "introduced": "0.0.15",
-        "deprecated": "0.6.0",
-        "deleted": "0.8.0",
-        "replacement": "elevation.surface.[default].[default]",
-        "description": "Use as the primary background for the UI"
-      },
-      "value": "#FA11F2"
-    },
-    "name": "color.background.default",
-    "path": [
-      "color",
-      "background",
-      "default"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "deleted",
-      "introduced": "0.0.15",
-      "deprecated": "0.6.0",
-      "deleted": "0.8.0",
-      "replacement": "elevation.surface.overlay.[default]",
-      "description": "\nUse for the background of overlay elements, such as modals, dropdown menus, flags, and inline dialogs (i.e. elements that sit on top of the UI).\n\nAlso use for the background of raised cards in a dragged state.\n\nCombine with shadow.overlay."
-    },
-    "value": "#FA11F2",
-    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "deleted",
-        "introduced": "0.0.15",
-        "deprecated": "0.6.0",
-        "deleted": "0.8.0",
-        "replacement": "elevation.surface.overlay.[default]",
-        "description": "\nUse for the background of overlay elements, such as modals, dropdown menus, flags, and inline dialogs (i.e. elements that sit on top of the UI).\n\nAlso use for the background of raised cards in a dragged state.\n\nCombine with shadow.overlay."
-      },
-      "value": "#FA11F2"
-    },
-    "name": "color.background.overlay",
-    "path": [
-      "color",
-      "background",
-      "overlay"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "deleted",
-      "introduced": "0.0.15",
-      "deprecated": "0.6.0",
-      "deleted": "0.8.0",
-      "replacement": "color.background.input.pressed",
-      "description": "Pressed state for background.subtleBorderedNeutral"
-    },
-    "value": "#FA11F2",
-    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "deleted",
-        "introduced": "0.0.15",
-        "deprecated": "0.6.0",
-        "deleted": "0.8.0",
-        "replacement": "color.background.input.pressed",
-        "description": "Pressed state for background.subtleBorderedNeutral"
-      },
-      "value": "#FA11F2"
-    },
-    "name": "color.background.subtleBorderedNeutral.pressed",
-    "path": [
-      "color",
-      "background",
-      "subtleBorderedNeutral",
-      "pressed"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "deleted",
-      "introduced": "0.0.15",
-      "deprecated": "0.6.0",
-      "deleted": "0.8.0",
-      "replacement": "color.background.input.[default]",
-      "description": "Hover state for background.subtleBorderedNeutral"
-    },
-    "value": "#FA11F2",
-    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "deleted",
-        "introduced": "0.0.15",
-        "deprecated": "0.6.0",
-        "deleted": "0.8.0",
-        "replacement": "color.background.input.[default]",
-        "description": "Hover state for background.subtleBorderedNeutral"
-      },
-      "value": "#FA11F2"
-    },
-    "name": "color.background.subtleBorderedNeutral.resting",
-    "path": [
-      "color",
-      "background",
-      "subtleBorderedNeutral",
-      "resting"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "deleted",
-      "introduced": "0.0.15",
-      "deprecated": "0.6.0",
-      "deleted": "0.10.5",
-      "replacement": "color.background.selected.[default].hovered",
-      "description": "Hover state for background.subtleBrand"
-    },
-    "value": "#FA11F2",
-    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "deleted",
-        "introduced": "0.0.15",
-        "deprecated": "0.6.0",
-        "deleted": "0.10.5",
-        "replacement": "color.background.selected.[default].hovered",
-        "description": "Hover state for background.subtleBrand"
-      },
-      "value": "#FA11F2"
-    },
-    "name": "color.background.subtleBrand.hover",
-    "path": [
-      "color",
-      "background",
-      "subtleBrand",
-      "hover"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "deleted",
-      "introduced": "0.0.15",
-      "deprecated": "0.6.0",
-      "deleted": "0.10.5",
-      "replacement": "color.background.selected.[default].pressed",
-      "description": "Pressed state for background.subtleBrand"
-    },
-    "value": "#FA11F2",
-    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "deleted",
-        "introduced": "0.0.15",
-        "deprecated": "0.6.0",
-        "deleted": "0.10.5",
-        "replacement": "color.background.selected.[default].pressed",
-        "description": "Pressed state for background.subtleBrand"
-      },
-      "value": "#FA11F2"
-    },
-    "name": "color.background.subtleBrand.pressed",
-    "path": [
-      "color",
-      "background",
-      "subtleBrand",
-      "pressed"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "deleted",
-      "introduced": "0.0.15",
-      "deprecated": "0.6.0",
-      "deleted": "0.10.5",
-      "replacement": "color.background.selected.[default].[default]",
-      "description": "Use for subdued backgrounds of UI elements like information section messages and in progress lozenges."
-    },
-    "value": "#FA11F2",
-    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "deleted",
-        "introduced": "0.0.15",
-        "deprecated": "0.6.0",
-        "deleted": "0.10.5",
-        "replacement": "color.background.selected.[default].[default]",
-        "description": "Use for subdued backgrounds of UI elements like information section messages and in progress lozenges."
-      },
-      "value": "#FA11F2"
-    },
-    "name": "color.background.subtleBrand.resting",
-    "path": [
-      "color",
-      "background",
-      "subtleBrand",
-      "resting"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "deleted",
-      "introduced": "0.0.15",
-      "deprecated": "0.6.0",
-      "deleted": "0.8.0",
-      "replacement": "color.background.danger.[default].hovered",
-      "description": "Hover state for background.subtleDanger"
-    },
-    "value": "#FA11F2",
-    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "deleted",
-        "introduced": "0.0.15",
-        "deprecated": "0.6.0",
-        "deleted": "0.8.0",
-        "replacement": "color.background.danger.[default].hovered",
-        "description": "Hover state for background.subtleDanger"
-      },
-      "value": "#FA11F2"
-    },
-    "name": "color.background.subtleDanger.hover",
-    "path": [
-      "color",
-      "background",
-      "subtleDanger",
-      "hover"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "deleted",
-      "introduced": "0.0.15",
-      "deprecated": "0.6.0",
-      "deleted": "0.8.0",
-      "replacement": "color.background.danger.[default].pressed",
-      "description": "Pressed state for background.subtleDanger"
-    },
-    "value": "#FA11F2",
-    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "deleted",
-        "introduced": "0.0.15",
-        "deprecated": "0.6.0",
-        "deleted": "0.8.0",
-        "replacement": "color.background.danger.[default].pressed",
-        "description": "Pressed state for background.subtleDanger"
-      },
-      "value": "#FA11F2"
-    },
-    "name": "color.background.subtleDanger.pressed",
-    "path": [
-      "color",
-      "background",
-      "subtleDanger",
-      "pressed"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "deleted",
-      "introduced": "0.0.15",
-      "deprecated": "0.6.0",
-      "deleted": "0.8.0",
-      "replacement": "color.background.danger.[default].[default]",
-      "description": "Use for subdued backgrounds of UI elements like error section messages and removed lozenges."
-    },
-    "value": "#FA11F2",
-    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "deleted",
-        "introduced": "0.0.15",
-        "deprecated": "0.6.0",
-        "deleted": "0.8.0",
-        "replacement": "color.background.danger.[default].[default]",
-        "description": "Use for subdued backgrounds of UI elements like error section messages and removed lozenges."
-      },
-      "value": "#FA11F2"
-    },
-    "name": "color.background.subtleDanger.resting",
-    "path": [
-      "color",
-      "background",
-      "subtleDanger",
-      "resting"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "deleted",
-      "introduced": "0.0.15",
-      "deprecated": "0.6.0",
-      "deleted": "0.8.0",
-      "replacement": "color.background.discovery.[default].hovered",
-      "description": "Hover state for background.subtleDiscovery"
-    },
-    "value": "#FA11F2",
-    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "deleted",
-        "introduced": "0.0.15",
-        "deprecated": "0.6.0",
-        "deleted": "0.8.0",
-        "replacement": "color.background.discovery.[default].hovered",
-        "description": "Hover state for background.subtleDiscovery"
-      },
-      "value": "#FA11F2"
-    },
-    "name": "color.background.subtleDiscovery.hover",
-    "path": [
-      "color",
-      "background",
-      "subtleDiscovery",
-      "hover"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "deleted",
-      "introduced": "0.0.15",
-      "deprecated": "0.6.0",
-      "deleted": "0.8.0",
-      "replacement": "color.background.discovery.[default].pressed",
-      "description": "Pressed state for background.subtleDiscovery"
-    },
-    "value": "#FA11F2",
-    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "deleted",
-        "introduced": "0.0.15",
-        "deprecated": "0.6.0",
-        "deleted": "0.8.0",
-        "replacement": "color.background.discovery.[default].pressed",
-        "description": "Pressed state for background.subtleDiscovery"
-      },
-      "value": "#FA11F2"
-    },
-    "name": "color.background.subtleDiscovery.pressed",
-    "path": [
-      "color",
-      "background",
-      "subtleDiscovery",
-      "pressed"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "deleted",
-      "introduced": "0.0.15",
-      "deprecated": "0.6.0",
-      "deleted": "0.8.0",
-      "replacement": "color.background.discovery.[default].[default]",
-      "description": "Use for subdued backgrounds of UI elements like discovery section messages and new lozenges."
-    },
-    "value": "#FA11F2",
-    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "deleted",
-        "introduced": "0.0.15",
-        "deprecated": "0.6.0",
-        "deleted": "0.8.0",
-        "replacement": "color.background.discovery.[default].[default]",
-        "description": "Use for subdued backgrounds of UI elements like discovery section messages and new lozenges."
-      },
-      "value": "#FA11F2"
-    },
-    "name": "color.background.subtleDiscovery.resting",
-    "path": [
-      "color",
-      "background",
-      "subtleDiscovery",
-      "resting"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "deleted",
-      "introduced": "0.0.15",
-      "deprecated": "0.6.0",
-      "deleted": "0.8.0",
-      "replacement": "color.background.neutral.[default].hovered",
-      "description": "Hover state for background.subtleNeutral"
-    },
-    "value": "#FA11F2",
-    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "deleted",
-        "introduced": "0.0.15",
-        "deprecated": "0.6.0",
-        "deleted": "0.8.0",
-        "replacement": "color.background.neutral.[default].hovered",
-        "description": "Hover state for background.subtleNeutral"
-      },
-      "value": "#FA11F2"
-    },
-    "name": "color.background.subtleNeutral.hover",
-    "path": [
-      "color",
-      "background",
-      "subtleNeutral",
-      "hover"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "deleted",
-      "introduced": "0.0.15",
-      "deprecated": "0.6.0",
-      "deleted": "0.8.0",
-      "replacement": "color.background.neutral.[default].pressed",
-      "description": "Pressed state for background.subtleNeutral"
-    },
-    "value": "#FA11F2",
-    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "deleted",
-        "introduced": "0.0.15",
-        "deprecated": "0.6.0",
-        "deleted": "0.8.0",
-        "replacement": "color.background.neutral.[default].pressed",
-        "description": "Pressed state for background.subtleNeutral"
-      },
-      "value": "#FA11F2"
-    },
-    "name": "color.background.subtleNeutral.pressed",
-    "path": [
-      "color",
-      "background",
-      "subtleNeutral",
-      "pressed"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "deleted",
-      "introduced": "0.0.15",
-      "deprecated": "0.6.0",
-      "deleted": "0.8.0",
-      "replacement": "color.background.neutral.[default].[default]",
-      "description": "Use as the default background of UI elements like buttons, lozenges, and tags."
-    },
-    "value": "#FA11F2",
-    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "deleted",
-        "introduced": "0.0.15",
-        "deprecated": "0.6.0",
-        "deleted": "0.8.0",
-        "replacement": "color.background.neutral.[default].[default]",
-        "description": "Use as the default background of UI elements like buttons, lozenges, and tags."
-      },
-      "value": "#FA11F2"
-    },
-    "name": "color.background.subtleNeutral.resting",
-    "path": [
-      "color",
-      "background",
-      "subtleNeutral",
-      "resting"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "deleted",
-      "introduced": "0.0.15",
-      "deprecated": "0.6.0",
-      "deleted": "0.8.0",
-      "replacement": "color.background.success.[default].hovered",
-      "description": "Hover state for background.subtleSuccess"
-    },
-    "value": "#FA11F2",
-    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "deleted",
-        "introduced": "0.0.15",
-        "deprecated": "0.6.0",
-        "deleted": "0.8.0",
-        "replacement": "color.background.success.[default].hovered",
-        "description": "Hover state for background.subtleSuccess"
-      },
-      "value": "#FA11F2"
-    },
-    "name": "color.background.subtleSuccess.hover",
-    "path": [
-      "color",
-      "background",
-      "subtleSuccess",
-      "hover"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "deleted",
-      "introduced": "0.0.15",
-      "deprecated": "0.6.0",
-      "deleted": "0.8.0",
-      "replacement": "color.background.success.[default].pressed",
-      "description": "Pressed state for background.subtleSuccess"
-    },
-    "value": "#FA11F2",
-    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "deleted",
-        "introduced": "0.0.15",
-        "deprecated": "0.6.0",
-        "deleted": "0.8.0",
-        "replacement": "color.background.success.[default].pressed",
-        "description": "Pressed state for background.subtleSuccess"
-      },
-      "value": "#FA11F2"
-    },
-    "name": "color.background.subtleSuccess.pressed",
-    "path": [
-      "color",
-      "background",
-      "subtleSuccess",
-      "pressed"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "deleted",
-      "introduced": "0.0.15",
-      "deprecated": "0.6.0",
-      "deleted": "0.8.0",
-      "replacement": "color.background.success.[default].[default]",
-      "description": "Use for subdued backgrounds of UI elements like success section messages and success lozenges."
-    },
-    "value": "#FA11F2",
-    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "deleted",
-        "introduced": "0.0.15",
-        "deprecated": "0.6.0",
-        "deleted": "0.8.0",
-        "replacement": "color.background.success.[default].[default]",
-        "description": "Use for subdued backgrounds of UI elements like success section messages and success lozenges."
-      },
-      "value": "#FA11F2"
-    },
-    "name": "color.background.subtleSuccess.resting",
-    "path": [
-      "color",
-      "background",
-      "subtleSuccess",
-      "resting"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "deleted",
-      "introduced": "0.0.15",
-      "deprecated": "0.6.0",
-      "deleted": "0.8.0",
-      "replacement": "color.background.warning.[default].hovered",
-      "description": "Hover state for background.subtleWarning"
-    },
-    "value": "#FA11F2",
-    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "deleted",
-        "introduced": "0.0.15",
-        "deprecated": "0.6.0",
-        "deleted": "0.8.0",
-        "replacement": "color.background.warning.[default].hovered",
-        "description": "Hover state for background.subtleWarning"
-      },
-      "value": "#FA11F2"
-    },
-    "name": "color.background.subtleWarning.hover",
-    "path": [
-      "color",
-      "background",
-      "subtleWarning",
-      "hover"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "deleted",
-      "introduced": "0.0.15",
-      "deprecated": "0.6.0",
-      "deleted": "0.8.0",
-      "replacement": "color.background.warning.[default].pressed",
-      "description": "Pressed state for background.subtleWarning"
-    },
-    "value": "#FA11F2",
-    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "deleted",
-        "introduced": "0.0.15",
-        "deprecated": "0.6.0",
-        "deleted": "0.8.0",
-        "replacement": "color.background.warning.[default].pressed",
-        "description": "Pressed state for background.subtleWarning"
-      },
-      "value": "#FA11F2"
-    },
-    "name": "color.background.subtleWarning.pressed",
-    "path": [
-      "color",
-      "background",
-      "subtleWarning",
-      "pressed"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "deleted",
-      "introduced": "0.0.15",
-      "deprecated": "0.6.0",
-      "deleted": "0.8.0",
-      "replacement": "color.background.warning.[default].[default]",
-      "description": "Use for subdued backgrounds of UI elements like warning section messages and moved lozenges."
-    },
-    "value": "#FA11F2",
-    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "deleted",
-        "introduced": "0.0.15",
-        "deprecated": "0.6.0",
-        "deleted": "0.8.0",
-        "replacement": "color.background.warning.[default].[default]",
-        "description": "Use for subdued backgrounds of UI elements like warning section messages and moved lozenges."
-      },
-      "value": "#FA11F2"
-    },
-    "name": "color.background.subtleWarning.resting",
-    "path": [
-      "color",
-      "background",
-      "subtleWarning",
-      "resting"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "deleted",
-      "introduced": "0.0.15",
-      "deprecated": "0.6.0",
-      "deleted": "0.8.0",
-      "replacement": "elevation.surface.sunken",
-      "description": "Use as a secondary background for the UI"
-    },
-    "value": "#FA11F2",
-    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "deleted",
-        "introduced": "0.0.15",
-        "deprecated": "0.6.0",
-        "deleted": "0.8.0",
-        "replacement": "elevation.surface.sunken",
-        "description": "Use as a secondary background for the UI"
-      },
-      "value": "#FA11F2"
-    },
-    "name": "color.background.sunken",
-    "path": [
-      "color",
-      "background",
-      "sunken"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "deleted",
-      "introduced": "0.0.15",
-      "deprecated": "0.6.0",
-      "deleted": "0.8.0",
-      "replacement": "color.background.neutral.subtle.hovered",
-      "description": "Hover state for UIs that do not have a default background, such as menu items or subtle buttons."
-    },
-    "value": "#FA11F2",
-    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "deleted",
-        "introduced": "0.0.15",
-        "deprecated": "0.6.0",
-        "deleted": "0.8.0",
-        "replacement": "color.background.neutral.subtle.hovered",
-        "description": "Hover state for UIs that do not have a default background, such as menu items or subtle buttons."
-      },
-      "value": "#FA11F2"
-    },
-    "name": "color.background.transparentNeutral.hover",
-    "path": [
-      "color",
-      "background",
-      "transparentNeutral",
-      "hover"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "deleted",
-      "introduced": "0.0.15",
-      "deprecated": "0.6.0",
-      "deleted": "0.8.0",
-      "replacement": "color.background.neutral.subtle.pressed",
-      "description": "Pressed state for UIs that do not have a default background, such as menu items or subtle buttons."
-    },
-    "value": "#FA11F2",
-    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "deleted",
-        "introduced": "0.0.15",
-        "deprecated": "0.6.0",
-        "deleted": "0.8.0",
-        "replacement": "color.background.neutral.subtle.pressed",
-        "description": "Pressed state for UIs that do not have a default background, such as menu items or subtle buttons."
-      },
-      "value": "#FA11F2"
-    },
-    "name": "color.background.transparentNeutral.pressed",
-    "path": [
-      "color",
-      "background",
-      "transparentNeutral",
-      "pressed"
-    ]
+    ],
+    "cleanName": "color.background.information.bold.pressed"
   },
   {
     "attributes": {
@@ -7068,7 +7363,8 @@ const tokens = [
       "color",
       "blanket",
       "[default]"
-    ]
+    ],
+    "cleanName": "color.blanket"
   },
   {
     "attributes": {
@@ -7094,7 +7390,8 @@ const tokens = [
       "color",
       "blanket",
       "selected"
-    ]
+    ],
+    "cleanName": "color.blanket.selected"
   },
   {
     "attributes": {
@@ -7120,2635 +7417,8 @@ const tokens = [
       "color",
       "blanket",
       "danger"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "Our primary color for data visualisation. Use when only one color is required."
-    },
-    "value": "#0065FF",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "Our primary color for data visualisation. Use when only one color is required."
-      },
-      "value": "B300"
-    },
-    "name": "color.chart.brand.[default]",
-    "path": [
-      "color",
-      "chart",
-      "brand",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "Hovered state of color.chart.brand."
-    },
-    "value": "#0052CC",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "Hovered state of color.chart.brand."
-      },
-      "value": "B400"
-    },
-    "name": "color.chart.brand.hovered",
-    "path": [
-      "color",
-      "chart",
-      "brand",
-      "hovered"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "A secondary color for data visualisation or to communicate 'to-do' statues."
-    },
-    "value": "#5E6C84",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "A secondary color for data visualisation or to communicate 'to-do' statues."
-      },
-      "value": "N300"
-    },
-    "name": "color.chart.neutral.[default]",
-    "path": [
-      "color",
-      "chart",
-      "neutral",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "Hovered state of color.chart.neutral."
-    },
-    "value": "#505F79",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "Hovered state of color.chart.neutral."
-      },
-      "value": "N400"
-    },
-    "name": "color.chart.neutral.hovered",
-    "path": [
-      "color",
-      "chart",
-      "neutral",
-      "hovered"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "For data visualisation communicating positive information, such as 'on track'."
-    },
-    "value": "#36B37E",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "For data visualisation communicating positive information, such as 'on track'."
-      },
-      "value": "G300"
-    },
-    "name": "color.chart.success.[default].[default]",
-    "path": [
-      "color",
-      "chart",
-      "success",
-      "[default]",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "Hovered state of color.chart.success."
-    },
-    "value": "#00875A",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "Hovered state of color.chart.success."
-      },
-      "value": "G400"
-    },
-    "name": "color.chart.success.[default].hovered",
-    "path": [
-      "color",
-      "chart",
-      "success",
-      "[default]",
-      "hovered"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "A stronger emphasis option of color.chart.success."
-    },
-    "value": "#00875A",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "A stronger emphasis option of color.chart.success."
-      },
-      "value": "G400"
-    },
-    "name": "color.chart.success.bold.[default]",
-    "path": [
-      "color",
-      "chart",
-      "success",
-      "bold",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "Hovered state of color.chart.success.bold."
-    },
-    "value": "#006644",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "Hovered state of color.chart.success.bold."
-      },
-      "value": "G500"
-    },
-    "name": "color.chart.success.bold.hovered",
-    "path": [
-      "color",
-      "chart",
-      "success",
-      "bold",
-      "hovered"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "For data visualisation communicating negative information, such as 'off track'."
-    },
-    "value": "#FF5630",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "For data visualisation communicating negative information, such as 'off track'."
-      },
-      "value": "R300"
-    },
-    "name": "color.chart.danger.[default].[default]",
-    "path": [
-      "color",
-      "chart",
-      "danger",
-      "[default]",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "Hovered state of color.chart.danger."
-    },
-    "value": "#DE350B",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "Hovered state of color.chart.danger."
-      },
-      "value": "R400"
-    },
-    "name": "color.chart.danger.[default].hovered",
-    "path": [
-      "color",
-      "chart",
-      "danger",
-      "[default]",
-      "hovered"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "A stronger emphasis option of color.chart.danger."
-    },
-    "value": "#DE350B",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "A stronger emphasis option of color.chart.danger."
-      },
-      "value": "R400"
-    },
-    "name": "color.chart.danger.bold.[default]",
-    "path": [
-      "color",
-      "chart",
-      "danger",
-      "bold",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "Hovered state of color.chart.danger.bold."
-    },
-    "value": "#BF2600",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "Hovered state of color.chart.danger.bold."
-      },
-      "value": "R500"
-    },
-    "name": "color.chart.danger.bold.hovered",
-    "path": [
-      "color",
-      "chart",
-      "danger",
-      "bold",
-      "hovered"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "For data visualisation communicating caution, such as 'at risk' statuses."
-    },
-    "value": "#FFAB00",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "For data visualisation communicating caution, such as 'at risk' statuses."
-      },
-      "value": "Y300"
-    },
-    "name": "color.chart.warning.[default].[default]",
-    "path": [
-      "color",
-      "chart",
-      "warning",
-      "[default]",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "Hovered state of color.chart.warning."
-    },
-    "value": "#FF991F",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "Hovered state of color.chart.warning."
-      },
-      "value": "Y400"
-    },
-    "name": "color.chart.warning.[default].hovered",
-    "path": [
-      "color",
-      "chart",
-      "warning",
-      "[default]",
-      "hovered"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "A stronger emphasis option of color.chart.warning."
-    },
-    "value": "#FF991F",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "A stronger emphasis option of color.chart.warning."
-      },
-      "value": "Y400"
-    },
-    "name": "color.chart.warning.bold.[default]",
-    "path": [
-      "color",
-      "chart",
-      "warning",
-      "bold",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "Hovered state of color.chart.warning.bold."
-    },
-    "value": "#FF8B00",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "Hovered state of color.chart.warning.bold."
-      },
-      "value": "Y500"
-    },
-    "name": "color.chart.warning.bold.hovered",
-    "path": [
-      "color",
-      "chart",
-      "warning",
-      "bold",
-      "hovered"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "For data visualisation communicating low priority or in-progress statuses."
-    },
-    "value": "#0065FF",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "For data visualisation communicating low priority or in-progress statuses."
-      },
-      "value": "B300"
-    },
-    "name": "color.chart.information.[default].[default]",
-    "path": [
-      "color",
-      "chart",
-      "information",
-      "[default]",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "Hovered state of color.chart.information."
-    },
-    "value": "#0052CC",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "Hovered state of color.chart.information."
-      },
-      "value": "B400"
-    },
-    "name": "color.chart.information.[default].hovered",
-    "path": [
-      "color",
-      "chart",
-      "information",
-      "[default]",
-      "hovered"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "A stronger emphasis option of color.chart.information."
-    },
-    "value": "#0052CC",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "A stronger emphasis option of color.chart.information."
-      },
-      "value": "B400"
-    },
-    "name": "color.chart.information.bold.[default]",
-    "path": [
-      "color",
-      "chart",
-      "information",
-      "bold",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "Hovered state of color.chart.information.bold."
-    },
-    "value": "#0747A6",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "Hovered state of color.chart.information.bold."
-      },
-      "value": "B500"
-    },
-    "name": "color.chart.information.bold.hovered",
-    "path": [
-      "color",
-      "chart",
-      "information",
-      "bold",
-      "hovered"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "For data visualisation communicating 'new' statuses."
-    },
-    "value": "#6554C0",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "For data visualisation communicating 'new' statuses."
-      },
-      "value": "P300"
-    },
-    "name": "color.chart.discovery.[default].[default]",
-    "path": [
-      "color",
-      "chart",
-      "discovery",
-      "[default]",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "Hovered state of color.chart.discovery."
-    },
-    "value": "#5243AA",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "Hovered state of color.chart.discovery."
-      },
-      "value": "P400"
-    },
-    "name": "color.chart.discovery.[default].hovered",
-    "path": [
-      "color",
-      "chart",
-      "discovery",
-      "[default]",
-      "hovered"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "A stronger emphasis option of color.chart.discovery."
-    },
-    "value": "#5243AA",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "A stronger emphasis option of color.chart.discovery."
-      },
-      "value": "P400"
-    },
-    "name": "color.chart.discovery.bold.[default]",
-    "path": [
-      "color",
-      "chart",
-      "discovery",
-      "bold",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "Hovered state of color.chart.discovery.bold."
-    },
-    "value": "#403294",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "Hovered state of color.chart.discovery.bold."
-      },
-      "value": "P500"
-    },
-    "name": "color.chart.discovery.bold.hovered",
-    "path": [
-      "color",
-      "chart",
-      "discovery",
-      "bold",
-      "hovered"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "For data visualisation only. Follow numbered sequence."
-    },
-    "value": "#00B8D9",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "For data visualisation only. Follow numbered sequence."
-      },
-      "value": "T300"
-    },
-    "name": "color.chart.categorical.1.[default]",
-    "path": [
-      "color",
-      "chart",
-      "categorical",
-      "1",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "Hovered state of color.chart.categorical.1."
-    },
-    "value": "#00A3BF",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "Hovered state of color.chart.categorical.1."
-      },
-      "value": "T400"
-    },
-    "name": "color.chart.categorical.1.hovered",
-    "path": [
-      "color",
-      "chart",
-      "categorical",
-      "1",
-      "hovered"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "For data visualisation only. Follow numbered sequence."
-    },
-    "value": "#5243AA",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "For data visualisation only. Follow numbered sequence."
-      },
-      "value": "P400"
-    },
-    "name": "color.chart.categorical.2.[default]",
-    "path": [
-      "color",
-      "chart",
-      "categorical",
-      "2",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "Hovered state of color.chart.categorical.2."
-    },
-    "value": "#403294",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "Hovered state of color.chart.categorical.2."
-      },
-      "value": "P500"
-    },
-    "name": "color.chart.categorical.2.hovered",
-    "path": [
-      "color",
-      "chart",
-      "categorical",
-      "2",
-      "hovered"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "For data visualisation only. Follow numbered sequence."
-    },
-    "value": "#D94008",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "For data visualisation only. Follow numbered sequence."
-      },
-      "value": "#D94008"
-    },
-    "name": "color.chart.categorical.3.[default]",
-    "path": [
-      "color",
-      "chart",
-      "categorical",
-      "3",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "Hovered state of color.chart.categorical.3."
-    },
-    "value": "#B65C02",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "Hovered state of color.chart.categorical.3."
-      },
-      "value": "#B65C02"
-    },
-    "name": "color.chart.categorical.3.hovered",
-    "path": [
-      "color",
-      "chart",
-      "categorical",
-      "3",
-      "hovered"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "For data visualisation only. Follow numbered sequence."
-    },
-    "value": "#943D73",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "For data visualisation only. Follow numbered sequence."
-      },
-      "value": "#943D73"
-    },
-    "name": "color.chart.categorical.4.[default]",
-    "path": [
-      "color",
-      "chart",
-      "categorical",
-      "4",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "Hovered state of color.chart.categorical.4."
-    },
-    "value": "#50253F",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "Hovered state of color.chart.categorical.4."
-      },
-      "value": "#50253F"
-    },
-    "name": "color.chart.categorical.4.hovered",
-    "path": [
-      "color",
-      "chart",
-      "categorical",
-      "4",
-      "hovered"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "For data visualisation only. Follow numbered sequence."
-    },
-    "value": "#0052CC",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "For data visualisation only. Follow numbered sequence."
-      },
-      "value": "B400"
-    },
-    "name": "color.chart.categorical.5.[default]",
-    "path": [
-      "color",
-      "chart",
-      "categorical",
-      "5",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "Hovered state of color.chart.categorical.5."
-    },
-    "value": "#0747A6",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "Hovered state of color.chart.categorical.5."
-      },
-      "value": "B500"
-    },
-    "name": "color.chart.categorical.5.hovered",
-    "path": [
-      "color",
-      "chart",
-      "categorical",
-      "5",
-      "hovered"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "For data visualisation only. Follow numbered sequence."
-    },
-    "value": "#5243AA",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "For data visualisation only. Follow numbered sequence."
-      },
-      "value": "P400"
-    },
-    "name": "color.chart.categorical.6.[default]",
-    "path": [
-      "color",
-      "chart",
-      "categorical",
-      "6",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "Hovered state of color.chart.categorical.6."
-    },
-    "value": "#403294",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "Hovered state of color.chart.categorical.6."
-      },
-      "value": "P500"
-    },
-    "name": "color.chart.categorical.6.hovered",
-    "path": [
-      "color",
-      "chart",
-      "categorical",
-      "6",
-      "hovered"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "For data visualisation only. Follow numbered sequence."
-    },
-    "value": "#50253F",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "For data visualisation only. Follow numbered sequence."
-      },
-      "value": "#50253F"
-    },
-    "name": "color.chart.categorical.7.[default]",
-    "path": [
-      "color",
-      "chart",
-      "categorical",
-      "7",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "Hovered state of color.chart.categorical.7."
-    },
-    "value": "#341829",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "Hovered state of color.chart.categorical.7."
-      },
-      "value": "#341829"
-    },
-    "name": "color.chart.categorical.7.hovered",
-    "path": [
-      "color",
-      "chart",
-      "categorical",
-      "7",
-      "hovered"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "For data visualisation only. Follow numbered sequence."
-    },
-    "value": "#974F0C",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "For data visualisation only. Follow numbered sequence."
-      },
-      "value": "#974F0C"
-    },
-    "name": "color.chart.categorical.8.[default]",
-    "path": [
-      "color",
-      "chart",
-      "categorical",
-      "8",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "Hovered state of color.chart.categorical.8."
-    },
-    "value": "#5F3811",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "Hovered state of color.chart.categorical.8."
-      },
-      "value": "#5F3811"
-    },
-    "name": "color.chart.categorical.8.hovered",
-    "path": [
-      "color",
-      "chart",
-      "categorical",
-      "8",
-      "hovered"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "For data visualisation only."
-    },
-    "value": "#0065FF",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "For data visualisation only."
-      },
-      "value": "B300"
-    },
-    "name": "color.chart.blue.bold.[default]",
-    "path": [
-      "color",
-      "chart",
-      "blue",
-      "bold",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "Hovered state of color.chart.blue.bold."
-    },
-    "value": "#0052CC",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "Hovered state of color.chart.blue.bold."
-      },
-      "value": "B400"
-    },
-    "name": "color.chart.blue.bold.hovered",
-    "path": [
-      "color",
-      "chart",
-      "blue",
-      "bold",
-      "hovered"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "For data visualisation only."
-    },
-    "value": "#0052CC",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "For data visualisation only."
-      },
-      "value": "B400"
-    },
-    "name": "color.chart.blue.bolder.[default]",
-    "path": [
-      "color",
-      "chart",
-      "blue",
-      "bolder",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "Hovered state of color.chart.blue.bolder."
-    },
-    "value": "#0747A6",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "Hovered state of color.chart.blue.bolder."
-      },
-      "value": "B500"
-    },
-    "name": "color.chart.blue.bolder.hovered",
-    "path": [
-      "color",
-      "chart",
-      "blue",
-      "bolder",
-      "hovered"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "For data visualisation only."
-    },
-    "value": "#0747A6",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "For data visualisation only."
-      },
-      "value": "B500"
-    },
-    "name": "color.chart.blue.boldest.[default]",
-    "path": [
-      "color",
-      "chart",
-      "blue",
-      "boldest",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "Hovered state of color.chart.blue.boldest."
-    },
-    "value": "#0747A6",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "Hovered state of color.chart.blue.boldest."
-      },
-      "value": "B500"
-    },
-    "name": "color.chart.blue.boldest.hovered",
-    "path": [
-      "color",
-      "chart",
-      "blue",
-      "boldest",
-      "hovered"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "For data visualisation only."
-    },
-    "value": "#FF5630",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "For data visualisation only."
-      },
-      "value": "R300"
-    },
-    "name": "color.chart.red.bold.[default]",
-    "path": [
-      "color",
-      "chart",
-      "red",
-      "bold",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "Hovered state of color.chart.red.bold."
-    },
-    "value": "#DE350B",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "Hovered state of color.chart.red.bold."
-      },
-      "value": "R400"
-    },
-    "name": "color.chart.red.bold.hovered",
-    "path": [
-      "color",
-      "chart",
-      "red",
-      "bold",
-      "hovered"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "For data visualisation only."
-    },
-    "value": "#DE350B",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "For data visualisation only."
-      },
-      "value": "R400"
-    },
-    "name": "color.chart.red.bolder.[default]",
-    "path": [
-      "color",
-      "chart",
-      "red",
-      "bolder",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "Hovered state of color.chart.red.bolder."
-    },
-    "value": "#BF2600",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "Hovered state of color.chart.red.bolder."
-      },
-      "value": "R500"
-    },
-    "name": "color.chart.red.bolder.hovered",
-    "path": [
-      "color",
-      "chart",
-      "red",
-      "bolder",
-      "hovered"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "For data visualisation only."
-    },
-    "value": "#BF2600",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "For data visualisation only."
-      },
-      "value": "R500"
-    },
-    "name": "color.chart.red.boldest.[default]",
-    "path": [
-      "color",
-      "chart",
-      "red",
-      "boldest",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "Hovered state of color.chart.red.boldest."
-    },
-    "value": "#BF2600",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "Hovered state of color.chart.red.boldest."
-      },
-      "value": "R500"
-    },
-    "name": "color.chart.red.boldest.hovered",
-    "path": [
-      "color",
-      "chart",
-      "red",
-      "boldest",
-      "hovered"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "For data visualisation only."
-    },
-    "value": "#D97008",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "For data visualisation only."
-      },
-      "value": "#D97008"
-    },
-    "name": "color.chart.orange.bold.[default]",
-    "path": [
-      "color",
-      "chart",
-      "orange",
-      "bold",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "Hovered state of color.chart.orange.bold."
-    },
-    "value": "#B65C02",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "Hovered state of color.chart.orange.bold."
-      },
-      "value": "#B65C02"
-    },
-    "name": "color.chart.orange.bold.hovered",
-    "path": [
-      "color",
-      "chart",
-      "orange",
-      "bold",
-      "hovered"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "For data visualisation only."
-    },
-    "value": "#B65C02",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "For data visualisation only."
-      },
-      "value": "#B65C02"
-    },
-    "name": "color.chart.orange.bolder.[default]",
-    "path": [
-      "color",
-      "chart",
-      "orange",
-      "bolder",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "Hovered state of color.chart.orange.bolder."
-    },
-    "value": "#974F0C",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "Hovered state of color.chart.orange.bolder."
-      },
-      "value": "#974F0C"
-    },
-    "name": "color.chart.orange.bolder.hovered",
-    "path": [
-      "color",
-      "chart",
-      "orange",
-      "bolder",
-      "hovered"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "For data visualisation only."
-    },
-    "value": "#974F0C",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "For data visualisation only."
-      },
-      "value": "#974F0C"
-    },
-    "name": "color.chart.orange.boldest.[default]",
-    "path": [
-      "color",
-      "chart",
-      "orange",
-      "boldest",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "Hovered state of color.chart.orange.boldest."
-    },
-    "value": "#5F3811",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "Hovered state of color.chart.orange.boldest."
-      },
-      "value": "#5F3811"
-    },
-    "name": "color.chart.orange.boldest.hovered",
-    "path": [
-      "color",
-      "chart",
-      "orange",
-      "boldest",
-      "hovered"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "For data visualisation only."
-    },
-    "value": "#FFAB00",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "For data visualisation only."
-      },
-      "value": "Y300"
-    },
-    "name": "color.chart.yellow.bold.[default]",
-    "path": [
-      "color",
-      "chart",
-      "yellow",
-      "bold",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "Hovered state of color.chart.yellow.bold."
-    },
-    "value": "#FF991F",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "Hovered state of color.chart.yellow.bold."
-      },
-      "value": "Y400"
-    },
-    "name": "color.chart.yellow.bold.hovered",
-    "path": [
-      "color",
-      "chart",
-      "yellow",
-      "bold",
-      "hovered"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "For data visualisation only."
-    },
-    "value": "#FF991F",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "For data visualisation only."
-      },
-      "value": "Y400"
-    },
-    "name": "color.chart.yellow.bolder.[default]",
-    "path": [
-      "color",
-      "chart",
-      "yellow",
-      "bolder",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "Hovered state of color.chart.yellow.bolder."
-    },
-    "value": "#FF8B00",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "Hovered state of color.chart.yellow.bolder."
-      },
-      "value": "Y500"
-    },
-    "name": "color.chart.yellow.bolder.hovered",
-    "path": [
-      "color",
-      "chart",
-      "yellow",
-      "bolder",
-      "hovered"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "For data visualisation only."
-    },
-    "value": "#FF8B00",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "For data visualisation only."
-      },
-      "value": "Y500"
-    },
-    "name": "color.chart.yellow.boldest.[default]",
-    "path": [
-      "color",
-      "chart",
-      "yellow",
-      "boldest",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "Hovered state of color.chart.yellow.boldest."
-    },
-    "value": "#FF8B00",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "Hovered state of color.chart.yellow.boldest."
-      },
-      "value": "Y500"
-    },
-    "name": "color.chart.yellow.boldest.hovered",
-    "path": [
-      "color",
-      "chart",
-      "yellow",
-      "boldest",
-      "hovered"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "For data visualisation only."
-    },
-    "value": "#36B37E",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "For data visualisation only."
-      },
-      "value": "G300"
-    },
-    "name": "color.chart.green.bold.[default]",
-    "path": [
-      "color",
-      "chart",
-      "green",
-      "bold",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "Hovered state of color.chart.green.bold."
-    },
-    "value": "#00875A",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "Hovered state of color.chart.green.bold."
-      },
-      "value": "G400"
-    },
-    "name": "color.chart.green.bold.hovered",
-    "path": [
-      "color",
-      "chart",
-      "green",
-      "bold",
-      "hovered"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "For data visualisation only."
-    },
-    "value": "#00875A",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "For data visualisation only."
-      },
-      "value": "G400"
-    },
-    "name": "color.chart.green.bolder.[default]",
-    "path": [
-      "color",
-      "chart",
-      "green",
-      "bolder",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "Hovered state of color.chart.green.bolder."
-    },
-    "value": "#006644",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "Hovered state of color.chart.green.bolder."
-      },
-      "value": "G500"
-    },
-    "name": "color.chart.green.bolder.hovered",
-    "path": [
-      "color",
-      "chart",
-      "green",
-      "bolder",
-      "hovered"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "For data visualisation only."
-    },
-    "value": "#006644",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "For data visualisation only."
-      },
-      "value": "G500"
-    },
-    "name": "color.chart.green.boldest.[default]",
-    "path": [
-      "color",
-      "chart",
-      "green",
-      "boldest",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "Hovered state of color.chart.green.boldest."
-    },
-    "value": "#006644",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "Hovered state of color.chart.green.boldest."
-      },
-      "value": "G500"
-    },
-    "name": "color.chart.green.boldest.hovered",
-    "path": [
-      "color",
-      "chart",
-      "green",
-      "boldest",
-      "hovered"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "For data visualisation only."
-    },
-    "value": "#00B8D9",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "For data visualisation only."
-      },
-      "value": "T300"
-    },
-    "name": "color.chart.teal.bold.[default]",
-    "path": [
-      "color",
-      "chart",
-      "teal",
-      "bold",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "Hovered state of color.chart.teal.bold."
-    },
-    "value": "#00A3BF",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "Hovered state of color.chart.teal.bold."
-      },
-      "value": "T400"
-    },
-    "name": "color.chart.teal.bold.hovered",
-    "path": [
-      "color",
-      "chart",
-      "teal",
-      "bold",
-      "hovered"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "For data visualisation only."
-    },
-    "value": "#00A3BF",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "For data visualisation only."
-      },
-      "value": "T400"
-    },
-    "name": "color.chart.teal.bolder.[default]",
-    "path": [
-      "color",
-      "chart",
-      "teal",
-      "bolder",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "Hovered state of color.chart.teal.bolder."
-    },
-    "value": "#008DA6",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "Hovered state of color.chart.teal.bolder."
-      },
-      "value": "T500"
-    },
-    "name": "color.chart.teal.bolder.hovered",
-    "path": [
-      "color",
-      "chart",
-      "teal",
-      "bolder",
-      "hovered"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "For data visualisation only."
-    },
-    "value": "#008DA6",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "For data visualisation only."
-      },
-      "value": "T500"
-    },
-    "name": "color.chart.teal.boldest.[default]",
-    "path": [
-      "color",
-      "chart",
-      "teal",
-      "boldest",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "Hovered state of color.chart.teal.boldest."
-    },
-    "value": "#008DA6",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "Hovered state of color.chart.teal.boldest."
-      },
-      "value": "T500"
-    },
-    "name": "color.chart.teal.boldest.hovered",
-    "path": [
-      "color",
-      "chart",
-      "teal",
-      "boldest",
-      "hovered"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "For data visualisation only."
-    },
-    "value": "#6554C0",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "For data visualisation only."
-      },
-      "value": "P300"
-    },
-    "name": "color.chart.purple.bold.[default]",
-    "path": [
-      "color",
-      "chart",
-      "purple",
-      "bold",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "Hovered state of color.chart.purple.bold."
-    },
-    "value": "#5243AA",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "Hovered state of color.chart.purple.bold."
-      },
-      "value": "P400"
-    },
-    "name": "color.chart.purple.bold.hovered",
-    "path": [
-      "color",
-      "chart",
-      "purple",
-      "bold",
-      "hovered"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "For data visualisation only."
-    },
-    "value": "#5243AA",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "For data visualisation only."
-      },
-      "value": "P400"
-    },
-    "name": "color.chart.purple.bolder.[default]",
-    "path": [
-      "color",
-      "chart",
-      "purple",
-      "bolder",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "Hovered state of color.chart.purple.bolder."
-    },
-    "value": "#403294",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "Hovered state of color.chart.purple.bolder."
-      },
-      "value": "P500"
-    },
-    "name": "color.chart.purple.bolder.hovered",
-    "path": [
-      "color",
-      "chart",
-      "purple",
-      "bolder",
-      "hovered"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "For data visualisation only."
-    },
-    "value": "#403294",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "For data visualisation only."
-      },
-      "value": "P500"
-    },
-    "name": "color.chart.purple.boldest.[default]",
-    "path": [
-      "color",
-      "chart",
-      "purple",
-      "boldest",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "Hovered state of color.chart.purple.boldest."
-    },
-    "value": "#403294",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "Hovered state of color.chart.purple.boldest."
-      },
-      "value": "P500"
-    },
-    "name": "color.chart.purple.boldest.hovered",
-    "path": [
-      "color",
-      "chart",
-      "purple",
-      "boldest",
-      "hovered"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "For data visualisation only."
-    },
-    "value": "#DA62AC",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "For data visualisation only."
-      },
-      "value": "#DA62AC"
-    },
-    "name": "color.chart.magenta.bold.[default]",
-    "path": [
-      "color",
-      "chart",
-      "magenta",
-      "bold",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "Hovered state of color.chart.magenta.bold."
-    },
-    "value": "#CD519D",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "Hovered state of color.chart.magenta.bold."
-      },
-      "value": "#CD519D"
-    },
-    "name": "color.chart.magenta.bold.hovered",
-    "path": [
-      "color",
-      "chart",
-      "magenta",
-      "bold",
-      "hovered"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "For data visualisation only."
-    },
-    "value": "#CD519D",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "For data visualisation only."
-      },
-      "value": "#CD519D"
-    },
-    "name": "color.chart.magenta.bolder.[default]",
-    "path": [
-      "color",
-      "chart",
-      "magenta",
-      "bolder",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "Hovered state of color.chart.magenta.bolder."
-    },
-    "value": "#AE4787",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "Hovered state of color.chart.magenta.bolder."
-      },
-      "value": "#AE4787"
-    },
-    "name": "color.chart.magenta.bolder.hovered",
-    "path": [
-      "color",
-      "chart",
-      "magenta",
-      "bolder",
-      "hovered"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "For data visualisation only."
-    },
-    "value": "#943D73",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "For data visualisation only."
-      },
-      "value": "#943D73"
-    },
-    "name": "color.chart.magenta.boldest.[default]",
-    "path": [
-      "color",
-      "chart",
-      "magenta",
-      "boldest",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "Hovered state of color.chart.magenta.boldest."
-    },
-    "value": "#50253F",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "Hovered state of color.chart.magenta.boldest."
-      },
-      "value": "#50253F"
-    },
-    "name": "color.chart.magenta.boldest.hovered",
-    "path": [
-      "color",
-      "chart",
-      "magenta",
-      "boldest",
-      "hovered"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "For data visualisation only."
-    },
-    "value": "#5E6C84",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "For data visualisation only."
-      },
-      "value": "N300"
-    },
-    "name": "color.chart.gray.bold.[default]",
-    "path": [
-      "color",
-      "chart",
-      "gray",
-      "bold",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "Hovered state of color.chart.gray.bold."
-    },
-    "value": "#505F79",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "Hovered state of color.chart.gray.bold."
-      },
-      "value": "N400"
-    },
-    "name": "color.chart.gray.bold.hovered",
-    "path": [
-      "color",
-      "chart",
-      "gray",
-      "bold",
-      "hovered"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "For data visualisation only."
-    },
-    "value": "#505F79",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "For data visualisation only."
-      },
-      "value": "N400"
-    },
-    "name": "color.chart.gray.bolder.[default]",
-    "path": [
-      "color",
-      "chart",
-      "gray",
-      "bolder",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "Hovered state of color.chart.gray.bolder."
-    },
-    "value": "#42526E",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "Hovered state of color.chart.gray.bolder."
-      },
-      "value": "N500"
-    },
-    "name": "color.chart.gray.bolder.hovered",
-    "path": [
-      "color",
-      "chart",
-      "gray",
-      "bolder",
-      "hovered"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "For data visualisation only."
-    },
-    "value": "#42526E",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "For data visualisation only."
-      },
-      "value": "N500"
-    },
-    "name": "color.chart.gray.boldest.[default]",
-    "path": [
-      "color",
-      "chart",
-      "gray",
-      "boldest",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "Hovered state of color.chart.gray.boldest."
-    },
-    "value": "#42526E",
-    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "Hovered state of color.chart.gray.boldest."
-      },
-      "value": "N500"
-    },
-    "name": "color.chart.gray.boldest.hovered",
-    "path": [
-      "color",
-      "chart",
-      "gray",
-      "boldest",
-      "hovered"
-    ]
+    ],
+    "cleanName": "color.blanket.danger"
   },
   {
     "attributes": {
@@ -9774,33 +7444,8 @@ const tokens = [
       "color",
       "interaction",
       "hovered"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.6.0",
-      "description": "Use as a background overlay for elements in a pressed state when their background color cannot change, such as avatars."
-    },
-    "value": "#00000052",
-    "filePath": "src/tokens/atlassian-legacy-light/color/interaction.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use as a background overlay for elements in a pressed state when their background color cannot change, such as avatars."
-      },
-      "value": "#00000052"
-    },
-    "name": "color.interaction.pressed",
-    "path": [
-      "color",
-      "interaction",
-      "pressed"
-    ]
+    ],
+    "cleanName": "color.interaction.hovered"
   },
   {
     "attributes": {
@@ -9833,7 +7478,8 @@ const tokens = [
       "interaction",
       "inverse",
       "hovered"
-    ]
+    ],
+    "cleanName": "color.interaction.inverse.hovered"
   },
   {
     "attributes": {
@@ -9866,7 +7512,35 @@ const tokens = [
       "interaction",
       "inverse",
       "pressed"
-    ]
+    ],
+    "cleanName": "color.interaction.inverse.pressed"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.6.0",
+      "description": "Use as a background overlay for elements in a pressed state when their background color cannot change, such as avatars."
+    },
+    "value": "#00000052",
+    "filePath": "src/tokens/atlassian-legacy-light/color/interaction.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use as a background overlay for elements in a pressed state when their background color cannot change, such as avatars."
+      },
+      "value": "#00000052"
+    },
+    "name": "color.interaction.pressed",
+    "path": [
+      "color",
+      "interaction",
+      "pressed"
+    ],
+    "cleanName": "color.interaction.pressed"
   },
   {
     "attributes": {
@@ -9892,7 +7566,8 @@ const tokens = [
       "color",
       "skeleton",
       "[default]"
-    ]
+    ],
+    "cleanName": "color.skeleton"
   },
   {
     "attributes": {
@@ -9918,59 +7593,2730 @@ const tokens = [
       "color",
       "skeleton",
       "subtle"
-    ]
+    ],
+    "cleanName": "color.skeleton.subtle"
   },
   {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.6.0",
-      "description": "Use for links in a default or hovered state. Add an underline for hovered states."
+      "introduced": "0.13.3",
+      "description": "For data visualisation only. Follow numbered sequence."
     },
-    "value": "#0052CC",
-    "filePath": "src/tokens/atlassian-legacy-light/color/text.tsx",
+    "value": "#00B8D9",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for links in a default or hovered state. Add an underline for hovered states."
+        "introduced": "0.13.3",
+        "description": "For data visualisation only. Follow numbered sequence."
+      },
+      "value": "T300"
+    },
+    "name": "color.chart.categorical.1.[default]",
+    "path": [
+      "color",
+      "chart",
+      "categorical",
+      "1",
+      "[default]"
+    ],
+    "cleanName": "color.chart.categorical.1"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "Hovered state of color.chart.categorical.1."
+    },
+    "value": "#00A3BF",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.categorical.1."
+      },
+      "value": "T400"
+    },
+    "name": "color.chart.categorical.1.hovered",
+    "path": [
+      "color",
+      "chart",
+      "categorical",
+      "1",
+      "hovered"
+    ],
+    "cleanName": "color.chart.categorical.1.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "For data visualisation only. Follow numbered sequence."
+    },
+    "value": "#5243AA",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only. Follow numbered sequence."
+      },
+      "value": "P400"
+    },
+    "name": "color.chart.categorical.2.[default]",
+    "path": [
+      "color",
+      "chart",
+      "categorical",
+      "2",
+      "[default]"
+    ],
+    "cleanName": "color.chart.categorical.2"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "Hovered state of color.chart.categorical.2."
+    },
+    "value": "#403294",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.categorical.2."
+      },
+      "value": "P500"
+    },
+    "name": "color.chart.categorical.2.hovered",
+    "path": [
+      "color",
+      "chart",
+      "categorical",
+      "2",
+      "hovered"
+    ],
+    "cleanName": "color.chart.categorical.2.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "For data visualisation only. Follow numbered sequence."
+    },
+    "value": "#D94008",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only. Follow numbered sequence."
+      },
+      "value": "#D94008"
+    },
+    "name": "color.chart.categorical.3.[default]",
+    "path": [
+      "color",
+      "chart",
+      "categorical",
+      "3",
+      "[default]"
+    ],
+    "cleanName": "color.chart.categorical.3"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "Hovered state of color.chart.categorical.3."
+    },
+    "value": "#B65C02",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.categorical.3."
+      },
+      "value": "#B65C02"
+    },
+    "name": "color.chart.categorical.3.hovered",
+    "path": [
+      "color",
+      "chart",
+      "categorical",
+      "3",
+      "hovered"
+    ],
+    "cleanName": "color.chart.categorical.3.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "For data visualisation only. Follow numbered sequence."
+    },
+    "value": "#943D73",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only. Follow numbered sequence."
+      },
+      "value": "#943D73"
+    },
+    "name": "color.chart.categorical.4.[default]",
+    "path": [
+      "color",
+      "chart",
+      "categorical",
+      "4",
+      "[default]"
+    ],
+    "cleanName": "color.chart.categorical.4"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "Hovered state of color.chart.categorical.4."
+    },
+    "value": "#50253F",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.categorical.4."
+      },
+      "value": "#50253F"
+    },
+    "name": "color.chart.categorical.4.hovered",
+    "path": [
+      "color",
+      "chart",
+      "categorical",
+      "4",
+      "hovered"
+    ],
+    "cleanName": "color.chart.categorical.4.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "For data visualisation only. Follow numbered sequence."
+    },
+    "value": "#0052CC",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only. Follow numbered sequence."
       },
       "value": "B400"
     },
-    "name": "color.link.[default]",
+    "name": "color.chart.categorical.5.[default]",
     "path": [
       "color",
-      "link",
+      "chart",
+      "categorical",
+      "5",
       "[default]"
-    ]
+    ],
+    "cleanName": "color.chart.categorical.5"
   },
   {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.6.0",
-      "description": "Use for links in a pressed state."
+      "introduced": "0.13.3",
+      "description": "Hovered state of color.chart.categorical.5."
     },
     "value": "#0747A6",
-    "filePath": "src/tokens/atlassian-legacy-light/color/text.tsx",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for links in a pressed state."
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.categorical.5."
       },
       "value": "B500"
     },
-    "name": "color.link.pressed",
+    "name": "color.chart.categorical.5.hovered",
     "path": [
       "color",
-      "link",
-      "pressed"
-    ]
+      "chart",
+      "categorical",
+      "5",
+      "hovered"
+    ],
+    "cleanName": "color.chart.categorical.5.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "For data visualisation only. Follow numbered sequence."
+    },
+    "value": "#5243AA",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only. Follow numbered sequence."
+      },
+      "value": "P400"
+    },
+    "name": "color.chart.categorical.6.[default]",
+    "path": [
+      "color",
+      "chart",
+      "categorical",
+      "6",
+      "[default]"
+    ],
+    "cleanName": "color.chart.categorical.6"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "Hovered state of color.chart.categorical.6."
+    },
+    "value": "#403294",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.categorical.6."
+      },
+      "value": "P500"
+    },
+    "name": "color.chart.categorical.6.hovered",
+    "path": [
+      "color",
+      "chart",
+      "categorical",
+      "6",
+      "hovered"
+    ],
+    "cleanName": "color.chart.categorical.6.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "For data visualisation only. Follow numbered sequence."
+    },
+    "value": "#50253F",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only. Follow numbered sequence."
+      },
+      "value": "#50253F"
+    },
+    "name": "color.chart.categorical.7.[default]",
+    "path": [
+      "color",
+      "chart",
+      "categorical",
+      "7",
+      "[default]"
+    ],
+    "cleanName": "color.chart.categorical.7"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "Hovered state of color.chart.categorical.7."
+    },
+    "value": "#341829",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.categorical.7."
+      },
+      "value": "#341829"
+    },
+    "name": "color.chart.categorical.7.hovered",
+    "path": [
+      "color",
+      "chart",
+      "categorical",
+      "7",
+      "hovered"
+    ],
+    "cleanName": "color.chart.categorical.7.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "For data visualisation only. Follow numbered sequence."
+    },
+    "value": "#974F0C",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only. Follow numbered sequence."
+      },
+      "value": "#974F0C"
+    },
+    "name": "color.chart.categorical.8.[default]",
+    "path": [
+      "color",
+      "chart",
+      "categorical",
+      "8",
+      "[default]"
+    ],
+    "cleanName": "color.chart.categorical.8"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "Hovered state of color.chart.categorical.8."
+    },
+    "value": "#5F3811",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.categorical.8."
+      },
+      "value": "#5F3811"
+    },
+    "name": "color.chart.categorical.8.hovered",
+    "path": [
+      "color",
+      "chart",
+      "categorical",
+      "8",
+      "hovered"
+    ],
+    "cleanName": "color.chart.categorical.8.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "A secondary color for data visualisation or to communicate 'to-do' statues."
+    },
+    "value": "#5E6C84",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "A secondary color for data visualisation or to communicate 'to-do' statues."
+      },
+      "value": "N300"
+    },
+    "name": "color.chart.neutral.[default]",
+    "path": [
+      "color",
+      "chart",
+      "neutral",
+      "[default]"
+    ],
+    "cleanName": "color.chart.neutral"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "Hovered state of color.chart.neutral."
+    },
+    "value": "#505F79",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.neutral."
+      },
+      "value": "N400"
+    },
+    "name": "color.chart.neutral.hovered",
+    "path": [
+      "color",
+      "chart",
+      "neutral",
+      "hovered"
+    ],
+    "cleanName": "color.chart.neutral.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "For data visualisation only."
+    },
+    "value": "#FF5630",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "R300"
+    },
+    "name": "color.chart.red.bold.[default]",
+    "path": [
+      "color",
+      "chart",
+      "red",
+      "bold",
+      "[default]"
+    ],
+    "cleanName": "color.chart.red.bold"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "Hovered state of color.chart.red.bold."
+    },
+    "value": "#DE350B",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.red.bold."
+      },
+      "value": "R400"
+    },
+    "name": "color.chart.red.bold.hovered",
+    "path": [
+      "color",
+      "chart",
+      "red",
+      "bold",
+      "hovered"
+    ],
+    "cleanName": "color.chart.red.bold.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "For data visualisation only."
+    },
+    "value": "#DE350B",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "R400"
+    },
+    "name": "color.chart.red.bolder.[default]",
+    "path": [
+      "color",
+      "chart",
+      "red",
+      "bolder",
+      "[default]"
+    ],
+    "cleanName": "color.chart.red.bolder"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "Hovered state of color.chart.red.bolder."
+    },
+    "value": "#BF2600",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.red.bolder."
+      },
+      "value": "R500"
+    },
+    "name": "color.chart.red.bolder.hovered",
+    "path": [
+      "color",
+      "chart",
+      "red",
+      "bolder",
+      "hovered"
+    ],
+    "cleanName": "color.chart.red.bolder.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "For data visualisation only."
+    },
+    "value": "#BF2600",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "R500"
+    },
+    "name": "color.chart.red.boldest.[default]",
+    "path": [
+      "color",
+      "chart",
+      "red",
+      "boldest",
+      "[default]"
+    ],
+    "cleanName": "color.chart.red.boldest"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "Hovered state of color.chart.red.boldest."
+    },
+    "value": "#BF2600",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.red.boldest."
+      },
+      "value": "R500"
+    },
+    "name": "color.chart.red.boldest.hovered",
+    "path": [
+      "color",
+      "chart",
+      "red",
+      "boldest",
+      "hovered"
+    ],
+    "cleanName": "color.chart.red.boldest.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "For data visualisation only."
+    },
+    "value": "#D97008",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "#D97008"
+    },
+    "name": "color.chart.orange.bold.[default]",
+    "path": [
+      "color",
+      "chart",
+      "orange",
+      "bold",
+      "[default]"
+    ],
+    "cleanName": "color.chart.orange.bold"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "Hovered state of color.chart.orange.bold."
+    },
+    "value": "#B65C02",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.orange.bold."
+      },
+      "value": "#B65C02"
+    },
+    "name": "color.chart.orange.bold.hovered",
+    "path": [
+      "color",
+      "chart",
+      "orange",
+      "bold",
+      "hovered"
+    ],
+    "cleanName": "color.chart.orange.bold.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "For data visualisation only."
+    },
+    "value": "#B65C02",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "#B65C02"
+    },
+    "name": "color.chart.orange.bolder.[default]",
+    "path": [
+      "color",
+      "chart",
+      "orange",
+      "bolder",
+      "[default]"
+    ],
+    "cleanName": "color.chart.orange.bolder"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "Hovered state of color.chart.orange.bolder."
+    },
+    "value": "#974F0C",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.orange.bolder."
+      },
+      "value": "#974F0C"
+    },
+    "name": "color.chart.orange.bolder.hovered",
+    "path": [
+      "color",
+      "chart",
+      "orange",
+      "bolder",
+      "hovered"
+    ],
+    "cleanName": "color.chart.orange.bolder.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "For data visualisation only."
+    },
+    "value": "#974F0C",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "#974F0C"
+    },
+    "name": "color.chart.orange.boldest.[default]",
+    "path": [
+      "color",
+      "chart",
+      "orange",
+      "boldest",
+      "[default]"
+    ],
+    "cleanName": "color.chart.orange.boldest"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "Hovered state of color.chart.orange.boldest."
+    },
+    "value": "#5F3811",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.orange.boldest."
+      },
+      "value": "#5F3811"
+    },
+    "name": "color.chart.orange.boldest.hovered",
+    "path": [
+      "color",
+      "chart",
+      "orange",
+      "boldest",
+      "hovered"
+    ],
+    "cleanName": "color.chart.orange.boldest.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "For data visualisation only."
+    },
+    "value": "#FFAB00",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "Y300"
+    },
+    "name": "color.chart.yellow.bold.[default]",
+    "path": [
+      "color",
+      "chart",
+      "yellow",
+      "bold",
+      "[default]"
+    ],
+    "cleanName": "color.chart.yellow.bold"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "Hovered state of color.chart.yellow.bold."
+    },
+    "value": "#FF991F",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.yellow.bold."
+      },
+      "value": "Y400"
+    },
+    "name": "color.chart.yellow.bold.hovered",
+    "path": [
+      "color",
+      "chart",
+      "yellow",
+      "bold",
+      "hovered"
+    ],
+    "cleanName": "color.chart.yellow.bold.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "For data visualisation only."
+    },
+    "value": "#FF991F",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "Y400"
+    },
+    "name": "color.chart.yellow.bolder.[default]",
+    "path": [
+      "color",
+      "chart",
+      "yellow",
+      "bolder",
+      "[default]"
+    ],
+    "cleanName": "color.chart.yellow.bolder"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "Hovered state of color.chart.yellow.bolder."
+    },
+    "value": "#FF8B00",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.yellow.bolder."
+      },
+      "value": "Y500"
+    },
+    "name": "color.chart.yellow.bolder.hovered",
+    "path": [
+      "color",
+      "chart",
+      "yellow",
+      "bolder",
+      "hovered"
+    ],
+    "cleanName": "color.chart.yellow.bolder.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "For data visualisation only."
+    },
+    "value": "#FF8B00",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "Y500"
+    },
+    "name": "color.chart.yellow.boldest.[default]",
+    "path": [
+      "color",
+      "chart",
+      "yellow",
+      "boldest",
+      "[default]"
+    ],
+    "cleanName": "color.chart.yellow.boldest"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "Hovered state of color.chart.yellow.boldest."
+    },
+    "value": "#FF8B00",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.yellow.boldest."
+      },
+      "value": "Y500"
+    },
+    "name": "color.chart.yellow.boldest.hovered",
+    "path": [
+      "color",
+      "chart",
+      "yellow",
+      "boldest",
+      "hovered"
+    ],
+    "cleanName": "color.chart.yellow.boldest.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "For data visualisation only."
+    },
+    "value": "#36B37E",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "G300"
+    },
+    "name": "color.chart.green.bold.[default]",
+    "path": [
+      "color",
+      "chart",
+      "green",
+      "bold",
+      "[default]"
+    ],
+    "cleanName": "color.chart.green.bold"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "Hovered state of color.chart.green.bold."
+    },
+    "value": "#00875A",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.green.bold."
+      },
+      "value": "G400"
+    },
+    "name": "color.chart.green.bold.hovered",
+    "path": [
+      "color",
+      "chart",
+      "green",
+      "bold",
+      "hovered"
+    ],
+    "cleanName": "color.chart.green.bold.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "For data visualisation only."
+    },
+    "value": "#00875A",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "G400"
+    },
+    "name": "color.chart.green.bolder.[default]",
+    "path": [
+      "color",
+      "chart",
+      "green",
+      "bolder",
+      "[default]"
+    ],
+    "cleanName": "color.chart.green.bolder"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "Hovered state of color.chart.green.bolder."
+    },
+    "value": "#006644",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.green.bolder."
+      },
+      "value": "G500"
+    },
+    "name": "color.chart.green.bolder.hovered",
+    "path": [
+      "color",
+      "chart",
+      "green",
+      "bolder",
+      "hovered"
+    ],
+    "cleanName": "color.chart.green.bolder.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "For data visualisation only."
+    },
+    "value": "#006644",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "G500"
+    },
+    "name": "color.chart.green.boldest.[default]",
+    "path": [
+      "color",
+      "chart",
+      "green",
+      "boldest",
+      "[default]"
+    ],
+    "cleanName": "color.chart.green.boldest"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "Hovered state of color.chart.green.boldest."
+    },
+    "value": "#006644",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.green.boldest."
+      },
+      "value": "G500"
+    },
+    "name": "color.chart.green.boldest.hovered",
+    "path": [
+      "color",
+      "chart",
+      "green",
+      "boldest",
+      "hovered"
+    ],
+    "cleanName": "color.chart.green.boldest.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "For data visualisation only."
+    },
+    "value": "#00B8D9",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "T300"
+    },
+    "name": "color.chart.teal.bold.[default]",
+    "path": [
+      "color",
+      "chart",
+      "teal",
+      "bold",
+      "[default]"
+    ],
+    "cleanName": "color.chart.teal.bold"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "Hovered state of color.chart.teal.bold."
+    },
+    "value": "#00A3BF",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.teal.bold."
+      },
+      "value": "T400"
+    },
+    "name": "color.chart.teal.bold.hovered",
+    "path": [
+      "color",
+      "chart",
+      "teal",
+      "bold",
+      "hovered"
+    ],
+    "cleanName": "color.chart.teal.bold.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "For data visualisation only."
+    },
+    "value": "#00A3BF",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "T400"
+    },
+    "name": "color.chart.teal.bolder.[default]",
+    "path": [
+      "color",
+      "chart",
+      "teal",
+      "bolder",
+      "[default]"
+    ],
+    "cleanName": "color.chart.teal.bolder"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "Hovered state of color.chart.teal.bolder."
+    },
+    "value": "#008DA6",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.teal.bolder."
+      },
+      "value": "T500"
+    },
+    "name": "color.chart.teal.bolder.hovered",
+    "path": [
+      "color",
+      "chart",
+      "teal",
+      "bolder",
+      "hovered"
+    ],
+    "cleanName": "color.chart.teal.bolder.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "For data visualisation only."
+    },
+    "value": "#008DA6",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "T500"
+    },
+    "name": "color.chart.teal.boldest.[default]",
+    "path": [
+      "color",
+      "chart",
+      "teal",
+      "boldest",
+      "[default]"
+    ],
+    "cleanName": "color.chart.teal.boldest"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "Hovered state of color.chart.teal.boldest."
+    },
+    "value": "#008DA6",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.teal.boldest."
+      },
+      "value": "T500"
+    },
+    "name": "color.chart.teal.boldest.hovered",
+    "path": [
+      "color",
+      "chart",
+      "teal",
+      "boldest",
+      "hovered"
+    ],
+    "cleanName": "color.chart.teal.boldest.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "For data visualisation only."
+    },
+    "value": "#0065FF",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "B300"
+    },
+    "name": "color.chart.blue.bold.[default]",
+    "path": [
+      "color",
+      "chart",
+      "blue",
+      "bold",
+      "[default]"
+    ],
+    "cleanName": "color.chart.blue.bold"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "Hovered state of color.chart.blue.bold."
+    },
+    "value": "#0052CC",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.blue.bold."
+      },
+      "value": "B400"
+    },
+    "name": "color.chart.blue.bold.hovered",
+    "path": [
+      "color",
+      "chart",
+      "blue",
+      "bold",
+      "hovered"
+    ],
+    "cleanName": "color.chart.blue.bold.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "For data visualisation only."
+    },
+    "value": "#0052CC",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "B400"
+    },
+    "name": "color.chart.blue.bolder.[default]",
+    "path": [
+      "color",
+      "chart",
+      "blue",
+      "bolder",
+      "[default]"
+    ],
+    "cleanName": "color.chart.blue.bolder"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "Hovered state of color.chart.blue.bolder."
+    },
+    "value": "#0747A6",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.blue.bolder."
+      },
+      "value": "B500"
+    },
+    "name": "color.chart.blue.bolder.hovered",
+    "path": [
+      "color",
+      "chart",
+      "blue",
+      "bolder",
+      "hovered"
+    ],
+    "cleanName": "color.chart.blue.bolder.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "For data visualisation only."
+    },
+    "value": "#0747A6",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "B500"
+    },
+    "name": "color.chart.blue.boldest.[default]",
+    "path": [
+      "color",
+      "chart",
+      "blue",
+      "boldest",
+      "[default]"
+    ],
+    "cleanName": "color.chart.blue.boldest"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "Hovered state of color.chart.blue.boldest."
+    },
+    "value": "#0747A6",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.blue.boldest."
+      },
+      "value": "B500"
+    },
+    "name": "color.chart.blue.boldest.hovered",
+    "path": [
+      "color",
+      "chart",
+      "blue",
+      "boldest",
+      "hovered"
+    ],
+    "cleanName": "color.chart.blue.boldest.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "For data visualisation only."
+    },
+    "value": "#6554C0",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "P300"
+    },
+    "name": "color.chart.purple.bold.[default]",
+    "path": [
+      "color",
+      "chart",
+      "purple",
+      "bold",
+      "[default]"
+    ],
+    "cleanName": "color.chart.purple.bold"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "Hovered state of color.chart.purple.bold."
+    },
+    "value": "#5243AA",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.purple.bold."
+      },
+      "value": "P400"
+    },
+    "name": "color.chart.purple.bold.hovered",
+    "path": [
+      "color",
+      "chart",
+      "purple",
+      "bold",
+      "hovered"
+    ],
+    "cleanName": "color.chart.purple.bold.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "For data visualisation only."
+    },
+    "value": "#5243AA",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "P400"
+    },
+    "name": "color.chart.purple.bolder.[default]",
+    "path": [
+      "color",
+      "chart",
+      "purple",
+      "bolder",
+      "[default]"
+    ],
+    "cleanName": "color.chart.purple.bolder"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "Hovered state of color.chart.purple.bolder."
+    },
+    "value": "#403294",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.purple.bolder."
+      },
+      "value": "P500"
+    },
+    "name": "color.chart.purple.bolder.hovered",
+    "path": [
+      "color",
+      "chart",
+      "purple",
+      "bolder",
+      "hovered"
+    ],
+    "cleanName": "color.chart.purple.bolder.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "For data visualisation only."
+    },
+    "value": "#403294",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "P500"
+    },
+    "name": "color.chart.purple.boldest.[default]",
+    "path": [
+      "color",
+      "chart",
+      "purple",
+      "boldest",
+      "[default]"
+    ],
+    "cleanName": "color.chart.purple.boldest"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "Hovered state of color.chart.purple.boldest."
+    },
+    "value": "#403294",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.purple.boldest."
+      },
+      "value": "P500"
+    },
+    "name": "color.chart.purple.boldest.hovered",
+    "path": [
+      "color",
+      "chart",
+      "purple",
+      "boldest",
+      "hovered"
+    ],
+    "cleanName": "color.chart.purple.boldest.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "For data visualisation only."
+    },
+    "value": "#DA62AC",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "#DA62AC"
+    },
+    "name": "color.chart.magenta.bold.[default]",
+    "path": [
+      "color",
+      "chart",
+      "magenta",
+      "bold",
+      "[default]"
+    ],
+    "cleanName": "color.chart.magenta.bold"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "Hovered state of color.chart.magenta.bold."
+    },
+    "value": "#CD519D",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.magenta.bold."
+      },
+      "value": "#CD519D"
+    },
+    "name": "color.chart.magenta.bold.hovered",
+    "path": [
+      "color",
+      "chart",
+      "magenta",
+      "bold",
+      "hovered"
+    ],
+    "cleanName": "color.chart.magenta.bold.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "For data visualisation only."
+    },
+    "value": "#CD519D",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "#CD519D"
+    },
+    "name": "color.chart.magenta.bolder.[default]",
+    "path": [
+      "color",
+      "chart",
+      "magenta",
+      "bolder",
+      "[default]"
+    ],
+    "cleanName": "color.chart.magenta.bolder"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "Hovered state of color.chart.magenta.bolder."
+    },
+    "value": "#AE4787",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.magenta.bolder."
+      },
+      "value": "#AE4787"
+    },
+    "name": "color.chart.magenta.bolder.hovered",
+    "path": [
+      "color",
+      "chart",
+      "magenta",
+      "bolder",
+      "hovered"
+    ],
+    "cleanName": "color.chart.magenta.bolder.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "For data visualisation only."
+    },
+    "value": "#943D73",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "#943D73"
+    },
+    "name": "color.chart.magenta.boldest.[default]",
+    "path": [
+      "color",
+      "chart",
+      "magenta",
+      "boldest",
+      "[default]"
+    ],
+    "cleanName": "color.chart.magenta.boldest"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "Hovered state of color.chart.magenta.boldest."
+    },
+    "value": "#50253F",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.magenta.boldest."
+      },
+      "value": "#50253F"
+    },
+    "name": "color.chart.magenta.boldest.hovered",
+    "path": [
+      "color",
+      "chart",
+      "magenta",
+      "boldest",
+      "hovered"
+    ],
+    "cleanName": "color.chart.magenta.boldest.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "For data visualisation only."
+    },
+    "value": "#5E6C84",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "N300"
+    },
+    "name": "color.chart.gray.bold.[default]",
+    "path": [
+      "color",
+      "chart",
+      "gray",
+      "bold",
+      "[default]"
+    ],
+    "cleanName": "color.chart.gray.bold"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "Hovered state of color.chart.gray.bold."
+    },
+    "value": "#505F79",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.gray.bold."
+      },
+      "value": "N400"
+    },
+    "name": "color.chart.gray.bold.hovered",
+    "path": [
+      "color",
+      "chart",
+      "gray",
+      "bold",
+      "hovered"
+    ],
+    "cleanName": "color.chart.gray.bold.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "For data visualisation only."
+    },
+    "value": "#505F79",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "N400"
+    },
+    "name": "color.chart.gray.bolder.[default]",
+    "path": [
+      "color",
+      "chart",
+      "gray",
+      "bolder",
+      "[default]"
+    ],
+    "cleanName": "color.chart.gray.bolder"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "Hovered state of color.chart.gray.bolder."
+    },
+    "value": "#42526E",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.gray.bolder."
+      },
+      "value": "N500"
+    },
+    "name": "color.chart.gray.bolder.hovered",
+    "path": [
+      "color",
+      "chart",
+      "gray",
+      "bolder",
+      "hovered"
+    ],
+    "cleanName": "color.chart.gray.bolder.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "For data visualisation only."
+    },
+    "value": "#42526E",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "N500"
+    },
+    "name": "color.chart.gray.boldest.[default]",
+    "path": [
+      "color",
+      "chart",
+      "gray",
+      "boldest",
+      "[default]"
+    ],
+    "cleanName": "color.chart.gray.boldest"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "Hovered state of color.chart.gray.boldest."
+    },
+    "value": "#42526E",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.gray.boldest."
+      },
+      "value": "N500"
+    },
+    "name": "color.chart.gray.boldest.hovered",
+    "path": [
+      "color",
+      "chart",
+      "gray",
+      "boldest",
+      "hovered"
+    ],
+    "cleanName": "color.chart.gray.boldest.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "Our primary color for data visualisation. Use when only one color is required."
+    },
+    "value": "#0065FF",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Our primary color for data visualisation. Use when only one color is required."
+      },
+      "value": "B300"
+    },
+    "name": "color.chart.brand.[default]",
+    "path": [
+      "color",
+      "chart",
+      "brand",
+      "[default]"
+    ],
+    "cleanName": "color.chart.brand"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "Hovered state of color.chart.brand."
+    },
+    "value": "#0052CC",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.brand."
+      },
+      "value": "B400"
+    },
+    "name": "color.chart.brand.hovered",
+    "path": [
+      "color",
+      "chart",
+      "brand",
+      "hovered"
+    ],
+    "cleanName": "color.chart.brand.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "For data visualisation communicating negative information, such as 'off track'."
+    },
+    "value": "#FF5630",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation communicating negative information, such as 'off track'."
+      },
+      "value": "R300"
+    },
+    "name": "color.chart.danger.[default].[default]",
+    "path": [
+      "color",
+      "chart",
+      "danger",
+      "[default]",
+      "[default]"
+    ],
+    "cleanName": "color.chart.danger"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "Hovered state of color.chart.danger."
+    },
+    "value": "#DE350B",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.danger."
+      },
+      "value": "R400"
+    },
+    "name": "color.chart.danger.[default].hovered",
+    "path": [
+      "color",
+      "chart",
+      "danger",
+      "[default]",
+      "hovered"
+    ],
+    "cleanName": "color.chart.danger.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "A stronger emphasis option of color.chart.danger."
+    },
+    "value": "#DE350B",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "A stronger emphasis option of color.chart.danger."
+      },
+      "value": "R400"
+    },
+    "name": "color.chart.danger.bold.[default]",
+    "path": [
+      "color",
+      "chart",
+      "danger",
+      "bold",
+      "[default]"
+    ],
+    "cleanName": "color.chart.danger.bold"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "Hovered state of color.chart.danger.bold."
+    },
+    "value": "#BF2600",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.danger.bold."
+      },
+      "value": "R500"
+    },
+    "name": "color.chart.danger.bold.hovered",
+    "path": [
+      "color",
+      "chart",
+      "danger",
+      "bold",
+      "hovered"
+    ],
+    "cleanName": "color.chart.danger.bold.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "For data visualisation communicating caution, such as 'at risk' statuses."
+    },
+    "value": "#FFAB00",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation communicating caution, such as 'at risk' statuses."
+      },
+      "value": "Y300"
+    },
+    "name": "color.chart.warning.[default].[default]",
+    "path": [
+      "color",
+      "chart",
+      "warning",
+      "[default]",
+      "[default]"
+    ],
+    "cleanName": "color.chart.warning"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "Hovered state of color.chart.warning."
+    },
+    "value": "#FF991F",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.warning."
+      },
+      "value": "Y400"
+    },
+    "name": "color.chart.warning.[default].hovered",
+    "path": [
+      "color",
+      "chart",
+      "warning",
+      "[default]",
+      "hovered"
+    ],
+    "cleanName": "color.chart.warning.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "A stronger emphasis option of color.chart.warning."
+    },
+    "value": "#FF991F",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "A stronger emphasis option of color.chart.warning."
+      },
+      "value": "Y400"
+    },
+    "name": "color.chart.warning.bold.[default]",
+    "path": [
+      "color",
+      "chart",
+      "warning",
+      "bold",
+      "[default]"
+    ],
+    "cleanName": "color.chart.warning.bold"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "Hovered state of color.chart.warning.bold."
+    },
+    "value": "#FF8B00",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.warning.bold."
+      },
+      "value": "Y500"
+    },
+    "name": "color.chart.warning.bold.hovered",
+    "path": [
+      "color",
+      "chart",
+      "warning",
+      "bold",
+      "hovered"
+    ],
+    "cleanName": "color.chart.warning.bold.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "For data visualisation communicating positive information, such as 'on track'."
+    },
+    "value": "#36B37E",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation communicating positive information, such as 'on track'."
+      },
+      "value": "G300"
+    },
+    "name": "color.chart.success.[default].[default]",
+    "path": [
+      "color",
+      "chart",
+      "success",
+      "[default]",
+      "[default]"
+    ],
+    "cleanName": "color.chart.success"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "Hovered state of color.chart.success."
+    },
+    "value": "#00875A",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.success."
+      },
+      "value": "G400"
+    },
+    "name": "color.chart.success.[default].hovered",
+    "path": [
+      "color",
+      "chart",
+      "success",
+      "[default]",
+      "hovered"
+    ],
+    "cleanName": "color.chart.success.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "A stronger emphasis option of color.chart.success."
+    },
+    "value": "#00875A",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "A stronger emphasis option of color.chart.success."
+      },
+      "value": "G400"
+    },
+    "name": "color.chart.success.bold.[default]",
+    "path": [
+      "color",
+      "chart",
+      "success",
+      "bold",
+      "[default]"
+    ],
+    "cleanName": "color.chart.success.bold"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "Hovered state of color.chart.success.bold."
+    },
+    "value": "#006644",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.success.bold."
+      },
+      "value": "G500"
+    },
+    "name": "color.chart.success.bold.hovered",
+    "path": [
+      "color",
+      "chart",
+      "success",
+      "bold",
+      "hovered"
+    ],
+    "cleanName": "color.chart.success.bold.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "For data visualisation communicating 'new' statuses."
+    },
+    "value": "#6554C0",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation communicating 'new' statuses."
+      },
+      "value": "P300"
+    },
+    "name": "color.chart.discovery.[default].[default]",
+    "path": [
+      "color",
+      "chart",
+      "discovery",
+      "[default]",
+      "[default]"
+    ],
+    "cleanName": "color.chart.discovery"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "Hovered state of color.chart.discovery."
+    },
+    "value": "#5243AA",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.discovery."
+      },
+      "value": "P400"
+    },
+    "name": "color.chart.discovery.[default].hovered",
+    "path": [
+      "color",
+      "chart",
+      "discovery",
+      "[default]",
+      "hovered"
+    ],
+    "cleanName": "color.chart.discovery.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "A stronger emphasis option of color.chart.discovery."
+    },
+    "value": "#5243AA",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "A stronger emphasis option of color.chart.discovery."
+      },
+      "value": "P400"
+    },
+    "name": "color.chart.discovery.bold.[default]",
+    "path": [
+      "color",
+      "chart",
+      "discovery",
+      "bold",
+      "[default]"
+    ],
+    "cleanName": "color.chart.discovery.bold"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "Hovered state of color.chart.discovery.bold."
+    },
+    "value": "#403294",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.discovery.bold."
+      },
+      "value": "P500"
+    },
+    "name": "color.chart.discovery.bold.hovered",
+    "path": [
+      "color",
+      "chart",
+      "discovery",
+      "bold",
+      "hovered"
+    ],
+    "cleanName": "color.chart.discovery.bold.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "For data visualisation communicating low priority or in-progress statuses."
+    },
+    "value": "#0065FF",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation communicating low priority or in-progress statuses."
+      },
+      "value": "B300"
+    },
+    "name": "color.chart.information.[default].[default]",
+    "path": [
+      "color",
+      "chart",
+      "information",
+      "[default]",
+      "[default]"
+    ],
+    "cleanName": "color.chart.information"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "Hovered state of color.chart.information."
+    },
+    "value": "#0052CC",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.information."
+      },
+      "value": "B400"
+    },
+    "name": "color.chart.information.[default].hovered",
+    "path": [
+      "color",
+      "chart",
+      "information",
+      "[default]",
+      "hovered"
+    ],
+    "cleanName": "color.chart.information.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "A stronger emphasis option of color.chart.information."
+    },
+    "value": "#0052CC",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "A stronger emphasis option of color.chart.information."
+      },
+      "value": "B400"
+    },
+    "name": "color.chart.information.bold.[default]",
+    "path": [
+      "color",
+      "chart",
+      "information",
+      "bold",
+      "[default]"
+    ],
+    "cleanName": "color.chart.information.bold"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "Hovered state of color.chart.information.bold."
+    },
+    "value": "#0747A6",
+    "filePath": "src/tokens/atlassian-legacy-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.information.bold."
+      },
+      "value": "B500"
+    },
+    "name": "color.chart.information.bold.hovered",
+    "path": [
+      "color",
+      "chart",
+      "information",
+      "bold",
+      "hovered"
+    ],
+    "cleanName": "color.chart.information.bold.hovered"
   },
   {
     "attributes": {
@@ -10002,7 +10348,8 @@ const tokens = [
       "color",
       "accent",
       "boldBlue"
-    ]
+    ],
+    "cleanName": "color.accent.boldBlue"
   },
   {
     "attributes": {
@@ -10034,7 +10381,8 @@ const tokens = [
       "color",
       "accent",
       "boldGreen"
-    ]
+    ],
+    "cleanName": "color.accent.boldGreen"
   },
   {
     "attributes": {
@@ -10066,7 +10414,8 @@ const tokens = [
       "color",
       "accent",
       "boldOrange"
-    ]
+    ],
+    "cleanName": "color.accent.boldOrange"
   },
   {
     "attributes": {
@@ -10098,7 +10447,8 @@ const tokens = [
       "color",
       "accent",
       "boldPurple"
-    ]
+    ],
+    "cleanName": "color.accent.boldPurple"
   },
   {
     "attributes": {
@@ -10130,7 +10480,8 @@ const tokens = [
       "color",
       "accent",
       "boldRed"
-    ]
+    ],
+    "cleanName": "color.accent.boldRed"
   },
   {
     "attributes": {
@@ -10162,7 +10513,8 @@ const tokens = [
       "color",
       "accent",
       "boldTeal"
-    ]
+    ],
+    "cleanName": "color.accent.boldTeal"
   },
   {
     "attributes": {
@@ -10194,7 +10546,8 @@ const tokens = [
       "color",
       "accent",
       "subtleBlue"
-    ]
+    ],
+    "cleanName": "color.accent.subtleBlue"
   },
   {
     "attributes": {
@@ -10226,7 +10579,8 @@ const tokens = [
       "color",
       "accent",
       "subtleGreen"
-    ]
+    ],
+    "cleanName": "color.accent.subtleGreen"
   },
   {
     "attributes": {
@@ -10258,7 +10612,8 @@ const tokens = [
       "color",
       "accent",
       "subtleMagenta"
-    ]
+    ],
+    "cleanName": "color.accent.subtleMagenta"
   },
   {
     "attributes": {
@@ -10290,7 +10645,8 @@ const tokens = [
       "color",
       "accent",
       "subtleOrange"
-    ]
+    ],
+    "cleanName": "color.accent.subtleOrange"
   },
   {
     "attributes": {
@@ -10322,7 +10678,8 @@ const tokens = [
       "color",
       "accent",
       "subtlePurple"
-    ]
+    ],
+    "cleanName": "color.accent.subtlePurple"
   },
   {
     "attributes": {
@@ -10354,7 +10711,8 @@ const tokens = [
       "color",
       "accent",
       "subtleRed"
-    ]
+    ],
+    "cleanName": "color.accent.subtleRed"
   },
   {
     "attributes": {
@@ -10386,7 +10744,8 @@ const tokens = [
       "color",
       "accent",
       "subtleTeal"
-    ]
+    ],
+    "cleanName": "color.accent.subtleTeal"
   },
   {
     "attributes": {
@@ -10418,7 +10777,8 @@ const tokens = [
       "color",
       "iconBorder",
       "brand"
-    ]
+    ],
+    "cleanName": "color.iconBorder.brand"
   },
   {
     "attributes": {
@@ -10450,71 +10810,8 @@ const tokens = [
       "color",
       "iconBorder",
       "danger"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "deleted",
-      "introduced": "0.0.15",
-      "deprecated": "0.6.0",
-      "deleted": "0.8.0",
-      "replacement": "color.icon.discovery",
-      "description": "\nUse rarely for icons and borders representing new information, such as the icons in discovery section mesages or the borders in onboarding spotlights.\n\nAlso use for purple icons or borders when there is no meaning tied to the color, such as file type icons.\n"
-    },
-    "value": "#FA11F2",
-    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "deleted",
-        "introduced": "0.0.15",
-        "deprecated": "0.6.0",
-        "deleted": "0.8.0",
-        "replacement": "color.icon.discovery",
-        "description": "\nUse rarely for icons and borders representing new information, such as the icons in discovery section mesages or the borders in onboarding spotlights.\n\nAlso use for purple icons or borders when there is no meaning tied to the color, such as file type icons.\n"
-      },
-      "value": "#FA11F2"
-    },
-    "name": "color.iconBorder.discovery",
-    "path": [
-      "color",
-      "iconBorder",
-      "discovery"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "deleted",
-      "introduced": "0.0.15",
-      "deprecated": "0.6.0",
-      "deleted": "0.8.0",
-      "replacement": "color.icon.success",
-      "description": "\nUse rarely for icons and borders representing positive information, such as the icons in success section messages or the borders on validated text fields.\n\nAlso use for green icons or borders when there is no meaning tied to the color, such as file type icons.\n"
-    },
-    "value": "#FA11F2",
-    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "deleted",
-        "introduced": "0.0.15",
-        "deprecated": "0.6.0",
-        "deleted": "0.8.0",
-        "replacement": "color.icon.success",
-        "description": "\nUse rarely for icons and borders representing positive information, such as the icons in success section messages or the borders on validated text fields.\n\nAlso use for green icons or borders when there is no meaning tied to the color, such as file type icons.\n"
-      },
-      "value": "#FA11F2"
-    },
-    "name": "color.iconBorder.success",
-    "path": [
-      "color",
-      "iconBorder",
-      "success"
-    ]
+    ],
+    "cleanName": "color.iconBorder.danger"
   },
   {
     "attributes": {
@@ -10546,7 +10843,74 @@ const tokens = [
       "color",
       "iconBorder",
       "warning"
-    ]
+    ],
+    "cleanName": "color.iconBorder.warning"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deleted",
+      "introduced": "0.0.15",
+      "deprecated": "0.6.0",
+      "deleted": "0.8.0",
+      "replacement": "color.icon.success",
+      "description": "\nUse rarely for icons and borders representing positive information, such as the icons in success section messages or the borders on validated text fields.\n\nAlso use for green icons or borders when there is no meaning tied to the color, such as file type icons.\n"
+    },
+    "value": "#FA11F2",
+    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deleted",
+        "introduced": "0.0.15",
+        "deprecated": "0.6.0",
+        "deleted": "0.8.0",
+        "replacement": "color.icon.success",
+        "description": "\nUse rarely for icons and borders representing positive information, such as the icons in success section messages or the borders on validated text fields.\n\nAlso use for green icons or borders when there is no meaning tied to the color, such as file type icons.\n"
+      },
+      "value": "#FA11F2"
+    },
+    "name": "color.iconBorder.success",
+    "path": [
+      "color",
+      "iconBorder",
+      "success"
+    ],
+    "cleanName": "color.iconBorder.success"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deleted",
+      "introduced": "0.0.15",
+      "deprecated": "0.6.0",
+      "deleted": "0.8.0",
+      "replacement": "color.icon.discovery",
+      "description": "\nUse rarely for icons and borders representing new information, such as the icons in discovery section mesages or the borders in onboarding spotlights.\n\nAlso use for purple icons or borders when there is no meaning tied to the color, such as file type icons.\n"
+    },
+    "value": "#FA11F2",
+    "filePath": "src/tokens/atlassian-legacy-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deleted",
+        "introduced": "0.0.15",
+        "deprecated": "0.6.0",
+        "deleted": "0.8.0",
+        "replacement": "color.icon.discovery",
+        "description": "\nUse rarely for icons and borders representing new information, such as the icons in discovery section mesages or the borders in onboarding spotlights.\n\nAlso use for purple icons or borders when there is no meaning tied to the color, such as file type icons.\n"
+      },
+      "value": "#FA11F2"
+    },
+    "name": "color.iconBorder.discovery",
+    "path": [
+      "color",
+      "iconBorder",
+      "discovery"
+    ],
+    "cleanName": "color.iconBorder.discovery"
   },
   {
     "attributes": {
@@ -10578,7 +10942,8 @@ const tokens = [
       "color",
       "overlay",
       "hover"
-    ]
+    ],
+    "cleanName": "color.overlay.hover"
   },
   {
     "attributes": {
@@ -10610,7 +10975,591 @@ const tokens = [
       "color",
       "overlay",
       "pressed"
-    ]
+    ],
+    "cleanName": "color.overlay.pressed"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.6.0",
+      "description": "Use as the primary background for the UI."
+    },
+    "value": "#FFFFFF",
+    "filePath": "src/tokens/atlassian-legacy-light/elevation/surface.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use as the primary background for the UI."
+      },
+      "value": "N0"
+    },
+    "name": "elevation.surface.[default].[default]",
+    "path": [
+      "elevation",
+      "surface",
+      "[default]",
+      "[default]"
+    ],
+    "cleanName": "elevation.surface"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.10.20",
+      "description": "Hovered state of elevation.surface"
+    },
+    "value": "#FAFBFC",
+    "filePath": "src/tokens/atlassian-legacy-light/elevation/surface.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.10.20",
+        "description": "Hovered state of elevation.surface"
+      },
+      "value": "N10"
+    },
+    "name": "elevation.surface.[default].hovered",
+    "path": [
+      "elevation",
+      "surface",
+      "[default]",
+      "hovered"
+    ],
+    "cleanName": "elevation.surface.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.10.20",
+      "description": "Pressed state of elevation.surface"
+    },
+    "value": "#F4F5F7",
+    "filePath": "src/tokens/atlassian-legacy-light/elevation/surface.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.10.20",
+        "description": "Pressed state of elevation.surface"
+      },
+      "value": "N20"
+    },
+    "name": "elevation.surface.[default].pressed",
+    "path": [
+      "elevation",
+      "surface",
+      "[default]",
+      "pressed"
+    ],
+    "cleanName": "elevation.surface.pressed"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.6.0",
+      "description": "Use for the background of elements that sit on top of they UI, such as modals, dialogs, dropdown menus, floating toolbars, and floating single-action buttons. Also use for the background of raised cards in a dragged state. Combine with elevation.shadow.overlay."
+    },
+    "value": "#FFFFFF",
+    "filePath": "src/tokens/atlassian-legacy-light/elevation/surface.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for the background of elements that sit on top of they UI, such as modals, dialogs, dropdown menus, floating toolbars, and floating single-action buttons. Also use for the background of raised cards in a dragged state. Combine with elevation.shadow.overlay."
+      },
+      "value": "N0"
+    },
+    "name": "elevation.surface.overlay.[default]",
+    "path": [
+      "elevation",
+      "surface",
+      "overlay",
+      "[default]"
+    ],
+    "cleanName": "elevation.surface.overlay"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.10.20",
+      "description": "Hovered state of elevation.surface.overlay"
+    },
+    "value": "#FAFBFC",
+    "filePath": "src/tokens/atlassian-legacy-light/elevation/surface.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.10.20",
+        "description": "Hovered state of elevation.surface.overlay"
+      },
+      "value": "N10"
+    },
+    "name": "elevation.surface.overlay.hovered",
+    "path": [
+      "elevation",
+      "surface",
+      "overlay",
+      "hovered"
+    ],
+    "cleanName": "elevation.surface.overlay.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.10.20",
+      "description": "Pressed state of elevation.surface.overlay"
+    },
+    "value": "#F4F5F7",
+    "filePath": "src/tokens/atlassian-legacy-light/elevation/surface.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.10.20",
+        "description": "Pressed state of elevation.surface.overlay"
+      },
+      "value": "N20"
+    },
+    "name": "elevation.surface.overlay.pressed",
+    "path": [
+      "elevation",
+      "surface",
+      "overlay",
+      "pressed"
+    ],
+    "cleanName": "elevation.surface.overlay.pressed"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.6.0",
+      "description": "Use for the background of cards that can be moved, such as Jira cards on a Kanban board. Combine with elevation.shadow.raised."
+    },
+    "value": "#FFFFFF",
+    "filePath": "src/tokens/atlassian-legacy-light/elevation/surface.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for the background of cards that can be moved, such as Jira cards on a Kanban board. Combine with elevation.shadow.raised."
+      },
+      "value": "N0"
+    },
+    "name": "elevation.surface.raised.[default]",
+    "path": [
+      "elevation",
+      "surface",
+      "raised",
+      "[default]"
+    ],
+    "cleanName": "elevation.surface.raised"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.10.20",
+      "description": "Hovered state of elevation.surface.raised"
+    },
+    "value": "#FAFBFC",
+    "filePath": "src/tokens/atlassian-legacy-light/elevation/surface.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.10.20",
+        "description": "Hovered state of elevation.surface.raised"
+      },
+      "value": "N10"
+    },
+    "name": "elevation.surface.raised.hovered",
+    "path": [
+      "elevation",
+      "surface",
+      "raised",
+      "hovered"
+    ],
+    "cleanName": "elevation.surface.raised.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.10.20",
+      "description": "Pressed state of elevation.surface.raised"
+    },
+    "value": "#F4F5F7",
+    "filePath": "src/tokens/atlassian-legacy-light/elevation/surface.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.10.20",
+        "description": "Pressed state of elevation.surface.raised"
+      },
+      "value": "N20"
+    },
+    "name": "elevation.surface.raised.pressed",
+    "path": [
+      "elevation",
+      "surface",
+      "raised",
+      "pressed"
+    ],
+    "cleanName": "elevation.surface.raised.pressed"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.6.0",
+      "description": "A secondary background for the UI commonly used for grouping items, such as Jira cards in columns."
+    },
+    "value": "#F4F5F7",
+    "filePath": "src/tokens/atlassian-legacy-light/elevation/surface.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "A secondary background for the UI commonly used for grouping items, such as Jira cards in columns."
+      },
+      "value": "N20"
+    },
+    "name": "elevation.surface.sunken",
+    "path": [
+      "elevation",
+      "surface",
+      "sunken"
+    ],
+    "cleanName": "elevation.surface.sunken"
+  },
+  {
+    "attributes": {
+      "group": "shadow",
+      "state": "active",
+      "introduced": "0.6.0",
+      "description": "Use to create a shadow when content scrolls under other content."
+    },
+    "value": [
+      {
+        "radius": 8,
+        "offset": {
+          "x": 0,
+          "y": 0
+        },
+        "color": "#091e423f",
+        "opacity": 0.16
+      },
+      {
+        "radius": 1,
+        "offset": {
+          "x": 0,
+          "y": 0
+        },
+        "color": "#091e424f",
+        "opacity": 0.12
+      }
+    ],
+    "filePath": "src/tokens/atlassian-legacy-light/elevation/shadow.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "shadow",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use to create a shadow when content scrolls under other content."
+      },
+      "value": [
+        {
+          "radius": 8,
+          "offset": {
+            "x": 0,
+            "y": 0
+          },
+          "color": "N50A",
+          "opacity": 0.16
+        },
+        {
+          "radius": 1,
+          "offset": {
+            "x": 0,
+            "y": 0
+          },
+          "color": "N60A",
+          "opacity": 0.12
+        }
+      ]
+    },
+    "name": "elevation.shadow.overflow.[default]",
+    "path": [
+      "elevation",
+      "shadow",
+      "overflow",
+      "[default]"
+    ],
+    "cleanName": "elevation.shadow.overflow"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.10.32",
+      "description": "Use only when elevation.shadow.overflow is not technically feasible to implement. Pair with elevation.shadow.overflow.spread to replicate the overflow shadow."
+    },
+    "value": "#091e421f",
+    "filePath": "src/tokens/atlassian-legacy-light/elevation/shadow.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.10.32",
+        "description": "Use only when elevation.shadow.overflow is not technically feasible to implement. Pair with elevation.shadow.overflow.spread to replicate the overflow shadow."
+      },
+      "value": "#091e421f"
+    },
+    "name": "elevation.shadow.overflow.perimeter",
+    "path": [
+      "elevation",
+      "shadow",
+      "overflow",
+      "perimeter"
+    ],
+    "cleanName": "elevation.shadow.overflow.perimeter"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.10.32",
+      "description": "Use only when elevation.shadow.overflow is not technically feasible to implement. Pair with elevation.shadow.overflow.perimeter to replicate the overflow shadow."
+    },
+    "value": "#091e4229",
+    "filePath": "src/tokens/atlassian-legacy-light/elevation/shadow.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.10.32",
+        "description": "Use only when elevation.shadow.overflow is not technically feasible to implement. Pair with elevation.shadow.overflow.perimeter to replicate the overflow shadow."
+      },
+      "value": "#091e4229"
+    },
+    "name": "elevation.shadow.overflow.spread",
+    "path": [
+      "elevation",
+      "shadow",
+      "overflow",
+      "spread"
+    ],
+    "cleanName": "elevation.shadow.overflow.spread"
+  },
+  {
+    "attributes": {
+      "group": "shadow",
+      "state": "active",
+      "introduced": "0.6.0",
+      "description": "Use for the box shadow of elements that sit on top of the UI, such as modals, dropdown menus, flags, and inline dialogs. Combine with elevation.surface.overlay\n\nAlso use for the box shadow of raised cards in a dragged state."
+    },
+    "value": [
+      {
+        "radius": 12,
+        "offset": {
+          "x": 0,
+          "y": 8
+        },
+        "color": "#091e423f",
+        "opacity": 0.15
+      },
+      {
+        "radius": 1,
+        "offset": {
+          "x": 0,
+          "y": 0
+        },
+        "color": "#091e424f",
+        "opacity": 0.31
+      }
+    ],
+    "filePath": "src/tokens/atlassian-legacy-light/elevation/shadow.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "shadow",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for the box shadow of elements that sit on top of the UI, such as modals, dropdown menus, flags, and inline dialogs. Combine with elevation.surface.overlay\n\nAlso use for the box shadow of raised cards in a dragged state."
+      },
+      "value": [
+        {
+          "radius": 12,
+          "offset": {
+            "x": 0,
+            "y": 8
+          },
+          "color": "N50A",
+          "opacity": 0.15
+        },
+        {
+          "radius": 1,
+          "offset": {
+            "x": 0,
+            "y": 0
+          },
+          "color": "N60A",
+          "opacity": 0.31
+        }
+      ]
+    },
+    "name": "elevation.shadow.overlay",
+    "path": [
+      "elevation",
+      "shadow",
+      "overlay"
+    ],
+    "cleanName": "elevation.shadow.overlay"
+  },
+  {
+    "attributes": {
+      "group": "shadow",
+      "state": "active",
+      "introduced": "0.6.0",
+      "description": "Use for the box shadow of raised card elements, such as Jira cards on a Kanban board. Combine with elevation.surface.raised"
+    },
+    "value": [
+      {
+        "radius": 1,
+        "offset": {
+          "x": 0,
+          "y": 1
+        },
+        "color": "#091e423f",
+        "opacity": 0.25
+      },
+      {
+        "radius": 1,
+        "offset": {
+          "x": 0,
+          "y": 0
+        },
+        "color": "#091e4221",
+        "opacity": 0.31
+      }
+    ],
+    "filePath": "src/tokens/atlassian-legacy-light/elevation/shadow.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "shadow",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for the box shadow of raised card elements, such as Jira cards on a Kanban board. Combine with elevation.surface.raised"
+      },
+      "value": [
+        {
+          "radius": 1,
+          "offset": {
+            "x": 0,
+            "y": 1
+          },
+          "color": "N50A",
+          "opacity": 0.25
+        },
+        {
+          "radius": 1,
+          "offset": {
+            "x": 0,
+            "y": 0
+          },
+          "color": "N40A",
+          "opacity": 0.31
+        }
+      ]
+    },
+    "name": "elevation.shadow.raised",
+    "path": [
+      "elevation",
+      "shadow",
+      "raised"
+    ],
+    "cleanName": "elevation.shadow.raised"
+  },
+  {
+    "attributes": {
+      "group": "opacity",
+      "state": "active",
+      "introduced": "0.10.13",
+      "description": "Apply to images when in a disabled state."
+    },
+    "value": 0.4,
+    "filePath": "src/tokens/atlassian-legacy-light/opacity/opacity.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "opacity",
+        "state": "active",
+        "introduced": "0.10.13",
+        "description": "Apply to images when in a disabled state."
+      },
+      "value": "Opacity40"
+    },
+    "name": "opacity.disabled",
+    "path": [
+      "opacity",
+      "disabled"
+    ],
+    "cleanName": "opacity.disabled"
+  },
+  {
+    "attributes": {
+      "group": "opacity",
+      "state": "active",
+      "introduced": "0.10.13",
+      "description": "Apply to content that sits under a loading spinner."
+    },
+    "value": 0.2,
+    "filePath": "src/tokens/atlassian-legacy-light/opacity/opacity.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "opacity",
+        "state": "active",
+        "introduced": "0.10.13",
+        "description": "Apply to content that sits under a loading spinner."
+      },
+      "value": "Opacity20"
+    },
+    "name": "opacity.loading",
+    "path": [
+      "opacity",
+      "loading"
+    ],
+    "cleanName": "opacity.loading"
   },
   {
     "attributes": {
@@ -10679,7 +11628,8 @@ const tokens = [
     "path": [
       "shadow",
       "card"
-    ]
+    ],
+    "cleanName": "shadow.card"
   },
   {
     "attributes": {
@@ -10748,599 +11698,8 @@ const tokens = [
     "path": [
       "shadow",
       "overlay"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "shadow",
-      "state": "active",
-      "introduced": "0.6.0",
-      "description": "Use for the box shadow of raised card elements, such as Jira cards on a Kanban board. Combine with elevation.surface.raised"
-    },
-    "value": [
-      {
-        "radius": 1,
-        "offset": {
-          "x": 0,
-          "y": 1
-        },
-        "color": "#091e423f",
-        "opacity": 0.25
-      },
-      {
-        "radius": 1,
-        "offset": {
-          "x": 0,
-          "y": 0
-        },
-        "color": "#091e4221",
-        "opacity": 0.31
-      }
     ],
-    "filePath": "src/tokens/atlassian-legacy-light/elevation/shadow.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "shadow",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for the box shadow of raised card elements, such as Jira cards on a Kanban board. Combine with elevation.surface.raised"
-      },
-      "value": [
-        {
-          "radius": 1,
-          "offset": {
-            "x": 0,
-            "y": 1
-          },
-          "color": "N50A",
-          "opacity": 0.25
-        },
-        {
-          "radius": 1,
-          "offset": {
-            "x": 0,
-            "y": 0
-          },
-          "color": "N40A",
-          "opacity": 0.31
-        }
-      ]
-    },
-    "name": "elevation.shadow.raised",
-    "path": [
-      "elevation",
-      "shadow",
-      "raised"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "shadow",
-      "state": "active",
-      "introduced": "0.6.0",
-      "description": "Use to create a shadow when content scrolls under other content."
-    },
-    "value": [
-      {
-        "radius": 8,
-        "offset": {
-          "x": 0,
-          "y": 0
-        },
-        "color": "#091e423f",
-        "opacity": 0.16
-      },
-      {
-        "radius": 1,
-        "offset": {
-          "x": 0,
-          "y": 0
-        },
-        "color": "#091e424f",
-        "opacity": 0.12
-      }
-    ],
-    "filePath": "src/tokens/atlassian-legacy-light/elevation/shadow.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "shadow",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use to create a shadow when content scrolls under other content."
-      },
-      "value": [
-        {
-          "radius": 8,
-          "offset": {
-            "x": 0,
-            "y": 0
-          },
-          "color": "N50A",
-          "opacity": 0.16
-        },
-        {
-          "radius": 1,
-          "offset": {
-            "x": 0,
-            "y": 0
-          },
-          "color": "N60A",
-          "opacity": 0.12
-        }
-      ]
-    },
-    "name": "elevation.shadow.overflow.[default]",
-    "path": [
-      "elevation",
-      "shadow",
-      "overflow",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.10.32",
-      "description": "Use only when elevation.shadow.overflow is not technically feasible to implement. Pair with elevation.shadow.overflow.perimeter to replicate the overflow shadow."
-    },
-    "value": "#091e4229",
-    "filePath": "src/tokens/atlassian-legacy-light/elevation/shadow.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.10.32",
-        "description": "Use only when elevation.shadow.overflow is not technically feasible to implement. Pair with elevation.shadow.overflow.perimeter to replicate the overflow shadow."
-      },
-      "value": "#091e4229"
-    },
-    "name": "elevation.shadow.overflow.spread",
-    "path": [
-      "elevation",
-      "shadow",
-      "overflow",
-      "spread"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.10.32",
-      "description": "Use only when elevation.shadow.overflow is not technically feasible to implement. Pair with elevation.shadow.overflow.spread to replicate the overflow shadow."
-    },
-    "value": "#091e421f",
-    "filePath": "src/tokens/atlassian-legacy-light/elevation/shadow.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.10.32",
-        "description": "Use only when elevation.shadow.overflow is not technically feasible to implement. Pair with elevation.shadow.overflow.spread to replicate the overflow shadow."
-      },
-      "value": "#091e421f"
-    },
-    "name": "elevation.shadow.overflow.perimeter",
-    "path": [
-      "elevation",
-      "shadow",
-      "overflow",
-      "perimeter"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "shadow",
-      "state": "active",
-      "introduced": "0.6.0",
-      "description": "Use for the box shadow of elements that sit on top of the UI, such as modals, dropdown menus, flags, and inline dialogs. Combine with elevation.surface.overlay\n\nAlso use for the box shadow of raised cards in a dragged state."
-    },
-    "value": [
-      {
-        "radius": 12,
-        "offset": {
-          "x": 0,
-          "y": 8
-        },
-        "color": "#091e423f",
-        "opacity": 0.15
-      },
-      {
-        "radius": 1,
-        "offset": {
-          "x": 0,
-          "y": 0
-        },
-        "color": "#091e424f",
-        "opacity": 0.31
-      }
-    ],
-    "filePath": "src/tokens/atlassian-legacy-light/elevation/shadow.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "shadow",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for the box shadow of elements that sit on top of the UI, such as modals, dropdown menus, flags, and inline dialogs. Combine with elevation.surface.overlay\n\nAlso use for the box shadow of raised cards in a dragged state."
-      },
-      "value": [
-        {
-          "radius": 12,
-          "offset": {
-            "x": 0,
-            "y": 8
-          },
-          "color": "N50A",
-          "opacity": 0.15
-        },
-        {
-          "radius": 1,
-          "offset": {
-            "x": 0,
-            "y": 0
-          },
-          "color": "N60A",
-          "opacity": 0.31
-        }
-      ]
-    },
-    "name": "elevation.shadow.overlay",
-    "path": [
-      "elevation",
-      "shadow",
-      "overlay"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.6.0",
-      "description": "Use as the primary background for the UI."
-    },
-    "value": "#FFFFFF",
-    "filePath": "src/tokens/atlassian-legacy-light/elevation/surface.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use as the primary background for the UI."
-      },
-      "value": "N0"
-    },
-    "name": "elevation.surface.[default].[default]",
-    "path": [
-      "elevation",
-      "surface",
-      "[default]",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.10.20",
-      "description": "Hovered state of elevation.surface"
-    },
-    "value": "#FAFBFC",
-    "filePath": "src/tokens/atlassian-legacy-light/elevation/surface.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.10.20",
-        "description": "Hovered state of elevation.surface"
-      },
-      "value": "N10"
-    },
-    "name": "elevation.surface.[default].hovered",
-    "path": [
-      "elevation",
-      "surface",
-      "[default]",
-      "hovered"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.10.20",
-      "description": "Pressed state of elevation.surface"
-    },
-    "value": "#F4F5F7",
-    "filePath": "src/tokens/atlassian-legacy-light/elevation/surface.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.10.20",
-        "description": "Pressed state of elevation.surface"
-      },
-      "value": "N20"
-    },
-    "name": "elevation.surface.[default].pressed",
-    "path": [
-      "elevation",
-      "surface",
-      "[default]",
-      "pressed"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.6.0",
-      "description": "A secondary background for the UI commonly used for grouping items, such as Jira cards in columns."
-    },
-    "value": "#F4F5F7",
-    "filePath": "src/tokens/atlassian-legacy-light/elevation/surface.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "A secondary background for the UI commonly used for grouping items, such as Jira cards in columns."
-      },
-      "value": "N20"
-    },
-    "name": "elevation.surface.sunken",
-    "path": [
-      "elevation",
-      "surface",
-      "sunken"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.6.0",
-      "description": "Use for the background of cards that can be moved, such as Jira cards on a Kanban board. Combine with elevation.shadow.raised."
-    },
-    "value": "#FFFFFF",
-    "filePath": "src/tokens/atlassian-legacy-light/elevation/surface.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for the background of cards that can be moved, such as Jira cards on a Kanban board. Combine with elevation.shadow.raised."
-      },
-      "value": "N0"
-    },
-    "name": "elevation.surface.raised.[default]",
-    "path": [
-      "elevation",
-      "surface",
-      "raised",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.10.20",
-      "description": "Hovered state of elevation.surface.raised"
-    },
-    "value": "#FAFBFC",
-    "filePath": "src/tokens/atlassian-legacy-light/elevation/surface.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.10.20",
-        "description": "Hovered state of elevation.surface.raised"
-      },
-      "value": "N10"
-    },
-    "name": "elevation.surface.raised.hovered",
-    "path": [
-      "elevation",
-      "surface",
-      "raised",
-      "hovered"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.10.20",
-      "description": "Pressed state of elevation.surface.raised"
-    },
-    "value": "#F4F5F7",
-    "filePath": "src/tokens/atlassian-legacy-light/elevation/surface.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.10.20",
-        "description": "Pressed state of elevation.surface.raised"
-      },
-      "value": "N20"
-    },
-    "name": "elevation.surface.raised.pressed",
-    "path": [
-      "elevation",
-      "surface",
-      "raised",
-      "pressed"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.6.0",
-      "description": "Use for the background of elements that sit on top of they UI, such as modals, dialogs, dropdown menus, floating toolbars, and floating single-action buttons. Also use for the background of raised cards in a dragged state. Combine with elevation.shadow.overlay."
-    },
-    "value": "#FFFFFF",
-    "filePath": "src/tokens/atlassian-legacy-light/elevation/surface.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for the background of elements that sit on top of they UI, such as modals, dialogs, dropdown menus, floating toolbars, and floating single-action buttons. Also use for the background of raised cards in a dragged state. Combine with elevation.shadow.overlay."
-      },
-      "value": "N0"
-    },
-    "name": "elevation.surface.overlay.[default]",
-    "path": [
-      "elevation",
-      "surface",
-      "overlay",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.10.20",
-      "description": "Hovered state of elevation.surface.overlay"
-    },
-    "value": "#FAFBFC",
-    "filePath": "src/tokens/atlassian-legacy-light/elevation/surface.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.10.20",
-        "description": "Hovered state of elevation.surface.overlay"
-      },
-      "value": "N10"
-    },
-    "name": "elevation.surface.overlay.hovered",
-    "path": [
-      "elevation",
-      "surface",
-      "overlay",
-      "hovered"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.10.20",
-      "description": "Pressed state of elevation.surface.overlay"
-    },
-    "value": "#F4F5F7",
-    "filePath": "src/tokens/atlassian-legacy-light/elevation/surface.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.10.20",
-        "description": "Pressed state of elevation.surface.overlay"
-      },
-      "value": "N20"
-    },
-    "name": "elevation.surface.overlay.pressed",
-    "path": [
-      "elevation",
-      "surface",
-      "overlay",
-      "pressed"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "opacity",
-      "state": "active",
-      "introduced": "0.10.13",
-      "description": "Apply to images when in a disabled state."
-    },
-    "value": 0.4,
-    "filePath": "src/tokens/atlassian-legacy-light/opacity/opacity.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "opacity",
-        "state": "active",
-        "introduced": "0.10.13",
-        "description": "Apply to images when in a disabled state."
-      },
-      "value": "Opacity40"
-    },
-    "name": "opacity.disabled",
-    "path": [
-      "opacity",
-      "disabled"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "opacity",
-      "state": "active",
-      "introduced": "0.10.13",
-      "description": "Apply to content that sits under a loading spinner."
-    },
-    "value": 0.2,
-    "filePath": "src/tokens/atlassian-legacy-light/opacity/opacity.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "opacity",
-        "state": "active",
-        "introduced": "0.10.13",
-        "description": "Apply to content that sits under a loading spinner."
-      },
-      "value": "Opacity20"
-    },
-    "name": "opacity.loading",
-    "path": [
-      "opacity",
-      "loading"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "raw",
-      "state": "active",
-      "introduced": "0.1.1",
-      "description": "Transparent token used for backwards compatibility between new and old theming solutions"
-    },
-    "value": "transparent",
-    "filePath": "src/tokens/atlassian-legacy-light/utility/utility.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "raw",
-        "state": "active",
-        "introduced": "0.1.1",
-        "description": "Transparent token used for backwards compatibility between new and old theming solutions"
-      },
-      "value": "transparent"
-    },
-    "name": "utility.UNSAFE_util.transparent",
-    "path": [
-      "utility",
-      "UNSAFE_util",
-      "transparent"
-    ]
+    "cleanName": "shadow.overlay"
   },
   {
     "attributes": {
@@ -11366,7 +11725,35 @@ const tokens = [
       "utility",
       "UNSAFE_util",
       "MISSING_TOKEN"
-    ]
+    ],
+    "cleanName": "utility.UNSAFE_util.MISSING_TOKEN"
+  },
+  {
+    "attributes": {
+      "group": "raw",
+      "state": "active",
+      "introduced": "0.1.1",
+      "description": "Transparent token used for backwards compatibility between new and old theming solutions"
+    },
+    "value": "transparent",
+    "filePath": "src/tokens/atlassian-legacy-light/utility/utility.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "raw",
+        "state": "active",
+        "introduced": "0.1.1",
+        "description": "Transparent token used for backwards compatibility between new and old theming solutions"
+      },
+      "value": "transparent"
+    },
+    "name": "utility.UNSAFE_util.transparent",
+    "path": [
+      "utility",
+      "UNSAFE_util",
+      "transparent"
+    ],
+    "cleanName": "utility.UNSAFE_util.transparent"
   }
 ];
 

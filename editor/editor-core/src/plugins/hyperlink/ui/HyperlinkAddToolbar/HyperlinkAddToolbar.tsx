@@ -508,14 +508,14 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
   private createClearHandler = (field: 'displayUrl' | 'displayText') => {
     return async () => {
       const { activityProvider } = this.state;
-      if (!activityProvider) {
-        return;
-      }
+
       switch (field) {
         case 'displayUrl': {
           this.setState({
             [field]: '',
-            items: limit(await activityProvider.getRecentItems()),
+            items: !!activityProvider
+              ? limit(await activityProvider.getRecentItems())
+              : [],
           });
           if (this.urlInputContainer) {
             this.urlInputContainer.focus();

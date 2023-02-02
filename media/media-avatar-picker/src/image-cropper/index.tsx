@@ -81,7 +81,6 @@ export class ImageCropper extends Component<
       imageHeight,
       imageSource,
       onRemoveImage,
-      imageOrientation,
       onImageLoaded,
       intl: { formatMessage },
     } = this.props;
@@ -119,7 +118,7 @@ export class ImageCropper extends Component<
             dataURI={imageSource}
             crop={false}
             stretch={true}
-            previewOrientation={imageOrientation}
+            previewOrientation="from-image"
             onImageLoad={onImageLoaded}
             onImageError={this.onImageError}
           />

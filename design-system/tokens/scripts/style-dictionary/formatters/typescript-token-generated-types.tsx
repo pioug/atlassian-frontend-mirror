@@ -4,17 +4,18 @@ import type { Format } from 'style-dictionary';
 import { createSignedArtifact } from '@af/codegen';
 
 import { getTokenId } from '../../../src/utils/token-ids';
+import sortTokens from '../sort-tokens';
 
 const formatter: Format['formatter'] = ({ dictionary }) => {
   const activeTokens: string[] = [];
 
-  dictionary.allTokens
-    .filter(
+  sortTokens(
+    dictionary.allTokens.filter(
       (token) =>
         token.attributes?.group !== 'palette' &&
         token.attributes?.state === 'active',
-    )
-    .forEach((token) => activeTokens.push(getTokenId(token.path)));
+    ),
+  ).forEach((token) => activeTokens.push(getTokenId(token.path)));
 
   if (activeTokens.length) {
     const activeTokenType = activeTokens

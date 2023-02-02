@@ -354,7 +354,7 @@ describe('@atlaskit/reactions/components/Reactions', () => {
         );
       });
 
-      it('should trigger cancelled for ReactionPicker', async () => {
+      it('should not trigger cancelled event for ReactionPicker on second trigger click', async () => {
         const mockOnEvent = jest.fn();
         renderReactions({}, mockOnEvent);
 
@@ -371,7 +371,7 @@ describe('@atlaskit/reactions/components/Reactions', () => {
         act(() => {
           fireEvent.click(pickerButton);
         });
-        expect(mockOnEvent).toHaveBeenCalledWith(
+        expect(mockOnEvent).not.toHaveBeenCalledWith(
           expect.objectContaining({
             payload: expect.objectContaining({
               action: 'cancelled',

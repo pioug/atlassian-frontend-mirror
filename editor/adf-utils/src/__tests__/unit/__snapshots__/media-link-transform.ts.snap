@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Media-link-transofmrm should move the link mark from mediaSingle to media 1`] = `
+exports[`Media-link-transform should move the link mark from mediaSingle to media 1`] = `
 Object {
   "isTransformed": true,
   "transformedAdf": Object {

@@ -18,6 +18,7 @@ import {
   ForwardRef,
   getPosHandler,
   getPosHandlerNode,
+  ProsemirrorGetPosHandler,
 } from '../../../nodeviews/';
 import ReactNodeView from '../../../nodeviews/ReactNodeView';
 import { stateKey as reactNodeViewStateKey } from '../../../plugins/base/pm-plugins/react-nodeview';
@@ -136,20 +137,21 @@ class MediaGroup extends React.Component<MediaGroupProps, MediaGroupState> {
     });
   }
 
-  private updateNodeAttrs = (props: MediaGroupProps) => {
+  private updateNodeAttrs = (
+    props: MediaGroupProps,
+    node: PMNode,
+    getPos: ProsemirrorGetPosHandler,
+  ) => {
     const { view, mediaProvider, contextIdentifierProvider } = props;
-
-    this.mediaNodes.forEach((node: PMNode) => {
-      const mediaNodeUpdater = new MediaNodeUpdater({
-        view,
-        mediaProvider,
-        contextIdentifierProvider,
-        node,
-        isMediaSingle: false,
-      });
-
-      mediaNodeUpdater.updateFileAttrs(false);
+    const mediaNodeUpdater = new MediaNodeUpdater({
+      view,
+      mediaProvider,
+      contextIdentifierProvider,
+      node,
+      isMediaSingle: false,
     });
+
+    mediaNodeUpdater.updateNodeAttrs(getPos);
   };
 
   componentWillUnmount() {
@@ -158,10 +160,10 @@ class MediaGroup extends React.Component<MediaGroupProps, MediaGroupState> {
 
   UNSAFE_componentWillReceiveProps(props: MediaGroupProps) {
     this.updateMediaClientConfig();
-    this.setMediaItems(props);
-    if (props.isCopyPasteEnabled !== false) {
-      this.updateNodeAttrs(props);
-    }
+    this.setMediaItems(
+      props,
+      props.isCopyPasteEnabled || props.isCopyPasteEnabled === undefined,
+    );
   }
 
   shouldComponentUpdate(nextProps: MediaGroupProps) {
@@ -187,7 +189,7 @@ class MediaGroup extends React.Component<MediaGroupProps, MediaGroupState> {
     }
   }
 
-  setMediaItems = (props: MediaGroupProps) => {
+  setMediaItems = (props: MediaGroupProps, updatedAttrs = false) => {
     const { node } = props;
     const oldMediaNodes = this.mediaNodes;
     this.mediaNodes = [] as Array<PMNode>;
@@ -195,6 +197,9 @@ class MediaGroup extends React.Component<MediaGroupProps, MediaGroupState> {
       const getPos = () => props.getPos() + childOffset + 1;
       this.mediaPluginState.setMediaGroupNode(item, getPos);
       this.mediaNodes.push(item);
+      if (updatedAttrs) {
+        this.updateNodeAttrs(props, item, getPos);
+      }
     });
 
     this.mediaPluginState.handleMediaGroupUpdate(

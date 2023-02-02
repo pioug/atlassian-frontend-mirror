@@ -18,7 +18,10 @@ import {
 } from './__fixtures__/expand-adf';
 import * as simpleExpandAdf from './__fixtures__/simple-expand.adf.json';
 import { selectors } from '@atlaskit/editor-test-helpers/page-objects/expand';
-import { emojiSelectors } from '@atlaskit/editor-test-helpers/page-objects/emoji';
+import {
+  emojiSelectors,
+  waitForEmojisToLoad,
+} from '@atlaskit/editor-test-helpers/page-objects/emoji';
 import {
   clickFirstCell,
   tableSelectors,
@@ -71,8 +74,7 @@ describe('Expand: full-page', () => {
    */
   describe.each(themes)('Theme: %s', (theme) => {
     describe.each(['default', 'wide', 'full-width'])('Breakout: %s', (mode) => {
-      // FIXME: This test was automatically skipped due to failure on 03/08/2022: https://product-fabric.atlassian.net/browse/ED-15373
-      it.skip(`should render a ${mode} collapsed top level expand`, async () => {
+      it(`should render a ${mode} collapsed top level expand`, async () => {
         await initFullPageEditorWithAdf(
           page,
           expandADF(mode),
@@ -82,11 +84,7 @@ describe('Expand: full-page', () => {
           getTheme(theme),
         );
         await page.waitForSelector(selectors.expand);
-        await waitForLoadedBackgroundImages(
-          page,
-          emojiSelectors.standard,
-          10000,
-        );
+        await waitForEmojisToLoad(page);
       });
     });
 

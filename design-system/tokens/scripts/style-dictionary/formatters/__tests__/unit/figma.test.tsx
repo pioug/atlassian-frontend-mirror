@@ -1,12 +1,5 @@
 import { figmaFormatter as formatter } from '../../figma';
 
-const output = (
-  themeName: string,
-  formattedOutput: string,
-) => `// eslint-disable-next-line no-undef
-synchronizeFigmaTokens('${themeName}', ${formattedOutput}, {});
-`;
-
 describe('formatter', () => {
   it('should parse token', () => {
     const result = formatter({
@@ -27,17 +20,18 @@ describe('formatter', () => {
 
     expect(result).toEqual(
       expect.stringContaining(
-        output(
-          'AtlassianDark',
-          JSON.stringify(
-            {
-              'Color/Brand': {
+        JSON.stringify(
+          {
+            name: 'Dark',
+            tokens: {
+              'Dark/color.brand': {
                 value: '#ffffff',
               },
             },
-            null,
-            2,
-          ),
+            renameMap: {},
+          },
+          null,
+          2,
         ),
       ),
     );
@@ -68,54 +62,24 @@ describe('formatter', () => {
 
     expect(result).toEqual(
       expect.stringContaining(
-        output(
-          'AtlassianDark',
-          JSON.stringify(
-            {
-              'Color/Brand': {
+        JSON.stringify(
+          {
+            name: 'Dark',
+            tokens: {
+              'Dark/color.brand': {
                 value: '#ffffff',
               },
             },
-            null,
-            2,
-          ),
-        ),
-      ),
-    );
-  });
-
-  it('should persist [default] keywords in path', () => {
-    const result = formatter({
-      dictionary: {
-        allTokens: [
-          {
-            name: 'background/[default]',
-            value: '#ffffff',
-            path: ['color', 'background', '[default]'],
-            attributes: { group: 'paint' },
+            renameMap: {},
           },
-        ],
-      },
-      options: {
-        themeName: 'atlassian-dark',
-      },
-    } as any);
-
-    expect(result).toEqual(
-      expect.stringContaining(
-        output(
-          'AtlassianDark',
-          JSON.stringify(
-            { 'Color/Background/Default': { value: '#ffffff' } },
-            null,
-            2,
-          ),
+          null,
+          2,
         ),
       ),
     );
   });
 
-  it('should persist nested [default] keywords in path', () => {
+  it('should remove [default] keywords in path', () => {
     const result = formatter({
       dictionary: {
         allTokens: [
@@ -134,47 +98,41 @@ describe('formatter', () => {
 
     expect(result).toEqual(
       expect.stringContaining(
-        output(
-          'AtlassianDark',
-          JSON.stringify(
-            { 'Color/Background/Default/Foo': { value: '#ffffff' } },
-            null,
-            2,
-          ),
+        JSON.stringify(
+          {
+            name: 'Dark',
+            tokens: {
+              'Dark/color.background.foo': {
+                value: '#ffffff',
+              },
+            },
+            renameMap: {},
+          },
+          null,
+          2,
         ),
       ),
     );
   });
 
-  it('should persist repeated [default] keywords in path', () => {
+  it('should prefix path with theme name', () => {
     const result = formatter({
       dictionary: {
         allTokens: [
           {
-            name: 'background/[default]/[default]',
+            name: 'background/[default]',
             value: '#ffffff',
-            path: ['color', 'background', '[default]', '[default]'],
+            path: ['color', 'background', '[default]'],
             attributes: { group: 'paint' },
           },
         ],
       },
       options: {
-        themeName: 'atlassian-dark',
+        themeName: 'atlassian-light',
       },
     } as any);
 
-    expect(result).toEqual(
-      expect.stringContaining(
-        output(
-          'AtlassianDark',
-          JSON.stringify(
-            { 'Color/Background/Default/Default': { value: '#ffffff' } },
-            null,
-            2,
-          ),
-        ),
-      ),
-    );
+    expect(result).toEqual(expect.stringContaining('Light/'));
   });
 
   it('should generate correct rename mapping', () => {
@@ -199,7 +157,7 @@ describe('formatter', () => {
 
     expect(result).toEqual(
       expect.stringContaining(
-        `\"Color/Background/Default\": \"Color/Background/Foo/Bar/Default\"`,
+        `\"Dark/color.background\": \"Dark/color.background.foo.bar\"`,
       ),
     );
   });

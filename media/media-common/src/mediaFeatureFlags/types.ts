@@ -9,6 +9,7 @@ export interface MediaFeatureFlags {
   observedWidth?: boolean;
   timestampOnVideo?: boolean;
   memoryCacheLogging?: boolean;
+  fetchFileStateAfterUpload?: boolean;
 }
 
 export interface WithMediaFeatureFlags {

@@ -21,5 +21,6 @@ export const wrapperStyle = css({
   position: 'relative',
   alignItems: 'center',
   borderRadius: '15px',
+  marginTop: '-4px',
   '> :first-of-type > :first-of-type': { marginLeft: 0 },
 });

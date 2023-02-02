@@ -183,10 +183,18 @@ class ToolbarBlockType extends React.PureComponent<
     ];
   };
 
-  private handleSelectBlockType = ({ item }: { item: DropdownItem }) => {
+  private handleSelectBlockType = ({
+    item,
+    shouldCloseMenu = true,
+  }: {
+    item: DropdownItem;
+    shouldCloseMenu: boolean;
+  }) => {
     const blockType = item.value;
     this.props.setBlockType(blockType.name);
-    this.setState({ active: false });
+    if (shouldCloseMenu) {
+      this.setState({ active: false });
+    }
   };
 }
 

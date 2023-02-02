@@ -12,7 +12,7 @@
  * These changes will then be picked up by our tooling which will attempt to
  * migrate as many of these renames as possible.
  *
- * @codegen <<SignedSource::4e3a79269c9d9fac4349a3f424c0a224>>
+ * @codegen <<SignedSource::f641b000c13ad37f0b16624edf778c41>>
  * @codegenCommand yarn build tokens
  */
 import tokens from './token-names';
@@ -31,14 +31,9 @@ const replacementMapper: RenameMap[] = [
     "replacement": "color.text.[default]"
   },
   {
-    "path": "color.text.mediumEmphasis",
+    "path": "color.text.link.pressed",
     "state": "deleted",
-    "replacement": "color.text.subtle"
-  },
-  {
-    "path": "color.text.lowEmphasis",
-    "state": "deleted",
-    "replacement": "color.text.subtlest"
+    "replacement": "color.link.pressed"
   },
   {
     "path": "color.text.link.resting",
@@ -46,9 +41,14 @@ const replacementMapper: RenameMap[] = [
     "replacement": "color.link.[default]"
   },
   {
-    "path": "color.text.link.pressed",
+    "path": "color.text.lowEmphasis",
     "state": "deleted",
-    "replacement": "color.link.pressed"
+    "replacement": "color.text.subtlest"
+  },
+  {
+    "path": "color.text.mediumEmphasis",
+    "state": "deleted",
+    "replacement": "color.text.subtle"
   },
   {
     "path": "color.text.onBold",
@@ -69,16 +69,6 @@ const replacementMapper: RenameMap[] = [
     "path": "color.border.neutral",
     "state": "deleted",
     "replacement": "color.border.[default]"
-  },
-  {
-    "path": "color.background.accent.blue.[default]",
-    "state": "deleted",
-    "replacement": "color.background.accent.blue.subtler"
-  },
-  {
-    "path": "color.background.accent.blue.bold",
-    "state": "deleted",
-    "replacement": "color.background.accent.blue.subtle"
   },
   {
     "path": "color.background.accent.red.[default]",
@@ -121,16 +111,6 @@ const replacementMapper: RenameMap[] = [
     "replacement": "color.background.accent.green.subtle"
   },
   {
-    "path": "color.background.accent.purple.[default]",
-    "state": "deleted",
-    "replacement": "color.background.accent.purple.subtler"
-  },
-  {
-    "path": "color.background.accent.purple.bold",
-    "state": "deleted",
-    "replacement": "color.background.accent.purple.subtle"
-  },
-  {
     "path": "color.background.accent.teal.[default]",
     "state": "deleted",
     "replacement": "color.background.accent.teal.subtler"
@@ -139,6 +119,26 @@ const replacementMapper: RenameMap[] = [
     "path": "color.background.accent.teal.bold",
     "state": "deleted",
     "replacement": "color.background.accent.teal.subtle"
+  },
+  {
+    "path": "color.background.accent.blue.[default]",
+    "state": "deleted",
+    "replacement": "color.background.accent.blue.subtler"
+  },
+  {
+    "path": "color.background.accent.blue.bold",
+    "state": "deleted",
+    "replacement": "color.background.accent.blue.subtle"
+  },
+  {
+    "path": "color.background.accent.purple.[default]",
+    "state": "deleted",
+    "replacement": "color.background.accent.purple.subtler"
+  },
+  {
+    "path": "color.background.accent.purple.bold",
+    "state": "deleted",
+    "replacement": "color.background.accent.purple.subtle"
   },
   {
     "path": "color.background.accent.magenta.[default]",
@@ -151,44 +151,9 @@ const replacementMapper: RenameMap[] = [
     "replacement": "color.background.accent.magenta.subtle"
   },
   {
-    "path": "color.background.inverse.[default]",
-    "state": "deleted",
-    "replacement": "color.background.inverse.subtle.[default]"
-  },
-  {
-    "path": "color.background.brand.[default].[default]",
-    "state": "deleted",
-    "replacement": "color.background.selected.[default].[default]"
-  },
-  {
-    "path": "color.background.brand.[default].hovered",
-    "state": "deleted",
-    "replacement": "color.background.selected.[default].hovered"
-  },
-  {
-    "path": "color.background.brand.[default].pressed",
-    "state": "deleted",
-    "replacement": "color.background.selected.[default].pressed"
-  },
-  {
-    "path": "color.background.selected.resting",
-    "state": "deleted",
-    "replacement": "color.background.selected.[default].[default]"
-  },
-  {
-    "path": "color.background.selected.hover",
-    "state": "deleted",
-    "replacement": "color.background.selected.[default].hovered"
-  },
-  {
     "path": "color.background.blanket",
     "state": "deleted",
     "replacement": "color.blanket.[default]"
-  },
-  {
-    "path": "color.background.boldBrand.resting",
-    "state": "deleted",
-    "replacement": "color.background.brand.bold.[default]"
   },
   {
     "path": "color.background.boldBrand.hover",
@@ -201,9 +166,9 @@ const replacementMapper: RenameMap[] = [
     "replacement": "color.background.brand.bold.pressed"
   },
   {
-    "path": "color.background.boldDanger.resting",
+    "path": "color.background.boldBrand.resting",
     "state": "deleted",
-    "replacement": "color.background.danger.bold.[default]"
+    "replacement": "color.background.brand.bold.[default]"
   },
   {
     "path": "color.background.boldDanger.hover",
@@ -216,9 +181,9 @@ const replacementMapper: RenameMap[] = [
     "replacement": "color.background.danger.bold.pressed"
   },
   {
-    "path": "color.background.boldDiscovery.resting",
+    "path": "color.background.boldDanger.resting",
     "state": "deleted",
-    "replacement": "color.background.discovery.bold.[default]"
+    "replacement": "color.background.danger.bold.[default]"
   },
   {
     "path": "color.background.boldDiscovery.hover",
@@ -231,9 +196,9 @@ const replacementMapper: RenameMap[] = [
     "replacement": "color.background.discovery.bold.pressed"
   },
   {
-    "path": "color.background.boldNeutral.resting",
+    "path": "color.background.boldDiscovery.resting",
     "state": "deleted",
-    "replacement": "color.background.neutral.bold.[default]"
+    "replacement": "color.background.discovery.bold.[default]"
   },
   {
     "path": "color.background.boldNeutral.hover",
@@ -246,9 +211,9 @@ const replacementMapper: RenameMap[] = [
     "replacement": "color.background.neutral.bold.pressed"
   },
   {
-    "path": "color.background.boldSuccess.resting",
+    "path": "color.background.boldNeutral.resting",
     "state": "deleted",
-    "replacement": "color.background.success.bold.[default]"
+    "replacement": "color.background.neutral.bold.[default]"
   },
   {
     "path": "color.background.boldSuccess.hover",
@@ -261,9 +226,9 @@ const replacementMapper: RenameMap[] = [
     "replacement": "color.background.success.bold.pressed"
   },
   {
-    "path": "color.background.boldWarning.resting",
+    "path": "color.background.boldSuccess.resting",
     "state": "deleted",
-    "replacement": "color.background.warning.bold.[default]"
+    "replacement": "color.background.success.bold.[default]"
   },
   {
     "path": "color.background.boldWarning.hover",
@@ -276,9 +241,9 @@ const replacementMapper: RenameMap[] = [
     "replacement": "color.background.warning.bold.pressed"
   },
   {
-    "path": "color.background.default",
+    "path": "color.background.boldWarning.resting",
     "state": "deleted",
-    "replacement": "elevation.surface.[default].[default]"
+    "replacement": "color.background.warning.bold.[default]"
   },
   {
     "path": "color.background.card",
@@ -286,14 +251,29 @@ const replacementMapper: RenameMap[] = [
     "replacement": "elevation.surface.raised.[default]"
   },
   {
+    "path": "color.background.default",
+    "state": "deleted",
+    "replacement": "elevation.surface.[default].[default]"
+  },
+  {
+    "path": "color.background.inverse.[default]",
+    "state": "deleted",
+    "replacement": "color.background.inverse.subtle.[default]"
+  },
+  {
     "path": "color.background.overlay",
     "state": "deleted",
     "replacement": "elevation.surface.overlay.[default]"
   },
   {
-    "path": "color.background.subtleBorderedNeutral.resting",
+    "path": "color.background.selected.hover",
     "state": "deleted",
-    "replacement": "color.background.input.[default]"
+    "replacement": "color.background.selected.[default].hovered"
+  },
+  {
+    "path": "color.background.selected.resting",
+    "state": "deleted",
+    "replacement": "color.background.selected.[default].[default]"
   },
   {
     "path": "color.background.subtleBorderedNeutral.pressed",
@@ -301,9 +281,9 @@ const replacementMapper: RenameMap[] = [
     "replacement": "color.background.input.pressed"
   },
   {
-    "path": "color.background.subtleBrand.resting",
+    "path": "color.background.subtleBorderedNeutral.resting",
     "state": "deleted",
-    "replacement": "color.background.selected.[default].[default]"
+    "replacement": "color.background.input.[default]"
   },
   {
     "path": "color.background.subtleBrand.hover",
@@ -316,9 +296,9 @@ const replacementMapper: RenameMap[] = [
     "replacement": "color.background.selected.[default].pressed"
   },
   {
-    "path": "color.background.subtleDanger.resting",
+    "path": "color.background.subtleBrand.resting",
     "state": "deleted",
-    "replacement": "color.background.danger.[default].[default]"
+    "replacement": "color.background.selected.[default].[default]"
   },
   {
     "path": "color.background.subtleDanger.hover",
@@ -331,9 +311,9 @@ const replacementMapper: RenameMap[] = [
     "replacement": "color.background.danger.[default].pressed"
   },
   {
-    "path": "color.background.subtleDiscovery.resting",
+    "path": "color.background.subtleDanger.resting",
     "state": "deleted",
-    "replacement": "color.background.discovery.[default].[default]"
+    "replacement": "color.background.danger.[default].[default]"
   },
   {
     "path": "color.background.subtleDiscovery.hover",
@@ -346,9 +326,9 @@ const replacementMapper: RenameMap[] = [
     "replacement": "color.background.discovery.[default].pressed"
   },
   {
-    "path": "color.background.subtleNeutral.resting",
+    "path": "color.background.subtleDiscovery.resting",
     "state": "deleted",
-    "replacement": "color.background.neutral.[default].[default]"
+    "replacement": "color.background.discovery.[default].[default]"
   },
   {
     "path": "color.background.subtleNeutral.hover",
@@ -361,9 +341,9 @@ const replacementMapper: RenameMap[] = [
     "replacement": "color.background.neutral.[default].pressed"
   },
   {
-    "path": "color.background.subtleSuccess.resting",
+    "path": "color.background.subtleNeutral.resting",
     "state": "deleted",
-    "replacement": "color.background.success.[default].[default]"
+    "replacement": "color.background.neutral.[default].[default]"
   },
   {
     "path": "color.background.subtleSuccess.hover",
@@ -376,9 +356,9 @@ const replacementMapper: RenameMap[] = [
     "replacement": "color.background.success.[default].pressed"
   },
   {
-    "path": "color.background.subtleWarning.resting",
+    "path": "color.background.subtleSuccess.resting",
     "state": "deleted",
-    "replacement": "color.background.warning.[default].[default]"
+    "replacement": "color.background.success.[default].[default]"
   },
   {
     "path": "color.background.subtleWarning.hover",
@@ -389,6 +369,11 @@ const replacementMapper: RenameMap[] = [
     "path": "color.background.subtleWarning.pressed",
     "state": "deleted",
     "replacement": "color.background.warning.[default].pressed"
+  },
+  {
+    "path": "color.background.subtleWarning.resting",
+    "state": "deleted",
+    "replacement": "color.background.warning.[default].[default]"
   },
   {
     "path": "color.background.sunken",
@@ -404,6 +389,21 @@ const replacementMapper: RenameMap[] = [
     "path": "color.background.transparentNeutral.pressed",
     "state": "deleted",
     "replacement": "color.background.neutral.subtle.pressed"
+  },
+  {
+    "path": "color.background.brand.[default].[default]",
+    "state": "deleted",
+    "replacement": "color.background.selected.[default].[default]"
+  },
+  {
+    "path": "color.background.brand.[default].hovered",
+    "state": "deleted",
+    "replacement": "color.background.selected.[default].hovered"
+  },
+  {
+    "path": "color.background.brand.[default].pressed",
+    "state": "deleted",
+    "replacement": "color.background.selected.[default].pressed"
   },
   {
     "path": "color.interaction.inverse.hovered",
@@ -646,24 +646,34 @@ const replacementMapper: RenameMap[] = [
     "replacement": "48px"
   },
   {
-    "path": "spacing.ecl.element.2",
-    "state": "experimental",
-    "replacement": "2px"
-  },
-  {
-    "path": "spacing.ecl.element.4",
-    "state": "experimental",
-    "replacement": "4px"
-  },
-  {
-    "path": "spacing.ecl.element.6",
-    "state": "experimental",
-    "replacement": "6px"
-  },
-  {
-    "path": "spacing.ecl.element.8",
+    "path": "spacing.gap.100",
     "state": "experimental",
     "replacement": "8px"
+  },
+  {
+    "path": "spacing.gap.200",
+    "state": "experimental",
+    "replacement": "16px"
+  },
+  {
+    "path": "spacing.gap.300",
+    "state": "experimental",
+    "replacement": "24px"
+  },
+  {
+    "path": "spacing.inset.100",
+    "state": "experimental",
+    "replacement": "8px"
+  },
+  {
+    "path": "spacing.inset.200",
+    "state": "experimental",
+    "replacement": "16px"
+  },
+  {
+    "path": "spacing.inset.300",
+    "state": "experimental",
+    "replacement": "24px"
   },
   {
     "path": "spacing.ecl.container.12",
@@ -684,6 +694,26 @@ const replacementMapper: RenameMap[] = [
     "path": "spacing.ecl.container.24",
     "state": "experimental",
     "replacement": "24px"
+  },
+  {
+    "path": "spacing.ecl.element.2",
+    "state": "experimental",
+    "replacement": "2px"
+  },
+  {
+    "path": "spacing.ecl.element.4",
+    "state": "experimental",
+    "replacement": "4px"
+  },
+  {
+    "path": "spacing.ecl.element.6",
+    "state": "experimental",
+    "replacement": "6px"
+  },
+  {
+    "path": "spacing.ecl.element.8",
+    "state": "experimental",
+    "replacement": "8px"
   },
   {
     "path": "spacing.ecl.layout.32",
@@ -721,6 +751,21 @@ const replacementMapper: RenameMap[] = [
     "replacement": "8px"
   },
   {
+    "path": "spacing.ccc.container.32",
+    "state": "experimental",
+    "replacement": "32px"
+  },
+  {
+    "path": "spacing.ccc.container.40",
+    "state": "experimental",
+    "replacement": "40px"
+  },
+  {
+    "path": "spacing.ccc.container.48",
+    "state": "experimental",
+    "replacement": "48px"
+  },
+  {
     "path": "spacing.ccc.content.12",
     "state": "experimental",
     "replacement": "12px"
@@ -737,51 +782,6 @@ const replacementMapper: RenameMap[] = [
   },
   {
     "path": "spacing.ccc.content.24",
-    "state": "experimental",
-    "replacement": "24px"
-  },
-  {
-    "path": "spacing.ccc.container.32",
-    "state": "experimental",
-    "replacement": "32px"
-  },
-  {
-    "path": "spacing.ccc.container.40",
-    "state": "experimental",
-    "replacement": "40px"
-  },
-  {
-    "path": "spacing.ccc.container.48",
-    "state": "experimental",
-    "replacement": "48px"
-  },
-  {
-    "path": "spacing.gap.100",
-    "state": "experimental",
-    "replacement": "8px"
-  },
-  {
-    "path": "spacing.gap.200",
-    "state": "experimental",
-    "replacement": "16px"
-  },
-  {
-    "path": "spacing.gap.300",
-    "state": "experimental",
-    "replacement": "24px"
-  },
-  {
-    "path": "spacing.inset.100",
-    "state": "experimental",
-    "replacement": "8px"
-  },
-  {
-    "path": "spacing.inset.200",
-    "state": "experimental",
-    "replacement": "16px"
-  },
-  {
-    "path": "spacing.inset.300",
     "state": "experimental",
     "replacement": "24px"
   }

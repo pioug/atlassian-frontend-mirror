@@ -57,6 +57,8 @@ export default {
     'tableSelectionKeymap',
     'tableKeymap',
     'captionKeymap',
+    // media keymap above selection keymap to allow navigating past the mediaSingle node
+    'mediaKeymap',
     // selection keymap needs to be above gap cursor keymap so it can set node selections from
     // left/right arrows
     'selectionKeymap',
@@ -81,7 +83,6 @@ export default {
     'ruleKeymap',
     'panel',
     'media',
-    'mediaKeymap',
     'mediaSingleKeymap',
     'mediaEditor',
     'unsupportedContent',

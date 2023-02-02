@@ -16,7 +16,7 @@ import { loadEditor } from '../../_page-objects/hybrid-editor-page';
 
 const wait = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
-const buildInitialStatusToolbarItems = (color: PaletteColor) => [
+const buildInitialStatusLozengeToolbarItems = (color: PaletteColor) => [
   {
     id: 'editor.status.editText',
     type: 'button',
@@ -82,6 +82,16 @@ const buildInitialStatusToolbarItems = (color: PaletteColor) => [
     title: 'Remove',
     key: '4',
     iconName: 'EditorRemoveIcon',
+  },
+];
+
+const buildInitialStatusToolbarItems = () => [
+  {
+    id: 'editor.status.editText',
+    key: '0',
+    placeholder: 'Set a status',
+    title: 'Edit Status',
+    type: 'input',
   },
 ];
 
@@ -307,7 +317,6 @@ const getDate = (page: Page, today?: boolean) => {
 };
 
 const defaultColor: PaletteColor = lightModeStatusColorPalette[0];
-const newColor: PaletteColor = lightModeStatusColorPalette[1];
 
 export default async () => {
   MobileTestCase(
@@ -321,21 +330,11 @@ export default async () => {
       });
 
       let calls = await getDummyBridgeCalls(page, 'onNodeSelected');
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       expect(calls.length).toBe(1);
       expect(calls[0][0]).toBe('status');
       expect(JSON.parse(calls[0][1])).toMatchObject(
-        buildInitialStatusToolbarItems(defaultColor),
-      );
-
-      await page.execute(() => {
-        window.bridge?.performEditAction('0');
-      });
-
-      calls = await getDummyBridgeCalls(page, 'onNodeSelected');
-      expect(calls.length).toBe(2);
-      expect(calls[1][0]).toBe('status');
-      expect(JSON.parse(calls[1][1])).toMatchObject(
-        buildEditTextStatusToolbarItems(''),
+        buildInitialStatusToolbarItems(),
       );
 
       await page.execute(() => {
@@ -344,10 +343,10 @@ export default async () => {
       await wait(1000);
 
       calls = await getDummyBridgeCalls(page, 'onNodeSelected');
-      expect(calls.length).toBe(3);
-      expect(calls[2][0]).toBe('status');
-      expect(JSON.parse(calls[2][1])).toMatchObject(
-        buildInitialStatusToolbarItems(defaultColor),
+      expect(calls.length).toBe(2);
+      expect(calls[1][0]).toBe('status');
+      expect(JSON.parse(calls[1][1])).toMatchObject(
+        buildInitialStatusLozengeToolbarItems(defaultColor),
       );
 
       await page.execute(() => {
@@ -355,9 +354,9 @@ export default async () => {
       });
 
       calls = await getDummyBridgeCalls(page, 'onNodeSelected');
-      expect(calls.length).toBe(4);
-      expect(calls[3][0]).toBe('status');
-      expect(JSON.parse(calls[3][1])).toMatchObject(
+      expect(calls.length).toBe(3);
+      expect(calls[2][0]).toBe('status');
+      expect(JSON.parse(calls[2][1])).toMatchObject(
         buildEditTextStatusToolbarItems('New Status'),
       );
 
@@ -371,9 +370,9 @@ export default async () => {
       await wait(1000);
 
       calls = await getDummyBridgeCalls(page, 'onNodeSelected');
-      expect(calls.length).toBe(6);
-      expect(JSON.parse(calls[5][1])).toMatchObject(
-        buildInitialStatusToolbarItems(newColor),
+      expect(calls.length).toBe(5);
+      expect(JSON.parse(calls[4][1])).toMatchObject(
+        buildInitialStatusLozengeToolbarItems(lightModeStatusColorPalette[1]),
       );
     },
   );
@@ -484,22 +483,11 @@ export default async () => {
       });
 
       let selectedCalls = await getDummyBridgeCalls(page, 'onNodeSelected');
-      selectedCalls = await getDummyBridgeCalls(page, 'onNodeSelected');
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       expect(selectedCalls.length).toBe(1);
       expect(selectedCalls[0][0]).toBe('status');
       expect(JSON.parse(selectedCalls[0][1])).toMatchObject(
-        buildInitialStatusToolbarItems(defaultColor),
-      );
-
-      await page.execute(() => {
-        window.bridge?.performEditAction('0');
-      });
-
-      selectedCalls = await getDummyBridgeCalls(page, 'onNodeSelected');
-      expect(selectedCalls.length).toBe(2);
-      expect(selectedCalls[1][0]).toBe('status');
-      expect(JSON.parse(selectedCalls[1][1])).toMatchObject(
-        buildEditTextStatusToolbarItems(''),
+        buildInitialStatusToolbarItems(),
       );
 
       let deselectedCalls = await getDummyBridgeCalls(page, 'onNodeDeselected');
@@ -536,7 +524,7 @@ export default async () => {
       expect(selectedCalls.length).toBe(2);
       expect(selectedCalls[1][0]).toBe('status');
       expect(JSON.parse(selectedCalls[1][1])).toMatchObject(
-        buildInitialStatusToolbarItems(defaultColor),
+        buildInitialStatusLozengeToolbarItems(defaultColor),
       );
     },
   );
@@ -568,7 +556,7 @@ export default async () => {
       expect(selectedCalls.length).toBe(2);
       expect(selectedCalls[1][0]).toBe('status');
       expect(JSON.parse(selectedCalls[1][1])).toMatchObject(
-        buildInitialStatusToolbarItems(defaultColor),
+        buildInitialStatusLozengeToolbarItems(defaultColor),
       );
     },
   );

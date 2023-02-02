@@ -33,6 +33,7 @@ import {
   replaceExternalMedia,
   updateAllMediaNodesAttrs,
   updateMediaNodeAttrs,
+  updateCurrentMediaNodeAttrs,
 } from '../../../../../plugins/media/commands/helpers';
 
 describe('MediaNodeUpdater', () => {
@@ -45,6 +46,9 @@ describe('MediaNodeUpdater', () => {
       .mockReturnValue(mediaClient);
     jest
       .spyOn(commands, 'updateAllMediaNodesAttrs')
+      .mockReturnValue(() => true);
+    jest
+      .spyOn(commands, 'updateCurrentMediaNodeAttrs')
       .mockReturnValue(() => true);
     jest.spyOn(commands, 'updateMediaNodeAttrs').mockReturnValue(() => true);
     jest.spyOn(commands, 'replaceExternalMedia').mockReturnValue(() => true);
@@ -93,6 +97,7 @@ describe('MediaNodeUpdater', () => {
       mediaClient,
       uploadMediaClientConfig,
       authFromContext,
+      node,
     };
   };
 
@@ -222,6 +227,122 @@ describe('MediaNodeUpdater', () => {
       asMockReturnValue(getMediaClient, mediaClient);
       await mediaNodeUpdater.updateFileAttrs();
       expect(updateAllMediaNodesAttrs).not.toBeCalled();
+    });
+  });
+
+  describe('updateNodeAttrs()', () => {
+    it('should update node attrs with file attributes', async () => {
+      const { mediaNodeUpdater, node } = setup();
+
+      const mediaClient = fakeMediaClient();
+
+      const fileState: Partial<FileState> = {
+        size: 10,
+        name: 'some-file',
+        mimeType: 'image/jpeg',
+      };
+
+      const getPos = () => 6;
+
+      asMock(mediaClient.file.getCurrentState).mockReturnValue(
+        Promise.resolve(fileState),
+      );
+
+      asMockReturnValue(getMediaClient, mediaClient);
+
+      await mediaNodeUpdater.updateNodeAttrs(getPos);
+
+      expect(mediaClient.file.getCurrentState).toBeCalledWith(
+        'source-file-id',
+        {
+          collectionName: 'source-collection',
+        },
+      );
+      const newAttrs = {
+        __fileName: 'some-file',
+        __fileMimeType: 'image/jpeg',
+        __fileSize: 10,
+        __contextId: 'source-context-id',
+      };
+      expect(updateCurrentMediaNodeAttrs).toBeCalledTimes(1);
+      expect(updateCurrentMediaNodeAttrs).toBeCalledWith(newAttrs, {
+        node,
+        getPos,
+      });
+    });
+
+    it('should update contextId if its not defined', async () => {
+      const node: any = {
+        attrs: {
+          id: 'source-file-id',
+          collection: 'source-collection',
+          type: 'file',
+        },
+      };
+      const { mediaNodeUpdater } = setup({
+        node,
+      });
+      const mediaClient = fakeMediaClient();
+      const fileState: Partial<FileState> = {
+        size: 10,
+        name: 'some-file',
+        mimeType: 'image/jpeg',
+      };
+      const getPos = () => 6;
+
+      asMock(mediaClient.file.getCurrentState).mockReturnValue(
+        Promise.resolve(fileState),
+      );
+
+      asMockReturnValue(getMediaClient, mediaClient);
+
+      await mediaNodeUpdater.updateNodeAttrs(getPos);
+
+      expect(mediaClient.file.getCurrentState).toBeCalledWith(
+        'source-file-id',
+        {
+          collectionName: 'source-collection',
+        },
+      );
+      const newAttrs = {
+        __fileName: 'some-file',
+        __fileMimeType: 'image/jpeg',
+        __fileSize: 10,
+        __contextId: 'object-id',
+      };
+      expect(updateCurrentMediaNodeAttrs).toBeCalledTimes(1);
+      expect(updateCurrentMediaNodeAttrs).toBeCalledWith(newAttrs, {
+        node,
+        getPos,
+      });
+    });
+
+    it('should not update node if new attrs are the same', async () => {
+      const { mediaNodeUpdater } = setup();
+      const mediaClient = fakeMediaClient();
+      const fileState: Partial<FileState> = {
+        id: 'source-file-id',
+      };
+      const getPos = () => 6;
+
+      asMock(mediaClient.file.getCurrentState).mockReturnValue(
+        Promise.resolve(fileState),
+      );
+      asMockReturnValue(getMediaClient, mediaClient);
+      await mediaNodeUpdater.updateNodeAttrs(getPos);
+      expect(updateCurrentMediaNodeAttrs).not.toBeCalled();
+    });
+    it('should not update node if media client rejects with error', async () => {
+      const { mediaNodeUpdater } = setup();
+      const mediaClient = fakeMediaClient();
+      const getPos = () => 6;
+
+      asMock(mediaClient.file.getCurrentState).mockReturnValue(
+        Promise.reject(new Error('an error')),
+      );
+      asMockReturnValue(getMediaClient, mediaClient);
+      await mediaNodeUpdater.updateNodeAttrs(getPos);
+      expect(updateCurrentMediaNodeAttrs).not.toBeCalled();
     });
   });
 

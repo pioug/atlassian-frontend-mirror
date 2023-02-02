@@ -75,8 +75,12 @@ export default class MobileEditorToolbarActions {
       if (floatingToolbarNode !== undefined) {
         this.previousNode = floatingToolbarNode;
       }
-
-      toNativeBridge.onNodeSelected(nodeTypeName, itemsJson);
+      /// need to delay the toolbar callbacks as there is
+      /// a race-condition with the dismiss typeahead
+      setTimeout(
+        () => toNativeBridge.onNodeSelected(nodeTypeName, itemsJson),
+        0,
+      );
     } else {
       if (this.floatingToolbarItems) {
         this.previousItemsJson = null;

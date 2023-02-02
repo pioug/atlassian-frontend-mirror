@@ -117,13 +117,11 @@ describe('document: processRawValue', () => {
 
         expect(dispatchAnalyticsEvent).toHaveBeenCalledWith(
           expect.objectContaining({
-            action: ACTION.DEDUPE_MARKS_TRANSFORMED,
+            action: ACTION.DEDUPE_MARKS_TRANSFORMED_V2,
             actionSubject: ACTION_SUBJECT.EDITOR,
             eventType: EVENT_TYPE.OPERATIONAL,
             attributes: {
-              discardedMarks: [
-                { attrs: { href: 'http://atlassian.com' }, type: 'link' },
-              ],
+              discardedMarkTypes: ['link'],
             },
           }),
         );
@@ -209,11 +207,122 @@ describe('document: processRawValue', () => {
 
         expect(dispatchAnalyticsEvent).toHaveBeenCalledWith(
           expect.objectContaining({
-            action: ACTION.DEDUPE_MARKS_TRANSFORMED,
+            action: ACTION.DEDUPE_MARKS_TRANSFORMED_V2,
             actionSubject: ACTION_SUBJECT.EDITOR,
             eventType: EVENT_TYPE.OPERATIONAL,
             attributes: {
-              discardedMarks: [{ type: 'strong' }],
+              discardedMarkTypes: ['strong'],
+            },
+          }),
+        );
+      });
+    });
+
+    describe('various duplicate marks: when marks: [strong,strong] & [underline, underline] exist inside a document', () => {
+      const initialDoc = {
+        version: 1,
+        type: 'doc',
+        content: [
+          {
+            type: 'paragraph',
+            content: [
+              {
+                type: 'text',
+                text: 'lol',
+                marks: [
+                  {
+                    type: 'strong',
+                  },
+                  {
+                    type: 'strong',
+                  },
+                ],
+              },
+              {
+                type: 'text',
+                text: 'neko',
+                marks: [
+                  {
+                    type: 'underline',
+                  },
+                  {
+                    type: 'underline',
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      };
+
+      it('should not throw an exception', () => {
+        expect(() => {
+          processRawValue(
+            defaultSchema,
+            initialDoc,
+            undefined,
+            undefined,
+            undefined,
+          );
+        }).not.toThrow();
+      });
+
+      it('should return a repaired document, keeping the first strong mark and removing the second one', () => {
+        const result = processRawValue(
+          defaultSchema,
+          initialDoc,
+          undefined,
+          undefined,
+          undefined,
+        );
+        expect(result?.toJSON()).toEqual({
+          type: 'doc',
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'text',
+                  text: 'lol',
+                  marks: [
+                    {
+                      type: 'strong',
+                    },
+                  ],
+                },
+                {
+                  type: 'text',
+                  text: 'neko',
+                  marks: [
+                    {
+                      type: 'underline',
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        });
+      });
+
+      it('should call the dispatchAnalyticsEvent', () => {
+        const dispatchAnalyticsEvent = jest.fn();
+        processRawValue(
+          defaultSchema,
+          initialDoc,
+          undefined,
+          undefined,
+          undefined,
+          dispatchAnalyticsEvent,
+        );
+
+        expect(dispatchAnalyticsEvent).toHaveBeenCalledWith(
+          expect.objectContaining({
+            action: ACTION.DEDUPE_MARKS_TRANSFORMED_V2,
+            actionSubject: ACTION_SUBJECT.EDITOR,
+            eventType: EVENT_TYPE.OPERATIONAL,
+            attributes: {
+              discardedMarkTypes: ['strong', 'underline'],
             },
           }),
         );

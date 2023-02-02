@@ -254,6 +254,7 @@ export const Card: React_2.ForwardRefExoticComponent<
     | 'placeholder'
     | 'platform'
     | 'showActions'
+    | 'showAuthTooltip'
     | 'showHoverPreview'
     | 'testId'
     | 'ui'
@@ -315,6 +316,8 @@ export interface CardProps extends WithAnalyticsEventsProps {
   platform?: CardPlatform;
   // (undocumented)
   showActions?: boolean;
+  // (undocumented)
+  showAuthTooltip?: boolean;
   // (undocumented)
   showHoverPreview?: boolean;
   // (undocumented)

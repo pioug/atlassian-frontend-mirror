@@ -331,7 +331,7 @@ describe('Clipboard', () => {
             componentName: 'clipboard',
             component: 'clipboard',
             [MEDIA_CONTEXT]: {
-              featureFlags: someFeatureFlags,
+              featureFlags: expect.objectContaining(someFeatureFlags),
             },
           },
         ],

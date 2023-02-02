@@ -272,7 +272,9 @@ export type FloatingToolbarItem<T> =
   | FloatingToolbarExtensionsPlaceholder;
 
 export interface FloatingToolbarConfig {
+  /** Used for the ariaLabel on the <Popup /> component */
   title: string;
+
   /**
    * Override the DOM reference used to apply as the target for the
    * floating toolbar, if the config matches.
@@ -282,21 +284,39 @@ export interface FloatingToolbarConfig {
    */
   getDomRef?: (view: EditorView) => HTMLElement | undefined;
 
+  /** Can prevent the Toolbar from rendering */
   visible?: boolean;
+
   /**
    * nodeType or list of `nodeType`s this floating toolbar should be shown for.
    **/
   nodeType: NodeType | NodeType[];
+
+  /** Items that will populate the Toolbar.
+   *
+   * See: `FloatingToolbarItem`
+   */
   items:
     | Array<FloatingToolbarItem<Command>>
     | ((node: Node) => Array<FloatingToolbarItem<Command>>);
+
   align?: AlignType;
+
+  /** Class added to Toolbar wrapper */
   className?: string;
+
+  /** Toolbar height */
   height?: number;
+
+  /** Toolbar width */
   width?: number;
   zIndex?: number;
+
+  /** Offset the position of the toolbar. */
   offset?: [number, number];
+
   forcePlacement?: boolean;
+
   onPositionCalculated?: (
     editorView: EditorView,
     nextPos: Position,

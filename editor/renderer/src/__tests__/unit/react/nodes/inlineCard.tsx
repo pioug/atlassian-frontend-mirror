@@ -75,16 +75,29 @@ describe('Renderer - React/Nodes/InlineCard', () => {
     expect(node.find(Card).prop('onClick')).toBeUndefined();
   });
 
+  it('should render with showAuthTooltip if defined in smartLinks options', () => {
+    node = mount(
+      <Provider client={new Client('staging')}>
+        <InlineCard url={url} smartLinks={{ showAuthTooltip: true }} />
+      </Provider>,
+    );
+    expect(node.find(Card).prop('showAuthTooltip')).toEqual(true);
+  });
+
   it('should use Card SSR component for ssr mode', () => {
     node = mount(
       <Provider client={new Client('staging')}>
-        <InlineCard url={url} smartLinks={{ ssr: true }} />
+        <InlineCard
+          url={url}
+          smartLinks={{ ssr: true, showAuthTooltip: true }}
+        />
       </Provider>,
     );
 
     expect(node.find(CardSSR).props()).toEqual({
       url,
       appearance: 'inline',
+      showAuthTooltip: true,
     });
   });
 });

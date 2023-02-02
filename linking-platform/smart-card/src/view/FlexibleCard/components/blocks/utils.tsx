@@ -1,19 +1,16 @@
 import React from 'react';
 import { css, SerializedStyles } from '@emotion/react';
 
-import { ActionItem, ElementItem } from './types';
+import { ElementItem } from './types';
 import {
   ElementName,
   SmartLinkDirection,
   SmartLinkSize,
 } from '../../../../constants';
 import * as Elements from '../elements';
-import * as Actions from '../actions';
 import { isFlexibleUiElement } from '../../../../utils/flexible';
 import ActionGroup from './action-group';
 import ElementGroup from './element-group';
-import { ActionProps } from '../actions/action/types';
-import { Appearance } from '@atlaskit/button';
 
 // Determine whether the element can be display as inline/block.
 export type ElementDisplaySchemaType = 'inline' | 'block';
@@ -124,7 +121,7 @@ const isElementDisplayValid = (
   return ElementDisplaySchema[name]?.includes(display) ?? false;
 };
 
-const isJSXElementNull = (children: JSX.Element) => {
+export const isJSXElementNull = (children: JSX.Element) => {
   return Boolean(children.type() === null);
 };
 
@@ -167,59 +164,5 @@ export const renderElementItems = (
 
   if (elements.length) {
     return elements;
-  }
-};
-
-export const renderActionItems = (
-  items: ActionItem[] = [],
-  size: SmartLinkSize = SmartLinkSize.Medium,
-  appearance?: Appearance,
-  asDropDownItems?: boolean,
-  onActionItemClick?: () => void,
-): React.ReactElement[] | undefined => {
-  const actions = items.reduce(
-    (acc: React.ReactElement[], curr: ActionItem, idx: number) => {
-      const { name, hideContent, hideIcon, onClick, ...props } = curr;
-      const Action = Actions[name];
-      const actionProps: Partial<ActionProps> = {
-        ...props,
-      };
-      if (hideContent && !asDropDownItems) {
-        actionProps.content = '';
-      }
-      if (hideIcon) {
-        actionProps.icon = undefined;
-      }
-      if (Action) {
-        const handleOnClick = () => {
-          if (onActionItemClick) {
-            onActionItemClick();
-          }
-          if (onClick) {
-            onClick();
-          }
-        };
-        const action = (
-          <Action
-            url={''}
-            asDropDownItem={asDropDownItems}
-            size={size}
-            key={idx}
-            appearance={appearance}
-            onClick={handleOnClick}
-            {...actionProps}
-          />
-        );
-        if (!isJSXElementNull(action)) {
-          return [...acc, action];
-        }
-      }
-      return acc;
-    },
-    [],
-  );
-
-  if (actions.length) {
-    return actions;
   }
 };

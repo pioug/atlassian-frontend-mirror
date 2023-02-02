@@ -44,6 +44,7 @@ export function CardWithUrlContent({
   ui,
   children,
   showHoverPreview,
+  showAuthTooltip: showAuthTooltipProp,
   analyticsEvents,
 }: CardWithUrlContentProps) {
   // Get state, actions for this card.
@@ -65,9 +66,11 @@ export function CardWithUrlContent({
 
   let isFlexibleUi = useMemo(() => isFlexibleUiCard(children), [children]);
 
-  const showAuthTooltipValue = useFeatureFlag('showAuthTooltip');
+  const showAuthTooltipFeatureFlagValue = useFeatureFlag('showAuthTooltip');
   const showAuthTooltip =
-    !!showAuthTooltipValue && showAuthTooltipValue === 'experiment';
+    showAuthTooltipFeatureFlagValue !== undefined
+      ? showAuthTooltipFeatureFlagValue === 'experiment'
+      : showAuthTooltipProp;
 
   const enableFlexibleBlockCardFlag = Boolean(
     useFeatureFlag('enableFlexibleBlockCard'),

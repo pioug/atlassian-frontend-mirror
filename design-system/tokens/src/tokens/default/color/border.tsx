@@ -96,7 +96,7 @@ const color: AttributeSchema<BorderColorTokenSchema<BaseToken>> = {
           state: 'active',
           introduced: '0.6.0',
           description:
-            'Use for borders communicating a favourable outcome, such as the borders on validated text fields.',
+            'Use for borders communicating a favorable outcome, such as the borders on validated text fields.',
         },
       },
       discovery: {

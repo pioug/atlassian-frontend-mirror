@@ -49,7 +49,7 @@ const DecisionItem = ({
 }: Props) => {
   const theme = useGlobalTheme();
   const icon = (
-    <span css={iconStyles(showPlaceholder)(theme)}>
+    <span contentEditable={false} css={iconStyles(showPlaceholder)(theme)}>
       <DecisionIcon label="Decision" size="large" />
     </span>
   );

@@ -7,6 +7,11 @@ import { stateKey } from '../pm-plugins/plugin-key';
 import { Command } from '../../../types';
 import { MediaPluginState } from './types';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
+import {
+  GapCursorSelection,
+  Side,
+  EditorSelectionAPI,
+} from '@atlaskit/editor-common/selection';
 import { MediaOptions } from '../types';
 import {
   insertAndSelectCaptionFromMediaSinglePos,
@@ -28,6 +33,17 @@ export function keymapPlugin(options?: MediaOptions): SafePlugin {
     keymaps.bindKeymapWithCommand(
       keymaps.tab.common!,
       insertAndSelectCaption,
+      list,
+    );
+
+    keymaps.bindKeymapWithCommand(
+      keymaps.moveLeft.common!,
+      arrowLeftFromMediaSingle(options?.editorSelectionAPI),
+      list,
+    );
+    keymaps.bindKeymapWithCommand(
+      keymaps.moveRight.common!,
+      arrowRightFromMediaSingle(options?.editorSelectionAPI),
       list,
     );
   }
@@ -71,5 +87,57 @@ const insertAndSelectCaption: Command = (state, dispatch) => {
   }
   return false;
 };
+
+const arrowLeftFromMediaSingle =
+  (editorSelectionAPI: EditorSelectionAPI | undefined | null): Command =>
+  (state, dispatch) => {
+    const { selection } = state;
+    if (
+      editorSelectionAPI &&
+      selection instanceof NodeSelection &&
+      selection.node.type.name === 'mediaSingle'
+    ) {
+      const tr = editorSelectionAPI.setSelectionRelativeToNode({
+        selectionRelativeToNode: undefined,
+        selection: new GapCursorSelection(
+          state.doc.resolve(selection.from),
+          Side.LEFT,
+        ),
+      })(state);
+
+      if (dispatch) {
+        dispatch(tr);
+      }
+      return true;
+    }
+
+    return false;
+  };
+
+const arrowRightFromMediaSingle =
+  (editorSelectionAPI: EditorSelectionAPI | undefined | null): Command =>
+  (state, dispatch) => {
+    const { selection } = state;
+    if (
+      editorSelectionAPI &&
+      selection instanceof NodeSelection &&
+      selection.node.type.name === 'mediaSingle'
+    ) {
+      const tr = editorSelectionAPI.setSelectionRelativeToNode({
+        selectionRelativeToNode: undefined,
+        selection: new GapCursorSelection(
+          state.doc.resolve(selection.to),
+          Side.RIGHT,
+        ),
+      })(state);
+
+      if (dispatch) {
+        dispatch(tr);
+      }
+      return true;
+    }
+
+    return false;
+  };
 
 export default keymapPlugin;

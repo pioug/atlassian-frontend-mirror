@@ -1,10 +1,11 @@
 import { FileStatus } from '@atlaskit/media-client';
+import { MediaFeatureFlags, getMediaFeatureFlag } from '@atlaskit/media-common';
 import { CardStatus, FilePreviewStatus } from '../types';
 
 export const isFinalCardStatus = (status: CardStatus) =>
   ['complete', 'error', 'failed-processing'].includes(status);
 
-export const getCardStatus = (
+const getCardStatusBuggy = (
   fileStatus: FileStatus,
   { hasFilesize, isPreviewable, hasPreview }: FilePreviewStatus,
 ): CardStatus => {
@@ -35,4 +36,35 @@ export const getCardStatus = (
     default:
       return 'loading';
   }
+};
+
+const getCardStatusFixed = (
+  fileStatus: FileStatus,
+  { isPreviewable, hasPreview }: FilePreviewStatus,
+): CardStatus => {
+  switch (fileStatus) {
+    case 'uploading':
+    case 'failed-processing':
+    case 'error':
+    case 'processing':
+      return fileStatus;
+    case 'processed':
+      if (!isPreviewable || !hasPreview) {
+        return 'complete';
+      }
+      return 'loading-preview';
+    default:
+      return 'loading';
+  }
+};
+
+export const getCardStatus = (
+  fileStatus: FileStatus,
+  filePreviewStatus: FilePreviewStatus,
+  featureFlags?: MediaFeatureFlags,
+): CardStatus => {
+  if (getMediaFeatureFlag('fetchFileStateAfterUpload', featureFlags)) {
+    return getCardStatusFixed(fileStatus, filePreviewStatus);
+  }
+  return getCardStatusBuggy(fileStatus, filePreviewStatus);
 };

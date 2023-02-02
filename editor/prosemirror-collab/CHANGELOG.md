@@ -1,5 +1,11 @@
 ## 1.3.0 (2022-05-30)
 
+## 0.1.1
+
+### Patch Changes
+
+- [`59e998e408f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/59e998e408f) - [ESS-2914] Switch to the forked prosemirror-collab library (based on version 1.3.0) to filter out analytics steps
+
 ## 0.1.0
 
 ### Minor Changes

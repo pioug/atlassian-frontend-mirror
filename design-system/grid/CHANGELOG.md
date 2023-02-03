@@ -1,5 +1,11 @@
 # @atlaskit/grid
 
+## 0.1.0
+
+### Minor Changes
+
+- [`b47d1de31c6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b47d1de31c6) - Disables nested grid usage until we have clear guidance and working examples in place.
+
 ## 0.0.3
 
 ### Patch Changes

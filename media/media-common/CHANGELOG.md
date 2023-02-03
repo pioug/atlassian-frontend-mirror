@@ -1,5 +1,11 @@
 # @atlaskit/media-common
 
+## 2.19.1
+
+### Patch Changes
+
+- [`9a88e254997`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a88e254997) - Recovered Media Feature Flag mediaUploadApiV2
+
 ## 2.19.0
 
 ### Minor Changes

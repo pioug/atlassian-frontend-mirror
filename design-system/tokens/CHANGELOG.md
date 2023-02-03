@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 0.13.5
+
+### Patch Changes
+
+- [`1f558943507`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1f558943507) - Correct Figma entrypoints to use raw json
+
 ## 0.13.4
 
 ### Patch Changes

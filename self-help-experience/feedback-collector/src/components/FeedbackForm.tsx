@@ -143,6 +143,7 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
   return (
     <Modal
       shouldCloseOnOverlayClick={false}
+      shouldCloseOnEscapePress={false}
       onClose={onClose}
       testId="feedbackCollectorModalDialog"
     >

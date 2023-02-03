@@ -1,5 +1,16 @@
 # @atlaskit/link-analytics
 
+## 3.0.0
+
+### Major Changes
+
+- [`78913286eca`](https://bitbucket.org/atlassian/atlassian-frontend/commits/78913286eca) - - Add support for resolved metadata
+  - It is now a requirement for Link Analytics to be wrapped with the SmartCardProvider, else it will catastrophically break
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.1.0
 
 ### Minor Changes

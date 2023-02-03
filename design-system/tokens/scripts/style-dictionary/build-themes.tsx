@@ -93,9 +93,6 @@ const createThemeConfig = (themeName: ThemeFileNames): Config => {
          * Figma artifacts are output to a separate folder, because the
          * `@af/codegen` ESLint rule `@repo/internal/codegen/signed-source-integrity`
          * scans all directories called `artifacts` for signed source headers.
-         *
-         * Figma artifacts are JSON so the codegen headers inserted as comments
-         * are not valid JSON.
          */
         buildPath: FIGMA_ARTIFACT_OUTPUT_DIR,
         options: {

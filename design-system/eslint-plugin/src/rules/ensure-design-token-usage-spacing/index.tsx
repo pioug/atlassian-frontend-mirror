@@ -29,6 +29,8 @@ import {
   isValidSpacingValue,
 } from './utils';
 
+type TargetOptions = ('spacing' | 'typography')[];
+
 /**
  * Currently we have a wide range of experimental spacing tokens that we are testing.
  * We only want transforms to apply to the stable scale values, not the rest.
@@ -91,6 +93,32 @@ function getTokenNodeForValue(propertyName: string, value: string) {
   });
 }
 
+/**
+ * Returns a boolean that signals wether the current property is revelant under the current configuration
+ * @param propertyName camelCase CSS property
+ * @param targetOptions Array containing the types of properties that should be included in the rule
+ * @example
+ * ```
+ * propertyName: padding, targetOptions: ['spacing']
+ * propertyName: fontWeight, targetOptions: ['spacing', 'typography']
+ * ```
+ */
+function shouldAnalyzeProperty(
+  propertyName: string,
+  targetOptions: TargetOptions,
+): boolean {
+  if (isSpacingProperty(propertyName) && targetOptions.includes('spacing')) {
+    return true;
+  }
+  if (
+    isTypographyProperty(propertyName) &&
+    targetOptions.includes('typography')
+  ) {
+    return true;
+  }
+  return false;
+}
+
 const rule: Rule.RuleModule = {
   meta: {
     type: 'problem',
@@ -108,6 +136,15 @@ const rule: Rule.RuleModule = {
     },
   },
   create(context) {
+    const targetCategories: TargetOptions = ['spacing'];
+    const configCategories = context.options[0]?.addons;
+    if (
+      Array.isArray(configCategories) &&
+      configCategories.includes('typography')
+    ) {
+      targetCategories.push('typography');
+    }
+
     return {
       // CSSObjectExpression
       // const styles = css({ color: 'red', margin: '4px' })
@@ -156,7 +193,7 @@ const rule: Rule.RuleModule = {
             return;
           }
 
-          if (!isSpacingProperty(node.key.name)) {
+          if (!shouldAnalyzeProperty(node.key.name, targetCategories)) {
             return;
           }
 
@@ -170,7 +207,6 @@ const rule: Rule.RuleModule = {
           ) {
             return;
           }
-
           if (
             node.value.type === 'Literal' &&
             !isValidSpacingValue(node.value.value, fontSize)
@@ -218,7 +254,7 @@ const rule: Rule.RuleModule = {
                 payload: `${propertyName}:${pixelValue}`,
               },
               fix: (fixer) => {
-                if (!isSpacingProperty(propertyName)) {
+                if (!shouldAnalyzeProperty(propertyName, targetCategories)) {
                   return null;
                 }
 
@@ -353,7 +389,7 @@ const rule: Rule.RuleModule = {
             const [rawProperty, value] = style.split(':');
             const propertyName = convertHyphenatedNameToCamelCase(rawProperty);
 
-            if (!isSpacingProperty(propertyName)) {
+            if (!shouldAnalyzeProperty(propertyName, targetCategories)) {
               return;
             }
 
@@ -371,7 +407,10 @@ const rule: Rule.RuleModule = {
             const values = getValueFromShorthand(value);
 
             values.forEach((val, index) => {
-              if ((!val && val !== 0) || !isSpacingProperty(propertyName)) {
+              if (
+                (!val && val !== 0) ||
+                !shouldAnalyzeProperty(propertyName, targetCategories)
+              ) {
                 return;
               }
 

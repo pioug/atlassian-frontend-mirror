@@ -40,6 +40,9 @@ const isJwmView = (url: string) =>
     /^https:\/\/.*?\/jira\/core\/projects\/[^\/]+?\/(timeline|calendar|list|board|summary|(form\/[^\/]+?))\/?/,
   );
 
+const isGiphyMedia = (url: string) =>
+  url.match(/^https:\/\/(.*?\.)?giphy\.com\/(gifs|media|clips)\//);
+
 export class EditorCardProvider implements CardProvider {
   private baseUrl: string;
   private resolverUrl: string;
@@ -172,7 +175,12 @@ export class EditorCardProvider implements CardProvider {
   }
 
   private getHardCodedAppearance(url: string): CardAppearance | undefined {
-    if (isJiraRoadMap(url) || isPolarisView(url) || isJwmView(url)) {
+    if (
+      isJiraRoadMap(url) ||
+      isPolarisView(url) ||
+      isJwmView(url) ||
+      isGiphyMedia(url)
+    ) {
       return 'embed';
     }
   }

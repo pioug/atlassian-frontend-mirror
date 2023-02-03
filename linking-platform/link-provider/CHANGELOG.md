@@ -1,5 +1,11 @@
 # @atlaskit/link-provider
 
+## 1.3.11
+
+### Patch Changes
+
+- [`51db1ccb9ca`](https://bitbucket.org/atlassian/atlassian-frontend/commits/51db1ccb9ca) - Giphy links default to embed appearance on insert
+
 ## 1.3.10
 
 ### Patch Changes

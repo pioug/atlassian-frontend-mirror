@@ -1,8 +1,9 @@
 /* eslint-disable @repo/internal/react/consistent-css-prop-usage */
 /** @jsx jsx */
-import { createContext, CSSProperties, FC, ReactNode, useContext } from 'react';
+import { createContext, FC, ReactNode, useContext } from 'react';
 
 import { css, jsx } from '@emotion/react';
+import invariant from 'tiny-invariant';
 
 import { BREAKPOINTS } from './config';
 
@@ -72,11 +73,6 @@ const gridFlowMap = {
 
 const GridContext = createContext(false);
 
-const nestedStyles: CSSProperties = {
-  paddingInline: 0,
-  marginInline: 0,
-};
-
 /**
  * __Grid__
  *
@@ -97,10 +93,15 @@ const nestedStyles: CSSProperties = {
  */
 export const Grid: FC<GridProps> = ({ testId, children, width }) => {
   const isNested = useContext(GridContext);
+
+  invariant(
+    !isNested,
+    '@atlaskit/grid: Nesting grids are not supported at this time, please only use a top-level grid.',
+  );
+
   return (
     <div
       data-testid={testId}
-      style={isNested ? nestedStyles : undefined}
       css={[baseStyles, width && gridFlowMap[width], gridMediaQueryStyles]}
     >
       <GridContext.Provider value={true}>{children}</GridContext.Provider>

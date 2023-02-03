@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useState } from 'react';
+import React, { Fragment, SyntheticEvent, useState } from 'react';
 
 import Button from '@atlaskit/button';
 import Popup from '@atlaskit/popup';
@@ -10,7 +10,7 @@ type OnSubmitPayload = Parameters<
   Required<React.ComponentProps<typeof LinkPicker>>['onSubmit']
 >[0];
 
-export default function WithoutPlugins() {
+function WithoutPlugins() {
   const [isOpen, setIsOpen] = useState(true);
   const [link, setLink] = useState<OnSubmitPayload>({
     url: '',
@@ -64,7 +64,7 @@ export default function WithoutPlugins() {
   );
 
   return (
-    <PageWrapper>
+    <Fragment>
       <PageHeader>
         <p>
           <b>LinkPicker</b> without search, used as an interface to submit a
@@ -77,6 +77,14 @@ export default function WithoutPlugins() {
         </a>
       </div>
       {linkPickerInPopup}
+    </Fragment>
+  );
+}
+
+export default function WithoutPluginsWrapper() {
+  return (
+    <PageWrapper>
+      <WithoutPlugins />
     </PageWrapper>
   );
 }

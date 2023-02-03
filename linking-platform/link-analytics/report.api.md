@@ -42,6 +42,7 @@ interface LinkLifecycleEventCallback {
 interface SmartLinkLifecycleMethods {
   linkCreated: LinkLifecycleEventCallback;
   linkDeleted: LinkLifecycleEventCallback;
+  linkUpdated: LinkLifecycleEventCallback;
 }
 
 // @public

@@ -221,6 +221,7 @@ export interface LinkingPlatformFeatureFlags {
   enableActionableElement?: boolean;
   enableFlexibleBlockCard?: boolean;
   enableLinkPickerForgeTabs?: boolean;
+  enableResolveMetadataForLinkAnalytics?: boolean;
   showAuthTooltip?: string;
   // (undocumented)
   showHoverPreview?: boolean;

@@ -261,6 +261,65 @@ describe('providers > editor', () => {
 
   it.each<[string, string]>([
     [
+      'Giphy Gif',
+      'https://giphy.com/gifs/happy-kawaii-nice-yCZEmKBKejysx5V2Ya',
+    ],
+    [
+      'Giphy Gif with extension',
+      'https://media.giphy.com/media/OEv64W2RHusD9BrQ9z/giphy.gif',
+    ],
+    [
+      'Giphy Mp4 video',
+      'https://media3.giphy.com/media/tYaV2Xd7SzmARXOWjO/giphy360p.mp4?cid=ecf05e47tqlptrwmtazt5a732xtckc235h1nxhh8l5r8557k&rid=giphy360p.mp4&ct=v',
+    ],
+    [
+      'Giphy Clip',
+      'https://giphy.com/clips/studiosoriginals-omg-shocked-surprised-2P4BzWM98c2IzSoqN5',
+    ],
+  ])(
+    'returns embedCard when %s public link is inserted, calling /providers and /resolve/batch endpoint',
+    async (_, url) => {
+      const provider = new EditorCardProvider();
+      mockFetch.mockResolvedValueOnce({
+        json: async () => getMockProvidersResponse(),
+        ok: true,
+      });
+      // Mocking call to /resolve/batch
+      mockFetch.mockResolvedValueOnce({
+        json: async () => [{ body: mocks.success, status: 200 }],
+        ok: true,
+      });
+      const adf = await provider.resolve(url, 'inline', false);
+      expect(adf).toEqual(expectedEmbedAdf(url));
+    },
+  );
+
+  it.each<[string, string]>([
+    [
+      'Domain ending in "giphy"',
+      'https://dodgygiphy.com/gifs/happy-kawaii-nice-yCZEmKBKejysx5V2Yaa',
+    ],
+    ['Giphy profile', 'https://giphy.com/Ellienka'],
+  ])(
+    'returns inlineCard when %s public link is inserted, calling /providers and /resolve/batch endpoint',
+    async (_, url) => {
+      const provider = new EditorCardProvider();
+      mockFetch.mockResolvedValueOnce({
+        json: async () => getMockProvidersResponse(),
+        ok: true,
+      });
+      // Mocking call to /resolve/batch
+      mockFetch.mockResolvedValueOnce({
+        json: async () => [{ body: mocks.success, status: 200 }],
+        ok: true,
+      });
+      const adf = await provider.resolve(url, 'inline', false);
+      expect(adf).toEqual(expectedInlineAdf(url));
+    },
+  );
+
+  it.each<[string, string]>([
+    [
       'roadmap embed',
       'https://jdog.jira-dev.com/jira/software/projects/DL39857/boards/3186/roadmap',
     ],
@@ -317,7 +376,7 @@ describe('providers > editor', () => {
       'https://jdog.jira-dev.com/jira/core/projects/NPM5/form/1?atlOrigin=eyJpIjoiM2MzNTA5N2FmNzNjNDQxNmFhNDAzNDhhYmIyZTRiNGQiLCJwIjoiaiJ9',
     ],
   ])(
-    'returns embedCard when  %s link inserted, calling /providers endpoint',
+    'returns embedCard when %s link inserted, calling /providers endpoint',
     async (_, url) => {
       const provider = new EditorCardProvider();
       mockFetch.mockResolvedValueOnce({

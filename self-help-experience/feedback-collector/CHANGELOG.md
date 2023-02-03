@@ -1,5 +1,11 @@
 # @atlaskit/feedback-collector
 
+## 10.8.2
+
+### Patch Changes
+
+- [`5c0a3df1927`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5c0a3df1927) - [ux] Don't close feedback modal if escape key is pressed
+
 ## 10.8.1
 
 ### Patch Changes

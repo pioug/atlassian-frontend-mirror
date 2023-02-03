@@ -9,6 +9,8 @@ const productKeys: ProductKeys = {
     //TODO fill the value after https://product-fabric.atlassian.net/browse/MEX-1593
     observedWidth: '',
     timestampOnVideo: 'confluence.frontend.media.timestamp.on.video',
+    // @ts-ignore
+    mediaUploadApiV2: 'confluence.enable.media.upload.api.v2',
     memoryCacheLogging: 'confluence-frontend-media-card-memory-cache-logging',
     fetchFileStateAfterUpload:
       'confluence-frontend-media-client-fetch-file-state-after-upload',
@@ -22,6 +24,8 @@ const productKeys: ProductKeys = {
     //TODO fill the value after https://product-fabric.atlassian.net/browse/MEX-1593
     observedWidth: '',
     timestampOnVideo: 'issue.details.media-cards-timestamp-on-video',
+    // @ts-ignore
+    mediaUploadApiV2: 'issue.details.enable-media-upload-api-version-2',
     memoryCacheLogging: 'jira-frontend-media-card-memory-cache-logging',
     fetchFileStateAfterUpload:
       'jira-frontend-media-client-fetch-file-state-after-upload',

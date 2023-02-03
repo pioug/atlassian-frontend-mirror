@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useState, useMemo } from 'react';
+import React, { SyntheticEvent, useState, useMemo, Fragment } from 'react';
 
 import { useSmartLinkLifecycleAnalytics } from '@atlaskit/link-analytics';
 
@@ -16,7 +16,7 @@ type OnSubmitPayload = Parameters<LinkPickerProps['onSubmit']>[0];
 
 mockEndpoints(undefined, undefined, mockRecentData);
 
-export default function Basic() {
+function Basic() {
   const [link, setLink] = useState<OnSubmitPayload>({
     url: '',
     displayText: null,
@@ -66,13 +66,21 @@ export default function Basic() {
   );
 
   return (
-    <PageWrapper>
+    <Fragment>
       <div style={{ paddingBottom: 20 }}>
         <a id="test-link" href={link.url} target="_blank" onClick={handleClick}>
           {link.displayText || link.url}
         </a>
       </div>
       {linkPicker}
+    </Fragment>
+  );
+}
+
+export default function BasicWrapper() {
+  return (
+    <PageWrapper>
+      <Basic />
     </PageWrapper>
   );
 }

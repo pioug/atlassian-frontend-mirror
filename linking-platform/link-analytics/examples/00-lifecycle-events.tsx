@@ -19,12 +19,12 @@ import {
 import {
   FooterBlock,
   Card,
-  Provider,
   SmartLinkSize,
   TitleBlock,
   ActionName,
 } from '@atlaskit/smart-card';
 import fetchMock from 'fetch-mock/cjs/client';
+import { SmartCardProvider } from '@atlaskit/link-provider';
 
 const OBJECT_RESOLVER_SERVICE_ENDPOINT = 'glob:*/gateway/api/object-resolver/*';
 
@@ -117,7 +117,7 @@ const LinkPickerPopup = ({
   );
 };
 
-export default function LifecycleAnalytics() {
+function LifecycleAnalytics() {
   const [isOpen, setIsOpen] = useState(false);
   const [editingLink, setEditLink] = useState<string | null>(null);
 
@@ -156,9 +156,10 @@ export default function LifecycleAnalytics() {
         cloned.splice(index, 1, updated);
         return cloned;
       });
+      linkAnalytics.linkUpdated(payload, analytic);
       setEditLink(null);
     },
-    [setLinks],
+    [setLinks, linkAnalytics],
   );
 
   const handleDelete = useCallback(
@@ -182,54 +183,52 @@ export default function LifecycleAnalytics() {
       <IntlProvider locale="en">
         <div style={{ margin: '0 auto', maxWidth: 800 }}>
           <div style={{ marginBottom: 32 }}>
-            <Provider>
-              {links.map(({ id, url }) => (
-                <Fragment key={id}>
-                  <Card
-                    appearance="block"
-                    url={url}
-                    onClick={e => {
-                      e.preventDefault();
-                    }}
-                    ui={{
-                      clickableContainer: true,
-                      size: SmartLinkSize.Large,
-                    }}
-                  >
-                    <TitleBlock />
-                    <FooterBlock
-                      actions={[
-                        {
-                          name: ActionName.EditAction,
-                          onClick: () => setEditLink(id),
-                          size: SmartLinkSize.XLarge,
-                        },
-                        {
-                          name: ActionName.DeleteAction,
-                          onClick: () => handleDelete(id, url),
-                          size: SmartLinkSize.XLarge,
-                        },
-                      ]}
-                    />
-                  </Card>
-                  {editingLink === id && (
-                    <LinkPickerPopup
-                      onSubmit={(payload, analytic) =>
-                        handleEdit(payload, analytic, id)
-                      }
-                      isOpen={true}
-                      handleToggle={() => setEditLink(null)}
-                      plugins={plugins.current}
-                      url={links.find(link => link.id === id)?.url}
-                      placement="bottom-end"
-                      trigger={({ ref, ...triggerProps }) => (
-                        <EditTrigger ref={ref} {...triggerProps} />
-                      )}
-                    />
-                  )}
-                </Fragment>
-              ))}
-            </Provider>
+            {links.map(({ id, url }) => (
+              <Fragment key={id}>
+                <Card
+                  appearance="block"
+                  url={url}
+                  onClick={e => {
+                    e.preventDefault();
+                  }}
+                  ui={{
+                    clickableContainer: true,
+                    size: SmartLinkSize.Large,
+                  }}
+                >
+                  <TitleBlock />
+                  <FooterBlock
+                    actions={[
+                      {
+                        name: ActionName.EditAction,
+                        onClick: () => setEditLink(id),
+                        size: SmartLinkSize.XLarge,
+                      },
+                      {
+                        name: ActionName.DeleteAction,
+                        onClick: () => handleDelete(id, url),
+                        size: SmartLinkSize.XLarge,
+                      },
+                    ]}
+                  />
+                </Card>
+                {editingLink === id && (
+                  <LinkPickerPopup
+                    onSubmit={(payload, analytic) =>
+                      handleEdit(payload, analytic, id)
+                    }
+                    isOpen={true}
+                    handleToggle={() => setEditLink(id)}
+                    plugins={plugins.current}
+                    url={links.find(link => link.id === id)?.url}
+                    placement="bottom-end"
+                    trigger={({ ref, ...triggerProps }) => (
+                      <EditTrigger ref={ref} {...triggerProps} />
+                    )}
+                  />
+                )}
+              </Fragment>
+            ))}
           </div>
           <LinkPickerPopup
             onSubmit={handleSubmit}
@@ -251,5 +250,13 @@ export default function LifecycleAnalytics() {
         </div>
       </IntlProvider>
     </div>
+  );
+}
+
+export default function LifecycleAnalyticsWithProvider() {
+  return (
+    <SmartCardProvider>
+      <LifecycleAnalytics />
+    </SmartCardProvider>
   );
 }

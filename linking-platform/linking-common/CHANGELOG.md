@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 1.21.0
+
+### Minor Changes
+
+- [`00899283bb1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/00899283bb1) - Add enableResolveMetadataForLinkAnalytics ff
+
 ## 1.20.0
 
 ### Minor Changes

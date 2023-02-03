@@ -27,9 +27,71 @@ tester.run('ensure-design-token-usage-spacing', rule, {
         \${token('space.300', '24px')};
       }\`;`,
     },
+    {
+      code: `const styles = css({
+        padding: token('space.100', '8px'),
+        margin: token('space.150', '12px'),
+        fontWeight: 400,
+        fontFamily: \`-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif\`,
+        fontSize: '20px',
+        lineHeight: '24px',
+      })`,
+    },
+    {
+      code: `const styles = css({
+        paddingInlineStart: token('space.100', '8px'),
+        paddingInlineEnd: token('space.100', '8px'),
+        paddingBlockStart: token('space.100', '8px'),
+        paddingBlockEnd: token('space.100', '8px'),
+        marginInlineStart: token('space.100', '8px'),
+        marginInlineEnd: token('space.100', '8px'),
+        marginBlockStart: token('space.100', '8px'),
+        marginBlockEnd: token('space.100', '8px'),
+      })`,
+    },
   ],
   invalid: [
     // just literals
+    {
+      code: `const styles = css({
+        paddingInlineStart:'8px',
+        paddingInlineEnd:'8px',
+        paddingBlockStart:'8px',
+        paddingBlockEnd:'8px',
+        marginInlineStart:'8px',
+        marginInlineEnd:'8px',
+        marginBlockStart:'8px',
+        marginBlockEnd:'8px',
+      })`,
+      output: `const styles = css({
+        // TODO Delete this comment after verifying spacing token -> previous value \`'8px'\`
+        paddingInlineStart: token('space.100', '8px'),
+        // TODO Delete this comment after verifying spacing token -> previous value \`'8px'\`
+        paddingInlineEnd: token('space.100', '8px'),
+        // TODO Delete this comment after verifying spacing token -> previous value \`'8px'\`
+        paddingBlockStart: token('space.100', '8px'),
+        // TODO Delete this comment after verifying spacing token -> previous value \`'8px'\`
+        paddingBlockEnd: token('space.100', '8px'),
+        // TODO Delete this comment after verifying spacing token -> previous value \`'8px'\`
+        marginInlineStart: token('space.100', '8px'),
+        // TODO Delete this comment after verifying spacing token -> previous value \`'8px'\`
+        marginInlineEnd: token('space.100', '8px'),
+        // TODO Delete this comment after verifying spacing token -> previous value \`'8px'\`
+        marginBlockStart: token('space.100', '8px'),
+        // TODO Delete this comment after verifying spacing token -> previous value \`'8px'\`
+        marginBlockEnd: token('space.100', '8px'),
+      })`,
+      errors: [
+        { messageId: 'noRawSpacingValues' },
+        { messageId: 'noRawSpacingValues' },
+        { messageId: 'noRawSpacingValues' },
+        { messageId: 'noRawSpacingValues' },
+        { messageId: 'noRawSpacingValues' },
+        { messageId: 'noRawSpacingValues' },
+        { messageId: 'noRawSpacingValues' },
+        { messageId: 'noRawSpacingValues' },
+      ],
+    },
     {
       code: `const styles = css({
         padding: '8px',
@@ -39,6 +101,7 @@ tester.run('ensure-design-token-usage-spacing', rule, {
         fontSize: '20px',
         lineHeight: '24px',
       })`,
+      options: [{ addons: ['typography'] }],
       output: `const styles = css({
         // TODO Delete this comment after verifying spacing token -> previous value \`'8px'\`
         padding: token('space.100', '8px'),
@@ -86,6 +149,7 @@ tester.run('ensure-design-token-usage-spacing', rule, {
         margin: '12rem',
         lineHeight: '2%'
       })`,
+      options: [{ addons: ['typography'] }],
       errors: [
         {
           message:
@@ -116,6 +180,7 @@ tester.run('ensure-design-token-usage-spacing', rule, {
       code: `const styles = css({
         fontSize: fontSize(),
       })`,
+      options: [{ addons: ['typography'] }],
       output: `const styles = css({
         // TODO Delete this comment after verifying spacing token -> previous value \`fontSize()\`
         fontSize: token('font.size.100', '14px'),
@@ -128,6 +193,7 @@ tester.run('ensure-design-token-usage-spacing', rule, {
         fontSize: 8,
         padding: '1em', // should be 8
       })`,
+      options: [{ addons: ['typography'] }],
       output: `const styles = css({
         fontSize: 8,
         // TODO Delete this comment after verifying spacing token -> previous value \`'1em'\`
@@ -386,6 +452,7 @@ tester.run('ensure-design-token-usage-spacing', rule, {
       code: `const someValue = fontSizeSmall();\nconst styles = css({
         fontSize: -someValue,
       });`,
+      options: [{ addons: ['typography'] }],
       errors: [
         {
           message:
@@ -411,6 +478,7 @@ tester.run('ensure-design-token-usage-spacing', rule, {
     // tagged TemplateLiteral font-weight
     {
       code: 'const cssTemplateLiteral = css`color: red; font-weight: 400;`;',
+      options: [{ addons: ['typography'] }],
       output: `// TODO Delete this comment after verifying spacing token -> previous value \`400\`\nconst cssTemplateLiteral = css\`color: red; font-weight: \${token('font.weight.regular', '400')};\`;`,
       errors: [
         {
@@ -422,6 +490,7 @@ tester.run('ensure-design-token-usage-spacing', rule, {
     // tagged TemplateLiteral line-height
     {
       code: 'const cssTemplateLiteral = css`color: red; line-height: 24px;`;',
+      options: [{ addons: ['typography'] }],
       output: `// TODO Delete this comment after verifying spacing token -> previous value \`24px\`\nconst cssTemplateLiteral = css\`color: red; line-height: \${token('font.lineHeight.300', '24px')};\`;`,
       errors: [
         {
@@ -437,6 +506,7 @@ tester.run('ensure-design-token-usage-spacing', rule, {
       color: red;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;\`;
     `,
+      options: [{ addons: ['typography'] }],
       output: `
     // TODO Delete this comment after verifying spacing token -> previous value \`-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif\`\nconst cssTemplateLiteral = css\`
       color: red;
@@ -685,6 +755,27 @@ styled.div\`
         {
           message:
             'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:16>>',
+        },
+      ],
+    },
+    {
+      code: `
+styled.div\`
+  padding-inline: 8px 16px;
+\``,
+      output: `
+// TODO Delete this comment after verifying spacing token -> previous value \`8px 16px\`
+styled.div\`
+  padding-inline: \${token('space.100', '8px')} \${token('space.200', '16px')};
+\``,
+      errors: [
+        {
+          message:
+            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<paddingInline:8>>',
+        },
+        {
+          message:
+            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<paddingInline:16>>',
         },
       ],
     },

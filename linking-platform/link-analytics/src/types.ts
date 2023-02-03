@@ -27,6 +27,13 @@ export interface SmartLinkLifecycleMethods {
    */
   linkCreated: LinkLifecycleEventCallback;
   /**
+   * Fires an event to track the update of a link.
+   * @param details The link data including the url
+   * @param sourceEvent (RECOMMENDED) A source analytic event that represents the trigger for creating the link
+   * @param attributes (OPTIONAL) Custom attributes to decorate the event with
+   */
+  linkUpdated: LinkLifecycleEventCallback;
+  /**
    * Fires an event to track the deletion of a link.
    * @param details The link data including the url
    * @param sourceEvent (RECOMMENDED) A source analytic event that represents the trigger for deleting the link

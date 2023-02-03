@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 4.15.0
+
+### Minor Changes
+
+- [`17b3c102180`](https://bitbucket.org/atlassian/atlassian-frontend/commits/17b3c102180) - ensure-design-token-usage-spacing only lints on spacing properties by default, with typography properties enabled via config
+
 ## 4.14.1
 
 ### Patch Changes

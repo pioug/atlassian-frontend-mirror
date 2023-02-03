@@ -4,10 +4,20 @@ import {
   useAnalyticsEvents,
 } from '@atlaskit/analytics-next';
 
-import { linkCreatedPayload, linkDeletedPayload } from './analytics';
+import {
+  linkCreatedPayload,
+  linkDeletedPayload,
+  linkUpdatedPayload,
+} from './analytics';
 import { LinkLifecycleEventCallback, SmartLinkLifecycleMethods } from './types';
 import { getDomainFromUrl, mergeAttributes } from './process-attributes';
 import { name as packageName, version as packageVersion } from './version.json';
+import {
+  CardClient,
+  useFeatureFlag,
+  useSmartLinkContext,
+} from '@atlaskit/link-provider';
+import { resolveAttributes } from './resolved-attributes';
 
 const PACKAGE_DATA = {
   packageName,
@@ -19,14 +29,25 @@ const ANALYTICS_CHANNEL = 'media';
 const generateCallback = (
   eventPayload: Record<string, any>,
   createAnalyticsEvent: CreateUIAnalyticsEvent,
+  client: CardClient,
+  featureFlags: {
+    enableResolveMetadataForLinkAnalytics?: boolean;
+  },
 ): LinkLifecycleEventCallback => {
-  return (details, sourceEvent, attributes = {}) => {
+  return async (details, sourceEvent, attributes = {}) => {
+    const resolvedAttributes =
+      featureFlags.enableResolveMetadataForLinkAnalytics
+        ? await resolveAttributes(details.url, client)
+        : {};
     createAnalyticsEvent({
       ...PACKAGE_DATA,
-      attributes: mergeAttributes(details, sourceEvent, attributes),
       nonPrivacySafeAttributes: {
         domainName: getDomainFromUrl(details.url),
       },
+      attributes: mergeAttributes(details, sourceEvent, {
+        ...attributes,
+        ...resolvedAttributes,
+      }),
       ...eventPayload,
     }).fire(ANALYTICS_CHANNEL);
   };
@@ -54,15 +75,37 @@ const generateCallback = (
  * }
  * ```
  */
+
 export const useSmartLinkLifecycleAnalytics = (): SmartLinkLifecycleMethods => {
   const { createAnalyticsEvent } = useAnalyticsEvents();
+  const {
+    connections: { client: cardClient },
+  } = useSmartLinkContext();
+  const enableResolveMetadataForLinkAnalytics = !!useFeatureFlag(
+    'enableResolveMetadataForLinkAnalytics',
+  );
 
   return useMemo(
     () => ({
-      linkCreated: generateCallback(linkCreatedPayload, createAnalyticsEvent),
-      // linkUpdated: generateCallback(linkUpdatedPayload, createAnalyticsEvent),
-      linkDeleted: generateCallback(linkDeletedPayload, createAnalyticsEvent),
+      linkCreated: generateCallback(
+        linkCreatedPayload,
+        createAnalyticsEvent,
+        cardClient,
+        { enableResolveMetadataForLinkAnalytics },
+      ),
+      linkUpdated: generateCallback(
+        linkUpdatedPayload,
+        createAnalyticsEvent,
+        cardClient,
+        { enableResolveMetadataForLinkAnalytics },
+      ),
+      linkDeleted: generateCallback(
+        linkDeletedPayload,
+        createAnalyticsEvent,
+        cardClient,
+        { enableResolveMetadataForLinkAnalytics },
+      ),
     }),
-    [createAnalyticsEvent],
+    [cardClient, createAnalyticsEvent, enableResolveMetadataForLinkAnalytics],
   );
 };

@@ -67,12 +67,9 @@ BrowserTestCase(
   },
 );
 
-// FIXME: This test was automatically skipped due to failure on 13/01/2023: https://product-fabric.atlassian.net/browse/ED-16541
 BrowserTestCase(
   'format.ts: user should be able to write inline code',
-  {
-    skip: ['*'],
-  },
+  {},
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, { appearance: 'full-page' });

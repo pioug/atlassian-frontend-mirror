@@ -1,5 +1,11 @@
 # @atlaskit/popper
 
+## 5.4.11
+
+### Patch Changes
+
+- [`d84f56e6e50`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d84f56e6e50) - Remove the unused feature flag
+
 ## 5.4.10
 
 ### Patch Changes

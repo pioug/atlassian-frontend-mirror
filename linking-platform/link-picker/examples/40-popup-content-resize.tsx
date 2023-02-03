@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useState, useCallback, useRef, Fragment } from 'react';
 
 import Button from '@atlaskit/button';
 import Popup from '@atlaskit/popup';
@@ -27,7 +27,7 @@ class Plugin extends MockLinkPickerPromisePlugin {
 
 const noop = () => {};
 
-export default function TestContentResize() {
+function TestContentResize() {
   const [isOpen, setIsOpen] = useState(false);
   const handleToggle = useCallback(() => setIsOpen(prev => !prev), []);
   const [isUpdateOn, setIsUpdateOn] = useState(false);
@@ -64,7 +64,7 @@ export default function TestContentResize() {
   );
 
   return (
-    <PageWrapper>
+    <Fragment>
       <PageHeader>
         <h1>Popup Content Resize Test Example</h1>
         <p>
@@ -95,6 +95,14 @@ export default function TestContentResize() {
         </label>
       </div>
       {linkPickerPopup}
+    </Fragment>
+  );
+}
+
+export default function TestContentResizeWrapper() {
+  return (
+    <PageWrapper>
+      <TestContentResize />
     </PageWrapper>
   );
 }

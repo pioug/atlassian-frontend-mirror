@@ -32,4 +32,8 @@ export interface LinkingPlatformFeatureFlags {
    * Enable forge providers tabs in products
    */
   enableLinkPickerForgeTabs?: boolean;
+  /**
+   * Enables resolved metadata to be surfaced for link analytics
+   */
+  enableResolveMetadataForLinkAnalytics?: boolean;
 }

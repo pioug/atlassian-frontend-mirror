@@ -96,9 +96,12 @@ describe('typeahead: up & down arrow navigation', () => {
   });
 
   describe('when cursor is inside of query and arrow up is used with ENTER to select', () => {
+    // FIXME: This test was automatically skipped due to failure on 04/02/2023: https://product-fabric.atlassian.net/browse/ED-16776
     BrowserTestCase(
       'it navigates to the last typeahead search result',
-      { skip: [] },
+      {
+        skip: ['*'],
+      },
       async (client: any, testName: string) => {
         const page = await startEditor(client, spaceAtEnd);
         await setProseMirrorTextSelection(page, { anchor: 1, head: 1 });

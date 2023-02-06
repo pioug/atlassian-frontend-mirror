@@ -25,8 +25,7 @@ const defaults = ['header', 'footer', 'both', 'neither'];
 const custom = ['custom header', 'custom body', 'custom footer'];
 
 const containerStyles = css({
-  // TODO Delete this comment after verifying spacing token -> previous value ``${gridSize() * 2}px``
-  padding: token('spacing.scale.200', '16px'),
+  padding: token('space.200', '16px'),
 });
 
 const titleStyles = css({

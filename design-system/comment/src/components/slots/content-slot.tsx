@@ -9,7 +9,7 @@ import { token } from '@atlaskit/tokens';
 const contentSlotStyles = css({
   minWidth: 0,
   // this spacing is a specific affordance to the avatar border
-  paddingTop: token('spacing.scale.025', '2px'),
+  paddingTop: token('space.025', '2px'),
   gridArea: 'comment-area',
   wordWrap: 'break-word',
 });

@@ -19,8 +19,7 @@ const titleStyles = css({
   display: 'flex',
   minWidth: 0,
 
-  // TODO Delete this comment after verifying spacing token -> previous value `0`
-  margin: token('spacing.scale.0', '0px'),
+  margin: token('space.0', '0px'),
   alignItems: 'center',
 
   fontSize: token('font.size.300', '20px'),

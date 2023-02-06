@@ -24,7 +24,7 @@ export async function goToFullPageWithTemplateContextPanel() {
   const { page } = global;
   await loadPage(page, url, {
     // allow side effects
-    disabledSideEffects: {
+    allowedSideEffects: {
       animation: true,
       transition: true,
     },

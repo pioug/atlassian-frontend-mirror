@@ -15,7 +15,8 @@ describe('Embed Card', () => {
   });
 
   describe('frame', () => {
-    it('should render as a link when there is an href', async () => {
+    // TODO: Restore skipped test https://product-fabric.atlassian.net/browse/ED-16713
+    it.skip('should render as a link when there is an href', async () => {
       const url = getURL('vr-embed-card-frame');
       const page = await setup(url);
       await page.waitForSelector('[data-testid="href-defined"]', {

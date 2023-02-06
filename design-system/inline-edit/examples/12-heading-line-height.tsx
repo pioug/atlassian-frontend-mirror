@@ -9,10 +9,7 @@ import { token } from '@atlaskit/tokens';
 import InlineEdit from '../src';
 
 const readViewContainerStyles = css({
-  margin: `${token('spacing.scale.100', '8px')} ${token(
-    'spacing.scale.0',
-    '0px',
-  )}`,
+  margin: `${token('space.100', '8px')} ${token('space.0', '0px')}`,
 });
 
 const ReadViewContainer: FC = ({ children }) => (
@@ -20,12 +17,8 @@ const ReadViewContainer: FC = ({ children }) => (
 );
 
 const messageStyles = css({
-  margin: `${token('spacing.scale.100', '8px')} ${token(
-    'spacing.scale.0',
-    '0px',
-  )}`,
-  // TODO Delete this comment after verifying spacing token -> previous value `'8px'`
-  padding: token('spacing.scale.100', '8px'),
+  margin: `${token('space.100', '8px')} ${token('space.0', '0px')}`,
+  padding: token('space.100', '8px'),
   backgroundColor: token('color.background.danger.bold', 'orangered'),
   bordeRadius: '3px',
   color: token('color.text.inverse', 'white'),
@@ -48,19 +41,16 @@ const textFieldStyles = css({
   '& > [data-ds--text-field--input]': {
     // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
     margin: '-11px -4px',
-    padding: `${token('spacing.scale.100', '8px')} ${token(
-      'spacing.scale.075',
-      '6px',
-    )}`,
+    padding: `${token('space.100', '8px')} ${token('space.075', '6px')}`,
     fontSize: token('font.size.400', '24px'),
   },
 });
 
 const wrapperStyles = css({
-  padding: `${token('spacing.scale.100', '8px')} ${token(
-    'spacing.scale.100',
-    '8px',
-  )} ${token('spacing.scale.600', '48px')}`,
+  padding: `${token('space.100', '8px')} ${token('space.100', '8px')} ${token(
+    'space.600',
+    '48px',
+  )}`,
 });
 
 const InlineEditExample = () => {

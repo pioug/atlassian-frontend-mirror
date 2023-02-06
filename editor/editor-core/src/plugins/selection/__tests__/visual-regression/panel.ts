@@ -1,7 +1,4 @@
-import {
-  PuppeteerPage,
-  waitForTooltip,
-} from '@atlaskit/visual-regression/helper';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import {
   PanelSharedCssClassName,
   PanelSharedSelectors,
@@ -16,7 +13,6 @@ import { mentionSelectors } from '@atlaskit/editor-test-helpers/page-objects/men
 import { animationFrame } from '@atlaskit/editor-test-helpers/page-objects/editor';
 import selectionPanelAdf from './__fixtures__/panel.adf.json';
 import { akEditorSelectedNodeClassName } from '@atlaskit/editor-shared-styles';
-import { retryUntilStablePosition } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 
 // ED-10826: The editor may present a clickable interface before it is
 // fully mounted. We implement retryable clicking to overcome this edge case.
@@ -72,16 +68,7 @@ describe('Selection:', () => {
       await page.waitForSelector(PanelSharedSelectors.removeButton);
       await page.hover(PanelSharedSelectors.removeButton);
       await page.waitForSelector(`.${PanelSharedCssClassName.prefix}.danger`);
-      await waitForTooltip(page);
-      await retryUntilStablePosition(
-        page,
-
-        () => {
-          return page.hover(PanelSharedSelectors.removeButton);
-        },
-
-        '.atlaskit-portal-container div[role="tooltip"]',
-      );
+      await page.hover(PanelSharedSelectors.removeButton);
       await snapshot(page);
     });
 

@@ -1,6 +1,5 @@
 import {
   PuppeteerPage,
-  waitForTooltip,
   waitForLoadedImageElements,
 } from '@atlaskit/visual-regression/helper';
 import { EditorTestCardProvider } from '@atlaskit/editor-test-helpers/card-provider';
@@ -61,7 +60,6 @@ describe('Selection:', () => {
       await page.waitForSelector(mediaToolbarRemoveSelector);
       await page.hover(mediaToolbarRemoveSelector);
       await page.waitForSelector(mediaDangerSelector);
-      await waitForTooltip(page);
     });
   });
 });

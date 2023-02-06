@@ -25,8 +25,8 @@ const Footer = (props: FooterProps) => {
       alignItems: 'center',
       width: '100%',
       '[data-item-elem-before]': {
-        marginRight: token('spacing.scale.0', '0px'),
-        marginBottom: token('spacing.scale.100', '8px'),
+        marginRight: token('space.0', '0px'),
+        marginBottom: token('space.100', '8px'),
         display: 'inline-block',
       },
       '[data-item-title]': {
@@ -36,7 +36,7 @@ const Footer = (props: FooterProps) => {
       '[data-item-description]': {
         textAlign: 'center',
         display: 'inline-block',
-        margin: token('spacing.scale.075', '6px'),
+        margin: token('space.075', '6px'),
       },
       // Will look interactive if the `component` is anything other than a div.
       'div&:hover': {

@@ -10,7 +10,7 @@ import { RANDOM_USERS } from '../examples-util/data';
 import AvatarGroup from '../src';
 
 const ButtonGroup = styled.div`
-  margin: ${token('spacing.scale.100', '8px')};
+  margin: ${token('space.100', '8px')};
   text-align: center;
 `;
 

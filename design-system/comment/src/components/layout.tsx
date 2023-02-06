@@ -22,7 +22,7 @@ const inlineCommentStyles = css({
 const containerStyles = css({
   display: 'grid',
   position: 'relative',
-  gap: token('spacing.scale.100', '8px'),
+  gap: token('space.100', '8px'),
   gridTemplateAreas: `"avatar-area comment-area" \
     ". nested-comments-area"`,
   gridTemplateColumns: 'auto 1fr',
@@ -37,13 +37,13 @@ const gridTemplateNoChildrenStyles = css({
 const highlightOverlayStyles = css({
   backgroundColor: token('color.background.neutral', N20A),
   gridArea: '1 / 1 / 2 / 3',
-  inset: `calc(-1 * ${token('spacing.scale.100', '8px')})`,
+  inset: `calc(-1 * ${token('space.100', '8px')})`,
   pointerEvents: 'none',
 });
 
 const stackOverrideStyles = {
   gridArea: 'nested-comments-area',
-  paddingTop: token('spacing.scale.300', '24px'),
+  paddingTop: token('space.300', '24px'),
 } as React.CSSProperties;
 
 export interface CommentLayoutProps {

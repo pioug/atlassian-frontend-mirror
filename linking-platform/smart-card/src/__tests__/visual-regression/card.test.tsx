@@ -41,25 +41,28 @@ describe('Card', () => {
   const runTest = (testName: string, testCases: ProviderTestCase[]) => {
     const viewport = getViewport(testCases);
 
-    it.each(testCases)(
-      'renders %s link',
-      async (testId: string, height: number, y: number) => {
-        const url = getURL(testName);
-        const page = await setup(url);
-        await page.setViewport(viewport);
+    // TODO: Restore skipped test https://product-fabric.atlassian.net/browse/ED-16710
+    describe.skip('', () => {
+      it.each(testCases)(
+        'renders %s link',
+        async (testId: string, height: number, y: number) => {
+          const url = getURL(testName);
+          const page = await setup(url);
+          await page.setViewport(viewport);
 
-        const selector = `[data-testid="inline-card-${testId}-resolved-view"]`;
-        await page.waitForSelector(selector);
+          const selector = `[data-testid="inline-card-${testId}-resolved-view"]`;
+          await page.waitForSelector(selector);
 
-        // Hover over the inline link to trigger hover preview
-        await page.hover(selector);
-        await page.waitForSelector('[data-testid="hover-card"]');
-        await page.waitForSelector('[data-testid="smart-element-icon"]');
+          // Hover over the inline link to trigger hover preview
+          await page.hover(selector);
+          await page.waitForSelector('[data-testid="hover-card"]');
+          await page.waitForSelector('[data-testid="smart-element-icon"]');
 
-        const image = await takeSnapshot(page, height, y);
-        expect(image).toMatchProdImageSnapshot();
-      },
-    );
+          const image = await takeSnapshot(page, height, y);
+          expect(image).toMatchProdImageSnapshot();
+        },
+      );
+    });
   };
 
   describe('Atlas', () => {

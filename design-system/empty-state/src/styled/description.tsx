@@ -7,10 +7,8 @@ import { N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 const descriptionStyles = css({
-  // TODO Delete this comment after verifying spacing token -> previous value `0`
-  marginTop: token('spacing.scale.0', '0px'),
-  // TODO Delete this comment after verifying spacing token -> previous value ``${getGridSize() * 3}px``
-  marginBottom: token('spacing.scale.300', '24px'),
+  marginTop: token('space.0', '0px'),
+  marginBottom: token('space.300', '24px'),
   color: token('color.text', N800),
 });
 

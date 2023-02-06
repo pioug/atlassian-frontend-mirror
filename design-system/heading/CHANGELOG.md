@@ -1,5 +1,11 @@
 # @atlaskit/heading
 
+## 1.1.1
+
+### Patch Changes
+
+- [`18aeca8c199`](https://bitbucket.org/atlassian/atlassian-frontend/commits/18aeca8c199) - Internal change to update token references. There is no expected behaviour or visual change.
+
 ## 1.1.0
 
 ### Minor Changes

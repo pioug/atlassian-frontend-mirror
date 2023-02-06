@@ -7,8 +7,7 @@ import { css, jsx } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 
 const containerStyles = css({
-  // TODO Delete this comment after verifying spacing token -> previous value ``${gridSize() * 3}px``
-  marginBottom: token('spacing.scale.300', '24px'),
+  marginBottom: token('space.300', '24px'),
   position: 'relative',
 });
 

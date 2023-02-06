@@ -7,10 +7,10 @@ import { B50, N30A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 const iconButtonStyles = css({
-  padding: token('spacing.scale.100', '8px'),
+  padding: token('space.100', '8px'),
   backgroundColor: 'inherit',
   border: 'none',
-  borderRadius: token('spacing.scale.1000', '80px'),
+  borderRadius: token('space.1000', '80px'),
   color: 'inherit',
   cursor: 'pointer',
   lineHeight: token('font.lineHeight.100', '1'),

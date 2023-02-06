@@ -1,4 +1,3 @@
-import { waitForTooltip } from '@atlaskit/visual-regression/helper';
 import {
   snapshot,
   initEditorWithAdf,
@@ -126,7 +125,6 @@ describe('Floating toolbars:', () => {
 
     it('should render colour picker at the correct position and scroll buttons disabled when dropdown is opened', async () => {
       await clickCellBackgroundInFloatingToolbar(page);
-      await waitForTooltip(page, tableSelectors.cellBackgroundText);
       await page.waitForSelector(colourPickerPopupSelector);
     });
   });
@@ -160,11 +158,9 @@ describe('Floating toolbars:', () => {
         );
         await openEmojiPopupInFloatingToolbar(page);
         await waitForEmojisToLoad(page);
-        await waitForTooltip(page);
         await snapshot(page);
 
         await openColorPopupInFloatingToolbar(page);
-        await waitForTooltip(page);
         await snapshot(page);
       },
     );

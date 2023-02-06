@@ -43,7 +43,7 @@ describe('@atlaskit/page', () => {
       global.__BASEURL__,
     );
     const { page } = global;
-    await loadPage(page, url, { disabledSideEffects: { animation: true } });
+    await loadPage(page, url, { allowedSideEffects: { animation: true } });
     await page.click(toggleSelector);
     const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();

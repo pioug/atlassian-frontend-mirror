@@ -159,7 +159,7 @@ testRule({
     },
     {
       // eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-      code: `gap: ${token('spacing.scale.025')};`,
+      code: `gap: ${token('space.025')};`,
       description: 'should accept spacing token values via calls to token()',
     },
     {

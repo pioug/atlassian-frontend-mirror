@@ -1,5 +1,6 @@
 import {
   getExampleUrl,
+  loadPage,
   pageSelector,
 } from '@atlaskit/visual-regression/helper';
 import { sleep } from '@atlaskit/media-test-helpers';
@@ -24,7 +25,10 @@ describe('Media Card Singles', () => {
         const url = getURL(`&status=${status}`);
         const { page } = global;
 
-        await page.goto(url);
+        await loadPage(page, url, {
+          reloadSameUrl: true,
+          allowedSideEffects: { tooltips: true },
+        });
         await page.waitForSelector(pageSelector);
         await page.hover('[data-test-media-name=".img"]');
         await sleep(1000);
@@ -45,7 +49,10 @@ describe('Media Card Singles', () => {
         const url = getURL(`&disableOverlay=true&status=${status}`);
         const { page } = global;
 
-        await page.goto(url);
+        await loadPage(page, url, {
+          reloadSameUrl: true,
+          allowedSideEffects: { tooltips: true },
+        });
         await page.waitForSelector(pageSelector);
         await page.hover('[data-test-media-name=".img"]');
         await sleep(500);

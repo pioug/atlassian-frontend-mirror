@@ -17,7 +17,7 @@ import Drawer from '../src';
 const containerStyles = css({
   display: 'flex',
   height: '200%',
-  padding: token('spacing.scale.200', '16px'),
+  padding: token('space.200', '16px'),
   justifyContent: 'flex-end',
 });
 

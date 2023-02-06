@@ -1,4 +1,8 @@
-import { loadPage, PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import {
+  loadPage,
+  PuppeteerPage,
+  SideEffectOptions,
+} from '@atlaskit/visual-regression/helper';
 
 type Options = {
   triggerSelector: string;
@@ -6,12 +10,16 @@ type Options = {
   modalSelector: string;
   scrollSelector?: string;
   scrollTo?: { x: number; y: number };
+  allowedSideEffects?: SideEffectOptions;
 };
 
 export const openModal = async (url: string, options: Options) => {
   const { page } = global;
 
-  await loadPage(page, url);
+  await loadPage(page, url, {
+    reloadSameUrl: true,
+    allowedSideEffects: options.allowedSideEffects,
+  });
 
   const viewport = options.viewport || { width: 800, height: 600 };
   await page.setViewport(viewport);

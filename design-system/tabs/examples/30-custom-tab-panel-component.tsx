@@ -9,7 +9,7 @@ import Tabs, { Tab, TabList, useTabPanel } from '../src';
 const customPanelStyles = css({
   // eslint-disable-next-line @repo/internal/styles/no-nested-styles
   '&&': {
-    padding: token('spacing.scale.250', '20px'),
+    padding: token('space.250', '20px'),
     flexDirection: 'column',
   },
 });

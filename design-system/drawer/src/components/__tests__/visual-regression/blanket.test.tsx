@@ -27,7 +27,7 @@ describe('Blanket', () => {
       async (timeStamp: number) => {
         const { page } = global;
         await loadPage(page, url, {
-          disabledSideEffects: { animation: true, transition: true },
+          allowedSideEffects: { animation: true, transition: true },
         });
 
         await page.waitForSelector(showButtonSelector);
@@ -82,7 +82,7 @@ describe('Blanket', () => {
       async (timeStamp: number) => {
         const { page } = global;
         await loadPage(page, url, {
-          disabledSideEffects: { animation: true, transition: true },
+          allowedSideEffects: { animation: true, transition: true },
         });
 
         await page.waitForSelector(showButtonSelector);

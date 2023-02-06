@@ -23,8 +23,8 @@ const levelMap = {
 } as const;
 
 const headingResetStyles = css({
-  marginTop: token('spacing.scale.0', '0px'),
-  marginBottom: token('spacing.scale.0', '0px'),
+  marginTop: token('space.0', '0px'),
+  marginBottom: token('space.0', '0px'),
   color: token('color.text', '#172B4D'),
 });
 

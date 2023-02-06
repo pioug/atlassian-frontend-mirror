@@ -14,10 +14,8 @@ const readViewContainerStyles = css({
 
 const editButtonStyles = css({
   display: 'block',
-  // TODO Delete this comment after verifying spacing token -> previous value `'0'`
-  margin: token('spacing.scale.0', '0px'),
-  // TODO Delete this comment after verifying spacing token -> previous value `'0'`
-  padding: token('spacing.scale.0', '0px'),
+  margin: token('space.0', '0px'),
+  padding: token('space.0', '0px'),
   appearance: 'none',
   background: 'transparent',
   border: 0,

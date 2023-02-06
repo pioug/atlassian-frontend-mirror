@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-  PuppeteerPage,
-  waitForNoTooltip,
-  waitForTooltip,
-} from '@atlaskit/visual-regression/helper';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import {
   deviceViewPorts,
   Device,
@@ -25,14 +21,12 @@ import {
 import {
   animationFrame,
   scrollToBottom,
-  selectors as prosemirrorSelectors,
 } from '@atlaskit/editor-test-helpers/page-objects/editor';
 import { pressKeyCombo } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
 import * as parapgrahADF from './__fixtures__/paragraph-of-text.adf.json';
 
 async function focusToolbar(page: PuppeteerPage) {
   await pressKeyCombo(page, ['Alt', 'F9']);
-  await waitForTooltip(page);
 }
 
 describe('Toolbar', () => {
@@ -53,23 +47,19 @@ describe('Toolbar', () => {
 
   it('should display headings menu correctly', async () => {
     await clickToolbarMenu(page, ToolbarMenuItem.fontStyle);
-    await waitForTooltip(page, 'Text styles');
   });
 
   it('should display text alignment menu correctly', async () => {
     await clickToolbarMenu(page, ToolbarMenuItem.alignment);
-    await waitForTooltip(page, 'Text alignment');
   });
 
   it('should display text color menu correctly', async () => {
     await clickToolbarMenu(page, ToolbarMenuItem.textColor);
-    await waitForTooltip(page, 'Text color');
   });
 
   it('should display insert menu correctly', async () => {
     await page.setViewport({ width: 1000, height: 700 });
     await clickToolbarMenu(page, ToolbarMenuItem.insertMenu);
-    await waitForTooltip(page, 'Insert');
   });
 });
 
@@ -118,7 +108,6 @@ describe('Toolbar: Text Color', () => {
       editorSelector,
     );
     await page.mouse.move(0, 0);
-    await waitForNoTooltip(page);
     await snapshot(page, undefined, editorSelector);
   });
 
@@ -138,7 +127,6 @@ describe('Toolbar: Text Color', () => {
   // Skipped because of flakiness
   // https://product-fabric.atlassian.net/browse/ED-16626
   it.skip('should close the text color menu when ESC is pressed', async () => {
-    await page.focus(prosemirrorSelectors.editor);
     await page.keyboard.down('Escape');
   });
 
@@ -208,7 +196,6 @@ describe('Toolbar: Comment', () => {
   it('should display text color menu correctly at small viewport', async () => {
     await page.setViewport(deviceViewPorts[Device.iPhonePlus]);
     await clickToolbarMenu(page, ToolbarMenuItem.textColor);
-    await waitForTooltip(page, 'Text color');
   });
 });
 
@@ -216,7 +203,6 @@ describe('Toolbar: IconBefore', () => {
   let page: PuppeteerPage;
 
   afterEach(async () => {
-    await waitForNoTooltip(page);
     await snapshot(page, undefined, editorSelector);
   });
 
@@ -234,9 +220,7 @@ describe('Toolbar: IconBefore', () => {
     });
 
     it('should show the icon', async () => {
-      await waitForTooltip(page, 'Bold');
       await page.mouse.move(-30, -30);
-      await waitForNoTooltip(page);
     });
 
     it('should show the icon in narrow view', async () => {

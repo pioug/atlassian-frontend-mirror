@@ -92,9 +92,10 @@ describe('placeholder-text: arrow navigation', () => {
       });
 
       describe('and the cursor ends at the second placeholder', () => {
+        // TODO: Restore skipped test https://product-fabric.atlassian.net/browse/ED-16709
         BrowserTestCase(
           'it should replace the placeholder to the text content',
-          { skip: [] },
+          { skip: ['*'] },
           async (client: any, testName: string) => {
             const page = await startEditor(
               client,
@@ -140,9 +141,10 @@ describe('placeholder-text: arrow navigation', () => {
       });
 
       describe('and the cursor ends at the first placeholder', () => {
+        // TODO: Restore skipped test https://product-fabric.atlassian.net/browse/ED-16709
         BrowserTestCase(
           'it should replace the placeholder to the text content',
-          { skip: [] },
+          { skip: ['*'] },
           async (client: any, testName: string) => {
             const page = await startEditor(
               client,

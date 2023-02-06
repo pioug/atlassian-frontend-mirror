@@ -1,8 +1,4 @@
-import {
-  PuppeteerPage,
-  waitForNoTooltip,
-  waitForTooltip,
-} from '@atlaskit/visual-regression/helper';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { waitForMediaToBeLoaded } from '@atlaskit/editor-test-helpers/page-objects/media';
 import {
   snapshot,
@@ -56,16 +52,12 @@ describe('Snapshot Test: Media inline video player', () => {
 
     let speedControlButtonSelector =
       '[data-testid="custom-media-player-playback-speed-toggle-button"]';
-    // Hover first to see tooltip.
     await page.hover(speedControlButtonSelector);
-    await waitForTooltip(page);
     await makeSnapshot(page);
 
     // Wait a just a bit, to make sure following click won't be to fast
-    // Clicking a button and opening a popup seems to close tooltip now, but only if it's not too fast.
     await page.waitForTimeout(200);
     await page.click(speedControlButtonSelector);
-    await waitForNoTooltip(page);
     await makeSnapshot(page);
   });
 
@@ -91,7 +83,6 @@ describe('Snapshot Test: Media inline video player', () => {
     await page.click('[data-testid="media-file-card-view"]');
     await waitForMediaFloatingToolbar(page);
     await page.hover('[data-testid="media-toolbar-remove-button"]');
-    await waitForTooltip(page);
     await makeSnapshot(page);
   });
 });

@@ -14,17 +14,13 @@ const lightH600Styles = css(h600({ theme: { mode: 'light' } }));
 const darkH600Styles = css(h600({ theme: { mode: 'dark' } }));
 
 const modalBodyStyles = css({
-  padding: `${token('spacing.scale.500', '40px')} ${token(
-    'spacing.scale.250',
-    '20px',
-  )}`,
+  padding: `${token('space.500', '40px')} ${token('space.250', '20px')}`,
   textAlign: 'center',
 });
 
 // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
 const modalHeadingStyles = css({
-  // TODO Delete this comment after verifying spacing token -> previous value ``${gridSize}px``
-  marginBottom: token('spacing.scale.100', '8px'),
+  marginBottom: token('space.100', '8px'),
   color: 'inherit',
 });
 
@@ -40,10 +36,7 @@ const modalImageStyles = css({
 
 const modalActionContainerStyles = css({
   display: 'flex',
-  padding: `${token('spacing.scale.0', '0px')} ${token(
-    'spacing.scale.500',
-    '40px',
-  )} 36px`,
+  padding: `${token('space.0', '0px')} ${token('space.500', '40px')} 36px`,
   justifyContent: 'center',
   flexDirection: 'row',
   flexFlow: 'wrap',
@@ -54,10 +47,10 @@ const modalActionContainerReversedStyles = css({
 });
 
 const modalActionItemStyles = css({
-  margin: `${token('spacing.scale.0', '0px')} ${token(
-    'spacing.scale.050',
+  margin: `${token('space.0', '0px')} ${token('space.050', '4px')} ${token(
+    'space.050',
     '4px',
-  )} ${token('spacing.scale.050', '4px')}`,
+  )}`,
 });
 
 /**

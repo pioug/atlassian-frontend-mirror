@@ -1,5 +1,11 @@
 # @atlaskit/progress-indicator
 
+## 9.4.5
+
+### Patch Changes
+
+- [`18aeca8c199`](https://bitbucket.org/atlassian/atlassian-frontend/commits/18aeca8c199) - Internal change to update token references. There is no expected behaviour or visual change.
+
 ## 9.4.4
 
 ### Patch Changes

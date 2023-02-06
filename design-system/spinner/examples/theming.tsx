@@ -17,8 +17,7 @@ const light: string = token('color.text', N0);
 
 const layoutStyles = css({
   display: 'grid',
-  // TODO Delete this comment after verifying spacing token -> previous value `grid`
-  gap: token('spacing.scale.100', '8px'),
+  gap: token('space.100', '8px'),
   placeItems: 'center',
 });
 
@@ -30,8 +29,7 @@ const boxStyles = css({
   height: 100,
   alignItems: 'center',
   justifyContent: 'center',
-  // TODO Delete this comment after verifying spacing token -> previous value `grid`
-  gap: token('spacing.scale.100', '8px'),
+  gap: token('space.100', '8px'),
   flexDirection: 'column',
 });
 

@@ -43,6 +43,7 @@ export type {
   // Since we are migrating to declarative entry points `deprecatedAutoEntryPoints=false`
   // we need to include these types here.
   MultiValueProps,
+  MultiValueRemoveProps,
   ReactSelectProps,
   SingleValueProps,
   NoticeProps,

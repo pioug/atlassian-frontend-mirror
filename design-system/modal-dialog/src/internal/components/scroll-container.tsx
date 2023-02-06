@@ -17,8 +17,7 @@ import { keylineColor, keylineHeight } from '../constants';
 
 const baseStyles = css({
   display: 'inherit',
-  // TODO Delete this comment after verifying spacing token -> previous value `0`
-  margin: token('spacing.scale.0', '0px'),
+  margin: token('space.0', '0px'),
   flex: 'inherit',
   flexDirection: 'inherit',
   flexGrow: 1,

@@ -27,12 +27,12 @@ const containerStyles = css({
   width: '100%',
   // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   margin: '0 auto',
-  padding: token('spacing.scale.0', '0px'),
+  padding: token('space.0', '0px'),
   // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   gap: `var(${varSpacing})`,
   listStyleType: 'none',
   '&&': {
-    marginTop: token('spacing.scale.500', '40px'),
+    marginTop: token('space.500', '40px'),
   },
 });
 

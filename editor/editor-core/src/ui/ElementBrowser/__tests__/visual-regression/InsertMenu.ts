@@ -2,7 +2,6 @@ import {
   getExampleUrl,
   loadPage,
   PuppeteerPage,
-  waitForNoTooltip,
 } from '@atlaskit/visual-regression/helper';
 import {
   ToolbarMenuItem,
@@ -36,17 +35,13 @@ describe('InsertMenu Button', () => {
     await animationFrame(page);
     await page.click(toolbarMenuItemsSelectors[ToolbarMenuItem.insertMenu]);
     await page.waitForSelector(elementBrowserSelectors.elementBrowser);
-    // Move mouse away to avoid the tooltip from the clicked button
-    await page.mouse.move(0, 0);
     await animationFrame(page);
-    await waitForNoTooltip(page);
   });
 
   it('should match the InsertMenu item snapshot', async () => {
     await animationFrame(page);
     await waitForInsertMenuIcons(page);
     await animationFrame(page);
-    await waitForNoTooltip(page);
     await snapshot(
       page,
       { tolerance: 0.0005 },

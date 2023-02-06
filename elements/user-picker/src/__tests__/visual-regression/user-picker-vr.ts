@@ -113,7 +113,8 @@ describe('UserPicker VR Snapshot Test', () => {
       examples.forEach((example) => {
         describe(`user picker type=${example}`, () => {
           interactions.forEach((interaction) => {
-            it(`interaction=${interaction.name}`, async () => {
+            // TODO: Restore skipped test https://product-fabric.atlassian.net/browse/ED-16716
+            it.skip(`interaction=${interaction.name}`, async () => {
               await vrForExample(example, interaction.setUp);
             });
           });

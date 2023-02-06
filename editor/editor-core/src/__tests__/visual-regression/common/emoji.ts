@@ -6,10 +6,7 @@ import {
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import emojiAdf from './__fixtures__/emoji-adf.json';
 import { emojiSelectors } from '@atlaskit/editor-test-helpers/page-objects/emoji';
-import {
-  waitForNoTooltip,
-  waitForLoadedBackgroundImages,
-} from '@atlaskit/visual-regression/helper';
+import { waitForLoadedBackgroundImages } from '@atlaskit/visual-regression/helper';
 
 describe('Emoji', () => {
   let page: PuppeteerPage;
@@ -32,7 +29,6 @@ describe('Emoji', () => {
     afterEach(async () => {
       // move mouse as the cursor overlay covers emoji so makes it hard to see selection
       await page.mouse.move(0, 0);
-      await waitForNoTooltip(page);
       // FIXME These tests were flakey in the Puppeteer v10 Upgrade
       await snapshot(page, { useUnsafeThreshold: true, tolerance: 0.05 });
     });

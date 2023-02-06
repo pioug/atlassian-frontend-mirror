@@ -1,4 +1,3 @@
-import { waitForTooltip } from '@atlaskit/visual-regression/helper';
 import {
   initEditorWithAdf,
   Appearance,
@@ -18,7 +17,6 @@ describe('Help Dialog', () => {
     await page.keyboard.down('Control');
     await page.keyboard.down('/');
     await page.waitForSelector(helpDialogSelector);
-    await waitForTooltip(page);
     await snapshot(page, undefined, helpDialogSelector);
   });
 });

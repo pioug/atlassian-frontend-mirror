@@ -1,5 +1,17 @@
 # @atlaskit/select
 
+## 16.1.2
+
+### Patch Changes
+
+- [`18aeca8c199`](https://bitbucket.org/atlassian/atlassian-frontend/commits/18aeca8c199) - Internal change to update token references. There is no expected behaviour or visual change.
+
+## 16.1.1
+
+### Patch Changes
+
+- [`81bb765f055`](https://bitbucket.org/atlassian/atlassian-frontend/commits/81bb765f055) - Missing export for type MultiValueRemoveProps added
+
 ## 16.1.0
 
 ### Minor Changes

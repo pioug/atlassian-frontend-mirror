@@ -11,7 +11,7 @@ import { token } from '@atlaskit/tokens';
 const gridSize = getGridSize();
 
 const Wrapper = styled.div`
-  margin-top: ${token('spacing.scale.100', '8px')};
+  margin-top: ${token('space.100', '8px')};
 `;
 
 const ChildrenWrapper = styled.div`
@@ -20,15 +20,15 @@ const ChildrenWrapper = styled.div`
   display: flex;
 
   > * {
-    margin-right: ${token('spacing.scale.100', '8px')};
+    margin-right: ${token('space.100', '8px')};
   }
 `;
 
 export const Note = styled.p<{ size?: SizeType }>`
   color: ${N100};
   font-size: ${(props) => (props.size === 'large' ? '1.15em' : '0.9rem')};
-  margin-top: ${token('spacing.scale.050', '4px')};
-  margin-bottom: ${token('spacing.scale.200', '16px')};
+  margin-top: ${token('space.050', '4px')};
+  margin-bottom: ${token('space.200', '16px')};
 `;
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
@@ -42,7 +42,7 @@ export const Code = styled.code`
 `;
 
 export const Gap = styled.span`
-  margin-right: ${token('spacing.scale.100', '8px')};
+  margin-right: ${token('space.100', '8px')};
 `;
 
 export const Dot = styled(Gap)`

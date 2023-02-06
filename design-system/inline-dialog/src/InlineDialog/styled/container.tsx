@@ -55,10 +55,7 @@ const containerStyles = css({
   boxSizing: 'content-box',
   maxWidth: `${gridSize * 56}px`,
   maxHeight: `${gridSize * 56}px`,
-  padding: `${token('spacing.scale.200', '16px')} ${token(
-    'spacing.scale.300',
-    '24px',
-  )}`,
+  padding: `${token('space.200', '16px')} ${token('space.300', '24px')}`,
   zIndex: layers.dialog(),
   background: `var(${CSS_THEME_BACKGROUND})`,
   borderRadius: `${borderRadius}px`,

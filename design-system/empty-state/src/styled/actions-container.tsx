@@ -7,10 +7,8 @@ import { token } from '@atlaskit/tokens';
 
 const actionsStyles = css({
   display: 'flex',
-  // TODO Delete this comment after verifying spacing token -> previous value ``${gridSize}px``
-  marginBottom: token('spacing.scale.100', '8px'),
-  // TODO Delete this comment after verifying spacing token -> previous value ``${5 * gridSize}px``
-  paddingLeft: token('spacing.scale.500', '40px'),
+  marginBottom: token('space.100', '8px'),
+  paddingLeft: token('space.500', '40px'),
   alignItems: 'center',
   justifyContent: 'center',
 });

@@ -62,11 +62,9 @@ export default () => {
           css={css({
             width: '100%',
             maxWidth: '500px',
-            // TODO Delete this comment after verifying spacing token -> previous value `'24px'`
-            marginTop: token('spacing.scale.300', '24px'),
+            marginTop: token('space.300', '24px'),
             marginBottom: '56px',
-            // TODO Delete this comment after verifying spacing token -> previous value `'8px'`
-            paddingBottom: token('spacing.scale.100', '8px'),
+            paddingBottom: token('space.100', '8px'),
             borderRadius: '3px',
             boxShadow: token(
               'elevation.shadow.overlay',
@@ -85,10 +83,8 @@ export default () => {
                 display: 'block',
                 boxSizing: 'border-box',
                 width: '100%',
-                // TODO Delete this comment after verifying spacing token -> previous value `'8px'`
-                marginBottom: token('spacing.scale.100', '8px'),
-                // TODO Delete this comment after verifying spacing token -> previous value `'16px'`
-                padding: token('spacing.scale.200', '16px'),
+                marginBottom: token('space.100', '8px'),
+                padding: token('space.200', '16px'),
                 border: 'none',
                 borderRadius: '3px 3px 0 0',
                 color: '#172b4d',
@@ -108,8 +104,7 @@ export default () => {
                     <div
                       css={css({
                         display: 'flex',
-                        // TODO Delete this comment after verifying spacing token -> previous value `'16px'`
-                        padding: token('spacing.scale.200', '16px'),
+                        padding: token('space.200', '16px'),
                         fontSize: token('font.size.200', '16px'),
                         fontWeight: token('font.weight.medium', '500'),
                         ':hover': {

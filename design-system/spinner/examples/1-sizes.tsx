@@ -11,8 +11,7 @@ const sizes: Size[] = ['xsmall', 'small', 'medium', 'large', 'xlarge', 80];
 
 const containerStyles = css({
   display: 'flex',
-  // TODO Delete this comment after verifying spacing token -> previous value `2 * grid`
-  gap: token('spacing.scale.200', '16px'),
+  gap: token('space.200', '16px'),
   flexWrap: 'wrap',
 });
 
@@ -20,8 +19,7 @@ const itemStyles = css({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'flex-end',
-  // TODO Delete this comment after verifying spacing token -> previous value `grid`
-  gap: token('spacing.scale.100', '8px'),
+  gap: token('space.100', '8px'),
   flexDirection: 'column',
 });
 

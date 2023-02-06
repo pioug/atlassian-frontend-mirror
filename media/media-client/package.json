@@ -39,7 +39,7 @@
     "setimmediate": "^1.0.5",
     "uuid": "^3.1.0",
     "uuid-validate": "^0.0.3",
-    "xstate": "^4.20.0"
+    "xstate": "4.20.0"
   },
   "peerDependencies": {
     "@atlaskit/media-core": "^34.0.1",

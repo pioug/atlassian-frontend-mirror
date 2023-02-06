@@ -29,8 +29,7 @@ const boxShadow = token(
 const positionStyles = css({
   width: '280px',
   height: '60px',
-  // TODO Delete this comment after verifying spacing token -> previous value `'8px'`
-  padding: token('spacing.scale.100', '8px'),
+  padding: token('space.100', '8px'),
   backgroundColor: `${token('color.background.neutral', N20)}`,
   borderRadius: '5px',
 });

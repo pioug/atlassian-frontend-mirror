@@ -1,7 +1,4 @@
-import {
-  PuppeteerPage,
-  waitForTooltip,
-} from '@atlaskit/visual-regression/helper';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import {
   snapshot,
   initFullPageEditorWithAdf,
@@ -64,6 +61,5 @@ describe('Media Inline Toolbar:', () => {
 
   it('should show red border while hovering over the delete button', async () => {
     await page.hover('[data-testid="media-toolbar-remove-button"]');
-    await waitForTooltip(page);
   });
 });

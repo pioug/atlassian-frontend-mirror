@@ -70,7 +70,7 @@ const typographyValueToToken = Object.fromEntries(
  * @param value string representing pixel value, or font family, or number representing font weight
  * @example
  * ```
- * propertyName: padding, value: '8px' => token('spacing.scale.100', '8px')
+ * propertyName: padding, value: '8px' => token('space.100', '8px')
  * propertyName: fontWeight, value: 400 => token('font.weight.regular', '400')
  * ```
  */

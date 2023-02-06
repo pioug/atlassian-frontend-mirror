@@ -26,10 +26,7 @@ type InnerProps = RadioProps & {
 };
 
 const labelPaddingStyles = css({
-  padding: `${token('spacing.scale.025', '2px')} ${token(
-    'spacing.scale.050',
-    '4px',
-  )}`,
+  padding: `${token('space.025', '2px')} ${token('space.050', '4px')}`,
 });
 
 const labelStyles = css({
@@ -64,8 +61,7 @@ const radioStyles = css({
   */
   width: '24px',
   height: '24px',
-  // TODO Delete this comment after verifying spacing token -> previous value `0`
-  margin: token('spacing.scale.0', '0px'),
+  margin: token('space.0', '0px'),
   position: 'relative',
   alignItems: 'center',
   justifyContent: 'center',

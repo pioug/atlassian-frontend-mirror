@@ -11,11 +11,11 @@ import InlineEdit from '../src';
 const minRows = 2;
 const textAreaLineHeightFactor = 2.5;
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 const ReadViewContainer = styled.div`
   line-height: ${(gridSize() * textAreaLineHeightFactor) / fontSize()};
   min-height: ${gridSize() * textAreaLineHeightFactor * minRows}px;
-  padding: ${token('spacing.scale.075', '6px')}
-    ${token('spacing.scale.075', '6px')};
+  padding: ${token('space.075', '6px')} ${token('space.075', '6px')};
   word-break: break-word;
 `;
 

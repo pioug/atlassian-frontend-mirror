@@ -1,5 +1,11 @@
 # @atlaskit/dropdown-menu
 
+## 11.5.11
+
+### Patch Changes
+
+- [`18aeca8c199`](https://bitbucket.org/atlassian/atlassian-frontend/commits/18aeca8c199) - Internal change to update token references. There is no expected behaviour or visual change.
+
 ## 11.5.10
 
 ### Patch Changes

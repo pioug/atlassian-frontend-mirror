@@ -1,7 +1,6 @@
 import {
   PuppeteerPage,
   waitForLoadedImageElements,
-  waitForNoTooltip,
   evaluateTeardownMockDate,
 } from '@atlaskit/visual-regression/helper';
 
@@ -51,7 +50,6 @@ describe('Hyperlink', () => {
 
   afterEach(async () => {
     await waitForFloatingControl(page, 'Hyperlink floating controls');
-    await waitForNoTooltip(page);
     await snapshot(page);
   });
 
@@ -208,23 +206,11 @@ describe('Hyperlink', () => {
         viewport: { width: 800, height: 400 },
       });
 
-      await page.addStyleTag({
-        content: `
-          /*
-            An 'Edit link' tooltip  _sometimes_ displays after selecting the text,
-            so here we hide it to avoid flakiness.
-          */
-          .Tooltip { display: none; }
-        `,
-      });
-
       await page.click(selectors.lastEditorElement);
       await page.waitForSelector(hyperlinkSelectors.hyperlink);
 
       await pressKeyDown(page, 'Shift');
       await page.click(hyperlinkSelectors.hyperlink);
-      // Move mouse away after clicking to avoid an Edit Link tooltip appearing
-      await page.mouse.move(0, 0);
       await pressKeyUp(page, 'Shift');
 
       await animationFrame(page);

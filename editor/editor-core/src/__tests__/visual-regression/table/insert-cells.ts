@@ -1,4 +1,3 @@
-import { waitForTooltip } from '@atlaskit/visual-regression/helper';
 import adf from './__fixtures__/default-table.adf.json';
 import {
   snapshot,
@@ -82,14 +81,12 @@ describe('Snapshot Test: table insert/delete', () => {
   // TODO: move this to integration tests in future
   it(`should be able to insert row`, async () => {
     await insertRow(page, 1);
-    await waitForTooltip(page);
   });
 
   it(`inserts multiple rows in succession`, async () => {
     await insertRow(page, 1);
     await insertRow(page, 1);
     await insertRow(page, 1);
-    await waitForTooltip(page);
   });
 
   // TODO: move this to integration tests in future

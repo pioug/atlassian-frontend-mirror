@@ -1,7 +1,4 @@
-import {
-  PuppeteerPage,
-  waitForTooltip,
-} from '@atlaskit/visual-regression/helper';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { EditorTestCardProvider } from '@atlaskit/editor-test-helpers/card-provider';
 import { waitForResolvedInlineCard } from '@atlaskit/media-integration-test-helpers';
 
@@ -48,7 +45,6 @@ describe('Danger for nested elements', () => {
       await page.waitForSelector(tableSelectors.removeTable);
       await page.hover(tableSelectors.removeTable);
       await page.waitForSelector(tableSelectors.removeDanger);
-      await waitForTooltip(page);
     });
   });
 });

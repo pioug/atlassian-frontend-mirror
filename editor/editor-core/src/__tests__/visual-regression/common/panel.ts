@@ -15,7 +15,6 @@ import {
   PanelSharedCssClassName,
   PanelSharedSelectors,
 } from '@atlaskit/editor-common/panel';
-import { waitForNoTooltip } from '@atlaskit/visual-regression/helper';
 import { panelSelectors } from '@atlaskit/editor-test-helpers/page-objects/panel';
 import { waitForEmojisToLoad } from '@atlaskit/editor-test-helpers/page-objects/emoji';
 import {
@@ -46,7 +45,6 @@ describe('Panel:', () => {
       await waitForEmojisToLoad(page);
     }
 
-    await waitForNoTooltip(page);
     await snapshot(page, { useUnsafeThreshold: true, tolerance: 0.01 });
 
     hasEmojiAtSnapshot = true;
@@ -131,7 +129,6 @@ describe('custom panels', () => {
 
   afterEach(async () => {
     await waitForEmojisToLoad(page);
-    await waitForNoTooltip(page);
     await snapshot(page);
   });
 
@@ -290,7 +287,6 @@ describe('Dark mode panel', () => {
 
   afterEach(async () => {
     await waitForEmojisToLoad(page);
-    await waitForNoTooltip(page);
     await snapshot(page);
   });
 

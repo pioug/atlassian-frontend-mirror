@@ -32,7 +32,7 @@ describe('Snapshot Test: Media group download', () => {
       await page.hover(mediaCardSelector);
       await sleep(500);
 
-      await snapshot(page);
+      await snapshot(page, undefined, mediaCardSelector);
     });
   });
 });

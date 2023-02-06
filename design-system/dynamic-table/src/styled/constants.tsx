@@ -31,18 +31,15 @@ export const getTruncationStyleVars = ({ width }: TruncateStyleProps) =>
   typeof width !== 'undefined' ? { [CSS_VAR_WIDTH]: `${width}%` } : undefined;
 
 export const cellStyles = css({
-  padding: `${token('spacing.scale.050', '4px')} ${token(
-    'spacing.scale.100',
-    '8px',
-  )}`,
+  padding: `${token('space.050', '4px')} ${token('space.100', '8px')}`,
   border: 'none',
   textAlign: 'left',
   '&:first-of-type': {
     // TODO Delete this comment after verifying spacing token -> previous value `0`
-    paddingLeft: token('spacing.scale.0', '0px'),
+    paddingLeft: token('space.0', '0px'),
   },
   '&:last-child': {
     // TODO Delete this comment after verifying spacing token -> previous value `0`
-    paddingRight: token('spacing.scale.0', '0px'),
+    paddingRight: token('space.0', '0px'),
   },
 });

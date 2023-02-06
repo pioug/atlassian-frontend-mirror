@@ -24,8 +24,7 @@ const columnStyles = css({
 });
 
 const headingStyles = css({
-  // TODO Delete this comment after verifying spacing token -> previous value `grid * 2`
-  marginBottom: token('spacing.scale.200', '16px'),
+  marginBottom: token('space.200', '16px'),
 });
 
 const loadingContainerStyles = css({

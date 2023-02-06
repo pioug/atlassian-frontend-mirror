@@ -160,6 +160,7 @@ export async function runInlineNodeViewTestSuite({
         },
       );
 
+      // TODO: Restore skipped test https://product-fabric.atlassian.net/browse/ED-16703
       testCaseName =
         'Can click and drag to extend a selection to the start of the current line from the current position';
       BrowserTestCase(

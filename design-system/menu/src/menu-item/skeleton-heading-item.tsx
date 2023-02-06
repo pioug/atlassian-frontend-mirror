@@ -11,14 +11,11 @@ import SkeletonShimmer from '../internal/components/skeleton-shimmer';
 import type { SkeletonHeadingItemProps } from '../types';
 
 const skeletonStyles = css({
-  padding: `${token('spacing.scale.0', '0px')} ${token(
-    'spacing.scale.250',
-    '20px',
-  )}`,
+  padding: `${token('space.0', '0px')} ${token('space.250', '20px')}`,
   '::after': {
     display: 'block',
     width: '30%',
-    height: token('spacing.scale.100', '8px'),
+    height: token('space.100', '8px'),
     backgroundColor: token('color.skeleton', N20A),
     borderRadius: 100,
     content: '""',

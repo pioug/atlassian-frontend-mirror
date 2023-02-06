@@ -13,10 +13,8 @@ const SidebarOverrideStyles = css({
   display: 'flex',
   width: 64,
   height: '100vh',
-  // TODO Delete this comment after verifying spacing token -> previous value `24`
-  paddingTop: token('spacing.scale.300', '24px'),
-  // TODO Delete this comment after verifying spacing token -> previous value `16`
-  paddingBottom: token('spacing.scale.200', '16px'),
+  paddingTop: token('space.300', '24px'),
+  paddingBottom: token('space.200', '16px'),
   alignItems: 'center',
   flexBasis: 'auto',
   flexDirection: 'column',

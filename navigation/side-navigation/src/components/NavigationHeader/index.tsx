@@ -24,7 +24,7 @@ const NavigationHeader = (props: NavigationHeaderProps) => {
       data-navheader
       padding="space.100"
       UNSAFE_style={{
-        paddingTop: token('spacing.scale.300', '24px'),
+        paddingTop: token('space.300', '24px'),
       }}
     >
       {children}

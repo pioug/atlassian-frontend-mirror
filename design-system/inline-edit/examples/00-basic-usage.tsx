@@ -8,14 +8,14 @@ import { token } from '@atlaskit/tokens';
 
 import InlineEdit from '../src';
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 const ReadViewContainer = styled.div`
   display: flex;
   font-size: ${fontSize()}px;
   line-height: ${(gridSize() * 2.5) / fontSize()};
   max-width: 100%;
   min-height: ${(gridSize() * 2.5) / fontSize()}em;
-  padding: ${token('spacing.scale.100', '8px')}
-    ${token('spacing.scale.075', '6px')};
+  padding: ${token('space.100', '8px')} ${token('space.075', '6px')};
   word-break: break-word;
 `;
 

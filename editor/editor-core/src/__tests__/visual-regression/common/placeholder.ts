@@ -10,10 +10,7 @@ import {
   ToolbarMenuItem,
   toolbarMenuItemsSelectors as selectors,
 } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
-import {
-  PuppeteerPage,
-  waitForNoTooltip,
-} from '@atlaskit/visual-regression/helper';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 
 describe('Placeholder', () => {
   let page: PuppeteerPage;
@@ -36,7 +33,6 @@ describe('Placeholder', () => {
     await page.waitForSelector(selectors[ToolbarMenuItem.toolbarDropList]);
     await clickToolbarMenu(page, ToolbarMenuItem.alignmentRight);
 
-    await waitForNoTooltip(page);
     await snapshot(
       page,
       { useUnsafeThreshold: true, tolerance: 0.01 },
@@ -49,7 +45,6 @@ describe('Placeholder', () => {
     await page.waitForSelector(selectors[ToolbarMenuItem.toolbarDropList]);
     await clickToolbarMenu(page, ToolbarMenuItem.alignmentCenter);
 
-    await waitForNoTooltip(page);
     await snapshot(
       page,
       { useUnsafeThreshold: true, tolerance: 0.01 },

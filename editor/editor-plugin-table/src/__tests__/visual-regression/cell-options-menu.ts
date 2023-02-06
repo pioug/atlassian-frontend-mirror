@@ -1,7 +1,4 @@
-import {
-  PuppeteerPage,
-  waitForNoTooltip,
-} from '@atlaskit/visual-regression/helper';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { insertTable } from '@atlaskit/editor-test-helpers/page-objects/table';
 import {
   snapshot,
@@ -58,8 +55,6 @@ describe('Table cell options menu', () => {
       await page.waitForSelector(deleteColumnCellOptionSelector);
       await page.hover(deleteColumnCellOptionSelector);
 
-      await waitForNoTooltip(page);
-
       await snapshot(page);
     });
 
@@ -71,8 +66,6 @@ describe('Table cell options menu', () => {
       // click the table cell options Delete column entry
       await page.waitForSelector(deleteColumnCellOptionSelector);
       await page.click(deleteColumnCellOptionSelector);
-
-      await waitForNoTooltip(page);
 
       await snapshot(page);
     });
@@ -88,8 +81,6 @@ describe('Table cell options menu', () => {
       await page.waitForSelector(deleteRowCellOptionSelector);
       await page.hover(deleteRowCellOptionSelector);
 
-      await waitForNoTooltip(page);
-
       await snapshot(page);
     });
 
@@ -101,8 +92,6 @@ describe('Table cell options menu', () => {
       // click the table cell options Delete row entry
       await page.waitForSelector(deleteColumnCellOptionSelector);
       await page.click(deleteRowCellOptionSelector);
-
-      await waitForNoTooltip(page);
 
       await snapshot(page);
     });

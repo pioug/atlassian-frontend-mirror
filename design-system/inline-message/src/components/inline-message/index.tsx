@@ -68,18 +68,12 @@ const buttonContentsStyles = css({
 });
 
 const titleStyles = css({
-  padding: `${token('spacing.scale.0', '0px')} ${token(
-    'spacing.scale.050',
-    '4px',
-  )}`,
+  padding: `${token('space.0', '0px')} ${token('space.050', '4px')}`,
   fontWeight: token('font.weight.medium', '500'),
 });
 
 const textStyles = css({
-  padding: `${token('spacing.scale.0', '0px')} ${token(
-    'spacing.scale.050',
-    '4px',
-  )}`,
+  padding: `${token('space.0', '0px')} ${token('space.050', '4px')}`,
   color: `var(${VAR_SECONDARY_TEXT_COLOR})`,
   overflow: 'hidden',
   textOverflow: 'ellipsis',

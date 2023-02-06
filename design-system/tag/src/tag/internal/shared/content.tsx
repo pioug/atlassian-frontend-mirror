@@ -23,12 +23,10 @@ interface ContentProps extends SimpleTagProps {
 
 const baseStyles = css({
   maxWidth: maxTextWidth,
-  // TODO Delete this comment after verifying spacing token -> previous value `'2px'`
-  paddingTop: token('spacing.scale.025', '2px'),
+  paddingTop: token('space.025', '2px'),
   // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   paddingRight: defaultTextPadding,
-  // TODO Delete this comment after verifying spacing token -> previous value `'2px'`
-  paddingBottom: token('spacing.scale.025', '2px'),
+  paddingBottom: token('space.025', '2px'),
   // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   paddingLeft: defaultTextPadding,
   fontSize: textFontSize,

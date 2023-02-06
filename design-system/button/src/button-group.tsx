@@ -17,8 +17,7 @@ export type ButtonGroupProps = {
 
 const buttonGroupStyles = css({
   display: 'inline-flex',
-  // TODO Delete this comment after verifying spacing token -> previous value `4`
-  gap: token('spacing.scale.050', '4px'),
+  gap: token('space.050', '4px'),
   '> *': {
     flex: '1 0 auto',
   },

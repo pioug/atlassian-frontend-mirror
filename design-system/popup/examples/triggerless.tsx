@@ -16,8 +16,7 @@ const triggerStyles = css({
   backgroundColor: B75,
 });
 const popupStyles = css({
-  // TODO Delete this comment after verifying spacing token -> previous value `4`
-  padding: token('spacing.scale.050', '4px'),
+  padding: token('space.050', '4px'),
 });
 const HighlightPopup = (props: { children: React.ReactNode }) => (
   <Popup

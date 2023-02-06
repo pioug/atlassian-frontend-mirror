@@ -17,8 +17,7 @@ const labelStyles = css({
 
 const flagStyles = css({
   fontSize: '18px',
-  // TODO Delete this comment after verifying spacing token -> previous value `'8px'`
-  marginRight: token('spacing.scale.100', '8px'),
+  marginRight: token('space.100', '8px'),
 });
 
 const Opt = ({

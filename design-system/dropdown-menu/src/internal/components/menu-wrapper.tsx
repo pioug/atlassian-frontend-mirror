@@ -22,7 +22,7 @@ import isRadioItem from '../utils/is-radio-item';
 const spinnerContainerStyles = css({
   display: 'flex',
   minWidth: '160px',
-  padding: token('spacing.scale.250', '20px'),
+  padding: token('space.250', '20px'),
   justifyContent: 'center',
 });
 

@@ -25,6 +25,7 @@ const options = {
   scrollSelector: container,
   scrollTo: { x: 425, y: 0 },
   viewport: { width: 1200, height: 675 },
+  allowedSideEffects: { tooltips: true },
 };
 
 describe('<Modal />', () => {

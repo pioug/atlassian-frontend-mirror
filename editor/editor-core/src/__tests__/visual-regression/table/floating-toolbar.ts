@@ -1,7 +1,4 @@
-import {
-  PuppeteerPage,
-  waitForTooltip,
-} from '@atlaskit/visual-regression/helper';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import {
   snapshot,
   initFullPageEditorWithAdf,
@@ -14,7 +11,6 @@ import {
   clickCellBackgroundInFloatingToolbar,
   clickCellOptions,
   selectCellOption,
-  tableSelectors,
   floatingToolbarAriaLabel as tableFloatingToolbarAriaLabel,
 } from '@atlaskit/editor-test-helpers/page-objects/table';
 import { waitForFloatingControl } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
@@ -52,13 +48,11 @@ describe('Table floating toolbar:fullpage', () => {
   it('display cell options', async () => {
     // Click table cell options button within the selected cell
     await clickCellOptions(page);
-    await waitForTooltip(page);
     // Wait for table cell options drop down list to be shown
     await page.waitForSelector(dropdownListSelector);
   });
 
-  // FIXME: This test was automatically skipped due to failure on 27/01/2023: https://product-fabric.atlassian.net/browse/ED-16669
-  it.skip('display cell background', async () => {
+  it('display cell background', async () => {
     // Wait for table cell options drop down list to be shown, then
     // select background color option and wait for color picker popout to be shown
     await selectCellOption(page, 'Cell background');
@@ -91,7 +85,6 @@ describe('Table floating toolbar:fullpage', () => {
 
     it('display cell background in floating toolbar', async () => {
       await clickCellBackgroundInFloatingToolbar(page);
-      await waitForTooltip(page, tableSelectors.cellBackgroundText);
       await page.waitForSelector(selectors.colorPicker);
     });
   });

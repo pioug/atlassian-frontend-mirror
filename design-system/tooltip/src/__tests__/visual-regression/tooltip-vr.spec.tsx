@@ -18,7 +18,10 @@ describe('@atlaskit/tooltip', () => {
       global.__BASEURL__,
     );
     const { page } = global;
-    await loadPage(page, url);
+    await loadPage(page, url, {
+      reloadSameUrl: true,
+      allowedSideEffects: { tooltips: true },
+    });
     await page.waitForSelector(examples);
     await page.waitForSelector(tooltipBtn);
     await page.setViewport({ width: 150, height: 100 });
@@ -36,7 +39,10 @@ describe('@atlaskit/tooltip', () => {
       global.__BASEURL__,
     );
     const { page } = global;
-    await page.goto(url);
+    await loadPage(page, url, {
+      reloadSameUrl: true,
+      allowedSideEffects: { tooltips: true },
+    });
     await page.waitForSelector(examples);
     await page.waitForSelector(tooltipBtn);
     await page.setViewport({ width: 150, height: 100 });
@@ -57,7 +63,10 @@ describe('@atlaskit/tooltip', () => {
       global.__BASEURL__,
     );
     const { page } = global;
-    await page.goto(url);
+    await loadPage(page, url, {
+      reloadSameUrl: true,
+      allowedSideEffects: { tooltips: true },
+    });
     await page.waitForSelector(examples);
     await page.waitForSelector(addBtn);
     await page.setViewport({ width: 200, height: 100 });
@@ -78,7 +87,10 @@ describe('@atlaskit/tooltip', () => {
       global.__BASEURL__,
     );
     const { page } = global;
-    await page.goto(url);
+    await loadPage(page, url, {
+      reloadSameUrl: true,
+      allowedSideEffects: { tooltips: true },
+    });
     await page.waitForSelector(examples);
     await page.hover('[data-testid="position--container"]');
 

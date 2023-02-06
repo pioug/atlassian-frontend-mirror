@@ -17,18 +17,18 @@ const defaultRender: RenderFunction = (Component, props) => (
 );
 
 const fontSize = fontSizeFn();
-const itemMinHeight = token('spacing.scale.500', '40px');
+const itemMinHeight = token('space.500', '40px');
 
 const beforeElementStyles = css({
   display: 'flex',
-  marginRight: token('spacing.scale.150', '12px'),
+  marginRight: token('space.150', '12px'),
   alignItems: 'center',
   flexShrink: 0,
 });
 
 const afterElementStyles = css({
   display: 'flex',
-  marginLeft: token('spacing.scale.150', '12px'),
+  marginLeft: token('space.150', '12px'),
   alignItems: 'center',
   flexShrink: 0,
 });
@@ -58,7 +58,7 @@ const wordBreakStyles = css({
 });
 
 const descriptionStyles = css({
-  marginTop: token('spacing.scale.050', '3px'),
+  marginTop: token('space.050', '3px'),
   color: token('color.text.subtlest', N200),
   // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   fontSize: headingSizes.h200.size,
@@ -73,13 +73,9 @@ const primitiveStyles = css({
   boxSizing: 'border-box',
   width: '100%',
   minHeight: itemMinHeight,
-  // TODO Delete this comment after verifying spacing token -> previous value `0`
-  margin: token('spacing.scale.0', '0px'),
+  margin: token('space.0', '0px'),
   // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
-  padding: `${token('spacing.scale.100', '8px')} ${token(
-    'spacing.scale.250',
-    '20px',
-  )}`,
+  padding: `${token('space.100', '8px')} ${token('space.250', '20px')}`,
   alignItems: 'center',
   border: 0,
   // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing

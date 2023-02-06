@@ -12,12 +12,9 @@ const borderRadius = getBorderRadius();
 
 const panelStyles = css({
   display: 'flex',
-  // TODO Delete this comment after verifying spacing token -> previous value ``${gridSize * 2}px``
-  marginTop: token('spacing.scale.200', '16px'),
-  // TODO Delete this comment after verifying spacing token -> previous value ``${gridSize}px``
-  marginBottom: token('spacing.scale.100', '8px'),
-  // TODO Delete this comment after verifying spacing token -> previous value ``${gridSize * 4}px``
-  padding: token('spacing.scale.400', '32px'),
+  marginTop: token('space.200', '16px'),
+  marginBottom: token('space.100', '8px'),
+  padding: token('space.400', '32px'),
   alignItems: 'center',
   justifyContent: 'center',
   flexDirection: 'column',

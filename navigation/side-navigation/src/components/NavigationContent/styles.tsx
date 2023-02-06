@@ -140,14 +140,14 @@ export const containerCSS = (opts: StyleOpts) =>
     // so the spacing between matches what it would be if the indicator was a "block" element.
     // We use margin here so any child absolutely positioned elements are positioned correctly.
     marginTop: opts.showTopScrollIndicator ? scrollIndicatorHeight : 0,
-    marginLeft: token('spacing.scale.100', '8px'),
-    marginRight: token('spacing.scale.100', '8px'),
+    marginLeft: token('space.100', '8px'),
+    marginRight: token('space.100', '8px'),
     // Enables child absolutely positioned elements to be positioned relative to this element.
     position: 'relative',
 
     '& [data-ds--menu--heading-item]': {
-      marginBottom: token('spacing.scale.075', '6px'),
-      marginTop: token('spacing.scale.200', '20px'),
+      marginBottom: token('space.075', '6px'),
+      marginTop: token('space.200', '20px'),
     },
     '& [data-ds--menu--skeleton-heading-item]': {
       marginTop: skeletonHeadingTopMargin,

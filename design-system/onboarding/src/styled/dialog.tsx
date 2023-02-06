@@ -10,17 +10,14 @@ const imageStyles = css({
 
 const actionItemContainerStyles = css({
   display: 'flex',
-  margin: `${token('spacing.scale.0', '0px')} -4px`,
+  margin: `${token('space.0', '0px')} -4px`,
   /* When there is more than one action, place primary action visually on the
   right, but keep it's position as the first focusable element in the DOM */
   flexDirection: 'row-reverse',
 });
 
 const actionItemStyles = css({
-  margin: `${token('spacing.scale.0', '0px')} ${token(
-    'spacing.scale.050',
-    '4px',
-  )}`,
+  margin: `${token('space.0', '0px')} ${token('space.050', '4px')}`,
 });
 
 /**

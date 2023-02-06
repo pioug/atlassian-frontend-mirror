@@ -13,7 +13,7 @@ import { widths } from '../src/constants';
 
 const buttonContainerStyles = css({
   display: 'flex',
-  gap: token('spacing.scale.200', '1rem'),
+  gap: token('space.200', '1rem'),
 });
 
 const DrawersExample = () => {

@@ -27,6 +27,6 @@ css({
 import { token } from '@atlaskit/tokens';
 
 css({
-  padding: token('spacing.scale.100'),
+  padding: token('space.100'),
 });
 ```

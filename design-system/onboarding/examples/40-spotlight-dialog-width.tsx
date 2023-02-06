@@ -35,7 +35,7 @@ const buttonStyles = css({
   display: 'flex',
   width: '36px',
   height: '32px',
-  marginRight: token('spacing.scale.050', '4px'),
+  marginRight: token('space.050', '4px'),
   alignItems: 'center',
   justifyContent: 'center',
   backgroundColor: 'rgba(255, 255, 255, 0.1)',

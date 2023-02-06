@@ -26,8 +26,8 @@ const ChildrenWrapper = styled.div`
 export const Note = styled.p<{ size?: string }>`
   color: ${N100};
   font-size: ${(props) => (props.size === 'large' ? '1.15em' : '0.9rem')};
-  margin-top: ${token('spacing.scale.050', '4px')};
-  margin-bottom: ${token('spacing.scale.200', '16px')};
+  margin-top: ${token('space.050', '4px')};
+  margin-bottom: ${token('space.200', '16px')};
 `;
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing

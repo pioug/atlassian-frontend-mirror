@@ -18,7 +18,7 @@ import { DropIndicator } from '../../src/box';
 const itemStyles = css({
   position: 'relative',
   display: 'inline-block',
-  padding: token('spacing.scale.200', '16px'),
+  padding: token('space.200', '16px'),
   border: `1px solid ${token('color.border', 'lightgrey')}`,
 });
 

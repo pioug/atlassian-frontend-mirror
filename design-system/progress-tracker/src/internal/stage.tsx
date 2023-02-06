@@ -29,7 +29,7 @@ interface State {
 }
 
 const listItemStyles = css({
-  margin: token('spacing.scale.0', '0px'),
+  margin: token('space.0', '0px'),
   overflowWrap: 'break-word',
 });
 

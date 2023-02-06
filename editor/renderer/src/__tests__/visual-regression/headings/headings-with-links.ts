@@ -41,6 +41,9 @@ describe.skip('Headings with links', () => {
         width: 245,
         height: 150,
       },
+      allowSideEffects: {
+        tooltips: true,
+      },
     });
     await hoverOnHeadingWithLinkThenSnapshot(page, 'h1', {
       screenshotOnCopyTooltip: true,

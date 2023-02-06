@@ -1,5 +1,17 @@
 # @atlaskit/breadcrumbs
 
+## 11.7.10
+
+### Patch Changes
+
+- [`18aeca8c199`](https://bitbucket.org/atlassian/atlassian-frontend/commits/18aeca8c199) - Internal change to update token references. There is no expected behaviour or visual change.
+
+## 11.7.9
+
+### Patch Changes
+
+- [`4ee60bafc6d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ee60bafc6d) - ED-16603: Remove tooltips from VR tests and make them opt in. To opt-in, add `allowedSideEffects` when loading the page.
+
 ## 11.7.8
 
 ### Patch Changes

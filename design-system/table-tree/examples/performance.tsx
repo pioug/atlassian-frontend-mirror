@@ -45,8 +45,7 @@ function generateChildItems(parent: Item, count: number) {
 
 const performanceTweakContainerStyles = css({
   width: '450px',
-  // TODO Delete this comment after verifying spacing token -> previous value `'20px'`
-  padding: token('spacing.scale.250', '20px'),
+  padding: token('space.250', '20px'),
   position: 'fixed',
   right: 0,
   bottom: 0,

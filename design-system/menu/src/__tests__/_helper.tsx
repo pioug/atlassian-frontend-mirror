@@ -83,7 +83,7 @@ const verifyAnimationTimestamps = async (
   /**
    * We need to explicitly enable animations, which are disabled by default.
    */
-  await loadPage(page, url, { disabledSideEffects: { animation: true } });
+  await loadPage(page, url, { allowedSideEffects: { animation: true } });
   await page.waitForSelector(selector);
 
   const element = await page.$(selector);

@@ -6,7 +6,7 @@ const borderRadiusValue = borderRadius();
 const fontSizeValue = fontSize();
 
 export const tagHeightUnitless = 2.5 * gridSizeValue;
-export const tagHeight = token('spacing.scale.250', `${tagHeightUnitless}px`);
+export const tagHeight = token('space.250', `${tagHeightUnitless}px`);
 export const buttonWidthUnitless = tagHeightUnitless; // button should be square
 export const buttonWidth = tagHeight; // button should be square
 export const maxWidthUnitless = 25 * gridSizeValue;
@@ -16,18 +16,9 @@ export const maxTextWidth = `${maxTextWidthUnitless}px`;
 
 export const defaultBorderRadius = `${borderRadiusValue}px`;
 export const defaultRoundedBorderRadius = `${buttonWidthUnitless / 2}px`;
-export const defaultMargin = token(
-  'spacing.scale.050',
-  `${gridSizeValue / 2}px`,
-);
-export const defaultTextPadding = token(
-  'spacing.scale.050',
-  `${gridSizeValue / 2}px`,
-);
-export const textPaddingRight = token(
-  'spacing.scale.200',
-  `${2 * gridSizeValue}px`,
-);
+export const defaultMargin = token('space.050', `${gridSizeValue / 2}px`);
+export const defaultTextPadding = token('space.050', `${gridSizeValue / 2}px`);
+export const textPaddingRight = token('space.200', `${2 * gridSizeValue}px`);
 export const textMarginLeft = tagHeight;
 export const textFontSize = `${fontSizeValue}px`;
 

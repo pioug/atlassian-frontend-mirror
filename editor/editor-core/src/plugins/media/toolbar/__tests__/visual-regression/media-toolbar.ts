@@ -1,7 +1,4 @@
-import {
-  PuppeteerPage,
-  waitForTooltip,
-} from '@atlaskit/visual-regression/helper';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { resetMousePosition } from '@atlaskit/editor-test-helpers/page-objects/mouse';
 import { animationFrame } from '@atlaskit/editor-test-helpers/page-objects/editor';
 import {
@@ -68,7 +65,6 @@ describe('Media Toolbar:', () => {
     await page.hover('[data-testid="media-toolbar-remove-button"]');
     await animationFrame(page);
     await animationFrame(page);
-    await waitForTooltip(page);
   });
 
   it('should display buttons in the correct order with multiple files in media group', async () => {

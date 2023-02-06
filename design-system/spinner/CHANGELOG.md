@@ -1,5 +1,11 @@
 # @atlaskit/spinner
 
+## 15.3.3
+
+### Patch Changes
+
+- [`4ee60bafc6d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ee60bafc6d) - ED-16603: Remove tooltips from VR tests and make them opt in. To opt-in, add `allowedSideEffects` when loading the page.
+
 ## 15.3.2
 
 ### Patch Changes

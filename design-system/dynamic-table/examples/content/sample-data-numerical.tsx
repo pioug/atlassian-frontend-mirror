@@ -30,8 +30,7 @@ const NameWrapper: FC = ({ children }) => (
 );
 
 const avatarWrapperStyles = css({
-  // TODO Delete this comment after verifying spacing token -> previous value `'8px'`
-  marginRight: token('spacing.scale.100', '8px'),
+  marginRight: token('space.100', '8px'),
 });
 
 const AvatarWrapper: FC = ({ children }) => (

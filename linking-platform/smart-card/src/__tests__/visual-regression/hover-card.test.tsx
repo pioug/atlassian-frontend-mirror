@@ -1,3 +1,4 @@
+import { enableTooltips } from '@atlaskit/visual-regression/helper';
 import { getURL, setup, takeSnapshot } from '../__utils__/vr-helpers';
 
 describe('Hover Card', () => {
@@ -32,6 +33,7 @@ describe('Hover Card', () => {
   const renderUnauthorisedHoverCard = async (height: number = 500) => {
     const url = getURL('vr-unauthorised-hover-cards');
     const page = await setup(url);
+    await enableTooltips(page);
 
     await page.setViewport({
       width: 500,
@@ -156,6 +158,7 @@ describe('Hover Card', () => {
 
     const url = getURL('vr-hover-cards');
     const page = await setup(url);
+    await enableTooltips(page);
 
     await page.setViewport({
       width: 800,

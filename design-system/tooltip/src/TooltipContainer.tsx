@@ -15,14 +15,11 @@ export interface TooltipContainerProps extends TooltipPrimitiveProps {}
 const baseStyles = css({
   boxSizing: 'border-box',
   maxWidth: '240px',
-  padding: `${token('spacing.scale.025', '2px')} ${token(
-    'spacing.scale.075',
-    '6px',
-  )}`,
+  padding: `${token('space.025', '2px')} ${token('space.075', '6px')}`,
   top: 0,
   left: 0,
   borderRadius: `${borderRadius()}px`,
-  fontSize: '12px',
+  fontSize: token('font.size.075', '12px'),
   lineHeight: 1.3,
   overflowWrap: 'break-word',
   wordWrap: 'break-word',

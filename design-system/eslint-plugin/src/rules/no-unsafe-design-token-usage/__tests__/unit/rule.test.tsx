@@ -27,7 +27,7 @@ jest.mock('@atlaskit/tokens/rename-mapping', () => ({
       path: 'spacing.gutter',
       state: 'experimental',
       // This feature checks if the replacement is an existing token
-      replacement: 'spacing.scale.100',
+      replacement: 'space.100',
     },
     {
       path: 'example.token.with.replacement.that.is.not.a.token',

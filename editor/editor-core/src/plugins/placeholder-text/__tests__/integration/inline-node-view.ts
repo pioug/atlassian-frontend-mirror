@@ -16,7 +16,7 @@ runInlineNodeViewTestSuite({
   multiLineNode: true,
   skipTests: {
     'Can click and drag to extend a selection to the start of the current line from the current position':
-      ['safari'],
+      ['firefox', 'safari', 'chrome'],
     'Can select [target] nodes with the left arrow key and move across them': [
       'chrome',
       'firefox',

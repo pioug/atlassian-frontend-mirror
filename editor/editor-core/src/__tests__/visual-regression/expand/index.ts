@@ -46,16 +46,6 @@ function getTheme(theme: any) {
   return theme === 'dark' ? 'dark' : 'light';
 }
 
-const hideTooltip = async (page: PuppeteerPage) => {
-  // Hide the tooltip
-  const css = `
- .Tooltip {
-   opacity: 0 !important;
- }
-`;
-  await page.addStyleTag({ content: css });
-};
-
 describe('Expand: full-page', () => {
   let page: PuppeteerPage;
 
@@ -98,7 +88,6 @@ describe('Expand: full-page', () => {
         getTheme(theme),
       );
       await page.waitForSelector(selectors.expand);
-      await hideTooltip(page);
       await page.click(selectors.expandToggle);
       await page.hover(selectors.expandTitleInput);
       await waitForLoadedBackgroundImages(page, emojiSelectors.standard);
@@ -158,7 +147,6 @@ describe('Expand: full-page', () => {
   it('should collapse the top level expand on click', async () => {
     await initFullPageEditorWithAdf(page, expandADF(), Device.LaptopMDPI);
     await page.waitForSelector(selectors.expand);
-    await hideTooltip(page);
     await page.click(selectors.expandToggle);
     await waitForLoadedBackgroundImages(page, emojiSelectors.standard);
   });

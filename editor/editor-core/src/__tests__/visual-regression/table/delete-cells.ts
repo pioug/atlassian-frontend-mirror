@@ -1,4 +1,3 @@
-import { waitForTooltip } from '@atlaskit/visual-regression/helper';
 import {
   snapshot,
   initEditorWithAdf,
@@ -58,7 +57,6 @@ describe('Delete in table:', () => {
         it(`should show danger when hovers to remove table`, async () => {
           await page.waitForSelector(tableSelectors.removeTable);
           await page.hover(tableSelectors.removeTable);
-          await waitForTooltip(page);
           await page.waitForSelector(tableSelectors.removeDanger);
         });
       });
@@ -71,7 +69,6 @@ describe('Delete in table:', () => {
         it(`should show danger when hovers to remove table`, async () => {
           await page.waitForSelector(tableSelectors.removeTable);
           await page.hover(tableSelectors.removeTable);
-          await waitForTooltip(page);
           await page.waitForSelector(tableSelectors.removeDanger);
         });
       });

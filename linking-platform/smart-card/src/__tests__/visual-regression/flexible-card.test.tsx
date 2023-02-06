@@ -1,3 +1,4 @@
+import { enableTooltips } from '@atlaskit/visual-regression/helper';
 import { getURL, setup, takeSnapshot } from '../__utils__/vr-helpers';
 
 describe('Flexible Card', () => {
@@ -207,6 +208,7 @@ describe('Flexible Card', () => {
       const height = 240;
       const url = getURL('vr-flexible-ui-accessibility');
       const page = await setup(url);
+      await enableTooltips(page);
 
       await page.waitForSelector('[data-testid="smart-links-container"]');
       await page.waitForSelector('[data-testid="keyboard-1-resolved-view"]');
@@ -285,6 +287,7 @@ describe('Flexible Card', () => {
     ) => {
       const url = getURL(examplePage);
       const page = await setup(url);
+      await enableTooltips(page);
 
       await page.setViewport({
         width: 800,

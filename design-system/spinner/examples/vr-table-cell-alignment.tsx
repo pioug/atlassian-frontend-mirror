@@ -21,8 +21,7 @@ const animationStyles = css({
 
 const tableStyles = css({
   width: 100,
-  // TODO Delete this comment after verifying spacing token -> previous value `8`
-  margin: token('spacing.scale.100', '8px'),
+  margin: token('space.100', '8px'),
 });
 
 const tableCellStyles = css({

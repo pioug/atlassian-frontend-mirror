@@ -26,7 +26,7 @@ const commonStyles = css({
 });
 
 const buttonStyles = css({
-  padding: token('spacing.scale.0', '0px'),
+  padding: token('space.0', '0px'),
   border: 0,
   cursor: 'pointer',
   outline: 0,

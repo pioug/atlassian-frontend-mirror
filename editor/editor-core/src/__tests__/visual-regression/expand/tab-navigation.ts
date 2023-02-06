@@ -1,7 +1,3 @@
-import {
-  waitForTooltip,
-  waitForNoTooltip,
-} from '@atlaskit/visual-regression/helper';
 import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
 import {
   snapshot,
@@ -54,14 +50,12 @@ describe('Expand: tab navigation', () => {
         describe('and enter is pressed', () => {
           it('should collapse the expand', async () => {
             await pressKey(page, ['Tab', 'Enter']);
-            await waitForTooltip(page);
           });
         });
 
         describe('and space is pressed', () => {
           it('should collapse the expand', async () => {
             await pressKey(page, ['Tab', 'Space']);
-            await waitForTooltip(page);
           });
         });
       });
@@ -70,7 +64,6 @@ describe('Expand: tab navigation', () => {
     describe('when tab is pressed twice', () => {
       it('should focus on title', async () => {
         await pressKey(page, ['Tab', 'Tab']);
-        await waitForNoTooltip(page);
         await page.keyboard.type('I am here');
       });
     });
@@ -79,7 +72,6 @@ describe('Expand: tab navigation', () => {
       describe('when expand is opened', () => {
         it('should focus on content', async () => {
           await pressKey(page, ['Tab', 'Tab', 'Tab']);
-          await waitForNoTooltip(page);
           await page.keyboard.type('I am here');
         });
       });
@@ -87,7 +79,6 @@ describe('Expand: tab navigation', () => {
       describe('when expand is closed', () => {
         it('should focus outside', async () => {
           await pressKey(page, ['Tab', 'Space', 'Tab', 'Tab']);
-          await waitForNoTooltip(page);
           await page.keyboard.type('I am here');
         });
       });

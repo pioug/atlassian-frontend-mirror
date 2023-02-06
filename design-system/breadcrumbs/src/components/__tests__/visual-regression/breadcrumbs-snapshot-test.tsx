@@ -104,7 +104,10 @@ describe('Snapshot Test', () => {
     );
 
     const { page } = global;
-    await loadPage(page, url);
+    await loadPage(page, url, {
+      reloadSameUrl: true,
+      allowedSideEffects: { tooltips: true },
+    });
 
     await page.waitForSelector('a[href="/long"]');
 

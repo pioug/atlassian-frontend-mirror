@@ -6,10 +6,7 @@ import * as tableWithHeaderColumnButWithoutHeaderRow from '../__fixtures__/table
 import * as tableWithHeaderColumnButWithoutHeaderRowWithoutNumberColumn from '../__fixtures__/table-with-header-column-but-without-header-row-without-number-column.adf.json';
 import { RendererCssClassName } from '../../consts';
 import { StatusClassNames } from '../../ui/SortingIcon';
-import {
-  waitForTooltip,
-  waitForText,
-} from '@atlaskit/visual-regression/helper';
+import { waitForText } from '@atlaskit/visual-regression/helper';
 
 async function waitForSort(
   page: PuppeteerPage,
@@ -70,7 +67,6 @@ describe('Snapshot Test: Table sorting', () => {
       await page.hover(
         `${getSortableColumnSelector(1)} .${StatusClassNames.NO_ORDER}`,
       );
-      await waitForTooltip(page);
     });
 
     it('should sort table in desc on the second click', async () => {
@@ -86,7 +82,6 @@ describe('Snapshot Test: Table sorting', () => {
       await page.hover(
         `${getSortableColumnSelector(1)} .${StatusClassNames.ASC}`,
       );
-      await waitForTooltip(page);
     });
 
     // FIXME: This test was automatically skipped due to failure on 1/20/2022: https://product-fabric.atlassian.net/browse/ED-14298
@@ -108,7 +103,6 @@ describe('Snapshot Test: Table sorting', () => {
       await page.hover(
         `${getSortableColumnSelector(1)} .${StatusClassNames.DESC}`,
       );
-      await waitForTooltip(page);
     });
   });
 
@@ -124,8 +118,6 @@ describe('Snapshot Test: Table sorting', () => {
           StatusClassNames.SORTING_NOT_ALLOWED
         }`,
       );
-
-      await waitForTooltip(page);
     });
   });
 

@@ -223,6 +223,7 @@ export async function runBlockNodeSelectionTestSuite({
         },
       );
 
+      // TODO: Unskip test https://product-fabric.atlassian.net/browse/ED-16702
       SuiteBrowserTestCase(
         'Click and drag from start to end of document and select [block-node]',
         async (client: BrowserObject) => {

@@ -21,18 +21,13 @@ const itemWrapperStyles = css({
   boxSizing: 'border-box',
   maxWidth: '100%',
   height: `${height}em`,
-  // TODO Delete this comment after verifying spacing token -> previous value `0`
-  margin: token('spacing.scale.0', '0px'),
-  // TODO Delete this comment after verifying spacing token -> previous value `0`
-  padding: token('spacing.scale.0', '0px'),
+  margin: token('space.0', '0px'),
+  padding: token('space.0', '0px'),
   flexDirection: 'row',
   lineHeight: `${height}em`,
   '&:not(:last-child)::after': {
     width: `${gridSizeUnit}px`,
-    padding: `${token('spacing.scale.0', '0px')} ${token(
-      'spacing.scale.100',
-      '8px',
-    )}`,
+    padding: `${token('space.0', '0px')} ${token('space.100', '8px')}`,
     flexShrink: 0,
     content: '"/"',
     textAlign: 'center',

@@ -21,8 +21,7 @@ const wrapperStyles = css({
   display: 'flex',
   width: '600px',
   height: '500px',
-  // TODO Delete this comment after verifying spacing token -> previous value `'16px'`
-  padding: token('spacing.scale.200', '16px'),
+  padding: token('space.200', '16px'),
   alignItems: 'space-evenly',
   justifyContent: 'space-evenly',
   flexDirection: 'column',

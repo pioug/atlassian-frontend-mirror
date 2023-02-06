@@ -17,7 +17,7 @@ describe('Snapshot Test', () => {
       const { page } = global;
 
       await loadPage(page, url, {
-        disabledSideEffects: {
+        allowedSideEffects: {
           animation: true,
           transition: true,
         },

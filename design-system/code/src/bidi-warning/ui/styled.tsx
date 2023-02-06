@@ -16,10 +16,7 @@ const decoration = css({
 
   ':before': {
     display: 'inline-flex',
-    padding: `${token('spacing.scale.0', '0px')} ${token(
-      'spacing.scale.050',
-      '4px',
-    )}`,
+    padding: `${token('space.0', '0px')} ${token('space.050', '4px')}`,
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',

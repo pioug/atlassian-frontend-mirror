@@ -20,7 +20,10 @@ export function getURL(testName: string): string {
 
 export async function setup(url: string) {
   const { page } = global;
-  await loadPage(page, url);
+  await loadPage(page, url, {
+    reloadSameUrl: true,
+    allowedSideEffects: { tooltips: true },
+  });
   await page.waitForSelector(pageSelector);
 
   // disable animations in TextField

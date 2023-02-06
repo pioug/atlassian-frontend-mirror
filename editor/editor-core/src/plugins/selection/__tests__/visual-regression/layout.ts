@@ -1,7 +1,4 @@
-import {
-  PuppeteerPage,
-  waitForTooltip,
-} from '@atlaskit/visual-regression/helper';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import {
   snapshot,
   initEditorWithAdf,
@@ -73,7 +70,6 @@ describe('Selection:', () => {
       await page.waitForSelector(layoutSelectors.removeButton);
       await page.hover(layoutSelectors.removeButton);
       await page.waitForSelector(`${layoutSelectors.section}.danger`);
-      await waitForTooltip(page, 'Remove');
       await snapshot(page);
     });
 

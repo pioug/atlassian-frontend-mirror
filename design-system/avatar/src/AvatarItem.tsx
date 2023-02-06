@@ -28,8 +28,7 @@ import { getButtonProps, getCustomElement, getLinkProps } from './utilities';
 const avatarItemStyles = css({
   minWidth: 0,
   maxWidth: '100%',
-  // TODO Delete this comment after verifying spacing token -> previous value ``${gridSize()}px``
-  paddingLeft: token('spacing.scale.100', '8px'),
+  paddingLeft: token('space.100', '8px'),
   flex: '1 1 100%',
   // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   lineHeight: '1.4',
@@ -118,7 +117,7 @@ const getStyles = (
     isDisabled?: boolean;
   },
 ) =>
-  //eslint-disable-next-line @repo/internal/react/no-css-string-literals
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing, @repo/internal/react/no-css-string-literals
   css`
     align-items: center;
     background-color: ${backgroundColor};
@@ -132,8 +131,8 @@ const getStyles = (
     font-weight: normal;
     line-height: 1;
     outline: none;
-    margin: ${token('spacing.scale.0', '0px')};
-    padding: ${token('spacing.scale.050', '4px')};
+    margin: ${token('space.0', '0px')};
+    padding: ${token('space.050', '4px')};
     text-align: left;
     text-decoration: none;
     width: 100%;

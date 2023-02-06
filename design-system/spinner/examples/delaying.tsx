@@ -27,8 +27,7 @@ type Phase = 'stopped' | 'loading' | 'ready';
 
 const layoutStyles = css({
   display: 'grid',
-  // TODO Delete this comment after verifying spacing token -> previous value `grid * 4`
-  marginTop: token('spacing.scale.400', '32px'),
+  marginTop: token('space.400', '32px'),
   justifyContent: 'center',
   gridTemplateColumns: 'repeat(auto-fit, minmax(0, 300px))',
 });
@@ -37,8 +36,7 @@ const controlContainerStyles = css({
   display: 'flex',
   maxWidth: 300,
   margin: '0 auto',
-  // TODO Delete this comment after verifying spacing token -> previous value `grid`
-  gap: token('spacing.scale.100', '8px'),
+  gap: token('space.100', '8px'),
   flexDirection: 'column',
 });
 

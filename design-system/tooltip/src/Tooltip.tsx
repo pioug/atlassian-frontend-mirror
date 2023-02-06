@@ -423,6 +423,10 @@ function Tooltip({
                         // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
                         <Container
                           ref={ref}
+                          /**
+                           * "Tooltip" classname is a hook used by tests to manipulate
+                           * and hide tooltips, including in VR snapshots
+                           **/
                           className={`Tooltip ${className}`}
                           style={style}
                           truncate={truncate}

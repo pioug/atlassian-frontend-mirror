@@ -19,17 +19,13 @@ import { token } from '@atlaskit/tokens';
 
 const iconRowStyles = css({
   display: 'flex;',
-  padding: `${token('spacing.scale.100', '8px')} ${token(
-    'spacing.scale.0',
-    '0px',
-  )}`,
+  padding: `${token('space.100', '8px')} ${token('space.0', '0px')}`,
   justifyContent: 'flex-start',
   flexDirection: 'row',
 });
 
 const iconWrapperStyles = css({
-  // TODO Delete this comment after verifying spacing token -> previous value `4`
-  margin: token('spacing.scale.050', '4px'),
+  margin: token('space.050', '4px'),
 });
 
 const demoIcons = [

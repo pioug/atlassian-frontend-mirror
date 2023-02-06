@@ -15,6 +15,7 @@ interface Props {
   isCompact?: boolean;
 }
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 const ReadViewContainer = styled.div<Props>`
   display: flex;
   font-size: ${fontSize()}px;
@@ -22,10 +23,8 @@ const ReadViewContainer = styled.div<Props>`
   max-width: 100%;
   min-height: ${(gridSize() * 2.5) / fontSize()}em;
   padding: ${(props) =>
-      props.isCompact
-        ? token('spacing.scale.050', '4px')
-        : token('spacing.scale.100', '8px')}
-    ${token('spacing.scale.075', '6px')};
+      props.isCompact ? token('space.050', '4px') : token('space.100', '8px')}
+    ${token('space.075', '6px')};
   word-break: break-word;
 `;
 

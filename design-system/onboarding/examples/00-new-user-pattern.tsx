@@ -23,13 +23,11 @@ const headingStyles = css({
 });
 
 const taglineStyles = css({
-  // TODO Delete this comment after verifying spacing token -> previous value ``${gridSize * 2}px``
-  paddingBottom: token('spacing.scale.200', '16px'),
+  paddingBottom: token('space.200', '16px'),
 });
 
 const optionStyles = css({
-  // TODO Delete this comment after verifying spacing token -> previous value ``${gridSize / 2}px``
-  padding: token('spacing.scale.050', '4px'),
+  padding: token('space.050', '4px'),
 });
 
 const Option: React.FC<{}> = ({ children }) => (

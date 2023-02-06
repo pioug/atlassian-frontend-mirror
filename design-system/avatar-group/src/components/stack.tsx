@@ -11,18 +11,15 @@ const gutter = BORDER_WIDTH * 2 + gridSize() / 2;
 
 const listStyles = css({
   display: 'flex',
-  // TODO Delete this comment after verifying spacing token -> previous value `0`
-  margin: token('spacing.scale.0', '0px'),
+  margin: token('space.0', '0px'),
   marginRight: gutter,
-  // TODO Delete this comment after verifying spacing token -> previous value `0`
-  padding: token('spacing.scale.0', '0px'),
+  padding: token('space.0', '0px'),
   lineHeight: 1,
   listStyleType: 'none !important',
 });
 
 const listItemStyles = css({
-  // TODO Delete this comment after verifying spacing token -> previous value `0`
-  margin: token('spacing.scale.0', '0px'),
+  margin: token('space.0', '0px'),
   marginRight: -gutter,
 });
 

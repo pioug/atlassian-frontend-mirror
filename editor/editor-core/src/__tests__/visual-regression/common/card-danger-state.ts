@@ -1,7 +1,6 @@
 import {
   PuppeteerPage,
   evaluateTeardownMockDate,
-  waitForTooltip,
 } from '@atlaskit/visual-regression/helper';
 import {
   waitForResolvedInlineCard,
@@ -52,7 +51,6 @@ describe('Card danger states', () => {
     await waitForBlockCardSelection(page);
     await waitForFloatingControl(page, 'Card options');
     await page.hover('button[aria-label="Remove"]');
-    await waitForTooltip(page);
     await page.waitForSelector('.blockCardView-content-wrap.danger');
     await snapshot(page);
 
@@ -60,7 +58,6 @@ describe('Card danger states', () => {
     await waitForEmbedCardSelection(page);
     await waitForFloatingControl(page, 'Card options');
     await page.hover('button[aria-label="Remove"]');
-    await waitForTooltip(page);
     await page.waitForSelector('.embedCardView-content-wrap.danger');
     await snapshot(page);
 
@@ -68,7 +65,6 @@ describe('Card danger states', () => {
     await waitForInlineCardSelection(page);
     await waitForFloatingControl(page, 'Card options');
     await page.hover('button[aria-label="Remove"]');
-    await waitForTooltip(page);
     await page.waitForSelector('.inlineCardView-content-wrap.danger');
     await snapshot(page);
   });

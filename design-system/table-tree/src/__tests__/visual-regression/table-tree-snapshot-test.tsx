@@ -26,7 +26,7 @@ describe('Snapshot Test', () => {
         theme,
       );
       const { page } = global;
-      await loadPage(page, url, { disabledSideEffects: { animation: true } });
+      await loadPage(page, url, { allowedSideEffects: { animation: true } });
       await page.waitForSelector('div[role="treegrid"]');
       const image = await page.screenshot();
       expect(image).toMatchProdImageSnapshot();
@@ -41,7 +41,7 @@ describe('Snapshot Test', () => {
         theme,
       );
       const { page } = global;
-      await loadPage(page, url, { disabledSideEffects: { animation: true } });
+      await loadPage(page, url, { allowedSideEffects: { animation: true } });
       await page.waitForSelector('div[role="treegrid"]');
       const image = await page.screenshot();
       expect(image).toMatchProdImageSnapshot();

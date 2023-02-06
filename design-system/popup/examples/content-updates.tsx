@@ -21,8 +21,7 @@ const data = [
 
 const quoteStyles = css({
   maxWidth: 300,
-  // TODO Delete this comment after verifying spacing token -> previous value `16`
-  padding: token('spacing.scale.200', '16px'),
+  padding: token('space.200', '16px'),
   textAlign: 'center',
 });
 

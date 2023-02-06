@@ -23,8 +23,7 @@ const baseStyles = css({
   display: 'inline-flex',
   height: tagHeight,
   margin: defaultMargin,
-  // TODO Delete this comment after verifying spacing token -> previous value `0`
-  padding: token('spacing.scale.0', '0px'),
+  padding: token('space.0', '0px'),
   position: 'relative',
   backgroundColor: `var(${cssVar.color.background.default})`,
   borderRadius: `var(${cssVar.borderRadius})`,

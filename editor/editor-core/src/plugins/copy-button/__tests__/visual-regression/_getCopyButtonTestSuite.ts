@@ -1,7 +1,4 @@
-import {
-  PuppeteerPage,
-  waitForTooltip,
-} from '@atlaskit/visual-regression/helper';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { EditorProps } from '../../../../types/editor-props';
 
 import {
@@ -31,7 +28,6 @@ export async function _getCopyButtonTestSuite({
     });
 
     afterEach(async () => {
-      await waitForTooltip(page);
       await snapshot(page);
     });
 

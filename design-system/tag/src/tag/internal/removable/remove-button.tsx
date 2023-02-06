@@ -26,10 +26,8 @@ type RemoveButtonProps = {
 const baseStyles = css({
   display: 'flex',
   height: '16px',
-  // TODO Delete this comment after verifying spacing token -> previous value `0`
-  margin: token('spacing.scale.0', '0px'),
-  // TODO Delete this comment after verifying spacing token -> previous value `0`
-  padding: token('spacing.scale.0', '0px'),
+  margin: token('space.0', '0px'),
+  padding: token('space.0', '0px'),
   position: 'absolute',
   right: 0,
   alignItems: 'center',
@@ -44,8 +42,8 @@ const baseStyles = css({
   cursor: 'pointer',
   pointerEvents: 'auto',
   '&::-moz-focus-inner': {
-    margin: 0,
-    padding: 0,
+    margin: token('space.0', '0px'),
+    padding: token('space.0', '0px'),
     border: 0,
   },
   ':hover': {

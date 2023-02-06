@@ -11,7 +11,7 @@ describe('Spinner snapshot test', () => {
     const { page } = global;
     // We need animation set to true or the Spinner isn't visible, but we're
     // using `animation-timing-function: step-end` to skip to the end of the animation.
-    await loadPage(page, url, { disabledSideEffects: { animation: true } });
+    await loadPage(page, url, { allowedSideEffects: { animation: true } });
     const element = await page.waitForSelector(
       '[data-testid="spinner-wrapper"]',
     );
@@ -27,7 +27,7 @@ describe('Spinner snapshot test', () => {
       global.__BASEURL__,
     );
     const { page } = global;
-    await loadPage(page, url, { disabledSideEffects: { animation: true } });
+    await loadPage(page, url, { allowedSideEffects: { animation: true } });
     const element = await page.waitForSelector(
       '[data-testid="spinner-sizes-container"]',
     );
@@ -43,7 +43,7 @@ describe('Spinner snapshot test', () => {
       global.__BASEURL__,
     );
     const { page } = global;
-    await loadPage(page, url, { disabledSideEffects: { animation: true } });
+    await loadPage(page, url, { allowedSideEffects: { animation: true } });
     const element = await page.waitForSelector(
       '[data-testid="spinner-text-container"]',
     );
@@ -59,7 +59,7 @@ describe('Spinner snapshot test', () => {
       global.__BASEURL__,
     );
     const { page } = global;
-    await loadPage(page, url, { disabledSideEffects: { animation: true } });
+    await loadPage(page, url, { allowedSideEffects: { animation: true } });
     const element = await page.waitForSelector('[data-testid="spinner-table"]');
     const image = await element?.screenshot();
     expect(image).toMatchProdImageSnapshot();
@@ -73,7 +73,7 @@ describe('Spinner snapshot test', () => {
       global.__BASEURL__,
     );
     const { page } = global;
-    await loadPage(page, url, { disabledSideEffects: { animation: true } });
+    await loadPage(page, url, { allowedSideEffects: { animation: true } });
     const element = await page.waitForSelector(
       '[data-testid="spinner-buttons-container"]',
     );

@@ -1,4 +1,5 @@
 import {
+  enableTooltips,
   getExampleUrl,
   loadPage,
   takeElementScreenShot,
@@ -57,6 +58,7 @@ describe('<LeftSidebar />', () => {
     const content = "[data-testid='content']";
 
     await openExamplesAndWaitFor('resize-sidebar', content);
+    await enableTooltips(page);
     await controlSidebar('expand');
 
     await page.hover(resizeControl);

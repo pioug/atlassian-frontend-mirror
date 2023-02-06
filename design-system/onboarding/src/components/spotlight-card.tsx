@@ -19,17 +19,13 @@ import { spotlightButtonTheme } from './theme';
 
 const bodyStyles = css({
   display: 'flex',
-  padding: `${token('spacing.scale.200', '16px')} ${token(
-    'spacing.scale.250',
-    '20px',
-  )}`,
+  padding: `${token('space.200', '16px')} ${token('space.250', '20px')}`,
   flexDirection: 'column',
 });
 
 const defaultHeaderStyles = css({
   display: 'flex',
-  // TODO Delete this comment after verifying spacing token -> previous value ``${gridSize}px``
-  paddingBottom: token('spacing.scale.100', '8px'),
+  paddingBottom: token('space.100', '8px'),
   alignItems: 'baseline',
   justifyContent: 'space-between',
 });
@@ -40,8 +36,7 @@ const DefaultHeader: React.FC<{}> = ({ children }) => (
 
 const defaultFooterStyles = css({
   display: 'flex',
-  // TODO Delete this comment after verifying spacing token -> previous value ``${gridSize}px``
-  paddingTop: token('spacing.scale.100', '8px'),
+  paddingTop: token('space.100', '8px'),
   alignItems: 'center',
   justifyContent: 'space-between',
 });

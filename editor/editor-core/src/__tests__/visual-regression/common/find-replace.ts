@@ -8,8 +8,6 @@ import {
 import {
   PuppeteerPage,
   waitForLoadedBackgroundImages,
-  waitForTooltip,
-  waitForNoTooltip,
   waitForElementCount,
 } from '@atlaskit/visual-regression/helper';
 import findReplaceAdf from './__fixtures__/with-content.json';
@@ -41,7 +39,6 @@ describe('Find/replace:', () => {
     });
     await page.waitForSelector(findReplaceSelectors.toolbarButton);
     await page.click(findReplaceSelectors.toolbarButton);
-    await waitForTooltip(page, 'Find and replace');
   };
 
   it('should render find/replace popup', async () => {
@@ -75,7 +72,6 @@ describe('Find/replace:', () => {
     );
     await page.click(pmSelector);
     await page.type(pmSelector, 'hello hello');
-    await waitForNoTooltip(page);
     await page.waitForSelector(findReplaceSelectors.decorations);
     await snapshot(page, undefined, editorSelector);
     await page.keyboard.press('Backspace');
@@ -107,7 +103,6 @@ describe('Find/replace:', () => {
     await snapshot(page, undefined, editorSelector);
 
     await page.click(toolbarMenuItemsSelectors[ToolbarMenuItem.insertMenu]);
-    await waitForTooltip(page);
     await snapshot(page, undefined, editorSelector);
   });
 

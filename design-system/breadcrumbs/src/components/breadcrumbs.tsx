@@ -41,10 +41,8 @@ const interactiveElementSelector = 'a, button, [tabindex]:not([tabindex="-1"])';
 
 const breadcrumbStyles = css({
   display: 'flex',
-  // TODO Delete this comment after verifying spacing token -> previous value `0`
-  margin: token('spacing.scale.0', '0px'),
-  // TODO Delete this comment after verifying spacing token -> previous value `0`
-  padding: token('spacing.scale.0', '0px'),
+  margin: token('space.0', '0px'),
+  padding: token('space.0', '0px'),
   flexWrap: 'wrap',
 });
 

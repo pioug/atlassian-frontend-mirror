@@ -13,8 +13,8 @@ export const varBackgroundColor = '--ds--pt--bg';
 export const SEMI_BOLD_FONT_WEIGHT = 'semibold';
 export const REGULAR_FONT_WEIGHT = 'regular';
 
-export const HALF_GRID_SIZE = token('spacing.scale.050', '4px');
-export const PROGRESS_BAR_HEIGHT = token('spacing.scale.100', '8px');
+export const HALF_GRID_SIZE = token('space.050', '4px');
+export const PROGRESS_BAR_HEIGHT = token('space.100', '8px');
 
 // Labels sit 16px from bottom of progress bar i.e. 8 + 16
-export const LABEL_TOP_SPACING = token('spacing.scale.300', '24px');
+export const LABEL_TOP_SPACING = token('space.300', '24px');

@@ -13,7 +13,7 @@ const Section = ({ level, children }: any) => (
   <HeadingContextProvider>
     <Stack
       gap="space.100"
-      UNSAFE_style={{ paddingLeft: token('spacing.scale.100', '8px') }}
+      UNSAFE_style={{ paddingLeft: token('space.100', '8px') }}
     >
       <Heading level={level}>{level}</Heading>
       <Text>

@@ -11,8 +11,7 @@ import Badge from '../src';
 const itemStyles = css({
   display: 'flex',
   maxWidth: '300px',
-  // TODO Delete this comment after verifying spacing token -> previous value `'4px'`
-  marginBottom: token('spacing.scale.050', '4px'),
+  marginBottom: token('space.050', '4px'),
   padding: '0.6em 1em',
   alignItems: 'center',
   justifyContent: 'space-between',

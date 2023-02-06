@@ -35,7 +35,10 @@ describe('Avatar', () => {
   });
 
   it('should render a tooltip on hover', async () => {
-    await loadPage(page, url);
+    await loadPage(page, url, {
+      reloadSameUrl: true,
+      allowedSideEffects: { tooltips: true },
+    });
     await page.hover('[data-testid="avatar"]');
     await waitForTooltip(page);
 

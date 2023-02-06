@@ -5,10 +5,7 @@ import {
   initFullPageEditorWithAdf,
   snapshot,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
-import {
-  PuppeteerPage,
-  waitForTooltip,
-} from '@atlaskit/visual-regression/helper';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import {
   selectCellOption,
   getSelectorForTableCell,
@@ -118,7 +115,6 @@ describe('Table sorting', () => {
       await animationFrame(page);
       await animationFrame(page);
       await hoverCellOption(page, tableSelectors.sortColumnASC);
-      await waitForTooltip(page);
       await snapshot(page, {}, tableSelectors.tableWrapper);
     });
   });

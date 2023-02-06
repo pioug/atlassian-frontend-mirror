@@ -6,9 +6,8 @@ import { css, jsx } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 
 const spinnerContainerStyles = css({
-  width: token('spacing.scale.300', '24px'),
-  // TODO Delete this comment after verifying spacing token -> previous value ``${2 * gridSize}px``
-  marginLeft: token('spacing.scale.200', '16px'),
+  width: token('space.300', '24px'),
+  marginLeft: token('space.200', '16px'),
 });
 
 /**

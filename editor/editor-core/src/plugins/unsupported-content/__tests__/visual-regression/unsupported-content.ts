@@ -1,7 +1,4 @@
-import {
-  PuppeteerPage,
-  waitForTooltip,
-} from '@atlaskit/visual-regression/helper';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 
 import {
   snapshot,
@@ -55,10 +52,6 @@ describe('Unsupport content', () => {
           adf: unsupportedInlineInsidePanelAdf,
           viewport: { width: 1040, height: 400 },
         });
-      });
-
-      afterEach(async () => {
-        await waitForTooltip(page);
       });
 
       it('displays red border when selected and panel about to be deleted', async () => {

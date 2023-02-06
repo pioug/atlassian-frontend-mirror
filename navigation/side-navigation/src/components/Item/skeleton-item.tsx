@@ -29,9 +29,9 @@ const SkeletonItem = (props: SkeletonItemProps) => {
         ...sectionHeaderSpacingStyles(),
         // This doubles up & to get a higher specificity as well as to not overwite the base styles.
         '&&::before': {
-          height: token('spacing.scale.300', '20px'),
-          marginRight: token('spacing.scale.200', '18px'),
-          width: token('spacing.scale.300', '20px'),
+          height: token('space.300', '20px'),
+          marginRight: token('space.200', '18px'),
+          width: token('space.300', '20px'),
         },
       })}
       // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

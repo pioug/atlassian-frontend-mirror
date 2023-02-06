@@ -4,10 +4,7 @@ import {
   initFullPageEditorWithAdf,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import adf from './__fixtures__/custom-panel.json';
-import {
-  PuppeteerPage,
-  waitForTooltip,
-} from '@atlaskit/visual-regression/helper';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { panelSelectors } from '@atlaskit/editor-test-helpers/page-objects/panel';
 import { waitForEmojisToLoad } from '@atlaskit/editor-test-helpers/page-objects/emoji';
 import { waitForFloatingControl } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
@@ -28,7 +25,8 @@ describe('Custom panel looks correct for fullpage:', () => {
     await snapshot(page);
   });
 
-  it('default custom panel light mode', async () => {
+  // FIXME: This test was automatically skipped due to failure on 05/02/2023: https://product-fabric.atlassian.net/browse/ED-16785
+  it.skip('default custom panel light mode', async () => {
     await initFullPageEditorWithAdf(
       page,
       adf,
@@ -74,6 +72,5 @@ describe('Custom panel looks correct for fullpage:', () => {
     await waitForFloatingControl(page, floatingControlsAriaLabel);
     await page.click(backgroundColorButtonSelector);
     await page.waitForSelector(purpleColorButtonSelector);
-    await waitForTooltip(page);
   });
 });

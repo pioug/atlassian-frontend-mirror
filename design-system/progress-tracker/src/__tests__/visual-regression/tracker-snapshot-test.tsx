@@ -14,7 +14,7 @@ describe('Snapshot Test', () => {
     );
     const { page } = global;
     await loadPage(page, url, {
-      disabledSideEffects: { animation: true, transition: true },
+      allowedSideEffects: { animation: true, transition: true },
     });
     await page.waitForSelector('[data-testid="progress-tracker"]');
     await page.waitForSelector('.fade-exit-done');

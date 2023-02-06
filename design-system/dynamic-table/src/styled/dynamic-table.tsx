@@ -70,8 +70,7 @@ export const Table = forwardRef<HTMLTableElement, TableProps>(
 
 const captionStyles = css({
   marginTop: `${gridSize * 3.5}px`,
-  // TODO Delete this comment after verifying spacing token -> previous value ``${gridSize}px``
-  marginBottom: token('spacing.scale.100', '8px'),
+  marginBottom: token('space.100', '8px'),
   fontSize: '1.42857143em',
   fontStyle: 'inherit',
   fontWeight: token('font.weight.medium', '500'),

@@ -103,7 +103,7 @@ describe('onboarding spotlight visual regression', () => {
       __BASEURL__,
     );
 
-    await loadPage(page, url, { disabledSideEffects: { animation: true } });
+    await loadPage(page, url, { allowedSideEffects: { animation: true } });
     await page.waitForSelector(openButtonSelector);
     await page.click(openButtonSelector);
 

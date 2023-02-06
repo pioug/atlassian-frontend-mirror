@@ -33,6 +33,9 @@ describe.skip('Nested headings with links', () => {
           width: 1025,
           height: 400,
         },
+        allowSideEffects: {
+          tooltips: true,
+        },
       });
       await spoofMediaQuery(page);
       await hoverOnHeadingWithLinkThenSnapshot(page, '#LC-Heading-C');
@@ -52,6 +55,9 @@ describe.skip('Nested headings with links', () => {
         viewport: {
           width: 640,
           height: 400,
+        },
+        allowSideEffects: {
+          tooltips: true,
         },
       });
       await spoofMediaQuery(page);
@@ -86,6 +92,9 @@ describe.skip('Nested headings with links', () => {
           width: 320,
           height: 400,
         },
+        allowSideEffects: {
+          tooltips: true,
+        },
       });
       await spoofMediaQuery(page);
       await hoverOnHeadingWithLinkThenSnapshot(page, 'h4:first-of-type');
@@ -103,6 +112,9 @@ describe.skip('Nested headings with links', () => {
           viewport: {
             width: 320,
             height: 400,
+          },
+          allowSideEffects: {
+            tooltips: true,
           },
         });
         await spoofMediaQuery(page);

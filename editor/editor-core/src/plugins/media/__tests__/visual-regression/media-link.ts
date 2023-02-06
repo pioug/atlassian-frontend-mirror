@@ -1,7 +1,4 @@
-import {
-  PuppeteerPage,
-  waitForTooltip,
-} from '@atlaskit/visual-regression/helper';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
 import {
   snapshot,
@@ -99,7 +96,6 @@ describe('Snapshot Test: Media with link', () => {
           '[aria-label="Media floating controls"] [aria-label="Floating Toolbar"] [aria-label="Remove"]',
           2000,
         );
-        await waitForTooltip(page, 'Open link in a new tab');
       });
 
       it('should disable open link button if the link is unsafe', async () => {

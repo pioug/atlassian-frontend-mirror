@@ -22,8 +22,7 @@ const childStyles = css({
 });
 
 const containerStyles = css({
-  // TODO Delete this comment after verifying spacing token -> previous value ``${gridSize() * 2}px``
-  padding: token('spacing.scale.200', '16px'),
+  padding: token('space.200', '16px'),
 });
 
 type BorderRadius = 'less' | 'same' | 'more';

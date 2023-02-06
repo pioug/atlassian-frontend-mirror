@@ -22,7 +22,7 @@ describe('Snapshot Test for Progress Tracker', () => {
     );
 
     await loadPage(page, url, {
-      disabledSideEffects: { animation: true, transition: true },
+      allowedSideEffects: { animation: true, transition: true },
     });
     await page.waitForSelector(next);
     await page.waitForSelector(prev);
@@ -51,7 +51,7 @@ describe('Snapshot Test for Progress Tracker', () => {
 
     await loadPage(page, url, {
       reloadSameUrl: true,
-      disabledSideEffects: { animation: true, transition: true },
+      allowedSideEffects: { animation: true, transition: true },
     });
     await page.waitForSelector(next);
     await page.waitForSelector(prev);

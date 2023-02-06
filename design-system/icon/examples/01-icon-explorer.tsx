@@ -130,23 +130,23 @@ const getKeywords = (logoMap: LogoMap) =>
   );
 
 const gridWrapperStyles = css({
-  padding: `${token('spacing.scale.100', '10px')} ${token(
-    'spacing.scale.050',
-    '5px',
-  )} ${token('spacing.scale.0', '0px')}`,
+  padding: `${token('space.100', '10px')} ${token('space.050', '5px')} ${token(
+    'space.0',
+    '0px',
+  )}`,
 });
 
 const iconExplorerGridStyles = css({
   display: 'flex',
-  marginTop: token('spacing.scale.100', '10px'),
+  marginTop: token('space.100', '10px'),
   justifyContent: 'flex-start',
   flexDirection: 'row',
   flexWrap: 'wrap',
 });
 
 const noIconsStyles = css({
-  marginTop: token('spacing.scale.100', '10px'),
-  padding: token('spacing.scale.100', '10px'),
+  marginTop: token('space.100', '10px'),
+  padding: token('space.100', '10px'),
 });
 
 const filterIcons = (icons: IconsList, query: string) => {

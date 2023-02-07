@@ -5,6 +5,7 @@ import {
   editable,
   getDocFromElement,
   fullpage,
+  animationFrame,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
 
 import {
@@ -50,9 +51,12 @@ export async function _getCopyButtonTestSuite({
 
         // Wait for floating toolbar to render
         await page.waitForSelector(copyButtonSelector);
+        await animationFrame(page);
 
         // Click the Copy button
-        await page.click(copyButtonSelector);
+        const copyButton = await page.$(copyButtonSelector);
+        await copyButton.waitForClickable();
+        await copyButton.click();
 
         // Move to end of document
         await page.keys([

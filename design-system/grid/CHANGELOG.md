@@ -1,5 +1,11 @@
 # @atlaskit/grid
 
+## 0.2.0
+
+### Minor Changes
+
+- [`2d3c5a69c76`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2d3c5a69c76) - Change from a width flow to a maxWidth restriction with full-width explicitly by default.
+
 ## 0.1.0
 
 ### Minor Changes

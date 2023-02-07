@@ -16,9 +16,9 @@ const itemProps: BoxProps = {
   height: 'size.600',
 } as const;
 
-export default ({ width = 'fluid' }: GridProps) => {
+export default ({ maxWidth }: GridProps) => {
   return (
-    <Grid width={width} testId="grid">
+    <Grid maxWidth={maxWidth} testId="grid">
       <GridItem>
         <Box {...itemProps} />
       </GridItem>

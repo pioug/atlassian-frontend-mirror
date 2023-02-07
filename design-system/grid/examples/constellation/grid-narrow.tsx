@@ -6,7 +6,7 @@ import { SkeletonBox } from './shared/skeleton-box';
 
 export default () => {
   return (
-    <Grid width="narrow">
+    <Grid maxWidth="narrow">
       <GridItem span={{ sm: 2, md: 4 }}>
         <SkeletonBox>sm=6 md=4</SkeletonBox>
       </GridItem>

@@ -13,16 +13,16 @@ export type GridProps = {
    */
   testId?: string;
   /**
-   * If set to `fluid` the grid will fill all available whitespace.
+   * If set, will restrict the max-width of the Grid to pre-defined values.
    */
-  width?: GridFlow;
+  maxWidth?: GridMaxWidth;
   /**
    * The grid items.
    */
   children?: ReactNode;
 };
 
-type GridFlow = keyof typeof gridFlowMap;
+type GridMaxWidth = keyof typeof gridMaxWidthMap;
 
 const breakpointEntries = Object.entries(BREAKPOINTS);
 const breakPointMediaQueries = breakpointEntries.reduce(
@@ -47,28 +47,12 @@ const gridMediaQueryStyles = css(breakPointMediaQueries);
 const baseStyles = css({
   display: 'grid',
   boxSizing: 'border-box',
+  width: '100%',
 });
 
-const gridFlowMap = {
-  fluid: css({ maxWidth: 'none' }),
-  wide: css({
-    minWidth: 1128,
-    maxWidth: 1128,
-    // TODO how should this work with the spec'd breakpoints
-    // eslint-disable-next-line @repo/internal/styles/no-nested-styles
-    [`@media screen and (max-width: 1128px)`]: {
-      minWidth: 'unset',
-    },
-  }),
-  narrow: css({
-    minWidth: 744,
-    maxWidth: 744,
-    // TODO how should this work with the spec'd breakpoints
-    // eslint-disable-next-line @repo/internal/styles/no-nested-styles
-    [`@media screen and (max-width: 744px)`]: {
-      minWidth: 'unset',
-    },
-  }),
+const gridMaxWidthMap = {
+  wide: css({ maxWidth: 1128 }),
+  narrow: css({ maxWidth: 744 }),
 } as const;
 
 const GridContext = createContext(false);
@@ -91,7 +75,7 @@ const GridContext = createContext(false);
  * );
  * ```
  */
-export const Grid: FC<GridProps> = ({ testId, children, width }) => {
+export const Grid: FC<GridProps> = ({ testId, children, maxWidth }) => {
   const isNested = useContext(GridContext);
 
   invariant(
@@ -102,7 +86,11 @@ export const Grid: FC<GridProps> = ({ testId, children, width }) => {
   return (
     <div
       data-testid={testId}
-      css={[baseStyles, width && gridFlowMap[width], gridMediaQueryStyles]}
+      css={[
+        baseStyles,
+        maxWidth && gridMaxWidthMap[maxWidth],
+        gridMediaQueryStyles,
+      ]}
     >
       <GridContext.Provider value={true}>{children}</GridContext.Provider>
     </div>

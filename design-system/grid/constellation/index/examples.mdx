@@ -3,7 +3,6 @@ order: 0
 ---
 
 import Grid from '../../examples/constellation/grid-default';
-import GridFluid from '../../examples/constellation/grid-fluid';
 import GridNarrow from '../../examples/constellation/grid-narrow';
 import GridWide from '../../examples/constellation/grid-wide';
 import ItemSpan from '../../examples/constellation/item-span';
@@ -15,15 +14,9 @@ Grids are composed of a container `Grid` and child `GridItem`s. These two elemen
 
 <Example Component={Grid} packageName="@atlaskit/grid" />
 
-## Grid width
+## Grid maxWidth
 
-You can restrict the width of the Grid to pre-defined sizes.  The default value is `fluid`.
-
-### fluid
-
-The Grid takes all available space.
-
-<Example Component={GridFluid} packageName="@atlaskit/grid" />
+You can restrict the maxWidth of the Grid to pre-defined sizes.  By default, the Grid takes up full space available.
 
 ### narrow
 

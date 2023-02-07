@@ -39,16 +39,6 @@ type GridConfig = {
   columns: number;
 };
 
-// @public (undocumented)
-type GridFlow = keyof typeof gridFlowMap;
-
-// @public (undocumented)
-const gridFlowMap: {
-  readonly fluid: SerializedStyles;
-  readonly wide: SerializedStyles;
-  readonly narrow: SerializedStyles;
-};
-
 // @public
 export const GridItem: FC<GridItemProps>;
 
@@ -61,9 +51,18 @@ export type GridItemProps = {
 };
 
 // @public (undocumented)
+type GridMaxWidth = keyof typeof gridMaxWidthMap;
+
+// @public (undocumented)
+const gridMaxWidthMap: {
+  readonly wide: SerializedStyles;
+  readonly narrow: SerializedStyles;
+};
+
+// @public (undocumented)
 export type GridProps = {
   testId?: string;
-  width?: GridFlow;
+  maxWidth?: GridMaxWidth;
   children?: ReactNode;
 };
 

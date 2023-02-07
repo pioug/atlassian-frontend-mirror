@@ -6,9 +6,9 @@ export type GridProps = {
    */
   testId?: string;
   /**
-   * If set to `fluid` the grid will fill all available whitespace.
+   * If set, will restrict the max-width of the Grid to pre-defined values.
    */
-  width?: 'fluid' | 'wide' | 'narrow';
+  maxWidth?: 'wide' | 'narrow';
   /**
    * The grid items.
    */

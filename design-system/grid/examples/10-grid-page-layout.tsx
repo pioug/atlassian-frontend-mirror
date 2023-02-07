@@ -20,7 +20,7 @@ import { BREAKPOINTS, GridProps } from '../src';
 const dynamicSizedVerticalPaddingStyles = css(
   Object.entries(BREAKPOINTS).reduce((configs, [_, config]) => {
     return Object.assign(configs, {
-      [`@media (min-width: ${config.min}px) and (max-width: ${config.max}px)`]:
+      [`@media (min-maxWidth: ${config.min}px) and (max-maxWidth: ${config.max}px)`]:
         {
           paddingBlock: config.offset,
         },
@@ -31,7 +31,7 @@ const dynamicSizedVerticalPaddingStyles = css(
 import GridCards from './01-grid-cards';
 
 export default () => {
-  const [width, setWidth] = useState<GridProps['width']>('fluid');
+  const [maxWidth, setWidth] = useState<GridProps['maxWidth']>(undefined);
   return (
     <PageLayout>
       <TopNavigation
@@ -68,9 +68,9 @@ export default () => {
             <Stack gap="space.100">
               <div>Space Navigation</div>
               <select
-                value={width}
+                value={maxWidth}
                 onChange={(evt) =>
-                  setWidth(evt.currentTarget.value as GridProps['width'])
+                  setWidth(evt.currentTarget.value as GridProps['maxWidth'])
                 }
               >
                 <option value="fluid">Fluid</option>
@@ -83,7 +83,7 @@ export default () => {
 
         <Main testId="main" id="main" skipLinkTitle="Main Content">
           <Box display="block" css={dynamicSizedVerticalPaddingStyles}>
-            <GridCards width={width} />
+            <GridCards maxWidth={maxWidth} />
           </Box>
         </Main>
       </Content>

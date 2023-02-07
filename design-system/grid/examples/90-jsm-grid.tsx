@@ -59,7 +59,7 @@ const JSMGrid = () => {
           paddingBlock="space.1000"
           UNSAFE_style={{ paddingBottom: 144 }}
         >
-          <Grid width="wide">
+          <Grid maxWidth="wide">
             <GridItem offset={{ md: 3 }} span={{ md: 8 }}>
               <Stack gap="space.200" alignItems="center">
                 <Heading
@@ -78,93 +78,86 @@ const JSMGrid = () => {
           </Grid>
         </Box>
       </Box>
-      <Box css={dynamicSizedVerticalPaddingStyles}>
-        <Grid width="wide">
-          <GridItem>
-            <Stack gap="space.800">
-              <Grid>
-                <GridItem span={{ sm: 3, md: 4 }}>
-                  <Stack gap="space.300">
-                    <JSMConfigCard title="Design Collection">
-                      <IconLink>Join Figma support slack channel</IconLink>
-                      <IconLink>Join Figma support slack channel</IconLink>
-                    </JSMConfigCard>
-                    <JSMConfigCard title="Covid Updates" />
-                  </Stack>
-                </GridItem>
-                <GridItem span={{ sm: 3, md: 4 }}>
-                  <Stack gap="space.300">
-                    <JSMConfigCard title="New hire basics" />
-                    <JSMConfigCard title="Payroll">
-                      <IconLink>Join Figma support slack channel</IconLink>
-                      <IconLink>Request for laptop exchange</IconLink>
-                    </JSMConfigCard>
-                  </Stack>
-                </GridItem>
-                <GridItem span={{ sm: 3, md: 4 }}>
-                  <JSMConfigCard title="Infra Management" />
-                </GridItem>
-              </Grid>
-              <Grid>
-                <GridItem>
-                  <Inline justifyContent="space-between" gap="space.0">
-                    <Heading level="h800" as="h2">
-                      Featured service desks
-                    </Heading>
-                  </Inline>
-                </GridItem>
-                <GridItem span={{ sm: 3, md: 4 }}>
-                  <JSMCard iconColor="information.bold" title="Onboarding" />
-                </GridItem>
-                <GridItem span={{ sm: 3, md: 4 }}>
-                  <JSMCard iconColor="brand.bold" title="HR Service Desk" />
-                </GridItem>
-                <GridItem span={{ sm: 3, md: 4 }}>
-                  <JSMCard
-                    title="Travel Service desk"
-                    iconColor="information"
-                  />
-                </GridItem>
-                <GridItem span={{ sm: 3, md: 4 }}>
-                  <JSMCard iconColor="danger.bold" title="SWAGs" />
-                </GridItem>
-                <GridItem span={{ sm: 3, md: 4 }}>
-                  <JSMCard iconColor="warning.bold" title="IT Support" />
-                </GridItem>
-                <GridItem span={{ sm: 3, md: 4 }}>
-                  <JSMCard title="IT Operations" iconColor="discovery" />
-                </GridItem>
-                <GridItem span={{ sm: 3, md: 4 }}>
-                  <JSMCard iconColor="discovery.bold" title="Sales Ops" />
-                </GridItem>
-                <GridItem span={{ sm: 3, md: 4 }}>
-                  <JSMCard title="Customer Support" iconColor="neutral.bold" />
-                </GridItem>
-                <GridItem span={{ sm: 3, md: 4 }}>
-                  <JSMCard title="Financial Month End" iconColor="danger" />
-                </GridItem>
-              </Grid>
-              <Grid>
-                <GridItem>
-                  <Inline justifyContent="space-between" gap="space.0">
-                    <Heading level="h800" as="h2">
-                      Recently used forms
-                    </Heading>
-                  </Inline>
-                </GridItem>
-                <GridItem span={{ sm: 2, md: 4 }}>
-                  <SecondaryCard />
-                </GridItem>
-                <GridItem span={{ sm: 2, md: 4 }}>
-                  <SecondaryCard />
-                </GridItem>
-                <GridItem span={{ sm: 2, md: 4 }}>
-                  <SecondaryCard />
-                </GridItem>
-              </Grid>
-            </Stack>
-          </GridItem>
-        </Grid>
+      <Box css={dynamicSizedVerticalPaddingStyles} justifyContent="center">
+        <Stack gap="space.800">
+          <Grid maxWidth="wide">
+            <GridItem span={{ sm: 3, md: 4 }}>
+              <Stack gap="space.300">
+                <JSMConfigCard title="Design Collection">
+                  <IconLink>Join Figma support slack channel</IconLink>
+                  <IconLink>Join Figma support slack channel</IconLink>
+                </JSMConfigCard>
+                <JSMConfigCard title="Covid Updates" />
+              </Stack>
+            </GridItem>
+            <GridItem span={{ sm: 3, md: 4 }}>
+              <Stack gap="space.300">
+                <JSMConfigCard title="New hire basics" />
+                <JSMConfigCard title="Payroll">
+                  <IconLink>Join Figma support slack channel</IconLink>
+                  <IconLink>Request for laptop exchange</IconLink>
+                </JSMConfigCard>
+              </Stack>
+            </GridItem>
+            <GridItem span={{ sm: 3, md: 4 }}>
+              <JSMConfigCard title="Infra Management" />
+            </GridItem>
+          </Grid>
+          <Grid maxWidth="wide">
+            <GridItem>
+              <Inline justifyContent="space-between" gap="space.0">
+                <Heading level="h800" as="h2">
+                  Featured service desks
+                </Heading>
+              </Inline>
+            </GridItem>
+            <GridItem span={{ sm: 3, md: 4 }}>
+              <JSMCard iconColor="information.bold" title="Onboarding" />
+            </GridItem>
+            <GridItem span={{ sm: 3, md: 4 }}>
+              <JSMCard iconColor="brand.bold" title="HR Service Desk" />
+            </GridItem>
+            <GridItem span={{ sm: 3, md: 4 }}>
+              <JSMCard title="Travel Service desk" iconColor="information" />
+            </GridItem>
+            <GridItem span={{ sm: 3, md: 4 }}>
+              <JSMCard iconColor="danger.bold" title="SWAGs" />
+            </GridItem>
+            <GridItem span={{ sm: 3, md: 4 }}>
+              <JSMCard iconColor="warning.bold" title="IT Support" />
+            </GridItem>
+            <GridItem span={{ sm: 3, md: 4 }}>
+              <JSMCard title="IT Operations" iconColor="discovery" />
+            </GridItem>
+            <GridItem span={{ sm: 3, md: 4 }}>
+              <JSMCard iconColor="discovery.bold" title="Sales Ops" />
+            </GridItem>
+            <GridItem span={{ sm: 3, md: 4 }}>
+              <JSMCard title="Customer Support" iconColor="neutral.bold" />
+            </GridItem>
+            <GridItem span={{ sm: 3, md: 4 }}>
+              <JSMCard title="Financial Month End" iconColor="danger" />
+            </GridItem>
+          </Grid>
+          <Grid maxWidth="wide">
+            <GridItem>
+              <Inline justifyContent="space-between" gap="space.0">
+                <Heading level="h800" as="h2">
+                  Recently used forms
+                </Heading>
+              </Inline>
+            </GridItem>
+            <GridItem span={{ sm: 2, md: 4 }}>
+              <SecondaryCard />
+            </GridItem>
+            <GridItem span={{ sm: 2, md: 4 }}>
+              <SecondaryCard />
+            </GridItem>
+            <GridItem span={{ sm: 2, md: 4 }}>
+              <SecondaryCard />
+            </GridItem>
+          </Grid>
+        </Stack>
       </Box>
     </div>
   );

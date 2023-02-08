@@ -43,6 +43,11 @@ const isJwmView = (url: string) =>
 const isGiphyMedia = (url: string) =>
   url.match(/^https:\/\/(.*?\.)?giphy\.com\/(gifs|media|clips)\//);
 
+const isProformaView = (url: string) =>
+  url.match(
+    /^https:\/\/[^/]+\/jira\/(core|software(\/c)?|servicedesk)\/projects\/\w+\/forms\/form\/direct\/\d+\/\d+.*$/,
+  );
+
 export class EditorCardProvider implements CardProvider {
   private baseUrl: string;
   private resolverUrl: string;
@@ -86,27 +91,32 @@ export class EditorCardProvider implements CardProvider {
   }
 
   private async fetchProvidersData(): Promise<ProvidersData | undefined> {
-    try {
-      const endpoint = `${this.resolverUrl}/providers`;
-      const response = await api.request<ORSProvidersResponse>(
-        'post',
-        endpoint,
-        undefined,
-        this.requestHeaders,
-      );
+    const endpoint = `${this.resolverUrl}/providers`;
+    const response = await api.request<ORSProvidersResponse>(
+      'post',
+      endpoint,
+      undefined,
+      this.requestHeaders,
+    );
 
-      return {
-        patterns: response.providers.reduce(
-          (allSources: ProviderPattern[], provider) => {
-            return allSources.concat(provider.patterns);
-          },
-          [],
-        ),
-        userPreferences: response.userPreferences,
-      };
+    return {
+      patterns: response.providers.reduce(
+        (allSources: ProviderPattern[], provider) => {
+          return allSources.concat(provider.patterns);
+        },
+        [],
+      ),
+      userPreferences: response.userPreferences,
+    };
+  }
+
+  private async loadProviderData() {
+    try {
+      this.providersData = await this.providersLoader.load('providersData');
     } catch (err) {
       // eslint-disable-next-line
       console.error('failed to fetch /providers', err);
+      this.providersLoader.clear('providerData');
       return undefined;
     }
   }
@@ -135,7 +145,7 @@ export class EditorCardProvider implements CardProvider {
     url: string,
   ): Promise<LinkAppearance | undefined> {
     if (!this.providersData) {
-      this.providersData = await this.providersLoader.load('providersData');
+      await this.loadProviderData();
     }
 
     const userPreferences = this.providersData?.userPreferences;
@@ -167,7 +177,7 @@ export class EditorCardProvider implements CardProvider {
     url: string,
   ): Promise<ProviderPattern | undefined> {
     if (!this.providersData) {
-      this.providersData = await this.providersLoader.load('providersData');
+      await this.loadProviderData();
     }
     return this.providersData?.patterns.find(pattern =>
       url.match(pattern.source),
@@ -179,7 +189,8 @@ export class EditorCardProvider implements CardProvider {
       isJiraRoadMap(url) ||
       isPolarisView(url) ||
       isJwmView(url) ||
-      isGiphyMedia(url)
+      isGiphyMedia(url) ||
+      isProformaView(url)
     ) {
       return 'embed';
     }

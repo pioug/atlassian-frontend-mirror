@@ -2,12 +2,9 @@ import type { BaseToken } from '../../../palettes/palette';
 import type { UtilTokenSchema, ValueSchema } from '../../../types';
 
 const utility: ValueSchema<UtilTokenSchema<BaseToken>> = {
-  UNSAFE_util: {
+  UNSAFE: {
     transparent: {
       value: 'transparent',
-    },
-    MISSING_TOKEN: {
-      value: '#FA11F2',
     },
   },
 };

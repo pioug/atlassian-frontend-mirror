@@ -1,5 +1,11 @@
 # @atlaskit/date
 
+## 0.9.12
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.9.11
 
 ### Patch Changes

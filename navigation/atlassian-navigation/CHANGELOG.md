@@ -1,5 +1,12 @@
 # @atlaskit/atlassian-navigation
 
+## 2.3.5
+
+### Patch Changes
+
+- [`718d5ad3044`](https://bitbucket.org/atlassian/atlassian-frontend/commits/718d5ad3044) - Updates to support the new `@atlaskit/tokens` theming API.
+- Updated dependencies
+
 ## 2.3.4
 
 ### Patch Changes

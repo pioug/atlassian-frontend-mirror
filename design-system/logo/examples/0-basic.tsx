@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 import {
   AtlassianIcon,
@@ -22,6 +22,8 @@ import {
   JiraAlignWordmark,
   JiraIcon,
   JiraLogo,
+  JiraProductDiscoveryIcon,
+  JiraProductDiscoveryLogo,
   JiraServiceManagementIcon,
   JiraServiceManagementLogo,
   JiraServiceManagementWordmark,
@@ -134,6 +136,17 @@ export default () => (
           </td>
           <td>
             <JiraIcon />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <JiraProductDiscoveryLogo />
+          </td>
+          <td>
+            <Fragment />
+          </td>
+          <td>
+            <JiraProductDiscoveryIcon />
           </td>
         </tr>
         <tr>

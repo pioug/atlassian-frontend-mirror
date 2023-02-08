@@ -48,7 +48,7 @@ export const ReactionsList: FC<ReactionsListProps> = ({
       id: initialEmojiId,
     };
   });
-  const theme = useThemeObserver();
+  const { colorMode } = useThemeObserver();
 
   const onTabChange = useCallback(
     (index: SelectedType, analyticsEvent: UIAnalyticsEvent) => {
@@ -78,7 +78,7 @@ export const ReactionsList: FC<ReactionsListProps> = ({
                 css={customTabWrapper(
                   emojiId?.id === selectedEmoji.id,
                   selectedEmoji.id,
-                  theme,
+                  colorMode,
                 )}
                 className="reaction-elements"
                 key={reaction.emojiId}

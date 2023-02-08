@@ -13,8 +13,8 @@ const JsonldEditorInput: React.FC<{
   onChange: (str: string) => void;
   value?: string;
 }> = ({ error, onChange, value }) => {
-  const theme = useThemeObserver();
-  const editorTheme = theme === 'dark' ? 'twilight' : 'tomorrow';
+  const { colorMode } = useThemeObserver();
+  const editorTheme = colorMode === 'dark' ? 'twilight' : 'tomorrow';
 
   return (
     <React.Fragment>

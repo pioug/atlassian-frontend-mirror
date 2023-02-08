@@ -1,5 +1,294 @@
 # @atlaskit/tokens
 
+## 1.0.0
+
+### Major Changes
+
+- [`512be9e1854`](https://bitbucket.org/atlassian/atlassian-frontend/commits/512be9e1854) - This PR introduces the 1.0 stable version of `@atlaskit/tokens`. With the changes introduced here, the tokens package _will be considered stable and feature-complete moving forward_.
+
+  #### 💥 Breaking change: Theme lazy-loading
+
+  Previously, themes were exposed as static CSS files via custom entry-points. This worked quite well but had a couple of obvious drawbacks.
+
+  1.  CSS files depend on webpack/css-loading mechanisms (`style-loader`/`css-loader`) which aren't available in all environments.
+
+  2.  Configuration and ordering of themes happened entirely in products, which becomes increasingly harder to maintain as new themes & functionality are introduced
+
+  We have moved this to a lazy-loaded JS solution. Themes are now codegen'd into Javascript modules, wrapped in a template literal string, then lazy-loaded and mounted to the head of the document when required at runtime.
+
+  **Benefits include:**
+
+  - More control over the ordering and composition of themes
+
+  - Automatic lazy-loading of new themes when `setGlobalTheme` is called by the client
+
+  - Simplified bundler configuration
+
+  - Improved portability
+
+  - Integrates with a new SSR solution for theme loading
+
+  **Changes:**
+
+  If you set themes using `setGlobalTheme` in your app, you can now remove manual imports of theme CSS files from your app. The themes will be automatically added when `setGlobalTheme` is called.
+
+  ```diff
+  -import("atlassian-light.css") from '@atlaskit/tokens/css'
+  -import("atlassian-legacy-dark.css") from '@atlaskit/tokens/css'
+  -setGlobalTheme("light", true)
+  +setGlobalTheme({light: "light", dark: "legacy-dark", colorMode: 'auto'})
+  ```
+
+  If your app supports server-side rendering, further work is required to ensure themes are loaded on the page before first paint. See below for details on the new SSR utilities.
+
+  #### 💥 Breaking change: Removal of deprecated & deleted tokens
+
+  [As per our versioning strategy](https://hello.atlassian.net/wiki/spaces/DST/pages/1818362892?search_id=660dc077-8ecb-4142-be48-1e610e372315), MAJOR versions is when we remove all deprecated and sunset tokens. This provides significant bundle size improvements to token CSS files.
+
+  If you have been using our lint rules `@atlaskit/design-system/no-unsafe-design-token-usage` and `@atlaskit/design-system/no-deprecated-design-token-usage`, these tokens should already be triggering eslint errors from the version they were deprecated.
+
+  Please run `yarn eslint --fix` or similar to automate your migration before upgrading to `1.0.0`.
+
+  _Please see below for a full list of removed tokens and their replacements._
+
+  Note: MISSING_TOKEN is also being removed. This was a utility token to support early migration efforts; as tokens are now visible to end-users, please ensure all usages are removed from your app.
+
+  #### 💥 Breaking change: `setGlobalTheme` & `ThemeObserver` & `useThemeObserver`
+
+  **ThemeState configuration object**
+
+  `setGlobalTheme`, `ThemeObserver` & `useThemeObserver` now input and output theme preferences as a `themeState` object rather than a space-separated string. This enables:
+
+  - Stronger type safety
+
+  - Explicit definition of themes to render in light and dark mode.
+
+  - Improved extensibility options for new types of themes, such as spacing and typography.
+
+  `themeState` has the following default values, which set the standard Atlassian color themes, and enables automatic color mode switching based on the user's system preference:
+
+  ```js
+  {
+    colorMode: 'auto',
+    dark: 'dark',
+    light: 'light',
+    spacing: undefined,
+    typography: undefined,
+  };
+  ```
+
+  Any usages of `setGlobalTheme` need` to be updated to the new object syntax:
+
+  ```diff
+  -setGlobalTheme('light');
+  +setGlobalTheme({ light: 'light', colorMode: 'light' ...});
+  ```
+
+  **Changes to colorMode**
+
+  Previously, the current color mode (i.e. "light" or "dark" mode) was inferred from the color theme passed into `setGlobalTheme`. A second parameter, `shouldMatchSystem`, set `data-color-mode` to `'auto'` and matched the current theme to operating system settings:
+
+  ```js
+  setGlobalTheme('legacy-dark'); // a "dark" theme, so color mode is set to 'dark'
+  setGlobalTheme('light', true); // color mode is 'light' or 'dark' depending on system theme
+  ```
+
+  Now, the current color mode, as well as which themes to render in each color mode, can be configured via the `themeState` object:
+
+  ```js
+  setGlobalTheme({
+    dark: 'dark' // in dark mode, use the 'dark' theme
+    light: 'light' // in light mode, use the 'light' theme
+    colorMode: 'auto', // Set the color mode automatically based on system preference
+  });
+  ```
+
+  If your app previously set the second parameter, `shouldMatchSystem`, this feature is now enabled by default.
+
+  ```diff
+  // Automatic theme switching
+  -setGlobalTheme('light', true)
+  +setGlobalTheme({light: 'light', dark: 'dark', 'auto'})
+  // OR, since setGlobalTheme has default values
+  +setGlobalTheme({})
+
+  // Light theme
+  -setGlobalTheme('light')
+  +setGlobalTheme({light: 'light', colorMode: 'light'})
+  // OR
+  +setGlobalTheme({colorMode: 'light'})
+
+  // Dark theme
+  -setGlobalTheme('dark')
+  +setGlobalTheme({dark: 'dark', colorMode: 'dark'})
+  // OR
+  +setGlobalTheme({colorMode: 'dark'})
+  ```
+
+  **Color mode switching is enabled by default**
+
+  As noted above, automatic theme switching is now enabled by default. To disable automatic theme switching, set `colorMode` to either `'light'` or `'dark'`.
+
+  #### 🔀 Breaking behavioural change: `data-theme` & `data-color-mode`
+
+  The way this state is reflected on the DOM has been updated to match the changes above:
+
+  ```diff
+  -<html data-theme="light" data-color-mode="light">
+  +<html data-theme="light:light dark:dark spacing:compact" data-color-mode="light">
+  ```
+
+  Theme state on the DOM is primarily to store data in a place that can be accessed from anywhere in the app, and secondly to activate CSS selectors.
+
+  Two new utilities, `themeStringToObject` and `themeObjectToString`, allow conversion from string to object syntax if necessary.
+
+  #### 🔀 Breaking change: System-level theme switching
+
+  Token auto theme switching now uses a Javascript-based solution, rather than embedding media queries in theme CSS files. If `colorMode` is set to `'auto'`, media query event listeners will trigger when the system theme changes, and update `data-color-mode` to `'light'` or `'dark'` automatically.
+
+  This provides several benefits:
+
+  - Significant (~50%) improvements to bundle size for token CSS files compared to the pre-release version of `@atlaskit/tokens`.
+
+  - Simpler logic for switching an experience based on the current theme:
+
+    - Previously, experiences using theme observers had to check a combination of the `data-color-mode` attribute use media queries to to correctly match the currently rendered color mode in light, dark and 'auto' color modes. Now, the `data-color-mode` attribute always matches the currently rendered color mode, and media queries are no longer required.
+
+  As a result of this change, the `data-color-mode` attribute no longer supports the value `'auto'`. If your experience checked for this value, this logic can now be removed, as `data-color-mode` will always reflect the currently rendered theme.
+
+  #### ✨ New: server-side rendering utility functions
+
+  Three new utility functions provide the logic required to load and display the correct themes in your server-rendered output, preventing a flash of incorrectly themed content on first paint. Each accepts the same themeState object representing the user's stored theme preference:
+
+  - `getThemeStyles` provides the contents of `<style>` tags to attach to the head of your server-side rendered document
+
+  - `getThemeHtmlAttributes` provides data-attributes to set on the root of your document.
+
+  - `getSSRAutoScript` provides a script to detect the system theme and configure the color mode before first paint.
+
+  For more information on these utilities, check the [@atlaskit/tokens API documentation](https://atlassian.design/components/tokens/code) on atlassian.design.
+
+  #### 🐞 Fixes
+
+  **Observer fixes:**
+
+  `useThemeObserver` & `ThemeObserver` now listen to changes on data-theme instead of data-color-mode.
+
+  Previously changes between two themes that both have a light color mode would not trigger an event since `data-color-mode` would not be updated. With this fix, the event fires on every call to `setGlobalTheme` regardless if there is a change to the theme or not.
+
+  **Automatic theme switching changes:**
+
+  Previously, the order of themes determined which one rendered. If you had multiple 'light' themes in your app, the order of the CSS files in the DOM determined which one rendered in "auto" mode.
+
+  Now, the theme that renders when the system is in 'light' and 'dark' mode is deterministic, and explicitly configured via the `themeState` object.
+
+  #### 🚮 Removed tokens
+
+  The following tokens have been moved from the `deprecated` & `deleted` to removed state in their lifecycles. These tokens will no longer exist and will not be functional moving forward, tooling will begin to error wherever they're used.
+
+  - `color.text.highEmphasis` => `color.text`
+  - `color.text.link.pressed` => `color.link.pressed`
+  - `color.text.link.resting` => `color.link`
+  - `color.text.lowEmphasis` => `color.text.subtlest`
+  - `color.text.mediumEmphasis` => `color.text.subtle`
+  - `color.text.onBold` => `color.text.inverse`
+  - `color.text.onBoldWarning` => `color.text.warning.inverse`
+  - `color.border.focus` => `color.border.focused`
+  - `color.border.neutral` => `color.border`
+  - `color.background.accent.blue` => `color.background.accent.blue.subtler`
+  - `color.background.accent.blue.bold` => `color.background.accent.blue.subtle`
+  - `color.background.accent.red` => `color.background.accent.red.subtler`
+  - `color.background.accent.red.bold` => `color.background.accent.red.subtle`
+  - `color.background.accent.orange` => `color.background.accent.orange.subtler`
+  - `color.background.accent.orange.bold` => `color.background.accent.orange.subtle`
+  - `color.background.accent.yellow` => `color.background.accent.yellow.subtler`
+  - `color.background.accent.yellow.bold` => `color.background.accent.yellow.subtle`
+  - `color.background.accent.green` => `color.background.accent.green.subtler`
+  - `color.background.accent.green.bold` => `color.background.accent.green.subtle`
+  - `color.background.accent.teal` => `color.background.accent.teal.subtler`
+  - `color.background.accent.teal.bold` => `color.background.accent.teal.subtle`
+  - `color.background.accent.purple` => `color.background.accent.purple.subtler`
+  - `color.background.accent.purple.bold` => `color.background.accent.purple.subtle`
+  - `color.background.accent.magenta` => `color.background.accent.magenta.subtler`
+  - `color.background.accent.magenta.bold` => `color.background.accent.magenta.subtle`
+  - `color.background.inverse` => `color.background.inverse.subtle`
+  - `color.background.brand` => `color.background.selected`
+  - `color.background.brand.hovered` => `color.background.selected.hovered`
+  - `color.background.brand.pressed` => `color.background.selected.pressed`
+  - `color.background.selected.resting` => `color.background.selected`
+  - `color.background.selected.hover` => `color.background.selected.hovered`
+  - `color.background.blanket` => `color.blanket`
+  - `color.background.boldBrand.hover` => `color.background.brand.bold.hovered`
+  - `color.background.boldBrand.pressed` => `color.background.brand.bold.pressed`
+  - `color.background.boldBrand.resting` => `color.background.brand.bold`
+  - `color.background.boldDanger.hover` => `color.background.danger.bold.hovered`
+  - `color.background.boldDanger.pressed` => `color.background.danger.bold.pressed`
+  - `color.background.boldDanger.resting` => `color.background.danger.bold`
+  - `color.background.boldDiscovery.hover` => `color.background.discovery.bold.hovered`
+  - `color.background.boldDiscovery.pressed` => `color.background.discovery.bold.pressed`
+  - `color.background.boldDiscovery.resting` => `color.background.discovery.bold`
+  - `color.background.boldNeutral.hover` => `color.background.neutral.bold.hovered`
+  - `color.background.boldNeutral.pressed` => `color.background.neutral.bold.pressed`
+  - `color.background.boldNeutral.resting` => `color.background.neutral.bold`
+  - `color.background.boldSuccess.hover` => `color.background.success.bold.hovered`
+  - `color.background.boldSuccess.pressed` => `color.background.success.bold.pressed`
+  - `color.background.boldSuccess.resting` => `color.background.success.bold`
+  - `color.background.boldWarning.hover` => `color.background.warning.bold.hovered`
+  - `color.background.boldWarning.pressed` => `color.background.warning.bold.pressed`
+  - `color.background.boldWarning.resting` => `color.background.warning.bold`
+  - `color.background.card` => `elevation.surface.raised`
+  - `color.background.default` => `elevation.surface`
+  - `color.background.overlay` => `elevation.surface.overlay`
+  - `color.background.subtleBorderedNeutral.pressed` => `color.background.input.pressed`
+  - `color.background.subtleBorderedNeutral.resting` => `color.background.input`
+  - `color.background.subtleBrand.hover` => `color.background.selected.hovered`
+  - `color.background.subtleBrand.pressed` => `color.background.selected.pressed`
+  - `color.background.subtleBrand.resting` => `color.background.selected`
+  - `color.background.subtleDanger.hover` => `color.background.danger.hovered`
+  - `color.background.subtleDanger.pressed` => `color.background.danger.pressed`
+  - `color.background.subtleDanger.resting` => `color.background.danger`
+  - `color.background.subtleDiscovery.hover` => `color.background.discovery.hovered`
+  - `color.background.subtleDiscovery.pressed` => `color.background.discovery.pressed`
+  - `color.background.subtleDiscovery.resting` => `color.background.discovery`
+  - `color.background.subtleNeutral.hover` => `color.background.neutral.hovered`
+  - `color.background.subtleNeutral.pressed` => `color.background.neutral.pressed`
+  - `color.background.subtleNeutral.resting` => `color.background.neutral`
+  - `color.background.subtleSuccess.hover` => `color.background.success.hovered`
+  - `color.background.subtleSuccess.pressed` => `color.background.success.pressed`
+  - `color.background.subtleSuccess.resting` => `color.background.success`
+  - `color.background.subtleWarning.hover` => `color.background.warning.hovered`
+  - `color.background.subtleWarning.pressed` => `color.background.warning.pressed`
+  - `color.background.subtleWarning.resting` => `color.background.warning`
+  - `color.background.sunken` => `elevation.surface.sunken`
+  - `color.background.transparentNeutral.hover` => `color.background.neutral.subtle.hovered`
+  - `color.background.transparentNeutral.pressed` => `color.background.neutral.subtle.pressed`
+  - `color.interaction.inverse.hovered` => `color.background.inverse.subtle.hovered`
+  - `color.interaction.inverse.pressed` => `color.background.inverse.subtle.pressed`
+  - `color.accent.boldBlue` => `color.background.accent.blue.bolder`
+  - `color.accent.boldGreen` => `color.background.accent.green.bolder`
+  - `color.accent.boldOrange` => `color.background.accent.orange.bolder`
+  - `color.accent.boldPurple` => `color.background.accent.purple.bolder`
+  - `color.accent.boldRed` => `color.background.accent.red.bolder`
+  - `color.accent.boldTeal` => `color.background.accent.teal.bolder`
+  - `color.accent.subtleBlue` => `color.background.accent.blue.subtler`
+  - `color.accent.subtleGreen` => `color.background.accent.green.subtler`
+  - `color.accent.subtleMagenta` => `color.background.accent.magenta.subtler`
+  - `color.accent.subtleOrange` => `color.background.accent.orange.subtler`
+  - `color.accent.subtlePurple` => `color.background.accent.purple.subtler`
+  - `color.accent.subtleRed` => `color.background.accent.red.subtler`
+  - `color.accent.subtleTeal` => `color.background.accent.teal.subtler`
+  - `color.iconBorder.brand` => `color.icon.brand`
+  - `color.iconBorder.danger` => `color.icon.danger`
+  - `color.iconBorder.discovery` => `color.icon.discovery`
+  - `color.iconBorder.success` => `color.icon.success`
+  - `color.iconBorder.warning` => `color.icon.warning`
+  - `color.overlay.hover` => `color.interaction.hovered`
+  - `color.overlay.pressed` => `color.interaction.pressed`
+  - `shadow.card` => `elevation.shadow.raised`
+  - `shadow.overlay` => `elevation.shadow.overlay`
+  - `utility.UNSAFE_util.transparent` => `utility.UNSAFE.transparent`
+  - `utility.UNSAFE_util.MISSING_TOKEN` => No replacement
+
 ## 0.13.5
 
 ### Patch Changes

@@ -186,10 +186,6 @@ const Box = ({
   </button>
 );
 
-// Themes mounted to the page as css files
-import '../css/atlassian-light.css';
-import '../css/atlassian-dark.css';
-
 export default () => {
   useEffect(() => {
     // If the theme has been set, dont do anything
@@ -197,7 +193,7 @@ export default () => {
       return;
     }
     // Light theme is activated by default
-    setGlobalTheme('light');
+    setGlobalTheme({ colorMode: 'light' });
   }, []);
 
   return (
@@ -210,6 +206,18 @@ export default () => {
           ))}
         </div>
       ))}
+      <button
+        type="button"
+        onClick={() => setGlobalTheme({ colorMode: 'light' })}
+      >
+        light
+      </button>
+      <button
+        type="button"
+        onClick={() => setGlobalTheme({ colorMode: 'dark' })}
+      >
+        dark
+      </button>
     </div>
   );
 };

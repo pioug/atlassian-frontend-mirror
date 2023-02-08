@@ -26,6 +26,8 @@ import {
   JiraAlignWordmark,
   JiraIcon,
   JiraLogo,
+  JiraProductDiscoveryIcon,
+  JiraProductDiscoveryLogo,
   JiraServiceManagementIcon,
   JiraServiceManagementLogo,
   JiraServiceManagementWordmark,
@@ -103,6 +105,13 @@ export default () => (
         {buildRows(HalpLogo, HalpWordmark, HalpIcon)}
         {buildRows(JiraAlignLogo, JiraAlignWordmark, JiraAlignIcon)}
         {buildRows(JiraLogo, JiraWordmark, JiraIcon)}
+        {buildRows(
+          JiraProductDiscoveryLogo,
+          () => (
+            <div />
+          ),
+          JiraProductDiscoveryIcon,
+        )}
         {buildRows(
           JiraServiceManagementLogo,
           JiraServiceManagementWordmark,

@@ -265,8 +265,8 @@ tester.run('ensure-design-token-usage', rule, {
         `,
       output: `
           css\`
-            background-color: $\{token('color.background.card')};
-            box-shadow: \${token('shadow.card')};
+            background-color: $\{token('elevation.surface.raised')};
+            box-shadow: \${token('elevation.shadow.raised')};
           \`
         `,
       errors: [{ messageId: 'legacyElevation' }],

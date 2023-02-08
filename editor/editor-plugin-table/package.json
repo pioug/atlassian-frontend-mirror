@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-table",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Table plugin for the @atlaskit/editor",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -24,7 +24,7 @@
     "@atlaskit/editor-tables": "^2.2.0",
     "@atlaskit/icon": "^21.11.0",
     "@atlaskit/theme": "^12.1.0",
-    "@atlaskit/tokens": "^0.13.0",
+    "@atlaskit/tokens": "^1.0.0",
     "@atlaskit/tooltip": "^17.6.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
@@ -51,10 +51,10 @@
   "devDependencies": {
     "@atlaskit/analytics-next": "^8.3.3",
     "@atlaskit/button": "^16.5.0",
-    "@atlaskit/editor-core": "^178.1.0",
+    "@atlaskit/editor-core": "^179.0.0",
     "@atlaskit/editor-test-helpers": "^18.0.0",
-    "@atlaskit/link-provider": "^1.3.0",
-    "@atlaskit/logo": "^13.10.0",
+    "@atlaskit/link-provider": "^1.4.0",
+    "@atlaskit/logo": "^13.11.0",
     "@atlaskit/media-integration-test-helpers": "^2.6.0",
     "@atlaskit/synchrony-test-helpers": "^2.3.0",
     "@atlaskit/util-data-test": "^17.6.0",

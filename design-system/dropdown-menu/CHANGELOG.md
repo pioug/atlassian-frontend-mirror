@@ -1,5 +1,12 @@
 # @atlaskit/dropdown-menu
 
+## 11.5.12
+
+### Patch Changes
+
+- [`22b754d311f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/22b754d311f) - Updates usage of removed design token `utilities.UNSAFE_util.transparent` in favour of its replacement `utilities.UNSAFE.transparent`
+- Updated dependencies
+
 ## 11.5.11
 
 ### Patch Changes

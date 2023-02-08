@@ -48,7 +48,7 @@ tester.run('no-unsafe-design-token-usage', rule, {
   valid: [
     // Using config -> shouldEnforceFallbacks: false
     {
-      code: `token('shadow.card')`,
+      code: `token('elevation.shadow.raised')`,
     },
     {
       code: `const background = 'hey';`,
@@ -57,9 +57,7 @@ tester.run('no-unsafe-design-token-usage', rule, {
       code: `import { e100 } from 'lib';`,
     },
     {
-      code: `
-      css({background:'none'})
-      `,
+      code: `css({ background:'none' })`,
     },
     {
       code: `
@@ -69,14 +67,14 @@ tester.run('no-unsafe-design-token-usage', rule, {
     {
       code: `
         css({
-          boxShadow: token('shadow.card'),
+          boxShadow: token('elevation.shadow.raised'),
         })
       `,
     },
     {
       code: `
         css\`
-          box-shadow: \${token('shadow.card')};
+          box-shadow: \${token('elevation.shadow.raised')};
         \`
       `,
     },
@@ -84,7 +82,7 @@ tester.run('no-unsafe-design-token-usage', rule, {
       code: `
         css\`
           color: inherit;
-          color: token('color.background.blanket');
+          color: token('color.blanket');
         \`
       `,
     },
@@ -92,7 +90,7 @@ tester.run('no-unsafe-design-token-usage', rule, {
       code: `
       styled.div\`
         color: inherit;
-        color: token('color.background.blanket');
+        color: token('color.blanket');
       \`
     `,
     },
@@ -110,7 +108,7 @@ tester.run('no-unsafe-design-token-usage', rule, {
     // Using config -> shouldEnforceFallbacks: true
     {
       options: [{ shouldEnforceFallbacks: true }],
-      code: `token('shadow.card', background())`,
+      code: `token('elevation.shadow.raised', background())`,
     },
     {
       code: `const background = 'hey';`,
@@ -129,7 +127,7 @@ tester.run('no-unsafe-design-token-usage', rule, {
       options: [{ shouldEnforceFallbacks: true }],
       code: `
       css({
-        boxShadow: token('shadow.card', 'red'),
+        boxShadow: token('elevation.shadow.raised', 'red'),
       })
     `,
     },
@@ -137,7 +135,7 @@ tester.run('no-unsafe-design-token-usage', rule, {
       options: [{ shouldEnforceFallbacks: true }],
       code: `
       css\`
-        box-shadow: \${token('shadow.card', 'red')};
+        box-shadow: \${token('elevation.shadow.raised', 'red')};
       \`
     `,
     },
@@ -146,7 +144,7 @@ tester.run('no-unsafe-design-token-usage', rule, {
       code: `
       css\`
         color: inherit;
-        color: token('color.background.blanket', 'red');
+        color: token('color.blanket', 'red');
       \`
     `,
     },
@@ -155,22 +153,22 @@ tester.run('no-unsafe-design-token-usage', rule, {
       code: `
       styled.div\`
         color: inherit;
-        color: token('color.background.blanket', 'red');
+        color: token('color.blanket', 'red');
       \`
     `,
     },
     {
       options: [{ shouldEnforceFallbacks: true }],
       code: `
-      token('color.background.blanket', 'red');
-      token('color.background.blanket', B100);
-      token('color.background.blanket', colors.B200);
+      token('color.blanket', 'red');
+      token('color.blanket', B100);
+      token('color.blanket', colors.B200);
     `,
     },
     {
       options: [{ shouldEnforceFallbacks: true }],
       code: `
-      token('color.background.blanket', 'red');
+      token('color.blanket', 'red');
     `,
     },
     {
@@ -184,7 +182,7 @@ tester.run('no-unsafe-design-token-usage', rule, {
       options: [{ shouldEnforceFallbacks: true }],
       code: `
     css({
-      backgroundColor: token('color.background.blanket', background())
+      backgroundColor: token('color.blanket', background())
     })
     `,
     },
@@ -227,14 +225,14 @@ tester.run('no-unsafe-design-token-usage', rule, {
   ],
   invalid: [
     {
-      code: `css({ color: 'var(--ds-accent-subtleBlue)' });`,
-      output: `css({ color: token('color.accent.subtleBlue') });`,
+      code: `css({ color: 'var(--ds-background-accent-blue-subtler)' });`,
+      output: `css({ color: token('color.background.accent.blue.subtler') });`,
       errors: [{ messageId: 'directTokenUsage' }],
     },
     {
       code: `
           css\`
-            color: var(--ds-accent-subtleBlue);
+            color: var(--ds-background-accent-blue-subtler);
           \`;
         `,
       errors: [{ messageId: 'directTokenUsage' }],
@@ -242,7 +240,7 @@ tester.run('no-unsafe-design-token-usage', rule, {
     {
       code: `
           styled.div\`
-            color: var(--ds-accent-subtleBlue);
+            color: var(--ds-background-accent-blue-subtler);
           \`;
         `,
       errors: [{ messageId: 'directTokenUsage' }],
@@ -299,27 +297,15 @@ tester.run('no-unsafe-design-token-usage', rule, {
     // Using config -> shouldEnforceFallbacks: false
     {
       // should error when a fallback is supplied
-      code: `css({ color: token('shadow.card', 'red') })`,
-      output: `css({ color: token('shadow.card') })`,
-      errors: [{ messageId: 'tokenFallbackRestricted' }],
-    },
-    {
-      // should error when a fallback is supplied
-      code: `css({ color: getTokenValue('shadow.card', 'red') })`,
-      output: `css({ color: getTokenValue('shadow.card') })`,
+      code: `css({ color: token('elevation.shadow.raised', 'red') })`,
+      output: `css({ color: token('elevation.shadow.raised') })`,
       errors: [{ messageId: 'tokenFallbackRestricted' }],
     },
     // Using config -> shouldEnforceFallbacks: true
     {
       // should error when a fallback is not supplied
       options: [{ shouldEnforceFallbacks: true }],
-      code: `css({ color: token('shadow.card') })`,
-      errors: [{ messageId: 'tokenFallbackEnforced' }],
-    },
-    {
-      // should error when a fallback is not supplied
-      options: [{ shouldEnforceFallbacks: true }],
-      code: `css({ color: getTokenValue('shadow.card') })`,
+      code: `css({ color: token('elevation.shadow.raised') })`,
       errors: [{ messageId: 'tokenFallbackEnforced' }],
     },
   ],

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/stylelint-design-system",
-  "version": "0.3.15",
+  "version": "0.3.16",
   "description": "Stylelint plugin for use with the Atlassian Design System.",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -33,7 +33,7 @@
     ".": "./src/index.tsx"
   },
   "dependencies": {
-    "@atlaskit/tokens": "^0.13.0",
+    "@atlaskit/tokens": "^1.0.0",
     "@babel/runtime": "^7.0.0",
     "postcss-value-parser": "^4.2.0"
   },

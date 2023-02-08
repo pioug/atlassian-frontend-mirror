@@ -1,5 +1,12 @@
 # @atlaskit/editor-shared-styles
 
+## 2.3.2
+
+### Patch Changes
+
+- [`0d93211414e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0d93211414e) - Updates usage of removed design token `utilities.UNSAFE_util.transparent` in favour of its replacement `utilities.UNSAFE.transparent`.
+- Updated dependencies
+
 ## 2.3.1
 
 ### Patch Changes

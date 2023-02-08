@@ -1,14 +1,13 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { mapLocaleToPrsLocale } from './index';
+import mapLocaleToPrsLocale from './index';
 
-describe('getFormattedLocaleFromDimensions', () => {
+describe('mapLocaleToPrsLocale', () => {
   it.each`
     locale
     ${'en-US'}
     ${'en-GB'}
     ${'pt-BR'}
-    ${'zn-CN'}
-    ${'zn-TW'}
+    ${'zh-CN'}
+    ${'zh-TW'}
   `(
     'should return locale with country code where applicable: $locale',
     ({ locale }: any) => {

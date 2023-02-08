@@ -1,1 +1,1 @@
-export type Themes = 'light' | 'dark' | 'none' | 'split' | 'stack';
+export type Themes = 'light' | 'dark' | 'auto' | 'none' | 'split' | 'stack';

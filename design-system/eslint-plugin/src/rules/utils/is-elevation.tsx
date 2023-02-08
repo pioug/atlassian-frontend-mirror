@@ -5,24 +5,24 @@ const legacyElevation: Record<
   { background: keyof typeof tokens; shadow: keyof typeof tokens }
 > = {
   e100: {
-    background: 'color.background.card',
-    shadow: 'shadow.card',
+    background: 'elevation.surface.raised',
+    shadow: 'elevation.shadow.raised',
   },
   e200: {
-    background: 'color.background.overlay',
-    shadow: 'shadow.overlay',
+    background: 'elevation.surface.overlay',
+    shadow: 'elevation.shadow.overlay',
   },
   e300: {
-    background: 'color.background.overlay',
-    shadow: 'shadow.overlay',
+    background: 'elevation.surface.overlay',
+    shadow: 'elevation.shadow.overlay',
   },
   e400: {
-    background: 'color.background.overlay',
-    shadow: 'shadow.overlay',
+    background: 'elevation.surface.overlay',
+    shadow: 'elevation.shadow.overlay',
   },
   e500: {
-    background: 'color.background.overlay',
-    shadow: 'shadow.overlay',
+    background: 'elevation.surface.overlay',
+    shadow: 'elevation.shadow.overlay',
   },
 };
 

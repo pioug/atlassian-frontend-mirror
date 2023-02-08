@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/tokens",
-  "version": "0.13.5",
+  "version": "1.0.0",
   "author": "Atlassian Pty Ltd",
   "description": "Design tokens are the single source of truth to name and store design decisions.",
   "license": "Apache-2.0",
@@ -41,11 +41,7 @@
     "./token-ids": "./src/entry-points/token-ids.tsx",
     "./token-names": "./src/entry-points/token-names.tsx",
     "./rename-mapping": "./src/entry-points/rename-mapping.tsx",
-    "./babel-plugin": "./src/entry-points/babel-plugin.tsx",
-    "./css/atlassian-light.css": "./css/atlassian-light.css",
-    "./css/atlassian-dark.css": "./css/atlassian-dark.css",
-    "./css/atlassian-legacy-light.css": "./css/atlassian-legacy-light.css",
-    "./css/atlassian-legacy-dark.css": "./css/atlassian-legacy-dark.css"
+    "./babel-plugin": "./src/entry-points/babel-plugin.tsx"
   },
   "scripts": {
     "ak-postbuild": "(cd $(npx repo-root) && yarn build @af/codegen) && yarn workspace @atlaskit/tokens codegen-tokens && yarn workspace @atlaskit/tokens check-clean-git",
@@ -56,7 +52,8 @@
     "@atlaskit/ds-lib": "^2.1.0",
     "@babel/runtime": "^7.0.0",
     "@babel/traverse": "^7.15.0",
-    "@babel/types": "^7.15.0"
+    "@babel/types": "^7.15.0",
+    "bind-event-listener": "^2.1.1"
   },
   "peerDependencies": {
     "react": "^16.8.0"
@@ -68,7 +65,7 @@
     "@atlaskit/badge": "^15.0.11",
     "@atlaskit/button": "^16.5.0",
     "@atlaskit/checkbox": "^12.4.0",
-    "@atlaskit/code": "^14.4.0",
+    "@atlaskit/code": "^14.4.5",
     "@atlaskit/docs": "^9.0.10",
     "@atlaskit/dropdown-menu": "^11.5.0",
     "@atlaskit/ds-explorations": "^2.0.0",

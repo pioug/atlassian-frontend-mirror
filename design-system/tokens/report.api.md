@@ -15,6 +15,8 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
+import { UnbindFn } from 'bind-event-listener';
+
 // @public (undocumented)
 export type CSSToken = CSSTokenMap[keyof CSSTokenMap];
 
@@ -40,14 +42,7 @@ type CSSTokenMap = {
   'color.text.accent.gray': 'var(--ds-text-accent-gray)';
   'color.text.accent.gray.bolder': 'var(--ds-text-accent-gray-bolder)';
   'color.text.disabled': 'var(--ds-text-disabled)';
-  'color.text.highEmphasis': 'var(--ds-text-highEmphasis)';
   'color.text.inverse': 'var(--ds-text-inverse)';
-  'color.text.link.pressed': 'var(--ds-text-link-pressed)';
-  'color.text.link.resting': 'var(--ds-text-link-resting)';
-  'color.text.lowEmphasis': 'var(--ds-text-lowEmphasis)';
-  'color.text.mediumEmphasis': 'var(--ds-text-mediumEmphasis)';
-  'color.text.onBold': 'var(--ds-text-onBold)';
-  'color.text.onBoldWarning': 'var(--ds-text-onBoldWarning)';
   'color.text.selected': 'var(--ds-text-selected)';
   'color.text.brand': 'var(--ds-text-brand)';
   'color.text.danger': 'var(--ds-text-danger)';
@@ -92,11 +87,9 @@ type CSSTokenMap = {
   'color.border.accent.magenta': 'var(--ds-border-accent-magenta)';
   'color.border.accent.gray': 'var(--ds-border-accent-gray)';
   'color.border.disabled': 'var(--ds-border-disabled)';
-  'color.border.focus': 'var(--ds-border-focus)';
   'color.border.focused': 'var(--ds-border-focused)';
   'color.border.input': 'var(--ds-border-input)';
   'color.border.inverse': 'var(--ds-border-inverse)';
-  'color.border.neutral': 'var(--ds-border-neutral)';
   'color.border.selected': 'var(--ds-border-selected)';
   'color.border.brand': 'var(--ds-border-brand)';
   'color.border.danger': 'var(--ds-border-danger)';
@@ -105,84 +98,46 @@ type CSSTokenMap = {
   'color.border.discovery': 'var(--ds-border-discovery)';
   'color.border.information': 'var(--ds-border-information)';
   'color.border.bold': 'var(--ds-border-bold)';
-  'color.background.accent.red': 'var(--ds-background-accent-red)';
   'color.background.accent.red.subtlest': 'var(--ds-background-accent-red-subtlest)';
   'color.background.accent.red.subtler': 'var(--ds-background-accent-red-subtler)';
   'color.background.accent.red.subtle': 'var(--ds-background-accent-red-subtle)';
-  'color.background.accent.red.bold': 'var(--ds-background-accent-red-bold)';
   'color.background.accent.red.bolder': 'var(--ds-background-accent-red-bolder)';
-  'color.background.accent.orange': 'var(--ds-background-accent-orange)';
   'color.background.accent.orange.subtlest': 'var(--ds-background-accent-orange-subtlest)';
   'color.background.accent.orange.subtler': 'var(--ds-background-accent-orange-subtler)';
   'color.background.accent.orange.subtle': 'var(--ds-background-accent-orange-subtle)';
-  'color.background.accent.orange.bold': 'var(--ds-background-accent-orange-bold)';
   'color.background.accent.orange.bolder': 'var(--ds-background-accent-orange-bolder)';
-  'color.background.accent.yellow': 'var(--ds-background-accent-yellow)';
   'color.background.accent.yellow.subtlest': 'var(--ds-background-accent-yellow-subtlest)';
   'color.background.accent.yellow.subtler': 'var(--ds-background-accent-yellow-subtler)';
   'color.background.accent.yellow.subtle': 'var(--ds-background-accent-yellow-subtle)';
-  'color.background.accent.yellow.bold': 'var(--ds-background-accent-yellow-bold)';
   'color.background.accent.yellow.bolder': 'var(--ds-background-accent-yellow-bolder)';
-  'color.background.accent.green': 'var(--ds-background-accent-green)';
   'color.background.accent.green.subtlest': 'var(--ds-background-accent-green-subtlest)';
   'color.background.accent.green.subtler': 'var(--ds-background-accent-green-subtler)';
   'color.background.accent.green.subtle': 'var(--ds-background-accent-green-subtle)';
-  'color.background.accent.green.bold': 'var(--ds-background-accent-green-bold)';
   'color.background.accent.green.bolder': 'var(--ds-background-accent-green-bolder)';
-  'color.background.accent.teal': 'var(--ds-background-accent-teal)';
   'color.background.accent.teal.subtlest': 'var(--ds-background-accent-teal-subtlest)';
   'color.background.accent.teal.subtler': 'var(--ds-background-accent-teal-subtler)';
   'color.background.accent.teal.subtle': 'var(--ds-background-accent-teal-subtle)';
-  'color.background.accent.teal.bold': 'var(--ds-background-accent-teal-bold)';
   'color.background.accent.teal.bolder': 'var(--ds-background-accent-teal-bolder)';
-  'color.background.accent.blue': 'var(--ds-background-accent-blue)';
   'color.background.accent.blue.subtlest': 'var(--ds-background-accent-blue-subtlest)';
   'color.background.accent.blue.subtler': 'var(--ds-background-accent-blue-subtler)';
   'color.background.accent.blue.subtle': 'var(--ds-background-accent-blue-subtle)';
-  'color.background.accent.blue.bold': 'var(--ds-background-accent-blue-bold)';
   'color.background.accent.blue.bolder': 'var(--ds-background-accent-blue-bolder)';
-  'color.background.accent.purple': 'var(--ds-background-accent-purple)';
   'color.background.accent.purple.subtlest': 'var(--ds-background-accent-purple-subtlest)';
   'color.background.accent.purple.subtler': 'var(--ds-background-accent-purple-subtler)';
   'color.background.accent.purple.subtle': 'var(--ds-background-accent-purple-subtle)';
-  'color.background.accent.purple.bold': 'var(--ds-background-accent-purple-bold)';
   'color.background.accent.purple.bolder': 'var(--ds-background-accent-purple-bolder)';
-  'color.background.accent.magenta': 'var(--ds-background-accent-magenta)';
   'color.background.accent.magenta.subtlest': 'var(--ds-background-accent-magenta-subtlest)';
   'color.background.accent.magenta.subtler': 'var(--ds-background-accent-magenta-subtler)';
   'color.background.accent.magenta.subtle': 'var(--ds-background-accent-magenta-subtle)';
-  'color.background.accent.magenta.bold': 'var(--ds-background-accent-magenta-bold)';
   'color.background.accent.magenta.bolder': 'var(--ds-background-accent-magenta-bolder)';
   'color.background.accent.gray.subtlest': 'var(--ds-background-accent-gray-subtlest)';
   'color.background.accent.gray.subtler': 'var(--ds-background-accent-gray-subtler)';
   'color.background.accent.gray.subtle': 'var(--ds-background-accent-gray-subtle)';
   'color.background.accent.gray.bolder': 'var(--ds-background-accent-gray-bolder)';
-  'color.background.blanket': 'var(--ds-background-blanket)';
-  'color.background.boldBrand.hover': 'var(--ds-background-boldBrand-hover)';
-  'color.background.boldBrand.pressed': 'var(--ds-background-boldBrand-pressed)';
-  'color.background.boldBrand.resting': 'var(--ds-background-boldBrand-resting)';
-  'color.background.boldDanger.hover': 'var(--ds-background-boldDanger-hover)';
-  'color.background.boldDanger.pressed': 'var(--ds-background-boldDanger-pressed)';
-  'color.background.boldDanger.resting': 'var(--ds-background-boldDanger-resting)';
-  'color.background.boldDiscovery.hover': 'var(--ds-background-boldDiscovery-hover)';
-  'color.background.boldDiscovery.pressed': 'var(--ds-background-boldDiscovery-pressed)';
-  'color.background.boldDiscovery.resting': 'var(--ds-background-boldDiscovery-resting)';
-  'color.background.boldNeutral.hover': 'var(--ds-background-boldNeutral-hover)';
-  'color.background.boldNeutral.pressed': 'var(--ds-background-boldNeutral-pressed)';
-  'color.background.boldNeutral.resting': 'var(--ds-background-boldNeutral-resting)';
-  'color.background.boldSuccess.hover': 'var(--ds-background-boldSuccess-hover)';
-  'color.background.boldSuccess.pressed': 'var(--ds-background-boldSuccess-pressed)';
-  'color.background.boldSuccess.resting': 'var(--ds-background-boldSuccess-resting)';
-  'color.background.boldWarning.hover': 'var(--ds-background-boldWarning-hover)';
-  'color.background.boldWarning.pressed': 'var(--ds-background-boldWarning-pressed)';
-  'color.background.boldWarning.resting': 'var(--ds-background-boldWarning-resting)';
-  'color.background.card': 'var(--ds-background-card)';
-  'color.background.default': 'var(--ds-background-default)';
   'color.background.disabled': 'var(--ds-background-disabled)';
   'color.background.input': 'var(--ds-background-input)';
   'color.background.input.hovered': 'var(--ds-background-input-hovered)';
   'color.background.input.pressed': 'var(--ds-background-input-pressed)';
-  'color.background.inverse': 'var(--ds-background-inverse)';
   'color.background.inverse.subtle': 'var(--ds-background-inverse-subtle)';
   'color.background.inverse.subtle.hovered': 'var(--ds-background-inverse-subtle-hovered)';
   'color.background.inverse.subtle.pressed': 'var(--ds-background-inverse-subtle-pressed)';
@@ -195,41 +150,12 @@ type CSSTokenMap = {
   'color.background.neutral.bold': 'var(--ds-background-neutral-bold)';
   'color.background.neutral.bold.hovered': 'var(--ds-background-neutral-bold-hovered)';
   'color.background.neutral.bold.pressed': 'var(--ds-background-neutral-bold-pressed)';
-  'color.background.overlay': 'var(--ds-background-overlay)';
   'color.background.selected': 'var(--ds-background-selected)';
   'color.background.selected.hovered': 'var(--ds-background-selected-hovered)';
   'color.background.selected.pressed': 'var(--ds-background-selected-pressed)';
-  'color.background.selected.hover': 'var(--ds-background-selected-hover)';
-  'color.background.selected.resting': 'var(--ds-background-selected-resting)';
   'color.background.selected.bold': 'var(--ds-background-selected-bold)';
   'color.background.selected.bold.hovered': 'var(--ds-background-selected-bold-hovered)';
   'color.background.selected.bold.pressed': 'var(--ds-background-selected-bold-pressed)';
-  'color.background.subtleBorderedNeutral.pressed': 'var(--ds-background-subtleBorderedNeutral-pressed)';
-  'color.background.subtleBorderedNeutral.resting': 'var(--ds-background-subtleBorderedNeutral-resting)';
-  'color.background.subtleBrand.hover': 'var(--ds-background-subtleBrand-hover)';
-  'color.background.subtleBrand.pressed': 'var(--ds-background-subtleBrand-pressed)';
-  'color.background.subtleBrand.resting': 'var(--ds-background-subtleBrand-resting)';
-  'color.background.subtleDanger.hover': 'var(--ds-background-subtleDanger-hover)';
-  'color.background.subtleDanger.pressed': 'var(--ds-background-subtleDanger-pressed)';
-  'color.background.subtleDanger.resting': 'var(--ds-background-subtleDanger-resting)';
-  'color.background.subtleDiscovery.hover': 'var(--ds-background-subtleDiscovery-hover)';
-  'color.background.subtleDiscovery.pressed': 'var(--ds-background-subtleDiscovery-pressed)';
-  'color.background.subtleDiscovery.resting': 'var(--ds-background-subtleDiscovery-resting)';
-  'color.background.subtleNeutral.hover': 'var(--ds-background-subtleNeutral-hover)';
-  'color.background.subtleNeutral.pressed': 'var(--ds-background-subtleNeutral-pressed)';
-  'color.background.subtleNeutral.resting': 'var(--ds-background-subtleNeutral-resting)';
-  'color.background.subtleSuccess.hover': 'var(--ds-background-subtleSuccess-hover)';
-  'color.background.subtleSuccess.pressed': 'var(--ds-background-subtleSuccess-pressed)';
-  'color.background.subtleSuccess.resting': 'var(--ds-background-subtleSuccess-resting)';
-  'color.background.subtleWarning.hover': 'var(--ds-background-subtleWarning-hover)';
-  'color.background.subtleWarning.pressed': 'var(--ds-background-subtleWarning-pressed)';
-  'color.background.subtleWarning.resting': 'var(--ds-background-subtleWarning-resting)';
-  'color.background.sunken': 'var(--ds-background-sunken)';
-  'color.background.transparentNeutral.hover': 'var(--ds-background-transparentNeutral-hover)';
-  'color.background.transparentNeutral.pressed': 'var(--ds-background-transparentNeutral-pressed)';
-  'color.background.brand': 'var(--ds-background-brand)';
-  'color.background.brand.hovered': 'var(--ds-background-brand-hovered)';
-  'color.background.brand.pressed': 'var(--ds-background-brand-pressed)';
   'color.background.brand.bold': 'var(--ds-background-brand-bold)';
   'color.background.brand.bold.hovered': 'var(--ds-background-brand-bold-hovered)';
   'color.background.brand.bold.pressed': 'var(--ds-background-brand-bold-pressed)';
@@ -267,8 +193,6 @@ type CSSTokenMap = {
   'color.blanket.selected': 'var(--ds-blanket-selected)';
   'color.blanket.danger': 'var(--ds-blanket-danger)';
   'color.interaction.hovered': 'var(--ds-interaction-hovered)';
-  'color.interaction.inverse.hovered': 'var(--ds-interaction-inverse-hovered)';
-  'color.interaction.inverse.pressed': 'var(--ds-interaction-inverse-pressed)';
   'color.interaction.pressed': 'var(--ds-interaction-pressed)';
   'color.skeleton': 'var(--ds-skeleton)';
   'color.skeleton.subtle': 'var(--ds-skeleton-subtle)';
@@ -366,26 +290,6 @@ type CSSTokenMap = {
   'color.chart.information.hovered': 'var(--ds-chart-information-hovered)';
   'color.chart.information.bold': 'var(--ds-chart-information-bold)';
   'color.chart.information.bold.hovered': 'var(--ds-chart-information-bold-hovered)';
-  'color.accent.boldBlue': 'var(--ds-accent-boldBlue)';
-  'color.accent.boldGreen': 'var(--ds-accent-boldGreen)';
-  'color.accent.boldOrange': 'var(--ds-accent-boldOrange)';
-  'color.accent.boldPurple': 'var(--ds-accent-boldPurple)';
-  'color.accent.boldRed': 'var(--ds-accent-boldRed)';
-  'color.accent.boldTeal': 'var(--ds-accent-boldTeal)';
-  'color.accent.subtleBlue': 'var(--ds-accent-subtleBlue)';
-  'color.accent.subtleGreen': 'var(--ds-accent-subtleGreen)';
-  'color.accent.subtleMagenta': 'var(--ds-accent-subtleMagenta)';
-  'color.accent.subtleOrange': 'var(--ds-accent-subtleOrange)';
-  'color.accent.subtlePurple': 'var(--ds-accent-subtlePurple)';
-  'color.accent.subtleRed': 'var(--ds-accent-subtleRed)';
-  'color.accent.subtleTeal': 'var(--ds-accent-subtleTeal)';
-  'color.iconBorder.brand': 'var(--ds-iconBorder-brand)';
-  'color.iconBorder.danger': 'var(--ds-iconBorder-danger)';
-  'color.iconBorder.warning': 'var(--ds-iconBorder-warning)';
-  'color.iconBorder.success': 'var(--ds-iconBorder-success)';
-  'color.iconBorder.discovery': 'var(--ds-iconBorder-discovery)';
-  'color.overlay.hover': 'var(--ds-overlay-hover)';
-  'color.overlay.pressed': 'var(--ds-overlay-pressed)';
   'elevation.surface': 'var(--ds-surface)';
   'elevation.surface.hovered': 'var(--ds-surface-hovered)';
   'elevation.surface.pressed': 'var(--ds-surface-pressed)';
@@ -403,10 +307,7 @@ type CSSTokenMap = {
   'elevation.shadow.raised': 'var(--ds-shadow-raised)';
   'opacity.disabled': 'var(--ds-opacity-disabled)';
   'opacity.loading': 'var(--ds-opacity-loading)';
-  'shadow.card': 'var(--ds-card)';
-  'shadow.overlay': 'var(--ds-overlay)';
-  'utility.UNSAFE_util.MISSING_TOKEN': 'var(--ds-UNSAFE_util-MISSING_TOKEN)';
-  'utility.UNSAFE_util.transparent': 'var(--ds-UNSAFE_util-transparent)';
+  'utility.UNSAFE.transparent': 'var(--ds-UNSAFE-transparent)';
   'spacing.scale.0': 'var(--ds-scale-0)';
   'spacing.scale.025': 'var(--ds-scale-025)';
   'spacing.scale.050': 'var(--ds-scale-050)';
@@ -512,6 +413,32 @@ type CSSTokenMap = {
 // @public
 type ExtensionThemeId = ThemeIds;
 
+// @public (undocumented)
+export const getGlobalTheme: () => Partial<ThemeState>;
+
+// @public
+export const getSSRAutoScript: (
+  colorMode: ThemeState['colorMode'],
+) => string | undefined;
+
+// @public
+export const getThemeHtmlAttrs: ({
+  colorMode,
+  dark,
+  light,
+  spacing,
+  typography,
+}?: Partial<ThemeState>) => Record<string, string>;
+
+// @public
+export const getThemeStyles: ({
+  colorMode,
+  dark,
+  light,
+  spacing,
+  typography,
+}?: Partial<ThemeState>) => Promise<ThemeStyles[]>;
+
 // @public
 export function getTokenValue<T extends keyof Tokens_2>(
   tokenId: T,
@@ -526,13 +453,19 @@ type Palettes =
   | 'typographyPalette';
 
 // @public
-export const setGlobalTheme: (
-  themeId: ThemeIds,
-  shouldMatchSystem?: boolean,
-) => void;
+export const setGlobalTheme: ({
+  colorMode,
+  dark,
+  light,
+  spacing,
+  typography,
+}?: Partial<ThemeState>) => Promise<UnbindFn>;
+
+// @public (undocumented)
+export type ThemeColorModes = typeof themeColorModes[number];
 
 // @public
-type ThemeColorModes = 'dark' | 'light';
+const themeColorModes: readonly ['light', 'dark', 'auto'];
 
 // @public
 interface ThemeConfig {
@@ -540,7 +473,7 @@ interface ThemeConfig {
   attributes: (
     | {
         type: 'color';
-        mode: ThemeColorModes;
+        mode: Exclude<ThemeColorModes, 'auto'>;
       }
     | {
         type: 'spacing';
@@ -562,18 +495,22 @@ interface ThemeConfig {
 // @public (undocumented)
 export const themeConfig: Record<Themes, ThemeConfig>;
 
+// @public (undocumented)
+export type ThemeIds = typeof themeIds[number];
+
 // @public
-export type ThemeIds =
-  | 'dark'
-  | 'legacy-dark'
-  | 'legacy-light'
-  | 'light'
-  | 'spacing'
-  | 'typography';
+const themeIds: readonly [
+  'light',
+  'dark',
+  'legacy-light',
+  'legacy-dark',
+  'spacing',
+  'typography',
+];
 
 // @public
 export class ThemeMutationObserver {
-  constructor(callback: (theme: ThemeIds | null) => unknown);
+  constructor(callback: (theme: Partial<ThemeState>) => unknown);
   // (undocumented)
   disconnect(): void;
   // (undocumented)
@@ -585,6 +522,9 @@ export class ThemeMutationObserver {
 }
 
 // @public
+export const themeObjectToString: (themeState: Partial<ThemeState>) => string;
+
+// @public
 export type Themes =
   | 'atlassian-dark'
   | 'atlassian-legacy-dark'
@@ -592,6 +532,33 @@ export type Themes =
   | 'atlassian-light'
   | 'atlassian-spacing'
   | 'atlassian-typography';
+
+// @public (undocumented)
+export interface ThemeState {
+  // (undocumented)
+  colorMode: ThemeColorModes;
+  // (undocumented)
+  dark: ThemeIds;
+  // (undocumented)
+  light: ThemeIds;
+  // (undocumented)
+  spacing?: ThemeIds;
+  // (undocumented)
+  typography?: ThemeIds;
+}
+
+// @public
+export const themeStringToObject: (themeState: string) => Partial<ThemeState>;
+
+// @public (undocumented)
+interface ThemeStyles {
+  // (undocumented)
+  attrs: Record<string, string>;
+  // (undocumented)
+  css: string;
+  // (undocumented)
+  id: ThemeIds;
+}
 
 // @public
 export function token<T extends keyof Tokens>(
@@ -624,14 +591,7 @@ const tokens: {
   readonly 'color.text.accent.gray': '--ds-text-accent-gray';
   readonly 'color.text.accent.gray.bolder': '--ds-text-accent-gray-bolder';
   readonly 'color.text.disabled': '--ds-text-disabled';
-  readonly 'color.text.highEmphasis': '--ds-text-highEmphasis';
   readonly 'color.text.inverse': '--ds-text-inverse';
-  readonly 'color.text.link.pressed': '--ds-text-link-pressed';
-  readonly 'color.text.link.resting': '--ds-text-link-resting';
-  readonly 'color.text.lowEmphasis': '--ds-text-lowEmphasis';
-  readonly 'color.text.mediumEmphasis': '--ds-text-mediumEmphasis';
-  readonly 'color.text.onBold': '--ds-text-onBold';
-  readonly 'color.text.onBoldWarning': '--ds-text-onBoldWarning';
   readonly 'color.text.selected': '--ds-text-selected';
   readonly 'color.text.brand': '--ds-text-brand';
   readonly 'color.text.danger': '--ds-text-danger';
@@ -676,11 +636,9 @@ const tokens: {
   readonly 'color.border.accent.magenta': '--ds-border-accent-magenta';
   readonly 'color.border.accent.gray': '--ds-border-accent-gray';
   readonly 'color.border.disabled': '--ds-border-disabled';
-  readonly 'color.border.focus': '--ds-border-focus';
   readonly 'color.border.focused': '--ds-border-focused';
   readonly 'color.border.input': '--ds-border-input';
   readonly 'color.border.inverse': '--ds-border-inverse';
-  readonly 'color.border.neutral': '--ds-border-neutral';
   readonly 'color.border.selected': '--ds-border-selected';
   readonly 'color.border.brand': '--ds-border-brand';
   readonly 'color.border.danger': '--ds-border-danger';
@@ -689,84 +647,46 @@ const tokens: {
   readonly 'color.border.discovery': '--ds-border-discovery';
   readonly 'color.border.information': '--ds-border-information';
   readonly 'color.border.bold': '--ds-border-bold';
-  readonly 'color.background.accent.red': '--ds-background-accent-red';
   readonly 'color.background.accent.red.subtlest': '--ds-background-accent-red-subtlest';
   readonly 'color.background.accent.red.subtler': '--ds-background-accent-red-subtler';
   readonly 'color.background.accent.red.subtle': '--ds-background-accent-red-subtle';
-  readonly 'color.background.accent.red.bold': '--ds-background-accent-red-bold';
   readonly 'color.background.accent.red.bolder': '--ds-background-accent-red-bolder';
-  readonly 'color.background.accent.orange': '--ds-background-accent-orange';
   readonly 'color.background.accent.orange.subtlest': '--ds-background-accent-orange-subtlest';
   readonly 'color.background.accent.orange.subtler': '--ds-background-accent-orange-subtler';
   readonly 'color.background.accent.orange.subtle': '--ds-background-accent-orange-subtle';
-  readonly 'color.background.accent.orange.bold': '--ds-background-accent-orange-bold';
   readonly 'color.background.accent.orange.bolder': '--ds-background-accent-orange-bolder';
-  readonly 'color.background.accent.yellow': '--ds-background-accent-yellow';
   readonly 'color.background.accent.yellow.subtlest': '--ds-background-accent-yellow-subtlest';
   readonly 'color.background.accent.yellow.subtler': '--ds-background-accent-yellow-subtler';
   readonly 'color.background.accent.yellow.subtle': '--ds-background-accent-yellow-subtle';
-  readonly 'color.background.accent.yellow.bold': '--ds-background-accent-yellow-bold';
   readonly 'color.background.accent.yellow.bolder': '--ds-background-accent-yellow-bolder';
-  readonly 'color.background.accent.green': '--ds-background-accent-green';
   readonly 'color.background.accent.green.subtlest': '--ds-background-accent-green-subtlest';
   readonly 'color.background.accent.green.subtler': '--ds-background-accent-green-subtler';
   readonly 'color.background.accent.green.subtle': '--ds-background-accent-green-subtle';
-  readonly 'color.background.accent.green.bold': '--ds-background-accent-green-bold';
   readonly 'color.background.accent.green.bolder': '--ds-background-accent-green-bolder';
-  readonly 'color.background.accent.teal': '--ds-background-accent-teal';
   readonly 'color.background.accent.teal.subtlest': '--ds-background-accent-teal-subtlest';
   readonly 'color.background.accent.teal.subtler': '--ds-background-accent-teal-subtler';
   readonly 'color.background.accent.teal.subtle': '--ds-background-accent-teal-subtle';
-  readonly 'color.background.accent.teal.bold': '--ds-background-accent-teal-bold';
   readonly 'color.background.accent.teal.bolder': '--ds-background-accent-teal-bolder';
-  readonly 'color.background.accent.blue': '--ds-background-accent-blue';
   readonly 'color.background.accent.blue.subtlest': '--ds-background-accent-blue-subtlest';
   readonly 'color.background.accent.blue.subtler': '--ds-background-accent-blue-subtler';
   readonly 'color.background.accent.blue.subtle': '--ds-background-accent-blue-subtle';
-  readonly 'color.background.accent.blue.bold': '--ds-background-accent-blue-bold';
   readonly 'color.background.accent.blue.bolder': '--ds-background-accent-blue-bolder';
-  readonly 'color.background.accent.purple': '--ds-background-accent-purple';
   readonly 'color.background.accent.purple.subtlest': '--ds-background-accent-purple-subtlest';
   readonly 'color.background.accent.purple.subtler': '--ds-background-accent-purple-subtler';
   readonly 'color.background.accent.purple.subtle': '--ds-background-accent-purple-subtle';
-  readonly 'color.background.accent.purple.bold': '--ds-background-accent-purple-bold';
   readonly 'color.background.accent.purple.bolder': '--ds-background-accent-purple-bolder';
-  readonly 'color.background.accent.magenta': '--ds-background-accent-magenta';
   readonly 'color.background.accent.magenta.subtlest': '--ds-background-accent-magenta-subtlest';
   readonly 'color.background.accent.magenta.subtler': '--ds-background-accent-magenta-subtler';
   readonly 'color.background.accent.magenta.subtle': '--ds-background-accent-magenta-subtle';
-  readonly 'color.background.accent.magenta.bold': '--ds-background-accent-magenta-bold';
   readonly 'color.background.accent.magenta.bolder': '--ds-background-accent-magenta-bolder';
   readonly 'color.background.accent.gray.subtlest': '--ds-background-accent-gray-subtlest';
   readonly 'color.background.accent.gray.subtler': '--ds-background-accent-gray-subtler';
   readonly 'color.background.accent.gray.subtle': '--ds-background-accent-gray-subtle';
   readonly 'color.background.accent.gray.bolder': '--ds-background-accent-gray-bolder';
-  readonly 'color.background.blanket': '--ds-background-blanket';
-  readonly 'color.background.boldBrand.hover': '--ds-background-boldBrand-hover';
-  readonly 'color.background.boldBrand.pressed': '--ds-background-boldBrand-pressed';
-  readonly 'color.background.boldBrand.resting': '--ds-background-boldBrand-resting';
-  readonly 'color.background.boldDanger.hover': '--ds-background-boldDanger-hover';
-  readonly 'color.background.boldDanger.pressed': '--ds-background-boldDanger-pressed';
-  readonly 'color.background.boldDanger.resting': '--ds-background-boldDanger-resting';
-  readonly 'color.background.boldDiscovery.hover': '--ds-background-boldDiscovery-hover';
-  readonly 'color.background.boldDiscovery.pressed': '--ds-background-boldDiscovery-pressed';
-  readonly 'color.background.boldDiscovery.resting': '--ds-background-boldDiscovery-resting';
-  readonly 'color.background.boldNeutral.hover': '--ds-background-boldNeutral-hover';
-  readonly 'color.background.boldNeutral.pressed': '--ds-background-boldNeutral-pressed';
-  readonly 'color.background.boldNeutral.resting': '--ds-background-boldNeutral-resting';
-  readonly 'color.background.boldSuccess.hover': '--ds-background-boldSuccess-hover';
-  readonly 'color.background.boldSuccess.pressed': '--ds-background-boldSuccess-pressed';
-  readonly 'color.background.boldSuccess.resting': '--ds-background-boldSuccess-resting';
-  readonly 'color.background.boldWarning.hover': '--ds-background-boldWarning-hover';
-  readonly 'color.background.boldWarning.pressed': '--ds-background-boldWarning-pressed';
-  readonly 'color.background.boldWarning.resting': '--ds-background-boldWarning-resting';
-  readonly 'color.background.card': '--ds-background-card';
-  readonly 'color.background.default': '--ds-background-default';
   readonly 'color.background.disabled': '--ds-background-disabled';
   readonly 'color.background.input': '--ds-background-input';
   readonly 'color.background.input.hovered': '--ds-background-input-hovered';
   readonly 'color.background.input.pressed': '--ds-background-input-pressed';
-  readonly 'color.background.inverse': '--ds-background-inverse';
   readonly 'color.background.inverse.subtle': '--ds-background-inverse-subtle';
   readonly 'color.background.inverse.subtle.hovered': '--ds-background-inverse-subtle-hovered';
   readonly 'color.background.inverse.subtle.pressed': '--ds-background-inverse-subtle-pressed';
@@ -779,41 +699,12 @@ const tokens: {
   readonly 'color.background.neutral.bold': '--ds-background-neutral-bold';
   readonly 'color.background.neutral.bold.hovered': '--ds-background-neutral-bold-hovered';
   readonly 'color.background.neutral.bold.pressed': '--ds-background-neutral-bold-pressed';
-  readonly 'color.background.overlay': '--ds-background-overlay';
   readonly 'color.background.selected': '--ds-background-selected';
   readonly 'color.background.selected.hovered': '--ds-background-selected-hovered';
   readonly 'color.background.selected.pressed': '--ds-background-selected-pressed';
-  readonly 'color.background.selected.hover': '--ds-background-selected-hover';
-  readonly 'color.background.selected.resting': '--ds-background-selected-resting';
   readonly 'color.background.selected.bold': '--ds-background-selected-bold';
   readonly 'color.background.selected.bold.hovered': '--ds-background-selected-bold-hovered';
   readonly 'color.background.selected.bold.pressed': '--ds-background-selected-bold-pressed';
-  readonly 'color.background.subtleBorderedNeutral.pressed': '--ds-background-subtleBorderedNeutral-pressed';
-  readonly 'color.background.subtleBorderedNeutral.resting': '--ds-background-subtleBorderedNeutral-resting';
-  readonly 'color.background.subtleBrand.hover': '--ds-background-subtleBrand-hover';
-  readonly 'color.background.subtleBrand.pressed': '--ds-background-subtleBrand-pressed';
-  readonly 'color.background.subtleBrand.resting': '--ds-background-subtleBrand-resting';
-  readonly 'color.background.subtleDanger.hover': '--ds-background-subtleDanger-hover';
-  readonly 'color.background.subtleDanger.pressed': '--ds-background-subtleDanger-pressed';
-  readonly 'color.background.subtleDanger.resting': '--ds-background-subtleDanger-resting';
-  readonly 'color.background.subtleDiscovery.hover': '--ds-background-subtleDiscovery-hover';
-  readonly 'color.background.subtleDiscovery.pressed': '--ds-background-subtleDiscovery-pressed';
-  readonly 'color.background.subtleDiscovery.resting': '--ds-background-subtleDiscovery-resting';
-  readonly 'color.background.subtleNeutral.hover': '--ds-background-subtleNeutral-hover';
-  readonly 'color.background.subtleNeutral.pressed': '--ds-background-subtleNeutral-pressed';
-  readonly 'color.background.subtleNeutral.resting': '--ds-background-subtleNeutral-resting';
-  readonly 'color.background.subtleSuccess.hover': '--ds-background-subtleSuccess-hover';
-  readonly 'color.background.subtleSuccess.pressed': '--ds-background-subtleSuccess-pressed';
-  readonly 'color.background.subtleSuccess.resting': '--ds-background-subtleSuccess-resting';
-  readonly 'color.background.subtleWarning.hover': '--ds-background-subtleWarning-hover';
-  readonly 'color.background.subtleWarning.pressed': '--ds-background-subtleWarning-pressed';
-  readonly 'color.background.subtleWarning.resting': '--ds-background-subtleWarning-resting';
-  readonly 'color.background.sunken': '--ds-background-sunken';
-  readonly 'color.background.transparentNeutral.hover': '--ds-background-transparentNeutral-hover';
-  readonly 'color.background.transparentNeutral.pressed': '--ds-background-transparentNeutral-pressed';
-  readonly 'color.background.brand': '--ds-background-brand';
-  readonly 'color.background.brand.hovered': '--ds-background-brand-hovered';
-  readonly 'color.background.brand.pressed': '--ds-background-brand-pressed';
   readonly 'color.background.brand.bold': '--ds-background-brand-bold';
   readonly 'color.background.brand.bold.hovered': '--ds-background-brand-bold-hovered';
   readonly 'color.background.brand.bold.pressed': '--ds-background-brand-bold-pressed';
@@ -851,8 +742,6 @@ const tokens: {
   readonly 'color.blanket.selected': '--ds-blanket-selected';
   readonly 'color.blanket.danger': '--ds-blanket-danger';
   readonly 'color.interaction.hovered': '--ds-interaction-hovered';
-  readonly 'color.interaction.inverse.hovered': '--ds-interaction-inverse-hovered';
-  readonly 'color.interaction.inverse.pressed': '--ds-interaction-inverse-pressed';
   readonly 'color.interaction.pressed': '--ds-interaction-pressed';
   readonly 'color.skeleton': '--ds-skeleton';
   readonly 'color.skeleton.subtle': '--ds-skeleton-subtle';
@@ -950,26 +839,6 @@ const tokens: {
   readonly 'color.chart.information.hovered': '--ds-chart-information-hovered';
   readonly 'color.chart.information.bold': '--ds-chart-information-bold';
   readonly 'color.chart.information.bold.hovered': '--ds-chart-information-bold-hovered';
-  readonly 'color.accent.boldBlue': '--ds-accent-boldBlue';
-  readonly 'color.accent.boldGreen': '--ds-accent-boldGreen';
-  readonly 'color.accent.boldOrange': '--ds-accent-boldOrange';
-  readonly 'color.accent.boldPurple': '--ds-accent-boldPurple';
-  readonly 'color.accent.boldRed': '--ds-accent-boldRed';
-  readonly 'color.accent.boldTeal': '--ds-accent-boldTeal';
-  readonly 'color.accent.subtleBlue': '--ds-accent-subtleBlue';
-  readonly 'color.accent.subtleGreen': '--ds-accent-subtleGreen';
-  readonly 'color.accent.subtleMagenta': '--ds-accent-subtleMagenta';
-  readonly 'color.accent.subtleOrange': '--ds-accent-subtleOrange';
-  readonly 'color.accent.subtlePurple': '--ds-accent-subtlePurple';
-  readonly 'color.accent.subtleRed': '--ds-accent-subtleRed';
-  readonly 'color.accent.subtleTeal': '--ds-accent-subtleTeal';
-  readonly 'color.iconBorder.brand': '--ds-iconBorder-brand';
-  readonly 'color.iconBorder.danger': '--ds-iconBorder-danger';
-  readonly 'color.iconBorder.warning': '--ds-iconBorder-warning';
-  readonly 'color.iconBorder.success': '--ds-iconBorder-success';
-  readonly 'color.iconBorder.discovery': '--ds-iconBorder-discovery';
-  readonly 'color.overlay.hover': '--ds-overlay-hover';
-  readonly 'color.overlay.pressed': '--ds-overlay-pressed';
   readonly 'elevation.surface': '--ds-surface';
   readonly 'elevation.surface.hovered': '--ds-surface-hovered';
   readonly 'elevation.surface.pressed': '--ds-surface-pressed';
@@ -987,10 +856,7 @@ const tokens: {
   readonly 'elevation.shadow.raised': '--ds-shadow-raised';
   readonly 'opacity.disabled': '--ds-opacity-disabled';
   readonly 'opacity.loading': '--ds-opacity-loading';
-  readonly 'shadow.card': '--ds-card';
-  readonly 'shadow.overlay': '--ds-overlay';
-  readonly 'utility.UNSAFE_util.MISSING_TOKEN': '--ds-UNSAFE_util-MISSING_TOKEN';
-  readonly 'utility.UNSAFE_util.transparent': '--ds-UNSAFE_util-transparent';
+  readonly 'utility.UNSAFE.transparent': '--ds-UNSAFE-transparent';
   readonly 'spacing.scale.0': '--ds-scale-0';
   readonly 'spacing.scale.025': '--ds-scale-025';
   readonly 'spacing.scale.050': '--ds-scale-050';
@@ -1097,7 +963,7 @@ const tokens: {
 type Tokens_2 = typeof tokens;
 
 // @public
-export const useThemeObserver: () => ThemeIds | null;
+export const useThemeObserver: () => Partial<ThemeState>;
 
 // (No @packageDocumentation comment for this package)
 ```

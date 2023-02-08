@@ -1,5 +1,11 @@
 # @atlaskit/side-navigation
 
+## 1.5.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.5.2
 
 ### Patch Changes

@@ -20,6 +20,7 @@ export const cssVariableFormatter: Format['formatter'] = ({
 
   const theme = themeConfig[options.themeName as Themes];
   const tokens: DesignToken[] = [];
+  const colorModes = ['light', 'dark'] as const;
 
   if (!theme.id) {
     throw new Error(
@@ -40,29 +41,23 @@ export const cssVariableFormatter: Format['formatter'] = ({
     tokens.push({ ...token, name: tokenName });
   });
 
-  let output =
-    theme.attributes.type === 'spacing' ||
-    theme.attributes.type === 'typography'
-      ? `:root {\n`
-      : `html[${THEME_DATA_ATTRIBUTE}~="${theme.id}"] {\n`;
+  let output = '';
+
+  if (theme.attributes.type === 'color') {
+    const selectors = colorModes.map(
+      (mode) =>
+        `html[${COLOR_MODE_ATTRIBUTE}="${mode}"][${THEME_DATA_ATTRIBUTE}~="${mode}:${theme.id}"]`,
+    );
+    output += `${selectors.join(',\n')} {\n`;
+  } else {
+    output += `html[${THEME_DATA_ATTRIBUTE}~="${theme.attributes.type}:${theme.id}"] {\n`;
+  }
 
   tokens.forEach((token) => {
     output += `  ${token.name}: ${token.value};\n`;
   });
 
   output += `}\n`;
-
-  if (theme.attributes.type === 'color') {
-    output += `
-@media (prefers-color-scheme: ${theme.attributes.mode}) {
-  html[${COLOR_MODE_ATTRIBUTE}="auto"] {\n`;
-
-    tokens.forEach((token) => {
-      output += `    ${token.name}: ${token.value};\n`;
-    });
-
-    output += `  }\n}\n`;
-  }
 
   return output;
 };

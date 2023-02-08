@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/theme",
-  "version": "12.2.6",
+  "version": "12.2.7",
   "description": "Theme contains solutions for global theming, colors, typography and other useful mixins.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -26,7 +26,7 @@
   "dependencies": {
     "@atlaskit/codemod-utils": "^4.1.0",
     "@atlaskit/ds-lib": "^2.1.0",
-    "@atlaskit/tokens": "^0.13.0",
+    "@atlaskit/tokens": "^1.0.0",
     "@babel/runtime": "^7.0.0"
   },
   "peerDependencies": {

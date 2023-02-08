@@ -25,7 +25,7 @@ const containerStyles = css({
   justifyContent: 'space-between',
   flexShrink: 0,
   // eslint-disable-next-line @repo/internal/styles/no-nested-styles
-  '[data-theme="light"] &, [data-theme="dark"] &': {
+  '[data-color-mode="light"] &, [data-color-mode="dark"] &': {
     // eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
     borderBottom: `1px solid ${token('color.border')}`,
 

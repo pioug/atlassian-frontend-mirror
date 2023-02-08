@@ -38,7 +38,6 @@ function token<T extends keyof Tokens>(
     tokens[path];
 
   if (process.env.NODE_ENV !== 'production' && !token) {
-    token = tokens['utility.UNSAFE_util.MISSING_TOKEN'];
     warnOnce(`Unknown token id at path: ${path} for ${name}@${version}`);
   }
 

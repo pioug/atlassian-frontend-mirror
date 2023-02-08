@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { css } from '@emotion/react';
 import { B400, N500, N800 } from '@atlaskit/theme/colors';
-import { ThemeIds, token } from '@atlaskit/tokens';
+import { ThemeColorModes, token } from '@atlaskit/tokens';
 
 import { constants } from '../../shared';
 
@@ -72,7 +72,10 @@ export const counterStyle = (isSelected: boolean) =>
     },
   });
 
-const fadedCss = (edge: keyof containerEdgeAngleType, theme: ThemeIds | null) =>
+const fadedCss = (
+  edge: keyof containerEdgeAngleType,
+  theme?: ThemeColorModes,
+) =>
   css({
     content: '""',
     position: 'absolute',
@@ -82,7 +85,7 @@ const fadedCss = (edge: keyof containerEdgeAngleType, theme: ThemeIds | null) =>
     height: `${REACTION_CONTAINER_HEIGHT}px`,
     zIndex: 0,
     background:
-      theme === 'dark' || theme === 'legacy-dark'
+      theme === 'dark'
         ? `linear-gradient(${containerEdgeAngle[edge]}deg, rgba(34, 39, 43, 0.95) 40.23%, rgba(34, 39, 43, 0.55) 58.33%, rgba(34, 39, 43, 0) 77.49%)`
         : `linear-gradient(${containerEdgeAngle[edge]}deg, rgba(255, 255, 255, 0.95) 40.23%, rgba(255, 255, 255, 0.55) 58.33%, rgba(255, 255, 255, 0) 77.49%)`,
   });
@@ -90,7 +93,7 @@ const fadedCss = (edge: keyof containerEdgeAngleType, theme: ThemeIds | null) =>
 export const customTabWrapper = (
   isSelected: boolean,
   selectedEmojiId: string,
-  theme: ThemeIds | null,
+  theme?: ThemeColorModes,
 ) =>
   css({
     flexShrink: 0,

@@ -1,5 +1,12 @@
 # @atlaskit/image
 
+## 1.0.4
+
+### Patch Changes
+
+- [`718d5ad3044`](https://bitbucket.org/atlassian/atlassian-frontend/commits/718d5ad3044) - Updates to support the new `@atlaskit/tokens` theming API.
+- Updated dependencies
+
 ## 1.0.3
 
 ### Patch Changes

@@ -11,6 +11,25 @@ jest.mock('@atlaskit/tokens/rename-mapping', (): typeof renameMapper => [
   },
 ]);
 
+jest.mock('@atlaskit/tokens/token-names', (): Record<string, string> => {
+  const mockTokens: Record<string, string> = {};
+  [
+    'color.text.highEmphasis',
+    'color.text',
+    'shadow.overlay',
+    'elevation.shadow.overlay',
+    'color.text.accent.blue',
+    'color.background.accent.blue',
+    'color.background.accent.blue.bold',
+  ].forEach(token => {
+    const getCSSCustomProperty = jest.requireActual(
+      '@atlaskit/tokens/token-ids',
+    ).getCSSCustomProperty;
+    mockTokens[token] = getCSSCustomProperty(token);
+  });
+  return mockTokens;
+});
+
 import path from 'path';
 
 import renameMapper from '@atlaskit/tokens/rename-mapping';

@@ -2,10 +2,7 @@ import React, { CSSProperties, Fragment, ReactNode } from 'react';
 
 import { makeDecorator, useEffect } from '@storybook/addons';
 
-import { token } from '@atlaskit/tokens';
-
-import '@atlaskit/tokens/css/atlassian-light.css';
-import '@atlaskit/tokens/css/atlassian-dark.css';
+import { setGlobalTheme, token } from '@atlaskit/tokens';
 
 import { DECORATOR_ID, DECORATOR_PARAM } from './constants';
 import { Themes } from './types';
@@ -32,20 +29,6 @@ const stackColumnStyles: CSSProperties = {
   color: token('color.text', '#172B4D'),
 };
 
-/**
- * Forcefully retarget the token declarations to apply to our hacked class,
- * .ads-theme-override, for split and stack views.
- */
-const hackThemeOverrideOnStyleElement = (style: HTMLStyleElement) => {
-  const regex = /html\[(data-theme.?=)"(light|dark)"\](\s{)/i;
-  if (regex.test(style.innerText)) {
-    style.innerText = style.textContent!.replace(
-      regex,
-      `html[$1"$2"], .ads-theme-override[$1"$2"]$3`,
-    );
-  }
-};
-
 const withDesignTokens = makeDecorator({
   name: DECORATOR_ID,
   parameterName: DECORATOR_PARAM,
@@ -54,69 +37,79 @@ const withDesignTokens = makeDecorator({
 
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
-      document.querySelectorAll('style').forEach((el) => {
-        hackThemeOverrideOnStyleElement(el);
-      });
-    }, [context.id]);
+      (async () => {
+        switch (theme) {
+          case 'light':
+          case 'dark':
+          case 'auto':
+            await setGlobalTheme({ colorMode: theme });
+            break;
+          case 'split':
+          case 'stack':
+            await setGlobalTheme({
+              colorMode: 'light',
+            });
 
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useEffect(() => {
-      if (!theme || theme === 'none') {
-        delete document.documentElement.dataset.theme;
-        return;
-      }
+            document.documentElement
+              .querySelectorAll('style[data-theme]')
+              .forEach((el) => {
+                const clone = el.cloneNode(true) as Element;
+                clone.setAttribute(
+                  'data-theme',
+                  clone.getAttribute('data-theme') + '-clone',
+                );
+                // HACK: re-target theme selectors to split div containers
+                clone.textContent = clone.textContent!.replace(/html\[/g, '[');
+                document.head.append(clone);
+              });
 
-      document.documentElement.dataset.theme = theme;
+            break;
+          case 'none':
+            delete document.documentElement.dataset.theme;
+            delete document.documentElement.dataset.colorMode;
+            document.documentElement
+              .querySelectorAll('style[data-theme]')
+              .forEach((el) => el.remove());
+            break;
+          default:
+            break;
+        }
+      })();
     }, [context.id, theme]);
 
     function renderStory() {
       const story = storyFn(context) as ReactNode;
 
-      switch (theme) {
-        case 'split': {
-          return (
-            <Fragment>
-              <div
-                className="ads-theme-override"
-                data-theme="light"
-                style={{ ...splitColumnStyles, inset: '0px 50vw 0px 0px' }}
-              >
-                {story}
-              </div>
-              <div
-                className="ads-theme-override"
-                data-theme="dark"
-                style={{ ...splitColumnStyles, inset: '0px 0px 0px 50vw' }}
-              >
-                {story}
-              </div>
-            </Fragment>
-          );
-        }
-        case 'stack': {
-          return (
-            <Fragment>
-              <div
-                className="ads-theme-override"
-                data-theme="light"
-                style={{ ...stackColumnStyles, inset: '0px 0px 50% 0px' }}
-              >
-                {story}
-              </div>
-              <div
-                className="ads-theme-override"
-                data-theme="dark"
-                style={{ ...stackColumnStyles, inset: '50% 0px 0px 0px' }}
-              >
-                {story}
-              </div>
-            </Fragment>
-          );
-        }
-        default: {
-          return <div data-theme={theme}>{story}</div>;
-        }
+      if (theme === 'split' || theme === 'stack') {
+        return (
+          <Fragment>
+            <div
+              data-theme="light:light"
+              data-color-mode="light"
+              style={
+                theme === 'split'
+                  ? { ...splitColumnStyles, inset: '0px 50vw 0px 0px' }
+                  : { ...stackColumnStyles, inset: '0px 0px 50% 0px' }
+              }
+            >
+              {story}
+            </div>
+            <div
+              data-theme="dark:dark"
+              data-color-mode="dark"
+              style={
+                theme === 'split'
+                  ? { ...splitColumnStyles, inset: '0px 0px 0px 50vw' }
+                  : { ...stackColumnStyles, inset: '50% 0px 0px 0px' }
+              }
+            >
+              {story}
+            </div>
+          </Fragment>
+        );
       }
+
+      return <div>{story}</div>;
     }
 
     return renderStory();

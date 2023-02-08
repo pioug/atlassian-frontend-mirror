@@ -19,14 +19,9 @@ describe('formatter', () => {
     } as any);
 
     expect(result).toMatchInlineSnapshot(`
-      "html[data-theme~=\\"dark\\"] {
+      "html[data-color-mode=\\"light\\"][data-theme~=\\"light:dark\\"],
+      html[data-color-mode=\\"dark\\"][data-theme~=\\"dark:dark\\"] {
         --ds-brand: #ffffff;
-      }
-
-      @media (prefers-color-scheme: dark) {
-        html[data-color-mode=\\"auto\\"] {
-          --ds-brand: #ffffff;
-        }
       }
       "
     `);
@@ -50,14 +45,9 @@ describe('formatter', () => {
     } as any);
 
     expect(result).toMatchInlineSnapshot(`
-      "html[data-theme~=\\"dark\\"] {
+      "html[data-color-mode=\\"light\\"][data-theme~=\\"light:dark\\"],
+      html[data-color-mode=\\"dark\\"][data-theme~=\\"dark:dark\\"] {
         --ds-colorAccent: #ffffff;
-      }
-
-      @media (prefers-color-scheme: dark) {
-        html[data-color-mode=\\"auto\\"] {
-          --ds-colorAccent: #ffffff;
-        }
       }
       "
     `);
@@ -82,18 +72,12 @@ describe('formatter', () => {
       },
     } as any);
 
-    expect(result).toMatchInlineSnapshot(
-      `
-      "html[data-theme~=\\"dark\\"] {
-      }
-
-      @media (prefers-color-scheme: dark) {
-        html[data-color-mode=\\"auto\\"] {
-        }
+    expect(result).toMatchInlineSnapshot(`
+      "html[data-color-mode=\\"light\\"][data-theme~=\\"light:dark\\"],
+      html[data-color-mode=\\"dark\\"][data-theme~=\\"dark:dark\\"] {
       }
       "
-    `,
-    );
+    `);
   });
 
   it('should parse nested token', () => {
@@ -114,14 +98,9 @@ describe('formatter', () => {
     } as any);
 
     expect(result).toMatchInlineSnapshot(`
-      "html[data-theme~=\\"dark\\"] {
+      "html[data-color-mode=\\"light\\"][data-theme~=\\"light:dark\\"],
+      html[data-color-mode=\\"dark\\"][data-theme~=\\"dark:dark\\"] {
         --ds-accent: #ffffff;
-      }
-
-      @media (prefers-color-scheme: dark) {
-        html[data-color-mode=\\"auto\\"] {
-          --ds-accent: #ffffff;
-        }
       }
       "
     `);
@@ -145,14 +124,9 @@ describe('formatter', () => {
     } as any);
 
     expect(result).toMatchInlineSnapshot(`
-      "html[data-theme~=\\"dark\\"] {
+      "html[data-color-mode=\\"light\\"][data-theme~=\\"light:dark\\"],
+      html[data-color-mode=\\"dark\\"][data-theme~=\\"dark:dark\\"] {
         --ds-accent-brand: #ffffff;
-      }
-
-      @media (prefers-color-scheme: dark) {
-        html[data-color-mode=\\"auto\\"] {
-          --ds-accent-brand: #ffffff;
-        }
       }
       "
     `);
@@ -178,14 +152,9 @@ describe('formatter', () => {
     } as any);
 
     expect(result).toMatchInlineSnapshot(`
-      "html[data-theme~=\\"dark\\"] {
+      "html[data-color-mode=\\"light\\"][data-theme~=\\"light:dark\\"],
+      html[data-color-mode=\\"dark\\"][data-theme~=\\"dark:dark\\"] {
         --ds-background-brand: #ffffff;
-      }
-
-      @media (prefers-color-scheme: dark) {
-        html[data-color-mode=\\"auto\\"] {
-          --ds-background-brand: #ffffff;
-        }
       }
       "
     `);
@@ -211,14 +180,9 @@ describe('formatter', () => {
     } as any);
 
     expect(result).toMatchInlineSnapshot(`
-      "html[data-theme~=\\"dark\\"] {
+      "html[data-color-mode=\\"light\\"][data-theme~=\\"light:dark\\"],
+      html[data-color-mode=\\"dark\\"][data-theme~=\\"dark:dark\\"] {
         --ds-background-brand: #ffffff;
-      }
-
-      @media (prefers-color-scheme: dark) {
-        html[data-color-mode=\\"auto\\"] {
-          --ds-background-brand: #ffffff;
-        }
       }
       "
     `);
@@ -251,14 +215,9 @@ describe('formatter', () => {
     } as any);
 
     expect(result).toMatchInlineSnapshot(`
-      "html[data-theme~=\\"light\\"] {
+      "html[data-color-mode=\\"light\\"][data-theme~=\\"light:light\\"],
+      html[data-color-mode=\\"dark\\"][data-theme~=\\"dark:light\\"] {
         --ds-background-brand-pressed: #ffffff;
-      }
-
-      @media (prefers-color-scheme: light) {
-        html[data-color-mode=\\"auto\\"] {
-          --ds-background-brand-pressed: #ffffff;
-        }
       }
       "
     `);
@@ -291,6 +250,12 @@ describe('formatter', () => {
       },
     } as any);
 
-    expect(result).not.toContain('prefers-color-scheme');
+    expect(result).toMatchInlineSnapshot(`
+      "html[data-theme~=\\"spacing:spacing\\"] {
+        --ds-FontSize050: 11px;
+        --ds-scale-Space0: 0;
+      }
+      "
+    `);
   });
 });

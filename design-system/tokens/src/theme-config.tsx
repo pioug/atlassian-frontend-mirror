@@ -21,29 +21,33 @@ export type ThemeFileNames = Themes;
  * Some themes are entirely focused on Color, whilst others are purely focused on spacing.
  * In the future other types may be introduced such as typography.
  */
-export type ThemeKinds = 'color' | 'spacing';
+export type ThemeKinds = 'color' | 'spacing' | 'typography';
 
 /**
  * Theme modes: The general purpose of a theme.
- * This attr is used to apply the appropriate system-preference media selector
+ * This attr is used to apply the appropriate system-preference option
  * It may also be used as a selector for mode-specific overrides such as light/dark images.
  * The idea is there may exist many color themes, but every theme must either fit into light or dark.
  */
-export type ThemeColorModes = 'light' | 'dark';
+export const themeColorModes = ['light', 'dark', 'auto'] as const;
+export type ThemeColorModes = typeof themeColorModes[number];
+export type DataColorModes = Omit<ThemeColorModes, 'auto'>;
 
 /**
- * Theme ids: The value that will mounted to the DOM as a data attr
- * For example: `data-theme="light"
+ * Theme ids: The value that will be mounted to the DOM as a data attr
+ * For example: `data-theme="light:light dark:dark spacing:spacing"
  *
  * These ids must be kebab case
  */
-export type ThemeIds =
-  | 'light'
-  | 'dark'
-  | 'legacy-light'
-  | 'legacy-dark'
-  | 'spacing'
-  | 'typography';
+export const themeIds = [
+  'light',
+  'dark',
+  'legacy-light',
+  'legacy-dark',
+  'spacing',
+  'typography',
+] as const;
+export type ThemeIds = typeof themeIds[number];
 
 /**
  * Theme to use a base. This will create the theme as
@@ -74,7 +78,7 @@ interface ThemeConfig {
   attributes: (
     | {
         type: 'color';
-        mode: ThemeColorModes;
+        mode: Exclude<ThemeColorModes, 'auto'>;
       }
     | {
         type: 'spacing';

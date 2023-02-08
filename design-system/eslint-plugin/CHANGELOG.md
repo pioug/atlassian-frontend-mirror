@@ -1,5 +1,12 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 4.15.2
+
+### Patch Changes
+
+- [`cf16d8f8bcc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf16d8f8bcc) - Removes usage of tokens which have been removed from the codebase
+- Updated dependencies
+
 ## 4.15.1
 
 ### Patch Changes

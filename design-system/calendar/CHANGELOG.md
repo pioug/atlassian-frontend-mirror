@@ -1,5 +1,12 @@
 # @atlaskit/calendar
 
+## 13.0.3
+
+### Patch Changes
+
+- [`22b754d311f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/22b754d311f) - Updates usage of removed design token `utilities.UNSAFE_util.transparent` in favour of its replacement `utilities.UNSAFE.transparent`
+- Updated dependencies
+
 ## 13.0.2
 
 ### Patch Changes

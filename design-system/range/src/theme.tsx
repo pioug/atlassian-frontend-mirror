@@ -21,7 +21,7 @@ export const thumb = {
   },
   boxShadow: {
     default: token(
-      'utility.UNSAFE_util.transparent',
+      'utility.UNSAFE.transparent',
       `0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`,
     ),
     disabled: token('elevation.shadow.raised', `0 0 1px ${N60A}`),

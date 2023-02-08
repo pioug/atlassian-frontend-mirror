@@ -1,9 +1,10 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3fd93933c045ef837017fffd1fc7c95b>>
+ * @codegen <<SignedSource::2bb692b141bab7de1129474ea0fe281e>>
  * @codegenCommand yarn build tokens
  */
-:root {
+export default `
+html[data-theme~="typography:typography"] {
   --ds-font-family-monospace: "SFMono-Medium", "SF Mono", "Segoe UI Mono", "Roboto Mono", "Ubuntu Mono", Menlo, Consolas, Courier, monospace;
   --ds-font-family-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   --ds-font-size-050: 11px;
@@ -25,3 +26,4 @@
   --ds-font-lineHeight-500: 32px;
   --ds-font-lineHeight-600: 40px;
 }
+`;

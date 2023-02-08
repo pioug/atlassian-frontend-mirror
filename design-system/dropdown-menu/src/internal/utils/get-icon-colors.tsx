@@ -10,7 +10,7 @@ const getIconColors = (isSelected: boolean | undefined) => {
   }
   return {
     primary: token('color.background.neutral', N40),
-    secondary: token('utility.UNSAFE_util.transparent', N40),
+    secondary: token('utility.UNSAFE.transparent', N40),
   };
 };
 

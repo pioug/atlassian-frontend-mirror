@@ -1,11 +1,9 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 
-import { getTokenValue, token, useThemeObserver } from '../src';
+import { CodeBlock } from '@atlaskit/code';
 
-// Themes mounted to the page as css files
-import '../css/atlassian-light.css';
-import '../css/atlassian-dark.css';
+import { getTokenValue, token, useThemeObserver } from '../src';
 
 const ExampleDiv = () => (
   <p
@@ -21,9 +19,13 @@ const ExampleDiv = () => (
 export default () => {
   const theme = useThemeObserver();
 
+  const themeName = theme.colorMode === 'dark' ? theme.dark : theme.light;
+  const themeString = JSON.stringify(theme);
+
   return (
     <div style={{ padding: '1em' }}>
-      <h1>Current theme: {theme}</h1>
+      <h1>Current theme: {themeName}</h1>
+      {theme && <CodeBlock language={'js'} text={themeString} />}
       <ExampleDiv />
       <p>
         <code>getTokenValue('color.background.accent.blue.subtle')</code> ={' '}

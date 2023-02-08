@@ -4,8 +4,8 @@ import { cleanup, render } from '@testing-library/react';
 
 import warnOnce from '@atlaskit/ds-lib/warn-once';
 
+import { COLOR_MODE_ATTRIBUTE } from '../../constants';
 import getTokenValue from '../../get-token-value';
-import setGlobalTheme from '../../set-global-theme';
 
 jest.mock('@atlaskit/ds-lib/warn-once');
 
@@ -24,10 +24,10 @@ describe('getTokenValue', () => {
             html {
               --ds-text: #ff0000;
             }
-            html[data-color-mode="light"] {
+            html[${COLOR_MODE_ATTRIBUTE}="light"] {
               --ds-text: #00ff00;
             }
-            html[data-color-mode="dark"] {
+            html[${COLOR_MODE_ATTRIBUTE}="dark"] {
               --ds-text: #0000ff;
             }
             `}
@@ -45,12 +45,12 @@ describe('getTokenValue', () => {
       expect(getTokenValue('color.text')).toEqual('#ff0000');
       expect(getTokenValue('color.text', '#000')).toEqual('#ff0000');
 
-      setGlobalTheme('light');
+      document.documentElement.setAttribute(COLOR_MODE_ATTRIBUTE, 'light');
       // eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
       expect(getTokenValue('color.text')).toEqual('#00ff00');
       expect(getTokenValue('color.text', '#000')).toEqual('#00ff00');
 
-      setGlobalTheme('dark');
+      document.documentElement.setAttribute(COLOR_MODE_ATTRIBUTE, 'dark');
       // eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
       expect(getTokenValue('color.text')).toEqual('#0000ff');
       expect(getTokenValue('color.text', '#000')).toEqual('#0000ff');

@@ -34,7 +34,7 @@ describe('getToken', () => {
     // @ts-expect-error
     // eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
     const result = token('this-token-does-not-exist');
-    expect(result).toEqual('var(--ds-UNSAFE_util-MISSING_TOKEN)');
+    expect(result).toEqual('var(--ds-token-not-found)');
     // eslint-disable-next-line no-console
     expect(warnOnce).toHaveBeenCalledWith(
       `Unknown token id at path: this-token-does-not-exist for ${name}@${version}`,
@@ -45,7 +45,7 @@ describe('getToken', () => {
     // @ts-expect-error
     // eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
     const result = token('this-token-does-not-exist', '#FFF');
-    expect(result).toEqual('var(--ds-UNSAFE_util-MISSING_TOKEN, #FFF)');
+    expect(result).toEqual('var(--ds-token-not-found, #FFF)');
     // eslint-disable-next-line no-console
     expect(warnOnce).toHaveBeenCalledWith(
       `Unknown token id at path: this-token-does-not-exist for ${name}@${version}`,

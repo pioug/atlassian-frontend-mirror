@@ -1,8 +1,5 @@
 # Tokens
 
-> ⚠️ This package is under development and comes with no semver guarantees,
-> your app will break if you use this directly.
-
 Tokens are a single source of truth to name and store Atlassian design decisions.
 
 ## Installation
@@ -13,14 +10,14 @@ yarn add @atlaskit/tokens
 
 ## Usage
 
-### Setup your environment
+### Set global theme
 
-Before continuing ensure the CSS themes are installed,
-depending on your bundler configuration may differ.
+To load and set themes into your app, call setGlobalTheme during runtime.
 
 ```tsx
-import '@atlaskit/tokens/css/atlassian-light.css';
-import '@atlaskit/tokens/css/atlassian-dark.css';
+import { setGlobalTheme } from '@atlaskit/tokens';
+
+setGlobalTheme({ colorMode: 'light', light: 'light', dark: 'dark' });
 ```
 
 ### Token
@@ -33,15 +30,9 @@ import { token } from '@atlaskit/tokens';
 token('color.background.default');
 ```
 
-### Set global theme
+### Learn more
 
-Change the global theme during runtime.
-
-```tsx
-import { setGlobalTheme } from '@atlaskit/tokens';
-
-setGlobalTheme('light');
-```
+To learn more about the tokens package API, view the [token package docs on atlassian.design](https://atlassian.design/components/tokens/code)
 
 # BabelPlugin
 

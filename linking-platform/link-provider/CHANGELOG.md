@@ -1,5 +1,17 @@
 # @atlaskit/link-provider
 
+## 1.4.0
+
+### Minor Changes
+
+- [`a284fdb625b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a284fdb625b) - [ux] Convert ProForma Issue Forms Direct smart link to embed by default.
+
+## 1.3.12
+
+### Patch Changes
+
+- [`0f339954961`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0f339954961) - Retry /providers if initial request fails
+
 ## 1.3.11
 
 ### Patch Changes

@@ -48,6 +48,10 @@ const getMockProvidersResponse = ({
           source:
             '^https:\\/\\/.*?\\.jira-dev\\.com\\/jira\\/core\\/projects\\/(?<resourceId>\\w+)\\/form\\/(?<formId>\\w+)\\/?',
         },
+        {
+          source:
+            '^https:\\/\\/[^/]+\\.jira-dev\\.com\\/jira\\/(core|software(\\/c)?|servicedesk)\\/projects\\/(\\w+)\\/forms\\/form\\/direct\\/\\d+\\/\\d+.*$',
+        },
       ],
     },
     {
@@ -375,6 +379,14 @@ describe('providers > editor', () => {
       'Jira work management (JWM) form view with Query Params',
       'https://jdog.jira-dev.com/jira/core/projects/NPM5/form/1?atlOrigin=eyJpIjoiM2MzNTA5N2FmNzNjNDQxNmFhNDAzNDhhYmIyZTRiNGQiLCJwIjoiaiJ9',
     ],
+    [
+      'ProForma issue forms direct view',
+      'https://jdog.jira-dev.com/jira/servicedesk/projects/PROFORMA/forms/form/direct/10/10048',
+    ],
+    [
+      'ProForma issue forms direct view with query parameter',
+      'https://jdog.jira-dev.com/jira/servicedesk/projects/PROFORMA/forms/form/direct/10/10048?requestTypeId=509',
+    ],
   ])(
     'returns embedCard when %s link inserted, calling /providers endpoint',
     async (_, url) => {
@@ -452,6 +464,73 @@ describe('providers > editor', () => {
       provider.resolve('https://drive.google.com/file/d/789/view', 'inline'),
     ]);
     expect(mockFetch).toHaveBeenCalledTimes(1);
+  });
+
+  it('calls /providers endpoint again if the first request fails', async () => {
+    const mockResolveResponse = {
+      json: async () => [{ body: mocks.success, status: 200 }],
+      ok: true,
+    };
+    // Mocking call to /providers (failed)
+    mockFetch.mockResolvedValueOnce({
+      json: async () => {
+        throw Error();
+      },
+      ok: true,
+    });
+    // Mocking call to /resolve/batch (success)
+    mockFetch.mockResolvedValueOnce(mockResolveResponse);
+    // Mocking call to /providers (success)
+    mockFetch.mockResolvedValueOnce({
+      json: async () => getMockProvidersResponse(),
+      ok: true,
+    });
+    // Mocking call to /resolve/batch (success)
+    mockFetch.mockResolvedValueOnce(mockResolveResponse);
+
+    const provider = new EditorCardProvider();
+
+    // Expected: /providers failed, resolve/batch is called.
+    const url = 'https://drive.google.com/file/d/123/view?usp=sharing';
+    const adf = await provider.resolve(url, 'inline', false);
+    expect(adf).toEqual(expectedInlineAdf(url));
+
+    // Expected: /provider retried and success, pattern matched.
+    const url2 = 'https://drive.google.com/file/d/456/view?usp=sharing';
+    const adf2 = await provider.resolve(url2, 'inline', false);
+    expect(adf2).toEqual(expectedInlineAdf(url2));
+
+    // Expected: Pattern matched, no request is made.
+    const url3 = 'https://drive.google.com/file/d/789/view?usp=sharing';
+    const adf3 = await provider.resolve(url3, 'inline', false);
+    expect(adf3).toEqual(expectedInlineAdf(url3));
+
+    // Expected: Pattern not matched, /batch/resolve is called.
+    const url4 = 'https://site-without-pattern.com';
+    const adf4 = await provider.resolve(url4, 'inline', false);
+    expect(adf4).toEqual(expectedInlineAdf(url4));
+
+    expect(mockFetch).toHaveBeenCalledTimes(4);
+    expect(mockFetch).toHaveBeenNthCalledWith(
+      1,
+      expect.stringContaining('/providers'),
+      expect.any(Object),
+    );
+    expect(mockFetch).toHaveBeenNthCalledWith(
+      2,
+      expect.stringContaining('/resolve'),
+      expect.any(Object),
+    );
+    expect(mockFetch).toHaveBeenNthCalledWith(
+      3,
+      expect.stringContaining('/providers'),
+      expect.any(Object),
+    );
+    expect(mockFetch).toHaveBeenNthCalledWith(
+      4,
+      expect.stringContaining('/resolve'),
+      expect.any(Object),
+    );
   });
 
   it('should return EmbedCard when defaultView specifies it', async () => {

@@ -8,8 +8,8 @@ export const mapLocaleToPrsLocale = (locale: string): string => {
     case 'en-US':
     case 'en-GB':
     case 'pt-BR':
-    case 'zn-CN':
-    case 'zn-TW':
+    case 'zh-CN':
+    case 'zh-TW':
       return standardizedLocale;
     case 'en-UK':
       return 'en-GB';

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -41,45 +41,30 @@ export default function Image({
   ...props
 }: ImageProps) {
   const imgRef = useRef<HTMLImageElement>(null);
-  const [colorMode, setColorMode] = useState('');
-  const theme = useThemeObserver();
+  const { colorMode } = useThemeObserver();
 
   useEffect(() => {
     if (imgRef === null || imgRef.current === null) {
       return;
     }
 
-    if (srcDark && theme === 'dark') {
+    if (srcDark && colorMode === 'dark') {
       imgRef.current.src = srcDark;
     } else if (src) {
       imgRef.current.src = src;
     }
-  }, [src, srcDark, theme]);
-
-  /**
-   * TODO: Remove the following once useThemeObserver reports `color-mode`
-   */
-  useEffect(() => {
-    setColorMode(
-      document.documentElement.getAttribute('data-color-mode') || '',
-    );
-  }, [theme, setColorMode]);
+  }, [src, srcDark, colorMode]);
 
   return (
-    <picture>
-      {srcDark && colorMode === 'auto' && (
-        <source srcSet={srcDark} media="(prefers-color-scheme: dark)" />
-      )}
-      <img
-        alt={alt}
-        css={imageStyles}
-        data-testid={testId}
-        src={src}
-        ref={imgRef}
-        // The spread operator is necessary since the component can accept all the props of an `img` element.
-        // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-        {...props}
-      />
-    </picture>
+    <img
+      alt={alt}
+      css={imageStyles}
+      data-testid={testId}
+      src={src}
+      ref={imgRef}
+      // The spread operator is necessary since the component can accept all the props of an `img` element.
+      // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+      {...props}
+    />
   );
 }

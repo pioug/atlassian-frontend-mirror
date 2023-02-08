@@ -8,6 +8,7 @@ import typographyPalette from '../../src/palettes/typography-palette';
 
 import { ARTIFACT_OUTPUT_DIR, THEME_INPUT_DIR } from './constants';
 import formatterTokenDescriptionCSV from './formatters/csv-token-description';
+import formatterDynamicImportMap from './formatters/dynamic-import-map';
 import formatterReplacementMapper from './formatters/replacement-mapper';
 import formatterTSTokenDefaults from './formatters/typescript-token-defaults';
 import formatterTSGeneratedTypes from './formatters/typescript-token-generated-types';
@@ -47,6 +48,7 @@ const createGlobalConfig = (schemaInputDir: string): Config => ({
     'typescript/token-default-values': formatterTSTokenDefaults as any,
     'typescript/token-types': formatterTSGeneratedTypes as any,
     'typescript/token-types-internal': formatterTSGeneratedTypesInternal as any,
+    'css/dynamic-import-map': formatterDynamicImportMap as any,
   },
   platforms: {
     replacementMapper: {
@@ -74,7 +76,6 @@ const createGlobalConfig = (schemaInputDir: string): Config => ({
     },
     ts: {
       transforms: ['name/dot', 'color/palette'],
-      transformGroup: 'js',
       buildPath: ARTIFACT_OUTPUT_DIR,
       files: [
         {
@@ -92,6 +93,16 @@ const createGlobalConfig = (schemaInputDir: string): Config => ({
         {
           format: 'typescript/token-default-values',
           destination: 'token-default-values.tsx',
+        },
+      ],
+    },
+    dynamicModuleMap: {
+      transforms: ['name/dot', 'color/palette'],
+      buildPath: ARTIFACT_OUTPUT_DIR,
+      files: [
+        {
+          format: 'css/dynamic-import-map',
+          destination: 'theme-import-map.tsx',
         },
       ],
     },

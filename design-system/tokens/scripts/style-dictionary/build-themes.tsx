@@ -16,6 +16,7 @@ import {
   THEME_INPUT_DIR,
 } from './constants';
 import formatterCSSVariables from './formatters/css-variables';
+import formatterCSSVariablesAsModule from './formatters/css-variables-as-module';
 import formatterFigma from './formatters/figma';
 import formatterRaw from './formatters/raw';
 import boxShadowTransform from './transformers/box-shadow';
@@ -71,6 +72,7 @@ const createThemeConfig = (themeName: ThemeFileNames): Config => {
     ],
     format: {
       'css/themed-variables': formatterCSSVariables as any,
+      'css/themed-variables-as-module': formatterCSSVariablesAsModule as any,
       'figma/figma-sync': formatterFigma as any,
       raw: formatterRaw as any,
     },
@@ -79,12 +81,12 @@ const createThemeConfig = (themeName: ThemeFileNames): Config => {
       'color/palette': paletteTransform(palette),
       'box-shadow/figma': boxShadowTransform(palette),
     },
-    source: [path.join(THEME_INPUT_DIR, `${themeName}/**/*.tsx`)],
+    source: [path.join(THEME_INPUT_DIR, themeName, '**', '*.tsx')],
     include: [
       ...baseThemes.map((baseTheme) =>
-        path.join(THEME_INPUT_DIR, `${baseTheme}/**/*.tsx`),
+        path.join(THEME_INPUT_DIR, baseTheme, '**', '*.tsx'),
       ),
-      path.join(THEME_INPUT_DIR, 'default/**/*.tsx'),
+      path.join(THEME_INPUT_DIR, 'default', '**', '*.tsx'),
     ],
     platforms: {
       figma: {
@@ -107,7 +109,7 @@ const createThemeConfig = (themeName: ThemeFileNames): Config => {
       },
       raw: {
         transforms: ['name/dot', 'color/palette'],
-        buildPath: path.join(ARTIFACT_OUTPUT_DIR, '/tokens-raw/'),
+        buildPath: path.join(ARTIFACT_OUTPUT_DIR, 'tokens-raw/'),
         options: {
           themeName,
         },
@@ -121,17 +123,16 @@ const createThemeConfig = (themeName: ThemeFileNames): Config => {
           },
         ],
       },
-      css: {
+      cssAsModule: {
         transforms: ['name/dot', 'color/palette', 'box-shadow/figma'],
-        transformGroup: 'css',
-        buildPath: `./css/`,
+        buildPath: path.join(ARTIFACT_OUTPUT_DIR, 'themes/'),
         options: {
           themeName,
         },
         files: [
           {
-            format: 'css/themed-variables',
-            destination: `${themeName}.css`,
+            format: 'css/themed-variables-as-module',
+            destination: `${themeName}.tsx`,
           },
         ],
       },

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/feedback-collector",
-  "version": "10.8.2",
+  "version": "10.8.3",
   "description": "A component that collects feedback across Atlassian products.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -35,7 +35,7 @@
     "@atlaskit/select": "^16.1.0",
     "@atlaskit/textarea": "^4.5.0",
     "@atlaskit/theme": "^12.2.0",
-    "@atlaskit/tokens": "^0.13.0",
+    "@atlaskit/tokens": "^1.0.0",
     "@babel/runtime": "^7.0.0",
     "react-intl-next": "npm:react-intl@^5.18.1"
   },
@@ -44,7 +44,7 @@
   },
   "devDependencies": {
     "@atlaskit/docs": "*",
-    "@atlaskit/logo": "^13.10.0",
+    "@atlaskit/logo": "^13.11.0",
     "@atlaskit/section-message": "^6.3.8",
     "@atlaskit/ssr": "*",
     "@atlaskit/textfield": "^5.3.4",

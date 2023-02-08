@@ -18,6 +18,11 @@ const themeOptions = [
     icon: 'cross',
   },
   {
+    id: 'auto' as Themes,
+    title: 'Same as system',
+    icon: 'circlehollow',
+  },
+  {
     id: 'light' as Themes,
     title: 'Light theme',
     icon: 'circlehollow',

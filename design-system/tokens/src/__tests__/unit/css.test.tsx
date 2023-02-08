@@ -1,53 +1,29 @@
 import fs from 'fs';
 
-import type { Themes } from '../../index';
 import themeConfig from '../../theme-config';
 
-const colorThemes = Object.keys(themeConfig)
-  .filter(
-    (fileName) => themeConfig[fileName as Themes].attributes.type === 'color',
-  )
-  .map((themeName) => `${themeName}.css`);
-
-const nonColorThemes = Object.keys(themeConfig)
-  .filter(
-    (fileName) => themeConfig[fileName as Themes].attributes.type !== 'color',
-  )
-  .map((themeName) => `${themeName}.css`);
-
 describe('generated CSS', () => {
-  const getCSSFileNames = () => fs.readdirSync(`${__dirname}/../../../css`);
+  const getCSSFileNames = () =>
+    fs.readdirSync(`${__dirname}/../../artifacts/themes/`);
   const getCSSFile = (name: string) =>
-    fs.readFileSync(`${__dirname}/../../../css/${name}`, 'utf-8');
+    fs.readFileSync(`${__dirname}/../../artifacts/themes/${name}`, 'utf-8');
 
   it('should place css in the root css folder', () => {
     const names = getCSSFileNames();
 
     Object.keys(themeConfig).forEach((theme) => {
-      expect(names).toContain(`${theme}.css`);
+      expect(names).toContain(`${theme}.tsx`);
     });
   });
 
-  it('should place color themes on the theme attribute', () => {
-    getCSSFileNames()
-      .filter((filename) => colorThemes.includes(filename))
-      .forEach((name) => {
-        const css = getCSSFile(name);
+  it('should place themes on the theme attribute', () => {
+    getCSSFileNames().forEach((name) => {
+      const css = getCSSFile(name);
 
-        expect(css).toMatch(
-          /\nhtml\[data-theme~="([a-z][a-z0-9]*)(-[a-z0-9]+)*"\] {\n/,
-        );
-      });
-  });
-
-  it('should place spacing and typography themes on the root', () => {
-    getCSSFileNames()
-      .filter((filename) => nonColorThemes.includes(filename))
-      .forEach((name) => {
-        const css = getCSSFile(name);
-
-        expect(css).toMatch(/\n:root {\n/);
-      });
+      expect(css).toMatch(
+        /\[data-theme~="([A-Za-z][A-Za-z0-9:]*)(-[A-Za-z0-9:]+)*"\]/,
+      );
+    });
   });
 
   it('should not have any unexpected values found in the CSS', () => {

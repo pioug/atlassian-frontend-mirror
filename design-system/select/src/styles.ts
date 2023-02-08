@@ -285,7 +285,7 @@ export default function baseStyles<Option, IsMulti extends boolean>(
     multiValueRemove: (css, { isFocused }) => ({
       ...css,
       backgroundColor: isFocused
-        ? token('utility.UNSAFE_util.transparent', R75)
+        ? token('utility.UNSAFE.transparent', R75)
         : undefined,
       fill: isFocused
         ? token('color.text.selected', '#000')

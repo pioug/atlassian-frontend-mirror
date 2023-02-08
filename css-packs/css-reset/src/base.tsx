@@ -193,10 +193,10 @@ export default evaluateInner`
   }
 
   @supports (color-scheme: dark) and (color-scheme: light) {
-    [data-theme="light"] {
+    [data-color-mode="light"] {
       color-scheme: light;
     }
-    [data-theme="dark"] {
+    [data-color-mode="dark"] {
       color-scheme: dark;
     }
   }

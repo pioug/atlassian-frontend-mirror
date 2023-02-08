@@ -64,8 +64,8 @@ const tokenNameWrapperStyles = css({
  *
  */
 const Pairing = ({ pairings }: { pairings: PairingsType }) => {
-  const theme = useThemeObserver();
-  const tokensList = theme === 'dark' ? darkTheme : lightTheme;
+  const { colorMode } = useThemeObserver();
+  const tokensList = colorMode === 'dark' ? darkTheme : lightTheme;
   const findTokenValue = (tokenName: string) => {
     const token = tokensList.find(
       (token) => cleanTokenName(token.name) === tokenName,

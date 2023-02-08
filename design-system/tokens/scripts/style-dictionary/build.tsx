@@ -21,7 +21,7 @@ buildPalettes(styleDictionary);
  * The themes step builds artifacts on a per-theme basis.
  * This is where a majority of the work is done wherever an artifact is generated
  * for each theme
- * Fro example, atlassian-light.css
+ * For example, atlassian-light.tsx
  */
 buildThemes(styleDictionary);
 

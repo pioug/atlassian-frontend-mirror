@@ -16,7 +16,7 @@ describe('get icon colors', () => {
     const colors = getIconColors(false);
     expect(colors).toEqual({
       primary: token('color.background.neutral', N40),
-      secondary: token('utility.UNSAFE_util.transparent', N40),
+      secondary: token('utility.UNSAFE.transparent', N40),
     });
   });
 
@@ -24,7 +24,7 @@ describe('get icon colors', () => {
     const colors = getIconColors(undefined);
     expect(colors).toEqual({
       primary: token('color.background.neutral', N40),
-      secondary: token('utility.UNSAFE_util.transparent', N40),
+      secondary: token('utility.UNSAFE.transparent', N40),
     });
   });
 });

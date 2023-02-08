@@ -1,5 +1,17 @@
 # @atlaskit/logo
 
+## 13.11.0
+
+### Minor Changes
+
+- [`a6da509aa20`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a6da509aa20) - [ux] Adds Jira Product Discovery logo and icon
+
+## 13.10.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.10.4
 
 ### Patch Changes

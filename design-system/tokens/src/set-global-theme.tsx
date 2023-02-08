@@ -1,44 +1,215 @@
+import { bind, UnbindFn } from 'bind-event-listener';
+
+import noop from '@atlaskit/ds-lib/noop';
+
 import { COLOR_MODE_ATTRIBUTE, THEME_DATA_ATTRIBUTE } from './constants';
-import themeConfig, { ThemeIds } from './theme-config';
+import { DataColorModes, ThemeColorModes, ThemeIds } from './theme-config';
+import { loadAndAppendThemeCss, loadThemeCss } from './utils/theme-loading';
+import { themeObjectToString } from './utils/theme-state-transformer';
+
+export interface ThemeState {
+  light: ThemeIds;
+  dark: ThemeIds;
+  colorMode: ThemeColorModes;
+  spacing?: ThemeIds;
+  typography?: ThemeIds;
+}
+
+const defaultColorMode: DataColorModes = 'light';
+
+const isMatchMediaAvailable =
+  typeof window !== 'undefined' && 'matchMedia' in window;
+const darkModeMediaQuery = '(prefers-color-scheme: dark)';
+const darkModeMql =
+  isMatchMediaAvailable && window.matchMedia(darkModeMediaQuery);
+
+let unbindThemeChangeListener: UnbindFn = noop;
+
+const themeStateDefaults: ThemeState = {
+  colorMode: 'auto',
+  dark: 'dark',
+  light: 'light',
+  spacing: undefined,
+  typography: undefined,
+};
 
 /**
- * Sets the theme globally at runtime. This updates the `data-theme` and `data-color-scheme` attributes on your page's <html> tag.
+ * Updates the current theme when the system theme changes. Should be bound
+ * to an event listener listening on the '(prefers-color-scheme: dark)' query
+ * @param e The event representing a change in system theme.
+ */
+const checkNativeListener = function (e: MediaQueryListEvent) {
+  const element = document.documentElement;
+  element.setAttribute(COLOR_MODE_ATTRIBUTE, e.matches ? 'dark' : 'light');
+};
+
+/**
+ * Sets the theme globally at runtime. This updates the `data-theme` and `data-color-mode` attributes on your page's <html> tag.
  *
- * @param {string} themeId - Which theme should be used by default.
- * @param {string} [shouldMatchSystem=false] - Whether the theme should automatically switch between themes to match the system preference.
+ * @param {Object<string, string>} themeState The themes and color mode that should be applied.
+ * @param {string} themeState.colorMode Determines which color theme is applied. If set to `auto`, the theme applied will be determined by the OS setting.
+ * @param {string} themeState.dark The color theme to be applied when the color mode resolves to 'dark'.
+ * @param {string} themeState.light The color theme to be applied when the color mode resolves to 'light'.
+ * @param {string} themeState.spacing The spacing theme to be applied.
+ * @param {string} themeState.typography The typography theme to be applied.
+ *
+ * @returns A Promise of an unbind function, that can be used to stop listening for changes to system theme.
  *
  * @example
  * ```
- * // Set light theme as the default theme, but switch to others based on the system color theme.
- * setGlobalTheme('light', true);
+ * setGlobalTheme({colorMode: 'auto', light: 'light', dark: 'dark', spacing: 'spacing'});
  * ```
  */
-const setGlobalTheme = (themeId: ThemeIds, shouldMatchSystem = false) => {
-  const theme = Object.values(themeConfig).find(({ id }) => id === themeId);
+const setGlobalTheme = async ({
+  colorMode = themeStateDefaults['colorMode'],
+  dark = themeStateDefaults['dark'],
+  light = themeStateDefaults['light'],
+  spacing = themeStateDefaults['spacing'],
+  typography = themeStateDefaults['typography'],
+}: Partial<ThemeState> = {}): Promise<UnbindFn> => {
+  // Dedupe list of themes to avoid race condition
+  const themePreferences = new Set([dark, light, spacing, typography]);
 
-  if (process.env.NODE_ENV !== 'production') {
-    if (!theme) {
-      const themeIds = Object.values(themeConfig).map(({ id }) => id);
-      throw new Error(
-        `setGlobalTheme only accepts themes: ${themeIds.join(', ')}`,
-      );
+  await Promise.all(
+    [...themePreferences]
+      .filter((themeId): themeId is ThemeIds => themeId !== undefined)
+      .map(async (themeId) => await loadAndAppendThemeCss(themeId)),
+  );
+
+  if (colorMode === 'auto' && darkModeMql) {
+    colorMode = darkModeMql.matches ? 'dark' : 'light';
+    // Add an event listener for changes to the system theme.
+    // If the function exists, it will not be added again.
+    unbindThemeChangeListener = bind(darkModeMql, {
+      type: 'change',
+      listener: checkNativeListener,
+    });
+  } else {
+    unbindThemeChangeListener();
+  }
+
+  const themeAttributes = getThemeHtmlAttrs({
+    colorMode,
+    dark,
+    light,
+    spacing,
+    typography,
+  });
+
+  Object.entries(themeAttributes).forEach(([key, value]) => {
+    document.documentElement.setAttribute(key, value);
+  });
+
+  return unbindThemeChangeListener;
+};
+
+export interface ThemeStyles {
+  id: ThemeIds;
+  attrs: Record<string, string>;
+  css: string;
+}
+
+/**
+ * Takes an object containing theme preferences, and returns an array of objects for use in applying styles to the document head.
+ * Only supplies the color themes necessary for initial render, based on the current themeState. I.e. if in light mode, dark mode themes are not returned.
+ *
+ * @param {Object<string, string>} themeState The themes and color mode that should be applied.
+ * @param {string} themeState.colorMode Determines which color theme is applied. If set to `auto`, the theme applied will be determined by the OS setting.
+ * @param {string} themeState.dark The color theme to be applied when the color mode resolves to 'dark'.
+ * @param {string} themeState.light The color theme to be applied when the color mode resolves to 'light'.
+ * @param {string} themeState.spacing The spacing theme to be applied.
+ * @param {string} themeState.typography The typography theme to be applied.
+ *
+ * @returns A Promise of an object array, containing theme IDs, data-attributes to attach to the theme, and the theme CSS.
+ * If an error is encountered while loading themes, the themes arrav will be emptv.
+ */
+export const getThemeStyles = async ({
+  colorMode = themeStateDefaults['colorMode'],
+  dark = themeStateDefaults['dark'],
+  light = themeStateDefaults['light'],
+  spacing = themeStateDefaults['spacing'],
+  typography = themeStateDefaults['typography'],
+}: Partial<ThemeState> = {}): Promise<ThemeStyles[]> => {
+  const themePreferences = colorMode === 'auto' ? [light, dark] : [colorMode];
+
+  [spacing, typography].forEach((themeId) => {
+    if (themeId) {
+      themePreferences.push(themeId);
     }
-  }
+  });
 
-  if (!theme) {
-    return;
-  }
+  const results = await Promise.all(
+    themePreferences.map(async (themeId): Promise<ThemeStyles | undefined> => {
+      try {
+        const css = await loadThemeCss(themeId);
 
-  const element = document.documentElement;
-  element.setAttribute(THEME_DATA_ATTRIBUTE, theme.id);
+        return {
+          id: themeId,
+          attrs: { 'data-theme': themeId },
+          css,
+        };
+      } catch {
+        // Return an empty string if there's an error loading it.
+        return undefined;
+      }
+    }),
+  );
 
-  if (theme.attributes.type === 'color') {
-    element.setAttribute(COLOR_MODE_ATTRIBUTE, theme.attributes.mode);
-  }
+  return results.filter<ThemeStyles>(
+    (theme): theme is ThemeStyles => theme !== undefined,
+  );
+};
 
-  if (shouldMatchSystem) {
-    element.setAttribute(COLOR_MODE_ATTRIBUTE, 'auto');
+/**
+ * Server-side rendering utility. Generates the valid HTML attributes for a given theme.
+ * Note: this utility does not handle automatic theme switching.
+ *
+ * @param {Object<string, string>} themeOptions - Theme options object
+ * @param {string} themeState.colorMode Determines which color theme is applied. If set to `auto`, the theme applied will be determined by the OS setting.
+ * @param {string} themeState.dark The color theme to be applied when the color mode resolves to 'dark'.
+ * @param {string} themeState.light The color theme to be applied when the color mode resolves to 'light'.
+ * @param {string} themeState.spacing The spacing theme to be applied.
+ * @param {string} themeState.typography The typography theme to be applied.
+ *
+ * @returns {Object} Object of HTML attributes to be applied to the document root
+ */
+export const getThemeHtmlAttrs = ({
+  colorMode = themeStateDefaults['colorMode'],
+  dark = themeStateDefaults['dark'],
+  light = themeStateDefaults['light'],
+  spacing = themeStateDefaults['spacing'],
+  typography = themeStateDefaults['typography'],
+}: Partial<ThemeState> = {}): Record<string, string> => {
+  const themePreferences = { dark, light, spacing, typography };
+  const themeAttribute = themeObjectToString(themePreferences);
+
+  return {
+    [THEME_DATA_ATTRIBUTE]: themeAttribute,
+    [COLOR_MODE_ATTRIBUTE]:
+      colorMode === 'auto' ? (defaultColorMode as string) : colorMode,
+  };
+};
+
+/**
+ * Provides a script that, when executed before paint, sets the `data-color-mode` attribute based on the current system theme,
+ * to enable SSR support for automatic theme switching, avoid a flash of un-themed content on first paint.
+ *
+ * @param {string} colorMode Determines which color theme is applied. If set to `auto`, the theme applied will be determined by the OS setting.
+ *
+ * @returns {string} A string to be added to the innerHTML of a script tag in the document head
+ */
+export const getSSRAutoScript = (colorMode: ThemeState['colorMode']) => {
+  return colorMode === 'auto'
+    ? `(
+  () => {
+    try {
+      const mql = window.matchMedia('${darkModeMediaQuery}');
+      const colorMode = mql.matches ? 'dark' : 'light';
+      document.documentElement.setAttribute('${COLOR_MODE_ATTRIBUTE}', colorMode);
+    } catch (e) {}
   }
+)()`
+    : undefined;
 };
 
 export default setGlobalTheme;

@@ -132,6 +132,7 @@ const TokenPropsTable = ({
                     borderRadius: '3px',
                     display: 'inline-block',
                     padding: '0 0.2em',
+                    whiteSpace: 'pre-wrap',
                   }}
                 >
                   {typing}

@@ -26,6 +26,10 @@ export {
 export { JiraCoreIcon, JiraCoreLogo, JiraCoreWordmark } from './jira-core-logo';
 export { JiraIcon, JiraLogo, JiraWordmark } from './jira-logo';
 export {
+  JiraProductDiscoveryIcon,
+  JiraProductDiscoveryLogo,
+} from './jira-product-discovery-logo';
+export {
   JiraServiceDeskIcon,
   JiraServiceDeskLogo,
   JiraServiceDeskWordmark,

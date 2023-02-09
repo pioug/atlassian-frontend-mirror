@@ -1,6 +1,7 @@
 import React, { MouseEvent, useCallback } from 'react';
 import { useGlobalTheme } from '@atlaskit/theme/components';
 import { WrapperAnchor, WrapperSpan } from './styled';
+import useMouseDownEvent from '../../../state/analytics/useMouseDownEvent';
 
 export interface FrameViewProps {
   /** A flag that determines whether the card is selected in edit mode. */
@@ -51,6 +52,9 @@ export const Frame: React.FC<FrameViewProps> = (props) => {
     },
     [onClick],
   );
+
+  const handleMouseDown = useMouseDownEvent();
+
   const isInteractive = Boolean(onClick);
 
   // Depending on whenever Frame was given onClick or link itself we display span or anchor elements
@@ -68,6 +72,7 @@ export const Frame: React.FC<FrameViewProps> = (props) => {
       tabIndex={isInteractive ? 0 : undefined}
       role={isInteractive ? 'button' : undefined}
       onClick={handleClick}
+      onMouseDown={handleMouseDown}
       onKeyPress={handleKeyPress}
       data-testid={testId}
       className={className}

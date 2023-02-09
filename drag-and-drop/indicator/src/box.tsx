@@ -6,7 +6,7 @@ import { css, jsx, SerializedStyles } from '@emotion/react';
 
 import type { Edge } from '@atlaskit/drag-and-drop-hitbox/types';
 
-import { line } from './internal/constants';
+import { line } from './constants';
 
 export type DropIndicatorProps = {
   /**
@@ -37,7 +37,6 @@ const lineStyles = css({
   zIndex: 1,
   background: line.backgroundColor,
   content: '""',
-  opacity: 0,
   pointerEvents: 'none',
 });
 
@@ -47,28 +46,24 @@ const edgeStyles: Record<Edge, SerializedStyles> = {
     top: 'var(--local-line-offset)',
     right: 0,
     left: 0,
-    opacity: 1,
   }),
   right: css({
     width: line.thickness,
     top: 0,
     right: 'var(--local-line-offset)',
     bottom: 0,
-    opacity: 1,
   }),
   bottom: css({
     height: line.thickness,
     right: 0,
     bottom: 'var(--local-line-offset)',
     left: 0,
-    opacity: 1,
   }),
   left: css({
     width: line.thickness,
     top: 0,
     bottom: 0,
     left: 'var(--local-line-offset)',
-    opacity: 1,
   }),
 };
 

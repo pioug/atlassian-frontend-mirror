@@ -61,6 +61,7 @@ describe('useSmartLinkLifecycleAnalytics', () => {
 
   const expectedResolvedAttributes = {
     extensionKey: 'object-provider',
+    displayCategory: 'smartLink',
     status: 'resolved',
   };
 
@@ -79,10 +80,10 @@ describe('useSmartLinkLifecycleAnalytics', () => {
             hasFired: true,
             payload: expect.objectContaining({
               ...payload,
-              attributes: {
+              attributes: expect.objectContaining({
                 smartLinkId: 'xyz',
                 customAttribute: 'test-attribute',
-              },
+              }),
               packageName: '@atlaskit/link-analytics',
             }),
           }),
@@ -126,12 +127,12 @@ describe('useSmartLinkLifecycleAnalytics', () => {
             payload: expect.objectContaining({
               ...payload,
               actionSubject: 'link',
-              attributes: {
+              attributes: expect.objectContaining({
                 sourceEvent: 'form submitted',
                 smartLinkId: 'xyz',
                 linkState: 'newLink',
                 submitMethod: 'paste',
-              },
+              }),
               packageName: '@atlaskit/link-analytics',
             }),
           }),
@@ -175,12 +176,12 @@ describe('useSmartLinkLifecycleAnalytics', () => {
             hasFired: true,
             payload: expect.objectContaining({
               ...payload,
-              attributes: {
+              attributes: expect.objectContaining({
                 sourceEvent: 'form submitted (linkPicker)',
                 smartLinkId: 'xyz',
                 linkState: 'newLink',
                 submitMethod: 'paste',
-              },
+              }),
               packageName: '@atlaskit/link-analytics',
             }),
           }),
@@ -229,10 +230,10 @@ describe('useSmartLinkLifecycleAnalytics', () => {
               hasFired: true,
               payload: expect.objectContaining({
                 ...payload,
-                attributes: {
+                attributes: expect.objectContaining({
                   smartLinkId: 'xyz',
                   ...expectedResolvedAttributes,
-                },
+                }),
                 packageName: '@atlaskit/link-analytics',
               }),
             }),

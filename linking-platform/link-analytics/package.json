@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/link-analytics",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "description": "Contains analytics and utils to assist in instrumenting Linking Platform components.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -24,9 +24,11 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^8.3.1",
-    "@atlaskit/linking-common": "^1.21.0",
+    "@atlaskit/linking-common": "^1.22.0",
     "@babel/runtime": "^7.0.0",
-    "json-ld-types": "3.2.0"
+    "json-ld-types": "3.2.0",
+    "lru_map": "^0.4.1",
+    "rusha": "^0.8.13"
   },
   "peerDependencies": {
     "@atlaskit/link-provider": "^1.4.0",
@@ -36,7 +38,7 @@
     "@atlaskit/button": "^16.5.0",
     "@atlaskit/docs": "*",
     "@atlaskit/link-picker": "^1.16.0",
-    "@atlaskit/link-test-helpers": "^2.0.0",
+    "@atlaskit/link-test-helpers": "^2.1.0",
     "@atlaskit/popup": "^1.5.0",
     "@atlaskit/smart-card": "^24.0.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
@@ -46,7 +48,8 @@
     "react-intl-next": "npm:react-intl@^5.18.1"
   },
   "af:exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./resolved-attributes": "./src/resolved-attributes.ts"
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

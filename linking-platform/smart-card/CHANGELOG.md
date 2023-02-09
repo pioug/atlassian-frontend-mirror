@@ -1,5 +1,12 @@
 # @atlaskit/smart-card
 
+## 24.0.1
+
+### Patch Changes
+
+- [`4661d4f7f7b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4661d4f7f7b) - Add `link clicked` UI event to Smart Card.
+- Updated dependencies
+
 ## 24.0.0
 
 ### Patch Changes

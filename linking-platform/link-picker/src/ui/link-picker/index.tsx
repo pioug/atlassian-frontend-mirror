@@ -32,6 +32,7 @@ import {
   withLinkPickerAnalyticsContext,
 } from '../../common/analytics';
 import { normalizeUrl, isSafeUrl } from '@atlaskit/linking-common/url';
+import { browser } from '@atlaskit/linking-common/user-agent';
 
 import { usePlugins } from '../../services/use-plugins';
 import { useSearchQuery } from '../../services/use-search-query';
@@ -51,7 +52,6 @@ import {
   flexColumnStyles,
   formFooterMargin,
 } from './styled';
-import { browser } from './browser';
 import Announcer from './announcer';
 import ScrollingTabList from '../scrolling-tabs';
 
@@ -448,7 +448,7 @@ function LinkPicker({
   // as the Aria design pattern for combobox does not work in this case
   // for details: https://a11y-internal.atlassian.net/browse/AK-740
   const screenReaderText =
-    browser.safari && getScreenReaderText(items ?? [], selectedIndex, intl);
+    browser().safari && getScreenReaderText(items ?? [], selectedIndex, intl);
 
   const searchIcon = isActivePlugin && (
     <span css={searchIconStyles} data-testid={testIds.searchIcon}>

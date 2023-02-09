@@ -2,6 +2,7 @@ import React from 'react';
 import 'jest-extended';
 
 import { ConcurrentExperience } from '@atlaskit/ufo';
+import '@atlaskit/link-test-helpers/jest';
 import {
   ManualPromise,
   renderWithIntl as render,
@@ -16,7 +17,6 @@ import { screen, waitForElementToBeRemoved } from '@testing-library/dom';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom/extend-expect';
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import matches from 'lodash/matches';
 
 import { LinkPicker, LinkPickerProps } from '../../..';
 import { ANALYTICS_CHANNEL } from '../../../common/constants';
@@ -46,43 +46,6 @@ jest.mock('use-debounce', () => ({
   ...jest.requireActual<Object>('use-debounce'),
   useDebounce: <T extends unknown>(val: T) => [val],
 }));
-
-expect.extend({
-  toBeFiredWithAnalyticEventOnce(analyticsListenerSpy, event, channel) {
-    const matchingEvents = analyticsListenerSpy.mock.calls.filter(
-      (arg: any[]) => matches(event)(arg[0]),
-    );
-
-    if (matchingEvents.length === 1) {
-      if (channel && matchingEvents[0][1] !== channel) {
-        return {
-          message: () =>
-            `expected analytic event to have been fired once on channel '${channel}', it actually fired on channel '${matchingEvents[0][1]}'`,
-          pass: false,
-        };
-      }
-
-      return {
-        message: () => `analytic event was fired once`,
-        pass: true,
-      };
-    } else {
-      return {
-        message: () => {
-          if (analyticsListenerSpy.mock.calls.length === 0) {
-            return `no events were fired!`;
-          }
-          return `expected analytic event to have been fired once, \r\rexpected: ${JSON.stringify(
-            event,
-          )} \r\rreceived: ${analyticsListenerSpy.mock.calls
-            .map(([x]: any[]) => JSON.stringify(x))
-            .join('\r\r')}`;
-        },
-        pass: false,
-      };
-    }
-  },
-});
 
 describe('LinkPicker analytics', () => {
   let user: ReturnType<typeof userEvent.setup>;

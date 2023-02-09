@@ -1,5 +1,26 @@
 # @atlaskit/drag-and-drop-indicator
 
+## 0.8.0
+
+### Minor Changes
+
+- [`2112070b91a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2112070b91a) - We have changed the API for our _experimental_ tree drop indicator. Consumers should not be using the _experimental_ tree drop indicator in production before speaking with the Design System team.
+
+  This change makes the tree item drop indicator API and usage consistent with our stable box drop indicator
+
+  ```diff
+  + // The import path to the tree item drop indicator has changed
+  - import { DropIndicator } from '@atlaskit/drag-and-drop-indicator/tree';
+  + import { DropIndicator } from '@atlaskit/drag-and-drop-indicator/tree-item';
+
+  - // Render prop API with className as public API
+  - <DropIndicator edge={edge}>({className}) => <div className={className} />
+  + // Conditional rendering of an element
+  + <div style={{position: 'relative'}}>{edge ? <DropIndicator edge={edge} /></div>}
+  ```
+
+  The `hasTerminal` prop has also been removed from the tree drop indicator as for trees the current design is that all lines have a terminal on them.
+
 ## 0.7.4
 
 ### Patch Changes

@@ -14,6 +14,7 @@ import {
   hasWhiteSpace,
 } from '../../utils';
 import { tokens } from '../../../../../utils/token';
+import useMouseDownEvent from '../../../../../state/analytics/useMouseDownEvent';
 
 const DEFAULT_MAX_LINES = 2;
 const MAXIMUM_MAX_LINES = 2;
@@ -113,7 +114,10 @@ const Link: React.FC<LinkProps> = ({
   onClick,
   target,
 }) => {
+  const onMouseDown = useMouseDownEvent();
+
   const hasSpace = useMemo(() => (text ? hasWhiteSpace(text) : false), [text]);
+
   const anchor = (
     <a
       css={[
@@ -124,6 +128,7 @@ const Link: React.FC<LinkProps> = ({
       data-smart-element-link
       data-testid={testId}
       onClick={onClick}
+      onMouseDown={onMouseDown}
       href={url}
       target={target || '_blank'}
     >

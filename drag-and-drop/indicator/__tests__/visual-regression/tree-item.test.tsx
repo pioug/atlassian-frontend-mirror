@@ -10,7 +10,7 @@ describe('drop indicator with a terminal', () => {
     const url = getExampleUrl(
       'drag-and-drop',
       'indicator',
-      'terminal',
+      'experimental-tree-item',
       global.__BASEURL__,
       'light',
     );

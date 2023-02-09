@@ -43,7 +43,8 @@ describe('server-side', () => {
     const elem = document.createElement('div');
     document.body.appendChild(elem);
 
-    elem.innerHTML = await ssr(example?.filePath);
+    // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+    elem.innerHTML = await ssr(example?.filePath!);
 
     expect(elem.innerHTML).toBe('');
 

@@ -1,5 +1,12 @@
 # @atlaskit/link-picker
 
+## 1.16.11
+
+### Patch Changes
+
+- [`08de765c04b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/08de765c04b) - Moves dependency of user agent detection code to `@atlaskit/linking-common/user-agent`
+- Updated dependencies
+
 ## 1.16.10
 
 ### Patch Changes

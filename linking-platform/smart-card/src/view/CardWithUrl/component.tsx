@@ -1,5 +1,6 @@
 import React, { useEffect, useCallback, useMemo } from 'react';
-import { MouseEvent, KeyboardEvent } from 'react';
+import { MouseEvent } from 'react';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 
 import { useFeatureFlag } from '@atlaskit/link-provider';
 import { CardWithUrlContentProps } from './types';
@@ -24,6 +25,7 @@ import { isFlexibleUiCard } from '../../utils/flexible';
 import FlexibleCard from '../FlexibleCard';
 import { APIError } from '../..';
 import { CardDisplay } from '../../constants';
+import { fireLinkClickedEvent } from '../../utils/analytics/click';
 
 export function CardWithUrlContent({
   id,
@@ -47,6 +49,8 @@ export function CardWithUrlContent({
   showAuthTooltip: showAuthTooltipProp,
   analyticsEvents,
 }: CardWithUrlContentProps) {
+  const { createAnalyticsEvent } = useAnalyticsEvents();
+
   // Get state, actions for this card.
   const {
     state,
@@ -77,18 +81,10 @@ export function CardWithUrlContent({
   );
 
   // Setup UI handlers.
-  const handleClick = useCallback(
-    (event: MouseEvent | KeyboardEvent) => {
-      const clickUrl = getClickUrl(url, state.details);
-      isSpecialEvent(event)
-        ? window.open(clickUrl, '_blank')
-        : window.open(clickUrl, '_self');
-    },
-    [state.details, url],
-  );
   const handleClickWrapper = useCallback(
-    (event: MouseEvent | KeyboardEvent) => {
+    (event: MouseEvent) => {
       const isModifierKeyPressed = isSpecialEvent(event);
+
       analytics.ui.cardClickedEvent({
         id,
         display: isFlexibleUi ? CardDisplay.Flexible : appearance,
@@ -99,24 +95,45 @@ export function CardWithUrlContent({
         destinationProduct: product,
         destinationSubproduct: subproduct,
       });
-      if (onClick) {
-        onClick(event);
-      } else if (!isFlexibleUi) {
-        handleClick(event);
+
+      if (!onClick && !isFlexibleUi) {
+        const clickUrl = getClickUrl(url, state.details);
+        // Ctrl+left click on mac typically doesn't trigger onClick
+        // The event could have potentially had `e.preventDefault()` called on it by now
+        // event by smart card internally
+        // If it has been called then only then can `isModifierKeyPressed` be true.
+        const target = isModifierKeyPressed ? '_blank' : '_self';
+        window.open(clickUrl, target);
+
+        fireLinkClickedEvent(createAnalyticsEvent)(event, {
+          attributes: {
+            clickOutcome:
+              target === '_blank'
+                ? 'clickThroughNewTabOrWindow'
+                : 'clickThrough',
+          },
+        });
+      } else {
+        if (onClick) {
+          onClick(event);
+        }
+        fireLinkClickedEvent(createAnalyticsEvent)(event);
       }
     },
     [
       id,
+      url,
+      state.details,
       state.status,
       analytics.ui,
       appearance,
       definitionId,
       extensionKey,
       onClick,
-      handleClick,
       isFlexibleUi,
       product,
       subproduct,
+      createAnalyticsEvent,
     ],
   );
   const handleAuthorize = useCallback(

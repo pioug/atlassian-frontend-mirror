@@ -1,5 +1,15 @@
 # @atlaskit/link-analytics
 
+## 4.1.0
+
+### Minor Changes
+
+- [`2159e1814fc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2159e1814fc) - Adds getAnalyticsAttributes as single mechanism to access resolved metada for analytics attributes
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.0.0
 
 ### Patch Changes

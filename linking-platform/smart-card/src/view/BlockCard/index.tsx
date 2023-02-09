@@ -83,6 +83,7 @@ export const BlockCard: FC<BlockCardProps> = ({
       cardState,
       url,
       testId,
+      onClick: handleFrameClick,
       onError,
       onResolve,
       renderers,

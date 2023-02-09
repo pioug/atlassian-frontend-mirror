@@ -1,0 +1,181 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`@atlaskit/primitives bg styles are generated correctly 1`] = `
+"const backgroundColorMap = {
+  disabled: css({
+    backgroundColor: token('color.background.disabled', '#091e4289'),
+  }),
+  input: css({
+    backgroundColor: token('color.background.input', '#FAFBFC'),
+  }),
+  'inverse.subtle': css({
+    backgroundColor: token('color.background.inverse.subtle', '#00000029'),
+  }),
+  neutral: css({
+    backgroundColor: token('color.background.neutral', '#DFE1E6'),
+  }),
+  'neutral.subtle': css({
+    backgroundColor: token('color.background.neutral.subtle', 'transparent'),
+  }),
+  'neutral.bold': css({
+    backgroundColor: token('color.background.neutral.bold', '#42526E'),
+  }),
+  selected: css({
+    backgroundColor: token('color.background.selected', '#DEEBFF'),
+  }),
+  'selected.bold': css({
+    backgroundColor: token('color.background.selected.bold', '#0052CC'),
+  }),
+  'brand.bold': css({
+    backgroundColor: token('color.background.brand.bold', '#0052CC'),
+  }),
+  danger: css({
+    backgroundColor: token('color.background.danger', '#FFEBE6'),
+  }),
+  'danger.bold': css({
+    backgroundColor: token('color.background.danger.bold', '#DE350B'),
+  }),
+  warning: css({
+    backgroundColor: token('color.background.warning', '#FFFAE6'),
+  }),
+  'warning.bold': css({
+    backgroundColor: token('color.background.warning.bold', '#FFAB00'),
+  }),
+  success: css({
+    backgroundColor: token('color.background.success', '#E3FCEF'),
+  }),
+  'success.bold': css({
+    backgroundColor: token('color.background.success.bold', '#00875A'),
+  }),
+  discovery: css({
+    backgroundColor: token('color.background.discovery', '#EAE6FF'),
+  }),
+  'discovery.bold': css({
+    backgroundColor: token('color.background.discovery.bold', '#5243AA'),
+  }),
+  information: css({
+    backgroundColor: token('color.background.information', '#DEEBFF'),
+  }),
+  'information.bold': css({
+    backgroundColor: token('color.background.information.bold', '#0052CC'),
+  }),
+  'color.blanket': css({
+    backgroundColor: token('color.blanket', '#091e4289'),
+  }),
+  'color.blanket.selected': css({
+    backgroundColor: token('color.blanket.selected', '#388BFF14'),
+  }),
+  'color.blanket.danger': css({
+    backgroundColor: token('color.blanket.danger', '#EF5C4814'),
+  }),
+  'elevation.surface': css({
+    backgroundColor: token('elevation.surface', '#FFFFFF'),
+  }),
+  'elevation.surface.overlay': css({
+    backgroundColor: token('elevation.surface.overlay', '#FFFFFF'),
+  }),
+  'elevation.surface.raised': css({
+    backgroundColor: token('elevation.surface.raised', '#FFFFFF'),
+  }),
+  'elevation.surface.sunken': css({
+    backgroundColor: token('elevation.surface.sunken', '#F4F5F7'),
+  }),
+} as const;
+
+export type BackgroundColor = keyof typeof backgroundColorMap;
+"
+`;
+
+exports[`@atlaskit/primitives border styles are generated correctly 1`] = `
+"const borderColorMap = {
+  'color.border': css({
+    borderColor: token('color.border', '#091e4221'),
+  }),
+  disabled: css({
+    borderColor: token('color.border.disabled', '#FAFBFC'),
+  }),
+  focused: css({
+    borderColor: token('color.border.focused', '#4C9AFF'),
+  }),
+  input: css({
+    borderColor: token('color.border.input', '#FAFBFC'),
+  }),
+  inverse: css({
+    borderColor: token('color.border.inverse', '#FFFFFF'),
+  }),
+  selected: css({
+    borderColor: token('color.border.selected', '#0052CC'),
+  }),
+  brand: css({
+    borderColor: token('color.border.brand', '#0052CC'),
+  }),
+  danger: css({
+    borderColor: token('color.border.danger', '#FF5630'),
+  }),
+  warning: css({
+    borderColor: token('color.border.warning', '#FFC400'),
+  }),
+  success: css({
+    borderColor: token('color.border.success', '#00875A'),
+  }),
+  discovery: css({
+    borderColor: token('color.border.discovery', '#998DD9'),
+  }),
+  information: css({
+    borderColor: token('color.border.information', '#0065FF'),
+  }),
+  bold: css({
+    borderColor: token('color.border.bold', '#344563'),
+  }),
+} as const;
+
+export type BorderColor = keyof typeof borderColorMap;
+"
+`;
+
+exports[`@atlaskit/primitives text styles are generated correctly 1`] = `
+"const textColorMap = {
+  'color.text': css({
+    color: token('color.text', '#172B4D'),
+  }),
+  disabled: css({
+    color: token('color.text.disabled', '#A5ADBA'),
+  }),
+  inverse: css({
+    color: token('color.text.inverse', '#FFFFFF'),
+  }),
+  selected: css({
+    color: token('color.text.selected', '#0052CC'),
+  }),
+  brand: css({
+    color: token('color.text.brand', '#0065FF'),
+  }),
+  danger: css({
+    color: token('color.text.danger', '#DE350B'),
+  }),
+  warning: css({
+    color: token('color.text.warning', '#974F0C'),
+  }),
+  'warning.inverse': css({
+    color: token('color.text.warning.inverse', '#172B4D'),
+  }),
+  success: css({
+    color: token('color.text.success', '#006644'),
+  }),
+  discovery: css({
+    color: token('color.text.discovery', '#403294'),
+  }),
+  information: css({
+    color: token('color.text.information', '#0052CC'),
+  }),
+  subtlest: css({
+    color: token('color.text.subtlest', '#7A869A'),
+  }),
+  subtle: css({
+    color: token('color.text.subtle', '#42526E'),
+  }),
+} as const;
+
+export type TextColor = keyof typeof textColorMap;
+"
+`;

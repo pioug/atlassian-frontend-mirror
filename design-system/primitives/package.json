@@ -1,0 +1,89 @@
+{
+  "name": "@atlaskit/primitives",
+  "version": "0.0.1",
+  "description": "Primitives are token-backed low-level building blocks.",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+  "homepage": "https://atlassian.design/components/primitives",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "atlassian": {
+    "team": "Design System Team",
+    "inPublicMirror": false,
+    "releaseModel": "continuous",
+    "website": {
+      "category": "Components",
+      "name": "Primitives",
+      "status": {
+        "type": "alpha"
+      }
+    }
+  },
+  "scripts": {
+    "codegen-styles": "ts-node --project ../../../tsconfig.node.json ./scripts/codegen-styles"
+  },
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "module:es2019": "dist/es2019/index.js",
+  "types": "dist/types/index.d.ts",
+  "sideEffects": false,
+  "atlaskit:src": "src/index.tsx",
+  "af:exports": {
+    ".": "./src/index.tsx",
+    "./box": "./src/components/box.tsx",
+    "./stack": "./src/components/stack.partial.tsx",
+    "./inline": "./src/components/inline.partial.tsx"
+  },
+  "dependencies": {
+    "@atlaskit/ds-explorations": "^2.0.1",
+    "@atlaskit/tokens": "^1.0.0",
+    "@babel/runtime": "^7.0.0",
+    "@emotion/react": "^11.7.1"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0 || ^17.0.0 || ^18.0.0"
+  },
+  "devDependencies": {
+    "@af/codegen": "*",
+    "@atlaskit/docs": "*",
+    "@atlaskit/ds-lib": "*",
+    "@atlaskit/ssr": "*",
+    "@atlaskit/visual-regression": "*",
+    "@atlaskit/webdriver-runner": "*",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
+    "@testing-library/react": "^12.1.5",
+    "prettier": "^2.7.0",
+    "react-dom": "^16.8.0",
+    "ts-node": "^10.9.1",
+    "typescript": "4.5.5",
+    "wait-for-expect": "^1.2.0"
+  },
+  "techstack": {
+    "@atlassian/frontend": {
+      "import-structure": [
+        "atlassian-conventions"
+      ],
+      "circular-dependencies": "file-and-folder-level"
+    },
+    "@repo/internal": {
+      "design-system": "v1",
+      "dom-events": "use-bind-event-listener",
+      "analytics": "analytics-next",
+      "ui-components": [
+        "lite-mode"
+      ],
+      "deprecation": "no-deprecated-imports",
+      "styling": [
+        "static",
+        "emotion"
+      ],
+      "design-tokens": [
+        "color",
+        "spacing"
+      ]
+    }
+  },
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
+}

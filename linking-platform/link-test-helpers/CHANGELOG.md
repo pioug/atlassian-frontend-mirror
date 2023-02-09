@@ -1,5 +1,11 @@
 # @atlaskit/link-test-helpers
 
+## 2.1.0
+
+### Minor Changes
+
+- [`36848fe9148`](https://bitbucket.org/atlassian/atlassian-frontend/commits/36848fe9148) - Adds jest entrypoint to expose jest custom matcher .toBeFiredWithAnalyticEventOnce
+
 ## 2.0.1
 
 ### Patch Changes

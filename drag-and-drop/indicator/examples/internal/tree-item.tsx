@@ -4,14 +4,14 @@ import type { ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import type { Edge } from '@atlaskit/drag-and-drop-hitbox/experimental/tree';
+import type { Edge } from '@atlaskit/drag-and-drop-hitbox/types';
 import { token } from '@atlaskit/tokens';
 
-import { DropIndicator } from '../../src/experimental/tree-drop-indicator';
+import { DropIndicator } from '../../src/experimental/tree-item';
 
 type TreeItemProps = {
   children: ReactNode;
-  edge?: Edge;
+  edge?: Edge | 'child';
   gap?: string;
 };
 
@@ -22,6 +22,7 @@ const itemStyles = css({
   alignItems: 'center',
   gap: 4,
   borderRadius: 3,
+  position: 'relative',
 });
 
 const dotIconStyles = css({
@@ -40,19 +41,13 @@ const TreeItem = ({ children, edge: edgeProp, gap }: TreeItemProps) => {
 
   // TODO: calc `inset` from `--grid`
   return (
-    <DropIndicator
-      hasTerminal
-      inset={isInset ? `32px` : `0px`}
-      edge={edge ?? null}
-      gap={gap}
-    >
-      {({ className }) => (
-        <div className={className} css={itemStyles} data-testid="tree-item">
-          <DotIcon />
-          <span>{children}</span>
-        </div>
+    <div css={itemStyles} data-testid="tree-item">
+      <DotIcon />
+      <span>{children}</span>
+      {edge && (
+        <DropIndicator inset={isInset ? `32px` : `0px`} edge={edge} gap={gap} />
       )}
-    </DropIndicator>
+    </div>
   );
 };
 

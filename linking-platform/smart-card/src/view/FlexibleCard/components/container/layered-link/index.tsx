@@ -3,6 +3,7 @@ import React from 'react';
 import { jsx, css } from '@emotion/react';
 
 import { LayeredLinkProps } from './types';
+import useMouseDownEvent from '../../../../../state/analytics/useMouseDownEvent';
 
 const styles = css`
   // Stretch the invisible link over the whole of the post.
@@ -50,18 +51,23 @@ const LayeredLink: React.FC<LayeredLinkProps> = ({
   testId,
   text,
   url,
-}) => (
-  <a
-    className="layered-link"
-    css={styles}
-    data-testid={`${testId}-layered-link`}
-    href={url}
-    onClick={onClick}
-    target={target}
-    tabIndex={-1} // Hide tab index and let the title link be the link.
-  >
-    {text}
-  </a>
-);
+}) => {
+  const onMouseDown = useMouseDownEvent();
+
+  return (
+    <a
+      className="layered-link"
+      css={styles}
+      data-testid={`${testId}-layered-link`}
+      href={url}
+      onClick={onClick}
+      onMouseDown={onMouseDown}
+      target={target}
+      tabIndex={-1} // Hide tab index and let the title link be the link.
+    >
+      {text}
+    </a>
+  );
+};
 
 export default LayeredLink;

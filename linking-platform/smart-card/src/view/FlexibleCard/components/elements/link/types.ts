@@ -15,6 +15,11 @@ export type LinkProps = ElementProps & {
   onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
 
   /**
+   * Mouse event to be provided to the link
+   */
+  onMouseDown?: React.MouseEventHandler;
+
+  /**
    * The number of lines that the link text should spread over. Maximum of 2 lines.
    */
   maxLines?: number;

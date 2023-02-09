@@ -1,6 +1,7 @@
 import React from 'react';
 import Tooltip from '@atlaskit/tooltip';
 import Button from '@atlaskit/button/custom-theme-button';
+import useMouseDownEvent from '../../../../../state/analytics/useMouseDownEvent';
 import { LinkInfoButtonProps } from './types';
 
 const LinkInfoButton: React.FC<LinkInfoButtonProps> = ({
@@ -11,6 +12,8 @@ const LinkInfoButton: React.FC<LinkInfoButtonProps> = ({
   target,
   testId,
 }) => {
+  const onMouseDown = useMouseDownEvent();
+
   return (
     <Tooltip
       content={content}
@@ -24,6 +27,7 @@ const LinkInfoButton: React.FC<LinkInfoButtonProps> = ({
         href={href}
         iconBefore={icon}
         onClick={onClick}
+        onMouseDown={onMouseDown}
         spacing="none"
         target={target}
         testId={`${testId}-button`}

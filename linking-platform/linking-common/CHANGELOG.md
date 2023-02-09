@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 1.22.0
+
+### Minor Changes
+
+- [`08de765c04b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/08de765c04b) - Adds user agent utilities.
+
 ## 1.21.1
 
 ### Patch Changes

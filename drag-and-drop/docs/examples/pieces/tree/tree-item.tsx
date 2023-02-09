@@ -18,29 +18,26 @@ import {
   Edge,
   extractClosestEdge,
 } from '@atlaskit/drag-and-drop-hitbox/experimental/tree';
-import { DropIndicator } from '@atlaskit/drag-and-drop-indicator/experimental/tree';
 import {
   draggable,
   dropTargetForElements,
 } from '@atlaskit/drag-and-drop/adapter/element';
 import { combine } from '@atlaskit/drag-and-drop/util/combine';
 
+import { indentPerLevel } from './constants';
 import { TreeContext } from './tree-context';
 import { TreeItemContext } from './tree-item-context';
 import TreeItemGroup, { TreeItemGroupProps } from './tree-item-group';
 import TreeItemLeaf from './tree-item-leaf';
 
-type TreeItemProps = Omit<TreeItemGroupProps, 'onClick'>;
+type TreeItemProps = Omit<
+  TreeItemGroupProps,
+  'onClick' | 'closestEdge' | 'level'
+>;
 
 type TreeItemState = 'idle' | 'dragging' | 'preview';
 
-const TreeItem = ({
-  children,
-  id,
-  inset: childInset,
-  isOpen = false,
-  label,
-}: TreeItemProps) => {
+const TreeItem = ({ children, id, isOpen = false, label }: TreeItemProps) => {
   const childCount = Children.count(children);
   const hasChildren = Boolean(childCount);
 
@@ -59,11 +56,8 @@ const TreeItem = ({
     return { nestingLevel: nestingLevel + 1 };
   }, [nestingLevel]);
 
-  const edge = closestEdge === 'child' ? 'bottom' : closestEdge;
   // Note: we could be using CSS variables here rather than numbers
-  const inset = nestingLevel * childInset;
-  const dropIndicatorInset =
-    closestEdge === 'child' ? inset + childInset : inset;
+  const inset = nestingLevel * indentPerLevel;
 
   useEffect(() => {
     invariant(buttonRef.current);
@@ -117,30 +111,26 @@ const TreeItem = ({
   const Component = hasChildren ? TreeItemGroup : TreeItemLeaf;
 
   return (
-    <DropIndicator hasTerminal edge={edge} inset={`${dropIndicatorInset}px`}>
-      {({ className }) => (
-        <Component
-          className={className}
-          draggableState={state}
-          id={id}
-          inset={inset}
-          isOpen={isOpen}
-          label={label}
-          onClick={onClick}
-          ref={buttonRef}
-        >
-          {Children.map(children, child => (
-            /**
-             * Using a map here instead of just wrapping all of the children,
-             * so that the child count doesn't change (needed for badge on drag).
-             */
-            <TreeItemContext.Provider value={contextValue}>
-              {child}
-            </TreeItemContext.Provider>
-          ))}
-        </Component>
-      )}
-    </DropIndicator>
+    <Component
+      draggableState={state}
+      id={id}
+      level={nestingLevel}
+      isOpen={isOpen}
+      label={label}
+      onClick={onClick}
+      ref={buttonRef}
+      closestEdge={closestEdge}
+    >
+      {Children.map(children, child => (
+        /**
+         * Using a map here instead of just wrapping all of the children,
+         * so that the child count doesn't change (needed for badge on drag).
+         */
+        <TreeItemContext.Provider value={contextValue}>
+          {child}
+        </TreeItemContext.Provider>
+      ))}
+    </Component>
   );
 };
 

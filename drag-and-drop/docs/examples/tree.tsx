@@ -32,7 +32,7 @@ const renderTreeItem = ({
   children = [],
 }: TreeItemData & { isOpen?: boolean; children?: TreeItemData[] }) => {
   return (
-    <TreeItem key={id} id={id} label={label} isOpen={isOpen} inset={32}>
+    <TreeItem key={id} id={id} label={label} isOpen={isOpen}>
       {children.map(renderTreeItem)}
     </TreeItem>
   );

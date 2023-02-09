@@ -130,3 +130,29 @@ export type InstrumentEventProps = CommonEventProps & {
   status: CardType;
   id: string;
 };
+
+export type ClickType = 'left' | 'middle' | 'right' | 'none';
+
+export type ClickOutcome =
+  | 'prevented'
+  | 'clickThrough'
+  | 'clickThroughNewTabOrWindow'
+  | 'contextMenu'
+  | 'alt'
+  | 'contentEditable'
+  | '_unknown';
+
+export type UiLinkClickedEventProps = {
+  /**
+   * Whether the click occurred with the left, middle or right mouse button
+   */
+  clickType: ClickType;
+  /**
+   * The user outcome for clicking the link as far as can be reasonably be determined
+   */
+  clickOutcome: ClickOutcome;
+  /**
+   * The keys held by the user at the time of clicking the link (which influence `clickOutcome`)
+   */
+  keysHeld: ('alt' | 'ctrl' | 'meta' | 'shift')[];
+};

@@ -65,4 +65,6 @@ if (typeof navigator !== 'undefined') {
     'ResizeObserverEntry' in window;
 }
 
-export { result as browser };
+export function browser() {
+  return result;
+}

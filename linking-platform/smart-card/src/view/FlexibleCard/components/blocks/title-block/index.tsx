@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { css, SerializedStyles } from '@emotion/react';
 
 import { TitleBlockProps } from './types';
+import useMouseDownEvent from '../../../../../state/analytics/useMouseDownEvent';
 import { SmartLinkStatus } from '../../../../../constants';
 import TitleBlockResolvedView from './resolved';
 import TitleBlockErroredView from './errored';
@@ -99,11 +100,15 @@ const TitleBlock: React.FC<TitleBlockProps> = ({
   `;
 
   const overrideText = !!text ? { text } : {};
+
+  const onMouseDown = useMouseDownEvent();
+
   const title = (
     <Title
       hideTooltip={hideTitleTooltip}
       maxLines={maxLines}
       onClick={onClick}
+      onMouseDown={onMouseDown}
       target={anchorTarget}
       theme={theme}
       {...overrideText}

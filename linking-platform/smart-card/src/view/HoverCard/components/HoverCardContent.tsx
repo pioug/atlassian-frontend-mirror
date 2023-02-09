@@ -3,6 +3,8 @@ import { jsx } from '@emotion/react';
 import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
 import CopyIcon from '@atlaskit/icon/glyph/copy';
 import { extractType } from '@atlaskit/linking-common/extractors';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+
 import { CardState } from '../../../state/types';
 import { JsonLd } from 'json-ld-types';
 import React, { useCallback, useEffect, useMemo } from 'react';
@@ -35,6 +37,7 @@ import HoverCardResolvedView from './views/resolved';
 import { FormattedMessage } from 'react-intl-next';
 import { messages } from '../../../messages';
 import { useSmartCardActions } from '../../../state/actions';
+import { fireLinkClickedEvent } from '../../../utils/analytics/click';
 
 export const hoverCardClassName = 'smart-links-hover-preview';
 
@@ -80,6 +83,8 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
   onMouseEnter,
   onMouseLeave,
 }) => {
+  const { createAnalyticsEvent } = useAnalyticsEvents();
+
   const extensionKey = useMemo(
     () => getExtensionKey(cardState.details),
     [cardState.details],
@@ -91,7 +96,7 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
   }, [actions]);
 
   const onClick = useCallback(
-    (event: React.MouseEvent | React.KeyboardEvent) => {
+    (event: React.MouseEvent) => {
       const isModifierKeyPressed = isSpecialEvent(event);
       analytics.ui.cardClickedEvent({
         id,
@@ -100,8 +105,10 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
         isModifierKeyPressed,
         actionSubjectId: 'titleGoToLink',
       });
+
+      fireLinkClickedEvent(createAnalyticsEvent)(event);
     },
-    [cardState.status, analytics.ui, id],
+    [createAnalyticsEvent, cardState.status, analytics.ui, id],
   );
 
   const titleActions = useMemo(

@@ -4,8 +4,12 @@ import { forwardRef, MouseEventHandler, ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
+import { DropIndicator } from '@atlaskit/drag-and-drop-indicator/experimental/tree-item';
+import type { Edge } from '@atlaskit/drag-and-drop-indicator/types';
 import FocusRing from '@atlaskit/focus-ring';
 import { token } from '@atlaskit/tokens';
+
+import { indentPerLevel } from './constants';
 
 export type TreeItemLeafProps = {
   ariaExpanded?: boolean;
@@ -15,9 +19,10 @@ export type TreeItemLeafProps = {
   elementAfter?: ReactNode;
   elementBefore?: ReactNode;
   id: string;
-  inset: number;
+  level: number;
   label?: string;
   onClick?: MouseEventHandler;
+  closestEdge: Edge | 'child' | null;
 };
 
 const itemStyles = css({
@@ -30,6 +35,7 @@ const itemStyles = css({
   background: token('color.background.neutral.subtle', 'transparent'),
   border: 0,
   borderRadius: 3,
+  position: 'relative',
   /**
    * Without this Safari renders white text on drag.
    */
@@ -72,7 +78,7 @@ const ItemIcon = () => (
 );
 
 const TreeItem = forwardRef<HTMLButtonElement, TreeItemLeafProps>(
-  (
+  function TreeItem(
     {
       ariaExpanded,
       ariaControls,
@@ -81,14 +87,20 @@ const TreeItem = forwardRef<HTMLButtonElement, TreeItemLeafProps>(
       elementAfter,
       elementBefore: elementBeforeProp,
       id: idProp,
-      inset,
+      level,
       label = 'Tree item',
       onClick,
+      closestEdge,
     },
     ref,
-  ) => {
+  ) {
     const elementBefore = elementBeforeProp ?? <ItemIcon />;
     const id = `tree-item-${idProp}`;
+
+    const inset: number =
+      closestEdge === 'child'
+        ? (level + 1) * indentPerLevel
+        : level * indentPerLevel;
 
     return (
       <FocusRing isInset>
@@ -98,7 +110,7 @@ const TreeItem = forwardRef<HTMLButtonElement, TreeItemLeafProps>(
           className={className}
           css={[itemStyles, stateStyles[draggableState]]}
           id={id}
-          style={{ paddingLeft: 8 + inset }}
+          style={{ paddingLeft: 8 + level * indentPerLevel }}
           onClick={onClick}
           ref={ref}
           type="button"
@@ -109,6 +121,12 @@ const TreeItem = forwardRef<HTMLButtonElement, TreeItemLeafProps>(
             <code>ID:'{idProp}'</code>
           </small>
           {elementAfter}
+          {closestEdge && (
+            <DropIndicator
+              edge={closestEdge === 'child' ? 'bottom' : closestEdge}
+              inset={`${inset}px`}
+            />
+          )}
         </button>
       </FocusRing>
     );

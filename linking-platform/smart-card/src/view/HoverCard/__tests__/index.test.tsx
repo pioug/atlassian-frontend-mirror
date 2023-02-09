@@ -20,6 +20,8 @@ jest.mock('@atlaskit/analytics-next', () => ({
   ),
 }));
 
+import '@atlaskit/link-test-helpers/jest';
+
 import '../../__mocks__/intersection-observer.mock';
 import React, { ReactElement } from 'react';
 import { fireEvent, render, cleanup, waitFor } from '@testing-library/react';
@@ -43,6 +45,7 @@ import {
 } from './__mocks__/mocks';
 import * as HoverCardComponent from '../components/HoverCardComponent';
 import { HoverCard } from '../../../hoverCard';
+import { AnalyticsListener } from '@atlaskit/analytics-next';
 
 describe('HoverCard', () => {
   let mockClient: CardClient;
@@ -58,17 +61,23 @@ describe('HoverCard', () => {
     mockFetch = jest.fn(() => Promise.resolve(mock));
     mockClient = new (fakeFactory(mockFetch))();
     mockUrl = 'https://some.url';
+    const analyticsSpy = jest.fn();
 
     const { queryByTestId, findByTestId } = render(
-      <IntlProvider locale="en">
-        <Provider client={mockClient} featureFlags={featureFlags}>
-          {component ? (
-            component
-          ) : (
-            <Card appearance="inline" url={mockUrl} showHoverPreview={true} />
-          )}
-        </Provider>
-      </IntlProvider>,
+      <AnalyticsListener
+        channel={analytics.ANALYTICS_CHANNEL}
+        onEvent={analyticsSpy}
+      >
+        <IntlProvider locale="en">
+          <Provider client={mockClient} featureFlags={featureFlags}>
+            {component ? (
+              component
+            ) : (
+              <Card appearance="inline" url={mockUrl} showHoverPreview={true} />
+            )}
+          </Provider>
+        </IntlProvider>
+      </AnalyticsListener>,
     );
 
     const element = await findByTestId(testId);
@@ -85,7 +94,7 @@ describe('HoverCard', () => {
       },
     });
 
-    return { findByTestId, queryByTestId, element };
+    return { findByTestId, queryByTestId, element, analyticsSpy };
   };
 
   afterEach(() => {
@@ -468,7 +477,7 @@ describe('HoverCard', () => {
 
       it('should fire clicked event when title is clicked', async () => {
         const spy = jest.spyOn(analytics, 'uiCardClickedEvent');
-        const { findByTestId } = await setup();
+        const { findByTestId, analyticsSpy } = await setup();
         jest.runAllTimers();
 
         await findByTestId('smart-block-title-resolved-view');
@@ -494,6 +503,55 @@ describe('HoverCard', () => {
           },
           eventType: 'ui',
         });
+        expect(analyticsSpy).toBeFiredWithAnalyticEventOnce(
+          {
+            payload: {
+              action: 'clicked',
+              actionSubject: 'link',
+            },
+          },
+          analytics.ANALYTICS_CHANNEL,
+        );
+      });
+
+      it('should fire clicked event when title is middle clicked', async () => {
+        const { findByTestId, analyticsSpy } = await setup();
+        jest.runAllTimers();
+
+        await findByTestId('smart-block-title-resolved-view');
+        const link = await findByTestId('smart-element-link');
+
+        fireEvent.mouseDown(link, { button: 1 });
+
+        expect(analyticsSpy).toBeFiredWithAnalyticEventOnce(
+          {
+            payload: {
+              action: 'clicked',
+              actionSubject: 'link',
+            },
+          },
+          analytics.ANALYTICS_CHANNEL,
+        );
+      });
+
+      it('should fire clicked event when title is right clicked', async () => {
+        const { findByTestId, analyticsSpy } = await setup();
+        jest.runAllTimers();
+
+        await findByTestId('smart-block-title-resolved-view');
+        const link = await findByTestId('smart-element-link');
+
+        fireEvent.mouseDown(link, { button: 2 });
+
+        expect(analyticsSpy).toBeFiredWithAnalyticEventOnce(
+          {
+            payload: {
+              action: 'clicked',
+              actionSubject: 'link',
+            },
+          },
+          analytics.ANALYTICS_CHANNEL,
+        );
       });
 
       it('should fire clicked event when open button is clicked', async () => {

@@ -6,7 +6,7 @@ import TreeItem from './internal/tree-item';
 
 const edges = ['top', 'bottom', 'child'] as const;
 
-export default function TerminalExample() {
+export default function Example() {
   return (
     <Layout testId="layout--appearance">
       {edges.map(edge => (

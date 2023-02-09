@@ -1,9 +1,16 @@
 import React from 'react';
 
-import { createEvent, fireEvent, render, screen } from '@testing-library/react';
+import { browser } from '@atlaskit/linking-common/user-agent';
+import { asMock } from '@atlaskit/link-test-helpers/jest';
 
-import { browser } from '../browser';
+import { createEvent, fireEvent, render, screen } from '@testing-library/react';
 import TextInput, { TextInputProps, testIds } from '.';
+
+jest.mock('@atlaskit/linking-common/user-agent', () => ({
+  browser: jest.fn(() => ({
+    mac: false,
+  })),
+}));
 
 describe('TextInput', () => {
   beforeEach(() => {
@@ -82,7 +89,7 @@ describe('TextInput', () => {
 
     describe('on mac platform', () => {
       beforeEach(() => {
-        browser.mac = true;
+        asMock(browser).mockReturnValue({ mac: true });
       });
 
       it('on cmd+z calls `onUndo` handler', async () => {

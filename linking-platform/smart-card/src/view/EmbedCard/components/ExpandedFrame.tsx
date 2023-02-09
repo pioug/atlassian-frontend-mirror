@@ -9,6 +9,7 @@ import {
   Content,
 } from './styled';
 import { handleClickCommon } from '../../BlockCard/utils/handlers';
+import useMouseDownEvent from '../../../state/analytics/useMouseDownEvent';
 
 export interface ExpandedFrameProps {
   isPlaceholder?: boolean;
@@ -53,6 +54,7 @@ export const ExpandedFrame: FC<ExpandedFrameProps> = ({
   const isInteractive = () =>
     !isPlaceholder && (Boolean(href) || Boolean(onClick));
   const handleClick = (event: MouseEvent) => handleClickCommon(event, onClick);
+  const handleMouseDown = useMouseDownEvent();
 
   const renderHeader = () => (
     <Header className="embed-header">
@@ -61,7 +63,7 @@ export const ExpandedFrame: FC<ExpandedFrameProps> = ({
       </IconWrapper>
       <TextWrapper isPlaceholder={isPlaceholder}>
         {!isPlaceholder && (
-          <a href={href} onClick={handleClick}>
+          <a href={href} onClick={handleClick} onMouseDown={handleMouseDown}>
             {text}
           </a>
         )}

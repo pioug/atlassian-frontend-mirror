@@ -100,6 +100,9 @@ export class StorageClient {
   ) => void;
 }
 
+// @public (undocumented)
+export const usePrevious: <T = any>(value: T) => T | undefined;
+
 // (No @packageDocumentation comment for this package)
 ```
 

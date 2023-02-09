@@ -1,4 +1,8 @@
-import { getStatus, resolveAttributes } from '../../resolved-attributes';
+import {
+  getStatus,
+  getAnalyticsAttributes,
+  resolveAttributes,
+} from '../../resolved-attributes';
 import { APIError } from '@atlaskit/linking-common';
 import { fakeFactory, mocks } from '../__fixtures__/mocks';
 
@@ -22,6 +26,38 @@ describe('resolved-attributes', () => {
     });
   });
 
+  describe('getAnalyticsAttributes', () => {
+    it('returns attributes for unresolved links', async () => {
+      const resolvedAttributes = getAnalyticsAttributes(
+        'some-url',
+        undefined,
+        'not_found',
+      );
+      expect(resolvedAttributes).toEqual(
+        expect.objectContaining({
+          status: 'not_found',
+          displayCategory: 'link',
+          urlHash: expect.not.stringContaining('some-url'),
+        }),
+      );
+    });
+
+    it('returns Analytics attributes successfully', async () => {
+      const resolvedAttributes = getAnalyticsAttributes(
+        'some-url',
+        mocks.success,
+      );
+      expect(resolvedAttributes).toEqual(
+        expect.objectContaining({
+          status: 'resolved',
+          displayCategory: 'smartLink',
+          extensionKey: 'object-provider',
+          urlHash: expect.not.stringContaining('some-url'),
+        }),
+      );
+    });
+  });
+
   describe('resolveAttributes', () => {
     it('returns extensionKey and status successfully', async () => {
       const mockFetch = jest.fn(async () => mocks.success);
@@ -30,10 +66,12 @@ describe('resolved-attributes', () => {
         'some-url',
         mockClient,
       );
-      expect(resolvedAttributes).toEqual({
-        extensionKey: 'object-provider',
-        status: 'resolved',
-      });
+      expect(resolvedAttributes).toEqual(
+        expect.objectContaining({
+          status: 'resolved',
+          extensionKey: 'object-provider',
+        }),
+      );
     });
 
     it('handles thrown error, return empty object', async () => {

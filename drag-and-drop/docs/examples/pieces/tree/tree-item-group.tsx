@@ -41,19 +41,20 @@ const collapsedStyles = css({
 });
 
 const TreeItemGroup = forwardRef<HTMLButtonElement, TreeItemGroupProps>(
-  (
+  function TreeItemGroup(
     {
       children,
       className,
       id,
-      inset,
+      level,
       isOpen = false,
       label = 'Tree group',
       onClick,
       draggableState,
+      closestEdge,
     },
     ref,
-  ) => {
+  ) {
     const childCount = Children.count(children);
     const isPreview = draggableState === 'preview';
     const subtreeId = `tree-item-${id}--subtree`;
@@ -72,10 +73,11 @@ const TreeItemGroup = forwardRef<HTMLButtonElement, TreeItemGroupProps>(
           }
           elementBefore={<GroupIcon isOpen={isOpen} />}
           id={id}
-          inset={inset}
+          level={level}
           label={label}
           onClick={onClick}
           ref={ref}
+          closestEdge={closestEdge}
         />
         {draggableState === 'idle' && (
           <div id={subtreeId} css={isOpen || collapsedStyles}>

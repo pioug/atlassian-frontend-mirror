@@ -1,5 +1,11 @@
 # @af/frontend-utilities
 
+## 2.2.0
+
+### Minor Changes
+
+- [`b99fcb920ff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b99fcb920ff) - Adding some minor versions to test the branch deploy
+
 ## 2.1.0
 
 ### Minor Changes

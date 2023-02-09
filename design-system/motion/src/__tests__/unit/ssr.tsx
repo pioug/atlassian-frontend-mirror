@@ -10,9 +10,9 @@ afterEach(() => {
 
 describe('ssr for motion', () => {
   it('should not throw when rendering any example on the server', async () => {
-    const examples = await getExamplesFor('motion');
+    const examples = await getExamplesFor('@atlaskit/motion');
 
-    const result: string[] = await Promise.all(
+    const result = await Promise.all(
       examples.map((example: any) =>
         ssr(example.filePath)
           .then(() => undefined)

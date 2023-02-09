@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/frontend-utilities",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Collecton of small useful frontend utilities",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -25,6 +25,8 @@
   "af:exports": {
     ".": "./src/index.ts",
     "./convert-to-error": "./src/error-handling/convert-to-error/index.ts",
+    "./hooks": "./src/hooks/index.ts",
+    "./use-previous": "./src/hooks/use-previous/index.ts",
     "./retry-operation": "./src/network/retry-operation/index.ts",
     "./local-storage": "./src/storage/local-storage/index.ts",
     "./storage-client": "./src/storage/storage-client/index.ts"
@@ -44,6 +46,7 @@
     "@atlaskit/renderer": "^106.0.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react": "^12.1.5",
+    "@testing-library/react-hooks": "^8.0.1",
     "typescript": "4.5.5",
     "wait-for-expect": "^1.2.0"
   },

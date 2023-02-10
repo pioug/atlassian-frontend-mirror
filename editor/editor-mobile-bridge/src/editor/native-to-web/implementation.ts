@@ -47,7 +47,12 @@ import {
 } from '@atlaskit/editor-core';
 import type { TypeAheadItem } from '@atlaskit/editor-common/provider-factory';
 import { EditorViewWithComposition } from '../../types';
-import { Selection, EditorState, Transaction } from 'prosemirror-state';
+import {
+  TextSelection,
+  Selection,
+  EditorState,
+  Transaction,
+} from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import {
   redo as pmHistoryRedo,
@@ -926,7 +931,20 @@ export default class WebBridgeImpl
      * Note: side effect is cursor position changes to start of document.
      */
     this.editorActions.getValue().then((value) => {
-      this.editorActions.replaceDocument(value);
+      // To prevent unexpected cursor jumping, we need to save current cursor position
+      // and restore it afterwards
+      const currentSelectionPos = this.editorView?.state.selection.$anchor.pos;
+      const replacedDocument = this.editorActions.replaceDocument(value);
+      if (replacedDocument) {
+        // restore previous cursor position
+        if (this.editorView && currentSelectionPos) {
+          let tr = this.editorView.state.tr;
+          tr = tr.setSelection(
+            TextSelection.create(tr.doc, currentSelectionPos),
+          );
+          this.editorView.dispatch(tr);
+        }
+      }
     });
   }
 

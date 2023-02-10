@@ -41,10 +41,6 @@ export const tokenOrder = [
     subpaths: [],
   },
   {
-    path: 'spacing',
-    subpaths: ['scale', 'scaleLinear', 'size', 'gap', 'inset', 'ecl', 'ccc'],
-  },
-  {
     path: 'space',
     subpaths: [],
   },
@@ -109,35 +105,6 @@ const isSemanticToken = (path: string) => {
 
 const getSemanticIndex = (token: TransformedToken, pathIndex: number) =>
   semanticTokens.findIndex((value) => value === token.path[pathIndex]);
-
-/**
- * Size tokens
- */
-const sizeTokens = [
-  'none',
-  'xxxxSmall',
-  'xxxSmall',
-  'xxSmall',
-  'xsmall',
-  'small',
-  'medium',
-  'large',
-  'xlarge',
-  'xxlarge',
-  'xxxlarge',
-  'xxxxlarge',
-];
-
-const isSizeToken = (token: TransformedToken, path: string) => {
-  return (
-    (token.original.attributes?.group === 'spacing' ||
-      token.original.attributes?.group === 'fontSize') &&
-    sizeTokens.includes(path)
-  );
-};
-
-const getSizeIndex = (token: TransformedToken, pathIndex: number) =>
-  sizeTokens.findIndex((value) => value === token.path[pathIndex]);
 
 /**
  * Emphasis tokens
@@ -410,42 +377,13 @@ const sortByPathName = (a: TransformedToken, b: TransformedToken) => {
     }
 
     /**
-     * Check if it's a size token.
-     *
-     * This ensures size tokens are grouped together and in the
-     * predefined order of smallest to largest in `sizeTokens`.
-     *
-     * @example
-     * 1. spacing.size.xxxxSmall
-     * 2. spacing.size.medium
-     * 3. spacing.size.xxxxlarge
-     */
-    const aIsSize = isSizeToken(a, aPath);
-    const bIsSize = isSizeToken(b, bPath);
-
-    if (!aIsSize && bIsSize) {
-      return 1;
-    } else if (aIsSize && !bIsSize) {
-      return -1;
-    } else if (aIsSize && bIsSize) {
-      const aIndex = getSizeIndex(a, pathIndex);
-      const bIndex = getSizeIndex(b, pathIndex);
-
-      if (aIndex > bIndex) {
-        return 1;
-      } else if (aIndex < bIndex) {
-        return -1;
-      }
-    }
-
-    /**
      * Try sorting by numerical value if that path is an integer.
      *
      * This works well for spacing tokens.
      * @example
-     * 1. spacing.scale.0
-     * 2. spacing.scale.150
-     * 3. spacing.scale.1000
+     * 1. space.0
+     * 2. space.150
+     * 3. space.1000
      */
     const aInt = parseInt(aPath);
     const bInt = parseInt(bPath);

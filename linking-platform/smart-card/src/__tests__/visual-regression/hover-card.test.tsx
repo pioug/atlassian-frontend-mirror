@@ -8,8 +8,11 @@ describe('Hover Card', () => {
     failureThresholdType: 'percent',
   };
 
-  const renderHoverCard = async (height: number = 800) => {
-    const url = getURL('vr-hover-cards');
+  const renderHoverCard = async (
+    height: number = 800,
+    mode?: 'dark' | 'light' | 'none',
+  ) => {
+    const url = getURL('vr-hover-cards', mode);
     const page = await setup(url);
 
     await page.setViewport({
@@ -192,6 +195,15 @@ describe('Hover Card', () => {
     await page.hover('[data-testid="hover-test-span"]');
     await page.waitForSelector('[data-testid="hover-card"]');
     await page.waitForSelector('[data-testid="smart-links-container"]');
+
+    const image = await takeSnapshot(page, height);
+    expect(image).toMatchProdImageSnapshot(snapshotOptions);
+  });
+
+  it('renders hover preview in dark mode', async () => {
+    const height = 650;
+
+    const page = await renderHoverCard(height, 'dark');
 
     const image = await takeSnapshot(page, height);
     expect(image).toMatchProdImageSnapshot(snapshotOptions);

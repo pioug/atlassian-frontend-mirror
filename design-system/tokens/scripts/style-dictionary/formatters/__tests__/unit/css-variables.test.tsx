@@ -229,8 +229,8 @@ describe('formatter', () => {
         allTokens: [
           {
             value: '0',
-            name: 'spacing.scale.Space0',
-            path: ['spacing', 'scale', 'Space0'],
+            name: 'space.Space0',
+            path: ['space', 'Space0'],
             attributes: {
               group: 'scale',
             },
@@ -253,7 +253,7 @@ describe('formatter', () => {
     expect(result).toMatchInlineSnapshot(`
       "html[data-theme~=\\"spacing:spacing\\"] {
         --ds-FontSize050: 11px;
-        --ds-scale-Space0: 0;
+        --ds-space-Space0: 0;
       }
       "
     `);

@@ -14,7 +14,8 @@ import { getBox } from 'css-box-model';
 import { calculateFinalDropPositions } from './Tree-utils';
 import { Props, State, DragState } from './Tree-types';
 import { noop } from '../../utils/handy';
-import { flattenTree, mutateTree } from '../../utils/tree';
+import { flattenTree } from '../../utils/tree';
+import { mutateTree } from '../../utils/mutateTree';
 import { FlattenedItem, ItemId, Path, TreeData } from '../../types';
 import TreeItem from '../TreeItem';
 import {

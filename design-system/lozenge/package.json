@@ -28,7 +28,7 @@
     "@atlaskit/codemod-utils": "^4.1.0",
     "@atlaskit/ds-explorations": "^2.0.0",
     "@atlaskit/theme": "^12.2.0",
-    "@atlaskit/tokens": "^1.0.0",
+    "@atlaskit/tokens": "^1.1.0",
     "@babel/runtime": "^7.0.0"
   },
   "peerDependencies": {

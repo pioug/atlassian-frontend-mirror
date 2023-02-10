@@ -241,6 +241,7 @@ export const Card: React_2.ForwardRefExoticComponent<
     | 'data'
     | 'embedIframeRef'
     | 'forwardedRef'
+    | 'frameStyle'
     | 'id'
     | 'importer'
     | 'inheritDimensions'
@@ -292,6 +293,7 @@ export interface CardProps extends WithAnalyticsEventsProps {
   data?: any;
   // (undocumented)
   embedIframeRef?: React.Ref<HTMLIFrameElement>;
+  frameStyle?: FrameStyle;
   // (undocumented)
   id?: string;
   // (undocumented)
@@ -300,7 +302,7 @@ export interface CardProps extends WithAnalyticsEventsProps {
   inheritDimensions?: boolean;
   // (undocumented)
   inlinePreloaderStyle?: InlinePreloaderStyle;
-  // (undocumented)
+  // @deprecated (undocumented)
   isFrameVisible?: boolean;
   // (undocumented)
   isSelected?: boolean;
@@ -549,6 +551,9 @@ type FooterBlockProps = {
   actions?: ActionItem[];
   onActionMenuOpenChange?: (options: OnActionMenuOpenChangeOptions) => void;
 } & BlockProps;
+
+// @public (undocumented)
+type FrameStyle = 'hide' | 'show' | 'showOnHover';
 
 export { InlineCardAdf };
 

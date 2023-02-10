@@ -154,7 +154,7 @@ testRule({
   config: { spacing: true },
   accept: [
     {
-      code: 'gap: var(--ds-scale-300);',
+      code: 'gap: var(--ds-space-300);',
       description: 'should accept spacing token values',
     },
     {
@@ -173,7 +173,7 @@ testRule({
   ],
   reject: [
     {
-      code: 'gap: var(--ds-scale-123);',
+      code: 'gap: var(--ds-space-123);',
       description: 'should reject invalid CSS variables in spacing rules',
       warnings: [{ message: messages.noHardcodedSpacing }],
     },
@@ -211,7 +211,7 @@ testRule({
       ],
     },
     {
-      code: 'padding: 20svw 1dvh var(--ds-scale-300) 17Q;',
+      code: 'padding: 20svw 1dvh var(--ds-space-300) 17Q;',
       description: 'should only reject multi-part <length> values',
       warnings: [
         { message: messages.noHardcodedSpacing },
@@ -225,7 +225,7 @@ testRule({
     //   description: 'How should we handle global CSS values?',
     // },
     // {
-    //   code: 'gap: calc(var(--ds-scale-300) + var(--ds-scale-300));',
+    //   code: 'gap: calc(var(--ds-space-300) + var(--ds-space-300));',
     //   description: 'How should we handle calculations on tokens?',
     // },
   ],

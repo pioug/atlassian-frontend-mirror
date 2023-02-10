@@ -29,6 +29,7 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
       showActions,
       isSelected,
       isFrameVisible,
+      frameStyle,
       platform,
       onResolve,
       onError,
@@ -69,11 +70,13 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
               {...resolvedViewProps}
               isSelected={isSelected}
               isFrameVisible={isFrameVisible}
+              frameStyle={frameStyle}
               inheritDimensions={inheritDimensions}
               onClick={handleFrameClick}
               ref={iframeRef}
               onIframeDwell={onIframeDwell}
               onIframeFocus={onIframeFocus}
+              testId={testId}
             />
           );
         } else {

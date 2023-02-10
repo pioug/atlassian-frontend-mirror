@@ -12,7 +12,7 @@ import {
 import { getBox } from 'css-box-model';
 import Tree from '../../Tree';
 // import { Props as TreeProps } from '../../Tree-types';
-import { mutateTree } from '../../../../utils/tree';
+import { mutateTree } from '../../../../utils/mutateTree';
 import { treeWithThreeLeaves } from '../../../../../mockdata/treeWithThreeLeaves';
 import { treeWithTwoBranches } from '../../../../../mockdata/treeWithTwoBranches';
 import { treeInitiallyClosed } from '../../../../../mockdata/treeInitiallyClosed';

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d7c48176fa0191c3d90f3742086ec10e>>
+ * @codegen <<SignedSource::7d8f37c15df01017e141b2e709521993>>
  * @codegenCommand yarn build tokens
  */
 const tokens = {
@@ -327,72 +327,6 @@ const tokens = {
   'opacity.disabled': '--ds-opacity-disabled',
   'opacity.loading': '--ds-opacity-loading',
   'utility.UNSAFE.transparent': '--ds-UNSAFE-transparent',
-  'spacing.scale.0': '--ds-scale-0',
-  'spacing.scale.025': '--ds-scale-025',
-  'spacing.scale.050': '--ds-scale-050',
-  'spacing.scale.075': '--ds-scale-075',
-  'spacing.scale.100': '--ds-scale-100',
-  'spacing.scale.150': '--ds-scale-150',
-  'spacing.scale.200': '--ds-scale-200',
-  'spacing.scale.250': '--ds-scale-250',
-  'spacing.scale.300': '--ds-scale-300',
-  'spacing.scale.400': '--ds-scale-400',
-  'spacing.scale.500': '--ds-scale-500',
-  'spacing.scale.600': '--ds-scale-600',
-  'spacing.scale.800': '--ds-scale-800',
-  'spacing.scale.1000': '--ds-scale-1000',
-  'spacing.scaleLinear.0': '--ds-scaleLinear-0',
-  'spacing.scaleLinear.100': '--ds-scaleLinear-100',
-  'spacing.scaleLinear.200': '--ds-scaleLinear-200',
-  'spacing.scaleLinear.300': '--ds-scaleLinear-300',
-  'spacing.scaleLinear.400': '--ds-scaleLinear-400',
-  'spacing.scaleLinear.500': '--ds-scaleLinear-500',
-  'spacing.scaleLinear.600': '--ds-scaleLinear-600',
-  'spacing.scaleLinear.700': '--ds-scaleLinear-700',
-  'spacing.scaleLinear.800': '--ds-scaleLinear-800',
-  'spacing.scaleLinear.900': '--ds-scaleLinear-900',
-  'spacing.scaleLinear.1000': '--ds-scaleLinear-1000',
-  'spacing.scaleLinear.1100': '--ds-scaleLinear-1100',
-  'spacing.size.none': '--ds-size-none',
-  'spacing.size.xxxxSmall': '--ds-size-xxxxSmall',
-  'spacing.size.xxxSmall': '--ds-size-xxxSmall',
-  'spacing.size.xxSmall': '--ds-size-xxSmall',
-  'spacing.size.xsmall': '--ds-size-xsmall',
-  'spacing.size.small': '--ds-size-small',
-  'spacing.size.medium': '--ds-size-medium',
-  'spacing.size.large': '--ds-size-large',
-  'spacing.size.xlarge': '--ds-size-xlarge',
-  'spacing.size.xxlarge': '--ds-size-xxlarge',
-  'spacing.size.xxxlarge': '--ds-size-xxxlarge',
-  'spacing.size.xxxxlarge': '--ds-size-xxxxlarge',
-  'spacing.gap.100': '--ds-gap-100',
-  'spacing.gap.200': '--ds-gap-200',
-  'spacing.gap.300': '--ds-gap-300',
-  'spacing.inset.100': '--ds-inset-100',
-  'spacing.inset.200': '--ds-inset-200',
-  'spacing.inset.300': '--ds-inset-300',
-  'spacing.ecl.container.12': '--ds-ecl-container-12',
-  'spacing.ecl.container.16': '--ds-ecl-container-16',
-  'spacing.ecl.container.20': '--ds-ecl-container-20',
-  'spacing.ecl.container.24': '--ds-ecl-container-24',
-  'spacing.ecl.element.2': '--ds-ecl-element-2',
-  'spacing.ecl.element.4': '--ds-ecl-element-4',
-  'spacing.ecl.element.6': '--ds-ecl-element-6',
-  'spacing.ecl.element.8': '--ds-ecl-element-8',
-  'spacing.ecl.layout.32': '--ds-ecl-layout-32',
-  'spacing.ecl.layout.40': '--ds-ecl-layout-40',
-  'spacing.ecl.layout.64': '--ds-ecl-layout-64',
-  'spacing.ccc.component.2': '--ds-ccc-component-2',
-  'spacing.ccc.component.4': '--ds-ccc-component-4',
-  'spacing.ccc.component.6': '--ds-ccc-component-6',
-  'spacing.ccc.component.8': '--ds-ccc-component-8',
-  'spacing.ccc.container.32': '--ds-ccc-container-32',
-  'spacing.ccc.container.40': '--ds-ccc-container-40',
-  'spacing.ccc.container.48': '--ds-ccc-container-48',
-  'spacing.ccc.content.12': '--ds-ccc-content-12',
-  'spacing.ccc.content.16': '--ds-ccc-content-16',
-  'spacing.ccc.content.20': '--ds-ccc-content-20',
-  'spacing.ccc.content.24': '--ds-ccc-content-24',
   'space.0': '--ds-space-0',
   'space.025': '--ds-space-025',
   'space.050': '--ds-space-050',
@@ -716,72 +650,6 @@ export type CSSTokenMap = {
   'opacity.disabled': 'var(--ds-opacity-disabled)';
   'opacity.loading': 'var(--ds-opacity-loading)';
   'utility.UNSAFE.transparent': 'var(--ds-UNSAFE-transparent)';
-  'spacing.scale.0': 'var(--ds-scale-0)';
-  'spacing.scale.025': 'var(--ds-scale-025)';
-  'spacing.scale.050': 'var(--ds-scale-050)';
-  'spacing.scale.075': 'var(--ds-scale-075)';
-  'spacing.scale.100': 'var(--ds-scale-100)';
-  'spacing.scale.150': 'var(--ds-scale-150)';
-  'spacing.scale.200': 'var(--ds-scale-200)';
-  'spacing.scale.250': 'var(--ds-scale-250)';
-  'spacing.scale.300': 'var(--ds-scale-300)';
-  'spacing.scale.400': 'var(--ds-scale-400)';
-  'spacing.scale.500': 'var(--ds-scale-500)';
-  'spacing.scale.600': 'var(--ds-scale-600)';
-  'spacing.scale.800': 'var(--ds-scale-800)';
-  'spacing.scale.1000': 'var(--ds-scale-1000)';
-  'spacing.scaleLinear.0': 'var(--ds-scaleLinear-0)';
-  'spacing.scaleLinear.100': 'var(--ds-scaleLinear-100)';
-  'spacing.scaleLinear.200': 'var(--ds-scaleLinear-200)';
-  'spacing.scaleLinear.300': 'var(--ds-scaleLinear-300)';
-  'spacing.scaleLinear.400': 'var(--ds-scaleLinear-400)';
-  'spacing.scaleLinear.500': 'var(--ds-scaleLinear-500)';
-  'spacing.scaleLinear.600': 'var(--ds-scaleLinear-600)';
-  'spacing.scaleLinear.700': 'var(--ds-scaleLinear-700)';
-  'spacing.scaleLinear.800': 'var(--ds-scaleLinear-800)';
-  'spacing.scaleLinear.900': 'var(--ds-scaleLinear-900)';
-  'spacing.scaleLinear.1000': 'var(--ds-scaleLinear-1000)';
-  'spacing.scaleLinear.1100': 'var(--ds-scaleLinear-1100)';
-  'spacing.size.none': 'var(--ds-size-none)';
-  'spacing.size.xxxxSmall': 'var(--ds-size-xxxxSmall)';
-  'spacing.size.xxxSmall': 'var(--ds-size-xxxSmall)';
-  'spacing.size.xxSmall': 'var(--ds-size-xxSmall)';
-  'spacing.size.xsmall': 'var(--ds-size-xsmall)';
-  'spacing.size.small': 'var(--ds-size-small)';
-  'spacing.size.medium': 'var(--ds-size-medium)';
-  'spacing.size.large': 'var(--ds-size-large)';
-  'spacing.size.xlarge': 'var(--ds-size-xlarge)';
-  'spacing.size.xxlarge': 'var(--ds-size-xxlarge)';
-  'spacing.size.xxxlarge': 'var(--ds-size-xxxlarge)';
-  'spacing.size.xxxxlarge': 'var(--ds-size-xxxxlarge)';
-  'spacing.gap.100': 'var(--ds-gap-100)';
-  'spacing.gap.200': 'var(--ds-gap-200)';
-  'spacing.gap.300': 'var(--ds-gap-300)';
-  'spacing.inset.100': 'var(--ds-inset-100)';
-  'spacing.inset.200': 'var(--ds-inset-200)';
-  'spacing.inset.300': 'var(--ds-inset-300)';
-  'spacing.ecl.container.12': 'var(--ds-ecl-container-12)';
-  'spacing.ecl.container.16': 'var(--ds-ecl-container-16)';
-  'spacing.ecl.container.20': 'var(--ds-ecl-container-20)';
-  'spacing.ecl.container.24': 'var(--ds-ecl-container-24)';
-  'spacing.ecl.element.2': 'var(--ds-ecl-element-2)';
-  'spacing.ecl.element.4': 'var(--ds-ecl-element-4)';
-  'spacing.ecl.element.6': 'var(--ds-ecl-element-6)';
-  'spacing.ecl.element.8': 'var(--ds-ecl-element-8)';
-  'spacing.ecl.layout.32': 'var(--ds-ecl-layout-32)';
-  'spacing.ecl.layout.40': 'var(--ds-ecl-layout-40)';
-  'spacing.ecl.layout.64': 'var(--ds-ecl-layout-64)';
-  'spacing.ccc.component.2': 'var(--ds-ccc-component-2)';
-  'spacing.ccc.component.4': 'var(--ds-ccc-component-4)';
-  'spacing.ccc.component.6': 'var(--ds-ccc-component-6)';
-  'spacing.ccc.component.8': 'var(--ds-ccc-component-8)';
-  'spacing.ccc.container.32': 'var(--ds-ccc-container-32)';
-  'spacing.ccc.container.40': 'var(--ds-ccc-container-40)';
-  'spacing.ccc.container.48': 'var(--ds-ccc-container-48)';
-  'spacing.ccc.content.12': 'var(--ds-ccc-content-12)';
-  'spacing.ccc.content.16': 'var(--ds-ccc-content-16)';
-  'spacing.ccc.content.20': 'var(--ds-ccc-content-20)';
-  'spacing.ccc.content.24': 'var(--ds-ccc-content-24)';
   'space.0': 'var(--ds-space-0)';
   'space.025': 'var(--ds-space-025)';
   'space.050': 'var(--ds-space-050)';

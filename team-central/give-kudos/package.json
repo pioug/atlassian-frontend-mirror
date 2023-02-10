@@ -38,7 +38,7 @@
     "@atlaskit/modal-dialog": "^12.4.0",
     "@atlaskit/portal": "^4.2.8",
     "@atlaskit/theme": "^12.2.0",
-    "@atlaskit/tokens": "^1.0.0",
+    "@atlaskit/tokens": "^1.1.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "react-intl-next": "npm:react-intl@^5.18.1"
@@ -50,7 +50,7 @@
     "@atlaskit/docs": "*",
     "@atlaskit/flag": "^15.0.0",
     "@atlaskit/ssr": "*",
-    "@atlaskit/tokens": "^1.0.0",
+    "@atlaskit/tokens": "^1.1.0",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",

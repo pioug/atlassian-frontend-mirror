@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/tree",
-  "version": "8.6.3",
+  "version": "8.7.0",
   "description": "A React Component for displaying expandable and sortable tree hierarchies",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -16,11 +16,16 @@
   "atlaskit:src": "src/index.ts",
   "atlassian": {
     "team": "Confluence Discovery & Organization",
-    "deprecatedAutoEntryPoints": true,
     "releaseModel": "continuous",
     "website": {
       "name": "Tree"
     }
+  },
+  "af:exports": {
+    ".": "./src/index.ts",
+    "./types": "./src/types.ts",
+    "./utils/mutateTree": "./src/utils/mutateTree.ts",
+    "./utils/moveItemOnTree": "./src/utils/moveItemOnTree.ts"
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0",

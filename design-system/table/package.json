@@ -38,7 +38,7 @@
     "@atlaskit/ds-lib": "^2.1.2",
     "@atlaskit/focus-ring": "^1.2.1",
     "@atlaskit/icon": "^21.11.2",
-    "@atlaskit/tokens": "^1.0.0",
+    "@atlaskit/tokens": "^1.1.0",
     "@atlaskit/tooltip": "^17.5.16",
     "@atlaskit/visually-hidden": "^1.0.0",
     "@babel/runtime": "^7.0.0",

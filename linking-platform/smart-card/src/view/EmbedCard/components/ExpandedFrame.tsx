@@ -1,4 +1,4 @@
-import React, { FC, MouseEvent } from 'react';
+import React, { FC, MouseEvent, useMemo } from 'react';
 import {
   className,
   LinkWrapper,
@@ -10,6 +10,7 @@ import {
 } from './styled';
 import { handleClickCommon } from '../../BlockCard/utils/handlers';
 import useMouseDownEvent from '../../../state/analytics/useMouseDownEvent';
+import { FrameStyle } from '../types';
 
 export interface ExpandedFrameProps {
   isPlaceholder?: boolean;
@@ -21,10 +22,10 @@ export interface ExpandedFrameProps {
   children?: React.ReactNode;
   /** A flag that determines whether the card is selected in edit mode. */
   isSelected?: boolean;
-  /** will show the frame regardless of user interaction */
+  /** @deprecated use frameStyle prop */
   isFrameVisible?: boolean;
-  /** A flag that determines whether the frame is visible. */
-  isVisible?: boolean;
+  /** A prop that determines the style of a frame: whether to show it, hide it or only show it when a user hovers over embed */
+  frameStyle?: FrameStyle;
   /** The optional click handler */
   onClick?: (evt: React.MouseEvent) => void;
   /** For testing purposes only */
@@ -43,7 +44,7 @@ export const ExpandedFrame: FC<ExpandedFrameProps> = ({
   text,
   isSelected,
   isFrameVisible,
-  isVisible,
+  frameStyle,
   href,
   minWidth,
   maxWidth,
@@ -55,6 +56,15 @@ export const ExpandedFrame: FC<ExpandedFrameProps> = ({
     !isPlaceholder && (Boolean(href) || Boolean(onClick));
   const handleClick = (event: MouseEvent) => handleClickCommon(event, onClick);
   const handleMouseDown = useMouseDownEvent();
+  const calculatedFrameStyle = useMemo(
+    () =>
+      frameStyle !== undefined
+        ? frameStyle
+        : isFrameVisible
+        ? 'show'
+        : 'showOnHover',
+    [frameStyle, isFrameVisible],
+  );
 
   const renderHeader = () => (
     <Header className="embed-header">
@@ -75,6 +85,7 @@ export const ExpandedFrame: FC<ExpandedFrameProps> = ({
       data-testid="embed-content-wrapper"
       allowScrollBar={allowScrollBar}
       isInteractive={isInteractive()}
+      frameStyle={frameStyle}
     >
       {children}
     </Content>
@@ -86,16 +97,13 @@ export const ExpandedFrame: FC<ExpandedFrameProps> = ({
         className={className}
         isInteractive={isInteractive()}
         isSelected={isSelected}
-        isFrameVisible={isFrameVisible}
+        frameStyle={calculatedFrameStyle}
         minWidth={minWidth}
         maxWidth={maxWidth}
-        isVisible={isVisible}
         data-testid={testId}
         data-trello-do-not-use-override={testId}
         // Due to limitations of testing library, we can't assert ::after
         data-is-selected={isSelected}
-        // Due to limitation of testing library, we can't match background colors #ebecf0 and rgb(235, 236, 240)
-        data-is-frame-visible={isFrameVisible}
         inheritDimensions={inheritDimensions}
       >
         {renderHeader()}
@@ -109,12 +117,11 @@ export const ExpandedFrame: FC<ExpandedFrameProps> = ({
         isInteractive={isInteractive()}
         isSelected={isSelected}
         minWidth={minWidth}
+        frameStyle={calculatedFrameStyle}
         maxWidth={maxWidth}
-        isVisible={isVisible}
         data-testid={testId}
         data-trello-do-not-use-override={testId}
         data-is-selected={isSelected}
-        data-is-visible={isVisible}
         data-wrapper-type="default"
         data-is-interactive={isInteractive()}
       >

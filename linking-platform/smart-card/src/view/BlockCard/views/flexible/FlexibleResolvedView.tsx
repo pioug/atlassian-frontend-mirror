@@ -74,6 +74,7 @@ const FlexibleResolvedView = ({
           { name: ElementName.SubscriberCount },
           { name: ElementName.ViewCount },
           { name: ElementName.VoteCount },
+          { name: ElementName.ChecklistProgress },
           { name: ElementName.DueOn },
         ]}
         maxLines={1}

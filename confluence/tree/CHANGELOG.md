@@ -1,5 +1,11 @@
 # @atlaskit/tree
 
+## 8.7.0
+
+### Minor Changes
+
+- [`813b1a6ca29`](https://bitbucket.org/atlassian/atlassian-frontend/commits/813b1a6ca29) - Migrate tree package to declarative entry points
+
 ## 8.6.3
 
 ### Patch Changes

@@ -1,5 +1,29 @@
 # @atlaskit/editor-mobile-bridge
 
+## 36.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.0.7
+
+### Patch Changes
+
+- [`68ff6bc0ead`](https://bitbucket.org/atlassian/atlassian-frontend/commits/68ff6bc0ead) - [ux] ED-16712 Fixed an issue when the user opens the Android app the first time, the cursor position is not at the start of document
+
+## 36.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 36.0.4
 
 ### Patch Changes

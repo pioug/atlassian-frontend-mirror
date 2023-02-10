@@ -28,7 +28,7 @@
     "@atlaskit/button": "^16.5.0",
     "@atlaskit/icon": "^21.11.0",
     "@atlaskit/theme": "^12.2.0",
-    "@atlaskit/tokens": "^1.0.0",
+    "@atlaskit/tokens": "^1.1.0",
     "@atlaskit/tooltip": "^17.6.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9",

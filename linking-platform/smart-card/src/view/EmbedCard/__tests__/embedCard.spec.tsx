@@ -101,7 +101,6 @@ describe('EmbedCard view component', () => {
       }
       expect(iframeEl.src).toEqual('http://some-preview-url.com/');
       expect(resolveView.getAttribute('data-is-selected')).toBe('true');
-      expect(resolveView.getAttribute('data-is-frame-visible')).toBe('true');
       // Asserting result of inheritDimensions=true
       expect(
         window.getComputedStyle(resolveView).getPropertyValue('height'),

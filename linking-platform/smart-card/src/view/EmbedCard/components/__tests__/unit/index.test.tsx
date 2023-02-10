@@ -51,4 +51,30 @@ describe('ExpandedFrame', () => {
       'overflow: auto',
     );
   });
+
+  it('should not render header and frame when frameStyle = "hide" & href is provided', async () => {
+    const { container } = render(
+      <ExpandedFrame frameStyle="hide" href="some.url" />,
+    );
+    expect(await screen.findByTestId('expanded-frame')).toBeDefined();
+    const embedHeaderElements =
+      container.getElementsByClassName('embed-header');
+    expect(embedHeaderElements).toHaveLength(1);
+
+    const frameStyle = window.getComputedStyle(embedHeaderElements[0]);
+    expect(frameStyle.opacity).toBe('0');
+  });
+
+  it('should not render header and frame when frameStyle = "hide" & placeholder is true', async () => {
+    const { container } = render(
+      <ExpandedFrame frameStyle="hide" isPlaceholder={true} />,
+    );
+    expect(await screen.findByTestId('expanded-frame')).toBeDefined();
+    const embedHeaderElements =
+      container.getElementsByClassName('embed-header');
+    expect(embedHeaderElements).toHaveLength(1);
+
+    const frameStyle = window.getComputedStyle(embedHeaderElements[0]);
+    expect(frameStyle.opacity).toBe('0');
+  });
 });

@@ -1,8 +1,7 @@
-import {
+import type {
   FlattenedItem,
   Path,
   TreeData,
-  TreeItemData,
   ItemId,
   TreeItem,
   TreeSourcePosition,
@@ -10,15 +9,7 @@ import {
 } from '../types';
 
 import { getParentPath, getIndexAmongSiblings } from './path';
-
-export type TreeItemMutation = {
-  id?: ItemId;
-  children?: ItemId[];
-  hasChildren?: boolean;
-  isExpanded?: boolean;
-  isChildrenLoading?: boolean;
-  data?: TreeItemData;
-};
+import { mutateTree } from './mutateTree';
 
 /*
   Transforms tree structure into flat list of items for rendering purposes.
@@ -64,35 +55,6 @@ const flattenChildren = (tree: TreeData, item: TreeItem, currentPath: Path) => {
     : [];
 };
 
-/*
-  Changes the tree data structure with minimal reference changes.
- */
-export const mutateTree = (
-  tree: TreeData,
-  itemId: ItemId,
-  mutation: TreeItemMutation,
-): TreeData => {
-  const itemToChange = tree.items[itemId];
-  if (!itemToChange) {
-    // Item not found
-    return tree;
-  }
-  // Returning a clone of the tree structure and overwriting the field coming in mutation
-  return {
-    // rootId should not change
-    rootId: tree.rootId,
-    items: {
-      // copy all old items
-      ...tree.items,
-      // overwriting only the item being changed
-      [itemId]: {
-        ...itemToChange,
-        ...mutation,
-      },
-    },
-  };
-};
-
 export const getItem = (tree: TreeData, path: Path): TreeItem => {
   let cursor: TreeItem = tree.items[tree.rootId];
 
@@ -125,7 +87,7 @@ const hasLoadedChildren = (item: TreeItem): boolean =>
 
 const isLeafItem = (item: TreeItem): boolean => !item.hasChildren;
 
-const removeItemFromTree = (
+export const removeItemFromTree = (
   tree: TreeData,
   position: TreeSourcePosition,
 ): { tree: TreeData; itemRemoved: ItemId } => {
@@ -144,7 +106,7 @@ const removeItemFromTree = (
   };
 };
 
-const addItemToTree = (
+export const addItemToTree = (
   tree: TreeData,
   position: TreeDestinationPosition,
   item: ItemId,
@@ -162,16 +124,4 @@ const addItemToTree = (
     children: newDestinationChildren,
     hasChildren: true,
   });
-};
-
-export const moveItemOnTree = (
-  tree: TreeData,
-  from: TreeSourcePosition,
-  to: TreeDestinationPosition,
-): TreeData => {
-  const { tree: treeWithoutSource, itemRemoved } = removeItemFromTree(
-    tree,
-    from,
-  );
-  return addItemToTree(treeWithoutSource, to, itemRemoved);
 };

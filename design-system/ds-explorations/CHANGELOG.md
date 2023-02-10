@@ -1,5 +1,12 @@
 # @atlaskit/ds-explorations
 
+## 2.0.3
+
+### Patch Changes
+
+- [`069494fbea6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/069494fbea6) - Internal change. There is no behaviour or visual change.
+- Updated dependencies
+
 ## 2.0.2
 
 ### Patch Changes

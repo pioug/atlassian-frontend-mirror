@@ -1,5 +1,23 @@
 # @atlaskit/smart-card
 
+## 24.1.0
+
+### Minor Changes
+
+- [`2d2bfdfb0eb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2d2bfdfb0eb) - [ux] A support for borderless embed was added. A new prop 'frameStyle' was added which allows user to choose one of three styles: 'show', 'hide', 'showOnHover'. The prop isFrameVisible was made deprecated and replaced by the new prop.
+
+## 24.0.3
+
+### Patch Changes
+
+- [`9e7d94da3cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9e7d94da3cd) - [ux] Fix hover preview background colour in dark mode
+
+## 24.0.2
+
+### Patch Changes
+
+- [`134bac37edc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/134bac37edc) - [ux] Adds the ChecklistProgress element to Flexible Block View's secondary section
+
 ## 24.0.1
 
 ### Patch Changes

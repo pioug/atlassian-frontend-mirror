@@ -6,7 +6,7 @@ import LinkGlyph from '@atlaskit/icon/glyph/link';
 
 import { ExpandedFrame } from '../components/ExpandedFrame';
 import { ImageIcon } from '../components/ImageIcon';
-import { ContextViewModel } from '../types';
+import { ContextViewModel, FrameStyle } from '../types';
 import { Frame } from '../components/Frame';
 
 export interface EmbedCardResolvedViewProps {
@@ -20,6 +20,8 @@ export interface EmbedCardResolvedViewProps {
   isSelected?: boolean;
   /** will show the frame regardless of user interaction */
   isFrameVisible?: boolean;
+  /** A prop that determines the style of a frame: whether to show it, hide it or only show it when a user hovers over embed */
+  frameStyle?: FrameStyle;
   /** The src to be used for the `iframe` */
   preview?: { src: string; aspectRatio?: number };
   /** A flag that determines whether link source can be trusted in iframe **/
@@ -47,6 +49,7 @@ export const EmbedCardResolvedView = React.forwardRef<
       onClick,
       isSelected,
       isFrameVisible,
+      frameStyle,
       preview,
       title,
       isTrusted,
@@ -82,6 +85,7 @@ export const EmbedCardResolvedView = React.forwardRef<
       <ExpandedFrame
         isSelected={isSelected}
         isFrameVisible={isFrameVisible}
+        frameStyle={frameStyle}
         href={link}
         testId={testId}
         icon={icon}

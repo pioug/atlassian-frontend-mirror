@@ -141,58 +141,6 @@ describe('sortTokens', () => {
     });
   });
 
-  describe('size tokens', () => {
-    it('are sorted from smallest to largest for spacing tokens', () => {
-      const result = fakeTokens(
-        [
-          'foo.large',
-          'foo.xxxxSmall',
-          'foo.xlarge',
-          'foo.xxxxlarge',
-          'foo.xsmall',
-          'foo.small',
-          'foo.xxSmall',
-          'foo.none',
-          'foo.xxlarge',
-          'foo.xxxlarge',
-          'foo.xxxSmall',
-          'foo.medium',
-        ],
-        { group: 'spacing' },
-      );
-      expect(result[0].name).toEqual('foo.none');
-      expect(result[1].name).toEqual('foo.xxxxSmall');
-      expect(result[2].name).toEqual('foo.xxxSmall');
-      expect(result[3].name).toEqual('foo.xxSmall');
-      expect(result[4].name).toEqual('foo.xsmall');
-      expect(result[5].name).toEqual('foo.small');
-      expect(result[6].name).toEqual('foo.medium');
-      expect(result[7].name).toEqual('foo.large');
-      expect(result[8].name).toEqual('foo.xlarge');
-      expect(result[9].name).toEqual('foo.xxlarge');
-      expect(result[10].name).toEqual('foo.xxxlarge');
-      expect(result[11].name).toEqual('foo.xxxxlarge');
-    });
-
-    it('are not sorted by size for non-spacing tokens', () => {
-      const result = fakeTokens([
-        'foo.large',
-        'foo.xxxxSmall',
-        'foo.xlarge',
-        'foo.xxxxlarge',
-        'foo.xsmall',
-        'foo.small',
-        'foo.xxSmall',
-        'foo.none',
-        'foo.xxlarge',
-        'foo.xxxlarge',
-        'foo.xxxSmall',
-        'foo.medium',
-      ]);
-      expect(result[0].name).not.toEqual('foo.none');
-    });
-  });
-
   describe('color tokens', () => {
     it('are sorted in the correct predefined order for paint tokens', () => {
       const result = fakeTokens(

@@ -4,12 +4,16 @@ import {
   PuppeteerPage,
 } from '@atlaskit/visual-regression/helper';
 
-export function getURL(testName: string): string {
+export function getURL(
+  testName: string,
+  mode?: 'dark' | 'light' | 'none',
+): string {
   const exampleUrl = getExampleUrl(
     'linking-platform',
     'smart-card',
     testName,
     global.__BASEURL__,
+    mode,
   );
   return exampleUrl + `&mediaMock=true`;
 }

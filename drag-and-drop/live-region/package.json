@@ -35,7 +35,7 @@
     "@atlaskit/docs": "*",
     "@atlaskit/icon": "^21.11.0",
     "@atlaskit/ssr": "*",
-    "@atlaskit/tokens": "^1.0.0",
+    "@atlaskit/tokens": "^1.1.0",
     "@atlaskit/tooltip": "^17.6.0",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",

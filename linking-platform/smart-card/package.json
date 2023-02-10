@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/smart-card",
-  "version": "24.0.1",
+  "version": "24.1.0",
   "description": "Smart card component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -42,7 +42,7 @@
     "@atlaskit/popup": "^1.5.0",
     "@atlaskit/spinner": "^15.3.0",
     "@atlaskit/theme": "^12.2.0",
-    "@atlaskit/tokens": "^1.0.0",
+    "@atlaskit/tokens": "^1.1.0",
     "@atlaskit/tooltip": "^17.6.0",
     "@atlaskit/ufo": "^0.1.0",
     "@babel/runtime": "^7.0.0",

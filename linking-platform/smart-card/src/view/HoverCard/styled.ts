@@ -4,6 +4,7 @@ import { SmartLinkSize, SmartLinkTheme } from '../../constants';
 import { FlexibleUiOptions } from '../FlexibleCard/types';
 
 export const flexibleUiOptions: FlexibleUiOptions = {
+  hideBackground: true,
   hideElevation: true,
   size: SmartLinkSize.Medium,
   // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage

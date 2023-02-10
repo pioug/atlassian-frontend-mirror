@@ -1,5 +1,21 @@
 # @atlaskit/tokens
 
+## 1.1.0
+
+### Minor Changes
+
+- [`4b9aea55b97`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4b9aea55b97) - Removed various unused experimental spacing tokens in favor of the `space.X` token format.
+
+  Removed:
+
+  - `spacing.scale`
+  - `spacing.scaleLinear`
+  - `spacing.size`
+  - `spacing.gap`
+  - `spacing.inset`
+  - `spacing.ecl`
+  - `spacing.ccc`
+
 ## 1.0.0
 
 ### Major Changes

@@ -1,76 +1,10 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ed28b9b768bb331ea1aeff3cb426b59b>>
+ * @codegen <<SignedSource::6a9bb91811dc597f0d705bbed643a7fc>>
  * @codegenCommand yarn build tokens
  */
 export default `
 html[data-theme~="spacing:spacing"] {
-  --ds-scale-0: 0;
-  --ds-scale-025: 0.125rem;
-  --ds-scale-050: 0.25rem;
-  --ds-scale-075: 0.375rem;
-  --ds-scale-100: 0.5rem;
-  --ds-scale-150: 0.75rem;
-  --ds-scale-200: 1rem;
-  --ds-scale-250: 1.25rem;
-  --ds-scale-300: 1.5rem;
-  --ds-scale-400: 2rem;
-  --ds-scale-500: 2.5rem;
-  --ds-scale-600: 3rem;
-  --ds-scale-800: 4rem;
-  --ds-scale-1000: 5rem;
-  --ds-scaleLinear-0: 0;
-  --ds-scaleLinear-100: 0.125rem;
-  --ds-scaleLinear-200: 0.25rem;
-  --ds-scaleLinear-300: 0.375rem;
-  --ds-scaleLinear-400: 0.5rem;
-  --ds-scaleLinear-500: 0.75rem;
-  --ds-scaleLinear-600: 1rem;
-  --ds-scaleLinear-700: 1.25rem;
-  --ds-scaleLinear-800: 1.5rem;
-  --ds-scaleLinear-900: 2rem;
-  --ds-scaleLinear-1000: 2.5rem;
-  --ds-scaleLinear-1100: 3rem;
-  --ds-size-none: 0;
-  --ds-size-xxxxSmall: 0.125rem;
-  --ds-size-xxxSmall: 0.25rem;
-  --ds-size-xxSmall: 0.375rem;
-  --ds-size-xsmall: 0.5rem;
-  --ds-size-small: 0.75rem;
-  --ds-size-medium: 1rem;
-  --ds-size-large: 1.25rem;
-  --ds-size-xlarge: 1.5rem;
-  --ds-size-xxlarge: 2rem;
-  --ds-size-xxxlarge: 2.5rem;
-  --ds-size-xxxxlarge: 3rem;
-  --ds-gap-100: 0.5rem;
-  --ds-gap-200: 1rem;
-  --ds-gap-300: 1.5rem;
-  --ds-inset-100: 0.5rem;
-  --ds-inset-200: 1rem;
-  --ds-inset-300: 1.5rem;
-  --ds-ecl-container-12: 0.75rem;
-  --ds-ecl-container-16: 1rem;
-  --ds-ecl-container-20: 1.25rem;
-  --ds-ecl-container-24: 1.5rem;
-  --ds-ecl-element-2: 0.125rem;
-  --ds-ecl-element-4: 0.25rem;
-  --ds-ecl-element-6: 0.375rem;
-  --ds-ecl-element-8: 0.5rem;
-  --ds-ecl-layout-32: 2rem;
-  --ds-ecl-layout-40: 2.5rem;
-  --ds-ecl-layout-64: 3rem;
-  --ds-ccc-component-2: 0.125rem;
-  --ds-ccc-component-4: 0.25rem;
-  --ds-ccc-component-6: 0.375rem;
-  --ds-ccc-component-8: 0.5rem;
-  --ds-ccc-container-32: 2rem;
-  --ds-ccc-container-40: 2.5rem;
-  --ds-ccc-container-48: 3rem;
-  --ds-ccc-content-12: 0.75rem;
-  --ds-ccc-content-16: 1rem;
-  --ds-ccc-content-20: 1.25rem;
-  --ds-ccc-content-24: 1.5rem;
   --ds-space-0: 0;
   --ds-space-025: 0.125rem;
   --ds-space-050: 0.25rem;

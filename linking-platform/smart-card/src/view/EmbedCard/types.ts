@@ -18,6 +18,7 @@ export type EmbedCardProps = {
   id?: string;
   isSelected?: boolean;
   isFrameVisible?: boolean;
+  frameStyle?: FrameStyle;
   platform?: CardPlatform;
   onResolve?: OnResolveCallback;
   onError?: OnErrorCallback;
@@ -65,3 +66,5 @@ export interface RequestAccessContextProps extends AccessContext {
 export type InlinePreloaderStyle =
   | 'on-left-with-skeleton'
   | 'on-right-without-skeleton';
+
+export type FrameStyle = 'show' | 'hide' | 'showOnHover';

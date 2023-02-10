@@ -30,7 +30,7 @@
     "@atlaskit/popup": "^1.5.0",
     "@atlaskit/tabs": "^13.3.0",
     "@atlaskit/textfield": "^5.3.0",
-    "@atlaskit/tokens": "^1.0.0",
+    "@atlaskit/tokens": "^1.1.0",
     "@atlaskit/tooltip": "^17.6.0",
     "@atlaskit/ufo": "^0.1.0",
     "@babel/runtime": "^7.0.0",

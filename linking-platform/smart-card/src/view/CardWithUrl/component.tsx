@@ -32,6 +32,7 @@ export function CardWithUrlContent({
   url,
   isSelected,
   isFrameVisible,
+  frameStyle,
   platform,
   onClick,
   appearance,
@@ -336,6 +337,7 @@ export function CardWithUrlContent({
           analytics={analytics}
           isSelected={isSelected}
           isFrameVisible={isFrameVisible}
+          frameStyle={frameStyle}
           platform={platform}
           onResolve={onResolve}
           onError={onError}

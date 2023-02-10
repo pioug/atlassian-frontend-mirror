@@ -6,6 +6,7 @@ import {
 import * as colors from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { gs as gridSize } from '../../common/utils';
+import { FrameStyle } from '../types';
 
 export const className = 'media-card-frame';
 export const cardShadow = ``;
@@ -15,8 +16,7 @@ export interface WrapperProps {
   maxWidth?: number;
   isInteractive?: boolean;
   isSelected?: boolean;
-  isFrameVisible?: boolean;
-  isVisible?: boolean;
+  frameStyle?: FrameStyle;
   inheritDimensions?: boolean;
 }
 
@@ -60,24 +60,21 @@ function maxWidth({ maxWidth }: WrapperProps) {
   }
 }
 
-function getinteractiveStyles({ isInteractive, isFrameVisible }: WrapperProps) {
-  const visibleFrameStyles = isFrameVisible ? visibleStyles : '';
-  const interactiveFrameStyles = isInteractive
+function getInteractiveStyles({ isInteractive, frameStyle }: WrapperProps) {
+  return isInteractive
     ? `
-  &:hover {
-    ${visibleStyles}
-  }
-  &:active {
-    background-color: ${token('color.background.selected', colors.B50)};
-  }
-`
+      &:hover {
+        ${frameStyle !== 'hide' && visibleStyles}
+      }
+      &:active {
+        background-color: ${token('color.background.selected', colors.B50)};
+      }
+    `
     : '';
-
-  return `${visibleFrameStyles}${interactiveFrameStyles}`;
 }
 
-function selected({ isSelected }: WrapperProps) {
-  return isSelected
+function selected({ isSelected, frameStyle }: WrapperProps) {
+  return isSelected && frameStyle !== 'hide'
     ? `
     ${visibleStyles}
     &::after {
@@ -92,6 +89,11 @@ function selected({ isSelected }: WrapperProps) {
       ${borderRadius}
     }
     `
+    : isSelected && frameStyle === 'hide'
+    ? `
+        box-shadow: 0 0 0 3px ${token('color.border.selected', colors.B100)};
+        ${borderRadius}
+      `
     : '';
 }
 
@@ -102,7 +104,7 @@ const wrapperStyles = (props: WrapperProps) => `
   ${borderRadius}
   ${minWidth(props)}
   ${maxWidth(props)}
-  ${getinteractiveStyles(props)}
+  ${getInteractiveStyles(props)}
   ${visible(props)}
   display: inline-flex;
   flex-direction: column;
@@ -138,8 +140,8 @@ const visibleStyles = `
     opacity: 1;
   }`;
 
-function visible({ isVisible }: WrapperProps) {
-  return isVisible ? visibleStyles : '';
+function visible({ frameStyle }: WrapperProps) {
+  return frameStyle === 'show' ? visibleStyles : '';
 }
 
 export const LinkWrapper = styled.div`
@@ -205,6 +207,7 @@ export const TextWrapper = styled.div`
 export interface ContentProps {
   isInteractive: boolean;
   allowScrollBar: boolean;
+  frameStyle?: FrameStyle;
 }
 
 // NB: `overflow` is kept as `hidden` since
@@ -217,8 +220,6 @@ export const Content = styled.div`
   position: absolute;
   z-index: 1;
   width: 100%;
-  top: ${gridSize(4)};
-  height: calc(100% - ${gridSize(4)});
   transition: box-shadow 0.3s;
 
   > .calc-height > div > div {
@@ -249,6 +250,14 @@ export const Content = styled.div`
 
   ${({ allowScrollBar }: ContentProps) =>
     allowScrollBar ? 'overflow: auto;' : 'overflow: hidden;'}
+
+  ${({ frameStyle }: ContentProps) =>
+    frameStyle === 'hide'
+      ? 'height: 100%;'
+      : `
+        height: calc(100% - ${gridSize(4)});
+        top: ${gridSize(4)};
+      `}
 `;
 
 export interface ImageProps {

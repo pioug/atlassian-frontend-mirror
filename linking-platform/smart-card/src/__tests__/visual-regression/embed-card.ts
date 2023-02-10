@@ -111,6 +111,31 @@ describe('Embed Card', () => {
       const image = await takeSnapshot(page, 2800);
       expect(image).toMatchProdImageSnapshot();
     });
+
+    it('should render different frame styles based on the passed prop', async () => {
+      const url = getURL('vr-embed-card-frame-styles');
+      const page = await setup(url);
+
+      // make sure all four views have rendered
+      await page.waitForSelector('[data-testid="embed-frame-show"]');
+      await page.waitForSelector('[data-testid="embed-frame-show-on-hover"]');
+      await page.waitForSelector(
+        '[data-testid="embed-frame-show-on-hover-mouse-over"]',
+      );
+      await page.waitForSelector('[data-testid="embed-frame-hide"]');
+      await page.waitForSelector('[data-testid="embed-frame-hide-selected"]');
+      await page.waitForSelector('[data-testid="embed-frame-show-selected"]');
+      await page.waitForSelector(
+        '[data-testid="embed-frame-show-on-hover-selected"]',
+      );
+
+      // hover over the embed with 'showOnHover' frame style
+      await page.hover('[data-testid="embed-frame-show-on-hover-mouse-over"]');
+      await sleep(1000);
+
+      const image = await takeSnapshot(page, 3700);
+      expect(image).toMatchProdImageSnapshot();
+    });
   });
 });
 /*

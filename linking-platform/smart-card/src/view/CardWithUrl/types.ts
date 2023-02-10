@@ -4,6 +4,7 @@ import { AnalyticsHandler } from '../../utils/types';
 import { FlexibleUiOptions } from '../FlexibleCard/types';
 import { InlinePreloaderStyle, OnErrorCallback } from '../types';
 import { AnalyticsFacade } from '../../state/analytics';
+import { FrameStyle } from '../EmbedCard/types';
 
 export type CardWithUrlContentProps = {
   id: string;
@@ -13,6 +14,7 @@ export type CardWithUrlContentProps = {
   onClick?: EventHandler<MouseEvent | KeyboardEvent>;
   isSelected?: boolean;
   isFrameVisible?: boolean;
+  frameStyle?: FrameStyle;
   container?: HTMLElement;
   dispatchAnalytics: AnalyticsHandler;
   testId?: string;

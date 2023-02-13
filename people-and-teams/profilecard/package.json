@@ -32,6 +32,8 @@
   "scripts": {
     "lint": "(cd ../../.. && yarn eslint 'packages/people-and-teams/profilecard/**/*.{ts,tsx}')",
     "test": "(cd ../../.. && yarn test 'packages/people-and-teams/profilecard')",
+    "test:watch": "(cd ../../.. && yarn test 'packages/people-and-teams/profilecard' --watch)",
+    "test:coverage": "(cd ../../.. && yarn test 'packages/people-and-teams/profilecard/src' --coverage --collectCoverageFrom='[\"packages/people-and-teams/profilecard/src/**\", \"!packages/people-and-teams/profilecard/src/__tests__/**\", \"!packages/people-and-teams/profilecard/src/version.json\", \"!packages/people-and-teams/profilecard/src/i18n/**\", \"!packages/people-and-teams/profilecard/src/mocks/**\"]')",
     "typecheck": "NODE_OPTIONS=--max-old-space-size=4096 tsc --noEmit --project ./tsconfig.json"
   },
   "config": {

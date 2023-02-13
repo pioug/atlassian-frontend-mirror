@@ -14,3 +14,5 @@ export const LOZENGE_CLEAR_ICON_SELECTOR =
 export const LOZENGE_CLEAR_INDICATOR_SELECTOR = 'show-clear-icon';
 
 export const POPUP_BUTTON = '[data-testid="popup-button-0"]';
+
+export const MENU_LIST_SELECTOR = '.fabric-user-picker__menu-list';

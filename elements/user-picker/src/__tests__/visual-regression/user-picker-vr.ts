@@ -11,6 +11,7 @@ import {
   DISABLE_INPUT_ID_MULTI,
   POPUP_BUTTON,
   CONTROL_SELECTOR,
+  MENU_LIST_SELECTOR,
 } from './_constants';
 
 import {
@@ -144,6 +145,39 @@ describe('UserPicker VR Snapshot Test', () => {
                   await page.click(CONTROL_SELECTOR);
                 },
               );
+            });
+          });
+
+          describe('menu closing', () => {
+            it('menu is closed on double click', async () => {
+              await vrForExample('single', async (page: PuppeteerPage) => {
+                await disableCaretCursor(page);
+
+                await page.click(CONTROL_SELECTOR);
+                await page.waitForSelector(MENU_LIST_SELECTOR);
+
+                await page.click(CONTROL_SELECTOR);
+                await page.waitForSelector(MENU_LIST_SELECTOR, {
+                  hidden: true,
+                });
+              });
+            });
+
+            it('menu is opened on triple click', async () => {
+              await vrForExample('single', async (page: PuppeteerPage) => {
+                await disableCaretCursor(page);
+
+                await page.click(CONTROL_SELECTOR);
+                await page.waitForSelector(MENU_LIST_SELECTOR);
+
+                await page.click(CONTROL_SELECTOR);
+                await page.waitForSelector(MENU_LIST_SELECTOR, {
+                  hidden: true,
+                });
+
+                await page.click(CONTROL_SELECTOR);
+                await page.waitForSelector(MENU_LIST_SELECTOR);
+              });
             });
           });
 

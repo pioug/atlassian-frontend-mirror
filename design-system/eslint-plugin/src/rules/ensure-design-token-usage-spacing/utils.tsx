@@ -117,6 +117,29 @@ const isToken = (node: EslintNode): node is CallExpression =>
   isNodeOfType(node.callee, 'Identifier') &&
   node.callee.name === 'token';
 
+const getRawExpressionForToken = (
+  node: CallExpression,
+  context: Rule.RuleContext,
+): string => {
+  const args = node.arguments;
+  const call = `\${token(${args
+    .map((argNode) => {
+      if (isNodeOfType(argNode, 'Literal')) {
+        return argNode.raw;
+      }
+
+      if (isNodeOfType(argNode, 'Identifier')) {
+        return argNode.name;
+      }
+
+      if (isNodeOfType(argNode, 'MemberExpression')) {
+        return getValue(argNode, context);
+      }
+    })
+    .join(', ')})}`;
+  return call;
+};
+
 const getValueFromCallExpression = (
   node: EslintNode,
   context: Rule.RuleContext,
@@ -146,23 +169,7 @@ const getValueFromCallExpression = (
   }
 
   if (isToken(node)) {
-    const args = (node as CallExpression).arguments;
-    const call = `\${token(${args
-      .map((argNode) => {
-        if (isNodeOfType(argNode, 'Literal')) {
-          return argNode.raw;
-        }
-
-        if (isNodeOfType(argNode, 'Identifier')) {
-          return argNode.name;
-        }
-
-        if (isNodeOfType(argNode, 'MemberExpression')) {
-          return getValue(argNode, context);
-        }
-      })
-      .join(', ')})}`;
-    return call;
+    return getRawExpressionForToken(node, context);
   }
 
   return null;
@@ -197,6 +204,31 @@ export const getValue = (
   }
 
   return null;
+};
+
+export const getRawExpression = (
+  node: EslintNode,
+  context: Rule.RuleContext,
+): string | null => {
+  if (
+    !(
+      // if not one of our recognized types or doesn't have a range prop, early return
+      (
+        isNodeOfType(node, 'Literal') ||
+        isNodeOfType(node, 'Identifier') ||
+        isNodeOfType(node, 'BinaryExpression') ||
+        isNodeOfType(node, 'UnaryExpression') ||
+        isNodeOfType(node, 'TemplateLiteral') ||
+        isNodeOfType(node, 'CallExpression')
+      )
+    ) ||
+    !Array.isArray(node.range)
+  ) {
+    return null;
+  }
+  const [start, end] = node.range;
+
+  return context.getSourceCode().getText().substring(start, end);
 };
 
 const getValueFromIdentifier = (

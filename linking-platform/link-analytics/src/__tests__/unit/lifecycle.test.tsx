@@ -1,17 +1,14 @@
 import React from 'react';
 
+import '@atlaskit/link-test-helpers/jest';
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
+import { SmartCardProvider, useFeatureFlag } from '@atlaskit/link-provider';
 import { act, renderHook } from '@testing-library/react-hooks';
 import { waitFor } from '@testing-library/dom';
 
+import { ANALYTICS_CHANNEL } from '../../consts';
 import { useSmartLinkLifecycleAnalytics } from '../../lifecycle';
-import {
-  linkCreatedPayload,
-  linkDeletedPayload,
-  linkUpdatedPayload,
-} from '../../analytics';
-import { SmartCardProvider, useFeatureFlag } from '@atlaskit/link-provider';
 import { fakeFactory, mocks } from '../__fixtures__/mocks';
 
 jest.mock('@atlaskit/link-provider', () => {
@@ -22,6 +19,11 @@ jest.mock('@atlaskit/link-provider', () => {
   };
 });
 
+const PACKAGE_METADATA = {
+  packageName: '@atlaskit/link-analytics',
+  packageVersion: '999.9.9',
+};
+
 describe('useSmartLinkLifecycleAnalytics', () => {
   beforeEach(() => {
     (useFeatureFlag as jest.Mock).mockReturnValue(false);
@@ -31,7 +33,6 @@ describe('useSmartLinkLifecycleAnalytics', () => {
     jest.clearAllMocks();
   });
 
-  const ANALYTICS_CHANNEL = 'media';
   const setup = () => {
     const mockFetch = jest.fn(async () => mocks.success);
     const mockClient = new (fakeFactory(mockFetch))();
@@ -52,11 +53,23 @@ describe('useSmartLinkLifecycleAnalytics', () => {
   const cases: [
     string,
     'linkCreated' | 'linkDeleted' | 'linkUpdated',
-    { action: string; actionSubject: string },
+    { action: string; actionSubject: string; eventType: string },
   ][] = [
-    ['link created', 'linkCreated', linkCreatedPayload],
-    ['link deleted', 'linkDeleted', linkDeletedPayload],
-    ['link updated', 'linkUpdated', linkUpdatedPayload],
+    [
+      'link created',
+      'linkCreated',
+      { action: 'created', actionSubject: 'link', eventType: 'track' },
+    ],
+    [
+      'link deleted',
+      'linkDeleted',
+      { action: 'deleted', actionSubject: 'link', eventType: 'track' },
+    ],
+    [
+      'link updated',
+      'linkUpdated',
+      { action: 'updated', actionSubject: 'link', eventType: 'track' },
+    ],
   ];
 
   const expectedResolvedAttributes = {
@@ -75,18 +88,17 @@ describe('useSmartLinkLifecycleAnalytics', () => {
       });
 
       await waitFor(() => {
-        expect(onEvent).toBeCalledWith(
-          expect.objectContaining({
-            hasFired: true,
-            payload: expect.objectContaining({
+        expect(onEvent).toBeFiredWithAnalyticEventOnce(
+          {
+            context: [PACKAGE_METADATA],
+            payload: {
               ...payload,
-              attributes: expect.objectContaining({
+              attributes: {
                 smartLinkId: 'xyz',
                 customAttribute: 'test-attribute',
-              }),
-              packageName: '@atlaskit/link-analytics',
-            }),
-          }),
+              },
+            },
+          },
           ANALYTICS_CHANNEL,
         );
       });
@@ -121,21 +133,20 @@ describe('useSmartLinkLifecycleAnalytics', () => {
       });
 
       await waitFor(() => {
-        expect(onEvent).toBeCalledWith(
-          expect.objectContaining({
-            hasFired: true,
-            payload: expect.objectContaining({
+        expect(onEvent).toBeFiredWithAnalyticEventOnce(
+          {
+            context: [PACKAGE_METADATA],
+            payload: {
               ...payload,
               actionSubject: 'link',
-              attributes: expect.objectContaining({
+              attributes: {
                 sourceEvent: 'form submitted',
                 smartLinkId: 'xyz',
                 linkState: 'newLink',
                 submitMethod: 'paste',
-              }),
-              packageName: '@atlaskit/link-analytics',
-            }),
-          }),
+              },
+            },
+          },
           ANALYTICS_CHANNEL,
         );
       });
@@ -171,20 +182,19 @@ describe('useSmartLinkLifecycleAnalytics', () => {
       });
 
       await waitFor(() => {
-        expect(onEvent).toBeCalledWith(
-          expect.objectContaining({
-            hasFired: true,
-            payload: expect.objectContaining({
+        expect(onEvent).toBeFiredWithAnalyticEventOnce(
+          {
+            context: [PACKAGE_METADATA],
+            payload: {
               ...payload,
-              attributes: expect.objectContaining({
+              attributes: {
                 sourceEvent: 'form submitted (linkPicker)',
                 smartLinkId: 'xyz',
                 linkState: 'newLink',
                 submitMethod: 'paste',
-              }),
-              packageName: '@atlaskit/link-analytics',
-            }),
-          }),
+              },
+            },
+          },
           ANALYTICS_CHANNEL,
         );
       });
@@ -200,17 +210,17 @@ describe('useSmartLinkLifecycleAnalytics', () => {
       });
 
       await waitFor(() => {
-        expect(onEvent).toBeCalledWith(
-          expect.objectContaining({
+        expect(onEvent).toBeFiredWithAnalyticEventOnce(
+          {
             hasFired: true,
-            payload: expect.objectContaining({
+            context: [PACKAGE_METADATA],
+            payload: {
               ...payload,
               nonPrivacySafeAttributes: {
                 domainName: 'sub.test.com',
               },
-              packageName: '@atlaskit/link-analytics',
-            }),
-          }),
+            },
+          },
           ANALYTICS_CHANNEL,
         );
       });
@@ -225,18 +235,17 @@ describe('useSmartLinkLifecycleAnalytics', () => {
         });
 
         await waitFor(() => {
-          expect(onEvent).toBeCalledWith(
-            expect.objectContaining({
-              hasFired: true,
-              payload: expect.objectContaining({
+          expect(onEvent).toBeFiredWithAnalyticEventOnce(
+            {
+              context: [PACKAGE_METADATA],
+              payload: {
                 ...payload,
-                attributes: expect.objectContaining({
+                attributes: {
                   smartLinkId: 'xyz',
                   ...expectedResolvedAttributes,
-                }),
-                packageName: '@atlaskit/link-analytics',
-              }),
-            }),
+                },
+              },
+            },
             ANALYTICS_CHANNEL,
           );
         });

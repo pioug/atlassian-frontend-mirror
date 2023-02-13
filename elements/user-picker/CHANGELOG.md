@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 10.0.2
+
+### Patch Changes
+
+- [`edc295b63a2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/edc295b63a2) - [ux] Fixes bug where the user picker opens the menu on click, but doesn't reopen the menu on the second click.
+
 ## 10.0.1
 
 ### Patch Changes

@@ -1,31 +1,19 @@
-import { token } from '@atlaskit/tokens';
 import { borderRadius, gridSize } from '@atlaskit/theme/constants';
-import { B200 } from '@atlaskit/theme/colors';
 import { css } from '@emotion/react';
 
-export interface AvatarImageProps {
-  isSelected: boolean;
-}
-
-const avatarImageStyles = (props: AvatarImageProps) => css`
+const avatarImageStyles = () => css`
   border-radius: ${borderRadius()};
   cursor: pointer;
-  ${props.isSelected
-    ? ` box-shadow: 0px 0px 0px 1px ${token(
-        'color.border.inverse',
-        'white',
-      )}, 0px 0px 0px 3px ${token('color.border.selected', B200)}; `
-    : ''};
 `;
 
-export const largeAvatarImageStyles = (props: AvatarImageProps) => css`
-  ${avatarImageStyles(props)}
+export const largeAvatarImageStyles = () => css`
+  ${avatarImageStyles()}
   width: ${gridSize() * 9}px;
   height: ${gridSize() * 9}px;
 `;
 
-export const smallAvatarImageStyles = (props: AvatarImageProps) => css`
-  ${avatarImageStyles(props)}
+export const smallAvatarImageStyles = () => css`
+  ${avatarImageStyles()}
   width: ${gridSize() * 5}px;
   height: ${gridSize() * 5}px;
 `;

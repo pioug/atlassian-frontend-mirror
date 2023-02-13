@@ -1,21 +1,23 @@
-import { store } from './registry';
+import {
+  setBooleanResolver,
+  resolveBooleanFlag,
+  FeatureFlagResolverBoolean,
+} from './resolvers';
 
 /**
- * Sets a feature flag to a given value.
- *
- * @param name
- * @param value
+ * Sets the flag resolver for boolean flags.
+ * @param flagResolver
  */
-export function setBooleanFF(name: string, value: boolean): void {
-  store[name] = value;
+export function setBooleanFeatureFlagResolver(
+  flagResolver: FeatureFlagResolverBoolean,
+): void {
+  setBooleanResolver(flagResolver);
 }
 
 /**
- * Returns the value of a feature flag. If the flag is not set, returns the "false" as a default value.
+ * Returns the value of a feature flag. If the flag does not resolve, it returns the "false" as a default value.
  * @param name
  */
 export function getBooleanFF(name: string): boolean {
-  const defaultValue = false;
-
-  return store?.[name] ?? defaultValue;
+  return resolveBooleanFlag(name);
 }

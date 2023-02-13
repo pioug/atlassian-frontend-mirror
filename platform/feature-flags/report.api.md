@@ -15,11 +15,16 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
+// @public (undocumented)
+type FeatureFlagResolverBoolean = (key: string) => boolean;
+
 // @public
 export function getBooleanFF(name: string): boolean;
 
 // @public
-export function setBooleanFF(name: string, value: boolean): void;
+export function setBooleanFeatureFlagResolver(
+  flagResolver: FeatureFlagResolverBoolean,
+): void;
 
 // (No @packageDocumentation comment for this package)
 ```

@@ -1,4 +1,6 @@
+import { token } from '@atlaskit/tokens';
 import { css } from '@emotion/react';
+import { B200 } from '@atlaskit/theme/colors';
 
 export const avatarListWrapperStyles = css`
   ul {
@@ -31,11 +33,23 @@ interface ImageProps {
   isSelected: boolean;
 }
 
+const buttonBoxShadow = `box-shadow: 0px 0px 0px 1px ${token(
+  'color.border.inverse',
+  'white',
+)}, 0px 0px 0px 3px ${token('color.border.selected', B200)};`;
+
 export const imageButton = ({ isSelected }: ImageProps) => css`
+  display: inline-flex;
   background: none;
   color: inherit;
   border: none;
   padding: 0;
-  font: inherit;
-  ${isSelected ? ':focus { outline:none }' : ''}
+  ${isSelected
+    ? `${buttonBoxShadow}  
+      :focus { 
+        outline:none;
+        ${buttonBoxShadow}
+      }
+      `
+    : ':focus { box-shadow: none; }'};
 `;

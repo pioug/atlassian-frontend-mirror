@@ -347,6 +347,12 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
     });
   };
 
+  private handleOpen = () => {
+    this.setState({
+      menuIsOpen: true,
+    });
+  };
+
   private handleClose = () => {
     this.resetInputState();
     callCallback(this.props.onClose, this.getSessionId());
@@ -581,6 +587,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
         instanceId={fieldId}
         inputId={inputId}
         onChange={this.handleChange}
+        onMenuOpen={this.handleOpen}
         onFocus={this.handleFocus}
         onBlur={this.handleBlur}
         onMenuClose={this.handleClose}

@@ -2,6 +2,8 @@ import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 export type LinkAnalyticsAttributes = Record<string, any>;
 
+export type LifecycleAction = 'created' | 'updated' | 'deleted';
+
 export interface LinkDetails {
   url: string;
   smartLinkId?: string;

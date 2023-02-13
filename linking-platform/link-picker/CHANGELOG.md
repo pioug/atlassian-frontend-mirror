@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 1.16.12
+
+### Patch Changes
+
+- [`9d9ee3fbc84`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d9ee3fbc84) - EDM-5557 Reduce min height of link-picker
+
 ## 1.16.11
 
 ### Patch Changes

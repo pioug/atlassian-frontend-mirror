@@ -8,7 +8,6 @@ import React, {
 import { IntlProvider } from 'react-intl-next';
 import Button from '@atlaskit/button';
 import Popup, { PopupProps } from '@atlaskit/popup';
-import { useSmartLinkLifecycleAnalytics } from '@atlaskit/link-analytics';
 import { LinkPicker, LinkPickerProps } from '@atlaskit/link-picker';
 import { MockLinkPickerPlugin } from '@atlaskit/link-test-helpers/link-picker';
 import {
@@ -27,6 +26,8 @@ import fetchMock from 'fetch-mock/cjs/client';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 
 const OBJECT_RESOLVER_SERVICE_ENDPOINT = 'glob:*/gateway/api/object-resolver/*';
+
+import { useSmartLinkLifecycleAnalytics } from '../src';
 
 export const generateResolvedLink = (resourceUrl: string) => ({
   status: 200,
@@ -253,9 +254,13 @@ function LifecycleAnalytics() {
   );
 }
 
+const FEATURE_FLAGS = {
+  enableResolveMetadataForLinkAnalytics: true,
+};
+
 export default function LifecycleAnalyticsWithProvider() {
   return (
-    <SmartCardProvider>
+    <SmartCardProvider featureFlags={FEATURE_FLAGS}>
       <LifecycleAnalytics />
     </SmartCardProvider>
   );

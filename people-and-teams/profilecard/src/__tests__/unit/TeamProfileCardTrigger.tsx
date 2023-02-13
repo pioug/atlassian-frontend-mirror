@@ -12,17 +12,7 @@ import {
   teamRequestAnalytics,
 } from '../../util/analytics';
 
-const createAnalyticsEvent = jest.fn((body) => {
-  // Mocking an implementation of this so tests will run successfully
-  const event = {
-    dummy: 'hello',
-    clone: () => ({
-      fire: () => undefined,
-    }),
-  };
-
-  return event as any;
-});
+import { createAnalyticsEvent, flexiTime } from './helper/_mock-analytics';
 
 jest.mock('../../util/analytics', () => {
   return {
@@ -60,16 +50,6 @@ const mockResourceClient: unknown = {
     return 'http://dummy-url';
   },
 };
-
-function flexiTime(event: Record<string, any>) {
-  return {
-    ...event,
-    attributes: {
-      ...event.attributes,
-      firedAt: expect.anything(),
-    },
-  };
-}
 
 describe('TeamProfileCardTrigger', () => {
   describe('Open and close conditions', () => {

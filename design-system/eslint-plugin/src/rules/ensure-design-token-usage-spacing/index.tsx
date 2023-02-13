@@ -22,6 +22,7 @@ import {
   convertHyphenatedNameToCamelCase,
   emToPixels,
   findParentNodeForLine,
+  getRawExpression,
   getValue,
   getValueFromShorthand,
   isSpacingProperty,
@@ -117,6 +118,22 @@ function shouldAnalyzeProperty(
     return true;
   }
   return false;
+}
+/**
+ * Attempts to remove all non-essential words & characters from a style block.
+ * Including selectors and queries
+ * Adapted from ensure-design-token-usage
+ * @param styleString string of css properties
+ */
+function splitCssProperties(styleString: string): string[] {
+  return styleString
+    .split('\n')
+    .filter((line) => !line.trim().startsWith('@'))
+    .join('\n')
+    .replace(/\n/g, '')
+    .split(/;|(?<!\$){|(?<!\${.+?)}/) // don't split on template literal expressions i.e. `${...}`
+    .map((el) => el.trim() || '')
+    .filter(Boolean);
 }
 
 const rule: Rule.RuleModule = {
@@ -364,19 +381,21 @@ const rule: Rule.RuleModule = {
             })
             .join('');
 
-          /**
-           * Attempts to remove all non-essential words & characters from a style block.
-           * Including selectors and queries
-           * Adapted from ensure-design-token-usage
-           */
-          const cssProperties = combinedString
-            .split('\n')
-            .filter((line) => !line.trim().startsWith('@'))
-            .join('\n')
-            .replace(/\n/g, '')
-            .split(/;|(?<!\$){|(?<!\${.+?)}/) // don't split on template literal expressions i.e. `${...}`
-            .map((el) => el.trim() || '')
-            .filter(Boolean);
+          const rawString = node.quasi.quasis
+            .map((q, i) => {
+              return `${q.value.raw}${
+                node.quasi.expressions[i]
+                  ? `\${${getRawExpression(
+                      node.quasi.expressions[i],
+                      context,
+                    )}}`
+                  : ''
+              }`;
+            })
+            .join('');
+
+          const cssProperties = splitCssProperties(combinedString);
+          const unalteredCssProperties = splitCssProperties(rawString);
 
           // Get font size
           const fontSizeNode = cssProperties.find((style) => {
@@ -385,7 +404,7 @@ const rule: Rule.RuleModule = {
           });
           const fontSize = getValueFromShorthand(fontSizeNode)[0] as number;
 
-          cssProperties.forEach((style) => {
+          cssProperties.forEach((style, currentPropIndex) => {
             const [rawProperty, value] = style.split(':');
             const propertyName = convertHyphenatedNameToCamelCase(rawProperty);
 
@@ -429,7 +448,6 @@ const rule: Rule.RuleModule = {
                         const allResolvableValues = values.every(
                           (value) => !Number.isNaN(emToPixels(value, fontSize)),
                         );
-
                         if (!allResolvableValues) {
                           return null;
                         }
@@ -478,10 +496,11 @@ const rule: Rule.RuleModule = {
                           .getText(node.quasi);
 
                         // find `<property>: ...;` in original
-                        const searchRegExp = new RegExp(style, 'g');
+                        const styleString =
+                          unalteredCssProperties[currentPropIndex];
                         // replace property:val with new property:val
                         const replacement = textForSource.replace(
-                          searchRegExp, //  padding: ${gridSize()}px;
+                          styleString, //  padding: ${gridSize()}px;
                           `${rawProperty}: ${replacementValue}`,
                         );
 

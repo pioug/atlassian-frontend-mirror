@@ -1,3 +1,5 @@
+%YAML 1.2
+---
 common:
   libraryType: 'client'
   product: 'media'
@@ -11,23 +13,99 @@ context:
       type: ['flexible', 'inline', 'url', 'card', 'embed']
       description: In what format is the link shown as?
 
+  ResolvedAttributes: &ResolvedAttributes
+    status:
+      type: ['pending', 'resolving', 'resolved', 'errored', 'fallback', 'unauthorized', 'forbidden', 'not_found']
+      description: The status of the link resolution at the time of the event.
+      required: false
+    displayCategory:
+      type: ['smartLink', 'link']
+      description: |
+        The overarching category of what the link is shown as.
+        `smartLink` : we are able to resolve the link and is displayed as a smart link
+        `link` : we are unable to resolve the link and it is displayed as linked text or a linked URL
+    extensionKey:
+      type: string
+      required: false
+      description: The provider identifier of the resolver that was used to resolve the link
+    destinationProduct:
+      type: string
+      required: false
+      description: |
+        Which product the linked resource will navigate to when clicked.
+    destinationSubproduct:
+      type: string
+      required: false
+      description: |
+        Which subproduct will the link take you to when clicked.
+    destinationCategory:
+      type: string
+      required: false
+      description: |
+        The category of the linked object.
+        Typically value is either `object` or `comment`
+    destinationObjectId:
+      type: string
+      required: false
+      description: |
+        The `objectId` of the linked resource.
+    destinationObjectType:
+      type: string
+      required: false
+      description: |
+        The type of object of the linked resource.
+        Typically maps to `resourceType` as defined by resolvers.
+    destinationContainerId:
+      type: string
+      required: false
+      description: |
+        The `containerId` of the linked resource.
+        Eg. if the object is a Confluence page or blog post, then this value would be the ID of the "containing" space
+    destinationTenantId:
+      type: string
+      required: false
+      description: |
+        The `tenantId` of the linked resource if relevant.
+    urlHash:
+      type: string
+      description: |
+        Cryptographic hash of the link in question
+
 events:
   - link created:
       type: track
       description: fired when a link is created
       attributes:
-        <<: *ExternalContext
+        <<: [*ExternalContext, *ResolvedAttributes]
+
 
   - link updated:
       type: track
       description: fired when a link is updated
       attributes:
-        <<: *ExternalContext
+        <<: [*ExternalContext, *ResolvedAttributes]
 
   - link deleted:
       type: track
       description: fired when a link is deleted
       attributes:
-        <<: *ExternalContext
+        <<: [*ExternalContext, *ResolvedAttributes]
 
+  - fireAnalyticEvent commenced:
+      type: operational
+      description: fired when there is an attempt to fire an fireAnalyticEvent
+      attributes:
+        action:
+          type: ['created', 'updated', 'deleted']
+          description: the event action that is attempting to fire
 
+  - fireAnalyticEvent failed:
+      type: operational
+      description: fired when an attempt to fire an fireAnalyticEvent fails
+      attributes:
+        error:
+          type: string
+          description: a stringified version of the error
+        action:
+          type: ['created', 'updated', 'deleted']
+          description: the event action that failed to fire

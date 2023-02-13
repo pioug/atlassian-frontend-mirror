@@ -32,7 +32,13 @@ export const ComposedLinkPicker = memo((props: LinkPickerProps) => (
   <AnalyticsContext data={PACKAGE_DATA}>
     <LinkPickerSessionProvider>
       <ErrorBoundary>
-        <LazySuspense fallback={LoaderFallback}>
+        <LazySuspense
+          fallback={
+            <LoaderFallback
+              hideDisplayText={props.hideDisplayText}
+            ></LoaderFallback>
+          }
+        >
           <LazyLinkPicker {...props} />
         </LazySuspense>
       </ErrorBoundary>

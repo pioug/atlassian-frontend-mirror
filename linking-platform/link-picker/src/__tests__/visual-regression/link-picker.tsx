@@ -7,6 +7,7 @@ import {
   waitForTooltip,
   takeElementScreenShot,
   loadPage,
+  LoadPageOptions,
 } from '@atlaskit/visual-regression/helper';
 
 export function getURL(testName: string): string {
@@ -18,11 +19,15 @@ export function getURL(testName: string): string {
   );
 }
 
-export async function setup(url: string) {
+export async function setup(url: string, options: LoadPageOptions = {}) {
   const { page } = global;
   await loadPage(page, url, {
     reloadSameUrl: true,
-    allowedSideEffects: { tooltips: true },
+    ...options,
+    allowedSideEffects: {
+      tooltips: true,
+      ...(options.allowedSideEffects ?? {}),
+    },
   });
   await page.waitForSelector(pageSelector);
 
@@ -323,6 +328,17 @@ describe('link-picker', () => {
     await page.click('#link-picker-tabs-2');
 
     const image = await takeElementScreenShot(page, testSelector);
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('should have the same height as the skeleton whether or not the displayText field is shown', async () => {
+    const url = getURL('vr-lazy-load-height');
+    const page = await setup(url);
+
+    const image = await takeElementScreenShot(
+      page,
+      '[data-testid="link-picker-lazy-load-height"]',
+    );
     expect(image).toMatchProdImageSnapshot();
   });
 });

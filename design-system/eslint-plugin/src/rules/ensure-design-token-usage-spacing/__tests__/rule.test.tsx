@@ -9,6 +9,19 @@ tester.run('ensure-design-token-usage-spacing', rule, {
       })`,
     },
     {
+      code: `
+      styled.div\`
+        display: flex;
+        font-size: \${fontSize()}px;
+        line-height: \${(gridSize() * 2.5) / fontSize()};
+        max-width: 100%;
+        min-height: \${(gridSize() * 2.5) / fontSize()}em;
+        padding: \${token('spacing.scale.100', '8px')}
+          \${token('spacing.scale.075', '6px')};
+        word-break: break-word;
+      \``,
+    },
+    {
       code: `const styles = css({ padding: token('space.100', '8px') })`,
     },
     {
@@ -755,6 +768,59 @@ styled.div\`
         {
           message:
             'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:16>>',
+        },
+      ],
+    },
+    {
+      code: `
+styled.div\`
+  display: flex;
+  align-items: center;
+  padding: \${gridSize() /2}px \${gridSize() * 2}px \${gridSize()*2}px \${gridSize()/ 2}px;
+\``,
+      output: `
+// TODO Delete this comment after verifying spacing token -> previous value \`4px 16px 16px 4px\`
+styled.div\`
+  display: flex;
+  align-items: center;
+  padding: \${token('space.050', '4px')} \${token('space.200', '16px')} \${token('space.200', '16px')} \${token('space.050', '4px')};
+\``,
+      errors: [
+        {
+          message:
+            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:4>>',
+        },
+        {
+          message:
+            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:16>>',
+        },
+        {
+          message:
+            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:16>>',
+        },
+        {
+          message:
+            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:4>>',
+        },
+      ],
+    },
+    {
+      code: `
+styled.div\`
+  display: flex;
+  font-size: \${fontSize()}px;
+\``,
+      output: `
+// TODO Delete this comment after verifying spacing token -> previous value \`14px\`
+styled.div\`
+  display: flex;
+  font-size: \${token('font.size.100', '14px')};
+\``,
+      options: [{ addons: ['typography'] }],
+      errors: [
+        {
+          message:
+            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<fontSize:14>>',
         },
       ],
     },

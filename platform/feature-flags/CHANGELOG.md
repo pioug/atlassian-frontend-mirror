@@ -1,5 +1,11 @@
 # @atlaskit/platform-feature-flags
 
+## 0.1.0
+
+### Minor Changes
+
+- [`1d3a3683ed9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1d3a3683ed9) - Revamp platform feature flag package to allow deferral to outside client instead
+
 ## 0.0.12
 
 ### Patch Changes

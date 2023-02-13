@@ -1,5 +1,15 @@
 # @atlaskit/link-analytics
 
+## 5.0.0
+
+### Major Changes
+
+- [`d17a6d964ac`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d17a6d964ac) - Removes `getAnalyticsAttributes` from main entrypoint.
+
+### Patch Changes
+
+- [`69b42fc04b8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/69b42fc04b8) - Package size optimisation
+
 ## 4.1.0
 
 ### Minor Changes

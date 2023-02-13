@@ -173,133 +173,141 @@ function start<DragType extends AllDragTypes>({
     unbindEvents();
   }
 
-  const unbindEvents = bindAll(window, [
-    {
-      // 👋 Note: we are repurposing the `dragover` event as our `drag` event
-      // this is because firefox does not publish pointer coordinates during
-      // a `drag` event, but does for every other type of drag event
-      // `dragover` fires on all elements that are being dragged over
-      // Because we are binding to `window` - our `dragover` is effectively the same as a `drag`
-      // 🦊😤
-      type: 'dragover',
-      listener(event: DragEvent) {
-        // We need to regularly calculate the drop targets in order to allow:
-        //  - dynamic `canDrop()` checks
-        //  - rapid updating `getData()` calls to attach data in response to user input (eg for edge detection)
-        // Sadly we cannot schedule inspecting changes resulting from this event
-        // we need to be able to conditionally cancel the event with `event.preventDefault()`
-        // to enable the correct native drop experience.
+  const unbindEvents = bindAll(
+    window,
+    [
+      {
+        // 👋 Note: we are repurposing the `dragover` event as our `drag` event
+        // this is because firefox does not publish pointer coordinates during
+        // a `drag` event, but does for every other type of drag event
+        // `dragover` fires on all elements that are being dragged over
+        // Because we are binding to `window` - our `dragover` is effectively the same as a `drag`
+        // 🦊😤
+        type: 'dragover',
+        listener(event: DragEvent) {
+          // We need to regularly calculate the drop targets in order to allow:
+          //  - dynamic `canDrop()` checks
+          //  - rapid updating `getData()` calls to attach data in response to user input (eg for edge detection)
+          // Sadly we cannot schedule inspecting changes resulting from this event
+          // we need to be able to conditionally cancel the event with `event.preventDefault()`
+          // to enable the correct native drop experience.
 
-        // 1. check to see if anything has changed
-        onUpdateEvent(event);
+          // 1. check to see if anything has changed
+          onUpdateEvent(event);
 
-        // 2. let consumers know a move has occurred
-        dispatch.drag({
-          location: state,
-        });
+          // 2. let consumers know a move has occurred
+          dispatch.drag({
+            location: state,
+          });
+        },
       },
-    },
-    {
-      type: 'dragenter',
-      listener: onUpdateEvent,
-    },
-    {
-      // This was the only reliable cross browser way I found to detect
-      // when the user is leaving the `window`.
-      // When we leave the `window` we want to clear any active drop targets,
-      // but the drag is not yet over. The user could drag back into the window.
-      // We only need to do this because of stickiness
-      type: 'dragleave',
-      listener(event: DragEvent) {
-        if (!isLeavingWindow({ dragLeave: event })) {
-          return;
-        }
-        updateDropTargets({ input: getInput(event), dropTargets: [] });
-        if (dragInterface.startedFrom === 'external') {
-          cancel();
-        }
+      {
+        type: 'dragenter',
+        listener: onUpdateEvent,
       },
-    },
-    {
-      type: 'drop',
-      listener(event: DragEvent) {
-        // this can only happen if the browser allowed the drop
-
-        if (dragInterface.startedFrom === 'external') {
-          dragInterface.key;
-        }
-
-        // Opting out of standard browser drop behaviour for the drag
-        event.preventDefault();
-
-        // applying the latest drop effect to the event
-        setDropEffect({ event, current: state.current.dropTargets });
-
-        dispatch.drop({
-          location: state,
-          updatedExternalPayload:
-            dragInterface.startedFrom === 'external'
-              ? dragInterface.getDropPayload?.(event) || null
-              : null,
-        });
-
-        finish();
-      },
-    },
-    {
-      // "dragend" fires when on the drag source (eg a draggable element)
-      // when the drag is finished.
-      // "dragend" will fire after "drop"(if there was a successful drop)
-      // "dragend" does not fire if the draggable source has been removed during the drag
-      // or for external drag sources (eg files)
-      type: 'dragend',
-      listener: cancel,
-    },
-    // ## Detecting drag ending for removed draggables
-    //
-    // If a draggable element is removed during a drag and the user drops:
-    // 1. if over a valid drop target: we get a "drop" event to know the drag is finished
-    // 2. if not over a valid drop target (or cancelled): we get nothing
-    // The "dragend" event will not fire on the source draggable if it has been
-    // removed from the DOM.
-    // So we need to figure out if a drag operation has finished by looking at other events
-    // We can do this by looking at other events
-
-    // ### First detection: "pointermove" events
-
-    // 1. "pointermove" events cannot fire during a drag and drop operation
-    // according to the spec. So if we get a "pointermove" it means that
-    // the drag and drop operations has finished. So if we get a "pointermove"
-    // we know that the drag is over
-    // 2. 🦊😤 Drag and drop operations are _supposed_ to suppress
-    // other pointer events. However, firefox will allow a few
-    // pointer event to get through after a drag starts.
-    // The most I've seen is 3
-    {
-      type: 'pointermove',
-      listener: (() => {
-        let callCount: number = 0;
-        return function listener() {
-          // Using 20 as it is far bigger than the most observed (3)
-          if (callCount < 20) {
-            callCount++;
+      {
+        // This was the only reliable cross browser way I found to detect
+        // when the user is leaving the `window`.
+        // When we leave the `window` we want to clear any active drop targets,
+        // but the drag is not yet over. The user could drag back into the window.
+        // We only need to do this because of stickiness
+        type: 'dragleave',
+        listener(event: DragEvent) {
+          if (!isLeavingWindow({ dragLeave: event })) {
             return;
           }
-          cancel();
-        };
-      })(),
-    },
+          updateDropTargets({ input: getInput(event), dropTargets: [] });
+          if (dragInterface.startedFrom === 'external') {
+            cancel();
+          }
+        },
+      },
+      {
+        type: 'drop',
+        listener(event: DragEvent) {
+          // this can only happen if the browser allowed the drop
 
-    // ### Second detection: "pointerdown" events
+          if (dragInterface.startedFrom === 'external') {
+            dragInterface.key;
+          }
 
-    // If we receive this event then we know that a drag operation has finished
-    // and potentially another one is about to start.
-    // Note: `pointerdown` fires on all browsers / platforms before "dragstart"
-    {
-      type: 'pointerdown',
-      listener: cancel,
-    },
-  ]);
+          // Opting out of standard browser drop behaviour for the drag
+          event.preventDefault();
+
+          // applying the latest drop effect to the event
+          setDropEffect({ event, current: state.current.dropTargets });
+
+          dispatch.drop({
+            location: state,
+            updatedExternalPayload:
+              dragInterface.startedFrom === 'external'
+                ? dragInterface.getDropPayload?.(event) || null
+                : null,
+          });
+
+          finish();
+        },
+      },
+      {
+        // "dragend" fires when on the drag source (eg a draggable element)
+        // when the drag is finished.
+        // "dragend" will fire after "drop"(if there was a successful drop)
+        // "dragend" does not fire if the draggable source has been removed during the drag
+        // or for external drag sources (eg files)
+        type: 'dragend',
+        listener: cancel,
+      },
+      // ## Detecting drag ending for removed draggables
+      //
+      // If a draggable element is removed during a drag and the user drops:
+      // 1. if over a valid drop target: we get a "drop" event to know the drag is finished
+      // 2. if not over a valid drop target (or cancelled): we get nothing
+      // The "dragend" event will not fire on the source draggable if it has been
+      // removed from the DOM.
+      // So we need to figure out if a drag operation has finished by looking at other events
+      // We can do this by looking at other events
+
+      // ### First detection: "pointermove" events
+
+      // 1. "pointermove" events cannot fire during a drag and drop operation
+      // according to the spec. So if we get a "pointermove" it means that
+      // the drag and drop operations has finished. So if we get a "pointermove"
+      // we know that the drag is over
+      // 2. 🦊😤 Drag and drop operations are _supposed_ to suppress
+      // other pointer events. However, firefox will allow a few
+      // pointer event to get through after a drag starts.
+      // The most I've seen is 3
+      {
+        type: 'pointermove',
+        listener: (() => {
+          let callCount: number = 0;
+          return function listener() {
+            // Using 20 as it is far bigger than the most observed (3)
+            if (callCount < 20) {
+              callCount++;
+              return;
+            }
+            cancel();
+          };
+        })(),
+      },
+
+      // ### Second detection: "pointerdown" events
+
+      // If we receive this event then we know that a drag operation has finished
+      // and potentially another one is about to start.
+      // Note: `pointerdown` fires on all browsers / platforms before "dragstart"
+      {
+        type: 'pointerdown',
+        listener: cancel,
+      },
+    ],
+    // Once we have started a managed drag operation it is important that we see / own all drag events
+    // We got one adoption bug pop up where some code was stopping (`event.stopPropagation()`)
+    // all "drop" events in the bubble phase on the `document.body`.
+    // This meant that we never saw the "drop" event.
+    { capture: true },
+  );
 
   dispatch.start({
     location: state,

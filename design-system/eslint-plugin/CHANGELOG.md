@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 4.15.3
+
+### Patch Changes
+
+- [`965e9c7f5d7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/965e9c7f5d7) - Fix spacing token autofix in tagged template literal styles, enabling replacement of expression to equivalent spacing tokens
+
 ## 4.15.2
 
 ### Patch Changes

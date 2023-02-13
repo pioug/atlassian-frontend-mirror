@@ -15,16 +15,7 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
-import { CardType } from '@atlaskit/linking-common';
-import { JsonLd } from 'json-ld-types';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
-
-// @public (undocumented)
-export const getAnalyticsAttributes: (
-  url: string,
-  details?: JsonLd.Response<JsonLd.Data.BaseData> | undefined,
-  linkStatus?: CardType | undefined,
-) => LinkAnalyticsAttributes;
 
 // @public (undocumented)
 type LinkAnalyticsAttributes = Record<string, any>;

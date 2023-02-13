@@ -3,10 +3,10 @@
  */
 /* eslint-disable @atlaskit/platform/ensure-feature-flag-registration */
 
+import { FeatureFlagResolverBoolean } from '../resolvers';
+
 beforeEach(() => {
   jest.resetModules();
-
-  delete globalThis.__AF_PLATFORM_FLAGS;
 });
 
 type Api = typeof import('../index');
@@ -32,75 +32,35 @@ describe('feature flags API', () => {
 
   it('should return true when setting and then getting a value of defined FF', () => {
     // given
-    const { getBooleanFF, setBooleanFF } = loadApi();
+    const { getBooleanFF, setBooleanFeatureFlagResolver } = loadApi();
 
     // when
-    setBooleanFF('my-flag', true);
+    const resolver: FeatureFlagResolverBoolean = (key) => {
+      return key === 'my-flag';
+    };
+
+    setBooleanFeatureFlagResolver(resolver);
 
     // then
     expect(getBooleanFF('my-flag')).toBe(true);
   });
 
-  it('should ignore a non-boolean value when setting FF and then fallback to false value', () => {
+  it('should ignore a non-boolean value when resolving FF and throw invariant error', () => {
     // given
-    const { getBooleanFF, setBooleanFF } = loadApi();
+    const { getBooleanFF, setBooleanFeatureFlagResolver } = loadApi();
 
     // when
     // @ts-expect-error - we are testing the runtime behaviour when passing a non-boolean value
-    setBooleanFF('my-new-flag', 'red!');
-
-    // then
-    expect(getBooleanFF('my-new-flag')).toBe(false);
-  });
-});
-
-describe('FF overrides', () => {
-  it('should return true when getting a pre-defined FF value', () => {
-    // given, when
-    globalThis.__AF_PLATFORM_FLAGS = {
-      'my-pre-defined-flag': true,
+    const resolver: FeatureFlagResolverBoolean = (key) => {
+      if (key === 'my-new-flag') {
+        return 'red!';
+      }
+      return false;
     };
-    const { getBooleanFF } = loadApi();
+    setBooleanFeatureFlagResolver(resolver);
 
     // then
-    expect(getBooleanFF('my-pre-defined-flag')).toBe(true);
-  });
-
-  it('should return false when getting a pre-defined FF value that was disabled', () => {
-    // given, when
-    globalThis.__AF_PLATFORM_FLAGS = {
-      'my-pre-defined-flag': false,
-    };
-    const { getBooleanFF } = loadApi();
-
-    // then
-    expect(getBooleanFF('my-pre-defined-flag')).toBe(false);
-  });
-
-  it('should return false when trying to override a pre-defined FF value that was disabled', () => {
-    // given
-    globalThis.__AF_PLATFORM_FLAGS = {
-      'my-pre-defined-flag': false,
-    };
-    const { getBooleanFF, setBooleanFF } = loadApi();
-
-    // when
-    setBooleanFF('my-pre-defined-flag', true);
-
-    // then
-    expect(getBooleanFF('my-pre-defined-flag')).toBe(false);
-  });
-
-  it('should return false when trying to pre-define a non-boolean FF value', () => {
-    // given, when
-    globalThis.__AF_PLATFORM_FLAGS = {
-      // @ts-expect-error - we are testing the runtime behaviour when passing a non-boolean value
-      'my-invalid-pre-defined-flag': 'foo',
-    };
-    const { getBooleanFF } = loadApi();
-
-    // then
-    expect(getBooleanFF('my-invalid-pre-defined-flag')).toBe(false);
+    expect(getBooleanFF('my-new-flag')).toEqual(false);
   });
 });
 

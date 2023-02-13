@@ -1,5 +1,11 @@
 # @atlaskit/media-avatar-picker
 
+## 24.2.3
+
+### Patch Changes
+
+- [`785ebcec1b3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/785ebcec1b3) - Fixed image button border on focus
+
 ## 24.2.2
 
 ### Patch Changes

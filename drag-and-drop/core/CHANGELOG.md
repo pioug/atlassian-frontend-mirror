@@ -1,5 +1,13 @@
 # @atlaskit/drag-and-drop
 
+## 0.9.0
+
+### Minor Changes
+
+- [`03e0aa5ae85`](https://bitbucket.org/atlassian/atlassian-frontend/commits/03e0aa5ae85) - `@atlaskit/drag-and-drop` adds event listeners to the `window` during a drag operation. These drag operation event listeners were [`bubble` phase event listeners](https://domevents.dev/), but they are now `capture` phase event listeners to be more resliant against external code (incorrectly) stopping events.
+
+  This does not impact the ability of a consumer to have their own `draggable`s on a page not controlled by `@atlaskit/drag-and-drop`
+
 ## 0.8.1
 
 ### Patch Changes

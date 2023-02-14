@@ -66,7 +66,9 @@
     "@repo/internal": {
       "design-system": "v1",
       "ui-components": "lite-mode",
-      "theming": "tokens",
+      "design-tokens": [
+        "color"
+      ],
       "deprecation": "no-deprecated-imports"
     }
   },

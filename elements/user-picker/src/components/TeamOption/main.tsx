@@ -92,6 +92,7 @@ export class TeamOption extends React.PureComponent<TeamOptionProps> {
           ? token('color.text.selected', B400)
           : token('color.text.subtlest', N200),
       )}
+      data-testid="user-picker-team-secondary-text"
     >
       {message}
     </span>

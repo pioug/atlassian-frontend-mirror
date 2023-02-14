@@ -81,15 +81,17 @@
       "analytics": [
         "analytics-next"
       ],
+      "design-tokens": [
+        "color",
+        "spacing"
+      ],
       "theming": [
-        "react-context",
-        "tokens"
+        "react-context"
       ],
       "ui-components": [
         "lite-mode"
       ],
       "design-system": "v1",
-      "design-tokens": "spacing",
       "deprecation": [
         "no-deprecated-imports"
       ],

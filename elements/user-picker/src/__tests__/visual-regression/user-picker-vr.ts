@@ -5,6 +5,10 @@ import {
   PuppeteerPage,
 } from '@atlaskit/visual-regression/helper';
 import {
+  AVATAR_EMAIL_ITEM_SECONDARY_TEXT,
+  AVATAR_TEAM_ITEM_SECONDARY_TEXT,
+  AVATAR_GROUP_ITEM_SECONDARY_TEXT,
+  AVATAR_CUSTOM_ITEM_SECONDARY_TEXT,
   CLEAR_INDICATOR_SELECTOR,
   LOZENGE_CLEAR_ICON_SELECTOR,
   DISABLE_INPUT_ID_SINGLE,
@@ -53,15 +57,24 @@ const interactions: Array<InteractionTest> = [
   },
   {
     name: 'show team items',
-    setUp: inputTypingFactory('team'),
+    setUp: async (page: PuppeteerPage) => {
+      await inputTypingFactory('team')(page);
+      await page.waitForSelector(AVATAR_TEAM_ITEM_SECONDARY_TEXT);
+    },
   },
   {
     name: 'show group items',
-    setUp: inputTypingFactory('group'),
+    setUp: async (page: PuppeteerPage) => {
+      await inputTypingFactory('group')(page);
+      await page.waitForSelector(AVATAR_GROUP_ITEM_SECONDARY_TEXT);
+    },
   },
   {
     name: 'show custom options',
-    setUp: inputTypingFactory('custom'),
+    setUp: async (page: PuppeteerPage) => {
+      await inputTypingFactory('custom')(page);
+      await page.waitForSelector(AVATAR_CUSTOM_ITEM_SECONDARY_TEXT);
+    },
   },
   {
     name: 'select top item',
@@ -114,8 +127,7 @@ describe('UserPicker VR Snapshot Test', () => {
       examples.forEach((example) => {
         describe(`user picker type=${example}`, () => {
           interactions.forEach((interaction) => {
-            // TODO: Restore skipped test https://product-fabric.atlassian.net/browse/ED-16716
-            it.skip(`interaction=${interaction.name}`, async () => {
+            it(`interaction=${interaction.name}`, async () => {
               await vrForExample(example, interaction.setUp);
             });
           });
@@ -216,14 +228,24 @@ describe('UserPicker VR Snapshot Test', () => {
             it('prompts entering email', async () => {
               await vrForExample(
                 'creatable-with-locale',
-                inputTypingFactory('email@'),
+                async (page: PuppeteerPage) => {
+                  await inputTypingFactory('email@')(page);
+
+                  // required since item options are async loaded
+                  await page.waitForSelector(AVATAR_EMAIL_ITEM_SECONDARY_TEXT);
+                },
               );
             });
 
             it('prompts selecting valid email', async () => {
               await vrForExample(
                 'creatable-with-locale',
-                inputTypingFactory('email@gmail.com'),
+                async (page: PuppeteerPage) => {
+                  await inputTypingFactory('email@gmail.com')(page);
+
+                  // required since item options are async loaded
+                  await page.waitForSelector(AVATAR_EMAIL_ITEM_SECONDARY_TEXT);
+                },
               );
             });
 

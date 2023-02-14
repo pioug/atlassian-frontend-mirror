@@ -200,6 +200,7 @@ export const SaveAndCancelButtons = (props: {
         localStorage.removeItem(LOCALSTORAGE_defaultDocKey);
         localStorage.removeItem(LOCALSTORAGE_defaultTitleKey);
       }}
+      testId="close-button"
     >
       Close
     </Button>

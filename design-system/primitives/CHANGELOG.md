@@ -1,5 +1,12 @@
 # @atlaskit/primitives
 
+## 0.1.0
+
+### Minor Changes
+
+- [`eeb8baa5d74`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eeb8baa5d74) - - Create `Stack` component
+  - Create `Inline` component
+
 ## 0.0.2
 
 ### Patch Changes

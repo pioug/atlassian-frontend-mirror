@@ -137,12 +137,6 @@ BrowserTestCase(
       ),
     ).toBe(true);
 
-    // For some reason, clicking publish button right away sometimes does nothing.
-    // TODO There is a chance it's related to the fact Editor is not releasing
-    // it because it thinks things still are uploading.
-    // https://product-fabric.atlassian.net/browse/ED-10756
-    await page.pause(300);
-
     await page.publish();
 
     expect(await page.isVisible('[data-testid="media-file-card-view"]')).toBe(

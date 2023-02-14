@@ -49,7 +49,9 @@
       "import-structure": "atlassian-conventions"
     },
     "@repo/internal": {
-      "theming": "tokens",
+      "design-tokens": [
+        "color"
+      ],
       "deprecation": "no-deprecated-imports",
       "styling": [
         "emotion"

@@ -54,7 +54,9 @@
       "deprecation": [
         "no-deprecated-imports"
       ],
-      "theming": "tokens"
+      "design-tokens": [
+        "color"
+      ]
     }
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"

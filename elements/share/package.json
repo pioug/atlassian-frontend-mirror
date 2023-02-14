@@ -99,7 +99,9 @@
       "ui-components": "lite-mode",
       "analytics": "analytics-next",
       "deprecation": "no-deprecated-imports",
-      "theming": "tokens"
+      "design-tokens": [
+        "color"
+      ]
     }
   },
   "af:exports": {

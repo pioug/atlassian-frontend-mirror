@@ -30,6 +30,9 @@ const spacingProperties = {
   gap: {
     cssProperty: 'gap',
   },
+  space: {
+    cssProperty: 'gap',
+  },
   columnGap: {
     cssProperty: 'columnGap',
   },
@@ -38,7 +41,10 @@ const spacingProperties = {
   },
 } as const;
 
-const onlySpaceTokens = tokens.filter(token => token.name.startsWith('space.'));
+const spacingTokenPrefix = 'space.';
+const onlySpaceTokens = tokens.filter(token =>
+  token.name.startsWith(spacingTokenPrefix),
+);
 
 const activeTokens = onlySpaceTokens.map(t => ({
   name: t.name,
@@ -61,7 +67,10 @@ const ${spacingProperty}Map = {
   ${activeTokens
     .sort((a, b) => (a.name < b.name ? -1 : 1))
     .map(token => {
-      const propName = token.name;
+      const propName =
+        spacingProperty === 'space'
+          ? token.name.replace(spacingTokenPrefix, '')
+          : token.name;
       return `'${propName}': ${tokenToStyle(
         cssProperty,
         token.name,

@@ -78,7 +78,6 @@
     "@repo/internal": {
       "dom-events": "use-bind-event-listener",
       "design-system": "v1",
-      "design-tokens": "spacing",
       "ui-components": [
         "lite-mode",
         "primitives"
@@ -86,8 +85,11 @@
       "analytics": [
         "analytics-next"
       ],
+      "design-tokens": [
+        "color",
+        "spacing"
+      ],
       "theming": [
-        "tokens",
         "react-context"
       ],
       "deprecation": "no-deprecated-imports",

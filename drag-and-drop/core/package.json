@@ -71,7 +71,9 @@
       "dom-events": "use-bind-event-listener",
       "ui-components": "lite-mode",
       "analytics": "analytics-next",
-      "theming": "tokens",
+      "design-tokens": [
+        "color"
+      ],
       "deprecation": "no-deprecated-imports",
       "styling": [
         "emotion",

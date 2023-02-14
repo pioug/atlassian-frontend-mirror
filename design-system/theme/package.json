@@ -84,8 +84,10 @@
       ],
       "ui-components": "lite-mode",
       "analytics": "analytics-next",
+      "design-tokens": [
+        "color"
+      ],
       "theming": [
-        "tokens",
         "react-context"
       ],
       "deprecation": "no-deprecated-imports",

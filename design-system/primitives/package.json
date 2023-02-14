@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/primitives",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Primitives are token-backed low-level building blocks.",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -49,6 +49,7 @@
     "@af/codegen": "*",
     "@atlaskit/docs": "*",
     "@atlaskit/ds-lib": "*",
+    "@atlaskit/heading": "*",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",

@@ -1,3 +1,15 @@
+export const AVATAR_EMAIL_ITEM_SECONDARY_TEXT =
+  '[data-testid="user-picker-email-secondary-text"]';
+
+export const AVATAR_CUSTOM_ITEM_SECONDARY_TEXT =
+  '[data-testid="user-picker-custom-secondary-text"]';
+
+export const AVATAR_GROUP_ITEM_SECONDARY_TEXT =
+  '[data-testid="user-picker-group-secondary-text"]';
+
+export const AVATAR_TEAM_ITEM_SECONDARY_TEXT =
+  '[data-testid="user-picker-team-secondary-text"]';
+
 export const CLEAR_INDICATOR_SELECTOR = '.fabric-user-picker__clear-indicator';
 
 export const CONTROL_SELECTOR = '.fabric-user-picker__control';

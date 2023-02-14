@@ -4,14 +4,14 @@ import { render } from '@testing-library/react';
 
 import Text from '@atlaskit/ds-explorations/text';
 
-import { Inline } from '../../../index';
+import { Inline } from '../../../../src';
 
-describe('Inline component', () => {
+describe('Inline', () => {
   const testId = 'test';
 
   it('should render inline', () => {
     const { getByText } = render(
-      <Inline gap="space.050">
+      <Inline space="050">
         <Text>1</Text>
         <Text>2</Text>
       </Inline>,
@@ -20,9 +20,9 @@ describe('Inline component', () => {
     expect(getByText('2')).toBeInTheDocument();
   });
 
-  it('should render inline with dividers', () => {
+  it('should render inline with separators', () => {
     const { getByText } = render(
-      <Inline gap="space.050" divider="/">
+      <Inline space="050" separator="/">
         <Text>1</Text>
         <Text>2</Text>
       </Inline>,
@@ -34,7 +34,7 @@ describe('Inline component', () => {
 
   it('should render with a given test id', () => {
     const { getByTestId } = render(
-      <Inline gap="space.050" testId={testId}>
+      <Inline space="050" testId={testId}>
         <Text>1</Text>
         <Text>2</Text>
       </Inline>,

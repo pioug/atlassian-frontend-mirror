@@ -76,8 +76,10 @@
       "styling": [
         "emotion"
       ],
-      "design-tokens": "spacing",
-      "theming": "tokens",
+      "design-tokens": [
+        "color",
+        "spacing"
+      ],
       "deprecation": "no-deprecated-imports"
     }
   },

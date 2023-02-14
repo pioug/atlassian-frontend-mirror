@@ -78,7 +78,9 @@
   },
   "techstack": {
     "@repo/internal": {
-      "theming": "tokens"
+      "design-tokens": [
+        "color"
+      ]
     }
   },
   "keywords": [

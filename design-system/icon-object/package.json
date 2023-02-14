@@ -67,7 +67,9 @@
     "@repo/internal": {
       "design-system": "v1",
       "dom-events": "use-bind-event-listener",
-      "theming": "tokens",
+      "design-tokens": [
+        "color"
+      ],
       "styling": [
         "emotion"
       ],

@@ -73,7 +73,9 @@
         "static",
         "emotion"
       ],
-      "theming": "tokens",
+      "design-tokens": [
+        "color"
+      ],
       "deprecation": "no-deprecated-imports"
     }
   },

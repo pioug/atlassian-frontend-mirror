@@ -71,10 +71,10 @@
         "lite-mode"
       ],
       "design-tokens": [
+        "color",
         "spacing"
       ],
       "analytics": "analytics-next",
-      "theming": "tokens",
       "deprecation": "no-deprecated-imports"
     }
   },

@@ -68,9 +68,11 @@
       "analytics": [
         "analytics-next"
       ],
+      "design-tokens": [
+        "color"
+      ],
       "theming": [
-        "react-context",
-        "tokens"
+        "react-context"
       ],
       "ui-components": [
         "lite-mode"

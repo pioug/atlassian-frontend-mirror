@@ -74,8 +74,10 @@
         "emotion"
       ],
       "analytics": "analytics-next",
-      "design-tokens": "spacing",
-      "theming": "tokens",
+      "design-tokens": [
+        "color",
+        "spacing"
+      ],
       "design-system": "v1",
       "deprecation": "no-deprecated-imports"
     }

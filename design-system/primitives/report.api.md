@@ -16,14 +16,113 @@
 
 ```ts
 import { default as Box } from '@atlaskit/ds-explorations/box';
-import { default as Inline } from '@atlaskit/ds-explorations/inline';
-import { default as Stack } from '@atlaskit/ds-explorations/stack';
+import { ForwardRefExoticComponent } from 'react';
+import { MemoExoticComponent } from 'react';
+import { ReactNode } from 'react';
+import { RefAttributes } from 'react';
+import { SerializedStyles } from '@emotion/react';
+
+// @public (undocumented)
+type AlignBlock = 'center' | 'end' | 'start';
+
+// @public (undocumented)
+type AlignBlock_2 = 'baseline' | 'center' | 'end' | 'start';
+
+// @public (undocumented)
+type AlignInline = 'center' | 'end' | 'start';
+
+// @public (undocumented)
+type AlignInline_2 = 'center' | 'end' | 'start';
 
 export { Box };
 
-export { Inline };
+// @public (undocumented)
+type Grow = 'fill' | 'hug';
 
-export { Stack };
+// @public (undocumented)
+type Grow_2 = 'fill' | 'hug';
+
+// @public
+export const Inline: MemoExoticComponent<
+  ForwardRefExoticComponent<InlineProps & RefAttributes<HTMLDivElement>>
+>;
+
+// @public (undocumented)
+interface InlineProps {
+  alignBlock?: AlignBlock_2;
+  alignInline?: AlignInline_2;
+  children: ReactNode;
+  grow?: Grow_2;
+  separator?: string;
+  shouldWrap?: boolean;
+  space?: Space_2;
+  spread?: Spread_2;
+  testId?: string;
+}
+
+// @public (undocumented)
+type Space = keyof typeof spaceMap;
+
+// @public (undocumented)
+type Space_2 = keyof typeof spaceMap_2;
+
+// @public
+const spaceMap: {
+  '0': SerializedStyles;
+  '025': SerializedStyles;
+  '050': SerializedStyles;
+  '075': SerializedStyles;
+  '100': SerializedStyles;
+  '1000': SerializedStyles;
+  '150': SerializedStyles;
+  '200': SerializedStyles;
+  '250': SerializedStyles;
+  '300': SerializedStyles;
+  '400': SerializedStyles;
+  '500': SerializedStyles;
+  '600': SerializedStyles;
+  '800': SerializedStyles;
+};
+
+// @public
+const spaceMap_2: {
+  '0': SerializedStyles;
+  '025': SerializedStyles;
+  '050': SerializedStyles;
+  '075': SerializedStyles;
+  '100': SerializedStyles;
+  '1000': SerializedStyles;
+  '150': SerializedStyles;
+  '200': SerializedStyles;
+  '250': SerializedStyles;
+  '300': SerializedStyles;
+  '400': SerializedStyles;
+  '500': SerializedStyles;
+  '600': SerializedStyles;
+  '800': SerializedStyles;
+};
+
+// @public (undocumented)
+type Spread = 'space-between';
+
+// @public (undocumented)
+type Spread_2 = 'space-between';
+
+// @public
+export const Stack: MemoExoticComponent<
+  ForwardRefExoticComponent<StackProps & RefAttributes<HTMLDivElement>>
+>;
+
+// @public (undocumented)
+interface StackProps {
+  alignBlock?: AlignBlock;
+  alignInline?: AlignInline;
+  children: ReactNode;
+  grow?: Grow;
+  space?: Space;
+  spread?: Spread;
+  testId?: string;
+}
 
 // (No @packageDocumentation comment for this package)
 ```

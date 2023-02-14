@@ -59,6 +59,7 @@ export class EmailOption extends React.PureComponent<EmailOptionProps> {
             ? token('color.text.selected', B400)
             : token('color.text.subtlest', N200),
         )}
+        data-testid="user-picker-email-secondary-text"
       >
         {label}
       </span>

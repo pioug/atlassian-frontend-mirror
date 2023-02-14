@@ -76,9 +76,9 @@
       ],
       "analytics": "analytics-next",
       "design-tokens": [
+        "color",
         "spacing"
       ],
-      "theming": "tokens",
       "deprecation": "no-deprecated-imports",
       "styling": [
         "emotion",

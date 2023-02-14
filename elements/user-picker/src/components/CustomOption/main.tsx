@@ -42,6 +42,7 @@ export class CustomOption extends React.PureComponent<CustomOptionProps> {
           ? token('color.text.selected', B400)
           : token('color.text.subtlest', N200),
       )}
+      data-testid="user-picker-custom-secondary-text"
     >
       {message}
     </span>

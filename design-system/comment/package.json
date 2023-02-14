@@ -64,8 +64,10 @@
     },
     "@repo/internal": {
       "dom-events": "use-bind-event-listener",
-      "design-tokens": "spacing",
-      "theming": "tokens",
+      "design-tokens": [
+        "color",
+        "spacing"
+      ],
       "ui-components": [
         "lite-mode",
         "primitives"

@@ -214,7 +214,9 @@
     },
     "@repo/internal": {
       "deprecation": "no-deprecated-imports",
-      "theming": "tokens",
+      "design-tokens": [
+        "color"
+      ],
       "styling": [
         "emotion"
       ]

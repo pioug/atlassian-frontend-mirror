@@ -69,8 +69,10 @@
       "design-system": "v1",
       "ui-components": "lite-mode",
       "analytics": "analytics-next",
-      "theming": "tokens",
-      "design-tokens": "spacing",
+      "design-tokens": [
+        "color",
+        "spacing"
+      ],
       "deprecation": "no-deprecated-imports",
       "styling": [
         "emotion",

@@ -63,6 +63,7 @@ export class GroupOption extends React.PureComponent<GroupOptionProps> {
             ? token('color.text.selected', B400)
             : token('color.text.subtlest', N200),
         )}
+        data-testid="user-picker-group-secondary-text"
       >
         <FormattedMessage {...messages.groupByline} />
       </span>

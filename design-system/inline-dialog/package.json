@@ -78,15 +78,17 @@
     "@repo/internal": {
       "dom-events": "use-bind-event-listener",
       "analytics": "analytics-next",
+      "design-tokens": [
+        "color",
+        "spacing"
+      ],
       "theming": [
-        "react-context",
-        "tokens"
+        "react-context"
       ],
       "styling": [
         "static",
         "emotion"
       ],
-      "design-tokens": "spacing",
       "design-system": "v1",
       "deprecation": "no-deprecated-imports"
     }

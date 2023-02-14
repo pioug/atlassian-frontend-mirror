@@ -63,9 +63,11 @@
     "@repo/internal": {
       "dom-events": "use-bind-event-listener",
       "analytics": "analytics-next",
+      "design-tokens": [
+        "color"
+      ],
       "theming": [
-        "react-context",
-        "tokens"
+        "react-context"
       ],
       "styling": [
         "static",

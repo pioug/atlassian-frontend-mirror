@@ -87,9 +87,11 @@
       "analytics": [
         "analytics-next"
       ],
+      "design-tokens": [
+        "color"
+      ],
       "theming": [
-        "react-context",
-        "tokens"
+        "react-context"
       ],
       "deprecation": "no-deprecated-imports",
       "styling": [

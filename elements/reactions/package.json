@@ -82,7 +82,9 @@
   ],
   "techstack": {
     "@repo/internal": {
-      "theming": "tokens"
+      "design-tokens": [
+        "color"
+      ]
     },
     "@atlassian/frontend": {
       "tree-shaking": []

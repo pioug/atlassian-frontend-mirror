@@ -60,8 +60,8 @@ Promise.all(
     return Promise.all(
       [
         { path: ['internal', 'box.partial.tsx'] },
-        // { target: 'stack.partial.tsx' },
-        // { target: 'inline.partial.tsx' },
+        { path: ['inline.partial.tsx'] },
+        { path: ['stack.partial.tsx'] },
       ].map(({ path }) => {
         const targetPath = join(__dirname, '../', 'src', 'components', ...path);
 

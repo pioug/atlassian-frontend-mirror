@@ -126,7 +126,9 @@
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
   "techstack": {
     "@repo/internal": {
-      "theming": "tokens"
+      "design-tokens": [
+        "color"
+      ]
     }
   }
 }

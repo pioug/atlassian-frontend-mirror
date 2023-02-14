@@ -82,6 +82,7 @@
       ],
       "design-system": "v1",
       "design-tokens": [
+        "color",
         "spacing"
       ],
       "styling": [
@@ -89,8 +90,7 @@
         "emotion"
       ],
       "analytics": "analytics-next",
-      "deprecation": "no-deprecated-imports",
-      "theming": "tokens"
+      "deprecation": "no-deprecated-imports"
     }
   },
   "af:exports": {

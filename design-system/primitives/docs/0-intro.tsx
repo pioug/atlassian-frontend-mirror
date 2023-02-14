@@ -10,7 +10,7 @@ import { Stack } from '../src';
 
 export default md`
 ${(
-  <Stack gap="space.100">
+  <Stack space="100">
     <AtlassianInternalWarning />
     <DevPreviewWarning />
   </Stack>

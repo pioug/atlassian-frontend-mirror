@@ -1,3 +1,3 @@
-export { Stack } from './components/stack.partial';
+export { default as Stack } from './components/stack.partial';
 export { Box } from './components/box';
-export { Inline } from './components/inline.partial';
+export { default as Inline } from './components/inline.partial';

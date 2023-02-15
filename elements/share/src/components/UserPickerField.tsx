@@ -166,7 +166,7 @@ export class UserPickerFieldComponent extends React.Component<
       return null;
     }
 
-    if (helperMessage) {
+    if (helperMessage !== undefined) {
       return helperMessage;
     }
 

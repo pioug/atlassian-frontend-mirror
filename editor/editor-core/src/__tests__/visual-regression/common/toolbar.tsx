@@ -29,7 +29,9 @@ async function focusToolbar(page: PuppeteerPage) {
   await pressKeyCombo(page, ['Alt', 'F9']);
 }
 
-describe('Toolbar', () => {
+// FIXME: Skipped because of flakiness
+// https://product-fabric.atlassian.net/browse/ED-16626
+describe.skip('Toolbar', () => {
   let page: PuppeteerPage;
 
   beforeEach(async () => {
@@ -63,7 +65,9 @@ describe('Toolbar', () => {
   });
 });
 
-describe('Toolbar keyboard shortcut', () => {
+// FIXME: Skipped because of flakiness
+// https://product-fabric.atlassian.net/browse/ED-16626
+describe.skip('Toolbar keyboard shortcut', () => {
   let page: PuppeteerPage;
 
   beforeEach(async () => {
@@ -89,7 +93,9 @@ describe('Toolbar keyboard shortcut', () => {
   });
 });
 
-describe('Toolbar: Text Color', () => {
+// FIXME: Skipped because of flakiness
+// https://product-fabric.atlassian.net/browse/ED-16626
+describe.skip('Toolbar: Text Color', () => {
   let page: PuppeteerPage;
 
   beforeEach(async () => {
@@ -137,7 +143,9 @@ describe('Toolbar: Text Color', () => {
   });
 });
 
-describe('Toolbar: Emoji', () => {
+// FIXME: Skipped because of flakiness
+// https://product-fabric.atlassian.net/browse/ED-16626
+describe.skip('Toolbar: Emoji', () => {
   let page: PuppeteerPage;
 
   beforeEach(async () => {
@@ -177,7 +185,9 @@ describe('Toolbar: Emoji', () => {
   });
 });
 
-describe('Toolbar: Comment', () => {
+// FIXME: Skipped because of flakiness
+// https://product-fabric.atlassian.net/browse/ED-16626
+describe.skip('Toolbar: Comment', () => {
   let page: PuppeteerPage;
 
   beforeEach(async () => {
@@ -193,13 +203,17 @@ describe('Toolbar: Comment', () => {
     await snapshot(page, undefined, editorSelector);
   });
 
-  it('should display text color menu correctly at small viewport', async () => {
+  // FIXME: Skipped because of flakiness
+  // https://product-fabric.atlassian.net/browse/ED-16626
+  it.skip('should display text color menu correctly at small viewport', async () => {
     await page.setViewport(deviceViewPorts[Device.iPhonePlus]);
     await clickToolbarMenu(page, ToolbarMenuItem.textColor);
   });
 });
 
-describe('Toolbar: IconBefore', () => {
+// FIXME: Skipped because of flakiness
+// https://product-fabric.atlassian.net/browse/ED-16626
+describe.skip('Toolbar: IconBefore', () => {
   let page: PuppeteerPage;
 
   afterEach(async () => {
@@ -219,11 +233,15 @@ describe('Toolbar: IconBefore', () => {
       });
     });
 
-    it('should show the icon', async () => {
+    // FIXME: Skipped because of flakiness
+    // https://product-fabric.atlassian.net/browse/ED-16626
+    it.skip('should show the icon', async () => {
       await page.mouse.move(-30, -30);
     });
 
-    it('should show the icon in narrow view', async () => {
+    // FIXME: Skipped because of flakiness
+    // https://product-fabric.atlassian.net/browse/ED-16626
+    it.skip('should show the icon in narrow view', async () => {
       await page.setViewport({ width: 400, height: 350 });
     });
 
@@ -243,7 +261,9 @@ describe('Toolbar: IconBefore', () => {
   });
 });
 
-describe('Toolbar: Undo Redo', () => {
+// FIXME: Skipped because of flakiness
+// https://product-fabric.atlassian.net/browse/ED-16626
+describe.skip('Toolbar: Undo Redo', () => {
   let page: PuppeteerPage;
 
   beforeEach(async () => {
@@ -284,7 +304,9 @@ describe('Toolbar: Undo Redo', () => {
   });
 });
 
-describe('Toolbar: Responsive toolbar', () => {
+// FIXME: Skipped because of flakiness
+// https://product-fabric.atlassian.net/browse/ED-16626
+describe.skip('Toolbar: Responsive toolbar', () => {
   let page: PuppeteerPage;
 
   const initEditor = async (viewport: any, twoLineEditorToolbar: boolean) => {

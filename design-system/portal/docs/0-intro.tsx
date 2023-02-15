@@ -1,8 +1,16 @@
 import React from 'react';
 
 import { code, md, Props } from '@atlaskit/docs';
+import SectionMessage from '@atlaskit/section-message';
 
 export default md`
+${(
+  <SectionMessage appearance="information">
+    This component is now documented on
+    <a href="https://atlassian.design/components/portal/">atlassian.design</a>
+  </SectionMessage>
+)}
+
   A best practice, server-side-render friendly wrapper on [React Portals](https://reactjs.org/docs/portals.html).
 
   Portals are used for rendering parts of a React component tree into a different

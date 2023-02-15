@@ -151,6 +151,56 @@ describe('UserPickerField', () => {
     );
   });
 
+  it('should render UserPicker without HelperMessage when helperMessage is defined empty', () => {
+    const fieldProps = {
+      onChange: jest.fn(),
+      value: [],
+    };
+    const loadOptions = jest.fn();
+    const mockIsLoading = true;
+
+    const field = renderUserPicker(
+      {
+        loadOptions,
+        isLoading: mockIsLoading,
+        product: 'jira',
+        helperMessage: '',
+      },
+      { fieldProps, meta: { valid: true } },
+    );
+
+    const fieldHelperMessage = field.find(HelperMessage);
+
+    expect(fieldHelperMessage).toHaveLength(0);
+  });
+
+  it('should still render UserPicker with default HelperMessage when helperMessage is not defined', () => {
+    const fieldProps = {
+      onChange: jest.fn(),
+      value: [],
+    };
+    const loadOptions = jest.fn();
+    const mockIsLoading = true;
+
+    const field = renderUserPicker(
+      {
+        loadOptions,
+        isLoading: mockIsLoading,
+        product: 'jira',
+      },
+      { fieldProps, meta: { valid: true } },
+    );
+
+    const fieldHelperMessage = field.find(HelperMessage);
+
+    expect(fieldHelperMessage).toHaveLength(1);
+    expect(fieldHelperMessage.html()).toEqual(
+      expect.stringContaining(
+        'Recipients will see the name of the issue and your message',
+      ),
+    );
+  });
+
   it('should render UserPicker when product is `jira` and no helper message is available', () => {
     const fieldProps = {
       onChange: jest.fn(),

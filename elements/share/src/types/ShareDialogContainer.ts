@@ -91,7 +91,9 @@ export type ShareDialogContainerProps = {
   shareTitle: string;
   /** Title of the share modal. */
   shareFormTitle?: React.ReactNode;
-  /** Copy for helper message to be displayed under share form input box. */
+  /** Copy for helper message to be displayed under share form input box.
+   * If set to empty string, no helper message will be displayed
+   */
   shareFormHelperMessage?: string;
   /** To enable closing the modal on escape key press. */
   shouldCloseOnEscapePress?: boolean;

@@ -9,7 +9,7 @@ export const BitbucketRepository = {
   url: 'https://bitbucket.org/tuser/angular-react',
   attributedTo: {
     '@type': 'Person',
-    image: 'https://bitbucket.org/account/atlassian/avatar/',
+    icon: 'https://bitbucket.org/account/atlassian/avatar/',
     name: 'atlassian',
   },
   context: {
@@ -52,12 +52,12 @@ export const GithubRepository = {
   url: 'https://github.com/User/cheeser.js',
   'atlassian:updatedBy': {
     '@type': 'Person',
-    image: 'https://avatars.githubusercontent.com/u/20928690?',
+    icon: 'https://avatars.githubusercontent.com/u/20928690?',
     name: 'tuser',
   },
   attributedTo: {
     '@type': 'Person',
-    image: 'https://avatars2.githubusercontent.com/u/15986691?v=4',
+    icon: 'https://avatars2.githubusercontent.com/u/15986691?v=4',
     name: 'User',
   },
   context: {

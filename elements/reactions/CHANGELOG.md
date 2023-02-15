@@ -1,5 +1,11 @@
 # @atlaskit/reactions
 
+## 22.2.2
+
+### Patch Changes
+
+- [`d16c7d57428`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d16c7d57428) - Update teams.json to reflect current team
+
 ## 22.2.1
 
 ### Patch Changes

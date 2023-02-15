@@ -1,5 +1,11 @@
 # @atlaskit/emoji
 
+## 67.0.6
+
+### Patch Changes
+
+- [`d16c7d57428`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d16c7d57428) - Update teams.json to reflect current team
+
 ## 67.0.5
 
 ### Patch Changes

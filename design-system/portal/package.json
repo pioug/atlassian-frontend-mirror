@@ -1,7 +1,7 @@
 {
   "name": "@atlaskit/portal",
   "version": "4.2.12",
-  "description": "Atlaskit wrapper for rendering components in React portals",
+  "description": "A wrapper for rendering components in React portals.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
@@ -20,7 +20,10 @@
     "releaseModel": "scheduled",
     "website": {
       "name": "Portal",
-      "category": "Components"
+      "category": "Components",
+      "status": {
+        "type": "draft"
+      }
     }
   },
   "af:exports": {
@@ -36,18 +39,24 @@
     "react-dom": "^16.8.0"
   },
   "devDependencies": {
+    "@atlaskit/banner": "^12.0.9",
     "@atlaskit/button": "^16.5.0",
+    "@atlaskit/code": "^14.4.6",
     "@atlaskit/docs": "*",
     "@atlaskit/flag": "^15.0.0",
     "@atlaskit/icon": "^21.11.0",
+    "@atlaskit/image": "^1.0.3",
     "@atlaskit/inline-dialog": "^13.4.0",
     "@atlaskit/modal-dialog": "^12.4.0",
     "@atlaskit/onboarding": "^10.6.0",
+    "@atlaskit/section-message": "^6.3.9",
     "@atlaskit/ssr": "*",
+    "@atlaskit/tokens": "^1.0.0",
     "@atlaskit/tooltip": "^17.6.0",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
+    "@emotion/react": "^11.7.1",
     "@testing-library/react": "^12.1.5",
     "bind-event-listener": "^2.1.1",
     "enzyme": "^3.10.0",
@@ -80,6 +89,6 @@
       ]
     }
   },
-  "homepage": "https://atlaskit.atlassian.com/packages/design-system/portal",
+  "homepage": "https://atlassian.design/components/portal/",
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

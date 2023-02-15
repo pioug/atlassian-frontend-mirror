@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 3.7.3
+
+### Patch Changes
+
+- [`b7db08a28e7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b7db08a28e7) - Do not render HelperMessage if shareFormHelperMessage prop has empty string
+
 ## 3.7.2
 
 ### Patch Changes

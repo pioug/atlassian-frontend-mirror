@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 179.0.1
+
+### Patch Changes
+
+- [`38549274b29`](https://bitbucket.org/atlassian/atlassian-frontend/commits/38549274b29) - Replace &&= operator in editor-core since not all platforms support it.
+
 ## 179.0.0
 
 ### Patch Changes

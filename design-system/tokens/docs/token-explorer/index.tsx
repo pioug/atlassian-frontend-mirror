@@ -330,6 +330,33 @@ const TokenExplorer = ({ scrollOffset, testId }: TokenExplorerProps) => {
 
   const [syntax, setSyntax] = useState<TokenNameSyntax>('default');
 
+  // On mount, try to restore a saved syntax preference from localStorage.
+  useEffect(() => {
+    if (!Object.prototype.hasOwnProperty.call(window, 'localStorage')) {
+      return;
+    }
+
+    try {
+      const savedSyntax = localStorage.getItem(
+        'token-name-syntax',
+      ) as TokenNameSyntax | null;
+      if (savedSyntax && ['default', 'css-var'].includes(savedSyntax)) {
+        setSyntax(savedSyntax as TokenNameSyntax);
+      }
+      // Ignore; restoring syntax from storage is a nice-to-have.
+    } catch (e) {}
+  }, []);
+
+  const saveSyntax = useCallback((newSyntax: TokenNameSyntax = 'default') => {
+    setSyntax(newSyntax);
+
+    if (Object.prototype.hasOwnProperty.call(window, 'localStorage')) {
+      try {
+        localStorage.setItem('token-name-syntax', newSyntax);
+      } catch (e) {}
+    }
+  }, []);
+
   return (
     <div data-testid={testId}>
       <div
@@ -480,14 +507,14 @@ const TokenExplorer = ({ scrollOffset, testId }: TokenExplorerProps) => {
               <DropdownItemRadio
                 id="default"
                 isSelected={syntax === 'default'}
-                onClick={() => setSyntax('default')}
+                onClick={() => saveSyntax('default')}
               >
                 React syntax
               </DropdownItemRadio>
               <DropdownItemRadio
                 id="css-var"
                 isSelected={syntax === 'css-var'}
-                onClick={() => setSyntax('css-var')}
+                onClick={() => saveSyntax('css-var')}
               >
                 CSS syntax
               </DropdownItemRadio>

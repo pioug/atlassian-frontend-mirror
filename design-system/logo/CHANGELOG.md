@@ -1,5 +1,11 @@
 # @atlaskit/logo
 
+## 13.11.1
+
+### Patch Changes
+
+- [`b77d5924c19`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b77d5924c19) - [ux] Remove "width" attribute from Jira Product Discovery logo and icon SVGs.
+
 ## 13.11.0
 
 ### Minor Changes

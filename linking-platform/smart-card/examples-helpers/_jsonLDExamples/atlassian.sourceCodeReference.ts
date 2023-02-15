@@ -14,13 +14,13 @@ export const BitbucketSourceCodeReference = {
   },
   'atlassian:updatedBy': {
     '@type': 'Person',
-    image: 'https://bitbucket.org/account/tuser-2/avatar/',
-    name: 'tuser-2',
+    icon: 'https://bitbucket.org/account/abhayani2018/avatar/',
+    name: 'abhayani2018',
   },
   attributedTo: {
     '@type': 'Person',
-    image: 'https://bitbucket.org/account/tuser-2/avatar/',
-    name: 'tuser-2',
+    icon: 'https://bitbucket.org/account/abhayani2018/avatar/',
+    name: 'abhayani2018',
   },
   context: {
     '@type': 'atlassian:SourceCodeRepository',
@@ -70,7 +70,7 @@ export const GithubSourceCodeReference = {
   },
   attributedTo: {
     '@type': 'Person',
-    image: 'https://avatars0.githubusercontent.com/u/20928690?v=4',
+    icon: 'https://avatars0.githubusercontent.com/u/20928690?v=4',
     name: 'tuser',
   },
   context: {

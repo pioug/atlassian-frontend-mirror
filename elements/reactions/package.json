@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/reactions",
-  "version": "22.2.1",
+  "version": "22.2.2",
   "description": "Reactions component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -14,7 +14,7 @@
   "types": "dist/types/index.d.ts",
   "atlaskit:src": "src/index.ts",
   "atlassian": {
-    "team": "TWP Collaboration Platform",
+    "team": "Foundational Elements",
     "deprecatedAutoEntryPoints": true,
     "releaseModel": "scheduled",
     "website": {

@@ -23,43 +23,43 @@ export const BitbucketPullRequest = {
   'atlassian:mergeable': undefined,
   'atlassian:mergedBy': {
     '@type': 'Person',
-    image: 'https://bitbucket.org/account/tuser/avatar/',
+    icon: 'https://bitbucket.org/account/tuser/avatar/',
     name: 'tuser',
   },
   'atlassian:reviewedBy': [
     {
       '@type': 'Person',
-      image: 'https://bitbucket.org/account/tuser/avatar/',
+      icon: 'https://bitbucket.org/account/tuser/avatar/',
       name: 'tuser',
     },
   ],
   'atlassian:reviewer': [
     {
       '@type': 'Person',
-      image: 'https://bitbucket.org/account/testuser/avatar/',
+      icon: 'https://bitbucket.org/account/testuser/avatar/',
       name: 'testuser',
     },
   ],
   'atlassian:state': 'MERGED',
   'atlassian:updatedBy': {
     '@type': 'Person',
-    image: 'https://bitbucket.org/account/tuser/avatar/',
+    icon: 'https://bitbucket.org/account/tuser/avatar/',
     name: 'tuser',
   },
   attributedTo: {
     '@type': 'Person',
-    image: 'https://bitbucket.org/account/tuser/avatar/',
+    icon: 'https://bitbucket.org/account/tuser/avatar/',
     name: 'tuser',
   },
   audience: [
     {
       '@type': 'Person',
-      image: 'https://bitbucket.org/account/tuser/avatar/',
+      icon: 'https://bitbucket.org/account/tuser/avatar/',
       name: 'tuser',
     },
     {
       '@type': 'Person',
-      image: 'https://bitbucket.org/account/tuser/avatar/',
+      icon: 'https://bitbucket.org/account/tuser/avatar/',
       name: 'tuser',
     },
   ],
@@ -115,37 +115,37 @@ export const GithubPullRequest = {
   'atlassian:reviewedBy': [
     {
       '@type': 'Person',
-      image: 'https://avatars1.githubusercontent.com/u/12615400?v=4',
+      icon: 'https://avatars1.githubusercontent.com/u/12615400?v=4',
       name: 'testuser',
     },
   ],
   'atlassian:reviewer': [
     {
       '@type': 'Person',
-      image: 'https://avatars1.githubusercontent.com/u/12615400?v=4',
+      icon: 'https://avatars1.githubusercontent.com/u/12615400?v=4',
       name: 'testuser',
     },
   ],
   'atlassian:state': 'open',
   'atlassian:updatedBy': {
     '@type': 'Person',
-    image: 'https://avatars1.githubusercontent.com/u/12615400?v=4',
+    icon: 'https://avatars1.githubusercontent.com/u/12615400?v=4',
     name: 'testuser',
   },
   attributedTo: {
     '@type': 'Person',
-    image: 'https://avatars0.githubusercontent.com/u/20928699?v=4',
+    icon: 'https://avatars0.githubusercontent.com/u/20928699?v=4',
     name: 'testuser',
   },
   audience: [
     {
       '@type': 'Person',
-      image: 'https://avatars0.githubusercontent.com/u/20928690?v=4',
+      icon: 'https://avatars0.githubusercontent.com/u/20928690?v=4',
       name: 'tuser',
     },
     {
       '@type': 'Person',
-      image: 'https://avatars1.githubusercontent.com/u/12615400?v=4',
+      icon: 'https://avatars1.githubusercontent.com/u/12615400?v=4',
       name: 'testuser',
     },
   ],

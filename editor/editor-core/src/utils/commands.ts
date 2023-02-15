@@ -156,7 +156,7 @@ const entireSelectionContainsMark = (
       return false;
     }
     if (node.isText) {
-      onlyContainsMark &&= mark.isInSet(node.marks);
+      onlyContainsMark && (onlyContainsMark = mark.isInSet(node.marks));
     }
   });
   return onlyContainsMark;
@@ -174,7 +174,8 @@ const toggleMarkInRange =
         const from = cellPos;
         const to = cellPos + cell.nodeSize;
 
-        removeMark &&= entireSelectionContainsMark(mark, state.doc, from, to);
+        removeMark &&
+          (removeMark = entireSelectionContainsMark(mark, state.doc, from, to));
       });
 
       for (let i = cells.length - 1; i >= 0; i--) {

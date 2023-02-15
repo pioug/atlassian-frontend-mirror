@@ -22,14 +22,12 @@ export const AsanaTask = {
   'atlassian:assigned': '2018-07-27T11:15:06.815Z',
   'atlassian:assignedBy': {
     '@type': 'Person',
-    image:
-      'https://s3.amazonaws.com/profile_photos/759476127806059.0DzzEW07pkfWviGTroc8_128x128.png',
+    icon: 'https://s3.amazonaws.com/profile_photos/759476127806059.0DzzEW07pkfWviGTroc8_128x128.png',
     name: 'Test User',
   },
   'atlassian:assignedTo': {
     '@type': 'Person',
-    image:
-      'https://s3.amazonaws.com/profile_photos/759476127806059.0DzzEW07pkfWviGTroc8_128x128.png',
+    icon: 'https://s3.amazonaws.com/profile_photos/759476127806059.0DzzEW07pkfWviGTroc8_128x128.png',
     name: 'Test User',
   },
   'atlassian:completed': undefined,
@@ -37,8 +35,7 @@ export const AsanaTask = {
   'atlassian:isDeleted': false,
   'atlassian:subscriber': {
     '@type': 'Person',
-    image:
-      'https://s3.amazonaws.com/profile_photos/759476127806059.0DzzEW07pkfWviGTroc8_128x128.png',
+    icon: 'https://s3.amazonaws.com/profile_photos/759476127806059.0DzzEW07pkfWviGTroc8_128x128.png',
     name: 'Test User',
   },
   'atlassian:subscriberCount': 1,
@@ -55,14 +52,12 @@ export const AsanaTask = {
   },
   'atlassian:updatedBy': {
     '@type': 'Person',
-    image:
-      'https://s3.amazonaws.com/profile_photos/759476127806059.0DzzEW07pkfWviGTroc8_128x128.png',
+    icon: 'https://s3.amazonaws.com/profile_photos/759476127806059.0DzzEW07pkfWviGTroc8_128x128.png',
     name: 'Test User',
   },
   attributedTo: {
     '@type': 'Person',
-    image:
-      'https://s3.amazonaws.com/profile_photos/759476127806059.0DzzEW07pkfWviGTroc8_128x128.png',
+    icon: 'https://s3.amazonaws.com/profile_photos/759476127806059.0DzzEW07pkfWviGTroc8_128x128.png',
     name: 'Test User',
   },
   content: 'Some raw text with new lines',
@@ -108,13 +103,13 @@ export const GitHubIssue = {
   'atlassian:assigned': undefined,
   'atlassian:assignedBy': {
     '@type': 'Person',
-    image: 'https://avatars2.githubusercontent.com/u/15986691?v=4',
+    icon: 'https://avatars2.githubusercontent.com/u/15986691?v=4',
     name: 'User',
   },
   'atlassian:assignedTo': [
     {
       '@type': 'Person',
-      image: 'https://avatars2.githubusercontent.com/u/15986691?v=4',
+      icon: 'https://avatars2.githubusercontent.com/u/15986691?v=4',
       name: 'User',
     },
     {
@@ -152,7 +147,7 @@ export const GitHubIssue = {
   'atlassian:updatedBy': undefined,
   attributedTo: {
     '@type': 'Person',
-    image: 'https://avatars2.githubusercontent.com/u/15986691?v=4',
+    icon: 'https://avatars2.githubusercontent.com/u/15986691?v=4',
     name: 'User',
   },
   completed: undefined,

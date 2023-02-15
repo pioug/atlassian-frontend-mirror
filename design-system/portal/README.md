@@ -1,11 +1,13 @@
 # Portal
 
-An Atlaskit wrapper for rendering components in React Portals.
+A best practice, server-side-render friendly wrapper for rendering components in React Portals.
 
 ## Installation
 
+```sh
 yarn add @atlaskit/portal
+```
 
 ## Usage
 
-Detailed docs and example usage can be found [here](https://atlaskit.atlassian.com/packages/core/portal).
+[View documentation](https://atlassian.design/components/portal/).

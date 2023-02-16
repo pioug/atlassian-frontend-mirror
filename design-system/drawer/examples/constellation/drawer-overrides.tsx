@@ -1,4 +1,3 @@
-/* eslint-disable @repo/internal/react/use-primitives */
 /** @jsx jsx */
 import { Fragment, useState } from 'react';
 
@@ -23,7 +22,7 @@ const SidebarOverrideStyles = css({
 });
 
 const ContentOverrideStyles = css({
-  padding: 25,
+  padding: token('space.300', '24px'),
   flex: 1,
   backgroundColor: token('color.background.accent.blue.subtlest', '#E9F2FF'),
   color: token('color.text.accent.blue.bolder', '#09326C'),

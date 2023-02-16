@@ -63,6 +63,7 @@ export default () => {
             width: '100%',
             maxWidth: '500px',
             marginTop: token('space.300', '24px'),
+            // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
             marginBottom: '56px',
             paddingBottom: token('space.100', '8px'),
             borderRadius: '3px',

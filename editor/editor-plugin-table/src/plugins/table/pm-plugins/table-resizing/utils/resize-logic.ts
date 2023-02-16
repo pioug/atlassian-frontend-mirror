@@ -19,7 +19,7 @@ export const growColumn = (
   if (remaining > 0) {
     newState = stackSpace(newState, colIndex, remaining).state;
   }
-  if (selectedColumns) {
+  if (selectedColumns && selectedColumns.length > 1) {
     return bulkColumnsResize(newState, selectedColumns, colIndex);
   }
 
@@ -51,7 +51,7 @@ export const shrinkColumn = (
   if (remaining < 0) {
     newState = stackSpace(newState, colIndex + 1, remaining).state;
   }
-  if (selectedColumns) {
+  if (selectedColumns && selectedColumns.length > 1) {
     return bulkColumnsResize(newState, selectedColumns, colIndex);
   }
 

@@ -8,6 +8,7 @@
 ### Table of contents
 
 - [Main Entry Types](#main-entry-types)
+- [Peer Dependencies](#peer-dependencies)
 
 ### Main Entry Types
 
@@ -503,7 +504,7 @@ export const gridSize: () => number;
 // @public (undocumented)
 const h100: (props?: ThemeProps) => {
   color: 'var(--ds-text-subtlest)';
-  fontWeight: number;
+  fontWeight: 'var(--ds-font-weight-bold)';
   marginTop: string;
   fontSize: string;
   fontStyle: string;
@@ -513,7 +514,7 @@ const h100: (props?: ThemeProps) => {
 // @public (undocumented)
 const h200: (props?: ThemeProps) => {
   color: 'var(--ds-text-subtlest)';
-  fontWeight: number;
+  fontWeight: 'var(--ds-font-weight-semibold)';
   marginTop: string;
   fontSize: string;
   fontStyle: string;
@@ -523,7 +524,7 @@ const h200: (props?: ThemeProps) => {
 // @public (undocumented)
 const h300: (props?: ThemeProps) => {
   color: 'var(--ds-text)';
-  fontWeight: number;
+  fontWeight: 'var(--ds-font-weight-semibold)';
   marginTop: string;
   textTransform: 'uppercase';
   fontSize: string;
@@ -534,7 +535,7 @@ const h300: (props?: ThemeProps) => {
 // @public (undocumented)
 const h400: (props?: ThemeProps) => {
   color: 'var(--ds-text)';
-  fontWeight: number;
+  fontWeight: 'var(--ds-font-weight-semibold)';
   letterSpacing: string;
   marginTop: string;
   fontSize: string;
@@ -545,7 +546,7 @@ const h400: (props?: ThemeProps) => {
 // @public (undocumented)
 const h500: (props?: ThemeProps) => {
   color: 'var(--ds-text)';
-  fontWeight: number;
+  fontWeight: 'var(--ds-font-weight-semibold)';
   letterSpacing: string;
   marginTop: string;
   fontSize: string;
@@ -556,7 +557,7 @@ const h500: (props?: ThemeProps) => {
 // @public (undocumented)
 const h600: (props?: ThemeProps) => {
   color: 'var(--ds-text)';
-  fontWeight: number;
+  fontWeight: 'var(--ds-font-weight-medium)';
   letterSpacing: string;
   marginTop: string;
   fontSize: string;
@@ -567,7 +568,7 @@ const h600: (props?: ThemeProps) => {
 // @public (undocumented)
 const h700: (props?: ThemeProps) => {
   color: 'var(--ds-text)';
-  fontWeight: number;
+  fontWeight: 'var(--ds-font-weight-medium)';
   letterSpacing: string;
   marginTop: string;
   fontSize: string;
@@ -578,7 +579,7 @@ const h700: (props?: ThemeProps) => {
 // @public (undocumented)
 const h800: (props?: ThemeProps) => {
   color: 'var(--ds-text)';
-  fontWeight: number;
+  fontWeight: 'var(--ds-font-weight-semibold)';
   letterSpacing: string;
   marginTop: string;
   fontSize: string;
@@ -589,7 +590,7 @@ const h800: (props?: ThemeProps) => {
 // @public (undocumented)
 const h900: (props?: ThemeProps) => {
   color: 'var(--ds-text)';
-  fontWeight: number;
+  fontWeight: 'var(--ds-font-weight-medium)';
   letterSpacing: string;
   marginTop: string;
   fontSize: string;
@@ -1004,3 +1005,15 @@ const yellow: ThemedValue<string>;
 ```
 
 <!--SECTION END: Main Entry Types-->
+
+### Peer Dependencies
+
+<!--SECTION START: Peer Dependencies-->
+
+```json
+{
+  "react": "^16.8.0"
+}
+```
+
+<!--SECTION END: Peer Dependencies-->

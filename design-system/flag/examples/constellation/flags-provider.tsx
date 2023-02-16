@@ -1,4 +1,3 @@
-/* eslint-disable @repo/internal/react/use-primitives */
 import React from 'react';
 import { FlagsProvider } from '../../src';
 

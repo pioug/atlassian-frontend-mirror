@@ -3,7 +3,7 @@ import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/custom-theme-button';
 import { ProgressIndicator } from '@atlaskit/progress-indicator';
-import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import { SpotlightCard } from '../../src';
 
@@ -21,11 +21,11 @@ const headingStyles = css({
 });
 
 const taglineStyles = css({
-  paddingBottom: `${gridSize() * 2}px`,
+  paddingBottom: token('space.200', '16px'),
 });
 
 const optionStyles = css({
-  padding: `${gridSize() / 2}px`,
+  padding: token('space.050', '4px'),
 });
 
 const Option: React.FC<{}> = ({ children }) => (

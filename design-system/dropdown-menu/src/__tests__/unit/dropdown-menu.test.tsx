@@ -219,7 +219,6 @@ describe('dropdown menu', () => {
     it('should close the dropdown menu on outside click', () => {
       const { getByTestId, queryByTestId } = render(
         <>
-          {/* eslint-disable-next-line @repo/internal/react/use-primitives */}
           <button data-testid="outside" type="button" />
           <DropdownMenu testId="ddm" trigger="click to open" />
         </>,
@@ -241,7 +240,6 @@ describe('dropdown menu', () => {
     it('should close the dropdown menu on outside click which has stopPropagation', () => {
       const { getByTestId, queryByTestId } = render(
         <>
-          {/* eslint-disable-next-line @repo/internal/react/use-primitives */}
           <button
             data-testid="outside"
             type="button"

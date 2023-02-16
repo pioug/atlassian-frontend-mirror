@@ -4,6 +4,7 @@ import { css, jsx } from '@emotion/react';
 
 import Button, { LoadingButton } from '@atlaskit/button';
 import SearchIcon from '@atlaskit/icon/glyph/search';
+import { token } from '@atlaskit/tokens';
 
 import Spinner from '../src';
 
@@ -23,7 +24,9 @@ const animationStyles = css({
 const layoutStyles = css({
   width: 100,
   // eslint-disable-next-line @repo/internal/styles/no-nested-styles
-  div: { margin: 8 },
+  div: {
+    margin: token('space.100', '8px'),
+  },
 });
 
 export default () => (

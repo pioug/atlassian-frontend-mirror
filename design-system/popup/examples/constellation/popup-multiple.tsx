@@ -5,11 +5,12 @@ import { css, jsx } from '@emotion/react';
 
 import { ButtonGroup } from '@atlaskit/button';
 import Button from '@atlaskit/button/standard-button';
+import { token } from '@atlaskit/tokens';
 
 import Popup from '../../src';
 
 const contentStyles = css({
-  padding: 15,
+  padding: token('space.200', '16px'),
 });
 
 type PopupExampleProps = {

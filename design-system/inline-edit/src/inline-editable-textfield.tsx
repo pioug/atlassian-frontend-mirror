@@ -12,7 +12,7 @@ import { fontSize, gridSize } from './internal/constants';
 import { InlineEditableTextfieldProps } from './types';
 
 const errorIconContainerStyles = css({
-  paddingRight: gridSize - 2,
+  paddingRight: token('space.075', '6px'),
   lineHeight: '100%',
 });
 
@@ -20,14 +20,14 @@ const readViewForTextFieldStyles = css({
   display: 'flex',
   maxWidth: '100%',
   minHeight: `${(gridSize * 2.5) / fontSize}em`,
-  padding: `${gridSize}px ${gridSize - 2}px`,
+  padding: `${token('space.100', '8px')} ${token('space.075', '6px')}`,
   fontSize: fontSize,
   lineHeight: (gridSize * 2.5) / fontSize,
   wordBreak: 'break-word',
 });
 
 const compactStyles = css({
-  padding: `${gridSize / 2}px ${gridSize - 2}px`,
+  padding: `${token('space.050', '4px')} ${token('space.075', '6px')}`,
 });
 
 const InlineEditableTextfield = (props: InlineEditableTextfieldProps) => {

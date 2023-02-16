@@ -31,6 +31,7 @@ import type {
   GetEditorContainerWidth,
   GetEditorFeatureFlags,
 } from '@atlaskit/editor-common/types';
+import { getParentWidthWithoutPadding } from './utils/misc';
 
 export const handleMouseDown = (
   view: EditorView,
@@ -67,8 +68,15 @@ export const handleMouseDown = (
   const containerWidth = getEditorContainerWidth();
   const parentWidth = getParentNodeWidth(start, state, containerWidth);
 
+  // TODO - refactor this logic into getParentNodeWidth() in editor-common [ED-16718]
+  const parentActualWidth = getParentWidthWithoutPadding(
+    parentWidth,
+    start,
+    state,
+  );
+
   let maxSize =
-    parentWidth ||
+    parentActualWidth ||
     getLayoutSize(
       dom.getAttribute('data-layout') as TableLayout,
       containerWidth.width,

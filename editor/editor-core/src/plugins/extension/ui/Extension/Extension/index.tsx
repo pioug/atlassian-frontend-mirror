@@ -61,11 +61,17 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
   const isMobile = editorAppearance === 'mobile';
   const hasChildren = !!children;
   const removeBorder = (hideFrame && !isMobile && !hasBody) || false;
+
+  const isTopLevelNode =
+    props.getPos &&
+    !isNaN(props.getPos()) &&
+    props.view.state.doc.resolve(props.getPos()).depth === 0;
+
   const shouldBreakout =
     // Extension should breakout when the layout is set to 'full-width' or 'wide'.
     ['full-width', 'wide'].includes(node.attrs.layout) &&
     // Extension breakout state should only be respected for top level nodes.
-    props.view.state.doc.resolve(props.getPos()).depth === 0 &&
+    isTopLevelNode &&
     // Extension breakout state should not be respected when the editor appearance is full-width mode
     editorAppearance !== 'full-width';
 

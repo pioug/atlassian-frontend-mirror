@@ -1,4 +1,3 @@
-/* eslint-disable @repo/internal/react/use-primitives */
 import React from 'react';
 
 import WarningIcon from '@atlaskit/icon/glyph/warning';

@@ -6,6 +6,7 @@ import { css, jsx } from '@emotion/react';
 import Button from '@atlaskit/button/standard-button';
 import noop from '@atlaskit/ds-lib/noop';
 import Toggle from '@atlaskit/toggle';
+import { token } from '@atlaskit/tokens';
 
 import Popup from '../../../src';
 
@@ -19,7 +20,7 @@ const wrapperStyles = css({
 
 const contentStyles = css({
   maxWidth: 350,
-  padding: 15,
+  padding: token('space.200', '16px'),
   textAlign: 'center',
 });
 

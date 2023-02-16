@@ -2,6 +2,7 @@ import React from 'react';
 
 import { waitFor } from '@testing-library/dom';
 import { act, cleanup, fireEvent, render } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import noop from '@atlaskit/ds-lib/noop';
 import Portal from '@atlaskit/portal';
@@ -242,14 +243,14 @@ describe('<ModalDialog />', () => {
   });
 
   describe('onClose', () => {
-    it('should trigger when blanket clicked', () => {
+    it('should trigger when blanket clicked', async () => {
       const spy = jest.fn();
       const { getByTestId } = render(
         <ModalDialog onClose={spy} testId="modal" />,
       );
 
       const blanket = getByTestId('modal--blanket');
-      fireEvent.click(blanket);
+      await userEvent.click(blanket);
 
       expect(spy).toHaveBeenCalledTimes(1);
     });
@@ -370,13 +371,13 @@ describe('<ModalDialog />', () => {
   });
 
   describe('shouldCloseOnOverlayClick', () => {
-    it('should invoke onClose callback on blanket click by default', () => {
+    it('should invoke onClose callback on blanket click by default', async () => {
       const callback = jest.fn();
       const { getByTestId } = render(
         <ModalDialog testId="test" onClose={callback} />,
       );
 
-      fireEvent.click(getByTestId('test--blanket'));
+      await userEvent.click(getByTestId('test--blanket'));
       expect(callback).toHaveBeenCalledTimes(1);
     });
 

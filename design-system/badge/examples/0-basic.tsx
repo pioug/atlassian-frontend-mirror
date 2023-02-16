@@ -1,4 +1,3 @@
-/* eslint-disable @repo/internal/react/use-primitives */
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 
@@ -12,6 +11,7 @@ const itemStyles = css({
   display: 'flex',
   maxWidth: '300px',
   marginBottom: token('space.050', '4px'),
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   padding: '0.6em 1em',
   alignItems: 'center',
   justifyContent: 'space-between',

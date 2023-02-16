@@ -25,3 +25,5 @@ jest.mock('uuid', () => {
     default: jest.fn(),
   };
 });
+
+export {};

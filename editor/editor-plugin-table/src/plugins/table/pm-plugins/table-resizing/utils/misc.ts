@@ -21,6 +21,8 @@ import { Node as PMNode } from 'prosemirror-model';
 import { EditorState } from 'prosemirror-state';
 import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
 import { getParentNodeWidth } from '@atlaskit/editor-common/node-width';
+import { gridSize } from '@atlaskit/theme/constants';
+import { findParentNodeOfTypeClosestToPos } from 'prosemirror-utils';
 
 export const tableLayoutToSize: Record<string, number> = {
   default: akEditorDefaultLayoutWidth,
@@ -52,10 +54,6 @@ export function getLayoutSize(
   );
   if (calculatedTableWidth.endsWith('px')) {
     return parseInt(calculatedTableWidth, 10);
-  }
-
-  if (tableLayout === 'default') {
-    return getDefaultLayoutMaxWidth(containerWidth);
   }
 
   return tableLayoutToSize[tableLayout] || containerWidth;
@@ -126,11 +124,65 @@ export const getTableMaxWidth = ({
   const containerWidth = getEditorContainerWidth();
   const parentWidth = getParentNodeWidth(tableStart, state, containerWidth);
 
-  let maxWidth = parentWidth || getLayoutSize(layout, containerWidth.width, {});
+  // TODO - refactor this logic into getParentNodeWidth() in editor-common [ED-16718]
+  const parentActualWidth = getParentWidthWithoutPadding(
+    parentWidth,
+    tableStart,
+    state,
+  );
+
+  let maxWidth =
+    parentActualWidth || getLayoutSize(layout, containerWidth.width, {});
 
   if (table.attrs.isNumberColumnEnabled) {
     maxWidth -= akEditorTableNumberColumnWidth;
   }
 
   return maxWidth;
+};
+
+export const getParentWidthWithoutPadding = (
+  parentWidth: number,
+  tableStartPos: number,
+  state: EditorState,
+) => {
+  const node = getNestedParentNode(tableStartPos, state);
+  if (!node) {
+    return;
+  }
+
+  const { schema } = state;
+
+  if (node.type === schema.nodes.expand) {
+    // padding
+    parentWidth -= gridSize() * 2;
+    // gutter offset
+    parentWidth += gridSize() * 1.5 * 2;
+    // padding right
+    parentWidth -= gridSize();
+    // padding left
+    parentWidth -= gridSize() * 4 - gridSize() / 2;
+  }
+
+  return parentWidth;
+};
+
+// copy of getNestedParentNode() from packages/editor/editor-common/src/node-width/index.ts
+// to be removed later when we will move getParentWidthWithoutPadding() logic to editor-common
+const getNestedParentNode = (
+  tablePos: number,
+  state: EditorState,
+): PMNode | null => {
+  if (tablePos === undefined) {
+    return null;
+  }
+
+  const $pos = state.doc.resolve(tablePos);
+  const parent = findParentNodeOfTypeClosestToPos($pos, [
+    state.schema.nodes.bodiedExtension,
+    state.schema.nodes.layoutSection,
+    state.schema.nodes.expand,
+  ]);
+
+  return parent ? parent.node : null;
 };

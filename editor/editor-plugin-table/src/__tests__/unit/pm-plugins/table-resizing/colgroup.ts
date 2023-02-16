@@ -1,5 +1,6 @@
 import { p, table, tr, td } from '@atlaskit/editor-test-helpers/doc-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
+import { isMinCellWidthTable } from '../../../../plugins/table/pm-plugins/table-resizing/utils/colgroup';
 import { generateColgroup } from '../../../../plugins/table/pm-plugins/table-resizing/utils';
 
 describe('table-resizing/colgroup', () => {
@@ -80,6 +81,43 @@ describe('table-resizing/colgroup', () => {
         })(tr(...cellAttributes.map((attrs) => td(attrs)(p('text')))))(
           defaultSchema,
         );
+      }
+    });
+  });
+
+  //isMinCellWidthTable function test
+  describe('#isMinCellWidthTable', () => {
+    describe('check if a table has all the columns with minimum width', () => {
+      it('when input table has all columns in minimum width', () => {
+        const result = isMinCellWidthTable(getMinCellWidthTable());
+
+        expect(result).toEqual(true);
+      });
+
+      it('when input table has a column that is not minimum width', () => {
+        const result = isMinCellWidthTable(getNonMinCellWidthTable());
+
+        expect(result).toEqual(false);
+      });
+
+      function getMinCellWidthTable() {
+        return table()(
+          tr(
+            td({ colwidth: [48] })(p('')),
+            td({ colwidth: [48] })(p('')),
+            td({ colwidth: [48] })(p('')),
+          ),
+        )(defaultSchema);
+      }
+
+      function getNonMinCellWidthTable() {
+        return table()(
+          tr(
+            td({ colwidth: [200] })(p('')),
+            td({ colwidth: [200] })(p('')),
+            td({ colwidth: [48] })(p('')),
+          ),
+        )(defaultSchema);
       }
     });
   });

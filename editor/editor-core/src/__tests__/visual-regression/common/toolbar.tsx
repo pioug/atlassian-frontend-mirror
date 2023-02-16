@@ -205,6 +205,7 @@ describe.skip('Toolbar: Comment', () => {
 
   // FIXME: Skipped because of flakiness
   // https://product-fabric.atlassian.net/browse/ED-16626
+  // FIXME: This test was automatically skipped due to failure on 12/02/2023: https://product-fabric.atlassian.net/browse/ED-16859
   it.skip('should display text color menu correctly at small viewport', async () => {
     await page.setViewport(deviceViewPorts[Device.iPhonePlus]);
     await clickToolbarMenu(page, ToolbarMenuItem.textColor);
@@ -235,12 +236,14 @@ describe.skip('Toolbar: IconBefore', () => {
 
     // FIXME: Skipped because of flakiness
     // https://product-fabric.atlassian.net/browse/ED-16626
+    // FIXME: This test was automatically skipped due to failure on 12/02/2023: https://product-fabric.atlassian.net/browse/ED-16861
     it.skip('should show the icon', async () => {
       await page.mouse.move(-30, -30);
     });
 
     // FIXME: Skipped because of flakiness
     // https://product-fabric.atlassian.net/browse/ED-16626
+    // FIXME: This test was automatically skipped due to failure on 12/02/2023: https://product-fabric.atlassian.net/browse/ED-16863
     it.skip('should show the icon in narrow view', async () => {
       await page.setViewport({ width: 400, height: 350 });
     });

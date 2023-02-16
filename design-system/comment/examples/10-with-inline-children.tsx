@@ -1,4 +1,3 @@
-/* eslint-disable @repo/internal/react/use-primitives */
 import React, { ReactNode, useState } from 'react';
 
 import Avatar from '@atlaskit/avatar';

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "179.0.1",
+  "version": "179.0.3",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -191,7 +191,7 @@
     "fetch-mock": "^8.0.0",
     "jscodeshift": "^0.13.0",
     "lz-string": "^1.4.4",
-    "mockdate": "^3.0.2",
+    "mockdate": "^3.0.5",
     "node-fetch": "^2.6.7",
     "prettier": "^2.7.0",
     "prosemirror-dev-tools": "^3.1.0",

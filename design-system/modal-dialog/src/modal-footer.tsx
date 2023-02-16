@@ -4,20 +4,24 @@ import { ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
+import { token } from '@atlaskit/tokens';
+
 import { useModal } from './hooks';
-import { footerItemGap, keylineHeight, padding } from './internal/constants';
+import { keylineHeight, padding } from './internal/constants';
 
 const footerStyles = css({
   display: 'flex',
 
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   padding,
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   paddingTop: `${padding - keylineHeight}px`,
 
   position: 'relative',
   alignItems: 'center',
   justifyContent: 'flex-end',
 
-  gap: `${footerItemGap}px`,
+  gap: token('space.100', '8px'),
 });
 
 export interface ModalFooterProps {

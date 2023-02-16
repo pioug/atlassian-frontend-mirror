@@ -1,6 +1,6 @@
 import { DOMSerializer, Node as PmNode } from 'prosemirror-model';
-
 import { getFragmentBackingArray } from '@atlaskit/editor-common/utils';
+import { tableCellMinWidth } from '@atlaskit/editor-common/styles';
 
 type Col = Array<string | { [name: string]: string }>;
 
@@ -45,6 +45,24 @@ export const hasTableBeenResized = (table: PmNode) => {
   return !!getFragmentBackingArray(table.content.firstChild!.content).find(
     (cell) => cell.attrs.colwidth,
   );
+};
+
+/**
+ * Check if a table has all the column width set to tableCellMinWidth(48px) or null
+ *
+ * @param table
+ * @returns true if all column width is equal to tableCellMinWidth or null, false otherwise
+ */
+export const isMinCellWidthTable = (table: PmNode) => {
+  const cellArray = getFragmentBackingArray(table.content.firstChild!.content);
+  const isTableMinCellWidth = cellArray.every((cell) => {
+    return (
+      (cell.attrs.colwidth && cell.attrs.colwidth[0] === tableCellMinWidth) ||
+      cell.attrs.colwidth === null
+    );
+  });
+
+  return isTableMinCellWidth;
 };
 
 function renderColgroupFromNode(table: PmNode): HTMLElement {

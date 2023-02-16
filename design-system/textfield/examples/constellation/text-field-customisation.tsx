@@ -1,11 +1,13 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 
+import { token } from '@atlaskit/tokens';
+
 import Textfield from '../../src';
 
 const bigFontStyles = css({
   // container style
-  padding: 5,
+  padding: token('space.075', '6px'),
   // eslint-disable-next-line @repo/internal/styles/no-nested-styles
   '& > [data-ds--text-field--input]': {
     // input style

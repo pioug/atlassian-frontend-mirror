@@ -1,7 +1,7 @@
-/* eslint-disable @repo/internal/react/use-primitives */
 import React from 'react';
 
 import { act, render } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import EmojiIcon from '@atlaskit/icon/glyph/emoji';
 
@@ -137,7 +137,7 @@ describe('Drawer Transitions', () => {
     expect(onClose).toHaveBeenCalled();
   });
 
-  it('should call onClose when blanket is clicked', () => {
+  it('should call onClose when blanket is clicked', async () => {
     const onClose = jest.fn();
     const { getByTestId } = render(
       <Drawer isOpen onClose={onClose} width="wide" testId="test-drawer">
@@ -146,7 +146,7 @@ describe('Drawer Transitions', () => {
     );
 
     expect(onClose).not.toHaveBeenCalled();
-    getByTestId('test-drawer--blanket').click(); // Blanket
+    await userEvent.click(getByTestId('test-drawer--blanket')); // Blanket
     expect(onClose).toHaveBeenCalled();
   });
 

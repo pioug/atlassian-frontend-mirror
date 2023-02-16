@@ -298,7 +298,6 @@ export interface CardProps extends WithAnalyticsEventsProps {
   id?: string;
   // (undocumented)
   importer?: (target: any) => void;
-  // (undocumented)
   inheritDimensions?: boolean;
   // (undocumented)
   inlinePreloaderStyle?: InlinePreloaderStyle;

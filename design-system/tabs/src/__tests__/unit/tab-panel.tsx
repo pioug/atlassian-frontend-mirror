@@ -1,4 +1,3 @@
-/* eslint-disable @repo/internal/react/use-primitives */
 import React, { ReactNode } from 'react';
 
 import { cleanup, fireEvent, render, waitFor } from '@testing-library/react';

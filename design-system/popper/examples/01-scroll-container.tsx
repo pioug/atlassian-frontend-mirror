@@ -7,6 +7,7 @@ import Lorem from 'react-lorem-component';
 import Button from '@atlaskit/button/standard-button';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { e300 } from '@atlaskit/theme/elevation';
+import { token } from '@atlaskit/tokens';
 
 import { Manager, Popper, Reference } from '../src';
 
@@ -18,7 +19,7 @@ const Popup = styled.div`
   border: 2px solid red;
   border-radius: ${borderRadius}px;
   max-width: 160px;
-  padding: 8px;
+  padding: ${token('space.100', '8px')};
   transition: opacity 200ms ease-in-out;
   opacity: ${(p: PopupProps) => (p.isReferenceHidden ? 0 : 1)};
   ${e300};

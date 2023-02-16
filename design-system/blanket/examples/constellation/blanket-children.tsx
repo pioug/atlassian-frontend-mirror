@@ -5,16 +5,15 @@ import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/standard-button';
 import { N0 } from '@atlaskit/theme/colors';
-import { gridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import Blanket from '../../src';
 
 const blanketChildStyles = css({
   width: '50%',
-  margin: `${gridSize() * 6}px`,
-  paddingTop: `${gridSize() * 3}px`,
-  paddingBottom: `${gridSize() * 3}px`,
+  margin: token('space.600', '48px'),
+  paddingTop: token('space.300', '24px'),
+  paddingBottom: token('space.300', '24px'),
   backgroundColor: token('elevation.surface', N0),
 });
 

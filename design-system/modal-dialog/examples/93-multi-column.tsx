@@ -17,7 +17,7 @@ import Modal, {
 const modalBodyStyles = css({
   display: 'flex',
   height: '100%',
-  padding: '0px 24px',
+  padding: `${token('space.0', '0px')} ${token('space.300', '24px')}`,
   flexDirection: 'column',
   overflowY: 'auto',
 });

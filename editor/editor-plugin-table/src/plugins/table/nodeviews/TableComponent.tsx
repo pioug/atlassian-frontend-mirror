@@ -55,6 +55,7 @@ import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 
 import memoizeOne from 'memoize-one';
 import { OverflowShadowsObserver } from './OverflowShadowsObserver';
+import { getParentWidthWithoutPadding } from '../pm-plugins/table-resizing/utils/misc';
 
 const isIE11 = browser.ie_version === 11;
 const NOOP = () => undefined;
@@ -620,14 +621,23 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 
   private handleWindowResize = () => {
     const { getNode, containerWidth } = this.props;
-    const layoutSize = this.tableNodeLayoutSize(getNode());
+    const node = getNode();
+    const prevNode = this.node;
+    const layoutSize = this.tableNodeLayoutSize(node);
+    const prevAttrs = prevNode?.attrs;
+    const layoutChanged =
+      prevAttrs?.layout !== node?.attrs?.layout &&
+      prevAttrs?.__autoSize === node?.attrs?.__autoSize;
 
     if (containerWidth.width > layoutSize) {
       return;
     }
 
     const parentWidth = this.getParentNodeWidth();
-    this.scaleTableDebounced(parentWidth);
+    this.scaleTableDebounced({
+      layoutChanged: layoutChanged,
+      parentWidth: parentWidth,
+    });
   };
 
   private updateTableContainerWidth = () => {
@@ -671,12 +681,15 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
     if (!isValidPosition(pos, state)) {
       return;
     }
-    return getParentNodeWidth(
+
+    const parentNodeWith = getParentNodeWidth(
       pos,
       state,
       containerWidth,
       options && options.isFullWidthModeEnabled,
     );
+
+    return getParentWidthWithoutPadding(parentNodeWith, pos, state);
   };
 
   private updateParentWidth = (width?: number) => {

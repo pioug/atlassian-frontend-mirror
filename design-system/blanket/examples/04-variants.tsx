@@ -37,6 +37,7 @@ const blanketStyles = css({
 });
 
 const behindOffsetStyles = css({
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   marginLeft: '144px',
 });
 
@@ -55,19 +56,25 @@ const BasicExample = () => {
     );
   }, [setShouldAllowClickThrough]);
 
-  const [count, setCount] = useState(0);
+  const [countIncrementClicked, setCountIncrementClicked] = useState(0);
   const incrementCount = useCallback(() => {
-    setCount((count) => count + 1);
-  }, [setCount]);
+    setCountIncrementClicked((count) => count + 1);
+  }, [setCountIncrementClicked]);
+
+  const [countBlanketClicked, setCountBlanketClicked] = useState(0);
+  const incrementBlanketCountClicked = useCallback(() => {
+    setCountBlanketClicked((countClicked) => countClicked + 1);
+  }, []);
 
   return (
     <div>
       <Blanket
         isTinted={isTinted}
         shouldAllowClickThrough={shouldAllowClickThrough}
+        onBlanketClicked={incrementBlanketCountClicked}
       >
         <div css={blanketStyles}>
-          <h2>Blanket children</h2>
+          <h2 data-testid="child-heading">Blanket children</h2>
           <label css={labelStyles} htmlFor="is-tinted">
             Tint the blanket
           </label>
@@ -90,10 +97,18 @@ const BasicExample = () => {
       </Blanket>
       <div css={behindOffsetStyles}>
         <h2>Behind blanket</h2>
-        <Button onClick={incrementCount} testId="increment">
-          Increment
-        </Button>
-        <Badge testId="count">{count}</Badge>
+        <div>
+          <Button onClick={incrementCount} testId="increment">
+            Increment
+          </Button>
+          <Badge testId="count-increment-clicked">
+            {countIncrementClicked}
+          </Badge>
+        </div>
+        <div>
+          Blanket clicked
+          <Badge testId="count-blanket-clicked">{countBlanketClicked}</Badge>
+        </div>
       </div>
     </div>
   );

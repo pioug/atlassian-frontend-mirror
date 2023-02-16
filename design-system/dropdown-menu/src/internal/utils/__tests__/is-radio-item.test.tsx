@@ -5,7 +5,6 @@ import { render } from '@testing-library/react';
 import isRadioItem from '../is-radio-item';
 
 const Button = ({ role, children }: any) => (
-  // eslint-disable-next-line @repo/internal/react/use-primitives
   <button type="button" role={role} aria-checked>
     {children}
   </button>

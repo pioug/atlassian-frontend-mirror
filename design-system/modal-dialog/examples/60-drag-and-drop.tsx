@@ -23,8 +23,6 @@ import ModalDialog, {
   ModalTransition,
 } from '../src';
 
-const gridUnit = 4;
-
 interface CardProps {
   isActive?: boolean;
   isDraggable?: boolean;
@@ -35,8 +33,8 @@ interface CardProps {
 
 const baseCardStyles = css({
   display: 'flex',
-  height: `${gridUnit * 5}px`,
-  padding: `${gridUnit * 2}px ${gridUnit}px`,
+  height: '20px',
+  padding: `${token('space.100', '8px')} ${token('space.050', '4px')}`,
 
   position: 'relative',
   background: token('color.background.warning', Y75),

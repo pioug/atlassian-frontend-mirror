@@ -20,6 +20,7 @@ const imageStyles = css({
   display: 'block',
   maxWidth: `var(${CSS_VAR_MAX_WIDTH})`,
   maxHeight: `var(${CSS_VAR_MAX_HEIGHT})`,
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   margin: `0 auto ${getGridSize() * 3}px`,
 });
 

@@ -3,6 +3,7 @@ import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button';
 import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
+import { token } from '@atlaskit/tokens';
 
 import { Code } from '../src';
 
@@ -12,13 +13,15 @@ const adg4 = `ADG 4.0`;
 const containerStyles = css({
   display: 'grid',
   maxWidth: 800,
-  margin: 8,
+  margin: token('space.100', '8px'),
   alignItems: 'baseline',
-  gap: 8,
+  gap: token('space.100', '8px'),
   gridTemplateColumns: '100px 1fr',
 });
 
-const noMarginTopStyles = css({ marginTop: 0 });
+const noMarginTopStyles = css({
+  marginTop: token('space.0', '0px'),
+});
 
 export default function Component() {
   return (

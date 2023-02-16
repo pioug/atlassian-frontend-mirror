@@ -1,4 +1,3 @@
-/* eslint-disable @repo/internal/react/use-primitives */
 import React, { useCallback, useState } from 'react';
 
 import LocaleSelect, { Locale } from '@atlaskit/locale/LocaleSelect';

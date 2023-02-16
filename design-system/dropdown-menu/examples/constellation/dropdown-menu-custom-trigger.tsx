@@ -6,7 +6,6 @@ const DropdownMenuCustomTriggerExample = () => {
   return (
     <DropdownMenu<HTMLButtonElement>
       trigger={({ triggerRef, isSelected, testId, ...providedProps }) => (
-        // eslint-disable-next-line @repo/internal/react/use-primitives
         <button type="button" {...providedProps} ref={triggerRef}>
           &lt;button/&gt; trigger{' '}
         </button>

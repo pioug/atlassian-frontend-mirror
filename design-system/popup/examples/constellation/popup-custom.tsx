@@ -11,7 +11,7 @@ import { token } from '@atlaskit/tokens';
 import Popup, { PopupComponentProps } from '../../src';
 
 const containerStyles = css({
-  padding: 15,
+  padding: token('space.200', '16px'),
   backgroundColor: token('color.background.brand.bold', '#0C66E4'),
   borderRadius: borderRadius(),
   color: token('color.text.inverse', '#FFF'),

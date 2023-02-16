@@ -1,5 +1,17 @@
 # @atlaskit/feedback-collector
 
+## 10.10.0
+
+### Minor Changes
+
+- [`854cc74fad4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/854cc74fad4) - [ux] Fix padding around modal close icon
+
+## 10.9.0
+
+### Minor Changes
+
+- [`add53eec671`](https://bitbucket.org/atlassian/atlassian-frontend/commits/add53eec671) - [ux] Disabling the submit button while feedback is being submitted
+
 ## 10.8.3
 
 ### Patch Changes

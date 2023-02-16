@@ -1,5 +1,4 @@
 import {
-  snapshot,
   initEditorWithAdf,
   Appearance,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
@@ -10,6 +9,9 @@ import {
 } from '@atlaskit/visual-regression/helper';
 import mentionAdf from './__fixtures__/mention-adf.json';
 import { mentionSelectors } from '@atlaskit/editor-test-helpers/page-objects/mention';
+import { getElementComputedStyle } from '@atlaskit/editor-test-helpers/vr-utils/get-computed-style';
+import { normalizeHexColor } from '@atlaskit/adf-schema';
+import { B50, DN80 } from '@atlaskit/theme/colors';
 
 describe('Mention', () => {
   let page: PuppeteerPage;
@@ -26,11 +28,21 @@ describe('Mention', () => {
     });
 
     await page.click(mentionSelectors.mention);
-    await snapshot(page);
+
+    const mentionBgColor = await getElementComputedStyle(
+      page,
+      '.akEditor [data-mention-id="0"] > span',
+      'background-color',
+    );
+
+    /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
+    const focusedMentionBgColor = B50;
+    expect(normalizeHexColor(mentionBgColor)?.toUpperCase()).toBe(
+      focusedMentionBgColor,
+    );
   });
 
-  // FIXME: This test was automatically skipped due to failure on 28/01/2023: https://product-fabric.atlassian.net/browse/ED-16673
-  it.skip('Should repaint when theme mode changes', async () => {
+  it('Should repaint when theme mode changes', async () => {
     const url = getExampleUrl('editor', 'editor-core', 'kitchen-sink');
 
     const { page } = global;
@@ -45,6 +57,16 @@ describe('Mention', () => {
     await page.keyboard.type('dark theme');
     await page.keyboard.press('Enter');
 
-    await snapshot(page);
+    const mentionBgColor = await getElementComputedStyle(
+      page,
+      '.akEditor [data-mention-id="0"] > span',
+      'background-color',
+    );
+
+    /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
+    const darkThemeMentionBgColor = DN80;
+    expect(normalizeHexColor(mentionBgColor)?.toUpperCase()).toBe(
+      darkThemeMentionBgColor,
+    );
   });
 });

@@ -45,7 +45,6 @@ describe('Flag', () => {
           description: (
             <Text testId="description-jsx">
               Check this
-              {/* eslint-disable-next-line @repo/internal/react/use-primitives */}
               <a href="https://google.com">link</a>
               out
             </Text>

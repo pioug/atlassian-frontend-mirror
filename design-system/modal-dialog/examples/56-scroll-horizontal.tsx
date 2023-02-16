@@ -7,7 +7,7 @@ import Lorem from 'react-lorem-component';
 import Button from '@atlaskit/button/standard-button';
 import Checkbox from '@atlaskit/checkbox';
 import { Field } from '@atlaskit/form';
-import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import ModalDialog, {
   ModalBody,
@@ -20,7 +20,7 @@ import ModalDialog, {
 const containerStyles = css({
   display: 'grid',
   width: '250%',
-  padding: `${gridSize() * 2}px`,
+  padding: token('space.200', '16px'),
   gridTemplateColumns: 'repeat(2, 1fr)',
 });
 

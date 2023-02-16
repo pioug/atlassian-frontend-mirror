@@ -22,6 +22,7 @@ type BaseProps = React.AllHTMLAttributes<HTMLElement> & {
 const baseStyles = css({
   display: 'inline-flex',
   height: tagHeight,
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   margin: defaultMargin,
   padding: token('space.0', '0px'),
   position: 'relative',

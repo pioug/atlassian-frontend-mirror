@@ -1,4 +1,3 @@
-/* eslint-disable @repo/internal/react/use-primitives */
 import React from 'react';
 
 import { ProgressTracker, Stages } from '../../src';

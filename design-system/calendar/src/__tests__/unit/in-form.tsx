@@ -18,7 +18,6 @@ describe('Calendar should not submit form', () => {
 
   it('Day selection does not trigger form (click)', () => {
     const { getByTestId } = render(
-      // eslint-disable-next-line @repo/internal/react/use-primitives
       <form onSubmit={onSubmit}>
         <Calendar testId={testId} />
       </form>,
@@ -39,7 +38,6 @@ describe('Calendar should not submit form', () => {
 
   it('Day selection does not trigger form (enter)', () => {
     const { getByTestId } = render(
-      // eslint-disable-next-line @repo/internal/react/use-primitives
       <form onSubmit={onSubmit}>
         <Calendar testId={testId} />
       </form>,

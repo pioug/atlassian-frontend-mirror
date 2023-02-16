@@ -6,6 +6,7 @@ import styled from '@emotion/styled';
 import { B500 } from '@atlaskit/theme/colors';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { e300 } from '@atlaskit/theme/elevation';
+import { token } from '@atlaskit/tokens';
 
 import { Manager, Placement, Popper, Reference } from '../src';
 
@@ -27,7 +28,7 @@ const Popup = styled.div`
   border-radius: ${borderRadius}px;
   max-width: 110px;
   min-height: ${POPUP_HEIGHT - 20}px;
-  padding: 8px;
+  padding: ${token('space.100', '8px')};
   text-overflow: 'ellipsis';
   transition: opacity 200ms ease-in-out;
   opacity: ${(p: PopupProps) => (p.isReferenceHidden ? 0 : 1)};
@@ -36,7 +37,7 @@ const Popup = styled.div`
 
 const ReferenceBox = styled.div`
   background: ${B500};
-  padding: 10px;
+  padding: ${token('space.100', '8px')};
   border-radius: ${borderRadius}px;
   color: white;
   text-align: center;
@@ -48,7 +49,7 @@ const ReferenceBox = styled.div`
 const ReferenceBoundaries = styled.div`
   background: lightblue;
   border-radius: ${borderRadius}px;
-  padding: ${POPPER_OFFSET}px;
+  padding: ${token('space.100', '8px')};
   display: flex;
   justify-content: center;
   align-items: center;

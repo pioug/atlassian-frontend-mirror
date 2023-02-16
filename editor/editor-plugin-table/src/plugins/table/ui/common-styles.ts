@@ -73,7 +73,7 @@ const cornerControlHeight = tableToolbarSize + 1;
   that is aligned to the right edge initially on hover of the top right column control when table overflown,
   its center should be aligned with the edge
 */
-const insertColumnButtonOffset = tableInsertColumnButtonSize / 2;
+export const insertColumnButtonOffset = tableInsertColumnButtonSize / 2;
 
 const rangeSelectionStyles = `
 .${ClassName.NODEVIEW_WRAPPER}.${akEditorSelectedNodeClassName} table tbody tr {
@@ -615,6 +615,8 @@ export const tableStyles = (
       table-layout: fixed;
       white-space: normal;
       border-top: none;
+      // 1px border width offset added here to prevent unwanted overflow and scolling - ED-16212
+      margin-right: -1px;
 
       > tbody > tr {
         white-space: pre-wrap;
@@ -737,7 +739,8 @@ export const tableStyles = (
 export const tableFullPageEditorStyles = css`
   .ProseMirror .${ClassName.TABLE_NODE_WRAPPER} > table {
     margin-left: 0;
-    margin-right: 0;
+    // 1px border width offset added here to prevent unwanted overflow and scolling - ED-16212
+    margin-right: -1px;
     width: 100%;
   }
 `;

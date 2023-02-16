@@ -15,18 +15,14 @@ describe('Embed Card', () => {
   });
 
   describe('frame', () => {
-    // TODO: Restore skipped test https://product-fabric.atlassian.net/browse/ED-16713
-    it.skip('should render as a link when there is an href', async () => {
+    it('should render as a link when there is an href', async () => {
       const url = getURL('vr-embed-card-frame');
       const page = await setup(url);
-      await page.waitForSelector('[data-testid="href-defined"]', {
-        visible: false,
-      });
-      await page.hover('[data-testid="href-defined"]');
-      await page.waitForSelector('[data-testid="href-defined"]', {
-        visible: true,
-      });
-      //sleep to reduce css flakyness
+      const frame = '[data-testid="href-defined"]';
+
+      await page.waitForSelector(`${frame} .embed-header`, { visible: false });
+      await page.hover(frame);
+      await page.waitForSelector(`${frame} .embed-header`, { visible: true });
       await sleep(1000);
 
       const image = await takeSnapshot(page, 2800);
@@ -46,66 +42,51 @@ describe('Embed Card', () => {
     it('should not be interactive when isPlaceholder=true and href is defined', async () => {
       const url = getURL('vr-embed-card-frame');
       const page = await setup(url);
-      await page.waitForSelector(
-        '[data-testid="isplaceholder-true-and-href-defined"]',
-      );
-      await page.hover('[data-testid="isplaceholder-true-and-href-defined"]');
+      const frame = '[data-testid="isplaceholder-true-and-href-defined"]';
 
-      const image = await takeSnapshot(page, 2800);
-      expect(image).toMatchProdImageSnapshot();
-    });
-    it('should not be interactive when isPlaceholder=true and onClick is defined', async () => {
-      const url = getURL('vr-embed-card-frame');
-      const page = await setup(url);
-      await page.waitForSelector(
-        '[data-testid="isplaceholder-true-and-onclick-defined"]',
-      );
-      await page.hover(
-        '[data-testid="isplaceholder-true-and-onclick-defined"]',
-      );
-
-      const image = await takeSnapshot(page, 2800);
-      expect(image).toMatchProdImageSnapshot();
-    });
-    it('should be interactive when isPlaceholder=false and href is defined', async () => {
-      const url = getURL('vr-embed-card-frame');
-      const page = await setup(url);
-      await page.waitForSelector(
-        '[data-testid="isplaceholder-false-and-href-defined"]',
-        {
-          visible: false,
-        },
-      );
-      await page.hover('[data-testid="isplaceholder-false-and-href-defined"]');
-      await page.waitForSelector(
-        '[data-testid="isplaceholder-false-and-href-defined"]',
-        {
-          visible: true,
-        },
-      );
+      await page.waitForSelector(frame);
+      await page.hover(frame);
       await sleep(1000);
 
       const image = await takeSnapshot(page, 2800);
       expect(image).toMatchProdImageSnapshot();
     });
+
+    it('should not be interactive when isPlaceholder=true and onClick is defined', async () => {
+      const url = getURL('vr-embed-card-frame');
+      const page = await setup(url);
+      const frame = '[data-testid="isplaceholder-true-and-onclick-defined"]';
+
+      await page.waitForSelector(frame);
+      await page.hover(frame);
+      await sleep(1000);
+
+      const image = await takeSnapshot(page, 2800);
+      expect(image).toMatchProdImageSnapshot();
+    });
+
+    it('should be interactive when isPlaceholder=false and href is defined', async () => {
+      const url = getURL('vr-embed-card-frame');
+      const page = await setup(url);
+      const frame = '[data-testid="isplaceholder-false-and-href-defined"]';
+
+      await page.waitForSelector(`${frame} .embed-header`, { visible: false });
+      await page.hover(frame);
+      await page.waitForSelector(`${frame} .embed-header`, { visible: true });
+      await sleep(1000);
+
+      const image = await takeSnapshot(page, 2800);
+      expect(image).toMatchProdImageSnapshot();
+    });
+
     it('should be interactive when isPlaceholder=false and onClick is defined', async () => {
       const url = getURL('vr-embed-card-frame');
       const page = await setup(url);
-      await page.waitForSelector(
-        '[data-testid="isplaceholder-false-and-onclick-defined"]',
-        {
-          visible: false,
-        },
-      );
-      await page.hover(
-        '[data-testid="isplaceholder-false-and-onclick-defined"]',
-      );
-      await page.waitForSelector(
-        '[data-testid="isplaceholder-false-and-onclick-defined"]',
-        {
-          visible: true,
-        },
-      );
+      const frame = '[data-testid="isplaceholder-false-and-onclick-defined"]';
+
+      await page.waitForSelector(`${frame} .embed-header`, { visible: false });
+      await page.hover(frame);
+      await page.waitForSelector(`${frame} .embed-header`, { visible: true });
       await sleep(1000);
 
       const image = await takeSnapshot(page, 2800);

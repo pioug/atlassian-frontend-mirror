@@ -16,7 +16,7 @@ class DisplayFeedback extends Component<{}, State> {
 
   close = () => this.setState({ isOpen: false });
 
-  submitForm = (data: Object) => {
+  submitForm = async (data: Object) => {
     // submit your form manually here
     console.log('Submitting feedback form', data);
 

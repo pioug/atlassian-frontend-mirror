@@ -1,4 +1,3 @@
-/* eslint-disable @repo/internal/react/use-primitives */
 /** @jsx jsx */
 
 import { Component, FC, SyntheticEvent } from 'react';

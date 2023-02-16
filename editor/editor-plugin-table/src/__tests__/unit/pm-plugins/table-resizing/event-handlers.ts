@@ -26,7 +26,10 @@ import { EditorView } from 'prosemirror-view';
 import panelPlugin from '@atlaskit/editor-core/src/plugins/panel';
 import widthPlugin from '@atlaskit/editor-core/src/plugins/width';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import { akEditorFullPageMaxWidth } from '@atlaskit/editor-shared-styles/consts';
+import {
+  akEditorFullPageMaxWidth,
+  akEditorDefaultLayoutWidth,
+} from '@atlaskit/editor-shared-styles/consts';
 
 describe('table-resizing/event-handlers', () => {
   const editorAnalyticsAPIFake: EditorAnalyticsAPI = {
@@ -92,7 +95,7 @@ describe('table-resizing/event-handlers', () => {
 
       // No matter how large we try to resize the result should equal the width (within 1 pt)
       expect(getTotalTableWidth(view.state as EditorState)).toBeLessThanOrEqual(
-        akEditorFullPageMaxWidth,
+        akEditorDefaultLayoutWidth,
       );
       expect(
         getTotalTableWidth(view.state as EditorState),

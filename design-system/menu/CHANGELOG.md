@@ -1,5 +1,11 @@
 # @atlaskit/menu
 
+## 1.4.10
+
+### Patch Changes
+
+- [`63c2f0b3f96`](https://bitbucket.org/atlassian/atlassian-frontend/commits/63c2f0b3f96) - Internal changes to use spacing tokens. There is no expected behaviour or visual change.
+
 ## 1.4.9
 
 ### Patch Changes

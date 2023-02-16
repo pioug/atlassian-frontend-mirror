@@ -3,6 +3,8 @@ import { ChangeEvent, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
+import { token } from '@atlaskit/tokens';
+
 import { Checkbox } from '../../src';
 
 interface CheckedItems {
@@ -11,7 +13,7 @@ interface CheckedItems {
 
 const checkboxGroupStyles = css({
   display: 'flex',
-  paddingLeft: '24px',
+  paddingLeft: token('space.300', '24px'),
   flexDirection: 'column',
 });
 

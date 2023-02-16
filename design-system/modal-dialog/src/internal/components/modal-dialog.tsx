@@ -41,7 +41,9 @@ const dialogStyles = css({
     width: 'var(--modal-dialog-width)',
     maxWidth: 'inherit',
 
+    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
     marginRight: 'inherit',
+    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
     marginLeft: 'inherit',
 
     borderRadius,

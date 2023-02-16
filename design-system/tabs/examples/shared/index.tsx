@@ -1,4 +1,3 @@
-/* eslint-disable @repo/internal/react/use-primitives */
 /** @jsx jsx */
 import { ReactNode } from 'react';
 

@@ -33,7 +33,7 @@ export const scaleTable =
       return false;
     }
 
-    const { node, start, parentWidth } = options;
+    const { node, start, parentWidth, layoutChanged } = options;
 
     // If a table has not been resized yet, columns should be auto.
     if (hasTableBeenResized(node) === false) {
@@ -65,7 +65,11 @@ export const scaleTable =
         // TODO: ED-8995
         // We need to do this check to reduce the number of race conditions when working with tables.
         // This metadata is been used in the sendTransaction function in the Collab plugin
-        tr.setMeta('scaleTable', true);
+        /* Added !layoutChanged check here to solve unnecessary scroll bar after publish when click on breakout button multiple times and publish
+           scaleTable is only called once every time a breakout button is clicked, so it is safe not to add the meta 'scaleTable' to the tr.
+           Leaving the tr.setMeta('scaleTable', true) here for race conditions that we aren't aware of.
+         */
+        !layoutChanged && tr.setMeta('scaleTable', true);
         dispatch(tr);
         return true;
       }

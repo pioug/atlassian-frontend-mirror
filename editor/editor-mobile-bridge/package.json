@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-mobile-bridge",
-  "version": "36.0.10",
+  "version": "36.0.13",
   "description": "Mobile distribution of the Editor",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -33,12 +33,12 @@
     "@atlaskit/analytics-listeners": "8.5.0",
     "@atlaskit/analytics-next": "^8.2.0",
     "@atlaskit/collab-provider": "^8.1.0",
-    "@atlaskit/editor-common": "72.2.2",
-    "@atlaskit/editor-core": "179.0.1",
+    "@atlaskit/editor-common": "72.2.3",
+    "@atlaskit/editor-core": "179.0.3",
     "@atlaskit/editor-json-transformer": "8.8.3",
     "@atlaskit/emoji": "67.0.6",
     "@atlaskit/icon": "^21.11.0",
-    "@atlaskit/legacy-mobile-macros": "2.3.6",
+    "@atlaskit/legacy-mobile-macros": "2.3.8",
     "@atlaskit/link-provider": "^1.4.0",
     "@atlaskit/media-client": "^20.0.0",
     "@atlaskit/media-picker": "^64.2.0",
@@ -47,7 +47,7 @@
     "@atlaskit/smart-card": "24.1.0",
     "@atlaskit/status": "1.2.9",
     "@atlaskit/task-decision": "17.5.9",
-    "@atlaskit/theme": "12.2.7",
+    "@atlaskit/theme": "12.2.8",
     "@babel/polyfill": "^7.0.0",
     "@babel/runtime": "^7.0.0",
     "@types/prosemirror-view": "^1.9.0",

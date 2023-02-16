@@ -4,18 +4,19 @@ import { useCallback, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import Button, { ButtonGroup } from '@atlaskit/button';
+import { token } from '@atlaskit/tokens';
 
 import Modal, { ModalTransition } from '../../src';
 
 import welcomeImage from './assets/this-is-new-jira.png';
 
 const containerStyles = css({
-  padding: '40px 44px 36px',
+  padding: token('space.500', '40px'),
   textAlign: 'center',
 });
 
 const headerStyles = css({
-  marginBottom: 8,
+  marginBottom: token('space.100', '8px'),
   color: 'inherit',
   fontSize: 20,
   fontStyle: 'inherit',
@@ -24,7 +25,9 @@ const headerStyles = css({
   lineHeight: 1.2,
 });
 
-const marginBottomStyles = css({ marginBottom: 40 });
+const marginBottomStyles = css({
+  marginBottom: token('space.500', '40px'),
+});
 
 export default function Example() {
   const [isOpen, setIsOpen] = useState(false);

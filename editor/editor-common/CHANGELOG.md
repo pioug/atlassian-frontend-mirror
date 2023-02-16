@@ -1,5 +1,11 @@
 # @atlaskit/editor-common
 
+## 72.2.3
+
+### Patch Changes
+
+- [`9e088852e54`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9e088852e54) - ED-16199 moved domainName to nonPrivacySafeAttributes
+
 ## 72.2.2
 
 ### Patch Changes

@@ -35,6 +35,7 @@ const layoutStyles = css({
 const controlContainerStyles = css({
   display: 'flex',
   maxWidth: 300,
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   margin: '0 auto',
   gap: token('space.100', '8px'),
   flexDirection: 'column',

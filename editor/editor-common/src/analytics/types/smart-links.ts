@@ -37,8 +37,9 @@ export type InsertSmartLinkAEP = InsertAEP<
       | INPUT_METHOD.FORMATTING;
     nodeType: 'inlineCard' | 'blockCard' | 'embedCard';
     nodeContext: SmartLinkNodeContext;
-    domainName: string;
     fromCurrentDomain: boolean;
   },
-  undefined
+  {
+    domainName: string;
+  }
 >;

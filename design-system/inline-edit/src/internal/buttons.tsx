@@ -25,7 +25,7 @@ import { fontSize, gridSize } from './constants';
 
 const buttonsContainerStyles = css({
   display: 'flex',
-  marginTop: gridSize - 2,
+  marginTop: token('space.075', '6px'),
   position: 'absolute',
   top: '100%',
   right: 0,
@@ -85,7 +85,7 @@ const buttonWrapperBaseStyles = css({
   borderRadius: gridSize / 2 - 1,
   fontSize: fontSize,
   '&:last-child': {
-    marginLeft: gridSize / 2,
+    marginLeft: token('space.050', '4px'),
   },
 });
 

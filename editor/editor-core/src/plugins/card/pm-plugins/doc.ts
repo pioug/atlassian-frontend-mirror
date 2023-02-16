@@ -142,8 +142,10 @@ export const replaceQueuedUrlWithCard =
                          ignore analytics event? take first? provide 'mixed' as well?*/,
             nodeType,
             nodeContext: nodeContext as SmartLinkNodeContext,
-            domainName,
             fromCurrentDomain: isFromCurrentDomain(url),
+          },
+          nonPrivacySafeAttributes: {
+            domainName,
           },
         });
       }

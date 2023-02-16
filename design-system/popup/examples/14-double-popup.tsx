@@ -4,15 +4,17 @@ import { FC, Fragment, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/standard-button';
+import { token } from '@atlaskit/tokens';
 
 import Popup from '../src';
 
 const spacerStyles = css({
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   margin: '250px',
 });
 
 const sizedContentStyles = css({
-  padding: '10px',
+  padding: token('space.100', '8px'),
   alignItems: 'center',
   textAlign: 'center',
   verticalAlign: 'center',

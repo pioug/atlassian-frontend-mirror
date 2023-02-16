@@ -5,16 +5,18 @@ import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/standard-button';
 import { Placement } from '@atlaskit/popper';
+import { token } from '@atlaskit/tokens';
 
 import Popup from '../src';
 
 const spacerStyles = css({
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   margin: '250px',
 });
 
 const sizedContentStyles = css({
   height: '80px',
-  padding: '30px',
+  padding: token('space.400', '32px'),
   alignItems: 'center',
   overflow: 'auto',
   textAlign: 'center',

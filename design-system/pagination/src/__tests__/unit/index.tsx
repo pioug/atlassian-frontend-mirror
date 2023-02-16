@@ -138,7 +138,7 @@ describe('Pagination', () => {
           ref: React.Ref<HTMLDivElement>,
         ) {
           return (
-            // eslint-disable-next-line @repo/internal/react/use-primitives, @repo/internal/react/no-unsafe-spread-props
+            // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
             <div ref={ref} {...rest} data-testid={`Page-${page}`}>
               Page - {page}
             </div>
@@ -149,7 +149,6 @@ describe('Pagination', () => {
           ref: React.Ref<HTMLDivElement>,
         ) {
           return (
-            // eslint-disable-next-line @repo/internal/react/use-primitives
             <div
               ref={ref}
               // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

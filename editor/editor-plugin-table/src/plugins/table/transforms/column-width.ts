@@ -2,6 +2,7 @@ import { Node as PMNode } from 'prosemirror-model';
 import { Transaction } from 'prosemirror-state';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { tableNewColumnMinWidth } from '@atlaskit/editor-common/styles';
+import { akEditorDefaultLayoutWidth } from '@atlaskit/editor-shared-styles';
 
 import { CellAttributes } from '@atlaskit/adf-schema';
 
@@ -21,6 +22,8 @@ import { getTableMaxWidth } from '../pm-plugins/table-resizing/utils/misc';
 import { tableCellMinWidth } from '@atlaskit/editor-common/styles';
 import { scaleTableTo } from '../pm-plugins/table-resizing/utils/scale-table';
 import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
+import { isMinCellWidthTable } from '../pm-plugins/table-resizing/utils/colgroup';
+import { insertColumnButtonOffset } from '../ui/common-styles';
 
 export const updateColumnWidths =
   (resizeState: ResizeState, table: PMNode, start: number) =>
@@ -138,19 +141,18 @@ export const rescaleColumns =
   (getEditorContainerWidth: GetEditorContainerWidth) =>
   (table: ContentNodeWithPos, view: EditorView | undefined) =>
   (tr: Transaction): Transaction => {
-    // If the table has been not been resized we skip updating the size
-    // of columns here.
-    if (!view || !hasTableBeenResized(table.node)) {
+    if (!view) {
       return tr;
     }
 
+    const pos = table.pos;
+    const newTable = tr.doc.nodeAt(pos);
     const { state } = view;
     const domAtPos = view.domAtPos.bind(view);
-
     const maybeTable = domAtPos(table.start).node as HTMLElement;
     const tableRef = maybeTable.closest('table');
 
-    if (!tableRef) {
+    if (!tableRef || !newTable) {
       return tr;
     }
 
@@ -163,6 +165,57 @@ export const rescaleColumns =
       layout,
       getEditorContainerWidth,
     });
+
+    const tableWidth = tableRef.clientWidth || akEditorDefaultLayoutWidth;
+    let tableMaxWidth = tableRef?.parentElement?.clientWidth || 0;
+    tableMaxWidth -= insertColumnButtonOffset;
+    const newTableMap = TableMap.get(newTable);
+    const noOfColumns = newTableMap.width;
+    if (!noOfColumns || noOfColumns <= 0) {
+      return tr;
+    }
+    const columnWidthUnresized = tableWidth / noOfColumns;
+
+    // If the table has not been resized, and the column width is bigger than the minimum column width
+    // we skip updating the size of columns here.
+    if (
+      !hasTableBeenResized(table.node) &&
+      columnWidthUnresized > tableCellMinWidth
+    ) {
+      return tr;
+    }
+
+    // If the table has not been resized, and the column width is smaller than the minimum column width
+    // Or if the table has been resized, but each column width is either 48px or null
+    // we update the table to have 48px for each column
+    if (
+      (!hasTableBeenResized(table.node) &&
+        columnWidthUnresized <= tableCellMinWidth) ||
+      (hasTableBeenResized(table.node) && isMinCellWidthTable(table.node))
+    ) {
+      const widths: Array<number> = new Array(noOfColumns).fill(
+        tableCellMinWidth,
+      );
+      const cols = widths.map((width, index) => ({
+        width: tableCellMinWidth,
+        minWidth: tableCellMinWidth,
+        index,
+      }));
+      const overflow = tableWidth > maxSize;
+      const minWidthResizeState = {
+        cols,
+        widths,
+        maxSize,
+        tableWidth,
+        overflow,
+      };
+      return updateColumnWidths(
+        minWidthResizeState,
+        table.node,
+        table.start,
+      )(tr);
+    }
+
     let resizeState = getResizeState({
       minWidth: tableCellMinWidth,
       table: table.node,
@@ -172,7 +225,8 @@ export const rescaleColumns =
       maxSize,
     });
     const previousTableWidth = resizeState.tableWidth - tableNewColumnMinWidth;
-    const tableDidntPreviouslyOverflow = previousTableWidth <= maxSize;
+    const tableDidntPreviouslyOverflow =
+      previousTableWidth <= Math.max(maxSize, tableMaxWidth);
 
     // If the new table width will result in the table going into an overflow state
     // we resize the cells to avoid the overflow occuring

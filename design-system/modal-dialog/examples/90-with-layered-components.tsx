@@ -20,7 +20,7 @@ import AddCommentIcon from '@atlaskit/icon/glyph/media-services/add-comment';
 import Popup from '@atlaskit/popup';
 import Select, { PopupSelect } from '@atlaskit/select';
 import { P300 } from '@atlaskit/theme/colors';
-import { gridSize, layers } from '@atlaskit/theme/constants';
+import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -35,7 +35,7 @@ import ModalDialog, {
 const Break = () => <br />;
 
 const containerStyles = css({
-  padding: `${gridSize() * 2}px`,
+  padding: token('space.200', '16px'),
 });
 
 export default () => {

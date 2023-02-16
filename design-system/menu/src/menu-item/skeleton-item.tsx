@@ -19,7 +19,6 @@ const borderRadius = borderRadiusFn();
 const itemElemSpacing = gridSize * 1.5;
 const itemExpectedElemSize = gridSize * 3;
 const itemMinHeight = gridSize * 5;
-const itemPadding = gridSize * 2.5;
 const skeletonItemElemSize = gridSize * 2.5;
 const itemElemSkeletonOffset =
   (itemExpectedElemSize - skeletonItemElemSize) / 2;
@@ -30,7 +29,7 @@ const skeletonColor = token('color.skeleton', N20A);
 const skeletonStyles = css({
   display: 'flex',
   minHeight: itemMinHeight,
-  padding: `0 ${itemPadding}px`,
+  padding: `0 ${token('space.250', '20px')}`,
   alignItems: 'center',
   pointerEvents: 'none',
   '::after': {
@@ -38,6 +37,7 @@ const skeletonStyles = css({
     // This is a little bespoke but we need to push everything down 1px
     // because the skeleton content should align to the bottom of the text.
     // Confirm VR test failures before accepting a change.
+    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
     marginTop: 1,
     backgroundColor: skeletonColor,
     borderRadius: skeletonTextBorderRadius,
@@ -76,7 +76,9 @@ const beforeElementStyles = css({
   '::before': {
     width: skeletonItemElemSize,
     height: skeletonItemElemSize,
+    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
     marginRight: itemElemSpacing + itemElemSkeletonOffset,
+    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
     marginLeft: itemElemSkeletonOffset,
     flexShrink: 0,
     backgroundColor: skeletonColor,

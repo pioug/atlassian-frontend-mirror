@@ -1,4 +1,3 @@
-/* eslint-disable @repo/internal/react/use-primitives */
 import React, { useState } from 'react';
 
 import Tabs, { Tab, TabList, TabPanel } from '../src';

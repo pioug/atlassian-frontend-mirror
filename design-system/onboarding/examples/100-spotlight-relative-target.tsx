@@ -4,6 +4,8 @@ import { Component } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
+import { token } from '@atlaskit/tokens';
+
 import {
   Spotlight,
   SpotlightManager,
@@ -18,8 +20,8 @@ interface State {
 const relativeDivStyles = css({
   width: '200px',
   height: '200px',
-  marginTop: '10px',
-  marginLeft: '10px',
+  marginTop: token('space.100', '8px'),
+  marginLeft: token('space.100', '8px'),
   position: 'relative',
   top: '40px',
   left: '40px',

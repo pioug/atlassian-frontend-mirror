@@ -4,11 +4,12 @@ import { FC, useCallback, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/standard-button';
+import { token } from '@atlaskit/tokens';
 
 import Popup from '../src';
 
 const contentStyles = css({
-  margin: '1rem',
+  margin: token('space.200', '16px'),
 });
 
 type PopupExampleProps = {

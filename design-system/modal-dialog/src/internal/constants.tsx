@@ -33,7 +33,6 @@ export const borderRadius = getBorderRadius();
 
 export const verticalOffset = gridSize * 2;
 export const padding = gridSize * 3;
-export const footerItemGap = gridSize;
 export const titleIconMargin = gridSize;
 
 export const keylineHeight = 2;

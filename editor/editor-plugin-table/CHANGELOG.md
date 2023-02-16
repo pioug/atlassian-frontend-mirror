@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-table
 
+## 1.1.3
+
+### Patch Changes
+
+- [`2fe7d1a47ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2fe7d1a47ab) - [ux] ED-16512: Table should not scroll on large screens after column resizing
+- [`20f8e0400ae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/20f8e0400ae) - [ux] ED-16251: Added logic to respect minimum column width when adding columns to table.
+- [`3820895a26d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3820895a26d) - [ux] Fix column resizing when single column is selected
+- [`a2d2aedc1c6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a2d2aedc1c6) - [ux] ED-16212: Fix 1px table overflow issue
+- [`06f78e978d3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/06f78e978d3) - [ux] ED-15640: Added layoutChanged check before setting scaleTable meta data to true in scaleTable function.
+- [`3c3e9524f33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3c3e9524f33) - [ux] ED-16213: Prevented scroll bar when column is resized and new column is inserted in tables
+- [`ad2df7a6b46`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ad2df7a6b46) - [ux] ED-16214: fix issue where last table column cannot be resized to remove scroll when inside and expand
+
 ## 1.1.2
 
 ### Patch Changes

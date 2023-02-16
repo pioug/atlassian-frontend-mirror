@@ -36,6 +36,7 @@ interface HighlightProps {
 const highlightStyles = css({
   display: 'inline-flex',
   boxSizing: 'border-box',
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   padding: '1em 2em',
   position: 'relative',
   alignItems: 'space-between',
@@ -76,7 +77,9 @@ export const Highlight = forwardRef<
 
 const codeStyles = css({
   display: 'inline-block',
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   paddingRight: '0.3em',
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   paddingLeft: '0.3em',
   backgroundColor: token('color.background.discovery.hovered', colors.P50),
   border: `1px solid ${token('color.border.discovery', colors.P75)}`,

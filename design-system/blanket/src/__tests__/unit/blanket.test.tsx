@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { cleanup, fireEvent, render } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import Blanket from '../../blanket';
 
@@ -62,7 +63,7 @@ describe('ak-blanket', () => {
 
         expect(getComputedStyle(blanket).pointerEvents).toBe('none');
       });
-      it('should trigger onBlanketClicked when shouldAllowClickThrough is false', () => {
+      it('should trigger onBlanketClicked when shouldAllowClickThrough is false', async () => {
         const onBlanketClicked = jest.fn();
         const { getByRole } = render(
           <Blanket
@@ -71,7 +72,7 @@ describe('ak-blanket', () => {
           />,
         );
         const blanket = getByRole('presentation');
-        fireEvent.click(blanket);
+        await userEvent.click(blanket);
 
         expect(onBlanketClicked).toHaveBeenCalled();
       });
@@ -91,13 +92,13 @@ describe('ak-blanket', () => {
     });
 
     describe('onBlanketClicked', () => {
-      it('should trigger when blanket clicked', () => {
+      it('should trigger when blanket clicked', async () => {
         const onBlanketClicked = jest.fn();
         const { getByRole } = render(
           <Blanket onBlanketClicked={onBlanketClicked} />,
         );
         const blanket = getByRole('presentation');
-        fireEvent.click(blanket);
+        await userEvent.click(blanket);
 
         expect(onBlanketClicked).toHaveBeenCalled();
       });

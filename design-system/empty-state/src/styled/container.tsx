@@ -15,6 +15,7 @@ const columnWidth = gridSize * 8;
 const gutter = gridSize * 2;
 
 const containerStyles = css({
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   margin: `${verticalMarginSize}px auto`,
   textAlign: 'center',
 });

@@ -1,10 +1,12 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 
+import { token } from '@atlaskit/tokens';
+
 import TextField from '../src';
 
 const overrideStyles = css({
-  padding: 5,
+  padding: token('space.075', '6px'),
   // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   border: '2px solid orange',
   // eslint-disable-next-line @repo/internal/styles/no-nested-styles

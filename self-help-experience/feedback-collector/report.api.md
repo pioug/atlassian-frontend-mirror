@@ -206,7 +206,7 @@ interface Props_2 {
   feedbackTitleDetails?: React_2.ReactChild;
   locale?: string;
   onClose: () => void;
-  onSubmit: (formValues: FormFields) => void;
+  onSubmit: (formValues: FormFields) => Promise<void>;
   showDefaultTextFields?: boolean;
   showTypeField?: boolean;
   submitButtonLabel?: string;

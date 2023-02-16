@@ -42,6 +42,7 @@ const textStyles = css({
 });
 
 const iconStyles = css({
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   marginRight: `${titleIconMargin}px`,
   flex: '0 0 auto',
   alignSelf: 'start',
@@ -55,7 +56,9 @@ const iconStyles = css({
 const lineHeightOffset = fontSize - fontSize * adjustedLineHeight;
 
 const truncatedTextStyles = css({
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   marginTop: `${lineHeightOffset / 2}px`,
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   marginBottom: `${lineHeightOffset / 2}px`,
 
   lineHeight: adjustedLineHeight,
@@ -65,6 +68,7 @@ const truncatedTextStyles = css({
 });
 
 const truncatedTextIconStyles = css({
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   marginBottom: `${lineHeightOffset / 2}px`,
   lineHeight: 1.2,
 });

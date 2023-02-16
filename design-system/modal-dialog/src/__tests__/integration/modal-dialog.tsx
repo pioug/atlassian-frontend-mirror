@@ -9,11 +9,12 @@ const openModalBtn = "[data-testid='modal-trigger']";
 const modalDialog = "[data-testid='modal']";
 const primaryBtn = "[data-testid='primary']";
 const secondaryBtn = "[data-testid='secondary']";
+const modalTitle = "[data-testid='modal--title']";
 
 BrowserTestCase(
   'Modal should have first focus on primary action, and be closed',
   {},
-  async (client: any) => {
+  async (client: BrowserObject) => {
     const url = getExampleUrl('design-system', 'modal-dialog', 'default-modal');
 
     const modalTest = new Page(client);
@@ -58,7 +59,7 @@ BrowserTestCase(
 BrowserTestCase(
   'Scrollable modal should have focus on its content',
   {},
-  async (client: any) => {
+  async (client: BrowserObject) => {
     const url = getExampleUrl('design-system', 'modal-dialog', 'scroll');
     const modalDialogContent = "[data-testid='modal--scrollable']";
     const scrollDownBtn = "[data-testid='scrollDown']";
@@ -106,7 +107,7 @@ BrowserTestCase(
 BrowserTestCase(
   'Empty modals (no focusable children) should still lock focus',
   {},
-  async (client: any) => {
+  async (client: BrowserObject) => {
     const url = getExampleUrl('design-system', 'modal-dialog', 'custom-child');
 
     const modalTest = new Page(client);
@@ -198,5 +199,32 @@ BrowserTestCase(
      */
     await modalTest.waitFor(modalDialog, 5000, true);
     expect(await modalTest.isExisting(modalDialog)).toBe(false);
+  },
+);
+
+BrowserTestCase(
+  'Modal should not close when click event starts on modal and finishes outside of modal',
+  {},
+  async (client: BrowserObject) => {
+    const url = getExampleUrl('design-system', 'modal-dialog', 'default-modal');
+
+    const modalTest = new Page(client);
+    await modalTest.goto(url);
+
+    /**
+     * Open the modal.
+     */
+    await modalTest.click(openModalBtn);
+    await modalTest.waitFor(modalDialog, 5000);
+
+    /**
+     * Start selecting text and then drag off to outside modal
+     */
+    await modalTest.simulateUserSelection(modalTitle, openModalBtn);
+
+    /**
+     * Ensure the modal is still open.
+     */
+    expect(await modalTest.isExisting(modalDialog)).toBe(true);
   },
 );

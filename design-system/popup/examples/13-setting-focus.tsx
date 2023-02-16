@@ -5,6 +5,7 @@ import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/standard-button';
 import { RadioGroup } from '@atlaskit/radio';
+import { token } from '@atlaskit/tokens';
 
 import Popup from '../src';
 
@@ -16,11 +17,11 @@ const radioValues = [
 ];
 
 const spacerStyles = css({
-  margin: '20px',
+  margin: token('space.250', '20px'),
 });
 
 const sizedContentStyles = css({
-  padding: '30px',
+  padding: token('space.400', '32px'),
   alignItems: 'center',
   textAlign: 'center',
   verticalAlign: 'center',

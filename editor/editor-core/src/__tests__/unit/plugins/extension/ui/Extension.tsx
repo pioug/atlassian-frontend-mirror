@@ -13,6 +13,7 @@ import { createFakeExtensionProvider } from '@atlaskit/editor-test-helpers/exten
 import Extension from '../../../../../plugins/extension/ui/Extension';
 import ExtensionComponent from '../../../../../plugins/extension/ui/Extension/ExtensionComponent';
 import Loadable from 'react-loadable';
+import { EditorView } from 'prosemirror-view';
 
 const macroProviderPromise = Promise.resolve(macroProvider);
 const providerFactory = ProviderFactory.create({
@@ -23,6 +24,21 @@ describe('@atlaskit/editor-core/ui/Extension', () => {
   const node = extensionData[0] as any;
   const noop: any = () => {};
   const mockGetPos = () => 1;
+  const mockEditorView = jest.fn(
+    () =>
+      ({
+        state: {
+          doc: {
+            resolve: jest.fn().mockImplementation((x: number) => ({
+              depth: x,
+            })),
+          },
+        },
+        dispatch: jest.fn(),
+        someProp: jest.fn(),
+      } as { state: {}; dispatch: Function } as EditorView),
+  );
+  const view = new mockEditorView();
 
   it('should render macro component', () => {
     const extension = mount(
@@ -64,13 +80,7 @@ describe('@atlaskit/editor-core/ui/Extension', () => {
 
     const extension = mount(
       <Extension
-        editorView={
-          {
-            state: {
-              doc: {},
-            },
-          } as any
-        }
+        editorView={view}
         node={extensionNode}
         getPos={mockGetPos}
         providerFactory={providerFactory}
@@ -107,13 +117,7 @@ describe('@atlaskit/editor-core/ui/Extension', () => {
 
     const extension = mount(
       <Extension
-        editorView={
-          {
-            state: {
-              doc: {},
-            },
-          } as any
-        }
+        editorView={view}
         node={extensionNode}
         getPos={mockGetPos}
         providerFactory={providerFactory}
@@ -158,13 +162,7 @@ describe('@atlaskit/editor-core/ui/Extension', () => {
 
     const extension = mount(
       <Extension
-        editorView={
-          {
-            state: {
-              doc: {},
-            },
-          } as any
-        }
+        editorView={view}
         node={extensionNode}
         getPos={mockGetPos}
         providerFactory={providerFactory}
@@ -211,13 +209,7 @@ describe('@atlaskit/editor-core/ui/Extension', () => {
 
     const extension = mount(
       <Extension
-        editorView={
-          {
-            state: {
-              doc: {},
-            },
-          } as any
-        }
+        editorView={view}
         node={extensionNode}
         getPos={mockGetPos}
         providerFactory={providerFactory}
@@ -265,13 +257,7 @@ describe('@atlaskit/editor-core/ui/Extension', () => {
     it('should use the extension handler from the provider in case there is no other available', async () => {
       const extension = mount(
         <Extension
-          editorView={
-            {
-              state: {
-                doc: {},
-              },
-            } as any
-          }
+          editorView={view}
           providerFactory={providerFactory}
           node={extensionNode}
           getPos={mockGetPos}
@@ -310,13 +296,7 @@ describe('@atlaskit/editor-core/ui/Extension', () => {
 
       const extension = mount(
         <Extension
-          editorView={
-            {
-              state: {
-                doc: {},
-              },
-            } as any
-          }
+          editorView={view}
           providerFactory={providerFactory}
           node={extensionNode}
           getPos={mockGetPos}
@@ -339,13 +319,7 @@ describe('@atlaskit/editor-core/ui/Extension', () => {
 
       const extension = mount(
         <Extension
-          editorView={
-            {
-              state: {
-                doc: {},
-              },
-            } as any
-          }
+          editorView={view}
           providerFactory={providerFactory}
           node={extensionNode}
           getPos={mockGetPos}

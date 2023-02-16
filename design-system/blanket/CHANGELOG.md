@@ -1,5 +1,11 @@
 # @atlaskit/blanket
 
+## 12.3.6
+
+### Patch Changes
+
+- [`a7e8a6c3ace`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a7e8a6c3ace) - Prevent onBlanketClick function firing on Blanket when mousedown event begins on Blanket children
+
 ## 12.3.5
 
 ### Patch Changes

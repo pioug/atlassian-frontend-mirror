@@ -15,7 +15,6 @@ export default () => (
         description={
           <Text>
             My favourite issue is{' '}
-            {/* eslint-disable-next-line @repo/internal/react/use-primitives */}
             <a href="https://ecosystem.atlassian.net/browse/AK-90210">
               AK-90210
             </a>

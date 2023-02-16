@@ -1,5 +1,17 @@
 # @atlaskit/editor-core
 
+## 179.0.3
+
+### Patch Changes
+
+- [`d93b14cdda6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d93b14cdda6) - [ED-16678] fix - add extra check for props.getPos to fix slow extension rendering
+
+## 179.0.2
+
+### Patch Changes
+
+- [`9e088852e54`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9e088852e54) - ED-16199 moved domainName to nonPrivacySafeAttributes
+
 ## 179.0.1
 
 ### Patch Changes

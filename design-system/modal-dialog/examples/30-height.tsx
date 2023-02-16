@@ -6,7 +6,7 @@ import Lorem from 'react-lorem-component';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
-import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import ModalDialog, {
   ModalBody,
@@ -17,11 +17,11 @@ import ModalDialog, {
 } from '../src';
 
 const containerStyles = css({
-  padding: `${gridSize() * 2}px`,
+  padding: token('space.200', '16px'),
 });
 
 const titleStyles = css({
-  marginBottom: '0.66em',
+  marginBottom: token('space.200', '16px'),
 });
 
 const units = [420, '42em', '100%'];

@@ -5,7 +5,6 @@ import { render } from '@testing-library/react';
 import isCheckboxItem from '../is-checkbox-item';
 
 const Button = ({ role, children }: any) => (
-  // eslint-disable-next-line @repo/internal/react/use-primitives
   <button type="button" role={role} aria-checked>
     {children}
   </button>

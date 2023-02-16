@@ -168,14 +168,9 @@ BrowserTestCase(
   },
 );
 
-// FIXME: This test was automatically skipped due to failure on 24/01/2023: https://product-fabric.atlassian.net/browse/ED-16630
 BrowserTestCase(
   'paste.ts: paste tests on fullpage editor with restart numbered lists: ordered list',
-  // TODO: Re-skipped safari, need to unskip again after fixing: https://product-fabric.atlassian.net/browse/ED-16306
-  {
-    // skip: ['safari'],
-    skip: ['*'],
-  },
+  {},
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -199,14 +194,9 @@ BrowserTestCase(
   },
 );
 
-// FIXME: This test was automatically skipped due to failure on 24/01/2023: https://product-fabric.atlassian.net/browse/ED-16631
 BrowserTestCase(
   'paste.ts: paste tests on fullpage editor: block node containing paragraph containing hardbreak and list',
-  // TODO: Re-skipped safari, need to unskip again after fixing: https://product-fabric.atlassian.net/browse/ED-16306
-  {
-    // skip: ['safari'],
-    skip: ['*'],
-  },
+  {},
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -228,14 +218,9 @@ BrowserTestCase(
   },
 );
 
-// FIXME: This test was automatically skipped due to failure on 24/01/2023: https://product-fabric.atlassian.net/browse/ED-16633
 BrowserTestCase(
   'paste.ts: code block copied from renderer and pasted',
-  // TODO: Re-skipped safari, need to unskip again after fixing: https://product-fabric.atlassian.net/browse/ED-16306
-  {
-    // skip: ['safari'],
-    skip: ['*'],
-  },
+  {},
   async (client: WebdriverIO.BrowserObject, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 

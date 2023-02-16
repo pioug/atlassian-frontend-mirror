@@ -1,4 +1,3 @@
-/* eslint-disable @repo/internal/react/use-primitives */
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 /** @jsx jsx */
 
@@ -47,6 +46,7 @@ const sectionStyles = css({
 
 const sectionHeaderStyles = css({
   maxWidth: '50%',
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   margin: '0 auto',
   position: 'relative',
   top: '50%',

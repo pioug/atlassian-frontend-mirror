@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { forwardRef, memo, MouseEvent, useCallback } from 'react';
+import { forwardRef, memo, MouseEvent, useCallback, useRef } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -74,6 +74,7 @@ const Blanket = memo(
     ref,
   ) {
     const { mode }: { mode: ThemeModes } = useGlobalTheme();
+    const mouseDownTarget = useRef<EventTarget | null>(null);
 
     const onBlanketClickedWithAnalytics = usePlatformLeafEventHandler({
       fn: onBlanketClicked,
@@ -84,7 +85,7 @@ const Blanket = memo(
 
     const blanketClickOutsideChildren = useCallback(
       (e: MouseEvent<HTMLDivElement>) =>
-        e.currentTarget === e.target
+        e.currentTarget === e.target && mouseDownTarget.current === e.target
           ? onBlanketClickedWithAnalytics(e)
           : undefined,
       [onBlanketClickedWithAnalytics],
@@ -93,6 +94,10 @@ const Blanket = memo(
     const onClick = shouldAllowClickThrough
       ? undefined
       : blanketClickOutsideChildren;
+
+    const onMouseDown = useCallback((e: MouseEvent<HTMLDivElement>) => {
+      mouseDownTarget.current = e.target;
+    }, []);
 
     return (
       <div
@@ -104,6 +109,7 @@ const Blanket = memo(
           !isTinted && invisibleStyles,
         ]}
         onClick={onClick}
+        onMouseDown={onMouseDown}
         data-testid={testId}
         ref={ref}
       >

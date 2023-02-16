@@ -57,6 +57,7 @@ import tablePlugin from '../../plugins/table';
 import { TablePluginState } from '../../plugins/table/types';
 import { pluginKey } from '../../plugins/table/pm-plugins/plugin-key';
 import featureFlagsPlugin from '@atlaskit/editor-core/src/plugins/feature-flags-context';
+import widthPlugin from '@atlaskit/editor-core/src/plugins/width';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 
@@ -101,7 +102,8 @@ describe('table keymap', () => {
     .add([statusPlugin, { menuDisabled: false }])
     .add([mediaPlugin, { allowMediaSingle: true }])
     .add([analyticsPlugin, { createAnalyticsEvent }])
-    .add([featureFlagsPlugin, {}]);
+    .add([featureFlagsPlugin, {}])
+    .add(widthPlugin);
 
   const editor = (doc: DocBuilder) =>
     createEditor<TablePluginState, PluginKey>({

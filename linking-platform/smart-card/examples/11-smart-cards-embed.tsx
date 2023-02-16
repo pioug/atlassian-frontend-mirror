@@ -1,20 +1,47 @@
 import React from 'react';
+import styled from '@emotion/styled';
 import { Provider, Card, Client } from '../src';
+
+const InheritDimensionWrapper = styled.div`
+  height: 300px;
+
+  .loader-wrapper {
+    height: 100%;
+  }
+`;
 
 export default () => (
   <Provider client={new Client('stg')}>
     <div style={{ width: '680px', margin: '0 auto', marginTop: '64px' }}>
-      {/* Resolved */}
+      <h2> Resolved Embed Card view </h2>
+      <br />
       <Card
         appearance="embed"
-        url="https://www.dropbox.com/sh/0isygvcskxbdwee/AADMfqcGx4XR15DeKnRo_YzHa?dl=0"
+        url="https://www.youtube.com/watch?v=jmvngQzy_3M"
+        platform="web"
       />
-      {/* Not Found - random URL */}
+      <h2>
+        {' '}
+        Resolved Embed Card view with "inheritDimensions" = 'true' prop & height
+        of 300px{' '}
+      </h2>
+      <br />
+      <InheritDimensionWrapper>
+        <Card
+          appearance="embed"
+          url="https://www.youtube.com/watch?v=jmvngQzy_3M"
+          inheritDimensions={true}
+          platform="web"
+        />
+      </InheritDimensionWrapper>
+      <h2> Not Found Embed Card view - random URL </h2>
+      <br />
       <Card
         appearance="embed"
         url="https://www.dropbox.com/sh/0000isygvcskxbdwee/AADMfqcGx4XR15DeKnRo_YzHa?dl=0"
       />
-      {/*  */}
+      <h2> Unauthorised Embed card view </h2>
+      <br />
       <Card
         appearance="embed"
         url="https://www.dropbox.com/sh/0000isygvcskxbdwee/AADMfqcGx4XR15DeKnRo_YzHa?dl=0"

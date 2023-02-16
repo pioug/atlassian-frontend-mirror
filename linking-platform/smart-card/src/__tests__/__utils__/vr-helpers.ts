@@ -19,8 +19,10 @@ export function getURL(
 }
 
 export async function setup(url: string) {
-  const { page } = global;
-  await page.goto(url);
+  const page: PuppeteerPage = global.page;
+  await page.goto(url, {
+    waitUntil: 'networkidle0',
+  });
   await page.waitForSelector(pageSelector);
   return page;
 }

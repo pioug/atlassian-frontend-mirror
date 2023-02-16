@@ -689,7 +689,7 @@ describe('Feedback Collector unit tests', () => {
   describe('Feedback Form integration', () => {
     test('FeedbackForm should select only by default', () => {
       const wrapper = mount(
-        <FeedbackForm onClose={() => {}} onSubmit={() => {}} />,
+        <FeedbackForm onClose={() => {}} onSubmit={async () => {}} />,
       );
 
       expect(wrapper.find(Select)).toHaveLength(1);
@@ -699,7 +699,7 @@ describe('Feedback Collector unit tests', () => {
 
     test('FeedbackForm should render checkboxes and textarea when something is selected', () => {
       const wrapper = mount(
-        <FeedbackForm onClose={() => {}} onSubmit={() => {}} />,
+        <FeedbackForm onClose={() => {}} onSubmit={async () => {}} />,
       );
 
       act(() => {
@@ -716,7 +716,7 @@ describe('Feedback Collector unit tests', () => {
 
     test('should render a field label based on type', () => {
       const wrapper = mount(
-        <FeedbackForm onClose={() => {}} onSubmit={() => {}} />,
+        <FeedbackForm onClose={() => {}} onSubmit={async () => {}} />,
       );
 
       for (const [key, value] of Object.entries(defaultFieldRecords)) {

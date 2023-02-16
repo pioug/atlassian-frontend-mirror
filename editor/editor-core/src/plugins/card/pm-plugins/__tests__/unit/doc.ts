@@ -926,10 +926,12 @@ describe('card', () => {
             actionSubjectId: 'smartLink',
             eventType: 'track',
             attributes: expect.objectContaining({
-              domainName: 'www.atlassian.com',
               fromCurrentDomain: false,
               nodeType: 'inlineCard',
             }),
+            nonPrivacySafeAttributes: {
+              domainName: 'www.atlassian.com',
+            },
           }),
         );
       });

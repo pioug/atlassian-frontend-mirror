@@ -1,5 +1,11 @@
 # @atlaskit/theme
 
+## 12.2.8
+
+### Patch Changes
+
+- [`1439e7f646c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1439e7f646c) - Add theme into push model consumption
+
 ## 12.2.7
 
 ### Patch Changes

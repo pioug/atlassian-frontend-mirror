@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { fireEvent, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
@@ -43,7 +44,7 @@ describe('Blanket', () => {
       blanketClickedEventResult,
     };
   };
-  it('should send blanketClicked event to atlaskit/analytics when blanket is clicked', () => {
+  it('should send blanketClicked event to atlaskit/analytics when blanket is clicked', async () => {
     const {
       renderResult,
       onBlanketClicked,
@@ -51,7 +52,7 @@ describe('Blanket', () => {
       blanketClickedEventResult,
     } = setup();
 
-    fireEvent.click(renderResult.getByTestId('blanket'));
+    await userEvent.click(renderResult.getByTestId('blanket'));
 
     expect(onBlanketClicked).toHaveBeenCalledTimes(1);
 
@@ -72,12 +73,12 @@ describe('Blanket', () => {
     error.mockRestore();
   });
 
-  it('should allow the addition of additional context', () => {
+  it('should allow the addition of additional context', async () => {
     const analyticsContext = { key: 'value' };
     const { renderResult, onBlanketClicked, blanketClickedEventResult } =
       setup(analyticsContext);
 
-    fireEvent.click(renderResult.getByTestId('blanket'));
+    await userEvent.click(renderResult.getByTestId('blanket'));
 
     const expected: UIAnalyticsEvent = new UIAnalyticsEvent({
       ...blanketClickedEventResult,

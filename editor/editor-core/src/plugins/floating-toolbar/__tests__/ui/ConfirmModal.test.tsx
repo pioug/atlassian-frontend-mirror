@@ -322,9 +322,21 @@ describe('<ConfirmationModal />', () => {
     expect(onConfirm).toBeCalledTimes(0);
     expect(onClose).toBeCalledTimes(0);
 
+    /**
+     * Changes to <Blanket /> require that the `mousedown` event is fired in order to prevent accidental
+     * clicks triggering the `onBlanketClicked` prop to fire.
+     *
+     * We are checking the element underneath the mouse on the `mousedown` event, and comparing it to
+     * the element underneath the mouse on the `click` event. If these two elements do no match, then
+     * `onBlanketClicked` will not fire. By only simulating the `click` event, this check will always fail.
+     *
+     * This test is now more representative of the order of events that actually fire in a real world environment:
+     * mousedown -> mouseup -> click
+     */
     wrapper
       .find('div[data-focus-lock-disabled]')
       .find('div[role="presentation"]')
+      .simulate('mouseDown')
       .simulate('click');
 
     expect(onConfirm).toBeCalledTimes(0);

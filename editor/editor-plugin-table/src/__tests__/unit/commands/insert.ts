@@ -58,9 +58,9 @@ describe('table plugin: insert', () => {
         doc(
           table({ localId: TABLE_LOCAL_ID })(
             tr(
-              td({ colwidth: [200] })(p('')),
-              td({ colwidth: [200] })(p('')),
-              td({ colwidth: [200] })(p('')),
+              td({ colwidth: [230] })(p('')),
+              td({ colwidth: [230] })(p('')),
+              td({ colwidth: [230] })(p('')),
             ),
           ),
         ),

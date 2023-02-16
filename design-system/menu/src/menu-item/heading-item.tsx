@@ -5,19 +5,16 @@ import { css, jsx } from '@emotion/react';
 
 import noop from '@atlaskit/ds-lib/noop';
 import { N300 } from '@atlaskit/theme/colors';
-import { gridSize as gridSizeFn } from '@atlaskit/theme/constants';
 import { headingSizes } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
 import type { HeadingItemProps } from '../types';
 
-const gridSize = gridSizeFn();
-const itemSidePadding = gridSize * 2.5;
 const itemHeadingContentHeight = headingSizes.h100.lineHeight;
 const itemHeadingFontSize = headingSizes.h100.size;
 
 const headingStyles = css({
-  padding: `0 ${itemSidePadding}px`,
+  padding: `0 ${token('space.250', '20px')}`,
   color: token('color.text.subtle', N300),
   fontSize: itemHeadingFontSize,
   fontWeight: token('font.weight.bold', '700'),

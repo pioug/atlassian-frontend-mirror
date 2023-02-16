@@ -95,7 +95,7 @@
     "ajv": "^6.12.6",
     "enzyme": "^3.10.0",
     "jsdom": "^16.2.2",
-    "mockdate": "^3.0.2",
+    "mockdate": "^3.0.5",
     "puppeteer": "13.7.0",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",

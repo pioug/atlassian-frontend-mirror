@@ -5,6 +5,7 @@ import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/standard-button';
 import { Placement, placements } from '@atlaskit/popper';
+import { token } from '@atlaskit/tokens';
 
 import Popup from '../../../src';
 
@@ -12,12 +13,12 @@ import { placementGridPositions } from './placement-grid-positions';
 
 const contentStyles = css({
   maxWidth: 220,
-  padding: 15,
+  padding: token('space.200', '16px'),
 });
 
 const buttonGridStyles = css({
   display: 'grid',
-  gap: 10,
+  gap: token('space.100', '8px'),
   gridTemplate: 'repeat(5, 1fr) / repeat(5, 1fr)',
   justifyItems: 'stretch',
 });

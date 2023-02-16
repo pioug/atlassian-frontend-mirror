@@ -1,4 +1,3 @@
-/* eslint-disable @repo/internal/react/use-primitives */
 import React from 'react';
 
 import ErrorIcon from '@atlaskit/icon/glyph/error';

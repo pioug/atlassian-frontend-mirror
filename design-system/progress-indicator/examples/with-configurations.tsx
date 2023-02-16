@@ -45,6 +45,7 @@ const headingStyles = css({
 
 const pageStyles = css({
   maxWidth: '840px',
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   marginInline: 'auto',
 });
 
@@ -157,7 +158,6 @@ const ProgressIndicatorDots: FC<{}> = () => {
           <SpreadInlineLayout>
             <Box as="label" htmlFor="input">
               <Inline gap="space.100" alignItems="center">
-                {/* eslint-disable-next-line @repo/internal/react/use-primitives*/}
                 <input
                   checked={isInteractive}
                   id="input"

@@ -29,11 +29,12 @@ const containerStyles = css({
 });
 
 const titleStyles = css({
-  marginBottom: '0.66em',
+  marginBottom: token('space.200', '16px'),
 });
 
 const hintStyles = css({
   display: 'flex',
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   marginRight: 'auto',
   alignItems: 'center',
   color: token('color.text.subtlest', subtleText()),
@@ -41,7 +42,7 @@ const hintStyles = css({
 });
 
 const hintTextStyles = css({
-  marginLeft: '1em',
+  marginLeft: token('space.200', '16px'),
 });
 
 const headerStyles: React.CSSProperties = {

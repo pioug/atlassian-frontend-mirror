@@ -7,7 +7,7 @@ import Lorem from 'react-lorem-component';
 import Button from '@atlaskit/button/standard-button';
 import Checkbox from '@atlaskit/checkbox';
 import { Field } from '@atlaskit/form';
-import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import Modal, {
   ModalBody,
@@ -19,7 +19,7 @@ import Modal, {
 
 const containerStyles = css({
   height: '200%',
-  padding: `${gridSize() * 2}px`,
+  padding: token('space.200', '16px'),
 });
 
 export default function ExampleScroll() {

@@ -1,4 +1,3 @@
-import './error.mock';
 import '../../__mocks__/intersection-observer.mock';
 import { JsonLd } from 'json-ld-types';
 import React from 'react';
@@ -12,6 +11,15 @@ import { CardClient } from '@atlaskit/link-provider';
 import * as analytics from '../../../utils/analytics';
 import * as lazyComponent from '../../CardWithUrl/component-lazy/index';
 import { ChunkLoadError } from '../../../utils/__tests__/index.test';
+
+jest.mock('react-lazily-render', () => (data: any) => data.content);
+
+jest.mock(
+  'react-transition-group/Transition',
+  () => (data: any) => data.children,
+);
+
+jest.mock('../../../utils/analytics/analytics');
 
 describe('smart-card: error analytics', () => {
   let mockWindowOpen: jest.Mock;

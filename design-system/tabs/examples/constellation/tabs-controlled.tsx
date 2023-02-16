@@ -1,4 +1,3 @@
-/* eslint-disable @repo/internal/react/use-primitives */
 /** @jsx jsx */
 import { ReactNode, useCallback, useState } from 'react';
 
@@ -6,23 +5,19 @@ import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button';
 import { N20, N200 } from '@atlaskit/theme/colors';
-import {
-  borderRadius as getBorderRadius,
-  gridSize as getGridSize,
-} from '@atlaskit/theme/constants';
+import { borderRadius as getBorderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import Tabs, { Tab, TabList, TabPanel } from '../../src';
 import { SelectedType } from '../../src/types';
 
 const borderRadius = getBorderRadius();
-const gridSize = getGridSize();
 
 const panelStyles = css({
   display: 'flex',
-  marginTop: `${gridSize * 2}px`,
-  marginBottom: `${gridSize}px`,
-  padding: `${gridSize * 4}px`,
+  marginTop: token('space.200', '16px'),
+  marginBottom: token('space.100', '8px'),
+  padding: token('space.400', '32px'),
   alignItems: 'center',
   justifyContent: 'center',
   flexDirection: 'column',

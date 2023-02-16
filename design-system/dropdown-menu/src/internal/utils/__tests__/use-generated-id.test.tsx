@@ -9,7 +9,6 @@ const ComponentWithId = ({ testId }: { testId: string }) => {
   const [text, setText] = useState('a');
 
   return (
-    // eslint-disable-next-line @repo/internal/react/use-primitives
     <button
       data-testid={testId}
       id={generatedId}

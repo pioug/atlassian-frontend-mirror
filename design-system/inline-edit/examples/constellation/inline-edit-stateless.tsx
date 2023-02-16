@@ -8,6 +8,7 @@ import {
   fontSize as getFontSize,
   gridSize as getGridSize,
 } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import InlineEdit from '../../src';
 
@@ -18,7 +19,7 @@ const readViewContainerStyles = css({
   display: 'flex',
   maxWidth: '100%',
   minHeight: `${(gridSize * 2.5) / fontSize}em`,
-  padding: `${gridSize}px ${gridSize - 2}px`,
+  padding: `${token('space.100', '8px')} ${token('space.075', '6px')}`,
   fontSize: `${fontSize}px`,
   lineHeight: `${(gridSize * 2.5) / fontSize}`,
   wordBreak: 'break-word',

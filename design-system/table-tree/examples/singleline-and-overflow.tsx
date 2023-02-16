@@ -19,6 +19,7 @@ const staticData = [
 
 const overflowingBoxStyles = css({
   width: '150px',
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   marginBottom: '-15px',
   position: 'absolute',
   right: 0,

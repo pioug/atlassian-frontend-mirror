@@ -5,7 +5,7 @@ import { css, jsx } from '@emotion/react';
 import Lorem from 'react-lorem-component';
 
 import Button from '@atlaskit/button/standard-button';
-import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import Modal, {
   ModalBody,
@@ -17,7 +17,7 @@ import Modal, {
 
 const containerStyles = css({
   height: '100%',
-  padding: `${gridSize() * 2}px`,
+  padding: token('space.200', '16px'),
 });
 
 export default function Parent() {

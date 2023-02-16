@@ -22,7 +22,7 @@ const targetStyles = css({
   boxSizing: 'border-box',
   width: '100%',
   height: '100%',
-  padding: 10,
+  padding: token('space.100', '8px'),
   alignItems: 'center',
   justifyContent: 'center',
   background: token('color.background.accent.gray.subtlest', N40),

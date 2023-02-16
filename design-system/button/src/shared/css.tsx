@@ -250,6 +250,7 @@ export function getCss({
 export function getIconStyle({ spacing }: { spacing: Spacing }) {
   return css({
     display: 'flex',
+    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
     margin: spacing === 'none' ? 0 : innerMargin.icon,
 
     // icon size cannot grow and shrink
@@ -265,6 +266,7 @@ export function getIconStyle({ spacing }: { spacing: Spacing }) {
 // inline-flex child
 export function getContentStyle({ spacing }: { spacing: Spacing }) {
   return css({
+    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
     margin: spacing === 'none' ? 0 : innerMargin.content,
 
     // content can grow and shrink

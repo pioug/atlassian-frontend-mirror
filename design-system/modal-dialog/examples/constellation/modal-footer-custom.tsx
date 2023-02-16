@@ -7,7 +7,6 @@ import Avatar from '@atlaskit/avatar';
 import Button from '@atlaskit/button/standard-button';
 import InlineDialog from '@atlaskit/inline-dialog';
 import { subtleText } from '@atlaskit/theme/colors';
-import { gridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import Modal, {
@@ -20,7 +19,7 @@ import Modal, {
 
 const footerStyles = css({
   display: 'flex',
-  padding: gridSize() * 3,
+  padding: token('space.300', '24px'),
   alignItems: 'center',
   justifyContent: 'space-between',
 });
@@ -32,7 +31,7 @@ const wrapperStyles = css({
   cursor: 'help',
 });
 
-const marginLeftStyles = css({ marginLeft: '1em' });
+const marginLeftStyles = css({ marginLeft: token('space.200', '16px') });
 
 const CustomFooter = () => {
   const [isHintOpen, setIsHintOpen] = useState(false);

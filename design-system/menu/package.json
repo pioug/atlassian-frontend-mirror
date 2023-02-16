@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/menu",
-  "version": "1.4.9",
+  "version": "1.4.10",
   "description": "A collection of composable menu components that can be used anywhere.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

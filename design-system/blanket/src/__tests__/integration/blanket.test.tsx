@@ -11,7 +11,9 @@ const exampleUrl = getExampleUrl('design-system', 'blanket', 'variants');
 const toggleIsTinted = "[data-testid='is-tinted']";
 const toggleClickThrough = "[data-testid='allow-click-through']";
 const increment = "[data-testid='increment']";
-const count = "[data-testid='count']";
+const countIncrementClicked = "[data-testid='count-increment-clicked']";
+const countBlanketClicked = "[data-testid='count-blanket-clicked']";
+const childHeading = "[data-testid='child-heading']";
 
 /**
  * Default state in example is:
@@ -19,7 +21,7 @@ const count = "[data-testid='count']";
  *  - shouldAllowClickThrough={true}
  */
 
-// This test was originally marked as flakey. It could not be reproduced so it
+// This test was originally marked as flakey. It could not be reproduced, so it
 // has been restored. See https://product-fabric.atlassian.net/browse/DSP-3265
 // and https://product-fabric.atlassian.net/browse/SKIP-218.
 BrowserTestCase(
@@ -29,11 +31,11 @@ BrowserTestCase(
     const page = new Page(client);
     await page.goto(exampleUrl);
 
-    await page.waitForSelector(count);
-    expect(await page.getText(count)).toBe('0');
+    await page.waitForSelector(countIncrementClicked);
+    expect(await page.getText(countIncrementClicked)).toBe('0');
 
     await page.click(increment);
-    expect(await page.getText(count)).toBe('1');
+    expect(await page.getText(countIncrementClicked)).toBe('1');
   },
 );
 
@@ -47,11 +49,11 @@ BrowserTestCase(
     await page.waitForSelector(toggleIsTinted);
     await page.click(toggleIsTinted);
 
-    await page.waitForSelector(count);
-    expect(await page.getText(count)).toBe('0');
+    await page.waitForSelector(countIncrementClicked);
+    expect(await page.getText(countIncrementClicked)).toBe('0');
 
     await page.click(increment);
-    expect(await page.getText(count)).toBe('1');
+    expect(await page.getText(countIncrementClicked)).toBe('1');
   },
 );
 
@@ -65,11 +67,11 @@ BrowserTestCase(
     await page.waitForSelector(toggleClickThrough);
     await page.click(toggleClickThrough);
 
-    await page.waitForSelector(count);
-    expect(await page.getText(count)).toBe('0');
+    await page.waitForSelector(countIncrementClicked);
+    expect(await page.getText(countIncrementClicked)).toBe('0');
 
     await expect(page.click(increment)).rejects.toThrow();
-    expect(await page.getText(count)).toBe('0');
+    expect(await page.getText(countIncrementClicked)).toBe('0');
   },
 );
 
@@ -86,10 +88,30 @@ BrowserTestCase(
     await page.waitForSelector(toggleClickThrough);
     await page.click(toggleClickThrough);
 
-    await page.waitForSelector(count);
-    expect(await page.getText(count)).toBe('0');
+    await page.waitForSelector(countIncrementClicked);
+    expect(await page.getText(countIncrementClicked)).toBe('0');
 
     await expect(page.click(increment)).rejects.toThrow();
-    expect(await page.getText(count)).toBe('0');
+    expect(await page.getText(countIncrementClicked)).toBe('0');
+  },
+);
+
+BrowserTestCase(
+  'blanket should not register onClick event if click through disallowed and mouseDown event starts on children',
+  {},
+  async (client: any) => {
+    const page = new Page(client);
+    await page.goto(exampleUrl);
+
+    await page.waitForSelector(toggleClickThrough);
+    await page.click(toggleClickThrough);
+
+    /**
+     * Start selecting text in the child and then drag off to the blanket
+     */
+    await page.simulateUserSelection(childHeading, increment);
+
+    await page.waitForSelector(countBlanketClicked);
+    expect(await page.getText(countBlanketClicked)).toBe('0');
   },
 );

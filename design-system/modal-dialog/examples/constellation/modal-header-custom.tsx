@@ -17,7 +17,7 @@ import Modal, {
 
 const headerStyles = css({
   display: 'flex',
-  padding: 24,
+  padding: token('space.300', '24px'),
   alignItems: 'center',
   justifyContent: 'space-between',
 });

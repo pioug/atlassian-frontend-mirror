@@ -37,7 +37,6 @@ const Consumer: React.FC<Partial<CreateFlagArgs>> = (props) => {
     });
   };
   return (
-    // eslint-disable-next-line @repo/internal/react/use-primitives
     <button type="button" onClick={show}>
       show
     </button>

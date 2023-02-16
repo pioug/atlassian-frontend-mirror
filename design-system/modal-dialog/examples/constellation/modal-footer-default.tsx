@@ -19,13 +19,14 @@ import Modal, {
 
 const wrapperStyles = css({
   display: 'flex',
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   marginRight: 'auto',
   alignItems: 'center',
   color: token('color.text.subtlest', subtleText()),
   cursor: 'help',
 });
 
-const marginLeftStyles = css({ marginLeft: '1em' });
+const marginLeftStyles = css({ marginLeft: token('space.200', '16px') });
 
 export default function Example() {
   const [isOpen, setIsOpen] = useState(false);

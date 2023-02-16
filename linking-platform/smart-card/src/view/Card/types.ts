@@ -39,6 +39,9 @@ export interface CardProps extends WithAnalyticsEventsProps {
   showActions?: boolean;
   onResolve?: OnResolveCallback;
   onError?: OnErrorCallback;
+  /** This props determines if dimensions of an embed card are to be inherited from the parent.
+   * The parent container needs to override a style '.loader-wrapper' and set the desirable height there. (for instance, 'height: 100%')
+   */
   inheritDimensions?: boolean;
   embedIframeRef?: React.Ref<HTMLIFrameElement>;
   inlinePreloaderStyle?: InlinePreloaderStyle;

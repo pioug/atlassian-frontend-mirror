@@ -5,7 +5,7 @@ import { FormattedMessage, useIntl } from 'react-intl-next';
 import Button from '@atlaskit/button/standard-button';
 import { Checkbox } from '@atlaskit/checkbox';
 import Form, { Field } from '@atlaskit/form';
-import CrossIcon from '@atlaskit/icon/glyph/cross';
+import EditorCloseIcon from '@atlaskit/icon/glyph/editor/close';
 import Modal, {
   ModalBody,
   ModalFooter,
@@ -46,7 +46,7 @@ interface Props {
   /** Function that will be called to initiate the exit transition. */
   onClose: () => void;
   /** Function that will be called immediately after the submit action  */
-  onSubmit: (formValues: FormFields) => void;
+  onSubmit: (formValues: FormFields) => Promise<void>;
   /**  Optional locale for i18n **/
   locale?: string;
   /** Optional custom content */
@@ -79,6 +79,7 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
   const [enrollInResearchGroup, setEnrollInResearchGroup] =
     useState<FormFields['enrollInResearchGroup']>(false);
   const [type, setType] = useState<FormFields['type']>('empty');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { formatMessage } = useIntl();
   const isTypeSelected = () => type !== 'empty';
 
@@ -148,13 +149,15 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
       testId="feedbackCollectorModalDialog"
     >
       <Form
-        onSubmit={() => {
-          onSubmit({
+        onSubmit={async () => {
+          setIsSubmitting(true);
+          await onSubmit({
             canBeContacted,
             description,
             enrollInResearchGroup,
             type,
           });
+          setIsSubmitting(false);
         }}
       >
         {({ formProps }) => (
@@ -165,8 +168,14 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
                   <FormattedMessage {...messages.feedbackTitle} />
                 )}
               </ModalTitle>
-              <Button tabIndex={-1} onClick={onClose}>
-                <CrossIcon
+              <Button
+                style={{ lineHeight: 'normal' }}
+                spacing={'none'}
+                tabIndex={-1}
+                onClick={onClose}
+                appearance={'subtle'}
+              >
+                <EditorCloseIcon
                   label="Close Modal"
                   primaryColor={token('color.text.subtle', N500)}
                 />
@@ -260,7 +269,7 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
               <Button
                 appearance="primary"
                 type="submit"
-                isDisabled={isDisabled}
+                isDisabled={isSubmitting || isDisabled}
                 testId="feedbackCollectorSubmitBtn"
               >
                 {submitButtonLabel || (

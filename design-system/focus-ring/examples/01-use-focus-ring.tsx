@@ -1,3 +1,5 @@
+// This component has accessibility issues. Do not use without assistance from
+// the Atlassian Design System accessibility team.
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 

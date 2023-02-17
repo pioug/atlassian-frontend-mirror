@@ -146,7 +146,7 @@ const Modal = (props: ModalProps) => {
             }
             stepThree={
               <TooltipButton onClick={() => addFlag()} id={'showFlagBtn'}>
-                Show an flag
+                Show a flag
               </TooltipButton>
             }
           />

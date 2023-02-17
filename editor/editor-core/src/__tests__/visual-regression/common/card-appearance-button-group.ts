@@ -155,8 +155,7 @@ describe('Cards with icons toolbar', () => {
       }
 
       if (appearances?.includes('embed')) {
-        // TODO: Restore skipped test https://product-fabric.atlassian.net/browse/ED-16711
-        it.skip('embed', async () => {
+        it('embed', async () => {
           await setup();
           await page.click(toolbarAppearanceSelectors.embed);
           await waitForElementCount(page, '[data-iframe-loaded="true"]', 1);

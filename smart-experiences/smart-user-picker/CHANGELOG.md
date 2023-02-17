@@ -1,5 +1,11 @@
 # @atlassian/smart-user-picker
 
+## 6.0.5
+
+### Patch Changes
+
+- [`6a4f3d27fee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6a4f3d27fee) - Add contextType to UFO events for options rendered
+
 ## 6.0.4
 
 ### Patch Changes

@@ -1,10 +1,13 @@
 /** @jsx jsx */
+// This component has accessibility issues. Do not use without assistance from
+// the Atlassian Design System accessibility team.
 import { useEffect, useRef, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button';
 import { ProgressIndicator } from '@atlaskit/progress-indicator';
+import SectionMessage from '@atlaskit/section-message';
 import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
 
@@ -21,7 +24,7 @@ const baseStyles = css({
 
 const stackStyles = css({
   display: 'flex',
-  maxWidth: 200,
+  maxWidth: 300,
   padding: 8,
   gap: 8,
   flexDirection: 'column',
@@ -38,6 +41,10 @@ export default () => {
   const [index, setSelectedIndex] = useState(0);
   return (
     <div data-testid="outerDiv" css={stackStyles}>
+      <SectionMessage appearance="warning">
+        This component has accessibility issues. Do not use without support from
+        the Atlassian Design System accessibility team.
+      </SectionMessage>
       <Button>AK Button</Button>
       <FocusRing>
         <button type="button" ref={buttonRef} css={baseStyles}>

@@ -1,12 +1,8 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 
-import Image from '@atlaskit/image';
 import Portal from '@atlaskit/portal';
 import { token } from '@atlaskit/tokens';
-
-import firstDog from './images/dog-one.png';
-import secondDog from './images/dog-two.png';
 
 const containerStyles = css({
   marginTop: token('space.1000', '80px'),
@@ -19,22 +15,34 @@ const figcaptionStyles = css({
   background: token('color.background.neutral', 'white'),
 });
 
-const dogStyles = css({
+const figureStyles = css({
   position: 'absolute',
   border: `1px solid ${token('color.blanket', 'black')}`,
   filter: 'drop-shadow(-12px 12px 8px)',
 });
 
-const topDogPositionStyles = css({
+const topSquareStyles = css({
+  width: '372px',
+  height: '482px',
+  background: token('color.background.accent.purple.bolder', 'rebeccapurple'),
+});
+
+const bottomSquareStyles = css({
+  width: '372px',
+  height: '492px',
+  background: token('color.background.accent.blue.subtler', 'lightskyblue'),
+});
+
+const topSquarePositionStyles = css({
   top: '0px',
   left: '256px',
 });
 
-const topDogIndexStyles = css({
+const topSquareIndexStyles = css({
   zIndex: 1,
 });
 
-const bottomDogIndexStyles = css({
+const bottomSquareIndexStyles = css({
   zIndex: 1000,
 });
 
@@ -42,19 +50,21 @@ const PortalStackingContextExample = () => {
   return (
     <div css={containerStyles}>
       <Portal zIndex={100}>
-        <figure css={[dogStyles, bottomDogIndexStyles]}>
-          <Image src={secondDog} alt="A grey dog face." />
+        <figure css={[figureStyles, bottomSquareIndexStyles]}>
+          <div css={bottomSquareStyles} />
           <figcaption css={figcaptionStyles}>
-            I am a gray dog. I appear below because my z-index is lower. My
+            I am a bottom square. I appear below because my z-index is lower. My
             child z-index is only relevant in my stacking context.
           </figcaption>
         </figure>
       </Portal>
       <Portal zIndex={200}>
-        <figure css={[dogStyles, topDogPositionStyles, topDogIndexStyles]}>
-          <Image src={firstDog} alt="A brown dog face." />
+        <figure
+          css={[figureStyles, topSquarePositionStyles, topSquareIndexStyles]}
+        >
+          <div css={topSquareStyles} />
           <figcaption css={figcaptionStyles}>
-            I am a brown dog. I appear above because my z-index is higher. My
+            I am a top square. I appear above because my z-index is higher. My
             sibling's child z-index is only relevant in it's parent stacking
             context.
           </figcaption>

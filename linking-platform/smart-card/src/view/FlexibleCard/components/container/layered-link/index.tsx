@@ -12,7 +12,7 @@ const styles = css`
   right: 0;
   bottom: 0;
   left: 0;
-  overflow-x: hidden;
+  overflow: hidden;
   text-indent: 100%;
   white-space: nowrap;
 

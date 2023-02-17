@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 24.1.1
+
+### Patch Changes
+
+- [`ffa4b8db98b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ffa4b8db98b) - Bugfix: Hide a vertical scroll bar for a flex UI card in case it's a clickable container and has one line title with no paddings
+
 ## 24.1.0
 
 ### Minor Changes

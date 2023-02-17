@@ -4,7 +4,7 @@ import { v4 as uuidV4 } from 'uuid';
 import { withAnalyticsEvents } from '@atlaskit/analytics-next';
 import memoizeOne from 'memoize-one';
 import { WrappedComponentProps, injectIntl } from 'react-intl-next';
-import { UFOExperience, UFOExperienceState } from '@atlaskit/ufo';
+import { CustomData, UFOExperience, UFOExperienceState } from '@atlaskit/ufo';
 import UserPicker, { OptionData } from '@atlaskit/user-picker';
 
 import {
@@ -23,6 +23,19 @@ import { getUserRecommendations, hydrateDefaultValues } from '../service';
 import { smartUserPickerOptionsShownUfoExperience } from '../ufoExperiences';
 
 const DEFAULT_DEBOUNCE_TIME_MS = 150;
+
+type EndStateConfig = {
+  force?: boolean;
+  metadata?: CustomData;
+};
+
+const ufoEndStateConfig = (fieldId: string): EndStateConfig => {
+  return {
+    metadata: {
+      contextType: fieldId,
+    },
+  };
+};
 
 const hasContextChanged = (
   oldContext: SmartProps,
@@ -140,7 +153,9 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
           UFOExperienceState.SUCCEEDED.id,
         ].includes(this.optionsShownUfoExperienceInstance.state.id)
       ) {
-        this.optionsShownUfoExperienceInstance.success();
+        this.optionsShownUfoExperienceInstance.success(
+          ufoEndStateConfig(this.props.fieldId),
+        );
       }
     }
   }
@@ -257,7 +272,9 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
       if (!closed && !onError) {
         // If the user lookup fails while the menu is open, and the consumer is not providing a
         // fallback data source via the onError prop, then send UFO failure
-        this.optionsShownUfoExperienceInstance.failure();
+        this.optionsShownUfoExperienceInstance.failure(
+          ufoEndStateConfig(this.props.fieldId),
+        );
       }
       this.setState({ users: [] });
 
@@ -273,7 +290,9 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 
       if (onErrorProducedError) {
         // Log error from fallback data source `onError` to UFO
-        this.optionsShownUfoExperienceInstance.failure();
+        this.optionsShownUfoExperienceInstance.failure(
+          ufoEndStateConfig(this.props.fieldId),
+        );
       }
 
       this.setState({ users: defaultUsers, loading: false });

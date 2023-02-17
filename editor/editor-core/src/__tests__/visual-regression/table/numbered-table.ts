@@ -15,9 +15,20 @@ import multipleTablesAdf from './__fixtures__/numbered-table-multiple.adf.json';
 import { waitForFloatingControl } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { THEME_MODES } from '@atlaskit/theme/constants';
+import { isElementBySelectorInDocument } from '../../../test-utils';
+
+const numberedColumnSelector = '.pm-table-numbered-column';
+const undefinedThreshold = {};
 
 describe('Snapshot Test: numbered table', () => {
   let page: PuppeteerPage;
+
+  const checkIsInsertRowButtonInDocument = async () => {
+    return await page.evaluate(
+      isElementBySelectorInDocument,
+      tableSelectors.insertRowButton,
+    );
+  };
 
   beforeAll(async () => {
     page = global.page;
@@ -40,8 +51,7 @@ describe('Snapshot Test: numbered table', () => {
       await snapshot(page);
     });
 
-    // TODO: https://product-fabric.atlassian.net/browse/ED-13527
-    it.skip('looks correct for comment', async () => {
+    it('looks correct for comment', async () => {
       await initCommentEditorWithAdf(
         page,
         multipleTablesAdf,
@@ -53,8 +63,7 @@ describe('Snapshot Test: numbered table', () => {
       await snapshot(page, undefined, editorCommentContentSelector);
     });
 
-    // TODO: https://product-fabric.atlassian.net/browse/ED-13527
-    it.skip('should show insert button when mouse is hover numbered button', async () => {
+    it('should show insert button when mouse is hover numbered button', async () => {
       await initFullPageEditorWithAdf(
         page,
         adf,
@@ -63,11 +72,15 @@ describe('Snapshot Test: numbered table', () => {
         undefined,
         mode,
       );
+
+      await expect(checkIsInsertRowButtonInDocument()).resolves.toBeFalsy();
+
       await clickFirstCell(page, true);
       await waitForFloatingControl(page, 'Table floating controls');
       await page.hover(tableSelectors.nthRowControl(2));
       await page.waitForSelector(tableSelectors.insertRowButton);
-      await snapshot(page);
+
+      await expect(checkIsInsertRowButtonInDocument()).resolves.toBeTruthy();
     });
 
     it('should show numbered column correctly', async () => {
@@ -79,7 +92,8 @@ describe('Snapshot Test: numbered table', () => {
         undefined,
         mode,
       );
-      await snapshot(page);
+
+      await snapshot(page, undefinedThreshold, numberedColumnSelector);
     });
   });
 });

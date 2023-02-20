@@ -200,8 +200,8 @@ export const getStyles = memoizeOne(
 );
 
 export const getPopupStyles = memoizeOne(
-  (width: string | number, flip?: boolean, isMulti?: boolean) =>
+  (width: string | number, isMulti?: boolean, overrideStyles?: StylesConfig) =>
     ({
-      ...getStyles(width, isMulti),
+      ...getStyles(width, isMulti, false, overrideStyles),
     } as StylesConfig),
 );

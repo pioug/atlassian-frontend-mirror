@@ -1,5 +1,11 @@
 # @af/frontend-utilities
 
+## 2.3.0
+
+### Minor Changes
+
+- [`71de4856516`](https://bitbucket.org/atlassian/atlassian-frontend/commits/71de4856516) - Adds resizable embed to inbox
+
 ## 2.2.0
 
 ### Minor Changes

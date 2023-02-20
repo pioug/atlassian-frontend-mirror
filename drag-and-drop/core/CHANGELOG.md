@@ -1,5 +1,23 @@
 # @atlaskit/drag-and-drop
 
+## 0.10.0
+
+### Minor Changes
+
+- [`9c0975e2fab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9c0975e2fab) - Bug fix: A _monitor_ should not be called after it is removed. Previously, if a _monitor_ (monitor 1) removed another _monitor_ (monitor 2) for the same event, then the second monitor (monitor 2) would still be called. This has been fixed
+
+  ```ts
+  const cleanupMonitor1 = monitorForElements({
+    onDragStart: () => {
+      cleanupMonitor2();
+    },
+  });
+  const cleanupMonitor2 = monitorForElements({
+    // Previously this `onDragStart` would have been called during `onDragStart` even though it was unbound by the first monitor
+    onDragStart: () => {},
+  });
+  ```
+
 ## 0.9.0
 
 ### Minor Changes

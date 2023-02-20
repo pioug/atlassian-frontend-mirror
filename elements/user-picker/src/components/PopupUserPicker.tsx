@@ -54,17 +54,17 @@ export class PopupUserPickerWithoutAnalytics extends React.Component<
       placement,
       rootBoundary,
       shouldFlip,
+      styles,
     } = this.props;
-    const { flipped } = this.state;
     const width = this.props.width as string | number;
-    const styles = getPopupStyles(width, flipped, isMulti);
+    const selectStyles = getPopupStyles(width, isMulti, styles);
 
     return (
       <BaseUserPickerWithoutAnalytics
         {...this.props}
         SelectComponent={PopupSelect}
         width={width}
-        styles={styles}
+        styles={selectStyles}
         components={getPopupComponents(!!popupTitle)}
         pickerProps={getPopupProps(
           width,

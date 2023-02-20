@@ -1,5 +1,11 @@
 # @atlaskit/media-viewer
 
+## 47.4.2
+
+### Patch Changes
+
+- [`35192e267e4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/35192e267e4) - Updates to support the new @atlaskit/tokens theming API.
+
 ## 47.4.1
 
 ### Patch Changes

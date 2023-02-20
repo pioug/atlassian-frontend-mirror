@@ -274,6 +274,12 @@ export default class Editor extends React.Component<EditorProps, State> {
     }
   }
 
+  /**
+   * @private
+   * @deprecated - Do not override this at all, this is an anti-pattern.
+   * Please reach out to the Editor team if you were previously using this
+   * and need to find a workaround.
+   */
   trackEditorActions(
     editorActions: EditorActions & {
       _contentRetrievalTracking?: {
@@ -356,6 +362,12 @@ export default class Editor extends React.Component<EditorProps, State> {
     return editorActions;
   }
 
+  /**
+   * @private
+   * @deprecated - Do not override this at all, this is an antipattern.
+   * Please reach out to the Editor team if you were previously using this
+   * and need to find a workaround.
+   */
   prepareExtensionProvider = memoizeOne(
     (extensionProviders?: ExtensionProvidersProp) => {
       if (!extensionProviders) {
@@ -372,6 +384,12 @@ export default class Editor extends React.Component<EditorProps, State> {
     },
   );
 
+  /**
+   * @private
+   * @deprecated - Do not override this at all, this is an antipattern.
+   * Please reach out to the Editor team if you were previously using this
+   * and need to find a workaround.
+   */
   prepareQuickInsertProvider = (
     extensionProvider?: ExtensionProvider,
     quickInsert?: QuickInsertOptions,
@@ -395,6 +413,12 @@ export default class Editor extends React.Component<EditorProps, State> {
       : quickInsertProvider || extensionQuickInsertProvider;
   };
 
+  /**
+   * @private
+   * @deprecated - Do not override this at all, this is an antipattern.
+   * Please reach out to the Editor team if you were previously using this
+   * and need to find a workaround.
+   */
   onEditorCreated(instance: {
     view: EditorView;
     eventDispatcher: EventDispatcher;
@@ -530,6 +554,12 @@ export default class Editor extends React.Component<EditorProps, State> {
     }
   }
 
+  /**
+   * @private
+   * @deprecated - Do not override this at all, this is an antipattern.
+   * Please reach out to the Editor team if you were previously using this
+   * and need to find a workaround.
+   */
   onEditorDestroyed(_instance: {
     view: EditorView;
     transformer?: Transformer<string>;
@@ -642,6 +672,12 @@ export default class Editor extends React.Component<EditorProps, State> {
       : undefined;
   }
 
+  /**
+   * @private
+   * @deprecated - Do not override this at all, this is an antipattern.
+   * Please reach out to the Editor team if you were previously using this
+   * and need to find a workaround.
+   */
   handleSave = (view: EditorView): void => {
     if (!this.props.onSave) {
       return;
@@ -650,6 +686,12 @@ export default class Editor extends React.Component<EditorProps, State> {
     return this.props.onSave(view);
   };
 
+  /**
+   * @private
+   * @deprecated - Do not override this at all, this is an antipattern.
+   * Please reach out to the Editor team if you were previously using this
+   * and need to find a workaround.
+   */
   handleAnalyticsEvent: FireAnalyticsCallback = (data) =>
     fireAnalyticsEvent(this.createAnalyticsEvent)(data);
 

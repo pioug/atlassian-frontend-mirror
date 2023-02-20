@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 179.0.4
+
+### Patch Changes
+
+- [`5139cd8cbdf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5139cd8cbdf) - [ED-16854] Add @deprecate annotations to public class methods in editor.
+
 ## 179.0.3
 
 ### Patch Changes

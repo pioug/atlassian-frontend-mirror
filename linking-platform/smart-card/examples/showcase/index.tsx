@@ -9,8 +9,19 @@ import { ShowcaseMenu } from './Menu';
 import { exampleSpinner } from './Spinner';
 import { ExampleUIConfig, ExampleUrls, ExampleUrl } from './types';
 import { getConfig, exampleUrlsJsonPath } from './config';
+import { EnvironmentsKeys } from '@atlaskit/link-provider';
 
 export const SmartLinksShowcase = () => {
+  const EnvOverrides: Record<EnvironmentsKeys, string> = {
+    stg: 'https://start.stg.atlassian.com/gateway/api',
+    staging: 'https://start.stg.atlassian.com/gateway/api',
+    prd: 'https://product-fabric.atlassian.com/gateway/api',
+    prod: 'https://product-fabric.atlassian.com/gateway/api',
+    production: 'https://product-fabric.atlassian.com/gateway/api',
+    dev: '',
+    development: '',
+  };
+
   const [urls, setUrls] = useState<ExampleUrls>([]);
   const [entities, setEntities] = useState<string[]>([]);
   const [urlsByCategory, setUrlsByCategory] = useState<
@@ -57,7 +68,9 @@ export const SmartLinksShowcase = () => {
     return (
       <IntlProvider locale="en">
         <Provider
-          client={new Client(config.environment)}
+          client={
+            new Client(config.environment, EnvOverrides[config.environment])
+          }
           authFlow={config.authFlow}
         >
           <div style={{ padding: '60px', paddingBottom: '120px' }}>

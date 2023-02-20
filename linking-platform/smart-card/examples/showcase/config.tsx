@@ -11,7 +11,7 @@ export const getConfig = (): ExampleUIConfig => {
   return {
     appearance: 'inline',
     authFlow: 'oauth2',
-    environment: 'stg',
+    environment: 'prod',
     selectedEntities: [],
   };
 };

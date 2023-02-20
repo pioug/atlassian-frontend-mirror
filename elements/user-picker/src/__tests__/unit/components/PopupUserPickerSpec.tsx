@@ -3,6 +3,7 @@ jest.mock('../../../components/styles', () => ({
 }));
 
 import React from 'react';
+import { CSSObject } from '@emotion/react';
 import find from 'lodash/find';
 import { PopupSelect } from '@atlaskit/select';
 import { shallow } from 'enzyme';
@@ -50,12 +51,25 @@ describe('PopupUserPicker', () => {
       const component = shallowPopupUserPicker().dive();
       const select = component.find(PopupSelect);
       expect(select).toHaveLength(1);
-      expect(getPopupStyles).toHaveBeenCalledWith(300, false, false);
+      expect(getPopupStyles).toHaveBeenCalledWith(300, false, undefined);
     });
 
     it('should set width', () => {
       shallowPopupUserPicker({ width: 500 });
-      expect(getPopupStyles).toHaveBeenCalledWith(500, false, false);
+      expect(getPopupStyles).toHaveBeenCalledWith(500, false, undefined);
+    });
+
+    it('should override styles', () => {
+      const mockStyles = {
+        control: (style: CSSObject) => ({
+          ...style,
+          borderRadius: 8,
+        }),
+      };
+      const component = shallowPopupUserPicker({ styles: mockStyles }).dive();
+      const select = component.find(PopupSelect);
+      expect(select).toHaveLength(1);
+      expect(getPopupStyles).toHaveBeenCalledWith(300, false, mockStyles);
     });
 
     it('should add custom Control if popupTitle is passed in', () => {

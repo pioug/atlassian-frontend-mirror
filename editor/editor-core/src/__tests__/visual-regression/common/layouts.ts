@@ -70,8 +70,7 @@ describe('Layouts:', () => {
   });
 
   describe.each(layouts)(`%s`, (_name, adf) => {
-    // TODO: restore skipped test https://product-fabric.atlassian.net/browse/ED-16715
-    it.skip('should correctly render layout on laptop', async () => {
+    it('should correctly render layout on laptop', async () => {
       await initEditor(adf, largeViewport);
       await retryUntilStablePosition(
         page,

@@ -80,8 +80,12 @@ export function makeMonitor<DragType extends AllDragTypes>() {
     // event target in the same event (for us we have a single global event target)
     const active: MonitorArgs<DragType>[] = Array.from(dragging.active);
     for (const monitor of active) {
-      // @ts-expect-error: I cannot get this type working!
-      monitor[eventName]?.(payload);
+      // A monitor can be removed by another monitor during an event.
+      // We need to check that the monitor is still registered before calling it
+      if (dragging.active.has(monitor)) {
+        // @ts-expect-error: I cannot get this type working!
+        monitor[eventName]?.(payload);
+      }
     }
 
     if (eventName === 'onDrop') {

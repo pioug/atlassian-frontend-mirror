@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 10.0.3
+
+### Patch Changes
+
+- [`62e83249cb2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/62e83249cb2) - [ux] PopupUserPicker now supports user-defined styles prop for adding styling to PopupUserPicker.
+
 ## 10.0.2
 
 ### Patch Changes

@@ -12,6 +12,7 @@ export type Themes =
   | 'atlassian-dark'
   | 'atlassian-legacy-light'
   | 'atlassian-legacy-dark'
+  | 'atlassian-shape'
   | 'atlassian-spacing'
   | 'atlassian-typography';
 export type ThemeFileNames = Themes;
@@ -21,7 +22,7 @@ export type ThemeFileNames = Themes;
  * Some themes are entirely focused on Color, whilst others are purely focused on spacing.
  * In the future other types may be introduced such as typography.
  */
-export type ThemeKinds = 'color' | 'spacing' | 'typography';
+export type ThemeKinds = 'color' | 'spacing' | 'typography' | 'shape';
 
 /**
  * Theme modes: The general purpose of a theme.
@@ -46,6 +47,7 @@ export const themeIds = [
   'legacy-dark',
   'spacing',
   'typography',
+  'shape',
 ] as const;
 export type ThemeIds = typeof themeIds[number];
 
@@ -65,6 +67,7 @@ export type Palettes =
   | 'defaultPalette'
   | 'legacyPalette'
   | 'spacingScale'
+  | 'shapePalette'
   | 'typographyPalette';
 
 /**
@@ -81,10 +84,7 @@ interface ThemeConfig {
         mode: Exclude<ThemeColorModes, 'auto'>;
       }
     | {
-        type: 'spacing';
-      }
-    | {
-        type: 'typography';
+        type: Extract<ThemeKinds, 'spacing' | 'typography' | 'shape'>;
       }
   ) & {
     extends?: ExtensionThemeId;
@@ -142,6 +142,14 @@ const themeConfig: Record<Themes, ThemeConfig> = {
     palette: 'typographyPalette',
     attributes: {
       type: 'typography',
+    },
+  },
+  'atlassian-shape': {
+    id: 'shape',
+    displayName: 'Atlassian Shape',
+    palette: 'shapePalette',
+    attributes: {
+      type: 'shape',
     },
   },
 };

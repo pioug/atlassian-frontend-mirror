@@ -22,6 +22,14 @@ export type CSSToken = CSSTokenMap[keyof CSSTokenMap];
 
 // @public (undocumented)
 type CSSTokenMap = {
+  'border.radius.050': 'var(--ds-radius-050)';
+  'border.radius.100': 'var(--ds-radius-100)';
+  'border.radius.200': 'var(--ds-radius-200)';
+  'border.radius.300': 'var(--ds-radius-300)';
+  'border.radius.400': 'var(--ds-radius-400)';
+  'border.radius.round': 'var(--ds-radius-round)';
+  'border.width.050': 'var(--ds-width-050)';
+  'border.width.100': 'var(--ds-width-100)';
   'color.text': 'var(--ds-text)';
   'color.text.accent.red': 'var(--ds-text-accent-red)';
   'color.text.accent.red.bolder': 'var(--ds-text-accent-red-bolder)';
@@ -383,6 +391,7 @@ export function getTokenValue<T extends keyof Tokens_2>(
 type Palettes =
   | 'defaultPalette'
   | 'legacyPalette'
+  | 'shapePalette'
   | 'spacingScale'
   | 'typographyPalette';
 
@@ -410,10 +419,7 @@ interface ThemeConfig {
         mode: Exclude<ThemeColorModes, 'auto'>;
       }
     | {
-        type: 'spacing';
-      }
-    | {
-        type: 'typography';
+        type: Extract<ThemeKinds, 'shape' | 'spacing' | 'typography'>;
       }
   ) & {
     extends?: ExtensionThemeId;
@@ -440,7 +446,11 @@ const themeIds: readonly [
   'legacy-dark',
   'spacing',
   'typography',
+  'shape',
 ];
+
+// @public
+type ThemeKinds = 'color' | 'shape' | 'spacing' | 'typography';
 
 // @public
 export class ThemeMutationObserver {
@@ -464,6 +474,7 @@ export type Themes =
   | 'atlassian-legacy-dark'
   | 'atlassian-legacy-light'
   | 'atlassian-light'
+  | 'atlassian-shape'
   | 'atlassian-spacing'
   | 'atlassian-typography';
 
@@ -505,6 +516,14 @@ type Tokens = typeof tokens;
 
 // @public
 const tokens: {
+  readonly 'border.radius.050': '--ds-radius-050';
+  readonly 'border.radius.100': '--ds-radius-100';
+  readonly 'border.radius.200': '--ds-radius-200';
+  readonly 'border.radius.300': '--ds-radius-300';
+  readonly 'border.radius.400': '--ds-radius-400';
+  readonly 'border.radius.round': '--ds-radius-round';
+  readonly 'border.width.050': '--ds-width-050';
+  readonly 'border.width.100': '--ds-width-100';
   readonly 'color.text': '--ds-text';
   readonly 'color.text.accent.red': '--ds-text-accent-red';
   readonly 'color.text.accent.red.bolder': '--ds-text-accent-red-bolder';

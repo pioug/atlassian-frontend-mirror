@@ -29,6 +29,7 @@ export const figmaFormatter: Format['formatter'] = ({
           token.attributes.group === 'spacing' ||
           token.attributes.group === 'lineHeight' ||
           token.attributes.group === 'fontFamily' ||
+          token.attributes.group === 'shape' ||
           token.attributes.group === 'fontWeight') &&
         token.attributes.state !== 'deprecated' &&
         token.attributes.state !== 'deleted',

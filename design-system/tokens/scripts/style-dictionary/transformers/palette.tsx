@@ -5,6 +5,7 @@ import type {
   PaintToken,
   RawToken,
   ShadowToken,
+  ShapeToken,
   SpacingToken,
   TypographyToken,
 } from '../../../src/types';
@@ -25,6 +26,7 @@ const transform = (palette: Record<string, any>): Transform => {
         | PaintToken<any>
         | ShadowToken<any>
         | SpacingToken
+        | ShapeToken
         | TypographyToken<any>
         | OpacityToken
         | RawToken;
@@ -81,7 +83,15 @@ const transform = (palette: Record<string, any>): Transform => {
 
       if (originalToken.attributes.group === 'spacing') {
         const value = originalToken.value;
-        return palette.spacing.scale[value].value;
+        return palette.space[value].value;
+      }
+
+      if (originalToken.attributes.group === 'shape') {
+        const value = originalToken.value;
+        return (
+          palette.border.radius[value]?.value ||
+          palette.border.width[value]?.value
+        );
       }
 
       if (originalToken.attributes.group === 'fontSize') {

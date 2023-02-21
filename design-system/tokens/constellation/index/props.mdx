@@ -113,7 +113,7 @@ An observer which watches the `<html>` element for changes to the theme. In Reac
 import { ThemeMutationObserver } from '@atlaskit/tokens';
 
 const observer = new ThemeMutationObserver((newTheme) => {
-  console.log(newTheme);
+  console.log(newTheme); // { light: light, dark: dark, ... }
 });
 
 observer.observe();
@@ -232,7 +232,7 @@ class MyDocument extends Document<DocumentProps> {
     const initialProps = await Document.getInitialProps(ctx)
 
     // Pass user theme preferences to `@atlaskit/tokens` SSR utilities:
-    const themeAttrs = getThemeAttrs(themePreferences)
+    const themeAttrs = getThemeHtmlAttrs(themePreferences)
     const themeStyles = await getThemeStyles(themePreferences)
     const ssrAutoScript = getSSRAutoScript(themePreferences.colorMode);
 
@@ -291,6 +291,19 @@ If an error is encountered while loading a specific theme, the theme styles for 
 missing from the returned array, and will only be visible to the user on app hydration.
 
 <TokenPropsTable
+  propName={'themeState'}
+  description={'Used to specify which themes the site is currently using. Omitted properties will fall back to the default value.'}
+  typing={`{
+  colorMode?: ColorMode<"light", "dark", "auto">,
+  light?: ThemeIds,
+  dark?: ThemeIds,
+  spacing?: ThemeIds,
+  typography?: ThemeIds,
+}`}
+  defaultValue={'{ colorMode: "auto", dark: "dark", light: "light", spacing: "spacing", typography: "typography" }'}
+/>
+
+<TokenPropsTable
   propName={'return value'}
   description={'A promise that resolves to an array of objects with the theme styles.'}
   typing={`Promise<{
@@ -310,6 +323,19 @@ Use `setGlobalTheme` to set attributes correctly on the client side - this utili
 used when configuring SSR.
 
 <TokenPropsTable
+  propName={'themeState'}
+  description={'Used to specify which themes the site is currently using. Omitted properties will fall back to the default value.'}
+  typing={`{
+  colorMode?: ColorMode<"light", "dark", "auto">,
+  light?: ThemeIds,
+  dark?: ThemeIds,
+  spacing?: ThemeIds,
+  typography?: ThemeIds,
+}`}
+  defaultValue={'{ colorMode: "auto", dark: "dark", light: "light", spacing: "spacing", typography: "typography" }'}
+/>
+
+<TokenPropsTable
   propName={'return value'}
   description={'A record of HTML attributes to be applied to the document root.'}
   typing={`Record<string, string>`}
@@ -321,6 +347,19 @@ The `getSSRAutoScript` function enables SSR support for 'auto' theme switching. 
 `data-color-mode` attribute based on the current system theme, to avoid a flash of un-themed content on first paint.
 
 The SSR server should attach the return value of this function as the `innerhtml` of a `script` tag inside the `<head>` of the document element.
+
+<TokenPropsTable
+  propName={'themeState'}
+  description={'Used to specify which themes the site is currently using. Omitted properties will fall back to the default value.'}
+  typing={`{
+  colorMode?: ColorMode<"light", "dark", "auto">,
+  light?: ThemeIds,
+  dark?: ThemeIds,
+  spacing?: ThemeIds,
+  typography?: ThemeIds,
+}`}
+  defaultValue={'{ colorMode: "auto", dark: "dark", light: "light", spacing: "spacing", typography: "typography" }'}
+/>
 
 <TokenPropsTable
   propName={'return value'}

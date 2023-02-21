@@ -9,95 +9,92 @@ const baseSpacingTokens = {
   Space0: {
     value: '0',
     attributes: {
-      group: 'scale',
+      group: 'spacing',
     },
   },
   Space025: {
     value: '0.125rem',
     attributes: {
-      group: 'scale',
+      group: 'spacing',
     },
   },
   Space050: {
     value: '0.25rem',
     attributes: {
-      group: 'scale',
+      group: 'spacing',
     },
   },
   Space075: {
     value: '0.375rem',
     attributes: {
-      group: 'scale',
+      group: 'spacing',
     },
   },
   Space100: {
     value: '0.5rem',
     attributes: {
-      group: 'scale',
+      group: 'spacing',
     },
   },
   Space150: {
     value: '0.75rem',
     attributes: {
-      group: 'scale',
+      group: 'spacing',
     },
   },
   Space200: {
     value: '1rem',
     attributes: {
-      group: 'scale',
+      group: 'spacing',
     },
   },
   Space250: {
     value: '1.25rem',
     attributes: {
-      group: 'scale',
+      group: 'spacing',
     },
   },
   Space300: {
     value: '1.5rem',
     attributes: {
-      group: 'scale',
+      group: 'spacing',
     },
   },
   Space400: {
     value: '2rem',
     attributes: {
-      group: 'scale',
+      group: 'spacing',
     },
   },
   Space500: {
     value: '2.5rem',
     attributes: {
-      group: 'scale',
+      group: 'spacing',
     },
   },
   Space600: {
     value: '3rem',
     attributes: {
-      group: 'scale',
+      group: 'spacing',
     },
   },
   Space800: {
     value: '4rem',
     attributes: {
-      group: 'scale',
+      group: 'spacing',
     },
     pixelValue: '64px',
   },
   Space1000: {
     value: '5rem',
     attributes: {
-      group: 'scale',
+      group: 'spacing',
     },
     pixelValue: '80px',
   },
 } as const;
 
 const spacingPalette: SpacingScaleTokenSchema<SpacingPaletteToken> = {
-  spacing: {
-    scale: baseSpacingTokens,
-  },
   space: baseSpacingTokens,
 };
 

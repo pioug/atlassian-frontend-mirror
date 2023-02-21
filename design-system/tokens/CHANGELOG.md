@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 1.2.0
+
+### Minor Changes
+
+- [`64d30817221`](https://bitbucket.org/atlassian/atlassian-frontend/commits/64d30817221) - Introduce experimental 'shape' tokens for use with border properties.
+
 ## 1.1.0
 
 ### Minor Changes
@@ -73,7 +79,7 @@
 
   **ThemeState configuration object**
 
-  `setGlobalTheme`, `ThemeObserver` & `useThemeObserver` now input and output theme preferences as a `themeState` object rather than a space-separated string. This enables:
+  `setGlobalTheme`, `ThemeMutationObserver` & `useThemeObserver` now input and output theme preferences as a `themeState` object rather than a space-separated string. This enables:
 
   - Stronger type safety
 
@@ -188,7 +194,7 @@
 
   **Observer fixes:**
 
-  `useThemeObserver` & `ThemeObserver` now listen to changes on data-theme instead of data-color-mode.
+  `useThemeObserver` & `ThemeMutationObserver` now listen to changes on data-theme instead of data-color-mode.
 
   Previously changes between two themes that both have a light color mode would not trigger an event since `data-color-mode` would not be updated. With this fix, the event fires on every call to `setGlobalTheme` regardless if there is a change to the theme or not.
 

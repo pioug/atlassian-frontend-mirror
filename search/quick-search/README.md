@@ -1,0 +1,1 @@
+This package has been deprecated. Please use the `search-dialog` package instead.

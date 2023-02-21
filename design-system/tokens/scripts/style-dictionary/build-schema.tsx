@@ -3,6 +3,7 @@ import path from 'path';
 import { Config, Core } from 'style-dictionary';
 
 import defaultPalette from '../../src/palettes/palette';
+import shapePalette from '../../src/palettes/shape-palette';
 import spacingScale from '../../src/palettes/spacing-scale';
 import typographyPalette from '../../src/palettes/typography-palette';
 
@@ -23,6 +24,7 @@ const createGlobalConfig = (schemaInputDir: string): Config => ({
     path.join(THEME_INPUT_DIR, 'atlassian-light/**/*.tsx'),
     path.join(THEME_INPUT_DIR, 'atlassian-spacing/**/*.tsx'),
     path.join(THEME_INPUT_DIR, 'atlassian-typography/**/*.tsx'),
+    path.join(THEME_INPUT_DIR, 'atlassian-shape/**/*.tsx'),
     path.join(THEME_INPUT_DIR, 'default/**/*.tsx'),
   ],
   parsers: [
@@ -39,6 +41,7 @@ const createGlobalConfig = (schemaInputDir: string): Config => ({
       ...defaultPalette,
       ...spacingScale,
       ...typographyPalette,
+      ...shapePalette,
     }),
   },
   format: {

@@ -1,5 +1,11 @@
 # @atlaskit/editor-common
 
+## 72.3.0
+
+### Minor Changes
+
+- [`5d255c4c7c0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d255c4c7c0) - Updates to support the new @atlaskit/tokens theming API.
+
 ## 72.2.3
 
 ### Patch Changes

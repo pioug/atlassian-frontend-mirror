@@ -6,6 +6,7 @@ import { Config, Core } from 'style-dictionary';
 
 import legacyPalette from '../../src/palettes/legacy-palette';
 import defaultPalette from '../../src/palettes/palette';
+import shapePalette from '../../src/palettes/shape-palette';
 import spacingScale from '../../src/palettes/spacing-scale';
 import typographyPalette from '../../src/palettes/typography-palette';
 import themeConfig, { Palettes, ThemeFileNames } from '../../src/theme-config';
@@ -31,6 +32,8 @@ const getPalette = (paletteId: Palettes) => {
       return typographyPalette;
     case 'legacyPalette':
       return legacyPalette;
+    case 'shapePalette':
+      return shapePalette;
     case 'defaultPalette':
     default:
       return defaultPalette;

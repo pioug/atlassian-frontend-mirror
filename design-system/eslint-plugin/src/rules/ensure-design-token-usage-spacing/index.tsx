@@ -146,8 +146,6 @@ const rule: Rule.RuleModule = {
       recommended: true,
     },
     messages: {
-      noMarginProperties:
-        'The use of margin is considered a dangerous as it breaks the component model. Prefer the application of `gap` via CSS Flexbox or Grid to achieve the same result and control the layout from the parent.',
       noRawSpacingValues:
         'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<{{payload}}>>',
     },

@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 4.15.4
+
+### Patch Changes
+
+- [`ada57c0423d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ada57c0423d) - Add lint rule to prevent use of `margin` CSS property.
+
 ## 4.15.3
 
 ### Patch Changes

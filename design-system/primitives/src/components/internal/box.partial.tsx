@@ -227,17 +227,17 @@ const borderStyleMap = {
 
 type BorderWidth = keyof typeof borderWidthMap;
 const borderWidthMap = {
-  '0px': css({ borderWidth: '0px' }),
-  '1px': css({ borderWidth: '1px' }),
-  '2px': css({ borderWidth: '2px' }),
-  '3px': css({ borderWidth: '3px' }),
+  'size.050': css({ borderWidth: token('border.width.050', '1px') }),
+  'size.100': css({ borderWidth: token('border.width.100', '2px') }),
 };
 
 type BorderRadius = keyof typeof borderRadiusMap;
 const borderRadiusMap = {
-  normal: css({ borderRadius: '3px' }),
-  rounded: css({ borderRadius: '50%' }),
-  badge: css({ borderRadius: '8px' }),
+  'radius.100': css({ borderRadius: token('border.radius.200', '2px') }),
+  'radius.200': css({ borderRadius: token('border.radius.200', '3px') }),
+  'radius.round': css({ borderRadius: token('border.radius.round', '50%') }),
+  'radius.300': css({ borderRadius: token('border.radius.300', '8px') }),
+  'radius.400': css({ borderRadius: token('border.radius.400', '16px') }),
 };
 
 /**

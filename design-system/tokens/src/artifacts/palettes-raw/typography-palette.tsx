@@ -1,20 +1,20 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::04c90c279da3841c8c8952b13bddb31b>>
+ * @codegen <<SignedSource::15f0ab59b776fd0726847c173399dd26>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
   {
     "value": "\"SFMono-Medium\", \"SF Mono\", \"Segoe UI Mono\", \"Roboto Mono\", \"Ubuntu Mono\", Menlo, Consolas, Courier, monospace",
     "attributes": {
-      "group": "scale"
+      "group": "typography"
     },
     "filePath": "src/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": "\"SFMono-Medium\", \"SF Mono\", \"Segoe UI Mono\", \"Roboto Mono\", \"Ubuntu Mono\", Menlo, Consolas, Courier, monospace",
       "attributes": {
-        "group": "scale"
+        "group": "typography"
       }
     },
     "name": "typography.fontFamily.FontFamilyMonospace",
@@ -27,14 +27,14 @@ const tokens = [
   {
     "value": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Oxygen\", \"Ubuntu\", \"Fira Sans\", \"Droid Sans\", \"Helvetica Neue\", sans-serif",
     "attributes": {
-      "group": "scale"
+      "group": "typography"
     },
     "filePath": "src/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Oxygen\", \"Ubuntu\", \"Fira Sans\", \"Droid Sans\", \"Helvetica Neue\", sans-serif",
       "attributes": {
-        "group": "scale"
+        "group": "typography"
       }
     },
     "name": "typography.fontFamily.FontFamilySans",
@@ -47,14 +47,14 @@ const tokens = [
   {
     "value": "11px",
     "attributes": {
-      "group": "scale"
+      "group": "typography"
     },
     "filePath": "src/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": "11px",
       "attributes": {
-        "group": "scale"
+        "group": "typography"
       }
     },
     "name": "typography.fontSize.FontSize050",
@@ -67,14 +67,14 @@ const tokens = [
   {
     "value": "12px",
     "attributes": {
-      "group": "scale"
+      "group": "typography"
     },
     "filePath": "src/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": "12px",
       "attributes": {
-        "group": "scale"
+        "group": "typography"
       }
     },
     "name": "typography.fontSize.FontSize075",
@@ -87,14 +87,14 @@ const tokens = [
   {
     "value": "14px",
     "attributes": {
-      "group": "scale"
+      "group": "typography"
     },
     "filePath": "src/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": "14px",
       "attributes": {
-        "group": "scale"
+        "group": "typography"
       }
     },
     "name": "typography.fontSize.FontSize100",
@@ -107,14 +107,14 @@ const tokens = [
   {
     "value": "16px",
     "attributes": {
-      "group": "scale"
+      "group": "typography"
     },
     "filePath": "src/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": "16px",
       "attributes": {
-        "group": "scale"
+        "group": "typography"
       }
     },
     "name": "typography.fontSize.FontSize200",
@@ -127,14 +127,14 @@ const tokens = [
   {
     "value": "20px",
     "attributes": {
-      "group": "scale"
+      "group": "typography"
     },
     "filePath": "src/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": "20px",
       "attributes": {
-        "group": "scale"
+        "group": "typography"
       }
     },
     "name": "typography.fontSize.FontSize300",
@@ -147,14 +147,14 @@ const tokens = [
   {
     "value": "24px",
     "attributes": {
-      "group": "scale"
+      "group": "typography"
     },
     "filePath": "src/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": "24px",
       "attributes": {
-        "group": "scale"
+        "group": "typography"
       }
     },
     "name": "typography.fontSize.FontSize400",
@@ -167,14 +167,14 @@ const tokens = [
   {
     "value": "29px",
     "attributes": {
-      "group": "scale"
+      "group": "typography"
     },
     "filePath": "src/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": "29px",
       "attributes": {
-        "group": "scale"
+        "group": "typography"
       }
     },
     "name": "typography.fontSize.FontSize500",
@@ -187,14 +187,14 @@ const tokens = [
   {
     "value": "35px",
     "attributes": {
-      "group": "scale"
+      "group": "typography"
     },
     "filePath": "src/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": "35px",
       "attributes": {
-        "group": "scale"
+        "group": "typography"
       }
     },
     "name": "typography.fontSize.FontSize600",
@@ -207,14 +207,14 @@ const tokens = [
   {
     "value": "700",
     "attributes": {
-      "group": "scale"
+      "group": "typography"
     },
     "filePath": "src/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": "700",
       "attributes": {
-        "group": "scale"
+        "group": "typography"
       }
     },
     "name": "typography.fontWeight.FontWeightBold",
@@ -227,14 +227,14 @@ const tokens = [
   {
     "value": "500",
     "attributes": {
-      "group": "scale"
+      "group": "typography"
     },
     "filePath": "src/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": "500",
       "attributes": {
-        "group": "scale"
+        "group": "typography"
       }
     },
     "name": "typography.fontWeight.FontWeightMedium",
@@ -247,14 +247,14 @@ const tokens = [
   {
     "value": "400",
     "attributes": {
-      "group": "scale"
+      "group": "typography"
     },
     "filePath": "src/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": "400",
       "attributes": {
-        "group": "scale"
+        "group": "typography"
       }
     },
     "name": "typography.fontWeight.FontWeightRegular",
@@ -267,14 +267,14 @@ const tokens = [
   {
     "value": "600",
     "attributes": {
-      "group": "scale"
+      "group": "typography"
     },
     "filePath": "src/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": "600",
       "attributes": {
-        "group": "scale"
+        "group": "typography"
       }
     },
     "name": "typography.fontWeight.FontWeightSemiBold",
@@ -287,14 +287,14 @@ const tokens = [
   {
     "value": "16px",
     "attributes": {
-      "group": "scale"
+      "group": "typography"
     },
     "filePath": "src/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": "16px",
       "attributes": {
-        "group": "scale"
+        "group": "typography"
       }
     },
     "name": "typography.lineHeight.LineHeight100",
@@ -307,14 +307,14 @@ const tokens = [
   {
     "value": "20px",
     "attributes": {
-      "group": "scale"
+      "group": "typography"
     },
     "filePath": "src/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": "20px",
       "attributes": {
-        "group": "scale"
+        "group": "typography"
       }
     },
     "name": "typography.lineHeight.LineHeight200",
@@ -327,14 +327,14 @@ const tokens = [
   {
     "value": "24px",
     "attributes": {
-      "group": "scale"
+      "group": "typography"
     },
     "filePath": "src/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": "24px",
       "attributes": {
-        "group": "scale"
+        "group": "typography"
       }
     },
     "name": "typography.lineHeight.LineHeight300",
@@ -347,14 +347,14 @@ const tokens = [
   {
     "value": "28px",
     "attributes": {
-      "group": "scale"
+      "group": "typography"
     },
     "filePath": "src/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": "28px",
       "attributes": {
-        "group": "scale"
+        "group": "typography"
       }
     },
     "name": "typography.lineHeight.LineHeight400",
@@ -367,14 +367,14 @@ const tokens = [
   {
     "value": "32px",
     "attributes": {
-      "group": "scale"
+      "group": "typography"
     },
     "filePath": "src/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": "32px",
       "attributes": {
-        "group": "scale"
+        "group": "typography"
       }
     },
     "name": "typography.lineHeight.LineHeight500",
@@ -387,14 +387,14 @@ const tokens = [
   {
     "value": "40px",
     "attributes": {
-      "group": "scale"
+      "group": "typography"
     },
     "filePath": "src/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": "40px",
       "attributes": {
-        "group": "scale"
+        "group": "typography"
       }
     },
     "name": "typography.lineHeight.LineHeight600",

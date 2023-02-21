@@ -1,0 +1,78 @@
+{
+  "name": "Shape",
+  "tokens": {
+    "Shape/border.radius.050": {
+      "attributes": {
+        "group": "shape",
+        "state": "experimental",
+        "introduced": "1.1.0",
+        "description": "Experimental, description needs to be amended"
+      },
+      "value": "0.125rem"
+    },
+    "Shape/border.radius.100": {
+      "attributes": {
+        "group": "shape",
+        "state": "experimental",
+        "introduced": "1.1.0",
+        "description": "Experimental, description needs to be amended"
+      },
+      "value": "0.25rem"
+    },
+    "Shape/border.radius.200": {
+      "attributes": {
+        "group": "shape",
+        "state": "experimental",
+        "introduced": "1.1.0",
+        "description": "Experimental, description needs to be amended"
+      },
+      "value": "0.5rem"
+    },
+    "Shape/border.radius.300": {
+      "attributes": {
+        "group": "shape",
+        "state": "experimental",
+        "introduced": "1.1.0",
+        "description": "Experimental, description needs to be amended"
+      },
+      "value": "0.75rem"
+    },
+    "Shape/border.radius.400": {
+      "attributes": {
+        "group": "shape",
+        "state": "experimental",
+        "introduced": "1.1.0",
+        "description": "Experimental, description needs to be amended"
+      },
+      "value": "1rem"
+    },
+    "Shape/border.radius.round": {
+      "attributes": {
+        "group": "shape",
+        "state": "experimental",
+        "introduced": "1.1.0",
+        "description": "Experimental, description needs to be amended"
+      },
+      "value": "50%"
+    },
+    "Shape/border.width.050": {
+      "attributes": {
+        "group": "shape",
+        "state": "experimental",
+        "introduced": "1.1.0",
+        "description": "Experimental, description needs to be amended"
+      },
+      "value": "0.0625rem"
+    },
+    "Shape/border.width.100": {
+      "attributes": {
+        "group": "shape",
+        "state": "experimental",
+        "introduced": "1.1.0",
+        "description": "Experimental, description needs to be amended"
+      },
+      "value": "0.125rem"
+    }
+  },
+  "renameMap": {}
+}

@@ -27,4 +27,19 @@ describe('Spacing tokens', () => {
       expect(image).toMatchProdImageSnapshot();
     },
   );
+
+  it('should reflect correct border radius tokens', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'tokens',
+      'shape-vr',
+      global.__BASEURL__,
+    );
+
+    const { page } = global;
+    await loadPage(page, url);
+
+    const image = await takeElementScreenShot(page, '[data-testid="shape"]');
+    expect(image).toMatchProdImageSnapshot();
+  });
 });

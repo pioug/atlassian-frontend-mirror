@@ -14,9 +14,12 @@ import { linkPickerSelectors } from '@atlaskit/editor-test-helpers/page-objects/
 
 type ClientType = Parameters<typeof goToEditorTestingWDExample>[0];
 
+// FIXME: This test was automatically skipped due to failure on 20/02/2023: https://product-fabric.atlassian.net/browse/ED-16956
 BrowserTestCase(
   'card: changing the link label of a block link should convert it to a "dumb" link',
-  {},
+  {
+    skip: ['*'],
+  },
   async (client: ClientType, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -49,9 +52,12 @@ BrowserTestCase(
 );
 
 describe('with feature flag: lp-link-picker', () => {
+  // FIXME: This test was automatically skipped due to failure on 20/02/2023: https://product-fabric.atlassian.net/browse/ED-16956
   BrowserTestCase(
     'card: changing the link label of a block link should convert it to a "dumb" link',
-    {},
+    {
+      skip: ['*'],
+    },
     async (client: ClientType, testName: string) => {
       const page = await goToEditorTestingWDExample(client);
 

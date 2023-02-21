@@ -1,5 +1,12 @@
 # @atlaskit/primitives
 
+## 0.1.1
+
+### Patch Changes
+
+- [`fe50d8cb56c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe50d8cb56c) - Internal change to add shape tokens to primitives.
+- Updated dependencies
+
 ## 0.1.0
 
 ### Minor Changes

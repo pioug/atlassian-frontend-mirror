@@ -1,4 +1,5 @@
 import type { InternalTokenIds } from './artifacts/types-internal';
+import type { ShapePaletteToken } from './palettes/shape-palette';
 import type { SpacingPaletteToken } from './palettes/spacing-scale';
 
 export type Groups =
@@ -8,7 +9,8 @@ export type Groups =
   | 'palette'
   | 'opacity'
   | 'spacing'
-  | 'scale'
+  | 'shape'
+  | 'typography'
   | 'fontSize'
   | 'fontWeight'
   | 'fontFamily'
@@ -165,6 +167,7 @@ export type ShadowToken<BaseToken> = DesignToken<
 
 export type OpacityToken = DesignToken<string, 'opacity'>;
 export type SpacingToken = DesignToken<SpacingPaletteToken, 'spacing'>;
+export type ShapeToken = DesignToken<ShapePaletteToken, 'shape'>;
 export type FontSizeToken<BaseToken> = DesignToken<BaseToken, 'fontSize'>;
 export type FontWeightToken<BaseToken> = DesignToken<BaseToken, 'fontWeight'>;
 export type FontFamilyToken<BaseToken> = DesignToken<BaseToken, 'fontFamily'>;
@@ -176,12 +179,6 @@ export type TypographyToken<BaseToken> = DesignToken<
 >;
 
 export type RawToken = DesignToken<string, 'raw'>;
-
-export interface ScaleToken extends BaseToken<string, 'scale'> {
-  attributes: {
-    group: 'scale';
-  };
-}
 
 export interface PaletteColorTokenSchema<PaletteValues extends string> {
   value: {
@@ -195,27 +192,37 @@ export interface PaletteColorTokenSchema<PaletteValues extends string> {
   };
 }
 
+type SpacingSchemaValue = BaseToken<string, 'spacing'>;
+type TypographySchemaValue = BaseToken<string, 'typography'>;
+type ShapeSchemaValue = BaseToken<string, 'shape'>;
 export interface SpacingScaleTokenSchema<ScaleValues extends string> {
-  space: Record<ScaleValues, ScaleToken>;
-  spacing: {
-    scale: Record<ScaleValues, ScaleToken>;
+  space: Record<ScaleValues, SpacingSchemaValue>;
+}
+
+export interface ShapeScaleTokenSchema<
+  RadiusScaleValues extends string,
+  SizeScaleValues extends string,
+> {
+  border: {
+    radius: Record<RadiusScaleValues, ShapeSchemaValue>;
+    width: Record<SizeScaleValues, ShapeSchemaValue>;
   };
 }
 
 export interface FontSizeScaleTokenSchema<ScaleValues extends string> {
-  fontSize: Record<ScaleValues, ScaleToken>;
+  fontSize: Record<ScaleValues, TypographySchemaValue>;
 }
 
 export interface FontWeightScaleTokenSchema<ScaleValues extends string> {
-  fontWeight: Record<ScaleValues, ScaleToken>;
+  fontWeight: Record<ScaleValues, TypographySchemaValue>;
 }
 
 export interface FontFamilyPaletteTokenSchema<ScaleValues extends string> {
-  fontFamily: Record<ScaleValues, ScaleToken>;
+  fontFamily: Record<ScaleValues, TypographySchemaValue>;
 }
 
 export interface LineHeightScaleTokenSchema<ScaleValues extends string> {
-  lineHeight: Record<ScaleValues, ScaleToken>;
+  lineHeight: Record<ScaleValues, TypographySchemaValue>;
 }
 
 export interface BackgroundColorTokenSchema<BaseToken> {
@@ -861,6 +868,23 @@ export interface SpacingTokenSchema {
     '600': SpacingToken;
     '800': SpacingToken;
     '1000': SpacingToken;
+  };
+}
+
+export interface ShapeTokenSchema {
+  border: {
+    width: {
+      '050': ShapeToken;
+      '100': ShapeToken;
+    };
+    radius: {
+      '050': ShapeToken;
+      '100': ShapeToken;
+      '200': ShapeToken;
+      '300': ShapeToken;
+      '400': ShapeToken;
+      round: ShapeToken;
+    };
   };
 }
 

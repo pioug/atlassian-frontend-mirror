@@ -78,7 +78,7 @@ const ColorPalette = (props: Props & WrappedComponentProps) => {
     useSomewhatSemanticTextColorNames = false,
   } = props;
 
-  const tokenTheme = useThemeObserver();
+  const { colorMode: tokenTheme } = useThemeObserver();
 
   const colorsPerRow = React.useMemo(() => {
     return palette.reduce(

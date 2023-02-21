@@ -47,37 +47,37 @@ const lineHeightScale: LineHeightScaleTokenSchema<LineHeightScaleValues> = {
     LineHeight100: {
       value: '16px',
       attributes: {
-        group: 'scale',
+        group: 'typography',
       },
     },
     LineHeight200: {
       value: '20px',
       attributes: {
-        group: 'scale',
+        group: 'typography',
       },
     },
     LineHeight300: {
       value: '24px',
       attributes: {
-        group: 'scale',
+        group: 'typography',
       },
     },
     LineHeight400: {
       value: '28px',
       attributes: {
-        group: 'scale',
+        group: 'typography',
       },
     },
     LineHeight500: {
       value: '32px',
       attributes: {
-        group: 'scale',
+        group: 'typography',
       },
     },
     LineHeight600: {
       value: '40px',
       attributes: {
-        group: 'scale',
+        group: 'typography',
       },
     },
   },
@@ -91,25 +91,25 @@ const fontWeightScale: FontWeightScaleTokenSchema<FontWeightScaleValues> = {
     FontWeightRegular: {
       value: '400',
       attributes: {
-        group: 'scale',
+        group: 'typography',
       },
     },
     FontWeightMedium: {
       value: '500',
       attributes: {
-        group: 'scale',
+        group: 'typography',
       },
     },
     FontWeightSemiBold: {
       value: '600',
       attributes: {
-        group: 'scale',
+        group: 'typography',
       },
     },
     FontWeightBold: {
       value: '700',
       attributes: {
-        group: 'scale',
+        group: 'typography',
       },
     },
   },
@@ -124,13 +124,13 @@ const fontFamilyPalette: FontFamilyPaletteTokenSchema<FontFamilyPaletteValues> =
       FontFamilySans: {
         value: `-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif`,
         attributes: {
-          group: 'scale',
+          group: 'typography',
         },
       },
       FontFamilyMonospace: {
         value: `"SFMono-Medium", "SF Mono", "Segoe UI Mono", "Roboto Mono", "Ubuntu Mono", Menlo, Consolas, Courier, monospace`,
         attributes: {
-          group: 'scale',
+          group: 'typography',
         },
       },
     },
@@ -144,49 +144,49 @@ const fontSizeScale: FontSizeScaleTokenSchema<FontSizeScaleValues> = {
     FontSize050: {
       value: '11px',
       attributes: {
-        group: 'scale',
+        group: 'typography',
       },
     },
     FontSize075: {
       value: '12px',
       attributes: {
-        group: 'scale',
+        group: 'typography',
       },
     },
     FontSize100: {
       value: '14px',
       attributes: {
-        group: 'scale',
+        group: 'typography',
       },
     },
     FontSize200: {
       value: '16px',
       attributes: {
-        group: 'scale',
+        group: 'typography',
       },
     },
     FontSize300: {
       value: '20px',
       attributes: {
-        group: 'scale',
+        group: 'typography',
       },
     },
     FontSize400: {
       value: '24px',
       attributes: {
-        group: 'scale',
+        group: 'typography',
       },
     },
     FontSize500: {
       value: '29px',
       attributes: {
-        group: 'scale',
+        group: 'typography',
       },
     },
     FontSize600: {
       value: '35px',
       attributes: {
-        group: 'scale',
+        group: 'typography',
       },
     },
   },

@@ -35,7 +35,7 @@ const dynamicSizedVerticalPaddingStyles = css(
 );
 
 const JSMGrid = () => {
-  const theme = useThemeObserver();
+  const { colorMode: theme } = useThemeObserver();
   return (
     <div>
       <Box

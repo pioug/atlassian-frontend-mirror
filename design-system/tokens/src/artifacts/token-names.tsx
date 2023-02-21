@@ -1,9 +1,17 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7d8f37c15df01017e141b2e709521993>>
+ * @codegen <<SignedSource::0d28771b28a7bf28109534471c1383d4>>
  * @codegenCommand yarn build tokens
  */
 const tokens = {
+  'border.radius.050': '--ds-radius-050',
+  'border.radius.100': '--ds-radius-100',
+  'border.radius.200': '--ds-radius-200',
+  'border.radius.300': '--ds-radius-300',
+  'border.radius.400': '--ds-radius-400',
+  'border.radius.round': '--ds-radius-round',
+  'border.width.050': '--ds-width-050',
+  'border.width.100': '--ds-width-100',
   'color.text': '--ds-text',
   'color.text.accent.red': '--ds-text-accent-red',
   'color.text.accent.red.bolder': '--ds-text-accent-red-bolder',
@@ -364,6 +372,14 @@ const tokens = {
 } as const;
 
 export type CSSTokenMap = {
+  'border.radius.050': 'var(--ds-radius-050)';
+  'border.radius.100': 'var(--ds-radius-100)';
+  'border.radius.200': 'var(--ds-radius-200)';
+  'border.radius.300': 'var(--ds-radius-300)';
+  'border.radius.400': 'var(--ds-radius-400)';
+  'border.radius.round': 'var(--ds-radius-round)';
+  'border.width.050': 'var(--ds-width-050)';
+  'border.width.100': 'var(--ds-width-100)';
   'color.text': 'var(--ds-text)';
   'color.text.accent.red': 'var(--ds-text-accent-red)';
   'color.text.accent.red.bolder': 'var(--ds-text-accent-red-bolder)';

@@ -1,5 +1,13 @@
 # @atlaskit/renderer
 
+## 106.0.1
+
+### Patch Changes
+
+- [`1bd38dae4ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1bd38dae4ab) - [ux] add back table column max scaling percent logic
+- [`336f7dab111`](https://bitbucket.org/atlassian/atlassian-frontend/commits/336f7dab111) - ED-16200 Updating CRASHED event action to map to new event "unhandledErrorCaughtV2 and moving its errorStack attribute to nonPrivacySafeAttributes"
+- Updated dependencies
+
 ## 106.0.0
 
 ### Patch Changes

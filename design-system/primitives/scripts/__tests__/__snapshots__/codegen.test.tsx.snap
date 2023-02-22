@@ -2,6 +2,129 @@
 
 exports[`@atlaskit/primitives bg styles are generated correctly 1`] = `
 "const backgroundColorMap = {
+  'accent.red.subtlest': css({
+    backgroundColor: token('color.background.accent.red.subtlest', '#FF8F73'),
+  }),
+  'accent.red.subtler': css({
+    backgroundColor: token('color.background.accent.red.subtler', '#FF7452'),
+  }),
+  'accent.red.subtle': css({
+    backgroundColor: token('color.background.accent.red.subtle', '#DE350B'),
+  }),
+  'accent.red.bolder': css({
+    backgroundColor: token('color.background.accent.red.bolder', '#DE350B'),
+  }),
+  'accent.orange.subtlest': css({
+    backgroundColor: token(
+      'color.background.accent.orange.subtlest',
+      '#F18D13',
+    ),
+  }),
+  'accent.orange.subtler': css({
+    backgroundColor: token('color.background.accent.orange.subtler', '#B65C02'),
+  }),
+  'accent.orange.subtle': css({
+    backgroundColor: token('color.background.accent.orange.subtle', '#5F3811'),
+  }),
+  'accent.orange.bolder': css({
+    backgroundColor: token('color.background.accent.orange.bolder', '#43290F'),
+  }),
+  'accent.yellow.subtlest': css({
+    backgroundColor: token(
+      'color.background.accent.yellow.subtlest',
+      '#FFE380',
+    ),
+  }),
+  'accent.yellow.subtler': css({
+    backgroundColor: token('color.background.accent.yellow.subtler', '#FFC400'),
+  }),
+  'accent.yellow.subtle': css({
+    backgroundColor: token('color.background.accent.yellow.subtle', '#FF991F'),
+  }),
+  'accent.yellow.bolder': css({
+    backgroundColor: token('color.background.accent.yellow.bolder', '#FF991F'),
+  }),
+  'accent.green.subtlest': css({
+    backgroundColor: token('color.background.accent.green.subtlest', '#79F2C0'),
+  }),
+  'accent.green.subtler': css({
+    backgroundColor: token('color.background.accent.green.subtler', '#57D9A3'),
+  }),
+  'accent.green.subtle': css({
+    backgroundColor: token('color.background.accent.green.subtle', '#00875A'),
+  }),
+  'accent.green.bolder': css({
+    backgroundColor: token('color.background.accent.green.bolder', '#00875A'),
+  }),
+  'accent.teal.subtlest': css({
+    backgroundColor: token('color.background.accent.teal.subtlest', '#79E2F2'),
+  }),
+  'accent.teal.subtler': css({
+    backgroundColor: token('color.background.accent.teal.subtler', '#00C7E6'),
+  }),
+  'accent.teal.subtle': css({
+    backgroundColor: token('color.background.accent.teal.subtle', '#00A3BF'),
+  }),
+  'accent.teal.bolder': css({
+    backgroundColor: token('color.background.accent.teal.bolder', '#00A3BF'),
+  }),
+  'accent.blue.subtlest': css({
+    backgroundColor: token('color.background.accent.blue.subtlest', '#4C9AFF'),
+  }),
+  'accent.blue.subtler': css({
+    backgroundColor: token('color.background.accent.blue.subtler', '#2684FF'),
+  }),
+  'accent.blue.subtle': css({
+    backgroundColor: token('color.background.accent.blue.subtle', '#0052CC'),
+  }),
+  'accent.blue.bolder': css({
+    backgroundColor: token('color.background.accent.blue.bolder', '#0052CC'),
+  }),
+  'accent.purple.subtlest': css({
+    backgroundColor: token(
+      'color.background.accent.purple.subtlest',
+      '#998DD9',
+    ),
+  }),
+  'accent.purple.subtler': css({
+    backgroundColor: token('color.background.accent.purple.subtler', '#8777D9'),
+  }),
+  'accent.purple.subtle': css({
+    backgroundColor: token('color.background.accent.purple.subtle', '#5243AA'),
+  }),
+  'accent.purple.bolder': css({
+    backgroundColor: token('color.background.accent.purple.bolder', '#5243AA'),
+  }),
+  'accent.magenta.subtlest': css({
+    backgroundColor: token(
+      'color.background.accent.magenta.subtlest',
+      '#E774BB',
+    ),
+  }),
+  'accent.magenta.subtler': css({
+    backgroundColor: token(
+      'color.background.accent.magenta.subtler',
+      '#E774BB',
+    ),
+  }),
+  'accent.magenta.subtle': css({
+    backgroundColor: token('color.background.accent.magenta.subtle', '#E774BB'),
+  }),
+  'accent.magenta.bolder': css({
+    backgroundColor: token('color.background.accent.magenta.bolder', '#E774BB'),
+  }),
+  'accent.gray.subtlest': css({
+    backgroundColor: token('color.background.accent.gray.subtlest', '#6B778C'),
+  }),
+  'accent.gray.subtler': css({
+    backgroundColor: token('color.background.accent.gray.subtler', '#5E6C84'),
+  }),
+  'accent.gray.subtle': css({
+    backgroundColor: token('color.background.accent.gray.subtle', '#42526E'),
+  }),
+  'accent.gray.bolder': css({
+    backgroundColor: token('color.background.accent.gray.bolder', '#505F79'),
+  }),
   disabled: css({
     backgroundColor: token('color.background.disabled', '#091e4289'),
   }),
@@ -91,6 +214,33 @@ exports[`@atlaskit/primitives border styles are generated correctly 1`] = `
   'color.border': css({
     borderColor: token('color.border', '#091e4221'),
   }),
+  'accent.red': css({
+    borderColor: token('color.border.accent.red', '#FF5630'),
+  }),
+  'accent.orange': css({
+    borderColor: token('color.border.accent.orange', '#D94008'),
+  }),
+  'accent.yellow': css({
+    borderColor: token('color.border.accent.yellow', '#FFAB00'),
+  }),
+  'accent.green': css({
+    borderColor: token('color.border.accent.green', '#36B37E'),
+  }),
+  'accent.teal': css({
+    borderColor: token('color.border.accent.teal', '#00B8D9'),
+  }),
+  'accent.blue': css({
+    borderColor: token('color.border.accent.blue', '#0065FF'),
+  }),
+  'accent.purple': css({
+    borderColor: token('color.border.accent.purple', '#6554C0'),
+  }),
+  'accent.magenta': css({
+    borderColor: token('color.border.accent.magenta', '#CD519D'),
+  }),
+  'accent.gray': css({
+    borderColor: token('color.border.accent.gray', '#5E6C84'),
+  }),
   disabled: css({
     borderColor: token('color.border.disabled', '#FAFBFC'),
   }),
@@ -137,6 +287,60 @@ exports[`@atlaskit/primitives text styles are generated correctly 1`] = `
 "const textColorMap = {
   'color.text': css({
     color: token('color.text', '#172B4D'),
+  }),
+  'accent.red': css({
+    color: token('color.text.accent.red', '#DE350B'),
+  }),
+  'accent.red.bolder': css({
+    color: token('color.text.accent.red.bolder', '#BF2600'),
+  }),
+  'accent.orange': css({
+    color: token('color.text.accent.orange', '#F18D13'),
+  }),
+  'accent.orange.bolder': css({
+    color: token('color.text.accent.orange.bolder', '#B65C02'),
+  }),
+  'accent.yellow': css({
+    color: token('color.text.accent.yellow', '#FF991F'),
+  }),
+  'accent.yellow.bolder': css({
+    color: token('color.text.accent.yellow.bolder', '#FF8B00'),
+  }),
+  'accent.green': css({
+    color: token('color.text.accent.green', '#00875A'),
+  }),
+  'accent.green.bolder': css({
+    color: token('color.text.accent.green.bolder', '#006644'),
+  }),
+  'accent.teal': css({
+    color: token('color.text.accent.teal', '#00A3BF'),
+  }),
+  'accent.teal.bolder': css({
+    color: token('color.text.accent.teal.bolder', '#008DA6'),
+  }),
+  'accent.blue': css({
+    color: token('color.text.accent.blue', '#0052CC'),
+  }),
+  'accent.blue.bolder': css({
+    color: token('color.text.accent.blue.bolder', '#0747A6'),
+  }),
+  'accent.purple': css({
+    color: token('color.text.accent.purple', '#5243AA'),
+  }),
+  'accent.purple.bolder': css({
+    color: token('color.text.accent.purple.bolder', '#403294'),
+  }),
+  'accent.magenta': css({
+    color: token('color.text.accent.magenta', '#E774BB'),
+  }),
+  'accent.magenta.bolder': css({
+    color: token('color.text.accent.magenta.bolder', '#DA62AC'),
+  }),
+  'accent.gray': css({
+    color: token('color.text.accent.gray', '#505F79'),
+  }),
+  'accent.gray.bolder': css({
+    color: token('color.text.accent.gray.bolder', '#172B4D'),
   }),
   disabled: css({
     color: token('color.text.disabled', '#A5ADBA'),

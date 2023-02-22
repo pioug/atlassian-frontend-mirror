@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/give-kudos",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Give Kudos experience ",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -31,7 +31,7 @@
     "typecheck": "NODE_OPTIONS=--max-old-space-size=4096 tsc --noEmit --project ./tsconfig.json"
   },
   "dependencies": {
-    "@atlaskit/analytics-next": "^8.3.1",
+    "@atlaskit/analytics-next": "^9.0.0",
     "@atlaskit/button": "^16.5.0",
     "@atlaskit/drawer": "^7.4.0",
     "@atlaskit/icon": "^21.11.0",

@@ -9,7 +9,6 @@ import tokens from '@atlaskit/tokens/src/artifacts/tokens-raw/atlassian-light';
 import {
   capitalize,
   compose,
-  isAccent,
   isHovered,
   isPressed,
   not,
@@ -21,6 +20,7 @@ import {
 type Token = {
   token: string;
   fallback: string | ShadowDefintion;
+  isDeprecated: boolean;
 };
 
 // NB: Fallback CSS variables can be deleted when tokens are no longer behind a feature flag
@@ -60,17 +60,17 @@ const tokenStyles = {
 const bothTokens = tokens.map((t, i) => [t, legacyTokens[i]]);
 
 const activeTokens = bothTokens
-  .filter(
-    ([t]) =>
-      t.attributes.state !== 'deleted' && t.attributes.state !== 'deprecated',
-  )
+  .filter(([t]) => t.attributes.state !== 'deleted')
+  .map(t => {
+    return t;
+  })
   .map(
     ([t, legacy]): Token => ({
       token: t.name,
       fallback: legacy.value as string | ShadowDefintion,
+      isDeprecated: t.attributes.state === 'deprecated',
     }),
   )
-  .filter(compose(pick('token'), not(isAccent)))
   .filter(compose(pick('token'), not(isPressed)))
   .filter(compose(pick('token'), not(isHovered)));
 
@@ -95,7 +95,10 @@ const ${objectName}Map = {
     .map(t => {
       // handle the default case eg color.border or color.text
       const propName = t.token.replace(prefix, '');
-      return `'${propName}': ${tokenToStyle(cssProperty, t.token, t.fallback)}`;
+      return `
+        ${t.isDeprecated ? '// @deprecated' : ''}
+        '${propName}': ${tokenToStyle(cssProperty, t.token, t.fallback)}
+      `.trim();
     })
     .join(',\n\t')}
 } as const;`,

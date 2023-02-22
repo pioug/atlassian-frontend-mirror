@@ -35,6 +35,8 @@ import createPluginsList, {
   getScrollGutterOptions,
 } from '../../create-plugins-list';
 
+import { EditorProps } from '../../../types';
+
 describe('createPluginsList', () => {
   afterEach(() => {
     jest.resetAllMocks();
@@ -54,6 +56,38 @@ describe('createPluginsList', () => {
     const tableOptions = { allowTables: true };
     createPluginsList(tableOptions);
     expect(tablesPlugin).toHaveBeenCalledTimes(1);
+    expect(tablesPlugin).toHaveBeenCalledWith(
+      expect.objectContaining({
+        fullWidthEnabled: false,
+        wasFullWidthEnabled: undefined,
+      }),
+    );
+  });
+
+  it('should add tablePlugin if allowTables is true where previous appearance was full-width', () => {
+    const tableOptions = { allowTables: true };
+    const prevProps: EditorProps = { appearance: 'full-width' };
+    createPluginsList(tableOptions, prevProps);
+    expect(tablesPlugin).toHaveBeenCalledTimes(1);
+    expect(tablesPlugin).toHaveBeenCalledWith(
+      expect.objectContaining({
+        fullWidthEnabled: false,
+        wasFullWidthEnabled: true,
+      }),
+    );
+  });
+
+  it('should add tablePlugin if allowTables is true where previous appearance was mobile', () => {
+    const tableOptions = { allowTables: true };
+    const prevProps: EditorProps = { appearance: 'mobile' };
+    createPluginsList(tableOptions, prevProps);
+    expect(tablesPlugin).toHaveBeenCalledTimes(1);
+    expect(tablesPlugin).toHaveBeenCalledWith(
+      expect.objectContaining({
+        fullWidthEnabled: false,
+        wasFullWidthEnabled: false,
+      }),
+    );
   });
 
   it('should always add submitEditorPlugin to the editor', () => {

@@ -1,5 +1,11 @@
 # @atlaskit/analytics-gas-types
 
+## 5.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.0.9
 
 ### Patch Changes

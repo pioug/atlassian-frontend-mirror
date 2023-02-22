@@ -1,5 +1,21 @@
 # @atlaskit/editor-common
 
+## 72.4.0
+
+### Minor Changes
+
+- [`7fc33ec3f67`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7fc33ec3f67) - updating payload types for collab provider connected event payload
+- [`ef0beaafa36`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ef0beaafa36) - [ux] ED-15862: Add analytics for restartNumberedLists custom list start numbers
+
+### Patch Changes
+
+- [`3efca940231`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3efca940231) - [ux] ED-16417 fix cell background menu item becomes blue when clicking on color palette from table contextual menu
+- [`a2ebf475e82`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a2ebf475e82) - ED-16197 Updating DOCUMENT_PROCESSING_ERROR event action to map to new event "documentProcessingErrorV2" and moving its errorStack attribute to nonPrivacySafeAttributes.
+- [`84efbb82ccb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/84efbb82ccb) - [ux] ED-16512 Remove table scroll when a column is resized and new column is added or table width is resized
+- [`336f7dab111`](https://bitbucket.org/atlassian/atlassian-frontend/commits/336f7dab111) - ED-16200 Updating CRASHED event action to map to new event "unhandledErrorCaughtV2 and moving its errorStack attribute to nonPrivacySafeAttributes"
+- [`2666aafd7d1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2666aafd7d1) - ED-15498 Export WithOutsideClickProps type from editor-common to prevent deep importing.
+- Updated dependencies
+
 ## 72.3.0
 
 ### Minor Changes

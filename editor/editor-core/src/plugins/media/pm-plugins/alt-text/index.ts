@@ -30,24 +30,6 @@ export const createPlugin = ({
   return new SafePlugin({
     state: createPluginState(dispatch, { isAltTextEditorOpen: false }),
     key: pluginKey,
-    view: () => {
-      return {
-        update: (view, prev) => {
-          const pluginState = getPluginState(view.state);
-          const oldPluginState = getPluginState(prev);
-
-          if (
-            pluginState &&
-            oldPluginState &&
-            oldPluginState.isAltTextEditorOpen &&
-            !pluginState.isAltTextEditorOpen &&
-            !view.hasFocus()
-          ) {
-            view.focus();
-          }
-        },
-      };
-    },
   });
 };
 

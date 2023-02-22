@@ -1,5 +1,17 @@
 # @atlaskit/tag
 
+## 11.4.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.4.9
+
+### Patch Changes
+
+- [`f6c88b297ae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f6c88b297ae) - [ux] Adds back in a focus indicator on Tags when they are also links.
+
 ## 11.4.8
 
 ### Patch Changes

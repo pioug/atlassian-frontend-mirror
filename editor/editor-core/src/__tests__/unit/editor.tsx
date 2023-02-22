@@ -42,14 +42,18 @@ jest.mock('uuid/v4', () => ({
   default: jest.fn(() => mockUuid),
 }));
 
-import { mount, shallow, ReactWrapper } from 'enzyme';
+jest.mock('@atlaskit/editor-common/provider-factory');
+
+import {
+  render,
+  screen,
+  fireEvent,
+  RenderResult,
+} from '@testing-library/react';
 import React from 'react';
 import Editor from '../../editor';
-import { EditorView } from 'prosemirror-view';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { analyticsClient } from '@atlaskit/editor-test-helpers/analytics-client-mock';
-import { insertText } from '@atlaskit/editor-test-helpers/transactions';
-import { createFakeExtensionProvider } from '@atlaskit/editor-test-helpers/extensions';
 import FabricAnalyticsListeners, {
   AnalyticsWebClient,
 } from '@atlaskit/analytics-listeners';
@@ -64,16 +68,11 @@ import {
   QuickInsertProvider,
 } from '@atlaskit/editor-common/provider-factory';
 import { EditorAppearance, EditorProps } from '../../types';
-import * as extensionUtils from '../../utils/extensions';
 
 import {
   name as packageName,
   version as packageVersion,
 } from '../../version-wrapper';
-import ReactEditorView, {
-  ReactEditorView as BaseReactEditorView,
-  EditorViewProps,
-} from '../../create-editor/ReactEditorView';
 import { EditorActions, EditorContext, MediaOptions } from '../..';
 import { asMock } from '@atlaskit/media-test-helpers';
 import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
@@ -86,7 +85,7 @@ const { ActivityResource } = jest.genMockFromModule<
 
 import * as EmojiModule from '@atlaskit/emoji';
 import { QuickInsertOptions } from '../../plugins/quick-insert/types';
-import { IntlProvider, WrappedComponentProps } from 'react-intl-next';
+import { IntlProvider } from 'react-intl-next';
 const { EmojiResource } =
   jest.genMockFromModule<typeof EmojiModule>('@atlaskit/emoji');
 
@@ -103,68 +102,63 @@ expect.extend(matchers);
 describe(packageName, () => {
   describe('Editor', () => {
     describe('callbacks', () => {
-      it('should fire onChange when text is inserted', () => {
+      it('should fire onChange when text is inserted', async () => {
+        let instance: EditorActions | undefined;
         const handleChange = jest.fn();
 
-        const wrapper = mount(<Editor onChange={handleChange} />);
+        const getEditorInstance = (editorInstance: EditorActions) => {
+          instance = editorInstance;
+        };
 
-        const editorView: EditorView = (wrapper.find(Editor).instance() as any)
-          .editorActions.editorView;
+        render(
+          <Editor onChange={handleChange} onEditorReady={getEditorInstance} />,
+        );
 
-        insertText(editorView, 'hello', 0);
+        instance?.appendText('hello');
         expect(handleChange).toHaveBeenCalled();
       });
 
       describe('Comment appearance', () => {
         it('should fire onSave when Save is clicked', () => {
           const handleSave = jest.fn();
-          const wrapper = mount(
-            <Editor onSave={handleSave} appearance="comment" />,
-          );
+          render(<Editor onSave={handleSave} appearance="comment" />);
 
-          const saveButton = wrapper
-            .find('[type="button"]')
-            .findWhere((node) => {
-              return node.type() !== undefined && node.text() === 'Save';
-            });
-
-          saveButton.last().simulate('click');
+          const saveButton = screen.getByRole('button', { name: 'Save' });
+          fireEvent.click(saveButton);
           expect(handleSave).toHaveBeenCalled();
         });
 
         it('should minHeight default 150px', () => {
-          const wrapper = mount(<Editor appearance="comment" />);
+          const { container } = render(<Editor appearance="comment" />);
 
-          expect(wrapper.find('.akEditor').first()).toHaveStyleRule(
-            'min-height',
-            '150px',
-          );
+          const editorElement = container.getElementsByClassName('akEditor');
+
+          expect(editorElement.length).toBe(1);
+          expect(editorElement[0]).toHaveStyleRule('min-height', '150px');
         });
 
         it('should set minHeight', () => {
-          const wrapper = mount(
+          const { container } = render(
             <Editor appearance="comment" minHeight={250} />,
           );
 
-          expect(wrapper.find('.akEditor').first()).toHaveStyleRule(
-            'min-height',
-            '250px',
-          );
+          const editorElement = container.getElementsByClassName('akEditor');
+
+          expect(editorElement.length).toBe(1);
+          expect(editorElement[0]).toHaveStyleRule('min-height', '250px');
         });
 
         it('should set minHeight for chromeless', () => {
-          const wrapper = mount(
-            <Editor appearance="chromeless" minHeight={250} />,
-          );
+          render(<Editor appearance="chromeless" minHeight={250} />);
 
-          expect(
-            wrapper.find('[data-testid="chromeless-editor"]').first(),
-          ).toHaveStyleRule('min-height', '250px');
+          const editorElement = screen.getByTestId('chromeless-editor');
+
+          expect(editorElement).toHaveStyleRule('min-height', '250px');
         });
 
         it('should minHeight prop error for full-page', () => {
           const stub = sinon.stub(console, 'error');
-          shallow(<Editor appearance="full-page" minHeight={250} />);
+          render(<Editor appearance="full-page" minHeight={250} />);
           expect(stub.getCall(0).args[0]).toEqual(
             expect.stringMatching(
               'minHeight only supports editor appearance chromeless and comment',
@@ -175,24 +169,17 @@ describe(packageName, () => {
 
         it('should fire onCancel when Cancel is clicked', () => {
           const cancelled = jest.fn();
-          const wrapper = mount(
-            <Editor onCancel={cancelled} appearance="comment" />,
-          );
+          render(<Editor onCancel={cancelled} appearance="comment" />);
 
-          const cancelButton = wrapper
-            .find('[type="button"]')
-            .findWhere((node) => {
-              return node.type() !== undefined && node.text() === 'Cancel';
-            });
-
-          cancelButton.last().simulate('click');
+          const cancelButton = screen.getByRole('button', { name: 'Cancel' });
+          fireEvent.click(cancelButton);
           expect(cancelled).toHaveBeenCalled();
         });
       });
 
       it('should fire onEditorReady when ready', () => {
         const onEditorReady = jest.fn();
-        mount(<Editor onEditorReady={onEditorReady} />);
+        render(<Editor onEditorReady={onEditorReady} />);
 
         expect(onEditorReady).toHaveBeenCalled();
       });
@@ -200,64 +187,85 @@ describe(packageName, () => {
 
     describe('react-intl-next', () => {
       describe('when IntlProvider is not in component ancestry', () => {
-        const renderEditor = () => mount(<Editor />);
+        const renderEditor = () => render(<Editor onSave={() => {}} />);
         it('should not throw an error', () => {
           expect(() => renderEditor()).not.toThrow();
         });
         it('should setup a default IntlProvider with locale "en"', () => {
-          const wrapper = renderEditor();
-          const intlProviderWrapper = wrapper.find(IntlProvider);
-          expect(intlProviderWrapper.length).toEqual(1);
-          expect(intlProviderWrapper.props()).toEqual(
-            expect.objectContaining({ locale: 'en' }),
-          );
+          renderEditor();
+          const saveButton = screen.getByTestId('comment-save-button');
+          expect(saveButton.textContent).toBe('Save');
         });
       });
       describe('when IntlProvider is in component ancestry', () => {
         const renderEditorWithIntl = () =>
-          mount(
-            <IntlProvider locale="es">
-              <Editor />
+          render(
+            <IntlProvider
+              locale="es"
+              messages={{ 'fabric.editor.saveButton': 'Guardar' }}
+            >
+              <Editor onSave={() => {}} />
             </IntlProvider>,
           );
         it('should not throw an error', () => {
           expect(() => renderEditorWithIntl()).not.toThrow();
         });
         it('should use the provided IntlProvider, and not setup a default IntlProvider', () => {
-          const wrapper = renderEditorWithIntl();
-          const intlProviderWrapper = wrapper.find(IntlProvider);
-          expect(intlProviderWrapper.length).toEqual(1);
-          expect(intlProviderWrapper.props()).toEqual(
-            expect.objectContaining({ locale: 'es' }),
-          );
+          renderEditorWithIntl();
+          const saveButton = screen.getByTestId('comment-save-button');
+          expect(saveButton.textContent).toBe('Guardar');
         });
       });
     });
 
     describe('save on enter', () => {
       it('should fire onSave when user presses Enter', () => {
+        let instance: EditorActions | undefined;
         const handleSave = jest.fn();
-        const wrapper = mount(
-          <Editor onSave={handleSave} saveOnEnter={true} />,
+
+        const getEditorInstance = (editorInstance: EditorActions) => {
+          instance = editorInstance;
+        };
+
+        render(
+          <Editor
+            onSave={handleSave}
+            saveOnEnter
+            onEditorReady={getEditorInstance}
+          />,
         );
 
-        const editorView: EditorView = (wrapper.find(Editor).instance() as any)
-          .editorActions.editorView;
+        const view = instance?._privateGetEditorView();
 
-        sendKeyToPm(editorView, 'Enter');
+        if (view) {
+          sendKeyToPm(view, 'Enter');
+        }
         expect(handleSave).toHaveBeenCalled();
       });
     });
 
     describe('submit-editor (save on mod-enter)', () => {
       it('should fire onSave when user presses Enter', () => {
+        let instance: EditorActions | undefined;
         const handleSave = jest.fn();
-        const wrapper = mount(<Editor onSave={handleSave} />);
 
-        const editorView: EditorView = (wrapper.find(Editor).instance() as any)
-          .editorActions.editorView;
+        const getEditorInstance = (editorInstance: EditorActions) => {
+          instance = editorInstance;
+        };
 
-        sendKeyToPm(editorView, 'Mod-Enter');
+        render(
+          <Editor
+            onSave={handleSave}
+            saveOnEnter
+            onEditorReady={getEditorInstance}
+          />,
+        );
+
+        const view = instance?._privateGetEditorView();
+
+        if (view) {
+          sendKeyToPm(view, 'Mod-Enter');
+        }
         expect(handleSave).toHaveBeenCalled();
       });
     });
@@ -303,7 +311,7 @@ describe(packageName, () => {
         it(`adds appearance analytics context to all editor events for ${appearance.appearance} editor`, (done) => {
           // editor fires an editor started event that should trigger the listener from
           // just mount the component
-          mount(
+          render(
             <FabricAnalyticsListeners
               client={mockAnalyticsClient(appearance.analyticsAppearance, done)}
             >
@@ -314,22 +322,24 @@ describe(packageName, () => {
       });
 
       it('should update appearance used in events when change appearance prop', (done) => {
-        const wrapper = mount(
+        // We don't care about the client on the first render, that's tested above, only that the re-render causes
+        // a new analytics event with the correct appearance
+        const { rerender } = render(
+          <FabricAnalyticsListeners client={undefined}>
+            <Editor appearance="full-page" allowAnalyticsGASV3 />
+          </FabricAnalyticsListeners>,
+        );
+
+        rerender(
           <FabricAnalyticsListeners
             client={mockAnalyticsClient(
               EDITOR_APPEARANCE_CONTEXT.FULL_WIDTH,
               done,
             )}
           >
-            <Editor appearance="full-page" allowAnalyticsGASV3 />
+            <Editor appearance="full-width" allowAnalyticsGASV3 />
           </FabricAnalyticsListeners>,
         );
-
-        // toggling full-width mode triggers a changedFullWidthMode analytics event
-        // which should have the new appearance
-        wrapper.setProps({
-          children: <Editor appearance="full-width" allowAnalyticsGASV3 />,
-        });
       });
 
       it('should dispatch an tti (time-to-interactive) editor event after the editor has mounted', async (done) => {
@@ -359,7 +369,7 @@ describe(packageName, () => {
           return analyticsClient(analyticsEventHandler);
         };
 
-        mount(
+        render(
           <FabricAnalyticsListeners client={mockAnalyticsClient(done)}>
             <Editor
               allowAnalyticsGASV3
@@ -375,51 +385,58 @@ describe(packageName, () => {
       });
 
       describe('contentRetrievalPerformed events', () => {
-        const setup = async ({
+        async function testContentRetrievalPerformedAnalytics({
           editorProps,
           editorActions,
           useOnReadyEditorActions,
+          analyticsEventHandler,
         }: {
           editorProps: EditorProps;
           editorActions?: EditorActions;
           useOnReadyEditorActions?: boolean;
-        }) => {
+          analyticsEventHandler: (
+            event: GasPurePayload | GasPureScreenEventPayload,
+          ) => void;
+        }) {
           let onReadyEditorActions: EditorActions;
-          const wrapper = mount(
-            <EditorContext editorActions={editorActions}>
-              <Editor
-                onEditorReady={(localEditorActions) =>
-                  (onReadyEditorActions = localEditorActions)
-                }
-                {...editorProps}
-              />
-            </EditorContext>,
+
+          render(
+            <FabricAnalyticsListeners
+              client={analyticsClient(analyticsEventHandler)}
+            >
+              <EditorContext editorActions={editorActions}>
+                <Editor
+                  onEditorReady={(localEditorActions) =>
+                    (onReadyEditorActions = localEditorActions)
+                  }
+                  {...editorProps}
+                />
+              </EditorContext>
+            </FabricAnalyticsListeners>,
           );
-          const editorWrapper = wrapper.find(Editor);
-          const instance = editorWrapper.instance() as Editor;
-          instance.handleAnalyticsEvent = jest.fn();
+
+          const editorActionsFinal = useOnReadyEditorActions
+            ? onReadyEditorActions!
+            : editorActions;
           try {
-            await (useOnReadyEditorActions
-              ? onReadyEditorActions!.getValue()
-              : editorActions?.getValue());
-          } catch (err) {
-          } finally {
-            // eslint-disable-next-line no-unsafe-finally
-            return { handleAnalyticsEventMock: instance.handleAnalyticsEvent };
-          }
-        };
+            await editorActionsFinal?.getValue();
+          } catch (error) {}
+        }
         it('should not dispatch a contentRetrievalPerformed event with success=true if contentRetrievalTracking prop is not set', async () => {
-          const { handleAnalyticsEventMock } = await setup({
+          await testContentRetrievalPerformedAnalytics({
             editorProps: {},
             editorActions: undefined,
             useOnReadyEditorActions: true,
-          });
-          expect(handleAnalyticsEventMock).not.toHaveBeenCalledWith({
-            payload: {
-              action: 'contentRetrievalPerformed',
-              actionSubject: 'editor',
-              attributes: { success: true },
-              eventType: 'operational',
+            analyticsEventHandler: (event) => {
+              expect(event).not.toEqual(
+                expect.objectContaining({
+                  action: 'contentRetrievalPerformed',
+                  actionSubject: 'editor',
+                  attributes: expect.objectContaining({
+                    success: true,
+                  }),
+                }),
+              );
             },
           });
         });
@@ -428,28 +445,33 @@ describe(packageName, () => {
           badEditorActions.getValue = async () => {
             throw new Error('a bad error');
           };
-          const { handleAnalyticsEventMock } = await setup({
+          await testContentRetrievalPerformedAnalytics({
             editorProps: {
               performanceTracking: {},
             },
             editorActions: badEditorActions,
             useOnReadyEditorActions: true,
-          });
-          expect(handleAnalyticsEventMock).not.toHaveBeenCalledWith({
-            payload: {
-              action: 'contentRetrievalPerformed',
-              actionSubject: 'editor',
-              attributes: {
-                success: false,
-                errorInfo: 'Error: a bad error',
-                errorStack: undefined,
-              },
-              eventType: 'operational',
+            analyticsEventHandler: (event) => {
+              expect(event).not.toEqual(
+                expect.objectContaining({
+                  action: 'contentRetrievalPerformed',
+                  actionSubject: 'editor',
+                  attributes: expect.objectContaining({
+                    success: false,
+                    errorInfo: 'Error: a bad error',
+                    errorStack: undefined,
+                  }),
+                }),
+              );
             },
           });
         });
         it('should not dispatch a contentRetrievalPerformed event with success=true if contentRetrievalTracking prop is enabled=false', async () => {
-          const { handleAnalyticsEventMock } = await setup({
+          const badEditorActions = new EditorActions();
+          badEditorActions.getValue = async () => {
+            throw new Error('a bad error');
+          };
+          await testContentRetrievalPerformedAnalytics({
             editorProps: {
               performanceTracking: {
                 contentRetrievalTracking: {
@@ -460,18 +482,19 @@ describe(packageName, () => {
             },
             editorActions: undefined,
             useOnReadyEditorActions: true,
-          });
-          expect(handleAnalyticsEventMock).not.toHaveBeenCalledWith({
-            payload: {
-              action: 'contentRetrievalPerformed',
-              actionSubject: 'editor',
-              attributes: { success: true },
-              eventType: 'operational',
+            analyticsEventHandler: (event) => {
+              expect(event).not.toEqual(
+                expect.objectContaining({
+                  action: 'contentRetrievalPerformed',
+                  actionSubject: 'editor',
+                  attributes: expect.objectContaining({ success: true }),
+                }),
+              );
             },
           });
         });
         it('should dispatch a contentRetrievalPerformed event with success=true if contentRetrievalTracking prop is set', async () => {
-          const { handleAnalyticsEventMock } = await setup({
+          await testContentRetrievalPerformedAnalytics({
             editorProps: {
               performanceTracking: {
                 contentRetrievalTracking: {
@@ -482,13 +505,16 @@ describe(packageName, () => {
             },
             editorActions: undefined,
             useOnReadyEditorActions: true,
-          });
-          expect(handleAnalyticsEventMock).toHaveBeenCalledWith({
-            payload: {
-              action: 'contentRetrievalPerformed',
-              actionSubject: 'editor',
-              attributes: { success: true },
-              eventType: 'operational',
+            analyticsEventHandler: (event) => {
+              expect(event).toEqual(
+                expect.objectContaining({
+                  action: 'contentRetrievalPerformed',
+                  actionSubject: 'editor',
+                  attributes: expect.objectContaining({
+                    success: true,
+                  }),
+                }),
+              );
             },
           });
         });
@@ -497,7 +523,7 @@ describe(packageName, () => {
           badEditorActions.getValue = async () => {
             throw new Error('a bad error');
           };
-          const { handleAnalyticsEventMock } = await setup({
+          await testContentRetrievalPerformedAnalytics({
             editorProps: {
               performanceTracking: {
                 contentRetrievalTracking: {
@@ -508,17 +534,18 @@ describe(packageName, () => {
             },
             editorActions: badEditorActions,
             useOnReadyEditorActions: true,
-          });
-          expect(handleAnalyticsEventMock).toHaveBeenCalledWith({
-            payload: {
-              action: 'contentRetrievalPerformed',
-              actionSubject: 'editor',
-              attributes: {
-                success: false,
-                errorInfo: 'Error: a bad error',
-                errorStack: undefined,
-              },
-              eventType: 'operational',
+            analyticsEventHandler: (event) => {
+              expect(event).toEqual(
+                expect.objectContaining({
+                  action: 'contentRetrievalPerformed',
+                  actionSubject: 'editor',
+                  attributes: expect.objectContaining({
+                    success: false,
+                    errorInfo: 'Error: a bad error',
+                    errorStack: undefined,
+                  }),
+                }),
+              );
             },
           });
         });
@@ -527,7 +554,7 @@ describe(packageName, () => {
           badEditorActions.getValue = async () => {
             throw new Error('a bad error');
           };
-          const { handleAnalyticsEventMock } = await setup({
+          await testContentRetrievalPerformedAnalytics({
             editorProps: {
               performanceTracking: {
                 contentRetrievalTracking: {
@@ -539,17 +566,18 @@ describe(packageName, () => {
             },
             editorActions: badEditorActions,
             useOnReadyEditorActions: true,
-          });
-          expect(handleAnalyticsEventMock).toHaveBeenCalledWith({
-            payload: {
-              action: 'contentRetrievalPerformed',
-              actionSubject: 'editor',
-              attributes: {
-                success: false,
-                errorInfo: 'Error: a bad error',
-                errorStack: expect.any(String),
-              },
-              eventType: 'operational',
+            analyticsEventHandler: (event) => {
+              expect(event).toEqual(
+                expect.objectContaining({
+                  action: 'contentRetrievalPerformed',
+                  actionSubject: 'editor',
+                  attributes: expect.objectContaining({
+                    success: false,
+                    errorInfo: 'Error: a bad error',
+                    errorStack: expect.any(String),
+                  }),
+                }),
+              );
             },
           });
         });
@@ -576,8 +604,7 @@ describe(packageName, () => {
             };
             return analyticsClient(analyticsEventHandler);
           };
-
-          mount(
+          render(
             <FabricAnalyticsListeners client={mockAnalyticsClient(done)}>
               <Editor
                 allowAnalyticsGASV3={true}
@@ -590,11 +617,8 @@ describe(packageName, () => {
             </FabricAnalyticsListeners>,
           );
         });
-
-        it('should not dispatch an onEditorReadyCallback event if disabled', (done) => {
-          const mockAnalyticsClient = (
-            done: jest.DoneCallback,
-          ): AnalyticsWebClient => {
+        it('should not dispatch an onEditorReadyCallback event if disabled', () => {
+          const mockAnalyticsClient = (): AnalyticsWebClient => {
             const analyticsEventHandler = (
               event: GasPurePayload | GasPureScreenEventPayload,
             ) => {
@@ -608,13 +632,11 @@ describe(packageName, () => {
                   }),
                 }),
               );
-              done();
             };
             return analyticsClient(analyticsEventHandler);
           };
-
-          mount(
-            <FabricAnalyticsListeners client={mockAnalyticsClient(done)}>
+          render(
+            <FabricAnalyticsListeners client={mockAnalyticsClient()}>
               <Editor
                 allowAnalyticsGASV3={true}
                 // If no onEditorReady callback is given, the analytics event is not sent.
@@ -635,10 +657,10 @@ describe(packageName, () => {
       });
 
       describe('when feature flag enabled', () => {
-        let editor: ReactWrapper;
+        let editor: RenderResult;
 
         beforeEach(async () => {
-          editor = mount(<Editor featureFlags={{ ufo: true }} />);
+          editor = render(<Editor featureFlags={{ ufo: true }} />);
           await flushPromises();
         });
 
@@ -650,7 +672,7 @@ describe(packageName, () => {
         });
 
         it('marks onEditorReady on editor load experience if provided', async () => {
-          editor = mount(
+          editor = render(
             <Editor featureFlags={{ ufo: true }} onEditorReady={() => {}} />,
           );
           await flushPromises();
@@ -695,7 +717,7 @@ describe(packageName, () => {
         });
 
         it('adds objectId as metadata to editor load experience', async () => {
-          editor = mount(
+          editor = render(
             <Editor
               featureFlags={{ ufo: true }}
               contextIdentifierProvider={Promise.resolve({
@@ -725,13 +747,16 @@ describe(packageName, () => {
         });
 
         it("doesn't start editor load experience", () => {
-          mount(<Editor />);
+          render(<Editor />);
           expect(mockStore.start).not.toHaveBeenCalled();
         });
       });
     });
 
     describe('providerFactory passed to ReactEditorView', () => {
+      beforeEach(() => {
+        jest.resetAllMocks();
+      });
       const setup = (
         useCollabEditObject: boolean = false,
         defineExtensionsProvider: boolean = true,
@@ -785,7 +810,12 @@ describe(packageName, () => {
 
         asMock(emojiProvider.getAsciiMap).mockResolvedValue({});
 
-        const component = mount(
+        const setProviderSpy = jest.spyOn(
+          ProviderFactory.prototype,
+          'setProvider',
+        );
+
+        render(
           <Editor
             activityProvider={Promise.resolve(activityProvider)}
             emojiProvider={Promise.resolve(emojiProvider)}
@@ -810,11 +840,7 @@ describe(packageName, () => {
             }
           />,
         );
-        const providerFactory = component
-          .find(ReactEditorView)
-          .props().providerFactory;
         return {
-          component,
           activityProvider,
           emojiProvider,
           mentionProvider,
@@ -826,132 +852,122 @@ describe(packageName, () => {
           macroProvider,
           legacyImageUploadProvider,
           autoformattingProvider,
-          providerFactory,
+          setProviderSpy,
           mediaProvider,
           cardProvider,
           quickInsertProvider,
         };
       };
 
-      const assertProvider = (
-        providerFactory: ProviderFactory,
-        providerName: string,
-        expectedProvider: any, // Providers don't have common interface
-        done: () => {},
-      ) => {
-        expect(providerFactory.hasProvider(providerName)).toBe(true);
-        providerFactory.subscribe(providerName, async (name, provider) => {
-          expect(await provider).toBe(expectedProvider);
-          done();
-        });
-      };
-
-      it('should be populated with activityProvider', (done) => {
-        const { providerFactory, activityProvider } = setup();
-        assertProvider(
-          providerFactory,
+      it('should be populated with activityProvider', () => {
+        const { setProviderSpy, activityProvider } = setup();
+        expect(setProviderSpy).toHaveBeenNthCalledWith(
+          8,
           'activityProvider',
-          activityProvider,
-          done,
+          Promise.resolve(activityProvider),
         );
       });
 
-      it('should be populated with emojiProvider', (done) => {
-        const { providerFactory, emojiProvider } = setup();
-        assertProvider(providerFactory, 'emojiProvider', emojiProvider, done);
+      it('should be populated with emojiProvider', () => {
+        const { setProviderSpy, emojiProvider } = setup();
+        expect(setProviderSpy).toHaveBeenNthCalledWith(
+          1,
+          'emojiProvider',
+          Promise.resolve(emojiProvider),
+        );
       });
 
-      it('should be populated with mentionProvider', (done) => {
-        const { providerFactory, mentionProvider } = setup();
-        assertProvider(
-          providerFactory,
+      it('should be populated with mentionProvider', () => {
+        const { setProviderSpy, mentionProvider } = setup();
+        expect(setProviderSpy).toHaveBeenNthCalledWith(
+          2,
           'mentionProvider',
-          mentionProvider,
-          done,
+          Promise.resolve(mentionProvider),
         );
       });
 
-      it('should be populated with taskDecisionProvider', (done) => {
-        const { providerFactory, taskDecisionProvider } = setup();
-        assertProvider(
-          providerFactory,
+      it('should be populated with taskDecisionProvider', () => {
+        const { setProviderSpy, taskDecisionProvider } = setup();
+        expect(setProviderSpy).toHaveBeenNthCalledWith(
+          3,
           'taskDecisionProvider',
-          taskDecisionProvider,
-          done,
+          Promise.resolve(taskDecisionProvider),
         );
       });
 
-      it('should be populated with contextIdentifierProvider', (done) => {
-        const { providerFactory, contextIdentifierProvider } = setup();
-        assertProvider(
-          providerFactory,
+      it('should be populated with contextIdentifierProvider', () => {
+        const { setProviderSpy, contextIdentifierProvider } = setup();
+        expect(setProviderSpy).toHaveBeenNthCalledWith(
+          4,
           'contextIdentifierProvider',
-          contextIdentifierProvider,
-          done,
+          Promise.resolve(contextIdentifierProvider),
         );
       });
 
-      it('should be populated with collabEditProvider', (done) => {
-        const { providerFactory, collabEditProvider } = setup();
-        assertProvider(
-          providerFactory,
+      it('should be populated with collabEditProvider', () => {
+        const { setProviderSpy, collabEditProvider } = setup();
+        expect(setProviderSpy).toHaveBeenNthCalledWith(
+          7,
           'collabEditProvider',
-          collabEditProvider,
-          done,
+          Promise.resolve(collabEditProvider),
         );
       });
 
-      it('should be populated with collabEditProvider via collabEdit object', (done) => {
-        const { providerFactory, collabEditDotProvider } = setup(true);
-        assertProvider(
-          providerFactory,
+      it('should be populated with collabEditProvider via collabEdit object', () => {
+        const { setProviderSpy, collabEditDotProvider } = setup();
+        expect(setProviderSpy).toHaveBeenNthCalledWith(
+          7,
           'collabEditProvider',
-          collabEditDotProvider,
-          done,
+          Promise.resolve(collabEditDotProvider),
         );
       });
 
-      it('should be populated with presenceProvider', (done) => {
-        const { providerFactory, presenceProvider } = setup();
-        assertProvider(
-          providerFactory,
+      it('should be populated with presenceProvider', () => {
+        const { setProviderSpy, presenceProvider } = setup();
+        expect(setProviderSpy).toHaveBeenNthCalledWith(
+          10,
           'presenceProvider',
-          presenceProvider,
-          done,
+          Promise.resolve(presenceProvider),
         );
       });
 
-      it('should be populated with macroProvider', (done) => {
-        const { providerFactory, macroProvider } = setup();
-        assertProvider(providerFactory, 'macroProvider', macroProvider, done);
+      it('should be populated with macroProvider', () => {
+        const { setProviderSpy, macroProvider } = setup();
+        expect(setProviderSpy).toHaveBeenNthCalledWith(
+          11,
+          'macroProvider',
+          Promise.resolve(macroProvider),
+        );
       });
 
-      it('should be populated with legacyImageUploadProvider', (done) => {
-        const { providerFactory, legacyImageUploadProvider } = setup();
-        assertProvider(
-          providerFactory,
+      it('should be populated with legacyImageUploadProvider', () => {
+        const { setProviderSpy, legacyImageUploadProvider } = setup();
+        expect(setProviderSpy).toHaveBeenNthCalledWith(
+          6,
           'imageUploadProvider',
-          legacyImageUploadProvider,
-          done,
+          Promise.resolve(legacyImageUploadProvider),
         );
       });
 
-      it('should be populated with autoformattingProvider', (done) => {
-        const { providerFactory, autoformattingProvider } = setup();
-        assertProvider(
-          providerFactory,
+      it('should be populated with autoformattingProvider', () => {
+        const { setProviderSpy, autoformattingProvider } = setup();
+        expect(setProviderSpy).toHaveBeenNthCalledWith(
+          13,
           'autoformattingProvider',
-          autoformattingProvider,
-          done,
+          Promise.resolve(autoformattingProvider),
         );
       });
 
-      it('should be populated with mediaProvider', (done) => {
-        const { providerFactory, mediaProvider } = setup();
-        assertProvider(providerFactory, 'mediaProvider', mediaProvider, done);
+      it('should be populated with mediaProvider', () => {
+        const { setProviderSpy, mediaProvider } = setup();
+        expect(setProviderSpy).toHaveBeenNthCalledWith(
+          5,
+          'mediaProvider',
+          Promise.resolve(mediaProvider),
+        );
       });
 
-      it('should be populated with cardProvider from `linking.smartLinks` (prefer over `smartLinks`)', (done) => {
+      it('should be populated with cardProvider from `linking.smartLinks` (prefer over `smartLinks`)', () => {
         const linkingCardProvider = {} as any;
         const smartLinksCardProvider = {} as any;
         const linkingCardOptions: CardOptions = {
@@ -961,114 +977,73 @@ describe(packageName, () => {
           provider: Promise.resolve(smartLinksCardProvider),
         };
 
-        const component = mount(
+        const setProviderSpy = jest.spyOn(
+          ProviderFactory.prototype,
+          'setProvider',
+        );
+
+        render(
           <Editor
             linking={{ smartLinks: linkingCardOptions }}
             smartLinks={smartLinksCardOptions}
           />,
         );
-        const providerFactory = component
-          .find<EditorViewProps & WrappedComponentProps>(BaseReactEditorView)
-          .props().providerFactory;
 
-        assertProvider(
-          providerFactory,
+        expect(setProviderSpy).toHaveBeenNthCalledWith(
+          12,
           'cardProvider',
-          linkingCardProvider,
-          done,
+          Promise.resolve(linkingCardProvider),
         );
       });
 
-      it('should be populated with cardProvider', (done) => {
-        const { providerFactory, cardProvider } = setup();
-        assertProvider(providerFactory, 'cardProvider', cardProvider, done);
+      it('should be populated with cardProvider', () => {
+        const { setProviderSpy, cardProvider } = setup();
+        expect(setProviderSpy).toHaveBeenNthCalledWith(
+          12,
+          'cardProvider',
+          Promise.resolve(cardProvider),
+        );
       });
 
-      it('should be populated with cardProvider on deprecated UNSAFE_cards', (done) => {
+      it('should be populated with cardProvider on deprecated UNSAFE_cards', () => {
         const cardProvider = {} as any;
         const cardOptions: CardOptions = {
           provider: Promise.resolve(cardProvider),
         };
 
-        const component = mount(<Editor UNSAFE_cards={cardOptions} />);
-        const providerFactory = component
-          .find<EditorViewProps & WrappedComponentProps>(BaseReactEditorView)
-          .props().providerFactory;
+        const setProviderSpy = jest.spyOn(
+          ProviderFactory.prototype,
+          'setProvider',
+        );
 
-        assertProvider(providerFactory, 'cardProvider', cardProvider, done);
+        render(<Editor UNSAFE_cards={cardOptions} />);
+
+        expect(setProviderSpy).toHaveBeenNthCalledWith(
+          12,
+          'cardProvider',
+          Promise.resolve(cardProvider),
+        );
       });
 
-      it('should be populated with quickInsertProvider', (done) => {
-        const { providerFactory, quickInsertProvider } = setup(false, false);
-        assertProvider(
-          providerFactory,
+      it('should be populated with quickInsertProvider', () => {
+        const { setProviderSpy, quickInsertProvider } = setup();
+        expect(setProviderSpy).toHaveBeenNthCalledWith(
+          15,
           'quickInsertProvider',
-          quickInsertProvider,
-          done,
+          Promise.resolve(quickInsertProvider),
         );
       });
 
       it('should be populated with extensionProvider', () => {
-        const { providerFactory } = setup();
+        const { setProviderSpy } = setup();
         // extensionProvider is going to be a generated in packages/editor/editor-common/src/extensions/combine-extension-providers.ts
         // and there is nothing to compare it with
-        expect(providerFactory.hasProvider('extensionProvider')).toBe(true);
-      });
-    });
 
-    describe('providers', () => {
-      const quickInsertProvider = Promise.resolve({} as QuickInsertProvider);
-
-      const extensionProvider = createFakeExtensionProvider(
-        'fake.confluence',
-        'extension',
-        () => <div>Fake extension</div>,
-      );
-
-      it('should set extensionProvider quickInsert provider even when quickInsertProvider is not provided', () => {
-        const wrapper = shallow(
-          <Editor extensionProviders={[extensionProvider]} />,
+        expect(setProviderSpy).toHaveBeenNthCalledWith(
+          14,
+          'extensionProvider',
+          expect.any(Object),
         );
-
-        expect(wrapper.state('quickInsertProvider')).toBeDefined();
-      });
-
-      it('should just set quickInsertProvider if there is no extensionProvider', () => {
-        const wrapper = shallow(
-          <Editor quickInsert={{ provider: quickInsertProvider }} />,
-        );
-
-        expect(wrapper.state('quickInsertProvider')).toBe(quickInsertProvider);
-      });
-
-      it('should combine them if both quickInsertProvider and extensionProvider are provided', () => {
-        const combineQuickInsertProvidersSpy = jest.spyOn(
-          extensionUtils,
-          'combineQuickInsertProviders',
-        );
-
-        const wrapper = shallow(
-          <Editor
-            extensionProviders={[extensionProvider]}
-            quickInsert={{ provider: quickInsertProvider }}
-          />,
-        );
-
-        expect(wrapper.state('quickInsertProvider')).toBeDefined();
-        expect(combineQuickInsertProvidersSpy).toHaveBeenCalledTimes(1);
-        // Call 0, Argument 0, Array item 0
-        expect(combineQuickInsertProvidersSpy.mock.calls[0][0][0]).toBe(
-          quickInsertProvider,
-        );
-
-        combineQuickInsertProvidersSpy.mockReset();
-        combineQuickInsertProvidersSpy.mockRestore();
-      });
-
-      it('should not set quickInsertProvider if neither quickInsertProvider or extensionProvider provided', () => {
-        const wrapper = shallow(<Editor />);
-
-        expect(wrapper.state('quickInsertProvider')).toBeUndefined();
       });
     });
   });

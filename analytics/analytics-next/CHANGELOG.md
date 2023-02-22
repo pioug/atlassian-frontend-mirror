@@ -1,5 +1,11 @@
 # @atlaskit/analytics-next
 
+## 9.0.0
+
+### Major Changes
+
+- [`cf21f06ff72`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf21f06ff72) - Bugfix, removed sending event fn and deprecated AnalyticErrorBoundary
+
 ## 8.3.5
 
 ### Patch Changes

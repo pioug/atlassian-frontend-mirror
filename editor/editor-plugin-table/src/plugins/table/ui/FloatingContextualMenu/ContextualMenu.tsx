@@ -20,6 +20,7 @@ import {
   ColorPalette,
   cellBackgroundColorPalette,
 } from '@atlaskit/editor-common/ui-color';
+import { DropdownMenuSharedCssClassName } from '@atlaskit/editor-common/styles';
 
 import { DropdownMenu } from '@atlaskit/editor-common/ui-menu';
 
@@ -220,7 +221,7 @@ export class ContextualMenu extends Component<
         content: formatMessage(messages.cellBackground),
         value: { name: 'background' },
         elemAfter: (
-          <div>
+          <div className={DropdownMenuSharedCssClassName.SUBMENU}>
             <div
               css={cellColourPreviewStyles(background)}
               className={ClassName.CONTEXTUAL_MENU_ICON}

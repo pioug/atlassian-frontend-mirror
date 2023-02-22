@@ -893,22 +893,7 @@ type EditorOnChangeHandler = (
 export { EditorPlugin };
 
 // @public (undocumented)
-interface EditorPresetProps {
-  // (undocumented)
-  excludes?: Set<string>;
-  // (undocumented)
-  experimental?: Array<string>;
-  // (undocumented)
-  featureFlags?: EditorFeatureFlags;
-}
-
-// @public (undocumented)
-type EditorProduct = 'bitbucket' | 'confluence' | 'jira' | 'stride' | undefined;
-
-// @public (undocumented)
-export interface EditorProps {
-  // (undocumented)
-  activityProvider?: Promise<ActivityProvider>;
+interface EditorPluginFeatureProps {
   // (undocumented)
   allowAnalyticsGASV3?: boolean;
   // (undocumented)
@@ -964,25 +949,75 @@ export interface EditorProps {
   allowTextColor?: TextColorPluginConfig | boolean;
   // (undocumented)
   allowUndoRedoButtons?: boolean;
-  // (undocumented)
-  annotationProviders?: AnnotationProviders;
-  // (undocumented)
-  appearance?: EditorAppearance;
-  // (undocumented)
-  autoformattingProvider?: Providers['autoformattingProvider'];
   autoScrollIntoView?: boolean;
-  // (undocumented)
-  codeBlock?: CodeBlockOptions;
   // (undocumented)
   collabEdit?: CollabEditOptions;
   // (undocumented)
-  collabEditProvider?: Providers['collabEditProvider'];
+  elementBrowser?: {
+    showModal?: boolean;
+    replacePlusMenu?: boolean;
+    helpUrl?: string;
+    emptyStateHandler?: EmptyStateHandler;
+  };
+  // (undocumented)
+  extensionHandlers?: ExtensionHandlers;
+  // (undocumented)
+  feedbackInfo?: FeedbackInfo;
+  // (undocumented)
+  insertMenuItems?: MenuItem[];
+  linking?: LinkingOptions;
+  // (undocumented)
+  maxContentSize?: number;
+  // (undocumented)
+  media?: MediaOptions;
+  // (undocumented)
+  mention?: MentionPluginConfig;
+  // @deprecated
+  mentionInsertDisplayName?: boolean;
+  // (undocumented)
+  onSave?: (editorView: EditorView) => void;
+  performanceTracking?: PerformanceTracking;
+  // (undocumented)
+  primaryToolbarComponents?: PrimaryToolbarComponents;
+  // (undocumented)
+  sanitizePrivateContent?: boolean;
+  // (undocumented)
+  saveOnEnter?: boolean;
+  // @deprecated (undocumented)
+  smartLinks?: CardOptions;
+  // @deprecated (undocumented)
+  UNSAFE_cards?: CardOptions;
+  // (undocumented)
+  uploadErrorHandler?: (state: MediaState) => void;
+  // (undocumented)
+  waitForMediaUpload?: boolean;
+}
+
+// @public (undocumented)
+interface EditorPresetProps {
+  // (undocumented)
+  excludes?: Set<string>;
+  // (undocumented)
+  experimental?: Array<string>;
+  // (undocumented)
+  featureFlags?: EditorFeatureFlags;
+}
+
+// @public (undocumented)
+type EditorProduct = 'bitbucket' | 'confluence' | 'jira' | 'stride' | undefined;
+
+// @public (undocumented)
+export interface EditorProps
+  extends EditorPluginFeatureProps,
+    EditorProviderProps {
+  // (undocumented)
+  appearance?: EditorAppearance;
+  // (undocumented)
+  codeBlock?: CodeBlockOptions;
   // (undocumented)
   contentComponents?: ReactComponents;
   // (undocumented)
   contentTransformerProvider?: (schema: Schema) => Transformer_2<string>;
-  // (undocumented)
-  contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
   // (undocumented)
   contextPanel?: ReactComponents;
   // @deprecated (undocumented)
@@ -996,46 +1031,16 @@ export interface EditorProps {
   // (undocumented)
   editorActions?: EditorActions;
   // (undocumented)
-  elementBrowser?: {
-    showModal?: boolean;
-    replacePlusMenu?: boolean;
-    helpUrl?: string;
-    emptyStateHandler?: EmptyStateHandler;
-  };
-  // (undocumented)
-  emojiProvider?: Providers['emojiProvider'];
-  // (undocumented)
   errorReporterHandler?: ErrorReportingHandler;
-  // (undocumented)
-  extensionHandlers?: ExtensionHandlers;
   // (undocumented)
   extensionProviders?: ExtensionProvidersProp;
   featureFlags?: {
     [featureFlag: string]: boolean | string;
   };
-  // (undocumented)
-  feedbackInfo?: FeedbackInfo;
   // @deprecated
   inputSamplingLimit?: number;
   // (undocumented)
-  insertMenuItems?: MenuItem[];
-  // (undocumented)
-  legacyImageUploadProvider?: Providers['imageUploadProvider'];
-  linking?: LinkingOptions;
-  // (undocumented)
-  macroProvider?: Providers['macroProvider'];
-  // (undocumented)
-  maxContentSize?: number;
-  // (undocumented)
   maxHeight?: number;
-  // (undocumented)
-  media?: MediaOptions;
-  // (undocumented)
-  mention?: MentionPluginConfig;
-  // @deprecated
-  mentionInsertDisplayName?: boolean;
-  // (undocumented)
-  mentionProvider?: Promise<MentionProvider>;
   // (undocumented)
   minHeight?: number;
   // (undocumented)
@@ -1046,9 +1051,6 @@ export interface EditorProps {
   onDestroy?: () => void;
   // (undocumented)
   onEditorReady?: (editorActions: EditorActions) => void;
-  // (undocumented)
-  onSave?: (editorView: EditorView) => void;
-  performanceTracking?: PerformanceTracking;
   // (undocumented)
   persistScrollGutter?: boolean;
   // (undocumented)
@@ -1062,27 +1064,13 @@ export interface EditorProps {
   // (undocumented)
   popupsScrollableElement?: HTMLElement;
   // (undocumented)
-  presenceProvider?: Promise<any>;
-  // (undocumented)
-  primaryToolbarComponents?: PrimaryToolbarComponents;
-  // (undocumented)
   primaryToolbarIconBefore?: ReactElement;
   // (undocumented)
   quickInsert?: QuickInsertOptions;
   // (undocumented)
-  sanitizePrivateContent?: boolean;
-  // (undocumented)
-  saveOnEnter?: boolean;
-  // (undocumented)
-  searchProvider?: Promise<SearchProvider>;
-  // (undocumented)
   secondaryToolbarComponents?: ReactComponents;
   // (undocumented)
   shouldFocus?: boolean;
-  // @deprecated (undocumented)
-  smartLinks?: CardOptions;
-  // (undocumented)
-  taskDecisionProvider?: Promise<TaskDecisionProvider>;
   // (undocumented)
   textFormatting?: TextFormattingOptions;
   trackValidTransactions?:
@@ -1090,15 +1078,9 @@ export interface EditorProps {
     | {
         samplingRate: number;
       };
-  // @deprecated (undocumented)
-  UNSAFE_cards?: CardOptions;
   // (undocumented)
   UNSAFE_useAnalyticsContext?: boolean;
-  // (undocumented)
-  uploadErrorHandler?: (state: MediaState) => void;
   useStickyToolbar?: RefObject<HTMLElement> | boolean;
-  // (undocumented)
-  waitForMediaUpload?: boolean;
 }
 
 // @public (undocumented)
@@ -1124,6 +1106,34 @@ type EditorProps_2 = {
   onMount?: (actions: EditorActions) => void;
   onDestroy?: () => void;
 };
+
+// @public (undocumented)
+interface EditorProviderProps {
+  // (undocumented)
+  activityProvider?: Promise<ActivityProvider>;
+  // (undocumented)
+  annotationProviders?: AnnotationProviders;
+  // (undocumented)
+  autoformattingProvider?: Providers['autoformattingProvider'];
+  // (undocumented)
+  collabEditProvider?: Providers['collabEditProvider'];
+  // (undocumented)
+  contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
+  // (undocumented)
+  emojiProvider?: Providers['emojiProvider'];
+  // (undocumented)
+  legacyImageUploadProvider?: Providers['imageUploadProvider'];
+  // (undocumented)
+  macroProvider?: Providers['macroProvider'];
+  // (undocumented)
+  mentionProvider?: Promise<MentionProvider>;
+  // (undocumented)
+  presenceProvider?: Promise<any>;
+  // (undocumented)
+  searchProvider?: Promise<SearchProvider>;
+  // (undocumented)
+  taskDecisionProvider?: Promise<TaskDecisionProvider>;
+}
 
 // @public (undocumented)
 interface EditorViewProps {
@@ -1288,7 +1298,7 @@ interface GapSelectionData {
 export function getDefaultPresetOptionsFromEditorProps(
   props: EditorProps,
   createAnalyticsEvent?: CreateUIAnalyticsEvent,
-): EditorPresetProps & DefaultPresetPluginOptions;
+): EditorPresetProps & DefaultPresetPluginOptions & EditorPluginFeatureProps;
 
 // @public (undocumented)
 export const getListCommands: () => {

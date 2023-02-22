@@ -4,28 +4,29 @@ import { jsx } from '@emotion/react';
 import { Box, Stack } from '../src';
 
 export default () => (
-  <Box testId="stack-example" padding="space.100">
+  <Box testId="stack-example" padding="space.100" display="flex">
     <Stack alignInline="center">
       space-between
       <Box
-        borderRadius="normal"
+        display="flex"
+        borderRadius="radius.200"
         padding="space.050"
         backgroundColor="neutral"
-        UNSAFE_style={{ height: '200px' }}
+        customStyles={{ height: '200px' }}
       >
         <Stack space="200" spread="space-between">
           <Box
-            borderRadius="normal"
+            borderRadius="radius.200"
             padding="space.200"
             backgroundColor="discovery.bold"
           />
           <Box
-            borderRadius="normal"
+            borderRadius="radius.200"
             padding="space.200"
             backgroundColor="discovery.bold"
           />
           <Box
-            borderRadius="normal"
+            borderRadius="radius.200"
             padding="space.200"
             backgroundColor="discovery.bold"
           />

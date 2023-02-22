@@ -20,12 +20,14 @@ import {
   ProductInformation,
   NamespaceStatus,
 } from '../../types';
+import * as Performance from '../../analytics/performance';
 import type { CollabSendableSelection } from '@atlaskit/editor-common/collab';
 import { createSocketIOSocket } from '../../socket-io-provider';
 import { io, Socket } from 'socket.io-client';
 import * as Analytics from '../../analytics';
 import { getProduct, getSubProduct } from '../../helpers/utils';
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
+import { EVENT_ACTION, EVENT_STATUS } from '../../helpers/const';
 
 const expectValidChannel = (channel: Channel): void => {
   expect(channel).toBeDefined();
@@ -219,6 +221,47 @@ describe('Channel unit tests', () => {
 
     expect(channel.getConnected()).toBe(false);
     channel.getSocket()!.emit('connect');
+  });
+
+  it('should handle connect_error when no data in error', () => {
+    const measureStopSpy = jest
+      .spyOn(Performance, 'stopMeasure')
+      .mockImplementation(() => ({ duration: 69, startTime: 420 }));
+    const triggerAnalyticsEventSpy = jest.spyOn(
+      Analytics,
+      'triggerAnalyticsEvent',
+    );
+
+    const error: Error = { name: 'kerfuffle', message: 'oh gosh oh bother' };
+
+    const channel = getChannel();
+    channel.on('error', (data: any) => {
+      expect(data).toEqual({
+        message: error.message,
+      });
+    });
+    // @ts-ignore private method for test
+    channel.onConnectError(error);
+
+    expect(measureStopSpy).toHaveBeenCalledWith(
+      Performance.MEASURE_NAME.SOCKET_CONNECT,
+    );
+    expect(measureStopSpy).toHaveBeenCalledTimes(1);
+    expect(triggerAnalyticsEventSpy).toHaveBeenCalledWith(
+      {
+        eventAction: EVENT_ACTION.CONNECTION,
+        attributes: {
+          eventStatus: EVENT_STATUS.FAILURE,
+          error: error as ErrorPayload,
+          latency: 69,
+          documentAri: testChannelConfig.documentAri,
+        },
+      },
+      testChannelConfig.analyticsClient,
+    );
+    expect(triggerAnalyticsEventSpy).toHaveBeenCalledTimes(1);
+    // There is 5 assertions in the test, plus 4 from `getChannel` calling `expectValidChannel`
+    expect.assertions(5 + 4);
   });
 
   it('should connect, then disconnect channel as expected', (done) => {
@@ -644,5 +687,28 @@ describe('Channel unit tests', () => {
         },
       });
     });
+  });
+
+  it('should emit documentNotFound error when the catch-up request returns 404', (done) => {
+    jest.spyOn(utils, 'requestService').mockRejectedValue({
+      code: 404,
+      reason: 'Page has been deleted for recovery',
+    });
+    const configuration = {
+      ...testChannelConfig,
+    };
+    const channel = getChannel(configuration);
+    channel.on('error', (error) => {
+      try {
+        expect(error).toEqual({
+          data: { status: 404, code: 'DOCUMENT_NOT_FOUND' },
+          message: 'The requested document is not found',
+        });
+        done();
+      } catch (err) {
+        done(err);
+      }
+    });
+    channel.fetchCatchup(1).then((data) => expect(data).toEqual({}));
   });
 });

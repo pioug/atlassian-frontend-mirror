@@ -42,26 +42,27 @@ export default () => (
                   {alignBlock}
 
                   <Box
-                    borderRadius="normal"
+                    display="flex"
+                    borderRadius="radius.200"
                     padding="space.050"
                     backgroundColor="neutral"
-                    UNSAFE_style={{
+                    customStyles={{
                       height: '200px',
                     }}
                   >
                     <Stack space="050" alignBlock={alignBlock}>
                       <Box
-                        borderRadius="normal"
+                        borderRadius="radius.200"
                         padding="space.200"
                         backgroundColor="discovery.bold"
                       />
                       <Box
-                        borderRadius="normal"
+                        borderRadius="radius.200"
                         padding="space.200"
                         backgroundColor="discovery.bold"
                       />
                       <Box
-                        borderRadius="normal"
+                        borderRadius="radius.200"
                         padding="space.200"
                         backgroundColor="discovery.bold"
                       />
@@ -82,26 +83,27 @@ export default () => (
                   {spread}
 
                   <Box
-                    borderRadius="normal"
+                    display="flex"
+                    borderRadius="radius.200"
                     padding="space.050"
                     backgroundColor="neutral"
-                    UNSAFE_style={{
+                    customStyles={{
                       height: '200px',
                     }}
                   >
                     <Stack space="050" spread={spread}>
                       <Box
-                        borderRadius="normal"
+                        borderRadius="radius.200"
                         padding="space.200"
                         backgroundColor="discovery.bold"
                       />
                       <Box
-                        borderRadius="normal"
+                        borderRadius="radius.200"
                         padding="space.200"
                         backgroundColor="discovery.bold"
                       />
                       <Box
-                        borderRadius="normal"
+                        borderRadius="radius.200"
                         padding="space.200"
                         backgroundColor="discovery.bold"
                       />
@@ -120,26 +122,26 @@ export default () => (
               <Stack key={alignInline} alignInline="center">
                 {alignInline}
                 <Box
-                  borderRadius="normal"
+                  borderRadius="radius.200"
                   padding="space.050"
                   backgroundColor="neutral"
-                  UNSAFE_style={{
+                  customStyles={{
                     width: '200px',
                   }}
                 >
                   <Stack grow="fill" alignInline={alignInline} space="050">
                     <Box
-                      borderRadius="normal"
+                      borderRadius="radius.200"
                       padding="space.200"
                       backgroundColor="discovery.bold"
                     />
                     <Box
-                      borderRadius="normal"
+                      borderRadius="radius.200"
                       padding="space.200"
                       backgroundColor="discovery.bold"
                     />
                     <Box
-                      borderRadius="normal"
+                      borderRadius="radius.200"
                       padding="space.200"
                       backgroundColor="discovery.bold"
                     />
@@ -158,18 +160,18 @@ export default () => (
                 <Stack key={space} space="100" alignInline="center">
                   {space}
                   <Box
-                    borderRadius="normal"
+                    borderRadius="radius.200"
                     padding="space.050"
                     backgroundColor="neutral"
                   >
                     <Stack space={space}>
                       <Box
-                        borderRadius="normal"
+                        borderRadius="radius.200"
                         padding="space.200"
                         backgroundColor="discovery.bold"
                       />
                       <Box
-                        borderRadius="normal"
+                        borderRadius="radius.200"
                         padding="space.200"
                         backgroundColor="discovery.bold"
                       />

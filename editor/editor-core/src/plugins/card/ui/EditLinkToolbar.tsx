@@ -26,6 +26,9 @@ import { changeSelectedCardToLink, updateCard } from '../pm-plugins/doc';
 import { findCardInfo, displayInfoForCard } from '../utils';
 import { NodeSelection } from 'prosemirror-state';
 import { buildEditLinkPayload } from '../../../utils/linking-utils';
+import { forceFocusSelector } from '../../floating-toolbar/pm-plugins/force-focus';
+import { withOuterListeners } from '@atlaskit/editor-common/ui';
+import { linkToolbarMessages } from '../../../messages';
 
 export type EditLinkToolbarProps = {
   view: EditorView;
@@ -36,6 +39,7 @@ export type EditLinkToolbarProps = {
   onSubmit?: (href: string, text?: string) => void;
   linkPickerOptions?: LinkPickerOptions;
 };
+const HyperLinkToolbarWithListeners = withOuterListeners(HyperlinkToolbar);
 
 export class EditLinkToolbar extends React.Component<EditLinkToolbarProps> {
   componentDidUpdate(prevProps: EditLinkToolbarProps) {
@@ -48,22 +52,32 @@ export class EditLinkToolbar extends React.Component<EditLinkToolbarProps> {
     this.hideLinkToolbar();
   }
 
+  /** Focus should move to the 'Edit link' button when the toolbar closes
+   * and not close the floating toolbar.
+   */
+  private handleEsc = (e: KeyboardEvent) => {
+    forceFocusSelector(
+      `[aria-label="${linkToolbarMessages.editLink.defaultMessage}"]`,
+      this.props.view,
+    );
+  };
+
   private hideLinkToolbar() {
     const { view } = this.props;
     view.dispatch(hideLinkToolbar(view.state.tr));
   }
-
   render() {
     const { linkPickerOptions, providerFactory, url, text, view, onSubmit } =
       this.props;
 
     return (
-      <HyperlinkToolbar
+      <HyperLinkToolbarWithListeners
         view={view}
         linkPickerOptions={linkPickerOptions}
         providerFactory={providerFactory}
         displayUrl={url}
         displayText={text}
+        handleEscapeKeydown={this.handleEsc}
         // Assumes that the smart card link picker can only ever be invoked by clicking "edit"
         // via the floating toolbar
         invokeMethod={INPUT_METHOD.FLOATING_TB}

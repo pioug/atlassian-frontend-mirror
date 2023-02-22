@@ -130,6 +130,23 @@ describe('shouldResolvePreview()', () => {
     mimeType: 'image/png',
   };
 
+  it('should return false if wasResolvedUpfrontPreview is false', () => {
+    // Status is previewable
+    isPreviewableStatus.mockReturnValueOnce(true);
+    // enforcing bigger dimensions
+    isBigger.mockReturnValueOnce(true);
+    expect(
+      shouldResolvePreview({
+        wasResolvedUpfrontPreview: false,
+        identifier: fileIdentifier,
+        status: dummyStatus,
+        hasCardPreview: true,
+        fileState: {} as FileState,
+        isBannedLocalPreview: false,
+      }),
+    ).toBe(false);
+  });
+
   it('should return false if has peview or status is not previewable', () => {
     // Has preview
     isPreviewableStatus.mockReturnValueOnce(true);
@@ -141,6 +158,7 @@ describe('shouldResolvePreview()', () => {
         isBannedLocalPreview: false,
         identifier: fileIdentifier,
         fileImageMode: defaultMode,
+        wasResolvedUpfrontPreview: true,
       }),
     ).toBe(false);
 
@@ -155,6 +173,7 @@ describe('shouldResolvePreview()', () => {
         isBannedLocalPreview: false,
         identifier: fileIdentifier,
         fileImageMode: defaultMode,
+        wasResolvedUpfrontPreview: true,
       }),
     ).toBe(false);
   });
@@ -171,6 +190,7 @@ describe('shouldResolvePreview()', () => {
       identifier: fileIdentifier,
       fileImageMode: defaultMode,
       isBannedLocalPreview: false,
+      wasResolvedUpfrontPreview: true,
     });
     expect(result).toBe(true);
   });
@@ -187,6 +207,7 @@ describe('shouldResolvePreview()', () => {
       identifier: fileIdentifier,
       fileImageMode: defaultMode,
       isBannedLocalPreview: false,
+      wasResolvedUpfrontPreview: true,
     });
     expect(result).toBe(false);
   });

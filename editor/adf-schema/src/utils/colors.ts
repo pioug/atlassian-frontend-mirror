@@ -60,7 +60,7 @@ export const T300 = '#00B8D9';
 export const T500 = '#008DA6';
 
 /**
- * @return String with HEX-coded color
+ * @return String with HEX-coded color.
  */
 export function normalizeHexColor(
   color: string | null,

@@ -12,6 +12,7 @@ import {
 } from '@atlaskit/prosemirror-input-rules';
 import { addAnalytics } from '../plugins/analytics';
 import { AnalyticsEventPayload } from '../plugins/analytics/types';
+import { JOIN_SCENARIOS_WHEN_TYPING_TO_INSERT_LIST } from '@atlaskit/editor-common/analytics';
 import { closeHistory } from 'prosemirror-history';
 import { findParentNodeOfTypeClosestToPos } from 'prosemirror-utils';
 import { getFeatureFlags } from '../plugins/feature-flags-context';
@@ -173,7 +174,11 @@ type WrappingRuleProps = {
   getAttrs?:
     | Record<string, any>
     | ((matchResult: RegExpExecArray) => Record<string, any>);
-  joinPredicate?: (matchResult: RegExpExecArray, node: PMNode) => boolean;
+  joinPredicate?: (
+    matchResult: RegExpExecArray,
+    node: PMNode,
+    joinScenario: JOIN_SCENARIOS_WHEN_TYPING_TO_INSERT_LIST,
+  ) => boolean;
 };
 
 export const createWrappingJoinRule = ({
@@ -237,7 +242,12 @@ export const createWrappingJoinRule = ({
           after &&
           after.type === nodeType &&
           canJoin(tr.doc, nodeEnd) &&
-          (!joinPredicate || joinPredicate(match, after))
+          (!joinPredicate ||
+            joinPredicate(
+              match,
+              after,
+              JOIN_SCENARIOS_WHEN_TYPING_TO_INSERT_LIST.JOINED_TO_LIST_BELOW,
+            ))
         ) {
           tr.join(nodeEnd);
         }
@@ -250,7 +260,12 @@ export const createWrappingJoinRule = ({
       before &&
       before.type === nodeType &&
       canJoin(tr.doc, fixedStart - 1) &&
-      (!joinPredicate || joinPredicate(match, before))
+      (!joinPredicate ||
+        joinPredicate(
+          match,
+          before,
+          JOIN_SCENARIOS_WHEN_TYPING_TO_INSERT_LIST.JOINED_TO_LIST_ABOVE,
+        ))
     ) {
       tr.join(fixedStart - 1);
     }

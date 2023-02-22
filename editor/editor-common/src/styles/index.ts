@@ -50,6 +50,8 @@ export {
   SmartCardSharedCssClassName,
 } from './shared/smart-card';
 
+export { DropdownMenuSharedCssClassName } from './shared/dropdown-menu';
+
 export {
   CodeBlockSharedCssClassName,
   codeBlockSharedStyles,

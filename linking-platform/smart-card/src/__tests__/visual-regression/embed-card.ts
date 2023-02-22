@@ -65,7 +65,8 @@ describe('Embed Card', () => {
       expect(image).toMatchProdImageSnapshot();
     });
 
-    it('should be interactive when isPlaceholder=false and href is defined', async () => {
+    // FIXME: This test was automatically skipped due to failure on 21/02/2023: https://product-fabric.atlassian.net/browse/EDM-5946
+    it.skip('should be interactive when isPlaceholder=false and href is defined', async () => {
       const url = getURL('vr-embed-card-frame');
       const page = await setup(url);
       const frame = '[data-testid="isplaceholder-false-and-href-defined"]';

@@ -24,6 +24,11 @@ export const messages = defineMessages({
     defaultMessage: 'Clear',
     description: 'Tooltip for clear button in the single user select field.',
   },
+  errorMessage: {
+    id: 'fabric.elements.user-picker.error.message',
+    defaultMessage: 'Something went wrong',
+    description: 'Error message to display when options fail to load.',
+  },
   memberCountWithoutYou: {
     id: 'fabric.elements.user-picker.team.member.count',
     defaultMessage:

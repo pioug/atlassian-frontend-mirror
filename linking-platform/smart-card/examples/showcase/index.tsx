@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 
 import { Provider, Client } from '../../src';
 import { IntlProvider } from 'react-intl-next';
@@ -11,16 +11,23 @@ import { ExampleUIConfig, ExampleUrls, ExampleUrl } from './types';
 import { getConfig, exampleUrlsJsonPath } from './config';
 import { EnvironmentsKeys } from '@atlaskit/link-provider';
 
+import Tooltip from '@atlaskit/tooltip';
+
+const START_PROD_URL = 'https://start.atlassian.com/gateway/api';
+const START_STG_URL = 'https://start.stg.atlassian.com/gateway/api';
+
 export const SmartLinksShowcase = () => {
-  const EnvOverrides: Record<EnvironmentsKeys, string> = {
-    stg: 'https://start.stg.atlassian.com/gateway/api',
-    staging: 'https://start.stg.atlassian.com/gateway/api',
-    prd: 'https://product-fabric.atlassian.com/gateway/api',
-    prod: 'https://product-fabric.atlassian.com/gateway/api',
-    production: 'https://product-fabric.atlassian.com/gateway/api',
-    dev: '',
-    development: '',
-  };
+  const EnvOverrides: Record<EnvironmentsKeys, string> = useMemo(() => {
+    return {
+      stg: START_STG_URL,
+      staging: START_STG_URL,
+      prd: START_PROD_URL,
+      prod: START_PROD_URL,
+      production: START_PROD_URL,
+      dev: '',
+      development: '',
+    };
+  }, []);
 
   const [urls, setUrls] = useState<ExampleUrls>([]);
   const [entities, setEntities] = useState<string[]>([]);
@@ -28,6 +35,9 @@ export const SmartLinksShowcase = () => {
     Record<string, ExampleUrl[]>
   >({});
   const [config, setConfig] = useState<ExampleUIConfig>(getConfig());
+  const [envUrl, setEnvUrl] = useState<string>(
+    EnvOverrides[config.environment],
+  );
 
   useEffect(() => {
     fetch(exampleUrlsJsonPath)
@@ -55,8 +65,43 @@ export const SmartLinksShowcase = () => {
     (newConfig: ExampleUIConfig) => {
       localStorage.setItem('__SMART_LINKS_CONFIG__', JSON.stringify(newConfig));
       setConfig(newConfig);
+      setEnvUrl(EnvOverrides[newConfig.environment]);
     },
-    [setConfig],
+    [EnvOverrides, setConfig],
+  );
+
+  const helpMessageUrl = useMemo(
+    () => (
+      <Tooltip
+        content={
+          <div>
+            <p>
+              We know it's not a usual "log in" but we need to acquire
+              ASAP-signed JWT token through a micros static server for our
+              Atlaskit examples.{' '}
+              <a
+                href="https://product-fabric.atlassian.net/wiki/spaces/MEX/pages/3057025945"
+                target="_blank"
+              >
+                Read more about that here.
+              </a>
+            </p>
+            <p>
+              To access the links login to start. Atlassian products' production
+              links including hello and product fabric will not resolve on
+              staging environment.
+            </p>
+          </div>
+        }
+      >
+        {(tooltipProps) => (
+          <a href={envUrl} target="_blank" {...tooltipProps}>
+            To load links, please login to start
+          </a>
+        )}
+      </Tooltip>
+    ),
+    [envUrl],
   );
 
   if (urls) {
@@ -68,9 +113,7 @@ export const SmartLinksShowcase = () => {
     return (
       <IntlProvider locale="en">
         <Provider
-          client={
-            new Client(config.environment, EnvOverrides[config.environment])
-          }
+          client={new Client(config.environment, envUrl)}
           authFlow={config.authFlow}
         >
           <div style={{ padding: '60px', paddingBottom: '120px' }}>
@@ -78,6 +121,7 @@ export const SmartLinksShowcase = () => {
               style={{
                 textAlign: 'center',
                 paddingTop: '24px',
+                paddingBottom: '72px',
                 position: 'relative',
                 zIndex: 1,
               }}
@@ -85,13 +129,13 @@ export const SmartLinksShowcase = () => {
               <h1>✨ Smart Links Showcase ✨</h1>
               <h3
                 style={{
-                  paddingBottom: '60px',
                   color: token('color.text.subtlest', N200),
                 }}
               >
                 {entitiesSupported} entities supported across{' '}
                 {providersSupported} providers.
               </h3>
+              {helpMessageUrl}
             </div>
             <div style={{ zIndex: 1, position: 'relative' }}>
               {Object.entries(urlsByCategory)

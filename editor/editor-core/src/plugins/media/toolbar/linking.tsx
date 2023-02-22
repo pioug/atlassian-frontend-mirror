@@ -14,7 +14,10 @@ import {
 } from '../../../ui/LinkSearch/ToolbarComponents';
 
 import { MediaToolbarBaseConfig } from '../types';
+import { forceFocusSelector } from '../../floating-toolbar/pm-plugins/force-focus';
 
+const FORCE_FOCUS_SELECTOR =
+  '[data-testid="add-link-button"],[data-testid="edit-link-button"]';
 export function shouldShowMediaLinkToolbar(editorState: EditorState): boolean {
   const mediaLinkingState = getMediaLinkingState(editorState);
   if (!mediaLinkingState || mediaLinkingState.mediaPos === null) {
@@ -61,6 +64,7 @@ export const getLinkingToolbar = (
               if (!view || !providerFactory) {
                 return null;
               }
+
               return (
                 <MediaLinkingToolbar
                   key={idx}
@@ -79,9 +83,13 @@ export const getLinkingToolbar = (
                     }
                     hideLinkingToolbar(view.state, view.dispatch, view);
                   }}
-                  onCancel={() =>
-                    hideLinkingToolbar(view.state, view.dispatch, view)
-                  }
+                  onCancel={() => {
+                    hideLinkingToolbar(view.state, view.dispatch, view, true);
+                    /** Focus should move to the 'Add link' button when the toolbar closes
+                     * and not close the floating toolbar.
+                     */
+                    forceFocusSelector(FORCE_FOCUS_SELECTOR, view);
+                  }}
                   onSubmit={(href, meta) => {
                     setUrlToMedia(href, meta.inputMethod)(
                       view.state,

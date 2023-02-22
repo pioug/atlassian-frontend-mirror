@@ -1,5 +1,11 @@
 ## 1.3.0 (2022-05-30)
 
+## 0.1.2
+
+### Patch Changes
+
+- [`96a7517a28f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/96a7517a28f) - Reverted filtering out analytics steps as they would break undo behaviour
+
 ## 0.1.1
 
 ### Patch Changes

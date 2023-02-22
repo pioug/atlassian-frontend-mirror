@@ -185,6 +185,8 @@ export interface CardState {
   shouldAutoplay?: boolean;
   // (undocumented)
   status: CardStatus;
+  // (undocumented)
+  wasResolvedUpfrontPreview: boolean;
 }
 
 // @public (undocumented)

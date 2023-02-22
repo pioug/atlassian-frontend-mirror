@@ -1,5 +1,12 @@
 # @atlaskit/datetime-picker
 
+## 12.3.9
+
+### Patch Changes
+
+- [`5546747df1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5546747df1e) - Refactoring of code to clean tech debt and make future maintenance easier
+- Updated dependencies
+
 ## 12.3.8
 
 ### Patch Changes

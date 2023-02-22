@@ -1,6 +1,6 @@
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import Select from '@atlaskit/select';
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, waitFor } from '@testing-library/react';
 import selectEvent from 'react-select-event';
 import { ConcurrentExperience, UFOExperience, ufologger } from '@atlaskit/ufo';
 import { mount, shallow, ReactWrapper } from 'enzyme';
@@ -275,6 +275,48 @@ describe('BaseUserPicker', () => {
     );
 
     expect(container).toHaveTextContent(customMessage);
+  });
+
+  it('should show loadOptionsErrorMessage on server error', async () => {
+    const loadOptionsError = (() =>
+      new Promise<OptionData>((_, reject) => reject('Failed'))) as LoadOptions;
+
+    const { container } = render(
+      getBasePickerWithoutAnalytics({
+        loadOptions: loadOptionsError,
+      }),
+    );
+
+    await selectEvent.openMenu(
+      container.querySelectorAll('#test')[0] as HTMLElement,
+    );
+
+    await waitFor(() => {
+      expect(container).toHaveTextContent('Something went wrong');
+    });
+  });
+
+  it('should show custom loadOptionsErrorMessage on server error', async () => {
+    const customLoadOptionsErrorMessage = 'Custom error';
+    const customNoOptionsMessage = 'Custom no options';
+    const loadOptionsError = (() =>
+      new Promise<OptionData>((_, reject) => reject('Failed'))) as LoadOptions;
+
+    const { container } = render(
+      getBasePickerWithoutAnalytics({
+        noOptionsMessage: () => customNoOptionsMessage,
+        loadOptionsErrorMessage: () => customLoadOptionsErrorMessage,
+        loadOptions: loadOptionsError,
+      }),
+    );
+
+    await selectEvent.openMenu(
+      container.querySelectorAll('#test')[0] as HTMLElement,
+    );
+
+    await waitFor(() => {
+      expect(container).toHaveTextContent(customLoadOptionsErrorMessage);
+    });
   });
 
   it('should trigger onChange with User', async () => {

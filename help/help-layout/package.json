@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/help-layout",
-  "version": "4.1.13",
+  "version": "4.1.14",
   "description": "Layout for the atlaskit/help component.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@atlaskit/analytics": "^8.0.0",
-    "@atlaskit/analytics-next": "^8.0.0",
+    "@atlaskit/analytics-next": "^9.0.0",
     "@atlaskit/button": "^16.5.0",
     "@atlaskit/icon": "^21.11.0",
     "@atlaskit/theme": "^12.2.0",

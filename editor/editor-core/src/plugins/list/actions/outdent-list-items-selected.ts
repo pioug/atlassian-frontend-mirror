@@ -28,6 +28,11 @@ import {
 } from '../utils/selection';
 import { GapCursorSelection } from '../../selection/gap-cursor-selection';
 import { getFeatureFlags } from '../../feature-flags-context';
+import {
+  storeRestartListsAttributes,
+  getRestartListsAttributes,
+} from '../utils/analytics';
+import { OUTDENT_SCENARIOS } from '@atlaskit/editor-common/analytics';
 
 export const outdentListItemsSelected = (
   tr: Transaction,
@@ -285,25 +290,56 @@ const extractListItemsRangeFromList = ({
   let nextList = list.copy(Fragment.empty);
 
   const featureFlags = getFeatureFlags(state);
-
+  let nextListStartNumber: number;
   if (featureFlags?.restartNumberedLists) {
     // if splitting a numbered list, keep the splitted item
     // counter as the start of the next (second half) list (instead
     // of reverting back to 1 as a starting number)
     const order = getOrderFromOrderedListNode(list);
     if (list.type.name === 'orderedList') {
+      nextListStartNumber = range.endIndex - 1 + order;
       nextList.attrs = {
         ...nextList.attrs,
-        order: range.endIndex - 1 + order,
+        order: nextListStartNumber,
       };
+      const { splitListStartNumber } = getRestartListsAttributes(tr);
+      if (typeof splitListStartNumber !== 'number') {
+        storeRestartListsAttributes(tr, {
+          splitListStartNumber: nextListStartNumber,
+        });
+      }
     }
   }
 
   const nextListFragment = listItemContent.append(Fragment.from(nextList));
 
+  if (featureFlags?.restartNumberedLists) {
+    // if the split list with nextListStartNumber is below another list
+    // with order (e.g due to multi-level indent items being lifted), track the
+    // list above's order instead, as it will be the split list's order after sibling joins
+    nextListFragment.forEach((node, _offset, index) => {
+      if (
+        node.type.name === 'orderedList' &&
+        node.attrs?.order === nextListStartNumber
+      ) {
+        const prev = nextListFragment.child(index - 1);
+        if (prev?.attrs?.order >= 0) {
+          storeRestartListsAttributes(tr, {
+            splitListStartNumber: prev?.attrs?.order,
+          });
+        }
+      }
+    });
+  }
+
   if (isTheEntireList) {
     const slice = new Slice(listItemContent, 0, 0);
     const step = new ReplaceStep($start.pos - 1, range.end + 1, slice, false);
+    if (featureFlags?.restartNumberedLists) {
+      storeRestartListsAttributes(tr, {
+        outdentScenario: undefined,
+      });
+    }
     tr.step(step);
   } else if (isAtTop) {
     const slice = new Slice(nextListFragment, 0, 1);
@@ -314,6 +350,11 @@ const extractListItemsRangeFromList = ({
     const step = new ReplaceStep($start.pos, listEnd + 1, slice, false);
     tr.step(step);
   } else {
+    if (featureFlags?.restartNumberedLists) {
+      storeRestartListsAttributes(tr, {
+        outdentScenario: OUTDENT_SCENARIOS.SPLIT_LIST,
+      });
+    }
     const slice = new Slice(nextListFragment, 1, 1);
     const step = new ReplaceAroundStep(
       $start.pos,

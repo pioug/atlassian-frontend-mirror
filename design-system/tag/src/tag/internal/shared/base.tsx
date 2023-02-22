@@ -43,14 +43,14 @@ const interactiveStyles = css({
   },
 });
 
-const removeableStyles = css({
+const focusRingStyles = css({
   '&:focus-within': {
     boxShadow: `0 0 0 2px var(${cssVar.color.focusRing})`,
     outline: 'none',
   },
 });
 
-const linkStyles = css({
+const nonStandardLinkStyles = css({
   '&:active': {
     color: `var(${cssVar.color.text.active})`,
   },
@@ -99,8 +99,8 @@ const BaseTag = React.forwardRef<HTMLDivElement, BaseProps>(function BaseTag(
       ref={ref}
       css={[
         baseStyles,
-        isRemovable && removeableStyles,
-        isLink && !isStandardLink && linkStyles,
+        (isRemovable || isLink) && focusRingStyles,
+        isLink && !isStandardLink && nonStandardLinkStyles,
         isInteractive && interactiveStyles,
       ]}
       style={{

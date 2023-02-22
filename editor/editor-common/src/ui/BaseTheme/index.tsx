@@ -11,9 +11,8 @@ import { Breakpoints, WidthConsumer } from '../WidthProvider';
 export function mapBreakpointToLayoutMaxWidth(breakpoint: Breakpoints) {
   switch (breakpoint) {
     case 'M':
-      return 760;
     case 'L':
-      return 850;
+      return 760;
     default:
       return 680;
   }

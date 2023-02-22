@@ -7,12 +7,12 @@ export default () => (
   <Box testId="inline-example" padding="space.100">
     <Inline>
       <Box
-        borderRadius="normal"
+        borderRadius="radius.200"
         backgroundColor="discovery.bold"
         padding="space.200"
       />
       <Box
-        borderRadius="normal"
+        borderRadius="radius.200"
         backgroundColor="discovery.bold"
         padding="space.200"
       />

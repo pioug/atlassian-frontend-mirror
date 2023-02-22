@@ -32,7 +32,7 @@ const ${property}Map = {
       return `'${key}': css({ zIndex: LAYERS['${key}'] })`;
     })
     .join(',\n\t')}
-};`,
+} as const;`,
     {
       singleQuote: true,
       trailingComma: 'all',

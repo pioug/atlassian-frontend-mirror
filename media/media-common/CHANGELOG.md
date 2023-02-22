@@ -1,5 +1,11 @@
 # @atlaskit/media-common
 
+## 2.19.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.19.1
 
 ### Patch Changes

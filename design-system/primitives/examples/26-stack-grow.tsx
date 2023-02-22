@@ -12,26 +12,27 @@ export default () => (
         <Stack alignInline="center">
           {grow}
           <Box
+            display="flex"
             backgroundColor="neutral"
-            borderRadius="normal"
-            UNSAFE_style={{
+            borderRadius="radius.200"
+            customStyles={{
               height: '200px',
             }}
           >
             <Stack grow={grow}>
               <Inline space="100" grow={grow}>
                 <Box
-                  borderRadius="normal"
+                  borderRadius="radius.200"
                   backgroundColor="discovery.bold"
                   padding="space.200"
                 />
                 <Box
-                  borderRadius="normal"
+                  borderRadius="radius.200"
                   backgroundColor="discovery.bold"
                   padding="space.200"
                 />
                 <Box
-                  borderRadius="normal"
+                  borderRadius="radius.200"
                   backgroundColor="discovery.bold"
                   padding="space.200"
                 />

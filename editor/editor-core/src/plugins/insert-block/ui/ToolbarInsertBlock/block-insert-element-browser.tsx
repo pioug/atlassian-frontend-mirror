@@ -40,6 +40,8 @@ export const BlockInsertElementBrowser: React.FC<
           mountTo={props.popupsMountPoint}
           boundariesElement={props.popupsBoundariesElement}
           scrollableElement={props.popupsScrollableElement}
+          preventOverflow={true}
+          alignX="right"
         >
           <InsertMenu
             editorView={props.editorView}

@@ -30,12 +30,9 @@ BrowserTestCase(
   },
 );
 
-// FIXME: This test was automatically skipped due to failure on 10/01/2023: https://product-fabric.atlassian.net/browse/ED-16515
 BrowserTestCase(
   'can paste hyperlink into list',
-  {
-    skip: ['*'],
-  },
+  {},
   async (client: any, testName: string) => {
     const page = new Page(client);
     await copyHyperlink(page, 'http://atlassian.com/');

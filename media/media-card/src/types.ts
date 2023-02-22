@@ -162,4 +162,5 @@ export interface CardState {
   cardRef: HTMLDivElement | null;
   isBannedLocalPreview: boolean;
   previewDidRender: boolean;
+  wasResolvedUpfrontPreview: boolean;
 }

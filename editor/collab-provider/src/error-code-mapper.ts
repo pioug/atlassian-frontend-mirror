@@ -27,13 +27,11 @@ export const ErrorCodeMapper = {
   },
   internalError: {
     code: 'INTERNAL_SERVICE_ERROR',
-    message: 'Collab service has return internal server error',
+    message: 'Collab service has experienced an internal server error',
   },
 };
 
-export const errorCodeMapper = (
-  error: ErrorPayload,
-): CollabErrorPayload | undefined => {
+export const errorCodeMapper = (error: ErrorPayload): CollabErrorPayload => {
   switch (error.data?.code) {
     case 'INSUFFICIENT_EDITING_PERMISSION':
       return {
@@ -59,15 +57,11 @@ export const errorCodeMapper = (
         code: ErrorCodeMapper.failToSave.code,
         message: ErrorCodeMapper.failToSave.message,
       };
-    case 'CATCHUP_FAILED':
-    case 'GET_QUERY_TIME_OUT':
-    case 'INIT_DATA_LOAD_FAILED':
+    default:
       return {
         status: 500,
         code: ErrorCodeMapper.internalError.code,
         message: ErrorCodeMapper.internalError.message,
       };
-    default:
-      break;
   }
 };

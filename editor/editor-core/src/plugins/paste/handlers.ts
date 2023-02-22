@@ -15,6 +15,7 @@ import {
   NodeSelection,
 } from 'prosemirror-state';
 import {
+  canInsert,
   findParentNodeOfType,
   hasParentNodeOfType,
   safeInsert,
@@ -64,6 +65,7 @@ import {
   stopTrackingPastedMacroPositions,
 } from './commands';
 import { getPluginState as getPastePluginState } from './pm-plugins/plugin-factory';
+import { doesSelectionWhichStartsOrEndsInListContainEntireList } from '../../utils/lists';
 
 // remove text attribute from mention for copy/paste (GDPR)
 export function handleMention(slice: Slice, schema: Schema): Slice {
@@ -171,13 +173,14 @@ export function handlePasteIntoTaskOrDecisionOrPanel(slice: Slice): Command {
 
     const transformedSliceIsValidNode =
       transformedSlice.content.firstChild.type.inlineContent ||
-      [
+      ([
         'decisionList',
         'decisionItem',
         'taskList',
         'taskItem',
         'panel',
-      ].includes(transformedSlice.content.firstChild.type.name);
+      ].includes(transformedSlice.content.firstChild.type.name) &&
+        !isInListItem(state));
     // If the slice or the selection are valid nodes to handle,
     // and the slice is not a whole node (i.e. openStart is 1 and openEnd is 0)
     // or the slice's first node is a paragraph,
@@ -207,17 +210,25 @@ export function handlePastePanelIntoList(slice: Slice): Command {
   return (state: EditorState, dispatch?: CommandDispatch): boolean => {
     const { schema, tr } = state;
     const { selection } = tr;
-
     // Check this pasting action is related to copy content from panel node into a selected the list node
-    const selectionParentListNode = selection.$to.node(selection.$to.depth - 1);
     const panelNode = slice.content.firstChild;
+    const isSliceWholeNode = slice.openStart === 0 && slice.openEnd === 0;
+    const selectionParentListItemNode = selection.$to.node(
+      selection.$to.depth - 1,
+    );
+
+    const sliceIsWholeNodeButShouldNotReplaceSelection =
+      isSliceWholeNode &&
+      !doesSelectionWhichStartsOrEndsInListContainEntireList(selection);
+
     if (
       !dispatch ||
-      !selectionParentListNode ||
-      selectionParentListNode?.type !== schema.nodes.listItem ||
+      !selectionParentListItemNode ||
+      selectionParentListItemNode?.type !== schema.nodes.listItem ||
       !panelNode ||
       panelNode?.type !== schema.nodes.panel ||
-      panelNode?.content.firstChild === undefined
+      panelNode?.content.firstChild === undefined ||
+      sliceIsWholeNodeButShouldNotReplaceSelection
     ) {
       return false;
     }
@@ -940,7 +951,10 @@ export function handleRichText(slice: Slice): Command {
 
       if (
         (insideTableCell(state) &&
-          (!doesBlockNodeExist || isInListItem(state))) ||
+          (!doesBlockNodeExist ||
+            (isInListItem(state) &&
+              canInsert(selection.$from, slice.content) &&
+              canInsert(selection.$to, slice.content)))) ||
         sliceHasList
       ) {
         tr.replaceSelection(slice);

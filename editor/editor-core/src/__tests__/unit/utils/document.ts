@@ -25,6 +25,12 @@ import {
   processRawValue,
   hasVisibleContent,
 } from '../../../utils/document';
+import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import {
+  ACTION,
+  ACTION_SUBJECT,
+  EVENT_TYPE,
+} from '../../../plugins/analytics/types/enums';
 
 describe(name, () => {
   describe('Utils -> Document', () => {
@@ -160,6 +166,10 @@ describe(name, () => {
       const oldConsole = console.error;
       // eslint-disable-next-line no-console
       console.error = jest.fn();
+      let createAnalyticsEvent = jest.fn(
+        () => ({ fire() {} } as UIAnalyticsEvent),
+      );
+
       afterAll(() => {
         // eslint-disable-next-line no-console
         console.error = oldConsole;
@@ -179,11 +189,29 @@ describe(name, () => {
 
       it('should return undefined if json represents not valid PM Node', () => {
         expect(
-          processRawValue(schema, {
-            type: 'blockqoute',
-            content: [{ type: 'text', text: 'text' }],
-          }),
+          processRawValue(
+            schema,
+            {
+              type: 'blockqoute',
+              content: [{ type: 'text', text: 'text' }],
+            },
+            undefined,
+            undefined,
+            undefined,
+            createAnalyticsEvent,
+          ),
         ).toBeUndefined();
+        expect(createAnalyticsEvent).toHaveBeenCalled();
+        expect(createAnalyticsEvent).toHaveBeenCalledWith({
+          action: ACTION.DOCUMENT_PROCESSING_ERROR,
+          actionSubject: ACTION_SUBJECT.EDITOR,
+          eventType: EVENT_TYPE.OPERATIONAL,
+          nonPrivacySafeAttributes: expect.objectContaining({
+            errorStack: expect.stringContaining(
+              'RangeError: Unknown node type: blockqoute',
+            ),
+          }),
+        });
       });
     });
 

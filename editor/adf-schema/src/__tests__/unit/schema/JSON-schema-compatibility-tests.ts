@@ -58,6 +58,7 @@ const unsupportedMarks = [
   'unsupportedNodeAttribute',
   'typeAheadQuery',
   'dataConsumer',
+  'fragment', // This test suite only works well for marks which act on text, not marks acting on other nodes
 ];
 
 /**

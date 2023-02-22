@@ -14,24 +14,25 @@ export default () => (
           <Box
             backgroundColor="neutral"
             padding="space.050"
-            borderRadius="normal"
-            UNSAFE_style={{
+            borderRadius="radius.200"
+            customStyles={{
               height: '200px',
             }}
+            display="flex"
           >
             <Stack space="050" alignBlock={alignBlock}>
               <Box
-                borderRadius="normal"
+                borderRadius="radius.200"
                 padding="space.200"
                 backgroundColor="discovery.bold"
               />
               <Box
-                borderRadius="normal"
+                borderRadius="radius.200"
                 padding="space.200"
                 backgroundColor="discovery.bold"
               />
               <Box
-                borderRadius="normal"
+                borderRadius="radius.200"
                 padding="space.200"
                 backgroundColor="discovery.bold"
               />

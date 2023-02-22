@@ -1,5 +1,27 @@
 # @atlaskit/editor-core
 
+## 179.1.0
+
+### Minor Changes
+
+- [`ef0beaafa36`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ef0beaafa36) - [ux] ED-15862: Add analytics for restartNumberedLists custom list start numbers
+- [`75e0af42bcd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/75e0af42bcd) - [ux] ED-16568 added selected state to emoji button in the main toolbar, when it is clicked and emoji popup is displayed
+
+### Patch Changes
+
+- [`e78c04fa97c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e78c04fa97c) - [ux] ED-16489 Fixed - textFormatBridge.updateTextWithADFStatus returns "isEmptyAdf: false" when ADF has only whitespace
+- [`eab04c03dbc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eab04c03dbc) - ED-15641 Update transfromIndentationMarks() to remove heading indention from tableHeaders.
+- [`4c16f77b286`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4c16f77b286) - [ux] ED-15498 Added forceFocus plugin. The plugin handles moving focus back to a specified floating toolbar button after pressing ESC to close a floating toolbar submenu.
+- [`a2ebf475e82`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a2ebf475e82) - ED-16197 Updating DOCUMENT_PROCESSING_ERROR event action to map to new event "documentProcessingErrorV2" and moving its errorStack attribute to nonPrivacySafeAttributes.
+- [`b3d1ccd9059`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b3d1ccd9059) - ED-16475: [ux] Added functionality for indentation buttons that shift focus to their counterpart button when they become disabled as a result of keyboard access and commands
+- [`e1f9f1cfac1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e1f9f1cfac1) - ED-16559 This commit creates a new preset which contains all plugins for the editor. The create-plugins-list now uses this to create the plugins list.
+- [`7ac23f207d6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7ac23f207d6) - ED-16557 - Refactor prepareQuickInsertProvider in Editor to make it more testable.
+- [`f3386f58d81`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f3386f58d81) - [ux] ED-15391 When the floating toolbar unmounts or updates, remove any temporary styling that was added to table via hovering over a floating toolbar button.
+- [`23eca7ad593`](https://bitbucket.org/atlassian/atlassian-frontend/commits/23eca7ad593) - [ux] [ED-15904] Fix regression where pasting blocknodes into a list would split the list instead of safe inserting
+- [`0532d79f513`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0532d79f513) - Avoids having CSS for typeahead getting overriden by products.
+- [`c4563e66246`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c4563e66246) - [ux] Fix for ED-15722 Top section of new dropdown menu is blocked from scrolling in Jira - dropdown aligns to bottom right
+- Updated dependencies
+
 ## 179.0.4
 
 ### Patch Changes

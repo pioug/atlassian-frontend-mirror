@@ -283,7 +283,7 @@ export const ReactionPicker: React.FC<ReactionPickerProps> = React.memo(
                 onClick={onTriggerClick}
                 miniMode={miniMode}
                 disabled={disabled}
-                tooltipContent={tooltipContent}
+                tooltipContent={settings.isOpen ? null : tooltipContent}
               />
             )}
           </Reference>

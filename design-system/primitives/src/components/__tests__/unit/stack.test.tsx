@@ -2,9 +2,7 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import Text from '@atlaskit/ds-explorations/text';
-
-import { Stack } from '../../../../src';
+import { Box, Stack } from '../../../../src';
 
 describe('Stack', () => {
   const testId = 'test';
@@ -12,8 +10,8 @@ describe('Stack', () => {
   it('should render stack', () => {
     const { getByText } = render(
       <Stack space="050">
-        <Text>1</Text>
-        <Text>2</Text>
+        <Box>1</Box>
+        <Box>2</Box>
       </Stack>,
     );
     expect(getByText('1')).toBeInTheDocument();
@@ -23,8 +21,8 @@ describe('Stack', () => {
   it('should render with a given test id', () => {
     const { getByTestId } = render(
       <Stack space="050" testId={testId}>
-        <Text>1</Text>
-        <Text>2</Text>
+        <Box>1</Box>
+        <Box>2</Box>
       </Stack>,
     );
     const element = getByTestId(testId);

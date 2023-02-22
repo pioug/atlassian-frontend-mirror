@@ -19,14 +19,17 @@ const PositionMouseExample = () => {
 
   return (
     <Tooltip content={positionText} position={positionText}>
-      <Button
-        appearance="primary"
-        onClick={() => {
-          setPosition((position + 1) % VALID_POSITIONS.length);
-        }}
-      >
-        Hover over me
-      </Button>
+      {(tooltipProps) => (
+        <Button
+          {...tooltipProps}
+          appearance="primary"
+          onClick={() => {
+            setPosition((position + 1) % VALID_POSITIONS.length);
+          }}
+        >
+          Hover over me
+        </Button>
+      )}
     </Tooltip>
   );
 };

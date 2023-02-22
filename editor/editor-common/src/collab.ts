@@ -11,4 +11,5 @@ export type {
   CollabSendableSelection,
   CollabEventLocalStepData,
   ResolvedEditorState,
+  CollabEventConnectingData,
 } from './collab/types';

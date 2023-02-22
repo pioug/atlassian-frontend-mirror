@@ -288,6 +288,65 @@ describe('Renderer - React/Nodes/Table', () => {
     });
   });
 
+  describe('when renderWidth is 20% lower than table width', () => {
+    it('should scale down columns widths by 20%', () => {
+      const columnWidths = [200, 200, 280];
+      const table = mountWithIntl(
+        <Table
+          layout="default"
+          isNumberColumnEnabled={false}
+          columnWidths={columnWidths}
+          renderWidth={544}
+        >
+          <TableRow>
+            <TableCell />
+            <TableCell />
+            <TableCell />
+          </TableRow>
+          <TableRow>
+            <TableCell />
+            <TableCell />
+            <TableCell />
+          </TableRow>
+        </Table>,
+      );
+      expect(table.find('col')).toHaveLength(3);
+      table.find('col').forEach((col, index) => {
+        const width = columnWidths[index] - columnWidths[index] * 0.2;
+        expect(col.prop('style')!.width).toEqual(`${width}px`);
+      });
+    });
+  });
+  describe('when renderWidth is 40% lower than table width', () => {
+    it('should scale down columns widths by 30% and then overflow', () => {
+      const columnWidths = [200, 200, 280];
+      const table = mountWithIntl(
+        <Table
+          layout="default"
+          isNumberColumnEnabled={false}
+          columnWidths={columnWidths}
+          renderWidth={408}
+        >
+          <TableRow>
+            <TableCell />
+            <TableCell />
+            <TableCell />
+          </TableRow>
+          <TableRow>
+            <TableCell />
+            <TableCell />
+            <TableCell />
+          </TableRow>
+        </Table>,
+      );
+      expect(table.find('col')).toHaveLength(3);
+      table.find('col').forEach((col, index) => {
+        const width = columnWidths[index] - columnWidths[index] * 0.3;
+        expect(col.prop('style')!.width).toEqual(`${width}px`);
+      });
+    });
+  });
+
   describe('tables created when allowColumnSorting is enabled', () => {
     const tableDoc = {
       ...table(

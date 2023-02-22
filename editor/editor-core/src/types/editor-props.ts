@@ -75,7 +75,9 @@ export type PrimaryToolbarComponents =
   | BeforeAndAfterToolbarComponents
   | ReactComponents;
 
-export interface EditorProps {
+export interface EditorProps
+  extends EditorPluginFeatureProps,
+    EditorProviderProps {
   // Note: this comment is replicated in packages/editor/renderer/src/ui/Renderer/types.ts
   // any changes should be made in both locations
   /*
@@ -89,94 +91,10 @@ export interface EditorProps {
   appearance?: EditorAppearance;
 
   contentComponents?: ReactComponents;
-  primaryToolbarComponents?: PrimaryToolbarComponents;
 
   // Optionally adds an element (eg: an icon) at the start of the editor's primary toolbar. If not specified, the primary toolbar spans the entire width.
   primaryToolbarIconBefore?: ReactElement;
   secondaryToolbarComponents?: ReactComponents;
-  allowAnalyticsGASV3?: boolean;
-  // Configure allowed blocks in the editor, currently only supports `heading`, `blockquote`, `hardBreak` and `codeBlock`.
-  allowBlockType?: BlockTypePluginOptions['allowBlockType'];
-
-  // Whether or not you want to allow Action and Decision elements in the editor. You can currently only enable both or disable both.
-  // To enable, you need to also provide a `taskDecisionProvider`. You will most likely need backend ADF storage for this feature.
-  allowTasksAndDecisions?: boolean;
-
-  // Enables new breakout mark.
-  // This mark is being used for making code-blocks breakout.
-  allowBreakout?: boolean;
-
-  // Enables horizontal rules.
-  allowRule?: boolean;
-
-  // Enables text colour. Ew are you sure you want to enable this?
-  allowTextColor?: boolean | TextColorPluginConfig;
-
-  // Enables tables. You can enable individual table features like table header rows and cell background colour.
-  // You will most likely need backend ADF storage for the advanced table features.
-  allowTables?: boolean | TablesPluginConfig;
-
-  // Enable the editor help dialog.
-  allowHelpDialog?: boolean;
-
-  // Information required for editor to display the feedback modal.
-  // This is also required to enable quick insert plugin for feedback modal.
-  feedbackInfo?: FeedbackInfo;
-
-  // This is a temporary setting for Confluence until we ship smart cards. **Please do not use.**
-  allowJiraIssue?: boolean;
-
-  // Enable panel blocks, the thing that displays a coloured box with icons aka info, warning macros.
-  // You will most likely need backend ADF storage for this feature.
-  allowPanel?: boolean | PanelPluginConfig;
-
-  // Enable extensions. Extensions let products and the ecosystem extend ADF and render their own things.
-  // Similar to macros in Confluence. You will most likely need backend ADF storage for this feature.
-  allowExtension?: boolean | ExtensionConfig;
-
-  allowConfluenceInlineComment?: boolean;
-
-  // Enable placeholder text which is handy for things like a template editor.
-  // Placeholder text is an inline text element that is removed when a user clicks on it.
-  // You can also disable the inserts for this feature so users can never insert such placeholder
-  // elements in the editor but you could load the initial content in the editor with them.
-  allowTemplatePlaceholders?: boolean | PlaceholderTextOptions;
-
-  // Enable dates. You will most likely need backend ADF storage for this feature.
-  allowDate?: boolean;
-
-  // Temporary flag to enable layouts while it's under development
-  // Use object form to enable breakout for layouts, and to enable the newer layouts - left sidebar & right sidebar
-  allowLayouts?: boolean | LayoutPluginOptions;
-
-  // Enable status, if menuDisabled is passed then plugin is enabled by default
-  allowStatus?:
-    | boolean
-    | {
-        menuDisabled: boolean;
-      };
-
-  // Enable text alignment support inside `heading` and `paragraph`
-  allowTextAlignment?: boolean;
-
-  // Enable indentation support for `heading` and `paragraph`
-  allowIndentation?: boolean;
-
-  /**
-   * This enables new insertion behaviour only for horizontal rule and media single in certain conditions.
-   * The idea of this new behaviour is to have a consistent outcome regardless of the insertion method.
-   **/
-  allowNewInsertionBehaviour?: boolean;
-
-  /**
-   * Set this to false to opt out of the default behaviour of auto scrolling into view
-   * whenever the document is changed
-   */
-  autoScrollIntoView?: boolean;
-
-  // Enable find/replace functionality within the editor.
-  // You can use the object form to enable additional individual features e.g. case-matching toggle.
-  allowFindReplace?: boolean | FindReplaceOptions;
 
   persistScrollGutter?: boolean;
 
@@ -184,24 +102,6 @@ export interface EditorProps {
   // You can also provide your own insert menu options that will be shown in addition to the enabled
   // editor features e.g. Confluence uses this to provide its macros.
   quickInsert?: QuickInsertOptions;
-
-  /** @deprecated Use smartLinks instead. */
-  UNSAFE_cards?: CardOptions;
-
-  /** @deprecated Use linking instead. */
-  smartLinks?: CardOptions;
-
-  /**
-   *  Configure and extend editor linking behaviour
-   */
-  linking?: LinkingOptions;
-
-  allowExpand?:
-    | boolean
-    | { allowInsertion?: boolean; allowInteractiveExpand?: boolean };
-
-  // Submits on the enter key. Probably useful for an inline comment editor use case.
-  saveOnEnter?: boolean;
 
   // Set if the editor should be focused.
   shouldFocus?: boolean;
@@ -214,38 +114,8 @@ export interface EditorProps {
   contextPanel?: ReactComponents;
 
   errorReporterHandler?: ErrorReportingHandler;
-  uploadErrorHandler?: (state: MediaState) => void;
 
-  activityProvider?: Promise<ActivityProvider>;
-  searchProvider?: Promise<SearchProvider>;
-
-  annotationProviders?: AnnotationProviders;
-
-  collabEditProvider?: Providers['collabEditProvider'];
-  presenceProvider?: Promise<any>;
-  emojiProvider?: Providers['emojiProvider'];
-  taskDecisionProvider?: Promise<TaskDecisionProvider>;
-  allowNestedTasks?: boolean;
-  contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
-
-  legacyImageUploadProvider?: Providers['imageUploadProvider'];
-  mentionProvider?: Promise<MentionProvider>;
-  mention?: MentionPluginConfig;
-
-  // Allows you to define custom autoformatting rules.
-  autoformattingProvider?: Providers['autoformattingProvider'];
-
-  // This is temporary for Confluence. **Please do not use**.
-  macroProvider?: Providers['macroProvider'];
-
-  // Set if you want to wait for media file uploads before save.
-  waitForMediaUpload?: boolean;
   contentTransformerProvider?: (schema: Schema) => Transformer<string>;
-
-  // Set to configure media features. Media single refers to the embedded version of media,
-  // which is probably what you want. Media group refers to a filmstrip, thumbnail view of media files which was used in Stride.
-  media?: MediaOptions;
-  collabEdit?: CollabEditOptions;
 
   // Set to disable text formatting styles. If not specified, they will be all enabled by default. Code here refers to inline code.
   // Smart text completion refers to the auto replacement of characters like arrows, quotes and correct casing of Atlassian product names.
@@ -257,10 +127,6 @@ export interface EditorProps {
 
   // Set to configure the minimum editor height in pixels for `comment`, `chromeless` editor modes.
   minHeight?: number;
-
-  // Set to configure the maximum ADF node document size.
-  // Understandably this isn’t the best logical max parameter for content, but its the cheapest for now.
-  maxContentSize?: number;
 
   // Default placeholder text to be displayed if the document content is empty. e.g. 'Add a comment...'
   placeholder?: string;
@@ -278,8 +144,6 @@ export interface EditorProps {
   // Specify when mount point is different from scrollable element so popup menus can be positioned according the scrollable element.
   popupsScrollableElement?: HTMLElement;
 
-  // Set to add custom menu items to the insert (plus) menu dropdown.
-  insertMenuItems?: MenuItem[];
   editorActions?: EditorActions;
 
   // Set a callback for the editor when users are able to interact.
@@ -293,24 +157,8 @@ export interface EditorProps {
   // `meta.source === 'remote'` means that a change is coming from remote source, e.g. collab editing session.
   onChange?: EditorOnChangeHandler;
 
-  // Set for an on save callback.
-  onSave?: (editorView: EditorView) => void;
-
   // Set for an on cancel callback.
   onCancel?: (editorView: EditorView) => void;
-
-  // Set to provide your extensions handlers.
-  extensionHandlers?: ExtensionHandlers;
-
-  // Flag to remove private content such as mention names
-  sanitizePrivateContent?: boolean;
-
-  /**
-   * flag to indicate display name instead of nick name should be inserted for mentions
-   * default: false, which inserts the nick name
-   * @deprecated Use mention.mentionInsertDisplayName instead
-   */
-  mentionInsertDisplayName?: boolean;
 
   /**
    * @description The nth keystroke after which an input time taken event is sent, 0 to disable it
@@ -327,22 +175,7 @@ export interface EditorProps {
   // Enables re-providing of AnalyticsContext for all ReactNodeViews.
   UNSAFE_useAnalyticsContext?: boolean;
 
-  /**
-   * @description Control performance metric measurements and tracking
-   */
-  performanceTracking?: PerformanceTracking;
-
-  elementBrowser?: {
-    showModal?: boolean;
-    replacePlusMenu?: boolean;
-    helpUrl?: string;
-    emptyStateHandler?: EmptyStateHandler;
-  };
-
   codeBlock?: CodeBlockOptions;
-
-  // Enable undo/redo buttons within the editor.
-  allowUndoRedoButtons?: boolean;
 
   /**
    * @default undefined
@@ -394,12 +227,6 @@ export interface EditorProps {
   featureFlags?: { [featureFlag: string]: string | boolean };
 
   /**
-   * Enable support for the "fragment" mark.
-   * Refer to ADF Change proposal #60 for more details.
-   */
-  allowFragmentMark?: boolean;
-
-  /**
    * @deprecated Do not use outside of Editor team.
    * This has subtle side effects - you __WILL__ break functionality without implementer knowledge of editor-core internals
    */
@@ -409,4 +236,189 @@ export interface EditorProps {
      */
     __plugins: EditorPlugin[];
   };
+}
+
+export interface EditorProviderProps {
+  activityProvider?: Promise<ActivityProvider>;
+  searchProvider?: Promise<SearchProvider>;
+
+  annotationProviders?: AnnotationProviders;
+
+  collabEditProvider?: Providers['collabEditProvider'];
+  presenceProvider?: Promise<any>;
+  emojiProvider?: Providers['emojiProvider'];
+  taskDecisionProvider?: Promise<TaskDecisionProvider>;
+  contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
+
+  legacyImageUploadProvider?: Providers['imageUploadProvider'];
+  mentionProvider?: Promise<MentionProvider>;
+
+  // Allows you to define custom autoformatting rules.
+  autoformattingProvider?: Providers['autoformattingProvider'];
+
+  // This is temporary for Confluence. **Please do not use**.
+  macroProvider?: Providers['macroProvider'];
+}
+
+export interface EditorPluginFeatureProps {
+  allowExpand?:
+    | boolean
+    | { allowInsertion?: boolean; allowInteractiveExpand?: boolean };
+
+  allowNestedTasks?: boolean;
+
+  allowAnalyticsGASV3?: boolean;
+  // Configure allowed blocks in the editor, currently only supports `heading`, `blockquote`, `hardBreak` and `codeBlock`.
+  allowBlockType?: BlockTypePluginOptions['allowBlockType'];
+
+  // Whether or not you want to allow Action and Decision elements in the editor. You can currently only enable both or disable both.
+  // To enable, you need to also provide a `taskDecisionProvider`. You will most likely need backend ADF storage for this feature.
+  allowTasksAndDecisions?: boolean;
+
+  // Enables new breakout mark.
+  // This mark is being used for making code-blocks breakout.
+  allowBreakout?: boolean;
+
+  // Enables horizontal rules.
+  allowRule?: boolean;
+
+  // Enables text colour. Ew are you sure you want to enable this?
+  allowTextColor?: boolean | TextColorPluginConfig;
+
+  // Enables tables. You can enable individual table features like table header rows and cell background colour.
+  // You will most likely need backend ADF storage for the advanced table features.
+  allowTables?: boolean | TablesPluginConfig;
+
+  // Enable the editor help dialog.
+  allowHelpDialog?: boolean;
+
+  // This is a temporary setting for Confluence until we ship smart cards. **Please do not use.**
+  allowJiraIssue?: boolean;
+
+  // Enable panel blocks, the thing that displays a coloured box with icons aka info, warning macros.
+  // You will most likely need backend ADF storage for this feature.
+  allowPanel?: boolean | PanelPluginConfig;
+
+  // Enable extensions. Extensions let products and the ecosystem extend ADF and render their own things.
+  // Similar to macros in Confluence. You will most likely need backend ADF storage for this feature.
+  allowExtension?: boolean | ExtensionConfig;
+
+  allowConfluenceInlineComment?: boolean;
+
+  // Enable placeholder text which is handy for things like a template editor.
+  // Placeholder text is an inline text element that is removed when a user clicks on it.
+  // You can also disable the inserts for this feature so users can never insert such placeholder
+  // elements in the editor but you could load the initial content in the editor with them.
+  allowTemplatePlaceholders?: boolean | PlaceholderTextOptions;
+
+  // Enable dates. You will most likely need backend ADF storage for this feature.
+  allowDate?: boolean;
+
+  // Temporary flag to enable layouts while it's under development
+  // Use object form to enable breakout for layouts, and to enable the newer layouts - left sidebar & right sidebar
+  allowLayouts?: boolean | LayoutPluginOptions;
+
+  // Enable status, if menuDisabled is passed then plugin is enabled by default
+  allowStatus?:
+    | boolean
+    | {
+        menuDisabled: boolean;
+      };
+
+  // Enable text alignment support inside `heading` and `paragraph`
+  allowTextAlignment?: boolean;
+
+  // Enable indentation support for `heading` and `paragraph`
+  allowIndentation?: boolean;
+
+  /**
+   * This enables new insertion behaviour only for horizontal rule and media single in certain conditions.
+   * The idea of this new behaviour is to have a consistent outcome regardless of the insertion method.
+   **/
+  allowNewInsertionBehaviour?: boolean;
+
+  // Enable undo/redo buttons within the editor.
+  allowUndoRedoButtons?: boolean;
+
+  // Enable find/replace functionality within the editor.
+  // You can use the object form to enable additional individual features e.g. case-matching toggle.
+  allowFindReplace?: boolean | FindReplaceOptions;
+
+  /**
+   * Enable support for the "fragment" mark.
+   * Refer to ADF Change proposal #60 for more details.
+   */
+  allowFragmentMark?: boolean;
+
+  /**
+   * Set this to false to opt out of the default behaviour of auto scrolling into view
+   * whenever the document is changed
+   */
+  autoScrollIntoView?: boolean;
+
+  elementBrowser?: {
+    showModal?: boolean;
+    replacePlusMenu?: boolean;
+    helpUrl?: string;
+    emptyStateHandler?: EmptyStateHandler;
+  };
+
+  // Set to configure the maximum ADF node document size.
+  // Understandably this isn’t the best logical max parameter for content, but its the cheapest for now.
+  maxContentSize?: number;
+
+  // Submits on the enter key. Probably useful for an inline comment editor use case.
+  saveOnEnter?: boolean;
+
+  // Information required for editor to display the feedback modal.
+  // This is also required to enable quick insert plugin for feedback modal.
+  feedbackInfo?: FeedbackInfo;
+
+  // Set to configure media features. Media single refers to the embedded version of media,
+  // which is probably what you want. Media group refers to a filmstrip, thumbnail view of media files which was used in Stride.
+  media?: MediaOptions;
+  collabEdit?: CollabEditOptions;
+
+  primaryToolbarComponents?: PrimaryToolbarComponents;
+
+  /** @deprecated Use smartLinks instead. */
+  UNSAFE_cards?: CardOptions;
+
+  /** @deprecated Use linking instead. */
+  smartLinks?: CardOptions;
+
+  /**
+   *  Configure and extend editor linking behaviour
+   */
+  linking?: LinkingOptions;
+
+  // Flag to remove private content such as mention names
+  sanitizePrivateContent?: boolean;
+
+  mention?: MentionPluginConfig;
+  /**
+   * flag to indicate display name instead of nick name should be inserted for mentions
+   * default: false, which inserts the nick name
+   * @deprecated Use mention.mentionInsertDisplayName instead
+   */
+  mentionInsertDisplayName?: boolean;
+
+  /**
+   * @description Control performance metric measurements and tracking
+   */
+  performanceTracking?: PerformanceTracking;
+
+  uploadErrorHandler?: (state: MediaState) => void;
+
+  // Set for an on save callback.
+  onSave?: (editorView: EditorView) => void;
+
+  // Set if you want to wait for media file uploads before save.
+  waitForMediaUpload?: boolean;
+
+  // Set to add custom menu items to the insert (plus) menu dropdown.
+  insertMenuItems?: MenuItem[];
+
+  // Set to provide your extensions handlers.
+  extensionHandlers?: ExtensionHandlers;
 }

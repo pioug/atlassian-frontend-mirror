@@ -176,33 +176,35 @@ export class Channel extends Emitter<ChannelEvent> {
 
     // `connect_error`'s paramter type is `Error`.
     // Ensure the error emit to the provider has the same structure, so we can handle them unified.
-    this.socket.on('connect_error', (error: Error) => {
-      const measure = stopMeasure(MEASURE_NAME.SOCKET_CONNECT);
-      triggerAnalyticsEvent(
-        {
-          eventAction: EVENT_ACTION.CONNECTION,
-          attributes: {
-            eventStatus: EVENT_STATUS.FAILURE,
-            error: error as ErrorPayload,
-            latency: measure?.duration,
-            documentAri: this.config.documentAri,
-          },
-        },
-        this.analyticsClient,
-      );
-      // If error received with `data`, it means the connection is rejected
-      // by the server on purpose for example no permission, so no need to
-      // keep the underneath connection, need to close. But some error like
-      // `xhr polling error` needs to retry.
-      if (!!(error as ErrorPayload).data) {
-        this.socket?.close();
-      }
-      this.emit('error', {
-        message: error.message,
-        data: (error as ErrorPayload).data,
-      });
-    });
+    this.socket.on('connect_error', this.onConnectError);
   }
+
+  private onConnectError = (error: Error) => {
+    const measure = stopMeasure(MEASURE_NAME.SOCKET_CONNECT);
+    triggerAnalyticsEvent(
+      {
+        eventAction: EVENT_ACTION.CONNECTION,
+        attributes: {
+          eventStatus: EVENT_STATUS.FAILURE,
+          error: error as ErrorPayload,
+          latency: measure?.duration,
+          documentAri: this.config.documentAri,
+        },
+      },
+      this.analyticsClient,
+    );
+    // If error received with `data`, it means the connection is rejected
+    // by the server on purpose for example no permission, so no need to
+    // keep the underneath connection, need to close. But some error like
+    // `xhr polling error` needs to retry.
+    if (!!(error as ErrorPayload).data) {
+      this.socket?.close();
+    }
+    this.emit('error', {
+      message: error.message,
+      data: (error as ErrorPayload).data,
+    });
+  };
 
   private onConnect = () => {
     this.connected = true;
@@ -302,6 +304,17 @@ export class Channel extends Emitter<ChannelEvent> {
         metadata,
       };
     } catch (error: any) {
+      if (error.code === 404) {
+        const errorNotFound: ErrorPayload = {
+          message: ErrorCodeMapper.documentNotFound.message,
+          data: {
+            status: error.code,
+            code: ErrorCodeMapper.documentNotFound.code,
+          },
+        };
+        this.emit('error', errorNotFound);
+        return {};
+      }
       logger("Can't fetch the catchup", error.message);
       const errorCatchup: ErrorPayload = {
         message: ErrorCodeMapper.catchupFail.message,

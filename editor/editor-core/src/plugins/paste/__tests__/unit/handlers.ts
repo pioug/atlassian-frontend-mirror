@@ -7,10 +7,12 @@ import {
   a,
   h1,
   ul,
+  ol,
   li,
   alignment,
   panel,
   caption,
+  hr,
   table,
   th,
   tr,
@@ -63,6 +65,7 @@ import captionPlugin from '../../../caption';
 import mediaPlugin from '../../../media';
 import listPlugin from '../../../list';
 import extensionPlugin from '../../../extension';
+import rulePlugin from '../../../rule';
 
 describe('handleParagraphBlockMarks', () => {
   let slice: Slice;
@@ -217,6 +220,294 @@ describe('handleParagraphBlockMarks', () => {
 });
 
 describe('handleRichText', () => {
+  describe('pasting into a list inside a table', () => {
+    const destinationDocument = doc(
+      table({
+        isNumberColumnEnabled: false,
+        layout: 'default',
+        localId: 'local-uuid',
+      })(
+        tr(th({})(p()), th({})(p()), th({})(p())),
+        tr(
+          td({})(ol()(li(p('One')), li(p('Two{<>}')), li(p('Three')))),
+          td({})(p()),
+          td({})(p()),
+        ),
+        tr(td({})(p()), td({})(p()), td({})(p())),
+      ),
+    );
+
+    const createEditor = createProsemirrorEditorFactory();
+    const editor = (doc: any) => {
+      const preset = new Preset<LightEditorPlugin>()
+        .add([pastePlugin, {}])
+        .add(panelPlugin)
+        .add(blockTypePlugin)
+        .add(listPlugin)
+        .add(tablesPlugin)
+        .add(rulePlugin)
+        .add(textFormattingPlugin)
+        .add(expandPlugin)
+        .add(layoutPlugin)
+        .add(tasksAndDecisionsPlugin);
+
+      return createEditor({
+        doc,
+        preset,
+      });
+    };
+    it('should safeInsert panels', () => {
+      const pasteContent = doc('{<}', panel()(p('Test{>}')));
+
+      const expectedDocument = doc(
+        table({
+          isNumberColumnEnabled: false,
+          layout: 'default',
+          localId: 'local-uuid',
+        })(
+          tr(th({})(p()), th({})(p()), th({})(p())),
+          tr(
+            td({})(
+              ol()(li(p('One')), li(p('Two')), li(p('Three'))),
+              panel()(p('Test')),
+            ),
+            td({})(p()),
+            td({})(p()),
+          ),
+          tr(td({})(p()), td({})(p()), td({})(p())),
+        ),
+      );
+
+      const { editorView } = editor(destinationDocument);
+      const pasteSlice = new Slice(
+        pasteContent(editorView.state.schema).content,
+        0,
+        0,
+      );
+      handleRichText(pasteSlice)(editorView.state, editorView.dispatch);
+      expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
+      expect(() => {
+        editorView.state.tr.doc.check();
+      }).not.toThrow();
+    });
+    it('should safeInsert decisions', () => {
+      const pasteContent = doc(
+        decisionList({ localId: 'decision-list' })(
+          decisionItem({ localId: 'decision-item' })('Decision'),
+        ),
+      );
+
+      const expectedDocument = doc(
+        table({
+          isNumberColumnEnabled: false,
+          layout: 'default',
+          localId: 'local-uuid',
+        })(
+          tr(th({})(p()), th({})(p()), th({})(p())),
+          tr(
+            td({})(
+              ol()(li(p('One')), li(p('Two')), li(p('Three'))),
+              decisionList({ localId: 'decision-list' })(
+                decisionItem({ localId: 'decision-item' })('Decision'),
+              ),
+            ),
+            td({})(p()),
+            td({})(p()),
+          ),
+          tr(td({})(p()), td({})(p()), td({})(p())),
+        ),
+      );
+      const { editorView } = editor(destinationDocument);
+      const pasteSlice = new Slice(
+        pasteContent(editorView.state.schema).content,
+        0,
+        0,
+      );
+      handleRichText(pasteSlice)(editorView.state, editorView.dispatch);
+      expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
+      expect(() => {
+        editorView.state.tr.doc.check();
+      }).not.toThrow();
+    });
+    it('should safeInsert blockQuotes', () => {
+      const pasteContent = doc('{<}', blockquote(p('blockquote{>}')));
+      const expectedDocument = doc(
+        table({
+          isNumberColumnEnabled: false,
+          layout: 'default',
+          localId: 'local-uuid',
+        })(
+          tr(th({})(p()), th({})(p()), th({})(p())),
+          tr(
+            td({})(
+              ol()(li(p('One')), li(p('Two')), li(p('Three'))),
+              blockquote(p('blockquote')),
+            ),
+            td({})(p()),
+            td({})(p()),
+          ),
+          tr(td({})(p()), td({})(p()), td({})(p())),
+        ),
+      );
+      const { editorView } = editor(destinationDocument);
+      const pasteSlice = new Slice(
+        pasteContent(editorView.state.schema).content,
+        0,
+        0,
+      );
+      handleRichText(pasteSlice)(editorView.state, editorView.dispatch);
+      expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
+      expect(() => {
+        editorView.state.tr.doc.check();
+      }).not.toThrow();
+    });
+    it('should safeInsert headings', () => {
+      const pasteContent = doc('{<}', h1('heading{>}'));
+
+      const expectedDocument = doc(
+        table({
+          isNumberColumnEnabled: false,
+          layout: 'default',
+          localId: 'local-uuid',
+        })(
+          tr(th({})(p()), th({})(p()), th({})(p())),
+          tr(
+            td({})(
+              ol()(li(p('One')), li(p('Two')), li(p('Three'))),
+              h1('heading'),
+            ),
+            td({})(p()),
+            td({})(p()),
+          ),
+          tr(td({})(p()), td({})(p()), td({})(p())),
+        ),
+      );
+      const { editorView } = editor(destinationDocument);
+      const pasteSlice = new Slice(
+        pasteContent(editorView.state.schema).content,
+        0,
+        0,
+      );
+      handleRichText(pasteSlice)(editorView.state, editorView.dispatch);
+      expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
+      expect(() => {
+        editorView.state.tr.doc.check();
+      }).not.toThrow();
+    });
+    it('should safeInsert task items', () => {
+      const pasteContent = doc(
+        taskList({ localId: 'test-list' })(
+          taskItem({ localId: 'test-item' })('task item'),
+        ),
+      );
+
+      const expectedDocument = doc(
+        table({
+          isNumberColumnEnabled: false,
+          layout: 'default',
+          localId: 'local-uuid',
+        })(
+          tr(th({})(p()), th({})(p()), th({})(p())),
+          tr(
+            td({})(
+              ol()(li(p('One')), li(p('Two')), li(p('Three'))),
+              taskList({ localId: 'test-list' })(
+                taskItem({ localId: 'test-item' })('task item'),
+              ),
+            ),
+            td({})(p()),
+            td({})(p()),
+          ),
+          tr(td({})(p()), td({})(p()), td({})(p())),
+        ),
+      );
+
+      const { editorView } = editor(destinationDocument);
+      const pasteSlice = new Slice(
+        pasteContent(editorView.state.schema).content,
+        0,
+        0,
+      );
+      handleRichText(pasteSlice)(editorView.state, editorView.dispatch);
+      expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
+      expect(() => {
+        editorView.state.tr.doc.check();
+      }).not.toThrow();
+    });
+    it('should safeInsert layouts', () => {
+      const pasteContent = doc(
+        '{<}',
+        layoutSection(
+          layoutColumn({ width: 50 })(p()),
+          layoutColumn({ width: 50 })(p('{>}')),
+        ),
+      );
+      const expectedDocument = doc(
+        table({
+          isNumberColumnEnabled: false,
+          layout: 'default',
+          localId: 'local-uuid',
+        })(
+          tr(th({})(p()), th({})(p()), th({})(p())),
+          tr(
+            td({})(ol()(li(p('One')), li(p('Two')), li(p('Three')))),
+            td({})(p()),
+            td({})(p()),
+          ),
+          tr(td({})(p()), td({})(p()), td({})(p())),
+        ),
+        layoutSection(
+          layoutColumn({ width: 50 })(p()),
+          layoutColumn({ width: 50 })(p()),
+        ),
+      );
+
+      const { editorView } = editor(destinationDocument);
+      const pasteSlice = new Slice(
+        pasteContent(editorView.state.schema).content,
+        0,
+        0,
+      );
+      handleRichText(pasteSlice)(editorView.state, editorView.dispatch);
+      expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
+      expect(() => {
+        editorView.state.tr.doc.check();
+      }).not.toThrow();
+    });
+
+    it('should safeInsert dividers', () => {
+      const pasteContent = doc('{<}', hr(), '{>}');
+
+      const expectedDocument = doc(
+        table({
+          isNumberColumnEnabled: false,
+          layout: 'default',
+          localId: 'local-uuid',
+        })(
+          tr(th({})(p()), th({})(p()), th({})(p())),
+          tr(
+            td({})(ol()(li(p('One')), li(p('Two')), li(p('Three'))), hr()),
+            td({})(p()),
+            td({})(p()),
+          ),
+          tr(td({})(p()), td({})(p()), td({})(p())),
+        ),
+      );
+
+      const { editorView } = editor(destinationDocument);
+      const pasteSlice = new Slice(
+        pasteContent(editorView.state.schema).content,
+        0,
+        0,
+      );
+      handleRichText(pasteSlice)(editorView.state, editorView.dispatch);
+      expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
+      expect(() => {
+        editorView.state.tr.doc.check();
+      }).not.toThrow();
+    });
+  });
+
   describe('pasting into a table', () => {
     it('should flatten nested list on its own', () => {
       // prettier-ignore
@@ -871,9 +1162,53 @@ describe('handlePasteIntoTaskOrDecisionOrPanel', () => {
     1,
   ];
 
+  const case4: [
+    string,
+    string,
+    DocBuilder,
+    DocBuilder,
+    DocBuilder,
+    number,
+    number,
+  ] = [
+    'destination is a list inside a panel inside a table and paste content is a panel',
+    'paste content is a panel with text',
+    // Destination
+    // prettier-ignore
+    doc(
+      table({ isNumberColumnEnabled: false, layout: "default", localId: "table-id" })(
+        tr(th({})(
+          panel()(ol()(li(p('One{<>}')),li(p('Two')), li(p('Three'))))
+        ))
+      ),
+    ),
+    // Pasted Content
+    // prettier-ignore
+    doc(
+      '{<}', panel()(p('This is a panel{>}'))
+    ),
+
+    // Expected Document
+    // prettier-ignore
+    doc(
+      table({ isNumberColumnEnabled: false, layout: "default", localId: "table-id" })(
+        tr(th({})(
+          panel()(
+            ol()(li(p('One')), li(p('Two')), li(p('Three')))
+          ),
+          panel()(p('This is a panel'))
+        )),
+      ),
+    ),
+
+    // Open Start & Open End for Paste Slice
+    0,
+    0,
+  ];
+
   describe.each<
     [string, string, DocBuilder, DocBuilder, DocBuilder, number, number]
-  >([case0, case1, case2, case3])(
+  >([case0, case1, case2, case3, case4])(
     '[case%#] when %s and %s',
     (
       _scenarioDest,
@@ -893,7 +1228,9 @@ describe('handlePasteIntoTaskOrDecisionOrPanel', () => {
             .add(hyperlinkPlugin)
             .add(tasksAndDecisionsPlugin)
             .add(panelPlugin)
-            .add(emojiPlugin);
+            .add(emojiPlugin)
+            .add(tablesPlugin)
+            .add(listPlugin);
 
           return createEditor({
             doc,
@@ -922,6 +1259,15 @@ describe('handlePasteIntoTaskOrDecisionOrPanel', () => {
 
 describe('handlePastePanelIntoList', () => {
   const destinationDocument = doc(ul(li(p('1')), li(p('2 {<>}')), li(p('3'))));
+  const destinationDocumentMiddleOfListItemSelected = doc(
+    ul(li(p('1')), li(p('2{<>}2')), li(p('3'))),
+  );
+  const destinationDocumentWholeListSelected = doc(
+    ul(li(p('{<}1')), li(p('2 ')), li(p('3{>}'))),
+  );
+  const destinationDocumentWholeListItemSelected = doc(
+    ul(li(p('1')), '{<}', li(p('2{>}')), li(p('3'))),
+  );
   const createEditor = createProsemirrorEditorFactory();
   const editor = (doc: any) => {
     const preset = new Preset<LightEditorPlugin>()
@@ -929,20 +1275,52 @@ describe('handlePastePanelIntoList', () => {
       .add(listPlugin)
       .add(panelPlugin)
       .add(hyperlinkPlugin)
-      .add(blockTypePlugin);
+      .add(blockTypePlugin)
+      .add(rulePlugin)
+      .add(tasksAndDecisionsPlugin)
+      .add(textFormattingPlugin);
     return createEditor({
       doc,
       preset,
     });
   };
-  const createPasteSlice = (pasteContent: any, editorView: any) => {
+  const createPasteSlice = (
+    pasteContent: any,
+    editorView: any,
+    openStart: number,
+    openEnd: number,
+  ) => {
     const pasteSlice = new Slice(
       pasteContent(editorView.state.schema).content,
-      2,
-      2,
+      openStart,
+      openEnd,
     );
     handlePastePanelIntoList(pasteSlice)(editorView.state, editorView.dispatch);
   };
+
+  it('should paste over the list when pasting panel content with the whole list selected', () => {
+    const pasteContent = doc(panel()(p('{<}Test{>}')));
+    const expectedDocument = doc(panel()(p('Test')));
+    const { editorView } = editor(destinationDocumentWholeListSelected);
+    createPasteSlice(pasteContent, editorView, 0, 0);
+
+    expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
+    expect(() => {
+      editorView.state.tr.doc.check();
+    }).not.toThrow();
+  });
+
+  it('should not paste inside the list when pasting panel with the whole list item selected', () => {
+    const pasteContent = doc(panel()(p('{<}Test{>}')));
+    const expectedDocument = destinationDocumentWholeListItemSelected;
+    const { editorView } = editor(destinationDocumentWholeListItemSelected);
+    createPasteSlice(pasteContent, editorView, 0, 0);
+
+    expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
+    expect(() => {
+      editorView.state.tr.doc.check();
+    }).not.toThrow();
+  });
 
   it('should paste inside the list when pasting panel content', () => {
     const pasteContent = doc(panel()(p('{<}This is a test{>}')));
@@ -950,7 +1328,7 @@ describe('handlePastePanelIntoList', () => {
       ul(li(p('1')), li(p('2 This is a test{<>}')), li(p('3'))),
     );
     const { editorView } = editor(destinationDocument);
-    createPasteSlice(pasteContent, editorView);
+    createPasteSlice(pasteContent, editorView, 2, 2);
 
     expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
     expect(() => {
@@ -967,8 +1345,93 @@ describe('handlePastePanelIntoList', () => {
       ul(li(p('1')), li(p('2 This is a test ', a({ href })(href))), li(p('3'))),
     );
     const { editorView } = editor(destinationDocument);
-    createPasteSlice(pasteContent, editorView);
+    createPasteSlice(pasteContent, editorView, 2, 2);
 
+    expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
+    expect(() => {
+      editorView.state.tr.doc.check();
+    }).not.toThrow();
+  });
+
+  it('should not paste inside the list when pasting whole panel', () => {
+    const pasteContent = doc('{<}', panel()(p('This is a test{>}')));
+    const expectedDocument = doc(ul(li(p('1')), li(p('2 ')), li(p('3'))));
+    const { editorView } = editor(destinationDocument);
+    createPasteSlice(pasteContent, editorView, 0, 0);
+    expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
+    expect(() => {
+      editorView.state.tr.doc.check();
+    }).not.toThrow();
+  });
+
+  it('should not paste inside the list when pasting whole panel and selection is the middle of the List', () => {
+    const pasteContent = doc('{<}', panel()(p('This is a test{>}')));
+    const expectedDocument = doc(ul(li(p('1')), li(p('22')), li(p('3'))));
+    const { editorView } = editor(destinationDocumentMiddleOfListItemSelected);
+    createPasteSlice(pasteContent, editorView, 0, 0);
+    expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
+    expect(() => {
+      editorView.state.tr.doc.check();
+    }).not.toThrow();
+  });
+
+  it('should not paste inside the list when pasting whole divider', () => {
+    const pasteContent = doc('{<}', hr(), '{>}');
+    const expectedDocument = doc(ul(li(p('1')), li(p('2 ')), li(p('3'))));
+    const { editorView } = editor(destinationDocument);
+    createPasteSlice(pasteContent, editorView, 0, 0);
+    expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
+    expect(() => {
+      editorView.state.tr.doc.check();
+    }).not.toThrow();
+  });
+
+  it('should not paste inside the list when pasting whole heading', () => {
+    const pasteContent = doc('{<}', h1('Test{>}'));
+    const expectedDocument = doc(ul(li(p('1')), li(p('2 ')), li(p('3'))));
+    const { editorView } = editor(destinationDocument);
+    createPasteSlice(pasteContent, editorView, 0, 0);
+    expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
+    expect(() => {
+      editorView.state.tr.doc.check();
+    }).not.toThrow();
+  });
+
+  it('should not paste inside the list when pasting whole blockquote', () => {
+    const pasteContent = doc('{<}', blockquote(p('blockquote{>}')));
+    const expectedDocument = doc(ul(li(p('1')), li(p('2 ')), li(p('3'))));
+    const { editorView } = editor(destinationDocument);
+    createPasteSlice(pasteContent, editorView, 0, 0);
+    expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
+    expect(() => {
+      editorView.state.tr.doc.check();
+    }).not.toThrow();
+  });
+
+  it('should not paste inside the list when pasting whole decision', () => {
+    const pasteContent = doc(
+      decisionList({ localId: 'decision-list' })(
+        decisionItem({ localId: 'decision-item' })('Decision'),
+      ),
+    );
+    const expectedDocument = doc(ul(li(p('1')), li(p('2 ')), li(p('3'))));
+    const { editorView } = editor(destinationDocument);
+    createPasteSlice(pasteContent, editorView, 0, 0);
+    expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
+    expect(() => {
+      editorView.state.tr.doc.check();
+    }).not.toThrow();
+  });
+
+  it('should not paste inside the list when pasting whole task item', () => {
+    const pasteContent = doc(
+      taskList({ localId: 'test-list' })(
+        taskItem({ localId: 'test-item' })('task item'),
+      ),
+    );
+    const expectedDocument = doc(ul(li(p('1')), li(p('2 ')), li(p('3'))));
+    const { editorView } = editor(destinationDocument);
+    createPasteSlice(pasteContent, editorView, 0, 0);
     expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
     expect(() => {
       editorView.state.tr.doc.check();

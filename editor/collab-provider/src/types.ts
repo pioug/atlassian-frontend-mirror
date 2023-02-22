@@ -7,6 +7,7 @@ import type {
   CollabEventInitData,
   CollabEventRemoteData,
   CollabEventPresenceData,
+  CollabEventConnectingData,
 } from '@atlaskit/editor-common/collab';
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import type { Manager } from 'socket.io-client';
@@ -61,6 +62,7 @@ export interface Lifecycle {
 }
 
 export type CollabConnectedPayload = CollabEventConnectionData;
+export type CollabConnectingPayload = CollabEventConnectingData;
 export interface CollabDisconnectedPayload {
   reason: DisconnectReason;
   sid: string;
@@ -103,6 +105,7 @@ export interface CollabEvents {
   'local-steps': CollabLocalStepsPayload;
   error: CollabErrorPayload;
   entity: any;
+  connecting: CollabConnectingPayload;
 }
 
 // Channel

@@ -1,5 +1,12 @@
 # @atlaskit/reactions
 
+## 22.2.3
+
+### Patch Changes
+
+- [`3592739fb5b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3592739fb5b) - [ux] hide tooltip of add reaction when reaction picker is opened
+- Updated dependencies
+
 ## 22.2.2
 
 ### Patch Changes

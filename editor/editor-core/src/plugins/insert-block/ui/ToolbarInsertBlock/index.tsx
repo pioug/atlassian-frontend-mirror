@@ -254,7 +254,7 @@ export class ToolbarInsertBlock extends React.PureComponent<
   };
 
   render() {
-    const { buttons, dropdownItems } = this.state;
+    const { buttons, dropdownItems, emojiPickerOpen } = this.state;
     const { isDisabled, isReducedSpacing } = this.props;
 
     if (buttons.length === 0 && dropdownItems.length === 0) {
@@ -272,7 +272,9 @@ export class ToolbarInsertBlock extends React.PureComponent<
             spacing={isReducedSpacing ? 'none' : 'default'}
             disabled={isDisabled || btn.isDisabled}
             iconBefore={btn.elemBefore}
-            selected={btn.isActive}
+            selected={
+              (btn.value.name === 'emoji' && emojiPickerOpen) || btn.isActive
+            }
             title={btn.title}
             aria-label={btn['aria-label']}
             aria-haspopup={btn['aria-haspopup']}

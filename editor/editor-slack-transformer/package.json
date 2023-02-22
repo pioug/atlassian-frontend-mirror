@@ -32,10 +32,10 @@
   },
   "devDependencies": {
     "@atlaskit/activity": "^1.0.1",
-    "@atlaskit/adf-schema": "^25.1.0",
+    "@atlaskit/adf-schema": "^25.2.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/editor-common": "^72.3.0",
-    "@atlaskit/editor-core": "^179.0.0",
+    "@atlaskit/editor-common": "^72.4.0",
+    "@atlaskit/editor-core": "^179.1.0",
     "@atlaskit/editor-test-helpers": "^18.0.0",
     "@atlaskit/emoji": "^67.0.0",
     "@atlaskit/smart-card": "^24.1.0",

@@ -40,6 +40,12 @@ export const transformIndentationMarks = (
         return removeIndentationFromHeadings(node);
       }
     },
+    tableHeader: (node) => {
+      if (hasChildHeadingWithIndentation(node)) {
+        isTransformed = true;
+        return removeIndentationFromHeadings(node);
+      }
+    },
   }) as ADFEntity;
 
   return {

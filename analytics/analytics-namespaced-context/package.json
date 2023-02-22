@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/analytics-namespaced-context",
-  "version": "6.6.0",
+  "version": "6.6.1",
   "description": "Provides a namespace for AnalyticsContext data (@atlaskit/analytics-next)",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -30,7 +30,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@atlaskit/analytics-next": "^8.0.0",
+    "@atlaskit/analytics-next": "^9.0.0",
     "@babel/runtime": "^7.0.0"
   },
   "peerDependencies": {

@@ -1,16 +1,12 @@
 import React, { Component, ReactNode } from 'react';
 
-import withAnalyticsEvents, {
-  WithAnalyticsEventsProps,
-} from '../hocs/withAnalyticsEvents';
-
 import AnalyticsContext from './AnalyticsContext/LegacyAnalyticsContext';
 
 type AnalyticsErrorBoundaryErrorInfo = {
   componentStack: string;
 };
 
-export interface AnalyticsErrorBoundaryProps extends WithAnalyticsEventsProps {
+export interface AnalyticsErrorBoundaryProps {
   /** React component to be wrapped */
   children: ReactNode;
   channel: string;
@@ -19,18 +15,15 @@ export interface AnalyticsErrorBoundaryProps extends WithAnalyticsEventsProps {
   onError?: (error: Error, info?: AnalyticsErrorBoundaryErrorInfo) => void;
 }
 
-type AnalyticsErrorBoundaryPayload = {
-  error: Error | string;
-  info?: AnalyticsErrorBoundaryErrorInfo;
-  [key: string]: any;
-};
-
 type AnalyticsErrorBoundaryState = {
   hasError: boolean;
 };
 
+/**
+ *  @deprecated
+ */
 // eslint-disable-next-line @repo/internal/react/no-class-components
-export class BaseAnalyticsErrorBoundary extends Component<
+export default class AnalyticsErrorBoundary extends Component<
   AnalyticsErrorBoundaryProps,
   AnalyticsErrorBoundaryState
 > {
@@ -39,34 +32,12 @@ export class BaseAnalyticsErrorBoundary extends Component<
     this.state = { hasError: false };
   }
 
-  fireAnalytics = (analyticsErrorPayload: AnalyticsErrorBoundaryPayload) => {
-    const { createAnalyticsEvent, channel, data } = this.props;
-
-    createAnalyticsEvent!({
-      action: 'UnhandledError',
-      eventType: 'ui',
-      attributes: {
-        browserInfo:
-          window && window.navigator && window.navigator.userAgent
-            ? window.navigator.userAgent
-            : 'unknown',
-        ...data,
-        ...analyticsErrorPayload,
-      },
-    }).fire(channel);
-  };
-
   componentDidCatch(
     error: Error,
     info?: AnalyticsErrorBoundaryErrorInfo,
   ): void {
     const { onError } = this.props;
-    const payload: AnalyticsErrorBoundaryPayload = {
-      error,
-      info,
-    };
 
-    this.fireAnalytics(payload);
     onError && onError(error, info);
     this.setState({ hasError: true });
   }
@@ -75,20 +46,14 @@ export class BaseAnalyticsErrorBoundary extends Component<
     const { data, children, ErrorComponent } = this.props;
     const { hasError } = this.state;
 
-    if (hasError && ErrorComponent) {
-      return (
+    if (hasError) {
+      return ErrorComponent ? (
         <AnalyticsContext data={data}>
           <ErrorComponent />
         </AnalyticsContext>
-      );
+      ) : null;
     }
 
     return <AnalyticsContext data={data}>{children}</AnalyticsContext>;
   }
 }
-
-const AnalyticsErrorBoundary = withAnalyticsEvents()(
-  BaseAnalyticsErrorBoundary,
-);
-
-export default AnalyticsErrorBoundary;

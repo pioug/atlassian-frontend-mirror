@@ -61,8 +61,12 @@ export function hasVisibleContent(node: Node): boolean {
 
   for (let index = 0; index < node.childCount; index++) {
     const child = node.child(index);
+    const invisibleNodeTypes = ['paragraph', 'text', 'hardBreak'];
 
-    if (hasVisibleContent(child)) {
+    if (
+      !invisibleNodeTypes.includes(child.type.name) ||
+      hasVisibleContent(child)
+    ) {
       return true;
     }
   }
@@ -364,7 +368,7 @@ export function processRawValue(
         action: ACTION.DOCUMENT_PROCESSING_ERROR,
         actionSubject: ACTION_SUBJECT.EDITOR,
         eventType: EVENT_TYPE.OPERATIONAL,
-        attributes: {
+        nonPrivacySafeAttributes: {
           errorStack: e instanceof Error ? e.stack : String(e),
         },
       });

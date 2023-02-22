@@ -16,21 +16,59 @@
 
 ```ts
 import { jsx } from '@emotion/react';
+import { ReactNode } from 'react';
+
+// @public (undocumented)
+interface Group {
+  icon: string;
+  key: string;
+  label: string;
+}
 
 // @public (undocumented)
 function LinkCreate({
-  isSelected,
+  plugins,
   testId,
-  width,
+  groupKey,
+  entityKey,
+  onCreate,
+  onFailure,
+  onCancel,
+  active,
 }: LinkCreateProps): jsx.JSX.Element;
 export default LinkCreate;
 
 // @public (undocumented)
-interface LinkCreateProps {
-  isSelected?: boolean;
-  testId?: string;
-  width?: number;
+interface LinkCreateCallbackProviderProps {
+  onCancel?: () => void;
+  onCreate?: (url: string) => void;
+  onFailure?: (error: unknown) => void;
 }
+
+// @public (undocumented)
+interface LinkCreatePlugin {
+  form: ReactNode;
+  group: Group;
+  icon: string;
+  key: string;
+  label: string;
+}
+
+// @public (undocumented)
+interface LinkCreateProps {
+  active?: boolean;
+  entityKey: string;
+  groupKey?: string;
+  onCancel?: () => void;
+  onCreate?: (url: string) => void;
+  onFailure?: (error: unknown) => void;
+  // (undocumented)
+  plugins: LinkCreatePlugin[];
+  testId?: string;
+}
+
+// @public (undocumented)
+export const useLinkCreateCallback: () => LinkCreateCallbackProviderProps;
 
 // (No @packageDocumentation comment for this package)
 ```

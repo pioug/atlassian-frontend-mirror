@@ -355,5 +355,16 @@ describe('mobile editor element', () => {
         false,
       );
     });
+    it('should call updateText with invisible content and empty state as true', () => {
+      initEditor();
+      const invisibleContent =
+        '{"version":1,"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":" "}]},{"type":"paragraph","content":[{"type":"hardBreak"}]}]}';
+      bridge.setContent(invisibleContent);
+
+      expect(updateTextWithADFStatusMock).toBeCalledWith(
+        invisibleContent,
+        true,
+      );
+    });
   });
 });

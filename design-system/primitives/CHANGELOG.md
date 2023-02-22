@@ -1,5 +1,11 @@
 # @atlaskit/primitives
 
+## 0.2.0
+
+### Minor Changes
+
+- [`228cce759e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/228cce759e8) - Create Box component.
+
 ## 0.1.1
 
 ### Patch Changes

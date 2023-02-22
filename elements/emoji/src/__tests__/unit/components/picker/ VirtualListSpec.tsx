@@ -1,5 +1,11 @@
 import React from 'react';
-import { render, fireEvent, waitFor, screen } from '@testing-library/react';
+import {
+  render,
+  fireEvent,
+  waitFor,
+  screen,
+  cleanup,
+} from '@testing-library/react';
 import {
   VirtualList,
   virtualListScrollContainerTestId,
@@ -23,6 +29,11 @@ const renderList = () => {
 };
 
 describe('VirtualList', () => {
+  afterEach(() => {
+    jest.resetAllMocks();
+    cleanup();
+  });
+
   it('renders', async () => {
     const { container } = renderList();
     expect(container).toBeDefined();
@@ -31,12 +42,29 @@ describe('VirtualList', () => {
   it('renders the correct list when scrolled', async () => {
     const { container } = renderList();
     expect(container).toBeDefined();
+
+    await waitFor(() => {
+      expect(screen.queryByText('3')).toBeInTheDocument();
+    });
+
     fireEvent.scroll(screen.getByTestId(virtualListScrollContainerTestId), {
       target: { scrollTop: 1000 },
     });
     await waitFor(() => {
       expect(screen.queryByText('22')).toBeInTheDocument();
       expect(onRowsRendered).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  it('onRowsRendered is called with correct first visible row index', async () => {
+    const { container } = renderList();
+    expect(container).toBeDefined();
+    fireEvent.scroll(screen.getByTestId(virtualListScrollContainerTestId), {
+      target: { scrollTop: 1000 },
+    });
+    await waitFor(() => {
+      expect(onRowsRendered).toHaveBeenCalledTimes(1);
+      expect(onRowsRendered).toHaveBeenCalledWith({ startIndex: 22 });
     });
   });
 });

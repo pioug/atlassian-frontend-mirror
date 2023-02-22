@@ -112,19 +112,6 @@ const setup = async (
 
 describe('linking-toolbar-appearance', () => {
   describe('image media', () => {
-    it('should not show anything initially', async () => {
-      const wrapper = await setup(
-        defaultDocNode,
-        defaultMediaLinkingState,
-        'image',
-        true,
-      );
-
-      expect(wrapper.find(selectors.ADD_LINK).exists()).toBe(false);
-      expect(wrapper.find(selectors.OPEN_LINK).exists()).toBe(false);
-      expect(wrapper.find(selectors.EDIT_LINK).exists()).toBe(false);
-    });
-
     it('should show "add link" button', async () => {
       const wrapper = await setup(
         defaultDocNode,

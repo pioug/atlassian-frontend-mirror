@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/flag",
-  "version": "15.0.6",
+  "version": "15.0.7",
   "description": "A flag is used for confirmations, alerts, and acknowledgments that require minimal user interaction, often displayed using a flag group.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -35,7 +35,7 @@
     "./types": "./src/types.tsx"
   },
   "dependencies": {
-    "@atlaskit/analytics-next": "^8.0.0",
+    "@atlaskit/analytics-next": "^9.0.0",
     "@atlaskit/button": "^16.5.0",
     "@atlaskit/ds-explorations": "^2.0.0",
     "@atlaskit/ds-lib": "^2.1.0",

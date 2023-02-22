@@ -30,6 +30,11 @@ export interface CollabEventRemoteData {
 
 export interface CollabEventConnectionData {
   sid: string;
+  initial: boolean;
+}
+
+export interface CollabEventConnectingData {
+  initial: boolean;
 }
 
 export interface CollabEventDisconnectedData {
@@ -76,6 +81,7 @@ export interface CollabEventData {
   error: any;
   'local-steps': any;
   entity: any;
+  connecting: CollabEventConnectingData;
 }
 
 export type ResolvedEditorState<T = any> = {

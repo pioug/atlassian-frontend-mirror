@@ -1,5 +1,8 @@
 import { Transaction } from 'prosemirror-state';
 
+import { OUTDENT_SCENARIOS } from '@atlaskit/editor-common/analytics';
+import type { RestartListsAttributesForListOutdented as RestartListAttributes } from '@atlaskit/editor-common/analytics';
+
 import { Command } from '../../../types';
 import {
   addAnalytics,
@@ -12,9 +15,13 @@ import {
 import { isInsideListItem, isInsideTableCell } from '../utils/selection';
 import { isBulletList } from '../utils/node';
 import { findFirstParentListNode } from '../utils/find';
-import { getCommonListAnalyticsAttributes } from '../utils/analytics';
+import {
+  getCommonListAnalyticsAttributes,
+  getRestartListsAttributes,
+} from '../utils/analytics';
 import { outdentListItemsSelected as outdentListAction } from '../actions/outdent-list-items-selected';
 import { closeHistory } from 'prosemirror-history';
+import { getFeatureFlags } from '../../feature-flags-context';
 
 type InputMethod = INPUT_METHOD.KEYBOARD | INPUT_METHOD.TOOLBAR;
 export function outdentList(
@@ -46,6 +53,17 @@ export function outdentList(
       return !isInsideTableCell(state);
     }
 
+    const featureFlags = getFeatureFlags(state);
+    const restartListsAttributes: RestartListAttributes = {};
+    if (featureFlags?.restartNumberedLists) {
+      const { outdentScenario, splitListStartNumber } =
+        getRestartListsAttributes(customTr);
+      if (outdentScenario === OUTDENT_SCENARIOS.SPLIT_LIST) {
+        restartListsAttributes.outdentScenario = outdentScenario;
+        restartListsAttributes.splitListStartNumber = splitListStartNumber;
+      }
+    }
+
     addAnalytics(state, customTr, {
       action: ACTION.OUTDENTED,
       actionSubject: ACTION_SUBJECT.LIST,
@@ -53,6 +71,8 @@ export function outdentList(
       eventType: EVENT_TYPE.TRACK,
       attributes: {
         ...getCommonListAnalyticsAttributes(state),
+        ...restartListsAttributes,
+
         inputMethod,
       },
     });

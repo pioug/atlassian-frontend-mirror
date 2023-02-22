@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, memo, useEffect, useState } from 'react';
 import { isMediaEmoji } from '../../util/type-helpers';
 import {
   EmojiDescription,
@@ -36,7 +36,7 @@ export const CachingEmoji: FC<CachingEmojiProps> = (props) => {
   // Optimisation to only render CachingMediaEmoji if necessary
   // slight performance hit, which accumulates for a large number of emoji.
   const { emoji } = props;
-  // start emoji rendered experience, it may have already started earlier in ResourcedEmoji
+  // start emoji rendered experience, it may have already started earlier in `ResourcedEmoji`.
   useSampledUFOComponentExperience(
     ufoExperiences['emoji-rendered'].getInstance(emoji.id || emoji.shortName),
     SAMPLING_RATE_EMOJI_RENDERED_EXP,
@@ -155,4 +155,4 @@ export const CachingMediaEmoji: FC<CachingEmojiProps> = (props) => {
   );
 };
 
-export default CachingEmoji;
+export default memo(CachingEmoji);

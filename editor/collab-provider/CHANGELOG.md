@@ -1,5 +1,20 @@
 # @atlaskit/collab-provider
 
+## 8.2.0
+
+### Minor Changes
+
+- [`945413f0b29`](https://bitbucket.org/atlassian/atlassian-frontend/commits/945413f0b29) - trigger page recovery when catchup returns 404
+- [`06119d7fed4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/06119d7fed4) - handle catchup after page recovery
+- [`a66427c3fe5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a66427c3fe5) - Add analytics logging to error handling
+- [`56a21fe7209`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56a21fe7209) - Improve error handling logic
+- [`77aee68579e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/77aee68579e) - adding a connecting event to be emitted when collab-provider is first initialized
+
+### Patch Changes
+
+- [`625f3c20f8c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/625f3c20f8c) - Handle init errors
+- Updated dependencies
+
 ## 8.1.0
 
 ### Minor Changes

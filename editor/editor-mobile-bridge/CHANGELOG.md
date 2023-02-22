@@ -1,5 +1,18 @@
 # @atlaskit/editor-mobile-bridge
 
+## 36.0.18
+
+### Patch Changes
+
+- [`e78c04fa97c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e78c04fa97c) - [ux] ED-16489 Fixed - textFormatBridge.updateTextWithADFStatus returns "isEmptyAdf: false" when ADF has only whitespace
+- Updated dependencies
+
+## 36.0.17
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 36.0.16
 
 ### Patch Changes

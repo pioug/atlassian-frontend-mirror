@@ -7,6 +7,7 @@ import {
   EditorProps,
   MentionProvider,
   EditorContext,
+  hasVisibleContent,
 } from '@atlaskit/editor-core';
 import FabricAnalyticsListeners from '@atlaskit/analytics-listeners';
 import { Provider as CollabProvider } from '@atlaskit/collab-provider';
@@ -43,7 +44,6 @@ import {
 import { useEditorLifecycle } from './hooks/use-editor-life-cycle';
 import { usePluginListeners } from './hooks/use-plugin-listeners';
 import EditorConfiguration from './editor-configuration';
-import { isEmptyDocument } from '@atlaskit/editor-core';
 import { useToolbarSubscription } from './hooks/use-toolbar-subscription';
 import { useTypeAheadSubscription } from './hooks/use-type-ahead-subscription';
 export interface MobileEditorProps extends EditorProps {
@@ -150,7 +150,7 @@ export function MobileEditor(props: MobileEditorProps) {
       () => {
         toNativeBridge.updateTextWithADFStatus(
           bridge.getContent(),
-          isEmptyDocument(bridge.editorView!.state.doc),
+          !hasVisibleContent(bridge.editorView!.state.doc),
         );
       },
       100,

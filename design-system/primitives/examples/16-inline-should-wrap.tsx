@@ -12,7 +12,7 @@ export default () => (
         <div>
           true
           <Box
-            borderRadius="normal"
+            borderRadius="radius.200"
             padding="space.050"
             backgroundColor="neutral"
           >
@@ -20,7 +20,7 @@ export default () => (
               {[...Array(25)].map((_, index) => (
                 <Box
                   key={index}
-                  borderRadius="normal"
+                  borderRadius="radius.200"
                   padding="space.200"
                   backgroundColor="discovery.bold"
                 />
@@ -31,7 +31,7 @@ export default () => (
         <div>
           false
           <Box
-            borderRadius="normal"
+            borderRadius="radius.200"
             padding="space.050"
             backgroundColor="neutral"
           >
@@ -39,7 +39,7 @@ export default () => (
               {[...Array(25)].map((_, index) => (
                 <Box
                   key={index}
-                  borderRadius="normal"
+                  borderRadius="radius.200"
                   padding="space.200"
                   backgroundColor="discovery.bold"
                 />

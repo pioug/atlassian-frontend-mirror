@@ -67,58 +67,63 @@ const flexGrowMap = {
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e0d436d3312290a98dbfd91d90dd6b9e>>
+ * @codegen <<SignedSource::0e30ffcc6aef7932f9d8ff2543327236>>
  * @codegenId spacing
  * @codegenCommand yarn codegen-styles
  * @codegenParams ["space"]
  * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-spacing.tsx <<SignedSource::167d3b69b159ae33e74d4ea5ab7eade6>>
  */
-const spaceMap = {
-  '0': css({
-    gap: token('space.0', '0px'),
-  }),
-  '025': css({
-    gap: token('space.025', '2px'),
-  }),
-  '050': css({
-    gap: token('space.050', '4px'),
-  }),
-  '075': css({
-    gap: token('space.075', '6px'),
-  }),
-  '100': css({
-    gap: token('space.100', '8px'),
-  }),
-  '1000': css({
-    gap: token('space.1000', '80px'),
-  }),
-  '150': css({
-    gap: token('space.150', '12px'),
-  }),
-  '200': css({
-    gap: token('space.200', '16px'),
-  }),
-  '250': css({
-    gap: token('space.250', '20px'),
-  }),
-  '300': css({
-    gap: token('space.300', '24px'),
-  }),
-  '400': css({
-    gap: token('space.400', '32px'),
-  }),
-  '500': css({
-    gap: token('space.500', '40px'),
-  }),
-  '600': css({
-    gap: token('space.600', '48px'),
-  }),
-  '800': css({
-    gap: token('space.800', '64px'),
-  }),
-};
+const spaceMap = Object.fromEntries(
+  ['gap'].map((property: string) => [
+    property,
+    {
+      '0': css({
+        [property]: token('space.0', '0px'),
+      }),
+      '025': css({
+        [property]: token('space.025', '2px'),
+      }),
+      '050': css({
+        [property]: token('space.050', '4px'),
+      }),
+      '075': css({
+        [property]: token('space.075', '6px'),
+      }),
+      '100': css({
+        [property]: token('space.100', '8px'),
+      }),
+      '150': css({
+        [property]: token('space.150', '12px'),
+      }),
+      '200': css({
+        [property]: token('space.200', '16px'),
+      }),
+      '250': css({
+        [property]: token('space.250', '20px'),
+      }),
+      '300': css({
+        [property]: token('space.300', '24px'),
+      }),
+      '400': css({
+        [property]: token('space.400', '32px'),
+      }),
+      '500': css({
+        [property]: token('space.500', '40px'),
+      }),
+      '600': css({
+        [property]: token('space.600', '48px'),
+      }),
+      '800': css({
+        [property]: token('space.800', '64px'),
+      }),
+      '1000': css({
+        [property]: token('space.1000', '80px'),
+      }),
+    } as const,
+  ]),
+);
 
-export type Space = keyof typeof spaceMap;
+export type Space = keyof typeof spaceMap.gap;
 
 /**
  * @codegenEnd
@@ -164,7 +169,7 @@ const Stack = memo(
         <div
           css={[
             baseStyles,
-            space && spaceMap[space],
+            space && spaceMap.gap[space],
             alignItems && alignItemsMap[alignItems],
             grow && flexGrowMap[grow],
             justifyContent && justifyContentMap[justifyContent],

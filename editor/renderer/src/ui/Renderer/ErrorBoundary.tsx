@@ -48,9 +48,11 @@ export class ErrorBoundary extends React.Component<
       attributes: {
         platform: PLATFORM.WEB,
         errorMessage: error?.message,
-        errorStack: error?.stack,
         componentStack: errorInfo?.componentStack,
         errorRethrown: Boolean(this.props.rethrowError),
+      },
+      nonPrivacySafeAttributes: {
+        errorStack: error?.stack,
       },
     });
 

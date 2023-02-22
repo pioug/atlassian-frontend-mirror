@@ -42,6 +42,11 @@ export type UserPickerProps = WithAnalyticsEventsProps & {
    */
   loadOptions?: LoadOptions;
   /**
+   * Function to generate the error message when there's a failure executing the loadOptions prop.
+   * If not provided, will default to a default error message.
+   */
+  loadOptionsErrorMessage?: (value: { inputValue: string }) => string;
+  /**
    * Function used to load user source if they are an external user.
    * accepts two params:
    * accountId: account ID of the user to lookup sources
@@ -189,6 +194,7 @@ export type UserPickerState = {
   menuIsOpen: boolean;
   inputValue: string;
   resolving: boolean;
+  showError: boolean;
 };
 
 export interface HighlightRange {

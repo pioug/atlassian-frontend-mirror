@@ -8,6 +8,7 @@
 ### Table of contents
 
 - [Main Entry Types](#main-entry-types)
+- [Peer Dependencies](#peer-dependencies)
 
 ### Main Entry Types
 
@@ -124,6 +125,8 @@ export interface TooltipProps {
 // @public (undocumented)
 interface TriggerProps {
   // (undocumented)
+  'aria-describedby': string | undefined;
+  // (undocumented)
   onBlur: (event: React.FocusEvent<HTMLElement>) => void;
   // (undocumented)
   onClick: (event: React.MouseEvent<HTMLElement>) => void;
@@ -131,6 +134,8 @@ interface TriggerProps {
   onFocus: (event: React.FocusEvent<HTMLElement>) => void;
   // (undocumented)
   onMouseDown: (event: React.MouseEvent<HTMLElement>) => void;
+  // (undocumented)
+  onMouseMove: ((event: React.MouseEvent<HTMLElement>) => void) | undefined;
   // (undocumented)
   onMouseOut: (event: React.MouseEvent<HTMLElement>) => void;
   // (undocumented)
@@ -143,3 +148,16 @@ interface TriggerProps {
 ```
 
 <!--SECTION END: Main Entry Types-->
+
+### Peer Dependencies
+
+<!--SECTION START: Peer Dependencies-->
+
+```json
+{
+  "react": "^16.8.0",
+  "react-dom": "^16.8.0"
+}
+```
+
+<!--SECTION END: Peer Dependencies-->

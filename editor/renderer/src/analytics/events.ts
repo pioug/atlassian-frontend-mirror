@@ -3,6 +3,7 @@ import {
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
+  OperationalAEP,
 } from '@atlaskit/editor-common/analytics';
 
 import { AEP } from './enums';
@@ -65,7 +66,7 @@ type RendererReRenderedAEP<Props> = AEP<
   EVENT_TYPE.OPERATIONAL
 >;
 
-export type ComponentCrashErrorAEP = AEP<
+export type ComponentCrashErrorAEP = OperationalAEP<
   ACTION.CRASHED,
   ACTION_SUBJECT.RENDERER,
   ACTION_SUBJECT_ID,
@@ -76,7 +77,9 @@ export type ComponentCrashErrorAEP = AEP<
     componentStack?: string;
     errorRethrown?: boolean;
   },
-  EVENT_TYPE.OPERATIONAL
+  {
+    errorStack?: string;
+  }
 >;
 
 type InvalidProsemirrorDocumentErrorAEP = AEP<

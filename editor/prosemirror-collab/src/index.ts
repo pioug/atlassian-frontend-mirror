@@ -10,8 +10,6 @@ import type {
   Transform as ProseMirrorTransform,
 } from 'prosemirror-transform';
 
-import { AnalyticsStep } from '@atlaskit/adf-schema/steps';
-
 class Rebaseable {
   constructor(
     readonly step: ProseMirrorStep,
@@ -75,9 +73,11 @@ function unconfirmedFrom(transform: ProseMirrorTransform) {
   let result = [];
   for (let i = 0; i < transform.steps.length; i++) {
     // Filter out the analytics steps, they don't need to be sent to the collab service
-    if (transform.steps[i] instanceof AnalyticsStep) {
-      continue;
-    }
+    // Commented out because it broke undo behaviour
+    // TODO: Figure out how it broke undo
+    // if (transform.steps[i] instanceof AnalyticsStep) {
+    //   continue;
+    // }
 
     result.push(
       new Rebaseable(

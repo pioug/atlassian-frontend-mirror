@@ -1,6 +1,7 @@
 import {
   getExampleUrl,
   loadPage,
+  pageSelector,
   takeElementScreenShot,
 } from '@atlaskit/visual-regression/helper';
 
@@ -173,6 +174,27 @@ describe('Snapshot Test', () => {
       expect(image).toMatchProdImageSnapshot();
     });
 
+    it('appearance on focus should match production example', async () => {
+      const url = getExampleUrl(
+        'design-system',
+        'tag',
+        'basic-tag',
+        global.__BASEURL__,
+      );
+      const tag = querySelector({
+        attribute: 'data-testid',
+        suffixValue: 'linkTag',
+      });
+      const { page } = global;
+      await loadPage(page, url);
+      await page.waitForSelector(tag);
+      await page.keyboard.press('Tab');
+
+      // We use the page selector because the focus may be outside the element
+      const image = await takeElementScreenShot(page, pageSelector);
+      expect(image).toMatchProdImageSnapshot();
+    });
+
     it('with theme provider on hover should match production example', async () => {
       const url = getExampleUrl(
         'design-system',
@@ -240,7 +262,8 @@ describe('Snapshot Test', () => {
 
     await page.keyboard.press('Tab');
 
-    const image = await takeElementScreenShot(page, removableTag);
+    // We use the page selector because the focus may be outside the element
+    const image = await takeElementScreenShot(page, pageSelector);
     expect(image).toMatchProdImageSnapshot();
   });
 

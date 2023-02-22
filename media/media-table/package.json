@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-table",
-  "version": "14.1.4",
+  "version": "14.1.5",
   "description": "Table UI component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -26,7 +26,7 @@
     }
   },
   "dependencies": {
-    "@atlaskit/analytics-next": "^8.0.0",
+    "@atlaskit/analytics-next": "^9.0.0",
     "@atlaskit/button": "^16.5.0",
     "@atlaskit/dynamic-table": "^14.8.0",
     "@atlaskit/icon": "^21.11.0",

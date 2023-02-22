@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/smart-hooks",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
@@ -20,10 +20,10 @@
   "dependencies": {
     "@atlaskit/analytics-gas-types": "^5.0.5",
     "@atlaskit/analytics-listeners": "^8.5.0",
-    "@atlaskit/analytics-next": "^8.0.0",
+    "@atlaskit/analytics-next": "^9.0.0",
     "@atlaskit/smart-common": "^0.1.0",
     "@atlaskit/ufo": "^0.1.0",
-    "@atlaskit/user-picker": "^10.0.0",
+    "@atlaskit/user-picker": "^10.1.0",
     "@babel/runtime": "^7.0.0",
     "lodash": "^4.17.21",
     "memoize-one": "^6.0.0",

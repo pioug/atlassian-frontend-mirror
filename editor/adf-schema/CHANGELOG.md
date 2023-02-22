@@ -1,5 +1,11 @@
 # @atlaskit/adf-schema
 
+## 25.2.0
+
+### Minor Changes
+
+- [`391a8ec684e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/391a8ec684e) - [ESS-3165] Move fragment mark and mediaInline node into the default schema
+
 ## 25.1.1
 
 ### Patch Changes

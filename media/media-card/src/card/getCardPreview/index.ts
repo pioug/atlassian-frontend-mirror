@@ -230,6 +230,7 @@ export const shouldResolvePreview = ({
   hasCardPreview,
   isBannedLocalPreview,
   featureFlags,
+  wasResolvedUpfrontPreview,
 }: {
   status: CardStatus;
   fileState: FileState;
@@ -240,6 +241,7 @@ export const shouldResolvePreview = ({
   hasCardPreview: boolean;
   isBannedLocalPreview: boolean;
   featureFlags?: MediaFeatureFlags;
+  wasResolvedUpfrontPreview: boolean;
 }) => {
   const statusIsPreviewable = isPreviewableStatus(
     status,
@@ -247,7 +249,12 @@ export const shouldResolvePreview = ({
   );
 
   const dimensionsAreBigger = isBigger(prevDimensions, dimensions);
-  return statusIsPreviewable && (!hasCardPreview || dimensionsAreBigger);
+  // We should not fetch the preview if the upfront one hasn't been resolved yet (it could be resolving now), even if there are new dimensions.
+  return (
+    wasResolvedUpfrontPreview &&
+    statusIsPreviewable &&
+    (!hasCardPreview || dimensionsAreBigger)
+  );
 };
 
 export const getSSRCardPreview = (

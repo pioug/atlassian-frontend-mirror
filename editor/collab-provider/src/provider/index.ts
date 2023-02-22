@@ -229,10 +229,11 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
   }
 
   private initializeChannel = () => {
+    this.emit('connecting', { initial: true });
     this.channel
       .on('connected', ({ sid, initialized }) => {
         this.sessionId = sid;
-        this.emit('connected', { sid });
+        this.emit('connected', { sid, initial: !initialized });
         // If already initialized, `connected` means reconnected
         if (
           initialized &&
@@ -283,17 +284,34 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
     getState: () => EditorState;
     onSyncUpError?: SyncUpErrorFunction;
   }): this {
-    this.getState = getState;
+    try {
+      this.getState = getState;
 
-    this.onSyncUpError = onSyncUpError || noop;
+      this.onSyncUpError = onSyncUpError || noop;
 
-    this.clientId = (
-      getState().plugins.find((p: any) => p.key === 'collab$')!.spec as any
-    ).config.clientID;
+      this.clientId = (
+        getState().plugins.find((p: any) => p.key === 'collab$')!.spec as any
+      ).config.clientID;
 
-    if (!this.isChannelInitialized) {
-      this.initializeChannel();
-      this.isChannelInitialized = true;
+      if (!this.isChannelInitialized) {
+        this.initializeChannel();
+        this.isChannelInitialized = true;
+      }
+    } catch (initError) {
+      triggerAnalyticsEvent(
+        {
+          eventAction: EVENT_ACTION.ERROR,
+          attributes: {
+            attemptedAction: EVENT_ACTION.INIT_PROVIDER,
+            documentAri: this.config.documentAri,
+          },
+          nonPrivacySafeAttributes: {
+            error: initError as ErrorPayload,
+          },
+        },
+        this.analyticsClient,
+      );
+      throw initError;
     }
 
     return this;
@@ -534,47 +552,58 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
     error: ErrorPayload,
     disableAnalytics: boolean = false,
   ) => {
-    if (error?.data) {
-      // User tried committing steps but they were rejected because:
-      // HEAD_VERSION_UPDATE_FAILED: the collab service's latest stored step tail version didn't correspond to the head version of the first step submitted
-      // VERSION_NUMBER_ALREADY_EXISTS: while storing the steps there was a conflict meaning someone else wrote steps into the database more quickly
-      if (
-        error.data.code === 'HEAD_VERSION_UPDATE_FAILED' ||
-        error.data.code === 'VERSION_NUMBER_ALREADY_EXISTS'
-      ) {
-        // TODO: Remove this analytics logic once we have validated the ack messages and aren't likely to go back to a generic error handler
-        if (!disableAnalytics) {
-          triggerAnalyticsEvent(
-            {
-              eventAction: EVENT_ACTION.ADD_STEPS,
-              attributes: {
-                eventStatus: EVENT_STATUS.FAILURE,
-                type: ADD_STEPS_TYPE.REJECTED,
-                error,
-                documentAri: this.config.documentAri,
-              },
+    // User tried committing steps but they were rejected because:
+    // HEAD_VERSION_UPDATE_FAILED: the collab service's latest stored step tail version didn't correspond to the head version of the first step submitted
+    // VERSION_NUMBER_ALREADY_EXISTS: while storing the steps there was a conflict meaning someone else wrote steps into the database more quickly
+    if (
+      error.data?.code === 'HEAD_VERSION_UPDATE_FAILED' ||
+      error.data?.code === 'VERSION_NUMBER_ALREADY_EXISTS'
+    ) {
+      // TODO: Remove this analytics logic once we have validated the ack messages and aren't likely to go back to a generic error handler
+      if (!disableAnalytics) {
+        triggerAnalyticsEvent(
+          {
+            eventAction: EVENT_ACTION.ADD_STEPS,
+            attributes: {
+              eventStatus: EVENT_STATUS.FAILURE,
+              type: ADD_STEPS_TYPE.REJECTED,
+              error,
+              documentAri: this.config.documentAri,
             },
-            this.analyticsClient,
-          );
-        }
-        this.stepRejectCounter++;
-        logger(`Steps rejected (tries=${this.stepRejectCounter})`);
-
-        if (this.stepRejectCounter >= MAX_STEP_REJECTED_ERROR) {
-          logger(
-            `The steps were rejected too many times (tries=${this.stepRejectCounter}, limit=${MAX_STEP_REJECTED_ERROR}). Trying to catch-up.`,
-          );
-          this.throttledCatchup();
-        }
+          },
+          this.analyticsClient,
+        );
       }
+      this.stepRejectCounter++;
+      logger(`Steps rejected (tries=${this.stepRejectCounter})`);
 
-      const errorToEmit = errorCodeMapper(error);
-      if (errorToEmit) {
-        this.emit('error', errorToEmit);
+      if (this.stepRejectCounter >= MAX_STEP_REJECTED_ERROR) {
+        logger(
+          `The steps were rejected too many times (tries=${this.stepRejectCounter}, limit=${MAX_STEP_REJECTED_ERROR}). Trying to catch-up.`,
+        );
+        this.throttledCatchup();
       }
+    } else {
+      const mappedError = errorCodeMapper(error);
+      // TODO: Remove this analytics logic once we have validated the ack messages and aren't likely to go back to a generic error handler
+      if (!disableAnalytics) {
+        triggerAnalyticsEvent(
+          {
+            eventAction: EVENT_ACTION.ERROR,
+            attributes: {
+              documentAri: this.config.documentAri,
+              mappedError,
+            },
+            nonPrivacySafeAttributes: {
+              error,
+            },
+          },
+          this.analyticsClient,
+        );
+      }
+      this.emit('error', mappedError);
+      logger('Error from collab service', error);
     }
-
-    logger('Error from collab service', error);
   };
 
   private pauseQueue?: boolean;

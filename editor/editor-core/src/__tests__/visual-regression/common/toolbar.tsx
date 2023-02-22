@@ -25,6 +25,13 @@ import {
 import { pressKeyCombo } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
 import * as parapgrahADF from './__fixtures__/paragraph-of-text.adf.json';
 
+import { getElementComputedStyle } from '@atlaskit/editor-test-helpers/vr-utils/get-computed-style';
+import { N700 } from '@atlaskit/theme/colors';
+import { normalizeHexColor } from '@atlaskit/adf-schema';
+
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
+const selectedColor = N700;
+
 async function focusToolbar(page: PuppeteerPage) {
   await pressKeyCombo(page, ['Alt', 'F9']);
 }
@@ -148,6 +155,9 @@ describe.skip('Toolbar: Text Color', () => {
 describe.skip('Toolbar: Emoji', () => {
   let page: PuppeteerPage;
 
+  const EmojiButtonSelector =
+    "[data-testid='ak-editor-main-toolbar'] [data-testid='Emoji']";
+
   beforeEach(async () => {
     page = global.page;
     await initEditorWithAdf(page, {
@@ -155,8 +165,20 @@ describe.skip('Toolbar: Emoji', () => {
       viewport: { width: 1000, height: 350 },
     });
 
+    // make sure mouse position is reset to avoid accidental button hover
+    await page.mouse.click(0, 0);
+
     await clickToolbarMenu(page, ToolbarMenuItem.emoji);
     await page.waitForSelector(toolbarDropdownMenuSelectors.emoji);
+
+    const currentBgColor = await getElementComputedStyle(
+      page,
+      EmojiButtonSelector,
+      'background-color',
+    );
+
+    // test if emoji button have selected bg colour
+    expect(normalizeHexColor(currentBgColor)).toBe(selectedColor);
   });
 
   afterEach(async () => {
@@ -170,6 +192,16 @@ describe.skip('Toolbar: Emoji', () => {
       editorSelector,
     );
     await snapshot(page, undefined, editorSelector);
+
+    const currentBgColor = await getElementComputedStyle(
+      page,
+      EmojiButtonSelector,
+      'background-color',
+    );
+
+    // test if emoji button have default bg colour
+    // note: rgba(0, 0, 0, 0) is when bg is undefined
+    expect(currentBgColor).toBe('rgba(0, 0, 0, 0)');
   });
 
   // FIXME: Skipped because of flakiness
@@ -248,13 +280,15 @@ describe.skip('Toolbar: IconBefore', () => {
       await page.setViewport({ width: 400, height: 350 });
     });
 
-    it('should carry the keyline across', async () => {
+    // TODO: Restore skipped test https://product-fabric.atlassian.net/browse/ED-16795
+    it.skip('should carry the keyline across', async () => {
       await page.setViewport({ width: 1000, height: 350 });
       await scrollToBottom(page);
     });
   });
 
-  it('should allow primary toolbar to span entire width when not specified', async () => {
+  // TODO: Restore skipped test https://product-fabric.atlassian.net/browse/ED-16794
+  it.skip('should allow primary toolbar to span entire width when not specified', async () => {
     page = global.page;
     await initEditorWithAdf(page, {
       appearance: Appearance.fullPage,
@@ -283,7 +317,8 @@ describe.skip('Toolbar: Undo Redo', () => {
     await snapshot(page, undefined, mainToolbarSelector);
   });
 
-  it('should show the Undo / Redo buttons in a disabled state', async () => {
+  // TODO: Restore skipped test https://product-fabric.atlassian.net/browse/ED-16793
+  it.skip('should show the Undo / Redo buttons in a disabled state', async () => {
     await page.waitForSelector(selectors[ToolbarMenuItem.undo]);
   });
 

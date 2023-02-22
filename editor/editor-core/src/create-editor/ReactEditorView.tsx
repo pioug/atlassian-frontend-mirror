@@ -48,7 +48,7 @@ import {
   getAnalyticsEventsFromTransaction,
   PLATFORMS,
 } from '../plugins/analytics';
-import { createFeatureFlagsFromProps } from '../plugins/feature-flags-context/feature-flags-from-props';
+import { createFeatureFlagsFromProps } from './feature-flags-from-props';
 import { getEnabledFeatureFlagKeys } from '../plugins/feature-flags-context/get-enabled-feature-flag-keys';
 import {
   EditorAppearance,

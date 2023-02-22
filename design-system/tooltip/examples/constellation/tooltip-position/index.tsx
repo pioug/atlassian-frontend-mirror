@@ -26,7 +26,7 @@ const PositionExample = () => {
       {placements.map((placement) => (
         <div key={placement} css={placementGridPositions[placement]}>
           <Tooltip position={placement} content={placement}>
-            <Button css={buttonStyles}>{placement}</Button>
+            {(tooltipProps) => <Button css={buttonStyles}>{placement}</Button>}
           </Tooltip>
         </div>
       ))}

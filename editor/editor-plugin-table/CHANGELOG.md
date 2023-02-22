@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-table
 
+## 1.1.4
+
+### Patch Changes
+
+- [`3efca940231`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3efca940231) - [ux] ED-16417 fix cell background menu item becomes blue when clicking on color palette from table contextual menu
+- Updated dependencies
+
 ## 1.1.3
 
 ### Patch Changes

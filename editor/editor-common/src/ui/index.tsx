@@ -28,6 +28,7 @@ export { default as UnsupportedInline } from './UnsupportedInline';
 export { BaseTheme, mapBreakpointToLayoutMaxWidth } from './BaseTheme';
 
 export { default as withOuterListeners } from './with-outer-listeners';
+export type { WithOutsideClickProps } from './with-outer-listeners';
 export type {
   CardEventClickHandler,
   CardSurroundings,

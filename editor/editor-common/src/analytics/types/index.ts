@@ -63,10 +63,16 @@ export type {
   CaptionTrackAction,
 } from './media-events';
 export type { DispatchAnalyticsEvent } from './dispatch-analytics-event';
-export { DELETE_DIRECTION, LIST_TEXT_SCENARIOS } from './list-events';
+export {
+  DELETE_DIRECTION,
+  LIST_TEXT_SCENARIOS,
+  JOIN_SCENARIOS_WHEN_TYPING_TO_INSERT_LIST,
+  OUTDENT_SCENARIOS,
+} from './list-events';
 export type {
   ListEventPayload,
   CommonListAnalyticsAttributes,
+  RestartListsAttributesForListOutdented,
 } from './list-events';
 export type {
   CreateLinkInlineDialogActionType,
@@ -131,6 +137,7 @@ export type { ToolbarEventPayload } from './toolbar-button';
 export type { TypeAheadPayload } from './type-ahead';
 
 export { SELECTION_POSITION, SELECTION_TYPE } from './utils';
+export type { OperationalAEP } from './utils';
 
 export type {
   PluginMethodReport,

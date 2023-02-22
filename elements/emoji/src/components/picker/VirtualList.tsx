@@ -71,15 +71,25 @@ export class VirtualList extends PureComponent<Props> {
   private getFirstVisibleListElementIndex() {
     const virtualList = this.rowVirtualizer.getVirtualItems();
     const renderedElements = this.parentRef.current?.firstChild?.childNodes;
-    let firstVisibleIndex: number = 0;
-    renderedElements?.forEach((value, key) => {
-      if (this.isElementVisible(value as Element)) {
-        firstVisibleIndex = key;
-        return;
-      }
-    });
 
-    return virtualList[firstVisibleIndex]?.index || 0;
+    if (
+      virtualList.length === 0 ||
+      !renderedElements ||
+      renderedElements.length === 0
+    ) {
+      return 0;
+    }
+
+    // Convert NodeListOf<ChildNodes> to ChildNodes[]
+    const renderedElementsToArray = Array.from(renderedElements);
+
+    const firstVisibleIndex = renderedElementsToArray.findIndex((elem) =>
+      this.isElementVisible(elem as Element),
+    );
+    if (firstVisibleIndex !== -1) {
+      return virtualList[firstVisibleIndex]?.index || 0;
+    }
+    return 0;
   }
 
   private onRendered() {
@@ -140,7 +150,6 @@ export class VirtualList extends PureComponent<Props> {
         style={{
           height: `${height}px`,
           width: `${width}px`,
-          overflow: 'auto',
         }}
         css={virtualList}
         data-testid={virtualListScrollContainerTestId}

@@ -25,8 +25,8 @@ export default () => (
           <Field name="lastname" defaultValue="" label="Last name" isRequired>
             {({ fieldProps: { isRequired, isDisabled, ...others } }) => (
               <TextField
-                disabled={isDisabled}
-                required={isRequired}
+                isDisabled={isDisabled}
+                isRequired={isRequired}
                 {...others}
               />
             )}

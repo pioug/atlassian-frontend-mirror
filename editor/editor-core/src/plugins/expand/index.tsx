@@ -89,9 +89,13 @@ const expandPlugin: NextEditorPlugin<'expand', never, ExpandPluginOptions> = (
   },
 });
 
+interface ExpandEditorProps {
+  allowExpand?: EditorProps['allowExpand'];
+}
+
 export default expandPlugin;
 export type { ExpandPluginState } from './types';
-export function isExpandInsertionEnabled({ allowExpand }: EditorProps) {
+export function isExpandInsertionEnabled({ allowExpand }: ExpandEditorProps) {
   if (allowExpand && typeof allowExpand === 'object') {
     return !!allowExpand.allowInsertion;
   }

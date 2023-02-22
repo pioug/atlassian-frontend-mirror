@@ -60,7 +60,6 @@
     "@atlaskit/datetime-picker": "^12.3.0",
     "@atlaskit/docs": "^9.0.0",
     "@atlaskit/dropdown-menu": "^11.5.0",
-    "@atlaskit/droplist": "^11.0.0",
     "@atlaskit/ds-lib": "^2.1.1",
     "@atlaskit/lozenge": "^11.2.4",
     "@atlaskit/modal-dialog": "^12.4.0",

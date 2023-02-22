@@ -137,6 +137,8 @@ export const emojiPickerList = css({
 
 // focus style is enabled by default - turn it off
 export const virtualList = css({
+  overflowX: 'hidden',
+  overflowY: 'auto',
   '&:focus': {
     outline: 'none',
   },

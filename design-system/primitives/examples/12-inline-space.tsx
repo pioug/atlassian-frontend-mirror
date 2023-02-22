@@ -32,12 +32,12 @@ export default () => (
           <span css={spaceValueStyles}>{space}</span>
           <Inline space={space}>
             <Box
-              borderRadius="normal"
+              borderRadius="radius.200"
               padding="space.200"
               backgroundColor="discovery.bold"
             />
             <Box
-              borderRadius="normal"
+              borderRadius="radius.200"
               padding="space.200"
               backgroundColor="discovery.bold"
             />

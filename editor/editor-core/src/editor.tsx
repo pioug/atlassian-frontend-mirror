@@ -43,10 +43,7 @@ import {
 import { nextMajorVersion } from './version-wrapper';
 import { ContextAdapter } from './nodeviews/context-adapter';
 import measurements from './utils/performance/measure-enum';
-import {
-  combineQuickInsertProviders,
-  extensionProviderToQuickInsertProvider,
-} from './utils/extensions';
+import prepareQuickInsertProvider from './utils/prepare-quick-insert-provider';
 import {
   fireAnalyticsEvent,
   EVENT_TYPE,
@@ -60,7 +57,7 @@ import {
   QuickInsertProvider,
   QuickInsertOptions,
 } from './plugins/quick-insert/types';
-import { createFeatureFlagsFromProps } from './plugins/feature-flags-context/feature-flags-from-props';
+import { createFeatureFlagsFromProps } from './create-editor/feature-flags-from-props';
 import { RenderTracking } from './utils/performance/components/RenderTracking';
 
 export type {
@@ -394,23 +391,12 @@ export default class Editor extends React.Component<EditorProps, State> {
     extensionProvider?: ExtensionProvider,
     quickInsert?: QuickInsertOptions,
   ) => {
-    const quickInsertProvider =
-      quickInsert && typeof quickInsert !== 'boolean' && quickInsert.provider;
-
-    const extensionQuickInsertProvider =
-      extensionProvider &&
-      extensionProviderToQuickInsertProvider(
-        extensionProvider,
-        this.editorActions,
-        this.createAnalyticsEvent,
-      );
-
-    return quickInsertProvider && extensionQuickInsertProvider
-      ? combineQuickInsertProviders([
-          quickInsertProvider,
-          extensionQuickInsertProvider,
-        ])
-      : quickInsertProvider || extensionQuickInsertProvider;
+    return prepareQuickInsertProvider(
+      this.editorActions,
+      extensionProvider,
+      quickInsert,
+      this.createAnalyticsEvent,
+    );
   };
 
   /**

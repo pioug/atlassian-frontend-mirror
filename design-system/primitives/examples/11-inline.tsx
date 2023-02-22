@@ -42,26 +42,26 @@ export default () => (
               {alignInline}
               <Box
                 display="block"
-                borderRadius="normal"
+                borderRadius="radius.200"
                 backgroundColor="neutral"
                 padding="space.050"
-                UNSAFE_style={{
+                customStyles={{
                   width: '200px',
                 }}
               >
                 <Inline alignInline={alignInline} space="050">
                   <Box
-                    borderRadius="normal"
+                    borderRadius="radius.200"
                     padding="space.200"
                     backgroundColor="discovery.bold"
                   />
                   <Box
-                    borderRadius="normal"
+                    borderRadius="radius.200"
                     padding="space.200"
                     backgroundColor="discovery.bold"
                   />
                   <Box
-                    borderRadius="normal"
+                    borderRadius="radius.200"
                     padding="space.200"
                     backgroundColor="discovery.bold"
                   />
@@ -78,26 +78,26 @@ export default () => (
               {spread}
               <Box
                 display="block"
-                borderRadius="normal"
+                borderRadius="radius.200"
                 backgroundColor="neutral"
                 padding="space.050"
-                UNSAFE_style={{
+                customStyles={{
                   width: '200px',
                 }}
               >
                 <Inline spread={spread} space="050">
                   <Box
-                    borderRadius="normal"
+                    borderRadius="radius.200"
                     padding="space.200"
                     backgroundColor="discovery.bold"
                   />
                   <Box
-                    borderRadius="normal"
+                    borderRadius="radius.200"
                     padding="space.200"
                     backgroundColor="discovery.bold"
                   />
                   <Box
-                    borderRadius="normal"
+                    borderRadius="radius.200"
                     padding="space.200"
                     backgroundColor="discovery.bold"
                   />
@@ -115,27 +115,28 @@ export default () => (
                 <Box
                   backgroundColor="neutral"
                   padding="space.050"
-                  borderRadius="normal"
-                  UNSAFE_style={{
+                  borderRadius="radius.200"
+                  customStyles={{
                     height: '200px',
                   }}
+                  display="flex"
                 >
                   <Inline space="050" alignBlock={alignBlock}>
                     <Box
                       display="inline"
-                      borderRadius="normal"
+                      borderRadius="radius.200"
                       padding="space.300"
                       backgroundColor="discovery.bold"
                     ></Box>
                     <Box
                       display="inline"
-                      borderRadius="normal"
+                      borderRadius="radius.200"
                       padding="space.200"
                       backgroundColor="discovery.bold"
                     />
                     <Box
                       display="inline"
-                      borderRadius="normal"
+                      borderRadius="radius.200"
                       padding="space.200"
                       backgroundColor="discovery.bold"
                     />
@@ -153,18 +154,18 @@ export default () => (
               <Inline key={space} alignBlock="center">
                 <div css={spaceNameStyles}>{space}</div>
                 <Box
-                  borderRadius="normal"
+                  borderRadius="radius.200"
                   padding="space.050"
                   backgroundColor="neutral"
                 >
                   <Inline space={space}>
                     <Box
-                      borderRadius="normal"
+                      borderRadius="radius.200"
                       padding="space.200"
                       backgroundColor="discovery.bold"
                     />
                     <Box
-                      borderRadius="normal"
+                      borderRadius="radius.200"
                       padding="space.200"
                       backgroundColor="discovery.bold"
                     />
@@ -178,7 +179,7 @@ export default () => (
         <section>
           <Heading level="h500">shouldWrap</Heading>
           <Box
-            borderRadius="normal"
+            borderRadius="radius.200"
             padding="space.050"
             backgroundColor="neutral"
           >
@@ -186,7 +187,7 @@ export default () => (
               {[...Array(25)].map((_, index) => (
                 <Box
                   key={index}
-                  borderRadius="normal"
+                  borderRadius="radius.200"
                   padding="space.200"
                   backgroundColor="discovery.bold"
                 />
@@ -198,7 +199,7 @@ export default () => (
         <section>
           <Heading level="h500">Separator</Heading>
           <Box
-            borderRadius="normal"
+            borderRadius="radius.200"
             padding="space.050"
             backgroundColor="neutral"
           >
@@ -211,7 +212,7 @@ export default () => (
               {[...Array(20)].map((_, index) => (
                 <Box
                   key={index}
-                  borderRadius="normal"
+                  borderRadius="radius.200"
                   padding="space.200"
                   backgroundColor="discovery.bold"
                 />

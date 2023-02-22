@@ -2,7 +2,7 @@
 import noop from '@atlaskit/ds-lib/noop';
 import { cleanup, hydrate, ssr } from '@atlaskit/ssr/emotion';
 
-const example = require.resolve('../../../../examples/01-basic.tsx');
+const example = require.resolve('../../../../examples/10-inline-basic.tsx');
 
 jest.spyOn(global.console, 'error').mockImplementation(noop);
 

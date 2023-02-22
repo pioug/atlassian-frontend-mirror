@@ -134,14 +134,26 @@ describe('provider unit tests', () => {
       expect(initializeChannelSpy).toHaveBeenCalledTimes(1);
     });
 
+    it('should emit an event indicating the connection is being established to the provider', (done) => {
+      const provider = createSocketIOCollabProvider(testProviderConfig);
+      provider.on('connecting', ({ initial }) => {
+        expect(initial).toBe(true);
+        done();
+      });
+      provider.initialize(() => editorState);
+      expect.assertions(1);
+    });
+
     it('should emit connected event when provider is connected via socketIO', async (done) => {
       const provider = createSocketIOCollabProvider(testProviderConfig);
-      provider.on('connected', ({ sid }) => {
+      provider.on('connected', ({ sid, initial }) => {
         expect(sid).toBe('sid-123');
+        expect(initial).toBe(true);
         done();
       });
       provider.initialize(() => editorState);
       channel.emit('connected', { sid: 'sid-123' });
+      expect.assertions(2);
     });
 
     it('should emit init event', async (done) => {
@@ -238,7 +250,6 @@ describe('provider unit tests', () => {
         },
         message: 'Version number does not match current head version.',
       };
-
       provider.initialize(() => editorState);
       for (let i = 1; i <= MAX_STEP_REJECTED_ERROR + 2; i++) {
         channel.emit('error', stepRejectedError);
@@ -626,7 +637,7 @@ describe('provider unit tests', () => {
         expect(error).toEqual({
           status: 500,
           code: 'INTERNAL_SERVICE_ERROR',
-          message: 'Collab service has return internal server error',
+          message: 'Collab service has experienced an internal server error',
         });
         done();
       });

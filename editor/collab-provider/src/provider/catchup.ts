@@ -34,7 +34,23 @@ export const catchup = async (opt: CatchupOptions) => {
     if (typeof serverVersion === 'undefined') {
       logger(`Could not determine server version`);
     } else if (serverVersion <= currentPmVersion) {
-      logger(`Catchup steps we already have. Ignoring.`);
+      // there are no step maps in this case after page recovery
+      const { steps: unconfirmedSteps } = opt.getUnconfirmedSteps() || {
+        steps: [],
+      };
+      // replace the entire document
+      logger(`Replacing document: ${doc}`);
+      logger(`getting metadata: ${metadata}`);
+      // Replace local document and version number
+      opt.updateDocumentWithMetadata({
+        doc: JSON.parse(doc),
+        version: serverVersion,
+        metadata,
+        reserveCursor: true,
+      });
+      if (unconfirmedSteps.length) {
+        opt.applyLocalSteps(unconfirmedSteps as Step<any>[]);
+      }
     } else {
       // Please, do not use those steps inside of async
       // method. That will lead to outdated steps

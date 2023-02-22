@@ -1,7 +1,10 @@
-import { EditorState } from 'prosemirror-state';
+import { EditorState, Transaction } from 'prosemirror-state';
 import { isListNode, isListItemNode } from './node';
 import { getListItemAttributes } from './selection';
-import { CommonListAnalyticsAttributes } from '../../analytics';
+import {
+  RestartListsAttributesForListOutdented,
+  CommonListAnalyticsAttributes,
+} from '@atlaskit/editor-common/analytics';
 
 export const getCommonListAnalyticsAttributes = (
   state: EditorState,
@@ -43,4 +46,22 @@ export const countListItemsInSelection = (state: EditorState) => {
     },
   );
   return count;
+};
+
+export const RESTART_LISTS_ANALYTICS_KEY = 'restartListsAnalytics';
+
+export const getRestartListsAttributes = (
+  tr: Transaction,
+): RestartListsAttributesForListOutdented =>
+  tr.getMeta(RESTART_LISTS_ANALYTICS_KEY) ?? {};
+
+export const storeRestartListsAttributes = (
+  tr: Transaction,
+  attributes: RestartListsAttributesForListOutdented,
+): void => {
+  const meta = getRestartListsAttributes(tr);
+  tr.setMeta(RESTART_LISTS_ANALYTICS_KEY, {
+    ...meta,
+    ...attributes,
+  });
 };

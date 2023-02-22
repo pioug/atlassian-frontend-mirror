@@ -12,12 +12,57 @@ import {
   clickCellOptions,
   selectCellOption,
   floatingToolbarAriaLabel as tableFloatingToolbarAriaLabel,
+  tableSelectors,
 } from '@atlaskit/editor-test-helpers/page-objects/table';
 import { waitForFloatingControl } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 import { selectors } from '@atlaskit/editor-test-helpers/page-objects/editor';
 
 const dropdownListSelector =
   '[aria-label="Popup"] [data-role="droplistContent"]';
+
+describe('Table floating toolbar:fullpage - no snapshot', () => {
+  let page: PuppeteerPage;
+
+  // FIXME: toolbar centering isn't right...
+  beforeEach(async () => {
+    page = global.page;
+    await initFullPageEditorWithAdf(page, adf);
+    // Focus the table and select the first (non header row) cell
+    await clickFirstCell(page, true);
+    // Wait for floating table controls underneath the table
+    await waitForFloatingControl(page, tableFloatingToolbarAriaLabel);
+  });
+
+  it('display correct "Cell background" menu item background color', async () => {
+    const cellBackgroundMenuItemColor = `getComputedStyle(document.querySelector('[data-testid="dropdown-item__${tableSelectors.cellBackgroundText}"]')).backgroundColor`;
+    const cellBackgroundMenuItemSelector = `[data-testid="dropdown-item__${tableSelectors.cellBackgroundText}"]`;
+
+    const blue = `rgb(179, 212, 255)`;
+    const grey = `rgb(244, 245, 247)`;
+
+    /**
+     * Click cell context menu drop down
+     * Click "Cell background" - menu item background color should be blue
+     * Click on color palette - "Cell background" menu item background color shold be grey
+     */
+    await clickCellOptions(page);
+
+    await page.hover(cellBackgroundMenuItemSelector);
+    await page.mouse.down();
+    const bgColor = await page.evaluate(cellBackgroundMenuItemColor);
+    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+    expect(bgColor).toEqual(blue);
+    await page.mouse.up();
+
+    await page.hover(tableSelectors.cellBackgroundSubmenuSelector);
+    await page.mouse.down();
+    const bgColorSubmenuActive = await page.evaluate(
+      cellBackgroundMenuItemColor,
+    );
+    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+    expect(bgColorSubmenuActive).toEqual(grey);
+  });
+});
 
 describe('Table floating toolbar:fullpage', () => {
   let page: PuppeteerPage;

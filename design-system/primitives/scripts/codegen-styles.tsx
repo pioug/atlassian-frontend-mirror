@@ -18,6 +18,13 @@ const spacingTokensDependencyPath = require.resolve(
   '../../tokens/src/artifacts/tokens-raw/atlassian-spacing',
 );
 
+const primitivesFileNames = {
+  'internal-box': 'base-box.partial.tsx',
+  box: 'box.tsx',
+  inline: 'inline.partial.tsx',
+  stack: 'stack.partial.tsx',
+};
+
 writeFile(
   join(colorMapOutputFolder, 'color-map.tsx'),
   createSignedArtifact(createColorMapTemplate(), 'yarn codegen-styles', {
@@ -30,7 +37,7 @@ writeFile(
 
 // generate colors
 Promise.all(
-  [{ target: 'box.partial.tsx' }].map(({ target }) => {
+  [{ target: primitivesFileNames['internal-box'] }].map(({ target }) => {
     const targetPath = join(
       __dirname,
       '../',
@@ -59,9 +66,9 @@ Promise.all(
     // generate spacing values
     return Promise.all(
       [
-        { path: ['internal', 'box.partial.tsx'] },
-        { path: ['inline.partial.tsx'] },
-        { path: ['stack.partial.tsx'] },
+        { path: ['internal', primitivesFileNames['internal-box']] },
+        { path: [primitivesFileNames.inline] },
+        { path: [primitivesFileNames.stack] },
       ].map(({ path }) => {
         const targetPath = join(__dirname, '../', 'src', 'components', ...path);
 
@@ -84,19 +91,27 @@ Promise.all(
   .then(() => {
     // generate other values
     return Promise.all(
-      [{ path: ['internal', 'box.partial.tsx'] }].map(({ path }) => {
-        const targetPath = join(__dirname, '../', 'src', 'components', ...path);
+      [{ path: ['internal', primitivesFileNames['internal-box']] }].map(
+        ({ path }) => {
+          const targetPath = join(
+            __dirname,
+            '../',
+            'src',
+            'components',
+            ...path,
+          );
 
-        const source = createPartialSignedArtifact(
-          options => options.map(createStylesFromTemplate).join('\n'),
-          'yarn codegen-styles',
-          { id: 'misc', absoluteFilePath: targetPath },
-        );
+          const source = createPartialSignedArtifact(
+            options => options.map(createStylesFromTemplate).join('\n'),
+            'yarn codegen-styles',
+            { id: 'misc', absoluteFilePath: targetPath },
+          );
 
-        return writeFile(targetPath, source).then(() =>
-          console.log(`${targetPath} written!`),
-        );
-      }),
+          return writeFile(targetPath, source).then(() =>
+            console.log(`${targetPath} written!`),
+          );
+        },
+      ),
     );
   })
   .then(() => {
@@ -106,7 +121,7 @@ Promise.all(
       'src',
       'components',
       'internal',
-      'box.partial.tsx',
+      primitivesFileNames['internal-box'],
     );
 
     const source = createPartialSignedArtifact(

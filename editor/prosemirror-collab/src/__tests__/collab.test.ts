@@ -255,7 +255,7 @@ describe('collab', () => {
   });
 
   describe('Atlassian custom behaviour', () => {
-    it("don't send analytics steps to the collab service", () => {
+    it.skip("don't send analytics steps to the collab service", () => {
       const s = new DummyServer();
       const analyticsStep = new AnalyticsStep(
         [

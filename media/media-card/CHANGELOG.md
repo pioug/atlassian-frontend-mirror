@@ -1,5 +1,16 @@
 # @atlaskit/media-card
 
+## 74.6.0
+
+### Minor Changes
+
+- [`dbd7cd19fe6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dbd7cd19fe6) - Media Card now fetch the preview immediately after mounting, without waiting for file state to be ready
+
+### Patch Changes
+
+- [`337bec022b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/337bec022b4) - Fixes logic for upfront preview
+- Updated dependencies
+
 ## 74.5.2
 
 ### Patch Changes

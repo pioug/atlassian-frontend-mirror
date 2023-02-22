@@ -1,9 +1,14 @@
 import {
+  akEditorDefaultLayoutWidth,
   akEditorFullWidthLayoutLineLength,
   akEditorFullWidthLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
 
-import { breakoutConsts, calculateBreakoutStyles } from '../breakout';
+import {
+  absoluteBreakoutWidth,
+  breakoutConsts,
+  calculateBreakoutStyles,
+} from '../breakout';
 
 describe('breakout utils', () => {
   describe('calculateBreakoutStyles', () => {
@@ -110,5 +115,37 @@ describe('breakout utils', () => {
         "width": "1604px",
       }
     `);
+  });
+
+  describe('absoluteBreakoutWidth', () => {
+    it('default width - should return 760 for regular screens', () => {
+      const breakoutWidth = absoluteBreakoutWidth('default', 1920);
+      expect(breakoutWidth).toBe(akEditorDefaultLayoutWidth);
+    });
+
+    it('default width - should return 760 for larger screens', () => {
+      const breakoutWidth = absoluteBreakoutWidth('default', 2700);
+      expect(breakoutWidth).toBe(akEditorDefaultLayoutWidth);
+    });
+
+    it('wide width - should return 1011 for regular screens', () => {
+      const breakoutWidth = absoluteBreakoutWidth('wide', 1920);
+      expect(breakoutWidth).toBe(1011);
+    });
+
+    it('wide width - should return 1011 for larger screens', () => {
+      const breakoutWidth = absoluteBreakoutWidth('wide', 3000);
+      expect(breakoutWidth).toBe(1011);
+    });
+
+    it('full-width - should return 1800 for regular screens', () => {
+      const breakoutWidth = absoluteBreakoutWidth('full-width', 1920);
+      expect(breakoutWidth).toBe(akEditorFullWidthLayoutWidth);
+    });
+
+    it('full-width - should return 1800 for larger screens', () => {
+      const breakoutWidth = absoluteBreakoutWidth('full-width', 3000);
+      expect(breakoutWidth).toBe(akEditorFullWidthLayoutWidth);
+    });
   });
 });

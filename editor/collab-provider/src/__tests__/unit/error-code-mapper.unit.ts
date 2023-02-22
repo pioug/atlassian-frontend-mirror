@@ -13,17 +13,25 @@ describe('Error code mapper', () => {
     });
   });
 
-  it('Drops unhandled errors', () => {
+  it('Doesnt drop unhandled errors', () => {
     const mappedError = errorCodeMapper({
       message: 'Some other unhandled error',
       data: { code: 'SOMETHING_WENT_WRONG', status: 400 },
     });
-    expect(mappedError).toBeUndefined();
+    expect(mappedError).toEqual({
+      status: 500,
+      code: ErrorCodeMapper.internalError.code,
+      message: ErrorCodeMapper.internalError.message,
+    });
   });
 
-  it("returns undefined when the error doesn't have data", () => {
+  it("doesnt return undefined when the error doesn't have data", () => {
     const mappedError = errorCodeMapper({ message: 'Some error without data' });
-    expect(mappedError).toBeUndefined();
+    expect(mappedError).toEqual({
+      status: 500,
+      code: ErrorCodeMapper.internalError.code,
+      message: ErrorCodeMapper.internalError.message,
+    });
   });
 
   describe('Insufficient permission error', () => {

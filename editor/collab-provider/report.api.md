@@ -17,6 +17,7 @@
 ```ts
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import type { CollabEditProvider } from '@atlaskit/editor-common/collab';
+import type { CollabEventConnectingData } from '@atlaskit/editor-common/collab';
 import type { CollabEventConnectionData } from '@atlaskit/editor-common/collab';
 import type { CollabEventInitData } from '@atlaskit/editor-common/collab';
 import type { CollabEventPresenceData } from '@atlaskit/editor-common/collab';
@@ -38,6 +39,9 @@ type BaseEvents = Pick<
 
 // @public (undocumented)
 export type CollabConnectedPayload = CollabEventConnectionData;
+
+// @public (undocumented)
+type CollabConnectingPayload = CollabEventConnectingData;
 
 // @public (undocumented)
 export interface CollabDataPayload extends CollabEventRemoteData {
@@ -77,6 +81,8 @@ export interface CollabEvents {
   'metadata:changed': CollabMetadataPayload;
   // (undocumented)
   connected: CollabConnectedPayload;
+  // (undocumented)
+  connecting: CollabConnectingPayload;
   // (undocumented)
   data: CollabDataPayload;
   // (undocumented)

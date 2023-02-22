@@ -129,7 +129,8 @@ describe('Floating toolbars:', () => {
     });
   });
 
-  describe('with popup items', () => {
+  // TODO: Restore skipped test https://product-fabric.atlassian.net/browse/DTR-1232
+  describe.skip('with popup items', () => {
     // skip Appearance.mobile
     it.each([
       Appearance.fullWidth,

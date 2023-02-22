@@ -1,13 +1,12 @@
 import React from 'react';
-import { EditorView } from 'prosemirror-view';
 import { Node } from 'prosemirror-model';
-import { mount } from 'enzyme';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
 import { EditorActions, MacroAttributes, MacroProvider } from '../../../index';
 import Editor from '../../../editor';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { Transformer } from '@atlaskit/editor-common/types';
+import { render } from '@testing-library/react';
 
 import {
   bodiedExtension,
@@ -36,32 +35,40 @@ describe('Editor Actions', () => {
 
   describe('getValue', () => {
     it('filters out invalid marks when a contentTransformer is present', async () => {
-      const wrapper = mount(
+      let editorActions: EditorActions | undefined;
+
+      const getEditorInstance = (editorInstance: EditorActions) => {
+        editorActions = editorInstance;
+      };
+
+      render(
         <Editor
           emojiProvider={getTestEmojiResource()}
           contentTransformerProvider={() => mock}
+          onEditorReady={getEditorInstance}
         />,
       );
 
-      const editorActions: EditorActions = (
-        wrapper.find(Editor).instance() as any
-      ).editorActions;
+      expect(editorActions).toBeDefined();
+      const view = editorActions?._privateGetEditorView();
+      if (view) {
+        // populate the document with content that isnt valid ADF without sanitization.
+        const content = view.state.schema.nodeFromJSON({
+          type: 'paragraph',
+          content: [
+            {
+              type: 'text',
+              marks: [{ type: 'typeAheadQuery' }],
+              text: ':smile',
+            },
+          ],
+        });
 
-      const view: EditorView = editorActions._privateGetEditorView()!;
-
-      // populate the document with content that isnt valid ADF without sanitization.
-      const content = view.state.schema.nodeFromJSON({
-        type: 'paragraph',
-        content: [
-          { type: 'text', marks: [{ type: 'typeAheadQuery' }], text: ':smile' },
-        ],
-      });
-
-      view.dispatch(
-        view.state.tr.replaceWith(0, view.state.doc.nodeSize - 2, content),
-      );
-
-      const value = await editorActions.getValue();
+        view.dispatch(
+          view.state.tr.replaceWith(0, view.state.doc.nodeSize - 2, content),
+        );
+      }
+      const value = await editorActions?.getValue();
 
       expect(value).toMatchInlineSnapshot(`
 Object {

@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 2.0.0
+
+### Major Changes
+
+- [`17dae33474e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/17dae33474e) - Remove embedModalSize as part of embed preview modal feature flag cleanup
+
 ## 1.22.0
 
 ### Minor Changes

@@ -2,9 +2,7 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import Text from '@atlaskit/ds-explorations/text';
-
-import { Inline } from '../../../../src';
+import { Box, Inline } from '../../../../src';
 
 describe('Inline', () => {
   const testId = 'test';
@@ -12,8 +10,8 @@ describe('Inline', () => {
   it('should render inline', () => {
     const { getByText } = render(
       <Inline space="050">
-        <Text>1</Text>
-        <Text>2</Text>
+        <Box>1</Box>
+        <Box>2</Box>
       </Inline>,
     );
     expect(getByText('1')).toBeInTheDocument();
@@ -23,8 +21,8 @@ describe('Inline', () => {
   it('should render inline with separators', () => {
     const { getByText } = render(
       <Inline space="050" separator="/">
-        <Text>1</Text>
-        <Text>2</Text>
+        <Box>1</Box>
+        <Box>2</Box>
       </Inline>,
     );
     expect(getByText('1')).toBeInTheDocument();
@@ -35,8 +33,8 @@ describe('Inline', () => {
   it('should render with a given test id', () => {
     const { getByTestId } = render(
       <Inline space="050" testId={testId}>
-        <Text>1</Text>
-        <Text>2</Text>
+        <Box>1</Box>
+        <Box>2</Box>
       </Inline>,
     );
     const element = getByTestId(testId);

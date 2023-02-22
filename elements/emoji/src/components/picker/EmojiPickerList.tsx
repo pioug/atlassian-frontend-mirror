@@ -399,6 +399,8 @@ export default class EmojiPickerVirtualList extends PureComponent<
       size = defaultEmojiPickerSize,
     } = this.props;
 
+    const virtualListHeight = sizes.listHeight + emojiPickerHeightOffset(size);
+
     return (
       <div
         ref="root"
@@ -426,7 +428,7 @@ export default class EmojiPickerVirtualList extends PureComponent<
         />
         <VirtualList
           ref="list"
-          height={sizes.listHeight + emojiPickerHeightOffset(size)}
+          height={virtualListHeight}
           overscanRowCount={10}
           rowCount={this.virtualItems.length}
           rowHeight={this.rowSize}

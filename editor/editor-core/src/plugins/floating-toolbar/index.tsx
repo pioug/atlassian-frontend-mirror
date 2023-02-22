@@ -45,6 +45,7 @@ import { ErrorBoundary } from '../../ui/ErrorBoundary';
 import { IntlShape } from 'react-intl-next';
 import { getFeatureFlags } from '../feature-flags-context';
 import { processCopyButtonItems } from '../copy-button/toolbar';
+import forceFocusPlugin from './pm-plugins/force-focus';
 
 export type FloatingToolbarPluginState = Record<
   'getConfigWithNodeInfo',
@@ -173,6 +174,10 @@ const floatingToolbarPlugin: NextEditorPlugin<'floatingToolbar'> = () => ({
       {
         name: 'floatingToolbarData',
         plugin: ({ dispatch }) => floatingToolbarDataPluginFactory(dispatch),
+      },
+      {
+        name: 'forceFocus',
+        plugin: () => forceFocusPlugin(),
       },
     ];
   },

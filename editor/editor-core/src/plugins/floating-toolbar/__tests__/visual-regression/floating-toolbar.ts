@@ -154,6 +154,39 @@ describe('Floating toolbars:', () => {
       await pressKey(page, ['ArrowRight', 'ArrowRight', 'ArrowRight']);
     });
 
+    it('should remove danger styling from table when toolbar updates', async () => {
+      const endCellSelector = getSelectorForTableCell({ row: 3, cell: 2 });
+      await page.waitForSelector(endCellSelector);
+      await retryUntilStablePosition(
+        page,
+        () => page.click(endCellSelector),
+        tableSelectors.floatingToolbar,
+      );
+
+      await waitForElementWithText(page, tableSelectors.tableOptionsText);
+      await page.waitForSelector('button[aria-label="Remove"]');
+
+      await page.hover('button[aria-label="Remove"]');
+      // selection moves to next block component and updates the toolbar
+      await page.keyboard.press('ArrowDown');
+    });
+
+    it('should remove danger styling from table when toolbar unmounts', async () => {
+      const endCellSelector = getSelectorForTableCell({ row: 1, cell: 1 });
+      await page.waitForSelector(endCellSelector);
+      await retryUntilStablePosition(
+        page,
+        () => page.click(endCellSelector),
+        tableSelectors.floatingToolbar,
+      );
+
+      await waitForElementWithText(page, tableSelectors.tableOptionsText);
+      await page.waitForSelector('button[aria-label="Remove"]');
+
+      await page.hover('button[aria-label="Remove"]');
+      await page.keyboard.press('ArrowUp');
+    });
+
     it('should remove macro danger styling when toolbar updates', async () => {
       await clickOnExtension(
         page,

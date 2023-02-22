@@ -13,26 +13,26 @@ export default () => (
           {alignInline}
           <Box
             display="block"
-            borderRadius="normal"
+            borderRadius="radius.200"
             backgroundColor="neutral"
             padding="space.050"
-            UNSAFE_style={{
+            customStyles={{
               width: '200px',
             }}
           >
             <Stack alignInline={alignInline} space="050">
               <Box
-                borderRadius="normal"
+                borderRadius="radius.200"
                 padding="space.200"
                 backgroundColor="discovery.bold"
               />
               <Box
-                borderRadius="normal"
+                borderRadius="radius.200"
                 padding="space.200"
                 backgroundColor="discovery.bold"
               />
               <Box
-                borderRadius="normal"
+                borderRadius="radius.200"
                 padding="space.200"
                 backgroundColor="discovery.bold"
               />

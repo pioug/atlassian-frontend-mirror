@@ -1,5 +1,17 @@
 # @atlaskit/user-picker
 
+## 10.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.1.0
+
+### Minor Changes
+
+- [`6e27d7c6682`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6e27d7c6682) - [ux] UserPicker now shows an error message when there has been a Promise failure for the provided loadOptions prop. You can customize the error message by providing a loadOptionsErrorMessage prop.
+
 ## 10.0.3
 
 ### Patch Changes

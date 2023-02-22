@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { PureComponent } from 'react';
+import React, { MouseEventHandler, PureComponent } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -15,6 +15,7 @@ import { ThemeProps } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
 import Tooltip, { PositionType } from '@atlaskit/tooltip';
 
+import { DropdownMenuSharedCssClassName } from '../../styles';
 import { withReactEditorViewOuterListeners } from '../../ui-react';
 import DropList from '../../ui/DropList';
 import Popup from '../../ui/Popup';
@@ -36,72 +37,75 @@ const focusedMenuItemStyle = css`
   outline: none;
 `;
 
-const buttonStyles = (isActive?: boolean) => (theme: ThemeProps) => {
-  if (isActive) {
-    /**
-     * Hack for item to imitate old dropdown-menu selected styles
-     */
-    return css`
-      > span,
-      > span:hover,
-      > span:active {
-        background: ${token('color.background.selected', '#6c798f')};
-        color: ${token('color.text', '#fff')};
-      }
-      :focus > span[aria-disabled='false'] {
-        ${focusedMenuItemStyle};
-      }
-      :focus-visible,
-      :focus-visible > span[aria-disabled='false'] {
-        outline: none;
-      }
-    `;
-  } else {
-    return css`
-      > span:hover[aria-disabled='false'] {
-        color: ${themed({
-          light: token('color.text', N900),
-          dark: token('color.text', DN600),
-        })(theme)};
-        background-color: ${themed({
-          light: token(
-            'color.background.neutral.subtle.hovered',
-            'rgb(244, 245, 247)',
-          ),
-          dark: token(
-            'color.background.neutral.subtle.hovered',
-            'rgb(59, 71, 92)',
-          ),
-        })(theme)};
-      }
-      > span:active[aria-disabled='false'] {
-        background-color: ${themed({
-          light: token(
-            'color.background.neutral.subtle.pressed',
-            'rgb(179, 212, 255)',
-          ),
-          dark: token(
-            'color.background.neutral.subtle.pressed',
-            'rgb(179, 212, 255)',
-          ),
-        })(theme)};
-      }
-      > span[aria-disabled='true'] {
-        color: ${themed({
-          light: token('color.text.disabled', N70),
-          dark: token('color.text.disabled', DN80),
-        })(theme)};
-      }
-      :focus > span[aria-disabled='false'] {
-        ${focusedMenuItemStyle};
-      }
-      :focus-visible,
-      :focus-visible > span[aria-disabled='false'] {
-        outline: none;
-      }
-    `; // The deafut focus-visible style is removed to ensure consistency across browsers
-  }
-};
+const buttonStyles =
+  (isActive?: boolean, submenuActive?: boolean) => (theme: ThemeProps) => {
+    if (isActive) {
+      /**
+       * Hack for item to imitate old dropdown-menu selected styles
+       */
+      return css`
+        > span,
+        > span:hover,
+        > span:active {
+          background: ${token('color.background.selected', '#6c798f')};
+          color: ${token('color.text', '#fff')};
+        }
+        :focus > span[aria-disabled='false'] {
+          ${focusedMenuItemStyle};
+        }
+        :focus-visible,
+        :focus-visible > span[aria-disabled='false'] {
+          outline: none;
+        }
+      `;
+    } else {
+      return css`
+        > span:hover[aria-disabled='false'] {
+          color: ${themed({
+            light: token('color.text', N900),
+            dark: token('color.text', DN600),
+          })(theme)};
+          background-color: ${themed({
+            light: token(
+              'color.background.neutral.subtle.hovered',
+              'rgb(244, 245, 247)',
+            ),
+            dark: token(
+              'color.background.neutral.subtle.hovered',
+              'rgb(59, 71, 92)',
+            ),
+          })(theme)};
+        }
+        ${!submenuActive &&
+        `
+          > span:active[aria-disabled='false'] {
+            background-color: ${themed({
+              light: token(
+                'color.background.neutral.subtle.pressed',
+                'rgb(179, 212, 255)',
+              ),
+              dark: token(
+                'color.background.neutral.subtle.pressed',
+                'rgb(179, 212, 255)',
+              ),
+            })(theme)};
+          }`}
+        > span[aria-disabled='true'] {
+          color: ${themed({
+            light: token('color.text.disabled', N70),
+            dark: token('color.text.disabled', DN80),
+          })(theme)};
+        }
+        :focus > span[aria-disabled='false'] {
+          ${focusedMenuItemStyle};
+        }
+        :focus-visible,
+        :focus-visible > span[aria-disabled='false'] {
+          outline: none;
+        }
+      `; // The deafut focus-visible style is removed to ensure consistency across browsers
+    }
+  };
 
 const DropListWithOutsideListeners: any =
   withReactEditorViewOuterListeners(DropList);
@@ -264,17 +268,30 @@ function DropdownMenuItem({
   Props,
   'onItemActivated' | 'shouldUseDefaultRole' | 'onMouseEnter' | 'onMouseLeave'
 >) {
+  const [submenuActive, setSubmenuActive] = React.useState(false);
+
   // onClick and value.name are the action indicators in the handlers
   // If neither are present, don't wrap in an Item.
   if (!item.onClick && !(item.value && item.value.name)) {
     return <span key={String(item.content)}>{item.content}</span>;
   }
 
+  const _handleSubmenuActive: MouseEventHandler<HTMLDivElement> = (event) => {
+    setSubmenuActive(
+      !!(event.target as Element).closest(
+        `.${DropdownMenuSharedCssClassName.SUBMENU}`,
+      ),
+    );
+  };
+
   const dropListItem = (
     <div
-      css={(theme: ThemeProps) => buttonStyles(item.isActive)({ theme })}
+      css={(theme: ThemeProps) =>
+        buttonStyles(item.isActive, submenuActive)({ theme })
+      }
       tabIndex={-1}
       aria-disabled={item.isDisabled ? 'true' : 'false'}
+      onMouseDown={_handleSubmenuActive}
     >
       <CustomItem
         item={item}

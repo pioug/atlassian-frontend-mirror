@@ -255,6 +255,7 @@ export const PopupUserPicker: React_2.ForwardRefExoticComponent<
     | 'isLoading'
     | 'isValidEmail'
     | 'loadOptions'
+    | 'loadOptionsErrorMessage'
     | 'loadUserSource'
     | 'maxOptions'
     | 'maxPickerHeight'
@@ -421,6 +422,7 @@ const UserPicker: React_2.ForwardRefExoticComponent<
     | 'isLoading'
     | 'isValidEmail'
     | 'loadOptions'
+    | 'loadOptionsErrorMessage'
     | 'loadUserSource'
     | 'maxOptions'
     | 'maxPickerHeight'
@@ -475,6 +477,7 @@ export type UserPickerProps = WithAnalyticsEventsProps & {
   maxPickerHeight?: number;
   textFieldBackgroundColor?: boolean;
   loadOptions?: LoadOptions;
+  loadOptionsErrorMessage?: (value: { inputValue: string }) => string;
   loadUserSource?: LoadUserSource;
   onChange?: OnChange;
   isMulti?: boolean;
@@ -528,6 +531,7 @@ export type UserPickerState = {
   menuIsOpen: boolean;
   inputValue: string;
   resolving: boolean;
+  showError: boolean;
 };
 
 // @public (undocumented)

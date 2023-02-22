@@ -15,6 +15,7 @@ import * as wideTableResized from '../__fixtures__/table-wide-resized.adf.json';
 import * as tableWithShadowAdf from '../__fixtures__/table-with-shadow.adf.json';
 import * as tableWithWrappedNodesAdf from './__fixtures__/table-with-wrapped-nodes.adf.json';
 import * as tableComplexSelectionsAdf from './__fixtures__/table-complex-selections.adf.json';
+import * as tableEmpty from '../__fixtures__/table-empty.adf.json';
 import { RendererAppearance } from '../../ui/Renderer/types';
 import { selectors as expandSelectors } from '../__helpers/page-objects/_expand';
 import { selectors as statusSelectors } from '../__helpers/page-objects/_status';
@@ -66,13 +67,9 @@ describe('Snapshot Test: Table scaling', () => {
 
   describe.each(THEME_MODES)('Theme: %s', (theme) => {
     const mode = theme === 'dark' ? 'dark' : 'light';
-    // Unskip the test as part of this ticket https://product-fabric.atlassian.net/browse/ED-14962
-    it.skip(`should NOT render a right shadow`, async () => {
-      await initRenderer(page, wideTableResized, mode);
+    it(`should NOT render a right shadow`, async () => {
+      await initRenderer(page, tableEmpty, mode);
       await waitForTableWithCards(page);
-      await page.waitForSelector(
-        '#renderer-container [data-testid="inline-card-resolved-view"]',
-      );
     });
 
     it(`should not overlap inline comments dialog`, async () => {

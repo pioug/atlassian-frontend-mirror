@@ -439,10 +439,10 @@ describe('Card', () => {
     await flushPromises();
     component.update();
     expect(component.state('cardPreview')).toMatchObject({
-      orientation: 6,
+      orientation: 1,
     });
     expect(component.find(CardView).prop('cardPreview')).toMatchObject({
-      orientation: 6,
+      orientation: 1,
     });
   });
 
@@ -641,7 +641,9 @@ describe('Card', () => {
     expect(component.find(CardView).props()).toEqual(
       expect.objectContaining({
         appearance: 'auto',
-        cardPreview: expect.objectContaining({ dataURI: 'some-data-uri' }),
+        cardPreview: expect.objectContaining({
+          dataURI: 'mock result of URL.createObjectURL()',
+        }),
         dimensions: { width: 10, height: 20 },
         disableOverlay: true,
         progress: 1,

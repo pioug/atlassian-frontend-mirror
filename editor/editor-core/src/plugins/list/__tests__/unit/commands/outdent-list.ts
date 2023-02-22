@@ -26,6 +26,8 @@ import analyticsPlugin, { INPUT_METHOD } from '../../../../analytics';
 import listPlugin from '../../..';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import { setTextSelection } from '../../../../../utils';
+import type { FeatureFlags } from '@atlaskit/editor-common/types';
+import featureFlagsPlugin from '../../../../feature-flags-context';
 
 describe('lists plugin -> commands -> outdentList', () => {
   const createProseMirrorEditor = createProsemirrorEditorFactory();
@@ -35,11 +37,12 @@ describe('lists plugin -> commands -> outdentList', () => {
     createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
   });
 
-  const editor = (doc: DocBuilder) => {
+  const editor = (doc: DocBuilder, featureFlags: FeatureFlags = {}) => {
     const preset = new Preset<LightEditorPlugin>()
-      .add(listPlugin)
+      .add([listPlugin, featureFlags])
       .add(tablesPlugin)
-      .add([analyticsPlugin, { createAnalyticsEvent }]);
+      .add([analyticsPlugin, { createAnalyticsEvent }])
+      .add([featureFlagsPlugin, featureFlags]);
 
     return createProseMirrorEditor({
       doc,
@@ -347,18 +350,243 @@ describe('lists plugin -> commands -> outdentList', () => {
       });
     });
 
-    it('should call outdent analytics', () => {
-      const document = doc(ol()(li(p('One'), ul(li(p('Two{<>}'))))));
-      const { editorView } = editor(document);
-      outdentList(INPUT_METHOD.KEYBOARD)(editorView.state, editorView.dispatch);
-      expect(createAnalyticsEvent).toHaveBeenCalledWith({
-        action: 'outdented',
-        actionSubject: 'list',
-        actionSubjectId: 'bulletedList',
-        eventType: 'track',
-        attributes: expect.objectContaining({
-          inputMethod: 'keyboard',
-        }),
+    describe('analytics', () => {
+      describe('when restartNumberedLists not enabled', () => {
+        it('should fire analytics with correct payload when outdenting first item in a list', () => {
+          // prettier-ignore
+          const document = doc(
+            ol()(
+              li(p('A{<>}')),
+              li(p('B')),
+              li(p('c')),
+            )
+          );
+          const { editorView } = editor(document);
+          outdentList(INPUT_METHOD.KEYBOARD)(
+            editorView.state,
+            editorView.dispatch,
+          );
+          expect(createAnalyticsEvent).toHaveBeenCalledWith({
+            action: 'outdented',
+            actionSubject: 'list',
+            actionSubjectId: 'numberedList',
+            eventType: 'track',
+            attributes: expect.objectContaining({
+              inputMethod: 'keyboard',
+            }),
+          });
+        });
+        it('should fire analytics with correct payload when outdenting splits the list', () => {
+          // prettier-ignore
+          const document = doc(
+            ol()(
+              li(p('A')),
+              li(p('B{<>}')),
+              li(p('c')),
+            )
+          );
+          const { editorView } = editor(document);
+          outdentList(INPUT_METHOD.KEYBOARD)(
+            editorView.state,
+            editorView.dispatch,
+          );
+          expect(createAnalyticsEvent).toHaveBeenCalledWith({
+            action: 'outdented',
+            actionSubject: 'list',
+            actionSubjectId: 'numberedList',
+            eventType: 'track',
+            attributes: expect.objectContaining({
+              inputMethod: 'keyboard',
+            }),
+          });
+        });
+      });
+      describe('when restartNumberedLists is enabled', () => {
+        const featureFlags = { restartNumberedLists: true };
+        it('should fire analytics with correct payload when outdenting first item in a list', () => {
+          // prettier-ignore
+          const document = doc(
+            ol()(
+              li(p('A{<>}')),
+              li(p('B')),
+              li(p('c')),
+            )
+          );
+          const { editorView } = editor(document, featureFlags);
+          outdentList(INPUT_METHOD.KEYBOARD)(
+            editorView.state,
+            editorView.dispatch,
+          );
+          expect(createAnalyticsEvent).toHaveBeenCalledWith({
+            action: 'outdented',
+            actionSubject: 'list',
+            actionSubjectId: 'numberedList',
+            eventType: 'track',
+            attributes: expect.objectContaining({
+              inputMethod: 'keyboard',
+            }),
+          });
+          expect(createAnalyticsEvent).toHaveBeenCalledWith(
+            expect.objectContaining({
+              attributes: expect.not.objectContaining({
+                outdentScenario: expect.anything(),
+              }),
+            }),
+          );
+        });
+        it('should fire analytics with correct payload when outdenting one top-level item which splits the list', () => {
+          // prettier-ignore
+          const document = doc(
+            ol({ order: 6 })(
+              li(p('A')),
+              li(p('B{<>}')),
+              li(p('c')),
+            )
+          );
+          const { editorView } = editor(document, featureFlags);
+          outdentList(INPUT_METHOD.KEYBOARD)(
+            editorView.state,
+            editorView.dispatch,
+          );
+          expect(createAnalyticsEvent).toHaveBeenCalledWith({
+            action: 'outdented',
+            actionSubject: 'list',
+            actionSubjectId: 'numberedList',
+            eventType: 'track',
+            attributes: expect.objectContaining({
+              inputMethod: 'keyboard',
+              outdentScenario: 'splitList',
+              splitListStartNumber: 7,
+            }),
+          });
+        });
+        it('should fire analytics with correct payload when outdenting two top-level items which splits the list', () => {
+          // prettier-ignore
+          const document = doc(
+            ol({ order: 6 })(
+              li(p('A')),
+              li(p('{<}B')),
+              li(p('C{>}')),
+              li(p('D')),
+            )
+          );
+          const { editorView } = editor(document, featureFlags);
+          outdentList(INPUT_METHOD.KEYBOARD)(
+            editorView.state,
+            editorView.dispatch,
+          );
+          expect(createAnalyticsEvent).toHaveBeenCalledWith({
+            action: 'outdented',
+            actionSubject: 'list',
+            actionSubjectId: 'numberedList',
+            eventType: 'track',
+            attributes: expect.objectContaining({
+              inputMethod: 'keyboard',
+              outdentScenario: 'splitList',
+              splitListStartNumber: 8,
+            }),
+          });
+        });
+        it('should fire analytics with correct payload when outdenting one top-level and one nested item which splits the list', () => {
+          // prettier-ignore
+          const document = doc(
+            ol({ order: 6 })(
+              li(p('A')),
+              li(
+                p('{<}B'),
+                ol()(
+                  li(
+                    p('C{>}'),
+                    ol()(
+                      li(p('D')),
+                    ),
+                  ),
+                ),
+              ),
+              li(p('E')),
+            )
+          );
+          const { editorView } = editor(document, featureFlags);
+          outdentList(INPUT_METHOD.KEYBOARD)(
+            editorView.state,
+            editorView.dispatch,
+          );
+          expect(createAnalyticsEvent).toHaveBeenCalledWith({
+            action: 'outdented',
+            actionSubject: 'list',
+            actionSubjectId: 'numberedList',
+            eventType: 'track',
+            attributes: expect.objectContaining({
+              inputMethod: 'keyboard',
+              outdentScenario: 'splitList',
+              splitListStartNumber: 7,
+            }),
+          });
+        });
+        it('should fire analytics with correct payload when outdenting one top-level that is above one nested item, which splits the list and sets split list order to 1', () => {
+          // prettier-ignore
+          const document = doc(
+            ol({ order: 6 })(
+              li(p('A')),
+              li(
+                p('{<}B{>}'),
+                ol()(
+                  li(
+                    p('C'),
+                  ),
+                ),
+              ),
+              li(p('E')),
+            )
+          );
+          const { editorView } = editor(document, featureFlags);
+          outdentList(INPUT_METHOD.KEYBOARD)(
+            editorView.state,
+            editorView.dispatch,
+          );
+          expect(createAnalyticsEvent).toHaveBeenCalledWith({
+            action: 'outdented',
+            actionSubject: 'list',
+            actionSubjectId: 'numberedList',
+            eventType: 'track',
+            attributes: expect.objectContaining({
+              inputMethod: 'keyboard',
+              outdentScenario: 'splitList',
+              splitListStartNumber: 1,
+            }),
+          });
+        });
+        it('should fire analytics with correct payload when outdenting the last list item', () => {
+          // prettier-ignore
+          const document = doc(
+            ol()(
+              li(p('A')),
+              li(p('B')),
+              li(p('c{<>}')),
+            )
+          );
+          const { editorView } = editor(document, featureFlags);
+          outdentList(INPUT_METHOD.KEYBOARD)(
+            editorView.state,
+            editorView.dispatch,
+          );
+          expect(createAnalyticsEvent).toHaveBeenCalledWith({
+            action: 'outdented',
+            actionSubject: 'list',
+            actionSubjectId: 'numberedList',
+            eventType: 'track',
+            attributes: expect.objectContaining({
+              inputMethod: 'keyboard',
+            }),
+          });
+          expect(createAnalyticsEvent).toHaveBeenCalledWith(
+            expect.objectContaining({
+              attributes: expect.not.objectContaining({
+                outdentScenario: expect.anything(),
+              }),
+            }),
+          );
+        });
       });
     });
   });

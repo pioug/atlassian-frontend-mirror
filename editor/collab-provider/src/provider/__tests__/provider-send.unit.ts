@@ -70,91 +70,89 @@ describe('#sendData', () => {
   afterEach(jest.clearAllMocks);
 
   describe('when sendMessage is called', () => {
-    describe('when ack callback is called', () => {
-      let ackCallback: (resp: any) => void;
-      const startMock = jest.spyOn(UFOExperience.prototype, 'start');
-      const successMock = jest.spyOn(UFOExperience.prototype, 'success');
-      const failureMock = jest.spyOn(UFOExperience.prototype, 'failure');
-      const abortMock = jest.spyOn(UFOExperience.prototype, 'abort');
-      const metadataMock = jest.spyOn(UFOExperience.prototype, 'addMetadata');
+    let ackCallback: (resp: any) => void;
+    const startMock = jest.spyOn(UFOExperience.prototype, 'start');
+    const successMock = jest.spyOn(UFOExperience.prototype, 'success');
+    const failureMock = jest.spyOn(UFOExperience.prototype, 'failure');
+    const abortMock = jest.spyOn(UFOExperience.prototype, 'abort');
+    const metadataMock = jest.spyOn(UFOExperience.prototype, 'addMetadata');
 
-      beforeEach(() => {
-        (UFOExperience as any).mockClear();
-        startMock.mockClear();
-        successMock.mockClear();
-        failureMock.mockClear();
-        const data = { type: 'telepointer' };
-        provider.sendMessage(data);
-        ackCallback = channelBroadCastSpy.mock.calls[0][2];
-        jest
-          .spyOn(window, 'requestAnimationFrame')
-          // @ts-ignore
-          .mockImplementation((cb) => cb());
-        // @ts-ignore emit is a protected function
-      });
-
-      afterEach(() => {
+    beforeEach(() => {
+      (UFOExperience as any).mockClear();
+      startMock.mockClear();
+      successMock.mockClear();
+      failureMock.mockClear();
+      const data = { type: 'telepointer' };
+      provider.sendMessage(data);
+      ackCallback = channelBroadCastSpy.mock.calls[0][2];
+      jest
+        .spyOn(window, 'requestAnimationFrame')
         // @ts-ignore
-        window.requestAnimationFrame.mockRestore();
-      });
+        .mockImplementation((cb) => cb());
+      // @ts-ignore emit is a protected function
+    });
 
-      it('should create a new ufo experience', () => {
-        expect(UFOExperience).toHaveBeenCalledWith(
-          'collab-provider.telepointer',
-          {
-            type: ExperienceTypes.Operation,
-            performanceType: ExperiencePerformanceTypes.Custom,
-            performanceConfig: {
-              histogram: {
-                [ExperiencePerformanceTypes.Custom]: {
-                  duration: '250_500_1000_1500_2000_3000_4000',
-                },
+    afterEach(() => {
+      // @ts-ignore
+      window.requestAnimationFrame.mockRestore();
+    });
+
+    it('should create a new ufo experience', () => {
+      expect(UFOExperience).toHaveBeenCalledWith(
+        'collab-provider.telepointer',
+        {
+          type: ExperienceTypes.Operation,
+          performanceType: ExperiencePerformanceTypes.Custom,
+          performanceConfig: {
+            histogram: {
+              [ExperiencePerformanceTypes.Custom]: {
+                duration: '250_500_1000_1500_2000_3000_4000',
               },
             },
           },
-        );
-      });
+        },
+      );
+    });
 
-      it('should start experience with ufo', () => {
-        expect(startMock).toHaveBeenCalledTimes(1);
-      });
+    it('should start experience with ufo', () => {
+      expect(startMock).toHaveBeenCalledTimes(1);
+    });
 
-      it('should add the documentAri as metadata', () => {
-        expect(metadataMock).toHaveBeenCalledWith({
-          documentAri: documentAri,
-        });
+    it('should add the documentAri as metadata', () => {
+      expect(metadataMock).toHaveBeenCalledWith({
+        documentAri: documentAri,
       });
+    });
 
-      it('should finish experience with ufo on success', () => {
-        ackCallback({
-          type: AcknowledgementResponseTypes.SUCCESS,
-        });
-        expect(successMock).toHaveBeenCalledTimes(1);
-        expect(failureMock).toHaveBeenCalledTimes(0);
-        expect(abortMock).toHaveBeenCalledTimes(0);
+    it('should finish experience with ufo on success', () => {
+      ackCallback({
+        type: AcknowledgementResponseTypes.SUCCESS,
       });
+      expect(successMock).toHaveBeenCalledTimes(1);
+      expect(failureMock).toHaveBeenCalledTimes(0);
+      expect(abortMock).toHaveBeenCalledTimes(0);
+    });
 
-      it('should finish experience with ufo on error', () => {
-        ackCallback({
-          type: AcknowledgementResponseTypes.ERROR,
-          error: 'Oh no we did a oopsie whoospie',
-        });
-        expect(metadataMock).toHaveBeenCalledWith({
-          error: 'Oh no we did a oopsie whoospie',
-        });
-        expect(successMock).toHaveBeenCalledTimes(0);
-        expect(failureMock).toHaveBeenCalledTimes(1);
-        expect(abortMock).toHaveBeenCalledTimes(0);
+    it('should finish experience with ufo on error', () => {
+      ackCallback({
+        type: AcknowledgementResponseTypes.ERROR,
+        error: 'Oh no we did a oopsie whoospie',
       });
+      expect(metadataMock).toHaveBeenCalledWith({
+        error: 'Oh no we did a oopsie whoospie',
+      });
+      expect(successMock).toHaveBeenCalledTimes(0);
+      expect(failureMock).toHaveBeenCalledTimes(1);
+      expect(abortMock).toHaveBeenCalledTimes(0);
+    });
 
-      it('should finish experience with ufo on abort', () => {
-        ackCallback({
-          type: 'herpaderp',
-        });
-        expect(successMock).toHaveBeenCalledTimes(0);
-        expect(failureMock).toHaveBeenCalledTimes(0);
-        expect(abortMock).toHaveBeenCalledTimes(1);
+    it('should finish experience with ufo on abort', () => {
+      ackCallback({
+        type: 'herpaderp',
       });
+      expect(successMock).toHaveBeenCalledTimes(0);
+      expect(failureMock).toHaveBeenCalledTimes(0);
+      expect(abortMock).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -200,7 +198,7 @@ describe('#sendData', () => {
             // @ts-ignore
             .mockImplementation((cb) => cb());
           // @ts-ignore emit is a protected function
-          jest.spyOn(provider, 'emit');
+          jest.spyOn(provider, 'emit').mockImplementation(() => {});
         });
 
         afterEach(() => {
@@ -323,8 +321,12 @@ describe('#sendData', () => {
             error: { data: { code: 'SOME_TECHNICAL_ERROR' } },
           });
 
-          // @ts-ignore
-          expect(provider.emit).not.toHaveBeenCalled();
+          // @ts-ignore provider emit is protected
+          expect(provider.emit).toHaveBeenCalledWith('error', {
+            code: 'INTERNAL_SERVICE_ERROR',
+            message: 'Collab service has experienced an internal server error',
+            status: 500,
+          });
           expect(
             fakeAnalyticsWebClient.sendOperationalEvent,
           ).toHaveBeenCalledTimes(1);

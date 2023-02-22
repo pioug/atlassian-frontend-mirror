@@ -89,12 +89,12 @@ describe('Full JSON Schema', () => {
     () => {
       let doc: DocNode;
       beforeEach(() => {
-        doc = generateADFDocument(fullSchema);
+        doc = removeInvalidLinkMarks(generateADFDocument(fullSchema));
       });
 
       it(`should be compatible with full prosemirror schema `, () => {
-        const fullSchema = getSchemaBasedOnStage('final');
-        expect(() => fullSchema.nodeFromJSON(doc).check()).not.toThrow(
+        const finalSchema = getSchemaBasedOnStage('final');
+        expect(() => finalSchema.nodeFromJSON(doc).check()).not.toThrow(
           excludedNodesRegex,
         );
 

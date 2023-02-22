@@ -1,5 +1,12 @@
 # @atlaskit/adf-utils
 
+## 18.0.3
+
+### Patch Changes
+
+- [`eab04c03dbc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eab04c03dbc) - ED-15641 Update transfromIndentationMarks() to remove heading indention from tableHeaders.
+- Updated dependencies
+
 ## 18.0.2
 
 ### Patch Changes

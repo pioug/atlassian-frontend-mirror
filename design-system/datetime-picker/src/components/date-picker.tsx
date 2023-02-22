@@ -206,32 +206,24 @@ interface State {
   isFocused: boolean;
   clearingFromIcon: boolean;
   value: string;
-  /**
-   * Value to be shown in the calendar as selected.
-   */
-  selectedValue: string;
-  view: string;
-  inputValue: string;
+  calendarValue: string;
+  selectInputValue: string;
   l10n: LocalizationProvider;
-}
-
-type DateObj = {
-  day: number;
-  month: number;
-  year: number;
-};
-
-function getDateObj(date: Date): DateObj {
-  return {
-    day: date.getDate(),
-    month: date.getMonth() + 1,
-    year: date.getFullYear(),
-  };
 }
 
 function getValidDate(iso: string) {
   const date = parseISO(iso);
-  return isValid(date) ? getDateObj(date) : {};
+  return isValid(date)
+    ? {
+        day: date.getDate(),
+        month: date.getMonth() + 1,
+        year: date.getFullYear(),
+      }
+    : {};
+}
+
+function getShortISOString(date: Date) {
+  return format(date, convertTokens('YYYY-MM-DD'));
 }
 
 const menuStyles = css({
@@ -315,19 +307,16 @@ class DatePicker extends Component<DatePickerProps, State> {
   constructor(props: any) {
     super(props);
 
-    const { day, month, year } = getDateObj(new Date());
-
     this.state = {
       isOpen: this.props.defaultIsOpen,
       isFocused: false,
       clearingFromIcon: false,
-      inputValue: this.props.selectProps.inputValue,
-      selectedValue: this.props.value || this.props.defaultValue,
-      value: this.props.defaultValue,
-      view:
+      selectInputValue: this.props.selectProps.inputValue,
+      value: this.props.value || this.props.defaultValue,
+      calendarValue:
         this.props.value ||
         this.props.defaultValue ||
-        `${year}-${padToTwo(month)}-${padToTwo(day)}`,
+        getShortISOString(new Date()),
       l10n: createLocalizationProvider(this.props.locale),
     };
   }
@@ -375,15 +364,14 @@ class DatePicker extends Component<DatePickerProps, State> {
       newIso = `${year}-${padToTwo(parsedMonth)}-${padToTwo(parsedDate)}`;
     }
 
-    this.setState({ view: newIso });
+    this.setState({ calendarValue: newIso });
   };
 
   onCalendarSelect = ({ iso }: { iso: string }) => {
     this.setState({
-      inputValue: '',
+      selectInputValue: '',
       isOpen: false,
-      selectedValue: iso,
-      view: iso,
+      calendarValue: iso,
       value: iso,
     });
 
@@ -415,7 +403,7 @@ class DatePicker extends Component<DatePickerProps, State> {
     } else {
       this.setState({
         isOpen: true,
-        view: value,
+        calendarValue: value,
         isFocused: true,
       });
     }
@@ -423,7 +411,7 @@ class DatePicker extends Component<DatePickerProps, State> {
     this.props.onFocus(event);
   };
 
-  onSelectInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+  onTextInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
 
     if (value) {
@@ -432,18 +420,17 @@ class DatePicker extends Component<DatePickerProps, State> {
       if (parsed && isValid(parsed)) {
         // We format the parsed date to YYYY-MM-DD here because
         // this is the format expected by the @atlaskit/calendar component
-        this.setState({
-          view: format(parsed, convertTokens('YYYY-MM-DD')),
-        });
+        this.setState({ calendarValue: getShortISOString(parsed) });
       }
     }
 
     this.setState({ isOpen: true });
   };
 
-  getSafeView = (view: string): string => {
-    // If view has a year that is greater than 9999, default to today's date
-    const yearIsOverLimit = view.match(/^\d{5,}/);
+  getSafeCalendarValue = (calendarValue: string): string => {
+    // If `calendarValue` has a year that is greater than 9999, default to
+    // today's date
+    const yearIsOverLimit = calendarValue.match(/^\d{5,}/);
     if (yearIsOverLimit) {
       const today = new Date();
       const year = today.getFullYear();
@@ -451,11 +438,11 @@ class DatePicker extends Component<DatePickerProps, State> {
       const day = today.getDate().toString().padStart(2, '0');
       return `${year}-${month}-${day}`;
     }
-    return view;
+    return calendarValue;
   };
 
-  onSelectKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    const { view, selectedValue } = this.getSafeState();
+  onInputKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    const { value, calendarValue } = this.getSafeState();
 
     const keyPressed = event.key.toLowerCase();
     switch (keyPressed) {
@@ -483,7 +470,7 @@ class DatePicker extends Component<DatePickerProps, State> {
       case 'backspace':
       case 'delete':
         if (
-          selectedValue &&
+          value &&
           event.target instanceof HTMLInputElement &&
           event.target.value.length < 1
         ) {
@@ -499,21 +486,20 @@ class DatePicker extends Component<DatePickerProps, State> {
         // using enter. See https://product-fabric.atlassian.net/browse/DSP-2501
         // for more details.
         event.preventDefault();
-        if (!this.isDateDisabled(view)) {
+        if (!this.isDateDisabled(calendarValue)) {
           const { value } = this.getSafeState();
-          // Get a safe `view` value in case the value exceeds the maximum
+          // Get a safe `calendarValue` in case the value exceeds the maximum
           // allowed by ISO 8601
-          const safeView = this.getSafeView(view);
-          const valueChanged = safeView !== value;
+          const safeCalendarValue = this.getSafeCalendarValue(calendarValue);
+          const valueChanged = safeCalendarValue !== value;
           this.setState({
-            inputValue: '',
+            selectInputValue: '',
             isOpen: false,
-            selectedValue: safeView,
-            value: safeView,
-            view: safeView,
+            value: safeCalendarValue,
+            calendarValue: safeCalendarValue,
           });
           if (valueChanged) {
-            this.props.onChange(safeView);
+            this.props.onChange(safeCalendarValue);
           }
         }
         break;
@@ -524,11 +510,8 @@ class DatePicker extends Component<DatePickerProps, State> {
 
   onClear = () => {
     let changedState: {} = {
-      selectedValue: '',
       value: '',
-      view:
-        this.props.defaultValue ||
-        format(new Date(), convertTokens('YYYY-MM-DD')),
+      calendarValue: this.props.defaultValue || getShortISOString(new Date()),
     };
 
     if (!this.props.hideIcon) {
@@ -553,12 +536,12 @@ class DatePicker extends Component<DatePickerProps, State> {
     this.calendarRef = ref;
   };
 
-  handleInputChange = (inputValue: string, actionMeta: {}) => {
+  handleSelectInputChange = (selectInputValue: string, actionMeta: {}) => {
     const { onInputChange } = this.props.selectProps;
     if (onInputChange) {
-      onInputChange(inputValue, actionMeta);
+      onInputChange(selectInputValue, actionMeta);
     }
-    this.setState({ inputValue });
+    this.setState({ selectInputValue });
   };
 
   getContainerRef = (ref: HTMLElement | null) => {
@@ -647,11 +630,14 @@ class DatePicker extends Component<DatePickerProps, State> {
 
     const ICON_PADDING = 2;
 
-    const { value, view, isOpen, inputValue } = this.getSafeState();
+    const { value, calendarValue, isOpen, selectInputValue } =
+      this.getSafeState();
 
     const menuIsOpen = isOpen && !isDisabled;
 
-    const showClearIndicator = Boolean((value || inputValue) && !hideIcon);
+    const showClearIndicator = Boolean(
+      (value || selectInputValue) && !hideIcon,
+    );
 
     const dropDownIcon =
       appearance === 'subtle' || hideIcon || showClearIndicator ? null : icon;
@@ -677,9 +663,8 @@ class DatePicker extends Component<DatePickerProps, State> {
       calendarDisabledDateFilter: disabledDateFilter,
       calendarMaxDate: maxDate,
       calendarMinDate: minDate,
-      calendarValue:
-        value && format(parseISO(value), convertTokens('YYYY-MM-DD')),
-      calendarView: view,
+      calendarValue: value && getShortISOString(parseISO(value)),
+      calendarView: calendarValue,
       onCalendarChange: this.onCalendarChange,
       onCalendarSelect: this.onCalendarSelect,
       calendarLocale: locale,
@@ -693,8 +678,8 @@ class DatePicker extends Component<DatePickerProps, State> {
         {...innerProps}
         role="presentation"
         onClick={this.onInputClick}
-        onInput={this.onSelectInput}
-        onKeyDown={this.onSelectKeyDown}
+        onInput={this.onTextInput}
+        onKeyDown={this.onInputKeyDown}
         ref={this.getContainerRef}
         data-testid={testId && `${testId}--container`}
       >
@@ -715,8 +700,8 @@ class DatePicker extends Component<DatePickerProps, State> {
           isDisabled={isDisabled}
           onBlur={this.onSelectBlur}
           onFocus={this.onSelectFocus}
-          inputValue={inputValue}
-          onInputChange={this.handleInputChange}
+          inputValue={selectInputValue}
+          onInputChange={this.handleSelectInputChange}
           components={selectComponents}
           onChange={this.onSelectChange}
           styles={mergeStyles(selectStyles, {

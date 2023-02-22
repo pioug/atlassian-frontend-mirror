@@ -358,6 +358,7 @@ describe('UserPicker VR Snapshot Test', () => {
             await vrForExample('modal', async (page: PuppeteerPage) => {
               await disableCaretCursor(page);
               await page.click(POPUP_BUTTON);
+              await page.waitForSelector(MENU_LIST_SELECTOR);
             });
           });
 
@@ -365,10 +366,16 @@ describe('UserPicker VR Snapshot Test', () => {
             await vrForExample('modal', async (page: PuppeteerPage) => {
               await disableCaretCursor(page);
               await page.click(POPUP_BUTTON);
+              await page.waitForSelector(MENU_LIST_SELECTOR);
+              // closes menu on pressing enter
               await page.keyboard.press('Enter');
+              await page.waitForSelector(MENU_LIST_SELECTOR, {
+                hidden: true,
+              });
 
               // click again to verify selection
               await page.click(POPUP_BUTTON);
+              await page.waitForSelector(MENU_LIST_SELECTOR);
             });
           });
         });

@@ -43,7 +43,7 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/analytics-next": "^8.1.2",
+    "@atlaskit/analytics-next": "^9.0.0",
     "@atlaskit/code": "^14.4.0",
     "@atlaskit/docs": "*",
     "@atlaskit/ds-lib": "^2.1.0",

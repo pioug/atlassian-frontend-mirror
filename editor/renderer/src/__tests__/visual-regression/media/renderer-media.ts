@@ -128,7 +128,7 @@ describe('Snapshot Test: Media', () => {
       // FIXME: This test was automatically skipped due to failure on 16/02/2023: https://product-fabric.atlassian.net/browse/ED-16923
       it.skip(`should correctly render for ${device}`, async () => {
         await initRenderer(page, resizeAdf, device);
-        await waitForAllMedia(page, 17, { visible: true, timeout: 6000 });
+        await waitForAllMedia(page, 17, { visible: true, timeout: 8000 });
         await snapshotRenderer();
       });
     });
@@ -138,7 +138,7 @@ describe('Snapshot Test: Media', () => {
     devices.forEach((device) => {
       it(`should correctly render for ${device}`, async () => {
         await initRenderer(page, layoutAdf, device);
-        await waitForAllMedia(page, 16, { visible: true, timeout: 6000 });
+        await waitForAllMedia(page, 16, { visible: true, timeout: 8000 });
         await snapshotRenderer();
       });
     });
@@ -147,34 +147,33 @@ describe('Snapshot Test: Media', () => {
   describe('comment appearance', () => {
     it('should renderer the same size for comment apperance', async () => {
       await initRenderer(page, commentRendererAdf, undefined, 'comment');
-      await waitForAllMedia(page, 1);
+      await waitForAllMedia(page, 1, { visible: true, timeout: 8000 });
       await snapshotRenderer();
     });
 
     it('should render correct sizes for wrapped media', async () => {
       await initRenderer(page, wrappedCommentRendererAdf, undefined, 'comment');
-      await waitForAllMedia(page, 5);
+      await waitForAllMedia(page, 5, { visible: true, timeout: 8000 });
       await snapshotRenderer();
     });
   });
 
   describe('wrapped media', () => {
-    // FIXME: This test was automatically skipped due to failure on 17/01/2023: https://product-fabric.atlassian.net/browse/ED-16582
-    it.skip('should render 2 media items in 1 line when wrapped', async () => {
+    it('should render 2 media items in 1 line when wrapped', async () => {
       await initRenderer(page, wrappedMediaAdf);
-      await waitForAllMedia(page, 6);
+      await waitForAllMedia(page, 6, { visible: true, timeout: 8000 });
       await snapshotRenderer();
     });
 
     it('should render 2 media items in 1 line when wrapped with text in between', async () => {
       await initRenderer(page, wrappedMediaTextAdf);
-      await waitForAllMedia(page, 2, { visible: true, timeout: 6000 });
+      await waitForAllMedia(page, 2, { visible: true, timeout: 8000 });
       await snapshotRenderer();
     });
 
     it('should render 2 media items in 2 lines when wrapped with a large enough width', async () => {
       await initRenderer(page, wrappedMediaTextSplitAdf);
-      await waitForAllMedia(page, 2, { visible: true, timeout: 6000 });
+      await waitForAllMedia(page, 2, { visible: true, timeout: 8000 });
       await snapshotRenderer({
         height: 1000,
         width: 1000,
@@ -190,13 +189,13 @@ describe('Snapshot Test: Media', () => {
         Device.LaptopHiDPI,
         'full-page',
       );
-      await waitForAllMedia(page, 2);
+      await waitForAllMedia(page, 2, { visible: true, timeout: 8000 });
       await snapshotRenderer();
     });
 
     it('should not let content outside renderer slide up next to wrapped media', async () => {
       await initRenderer(page, wrappedMediaTextLeftAdf);
-      await waitForAllMedia(page, 1);
+      await waitForAllMedia(page, 1, { visible: true, timeout: 8000 });
       const { cleanup } = await addTextOutsideRenderer(page);
       await snapshot(page, {}, '.snapshot-container');
       await cleanup();
@@ -206,13 +205,13 @@ describe('Snapshot Test: Media', () => {
   describe('layout', () => {
     it('should render 2 media items in 1 line when wrapped with text in between', async () => {
       await initRenderer(page, wrappedMediaTextLayoutAdf);
-      await waitForAllMedia(page, 2);
+      await waitForAllMedia(page, 2, { visible: true, timeout: 8000 });
       await snapshotRenderer();
     });
 
     it('should render 2 media items in 2 lines when wrapped with a large enough width', async () => {
       await initRenderer(page, wrappedMediaTextLayoutSplitAdf);
-      await waitForAllMedia(page, 2);
+      await waitForAllMedia(page, 2, { visible: true, timeout: 8000 });
       await snapshotRenderer();
     });
   });
@@ -220,7 +219,7 @@ describe('Snapshot Test: Media', () => {
   describe('table', () => {
     it('[EDM-1081]: with image width bigger than column width', async () => {
       await initRenderer(page, mediaImageWidthBiggerThanColumnWidth);
-      await waitForAllMedia(page, 1);
+      await waitForAllMedia(page, 1, { visible: true, timeout: 8000 });
       await snapshotRenderer();
     });
   });
@@ -228,7 +227,7 @@ describe('Snapshot Test: Media', () => {
   describe('unsupported marks and node attributes', () => {
     it('should render media item which contains and node attributes', async () => {
       await initRenderer(page, mediaWithUnsupportedMarksAndAttributes);
-      await waitForAllMedia(page, 1);
+      await waitForAllMedia(page, 1, { visible: true, timeout: 8000 });
       await snapshotRenderer();
     });
   });

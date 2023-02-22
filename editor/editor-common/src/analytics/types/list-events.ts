@@ -20,12 +20,27 @@ export enum LIST_TEXT_SCENARIOS {
   JOIN_LIST_ITEM_WITH_PARAGRAPH = 'joinListItemWithParagraph',
 }
 
+export enum JOIN_SCENARIOS_WHEN_TYPING_TO_INSERT_LIST {
+  NO_JOIN = 'noJoin',
+  JOINED_TO_LIST_ABOVE = 'joinedToListAbove',
+  JOINED_TO_LIST_BELOW = 'joinedToListBelow',
+}
+
+export enum OUTDENT_SCENARIOS {
+  SPLIT_LIST = 'splitList',
+}
+
 export type CommonListAnalyticsAttributes = {
   itemIndexAtSelectionStart: number;
   itemIndexAtSelectionEnd: number;
   indentLevelAtSelectionStart: number;
   indentLevelAtSelectionEnd: number;
   itemsInSelection: number;
+};
+
+export type RestartListsAttributesForListOutdented = {
+  outdentScenario?: OUTDENT_SCENARIOS;
+  splitListStartNumber?: number;
 };
 
 type ListItemJoinedFormatAEP<Attributes> = TrackAEP<
@@ -87,7 +102,8 @@ type ListOutdentedAEP = TrackAEP<
   ACTION_SUBJECT_ID.FORMAT_LIST_BULLET | ACTION_SUBJECT_ID.FORMAT_LIST_NUMBER,
   {
     inputMethod: INPUT_METHOD;
-  } & CommonListAnalyticsAttributes,
+  } & CommonListAnalyticsAttributes &
+    RestartListsAttributesForListOutdented,
   undefined
 >;
 
@@ -101,6 +117,8 @@ type ListInsertedAEP = TrackAEP<
       | INPUT_METHOD.KEYBOARD
       | INPUT_METHOD.TOOLBAR
       | INPUT_METHOD.QUICK_INSERT;
+    listStartNumber?: number;
+    joinScenario?: JOIN_SCENARIOS_WHEN_TYPING_TO_INSERT_LIST;
   },
   undefined
 >;

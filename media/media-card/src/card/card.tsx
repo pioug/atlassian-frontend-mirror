@@ -7,6 +7,7 @@ import {
 } from '@atlaskit/analytics-next';
 import {
   NumericalCardDimensions,
+  SSR,
   withMediaAnalyticsContext,
 } from '@atlaskit/media-common';
 import DownloadIcon from '@atlaskit/icon/glyph/download';
@@ -32,6 +33,7 @@ import {
   MediaStoreGetFileImageParams,
   MediaBlobUrlAttrs,
   MediaSubscription,
+  MediaClient,
 } from '@atlaskit/media-client';
 import { MediaViewer, MediaViewerDataSource } from '@atlaskit/media-viewer';
 import {
@@ -148,32 +150,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
       const fileImageMode = imageResizeModeToFileImageMode(resizeMode);
       cardPreview = getCardPreviewFromCache(id, fileImageMode);
       if (!cardPreview && ssr) {
-        this.ssrData = getSSRData(identifier);
-        if (this.ssrData?.error) {
-          this.ssrReliability.server = {
-            status: 'fail',
-            ...this.ssrData.error,
-          };
-        }
-
-        if (!this.ssrData?.dataURI) {
-          try {
-            cardPreview = getSSRCardPreview(
-              ssr,
-              mediaClient,
-              identifier.id,
-              this.getImageURLParams(identifier),
-              this.getMediaBlobUrlAttrs(identifier),
-            );
-          } catch (e: any) {
-            this.ssrReliability[ssr] = {
-              status: 'fail',
-              ...extractErrorInfo(e),
-            };
-          }
-        } else {
-          cardPreview = { dataURI: this.ssrData.dataURI, source: 'ssr-data' };
-        }
+        cardPreview = this.getSSRPreview(ssr, identifier, mediaClient);
       }
     } else if (isExternalImageIdentifier(identifier)) {
       this.fireCommencedEvent();
@@ -199,7 +176,41 @@ export class CardBase extends Component<CardBaseProps, CardState> {
       isBannedLocalPreview: false,
       previewDidRender: false,
       error,
+      wasResolvedUpfrontPreview: false,
     };
+  }
+
+  private getSSRPreview(
+    ssr: SSR,
+    identifier: FileIdentifier,
+    mediaClient: MediaClient,
+  ): CardPreview | undefined {
+    this.ssrData = getSSRData(identifier);
+    if (this.ssrData?.error) {
+      this.ssrReliability.server = {
+        status: 'fail',
+        ...this.ssrData.error,
+      };
+    }
+
+    if (!this.ssrData?.dataURI) {
+      try {
+        return getSSRCardPreview(
+          ssr,
+          mediaClient,
+          identifier.id,
+          this.getImageURLParams(identifier),
+          this.getMediaBlobUrlAttrs(identifier),
+        );
+      } catch (e: any) {
+        this.ssrReliability[ssr] = {
+          status: 'fail',
+          ...extractErrorInfo(e),
+        };
+      }
+    } else {
+      return { dataURI: this.ssrData.dataURI, source: 'ssr-data' };
+    }
   }
 
   componentDidMount() {
@@ -209,6 +220,9 @@ export class CardBase extends Component<CardBaseProps, CardState> {
 
     if (isCardVisible && isFileIdentifier(identifier)) {
       this.updateStateForIdentifier(identifier);
+      if (!cardPreview) {
+        this.resolveUpfrontPreview(identifier);
+      }
     }
     if (
       isCardVisible &&
@@ -261,9 +275,22 @@ export class CardBase extends Component<CardBaseProps, CardState> {
       isBannedLocalPreview,
       previewDidRender,
       isPlayingFile,
+      wasResolvedUpfrontPreview,
     } = this.state;
 
     const isDifferent = isDifferentIdentifier(prevIdentifier, identifier);
+    /**
+     * Variable turnedVisible should only be true when media card
+     * was invisible in the previous state and is visible in the current one
+     *
+     * prevIsCardVisible | isCardVisible |  turnedVisible
+     * ----------------------------------------------------
+     *       false       |    false      |      false
+     *       false       |    true       |      true
+     *       true        |    true       |      false
+     *       true        |    false      |      false       (unreachable case)
+     * ----------------------------------------------------
+     */
     const turnedVisible = !prevIsCardVisible && isCardVisible;
     const isNewMediaClient = prevMediaClient !== mediaClient;
     const fileImageMode = imageResizeModeToFileImageMode(resizeMode);
@@ -298,7 +325,16 @@ export class CardBase extends Component<CardBaseProps, CardState> {
         this.fireScreenEvent();
       }
     }
+
     if (
+      isFileIdentifier(identifier) &&
+      turnedVisible &&
+      !cardPreview &&
+      !wasResolvedUpfrontPreview
+    ) {
+      // This is a one-off call, only meant to happen when turnedVisible = true (only once in the component's lifecycle)
+      this.resolveUpfrontPreview(identifier);
+    } else if (
       isFileIdentifier(identifier) &&
       fileState &&
       shouldResolvePreview({
@@ -311,6 +347,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
         featureFlags,
         hasCardPreview: !!cardPreview,
         isBannedLocalPreview,
+        wasResolvedUpfrontPreview,
       })
     ) {
       this.resolvePreview(identifier, fileState);
@@ -421,14 +458,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
   };
 
   private setCacheSSRPreview = (identifier: FileIdentifier) => {
-    const { mediaClient, dimensions = {} } = this.props;
-    fetchAndCacheRemotePreview(
-      mediaClient,
-      identifier.id,
-      dimensions,
-      this.getImageURLParams(identifier),
-      this.getMediaBlobUrlAttrs(identifier),
-    ).catch(() => {
+    this.fetchAndCacheRemotePreview(identifier).catch(() => {
       // No need to log this error.
       // If preview fails, it will be refetched later
       //TODO: test this catch
@@ -437,15 +467,8 @@ export class CardBase extends Component<CardBaseProps, CardState> {
   };
 
   private refetchSSRPreview = async (identifier: FileIdentifier) => {
-    const { mediaClient, dimensions = {} } = this.props;
     try {
-      const cardPreview = await fetchAndCacheRemotePreview(
-        mediaClient,
-        identifier.id,
-        dimensions,
-        this.getImageURLParams(identifier),
-        this.getMediaBlobUrlAttrs(identifier),
-      );
+      const cardPreview = await this.fetchAndCacheRemotePreview(identifier);
       this.safeSetState({ cardPreview });
     } catch (e) {
       const wrappedError = ensureMediaCardError(
@@ -455,6 +478,46 @@ export class CardBase extends Component<CardBaseProps, CardState> {
       );
       this.fireNonCriticalErrorEvent(wrappedError);
     }
+  };
+
+  private resolveUpfrontPreview = async (identifier: FileIdentifier) => {
+    const requestedDimensions = { ...this.props.dimensions };
+
+    try {
+      const cardPreview = await this.fetchAndCacheRemotePreview(identifier);
+
+      const { dimensions: currentDimensions } = this.props;
+      const areValidRequestedDimensions = !isBigger(
+        requestedDimensions,
+        currentDimensions,
+      );
+
+      // If there are new and bigger dimensions in the props, and the upfront preview is still resolving,
+      // the fetched preview is no longer valid, and thus, we dismiss it and set the flag wasResolvedUpfrontPreview = true
+      // to trigger a normal preview fetch.
+      if (areValidRequestedDimensions) {
+        this.safeSetState({
+          cardPreview,
+          wasResolvedUpfrontPreview: true,
+        });
+      } else {
+        this.safeSetState({ wasResolvedUpfrontPreview: true });
+      }
+    } catch (e) {
+      this.safeSetState({ wasResolvedUpfrontPreview: true });
+      // NO need to log error. If this call fails, a refetch will happen after
+    }
+  };
+
+  private fetchAndCacheRemotePreview = (identifier: FileIdentifier) => {
+    const { mediaClient, dimensions = {} } = this.props;
+    return fetchAndCacheRemotePreview(
+      mediaClient,
+      identifier.id,
+      dimensions,
+      this.getImageURLParams(identifier),
+      this.getMediaBlobUrlAttrs(identifier),
+    );
   };
 
   private resolvePreview = async (

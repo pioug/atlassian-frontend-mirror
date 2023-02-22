@@ -10,6 +10,18 @@ const dimensionProperties = {
   height: {
     cssProperty: 'height',
   },
+  minWidth: {
+    cssProperty: 'minWidth',
+  },
+  maxWidth: {
+    cssProperty: 'maxWidth',
+  },
+  minHeight: {
+    cssProperty: 'minHeight',
+  },
+  maxHeight: {
+    cssProperty: 'maxHeight',
+  },
 } as const;
 
 // placeholder adapted from packages/design-system/avatar/src/constants.ts
@@ -43,12 +55,12 @@ export const createDimensionStylesFromTemplate = (
       `
 const ${spacingProperty}Map = {
   ${activeTokens
-    .sort((a, b) => (a.name < b.name ? -1 : 1))
+    .sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }))
     .map(token => {
       return `'${token.name}': css({ ${cssProperty}: '${token.value}' })`;
     })
     .join(',\n\t')}
-};`,
+} as const;`,
       {
         singleQuote: true,
         trailingComma: 'all',

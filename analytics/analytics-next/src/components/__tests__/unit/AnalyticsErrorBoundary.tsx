@@ -3,12 +3,8 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { mount } from 'enzyme';
 
-import UIAnalyticsEvent from '../../../events/UIAnalyticsEvent';
-import AnalyticsErrorBoundary, {
-  BaseAnalyticsErrorBoundary,
-} from '../../AnalyticsErrorBoundary';
+import AnalyticsErrorBoundary from '../../AnalyticsErrorBoundary';
 
-const createAnalyticsEvent = jest.fn();
 const props = {
   channel: 'atlaskit',
   data: {
@@ -29,92 +25,17 @@ describe('AnalyticsErrorBoundary', () => {
   });
 
   it('should render the child component', () => {
-    const wrapper = mount(<AnalyticsErrorBoundary {...props} />);
+    const onError = jest.fn();
+    const wrapper = mount(
+      <AnalyticsErrorBoundary {...props} onError={onError} />,
+    );
+
+    expect(onError).not.toHaveBeenCalled();
     expect(wrapper.find('.child-component')).toHaveLength(1);
   });
 
-  it('should NOT be called if there is no error', () => {
-    mount(
-      <BaseAnalyticsErrorBoundary
-        {...props}
-        createAnalyticsEvent={createAnalyticsEvent}
-      />,
-    );
-
-    expect(createAnalyticsEvent).not.toHaveBeenCalled();
-  });
-
-  it('should fire an analytics event if error has been triggered in one of the children components', async () => {
-    const analyticsEvent = new UIAnalyticsEvent({
-      context: [],
-      handlers: [],
-      payload: {
-        action: 'click',
-        a: { b: 'c' },
-      },
-    });
-
-    jest.spyOn(analyticsEvent, 'fire');
-
-    createAnalyticsEvent.mockImplementation(() => {
-      return analyticsEvent;
-    });
-
-    const error = new Error('Error');
-    const Something = () => {
-      throw error;
-    };
-    const ErrorComponent = () => {
-      return <div>Something</div>;
-    };
-    const { findByText } = render(
-      <BaseAnalyticsErrorBoundary
-        {...props}
-        ErrorComponent={ErrorComponent}
-        createAnalyticsEvent={createAnalyticsEvent}
-      >
-        <Something />
-      </BaseAnalyticsErrorBoundary>,
-    );
-
-    expect(createAnalyticsEvent).toHaveBeenNthCalledWith(
-      1,
-      expect.objectContaining({
-        action: 'UnhandledError',
-        attributes: expect.objectContaining({
-          browserInfo: expect.any(String),
-          componentName: 'button',
-          componentVersion: '999.9.9',
-          error,
-          info: expect.objectContaining({
-            componentStack: expect.any(String),
-          }),
-          packageName: '@atlaskit/button',
-        }),
-        eventType: 'ui',
-      }),
-    );
-
-    expect(analyticsEvent.fire).toHaveBeenNthCalledWith(1, 'atlaskit');
-    expect(await findByText('Something')).toBeInTheDocument();
-  });
-
   it('should render error component when error occurs', async () => {
-    const analyticsEvent = new UIAnalyticsEvent({
-      context: [],
-      handlers: [],
-      payload: {
-        action: 'click',
-        a: { b: 'c' },
-      },
-    });
-
-    jest.spyOn(analyticsEvent, 'fire');
     const onError = jest.fn();
-
-    createAnalyticsEvent.mockImplementation(() => {
-      return analyticsEvent;
-    });
 
     const error = new Error('Error');
     const Something = (p: { error: boolean }) => {
@@ -130,35 +51,38 @@ describe('AnalyticsErrorBoundary', () => {
     };
 
     const { findByText } = render(
-      <BaseAnalyticsErrorBoundary
+      <AnalyticsErrorBoundary
         {...props}
-        createAnalyticsEvent={createAnalyticsEvent}
         ErrorComponent={ErrorScreen}
         onError={onError}
       >
         <Something error />
-      </BaseAnalyticsErrorBoundary>,
+      </AnalyticsErrorBoundary>,
     );
 
-    expect(createAnalyticsEvent).toHaveBeenNthCalledWith(
-      1,
-      expect.objectContaining({
-        action: 'UnhandledError',
-        attributes: expect.objectContaining({
-          browserInfo: expect.any(String),
-          componentName: 'button',
-          componentVersion: '999.9.9',
-          error,
-          info: expect.objectContaining({
-            componentStack: expect.any(String),
-          }),
-          packageName: '@atlaskit/button',
-        }),
-        eventType: 'ui',
-      }),
-    );
-    expect(analyticsEvent.fire).toHaveBeenNthCalledWith(1, 'atlaskit');
     expect(onError).toHaveBeenCalledTimes(1);
     expect(await findByText('Error occurred')).toBeInTheDocument();
+  });
+
+  it('should render empty DOM when error occurs and no ErrorComponent', async () => {
+    const onError = jest.fn();
+
+    const error = new Error('Error');
+    const Something = (p: { error: boolean }) => {
+      if (p.error) {
+        throw error;
+      }
+      // this is just a placeholder
+      return <div className="child-component" />;
+    };
+
+    const { container } = render(
+      <AnalyticsErrorBoundary {...props} onError={onError}>
+        <Something error />
+      </AnalyticsErrorBoundary>,
+    );
+
+    expect(onError).toHaveBeenCalledTimes(1);
+    expect(container).toBeEmptyDOMElement();
   });
 });

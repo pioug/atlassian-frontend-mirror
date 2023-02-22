@@ -44,12 +44,12 @@ export const LinkToolbarAppearance: React.FC<LinkingToolbarProps> = ({
   onEditLink,
   onOpenLink,
 }) => {
-  const [showLinkingControls, setShowLinkingControls] = useState(false);
+  const [showLinkingControls, setShowLinkingControls] = useState(true);
 
   useEffect(() => {
-    setShowLinkingControls(false);
     const mediaNode = currentMediaNode(editorState);
     if (!mediaNode) {
+      setShowLinkingControls(false);
       return;
     }
 
@@ -57,13 +57,12 @@ export const LinkToolbarAppearance: React.FC<LinkingToolbarProps> = ({
       stateKey.getState(editorState)?.mediaClientConfig;
 
     if (!mediaClientConfig) {
+      setShowLinkingControls(false);
       return;
     }
 
     checkMediaType(mediaNode, mediaClientConfig).then((mediaType) => {
-      if (mediaType === 'external' || mediaType === 'image') {
-        setShowLinkingControls(true);
-      }
+      setShowLinkingControls(mediaType === 'external' || mediaType === 'image');
     });
   }, [editorState]);
 
@@ -87,6 +86,7 @@ export const LinkToolbarAppearance: React.FC<LinkingToolbarProps> = ({
             tooltipContent={
               <ToolTipContent description={title} keymap={addLink} />
             }
+            testId="edit-link-button"
           >
             {title}
           </ToolbarButton>

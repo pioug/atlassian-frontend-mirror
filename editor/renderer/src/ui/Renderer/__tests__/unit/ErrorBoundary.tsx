@@ -50,10 +50,12 @@ describe('ErrorBoundary', () => {
       attributes: expect.objectContaining({
         platform: PLATFORM.WEB,
         errorMessage: CustomError.message,
-        errorStack: CustomError.stack,
         componentStack: expect.any(String),
         errorRethrown: false,
       }),
+      nonPrivacySafeAttributes: {
+        errorStack: CustomError?.stack,
+      },
     };
 
     expect(mockCreateAnalyticsEvent).toHaveBeenCalledWith(
@@ -80,10 +82,12 @@ describe('ErrorBoundary', () => {
       attributes: expect.objectContaining({
         platform: PLATFORM.WEB,
         errorMessage: CustomError.message,
-        errorStack: CustomError.stack,
         componentStack: expect.any(String),
         errorRethrown: false,
       }),
+      nonPrivacySafeAttributes: {
+        errorStack: CustomError.stack,
+      },
     };
 
     expect(mockCreateAnalyticsEvent).toHaveBeenCalledWith(
@@ -154,10 +158,12 @@ describe('ErrorBoundary', () => {
       attributes: expect.objectContaining({
         platform: PLATFORM.WEB,
         errorMessage: CustomError.message,
-        errorStack: CustomError.stack,
         componentStack: expect.any(String),
         errorRethrown: true,
       }),
+      nonPrivacySafeAttributes: {
+        errorStack: CustomError.stack,
+      },
     };
 
     expect(mockCreateAnalyticsEvent).toHaveBeenCalledWith(
@@ -188,10 +194,12 @@ describe('ErrorBoundary', () => {
       attributes: expect.objectContaining({
         platform: PLATFORM.WEB,
         errorMessage: CustomError.message,
-        errorStack: CustomError.stack,
         componentStack: expect.any(String),
         errorRethrown: false,
       }),
+      nonPrivacySafeAttributes: {
+        errorStack: CustomError.stack,
+      },
     };
 
     expect(mockCreateAnalyticsEvent).toHaveBeenCalledWith(

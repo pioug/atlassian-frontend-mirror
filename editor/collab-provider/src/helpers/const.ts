@@ -1,4 +1,4 @@
-import { ErrorPayload } from '../types';
+import { CollabErrorPayload, ErrorPayload } from '../types';
 
 export const EVENT_SUBJECT = 'collab';
 export enum COLLAB_SERVICE {
@@ -14,6 +14,8 @@ export enum EVENT_ACTION {
   UPDATE_PARTICIPANTS = 'updateParticipants',
   COMMIT_UNCONFIRMED_STEPS = 'commitUnconfirmedSteps',
   REINITIALISE_DOCUMENT = 'reinitialiseDocument',
+  INIT_PROVIDER = 'initProvider',
+  ERROR = 'error',
 }
 export enum EVENT_STATUS {
   SUCCESS = 'SUCCESS',
@@ -49,6 +51,18 @@ type AddStepsFailureAnalyticsEvent = {
   };
 };
 
+type ErrorAnalyticsEvent = {
+  eventAction: EVENT_ACTION.ERROR;
+  attributes: {
+    attemptedAction?: EVENT_ACTION;
+    documentAri: string;
+    mappedError?: CollabErrorPayload;
+  };
+  nonPrivacySafeAttributes: {
+    error: ErrorPayload;
+  };
+};
+
 export type AnalyticsEvent =
   | {
       eventAction:
@@ -72,7 +86,8 @@ export type AnalyticsEvent =
       };
     }
   | AddStepsSuccessAnalyticsEvent
-  | AddStepsFailureAnalyticsEvent;
+  | AddStepsFailureAnalyticsEvent
+  | ErrorAnalyticsEvent;
 
 export const ACK_MAX_TRY = 30;
 

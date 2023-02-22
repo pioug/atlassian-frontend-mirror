@@ -51,8 +51,7 @@ import { stateKey } from '../../../../../plugins/media/pm-plugins/main';
 import { floatingToolbar } from '../../../../../plugins/media/toolbar';
 import { LinkingToolbarProps } from '../../../../../plugins/media/toolbar/linking-toolbar-appearance';
 
-import {
-  LinkAddToolbar,
+import LinkAddToolbar, {
   Props as LinkAddToolbarProps,
 } from '../../../../../plugins/media/ui/MediaLinkingToolbar';
 import { Command } from '../../../../../types';

@@ -20,8 +20,9 @@ import type {
   FilePreview,
 } from '@atlaskit/media-client';
 import { createMediaSubject } from '@atlaskit/media-client';
+import { MediaFeatureFlags } from '@atlaskit/media-common';
 import { CardBase } from '../../card/card';
-import type { CardPreview, CardState } from '../../types';
+import type { CardDimensions, CardPreview, CardState } from '../../types';
 import {
   isImageLoadError,
   ImageLoadError,
@@ -444,6 +445,178 @@ describe('Media Card', () => {
     );
   });
 
+  describe('Upfront Preview', () => {
+    it('resolves the preview upfront once mounted if card is visible and has no preview', async () => {
+      const expectedPreview = filePreviews.remote;
+      fetchAndCacheRemotePreview.mockResolvedValueOnce(expectedPreview);
+
+      const mediaCard = shallow(
+        <CardBase
+          mediaClient={fakeMediaClient()}
+          identifier={indentifiers.file}
+          isLazy={false}
+        />,
+      );
+      expect(fetchAndCacheRemotePreview).toBeCalledTimes(1);
+      await flushPromises();
+      expect(mediaCard.state('cardPreview')).toBe(expectedPreview);
+      // this flag must be set to true
+      expect(mediaCard.state('wasResolvedUpfrontPreview')).toBe(true);
+    });
+
+    it('does not resolve the preview upfront once mounted if card is visible and has preview', async () => {
+      getCardPreviewFromCache.mockReturnValueOnce(filePreviews.cachedRemote);
+
+      const mediaCard = shallow(
+        <CardBase
+          mediaClient={fakeMediaClient()}
+          identifier={indentifiers.file}
+          isLazy={false}
+        />,
+      );
+      expect(fetchAndCacheRemotePreview).toBeCalledTimes(0);
+      expect(mediaCard.state('cardPreview')).toBe(filePreviews.cachedRemote);
+    });
+
+    it('resolves the preview upfront if card turned visible and has no preview', async () => {
+      const expectedPreview = filePreviews.remote;
+      fetchAndCacheRemotePreview.mockResolvedValueOnce(expectedPreview);
+
+      const mediaCard = shallow(
+        <CardBase
+          mediaClient={fakeMediaClient()}
+          identifier={indentifiers.file}
+          isLazy={true}
+        />,
+      );
+      mediaCard.setState({ isCardVisible: true });
+
+      expect(fetchAndCacheRemotePreview).toBeCalledTimes(1);
+      await flushPromises();
+      expect(mediaCard.state('cardPreview')).toBe(expectedPreview);
+      // this flag must be set to true
+      expect(mediaCard.state('wasResolvedUpfrontPreview')).toBe(true);
+    });
+
+    it('does not resolve the preview upfront if card turned visible and has preview', async () => {
+      getCardPreviewFromCache.mockReturnValueOnce(filePreviews.cachedRemote);
+
+      const mediaCard = shallow(
+        <CardBase
+          mediaClient={fakeMediaClient()}
+          identifier={indentifiers.file}
+          isLazy={true}
+        />,
+      );
+      mediaCard.setState({ isCardVisible: true });
+
+      expect(fetchAndCacheRemotePreview).toBeCalledTimes(0);
+      expect(mediaCard.state('cardPreview')).toBe(filePreviews.cachedRemote);
+    });
+
+    it('catches the error from upfront preview', async () => {
+      fetchAndCacheRemotePreview.mockRejectedValueOnce(new Error('some error'));
+
+      const mediaCard = shallow(
+        <CardBase
+          mediaClient={fakeMediaClient()}
+          identifier={indentifiers.file}
+          isLazy={false}
+        />,
+      );
+      expect(fetchAndCacheRemotePreview).toBeCalledTimes(1);
+      await flushPromises();
+      expect(mediaCard.state('cardPreview')).toBe(undefined);
+      // this flag must be set to true
+      expect(mediaCard.state('wasResolvedUpfrontPreview')).toBe(true);
+    });
+
+    it.each([
+      ['(both equal)', 100, 100],
+      ['(both smaller)', 50, 50],
+      ['(width smaller)', 50, 100],
+      ['(height smaller)', 100, 50],
+    ])(
+      'adds to the state the upfront preview if new dimensions are equal or smaller %s',
+      async (_title, newWidth, newHeight) => {
+        // If there are new and bigger dimensions in the props, and the upfront preview is still resolving,
+        // the fetched preview is no longer valid, and thus, we dismiss it and set the flag wasResolvedUpfrontPreview = true
+        // to trigger a normal preview fetch.
+
+        let resolveUpfrontPreview: (preview: CardPreview) => void = () => {};
+        fetchAndCacheRemotePreview.mockReturnValueOnce(
+          new Promise((resolve) => {
+            resolveUpfrontPreview = resolve;
+          }),
+        );
+        const initialDimensions = { width: 100, height: 100 };
+        const newDimensions = { width: newWidth, height: newHeight };
+
+        const mediaCard = shallow(
+          <CardBase
+            mediaClient={fakeMediaClient()}
+            identifier={indentifiers.file}
+            isLazy={true}
+            dimensions={initialDimensions}
+          />,
+        );
+        mediaCard.setState({ isCardVisible: true });
+
+        expect(fetchAndCacheRemotePreview).toBeCalledTimes(1);
+
+        mediaCard.setProps({ dimensions: newDimensions });
+        resolveUpfrontPreview(filePreviews.remote);
+        await flushPromises();
+
+        expect(mediaCard.state('cardPreview')).toBe(filePreviews.remote);
+        // this flag must be set to true
+        expect(mediaCard.state('wasResolvedUpfrontPreview')).toBe(true);
+      },
+    );
+
+    it.each([
+      ['(with and height)', 150, 101],
+      ['(with only)', 200, 100],
+      ['(height only)', 100, 200],
+    ])(
+      'does not add to the state the upfront preview if new dimensions are bigger %s',
+      async (_title, newWidth, newHeight) => {
+        // If there are new and bigger dimensions in the props, and the upfront preview is still resolving,
+        // the fetched preview is no longer valid, and thus, we dismiss it and set the flag wasResolvedUpfrontPreview = true
+        // to trigger a normal preview fetch.
+
+        let resolveUpfrontPreview: (preview: CardPreview) => void = () => {};
+        fetchAndCacheRemotePreview.mockReturnValueOnce(
+          new Promise((resolve) => {
+            resolveUpfrontPreview = resolve;
+          }),
+        );
+        const initialDimensions = { width: 100, height: 100 };
+        const newDimensions = { width: newWidth, height: newHeight };
+
+        const mediaCard = shallow(
+          <CardBase
+            mediaClient={fakeMediaClient()}
+            identifier={indentifiers.file}
+            isLazy={true}
+            dimensions={initialDimensions}
+          />,
+        );
+        mediaCard.setState({ isCardVisible: true });
+
+        expect(fetchAndCacheRemotePreview).toBeCalledTimes(1);
+
+        mediaCard.setProps({ dimensions: newDimensions });
+        resolveUpfrontPreview(filePreviews.remote);
+        await flushPromises();
+
+        expect(mediaCard.state('cardPreview')).toBeUndefined();
+        // this flag must be set to true
+        expect(mediaCard.state('wasResolvedUpfrontPreview')).toBe(true);
+      },
+    );
+  });
+
   describe('Native Lazy Load', () => {
     it(`should enable native lazy load if it's lazy and not visible`, () => {
       const mediaCard = shallow(
@@ -634,11 +807,10 @@ describe('Media Card', () => {
     it(`should call shouldResolvePreview on each update if it's file identifier and has file state`, () => {
       const fileState = {} as FileState;
       const status = 'processing';
-      const initialDimensions = {};
-      const nextDimensions = {};
-      const cardPreview = {};
-      const isBannedLocalPreview = true;
-      const featureFlags = {};
+      const initialDimensions = { initial: 'Dimensions' } as CardDimensions;
+      const nextDimensions = { next: 'Dimensions' } as CardDimensions;
+      const cardPreview = { card: 'Preview' };
+      const featureFlags = { feature: 'Flags' } as MediaFeatureFlags;
 
       const mediaCard = shallow(
         <CardBase
@@ -652,33 +824,53 @@ describe('Media Card', () => {
         fileState,
         status,
         cardPreview,
-        isBannedLocalPreview,
+        isBannedLocalPreview: false,
+        wasResolvedUpfrontPreview: false,
       });
-      mediaCard.setProps({ dimensions: nextDimensions });
 
-      expect(shouldResolvePreview).toBeCalledTimes(2);
+      mediaCard.setProps({
+        dimensions: nextDimensions,
+      });
+
+      // Makes sure the state flags are always properly passed
+      mediaCard.setState({
+        wasResolvedUpfrontPreview: true,
+        isBannedLocalPreview: true,
+      });
+
+      expect(shouldResolvePreview).toBeCalledTimes(3);
       expect(shouldResolvePreview).toHaveBeenNthCalledWith(1, {
         fileState,
         status,
         hasCardPreview: !!cardPreview,
-        isBannedLocalPreview,
+        isBannedLocalPreview: false,
         prevDimensions: expect.objectContaining({}),
         dimensions: initialDimensions,
         identifier: indentifiers.file,
         fileImageMode: defaultMode,
         featureFlags,
+        wasResolvedUpfrontPreview: false,
       });
       expect(shouldResolvePreview).toHaveBeenNthCalledWith(2, {
         fileState,
         status,
         hasCardPreview: !!cardPreview,
-        isBannedLocalPreview,
+        isBannedLocalPreview: false,
         prevDimensions: initialDimensions,
         dimensions: nextDimensions,
         identifier: indentifiers.file,
         fileImageMode: defaultMode,
         featureFlags,
+        wasResolvedUpfrontPreview: false,
       });
+
+      expect(shouldResolvePreview).toHaveBeenNthCalledWith(
+        3,
+        expect.objectContaining({
+          wasResolvedUpfrontPreview: true,
+          isBannedLocalPreview: true,
+        }),
+      );
     });
 
     it(`should get card preview if shouldResolvePreview returns true`, async () => {
@@ -698,7 +890,10 @@ describe('Media Card', () => {
         />,
       );
       const fileState = { some: 'attr' } as unknown as FileState;
-      mediaCard.setState({ fileState });
+      mediaCard.setState({
+        fileState,
+        wasResolvedUpfrontPreview: true, // Upfront preview resolved with no results
+      });
 
       expect(shouldResolvePreview).toBeCalledTimes(1);
 
@@ -795,6 +990,7 @@ describe('Media Card', () => {
         status: 'loading-preview',
         fileState: fileStates.processed,
         cardPreview: filePreviews.local,
+        wasResolvedUpfrontPreview: true, // Upfront preview resolved with no results
       });
       // Second, simulate a failed to render local preview
       mediaCard.setState({
@@ -902,6 +1098,7 @@ describe('Media Card', () => {
         mediaCard.setState({
           status: 'loading-preview',
           fileState: fileStates.processed,
+          wasResolvedUpfrontPreview: true, // Upfront preview resolved with no results
         });
 
         // simulate the result of the first preview fetch
@@ -932,6 +1129,7 @@ describe('Media Card', () => {
       mediaCard.setState({
         status: 'loading-preview',
         fileState: fileStates.processed,
+        wasResolvedUpfrontPreview: true, // Upfront preview resolved with no results
       });
 
       // simulate the result of the first preview fetch

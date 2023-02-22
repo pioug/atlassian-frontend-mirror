@@ -7,37 +7,27 @@ import { capitalize, tokenToStyle } from './utils';
 
 const spacingProperties = {
   padding: {
-    cssProperty: 'padding',
-  },
-  paddingBlock: {
-    cssProperty: 'paddingBlock',
-  },
-  paddingBlockStart: {
-    cssProperty: 'paddingBlockStart',
-  },
-  paddingBlockEnd: {
-    cssProperty: 'paddingBlockEnd',
-  },
-  paddingInline: {
-    cssProperty: 'paddingInline',
-  },
-  paddingInlineStart: {
-    cssProperty: 'paddingInlineStart',
-  },
-  paddingInlineEnd: {
-    cssProperty: 'paddingInlineEnd',
+    cssProperties: [
+      'padding',
+      'paddingBlock',
+      'paddingBlockStart',
+      'paddingBlockEnd',
+      'paddingInline',
+      'paddingInlineStart',
+      'paddingInlineEnd',
+    ],
   },
   gap: {
-    cssProperty: 'gap',
+    cssProperties: ['gap'],
   },
   space: {
-    cssProperty: 'gap',
+    cssProperties: ['gap'],
   },
   columnGap: {
-    cssProperty: 'columnGap',
+    cssProperties: ['columnGap'],
   },
   rowGap: {
-    cssProperty: 'rowGap',
+    cssProperties: ['rowGap'],
   },
 } as const;
 
@@ -58,27 +48,32 @@ export const createSpacingStylesFromTemplate = (
     throw new Error(`[codegen] Unknown option found "${spacingProperty}"`);
   }
 
-  const { cssProperty } = spacingProperties[spacingProperty];
+  const { cssProperties } = spacingProperties[spacingProperty];
 
   return (
     prettier.format(
       `
-const ${spacingProperty}Map = {
+const ${spacingProperty}Map = Object.fromEntries(
+  [
+    '${cssProperties.join("','")}',
+  ].map((property: string) => [
+    property,
+    {
   ${activeTokens
-    .sort((a, b) => (a.name < b.name ? -1 : 1))
+    .sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }))
     .map(token => {
       const propName =
         spacingProperty === 'space'
           ? token.name.replace(spacingTokenPrefix, '')
           : token.name;
       return `'${propName}': ${tokenToStyle(
-        cssProperty,
+        '[property]' as any,
         token.name,
         token.fallback,
       )}`;
-    })
-    .join(',\n\t')}
-};`,
+    })}
+  } as const,
+]));`,
       {
         singleQuote: true,
         trailingComma: 'all',
@@ -86,8 +81,17 @@ const ${spacingProperty}Map = {
         plugins: [parserTypeScript],
       },
     ) +
-    `\nexport type ${capitalize(
-      spacingProperty,
-    )} = keyof typeof ${spacingProperty}Map;\n`
+    (cssProperties.length === 1
+      ? `\nexport type ${capitalize(
+          spacingProperty,
+        )} = keyof typeof ${spacingProperty}Map.${cssProperties[0]};\n`
+      : cssProperties
+          .map(
+            cssProperty =>
+              `\nexport type ${capitalize(
+                cssProperty,
+              )} = keyof typeof ${spacingProperty}Map.${cssProperty};`,
+          )
+          .join('') + '\n')
   );
 };

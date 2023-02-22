@@ -277,10 +277,10 @@ type DocumentProcessingErrorAEP = OperationalAEP<
   ACTION.DOCUMENT_PROCESSING_ERROR,
   ACTION_SUBJECT.EDITOR,
   undefined,
+  undefined,
   {
     errorStack?: string;
-  },
-  undefined
+  }
 >;
 
 type EditorStopAEP = UIAEP<

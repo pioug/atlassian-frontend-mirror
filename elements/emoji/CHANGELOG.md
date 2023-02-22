@@ -1,5 +1,16 @@
 # @atlaskit/emoji
 
+## 67.0.7
+
+### Patch Changes
+
+- [`afd73c661b7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/afd73c661b7) - Fixed regression bug where selecting a category highlighted wrong category in category tracker
+- [`3fdb998a000`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3fdb998a000) - Unblock hot-102193 to bump emoji to latest.
+- [`858c6abd872`](https://bitbucket.org/atlassian/atlassian-frontend/commits/858c6abd872) - Fix bug that was causing the emoji picker to crash on initial rendering
+- [`e2c42bb9cdd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e2c42bb9cdd) - [ux] fix emoji picker horizontal scrollbar issue
+- [`6d710a9b5b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6d710a9b5b0) - clean up delete preview styling
+- Updated dependencies
+
 ## 67.0.6
 
 ### Patch Changes

@@ -35,7 +35,7 @@
     "react-dom": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/analytics-next": "^8.3.0",
+    "@atlaskit/analytics-next": "^9.0.0",
     "@atlaskit/docs": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react": "^12.1.5",

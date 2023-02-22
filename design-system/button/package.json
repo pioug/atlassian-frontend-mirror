@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/button",
-  "version": "16.5.5",
+  "version": "16.5.6",
   "description": "A button triggers an event or action. They let users know what will happen next.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -32,7 +32,7 @@
     ".": "./src/index.tsx"
   },
   "dependencies": {
-    "@atlaskit/analytics-next": "^8.2.0",
+    "@atlaskit/analytics-next": "^9.0.0",
     "@atlaskit/ds-lib": "^2.1.0",
     "@atlaskit/interaction-context": "^2.0.0",
     "@atlaskit/spinner": "^15.3.0",

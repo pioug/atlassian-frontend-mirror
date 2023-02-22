@@ -1,5 +1,12 @@
 # @atlaskit/tooltip
 
+## 17.6.9
+
+### Patch Changes
+
+- [`6cb57eb428d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6cb57eb428d) - Update examples for Tooltip to use render props API to aid in eventual deprecation of wrapping children.
+- Updated dependencies
+
 ## 17.6.8
 
 ### Patch Changes

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { MouseEvent, forwardRef } from 'react';
+import React, { MouseEvent, forwardRef, memo } from 'react';
 import { jsx } from '@emotion/react';
 import { EmojiDescription } from '../../types';
 import { leftClick } from '../../util/mouse';
@@ -63,4 +63,4 @@ export const EmojiButton = forwardRef<HTMLButtonElement, Props>(
   },
 );
 
-export default EmojiButton;
+export default memo(EmojiButton);

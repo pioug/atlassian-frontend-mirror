@@ -33,9 +33,14 @@ import { ThemeProps } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
 
 import { decorationStateKey, ACTIONS } from '../../base/pm-plugins/decoration';
+import { clearHoverSelection } from '@atlaskit/editor-plugin-table/commands';
 
 import ScrollButtons from './ScrollButtons';
 import { ToolbarArrowKeyNavigationProvider } from '../../../ui/ToolbarArrowKeyNavigationProvider';
+import {
+  checkShouldForceFocusAndApply,
+  forceFocusSelector,
+} from '../pm-plugins/force-focus';
 
 const akGridSize = gridSize();
 
@@ -490,10 +495,8 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
   private resetStyling({ table }: { table: boolean }) {
     if (this.props.editorView) {
       const { state, dispatch } = this.props.editorView;
-      // tables use their own decorations
-      // TODO fix for tables https://product-fabric.atlassian.net/jira/servicedesk/projects/DTR/queues/issue/DTR-617
       if (table) {
-        return null;
+        return clearHoverSelection()(state, dispatch);
       }
       dispatch(
         state.tr.setMeta(decorationStateKey, {
@@ -519,6 +522,8 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
   }
 
   componentDidUpdate(prevProps: Props) {
+    checkShouldForceFocusAndApply(this.props?.editorView);
+
     if (this.props.node !== prevProps.node) {
       this.resetStyling({
         table: prevProps?.node.type.name === 'table',
@@ -527,6 +532,7 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
   }
 
   componentWillUnmount() {
+    forceFocusSelector(null, this.props.editorView);
     this.resetStyling({
       table: this.props.node.type.name === 'table',
     });

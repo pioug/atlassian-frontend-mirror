@@ -265,20 +265,20 @@ export const InputQuery: React.FC<InputQueryProps> = React.memo(
     );
 
     const queryStyle = css({
-      outline: 'none',
-      position: 'absolute',
-      fontFamily: 'inherit',
-      fontSize: 'inherit',
-      fontWeight: 'inherit',
-      letterSpacing: 'inherit',
-      padding: 0,
-      height: '100%',
-      width: '100%',
-      top: 0,
-      left: 0,
-      background: 'transparent',
-      border: 'none',
       '&&': {
+        outline: 'none',
+        position: 'absolute',
+        fontFamily: 'inherit',
+        fontSize: 'inherit',
+        fontWeight: 'inherit',
+        letterSpacing: 'inherit',
+        padding: 0,
+        height: '100%',
+        width: '100%',
+        top: 0,
+        left: 0,
+        background: 'transparent',
+        border: 'none',
         color: `${token('color.link', colors.B400)}`,
       },
     });

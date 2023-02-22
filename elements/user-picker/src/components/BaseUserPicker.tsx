@@ -60,6 +60,9 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
     noBorder: false,
     textFieldBackgroundColor: false,
     isClearable: true,
+    loadOptionsErrorMessage: () => (
+      <FormattedMessage {...messages.errorMessage} />
+    ),
   };
 
   static getDerivedStateFromProps(
@@ -116,6 +119,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
       menuIsOpen: !!this.props.open,
       inputValue: props.search || '',
       resolving: false,
+      showError: false,
     };
     this.optionsShownUfoExperienceInstance =
       userPickerOptionsShownUfoExperience.getInstance(uuidv4());
@@ -239,9 +243,17 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
   private handleLoadOptionsError = () => {
     const { count } = this.state;
     const newCount = count - 1;
+    const resolving = newCount !== 0;
+    let showError = false;
+
+    if (!resolving) {
+      showError = true;
+    }
+
     this.setState({
       count: newCount,
-      resolving: newCount !== 0,
+      resolving,
+      showError,
     });
     this.fireEvent(failedEvent);
   };
@@ -302,7 +314,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
   private executeLoadOptions = (search?: string) => {
     const { loadOptions } = this.props;
     if (loadOptions) {
-      this.setState({ resolving: true }, () =>
+      this.setState({ resolving: true, showError: false }, () =>
         this.debouncedLoadOptions(search),
       );
     }
@@ -519,6 +531,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
       clearValueLabel,
       menuMinWidth,
       menuPortalTarget,
+      loadOptionsErrorMessage,
       addMoreMessage,
       noOptionsMessage,
       disableInput,
@@ -542,6 +555,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
       value,
       inputValue,
       resolving,
+      showError,
     } = this.state;
     const appearance = this.getAppearance();
 
@@ -574,7 +588,9 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
         subtle={subtle}
         blurInputOnSelect={!isMulti}
         closeMenuOnSelect={!isMulti}
-        noOptionsMessage={noOptionsMessage}
+        noOptionsMessage={
+          showError ? loadOptionsErrorMessage : noOptionsMessage
+        }
         openMenuOnFocus
         isDisabled={isDisabled}
         isFocused={menuIsOpen}

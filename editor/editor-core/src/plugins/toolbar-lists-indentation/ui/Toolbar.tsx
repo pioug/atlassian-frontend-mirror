@@ -19,9 +19,14 @@ import { messages as indentationMessages } from '../../indentation/messages';
 import { ButtonName, ToolbarProps } from '../types';
 import { buttonGroupStyle, separatorStyles } from '../../../ui/styles';
 import { getAriaKeyshortcuts } from '@atlaskit/editor-common/keymaps';
+import { useEffect, useRef } from 'react';
 
 export function Toolbar(props: ToolbarProps) {
   const { formatMessage } = useIntl();
+
+  const indentButtonRef = useRef<HTMLElement | null>(null);
+  const outdentButtonRef = useRef<HTMLElement | null>(null);
+
   const {
     disabled,
     isReducedSpacing,
@@ -38,11 +43,27 @@ export function Toolbar(props: ToolbarProps) {
   const labelOrderedList = formatMessage(messages.orderedList);
   const indentMessage = formatMessage(indentationMessages.indent);
   const outdentMessage = formatMessage(indentationMessages.outdent);
+  const isIndentButtonFocused =
+    document.activeElement === indentButtonRef.current;
+  const isOutdentButtonFocused =
+    document.activeElement === outdentButtonRef.current;
 
   const handleOnItemActivated =
     (buttonName: ButtonName) =>
     (event: React.MouseEvent<HTMLElement, MouseEvent>) =>
       onItemActivated({ editorView: props.editorView, buttonName });
+
+  useEffect(() => {
+    if (isIndentButtonFocused && indentDisabled && outdentButtonRef.current) {
+      outdentButtonRef.current.focus();
+    }
+  }, [indentButtonRef, indentDisabled, isIndentButtonFocused]);
+
+  useEffect(() => {
+    if (isOutdentButtonFocused && outdentDisabled && indentButtonRef.current) {
+      indentButtonRef.current.focus();
+    }
+  }, [outdentButtonRef, outdentDisabled, isOutdentButtonFocused]);
 
   return (
     <span css={buttonGroupStyle}>
@@ -86,6 +107,7 @@ export function Toolbar(props: ToolbarProps) {
         <ToolbarButton
           buttonId={TOOLBAR_BUTTON.OUTDENT}
           testId={TOOLBAR_BUTTON.OUTDENT}
+          ref={outdentButtonRef}
           spacing={isReducedSpacing ? 'none' : 'default'}
           onClick={handleOnItemActivated('outdent')}
           iconBefore={<OutdentIcon label="" />}
@@ -104,6 +126,7 @@ export function Toolbar(props: ToolbarProps) {
         <ToolbarButton
           buttonId={TOOLBAR_BUTTON.INDENT}
           testId={TOOLBAR_BUTTON.INDENT}
+          ref={indentButtonRef}
           spacing={isReducedSpacing ? 'none' : 'default'}
           onClick={handleOnItemActivated('indent')}
           iconBefore={<IndentIcon label="" />}

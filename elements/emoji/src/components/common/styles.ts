@@ -374,6 +374,7 @@ export const deleteFooter = css({
   height: '40px',
   alignItems: 'center',
   justifyContent: 'space-between',
+  fontSize: token('font.size.100', '14px'),
 
   img: {
     maxHeight: '32px',
@@ -384,15 +385,6 @@ export const deleteFooter = css({
     width: '84px',
     fontWeight: 'bold',
     marginRight: '4px',
-  },
-  button: {
-    display: 'flex',
-    justifyContent: 'center',
-    fontSize: '14px',
-
-    div: {
-      display: 'flex',
-    },
   },
 });
 

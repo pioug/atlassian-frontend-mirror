@@ -2,7 +2,6 @@ export interface LinkingPlatformFeatureFlags {
   showHoverPreview?: boolean;
   trackIframeDwellEvents?: boolean;
   useLinkPickerScrollingTabs?: boolean;
-  embedModalSize?: string;
   /**
    * Conditionally adds additional container styles to the link picker if the picker is going to appear outside the top boundary of the viewport.
    * This feature will be enabled by default (not enabled by a feature flag) and we will disable the feature using the same feature flag that we will

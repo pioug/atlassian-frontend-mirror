@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,52 +7,34 @@
  */
 //Vietnamese (Vietnam)
 export default {
-  'pt.profile-card.closed.account': 'Tài khoản đã bị xóa',
-  'pt.profile-card.closed.account.has.date.a.few.months':
-    'Tài khoản của họ đã bị xóa một vài tháng.',
-  'pt.profile-card.closed.account.has.date.last.month':
-    'Tài khoản của họ đã bị xóa tháng trước.',
-  'pt.profile-card.closed.account.has.date.more.than.a.year':
-    'Tài khoản của họ đã bị xóa hơn một năm.',
-  'pt.profile-card.closed.account.has.date.several.months':
-    'Tài khoản của họ đã bị xóa vài tháng.',
-  'pt.profile-card.closed.account.has.date.this.month':
-    'Tài khoản của họ đã bị xóa trong tháng này.',
-  'pt.profile-card.closed.account.has.date.this.week':
-    'Tài khoản của họ đã bị xóa trong tuần này.',
-  'pt.profile-card.closed.account.no.date': 'Tài khoản của họ đã bị xóa.',
-  'pt.profile-card.disabled.account.default.name': 'Người dùng cũ',
-  'pt.profile-card.general.msg.disabled.user':
-    'Bạn không thể hợp tác với người này được nữa.',
-  'pt.profile-card.give-kudos': 'Khen ngợi',
-  'pt.profile-card.inactive.account': 'Tài khoản đã bị hủy kích hoạt',
-  'pt.profile-card.inactive.account.has.date.a.few.months':
-    'Tài khoản của họ đã bị hủy kích hoạt một vài tháng.',
-  'pt.profile-card.inactive.account.has.date.last.month':
-    'Tài khoản của họ đã bị hủy kích hoạt tháng trước.',
-  'pt.profile-card.inactive.account.has.date.more.than.a.year':
-    'Tài khoản của họ đã bị hủy kích hoạt hơn một năm.',
-  'pt.profile-card.inactive.account.has.date.several.months':
-    'Tài khoản của họ đã bị hủy kích hoạt vài tháng.',
-  'pt.profile-card.inactive.account.has.date.this.month':
-    'Tài khoản của họ đã bị hủy kích hoạt trong tháng này.',
-  'pt.profile-card.inactive.account.has.date.this.week':
-    'Tài khoản của họ đã bị hủy kích hoạt trong tuần này.',
-  'pt.profile-card.inactive.account.no.date':
-    'Tài khoản của họ đã bị hủy kích hoạt.',
-  'pt.profile-card.more-icon-label': 'Khác',
-  'pt.team-profile-card.directReports.heading': 'Báo cáo trực tiếp',
-  'pt.team-profile-card.error.refresh-button': 'Thử lại',
-  'pt.team-profile-card.error.suggestion': 'Hãy đợi một lát, rồi thử lại.',
-  'pt.team-profile-card.error.title':
-    'Chúng tôi đang gặp sự cố khi truy xuất thông tin nhóm này',
-  'pt.team-profile-card.manager.heading': 'Nhà quản lý',
-  'pt.team-profile-card.team.action.view-profile': 'Xem hồ sơ',
-  'pt.team-profile-card.team.member.count':
-    '{count, plural, other {Nhóm • {count} thành viên}}',
-  'pt.team-profile-card.team.member.count-including-you':
-    '{count, plural, other {Nhóm • {count} thành viên, bao gồm cả bạn}}',
-  'pt.team-profile-card.team.member.many': 'Nhóm • 50+ thành viên',
-  'pt.team-profile-card.team.member.many-including-you':
-    'Nhóm • 50+ thành viên, bao gồm cả bạn',
+  "pt.profile-card.closed.account": "Tài khoản đã bị xóa",
+  "pt.profile-card.closed.account.has.date.a.few.months": "Tài khoản của họ đã bị xóa một vài tháng.",
+  "pt.profile-card.closed.account.has.date.last.month": "Tài khoản của họ đã bị xóa tháng trước.",
+  "pt.profile-card.closed.account.has.date.more.than.a.year": "Tài khoản của họ đã bị xóa hơn một năm.",
+  "pt.profile-card.closed.account.has.date.several.months": "Tài khoản của họ đã bị xóa vài tháng.",
+  "pt.profile-card.closed.account.has.date.this.month": "Tài khoản của họ đã bị xóa trong tháng này.",
+  "pt.profile-card.closed.account.has.date.this.week": "Tài khoản của họ đã bị xóa trong tuần này.",
+  "pt.profile-card.closed.account.no.date": "Tài khoản của họ đã bị xóa.",
+  "pt.profile-card.disabled.account.default.name": "Người dùng cũ",
+  "pt.profile-card.general.msg.disabled.user": "Bạn không thể hợp tác với người này được nữa.",
+  "pt.profile-card.give-kudos": "Khen ngợi",
+  "pt.profile-card.inactive.account": "Tài khoản đã bị hủy kích hoạt",
+  "pt.profile-card.inactive.account.has.date.a.few.months": "Tài khoản của họ đã bị hủy kích hoạt một vài tháng.",
+  "pt.profile-card.inactive.account.has.date.last.month": "Tài khoản của họ đã bị hủy kích hoạt tháng trước.",
+  "pt.profile-card.inactive.account.has.date.more.than.a.year": "Tài khoản của họ đã bị hủy kích hoạt hơn một năm.",
+  "pt.profile-card.inactive.account.has.date.several.months": "Tài khoản của họ đã bị hủy kích hoạt vài tháng.",
+  "pt.profile-card.inactive.account.has.date.this.month": "Tài khoản của họ đã bị hủy kích hoạt trong tháng này.",
+  "pt.profile-card.inactive.account.has.date.this.week": "Tài khoản của họ đã bị hủy kích hoạt trong tuần này.",
+  "pt.profile-card.inactive.account.no.date": "Tài khoản của họ đã bị hủy kích hoạt.",
+  "pt.profile-card.more-icon-label": "Khác",
+  "pt.team-profile-card.directReports.heading": "Báo cáo trực tiếp",
+  "pt.team-profile-card.error.refresh-button": "Thử lại",
+  "pt.team-profile-card.error.suggestion": "Hãy đợi một lát, rồi thử lại.",
+  "pt.team-profile-card.error.title": "Chúng tôi đang gặp sự cố khi truy xuất thông tin nhóm này",
+  "pt.team-profile-card.manager.heading": "Nhà quản lý",
+  "pt.team-profile-card.team.action.view-profile": "Xem hồ sơ",
+  "pt.team-profile-card.team.member.count": "{count, plural, other {Nhóm • {count} thành viên}}",
+  "pt.team-profile-card.team.member.count-including-you": "{count, plural, other {Nhóm • {count} thành viên, bao gồm cả bạn}}",
+  "pt.team-profile-card.team.member.many": "Nhóm • 50+ thành viên",
+  "pt.team-profile-card.team.member.many-including-you": "Nhóm • 50+ thành viên, bao gồm cả bạn"
 };

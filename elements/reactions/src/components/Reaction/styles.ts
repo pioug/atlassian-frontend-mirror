@@ -45,6 +45,7 @@ export const reactionStyle = css({
     // disabling browser focus outline
     outline: 'none',
   },
+  overflow: 'hidden',
 });
 
 export const reactedStyle = css({

@@ -75,22 +75,22 @@ const B500 = '#0747A6';
 // @public (undocumented)
 const B75 = '#B3D4FF';
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 const background: ThemedValue<'var(--ds-surface)'>;
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 const backgroundActive: ThemedValue<'var(--ds-background-selected)'>;
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 const backgroundHover: ThemedValue<'var(--ds-background-neutral-hovered)'>;
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 const backgroundOnLayer: ThemedValue<'var(--ds-surface-overlay)'>;
 
 // @public (undocumented)
 const blue: ThemedValue<string>;
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 export const borderRadius: () => number;
 
 // @public (undocumented)
@@ -428,19 +428,19 @@ const DN900 = '#E6EDFA';
 // @public (undocumented)
 const DN90A = 'rgba(13, 20, 36, 0.63)';
 
-// @public (undocumented)
+// @public @deprecated
 const e100: ThemedValue<string>;
 
-// @public (undocumented)
+// @public @deprecated
 const e200: ThemedValue<string>;
 
-// @public (undocumented)
+// @public @deprecated
 const e300: ThemedValue<string>;
 
-// @public (undocumented)
+// @public @deprecated
 const e400: ThemedValue<string>;
 
-// @public (undocumented)
+// @public @deprecated
 const e500: ThemedValue<string>;
 
 // @public (undocumented)
@@ -598,7 +598,7 @@ const h900: (props?: ThemeProps) => {
   lineHeight: number;
 };
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 const heading: ThemedValue<'var(--ds-text)'>;
 
 // @public (undocumented)
@@ -668,16 +668,16 @@ export const layers: {
   [P in keyof Layers]: () => Layers[P];
 };
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 const link: ThemedValue<'var(--ds-link)'>;
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 const linkActive: ThemedValue<'var(--ds-link-pressed)'>;
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 const linkHover: ThemedValue<'var(--ds-link-pressed)'>;
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 const linkOutline: ThemedValue<'var(--ds-border-focused)'>;
 
 // @public (undocumented)
@@ -823,10 +823,10 @@ const P500 = '#403294';
 // @public (undocumented)
 const P75 = '#C0B6F2';
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 const placeholderText: ThemedValue<'var(--ds-text-subtlest)'>;
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 const primary: ThemedValue<'var(--ds-background-brand-bold)'>;
 
 // @public (undocumented)
@@ -856,7 +856,7 @@ const R75 = '#FFBDAD';
 // @public (undocumented)
 const red: ThemedValue<string>;
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 const skeleton: () => 'var(--ds-skeleton)';
 
 // @public
@@ -878,10 +878,10 @@ export const skeletonShimmer: () => {
   };
 };
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 const subtleHeading: ThemedValue<'var(--ds-text-subtlest)'>;
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 const subtleText: ThemedValue<'var(--ds-text-subtlest)'>;
 
 // @public (undocumented)
@@ -908,13 +908,13 @@ const T75 = '#B3F5FF';
 // @public (undocumented)
 const teal: ThemedValue<string>;
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 const text: ThemedValue<'var(--ds-text)'>;
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 const textActive: ThemedValue<'var(--ds-text-selected)'>;
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 const textHover: ThemedValue<'var(--ds-text)'>;
 
 // @public (undocumented)

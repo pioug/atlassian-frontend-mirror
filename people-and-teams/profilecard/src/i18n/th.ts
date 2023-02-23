@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,52 +7,34 @@
  */
 //Thai (Thailand)
 export default {
-  'pt.profile-card.closed.account': 'ลบบัญชีแล้ว',
-  'pt.profile-card.closed.account.has.date.a.few.months':
-    'บัญชีของผู้ใช้ถูกลบไปแล้วไม่กี่เดือน',
-  'pt.profile-card.closed.account.has.date.last.month':
-    'บัญชีของผู้ใช้ถูกลบไปเมื่อเดือนที่แล้ว',
-  'pt.profile-card.closed.account.has.date.more.than.a.year':
-    'บัญชีของผู้ใช้ถูกลบไปแล้วมากกว่าหนึ่งปี',
-  'pt.profile-card.closed.account.has.date.several.months':
-    'บัญชีของผู้ใช้ถูกลบไปแล้วหลายเดือน',
-  'pt.profile-card.closed.account.has.date.this.month':
-    'บัญชีของผู้ใช้ถูกลบไปแล้วในเดือนนี้',
-  'pt.profile-card.closed.account.has.date.this.week':
-    'บัญชีของผู้ใช้ถูกลบไปแล้วในสัปดาห์นี้',
-  'pt.profile-card.closed.account.no.date': 'บัญชีของผู้ใช้ถูกลบไปแล้ว',
-  'pt.profile-card.disabled.account.default.name': 'ผู้ใช้เดิม',
-  'pt.profile-card.general.msg.disabled.user':
-    'คุณไม่สามารถทำงานร่วมกับบุคคลนี้ได้อีก',
-  'pt.profile-card.give-kudos': 'แสดงความชื่นชม',
-  'pt.profile-card.inactive.account': 'ปิดใช้งานบัญชีแล้ว',
-  'pt.profile-card.inactive.account.has.date.a.few.months':
-    'บัญชีของผู้ใช้ถูกปิดใช้งานไปแล้วไม่กี่เดือน',
-  'pt.profile-card.inactive.account.has.date.last.month':
-    'บัญชีของผู้ใช้ถูกปิดใช้งานไปเมื่อเดือนที่แล้ว',
-  'pt.profile-card.inactive.account.has.date.more.than.a.year':
-    'บัญชีของผู้ใช้ถูกปิดใช้งานไปแล้วมากกว่าหนึ่งปี',
-  'pt.profile-card.inactive.account.has.date.several.months':
-    'บัญชีของผู้ใช้ถูกปิดใช้งานไปแล้วหลายเดือน',
-  'pt.profile-card.inactive.account.has.date.this.month':
-    'บัญชีของผู้ใช้ถูกปิดใช้งานไปแล้วในเดือนนี้',
-  'pt.profile-card.inactive.account.has.date.this.week':
-    'บัญชีของผู้ใช้ถูกปิดใช้งานไปแล้วในสัปดาห์นี้',
-  'pt.profile-card.inactive.account.no.date':
-    'บัญชีของผู้ใช้ถูกปิดใช้งานไปแล้ว',
-  'pt.profile-card.more-icon-label': 'เพิ่มเติม',
-  'pt.team-profile-card.directReports.heading': 'รายงานโดยตรง',
-  'pt.team-profile-card.error.refresh-button': 'ลองอีกครั้ง',
-  'pt.team-profile-card.error.suggestion': 'โปรดรอสักครู่แล้วลองอีกครั้ง',
-  'pt.team-profile-card.error.title':
-    'เรากำลังมีปัญหาในการเรียกข้อมูลของทีมนี้',
-  'pt.team-profile-card.manager.heading': 'ตัวจัดการ',
-  'pt.team-profile-card.team.action.view-profile': 'ดูโปรไฟล์',
-  'pt.team-profile-card.team.member.count':
-    '{count, plural, other {ทีม • สมาชิก {count} คน}}',
-  'pt.team-profile-card.team.member.count-including-you':
-    '{count, plural, other {ทีม • สมาชิก {count} คน รวมคุณด้วย}}',
-  'pt.team-profile-card.team.member.many': 'ทีม • สมาชิกมากกว่า 50 คน',
-  'pt.team-profile-card.team.member.many-including-you':
-    'ทีม • สมาชิกมากกว่า 50 คน รวมคุณด้วย',
+  "pt.profile-card.closed.account": "ลบบัญชีแล้ว",
+  "pt.profile-card.closed.account.has.date.a.few.months": "บัญชีของผู้ใช้ถูกลบไปแล้วไม่กี่เดือน",
+  "pt.profile-card.closed.account.has.date.last.month": "บัญชีของผู้ใช้ถูกลบไปเมื่อเดือนที่แล้ว",
+  "pt.profile-card.closed.account.has.date.more.than.a.year": "บัญชีของผู้ใช้ถูกลบไปแล้วมากกว่าหนึ่งปี",
+  "pt.profile-card.closed.account.has.date.several.months": "บัญชีของผู้ใช้ถูกลบไปแล้วหลายเดือน",
+  "pt.profile-card.closed.account.has.date.this.month": "บัญชีของผู้ใช้ถูกลบไปแล้วในเดือนนี้",
+  "pt.profile-card.closed.account.has.date.this.week": "บัญชีของผู้ใช้ถูกลบไปแล้วในสัปดาห์นี้",
+  "pt.profile-card.closed.account.no.date": "บัญชีของผู้ใช้ถูกลบไปแล้ว",
+  "pt.profile-card.disabled.account.default.name": "ผู้ใช้เดิม",
+  "pt.profile-card.general.msg.disabled.user": "คุณไม่สามารถทำงานร่วมกับบุคคลนี้ได้อีก",
+  "pt.profile-card.give-kudos": "แสดงความชื่นชม",
+  "pt.profile-card.inactive.account": "ปิดใช้งานบัญชีแล้ว",
+  "pt.profile-card.inactive.account.has.date.a.few.months": "บัญชีของผู้ใช้ถูกปิดใช้งานไปแล้วไม่กี่เดือน",
+  "pt.profile-card.inactive.account.has.date.last.month": "บัญชีของผู้ใช้ถูกปิดใช้งานไปเมื่อเดือนที่แล้ว",
+  "pt.profile-card.inactive.account.has.date.more.than.a.year": "บัญชีของผู้ใช้ถูกปิดใช้งานไปแล้วมากกว่าหนึ่งปี",
+  "pt.profile-card.inactive.account.has.date.several.months": "บัญชีของผู้ใช้ถูกปิดใช้งานไปแล้วหลายเดือน",
+  "pt.profile-card.inactive.account.has.date.this.month": "บัญชีของผู้ใช้ถูกปิดใช้งานไปแล้วในเดือนนี้",
+  "pt.profile-card.inactive.account.has.date.this.week": "บัญชีของผู้ใช้ถูกปิดใช้งานไปแล้วในสัปดาห์นี้",
+  "pt.profile-card.inactive.account.no.date": "บัญชีของผู้ใช้ถูกปิดใช้งานไปแล้ว",
+  "pt.profile-card.more-icon-label": "เพิ่มเติม",
+  "pt.team-profile-card.directReports.heading": "รายงานโดยตรง",
+  "pt.team-profile-card.error.refresh-button": "ลองอีกครั้ง",
+  "pt.team-profile-card.error.suggestion": "โปรดรอสักครู่แล้วลองอีกครั้ง",
+  "pt.team-profile-card.error.title": "เรากำลังมีปัญหาในการเรียกข้อมูลของทีมนี้",
+  "pt.team-profile-card.manager.heading": "ตัวจัดการ",
+  "pt.team-profile-card.team.action.view-profile": "ดูโปรไฟล์",
+  "pt.team-profile-card.team.member.count": "{count, plural, other {ทีม • สมาชิก {count} คน}}",
+  "pt.team-profile-card.team.member.count-including-you": "{count, plural, other {ทีม • สมาชิก {count} คน รวมคุณด้วย}}",
+  "pt.team-profile-card.team.member.many": "ทีม • สมาชิกมากกว่า 50 คน",
+  "pt.team-profile-card.team.member.many-including-you": "ทีม • สมาชิกมากกว่า 50 คน รวมคุณด้วย"
 };

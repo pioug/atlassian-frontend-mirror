@@ -13,18 +13,27 @@ export interface WithMediaClient {
   identifier?: Identifier;
 }
 
-const mediaClientsMap = new Map<MediaClientConfig, MediaClient>();
+const NO_FLAGS = 'NO_FLAGS';
+type SubMap = Map<MediaFeatureFlags | typeof NO_FLAGS, MediaClient>;
+const mediaClientsMap = new Map<MediaClientConfig, SubMap>();
 
 export const getMediaClient = (
   mediaClientConfig: MediaClientConfig,
   featureFlags?: MediaFeatureFlags,
 ): MediaClient => {
-  let mediaClient: MediaClient | undefined =
-    mediaClientsMap.get(mediaClientConfig);
+  const flagsMapKey = featureFlags || NO_FLAGS;
+  let mediaClient: MediaClient | undefined = mediaClientsMap
+    .get(mediaClientConfig)
+    ?.get(flagsMapKey);
 
   if (!mediaClient) {
+    let subMap = mediaClientsMap.get(mediaClientConfig);
+    if (!subMap) {
+      subMap = new Map();
+      mediaClientsMap.set(mediaClientConfig, subMap);
+    }
     mediaClient = new MediaClient(mediaClientConfig, featureFlags);
-    mediaClientsMap.set(mediaClientConfig, mediaClient);
+    subMap.set(flagsMapKey, mediaClient);
   }
   return mediaClient;
 };

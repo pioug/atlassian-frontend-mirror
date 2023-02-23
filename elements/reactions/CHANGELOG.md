@@ -1,5 +1,11 @@
 # @atlaskit/reactions
 
+## 22.2.4
+
+### Patch Changes
+
+- [`c78b97a8b2b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c78b97a8b2b) - Remove explicit width from reaction counter container
+
 ## 22.2.3
 
 ### Patch Changes

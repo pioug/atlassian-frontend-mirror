@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,28 +7,24 @@
  */
 //Polish (Poland)
 export default {
-  'feedback-collector.can-be-contacted.label':
-    'Atlassian może się ze mną kontaktować w związku z tą opinią',
-  'feedback-collector.cancel-button.label': 'Anuluj',
-  'feedback-collector.enrol-in-research.label':
-    'Chcę uczestniczyć w badaniach nad produktem',
-  'feedback-collector.feedback-title': 'Podziel się swoimi przemyśleniami',
-  'feedback-collector.form.bug.label': 'Opisz błąd lub problem',
-  'feedback-collector.form.comment.label': 'Poinformuj nas, w czym problem',
-  'feedback-collector.form.empty.label': 'Wybierz opcję',
-  'feedback-collector.form.question.label': 'Czego chcesz się dowiedzieć?',
-  'feedback-collector.form.suggestion.label':
-    'Daj nam znać, co chcesz poprawić',
-  'feedback-collector.option.bug.label': 'Zgłosić błąd',
-  'feedback-collector.option.comment.label': 'Pozostaw komentarz',
-  'feedback-collector.option.default.label': 'Chcę…',
-  'feedback-collector.option.question.label': 'Zadać pytanie',
-  'feedback-collector.option.suggestion.label': 'Zasugerować ulepszenie',
-  'feedback-collector.submit-button.label': 'Prześlij opinię',
-  'feedback-collector.success-flag.description':
-    'Wartościowe opinie użytkowników pomagają nam stale doskonalić nasze produkty.',
-  'feedback-collector.success-flag.title': 'Dziękuję!',
-  'feedback-collector.summary-placeholder': 'Poinformuj nas, w czym problem',
-  'proforma-form-builder.feedback-icon-label': 'Opinia',
-  'proforma-form-builder.give-feedback': 'Przekaż opinię',
+  "feedback-collector.can-be-contacted.label": "Atlassian może się ze mną kontaktować w związku z tą opinią",
+  "feedback-collector.cancel-button.label": "Anuluj",
+  "feedback-collector.enrol-in-research.label": "Chcę uczestniczyć w badaniach nad produktem",
+  "feedback-collector.feedback-title": "Podziel się swoimi przemyśleniami",
+  "feedback-collector.form.bug.label": "Opisz błąd lub problem",
+  "feedback-collector.form.comment.label": "Poinformuj nas, w czym problem",
+  "feedback-collector.form.empty.label": "Wybierz opcję",
+  "feedback-collector.form.question.label": "Czego chcesz się dowiedzieć?",
+  "feedback-collector.form.suggestion.label": "Daj nam znać, co chcesz poprawić",
+  "feedback-collector.option.bug.label": "Zgłosić błąd",
+  "feedback-collector.option.comment.label": "Pozostaw komentarz",
+  "feedback-collector.option.default.label": "Chcę…",
+  "feedback-collector.option.question.label": "Zadać pytanie",
+  "feedback-collector.option.suggestion.label": "Zasugerować ulepszenie",
+  "feedback-collector.submit-button.label": "Prześlij opinię",
+  "feedback-collector.success-flag.description": "Wartościowe opinie użytkowników pomagają nam stale doskonalić nasze produkty.",
+  "feedback-collector.success-flag.title": "Dziękuję!",
+  "feedback-collector.summary-placeholder": "Poinformuj nas, w czym problem",
+  "proforma-form-builder.feedback-icon-label": "Opinia",
+  "proforma-form-builder.give-feedback": "Przekaż opinię"
 };

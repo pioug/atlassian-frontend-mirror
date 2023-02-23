@@ -51,12 +51,13 @@ const headerStyles = css({
 
 const codeStyles = css({
   display: 'inline-block',
-  padding: '4px 8px',
-  backgroundColor: `${token('color.background.neutral', N20)}`,
-  borderRadius: '3px',
+  backgroundColor: token('color.background.neutral', N20),
+  borderRadius: token('border.radius.100', '3px'),
   color: `${token('color.text', N800)}`,
   fontSize: '1em',
   lineHeight: '20px',
+  paddingBlock: token('space.050', '4px'),
+  paddingInline: token('space.100', '8px'),
 });
 
 const TokenPropsTable = ({
@@ -129,7 +130,7 @@ const TokenPropsTable = ({
                   css={{
                     background: `${token('color.background.neutral', N20)}`,
                     color: `${token('color.text.subtle', N300)}`,
-                    borderRadius: '3px',
+                    borderRadius: token('border.radius.100', '3px'),
                     display: 'inline-block',
                     padding: '0 0.2em',
                     whiteSpace: 'pre-wrap',

@@ -13,6 +13,10 @@ export const THEME_MODES = ['light', 'dark'];
   them dependent on props in the future, it wouldn't require a significant
   refactor everywhere they are being used.
 */
+/**
+ * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-386 Internal documentation for deprecation (no external access)}
+ * @deprecated Use `token('border.radius.100', '3px')` instead.
+ */
 export const borderRadius = () => 3;
 export const gridSize = () => 8;
 export const fontSize = () => 14;
@@ -23,7 +27,8 @@ export const codeFontFamily = () =>
   `'SFMono-Medium', 'SF Mono', 'Segoe UI Mono', 'Roboto Mono', 'Ubuntu Mono', Menlo, Consolas, Courier, monospace`;
 
 /**
- * @deprecated Please use `@atlaskit/focus-ring`
+ * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-386 Internal documentation for deprecation (no external access)}
+ * Please use `@atlaskit/focus-ring` instead.
  */
 export const focusRing = (
   color: string = token('color.border.focused', B100),
@@ -43,7 +48,8 @@ export const focusRing = (
 };
 
 /**
- * @deprecated Please use `@atlaskit/focus-ring`
+ * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-386 Internal documentation for deprecation (no external access)}
+ * Please use `@atlaskit/focus-ring` instead.
  */
 export const noFocusRing = () => `
   box-shadow: none;
@@ -63,7 +69,8 @@ export const layers: { [P in keyof Layers]: () => Layers[P] } = {
 
 // eslint-disable-next-line @atlaskit/design-system/use-visually-hidden
 /**
- * @deprecated Please use `@atlaskit/visually-hidden`
+ * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-386 Internal documentation for deprecation (no external access)}
+ * Please use `@atlaskit/visually-hidden`
  */
 export const visuallyHidden = () => {
   deprecationWarning(
@@ -84,7 +91,8 @@ export const visuallyHidden = () => {
 };
 
 /**
- * @deprecated Please use `@atlaskit/visually-hidden`
+ * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-386 Internal documentation for deprecation (no external access)}
+ * Please use `@atlaskit/visually-hidden`
  */
 export const assistive = visuallyHidden;
 

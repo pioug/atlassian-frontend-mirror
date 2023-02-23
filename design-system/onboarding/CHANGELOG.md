@@ -1,5 +1,11 @@
 # @atlaskit/onboarding
 
+## 10.6.11
+
+### Patch Changes
+
+- [`7f5f23dcb68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7f5f23dcb68) - Introduce shape tokens to some packages.
+
 ## 10.6.10
 
 ### Patch Changes

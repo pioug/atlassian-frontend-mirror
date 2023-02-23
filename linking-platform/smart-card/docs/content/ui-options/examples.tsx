@@ -145,4 +145,19 @@ ${(
     source={require('!!raw-loader!../../../examples/content/ui-options-clickable-container')}
   />
 )}
+
+### Hide hover card preview button
+
+Hide hover preview’s "Full screen view" button.
+
+${(
+  <CustomExample
+    background={true}
+    Component={
+      require('../../../examples/content/ui-options-hide-card-preview-button')
+        .default
+    }
+    source={require('!!raw-loader!../../../examples/content/ui-options-hide-card-preview-button')}
+  />
+)}
 `;

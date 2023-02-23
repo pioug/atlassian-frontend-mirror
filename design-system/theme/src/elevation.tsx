@@ -4,7 +4,13 @@ import { token } from '@atlaskit/tokens';
 import { DN40A, DN50A, DN60A, N40A, N50A, N60A } from './colors';
 import themed from './utils/themed';
 
-// Cards on a board
+/**
+ * __e100__
+ *
+ * Eg. Cards on a board.
+ *
+ * @deprecated use `token('elevation.shadow.raised')` instead.
+ */
 export const e100 = themed({
   light: `box-shadow: ${token(
     'elevation.shadow.raised',
@@ -16,7 +22,13 @@ export const e100 = themed({
   )};`,
 });
 
-// Inline dialogs
+/**
+ * __e200__
+ *
+ * Eg. Inline dialogs.
+ *
+ * @deprecated use `token('elevation.shadow.overlay')` instead.
+ */
 export const e200 = themed({
   light: `box-shadow: ${token(
     'elevation.shadow.overlay',
@@ -28,7 +40,13 @@ export const e200 = themed({
   )};`,
 });
 
-// Modals
+/**
+ * __e300__
+ *
+ * Eg. Modals.
+ *
+ * @deprecated use `token('elevation.shadow.overlay')` instead.
+ */
 export const e300 = themed({
   light: `box-shadow: ${token(
     'elevation.shadow.overlay',
@@ -40,7 +58,13 @@ export const e300 = themed({
   )};`,
 });
 
-// Panels
+/**
+ * __e400__
+ *
+ * Eg. Panels.
+ *
+ * @deprecated use `token('elevation.shadow.overlay')` instead.
+ */
 export const e400 = themed({
   light: `box-shadow: ${token(
     'elevation.shadow.overlay',
@@ -52,7 +76,13 @@ export const e400 = themed({
   )};`,
 });
 
-// Flag messages (notifications)
+/**
+ * __e500__
+ *
+ * Eg. Flags.
+ *
+ * @deprecated use `token('elevation.shadow.overlay')` instead.
+ */
 export const e500 = themed({
   light: `box-shadow: ${token(
     'elevation.shadow.overlay',

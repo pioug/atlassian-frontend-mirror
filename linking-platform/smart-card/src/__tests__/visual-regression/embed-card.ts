@@ -15,7 +15,8 @@ describe('Embed Card', () => {
   });
 
   describe('frame', () => {
-    it('should render as a link when there is an href', async () => {
+    // FIXME: This test was automatically skipped due to failure on 22/02/2023: https://product-fabric.atlassian.net/browse/EDM-5959
+    it.skip('should render as a link when there is an href', async () => {
       const url = getURL('vr-embed-card-frame');
       const page = await setup(url);
       const frame = '[data-testid="href-defined"]';

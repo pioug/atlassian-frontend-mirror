@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,51 +7,34 @@
  */
 //Korean
 export default {
-  'pt.profile-card.closed.account': '계정이 삭제됨',
-  'pt.profile-card.closed.account.has.date.a.few.months':
-    '계정이 몇 달 전에 삭제되었습니다.',
-  'pt.profile-card.closed.account.has.date.last.month':
-    '계정이 지난달에 삭제되었습니다.',
-  'pt.profile-card.closed.account.has.date.more.than.a.year':
-    '계정이 1년 전에 삭제되었습니다.',
-  'pt.profile-card.closed.account.has.date.several.months':
-    '계정이 몇 달 전에 삭제되었습니다.',
-  'pt.profile-card.closed.account.has.date.this.month':
-    '계정이 이번 달에 삭제되었습니다.',
-  'pt.profile-card.closed.account.has.date.this.week':
-    '계정이 이번 주에 삭제되었습니다.',
-  'pt.profile-card.closed.account.no.date': '계정이 삭제되었습니다.',
-  'pt.profile-card.disabled.account.default.name': '이전 사용자',
-  'pt.profile-card.general.msg.disabled.user':
-    '더 이상 이 사람과 협업할 수 없습니다.',
-  'pt.profile-card.give-kudos': '칭찬하기',
-  'pt.profile-card.inactive.account': '계정이 비활성화됨',
-  'pt.profile-card.inactive.account.has.date.a.few.months':
-    '계정이 몇 달 전에 비활성화되었습니다.',
-  'pt.profile-card.inactive.account.has.date.last.month':
-    '계정이 지난달에 비활성화되었습니다.',
-  'pt.profile-card.inactive.account.has.date.more.than.a.year':
-    '계정이 1년 전에 비활성화되었습니다.',
-  'pt.profile-card.inactive.account.has.date.several.months':
-    '계정이 몇 달 전에 비활성화되었습니다.',
-  'pt.profile-card.inactive.account.has.date.this.month':
-    '계정이 이번 달에 비활성화되었습니다.',
-  'pt.profile-card.inactive.account.has.date.this.week':
-    '계정이 이번 주에 비활성화되었습니다.',
-  'pt.profile-card.inactive.account.no.date': '계정이 비활성화되었습니다.',
-  'pt.profile-card.more-icon-label': '더 보기',
-  'pt.team-profile-card.directReports.heading': '부하 직원',
-  'pt.team-profile-card.error.refresh-button': '다시 시도',
-  'pt.team-profile-card.error.suggestion': '잠시 기다린 후에 다시 시도하세요.',
-  'pt.team-profile-card.error.title':
-    '이 팀의 정보를 가져오는 데 문제가 발생했습니다',
-  'pt.team-profile-card.manager.heading': '관리자',
-  'pt.team-profile-card.team.action.view-profile': '프로필 보기',
-  'pt.team-profile-card.team.member.count':
-    '{count, plural, other {팀 • 구성원 {count}명}}',
-  'pt.team-profile-card.team.member.count-including-you':
-    '{count, plural, other {팀 • 자신을 포함하여 구성원 {count}명}}',
-  'pt.team-profile-card.team.member.many': '팀 • 구성원 50명 이상',
-  'pt.team-profile-card.team.member.many-including-you':
-    '팀 • 자신을 포함하여 구성원 50명 이상',
+  "pt.profile-card.closed.account": "계정이 삭제됨",
+  "pt.profile-card.closed.account.has.date.a.few.months": "계정이 몇 달 전에 삭제되었습니다.",
+  "pt.profile-card.closed.account.has.date.last.month": "계정이 지난달에 삭제되었습니다.",
+  "pt.profile-card.closed.account.has.date.more.than.a.year": "계정이 1년 전에 삭제되었습니다.",
+  "pt.profile-card.closed.account.has.date.several.months": "계정이 몇 달 전에 삭제되었습니다.",
+  "pt.profile-card.closed.account.has.date.this.month": "계정이 이번 달에 삭제되었습니다.",
+  "pt.profile-card.closed.account.has.date.this.week": "계정이 이번 주에 삭제되었습니다.",
+  "pt.profile-card.closed.account.no.date": "계정이 삭제되었습니다.",
+  "pt.profile-card.disabled.account.default.name": "이전 사용자",
+  "pt.profile-card.general.msg.disabled.user": "더 이상 이 사람과 협업할 수 없습니다.",
+  "pt.profile-card.give-kudos": "칭찬하기",
+  "pt.profile-card.inactive.account": "계정이 비활성화됨",
+  "pt.profile-card.inactive.account.has.date.a.few.months": "계정이 몇 달 전에 비활성화되었습니다.",
+  "pt.profile-card.inactive.account.has.date.last.month": "계정이 지난달에 비활성화되었습니다.",
+  "pt.profile-card.inactive.account.has.date.more.than.a.year": "계정이 1년 전에 비활성화되었습니다.",
+  "pt.profile-card.inactive.account.has.date.several.months": "계정이 몇 달 전에 비활성화되었습니다.",
+  "pt.profile-card.inactive.account.has.date.this.month": "계정이 이번 달에 비활성화되었습니다.",
+  "pt.profile-card.inactive.account.has.date.this.week": "계정이 이번 주에 비활성화되었습니다.",
+  "pt.profile-card.inactive.account.no.date": "계정이 비활성화되었습니다.",
+  "pt.profile-card.more-icon-label": "더 보기",
+  "pt.team-profile-card.directReports.heading": "부하 직원",
+  "pt.team-profile-card.error.refresh-button": "다시 시도",
+  "pt.team-profile-card.error.suggestion": "잠시 기다린 후에 다시 시도하세요.",
+  "pt.team-profile-card.error.title": "이 팀의 정보를 가져오는 데 문제가 발생했습니다",
+  "pt.team-profile-card.manager.heading": "관리자",
+  "pt.team-profile-card.team.action.view-profile": "프로필 보기",
+  "pt.team-profile-card.team.member.count": "{count, plural, other {팀 • 구성원 {count}명}}",
+  "pt.team-profile-card.team.member.count-including-you": "{count, plural, other {팀 • 자신을 포함하여 구성원 {count}명}}",
+  "pt.team-profile-card.team.member.many": "팀 • 구성원 50명 이상",
+  "pt.team-profile-card.team.member.many-including-you": "팀 • 자신을 포함하여 구성원 50명 이상"
 };

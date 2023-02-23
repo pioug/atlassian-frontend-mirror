@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,30 +7,24 @@
  */
 //German (Germany)
 export default {
-  'feedback-collector.can-be-contacted.label':
-    'Ich bin damit einverstanden, dass Atlassian mich zu diesem Feedbacks kontaktiert.',
-  'feedback-collector.cancel-button.label': 'Abbrechen',
-  'feedback-collector.enrol-in-research.label':
-    'Ich würde gerne an der Produktforschung teilnehmen.',
-  'feedback-collector.feedback-title': 'Teilen Sie uns Ihre Meinung mit',
-  'feedback-collector.form.bug.label':
-    'Beschreiben Sie den Bug oder den Vorgang.',
-  'feedback-collector.form.comment.label': 'Teilen Sie uns Ihre Meinung mit.',
-  'feedback-collector.form.empty.label': 'Wählen Sie eine Option aus.',
-  'feedback-collector.form.question.label': 'Was möchten Sie wissen?',
-  'feedback-collector.form.suggestion.label':
-    'Teilen Sie uns mit, was Ihrer Meinung nach verbessert werden sollte.',
-  'feedback-collector.option.bug.label': 'Einen Bug melden',
-  'feedback-collector.option.comment.label': 'Einen Kommentar hinterlassen',
-  'feedback-collector.option.default.label': 'Ich möchte …',
-  'feedback-collector.option.question.label': 'Eine Frage stellen',
-  'feedback-collector.option.suggestion.label':
-    'Einen Verbesserungsvorschlag machen',
-  'feedback-collector.submit-button.label': 'Feedback senden',
-  'feedback-collector.success-flag.description':
-    'Ihr Feedback hilft uns dabei, unsere Produkte ständig zu verbessern.',
-  'feedback-collector.success-flag.title': 'Vielen Dank!',
-  'feedback-collector.summary-placeholder': 'Teilen Sie uns Ihre Meinung mit.',
-  'proforma-form-builder.feedback-icon-label': 'Feedback',
-  'proforma-form-builder.give-feedback': 'Feedback geben',
+  "feedback-collector.can-be-contacted.label": "Ich bin damit einverstanden, dass Atlassian mich zu diesem Feedbacks kontaktiert.",
+  "feedback-collector.cancel-button.label": "Abbrechen",
+  "feedback-collector.enrol-in-research.label": "Ich würde gerne an der Produktforschung teilnehmen.",
+  "feedback-collector.feedback-title": "Teilen Sie uns Ihre Meinung mit",
+  "feedback-collector.form.bug.label": "Beschreiben Sie den Bug oder den Vorgang.",
+  "feedback-collector.form.comment.label": "Teilen Sie uns Ihre Meinung mit.",
+  "feedback-collector.form.empty.label": "Wählen Sie eine Option aus.",
+  "feedback-collector.form.question.label": "Was möchten Sie wissen?",
+  "feedback-collector.form.suggestion.label": "Teilen Sie uns mit, was Ihrer Meinung nach verbessert werden sollte.",
+  "feedback-collector.option.bug.label": "Einen Bug melden",
+  "feedback-collector.option.comment.label": "Einen Kommentar hinterlassen",
+  "feedback-collector.option.default.label": "Ich möchte …",
+  "feedback-collector.option.question.label": "Eine Frage stellen",
+  "feedback-collector.option.suggestion.label": "Einen Verbesserungsvorschlag machen",
+  "feedback-collector.submit-button.label": "Feedback senden",
+  "feedback-collector.success-flag.description": "Ihr Feedback hilft uns dabei, unsere Produkte ständig zu verbessern.",
+  "feedback-collector.success-flag.title": "Vielen Dank!",
+  "feedback-collector.summary-placeholder": "Teilen Sie uns Ihre Meinung mit.",
+  "proforma-form-builder.feedback-icon-label": "Feedback",
+  "proforma-form-builder.give-feedback": "Feedback geben"
 };

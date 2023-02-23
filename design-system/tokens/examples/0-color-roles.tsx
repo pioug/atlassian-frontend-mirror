@@ -154,7 +154,8 @@ const boxStyles = css({
   marginTop: '1em',
   padding: '1em',
   alignItems: 'center',
-  borderRadius: '3px',
+  // eslint-disable-next-line
+  borderRadius: token('border.radius.100', '3px'),
   textAlign: 'left',
   ':hover': {
     cursor: 'pointer',

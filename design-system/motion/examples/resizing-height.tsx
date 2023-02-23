@@ -66,7 +66,7 @@ export default () => {
             // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
             marginBottom: '56px',
             paddingBottom: token('space.100', '8px'),
-            borderRadius: '3px',
+            borderRadius: token('border.radius.100', '3px'),
             boxShadow: token(
               'elevation.shadow.overlay',
               `0 20px 32px -8px ${N50A}, 0 0 1px ${N60A}`,

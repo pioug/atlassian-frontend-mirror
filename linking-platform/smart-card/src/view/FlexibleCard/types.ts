@@ -123,6 +123,12 @@ export type FlexibleUiOptions = {
    * Can be Black or Link (default URL blue)
    */
   theme?: SmartLinkTheme;
+
+  /**
+   * Determines whether to hide hover preview's full screen view.
+   * Only applies if showHoverPreview from FlexibleCardProps is true
+   */
+  hideHoverCardPreviewButton?: boolean;
 };
 
 /**

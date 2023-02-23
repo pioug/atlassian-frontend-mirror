@@ -3,6 +3,8 @@ import { useEffect, useRef } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
+import { token } from '@atlaskit/tokens';
+
 import FocusRing from '../../src';
 
 const buttonStyles = css({
@@ -10,7 +12,7 @@ const buttonStyles = css({
   margin: '12px 0',
   padding: 8,
   border: 'none',
-  borderRadius: '3px',
+  borderRadius: token('border.radius.100', '3px'),
 });
 
 const spacerStyles = css({

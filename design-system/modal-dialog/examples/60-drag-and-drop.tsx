@@ -40,7 +40,7 @@ const baseCardStyles = css({
   background: token('color.background.warning', Y75),
 
   borderBottom: `1px solid ${token('color.border.danger', R200)}`,
-  borderRadius: '3px',
+  borderRadius: token('border.radius.100', '3px'),
 
   cursor: 'pointer',
   userSelect: 'none',

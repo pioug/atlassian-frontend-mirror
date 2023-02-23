@@ -1,5 +1,11 @@
 # @atlaskit/ds-explorations
 
+## 2.0.4
+
+### Patch Changes
+
+- [`7f5f23dcb68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7f5f23dcb68) - Introduce shape tokens to some packages.
+
 ## 2.0.3
 
 ### Patch Changes

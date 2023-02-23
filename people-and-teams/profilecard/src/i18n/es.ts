@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,52 +7,34 @@
  */
 //Spanish (International)
 export default {
-  'pt.profile-card.closed.account': 'Cuenta eliminada',
-  'pt.profile-card.closed.account.has.date.a.few.months':
-    'Su cuenta se desactivó hace algunos meses.',
-  'pt.profile-card.closed.account.has.date.last.month':
-    'Su cuenta se eliminó el mes pasado.',
-  'pt.profile-card.closed.account.has.date.more.than.a.year':
-    'Su cuenta se eliminó hace más de un año.',
-  'pt.profile-card.closed.account.has.date.several.months':
-    'Su cuenta se eliminó hace varios meses.',
-  'pt.profile-card.closed.account.has.date.this.month':
-    'Su cuenta se ha eliminado este mes.',
-  'pt.profile-card.closed.account.has.date.this.week':
-    'Su cuenta se ha eliminado esta semana.',
-  'pt.profile-card.closed.account.no.date': 'Su cuenta está eliminada.',
-  'pt.profile-card.disabled.account.default.name': 'Antiguo usuario',
-  'pt.profile-card.general.msg.disabled.user':
-    'Ya no puedes colaborar con esta persona.',
-  'pt.profile-card.give-kudos': 'Felicitar',
-  'pt.profile-card.inactive.account': 'Cuenta desactivada',
-  'pt.profile-card.inactive.account.has.date.a.few.months':
-    'Su cuenta se desactivó hace algunos meses.',
-  'pt.profile-card.inactive.account.has.date.last.month':
-    'Su cuenta se desactivó el mes pasado.',
-  'pt.profile-card.inactive.account.has.date.more.than.a.year':
-    'Su cuenta se desactivó hace más de un año.',
-  'pt.profile-card.inactive.account.has.date.several.months':
-    'Su cuenta se desactivó hace varios meses.',
-  'pt.profile-card.inactive.account.has.date.this.month':
-    'Su cuenta se ha desactivado este mes.',
-  'pt.profile-card.inactive.account.has.date.this.week':
-    'Su cuenta se ha desactivado esta semana.',
-  'pt.profile-card.inactive.account.no.date': 'Su cuenta está desactivada.',
-  'pt.profile-card.more-icon-label': 'Más',
-  'pt.team-profile-card.directReports.heading': 'Subordinados directos',
-  'pt.team-profile-card.error.refresh-button': 'Volver a intentarlo',
-  'pt.team-profile-card.error.suggestion':
-    'Espera unos momentos y vuelve a intentarlo.',
-  'pt.team-profile-card.error.title':
-    'Estamos teniendo algunos problemas para recuperar la información de este equipo',
-  'pt.team-profile-card.manager.heading': 'Gerente',
-  'pt.team-profile-card.team.action.view-profile': 'Ver perfil',
-  'pt.team-profile-card.team.member.count':
-    '{count, plural, one {Equipo • {count} miembro} other {Equipo • {count} miembros}}',
-  'pt.team-profile-card.team.member.count-including-you':
-    '{count, plural, one {Equipo • {count} miembro, incluyéndote a ti} other {Equipo • {count} miembros, incluyéndote a ti}}',
-  'pt.team-profile-card.team.member.many': 'Equipo • Más de 50 miembros',
-  'pt.team-profile-card.team.member.many-including-you':
-    'Equipo • Más de 50 miembros, incluyéndote a ti',
+  "pt.profile-card.closed.account": "Cuenta eliminada",
+  "pt.profile-card.closed.account.has.date.a.few.months": "Su cuenta se desactivó hace algunos meses.",
+  "pt.profile-card.closed.account.has.date.last.month": "Su cuenta se eliminó el mes pasado.",
+  "pt.profile-card.closed.account.has.date.more.than.a.year": "Su cuenta se eliminó hace más de un año.",
+  "pt.profile-card.closed.account.has.date.several.months": "Su cuenta se eliminó hace varios meses.",
+  "pt.profile-card.closed.account.has.date.this.month": "Su cuenta se ha eliminado este mes.",
+  "pt.profile-card.closed.account.has.date.this.week": "Su cuenta se ha eliminado esta semana.",
+  "pt.profile-card.closed.account.no.date": "Su cuenta está eliminada.",
+  "pt.profile-card.disabled.account.default.name": "Antiguo usuario",
+  "pt.profile-card.general.msg.disabled.user": "Ya no puedes colaborar con esta persona.",
+  "pt.profile-card.give-kudos": "Felicitar",
+  "pt.profile-card.inactive.account": "Cuenta desactivada",
+  "pt.profile-card.inactive.account.has.date.a.few.months": "Su cuenta se desactivó hace algunos meses.",
+  "pt.profile-card.inactive.account.has.date.last.month": "Su cuenta se desactivó el mes pasado.",
+  "pt.profile-card.inactive.account.has.date.more.than.a.year": "Su cuenta se desactivó hace más de un año.",
+  "pt.profile-card.inactive.account.has.date.several.months": "Su cuenta se desactivó hace varios meses.",
+  "pt.profile-card.inactive.account.has.date.this.month": "Su cuenta se ha desactivado este mes.",
+  "pt.profile-card.inactive.account.has.date.this.week": "Su cuenta se ha desactivado esta semana.",
+  "pt.profile-card.inactive.account.no.date": "Su cuenta está desactivada.",
+  "pt.profile-card.more-icon-label": "Más",
+  "pt.team-profile-card.directReports.heading": "Subordinados directos",
+  "pt.team-profile-card.error.refresh-button": "Volver a intentarlo",
+  "pt.team-profile-card.error.suggestion": "Espera unos momentos y vuelve a intentarlo.",
+  "pt.team-profile-card.error.title": "Estamos teniendo algunos problemas para recuperar la información de este equipo",
+  "pt.team-profile-card.manager.heading": "Gerente",
+  "pt.team-profile-card.team.action.view-profile": "Ver perfil",
+  "pt.team-profile-card.team.member.count": "{count, plural, one {Equipo • {count} miembro} other {Equipo • {count} miembros}}",
+  "pt.team-profile-card.team.member.count-including-you": "{count, plural, one {Equipo • {count} miembro, incluyéndote a ti} other {Equipo • {count} miembros, incluyéndote a ti}}",
+  "pt.team-profile-card.team.member.many": "Equipo • Más de 50 miembros",
+  "pt.team-profile-card.team.member.many-including-you": "Equipo • Más de 50 miembros, incluyéndote a ti"
 };

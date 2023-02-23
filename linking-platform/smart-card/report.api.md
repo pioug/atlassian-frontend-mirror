@@ -540,6 +540,7 @@ type FlexibleUiOptions = {
   hideBackground?: boolean;
   size?: SmartLinkSize;
   theme?: SmartLinkTheme;
+  hideHoverCardPreviewButton?: boolean;
 };
 
 // @public

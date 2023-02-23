@@ -57,9 +57,9 @@ export const simpleMockData: {
 } = {
   [getReactionKey(containerAri, ari)]: [
     getReactionSummary(':fire:', 1, true),
-    getReactionSummary(':thumbsup:', 999, false),
-    getReactionSummary(':astonished:', 9, false),
-    getReactionSummary(':heart:', 99, false),
+    getReactionSummary(':thumbsup:', 33, false),
+    getReactionSummary(':astonished:', 99, false),
+    getReactionSummary(':heart:', 44, false), // Widest character
   ],
 };
 

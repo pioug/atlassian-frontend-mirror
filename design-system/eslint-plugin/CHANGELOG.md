@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 4.15.5
+
+### Patch Changes
+
+- [`dda18b361da`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dda18b361da) - Bump version of `eslint-codemod-utils`.
+
 ## 4.15.4
 
 ### Patch Changes

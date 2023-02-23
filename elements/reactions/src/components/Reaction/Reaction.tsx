@@ -148,6 +148,7 @@ export const Reaction: React.FC<ReactionProps> = ({
     handleUserListClick(emojiId);
     setIsTooltipEnabled(false);
   };
+
   return (
     <ReactionTooltip
       emojiName={emojiName}

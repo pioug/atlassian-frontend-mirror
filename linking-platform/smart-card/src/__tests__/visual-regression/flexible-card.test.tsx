@@ -294,8 +294,8 @@ describe('Flexible Card', () => {
         height: height,
       });
 
-      await page.waitForSelector('[data-testid="smart-element-icon-icon"]');
-      await page.hover('[data-testid="smart-element-icon-icon"]');
+      await page.waitForSelector('[data-testid="smart-element-icon"]');
+      await page.hover('[data-testid="smart-element-icon"]');
       await page.waitForSelector(
         '[data-testid="hover-card-open-button-button-wrapper"]',
       );
@@ -306,14 +306,16 @@ describe('Flexible Card', () => {
         '[data-testid="smart-block-metadata-resolved-view"]',
       );
       await page.waitForSelector(
-        '[data-testid="smart-block-preview-resolved-view"]',
+        '[data-testid="smart-block-snippet-resolved-view"]',
+      );
+      await page.waitForSelector(
+        '[data-testid="smart-footer-block-resolved-view"]',
       );
 
       return page;
     };
 
-    // FIXME: This test was automatically skipped due to failure on 12/02/2023: https://product-fabric.atlassian.net/browse/EDM-5723
-    it.skip('should open below trigger component when there is room below in viewport', async () => {
+    it('should open below trigger component when there is room below in viewport', async () => {
       const height = 500;
 
       const page = await renderHoverCard('vr-flexible-ui-hover-card', height);
@@ -327,6 +329,18 @@ describe('Flexible Card', () => {
 
       const page = await renderHoverCard(
         'vr-flexible-ui-hover-card-limited-space',
+        height,
+      );
+
+      const image = await takeSnapshot(page, height);
+      expect(image).toMatchProdImageSnapshot();
+    });
+
+    it('should not show the preview button when it is disabled via the ui.hideHoverCardPreviewButton prop', async () => {
+      const height = 500;
+
+      const page = await renderHoverCard(
+        'vr-flexible-ui-hover-card-no-preview-button',
         height,
       );
 

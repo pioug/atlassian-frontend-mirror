@@ -390,7 +390,7 @@ const TokenExplorer = ({ scrollOffset, testId }: TokenExplorerProps) => {
               alignItems: 'center',
             }}
           >
-            <SearchIcon css={{ display: 'block' }} size="small" label="" />
+            <SearchIcon size="small" label="" />
           </div>
         }
         elemAfterInput={
@@ -407,11 +407,7 @@ const TokenExplorer = ({ scrollOffset, testId }: TokenExplorerProps) => {
                     handleSearch('');
                   }}
                 >
-                  <CrossIcon
-                    css={{ display: 'block' }}
-                    size="small"
-                    label="Clear search"
-                  />
+                  <CrossIcon size="small" label="Clear search" />
                 </button>
               </FocusRing>
             </ToolTip>

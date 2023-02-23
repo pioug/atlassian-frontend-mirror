@@ -12,6 +12,7 @@ import {
   OpsgenieIcon,
   StatuspageIcon,
 } from '@atlaskit/logo';
+import { token } from '@atlaskit/tokens';
 
 import { Block, RetryContainer } from '../examples-utils';
 import { ExitingPersistence, FadeIn, StaggeredEntrance } from '../src';
@@ -65,7 +66,7 @@ export default () => {
                         css={{
                           width: '100%',
                           height: '48px',
-                          borderRadius: '3px',
+                          borderRadius: token('border.radius.100', '3px'),
                         }}
                       >
                         <div

@@ -7,8 +7,7 @@ import Button, { ButtonGroup } from '@atlaskit/button';
 import { token } from '@atlaskit/tokens';
 
 import Modal, { ModalTransition } from '../../src';
-
-import welcomeImage from './assets/this-is-new-jira.png';
+import welcomeImage from '../images/this-is-new-jira.png';
 
 const containerStyles = css({
   padding: token('space.500', '40px'),

@@ -1,5 +1,11 @@
 # @atlaskit/modal-dialog
 
+## 12.4.11
+
+### Patch Changes
+
+- [`7f5f23dcb68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7f5f23dcb68) - Introduce shape tokens to some packages.
+
 ## 12.4.10
 
 ### Patch Changes

@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,26 +7,24 @@
  */
 //Chinese (Traditional)
 export default {
-  'feedback-collector.can-be-contacted.label':
-    'Atlassian 可以連絡我來了解此意見反應',
-  'feedback-collector.cancel-button.label': '取消',
-  'feedback-collector.enrol-in-research.label': '我想要參與產品研究',
-  'feedback-collector.feedback-title': '分享您的想法',
-  'feedback-collector.form.bug.label': '描述錯誤或問題',
-  'feedback-collector.form.comment.label': '讓我們知道您的想法',
-  'feedback-collector.form.empty.label': '選取選項',
-  'feedback-collector.form.question.label': '您想要知道什麼？',
-  'feedback-collector.form.suggestion.label': '讓我們知道您希望改善的項目',
-  'feedback-collector.option.bug.label': '回報錯誤',
-  'feedback-collector.option.comment.label': '留下留言',
-  'feedback-collector.option.default.label': '我想要...',
-  'feedback-collector.option.question.label': '提出問題',
-  'feedback-collector.option.suggestion.label': '建議改進',
-  'feedback-collector.submit-button.label': '傳送意見反應',
-  'feedback-collector.success-flag.description':
-    '您的意見反應很珍貴，能幫助我們持續改善產品。',
-  'feedback-collector.success-flag.title': '謝謝！',
-  'feedback-collector.summary-placeholder': '讓我們知道您的想法',
-  'proforma-form-builder.feedback-icon-label': '意見反應',
-  'proforma-form-builder.give-feedback': '提供意見反應',
+  "feedback-collector.can-be-contacted.label": "Atlassian 可以連絡我來了解此意見反應",
+  "feedback-collector.cancel-button.label": "取消",
+  "feedback-collector.enrol-in-research.label": "我想要參與產品研究",
+  "feedback-collector.feedback-title": "分享您的想法",
+  "feedback-collector.form.bug.label": "描述錯誤或問題",
+  "feedback-collector.form.comment.label": "讓我們知道您的想法",
+  "feedback-collector.form.empty.label": "選取選項",
+  "feedback-collector.form.question.label": "您想要知道什麼？",
+  "feedback-collector.form.suggestion.label": "讓我們知道您希望改善的項目",
+  "feedback-collector.option.bug.label": "回報錯誤",
+  "feedback-collector.option.comment.label": "留下留言",
+  "feedback-collector.option.default.label": "我想要...",
+  "feedback-collector.option.question.label": "提出問題",
+  "feedback-collector.option.suggestion.label": "建議改進",
+  "feedback-collector.submit-button.label": "傳送意見反應",
+  "feedback-collector.success-flag.description": "您的意見反應很珍貴，能幫助我們持續改善產品。",
+  "feedback-collector.success-flag.title": "謝謝！",
+  "feedback-collector.summary-placeholder": "讓我們知道您的想法",
+  "proforma-form-builder.feedback-icon-label": "意見反應",
+  "proforma-form-builder.give-feedback": "提供意見反應"
 };

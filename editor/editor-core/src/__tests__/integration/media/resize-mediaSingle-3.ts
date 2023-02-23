@@ -19,7 +19,7 @@ import tableWithOneCellAdfAndMedia from './_fixtures_/tableWithOneCellAdfAndMedi
 BrowserTestCase(
   'resize-mediaSingle.ts: Image is resized in 1x1 table with different layouts',
   {
-    skip: ['*'],
+    skip: [],
   },
   async (browserObject: BrowserObject) => {
     let page: Page = await goToEditorTestingWDExample(browserObject);

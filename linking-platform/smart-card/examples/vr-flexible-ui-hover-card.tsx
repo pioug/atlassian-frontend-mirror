@@ -1,14 +1,15 @@
 /** @jsx jsx */
 import { VRTestWrapper } from './utils/vr-test';
 import { getJsonLdResponse } from './utils/flexible-ui';
+import { JiraIssue } from '../examples-helpers/_jsonLDExamples/provider.jira';
 import { TitleBlock, SnippetBlock, Card, Provider } from '../src/index';
 import { jsx } from '@emotion/react';
 import { CardClient } from '@atlaskit/link-provider';
-import { unicornResponse } from './content/example-responses';
+
 class MaximumResolvedCustomClient extends CardClient {
   fetchData(url: string) {
     return Promise.resolve(
-      getJsonLdResponse(url, unicornResponse.meta, unicornResponse.data),
+      getJsonLdResponse(url, JiraIssue.meta, JiraIssue.data),
     );
   }
 }

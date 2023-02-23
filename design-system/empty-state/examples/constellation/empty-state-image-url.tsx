@@ -3,8 +3,7 @@ import React from 'react';
 import Button from '@atlaskit/button/standard-button';
 
 import EmptyState from '../../src';
-
-import LockClosedImage from './images/LockClosed.png';
+import LockClosedImage from '../images/LockClosed.png';
 
 const EmptyStateImageUrlExample = () => {
   return (

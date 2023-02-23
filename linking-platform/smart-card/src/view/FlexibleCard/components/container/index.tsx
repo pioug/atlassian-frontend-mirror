@@ -230,6 +230,7 @@ const Container: React.FC<ContainerProps> = ({
   clickableContainer = false,
   hideBackground = false,
   hideElevation = false,
+  hideHoverCardPreviewButton = false,
   hidePadding = false,
   showHoverPreview = false,
   onClick,
@@ -283,6 +284,7 @@ const Container: React.FC<ContainerProps> = ({
         url={context?.url}
         canOpen={hoverCardCanOpen}
         closeOnChildClick={true}
+        hidePreviewButton={hideHoverCardPreviewButton}
       >
         {containerContent}
       </HoverCard>

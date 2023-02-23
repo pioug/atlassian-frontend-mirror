@@ -1,5 +1,11 @@
 # @atlaskit/theme
 
+## 12.2.9
+
+### Patch Changes
+
+- [`7f5f23dcb68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7f5f23dcb68) - Introduce shape tokens to some packages.
+
 ## 12.2.8
 
 ### Patch Changes

@@ -90,7 +90,8 @@ const boxStyles = css({
   marginTop: '1em',
   padding: '1em',
   alignItems: 'center',
-  borderRadius: '3px',
+  // eslint-disable-next-line
+  borderRadius: token('border.radius.100', '3px'),
   textAlign: 'left',
   transition: 'box-shadow 200ms, background 200ms, border 200ms',
 });

@@ -1,5 +1,11 @@
 # @atlaskit/motion
 
+## 1.3.1
+
+### Patch Changes
+
+- [`7f5f23dcb68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7f5f23dcb68) - Introduce shape tokens to some packages.
+
 ## 1.3.0
 
 ### Minor Changes

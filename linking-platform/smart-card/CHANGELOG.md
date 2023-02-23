@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 24.2.0
+
+### Minor Changes
+
+- [`ef5f28bfbcb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ef5f28bfbcb) - [ux] Support to hide the full screen view button in hover previews was added. A new prop 'hideHoverCardPreviewButton' was added to FlexibleUiOptions which allows for not showing the button in the hover preview shown on flexui cards. A new prop was also added to standlone hover card called 'hidePreviewButton' which allows for removing the same button when directly consuming hover card.
+
 ## 24.1.3
 
 ### Patch Changes

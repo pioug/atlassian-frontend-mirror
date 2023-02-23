@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,52 +7,34 @@
  */
 //Russian
 export default {
-  'pt.profile-card.closed.account': 'Аккаунт удален',
-  'pt.profile-card.closed.account.has.date.a.few.months':
-    'Его аккаунт был удален несколько месяцев назад.',
-  'pt.profile-card.closed.account.has.date.last.month':
-    'Его аккаунт был удален в прошлом месяце.',
-  'pt.profile-card.closed.account.has.date.more.than.a.year':
-    'Его аккаунт был удален более года назад.',
-  'pt.profile-card.closed.account.has.date.several.months':
-    'Его аккаунт удален уже несколько месяцев назад.',
-  'pt.profile-card.closed.account.has.date.this.month':
-    'Его аккаунт был удален в этом месяце.',
-  'pt.profile-card.closed.account.has.date.this.week':
-    'Его аккаунт был удален на этой неделе.',
-  'pt.profile-card.closed.account.no.date': 'Его аккаунт был удален.',
-  'pt.profile-card.disabled.account.default.name': 'Бывший пользователь',
-  'pt.profile-card.general.msg.disabled.user':
-    'Вы больше не можете работать с этим пользователем.',
-  'pt.profile-card.give-kudos': 'Похвалить',
-  'pt.profile-card.inactive.account': 'Аккаунт отключен',
-  'pt.profile-card.inactive.account.has.date.a.few.months':
-    'Его аккаунт был отключен несколько месяцев назад.',
-  'pt.profile-card.inactive.account.has.date.last.month':
-    'Его аккаунт был отключен в прошлом месяце.',
-  'pt.profile-card.inactive.account.has.date.more.than.a.year':
-    'Его аккаунт был отключен более года назад.',
-  'pt.profile-card.inactive.account.has.date.several.months':
-    'Его аккаунт уже несколько месяцев отключен.',
-  'pt.profile-card.inactive.account.has.date.this.month':
-    'Его аккаунт был отключен в этом месяце.',
-  'pt.profile-card.inactive.account.has.date.this.week':
-    'Его аккаунт был отключен на этой неделе.',
-  'pt.profile-card.inactive.account.no.date': 'Его аккаунт был отключен.',
-  'pt.profile-card.more-icon-label': 'Еще',
-  'pt.team-profile-card.directReports.heading': 'Прямые подчиненные',
-  'pt.team-profile-card.error.refresh-button': 'Повторить попытку',
-  'pt.team-profile-card.error.suggestion':
-    'Повторите попытку через несколько секунд.',
-  'pt.team-profile-card.error.title':
-    'При получении данных этой команды возникла проблема',
-  'pt.team-profile-card.manager.heading': 'Менеджер',
-  'pt.team-profile-card.team.action.view-profile': 'Посмотреть профиль',
-  'pt.team-profile-card.team.member.count':
-    '{count, plural, one {Команда • {count} участник} few {Команда • {count} участника} many {Команда • {count} участников} other {Команда • {count} участника}}',
-  'pt.team-profile-card.team.member.count-including-you':
-    '{count, plural, one {Команда • {count} участник, включая вас} few {Команда • {count} участника, включая вас} many {Команда • {count} участников, включая вас} other {Команда • {count} участника, включая вас}}',
-  'pt.team-profile-card.team.member.many': 'Команда • более 50 участников',
-  'pt.team-profile-card.team.member.many-including-you':
-    'Команда • более 50 участников, включая вас',
+  "pt.profile-card.closed.account": "Аккаунт удален",
+  "pt.profile-card.closed.account.has.date.a.few.months": "Его аккаунт был удален несколько месяцев назад.",
+  "pt.profile-card.closed.account.has.date.last.month": "Его аккаунт был удален в прошлом месяце.",
+  "pt.profile-card.closed.account.has.date.more.than.a.year": "Его аккаунт был удален более года назад.",
+  "pt.profile-card.closed.account.has.date.several.months": "Его аккаунт удален уже несколько месяцев назад.",
+  "pt.profile-card.closed.account.has.date.this.month": "Его аккаунт был удален в этом месяце.",
+  "pt.profile-card.closed.account.has.date.this.week": "Его аккаунт был удален на этой неделе.",
+  "pt.profile-card.closed.account.no.date": "Его аккаунт был удален.",
+  "pt.profile-card.disabled.account.default.name": "Бывший пользователь",
+  "pt.profile-card.general.msg.disabled.user": "Вы больше не можете работать с этим пользователем.",
+  "pt.profile-card.give-kudos": "Похвалить",
+  "pt.profile-card.inactive.account": "Аккаунт отключен",
+  "pt.profile-card.inactive.account.has.date.a.few.months": "Его аккаунт был отключен несколько месяцев назад.",
+  "pt.profile-card.inactive.account.has.date.last.month": "Его аккаунт был отключен в прошлом месяце.",
+  "pt.profile-card.inactive.account.has.date.more.than.a.year": "Его аккаунт был отключен более года назад.",
+  "pt.profile-card.inactive.account.has.date.several.months": "Его аккаунт уже несколько месяцев отключен.",
+  "pt.profile-card.inactive.account.has.date.this.month": "Его аккаунт был отключен в этом месяце.",
+  "pt.profile-card.inactive.account.has.date.this.week": "Его аккаунт был отключен на этой неделе.",
+  "pt.profile-card.inactive.account.no.date": "Его аккаунт был отключен.",
+  "pt.profile-card.more-icon-label": "Еще",
+  "pt.team-profile-card.directReports.heading": "Прямые подчиненные",
+  "pt.team-profile-card.error.refresh-button": "Повторить попытку",
+  "pt.team-profile-card.error.suggestion": "Повторите попытку через несколько секунд.",
+  "pt.team-profile-card.error.title": "При получении данных этой команды возникла проблема",
+  "pt.team-profile-card.manager.heading": "Менеджер",
+  "pt.team-profile-card.team.action.view-profile": "Посмотреть профиль",
+  "pt.team-profile-card.team.member.count": "{count, plural, one {Команда • {count} участник} few {Команда • {count} участника} many {Команда • {count} участников} other {Команда • {count} участника}}",
+  "pt.team-profile-card.team.member.count-including-you": "{count, plural, one {Команда • {count} участник, включая вас} few {Команда • {count} участника, включая вас} many {Команда • {count} участников, включая вас} other {Команда • {count} участника, включая вас}}",
+  "pt.team-profile-card.team.member.many": "Команда • более 50 участников",
+  "pt.team-profile-card.team.member.many-including-you": "Команда • более 50 участников, включая вас"
 };

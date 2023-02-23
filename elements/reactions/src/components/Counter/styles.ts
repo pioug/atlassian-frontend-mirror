@@ -12,12 +12,15 @@ export const countStyle = css({
   lineHeight: '14px',
 });
 
-export const highlightStyle = css({
-  color: token('color.text.selected', B400),
-  fontWeight: 600,
-});
-
 export const containerStyle = css({
   display: 'flex',
   flexDirection: 'column',
+});
+
+export const highlightStyle = css({
+  color: token('color.text.selected', B400),
+});
+
+export const counterLabelStyle = css({
+  fontVariantNumeric: 'tabular-nums',
 });

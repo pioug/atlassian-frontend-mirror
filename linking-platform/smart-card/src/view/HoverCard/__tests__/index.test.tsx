@@ -28,7 +28,7 @@ import { fireEvent, render, cleanup, waitFor } from '@testing-library/react';
 import { withAnalyticsContext } from '@atlaskit/analytics-next';
 import { fakeFactory } from '../../../utils/mocks';
 import { CardClient } from '@atlaskit/link-provider';
-import { Provider, ProviderProps, TitleBlock } from '../../..';
+import { CardProps, Provider, ProviderProps, TitleBlock } from '../../..';
 import * as analytics from '../../../utils/analytics/analytics';
 import { Card } from '../../Card';
 import { IntlProvider } from 'react-intl-next';
@@ -52,12 +52,19 @@ describe('HoverCard', () => {
   let mockFetch: jest.Mock;
   let mockUrl: string;
 
-  const setup = async (
-    mock: any = mockConfluenceResponse,
-    featureFlags?: ProviderProps['featureFlags'],
+  const setup = async ({
+    mock = mockConfluenceResponse,
+    featureFlags,
     testId = 'inline-card-resolved-view',
-    component?: ReactElement,
-  ) => {
+    component,
+    extraCardProps,
+  }: {
+    mock?: any;
+    featureFlags?: ProviderProps['featureFlags'];
+    testId?: string;
+    component?: ReactElement;
+    extraCardProps?: Partial<CardProps>;
+  } = {}) => {
     mockFetch = jest.fn(() => Promise.resolve(mock));
     mockClient = new (fakeFactory(mockFetch))();
     mockUrl = 'https://some.url';
@@ -73,7 +80,12 @@ describe('HoverCard', () => {
             {component ? (
               component
             ) : (
-              <Card appearance="inline" url={mockUrl} showHoverPreview={true} />
+              <Card
+                appearance="inline"
+                url={mockUrl}
+                showHoverPreview={true}
+                {...extraCardProps}
+              />
             )}
           </Provider>
         </IntlProvider>
@@ -145,9 +157,9 @@ describe('HoverCard', () => {
     });
 
     it('should render preview instead of snippet when preview data is available', async () => {
-      const { findByTestId, queryByTestId } = await setup(
-        mockBaseResponseWithPreview,
-      );
+      const { findByTestId, queryByTestId } = await setup({
+        mock: mockBaseResponseWithPreview,
+      });
       jest.runAllTimers();
       await findByTestId('smart-block-title-resolved-view');
       await findByTestId('smart-block-preview-resolved-view');
@@ -156,9 +168,9 @@ describe('HoverCard', () => {
     });
 
     it('should fallback to rendering snippet if preview data is available but fails to load', async () => {
-      const { findByTestId, queryByTestId } = await setup(
-        mockBaseResponseWithErrorPreview,
-      );
+      const { findByTestId, queryByTestId } = await setup({
+        mock: mockBaseResponseWithErrorPreview,
+      });
       jest.runAllTimers();
       await findByTestId('smart-block-title-resolved-view');
       fireEvent.transitionEnd(
@@ -186,7 +198,7 @@ describe('HoverCard', () => {
       });
 
       it('renders correctly for jira links', async () => {
-        const { findByTestId } = await setup(mockJiraResponse);
+        const { findByTestId } = await setup({ mock: mockJiraResponse });
         jest.runAllTimers();
         await findByTestId('authorgroup-metadata-element');
         const priority = await findByTestId('priority-metadata-element');
@@ -197,7 +209,7 @@ describe('HoverCard', () => {
       });
 
       it('renders correctly for other providers', async () => {
-        const { findByTestId } = await setup(mockIframelyResponse);
+        const { findByTestId } = await setup({ mock: mockIframelyResponse });
         jest.runAllTimers();
         const titleBlock = await findByTestId(
           'smart-block-title-resolved-view',
@@ -321,6 +333,15 @@ describe('HoverCard', () => {
       const previewButton = await findByTestId('preview-content');
 
       expect(commentButton.textContent).toBe('Comment');
+      expect(previewButton.textContent).toBe('Full screen view');
+    });
+
+    it('should still render the full screen view action on inline link hover when disabled via flexui prop', async () => {
+      const { findByTestId } = await setup({
+        extraCardProps: { ui: { hideHoverCardPreviewButton: true } },
+      });
+      jest.runAllTimers();
+      const previewButton = await findByTestId('preview-content');
       expect(previewButton.textContent).toBe('Full screen view');
     });
 
@@ -588,7 +609,9 @@ describe('HoverCard', () => {
         const clickSpy = jest.spyOn(analytics, 'uiActionClickedEvent');
         const closeSpy = jest.spyOn(analytics, 'uiHoverCardDismissedEvent');
 
-        const { findByTestId } = await setup(mockBaseResponseWithPreview);
+        const { findByTestId } = await setup({
+          mock: mockBaseResponseWithPreview,
+        });
         jest.runAllTimers();
 
         await findByTestId('smart-block-title-resolved-view');
@@ -635,7 +658,9 @@ describe('HoverCard', () => {
 
       it('should fire clicked event when download button is clicked', async () => {
         const spy = jest.spyOn(analytics, 'uiActionClickedEvent');
-        const { findByTestId } = await setup(mockBaseResponseWithDownload);
+        const { findByTestId } = await setup({
+          mock: mockBaseResponseWithDownload,
+        });
         jest.runAllTimers();
 
         await findByTestId('smart-block-title-resolved-view');
@@ -976,12 +1001,12 @@ describe('HoverCard', () => {
 
     describe('Actionable element experiment', () => {
       it('shows actionable element', async () => {
-        const { findByTestId, queryByTestId } = await setup(
-          mockActionableElementResponse,
-          {
+        const { findByTestId, queryByTestId } = await setup({
+          mock: mockActionableElementResponse,
+          featureFlags: {
             enableActionableElement: true,
           },
-        );
+        });
         jest.runAllTimers();
         await findByTestId('smart-block-title-resolved-view');
         await findByTestId('smart-block-metadata-resolved-view');
@@ -991,12 +1016,12 @@ describe('HoverCard', () => {
       });
 
       it('does not show actionable element when feature flag is false', async () => {
-        const { findByTestId, queryByTestId } = await setup(
-          mockActionableElementResponse,
-          {
+        const { findByTestId, queryByTestId } = await setup({
+          mock: mockActionableElementResponse,
+          featureFlags: {
             enableActionableElement: false,
           },
-        );
+        });
         jest.runAllTimers();
         await findByTestId('smart-block-title-resolved-view');
         await findByTestId('smart-block-metadata-resolved-view');
@@ -1006,9 +1031,9 @@ describe('HoverCard', () => {
       });
 
       it('does not show actionable element when feature flag is not defined', async () => {
-        const { findByTestId, queryByTestId } = await setup(
-          mockActionableElementResponse,
-        );
+        const { findByTestId, queryByTestId } = await setup({
+          mock: mockActionableElementResponse,
+        });
         jest.runAllTimers();
         await findByTestId('smart-block-title-resolved-view');
         await findByTestId('smart-block-metadata-resolved-view');
@@ -1018,7 +1043,9 @@ describe('HoverCard', () => {
       });
 
       it('successfully copies the url to clipboard', async () => {
-        const { findByTestId } = await setup(mockActionableElementResponse);
+        const { findByTestId } = await setup({
+          mock: mockActionableElementResponse,
+        });
 
         jest.runAllTimers();
 
@@ -1034,11 +1061,11 @@ describe('HoverCard', () => {
 
     describe('Unauthorized Hover Card', () => {
       it('renders Unauthorised hover card', async () => {
-        const { findByTestId } = await setup(
-          mockUnauthorisedResponse,
-          { showAuthTooltip: 'experiment' },
-          'inline-card-unauthorized-view',
-        );
+        const { findByTestId } = await setup({
+          mock: mockUnauthorisedResponse,
+          featureFlags: { showAuthTooltip: 'experiment' },
+          testId: 'inline-card-unauthorized-view',
+        });
         jest.runAllTimers();
         const unauthorisedHoverCard = await findByTestId(
           'hover-card-unauthorised-view',
@@ -1050,11 +1077,11 @@ describe('HoverCard', () => {
       it('should fire viewed event when hover card is opened', async () => {
         const mock = jest.spyOn(analytics, 'uiHoverCardViewedEvent');
 
-        const { findByTestId } = await setup(
-          mockUnauthorisedResponse,
-          { showAuthTooltip: 'experiment' },
-          'inline-card-unauthorized-view',
-        );
+        const { findByTestId } = await setup({
+          mock: mockUnauthorisedResponse,
+          featureFlags: { showAuthTooltip: 'experiment' },
+          testId: 'inline-card-unauthorized-view',
+        });
         jest.runAllTimers();
 
         //wait for card to be resolved
@@ -1082,11 +1109,11 @@ describe('HoverCard', () => {
       it('should fire dismissed event when hover card is opened then closed', async () => {
         const mock = jest.spyOn(analytics, 'uiHoverCardDismissedEvent');
 
-        const { queryByTestId, findByTestId, element } = await setup(
-          mockUnauthorisedResponse,
-          { showAuthTooltip: 'experiment' },
-          'inline-card-unauthorized-view',
-        );
+        const { queryByTestId, findByTestId, element } = await setup({
+          mock: mockUnauthorisedResponse,
+          featureFlags: { showAuthTooltip: 'experiment' },
+          testId: 'inline-card-unauthorized-view',
+        });
         jest.runAllTimers();
         // wait for card to be resolved
         await findByTestId('hover-card-unauthorised-view');
@@ -1125,12 +1152,10 @@ describe('HoverCard', () => {
           <div data-testid={testId}>Hover on me</div>
         </HoverCard>
       );
-      const { findByTestId } = await setup(
-        undefined,
-        undefined,
+      const { findByTestId } = await setup({
         testId,
-        hoverCardComponent,
-      );
+        component: hoverCardComponent,
+      });
       jest.runAllTimers();
       const titleBlock = await findByTestId('smart-block-title-resolved-view');
       await findByTestId('smart-block-metadata-resolved-view');
@@ -1146,6 +1171,26 @@ describe('HoverCard', () => {
       expect(footerBlock.textContent?.trim()).toBe(
         'ConfluenceCommentFull screen view',
       );
+    });
+
+    it('should not show the full screen view action if disabled via prop', async () => {
+      const testId = 'hover-test-div';
+      const hoverCardComponent = (
+        <HoverCard url={mockUrl} hidePreviewButton={true}>
+          <div data-testid={testId}>Hover on me</div>
+        </HoverCard>
+      );
+      const { findByTestId, queryByTestId } = await setup({
+        testId,
+        component: hoverCardComponent,
+      });
+      jest.runAllTimers();
+      const footerBlock = await findByTestId(
+        'smart-footer-block-resolved-view',
+      );
+      expect(footerBlock).toBeTruthy();
+      const fullscreenButton = queryByTestId('preview-content-button-wrapper');
+      expect(fullscreenButton).toBeFalsy();
     });
   });
 });

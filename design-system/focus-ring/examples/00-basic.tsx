@@ -18,7 +18,7 @@ const baseStyles = css({
   margin: '12px 0',
   padding: 8,
   border: 'none',
-  borderRadius: '3px',
+  borderRadius: token('border.radius.100', '3px'),
   font: 'inherit',
 });
 

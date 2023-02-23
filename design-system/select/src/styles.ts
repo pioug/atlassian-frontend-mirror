@@ -32,7 +32,7 @@ export default function baseStyles<Option, IsMulti extends boolean>(
   return {
     container: (css, { isDisabled }) => ({
       ...css,
-      fontFamily: fontFamily(),
+      fontFamily: token('font.family.sans', fontFamily()),
       // react-select disables pointer events when isDisabled is true.
       // We override this and make the inner container turn it off instead.
       pointerEvents: 'all',
@@ -102,8 +102,8 @@ export default function baseStyles<Option, IsMulti extends boolean>(
         backgroundColor,
         borderColor,
         borderStyle: 'solid',
-        borderRadius: '3px',
-        borderWidth: '2px',
+        borderRadius: token('border.radius.100', '3px'),
+        borderWidth: token('border.width.100', '2px'),
         boxShadow: 'none',
         minHeight: isCompact ? gridSize() * 4 : gridSize() * 5,
         padding: 0,
@@ -240,7 +240,7 @@ export default function baseStyles<Option, IsMulti extends boolean>(
       color: isDisabled
         ? token('color.text.disabled', N70)
         : token('color.text', N800),
-      lineHeight: `${gridSize() * 2}px`, // 16px
+      lineHeight: token('font.lineHeight.100', '16px'), // 16px
     }),
     menu: (css) => ({
       ...css,
@@ -252,12 +252,12 @@ export default function baseStyles<Option, IsMulti extends boolean>(
     }),
     menuList: (css) => ({
       ...css,
-      paddingTop: gridSize(),
-      paddingBottom: gridSize(),
+      paddingTop: token('space.100', '8px'),
+      paddingBottom: token('space.100', '8px'),
     }),
     multiValue: (css, { isFocused }) => ({
       ...css,
-      borderRadius: '2px',
+      borderRadius: token('border.radius.050', '2px'),
       backgroundColor: isFocused
         ? token('color.background.selected', N40)
         : token('color.background.neutral', N40),
@@ -278,9 +278,9 @@ export default function baseStyles<Option, IsMulti extends boolean>(
     }),
     multiValueLabel: (css) => ({
       ...css,
-      padding: '2px',
+      padding: token('space.025', '2px'),
       color: 'inherit',
-      paddingRight: '2px',
+      paddingRight: token('space.025', '2px'),
     }),
     multiValueRemove: (css, { isFocused }) => ({
       ...css,
@@ -290,8 +290,8 @@ export default function baseStyles<Option, IsMulti extends boolean>(
       fill: isFocused
         ? token('color.text.selected', '#000')
         : token('color.text', '#000'),
-      paddingLeft: '2px',
-      paddingRight: '2px',
+      paddingLeft: token('space.025', '2px'),
+      paddingRight: token('space.025', '2px'),
       borderRadius: '0px 2px 2px 0px',
 
       // DSP-6470 we should style like Tag once we have the :has selector

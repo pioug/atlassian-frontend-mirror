@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,29 +7,24 @@
  */
 //Hungarian
 export default {
-  'feedback-collector.can-be-contacted.label':
-    'Az Atlassian felveheti velem a kapcsolatot ezzel a visszajelzéssel kapcsolatban',
-  'feedback-collector.cancel-button.label': 'Mégse',
-  'feedback-collector.enrol-in-research.label':
-    'Szeretnék részt venni a termékekkel kapcsolatos kutatásban',
-  'feedback-collector.feedback-title': 'Oszd meg a véleményedet',
-  'feedback-collector.form.bug.label': 'Írd le a hibát vagy az ügyet',
-  'feedback-collector.form.comment.label': 'Mondd el, mi jár a fejedben!',
-  'feedback-collector.form.empty.label': 'Válassz egy opciót',
-  'feedback-collector.form.question.label': 'Mire vagy kíváncsi?',
-  'feedback-collector.form.suggestion.label':
-    'Oszd meg velünk, hogy milyen javításokat szeretnél látni!',
-  'feedback-collector.option.bug.label': 'Hibát bejelenteni',
-  'feedback-collector.option.comment.label': 'Megjegyzést írni',
-  'feedback-collector.option.default.label': 'Szeretnék...',
-  'feedback-collector.option.question.label': 'Kérdést feltenni',
-  'feedback-collector.option.suggestion.label':
-    'Fejlesztéssel kapcsolatos javaslatot tenni',
-  'feedback-collector.submit-button.label': 'Visszajelzés elküldése',
-  'feedback-collector.success-flag.description':
-    'Értékes visszajelzésed segítségével folyamatosan fejlesztjük termékeinket.',
-  'feedback-collector.success-flag.title': 'Köszönöm!',
-  'feedback-collector.summary-placeholder': 'Mondd el, mi jár a fejedben!',
-  'proforma-form-builder.feedback-icon-label': 'Visszajelzés',
-  'proforma-form-builder.give-feedback': 'Visszajelzés küldése',
+  "feedback-collector.can-be-contacted.label": "Az Atlassian felveheti velem a kapcsolatot ezzel a visszajelzéssel kapcsolatban",
+  "feedback-collector.cancel-button.label": "Mégse",
+  "feedback-collector.enrol-in-research.label": "Szeretnék részt venni a termékekkel kapcsolatos kutatásban",
+  "feedback-collector.feedback-title": "Oszd meg a véleményedet",
+  "feedback-collector.form.bug.label": "Írd le a hibát vagy az ügyet",
+  "feedback-collector.form.comment.label": "Mondd el, mi jár a fejedben!",
+  "feedback-collector.form.empty.label": "Válassz egy opciót",
+  "feedback-collector.form.question.label": "Mire vagy kíváncsi?",
+  "feedback-collector.form.suggestion.label": "Oszd meg velünk, hogy milyen javításokat szeretnél látni!",
+  "feedback-collector.option.bug.label": "Hibát bejelenteni",
+  "feedback-collector.option.comment.label": "Megjegyzést írni",
+  "feedback-collector.option.default.label": "Szeretnék...",
+  "feedback-collector.option.question.label": "Kérdést feltenni",
+  "feedback-collector.option.suggestion.label": "Fejlesztéssel kapcsolatos javaslatot tenni",
+  "feedback-collector.submit-button.label": "Visszajelzés elküldése",
+  "feedback-collector.success-flag.description": "Értékes visszajelzésed segítségével folyamatosan fejlesztjük termékeinket.",
+  "feedback-collector.success-flag.title": "Köszönöm!",
+  "feedback-collector.summary-placeholder": "Mondd el, mi jár a fejedben!",
+  "proforma-form-builder.feedback-icon-label": "Visszajelzés",
+  "proforma-form-builder.give-feedback": "Visszajelzés küldése"
 };

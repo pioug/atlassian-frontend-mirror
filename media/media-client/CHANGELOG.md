@@ -1,5 +1,11 @@
 # @atlaskit/media-client
 
+## 20.0.2
+
+### Patch Changes
+
+- [`cdd0445e5a5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cdd0445e5a5) - Fixed instantiation logic when feature flags object is passed
+
 ## 20.0.1
 
 ### Patch Changes

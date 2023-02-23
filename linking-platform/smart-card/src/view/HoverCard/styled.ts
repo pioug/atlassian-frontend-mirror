@@ -10,6 +10,7 @@ export const flexibleUiOptions: FlexibleUiOptions = {
   // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   theme: SmartLinkTheme.Black,
   hidePadding: true,
+  hideHoverCardPreviewButton: false,
 };
 
 export const CARD_WIDTH_REM = 24;

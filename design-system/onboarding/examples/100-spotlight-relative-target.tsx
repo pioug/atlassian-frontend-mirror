@@ -27,7 +27,7 @@ const relativeDivStyles = css({
   left: '40px',
   // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   backgroundColor: 'PaleVioletRed',
-  borderRadius: '3px',
+  borderRadius: token('border.radius.100', '3px'),
   transform: 'translate(10px, 10px)',
 });
 

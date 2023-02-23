@@ -1,4 +1,6 @@
 import React from 'react';
+import { token } from '@atlaskit/tokens';
+import { B400 } from '@atlaskit/theme/colors';
 import { act, screen } from '@testing-library/react';
 import { matchers } from '@emotion/jest';
 import {
@@ -10,10 +12,8 @@ import {
   Counter,
   RENDER_COUNTER_TESTID,
   CounterProps,
-  RENDER_COMPONENT_WRAPPER,
   RENDER_LABEL_TESTID,
 } from './Counter';
-import * as styles from './styles';
 
 expect.extend(matchers);
 
@@ -79,16 +79,10 @@ describe('@atlaskit/reactions/components/Counter', () => {
     renderCounter({ value, highlight });
     const labelWrapper = await screen.findByTestId(RENDER_LABEL_TESTID);
     expect(labelWrapper).toBeInTheDocument();
-    expect(labelWrapper.className.endsWith(styles.highlightStyle.name)).toBe(
-      true,
+    expect(labelWrapper).toHaveStyleRule(
+      'color',
+      token('color.text.selected', B400),
     );
-  });
-
-  it('should set width to avoid resizing', async () => {
-    renderWithIntl(<Counter value={11} />);
-
-    const wrapperDiv = await screen.findByTestId(RENDER_COMPONENT_WRAPPER);
-    expect(wrapperDiv).toHaveStyleRule('width', '14px');
   });
 
   describe('should animate number', () => {

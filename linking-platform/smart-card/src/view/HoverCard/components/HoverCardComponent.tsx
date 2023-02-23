@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import Popup from '@atlaskit/popup';
 import { jsx } from '@emotion/react';
-import React, { FC, useCallback, useRef } from 'react';
+import React, { FC, useCallback, useMemo, useRef } from 'react';
 import { useSmartLinkActions } from '../../../state/hooks-external/useSmartLinkActions';
 import { useSmartLinkRenderers } from '../../../state/renderers';
 import { useSmartCardState as useLinkState } from '../../../state/store';
@@ -17,6 +17,7 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
   analytics,
   canOpen = true,
   closeOnChildClick = false,
+  hidePreviewButton = false,
 }) => {
   const delay = 300;
   const [isOpen, setIsOpen] = React.useState(false);
@@ -101,6 +102,13 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
     analyticsHandler,
     origin: 'smartLinkPreviewHoverCard',
   });
+
+  const filteredActions = useMemo(() => {
+    return hidePreviewButton
+      ? linkActions.filter((action) => action.id !== 'preview-content')
+      : linkActions;
+  }, [hidePreviewButton, linkActions]);
+
   const onActionClick = useCallback(
     (actionId) => {
       if (actionId === 'preview-content') {
@@ -128,7 +136,7 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
         onMouseEnter={initShowCard}
         onMouseLeave={initHideCard}
         analytics={analytics}
-        cardActions={linkActions}
+        cardActions={filteredActions}
         cardState={linkState}
         onActionClick={onActionClick}
         onResolve={update}
@@ -140,7 +148,7 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
       analytics,
       initHideCard,
       initShowCard,
-      linkActions,
+      filteredActions,
       linkState,
       onActionClick,
       renderers,

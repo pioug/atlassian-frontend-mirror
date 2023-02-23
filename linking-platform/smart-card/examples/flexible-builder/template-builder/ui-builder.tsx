@@ -57,6 +57,13 @@ const UiBuilder: React.FC<{
       propName="clickableContainer"
       template={ui}
     />
+    <CheckboxOption
+      label="Hide Hover Card Preview Button"
+      name="ui.hideHoverCardPreviewButton"
+      onChange={onChange}
+      propName="hideHoverCardPreviewButton"
+      template={ui}
+    />
   </React.Fragment>
 );
 

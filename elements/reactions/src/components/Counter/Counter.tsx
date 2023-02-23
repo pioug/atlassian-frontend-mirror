@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import { jsx, css } from '@emotion/react';
 import {
   SlideIn,
@@ -7,7 +7,6 @@ import {
   mediumDurationMs,
 } from '@atlaskit/motion';
 // eslint-disable-next-line @atlaskit/design-system/no-banned-imports
-import usePreviousValue from '@atlaskit/ds-lib/use-previous-value';
 
 import { utils } from '../../shared';
 
@@ -76,20 +75,28 @@ export const Counter: React.FC<CounterProps> = ({
       return utils.formatLargeNumber(value);
     }
   };
+  const lastValue = useRef<number>();
 
-  const previousValue = usePreviousValue(value);
   const label = getLabel(value);
-  const increase = previousValue ? previousValue < value : false;
+
+  useEffect(() => {
+    lastValue.current = value;
+  }, [value]);
+
+  const isIncreasing = useMemo(() => {
+    return lastValue.current ? lastValue.current < value : false;
+  }, [value]);
 
   return (
     <div
       className={className}
       data-testid={RENDER_COMPONENT_WRAPPER}
-      css={[styles.countStyle, { width: label.length * 7 }]}
+      css={styles.countStyle}
     >
       <ExitingPersistence>
         <SlideIn
-          enterFrom={increase ? 'bottom' : 'top'}
+          enterFrom={isIncreasing ? 'top' : 'bottom'}
+          exitTo={isIncreasing ? 'top' : 'bottom'}
           key={value}
           duration={animationDuration}
         >
@@ -106,13 +113,17 @@ export const Counter: React.FC<CounterProps> = ({
                 className={motion.className}
                 data-testid={RENDER_COUNTER_TESTID}
               >
-                <div
+                <span
                   data-testid={RENDER_LABEL_TESTID}
-                  css={highlight && styles.highlightStyle}
+                  css={
+                    highlight
+                      ? [styles.counterLabelStyle, styles.highlightStyle]
+                      : styles.counterLabelStyle
+                  }
                   key={value}
                 >
                   {label}
-                </div>
+                </span>
               </div>
             );
           }}

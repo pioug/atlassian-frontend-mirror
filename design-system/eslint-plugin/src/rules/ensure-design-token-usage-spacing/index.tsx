@@ -80,7 +80,9 @@ function getTokenNodeForValue(propertyName: string, value: string) {
     ? typographyValueToToken[propertyName][value]
     : spacingValueToToken[value];
   const fallbackValue =
-    propertyName === 'fontFamily' ? `"${value}"` : `'${value}'`;
+    propertyName === 'fontFamily'
+      ? { value: `${value}`, raw: `\"${value}\"` }
+      : `${value}`;
 
   return callExpression({
     callee: identifier({ name: 'token' }),

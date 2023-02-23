@@ -243,7 +243,7 @@ const borderWidthMap = {
 
 type BorderRadius = keyof typeof borderRadiusMap;
 const borderRadiusMap = {
-  normal: css({ borderRadius: '3px' }),
+  normal: css({ borderRadius: token('border.radius.100', '3px') }),
   rounded: css({ borderRadius: '50%' }),
   badge: css({ borderRadius: '8px' }),
 };

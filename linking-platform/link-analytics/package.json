@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^9.0.0",
-    "@atlaskit/linking-common": "^2.0.0",
+    "@atlaskit/linking-common": "^2.1.0",
     "@babel/runtime": "^7.0.0",
     "json-ld-types": "3.2.0",
     "lru_map": "^0.4.1",

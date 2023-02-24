@@ -1,6 +1,6 @@
 # Portal
 
-A best practice, server-side-render friendly wrapper for rendering components in React Portals.
+A wrapper for rendering components in React portals.
 
 ## Installation
 

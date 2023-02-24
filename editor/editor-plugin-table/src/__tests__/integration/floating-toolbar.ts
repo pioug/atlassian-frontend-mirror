@@ -330,7 +330,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'should the context menu disabled item stay open when clicked.',
-  { skip: ['safari'] }, // The test does not pass on CI but works on physical browser
+  { skip: [] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(
       client,

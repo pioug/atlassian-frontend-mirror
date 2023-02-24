@@ -26,7 +26,7 @@ const Container = forwardRef<HTMLElement, { id: string; height: number }>(
           if (typeof ref === 'function') {
             ref(newRef);
           } else {
-            Object.assign(ref, { current: newRef });
+            Object.assign(ref || {}, { current: newRef });
           }
         }}
         {...props}

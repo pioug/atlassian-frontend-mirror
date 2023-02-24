@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-table
 
+## 1.1.5
+
+### Patch Changes
+
+- [`2cde23fc462`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2cde23fc462) - This changeset exists because a PR touches these packages in a way that doesn't require a release
+
 ## 1.1.4
 
 ### Patch Changes

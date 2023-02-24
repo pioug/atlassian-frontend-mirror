@@ -40,31 +40,32 @@ export const slideInAnimation = (
 };
 
 export interface SlideInProps extends KeyframesMotionProps {
+  // eslint-disable-next-line jsdoc/require-asterisk-prefix, jsdoc/check-alignment
   /**
-   * Direction the element will slide in from.
-   * E.g. `"right"` will slide in from the right to the left.
-   *
-   * If `exitTo` is not set, exiting will reverse this motion.
-   * E.g. if `enterFrom: "right"`, will slide out to the right.
+   Direction the element will slide in from.
+   E.g. `"right"` will slide in from the right to the left.
+
+   If `exitTo` is not set, exiting will reverse this motion.
+   E.g. if `enterFrom: "right"`, will slide out to the right.
    */
   enterFrom: Direction;
-
+  // eslint-disable-next-line jsdoc/require-asterisk-prefix, jsdoc/check-alignment
   /**
-   * Direction the element will slide out towards.
-   * E.g. `"right"` will slide out to the right.
-   *
-   * If this is not set, exiting will reverse the entrance motion.
-   * E.g. if `enterFrom: "right"`, will slide out to the right.
-   */
+   Direction the element will slide out towards.
+   E.g. `"right"` will slide out to the right.
+
+   If this is not set, exiting will reverse the entrance motion.
+   E.g. if `enterFrom: "right"`, will slide out to the right.
+  */
   exitTo?: Direction;
-
+  // eslint-disable-next-line jsdoc/require-asterisk-prefix, jsdoc/check-alignment
   /**
-   * Whether an element will fade on enter, on exit or both.
-   *
-   * `'none'` is the default and will cause the element to not fade,
-   * `'in'` will cause the element to fade on enter,
-   * `'out'` will cause the element to fade on exit,
-   * `'inout'` will cause the element to fade on both
+   Whether an element will fade on enter, on exit or both.
+
+   `'none'` is the default and will cause the element to not fade,
+   `'in'` will cause the element to fade on enter,
+   `'out'` will cause the element to fade on exit,
+   `'inout'` will cause the element to fade on both
    */
   fade?: Fade;
 

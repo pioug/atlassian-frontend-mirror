@@ -1,6 +1,11 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import { MemoryRouter, Route, Switch } from 'react-router-dom';
+import {
+  MemoryRouter,
+  Route,
+  type RouteComponentProps,
+  Switch,
+} from 'react-router-dom';
 
 import Button from '@atlaskit/button/standard-button';
 import { ConfluenceIcon, JiraServiceManagementIcon } from '@atlaskit/logo';
@@ -40,7 +45,7 @@ export default () => {
       <RetryContainer>
         <div css={{ textAlign: 'center' }}>
           <Route>
-            {(route) => (
+            {(route: RouteComponentProps) => (
               <Button
                 onClick={() =>
                   route.history.push(
@@ -56,7 +61,7 @@ export default () => {
           <Centered>
             <div css={{ position: 'relative' }}>
               <Route>
-                {(route) => (
+                {(route: RouteComponentProps) => (
                   <ExitingPersistence appear>
                     {/* The magic sauce is giving switch a key that changes on route transition. */}
                     <Switch key={route.location.pathname}>

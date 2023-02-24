@@ -1,6 +1,6 @@
 # Motion
 
-Atlassian motion variables, components and more.
+A set of utilities to apply motion in your application.
 
 ## Installation
 
@@ -10,4 +10,4 @@ yarn add @atlaskit/motion
 
 ## Usage
 
-Detailed docs and example usage can be found [here](https://atlaskit.atlassian.com/packages/design-system/motion).
+[View documentation](https://atlassian.design/components/motion/).

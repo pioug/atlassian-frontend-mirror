@@ -215,7 +215,6 @@ export interface InvokePayload<T> {
 
 // @public (undocumented)
 export interface LinkingPlatformFeatureFlags {
-  disableLinkPickerPopupPositioningFix?: boolean;
   enableActionableElement?: boolean;
   enableFlexibleBlockCard?: boolean;
   enableLinkPickerForgeTabs?: boolean;

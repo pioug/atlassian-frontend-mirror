@@ -1,0 +1,29 @@
+---
+order: 0
+---
+
+import SectionMessage from '@atlaskit/section-message';
+import MotionResizingHeight from '../../examples/constellation/motion-resizing-height';
+
+## Default
+
+<SectionMessage appearance="warning">
+  <p>
+    This example demonstrates how to animate height which is{' '}
+    <a
+      target="_blank"
+      rel="noopener noreferrer"
+      href="https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Performance_best_practices_for_Firefox_fe_engineers#Get_familiar_with_the_pipeline_that_gets_pixels_to_the_screen"
+    >
+      notoriously unperformant
+    </a>
+    . <strong>Test your app over low powered devices</strong>, you may want to avoid this if you can see it impacting FPS.
+  </p>
+</SectionMessage>
+
+<Example
+  highlight="13,53"
+  packageName="@atlaskit/motion"
+  Component={MotionResizingHeight}
+  title="Resizing height"
+/>

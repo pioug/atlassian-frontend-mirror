@@ -8,7 +8,7 @@
     "registry": "https://registry.npmjs.org/"
   },
   "atlassian": {
-    "team": "Linking Platform",
+    "team": "Linking Platform - Link Provider",
     "inPublicMirror": false,
     "releaseModel": "continuous",
     "website": {
@@ -26,7 +26,7 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/linking-common": "^2.0.0",
+    "@atlaskit/linking-common": "^2.1.0",
     "@babel/runtime": "^7.0.0",
     "async-retry": "^1.2.3",
     "dataloader": "^2.0.0",

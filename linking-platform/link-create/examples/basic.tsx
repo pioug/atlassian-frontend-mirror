@@ -1,46 +1,13 @@
 import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
+import { confluencePageLinkCreatePlugin } from '@atlassian/link-create-confluence';
 
-import LinkCreate, { useLinkCreateCallback } from '../src';
-
-const ConfluenceCreationForm = () => {
-  const { onCreate, onFailure, onCancel } = useLinkCreateCallback();
-
-  return (
-    <div>
-      This is a form. Trust me.
-      <Button
-        appearance="primary"
-        onClick={() => onCreate && onCreate('https://www.atlassian.com')}
-      >
-        Success
-      </Button>
-      <Button appearance="primary" onClick={onFailure}>
-        Trigger an error
-      </Button>
-      <Button appearance="primary" onClick={onCancel}>
-        Cancel
-      </Button>
-    </div>
-  );
-};
+import LinkCreate from '../src';
 
 export default function Basic() {
   const [active, setActive] = useState(false);
-  const plugins = [
-    {
-      group: {
-        label: 'Confluence',
-        key: 'confluence',
-        icon: 'beautiful',
-      },
-      key: 'confluence-page',
-      label: 'Page',
-      icon: 'beautiful',
-      form: <ConfluenceCreationForm />,
-    },
-  ];
+  const plugins = [confluencePageLinkCreatePlugin];
 
   return (
     <>

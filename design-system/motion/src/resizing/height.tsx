@@ -9,25 +9,27 @@ import { useLayoutEffect } from '../utils/use-layout-effect';
 import { useSnapshotBeforeUpdate } from '../utils/use-snapshot-before-update';
 
 interface ResizingHeightOpts {
+  // eslint-disable-next-line jsdoc/require-asterisk-prefix, jsdoc/check-alignment
   /**
-   * Duration as a `function`.
-   * Will receive previous and next `height` and return the `duration`.
-   *
-   * By default this will match the [ADG specifications](https://atlassian.design) for how long motion should take.
-   * Design specifications are still a work in progress.
-   */
+   Duration as a `function`.
+   Will receive previous and next `height` and return the `duration`.
+
+   By default this will match the [ADG specifications](https://atlassian.design) for how long motion should take.
+   Design specifications are still a work in progress.
+  */
   duration?: (prevHeight: number, nextHeight: number) => number;
 
+  // eslint-disable-next-line jsdoc/require-asterisk-prefix, jsdoc/check-alignment
   /**
-   * Timing function as a `function`.
-   * This is handy for changing the curve depending on the user interaction.
-   * Does the user interact [directly or indirectly](/packages/helpers/motion/docs/variables)?
-   * You'll want to use an appropriate curve.
-   * Will receive previous and next `height`,
-   * `duration`,
-   * and return the [timing function](https://developer.mozilla.org/en-US/docs/Web/CSS/timing-function).
-   *
-   * By default this will assume indirect motion using `easeInOut`.
+   Timing function as a `function`.
+   This is handy for changing the curve depending on the user interaction.
+   Does the user interact [directly or indirectly](/packages/helpers/motion/docs/variables)?
+   You'll want to use an appropriate curve.
+   Will receive previous and next `height`,
+   `duration`,
+   and return the [timing function](https://developer.mozilla.org/en-US/docs/Web/CSS/timing-function).
+
+   By default this will assume indirect motion using `easeInOut`.
    */
   timingFunction?: (
     prevHeight: number,

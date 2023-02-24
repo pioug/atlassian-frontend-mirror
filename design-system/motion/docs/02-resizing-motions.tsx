@@ -63,16 +63,6 @@ export default memo(({ title }) => (
 ));
 `}
 
-  ### Opts
-
-  Passed in as an object in the first argument of the hook.
-
-  ${(
-    <Props
-      heading=""
-      props={require('!!extract-react-types-loader!../src/resizing/height')}
-    />
-  )}
 
   ### \`<ResizingHeight />\`
 

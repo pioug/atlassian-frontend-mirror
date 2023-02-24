@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 2.1.0
+
+### Minor Changes
+
+- [`7581526cc61`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7581526cc61) - Remove `disableLinkPickerPopupPositioningFix` feature flag
+
 ## 2.0.0
 
 ### Major Changes

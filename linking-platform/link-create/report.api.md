@@ -46,7 +46,7 @@ interface LinkCreateCallbackProviderProps {
 }
 
 // @public (undocumented)
-interface LinkCreatePlugin {
+export interface LinkCreatePlugin {
   form: ReactNode;
   group: Group;
   icon: string;

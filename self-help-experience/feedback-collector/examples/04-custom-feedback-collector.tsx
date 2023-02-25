@@ -10,10 +10,9 @@ interface State {
   displayFlag: boolean;
 }
 
-const EMBEDDABLE_KEY = 'your_jsd_embeddable_key';
-const REQUEST_TYPE_ID = 'your_jsd_request_type_id';
-const name = 'Feedback Sender';
-const email = 'fsender@atlassian.com';
+const ENTRYPOINT_ID: string = 'your_entrypoint_id';
+const name: string = 'Feedback Sender';
+const email: string = 'fsender@atlassian.com';
 
 const FeedbackPreamble = () => {
   const linkToSupport = 'https://support.atlassian.com/contact/#/';
@@ -82,8 +81,7 @@ class DisplayFeedback extends Component<{}, State> {
             onSubmit={this.displayFlag}
             email={email}
             name={name}
-            requestTypeId={REQUEST_TYPE_ID}
-            embeddableKey={EMBEDDABLE_KEY}
+            entrypointId={ENTRYPOINT_ID}
             feedbackTitle="Give feedback"
             showTypeField={true}
             feedbackTitleDetails={<FeedbackPreamble />}

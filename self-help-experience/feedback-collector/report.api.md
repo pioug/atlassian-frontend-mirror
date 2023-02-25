@@ -96,6 +96,8 @@ class FeedbackCollector extends Component<Props> {
   // (undocumented)
   getGatewayUrl(): string;
   // (undocumented)
+  getPackageVersion(): string;
+  // (undocumented)
   getSummary(formValues: FormFields): FieldValueType;
   // (undocumented)
   getTypeFieldValue(dtype: SelectValue): FieldValueType;
@@ -165,10 +167,10 @@ interface Props {
   email?: string;
   emailDefaultValue: FieldValueType;
   emailFieldId: string;
-  embeddableKey: string;
   enrolInResearchLabel?: React_2.ReactChild;
   enrollInResearchDefaultValue: FieldValueType;
   enrollInResearchFieldId: string;
+  entrypointId: string;
   feedbackGroupLabels?: Record<SelectValue, SelectOptionDetails>;
   feedbackTitle?: React_2.ReactText;
   feedbackTitleDetails?: React_2.ReactChild;
@@ -176,7 +178,6 @@ interface Props {
   name?: string;
   onClose: () => void;
   onSubmit: (formFields: FormFields) => void;
-  requestTypeId: string;
   shouldGetEntitlementDetails?: boolean;
   showDefaultTextFields?: boolean;
   showTypeField: boolean;
@@ -218,9 +219,7 @@ interface Props_3 {
   // (undocumented)
   email?: string;
   // (undocumented)
-  embeddableKey: string;
-  // (undocumented)
-  requestTypeId: string;
+  entrypointId: string;
 }
 
 // @public (undocumented)

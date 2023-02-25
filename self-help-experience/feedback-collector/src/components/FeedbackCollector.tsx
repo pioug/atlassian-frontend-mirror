@@ -32,10 +32,8 @@ export interface Props {
   email?: string;
   /** The customer name */
   name?: string;
-  /** The request id to access the widget service */
-  requestTypeId: string;
-  /** The embeddable key to access the widget service. Accessible from the corresponding Jira project */
-  embeddableKey: string;
+  /** The id of the entrypoint in the feedback service; to acquire your entrypointId, visit the #feedback-collectors channel */
+  entrypointId: string;
   /**  Additional fields to send to the widget service **/
   additionalFields: FieldType[];
   /**  Override the default id for the "can be contacted" custom field in your widget service **/
@@ -171,6 +169,10 @@ export default class FeedbackCollector extends Component<Props> {
       return url;
     }
     return FeedbackCollector.defaultProps.url;
+  }
+
+  getPackageVersion(): string {
+    return process.env._PACKAGE_VERSION_ || 'Unknown, at least 11.0.0';
   }
 
   async getEntitlementInformation(): Promise<FieldType[] | []> {
@@ -388,17 +390,16 @@ export default class FeedbackCollector extends Component<Props> {
   }
 
   postFeedback = async (formValues: FormFields) => {
-    const requestType: string = this.props.requestTypeId;
-    const embedKey: string = this.props.embeddableKey;
+    const entrypointId: string = this.props.entrypointId;
     let fetchUrl: string = this.getFeedbackUrl();
 
     // Don't dispatch unless we have suitable props (allows tests to pass through empty strings and avoid redundant network calls)
-    if (embedKey && requestType) {
+    if (entrypointId) {
       const formData: FeedbackType = await this.mapFormToJSD(formValues);
       const body = {
         feedback: {
-          requestType: this.props.requestTypeId,
-          embedKey: this.props.embeddableKey,
+          entrypointId: this.props.entrypointId,
+          entrypointUiVersion: this.getPackageVersion(),
           ...formData,
         },
       };
@@ -408,7 +409,7 @@ export default class FeedbackCollector extends Component<Props> {
         fetchUrl = 'https://feedback-collector-api.services.atlassian.com';
       }
       const postData = Buffer.from(JSON.stringify(body)).toString('base64');
-      fetch(`${fetchUrl}/feedback`, {
+      fetch(`${fetchUrl}/v2/feedback`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

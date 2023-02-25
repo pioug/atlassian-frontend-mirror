@@ -1,5 +1,11 @@
 # @atlaskit/feedback-collector
 
+## 11.0.0
+
+### Major Changes
+
+- [`2753f3d9acc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2753f3d9acc) - Use entrypointId instead of embeddedKey and requestTypeId; use API v2
+
 ## 10.10.0
 
 ### Minor Changes

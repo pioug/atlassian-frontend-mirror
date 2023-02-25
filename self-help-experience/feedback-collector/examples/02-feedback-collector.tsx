@@ -10,10 +10,9 @@ interface State {
   displayFlag: boolean;
 }
 
-const EMBEDDABLE_KEY = '9c8cb902-5bb0-41a4-84a5-3337ba10d6af';
-const REQUEST_TYPE_ID = '475';
-const name = 'Feedback Sender';
-const email = 'fsender@atlassian.com';
+const ENTRYPOINT_ID: string = 'e0d501eb-7386-4ba7-aedc-68dc1dde485a';
+const name: string = 'Feedback Sender';
+const email: string = 'fsender@atlassian.com';
 
 class DisplayFeedback extends Component<{}, State> {
   state = { isOpen: false, displayFlag: false };
@@ -41,8 +40,7 @@ class DisplayFeedback extends Component<{}, State> {
             onSubmit={this.displayFlag}
             email={email}
             name={name}
-            requestTypeId={REQUEST_TYPE_ID}
-            embeddableKey={EMBEDDABLE_KEY}
+            entrypointId={ENTRYPOINT_ID}
           />
         )}
 

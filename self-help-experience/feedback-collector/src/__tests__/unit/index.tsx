@@ -41,8 +41,7 @@ describe('Feedback Collector unit tests', () => {
           onSubmit={() => {}}
           email="email"
           name="name"
-          requestTypeId="request_type_id"
-          embeddableKey="embeddable_key"
+          entrypointId="entrypoint_id"
         />,
       );
       expect(wrapper).toBeDefined();
@@ -57,8 +56,7 @@ describe('Feedback Collector unit tests', () => {
           <FeedbackCollector
             email="email"
             name="name"
-            requestTypeId="request_type_id"
-            embeddableKey="embeddable_key"
+            entrypointId="entrypoint_id"
           />,
         );
       });
@@ -276,8 +274,7 @@ describe('Feedback Collector unit tests', () => {
           <FeedbackCollector
             email="email"
             name="name"
-            requestTypeId="request_type_id"
-            embeddableKey="embeddable_key"
+            entrypointId="entrypoint_id"
             showTypeField={false}
           />,
         );
@@ -358,8 +355,7 @@ describe('Feedback Collector unit tests', () => {
           <FeedbackCollector
             email="email"
             name="name"
-            requestTypeId="request_type_id"
-            embeddableKey="embeddable_key"
+            entrypointId="entrypoint_id"
             showTypeField={false}
             feedbackTitle="Custom title"
             feedbackTitleDetails={
@@ -469,8 +465,7 @@ describe('Feedback Collector unit tests', () => {
             timeoutOnSubmit={timeoutOnSubmit}
             email="email"
             name="name"
-            embeddableKey=""
-            requestTypeId=""
+            entrypointId=""
           />,
         );
         const feedbackCollector = wrapper.instance();
@@ -478,7 +473,7 @@ describe('Feedback Collector unit tests', () => {
         // Emulates the user clicking the submit button within the rendered form.
         const feedback: FormFields = {
           type: 'empty',
-          description: `This won't actually dispatch due to missing embeddableKey & requestTypeId props`,
+          description: `This won't actually dispatch due to missing entrypointId prop`,
           canBeContacted: false,
           enrollInResearchGroup: false,
         };
@@ -516,8 +511,7 @@ describe('Feedback Collector unit tests', () => {
               timeoutOnSubmit={timeoutOnSubmit}
               email="email"
               name="name"
-              embeddableKey="some-key"
-              requestTypeId="some-type"
+              entrypointId="some-id"
               url={url}
               customGatewayUrl={customGatewayUrl}
             />,
@@ -536,7 +530,7 @@ describe('Feedback Collector unit tests', () => {
           // Emulates the user clicking the submit button within the rendered form.
           const feedback: FormFields = {
             type: 'empty',
-            description: `This won't actually dispatch due to missing embeddableKey & requestTypeId props`,
+            description: `This won't actually dispatch due to missing entrypointId prop`,
             canBeContacted: false,
             enrollInResearchGroup: false,
           };
@@ -549,9 +543,9 @@ describe('Feedback Collector unit tests', () => {
 
       test.each`
         url                                             | expected
-        ${'/not-a-gateway-url'}                         | ${'https://feedback-collector-api.services.atlassian.com/feedback'}
-        ${'/gateway/api'}                               | ${'/gateway/api/feedback-collector-api/feedback'}
-        ${'https://api-gateway.trello.com/gateway/api'} | ${'https://api-gateway.trello.com/gateway/api/feedback-collector-api/feedback'}
+        ${'/not-a-gateway-url'}                         | ${'https://feedback-collector-api.services.atlassian.com/v2/feedback'}
+        ${'/gateway/api'}                               | ${'/gateway/api/feedback-collector-api/v2/feedback'}
+        ${'https://api-gateway.trello.com/gateway/api'} | ${'https://api-gateway.trello.com/gateway/api/feedback-collector-api/v2/feedback'}
       `(
         'Should call $expected when called url is $url',
         async ({ url, expected }) => {
@@ -564,8 +558,7 @@ describe('Feedback Collector unit tests', () => {
           );
           render(
             <FeedbackCollector
-              requestTypeId="request_type_id"
-              embeddableKey="embeddable_key"
+              entrypointId="entrypoint_id"
               url={url}
               showTypeField={false}
             />,
@@ -588,10 +581,10 @@ describe('Feedback Collector unit tests', () => {
 
       test.each`
         url                                             | customFeedbackUrl        | expected
-        ${'/not-a-gateway-url'}                         | ${undefined}             | ${'https://feedback-collector-api.services.atlassian.com/feedback'}
-        ${'/not-a-gateway-url'}                         | ${'custom-feedback-url'} | ${'custom-feedback-url/feedback'}
-        ${'/gateway/api'}                               | ${undefined}             | ${'/gateway/api/feedback-collector-api/feedback'}
-        ${'https://api-gateway.trello.com/gateway/api'} | ${undefined}             | ${'https://api-gateway.trello.com/gateway/api/feedback-collector-api/feedback'}
+        ${'/not-a-gateway-url'}                         | ${undefined}             | ${'https://feedback-collector-api.services.atlassian.com/v2/feedback'}
+        ${'/not-a-gateway-url'}                         | ${'custom-feedback-url'} | ${'custom-feedback-url/v2/feedback'}
+        ${'/gateway/api'}                               | ${undefined}             | ${'/gateway/api/feedback-collector-api/v2/feedback'}
+        ${'https://api-gateway.trello.com/gateway/api'} | ${undefined}             | ${'https://api-gateway.trello.com/gateway/api/feedback-collector-api/v2/feedback'}
       `(
         'Should correctly determine feedback url based on passed parameters',
         async ({ url, customFeedbackUrl, expected }) => {
@@ -604,8 +597,7 @@ describe('Feedback Collector unit tests', () => {
           );
           render(
             <FeedbackCollector
-              requestTypeId="request_type_id"
-              embeddableKey="embeddable_key"
+              entrypointId="entrypoint_id"
               url={url}
               customFeedbackUrl={customFeedbackUrl}
               showTypeField={false}
@@ -640,8 +632,7 @@ describe('Feedback Collector unit tests', () => {
             timeoutOnSubmit={timeoutOnSubmit}
             email="email"
             name="name"
-            embeddableKey="some-key"
-            requestTypeId="some-type"
+            entrypointId="entrypoint_id"
             customFeedbackUrl={'/custom-feedback-url'}
             customGatewayUrl={'/custom-gateway-url'}
             shouldGetEntitlementDetails={false}
@@ -650,7 +641,7 @@ describe('Feedback Collector unit tests', () => {
         const feedbackCollector = wrapper.instance();
         const feedback: FormFields = {
           type: 'empty',
-          description: `This won't actually dispatch due to missing embeddableKey & requestTypeId props`,
+          description: `This won't actually dispatch due to missing entrypointId prop`,
           canBeContacted: true,
           enrollInResearchGroup: false,
         };
@@ -672,11 +663,7 @@ describe('Feedback Collector unit tests', () => {
     describe('Localisation', () => {
       test('should be supported when a locale is passed', async () => {
         const wrapper = render(
-          <FeedbackCollector
-            locale="fr"
-            requestTypeId="request_type_id"
-            embeddableKey="embeddable_key"
-          />,
+          <FeedbackCollector locale="fr" entrypointId="entrypoint_id" />,
         );
 
         expect(

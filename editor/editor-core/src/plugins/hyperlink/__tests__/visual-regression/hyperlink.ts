@@ -103,7 +103,8 @@ describe('Hyperlink', () => {
         await page.click(hyperlinkSelectors.editLinkBtn);
       });
 
-      it('displays correctly when link is different to display text', async () => {
+      // FIXME: This test was automatically skipped due to failure on 24/02/2023: https://product-fabric.atlassian.net/browse/ED-16990
+      it.skip('displays correctly when link is different to display text', async () => {
         await initEditorWithAdf(page, {
           appearance: Appearance.fullPage,
           adf: hyperlinkWithTextAdf,

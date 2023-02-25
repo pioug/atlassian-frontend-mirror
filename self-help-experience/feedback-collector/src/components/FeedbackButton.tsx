@@ -13,8 +13,7 @@ import FeedbackFlag from './FeedbackFlag';
 import { IntlProviderWithResolvedMessages } from './IntlProviderWithResolvedMessages';
 
 interface Props {
-  embeddableKey: string;
-  requestTypeId: string;
+  entrypointId: string;
   email?: string;
 }
 
@@ -25,7 +24,7 @@ const FeedbackButton = (props: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [displayFlag, setDisplayFlag] = useState(false);
   const { formatMessage } = useIntl();
-  const { embeddableKey, requestTypeId, email } = props;
+  const { entrypointId, email } = props;
 
   return (
     <>
@@ -46,8 +45,7 @@ const FeedbackButton = (props: Props) => {
           onClose={() => setIsOpen(false)}
           onSubmit={() => setDisplayFlag(true)}
           email={email}
-          requestTypeId={requestTypeId}
-          embeddableKey={embeddableKey}
+          entrypointId={entrypointId}
         />
       )}
 

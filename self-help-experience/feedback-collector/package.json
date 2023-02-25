@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/feedback-collector",
-  "version": "10.10.0",
+  "version": "11.0.0",
   "description": "A component that collects feedback across Atlassian products.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

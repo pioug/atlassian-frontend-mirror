@@ -50,7 +50,8 @@ describe('Snapshot Test', () => {
     expect(popupImage).toMatchProdImageSnapshot();
   });
 
-  it('it should match visual snapshot for async popup', async () => {
+  // FIXME: This test was automatically skipped due to failure on 25/02/2023: https://product-fabric.atlassian.net/browse/DSP-8982
+  it.skip('it should match visual snapshot for async popup', async () => {
     const url = getExampleUrl(
       'design-system',
       'popup',

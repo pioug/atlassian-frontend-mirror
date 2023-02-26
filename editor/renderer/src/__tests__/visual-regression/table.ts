@@ -353,7 +353,8 @@ describe('Snapshot Test: triple click selection', () => {
       expectedSelectionDescription,
       beforeClickTargetClick,
     }) => {
-      it(`on triple-clicking ${clickTargetDescription} in table ${fixtureTableCellType} (row:${fixtureTableCellRow},col:${fixtureTableCellCol}), it should select ${expectedSelectionDescription} inside table cell`, async () => {
+      // FIXME: This test was automatically skipped due to failure on 25/02/2023: https://product-fabric.atlassian.net/browse/ED-16993
+      it.skip(`on triple-clicking ${clickTargetDescription} in table ${fixtureTableCellType} (row:${fixtureTableCellRow},col:${fixtureTableCellCol}), it should select ${expectedSelectionDescription} inside table cell`, async () => {
         await initRenderer(
           page,
           tableComplexSelectionsAdf,

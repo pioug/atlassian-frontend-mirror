@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,11 +7,11 @@
  */
 //Finnish
 export default {
-  'fabric.status.color.blue': 'Sininen',
-  'fabric.status.color.green': 'Vihreä',
-  'fabric.status.color.grey': 'Harmaa',
-  'fabric.status.color.purple': 'Violetti',
-  'fabric.status.color.red': 'Punainen',
-  'fabric.status.color.yellow': 'Keltainen',
-  'fabric.status.input.label': 'Aseta tila',
+  "fabric.status.color.blue": "Sininen",
+  "fabric.status.color.green": "Vihreä",
+  "fabric.status.color.grey": "Harmaa",
+  "fabric.status.color.purple": "Violetti",
+  "fabric.status.color.red": "Punainen",
+  "fabric.status.color.yellow": "Keltainen",
+  "fabric.status.input.label": "Aseta tila"
 };

@@ -9,8 +9,10 @@ import { token, useThemeObserver } from '../../../src';
 import darkTheme from '../../../src/artifacts/tokens-raw/atlassian-dark';
 import lightTheme from '../../../src/artifacts/tokens-raw/atlassian-light';
 import { cleanTokenName } from '../../utils';
-import type { Pairings as PairingsType } from '../data/results';
-import type { Token as TokenType } from '../types';
+import type {
+  Pairings as PairingsType,
+  Token as TokenType,
+} from '../data/types';
 
 import CopyPasteBlock from './copy-paste-block';
 

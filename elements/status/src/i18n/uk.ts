@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,11 +7,11 @@
  */
 //Ukrainian (Ukraine)
 export default {
-  'fabric.status.color.blue': 'Синій',
-  'fabric.status.color.green': 'Зелений',
-  'fabric.status.color.grey': 'Сірий',
-  'fabric.status.color.purple': 'Фіолетовий',
-  'fabric.status.color.red': 'Червоний',
-  'fabric.status.color.yellow': 'Жовтий',
-  'fabric.status.input.label': 'Додати статус',
+  "fabric.status.color.blue": "Синій",
+  "fabric.status.color.green": "Зелений",
+  "fabric.status.color.grey": "Сірий",
+  "fabric.status.color.purple": "Фіолетовий",
+  "fabric.status.color.red": "Червоний",
+  "fabric.status.color.yellow": "Жовтий",
+  "fabric.status.input.label": "Додати статус"
 };

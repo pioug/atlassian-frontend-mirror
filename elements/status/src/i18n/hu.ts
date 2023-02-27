@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,11 +7,11 @@
  */
 //Hungarian
 export default {
-  'fabric.status.color.blue': 'Kék',
-  'fabric.status.color.green': 'Zöld',
-  'fabric.status.color.grey': 'Szürke',
-  'fabric.status.color.purple': 'Lila',
-  'fabric.status.color.red': 'Piros',
-  'fabric.status.color.yellow': 'Sárga',
-  'fabric.status.input.label': 'Állapot beállítása',
+  "fabric.status.color.blue": "Kék",
+  "fabric.status.color.green": "Zöld",
+  "fabric.status.color.grey": "Szürke",
+  "fabric.status.color.purple": "Lila",
+  "fabric.status.color.red": "Piros",
+  "fabric.status.color.yellow": "Sárga",
+  "fabric.status.input.label": "Állapot beállítása"
 };

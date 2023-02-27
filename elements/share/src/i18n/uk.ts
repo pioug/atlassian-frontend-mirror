@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,58 +7,41 @@
  */
 //Ukrainian (Ukraine)
 export default {
-  'fabric.elements.share.copied.to.clipboard.message':
-    'Посилання скопійовано до буфера обміну',
-  'fabric.elements.share.copylink.button.text': 'Копіювати посилання',
-  'fabric.elements.share.copypubliclink.button.text':
-    'Копіювати загальнодоступне посилання',
-  'fabric.elements.share.failure.icon.label': 'Піктограма помилки',
-  'fabric.elements.share.failure.message': 'Помилка надсилання',
-  'fabric.elements.share.form.comment.placeholder': 'Додайте коментар',
-  'fabric.elements.share.form.info.message.no.invite.confluence':
-    'Отримувачі побачать назву сторінки та ваше повідомлення',
-  'fabric.elements.share.form.info.message.no.invite.jira':
-    'Отримувачі побачать назву проблеми та ваше повідомлення',
-  'fabric.elements.share.form.public.send':
-    'Надіслати загальнодоступне посилання',
-  'fabric.elements.share.form.public.share':
-    'Поділитися загальнодоступним посиланням',
-  'fabric.elements.share.form.retry': 'Повторити спробу',
-  'fabric.elements.share.form.send': 'Надіслати',
-  'fabric.elements.share.form.share': 'Поділитися',
-  'fabric.elements.share.form.title': 'Поділитися',
-  'fabric.elements.share.form.user-picker.add-more':
-    'Додайте більше відомостей',
-  'fabric.elements.share.form.user-picker.no-options.existingUserOnly':
-    'Не знайдено жодних результатів за запитом «{inputValue}».',
-  'fabric.elements.share.form.user-picker.no-options.generic':
-    'Не знайдено жодних результатів за запитом «{inputValue}». Запросіть людей за допомогою електронної адреси.',
-  'fabric.elements.share.form.user-picker.placeholder.existingUserOnly':
-    'Введіть ім’я або команду',
-  'fabric.elements.share.form.user-picker.placeholder.generic':
-    'Введіть ім’я, групу, команду або електронну адресу',
-  'fabric.elements.share.form.user-picker.placeholder.jira':
-    'Введіть ім’я, назву команди або електронну адресу',
-  'fabric.elements.share.form.user-picker.placholder.generic.existingUserOnly':
-    'Введіть ім’я, групу або команду',
-  'fabric.elements.share.form.user-picker.validation.required':
-    'Виберіть принаймні одного користувача, групу або електронну пошту.',
-  'fabric.elements.share.form.user-picker.validation.required.existingUserOnly':
-    'Виберіть принаймні одного користувача, групу або команду.',
-  'fabric.elements.share.form.user-picker.validation.required.jira':
-    'Виберіть принаймні одного користувача, команду або електронну адресу.',
-  'fabric.elements.share.form.user-picker.validation.required.jira.existingUserOnly':
-    'Виберіть принаймні одного користувача або команду.',
-  'fabric.elements.share.in.integration.button':
-    'Поділитися в {integrationName}',
-  'fabric.elements.share.main.tab.text.confluence': 'Поділитися сторінкою',
-  'fabric.elements.share.main.tab.text.jira': 'Поділитися завданням',
-  'fabric.elements.share.success.message':
-    '{object, select, blogpost {Ви поділилися дописом у блозі} board {Ви поділилися дошкою} calendar {Ви поділилися календарем} draft {Ви поділилися чернеткою} filter {Ви поділилися фільтром} issue {Ви поділилися проблемою} media {Ви поділилися файлом мультимедіа} page {Ви поділилися сторінкою} project {Ви поділилися проектом} pullrequest {Ви поділилися запитом Pull request} question {Ви поділилися запитанням} report {Ви поділилися звітом} repository {Ви поділилися сховищем} request {Ви поділилися запитом} roadmap {Ви поділилися календарним планом} site {Ви поділилися сайтом} space {Ви поділилися розділом} other {Ви поділилися посиланням}}',
-  'fabric.elements.share.to.integration.button':
-    'Надіслати в {integrationName}',
-  'fabric.elements.share.trigger.button.icon.label': 'Надіслати піктограму',
-  'fabric.elements.share.trigger.button.invite.text': 'Запросити',
-  'fabric.elements.share.trigger.button.text': 'Поділитися',
-  'fabric.elements.share.trigger.button.tooltip.text': 'Поділитися',
+  "fabric.elements.share.copied.to.clipboard.message": "Посилання скопійовано до буфера обміну",
+  "fabric.elements.share.copylink.button.text": "Копіювати посилання",
+  "fabric.elements.share.copypubliclink.button.text": "Копіювати загальнодоступне посилання",
+  "fabric.elements.share.failure.icon.label": "Піктограма помилки",
+  "fabric.elements.share.failure.message": "Помилка надсилання",
+  "fabric.elements.share.form.comment.placeholder": "Додайте коментар",
+  "fabric.elements.share.form.info.message.no.invite.confluence": "Отримувачі побачать назву сторінки та ваше повідомлення",
+  "fabric.elements.share.form.info.message.no.invite.jira": "Отримувачі побачать назву проблеми та ваше повідомлення",
+  "fabric.elements.share.form.no-permissions": "У вас немає можливості поділитися.",
+  "fabric.elements.share.form.public.send": "Надіслати загальнодоступне посилання",
+  "fabric.elements.share.form.public.share": "Поділитися загальнодоступним посиланням",
+  "fabric.elements.share.form.retry": "Повторити спробу",
+  "fabric.elements.share.form.send": "Надіслати",
+  "fabric.elements.share.form.share": "Поділитися",
+  "fabric.elements.share.form.title": "Поділитися",
+  "fabric.elements.share.form.user-picker.add-more": "Додайте більше відомостей",
+  "fabric.elements.share.form.user-picker.no-options.existingUserOnly": "Не знайдено жодних результатів за запитом «{inputValue}».",
+  "fabric.elements.share.form.user-picker.no-options.generic": "Не знайдено жодних результатів за запитом «{inputValue}». Запросіть людей за допомогою електронної адреси.",
+  "fabric.elements.share.form.user-picker.placeholder.emailOnly": "Введіть електронну адресу",
+  "fabric.elements.share.form.user-picker.placeholder.existingUserOnly": "Введіть ім’я або команду",
+  "fabric.elements.share.form.user-picker.placeholder.generic": "Введіть ім’я, групу, команду або електронну адресу",
+  "fabric.elements.share.form.user-picker.placeholder.jira": "Введіть ім’я, назву команди або електронну адресу",
+  "fabric.elements.share.form.user-picker.placholder.generic.existingUserOnly": "Введіть ім’я, групу або команду",
+  "fabric.elements.share.form.user-picker.validation.required": "Виберіть принаймні одного користувача, групу або електронну пошту.",
+  "fabric.elements.share.form.user-picker.validation.required.email-only": "Виберіть принаймні одну електронну адресу.",
+  "fabric.elements.share.form.user-picker.validation.required.existingUserOnly": "Виберіть принаймні одного користувача, групу або команду.",
+  "fabric.elements.share.form.user-picker.validation.required.jira": "Виберіть принаймні одного користувача, команду або електронну адресу.",
+  "fabric.elements.share.form.user-picker.validation.required.jira.existingUserOnly": "Виберіть принаймні одного користувача або команду.",
+  "fabric.elements.share.in.integration.button": "Поділитися в {integrationName}",
+  "fabric.elements.share.main.tab.text.confluence": "Поділитися сторінкою",
+  "fabric.elements.share.main.tab.text.jira": "Поділитися завданням",
+  "fabric.elements.share.success.message": "{object, select,blogpost {Надано доступ до допису в блозі}board {Надано доступ до дошки}calendar {Надано доступ до календаря}draft {Надано доступ до чернетки}filter {Надано доступ до фільтра}issue {Надано доступ до завдання}summary {Надано доступ до підсумку}list {Надано доступ до списку}timeline {Надано доступ до шкали}form {Надано доступ до форми}media {Надано доступ до медіафайлу}page {Надано доступ до сторінки}project {Надано доступ до проєкту}pullrequest {Надано доступ до запиту на внесення змін}question {Надано доступ до запитання}report {Надано доступ до звіту}repository {Надано доступ до репозиторію}request {Надано доступ до запиту}roadmap {Надано доступ до плану розробки}site {Надано доступ до сайту}space {Надано доступ до розділу}other {Надано доступ до посилання}}",
+  "fabric.elements.share.to.integration.button": "Надіслати в {integrationName}",
+  "fabric.elements.share.trigger.button.icon.label": "Надіслати піктограму",
+  "fabric.elements.share.trigger.button.invite.text": "Запросити",
+  "fabric.elements.share.trigger.button.text": "Поділитися",
+  "fabric.elements.share.trigger.button.tooltip.text": "Поділитися"
 };

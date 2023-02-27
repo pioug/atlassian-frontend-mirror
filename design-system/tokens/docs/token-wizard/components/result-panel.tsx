@@ -17,7 +17,7 @@ import Tooltip from '@atlaskit/tooltip';
 
 import { token } from '../../../src';
 import results from '../data/results';
-import { Path, resultID } from '../types';
+import { Path, resultID } from '../data/types';
 
 import TokenItem from './token-item';
 
@@ -139,18 +139,16 @@ const ResultPanel = ({
           Start again
         </Button>
       </div>
-      {results[resultId].suggestion.map((tokenName, index) => {
+      {results[resultId].map((token, index) => {
         return (
-          <Fragment key={tokenName}>
+          <Fragment key={token.name}>
             <TokenItem
-              tokenName={tokenName}
-              pairings={results[resultId].pairings?.find(
-                (item) => item.background === tokenName,
+              tokenName={token.name}
+              pairings={token.pairings?.find(
+                (item) => item.background === token.name,
               )}
             />
-            {index < results[resultId].suggestion.length - 1 && (
-              <hr css={dividerStyles} />
-            )}
+            {index < results[resultId].length - 1 && <hr css={dividerStyles} />}
           </Fragment>
         );
       })}

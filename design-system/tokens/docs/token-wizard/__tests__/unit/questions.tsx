@@ -1,6 +1,6 @@
 import questions from '../../data/questions';
 import results from '../../data/results';
-import { Question, questionID, resultID } from '../../types';
+import { Question, questionID, resultID } from '../../data/types';
 
 describe('questions list', () => {
   it('should be a connected tree (all questions should be accessible from the root)', () => {

@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,11 +7,11 @@
  */
 //Swedish
 export default {
-  'fabric.status.color.blue': 'Blå',
-  'fabric.status.color.green': 'Grön',
-  'fabric.status.color.grey': 'Grå',
-  'fabric.status.color.purple': 'Lila',
-  'fabric.status.color.red': 'Röd',
-  'fabric.status.color.yellow': 'Gul',
-  'fabric.status.input.label': 'Ange status',
+  "fabric.status.color.blue": "Blå",
+  "fabric.status.color.green": "Grön",
+  "fabric.status.color.grey": "Grå",
+  "fabric.status.color.purple": "Lila",
+  "fabric.status.color.red": "Röd",
+  "fabric.status.color.yellow": "Gul",
+  "fabric.status.input.label": "Ange status"
 };

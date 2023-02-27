@@ -15,7 +15,7 @@ import {
 import { gridSize } from '@atlaskit/theme/constants';
 
 import { token } from '../../../src';
-import { Answer, Path } from '../types';
+import { Answer, Path } from '../data/types';
 
 const answerSummaryStyles = css({
   fontSize: '20px',

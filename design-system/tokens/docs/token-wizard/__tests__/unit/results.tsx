@@ -14,7 +14,7 @@ describe('results list', () => {
       (previousValue, currentValue) => {
         return [
           ...previousValue,
-          ...results[currentValue as resultID].suggestion,
+          ...results[currentValue as resultID].map((obj) => obj.name),
         ];
       },
       [],

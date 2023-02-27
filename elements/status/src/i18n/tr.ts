@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,11 +7,11 @@
  */
 //Turkish (Turkey)
 export default {
-  'fabric.status.color.blue': 'Mavi',
-  'fabric.status.color.green': 'Yeşil',
-  'fabric.status.color.grey': 'Gri',
-  'fabric.status.color.purple': 'Mor',
-  'fabric.status.color.red': 'Kırmızı',
-  'fabric.status.color.yellow': 'Sarı',
-  'fabric.status.input.label': 'Durum ayarlayın',
+  "fabric.status.color.blue": "Mavi",
+  "fabric.status.color.green": "Yeşil",
+  "fabric.status.color.grey": "Gri",
+  "fabric.status.color.purple": "Mor",
+  "fabric.status.color.red": "Kırmızı",
+  "fabric.status.color.yellow": "Sarı",
+  "fabric.status.input.label": "Durum ayarlayın"
 };

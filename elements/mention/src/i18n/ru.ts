@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,30 +7,19 @@
  */
 //Russian
 export default {
-  'fabric.elements.mentions.team.meantion.highlight.close.button.tooltip':
-    'Закрыть',
-  'fabric.elements.mentions.team.member.50plus':
-    'Команда • более 50 участников',
-  'fabric.elements.mentions.team.member.50plus.including.you':
-    'Команда • более 50 участников, включая вас',
-  'fabric.elements.mentions.team.member.count':
-    '{0, plural, one {Команда • 1 участник} few {Команда • {0} участника} many {Команда • {0} участников} other {Команда • {0} участника}}',
-  'fabric.elements.mentions.team.member.count.including.you':
-    '{0, plural, one {Команда • 1 участник, включая вас} few {Команда • {0} участника, включая вас} many {Команда • {0} участников, включая вас} other {Команда • {0} участника, включая вас}}',
-  'fabric.elements.mentions.team.mention.highlight.description':
-    'Добавьте всех на страницу одним кликом. У вас нет команды?',
-  'fabric.elements.mentions.team.mention.highlight.description.link':
-    'Давайте создадим ее!',
-  'fabric.elements.mentions.team.mention.highlight.title':
-    'Упомяните свою команду',
-  'fabric.mention.error.defaultAction':
-    'Повторите попытку через несколько секунд.',
-  'fabric.mention.error.defaultHeadline': 'Произошла ошибка',
-  'fabric.mention.error.differentText': 'Попробуйте ввести другой текст.',
-  'fabric.mention.error.loginAgain':
-    'Выйдите из системы, а затем войдите снова.',
-  'fabric.mention.noAccess.label': 'Нет доступа',
-  'fabric.mention.noAccess.warning':
-    '{name} не получит уведомление, так как доступ для этого пользователя закрыт.',
-  'fabric.mention.unknow.user.error': 'Неизвестный пользователь: {userId}',
+  "fabric.elements.mentions.team.meantion.highlight.close.button.tooltip": "Закрыть",
+  "fabric.elements.mentions.team.member.50plus": "Команда • более 50 участников",
+  "fabric.elements.mentions.team.member.50plus.including.you": "Команда • более 50 участников, включая вас",
+  "fabric.elements.mentions.team.member.count": "{0, plural, one {Команда • 1 участник} few {Команда • {0} участника} many {Команда • {0} участников} other {Команда • {0} участника}}",
+  "fabric.elements.mentions.team.member.count.including.you": "{0, plural, one {Команда • 1 участник, включая вас} few {Команда • {0} участника, включая вас} many {Команда • {0} участников, включая вас} other {Команда • {0} участника, включая вас}}",
+  "fabric.elements.mentions.team.mention.highlight.description": "Добавьте всех на страницу одним кликом. У вас нет команды?",
+  "fabric.elements.mentions.team.mention.highlight.description.link": "Давайте создадим ее!",
+  "fabric.elements.mentions.team.mention.highlight.title": "Упомяните свою команду",
+  "fabric.mention.error.defaultAction": "Повторите попытку через несколько секунд.",
+  "fabric.mention.error.defaultHeadline": "Произошла ошибка",
+  "fabric.mention.error.differentText": "Попробуйте ввести другой текст.",
+  "fabric.mention.error.loginAgain": "Выйдите из системы, а затем войдите снова.",
+  "fabric.mention.noAccess.label": "Нет доступа",
+  "fabric.mention.noAccess.warning": "{name} не получит уведомление, так как доступ для этого пользователя закрыт.",
+  "fabric.mention.unknow.user.error": "Неизвестный пользователь: {userId}"
 };

@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,11 +7,11 @@
  */
 //Russian
 export default {
-  'fabric.status.color.blue': 'Синий',
-  'fabric.status.color.green': 'Зеленый',
-  'fabric.status.color.grey': 'Серый',
-  'fabric.status.color.purple': 'Фиолетовый',
-  'fabric.status.color.red': 'Красный',
-  'fabric.status.color.yellow': 'Желтый',
-  'fabric.status.input.label': 'Задать статус',
+  "fabric.status.color.blue": "Синий",
+  "fabric.status.color.green": "Зеленый",
+  "fabric.status.color.grey": "Серый",
+  "fabric.status.color.purple": "Фиолетовый",
+  "fabric.status.color.red": "Красный",
+  "fabric.status.color.yellow": "Желтый",
+  "fabric.status.input.label": "Задать статус"
 };

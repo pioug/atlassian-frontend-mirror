@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,28 +7,19 @@
  */
 //French (France)
 export default {
-  'fabric.elements.mentions.team.meantion.highlight.close.button.tooltip':
-    'Ignorer',
-  'fabric.elements.mentions.team.member.50plus': 'Équipe • Plus de 50 membres',
-  'fabric.elements.mentions.team.member.50plus.including.you':
-    'Équipe • Plus de 50 membres, dont vous',
-  'fabric.elements.mentions.team.member.count':
-    '{0, plural, one {Équipe • 1 membre} other {Équipe • {0} membres}}',
-  'fabric.elements.mentions.team.member.count.including.you':
-    '{0, plural, one {Équipe • 1 membre, dont vous} other {Équipe • {0} membres, dont vous}}',
-  'fabric.elements.mentions.team.mention.highlight.description':
-    "Rassemblez tout le monde sur la page en un clic. Vous n'avez pas d'équipe ?",
-  'fabric.elements.mentions.team.mention.highlight.description.link':
-    'Créez-en une.',
-  'fabric.elements.mentions.team.mention.highlight.title':
-    'Mentionner votre équipe',
-  'fabric.mention.error.defaultAction': 'Réessayez dans quelques secondes',
-  'fabric.mention.error.defaultHeadline': "Une erreur s'est produite",
-  'fabric.mention.error.differentText': 'Essayer de modifier le texte',
-  'fabric.mention.error.loginAgain':
-    'Essayez de vous déconnecter et de vous reconnecter',
-  'fabric.mention.noAccess.label': 'Aucun accès',
-  'fabric.mention.noAccess.warning':
-    "{name} ne sera pas prévenu, car cet utilisateur n'a pas d'accès",
-  'fabric.mention.unknow.user.error': 'Utilisateur inconnu {userId}',
+  "fabric.elements.mentions.team.meantion.highlight.close.button.tooltip": "Ignorer",
+  "fabric.elements.mentions.team.member.50plus": "Équipe • Plus de 50 membres",
+  "fabric.elements.mentions.team.member.50plus.including.you": "Équipe • Plus de 50 membres, dont vous",
+  "fabric.elements.mentions.team.member.count": "{0, plural, one {Équipe • 1 membre} other {Équipe • {0} membres}}",
+  "fabric.elements.mentions.team.member.count.including.you": "{0, plural, one {Équipe • 1 membre, dont vous} other {Équipe • {0} membres, dont vous}}",
+  "fabric.elements.mentions.team.mention.highlight.description": "Rassemblez tout le monde sur la page en un clic. Vous n'avez pas d'équipe ?",
+  "fabric.elements.mentions.team.mention.highlight.description.link": "Créez-en une.",
+  "fabric.elements.mentions.team.mention.highlight.title": "Mentionner votre équipe",
+  "fabric.mention.error.defaultAction": "Réessayez dans quelques secondes",
+  "fabric.mention.error.defaultHeadline": "Une erreur s'est produite",
+  "fabric.mention.error.differentText": "Essayer de modifier le texte",
+  "fabric.mention.error.loginAgain": "Essayez de vous déconnecter et de vous reconnecter",
+  "fabric.mention.noAccess.label": "Aucun accès",
+  "fabric.mention.noAccess.warning": "{name} ne sera pas prévenu, car cet utilisateur n'a pas d'accès",
+  "fabric.mention.unknow.user.error": "Utilisateur inconnu {userId}"
 };

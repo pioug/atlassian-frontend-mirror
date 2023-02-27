@@ -37,7 +37,7 @@ interface InlineMessageProps {
    */
   appearance?: IconAppearance;
   /**
-   * @deprecated Please avoid using this prop as we intend to remove the prop completely in a future release. See DSP-5207 for more information.
+   * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-162 Internal documentation for deprecation (no external access)} Please avoid using this prop as we intend to remove the prop completely in a future release. See DSP-5207 for more information.
    * Instead use the 'appearance' prop.
    * Set the icon to be used before the title.
    */

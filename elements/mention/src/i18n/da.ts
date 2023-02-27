@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,26 +7,19 @@
  */
 //Danish (Denmark)
 export default {
-  'fabric.elements.mentions.team.meantion.highlight.close.button.tooltip':
-    'Afvis',
-  'fabric.elements.mentions.team.member.50plus': 'Team • Over 50 medlemmer',
-  'fabric.elements.mentions.team.member.50plus.including.you':
-    'Team • Over 50 medlemmer, inklusive dig',
-  'fabric.elements.mentions.team.member.count':
-    '{0, plural, one {Team • 1 medlem} other {Team • {0} medlemmer}}',
-  'fabric.elements.mentions.team.member.count.including.you':
-    '{0, plural, one {Team • 1 medlem, inklusive dig} other {Team • {0} medlemmer, inklusive dig}}',
-  'fabric.elements.mentions.team.mention.highlight.description':
-    'Få alle med på siden med ét klik. Har du ikke et team?',
-  'fabric.elements.mentions.team.mention.highlight.description.link':
-    'Så opret et.',
-  'fabric.elements.mentions.team.mention.highlight.title': 'Omtal dit team',
-  'fabric.mention.error.defaultAction': 'Prøv igen om nogle sekunder',
-  'fabric.mention.error.defaultHeadline': 'Noget gik galt',
-  'fabric.mention.error.differentText': 'Prøv at indtaste en anden tekst',
-  'fabric.mention.error.loginAgain': 'Prøv at logge ud og derefter ind igen',
-  'fabric.mention.noAccess.label': 'Ingen adgang',
-  'fabric.mention.noAccess.warning':
-    '{name} får ikke besked, da personen ikke har adgang',
-  'fabric.mention.unknow.user.error': 'Ukendt bruger {userId}',
+  "fabric.elements.mentions.team.meantion.highlight.close.button.tooltip": "Afvis",
+  "fabric.elements.mentions.team.member.50plus": "Team • Over 50 medlemmer",
+  "fabric.elements.mentions.team.member.50plus.including.you": "Team • Over 50 medlemmer, inklusive dig",
+  "fabric.elements.mentions.team.member.count": "{0, plural, one {Team • 1 medlem} other {Team • {0} medlemmer}}",
+  "fabric.elements.mentions.team.member.count.including.you": "{0, plural, one {Team • 1 medlem, inklusive dig} other {Team • {0} medlemmer, inklusive dig}}",
+  "fabric.elements.mentions.team.mention.highlight.description": "Få alle med på siden med ét klik. Har du ikke et team?",
+  "fabric.elements.mentions.team.mention.highlight.description.link": "Så opret et.",
+  "fabric.elements.mentions.team.mention.highlight.title": "Omtal dit team",
+  "fabric.mention.error.defaultAction": "Prøv igen om nogle sekunder",
+  "fabric.mention.error.defaultHeadline": "Noget gik galt",
+  "fabric.mention.error.differentText": "Prøv at indtaste en anden tekst",
+  "fabric.mention.error.loginAgain": "Prøv at logge ud og derefter ind igen",
+  "fabric.mention.noAccess.label": "Ingen adgang",
+  "fabric.mention.noAccess.warning": "{name} får ikke besked, da personen ikke har adgang",
+  "fabric.mention.unknow.user.error": "Ukendt bruger {userId}"
 };

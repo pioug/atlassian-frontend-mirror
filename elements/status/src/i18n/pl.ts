@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,11 +7,11 @@
  */
 //Polish (Poland)
 export default {
-  'fabric.status.color.blue': 'Niebieski',
-  'fabric.status.color.green': 'Zielony',
-  'fabric.status.color.grey': 'Szary',
-  'fabric.status.color.purple': 'Fioletowy',
-  'fabric.status.color.red': 'Czerwony',
-  'fabric.status.color.yellow': 'Żółty',
-  'fabric.status.input.label': 'Ustaw status',
+  "fabric.status.color.blue": "Niebieski",
+  "fabric.status.color.green": "Zielony",
+  "fabric.status.color.grey": "Szary",
+  "fabric.status.color.purple": "Fioletowy",
+  "fabric.status.color.red": "Czerwony",
+  "fabric.status.color.yellow": "Żółty",
+  "fabric.status.input.label": "Ustaw status"
 };

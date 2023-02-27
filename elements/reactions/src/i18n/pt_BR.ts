@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,20 +7,17 @@
  */
 //Portuguese (Brazil)
 export default {
-  'fabric.reactions.add': 'Adicionar reação',
-  'fabric.reactions.error.unexpected':
-    'As reações estão indisponíveis no momento',
-  'fabric.reactions.loading': 'Carregando...',
-  'fabric.reactions.more.emojis': 'Mais emojis',
-  'fabric.reactions.more.info': 'Mais informações',
-  'fabric.reactions.other.reacted.users':
-    '{count, plural, one {e mais um} other {e mais {count}}}',
-  'fabric.reactions.reactwithemoji': 'Reaja com um emoji {emoji}',
-  'reactions.dialog.close': 'Fechar',
-  'reactions.dialog.left.navigate': 'Navegar para a esquerda',
-  'reactions.dialog.reactions.count':
-    '{count, plural, one {{count,number} reação} other {{count,number} reações}}',
-  'reactions.dialog.right.navigate': 'Navegar para a direita',
-  'reactions.dialog.viewall': 'Ver quem reagiu',
-  'reactions.dialog.viewall.tooltip': 'Veja todas as reações de usuários',
+  "fabric.reactions.add": "Adicionar reação",
+  "fabric.reactions.error.unexpected": "As reações estão indisponíveis no momento",
+  "fabric.reactions.loading": "Carregando...",
+  "fabric.reactions.more.emojis": "Mais emojis",
+  "fabric.reactions.more.info": "Mais informações",
+  "fabric.reactions.other.reacted.users": "{count, plural, one {e mais um} other {e mais {count}}}",
+  "fabric.reactions.reactwithemoji": "Reaja com um emoji {emoji}",
+  "reactions.dialog.close": "Fechar",
+  "reactions.dialog.left.navigate": "Navegar para a esquerda",
+  "reactions.dialog.reactions.count": "{count, plural, one {{count,number} reação} other {{count,number} reações}}",
+  "reactions.dialog.right.navigate": "Navegar para a direita",
+  "reactions.dialog.viewall": "Ver quem reagiu",
+  "reactions.dialog.viewall.tooltip": "Veja todas as reações de usuários"
 };

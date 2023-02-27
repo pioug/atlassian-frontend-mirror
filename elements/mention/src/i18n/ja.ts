@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,27 +7,19 @@
  */
 //Japanese
 export default {
-  'fabric.elements.mentions.team.meantion.highlight.close.button.tooltip':
-    '閉じる',
-  'fabric.elements.mentions.team.member.50plus': 'チーム • 50 人以上のメンバー',
-  'fabric.elements.mentions.team.member.50plus.including.you':
-    'チーム • あなたを含む 50 人以上のメンバー',
-  'fabric.elements.mentions.team.member.count':
-    '{0, plural, other {チーム • {0} 人のメンバー}}',
-  'fabric.elements.mentions.team.member.count.including.you':
-    '{0, plural, other {チーム • あなたを含む {0} 人のメンバー}}',
-  'fabric.elements.mentions.team.mention.highlight.description':
-    'ワンクリックで全員をページに連れてきましょう。チームがなければ、',
-  'fabric.elements.mentions.team.mention.highlight.description.link':
-    '作りましょう。',
-  'fabric.elements.mentions.team.mention.highlight.title': 'チームをメンション',
-  'fabric.mention.error.defaultAction': '数秒後にもう一度お試しください',
-  'fabric.mention.error.defaultHeadline': '問題が発生しました',
-  'fabric.mention.error.differentText': '別のテキストを入力してください',
-  'fabric.mention.error.loginAgain':
-    '一度ログアウトしてからもう一度ログインしてみてください',
-  'fabric.mention.noAccess.label': 'アクセス権限がありません',
-  'fabric.mention.noAccess.warning':
-    '{name} さんはアクセス権限がないため、通知されません',
-  'fabric.mention.unknow.user.error': '不明なユーザー: {userId}',
+  "fabric.elements.mentions.team.meantion.highlight.close.button.tooltip": "閉じる",
+  "fabric.elements.mentions.team.member.50plus": "チーム • 50 人以上のメンバー",
+  "fabric.elements.mentions.team.member.50plus.including.you": "チーム • あなたを含む 50 人以上のメンバー",
+  "fabric.elements.mentions.team.member.count": "{0, plural, other {チーム • {0} 人のメンバー}}",
+  "fabric.elements.mentions.team.member.count.including.you": "{0, plural, other {チーム • あなたを含む {0} 人のメンバー}}",
+  "fabric.elements.mentions.team.mention.highlight.description": "ワンクリックで全員をページに連れてきましょう。チームがなければ、",
+  "fabric.elements.mentions.team.mention.highlight.description.link": "作りましょう。",
+  "fabric.elements.mentions.team.mention.highlight.title": "チームをメンション",
+  "fabric.mention.error.defaultAction": "数秒後にもう一度お試しください",
+  "fabric.mention.error.defaultHeadline": "問題が発生しました",
+  "fabric.mention.error.differentText": "別のテキストを入力してください",
+  "fabric.mention.error.loginAgain": "一度ログアウトしてからもう一度ログインしてみてください",
+  "fabric.mention.noAccess.label": "アクセス権限がありません",
+  "fabric.mention.noAccess.warning": "{name} さんはアクセス権限がないため、通知されません",
+  "fabric.mention.unknow.user.error": "不明なユーザー: {userId}"
 };

@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,29 +7,19 @@
  */
 //Dutch (Netherlands)
 export default {
-  'fabric.elements.mentions.team.meantion.highlight.close.button.tooltip':
-    'Sluiten',
-  'fabric.elements.mentions.team.member.50plus': 'Team • 50+ leden',
-  'fabric.elements.mentions.team.member.50plus.including.you':
-    'Team • 50+ leden, inclusief jezelf.',
-  'fabric.elements.mentions.team.member.count':
-    '{0, plural, one {Team • {0} lid} other {Team • {0} leden.}}',
-  'fabric.elements.mentions.team.member.count.including.you':
-    '{0, plural, one {Team • {0} lid, inclusief jezelf} other {Team •{0} leden, inclusief jezelf}}',
-  'fabric.elements.mentions.team.mention.highlight.description':
-    'Zorg ervoor dat iedereen met één klik op de pagina terechtkomt. Geen team?',
-  'fabric.elements.mentions.team.mention.highlight.description.link':
-    'Ga aan de slag.',
-  'fabric.elements.mentions.team.mention.highlight.title': 'Je team noemen',
-  'fabric.mention.error.defaultAction':
-    'Probeer het over een paar seconden opnieuw',
-  'fabric.mention.error.defaultHeadline': 'Er is iets misgegaan',
-  'fabric.mention.error.differentText':
-    'Probeer het opnieuw met een andere tekst',
-  'fabric.mention.error.loginAgain':
-    'Log uit en probeer dan opnieuw in te loggen',
-  'fabric.mention.noAccess.label': 'Geen toegang',
-  'fabric.mention.noAccess.warning':
-    '{name} ontvangt geen melding omdat hij/zij geen toegang heeft',
-  'fabric.mention.unknow.user.error': 'Onbekende gebruiker ({userId})',
+  "fabric.elements.mentions.team.meantion.highlight.close.button.tooltip": "Sluiten",
+  "fabric.elements.mentions.team.member.50plus": "Team • 50+ leden",
+  "fabric.elements.mentions.team.member.50plus.including.you": "Team • 50+ leden, inclusief jezelf.",
+  "fabric.elements.mentions.team.member.count": "{0, plural, one {Team • {0} lid} other {Team • {0} leden.}}",
+  "fabric.elements.mentions.team.member.count.including.you": "{0, plural, one {Team • {0} lid, inclusief jezelf} other {Team •{0} leden, inclusief jezelf}}",
+  "fabric.elements.mentions.team.mention.highlight.description": "Zorg ervoor dat iedereen met één klik op de pagina terechtkomt. Geen team?",
+  "fabric.elements.mentions.team.mention.highlight.description.link": "Ga aan de slag.",
+  "fabric.elements.mentions.team.mention.highlight.title": "Je team noemen",
+  "fabric.mention.error.defaultAction": "Probeer het over een paar seconden opnieuw",
+  "fabric.mention.error.defaultHeadline": "Er is iets misgegaan",
+  "fabric.mention.error.differentText": "Probeer het opnieuw met een andere tekst",
+  "fabric.mention.error.loginAgain": "Log uit en probeer dan opnieuw in te loggen",
+  "fabric.mention.noAccess.label": "Geen toegang",
+  "fabric.mention.noAccess.warning": "{name} ontvangt geen melding omdat hij/zij geen toegang heeft",
+  "fabric.mention.unknow.user.error": "Onbekende gebruiker ({userId})"
 };

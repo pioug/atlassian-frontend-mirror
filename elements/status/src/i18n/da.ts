@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,11 +7,11 @@
  */
 //Danish (Denmark)
 export default {
-  'fabric.status.color.blue': 'Blå',
-  'fabric.status.color.green': 'Grøn',
-  'fabric.status.color.grey': 'Grå',
-  'fabric.status.color.purple': 'Lilla',
-  'fabric.status.color.red': 'Rød',
-  'fabric.status.color.yellow': 'Gul',
-  'fabric.status.input.label': 'Angiv en status',
+  "fabric.status.color.blue": "Blå",
+  "fabric.status.color.green": "Grøn",
+  "fabric.status.color.grey": "Grå",
+  "fabric.status.color.purple": "Lilla",
+  "fabric.status.color.red": "Rød",
+  "fabric.status.color.yellow": "Gul",
+  "fabric.status.input.label": "Angiv en status"
 };

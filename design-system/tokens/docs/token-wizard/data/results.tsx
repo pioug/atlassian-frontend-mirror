@@ -1,742 +1,1006 @@
-import { ActiveTokens } from '../../../src/artifacts/types';
-
-/**
- * An object type can't use its own keys in its object definition
- * Instead we have to define an object type with all the result keys
- */
-
-export type Pairings = {
-  icon: string;
-  text: string;
-  border: string;
-  background: string;
-};
-
-export type Results = {
-  [key in keyof resultId]: {
-    suggestion: ActiveTokens[];
-    metadata?: {
-      hints?: string[];
-    };
-    pairings?: Pairings[];
-  };
-};
-interface resultId {
-  'text/default': any;
-  'text/neutral/subtle': any;
-  'text/neutral/subtlest': any;
-  'text/neutral/disabled': any;
-  'text/neutral/on-bold': any;
-  'text/link/default': any;
-  'text/link/subtle': any;
-  'text/colored/brand': any;
-  'text/colored/information': any;
-  'text/colored/success': any;
-  'text/colored/warning': any;
-  'text/colored/danger': any;
-  'text/colored/discovery': any;
-  'text/colored/selected': any;
-  'text/colored/accent/blue': any;
-  'text/colored/accent/teal': any;
-  'text/colored/accent/green': any;
-  'text/colored/accent/yellow': any;
-  'text/colored/accent/orange': any;
-  'text/colored/accent/red': any;
-  'text/colored/accent/magenta': any;
-  'text/colored/accent/purple': any;
-  'text/colored/accent/gray': any;
-  'background-surface/surface/main-background': any;
-  'background-surface/surface/modal-dropdown': any;
-  'background-surface/surface/card': any;
-  'background-surface/surface/grouping': any;
-  'background-surface/background/colored/brand': any;
-  'background-surface/background/colored/information': any;
-  'background-surface/background/colored/success': any;
-  'background-surface/background/colored/warning': any;
-  'background-surface/background/colored/danger': any;
-  'background-surface/background/colored/discovery': any;
-  'background-surface/background/colored/selected': any;
-  'background-surface/background/colored/accent/blue': any;
-  'background-surface/background/colored/accent/teal': any;
-  'background-surface/background/colored/accent/green': any;
-  'background-surface/background/colored/accent/red': any;
-  'background-surface/background/colored/accent/orange': any;
-  'background-surface/background/colored/accent/yellow': any;
-  'background-surface/background/colored/accent/magenta': any;
-  'background-surface/background/colored/accent/purple': any;
-  'background-surface/background/colored/accent/gray': any;
-  'background-surface/background/neutral/input': any;
-  'background-surface/background/neutral/disabled': any;
-  'background-surface/background/neutral/neutral': any;
-  'background-surface/background/neutral/subtle': any;
-  'background-surface/background/neutral/vibrant': any;
-  'background-surface/background/neutral/on-bold': any;
-  'shadow/raised': any;
-  'shadow/overlay': any;
-  'shadow/overflow': any;
-  'border/colored/brand': any;
-  'border/colored/information': any;
-  'border/colored/success': any;
-  'border/colored/warning': any;
-  'border/colored/danger': any;
-  'border/colored/discovery': any;
-  'border/colored/focused': any;
-  'border/colored/selected': any;
-  'border/colored/blue': any;
-  'border/colored/teal': any;
-  'border/colored/green': any;
-  'border/colored/yellow': any;
-  'border/colored/orange': any;
-  'border/colored/red': any;
-  'border/colored/magenta': any;
-  'border/colored/purple': any;
-  'border/colored/gray': any;
-  'border/neutral/input': any;
-  'border/neutral/neutral': any;
-  'border/neutral/disabled': any;
-  'icon/colored/brand': any;
-  'icon/colored/information': any;
-  'icon/colored/success': any;
-  'icon/colored/warning': any;
-  'icon/colored/danger': any;
-  'icon/colored/discovery': any;
-  'icon/colored/selected': any;
-  'icon/colored/blue': any;
-  'icon/colored/teal': any;
-  'icon/colored/green': any;
-  'icon/colored/yellow': any;
-  'icon/colored/orange': any;
-  'icon/colored/red': any;
-  'icon/colored/magenta': any;
-  'icon/colored/purple': any;
-  'icon/colored/gray': any;
-  'icon/neutral/default': any;
-  'icon/neutral/subtle': any;
-  'icon/neutral/on-bold': any;
-  'icon/neutral/disabled': any;
-  'data-visualisation/end-user': any;
-  'data-visualisation/product/none/one-color': any;
-  'data-visualisation/product/none/primary-and-neutral': any;
-  'data-visualisation/product/none/more-than-one-color': any;
-  'data-visualisation/product/success/one-or-more': any;
-  'data-visualisation/product/success/primary-and-neutral': any;
-  'data-visualisation/product/warning/one-or-more': any;
-  'data-visualisation/product/warning/primary-and-neutral': any;
-  'data-visualisation/product/danger/one-or-more': any;
-  'data-visualisation/product/danger/primary-and-neutral': any;
-  'data-visualisation/product/discovery/one-or-more': any;
-  'data-visualisation/product/discovery/primary-and-neutral': any;
-  'data-visualisation/product/information/one-or-more': any;
-  'data-visualisation/product/information/primary-and-neutral': any;
-  'data-visualisation/product/neutral': any;
-  'data-visualisation/product/brand/one-or-more': any;
-  'data-visualisation/product/brand/primary-and-neutral': any;
-  'other/blanket/modal': any;
-  'other/blanket/deletion': any;
-  'other/blanket/selection': any;
-  'other/skeleton': any;
-  'other/skeleton/subtle': any;
-  'opacity/disabled': any;
-  'opacity/loading': any;
-}
-
+import { Results } from './types';
 const results: Results = {
-  'text/default': {
-    suggestion: ['color.text'],
-  },
-  'text/neutral/subtle': {
-    suggestion: ['color.text.subtle'],
-  },
-  'text/neutral/subtlest': {
-    suggestion: ['color.text.subtlest'],
-  },
-  'text/neutral/disabled': {
-    suggestion: ['color.text.disabled'],
-  },
-  'text/neutral/on-bold': {
-    suggestion: ['color.text.inverse', 'color.text.warning.inverse'],
-  },
-  'text/link/default': {
-    suggestion: ['color.link'],
-  },
-  'text/link/subtle': {
-    suggestion: ['color.text.subtle'],
-  },
-  'text/colored/brand': {
-    suggestion: ['color.text.brand'],
-  },
-  'text/colored/information': {
-    suggestion: ['color.text.information'],
-  },
-  'text/colored/success': {
-    suggestion: ['color.text.success'],
-  },
-  'text/colored/warning': {
-    suggestion: ['color.text.warning'],
-  },
-  'text/colored/danger': {
-    suggestion: ['color.text.danger'],
-  },
-  'text/colored/discovery': {
-    suggestion: ['color.text.discovery'],
-  },
-  'text/colored/selected': {
-    suggestion: ['color.text.selected'],
-  },
-  'text/colored/accent/blue': {
-    suggestion: ['color.text.accent.blue', 'color.text.accent.blue.bolder'],
-  },
-  'text/colored/accent/teal': {
-    suggestion: ['color.text.accent.teal', 'color.text.accent.teal.bolder'],
-  },
-  'text/colored/accent/green': {
-    suggestion: ['color.text.accent.green', 'color.text.accent.green.bolder'],
-  },
-  'text/colored/accent/yellow': {
-    suggestion: ['color.text.accent.yellow', 'color.text.accent.yellow.bolder'],
-  },
-  'text/colored/accent/orange': {
-    suggestion: ['color.text.accent.orange', 'color.text.accent.orange.bolder'],
-  },
-  'text/colored/accent/red': {
-    suggestion: ['color.text.accent.red', 'color.text.accent.red.bolder'],
-  },
-  'text/colored/accent/magenta': {
-    suggestion: [
-      'color.text.accent.magenta',
-      'color.text.accent.magenta.bolder',
-    ],
-  },
-  'text/colored/accent/purple': {
-    suggestion: ['color.text.accent.purple', 'color.text.accent.purple.bolder'],
-  },
-  'text/colored/accent/gray': {
-    suggestion: ['color.text.accent.gray', 'color.text.accent.gray.bolder'],
-  },
-
-  'background-surface/surface/main-background': {
-    suggestion: ['elevation.surface'],
-    metadata: {
+  'text/default_resultNode': [
+    {
+      name: 'color.text',
+    },
+  ],
+  'text/neutral/subtle_resultNode': [
+    {
+      name: 'color.text.subtle',
+    },
+  ],
+  'text/neutral/subtlest_resultNode': [
+    {
+      name: 'color.text.subtlest',
+    },
+  ],
+  'text/neutral/disabled_resultNode': [
+    {
+      name: 'color.text.disabled',
+    },
+  ],
+  'text/neutral/on-bold_resultNode': [
+    {
+      name: 'color.text.inverse',
+    },
+    {
+      name: 'color.text.warning.inverse',
+    },
+  ],
+  'text/colored/accent/gray_resultNode': [
+    {
+      name: 'color.text.accent.gray',
+    },
+    {
+      name: 'color.text.accent.gray.bolder',
+    },
+  ],
+  'text/link/default_resultNode': [
+    {
+      name: 'color.link',
+    },
+  ],
+  'text/link/subtle_resultNode': [
+    {
+      name: 'color.text.subtle',
+    },
+  ],
+  'text/colored/brand_resultNode': [
+    {
+      name: 'color.text.brand',
+    },
+  ],
+  'text/colored/information_resultNode': [
+    {
+      name: 'color.text.information',
+    },
+  ],
+  'text/colored/success_resultNode': [
+    {
+      name: 'color.text.success',
+    },
+  ],
+  'text/colored/warning_resultNode': [
+    {
+      name: 'color.text.warning',
+    },
+  ],
+  'text/colored/danger_resultNode': [
+    {
+      name: 'color.text.danger',
+    },
+  ],
+  'text/colored/discovery_resultNode': [
+    {
+      name: 'color.text.discovery',
+    },
+  ],
+  'text/colored/selected_resultNode': [
+    {
+      name: 'color.text.selected',
+    },
+  ],
+  'text/colored/accent/blue_resultNode': [
+    {
+      name: 'color.text.accent.blue',
+    },
+    {
+      name: 'color.text.accent.blue.bolder',
+    },
+  ],
+  'text/colored/accent/teal_resultNode': [
+    {
+      name: 'color.text.accent.teal',
+    },
+    {
+      name: 'color.text.accent.teal.bolder',
+    },
+  ],
+  'text/colored/accent/green_resultNode': [
+    {
+      name: 'color.text.accent.green',
+    },
+    {
+      name: 'color.text.accent.green.bolder',
+    },
+  ],
+  'text/colored/accent/yellow_resultNode': [
+    {
+      name: 'color.text.accent.yellow',
+    },
+    {
+      name: 'color.text.accent.yellow.bolder',
+    },
+  ],
+  'text/colored/accent/orange_resultNode': [
+    {
+      name: 'color.text.accent.orange',
+    },
+    {
+      name: 'color.text.accent.orange.bolder',
+    },
+  ],
+  'text/colored/accent/red_resultNode': [
+    {
+      name: 'color.text.accent.red',
+    },
+    {
+      name: 'color.text.accent.red.bolder',
+    },
+  ],
+  'text/colored/accent/magenta_resultNode': [
+    {
+      name: 'color.text.accent.magenta',
+    },
+    {
+      name: 'color.text.accent.magenta.bolder',
+    },
+  ],
+  'text/colored/accent/purple_resultNode': [
+    {
+      name: 'color.text.accent.purple',
+    },
+    {
+      name: 'color.text.accent.purple.bolder',
+    },
+  ],
+  'background-surface/surface/main-background_resultNode': [
+    {
+      name: 'elevation.surface',
       hints: [''],
     },
-  },
-  'background-surface/surface/modal-dropdown': {
-    suggestion: ['elevation.surface.overlay'],
-    metadata: {
+  ],
+  'background-surface/surface/modal-dropdown_resultNode': [
+    {
+      name: 'elevation.surface.overlay',
       hints: ['Pair this elevation with `shadow.overlay`'],
     },
-  },
-  'background-surface/surface/card': {
-    suggestion: ['elevation.surface.raised'],
-    metadata: {
+  ],
+  'background-surface/surface/card_resultNode': [
+    {
+      name: 'elevation.surface.raised',
       hints: ['Pair this elevation with `shadow.raised`'],
     },
-  },
-  'background-surface/surface/grouping': {
-    suggestion: ['elevation.surface.sunken'],
-    metadata: {
+  ],
+  'background-surface/surface/grouping_resultNode': [
+    {
+      name: 'elevation.surface.sunken',
       hints: [
         'Use elevation.surface.sunken on top of the elevation.surface',
         'You can also use color.border + no background to group content together',
       ],
     },
-  },
-  'background-surface/background/colored/brand': {
-    suggestion: ['color.background.brand.bold'],
-    pairings: [
-      {
-        background: 'color.background.brand.bold',
-        icon: 'color.icon.inverse',
-        text: 'color.text.inverse',
-        border: 'color.border.brand',
-      },
-    ],
-  },
-  'background-surface/background/colored/information': {
-    suggestion: [
-      'color.background.information',
-      'color.background.information.bold',
-    ],
-    pairings: [
-      {
-        background: 'color.background.information',
-        icon: 'color.icon.information',
-        text: 'color.text',
-        border: 'color.border.information',
-      },
-      {
-        background: 'color.background.information.bold',
-        icon: 'color.icon.inverse',
-        text: 'color.text.inverse',
-        border: 'color.border.information',
-      },
-    ],
-  },
-  'background-surface/background/colored/success': {
-    suggestion: ['color.background.success', 'color.background.success.bold'],
-    pairings: [
-      {
-        background: 'color.background.success',
-        icon: 'color.icon.success',
-        text: 'color.text',
-        border: 'color.border.success',
-      },
-      {
-        background: 'color.background.success.bold',
-        icon: 'color.icon.inverse',
-        text: 'color.text.inverse',
-        border: 'color.border.success',
-      },
-    ],
-  },
-  'background-surface/background/colored/warning': {
-    suggestion: ['color.background.warning', 'color.background.warning.bold'],
-    pairings: [
-      {
-        background: 'color.background.warning',
-        icon: 'color.icon.warning',
-        text: 'color.text',
-        border: 'color.border.warning',
-      },
-      {
-        background: 'color.background.warning.bold',
-        icon: 'color.icon.inverse',
-        text: 'color.text.inverse',
-        border: 'color.border.warning',
-      },
-    ],
-  },
-  'background-surface/background/colored/danger': {
-    suggestion: ['color.background.danger', 'color.background.danger.bold'],
-    pairings: [
-      {
-        background: 'color.background.danger',
-        icon: 'color.icon.danger',
-        text: 'color.text',
-        border: 'color.border.danger',
-      },
-      {
-        background: 'color.background.danger.bold',
-        icon: 'color.icon.inverse',
-        text: 'color.text.inverse',
-        border: 'color.border.danger',
-      },
-    ],
-  },
-  'background-surface/background/colored/discovery': {
-    suggestion: [
-      'color.background.discovery',
-      'color.background.discovery.bold',
-    ],
-    pairings: [
-      {
-        background: 'color.background.discovery',
-        icon: 'color.icon.discovery',
-        text: 'color.text',
-        border: 'color.border.discovery',
-      },
-      {
-        background: 'color.background.discovery.bold',
-        icon: 'color.icon.inverse',
-        text: 'color.text.inverse',
-        border: 'color.border.discovery',
-      },
-    ],
-  },
-  'background-surface/background/colored/selected': {
-    suggestion: ['color.background.selected', 'color.background.selected.bold'],
-    pairings: [
-      {
-        background: 'color.background.selected',
-        icon: 'color.icon.selected',
-        text: 'color.text',
-        border: 'color.border.selected',
-      },
-      {
-        background: 'color.background.selected.bold',
-        icon: 'color.icon.inverse',
-        text: 'color.text.inverse',
-        border: 'color.border.selected',
-      },
-    ],
-  },
-  'background-surface/background/colored/accent/blue': {
-    suggestion: [
-      'color.background.accent.blue.subtlest',
-      'color.background.accent.blue.subtler',
-      'color.background.accent.blue.subtle',
-      'color.background.accent.blue.bolder',
-    ],
-  },
-  'background-surface/background/colored/accent/teal': {
-    suggestion: [
-      'color.background.accent.teal.subtlest',
-      'color.background.accent.teal.subtler',
-      'color.background.accent.teal.subtle',
-      'color.background.accent.teal.bolder',
-    ],
-  },
-  'background-surface/background/colored/accent/green': {
-    suggestion: [
-      'color.background.accent.green.subtlest',
-      'color.background.accent.green.subtler',
-      'color.background.accent.green.subtle',
-      'color.background.accent.green.bolder',
-    ],
-  },
-  'background-surface/background/colored/accent/red': {
-    suggestion: [
-      'color.background.accent.red.subtlest',
-      'color.background.accent.red.subtler',
-      'color.background.accent.red.subtle',
-      'color.background.accent.red.bolder',
-    ],
-  },
-  'background-surface/background/colored/accent/orange': {
-    suggestion: [
-      'color.background.accent.orange.subtlest',
-      'color.background.accent.orange.subtler',
-      'color.background.accent.orange.subtle',
-      'color.background.accent.orange.bolder',
-    ],
-  },
-  'background-surface/background/colored/accent/yellow': {
-    suggestion: [
-      'color.background.accent.yellow.subtlest',
-      'color.background.accent.yellow.subtler',
-      'color.background.accent.yellow.subtle',
-      'color.background.accent.yellow.bolder',
-    ],
-  },
-  'background-surface/background/colored/accent/magenta': {
-    suggestion: [
-      'color.background.accent.magenta.subtlest',
-      'color.background.accent.magenta.subtler',
-      'color.background.accent.magenta.subtle',
-      'color.background.accent.magenta.bolder',
-    ],
-  },
-  'background-surface/background/colored/accent/purple': {
-    suggestion: [
-      'color.background.accent.purple.subtlest',
-      'color.background.accent.purple.subtler',
-      'color.background.accent.purple.subtle',
-      'color.background.accent.purple.bolder',
-    ],
-  },
-  'background-surface/background/colored/accent/gray': {
-    suggestion: [
-      'color.background.accent.gray.subtlest',
-      'color.background.accent.gray.subtler',
-      'color.background.accent.gray.subtle',
-      'color.background.accent.gray.bolder',
-    ],
-  },
-  'background-surface/background/neutral/input': {
-    suggestion: ['color.background.input'],
-  },
-  'background-surface/background/neutral/disabled': {
-    suggestion: ['color.background.disabled'],
-  },
-  'background-surface/background/neutral/neutral': {
-    suggestion: ['color.background.neutral'],
-    pairings: [
-      {
-        text: 'color.text',
-        border: 'color.border',
-        icon: 'color.icon',
-        background: 'color.background.neutral',
-      },
-    ],
-  },
-  'background-surface/background/neutral/subtle': {
-    suggestion: ['color.background.neutral.subtle'],
-    metadata: {
+  ],
+  'background-surface/background/colored/brand_resultNode': [
+    {
+      name: 'color.background.brand.bold',
+      pairings: [
+        {
+          background: 'color.background.brand.bold',
+          icon: 'color.icon.inverse',
+          text: 'color.text.inverse',
+          border: 'color.border.brand',
+        },
+      ],
+    },
+  ],
+  'background-surface/background/colored/information_resultNode': [
+    {
+      name: 'color.background.information',
+      pairings: [
+        {
+          background: 'color.background.information',
+          icon: 'color.icon.information',
+          text: 'color.text',
+          border: 'color.border.information',
+        },
+      ],
+    },
+    {
+      name: 'color.background.information.bold',
+      pairings: [
+        {
+          background: 'color.background.information.bold',
+          icon: 'color.icon.inverse',
+          text: 'color.text.inverse',
+          border: 'color.border.information',
+        },
+      ],
+    },
+  ],
+  'background-surface/background/colored/success_resultNode': [
+    {
+      name: 'color.background.success',
+      pairings: [
+        {
+          background: 'color.background.success',
+          icon: 'color.icon.success',
+          text: 'color.text',
+          border: 'color.border.success',
+        },
+      ],
+    },
+    {
+      name: 'color.background.success.bold',
+      pairings: [
+        {
+          background: 'color.background.success.bold',
+          icon: 'color.icon.inverse',
+          text: 'color.text.inverse',
+          border: 'color.border.success',
+        },
+      ],
+    },
+  ],
+  'background-surface/background/colored/warning_resultNode': [
+    {
+      name: 'color.background.warning',
+      pairings: [
+        {
+          background: 'color.background.warning',
+          icon: 'color.icon.warning',
+          text: 'color.text',
+          border: 'color.border.warning',
+        },
+      ],
+    },
+    {
+      name: 'color.background.warning.bold',
+      pairings: [
+        {
+          background: 'color.background.warning.bold',
+          icon: 'color.icon.inverse',
+          text: 'color.text.inverse',
+          border: 'color.border.warning',
+        },
+      ],
+    },
+  ],
+  'background-surface/background/colored/danger_resultNode': [
+    {
+      name: 'color.background.danger',
+      pairings: [
+        {
+          background: 'color.background.danger',
+          icon: 'color.icon.danger',
+          text: 'color.text',
+          border: 'color.border.danger',
+        },
+      ],
+    },
+    {
+      name: 'color.background.danger.bold',
+      pairings: [
+        {
+          background: 'color.background.danger.bold',
+          icon: 'color.icon.inverse',
+          text: 'color.text.inverse',
+          border: 'color.border.danger',
+        },
+      ],
+    },
+  ],
+  'background-surface/background/colored/discovery_resultNode': [
+    {
+      name: 'color.background.discovery',
+      pairings: [
+        {
+          background: 'color.background.discovery',
+          icon: 'color.icon.discovery',
+          text: 'color.text',
+          border: 'color.border.discovery',
+        },
+      ],
+    },
+    {
+      name: 'color.background.discovery.bold',
+      pairings: [
+        {
+          background: 'color.background.discovery.bold',
+          icon: 'color.icon.inverse',
+          text: 'color.text.inverse',
+          border: 'color.border.discovery',
+        },
+      ],
+    },
+  ],
+  'background-surface/background/colored/selected_resultNode': [
+    {
+      name: 'color.background.selected',
+      pairings: [
+        {
+          background: 'color.background.selected',
+          icon: 'color.icon.selected',
+          text: 'color.text',
+          border: 'color.border.selected',
+        },
+      ],
+    },
+    {
+      name: 'color.background.selected.bold',
+      pairings: [
+        {
+          background: 'color.background.selected.bold',
+          icon: 'color.icon.inverse',
+          text: 'color.text.inverse',
+          border: 'color.border.selected',
+        },
+      ],
+    },
+  ],
+  'background-surface/background/colored/accent/blue_resultNode': [
+    {
+      name: 'color.background.accent.blue.subtlest',
+    },
+    {
+      name: 'color.background.accent.blue.subtler',
+    },
+    {
+      name: 'color.background.accent.blue.subtle',
+    },
+    {
+      name: 'color.background.accent.blue.bolder',
+    },
+  ],
+  'background-surface/background/colored/accent/teal_resultNode': [
+    {
+      name: 'color.background.accent.teal.subtlest',
+    },
+    {
+      name: 'color.background.accent.teal.subtler',
+    },
+    {
+      name: 'color.background.accent.teal.subtle',
+    },
+    {
+      name: 'color.background.accent.teal.bolder',
+    },
+  ],
+  'background-surface/background/colored/accent/green_resultNode': [
+    {
+      name: 'color.background.accent.green.subtlest',
+    },
+    {
+      name: 'color.background.accent.green.subtler',
+    },
+    {
+      name: 'color.background.accent.green.subtle',
+    },
+    {
+      name: 'color.background.accent.green.bolder',
+    },
+  ],
+  'background-surface/background/colored/accent/yellow_resultNode': [
+    {
+      name: 'color.background.accent.yellow.subtlest',
+    },
+    {
+      name: 'color.background.accent.yellow.subtler',
+    },
+    {
+      name: 'color.background.accent.yellow.subtle',
+    },
+    {
+      name: 'color.background.accent.yellow.bolder',
+    },
+  ],
+  'background-surface/background/colored/accent/orange_resultNode': [
+    {
+      name: 'color.background.accent.orange.subtlest',
+    },
+    {
+      name: 'color.background.accent.orange.subtler',
+    },
+    {
+      name: 'color.background.accent.orange.subtle',
+    },
+    {
+      name: 'color.background.accent.orange.bolder',
+    },
+  ],
+  'background-surface/background/colored/accent/red_resultNode': [
+    {
+      name: 'color.background.accent.red.subtlest',
+    },
+    {
+      name: 'color.background.accent.red.subtler',
+    },
+    {
+      name: 'color.background.accent.red.subtle',
+    },
+    {
+      name: 'color.background.accent.red.bolder',
+    },
+  ],
+  'background-surface/background/colored/accent/magenta_resultNode': [
+    {
+      name: 'color.background.accent.magenta.subtlest',
+    },
+    {
+      name: 'color.background.accent.magenta.subtler',
+    },
+    {
+      name: 'color.background.accent.magenta.subtle',
+    },
+    {
+      name: 'color.background.accent.magenta.bolder',
+    },
+  ],
+  'background-surface/background/colored/accent/purple_resultNode': [
+    {
+      name: 'color.background.accent.purple.subtlest',
+    },
+    {
+      name: 'color.background.accent.purple.subtler',
+    },
+    {
+      name: 'color.background.accent.purple.subtle',
+    },
+    {
+      name: 'color.background.accent.purple.bolder',
+    },
+  ],
+  'background-surface/background/colored/accent/gray_resultNode': [
+    {
+      name: 'color.background.accent.gray.subtlest',
+    },
+    {
+      name: 'color.background.accent.gray.subtler',
+    },
+    {
+      name: 'color.background.accent.gray.subtle',
+    },
+    {
+      name: 'color.background.accent.gray.bolder',
+    },
+  ],
+  'background-surface/background/neutral/input_resultNode': [
+    {
+      name: 'color.background.input',
+    },
+  ],
+  'background-surface/background/neutral/disabled_resultNode': [
+    {
+      name: 'color.background.disabled',
+    },
+  ],
+  'background-surface/background/neutral/neutral_resultNode': [
+    {
+      name: 'color.background.neutral',
+      pairings: [
+        {
+          text: 'color.text',
+          border: 'color.border',
+          icon: 'color.icon',
+          background: 'color.background.neutral',
+        },
+      ],
+    },
+  ],
+  'background-surface/background/neutral/subtle_resultNode': [
+    {
+      name: 'color.background.neutral.subtle',
       hints: [
         'Use color.background.neutral.subtle for the resting state; though transparent it allows for fade animation',
       ],
+      pairings: [
+        {
+          text: 'color.text',
+          border: 'color.border',
+          icon: 'color.icon',
+          background: 'color.background.neutral.subtle',
+        },
+      ],
     },
-    pairings: [
-      {
-        text: 'color.text',
-        border: 'color.border',
-        icon: 'color.icon',
-        background: 'color.background.neutral.subtle',
-      },
-    ],
-  },
-  'background-surface/background/neutral/vibrant': {
-    suggestion: ['color.background.neutral.bold'],
-    pairings: [
-      {
-        text: 'color.text.inverse',
-        border: 'color.border',
-        icon: 'color.icon.inverse',
-        background: 'color.background.neutral.bold',
-      },
-    ],
-  },
-  'background-surface/background/neutral/on-bold': {
-    suggestion: ['color.background.inverse.subtle'],
-  },
-
-  'shadow/raised': {
-    suggestion: ['elevation.shadow.raised'],
-    metadata: {
+  ],
+  'background-surface/background/neutral/vibrant_resultNode': [
+    {
+      name: 'color.background.neutral.bold',
+      pairings: [
+        {
+          text: 'color.text.inverse',
+          border: 'color.border',
+          icon: 'color.icon.inverse',
+          background: 'color.background.neutral.bold',
+        },
+      ],
+    },
+  ],
+  'background-surface/background/neutral/on-bold_resultNode': [
+    {
+      name: 'color.background.inverse.subtle',
+    },
+  ],
+  'shadow/raised_resultNode': [
+    {
+      name: 'elevation.shadow.raised',
       hints: ['Make sure to pair this shadow with the matching surface'],
     },
-  },
-  'shadow/overlay': {
-    suggestion: ['elevation.shadow.overlay'],
-    metadata: {
+  ],
+  'shadow/overlay_resultNode': [
+    {
+      name: 'elevation.shadow.overlay',
       hints: ['Make sure to pair this shadow with the matching surface'],
     },
-  },
-  'shadow/overflow': {
-    suggestion: [
-      'elevation.shadow.overflow',
-      'elevation.shadow.overflow.spread',
-      'elevation.shadow.overflow.perimeter',
-    ],
-  },
-
-  'border/colored/brand': {
-    suggestion: ['color.border.brand'],
-  },
-  'border/colored/information': {
-    suggestion: ['color.border.information'],
-  },
-  'border/colored/success': {
-    suggestion: ['color.border.success'],
-  },
-  'border/colored/warning': {
-    suggestion: ['color.border.warning'],
-  },
-  'border/colored/danger': {
-    suggestion: ['color.border.danger'],
-  },
-  'border/colored/discovery': {
-    suggestion: ['color.border.discovery'],
-  },
-  'border/colored/focused': {
-    suggestion: ['color.border.focused'],
-  },
-  'border/colored/selected': {
-    suggestion: ['color.border.selected'],
-  },
-  'border/colored/blue': {
-    suggestion: ['color.border.accent.blue'],
-  },
-  'border/colored/teal': {
-    suggestion: ['color.border.accent.teal'],
-  },
-  'border/colored/green': {
-    suggestion: ['color.border.accent.green'],
-  },
-  'border/colored/yellow': {
-    suggestion: ['color.border.accent.yellow'],
-  },
-  'border/colored/orange': {
-    suggestion: ['color.border.accent.orange'],
-  },
-  'border/colored/red': {
-    suggestion: ['color.border.accent.red'],
-  },
-  'border/colored/magenta': {
-    suggestion: ['color.border.accent.magenta'],
-  },
-  'border/colored/purple': {
-    suggestion: ['color.border.accent.purple'],
-  },
-  'border/colored/gray': {
-    suggestion: ['color.border.accent.gray'],
-  },
-  'border/neutral/input': {
-    suggestion: ['color.border.input'],
-  },
-  'border/neutral/neutral': {
-    suggestion: ['color.border', 'color.border.bold', 'color.border.inverse'],
-  },
-  'border/neutral/disabled': {
-    suggestion: ['color.border.disabled'],
-  },
-
-  'icon/colored/brand': {
-    suggestion: ['color.icon.brand'],
-  },
-  'icon/colored/information': {
-    suggestion: ['color.icon.information'],
-  },
-  'icon/colored/success': {
-    suggestion: ['color.icon.success'],
-  },
-  'icon/colored/warning': {
-    suggestion: ['color.icon.warning'],
-  },
-  'icon/colored/danger': {
-    suggestion: ['color.icon.danger'],
-  },
-  'icon/colored/discovery': {
-    suggestion: ['color.icon.discovery'],
-  },
-  'icon/colored/selected': {
-    suggestion: ['color.icon.selected'],
-  },
-  'icon/colored/blue': {
-    suggestion: ['color.icon.accent.blue'],
-  },
-  'icon/colored/teal': {
-    suggestion: ['color.icon.accent.teal'],
-  },
-  'icon/colored/green': {
-    suggestion: ['color.icon.accent.green'],
-  },
-  'icon/colored/yellow': {
-    suggestion: ['color.icon.accent.yellow'],
-  },
-  'icon/colored/orange': {
-    suggestion: ['color.icon.accent.orange'],
-  },
-  'icon/colored/red': {
-    suggestion: ['color.icon.accent.red'],
-  },
-  'icon/colored/magenta': {
-    suggestion: ['color.icon.accent.magenta'],
-  },
-  'icon/colored/purple': {
-    suggestion: ['color.icon.accent.purple'],
-  },
-  'icon/colored/gray': {
-    suggestion: ['color.icon.accent.gray'],
-  },
-  'icon/neutral/default': {
-    suggestion: ['color.icon'],
-  },
-  'icon/neutral/subtle': {
-    suggestion: ['color.icon.subtle'],
-  },
-  'icon/neutral/on-bold': {
-    suggestion: ['color.icon.inverse', 'color.icon.warning.inverse'],
-    metadata: {
+  ],
+  'shadow/overflow_resultNode': [
+    {
+      name: 'elevation.shadow.overflow',
+    },
+    {
+      name: 'elevation.shadow.overflow.spread',
+    },
+    {
+      name: 'elevation.shadow.overflow.perimeter',
+    },
+  ],
+  'border/colored/brand_resultNode': [
+    {
+      name: 'color.border.brand',
+    },
+  ],
+  'border/colored/information_resultNode': [
+    {
+      name: 'color.border.information',
+    },
+  ],
+  'border/colored/success_resultNode': [
+    {
+      name: 'color.border.success',
+    },
+  ],
+  'border/colored/warning_resultNode': [
+    {
+      name: 'color.border.warning',
+    },
+  ],
+  'border/colored/danger_resultNode': [
+    {
+      name: 'color.border.danger',
+    },
+  ],
+  'border/colored/discovery_resultNode': [
+    {
+      name: 'color.border.discovery',
+    },
+  ],
+  'border/colored/focused_resultNode': [
+    {
+      name: 'color.border.focused',
+    },
+  ],
+  'border/colored/selected_resultNode': [
+    {
+      name: 'color.border.selected',
+    },
+  ],
+  'border/colored/blue_resultNode': [
+    {
+      name: 'color.border.accent.blue',
+    },
+  ],
+  'border/colored/teal_resultNode': [
+    {
+      name: 'color.border.accent.teal',
+    },
+  ],
+  'border/colored/green_resultNode': [
+    {
+      name: 'color.border.accent.green',
+    },
+  ],
+  'border/colored/yellow_resultNode': [
+    {
+      name: 'color.border.accent.yellow',
+    },
+  ],
+  'border/colored/orange_resultNode': [
+    {
+      name: 'color.border.accent.orange',
+    },
+  ],
+  'border/colored/red_resultNode': [
+    {
+      name: 'color.border.accent.red',
+    },
+  ],
+  'border/colored/magenta_resultNode': [
+    {
+      name: 'color.border.accent.magenta',
+    },
+  ],
+  'border/colored/purple_resultNode': [
+    {
+      name: 'color.border.accent.purple',
+    },
+  ],
+  'border/colored/gray_resultNode': [
+    {
+      name: 'color.border.accent.gray',
+    },
+  ],
+  'border/neutral/input_resultNode': [
+    {
+      name: 'color.border.input',
+    },
+  ],
+  'border/neutral/disabled_resultNode': [
+    {
+      name: 'color.border.disabled',
+    },
+  ],
+  'border/neutral/neutral_resultNode': [
+    {
+      name: 'color.border',
+    },
+    {
+      name: 'color.border.bold',
+    },
+    {
+      name: 'color.border.inverse',
+    },
+  ],
+  'icon/colored/brand_resultNode': [
+    {
+      name: 'color.icon.brand',
+    },
+  ],
+  'icon/colored/information_resultNode': [
+    {
+      name: 'color.icon.information',
+    },
+  ],
+  'icon/colored/success_resultNode': [
+    {
+      name: 'color.icon.success',
+    },
+  ],
+  'icon/colored/warning_resultNode': [
+    {
+      name: 'color.icon.warning',
+    },
+  ],
+  'icon/colored/danger_resultNode': [
+    {
+      name: 'color.icon.danger',
+    },
+  ],
+  'icon/colored/discovery_resultNode': [
+    {
+      name: 'color.icon.discovery',
+    },
+  ],
+  'icon/colored/selected_resultNode': [
+    {
+      name: 'color.icon.selected',
+    },
+  ],
+  'icon/colored/blue_resultNode': [
+    {
+      name: 'color.icon.accent.blue',
+    },
+  ],
+  'icon/colored/teal_resultNode': [
+    {
+      name: 'color.icon.accent.teal',
+    },
+  ],
+  'icon/colored/green_resultNode': [
+    {
+      name: 'color.icon.accent.green',
+    },
+  ],
+  'icon/colored/yellow_resultNode': [
+    {
+      name: 'color.icon.accent.yellow',
+    },
+  ],
+  'icon/colored/orange_resultNode': [
+    {
+      name: 'color.icon.accent.orange',
+    },
+  ],
+  'icon/colored/red_resultNode': [
+    {
+      name: 'color.icon.accent.red',
+    },
+  ],
+  'icon/colored/magenta_resultNode': [
+    {
+      name: 'color.icon.accent.magenta',
+    },
+  ],
+  'icon/colored/purple_resultNode': [
+    {
+      name: 'color.icon.accent.purple',
+    },
+  ],
+  'icon/colored/gray_resultNode': [
+    {
+      name: 'color.icon.accent.gray',
+    },
+  ],
+  'icon/neutral/default_resultNode': [
+    {
+      name: 'color.icon',
+    },
+  ],
+  'icon/neutral/subtle_resultNode': [
+    {
+      name: 'color.icon.subtle',
+    },
+  ],
+  'icon/neutral/on-bold_resultNode': [
+    {
+      name: 'color.icon.inverse',
+    },
+    {
+      name: 'color.icon.warning.inverse',
       hints: [
         'Ensure that `color.icon.warning.inverse` is used when the icon is on a warning background.',
       ],
     },
-  },
-  'icon/neutral/disabled': {
-    suggestion: ['color.icon.disabled'],
-  },
-
-  'data-visualisation/end-user': {
-    suggestion: [
-      'color.chart.green.bold',
-      'color.chart.green.bolder',
-      'color.chart.green.boldest',
-      'color.chart.red.bold',
-      'color.chart.red.bolder',
-      'color.chart.red.boldest',
-      'color.chart.blue.bold',
-      'color.chart.blue.bolder',
-      'color.chart.blue.boldest',
-      'color.chart.purple.bold',
-      'color.chart.purple.bolder',
-      'color.chart.purple.boldest',
-      'color.chart.teal.bold',
-      'color.chart.teal.bolder',
-      'color.chart.teal.boldest',
-      'color.chart.orange.bold',
-      'color.chart.orange.bolder',
-      'color.chart.orange.boldest',
-      'color.chart.yellow.bold',
-      'color.chart.yellow.bolder',
-      'color.chart.yellow.boldest',
-      'color.chart.magenta.bold',
-      'color.chart.magenta.bolder',
-      'color.chart.magenta.boldest',
-      'color.chart.gray.bold',
-      'color.chart.gray.bolder',
-      'color.chart.gray.boldest',
-    ],
-  },
-  'data-visualisation/product/none/one-color': {
-    suggestion: ['color.chart.brand'],
-  },
-  'data-visualisation/product/none/primary-and-neutral': {
-    suggestion: ['color.chart.brand', 'color.chart.neutral'],
-  },
-  'data-visualisation/product/none/more-than-one-color': {
-    suggestion: [
-      'color.chart.categorical.1',
-      'color.chart.categorical.2',
-      'color.chart.categorical.3',
-      'color.chart.categorical.4',
-      'color.chart.categorical.5',
-      'color.chart.categorical.6',
-      'color.chart.categorical.7',
-      'color.chart.categorical.8',
-    ],
-  },
-  'data-visualisation/product/success/one-or-more': {
-    suggestion: ['color.chart.success', 'color.chart.success.bold'],
-  },
-  'data-visualisation/product/success/primary-and-neutral': {
-    suggestion: ['color.chart.success.bold', 'color.chart.neutral'],
-  },
-  'data-visualisation/product/warning/one-or-more': {
-    suggestion: ['color.chart.warning', 'color.chart.warning.bold'],
-  },
-  'data-visualisation/product/warning/primary-and-neutral': {
-    suggestion: ['color.chart.warning.bold', 'color.chart.neutral'],
-  },
-  'data-visualisation/product/danger/one-or-more': {
-    suggestion: ['color.chart.danger', 'color.chart.danger.bold'],
-  },
-  'data-visualisation/product/danger/primary-and-neutral': {
-    suggestion: ['color.chart.danger.bold', 'color.chart.neutral'],
-  },
-  'data-visualisation/product/discovery/one-or-more': {
-    suggestion: ['color.chart.discovery', 'color.chart.discovery.bold'],
-  },
-  'data-visualisation/product/discovery/primary-and-neutral': {
-    suggestion: ['color.chart.discovery.bold', 'color.chart.neutral'],
-  },
-  'data-visualisation/product/information/one-or-more': {
-    suggestion: ['color.chart.information', 'color.chart.information.bold'],
-  },
-  'data-visualisation/product/information/primary-and-neutral': {
-    suggestion: ['color.chart.information.bold', 'color.chart.neutral'],
-  },
-  'data-visualisation/product/neutral': {
-    suggestion: ['color.chart.neutral'],
-  },
-  'data-visualisation/product/brand/one-or-more': {
-    suggestion: ['color.chart.brand'],
-  },
-  'data-visualisation/product/brand/primary-and-neutral': {
-    suggestion: ['color.chart.brand', 'color.chart.neutral'],
-  },
-
-  'other/blanket/modal': {
-    suggestion: ['color.blanket'],
-  },
-  'other/blanket/deletion': {
-    suggestion: ['color.blanket.danger'],
-  },
-  'other/blanket/selection': {
-    suggestion: ['color.blanket.selected'],
-  },
-  'other/skeleton': {
-    suggestion: ['color.skeleton'],
-  },
-  'other/skeleton/subtle': {
-    suggestion: ['color.skeleton.subtle'],
-  },
-  'opacity/disabled': {
-    suggestion: ['opacity.disabled'],
-  },
-  'opacity/loading': {
-    suggestion: ['opacity.loading'],
-  },
+  ],
+  'icon/neutral/disabled_resultNode': [
+    {
+      name: 'color.icon.disabled',
+    },
+  ],
+  'data-visualisation/end-user_resultNode': [
+    {
+      name: 'color.chart.green.bold',
+    },
+    {
+      name: 'color.chart.green.bolder',
+    },
+    {
+      name: 'color.chart.green.boldest',
+    },
+    {
+      name: 'color.chart.red.bold',
+    },
+    {
+      name: 'color.chart.red.bolder',
+    },
+    {
+      name: 'color.chart.red.boldest',
+    },
+    {
+      name: 'color.chart.blue.bold',
+    },
+    {
+      name: 'color.chart.blue.bolder',
+    },
+    {
+      name: 'color.chart.blue.boldest',
+    },
+    {
+      name: 'color.chart.purple.bold',
+    },
+    {
+      name: 'color.chart.purple.bolder',
+    },
+    {
+      name: 'color.chart.purple.boldest',
+    },
+    {
+      name: 'color.chart.teal.bold',
+    },
+    {
+      name: 'color.chart.teal.bolder',
+    },
+    {
+      name: 'color.chart.teal.boldest',
+    },
+    {
+      name: 'color.chart.orange.bold',
+    },
+    {
+      name: 'color.chart.orange.bolder',
+    },
+    {
+      name: 'color.chart.orange.boldest',
+    },
+    {
+      name: 'color.chart.yellow.bold',
+    },
+    {
+      name: 'color.chart.yellow.bolder',
+    },
+    {
+      name: 'color.chart.yellow.boldest',
+    },
+    {
+      name: 'color.chart.magenta.bold',
+    },
+    {
+      name: 'color.chart.magenta.bolder',
+    },
+    {
+      name: 'color.chart.magenta.boldest',
+    },
+    {
+      name: 'color.chart.gray.bold',
+    },
+    {
+      name: 'color.chart.gray.bolder',
+    },
+    {
+      name: 'color.chart.gray.boldest',
+    },
+  ],
+  'data-visualisation/product/neutral_resultNode': [
+    {
+      name: 'color.chart.neutral',
+    },
+  ],
+  'data-visualisation/product/none/one-color_resultNode': [
+    {
+      name: 'color.chart.brand',
+    },
+  ],
+  'data-visualisation/product/none/primary-and-neutral_resultNode': [
+    {
+      name: 'color.chart.brand',
+    },
+    {
+      name: 'color.chart.neutral',
+    },
+  ],
+  'data-visualisation/product/none/more-than-one-color_resultNode': [
+    {
+      name: 'color.chart.categorical.1',
+    },
+    {
+      name: 'color.chart.categorical.2',
+    },
+    {
+      name: 'color.chart.categorical.3',
+    },
+    {
+      name: 'color.chart.categorical.4',
+    },
+    {
+      name: 'color.chart.categorical.5',
+    },
+    {
+      name: 'color.chart.categorical.6',
+    },
+    {
+      name: 'color.chart.categorical.7',
+    },
+    {
+      name: 'color.chart.categorical.8',
+    },
+  ],
+  'data-visualisation/product/success/one-or-more_resultNode': [
+    {
+      name: 'color.chart.success',
+    },
+    {
+      name: 'color.chart.success.bold',
+    },
+  ],
+  'data-visualisation/product/success/primary-and-neutral_resultNode': [
+    {
+      name: 'color.chart.success.bold',
+    },
+    {
+      name: 'color.chart.neutral',
+    },
+  ],
+  'data-visualisation/product/warning/one-or-more_resultNode': [
+    {
+      name: 'color.chart.warning',
+    },
+    {
+      name: 'color.chart.warning.bold',
+    },
+  ],
+  'data-visualisation/product/warning/primary-and-neutral_resultNode': [
+    {
+      name: 'color.chart.warning.bold',
+    },
+    {
+      name: 'color.chart.neutral',
+    },
+  ],
+  'data-visualisation/product/danger/one-or-more_resultNode': [
+    {
+      name: 'color.chart.danger',
+    },
+    {
+      name: 'color.chart.danger.bold',
+    },
+  ],
+  'data-visualisation/product/danger/primary-and-neutral_resultNode': [
+    {
+      name: 'color.chart.danger.bold',
+    },
+    {
+      name: 'color.chart.neutral',
+    },
+  ],
+  'data-visualisation/product/discovery/one-or-more_resultNode': [
+    {
+      name: 'color.chart.discovery',
+    },
+    {
+      name: 'color.chart.discovery.bold',
+    },
+  ],
+  'data-visualisation/product/discovery/primary-and-neutral_resultNode': [
+    {
+      name: 'color.chart.discovery.bold',
+    },
+    {
+      name: 'color.chart.neutral',
+    },
+  ],
+  'data-visualisation/product/information/one-or-more_resultNode': [
+    {
+      name: 'color.chart.information',
+    },
+    {
+      name: 'color.chart.information.bold',
+    },
+  ],
+  'data-visualisation/product/information/primary-and-neutral_resultNode': [
+    {
+      name: 'color.chart.information.bold',
+    },
+    {
+      name: 'color.chart.neutral',
+    },
+  ],
+  'data-visualisation/product/brand/one-or-more_resultNode': [
+    {
+      name: 'color.chart.brand',
+    },
+  ],
+  'data-visualisation/product/brand/primary-and-neutral_resultNode': [
+    {
+      name: 'color.chart.brand',
+    },
+    {
+      name: 'color.chart.neutral',
+    },
+  ],
+  'opacity/disabled_resultNode': [
+    {
+      name: 'opacity.disabled',
+    },
+  ],
+  'opacity/loading_resultNode': [
+    {
+      name: 'opacity.loading',
+    },
+  ],
+  'other/blanket/modal_resultNode': [
+    {
+      name: 'color.blanket',
+    },
+  ],
+  'other/blanket/deletion_resultNode': [
+    {
+      name: 'color.blanket.danger',
+    },
+  ],
+  'other/blanket/selection_resultNode': [
+    {
+      name: 'color.blanket.selected',
+    },
+  ],
+  'other/skeleton_resultNode': [
+    {
+      name: 'color.skeleton',
+    },
+  ],
+  'other/skeleton/subtle_resultNode': [
+    {
+      name: 'color.skeleton.subtle',
+    },
+  ],
 };
-
 export default results;

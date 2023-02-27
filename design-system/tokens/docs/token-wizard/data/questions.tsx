@@ -1,103 +1,43 @@
-import { Question } from '../types';
-
-/**
- * An object type can't use its own keys in its object definition
- * An alternative approach is to let TS infer the type of the whole object structure
- *
- *        const questions = {
- *          root: {
- *            ...
- *            answers: [{
- *              // Note: all 'next' values would need to be declared "as const" to let TS infer a string literal
- *              next: 'text' as const
- *              ...
- *            }]
- *          }
- *        }
- *
- * Then we can use the inferred type to get the question names, and use it to enforce types on the original
- * questions object
- *
- *        export type Questions = {
- *            [key in keyof typeof questions]: Question;
- *        };
- *        export default typedQuestions: Questions = questions;
- *
- */
-
-export type Questions = {
-  [key in keyof questionID]: Question;
-};
-
-// Index types can't be optionals, so questionID is an object with `any` values instead
-type questionID = {
-  root: any;
-  text: any;
-  'text/neutral': any;
-  'text/link': any;
-  'text/colored': any;
-  'text/colored/accent': any;
-  'background-surface': any;
-  'background-surface/surface': any;
-  'background-surface/background': any;
-  'background-surface/background/colored': any;
-  'background-surface/background/colored/accent': any;
-  'background-surface/background/neutral': any;
-  shadow: any;
-  border: any;
-  'border/colored': any;
-  'border/colored/accent': any;
-  'border/neutral': any;
-  icon: any;
-  'icon/colored': any;
-  'icon/colored/accent': any;
-  'icon/neutral': any;
-  'data-visualisation': any;
-  'data-visualisation/product': any;
-  'data-visualisation/product/none': any;
-  'data-visualisation/product/success': any;
-  'data-visualisation/product/warning': any;
-  'data-visualisation/product/danger': any;
-  'data-visualisation/product/discovery': any;
-  'data-visualisation/product/information': any;
-  'data-visualisation/product/brand': any;
-  other: any;
-  'other/blanket': any;
-  'other/skeleton': any;
-};
-
+import { Questions } from './types';
 const questions: Questions = {
   root: {
     title: 'What kind of element is the token used for?',
     summary: 'Element',
     answers: [
       {
-        next: 'text',
+        id: 'text_next',
         summary: 'Text',
+        next: 'text',
       },
       {
-        next: 'background-surface',
+        id: 'background-surface_next',
         summary: 'Background or surface',
+        next: 'background-surface',
       },
       {
-        next: 'shadow',
+        id: 'shadow_next',
         summary: 'Shadow',
+        next: 'shadow',
       },
       {
-        next: 'icon',
+        id: 'icon_next',
         summary: 'Icon',
+        next: 'icon',
       },
       {
-        next: 'border',
+        id: 'border_next',
         summary: 'Border',
+        next: 'border',
       },
       {
-        next: 'data-visualisation',
+        id: 'data-visualisation_next',
         summary: 'Chart or data visualisation',
+        next: 'data-visualisation',
       },
       {
-        next: 'other',
+        id: 'other_next',
         summary: 'Other',
+        next: 'other',
       },
     ],
   },
@@ -106,16 +46,19 @@ const questions: Questions = {
     summary: 'Element',
     answers: [
       {
-        next: 'text/neutral',
+        id: 'text/neutral_next',
         summary: 'Neutral text',
+        next: 'text/neutral',
       },
       {
-        next: 'text/link',
+        id: 'text/link_next',
         summary: 'Link text',
+        next: 'text/link',
       },
       {
-        next: 'text/colored',
+        id: 'text/colored_next',
         summary: 'Colored text',
+        next: 'text/colored',
       },
     ],
   },
@@ -124,36 +67,42 @@ const questions: Questions = {
     summary: 'Purpose',
     answers: [
       {
-        result: 'text/default',
+        id: 'text/default_result',
         summary: 'Default',
         description:
           'Sentence case headings or subheadings; body text; other UI text not mentioned elsewhere',
+        result: 'text/default_resultNode',
       },
       {
-        result: 'text/neutral/subtle',
+        id: 'text/neutral/subtle_result',
         summary: 'Subtle',
         description:
           'Navigation, all caps headings, input labels, subtle link buttons',
+        result: 'text/neutral/subtle_resultNode',
       },
       {
-        result: 'text/neutral/subtlest',
+        id: 'text/neutral/subtlest_result',
         summary: 'Very subtle',
         description: 'Metadata, placeholder text, helper text, breadcrumbs',
+        result: 'text/neutral/subtlest_resultNode',
       },
       {
-        result: 'text/neutral/disabled',
+        id: 'text/neutral/disabled_result',
         summary: 'Disabled text',
+        result: 'text/neutral/disabled_resultNode',
       },
       {
-        result: 'text/neutral/on-bold',
+        id: 'text/neutral/on-bold_result',
         summary: 'On bold',
         description: 'Text sitting on a bold background',
+        result: 'text/neutral/on-bold_resultNode',
       },
       {
-        result: 'text/colored/accent/gray',
+        id: 'text/colored/accent/gray_result',
         summary: 'Accent',
         description:
           'Users can choose a text color from a set of accents, and one option is unsaturated/gray',
+        result: 'text/colored/accent/gray_resultNode',
       },
     ],
   },
@@ -162,12 +111,14 @@ const questions: Questions = {
     summary: 'Link type',
     answers: [
       {
-        result: 'text/link/default',
+        id: 'text/link/default_result',
         summary: 'Default',
+        result: 'text/link/default_resultNode',
       },
       {
-        result: 'text/link/subtle',
+        id: 'text/link/subtle_result',
         summary: 'Subtle',
+        result: 'text/link/subtle_resultNode',
       },
     ],
   },
@@ -176,111 +127,125 @@ const questions: Questions = {
     summary: 'Semantic meaning',
     answers: [
       {
-        result: 'text/colored/brand',
+        id: 'text/colored/brand_result',
         summary: 'Brand',
         description: 'Reinforces our brand',
+        result: 'text/colored/brand_resultNode',
       },
       {
-        result: 'text/colored/information',
+        id: 'text/colored/information_result',
         summary: 'Information',
         description:
           'Informative or communicates something is in progress, such as in-progress lozenges.',
+        result: 'text/colored/information_resultNode',
       },
       {
-        result: 'text/colored/success',
+        id: 'text/colored/success_result',
         summary: 'Success',
         description:
           'Communicates a favorable outcome, such as input field success messaging.',
+        result: 'text/colored/success_resultNode',
       },
       {
-        result: 'text/colored/warning',
+        id: 'text/colored/warning_result',
         summary: 'Warning',
         description: 'Emphasizes caution, such as in moved lozenges.',
+        result: 'text/colored/warning_resultNode',
       },
       {
-        result: 'text/colored/danger',
+        id: 'text/colored/danger_result',
         summary: 'Danger',
         description: 'Critical text, such as input field error messaging',
+        result: 'text/colored/danger_resultNode',
       },
       {
-        result: 'text/colored/discovery',
+        id: 'text/colored/discovery_result',
         summary: 'Discovery',
         description:
           'Emphasizes change or something new, such as in new lozenges.',
+        result: 'text/colored/discovery_resultNode',
       },
       {
-        result: 'text/colored/selected',
+        id: 'text/colored/selected_result',
         summary: 'Selected',
         description:
           'Used in a selected or opened state, such as tabs and dropdown buttons.',
+        result: 'text/colored/selected_resultNode',
       },
       {
-        next: 'text/colored/accent',
+        id: 'text/colored/accent_next',
         summary: 'None (accent)',
+        next: 'text/colored/accent',
       },
     ],
-    metadata: {
-      description:
-        'If you are using color to communicate a specific state or meaning to the user, it has a *semantic meaning*. Otherwise the color is an accent.',
-    },
   },
   'text/colored/accent': {
     title: 'How would you describe the color?',
     summary: 'Hue/shade',
     answers: [
       {
-        result: 'text/colored/accent/blue',
+        id: 'text/colored/accent/blue_result',
         summary: 'Blue',
+        result: 'text/colored/accent/blue_resultNode',
       },
       {
-        result: 'text/colored/accent/teal',
+        id: 'text/colored/accent/teal_result',
         summary: 'Teal',
+        result: 'text/colored/accent/teal_resultNode',
       },
       {
-        result: 'text/colored/accent/green',
+        id: 'text/colored/accent/green_result',
         summary: 'Green',
+        result: 'text/colored/accent/green_resultNode',
       },
       {
-        result: 'text/colored/accent/yellow',
+        id: 'text/colored/accent/yellow_result',
         summary: 'Yellow',
+        result: 'text/colored/accent/yellow_resultNode',
       },
       {
-        result: 'text/colored/accent/orange',
+        id: 'text/colored/accent/orange_result',
         summary: 'Orange',
+        result: 'text/colored/accent/orange_resultNode',
       },
       {
-        result: 'text/colored/accent/red',
+        id: 'text/colored/accent/red_result',
         summary: 'Red',
+        result: 'text/colored/accent/red_resultNode',
       },
       {
-        result: 'text/colored/accent/magenta',
+        id: 'text/colored/accent/magenta_result',
         summary: 'Magenta',
+        result: 'text/colored/accent/magenta_resultNode',
       },
       {
-        result: 'text/colored/accent/purple',
+        id: 'text/colored/accent/purple_result',
         summary: 'Purple',
+        result: 'text/colored/accent/purple_resultNode',
       },
       {
-        result: 'text/colored/accent/gray',
+        id: 'text/colored/accent_text/colored/accent/gray_result',
         summary: 'Gray',
+        result: 'text/colored/accent/gray_resultNode',
       },
     ],
   },
-
   'background-surface': {
     title: 'Where is it being applied?',
     summary: 'Type',
     answers: [
       {
-        next: 'background-surface/surface',
+        id: 'background-surface/surface_next',
         summary: 'The fill of a surface area',
         description:
           'For example the main screen UI, or elevated UI such as modals, cards, or dropdown menus.',
+        next: 'background-surface/surface',
       },
       {
-        next: 'background-surface/background',
+        id: 'background-surface/background_next',
         summary: 'The fill of a component',
         description: 'For example a button or section message.',
+        next: 'background-surface/background',
       },
     ],
   },
@@ -289,21 +254,25 @@ const questions: Questions = {
     summary: 'Surface type',
     answers: [
       {
-        result: 'background-surface/surface/main-background',
+        id: 'background-surface/surface/main-background_result',
         summary: 'Main background',
+        result: 'background-surface/surface/main-background_resultNode',
       },
       {
-        result: 'background-surface/surface/modal-dropdown',
+        id: 'background-surface/surface/modal-dropdown_result',
         summary: 'Modal or dropdown',
+        result: 'background-surface/surface/modal-dropdown_resultNode',
       },
       {
-        result: 'background-surface/surface/card',
+        id: 'background-surface/surface/card_result',
         summary: 'Card',
+        result: 'background-surface/surface/card_resultNode',
       },
       {
-        result: 'background-surface/surface/grouping',
+        id: 'background-surface/surface/grouping_result',
         summary: 'Grouping',
         description: 'An area grouping other elevations',
+        result: 'background-surface/surface/grouping_resultNode',
       },
     ],
   },
@@ -312,12 +281,14 @@ const questions: Questions = {
     summary: 'Colored or neutral',
     answers: [
       {
-        next: 'background-surface/background/colored',
+        id: 'background-surface/background/colored_next',
         summary: 'Colored',
+        next: 'background-surface/background/colored',
       },
       {
-        next: 'background-surface/background/neutral',
+        id: 'background-surface/background/neutral_next',
         summary: 'Neutral',
+        next: 'background-surface/background/neutral',
       },
     ],
   },
@@ -326,91 +297,107 @@ const questions: Questions = {
     summary: 'Semantic meaning',
     answers: [
       {
-        result: 'background-surface/background/colored/brand',
+        id: 'background-surface/background/colored/brand_result',
         summary: 'Brand',
         description: 'The elements reinforces our brand with emphasis.',
+        result: 'background-surface/background/colored/brand_resultNode',
       },
       {
-        result: 'background-surface/background/colored/information',
+        id: 'background-surface/background/colored/information_result',
         summary: 'Information',
         description: 'Communicates information or something in-progress.',
+        result: 'background-surface/background/colored/information_resultNode',
       },
       {
-        result: 'background-surface/background/colored/success',
+        id: 'background-surface/background/colored/success_result',
         summary: 'Success',
         description: 'Communicates a favorable outcome.',
+        result: 'background-surface/background/colored/success_resultNode',
       },
       {
-        result: 'background-surface/background/colored/warning',
+        id: 'background-surface/background/colored/warning_result',
         summary: 'Warning',
         description: 'Communicates caution.',
+        result: 'background-surface/background/colored/warning_resultNode',
       },
       {
-        result: 'background-surface/background/colored/danger',
+        id: 'background-surface/background/colored/danger_result',
         summary: 'Danger',
         description: 'Communicates critical information.',
+        result: 'background-surface/background/colored/danger_resultNode',
       },
       {
-        result: 'background-surface/background/colored/discovery',
+        id: 'background-surface/background/colored/discovery_result',
         summary: 'Discovery',
         description: 'Communicates change or something new.',
+        result: 'background-surface/background/colored/discovery_resultNode',
       },
       {
-        result: 'background-surface/background/colored/selected',
+        id: 'background-surface/background/colored/selected_result',
         summary: 'Selected',
         description: 'The background of elements in a selected state.',
+        result: 'background-surface/background/colored/selected_resultNode',
       },
       {
-        next: 'background-surface/background/colored/accent',
+        id: 'background-surface/background/colored/accent_next',
         summary: 'None (accent)',
         description: 'Color has no particular meaning',
+        next: 'background-surface/background/colored/accent',
       },
     ],
-    metadata: {
-      description:
-        'If you are using color to communicate a specific state or meaning to the user, it has a *semantic meaning*. Otherwise the color is an accent.',
-    },
   },
-
   'background-surface/background/colored/accent': {
     title: 'How would you describe the color?',
     summary: 'Hue/shade',
     answers: [
       {
-        result: 'background-surface/background/colored/accent/blue',
+        id: 'background-surface/background/colored/accent/blue_result',
         summary: 'Blue',
+        result: 'background-surface/background/colored/accent/blue_resultNode',
       },
       {
-        result: 'background-surface/background/colored/accent/teal',
+        id: 'background-surface/background/colored/accent/teal_result',
         summary: 'Teal',
+        result: 'background-surface/background/colored/accent/teal_resultNode',
       },
       {
-        result: 'background-surface/background/colored/accent/green',
+        id: 'background-surface/background/colored/accent/green_result',
         summary: 'Green',
+        result: 'background-surface/background/colored/accent/green_resultNode',
       },
       {
-        result: 'background-surface/background/colored/accent/yellow',
+        id: 'background-surface/background/colored/accent/yellow_result',
         summary: 'Yellow',
+        result:
+          'background-surface/background/colored/accent/yellow_resultNode',
       },
       {
-        result: 'background-surface/background/colored/accent/orange',
+        id: 'background-surface/background/colored/accent/orange_result',
         summary: 'Orange',
+        result:
+          'background-surface/background/colored/accent/orange_resultNode',
       },
       {
-        result: 'background-surface/background/colored/accent/red',
+        id: 'background-surface/background/colored/accent/red_result',
         summary: 'Red',
+        result: 'background-surface/background/colored/accent/red_resultNode',
       },
       {
-        result: 'background-surface/background/colored/accent/magenta',
+        id: 'background-surface/background/colored/accent/magenta_result',
         summary: 'Magenta',
+        result:
+          'background-surface/background/colored/accent/magenta_resultNode',
       },
       {
-        result: 'background-surface/background/colored/accent/purple',
+        id: 'background-surface/background/colored/accent/purple_result',
         summary: 'Purple',
+        result:
+          'background-surface/background/colored/accent/purple_resultNode',
       },
       {
-        result: 'background-surface/background/colored/accent/gray',
+        id: 'background-surface/background/colored/accent/gray_result',
         summary: 'Gray',
+        result: 'background-surface/background/colored/accent/gray_resultNode',
       },
     ],
   },
@@ -419,38 +406,45 @@ const questions: Questions = {
     summary: 'Purpose',
     answers: [
       {
-        result: 'background-surface/background/neutral/input',
+        id: 'background-surface/background/neutral/input_result',
         summary: 'Input field',
+        result: 'background-surface/background/neutral/input_resultNode',
       },
       {
-        result: 'background-surface/background/neutral/disabled',
+        id: 'background-surface/background/neutral/disabled_result',
         summary: 'Disabled state',
+        result: 'background-surface/background/neutral/disabled_resultNode',
       },
       {
-        result: 'background-surface/background/neutral/neutral',
+        id: 'background-surface/background/neutral/neutral_result',
         summary: 'Neutral element',
+        result: 'background-surface/background/neutral/neutral_resultNode',
       },
       {
-        result: 'background-surface/background/neutral/subtle',
+        id: 'background-surface/background/neutral/subtle_result',
         summary: 'Subtle neutral',
         description: 'i.e. the background is only visible on interaction',
+        result: 'background-surface/background/neutral/subtle_resultNode',
       },
       {
-        result: 'background-surface/background/neutral/vibrant',
+        id: 'background-surface/background/neutral/vibrant_result',
         summary: 'Vibrant background',
         description: 'e.g. banners',
+        result: 'background-surface/background/neutral/vibrant_resultNode',
       },
       {
-        result: 'background-surface/background/neutral/on-bold',
+        id: 'background-surface/background/neutral/on-bold_result',
         summary: 'On bold',
         description:
           "Background of an element that's placed on a bold background",
+        result: 'background-surface/background/neutral/on-bold_resultNode',
       },
       {
-        result: 'background-surface/background/colored/accent/gray',
+        id: 'background-surface/background/neutral_background-surface/background/colored/accent/gray_result',
         summary: 'Accent',
         description:
           'Users can choose a background color from a set of accents, and one option is unsaturated/gray',
+        result: 'background-surface/background/colored/accent/gray_resultNode',
       },
     ],
   },
@@ -459,20 +453,23 @@ const questions: Questions = {
     summary: 'Surface',
     answers: [
       {
-        result: 'shadow/raised',
+        id: 'shadow/raised_result',
         summary: 'Raised',
         description: 'A raised surface such as a card element.',
+        result: 'shadow/raised_resultNode',
       },
       {
-        result: 'shadow/overlay',
+        id: 'shadow/overlay_result',
         summary: 'Overlay',
         description:
           'An overlay surface (e.g. modals, dropdown menus, flags, inline dialogs).',
+        result: 'shadow/overlay_resultNode',
       },
       {
-        result: 'shadow/overflow',
+        id: 'shadow/overflow_result',
         summary: 'Overflow',
         description: 'Used when content scrolls under other content.',
+        result: 'shadow/overflow_resultNode',
       },
     ],
   },
@@ -481,12 +478,14 @@ const questions: Questions = {
     summary: 'Colored or neutral',
     answers: [
       {
-        next: 'border/colored',
+        id: 'border/colored_next',
         summary: 'Colored',
+        next: 'border/colored',
       },
       {
-        next: 'border/neutral',
+        id: 'border/neutral_next',
         summary: 'Neutral',
+        next: 'border/neutral',
       },
     ],
   },
@@ -495,135 +494,153 @@ const questions: Questions = {
     summary: 'Semantic meaning',
     answers: [
       {
-        result: 'border/colored/brand',
+        id: 'border/colored/brand_result',
         summary: 'Brand',
         description: 'The elements reinforces our brand with emphasis.',
+        result: 'border/colored/brand_resultNode',
       },
       {
-        result: 'border/colored/information',
+        id: 'border/colored/information_result',
         summary: 'Information',
         description: 'Communicates information or something in-progress.',
+        result: 'border/colored/information_resultNode',
       },
       {
-        result: 'border/colored/success',
+        id: 'border/colored/success_result',
         summary: 'Success',
         description: 'Communicates a favorable outcome.',
+        result: 'border/colored/success_resultNode',
       },
       {
-        result: 'border/colored/warning',
+        id: 'border/colored/warning_result',
         summary: 'Warning',
         description: 'Communicates caution.',
+        result: 'border/colored/warning_resultNode',
       },
       {
-        result: 'border/colored/danger',
+        id: 'border/colored/danger_result',
         summary: 'Danger',
         description: 'Communicates critical information.',
+        result: 'border/colored/danger_resultNode',
       },
       {
-        result: 'border/colored/discovery',
+        id: 'border/colored/discovery_result',
         summary: 'Discovery',
         description: 'Communicates change or something new.',
+        result: 'border/colored/discovery_resultNode',
       },
       {
-        result: 'border/colored/focused',
+        id: 'border/colored/focused_result',
         summary: 'Focused',
         description: 'Indicates a focus state.',
+        result: 'border/colored/focused_resultNode',
       },
       {
-        result: 'border/colored/selected',
+        id: 'border/colored/selected_result',
         summary: 'Selected',
         description: 'Indicates a selected state.',
+        result: 'border/colored/selected_resultNode',
       },
       {
-        next: 'border/colored/accent',
+        id: 'border/colored/accent_next',
         summary: 'None (accent)',
         description: 'Color has no particular meaning',
+        next: 'border/colored/accent',
       },
     ],
-    metadata: {
-      description:
-        'If you are using color to communicate a specific state or meaning to the user, it has a *semantic meaning*. Otherwise the color is an accent.',
-    },
   },
   'border/colored/accent': {
     title: 'How would you describe the color?',
     summary: 'Hue/shade',
     answers: [
       {
-        result: 'border/colored/blue',
+        id: 'border/colored/blue_result',
         summary: 'Blue',
+        result: 'border/colored/blue_resultNode',
       },
       {
-        result: 'border/colored/teal',
+        id: 'border/colored/teal_result',
         summary: 'Teal',
+        result: 'border/colored/teal_resultNode',
       },
       {
-        result: 'border/colored/green',
+        id: 'border/colored/green_result',
         summary: 'Green',
+        result: 'border/colored/green_resultNode',
       },
       {
-        result: 'border/colored/yellow',
+        id: 'border/colored/yellow_result',
         summary: 'Yellow',
+        result: 'border/colored/yellow_resultNode',
       },
       {
-        result: 'border/colored/orange',
+        id: 'border/colored/orange_result',
         summary: 'Orange',
+        result: 'border/colored/orange_resultNode',
       },
       {
-        result: 'border/colored/red',
+        id: 'border/colored/red_result',
         summary: 'Red',
+        result: 'border/colored/red_resultNode',
       },
       {
-        result: 'border/colored/magenta',
+        id: 'border/colored/magenta_result',
         summary: 'Magenta',
+        result: 'border/colored/magenta_resultNode',
       },
       {
-        result: 'border/colored/purple',
+        id: 'border/colored/purple_result',
         summary: 'Purple',
+        result: 'border/colored/purple_resultNode',
       },
       {
-        result: 'border/colored/gray',
+        id: 'border/colored/gray_result',
         summary: 'Gray',
+        result: 'border/colored/gray_resultNode',
       },
     ],
   },
-
   'border/neutral': {
     title: 'What is the border used for?',
     summary: 'Purpose',
     answers: [
       {
-        result: 'border/neutral/input',
+        id: 'border/neutral/input_result',
         summary: 'Input fields',
+        result: 'border/neutral/input_resultNode',
       },
       {
-        result: 'border/neutral/disabled',
+        id: 'border/neutral/disabled_result',
         summary: 'Disabled controls',
+        result: 'border/neutral/disabled_resultNode',
       },
       {
-        result: 'border/colored/gray',
+        id: 'border/neutral_border/colored/gray_result',
         summary: 'Accent',
         description:
           'Users can choose a border color from a set of accents, and one option is unsaturated/gray',
+        result: 'border/colored/gray_resultNode',
       },
       {
-        result: 'border/neutral/neutral',
+        id: 'border/neutral/neutral_result',
         summary: 'Other',
+        result: 'border/neutral/neutral_resultNode',
       },
     ],
   },
-
   icon: {
     title: 'Is the icon colored or neutral?',
     summary: 'Colored or neutral',
     answers: [
       {
-        next: 'icon/colored',
+        id: 'icon/colored_next',
         summary: 'Colored',
+        next: 'icon/colored',
       },
       {
-        next: 'icon/neutral',
+        id: 'icon/neutral_next',
         summary: 'Neutral',
+        next: 'icon/neutral',
       },
     ],
   },
@@ -632,136 +649,154 @@ const questions: Questions = {
     summary: 'Semantic meaning',
     answers: [
       {
-        result: 'icon/colored/brand',
+        id: 'icon/colored/brand_result',
         summary: 'Brand',
         description: 'The elements reinforces our brand with emphasis.',
+        result: 'icon/colored/brand_resultNode',
       },
       {
-        result: 'icon/colored/information',
+        id: 'icon/colored/information_result',
         summary: 'Information',
         description: 'Communicates information or something in-progress.',
+        result: 'icon/colored/information_resultNode',
       },
       {
-        result: 'icon/colored/success',
+        id: 'icon/colored/success_result',
         summary: 'Success',
         description: 'Communicates a favorable outcome.',
+        result: 'icon/colored/success_resultNode',
       },
       {
-        result: 'icon/colored/warning',
+        id: 'icon/colored/warning_result',
         summary: 'Warning',
         description: 'Communicates caution.',
+        result: 'icon/colored/warning_resultNode',
       },
       {
-        result: 'icon/colored/danger',
+        id: 'icon/colored/danger_result',
         summary: 'Danger',
         description: 'Communicates critical information.',
+        result: 'icon/colored/danger_resultNode',
       },
       {
-        result: 'icon/colored/discovery',
+        id: 'icon/colored/discovery_result',
         summary: 'Discovery',
         description: 'Communicates change or something new.',
+        result: 'icon/colored/discovery_resultNode',
       },
       {
-        result: 'icon/colored/selected',
+        id: 'icon/colored/selected_result',
         summary: 'Selected',
         description: 'Indicates selected or open state.',
+        result: 'icon/colored/selected_resultNode',
       },
       {
-        next: 'icon/colored/accent',
+        id: 'icon/colored/accent_next',
         summary: 'None (accent)',
         description: 'Color has no particular meaning',
+        next: 'icon/colored/accent',
       },
     ],
-    metadata: {
-      description:
-        'If you are using color to communicate a specific state or meaning to the user, it has a *semantic meaning*. Otherwise the color is an accent.',
-    },
   },
   'icon/colored/accent': {
     title: 'How would you describe the color?',
     summary: 'Hue/shade',
     answers: [
       {
-        result: 'icon/colored/blue',
+        id: 'icon/colored/blue_result',
         summary: 'Blue',
+        result: 'icon/colored/blue_resultNode',
       },
       {
-        result: 'icon/colored/teal',
+        id: 'icon/colored/teal_result',
         summary: 'Teal',
+        result: 'icon/colored/teal_resultNode',
       },
       {
-        result: 'icon/colored/green',
+        id: 'icon/colored/green_result',
         summary: 'Green',
+        result: 'icon/colored/green_resultNode',
       },
       {
-        result: 'icon/colored/yellow',
+        id: 'icon/colored/yellow_result',
         summary: 'Yellow',
+        result: 'icon/colored/yellow_resultNode',
       },
       {
-        result: 'icon/colored/orange',
+        id: 'icon/colored/orange_result',
         summary: 'Orange',
+        result: 'icon/colored/orange_resultNode',
       },
       {
-        result: 'icon/colored/red',
+        id: 'icon/colored/red_result',
         summary: 'Red',
+        result: 'icon/colored/red_resultNode',
       },
       {
-        result: 'icon/colored/magenta',
+        id: 'icon/colored/magenta_result',
         summary: 'Magenta',
+        result: 'icon/colored/magenta_resultNode',
       },
       {
-        result: 'icon/colored/purple',
+        id: 'icon/colored/purple_result',
         summary: 'Purple',
+        result: 'icon/colored/purple_resultNode',
       },
       {
-        result: 'icon/colored/gray',
+        id: 'icon/colored/gray_result',
         summary: 'Gray',
+        result: 'icon/colored/gray_resultNode',
       },
     ],
   },
-
   'icon/neutral': {
     title: 'What is the icon used for?',
     summary: 'Purpose',
     answers: [
       {
-        result: 'icon/neutral/default',
+        id: 'icon/neutral/default_result',
         summary: 'Paired with default text',
+        result: 'icon/neutral/default_resultNode',
       },
       {
-        result: 'icon/neutral/subtle',
+        id: 'icon/neutral/subtle_result',
         summary: 'Paired with subtle text',
+        result: 'icon/neutral/subtle_resultNode',
       },
       {
-        result: 'icon/neutral/on-bold',
+        id: 'icon/neutral/on-bold_result',
         summary: 'On a bold background',
+        result: 'icon/neutral/on-bold_resultNode',
       },
       {
-        result: 'icon/neutral/disabled',
+        id: 'icon/neutral/disabled_result',
         summary: 'Something disabled',
+        result: 'icon/neutral/disabled_resultNode',
       },
       {
-        result: 'icon/colored/gray',
+        id: 'icon/neutral_icon/colored/gray_result',
         summary: 'Accent',
         description:
           'Users can choose an icon color from a set of accents, and one option is unsaturated/gray',
+        result: 'icon/colored/gray_resultNode',
       },
     ],
   },
-
   'data-visualisation': {
     title: 'Who chooses the color?',
     summary: 'Chosen by',
     answers: [
       {
-        next: 'data-visualisation/product',
+        id: 'data-visualisation/product_next',
         summary: 'Product',
         description: 'Colors are generated by the product experience',
+        next: 'data-visualisation/product',
       },
       {
-        result: 'data-visualisation/end-user',
+        id: 'data-visualisation/end-user_result',
         summary: 'End user',
         description: 'Colors can be chosen by the end user',
+        result: 'data-visualisation/end-user_resultNode',
       },
     ],
   },
@@ -770,44 +805,52 @@ const questions: Questions = {
     summary: 'Color meaning',
     answers: [
       {
-        next: 'data-visualisation/product/none',
+        id: 'data-visualisation/product/none_next',
         summary: 'None',
         description: 'Color has no particular meaning.',
+        next: 'data-visualisation/product/none',
       },
       {
-        next: 'data-visualisation/product/success',
+        id: 'data-visualisation/product/success_next',
         summary: 'Success',
         description: 'Communicates a favorable outcome.',
+        next: 'data-visualisation/product/success',
       },
       {
-        next: 'data-visualisation/product/warning',
+        id: 'data-visualisation/product/warning_next',
         summary: 'Warning',
         description: 'Communicates caution.',
+        next: 'data-visualisation/product/warning',
       },
       {
-        next: 'data-visualisation/product/danger',
+        id: 'data-visualisation/product/danger_next',
         summary: 'Danger',
         description: 'Communicates critical information.',
+        next: 'data-visualisation/product/danger',
       },
       {
-        next: 'data-visualisation/product/discovery',
+        id: 'data-visualisation/product/discovery_next',
         summary: 'Discovery',
         description: 'Communicates change or something new.',
+        next: 'data-visualisation/product/discovery',
       },
       {
-        next: 'data-visualisation/product/information',
+        id: 'data-visualisation/product/information_next',
         summary: 'Information',
         description: 'Communications information or something in-progress.',
+        next: 'data-visualisation/product/information',
       },
       {
-        result: 'data-visualisation/product/neutral',
+        id: 'data-visualisation/product/neutral_result',
         summary: 'Neutral',
         description: 'Communicates to-do.',
+        result: 'data-visualisation/product/neutral_resultNode',
       },
       {
-        next: 'data-visualisation/product/brand',
+        id: 'data-visualisation/product/brand_next',
         summary: 'Brand',
         description: 'The elements reinforces our brand with emphasis.',
+        next: 'data-visualisation/product/brand',
       },
     ],
   },
@@ -816,16 +859,21 @@ const questions: Questions = {
     summary: 'Number of colors',
     answers: [
       {
-        result: 'data-visualisation/product/none/one-color',
+        id: 'data-visualisation/product/none/one-color_result',
         summary: 'One color',
+        result: 'data-visualisation/product/none/one-color_resultNode',
       },
       {
-        result: 'data-visualisation/product/none/primary-and-neutral',
+        id: 'data-visualisation/product/none/primary-and-neutral_result',
         summary: 'Primary and neutral',
+        result:
+          'data-visualisation/product/none/primary-and-neutral_resultNode',
       },
       {
-        result: 'data-visualisation/product/none/more-than-one-color',
+        id: 'data-visualisation/product/none/more-than-one-color_result',
         summary: 'More than one color',
+        result:
+          'data-visualisation/product/none/more-than-one-color_resultNode',
       },
     ],
   },
@@ -834,12 +882,15 @@ const questions: Questions = {
     summary: 'Number of colors',
     answers: [
       {
-        result: 'data-visualisation/product/success/one-or-more',
+        id: 'data-visualisation/product/success/one-or-more_result',
         summary: 'One or more color',
+        result: 'data-visualisation/product/success/one-or-more_resultNode',
       },
       {
-        result: 'data-visualisation/product/success/primary-and-neutral',
+        id: 'data-visualisation/product/success/primary-and-neutral_result',
         summary: 'Primary and neutral',
+        result:
+          'data-visualisation/product/success/primary-and-neutral_resultNode',
       },
     ],
   },
@@ -848,12 +899,15 @@ const questions: Questions = {
     summary: 'Number of colors',
     answers: [
       {
-        result: 'data-visualisation/product/warning/one-or-more',
+        id: 'data-visualisation/product/warning/one-or-more_result',
         summary: 'One or more color',
+        result: 'data-visualisation/product/warning/one-or-more_resultNode',
       },
       {
-        result: 'data-visualisation/product/warning/primary-and-neutral',
+        id: 'data-visualisation/product/warning/primary-and-neutral_result',
         summary: 'Primary and neutral',
+        result:
+          'data-visualisation/product/warning/primary-and-neutral_resultNode',
       },
     ],
   },
@@ -862,12 +916,15 @@ const questions: Questions = {
     summary: 'Number of colors',
     answers: [
       {
-        result: 'data-visualisation/product/danger/one-or-more',
+        id: 'data-visualisation/product/danger/one-or-more_result',
         summary: 'One or more color',
+        result: 'data-visualisation/product/danger/one-or-more_resultNode',
       },
       {
-        result: 'data-visualisation/product/danger/primary-and-neutral',
+        id: 'data-visualisation/product/danger/primary-and-neutral_result',
         summary: 'Primary and neutral',
+        result:
+          'data-visualisation/product/danger/primary-and-neutral_resultNode',
       },
     ],
   },
@@ -876,12 +933,15 @@ const questions: Questions = {
     summary: 'Number of colors',
     answers: [
       {
-        result: 'data-visualisation/product/discovery/one-or-more',
+        id: 'data-visualisation/product/discovery/one-or-more_result',
         summary: 'One or more color',
+        result: 'data-visualisation/product/discovery/one-or-more_resultNode',
       },
       {
-        result: 'data-visualisation/product/discovery/primary-and-neutral',
+        id: 'data-visualisation/product/discovery/primary-and-neutral_result',
         summary: 'Primary and neutral',
+        result:
+          'data-visualisation/product/discovery/primary-and-neutral_resultNode',
       },
     ],
   },
@@ -890,12 +950,15 @@ const questions: Questions = {
     summary: 'Number of colors',
     answers: [
       {
-        result: 'data-visualisation/product/information/one-or-more',
+        id: 'data-visualisation/product/information/one-or-more_result',
         summary: 'One or more color',
+        result: 'data-visualisation/product/information/one-or-more_resultNode',
       },
       {
-        result: 'data-visualisation/product/information/primary-and-neutral',
+        id: 'data-visualisation/product/information/primary-and-neutral_result',
         summary: 'Primary and neutral',
+        result:
+          'data-visualisation/product/information/primary-and-neutral_resultNode',
       },
     ],
   },
@@ -904,39 +967,45 @@ const questions: Questions = {
     summary: 'Number of colors',
     answers: [
       {
-        result: 'data-visualisation/product/brand/one-or-more',
+        id: 'data-visualisation/product/brand/one-or-more_result',
         summary: 'One or more color',
+        result: 'data-visualisation/product/brand/one-or-more_resultNode',
       },
       {
-        result: 'data-visualisation/product/brand/primary-and-neutral',
+        id: 'data-visualisation/product/brand/primary-and-neutral_result',
         summary: 'Primary and neutral',
+        result:
+          'data-visualisation/product/brand/primary-and-neutral_resultNode',
       },
     ],
   },
-
   other: {
     title: 'What is your use case?',
     summary: 'Use case',
     answers: [
       {
-        next: 'other/blanket',
+        id: 'other/blanket_next',
         summary: 'Blanket',
         description: 'Covering content with a blanket',
+        next: 'other/blanket',
       },
       {
-        next: 'other/skeleton',
+        id: 'other/skeleton_next',
         summary: 'Skeleton',
         description: 'Displaying a loading skeleton',
+        next: 'other/skeleton',
       },
       {
-        result: 'opacity/disabled',
+        id: 'opacity/disabled_result',
         summary: 'Disabled opacity',
         description: 'Disabling an image',
+        result: 'opacity/disabled_resultNode',
       },
       {
-        result: 'opacity/loading',
+        id: 'opacity/loading_result',
         summary: 'Loading opacity',
         description: 'De-emphasizing content under a loading spinner',
+        result: 'opacity/loading_resultNode',
       },
     ],
   },
@@ -945,19 +1014,22 @@ const questions: Questions = {
     summary: 'Blanket type',
     answers: [
       {
-        result: 'other/blanket/modal',
+        id: 'other/blanket/modal_result',
         summary: 'Under a modal',
         description: 'Modal',
+        result: 'other/blanket/modal_resultNode',
       },
       {
-        result: 'other/blanket/deletion',
+        id: 'other/blanket/deletion_result',
         summary: 'Deletion',
         description: 'Over a section that is hovered to be deleted',
+        result: 'other/blanket/deletion_resultNode',
       },
       {
-        result: 'other/blanket/selection',
+        id: 'other/blanket/selection_result',
         summary: 'Selected',
         description: 'Over a section that is selected',
+        result: 'other/blanket/selection_resultNode',
       },
     ],
   },
@@ -966,15 +1038,17 @@ const questions: Questions = {
     summary: 'Blanket type',
     answers: [
       {
-        result: 'other/skeleton',
+        id: 'other/skeleton_result',
         summary: 'Loading state',
         description: 'Use for skeleton loading states',
+        result: 'other/skeleton_resultNode',
       },
       {
-        result: 'other/skeleton/subtle',
+        id: 'other/skeleton/subtle_result',
         summary: 'Pulse or shimmer effect',
         description:
           'Use for the pulse or shimmer effect in skeleton loading states',
+        result: 'other/skeleton/subtle_resultNode',
       },
     ],
   },

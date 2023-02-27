@@ -6,7 +6,7 @@ import { B400, B50 } from '@atlaskit/theme/colors';
 import { fontSize, gridSize } from '@atlaskit/theme/constants';
 
 import { token } from '../../../src';
-import { Path } from '../types';
+import { Path } from '../data/types';
 
 const summaryContainerStyles = css({
   display: 'grid',

@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,53 +7,41 @@
  */
 //German (Germany)
 export default {
-  'fabric.elements.share.copied.to.clipboard.message':
-    'Link in Zwischenablage kopiert',
-  'fabric.elements.share.copylink.button.text': 'Link kopieren',
-  'fabric.elements.share.copypubliclink.button.text':
-    'Öffentlichen Link kopieren',
-  'fabric.elements.share.failure.icon.label': 'Fehler-Symbol',
-  'fabric.elements.share.failure.message': 'Teilen nicht möglich',
-  'fabric.elements.share.form.comment.placeholder': 'Nachricht hinzufügen',
-  'fabric.elements.share.form.info.message.no.invite.confluence':
-    'Empfänger sehen den Namen der Seite und Ihre Nachricht',
-  'fabric.elements.share.form.info.message.no.invite.jira':
-    'Empfänger sehen den Namen des Vorgangs und Ihre Nachricht',
-  'fabric.elements.share.form.public.send': 'Öffentlichen Link senden',
-  'fabric.elements.share.form.public.share': 'Öffentlichen Link teilen',
-  'fabric.elements.share.form.retry': 'Erneut versuchen',
-  'fabric.elements.share.form.send': 'Senden',
-  'fabric.elements.share.form.share': 'Teilen',
-  'fabric.elements.share.form.title': 'Teilen',
-  'fabric.elements.share.form.user-picker.add-more': 'Weitere eingeben',
-  'fabric.elements.share.form.user-picker.no-options.existingUserOnly':
-    'Es wurden keine Ergebnisse für „{inputValue}“ gefunden.',
-  'fabric.elements.share.form.user-picker.no-options.generic':
-    'Es wurden keine Ergebnisse für „{inputValue}“ gefunden. Laden Sie Personen mittels E-Mail-Adresse ein.',
-  'fabric.elements.share.form.user-picker.placeholder.existingUserOnly':
-    'Namen oder Team eingeben',
-  'fabric.elements.share.form.user-picker.placeholder.generic':
-    'Namen, Gruppe, Team oder E-Mail-Adresse eingeben',
-  'fabric.elements.share.form.user-picker.placeholder.jira':
-    'Namen, Team oder E-Mail-Adresse eingeben',
-  'fabric.elements.share.form.user-picker.placholder.generic.existingUserOnly':
-    'Namen, Gruppe oder Team eingeben',
-  'fabric.elements.share.form.user-picker.validation.required':
-    'Wählen Sie mindestens einen Benutzer, eine Gruppe, ein Team oder eine E-Mail-Adresse aus.',
-  'fabric.elements.share.form.user-picker.validation.required.existingUserOnly':
-    'Wählen Sie mindestens einen Benutzer, eine Gruppe oder ein Team aus.',
-  'fabric.elements.share.form.user-picker.validation.required.jira':
-    'Bitte wählen Sie mindestens einen Benutzer, ein Team oder eine E-Mail-Adresse aus.',
-  'fabric.elements.share.form.user-picker.validation.required.jira.existingUserOnly':
-    'Wählen Sie mindestens einen Benutzer oder ein Team aus.',
-  'fabric.elements.share.in.integration.button': 'In {integrationName} teilen',
-  'fabric.elements.share.main.tab.text.confluence': 'Seite teilen',
-  'fabric.elements.share.main.tab.text.jira': 'Vorgang teilen',
-  'fabric.elements.share.success.message':
-    '{object, select, blogpost {Geteilter Blogpost} board {Geteiltes Board} calendar {Geteilter Kalender} draft {Geteilter Entwurf} filter {Geteilter Filter} issue {Geteilter Vorgang} media {Geteilte Medien} page {Geteilte Seite} project {Geteiltes Projekt} pullrequest {Geteilte Pull-Anfrage} question {Geteilte Frage} report {Geteilter Bericht} repository {Geteiltes Repository} request {Geteilte Anfrage} roadmap {Geteilte Roadmap} site {Geteilte Site} space {Geteilter Bereich} other {Geteilter Link}}',
-  'fabric.elements.share.to.integration.button': 'Mit {integrationName} teilen',
-  'fabric.elements.share.trigger.button.icon.label': 'Teilen-Symbol',
-  'fabric.elements.share.trigger.button.invite.text': 'Einladen',
-  'fabric.elements.share.trigger.button.text': 'Teilen',
-  'fabric.elements.share.trigger.button.tooltip.text': 'Teilen',
+  "fabric.elements.share.copied.to.clipboard.message": "Link in Zwischenablage kopiert",
+  "fabric.elements.share.copylink.button.text": "Link kopieren",
+  "fabric.elements.share.copypubliclink.button.text": "Öffentlichen Link kopieren",
+  "fabric.elements.share.failure.icon.label": "Fehler-Symbol",
+  "fabric.elements.share.failure.message": "Teilen nicht möglich",
+  "fabric.elements.share.form.comment.placeholder": "Nachricht hinzufügen",
+  "fabric.elements.share.form.info.message.no.invite.confluence": "Empfänger sehen den Namen der Seite und Ihre Nachricht",
+  "fabric.elements.share.form.info.message.no.invite.jira": "Empfänger sehen den Namen des Vorgangs und Ihre Nachricht",
+  "fabric.elements.share.form.no-permissions": "Sie können keine Elemente teilen.",
+  "fabric.elements.share.form.public.send": "Öffentlichen Link senden",
+  "fabric.elements.share.form.public.share": "Öffentlichen Link teilen",
+  "fabric.elements.share.form.retry": "Erneut versuchen",
+  "fabric.elements.share.form.send": "Senden",
+  "fabric.elements.share.form.share": "Teilen",
+  "fabric.elements.share.form.title": "Teilen",
+  "fabric.elements.share.form.user-picker.add-more": "Weitere eingeben",
+  "fabric.elements.share.form.user-picker.no-options.existingUserOnly": "Es wurden keine Ergebnisse für „{inputValue}“ gefunden.",
+  "fabric.elements.share.form.user-picker.no-options.generic": "Es wurden keine Ergebnisse für „{inputValue}“ gefunden. Laden Sie Personen mittels E-Mail-Adresse ein.",
+  "fabric.elements.share.form.user-picker.placeholder.emailOnly": "E-Mail-Adresse eingeben",
+  "fabric.elements.share.form.user-picker.placeholder.existingUserOnly": "Namen oder Team eingeben",
+  "fabric.elements.share.form.user-picker.placeholder.generic": "Namen, Gruppe, Team oder E-Mail-Adresse eingeben",
+  "fabric.elements.share.form.user-picker.placeholder.jira": "Namen, Team oder E-Mail-Adresse eingeben",
+  "fabric.elements.share.form.user-picker.placholder.generic.existingUserOnly": "Namen, Gruppe oder Team eingeben",
+  "fabric.elements.share.form.user-picker.validation.required": "Wählen Sie mindestens einen Benutzer, eine Gruppe, ein Team oder eine E-Mail-Adresse aus.",
+  "fabric.elements.share.form.user-picker.validation.required.email-only": "Wählen Sie mindestens eine E-Mail-Adresse aus.",
+  "fabric.elements.share.form.user-picker.validation.required.existingUserOnly": "Wählen Sie mindestens einen Benutzer, eine Gruppe oder ein Team aus.",
+  "fabric.elements.share.form.user-picker.validation.required.jira": "Bitte wählen Sie mindestens einen Benutzer, ein Team oder eine E-Mail-Adresse aus.",
+  "fabric.elements.share.form.user-picker.validation.required.jira.existingUserOnly": "Wählen Sie mindestens einen Benutzer oder ein Team aus.",
+  "fabric.elements.share.in.integration.button": "In {integrationName} teilen",
+  "fabric.elements.share.main.tab.text.confluence": "Seite teilen",
+  "fabric.elements.share.main.tab.text.jira": "Vorgang teilen",
+  "fabric.elements.share.success.message": "{object, select,blogpost {Blogpost geteilt}board {Board geteilt}calendar {Kalender geteilt}draft {Entwurf geteilt}filter {Filter geteilt}issue {Vorgang geteilt}summary {Zusammenfassung geteilt}list {Liste geteilt}timeline {Zeitleiste geteilt}form {Formular geteilt}media {Medien geteilt}page {Seite geteilt}project {Projekt geteilt}pullrequest {Pull-Anfrage geteilt}question {Frage geteilt}report {Bericht geteilt}repository {Repository geteilt}request {Anfrage geteilt}roadmap {Roadmap geteilt}site {Site geteilt}space {Bereich geteilt}other {Link geteilt}}",
+  "fabric.elements.share.to.integration.button": "Mit {integrationName} teilen",
+  "fabric.elements.share.trigger.button.icon.label": "Teilen-Symbol",
+  "fabric.elements.share.trigger.button.invite.text": "Einladen",
+  "fabric.elements.share.trigger.button.text": "Teilen",
+  "fabric.elements.share.trigger.button.tooltip.text": "Teilen"
 };

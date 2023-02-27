@@ -12,19 +12,19 @@ export type LogoProps = {
    */
   appearance?: Appearance;
   /**
-   * @deprecated CSS color to be applied to the wordmark portion of the logo SVG. The use of this prop is not recommended as it is not compatible with design tokens; use the `appearance` prop instead.
+   * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-171 Internal documentation for deprecation (no external access)} CSS color to be applied to the wordmark portion of the logo SVG. The use of this prop is not recommended as it is not compatible with design tokens; use the `appearance` prop instead.
    */
   textColor?: string;
   /**
-   * @deprecated CSS color to be applied to the non-gradient icon portion of the logo SVG. The use of this prop is not recommended as it is not compatible with design tokens; use the `appearance` prop instead.
+   * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-172 Internal documentation for deprecation (no external access)} CSS color to be applied to the non-gradient icon portion of the logo SVG. The use of this prop is not recommended as it is not compatible with design tokens; use the `appearance` prop instead.
    */
   iconColor?: string;
   /**
-   * @deprecated CSS color to start the gradient/shadow on the icon. The use of this prop is not recommended as it is not compatible with design tokens; use the `appearance` prop instead.
+   * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-173 Internal documentation for deprecation (no external access)} CSS color to start the gradient/shadow on the icon. The use of this prop is not recommended as it is not compatible with design tokens; use the `appearance` prop instead.
    */
   iconGradientStart?: string;
   /**
-   * @deprecated CSS color to end the gradient/shadow on the icon. Should usually match iconColor to avoid
+   * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-174 Internal documentation for deprecation (no external access)} CSS color to end the gradient/shadow on the icon. Should usually match iconColor to avoid
    * rendering issues in some browsers such as Safari. The use of this prop is not recommended as it is not compatible with design tokens; use the `appearance` prop instead.
    */
   iconGradientStop?: string;

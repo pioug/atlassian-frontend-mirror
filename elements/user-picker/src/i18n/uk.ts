@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,42 +7,29 @@
  */
 //Ukrainian (Ukraine)
 export default {
-  'fabric.elements.user-picker.email.add': 'Додайте користувача',
-  'fabric.elements.user-picker.email.add.potential':
-    'Введіть адресу електронної пошти',
-  'fabric.elements.user-picker.email.select.to.add':
-    'Виберіть адресу електронної пошти',
-  'fabric.elements.user-picker.external.sourced.error':
-    'Не вдається вас підключити.',
-  'fabric.elements.user-picker.external.sourced.from': 'Знайдено в:',
-  'fabric.elements.user-picker.github.provider': 'GitHub',
-  'fabric.elements.user-picker.google.provider': 'Google',
-  'fabric.elements.user-picker.group.byline':
-    'Група, яку модерує адміністратор',
-  'fabric.elements.user-picker.guest.lozenge.text': 'ГІСТЬ',
-  'fabric.elements.user-picker.guest.lozenge.tooltip.group':
-    'Групи гостей мають доступ лише до певних розділів, а також обмежений доступ до інформації про користувачів.',
-  'fabric.elements.user-picker.guest.lozenge.tooltip.user':
-    'Гості мають доступ лише до певних розділів, а також обмежений доступ до інформації про користувачів.',
-  'fabric.elements.user-picker.member.lozenge.text': 'Учасник',
-  'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
-  'fabric.elements.user-picker.multi.remove-item': 'Видалити',
-  'fabric.elements.user-picker.placeholder':
-    'Укажіть користувачів або команди…',
-  'fabric.elements.user-picker.placeholder.add-more':
-    'додайте інших користувачів…',
-  'fabric.elements.user-picker.single.clear': 'Очистити',
-  'fabric.elements.user-picker.slack.provider': 'Slack',
-  'fabric.elements.user-picker.source.confluence': 'Confluence',
-  'fabric.elements.user-picker.source.jira': 'Jira',
-  'fabric.elements.user-picker.source.other-atlassian':
-    'Інші продукти Atlassian',
-  'fabric.elements.user-picker.team.member.50plus':
-    'Команда • Понад 50 учасників',
-  'fabric.elements.user-picker.team.member.50plus.including.you':
-    'Команда • Понад 50 учасників включно з вами',
-  'fabric.elements.user-picker.team.member.count':
-    '{count, plural, one {Команда • {count} учасник} few {Команда • {count} учасники} many {Команда • {count} учасників} other {Команда • {count} учасника}}',
-  'fabric.elements.user-picker.team.member.count.including.you':
-    '{count, plural, one {Команда • {count} учасник включно з вами} few {Команда • {count} учасники включно з вами} many {Команда • {count} учасників включно з вами} other {Команда • {count} учасника включно з вами}}',
+  "fabric.elements.user-picker.email.add": "Додайте користувача",
+  "fabric.elements.user-picker.email.add.potential": "Введіть адресу електронної пошти",
+  "fabric.elements.user-picker.email.select.to.add": "Виберіть адресу електронної пошти",
+  "fabric.elements.user-picker.external.sourced.error": "Не вдається вас підключити.",
+  "fabric.elements.user-picker.external.sourced.from": "Знайдено в:",
+  "fabric.elements.user-picker.github.provider": "GitHub",
+  "fabric.elements.user-picker.google.provider": "Google",
+  "fabric.elements.user-picker.group.byline": "Група, яку модерує адміністратор",
+  "fabric.elements.user-picker.guest.lozenge.text": "ГІСТЬ",
+  "fabric.elements.user-picker.guest.lozenge.tooltip.group": "Групи гостей мають доступ лише до певних розділів, а також обмежений доступ до інформації про користувачів.",
+  "fabric.elements.user-picker.guest.lozenge.tooltip.user": "Гості мають доступ лише до певних розділів, а також обмежений доступ до інформації про користувачів.",
+  "fabric.elements.user-picker.member.lozenge.text": "Учасник",
+  "fabric.elements.user-picker.microsoft.provider": "Microsoft",
+  "fabric.elements.user-picker.multi.remove-item": "Видалити",
+  "fabric.elements.user-picker.placeholder": "Укажіть користувачів або команди…",
+  "fabric.elements.user-picker.placeholder.add-more": "додайте інших користувачів…",
+  "fabric.elements.user-picker.single.clear": "Очистити",
+  "fabric.elements.user-picker.slack.provider": "Slack",
+  "fabric.elements.user-picker.source.confluence": "Confluence",
+  "fabric.elements.user-picker.source.jira": "Jira",
+  "fabric.elements.user-picker.source.other-atlassian": "Інші продукти Atlassian",
+  "fabric.elements.user-picker.team.member.50plus": "Команда • Понад 50 учасників",
+  "fabric.elements.user-picker.team.member.50plus.including.you": "Команда • Понад 50 учасників включно з вами",
+  "fabric.elements.user-picker.team.member.count": "{count, plural, one {Команда • {count} учасник} few {Команда • {count} учасники} many {Команда • {count} учасників} other {Команда • {count} учасника}}",
+  "fabric.elements.user-picker.team.member.count.including.you": "{count, plural, one {Команда • {count} учасник включно з вами} few {Команда • {count} учасники включно з вами} many {Команда • {count} учасників включно з вами} other {Команда • {count} учасника включно з вами}}"
 };

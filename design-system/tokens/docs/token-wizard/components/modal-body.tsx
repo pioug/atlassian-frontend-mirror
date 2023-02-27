@@ -7,7 +7,7 @@ import { N40 } from '@atlaskit/theme/colors';
 
 import { token } from '../../../src';
 import questions from '../data/questions';
-import { Answer, Path, questionID, resultID } from '../types';
+import { Answer, Path, questionID, resultID } from '../data/types';
 
 import AnswerCard from './answer';
 import CurrentQuestion from './current-question';

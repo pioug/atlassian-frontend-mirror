@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,54 +7,41 @@
  */
 //Norwegian (Bokmål)
 export default {
-  'fabric.elements.share.copied.to.clipboard.message':
-    'Kobling er kopiert til utklippstavlen',
-  'fabric.elements.share.copylink.button.text': 'Kopier kobling',
-  'fabric.elements.share.copypubliclink.button.text':
-    'Kopier offentlig tilgjengelig kobling',
-  'fabric.elements.share.failure.icon.label': 'Feil-ikon',
-  'fabric.elements.share.failure.message': 'Kan ikke deles',
-  'fabric.elements.share.form.comment.placeholder': 'Legg til en melding',
-  'fabric.elements.share.form.info.message.no.invite.confluence':
-    'Mottakerne vil se navnet på siden og meldingen',
-  'fabric.elements.share.form.info.message.no.invite.jira':
-    'Mottakerne vil se navnet på saken og meldingen',
-  'fabric.elements.share.form.public.send':
-    'Send offentlig tilgjengelig kobling',
-  'fabric.elements.share.form.public.share': 'Del offentlig kobling',
-  'fabric.elements.share.form.retry': 'Prøv igjen',
-  'fabric.elements.share.form.send': 'Send',
-  'fabric.elements.share.form.share': 'Del',
-  'fabric.elements.share.form.title': 'Del',
-  'fabric.elements.share.form.user-picker.add-more': 'Legg til mer',
-  'fabric.elements.share.form.user-picker.no-options.existingUserOnly':
-    'Vi kunne ikke finne noen resultater for "{inputValue}".',
-  'fabric.elements.share.form.user-picker.no-options.generic':
-    'Vi kunne ikke finne noen resultater for "{inputValue}". Inviter personer ved å bruke en e-postadresse.',
-  'fabric.elements.share.form.user-picker.placeholder.existingUserOnly':
-    'Skriv inn navn eller team',
-  'fabric.elements.share.form.user-picker.placeholder.generic':
-    'Skriv inn navn, gruppe, team eller e-post',
-  'fabric.elements.share.form.user-picker.placeholder.jira':
-    'Skriv inn navn, team eller e-postadresse',
-  'fabric.elements.share.form.user-picker.placholder.generic.existingUserOnly':
-    'Angi navn, gruppe eller team',
-  'fabric.elements.share.form.user-picker.validation.required':
-    'Velg minst én bruker, gruppe eller e-post eller minst ett team.',
-  'fabric.elements.share.form.user-picker.validation.required.existingUserOnly':
-    'Velg minst én bruker, gruppe eller ett team.',
-  'fabric.elements.share.form.user-picker.validation.required.jira':
-    'Velg minst én bruker, arbeidsgruppe eller e-postadresse.',
-  'fabric.elements.share.form.user-picker.validation.required.jira.existingUserOnly':
-    'Velg minst én bruker eller ett team.',
-  'fabric.elements.share.in.integration.button': 'Del i {integrationName}',
-  'fabric.elements.share.main.tab.text.confluence': 'Del side',
-  'fabric.elements.share.main.tab.text.jira': 'Del sak',
-  'fabric.elements.share.success.message':
-    '{object, select, blogpost {Blogginnlegg delt} board {Tavle delt} calendar {Kalender delt} draft {Utkast delt} filter {Filter delt} issue {Sak delt} media {Media delt} page {Side delt} project {Prosjekt delt} pullrequest {Pull-forespørsel delt} question {Spørsmål delt} report {Rapport delt} repository {Repositorium delt} request {Forespørsel delt} roadmap {Veikart delt} site {Side delt} space {Område delt} other {Kobling delt}}',
-  'fabric.elements.share.to.integration.button': 'Del til {integrationName}',
-  'fabric.elements.share.trigger.button.icon.label': 'Dele-ikon',
-  'fabric.elements.share.trigger.button.invite.text': 'Inviter',
-  'fabric.elements.share.trigger.button.text': 'Del',
-  'fabric.elements.share.trigger.button.tooltip.text': 'Del',
+  "fabric.elements.share.copied.to.clipboard.message": "Kobling er kopiert til utklippstavlen",
+  "fabric.elements.share.copylink.button.text": "Kopier kobling",
+  "fabric.elements.share.copypubliclink.button.text": "Kopier offentlig tilgjengelig kobling",
+  "fabric.elements.share.failure.icon.label": "Feil-ikon",
+  "fabric.elements.share.failure.message": "Kan ikke deles",
+  "fabric.elements.share.form.comment.placeholder": "Legg til en melding",
+  "fabric.elements.share.form.info.message.no.invite.confluence": "Mottakerne vil se navnet på siden og meldingen",
+  "fabric.elements.share.form.info.message.no.invite.jira": "Mottakerne vil se navnet på saken og meldingen",
+  "fabric.elements.share.form.no-permissions": "Du har ikke muligheten til å dele.",
+  "fabric.elements.share.form.public.send": "Send offentlig tilgjengelig kobling",
+  "fabric.elements.share.form.public.share": "Del offentlig kobling",
+  "fabric.elements.share.form.retry": "Prøv igjen",
+  "fabric.elements.share.form.send": "Send",
+  "fabric.elements.share.form.share": "Del",
+  "fabric.elements.share.form.title": "Del",
+  "fabric.elements.share.form.user-picker.add-more": "Legg til mer",
+  "fabric.elements.share.form.user-picker.no-options.existingUserOnly": "Vi kunne ikke finne noen resultater for \"{inputValue}\".",
+  "fabric.elements.share.form.user-picker.no-options.generic": "Vi kunne ikke finne noen resultater for \"{inputValue}\". Inviter personer ved å bruke en e-postadresse.",
+  "fabric.elements.share.form.user-picker.placeholder.emailOnly": "Angi e-postadresse",
+  "fabric.elements.share.form.user-picker.placeholder.existingUserOnly": "Skriv inn navn eller team",
+  "fabric.elements.share.form.user-picker.placeholder.generic": "Skriv inn navn, gruppe, team eller e-post",
+  "fabric.elements.share.form.user-picker.placeholder.jira": "Skriv inn navn, team eller e-postadresse",
+  "fabric.elements.share.form.user-picker.placholder.generic.existingUserOnly": "Angi navn, gruppe eller team",
+  "fabric.elements.share.form.user-picker.validation.required": "Velg minst én bruker, gruppe eller e-post eller minst ett team.",
+  "fabric.elements.share.form.user-picker.validation.required.email-only": "Velg minst én e-postadresse.",
+  "fabric.elements.share.form.user-picker.validation.required.existingUserOnly": "Velg minst én bruker, gruppe eller ett team.",
+  "fabric.elements.share.form.user-picker.validation.required.jira": "Velg minst én bruker, arbeidsgruppe eller e-postadresse.",
+  "fabric.elements.share.form.user-picker.validation.required.jira.existingUserOnly": "Velg minst én bruker eller ett team.",
+  "fabric.elements.share.in.integration.button": "Del i {integrationName}",
+  "fabric.elements.share.main.tab.text.confluence": "Del side",
+  "fabric.elements.share.main.tab.text.jira": "Del sak",
+  "fabric.elements.share.success.message": "{object, select,blogpost {Blogginnlegg er delt}board {Tavle er delt}calendar {Kalender er delt}draft {Utkast er delt}filter {Filter er delt}issue {Sak er delt}summary {Sammendrag er delt}list {Liste er delt}timeline {Tidslinje er delt}form {Skjema er delt}media {Medier er delt}page {Side er delt}project {Prosjekt er delt}pullrequest {Pull-forespørsel er delt}question {Spørsmål er delt}report {Rapport er delt}repository {Repositorium er delt}request {Forespørsel er delt}roadmap {Veikart er delt}site {Nettsted er delt}space {Område er delt}other {Kobling er delt}}",
+  "fabric.elements.share.to.integration.button": "Del til {integrationName}",
+  "fabric.elements.share.trigger.button.icon.label": "Dele-ikon",
+  "fabric.elements.share.trigger.button.invite.text": "Inviter",
+  "fabric.elements.share.trigger.button.text": "Del",
+  "fabric.elements.share.trigger.button.tooltip.text": "Del"
 };

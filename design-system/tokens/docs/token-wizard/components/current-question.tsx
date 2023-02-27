@@ -6,7 +6,7 @@ import { gridSize } from '@atlaskit/theme/constants';
 
 import { token } from '../../../src';
 import questions from '../data/questions';
-import { Question, questionID } from '../types';
+import { Question, questionID } from '../data/types';
 
 const questionContainerStyles = css({
   marginBottom: gridSize() * 1.5,

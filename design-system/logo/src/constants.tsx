@@ -41,11 +41,11 @@ export const sizes = {
  */
 
 /**
- * @deprecated This has been renamed, please import `LogoProps` instead.
+ * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-175 Internal documentation for deprecation (no external access)} This has been renamed, please import `LogoProps` instead.
  */
 // eslint-disable-next-line @repo/internal/react/consistent-types-definitions
 export type Props = LogoProps;
 /**
- * @deprecated This has been renamed, please import `defaultLogoParams` instead.
+ * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-176 Internal documentation for deprecation (no external access)} This has been renamed, please import `defaultLogoParams` instead.
  */
 export const DefaultProps = defaultLogoParams;

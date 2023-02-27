@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,19 +7,17 @@
  */
 //Korean
 export default {
-  'fabric.reactions.add': '반응 추가',
-  'fabric.reactions.error.unexpected': '반응을 일시적으로 사용할 수 없습니다',
-  'fabric.reactions.loading': '로드 중…',
-  'fabric.reactions.more.emojis': '이모지 더 보기',
-  'fabric.reactions.more.info': '자세한 정보',
-  'fabric.reactions.other.reacted.users':
-    '{count, plural, other {및 그 외 {count}명}}',
-  'fabric.reactions.reactwithemoji': '{emoji} 이모지로 반응',
-  'reactions.dialog.close': '닫기',
-  'reactions.dialog.left.navigate': '왼쪽 탐색',
-  'reactions.dialog.reactions.count':
-    '{count, plural, other {반응 {count,number}개}}',
-  'reactions.dialog.right.navigate': '오른쪽 탐색',
-  'reactions.dialog.viewall': '반응한 사용자 보기',
-  'reactions.dialog.viewall.tooltip': '사용자 반응 모두 보기',
+  "fabric.reactions.add": "반응 추가",
+  "fabric.reactions.error.unexpected": "반응을 일시적으로 사용할 수 없습니다",
+  "fabric.reactions.loading": "로드 중…",
+  "fabric.reactions.more.emojis": "이모지 더 보기",
+  "fabric.reactions.more.info": "자세한 정보",
+  "fabric.reactions.other.reacted.users": "{count, plural, other {및 그 외 {count}명}}",
+  "fabric.reactions.reactwithemoji": "{emoji} 이모지로 반응",
+  "reactions.dialog.close": "닫기",
+  "reactions.dialog.left.navigate": "왼쪽 탐색",
+  "reactions.dialog.reactions.count": "{count, plural, other {반응 {count,number}개}}",
+  "reactions.dialog.right.navigate": "오른쪽 탐색",
+  "reactions.dialog.viewall": "반응한 사용자 보기",
+  "reactions.dialog.viewall.tooltip": "사용자 반응 모두 보기"
 };

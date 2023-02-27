@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,26 +7,19 @@
  */
 //Finnish
 export default {
-  'fabric.elements.mentions.team.meantion.highlight.close.button.tooltip':
-    'Hylkää',
-  'fabric.elements.mentions.team.member.50plus': 'Tiimi • 50+ jäsentä',
-  'fabric.elements.mentions.team.member.50plus.including.you':
-    'Tiimi • 50+ jäsentä sinä mukaan lukien',
-  'fabric.elements.mentions.team.member.count':
-    '{0, plural, one {Tiimi • 1 jäsen} other {Tiimi • {0} jäsentä}}',
-  'fabric.elements.mentions.team.member.count.including.you':
-    '{0, plural, one {Tiimi • 1 jäsen sinä mukaan lukien} other {Tiimi • {0} jäsentä sinä mukaan lukien}}',
-  'fabric.elements.mentions.team.mention.highlight.description':
-    'Saa kaikki sivulle yhdellä napsautuksella. Eikö sinulla ole tiimiä?',
-  'fabric.elements.mentions.team.mention.highlight.description.link':
-    'Aloita tiimi.',
-  'fabric.elements.mentions.team.mention.highlight.title': 'Merkitse tiimisi',
-  'fabric.mention.error.defaultAction': 'Yritä uudelleen hetken kuluttua',
-  'fabric.mention.error.defaultHeadline': 'Jotain meni pieleen',
-  'fabric.mention.error.differentText': 'Kirjoita eri teksti',
-  'fabric.mention.error.loginAgain': 'Kirjaudu ulos ja sitten uudelleen sisään',
-  'fabric.mention.noAccess.label': 'Ei pääsyä',
-  'fabric.mention.noAccess.warning':
-    '{name} ei saa ilmoitusta, koska hänellä ei ole pääsyä',
-  'fabric.mention.unknow.user.error': 'Tuntematon käyttäjä {userId}',
+  "fabric.elements.mentions.team.meantion.highlight.close.button.tooltip": "Hylkää",
+  "fabric.elements.mentions.team.member.50plus": "Tiimi • 50+ jäsentä",
+  "fabric.elements.mentions.team.member.50plus.including.you": "Tiimi • 50+ jäsentä sinä mukaan lukien",
+  "fabric.elements.mentions.team.member.count": "{0, plural, one {Tiimi • 1 jäsen} other {Tiimi • {0} jäsentä}}",
+  "fabric.elements.mentions.team.member.count.including.you": "{0, plural, one {Tiimi • 1 jäsen sinä mukaan lukien} other {Tiimi • {0} jäsentä sinä mukaan lukien}}",
+  "fabric.elements.mentions.team.mention.highlight.description": "Saa kaikki sivulle yhdellä napsautuksella. Eikö sinulla ole tiimiä?",
+  "fabric.elements.mentions.team.mention.highlight.description.link": "Aloita tiimi.",
+  "fabric.elements.mentions.team.mention.highlight.title": "Merkitse tiimisi",
+  "fabric.mention.error.defaultAction": "Yritä uudelleen hetken kuluttua",
+  "fabric.mention.error.defaultHeadline": "Jotain meni pieleen",
+  "fabric.mention.error.differentText": "Kirjoita eri teksti",
+  "fabric.mention.error.loginAgain": "Kirjaudu ulos ja sitten uudelleen sisään",
+  "fabric.mention.noAccess.label": "Ei pääsyä",
+  "fabric.mention.noAccess.warning": "{name} ei saa ilmoitusta, koska hänellä ei ole pääsyä",
+  "fabric.mention.unknow.user.error": "Tuntematon käyttäjä {userId}"
 };

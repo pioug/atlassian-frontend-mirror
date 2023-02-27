@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,11 +7,11 @@
  */
 //Chinese (Traditional)
 export default {
-  'fabric.status.color.blue': '藍色',
-  'fabric.status.color.green': '綠色',
-  'fabric.status.color.grey': '灰色',
-  'fabric.status.color.purple': '紫色',
-  'fabric.status.color.red': '紅色',
-  'fabric.status.color.yellow': '黃色',
-  'fabric.status.input.label': '設定狀態',
+  "fabric.status.color.blue": "藍色",
+  "fabric.status.color.green": "綠色",
+  "fabric.status.color.grey": "灰色",
+  "fabric.status.color.purple": "紫色",
+  "fabric.status.color.red": "紅色",
+  "fabric.status.color.yellow": "黃色",
+  "fabric.status.input.label": "設定狀態"
 };

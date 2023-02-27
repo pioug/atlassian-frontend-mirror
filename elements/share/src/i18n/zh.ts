@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,51 +7,41 @@
  */
 //Chinese (Simplified)
 export default {
-  'fabric.elements.share.copied.to.clipboard.message': '链接已复制到剪贴板',
-  'fabric.elements.share.copylink.button.text': '复制链接',
-  'fabric.elements.share.copypubliclink.button.text': '复制公共链接',
-  'fabric.elements.share.failure.icon.label': '错误图标',
-  'fabric.elements.share.failure.message': '无法共享',
-  'fabric.elements.share.form.comment.placeholder': '添加消息',
-  'fabric.elements.share.form.info.message.no.invite.confluence':
-    '收件人将看到页面名称和您的消息',
-  'fabric.elements.share.form.info.message.no.invite.jira':
-    '收件人将看到事务名称和您的消息',
-  'fabric.elements.share.form.public.send': '发送公共链接',
-  'fabric.elements.share.form.public.share': '分享公开链接',
-  'fabric.elements.share.form.retry': '重试',
-  'fabric.elements.share.form.send': '发送',
-  'fabric.elements.share.form.share': '共享',
-  'fabric.elements.share.form.title': '共享',
-  'fabric.elements.share.form.user-picker.add-more': '输入更多',
-  'fabric.elements.share.form.user-picker.no-options.existingUserOnly':
-    '我们找不到任何关于“{inputValue}”的结果。',
-  'fabric.elements.share.form.user-picker.no-options.generic':
-    '我们找不到任何关于“{inputValue}”的结果。请用电子邮件地址邀请他人。',
-  'fabric.elements.share.form.user-picker.placeholder.existingUserOnly':
-    '输入名称或团队',
-  'fabric.elements.share.form.user-picker.placeholder.generic':
-    '输入用户名、组、团队或电子邮件',
-  'fabric.elements.share.form.user-picker.placeholder.jira':
-    '输入用户名、团队或电子邮件地址',
-  'fabric.elements.share.form.user-picker.placholder.generic.existingUserOnly':
-    '输入姓名、群组或团队',
-  'fabric.elements.share.form.user-picker.validation.required':
-    '请至少选择一个用户、组、团队或电子邮件。',
-  'fabric.elements.share.form.user-picker.validation.required.existingUserOnly':
-    '请至少选择一个用户、群组或团队。',
-  'fabric.elements.share.form.user-picker.validation.required.jira':
-    '请至少选择一个用户、团队或电子邮件地址。',
-  'fabric.elements.share.form.user-picker.validation.required.jira.existingUserOnly':
-    '请至少选择一个用户或团队。',
-  'fabric.elements.share.in.integration.button': '在 {integrationName} 中分享',
-  'fabric.elements.share.main.tab.text.confluence': '分享页面',
-  'fabric.elements.share.main.tab.text.jira': '共享事务',
-  'fabric.elements.share.success.message':
-    '{object, select, blogpost {已共享博客文章} board {已共享看板} calendar {已共享日历} draft {已共享草稿} filter {已共享筛选器} issue {已共享事务} media {已共享媒体} page {已共享页面} project {已共享项目} pullrequest {已共享拉取请求} question {已共享问题} report {已共享报告} repository {已共享存储库} request {已共享请求} roadmap {已共享路线图} site {已共享站点} space {已共享空间} other {已共享链接}}',
-  'fabric.elements.share.to.integration.button': '分享到 {integrationName}',
-  'fabric.elements.share.trigger.button.icon.label': '共享图标',
-  'fabric.elements.share.trigger.button.invite.text': '邀请',
-  'fabric.elements.share.trigger.button.text': '共享',
-  'fabric.elements.share.trigger.button.tooltip.text': '共享',
+  "fabric.elements.share.copied.to.clipboard.message": "链接已复制到剪贴板",
+  "fabric.elements.share.copylink.button.text": "复制链接",
+  "fabric.elements.share.copypubliclink.button.text": "复制公共链接",
+  "fabric.elements.share.failure.icon.label": "错误图标",
+  "fabric.elements.share.failure.message": "无法共享",
+  "fabric.elements.share.form.comment.placeholder": "添加消息",
+  "fabric.elements.share.form.info.message.no.invite.confluence": "收件人将看到页面名称和您的消息",
+  "fabric.elements.share.form.info.message.no.invite.jira": "收件人将看到事务名称和您的消息",
+  "fabric.elements.share.form.no-permissions": "您无法共享。",
+  "fabric.elements.share.form.public.send": "发送公共链接",
+  "fabric.elements.share.form.public.share": "分享公开链接",
+  "fabric.elements.share.form.retry": "重试",
+  "fabric.elements.share.form.send": "发送",
+  "fabric.elements.share.form.share": "共享",
+  "fabric.elements.share.form.title": "共享",
+  "fabric.elements.share.form.user-picker.add-more": "输入更多",
+  "fabric.elements.share.form.user-picker.no-options.existingUserOnly": "我们找不到任何关于“{inputValue}”的结果。",
+  "fabric.elements.share.form.user-picker.no-options.generic": "我们找不到任何关于“{inputValue}”的结果。请用电子邮件地址邀请他人。",
+  "fabric.elements.share.form.user-picker.placeholder.emailOnly": "输入电子邮件地址",
+  "fabric.elements.share.form.user-picker.placeholder.existingUserOnly": "输入名称或团队",
+  "fabric.elements.share.form.user-picker.placeholder.generic": "输入用户名、组、团队或电子邮件",
+  "fabric.elements.share.form.user-picker.placeholder.jira": "输入用户名、团队或电子邮件地址",
+  "fabric.elements.share.form.user-picker.placholder.generic.existingUserOnly": "输入姓名、群组或团队",
+  "fabric.elements.share.form.user-picker.validation.required": "请至少选择一个用户、组、团队或电子邮件。",
+  "fabric.elements.share.form.user-picker.validation.required.email-only": "请至少选择一个电子邮件地址。",
+  "fabric.elements.share.form.user-picker.validation.required.existingUserOnly": "请至少选择一个用户、群组或团队。",
+  "fabric.elements.share.form.user-picker.validation.required.jira": "请至少选择一个用户、团队或电子邮件地址。",
+  "fabric.elements.share.form.user-picker.validation.required.jira.existingUserOnly": "请至少选择一个用户或团队。",
+  "fabric.elements.share.in.integration.button": "在 {integrationName} 中分享",
+  "fabric.elements.share.main.tab.text.confluence": "分享页面",
+  "fabric.elements.share.main.tab.text.jira": "共享事务",
+  "fabric.elements.share.success.message": "{object, select,blogpost {博客文章已共享}board {看板已共享}calendar {日历已共享}draft {草稿已共享}filter {筛选器已共享}issue {事务已共享}summary {摘要已共享}list {列表已共享}timeline {时间线已共享}form {表单已共享}media {媒体已共享}page {页面已共享}project {项目已共享}pullrequest {拉取请求已共享}question {问题已共享}report {报告已共享}repository {存储库已共享}request {请求已共享}roadmap {路线图已共享}site {站点已共享}space {空间已共享}other {链接已共享}}",
+  "fabric.elements.share.to.integration.button": "分享到 {integrationName}",
+  "fabric.elements.share.trigger.button.icon.label": "共享图标",
+  "fabric.elements.share.trigger.button.invite.text": "邀请",
+  "fabric.elements.share.trigger.button.text": "共享",
+  "fabric.elements.share.trigger.button.tooltip.text": "共享"
 };

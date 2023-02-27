@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,28 +7,19 @@
  */
 //Polish (Poland)
 export default {
-  'fabric.elements.mentions.team.meantion.highlight.close.button.tooltip':
-    'Odrzuć',
-  'fabric.elements.mentions.team.member.50plus': 'Zespół z ponad 50 członkami',
-  'fabric.elements.mentions.team.member.50plus.including.you':
-    'Zespół z ponad 50 członkami, łącznie z Tobą',
-  'fabric.elements.mentions.team.member.count':
-    '{0, plural, one {Zespół z 1 członkiem} few {Zespół z {0} członkami} many {Zespół z {0} członkami} other {Zespół z {0} członka}}',
-  'fabric.elements.mentions.team.member.count.including.you':
-    '{0, plural, one {Zespół z 1 członkiem, łącznie z Tobą} few {Zespół z {0} członkami, łącznie z Tobą} many {Zespół z {0} członkami, łącznie z Tobą} other {Zespół z {0} członka, łącznie z Tobą}}',
-  'fabric.elements.mentions.team.mention.highlight.description':
-    'Przekieruj wszystkich na stronę za pomocą jednego kliknięcia. Nie masz zespołu?',
-  'fabric.elements.mentions.team.mention.highlight.description.link':
-    'Załóż go.',
-  'fabric.elements.mentions.team.mention.highlight.title':
-    'Wspomniano Twój zespół',
-  'fabric.mention.error.defaultAction': 'Spróbuj ponownie za chwilę',
-  'fabric.mention.error.defaultHeadline': 'Coś poszło nie tak',
-  'fabric.mention.error.differentText': 'Spróbuj wpisać inny tekst',
-  'fabric.mention.error.loginAgain':
-    'Spróbuj się wylogować i zalogować ponownie',
-  'fabric.mention.noAccess.label': 'Brak dostępu',
-  'fabric.mention.noAccess.warning':
-    'Użytkownik {name} nie zostanie powiadomiony, ponieważ nie ma dostępu',
-  'fabric.mention.unknow.user.error': 'Nieznany użytkownik {userId}',
+  "fabric.elements.mentions.team.meantion.highlight.close.button.tooltip": "Odrzuć",
+  "fabric.elements.mentions.team.member.50plus": "Zespół z ponad 50 członkami",
+  "fabric.elements.mentions.team.member.50plus.including.you": "Zespół z ponad 50 członkami, łącznie z Tobą",
+  "fabric.elements.mentions.team.member.count": "{0, plural, one {Zespół z 1 członkiem} few {Zespół z {0} członkami} many {Zespół z {0} członkami} other {Zespół z {0} członka}}",
+  "fabric.elements.mentions.team.member.count.including.you": "{0, plural, one {Zespół z 1 członkiem, łącznie z Tobą} few {Zespół z {0} członkami, łącznie z Tobą} many {Zespół z {0} członkami, łącznie z Tobą} other {Zespół z {0} członka, łącznie z Tobą}}",
+  "fabric.elements.mentions.team.mention.highlight.description": "Przekieruj wszystkich na stronę za pomocą jednego kliknięcia. Nie masz zespołu?",
+  "fabric.elements.mentions.team.mention.highlight.description.link": "Załóż go.",
+  "fabric.elements.mentions.team.mention.highlight.title": "Wspomniano Twój zespół",
+  "fabric.mention.error.defaultAction": "Spróbuj ponownie za chwilę",
+  "fabric.mention.error.defaultHeadline": "Coś poszło nie tak",
+  "fabric.mention.error.differentText": "Spróbuj wpisać inny tekst",
+  "fabric.mention.error.loginAgain": "Spróbuj się wylogować i zalogować ponownie",
+  "fabric.mention.noAccess.label": "Brak dostępu",
+  "fabric.mention.noAccess.warning": "Użytkownik {name} nie zostanie powiadomiony, ponieważ nie ma dostępu",
+  "fabric.mention.unknow.user.error": "Nieznany użytkownik {userId}"
 };

@@ -5,6 +5,7 @@ import type {
   PaintToken,
   RawToken,
   ShadowToken,
+  SpacingToken,
 } from '../../src/types';
 
 export interface TransformedTokenWithAttributes extends TransformedToken {
@@ -12,6 +13,7 @@ export interface TransformedTokenWithAttributes extends TransformedToken {
     | (TransformedToken['attributes'] & PaintToken<string>['attributes'])
     | ShadowToken<string>['attributes']
     | OpacityToken['attributes']
+    | SpacingToken['attributes']
     | RawToken['attributes'];
 }
 

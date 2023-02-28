@@ -5,6 +5,7 @@ order: 0
 ---
 
 import MenuDefault from '../../examples/constellation/menu-default';
+import MenuDensity from '../../examples/constellation/menu-density';
 
 ## Default
 
@@ -13,3 +14,10 @@ import MenuDefault from '../../examples/constellation/menu-default';
 If composing your menu as a popup, you'll want to use [PopupMenuGroup](/components/menu/popup-menu-group/examples), which constrains its width to predefined values.
 
 <Example Component={MenuDefault} packageName="@atlaskit/menu" />
+
+## Density
+
+A `MenuGroup` can be configured to accept different spacing values. Applying a `compact` spacing value
+will trim gutters and whitespace for higher density content.
+
+<Example Component={MenuDensity} packageName="@atlaskit/menu" />

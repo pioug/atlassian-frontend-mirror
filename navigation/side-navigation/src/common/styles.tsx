@@ -52,9 +52,9 @@ export const baseSideNavItemStyle: CSSFn = ({ isSelected, isDisabled }) => {
   return {
     // This padding is set to ensure that the center of the left icon
     // is approximately center aligned with the horizontal app switcher.
-    padding: `${token('space.100', '8px')} ${token('space.100', '10px')}`,
+    paddingBlock: token('space.100', '8px'),
+    paddingInline: token('space.100', '10px'),
     borderRadius,
-
     // -- TODO: DELETE THESE COLOR OVERRIDES WHEN CLEANING UP FALLBACK THEMING --
     // Menu and side navigation are now color aligned so they do not need this!
     // See: https://product-fabric.atlassian.net/browse/DSP-1684
@@ -64,16 +64,8 @@ export const baseSideNavItemStyle: CSSFn = ({ isSelected, isDisabled }) => {
     // -- END TODO --------------------------------------------------------------
 
     ['& [data-item-elem-before]']: {
-      // TODO: Can this be moved into menu?
-      // center align icons with app-switcher regardless of size
-      display: 'flex',
       height: token('space.300', '24px'),
       width: token('space.300', '24px'),
-      alignItems: 'center',
-      justifyContent: 'center',
-      // this margin could be removed if the respective item had a more
-      // compositional API so an Inline could be used to separate elements instead
-      marginRight: token('space.200', '16px'),
     },
   };
 };

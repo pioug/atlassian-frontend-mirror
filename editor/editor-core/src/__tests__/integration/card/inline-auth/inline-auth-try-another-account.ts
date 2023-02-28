@@ -11,10 +11,9 @@ import {
 
 type ClientType = Parameters<typeof goToEditorTestingWDExample>[0];
 
-// TODO: Restore skipped test https://product-fabric.atlassian.net/browse/ED-16708
 BrowserTestCase(
   'inline: should open a new window to authenticate with a provider when connecting a different account',
-  { skip: ['*'] },
+  {},
   async (client: ClientType) => {
     const page = await goToEditorTestingWDExample(client);
     const authorizationWindow = new AuthorizationWindow(client, page);

@@ -14,11 +14,12 @@ const itemHeadingContentHeight = headingSizes.h100.lineHeight;
 const itemHeadingFontSize = headingSizes.h100.size;
 
 const headingStyles = css({
-  padding: `0 ${token('space.250', '20px')}`,
   color: token('color.text.subtle', N300),
   fontSize: itemHeadingFontSize,
   fontWeight: token('font.weight.bold', '700'),
   lineHeight: itemHeadingContentHeight / itemHeadingFontSize,
+  paddingBlock: token('space.0', '0px'),
+  paddingInline: token('space.200', '16px'),
   textTransform: 'uppercase',
 });
 

@@ -140,6 +140,11 @@ export interface DropdownMenuProps<
   shouldFlip?: boolean;
 
   /**
+   * Controls the spacing density of the menu.
+   */
+  spacing?: Extract<MenuGroupProps['spacing'], 'cozy' | 'compact'>;
+
+  /**
    * Content which will trigger the dropdown menu to open and close. Use with `triggerType`
    * to easily get a button trigger.
    */

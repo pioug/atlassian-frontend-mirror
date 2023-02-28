@@ -10,29 +10,7 @@ yarn add @atlaskit/tokens
 
 ## Usage
 
-### Set global theme
-
-To load and set themes into your app, call setGlobalTheme during runtime.
-
-```tsx
-import { setGlobalTheme } from '@atlaskit/tokens';
-
-setGlobalTheme({ colorMode: 'light', light: 'light', dark: 'dark' });
-```
-
-### Token
-
-Use the `token` function to get a [CSS variable](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties) for the named token.
-
-```tsx
-import { token } from '@atlaskit/tokens';
-
-token('color.background.default');
-```
-
-### Learn more
-
-To learn more about the tokens package API, view the [token package docs on atlassian.design](https://atlassian.design/components/tokens/code)
+[View documentation](https://atlassian.design/components/tokens).
 
 # BabelPlugin
 

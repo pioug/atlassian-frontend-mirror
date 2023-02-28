@@ -41,7 +41,7 @@
     "@atlaskit/drag-and-drop-indicator": "^0.8.0",
     "@atlaskit/focus-ring": "^1.2.0",
     "@atlaskit/icon": "^21.11.0",
-    "@atlaskit/menu": "^1.4.0",
+    "@atlaskit/menu": "^1.5.0",
     "@atlaskit/motion": "^1.3.0",
     "@atlaskit/theme": "^12.2.0",
     "@atlaskit/tokens": "^1.2.0",

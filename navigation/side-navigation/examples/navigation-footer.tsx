@@ -7,7 +7,6 @@ import Icon from '@atlaskit/icon';
 import { Footer, NavigationFooter } from '../src';
 
 import SampleIcon from './common/next-gen-project-icon';
-import { CustomItemFooter } from './common/sample-footer';
 
 const Example = () => {
   return (
@@ -18,6 +17,7 @@ const Example = () => {
     >
       <NavigationFooter>
         <Footer
+          useDeprecatedApi={false}
           description={
             <Fragment>
               <Button appearance="link" href="/feedback" spacing="none">
@@ -36,6 +36,7 @@ const Example = () => {
 
       <NavigationFooter>
         <Footer
+          useDeprecatedApi={false}
           iconBefore={<Icon label="" glyph={SampleIcon} />}
           description={
             <Fragment>
@@ -48,16 +49,6 @@ const Example = () => {
               </Button>
             </Fragment>
           }
-        >
-          You're in a next gen-project
-        </Footer>
-      </NavigationFooter>
-
-      <NavigationFooter>
-        <Footer
-          iconBefore={<Icon label="" glyph={SampleIcon} />}
-          description="Learn more"
-          component={CustomItemFooter}
         >
           You're in a next gen-project
         </Footer>

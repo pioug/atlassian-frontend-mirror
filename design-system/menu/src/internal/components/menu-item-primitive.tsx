@@ -1,35 +1,26 @@
 /** @jsx jsx */
-import { Fragment } from 'react';
+import { useContext } from 'react';
 
 import { ClassNames, css, jsx } from '@emotion/react';
 
+import Inline, { InlineProps } from '@atlaskit/ds-explorations/inline';
 import FocusRing from '@atlaskit/focus-ring';
 import { N20, N200, N30 } from '@atlaskit/theme/colors';
-import { fontSize as fontSizeFn } from '@atlaskit/theme/constants';
-import { headingSizes } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
 import type { MenuItemPrimitiveProps, RenderFunction } from '../../types';
+
+import { SpacingContext, SpacingMode } from './menu-context';
 
 const defaultRender: RenderFunction = (Component, props) => (
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
   <Component {...props} />
 );
 
-const fontSize = fontSizeFn();
-const itemMinHeight = token('space.500', '40px');
-
-const beforeElementStyles = css({
+const beforeAfterElementStyles = css({
   display: 'flex',
-  marginRight: token('space.150', '12px'),
   alignItems: 'center',
-  flexShrink: 0,
-});
-
-const afterElementStyles = css({
-  display: 'flex',
-  marginLeft: token('space.150', '12px'),
-  alignItems: 'center',
+  justifyContent: 'center',
   flexShrink: 0,
 });
 
@@ -39,8 +30,7 @@ const contentStyles = css({
   flexDirection: 'column',
   flexGrow: 1,
   // Fix - avoid clipped text descenders when using standard 16px line-height
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
-  lineHeight: 1.22,
+  lineHeight: token('font.lineHeight.100', '16px'),
   outline: 'none',
   overflow: 'hidden',
   textAlign: 'left',
@@ -58,10 +48,9 @@ const wordBreakStyles = css({
 });
 
 const descriptionStyles = css({
-  marginTop: token('space.050', '3px'),
+  marginTop: token('space.050', '4px'),
   color: token('color.text.subtlest', N200),
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
-  fontSize: headingSizes.h200.size,
+  fontSize: token('font.size.075', '12px'),
 });
 
 const disabledDescriptionStyles = css({
@@ -72,14 +61,11 @@ const primitiveStyles = css({
   display: 'flex',
   boxSizing: 'border-box',
   width: '100%',
-  minHeight: itemMinHeight,
+  minHeight: 40,
   margin: token('space.0', '0px'),
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
-  padding: `${token('space.100', '8px')} ${token('space.250', '20px')}`,
   alignItems: 'center',
   border: 0,
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
-  fontSize: fontSize,
+  fontSize: token('font.size.100', '14px'),
   outline: 0,
   textDecoration: 'none',
   userSelect: 'none',
@@ -90,6 +76,21 @@ const primitiveStyles = css({
     textDecoration: 'none',
   },
 });
+
+const spacingMapStyles = {
+  cozy: css({
+    // 8 * 2 (16) + icon (24) === 40
+    paddingBlock: token('space.100', '8px'),
+    paddingInline: token('space.200', '16px'),
+  }),
+  compact: css({
+    minHeight: 32,
+    maxHeight: 32,
+    // 4 * 2 (8) + icon (24) === 32
+    paddingBlock: token('space.050', '4px'),
+    paddingInline: token('space.150', '12px'),
+  }),
+} as const;
 
 const interactiveStyles = css({
   cursor: 'pointer',
@@ -137,6 +138,11 @@ const selectedStyles = css({
   },
 });
 
+const gapMap: Record<SpacingMode, InlineProps['gap']> = {
+  compact: 'space.100',
+  cozy: 'space.150',
+};
+
 /**
  * __Menu item primitive__
  *
@@ -164,6 +170,7 @@ const MenuItemPrimitive = ({
   isDisabled = false,
   isSelected = false,
 }: MenuItemPrimitiveProps) => {
+  const spacing = useContext(SpacingContext);
   const renderTitle =
     (overrides && overrides.Title && overrides.Title.render) || defaultRender;
 
@@ -176,6 +183,7 @@ const MenuItemPrimitive = ({
               className: cx([
                 cn([
                   primitiveStyles,
+                  spacingMapStyles[spacing],
                   !isDisabled && !isSelected && unselectedStyles,
                   !isDisabled && isSelected && selectedStyles,
                   isDisabled ? disabledStyles : interactiveStyles,
@@ -183,9 +191,14 @@ const MenuItemPrimitive = ({
                 className,
               ]),
               children: (
-                <Fragment>
+                <Inline
+                  justifyContent="space-between"
+                  alignItems="center"
+                  gap={gapMap[spacing]}
+                  UNSAFE_style={{ flexGrow: 1, width: '100%' }}
+                >
                   {iconBefore && (
-                    <span data-item-elem-before css={beforeElementStyles}>
+                    <span data-item-elem-before css={beforeAfterElementStyles}>
                       {iconBefore}
                     </span>
                   )}
@@ -215,11 +228,11 @@ const MenuItemPrimitive = ({
                     </span>
                   )}
                   {iconAfter && (
-                    <span data-item-elem-after css={afterElementStyles}>
+                    <span data-item-elem-after css={beforeAfterElementStyles}>
                       {iconAfter}
                     </span>
                   )}
-                </Fragment>
+                </Inline>
               ),
             })}
           </FocusRing>

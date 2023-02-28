@@ -4,7 +4,7 @@ const dropdownTrigger = '[data-testid="dropdown--trigger"]';
 const dropdownContent = '[data-testid="dropdown--content"]';
 
 describe('Snapshot Test', () => {
-  it('it should match visual snapshot for dropdown', async () => {
+  it('should match visual snapshot for dropdown', async () => {
     const url = getExampleUrl(
       'design-system',
       'dropdown-menu',
@@ -20,7 +20,7 @@ describe('Snapshot Test', () => {
     expect(dropdownImage).toMatchProdImageSnapshot();
   });
 
-  it('it should set fallback placements correctly', async () => {
+  it('should set fallback placements correctly', async () => {
     const url = getExampleUrl(
       'design-system',
       'dropdown-menu',
@@ -59,7 +59,7 @@ describe('Snapshot Test', () => {
     expect(dropdownImage).toMatchProdImageSnapshot();
   });
 
-  it('it should re-position menu after change in loading state', async () => {
+  it('should re-position menu after change in loading state', async () => {
     const url = getExampleUrl(
       'design-system',
       'dropdown-menu',
@@ -80,5 +80,22 @@ describe('Snapshot Test', () => {
 
     const dropdownHasLoaded = await page.screenshot();
     expect(dropdownHasLoaded).toMatchProdImageSnapshot();
+  });
+
+  it('should honor different spacing densities', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'dropdown-menu',
+      'dropdown-spacing',
+      global.__BASEURL__,
+    );
+
+    const { page } = global;
+
+    await loadPage(page, url);
+    await page.waitForSelector(dropdownContent);
+
+    const image = await page.screenshot();
+    expect(image).toMatchProdImageSnapshot();
   });
 });

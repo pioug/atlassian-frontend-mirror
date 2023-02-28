@@ -9,60 +9,89 @@ import { getBoxShadow, getBoxShadowAsList } from '../../utils';
 import type { TransformedTokenMerged } from '../types';
 
 import TokenButton from './token-button';
-import { Color, Elevation, Label, Opacity } from './token-button-variants';
+import {
+  Color,
+  Elevation,
+  Label,
+  Opacity,
+  Space,
+} from './token-button-variants';
 
 interface CopyButtonValueProps
   extends Pick<TransformedTokenMerged, 'value' | 'original' | 'attributes'> {
+  variantLabel?: string;
+  hasFixedWidth?: boolean;
   className?: string;
+  testId?: string;
 }
 
 const TokenButtonValue = ({
   value,
   original,
   attributes,
+  variantLabel,
+  hasFixedWidth,
   className,
+  testId,
 }: CopyButtonValueProps) => {
+  const group = attributes.group;
+
+  const labelValue = () => {
+    switch (group) {
+      case 'shadow':
+        return <BoxShadowValue boxShadowValue={value} />;
+      case 'spacing':
+        return value;
+      default:
+        return original.value.length > 12
+          ? // Break the long base token names and wrap to two lines e.g.
+            // DarkNeutral
+            // 1000
+            original.value
+              .match(/[a-z]+|[^a-z]+./gi)
+              .map((breakWord: string) => (
+                <Fragment>
+                  {breakWord}
+                  {'\n'}
+                </Fragment>
+              ))
+          : original.value;
+    }
+  };
+
+  const copyValue = () => {
+    switch (group) {
+      case 'shadow':
+        return getBoxShadow(value);
+      case 'spacing':
+        return value;
+      default:
+        return original.value;
+    }
+  };
+
   return (
     <TokenButton
-      copyValue={
-        attributes.group === 'shadow' ? getBoxShadow(value) : original.value
-      }
-      shouldFitContainer
+      copyValue={copyValue()}
+      variantLabel={variantLabel}
+      hasFixedWidth={hasFixedWidth}
       className={className}
+      testId={testId}
     >
       {({ isHovered }) => (
         <Fragment>
-          {attributes.group === 'opacity' && <Opacity value={value} />}
-          {attributes.group === 'shadow' && <Elevation value={value} />}
-          {(attributes?.group === 'paint' || attributes?.group === 'raw') && (
-            <Color value={value} />
-          )}
-          <Label isHovered={isHovered}>
-            {attributes.group === 'shadow' ? (
-              <BoxShadowCopy boxShadowValue={value} />
-            ) : original.value.length > 12 ? (
-              // Break the long base token names and wrap to two lines e.g.
-              // DarkNeutral
-              // 1000
-              original.value
-                .match(/[a-z]+|[^a-z]+./gi)
-                .map((breakWord: string) => (
-                  <Fragment>
-                    {breakWord}
-                    {'\n'}
-                  </Fragment>
-                ))
-            ) : (
-              original.value
-            )}
-          </Label>
+          {group === 'opacity' && <Opacity value={value} />}
+          {group === 'shadow' && <Elevation value={value} />}
+          {(group === 'paint' || group === 'raw') && <Color value={value} />}
+          {group === 'spacing' && <Space value={value} />}
+          <Label isHovered={isHovered}>{labelValue()}</Label>
         </Fragment>
       )}
     </TokenButton>
   );
 };
 
-const BoxShadowCopy: FC<{ boxShadowValue: any }> = (props) => {
+const BoxShadowValue: FC<{ boxShadowValue: any }> = (props) => {
   const { boxShadowValue } = props;
   const boxShadowsAsList = getBoxShadowAsList(boxShadowValue);
 

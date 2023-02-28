@@ -3,11 +3,31 @@ import { Fragment, memo } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
+import { Box, Inline, Stack } from '@atlaskit/primitives';
+
 import { token } from '../../../src';
 import type { TransformedTokenMerged } from '../types';
+import { getTokenListColumnNames } from '../utils';
 
 import NoResults from './no-results';
-import TokenItem from './token-item';
+import TokenRow from './token-row';
+
+const listStyles = css({
+  display: 'flex',
+  margin: 0,
+  padding: 0,
+  gap: token('space.200', '16px'),
+  flexDirection: 'column',
+  listStyle: 'none',
+});
+
+const listHeaderStyles = css({
+  position: 'sticky',
+  zIndex: 1,
+  backgroundColor: token('elevation.surface', '#FFFFFF'),
+  borderBottom: `2px solid ${token('color.border', '#091E4224')}`,
+  paddingBlock: token('space.050', '4px'),
+});
 
 export interface TokenListProps {
   /**
@@ -29,56 +49,58 @@ const TokenList = ({
     return <NoResults />;
   }
 
+  const group = list && list[0].attributes.group;
+  const columnNames = getTokenListColumnNames(group);
+
   return (
-    <table data-testid={testId && `${testId}-token-list`}>
-      <thead
-        css={{
-          '@media (max-width: 1080px)': {
-            display: 'none',
-          },
-        }}
-      >
-        <tr
-          css={[
-            {
-              position: 'sticky',
-              zIndex: 1, // Set to ensure it sits above any position:relative children
-              backgroundColor: token('elevation.surface', '#FFFFFF'),
-            },
-            scrollOffset ? css({ top: scrollOffset }) : undefined,
-          ]}
-        >
-          <th>Token and description</th>
-          <th css={valueHeaderStyles}>Light value</th>
-          <th css={valueHeaderStyles}>Dark value</th>
-        </tr>
-      </thead>
-      <tbody css={{ borderBottom: 0 }}>
+    <Stack space="200" testId={testId && `${testId}-token-list`}>
+      <ListHeader columnNames={columnNames} scrollOffset={scrollOffset} />
+      {/* This should be a Stack but currently cannot set Stack to render as `ul` or override list styles */}
+      <ul css={listStyles}>
         {isLoading ? (
           <Fragment>
-            <TokenItem key={1} isLoading />
-            <TokenItem key={2} isLoading />
-            <TokenItem key={3} isLoading />
-            <TokenItem key={4} isLoading />
-            <TokenItem key={5} isLoading />
+            <TokenRow key={1} isLoading />
+            <TokenRow key={2} isLoading />
+            <TokenRow key={3} isLoading />
+            <TokenRow key={4} isLoading />
+            <TokenRow key={5} isLoading />
           </Fragment>
         ) : (
           list?.map((tokenItem) => (
-            <TokenItem key={tokenItem.name} token={tokenItem} testId={testId} />
+            <TokenRow key={tokenItem.name} token={tokenItem} testId={testId} />
           ))
         )}
-      </tbody>
-    </table>
+      </ul>
+    </Stack>
   );
 };
 
-const valueHeaderStyles = css({
-  '@media (max-width: 1080px)': {
-    width: '50%',
-  },
-  '@media (min-width: 1081px)': {
-    width: 130,
-  },
-});
+type ListHeaderProps = {
+  columnNames: string[];
+} & Pick<TokenListProps, 'scrollOffset'>;
+
+const ListHeader = ({ scrollOffset, columnNames }: ListHeaderProps) => (
+  <div css={[listHeaderStyles, { top: scrollOffset }]}>
+    <Inline space="200" spread="space-between">
+      <ColumnHeader columnName={columnNames[0]} isFirstColumn />
+      <Inline space="200">
+        {columnNames.slice(1).map((columnName) => (
+          <ColumnHeader key={columnName} columnName={columnName} />
+        ))}
+      </Inline>
+    </Inline>
+  </div>
+);
+
+interface ColumnHeaderProps {
+  columnName: string;
+  isFirstColumn?: boolean;
+}
+
+const ColumnHeader = ({ columnName, isFirstColumn }: ColumnHeaderProps) => (
+  <Box key={columnName} width={!isFirstColumn ? 'size.600' : undefined}>
+    <strong>{columnName}</strong>
+  </Box>
+);
 
 export default memo(TokenList);

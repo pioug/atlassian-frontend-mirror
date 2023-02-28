@@ -251,12 +251,12 @@ describe('link-picker', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  // FIXME: This test was automatically skipped due to failure on 14/11/2022: https://product-fabric.atlassian.net/browse/EDM-5020
-  it.skip('Should render tabs with multiple plugins and go forwards and backwards through arrow controls', async () => {
+  it('Should render tabs with multiple plugins and go forwards and backwards through arrow controls', async () => {
     const url = getURL('vr-with-multiple-plugins');
     const page = await setup(url);
 
     await page.click('[data-test-id="forward"]');
+    await page.waitForSelector('[data-test-id="back"]');
     await page.click('[data-test-id="back"]');
 
     const image = await takeElementScreenShot(page, testSelector);

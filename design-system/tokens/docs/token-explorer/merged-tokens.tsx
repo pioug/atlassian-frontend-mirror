@@ -1,5 +1,6 @@
 import darkTheme from '../../src/artifacts/tokens-raw/atlassian-dark';
 import lightTheme from '../../src/artifacts/tokens-raw/atlassian-light';
+import spacingTheme from '../../src/artifacts/tokens-raw/atlassian-spacing';
 import { getTokenId } from '../../src/utils/token-ids';
 
 import type {
@@ -19,8 +20,9 @@ export const mergeTokens = (tokens: TransformedTokenWithAttributes[]) =>
     return mergedToken;
   });
 
-const mergedTokens: TransformedTokenMerged[] = mergeTokens(
-  lightTheme as TransformedTokenWithAttributes[],
-);
+const mergedTokens: TransformedTokenMerged[] = mergeTokens([
+  ...(lightTheme as TransformedTokenWithAttributes[]),
+  ...(spacingTheme as TransformedTokenWithAttributes[]),
+]);
 
 export default mergedTokens;

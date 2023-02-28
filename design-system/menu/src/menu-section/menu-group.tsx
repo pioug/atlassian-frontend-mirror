@@ -3,6 +3,7 @@ import { jsx } from '@emotion/react';
 
 import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
 
+import { SpacingContext } from '../internal/components/menu-context';
 import type { MenuGroupProps } from '../types';
 
 /**
@@ -20,25 +21,27 @@ const MenuGroup = ({
   maxHeight,
   testId,
   role,
+  spacing = 'cozy',
   ...rest
 }: MenuGroupProps) => (
-  // @ts-ignore type of rest/children needs to be made stricter to fit in Box -- string shouldn't be allowed
-  <Box
-    UNSAFE_style={{
-      minWidth,
-      maxWidth,
-      minHeight,
-      maxHeight,
-    }}
-    display="flex"
-    flexDirection="column"
-    overflow="auto"
-    testId={testId}
-    role={role}
-    position="static"
-    // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-    {...rest}
-  />
+  <SpacingContext.Provider value={spacing}>
+    <Box
+      UNSAFE_style={{
+        minWidth,
+        maxWidth,
+        minHeight,
+        maxHeight,
+      }}
+      display="flex"
+      flexDirection="column"
+      overflow="auto"
+      testId={testId}
+      role={role}
+      position="static"
+      // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+      {...rest}
+    />
+  </SpacingContext.Provider>
 );
 
 export default MenuGroup;

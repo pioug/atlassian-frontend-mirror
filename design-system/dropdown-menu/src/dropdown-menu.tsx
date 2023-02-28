@@ -90,6 +90,7 @@ const DropdownMenu = <T extends HTMLElement = HTMLElement>(
     children,
     placement = 'bottom-start',
     trigger,
+    spacing,
     shouldFlip = true,
     isLoading = false,
     autoFocus = false,
@@ -216,6 +217,7 @@ const DropdownMenu = <T extends HTMLElement = HTMLElement>(
         content={({ setInitialFocusRef, update }) => (
           <FocusManager>
             <MenuWrapper
+              spacing={spacing}
               maxHeight={MAX_HEIGHT}
               maxWidth={800}
               onClose={handleOnClose}

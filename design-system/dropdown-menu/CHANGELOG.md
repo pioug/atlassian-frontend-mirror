@@ -1,5 +1,15 @@
 # @atlaskit/dropdown-menu
 
+## 11.6.0
+
+### Minor Changes
+
+- [`814e6ed4e14`](https://bitbucket.org/atlassian/atlassian-frontend/commits/814e6ed4e14) - [ux] Adds a new spacing prop on the `DropdownMenu` component to support information density.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.5.12
 
 ### Patch Changes

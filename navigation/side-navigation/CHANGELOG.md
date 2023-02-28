@@ -1,5 +1,19 @@
 # @atlaskit/side-navigation
 
+## 1.6.0
+
+### Minor Changes
+
+- [`62c9d42799c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/62c9d42799c) - [ux] The `Footer` component will now warn a user if they are relying on a deprecated API. The `cssFn`, `onClick` and `component` are all considered deprecated APIs for `Footer`.
+
+  Additionally, the space between icons and content has been shifted form `16px` to `12px`. This matches `@atlaskit/menu`.
+
+  These APIs will be removed from Footer in a future major release. To suppress the warning you can choose to use the `useDeprecatedApi={false}` prop which opts into the new API.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.5.3
 
 ### Patch Changes

@@ -1,3 +1,4 @@
+/* eslint-disable @repo/internal/react/use-primitives */
 /** @jsx jsx */
 import { forwardRef } from 'react';
 
@@ -56,7 +57,6 @@ const SideNavigation = forwardRef<HTMLElement, SideNavigationProps>(
   (props: SideNavigationProps, ref) => {
     const { children, testId, label } = props;
     return (
-      // eslint-disable-next-line @repo/internal/react/use-primitives
       <nav
         ref={ref}
         data-testid={testId}

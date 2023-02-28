@@ -30,7 +30,8 @@ export const CustomItemFooter: React.FC<CustomItemComponentProps> = ({
 // https://www.figma.com/file/GA22za6unqO2WsBWM0Ddxk/Jira-navigation-3?node-id=124%3A7194
 const ExampleFooter = () => (
   <Footer
-    component={CustomItemFooter}
+    useDeprecatedApi={false}
+    // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
     description={
       <Fragment>
         <Button appearance="subtle-link" href="/feedback" spacing="none">

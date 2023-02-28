@@ -1,5 +1,15 @@
 # @atlaskit/menu
 
+## 1.5.0
+
+### Minor Changes
+
+- [`93d761786d6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/93d761786d6) - [ux] Default spacing for all menu items has been changed from 20px inline padding to 16px.
+
+  Adds a new spacing prop to on `MenuGroup`. The prop can be used to control the content density of the component and its children.
+
+  Adds a new internal export `SpacingContext`. This should not be used directly.
+
 ## 1.4.10
 
 ### Patch Changes

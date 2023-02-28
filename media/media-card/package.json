@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^9.0.0",
-    "@atlaskit/dropdown-menu": "^11.5.0",
+    "@atlaskit/dropdown-menu": "^11.6.0",
     "@atlaskit/editor-shared-styles": "^2.3.0",
     "@atlaskit/icon": "^21.11.0",
     "@atlaskit/media-client": "^20.0.0",

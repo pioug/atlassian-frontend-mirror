@@ -5,7 +5,7 @@ import { jsx } from '@emotion/react';
 import upperFirst from 'lodash/upperFirst';
 
 import Heading from '@atlaskit/heading';
-import { gridSize } from '@atlaskit/theme/constants';
+import { Stack } from '@atlaskit/primitives';
 
 // eslint-disable-next-line @atlassian/tangerine/import/no-relative-package-imports
 import SectionLink from '../../../../../../services/design-system-docs/src/components/section-link';
@@ -30,7 +30,7 @@ const TokenGroups = ({
   scrollOffset = 0,
   testId,
 }: TokenGroupsProps) => (
-  <div data-testid={testId && `${testId}-token-groups`}>
+  <Stack space="600" testId={testId && `${testId}-token-groups`}>
     {groups.length > 0 ? (
       groups.map((group) => {
         const hasTokens = group.tokens.length > 0;
@@ -40,48 +40,48 @@ const TokenGroups = ({
         );
 
         return hasTokens || hasSubgroupTokens ? (
-          <div key={group.name} data-testid={testId && `${testId}-token-group`}>
-            <div css={{ marginTop: `${gridSize() * 6}px` }}>
+          <Stack
+            key={group.name}
+            space="600"
+            testId={testId && `${testId}-token-group`}
+          >
+            <Stack space="300">
               <SectionLink id={group.name}>
                 <Heading level="h700">{upperFirst(group.name)}</Heading>
               </SectionLink>
-            </div>
-            {hasTokens && (
-              <TokenList
-                list={group.tokens}
-                scrollOffset={scrollOffset}
-                testId={testId}
-              />
-            )}
+              {hasTokens && (
+                <TokenList
+                  list={group.tokens}
+                  scrollOffset={scrollOffset}
+                  testId={testId}
+                />
+              )}
+            </Stack>
 
             {group.subgroups?.map((subgroup) =>
               subgroup.tokens.length > 0 ? (
                 <Fragment key={`${group.name}-${subgroup.name}`}>
-                  <div
-                    css={{
-                      margin: `${gridSize() * 6}px 0 ${gridSize() * 3}px`,
-                    }}
-                  >
+                  <Stack space="300">
                     <SectionLink id={`${group.name}-${subgroup.name}`}>
-                      <Heading level="h700">
+                      <Heading level="h600">
                         {upperFirst(subgroup.name)}
                       </Heading>
                     </SectionLink>
-                  </div>
-                  <TokenList
-                    list={subgroup.tokens}
-                    scrollOffset={scrollOffset}
-                  />
+                    <TokenList
+                      list={subgroup.tokens}
+                      scrollOffset={scrollOffset}
+                    />
+                  </Stack>
                 </Fragment>
               ) : null,
             )}
-          </div>
+          </Stack>
         ) : null;
       })
     ) : (
       <NoResults />
     )}
-  </div>
+  </Stack>
 );
 
 export default TokenGroups;

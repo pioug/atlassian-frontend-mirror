@@ -4,7 +4,6 @@ import { useContext, useMemo } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import Lozenge from '@atlaskit/lozenge';
-import { gridSize } from '@atlaskit/theme/constants';
 
 import { getCSSCustomProperty, getTokenId } from '../../../src/utils/token-ids';
 import type { TransformedTokenMerged } from '../types';
@@ -19,12 +18,12 @@ enum LozengeAppearance {
   experimental = 'new',
 }
 
-interface TokenItemNameProps
+interface TokenNameProps
   extends Pick<TransformedTokenMerged, 'name' | 'attributes'> {
   className?: string;
 }
 
-const TokenItemName = ({ name, attributes, className }: TokenItemNameProps) => {
+const TokenName = ({ name, attributes, className }: TokenNameProps) => {
   const { syntax } = useContext(TokenNameSyntaxContext);
 
   const formattedName = useMemo(() => {
@@ -35,8 +34,8 @@ const TokenItemName = ({ name, attributes, className }: TokenItemNameProps) => {
   }, [name, syntax]);
 
   return (
-    <div css={tokenItemNameStyles} className={className}>
-      <TokenButton copyValue={formattedName} css={tokenItemNameButtonStyles}>
+    <div css={tokenNameStyles} className={className}>
+      <TokenButton copyValue={formattedName}>
         <Label appearance="subtle">{formattedName}</Label>
       </TokenButton>
       {attributes.state !== 'active' && (
@@ -48,16 +47,9 @@ const TokenItemName = ({ name, attributes, className }: TokenItemNameProps) => {
   );
 };
 
-const tokenItemNameStyles = css({
+const tokenNameStyles = css({
   display: 'flex',
   alignItems: 'center',
-  '@media (max-width: 1080px)': {
-    marginBottom: gridSize() * 2,
-  },
 });
 
-const tokenItemNameButtonStyles = css({
-  marginRight: 10,
-});
-
-export default TokenItemName;
+export default TokenName;

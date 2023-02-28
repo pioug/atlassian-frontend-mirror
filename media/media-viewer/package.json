@@ -35,7 +35,7 @@
     "@atlaskit/media-client": "^20.0.0",
     "@atlaskit/media-common": "^2.19.0",
     "@atlaskit/media-ui": "^22.3.0",
-    "@atlaskit/side-navigation": "^1.5.0",
+    "@atlaskit/side-navigation": "^1.6.0",
     "@atlaskit/spinner": "^15.3.0",
     "@atlaskit/theme": "^12.2.0",
     "@atlaskit/tokens": "^1.2.0",

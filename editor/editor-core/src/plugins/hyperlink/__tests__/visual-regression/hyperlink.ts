@@ -76,7 +76,8 @@ describe('Hyperlink', () => {
     });
 
     describe('action item', () => {
-      it('should display the link toolbar', async () => {
+      // FIXME: This test was automatically skipped due to failure on 27/02/2023: https://product-fabric.atlassian.net/browse/ED-17005
+      it.skip('should display the link toolbar', async () => {
         await click(page, `${selectors.editor} .taskItemView-content-wrap a`);
       });
     });

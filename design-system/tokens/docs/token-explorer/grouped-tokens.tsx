@@ -1,5 +1,6 @@
 import { tokenOrder } from '../../scripts/style-dictionary/sort-tokens';
 import lightTheme from '../../src/artifacts/tokens-raw/atlassian-light';
+import spacingTheme from '../../src/artifacts/tokens-raw/atlassian-spacing';
 import { getTokenId } from '../../src/utils/token-ids';
 
 import { mergeTokens } from './merged-tokens';
@@ -126,7 +127,10 @@ const groupTokens = (tokens: TransformedTokenMerged[]): TokenGroup[] => {
 };
 
 const groupedTokens = groupTokens(
-  mergeTokens(lightTheme as TransformedTokenWithAttributes[]),
+  mergeTokens([
+    ...(lightTheme as TransformedTokenWithAttributes[]),
+    ...(spacingTheme as TransformedTokenWithAttributes[]),
+  ]),
 );
 
 export default groupedTokens;

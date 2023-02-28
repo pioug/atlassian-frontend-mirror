@@ -2,6 +2,8 @@ import { ComponentType, ReactNode, Ref } from 'react';
 
 import { CSSObject } from '@emotion/react';
 
+import type { SpacingMode } from './internal/components/menu-context';
+
 export interface RenderFunction<TProps = {}> {
   (Component: ComponentType | string, props: TProps): React.ReactNode;
 }
@@ -55,6 +57,11 @@ export interface MenuGroupProps extends MenuGroupSizing {
    * should generally be `Section` components.
    */
   children: React.ReactNode;
+
+  /**
+   * Configure the density of the MenuGroup content.
+   */
+  spacing?: SpacingMode;
 
   /**
    * Used to override the accessibility role for the element.

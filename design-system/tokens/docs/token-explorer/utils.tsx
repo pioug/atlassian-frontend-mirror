@@ -2,6 +2,7 @@ import upperFirst from 'lodash/upperFirst';
 
 // eslint-disable-next-line @atlassian/tangerine/import/no-relative-package-imports
 import { Heading } from '../../../../../services/design-system-docs/src/__DO_NOT_ADD_TO_THIS_FOLDER__/gatsby-theme-brisk/components/local-nav/heading-context';
+import { Groups } from '../../src/types';
 
 import type { TokenGroup } from './grouped-tokens';
 import type { TransformedTokenGrouped, TransformedTokenMerged } from './types';
@@ -106,6 +107,7 @@ const getTokenGroupHeading = (
     group.tokens.length > 0 ? ` (${group.tokens.length})` : ''
   }`,
 });
+
 export const getTokenGroupHeadings = (groups: TokenGroup[]): Heading[] =>
   groups.flatMap((group) => [
     getTokenGroupHeading(group, 2),
@@ -115,3 +117,15 @@ export const getTokenGroupHeadings = (groups: TokenGroup[]): Heading[] =>
         )
       : []),
   ]);
+
+/**
+ * Returns an array of column names to display corresponding to the token group provided
+ */
+export const getTokenListColumnNames = (group?: Groups) => {
+  switch (group) {
+    case 'spacing':
+      return ['Token', 'Value'];
+    default:
+      return ['Token and description', 'Light value', 'Dark value'];
+  }
+};

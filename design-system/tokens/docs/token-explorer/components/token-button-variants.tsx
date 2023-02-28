@@ -2,6 +2,7 @@
 
 import { css, jsx } from '@emotion/react';
 
+import { Box } from '@atlaskit/primitives';
 import { borderRadius, codeFontFamily } from '@atlaskit/theme/constants';
 
 import { token } from '../../../src';
@@ -40,7 +41,7 @@ const subtleStyles = css({
 
 const ghostStyles = css({
   display: 'inline-block',
-  paddingLeft: '5px',
+  paddingLeft: token('space.050', '4px'),
   justifyContent: 'flex-start',
   lineHeight: '20px',
   overflowWrap: 'break-word',
@@ -199,4 +200,17 @@ const Elevation: React.FC<Pick<TransformedTokenMerged, 'value'>> = (props) => {
   );
 };
 
-export { Label, Color, Opacity, Elevation };
+const Space: React.FC<Pick<TransformedTokenMerged, 'value'>> = ({ value }) => (
+  <Box paddingInline="space.050" width="size.600">
+    <Box
+      paddingBlock="space.150"
+      // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+      backgroundColor="accent.purple.subtle"
+      customStyles={{
+        width: value,
+      }}
+    />
+  </Box>
+);
+
+export { Label, Color, Opacity, Elevation, Space };

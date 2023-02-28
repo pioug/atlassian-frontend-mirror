@@ -11,7 +11,8 @@ import SkeletonShimmer from '../internal/components/skeleton-shimmer';
 import type { SkeletonHeadingItemProps } from '../types';
 
 const skeletonStyles = css({
-  padding: `${token('space.0', '0px')} ${token('space.250', '20px')}`,
+  paddingBlock: token('space.0', '0px'),
+  paddingInline: token('space.200', '16px'),
   '::after': {
     display: 'block',
     width: '30%',

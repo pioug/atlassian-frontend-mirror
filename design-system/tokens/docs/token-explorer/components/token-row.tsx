@@ -1,141 +1,74 @@
 /** @jsx jsx */
-import React, { Fragment } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import { gridSize } from '@atlaskit/theme/constants';
+import { Stack } from '@atlaskit/primitives';
 
-import { TransformedTokenGrouped } from '../types';
+import { token } from '../../../src';
+import type { TransformedTokenGrouped } from '../types';
 
-import LoadingSkeleton from './loading-skeleton';
-import TokenButtonValue from './token-button-value';
+import TokenDefinition from './token-definition';
 import TokenDescription from './token-description';
-import TokenItemName from './token-item-name';
+import TokenLifecycle from './token-lifecycle';
 
-const TokenRow: React.FC<{
-  testId?: string;
+const tokenRowStyles = css({
+  margin: 0,
+  paddingBottom: token('space.200', '16px'),
+  borderBottom: `1px solid ${token('color.border', '#091E4224')}`,
+});
+
+interface TokenRowProps {
+  token?: TransformedTokenGrouped;
   isLoading?: boolean;
-  transformedToken?: TransformedTokenGrouped;
-  showDescription?: boolean;
-}> = (props) => {
-  const { testId, isLoading, transformedToken, showDescription } = props;
+  testId?: string;
+}
+
+/**
+ * Represents a row in the token list which can comprise one or more `TokenDefinition`s.
+ * For example a `TokenRow` can contain one TokenDefintion, or multiple `TokenDefinition`s if the token has extensions (hovered, pressed).
+ *
+ * Renders as a list item (`li`).
+ *
+ * For tokens with extensions, this component is also responsible for rendering the description for the token grouping.
+ */
+const TokenRow = ({
+  token: transformedToken,
+  isLoading,
+  testId,
+}: TokenRowProps) => {
+  if (!transformedToken) {
+    return null;
+  }
+
+  const extensions = transformedToken.extensions || [];
+  const hasExtenstions = extensions.length > 0;
 
   return (
-    <tr
-      css={{
-        '@media (max-width: 1080px)': {
-          display: 'flex',
-          flexDirection: 'column',
-        },
-      }}
-    >
-      <td
-        css={nameCellStyles}
-        data-testid={
-          testId &&
-          `${testId}-token-item-name-${
-            isLoading || transformedToken === undefined
-              ? 'loading'
-              : transformedToken.name
-          }`
-        }
-      >
-        {isLoading || transformedToken === undefined ? (
-          <Fragment>
-            <LoadingSkeleton
-              width="30%"
-              height={24}
-              css={{ marginBottom: 10 }}
-            />
-            <LoadingSkeleton height={20} css={{ marginBottom: 10 }} />
-            <LoadingSkeleton
-              height={20}
-              css={{ marginBottom: 10 }}
-              width="20%"
-            />
-          </Fragment>
-        ) : (
-          <Fragment>
-            <TokenItemName
-              name={transformedToken.name}
-              attributes={transformedToken.attributes}
-              css={{ marginBottom: gridSize() }}
-            />
-            {showDescription && (
-              <TokenDescription transformedToken={transformedToken} />
-            )}
-          </Fragment>
-        )}
-      </td>
-      <td
-        css={[cellStyles, tokenValueCellStyles]}
-        data-title="Light value"
-        data-testid={`${testId}-token-item-value-${
-          isLoading || transformedToken === undefined
-            ? 'loading'
-            : transformedToken.original.value
-        }`}
-      >
-        {isLoading || transformedToken === undefined ? (
-          <LoadingSkeleton height={24} />
-        ) : (
-          <TokenButtonValue
-            value={transformedToken.value}
-            attributes={transformedToken.attributes}
-            original={transformedToken.original}
-            css={valueButtonStyles}
+    <li css={tokenRowStyles}>
+      <Stack space="100">
+        {[transformedToken, ...extensions].map((token) => (
+          <TokenDefinition
+            key={token.name}
+            token={token}
+            shouldHideDescription={hasExtenstions}
+            testId={testId && `${testId}-token-item`}
           />
-        )}
-      </td>
-      <td css={[cellStyles, tokenValueCellStyles]} data-title="Dark value">
-        {isLoading || transformedToken === undefined ? (
-          <LoadingSkeleton height={24} />
-        ) : (
-          transformedToken.darkToken && (
-            <TokenButtonValue
-              value={transformedToken.darkToken.value}
-              original={transformedToken.darkToken.original}
-              attributes={transformedToken.darkToken.attributes}
-              css={valueButtonStyles}
+        ))}
+        {hasExtenstions && (
+          <Stack space="150">
+            <TokenDescription
+              transformedToken={transformedToken}
+              isLoading={isLoading}
             />
-          )
+            <TokenLifecycle
+              transformedToken={transformedToken}
+              isLoading={isLoading}
+            />
+          </Stack>
         )}
-      </td>
-    </tr>
+      </Stack>
+    </li>
   );
 };
-
-const cellStyles = css({
-  paddingTop: 0,
-  paddingBottom: 0,
-  verticalAlign: 'top',
-});
-
-const nameCellStyles = css({
-  padding: 0,
-  verticalAlign: 'top',
-  '@media (max-width: 1080px)': {
-    paddingBottom: 20,
-  },
-});
-
-const tokenValueCellStyles = css({
-  width: 130,
-  paddingBottom: 10,
-  '@media (max-width: 1080px)': {
-    paddingLeft: 0,
-    '&::before': {
-      content: 'attr(data-title)',
-    },
-  },
-});
-
-const valueButtonStyles = css({
-  maxWidth: 104,
-  marginBottom: gridSize(),
-  '@media (max-width: 1080px)': {
-    marginTop: gridSize(),
-  },
-});
 
 export default TokenRow;

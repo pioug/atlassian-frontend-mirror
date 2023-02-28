@@ -37,6 +37,7 @@ const DropdownItemCheckbox = (props: DropdownItemCheckboxProps) => {
   } = props;
 
   if (
+    typeof process !== 'undefined' &&
     process.env.NODE_ENV !== 'production' &&
     typeof isSelected !== 'undefined' &&
     typeof defaultSelected !== 'undefined'

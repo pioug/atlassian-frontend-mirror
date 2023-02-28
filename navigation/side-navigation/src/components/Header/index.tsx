@@ -48,7 +48,7 @@ export const Container: React.FC<CustomItemComponentProps> = ({
   );
 };
 
-export interface HeaderProps {
+export type HeaderProps = {
   /**
    * A function that can be used to override the styles of the component.
    * It receives the current styles and state and expects a styles object.
@@ -95,7 +95,7 @@ export interface HeaderProps {
    */
   // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   component?: React.ComponentType<CustomItemComponentProps>;
-}
+};
 
 /**
  * __Header__

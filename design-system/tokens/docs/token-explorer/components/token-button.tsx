@@ -8,18 +8,17 @@ import useClipboard from 'react-use-clipboard';
 import FocusRing from '@atlaskit/focus-ring';
 import Tooltip from '@atlaskit/tooltip';
 
+import { token } from '../../../src';
+
 const baseStyles = css({
   display: 'flex',
   margin: 0,
   padding: 0,
-  rowGap: '5px',
+  rowGap: token('space.050', '4px'),
   flexDirection: 'column',
   background: 'none',
   border: 'none',
   cursor: 'pointer',
-  '& + &': {
-    marginTop: '10px',
-  },
 });
 
 const copyMessages = {
@@ -30,12 +29,21 @@ const copyMessages = {
 interface TokenButtonProps {
   children: ((props: { isHovered?: boolean }) => ReactElement) | ReactElement;
   copyValue?: string;
-  shouldFitContainer?: boolean;
+  hasFixedWidth?: boolean;
+  variantLabel?: string;
   className?: string;
+  testId?: string;
 }
 
 const TokenButton: FC<TokenButtonProps> = (props) => {
-  const { children, copyValue, shouldFitContainer, className } = props;
+  const {
+    children,
+    copyValue,
+    variantLabel,
+    hasFixedWidth,
+    className,
+    testId,
+  } = props;
 
   const [isHovered, setIsHovered] = useState(false);
 
@@ -66,10 +74,12 @@ const TokenButton: FC<TokenButtonProps> = (props) => {
             type="button"
             css={[
               baseStyles,
-              shouldFitContainer && {
-                width: '100%',
+              hasFixedWidth && {
+                width: '96px', // same as Box width 'size.600'
               },
             ]}
+            aria-label={variantLabel}
+            data-testid={testId}
             {...tooltipProps}
             onClick={(e) => {
               tooltipProps.onClick(e);

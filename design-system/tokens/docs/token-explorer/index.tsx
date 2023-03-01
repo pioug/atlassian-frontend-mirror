@@ -497,7 +497,7 @@ const TokenExplorer = ({ scrollOffset, testId }: TokenExplorerProps) => {
         <FilterItem css={{ display: 'flex', flexDirection: 'column' }}>
           <DropdownMenu
             testId={testId && `${testId}-syntax`}
-            trigger={syntax === 'default' ? 'React syntax' : 'CSS syntax'}
+            trigger={syntax === 'default' ? 'Javascript syntax' : 'CSS syntax'}
           >
             <DropdownItemRadioGroup id="syntax">
               <DropdownItemRadio

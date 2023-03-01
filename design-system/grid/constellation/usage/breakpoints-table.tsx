@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 
-import { BREAKPOINTS } from '../../src/config';
+import { BREAKPOINTS_CONFIG } from '../../src/config';
 
 export const BreakpointsTable = () => (
   <table>
@@ -14,7 +14,7 @@ export const BreakpointsTable = () => (
       </tr>
     </thead>
     <tbody>
-      {Object.entries(BREAKPOINTS).map(([breakpoint, config]) => (
+      {Object.entries(BREAKPOINTS_CONFIG).map(([breakpoint, config]) => (
         <tr key={breakpoint}>
           <td>{breakpoint}</td>
           <td>{config.min}px</td>

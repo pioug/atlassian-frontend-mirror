@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,6 +7,6 @@
  */
 //German (Germany)
 export default {
-  'bitbucket.panel-collapse.message': 'reduzieren',
-  'bitbucket.panel-expand.message': 'erweitern',
+  "bitbucket.panel-collapse.message": "reduzieren",
+  "bitbucket.panel-expand.message": "erweitern"
 };

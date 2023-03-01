@@ -35,6 +35,7 @@ const Example = () => {
         <NavigationContent> </NavigationContent>
         <NavigationFooter>
           <Footer
+            useDeprecatedApi={false}
             iconBefore={<Icon label="" glyph={SampleIcon} />}
             description={
               <div>

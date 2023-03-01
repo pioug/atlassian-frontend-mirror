@@ -4,7 +4,6 @@
   "description": "An experimental package for exploration and validation of spacing / typography foundations.",
   "license": "Apache-2.0",
   "atlassian": {
-    "disableProductCI": true,
     "team": "Design System Team",
     "inPublicMirror": false,
     "releaseModel": "continuous"

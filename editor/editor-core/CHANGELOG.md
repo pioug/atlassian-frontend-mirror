@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 179.1.1
+
+### Patch Changes
+
+- [`c38fe3fa7d1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c38fe3fa7d1) - [ux]ED-16915 Adds back styles for placeholder span on Android
+
 ## 179.1.0
 
 ### Minor Changes

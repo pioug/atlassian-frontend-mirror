@@ -5,7 +5,8 @@ import { createContext, FC, ReactNode, useContext } from 'react';
 import { css, jsx } from '@emotion/react';
 import invariant from 'tiny-invariant';
 
-import { BREAKPOINTS } from './config';
+import { BREAKPOINTS_CONFIG, BREAKPOINTS_LIST } from './config';
+import { UNSAFE_media as media } from './media-helper';
 
 export type GridProps = {
   /**
@@ -14,28 +15,29 @@ export type GridProps = {
   testId?: string;
   /**
    * If set, will restrict the max-width of the Grid to pre-defined values.
+   *
+   * `'narrow'` = 744px
+   * `'wide'` = 1128px
    */
-  maxWidth?: GridMaxWidth;
+  maxWidth?: 'narrow' | 'wide';
   /**
    * The grid items.
    */
-  children?: ReactNode;
+  children: ReactNode;
 };
 
-type GridMaxWidth = keyof typeof gridMaxWidthMap;
+const breakPointMediaQueries = BREAKPOINTS_LIST.reduce(
+  (configs, breakpoint) => {
+    const config = BREAKPOINTS_CONFIG[breakpoint];
 
-const breakpointEntries = Object.entries(BREAKPOINTS);
-const breakPointMediaQueries = breakpointEntries.reduce(
-  (configs, [_, config]) => {
     return Object.assign(configs, {
-      [`@media (min-width: ${config.min}px) and (max-width: ${config.max}px)`]:
-        {
-          gap: config.gap,
-          gridTemplateColumns: `repeat(var(--ds-grid-columns), 1fr)`,
-          '--ds-grid-columns': config.columns,
-          paddingInline: config.offset,
-          marginInline: 'auto',
-        },
+      [media.between[breakpoint]]: {
+        gap: config.gutter,
+        gridTemplateColumns: `repeat(var(--ds-grid-columns), 1fr)`,
+        '--ds-grid-columns': config.columns,
+        paddingInline: config.margin,
+        marginInline: 'auto',
+      },
     });
   },
   {},
@@ -50,7 +52,10 @@ const baseStyles = css({
   width: '100%',
 });
 
-const gridMaxWidthMap = {
+const gridMaxWidthMap: Record<
+  NonNullable<GridProps['maxWidth']>,
+  ReturnType<typeof css>
+> = {
   wide: css({ maxWidth: 1128 }),
   narrow: css({ maxWidth: 744 }),
 } as const;

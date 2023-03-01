@@ -20,7 +20,6 @@
     ".": "./src/index.tsx"
   },
   "atlassian": {
-    "disableProductCI": true,
     "team": "Design System Team",
     "releaseModel": "scheduled",
     "website": {

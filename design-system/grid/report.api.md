@@ -17,27 +17,29 @@
 ```ts
 import { FC } from 'react';
 import { ReactNode } from 'react';
-import { SerializedStyles } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 
 // @public (undocumented)
 type Breakpoint = 'lg' | 'md' | 'sm' | 'xl' | 'xs' | 'xxl';
 
 // @public (undocumented)
-export const BREAKPOINTS: Record<Breakpoint, GridConfig>;
+type BreakpointConfig = {
+  gutter: ReturnType<typeof token>;
+  min: number;
+  max: number;
+  margin: ReturnType<typeof token>;
+  columns: number;
+};
+
+// @public (undocumented)
+export const BREAKPOINTS_CONFIG: Record<Breakpoint, BreakpointConfig>;
+
+// @public (undocumented)
+export const BREAKPOINTS_LIST: ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'];
 
 // @public
 const Grid: FC<GridProps>;
 export default Grid;
-
-// @public (undocumented)
-type GridConfig = {
-  gap: ReturnType<typeof token>;
-  min: number;
-  max: number;
-  offset: ReturnType<typeof token>;
-  columns: number;
-};
 
 // @public
 export const GridItem: FC<GridItemProps>;
@@ -45,47 +47,44 @@ export const GridItem: FC<GridItemProps>;
 // @public (undocumented)
 export type GridItemProps = {
   testId?: string;
-  children?: ReactNode;
-  offset?: ResponsiveColumn;
-  span?: ResponsiveColumn;
-};
-
-// @public (undocumented)
-type GridMaxWidth = keyof typeof gridMaxWidthMap;
-
-// @public (undocumented)
-const gridMaxWidthMap: {
-  readonly wide: SerializedStyles;
-  readonly narrow: SerializedStyles;
+  children: ReactNode;
+  start?: StartObject | StartOptions;
+  span?: SpanObject | SpanOptions;
 };
 
 // @public (undocumented)
 export type GridProps = {
   testId?: string;
-  maxWidth?: GridMaxWidth;
-  children?: ReactNode;
+  maxWidth?: 'narrow' | 'wide';
+  children: ReactNode;
 };
 
 // @public (undocumented)
-type ResponsiveColumn = {
-  [breakpoint in Exclude<Breakpoint, 'sm' | 'xs'>]?:
-    | 1
-    | 10
-    | 11
-    | 12
-    | 2
-    | 3
-    | 4
-    | 5
-    | 6
-    | 7
-    | 8
-    | 9;
-} & {
-  [breakpoint in Extract<Breakpoint, 'sm'>]?: 1 | 2 | 3 | 4 | 5 | 6;
-} & {
-  [breakpoint in Extract<Breakpoint, 'xs'>]?: 1 | 2 | 3 | 4;
-};
+type MediaQuery = `@media (${string})`;
+
+// @public (undocumented)
+type ResponsiveMediaObject = Record<Breakpoint, MediaQuery>;
+
+// @public
+type ResponsiveObject<T> = Partial<Record<Breakpoint, T>>;
+
+// @public (undocumented)
+type SpanObject = ResponsiveObject<SpanOptions>;
+
+// @public (undocumented)
+type SpanOptions = 1 | 10 | 11 | 12 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+
+// @public (undocumented)
+type StartObject = ResponsiveObject<StartOptions>;
+
+// @public (undocumented)
+type StartOptions = 'auto' | SpanOptions;
+
+// @public
+export const UNSAFE_media: Record<
+  'above' | 'below' | 'between',
+  ResponsiveMediaObject
+>;
 
 // (No @packageDocumentation comment for this package)
 ```

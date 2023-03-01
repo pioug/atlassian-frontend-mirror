@@ -1,5 +1,24 @@
 # @atlaskit/editor-mobile-bridge
 
+## 36.0.22
+
+### Patch Changes
+
+- [`c38fe3fa7d1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c38fe3fa7d1) - [ux]ED-16915 Adds back styles for placeholder span on Android
+- Updated dependencies
+
+## 36.0.21
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.0.20
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 36.0.19
 
 ### Patch Changes

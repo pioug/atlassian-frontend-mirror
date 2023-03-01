@@ -7,7 +7,6 @@
     "registry": "https://registry.npmjs.org/"
   },
   "atlassian": {
-    "disableProductCI": true,
     "team": "Design System Team",
     "releaseModel": "scheduled",
     "website": {

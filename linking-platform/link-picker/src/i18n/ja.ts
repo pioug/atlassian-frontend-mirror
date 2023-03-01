@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,36 +7,28 @@
  */
 //Japanese
 export default {
-  'fabric.linkPicker.button.cancel': 'キャンセル',
-  'fabric.linkPicker.button.insert': '挿入',
-  'fabric.linkPicker.button.save': '保存',
-  'fabric.linkPicker.clearLink': 'リンクをクリア',
-  'fabric.linkPicker.clearLinkText': 'テキストをクリア',
-  'fabric.linkPicker.hyperlink.searchLinkResults':
-    '{count, plural, =0 {検索結果がありませんでした。} other {{count,number} 件の検索結果が見つかりました。}}',
-  'fabric.linkPicker.linkAriaLabel': 'フィールドにリンクを入力または貼り付け',
-  'fabric.linkPicker.linkInvalid': '有効な URL をご入力ください。',
-  'fabric.linkPicker.linkLabel': 'リンク',
-  'fabric.linkPicker.linkPlaceholder': 'リンクを貼り付け',
-  'fabric.linkPicker.linkTextAriaLabel': 'リンク表示テキスト',
-  'fabric.linkPicker.linkTextLabel': '表示テキスト (オプション)',
-  'fabric.linkPicker.linkTextPlaceholder': '表示するテキスト',
-  'fabric.linkPicker.listTitle.recentlyViewed': '最近の表示履歴',
-  'fabric.linkPicker.listTitle.results': '結果',
-  'fabric.linkPicker.search.error.description':
-    'ページを更新してください。問題が解決しない場合は<a>アトラシアン サポート</a>にお問い合わせください。',
-  'fabric.linkPicker.search.error.heading':
-    'データの読み込み中に問題が発生しました。',
-  'fabric.linkPicker.search.linkAriaLabel':
-    'フィールドに入力すると、以下に候補が表示されます。',
-  'fabric.linkPicker.search.linkLabel': 'リンクを検索または貼り付け',
-  'fabric.linkPicker.search.linkPlaceholder':
-    '最近のリンクを検索または新しいリンクを貼り付け',
-  'fabric.linkPicker.search.noResults.description':
-    '別の検索語句でもう一度お試しください。',
-  'fabric.linkPicker.search.noResults.heading':
-    '検索条件に一致する結果が見つかりませんでした。',
-  'fabric.linkPicker.unhandledError.description':
-    'ページを再読み込みしてください。',
-  'fabric.linkPicker.unhandledError.heading': 'エラーが発生しました。',
+  "fabric.linkPicker.button.cancel": "キャンセル",
+  "fabric.linkPicker.button.insert": "挿入",
+  "fabric.linkPicker.button.save": "保存",
+  "fabric.linkPicker.clearLink": "リンクをクリア",
+  "fabric.linkPicker.clearLinkText": "テキストをクリア",
+  "fabric.linkPicker.hyperlink.searchLinkResults": "{count, plural, =0 {検索結果がありませんでした。} other {{count,number} 件の検索結果が見つかりました。}}",
+  "fabric.linkPicker.linkAriaLabel": "フィールドにリンクを入力または貼り付け",
+  "fabric.linkPicker.linkInvalid": "有効な URL をご入力ください。",
+  "fabric.linkPicker.linkLabel": "リンク",
+  "fabric.linkPicker.linkPlaceholder": "リンクを貼り付け",
+  "fabric.linkPicker.linkTextAriaLabel": "リンク表示テキスト",
+  "fabric.linkPicker.linkTextLabel": "表示テキスト (オプション)",
+  "fabric.linkPicker.linkTextPlaceholder": "表示するテキスト",
+  "fabric.linkPicker.listTitle.recentlyViewed": "最近の表示履歴",
+  "fabric.linkPicker.listTitle.results": "結果",
+  "fabric.linkPicker.search.error.description": "ページを更新してください。問題が解決しない場合は<a>アトラシアン サポート</a>にお問い合わせください。",
+  "fabric.linkPicker.search.error.heading": "データの読み込み中に問題が発生しました。",
+  "fabric.linkPicker.search.linkAriaLabel": "フィールドに入力すると、以下に候補が表示されます。",
+  "fabric.linkPicker.search.linkLabel": "リンクを検索または貼り付け",
+  "fabric.linkPicker.search.linkPlaceholder": "最近のリンクを検索または新しいリンクを貼り付け",
+  "fabric.linkPicker.search.noResults.description": "別の検索語句でもう一度お試しください。",
+  "fabric.linkPicker.search.noResults.heading": "検索条件に一致する結果が見つかりませんでした。",
+  "fabric.linkPicker.unhandledError.description": "ページを再読み込みしてください。",
+  "fabric.linkPicker.unhandledError.heading": "エラーが発生しました。"
 };

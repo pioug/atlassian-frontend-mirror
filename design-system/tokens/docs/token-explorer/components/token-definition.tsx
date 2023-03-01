@@ -36,14 +36,13 @@ const TokenDefinition = ({
     return null;
   }
 
-  const group = token && token.attributes.group;
+  const group = token.attributes.group;
   const isSpacingToken = group === 'spacing';
   const columnNames = getTokenListColumnNames(group);
 
   const pixelValue =
-    token &&
     token.attributes.state === 'active' &&
-    group === 'spacing' &&
+    isSpacingToken &&
     token.attributes.pixelValue;
 
   const tokenValues = isSpacingToken
@@ -102,7 +101,7 @@ const TokenDefinition = ({
         {tokenValues.map((tokenValue) => (
           <TokenButtonValue
             key={tokenValue.name}
-            hasFixedWidth
+            isFixedWidth
             value={tokenValue.value}
             attributes={tokenValue.attributes}
             original={tokenValue.original}

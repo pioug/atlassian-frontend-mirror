@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,36 +7,28 @@
  */
 //Dutch (Netherlands)
 export default {
-  'fabric.linkPicker.button.cancel': 'Annuleren',
-  'fabric.linkPicker.button.insert': 'Invoegen',
-  'fabric.linkPicker.button.save': 'Opslaan',
-  'fabric.linkPicker.clearLink': 'Link wissen',
-  'fabric.linkPicker.clearLinkText': 'Tekst wissen',
-  'fabric.linkPicker.hyperlink.searchLinkResults':
-    '{count, plural, =0 {geen resultaten gevonden} one {{count,number} resultaat gevonden} other {{count,number} resultaten gevonden}}',
-  'fabric.linkPicker.linkAriaLabel': 'Typ of plak een link in het veld',
-  'fabric.linkPicker.linkInvalid': 'Voer een geldige URL in.',
-  'fabric.linkPicker.linkLabel': 'Link',
-  'fabric.linkPicker.linkPlaceholder': 'Link plakken',
-  'fabric.linkPicker.linkTextAriaLabel': 'Weergavetekst van de link',
-  'fabric.linkPicker.linkTextLabel': 'Tekst weergeven (optioneel)',
-  'fabric.linkPicker.linkTextPlaceholder': 'Tekst om te tonen',
-  'fabric.linkPicker.listTitle.recentlyViewed': 'Recent bekeken',
-  'fabric.linkPicker.listTitle.results': 'Resultaten',
-  'fabric.linkPicker.search.error.description':
-    'Vernieuw de pagina of neem contact op met <a>Atlassian-support</a> als dit blijft gebeuren.',
-  'fabric.linkPicker.search.error.heading':
-    'Er zijn wat problemen met het laden van de gegevens.',
-  'fabric.linkPicker.search.linkAriaLabel':
-    'Suggesties verschijnen hieronder zodra je in het veld typt',
-  'fabric.linkPicker.search.linkLabel': 'Zoeken of een link plakken',
-  'fabric.linkPicker.search.linkPlaceholder':
-    'Zoek recente links of plak een nieuwe link',
-  'fabric.linkPicker.search.noResults.description':
-    'Probeer het opnieuw met een andere term.',
-  'fabric.linkPicker.search.noResults.heading':
-    'We hebben geen overeenkomsten gevonden voor je zoekopdracht.',
-  'fabric.linkPicker.unhandledError.description':
-    'Probeer de pagina opnieuw te laden.',
-  'fabric.linkPicker.unhandledError.heading': 'Er is iets misgegaan.',
+  "fabric.linkPicker.button.cancel": "Annuleren",
+  "fabric.linkPicker.button.insert": "Invoegen",
+  "fabric.linkPicker.button.save": "Opslaan",
+  "fabric.linkPicker.clearLink": "Link wissen",
+  "fabric.linkPicker.clearLinkText": "Tekst wissen",
+  "fabric.linkPicker.hyperlink.searchLinkResults": "{count, plural, =0 {geen resultaten gevonden} one {{count,number} resultaat gevonden} other {{count,number} resultaten gevonden}}",
+  "fabric.linkPicker.linkAriaLabel": "Typ of plak een link in het veld",
+  "fabric.linkPicker.linkInvalid": "Voer een geldige URL in.",
+  "fabric.linkPicker.linkLabel": "Link",
+  "fabric.linkPicker.linkPlaceholder": "Link plakken",
+  "fabric.linkPicker.linkTextAriaLabel": "Weergavetekst van de link",
+  "fabric.linkPicker.linkTextLabel": "Tekst weergeven (optioneel)",
+  "fabric.linkPicker.linkTextPlaceholder": "Tekst om te tonen",
+  "fabric.linkPicker.listTitle.recentlyViewed": "Recent bekeken",
+  "fabric.linkPicker.listTitle.results": "Resultaten",
+  "fabric.linkPicker.search.error.description": "Vernieuw de pagina of neem contact op met <a>Atlassian-support</a> als dit blijft gebeuren.",
+  "fabric.linkPicker.search.error.heading": "Er zijn wat problemen met het laden van de gegevens.",
+  "fabric.linkPicker.search.linkAriaLabel": "Suggesties verschijnen hieronder zodra je in het veld typt",
+  "fabric.linkPicker.search.linkLabel": "Zoeken of een link plakken",
+  "fabric.linkPicker.search.linkPlaceholder": "Zoek recente links of plak een nieuwe link",
+  "fabric.linkPicker.search.noResults.description": "Probeer het opnieuw met een andere term.",
+  "fabric.linkPicker.search.noResults.heading": "We hebben geen overeenkomsten gevonden voor je zoekopdracht.",
+  "fabric.linkPicker.unhandledError.description": "Probeer de pagina opnieuw te laden.",
+  "fabric.linkPicker.unhandledError.heading": "Er is iets misgegaan."
 };

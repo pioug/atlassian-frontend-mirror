@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,6 +7,6 @@
  */
 //Norwegian (Bokmål)
 export default {
-  'bitbucket.panel-collapse.message': 'skjul',
-  'bitbucket.panel-expand.message': 'utvid',
+  "bitbucket.panel-collapse.message": "skjul",
+  "bitbucket.panel-expand.message": "utvid"
 };

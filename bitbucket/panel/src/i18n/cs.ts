@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,6 +7,6 @@
  */
 //Czech
 export default {
-  'bitbucket.panel-collapse.message': 'sbalit',
-  'bitbucket.panel-expand.message': 'rozbalit',
+  "bitbucket.panel-collapse.message": "sbalit",
+  "bitbucket.panel-expand.message": "rozbalit"
 };

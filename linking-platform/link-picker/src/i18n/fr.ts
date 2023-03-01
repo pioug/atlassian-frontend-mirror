@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,36 +7,28 @@
  */
 //French (France)
 export default {
-  'fabric.linkPicker.button.cancel': 'Annuler',
-  'fabric.linkPicker.button.insert': 'Insérer',
-  'fabric.linkPicker.button.save': 'Enregistrer',
-  'fabric.linkPicker.clearLink': 'Effacer le lien',
-  'fabric.linkPicker.clearLinkText': 'Effacer le texte',
-  'fabric.linkPicker.hyperlink.searchLinkResults':
-    '{count, plural, =0 {aucun résultat} one {{count,number} résultat trouvé} other {{count,number} résultats trouvés}}',
-  'fabric.linkPicker.linkAriaLabel': 'Saisir ou coller un lien dans le champ',
-  'fabric.linkPicker.linkInvalid': 'Saisissez une URL valide.',
-  'fabric.linkPicker.linkLabel': 'Lien',
-  'fabric.linkPicker.linkPlaceholder': 'Collez un lien',
-  'fabric.linkPicker.linkTextAriaLabel': "Texte d'affichage du lien",
-  'fabric.linkPicker.linkTextLabel': "Texte d'affichage (facultatif)",
-  'fabric.linkPicker.linkTextPlaceholder': 'Texte à afficher',
-  'fabric.linkPicker.listTitle.recentlyViewed': 'Récemment consultés',
-  'fabric.linkPicker.listTitle.results': 'Résultats',
-  'fabric.linkPicker.search.error.description':
-    'Actualisez la page ou contactez le <a>support Atlassian</a> si le problème se reproduit.',
-  'fabric.linkPicker.search.error.heading':
-    'Nous ne parvenons pas à charger les données.',
-  'fabric.linkPicker.search.linkAriaLabel':
-    'Les suggestions apparaîtront au fur et à mesure que vous saisissez du texte dans le champ',
-  'fabric.linkPicker.search.linkLabel': 'Rechercher ou coller un lien',
-  'fabric.linkPicker.search.linkPlaceholder':
-    'Recherchez des liens récents ou collez un nouveau lien',
-  'fabric.linkPicker.search.noResults.description':
-    'Réessayez avec un autre terme.',
-  'fabric.linkPicker.search.noResults.heading':
-    "Nous n'avons trouvé aucun résultat correspondant à votre recherche.",
-  'fabric.linkPicker.unhandledError.description':
-    'Essayez de recharger la page.',
-  'fabric.linkPicker.unhandledError.heading': "Une erreur s'est produite.",
+  "fabric.linkPicker.button.cancel": "Annuler",
+  "fabric.linkPicker.button.insert": "Insérer",
+  "fabric.linkPicker.button.save": "Enregistrer",
+  "fabric.linkPicker.clearLink": "Effacer le lien",
+  "fabric.linkPicker.clearLinkText": "Effacer le texte",
+  "fabric.linkPicker.hyperlink.searchLinkResults": "{count, plural, =0 {aucun résultat} one {{count,number} résultat trouvé} other {{count,number} résultats trouvés}}",
+  "fabric.linkPicker.linkAriaLabel": "Saisir ou coller un lien dans le champ",
+  "fabric.linkPicker.linkInvalid": "Saisissez une URL valide.",
+  "fabric.linkPicker.linkLabel": "Lien",
+  "fabric.linkPicker.linkPlaceholder": "Collez un lien",
+  "fabric.linkPicker.linkTextAriaLabel": "Texte d'affichage du lien",
+  "fabric.linkPicker.linkTextLabel": "Texte d'affichage (facultatif)",
+  "fabric.linkPicker.linkTextPlaceholder": "Texte à afficher",
+  "fabric.linkPicker.listTitle.recentlyViewed": "Récemment consultés",
+  "fabric.linkPicker.listTitle.results": "Résultats",
+  "fabric.linkPicker.search.error.description": "Actualisez la page ou contactez le <a>support Atlassian</a> si le problème se reproduit.",
+  "fabric.linkPicker.search.error.heading": "Nous ne parvenons pas à charger les données.",
+  "fabric.linkPicker.search.linkAriaLabel": "Les suggestions apparaîtront au fur et à mesure que vous saisissez du texte dans le champ",
+  "fabric.linkPicker.search.linkLabel": "Rechercher ou coller un lien",
+  "fabric.linkPicker.search.linkPlaceholder": "Recherchez des liens récents ou collez un nouveau lien",
+  "fabric.linkPicker.search.noResults.description": "Réessayez avec un autre terme.",
+  "fabric.linkPicker.search.noResults.heading": "Nous n'avons trouvé aucun résultat correspondant à votre recherche.",
+  "fabric.linkPicker.unhandledError.description": "Essayez de recharger la page.",
+  "fabric.linkPicker.unhandledError.heading": "Une erreur s'est produite."
 };

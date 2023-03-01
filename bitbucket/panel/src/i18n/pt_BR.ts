@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,6 +7,6 @@
  */
 //Portuguese (Brazil)
 export default {
-  'bitbucket.panel-collapse.message': 'recolher',
-  'bitbucket.panel-expand.message': 'expandir',
+  "bitbucket.panel-collapse.message": "recolher",
+  "bitbucket.panel-expand.message": "expandir"
 };

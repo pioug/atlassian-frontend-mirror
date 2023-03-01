@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,6 +7,6 @@
  */
 //Dutch (Netherlands)
 export default {
-  'bitbucket.panel-collapse.message': 'inklappen',
-  'bitbucket.panel-expand.message': 'uitklappen',
+  "bitbucket.panel-collapse.message": "inklappen",
+  "bitbucket.panel-expand.message": "uitklappen"
 };

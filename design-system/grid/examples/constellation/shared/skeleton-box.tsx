@@ -7,11 +7,11 @@ export const SkeletonBox: FC = ({ children }) => (
     display="flex"
     alignItems="center"
     justifyContent="center"
-    backgroundColor="elevation.surface.sunken"
-    borderColor="color.border"
-    borderWidth="3px"
+    backgroundColor="discovery"
+    borderColor="discovery"
+    borderWidth="1px"
     borderStyle="solid"
-    height="size.600"
+    height="size.400"
   >
     {children}
   </Box>

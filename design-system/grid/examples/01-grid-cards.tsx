@@ -16,24 +16,24 @@ const itemProps: BoxProps = {
   height: 'size.600',
 } as const;
 
-export default ({ maxWidth }: GridProps) => {
+export default ({ maxWidth }: { maxWidth?: GridProps['maxWidth'] }) => {
   return (
     <Grid maxWidth={maxWidth} testId="grid">
       <GridItem>
         <Box {...itemProps} />
       </GridItem>
       {Array.from({ length: 8 }).map((_, i) => (
-        <GridItem span={{ sm: 2, md: 4, lg: 3 }} key={`small-items-${i}`}>
+        <GridItem span={{ sm: 4, lg: 3 }} key={`small-items-${i}`}>
           <Box {...itemProps}>{i + 1}</Box>
         </GridItem>
       ))}
 
-      <GridItem offset={{ md: 4 }} span={{ md: 6 }}>
+      <GridItem start={{ md: 4 }} span={{ md: 6 }}>
         <Box {...itemProps}>Offset Longer</Box>
       </GridItem>
 
       {Array.from({ length: 8 }).map((_, i) => (
-        <GridItem span={{ sm: 3, md: 6 }} key={`medium-items-${i}`}>
+        <GridItem span={{ sm: 6 }} key={`medium-items-${i}`}>
           <Box {...itemProps} />
         </GridItem>
       ))}

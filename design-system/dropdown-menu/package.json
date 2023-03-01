@@ -16,7 +16,6 @@
   "atlaskit:src": "src/index.tsx",
   "atlassian": {
     "team": "Design System Team",
-    "disableProductCI": true,
     "releaseModel": "scheduled",
     "website": {
       "name": "Dropdown menu",

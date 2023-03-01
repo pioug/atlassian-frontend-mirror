@@ -8,5 +8,12 @@ export const placeholderStyles = css`
     width: 100%;
     pointer-events: none;
     user-select: none;
+
+    .placeholder-android {
+      pointer-events: none;
+      outline: none;
+      user-select: none;
+      position: absolute;
+    }
   }
 `;

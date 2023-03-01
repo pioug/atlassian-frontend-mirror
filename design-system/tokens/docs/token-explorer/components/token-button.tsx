@@ -29,21 +29,15 @@ const copyMessages = {
 interface TokenButtonProps {
   children: ((props: { isHovered?: boolean }) => ReactElement) | ReactElement;
   copyValue?: string;
-  hasFixedWidth?: boolean;
+  isFixedWidth?: boolean;
   variantLabel?: string;
   className?: string;
   testId?: string;
 }
 
 const TokenButton: FC<TokenButtonProps> = (props) => {
-  const {
-    children,
-    copyValue,
-    variantLabel,
-    hasFixedWidth,
-    className,
-    testId,
-  } = props;
+  const { children, copyValue, variantLabel, isFixedWidth, className, testId } =
+    props;
 
   const [isHovered, setIsHovered] = useState(false);
 
@@ -74,7 +68,7 @@ const TokenButton: FC<TokenButtonProps> = (props) => {
             type="button"
             css={[
               baseStyles,
-              hasFixedWidth && {
+              isFixedWidth && {
                 width: '96px', // same as Box width 'size.600'
               },
             ]}

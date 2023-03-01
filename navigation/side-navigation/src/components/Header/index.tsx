@@ -90,7 +90,6 @@ export type HeaderProps = {
    * Custom component to render as an item.
    * This can be both a functional component or a class component.
    * __Will return `null` if no component is defined.__
-   *
    * __NOTE:__ Make sure the reference for this component does not change between renders else undefined behavior may happen.
    */
   // eslint-disable-next-line @repo/internal/react/consistent-props-definitions

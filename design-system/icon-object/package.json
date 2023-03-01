@@ -16,7 +16,6 @@
   "types": "dist/types/index.d.ts",
   "sideEffects": false,
   "atlassian": {
-    "disableProductCI": true,
     "team": "Design System Team",
     "releaseModel": "scheduled",
     "website": {

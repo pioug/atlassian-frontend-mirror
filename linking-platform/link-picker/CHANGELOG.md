@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 1.16.15
+
+### Patch Changes
+
+- [`d0c67f1cc2b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d0c67f1cc2b) - Prettier-ignore added to i18n translations
+
 ## 1.16.14
 
 ### Patch Changes

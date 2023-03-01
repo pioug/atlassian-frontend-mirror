@@ -46,7 +46,7 @@ const TokenRow = ({
   return (
     <li css={tokenRowStyles}>
       <Stack space="100">
-        {[transformedToken, ...extensions].map((token) => (
+        {[transformedToken].concat(extensions).map((token) => (
           <TokenDefinition
             key={token.name}
             token={token}

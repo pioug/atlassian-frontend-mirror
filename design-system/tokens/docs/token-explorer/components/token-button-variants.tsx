@@ -18,14 +18,14 @@ const baseTokenButtonUiStyles = css({
   boxSizing: 'border-box',
   width: '100%',
   minHeight: 24,
-  padding: '2px 12px',
+  padding: `${token('space.025', '2px')} ${token('space.150', '12px')}`,
   alignItems: 'center',
   justifyContent: 'center',
   background: 'none',
   borderRadius: borderRadius(),
   color: token('color.text', '#172B4D'),
   fontFamily: codeFontFamily(),
-  fontSize: 12,
+  fontSize: token('font.size.075', '12px'),
   lineHeight: 1,
   '&:hover, &:focus': {
     background: token('color.background.neutral.hovered', '#091E4224'),
@@ -41,10 +41,10 @@ const subtleStyles = css({
 
 const ghostStyles = css({
   display: 'inline-block',
-  paddingLeft: token('space.050', '4px'),
   justifyContent: 'flex-start',
-  lineHeight: '20px',
+  lineHeight: token('font.lineHeight.200', '20px'),
   overflowWrap: 'break-word',
+  paddingInlineStart: token('space.050', '4px'),
   textAlign: 'left',
   '&[data-is-hovered="true"]': {
     background: token('color.background.neutral', '#091E420F'),

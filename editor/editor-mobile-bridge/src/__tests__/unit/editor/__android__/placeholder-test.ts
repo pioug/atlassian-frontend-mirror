@@ -28,7 +28,7 @@ describe('placeholder on mobile', () => {
   );
 
   const placeholderHtmlOnAndroidChromeRegex = new RegExp(
-    `<p><span data-testid=\"placeholder-test-id\" class=\"placeholder-decoration ProseMirror-widget\">potato<span contenteditable=\"true\"> </span></span><br class=\"ProseMirror-trailingBreak\"></p>`,
+    `<p><span data-testid=\"placeholder-test-id\" class=\"placeholder-decoration ProseMirror-widget\">potato<span class=\"placeholder-android\" contenteditable=\"true\"> </span></span><br class=\"ProseMirror-trailingBreak\"></p>`,
   );
 
   beforeEach(() => jest.useFakeTimers());

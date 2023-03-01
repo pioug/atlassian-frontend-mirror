@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,6 +7,6 @@
  */
 //Korean
 export default {
-  'bitbucket.panel-collapse.message': '축소',
-  'bitbucket.panel-expand.message': '확장',
+  "bitbucket.panel-collapse.message": "축소",
+  "bitbucket.panel-expand.message": "확장"
 };

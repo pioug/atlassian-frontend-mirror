@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,6 +7,6 @@
  */
 //Polish (Poland)
 export default {
-  'bitbucket.panel-collapse.message': 'zwiń',
-  'bitbucket.panel-expand.message': 'rozwiń',
+  "bitbucket.panel-collapse.message": "zwiń",
+  "bitbucket.panel-expand.message": "rozwiń"
 };

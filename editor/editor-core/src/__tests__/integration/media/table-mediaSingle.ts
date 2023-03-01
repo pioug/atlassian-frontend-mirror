@@ -23,10 +23,11 @@ const editors: { appearance: Appearance; snapshotSelector?: string }[] = [
 ];
 
 editors.forEach((editor) => {
-  // TODO: Restore skipped test https://product-fabric.atlassian.net/browse/ED-16717
   BrowserTestCase(
     `Media tables : ${editor.appearance} editor, can insert into table`,
-    { skip: ['*'] },
+    {
+      skip: ['safari'],
+    },
     async (client: any, testName: string) => {
       const page = await goToEditorTestingWDExample(client);
       await mountEditor(page, {

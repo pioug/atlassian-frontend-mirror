@@ -1,73 +1,80 @@
 /* eslint-disable @repo/internal/react/consistent-css-prop-usage */
 /** @jsx jsx */
-import { FC, ReactNode } from 'react';
+import { CSSProperties, FC } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import { Breakpoint, BREAKPOINTS } from './config';
-
-const breakpointEntries = Object.entries(BREAKPOINTS);
-
-type ResponsiveColumn = {
-  [breakpoint in Exclude<Breakpoint, 'sm' | 'xs'>]?:
-    | 1
-    | 2
-    | 3
-    | 4
-    | 5
-    | 6
-    | 7
-    | 8
-    | 9
-    | 10
-    | 11
-    | 12;
-} & {
-  [breakpoint in Extract<Breakpoint, 'sm'>]?: 1 | 2 | 3 | 4 | 5 | 6;
-} & {
-  [breakpoint in Extract<Breakpoint, 'xs'>]?: 1 | 2 | 3 | 4;
-};
-
-export type GridItemProps = {
-  /**
-   * A test id for automated testing.
-   */
-  testId?: string;
-  /**
-   * Content of the Grid item.
-   */
-  children?: ReactNode;
-  /**
-   * Offset in columns from the start of the row.
-   */
-  offset?: ResponsiveColumn;
-  /**
-   * Number of columns the item is meant to span.
-   */
-  span?: ResponsiveColumn;
-};
+import { BREAKPOINTS_LIST } from './config';
+import { UNSAFE_media as media } from './media-helper';
+import type {
+  Breakpoint,
+  GridItemProps,
+  SpanObject,
+  StartObject,
+} from './types';
 
 // when in doubt simply span all columns
 const baseGridItemStyles = css({
   gridColumn: '1 / span var(--ds-grid-columns)',
 });
 
-const gridItemMediaQueryStyles = breakpointEntries.reduce(
-  (configs, [breakpoint, config]) => {
-    return Object.assign(configs, {
-      [breakpoint]: css({
-        // eslint-disable-next-line @repo/internal/styles/no-nested-styles
-        [`@media (min-width: ${config.min}px)`]: {
-          gridColumnStart: `var(--ds-${breakpoint}-start)`,
-          gridColumnEnd: `span var(--ds-${breakpoint}-span)`,
-        },
-      }),
-    });
-  },
-  {} as { [key in Breakpoint]: ReturnType<typeof css> },
+type BreakpointCSSObject = { [key in Breakpoint]: ReturnType<typeof css> };
+
+const gridSpanMediaQueries = BREAKPOINTS_LIST.reduce(
+  (acc, breakpoint) => ({
+    ...acc,
+    [breakpoint]: css({
+      // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+      [media.above[breakpoint]]: {
+        gridColumnEnd: `span var(--ds-${breakpoint}-span)`,
+      },
+    }),
+  }),
+  {} as BreakpointCSSObject,
 );
 
-const emptyObject = {} as const;
+const gridStartMediaQueries = BREAKPOINTS_LIST.reduce(
+  (acc, breakpoint) => ({
+    ...acc,
+    [breakpoint]: css({
+      // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+      [media.above[breakpoint]]: {
+        gridColumnStart: `var(--ds-${breakpoint}-start)`,
+      },
+    }),
+  }),
+  {} as BreakpointCSSObject,
+);
+
+function buildCSSVarsFromConfig(prop: SpanObject, key: 'span'): CSSProperties;
+function buildCSSVarsFromConfig(prop: StartObject, key: 'start'): CSSProperties;
+function buildCSSVarsFromConfig(
+  prop: SpanObject | StartObject,
+  key: 'start' | 'span',
+): CSSProperties {
+  if (typeof prop !== 'object') {
+    return { [`--ds-xs-${key}` as const]: prop };
+  }
+
+  /**
+   * This coerces an object of `{ xs: 12, sm: 'auto', … }` down to `[['xs', 12], ['sm', 'auto], …]`.  Split out for readability.
+   */
+  const entries = Object.entries(prop) as [
+    keyof typeof prop,
+    typeof prop[keyof typeof prop],
+  ][];
+
+  return entries.reduce((acc, [breakpoint, value]) => {
+    if (typeof value === 'undefined') {
+      return acc;
+    }
+
+    return {
+      ...acc,
+      [`--ds-${breakpoint}-${key}` as const]: value,
+    };
+  }, {});
+}
 
 /**
  * __Grid item__
@@ -75,35 +82,57 @@ const emptyObject = {} as const;
  * A grid item is designed to be nested in a `Grid`. Grid items can span one or many columns.
  *
  * - [Code](https://atlassian.design/components/grid)
+ *
+ * @example
+ * ```jsx
+ * import Grid, { GridItem } from '@atlaskit/grid';
+ *
+ * const App = () => (
+ *   <Grid>
+ *     <GridItem span="6">half-width content</GridItem>
+ *     <GridItem span="6">half-width content</GridItem>
+ *   </Grid>
+ * );
+ * ```
  */
 export const GridItem: FC<GridItemProps> = ({
   testId,
   children,
-  offset = emptyObject,
-  span = emptyObject,
+  start: startProp = 'auto',
+  span: spanProp = 12,
 }) => {
-  const spanStyles = Object.fromEntries(
-    Object.entries(span).map(([breakpoint, val]) => [
-      `--ds-${breakpoint}-span`,
-      val,
-    ]),
-  );
-  const offsetStyles = Object.fromEntries(
-    Object.entries(offset).map(([breakpoint, val]) => [
-      `--ds-${breakpoint}-start`,
-      val,
-    ]),
-  );
-  const mediaQueryStyles = [baseGridItemStyles].concat(
-    Object.keys(gridItemMediaQueryStyles)
-      .filter((breakpoint) => breakpoint in span)
-      .map((breakpoint) => gridItemMediaQueryStyles[breakpoint as Breakpoint]),
-  );
+  const span: SpanObject =
+    typeof spanProp === 'object' ? spanProp : { xs: spanProp };
+  const spanStyles = buildCSSVarsFromConfig(span, 'span');
+
+  const start: StartObject =
+    typeof startProp === 'object' ? startProp : { xs: startProp };
+  const startStyles = buildCSSVarsFromConfig(start, 'start');
+
+  /**
+   * Generate all media queries for breakpoints that are available during this render.  This is to avoid rendering media queries for all breakpoints if none are used.
+   */
+  const mediaQueryStyles = BREAKPOINTS_LIST.reduce((acc, breakpoint) => {
+    const styles: ReturnType<typeof css>[] = [];
+
+    if (breakpoint in span) {
+      styles.push(gridSpanMediaQueries[breakpoint]);
+    }
+    if (breakpoint in start) {
+      styles.push(gridStartMediaQueries[breakpoint]);
+    }
+
+    if (!styles.length) {
+      return acc;
+    }
+
+    return [...acc, ...styles];
+  }, [] as ReturnType<typeof css>[]);
 
   return (
     <div
-      style={Object.assign(offsetStyles, spanStyles)}
-      css={mediaQueryStyles}
+      style={{ ...startStyles, ...spanStyles }}
+      css={[baseGridItemStyles, ...mediaQueryStyles]}
       data-testid={testId}
     >
       {children}

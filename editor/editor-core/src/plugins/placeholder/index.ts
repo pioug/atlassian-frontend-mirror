@@ -48,6 +48,7 @@ export function createPlaceholderDecoration(
   // when backspace in GBoard composition
   if (browser.android && browser.chrome) {
     const buffNode = document.createElement('span');
+    buffNode.setAttribute('class', 'placeholder-android');
     buffNode.setAttribute('contenteditable', 'true');
     buffNode.textContent = ' ';
     placeholderDecoration.appendChild(buffNode);

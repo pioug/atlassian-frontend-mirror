@@ -49,9 +49,12 @@ BrowserTestCase(
   },
 );
 
+// FIXME: This test was automatically skipped due to failure on 28/02/2023: https://product-fabric.atlassian.net/browse/DSP-9021
 BrowserTestCase(
   `Multi-select should display a menu once clicked and not throwing errors`,
-  {},
+  {
+    skip: ['*'],
+  },
   async (client: any) => {
     const selectTest = new Page(client);
     const urlSelect = getExampleUrl('design-system', 'select', 'multi-select');

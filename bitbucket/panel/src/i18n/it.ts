@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,6 +7,6 @@
  */
 //Italian (Italy)
 export default {
-  'bitbucket.panel-collapse.message': 'comprimi',
-  'bitbucket.panel-expand.message': 'espandi',
+  "bitbucket.panel-collapse.message": "comprimi",
+  "bitbucket.panel-expand.message": "espandi"
 };

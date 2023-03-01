@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,6 +7,6 @@
  */
 //Hungarian
 export default {
-  'bitbucket.panel-collapse.message': 'összecsukás',
-  'bitbucket.panel-expand.message': 'kibontás',
+  "bitbucket.panel-collapse.message": "összecsukás",
+  "bitbucket.panel-expand.message": "kibontás"
 };

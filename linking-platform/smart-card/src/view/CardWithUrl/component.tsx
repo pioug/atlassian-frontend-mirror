@@ -23,7 +23,6 @@ import { InvokeClientOpts, InvokeServerOpts } from '../../model/invoke-opts';
 import { EmbedCard } from '../EmbedCard';
 import { isFlexibleUiCard } from '../../utils/flexible';
 import FlexibleCard from '../FlexibleCard';
-import { APIError } from '../..';
 import { CardDisplay } from '../../constants';
 import { fireLinkClickedEvent } from '../../utils/analytics/click';
 
@@ -252,7 +251,7 @@ export function CardWithUrlContent({
   if (isFlexibleUi) {
     let cardState = state;
     if (error) {
-      if (error?.constructor === APIError) {
+      if (error?.name === 'APIError') {
         cardState = { status: 'errored' };
       } else {
         throw error;

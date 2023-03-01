@@ -16,7 +16,6 @@
   "atlaskit:src": "src/index.tsx",
   "homepage": "https://atlassian.design/components/range/",
   "atlassian": {
-    "disableProductCI": true,
     "team": "Design System Team",
     "releaseModel": "scheduled",
     "website": {

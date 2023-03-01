@@ -20,7 +20,7 @@ import {
 interface CopyButtonValueProps
   extends Pick<TransformedTokenMerged, 'value' | 'original' | 'attributes'> {
   variantLabel?: string;
-  hasFixedWidth?: boolean;
+  isFixedWidth?: boolean;
   className?: string;
   testId?: string;
 }
@@ -30,7 +30,7 @@ const TokenButtonValue = ({
   original,
   attributes,
   variantLabel,
-  hasFixedWidth,
+  isFixedWidth,
   className,
   testId,
 }: CopyButtonValueProps) => {
@@ -74,7 +74,7 @@ const TokenButtonValue = ({
     <TokenButton
       copyValue={copyValue()}
       variantLabel={variantLabel}
-      hasFixedWidth={hasFixedWidth}
+      isFixedWidth={isFixedWidth}
       className={className}
       testId={testId}
     >

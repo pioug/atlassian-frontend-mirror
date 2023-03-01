@@ -11,7 +11,12 @@ import { JiraServiceManagementLogo } from '@atlaskit/logo';
 import Textfield from '@atlaskit/textfield';
 import { useThemeObserver } from '@atlaskit/tokens';
 
-import Grid, { BREAKPOINTS, GridItem } from '../src';
+import Grid, {
+  BREAKPOINTS_CONFIG,
+  BREAKPOINTS_LIST,
+  GridItem,
+  UNSAFE_media as media,
+} from '../src';
 
 import JSMCard from './91-jsm-card';
 import JSMConfigCard from './92-jsm-config-card';
@@ -24,12 +29,13 @@ const responsiveWidthSearchStyles = css({
 
 // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
 const dynamicSizedVerticalPaddingStyles = css(
-  Object.entries(BREAKPOINTS).reduce((configs, [_, config]) => {
+  BREAKPOINTS_LIST.reduce((configs, breakpoint) => {
+    const config = BREAKPOINTS_CONFIG[breakpoint];
+
     return Object.assign(configs, {
-      [`@media (min-width: ${config.min}px) and (max-width: ${config.max}px)`]:
-        {
-          paddingBlock: `calc(${config.offset} * 2)`,
-        },
+      [media.between[breakpoint]]: {
+        paddingBlock: `calc(${config.margin} * 2)`,
+      },
     });
   }, {}),
 );
@@ -60,7 +66,7 @@ const JSMGrid = () => {
           UNSAFE_style={{ paddingBottom: 144 }}
         >
           <Grid maxWidth="wide">
-            <GridItem offset={{ md: 3 }} span={{ md: 8 }}>
+            <GridItem start={{ md: 3 }} span={{ md: 8 }}>
               <Stack gap="space.200" alignItems="center">
                 <Heading
                   level="h700"
@@ -81,7 +87,7 @@ const JSMGrid = () => {
       <Box css={dynamicSizedVerticalPaddingStyles} justifyContent="center">
         <Stack gap="space.800">
           <Grid maxWidth="wide">
-            <GridItem span={{ sm: 3, md: 4 }}>
+            <GridItem span={{ sm: 6, md: 4 }}>
               <Stack gap="space.300">
                 <JSMConfigCard title="Design Collection">
                   <IconLink>Join Figma support slack channel</IconLink>
@@ -90,7 +96,7 @@ const JSMGrid = () => {
                 <JSMConfigCard title="Covid Updates" />
               </Stack>
             </GridItem>
-            <GridItem span={{ sm: 3, md: 4 }}>
+            <GridItem span={{ sm: 6, md: 4 }}>
               <Stack gap="space.300">
                 <JSMConfigCard title="New hire basics" />
                 <JSMConfigCard title="Payroll">
@@ -99,7 +105,7 @@ const JSMGrid = () => {
                 </JSMConfigCard>
               </Stack>
             </GridItem>
-            <GridItem span={{ sm: 3, md: 4 }}>
+            <GridItem span={{ sm: 6, md: 4 }}>
               <JSMConfigCard title="Infra Management" />
             </GridItem>
           </Grid>
@@ -111,31 +117,31 @@ const JSMGrid = () => {
                 </Heading>
               </Inline>
             </GridItem>
-            <GridItem span={{ sm: 3, md: 4 }}>
+            <GridItem span={{ sm: 6, md: 4 }}>
               <JSMCard iconColor="information.bold" title="Onboarding" />
             </GridItem>
-            <GridItem span={{ sm: 3, md: 4 }}>
+            <GridItem span={{ sm: 6, md: 4 }}>
               <JSMCard iconColor="brand.bold" title="HR Service Desk" />
             </GridItem>
-            <GridItem span={{ sm: 3, md: 4 }}>
+            <GridItem span={{ sm: 6, md: 4 }}>
               <JSMCard title="Travel Service desk" iconColor="information" />
             </GridItem>
-            <GridItem span={{ sm: 3, md: 4 }}>
+            <GridItem span={{ sm: 6, md: 4 }}>
               <JSMCard iconColor="danger.bold" title="SWAGs" />
             </GridItem>
-            <GridItem span={{ sm: 3, md: 4 }}>
+            <GridItem span={{ sm: 6, md: 4 }}>
               <JSMCard iconColor="warning.bold" title="IT Support" />
             </GridItem>
-            <GridItem span={{ sm: 3, md: 4 }}>
+            <GridItem span={{ sm: 6, md: 4 }}>
               <JSMCard title="IT Operations" iconColor="discovery" />
             </GridItem>
-            <GridItem span={{ sm: 3, md: 4 }}>
+            <GridItem span={{ sm: 6, md: 4 }}>
               <JSMCard iconColor="discovery.bold" title="Sales Ops" />
             </GridItem>
-            <GridItem span={{ sm: 3, md: 4 }}>
+            <GridItem span={{ sm: 6, md: 4 }}>
               <JSMCard title="Customer Support" iconColor="neutral.bold" />
             </GridItem>
-            <GridItem span={{ sm: 3, md: 4 }}>
+            <GridItem span={{ sm: 6, md: 4 }}>
               <JSMCard title="Financial Month End" iconColor="danger" />
             </GridItem>
           </Grid>
@@ -147,13 +153,13 @@ const JSMGrid = () => {
                 </Heading>
               </Inline>
             </GridItem>
-            <GridItem span={{ sm: 2, md: 4 }}>
+            <GridItem span={{ sm: 4 }}>
               <SecondaryCard />
             </GridItem>
-            <GridItem span={{ sm: 2, md: 4 }}>
+            <GridItem span={{ sm: 4 }}>
               <SecondaryCard />
             </GridItem>
-            <GridItem span={{ sm: 2, md: 4 }}>
+            <GridItem span={{ sm: 4 }}>
               <SecondaryCard />
             </GridItem>
           </Grid>

@@ -95,7 +95,7 @@ describe('@atlaskit/checkbox', () => {
       });
       const checkbox = getByLabelText('stub') as HTMLInputElement;
 
-      expect(checkbox.getAttribute('aria-checked')).toBe('mixed');
+      expect(checkbox).toHaveAttribute('aria-checked', 'mixed');
     });
     it('should set the indeterminate state on the checkbox on update', () => {
       const { getByLabelText, rerender } = renderCheckbox({
@@ -104,7 +104,7 @@ describe('@atlaskit/checkbox', () => {
       });
       const checkbox = getByLabelText('stub') as HTMLInputElement;
 
-      expect(checkbox.getAttribute('aria-checked')).toBe('false');
+      expect(checkbox).toHaveAttribute('aria-checked', 'false');
 
       rerender(
         <Checkbox
@@ -117,13 +117,20 @@ describe('@atlaskit/checkbox', () => {
         />,
       );
 
-      expect(checkbox.getAttribute('aria-checked')).toBe('mixed');
+      expect(checkbox).toHaveAttribute('aria-checked', 'mixed');
+    });
+    it('should show required indicator when isRequired prop is used', () => {
+      const { getByText } = renderCheckbox({ isRequired: true });
+
+      const requiredIndicator = getByText('*');
+
+      expect(requiredIndicator).toBeVisible();
     });
     it('should set aria-invalid attr to input when isInvalid is true', () => {
       const { getByLabelText } = renderCheckbox({ isInvalid: true });
 
       const checkbox = getByLabelText('stub');
-      expect(checkbox.getAttribute('aria-invalid')).toBe('true');
+      expect(checkbox).toHaveAttribute('aria-invalid', 'true');
     });
     it('should pass input props as attributes on the checkbox', () => {
       const onFocus = jest.fn();

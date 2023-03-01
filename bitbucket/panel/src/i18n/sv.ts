@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,6 +7,6 @@
  */
 //Swedish
 export default {
-  'bitbucket.panel-collapse.message': 'komprimera',
-  'bitbucket.panel-expand.message': 'expandera',
+  "bitbucket.panel-collapse.message": "komprimera",
+  "bitbucket.panel-expand.message": "expandera"
 };

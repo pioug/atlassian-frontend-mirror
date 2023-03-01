@@ -16,7 +16,6 @@
   "sideEffects": false,
   "atlaskit:src": "src/index.tsx",
   "atlassian": {
-    "disableProductCI": true,
     "team": "Design System Team",
     "deprecatedAutoEntryPoints": true,
     "releaseModel": "scheduled",

@@ -7,12 +7,12 @@ import { GridItem } from '../../grid-item';
 
 describe('Nested Grids', () => {
   it('does not throw an error when not nested', () => {
-    expect(() => render(<Grid />)).not.toThrow();
+    expect(() => render(<Grid>hello world</Grid>)).not.toThrow();
 
     expect(() =>
       render(
         <Grid>
-          <GridItem />
+          <GridItem>hello world</GridItem>
         </Grid>,
       ),
     ).not.toThrow();
@@ -22,7 +22,9 @@ describe('Nested Grids', () => {
     expect(() =>
       render(
         <Grid>
-          <Grid />
+          <Grid>
+            <GridItem>hello world</GridItem>
+          </Grid>
         </Grid>,
       ),
     ).toThrow(
@@ -36,7 +38,7 @@ describe('Nested Grids', () => {
         <Grid>
           <GridItem>
             <Grid>
-              <GridItem />
+              <GridItem>hello world</GridItem>
             </Grid>
           </GridItem>
         </Grid>,

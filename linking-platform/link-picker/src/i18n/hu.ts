@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,36 +7,28 @@
  */
 //Hungarian
 export default {
-  'fabric.linkPicker.button.cancel': 'Mégse',
-  'fabric.linkPicker.button.insert': 'Beszúrás',
-  'fabric.linkPicker.button.save': 'Mentés',
-  'fabric.linkPicker.clearLink': 'Link törlése',
-  'fabric.linkPicker.clearLinkText': 'Szöveg törlése',
-  'fabric.linkPicker.hyperlink.searchLinkResults':
-    '{count, plural, =0 {nincs találat} one {{count,number} találat} other {{count,number} találat}}',
-  'fabric.linkPicker.linkAriaLabel': 'Írj vagy illessz be egy linket a mezőbe',
-  'fabric.linkPicker.linkInvalid': 'Adj meg egy érvényes URL-címet.',
-  'fabric.linkPicker.linkLabel': 'Link',
-  'fabric.linkPicker.linkPlaceholder': 'Link beillesztése',
-  'fabric.linkPicker.linkTextAriaLabel': 'Link megjelenítési szövege',
-  'fabric.linkPicker.linkTextLabel': 'Megjelenítési szöveg (opcionális)',
-  'fabric.linkPicker.linkTextPlaceholder': 'Megjelenítendő szöveg',
-  'fabric.linkPicker.listTitle.recentlyViewed': 'Nemrég megtekintett',
-  'fabric.linkPicker.listTitle.results': 'Eredmény',
-  'fabric.linkPicker.search.error.description':
-    'Frissítsd az oldalt, vagy vedd fel a kapcsolatot az <a>Atlassian Támogatással</a>, ha ez a későbbiekben is megtörténik.',
-  'fabric.linkPicker.search.error.heading':
-    'Probléma merült fel az adatok betöltése során.',
-  'fabric.linkPicker.search.linkAriaLabel':
-    'A rendszer a beírt szövegnek megfelelően jeleníti meg lent a javaslatokat',
-  'fabric.linkPicker.search.linkLabel': 'Link keresése vagy beillesztése',
-  'fabric.linkPicker.search.linkPlaceholder':
-    'Legutóbbi linkek keresése vagy új link beillesztése',
-  'fabric.linkPicker.search.noResults.description':
-    'Próbálkozz újra egy másik kifejezéssel.',
-  'fabric.linkPicker.search.noResults.heading':
-    'Nincs a keresésnek megfelelő találat.',
-  'fabric.linkPicker.unhandledError.description':
-    'Próbáld meg újra betölteni az oldalt.',
-  'fabric.linkPicker.unhandledError.heading': 'Hiba történt.',
+  "fabric.linkPicker.button.cancel": "Mégse",
+  "fabric.linkPicker.button.insert": "Beszúrás",
+  "fabric.linkPicker.button.save": "Mentés",
+  "fabric.linkPicker.clearLink": "Link törlése",
+  "fabric.linkPicker.clearLinkText": "Szöveg törlése",
+  "fabric.linkPicker.hyperlink.searchLinkResults": "{count, plural, =0 {nincs találat} one {{count,number} találat} other {{count,number} találat}}",
+  "fabric.linkPicker.linkAriaLabel": "Írj vagy illessz be egy linket a mezőbe",
+  "fabric.linkPicker.linkInvalid": "Adj meg egy érvényes URL-címet.",
+  "fabric.linkPicker.linkLabel": "Link",
+  "fabric.linkPicker.linkPlaceholder": "Link beillesztése",
+  "fabric.linkPicker.linkTextAriaLabel": "Link megjelenítési szövege",
+  "fabric.linkPicker.linkTextLabel": "Megjelenítési szöveg (opcionális)",
+  "fabric.linkPicker.linkTextPlaceholder": "Megjelenítendő szöveg",
+  "fabric.linkPicker.listTitle.recentlyViewed": "Nemrég megtekintett",
+  "fabric.linkPicker.listTitle.results": "Eredmény",
+  "fabric.linkPicker.search.error.description": "Frissítsd az oldalt, vagy vedd fel a kapcsolatot az <a>Atlassian Támogatással</a>, ha ez a későbbiekben is megtörténik.",
+  "fabric.linkPicker.search.error.heading": "Probléma merült fel az adatok betöltése során.",
+  "fabric.linkPicker.search.linkAriaLabel": "A rendszer a beírt szövegnek megfelelően jeleníti meg lent a javaslatokat",
+  "fabric.linkPicker.search.linkLabel": "Link keresése vagy beillesztése",
+  "fabric.linkPicker.search.linkPlaceholder": "Legutóbbi linkek keresése vagy új link beillesztése",
+  "fabric.linkPicker.search.noResults.description": "Próbálkozz újra egy másik kifejezéssel.",
+  "fabric.linkPicker.search.noResults.heading": "Nincs a keresésnek megfelelő találat.",
+  "fabric.linkPicker.unhandledError.description": "Próbáld meg újra betölteni az oldalt.",
+  "fabric.linkPicker.unhandledError.heading": "Hiba történt."
 };

@@ -1,5 +1,11 @@
 # @atlaskit/grid
 
+## 0.3.0
+
+### Minor Changes
+
+- [`bc3d3a45fb6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bc3d3a45fb6) - Major renaming and API api changes trying to close out our Alpha state
+
 ## 0.2.1
 
 ### Patch Changes

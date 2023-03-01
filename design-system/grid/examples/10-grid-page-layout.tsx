@@ -14,16 +14,22 @@ import {
   TopNavigation,
 } from '@atlaskit/page-layout';
 
-import { BREAKPOINTS, GridProps } from '../src';
+import {
+  BREAKPOINTS_CONFIG,
+  BREAKPOINTS_LIST,
+  GridProps,
+  UNSAFE_media as media,
+} from '../src';
 
 // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
 const dynamicSizedVerticalPaddingStyles = css(
-  Object.entries(BREAKPOINTS).reduce((configs, [_, config]) => {
+  BREAKPOINTS_LIST.reduce((configs, breakpoint) => {
+    const config = BREAKPOINTS_CONFIG[breakpoint];
+
     return Object.assign(configs, {
-      [`@media (min-maxWidth: ${config.min}px) and (max-maxWidth: ${config.max}px)`]:
-        {
-          paddingBlock: config.offset,
-        },
+      [media.between[breakpoint]]: {
+        paddingBlock: config.margin,
+      },
     });
   }, {}),
 );

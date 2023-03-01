@@ -6,7 +6,10 @@ import Grid from '../../examples/constellation/grid-default';
 import GridNarrow from '../../examples/constellation/grid-narrow';
 import GridWide from '../../examples/constellation/grid-wide';
 import ItemSpan from '../../examples/constellation/item-span';
-import ItemOffset from '../../examples/constellation/item-offset';
+import ItemStart from '../../examples/constellation/item-start';
+import ItemStartNewLine from '../../examples/constellation/item-start-new-line';
+import ItemStartSameLine from '../../examples/constellation/item-start-same-line';
+import ItemStartAuto from '../../examples/constellation/item-start-auto';
 
 ## Basic
 
@@ -32,23 +35,49 @@ The Grid's maximum width is `1128px`.  On smaller screens it will take up all av
 
 ## Item span
 
-Define how many columns an item will span (per-breakpoint).  Defaults to full-width, but lower breakpoints will cascade up as the default value if not set.
+Define how many columns an item will span.  This is a 1-indexed range 1-12.
 
-⚠️ Cascading will result in weird scenarios as columns change.  `xs=2` will show 2/6 columns in sm and 2/12 columns in md and above.  If you set `sm` you should always set `md`.  If you set `xs` you should always set `sm` and `md` to ensure it works as you expect.
+By default, span is `12` and will span the entire row.
 
-See our [breakpoints](../usage) for details on columns available.
+We enable a shorthand here, using `span={6}` is the same as `span={{ xs: 6 }}`.  The shorthand will override the default full-width functionality across all breakpoints.
+
+See [usage](./usage) to understand our how responsive object syntax works.
 
 <Example Component={ItemSpan} packageName="@atlaskit/grid" />
 
-## Item offset starting column
+## Item start column
 
-Define the column at which your item will start (per-breakpoint).  Defaults to none, but lower breakpoints will cascade up as the default value if not set.
+Define the column at which your item will start.  This is a 1-indexed range 1-12.
 
-⚠️ Cascading will result in weird scenarios as columns change.  `xs=2` will start at the 2nd of 6 columns in sm and the 2nd of 12 columns in md and above.  If you set `sm` you should always set `md`.  If you set `xs` you should always set `sm` and `md` to ensure it works as you expect.
+By default, start is `'auto'` and will fill the next available column in the row, as space is available.
 
-See our [breakpoints](../usage) for details on columns available.
+We enable a shorthand here, using `start={1}` is the same as `start={{ xs: 1 }}`.  The shorthand will override the default `'auto'` functionality across all breakpoints.
 
-<Example Component={ItemOffset} packageName="@atlaskit/grid" />
+See [usage](./usage) to understand our how responsive object syntax works.
+
+<Example Component={ItemStart} packageName="@atlaskit/grid" />
+
+### Auto positioning
+
+`'auto'` is the default which will fill the next available column in the row, as space is available.
+
+This may be required though to reset the functionality back to default when using the responsive object syntax due to the cascading nature.
+
+<Example Component={ItemStartAuto} packageName="@atlaskit/grid" />
+
+### Position with an offset
+
+If there's room to fill a column, using `start` will stay on the same row, where possible.
+
+<Example Component={ItemStartSameLine} packageName="@atlaskit/grid" />
+
+### Forced to a new row
+
+With `start`, you can force a GridItem to a new row by setting `start={1}`.
+
+This is because whenever a column is unavailable on the same row subsequently from the previous item, it will always start on the next row at that column instead.
+
+<Example Component={ItemStartNewLine} packageName="@atlaskit/grid" />
 
 ## Nested grids
 

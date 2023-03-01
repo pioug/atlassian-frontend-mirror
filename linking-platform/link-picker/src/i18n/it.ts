@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,36 +7,28 @@
  */
 //Italian (Italy)
 export default {
-  'fabric.linkPicker.button.cancel': 'Annulla',
-  'fabric.linkPicker.button.insert': 'Inserisci',
-  'fabric.linkPicker.button.save': 'Salva',
-  'fabric.linkPicker.clearLink': 'Cancella link',
-  'fabric.linkPicker.clearLinkText': 'Cancella testo',
-  'fabric.linkPicker.hyperlink.searchLinkResults':
-    '{count, plural, =0 {nessun risultato trovato} one {{count,number} risultato trovato} other {{count,number} risultati trovati}}',
-  'fabric.linkPicker.linkAriaLabel': 'Digita o incolla un link nel campo',
-  'fabric.linkPicker.linkInvalid': 'Inserisci un URL valido.',
-  'fabric.linkPicker.linkLabel': 'Link',
-  'fabric.linkPicker.linkPlaceholder': 'Incolla un link',
-  'fabric.linkPicker.linkTextAriaLabel': 'Testo visualizzato del link',
-  'fabric.linkPicker.linkTextLabel': 'Testo visualizzato (opzionale)',
-  'fabric.linkPicker.linkTextPlaceholder': 'Testo da visualizzare',
-  'fabric.linkPicker.listTitle.recentlyViewed': 'Visualizzati di recente',
-  'fabric.linkPicker.listTitle.results': 'Risultati',
-  'fabric.linkPicker.search.error.description':
-    "Se il problema persiste, aggiorna la pagina o contatta l'<a>Assistenza Atlassian</a>.",
-  'fabric.linkPicker.search.error.heading':
-    'Stiamo riscontrando problemi nel caricamento dei dati.',
-  'fabric.linkPicker.search.linkAriaLabel':
-    'I suggerimenti vengono visualizzati durante la digitazione nel campo',
-  'fabric.linkPicker.search.linkLabel': 'Cerca o incolla un link',
-  'fabric.linkPicker.search.linkPlaceholder':
-    'Trova i link recenti o incolla un nuovo link',
-  'fabric.linkPicker.search.noResults.description':
-    'Riprova con un termine diverso.',
-  'fabric.linkPicker.search.noResults.heading':
-    'Non è stato possibile trovare risultati corrispondenti alla ricerca.',
-  'fabric.linkPicker.unhandledError.description':
-    'Prova a ricaricare la pagina.',
-  'fabric.linkPicker.unhandledError.heading': 'Si è verificato un problema.',
+  "fabric.linkPicker.button.cancel": "Annulla",
+  "fabric.linkPicker.button.insert": "Inserisci",
+  "fabric.linkPicker.button.save": "Salva",
+  "fabric.linkPicker.clearLink": "Cancella link",
+  "fabric.linkPicker.clearLinkText": "Cancella testo",
+  "fabric.linkPicker.hyperlink.searchLinkResults": "{count, plural, =0 {nessun risultato trovato} one {{count,number} risultato trovato} other {{count,number} risultati trovati}}",
+  "fabric.linkPicker.linkAriaLabel": "Digita o incolla un link nel campo",
+  "fabric.linkPicker.linkInvalid": "Inserisci un URL valido.",
+  "fabric.linkPicker.linkLabel": "Link",
+  "fabric.linkPicker.linkPlaceholder": "Incolla un link",
+  "fabric.linkPicker.linkTextAriaLabel": "Testo visualizzato del link",
+  "fabric.linkPicker.linkTextLabel": "Testo visualizzato (opzionale)",
+  "fabric.linkPicker.linkTextPlaceholder": "Testo da visualizzare",
+  "fabric.linkPicker.listTitle.recentlyViewed": "Visualizzati di recente",
+  "fabric.linkPicker.listTitle.results": "Risultati",
+  "fabric.linkPicker.search.error.description": "Se il problema persiste, aggiorna la pagina o contatta l'<a>Assistenza Atlassian</a>.",
+  "fabric.linkPicker.search.error.heading": "Stiamo riscontrando problemi nel caricamento dei dati.",
+  "fabric.linkPicker.search.linkAriaLabel": "I suggerimenti vengono visualizzati durante la digitazione nel campo",
+  "fabric.linkPicker.search.linkLabel": "Cerca o incolla un link",
+  "fabric.linkPicker.search.linkPlaceholder": "Trova i link recenti o incolla un nuovo link",
+  "fabric.linkPicker.search.noResults.description": "Riprova con un termine diverso.",
+  "fabric.linkPicker.search.noResults.heading": "Non è stato possibile trovare risultati corrispondenti alla ricerca.",
+  "fabric.linkPicker.unhandledError.description": "Prova a ricaricare la pagina.",
+  "fabric.linkPicker.unhandledError.heading": "Si è verificato un problema."
 };

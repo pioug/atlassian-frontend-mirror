@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 24.3.1
+
+### Patch Changes
+
+- [`d0c67f1cc2b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d0c67f1cc2b) - Prettier-ignore added to i18n translations
+
+## 24.3.0
+
+### Minor Changes
+
+- [`9f903aa9c4e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9f903aa9c4e) - Fixes rethrow logic in flex ui to not rely on reference to APIError constructor.
+
 ## 24.2.0
 
 ### Minor Changes

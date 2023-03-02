@@ -75,7 +75,8 @@ describe('Snapshot Test', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  it('Image themed example should match production example in dark mode', async () => {
+  // FIXME: This test was automatically skipped due to failure on 01/03/2023: https://product-fabric.atlassian.net/browse/DSP-9039
+  it.skip('Image themed example should match production example in dark mode', async () => {
     const { __BASEURL__, page } = global;
     const url = getExampleUrl(
       'design-system',

@@ -7,6 +7,11 @@ import { token } from '@atlaskit/tokens';
 
 import type { BasePrimitiveProps } from './types';
 
+/**
+ * @private
+ * @deprecated DSP-8009: This type is scheduled for deletion.
+ * Please use `Inline` from `@atlaskit/primitives` instead.
+ */
 export interface InlineProps extends BasePrimitiveProps {
   /**
    * Used to align children along the cross axis.
@@ -83,6 +88,10 @@ const Divider: FC = ({ children }) => (
  *
  * Inline is a primitive component based on flexbox that manages the horizontal layout of direct children.
  * Renders a `div` by default.
+ *
+ * @private
+ * @deprecated DSP-8009: This primitive is scheduled for deletion.
+ * Please use `Inline` from `@atlaskit/primitives` instead.
  *
  * @example
  * ```tsx

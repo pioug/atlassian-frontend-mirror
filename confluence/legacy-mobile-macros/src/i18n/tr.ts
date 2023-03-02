@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,6 +7,5 @@
  */
 //Turkish (Turkey)
 export default {
-  'fabric.editor.confluence.legacyMobileMacros.chartPlaceholderText':
-    'Burada bir grafik olmalıydı, ancak gösterilemiyor. Grafiği görmek için bu sayfayı bir tarayıcıda açın.',
+  "fabric.editor.confluence.legacyMobileMacros.chartPlaceholderText": "Burada bir grafik olmalıydı, ancak gösterilemiyor. Grafiği görmek için bu sayfayı bir tarayıcıda açın."
 };

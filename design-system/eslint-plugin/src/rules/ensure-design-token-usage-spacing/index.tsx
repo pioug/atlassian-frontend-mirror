@@ -1,20 +1,12 @@
 /* eslint-disable @atlassian/tangerine/import/entry-points */
 import type { Rule } from 'eslint';
 import {
-  callExpression,
   EslintNode,
   Identifier,
-  identifier,
   isNodeOfType,
-  literal,
   node as nodeFn,
   property,
 } from 'eslint-codemod-utils';
-
-import {
-  spacing as spacingScale,
-  typography as typographyTokens,
-} from '@atlaskit/tokens/tokens-raw';
 
 import { isDecendantOfGlobalToken } from '../utils/is-node';
 
@@ -22,121 +14,21 @@ import {
   convertHyphenatedNameToCamelCase,
   emToPixels,
   findParentNodeForLine,
-  getRawExpression,
+  getFontSizeValueInScope,
+  getTokenNodeForValue,
+  getTokenReplacement,
   getValue,
   getValueFromShorthand,
-  isSpacingProperty,
+  isTokenValueString,
   isTypographyProperty,
   isValidSpacingValue,
+  processCssNode,
+  shouldAnalyzeProperty,
+  spacingValueToToken,
+  splitShorthandValues,
+  TargetOptions,
+  typographyValueToToken,
 } from './utils';
-
-type TargetOptions = ('spacing' | 'typography')[];
-
-/**
- * Currently we have a wide range of experimental spacing tokens that we are testing.
- * We only want transforms to apply to the stable scale values, not the rest.
- * This could be removed in the future.
- */
-const onlyScaleTokens = spacingScale.filter((token) =>
-  token.name.startsWith('space.'),
-);
-const spacingValueToToken = Object.fromEntries(
-  onlyScaleTokens.map((token) => [token.attributes['pixelValue'], token.name]),
-);
-
-const typographyValueToToken = Object.fromEntries(
-  typographyTokens.map((currentToken) => {
-    // Group tokens by property name (e.g. fontSize, fontFamily, lineHeight)
-    // This allows us to look up values specific to a property
-    // (so as not to mix tokens with overlapping values e.g. font size and line height both have tokens for 16px)
-    const tokenGroup = currentToken.attributes.group;
-    return [
-      tokenGroup,
-      Object.fromEntries(
-        typographyTokens
-          .map((token) =>
-            token.attributes.group === tokenGroup
-              ? [token.value.replaceAll(`"`, `'`), token.name]
-              : [],
-          )
-          .filter((token) => token.length),
-      ),
-    ];
-  }),
-);
-
-/**
- * Returns a token node for a given value including fallbacks.
- * @param propertyName camelCase CSS property
- * @param value string representing pixel value, or font family, or number representing font weight
- * @example
- * ```
- * propertyName: padding, value: '8px' => token('space.100', '8px')
- * propertyName: fontWeight, value: 400 => token('font.weight.regular', '400')
- * ```
- */
-function getTokenNodeForValue(propertyName: string, value: string) {
-  const token = isTypographyProperty(propertyName)
-    ? typographyValueToToken[propertyName][value]
-    : spacingValueToToken[value];
-  const fallbackValue =
-    propertyName === 'fontFamily'
-      ? { value: `${value}`, raw: `\"${value}\"` }
-      : `${value}`;
-
-  return callExpression({
-    callee: identifier({ name: 'token' }),
-    arguments: [
-      literal({
-        value: `'${token ?? ''}'`,
-      }),
-      literal(fallbackValue),
-    ],
-    optional: false,
-  });
-}
-
-/**
- * Returns a boolean that signals wether the current property is revelant under the current configuration
- * @param propertyName camelCase CSS property
- * @param targetOptions Array containing the types of properties that should be included in the rule
- * @example
- * ```
- * propertyName: padding, targetOptions: ['spacing']
- * propertyName: fontWeight, targetOptions: ['spacing', 'typography']
- * ```
- */
-function shouldAnalyzeProperty(
-  propertyName: string,
-  targetOptions: TargetOptions,
-): boolean {
-  if (isSpacingProperty(propertyName) && targetOptions.includes('spacing')) {
-    return true;
-  }
-  if (
-    isTypographyProperty(propertyName) &&
-    targetOptions.includes('typography')
-  ) {
-    return true;
-  }
-  return false;
-}
-/**
- * Attempts to remove all non-essential words & characters from a style block.
- * Including selectors and queries
- * Adapted from ensure-design-token-usage
- * @param styleString string of css properties
- */
-function splitCssProperties(styleString: string): string[] {
-  return styleString
-    .split('\n')
-    .filter((line) => !line.trim().startsWith('@'))
-    .join('\n')
-    .replace(/\n/g, '')
-    .split(/;|(?<!\$){|(?<!\${.+?)}/) // don't split on template literal expressions i.e. `${...}`
-    .map((el) => el.trim() || '')
-    .filter(Boolean);
-}
 
 const rule: Rule.RuleModule = {
   meta: {
@@ -150,6 +42,8 @@ const rule: Rule.RuleModule = {
     messages: {
       noRawSpacingValues:
         'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<{{payload}}>>',
+      autofixesPossible:
+        'Automated corrections available for spacing values. Apply autofix to replace values with appropriate tokens',
     },
   },
   create(context) {
@@ -370,156 +264,134 @@ const rule: Rule.RuleModule = {
           }
 
           const parentNode = findParentNodeForLine(node);
+          const processedCssLines = processCssNode(node, context);
+          const globalFontSize = getFontSizeValueInScope(processedCssLines);
+          const textForSource = context.getSourceCode().getText(node.quasi);
+          const allReplacedValues: string[][] = [];
 
-          const combinedString = node.quasi.quasis
-            .map((q, i) => {
-              return `${q.value.raw}${
-                node.quasi.expressions[i]
-                  ? getValue(node.quasi.expressions[i], context)
-                  : ''
-              }`;
-            })
-            .join('');
+          const completeSource = processedCssLines.reduce(
+            (currentSource, [resolvedCssLine, originalCssLine]) => {
+              const [originalProperty, resolvedCssValues] =
+                resolvedCssLine.split(':');
+              const [_, originalCssValues] = originalCssLine.split(':');
+              const propertyName =
+                convertHyphenatedNameToCamelCase(originalProperty);
+              const isFontFamily = /fontFamily/.test(propertyName);
+              const replacedValuesPerProperty: string[] = [originalProperty];
 
-          const rawString = node.quasi.quasis
-            .map((q, i) => {
-              return `${q.value.raw}${
-                node.quasi.expressions[i]
-                  ? `\${${getRawExpression(
-                      node.quasi.expressions[i],
-                      context,
-                    )}}`
-                  : ''
-              }`;
-            })
-            .join('');
-
-          const cssProperties = splitCssProperties(combinedString);
-          const unalteredCssProperties = splitCssProperties(rawString);
-
-          // Get font size
-          const fontSizeNode = cssProperties.find((style) => {
-            const [rawProperty, value] = style.split(':');
-            return /font-size/.test(rawProperty) ? value : null;
-          });
-          const fontSize = getValueFromShorthand(fontSizeNode)[0] as number;
-
-          cssProperties.forEach((style, currentPropIndex) => {
-            const [rawProperty, value] = style.split(':');
-            const propertyName = convertHyphenatedNameToCamelCase(rawProperty);
-
-            if (!shouldAnalyzeProperty(propertyName, targetCategories)) {
-              return;
-            }
-
-            // value is either NaN or it can't be resolved eg, em, 100% etc...
-            if (!isValidSpacingValue(value, fontSize)) {
-              return context.report({
-                node,
-                messageId: 'noRawSpacingValues',
-                data: {
-                  payload: `NaN:${value}`,
-                },
-              });
-            }
-
-            const values = getValueFromShorthand(value);
-
-            values.forEach((val, index) => {
               if (
-                (!val && val !== 0) ||
-                !shouldAnalyzeProperty(propertyName, targetCategories)
+                !shouldAnalyzeProperty(propertyName, targetCategories) ||
+                !resolvedCssValues ||
+                !isValidSpacingValue(resolvedCssValues, globalFontSize)
               ) {
-                return;
+                // in all of these cases no changes should be made to the current property
+                return currentSource;
               }
 
-              const isFontFamily = /fontFamily/.test(propertyName);
-              const pixelValue = isFontFamily ? val : emToPixels(val, fontSize);
+              // gets the values from the associated property, numeric values or NaN
+              const processedNumericValues =
+                getValueFromShorthand(resolvedCssValues);
+              const processedValues = splitShorthandValues(resolvedCssValues);
+              // only splits shorthand values but it does not transform NaNs so tokens are preserved
+              const originalValues = splitShorthandValues(originalCssValues);
 
-              context.report({
-                node,
-                messageId: 'noRawSpacingValues',
-                data: {
-                  payload: `${propertyName}:${pixelValue}`,
-                },
-                fix:
-                  index === 0
-                    ? (fixer) => {
-                        const allResolvableValues = values.every(
-                          (value) => !Number.isNaN(emToPixels(value, fontSize)),
-                        );
-                        if (!allResolvableValues) {
-                          return null;
-                        }
+              // reconstructing the string
+              // should replace what it can and preserve the raw value for everything else
 
-                        const replacementValue = values
-                          .map((value) => {
-                            const propertyValue =
-                              typeof value === 'string' ? value.trim() : value;
+              const replacementValue = processedNumericValues
+                // put together resolved value and original value on a tuple
+                .map((value, index) => [
+                  // if emToPX conversion fails we'll default to original value
+                  emToPixels(value, globalFontSize) || value,
+                  processedValues[index],
+                  originalValues[index],
+                ])
+                .map(([numericOrNanValue, pxValue, originalValue]) => {
+                  if (isTokenValueString(originalValue)) {
+                    // if the value is already valid, nothing to report or replace
+                    return originalValue;
+                  }
+                  if (isNaN(numericOrNanValue) && !isFontFamily) {
+                    // this can be either a weird expression or a fontsize declaration
 
-                            const pixelValue = isFontFamily
-                              ? propertyValue
-                              : emToPixels(propertyValue, fontSize);
-                            const pixelValueString = `${pixelValue}px`;
+                    // we can't replace a NaN but we can alert what the offending value is
+                    context.report({
+                      node,
+                      messageId: 'noRawSpacingValues',
+                      data: {
+                        payload: `${propertyName}:${originalValue}`,
+                      },
+                    });
+                    return originalValue;
+                  }
 
-                            const lookupValue = /fontWeight|fontFamily/.test(
-                              propertyName,
-                            )
-                              ? pixelValue
-                              : pixelValueString;
+                  // value is numeric or fontFamily, and needs replacing we'll report first
+                  context.report({
+                    node,
+                    messageId: 'noRawSpacingValues',
+                    data: {
+                      payload: `${propertyName}:${numericOrNanValue}`,
+                    },
+                  });
 
-                            const tokenName = isTypographyProperty(propertyName)
-                              ? typographyValueToToken[propertyName][
-                                  lookupValue
-                                ]
-                              : spacingValueToToken[lookupValue];
+                  // from here on we know value is numeric or a font family, so it might or might not have a token equivalent
+                  const replacementToken = getTokenReplacement(
+                    propertyName,
+                    numericOrNanValue,
+                  );
+                  if (!replacementToken) {
+                    return originalValue;
+                  }
 
-                            if (!tokenName) {
-                              return pixelValueString;
-                            }
+                  replacedValuesPerProperty.push(
+                    isFontFamily ? numericOrNanValue.trim() : pxValue,
+                  );
+                  return replacementToken;
+                })
+                .join(' ');
 
-                            const replacementTokenValue = getTokenNodeForValue(
-                              propertyName,
-                              lookupValue,
-                            );
+              if (replacedValuesPerProperty.length > 1) {
+                // first value is the property name, so it will always have at least 1
+                allReplacedValues.push(replacedValuesPerProperty);
+              }
 
-                            // ${token('...', '...')}
-                            const replacementSubValue =
-                              '${' + replacementTokenValue.toString() + '}';
-                            return replacementSubValue;
-                          })
-                          .join(' ');
+              // replace property:val with new property:val
+              const replacedCssLine: string = currentSource.replace(
+                originalCssLine, //  padding: ${gridSize()}px;
+                `${originalProperty}: ${replacementValue}`,
+              );
 
-                        // get original source
-                        const textForSource = context
-                          .getSourceCode()
-                          .getText(node.quasi);
+              if (!replacedCssLine) {
+                return currentSource;
+              }
 
-                        // find `<property>: ...;` in original
-                        const styleString =
-                          unalteredCssProperties[currentPropIndex];
-                        // replace property:val with new property:val
-                        const replacement = textForSource.replace(
-                          styleString, //  padding: ${gridSize()}px;
-                          `${rawProperty}: ${replacementValue}`,
-                        );
+              return replacedCssLine;
+            },
+            textForSource,
+          );
 
-                        if (!replacement) {
-                          return [];
-                        }
+          if (completeSource !== textForSource) {
+            // means we found some replacement values, well give the option to fix them
 
-                        return [
-                          fixer.insertTextBefore(
-                            parentNode,
-                            `// TODO Delete this comment after verifying spacing token -> previous value \`${value.trim()}\`\n`,
-                          ),
-                          fixer.replaceText(node.quasi, replacement),
-                        ];
-                      }
-                    : undefined,
-              });
+            const replacementComments = `${allReplacedValues
+              .map((replacedProperties) => {
+                const [propertyName] = replacedProperties;
+                const replacedValues = replacedProperties.slice(1).join(' ');
+                return `// TODO Delete this comment after verifying spacing token -> previous value \`${propertyName}: ${replacedValues}\``;
+              })
+              .join('\n')}\n`;
+
+            context.report({
+              node,
+              messageId: 'autofixesPossible',
+              fix: (fixer) => {
+                return [
+                  fixer.insertTextBefore(parentNode, replacementComments),
+                  fixer.replaceText(node.quasi, completeSource),
+                ];
+              },
             });
-          });
+          }
         },
     };
   },

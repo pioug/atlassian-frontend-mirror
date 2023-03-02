@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,6 +7,5 @@
  */
 //Danish (Denmark)
 export default {
-  'fabric.editor.confluence.legacyMobileMacros.chartPlaceholderText':
-    'Der skulle være et diagram her, men det kan ikke vises. Åbn siden i en browser for at se diagrammet.',
+  "fabric.editor.confluence.legacyMobileMacros.chartPlaceholderText": "Der skulle være et diagram her, men det kan ikke vises. Åbn siden i en browser for at se diagrammet."
 };

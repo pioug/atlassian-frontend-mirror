@@ -176,7 +176,7 @@ const getStyles = (
     transition: transform 200ms, opacity 200ms;
     box-shadow: 0 0 0 ${BORDER_WIDTH}px ${borderColor};
     border: none;
-    margin: ${BORDER_WIDTH}px;
+    margin: ${token('space.025', '2px')};
     padding: ${token('space.0', '0px')};
 
     /* Added font-size and font-family styles to fix alignment issue in firefox for interactive button avatar */

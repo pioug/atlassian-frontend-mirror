@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,6 +7,5 @@
  */
 //
 export default {
-  'fabric.editor.confluence.legacyMobileMacros.chartPlaceholderText':
-    'A chart should be here, but it can’t be shown. Open this page in a browser to see the chart.',
+  "fabric.editor.confluence.legacyMobileMacros.chartPlaceholderText": "A chart should be here, but it can’t be shown. Open this page in a browser to see the chart."
 };

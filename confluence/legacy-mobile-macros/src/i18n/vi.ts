@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,6 +7,5 @@
  */
 //Vietnamese (Vietnam)
 export default {
-  'fabric.editor.confluence.legacyMobileMacros.chartPlaceholderText':
-    'Biểu đồ xuất hiện ở đây nhưng không thể hiển thị. Hãy mở trang này trong trình duyệt để xem biểu đồ.',
+  "fabric.editor.confluence.legacyMobileMacros.chartPlaceholderText": "Biểu đồ xuất hiện ở đây nhưng không thể hiển thị. Hãy mở trang này trong trình duyệt để xem biểu đồ."
 };

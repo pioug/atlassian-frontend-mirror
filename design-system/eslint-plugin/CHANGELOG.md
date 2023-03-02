@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 4.15.6
+
+### Patch Changes
+
+- [`6a43a780a85`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6a43a780a85) - Enhance token replacement capabilities of ensure-design-tokens-usage-spacing rule in tagged template literal strings
+
 ## 4.15.5
 
 ### Patch Changes

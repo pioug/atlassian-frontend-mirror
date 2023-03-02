@@ -556,10 +556,10 @@ const textTransformMap: {
   uppercase: SerializedStyles;
 };
 
-// @internal
+// @public @deprecated
 export const UNSAFE_Box: BoxComponent;
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 export type UNSAFE_BoxProps<T extends ElementType = 'div'> = Omit<
   ComponentPropsWithoutRef<T>,
   'as' | 'className' | 'style'
@@ -567,12 +567,12 @@ export type UNSAFE_BoxProps<T extends ElementType = 'div'> = Omit<
   BasePrimitiveProps &
   BoxPropsBase<T>;
 
-// @public
+// @public @deprecated
 export const UNSAFE_Inline: MemoExoticComponent<
   ForwardRefExoticComponent<UNSAFE_InlineProps & RefAttributes<HTMLDivElement>>
 >;
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 export interface UNSAFE_InlineProps extends BasePrimitiveProps {
   alignItems?: FlexAlignItems_2;
   children: ReactNode;
@@ -589,12 +589,12 @@ export const UNSAFE_InteractionSurface: ({
   testId,
 }: InteractionSurfaceProps) => jsx.JSX.Element;
 
-// @public
+// @public @deprecated
 export const UNSAFE_Stack: MemoExoticComponent<
   ForwardRefExoticComponent<UNSAFE_StackProps & RefAttributes<HTMLDivElement>>
 >;
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 export interface UNSAFE_StackProps extends BasePrimitiveProps {
   alignItems?: FlexAlignItems_3;
   children: ReactNode;

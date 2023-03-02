@@ -18,6 +18,11 @@ import { Layer, LAYERS } from '../constants';
 import { SurfaceContext } from './surface-provider';
 import type { BasePrimitiveProps } from './types';
 
+/**
+ * @private
+ * @deprecated DSP-8009: This type is scheduled for deletion.
+ * Please use `Box` from `@atlaskit/primitives` instead.
+ */
 export type BoxProps<T extends ElementType = 'div'> = Omit<
   ComponentPropsWithoutRef<T>,
   'as' | 'className' | 'style'
@@ -143,7 +148,9 @@ type BoxComponent<T extends ElementType = 'div'> = (<
  * Box is a primitive component that has the design decisions of the Atlassian Design System baked in.
  * Renders a `div` by default.
  *
- * @internal
+ * @private
+ * @deprecated DSP-8009: This primitive is scheduled for deletion.
+ * Please use `Box` from `@atlaskit/primitives` instead.
  */
 export const Box: BoxComponent = forwardRef(
   <T extends ElementType = 'div'>(

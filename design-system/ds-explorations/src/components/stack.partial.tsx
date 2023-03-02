@@ -7,6 +7,11 @@ import { token } from '@atlaskit/tokens';
 
 import { BasePrimitiveProps } from './types';
 
+/**
+ * @private
+ * @deprecated DSP-8009: This type is scheduled for deletion.
+ * Please use `Stack` from `@atlaskit/primitives` instead.
+ */
 export interface StackProps extends BasePrimitiveProps {
   /**
    * Used to align children along the cross axis.
@@ -65,6 +70,10 @@ const baseStyles = css({
  *
  * Stack is a primitive component based on flexbox that manages the vertical layout of direct children.
  * Renders a `div` by default.
+ *
+ * @private
+ * @deprecated DSP-8009: This primitive is scheduled for deletion.
+ * Please use `Stack` from `@atlaskit/primitives` instead.
  *
  */
 const Stack = memo(

@@ -4,7 +4,6 @@ import React from 'react';
 // eslint-disable-next-line no-restricted-imports
 import styled from '@emotion/styled';
 
-import { gridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import { Presence } from '../src';
@@ -16,7 +15,7 @@ const Container = styled.div`
 const PresenceWrapper = styled.div`
   height: 30px;
   width: 30px;
-  margin-right: ${gridSize}px;
+  margin-right: ${token('space.100', '8px')};
 `;
 
 export default () => (

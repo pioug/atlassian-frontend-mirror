@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,6 +7,5 @@
  */
 //Chinese (Traditional)
 export default {
-  'fabric.editor.confluence.legacyMobileMacros.chartPlaceholderText':
-    '圖表應該在這裡，但無法顯示。請在瀏覽器中開啟此頁面，以查看圖表。',
+  "fabric.editor.confluence.legacyMobileMacros.chartPlaceholderText": "圖表應該在這裡，但無法顯示。請在瀏覽器中開啟此頁面，以查看圖表。"
 };

@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-platform
 
+## 0.0.4
+
+### Patch Changes
+
+- [`cd5b194f403`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cd5b194f403) - Add check to ensure that there is only one feature flag call per expression
+
 ## 0.0.3
 
 ### Patch Changes

@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,6 +7,5 @@
  */
 //Ukrainian (Ukraine)
 export default {
-  'fabric.editor.confluence.legacyMobileMacros.chartPlaceholderText':
-    'Тут має бути діаграма, проте її не вдається показати. Відкрийте цю сторінку в браузері, щоб побачити діаграму.',
+  "fabric.editor.confluence.legacyMobileMacros.chartPlaceholderText": "Тут має бути діаграма, проте її не вдається показати. Відкрийте цю сторінку в браузері, щоб побачити діаграму."
 };

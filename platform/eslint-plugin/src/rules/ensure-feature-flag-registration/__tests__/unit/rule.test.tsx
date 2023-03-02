@@ -63,6 +63,20 @@ describe('with existing platform-feature-flags section', () => {
         code: `const ff = "test-flag"; if(getBooleanFF(ff)) { }`,
         errors: [{ messageId: 'onlyStringLiteral' }],
       },
+      {
+        code: `if(getBooleanFF('test-flag') && getBooleanFF('test-flag')) { }`,
+        errors: [
+          { messageId: 'multipleFlagCheckInExpression' },
+          { messageId: 'multipleFlagCheckInExpression' },
+        ],
+      },
+      {
+        code: `if((getBooleanFF('test-flag') || 1 == true) && getBooleanFF('test-flag')) { }`,
+        errors: [
+          { messageId: 'multipleFlagCheckInExpression' },
+          { messageId: 'multipleFlagCheckInExpression' },
+        ],
+      },
     ],
   });
 });

@@ -1,5 +1,18 @@
 import type { Rule, Scope } from 'eslint';
-import { CallExpression, EslintNode, isNodeOfType } from 'eslint-codemod-utils';
+import {
+  callExpression,
+  CallExpression,
+  EslintNode,
+  identifier,
+  isNodeOfType,
+  literal,
+  TaggedTemplateExpression,
+} from 'eslint-codemod-utils';
+
+import {
+  spacing as spacingScale,
+  typography as typographyTokens,
+} from '@atlaskit/tokens/tokens-raw';
 
 const typographyProperties = [
   'fontSize',
@@ -40,6 +53,43 @@ const properties = [
   'gridColumnGap',
 ];
 
+export type ProcessedCSSLines = [string, string][];
+export type TargetOptions = ('spacing' | 'typography')[];
+
+/**
+ * Currently we have a wide range of experimental spacing tokens that we are testing.
+ * We only want transforms to apply to the stable scale values, not the rest.
+ * This could be removed in the future.
+ */
+export const onlyScaleTokens = spacingScale.filter((token) =>
+  token.name.startsWith('space.'),
+);
+
+export const spacingValueToToken = Object.fromEntries(
+  onlyScaleTokens.map((token) => [token.attributes['pixelValue'], token.name]),
+);
+
+export const typographyValueToToken = Object.fromEntries(
+  typographyTokens.map((currentToken) => {
+    // Group tokens by property name (e.g. fontSize, fontFamily, lineHeight)
+    // This allows us to look up values specific to a property
+    // (so as not to mix tokens with overlapping values e.g. font size and line height both have tokens for 16px)
+    const tokenGroup = currentToken.attributes.group;
+    return [
+      tokenGroup,
+      Object.fromEntries(
+        typographyTokens
+          .map((token) =>
+            token.attributes.group === tokenGroup
+              ? [token.value.replaceAll(`"`, `'`), token.name]
+              : [],
+          )
+          .filter((token) => token.length),
+      ),
+    ];
+  }),
+);
+
 export function findIdentifierInParentScope({
   scope,
   identifierName,
@@ -72,6 +122,11 @@ export const isTypographyProperty = (propertyName: string) => {
   return typographyProperties.includes(propertyName);
 };
 
+export const splitShorthandValues = (str: string): string[] => {
+  // Regex accomplishes split str by whitespace but ignore spaces in between ${}
+  return str.split(/(\${[^}]*}\S*)|\s+/g).filter(Boolean);
+};
+
 export const getValueFromShorthand = (str: unknown): any[] => {
   const valueString = String(str);
   const fontFamily = /(sans-serif$)|(monospace$)/;
@@ -79,11 +134,7 @@ export const getValueFromShorthand = (str: unknown): any[] => {
     return [valueString];
   }
   // If we want to filter out NaN just add .filter(Boolean)
-  return String(str)
-    .trim()
-    .split(' ')
-    .filter((val) => val !== '')
-    .map(removePixelSuffix);
+  return splitShorthandValues(String(str).trim()).map(removePixelSuffix);
 };
 
 const isGridSize = (node: EslintNode): node is CallExpression =>
@@ -219,7 +270,8 @@ export const getRawExpression = (
         isNodeOfType(node, 'BinaryExpression') ||
         isNodeOfType(node, 'UnaryExpression') ||
         isNodeOfType(node, 'TemplateLiteral') ||
-        isNodeOfType(node, 'CallExpression')
+        isNodeOfType(node, 'CallExpression') ||
+        isNodeOfType(node, 'ArrowFunctionExpression')
       )
     ) ||
     !Array.isArray(node.range)
@@ -237,6 +289,10 @@ const getValueFromIdentifier = (
 ): number | null | any[] | string | undefined => {
   if (!isNodeOfType(node, 'Identifier')) {
     return null;
+  }
+
+  if (node.name === 'gridSize') {
+    return 8;
   }
 
   const scope = context.getScope();
@@ -424,3 +480,176 @@ export const findParentNodeForLine = (node: Rule.Node): Rule.Node => {
     return findParentNodeForLine(node.parent);
   }
 };
+
+/**
+ * Returns a boolean that signals wether the current property is revelant under the current configuration
+ * @param propertyName camelCase CSS property
+ * @param targetOptions Array containing the types of properties that should be included in the rule
+ * @example
+ * ```
+ * propertyName: padding, targetOptions: ['spacing']
+ * propertyName: fontWeight, targetOptions: ['spacing', 'typography']
+ * ```
+ */
+export function shouldAnalyzeProperty(
+  propertyName: string,
+  targetOptions: TargetOptions,
+): boolean {
+  if (isSpacingProperty(propertyName) && targetOptions.includes('spacing')) {
+    return true;
+  }
+  if (
+    isTypographyProperty(propertyName) &&
+    targetOptions.includes('typography')
+  ) {
+    return true;
+  }
+  return false;
+}
+
+/**
+ * Returns an array of tuples representing a processed css within `TaggedTemplateExpression` node.
+ * each element of the array is a tuple `[string, string]`,
+ * where the first element is the processed css line with computed values
+ * and the second element of the tuple is the original css line from source
+ * @param node TaggedTemplateExpression node
+ * @param context Rule.RuleContext
+ * @example
+ * ```
+ * `[['padding: 8', 'padding: ${gridSize()}'], ['margin: 6', 'margin: 6px' ]]`
+ * ```
+ */
+export function processCssNode(
+  node: TaggedTemplateExpression & Rule.NodeParentExtension,
+  context: Rule.RuleContext,
+): ProcessedCSSLines {
+  const combinedString = node.quasi.quasis
+    .map((q, i) => {
+      return `${q.value.raw}${
+        node.quasi.expressions[i]
+          ? getValue(node.quasi.expressions[i], context)
+          : ''
+      }`;
+    })
+    .join('');
+
+  const rawString = node.quasi.quasis
+    .map((q, i) => {
+      return `${q.value.raw}${
+        node.quasi.expressions[i]
+          ? `\${${getRawExpression(node.quasi.expressions[i], context)}}`
+          : ''
+      }`;
+    })
+    .join('');
+  const cssProperties = splitCssProperties(combinedString);
+  const unalteredCssProperties = splitCssProperties(rawString);
+  return cssProperties.map((cssProperty, index): [string, string] => [
+    cssProperty,
+    unalteredCssProperties[index],
+  ]);
+}
+
+/**
+ * Returns a token node for a given value including fallbacks.
+ * @param propertyName camelCase CSS property
+ * @param value string representing pixel value, or font family, or number representing font weight
+ * @example
+ * ```
+ * propertyName: padding, value: '8px' => token('space.100', '8px')
+ * propertyName: fontWeight, value: 400 => token('font.weight.regular', '400')
+ * ```
+ */
+export function getTokenNodeForValue(propertyName: string, value: string) {
+  const token = isTypographyProperty(propertyName)
+    ? typographyValueToToken[propertyName][value]
+    : spacingValueToToken[value];
+  const fallbackValue =
+    propertyName === 'fontFamily'
+      ? { value: `${value}`, raw: `\"${value}\"` }
+      : `${value}`;
+
+  return callExpression({
+    callee: identifier({ name: 'token' }),
+    arguments: [
+      literal({
+        value: `'${token ?? ''}'`,
+      }),
+      literal(fallbackValue),
+    ],
+    optional: false,
+  });
+}
+
+export function getFontSizeValueInScope(
+  cssProperties: ProcessedCSSLines,
+): number | undefined {
+  const fontSizeNode = cssProperties.find(([style]) => {
+    const [rawProperty, value] = style.split(':');
+    return /font-size/.test(rawProperty) ? value : null;
+  });
+  if (!fontSizeNode) {
+    return undefined;
+  }
+  const [_, fontSizeValue] = fontSizeNode[0].split(':');
+  if (!fontSizeValue) {
+    return undefined;
+  }
+  return getValueFromShorthand(fontSizeValue)[0] as number;
+}
+
+/**
+ * Attempts to remove all non-essential words & characters from a style block.
+ * Including selectors and queries
+ * Adapted from ensure-design-token-usage
+ * @param styleString string of css properties
+ */
+export function splitCssProperties(styleString: string): string[] {
+  return styleString
+    .split('\n')
+    .filter((line) => !line.trim().startsWith('@'))
+    .join('\n')
+    .replace(/\n/g, '')
+    .split(/;|(?<!\$){|(?<!\${.+?)}/) // don't split on template literal expressions i.e. `${...}`
+    .map((el) => el.trim() || '')
+    .filter(Boolean);
+}
+
+/**
+ * returns wether the current string is a token value
+ * @param originalVaue string representing a css property value e.g 1em, 12px
+ */
+export function isTokenValueString(originalValue: string): boolean {
+  return originalValue.startsWith('${token(') && originalValue.endsWith('}');
+}
+
+/**
+ * Returns a string with token expression corresponding to input parameters
+ * if no token found for the pair the function returns undefined
+ * @param propertyName string camelCased css property
+ * @param value the computed value e.g '8px' -> '8'
+ */
+export function getTokenReplacement(
+  propertyName: string,
+  value: string,
+): string | undefined {
+  const isFontWeightOrFamily = /fontWeight|fontFamily/.test(propertyName);
+  const propertyValue = typeof value === 'string' ? value.trim() : value;
+  const pixelValue = propertyValue;
+  const pixelValueString = `${propertyValue}px`;
+  const lookupValue = isFontWeightOrFamily ? pixelValue : pixelValueString;
+
+  const tokenName = isTypographyProperty(propertyName)
+    ? typographyValueToToken[propertyName][lookupValue]
+    : spacingValueToToken[lookupValue];
+
+  if (!tokenName) {
+    return undefined;
+  }
+
+  const replacementTokenValue = getTokenNodeForValue(propertyName, lookupValue);
+
+  // ${token('...', '...')}
+  const replacementSubValue = '${' + replacementTokenValue.toString() + '}';
+  return replacementSubValue;
+}

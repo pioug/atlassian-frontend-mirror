@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,6 +7,5 @@
  */
 //Dutch (Netherlands)
 export default {
-  'fabric.editor.confluence.legacyMobileMacros.chartPlaceholderText':
-    'Hier zou een grafiek moeten staan, maar deze kan niet worden weergegeven. Open deze pagina in een browser om de grafiek te bekijken.',
+  "fabric.editor.confluence.legacyMobileMacros.chartPlaceholderText": "Hier zou een grafiek moeten staan, maar deze kan niet worden weergegeven. Open deze pagina in een browser om de grafiek te bekijken."
 };

@@ -1,5 +1,11 @@
 # @atlaskit/legacy-mobile-macros
 
+## 2.3.12
+
+### Patch Changes
+
+- [`4cded9846c6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4cded9846c6) - Adjust linting in confluence packages to prepare for design system token adoption.
+
 ## 2.3.11
 
 ### Patch Changes

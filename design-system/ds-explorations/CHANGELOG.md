@@ -1,5 +1,11 @@
 # @atlaskit/ds-explorations
 
+## 2.0.5
+
+### Patch Changes
+
+- [`a70970a5aab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a70970a5aab) - Mark Box, Inline, and Stack as deprecated, planned for future removal.
+
 ## 2.0.4
 
 ### Patch Changes

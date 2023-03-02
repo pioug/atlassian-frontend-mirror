@@ -5,6 +5,8 @@
 ### Minor Changes
 
 - [`814e6ed4e14`](https://bitbucket.org/atlassian/atlassian-frontend/commits/814e6ed4e14) - [ux] Adds a new spacing prop on the `DropdownMenu` component to support information density.
+  - New usage `<DropdownMenu spacing="compact" />`
+  - The current default (can also be omitted) `<DropdownMenu spacing="cozy" />`
 
 ### Patch Changes
 

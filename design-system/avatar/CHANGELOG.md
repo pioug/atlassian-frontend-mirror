@@ -1,5 +1,11 @@
 # @atlaskit/avatar
 
+## 21.1.10
+
+### Patch Changes
+
+- [`5aab9bfc96c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5aab9bfc96c) - Replace gridSize in spacing values with corresponding spacing tokens
+
 ## 21.1.9
 
 ### Patch Changes

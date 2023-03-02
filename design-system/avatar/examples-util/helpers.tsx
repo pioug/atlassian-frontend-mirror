@@ -9,7 +9,7 @@ import { gridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 const Wrapper = styled.div`
-  margin-top: ${gridSize}px;
+  margin-top: ${token('space.100', '8px')};
 `;
 
 const ChildrenWrapper = styled.div`
@@ -19,7 +19,7 @@ const ChildrenWrapper = styled.div`
   flex-wrap: wrap;
 
   > * {
-    margin-right: ${gridSize}px;
+    margin-right: ${token('space.100', '8px')};
   }
 `;
 
@@ -41,7 +41,7 @@ export const Code = styled.code`
 `;
 
 export const Gap = styled.span`
-  margin-right: ${gridSize}px;
+  margin-right: ${token('space.100', '8px')};
 `;
 
 export const ShrinkWrap = styled(Gap)`

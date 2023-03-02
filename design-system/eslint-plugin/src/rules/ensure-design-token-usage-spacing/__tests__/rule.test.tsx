@@ -476,7 +476,7 @@ tester.run('ensure-design-token-usage-spacing', rule, {
     // tagged TemplateLiteral padding
     {
       code: 'const cssTemplateLiteral = css`color: red; padding: 16px 24px;`;',
-      output: `// TODO Delete this comment after verifying spacing token -> previous value \`16px 24px\`\nconst cssTemplateLiteral = css\`color: red; padding: \${token('space.200', '16px')} \${token('space.300', '24px')};\`;`,
+      output: `// TODO Delete this comment after verifying spacing token -> previous value \`padding: 16px 24px\`\nconst cssTemplateLiteral = css\`color: red; padding: \${token('space.200', '16px')} \${token('space.300', '24px')};\`;`,
       errors: [
         {
           message:
@@ -486,17 +486,25 @@ tester.run('ensure-design-token-usage-spacing', rule, {
           message:
             'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:24>>',
         },
+        {
+          message:
+            'Automated corrections available for spacing values. Apply autofix to replace values with appropriate tokens',
+        },
       ],
     },
     // tagged TemplateLiteral font-weight
     {
       code: 'const cssTemplateLiteral = css`color: red; font-weight: 400;`;',
       options: [{ addons: ['typography'] }],
-      output: `// TODO Delete this comment after verifying spacing token -> previous value \`400\`\nconst cssTemplateLiteral = css\`color: red; font-weight: \${token('font.weight.regular', '400')};\`;`,
+      output: `// TODO Delete this comment after verifying spacing token -> previous value \`font-weight: 400\`\nconst cssTemplateLiteral = css\`color: red; font-weight: \${token('font.weight.regular', '400')};\`;`,
       errors: [
         {
           message:
             'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<fontWeight:400>>',
+        },
+        {
+          message:
+            'Automated corrections available for spacing values. Apply autofix to replace values with appropriate tokens',
         },
       ],
     },
@@ -504,11 +512,15 @@ tester.run('ensure-design-token-usage-spacing', rule, {
     {
       code: 'const cssTemplateLiteral = css`color: red; line-height: 24px;`;',
       options: [{ addons: ['typography'] }],
-      output: `// TODO Delete this comment after verifying spacing token -> previous value \`24px\`\nconst cssTemplateLiteral = css\`color: red; line-height: \${token('font.lineHeight.300', '24px')};\`;`,
+      output: `// TODO Delete this comment after verifying spacing token -> previous value \`line-height: 24px\`\nconst cssTemplateLiteral = css\`color: red; line-height: \${token('font.lineHeight.300', '24px')};\`;`,
       errors: [
         {
           message:
             'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<lineHeight:24>>',
+        },
+        {
+          message:
+            'Automated corrections available for spacing values. Apply autofix to replace values with appropriate tokens',
         },
       ],
     },
@@ -521,7 +533,7 @@ tester.run('ensure-design-token-usage-spacing', rule, {
     `,
       options: [{ addons: ['typography'] }],
       output: `
-    // TODO Delete this comment after verifying spacing token -> previous value \`-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif\`\nconst cssTemplateLiteral = css\`
+    // TODO Delete this comment after verifying spacing token -> previous value \`font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif\`\nconst cssTemplateLiteral = css\`
       color: red;
       font-family: \${token('font.family.sans', "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif")};\`;
     `,
@@ -529,12 +541,16 @@ tester.run('ensure-design-token-usage-spacing', rule, {
         {
           message: `The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<fontFamily: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif>>`,
         },
+        {
+          message:
+            'Automated corrections available for spacing values. Apply autofix to replace values with appropriate tokens',
+        },
       ],
     },
     // tagged TemplateLiteral with nested styles
     {
       code: 'const cssTemplateLiteral = css`color: red; div { padding: 16px 24px; }`;',
-      output: `// TODO Delete this comment after verifying spacing token -> previous value \`16px 24px\`\nconst cssTemplateLiteral = css\`color: red; div { padding: \${token('space.200', '16px')} \${token('space.300', '24px')}; }\`;`,
+      output: `// TODO Delete this comment after verifying spacing token -> previous value \`padding: 16px 24px\`\nconst cssTemplateLiteral = css\`color: red; div { padding: \${token('space.200', '16px')} \${token('space.300', '24px')}; }\`;`,
       errors: [
         {
           message:
@@ -544,12 +560,19 @@ tester.run('ensure-design-token-usage-spacing', rule, {
           message:
             'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:24>>',
         },
+        {
+          message:
+            'Automated corrections available for spacing values. Apply autofix to replace values with appropriate tokens',
+        },
       ],
     },
     // vanilla template
     {
       code: 'const styledTemplateLiteral = styled.p`color: red; padding: 12px; margin: 4px; gap: 2px`;',
-      output: `// TODO Delete this comment after verifying spacing token -> previous value \`12px\`\nconst styledTemplateLiteral = styled.p\`color: red; padding: \${token('space.150', '12px')}; margin: 4px; gap: 2px\`;`,
+      output: `// TODO Delete this comment after verifying spacing token -> previous value \`padding: 12px\`
+// TODO Delete this comment after verifying spacing token -> previous value \`margin: 4px\`
+// TODO Delete this comment after verifying spacing token -> previous value \`gap: 2px\`
+const styledTemplateLiteral = styled.p\`color: red; padding: \${token('space.150', '12px')}; margin: \${token('space.050', '4px')}; gap: \${token('space.025', '2px')}\`;`,
       errors: [
         {
           message:
@@ -563,11 +586,15 @@ tester.run('ensure-design-token-usage-spacing', rule, {
           message:
             'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<gap:2>>',
         },
+        {
+          message:
+            'Automated corrections available for spacing values. Apply autofix to replace values with appropriate tokens',
+        },
       ],
     },
     {
       code: 'const styledTemplateLiteral = styled.p`color: red; padding: 12px 8px 10px 9px;`;',
-      output: `// TODO Delete this comment after verifying spacing token -> previous value \`12px 8px 10px 9px\`\nconst styledTemplateLiteral = styled.p\`color: red; padding: \${token('space.150', '12px')} \${token('space.100', '8px')} 10px 9px;\`;`,
+      output: `// TODO Delete this comment after verifying spacing token -> previous value \`padding: 12px 8px\`\nconst styledTemplateLiteral = styled.p\`color: red; padding: \${token('space.150', '12px')} \${token('space.100', '8px')} 10px 9px;\`;`,
       errors: [
         {
           message:
@@ -584,6 +611,10 @@ tester.run('ensure-design-token-usage-spacing', rule, {
         {
           message:
             'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:9>>',
+        },
+        {
+          message:
+            'Automated corrections available for spacing values. Apply autofix to replace values with appropriate tokens',
         },
       ],
     },
@@ -673,11 +704,12 @@ styled.div\`
 \`
       `,
       output: `
-// TODO Delete this comment after verifying spacing token -> previous value \`0px\`
+// TODO Delete this comment after verifying spacing token -> previous value \`padding: 0px\`
+// TODO Delete this comment after verifying spacing token -> previous value \`padding-left: 16px\`
 styled.div\`
   padding: \${token('space.0', '0px')};
   .subitem {
-    padding-left: 16px;
+    padding-left: \${token('space.200', '16px')};
   }
 \`
       `,
@@ -689,6 +721,10 @@ styled.div\`
         {
           message:
             'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<paddingLeft:16>>',
+        },
+        {
+          message:
+            'Automated corrections available for spacing values. Apply autofix to replace values with appropriate tokens',
         },
       ],
     },
@@ -702,7 +738,7 @@ styled.div\`
 \`
       `,
       output: `
-// TODO Delete this comment after verifying spacing token -> previous value \`16px\`
+// TODO Delete this comment after verifying spacing token -> previous value \`padding-left: 16px\`
 styled.div\`
   padding: \${token('space.0', '0px')};
   .subitem {
@@ -714,6 +750,10 @@ styled.div\`
         {
           message:
             'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<paddingLeft:16>>',
+        },
+        {
+          message:
+            'Automated corrections available for spacing values. Apply autofix to replace values with appropriate tokens',
         },
       ],
     },
@@ -727,7 +767,7 @@ styled.div\`
 \`
       `,
       output: `
-// TODO Delete this comment after verifying spacing token -> previous value \`16px\`
+// TODO Delete this comment after verifying spacing token -> previous value \`padding: 16px\`
 styled.div\`
   padding: \${token('space.0', '0px')};
   .subitem {
@@ -739,6 +779,10 @@ styled.div\`
         {
           message:
             'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:16>>',
+        },
+        {
+          message:
+            'Automated corrections available for spacing values. Apply autofix to replace values with appropriate tokens',
         },
       ],
     },
@@ -752,7 +796,7 @@ styled.div\`
 \`
       `,
       output: `
-// TODO Delete this comment after verifying spacing token -> previous value \`0 16px\`
+// TODO Delete this comment after verifying spacing token -> previous value \`padding: 0 16px\`
 styled.div\`
   padding: \${token('space.0', '0px')};
   .subitem {
@@ -769,6 +813,10 @@ styled.div\`
           message:
             'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:16>>',
         },
+        {
+          message:
+            'Automated corrections available for spacing values. Apply autofix to replace values with appropriate tokens',
+        },
       ],
     },
     {
@@ -779,7 +827,7 @@ styled.div\`
   padding: \${gridSize() /2}px \${gridSize() * 2}px \${gridSize()*2}px \${gridSize()/ 2}px;
 \``,
       output: `
-// TODO Delete this comment after verifying spacing token -> previous value \`4px 16px 16px 4px\`
+// TODO Delete this comment after verifying spacing token -> previous value \`padding: 4px 16px 16px 4px\`
 styled.div\`
   display: flex;
   align-items: center;
@@ -802,6 +850,10 @@ styled.div\`
           message:
             'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:4>>',
         },
+        {
+          message:
+            'Automated corrections available for spacing values. Apply autofix to replace values with appropriate tokens',
+        },
       ],
     },
     {
@@ -811,7 +863,7 @@ styled.div\`
   font-size: \${fontSize()}px;
 \``,
       output: `
-// TODO Delete this comment after verifying spacing token -> previous value \`14px\`
+// TODO Delete this comment after verifying spacing token -> previous value \`font-size: 14px\`
 styled.div\`
   display: flex;
   font-size: \${token('font.size.100', '14px')};
@@ -822,17 +874,47 @@ styled.div\`
           message:
             'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<fontSize:14>>',
         },
+        {
+          message:
+            'Automated corrections available for spacing values. Apply autofix to replace values with appropriate tokens',
+        },
       ],
     },
     {
       code: `
 styled.div\`
-  padding-inline: 8px 16px;
+  font-size: 8;
+  padding: 1em;
 \``,
       output: `
-// TODO Delete this comment after verifying spacing token -> previous value \`8px 16px\`
+// TODO Delete this comment after verifying spacing token -> previous value \`padding: 1em\`
+styled.div\`
+  font-size: 8;
+  padding: \${token('space.100', '8px')};
+\``,
+      errors: [
+        {
+          message:
+            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:8>>',
+        },
+        {
+          message:
+            'Automated corrections available for spacing values. Apply autofix to replace values with appropriate tokens',
+        },
+      ],
+    },
+    {
+      code: `
+styled.div\`
+  padding-inline: \${gridSize}px \${gridSize *2}px;
+  padding-block: 8px 16px;
+\``,
+      output: `
+// TODO Delete this comment after verifying spacing token -> previous value \`padding-inline: 8px 16px\`
+// TODO Delete this comment after verifying spacing token -> previous value \`padding-block: 8px 16px\`
 styled.div\`
   padding-inline: \${token('space.100', '8px')} \${token('space.200', '16px')};
+  padding-block: \${token('space.100', '8px')} \${token('space.200', '16px')};
 \``,
       errors: [
         {
@@ -842,6 +924,18 @@ styled.div\`
         {
           message:
             'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<paddingInline:16>>',
+        },
+        {
+          message:
+            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<paddingBlock:8>>',
+        },
+        {
+          message:
+            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<paddingBlock:16>>',
+        },
+        {
+          message:
+            'Automated corrections available for spacing values. Apply autofix to replace values with appropriate tokens',
         },
       ],
     },

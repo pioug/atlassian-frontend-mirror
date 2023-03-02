@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,6 +7,5 @@
  */
 //French (France)
 export default {
-  'fabric.editor.confluence.legacyMobileMacros.chartPlaceholderText':
-    "Impossible d'afficher le graphique qui devrait apparaître ici. Ouvrez cette page dans un navigateur pour l'afficher.",
+  "fabric.editor.confluence.legacyMobileMacros.chartPlaceholderText": "Impossible d'afficher le graphique qui devrait apparaître ici. Ouvrez cette page dans un navigateur pour l'afficher."
 };

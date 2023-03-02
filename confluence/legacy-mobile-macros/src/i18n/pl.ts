@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,6 +7,5 @@
  */
 //Polish (Poland)
 export default {
-  'fabric.editor.confluence.legacyMobileMacros.chartPlaceholderText':
-    'Tutaj powinien znajdować się wykres, ale nie można go wyświetlić. Otwórz tę stronę w przeglądarce, aby zobaczyć wykres.',
+  "fabric.editor.confluence.legacyMobileMacros.chartPlaceholderText": "Tutaj powinien znajdować się wykres, ale nie można go wyświetlić. Otwórz tę stronę w przeglądarce, aby zobaczyć wykres."
 };

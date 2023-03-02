@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,6 +7,5 @@
  */
 //Japanese
 export default {
-  'fabric.editor.confluence.legacyMobileMacros.chartPlaceholderText':
-    'グラフはここにあるはずですが、表示できません。グラフを表示するには、ブラウザーでこのページを開いてください。',
+  "fabric.editor.confluence.legacyMobileMacros.chartPlaceholderText": "グラフはここにあるはずですが、表示できません。グラフを表示するには、ブラウザーでこのページを開いてください。"
 };

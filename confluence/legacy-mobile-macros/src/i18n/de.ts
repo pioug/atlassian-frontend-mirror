@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,6 +7,5 @@
  */
 //German (Germany)
 export default {
-  'fabric.editor.confluence.legacyMobileMacros.chartPlaceholderText':
-    'Hier sollte ein Diagramm stehen, es kann aber nicht angezeigt werden. Öffnen Sie diese Seite in einem Browser, um das Diagramm anzuzeigen.',
+  "fabric.editor.confluence.legacyMobileMacros.chartPlaceholderText": "Hier sollte ein Diagramm stehen, es kann aber nicht angezeigt werden. Öffnen Sie diese Seite in einem Browser, um das Diagramm anzuzeigen."
 };

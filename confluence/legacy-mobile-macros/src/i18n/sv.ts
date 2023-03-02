@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,6 +7,5 @@
  */
 //Swedish
 export default {
-  'fabric.editor.confluence.legacyMobileMacros.chartPlaceholderText':
-    'Det borde finnas ett diagram här, men det kan inte visas. Öppna den här sidan i en webbläsare för att se diagrammet.',
+  "fabric.editor.confluence.legacyMobileMacros.chartPlaceholderText": "Det borde finnas ett diagram här, men det kan inte visas. Öppna den här sidan i en webbläsare för att se diagrammet."
 };

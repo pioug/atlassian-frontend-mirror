@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,6 +7,5 @@
  */
 //Korean
 export default {
-  'fabric.editor.confluence.legacyMobileMacros.chartPlaceholderText':
-    '차트는 여기에 있지만 표시되지 않습니다. 차트를 보려면 브라우저에서 이 페이지를 여세요.',
+  "fabric.editor.confluence.legacyMobileMacros.chartPlaceholderText": "차트는 여기에 있지만 표시되지 않습니다. 차트를 보려면 브라우저에서 이 페이지를 여세요."
 };

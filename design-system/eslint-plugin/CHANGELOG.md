@@ -1,5 +1,17 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 4.16.1
+
+### Patch Changes
+
+- [`29648ace573`](https://bitbucket.org/atlassian/atlassian-frontend/commits/29648ace573) - Additional selector for ObjectExpression improves coverage of eslint rule.
+
+## 4.16.0
+
+### Minor Changes
+
+- [`efadee8e999`](https://bitbucket.org/atlassian/atlassian-frontend/commits/efadee8e999) - Update no-deprecated-apis ESlint rule to accept configurations
+
 ## 4.15.6
 
 ### Patch Changes

@@ -1,0 +1,23 @@
+{
+    "cssFn": [
+        {
+            "moduleSpecifier": "@atlaskit/menu"
+        },
+        {
+            "moduleSpecifier": "@atlaskit/side-navigation"
+        }
+    ],
+    "overrides": [
+        {
+            "moduleSpecifier": "@atlaskit/menu"
+        },
+        {
+            "moduleSpecifier": "@atlaskit/side-navigation"
+        }
+    ],
+    "type": [
+        {
+            "moduleSpecifier": "@atlaskit/inline-message"
+        }
+    ]
+}

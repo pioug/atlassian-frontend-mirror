@@ -9,6 +9,7 @@
   },
   "atlassian": {
     "team": "Linking Platform - Link Provider",
+    "singleton": true,
     "inPublicMirror": false,
     "releaseModel": "continuous",
     "website": {

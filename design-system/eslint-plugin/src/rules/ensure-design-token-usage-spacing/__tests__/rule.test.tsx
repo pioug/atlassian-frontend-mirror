@@ -1,7 +1,7 @@
-import { tester } from '../../__tests__/utils/_tester';
+import { tester, typescriptEslintTester } from '../../__tests__/utils/_tester';
 import rule from '../index';
 
-tester.run('ensure-design-token-usage-spacing', rule, {
+const tests = {
   valid: [
     {
       code: `const styles = css({
@@ -123,7 +123,7 @@ tester.run('ensure-design-token-usage-spacing', rule, {
         // TODO Delete this comment after verifying spacing token -> previous value \`400\`
         fontWeight: token('font.weight.regular', '400'),
         // TODO Delete this comment after verifying spacing token -> previous value \`\`-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif\`\`
-        fontFamily: token('font.family.sans', \"-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif\"),
+        fontFamily: token('font.family.sans', \`-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif\`),
         // TODO Delete this comment after verifying spacing token -> previous value \`'20px'\`
         fontSize: token('font.size.300', '20px'),
         // TODO Delete this comment after verifying spacing token -> previous value \`'24px'\`
@@ -145,6 +145,23 @@ tester.run('ensure-design-token-usage-spacing', rule, {
         margin: '12px',
       })`,
       output: `const styles = css({
+        // TODO Delete this comment after verifying spacing token -> previous value \`8\`
+        padding: token('space.100', '8px'),
+        // TODO Delete this comment after verifying spacing token -> previous value \`'12px'\`
+        margin: token('space.150', '12px'),
+      })`,
+      errors: [
+        { messageId: 'noRawSpacingValues' },
+        { messageId: 'noRawSpacingValues' },
+      ],
+    },
+    // numbers and strings with styled
+    {
+      code: `const styles = styled.div({
+        padding: 8,
+        margin: '12px',
+      })`,
+      output: `const styles = styled.div({
         // TODO Delete this comment after verifying spacing token -> previous value \`8\`
         padding: token('space.100', '8px'),
         // TODO Delete this comment after verifying spacing token -> previous value \`'12px'\`
@@ -535,7 +552,7 @@ tester.run('ensure-design-token-usage-spacing', rule, {
       output: `
     // TODO Delete this comment after verifying spacing token -> previous value \`font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif\`\nconst cssTemplateLiteral = css\`
       color: red;
-      font-family: \${token('font.family.sans', "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif")};\`;
+      font-family: \${token('font.family.sans', \`-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif\`)};\`;
     `,
       errors: [
         {
@@ -1004,4 +1021,8 @@ styled.div\`
     //       ],
     //     },
   ],
-});
+};
+
+// @ts-expect-error
+typescriptEslintTester.run('ensure-design-token-usage-spacing', rule, tests);
+tester.run('ensure-design-token-usage-spacing', rule, tests);

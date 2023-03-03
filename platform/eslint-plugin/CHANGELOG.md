@@ -1,5 +1,17 @@
 # @atlaskit/eslint-plugin-platform
 
+## 0.0.6
+
+### Patch Changes
+
+- [`99449cce7f5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/99449cce7f5) - Eslint rules around test runner arguments and limit on nested test runners
+
+## 0.0.5
+
+### Patch Changes
+
+- [`aeb52cac34c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aeb52cac34c) - Split feature flag registration rule into two to more easily use it in products
+
 ## 0.0.4
 
 ### Patch Changes

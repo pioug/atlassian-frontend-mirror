@@ -1,0 +1,13 @@
+{
+    "cssFn2": [
+        {
+            "moduleSpecifier": "@atlaskit/menu",
+            "namedSpecifiers": [
+                "ButtonItem",
+                "MenuGroup"
+            ],
+            "actionableVersion": "1.2.6",
+            "dueDate": "2023-11-13"
+        }
+    ]
+}

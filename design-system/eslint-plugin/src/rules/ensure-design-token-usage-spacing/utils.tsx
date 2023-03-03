@@ -212,11 +212,11 @@ const getValueFromCallExpression = (
   }
 
   if (isFontFamily(node)) {
-    return `-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif`;
+    return `-apple-system, BlinkMacSystemFont, \'Segoe UI\', \'Roboto\', \'Oxygen\', \'Ubuntu\', \'Fira Sans\', \'Droid Sans\', \'Helvetica Neue\', sans-serif`;
   }
 
   if (isCodeFontFamily(node)) {
-    return `'SFMono-Medium', 'SF Mono', 'Segoe UI Mono', 'Roboto Mono', 'Ubuntu Mono', Menlo, Consolas, Courier, monospace`;
+    return `\'SFMono-Medium\', \'SF Mono\', \'Segoe UI Mono\', \'Roboto Mono\', \'Ubuntu Mono\', Menlo, Consolas, Courier, monospace`;
   }
 
   if (isToken(node)) {
@@ -566,7 +566,7 @@ export function getTokenNodeForValue(propertyName: string, value: string) {
     : spacingValueToToken[value];
   const fallbackValue =
     propertyName === 'fontFamily'
-      ? { value: `${value}`, raw: `\"${value}\"` }
+      ? { value: `${value}`, raw: `\`${value}\`` }
       : `${value}`;
 
   return callExpression({

@@ -1,7 +1,10 @@
-import { tester } from '../../__tests__/utils/_tester';
-import rule from '../index';
+import { typescriptEslintTester } from '../../__tests__/utils/_tester';
+import rule, { name, noDeprecatedJSXAttributeMessageId } from '../index';
 
-tester.run('no-deprecated-imports', rule, {
+import defaultMeta from './__fixtures__/default.json';
+import hasNamedSpecifiers from './__fixtures__/has-named-specifiers.json';
+
+typescriptEslintTester.run(name, rule, {
   valid: [
     {
       code: `import { SomeElement } from 'some-other-library';
@@ -11,18 +14,20 @@ tester.run('no-deprecated-imports', rule, {
       );`,
     },
     {
+      code: `import { SomeElement } from 'some-other-library';
+
+      const Element = () => (
+        <SomeElement cssFn={cssFn()} />
+      );`,
+      options: [{ deprecatedConfig: defaultMeta }],
+    },
+    {
       code: `import { ButtonItem } from '@atlaskit/menu';
 
       const Element = () => (
         <ButtonItem />
       );`,
-    },
-    {
-      code: `import Drawer from '@atlaskit/drawer';
-
-      const Element = () => (
-        <Drawer />
-      );`,
+      options: [{ deprecatedConfig: defaultMeta }],
     },
     {
       code: `import { ButtonItem } from '@atlaskit/side-navigation';
@@ -32,13 +37,7 @@ tester.run('no-deprecated-imports', rule, {
           <ButtonItem />
         </SomeUsage>
       );`,
-    },
-    {
-      code: `import { SomeElement } from 'some-other-library';
-
-      const Element = () => (
-        <SomeElement isOpen innerRef={() => 'hi'} />
-      );`,
+      options: [{ deprecatedConfig: defaultMeta }],
     },
     {
       code: `import InlineMessage from '@atlaskit/inline-message';
@@ -46,24 +45,27 @@ tester.run('no-deprecated-imports', rule, {
       const Element = () => (
         <InlineMessage appearance='connectivity' />
       );`,
+      options: [{ deprecatedConfig: defaultMeta }],
+    },
+    {
+      code: `import { Section } from '@atlaskit/inline-message';
+
+      const Element = () => (
+        <Section cssFn2={cssFn()} />
+      );`,
+      options: [{ deprecatedConfig: hasNamedSpecifiers }],
     },
   ],
+
   invalid: [
     {
-      code: `import Drawer from '@atlaskit/drawer';
-
-      const Element = () => (
-        <Drawer overrides={overrides} />
-      );`,
-      errors: [{ messageId: 'noDeprecatedApis' }],
-    },
-    {
       code: `import { ButtonItem } from '@atlaskit/menu';
 
       const Element = () => (
         <ButtonItem cssFn={cssFn()} />
       );`,
-      errors: [{ messageId: 'noDeprecatedApis' }],
+      options: [{ deprecatedConfig: defaultMeta }],
+      errors: [{ messageId: noDeprecatedJSXAttributeMessageId }],
     },
     {
       code: `import { ButtonItem } from '@atlaskit/side-navigation';
@@ -71,7 +73,8 @@ tester.run('no-deprecated-imports', rule, {
       const Element = () => (
         <ButtonItem cssFn={cssFn()} />
       );`,
-      errors: [{ messageId: 'noDeprecatedApis' }],
+      errors: [{ messageId: noDeprecatedJSXAttributeMessageId }],
+      options: [{ deprecatedConfig: defaultMeta }],
     },
     {
       code: `import { ButtonItem } from '@atlaskit/side-navigation';
@@ -79,7 +82,8 @@ tester.run('no-deprecated-imports', rule, {
       const Element = () => (
         <ButtonItem overrides={{ Item: { cssFn }}} />
       );`,
-      errors: [{ messageId: 'noDeprecatedApis' }],
+      errors: [{ messageId: noDeprecatedJSXAttributeMessageId }],
+      options: [{ deprecatedConfig: defaultMeta }],
     },
     {
       code: `import { ButtonItem } from '@atlaskit/menu';
@@ -87,23 +91,8 @@ tester.run('no-deprecated-imports', rule, {
       const Element = () => (
         <ButtonItem overrides={{ Item: { cssFn }}} />
       );`,
-      errors: [{ messageId: 'noDeprecatedApis' }],
-    },
-    {
-      code: `import Banner from '@atlaskit/banner';
-
-      const Element = () => (
-        <Banner isOpen />
-      );`,
-      errors: [{ messageId: 'noDeprecatedApis' }],
-    },
-    {
-      code: `import Banner from '@atlaskit/banner';
-
-      const Element = () => (
-        <Banner innerRef={() => 'hi'} />
-      );`,
-      errors: [{ messageId: 'noDeprecatedApis' }],
+      errors: [{ messageId: noDeprecatedJSXAttributeMessageId }],
+      options: [{ deprecatedConfig: defaultMeta }],
     },
     {
       code: `import InlineMessage from '@atlaskit/inline-message';
@@ -111,7 +100,26 @@ tester.run('no-deprecated-imports', rule, {
       const Element = () => (
         <InlineMessage type='connectivity' />
       );`,
-      errors: [{ messageId: 'noDeprecatedApis' }],
+      errors: [{ messageId: noDeprecatedJSXAttributeMessageId }],
+      options: [{ deprecatedConfig: defaultMeta }],
+    },
+    {
+      code: `import { ButtonItem } from '@atlaskit/menu';
+
+        const Element = () => (
+          <ButtonItem cssFn2={cssFn()} />
+        );`,
+      errors: [{ messageId: noDeprecatedJSXAttributeMessageId }],
+      options: [{ deprecatedConfig: hasNamedSpecifiers }],
+    },
+    {
+      code: `import { MenuGroup } from '@atlaskit/menu';
+
+        const Element = () => (
+          <MenuGroup cssFn2={cssFn()} />
+        );`,
+      errors: [{ messageId: noDeprecatedJSXAttributeMessageId }],
+      options: [{ deprecatedConfig: hasNamedSpecifiers }],
     },
   ],
 });

@@ -34,48 +34,13 @@ describe('with existing platform-feature-flags section', () => {
   tester.run('ensure-feature-flag-registration', rule, {
     valid: [
       {
-        // IfStatement
-        code: `if(getBooleanFF('test-flag')) { }`,
-      },
-      {
-        // ConditionalExpression
-        code: `const val = getBooleanFF('test-flag') ? 'yay' : 'no';`,
-      },
-      {
-        // LogicalExpression
-        code: `const val = 100 + (getBooleanFF('test-flag') && 50 || 10);`,
+        code: `getBooleanFF('test-flag')`,
       },
     ],
     invalid: [
       {
-        code: `getBooleanFF('test-flag')`,
-        errors: [{ messageId: 'onlyInlineIf' }],
-      },
-      {
-        code: `const val = getBooleanFF('test-flag')`,
-        errors: [{ messageId: 'onlyInlineIf' }],
-      },
-      {
-        code: `if(getBooleanFF('invalid-flag')) { }`,
+        code: `getBooleanFF('invalid-flag')`,
         errors: [{ messageId: 'featureFlagMissing' }],
-      },
-      {
-        code: `const ff = "test-flag"; if(getBooleanFF(ff)) { }`,
-        errors: [{ messageId: 'onlyStringLiteral' }],
-      },
-      {
-        code: `if(getBooleanFF('test-flag') && getBooleanFF('test-flag')) { }`,
-        errors: [
-          { messageId: 'multipleFlagCheckInExpression' },
-          { messageId: 'multipleFlagCheckInExpression' },
-        ],
-      },
-      {
-        code: `if((getBooleanFF('test-flag') || 1 == true) && getBooleanFF('test-flag')) { }`,
-        errors: [
-          { messageId: 'multipleFlagCheckInExpression' },
-          { messageId: 'multipleFlagCheckInExpression' },
-        ],
       },
     ],
   });

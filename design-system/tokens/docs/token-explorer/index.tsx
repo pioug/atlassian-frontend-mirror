@@ -497,7 +497,7 @@ const TokenExplorer = ({ scrollOffset, testId }: TokenExplorerProps) => {
         <FilterItem css={{ display: 'flex', flexDirection: 'column' }}>
           <DropdownMenu
             testId={testId && `${testId}-syntax`}
-            trigger={syntax === 'default' ? 'Javascript syntax' : 'CSS syntax'}
+            trigger={syntax === 'default' ? 'JavaScript syntax' : 'CSS syntax'}
           >
             <DropdownItemRadioGroup id="syntax">
               <DropdownItemRadio
@@ -505,7 +505,7 @@ const TokenExplorer = ({ scrollOffset, testId }: TokenExplorerProps) => {
                 isSelected={syntax === 'default'}
                 onClick={() => saveSyntax('default')}
               >
-                React syntax
+                JavaScript syntax
               </DropdownItemRadio>
               <DropdownItemRadio
                 id="css-var"

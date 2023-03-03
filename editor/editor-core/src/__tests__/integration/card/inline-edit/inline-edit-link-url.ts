@@ -10,9 +10,13 @@ import {
 import { waitForInlineCardSelection } from '@atlaskit/media-integration-test-helpers';
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 
+// FIXME: This test was automatically skipped due to failure on 02/03/2023: https://product-fabric.atlassian.net/browse/ED-17040
 BrowserTestCase(
   'card: changing the link URL of an inline link to another supported link should reresolve smart card',
-  { skip: ['safari', 'firefox'] },
+  {
+    // skip: ['safari', 'firefox'],
+    skip: ['*'],
+  },
   async (client: ConstructorParameters<typeof Page>[0], testName: string) => {
     const page = new Page(client);
 

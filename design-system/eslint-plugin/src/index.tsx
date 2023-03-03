@@ -45,3 +45,5 @@ export const configs = {
     },
   },
 };
+
+export { filterActionableDeprecations } from './rules/no-deprecated-apis/helpers/filter-actionable-deprecations';

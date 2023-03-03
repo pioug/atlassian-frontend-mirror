@@ -23,6 +23,9 @@ export const configs: {
     plugins: string[];
     rules: {
       '@atlaskit/platform/ensure-feature-flag-registration': string;
+      '@atlaskit/platform/ensure-test-runner-arguments': string;
+      '@atlaskit/platform/ensure-test-runner-nested-count': string;
+      '@atlaskit/platform/no-invalid-feature-flag-usage': string;
     };
   };
 };
@@ -30,6 +33,9 @@ export const configs: {
 // @public (undocumented)
 export const rules: {
   'ensure-feature-flag-registration': Rule.RuleModule;
+  'ensure-test-runner-arguments': Rule.RuleModule;
+  'ensure-test-runner-nested-count': Rule.RuleModule;
+  'no-invalid-feature-flag-usage': Rule.RuleModule;
 };
 
 // (No @packageDocumentation comment for this package)

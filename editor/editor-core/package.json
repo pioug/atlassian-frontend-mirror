@@ -16,6 +16,7 @@
   "atlaskit:src": "src/index.ts",
   "atlassian": {
     "team": "Editor",
+    "singleton": true,
     "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "scheduled",
@@ -168,7 +169,7 @@
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@atlassian/link-picker-atlassian-plugin": "^26.1.0",
     "@atlassian/link-picker-plugins": "^15.1.0",
-    "@atlassian/search-provider": "2.3.11",
+    "@atlassian/search-provider": "2.3.12",
     "@atlassian/ufo": "^0.1.0",
     "@emotion/jest": "^11.8.0",
     "@storybook/addon-knobs": "^5.3.18",

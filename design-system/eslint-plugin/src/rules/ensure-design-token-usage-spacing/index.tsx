@@ -58,201 +58,200 @@ const rule: Rule.RuleModule = {
 
     return {
       // CSSObjectExpression
-      // const styles = css({ color: 'red', margin: '4px' })
-      'CallExpression[callee.name=css] > ObjectExpression': (
-        parentNode: Rule.Node,
-      ) => {
-        if (!isNodeOfType(parentNode, 'ObjectExpression')) {
-          return;
-        }
-
-        /**
-         * We do this in case the fontSize for a style object is declared alongside the `em` or `lineHeight` declaration
-         */
-        const fontSizeNode = parentNode.properties.find((node) => {
-          if (!isNodeOfType(node, 'Property')) {
+      // const styles = css({ color: 'red', margin: '4px' }), styled.div({ color: 'red', margin: '4px' })
+      'CallExpression[callee.name=css] > ObjectExpression, CallExpression[callee.object.name=styled] > ObjectExpression':
+        (parentNode: Rule.Node) => {
+          if (!isNodeOfType(parentNode, 'ObjectExpression')) {
             return;
-          }
-
-          if (!isNodeOfType(node.key, 'Identifier')) {
-            return;
-          }
-
-          return node.key.name === 'fontSize';
-        });
-
-        const fontSizeValue = getValue(
-          // @ts-expect-error
-          isNodeOfType(fontSizeNode, 'Property') && fontSizeNode.value,
-          context,
-        );
-
-        const fontSize = Array.isArray(fontSizeValue)
-          ? fontSizeValue[0]
-          : fontSizeValue;
-
-        function findObjectStyles(node: EslintNode): void {
-          if (!isNodeOfType(node, 'Property')) {
-            return;
-          }
-
-          if (isNodeOfType(node.value, 'ObjectExpression')) {
-            return node.value.properties.forEach(findObjectStyles);
-          }
-
-          if (!isNodeOfType(node.key, 'Identifier')) {
-            return;
-          }
-
-          if (!shouldAnalyzeProperty(node.key.name, targetCategories)) {
-            return;
-          }
-
-          if (isDecendantOfGlobalToken(node.value)) {
-            return;
-          }
-
-          if (
-            isNodeOfType(node.value, 'TemplateLiteral') &&
-            node.value.expressions.some(isDecendantOfGlobalToken)
-          ) {
-            return;
-          }
-          if (
-            node.value.type === 'Literal' &&
-            !isValidSpacingValue(node.value.value, fontSize)
-          ) {
-            context.report({
-              node,
-              messageId: 'noRawSpacingValues',
-              data: {
-                payload: `NaN:${node.value.value}`,
-              },
-            });
-            return;
-          }
-
-          const propertyName = (node.key as Identifier).name;
-          const isFontFamily = /fontFamily/.test(propertyName);
-
-          const value = getValue(node.value, context);
-
-          // value is either NaN or it can't be resolved eg, em, 100% etc...
-          if (!(value && isValidSpacingValue(value, fontSize))) {
-            return context.report({
-              node,
-              messageId: 'noRawSpacingValues',
-              data: {
-                payload: `NaN:${value}`,
-              },
-            });
-          }
-
-          const values = Array.isArray(value) ? value : [value];
-
-          // value is a single value so we can apply a more robust approach to our fix
-          // treat fontFamily as having one value
-          if (values.length === 1 || isFontFamily) {
-            const [value] = values;
-            const pixelValue = isFontFamily
-              ? value
-              : emToPixels(value, fontSize);
-
-            return context.report({
-              node,
-              messageId: 'noRawSpacingValues',
-              data: {
-                payload: `${propertyName}:${pixelValue}`,
-              },
-              fix: (fixer) => {
-                if (!shouldAnalyzeProperty(propertyName, targetCategories)) {
-                  return null;
-                }
-
-                const pixelValueString = `${pixelValue}px`;
-
-                const lookupValue = /fontWeight|fontFamily/.test(propertyName)
-                  ? pixelValue
-                  : pixelValueString;
-
-                const tokenName = isTypographyProperty(propertyName)
-                  ? typographyValueToToken[propertyName][lookupValue]
-                  : spacingValueToToken[lookupValue];
-
-                if (!tokenName) {
-                  return null;
-                }
-
-                const replacementValue = getTokenNodeForValue(
-                  propertyName,
-                  lookupValue,
-                );
-
-                return [
-                  fixer.insertTextBefore(
-                    node,
-                    `// TODO Delete this comment after verifying spacing token -> previous value \`${nodeFn(
-                      node.value,
-                    )}\`\n${' '.padStart(node.loc?.start.column || 0)}`,
-                  ),
-                  fixer.replaceText(
-                    node,
-                    property({
-                      ...node,
-                      value: replacementValue,
-                    }).toString(),
-                  ),
-                ];
-              },
-            });
           }
 
           /**
-           * Compound values are hard to deal with / replace because we need to find/replace strings inside an
-           * estree node.
-           *
-           * @example
-           * { padding: '8px 0px' } // two values we don't try and apply the fixer
+           * We do this in case the fontSize for a style object is declared alongside the `em` or `lineHeight` declaration
            */
-          values.forEach((val, index) => {
-            const pixelValue = emToPixels(val, fontSize);
+          const fontSizeNode = parentNode.properties.find((node) => {
+            if (!isNodeOfType(node, 'Property')) {
+              return;
+            }
 
-            context.report({
-              node,
-              messageId: 'noRawSpacingValues',
-              data: {
-                payload: `${propertyName}:${pixelValue}`,
-              },
-              fix:
-                index === 0
-                  ? (fixer) => {
-                      const allResolvableValues = values.every(
-                        (value) => !Number.isNaN(emToPixels(value, fontSize)),
-                      );
-                      if (!allResolvableValues) {
-                        return null;
-                      }
-                      return fixer.replaceText(
-                        node.value,
-                        `\`${values
-                          .map((value) => {
-                            const pixelValue = emToPixels(value, fontSize);
-                            const pixelValueString = `${pixelValue}px`;
-                            return `\${${getTokenNodeForValue(
-                              propertyName,
-                              pixelValueString,
-                            )}}`;
-                          })
-                          .join(' ')}\``,
-                      );
-                    }
-                  : undefined,
-            });
+            if (!isNodeOfType(node.key, 'Identifier')) {
+              return;
+            }
+
+            return node.key.name === 'fontSize';
           });
-        }
 
-        parentNode.properties.forEach(findObjectStyles);
-      },
+          const fontSizeValue = getValue(
+            // @ts-expect-error
+            isNodeOfType(fontSizeNode, 'Property') && fontSizeNode.value,
+            context,
+          );
+
+          const fontSize = Array.isArray(fontSizeValue)
+            ? fontSizeValue[0]
+            : fontSizeValue;
+
+          function findObjectStyles(node: EslintNode): void {
+            if (!isNodeOfType(node, 'Property')) {
+              return;
+            }
+
+            if (isNodeOfType(node.value, 'ObjectExpression')) {
+              return node.value.properties.forEach(findObjectStyles);
+            }
+
+            if (!isNodeOfType(node.key, 'Identifier')) {
+              return;
+            }
+
+            if (!shouldAnalyzeProperty(node.key.name, targetCategories)) {
+              return;
+            }
+
+            if (isDecendantOfGlobalToken(node.value)) {
+              return;
+            }
+
+            if (
+              isNodeOfType(node.value, 'TemplateLiteral') &&
+              node.value.expressions.some(isDecendantOfGlobalToken)
+            ) {
+              return;
+            }
+            if (
+              node.value.type === 'Literal' &&
+              !isValidSpacingValue(node.value.value, fontSize)
+            ) {
+              context.report({
+                node,
+                messageId: 'noRawSpacingValues',
+                data: {
+                  payload: `NaN:${node.value.value}`,
+                },
+              });
+              return;
+            }
+
+            const propertyName = (node.key as Identifier).name;
+            const isFontFamily = /fontFamily/.test(propertyName);
+
+            const value = getValue(node.value, context);
+
+            // value is either NaN or it can't be resolved eg, em, 100% etc...
+            if (!(value && isValidSpacingValue(value, fontSize))) {
+              return context.report({
+                node,
+                messageId: 'noRawSpacingValues',
+                data: {
+                  payload: `NaN:${value}`,
+                },
+              });
+            }
+
+            const values = Array.isArray(value) ? value : [value];
+
+            // value is a single value so we can apply a more robust approach to our fix
+            // treat fontFamily as having one value
+            if (values.length === 1 || isFontFamily) {
+              const [value] = values;
+              const pixelValue = isFontFamily
+                ? value
+                : emToPixels(value, fontSize);
+
+              return context.report({
+                node,
+                messageId: 'noRawSpacingValues',
+                data: {
+                  payload: `${propertyName}:${pixelValue}`,
+                },
+                fix: (fixer) => {
+                  if (!shouldAnalyzeProperty(propertyName, targetCategories)) {
+                    return null;
+                  }
+
+                  const pixelValueString = `${pixelValue}px`;
+
+                  const lookupValue = /fontWeight|fontFamily/.test(propertyName)
+                    ? pixelValue
+                    : pixelValueString;
+
+                  const tokenName = isTypographyProperty(propertyName)
+                    ? typographyValueToToken[propertyName][lookupValue]
+                    : spacingValueToToken[lookupValue];
+
+                  if (!tokenName) {
+                    return null;
+                  }
+
+                  const replacementValue = getTokenNodeForValue(
+                    propertyName,
+                    lookupValue,
+                  );
+
+                  return [
+                    fixer.insertTextBefore(
+                      node,
+                      `// TODO Delete this comment after verifying spacing token -> previous value \`${nodeFn(
+                        node.value,
+                      )}\`\n${' '.padStart(node.loc?.start.column || 0)}`,
+                    ),
+                    fixer.replaceText(
+                      node,
+                      property({
+                        ...node,
+                        value: replacementValue,
+                      }).toString(),
+                    ),
+                  ];
+                },
+              });
+            }
+
+            /**
+             * Compound values are hard to deal with / replace because we need to find/replace strings inside an
+             * estree node.
+             *
+             * @example
+             * { padding: '8px 0px' } // two values we don't try and apply the fixer
+             */
+            values.forEach((val, index) => {
+              const pixelValue = emToPixels(val, fontSize);
+
+              context.report({
+                node,
+                messageId: 'noRawSpacingValues',
+                data: {
+                  payload: `${propertyName}:${pixelValue}`,
+                },
+                fix:
+                  index === 0
+                    ? (fixer) => {
+                        const allResolvableValues = values.every(
+                          (value) => !Number.isNaN(emToPixels(value, fontSize)),
+                        );
+                        if (!allResolvableValues) {
+                          return null;
+                        }
+                        return fixer.replaceText(
+                          node.value,
+                          `\`${values
+                            .map((value) => {
+                              const pixelValue = emToPixels(value, fontSize);
+                              const pixelValueString = `${pixelValue}px`;
+                              return `\${${getTokenNodeForValue(
+                                propertyName,
+                                pixelValueString,
+                              )}}`;
+                            })
+                            .join(' ')}\``,
+                        );
+                      }
+                    : undefined,
+              });
+            });
+          }
+
+          parentNode.properties.forEach(findObjectStyles);
+        },
 
       // CSSTemplateLiteral and StyledTemplateLiteral
       // const cssTemplateLiteral = css`color: red; padding: 12px`;

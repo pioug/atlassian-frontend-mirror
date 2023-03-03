@@ -11,6 +11,9 @@
     "src/**/*.tsx",
     "scripts"
   ],
+  "exclude": [
+    "src/**/__tests__/*.*",
+  ],
   "compilerOptions": {
     "baseUrl": "./",
     "lib": ["ES2021.String"]

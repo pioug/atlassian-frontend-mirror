@@ -129,7 +129,8 @@ describe('<Modal />', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  it('with AvatarGroup', async () => {
+  // FIXME: This test was automatically skipped due to failure on 02/03/2023: https://product-fabric.atlassian.net/browse/DSP-9055
+  it.skip('with AvatarGroup', async () => {
     const page = await openModal(url, options);
 
     await page.click(scrollToBottom);

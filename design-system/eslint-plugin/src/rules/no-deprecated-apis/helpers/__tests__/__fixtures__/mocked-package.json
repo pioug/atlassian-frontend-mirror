@@ -1,0 +1,9 @@
+{
+    "name": "@atlaskit/test",
+    "private": true,
+    "dependencies": {
+        "@atlaskit/menu": "^1.2.8",
+        "@atlaskit/side-navigation": "^1.2.3",
+        "@atlaskit/inline-message": "^5.5.4"
+    }
+}

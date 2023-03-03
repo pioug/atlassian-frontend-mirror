@@ -19,6 +19,7 @@
   },
   "atlassian": {
     "team": "Media Experience",
+    "singleton": true,
     "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {

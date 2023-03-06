@@ -3,6 +3,9 @@
 // So we have to 'clean' the JSDOM environment
 // (this is how the @atlaskit/ssr package works)
 
+// 0. Turning file into a module so that we can do a top level `window.close()`
+export {};
+
 // 1. Close down any existing jsdom windows
 // https://github.com/jsdom/jsdom#closing-down-a-jsdom
 window.close();

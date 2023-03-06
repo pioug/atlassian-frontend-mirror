@@ -4,8 +4,8 @@ import {
   takeElementScreenShot,
 } from '@atlaskit/visual-regression/helper';
 
-describe('drop indicator with a terminal', () => {
-  test('appearances', async () => {
+describe('tree item drop indicator', () => {
+  test('instructions', async () => {
     const { page } = global;
     const url = getExampleUrl(
       'drag-and-drop',

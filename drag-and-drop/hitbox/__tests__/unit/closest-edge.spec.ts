@@ -234,3 +234,17 @@ scenarios.forEach((scenario: Scenario) => {
     expect(result).toEqual(scenario.expected);
   });
 });
+
+it('should not impact user data', () => {
+  const [element] = getElements();
+  element.getBoundingClientRect = () => rect;
+  const data = { message: 'hello' };
+
+  const updated = attachClosestEdge(data, {
+    element,
+    input: getDefaultInput(),
+    allowedEdges: ['top'],
+  });
+
+  expect(updated.message).toEqual('hello');
+});

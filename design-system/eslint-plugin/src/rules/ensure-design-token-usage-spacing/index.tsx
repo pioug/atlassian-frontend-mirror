@@ -3,11 +3,13 @@ import type { Rule } from 'eslint';
 import {
   EslintNode,
   Identifier,
+  ImportDeclaration,
   isNodeOfType,
   node as nodeFn,
   property,
 } from 'eslint-codemod-utils';
 
+import { createRule } from '../utils/create-rule';
 import { isDecendantOfGlobalToken } from '../utils/is-node';
 
 import {
@@ -19,6 +21,7 @@ import {
   getTokenReplacement,
   getValue,
   getValueFromShorthand,
+  insertTokensImport,
   isTokenValueString,
   isTypographyProperty,
   isValidSpacingValue,
@@ -26,18 +29,45 @@ import {
   shouldAnalyzeProperty,
   spacingValueToToken,
   splitShorthandValues,
-  TargetOptions,
   typographyValueToToken,
 } from './utils';
 
-const rule: Rule.RuleModule = {
+type Addon = 'spacing' | 'typography' | 'shape';
+type RuleConfig = {
+  addons: Addon[];
+  applyImport?: boolean;
+};
+
+const rule = createRule<
+  [RuleConfig],
+  'noRawSpacingValues' | 'autofixesPossible'
+>({
+  defaultOptions: [{ addons: ['spacing'], applyImport: true }],
+  name: 'ensure-design-token-usage-spacing',
   meta: {
+    schema: {
+      type: 'array',
+      items: {
+        type: 'object',
+        properties: {
+          applyImport: {
+            type: 'boolean',
+          },
+          addons: {
+            type: 'array',
+            items: {
+              enum: ['spacing', 'typography', 'shape'],
+            },
+          },
+        },
+      },
+    },
     type: 'problem',
     fixable: 'code',
     docs: {
       description:
         'Rule ensures all spacing CSS properties apply a matching spacing token',
-      recommended: true,
+      recommended: 'error',
     },
     messages: {
       noRawSpacingValues:
@@ -46,17 +76,29 @@ const rule: Rule.RuleModule = {
         'Automated corrections available for spacing values. Apply autofix to replace values with appropriate tokens',
     },
   },
-  create(context) {
-    const targetCategories: TargetOptions = ['spacing'];
-    const configCategories = context.options[0]?.addons;
-    if (
-      Array.isArray(configCategories) &&
-      configCategories.includes('typography')
-    ) {
-      targetCategories.push('typography');
+  // @ts-expect-error
+  create(context: Rule.RuleContext, options: [RuleConfig]) {
+    let tokenNode: ImportDeclaration | null = null;
+
+    // merge configs
+    const ruleConfig: RuleConfig = {
+      ...options[0],
+      addons: [...options[0].addons],
+    };
+
+    if (!ruleConfig.addons.includes('spacing')) {
+      ruleConfig.addons.push('spacing');
     }
 
     return {
+      ImportDeclaration(node) {
+        if (
+          node.source.value === '@atlaskit/tokens' &&
+          ruleConfig.applyImport
+        ) {
+          tokenNode = node;
+        }
+      },
       // CSSObjectExpression
       // const styles = css({ color: 'red', margin: '4px' }), styled.div({ color: 'red', margin: '4px' })
       'CallExpression[callee.name=css] > ObjectExpression, CallExpression[callee.object.name=styled] > ObjectExpression':
@@ -103,7 +145,7 @@ const rule: Rule.RuleModule = {
               return;
             }
 
-            if (!shouldAnalyzeProperty(node.key.name, targetCategories)) {
+            if (!shouldAnalyzeProperty(node.key.name, ruleConfig.addons)) {
               return;
             }
 
@@ -164,7 +206,7 @@ const rule: Rule.RuleModule = {
                   payload: `${propertyName}:${pixelValue}`,
                 },
                 fix: (fixer) => {
-                  if (!shouldAnalyzeProperty(propertyName, targetCategories)) {
+                  if (!shouldAnalyzeProperty(propertyName, ruleConfig.addons)) {
                     return null;
                   }
 
@@ -187,7 +229,11 @@ const rule: Rule.RuleModule = {
                     lookupValue,
                   );
 
-                  return [
+                  return (
+                    !tokenNode && ruleConfig.applyImport
+                      ? [insertTokensImport(fixer)]
+                      : []
+                  ).concat([
                     fixer.insertTextBefore(
                       node,
                       `// TODO Delete this comment after verifying spacing token -> previous value \`${nodeFn(
@@ -201,7 +247,7 @@ const rule: Rule.RuleModule = {
                         value: replacementValue,
                       }).toString(),
                     ),
-                  ];
+                  ]);
                 },
               });
             }
@@ -231,19 +277,25 @@ const rule: Rule.RuleModule = {
                         if (!allResolvableValues) {
                           return null;
                         }
-                        return fixer.replaceText(
-                          node.value,
-                          `\`${values
-                            .map((value) => {
-                              const pixelValue = emToPixels(value, fontSize);
-                              const pixelValueString = `${pixelValue}px`;
-                              return `\${${getTokenNodeForValue(
-                                propertyName,
-                                pixelValueString,
-                              )}}`;
-                            })
-                            .join(' ')}\``,
-                        );
+                        return (
+                          !tokenNode && ruleConfig.applyImport
+                            ? [insertTokensImport(fixer)]
+                            : []
+                        ).concat([
+                          fixer.replaceText(
+                            node.value,
+                            `\`${values
+                              .map((value) => {
+                                const pixelValue = emToPixels(value, fontSize);
+                                const pixelValueString = `${pixelValue}px`;
+                                return `\${${getTokenNodeForValue(
+                                  propertyName,
+                                  pixelValueString,
+                                )}}`;
+                              })
+                              .join(' ')}\``,
+                          ),
+                        ]);
                       }
                     : undefined,
               });
@@ -279,7 +331,7 @@ const rule: Rule.RuleModule = {
               const replacedValuesPerProperty: string[] = [originalProperty];
 
               if (
-                !shouldAnalyzeProperty(propertyName, targetCategories) ||
+                !shouldAnalyzeProperty(propertyName, ruleConfig.addons) ||
                 !resolvedCssValues ||
                 !isValidSpacingValue(resolvedCssValues, globalFontSize)
               ) {
@@ -384,16 +436,20 @@ const rule: Rule.RuleModule = {
               node,
               messageId: 'autofixesPossible',
               fix: (fixer) => {
-                return [
+                return (
+                  !tokenNode && ruleConfig.applyImport
+                    ? [insertTokensImport(fixer)]
+                    : []
+                ).concat([
                   fixer.insertTextBefore(parentNode, replacementComments),
                   fixer.replaceText(node.quasi, completeSource),
-                ];
+                ]);
               },
             });
           }
         },
     };
   },
-};
+});
 
 export default rule;

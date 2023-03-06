@@ -4,10 +4,11 @@ import path from 'path';
 import {
   AST_NODE_TYPES,
   ASTUtils,
-  ESLintUtils,
   TSESLint,
   type TSESTree,
 } from '@typescript-eslint/utils';
+
+import { createRule } from '../utils/create-rule';
 
 interface DeprecatedConfigEntry {
   moduleSpecifier: string;
@@ -18,8 +19,6 @@ interface DeprecatedConfigEntry {
 export interface DeprecatedConfig {
   [key: string]: DeprecatedConfigEntry[];
 }
-
-const createRule = ESLintUtils.RuleCreator((name: string) => name);
 
 export const noDeprecatedJSXAttributeMessageId = 'noDeprecatedJSXAttributes';
 

@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 4.16.2
+
+### Patch Changes
+
+- [`3db6efeac0d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3db6efeac0d) - Improves internal configuration of spacing tokens rule.
+
 ## 4.16.1
 
 ### Patch Changes

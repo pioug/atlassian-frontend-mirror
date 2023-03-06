@@ -1,5 +1,11 @@
 # @atlaskit/link-provider
 
+## 1.4.2
+
+### Patch Changes
+
+- [`f770f0118a4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f770f0118a4) - This package is now declared as a singleton within its package.json file. Consumers should provide tooling to assist in deduplication and enforcement of the singleton pattern.
+
 ## 1.4.1
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @atlaskit/adf-schema
 
+## 25.2.1
+
+### Patch Changes
+
+- [`f770f0118a4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f770f0118a4) - This package is now declared as a singleton within its package.json file. Consumers should provide tooling to assist in deduplication and enforcement of the singleton pattern.
+
 ## 25.2.0
 
 ### Minor Changes

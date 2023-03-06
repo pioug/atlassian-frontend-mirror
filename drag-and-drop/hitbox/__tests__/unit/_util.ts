@@ -29,20 +29,12 @@ export function getRect(box: {
   left: number;
   right: number;
 }): DOMRect {
-  return {
-    top: box.top,
-    right: box.right,
-    bottom: box.bottom,
-    left: box.left,
-    // calculated
-    height: box.bottom - box.top,
-    width: box.right - box.left,
+  return DOMRect.fromRect({
     x: box.left,
     y: box.top,
-    toJSON: function () {
-      return JSON.stringify(this);
-    },
-  };
+    width: box.right - box.left,
+    height: box.bottom - box.top,
+  });
 }
 
 // usage: const [A, B, C, D, F] = getElements();

@@ -1,6 +1,6 @@
 # Page
 
-Provides Grid layouts for content & components
+Provides grid layouts for content and components.
 
 ## Installation
 
@@ -10,4 +10,4 @@ yarn add @atlaskit/page
 
 ## Usage
 
-Detailed docs and example usage can be found [here](https://atlaskit.atlassian.com/packages/core/page).
+Detailed docs and example usage can be found [here](https://atlassian.design/components/page/).

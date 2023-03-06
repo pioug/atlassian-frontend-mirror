@@ -4,7 +4,7 @@ import {
   takeElementScreenShot,
 } from '@atlaskit/visual-regression/helper';
 
-describe('line drawing', () => {
+describe('box indicator', () => {
   it('should render a line on the specified edge (without gap)', async () => {
     const { page } = global;
     const url = getExampleUrl(

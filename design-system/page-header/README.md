@@ -10,4 +10,4 @@ yarn add @atlaskit/page-header
 
 ## Usage
 
-Detailed docs and example usage can be found [here](https://atlaskit.atlassian.com/packages/core/page-header).
+Detailed docs and example usage can be found [here](https://atlassian.design/components/page-header).

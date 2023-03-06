@@ -1,5 +1,11 @@
 # @atlaskit/drag-and-drop-hitbox
 
+## 0.4.0
+
+### Minor Changes
+
+- [`fe6772a3719`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe6772a3719) - Dramatic update to **experimental** tree-item outputs. These outputs should only be used right now by Confluence Page Tree. Changes are being communicated face to face with Confluence team members
+
 ## 0.3.2
 
 ### Patch Changes

@@ -1,18 +1,19 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 
+import { N30A, N40A } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
+
 type DummyProps = {
   hasMargin?: boolean;
 };
 
 const dummyStyles = {
   base: css({
-    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-    background: '#fea',
+    background: token('color.background.neutral', N30A),
   }),
   nested: css({
-    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-    background: '#afe',
+    background: token('color.background.neutral.hovered', N40A),
   }),
   margin: css({
     marginBottom: 8,

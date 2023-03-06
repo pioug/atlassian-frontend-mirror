@@ -1,7 +1,7 @@
 {
   "name": "@atlaskit/page",
   "version": "12.2.3",
-  "description": "A component for building page layouts. Also includes the Grid and GridColumn components.",
+  "description": "A page layout organizes sections on a page using a grid and grid columns.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
@@ -20,7 +20,17 @@
     "releaseModel": "scheduled",
     "website": {
       "name": "Page",
-      "category": "Components"
+      "category": "Components",
+      "status": {
+        "type": "intent-to-deprecate",
+        "description": "We are planning on deprecating Page component. We recommend using the Page layout component instead.",
+        "actions": [
+          {
+            "text": "View page layout documentation",
+            "href": "https://atlassian.design/components/page"
+          }
+        ]
+      }
     }
   },
   "af:exports": {
@@ -45,8 +55,11 @@
     "@atlaskit/ds-lib": "^2.0.1",
     "@atlaskit/logo": "^13.11.0",
     "@atlaskit/navigation": "^37.0.0",
+    "@atlaskit/section-message": "^6.3.0",
     "@atlaskit/ssr": "*",
+    "@atlaskit/theme": "^12.2.0",
     "@atlaskit/toggle": "^12.5.0",
+    "@atlaskit/tokens": "^1.2.0",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@testing-library/react": "^12.1.5",
@@ -78,6 +91,6 @@
       "design-system": "v1"
     }
   },
-  "homepage": "https://atlaskit.atlassian.com/packages/design-system/page",
+  "homepage": "https://atlassian.design/components/page",
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

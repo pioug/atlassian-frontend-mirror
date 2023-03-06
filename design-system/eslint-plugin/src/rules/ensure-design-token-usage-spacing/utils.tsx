@@ -4,6 +4,8 @@ import {
   CallExpression,
   EslintNode,
   identifier,
+  insertAtStartOfFile,
+  insertImportDeclaration,
   isNodeOfType,
   literal,
   TaggedTemplateExpression,
@@ -54,7 +56,7 @@ const properties = [
 ];
 
 export type ProcessedCSSLines = [string, string][];
-export type TargetOptions = ('spacing' | 'typography')[];
+export type TargetOptions = ('spacing' | 'typography' | 'shape')[];
 
 /**
  * Currently we have a wide range of experimental spacing tokens that we are testing.
@@ -112,6 +114,13 @@ export function findIdentifierInParentScope({
   }
 
   return null;
+}
+
+export function insertTokensImport(fixer: Rule.RuleFixer) {
+  return insertAtStartOfFile(
+    fixer,
+    `${insertImportDeclaration('@atlaskit/tokens', ['token'])}\n`,
+  );
 }
 
 export const isSpacingProperty = (propertyName: string) => {

@@ -1,19 +1,13 @@
 /** @jsx jsx */
 
-import type { ReactNode } from 'react';
+import type { CSSProperties } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import type { Edge } from '@atlaskit/drag-and-drop-hitbox/types';
+import type { Instruction } from '@atlaskit/drag-and-drop-hitbox/experimental/tree-item';
 import { token } from '@atlaskit/tokens';
 
 import { DropIndicator } from '../../src/experimental/tree-item';
-
-type TreeItemProps = {
-  children: ReactNode;
-  edge?: Edge | 'child';
-  gap?: string;
-};
 
 const itemStyles = css({
   display: 'flex',
@@ -23,32 +17,43 @@ const itemStyles = css({
   gap: 4,
   borderRadius: 3,
   position: 'relative',
+  paddingLeft: 'calc(var(--horizontal-indent) + 1ch)',
+  background: token('elevation.surface.sunken', '#F7F8F9'),
 });
 
-const dotIconStyles = css({
-  width: 4,
-  height: 4,
-  margin: 10,
-  background: token('color.icon', '#44546F'),
-  borderRadius: '50%',
-});
+function getLabel(instruction: Instruction): string {
+  if (instruction.type === 'instruction-blocked') {
+    return `[Blocked] ${getLabel(instruction.desired)}`;
+  }
+  if (instruction.type === 'reparent') {
+    return `reparent (lvl${instruction.currentLevel} → lvl${instruction.desiredLevel})`;
+  }
+  return instruction.type;
+}
 
-const DotIcon = () => <div css={dotIconStyles} />;
-
-const TreeItem = ({ children, edge: edgeProp, gap }: TreeItemProps) => {
-  const isInset = edgeProp === 'child';
-  const edge = isInset ? 'bottom' : edgeProp;
-
-  // TODO: calc `inset` from `--grid`
+export default function TreeItem({
+  instruction,
+  indentPerLevel,
+  currentLevel,
+}: {
+  instruction: Instruction;
+  indentPerLevel: number;
+  currentLevel: number;
+}) {
   return (
-    <div css={itemStyles} data-testid="tree-item">
-      <DotIcon />
-      <span>{children}</span>
-      {edge && (
-        <DropIndicator inset={isInset ? `32px` : `0px`} edge={edge} gap={gap} />
-      )}
+    <div
+      css={itemStyles}
+      style={
+        {
+          '--horizontal-indent': `${indentPerLevel * currentLevel}px`,
+        } as CSSProperties
+      }
+    >
+      <span>Instruction: </span>
+      <code>
+        <small>{getLabel(instruction)}</small>
+      </code>
+      <DropIndicator instruction={instruction} />
     </div>
   );
-};
-
-export default TreeItem;
+}

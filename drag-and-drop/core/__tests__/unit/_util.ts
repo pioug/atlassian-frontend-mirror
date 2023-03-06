@@ -144,7 +144,6 @@ export function getElements(
  * Returns a connected tree of elements
  * `[grandChild, parent, grandParent]`
  */
-
 export function getBubbleOrderedTree(
   tagName: keyof HTMLElementTagNameMap = 'div',
 ): Iterable<HTMLElement> {

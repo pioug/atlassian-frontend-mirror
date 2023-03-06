@@ -1,19 +1,29 @@
 /** @jsx jsx */
-import { useEffect, useReducer, useRef } from 'react';
+import { useContext, useEffect, useMemo, useReducer, useRef } from 'react';
 
 import { css, jsx } from '@emotion/react';
+import memoizeOne from 'memoize-one';
 import invariant from 'tiny-invariant';
 
 import {
-  Edge,
-  extractClosestEdge,
-} from '@atlaskit/drag-and-drop-hitbox/experimental/tree';
+  Instruction,
+  ItemMode,
+} from '@atlaskit/drag-and-drop-hitbox/experimental/tree-item';
 import { monitorForElements } from '@atlaskit/drag-and-drop/adapter/element';
 import { combine } from '@atlaskit/drag-and-drop/util/combine';
 import { token } from '@atlaskit/tokens';
 
-import { dataReducer, getInitialData, TreeItemData } from './data/tree';
-import { TreeContext } from './pieces/tree/tree-context';
+import {
+  dataReducer,
+  getInitialData,
+  tree,
+  TreeItem as TreeItemType,
+} from './data/tree';
+import {
+  DependencyContext,
+  TreeContext,
+  TreeContextValue,
+} from './pieces/tree/tree-context';
 import TreeItem from './pieces/tree/tree-item';
 
 const treeStyles = css({
@@ -25,53 +35,37 @@ const treeStyles = css({
   background: token('elevation.surface.sunken', '#F7F8F9'),
 });
 
-const renderTreeItem = ({
-  id,
-  label,
-  isOpen,
-  children = [],
-}: TreeItemData & { isOpen?: boolean; children?: TreeItemData[] }) => {
-  return (
-    <TreeItem key={id} id={id} label={label} isOpen={isOpen}>
-      {children.map(renderTreeItem)}
-    </TreeItem>
-  );
-};
-
 export default function Tree() {
   const [data, updateData] = useReducer(dataReducer, null, getInitialData);
   const ref = useRef<HTMLDivElement>(null);
+  const { extractInstruction } = useContext(DependencyContext);
 
-  /**
-   * Fixes issue in Chrome with non-transparent background behind the badge,
-   * caused by the tree's background.
-   */
+  let lastStateRef = useRef<TreeItemType[]>(data);
   useEffect(() => {
-    return combine(
-      monitorForElements({
-        onGenerateDragPreview: () => {
-          if (!ref.current) {
-            return;
-          }
-          ref.current.style.background = 'transparent';
-        },
-        onDragStart: () => {
-          if (!ref.current) {
-            return;
-          }
-          ref.current.style.background = token(
-            'elevation.surface.sunken',
-            '#F7F8F9',
-          );
-        },
-      }),
-    );
-  }, []);
+    lastStateRef.current = data;
+  }, [data]);
+
+  const context = useMemo<TreeContextValue>(
+    () => ({
+      dispatch: updateData,
+      uniqueContextId: Symbol('unique-id'),
+      // memoizing this function as it is called by all tree items repeatedly
+      // An ideal refactor would be to update our data shape
+      // to allow quick lookups of parents
+      getPathToItem: memoizeOne(
+        (targetId: string) =>
+          tree.getPathToItem({ current: lastStateRef.current, targetId }) ?? [],
+      ),
+    }),
+    [updateData],
+  );
 
   useEffect(() => {
     invariant(ref.current);
     return combine(
       monitorForElements({
+        canMonitor: ({ source }) =>
+          source.data.uniqueContextId === context.uniqueContextId,
         onDrop(args) {
           const { location, source } = args;
           // didn't drop on anything
@@ -80,22 +74,19 @@ export default function Tree() {
           }
 
           if (source.data.type === 'tree-item') {
-            console.log(args);
-
             const itemId = source.data.id as string;
 
             const target = location.current.dropTargets[0];
             const targetId = target.data.id as string;
 
-            if (itemId === targetId) {
-              return;
-            }
+            const instruction: Instruction | null = extractInstruction(
+              target.data,
+            );
 
-            const edge: Edge | null = extractClosestEdge(target.data);
-
-            if (edge !== null) {
+            if (instruction !== null) {
               updateData({
-                type: edge,
+                type: 'instruction',
+                instruction,
                 itemId,
                 targetId,
               });
@@ -104,13 +95,27 @@ export default function Tree() {
         },
       }),
     );
-  }, []);
+  }, [context, extractInstruction]);
 
   return (
-    <TreeContext.Provider value={{ dispatch: updateData }}>
+    <TreeContext.Provider value={context}>
       <div style={{ display: 'flex', justifyContent: 'center', padding: 24 }}>
         <div css={treeStyles} id="tree" ref={ref}>
-          {data.map(renderTreeItem)}
+          {data.map((item, index, array) => {
+            const type: ItemMode = (() => {
+              if (item.children.length && item.isOpen) {
+                return 'expanded';
+              }
+
+              if (index === array.length - 1) {
+                return 'last-in-group';
+              }
+
+              return 'standard';
+            })();
+
+            return <TreeItem item={item} level={0} key={item.id} mode={type} />;
+          })}
         </div>
       </div>
     </TreeContext.Provider>

@@ -151,7 +151,7 @@ const baseStyles = css({
 const separatorStyles = css({
   color: token('color.text.subtle', '#42526E'),
   marginBlock: token('space.0', '0px'),
-  marginInline: `-${token('space.025', '2px')}`,
+  marginInline: `calc(-1 * ${token('space.025', '2px')})`,
   pointerEvents: 'none',
   userSelect: 'none',
 });

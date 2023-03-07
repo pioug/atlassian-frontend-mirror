@@ -171,6 +171,18 @@ const messages = defineMessages({
     description:
       'Text on a button that will try to get the data again when clicked',
   },
+  teamForbiddenErrorStateTitle: {
+    id: 'pt.team-profile-card.forbidden-error-state.title',
+    defaultMessage: 'We can’t show you this team',
+    description:
+      'Title for the error state that is displayed when a user lacks access to the team',
+  },
+  teamForbiddenErrorStateDescription: {
+    id: 'pt.team-profile-card.forbidden-error-state.description',
+    defaultMessage: 'You don’t have access to view this team.',
+    description:
+      'Description for the error state that is displayed when a user lacks access to the team',
+  },
   managerSectionHeading: {
     id: 'pt.team-profile-card.manager.heading',
     defaultMessage: 'Manager',

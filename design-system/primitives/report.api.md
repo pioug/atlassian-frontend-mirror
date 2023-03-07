@@ -227,7 +227,7 @@ const borderWidthMap: {
   readonly 'size.100': SerializedStyles;
 };
 
-// @public (undocumented)
+// @public
 export const Box: BoxComponent;
 
 // @public (undocumented)

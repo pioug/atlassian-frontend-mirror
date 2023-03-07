@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 4.16.3
+
+### Patch Changes
+
+- [`ed34264c827`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ed34264c827) - Fix errors on tagged template literals for eslint rule ensure-design-token-usage-spacing and handle edgecases ensuring seamless fallback on errors
+
 ## 4.16.2
 
 ### Patch Changes

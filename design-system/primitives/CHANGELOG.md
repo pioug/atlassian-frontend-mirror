@@ -1,5 +1,11 @@
 # @atlaskit/primitives
 
+## 0.2.1
+
+### Patch Changes
+
+- [`5b886634089`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5b886634089) - [ux] Change Box to be the default export from `@atlaskit/primitives/box`. Fix the negative value of `margin-inline` in Inline `separator` not being applied properly.
+
 ## 0.2.0
 
 ### Minor Changes

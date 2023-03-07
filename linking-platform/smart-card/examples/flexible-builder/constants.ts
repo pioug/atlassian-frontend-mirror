@@ -1,3 +1,5 @@
+import { FlexibleTemplate } from './types';
+
 export enum BlockName {
   FooterBlock = 'FooterBlock',
   MetadataBlock = 'MetadataBlock',
@@ -6,8 +8,13 @@ export enum BlockName {
   TitleBlock = 'TitleBlock',
 }
 
-export const DefaultTemplate = {
+export const FlexibleDefaultTemplate = {
   blocks: [{ name: BlockName.TitleBlock }],
+};
+
+export const DefaultTemplate: FlexibleTemplate = {
+  cardProps: { appearance: 'block' as const },
+  ...FlexibleDefaultTemplate,
 };
 
 export const ExampleStorageKey = 'lp.example.flexible-builder';

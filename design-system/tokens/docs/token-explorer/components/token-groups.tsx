@@ -39,6 +39,8 @@ const TokenGroups = ({
           (subgroup) => subgroup.tokens.length > 0,
         );
 
+        const capitalizedGroupName = upperFirst(group.name);
+
         return hasTokens || hasSubgroupTokens ? (
           <Stack
             key={group.name}
@@ -46,8 +48,8 @@ const TokenGroups = ({
             testId={testId && `${testId}-token-group`}
           >
             <Stack space="300">
-              <SectionLink id={group.name}>
-                <Heading level="h700">{upperFirst(group.name)}</Heading>
+              <SectionLink id={group.name} label={capitalizedGroupName}>
+                <Heading level="h700">{capitalizedGroupName}</Heading>
               </SectionLink>
               {hasTokens && (
                 <TokenList
@@ -62,7 +64,10 @@ const TokenGroups = ({
               subgroup.tokens.length > 0 ? (
                 <Fragment key={`${group.name}-${subgroup.name}`}>
                   <Stack space="300">
-                    <SectionLink id={`${group.name}-${subgroup.name}`}>
+                    <SectionLink
+                      id={`${group.name}-${subgroup.name}`}
+                      label={upperFirst(subgroup.name)}
+                    >
                       <Heading level="h600">
                         {upperFirst(subgroup.name)}
                       </Heading>

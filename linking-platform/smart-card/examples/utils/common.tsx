@@ -176,9 +176,12 @@ const toComponentProp = (key: string, value?: any, indent?: string): string => {
   }
 };
 
-export const toComponentProps = (props: object): string =>
+export const toComponentProps = (
+  props: object,
+  indent: string = '\n\t',
+): string =>
   Object.entries(props).reduce(
     (acc, [key, value]) =>
-      `${acc}\n\t\t${toComponentProp(key, value, '\n\t\t')}`,
+      `${acc}${indent}${toComponentProp(key, value, indent)}`,
     '',
   );

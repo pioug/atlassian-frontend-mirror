@@ -1,5 +1,11 @@
 # @atlaskit/grid
 
+## 0.4.0
+
+### Minor Changes
+
+- [`cbd0b817e56`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cbd0b817e56) - Adds `hasInlinePadding` prop that controls whether the grid includes `padding-inline` gutters
+
 ## 0.3.0
 
 ### Minor Changes

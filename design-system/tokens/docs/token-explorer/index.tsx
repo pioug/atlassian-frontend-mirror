@@ -366,7 +366,10 @@ const TokenExplorer = ({ scrollOffset, testId }: TokenExplorerProps) => {
           margin: `${gridSize() * 4}px 0 ${gridSize() * 4}px`,
         }}
       >
-        <SectionLink id={ALL_DESIGN_TOKENS_LIST_HEADING.id}>
+        <SectionLink
+          id={ALL_DESIGN_TOKENS_LIST_HEADING.id}
+          label={ALL_DESIGN_TOKENS_LIST_HEADING.value}
+        >
           <Heading level="h700">{ALL_DESIGN_TOKENS_LIST_HEADING.value}</Heading>
         </SectionLink>
         <TokenWizardModal />

@@ -24,6 +24,17 @@ type BoxComponent<T extends ElementType = 'div'> = (<
 ) => ReactElement | null) &
   FC<BoxProps<T>>;
 
+// TODO: Fill in the component {description} and ensure links point to the correct {packageName} location.
+// Remove links that the component does not have (such as usage). If there are no links remove them all.
+/**
+ * __Box__
+ *
+ * A box {description}.
+ *
+ * - [Examples](https://atlassian.design/components/{packageName}/examples)
+ * - [Code](https://atlassian.design/components/{packageName}/code)
+ * - [Usage](https://atlassian.design/components/{packageName}/usage)
+ */
 const Box: BoxComponent = forwardRef(
   <T extends ElementType = 'div'>(
     {
@@ -102,4 +113,4 @@ const Box: BoxComponent = forwardRef(
   },
 );
 
-export { Box };
+export default Box;

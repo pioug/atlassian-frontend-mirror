@@ -7,10 +7,10 @@ import { css, jsx } from '@emotion/react';
 import {
   UNSAFE_Box as Box,
   UNSAFE_BoxProps as BoxProps,
-  UNSAFE_Inline as Inline,
   UNSAFE_Text as Text,
   UNSAFE_TextProps as TextProps,
 } from '@atlaskit/ds-explorations';
+import Inline from '@atlaskit/primitives/inline';
 import { N0, N500, N700, R400, Y300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -113,7 +113,7 @@ const Banner = forwardRef<HTMLDivElement, BannerProps>(
         }}
         css={nestedLinkStyles}
       >
-        <Inline gap="space.050" alignItems="center" justifyContent="start">
+        <Inline space="050" alignBlock="center" alignInline="start">
           {icon ? (
             <Box
               as="span"

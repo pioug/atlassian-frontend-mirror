@@ -1,7 +1,7 @@
 import React, { FC, ReactNode } from 'react';
 
-import { UNSAFE_Inline as Inline } from '@atlaskit/ds-explorations';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
+import Inline from '@atlaskit/primitives/inline';
 import { Y500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -37,11 +37,11 @@ const Footer: FC<FooterProps> = ({
 
   return (
     <Inline
-      alignItems="center"
-      flexWrap="wrap"
+      alignBlock="center"
+      shouldWrap
       testId={testId}
-      gap="space.100"
-      divider="·"
+      space="100"
+      separator="·"
     >
       {isError && (
         <WarningIcon

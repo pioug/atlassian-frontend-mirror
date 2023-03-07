@@ -1,5 +1,7 @@
 import type { ReactNode } from 'react';
 
+import { css } from '@emotion/react';
+
 export type Breakpoint = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
 
 /**
@@ -7,10 +9,10 @@ export type Breakpoint = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
  */
 type ResponsiveObject<T> = Partial<Record<Breakpoint, T>>;
 
-type SpanOptions = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+export type SpanOptions = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
 export type SpanObject = ResponsiveObject<SpanOptions>;
 
-type StartOptions = 'auto' | SpanOptions;
+export type StartOptions = 'auto' | SpanOptions;
 export type StartObject = ResponsiveObject<StartOptions>;
 
 export type GridItemProps = {
@@ -48,3 +50,5 @@ export type GridItemProps = {
    */
   span?: SpanOptions | SpanObject;
 };
+
+export type BreakpointCSSObject = Record<Breakpoint, ReturnType<typeof css>>;

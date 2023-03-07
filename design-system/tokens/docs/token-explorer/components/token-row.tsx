@@ -2,6 +2,7 @@
 
 import { css, jsx } from '@emotion/react';
 
+import { UNSAFE_media as media } from '@atlaskit/grid';
 import { Stack } from '@atlaskit/primitives';
 
 import { token } from '../../../src';
@@ -15,6 +16,18 @@ const tokenRowStyles = css({
   margin: 0,
   paddingBottom: token('space.200', '16px'),
   borderBottom: `1px solid ${token('color.border', '#091E4224')}`,
+  [media.below.sm]: {
+    paddingBottom: token('space.300', '24px'),
+  },
+});
+
+const tokenRowStackStyles = css({
+  display: 'flex',
+  gap: token('space.100', '8px'),
+  flexDirection: 'column',
+  [media.below.sm]: {
+    gap: token('space.300', '24px'),
+  },
 });
 
 interface TokenRowProps {
@@ -45,7 +58,7 @@ const TokenRow = ({
 
   return (
     <li css={tokenRowStyles}>
-      <Stack space="100">
+      <div css={tokenRowStackStyles}>
         {[transformedToken].concat(extensions).map((token) => (
           <TokenDefinition
             key={token.name}
@@ -66,7 +79,7 @@ const TokenRow = ({
             />
           </Stack>
         )}
-      </Stack>
+      </div>
     </li>
   );
 };

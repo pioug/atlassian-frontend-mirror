@@ -314,8 +314,12 @@ const rule = createRule<
             return;
           }
 
-          const parentNode = findParentNodeForLine(node);
           const processedCssLines = processCssNode(node, context);
+          if (!processedCssLines) {
+            // if we can't get a processed css we bail
+            return;
+          }
+          const parentNode = findParentNodeForLine(node);
           const globalFontSize = getFontSizeValueInScope(processedCssLines);
           const textForSource = context.getSourceCode().getText(node.quasi);
           const allReplacedValues: string[][] = [];

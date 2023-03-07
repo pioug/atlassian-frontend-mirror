@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 18.3.0
+
+### Minor Changes
+
+- [`9cbd4a1766b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9cbd4a1766b) - [ux] Added an error state for team profile card that is displayed when the user lack of access to the team
+
 ## 18.2.4
 
 ### Patch Changes

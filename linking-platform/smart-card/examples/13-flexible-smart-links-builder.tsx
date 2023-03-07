@@ -2,7 +2,6 @@
 import { css, jsx } from '@emotion/react';
 import React, { useCallback, useState } from 'react';
 import { FlexibleTemplate } from './flexible-builder/types';
-import Code from './flexible-builder/code';
 import TemplateBuilder from './flexible-builder/template-builder';
 import TemplateRenderer from './flexible-builder/template-renderer';
 import {
@@ -70,13 +69,13 @@ export default () => {
                 onResolve={onUrlResolve}
                 url={url}
               />
-              <Code template={template} />
               <EditLink
                 initialJson={initialJson}
                 jsonError={jsonError}
                 onJsonChange={onJsonChange}
                 onSubmitUrl={onSubmitUrl}
                 onTextChange={onTextChange}
+                template={template}
                 text={text}
                 urlError={urlError}
               />
@@ -85,14 +84,6 @@ export default () => {
         </JsonldEditor>
       </div>
       <div css={rightPanelStyles}>
-        <h6>
-          <a
-            href="https://atlaskit.atlassian.com/packages/linking-platform/smart-card/docs/flexible"
-            target="_blank"
-          >
-            go/flexible-smart-links-docs
-          </a>
-        </h6>
         <TemplateBuilder template={template} onChange={onChange} />
       </div>
     </div>

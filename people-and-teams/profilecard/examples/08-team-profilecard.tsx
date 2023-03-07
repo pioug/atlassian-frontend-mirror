@@ -5,6 +5,7 @@ import sample from 'lodash/sample';
 
 import TeamProfileCard from '../src/components/Team/TeamProfileCard';
 import teamData from '../src/mocks/team-data';
+import { TeamProfileCardErrorType } from '../src/types';
 
 import { Radios, TeamCustomizer } from './helper/customization';
 import ExampleWrapper from './helper/example-wrapper';
@@ -59,11 +60,22 @@ export default function Example() {
 
   const [isLoading, setLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
+  const [errorType, setErrorType] = useState<TeamProfileCardErrorType>({
+    reason: 'default',
+  });
   const [includingYou, setIncludingYou] = useState(false);
 
   const [team, setTeam] = useState(teamData({}));
 
   const actions = props.actions.slice(0, numActions);
+
+  const handleIsForbiddenErrorChange = (checked: boolean) => {
+    if (checked) {
+      setErrorType({ reason: 'TEAMS_FORBIDDEN' });
+    } else {
+      setErrorType({ reason: 'default' });
+    }
+  };
 
   return (
     <ExampleWrapper>
@@ -77,6 +89,7 @@ export default function Example() {
                 console.log(`User with id: (${userId}) has been clicked.`);
               }}
               hasError={hasError}
+              errorType={errorType}
               isLoading={isLoading}
               team={team}
               actions={actions}
@@ -120,6 +133,18 @@ export default function Example() {
                 type="checkbox"
               />
               {hasError}
+            </label>
+          </p>
+          <p>
+            Is forbidden error?
+            <label htmlFor="isForbiddenError">
+              <input
+                checked={errorType?.reason === 'TEAMS_FORBIDDEN'}
+                id="isForbiddenError"
+                onChange={(e) => handleIsForbiddenErrorChange(e.target.checked)}
+                type="checkbox"
+              />
+              {errorType?.reason}
             </label>
           </p>
           <p>

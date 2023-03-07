@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Avatar from '@atlaskit/avatar';
-import Stack from '@atlaskit/ds-explorations/stack';
+import Stack from '@atlaskit/primitives/stack';
 
 import Comment, { CommentAction, CommentAuthor, CommentTime } from '../src';
 
@@ -11,7 +11,7 @@ const getSampleText = () =>
   `Cookie macaroon liquorice. Marshmallow donut lemon drops candy canes marshmallow topping chocolate cake. Croissant pastry soufflé waffle cake fruitcake. Brownie oat cake sugar plum.`;
 
 export default () => (
-  <Stack gap="space.300">
+  <Stack space="300">
     {(['small', 'medium', 'large', 'xlarge'] as const).map((size) => (
       <Comment
         key={size}

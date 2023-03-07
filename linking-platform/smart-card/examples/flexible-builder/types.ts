@@ -1,11 +1,12 @@
+import { CardAppearance } from '@atlaskit/linking-common';
 import { FlexibleUiOptions } from '../../src/view/FlexibleCard/types';
 import { BlockName } from './constants';
-import { SmartLinkSize } from '../../src';
+import { CardProps, SmartLinkSize } from '../../src';
 
 export type FlexibleTemplate = {
-  blocks: BlockTemplate[];
+  cardProps?: Partial<CardProps>;
+  blocks?: BlockTemplate[];
   ui?: FlexibleUiOptions;
-  cardProps?: CardBuilderProps;
 };
 
 export type BlockTemplate = {
@@ -19,8 +20,6 @@ export type BlockBuilderProps = {
   template: BlockTemplate;
 };
 
-export type CardBuilderProps = {
-  showHoverPreview?: boolean;
-};
-
 export type SelectOptions = { label: string; value: string };
+
+export type TemplateDisplay = 'flexible' | CardAppearance;

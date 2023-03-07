@@ -1,24 +1,30 @@
-import React, { useCallback } from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+import React, { useCallback, useMemo } from 'react';
 import { CheckboxField } from '@atlaskit/form';
 import { Checkbox } from '@atlaskit/checkbox';
-import { ChangeParams, handleOnChange } from '../../utils';
+import { ChangeParams, excludeStyles, handleOnChange } from '../../utils';
 
 type Props<T extends object> = {
   defaultValue?: boolean;
+  exclude?: boolean;
   label?: string;
   name: string;
   onChange: (template: T) => void;
   propName: keyof T;
   template: T;
+  tooltipMessage?: string;
 };
 const CheckboxOption = <T extends object>({
   defaultValue = false,
+  exclude,
   label,
   name,
   onChange,
   propName,
   template,
 }: Props<T>) => {
+  const styles = useMemo(() => (exclude ? [excludeStyles] : []), [exclude]);
   const handleOnCheckboxChange = useCallback(
     <T extends object>(...params: ChangeParams<T>) =>
       (e: React.SyntheticEvent<HTMLInputElement>) => {
@@ -26,23 +32,28 @@ const CheckboxOption = <T extends object>({
       },
     [],
   );
-
   return (
-    <CheckboxField name={name}>
-      {({ fieldProps }) => (
-        <Checkbox
-          {...fieldProps}
-          isChecked={!!template[propName]}
-          label={label}
-          onChange={handleOnCheckboxChange(
-            onChange,
-            template,
-            propName,
-            defaultValue,
-          )}
-        />
-      )}
-    </CheckboxField>
+    <span css={styles}>
+      <CheckboxField name={name}>
+        {({ fieldProps }) => (
+          <Checkbox
+            {...fieldProps}
+            isChecked={
+              template[propName] !== undefined
+                ? !!template[propName]
+                : defaultValue
+            }
+            label={label}
+            onChange={handleOnCheckboxChange(
+              onChange,
+              template,
+              propName,
+              defaultValue,
+            )}
+          />
+        )}
+      </CheckboxField>
+    </span>
   );
 };
 export default CheckboxOption;

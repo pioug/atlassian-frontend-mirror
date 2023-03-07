@@ -227,7 +227,7 @@ export interface TeamProfileCardTriggerProps extends TeamProfilecardCoreProps {
       users are still able to navigate into and trigger the profile card.
 
     Look at the "Team Profilecard Trigger" or "Trigger Link Types" examples to
-    see how they behave, or ask in #team-twp-people-teams on Slack for our
+    see how they behave, or ask in #help-people-and-teams-xpc on Slack for our
     recommendations.
    */
   trigger?: 'hover' | 'click' | 'hover-click';
@@ -249,7 +249,7 @@ export interface TeamProfileCardTriggerProps extends TeamProfilecardCoreProps {
       as a link, and optionally allow hovering to preview the team first.
 
     Look at the example on "Trigger Link Types" for more in-depth analysis, or
-    ask in #team-twp-people-teams on Slack for our recommendations.
+    ask in #help-people-and-teams-xpc on Slack for our recommendations.
    */
   triggerLinkType?: 'none' | 'link' | 'clickable-link';
   /**
@@ -365,7 +365,7 @@ export interface TeamProfilecardProps extends TeamProfilecardCoreProps {
   /** Indicates whether an error occurred whilst fetching team details. */
   hasError?: boolean;
   /** Describes the type of error that occurred, if any. */
-  errorType?: ProfileCardErrorType;
+  errorType?: TeamProfileCardErrorType;
   /** The details of the team to be shown. */
   team?: Team;
   /** A callback that will try to re-fetch data in case an error occurred. */
@@ -421,6 +421,10 @@ export type ProfilecardTriggerPosition =
 
 export type ProfileCardErrorType = {
   reason: 'default' | 'NotFound';
+} | null;
+
+export type TeamProfileCardErrorType = {
+  reason: 'default' | 'NotFound' | 'TEAMS_FORBIDDEN';
 } | null;
 
 export interface ProfileClientOptions {

@@ -6,8 +6,6 @@ import { SmartCardProvider } from '@atlaskit/link-provider';
 import JsonldEditorClient from './jsonld-editor-client';
 
 const featureFlags = {
-  embedModalSize: 'large',
-  showHoverPreview: true,
   enableFlexibleBlockCard: true,
 };
 

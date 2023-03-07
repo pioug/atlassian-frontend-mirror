@@ -1,9 +1,8 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import { Field } from '@atlaskit/form';
 import Select from '@atlaskit/select/Select';
-import Button from '@atlaskit/button/standard-button';
 import { BlockName } from '../../constants';
 
 const blockSelectStyles = css`
@@ -17,11 +16,6 @@ const blockSelectStyles = css`
   }
 `;
 
-type BlockOption = {
-  label: string;
-  value: BlockName;
-};
-
 const blockOptions = Object.values(BlockName).map((value) => ({
   label: value,
   value,
@@ -30,32 +24,24 @@ const blockOptions = Object.values(BlockName).map((value) => ({
 const BlockOption: React.FC<{ onClick: (name: BlockName) => void }> = ({
   onClick,
 }) => {
-  const [selectedOption, setSelectedOption] = useState<BlockOption>();
-
-  const handleOnChange = useCallback((option) => {
-    setSelectedOption(option);
-  }, []);
-
-  const handleOnClick = useCallback(() => {
-    if (selectedOption?.value) {
-      onClick(selectedOption.value);
-    }
-  }, [onClick, selectedOption]);
-
+  const handleOnChange = useCallback(
+    (option) => {
+      onClick(option.value);
+    },
+    [onClick],
+  );
   return (
-    <Field name="block" defaultValue={null} label="Blocks">
+    <Field name="block" defaultValue={null}>
       {({ fieldProps: { id, ...rest } }) => (
         <div css={blockSelectStyles}>
           <Select
             inputId="block-select"
             className="block-select"
-            placeholder="Choose a block"
+            placeholder="Add a block"
             {...rest}
             onChange={handleOnChange}
             options={blockOptions}
-            value={selectedOption}
           />
-          <Button onClick={handleOnClick}>Add</Button>
         </div>
       )}
     </Field>

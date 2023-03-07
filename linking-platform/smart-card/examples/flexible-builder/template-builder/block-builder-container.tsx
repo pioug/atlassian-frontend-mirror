@@ -2,10 +2,10 @@
 import { css, jsx } from '@emotion/react';
 import React, { useCallback, useState } from 'react';
 import Button from '@atlaskit/button/standard-button';
-import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
 import DragHandlerIcon from '@atlaskit/icon/glyph/drag-handler';
 import { token } from '@atlaskit/tokens';
 import { BlockName } from '../constants';
+import ChevronIcon from './chevron-icon';
 
 const containerStyles = css`
   border-radius: 0.25rem;
@@ -54,7 +54,7 @@ const BlockBuilderContainer: React.FC<{
         <DragHandlerIcon label="" />
         <h5>{name}</h5>
         <Button
-          iconBefore={<ChevronDownIcon label="Expand/collapse" />}
+          iconBefore={<ChevronIcon open={open} />}
           onClick={handleExpand}
           spacing="compact"
         />

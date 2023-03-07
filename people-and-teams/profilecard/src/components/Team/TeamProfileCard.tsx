@@ -47,6 +47,7 @@ import {
 import { isBasicClick } from '../../util/click';
 import { ErrorIllustration } from '../Error';
 
+import TeamForbiddenErrorState from './TeamForbiddenErrorState';
 import TeamLoadingState from './TeamLoadingState';
 
 interface TeamMembers {
@@ -423,18 +424,29 @@ const ErrorMessage = ({
 };
 
 const TeamProfileCard = (props: TeamProfilecardProps) => {
-  const { analytics, clientFetchProfile, hasError, isLoading, team } = props;
+  const {
+    analytics,
+    clientFetchProfile,
+    hasError,
+    isLoading,
+    team,
+    errorType,
+  } = props;
 
   if (hasError) {
-    return (
-      <CardWrapper data-testid="team-profilecard">
-        <ErrorMessage
-          analytics={analytics}
-          clientFetchProfile={clientFetchProfile}
-          isLoading={isLoading}
-        />
-      </CardWrapper>
-    );
+    if (errorType?.reason === 'TEAMS_FORBIDDEN') {
+      return <TeamForbiddenErrorState analytics={analytics} />;
+    } else {
+      return (
+        <CardWrapper data-testid="team-profilecard">
+          <ErrorMessage
+            analytics={analytics}
+            clientFetchProfile={clientFetchProfile}
+            isLoading={isLoading}
+          />
+        </CardWrapper>
+      );
+    }
   }
 
   if (isLoading) {

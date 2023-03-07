@@ -611,10 +611,15 @@ interface TeamProfilecardCoreProps {
 }
 
 // @public (undocumented)
+type TeamProfileCardErrorType = null | {
+  reason: 'NotFound' | 'TEAMS_FORBIDDEN' | 'default';
+};
+
+// @public (undocumented)
 interface TeamProfilecardProps extends TeamProfilecardCoreProps {
   analytics: AnalyticsFunction;
   clientFetchProfile?: () => void;
-  errorType?: ProfileCardErrorType;
+  errorType?: TeamProfileCardErrorType;
   hasError?: boolean;
   isLoading?: boolean;
   team?: Team;

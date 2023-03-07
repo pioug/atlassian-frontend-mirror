@@ -1,11 +1,14 @@
-import React, { useCallback, useMemo } from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+import { useCallback, useMemo } from 'react';
 import Select from '@atlaskit/select/Select';
 import { Field } from '@atlaskit/form';
 import { ValueType as Value } from '@atlaskit/select';
-import { ChangeParams, handleOnChange } from '../../utils';
+import { ChangeParams, excludeStyles, handleOnChange } from '../../utils';
 
 type Props<T> = {
   defaultValue: T[keyof T];
+  exclude?: boolean;
   label?: string;
   name: string;
   onChange: (template: T) => void;
@@ -16,6 +19,7 @@ type Props<T> = {
 };
 const SelectOption = <T extends object>({
   defaultValue,
+  exclude,
   label,
   name,
   onChange,
@@ -23,6 +27,7 @@ const SelectOption = <T extends object>({
   options,
   template,
 }: Props<T>) => {
+  const styles = useMemo(() => (exclude ? [excludeStyles] : []), [exclude]);
   const handleOnSelectChange = useCallback(
     <T extends object>(...params: ChangeParams<T>) =>
       (option: { label: string; value: T[keyof T] } | null) => {
@@ -38,21 +43,23 @@ const SelectOption = <T extends object>({
   }, [defaultValue, options, propName, template]);
 
   return (
-    <Field<Value<{ label: string; value: string }>> name={name} label={label}>
-      {({ fieldProps: { id, ...rest } }) => (
-        <Select
-          {...rest}
-          onChange={handleOnSelectChange(
-            onChange,
-            template,
-            propName,
-            defaultValue,
-          )}
-          options={options}
-          value={value}
-        />
-      )}
-    </Field>
+    <span css={styles}>
+      <Field<Value<{ label: string; value: string }>> name={name} label={label}>
+        {({ fieldProps: { id, ...rest } }) => (
+          <Select
+            {...rest}
+            onChange={handleOnSelectChange(
+              onChange,
+              template,
+              propName,
+              defaultValue,
+            )}
+            options={options}
+            value={value}
+          />
+        )}
+      </Field>
+    </span>
   );
 };
 

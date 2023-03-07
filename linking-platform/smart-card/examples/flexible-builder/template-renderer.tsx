@@ -1,10 +1,14 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
+import DropdownMenu, {
+  DropdownItemRadio,
+  DropdownItemRadioGroup,
+} from '@atlaskit/dropdown-menu';
+import Button from '@atlaskit/button/standard-button';
+import MoreIcon from '@atlaskit/icon/glyph/more';
 import Range from '@atlaskit/range/range';
-import Toggle from '@atlaskit/toggle';
-import Tooltip from '@atlaskit/tooltip';
 import { Card } from '../../src';
 import { BlockTemplate, FlexibleTemplate } from './types';
 import { token } from '@atlaskit/tokens';
@@ -41,6 +45,7 @@ const backgroundStyles = css`
   border-radius: 0.125rem;
   padding: 0.5rem;
   margin-bottom: 1rem;
+  position: relative;
 `;
 
 const toggleStyles = (show: boolean) => css`
@@ -63,7 +68,8 @@ const dataContainerStyles = (show: boolean) => css`
 `;
 
 const toggleContainerStyles = css`
-  text-align: right;
+  position: absolute;
+  right: 0.5rem;
 `;
 
 const renderBlock = ({ name, ...props }: BlockTemplate, key: string) => {
@@ -79,9 +85,14 @@ const TemplateRenderer: React.FC<{
   const handleOnChange = useCallback((width) => setWidth(width), []);
 
   const [showDataView, setShowDataView] = useState(false);
-  const handleOnToggle = useCallback(
+  const handleViewChange = useCallback(
     () => setShowDataView((prev) => !prev),
     [],
+  );
+
+  const showToggle = useMemo(
+    () => template && template.blocks && template.blocks.length > 0,
+    [template],
   );
 
   return (
@@ -94,19 +105,37 @@ const TemplateRenderer: React.FC<{
         onChange={handleOnChange}
       />
       <div css={backgroundStyles}>
-        <div css={toggleContainerStyles}>
-          <Tooltip
-            content={
-              showDataView ? 'Hide link data view' : 'Show link data view'
-            }
-          >
-            <Toggle
-              label="Toggle link data view"
-              defaultChecked
-              onChange={handleOnToggle}
-            />
-          </Tooltip>
-        </div>
+        {showToggle && (
+          <span css={toggleContainerStyles}>
+            <DropdownMenu
+              trigger={({ triggerRef, ...props }) => (
+                <Button
+                  {...props}
+                  iconBefore={<MoreIcon label="more" />}
+                  ref={triggerRef}
+                  spacing="compact"
+                />
+              )}
+            >
+              <DropdownItemRadioGroup id="renderer-actions">
+                <DropdownItemRadio
+                  id="card"
+                  isSelected={!showDataView}
+                  onClick={handleViewChange}
+                >
+                  Card view
+                </DropdownItemRadio>
+                <DropdownItemRadio
+                  id="data"
+                  isSelected={showDataView}
+                  onClick={handleViewChange}
+                >
+                  Data view
+                </DropdownItemRadio>
+              </DropdownItemRadioGroup>
+            </DropdownMenu>
+          </span>
+        )}
         <ErrorBoundary fallback={<div>Whoops! Something went wrong.</div>}>
           <div css={dataContainerStyles(showDataView)}>
             <FlexibleDataView url={url} />
@@ -114,11 +143,11 @@ const TemplateRenderer: React.FC<{
           <div css={cardContainerStyles(width, !showDataView)}>
             <Card
               appearance="block"
-              ui={template.ui}
               {...template.cardProps}
+              ui={template.ui}
               url={url}
             >
-              {template.blocks.map((block, idx) =>
+              {template.blocks?.map((block, idx) =>
                 renderBlock(block, block.name + idx),
               )}
             </Card>

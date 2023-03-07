@@ -1,5 +1,11 @@
 # @atlaskit/comment
 
+## 10.7.9
+
+### Patch Changes
+
+- [`6d665548890`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6d665548890) - Update usages of Inline and Stack to make use of stable version in `@atlaskit/primitives`. Internal change only.
+
 ## 10.7.8
 
 ### Patch Changes

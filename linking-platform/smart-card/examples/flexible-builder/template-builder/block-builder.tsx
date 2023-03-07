@@ -12,6 +12,7 @@ import SnippetBlockBuilder from './snippet-block-builder';
 import TitleBlockBuilder from './title-block-builder';
 import { SmartLinkSize } from '../../../src';
 import BlockOption from './inputs/block-option';
+import Fieldset from './fieldset';
 
 const listStyles = css`
   margin-top: 1rem;
@@ -56,10 +57,10 @@ const isRemovable = (blockTemplates: BlockTemplate[], name: BlockName) => {
 };
 
 const BlockBuilder: React.FC<{
-  blocks: BlockTemplate[];
+  blocks?: BlockTemplate[];
   onChange: (blocks: BlockTemplate[]) => void;
   size?: SmartLinkSize; // block inherit size from ui options
-}> = ({ blocks, onChange, size }) => {
+}> = ({ blocks = [], onChange, size }) => {
   const handleOnBlockChange = useCallback(
     (position: number, t: BlockTemplate) => {
       const updatedBlocks = blocks.map((blockTemplate, idx) =>
@@ -104,11 +105,11 @@ const BlockBuilder: React.FC<{
   );
 
   return (
-    <React.Fragment>
+    <Fieldset legend="Flexible Smart Links: Blocks">
       <BlockOption onClick={handleOnBlockAdd} />
       <DragDropContext onDragEnd={handleOnBlockDragEnd}>
         <Droppable droppableId="droppable">
-          {(provided, snapshot) => (
+          {(provided) => (
             <div
               {...provided.droppableProps}
               ref={provided.innerRef}
@@ -125,7 +126,7 @@ const BlockBuilder: React.FC<{
                       draggableId={`${name}-${idx}`}
                       index={idx}
                     >
-                      {(provided, snapshot) => (
+                      {(provided) => (
                         <div
                           ref={provided.innerRef}
                           {...provided.draggableProps}
@@ -154,7 +155,7 @@ const BlockBuilder: React.FC<{
           )}
         </Droppable>
       </DragDropContext>
-    </React.Fragment>
+    </Fieldset>
   );
 };
 

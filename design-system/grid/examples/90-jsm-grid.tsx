@@ -33,7 +33,7 @@ const dynamicSizedVerticalPaddingStyles = css(
     const config = BREAKPOINTS_CONFIG[breakpoint];
 
     return Object.assign(configs, {
-      [media.between[breakpoint]]: {
+      [media.above[breakpoint]]: {
         paddingBlock: `calc(${config.margin} * 2)`,
       },
     });

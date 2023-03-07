@@ -3,11 +3,10 @@ import { FC, ReactNode } from 'react';
 
 import { jsx } from '@emotion/react';
 
-import { UNSAFE_Inline as Inline } from '@atlaskit/ds-explorations';
 import LockFilledIcon from '@atlaskit/icon/glyph/lock-filled';
 import Lozenge from '@atlaskit/lozenge';
-import { N100A } from '@atlaskit/theme/colors';
-import { token } from '@atlaskit/tokens';
+import Box from '@atlaskit/primitives/box';
+import Inline from '@atlaskit/primitives/inline';
 
 interface HeaderProps {
   author?: ReactNode;
@@ -54,9 +53,8 @@ const Header: FC<HeaderProps> = ({
     edited ||
     type;
   return shouldRender ? (
-    <Inline alignItems="center" testId={testId} gap="space.100">
+    <Inline alignBlock="center" testId={testId} space="100">
       {author && headingProps ? (
-        // eslint-disable-next-line @repo/internal/react/use-primitives
         <span {...headingProps}>{author}</span>
       ) : (
         author
@@ -66,15 +64,13 @@ const Header: FC<HeaderProps> = ({
       {edited || null}
       {isSaving ? savingText : null}
       {restrictedTo && (
-        <Inline
-          alignItems="center"
-          gap="space.050"
-          UNSAFE_style={{ color: token('color.text.subtlest', N100A) }}
-        >
-          &bull;
-          <LockFilledIcon label="" size="small" />
-          {restrictedTo}
-        </Inline>
+        <Box as="span" color="subtlest">
+          <Inline alignBlock="center" space="050">
+            &bull;
+            <LockFilledIcon label="" size="small" />
+            {restrictedTo}
+          </Inline>
+        </Box>
       )}
     </Inline>
   ) : null;

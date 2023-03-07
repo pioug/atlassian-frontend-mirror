@@ -1,9 +1,11 @@
 /** @jsx jsx */
 
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 
+import { UNSAFE_media as media } from '@atlaskit/grid';
 import { Box, Inline, Stack } from '@atlaskit/primitives';
 
+import { token } from '../../../src';
 import { TransformedTokenGrouped } from '../types';
 import { getTokenListColumnNames } from '../utils';
 
@@ -18,6 +20,28 @@ interface TokenDefinitionProps {
   isLoading?: boolean;
   testId?: string;
 }
+
+const tokenDefinitionContainerStyles = css({
+  display: 'flex',
+  boxSizing: 'border-box',
+  justifyContent: 'space-between',
+  gap: token('space.200', '16px'),
+  [media.below.sm]: {
+    flexDirection: 'column',
+  },
+});
+
+const tokenValueLabelStyles = css({
+  display: 'inline-block',
+  marginBottom: token('space.050', '4px'),
+  color: token('color.text.subtlest', '#626F86'),
+  fontSize: token('font.size.075', '12px'),
+  fontWeight: token('font.weight.regular', '400'),
+  lineHeight: token('font.lineHeight.100', '16px'),
+  [media.above.md]: {
+    display: 'none',
+  },
+});
 
 /**
  * Represents a single token consisting of token name, description, and its value(s).
@@ -83,7 +107,7 @@ const TokenDefinition = ({
       ];
 
   return (
-    <Inline space="300" spread="space-between" testId={testId}>
+    <div css={tokenDefinitionContainerStyles} data-testid={testId}>
       <Box display="block" flexGrow="1">
         <Stack space="150">
           <Stack space="100">
@@ -99,18 +123,20 @@ const TokenDefinition = ({
       </Box>
       <Inline space="200">
         {tokenValues.map((tokenValue) => (
-          <TokenButtonValue
-            key={tokenValue.name}
-            isFixedWidth
-            value={tokenValue.value}
-            attributes={tokenValue.attributes}
-            original={tokenValue.original}
-            variantLabel={tokenValue.name}
-            testId={tokenValue.testId}
-          />
+          <div key={tokenValue.name}>
+            <span css={tokenValueLabelStyles}>{tokenValue.name}</span>
+            <TokenButtonValue
+              isFixedWidth
+              value={tokenValue.value}
+              attributes={tokenValue.attributes}
+              original={tokenValue.original}
+              variantLabel={tokenValue.name}
+              testId={tokenValue.testId}
+            />
+          </div>
         ))}
       </Inline>
-    </Inline>
+    </div>
   );
 };
 

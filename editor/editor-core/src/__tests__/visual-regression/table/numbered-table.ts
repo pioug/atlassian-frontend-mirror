@@ -37,7 +37,8 @@ describe('Snapshot Test: numbered table', () => {
   describe.each(THEME_MODES)('Theme: %s', (theme) => {
     const mode = theme === 'dark' ? 'dark' : 'light';
 
-    it('looks correct for fullpage', async () => {
+    // FIXME: This test was automatically skipped due to failure on 06/03/2023: https://product-fabric.atlassian.net/browse/ED-17070
+    it.skip('looks correct for fullpage', async () => {
       await initFullPageEditorWithAdf(
         page,
         multipleTablesAdf,

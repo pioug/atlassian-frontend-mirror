@@ -1,9 +1,7 @@
 import React, { FC } from 'react';
 
-import {
-  UNSAFE_Stack as Stack,
-  UNSAFE_Text as Text,
-} from '@atlaskit/ds-explorations';
+import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
+import Stack from '@atlaskit/primitives/stack';
 
 import type { CommentProps } from '../types';
 
@@ -64,8 +62,8 @@ const Comment: FC<CommentProps> = ({
       id={id}
       avatar={avatar}
       content={
-        <Stack gap="space.075">
-          <Stack gap="space.050">
+        <Stack space="075">
+          <Stack space="050">
             <Header testId={testId && `${testId}-header`} {...headerProps} />
             <Text
               as="div"

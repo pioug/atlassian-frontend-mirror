@@ -37,7 +37,7 @@
     "@atlaskit/editor-core": "^179.1.0",
     "@atlaskit/editor-test-helpers": "^18.0.0",
     "@atlaskit/mention": "^21.0.0",
-    "@atlaskit/profilecard": "^18.2.0",
+    "@atlaskit/profilecard": "^18.3.0",
     "@atlaskit/renderer": "^106.0.0",
     "@atlaskit/util-data-test": "^17.6.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",

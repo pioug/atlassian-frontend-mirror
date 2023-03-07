@@ -156,7 +156,7 @@ type BaseBoxPropsFoundation<T extends ElementType> = {
    */
   height?: Height;
   /**
-   * Defines display type and layout. Defaults to `flex`.
+   * Defines display type and layout. Defaults to `block`.
    */
   display?: Display;
   /**

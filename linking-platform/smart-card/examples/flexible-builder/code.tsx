@@ -13,19 +13,24 @@ const codeStyles = css`
 
 const toBlockCode = (blockTemplate: BlockTemplate): string => {
   const { name, ...props } = blockTemplate;
-  const str = toComponentProps(props);
+  const str = toComponentProps(props, '\n\t\t');
   return `<${name}${str} />`;
 };
 
 const Code: React.FC<{ template: FlexibleTemplate }> = ({ template }) => {
   const text = useMemo(() => {
-    const uiCode = template.ui ? ` ui={${toObjectString(template.ui)}}` : '';
-    const propCode = toComponentProps(template.cardProps || {});
+    const { appearance, ...optionalCardProps } = template.cardProps || {};
+    const propCode = toComponentProps(optionalCardProps || {});
+    const uiCode = template.ui ? `\n\tui={${toObjectString(template.ui)}}` : '';
 
-    const blockCode = template.blocks
-      .map((block) => toBlockCode(block))
-      .join('\n\t');
-    return `<Card appearance="block"${uiCode}${propCode}>\n\t${blockCode}\n</Card>`;
+    if (template.blocks && template.blocks.length > 0) {
+      const blockCode = template.blocks
+        .map((block) => toBlockCode(block))
+        .join('\n\t');
+      return `<Card appearance="${appearance}"${propCode}${uiCode}>\n\t${blockCode}\n</Card>`;
+    } else {
+      return `<Card appearance="${appearance}"${propCode}${uiCode} />`;
+    }
   }, [template]);
 
   return (

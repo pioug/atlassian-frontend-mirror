@@ -1021,70 +1021,76 @@ styled.div\`
         },
       ],
     },
-    //     {
-    //       // FROM JIRA
-    //       code: `// @flow strict-local
-    //       import styled from 'styled-components';
-    //       import { colors } from '@atlaskit/theme';
-    //       import { token } from '@atlaskit/tokens';
-    //       import { gridSize, layers } from '@atlassian/jira-common-legacy-do-not-add-anything-new/src/styles';
+    {
+      // FROM JIRA
+      code: `
+// @flow strict-local
+import styled from 'styled-components';
+import { colors } from '@atlaskit/theme';
+import { token } from '@atlaskit/tokens';
+import { gridSize, layers } from '@atlassian/jira-common-legacy-do-not-add-anything-new/src/styles';
 
-    //       export const stickyLineExtraLengthLeft = gridSize;
+export const stickyLineExtraLengthLeft = gridSize;
 
-    //       export const stickyHeaderBreadcrumbsZIndex = layers.card - 1;
+export const stickyHeaderBreadcrumbsZIndex = layers.card - 1;
 
-    //       const extraTopOffset = -1; // without '-1px' - part of underlying page/text is shown sometimes on top of header on scroll
-    //       export const StickyWrapper = styled.div\`
-    //           @supports (position: sticky) or (position: -webkit-sticky) {
-    //               position: sticky;
-    //               background: \${token('elevation.surface', colors.N0)};
-    //               z-index: \${stickyHeaderBreadcrumbsZIndex};
-    //               padding-left: \${stickyLineExtraLengthLeft}px;
-    //               margin-left: -\${stickyLineExtraLengthLeft}px;
-    //               padding-top: \${-extraTopOffset}px; /* not to cut out button border etc. because of negative extraTopOffset */
-    //               top: \${(props) => props.topOffset + extraTopOffset}px;
-    //           }
-    //       \`;
-    //       `,
-    //       output: `// @flow strict-local
-    //       import styled from 'styled-components';
-    //       import { colors } from '@atlaskit/theme';
-    //       import { token } from '@atlaskit/tokens';
-    //       import { gridSize, layers } from '@atlassian/jira-common-legacy-do-not-add-anything-new/src/styles';
+const extraTopOffset = -1; // without '-1px' - part of underlying page/text is shown sometimes on top of header on scroll
+export const StickyWrapper = styled.div\`
+    @supports (position: sticky) or (position: -webkit-sticky) {
+        position: sticky;
+        background: \${token('elevation.surface', colors.N0)};
+        z-index: \${stickyHeaderBreadcrumbsZIndex};
+        padding-left: \${stickyLineExtraLengthLeft}px; //this is a test comment
+        margin-left: -\${stickyLineExtraLengthLeft}px;
+        padding-top: \${-extraTopOffset}px; /* not to cut out button border etc. because of negative extraTopOffset */
+        top: \${(props) => props.topOffset + extraTopOffset}px;
+    }
+\`;
+`,
+      output: `
+// @flow strict-local
+import styled from 'styled-components';
+import { colors } from '@atlaskit/theme';
+import { token } from '@atlaskit/tokens';
+import { gridSize, layers } from '@atlassian/jira-common-legacy-do-not-add-anything-new/src/styles';
 
-    //       export const stickyLineExtraLengthLeft = gridSize;
+export const stickyLineExtraLengthLeft = gridSize;
 
-    //       export const stickyHeaderBreadcrumbsZIndex = layers.card - 1;
+export const stickyHeaderBreadcrumbsZIndex = layers.card - 1;
 
-    //       const extraTopOffset = -1; // without '-1px' - part of underlying page/text is shown sometimes on top of header on scroll
-    //       // TODO Delete this comment after verifying spacing token -> previous value \`8px\`
-    // export const StickyWrapper = styled.div\`
-    //           @supports (position: sticky) or (position: -webkit-sticky) {
-    //               position: sticky;
-    //               background: \${token('elevation.surface', colors.N0)};
-    //               z-index: \${stickyHeaderBreadcrumbsZIndex};
-    //               padding-left: \${token('space.100', '8px')};
-    //               margin-left: -\${stickyLineExtraLengthLeft}px;
-    //               padding-top: \${-extraTopOffset}px; /* not to cut out button border etc. because of negative extraTopOffset */
-    //               top: \${(props) => props.topOffset + extraTopOffset}px;
-    //           }
-    //       \`;
-    //       `,
-    //       errors: [
-    //         {
-    //           message:
-    //             'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<paddingLeft:8>>',
-    //         },
-    //         {
-    //           message:
-    //             'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<marginLeft:-8>>',
-    //         },
-    //         {
-    //           message:
-    //             'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<paddingTop:1>>',
-    //         },
-    //       ],
-    //     },
+const extraTopOffset = -1; // without '-1px' - part of underlying page/text is shown sometimes on top of header on scroll
+// TODO Delete this comment after verifying spacing token -> previous value \`padding-left: 8px\`
+export const StickyWrapper = styled.div\`
+    @supports (position: sticky) or (position: -webkit-sticky) {
+        position: sticky;
+        background: \${token('elevation.surface', colors.N0)};
+        z-index: \${stickyHeaderBreadcrumbsZIndex};
+        padding-left: \${token('space.100', '8px')}; //this is a test comment
+        margin-left: -\${stickyLineExtraLengthLeft}px;
+        padding-top: \${-extraTopOffset}px; /* not to cut out button border etc. because of negative extraTopOffset */
+        top: \${(props) => props.topOffset + extraTopOffset}px;
+    }
+\`;
+`,
+      errors: [
+        {
+          message:
+            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<paddingLeft:8>>',
+        },
+        {
+          message:
+            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<marginLeft:-8>>',
+        },
+        {
+          message:
+            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<paddingTop:1>>',
+        },
+        {
+          message:
+            'Automated corrections available for spacing values. Apply autofix to replace values with appropriate tokens',
+        },
+      ],
+    },
   ],
 };
 

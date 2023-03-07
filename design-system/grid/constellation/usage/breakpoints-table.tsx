@@ -23,7 +23,7 @@ export const BreakpointsTable = () => (
               ? 'Infinity'
               : `${config.max}px`}
           </td>
-          <td>{config.columns}</td>
+          <td>12</td>
         </tr>
       ))}
     </tbody>

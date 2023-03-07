@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Stack from '@atlaskit/ds-explorations/stack';
+import Stack from '@atlaskit/primitives/stack';
 
 import {
   CommentAction,
@@ -10,7 +10,7 @@ import {
 } from '../src';
 
 export default () => (
-  <Stack gap="space.100">
+  <Stack space="100">
     <CommentAuthor href="/author">John Smith</CommentAuthor>
     <CommentTime>30 August, 2016</CommentTime>
     <CommentEdited>Edited</CommentEdited>

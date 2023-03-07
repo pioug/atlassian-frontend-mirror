@@ -5,8 +5,9 @@ import { createContext, FC, ReactNode, useContext } from 'react';
 import { css, jsx } from '@emotion/react';
 import invariant from 'tiny-invariant';
 
-import { BREAKPOINTS_CONFIG, BREAKPOINTS_LIST } from './config';
+import { BREAKPOINTS_CONFIG, BREAKPOINTS_LIST, GRID_COLUMNS } from './config';
 import { UNSAFE_media as media } from './media-helper';
+import type { BreakpointCSSObject } from './types';
 
 export type GridProps = {
   /**
@@ -24,32 +25,40 @@ export type GridProps = {
    * The grid items.
    */
   children: ReactNode;
+  /**
+   * Remove inline padding from grid.
+   *
+   * @default true
+   */
+  hasInlinePadding?: boolean;
 };
 
-const breakPointMediaQueries = BREAKPOINTS_LIST.reduce(
-  (configs, breakpoint) => {
-    const config = BREAKPOINTS_CONFIG[breakpoint];
-
-    return Object.assign(configs, {
-      [media.between[breakpoint]]: {
-        gap: config.gutter,
-        gridTemplateColumns: `repeat(var(--ds-grid-columns), 1fr)`,
-        '--ds-grid-columns': config.columns,
-        paddingInline: config.margin,
-        marginInline: 'auto',
-      },
-    });
-  },
-  {},
+const gapMediaQueries = BREAKPOINTS_LIST.reduce(
+  (acc, breakpoint) => ({
+    ...acc,
+    [media.above[breakpoint]]: {
+      gap: BREAKPOINTS_CONFIG[breakpoint].gutter,
+    },
+  }),
+  {} as BreakpointCSSObject,
 );
 
-// eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
-const gridMediaQueryStyles = css(breakPointMediaQueries);
+const inlinePaddingMediaQueries = BREAKPOINTS_LIST.reduce(
+  (acc, breakpoint) => ({
+    ...acc,
+    [media.above[breakpoint]]: {
+      paddingInline: BREAKPOINTS_CONFIG[breakpoint].margin,
+    },
+  }),
+  {} as BreakpointCSSObject,
+);
 
 const baseStyles = css({
   display: 'grid',
   boxSizing: 'border-box',
   width: '100%',
+  gridTemplateColumns: `repeat(${GRID_COLUMNS}, 1fr)`,
+  marginInline: 'auto',
 });
 
 const gridMaxWidthMap: Record<
@@ -80,7 +89,12 @@ const GridContext = createContext(false);
  * );
  * ```
  */
-export const Grid: FC<GridProps> = ({ testId, children, maxWidth }) => {
+export const Grid: FC<GridProps> = ({
+  testId,
+  children,
+  maxWidth,
+  hasInlinePadding = true,
+}) => {
   const isNested = useContext(GridContext);
 
   invariant(
@@ -93,8 +107,9 @@ export const Grid: FC<GridProps> = ({ testId, children, maxWidth }) => {
       data-testid={testId}
       css={[
         baseStyles,
+        gapMediaQueries,
         maxWidth && gridMaxWidthMap[maxWidth],
-        gridMediaQueryStyles,
+        hasInlinePadding && inlinePaddingMediaQueries,
       ]}
     >
       <GridContext.Provider value={true}>{children}</GridContext.Provider>

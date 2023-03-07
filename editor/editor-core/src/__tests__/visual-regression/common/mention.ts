@@ -42,8 +42,7 @@ describe('Mention', () => {
     );
   });
 
-  // FIXME: This test was automatically skipped due to failure on 25/02/2023: https://product-fabric.atlassian.net/browse/ED-16994
-  it.skip('Should repaint when theme mode changes', async () => {
+  it('Should repaint when theme mode changes', async () => {
     const url = getExampleUrl('editor', 'editor-core', 'kitchen-sink');
 
     const { page } = global;

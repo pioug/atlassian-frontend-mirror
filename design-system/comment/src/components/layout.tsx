@@ -3,10 +3,8 @@ import { FC, ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import {
-  UNSAFE_Box as Box,
-  UNSAFE_Stack as Stack,
-} from '@atlaskit/ds-explorations';
+import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
+import Stack from '@atlaskit/primitives/stack';
 import { N20A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -41,10 +39,10 @@ const highlightOverlayStyles = css({
   pointerEvents: 'none',
 });
 
-const stackOverrideStyles = {
-  gridArea: 'nested-comments-area',
+const stackOverrideStyles = css({
   paddingTop: token('space.300', '24px'),
-} as React.CSSProperties;
+  gridArea: 'nested-comments-area',
+});
 
 export interface CommentLayoutProps {
   /**
@@ -93,7 +91,6 @@ const Layout: FC<CommentLayoutProps> = ({
   testId,
   avatar,
 }) => (
-  // eslint-disable-next-line @repo/internal/react/use-primitives
   <div
     css={[
       containerStyles,
@@ -106,9 +103,9 @@ const Layout: FC<CommentLayoutProps> = ({
     {avatar && <AvatarSlot>{avatar}</AvatarSlot>}
     {content && <ContentSlot>{content}</ContentSlot>}
     {children && (
-      <Stack gap="space.400" UNSAFE_style={stackOverrideStyles}>
-        {children}
-      </Stack>
+      <span css={stackOverrideStyles}>
+        <Stack space="400">{children}</Stack>
+      </span>
     )}
     {highlighted && (
       <Box

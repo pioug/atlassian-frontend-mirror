@@ -7,14 +7,14 @@ export type BreakpointConfig = {
   min: number;
   max: number;
   margin: ReturnType<typeof token>;
-  columns: number;
 };
+
+export const GRID_COLUMNS = 12 as const;
 
 export const BREAKPOINTS_CONFIG: Record<Breakpoint, BreakpointConfig> = {
   // mobile
   xs: {
     gutter: token('space.200', '16px'),
-    columns: 12,
     margin: token('space.200', '16px'),
     min: 0,
     max: 591,
@@ -22,7 +22,6 @@ export const BREAKPOINTS_CONFIG: Record<Breakpoint, BreakpointConfig> = {
   // tablet
   sm: {
     gutter: token('space.200', '16px'),
-    columns: 12,
     margin: token('space.300', '24px'),
     min: 592,
     max: 1023,
@@ -30,7 +29,6 @@ export const BREAKPOINTS_CONFIG: Record<Breakpoint, BreakpointConfig> = {
   // laptop desktop
   md: {
     gutter: token('space.300', '24px'),
-    columns: 12,
     margin: token('space.400', '32px'),
     min: 1024,
     max: 1439,
@@ -38,7 +36,6 @@ export const BREAKPOINTS_CONFIG: Record<Breakpoint, BreakpointConfig> = {
   // monitor
   lg: {
     gutter: token('space.400', '32px'),
-    columns: 12,
     margin: token('space.400', '32px'),
     min: 1440,
     max: 1767,
@@ -46,7 +43,6 @@ export const BREAKPOINTS_CONFIG: Record<Breakpoint, BreakpointConfig> = {
   // large high res
   xl: {
     gutter: token('space.400', '32px'),
-    columns: 12,
     margin: token('space.500', '40px'),
     min: 1768,
     max: 2159,
@@ -54,14 +50,22 @@ export const BREAKPOINTS_CONFIG: Record<Breakpoint, BreakpointConfig> = {
   // extra large high res
   xxl: {
     gutter: token('space.500', '40px'),
-    columns: 12,
     margin: token('space.500', '40px'),
     min: 2160,
     max: Number.MAX_SAFE_INTEGER,
   },
 } as const;
 
-export const BREAKPOINTS_LIST = Object.keys(BREAKPOINTS_CONFIG) as [
+/**
+ * The list of breakpoints in order from smallest to largest.
+ *
+ * This is intentional for cascading with `min-width` or `media.above`. Media queries go from lowest width to highest.
+ *
+ * You may need to clone and reverse this list if you want the opposite.
+ */
+export const BREAKPOINTS_LIST = (
+  Object.keys(BREAKPOINTS_CONFIG) as Breakpoint[]
+).sort((a, b) => BREAKPOINTS_CONFIG[a].min - BREAKPOINTS_CONFIG[b].min) as [
   'xs',
   'sm',
   'md',

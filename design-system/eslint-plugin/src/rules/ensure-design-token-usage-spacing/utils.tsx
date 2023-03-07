@@ -131,9 +131,21 @@ export const isTypographyProperty = (propertyName: string) => {
   return typographyProperties.includes(propertyName);
 };
 
+/**
+ * Accomplishes split str by whitespace but preserves expressions in between ${...}
+ * even if they might have whitepaces or nested brackets
+ * @param str
+ * @returns string[]
+ * @example
+ * Regex has two parts, first attempts to capture anything in between `${...}` in a capture group
+ * Whilst allowing nested brackets and non empty characters leading or traling wrapping expression e.g `${gridSize}`, `-${gridSize}px`
+ * second part is a white space delimiter
+ * For input `-${gridSize / 2}px ${token(...)} 18px -> [`-${gridSize / 2}px`, `${token(...)}`, `18px`]
+ */
 export const splitShorthandValues = (str: string): string[] => {
-  // Regex accomplishes split str by whitespace but ignore spaces in between ${}
-  return str.split(/(\${[^}]*}\S*)|\s+/g).filter(Boolean);
+  return str
+    .split(/(\S*\$\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}\S*)|\s+/g)
+    .filter(Boolean);
 };
 
 export const getValueFromShorthand = (str: unknown): any[] => {
@@ -279,8 +291,7 @@ export const getRawExpression = (
         isNodeOfType(node, 'BinaryExpression') ||
         isNodeOfType(node, 'UnaryExpression') ||
         isNodeOfType(node, 'TemplateLiteral') ||
-        isNodeOfType(node, 'CallExpression') ||
-        isNodeOfType(node, 'ArrowFunctionExpression')
+        isNodeOfType(node, 'CallExpression')
       )
     ) ||
     !Array.isArray(node.range)
@@ -517,6 +528,14 @@ export function shouldAnalyzeProperty(
 }
 
 /**
+ * Function that removes JS comments from a string of code,
+ * sometimes makers will have single or multiline comments in their tagged template literals styles, this can mess with our parsing logic
+ */
+export function cleanComments(str: string): string {
+  return str.replace(/\/\*([\s\S]*?)\*\//g, '').replace(/\/\/(.*)/g, '');
+}
+
+/**
  * Returns an array of tuples representing a processed css within `TaggedTemplateExpression` node.
  * each element of the array is a tuple `[string, string]`,
  * where the first element is the processed css line with computed values
@@ -531,7 +550,7 @@ export function shouldAnalyzeProperty(
 export function processCssNode(
   node: TaggedTemplateExpression & Rule.NodeParentExtension,
   context: Rule.RuleContext,
-): ProcessedCSSLines {
+): ProcessedCSSLines | undefined {
   const combinedString = node.quasi.quasis
     .map((q, i) => {
       return `${q.value.raw}${
@@ -546,13 +565,19 @@ export function processCssNode(
     .map((q, i) => {
       return `${q.value.raw}${
         node.quasi.expressions[i]
-          ? `\${${getRawExpression(node.quasi.expressions[i], context)}}`
+          ? getRawExpression(node.quasi.expressions[i], context)
+            ? `\${${getRawExpression(node.quasi.expressions[i], context)}}`
+            : null
           : ''
       }`;
     })
     .join('');
-  const cssProperties = splitCssProperties(combinedString);
-  const unalteredCssProperties = splitCssProperties(rawString);
+  const cssProperties = splitCssProperties(cleanComments(combinedString));
+  const unalteredCssProperties = splitCssProperties(cleanComments(rawString));
+  if (cssProperties.length !== unalteredCssProperties.length) {
+    // this means something wen't wrong with the parsing, the original lines can't be reconciliated with the processed lines
+    return undefined;
+  }
   return cssProperties.map((cssProperty, index): [string, string] => [
     cssProperty,
     unalteredCssProperties[index],
@@ -614,14 +639,23 @@ export function getFontSizeValueInScope(
  * @param styleString string of css properties
  */
 export function splitCssProperties(styleString: string): string[] {
-  return styleString
-    .split('\n')
-    .filter((line) => !line.trim().startsWith('@'))
-    .join('\n')
-    .replace(/\n/g, '')
-    .split(/;|(?<!\$){|(?<!\${.+?)}/) // don't split on template literal expressions i.e. `${...}`
-    .map((el) => el.trim() || '')
-    .filter(Boolean);
+  return (
+    styleString
+      .split('\n')
+      .filter((line) => !line.trim().startsWith('@'))
+      // sometimes makers will end a css line with `;` that's output from a function expression
+      // since we'll rely on `;` to split each line, we need to ensure it's there
+      .map((line) => (line.endsWith(';') ? line : `${line};`))
+      .join('\n')
+      .replace(/\n/g, '')
+      .split(/;|(?<!\$){|(?<!\${.+?)}/) // don't split on template literal expressions i.e. `${...}`
+      // filters lines that are completely null, this could be from function expressions that output both property and value
+      .filter((line) => line.trim() !== 'null' && line.trim() !== 'null;')
+      .map((el) => el.trim() || '')
+      // we won't be able to reason about lines that don't have colon (:)
+      .filter((line) => line.split(':').length === 2)
+      .filter(Boolean)
+  );
 }
 
 /**

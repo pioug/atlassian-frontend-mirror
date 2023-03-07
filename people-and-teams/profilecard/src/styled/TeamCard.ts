@@ -20,6 +20,11 @@ export const CardWrapper = styled.div`
   -moz-osx-font-smoothing: grayscale;
 `;
 
+export const TeamForbiddenErrorStateWrapper = styled.div`
+  width: ${gridSize() * 40}px;
+  position: relative;
+`;
+
 export const CardHeader = styled.div<{ image?: string; isLoading?: boolean }>`
   background-color: ${(props) =>
     props.isLoading
@@ -100,6 +105,10 @@ export const MoreButton = styled.div`
 export const LoadingWrapper = styled.div`
   text-align: center;
   margin-top: ${gridSize() * 5}px;
+`;
+
+export const AccessLockSVGWrapper = styled.div`
+  margin-bottom: ${gridSize() * 3}px;
 `;
 
 // export const LoadingTeamName = styled.div`

@@ -6,6 +6,8 @@ import Button, { ButtonGroup } from '@atlaskit/button';
 import LoadLinkForm from '../jsonld-editor/load-link-form';
 import JsonldExample from '../jsonld-editor/jsonld-example';
 import JsonldEditorInput from '../jsonld-editor/jsonld-editor-input';
+import type { FlexibleTemplate } from './types';
+import Code from './code';
 
 const buttonGroupStyles = css`
   text-align: right;
@@ -17,6 +19,7 @@ const EditLink: React.FC<{
   onJsonChange: (json: JsonLd.Response) => void;
   onSubmitUrl: (url: string, ari?: string) => void;
   onTextChange: (str: string) => void;
+  template: FlexibleTemplate;
   text: string;
   urlError?: string;
 }> = ({
@@ -25,11 +28,15 @@ const EditLink: React.FC<{
   onJsonChange,
   onSubmitUrl,
   onTextChange,
+  template,
   text,
   urlError,
 }) => {
+  const [showCode, setShowCode] = useState<boolean>(true);
   const [showEditLink, setShowEditLink] = useState<boolean>(false);
   const [showJsonld, setShowJsonld] = useState<boolean>(false);
+
+  const onShowCodeClick = useCallback(() => setShowCode(!showCode), [showCode]);
 
   const onShowEditLinkClick = useCallback(
     () => setShowEditLink(!showEditLink),
@@ -45,6 +52,9 @@ const EditLink: React.FC<{
     <React.Fragment>
       <div css={buttonGroupStyles}>
         <ButtonGroup appearance="subtle-link">
+          <Button onClick={onShowCodeClick} spacing="compact">
+            Code
+          </Button>
           <Button onClick={onShowEditLinkClick} spacing="compact">
             Change link
           </Button>
@@ -53,6 +63,7 @@ const EditLink: React.FC<{
           </Button>
         </ButtonGroup>
       </div>
+      {showCode && <Code template={template} />}
       {showEditLink && (
         <React.Fragment>
           <LoadLinkForm onSubmit={onSubmitUrl} error={urlError} />

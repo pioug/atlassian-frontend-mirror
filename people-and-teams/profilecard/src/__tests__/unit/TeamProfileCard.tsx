@@ -119,6 +119,30 @@ describe('TeamProfileCard', () => {
         flexiTime(errorRetryClicked({ duration: SAMPLE_DURATION })),
       );
     });
+
+    it('should render TeamsForbiddenErrorState when errorType is TEAMS_FORBIDDEN', () => {
+      const { getByTestId } = renderWithIntl(
+        <TeamProfileCard
+          hasError
+          errorType={{ reason: 'TEAMS_FORBIDDEN' }}
+          {...defaultProps}
+          clientFetchProfile={() => null}
+        />,
+      );
+
+      const teamsForbiddenErrorState = getByTestId(
+        'team-profilecard-forbidden-error-state',
+      );
+
+      expect(teamsForbiddenErrorState).toBeDefined();
+      expect(analyticsListener).toHaveBeenCalledWith(
+        flexiTime(
+          profileCardRendered('team', 'error', {
+            duration: SAMPLE_DURATION,
+          }),
+        ),
+      );
+    });
   });
 
   it('should send content analytics when rendering successfully', () => {

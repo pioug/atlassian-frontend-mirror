@@ -1,4 +1,5 @@
 import React from 'react';
+import { css } from '@emotion/react';
 import { FlexibleTemplate } from './types';
 import {
   ComponentStorageValue,
@@ -7,6 +8,7 @@ import {
   FunctionStorageValue,
 } from './constants';
 import PremiumIcon from '@atlaskit/icon/glyph/premium';
+import { token } from '@atlaskit/tokens';
 
 export type ChangeParams<T extends object> = [
   onChange: (template: T) => void,
@@ -82,3 +84,11 @@ export const setExampleToLocalStorage = (template: FlexibleTemplate) => {
     }),
   );
 };
+
+export const excludeStyles = css`
+  label,
+  label > span,
+  div {
+    color: ${token('color.text.disabled', '#091E424F')};
+  }
+`;

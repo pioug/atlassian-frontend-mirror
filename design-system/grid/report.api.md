@@ -57,6 +57,7 @@ export type GridProps = {
   testId?: string;
   maxWidth?: 'narrow' | 'wide';
   children: ReactNode;
+  hasInlinePadding?: boolean;
 };
 
 // @public (undocumented)

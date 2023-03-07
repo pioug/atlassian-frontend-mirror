@@ -1,4 +1,4 @@
-export { Box, type BoxProps } from './components/box';
+export { default as Box, type BoxProps } from './components/box';
 export {
   default as Inline,
   type InlineProps,

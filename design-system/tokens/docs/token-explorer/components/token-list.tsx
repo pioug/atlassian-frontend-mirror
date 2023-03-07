@@ -3,6 +3,7 @@ import { Fragment, memo } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
+import { UNSAFE_media as media } from '@atlaskit/grid';
 import { Box, Inline, Stack } from '@atlaskit/primitives';
 
 import { token } from '../../../src';
@@ -19,6 +20,9 @@ const listStyles = css({
   gap: token('space.200', '16px'),
   flexDirection: 'column',
   listStyle: 'none',
+  [media.below.sm]: {
+    gap: token('space.300', '24px'),
+  },
 });
 
 const listHeaderStyles = css({
@@ -27,6 +31,12 @@ const listHeaderStyles = css({
   backgroundColor: token('elevation.surface', '#FFFFFF'),
   borderBottom: `2px solid ${token('color.border', '#091E4224')}`,
   paddingBlock: token('space.050', '4px'),
+});
+
+const listHeaderValueColumnStyles = css({
+  [media.below.sm]: {
+    display: 'none',
+  },
 });
 
 export interface TokenListProps {
@@ -83,11 +93,13 @@ const ListHeader = ({ scrollOffset, columnNames }: ListHeaderProps) => (
   <div css={[listHeaderStyles, { top: scrollOffset }]}>
     <Inline space="200" spread="space-between">
       <ColumnHeader columnName={columnNames[0]} isFirstColumn />
-      <Inline space="200">
-        {columnNames.slice(1).map((columnName) => (
-          <ColumnHeader key={columnName} columnName={columnName} />
-        ))}
-      </Inline>
+      <div css={listHeaderValueColumnStyles}>
+        <Inline space="200">
+          {columnNames.slice(1).map((columnName) => (
+            <ColumnHeader key={columnName} columnName={columnName} />
+          ))}
+        </Inline>
+      </div>
     </Inline>
   </div>
 );

@@ -15,8 +15,10 @@ export default md`
 
   A React component that wraps a trigger, such that when interacted a user profile card pops up.
 
-  It's recommended to talk to us on Slack at #team-twp-people-teams before integrating this in
-  your product.
+  It's recommended to talk to us, in particular our team's designers, on Slack at
+  #help-people-and-teams-xpc before integrating this in your product. This is for the purpose of
+  design's understanding, as it is important that design understands the consumer / your use
+  case(s), and we are happy to chat further if the current design doesn't meet your needs.
 
   ## Usage
 

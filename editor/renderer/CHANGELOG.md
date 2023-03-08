@@ -1,5 +1,11 @@
 # @atlaskit/renderer
 
+## 106.0.2
+
+### Patch Changes
+
+- [`8c04b73312e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8c04b73312e) - ED-16758 Added data-cell-background attribute to store table cell background color information.
+
 ## 106.0.1
 
 ### Patch Changes

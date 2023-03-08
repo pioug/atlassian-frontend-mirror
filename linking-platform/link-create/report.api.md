@@ -68,6 +68,46 @@ interface LinkCreateProps {
 }
 
 // @public (undocumented)
+interface Option_2 {
+  label: string;
+  value: string;
+}
+
+// @public (undocumented)
+export function Select({
+  name,
+  title,
+  options,
+  defaultOption,
+  placeholder,
+}: SelectProps): jsx.JSX.Element;
+
+// @public (undocumented)
+interface SelectProps {
+  defaultOption?: Option_2;
+  // (undocumented)
+  name: string;
+  options: Option_2[];
+  placeholder?: string;
+  // (undocumented)
+  title: string;
+}
+
+// @public
+export function TextField({
+  label,
+  name,
+  validationHelpText,
+}: TextFieldProps): jsx.JSX.Element;
+
+// @public (undocumented)
+interface TextFieldProps {
+  label: string;
+  name: string;
+  validationHelpText?: string;
+}
+
+// @public (undocumented)
 export const useLinkCreateCallback: () => LinkCreateCallbackProviderProps;
 
 // (No @packageDocumentation comment for this package)

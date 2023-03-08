@@ -28,13 +28,12 @@ type BreakpointConfig = {
   min: number;
   max: number;
   margin: ReturnType<typeof token>;
-  columns: number;
 };
 
 // @public (undocumented)
 export const BREAKPOINTS_CONFIG: Record<Breakpoint, BreakpointConfig>;
 
-// @public (undocumented)
+// @public
 export const BREAKPOINTS_LIST: ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'];
 
 // @public
@@ -60,12 +59,6 @@ export type GridProps = {
   hasInlinePadding?: boolean;
 };
 
-// @public (undocumented)
-type MediaQuery = `@media (${string})`;
-
-// @public (undocumented)
-type ResponsiveMediaObject = Record<Breakpoint, MediaQuery>;
-
 // @public
 type ResponsiveObject<T> = Partial<Record<Breakpoint, T>>;
 
@@ -82,10 +75,23 @@ type StartObject = ResponsiveObject<StartOptions>;
 type StartOptions = 'auto' | SpanOptions;
 
 // @public
-export const UNSAFE_media: Record<
-  'above' | 'below' | 'between',
-  ResponsiveMediaObject
->;
+export const UNSAFE_media: {
+  readonly above: {
+    readonly xs: `@media (min-width: ${number}px)`;
+    readonly sm: `@media (min-width: ${number}px)`;
+    readonly md: `@media (min-width: ${number}px)`;
+    readonly lg: `@media (min-width: ${number}px)`;
+    readonly xl: `@media (min-width: ${number}px)`;
+    readonly xxl: `@media (min-width: ${number}px)`;
+  };
+  readonly below: {
+    readonly sm: `@media (max-width: ${number}px)`;
+    readonly md: `@media (max-width: ${number}px)`;
+    readonly lg: `@media (max-width: ${number}px)`;
+    readonly xl: `@media (max-width: ${number}px)`;
+    readonly xxl: `@media (max-width: ${number}px)`;
+  };
+};
 
 // (No @packageDocumentation comment for this package)
 ```

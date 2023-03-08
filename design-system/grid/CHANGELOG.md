@@ -1,5 +1,11 @@
 # @atlaskit/grid
 
+## 0.5.0
+
+### Minor Changes
+
+- [`0ceafd30000`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ceafd30000) - Further revisions to the Alpha Grid API and adding a `noInlinePadding` prop.
+
 ## 0.4.0
 
 ### Minor Changes

@@ -8,6 +8,7 @@ import {
   G50,
   G75,
   hexToRgba,
+  isHex,
   isRgb,
   N0,
   N20,
@@ -74,6 +75,19 @@ export const getCellAttrs = (
   const colspan = Number(dom.getAttribute('colspan') || 1);
   let { backgroundColor } = dom.style;
 
+  /**
+   * We have pivoted to store background color information in
+   *  data-cell-background.
+   * We will have original hex code (which we map to DST token)
+   *  stored in data-cell-background, use that.
+   * More details at https://product-fabric.atlassian.net/wiki/spaces/EUXQ/pages/3472556903/Tokenising+tableCell+background+colors#Update-toDom-and-parseDom-to-store-and-read-background-color-from-data-cell-background-attribute.4
+   */
+  const dataCellBackground = dom.getAttribute('data-cell-background');
+  const dataCellBackgroundHexCode =
+    dataCellBackground && isHex(dataCellBackground)
+      ? dataCellBackground
+      : undefined;
+
   // ignore setting background attr if ds neutral token is detected
   if (backgroundColor.includes('--ds-background-neutral')) {
     backgroundColor = '';
@@ -86,14 +100,17 @@ export const getCellAttrs = (
     }
   }
 
+  const backgroundHexCode =
+    dataCellBackgroundHexCode ||
+    (backgroundColor && backgroundColor !== defaultValues['background']
+      ? backgroundColor
+      : null);
+
   return {
     colspan,
     rowspan: Number(dom.getAttribute('rowspan') || 1),
     colwidth: width && width.length === colspan ? width : null,
-    background:
-      backgroundColor && backgroundColor !== defaultValues['background']
-        ? backgroundColor
-        : null,
+    background: backgroundHexCode,
   };
 };
 
@@ -103,6 +120,7 @@ export type CellDomAttrs = {
   style?: string;
   colorname?: string;
   'data-colwidth'?: string;
+  'data-cell-background'?: string;
   class?: string;
 };
 
@@ -144,7 +162,26 @@ export const getCellDomAttrs = (node: PmNode): CellDomAttrs => {
     } else {
       const color = isRgb(background) ? rgbToHex(background) : background;
 
-      attrs.style = `${attrs.style || ''}background-color: ${color};`;
+      attrs.style = `${attrs.style || ''}background-color: ${color}`;
+
+      /**
+       * Storing hex code in data-cell-background because
+       *  we want to have DST token (css variable) or
+       *  DST token value (value (hex code) of css variable) in
+       *  inline style to correct render table cell background
+       *  based on selected theme.
+       * Currently we rely on background color hex code stored in
+       *  inline style.
+       * Because of that when we copy and paste table, we end up
+       *  having DST token or DST token value in ADF instead of
+       *  original hex code which we map to DST token.
+       * So, introducing data-cell-background.
+       * More details at https://product-fabric.atlassian.net/wiki/spaces/EUXQ/pages/3472556903/Tokenising+tableCell+background+colors#Update-toDom-and-parseDom-to-store-and-read-background-color-from-data-cell-background-attribute.4
+       */
+      if (color) {
+        attrs['data-cell-background'] = color;
+      }
+
       attrs.colorname = tableBackgroundColorPalette.get(color);
     }
   }

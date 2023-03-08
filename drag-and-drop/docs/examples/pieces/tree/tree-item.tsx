@@ -24,6 +24,7 @@ import {
   monitorForElements,
 } from '@atlaskit/drag-and-drop/adapter/element';
 import { combine } from '@atlaskit/drag-and-drop/util/combine';
+import { setCustomNativeDragPreview } from '@atlaskit/drag-and-drop/util/set-custom-native-drag-preview';
 import FocusRing from '@atlaskit/focus-ring';
 import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
 import ChevronRightIcon from '@atlaskit/icon/glyph/chevron-right';
@@ -127,48 +128,19 @@ const debugStyles = css({
 });
 
 const previewStyles = css({
-  // re-declaring variable for the portal as it will have a different parent in the DO
   '--grid': '8px',
-  // so we don't cause the page to reflow
-  position: 'absolute',
-  display: 'flex',
-  // padding: "var(--grid)"
-  // offsets inner element
-  // in Chrome and Safari we could use `padding`:
-  // padding: 'var(--grid)',
-  // But it does not work in Firefox which trims the padding (or inner margin)
-  // Using a transparent border works in all browsers
-  borderLeft: 'calc(var(--grid) * 2) solid transparent',
-  borderTop: 'var(--grid) solid transparent',
-});
-const previewInnerStyles = css({
   background: token('elevation.surface.raised', 'red'),
   padding: 'var(--grid)',
   borderRadius: 3,
 });
 
+function Preview({ item }: { item: TreeItemType }) {
+  return <div css={previewStyles}>Item {item.id}</div>;
+}
+
 const reparentingToStyles = css({
   background: token('color.background.selected.hovered', 'transparent'),
 });
-
-function createPreview({ item }: { item: TreeItemType }): {
-  element: HTMLElement;
-  cleanup: () => void;
-} {
-  const element = document.createElement('div');
-  document.body.appendChild(element);
-  ReactDOM.render(
-    <div css={previewStyles}>
-      <span css={previewInnerStyles}>Item {item.id}</span>
-    </div>,
-    element,
-  );
-  function cleanup() {
-    ReactDOM.unmountComponentAtNode(element);
-    document.body.removeChild(element);
-  }
-  return { element, cleanup };
-}
 
 function delay({
   waitMs: timeMs,
@@ -229,7 +201,6 @@ const TreeItem = memo(function TreeItem({
 
   useEffect(() => {
     invariant(buttonRef.current);
-    let cleanupPreview: null | (() => void) = null;
 
     return combine(
       draggable({
@@ -241,14 +212,16 @@ const TreeItem = memo(function TreeItem({
           uniqueContextId,
         }),
         onGenerateDragPreview: ({ nativeSetDragImage }) => {
-          const preview = createPreview({ item });
-          nativeSetDragImage?.(preview.element, 0, 0);
-          cleanupPreview = preview.cleanup;
-          // setState('preview');
+          setCustomNativeDragPreview({
+            placement: { type: 'offset-from-pointer', x: '16px', y: '8px' },
+            render: ({ container }) => {
+              ReactDOM.render(<Preview item={item} />, container);
+              return () => ReactDOM.unmountComponentAtNode(container);
+            },
+            nativeSetDragImage,
+          });
         },
         onDragStart: ({ source }) => {
-          cleanupPreview?.();
-          cleanupPreview = null;
           setState('dragging');
           // collapse open items during a drag
           if (source.data.isOpenOnDragStart) {
@@ -256,8 +229,6 @@ const TreeItem = memo(function TreeItem({
           }
         },
         onDrop: ({ source }) => {
-          cleanupPreview?.();
-          cleanupPreview = null;
           setState('idle');
           if (source.data.isOpenOnDragStart) {
             dispatch({ type: 'expand', itemId: item.id });
@@ -351,10 +322,6 @@ const TreeItem = memo(function TreeItem({
           clearReparentingToState();
         },
       }),
-      () => {
-        cleanupPreview?.();
-        cleanupPreview = null;
-      },
     );
   }, [
     dispatch,

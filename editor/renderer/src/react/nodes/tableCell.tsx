@@ -67,10 +67,27 @@ const getSortOrderLabel = (
   }
 };
 
-const getDataAttributes = (colwidth?: number[]): any => {
+const getDataAttributes = (colwidth?: number[], background?: string): any => {
   const attrs: any = {};
   if (colwidth) {
     attrs['data-colwidth'] = colwidth.join(',');
+  }
+  /**
+   * Storing hex code in data-cell-background because
+   *  we want to have DST token (css variable) or
+   *  DST token value (value (hex code) of css variable) in
+   *  inline style to correct render table cell background
+   *  based on selected theme.
+   * Currently we rely on background color hex code stored in
+   *  inline style.
+   * Because of that when we copy and paste table, we end up
+   *  having DST token or DST token value in ADF instead of
+   *  original hex code which we map to DST token.
+   * So, introducing data-cell-background.
+   * More details at https://product-fabric.atlassian.net/wiki/spaces/EUXQ/pages/3472556903/Tokenising+tableCell+background+colors#Update-toDom-and-parseDom-to-store-and-read-background-color-from-data-cell-background-attribute.4
+   */
+  if (background) {
+    attrs['data-cell-background'] = background;
   }
 
   return attrs;
@@ -130,7 +147,7 @@ const withCellProps = (WrapperComponent: React.ElementType) => {
           colorname={colorName}
           onClick={onClick}
           className={className}
-          {...getDataAttributes(colwidth)}
+          {...getDataAttributes(colwidth, background)}
           aria-sort={ariaSort}
         >
           {children}

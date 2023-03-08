@@ -1,5 +1,11 @@
 # @atlaskit/link-create
 
+## 0.0.4
+
+### Patch Changes
+
+- [`09697a312bc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/09697a312bc) - EDM-5657 EDM-5661 Implement Select and Textfield components
+
 ## 0.0.3
 
 ### Patch Changes

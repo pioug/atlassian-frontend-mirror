@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 4.16.4
+
+### Patch Changes
+
+- [`358730833d8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/358730833d8) - Add overrides in @atlaskit/drawer to deprecated config
+
 ## 4.16.3
 
 ### Patch Changes

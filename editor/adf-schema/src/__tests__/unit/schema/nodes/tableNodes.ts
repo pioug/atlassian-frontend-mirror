@@ -493,7 +493,7 @@ describe(`${packageName}/schema table node`, () => {
         const attrs = { background: '#ff0000' } as CellAttributes;
         const cell = schema.nodes.tableCell.create(attrs);
         expect(toHTML(cell, schema)).toEqual(
-          '<td style="background-color: #ff0000;" class="pm-table-cell-content-wrap"></td>',
+          '<td style="background-color: #ff0000" data-cell-background="#ff0000" class="pm-table-cell-content-wrap"></td>',
         );
       });
     });
@@ -530,7 +530,7 @@ describe(`${packageName}/schema table node`, () => {
         const attrs = { background: '#ff0000' } as CellAttributes;
         const cell = schema.nodes.tableHeader.create(attrs);
         expect(toHTML(cell, schema)).toEqual(
-          '<th style="background-color: #ff0000;" class="pm-table-header-content-wrap"></th>',
+          '<th style="background-color: #ff0000" data-cell-background="#ff0000" class="pm-table-header-content-wrap"></th>',
         );
       });
 

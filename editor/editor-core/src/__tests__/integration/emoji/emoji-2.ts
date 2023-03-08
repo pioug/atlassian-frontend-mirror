@@ -11,10 +11,9 @@ import {
   insertEmojiBySelect,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
 
-// TODO: Restore skipped test https://product-fabric.atlassian.net/browse/ED-16706
 BrowserTestCase(
   'emoji-2.ts: should be able to use emoji inside blockquote',
-  { skip: ['*'] },
+  {},
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, { appearance: 'full-page' });

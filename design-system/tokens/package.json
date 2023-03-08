@@ -71,7 +71,7 @@
     "@atlaskit/dynamic-table": "^14.8.0",
     "@atlaskit/empty-state": "^7.4.0",
     "@atlaskit/focus-ring": "^1.2.0",
-    "@atlaskit/grid": "^0.4.0",
+    "@atlaskit/grid": "^0.5.0",
     "@atlaskit/heading": "^1.1.0",
     "@atlaskit/icon": "^21.11.0",
     "@atlaskit/lozenge": "^11.3.0",

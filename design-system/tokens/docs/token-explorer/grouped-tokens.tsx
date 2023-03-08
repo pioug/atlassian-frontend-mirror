@@ -76,14 +76,13 @@ const groupTokens = (tokens: TransformedTokenMerged[]): TokenGroup[] => {
     // Determine if this token is an extension
     const isExtension = extensions?.includes(token.path[token.path.length - 1]);
 
+    let baseToken;
     if (isExtension) {
       const aggregateBase = getTokenId(
         token.path.slice(0, token.path.length - 1),
       );
 
-      const baseToken = tokens.find(
-        ({ nameClean }) => aggregateBase === nameClean,
-      );
+      baseToken = tokens.find(({ nameClean }) => aggregateBase === nameClean);
 
       if (baseToken && !baseToken?.extensions) {
         baseToken.extensions = [];
@@ -92,7 +91,7 @@ const groupTokens = (tokens: TransformedTokenMerged[]): TokenGroup[] => {
       baseToken?.extensions?.push(token);
     }
 
-    return !isExtension;
+    return !isExtension || !baseToken;
   });
 
   // Group tokens

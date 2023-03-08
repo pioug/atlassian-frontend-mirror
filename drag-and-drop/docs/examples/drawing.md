@@ -6,16 +6,16 @@ Each shape is a draggable element, as well as a drop target. By dragging from a 
 
 There are two kinds of lines drawn:
 
-1. An 'active' line that follows the cursor as you drag from a shape.
+1. An 'active' line that follows the pointer as you drag from a shape.
 2. Lines which connect two shapes that have been joined using drag and drop.
 
 Both types of line are drawn using SVG `<line>` elements, which uses coordinates for the endpoints.
 
 ## Active line
 
-The active line is shown on drag start and hidden on drag end. One end is anchored to the shape being dragged from, and the other end is anchored to the cursor location.
+The active line is shown on drag start and hidden on drag end. One end is anchored to the shape being dragged from, and the other end is anchored to the user's pointer location.
 
-Endpoints coordinates are calculated in the `onDrag` callback of each shape. The position of the shape is obtained from `source.element.getBoundingClientRect()`, whereas the position of the cursor is obtained from `location.current.input`.
+Endpoints coordinates are calculated in the `onDrag` callback of each shape. The position of the shape is obtained from `source.element.getBoundingClientRect()`, whereas the position of the pointer is obtained from `location.current.input`.
 
 ## Connection lines
 

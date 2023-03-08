@@ -1,5 +1,32 @@
 # @atlaskit/drag-and-drop
 
+## 0.11.0
+
+### Minor Changes
+
+- [`1ecbb19d450`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1ecbb19d450) - Adding a new function to make creating _custom_ native drag previews safe and easy: `setCustomNativeDragPreview`
+
+  ```tsx
+  import { setCustomNativeDragPreview } from '@atlaskit/drag-and-drop/util/set-custom-native-drag-preview';
+
+  draggable({
+    element: myElement,
+    onGenerateDragPreview: ({ nativeSetDragImage }) => {
+      setCustomNativeDragPreview({
+        render: function render({ container }) {
+          ReactDOM.render(<Preview item={item} />, container);
+          return function cleanup() {
+            ReactDOM.unmountComponentAtNode(container);
+          };
+        },
+        nativeSetDragImage,
+      });
+    },
+  });
+  ```
+
+  Please see our element adapter documentation for more detailed usage information
+
 ## 0.10.0
 
 ### Minor Changes

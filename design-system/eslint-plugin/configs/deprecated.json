@@ -11,6 +11,9 @@
     },
     {
       "moduleSpecifier": "@atlaskit/side-navigation"
+    },
+    {
+      "moduleSpecifier": "@atlaskit/drawer"
     }
   ],
   "type": [{

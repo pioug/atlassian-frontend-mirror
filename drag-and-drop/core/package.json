@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/drag-and-drop",
-  "version": "0.10.0",
+  "version": "0.11.0",
   "description": "The core Atlassian drag and drop framework, optimized for performance.",
   "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "author": "Atlassian Pty Ltd",
@@ -35,6 +35,7 @@
     "./util/combine": "./src/entry-point/util/combine.ts",
     "./util/once": "./src/entry-point/util/once.ts",
     "./util/reorder": "./src/entry-point/util/reorder.ts",
+    "./util/set-custom-native-drag-preview": "./src/entry-point/util/set-custom-native-drag-preview.ts",
     "./util/disable-native-drag-preview": "./src/entry-point/util/disable-native-drag-preview.ts",
     "./util/scroll-just-enough-into-view": "./src/entry-point/util/scroll-just-enough-into-view.ts",
     "./experimental/cross-window-element-adapter": "./src/entry-point/experimental/cross-with-element-adapter.ts"

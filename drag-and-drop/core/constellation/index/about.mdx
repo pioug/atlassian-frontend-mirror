@@ -47,6 +47,7 @@ Combines the cleanup functions returned by _draggables_, _drop targets_ and _mon
 ```ts
 import { combine } from '@atlaskit/drag-and-drop/util/combine';
 ```
+
 _Draggables_, _drop targets_ and _monitors_ return a cleanup function.
 
 ```ts
@@ -115,7 +116,7 @@ useEffect(() => {
 }, []);
 ```
 
-### Once 
+### Once
 
 A function that will only allow the provided function to be called once.
 
@@ -169,6 +170,117 @@ const reordered = reorder({
 console.log(reordered); // [B, A, C]
 ```
 
+### Set a custom native drag preview
+
+You can use `setCustomNativeDragPreview` to mount a new element to the page to be used as the drag preview. `setCustomNativeDragPreview` will call your `cleanup` function to remove the preview element from the page after the browser has taken a photo of the element. `setCustomNativeDragPreview` adds the `container` `Element` to the `document.body` and will remove the `container` `Element` after your `cleanup` function is called.
+
+`setCustomNativeDragPreview` has been designed to work with any view abstraction
+
+```ts
+import { setCustomNativeDragPreview } from '@atlaskit/drag-and-drop/util/set-custom-native-drag-preview';
+```
+
+#### Usage example: `react` portals
+
+This technique requires your component to be re-rendered, but maintains the current `react` `context`
+
+```tsx
+type State =
+  | {
+      type: 'idle';
+    }
+  | {
+      type: 'preview';
+      container: HTMLElement;
+    };
+
+function Item() {
+  const [state, setState] = useState<State>({ type: 'idle' });
+  const ref = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    invariant(ref.current);
+
+    return draggable({
+      element: ref.current,
+      onGenerateDragPreview({ nativeSetDragImage }) {
+        setCustomNativeDragPreview({
+          render({ container }) {
+            // Cause a `react` re-render to create your portal synchronously
+            setState({ type: 'preview', container });
+            // In our cleanup function: cause a `react` re-render to create remove your portal
+            // Note: you can also remove the portal in `onDragStart`,
+            // which is when the cleanup function is called
+            return () => setState({ type: 'idle' });
+          },
+          nativeSetDragImage,
+        });
+      },
+    });
+  }, []);
+
+  return (
+    <>
+      <div ref={ref}>Drag Me</div>
+      {state.type === 'preview'
+        ? ReactDOM.createPortal(<Preview />, state.container)
+        : null}
+    </>
+  );
+}
+```
+
+#### Usage example: A new `react` application
+
+This technique requires no re-rendering of your component, but does not maintain the current `react` `context`
+
+
+```tsx
+import { setCustomNativeDragPreview } from '@atlaskit/drag-and-drop/util/set-custom-native-drag-preview';
+
+draggable({
+  element: myElement,
+  onGenerateDragPreview: ({ nativeSetDragImage }) => {
+    setCustomNativeDragPreview({
+      render: function render({ container }) {
+        ReactDOM.render(<Preview item={item} />, container);
+        return function cleanup() {
+          ReactDOM.unmountComponentAtNode(container);
+        };
+      },
+      nativeSetDragImage,
+    });
+  },
+});
+```
+
+#### Placement
+
+You can control where the custom native drag preview is placed by using the `placement` argument:
+
+- `type: 'center'`: Place the center of the drag preview user the users pointer
+- `type: 'offset-from-pointer'`: Shift the drag preview away from the users pointer
+
+```tsx
+import { setCustomNativeDragPreview } from '@atlaskit/drag-and-drop/util/set-custom-native-drag-preview';
+
+draggable({
+  element: myElement,
+  onGenerateDragPreview: ({ nativeSetDragImage }) => {
+    setCustomNativeDragPreview({
+      placement: { type: 'offset-from-pointer', x: '16px', y: '8px' },
+      render: function render({ container }) {
+        ReactDOM.render(<Preview item={item} />, container);
+        return function cleanup() {
+          ReactDOM.unmountComponentAtNode(container);
+        };
+      },
+      nativeSetDragImage,
+    });
+  },
+});
+```
+
 ### Disable native drag preview
 
 In some situations, you might want to disable the native drag preview. The `disableNativeDragPreview` utility does this for all supported browsers and platforms.
@@ -215,4 +327,3 @@ draggable({
 We don't bake `scrollJustEnoughIntoView` into Atlassian drag and drop, as it may not be the best approach in all circumstances (for example, you might be making a small drag preview for a large draggable element, or you might be opting out of the native drag preview)
 
 </SectionMessage>
-

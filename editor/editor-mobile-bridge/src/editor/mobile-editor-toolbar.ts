@@ -466,7 +466,10 @@ export default class MobileEditorToolbarActions {
     datePicker.onChange(timestamp)(editorView.state, editorView.dispatch);
 
     let tr = editorView.state.tr;
-    tr = tr.setSelection(Selection.near(tr.doc.resolve(tr.selection.to + 1)));
+    // Don't move the cursor if it is iOS
+    if (!window.webkit) {
+      tr = tr.setSelection(Selection.near(tr.doc.resolve(tr.selection.to + 1)));
+    }
     editorView.dispatch(tr);
   }
 

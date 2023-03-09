@@ -1,5 +1,11 @@
 # @atlaskit/adf-schema
 
+## 25.2.3
+
+### Patch Changes
+
+- [`85f02a75990`](https://bitbucket.org/atlassian/atlassian-frontend/commits/85f02a75990) - [hot-102658] Dummy patch added to stabalise package build failures caused because of bad remote cache
+
 ## 25.2.2
 
 ### Patch Changes

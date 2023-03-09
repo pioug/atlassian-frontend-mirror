@@ -1,5 +1,11 @@
 # @atlaskit/link-provider
 
+## 1.4.3
+
+### Patch Changes
+
+- [`12223b3ee04`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12223b3ee04) - Move EditorCardProvider to new package instead of using imports from Link Provider and Smart Card
+
 ## 1.4.2
 
 ### Patch Changes

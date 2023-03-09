@@ -16,9 +16,15 @@ const itemProps: BoxProps = {
   height: 'size.600',
 } as const;
 
-export default ({ maxWidth }: { maxWidth?: GridProps['maxWidth'] }) => {
+export default ({
+  maxWidth,
+  hasInlinePadding,
+}: {
+  maxWidth?: GridProps['maxWidth'];
+  hasInlinePadding?: GridProps['hasInlinePadding'];
+}) => {
   return (
-    <Grid maxWidth={maxWidth} testId="grid">
+    <Grid maxWidth={maxWidth} hasInlinePadding={hasInlinePadding} testId="grid">
       <GridItem>
         <Box {...itemProps} />
       </GridItem>

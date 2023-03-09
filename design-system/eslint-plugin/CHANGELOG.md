@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 4.16.5
+
+### Patch Changes
+
+- [`c82e6ef389c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c82e6ef389c) - Fix bug when replacing shorthand css property values with tokens, values without corresponding token won't be replaced. Also, allow styled2 alias to be matched in object styles for the spacing rule, given Jira frontend uses that alias extensively
+
 ## 4.16.4
 
 ### Patch Changes

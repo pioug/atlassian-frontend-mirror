@@ -8,10 +8,6 @@ export {
   useSmartLinkAnalytics,
 } from './state';
 export type { ProviderProps, CardType } from './state';
-export {
-  EditorCardProvider,
-  editorCardProvider,
-} from '@atlaskit/link-provider';
 export type {
   CardAdf,
   InlineCardAdf,
@@ -73,3 +69,8 @@ export type {
   AnalyticsPayload,
   AnalyticsHandler,
 } from './utils/types';
+/** @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-661 Internal documentation for deprecation (no external access)} */
+export {
+  editorCardProvider,
+  EditorCardProvider,
+} from '@atlaskit/link-provider';

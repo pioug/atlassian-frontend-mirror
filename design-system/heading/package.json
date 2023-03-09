@@ -14,7 +14,7 @@
       "name": "Heading",
       "category": "Components",
       "status": {
-        "type": "alpha"
+        "type": "beta"
       }
     }
   },
@@ -41,7 +41,10 @@
     "@atlaskit/docs": "*",
     "@atlaskit/ds-explorations": "*",
     "@atlaskit/ds-lib": "^2.0.1",
+    "@atlaskit/form": "^8.8.0",
+    "@atlaskit/primitives": "*",
     "@atlaskit/ssr": "*",
+    "@atlaskit/toggle": "^12.5.0",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",

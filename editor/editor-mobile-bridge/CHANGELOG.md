@@ -1,5 +1,17 @@
 # @atlaskit/editor-mobile-bridge
 
+## 36.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.1.0
+
+### Minor Changes
+
+- [`7cd38db873f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7cd38db873f) - [ux] Do not move the cursor while updating Date on iOS platform
+
 ## 36.0.25
 
 ### Patch Changes

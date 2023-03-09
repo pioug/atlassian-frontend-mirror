@@ -1,5 +1,11 @@
 # @atlaskit/grid
 
+## 0.6.0
+
+### Minor Changes
+
+- [`3062f11f279`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3062f11f279) - Add the ability to hide a GridItem entirely at a breakpoint and document hasInlinePadding.
+
 ## 0.5.0
 
 ### Minor Changes

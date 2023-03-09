@@ -4,7 +4,7 @@ import { getClosestScrollableElement } from './get-closest-scrollable-element';
 import { getScrollable } from './get-scrollable';
 import getScrollableScrollChange from './get-scrollable-scroll-change';
 import getWindowScrollChange from './get-window-scroll-change';
-import type { Scrollable } from './types';
+import type { Scrollable, ScrollBehavior } from './types';
 import getViewport from './window/get-viewport';
 
 type Args = {
@@ -13,6 +13,7 @@ type Args = {
   shouldUseTimeDampening: boolean;
   scrollElement: (element: Element, change: Position) => void;
   scrollWindow: (change: Position) => void;
+  behavior: ScrollBehavior;
 };
 
 export const scroll = ({
@@ -21,46 +22,65 @@ export const scroll = ({
   shouldUseTimeDampening,
   scrollElement,
   scrollWindow,
+  behavior,
 }: Args) => {
-  // 1. try to scroll the viewport first
+  const tryScrollWindow = () => {
+    const viewport = getViewport();
+    const windowScrollChange: Position | null = getWindowScrollChange({
+      dragStartTime,
+      viewport,
+      center: {
+        x: input.clientX + viewport.scroll.current.x,
+        y: input.clientY + viewport.scroll.current.y,
+      },
+      shouldUseTimeDampening,
+    });
 
-  const viewport = getViewport();
-  const windowScrollChange: Position | null = getWindowScrollChange({
-    dragStartTime,
-    viewport,
-    center: {
-      x: input.clientX + viewport.scroll.current.x,
-      y: input.clientY + viewport.scroll.current.y,
-    },
-    shouldUseTimeDampening,
-  });
+    if (windowScrollChange) {
+      scrollWindow(windowScrollChange);
+      return true;
+    }
 
-  if (windowScrollChange) {
-    scrollWindow(windowScrollChange);
-    return;
+    return false;
+  };
+
+  const tryScrollContainer = () => {
+    const over = document.elementFromPoint(input.clientX, input.clientY);
+    const closestScrollable: Element | null = getClosestScrollableElement(over);
+
+    if (!closestScrollable) {
+      return false;
+    }
+
+    const scrollable: Scrollable = getScrollable({
+      closestScrollable,
+    });
+
+    const scrollableScrollChange: Position | null = getScrollableScrollChange({
+      dragStartTime,
+      scrollable,
+      center: { x: input.clientX, y: input.clientY },
+      shouldUseTimeDampening,
+    });
+
+    if (scrollableScrollChange) {
+      scrollElement(closestScrollable, scrollableScrollChange);
+      return true;
+    }
+
+    return false;
+  };
+
+  if (behavior === 'container-only') {
+    tryScrollContainer();
   }
-
-  // if we could not scroll the viewport, see if we can scroll a scroll container
-
-  const over = document.elementFromPoint(input.clientX, input.clientY);
-  const closestScrollable: Element | null = getClosestScrollableElement(over);
-
-  if (!closestScrollable) {
-    return;
+  if (behavior === 'window-only') {
+    tryScrollWindow();
   }
-
-  const scrollable: Scrollable = getScrollable({
-    closestScrollable,
-  });
-
-  const scrollableScrollChange: Position | null = getScrollableScrollChange({
-    dragStartTime,
-    scrollable,
-    center: { x: input.clientX, y: input.clientY },
-    shouldUseTimeDampening,
-  });
-
-  if (scrollableScrollChange) {
-    scrollElement(closestScrollable, scrollableScrollChange);
+  if (behavior === 'container-then-window') {
+    tryScrollContainer() || tryScrollWindow();
+  }
+  if (behavior === 'window-then-container') {
+    tryScrollWindow() || tryScrollContainer();
   }
 };

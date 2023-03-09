@@ -16,7 +16,9 @@ import {
   convertHyphenatedNameToCamelCase,
   emToPixels,
   findParentNodeForLine,
+  findTokenNameByPropertyValue,
   getFontSizeValueInScope,
+  getRawExpression,
   getTokenNodeForValue,
   getTokenReplacement,
   getValue,
@@ -101,7 +103,7 @@ const rule = createRule<
       },
       // CSSObjectExpression
       // const styles = css({ color: 'red', margin: '4px' }), styled.div({ color: 'red', margin: '4px' })
-      'CallExpression[callee.name=css] > ObjectExpression, CallExpression[callee.object.name=styled] > ObjectExpression':
+      'CallExpression[callee.name=css] > ObjectExpression, CallExpression[callee.object.name=styled] > ObjectExpression, CallExpression[callee.object.name=styled2] > ObjectExpression':
         (parentNode: Rule.Node) => {
           if (!isNodeOfType(parentNode, 'ObjectExpression')) {
             return;
@@ -277,6 +279,38 @@ const rule = createRule<
                         if (!allResolvableValues) {
                           return null;
                         }
+
+                        const valuesWithTokenReplacement = values.filter(
+                          (value) =>
+                            findTokenNameByPropertyValue(propertyName, value),
+                        );
+                        if (valuesWithTokenReplacement.length === 0) {
+                          // all values could be replaceable but that just means they're numeric
+                          // if none of the values have token replacement we bail
+                          return null;
+                        }
+
+                        const originalCssString = getRawExpression(
+                          node.value,
+                          context,
+                        );
+                        if (!originalCssString) {
+                          return null;
+                        }
+                        /**
+                         * at this stage none of the values are tokens or irreplaceable values
+                         * since we know this is shorthand, there will be multiple values
+                         * we'll need to remove all quote chars since `getRawExpression` will return those as part of the string
+                         * given they're part of the substring of the current node
+                         */
+                        const originalValues = splitShorthandValues(
+                          originalCssString.replace(/`|'|"/g, ''),
+                        );
+                        if (originalValues.length !== values.length) {
+                          // we bail just in case original values don't correspond to the replaced values
+                          return null;
+                        }
+
                         return (
                           !tokenNode && ruleConfig.applyImport
                             ? [insertTokensImport(fixer)]
@@ -285,13 +319,19 @@ const rule = createRule<
                           fixer.replaceText(
                             node.value,
                             `\`${values
-                              .map((value) => {
+                              .map((value, index) => {
                                 const pixelValue = emToPixels(value, fontSize);
                                 const pixelValueString = `${pixelValue}px`;
-                                return `\${${getTokenNodeForValue(
+                                // if there is a token we take it, otherwise we go with the original value
+                                return findTokenNameByPropertyValue(
                                   propertyName,
-                                  pixelValueString,
-                                )}}`;
+                                  value,
+                                )
+                                  ? `\${${getTokenNodeForValue(
+                                      propertyName,
+                                      pixelValueString,
+                                    )}}`
+                                  : originalValues[index];
                               })
                               .join(' ')}\``,
                           ),

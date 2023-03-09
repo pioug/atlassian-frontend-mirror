@@ -31,10 +31,13 @@ describe('autoScroller', () => {
     |   maxScrollValueAt (95px)        | => max scroll value in this range
     |----------------------------------|
   */
-  const setScrollableMock = () => {
+  const setScrollableMock = (currentScrollY = 0) => {
     const clientWidth = 200;
     const clientHeight = 200;
-    const defaultScroll = { current: { x: 0, y: 0 }, max: { x: 500, y: 500 } };
+    const defaultScroll = {
+      current: { x: 0, y: currentScrollY },
+      max: { x: 500, y: 500 },
+    };
     const scrollableRect = { top: 0, bottom: 100, left: 0, right: 100 };
     const scrollableMock = document.createElement('div');
     scrollableMock.style.overflowX = 'auto';
@@ -92,7 +95,7 @@ describe('autoScroller', () => {
     };
   };
 
-  const setViewportMock = () => {
+  const setViewportMock = (scrollHeight = 500) => {
     const doc = document.createElement('document');
 
     const clientWidthSpy = jest
@@ -106,7 +109,7 @@ describe('autoScroller', () => {
       .mockImplementation(() => 500);
     const scrollHeightSpy = jest
       .spyOn(doc, 'scrollHeight', 'get')
-      .mockImplementation(() => 500);
+      .mockImplementation(() => scrollHeight);
     const documentSpy = jest
       .spyOn(document, 'documentElement', 'get')
       .mockImplementation(() => doc);
@@ -389,6 +392,143 @@ describe('autoScroller', () => {
             expect(scroll).toHaveBeenNthCalledWith(4, 10, 0);
           });
         });
+      });
+    });
+  });
+
+  describe('behavior', () => {
+    let cleanup = () => {};
+
+    const setupMocks = ({
+      windowScrollHeight,
+      containerScrollY,
+    }: {
+      windowScrollHeight?: number;
+      containerScrollY?: number;
+    }) => {
+      cleanup = combine(
+        setScrollableMock(containerScrollY),
+        setDateNowMock(),
+        setWindowScrollMock(),
+        setViewportMock(windowScrollHeight),
+      );
+    };
+
+    afterEach(() => {
+      jest.resetAllMocks();
+      autoScroller.stop();
+      cleanup();
+    });
+
+    describe('window-then-container', () => {
+      it('should normally scroll the window', () => {
+        setupMocks({ windowScrollHeight: 500 });
+
+        autoScroller.start({
+          input: { ...getDefaultInput(), clientX: 50, clientY: 85 },
+          behavior: 'window-then-container',
+        });
+        tick(config.durationDampening.stopDampeningAt);
+
+        expect(scrollWindow).toHaveBeenCalledTimes(1);
+        expect(scrollElement).not.toHaveBeenCalled();
+      });
+
+      it('should scroll the container when the window cannot scroll', () => {
+        setupMocks({ windowScrollHeight: 0 });
+
+        autoScroller.start({
+          input: { ...getDefaultInput(), clientX: 50, clientY: 85 },
+          behavior: 'window-then-container',
+        });
+        tick(config.durationDampening.stopDampeningAt);
+
+        expect(scrollElement).toHaveBeenCalledTimes(1);
+        expect(scrollWindow).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('container-then-window', () => {
+      it('should normally scroll the container', () => {
+        setupMocks({ containerScrollY: 0 });
+
+        autoScroller.start({
+          input: { ...getDefaultInput(), clientX: 50, clientY: 85 },
+          behavior: 'container-then-window',
+        });
+        tick(config.durationDampening.stopDampeningAt);
+
+        expect(scrollElement).toHaveBeenCalledTimes(1);
+        expect(scrollWindow).not.toHaveBeenCalled();
+      });
+
+      it('should scroll the window when the container cannot scroll', () => {
+        setupMocks({ containerScrollY: 500 });
+
+        autoScroller.start({
+          input: { ...getDefaultInput(), clientX: 50, clientY: 85 },
+          behavior: 'container-then-window',
+        });
+        tick(config.durationDampening.stopDampeningAt);
+
+        expect(scrollWindow).toHaveBeenCalledTimes(1);
+        expect(scrollElement).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('window-only', () => {
+      it('should normally scroll the window', () => {
+        setupMocks({ windowScrollHeight: 500 });
+
+        autoScroller.start({
+          input: { ...getDefaultInput(), clientX: 50, clientY: 85 },
+          behavior: 'window-only',
+        });
+        tick(config.durationDampening.stopDampeningAt);
+
+        expect(scrollWindow).toHaveBeenCalledTimes(1);
+        expect(scrollElement).not.toHaveBeenCalled();
+      });
+
+      it('should not scroll the container when the window cannot scroll', () => {
+        setupMocks({ windowScrollHeight: 0 });
+
+        autoScroller.start({
+          input: { ...getDefaultInput(), clientX: 50, clientY: 85 },
+          behavior: 'window-only',
+        });
+        tick(config.durationDampening.stopDampeningAt);
+
+        expect(scrollWindow).not.toHaveBeenCalled();
+        expect(scrollElement).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('container-only', () => {
+      it('should normally scroll the container', () => {
+        setupMocks({ containerScrollY: 0 });
+
+        autoScroller.start({
+          input: { ...getDefaultInput(), clientX: 50, clientY: 85 },
+          behavior: 'container-only',
+        });
+        tick(config.durationDampening.stopDampeningAt);
+
+        expect(scrollElement).toHaveBeenCalledTimes(1);
+        expect(scrollWindow).not.toHaveBeenCalled();
+      });
+
+      it('should not scroll the window when the container cannot scroll', () => {
+        setupMocks({ containerScrollY: 500 });
+
+        autoScroller.start({
+          input: { ...getDefaultInput(), clientX: 50, clientY: 85 },
+          behavior: 'container-only',
+        });
+        tick(config.durationDampening.stopDampeningAt);
+
+        expect(scrollElement).not.toHaveBeenCalled();
+        expect(scrollWindow).not.toHaveBeenCalled();
       });
     });
   });

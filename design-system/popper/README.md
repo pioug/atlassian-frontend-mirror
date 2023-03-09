@@ -10,4 +10,4 @@ yarn add @atlaskit/popper
 
 ## Usage
 
-Detailed docs and example usage can be found [here](https://atlaskit.atlassian.com/packages/core/popper).
+[View documentation](https://atlassian.design/components/popper).

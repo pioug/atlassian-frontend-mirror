@@ -15,10 +15,7 @@
     "releaseModel": "continuous",
     "website": {
       "name": "Stylelint plugin",
-      "category": "Tooling",
-      "status": {
-        "type": "alpha"
-      }
+      "category": "Tooling"
     }
   },
   "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",

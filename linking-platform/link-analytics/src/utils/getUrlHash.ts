@@ -3,7 +3,7 @@ import { LRUMap } from 'lru_map';
 
 const URL_HASH_CACHE_SIZE = 100;
 
-export const sha1Hash = (str: string): string =>
+const sha1Hash = (str: string): string =>
   createHash().update(str).digest('hex');
 
 const urlCache = new LRUMap<string, string>(URL_HASH_CACHE_SIZE);

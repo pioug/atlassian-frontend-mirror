@@ -1,3 +1,12 @@
+// WARNING!!!
+// Editor Card Provider has been moved to the @atlaskit/editor-card-provider package.
+// If you are going to make changes here, be aware that this folder and instance
+// of Editor Card Provider will be removed.
+// For more information see:
+// https://hello.atlassian.net/browse/ENGHEALTH-661
+// and
+// https://product-fabric.atlassian.net/browse/EDM-5755
+
 // import setimmediate to temporary fix dataloader 2.0.0 bug
 // @see https://github.com/graphql/dataloader/issues/249
 import 'setimmediate';
@@ -48,6 +57,7 @@ const isProformaView = (url: string) =>
     /^https:\/\/[^/]+\/jira\/(core|software(\/c)?|servicedesk)\/projects\/\w+\/forms\/form\/direct\/\d+\/\d+.*$/,
   );
 
+/** @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-661 Internal documentation for deprecation (no external access)} */
 export class EditorCardProvider implements CardProvider {
   private baseUrl: string;
   private resolverUrl: string;
@@ -290,5 +300,6 @@ export class EditorCardProvider implements CardProvider {
   }
 }
 
+/** @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-661 Internal documentation for deprecation (no external access)} */
 export const editorCardProvider = new EditorCardProvider();
 export type { CardProvider, ORSCheckResponse } from './types';

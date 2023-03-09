@@ -1,5 +1,11 @@
 # @atlaskit/link-analytics
 
+## 5.0.3
+
+### Patch Changes
+
+- [`8ed1b29ab37`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8ed1b29ab37) - Defer analytics event firing with `window.requestIdleCallback()`, with `window.requestAnimationFrame()` as fallback
+
 ## 5.0.2
 
 ### Patch Changes

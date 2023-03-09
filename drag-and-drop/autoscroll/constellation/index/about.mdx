@@ -11,7 +11,7 @@ This auto scroller has been ported from [`react-beautiful-dnd`](https://github.c
 
 ## API
 
-- `autoScroller.start({ input })`: Starts monitoring drag input. Call this inside of `onDragStart`
+- `autoScroller.start({ input, behavior })`: Starts monitoring drag input. Call this inside of `onDragStart`.
 - `autoScroller.stop()`: Stops monitoring drag input. Call this inside of `onDrop`.
 - `autoScroller.updateInput({ input })`: Provides drag input data used to determine where to scroll. Call this inside of `onDrag`.
 
@@ -45,4 +45,12 @@ export default function AutoScrollExample() {
 
   return <Board />;
 }
+
+### Options
+
+* `behavior`: Determines what entities should be scrolled and in what order.
+  * `window-only`: Only attempt to scroll the window
+  * `window-then-container`: Attempt to scroll the window, then attempt to scroll the container if window scroll not possible
+  * `container-only`: Only attempt to scroll the window
+  * `container-then-window`: Attempt to scroll the container, then attempt to scroll the window if container scroll not possible
 ```

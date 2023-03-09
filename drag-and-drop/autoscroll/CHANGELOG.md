@@ -1,5 +1,33 @@
 # @atlaskit/drag-and-drop-autoscroll
 
+## 0.2.0
+
+### Minor Changes
+
+- [`1bfcde9828c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1bfcde9828c) - Adds a `behavior` option to the auto scroller. This allows for finer control over window and container scrolling precedence.
+
+  ```ts
+  type ScrollBehavior =
+    | 'window-then-container'
+    | 'container-then-window'
+    | 'window-only'
+    | 'container-only';
+  ```
+
+  - `window-then-container`: Attempt to scroll the window, then attempt to scroll the container if window scroll not possible
+  - `container-then-window`: Attempt to scroll the container, then attempt to scroll the window if container scroll not possible
+  - `container-only`: Only attempt to scroll the window
+  - `window-only`: Only attempt to scroll the window
+
+  Example:
+
+  ```ts
+  autoScroller.start({
+    input: /* ... */,
+    scrollBehavior: 'container-then-window'
+  });
+  ```
+
 ## 0.1.13
 
 ### Patch Changes

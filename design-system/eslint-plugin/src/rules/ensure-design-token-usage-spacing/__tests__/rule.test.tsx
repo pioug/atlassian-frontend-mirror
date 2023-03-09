@@ -172,10 +172,10 @@ const tests: Tests = {
     // numbers and strings with styled
     {
       options: [{ applyImport: true }],
-      code: `const styles = styled.div({
+      code: `const styles = styled2.div({
         padding: 8,
       })`,
-      output: `import { token } from '@atlaskit/tokens'\nconst styles = styled.div({
+      output: `import { token } from '@atlaskit/tokens'\nconst styles = styled2.div({
         // TODO Delete this comment after verifying spacing token -> previous value \`8\`
         padding: token('space.100', '8px'),
       })`,
@@ -197,13 +197,26 @@ const tests: Tests = {
       options: [{ applyImport: false }],
       code: `const styles = styled.div({
         padding: 8,
-        margin: '12px',
+        margin: '12px 5px',
       })`,
       output: `const styles = styled.div({
         // TODO Delete this comment after verifying spacing token -> previous value \`8\`
         padding: token('space.100', '8px'),
-        // TODO Delete this comment after verifying spacing token -> previous value \`'12px'\`
-        margin: token('space.150', '12px'),
+        margin: \`\${token('space.150', '12px')} 5px\`,
+      })`,
+      errors: [
+        { messageId: 'noRawSpacingValues' },
+        { messageId: 'noRawSpacingValues' },
+        { messageId: 'noRawSpacingValues' },
+      ],
+    },
+    {
+      options: [{ applyImport: false }],
+      code: `const styles = styled.div({
+        margin: \`\${gridSize}px \${gridSize() -3}px\`,
+      })`,
+      output: `const styles = styled.div({
+        margin: \`\${token('space.100', '8px')} \${gridSize() -3}px\`,
       })`,
       errors: [
         { messageId: 'noRawSpacingValues' },

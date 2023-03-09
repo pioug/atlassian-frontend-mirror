@@ -9,6 +9,7 @@ import { waitFor } from '@testing-library/dom';
 
 import { ANALYTICS_CHANNEL } from '../../consts';
 import { useSmartLinkLifecycleAnalytics } from '../../lifecycle';
+import { runWhenIdle } from '../../utils';
 import { fakeFactory, mocks } from '../__fixtures__/mocks';
 
 jest.mock('@atlaskit/link-provider', () => {
@@ -16,6 +17,14 @@ jest.mock('@atlaskit/link-provider', () => {
   return {
     ...originalModule,
     useFeatureFlag: jest.fn(),
+  };
+});
+
+jest.mock('../../utils', () => {
+  const originalModule = jest.requireActual('../../utils');
+  return {
+    ...originalModule,
+    runWhenIdle: jest.fn(),
   };
 });
 
@@ -27,6 +36,10 @@ const PACKAGE_METADATA = {
 describe('useSmartLinkLifecycleAnalytics', () => {
   beforeEach(() => {
     (useFeatureFlag as jest.Mock).mockReturnValue(false);
+    (runWhenIdle as jest.Mock).mockImplementation(cb => {
+      cb();
+      return 123;
+    });
   });
 
   afterEach(() => {
@@ -249,6 +262,25 @@ describe('useSmartLinkLifecycleAnalytics', () => {
             ANALYTICS_CHANNEL,
           );
         });
+      });
+    });
+  });
+
+  describe('runWhenIdle', () => {
+    const fireEventSpy = jest.spyOn(
+      jest.requireActual('../../fire-event'),
+      'default',
+    );
+
+    it('calls `fireEvent` at a later time when run with `runWhenIdle`', async () => {
+      const { result } = setup();
+      result.current.linkCreated({ url: 'test.com', smartLinkId: 'xyz' });
+
+      expect(runWhenIdle).toBeCalled();
+      expect(fireEventSpy).not.toBeCalled();
+
+      await waitFor(() => {
+        expect(fireEventSpy).toBeCalled();
       });
     });
   });

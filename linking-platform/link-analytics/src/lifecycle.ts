@@ -12,6 +12,7 @@ import {
 } from './types';
 import { ANALYTICS_CHANNEL } from './consts';
 import createEventPayload from './analytics.codegen';
+import { runWhenIdle } from './utils';
 
 /**
  * Exposes callbacks to fire analytics events for the lifecycle (create, update and deletion) of links
@@ -47,19 +48,23 @@ export const useSmartLinkLifecycleAnalytics = (): SmartLinkLifecycleMethods => {
   return useMemo(() => {
     const factory =
       (action: LifecycleAction): LinkLifecycleEventCallback =>
-      async (...args) => {
+      (...args) => {
         try {
-          createAndFireEvent(ANALYTICS_CHANNEL)(
-            createEventPayload('operational.fireAnalyticEvent.commenced', {
-              action,
-            }),
-          )(createAnalyticsEvent);
-          const { default: fireEvent } = await import(
-            /* webpackChunkName: "@atlaskit-internal_@atlaskit/link-analytics/fire-event" */ './fire-event'
-          );
-          fireEvent(action, createAnalyticsEvent, client, {
-            enableResolveMetadataForLinkAnalytics,
-          })(...args);
+          runWhenIdle(() => {
+            createAndFireEvent(ANALYTICS_CHANNEL)(
+              createEventPayload('operational.fireAnalyticEvent.commenced', {
+                action,
+              }),
+            )(createAnalyticsEvent);
+          });
+          runWhenIdle(async () => {
+            const { default: fireEvent } = await import(
+              /* webpackChunkName: "@atlaskit-internal_@atlaskit/link-analytics/fire-event" */ './fire-event'
+            );
+            fireEvent(action, createAnalyticsEvent, client, {
+              enableResolveMetadataForLinkAnalytics,
+            })(...args);
+          });
         } catch (error: unknown) {
           createAndFireEvent(ANALYTICS_CHANNEL)(
             createEventPayload('operational.fireAnalyticEvent.failed', {

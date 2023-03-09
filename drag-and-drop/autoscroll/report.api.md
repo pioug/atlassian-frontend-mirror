@@ -19,17 +19,36 @@ import type { Input } from '@atlaskit/drag-and-drop/types';
 
 // @public (undocumented)
 export const autoScroller: {
-  start: ({ input }: { input: Input }) => void;
+  start: ({
+    input,
+    behavior,
+  }: {
+    input: Input;
+    behavior?: ScrollBehavior_2 | undefined;
+  }) => void;
   updateInput: ({ input }: { input: Input }) => void;
   stop: () => void;
 };
 
 // @public (undocumented)
 export const createAutoScroller: () => {
-  start: ({ input }: { input: Input }) => void;
+  start: ({
+    input,
+    behavior,
+  }: {
+    input: Input;
+    behavior?: ScrollBehavior_2 | undefined;
+  }) => void;
   updateInput: ({ input }: { input: Input }) => void;
   stop: () => void;
 };
+
+// @public (undocumented)
+type ScrollBehavior_2 =
+  | 'container-only'
+  | 'container-then-window'
+  | 'window-only'
+  | 'window-then-container';
 
 // (No @packageDocumentation comment for this package)
 ```

@@ -71,4 +71,5 @@ export default interface NativeToWebBridge {
     onUploadEnd(payload: string): void;
     onUploadFail(payload: string): void;
   };
+  shiftSelectionToNextPosition(): void;
 }

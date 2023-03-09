@@ -1,33 +1,65 @@
 ---
-order: 2
+order: 0
 ---
 
-This plugin contains rules that should be used with the Atlassian Design System.
+import SectionMessage from '@atlaskit/section-message';
 
-You can read more about configuring Stylelint in their [documentation](https://stylelint.io/user-guide/get-started).
+<SectionMessage
+  title="A new color system, design tokens, and themes are coming soon"
+  appearance="warning"
+>
+  <p>
+    This Stylelint plugin includes rules to help you use <a href="/foundations/design-tokens">design tokens</a>, which will soon be the new way to apply color and spacing values.
+    <br/><br/>Do not use the design token-related rules until design tokens are available for you to adopt.
+  </p>
+</SectionMessage>
 
-## Configuration
+Design tokens are supported by linting rules, which warn you if a token is deprecated, missing, or has no fallback style. Design token lint rules are provided by the Design System <a href="/components/eslint-plugin-design-system/usage">ESLint</a> and Stylelint plugins.
 
-Add the plugin to your Stylelint configuration file.
+If you are an Atlassian employee, you must configure the lint rule in your repository and keep it up-to-date. If you are a partner developer, we strongly recommend you to use it as well.
 
-```diff
-// .stylelintrc.js
+Follow the <a href="/get-started/develop/using-tokens-in-code#eslint-plugin">Get started</a> guide to get started with Design Tokens, and set up the ESLint plugin.
 
-module.exports = {
-  plugins: [
-+    '@atlaskit/stylelint-design-system',
-  ],
-};
+## ensure-design-token-usage
+
+Ensures that the codebase uses the global `token` function for color and spacing values, rather than hard-coded values. This ruleset is great for codebases that are starting to adopt tokens and those that have already adopted tokens. This ruleset also prevents new contributors from accidentally adding hard-coded color or spacing values.
+
+### Do
+
+Use the `token` function and token values.
+
+```css
+box-shadow: var(--ds-shadow-raised);
 ```
 
-Enable any desired rules. The rules and options shown below are strongly recommended.
+```css
+color: var(--ds-text-highEmphasis);
+```
 
-```diff
-module.exports = {
-  rules: {
-+    'design-system/ensure-design-token-usage': { color: true, spacing: true },
-+    'design-system/no-deprecated-design-token-usage': true,
-+    'design-system/no-unsafe-design-token-usage': [true, { shouldEnsureFallbackUsage: true }]
-  },
-};
+```css
+padding: var(--ds-space-100) var(--ds-space-200);
+```
+
+### Don't
+
+Don't use hard-coded CSS colors, hexadecimal spacing values, or any values that aren’t current tokens.
+
+```css
+color: red;
+       ^^^
+```
+
+```css
+box-shadow: 0px 1px 1px #161A1D32;
+                        ^^^^^^^^^
+```
+
+```css
+padding: 8px 16px;
+         ^^^^^^^^
+```
+
+```css
+color: var(--not-a-token-value);
+       ^^^^^^^^^^^^^^^^^^^^^^^^
 ```

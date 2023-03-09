@@ -740,6 +740,25 @@ describe('insert node', () => {
 
     expect(insertDate).toBeCalledWith(dateType, 'toolbar', 'picker');
   });
+
+  it('should shift the cursor', () => {
+    const createEditor = createProsemirrorEditorFactory();
+    const editor = (doc: DocBuilder) => {
+      const { editorView } = createEditor({
+        doc,
+      });
+      return editorView;
+    };
+    const editorView = editor(doc(p('abc')));
+
+    let bridge: WebBridgeImpl = new WebBridgeImpl();
+
+    bridge.editorView = editorView as any;
+    bridge.setSelectionAtAnchor('start');
+    expect(editorView.state.selection.to).toEqual(1);
+    bridge.shiftSelectionToNextPosition();
+    expect(editorView.state.selection.to).toEqual(2);
+  });
 });
 
 describe('media bridge', () => {

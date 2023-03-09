@@ -134,7 +134,7 @@ export interface CardProviderStoreOpts {
   initialState: CardStore;
 }
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 export class EditorCardProvider implements CardProvider {
   constructor(envKey?: EnvironmentsKeys, baseUrlOverride?: string);
   // (undocumented)
@@ -147,7 +147,7 @@ export class EditorCardProvider implements CardProvider {
   ): Promise<CardAdf>;
 }
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 export const editorCardProvider: EditorCardProvider;
 
 // @public (undocumented)

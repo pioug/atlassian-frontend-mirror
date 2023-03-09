@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-platform
 
+## 0.0.7
+
+### Patch Changes
+
+- [`0cab60b90c3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0cab60b90c3) - Add fix to eslint rule on the arguments of nested test runner
+
 ## 0.0.6
 
 ### Patch Changes

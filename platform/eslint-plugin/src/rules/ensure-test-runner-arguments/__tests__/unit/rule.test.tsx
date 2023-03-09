@@ -145,6 +145,32 @@ describe('Verify existing ff overrides are passed down if test runner is nested'
             ),
         );
         `,
+        output: `ffTest(
+          'uip.sample.color',
+          ff =>
+            ffTest(
+              'uip.sample.backgroundColor',
+              () => {
+                expect(getByText('SampleComponent')).toHaveStyle('color: red');
+              },
+              () => {
+                expect(getByText('SampleComponent')).toHaveStyle('color: red');
+              },
+              ff,
+            ),
+          ff =>
+            ffTest(
+              'uip.sample.backgroundColor',
+              () => {
+                expect(getByText('SampleComponent')).toHaveStyle('color: blue');
+              },
+              () => {
+                expect(getByText('SampleComponent')).toHaveStyle('color: blue');
+              },
+              ff,
+            ),
+        );
+        `,
         errors: [
           {
             messageId: 'passDownExistingFeatureFlagParam',
@@ -163,6 +189,31 @@ describe('Verify existing ff overrides are passed down if test runner is nested'
               () => {
                 expect(getByText('SampleComponent')).toHaveStyle('color: red');
               },
+            ),
+          ff =>
+            ffTest(
+              'uip.sample.backgroundColor',
+              () => {
+                expect(getByText('SampleComponent')).toHaveStyle('color: blue');
+              },
+              () => {
+                expect(getByText('SampleComponent')).toHaveStyle('color: blue');
+              },
+              ff,
+            ),
+        );
+        `,
+        output: `ffTest(
+          'uip.sample.color',
+          ff =>
+            ffTest(
+              'uip.sample.backgroundColor',
+              () => {
+                expect(getByText('SampleComponent')).toHaveStyle('color: red');
+              },
+              () => {
+                expect(getByText('SampleComponent')).toHaveStyle('color: red');
+              }, ff,
             ),
           ff =>
             ffTest(
@@ -207,6 +258,32 @@ describe('Verify existing ff overrides are passed down if test runner is nested'
                 expect(getByText('SampleComponent')).toHaveStyle('color: blue');
               },
               ffExisting,
+            ),
+        );
+        `,
+        output: `ffTest(
+          'uip.sample.color',
+          ff =>
+            ffTest(
+              'uip.sample.backgroundColor',
+              () => {
+                expect(getByText('SampleComponent')).toHaveStyle('color: red');
+              },
+              () => {
+                expect(getByText('SampleComponent')).toHaveStyle('color: red');
+              },
+              ff,
+            ),
+          ff =>
+            ffTest(
+              'uip.sample.backgroundColor',
+              () => {
+                expect(getByText('SampleComponent')).toHaveStyle('color: blue');
+              },
+              () => {
+                expect(getByText('SampleComponent')).toHaveStyle('color: blue');
+              },
+              ff,
             ),
         );
         `,

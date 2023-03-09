@@ -1,12 +1,14 @@
 import type { Input, Position } from '@atlaskit/drag-and-drop/types';
 
 import { scroll } from './internal/scroll';
+import { ScrollBehavior } from './internal/types';
 
 type WhileDragging = {
   dragStartTime: number;
   latestInput: Input;
   loopFrameId: number | null;
   shouldUseTimeDampening: boolean;
+  behavior: ScrollBehavior;
 } | null;
 
 const scrollElement = (element: Element, change: Position) => {
@@ -29,6 +31,7 @@ export const createAutoScroller = () => {
       input: dragging.latestInput,
       dragStartTime: dragging.dragStartTime,
       shouldUseTimeDampening: dragging.shouldUseTimeDampening,
+      behavior: dragging.behavior,
       scrollElement: fakeScrollCallback ?? scrollElement,
       scrollWindow: fakeScrollCallback ?? scrollWindow,
     });
@@ -48,7 +51,13 @@ export const createAutoScroller = () => {
     });
   }
 
-  const start = ({ input }: { input: Input }) => {
+  const start = ({
+    input,
+    behavior = 'window-then-container',
+  }: {
+    input: Input;
+    behavior?: ScrollBehavior;
+  }) => {
     const dragStartTime: number = Date.now();
 
     dragging = {
@@ -56,6 +65,7 @@ export const createAutoScroller = () => {
       latestInput: input,
       loopFrameId: null,
       shouldUseTimeDampening: false,
+      behavior,
     };
 
     // we only use time dampening when auto scrolling starts on lift.

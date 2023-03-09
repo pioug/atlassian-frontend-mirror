@@ -666,6 +666,27 @@ export function isTokenValueString(originalValue: string): boolean {
   return originalValue.startsWith('${token(') && originalValue.endsWith('}');
 }
 
+export function findTokenNameByPropertyValue(
+  propertyName: string,
+  value: string,
+): string | undefined {
+  const isFontWeightOrFamily = /fontWeight|fontFamily/.test(propertyName);
+  const propertyValue = typeof value === 'string' ? value.trim() : value;
+  const pixelValue = propertyValue;
+  const pixelValueString = `${propertyValue}px`;
+
+  const lookupValue = isFontWeightOrFamily ? pixelValue : pixelValueString;
+  const tokenName = isTypographyProperty(propertyName)
+    ? typographyValueToToken[propertyName][lookupValue]
+    : spacingValueToToken[lookupValue];
+
+  if (!tokenName) {
+    return undefined;
+  }
+
+  return tokenName;
+}
+
 /**
  * Returns a string with token expression corresponding to input parameters
  * if no token found for the pair the function returns undefined
@@ -682,9 +703,7 @@ export function getTokenReplacement(
   const pixelValueString = `${propertyValue}px`;
   const lookupValue = isFontWeightOrFamily ? pixelValue : pixelValueString;
 
-  const tokenName = isTypographyProperty(propertyName)
-    ? typographyValueToToken[propertyName][lookupValue]
-    : spacingValueToToken[lookupValue];
+  const tokenName = findTokenNameByPropertyValue(propertyName, value);
 
   if (!tokenName) {
     return undefined;

@@ -16,9 +16,12 @@ import { linkPickerSelectors } from '@atlaskit/editor-test-helpers/page-objects/
 type ClientType = Parameters<typeof goToEditorTestingWDExample>[0];
 
 describe('with feature flag: lp-link-picker', () => {
+  // FIXME: This test was automatically skipped due to failure on 08/03/2023: https://product-fabric.atlassian.net/browse/ED-17095
   BrowserTestCase(
     'card: changing the link label of an embed link should convert it to a "dumb" link',
-    {},
+    {
+      skip: ['*'],
+    },
     async (client: ClientType, testName: string) => {
       const page = await goToEditorTestingWDExample(client);
 

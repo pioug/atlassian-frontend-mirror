@@ -1059,6 +1059,23 @@ export default class WebBridgeImpl
       }
     });
   }
+
+  shiftSelectionToNextPosition() {
+    if (!this.editorView) {
+      return;
+    }
+
+    const {
+      state: { tr },
+      dispatch,
+    } = this.editorView;
+
+    dispatch(
+      tr
+        .setSelection(Selection.near(tr.doc.resolve(tr.selection.to + 1)))
+        .scrollIntoView(),
+    );
+  }
 }
 
 export class MediaBridge {

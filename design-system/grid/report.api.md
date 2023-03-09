@@ -66,7 +66,7 @@ type ResponsiveObject<T> = Partial<Record<Breakpoint, T>>;
 type SpanObject = ResponsiveObject<SpanOptions>;
 
 // @public (undocumented)
-type SpanOptions = 1 | 10 | 11 | 12 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+type SpanOptions = 'none' | 1 | 10 | 11 | 12 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 
 // @public (undocumented)
 type StartObject = ResponsiveObject<StartOptions>;

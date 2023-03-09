@@ -1,5 +1,12 @@
 # @atlaskit/smart-card
 
+## 24.3.2
+
+### Patch Changes
+
+- [`12223b3ee04`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12223b3ee04) - Move EditorCardProvider to new package instead of using imports from Link Provider and Smart Card
+- Updated dependencies
+
 ## 24.3.1
 
 ### Patch Changes

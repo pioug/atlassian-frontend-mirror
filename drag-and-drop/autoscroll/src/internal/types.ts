@@ -49,3 +49,9 @@ export type Viewport = {
   container: Rect;
   scroll: ScrollDetails;
 };
+
+export type ScrollBehavior =
+  | 'window-then-container'
+  | 'container-then-window'
+  | 'window-only'
+  | 'container-only';

@@ -5,7 +5,9 @@ order: 0
 import Grid from '../../examples/constellation/grid-default';
 import GridNarrow from '../../examples/constellation/grid-narrow';
 import GridWide from '../../examples/constellation/grid-wide';
+import GridInlinePadding from '../../examples/constellation/grid-inline-padding';
 import ItemSpan from '../../examples/constellation/item-span';
+import ItemHidden from '../../examples/constellation/item-hidden';
 import ItemStart from '../../examples/constellation/item-start';
 import ItemStartNewLine from '../../examples/constellation/item-start-new-line';
 import ItemStartSameLine from '../../examples/constellation/item-start-same-line';
@@ -33,6 +35,12 @@ The Grid's maximum width is `1128px`.  On smaller screens it will take up all av
 
 <Example Component={GridWide} packageName="@atlaskit/grid" />
 
+## Grid inline padding
+
+By default, the Grid has an inline padding around the outside of the Grid columns.  This can be disabled with `hasInlinePadding={false}`
+
+<Example Component={GridInlinePadding} packageName="@atlaskit/grid" />
+
 ## Item span
 
 Define how many columns an item will span.  This is a 1-indexed range 1-12.
@@ -44,6 +52,14 @@ We enable a shorthand here, using `span={6}` is the same as `span={{ xs: 6 }}`. 
 See [usage](./usage) to understand our how responsive object syntax works.
 
 <Example Component={ItemSpan} packageName="@atlaskit/grid" />
+
+### Hide an item entirely
+
+In the case that you do not want a GridItem rendered at all, use `span="none"` or `span={{ xs: 'none', md: 6 }}` (etc).
+
+This is useful because if you wanted to hide the inner contents of the GridItem, the GridItem would still take up the space it's alloted.
+
+<Example Component={ItemHidden} packageName="@atlaskit/grid" />
 
 ## Item start column
 

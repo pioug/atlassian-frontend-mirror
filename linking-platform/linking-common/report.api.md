@@ -65,6 +65,17 @@ export class APIError extends Error {
 export type APIErrorKind = 'auth' | 'error' | 'fallback' | 'fatal';
 
 // @public (undocumented)
+export const BaseUrls: {
+  dev: string;
+  development: string;
+  stg: string;
+  staging: string;
+  prd: string;
+  prod: string;
+  production: string;
+};
+
+// @public (undocumented)
 export interface BlockCardAdf {
   // (undocumented)
   attrs: {
@@ -166,6 +177,9 @@ export interface EmbedCardAdf {
 }
 
 // @public (undocumented)
+export type EnvironmentsKeys = keyof typeof BaseUrls;
+
+// @public (undocumented)
 export type ErrorType = 'UnexpectedError' | ServerErrorType;
 
 // @public (undocumented)
@@ -178,6 +192,33 @@ export const extractPreview: (
 export const extractUrlFromLinkJsonLd: (
   link: JsonLd.Primitives.Link | JsonLd.Primitives.Link[],
 ) => string | undefined;
+
+// @public (undocumented)
+export const getBaseUrl: (
+  envKey?:
+    | 'dev'
+    | 'development'
+    | 'prd'
+    | 'prod'
+    | 'production'
+    | 'staging'
+    | 'stg'
+    | undefined,
+) => string;
+
+// @public (undocumented)
+export const getResolverUrl: (
+  envKey?:
+    | 'dev'
+    | 'development'
+    | 'prd'
+    | 'prod'
+    | 'production'
+    | 'staging'
+    | 'stg'
+    | undefined,
+  baseUrlOverride?: string | undefined,
+) => string;
 
 // @public (undocumented)
 export const getUrl: (store: Store<CardStore>, url: string) => CardState;
@@ -252,6 +293,11 @@ interface LinkPreview_2 {
 // @public (undocumented)
 export type MetadataStatus = 'errored' | 'pending' | 'resolved';
 
+// @public (undocumented)
+export class NetworkError extends Error {
+  constructor(error: any);
+}
+
 // @public
 export function promiseDebounce<
   Args extends unknown[],
@@ -260,6 +306,14 @@ export function promiseDebounce<
   cb: (...args: Args) => Promise<ResolveType>,
   time: number,
 ): (...args: Args) => Promise<ResolveType>;
+
+// @public (undocumented)
+export function request<T = JsonLd.Response>(
+  method: string,
+  url: string,
+  data?: any,
+  headers?: HeadersInit,
+): Promise<T>;
 
 // @public (undocumented)
 export interface ServerActionOpts {

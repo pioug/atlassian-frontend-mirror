@@ -10,11 +10,27 @@ import {
 } from 'react';
 
 import { css, jsx } from '@emotion/react';
+import invariant from 'tiny-invariant';
 
 import { token } from '@atlaskit/tokens';
 
-import { Layer, LAYERS } from '../../constants';
+import {
+  Breakpoint,
+  BreakpointConfig,
+  BREAKPOINTS_CONFIG,
+  BREAKPOINTS_LIST,
+  Layer,
+  LAYERS,
+} from '../../constants';
 import type { BasePrimitiveProps } from '../types';
+
+import {
+  BOX_RESPONSIVE_PROPS,
+  BoxResponsiveProp,
+  BreakpointIndexedStyle,
+  GenericPropertyValue,
+} from './types';
+import { isResponsiveStyleProp, isStaticStyleProp } from './utils';
 
 export type BaseBoxProps<T extends ElementType = 'div'> = Omit<
   ComponentPropsWithoutRef<T>,
@@ -63,7 +79,7 @@ type BaseBoxPropsFoundation<T extends ElementType> = {
   /**
    * Defines border width.
    */
-  borderWidth?: BorderWidth;
+  borderWidth?: BorderWidth | Partial<Record<Breakpoint, BorderWidth>>;
   /**
    * Token representing border color with a fallback.
    */
@@ -109,42 +125,50 @@ type BaseBoxPropsFoundation<T extends ElementType> = {
    */
   overflowBlock?: OverflowBlock;
   /**
-   * Shorthand for `paddingBlock` and `paddingInline` together.
+   * Tokens representing CSS shorthand for `paddingBlock` and `paddingInline` together.
    *
    * @see paddingBlock
    * @see paddingInline
    */
-  padding?: Padding;
+  padding?: Padding | Partial<Record<Breakpoint, Padding>>;
   /**
-   * Token representing CSS shorthand `paddingBlock`.
+   * Tokens representing CSS shorthand `paddingBlock`.
    *
    * @see paddingBlockStart
    * @see paddingBlockEnd
    */
-  paddingBlock?: PaddingBlock;
+  paddingBlock?: PaddingBlock | Partial<Record<Breakpoint, PaddingBlock>>;
   /**
-   * Token representing CSS `paddingBlockStart`.
+   * Tokens representing CSS `paddingBlockStart`.
    */
-  paddingBlockStart?: PaddingBlockStart;
+  paddingBlockStart?:
+    | PaddingBlockStart
+    | Partial<Record<Breakpoint, PaddingBlockStart>>;
   /**
-   * Token representing CSS `paddingBlockEnd`.
+   * Tokens representing CSS `paddingBlockEnd`.
    */
-  paddingBlockEnd?: PaddingBlockEnd;
+  paddingBlockEnd?:
+    | PaddingBlockEnd
+    | Partial<Record<Breakpoint, PaddingBlockEnd>>;
   /**
-   * Token representing CSS shorthand `paddingInline`.
+   * Tokens representing CSS shorthand `paddingInline`.
    *
    * @see paddingInlineStart
    * @see paddingInlineEnd
    */
-  paddingInline?: PaddingInline;
+  paddingInline?: PaddingInline | Partial<Record<Breakpoint, PaddingInline>>;
   /**
-   * Token representing CSS `paddingInlineStart`.
+   * Tokens representing CSS `paddingInlineStart`.
    */
-  paddingInlineStart?: PaddingInlineStart;
+  paddingInlineStart?:
+    | PaddingInlineStart
+    | Partial<Record<Breakpoint, PaddingInlineStart>>;
   /**
-   * Token representing CSS `paddingInlineEnd`.
+   * Tokens representing CSS `paddingInlineEnd`.
    */
-  paddingInlineEnd?: PaddingInlineEnd;
+  paddingInlineEnd?:
+    | PaddingInlineEnd
+    | Partial<Record<Breakpoint, PaddingInlineEnd>>;
   /**
    * Token representing width.
    * @experimental The existing tokens will be replaced to better reflect dimensions.
@@ -158,12 +182,79 @@ type BaseBoxPropsFoundation<T extends ElementType> = {
   /**
    * Defines display type and layout. Defaults to `block`.
    */
-  display?: Display;
+  display?: Display | Partial<Record<Breakpoint, Display>>;
   /**
    * CSS position property.
    */
   position?: Position;
   ref?: ComponentPropsWithRef<T>['ref'];
+};
+
+const responsiveRules: Partial<
+  Record<BoxResponsiveProp, BreakpointIndexedStyle>
+> = BOX_RESPONSIVE_PROPS.reduce((mapping, cssProperty) => {
+  return Object.assign(mapping, {
+    [cssProperty]: BREAKPOINTS_LIST.reduce(
+      (configs, breakpoint) => {
+        const config: BreakpointConfig = BREAKPOINTS_CONFIG[breakpoint];
+        return Object.assign(configs, {
+          [breakpoint]: css({
+            // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+            [`@media (min-width: ${config.min}px)`]: {
+              [cssProperty]: `var(--ds-box-responsive-${cssProperty}-${breakpoint})`,
+            },
+          }),
+        });
+      },
+      {
+        static: css({
+          [cssProperty]: `var(--ds-box-static-${cssProperty})`,
+        }),
+      },
+    ),
+  });
+}, {});
+
+const getResponsiveVars = (
+  propertyName: BoxResponsiveProp,
+  propertyValue: GenericPropertyValue,
+  mapping: {
+    [properties: string]: string;
+  },
+) => {
+  if (isResponsiveStyleProp(propertyValue)) {
+    return Object.keys(propertyValue).reduce(
+      (vars, breakpoint) => ({
+        ...vars,
+        [`--ds-box-responsive-${propertyName}-${breakpoint}`]:
+          mapping[propertyValue[breakpoint as Breakpoint]!],
+      }),
+      {},
+    );
+  } else if (isStaticStyleProp(propertyValue)) {
+    return {
+      [`--ds-box-static-${propertyName}`]: mapping[propertyValue],
+    };
+  }
+};
+
+const getResponsiveStyles = (
+  propertyName: BoxResponsiveProp,
+  propertyValue: GenericPropertyValue,
+) => {
+  invariant(
+    typeof responsiveRules[propertyName] !== 'undefined',
+    `Responsive rules for "${propertyName}" have not been statically defined.`,
+  );
+
+  if (isResponsiveStyleProp(propertyValue)) {
+    return Object.keys(propertyValue).map(
+      responsiveProp =>
+        responsiveRules[propertyName]![responsiveProp as Breakpoint],
+    );
+  } else if (isStaticStyleProp(propertyValue)) {
+    return responsiveRules[propertyName]!.static;
+  }
 };
 
 // Without this type annotation on Box we don't get autocomplete for props due to forwardRef types
@@ -212,7 +303,7 @@ export const BaseBox: BaseBoxComponent = forwardRef(
       paddingInlineEnd,
       height,
       width,
-      display = 'block',
+      display = displayMap.block,
       position = 'static',
       UNSAFE_style,
       testId,
@@ -221,17 +312,43 @@ export const BaseBox: BaseBoxComponent = forwardRef(
     ref?: ComponentPropsWithRef<T>['ref'],
   ) => {
     const Component = as || 'div';
+
+    const inlineStyles = Object.assign(
+      {},
+      UNSAFE_style,
+      getResponsiveVars('borderWidth', borderWidth, borderWidthMap),
+      getResponsiveVars('display', display, displayMap),
+      getResponsiveVars('padding', padding, paddingMap),
+      getResponsiveVars('paddingBlock', paddingBlock, paddingMap),
+      getResponsiveVars('paddingBlockStart', paddingBlockStart, paddingMap),
+      getResponsiveVars('paddingBlockEnd', paddingBlockEnd, paddingMap),
+      getResponsiveVars('paddingInline', paddingInline, paddingMap),
+      getResponsiveVars('paddingInlineStart', paddingInlineStart, paddingMap),
+      getResponsiveVars('paddingInlineEnd', paddingInlineEnd, paddingMap),
+    );
+
     const node = (
       <Component
-        style={UNSAFE_style}
+        style={inlineStyles}
         ref={ref}
         // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
         {...htmlAttributes}
         className={className}
         css={[
           baseStyles,
-          display && displayMap[display],
+          ...[
+            getResponsiveStyles('borderWidth', borderWidth),
+            getResponsiveStyles('display', display),
+            getResponsiveStyles('padding', padding),
+            getResponsiveStyles('paddingBlock', paddingBlock),
+            getResponsiveStyles('paddingBlockStart', paddingBlockStart),
+            getResponsiveStyles('paddingBlockEnd', paddingBlockEnd),
+            getResponsiveStyles('paddingInline', paddingInline),
+            getResponsiveStyles('paddingInlineStart', paddingInlineStart),
+            getResponsiveStyles('paddingInlineEnd', paddingInlineEnd),
+          ],
           backgroundColor && backgroundColorMap[backgroundColor],
+          borderColor && borderColorMap[borderColor],
           color && textColorMap[color],
           flex && flexMap[flex],
           flexGrow && flexGrowMap[flexGrow],
@@ -240,18 +357,8 @@ export const BaseBox: BaseBoxComponent = forwardRef(
           overflow && overflowMap[overflow],
           overflowInline && overflowInlineMap[overflowInline],
           overflowBlock && overflowBlockMap[overflowBlock],
-          padding && paddingMap.padding[padding],
           position && positionMap[position],
-          paddingBlock && paddingMap.paddingBlock[paddingBlock],
-          paddingBlockStart && paddingMap.paddingBlockStart[paddingBlockStart],
-          paddingBlockEnd && paddingMap.paddingBlockEnd[paddingBlockEnd],
-          paddingInline && paddingMap.paddingInline[paddingInline],
-          paddingInlineStart &&
-            paddingMap.paddingInlineStart[paddingInlineStart],
-          paddingInlineEnd && paddingMap.paddingInlineEnd[paddingInlineEnd],
-          borderColor && borderColorMap[borderColor],
           borderStyle && borderStyleMap[borderStyle],
-          borderWidth && borderWidthMap[borderWidth],
           borderRadius && borderRadiusMap[borderRadius],
           shadow && shadowMap[shadow],
           layer && layerMap[layer],
@@ -280,10 +387,11 @@ const borderStyleMap = {
   solid: css({ borderStyle: 'solid' }),
 } as const;
 
-type BorderWidth = keyof typeof borderWidthMap;
+export type BorderWidth = keyof typeof borderWidthMap;
 const borderWidthMap = {
-  'size.050': css({ borderWidth: token('border.width.050', '1px') }),
-  'size.100': css({ borderWidth: token('border.width.100', '2px') }),
+  'size.0': token('border.width.0', '0'),
+  'size.050': token('border.width.050', '1px'),
+  'size.100': token('border.width.100', '2px'),
 } as const;
 
 type BorderRadius = keyof typeof borderRadiusMap;
@@ -320,13 +428,13 @@ const alignSelfMap = {
   baseline: css({ alignSelf: 'baseline' }),
 } as const;
 
-type Display = keyof typeof displayMap;
+export type Display = keyof typeof displayMap;
 const displayMap = {
-  block: css({ display: 'block' }),
-  inline: css({ display: 'inline' }),
-  flex: css({ display: 'flex' }),
-  'inline-flex': css({ display: 'inline-flex' }),
-  'inline-block': css({ display: 'inline-block' }),
+  block: 'block',
+  inline: 'inline',
+  flex: 'flex',
+  'inline-flex': 'inline-flex',
+  'inline-block': 'inline-block',
 } as const;
 
 type Position = keyof typeof positionMap;
@@ -452,77 +560,36 @@ export type MaxHeight = keyof typeof maxHeightMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6da0ceaa2c227230e3a93bc724ff8648>>
+ * @codegen <<SignedSource::84fd352b0e6509d380a0dcf8ad023ca2>>
  * @codegenId spacing
  * @codegenCommand yarn codegen-styles
  * @codegenParams ["padding"]
  * @codegenDependency ../../../../tokens/src/artifacts/tokens-raw/atlassian-spacing.tsx <<SignedSource::167d3b69b159ae33e74d4ea5ab7eade6>>
  */
-const paddingMap = Object.fromEntries(
-  [
-    'padding',
-    'paddingBlock',
-    'paddingBlockStart',
-    'paddingBlockEnd',
-    'paddingInline',
-    'paddingInlineStart',
-    'paddingInlineEnd',
-  ].map((property: string) => [
-    property,
-    {
-      'space.0': css({
-        [property]: token('space.0', '0px'),
-      }),
-      'space.025': css({
-        [property]: token('space.025', '2px'),
-      }),
-      'space.050': css({
-        [property]: token('space.050', '4px'),
-      }),
-      'space.075': css({
-        [property]: token('space.075', '6px'),
-      }),
-      'space.100': css({
-        [property]: token('space.100', '8px'),
-      }),
-      'space.150': css({
-        [property]: token('space.150', '12px'),
-      }),
-      'space.200': css({
-        [property]: token('space.200', '16px'),
-      }),
-      'space.250': css({
-        [property]: token('space.250', '20px'),
-      }),
-      'space.300': css({
-        [property]: token('space.300', '24px'),
-      }),
-      'space.400': css({
-        [property]: token('space.400', '32px'),
-      }),
-      'space.500': css({
-        [property]: token('space.500', '40px'),
-      }),
-      'space.600': css({
-        [property]: token('space.600', '48px'),
-      }),
-      'space.800': css({
-        [property]: token('space.800', '64px'),
-      }),
-      'space.1000': css({
-        [property]: token('space.1000', '80px'),
-      }),
-    } as const,
-  ]),
-);
+const paddingMap = {
+  'space.0': token('space.0', '0px'),
+  'space.025': token('space.025', '2px'),
+  'space.050': token('space.050', '4px'),
+  'space.075': token('space.075', '6px'),
+  'space.100': token('space.100', '8px'),
+  'space.150': token('space.150', '12px'),
+  'space.200': token('space.200', '16px'),
+  'space.250': token('space.250', '20px'),
+  'space.300': token('space.300', '24px'),
+  'space.400': token('space.400', '32px'),
+  'space.500': token('space.500', '40px'),
+  'space.600': token('space.600', '48px'),
+  'space.800': token('space.800', '64px'),
+  'space.1000': token('space.1000', '80px'),
+} as const;
 
-export type Padding = keyof typeof paddingMap.padding;
-export type PaddingBlock = keyof typeof paddingMap.paddingBlock;
-export type PaddingBlockStart = keyof typeof paddingMap.paddingBlockStart;
-export type PaddingBlockEnd = keyof typeof paddingMap.paddingBlockEnd;
-export type PaddingInline = keyof typeof paddingMap.paddingInline;
-export type PaddingInlineStart = keyof typeof paddingMap.paddingInlineStart;
-export type PaddingInlineEnd = keyof typeof paddingMap.paddingInlineEnd;
+export type Padding = keyof typeof paddingMap;
+export type PaddingBlock = keyof typeof paddingMap;
+export type PaddingBlockStart = keyof typeof paddingMap;
+export type PaddingBlockEnd = keyof typeof paddingMap;
+export type PaddingInline = keyof typeof paddingMap;
+export type PaddingInlineStart = keyof typeof paddingMap;
+export type PaddingInlineEnd = keyof typeof paddingMap;
 
 /**
  * @codegenEnd

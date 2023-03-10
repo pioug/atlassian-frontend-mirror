@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-platform
 
+## 0.1.0
+
+### Minor Changes
+
+- [`6339334e3ac`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6339334e3ac) - Adds new rule to disallow pre/post install scripts in package.json.
+
 ## 0.0.7
 
 ### Patch Changes

@@ -1,7 +1,7 @@
 export { SmartCardProvider } from './provider';
 export type { ProviderProps } from './provider';
 export { default as CardClient } from './client';
-export type { EnvironmentsKeys } from './client/types';
+export type { EnvironmentsKeys } from '@atlaskit/linking-common';
 export { useSmartLinkContext, SmartCardContext } from './state/context';
 export type { CardContext } from './state/context';
 export type {

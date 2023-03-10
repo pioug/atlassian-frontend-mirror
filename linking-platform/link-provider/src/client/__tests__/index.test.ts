@@ -1,6 +1,6 @@
 let mockRequest = jest.fn();
-jest.mock('../api', () => ({
-  ...jest.requireActual<Object>('../api'),
+jest.mock('@atlaskit/linking-common', () => ({
+  ...jest.requireActual<Object>('@atlaskit/linking-common'),
   request: (...args: any) => mockRequest(...args),
 }));
 
@@ -11,8 +11,7 @@ import {
   isSuccessfulResponse,
   SuccessResponse,
 } from '../types/responses';
-import { APIError, ErrorType } from '@atlaskit/linking-common';
-import { NetworkError } from '../api';
+import { APIError, ErrorType, NetworkError } from '@atlaskit/linking-common';
 import { flushPromises } from '@atlaskit/media-test-helpers';
 
 // Mock response quick-references:
@@ -116,6 +115,14 @@ describe('Smart Card: Client', () => {
       ],
     );
     expect(response).toBe(mocks.success);
+  });
+
+  it('should export baseUrlOverride and envKey for consumers to use to construct custom URLs', async () => {
+    const baseUrlOverride = 'https://api-gateway.trellis.coffee/gateway/api';
+    const envKey = 'stg';
+    const client = new SmartCardClient(envKey, baseUrlOverride);
+    expect(client.baseUrlOverride).toEqual(baseUrlOverride);
+    expect(client.envKey).toEqual(envKey);
   });
 
   it('successfully deduplicates requests made in batches in same execution frame', async () => {

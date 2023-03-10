@@ -28,6 +28,7 @@ type CSSTokenMap = {
   'border.radius.300': 'var(--ds-radius-300)';
   'border.radius.400': 'var(--ds-radius-400)';
   'border.radius.round': 'var(--ds-radius-round)';
+  'border.width.0': 'var(--ds-width-0)';
   'border.width.050': 'var(--ds-width-050)';
   'border.width.100': 'var(--ds-width-100)';
   'color.text': 'var(--ds-text)';
@@ -522,6 +523,7 @@ const tokens: {
   readonly 'border.radius.300': '--ds-radius-300';
   readonly 'border.radius.400': '--ds-radius-400';
   readonly 'border.radius.round': '--ds-radius-round';
+  readonly 'border.width.0': '--ds-width-0';
   readonly 'border.width.050': '--ds-width-050';
   readonly 'border.width.100': '--ds-width-100';
   readonly 'color.text': '--ds-text';

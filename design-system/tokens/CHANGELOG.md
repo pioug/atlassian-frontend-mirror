@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 1.2.2
+
+### Patch Changes
+
+- [`67a01afe12b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/67a01afe12b) - Add internal and experimental token for border.width.0
+
 ## 1.2.1
 
 ### Patch Changes

@@ -55,6 +55,15 @@
       },
       "value": "50%"
     },
+    "Shape/border.width.0": {
+      "attributes": {
+        "group": "shape",
+        "state": "experimental",
+        "introduced": "1.2.1",
+        "description": "Experimental, description needs to be amended"
+      },
+      "value": "0"
+    },
     "Shape/border.width.050": {
       "attributes": {
         "group": "shape",

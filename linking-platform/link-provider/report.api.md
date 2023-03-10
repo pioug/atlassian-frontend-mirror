@@ -22,6 +22,7 @@ import { CardAppearance } from '@atlaskit/linking-common';
 import { CardPlatform } from '@atlaskit/linking-common';
 import { CardStore } from '@atlaskit/linking-common';
 import { Context } from 'react';
+import { EnvironmentsKeys } from '@atlaskit/linking-common';
 import { InvocationSearchPayload } from '@atlaskit/linking-common';
 import { InvokePayload } from '@atlaskit/linking-common';
 import { JsonLd } from 'json-ld-types';
@@ -29,17 +30,6 @@ import { LinkingPlatformFeatureFlags } from '@atlaskit/linking-common';
 import { LinkPreview } from '@atlaskit/linking-common/extractors';
 import { ServerActionOpts } from '@atlaskit/linking-common';
 import { Store } from 'redux';
-
-// @public (undocumented)
-const BaseUrls: {
-  dev: string;
-  development: string;
-  stg: string;
-  staging: string;
-  prd: string;
-  prod: string;
-  production: string;
-};
 
 // @public (undocumented)
 export interface CardAuthFlowOpts {
@@ -50,6 +40,10 @@ export interface CardAuthFlowOpts {
 // @public (undocumented)
 export class CardClient implements CardClient_2 {
   constructor(envKey?: EnvironmentsKeys, baseUrlOverride?: string);
+  // (undocumented)
+  readonly baseUrlOverride?: string;
+  // (undocumented)
+  readonly envKey?: string;
   // (undocumented)
   fetchAvailableSearchProviders(): Promise<SearchProviderInfo[]>;
   // (undocumented)
@@ -150,8 +144,7 @@ export class EditorCardProvider implements CardProvider {
 // @public @deprecated (undocumented)
 export const editorCardProvider: EditorCardProvider;
 
-// @public (undocumented)
-export type EnvironmentsKeys = keyof typeof BaseUrls;
+export { EnvironmentsKeys };
 
 // @public (undocumented)
 type InvokeRequest = ServerActionOpts;

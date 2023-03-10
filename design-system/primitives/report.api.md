@@ -26,6 +26,7 @@ import { ReactElement } from 'react';
 import { ReactNode } from 'react';
 import { RefAttributes } from 'react';
 import { SerializedStyles } from '@emotion/react';
+import { UNSAFE_Breakpoint } from '@atlaskit/ds-explorations';
 
 // @public (undocumented)
 type AlignBlock = 'baseline' | 'center' | 'end' | 'start';
@@ -137,7 +138,7 @@ type BaseBoxPropsFoundation<T extends ElementType> = {
   backgroundColor?: BackgroundColor;
   shadow?: Shadow;
   borderStyle?: BorderStyle;
-  borderWidth?: BorderWidth;
+  borderWidth?: BorderWidth | Partial<Record<UNSAFE_Breakpoint, BorderWidth>>;
   borderColor?: BorderColor;
   borderRadius?: BorderRadius;
   layer?: Layer;
@@ -148,16 +149,28 @@ type BaseBoxPropsFoundation<T extends ElementType> = {
   overflow?: Overflow;
   overflowInline?: OverflowInline;
   overflowBlock?: OverflowBlock;
-  padding?: Padding;
-  paddingBlock?: PaddingBlock;
-  paddingBlockStart?: PaddingBlockStart;
-  paddingBlockEnd?: PaddingBlockEnd;
-  paddingInline?: PaddingInline;
-  paddingInlineStart?: PaddingInlineStart;
-  paddingInlineEnd?: PaddingInlineEnd;
+  padding?: Padding | Partial<Record<UNSAFE_Breakpoint, Padding>>;
+  paddingBlock?:
+    | PaddingBlock
+    | Partial<Record<UNSAFE_Breakpoint, PaddingBlock>>;
+  paddingBlockStart?:
+    | PaddingBlockStart
+    | Partial<Record<UNSAFE_Breakpoint, PaddingBlockStart>>;
+  paddingBlockEnd?:
+    | PaddingBlockEnd
+    | Partial<Record<UNSAFE_Breakpoint, PaddingBlockEnd>>;
+  paddingInline?:
+    | PaddingInline
+    | Partial<Record<UNSAFE_Breakpoint, PaddingInline>>;
+  paddingInlineStart?:
+    | PaddingInlineStart
+    | Partial<Record<UNSAFE_Breakpoint, PaddingInlineStart>>;
+  paddingInlineEnd?:
+    | PaddingInlineEnd
+    | Partial<Record<UNSAFE_Breakpoint, PaddingInlineEnd>>;
   width?: Width;
   height?: Height;
-  display?: Display;
+  display?: Display | Partial<Record<UNSAFE_Breakpoint, Display>>;
   position?: Position;
   ref?: ComponentPropsWithRef<T>['ref'];
 };
@@ -223,12 +236,26 @@ type BorderWidth = keyof typeof borderWidthMap;
 
 // @public (undocumented)
 const borderWidthMap: {
-  readonly 'size.050': SerializedStyles;
-  readonly 'size.100': SerializedStyles;
+  readonly 'size.0': 'var(--ds-width-0)';
+  readonly 'size.050': 'var(--ds-width-050)';
+  readonly 'size.100': 'var(--ds-width-100)';
 };
 
 // @public
 export const Box: BoxComponent;
+
+// @public (undocumented)
+const BOX_RESPONSIVE_PROPS: readonly [
+  'borderWidth',
+  'display',
+  'padding',
+  'paddingBlock',
+  'paddingBlockStart',
+  'paddingBlockEnd',
+  'paddingInline',
+  'paddingInlineStart',
+  'paddingInlineEnd',
+];
 
 // @public (undocumented)
 type BoxComponent<T extends ElementType = 'div'> = (<
@@ -241,14 +268,12 @@ type BoxComponent<T extends ElementType = 'div'> = (<
 // @public (undocumented)
 export type BoxProps<T extends ElementType = 'div'> = Omit<
   BaseBoxProps<T>,
-  'UNSAFE_style' | 'className'
+  'UNSAFE_style' | 'className' | BoxResponsiveProp
 > &
-  BoxPropsBase;
+  PublicBoxPropsBase;
 
 // @public (undocumented)
-type BoxPropsBase = {
-  customStyles?: CustomStyles;
-};
+type BoxResponsiveProp = typeof BOX_RESPONSIVE_PROPS[number];
 
 // @public
 type CustomStyles = Pick<
@@ -283,11 +308,11 @@ type Display = keyof typeof displayMap;
 
 // @public (undocumented)
 const displayMap: {
-  readonly block: SerializedStyles;
-  readonly inline: SerializedStyles;
-  readonly flex: SerializedStyles;
-  readonly 'inline-flex': SerializedStyles;
-  readonly 'inline-block': SerializedStyles;
+  readonly block: 'block';
+  readonly inline: 'inline';
+  readonly flex: 'flex';
+  readonly 'inline-flex': 'inline-flex';
+  readonly 'inline-block': 'inline-block';
 };
 
 // @public (undocumented)
@@ -399,44 +424,42 @@ const overflowMap: {
 };
 
 // @public (undocumented)
-type Padding = keyof typeof paddingMap.padding;
+type Padding = keyof typeof paddingMap;
 
 // @public (undocumented)
-type PaddingBlock = keyof typeof paddingMap.paddingBlock;
+type PaddingBlock = keyof typeof paddingMap;
 
 // @public (undocumented)
-type PaddingBlockEnd = keyof typeof paddingMap.paddingBlockEnd;
+type PaddingBlockEnd = keyof typeof paddingMap;
 
 // @public (undocumented)
-type PaddingBlockStart = keyof typeof paddingMap.paddingBlockStart;
+type PaddingBlockStart = keyof typeof paddingMap;
 
 // @public (undocumented)
-type PaddingInline = keyof typeof paddingMap.paddingInline;
+type PaddingInline = keyof typeof paddingMap;
 
 // @public (undocumented)
-type PaddingInlineEnd = keyof typeof paddingMap.paddingInlineEnd;
+type PaddingInlineEnd = keyof typeof paddingMap;
 
 // @public (undocumented)
-type PaddingInlineStart = keyof typeof paddingMap.paddingInlineStart;
+type PaddingInlineStart = keyof typeof paddingMap;
 
 // @public
 const paddingMap: {
-  [k: string]: {
-    readonly 'space.0': SerializedStyles;
-    readonly 'space.025': SerializedStyles;
-    readonly 'space.050': SerializedStyles;
-    readonly 'space.075': SerializedStyles;
-    readonly 'space.100': SerializedStyles;
-    readonly 'space.150': SerializedStyles;
-    readonly 'space.200': SerializedStyles;
-    readonly 'space.250': SerializedStyles;
-    readonly 'space.300': SerializedStyles;
-    readonly 'space.400': SerializedStyles;
-    readonly 'space.500': SerializedStyles;
-    readonly 'space.600': SerializedStyles;
-    readonly 'space.800': SerializedStyles;
-    readonly 'space.1000': SerializedStyles;
-  };
+  readonly 'space.0': 'var(--ds-space-0)';
+  readonly 'space.025': 'var(--ds-space-025)';
+  readonly 'space.050': 'var(--ds-space-050)';
+  readonly 'space.075': 'var(--ds-space-075)';
+  readonly 'space.100': 'var(--ds-space-100)';
+  readonly 'space.150': 'var(--ds-space-150)';
+  readonly 'space.200': 'var(--ds-space-200)';
+  readonly 'space.250': 'var(--ds-space-250)';
+  readonly 'space.300': 'var(--ds-space-300)';
+  readonly 'space.400': 'var(--ds-space-400)';
+  readonly 'space.500': 'var(--ds-space-500)';
+  readonly 'space.600': 'var(--ds-space-600)';
+  readonly 'space.800': 'var(--ds-space-800)';
+  readonly 'space.1000': 'var(--ds-space-1000)';
 };
 
 // @public (undocumented)
@@ -448,6 +471,20 @@ const positionMap: {
   readonly fixed: SerializedStyles;
   readonly relative: SerializedStyles;
   readonly static: SerializedStyles;
+};
+
+// @public (undocumented)
+type PublicBoxPropsBase = {
+  borderWidth?: BorderWidth;
+  display?: Display;
+  padding?: Padding;
+  paddingBlock?: PaddingBlock;
+  paddingBlockStart?: PaddingBlockStart;
+  paddingBlockEnd?: PaddingBlockEnd;
+  paddingInline?: PaddingInline;
+  paddingInlineStart?: PaddingInlineStart;
+  paddingInlineEnd?: PaddingInlineEnd;
+  customStyles?: CustomStyles;
 };
 
 // @public (undocumented)
@@ -463,49 +500,45 @@ const shadowMap: {
 };
 
 // @public (undocumented)
-type Space = keyof typeof spaceMap.gap;
+type Space = keyof typeof spaceMap;
 
 // @public (undocumented)
-type Space_2 = keyof typeof spaceMap_2.gap;
+type Space_2 = keyof typeof spaceMap_2;
 
 // @public
 const spaceMap: {
-  [k: string]: {
-    readonly '0': SerializedStyles;
-    readonly '025': SerializedStyles;
-    readonly '050': SerializedStyles;
-    readonly '075': SerializedStyles;
-    readonly '100': SerializedStyles;
-    readonly '150': SerializedStyles;
-    readonly '200': SerializedStyles;
-    readonly '250': SerializedStyles;
-    readonly '300': SerializedStyles;
-    readonly '400': SerializedStyles;
-    readonly '500': SerializedStyles;
-    readonly '600': SerializedStyles;
-    readonly '800': SerializedStyles;
-    readonly '1000': SerializedStyles;
-  };
+  readonly '0': SerializedStyles;
+  readonly '025': SerializedStyles;
+  readonly '050': SerializedStyles;
+  readonly '075': SerializedStyles;
+  readonly '100': SerializedStyles;
+  readonly '150': SerializedStyles;
+  readonly '200': SerializedStyles;
+  readonly '250': SerializedStyles;
+  readonly '300': SerializedStyles;
+  readonly '400': SerializedStyles;
+  readonly '500': SerializedStyles;
+  readonly '600': SerializedStyles;
+  readonly '800': SerializedStyles;
+  readonly '1000': SerializedStyles;
 };
 
 // @public
 const spaceMap_2: {
-  [k: string]: {
-    readonly '0': SerializedStyles;
-    readonly '025': SerializedStyles;
-    readonly '050': SerializedStyles;
-    readonly '075': SerializedStyles;
-    readonly '100': SerializedStyles;
-    readonly '150': SerializedStyles;
-    readonly '200': SerializedStyles;
-    readonly '250': SerializedStyles;
-    readonly '300': SerializedStyles;
-    readonly '400': SerializedStyles;
-    readonly '500': SerializedStyles;
-    readonly '600': SerializedStyles;
-    readonly '800': SerializedStyles;
-    readonly '1000': SerializedStyles;
-  };
+  readonly '0': SerializedStyles;
+  readonly '025': SerializedStyles;
+  readonly '050': SerializedStyles;
+  readonly '075': SerializedStyles;
+  readonly '100': SerializedStyles;
+  readonly '150': SerializedStyles;
+  readonly '200': SerializedStyles;
+  readonly '250': SerializedStyles;
+  readonly '300': SerializedStyles;
+  readonly '400': SerializedStyles;
+  readonly '500': SerializedStyles;
+  readonly '600': SerializedStyles;
+  readonly '800': SerializedStyles;
+  readonly '1000': SerializedStyles;
 };
 
 // @public (undocumented)

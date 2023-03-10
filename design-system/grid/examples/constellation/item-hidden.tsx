@@ -20,11 +20,11 @@ export default () => {
           <SkeletonBox>always visible</SkeletonBox>
         </GridItem>
 
-        <GridItem span={{ xs: 'none', md: 6 }}>
+        <GridItem span={{ xxs: 'none', md: 6 }}>
           <SkeletonBox>hidden below md</SkeletonBox>
         </GridItem>
 
-        <GridItem span={{ xs: 6, lg: 'none' }}>
+        <GridItem span={{ xxs: 6, lg: 'none' }}>
           <SkeletonBox>hidden above lg</SkeletonBox>
         </GridItem>
 

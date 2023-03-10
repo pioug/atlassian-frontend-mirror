@@ -6,7 +6,7 @@ import { SkeletonBox } from './shared/skeleton-box';
 
 export default () => (
   <Grid>
-    <GridItem span={4} start={{ xs: 5, md: 'auto' }}>
+    <GridItem span={4} start={{ xxs: 5, md: 'auto' }}>
       <SkeletonBox>
         centered xs+
         <br />

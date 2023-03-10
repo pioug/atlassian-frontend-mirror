@@ -24,7 +24,7 @@ Follow the <a href="/get-started/develop/using-tokens-in-code#eslint-plugin">Get
 
 Ensures that the codebase uses the global `token` function for colors, rather than hard-coded values. This ruleset is great for codebases that are starting to adopt color tokens and those that have already adopted color tokens. This ruleset also prevents new contributors from accidentally adding hard-coded color values.
 
-### Do
+<h3 id="ensure-design-token-usage-do">Do</h3>
 
 Use the global `token` function, and design tokens.
 
@@ -44,7 +44,7 @@ css`
 `;
 ```
 
-### Don't
+<h3 id="ensure-design-token-usage-dont">Don't</h3>
 
 Don't use hard-coded values, such as hexadecimal, CSS colors, or base color values.
 
@@ -84,7 +84,7 @@ css({
 
 Ensures that the codebase uses the global `token` function for spacing, rather than hard-coded values. This ruleset is great for codebases that are starting to adopt space tokens and those that have already adopted space tokens. This ruleset also prevents new contributors from accidentally adding hard-coded space values.
 
-### Do
+<h3 id="ensure-design-token-usage-spacing-do">Do</h3>
 
 Use the global `token` function, and design tokens.
 
@@ -104,7 +104,7 @@ css`
 `;
 ```
 
-### Don't
+<h3 id="ensure-design-token-usage-spacing-dont">Don't</h3>
 
 Don't use hard-coded values, such as pixel values, relative units, or legacy `gridSize` functions.
 
@@ -132,7 +132,7 @@ Once the deprecation period is over for a token, it will be moved into a `delete
 
 Run `eslint --fix` to automatically apply replacement tokens.
 
-### Don't
+<h3 id="no-deprecated-design-token-usage-dont">Don't</h3>
 
 Don't use deprecated tokens.
 
@@ -150,7 +150,7 @@ css({
 
 Ensures usages of the `token` function are done correctly, so that current token names are being used, and the resulting `var(--some-token)` statements aren't being used. This ruleset is great for codebases that have already adopted tokens.
 
-### Do
+<h3 id="no-unsafe-design-token-usage-do">Do</h3>
 
 Use the `token` function and token naming functions correctly.
 
@@ -170,7 +170,7 @@ css`
 `;
 ```
 
-### Don't
+<h3 id="no-unsafe-design-token-usage-dont">Don't</h3>
 
 Don’t use outdated token names, or use tokens without the `token` function.
 
@@ -195,7 +195,7 @@ css({
 
 Enforces accessible usage of icon labels when composed with other Design System components.
 
-### Do
+<h3 id="icon-label-do">Do</h3>
 
 Use the icon label prop to ensure accessibility of Design System icons.
 
@@ -220,7 +220,7 @@ import ActivityIcon from '@atlaskit/icon/glyph/activity'
 </ButtonItem>
 ```
 
-### Don't
+<h3 id="icon-label-dont">Don't</h3>
 
 Don't ignore labels for icons.
 
@@ -252,7 +252,7 @@ import ActivityIcon from '@atlaskit/icon/glyph/activity'
 
 Prevents usage of private or experimental Atlassian Design System packages.
 
-### Don't
+<h3 id="no-banned-imports-dont">Don't</h3>
 
 Don't import or use private or experimental ADS packages.
 
@@ -270,7 +270,7 @@ import { Text } from '@atlaskit/ds-explorations';
 
 Ensures usage of current Atlassian Design System APIs.
 
-### Do
+<h3 id="no-deprecated-api-usage-do">Do</h3>
 
 ```jsx
 import { SomeElement } from 'some-other-library';
@@ -290,7 +290,7 @@ import Drawer from '@atlaskit/drawer';
 const Element = () => <Drawer />;
 ```
 
-### Don't
+<h3 id="no-deprecated-api-usage-dont">Don't</h3>
 
 ```jsx
 import { ButtonItem } from '@atlaskit/menu';
@@ -315,7 +315,7 @@ const Element = () => (
 
 Ensures usage of current Atlassian Design System dependencies.
 
-### Do
+<h3 id="no-deprecated-imports-do">Do</h3>
 
 ```ts
 import Modal from '@atlaskit/modal-dialog';
@@ -325,7 +325,7 @@ import Modal from '@atlaskit/modal-dialog';
 import { ButtonItem } from '@atlaskit/menu';
 ```
 
-### Don't
+<h3 id="no-deprecated-imports-dont">Don't</h3>
 
 ```ts
 import Item from '@atlaskit/item';
@@ -341,13 +341,13 @@ import GlobalNav from '@atlaskit/global-navigation';
 
 This rule makes Design System consumers aware of existing solutions.
 
-### Do
+<h3 id="use-visually-hidden-do">Do</h3>
 
 ```jsx
 import VisuallyHidden from '@atlaskit/visually-hidden';
 ```
 
-### Don't
+<h3 id="use-visually-hidden-dont">Don't</h3>
 
 ```jsx
 import { css } from '@emotion/core';

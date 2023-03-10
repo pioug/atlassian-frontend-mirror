@@ -10,7 +10,7 @@ export default () => (
       <SkeletonBox>half-width</SkeletonBox>
     </GridItem>
 
-    <GridItem span={{ xs: 12 }}>
+    <GridItem span={{ xxs: 12 }}>
       <SkeletonBox>full-width</SkeletonBox>
     </GridItem>
 

@@ -2,10 +2,10 @@ import type { ReactNode } from 'react';
 
 import { css } from '@emotion/react';
 
-export type Breakpoint = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
+export type Breakpoint = 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
 
 /**
- * Builds an object for each breakpoint, eg. `{ xs?: T, sm?: T, … }`
+ * Builds an object for each breakpoint, eg. `{ xxs?: T, xs?: T, sm?: T, … }`
  */
 export type ResponsiveObject<T> = Partial<Record<Breakpoint, T>>;
 

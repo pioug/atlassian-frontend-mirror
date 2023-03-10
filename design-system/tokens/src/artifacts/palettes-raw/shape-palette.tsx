@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f260aa650535ab5be564f74e1ff1a157>>
+ * @codegen <<SignedSource::d9adf6612a4bc5957b7824e1f32a76b2>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -122,6 +122,26 @@ const tokens = [
       "border",
       "radius",
       "RadiusCircle"
+    ]
+  },
+  {
+    "value": "0",
+    "attributes": {
+      "group": "shape"
+    },
+    "filePath": "src/palettes/shape-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "0",
+      "attributes": {
+        "group": "shape"
+      }
+    },
+    "name": "border.width.Size0",
+    "path": [
+      "border",
+      "width",
+      "Size0"
     ]
   },
   {

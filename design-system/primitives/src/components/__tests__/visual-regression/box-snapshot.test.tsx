@@ -140,3 +140,32 @@ describe('Box customStyles', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 });
+
+const responsiveBoxProps = ['border-width', 'display', 'padding'] as const;
+describe('Responsive Box', () => {
+  responsiveBoxProps.forEach(testId => {
+    it.each([320, 600, 1024, 1500])(
+      `With viewport width "%s": Should match production example for prop "${testId}"`,
+      async (width: number) => {
+        const url = getExampleUrl(
+          'design-system',
+          'primitives',
+          'box-responsive',
+          global.__BASEURL__,
+        );
+        const { page } = global;
+        await page.setViewport({
+          width,
+          height: 1000,
+        });
+        await loadPage(page, url);
+
+        const image = await takeElementScreenShot(
+          page,
+          `[data-testid="box-responsive-${testId}"]`,
+        );
+        expect(image).toMatchProdImageSnapshot();
+      },
+    );
+  });
+});

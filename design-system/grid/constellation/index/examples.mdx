@@ -47,7 +47,7 @@ Define how many columns an item will span.  This is a 1-indexed range 1-12.
 
 By default, span is `12` and will span the entire row.
 
-We enable a shorthand here, using `span={6}` is the same as `span={{ xs: 6 }}`.  The shorthand will override the default full-width functionality across all breakpoints.
+We enable a shorthand here, using `span={6}` is the same as `span={{ xxs: 6 }}`.  The shorthand will override the default full-width functionality across all breakpoints.
 
 See [usage](./usage) to understand our how responsive object syntax works.
 
@@ -55,7 +55,7 @@ See [usage](./usage) to understand our how responsive object syntax works.
 
 ### Hide an item entirely
 
-In the case that you do not want a GridItem rendered at all, use `span="none"` or `span={{ xs: 'none', md: 6 }}` (etc).
+In the case that you do not want a GridItem rendered at all, use `span="none"` or `span={{ xxs: 'none', md: 6 }}` (etc).
 
 This is useful because if you wanted to hide the inner contents of the GridItem, the GridItem would still take up the space it's alloted.
 
@@ -67,7 +67,7 @@ Define the column at which your item will start.  This is a 1-indexed range 1-12
 
 By default, start is `'auto'` and will fill the next available column in the row, as space is available.
 
-We enable a shorthand here, using `start={1}` is the same as `start={{ xs: 1 }}`.  The shorthand will override the default `'auto'` functionality across all breakpoints.
+We enable a shorthand here, using `start={1}` is the same as `start={{ xxs: 1 }}`.  The shorthand will override the default `'auto'` functionality across all breakpoints.
 
 See [usage](./usage) to understand our how responsive object syntax works.
 

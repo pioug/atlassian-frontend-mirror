@@ -69,7 +69,7 @@ type EnvironmentsKeys = keyof typeof BaseUrls;
 
 ```json
 {
-  "@atlaskit/link-provider": "^1.4.3",
+  "@atlaskit/link-provider": "^1.5.0",
   "react": "^16.8.0"
 }
 ```

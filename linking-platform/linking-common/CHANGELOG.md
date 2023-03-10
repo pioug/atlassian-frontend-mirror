@@ -1,5 +1,12 @@
 # @atlaskit/linking-common
 
+## 2.2.0
+
+### Minor Changes
+
+- [`5c43e7c2924`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5c43e7c2924) - - make envKey and baseUrlOverride properties public in CardClient
+  - move request API and environment config and getter to linking-common
+
 ## 2.1.0
 
 ### Minor Changes

@@ -874,6 +874,7 @@ export interface SpacingTokenSchema {
 export interface ShapeTokenSchema {
   border: {
     width: {
+      '0': ShapeToken;
       '050': ShapeToken;
       '100': ShapeToken;
     };

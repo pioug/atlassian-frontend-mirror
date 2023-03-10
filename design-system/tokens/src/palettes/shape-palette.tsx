@@ -8,6 +8,12 @@ export type BaseSizeToken = keyof typeof baseSizeTokens;
 export type BaseRadiusToken = keyof typeof baseRadiusTokens;
 
 const baseSizeTokens = {
+  Size0: {
+    value: '0',
+    attributes: {
+      group: 'shape',
+    },
+  },
   Size050: {
     value: '0.0625rem',
     attributes: {

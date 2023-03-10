@@ -15,6 +15,10 @@ import {
   CardAdf,
   CardAppearance,
   extractPreview,
+  getBaseUrl,
+  getResolverUrl,
+  EnvironmentsKeys,
+  request,
 } from '@atlaskit/linking-common';
 import {
   CardProvider,
@@ -25,9 +29,6 @@ import {
 } from './types';
 import { Transformer } from './transformer';
 
-import { getBaseUrl, getResolverUrl } from '../client/utils/environments';
-import { EnvironmentsKeys } from '../client/types';
-import * as api from '../client/api';
 import CardClient from '../client';
 import { JsonLd } from 'json-ld-types';
 import { getStatus } from '../helpers';
@@ -102,7 +103,7 @@ export class EditorCardProvider implements CardProvider {
 
   private async fetchProvidersData(): Promise<ProvidersData | undefined> {
     const endpoint = `${this.resolverUrl}/providers`;
-    const response = await api.request<ORSProvidersResponse>(
+    const response = await request<ORSProvidersResponse>(
       'post',
       endpoint,
       undefined,

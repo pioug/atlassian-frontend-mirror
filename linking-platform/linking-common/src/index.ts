@@ -11,6 +11,7 @@ export type {
   ServerActionOpts,
   ServerActionPayload,
   MetadataStatus,
+  EnvironmentsKeys,
 } from './types';
 
 export type {
@@ -41,3 +42,7 @@ export { getUrl } from './store';
 export type { LinkingPlatformFeatureFlags } from './ff';
 
 export { promiseDebounce } from './promiseDebounce';
+
+export { getBaseUrl, getResolverUrl, BaseUrls } from './environments';
+
+export { request, NetworkError } from './api';

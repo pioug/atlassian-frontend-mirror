@@ -1,5 +1,6 @@
 import { JsonLd } from 'json-ld-types';
 import { AnyAction } from 'redux';
+import Environments from './environments';
 
 export interface InvokePayload<T> {
   key: string;
@@ -87,3 +88,5 @@ export interface EmbedCardAdf {
   };
 }
 export type CardAdf = InlineCardAdf | BlockCardAdf | EmbedCardAdf;
+
+export type EnvironmentsKeys = keyof typeof Environments;

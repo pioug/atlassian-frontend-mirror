@@ -20,7 +20,7 @@ import { ReactNode } from 'react';
 import { token } from '@atlaskit/tokens';
 
 // @public (undocumented)
-type Breakpoint = 'lg' | 'md' | 'sm' | 'xl' | 'xs' | 'xxl';
+type Breakpoint = 'lg' | 'md' | 'sm' | 'xl' | 'xs' | 'xxl' | 'xxs';
 
 // @public (undocumented)
 type BreakpointConfig = {
@@ -77,6 +77,7 @@ type StartOptions = 'auto' | SpanOptions;
 // @public
 export const UNSAFE_media: {
   readonly above: {
+    readonly xxs: `@media (min-width: ${number}px)`;
     readonly xs: `@media (min-width: ${number}px)`;
     readonly sm: `@media (min-width: ${number}px)`;
     readonly md: `@media (min-width: ${number}px)`;
@@ -85,6 +86,7 @@ export const UNSAFE_media: {
     readonly xxl: `@media (min-width: ${number}px)`;
   };
   readonly below: {
+    readonly xs: `@media (max-width: ${number}px)`;
     readonly sm: `@media (max-width: ${number}px)`;
     readonly md: `@media (max-width: ${number}px)`;
     readonly lg: `@media (max-width: ${number}px)`;

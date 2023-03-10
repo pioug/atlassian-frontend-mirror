@@ -1,5 +1,11 @@
 # @atlaskit/grid
 
+## 0.7.0
+
+### Minor Changes
+
+- [`96d7e8fa14e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/96d7e8fa14e) - Add a new `xxs` breakpoint and adjust the `xs` breakpoint
+
 ## 0.6.0
 
 ### Minor Changes

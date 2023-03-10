@@ -58,15 +58,13 @@ describe('typeahead: undo redo', () => {
   });
 
   describe('when undone right after open the typeahead', () => {
-    // FIXME: This test was automatically skipped due to failure on 15/02/2023: https://product-fabric.atlassian.net/browse/ED-16907
     BrowserTestCase(
       'it should not add the raw trigger in the document',
       // That is sad but I need to skip safari because the 'undo'
       // operaton isn't working inside of the query
       // for browserstack. I tested that locally and it is working fine
       {
-        // skip: ['safari'],
-        skip: ['*'],
+        skip: ['safari'],
       },
       async (client: any, testName: string) => {
         const page = await startEditor(client, spaceAtEnd);
@@ -89,7 +87,6 @@ describe('typeahead: undo redo', () => {
   });
 
   describe('when undone the query inside of the typeahead', () => {
-    // FIXME: This test was automatically skipped due to failure on 15/02/2023: https://product-fabric.atlassian.net/browse/ED-16907
     BrowserTestCase(
       'it should not add the raw trigger in the document',
       // That is sad but I need to skip safari because the 'undo'
@@ -97,8 +94,7 @@ describe('typeahead: undo redo', () => {
       // for browserstack. I tested that locally and it is working fine
       // firefox is skipped because previously the test passed but in a wrong way.
       {
-        // skip: ['safari', 'firefox'],
-        skip: ['*'],
+        skip: ['safari', 'firefox'],
       },
       async (client: any, testName: string) => {
         const page = await startEditor(client, spaceAtEnd);

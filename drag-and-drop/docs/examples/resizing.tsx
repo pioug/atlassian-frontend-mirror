@@ -14,6 +14,7 @@ import invariant from 'tiny-invariant';
 import { CodeBlock } from '@atlaskit/code';
 import { draggable } from '@atlaskit/drag-and-drop/adapter/element';
 import { cancelUnhandled } from '@atlaskit/drag-and-drop/addon/cancel-unhandled';
+import type { DragLocationHistory } from '@atlaskit/drag-and-drop/types';
 import { disableNativeDragPreview } from '@atlaskit/drag-and-drop/util/disable-native-drag-preview';
 import { ButtonItem, MenuGroup, Section } from '@atlaskit/menu';
 import { token } from '@atlaskit/tokens';
@@ -106,7 +107,7 @@ const sidebarStyles = css({
 const sidebarContentStyles = css({
   flexGrow: '1',
   flexShrink: '1',
-  width: 'var(--local-width)',
+  width: 'var(--local-resizing-width, var(--local-initial-width))',
 });
 
 // Quite a large draggable area,
@@ -137,12 +138,9 @@ const noPointerEventsStyles = css({
 type State =
   | {
       type: 'idle';
-      width: number;
     }
   | {
       type: 'dragging';
-      startedFromWidth: number;
-      width: number;
     };
 
 const widths = {
@@ -151,19 +149,35 @@ const widths = {
   max: 450,
 };
 
+function getProposedWidth({
+  initialWidth,
+  location,
+}: {
+  initialWidth: number;
+  location: DragLocationHistory;
+}): number {
+  const diffX = location.current.input.clientX - location.initial.input.clientX;
+  const proposedWidth = initialWidth + diffX;
+
+  // ensure we don't go below the min or above the max allowed widths
+  return Math.min(Math.max(widths.min, proposedWidth), widths.max);
+}
+
 function Sidebar() {
-  const ref = useRef<HTMLDivElement | null>(null);
+  // note: initial width could be a prop, just using local state for this example
+  const [initialWidth, setInitialWidth] = useState(widths.start);
+  const dividerRef = useRef<HTMLDivElement | null>(null);
   const [state, setState] = useState<State>({
     type: 'idle',
-    width: widths.start,
   });
+  const contentRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const el = ref.current;
-    invariant(el);
+    const divider = dividerRef.current;
+    invariant(divider);
 
     return draggable({
-      element: el,
+      element: divider,
       onGenerateDragPreview: ({ nativeSetDragImage }) => {
         // we will be moving the line to indicate a drag
         // we can disable the native drag preview
@@ -173,44 +187,35 @@ function Sidebar() {
         cancelUnhandled.start();
       },
       onDragStart() {
-        setState(current => ({
-          type: 'dragging',
-          startedFromWidth: current.width,
-          width: current.width,
-        }));
+        setState({ type: 'dragging' });
       },
       onDrag({ location }) {
-        setState(state => {
-          if (state.type !== 'dragging') {
-            return state;
-          }
-          const diffX =
-            location.current.input.clientX - location.initial.input.clientX;
-          const proposed = state.startedFromWidth + diffX;
-
-          const width = Math.min(Math.max(widths.min, proposed), widths.max);
-
-          return {
-            ...state,
-            width,
-          };
-        });
+        contentRef.current?.style.setProperty(
+          '--local-resizing-width',
+          `${getProposedWidth({ initialWidth, location })}px`,
+        );
       },
-      onDrop() {
+      onDrop({ location }) {
         cancelUnhandled.stop();
-        setState(current => ({ type: 'idle', width: current.width }));
+        setState({ type: 'idle' });
+
+        setInitialWidth(getProposedWidth({ initialWidth, location }));
+        contentRef.current?.style.removeProperty('--local-resizing-width');
       },
     });
-  }, []);
+  }, [initialWidth]);
 
   return (
     <div css={sidebarStyles}>
       <div
+        ref={contentRef}
         css={[
           sidebarContentStyles,
           state.type === 'dragging' ? noPointerEventsStyles : undefined,
         ]}
-        style={{ '--local-width': `${state.width}px` } as CSSProperties}
+        style={
+          { '--local-initial-width': `${initialWidth}px` } as CSSProperties
+        }
       >
         <Menu />
       </div>
@@ -221,7 +226,7 @@ function Sidebar() {
           // Otherwise the cursor can flash between resizing and the default cursor repeatedly
           state.type === 'dragging' ? noPointerEventsStyles : undefined,
         ]}
-        ref={ref}
+        ref={dividerRef}
       ></div>
     </div>
   );

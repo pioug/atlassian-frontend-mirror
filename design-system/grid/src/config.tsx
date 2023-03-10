@@ -13,17 +13,24 @@ export const GRID_COLUMNS = 12 as const;
 
 export const BREAKPOINTS_CONFIG: Record<Breakpoint, BreakpointConfig> = {
   // mobile
-  xs: {
+  xxs: {
     gutter: token('space.200', '16px'),
     margin: token('space.200', '16px'),
     min: 0,
-    max: 591,
+    max: 479,
+  },
+  // phablet
+  xs: {
+    gutter: token('space.200', '16px'),
+    margin: token('space.200', '16px'),
+    min: 480,
+    max: 767,
   },
   // tablet
   sm: {
     gutter: token('space.200', '16px'),
     margin: token('space.300', '24px'),
-    min: 592,
+    min: 768,
     max: 1023,
   },
   // laptop desktop

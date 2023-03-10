@@ -71,6 +71,36 @@ describe('BaseBox component', () => {
     expect(element.getAttribute('role')).toBe('region');
     expect(element.getAttribute('aria-label')).toBe('test BaseBox');
   });
+
+  it('should apply responsive styles', () => {
+    const { getByTestId } = render(
+      <BaseBox
+        testId={testId}
+        display={{
+          xs: 'block',
+          lg: 'flex',
+        }}
+        borderWidth="size.100"
+      >
+        Responsive BaseBox
+      </BaseBox>,
+    );
+    const element = getByTestId(testId);
+    expect(element).toBeInTheDocument();
+
+    // values themselves are expected to be var calls, so we are not checking that
+    const vars = element
+      .getAttribute('style')
+      ?.split(';')
+      .filter(Boolean)
+      .map(variable => variable.replace(/:.*/, '').trim())
+      .sort();
+    expect(vars).toEqual([
+      '--ds-box-responsive-display-lg',
+      '--ds-box-responsive-display-xs',
+      '--ds-box-static-borderWidth',
+    ]);
+  });
 });
 
 describe('specific BaseBox behavior', () => {

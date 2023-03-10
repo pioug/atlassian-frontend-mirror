@@ -15,6 +15,7 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
+import type { Linter } from 'eslint';
 import { Rule } from 'eslint';
 
 // @public (undocumented)
@@ -23,6 +24,7 @@ export const configs: {
     plugins: string[];
     rules: {
       '@atlaskit/platform/ensure-feature-flag-registration': string;
+      '@atlaskit/platform/no-pre-post-install-scripts': string;
       '@atlaskit/platform/ensure-test-runner-arguments': string;
       '@atlaskit/platform/ensure-test-runner-nested-count': string;
       '@atlaskit/platform/no-invalid-feature-flag-usage': string;
@@ -31,11 +33,17 @@ export const configs: {
 };
 
 // @public (undocumented)
+export const processors: {
+  'package-json-processor': Linter.Processor<Linter.ProcessorFile | string>;
+};
+
+// @public (undocumented)
 export const rules: {
   'ensure-feature-flag-registration': Rule.RuleModule;
   'ensure-test-runner-arguments': Rule.RuleModule;
   'ensure-test-runner-nested-count': Rule.RuleModule;
   'no-invalid-feature-flag-usage': Rule.RuleModule;
+  'no-pre-post-install-scripts': Rule.RuleModule;
 };
 
 // (No @packageDocumentation comment for this package)

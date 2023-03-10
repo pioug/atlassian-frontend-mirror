@@ -14,3 +14,11 @@ ping !disturbed on [#help-design-system](https://atlassian.slack.com/archives/CF
 1. Ensure the theme has the same shape as other themes, see [atlassian-dark](../../src/tokens/atlassian-dark) for an example
 1. Using the same typing used in other themes set your theme using values from the palette
 1. Run and fix tests `yarn test tokens --watch`
+
+## Adding new token to existing set
+
+1. Add a new property to the respective theme file, for example: `packages/design-system/tokens/src/tokens/atlassian-shape`
+1. Update the types for the respective `*TokenSchema`
+1. Add a token with meta data to where it lives in the default theme (your types will be complaining from the previous step)
+1. run `yarn build tokens`
+1. Profit 💰

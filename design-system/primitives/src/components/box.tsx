@@ -7,15 +7,17 @@ import React, {
 } from 'react';
 
 import { BaseBox, BaseBoxProps } from './internal/base-box.partial';
-import { CustomStyles } from './types';
-
-type BoxPropsBase = { customStyles?: CustomStyles };
+import { BoxResponsiveProp } from './internal/types';
+import { PublicBoxPropsBase } from './types';
 
 export type BoxProps<T extends ElementType = 'div'> = Omit<
   BaseBoxProps<T>,
-  'className' | 'UNSAFE_style'
+  | 'className'
+  | 'UNSAFE_style'
+  // Omit all responsive props until they are ready for prime time
+  | BoxResponsiveProp
 > &
-  BoxPropsBase;
+  PublicBoxPropsBase;
 
 type BoxComponent<T extends ElementType = 'div'> = (<
   T extends ElementType = 'div',

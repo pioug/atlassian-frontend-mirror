@@ -3,9 +3,15 @@ import parserTypeScript from 'prettier/parser-typescript';
 
 import { spacing as tokens } from '@atlaskit/tokens/tokens-raw';
 
-import { capitalize, tokenToStyle } from './utils';
+import { capitalize, tokenCall, tokenToStyle } from './utils';
 
-const spacingProperties = {
+const spacingProperties: Record<
+  string,
+  {
+    cssProperties: readonly string[];
+    responsiveOutput?: boolean;
+  }
+> = {
   padding: {
     cssProperties: [
       'padding',
@@ -16,6 +22,7 @@ const spacingProperties = {
       'paddingInlineStart',
       'paddingInlineEnd',
     ],
+    responsiveOutput: true,
   },
   gap: {
     cssProperties: ['gap'],
@@ -48,17 +55,13 @@ export const createSpacingStylesFromTemplate = (
     throw new Error(`[codegen] Unknown option found "${spacingProperty}"`);
   }
 
-  const { cssProperties } = spacingProperties[spacingProperty];
+  const { cssProperties, responsiveOutput } =
+    spacingProperties[spacingProperty]!;
 
   return (
     prettier.format(
       `
-const ${spacingProperty}Map = Object.fromEntries(
-  [
-    '${cssProperties.join("','")}',
-  ].map((property: string) => [
-    property,
-    {
+const ${spacingProperty}Map = {
   ${activeTokens
     .sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }))
     .map(token => {
@@ -66,14 +69,19 @@ const ${spacingProperty}Map = Object.fromEntries(
         spacingProperty === 'space'
           ? token.name.replace(spacingTokenPrefix, '')
           : token.name;
+
+      // a responsive output simply prints out a mapping of tokens
+      if (responsiveOutput) {
+        return `'${token.name}': ${tokenCall(token.name, token.fallback)}`;
+      }
+
       return `'${propName}': ${tokenToStyle(
-        '[property]' as any,
+        [cssProperties] as any,
         token.name,
         token.fallback,
       )}`;
     })}
-  } as const,
-]));`,
+  } as const;`,
       {
         singleQuote: true,
         trailingComma: 'all',
@@ -81,17 +89,14 @@ const ${spacingProperty}Map = Object.fromEntries(
         plugins: [parserTypeScript],
       },
     ) +
-    (cssProperties.length === 1
-      ? `\nexport type ${capitalize(
-          spacingProperty,
-        )} = keyof typeof ${spacingProperty}Map.${cssProperties[0]};\n`
-      : cssProperties
-          .map(
-            cssProperty =>
-              `\nexport type ${capitalize(
-                cssProperty,
-              )} = keyof typeof ${spacingProperty}Map.${cssProperty};`,
-          )
-          .join('') + '\n')
+    (cssProperties
+      .map(
+        cssProperty =>
+          `\nexport type ${capitalize(
+            cssProperties.length === 1 ? spacingProperty : cssProperty,
+          )} = keyof typeof ${spacingProperty}Map;`,
+      )
+      .join('') +
+      '\n')
   );
 };

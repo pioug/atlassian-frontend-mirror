@@ -14,7 +14,7 @@ export default () => (
       <SkeletonBox>centered on desktop</SkeletonBox>
     </GridItem>
 
-    <GridItem span={{ xs: 6 }} start={{ xs: 7 }}>
+    <GridItem span={{ xxs: 6 }} start={7}>
       <SkeletonBox>forced right</SkeletonBox>
     </GridItem>
   </Grid>

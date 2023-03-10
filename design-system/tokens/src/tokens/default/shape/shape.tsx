@@ -3,6 +3,14 @@ import type { AttributeSchema, ShapeTokenSchema } from '../../../types';
 const shape: AttributeSchema<ShapeTokenSchema> = {
   border: {
     width: {
+      '0': {
+        attributes: {
+          group: 'shape',
+          state: 'experimental',
+          introduced: '1.2.1',
+          description: 'Experimental, description needs to be amended',
+        },
+      },
       '050': {
         attributes: {
           group: 'shape',

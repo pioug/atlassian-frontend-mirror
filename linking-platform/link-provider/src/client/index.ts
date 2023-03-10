@@ -9,10 +9,12 @@ import {
   InvokePayload,
   APIError,
   InvocationSearchPayload,
+  EnvironmentsKeys,
+  getResolverUrl,
+  request,
+  NetworkError,
 } from '@atlaskit/linking-common';
-import * as api from './api';
-import { CardClient as CardClientInterface, EnvironmentsKeys } from './types';
-import { getResolverUrl } from './utils/environments';
+import { CardClient as CardClientInterface } from './types';
 import {
   BatchResponse,
   SuccessResponse,
@@ -38,6 +40,8 @@ export const urlResponsePromiseCache = new LRUMap<
 
 export default class CardClient implements CardClientInterface {
   private resolverUrl: string;
+  readonly envKey?: string;
+  readonly baseUrlOverride?: string;
   private loadersByDomain: Record<
     string,
     DataLoader<string, SuccessResponse | ErrorResponse>
@@ -52,6 +56,8 @@ export default class CardClient implements CardClientInterface {
       retries: 2,
     };
     this.resolvedCache = {};
+    this.envKey = envKey;
+    this.baseUrlOverride = baseUrlOverride;
   }
 
   private batchResolve = async (
@@ -63,7 +69,7 @@ export default class CardClient implements CardClientInterface {
 
     try {
       // Ask the backend to resolve the URLs for us.
-      resolvedUrls = await api.request<BatchResponse>(
+      resolvedUrls = await request<BatchResponse>(
         'post',
         `${this.resolverUrl}/resolve/batch`,
         deDuplicatedUrls.map(resourceUrl => ({ resourceUrl })),
@@ -246,12 +252,12 @@ export default class CardClient implements CardClientInterface {
   public async postData(
     data: InvokePayload<InvokeRequest>,
   ): Promise<JsonLd.Response> {
-    const request = {
+    const requestData = {
       key: data.key,
       action: data.action,
       context: data.context,
     };
-    return await api.request('post', `${this.resolverUrl}/invoke`, request);
+    return await request('post', `${this.resolverUrl}/invoke`, requestData);
   }
 
   /**
@@ -267,17 +273,17 @@ export default class CardClient implements CardClientInterface {
     const { key, action } = data;
     // Note: context in action is different to context in data, see types.
     const { query, context } = action;
-    const request = {
+    const requestData = {
       key,
       search: {
         query,
         context,
       },
     };
-    const response = await api.request<ErrorResponse | JsonLd.Collection>(
+    const response = await request<ErrorResponse | JsonLd.Collection>(
       'post',
       `${this.resolverUrl}/invoke/search`,
-      request,
+      requestData,
     );
     if (isErrorResponse(response)) {
       // There is no hostname/it is not known. Hostname is not logged anyway as it's considered PII.
@@ -287,7 +293,7 @@ export default class CardClient implements CardClientInterface {
   }
 
   public async fetchAvailableSearchProviders() {
-    const response = await api.request<SearchProviderInfoResponse>(
+    const response = await request<SearchProviderInfoResponse>(
       'post',
       `${this.resolverUrl}/providers`,
       { type: 'search' },
@@ -303,7 +309,7 @@ export default class CardClient implements CardClientInterface {
       const errorMessage = response.error.message;
       // this means there was a network error and we fallback to blue link
       // without impacting SLO's
-      if (response.error instanceof api.NetworkError) {
+      if (response.error instanceof NetworkError) {
         return new APIError('fallback', hostname, errorMessage, errorType);
       }
 

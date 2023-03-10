@@ -7,6 +7,7 @@ import type { ShapeTokenSchema, ValueSchema } from '../../types';
 const shape: ValueSchema<ShapeTokenSchema> = {
   border: {
     width: {
+      '0': { value: 'Size0' },
       '050': { value: 'Size050' },
       '100': { value: 'Size100' },
     },

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c9a10991e5bb0b7dbbb35a5f644bceb0>>
+ * @codegen <<SignedSource::f4523de23a205d43950d1b24f656f952>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -165,6 +165,33 @@ const tokens = [
       "round"
     ],
     "cleanName": "border.radius.round"
+  },
+  {
+    "attributes": {
+      "group": "shape",
+      "state": "experimental",
+      "introduced": "1.2.1",
+      "description": "Experimental, description needs to be amended"
+    },
+    "value": "0",
+    "filePath": "src/tokens/atlassian-shape/shape.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "shape",
+        "state": "experimental",
+        "introduced": "1.2.1",
+        "description": "Experimental, description needs to be amended"
+      },
+      "value": "Size0"
+    },
+    "name": "border.width.0",
+    "path": [
+      "border",
+      "width",
+      "0"
+    ],
+    "cleanName": "border.width.0"
   },
   {
     "attributes": {

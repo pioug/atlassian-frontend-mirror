@@ -567,6 +567,31 @@ export type UNSAFE_BoxProps<T extends ElementType = 'div'> = Omit<
   BasePrimitiveProps &
   BoxPropsBase<T>;
 
+// @public (undocumented)
+export type UNSAFE_Breakpoint = typeof UNSAFE_BREAKPOINTS_LIST[number];
+
+// @public (undocumented)
+export type UNSAFE_BreakpointConfig = {
+  min: number;
+  max: number;
+};
+
+// @public (undocumented)
+export const UNSAFE_BREAKPOINTS_CONFIG: Record<
+  UNSAFE_Breakpoint,
+  UNSAFE_BreakpointConfig
+>;
+
+// @public (undocumented)
+export const UNSAFE_BREAKPOINTS_LIST: readonly [
+  'xs',
+  'sm',
+  'md',
+  'lg',
+  'xl',
+  'xxl',
+];
+
 // @public @deprecated
 export const UNSAFE_Inline: MemoExoticComponent<
   ForwardRefExoticComponent<UNSAFE_InlineProps & RefAttributes<HTMLDivElement>>

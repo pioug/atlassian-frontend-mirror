@@ -82,7 +82,7 @@ function buildCSSVarsFromConfig<
    * `span="none"` should not exist as `grid-column-end: span none` is invalid
    * ```ts
    * buildCSSVarsFromConfig(
-   *   { xs: 'none', md: 6 },
+   *   { xxs: 'none', md: 6 },
    *   'span',
    *   (value) => value !== 'none'`
    * )
@@ -91,7 +91,7 @@ function buildCSSVarsFromConfig<
   isValidBreakpointValue?: (value: T[Breakpoint]) => boolean;
 }): CSSProperties {
   /**
-   * This coerces an object of `{ xs: 12, sm: 'auto', … }` down to `[['xs', 12], ['sm', 'auto], …]`.  Split out for readability.
+   * This coerces an object of `{ xxs: 12, sm: 'auto', … }` down to `[['xxs', 12], ['sm', 'auto], …]`.  Split out for readability.
    */
   const entries = Object.entries(responsiveObject) as [keyof T, T[keyof T]][];
 
@@ -132,9 +132,9 @@ export const GridItem: FC<GridItemProps> = ({
   start: startProp = 'auto',
   span: spanProp = 12,
 }) => {
-  // If `prop` isn't a responsive object, we set the value against the `xs` breakpoint, eg. `span={6}` is the same as `span={{ xs: 6 }}`
+  // If `prop` isn't a responsive object, we set the value against the `xs` breakpoint, eg. `span={6}` is the same as `span={{ xxs: 6 }}`
   const span: SpanObject =
-    typeof spanProp === 'object' ? spanProp : { xs: spanProp };
+    typeof spanProp === 'object' ? spanProp : { xxs: spanProp };
   const spanStyles = useMemo(
     () =>
       buildCSSVarsFromConfig({
@@ -148,9 +148,9 @@ export const GridItem: FC<GridItemProps> = ({
     [JSON.stringify(span)],
   );
 
-  // If `prop` isn't a responsive object, we set the value against the `xs` breakpoint, eg. `start={6}` is the same as `start={{ xs: 6 }}`
+  // If `prop` isn't a responsive object, we set the value against the `xs` breakpoint, eg. `start={6}` is the same as `start={{ xxs: 6 }}`
   const start: StartObject =
-    typeof startProp === 'object' ? startProp : { xs: startProp };
+    typeof startProp === 'object' ? startProp : { xxs: startProp };
   const startStyles = useMemo(
     () =>
       buildCSSVarsFromConfig({

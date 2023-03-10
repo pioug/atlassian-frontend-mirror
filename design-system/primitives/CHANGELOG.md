@@ -1,5 +1,11 @@
 # @atlaskit/primitives
 
+## 0.2.2
+
+### Patch Changes
+
+- [`bf90d854748`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bf90d854748) - Internal representation of Box primitive now supports some responsive styles
+
 ## 0.2.1
 
 ### Patch Changes

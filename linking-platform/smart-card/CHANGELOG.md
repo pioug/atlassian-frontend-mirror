@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 25.0.1
+
+### Patch Changes
+
+- [`c687cc0de52`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c687cc0de52) - Add lozenge action component (WIP)
+
+## 25.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 24.3.2
 
 ### Patch Changes

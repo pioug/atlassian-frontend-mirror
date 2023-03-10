@@ -1,5 +1,11 @@
 # @atlaskit/ds-explorations
 
+## 2.0.6
+
+### Patch Changes
+
+- [`4b219ed17bf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4b219ed17bf) - Breakpoint constants added to be used in responsive spikes initially
+
 ## 2.0.5
 
 ### Patch Changes

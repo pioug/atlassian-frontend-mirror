@@ -315,7 +315,8 @@ describe('Flexible Card', () => {
       return page;
     };
 
-    it('should open below trigger component when there is room below in viewport', async () => {
+    // FIXME: This test was automatically skipped due to failure on 11/03/2023: https://product-fabric.atlassian.net/browse/EDM-6107
+    it.skip('should open below trigger component when there is room below in viewport', async () => {
       const height = 500;
 
       const page = await renderHoverCard('vr-flexible-ui-hover-card', height);

@@ -1,0 +1,29 @@
+---
+order: 1
+---
+import SectionMessage from '@atlaskit/section-message';
+
+<SectionMessage title="Usage in production environments" appearance="warning">
+  <p>
+    We recommend for this package to be <b>bundled</b> with your application,
+    rather than relying on third-party CDN. If using a CDN, make sure its
+    uptime requirements meet your application needs.
+  </p>
+</SectionMessage>
+
+The CSS reset should be the first stylesheet on your page. All other stylesheets should be included after the CSS reset.
+
+```
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Your page</title>
+    <link rel="stylesheet" href="node_modules/@atlaskit/css-reset/dist/bundle.css" />
+    <!-- your awesome styles -->
+  </head>
+  <body>
+    <p>Hello world!</p>
+  </body>
+</html>
+```

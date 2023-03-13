@@ -1,5 +1,11 @@
 # @atlaskit/datetime-picker
 
+## 12.3.10
+
+### Patch Changes
+
+- [`1fc7949b336`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1fc7949b336) - [ux] Fixes a bug where the background for the calendar element was incorrectly set to 'elevation.surface'
+
 ## 12.3.9
 
 ### Patch Changes

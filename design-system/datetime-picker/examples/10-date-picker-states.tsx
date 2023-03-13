@@ -13,8 +13,12 @@ function now(day: number) {
 export default () => {
   return (
     <div>
-      <Label htmlFor="react-select-stock--input">Stock</Label>
-      <DatePicker id="stock" onChange={console.log} testId={'datePicker'} />
+      <Label htmlFor="react-select-datepicker-1--input">Stock</Label>
+      <DatePicker
+        id="datepicker-1"
+        onChange={console.log}
+        testId={'datepicker-1'}
+      />
 
       <Label htmlFor="react-select-disabled--input">Disabled input</Label>
       <DatePicker id="disabled" isDisabled onChange={console.log} />

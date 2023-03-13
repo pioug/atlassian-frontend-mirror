@@ -13,10 +13,10 @@ const urlDatePickerTabCheck = getExampleUrl(
   'date-picker-tabcheck',
 );
 /* Css used for the test */
-const datePicker = '[data-testid="datePicker--container"]';
+const datePicker = '[data-testid="datepicker-1--container"]';
 const menu = `[aria-label="calendar"]`;
 const date = '[role=gridcell]:nth-child(6)';
-const input = 'input#react-select-stock-input';
+const input = 'input#react-select-datepicker-1-input';
 const toggle = 'label[for="toggle"]';
 const calendar = `[aria-label='calendar']`;
 

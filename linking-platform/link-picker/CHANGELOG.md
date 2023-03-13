@@ -1,5 +1,17 @@
 # @atlaskit/link-picker
 
+## 1.17.0
+
+### Minor Changes
+
+- [`204e2a97119`](https://bitbucket.org/atlassian/atlassian-frontend/commits/204e2a97119) - Defines new LinkPickerPluginAction and new LinkInputType for Create
+
+## 1.16.16
+
+### Patch Changes
+
+- [`14363bff579`](https://bitbucket.org/atlassian/atlassian-frontend/commits/14363bff579) - Formatting change for i18n translations
+
 ## 1.16.15
 
 ### Patch Changes

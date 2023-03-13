@@ -1,20 +1,13 @@
 import { css, CSSObject, SerializedStyles } from '@emotion/react';
 
-import {
-  borderRadius as getBorderRadius,
-  gridSize as getGridSize,
-} from '@atlaskit/theme/constants';
 import { ThemeModes } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
 
 import { getTabColors, getTabLineColor, getTabPanelFocusColor } from './colors';
 
-const borderRadius = getBorderRadius();
-const gridSize = getGridSize();
-
-const tabLeftRightPadding = `${gridSize}px`;
-const tabTopBottomPadding = `${gridSize / 2}px`;
-const underlineHeight = '2px';
+const tabLeftRightPadding = token('space.100', '8px');
+const tabTopBottomPadding = token('space.050', '4px');
+const underlineHeight = token('border.width.100', '2px');
 
 const highContrastFocusStyles: CSSObject = {
   outline: '1px solid',
@@ -33,7 +26,7 @@ const highContrastFocusRing = {
 
 const tabFocusStyles = (mode: ThemeModes): CSSObject => ({
   boxShadow: `0 0 0 2px ${getTabPanelFocusColor(mode)} inset`,
-  borderRadius: borderRadius,
+  borderRadius: token('border.radius.100', '3px'),
   outline: 'none',
 });
 
@@ -93,7 +86,7 @@ const tabPanelFocusStyles = (mode: ThemeModes): CSSObject => {
   const colors = getTabColors(mode);
   return {
     boxShadow: `0 0 0 2px ${colors.focusBorderColor} inset`,
-    borderRadius: borderRadius,
+    borderRadius: token('border.radius.100', '3px'),
     outline: 'none',
     // Hide TabLine on focus
     '&::after': {

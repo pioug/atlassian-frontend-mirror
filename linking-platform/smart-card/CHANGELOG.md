@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 25.0.2
+
+### Patch Changes
+
+- [`14363bff579`](https://bitbucket.org/atlassian/atlassian-frontend/commits/14363bff579) - Formatting change for i18n translations
+
 ## 25.0.1
 
 ### Patch Changes

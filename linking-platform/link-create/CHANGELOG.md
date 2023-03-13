@@ -1,5 +1,11 @@
 # @atlaskit/link-create
 
+## 0.1.0
+
+### Minor Changes
+
+- [`7e7ca45dbe4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7e7ca45dbe4) - Exports LinkCreateProps and LinkCreatePlugin Types
+
 ## 0.0.4
 
 ### Patch Changes

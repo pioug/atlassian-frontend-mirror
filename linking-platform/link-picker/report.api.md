@@ -32,6 +32,7 @@ export const LinkPicker: React_2.MemoExoticComponent<
 
 // @public (undocumented)
 export interface LinkPickerPlugin {
+  action?: LinkPickerPluginAction;
   errorFallback?: LinkPickerPluginErrorFallback;
   meta?: {
     source?: string;
@@ -43,6 +44,14 @@ export interface LinkPickerPlugin {
   tabKey?: string;
   tabTitle?: string;
   UNSAFE_onActivation?: () => void;
+}
+
+// @public (undocumented)
+export interface LinkPickerPluginAction {
+  // (undocumented)
+  callback?: () => void;
+  // (undocumented)
+  label?: MessageDescriptor | string;
 }
 
 // @public (undocumented)

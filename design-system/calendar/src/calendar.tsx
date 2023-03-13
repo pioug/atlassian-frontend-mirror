@@ -152,7 +152,6 @@ const CalendarWithMode = forwardRef<HTMLDivElement, CalendarProps>(
       <Box
         className={className}
         UNSAFE_style={style}
-        backgroundColor="elevation.surface"
         onBlur={handleContainerBlur}
         onFocus={handleContainerFocus}
         onKeyDown={handleContainerKeyDown}

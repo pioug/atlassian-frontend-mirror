@@ -12,10 +12,12 @@ import * as inlineCardAdf from '../_fixtures_/inline-card-selection.adf.json';
 import { waitForInlineCardSelection } from '@atlaskit/media-integration-test-helpers';
 
 // This test aims to cover a Chrome selection issue : ED-13066
+// FIXME: This test was automatically skipped due to failure on 10/03/2023: https://product-fabric.atlassian.net/browse/ED-17144
 BrowserTestCase(
   'card: press up key under a long smart link will select the link',
   {
-    skip: ['safari', 'firefox'],
+    // skip: ['safari', 'firefox'],
+    skip: ['*'],
   },
   async (client: ClientType, testName: string) => {
     const page = await goToEditorTestingWDExample(client);

@@ -55,7 +55,7 @@ export interface LinkCreatePlugin {
 }
 
 // @public (undocumented)
-interface LinkCreateProps {
+export interface LinkCreateProps {
   active?: boolean;
   entityKey: string;
   groupKey?: string;
@@ -121,7 +121,8 @@ export const useLinkCreateCallback: () => LinkCreateCallbackProviderProps;
 
 ```json
 {
-  "react": "^16.8.0"
+  "react": "^16.8.0",
+  "react-intl-next": "npm:react-intl@^5.18.1"
 }
 ```
 

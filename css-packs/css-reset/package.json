@@ -1,7 +1,7 @@
 {
   "name": "@atlaskit/css-reset",
   "version": "6.3.20",
-  "description": "Base stylesheet for ADG",
+  "description": "A base stylesheet for the Atlassian Design System.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
@@ -13,12 +13,11 @@
   "module:es2019": "dist/bundle.css",
   "types": "dist/types/index.d.ts",
   "atlaskit:src": "src/index.tsx",
-  "atlaskit:designLink": "https://atlassian.design/guidelines/product/overview",
   "atlassian": {
     "team": "Design System Team",
     "releaseModel": "scheduled",
     "website": {
-      "name": "Css Reset",
+      "name": "CSS reset",
       "category": "Libraries"
     }
   },
@@ -71,6 +70,6 @@
       "deprecation": "no-deprecated-imports"
     }
   },
-  "homepage": "https://atlaskit.atlassian.com/packages/design-system/css-reset",
+  "homepage": "https://atlassian.design/components/css-reset",
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

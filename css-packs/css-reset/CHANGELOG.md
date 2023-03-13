@@ -332,7 +332,7 @@
 
 - [patch][52868d4352](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/52868d4352):
 
-  - Fixed regression of font-weight for <small> elements
+  - Fixed regression of font-weight for `<small>` elements
 
 ## 4.0.0
 

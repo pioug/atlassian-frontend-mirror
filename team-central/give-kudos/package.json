@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/give-kudos",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Give Kudos experience ",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -54,7 +54,6 @@
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
-    "@emotion/core": "^10.0.9",
     "@testing-library/react": "^12.1.5",
     "react-dom": "^16.8.0",
     "wait-for-expect": "^1.2.0"

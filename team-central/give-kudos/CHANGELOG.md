@@ -1,5 +1,11 @@
 # @atlassian/give-kudos
 
+## 1.0.6
+
+### Patch Changes
+
+- [`97a77b71c06`](https://bitbucket.org/atlassian/atlassian-frontend/commits/97a77b71c06) - Remove unneded @emotion/core devDep.
+
 ## 1.0.5
 
 ### Patch Changes

@@ -61,6 +61,13 @@ export interface LinkPickerPlugin {
   };
   /** Callback for plugin activation */
   UNSAFE_onActivation?: () => void;
+  /** Register Plugin Actions */
+  action?: LinkPickerPluginAction;
+}
+
+export interface LinkPickerPluginAction {
+  label?: string | MessageDescriptor;
+  callback?: () => void;
 }
 
 export type LinkPickerPluginErrorFallback = (

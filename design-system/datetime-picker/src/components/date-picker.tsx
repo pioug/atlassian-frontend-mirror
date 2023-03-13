@@ -26,7 +26,7 @@ import Select, {
   OptionType,
   ValueType,
 } from '@atlaskit/select';
-import { N20, N50A, N60A } from '@atlaskit/theme/colors';
+import { N0, N50A, N60A } from '@atlaskit/theme/colors';
 import { borderRadius, gridSize, layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
@@ -228,7 +228,7 @@ function getShortISOString(date: Date) {
 
 const menuStyles = css({
   zIndex: layers.dialog(),
-  backgroundColor: token('elevation.surface.overlay', N20),
+  backgroundColor: token('elevation.surface.overlay', N0),
   borderRadius: `${borderRadius()}px`,
   boxShadow: token(
     'elevation.shadow.overlay',

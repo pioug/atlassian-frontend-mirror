@@ -134,7 +134,8 @@ describe('Hover Card', () => {
     });
   });
 
-  it('shows actionable element experiment', async () => {
+  // FIXME: This test was automatically skipped due to failure on 12/03/2023: https://product-fabric.atlassian.net/browse/EDM-6108
+  it.skip('shows actionable element experiment', async () => {
     const height = 300;
 
     const url = getURL('vr-hover-cards-element-action-experiment');

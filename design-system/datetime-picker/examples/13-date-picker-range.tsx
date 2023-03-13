@@ -42,7 +42,7 @@ export default () => {
         minDate={earliestDateString}
         maxDate={endDate || latestDateString}
         disabledDateFilter={weekendFilter}
-        testId={'datePicker'}
+        testId={'datepicker-1'}
       />
 
       <Label htmlFor="react-select-end-date--input">End date</Label>

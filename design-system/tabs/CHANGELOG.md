@@ -1,5 +1,11 @@
 # @atlaskit/tabs
 
+## 13.3.13
+
+### Patch Changes
+
+- [`7156bd737b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7156bd737b4) - Internal changes to some tokens. Should be a no-op.
+
 ## 13.3.12
 
 ### Patch Changes

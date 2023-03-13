@@ -17,7 +17,7 @@ export default () => {
       <Label htmlFor="toggle">DatePicker isDisabled</Label>
       <Toggle id="toggle" isChecked={isDisabled} onChange={toggleDisabled} />
       <Label htmlFor="react-select-date--input">Disabled inputs</Label>
-      <DatePicker id="date" testId="datePicker" isDisabled={isDisabled} />
+      <DatePicker id="date" testId="datepicker-1" isDisabled={isDisabled} />
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { runBlockNodeSelectionTestSuite } from '../../../../../../__tests__/integration/selection/_blockNodeSelectionTestSuite';
+import { runBlockNodeSelectionTestSuite } from '@atlaskit/editor-test-helpers/integration/selection';
 import { default as WebDriverPage } from '@atlaskit/webdriver-runner/wd-wrapper';
 
 // helper function to wait for the iframe to load

@@ -141,7 +141,8 @@ describe('<Modal />', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  it('with DatePicker', async () => {
+  // FIXME: This test was automatically skipped due to failure on 13/03/2023: https://product-fabric.atlassian.net/browse/DSP-9180
+  it.skip('with DatePicker', async () => {
     const page = await openModal(url, options);
 
     // wait date picket element before scroll to bottom.

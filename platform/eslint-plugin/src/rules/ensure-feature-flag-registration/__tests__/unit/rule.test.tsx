@@ -31,6 +31,7 @@ describe('with existing platform-feature-flags section', () => {
     };
   });
 
+  // this isolates the invalid case so we can test the suggestion properly
   tester.run('ensure-feature-flag-registration', rule, {
     valid: [
       {
@@ -40,7 +41,20 @@ describe('with existing platform-feature-flags section', () => {
     invalid: [
       {
         code: `getBooleanFF('invalid-flag')`,
-        errors: [{ messageId: 'featureFlagMissing' }],
+        errors: [
+          {
+            messageId: 'featureFlagMissing',
+            suggestions: [
+              {
+                messageId: 'changeFeatureFlag',
+                data: {
+                  closestFlag: 'test-flag',
+                },
+                output: `getBooleanFF('test-flag')`,
+              },
+            ],
+          },
+        ],
       },
     ],
   });

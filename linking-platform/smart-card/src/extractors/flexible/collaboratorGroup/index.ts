@@ -1,5 +1,6 @@
 import { JsonLd } from 'json-ld-types';
 import {
+  extractMembers,
   extractPersonFromJsonLd,
   LinkPerson,
 } from '@atlaskit/linking-common/extractors';
@@ -12,13 +13,19 @@ export type LinkTypeUpdatedBy =
   | JsonLd.Data.SourceCodeRepository
   | JsonLd.Data.Task;
 
-// Temporary Extractor until https://product-fabric.atlassian.net/browse/EDM-2652 is ready
 export const extractPersonsUpdatedBy = (
   jsonLd: LinkTypeUpdatedBy,
 ): LinkPerson[] | undefined => {
+  if (jsonLd['@type'] === 'atlassian:Project') {
+    const members = extractMembers(jsonLd as JsonLd.Data.Project);
+    if (members && members.length !== 0) {
+      return members;
+    }
+  }
   const updatedBy = jsonLd['atlassian:updatedBy'] as
     | JsonLd.Primitives.Object
     | JsonLd.Primitives.Link;
+
   if (updatedBy) {
     const extractedPersons = extractPersonFromJsonLd(updatedBy);
     return extractedPersons ? [extractedPersons] : undefined;

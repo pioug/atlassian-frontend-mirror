@@ -62,7 +62,12 @@ export const TEST_PROJECT: JsonLd.Data.Project = {
   'atlassian:member': TEST_PERSON,
   'schema:dateCreated': '2018-07-10T15:00:32Z',
 };
-
+export const TEST_PROJECT_WITHOUT_MEMBERS: Partial<JsonLd.Data.Project> = {
+  ...TEST_BASE_DATA,
+  '@type': 'atlassian:Project',
+  'atlassian:isDeleted': false,
+  'schema:dateCreated': '2018-07-10T15:00:32Z',
+};
 export const TEST_PULL_REQUEST: JsonLd.Data.SourceCodePullRequest = {
   ...TEST_BASE_DATA,
   '@type': 'atlassian:SourceCodePullRequest',

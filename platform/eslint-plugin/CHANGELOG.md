@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-platform
 
+## 0.1.1
+
+### Patch Changes
+
+- [`7edd9e8b4b1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7edd9e8b4b1) - Add suggestion to change feature flag to the closest matching feature flag using fuzzy search
+
 ## 0.1.0
 
 ### Minor Changes

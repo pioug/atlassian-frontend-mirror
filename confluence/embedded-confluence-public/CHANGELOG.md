@@ -1,5 +1,11 @@
 # @atlaskit/embedded-confluence
 
+## 1.8.0
+
+### Minor Changes
+
+- [`418447c456d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/418447c456d) - [ux] Add new themeMode prop to EP components to enable theming
+
 ## 1.7.0
 
 ### Minor Changes

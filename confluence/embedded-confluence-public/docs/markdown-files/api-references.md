@@ -299,3 +299,53 @@ Here are the supported locales for `@atlaskit/embedded-confluence`
 | Thai                     | "th" or "th-TH"                                           |
 | Ukrainian                | "uk" or "uk-UA"                                           |
 | Vietnamese               | "vi" or "vi-VN"                                           |
+
+## themeMode
+
+### `themeMode` description
+
+Both `ViewPage` and `EditPage` components accept `themeMode` prop. This is the prop that the embedding parent can use to apply a theme preference to the Embedded component that matches that of the parent.
+
+### `themeMode` definition
+
+- `themeMode` : (Optional) ThemeMode that represents the theme/color preference provided by the embedding parent as a React prop.
+
+```ts
+type ThemeMode = 'light' | 'dark' | 'auto' | undefined // in the future, additional Atlassian themes can exist
+{
+  themeMode?: ThemeModes;
+}
+```
+
+### `themeMode` examples
+
+Applying a theme to the View Page Component:
+
+```jsx
+import { ViewPage } from '@atlaskit/embedded-confluence';
+
+const MyComponent = props => (
+  <ViewPage
+    contentId={props.contentId}
+    locale={'en-US'}
+    parentProductContentContainerId={props.parentProductContentContainerId}
+    parentProduct={props.parentProduct}
+    spaceKey={props.spaceKey}
+    themeMode="dark"
+  />
+);
+```
+
+Applying a theme to the Edit Page Component:
+
+```jsx
+import { EditPage } from '@atlaskit/embedded-confluence';
+
+const MyComponent = props => (
+  <EditPage
+    navigationPolicy={navigationPolicy}
+    themeMode="dark"
+    {...otherProps}
+  />
+);
+```

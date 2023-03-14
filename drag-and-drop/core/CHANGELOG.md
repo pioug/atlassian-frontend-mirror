@@ -1,5 +1,14 @@
 # @atlaskit/drag-and-drop
 
+## 0.12.0
+
+### Minor Changes
+
+- [`90901f5bbe0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/90901f5bbe0) - Replace default entry point of `undefined` with `{}`.
+
+  > **NOTE:** Importing from the default entry point isn't supported.
+  > _Please use individual entry points in order to always obtain minimum kbs._
+
 ## 0.11.0
 
 ### Minor Changes

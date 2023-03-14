@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 25.0.3
+
+### Patch Changes
+
+- [`7ae310c744a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7ae310c744a) - [ux] Updated Flex UI CollaboratorGroup extractor to return list of collaborators
+
 ## 25.0.2
 
 ### Patch Changes

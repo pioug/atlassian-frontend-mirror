@@ -1,7 +1,7 @@
 it.todo('Implement decision list selection tests');
 export {};
-//import { runBlockNodeSelectionTestSuite } from '../../../../__tests__/integration/selection/_blockNodeSelectionTestSuite';
-//runBlockNodeSelectionTestSuite({
+// import { runBlockNodeSelectionTestSuite } from '@atlaskit/editor-test-helpers/integration/selection';
+// runBlockNodeSelectionTestSuite({
 //  nodeName: 'decisions',
 //  selector: 'ol[data-node-type="decisionList"]',
 //  editorOptions: { allowTasksAndDecisions: true },

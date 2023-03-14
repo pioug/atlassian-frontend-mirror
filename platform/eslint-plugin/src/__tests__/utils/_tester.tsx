@@ -16,6 +16,7 @@ import { RuleTester } from 'eslint';
     method();
   });
 };
+
 export const tester = new RuleTester({
   parser: require.resolve('babel-eslint'),
   parserOptions: {

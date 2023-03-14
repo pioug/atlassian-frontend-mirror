@@ -19,4 +19,3 @@ Definitions can be like so:
 }
 ```
 
-The only required field for your flag is "type" so we can generate the correct types.

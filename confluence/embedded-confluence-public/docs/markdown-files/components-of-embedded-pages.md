@@ -22,6 +22,7 @@ const MyComponent = props => {
         hostname={'acmeexample.atlassian.net'}
         parentProduct={'PRODUCT'}
         spaceKey={'ABC'}
+        themeMode={'dark'}
       />
     </ArticleWrapper>
   );
@@ -42,6 +43,7 @@ const MyComponent = props => {
 | `navigationPolicy`        | Object, see [definition](/packages/confluence/embedded-confluence-public/docs/API-References#navigationpolicy-definition) | **(Optional)** See [description](/packages/confluence/embedded-confluence-public/docs/API-References#navigationpolicy-description) and [examples](/packages/confluence/embedded-confluence-public/docs/API-References#navigationpolicy-examples)                                                                                                                                                                                                       |
 | `parentProduct`           | string                                                                                                                    | Value that is associated with corresponding platform that is embedding Confluence pages. Required to properly embed. If unsure of what this string value is, please reach out to Atlassian/an Atlassian representative.                                                                                                                                                                                                                                |
 | `spaceKey`                | string                                                                                                                    | The key of space the content belongs to, from Confluence perspective.                                                                                                                                                                                                                                                                                                                                                                                  |
+| `themeMode`               | `ThemeMode`, see [definition](/packages/confluence/embedded-confluence-public/docs/API-References#themeMode)              | **(Optional)** A value that represents the theme preference of the platform that is embedding Confluence pages. See [Atlassian design system documentation] (https://atlassian.design/components/tokens/code#setglobalthemethemestate) for a list of the current themes available (the `colorMode` values represent the valid themeMode values that can be used with this prop).                                                                       |
 
 ## Edit Page
 
@@ -65,6 +67,7 @@ const MyComponent = props => {
         hostname={'acmeexample.atlassian.net'}
         parentProduct={'PRODUCT'}
         spaceKey={'ABC'}
+        themeMode={'dark'}
       />
     </ArticleWrapper>
   );
@@ -82,6 +85,7 @@ const MyComponent = props => {
 | `navigationPolicy` | Object, see [definition](/packages/confluence/embedded-confluence-public/docs/API-References#navigationpolicy-definition) | **(Optional)** - (See [description](/packages/confluence/embedded-confluence-public/docs/API-References#navigationpolicy-description) and [examples](/packages/confluence/embedded-confluence-public/docs/API-References#navigationpolicy-examples)                                                                                                                                                              |
 | `locale`           | string                                                                                                                    | **(Optional)** - Locale string for localization. The default locale is `"en-US"`.                                                                                                                                                                                                                                                                                                                                |
 | `parentProduct`    | string                                                                                                                    | Value that is associated with corresponding platform that is embedding Confluence pages. Required to properly embed. If unsure of what this string value is, please reach out to Atlassian/an Atlassian representative.                                                                                                                                                                                          |
+| `themeMode`        | `ThemeMode`, see [definition](/packages/confluence/embedded-confluence-public/docs/API-References#themeMode)              | **(Optional)** An optional value that represents the theme preference of the platform that is embedding Confluence pages. See [Atlassian design system documentation] (https://atlassian.design/components/tokens/code#setglobalthemethemestate) for a list of the current themes available (the `colorMode` values represent the valid themeMode values that can be used with this prop).                       |
 
 ### Note
 

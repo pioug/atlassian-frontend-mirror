@@ -1,5 +1,11 @@
 # @atlaskit/platform-feature-flags
 
+## 0.1.1
+
+### Patch Changes
+
+- [`bcbc0232ef1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bcbc0232ef1) - [ux] Update documentation around platform feature flag implementation and integration
+
 ## 0.1.0
 
 ### Minor Changes

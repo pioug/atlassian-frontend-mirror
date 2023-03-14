@@ -1,4 +1,4 @@
-import { runBlockNodeSelectionTestSuite } from '../../../../../__tests__/integration/selection/_blockNodeSelectionTestSuite';
+import { runBlockNodeSelectionTestSuite } from '@atlaskit/editor-test-helpers/integration/selection';
 
 runBlockNodeSelectionTestSuite({
   nodeName: 'expand',

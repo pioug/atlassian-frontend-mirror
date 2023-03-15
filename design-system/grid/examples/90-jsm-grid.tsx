@@ -8,15 +8,14 @@ import {
 } from '@atlaskit/ds-explorations';
 import Heading from '@atlaskit/heading';
 import { JiraServiceManagementLogo } from '@atlaskit/logo';
+import {
+  UNSAFE_BREAKPOINTS_CONFIG,
+  UNSAFE_buildAboveMediaQueryCSS,
+} from '@atlaskit/primitives/responsive';
 import Textfield from '@atlaskit/textfield';
 import { useThemeObserver } from '@atlaskit/tokens';
 
-import Grid, {
-  BREAKPOINTS_CONFIG,
-  BREAKPOINTS_LIST,
-  GridItem,
-  UNSAFE_media as media,
-} from '../src';
+import Grid, { GridItem } from '../src';
 
 import JSMCard from './91-jsm-card';
 import JSMConfigCard from './92-jsm-config-card';
@@ -28,16 +27,10 @@ const responsiveWidthSearchStyles = css({
 });
 
 // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
-const dynamicSizedVerticalPaddingStyles = css(
-  BREAKPOINTS_LIST.reduce((configs, breakpoint) => {
-    const config = BREAKPOINTS_CONFIG[breakpoint];
-
-    return Object.assign(configs, {
-      [media.above[breakpoint]]: {
-        paddingBlock: `calc(${config.margin} * 2)`,
-      },
-    });
-  }, {}),
+const dynamicSizedVerticalPaddingStyles = Object.values(
+  UNSAFE_buildAboveMediaQueryCSS((breakpoint) => ({
+    paddingBlock: `calc(${UNSAFE_BREAKPOINTS_CONFIG[breakpoint].gridMargin} * 2)`,
+  })),
 );
 
 const JSMGrid = () => {

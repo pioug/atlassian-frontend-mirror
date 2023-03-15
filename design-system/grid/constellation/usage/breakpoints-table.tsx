@@ -1,8 +1,9 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 
-import { BREAKPOINTS_CONFIG } from '../../src/config';
+import { UNSAFE_BREAKPOINTS_CONFIG } from '@atlaskit/primitives/responsive';
 
+// TODO: This needs a new home.  We may want to show this here, but where does this live?
 export const BreakpointsTable = () => (
   <table>
     <thead>
@@ -14,7 +15,7 @@ export const BreakpointsTable = () => (
       </tr>
     </thead>
     <tbody>
-      {Object.entries(BREAKPOINTS_CONFIG).map(([breakpoint, config]) => (
+      {Object.entries(UNSAFE_BREAKPOINTS_CONFIG).map(([breakpoint, config]) => (
         <tr key={breakpoint}>
           <td>{breakpoint}</td>
           <td>{config.min}px</td>

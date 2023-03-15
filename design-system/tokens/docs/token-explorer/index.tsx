@@ -358,191 +358,195 @@ const TokenExplorer = ({ scrollOffset, testId }: TokenExplorerProps) => {
   }, []);
 
   return (
-    <div data-testid={testId}>
-      <div
-        css={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          margin: `${gridSize() * 4}px 0 ${gridSize() * 4}px`,
-        }}
-      >
-        <SectionLink
-          id={ALL_DESIGN_TOKENS_LIST_HEADING.id}
-          label={ALL_DESIGN_TOKENS_LIST_HEADING.value}
+    <TokenNameSyntaxContext.Provider value={{ syntax }}>
+      <div data-testid={testId}>
+        <div
+          css={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            margin: `${gridSize() * 4}px 0 ${gridSize() * 4}px`,
+          }}
         >
-          <Heading level="h700">{ALL_DESIGN_TOKENS_LIST_HEADING.value}</Heading>
-        </SectionLink>
-        <TokenWizardModal />
-      </div>
-
-      <TextField
-        ref={searchField}
-        value={searchQuery}
-        name="token-search"
-        aria-label="tokens search"
-        placeholder="Search for tokens"
-        autoComplete="off"
-        testId={testId && `${testId}-search`}
-        isCompact
-        css={{ marginTop: gridSize() * 4 }}
-        elemBeforeInput={
-          <div
-            css={{
-              marginLeft: gridSize(),
-              display: 'flex',
-              alignItems: 'center',
-            }}
+          <SectionLink
+            id={ALL_DESIGN_TOKENS_LIST_HEADING.id}
+            label={ALL_DESIGN_TOKENS_LIST_HEADING.value}
           >
-            <SearchIcon size="small" label="" />
-          </div>
-        }
-        elemAfterInput={
-          searchQuery && (
-            <ToolTip content="Clear search" position="top">
-              <FocusRing>
-                <button
-                  type="button"
-                  css={clearButtonStyles}
-                  onClick={() => {
-                    if (searchField?.current?.value) {
-                      searchField.current.value = '';
-                    }
-                    handleSearch('');
-                  }}
+            <Heading level="h700">
+              {ALL_DESIGN_TOKENS_LIST_HEADING.value}
+            </Heading>
+          </SectionLink>
+          <TokenWizardModal />
+        </div>
+
+        <TextField
+          ref={searchField}
+          value={searchQuery}
+          name="token-search"
+          aria-label="tokens search"
+          placeholder="Search for tokens"
+          autoComplete="off"
+          testId={testId && `${testId}-search`}
+          isCompact
+          css={{ marginTop: gridSize() * 4 }}
+          elemBeforeInput={
+            <div
+              css={{
+                marginLeft: gridSize(),
+                display: 'flex',
+                alignItems: 'center',
+              }}
+            >
+              <SearchIcon size="small" label="" />
+            </div>
+          }
+          elemAfterInput={
+            searchQuery && (
+              <ToolTip content="Clear search" position="top">
+                <FocusRing>
+                  <button
+                    type="button"
+                    css={clearButtonStyles}
+                    onClick={() => {
+                      if (searchField?.current?.value) {
+                        searchField.current.value = '';
+                      }
+                      handleSearch('');
+                    }}
+                  >
+                    <CrossIcon size="small" label="Clear search" />
+                  </button>
+                </FocusRing>
+              </ToolTip>
+            )
+          }
+          onChange={(e) =>
+            handleSearch((e.target as HTMLInputElement).value, {
+              isDebounced: true,
+            })
+          }
+        />
+        <div
+          css={{
+            display: 'flex',
+            alignItems: 'center',
+            marginTop: gridSize() * 2,
+            marginRight: gridSize(),
+            marginLeft: `-${gridSize()}px`,
+          }}
+        >
+          <FilterItem>
+            <DropdownMenu
+              testId={testId && `${testId}-filters`}
+              trigger={({ triggerRef, ...props }) => (
+                <Button
+                  {...props}
+                  ref={triggerRef}
+                  iconAfter={<FilterIcon label="" />}
                 >
-                  <CrossIcon size="small" label="Clear search" />
-                </button>
-              </FocusRing>
-            </ToolTip>
-          )
-        }
-        onChange={(e) =>
-          handleSearch((e.target as HTMLInputElement).value, {
-            isDebounced: true,
-          })
-        }
-      />
-      <div
-        css={{
-          display: 'flex',
-          alignItems: 'center',
-          marginTop: gridSize() * 2,
-          marginRight: gridSize(),
-          marginLeft: `-${gridSize()}px`,
-        }}
-      >
-        <FilterItem>
-          <DropdownMenu
-            testId={testId && `${testId}-filters`}
-            trigger={({ triggerRef, ...props }) => (
-              <Button
-                {...props}
-                ref={triggerRef}
-                iconAfter={<FilterIcon label="" />}
-              >
-                Filters{' '}
-                <Badge appearance={props.isSelected ? 'primary' : undefined}>
-                  {Object.values(filterState.state).filter((v) => v).length}
-                </Badge>
-              </Button>
-            )}
-          >
-            <DropdownItemCheckboxGroup id="state" title="State">
-              <DropdownItemCheckbox
-                testId={testId && `${testId}-filters-active`}
-                id="active"
-                isSelected={filterState.state.active}
-                onClick={() =>
-                  handleFilterChange({
-                    type: 'state',
-                    payload: {
-                      active: !filterState.state.active,
-                    },
-                  })
-                }
-              >
-                Active
-              </DropdownItemCheckbox>
-              <DropdownItemCheckbox
-                testId={testId && `${testId}-filters-deprecated`}
-                id="deprecated"
-                isSelected={filterState.state.deprecated}
-                onClick={() =>
-                  handleFilterChange({
-                    type: 'state',
-                    payload: {
-                      deprecated: !filterState.state.deprecated,
-                    },
-                  })
-                }
-              >
-                Deprecated
-              </DropdownItemCheckbox>
-              <DropdownItemCheckbox
-                testId={testId && `${testId}-filters-deleted`}
-                id="deleted"
-                isSelected={filterState.state.deleted}
-                onClick={() =>
-                  handleFilterChange({
-                    type: 'state',
-                    payload: {
-                      deleted: !filterState.state.deleted,
-                    },
-                  })
-                }
-              >
-                Deleted
-              </DropdownItemCheckbox>
-            </DropdownItemCheckboxGroup>
-          </DropdownMenu>
-        </FilterItem>
+                  Filters{' '}
+                  <Badge appearance={props.isSelected ? 'primary' : undefined}>
+                    {Object.values(filterState.state).filter((v) => v).length}
+                  </Badge>
+                </Button>
+              )}
+            >
+              <DropdownItemCheckboxGroup id="state" title="State">
+                <DropdownItemCheckbox
+                  testId={testId && `${testId}-filters-active`}
+                  id="active"
+                  isSelected={filterState.state.active}
+                  onClick={() =>
+                    handleFilterChange({
+                      type: 'state',
+                      payload: {
+                        active: !filterState.state.active,
+                      },
+                    })
+                  }
+                >
+                  Active
+                </DropdownItemCheckbox>
+                <DropdownItemCheckbox
+                  testId={testId && `${testId}-filters-deprecated`}
+                  id="deprecated"
+                  isSelected={filterState.state.deprecated}
+                  onClick={() =>
+                    handleFilterChange({
+                      type: 'state',
+                      payload: {
+                        deprecated: !filterState.state.deprecated,
+                      },
+                    })
+                  }
+                >
+                  Deprecated
+                </DropdownItemCheckbox>
+                <DropdownItemCheckbox
+                  testId={testId && `${testId}-filters-deleted`}
+                  id="deleted"
+                  isSelected={filterState.state.deleted}
+                  onClick={() =>
+                    handleFilterChange({
+                      type: 'state',
+                      payload: {
+                        deleted: !filterState.state.deleted,
+                      },
+                    })
+                  }
+                >
+                  Deleted
+                </DropdownItemCheckbox>
+              </DropdownItemCheckboxGroup>
+            </DropdownMenu>
+          </FilterItem>
 
-        <FilterItem css={{ display: 'flex', flexDirection: 'column' }}>
-          <DropdownMenu
-            testId={testId && `${testId}-syntax`}
-            trigger={syntax === 'default' ? 'JavaScript syntax' : 'CSS syntax'}
-          >
-            <DropdownItemRadioGroup id="syntax">
-              <DropdownItemRadio
-                id="default"
-                isSelected={syntax === 'default'}
-                onClick={() => saveSyntax('default')}
-              >
-                JavaScript syntax
-              </DropdownItemRadio>
-              <DropdownItemRadio
-                id="css-var"
-                isSelected={syntax === 'css-var'}
-                onClick={() => saveSyntax('css-var')}
-              >
-                CSS syntax
-              </DropdownItemRadio>
-            </DropdownItemRadioGroup>
-          </DropdownMenu>
-        </FilterItem>
+          <FilterItem css={{ display: 'flex', flexDirection: 'column' }}>
+            <DropdownMenu
+              testId={testId && `${testId}-syntax`}
+              trigger={
+                syntax === 'default' ? 'JavaScript syntax' : 'CSS syntax'
+              }
+            >
+              <DropdownItemRadioGroup id="syntax">
+                <DropdownItemRadio
+                  id="default"
+                  isSelected={syntax === 'default'}
+                  onClick={() => saveSyntax('default')}
+                >
+                  JavaScript syntax
+                </DropdownItemRadio>
+                <DropdownItemRadio
+                  id="css-var"
+                  isSelected={syntax === 'css-var'}
+                  onClick={() => saveSyntax('css-var')}
+                >
+                  CSS syntax
+                </DropdownItemRadio>
+              </DropdownItemRadioGroup>
+            </DropdownMenu>
+          </FilterItem>
 
-        <FilterItem>
-          <Checkbox
-            onChange={onExactSearchChange}
-            label="Exact search"
-            name="exact-search"
-            testId={testId && `${testId}-exact-search`}
-          />
-        </FilterItem>
-      </div>
+          <FilterItem>
+            <Checkbox
+              onChange={onExactSearchChange}
+              label="Exact search"
+              name="exact-search"
+              testId={testId && `${testId}-exact-search`}
+            />
+          </FilterItem>
+        </div>
 
-      <p css={{ marginBottom: gridSize() * 3 }}>
-        <small>
-          {(searchQuery !== '' && searchedTokensMemo === undefined) ||
-          numberOfTokens === undefined
-            ? 'Loading results...'
-            : `${numberOfTokens} result${
-                numberOfTokens === 1 ? '' : 's'
-              } below`}
-        </small>
-      </p>
+        <p css={{ marginBottom: gridSize() * 3 }}>
+          <small>
+            {(searchQuery !== '' && searchedTokensMemo === undefined) ||
+            numberOfTokens === undefined
+              ? 'Loading results...'
+              : `${numberOfTokens} result${
+                  numberOfTokens === 1 ? '' : 's'
+                } below`}
+          </small>
+        </p>
 
-      <TokenNameSyntaxContext.Provider value={{ syntax: syntax }}>
         {searchQuery === '' ? (
           <TokenGroups
             testId={testId}
@@ -557,8 +561,8 @@ const TokenExplorer = ({ scrollOffset, testId }: TokenExplorerProps) => {
             scrollOffset={scrollOffset}
           />
         )}
-      </TokenNameSyntaxContext.Provider>
-    </div>
+      </div>
+    </TokenNameSyntaxContext.Provider>
   );
 };
 

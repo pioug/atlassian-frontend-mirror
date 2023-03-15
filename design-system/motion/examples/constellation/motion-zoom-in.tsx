@@ -1,9 +1,8 @@
 /** @jsx jsx */
-import React, { useState } from 'react';
+import React from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import Button from '@atlaskit/button/standard-button';
 import {
   ExitingPersistence,
   StaggeredEntrance,
@@ -13,32 +12,24 @@ import {
 import { Block, Centered, RetryContainer } from '../../examples-utils';
 
 const MotionZoomInExample = () => {
-  const [isIn, setIsIn] = useState(true);
-
   return (
     <RetryContainer>
-      <div css={containerStyles}>
-        <Button onClick={() => setIsIn((prev) => !prev)}>
-          {isIn ? 'Exit' : 'Enter'}
-        </Button>
-      </div>
+      <div css={containerStyles}></div>
 
       <Centered css={centeredStyles}>
         <StaggeredEntrance>
           <ExitingPersistence appear>
-            {isIn && (
-              <React.Fragment>
-                <ZoomIn>
-                  {(props) => <Block {...props} appearance="small" />}
-                </ZoomIn>
-                <ZoomIn>
-                  {(props) => <Block {...props} appearance="small" />}
-                </ZoomIn>
-                <ZoomIn>
-                  {(props) => <Block {...props} appearance="small" />}
-                </ZoomIn>
-              </React.Fragment>
-            )}
+            <React.Fragment>
+              <ZoomIn>
+                {(props) => <Block {...props} appearance="small" />}
+              </ZoomIn>
+              <ZoomIn>
+                {(props) => <Block {...props} appearance="small" />}
+              </ZoomIn>
+              <ZoomIn>
+                {(props) => <Block {...props} appearance="small" />}
+              </ZoomIn>
+            </React.Fragment>
           </ExitingPersistence>
         </StaggeredEntrance>
       </Centered>

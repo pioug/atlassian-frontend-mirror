@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { useState } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 
 import Box from '@atlaskit/ds-explorations/box';
 import Stack from '@atlaskit/ds-explorations/stack';
@@ -13,28 +13,21 @@ import {
   RightPanel,
   TopNavigation,
 } from '@atlaskit/page-layout';
-
 import {
-  BREAKPOINTS_CONFIG,
-  BREAKPOINTS_LIST,
-  GridProps,
-  UNSAFE_media as media,
-} from '../src';
+  UNSAFE_BREAKPOINTS_CONFIG,
+  UNSAFE_buildAboveMediaQueryCSS,
+} from '@atlaskit/primitives/responsive';
 
-// eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
-const dynamicSizedVerticalPaddingStyles = css(
-  BREAKPOINTS_LIST.reduce((configs, breakpoint) => {
-    const config = BREAKPOINTS_CONFIG[breakpoint];
-
-    return Object.assign(configs, {
-      [media.above[breakpoint]]: {
-        paddingBlock: config.margin,
-      },
-    });
-  }, {}),
-);
+import { GridProps } from '../src';
 
 import GridCards from './01-grid-cards';
+
+// eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
+const dynamicSizedVerticalPaddingStyles = Object.values(
+  UNSAFE_buildAboveMediaQueryCSS((breakpoint) => ({
+    paddingBlock: UNSAFE_BREAKPOINTS_CONFIG[breakpoint].gridMargin,
+  })),
+);
 
 export default () => {
   const [maxWidth, setWidth] = useState<GridProps['maxWidth']>(undefined);

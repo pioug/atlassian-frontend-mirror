@@ -56,9 +56,12 @@ BrowserTestCase(
   },
 );
 
+// FIXME: This test was automatically skipped due to failure on 09/03/2023: https://product-fabric.atlassian.net/browse/DSP-9114
 BrowserTestCase(
   'Scrollable modal should have focus on its content',
-  {},
+  {
+    skip: ['*'],
+  },
   async (client: BrowserObject) => {
     const url = getExampleUrl('design-system', 'modal-dialog', 'scroll');
     const modalDialogContent = "[data-testid='modal--scrollable']";

@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 1.2.3
+
+### Patch Changes
+
+- [`e2b8df300f2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e2b8df300f2) - Pull responsive helpers from `@atlaskit/primitives/responsive` instead of `@atlaskit/grid` as they've been moved.
+
 ## 1.2.2
 
 ### Patch Changes

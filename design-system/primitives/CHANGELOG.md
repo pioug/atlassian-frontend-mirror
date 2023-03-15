@@ -1,5 +1,11 @@
 # @atlaskit/primitives
 
+## 0.3.0
+
+### Minor Changes
+
+- [`7c280fead96`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7c280fead96) - Add new responsive helpers, breakpoints config, and types into `@atlaskit/primitives/responsive`. Exports are treated as `UNSAFE_` and experimental until modified as they're being worked on in parallel to our Alpha Grid.
+
 ## 0.2.2
 
 ### Patch Changes

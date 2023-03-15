@@ -1,6 +1,6 @@
 /* eslint-disable @repo/internal/react/no-unsafe-overrides */
 /** @jsx jsx */
-import { Fragment } from 'react';
+import { Fragment, useContext } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -20,6 +20,8 @@ import { token } from '../../../src';
 import darkTheme from '../../../src/artifacts/tokens-raw/atlassian-dark';
 import lightTheme from '../../../src/artifacts/tokens-raw/atlassian-light';
 import { Groups } from '../../../src/types';
+import { getCSSCustomProperty } from '../../../src/utils/token-ids';
+import { TokenNameSyntaxContext } from '../../token-explorer/components/token-name-syntax-context';
 import { cleanTokenName, getBoxShadow, getTextContrast } from '../../utils';
 import type {
   Pairings as PairingsType,
@@ -231,10 +233,14 @@ const TokenItem = ({
     return value;
   };
 
+  const { syntax } = useContext(TokenNameSyntaxContext);
+  const formattedName =
+    syntax === 'css-var' ? getCSSCustomProperty(tokenName) : tokenName;
+
   return (
     <Fragment>
       <CopyPasteBlock
-        text={tokenName}
+        text={formattedName}
         renderWrapper={(children) => (
           <code css={tokenNameStyled}>{children}</code>
         )}

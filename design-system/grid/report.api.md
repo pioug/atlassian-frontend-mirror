@@ -17,24 +17,7 @@
 ```ts
 import { FC } from 'react';
 import { ReactNode } from 'react';
-import { token } from '@atlaskit/tokens';
-
-// @public (undocumented)
-type Breakpoint = 'lg' | 'md' | 'sm' | 'xl' | 'xs' | 'xxl' | 'xxs';
-
-// @public (undocumented)
-type BreakpointConfig = {
-  gutter: ReturnType<typeof token>;
-  min: number;
-  max: number;
-  margin: ReturnType<typeof token>;
-};
-
-// @public (undocumented)
-export const BREAKPOINTS_CONFIG: Record<Breakpoint, BreakpointConfig>;
-
-// @public
-export const BREAKPOINTS_LIST: ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'];
+import type { ResponsiveObject } from '@atlaskit/primitives/responsive';
 
 // @public
 const Grid: FC<GridProps>;
@@ -59,9 +42,6 @@ export type GridProps = {
   hasInlinePadding?: boolean;
 };
 
-// @public
-type ResponsiveObject<T> = Partial<Record<Breakpoint, T>>;
-
 // @public (undocumented)
 type SpanObject = ResponsiveObject<SpanOptions>;
 
@@ -73,27 +53,6 @@ type StartObject = ResponsiveObject<StartOptions>;
 
 // @public (undocumented)
 type StartOptions = 'auto' | SpanOptions;
-
-// @public
-export const UNSAFE_media: {
-  readonly above: {
-    readonly xxs: `@media (min-width: ${number}px)`;
-    readonly xs: `@media (min-width: ${number}px)`;
-    readonly sm: `@media (min-width: ${number}px)`;
-    readonly md: `@media (min-width: ${number}px)`;
-    readonly lg: `@media (min-width: ${number}px)`;
-    readonly xl: `@media (min-width: ${number}px)`;
-    readonly xxl: `@media (min-width: ${number}px)`;
-  };
-  readonly below: {
-    readonly xs: `@media (max-width: ${number}px)`;
-    readonly sm: `@media (max-width: ${number}px)`;
-    readonly md: `@media (max-width: ${number}px)`;
-    readonly lg: `@media (max-width: ${number}px)`;
-    readonly xl: `@media (max-width: ${number}px)`;
-    readonly xxl: `@media (max-width: ${number}px)`;
-  };
-};
 
 // (No @packageDocumentation comment for this package)
 ```

@@ -19,42 +19,40 @@ import {
 } from '@atlaskit/motion';
 import { token } from '@atlaskit/tokens';
 
-import { Block, RetryContainer } from '../../examples-utils';
+import { Block } from '../../examples-utils';
 
 const MotionFadeOutListOfElementsExample = () => {
   const [items, setItems] = useState(logos);
 
   return (
-    <RetryContainer>
-      <div css={retryContainerStyles}>
-        <Button onClick={() => setItems((list) => randRemove(list))}>
-          Random remove
-        </Button>
-        <Button onClick={() => setItems(logos)}>Reset</Button>
+    <div css={retryContainerStyles}>
+      <Button onClick={() => setItems((list) => randRemove(list))}>
+        Random remove
+      </Button>
+      <Button onClick={() => setItems(logos)}>Reset</Button>
 
-        <ul css={listStyles}>
-          <StaggeredEntrance>
-            <ExitingPersistence appear>
-              {items.map((logo) => (
-                // Gotcha #1 set propery keys YO
-                <FadeIn key={logo[1] as string}>
-                  {(props) => (
-                    <li {...props} css={listItemStyles}>
-                      <Block css={blockStyles}>
-                        <div css={logoContainerStyles}>
-                          {logo[0]}
-                          <h3 css={headerStyles}>{logo[1]}</h3>
-                        </div>
-                      </Block>
-                    </li>
-                  )}
-                </FadeIn>
-              ))}
-            </ExitingPersistence>
-          </StaggeredEntrance>
-        </ul>
-      </div>
-    </RetryContainer>
+      <ul css={listStyles}>
+        <StaggeredEntrance>
+          <ExitingPersistence appear>
+            {items.map((logo) => (
+              // Gotcha #1 set propery keys YO
+              <FadeIn key={logo[1] as string}>
+                {(props) => (
+                  <li {...props} css={listItemStyles}>
+                    <Block css={blockStyles}>
+                      <div css={logoContainerStyles}>
+                        {logo[0]}
+                        <h3 css={headerStyles}>{logo[1]}</h3>
+                      </div>
+                    </Block>
+                  </li>
+                )}
+              </FadeIn>
+            ))}
+          </ExitingPersistence>
+        </StaggeredEntrance>
+      </ul>
+    </div>
   );
 };
 

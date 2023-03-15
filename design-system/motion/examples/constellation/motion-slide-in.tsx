@@ -12,7 +12,6 @@ import { Block, Centered, RetryContainer } from '../../examples-utils';
 import { Fade } from '../../src/entering/types';
 
 const MotionSlideInExample = () => {
-  const [isIn, setIsIn] = useState(true);
   const [fromIndex, setFromIndex] = useState(0);
   const [fadeIndex, setFadeIndex] = useState(0);
 
@@ -20,9 +19,6 @@ const MotionSlideInExample = () => {
     <RetryContainer>
       <div css={containerStyles}>
         <ButtonGroup>
-          <Button onClick={() => setIsIn((prev) => !prev)}>
-            {isIn ? 'Exit' : 'Enter'}
-          </Button>
           <Button
             onClick={() => setFromIndex((prev) => (prev + 1) % forms.length)}
           >
@@ -37,11 +33,9 @@ const MotionSlideInExample = () => {
 
         <Centered css={centeredStyles}>
           <ExitingPersistence appear>
-            {isIn && (
-              <SlideIn enterFrom={forms[fromIndex]} fade={fades[fadeIndex]}>
-                {(props) => <Block {...props} css={blockStyles} />}
-              </SlideIn>
-            )}
+            <SlideIn enterFrom={forms[fromIndex]} fade={fades[fadeIndex]}>
+              {(props) => <Block {...props} css={blockStyles} />}
+            </SlideIn>
           </ExitingPersistence>
         </Centered>
       </div>

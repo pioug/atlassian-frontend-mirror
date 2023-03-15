@@ -1,13 +1,6 @@
 import type { ReactNode } from 'react';
 
-import { css } from '@emotion/react';
-
-export type Breakpoint = 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
-
-/**
- * Builds an object for each breakpoint, eg. `{ xxs?: T, xs?: T, sm?: T, … }`
- */
-export type ResponsiveObject<T> = Partial<Record<Breakpoint, T>>;
+import type { ResponsiveObject } from '@atlaskit/primitives/responsive';
 
 export type SpanOptions =
   | 'none'
@@ -66,5 +59,3 @@ export type GridItemProps = {
    */
   span?: SpanOptions | SpanObject;
 };
-
-export type BreakpointCSSObject = Record<Breakpoint, ReturnType<typeof css>>;

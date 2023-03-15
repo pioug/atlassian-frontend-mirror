@@ -3,59 +3,31 @@ import { CSSProperties, FC, useMemo } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import { BREAKPOINTS_LIST, GRID_COLUMNS } from './config';
-import { UNSAFE_media as media } from './media-helper';
-import type {
+import {
   Breakpoint,
-  BreakpointCSSObject,
-  GridItemProps,
   ResponsiveObject,
-  SpanObject,
-  StartObject,
-} from './types';
+  UNSAFE_BREAKPOINTS_ORDERED_LIST,
+  UNSAFE_buildAboveMediaQueryCSS,
+} from '@atlaskit/primitives/responsive';
+
+import { GRID_COLUMNS } from './config';
+import type { GridItemProps, SpanObject, StartObject } from './types';
 
 // when in doubt simply span all columns
 const baseGridItemStyles = css({
   gridColumn: `1 / span ${GRID_COLUMNS}`,
 });
 
-const hideMediaQueries = BREAKPOINTS_LIST.reduce(
-  (acc, breakpoint) => ({
-    ...acc,
-    [breakpoint]: css({
-      // eslint-disable-next-line @repo/internal/styles/no-nested-styles
-      [media.above[breakpoint]]: { display: 'none' },
-    }),
-  }),
-  {} as BreakpointCSSObject,
-);
-
-const gridSpanMediaQueries = BREAKPOINTS_LIST.reduce(
-  (acc, breakpoint) => ({
-    ...acc,
-    [breakpoint]: css({
-      // eslint-disable-next-line @repo/internal/styles/no-nested-styles
-      [media.above[breakpoint]]: {
-        display: 'block', // required to reset the display: none we might cascade with `span="none"`
-        gridColumnEnd: `span var(--grid-item-${breakpoint}-span, 12)`,
-      },
-    }),
-  }),
-  {} as BreakpointCSSObject,
-);
-
-const gridStartMediaQueries = BREAKPOINTS_LIST.reduce(
-  (acc, breakpoint) => ({
-    ...acc,
-    [breakpoint]: css({
-      // eslint-disable-next-line @repo/internal/styles/no-nested-styles
-      [media.above[breakpoint]]: {
-        gridColumnStart: `var(--grid-item-${breakpoint}-start, 'auto')`,
-      },
-    }),
-  }),
-  {} as BreakpointCSSObject,
-);
+const hideMediaQueries = UNSAFE_buildAboveMediaQueryCSS({
+  display: 'none',
+});
+const gridSpanMediaQueries = UNSAFE_buildAboveMediaQueryCSS((breakpoint) => ({
+  display: 'block', // override the display that might be cascaded in from `hideMediaQueries`
+  gridColumnEnd: `span var(--grid-item-${breakpoint}-span, 12)`,
+}));
+const gridStartMediaQueries = UNSAFE_buildAboveMediaQueryCSS((breakpoint) => ({
+  gridColumnStart: `var(--grid-item-${breakpoint}-start, 'auto')`,
+}));
 
 /**
  * Build a set of responsive css variables given a responsive object
@@ -135,6 +107,7 @@ export const GridItem: FC<GridItemProps> = ({
   // If `prop` isn't a responsive object, we set the value against the `xs` breakpoint, eg. `span={6}` is the same as `span={{ xxs: 6 }}`
   const span: SpanObject =
     typeof spanProp === 'object' ? spanProp : { xxs: spanProp };
+  const spanDependencyComparison = JSON.stringify(span); // to compare `span` changes in a `useMemo` deps array (used a few times)
   const spanStyles = useMemo(
     () =>
       buildCSSVarsFromConfig({
@@ -145,12 +118,13 @@ export const GridItem: FC<GridItemProps> = ({
         isValidBreakpointValue: (value) => value !== 'none',
       }),
     // eslint-disable-next-line react-hooks/exhaustive-deps -- `span` will change references easily, but we still need to allow content or key changes to update
-    [JSON.stringify(span)],
+    [spanDependencyComparison],
   );
 
   // If `prop` isn't a responsive object, we set the value against the `xs` breakpoint, eg. `start={6}` is the same as `start={{ xxs: 6 }}`
   const start: StartObject =
     typeof startProp === 'object' ? startProp : { xxs: startProp };
+  const startDependencyComparison = JSON.stringify(start); // to compare `start` changes in a `useMemo` deps array (used a few times)
   const startStyles = useMemo(
     () =>
       buildCSSVarsFromConfig({
@@ -159,7 +133,7 @@ export const GridItem: FC<GridItemProps> = ({
         prefix: 'grid-item',
       }),
     // eslint-disable-next-line react-hooks/exhaustive-deps -- `start` will change references easily, but we still need to allow content or key changes to update
-    [JSON.stringify(start)],
+    [startDependencyComparison],
   );
 
   /**
@@ -167,7 +141,7 @@ export const GridItem: FC<GridItemProps> = ({
    */
   const mediaQueryStyles = useMemo(
     () =>
-      BREAKPOINTS_LIST.reduce((acc, breakpoint) => {
+      UNSAFE_BREAKPOINTS_ORDERED_LIST.reduce((acc, breakpoint) => {
         const styles: ReturnType<typeof css>[] = [];
 
         if (breakpoint in span) {
@@ -188,7 +162,7 @@ export const GridItem: FC<GridItemProps> = ({
         return [...acc, ...styles];
       }, [] as ReturnType<typeof css>[]),
     // eslint-disable-next-line react-hooks/exhaustive-deps -- `start` and `span` will change references easily, but we still need to allow content or key changes to update.  This _should_ be more performant than running on every render as I don't expect this to change.
-    [JSON.stringify(span), JSON.stringify(start)],
+    [spanDependencyComparison, startDependencyComparison],
   );
 
   return (

@@ -1,5 +1,15 @@
 # @atlaskit/grid
 
+## 0.8.0
+
+### Minor Changes
+
+- [`28a87e4d9a2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/28a87e4d9a2) - All responsive helpers, types, and breakpoints have been migrated to `@atlaskit/primitives/responsive` and imported from there. There should be no functionality change, though this is a breaking change while we're in Alpha and these are strictly used internally.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.7.0
 
 ### Minor Changes

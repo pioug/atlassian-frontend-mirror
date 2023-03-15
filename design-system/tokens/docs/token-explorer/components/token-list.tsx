@@ -3,8 +3,8 @@ import { Fragment, memo } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import { UNSAFE_media as media } from '@atlaskit/grid';
 import { Box, Inline, Stack } from '@atlaskit/primitives';
+import { UNSAFE_media as media } from '@atlaskit/primitives/responsive';
 
 import { token } from '../../../src';
 import type { TransformedTokenMerged } from '../types';

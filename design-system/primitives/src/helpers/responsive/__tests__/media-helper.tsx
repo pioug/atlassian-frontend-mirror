@@ -1,7 +1,7 @@
-import { UNSAFE_media } from '../../media-helper';
+import { UNSAFE_media } from '../index';
 
 describe('media-helper', () => {
-  it('does not throw an error when not nested', () => {
+  it('exposes expected media queries', () => {
     expect(UNSAFE_media).toMatchInlineSnapshot(`
       Object {
         "above": Object {

@@ -5,9 +5,12 @@ import { createContext, FC, ReactNode, useContext } from 'react';
 import { css, jsx } from '@emotion/react';
 import invariant from 'tiny-invariant';
 
-import { BREAKPOINTS_CONFIG, BREAKPOINTS_LIST, GRID_COLUMNS } from './config';
-import { UNSAFE_media as media } from './media-helper';
-import type { BreakpointCSSObject } from './types';
+import {
+  UNSAFE_BREAKPOINTS_CONFIG,
+  UNSAFE_buildAboveMediaQueryCSS,
+} from '@atlaskit/primitives/responsive';
+
+import { GRID_COLUMNS } from './config';
 
 export type GridProps = {
   /**
@@ -33,24 +36,16 @@ export type GridProps = {
   hasInlinePadding?: boolean;
 };
 
-const gapMediaQueries = BREAKPOINTS_LIST.reduce(
-  (acc, breakpoint) => ({
-    ...acc,
-    [media.above[breakpoint]]: {
-      gap: BREAKPOINTS_CONFIG[breakpoint].gutter,
-    },
-  }),
-  {} as BreakpointCSSObject,
+const gapMediaQueries = Object.values(
+  UNSAFE_buildAboveMediaQueryCSS((breakpoint) => ({
+    gap: UNSAFE_BREAKPOINTS_CONFIG[breakpoint].gridItemGutter,
+  })),
 );
 
-const inlinePaddingMediaQueries = BREAKPOINTS_LIST.reduce(
-  (acc, breakpoint) => ({
-    ...acc,
-    [media.above[breakpoint]]: {
-      paddingInline: BREAKPOINTS_CONFIG[breakpoint].margin,
-    },
-  }),
-  {} as BreakpointCSSObject,
+const inlinePaddingMediaQueries = Object.values(
+  UNSAFE_buildAboveMediaQueryCSS((breakpoint) => ({
+    paddingInline: UNSAFE_BREAKPOINTS_CONFIG[breakpoint].gridMargin,
+  })),
 );
 
 const baseStyles = css({

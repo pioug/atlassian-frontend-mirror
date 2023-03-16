@@ -66,8 +66,6 @@ const FlexibleResolvedView = ({
         primary={[
           { name: ElementName.ModifiedBy },
           { name: ElementName.ModifiedOn },
-        ]}
-        secondary={[
           { name: ElementName.AttachmentCount },
           { name: ElementName.CommentCount },
           { name: ElementName.ReactCount },

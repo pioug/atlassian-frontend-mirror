@@ -11,12 +11,10 @@ import {
 } from '@atlaskit/editor-test-helpers/integration/helpers';
 import emojiAdf from './__fixtures__/emoji-single.adf.json';
 
-// FIXME: This test was automatically skipped due to failure on 09/02/2023: https://product-fabric.atlassian.net/browse/ED-16841
-// FIXME: This test was automatically skipped due to failure on 12/02/2023: https://product-fabric.atlassian.net/browse/ED-16862
 BrowserTestCase(
   'selection.ts: Clicking after an emoji produces a text selection to its right',
   {
-    skip: ['*'],
+    skip: [],
   },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
@@ -27,12 +25,12 @@ BrowserTestCase(
     });
     await page.waitForSelector(emojiSelectors.standard);
     const positionAfterEmoji = 2;
-    const slightOffset = 15;
 
     // Click after the emoji
     const bounds = await getBoundingRect(page, emojiSelectors.standard);
-    const x = Math.ceil(bounds.width) + slightOffset;
-    await page.moveTo(emojiSelectors.standard, x, slightOffset);
+    const xOffset = Math.ceil(bounds.width) * 2;
+    const yOffset = Math.ceil(bounds.height) * 0.9;
+    await page.moveTo(emojiSelectors.standard, xOffset, yOffset);
     await page.click();
 
     await expectToMatchSelection(page, {

@@ -1,5 +1,6 @@
 import {
   LinkPickerPlugin,
+  LinkPickerPluginAction,
   LinkPickerPluginErrorFallback,
   LinkPickerState,
   LinkSearchListItemData,
@@ -59,20 +60,24 @@ export class MockLinkPickerGeneratorPlugin implements LinkPickerPlugin {
 export class MockLinkPickerPromisePlugin implements LinkPickerPlugin {
   private _tabKey?: string;
   private _tabTitle?: string;
+  private _action?: LinkPickerPluginAction;
   public result: Promise<LinkSearchListItemData[]>;
   constructor({
     tabKey,
     tabTitle,
     promise = Promise.resolve(pluginData),
+    action,
   }: {
     tabKey?: string;
     tabTitle?: string;
     promise?: Promise<LinkSearchListItemData[]>;
+    action?: LinkPickerPluginAction;
   } = {}) {
     this.result = promise;
 
     this._tabKey = tabKey;
     this._tabTitle = tabTitle;
+    this._action = action;
   }
   async resolve({ query }: LinkPickerState) {
     return { data: await this.result };
@@ -84,6 +89,10 @@ export class MockLinkPickerPromisePlugin implements LinkPickerPlugin {
 
   get tabTitle() {
     return this._tabTitle;
+  }
+
+  get action() {
+    return this._action;
   }
 }
 

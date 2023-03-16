@@ -9,7 +9,7 @@ import { monitorForElements } from '@atlaskit/drag-and-drop/adapter/element';
 import { monitorForFiles } from '@atlaskit/drag-and-drop/adapter/file';
 import { combine } from '@atlaskit/drag-and-drop/util/combine';
 
-import { ColumnMap, ColumnType, getInitialData, Item } from './data/tasks';
+import { ColumnMap, ColumnType, getInitialData, Item } from './data/people';
 import Board from './pieces/board';
 import { Column } from './pieces/column';
 

@@ -22,7 +22,7 @@ describe('getTokenValue', () => {
           <style>
             {`
             html {
-              --ds-text: #ff0000;
+              --ds-text:${` `} #ff0000${` `};
             }
             html[${COLOR_MODE_ATTRIBUTE}="light"] {
               --ds-text: #00ff00;
@@ -37,9 +37,18 @@ describe('getTokenValue', () => {
       { container: document.documentElement },
     );
   });
-  afterEach(cleanup);
+  afterEach(() => {
+    cleanup();
+    document.documentElement.removeAttribute(COLOR_MODE_ATTRIBUTE);
+  });
 
   describe('on non-production environment', () => {
+    it('should trim the value down to remove leading/trailing spaces', () => {
+      // eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
+      const result = getTokenValue('color.text');
+      expect(result).toEqual('#ff0000');
+    });
+
     it('should return the correct value for the current theme', () => {
       // eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
       expect(getTokenValue('color.text')).toEqual('#ff0000');
@@ -90,6 +99,12 @@ describe('getTokenValue', () => {
 
     afterEach(() => {
       process.env.NODE_ENV = nodeEnv;
+    });
+
+    it('should trim the value down to remove leading/trailing spaces', () => {
+      // eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
+      const result = getTokenValue('color.text');
+      expect(result).toEqual('#ff0000');
     });
 
     it('should return an empty value for non-existing token without fallback', () => {

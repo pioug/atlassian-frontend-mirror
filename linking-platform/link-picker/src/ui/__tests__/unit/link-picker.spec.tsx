@@ -1544,5 +1544,30 @@ describe('<LinkPicker />', () => {
       });
       expect(screen.getByTestId('scrolling-tabs')).toBeInTheDocument();
     });
+
+    it('should fire action callback when action button is clicked', async () => {
+      const mockActionCallback = jest.fn();
+      const plugin = new MockLinkPickerPromisePlugin({
+        tabKey: 'tab1',
+        tabTitle: 'Action',
+        action: {
+          label: {
+            id: 'test',
+            defaultMessage: 'Action',
+            description: 'test action',
+          },
+          callback: mockActionCallback,
+        },
+      });
+
+      const { testIds } = setupLinkPicker({ plugins: [plugin] });
+      const actionButton = await screen.findByTestId(testIds.actionButton);
+
+      expect(actionButton).toBeInTheDocument();
+
+      await user.click(actionButton);
+
+      expect(mockActionCallback).toHaveBeenCalledTimes(1);
+    });
   });
 });

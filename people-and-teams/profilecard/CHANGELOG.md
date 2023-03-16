@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 18.4.0
+
+### Minor Changes
+
+- [`312e4be46d2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/312e4be46d2) - Always call AGG for team data'
+
 ## 18.3.0
 
 ### Minor Changes

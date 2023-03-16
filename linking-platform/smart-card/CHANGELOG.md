@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 25.0.4
+
+### Patch Changes
+
+- [`de8c6e88424`](https://bitbucket.org/atlassian/atlassian-frontend/commits/de8c6e88424) - flexible block card metadata all left aligned
+
 ## 25.0.3
 
 ### Patch Changes

@@ -15,3 +15,11 @@ export const tableRows: TableRowData[] = [
   { id: '3', name: 'Drill', avatarUrl: drillIcon },
   { id: '4', name: 'Koala', avatarUrl: koalaIcon },
 ];
+
+export type TableColumnData = { id: string; label: string };
+
+export const tableColumns: TableColumnData[] = [
+  { id: 'id', label: 'Id' },
+  { id: 'name', label: 'Name' },
+  { id: 'icon', label: 'Icon' },
+];

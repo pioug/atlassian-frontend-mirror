@@ -429,7 +429,6 @@ export type TeamProfileCardErrorType = {
 
 export interface ProfileClientOptions {
   url: string;
-  teamsUseV2?: boolean;
   gatewayGraphqlUrl?: string;
   cacheSize?: number;
   cacheMaxAge?: number;

@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 1.18.0
+
+### Minor Changes
+
+- [`d7af47bbf65`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d7af47bbf65) - [ux] Adds new action button and updates the style of current cancel button
+
 ## 1.17.0
 
 ### Minor Changes

@@ -480,8 +480,6 @@ export interface ProfileClientOptions {
   teamCentralBaseUrl?: string;
   teamCentralUrl?: string;
   // (undocumented)
-  teamsUseV2?: boolean;
-  // (undocumented)
   url: string;
 }
 
@@ -670,12 +668,7 @@ export class TeamProfileClient extends CachingClient<Team> {
     analytics?: (event: AnalyticsEventPayload) => void,
   ): Promise<Team>;
   // (undocumented)
-  makeRequest(teamId: string, orgId: string | undefined): Promise<Team>;
-  // (undocumented)
-  makeRequestViaGateway(
-    teamId: string,
-    _orgId: string | undefined,
-  ): Promise<Team>;
+  makeRequest(teamId: string, _orgId: string | undefined): Promise<Team>;
   // (undocumented)
   options: ProfileClientOptions;
 }

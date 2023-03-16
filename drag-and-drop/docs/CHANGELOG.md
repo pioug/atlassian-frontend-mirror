@@ -1,5 +1,11 @@
 # @atlaskit/drag-and-drop-docs
 
+## 0.2.1
+
+### Patch Changes
+
+- [`519765316c5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/519765316c5) - [ux] Updated examples
+
 ## 0.2.0
 
 ### Minor Changes

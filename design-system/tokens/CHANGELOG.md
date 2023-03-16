@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 1.2.4
+
+### Patch Changes
+
+- [`2717641f696`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2717641f696) - The getTokenValue helper now strips leading or trailing spaces if they exist.
+
 ## 1.2.3
 
 ### Patch Changes

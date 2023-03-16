@@ -1,5 +1,12 @@
 # @atlaskit/link-test-helpers
 
+## 2.1.1
+
+### Patch Changes
+
+- [`ecef5fad2b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ecef5fad2b4) - Update MockLinkPickerPromisePlugin to return action
+- Updated dependencies
+
 ## 2.1.0
 
 ### Minor Changes

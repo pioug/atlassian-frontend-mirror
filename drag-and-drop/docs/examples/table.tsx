@@ -1,279 +1,121 @@
 /** @jsx jsx */
-import { Fragment, ReactNode, useEffect, useRef, useState } from 'react';
+import { Fragment, useCallback, useEffect, useRef, useState } from 'react';
 
-import { css, jsx, SerializedStyles } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 import invariant from 'tiny-invariant';
 
 import Avatar from '@atlaskit/avatar';
-import {
-  attachClosestEdge,
-  Edge,
-  extractClosestEdge,
-} from '@atlaskit/drag-and-drop-hitbox/addon/closest-edge';
+import { extractClosestEdge } from '@atlaskit/drag-and-drop-hitbox/addon/closest-edge';
 import { reorderWithEdge } from '@atlaskit/drag-and-drop-hitbox/util/reorder-with-edge';
-import { DropIndicator } from '@atlaskit/drag-and-drop-indicator/box';
-import {
-  draggable,
-  dropTargetForElements,
-  monitorForElements,
-} from '@atlaskit/drag-and-drop/adapter/element';
+import { monitorForElements } from '@atlaskit/drag-and-drop/adapter/element';
 import { combine } from '@atlaskit/drag-and-drop/util/combine';
+import { Inline } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
-import { TableRowData, tableRows } from './data/table';
+import {
+  Column,
+  columnLabel,
+  getInitialColumnOrder,
+  getInitialRowOrder,
+  President,
+  presidents,
+} from './data/presidents';
+import { DraggableTableHeading } from './pieces/table/draggable-table-heading';
+import { DraggableTableRow } from './pieces/table/draggable-table-row';
+import { useTableHeightAsCssVar } from './pieces/table/use-table-height-as-css-var';
 import { GlobalStyles } from './util/global-styles';
 
 /**
  * We're doing this to make the drop indicator a bit more visible
  */
 const tableStyles = css({
+  tableLayout: 'fixed',
   /* eslint-disable-next-line @repo/internal/styles/no-nested-styles */
   'th:first-child, td:first-child': {
     paddingLeft: 8,
   },
 });
 
-type DraggableStatus = 'idle' | 'preview' | 'dragging';
-
-const tableRowStatusStyles: Partial<Record<DraggableStatus, SerializedStyles>> =
-  {
-    idle: css({
-      ':hover': {
-        background: token(
-          'color.background.neutral.subtle.hovered',
-          '#091E420F',
-        ),
-      },
-    }),
-    preview: css({
-      background: token('elevation.surface.overlay', '#FFF'),
-      boxShadow: token('elevation.shadow.overlay', 'none'),
-    }),
-    dragging: css({
-      background: token('color.background.neutral.subtle.hovered', '#091E420F'),
-      opacity: 0.5,
-    }),
-  };
-
-/**
- * Because we cannot render arbitrary elements inside of a `<tr />` element,
- * we cannot use the `<DropIndicator />` component for row drags.
- *
- * Instead we use bespoke styles.
- */
-const tableRowDropIndicatorStyles: Partial<Record<Edge, SerializedStyles>> = {
-  top: css({
-    position: 'relative',
-    '::after': {
-      content: "''",
-      position: 'absolute',
-      top: -1,
-      left: 0,
-      height: 2,
-      width: '100%',
-      background: token('color.border.brand', '#0052CC'),
-    },
-  }),
-  bottom: css({
-    position: 'relative',
-    '::after': {
-      content: "''",
-      position: 'absolute',
-      bottom: -1,
-      left: 0,
-      height: 2,
-      width: '100%',
-      background: token('color.border.brand', '#0052CC'),
-    },
-  }),
-};
-
-const DraggableTableRow = ({
-  children,
-  id,
-}: {
-  children: ReactNode;
-  id: unknown;
-}) => {
-  const ref = useRef<HTMLTableRowElement>(null);
-
-  const [closestEdge, setClosestEdge] = useState<Edge | null>(null);
-
-  const [status, setStatus] = useState<DraggableStatus>('idle');
-
-  useEffect(() => {
-    const row = ref.current;
-    invariant(row);
-    return combine(
-      draggable({
-        element: row,
-        getInitialData() {
-          return { type: 'table-row', id };
-        },
-        onGenerateDragPreview() {
-          setStatus('preview');
-        },
-        onDragStart() {
-          setStatus('dragging');
-        },
-        onDrop() {
-          setStatus('idle');
-        },
-      }),
-      dropTargetForElements({
-        element: row,
-        getData({ input, element }) {
-          const data = { id };
-          return attachClosestEdge(data, {
-            input,
-            element,
-            allowedEdges: ['top', 'bottom'],
-          });
-        },
-        canDrop(args) {
-          return args.source.data.type === 'table-row';
-        },
-        onDrag(args) {
-          if (args.source.data.id !== id) {
-            setClosestEdge(extractClosestEdge(args.self.data));
-          }
-        },
-        onDragLeave() {
-          setClosestEdge(null);
-        },
-        onDrop() {
-          setClosestEdge(null);
-        },
-      }),
-    );
-  }, [id]);
-
-  return (
-    <tr
-      ref={ref}
-      css={[
-        tableRowStatusStyles[status],
-        closestEdge && tableRowDropIndicatorStyles[closestEdge],
-      ]}
-    >
-      {children}
-    </tr>
-  );
-};
-
-const tableHeaderStyles = css({
-  position: 'relative',
-  paddingBlock: 8,
-  lineHeight: 24 / 14,
-  background: token('color.background.neutral', '#091e420f'),
+const tableHeadStyles = css({
+  background: token('elevation.surface', '#FFF'),
+  borderTop: '2px solid transparent',
 });
 
-const tableHeaderStatusStyles: Partial<
-  Record<DraggableStatus, SerializedStyles>
-> = {
-  idle: css({
-    ':hover': {
-      background: token('color.background.neutral.hovered', '#091E4224'),
-    },
-  }),
-  preview: css({
-    background: token('elevation.surface.overlay', '#FFF'),
-    boxShadow: token('elevation.shadow.overlay', 'none'),
-  }),
-  dragging: css({
-    background: token('color.background.neutral.hovered', '#091E4224'),
-    color: token('color.text.disabled', '#091E424F'),
-  }),
-};
+const textOverflowStyles = css({
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap',
+});
 
-const DraggableTableHeader = ({
-  children,
-  id,
+function CellData({
+  row,
+  column,
 }: {
-  children: ReactNode;
-  id: unknown;
-}) => {
-  const ref = useRef<HTMLTableCellElement>(null);
-
-  const [closestEdge, setClosestEdge] = useState<Edge | null>(null);
-
-  const [status, setStatus] = useState<DraggableStatus>('idle');
-
-  useEffect(() => {
-    const cell = ref.current;
-    invariant(cell);
-    return combine(
-      draggable({
-        element: cell,
-        getInitialData() {
-          return { type: 'table-header', id };
-        },
-        onGenerateDragPreview() {
-          setStatus('preview');
-        },
-        onDragStart() {
-          setStatus('dragging');
-        },
-        onDrop() {
-          setStatus('idle');
-        },
-      }),
-      dropTargetForElements({
-        element: cell,
-        getData({ input, element }) {
-          const data = { id };
-          return attachClosestEdge(data, {
-            input,
-            element,
-            allowedEdges: ['left', 'right'],
-          });
-        },
-        canDrop(args) {
-          return args.source.data.type === 'table-header';
-        },
-        onDrag(args) {
-          if (args.source.data.id !== id) {
-            setClosestEdge(extractClosestEdge(args.self.data));
-          }
-        },
-        onDragLeave() {
-          setClosestEdge(null);
-        },
-        onDrop() {
-          setClosestEdge(null);
-        },
-      }),
+  row: President;
+  column: keyof President;
+}) {
+  if (column === 'name') {
+    return (
+      <Inline alignBlock="center" space="100">
+        <Avatar />
+        <span css={textOverflowStyles}>{row[column]}</span>
+      </Inline>
     );
-  }, [id]);
-
-  return (
-    <th ref={ref} css={[tableHeaderStyles, tableHeaderStatusStyles[status]]}>
-      {children}
-      {closestEdge && <DropIndicator edge={closestEdge} />}
-    </th>
-  );
-};
-
-function renderCell(row: TableRowData, column: { id: string; label: string }) {
-  switch (column.id) {
-    case 'icon':
-      return <Avatar src={row.avatarUrl} size="large" appearance="square" />;
-
-    case 'id':
-    case 'name':
-      return row[column.id];
   }
+
+  return <Fragment>{row[column]}</Fragment>;
 }
 
-export default function Example() {
-  const [columns, setColumns] = useState([
-    { id: 'id', label: 'Id' },
-    { id: 'name', label: 'Name' },
-    { id: 'icon', label: 'Icon' },
-  ]);
-  const [rows, setRows] = useState(tableRows);
+function extractIndex(data: Record<string, unknown>) {
+  const { index } = data;
+  invariant(typeof index === 'number');
+  return index;
+}
 
+type ColumnWidths = Record<Column, number>;
+
+export default function Example() {
+  const [rowOrder, setRowOrder] = useState(getInitialRowOrder);
+  const [columnOrder, setColumnOrder] = useState(getInitialColumnOrder);
   const tableRef = useRef<HTMLTableElement>(null);
+
+  const [columnWidths, setColumnWidths] = useState<ColumnWidths>({
+    name: 1 / 3,
+    party: 1 / 3,
+    term: 1 / 3,
+  });
+
+  /**
+   * Called after the user 'drops' (stops resizing) to save the new width
+   * values in state.
+   *
+   * Resizing a column will affect the width of the column to its left.
+   */
+  const onResize = useCallback(
+    ({ columnIndex, width }: { columnIndex: number; width: number }) => {
+      invariant(columnIndex > 0);
+
+      const column = columnOrder[columnIndex];
+      const prevColumn = columnOrder[columnIndex - 1];
+
+      const deltaWidth = width - columnWidths[column];
+
+      setColumnWidths({
+        ...columnWidths,
+        [prevColumn]: columnWidths[prevColumn] - deltaWidth,
+        [column]: columnWidths[column] + deltaWidth,
+      });
+    },
+    [columnOrder, columnWidths],
+  );
+
+  /**
+   * Exposes the height of the table as a CSS variable on the table.
+   *
+   * This is used by the resize handles, as well as column drop indicators.
+   */
+  useTableHeightAsCssVar(tableRef);
+
   useEffect(() => {
     const table = tableRef.current;
     invariant(table);
@@ -295,16 +137,12 @@ export default function Example() {
               closestEdgeOfTarget === 'top' || closestEdgeOfTarget === 'bottom',
             );
 
-            setRows(rows => {
-              const startIndex = rows.findIndex(
-                row => row.id === source.data.id,
-              );
-              const indexOfTarget = rows.findIndex(
-                row => row.id === target.data.id,
-              );
+            setRowOrder(rowOrder => {
+              const startIndex = extractIndex(source.data);
+              const indexOfTarget = extractIndex(target.data);
 
               return reorderWithEdge({
-                list: rows,
+                list: rowOrder,
                 closestEdgeOfTarget,
                 startIndex,
                 indexOfTarget,
@@ -319,16 +157,12 @@ export default function Example() {
               closestEdgeOfTarget === 'left' || closestEdgeOfTarget === 'right',
             );
 
-            setColumns(columns => {
-              const startIndex = columns.findIndex(
-                col => col.id === source.data.id,
-              );
-              const indexOfTarget = columns.findIndex(
-                col => col.id === target.data.id,
-              );
+            setColumnOrder(columnOrder => {
+              const startIndex = extractIndex(source.data);
+              const indexOfTarget = extractIndex(target.data);
 
               return reorderWithEdge({
-                list: columns,
+                list: columnOrder,
                 closestEdgeOfTarget,
                 startIndex,
                 indexOfTarget,
@@ -345,23 +179,38 @@ export default function Example() {
     <Fragment>
       <GlobalStyles />
       <table ref={tableRef} css={tableStyles}>
-        <thead>
+        <thead css={tableHeadStyles}>
           <tr>
-            {columns.map(column => (
-              <DraggableTableHeader key={column.id} id={column.id}>
-                {column.label}
-              </DraggableTableHeader>
+            {columnOrder.map((column, index) => (
+              <DraggableTableHeading
+                key={column}
+                id={column}
+                index={index}
+                width={columnWidths[column]}
+                onResize={onResize}
+              >
+                {columnLabel[column]}
+              </DraggableTableHeading>
             ))}
           </tr>
         </thead>
         <tbody>
-          {rows.map(row => (
-            <DraggableTableRow key={row.id} id={row.id}>
-              {columns.map(column => (
-                <td key={column.id}>{renderCell(row, column)}</td>
-              ))}
-            </DraggableTableRow>
-          ))}
+          {rowOrder.map((rowIndex, index) => {
+            const president = presidents[rowIndex];
+            return (
+              <DraggableTableRow
+                key={president.id}
+                id={president.id}
+                index={index}
+              >
+                {columnOrder.map(column => (
+                  <td key={column} css={textOverflowStyles}>
+                    <CellData column={column} row={president} />
+                  </td>
+                ))}
+              </DraggableTableRow>
+            );
+          })}
         </tbody>
       </table>
     </Fragment>

@@ -1,6 +1,6 @@
 # Visually hidden
 
-A composable element that hides elements from the screen while keeping them accessible.
+A utility that hides content from the screen while retaining readability by screen readers for accessibility.
 
 ## Installation
 
@@ -10,13 +10,4 @@ yarn add @atlaskit/visually-hidden
 
 ## Usage
 
-```jsx
-import VisuallyHidden from '@atlaskit/visually-hidden';
-
-export default () => (
-  <div style={{ border: '1px solid black' }}>
-    There is text hidden between the brackets [
-    <VisuallyHidden>Can't see me!</VisuallyHidden>]
-  </div>
-);
-```
+[View documentation](https://atlassian.design/components/visually-hidden/).

@@ -6,6 +6,7 @@ import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { RECENT_SEARCH_LIST_SIZE } from '../../ui/link-picker';
 import {
   LinkPickerPlugin,
+  LinkPickerPluginAction,
   LinkPickerPluginErrorFallback,
   LinkPickerState,
   LinkSearchListItemData,
@@ -24,6 +25,7 @@ export interface LinkPickerPluginsService {
   error: unknown | null;
   retry: () => void;
   errorFallback?: LinkPickerPluginErrorFallback;
+  pluginAction?: LinkPickerPluginAction;
 }
 
 export function usePlugins(
@@ -116,6 +118,7 @@ export function usePlugins(
     error,
     retry: handleRetry,
     errorFallback: activePlugin?.errorFallback,
+    pluginAction: activePlugin?.action,
   };
 }
 

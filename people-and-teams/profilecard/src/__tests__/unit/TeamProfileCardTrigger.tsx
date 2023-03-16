@@ -529,7 +529,7 @@ describe('TeamProfileCardTrigger', () => {
         flexiTime(
           teamRequestAnalytics('succeeded', {
             duration: expect.anything(),
-            gateway: false,
+            gateway: true,
           }),
         ),
       );
@@ -582,7 +582,7 @@ describe('TeamProfileCardTrigger', () => {
           teamRequestAnalytics('failed', {
             duration: expect.anything(),
             errorReason: error,
-            gateway: false,
+            gateway: true,
             isSLOFailure: true,
           }),
         ),

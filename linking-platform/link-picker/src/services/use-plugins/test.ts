@@ -220,6 +220,30 @@ describe('usePlugins', () => {
         type: reducer.ACTION_LOADING,
       });
     });
+
+    it('should return plugin actions from config', async () => {
+      const message = {
+        id: 'test',
+        description: 'Action',
+        defaultMessage: 'test',
+      };
+      const promise = new ManualPromise({ data: [] });
+      const plugins = [
+        {
+          resolve: () => promise,
+          action: {
+            label: message,
+            callback: () => jest.fn(),
+          },
+        },
+      ];
+      const { result } = renderHook(() =>
+        usePlugins(state, activeTab, plugins),
+      );
+      const { pluginAction } = result.current;
+      expect(pluginAction).toBeDefined();
+      expect(pluginAction?.label).toEqual(message);
+    });
   });
 });
 

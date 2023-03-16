@@ -227,6 +227,7 @@ function LinkPicker({
     error,
     retry,
     errorFallback,
+    pluginAction,
   } = usePlugins(queryState, activeTab, plugins);
 
   const fixListHeightProps = useFixHeight(isLoading);
@@ -565,6 +566,7 @@ function LinkPicker({
         isLoading={isLoading}
         isEditing={isEditing}
         onCancel={onCancel}
+        action={pluginAction}
         css={!queryState || !plugins?.length ? formFooterMargin : undefined}
       />
     </form>

@@ -14,6 +14,21 @@ async function getItem(page: Page, itemId: string) {
   return page.$(`[data-testid="item-${itemId}"]`);
 }
 
+/**
+ * Makes the profile pictures invisible.
+ *
+ * Doing this because the SVG profile pictures were causing flakiness in VR.
+ */
+async function hideImagesToAvoidFlakiness(page: Page) {
+  return page.$$eval('img', images => {
+    images.forEach(img => {
+      if (img instanceof HTMLElement) {
+        img.style.opacity = '0';
+      }
+    });
+  });
+}
+
 describe('board', () => {
   const url = getExampleUrl(
     'drag-and-drop',
@@ -27,6 +42,7 @@ describe('board', () => {
     const { page } = global;
     await loadPage(page, url);
     await page.waitForSelector('[draggable="true"]');
+    await hideImagesToAvoidFlakiness(page);
     const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
@@ -38,14 +54,15 @@ describe('board', () => {
 
     await page.waitForSelector('[draggable="true"]');
 
-    const dragHandle = await getColumnHeader(page, 'C');
-    const dropTarget = await getColumnHeader(page, 'B');
+    const dragHandle = await getColumnHeader(page, 'trello');
+    const dropTarget = await getColumnHeader(page, 'jira');
 
     invariant(dragHandle);
     invariant(dropTarget);
 
     await dragHandle.dragAndDrop(dropTarget);
 
+    await hideImagesToAvoidFlakiness(page);
     const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
@@ -57,14 +74,15 @@ describe('board', () => {
 
     await page.waitForSelector('[draggable="true"]');
 
-    const dragHandle = await getItem(page, 'A4');
-    const dropTarget = await getItem(page, 'A0');
+    const dragHandle = await getItem(page, 'Gael');
+    const dropTarget = await getItem(page, 'Alexander');
 
     invariant(dragHandle);
     invariant(dropTarget);
 
     await dragHandle.dragAndDrop(dropTarget);
 
+    await hideImagesToAvoidFlakiness(page);
     const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
@@ -76,14 +94,15 @@ describe('board', () => {
 
     await page.waitForSelector('[draggable="true"]');
 
-    const dragHandle = await getItem(page, 'A0');
-    const dropTarget = await getItem(page, 'B0');
+    const dragHandle = await getItem(page, 'Alexander');
+    const dropTarget = await getItem(page, 'Helena');
 
     invariant(dragHandle);
     invariant(dropTarget);
 
     await dragHandle.dragAndDrop(dropTarget);
 
+    await hideImagesToAvoidFlakiness(page);
     const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });

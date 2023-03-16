@@ -45,7 +45,8 @@ function getTokenValue<T extends keyof Tokens>(
 
   tokenValue = window
     .getComputedStyle(document.documentElement)
-    .getPropertyValue(token);
+    .getPropertyValue(token)
+    .trim();
 
   tokenValue = tokenValue || fallback;
 

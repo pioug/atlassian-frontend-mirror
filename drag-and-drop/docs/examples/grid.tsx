@@ -25,18 +25,23 @@ import { GlobalStyles } from './util/global-styles';
 const itemStyles = css({
   objectFit: 'cover',
   width: '100%',
+  boxSizing: 'border-box',
+  background: token('elevation.surface.raised', '#FFF'),
+  padding: token('space.050', '4px'),
+  borderRadius: token('border.radius.100', '4px'),
+  boxShadow: token('elevation.shadow.raised', 'none'),
   transition: `all ${smallDurationMs}ms ${easeInOut}`,
-  border: `var(--border-width) solid ${token(
-    'color.border.discovery',
-    '#8270DB',
-  )}`,
-  borderRadius: 'var(--border-radius)',
 });
 
 type State = 'idle' | 'dragging' | 'over';
 
 const itemStateStyles: { [Key in State]: undefined | SerializedStyles } = {
-  idle: undefined,
+  idle: css({
+    ':hover': {
+      background: token('elevation.surface.overlay', '#FFF'),
+      boxShadow: token('elevation.shadow.overlay', 'none'),
+    },
+  }),
   dragging: css({
     filter: 'grayscale(0.8)',
   }),

@@ -1,7 +1,7 @@
 {
   "name": "@atlaskit/visually-hidden",
   "version": "1.1.2",
-  "description": "A composable element that hides elements from the screen while keeping them accessible.",
+  "description": "A utility that hides content from the screen while retaining readability by screen readers for accessibility.",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -34,9 +34,13 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
+    "@atlaskit/button": "^16.5.6",
     "@atlaskit/docs": "*",
     "@atlaskit/ds-lib": "^2.0.1",
+    "@atlaskit/section-message": "^6.3.0",
     "@atlaskit/ssr": "*",
+    "@atlaskit/toggle": "^12.5.0",
+    "@atlaskit/tokens": "^1.2.0",
     "@atlaskit/visual-regression": "^0.8.0",
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
@@ -65,6 +69,6 @@
       "deprecation": "no-deprecated-imports"
     }
   },
-  "homepage": "https://atlaskit.atlassian.com/packages/design-system/visually-hidden",
+  "homepage": "https://atlassian.design/components/visually-hidden/",
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

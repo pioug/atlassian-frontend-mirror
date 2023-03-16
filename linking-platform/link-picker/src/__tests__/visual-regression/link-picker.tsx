@@ -341,4 +341,12 @@ describe('link-picker', () => {
     );
     expect(image).toMatchProdImageSnapshot();
   });
+
+  it('should display action button when plugin', async () => {
+    const url = getURL('vr-with-plugin-action');
+    const page = await setup(url);
+
+    const image = await takeElementScreenShot(page, testSelector);
+    expect(image).toMatchProdImageSnapshot();
+  });
 });

@@ -1,4 +1,3 @@
-/* eslint-disable @repo/internal/react/consistent-css-prop-usage */
 /** @jsx jsx */
 import { memo, useEffect, useRef, useState } from 'react';
 
@@ -16,18 +15,19 @@ import {
   dropTargetForElements,
 } from '@atlaskit/drag-and-drop/adapter/element';
 import { combine } from '@atlaskit/drag-and-drop/util/combine';
+import Heading from '@atlaskit/heading';
 import { easeInOut } from '@atlaskit/motion/curves';
 import { mediumDurationMs } from '@atlaskit/motion/durations';
 import { token } from '@atlaskit/tokens';
 
-import { ColumnType } from '../data/tasks';
+import { ColumnType } from '../data/people';
 import { cardGap, columnGap } from '../util/constants';
 
 import { Card } from './card';
 
 const columnStyles = css({
   display: 'flex',
-  width: '250px',
+  width: 250,
   flexDirection: 'column',
   background: token('elevation.surface.sunken', '#F7F8F9'),
   borderRadius: 'calc(var(--grid) * 2)',
@@ -56,11 +56,6 @@ const columnHeaderStyles = css({
   flexDirection: 'row',
   color: token('color.text.subtlest', '#626F86'),
   userSelect: 'none',
-});
-
-const columnHeaderIdStyles = css({
-  color: token('color.text.disabled', '#091E424F'),
-  fontSize: '10px',
 });
 
 const isDraggingOverColumnStyles = css({
@@ -115,10 +110,10 @@ export const Column = memo(function Column({ column }: { column: ColumnType }) {
         onDrag: args => {
           setClosestEdge(extractClosestEdge(args.self.data));
         },
-        onDragLeave: args => {
+        onDragLeave: () => {
           setClosestEdge(null);
         },
-        onDrop: args => {
+        onDrop: () => {
           setClosestEdge(null);
         },
       }),
@@ -135,8 +130,9 @@ export const Column = memo(function Column({ column }: { column: ColumnType }) {
         ref={headerRef}
         data-testid={`column-${columnId}--header`}
       >
-        <h6>{column.title}</h6>
-        <span css={columnHeaderIdStyles}>ID: {column.columnId}</span>
+        <Heading level="h300" as="span">
+          {column.title}
+        </Heading>
       </div>
       <div css={scrollContainerStyles}>
         <div css={cardListStyles} ref={cardListRef}>

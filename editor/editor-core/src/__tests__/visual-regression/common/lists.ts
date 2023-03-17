@@ -32,10 +32,7 @@ import {
   waitForStatusToolbar,
   clickOnStatus,
 } from '@atlaskit/editor-test-helpers/page-objects/status';
-import {
-  waitForDatePicker,
-  clickOnDate,
-} from '@atlaskit/editor-test-helpers/page-objects/date';
+import { clickOnDate } from '@atlaskit/editor-test-helpers/page-objects/date';
 import {
   animationFrame,
   scrollToBottom,
@@ -103,7 +100,6 @@ describe('Lists', () => {
   it('should render date picker on click when its nested inside lists', async () => {
     await initEditor(page, dateAdf);
     await clickOnDate(page);
-    await waitForDatePicker(page);
   });
 
   describe('when restartNumberedLists (custom start numbers in ordered lists) is disabled', () => {

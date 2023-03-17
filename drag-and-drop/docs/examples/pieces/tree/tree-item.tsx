@@ -23,6 +23,7 @@ import {
   dropTargetForElements,
   monitorForElements,
 } from '@atlaskit/drag-and-drop/adapter/element';
+import type { DragLocationHistory } from '@atlaskit/drag-and-drop/types';
 import { combine } from '@atlaskit/drag-and-drop/util/combine';
 import { setCustomNativeDragPreview } from '@atlaskit/drag-and-drop/util/set-custom-native-drag-preview';
 import FocusRing from '@atlaskit/focus-ring';
@@ -191,13 +192,29 @@ const TreeItem = memo(function TreeItem({
   }, []);
 
   const clearReparentingToState = useCallback(() => {
-    setState(current => {
-      if (current === 'reparenting-to') {
-        return 'idle';
-      }
-      return current;
-    });
+    setState(current => (current === 'reparenting-to' ? 'idle' : current));
   }, []);
+
+  const shouldReparent = useCallback(
+    function shouldReparent(location: DragLocationHistory): boolean {
+      const target = location.current.dropTargets[0];
+
+      if (!target) {
+        return false;
+      }
+
+      const instruction = extractInstruction(target.data);
+      if (instruction?.type !== 'reparent') {
+        return false;
+      }
+      const targetId = target.data.id;
+      invariant(typeof targetId === 'string');
+      const path = getPathToItem(targetId);
+      const parentId = path[instruction.desiredLevel - 1];
+      return parentId === item.id;
+    },
+    [getPathToItem, extractInstruction, item],
+  );
 
   useEffect(() => {
     invariant(buttonRef.current);
@@ -295,28 +312,11 @@ const TreeItem = memo(function TreeItem({
         canMonitor: ({ source }) =>
           source.data.uniqueContextId === uniqueContextId,
         onDrag({ location }) {
-          // TODO: tidy up
-          const target = location.current.dropTargets[0];
-
-          if (!target) {
-            clearReparentingToState();
+          if (shouldReparent(location)) {
+            setState('reparenting-to');
             return;
           }
-
-          const instruction = extractInstruction(target.data);
-          if (instruction?.type !== 'reparent') {
-            clearReparentingToState();
-            return;
-          }
-          const targetId = target.data.id;
-          invariant(typeof targetId === 'string');
-          const path = getPathToItem(targetId);
-          const parentId = path[instruction.desiredLevel];
-          if (parentId !== item.id) {
-            clearReparentingToState();
-            return;
-          }
-          setState('reparenting-to');
+          clearReparentingToState();
         },
         onDrop() {
           clearReparentingToState();
@@ -334,6 +334,7 @@ const TreeItem = memo(function TreeItem({
     attachInstruction,
     getPathToItem,
     clearReparentingToState,
+    shouldReparent,
   ]);
 
   useEffect(

@@ -1,3 +1,5 @@
+// eslint-disable-next-line @atlassian/tangerine/import/no-relative-package-imports
+import isProd from '../../../../../services/design-system-docs/src/utils/is-prod';
 import { tokenOrder } from '../../scripts/style-dictionary/sort-tokens';
 import lightTheme from '../../src/artifacts/tokens-raw/atlassian-light';
 import spacingTheme from '../../src/artifacts/tokens-raw/atlassian-spacing';
@@ -122,13 +124,17 @@ const groupTokens = (tokens: TransformedTokenMerged[]): TokenGroup[] => {
     }
   });
 
+  // Sort top-level groups alphabetically
+  groupedTokens.sort((a, b) => {
+    return a.name < b.name ? -1 : 1;
+  });
   return groupedTokens;
 };
 
 const groupedTokens = groupTokens(
   mergeTokens([
     ...(lightTheme as TransformedTokenWithAttributes[]),
-    ...(spacingTheme as TransformedTokenWithAttributes[]),
+    ...(!isProd() ? (spacingTheme as TransformedTokenWithAttributes[]) : []),
   ]),
 );
 

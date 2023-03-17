@@ -108,7 +108,6 @@ describe('Date:', () => {
         await initEditor(page, defaultViewPort, theme, adf);
 
         await clickOnDate(page);
-        await waitForDatePicker(page);
         await snapshot(page);
       });
       it('should focus existing date input on tab press', async () => {
@@ -132,7 +131,6 @@ describe('Date:', () => {
         await initEditor(page, defaultViewPort, theme, adf);
 
         await clickOnDate(page);
-        await waitForDatePicker(page);
         await pressKey(page, 'Tab');
         await page.waitForSelector(dateInputFocused);
         await snapshot(page);
@@ -265,7 +263,6 @@ describe('Date:', () => {
       await pressKey(page, 'Enter');
       await waitForNoDatePicker(page);
       await clickOnDate(page);
-      await waitForDatePicker(page);
 
       await pressKey(page, 'Backspace');
 
@@ -286,7 +283,6 @@ describe('Date:', () => {
       await pressKey(page, 'Enter');
       await waitForNoDatePicker(page);
       await clickOnDate(page);
-      await waitForDatePicker(page);
 
       await pressKeyCombo(page, ['Control', 'KeyX']);
 
@@ -332,7 +328,6 @@ describe('Date:', () => {
         await initEditor(page, defaultViewPort, theme, adf);
 
         await clickOnDate(page);
-        await waitForDatePicker(page);
         await snapshot(page);
       });
 
@@ -357,7 +352,6 @@ describe('Date:', () => {
         await initEditor(page, defaultViewPort, theme, adf);
 
         await clickOnDate(page);
-        await waitForDatePicker(page);
         await snapshot(page);
       });
       it('should dismiss the picker when using keys to navigate away', async () => {
@@ -383,7 +377,6 @@ describe('Date:', () => {
         await initEditor(page, viewport, theme, adf);
 
         await clickOnDate(page);
-        await waitForDatePicker(page);
         await snapshot(page);
         await pressKey(page, 'ArrowRight');
         await animationFrame(page);
@@ -414,8 +407,6 @@ describe('Date:', () => {
         await animationFrame(page);
 
         await clickOnDate(page);
-        await animationFrame(page);
-        await waitForDatePicker(page);
         await snapshot(page, undefined, undefined, {
           captureBeyondViewport: false,
         });
@@ -457,7 +448,6 @@ describe('Date:', () => {
         await initEditor(page, viewport, theme, adf);
 
         await clickOnDate(page);
-        await waitForDatePicker(page);
 
         // With tolerance of 0.001 it passes even if date not mocked
         await snapshot(page, { tolerance: 0.0005 });

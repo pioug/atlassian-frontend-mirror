@@ -1,5 +1,11 @@
 # @atlaskit/media-card
 
+## 74.6.1
+
+### Patch Changes
+
+- [`489f7b32ff6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/489f7b32ff6) - Fixed broken SSR error handling logic when the preview url fails to load
+
 ## 74.6.0
 
 ### Minor Changes

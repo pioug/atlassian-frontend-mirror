@@ -498,6 +498,66 @@ describe('Media Card', () => {
       expect(mediaCard.state('wasResolvedUpfrontPreview')).toBe(true);
     });
 
+    it('resolves the preview upfront if ssr is client and the preview failed to load', async () => {
+      const expectedPreview = filePreviews.remote;
+      fetchAndCacheRemotePreview.mockResolvedValue(expectedPreview);
+      getSSRCardPreview.mockReturnValueOnce(filePreviews.ssrClient);
+
+      const mediaCard = shallow(
+        <CardBase
+          mediaClient={fakeMediaClient()}
+          identifier={indentifiers.file}
+          ssr={'client'}
+        />,
+      );
+      // Card must be visible
+      mediaCard.setState({ isCardVisible: true });
+
+      expect(mediaCard.state('cardPreview')).toBe(filePreviews.ssrClient);
+
+      const cardView = mediaCard.find(CardView);
+      const onImageError = cardView.prop('onImageError');
+      expect(onImageError).toEqual(expect.any(Function));
+      onImageError(filePreviews.ssrClient);
+
+      // Notice that fetchAndCacheRemotePreview is called twice.
+      // The first call is from setCacheSSRPreview. Though, this call should be performed only from onImageLoad
+      // -> TODO: change this behaviour
+      expect(fetchAndCacheRemotePreview).toBeCalledTimes(2);
+
+      await flushPromises();
+      expect(mediaCard.state('isCardVisible')).toBe(true);
+      expect(mediaCard.state('cardPreview')).toBe(expectedPreview);
+      // this flag must be set to true
+      expect(mediaCard.state('wasResolvedUpfrontPreview')).toBe(true);
+    });
+
+    it('does not resolve the preview upfront if ssr is client, has no preview and card is not visible', async () => {
+      getSSRCardPreview.mockImplementationOnce(() => {
+        throw new Error();
+      });
+
+      const mediaCard = shallow(
+        <CardBase
+          mediaClient={fakeMediaClient()}
+          identifier={indentifiers.file}
+          ssr={'client'}
+        />,
+      );
+
+      await flushPromises();
+      expect(mediaCard.state('cardPreview')).toBe(undefined);
+      expect(mediaCard.state('isCardVisible')).toBe(false);
+
+      // Setting state to trigger a component update
+      mediaCard.setState({ isCardVisible: false });
+      await flushPromises();
+      expect(getSSRCardPreview).toBeCalledTimes(1);
+      expect(fetchAndCacheRemotePreview).toBeCalledTimes(0);
+      expect(mediaCard.state('cardPreview')).toBe(undefined);
+      expect(mediaCard.state('wasResolvedUpfrontPreview')).toBe(false);
+    });
+
     it('does not resolve the preview upfront if card turned visible and has preview', async () => {
       getCardPreviewFromCache.mockReturnValueOnce(filePreviews.cachedRemote);
 
@@ -1262,6 +1322,28 @@ describe('Media Card', () => {
         expect(mediaCard.state('status')).not.toBe('error');
       },
     );
+
+    it(`should not set status 'error' if onImageError is called when source is ssr-client`, () => {
+      getSSRCardPreview.mockReturnValueOnce(filePreviews.ssrClient);
+      const mediaCard = shallow(
+        <CardBase
+          mediaClient={fakeMediaClient()}
+          identifier={indentifiers.file}
+          ssr={'client'}
+        />,
+      );
+      expect(mediaCard.state('cardPreview')).toBe(filePreviews.ssrClient);
+      const cardView = mediaCard.find(CardView);
+      const onImageError = cardView.prop('onImageError');
+      expect(onImageError).toEqual(expect.any(Function));
+      onImageError(filePreviews.ssrClient);
+      expect(mediaCard.state('status')).not.toBe('error');
+      // Should be removed from cache based on the Id & passed dimensions
+      expect(removeCardPreviewFromCache).toBeCalledWith(
+        indentifiers.file.id,
+        defaultMode,
+      );
+    });
 
     it.each([
       [filePreviews.local.source, filePreviews.local],

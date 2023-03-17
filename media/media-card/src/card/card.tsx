@@ -257,7 +257,8 @@ export class CardBase extends Component<CardBaseProps, CardState> {
       identifier: prevIdentifier,
       dimensions: prevDimensions,
     } = prevProps;
-    const { isCardVisible: prevIsCardVisible } = prevState;
+    const { isCardVisible: prevIsCardVisible, cardPreview: prevCardPreview } =
+      prevState;
     const {
       mediaClient,
       identifier,
@@ -266,6 +267,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
       useInlinePlayer,
       disableOverlay,
       resizeMode,
+      ssr,
     } = this.props;
     const {
       isCardVisible,
@@ -292,6 +294,9 @@ export class CardBase extends Component<CardBaseProps, CardState> {
      * ----------------------------------------------------
      */
     const turnedVisible = !prevIsCardVisible && isCardVisible;
+    const hadSSRCardPreview =
+      !!prevCardPreview && isSSRClientPreview(prevCardPreview) && !cardPreview;
+
     const isNewMediaClient = prevMediaClient !== mediaClient;
     const fileImageMode = imageResizeModeToFileImageMode(resizeMode);
 
@@ -328,11 +333,13 @@ export class CardBase extends Component<CardBaseProps, CardState> {
 
     if (
       isFileIdentifier(identifier) &&
-      turnedVisible &&
+      (turnedVisible || (ssr === 'client' && hadSSRCardPreview)) &&
       !cardPreview &&
       !wasResolvedUpfrontPreview
     ) {
-      // This is a one-off call, only meant to happen when turnedVisible = true (only once in the component's lifecycle)
+      // This is a one-off call, only meant to happen once in the component's lifecycle. Mainly when either:
+      // - turnedVisible = true
+      // - ssr = client and has no preview (the dataURI failed to load in the previous state, most likely because of an initial auth issue)
       this.resolveUpfrontPreview(identifier);
     } else if (
       isFileIdentifier(identifier) &&

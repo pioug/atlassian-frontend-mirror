@@ -56,7 +56,8 @@ import {
   handlePasteLinkOnSelectedTextWithAnalytics,
   sendPasteAnalyticsEvent,
   handlePasteIntoCaptionWithAnalytics,
-  handlePastePanelIntoListWithAnalytics,
+  handlePastePanelOrDecisionIntoListWithAnalytics,
+  handlePasteNonNestableBlockNodesIntoListWithAnalytics,
 } from './analytics';
 import {
   analyticsPluginKey,
@@ -91,6 +92,7 @@ import { pluginKey as stateKey, createPluginState } from './plugin-factory';
 export { pluginKey as stateKey } from './plugin-factory';
 export { md } from '../md';
 import type { Dispatch } from '../../../event-dispatcher';
+import { getFeatureFlags } from '../../feature-flags-context';
 
 export function createPlugin(
   schema: Schema,
@@ -108,9 +110,19 @@ export function createPlugin(
     openEnd: number,
   ): Slice | undefined {
     let textInput: string = text;
-    if (textInput.includes('\\')) {
-      textInput = textInput.replace(/\\/g, '\\\\');
+
+    const textSplitByCodeBlock = textInput.split(/```/);
+
+    for (let i = 0; i < textSplitByCodeBlock.length; i++) {
+      if (i % 2 === 0) {
+        textSplitByCodeBlock[i] = textSplitByCodeBlock[i].replace(
+          /\\/g,
+          '\\\\',
+        );
+      }
     }
+
+    textInput = textSplitByCodeBlock.join('```');
 
     const doc = atlassianMarkDownParser.parse(escapeLinks(textInput));
     if (doc && doc.content) {
@@ -541,9 +553,21 @@ export function createPlugin(
           ) {
             return true;
           }
+          const featureFlags = getFeatureFlags(state);
 
           if (
-            handlePastePanelIntoListWithAnalytics(
+            handlePastePanelOrDecisionIntoListWithAnalytics(
+              view,
+              event,
+              slice,
+            )(state, dispatch)
+          ) {
+            return true;
+          }
+
+          if (
+            featureFlags?.restartNumberedLists &&
+            handlePasteNonNestableBlockNodesIntoListWithAnalytics(
               view,
               event,
               slice,

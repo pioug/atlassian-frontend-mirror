@@ -48,6 +48,11 @@ export const messages = defineMessages({
     description:
       'Title text for confirm modal when deleting an extension linked to a data consumer.',
   },
+  unnamedSource: {
+    id: 'fabric.editor.extension.sourceNoTitledName',
+    defaultMessage: 'this element',
+    description: 'The current element without preset name been selected',
+  },
   confirmDeleteLinkedModalOKButton: {
     id: 'fabric.editor.extension.confirmDeleteLinkedModalOKButton',
     defaultMessage: 'Delete',
@@ -198,13 +203,15 @@ export const getToolbarConfig =
       let confirmDialog;
       if (isReferencedSource(state, extensionObj?.node)) {
         confirmDialog = (): ConfirmDialogOptions => {
+          const localSourceName = formatMessage(messages.unnamedSource);
           return {
             title: formatMessage(messages.deleteElementTitle),
             okButtonLabel: formatMessage(
               messages.confirmDeleteLinkedModalOKButton,
             ),
             message: formatMessage(messages.confirmDeleteLinkedModalMessage, {
-              nodeName: getNodeName(state, extensionObj?.node),
+              nodeName:
+                getNodeName(state, extensionObj?.node) || localSourceName,
             }),
             isReferentialityDialog: true,
             getChildrenInfo: () => getChildrenInfo(state, extensionObj?.node),

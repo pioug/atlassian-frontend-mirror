@@ -34,6 +34,7 @@ import {
   CreateUrlOptions,
 } from '../../utils/request/types';
 import { resolveAuth, resolveInitialAuth } from './resolveAuth';
+import { DeprecatedError } from '../../utils/deprecatedEndpointError';
 
 export type { MediaStoreErrorReason, MediaStoreErrorAttributes } from './error';
 export { MediaStoreError, isMediaStoreError } from './error';
@@ -45,11 +46,6 @@ const defaultImageOptions: MediaStoreGetFileImageParams = {
   'max-age': FILE_CACHE_MAX_AGE,
   allowAnimated: true,
   mode: 'crop',
-};
-
-const defaultGetCollectionItems: MediaStoreGetCollectionItemsParams = {
-  limit: 30,
-  sortDirection: 'desc',
 };
 
 const extendImageParams = (
@@ -74,52 +70,16 @@ export class MediaStore {
     readonly featureFlags?: MediaFeatureFlags,
   ) {}
 
+  /**
+   * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-170 Internal documentation for deprecation (no external access)}
+   * This method is no longer working. Will be removed in the next release
+   */
   async getCollectionItems(
     collectionName: string,
     params?: MediaStoreGetCollectionItemsParams,
     traceContext?: MediaTraceContext,
   ): Promise<MediaStoreResponse<MediaCollectionItems>> {
-    const metadata: RequestMetadata = {
-      method: 'GET',
-      endpoint: '/collection/{collectionName}/items',
-    };
-
-    const options: MediaStoreRequestOptions = {
-      ...metadata,
-      authContext: { collectionName },
-      params: {
-        ...defaultGetCollectionItems,
-        ...params,
-      },
-      headers: {
-        Accept: 'application/json',
-      },
-      traceContext,
-    };
-
-    const response = await this.request(
-      `/collection/${collectionName}/items`,
-      options,
-    );
-
-    const {
-      data: { contents, nextInclusiveStartKey },
-    }: MediaStoreResponse<MediaCollectionItems> = await createMapResponseToJson(
-      metadata,
-    )(response);
-
-    // [TODO] MS-705: remove after backend adds filter
-    // This prevents showing "ghost" files in recents
-    const contentsWithoutEmptyFiles = contents.filter(
-      (item) => item.details.size && item.details.size > 0,
-    );
-
-    return {
-      data: {
-        contents: contentsWithoutEmptyFiles,
-        nextInclusiveStartKey,
-      },
-    };
+    throw new DeprecatedError('collection/:name/items');
   }
 
   async removeCollectionFile(

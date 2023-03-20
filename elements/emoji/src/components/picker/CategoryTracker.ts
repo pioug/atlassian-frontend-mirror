@@ -1,5 +1,5 @@
 import { CategoryId } from './categories';
-import { VirtualList } from './VirtualList';
+import { ListRef } from './VirtualList';
 
 /**
  * Mapping between CategoryId and row
@@ -33,7 +33,7 @@ export default class CategoryTracker {
 
   findNearestCategoryAbove(
     startIndex: number,
-    list?: VirtualList,
+    list?: ListRef | null,
   ): CategoryId | undefined {
     const rows = Array.from(this.rowToCategory.keys()).sort((a, b) => a - b);
     if (rows.length === 0) {

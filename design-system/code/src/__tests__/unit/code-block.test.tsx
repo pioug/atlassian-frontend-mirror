@@ -101,14 +101,7 @@ describe('CodeBlock', () => {
 
     longCode.split('\n').forEach((line, index) => {
       const lineNum = index + 1;
-      // NOTE: this behaviour is actually something that we want to change moving
-      // forward — the textContent being lineNum + line is something that is very
-      // frustrating for users, because copying code also copies the line number.
-      // Just a heads up that this is a test we can break & re-write.
-      // see https://product-fabric.atlassian.net/browse/DSP-2729
-      expect(findCodeLine(rendered, lineNum).textContent?.trim()).toEqual(
-        lineNum + line,
-      );
+      expect(findCodeLine(rendered, lineNum).textContent?.trim()).toEqual(line);
     });
   });
 
@@ -168,6 +161,25 @@ describe('CodeBlock', () => {
       expect(
         container.querySelectorAll('[data-ds--code--row--highlight]'),
       ).toHaveLength(6);
+    });
+  });
+
+  describe('Tokenised class names are rendered correctly', () => {
+    it('should handle multiple combinations of up to 4 token classes', () => {
+      const { getByText } = render(
+        <CodeBlock
+          text="console.log('hi')"
+          testId={testId}
+          language="ts"
+          showLineNumbers={true}
+        />,
+      );
+
+      expect(getByText('console')).toHaveClass('token console class-name');
+      expect(getByText('.')).toHaveClass('token punctuation');
+      expect(getByText('log')).toHaveClass(
+        'token method function property-access',
+      );
     });
   });
 });

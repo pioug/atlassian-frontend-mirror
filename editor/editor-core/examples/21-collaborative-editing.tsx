@@ -7,7 +7,7 @@ import React, { Fragment } from 'react';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
 
-import Editor from './../src/editor';
+import { EditorMigrationComponent as Editor } from './../src';
 import EditorContext from './../src/ui/EditorContext';
 import { LOCALSTORAGE_defaultTitleKey } from './5-full-page';
 import WithEditorActions from './../src/ui/WithEditorActions';
@@ -159,9 +159,14 @@ export default class Example extends React.Component<Props, State> {
     // Enable the debug log
     (window as any).COLLAB_PROVIDER_LOGGER = true;
 
+    const docAriRegex = new RegExp('^ari:cloud:confluence');
+    const incomingDocAri = docAriRegex.test(documentId)
+      ? documentId
+      : `ari:cloud:confluence:collab-test:blog/${documentId}`;
+
     const collabProvider = createSocketIOCollabProvider({
       url: collabUrl,
-      documentAri: `ari:cloud:confluence:collab-test:blog/${documentId}`,
+      documentAri: incomingDocAri,
       productInfo: {
         product: 'editor-core example',
         subProduct: 'collab provider example',

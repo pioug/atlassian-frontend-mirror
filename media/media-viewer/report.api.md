@@ -55,17 +55,19 @@ export interface MediaViewerProps {
   readonly collectionName: string;
   // (undocumented)
   readonly contextId?: string;
-  // (undocumented)
-  readonly dataSource: MediaViewerDataSource;
+  // @deprecated
+  readonly dataSource?: MediaViewerDataSource;
   // (undocumented)
   readonly extensions?: MediaViewerExtensions;
   // (undocumented)
   readonly featureFlags?: MediaFeatureFlags;
   // (undocumented)
+  readonly items?: Array<Identifier>;
+  // (undocumented)
   readonly mediaClient: MediaClient;
   // (undocumented)
   readonly onClose?: () => void;
-  // (undocumented)
+  // @deprecated
   readonly pageSize?: number;
   // (undocumented)
   readonly selectedItem: Identifier;

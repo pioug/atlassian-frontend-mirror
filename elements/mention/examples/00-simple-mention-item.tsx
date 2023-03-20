@@ -13,7 +13,9 @@ export default function Example() {
   const description = 'Simple mention item with no nickname or avatar';
   const component = (
     <IntlProvider locale="en">
-      <MentionItem mention={mention} onSelection={onSelection} />
+      <div data-testid="vr-tested">
+        <MentionItem mention={mention} onSelection={onSelection} />
+      </div>
     </IntlProvider>
   );
 

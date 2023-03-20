@@ -1,6 +1,6 @@
 import { MarkSpec, Mark } from 'prosemirror-model';
 import { LINK } from '../groups';
-import { isSafeUrl, normalizeUrl } from '../../utils/url';
+import { isRootRelative, isSafeUrl, normalizeUrl } from '../../utils/url';
 
 export interface ConfluenceLinkMetadata {
   linkType: string;
@@ -45,12 +45,16 @@ const getLinkAttrs = (attribute: string) => (domNode: Node | string) => {
       : undefined,
   };
 
-  if (isSafeUrl(href)) {
-    attrs.href = normalizeUrl(href);
-  } else {
+  if (!isSafeUrl(href)) {
     return false;
   }
 
+  if (isRootRelative(href)) {
+    attrs.href = href;
+    return attrs;
+  }
+
+  attrs.href = normalizeUrl(href);
   return attrs;
 };
 

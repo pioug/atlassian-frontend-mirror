@@ -1,0 +1,198 @@
+jest.autoMockOff();
+
+import { createTransformer } from '@atlaskit/codemod-utils';
+
+import { changeWrappedToRenderProp } from '../migrates/change-wrapped-to-render-prop';
+
+// This stays as require() since changing to import will trigger a linter error
+const { defineInlineTest } = require('jscodeshift/dist/testUtils');
+
+const transformer = createTransformer([changeWrappedToRenderProp]);
+
+describe('Modify Tooltips that use wrapped children to use the render prop API instead', () => {
+  defineInlineTest(
+    { default: transformer, parser: 'tsx' },
+    {},
+    `
+    import React from 'react';
+
+    import Button from '@atlaskit/button/standard-button';
+
+    import Tooltip from '../src';
+
+    export default () => (
+      <Tooltip content="Hello World">
+        {(tooltipProps) => <Button {...tooltipProps}>Hover Over Me</Button>}
+      </Tooltip>
+    );
+    `, // -----
+    `
+    import React from 'react';
+
+    import Button from '@atlaskit/button/standard-button';
+
+    import Tooltip from '../src';
+
+    export default () => (
+      <Tooltip content="Hello World">
+        {(tooltipProps) => <Button {...tooltipProps}>Hover Over Me</Button>}
+      </Tooltip>
+    );
+    `, // -----
+    'do nothing if already using the render prop API',
+  );
+
+  defineInlineTest(
+    { default: transformer, parser: 'tsx' },
+    {},
+    `
+    import React from 'react';
+
+    import Button from '@atlaskit/button/standard-button';
+
+    import Tooltip from '../src';
+
+    export default () => (
+      <Tooltip content="Hello World">
+        <Button>Hover Over Me</Button>
+      </Tooltip>
+    );
+    `, // -----
+    `
+    import React from 'react';
+
+    import Button from '@atlaskit/button/standard-button';
+
+    import Tooltip from '../src';
+
+    export default () => (
+      <Tooltip content="Hello World">
+        {(tooltipProps) => <Button {...tooltipProps}>Hover Over Me</Button>}
+      </Tooltip>
+    );
+    `, // -----
+    'modifies Tooltip that is using wrapped children to use the render prop API',
+  );
+
+  defineInlineTest(
+    { default: transformer, parser: 'tsx' },
+    {},
+    `
+    import React from 'react';
+
+    import Button from '@atlaskit/button/standard-button';
+
+    import Tooltip from '../src';
+
+    export default () => (
+      <Tooltip content="Hello World">
+        <Button exampleProp="test">Hover Over Me</Button>
+      </Tooltip>
+    );
+    `, // -----
+    `
+    import React from 'react';
+
+    import Button from '@atlaskit/button/standard-button';
+
+    import Tooltip from '../src';
+
+    export default () => (
+      <Tooltip content="Hello World">
+        {(tooltipProps) => <Button {...tooltipProps} exampleProp="test">Hover Over Me</Button>}
+      </Tooltip>
+    );
+    `, // -----
+    'does not alter existing props on the target element',
+  );
+
+  defineInlineTest(
+    { default: transformer, parser: 'tsx' },
+    {},
+    `
+    import React from 'react';
+
+    import Button from '@atlaskit/button/standard-button';
+
+    import Tooltip from '../src';
+
+    export default () => (
+      <Tooltip content="Hello World">
+        <Button>
+          <span>💸</span>
+        </Button>
+      </Tooltip>
+    );
+    `, // -----
+    `
+    import React from 'react';
+
+    import Button from '@atlaskit/button/standard-button';
+
+    import Tooltip from '../src';
+
+    export default () => (
+      <Tooltip content="Hello World">
+        {(tooltipProps) => <Button {...tooltipProps}>
+          <span>💸</span>
+        </Button>}
+      </Tooltip>
+    );
+    `, // -----
+    'does not alter nested children on the target element',
+  );
+
+  defineInlineTest(
+    { default: transformer, parser: 'tsx' },
+    {},
+    `
+    import React from 'react';
+
+    import Button from '@atlaskit/button/standard-button';
+
+    import Tooltip from '../src';
+
+    export default () => <Tooltip content="Hello World" />;
+    `, // -----
+    `
+    import React from 'react';
+
+    import Button from '@atlaskit/button/standard-button';
+
+    import Tooltip from '../src';
+
+    export default () => <Tooltip content="Hello World" />;
+    `, // -----
+    'does nothing with a badly formed Tooltip component',
+  );
+
+  defineInlineTest(
+    { default: transformer, parser: 'tsx' },
+    {},
+    `
+    import React from 'react';
+
+    import Button from '@atlaskit/button/standard-button';
+
+    import Tooltip from '../src';
+
+    export default () => (
+      <Tooltip content="Hello World">Test</Tooltip>
+    );
+    `, // -----
+    `
+    import React from 'react';
+
+    import Button from '@atlaskit/button/standard-button';
+
+    import Tooltip from '../src';
+
+    export default () => (
+      <Tooltip content="Hello World">{(tooltipProps) => <span {...tooltipProps}>Test</span>}</Tooltip>
+    );
+    `, // -----
+    'adds a span to wrapped bare text nodes',
+  );
+
+  // converts custom tags on the wrapped method into elements with props passed in
+});

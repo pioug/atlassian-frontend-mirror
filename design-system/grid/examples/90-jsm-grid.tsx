@@ -1,17 +1,16 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 
-import {
-  UNSAFE_Box as Box,
-  UNSAFE_Inline as Inline,
-  UNSAFE_Stack as Stack,
-} from '@atlaskit/ds-explorations';
+import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
 import Heading from '@atlaskit/heading';
 import { JiraServiceManagementLogo } from '@atlaskit/logo';
+import Inline from '@atlaskit/primitives/inline';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import {
   UNSAFE_BREAKPOINTS_CONFIG,
   UNSAFE_buildAboveMediaQueryCSS,
 } from '@atlaskit/primitives/responsive';
+import Stack from '@atlaskit/primitives/stack';
 import Textfield from '@atlaskit/textfield';
 import { useThemeObserver } from '@atlaskit/tokens';
 
@@ -60,7 +59,7 @@ const JSMGrid = () => {
         >
           <Grid maxWidth="wide">
             <GridItem start={{ md: 3 }} span={{ md: 8 }}>
-              <Stack gap="space.200" alignItems="center">
+              <Stack space="200" alignInline="center">
                 <Heading
                   level="h700"
                   color={theme === 'light' ? 'inverse' : 'default'}
@@ -78,10 +77,10 @@ const JSMGrid = () => {
         </Box>
       </Box>
       <Box css={dynamicSizedVerticalPaddingStyles} justifyContent="center">
-        <Stack gap="space.800">
+        <Stack space="800">
           <Grid maxWidth="wide">
             <GridItem span={{ sm: 6, md: 4 }}>
-              <Stack gap="space.300">
+              <Stack space="300">
                 <JSMConfigCard title="Design Collection">
                   <IconLink>Join Figma support slack channel</IconLink>
                   <IconLink>Join Figma support slack channel</IconLink>
@@ -90,7 +89,7 @@ const JSMGrid = () => {
               </Stack>
             </GridItem>
             <GridItem span={{ sm: 6, md: 4 }}>
-              <Stack gap="space.300">
+              <Stack space="300">
                 <JSMConfigCard title="New hire basics" />
                 <JSMConfigCard title="Payroll">
                   <IconLink>Join Figma support slack channel</IconLink>
@@ -104,7 +103,7 @@ const JSMGrid = () => {
           </Grid>
           <Grid maxWidth="wide">
             <GridItem>
-              <Inline justifyContent="space-between" gap="space.0">
+              <Inline spread="space-between" space="0">
                 <Heading level="h800" as="h2">
                   Featured service desks
                 </Heading>
@@ -140,7 +139,7 @@ const JSMGrid = () => {
           </Grid>
           <Grid maxWidth="wide">
             <GridItem>
-              <Inline justifyContent="space-between" gap="space.0">
+              <Inline spread="space-between" space="0">
                 <Heading level="h800" as="h2">
                   Recently used forms
                 </Heading>

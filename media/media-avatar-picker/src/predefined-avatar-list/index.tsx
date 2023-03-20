@@ -5,7 +5,7 @@ import { PureComponent } from 'react';
 import { AvatarList, Avatar } from '../avatar-list';
 
 import EditorMoreIcon from '@atlaskit/icon/glyph/editor/more';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button';
 import { predefinedAvatarsWrapperStyles } from './styles';
 
 interface ShowMoreButtonProps {
@@ -18,7 +18,8 @@ class ShowMoreButton extends PureComponent<ShowMoreButtonProps, {}> {
     return (
       <Button
         className="show-more-button"
-        iconAfter={<EditorMoreIcon label="" size="large" />}
+        appearance="subtle"
+        iconAfter={<EditorMoreIcon label="Show More" size="large" />}
         onClick={this.props.onClick}
       />
     );

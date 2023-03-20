@@ -24,6 +24,11 @@ export const getAnalyticsAppearance = (
   }
 };
 
+export const getAnalyticsEditorAppearance = (editorAppearance?: string) =>
+  editorAppearance
+    ? `editor_${getAnalyticsAppearance(editorAppearance)}`
+    : '_unknown';
+
 export const getAnalyticsEventSeverity = (
   duration: number,
   normalThreshold: number,

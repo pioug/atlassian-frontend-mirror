@@ -1,5 +1,4 @@
 import React from 'react';
-import assert from 'assert';
 import { EditorView } from 'prosemirror-view';
 
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
@@ -133,23 +132,6 @@ describe('Media plugin', () => {
       pluginKey: mediaPluginKey,
       createAnalyticsEvent,
     });
-  };
-
-  const getNodePos = (
-    pluginState: MediaPluginState,
-    id: string,
-    isMediaSingle: boolean,
-  ) => {
-    const mediaNodeWithPos = isMediaSingle
-      ? pluginState.findMediaNode(id)
-      : pluginState.mediaGroupNodes[id];
-
-    assert(
-      mediaNodeWithPos,
-      `Media node with id "${id}" has not been mounted yet`,
-    );
-
-    return mediaNodeWithPos!.getPos();
   };
 
   afterAll(() => {
@@ -635,10 +617,11 @@ describe('Media plugin', () => {
         ),
       );
 
-      const pos = getNodePos(pluginState, deletingMediaNodeId, false);
+      const positionOfFirstMediaNode = 1;
+
       pluginState.handleMediaNodeRemoval(
         deletingMediaNode(editorView.state.schema),
-        () => pos,
+        () => positionOfFirstMediaNode,
       );
 
       expect(editorView.state.doc).toEqualDocument(

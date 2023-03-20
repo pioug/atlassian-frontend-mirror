@@ -12,7 +12,7 @@ import {
   createEditorExampleForTests,
   mapProvidersToProps,
 } from '../example-helpers/create-editor-example-for-tests';
-import { Editor, ContextPanel } from '../src';
+import { EditorMigrationComponent as Editor, ContextPanel } from '../src';
 import { SaveAndCancelButtons } from './5-full-page';
 import { TitleInput } from '../example-helpers/PageElements';
 import { getDefaultLinkPickerOptions } from '../example-helpers/link-picker';

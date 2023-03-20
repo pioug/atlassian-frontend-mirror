@@ -22,6 +22,22 @@ describe('Snapshot Test', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
+  it('Loading Button appearance should match snapshot', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'button',
+      'vr-loading-button-appearances',
+      global.__BASEURL__,
+    );
+    const { page } = global;
+    await loadPage(page, url, { allowedSideEffects: { animation: true } });
+    // Wait for page content
+    await waitForElementCount(page, 'button[type="button"]', 21);
+    await waitForElementCount(page, 'button[type="button"][disabled]', 7);
+    const image = await page.screenshot();
+    expect(image).toMatchProdImageSnapshot();
+  });
+
   it('focus should match snapshot', async () => {
     const url = getExampleUrl(
       'design-system',

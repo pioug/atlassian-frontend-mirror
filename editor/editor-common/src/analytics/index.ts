@@ -112,6 +112,8 @@ export type {
   UnlinkToolbarAEP,
   ViewedCreateLinkInlineDialogAEP,
   FireAnalyticsCallback,
+  FireAnalyticsEvent,
+  FireAnalyticsEventPayload,
   InitialiseFragmentMarksAEP,
   ConnectedNodesAEP,
   DisconnectedSourceAEP,
@@ -122,3 +124,5 @@ export type {
   UpdatedTargetAEP,
 } from './types';
 export type { EditorAnalyticsAPI } from './api';
+export { fireAnalyticsEvent } from './fire-analytics-event';
+export { getAnalyticsEventsFromTransaction } from './utils';

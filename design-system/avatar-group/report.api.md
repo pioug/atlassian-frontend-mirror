@@ -102,7 +102,6 @@ export interface AvatarGroupProps {
 // @public (undocumented)
 export type AvatarProps = AvatarPropTypes & {
   name: string;
-  enableTooltip?: boolean;
   key?: number | string;
 };
 

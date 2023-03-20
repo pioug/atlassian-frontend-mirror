@@ -119,12 +119,14 @@ export class BlockCard extends ReactNodeView<BlockCardNodeViewProps> {
   }
 
   render() {
+    const { platform } = this.reactComponentProps;
+
     return (
       <WrappedBlockCard
         node={this.node}
         view={this.view}
         getPos={this.getPos}
-        platform={this.reactComponentProps.platform}
+        platform={platform}
       />
     );
   }

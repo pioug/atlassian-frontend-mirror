@@ -23,8 +23,9 @@ import { InlineCommentView } from './ui/InlineCommentView';
 
 const annotationPlugin: NextEditorPlugin<
   'annotation',
-  never,
-  AnnotationProviders | undefined
+  {
+    pluginConfiguration: AnnotationProviders | undefined;
+  }
 > = (annotationProviders?) => {
   return {
     name: 'annotation',

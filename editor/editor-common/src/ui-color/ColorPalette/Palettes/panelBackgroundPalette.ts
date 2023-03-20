@@ -1,6 +1,7 @@
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { colors } from '@atlaskit/theme';
+import { token } from '@atlaskit/tokens';
 
 import { darkPanelColors } from '../../../panel';
 
@@ -35,7 +36,7 @@ export const panelBackgroundPalette: PaletteColor[] = [
   { label: 'Dark purple', value: colors.P100 },
 ].map((color) => ({
   ...color,
-  border: DEFAULT_BORDER_COLOR,
+  border: token('color.border', DEFAULT_BORDER_COLOR),
 }));
 /* eslint-enable @atlaskit/design-system/ensure-design-token-usage */
 

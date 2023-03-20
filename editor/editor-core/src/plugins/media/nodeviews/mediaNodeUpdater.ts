@@ -24,9 +24,9 @@ import {
 import { MediaOptions } from '../types';
 import {
   replaceExternalMedia,
-  updateAllMediaNodesAttrs,
+  updateAllMediaSingleNodesAttrs,
   updateCurrentMediaNodeAttrs,
-  updateMediaNodeAttrs,
+  updateMediaSingleNodeAttrs,
 } from '../commands/helpers';
 import { ProsemirrorGetPosHandler } from '../../../nodeviews';
 import { MediaTraceContext } from '@atlaskit/media-common';
@@ -57,7 +57,7 @@ export class MediaNodeUpdater {
   }
 
   // Updates the node with contextId if it doesn't have one already
-  // TODO [MS-2258]: remove updateContextId in order to only use updateFileAttrs
+  // TODO [MS-2258]: remove updateContextId in order to only use updateMediaSingleFileAttrs
   updateContextId = async () => {
     const attrs = this.getAttrs();
     if (!attrs || attrs.type !== 'file') {
@@ -67,12 +67,27 @@ export class MediaNodeUpdater {
     const { id } = attrs;
     const objectId = await this.getObjectId();
 
-    updateAllMediaNodesAttrs(
-      id,
+    updateAllMediaSingleNodesAttrs(id, {
+      __contextId: objectId,
+    })(this.props.view.state, this.props.view.dispatch);
+  };
+
+  updateNodeContextId = async (getPos: ProsemirrorGetPosHandler) => {
+    const attrs = this.getAttrs();
+    if (attrs?.type !== 'file') {
+      return;
+    }
+
+    const objectId = await this.getObjectId();
+
+    updateCurrentMediaNodeAttrs(
       {
         __contextId: objectId,
       },
-      this.props.isMediaSingle,
+      {
+        node: this.props.node,
+        getPos,
+      },
     )(this.props.view.state, this.props.view.dispatch);
   };
 
@@ -131,15 +146,14 @@ export class MediaNodeUpdater {
     return newAttrs;
   };
 
-  updateFileAttrs = async (isMediaSingle: boolean = true) => {
+  updateMediaSingleFileAttrs = async () => {
     const newAttrs = await this.getNewFileAttrsForNode();
     const { id } = this.getAttrs() as MediaAttributes;
     if (id && newAttrs) {
-      updateAllMediaNodesAttrs(
-        id,
-        newAttrs,
-        isMediaSingle,
-      )(this.props.view.state, this.props.view.dispatch);
+      updateAllMediaSingleNodesAttrs(id, newAttrs)(
+        this.props.view.state,
+        this.props.view.dispatch,
+      );
     }
   };
 
@@ -221,14 +235,10 @@ export class MediaNodeUpdater {
   };
 
   updateDimensions = (dimensions: RemoteDimensions) => {
-    updateAllMediaNodesAttrs(
-      dimensions.id,
-      {
-        height: dimensions.height,
-        width: dimensions.width,
-      },
-      true,
-    )(this.props.view.state, this.props.view.dispatch);
+    updateAllMediaSingleNodesAttrs(dimensions.id, {
+      height: dimensions.height,
+      width: dimensions.width,
+    })(this.props.view.state, this.props.view.dispatch);
   };
 
   async getRemoteDimensions(): Promise<false | RemoteDimensions> {
@@ -381,62 +391,99 @@ export class MediaNodeUpdater {
     })(this.props.view.state, this.props.view.dispatch);
   };
 
+  // Copies the pasted node into the current collection using a getPos handler
+  copyNodeFromPos = async (
+    getPos: ProsemirrorGetPosHandler,
+    traceContext?: MediaTraceContext,
+  ) => {
+    const attrs = this.getAttrs();
+    if (attrs?.type !== 'file') {
+      return;
+    }
+
+    const copiedAttrs = await this.copyFile(
+      attrs.id,
+      attrs.collection,
+      traceContext,
+    );
+    if (!copiedAttrs) {
+      return;
+    }
+
+    updateCurrentMediaNodeAttrs(copiedAttrs, {
+      node: this.props.node,
+      getPos,
+    })(this.props.view.state, this.props.view.dispatch);
+  };
+
   // Copies the pasted node into the current collection
   copyNode = async (traceContext?: MediaTraceContext) => {
-    const mediaProvider = await this.props.mediaProvider;
-    const { isMediaSingle, view } = this.props;
     const attrs = this.getAttrs();
-    if (
-      !mediaProvider ||
-      !mediaProvider.uploadParams ||
-      !attrs ||
-      attrs.type !== 'file'
-    ) {
+    const { view } = this.props;
+    if (attrs?.type !== 'file') {
+      return;
+    }
+
+    const copiedAttrs = await this.copyFile(
+      attrs.id,
+      attrs.collection,
+      traceContext,
+    );
+    if (!copiedAttrs) {
+      return;
+    }
+
+    updateMediaSingleNodeAttrs(attrs.id, copiedAttrs)(
+      view.state,
+      view.dispatch,
+    );
+  };
+
+  private copyFile = async (
+    id: string,
+    collection: string,
+    traceContext?: MediaTraceContext,
+  ): Promise<object | undefined> => {
+    const mediaProvider = await this.props.mediaProvider;
+    if (!id || !collection || !mediaProvider?.uploadParams) {
       return;
     }
 
     const nodeContextId = this.getNodeContextId();
     const uploadMediaClientConfig = mediaProvider.uploadMediaClientConfig;
 
-    if (
-      uploadMediaClientConfig &&
-      uploadMediaClientConfig.getAuthFromContext &&
-      nodeContextId
-    ) {
-      const mediaClient = getMediaClient(uploadMediaClientConfig);
-      const auth = await uploadMediaClientConfig.getAuthFromContext(
-        nodeContextId,
-      );
-      const objectId = await this.getObjectId();
-      const { id, collection } = attrs;
-      const source = {
-        id,
-        collection,
-        authProvider: () => Promise.resolve(auth),
-      };
-      const currentCollectionName = mediaProvider.uploadParams.collection;
-      const destination = {
-        collection: currentCollectionName,
-        authProvider: uploadMediaClientConfig.authProvider,
-        occurrenceKey: uuidV4(),
-      };
-      const mediaFile = await mediaClient.file.copyFile(
-        source,
-        destination,
-        undefined,
-        traceContext,
-      );
-
-      updateMediaNodeAttrs(
-        source.id,
-        {
-          id: mediaFile.id,
-          collection: currentCollectionName,
-          __contextId: objectId,
-        },
-        isMediaSingle,
-      )(view.state, view.dispatch);
+    if (!uploadMediaClientConfig?.getAuthFromContext || !nodeContextId) {
+      return;
     }
+
+    const mediaClient = getMediaClient(uploadMediaClientConfig);
+    const auth = await uploadMediaClientConfig.getAuthFromContext(
+      nodeContextId,
+    );
+    const objectId = await this.getObjectId();
+    const source = {
+      id,
+      collection,
+      authProvider: () => Promise.resolve(auth),
+    };
+    const currentCollectionName = mediaProvider.uploadParams.collection;
+    const destination = {
+      collection: currentCollectionName,
+      authProvider: uploadMediaClientConfig.authProvider,
+      occurrenceKey: uuidV4(),
+    };
+    const mediaFile = await mediaClient.file.copyFile(
+      source,
+      destination,
+      undefined,
+      traceContext,
+    );
+
+    return {
+      id: mediaFile.id,
+      collection: currentCollectionName,
+      __contextId: objectId,
+    };
   };
 }
 

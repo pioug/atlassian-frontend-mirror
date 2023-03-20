@@ -1,0 +1,72 @@
+import core, { ASTPath, JSXElement } from 'jscodeshift';
+import { Collection } from 'jscodeshift/src/Collection';
+
+/**
+ * Changes all Tooltip implementations using the wrapped children approach to
+ * the render prop API.
+ */
+const createTooltipImplementationTransform = () => {
+  return (j: core.JSCodeshift, source: Collection<any>) => {
+    // Handle any children that are JSX elements
+    // (e.g. <Tooltip><Button/></Tooltip>)
+    source
+      .find(j.JSXElement)
+      .filter((path) => path.parent.value.type === 'JSXElement')
+      .filter(
+        (path) => path.parent.value.openingElement.name.name === 'Tooltip',
+      )
+      .forEach((element: ASTPath<JSXElement>) => {
+        const newComponent = j.jsxElement(
+          j.jsxOpeningElement(element.node.openingElement.name, [
+            j.jsxSpreadAttribute(j.identifier('tooltipProps')),
+            ...element.node.openingElement.attributes,
+          ]),
+          element.node.closingElement,
+          element.node.children,
+        );
+
+        j(element).replaceWith(
+          j.jsxExpressionContainer(
+            j.arrowFunctionExpression(
+              // Added parens for Prettier styling
+              [j.identifier('(tooltipProps)')],
+              newComponent,
+            ),
+          ),
+        );
+      });
+
+    // Handle any direct children that are raw text
+    // (e.g. <Tooltip>Test</Tooltip>)
+    source
+      .find(j.JSXText)
+      // Need to ensure that it has this property for TS's sake
+      .filter((path) => !!path.value.raw)
+      .filter(
+        (path) =>
+          path.parent.value.openingElement.name.name === 'Tooltip' &&
+          path.value.raw!.trim().length > 0, // Adding bang because we are checking in the above filter
+      )
+      .forEach((element) => {
+        const newComponent = j.jsxElement(
+          j.jsxOpeningElement(j.jsxIdentifier('span'), [
+            j.jsxSpreadAttribute(j.identifier('tooltipProps')),
+          ]),
+          j.jsxClosingElement(j.jsxIdentifier('span')),
+          [j.jsxText(element.value.raw ? element.value.raw.trim() : '')],
+        );
+
+        j(element).replaceWith(
+          j.jsxExpressionContainer(
+            j.arrowFunctionExpression(
+              [j.identifier('(tooltipProps)')],
+              newComponent,
+            ),
+          ),
+        );
+      });
+    return source.toSource();
+  };
+};
+
+export const changeWrappedToRenderProp = createTooltipImplementationTransform();

@@ -137,10 +137,15 @@ export interface CardProps extends SharedCardProps, CardEventProps {
   readonly useInlinePlayer?: boolean;
   // Uses media MediaViewer to preview the media file.
   readonly shouldOpenMediaViewer?: boolean;
-  /** Imported from MediaViewer. It includes data source like collection name,
-   *  media file list.
+  /**
+   * Includes data source like collection name,
+   * media file list.
+   * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-149 Internal documentation for deprecation (no external access)}}
+   * Use mediaViewerItems instead
    */
   readonly mediaViewerDataSource?: MediaViewerDataSource;
+  // Media file list to display in Media Viewer.
+  readonly mediaViewerItems?: Identifier[];
   // Retrieve auth based on a given context.
   readonly contextId?: string;
   // Enables the download button for media file.

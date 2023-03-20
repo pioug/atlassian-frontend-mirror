@@ -1,57 +1,34 @@
-import React from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import { EditorView } from 'prosemirror-view';
 import { pluginKey as widthPluginKey } from '../../plugins/width';
-import { WidthConsumer } from '@atlaskit/editor-common/ui';
-import type { WidthConsumerContext } from '@atlaskit/editor-common/ui';
-import {
-  ContextPanelConsumer,
-  ContextPanelContext,
-} from '../ContextPanel/context';
+import { WidthContext } from '@atlaskit/editor-common/ui';
+import { ContextPanel } from '../ContextPanel/context';
 
 export interface Props {
   editorView?: EditorView;
 }
 
-type CallbacksType = {
-  setContextPanelWidth: React.Dispatch<React.SetStateAction<number>>;
-  setContainerWidth: React.Dispatch<React.SetStateAction<number>>;
+// Why do we need this? Why not just use the width from the context directly rather than this?
+// Well my friend - some of the VR tests break, seemingly due to the fact that existing behaviour
+// assumes the initial value is 0, the width from context may not start from 0 however.
+// We should investigate further if we can remove this entirely but for now we'll do this
+// awkward workaround to keep the behaviour consistent.
+const useListener = (contextValue: number) => {
+  const [value, setValue] = useState(0);
+  useEffect(() => {
+    setValue(contextValue);
+  }, [contextValue]);
+  return value;
 };
 
-type CallbacksReturn = [
-  (props: ContextPanelContext) => null,
-  (props: WidthConsumerContext) => null,
-];
-
-function useCreateWidthCallbacks({
-  setContextPanelWidth,
-  setContainerWidth,
-}: CallbacksType): CallbacksReturn {
-  const contextPanelWidthCallback = React.useCallback(
-    ({ width }: ContextPanelContext) => {
-      setContextPanelWidth(width);
-      return null;
-    },
-    [setContextPanelWidth],
-  );
-
-  const containerWidthCallback = React.useCallback(
-    ({ width }: WidthConsumerContext) => {
-      setContainerWidth(width);
-      return null;
-    },
-    [setContainerWidth],
-  );
-
-  return [contextPanelWidthCallback, containerWidthCallback];
-}
-
 const WidthEmitter = ({ editorView }: Props) => {
-  const [contextPanelWidth, setContextPanelWidth] = React.useState(0);
-  const [containerWidth, setContainerWidth] = React.useState(0);
-  const [contextPanelWidthCallback, containerWidthCallback] =
-    useCreateWidthCallbacks({ setContextPanelWidth, setContainerWidth });
+  const { width: contextPanelWidthContext } = useContext(ContextPanel);
+  const { width: containerWidthContext } = useContext(WidthContext);
 
-  React.useEffect(() => {
+  const containerWidth = useListener(containerWidthContext);
+  const contextPanelWidth = useListener(contextPanelWidthContext);
+
+  useEffect(() => {
     const width = containerWidth - contextPanelWidth;
     if (width <= 0 || isNaN(width) || !editorView) {
       return;
@@ -74,12 +51,7 @@ const WidthEmitter = ({ editorView }: Props) => {
     return () => {};
   }, [editorView, contextPanelWidth, containerWidth]);
 
-  return (
-    <>
-      <ContextPanelConsumer>{contextPanelWidthCallback}</ContextPanelConsumer>
-      <WidthConsumer>{containerWidthCallback}</WidthConsumer>
-    </>
-  );
+  return <></>;
 };
 
 export default WidthEmitter;

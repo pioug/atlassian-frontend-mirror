@@ -1,16 +1,7 @@
-import { Step } from 'prosemirror-transform';
-import {
-  EditorState,
-  ReadonlyTransaction,
-  Transaction,
-} from 'prosemirror-state';
+import { EditorState, Transaction } from 'prosemirror-state';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { AnalyticsStep } from '@atlaskit/adf-schema/steps';
 import { editorAnalyticsChannel } from './consts';
-import {
-  AnalyticsEventPayloadWithChannel,
-  AnalyticsEventPayload,
-} from './types';
+import { AnalyticsEventPayload } from './types';
 import { analyticsPluginKey } from './plugin-key';
 import { HigherOrderCommand } from '../../types/command';
 
@@ -80,19 +71,5 @@ export function withAnalytics(
         }
       },
       view,
-    );
-}
-
-export function getAnalyticsEventsFromTransaction(
-  tr: Transaction | ReadonlyTransaction,
-): AnalyticsEventPayloadWithChannel[] {
-  return (tr.steps as Step[])
-    .filter<AnalyticsStep<AnalyticsEventPayload>>(
-      (step: Step): step is AnalyticsStep<AnalyticsEventPayload> =>
-        step instanceof AnalyticsStep,
-    )
-    .reduce<AnalyticsEventPayloadWithChannel[]>(
-      (acc, step) => [...acc, ...step.analyticsEvents],
-      [],
     );
 }

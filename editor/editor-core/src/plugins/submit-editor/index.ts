@@ -69,9 +69,10 @@ const analyticsPayload = (
 });
 
 type Config = EditorProps['onSave'];
-const submitEditorPlugin: NextEditorPlugin<'submitEditor', never, Config> = (
-  onSave?,
-) => ({
+const submitEditorPlugin: NextEditorPlugin<
+  'submitEditor',
+  { pluginConfiguration: Config | undefined }
+> = (onSave?) => ({
   name: 'submitEditor',
 
   pmPlugins() {

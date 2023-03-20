@@ -8,7 +8,7 @@ mockInsertCaptionAtPos.mockReturnValue(jest.fn());
 jest.mock('../mediaNodeView/media', () => () => null);
 jest.mock('../mediaNodeUpdater', () => ({
   MediaNodeUpdater: jest.fn(() => ({
-    updateFileAttrs: jest.fn(),
+    updateMediaSingleFileAttrs: jest.fn(),
     getNodeContextId: jest.fn(),
     updateContextId: jest.fn(),
     getRemoteDimensions: jest.fn(),

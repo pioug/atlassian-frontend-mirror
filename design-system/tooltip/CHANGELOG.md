@@ -1,5 +1,11 @@
 # @atlaskit/tooltip
 
+## 17.7.0
+
+### Minor Changes
+
+- [`03114fe5942`](https://bitbucket.org/atlassian/atlassian-frontend/commits/03114fe5942) - [ux] Ensures tooltips are read correctly on screen readers.
+
 ## 17.6.9
 
 ### Patch Changes

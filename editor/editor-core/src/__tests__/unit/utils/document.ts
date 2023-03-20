@@ -23,6 +23,7 @@ import {
   isEmptyParagraph,
   isEmptyDocument,
   processRawValue,
+  processRawFragmentValue,
   hasVisibleContent,
 } from '../../../utils/document';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
@@ -129,6 +130,70 @@ describe(name, () => {
       it('should return false if node has hr', () => {
         expect(isEmptyDocument(doc(p(), hr())(schema))).toBe(false);
       });
+    });
+  });
+
+  describe('processRawFragmentValue', () => {
+    it('should accept an array of nodes in json or stringified format and insert them as a fragment', () => {
+      const nodes = [
+        {
+          type: 'paragraph',
+          content: [
+            {
+              type: 'text',
+              text: 'Hello World',
+            },
+          ],
+        },
+        JSON.stringify({
+          type: 'panel',
+          attrs: {
+            panelType: 'info',
+          },
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'text',
+                  text: 'Hello World',
+                },
+              ],
+            },
+          ],
+        }),
+      ];
+
+      const result = processRawFragmentValue(schema, nodes);
+
+      expect(result).toBeDefined();
+      expect(result!.childCount).toBe(2);
+      expect(result!.child(0)).toEqualDocument(p('Hello World'));
+      expect(result!.child(1)).toEqualDocument(
+        panel({ panelType: PanelType.INFO })(p('Hello World')),
+      );
+    });
+
+    it('should filter out invalid items', () => {
+      const nodes = [
+        {
+          type: 'paragraph',
+          content: [
+            {
+              type: 'text',
+              text: 'Hello World',
+            },
+          ],
+        },
+        [1, 2, 3],
+        ' { invalid } ',
+      ];
+
+      const result = processRawFragmentValue(schema, nodes);
+
+      expect(result).toBeDefined();
+      expect(result!.childCount).toBe(1);
+      expect(result!.child(0)).toEqualDocument(p('Hello World'));
     });
   });
 

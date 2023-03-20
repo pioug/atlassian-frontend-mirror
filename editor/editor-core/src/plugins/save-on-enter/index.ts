@@ -78,8 +78,9 @@ const analyticsPayload = (
 type Config = (editorView: EditorView) => void;
 const saveOnEnterPlugin: NextEditorPlugin<
   'saveOnEnter',
-  never,
-  Config | undefined
+  {
+    pluginConfiguration: Config | undefined;
+  }
 > = (onSave?) => ({
   name: 'saveOnEnter',
 

@@ -37,6 +37,7 @@ export interface Props {
 
 export interface State {
   active: boolean;
+  isOpenedByKeyboard: boolean;
 }
 
 class ToolbarBlockType extends React.PureComponent<
@@ -45,14 +46,19 @@ class ToolbarBlockType extends React.PureComponent<
 > {
   state = {
     active: false,
+    isOpenedByKeyboard: false,
   };
 
   private onOpenChange = (attrs: any) => {
-    this.setState({ active: attrs.isOpen });
+    this.setState({
+      ...this.state,
+      active: attrs.isOpen,
+      isOpenedByKeyboard: attrs.isOpenedByKeyboard,
+    });
   };
 
   render() {
-    const { active } = this.state;
+    const { active, isOpenedByKeyboard } = this.state;
     const {
       popupsMountPoint,
       popupsBoundariesElement,
@@ -103,6 +109,12 @@ class ToolbarBlockType extends React.PureComponent<
             fitHeight={360}
             fitWidth={106}
             shouldUseDefaultRole
+            shouldFocusFirstItem={() => {
+              if (isOpenedByKeyboard) {
+                this.setState({ ...this.state, isOpenedByKeyboard: false });
+              }
+              return isOpenedByKeyboard;
+            }}
           >
             <BlockTypeButton
               isSmall={isSmall}
@@ -111,6 +123,7 @@ class ToolbarBlockType extends React.PureComponent<
               disabled={false}
               title={blockTypeTitles[0]}
               onClick={this.handleTriggerClick}
+              onKeyDown={this.handleTriggerByKeyboard}
               formatMessage={formatMessage}
               aria-expanded={active}
             >
@@ -131,6 +144,7 @@ class ToolbarBlockType extends React.PureComponent<
           disabled={true}
           title={blockTypeTitles[0]}
           onClick={this.handleTriggerClick}
+          onKeyDown={this.handleTriggerByKeyboard}
           formatMessage={formatMessage}
           aria-expanded={active}
         >
@@ -142,7 +156,20 @@ class ToolbarBlockType extends React.PureComponent<
   }
 
   private handleTriggerClick = () => {
-    this.onOpenChange({ isOpen: !this.state.active });
+    this.onOpenChange({
+      isOpen: !this.state.active,
+      isOpenedByKeyboard: false,
+    });
+  };
+
+  private handleTriggerByKeyboard = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      this.onOpenChange({
+        isOpen: !this.state.active,
+        isOpenedByKeyboard: true,
+      });
+    }
   };
 
   private createItems = () => {
@@ -193,7 +220,7 @@ class ToolbarBlockType extends React.PureComponent<
     const blockType = item.value;
     this.props.setBlockType(blockType.name);
     if (shouldCloseMenu) {
-      this.setState({ active: false });
+      this.setState({ ...this.state, active: false });
     }
   };
 }

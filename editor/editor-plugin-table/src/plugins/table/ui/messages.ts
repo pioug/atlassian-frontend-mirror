@@ -55,4 +55,9 @@ export default defineMessages({
     description:
       'Title text for confirm modal when deleting an extension linked to a data consumer.',
   },
+  unnamedSource: {
+    id: 'fabric.editor.extension.sourceNoTitledName',
+    defaultMessage: 'this element',
+    description: 'The current element without preset name been selected',
+  },
 });

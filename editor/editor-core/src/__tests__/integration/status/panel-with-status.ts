@@ -2,12 +2,15 @@ import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import {
   mountEditor,
   goToEditorTestingWDExample,
+  goToEditorExampleWDExample,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
 import {
   editable,
   getDocFromElement,
   quickInsert,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
+
+import { selectors } from '@atlaskit/editor-test-helpers/page-objects/editor';
 
 BrowserTestCase(
   'status.ts: Insert status into panel, move cursor to right before status, and add text',
@@ -86,5 +89,31 @@ BrowserTestCase(
 
     const doc = await page.$eval(editable, getDocFromElement);
     expect(doc).toMatchCustomDocSnapshot(testName);
+  },
+);
+
+BrowserTestCase(
+  'status.ts: Insert status into panel, click on the status toolbar input, add text',
+  { skip: [] },
+  async (client: any, testName: string) => {
+    const page = await goToEditorExampleWDExample(
+      client,
+      'editor-core',
+      'jira-clone',
+    );
+
+    await page.clear(selectors.editor);
+    await page.click(editable);
+
+    await quickInsert(page, 'Table');
+
+    await quickInsert(page, 'Info panel', true);
+
+    await quickInsert(page, 'Status', true);
+
+    const isStatusInputClickable = await page.isClickable(
+      `[aria-label="Popup"] input`,
+    );
+    expect(isStatusInputClickable).toBeTruthy();
   },
 );

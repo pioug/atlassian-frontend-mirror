@@ -3,14 +3,12 @@ import { FC } from 'react';
 
 import { jsx } from '@emotion/react';
 
-import {
-  UNSAFE_Box as Box,
-  UNSAFE_Inline as Inline,
-} from '@atlaskit/ds-explorations';
+import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
+import Inline from '@atlaskit/primitives/inline';
 
 const IconLink: FC = ({ children }) => {
   return (
-    <Inline gap="space.100" alignItems="center">
+    <Inline space="100" alignBlock="center">
       <Box
         display="block"
         borderRadius="normal"

@@ -226,11 +226,11 @@ BrowserTestCase(
 
     const data =
       '<div class="ak-renderer-document"><p data-renderer-start-pos="1">hello</p><div class="code-block"><span data-ds--code--code-block=""><code><span class="linenumber react-syntax-highlighter-line-number">1</span><span>world</span></code></span></div></div>';
-    await copyAsHTML(page, data);
 
     await mountEditor(page, {
       appearance: fullpage.appearance,
     });
+    await copyAsHTML(page, data);
 
     await page.click(editorSelector);
     await page.paste();

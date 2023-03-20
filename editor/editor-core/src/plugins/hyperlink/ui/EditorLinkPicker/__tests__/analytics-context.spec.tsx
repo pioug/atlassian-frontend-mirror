@@ -57,9 +57,9 @@ describe('EditorLinkPicker analytics context', () => {
       expect.objectContaining({
         context: [
           expect.objectContaining({
-            attributes: {
+            attributes: expect.objectContaining({
               invokeMethod,
-            },
+            }),
           }),
         ],
         payload: expect.objectContaining({
@@ -86,9 +86,72 @@ describe('EditorLinkPicker analytics context', () => {
       expect.objectContaining({
         context: [
           expect.objectContaining({
-            attributes: {
+            attributes: expect.objectContaining({
               invokeMethod: '_unknown',
-            },
+            }),
+          }),
+        ],
+        payload: expect.objectContaining({
+          action: 'mounted',
+          actionSubject: 'linkPicker',
+        }),
+      }),
+      undefined,
+    );
+  });
+
+  it('provides `locations` attribute using editorAppearance prop', () => {
+    const spy = jest.fn();
+    const { editorView } = createEditor({});
+    const onSubmit = jest.fn();
+    const editorAppearance = 'full-width';
+
+    render(
+      <AnalyticsListener onEvent={spy}>
+        <EditorLinkPicker
+          view={editorView}
+          onSubmit={onSubmit}
+          editorAppearance={editorAppearance}
+        />
+      </AnalyticsListener>,
+    );
+
+    expect(spy).toHaveBeenCalledWith(
+      expect.objectContaining({
+        context: [
+          expect.objectContaining({
+            attributes: expect.objectContaining({
+              location: `editor_fullWidth`,
+            }),
+          }),
+        ],
+        payload: expect.objectContaining({
+          action: 'mounted',
+          actionSubject: 'linkPicker',
+        }),
+      }),
+      undefined,
+    );
+  });
+
+  it('provides `locations` attribute with _unknown when editorAppearance is undefined', () => {
+    const spy = jest.fn();
+    const { editorView } = createEditor({});
+    const onSubmit = jest.fn();
+
+    render(
+      <AnalyticsListener onEvent={spy}>
+        <EditorLinkPicker view={editorView} onSubmit={onSubmit} />
+      </AnalyticsListener>,
+    );
+
+    expect(spy).toHaveBeenCalledWith(
+      expect.objectContaining({
+        context: [
+          expect.objectContaining({
+            attributes: expect.objectContaining({
+              location: `_unknown`,
+            }),
           }),
         ],
         payload: expect.objectContaining({

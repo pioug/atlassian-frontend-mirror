@@ -1,6 +1,11 @@
 import React, { FC, useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import { FileIdentifier, FileState, MediaClient } from '@atlaskit/media-client';
+import {
+  FileIdentifier,
+  FileState,
+  Identifier,
+  MediaClient,
+} from '@atlaskit/media-client';
 import {
   WrappedComponentProps,
   injectIntl,
@@ -24,7 +29,14 @@ export interface MediaInlineCardProps {
   shouldOpenMediaViewer?: boolean;
   isSelected?: boolean;
   onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
+  /**
+   * Includes data source like collection name,
+   * media file list.
+   * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-149 Internal documentation for deprecation (no external access)}}
+   * Use mediaViewerItems instead
+   */
   mediaViewerDataSource?: MediaViewerDataSource;
+  mediaViewerItems?: Identifier[];
 }
 
 // UI component which renders an inline link in the appropiate state based on a media file
@@ -37,6 +49,7 @@ export const MediaInlineCardInternal: FC<
   isSelected,
   onClick,
   mediaViewerDataSource,
+  mediaViewerItems,
   intl,
 }) => {
   const [fileState, setFileState] = useState<FileState | undefined>();
@@ -63,6 +76,7 @@ export const MediaInlineCardInternal: FC<
         <MediaViewer
           collectionName={identifier.collectionName || ''}
           dataSource={dataSource}
+          items={mediaViewerItems}
           mediaClientConfig={mediaClient.mediaClientConfig}
           selectedItem={identifier}
           onClose={onMediaViewerClose}

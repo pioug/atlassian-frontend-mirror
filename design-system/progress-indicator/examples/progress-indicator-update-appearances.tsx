@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
 import Box from '@atlaskit/ds-explorations/box';
-import Inline from '@atlaskit/ds-explorations/inline';
+import Inline from '@atlaskit/primitives/inline';
 
 import { ProgressIndicator } from '../src';
 import { DotsAppearance } from '../src/components/types';
@@ -11,7 +11,7 @@ const SpreadInlineLayout: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   return (
-    <Inline gap="space.100" justifyContent="space-between" alignItems="center">
+    <Inline space="100" spread="space-between" alignBlock="center">
       {children}
     </Inline>
   );

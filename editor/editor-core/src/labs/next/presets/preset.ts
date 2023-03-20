@@ -1,6 +1,6 @@
 import type {
   AllBuilderPlugins,
-  AllNextEditorPlugins,
+  NextEditorPlugin,
   SafePresetCheck,
 } from '@atlaskit/editor-common/types';
 import { Builder } from '@atlaskit/editor-common/utils';
@@ -49,7 +49,7 @@ export class Preset<
     });
   }
 
-  getEditorPlugins(excludes?: Set<string>) {
+  getEditorPlugins(excludes?: Set<string>): NextEditorPlugin<any, any>[] {
     const editorPlugins = this.processEditorPlugins();
     return this.removeExcludedPlugins(editorPlugins, excludes);
   }
@@ -76,22 +76,16 @@ export class Preset<
       }
     });
 
-    let plugins: Array<AllNextEditorPlugins> = [];
+    let plugins: Array<NextEditorPlugin<any, any>> = [];
     cache.forEach((options, fn) => {
       plugins.push(fn(options));
     });
-
-    if (plugins.some((plugin) => typeof plugin === 'function')) {
-      throw new Error(
-        "!!! NextEditorPluginWithDependencies detected in presets. That's an unsupported runtime use case right now.",
-      );
-    }
 
     return plugins;
   }
 
   private removeExcludedPlugins(
-    plugins: AllNextEditorPlugins[],
+    plugins: NextEditorPlugin<any, any>[],
     excludes?: Set<string>,
   ) {
     if (excludes) {
@@ -107,10 +101,10 @@ export type PluginsPreset = Array<PluginConfig<any, any>>;
  * Type for Editor Preset's plugin configuration.
  *
  * Possible configurations:
- * – () => EditorPlugin
- * – (options: any) => EditorPlugin
- * – (options?: any) => EditorPlugin
- * (In the future, a preset may contain NextEditorPluginWithDependencies)
+ * – () => () => EditorPlugin
+ * – () => (options: any) => EditorPlugin
+ * – () => (options?: any) => EditorPlugin
+ * (In the future, a preset may contain externalPlugins)
  * – (props.externalPlugins) => (options?: any) => EditorPlugin
  *
  * Usage:

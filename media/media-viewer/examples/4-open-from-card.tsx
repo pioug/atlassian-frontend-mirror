@@ -6,7 +6,6 @@ import {
   imageFileId,
   docFileId,
   animatedFileId,
-  defaultCollectionName,
   createStorybookMediaClientConfig,
 } from '@atlaskit/media-test-helpers';
 import { MainWrapper } from '../example-helpers/MainWrapper';
@@ -28,21 +27,14 @@ export default () => (
       shouldOpenMediaViewer
       mediaClientConfig={mediaClientConfig}
       identifier={externalImageIdentifier}
-      mediaViewerDataSource={{ list: listWithCurrentIdentifier }}
+      mediaViewerItems={listWithCurrentIdentifier}
     />
     <h1>Datasource without current identifier</h1>
     <Card
       shouldOpenMediaViewer
       mediaClientConfig={mediaClientConfig}
       identifier={externalImageIdentifier}
-      mediaViewerDataSource={{ list: listWithoutCurrentIdentifier }}
-    />
-    <h1>With collection data source</h1>
-    <Card
-      shouldOpenMediaViewer
-      mediaClientConfig={mediaClientConfig}
-      identifier={externalImageIdentifier}
-      mediaViewerDataSource={{ collectionName: defaultCollectionName }}
+      mediaViewerItems={listWithoutCurrentIdentifier}
     />
   </MainWrapper>
 );

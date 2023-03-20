@@ -1,6 +1,8 @@
-import React from 'react';
+/** @jsx jsx */
 
-import Inline from '@atlaskit/ds-explorations/inline';
+import { css, jsx } from '@emotion/react';
+
+import { token } from '@atlaskit/tokens';
 
 import DropdownMenu, {
   DropdownItem,
@@ -8,8 +10,14 @@ import DropdownMenu, {
   DropdownItemGroup,
 } from '../../src';
 
+const containerStyles = css({
+  display: 'flex',
+  gap: token('space.600', '48px'),
+  flexDirection: 'row',
+});
+
 export default () => (
-  <Inline gap="space.600">
+  <div css={containerStyles}>
     <DropdownMenu trigger="Compact density" testId="dropdown" spacing="compact">
       <DropdownItemGroup>
         <DropdownItem>Copy issue link</DropdownItem>
@@ -44,5 +52,5 @@ export default () => (
         <DropdownItemCheckbox id="filter-2">Filter</DropdownItemCheckbox>
       </DropdownItemGroup>
     </DropdownMenu>
-  </Inline>
+  </div>
 );

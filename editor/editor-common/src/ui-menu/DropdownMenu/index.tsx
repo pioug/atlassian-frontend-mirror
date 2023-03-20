@@ -19,7 +19,8 @@ import { DropdownMenuSharedCssClassName } from '../../styles';
 import { withReactEditorViewOuterListeners } from '../../ui-react';
 import DropList from '../../ui/DropList';
 import Popup from '../../ui/Popup';
-import { MenuArrowKeyNavigationProvider } from '../MenuArrowKeyNavigationProvider';
+import { ArrowKeyNavigationProvider } from '../ArrowKeyNavigationProvider';
+import { ArrowKeyNavigationType } from '../ArrowKeyNavigationProvider/types';
 
 import { MenuItem, Props, State } from './types';
 
@@ -103,7 +104,7 @@ const buttonStyles =
         :focus-visible > span[aria-disabled='false'] {
           outline: none;
         }
-      `; // The deafut focus-visible style is removed to ensure consistency across browsers
+      `; // The default focus-visible style is removed to ensure consistency across browsers
     }
   };
 
@@ -121,6 +122,8 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
     popupPlacement: ['bottom', 'left'],
     selectionIndex: -1,
   };
+
+  private popupRef = React.createRef<HTMLDivElement>();
 
   private handleRef = (target: HTMLElement | null) => {
     this.setState({ target: target || undefined });
@@ -160,11 +163,33 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
       isOpen,
       zIndex,
       shouldUseDefaultRole,
-      disableArrowKeyNavigation,
-      keyDownHandlerContext,
       onItemActivated,
+      arrowKeyNavigationProviderOptions,
     } = this.props;
 
+    // Note that this onSelection function can't be refactored to useMemo for
+    // performance gains as it is being used as a dependency in a useEffect in
+    // MenuArrowKeyNavigationProvider in order to check for re-renders to adjust
+    // focus for accessibility. If this needs to be refactored in future refer
+    // back to ED-16740 for context.
+    const navigationProviderProps =
+      arrowKeyNavigationProviderOptions.type === ArrowKeyNavigationType.COLOR
+        ? arrowKeyNavigationProviderOptions
+        : {
+            ...arrowKeyNavigationProviderOptions,
+            onSelection: (index: number) => {
+              let result: MenuItem[] = [];
+              if (typeof onItemActivated === 'function') {
+                result = items.reduce((result, group) => {
+                  return result.concat(group.items);
+                }, result);
+                onItemActivated({
+                  item: result[index],
+                  shouldCloseMenu: false,
+                });
+              }
+            },
+          };
     return (
       <Popup
         target={isOpen ? target : undefined}
@@ -177,19 +202,9 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
         zIndex={zIndex || akEditorFloatingPanelZIndex}
         offset={offset}
       >
-        <MenuArrowKeyNavigationProvider
-          disableArrowKeyNavigation={disableArrowKeyNavigation}
+        <ArrowKeyNavigationProvider
+          {...navigationProviderProps}
           handleClose={this.handleCloseAndFocus}
-          keyDownHandlerContext={keyDownHandlerContext}
-          onSelection={(index) => {
-            let result: MenuItem[] = [];
-            if (typeof onItemActivated === 'function') {
-              result = items.reduce((result, group) => {
-                return result.concat(group.items);
-              }, result);
-              onItemActivated({ item: result[index], shouldCloseMenu: false });
-            }
-          }}
           closeOnTab={true}
         >
           <DropListWithOutsideListeners
@@ -204,25 +219,27 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
             targetRef={this.state.target}
           >
             <div style={{ height: 0, minWidth: fitWidth || 0 }} />
-            {items.map((group, index) => (
-              <MenuGroup
-                key={index}
-                role={shouldUseDefaultRole ? 'group' : 'menu'}
-              >
-                {group.items.map((item) => (
-                  <DropdownMenuItem
-                    key={item.key ?? String(item.content)}
-                    item={item}
-                    onItemActivated={this.props.onItemActivated}
-                    shouldUseDefaultRole={this.props.shouldUseDefaultRole}
-                    onMouseEnter={this.props.onMouseEnter}
-                    onMouseLeave={this.props.onMouseLeave}
-                  />
-                ))}
-              </MenuGroup>
-            ))}
+            <div ref={this.popupRef}>
+              {items.map((group, index) => (
+                <MenuGroup
+                  key={index}
+                  role={shouldUseDefaultRole ? 'group' : 'menu'}
+                >
+                  {group.items.map((item) => (
+                    <DropdownMenuItem
+                      key={item.key ?? String(item.content)}
+                      item={item}
+                      onItemActivated={this.props.onItemActivated}
+                      shouldUseDefaultRole={this.props.shouldUseDefaultRole}
+                      onMouseEnter={this.props.onMouseEnter}
+                      onMouseLeave={this.props.onMouseLeave}
+                    />
+                  ))}
+                </MenuGroup>
+              ))}
+            </div>
           </DropListWithOutsideListeners>
-        </MenuArrowKeyNavigationProvider>
+        </ArrowKeyNavigationProvider>
       </Popup>
     );
   }
@@ -236,6 +253,22 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
         {isOpen ? this.renderDropdownMenu() : null}
       </div>
     );
+  }
+
+  componentDidUpdate(previousProps: Props) {
+    const isOpenToggled = this.props.isOpen !== previousProps.isOpen;
+    if (this.props.isOpen && isOpenToggled) {
+      if (
+        typeof this.props.shouldFocusFirstItem === 'function' &&
+        this.props.shouldFocusFirstItem()
+      ) {
+        const keyboardEvent = new KeyboardEvent('keydown', {
+          key: 'ArrowDown',
+          bubbles: true,
+        });
+        this.state.target?.dispatchEvent(keyboardEvent);
+      }
+    }
   }
 }
 

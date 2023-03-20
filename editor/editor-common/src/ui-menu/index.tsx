@@ -5,4 +5,7 @@ export {
   TOOLBAR_BUTTON,
 } from '../ui-menu/ToolbarButton';
 export type { ToolbarButtonRef } from '../ui-menu/ToolbarButton';
+export { ArrowKeyNavigationProvider } from '../ui-menu/ArrowKeyNavigationProvider';
+export { ArrowKeyNavigationType } from '../ui-menu/ArrowKeyNavigationProvider/types';
+export { ColorPaletteArrowKeyNavigationProvider } from './ArrowKeyNavigationProvider/ColorPaletteArrowKeyNavigationProvider';
 export { default as Dropdown } from './Dropdown';

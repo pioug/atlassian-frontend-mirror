@@ -62,6 +62,7 @@ export interface State {
   emojiPickerOpen: boolean;
   buttons: BlockMenuItem[];
   dropdownItems: BlockMenuItem[];
+  isOpenedByKeyboard: boolean;
 }
 
 export type TOOLBAR_MENU_TYPE = INPUT_METHOD.TOOLBAR | INPUT_METHOD.INSERT_MENU;

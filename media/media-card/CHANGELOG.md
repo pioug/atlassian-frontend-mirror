@@ -1,5 +1,16 @@
 # @atlaskit/media-card
 
+## 74.7.0
+
+### Minor Changes
+
+- [`8a0a92b2885`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8a0a92b2885) - MEX-2210 improve inconsistent behaviour on timestampOnVideo playback
+- [`c3eba8c788d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c3eba8c788d) - Deprecation notice: Media Card and Inline Card no longer accept a collection name as a data source for Media Viewer. Integrators should pass the full list of files to browse through the new "mediaViewerItems" property.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 74.6.1
 
 ### Patch Changes

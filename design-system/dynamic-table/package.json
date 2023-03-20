@@ -28,7 +28,7 @@
     "@atlaskit/analytics-next": "^9.0.0",
     "@atlaskit/ds-lib": "^2.1.0",
     "@atlaskit/pagination": "^14.2.0",
-    "@atlaskit/spinner": "^15.3.0",
+    "@atlaskit/spinner": "^15.4.0",
     "@atlaskit/theme": "^12.2.0",
     "@atlaskit/tokens": "^1.2.0",
     "@babel/runtime": "^7.0.0",
@@ -40,10 +40,10 @@
     "react-dom": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/avatar": "^21.1.0",
+    "@atlaskit/avatar": "^21.2.0",
     "@atlaskit/button": "^16.5.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/dropdown-menu": "^11.6.0",
+    "@atlaskit/dropdown-menu": "^11.7.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/toggle": "^12.5.0",
     "@atlaskit/visual-regression": "*",

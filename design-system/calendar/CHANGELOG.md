@@ -1,5 +1,11 @@
 # @atlaskit/calendar
 
+## 13.0.6
+
+### Patch Changes
+
+- [`842bb999a85`](https://bitbucket.org/atlassian/atlassian-frontend/commits/842bb999a85) - Internal change only. Replace usages of Inline/Stack with stable version from `@atlaskit/primitives`.
+
 ## 13.0.5
 
 ### Patch Changes

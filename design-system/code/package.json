@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/code",
-  "version": "14.4.8",
+  "version": "14.5.0",
   "description": "Code highlights short strings of code snippets inline with body text.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -29,11 +29,11 @@
     "@atlaskit/codemod-utils": "^4.1.0",
     "@atlaskit/theme": "^12.2.0",
     "@atlaskit/tokens": "^1.2.0",
-    "@atlaskit/tooltip": "^17.6.0",
+    "@atlaskit/tooltip": "^17.7.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "memoize-one": "^6.0.0",
-    "react-syntax-highlighter": "^15.4.3"
+    "refractor": "^3.6.0"
   },
   "peerDependencies": {
     "react": "^16.8.0"
@@ -41,15 +41,18 @@
   "devDependencies": {
     "@atlaskit/button": "^16.5.0",
     "@atlaskit/docs": "^9.0.0",
+    "@atlaskit/ds-explorations": "^2.0.1",
     "@atlaskit/ds-lib": "^2.1.0",
+    "@atlaskit/form": "^8.8.0",
     "@atlaskit/section-message": "^6.3.0",
     "@atlaskit/ssr": "*",
+    "@atlaskit/toggle": "^12.5.0",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@testing-library/react": "^12.1.5",
     "@types/jscodeshift": "^0.11.0",
-    "@types/react-syntax-highlighter": "^13.5.0",
+    "@types/refractor": "^3.0.2",
     "color-contrast-checker": "^1.5.0",
     "jscodeshift": "^0.13.0",
     "prismjs": "^1.25.0",

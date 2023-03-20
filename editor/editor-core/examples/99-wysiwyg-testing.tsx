@@ -9,7 +9,8 @@ import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-p
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 import { ReactRenderer, RendererProps } from '@atlaskit/renderer';
 import { MentionProvider } from '@atlaskit/mention/types';
-import Editor, { EditorProps } from '../src/editor';
+import { EditorMigrationComponent as Editor } from '../src';
+import { EditorProps } from '../src/editor';
 
 function useRendererProviderFactory() {
   return React.useMemo(() => {

@@ -13,35 +13,29 @@ export interface CodeProps extends HTMLProps<HTMLElement> {
    * in the rendered code. Serves as a hook for automated tests.
    */
   testId?: string;
-
   /**
-   * Content to be rendered in the inline code block
+   * Content to be rendered in the inline code block.
    */
   children?: ReactNode;
-
   /**
-   * When false, disables decorating code with bidi warnings
-   *
-   * defaults to true
+   * When set to `false`, disables code decorating with bidi warnings. Defaults to `true`.
    */
-  // See DSP-5460
   // eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
   codeBidiWarnings?: boolean;
-
+  // eslint-disable-next-line jsdoc/require-asterisk-prefix, jsdoc/check-alignment
   /**
-   * Labels for the previous and next buttons used in pagination.
-   * Defaults to `Bidirectional characters change the order that text is rendered. This could be used to obscure malicious code.`.
+   Label for the bidi warning tooltip.
+
+   Defaults to `Bidirectional characters change the order that text is rendered.
+   This could be used to obscure malicious code.`
    */
   codeBidiWarningLabel?: string;
-
   /**
-   * Defaults to enabled (true)
-   *
-   * Intended to be disabled when used in a mobile view, such as in the editor
-   * via mobile bridge, where the tooltip could end up being cut off of otherwise
-   * not work as expected.
+   * Sets whether to render tooltip with the warning or not. Intended to be
+   * disabled when used in a mobile view, such as in the editor via mobile
+   * bridge, where the tooltip could end up being cut off or otherwise not work
+   * as expected. Defaults to `true`.
    */
-  // See DSP-5460
   // eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
   codeBidiWarningTooltipEnabled?: boolean;
 }

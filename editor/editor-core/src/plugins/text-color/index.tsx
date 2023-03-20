@@ -24,9 +24,12 @@ const pluginConfig = (
 };
 
 type Config = TextColorPluginConfig | boolean;
-const textColorPlugin: NextEditorPlugin<'textColor', never, Config> = (
-  textColorConfig?,
-) => ({
+const textColorPlugin: NextEditorPlugin<
+  'textColor',
+  {
+    pluginConfiguration: Config | undefined;
+  }
+> = (textColorConfig?) => ({
   name: 'textColor',
 
   marks() {

@@ -112,8 +112,9 @@ const blockquotePluginOptions = (
 
 const blockTypePlugin: NextEditorPlugin<
   'blockType',
-  never,
-  BlockTypePluginOptions | undefined
+  {
+    pluginConfiguration: BlockTypePluginOptions | undefined;
+  }
 > = (options?) => ({
   name: 'blockType',
 

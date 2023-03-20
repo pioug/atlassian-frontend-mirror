@@ -9,7 +9,7 @@ import {
   videoFileId,
   largeImageFileId,
 } from '@atlaskit/media-test-helpers';
-import { MediaViewerDataSource } from '@atlaskit/media-viewer';
+
 import {
   mediaViewerExampleWrapperStyles,
   mediaViewerExampleColumnStyles,
@@ -17,9 +17,12 @@ import {
 import { MainWrapper } from '../example-helpers';
 
 const mediaClientConfig = createStorybookMediaClientConfig();
-const mediaViewerDataSource: MediaViewerDataSource = {
-  list: [imageFileId, gifFileId, largeImageFileId, videoFileId],
-};
+const mediaViewerItems = [
+  imageFileId,
+  gifFileId,
+  largeImageFileId,
+  videoFileId,
+];
 
 interface ExampleState {
   shouldOpenMediaViewer: boolean;
@@ -37,24 +40,24 @@ class Example extends Component<{}, {}> {
       <MainWrapper>
         <div css={mediaViewerExampleWrapperStyles}>
           <div css={mediaViewerExampleColumnStyles}>
-            <h3>shouldOpenMediaViewer + mediaViewerDataSource</h3>
+            <h3>shouldOpenMediaViewer + mediaViewerItems</h3>
             <Card
               mediaClientConfig={mediaClientConfig}
               identifier={imageFileId}
               shouldOpenMediaViewer={shouldOpenMediaViewer}
-              mediaViewerDataSource={mediaViewerDataSource}
+              mediaViewerItems={mediaViewerItems}
             />
             <Card
               mediaClientConfig={mediaClientConfig}
               identifier={gifFileId}
               shouldOpenMediaViewer={shouldOpenMediaViewer}
-              mediaViewerDataSource={mediaViewerDataSource}
+              mediaViewerItems={mediaViewerItems}
             />
             <Card
               mediaClientConfig={mediaClientConfig}
               identifier={videoFileId}
               shouldOpenMediaViewer={shouldOpenMediaViewer}
-              mediaViewerDataSource={mediaViewerDataSource}
+              mediaViewerItems={mediaViewerItems}
             />
           </div>
           <div css={mediaViewerExampleColumnStyles}>
@@ -63,7 +66,7 @@ class Example extends Component<{}, {}> {
               mediaClientConfig={mediaClientConfig}
               identifier={imageFileId}
               shouldOpenMediaViewer={shouldOpenMediaViewer}
-              mediaViewerDataSource={{ list: [gifFileId] }}
+              mediaViewerItems={[gifFileId]}
             />
           </div>
           <div css={mediaViewerExampleColumnStyles}>
@@ -72,12 +75,12 @@ class Example extends Component<{}, {}> {
               mediaClientConfig={mediaClientConfig}
               identifier={videoFileId}
               shouldOpenMediaViewer={shouldOpenMediaViewer}
-              mediaViewerDataSource={mediaViewerDataSource}
+              mediaViewerItems={mediaViewerItems}
               useInlinePlayer={true}
             />
           </div>
           <div css={mediaViewerExampleColumnStyles}>
-            <h3>mediaViewerDataSource=undefined</h3>
+            <h3>mediaViewerItems=undefined</h3>
             <Card
               mediaClientConfig={mediaClientConfig}
               identifier={largeImageFileId}

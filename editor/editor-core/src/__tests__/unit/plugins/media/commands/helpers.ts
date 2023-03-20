@@ -1,4 +1,7 @@
-import { testMediaSingle } from '@atlaskit/editor-test-helpers/media-mock';
+import {
+  testMediaSingle,
+  testMediaGroup,
+} from '@atlaskit/editor-test-helpers/media-mock';
 import {
   doc,
   media,
@@ -6,14 +9,20 @@ import {
   mediaSingle,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
-  findMediaNode,
+  findMediaSingleNode,
   findAllMediaSingleNodes,
 } from '../../../../../plugins/media/commands/helpers';
 import { mediaEditor, testCollectionName } from '../_utils';
 import { MediaPluginState } from '../../../../../plugins/media/pm-plugins/types';
 
-const mediaImage = media({
+const mediaImageSingle = media({
   id: testMediaSingle.id,
+  type: 'file',
+  collection: testCollectionName,
+})();
+
+const mediaImageGroup = media({
+  id: testMediaGroup.id,
   type: 'file',
   collection: testCollectionName,
 })();
@@ -26,32 +35,31 @@ describe('Media commands helpers', () => {
       doc(
         mediaSingle({
           layout: 'center',
-        })(mediaImage),
+        })(mediaImageSingle),
         mediaSingle({
           layout: 'center',
-        })(mediaImage),
-        mediaGroup(mediaImage),
+        })(mediaImageSingle),
+        mediaGroup(mediaImageGroup),
       ),
     ));
   });
 
   describe('Find media node', () => {
     it('should find media single node', () => {
-      const node = findMediaNode(pluginState, testMediaSingle.id, true);
+      const node = findMediaSingleNode(pluginState, testMediaSingle.id);
 
       expect(node).not.toBeNull();
     });
 
     it('should find first stored media single node (We stored in reverse order)', () => {
-      const node = findMediaNode(pluginState, testMediaSingle.id, true);
+      const node = findMediaSingleNode(pluginState, testMediaSingle.id);
 
       expect(node!.getPos()).toBe(4);
     });
 
-    it('should find first media group node', () => {
-      const node = findMediaNode(pluginState, testMediaSingle.id, false);
-
-      expect(node).not.toBeNull();
+    it('does not support media group node', () => {
+      const node = findMediaSingleNode(pluginState, testMediaGroup.id);
+      expect(node).toBeNull();
     });
   });
 

@@ -1,5 +1,5 @@
-import type { Transaction } from 'prosemirror-state';
-import type { Step } from 'prosemirror-transform';
+import type { Step as ProseMirrorStep } from 'prosemirror-transform';
+import type { Transaction as ProseMirrorTransaction } from 'prosemirror-state';
 import type {
   CollabParticipant,
   CollabEventTelepointerData,
@@ -12,7 +12,6 @@ import type {
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import type { Manager } from 'socket.io-client';
 import type { DisconnectReason } from './disconnected-reason-mapper';
-
 export interface Storage {
   get(key: string): Promise<string>;
   set(key: string, value: string): Promise<void>;
@@ -45,7 +44,6 @@ export interface Config {
 interface SimpleEventEmitter {
   on(event: string, fn: Function): SimpleEventEmitter;
 }
-
 export interface Socket extends SimpleEventEmitter {
   id: string;
   connect(): Socket;
@@ -91,7 +89,7 @@ export type CollabTelepointerPayload = CollabEventTelepointerData;
 export type CollabPresencePayload = CollabEventPresenceData;
 export type CollabMetadataPayload = Metadata;
 export type CollabLocalStepsPayload = {
-  steps: readonly Step[];
+  steps: readonly ProseMirrorStep[];
 };
 
 export interface CollabEvents {
@@ -135,6 +133,25 @@ export type TelepointerPayload = PresencePayload & {
   };
 };
 
+type MarkJson = {
+  type: string;
+  attrs: { [key: string]: any };
+};
+
+type NodeJson = {
+  type: string;
+  attrs: { [key: string]: any };
+  content: NodeJson[];
+  marks: MarkJson[];
+  text?: string;
+};
+
+type SliceJson = {
+  content: NodeJson[];
+  openStart: number;
+  openEnd: number;
+};
+
 export type StepJson = {
   from?: number;
   to?: number;
@@ -143,6 +160,7 @@ export type StepJson = {
   userId: string;
   createdAt?: number; // Potentially required?
   structure?: boolean;
+  slice?: SliceJson;
 };
 
 export enum AcknowledgementResponseTypes {
@@ -227,14 +245,9 @@ export interface CatchupOptions {
   getCurrentPmVersion: () => number;
   fetchCatchup: (fromVersion: number) => Promise<CatchupResponse>;
   filterQueue: (condition: (stepsPayload: StepsPayload) => boolean) => void;
-  getUnconfirmedSteps: () =>
-    | {
-        version: number;
-        steps: readonly Step<any>[];
-        clientID: string | number;
-        origins: readonly Transaction<any>[];
-      }
-    | null
+  getUnconfirmedSteps: () => readonly ProseMirrorStep[] | undefined;
+  getUnconfirmedStepsOrigins: () =>
+    | readonly ProseMirrorTransaction[]
     | undefined;
   updateDocumentWithMetadata: ({
     doc,
@@ -242,7 +255,7 @@ export interface CatchupOptions {
     metadata,
     reserveCursor,
   }: CollabInitPayload) => void;
-  applyLocalSteps: (steps: Step[]) => void;
+  applyLocalSteps: (steps: ProseMirrorStep[]) => void;
 }
 
 export type ProductInformation = {

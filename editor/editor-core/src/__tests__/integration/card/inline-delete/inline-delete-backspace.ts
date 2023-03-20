@@ -3,9 +3,12 @@ import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 import {
   getDocFromElement,
   editable,
-  copyToClipboard,
-  gotoEditor,
+  fullpage,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
+import {
+  goToEditorTestingWDClipboardExample,
+  mountEditor,
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 
 BrowserTestCase(
   `card: pressing backspace with the cursor at the end of Inline link should delete it`,
@@ -13,12 +16,25 @@ BrowserTestCase(
     skip: ['safari'],
   },
   async (client: ConstructorParameters<typeof Page>[0], testName: string) => {
-    const page = new Page(client);
-
-    // Copy stuff to clipboard
-    await copyToClipboard(page, 'https://www.atlassian.com');
-
-    await gotoEditor(page);
+    // Copy stuff to clipboard and go to editor
+    const page = await goToEditorTestingWDClipboardExample(
+      client,
+      'https://www.atlassian.com',
+    );
+    await mountEditor(
+      page,
+      {
+        appearance: fullpage.appearance,
+        smartLinks: {
+          allowEmbeds: true,
+        },
+      },
+      {
+        providers: {
+          cards: true,
+        },
+      },
+    );
 
     // Paste the link
     await page.paste();

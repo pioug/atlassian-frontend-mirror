@@ -3,9 +3,9 @@ import { FC, ReactNode } from 'react';
 
 import { jsx } from '@emotion/react';
 
+import Text from '@atlaskit/ds-explorations/text';
 import LockFilledIcon from '@atlaskit/icon/glyph/lock-filled';
 import Lozenge from '@atlaskit/lozenge';
-import Box from '@atlaskit/primitives/box';
 import Inline from '@atlaskit/primitives/inline';
 
 interface HeaderProps {
@@ -64,13 +64,13 @@ const Header: FC<HeaderProps> = ({
       {edited || null}
       {isSaving ? savingText : null}
       {restrictedTo && (
-        <Box as="span" color="subtlest">
+        <Text as="span" color="subtlest">
           <Inline alignBlock="center" space="050">
             &bull;
             <LockFilledIcon label="" size="small" />
             {restrictedTo}
           </Inline>
-        </Box>
+        </Text>
       )}
     </Inline>
   ) : null;

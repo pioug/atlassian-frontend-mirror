@@ -8,7 +8,7 @@ const attrsPanelCustom = {
   panelType: PanelType.CUSTOM,
 };
 const attrsColor = {
-  panelColor: 'red',
+  panelColor: '#FFBDAD',
 };
 const attrsEmoji = {
   panelIcon: ':heart:',
@@ -70,9 +70,10 @@ describe('Panel - panelAttrsToDom', () => {
         'div',
         {
           class: 'ak-editor-panel',
-          'data-panel-color': 'red',
+          'data-panel-color': '#FFBDAD',
           'data-panel-type': 'custom',
-          style: 'background-color: red;',
+          style:
+            'background-color: var(--ds-background-accent-red-subtler, #FFBDAD);',
         },
         ['div', { class: 'ak-editor-panel__icon' }],
         ['div', { class: 'ak-editor-panel__content' }, 0],
@@ -99,9 +100,10 @@ describe('Panel - panelAttrsToDom', () => {
         'div',
         {
           class: 'ak-editor-panel',
-          'data-panel-color': 'red',
+          'data-panel-color': '#FFBDAD',
           'data-panel-type': 'custom',
-          style: 'background-color: red;padding-left: 12px;',
+          style:
+            'background-color: var(--ds-background-accent-red-subtler, #FFBDAD);padding-left: 12px;',
         },
         ['div', { class: 'ak-editor-panel__content' }, 0],
       ]);

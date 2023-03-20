@@ -200,10 +200,29 @@ interface Lifecycle {
 type LifecycleEvents = 'restore' | 'save';
 
 // @public (undocumented)
+type MarkJson = {
+  type: string;
+  attrs: {
+    [key: string]: any;
+  };
+};
+
+// @public (undocumented)
 interface Metadata_2 {
   // (undocumented)
   [key: string]: boolean | number | string;
 }
+
+// @public (undocumented)
+type NodeJson = {
+  type: string;
+  attrs: {
+    [key: string]: any;
+  };
+  content: NodeJson[];
+  marks: MarkJson[];
+  text?: string;
+};
 
 // @public (undocumented)
 type ProductInformation = {
@@ -218,6 +237,8 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
   destroy(): this;
   // (undocumented)
   disconnect(): this;
+  // (undocumented)
+  getCurrentState: () => Promise<ResolvedEditorState>;
   // (undocumented)
   getFinalAcknowledgedState: () => Promise<ResolvedEditorState>;
   initialize(getState: () => EditorState): this;
@@ -251,6 +272,13 @@ interface SimpleEventEmitter {
 }
 
 // @public (undocumented)
+type SliceJson = {
+  content: NodeJson[];
+  openStart: number;
+  openEnd: number;
+};
+
+// @public (undocumented)
 export interface Socket extends SimpleEventEmitter {
   // (undocumented)
   close(): Socket;
@@ -273,6 +301,7 @@ type StepJson = {
   userId: string;
   createdAt?: number;
   structure?: boolean;
+  slice?: SliceJson;
 };
 
 // @public (undocumented)

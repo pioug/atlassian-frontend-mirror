@@ -1,4 +1,4 @@
-import { css } from '@emotion/react';
+import { SerializedStyles } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
@@ -27,7 +27,7 @@ export type ResponsiveObject<T> = Partial<Record<Breakpoint, T>>;
  * return <div css={setMarginBreakpoints.map(breakpoint => marginMediaQueries[breakpoint])} />
  * ```
  */
-export type ResponsiveCSSObject = ResponsiveObject<ReturnType<typeof css>>;
+export type ResponsiveCSSObject = ResponsiveObject<SerializedStyles>;
 
 /**
  * Our internal breakpoint config used to build media queries and define attributes for certain components.

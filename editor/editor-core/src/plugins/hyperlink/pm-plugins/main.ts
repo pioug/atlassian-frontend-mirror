@@ -11,7 +11,8 @@ import {
 import uuid from 'uuid';
 import { Dispatch } from '../../../event-dispatcher';
 import { shallowEqual } from '../../../utils';
-import { INPUT_METHOD } from '../../analytics';
+import { INPUT_METHOD } from '../../analytics/types';
+import { EditorAppearance } from '@atlaskit/editor-common/types';
 
 export enum LinkAction {
   SHOW_INSERT_TOOLBAR = 'SHOW_INSERT_TOOLBAR',
@@ -230,11 +231,15 @@ export interface HyperlinkState {
   canInsertLink: boolean;
   searchSessionId?: string;
   inputMethod?: INPUT_METHOD;
+  editorAppearance?: EditorAppearance;
 }
 
 export const stateKey = new PluginKey<HyperlinkState>('hyperlinkPlugin');
 
-export const plugin = (dispatch: Dispatch) =>
+export const plugin = (
+  dispatch: Dispatch,
+  editorAppearance?: EditorAppearance,
+) =>
   new SafePlugin({
     state: {
       init(_, state: EditorState): HyperlinkState {
@@ -251,6 +256,7 @@ export const plugin = (dispatch: Dispatch) =>
             LinkAction.SELECTION_CHANGE,
             state,
           ),
+          editorAppearance,
         };
       },
       apply(
@@ -276,6 +282,7 @@ export const plugin = (dispatch: Dispatch) =>
             timesViewed: state.timesViewed,
             inputMethod,
             activeLinkMark: mapTransactionToState(state.activeLinkMark, tr),
+            editorAppearance,
           };
         }
 
@@ -297,6 +304,7 @@ export const plugin = (dispatch: Dispatch) =>
             canInsertLink: state.canInsertLink,
             inputMethod,
             activeLinkMark: toState(state.activeLinkMark, action, newState),
+            editorAppearance,
             ...stateForAnalytics,
           };
         }
@@ -320,6 +328,7 @@ export const plugin = (dispatch: Dispatch) =>
             timesViewed: state.timesViewed,
             searchSessionId: state.searchSessionId,
             inputMethod,
+            editorAppearance,
           };
         }
 

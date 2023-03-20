@@ -13,7 +13,9 @@ import {
 
 BrowserTestCase(
   'emoji-2.ts: should be able to use emoji inside blockquote',
-  {},
+
+  // Skipped test https://product-fabric.atlassian.net/browse/ED-17199
+  { skip: ['safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, { appearance: 'full-page' });

@@ -1,5 +1,11 @@
 # @atlaskit/primitives
 
+## 0.3.1
+
+### Patch Changes
+
+- [`114d6a73f72`](https://bitbucket.org/atlassian/atlassian-frontend/commits/114d6a73f72) - Cleanup the experimental responsive box utilizing our responsive helpers.
+
 ## 0.3.0
 
 ### Minor Changes

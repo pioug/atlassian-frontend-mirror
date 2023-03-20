@@ -1,0 +1,7 @@
+import { createTransformer } from '@atlaskit/codemod-utils';
+
+import { changeWrappedToRenderProp } from './migrates/change-wrapped-to-render-prop';
+
+const transformer = createTransformer([changeWrappedToRenderProp]);
+
+export default transformer;

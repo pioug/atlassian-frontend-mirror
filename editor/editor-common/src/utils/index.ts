@@ -85,6 +85,7 @@ export { default as ADFTraversor } from './traversor';
 export {
   analyticsEventKey,
   getAnalyticsAppearance,
+  getAnalyticsEditorAppearance,
   getAnalyticsEventSeverity,
   SEVERITY,
   getUnsupportedContentLevelData,

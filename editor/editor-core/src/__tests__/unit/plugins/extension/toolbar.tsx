@@ -1,12 +1,16 @@
 import React from 'react';
 import { createIntl } from 'react-intl-next';
 import { NodeSelection } from 'prosemirror-state';
+import { EditorView } from 'prosemirror-view';
 import { activityProviderFactory } from '@atlaskit/editor-test-helpers/mock-activity-provider';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
+  dataConsumer,
   doc,
-  extension,
   DocBuilder,
+  extension,
+  fragmentMark,
+  p,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { createFakeExtensionProvider } from '@atlaskit/editor-test-helpers/extensions';
 import { combineExtensionProviders } from '@atlaskit/editor-common/extensions';
@@ -14,6 +18,7 @@ import {
   ProviderFactory,
   MacroProvider,
 } from '@atlaskit/editor-common/provider-factory';
+import { setNodeSelection } from '@atlaskit/editor-common/utils';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import EditIcon from '@atlaskit/icon/glyph/editor/edit';
 
@@ -28,7 +33,10 @@ import {
   waitForProvider,
   flushPromises,
 } from '@atlaskit/editor-test-helpers/e2e-helpers';
-import { getToolbarItems } from '../../../../plugins/floating-toolbar/__tests__/_helpers';
+import {
+  getToolbarItems,
+  findToolbarBtn,
+} from '../../../../plugins/floating-toolbar/__tests__/_helpers';
 
 describe('extension toolbar', () => {
   const createEditor = createEditorFactory();
@@ -49,6 +57,7 @@ describe('extension toolbar', () => {
         allowExtension: {
           allowBreakout: true,
         },
+        allowFragmentMark: true,
         ...props,
       },
       pluginKey,
@@ -497,6 +506,111 @@ describe('extension toolbar', () => {
 
         expect(openMacroBrowserFn).not.toHaveBeenCalled();
         expect(extensionProviderUpdate).toHaveBeenCalledTimes(1);
+      });
+
+      describe('getToolbarConfig for extension', () => {
+        const getTestConfig = (editorView: EditorView) => {
+          const toolbar = getToolbarConfig()(
+            editorView.state,
+            intl,
+            providerFactory,
+          );
+          expect(toolbar).toBeDefined();
+
+          const removeButton = findToolbarBtn(
+            getToolbarItems(toolbar!, editorView),
+            removeTitle,
+          );
+
+          expect(removeButton).toBeDefined();
+          const confirmDialog =
+            typeof removeButton?.confirmDialog === 'function'
+              ? removeButton?.confirmDialog()
+              : undefined;
+          return confirmDialog?.message;
+        };
+
+        it("description show 'this element' if source doesn't had a name", () => {
+          const { editorView } = editor(
+            doc(
+              p('hello'),
+              fragmentMark({ localId: 'frag_A1' })(
+                extension({
+                  localId: 'id_A1',
+                  extensionType: 'com.atlassian.extensions.extension',
+                  extensionKey: 'A1',
+                  parameters: {},
+                })(),
+              ),
+              fragmentMark({ localId: 'frag_B1', name: 'Ext B1' })(
+                dataConsumer({ sources: ['frag_A1'] })(
+                  extension({
+                    localId: 'id_B1',
+                    extensionType: 'com.atlassian.extensions.extension',
+                    extensionKey: 'B1',
+                    parameters: {},
+                  })(),
+                ),
+              ),
+              fragmentMark({ localId: 'frag_C1', name: 'Ext C1' })(
+                dataConsumer({ sources: ['frag_A1'] })(
+                  extension({
+                    localId: 'id_C1',
+                    extensionType: 'com.atlassian.extensions.extension',
+                    extensionKey: 'C1',
+                    parameters: {},
+                  })(),
+                ),
+              ),
+            ),
+          );
+
+          setNodeSelection(editorView, 7);
+          const message = getTestConfig(editorView);
+
+          expect(message).toContain('this element');
+        });
+
+        it('description show existed name if source already had a name', () => {
+          const { editorView } = editor(
+            doc(
+              p('hello'),
+              fragmentMark({ localId: 'frag_A1', name: 'Ext A1' })(
+                extension({
+                  localId: 'id_A1',
+                  extensionType: 'com.atlassian.extensions.extension',
+                  extensionKey: 'A1',
+                  parameters: {},
+                })(),
+              ),
+              fragmentMark({ localId: 'frag_B1', name: 'Ext B1' })(
+                dataConsumer({ sources: ['frag_A1'] })(
+                  extension({
+                    localId: 'id_B1',
+                    extensionType: 'com.atlassian.extensions.extension',
+                    extensionKey: 'B1',
+                    parameters: {},
+                  })(),
+                ),
+              ),
+              fragmentMark({ localId: 'frag_C1', name: 'Ext C1' })(
+                dataConsumer({ sources: ['frag_A1'] })(
+                  extension({
+                    localId: 'id_C1',
+                    extensionType: 'com.atlassian.extensions.extension',
+                    extensionKey: 'C1',
+                    parameters: {},
+                  })(),
+                ),
+              ),
+            ),
+          );
+          setNodeSelection(editorView, 7);
+          const message = getTestConfig(editorView);
+
+          expect(message).not.toContain('this element');
+          expect(message).toContain('Ext A1');
+        });
       });
     });
   });

@@ -1,4 +1,4 @@
-import { Node, Schema, ResolvedPos } from 'prosemirror-model';
+import { Node, Fragment, Schema, ResolvedPos } from 'prosemirror-model';
 import {
   Transaction,
   ReadonlyTransaction,
@@ -23,7 +23,7 @@ import {
   validateADFEntity,
   findAndTrackUnsupportedContentNodes,
 } from '@atlaskit/editor-common/utils';
-import { Transformer } from '@atlaskit/editor-common/types';
+import { Transformer, ReplaceRawValue } from '@atlaskit/editor-common/types';
 import { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { DispatchAnalyticsEvent } from '../plugins/analytics/types/dispatch-analytics-event';
 import { getBreakoutMode } from './node-width';
@@ -171,9 +171,41 @@ export function bracketTyped(state: EditorState) {
   return false;
 }
 
+export function processRawFragmentValue(
+  schema: Schema,
+  value?: ReplaceRawValue[],
+  providerFactory?: ProviderFactory,
+  sanitizePrivateContent?: boolean,
+  contentTransformer?: Transformer<string>,
+  dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
+): Fragment | undefined {
+  if (!value) {
+    return;
+  }
+
+  const adfEntities = value
+    .map((item) =>
+      processRawValue(
+        schema,
+        item,
+        providerFactory,
+        sanitizePrivateContent,
+        contentTransformer,
+        dispatchAnalyticsEvent,
+      ),
+    )
+    .filter((item) => Boolean(item)) as Node[];
+
+  if (adfEntities.length === 0) {
+    return;
+  }
+
+  return Fragment.from(adfEntities);
+}
+
 export function processRawValue(
   schema: Schema,
-  value?: string | object,
+  value?: ReplaceRawValue,
   providerFactory?: ProviderFactory,
   sanitizePrivateContent?: boolean,
   contentTransformer?: Transformer<string>,
@@ -182,7 +214,6 @@ export function processRawValue(
   if (!value) {
     return;
   }
-
   interface NodeType {
     [key: string]: any;
   }
@@ -213,6 +244,7 @@ export function processRawValue(
     );
     return;
   }
+
   try {
     // ProseMirror always require a child under doc
     if (node.type === 'doc') {

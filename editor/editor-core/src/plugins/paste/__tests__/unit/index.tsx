@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { render } from '@testing-library/react';
 import { replaceRaf } from 'raf-stub';
 
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
@@ -509,6 +509,37 @@ describe('paste plugins', () => {
           ),
         );
       });
+
+      describe('plain text with code block markdown', () => {
+        it('should parse code block markdown correctly with one codeBlock', () => {
+          const { editorView } = editor(doc(p('{<>}')));
+          const text =
+            'code\n```\nback slash \\ with\nto see what happens\n```\ncheck';
+          dispatchPasteEvent(editorView, { plain: text });
+          expect(editorView.state.doc).toEqualDocument(
+            doc(
+              p('code'),
+              code_block()('back slash \\ with\nto see what happens'),
+              p('check'),
+            ),
+          );
+        });
+
+        it('should parse code block markdown correctly with multiple codeBlocks', () => {
+          const { editorView } = editor(doc(p('{<>}')));
+          const text =
+            'code\n```\nFirst codeBlock with single back slash \\\n```\n```\nSecond codeBlock with double back slash \\\\\n```\ncheck';
+          dispatchPasteEvent(editorView, { plain: text });
+          expect(editorView.state.doc).toEqualDocument(
+            doc(
+              p('code'),
+              code_block()('First codeBlock with single back slash \\'),
+              code_block()('Second codeBlock with double back slash \\\\'),
+              p('check'),
+            ),
+          );
+        });
+      });
     });
 
     describe('paste in markdown', () => {
@@ -954,7 +985,7 @@ describe('paste plugins', () => {
       it('should insert a media single markup as a media single node', () => {
         // Couldnt get media to load properly, we're inlining the media node.
         // We only really care about the media single markup here.
-        const wrapper = mount(
+        const { container } = render(
           <MediaSingle
             layout="center"
             width={1333}
@@ -973,7 +1004,7 @@ describe('paste plugins', () => {
 
         const { editorView } = editor(doc(p('{<>}')));
         dispatchPasteEvent(editorView, {
-          html: `<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"></head><body>${wrapper.html()}</body></html>`,
+          html: `<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"></head><body>${container.innerHTML}</body></html>`,
         });
         expect(editorView.state.doc).toEqualDocument(
           doc(
@@ -1561,6 +1592,15 @@ describe('paste plugins', () => {
               'Network:\\\\test\\test\\ Network://test/test/ Network:\\\\test\\test\\',
             ),
           ),
+        );
+      });
+
+      it('should parse plainText with backSlash correctly', () => {
+        const { editorView } = editor(doc(p('{<>}')));
+        const text = '\\test \\\\test http:\\\\www.atlassian.com\\about';
+        dispatchPasteEvent(editorView, { plain: text });
+        expect(editorView.state.doc).toEqualDocument(
+          doc(p('\\test \\\\test http:\\\\www.atlassian.com\\about')),
         );
       });
 

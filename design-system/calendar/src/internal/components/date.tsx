@@ -80,7 +80,6 @@ const Date = memo(
     const dateCellStyles = useMemo(() => css(getDateCellStyles(mode)), [mode]);
 
     return (
-      // eslint-disable-next-line @repo/internal/react/use-primitives
       <button
         // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
         css={dateCellStyles}

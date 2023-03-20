@@ -40,6 +40,12 @@ const lineNumberStyle = (theme: CodeBlockTheme): CSSObject => ({
   userSelect: 'none',
   // this is to fix SSR spacing issue
   display: 'block',
+  // This is how we are preventing line numbers being copied to clipboard.
+  // (`user-select: none;` was not sufficent).
+  // https://product-fabric.atlassian.net/browse/DSP-2729
+  '&::after': {
+    content: `attr(data-ds--line-number)`,
+  },
 });
 
 // order of these keys does matter as it will affect the css precedence
@@ -213,12 +219,13 @@ export const getCodeBlockStyles =
   (
     highlightedStartText: string,
     highlightedEndText: string,
-    hasLineNumbers?: boolean,
+    showLineNumbers: boolean,
+    shouldWrapLongLines: boolean,
   ): CSSObject => ({
     // this is required to account for prismjs styles leaking into the codeblock
     'code[class*="language-"], pre[class*="language-"], code': {
       all: 'unset',
-      padding: hasLineNumbers ? `${SPACING}px 0` : SPACING,
+      padding: showLineNumbers ? `${SPACING}px 0` : SPACING,
     },
     display: 'flex',
     lineHeight: CODE_LINE_HEIGHT,
@@ -228,15 +235,14 @@ export const getCodeBlockStyles =
     ...getBaseCodeStyles(theme),
     ...syntaxKeywordColors(theme),
     // this is to account for SSR spacing issue once loaded in browser
-    '& .linenumber, .react-syntax-highlighter-line-number':
-      lineNumberStyle(theme),
+    '& .linenumber, .ds-sh-line-number': lineNumberStyle(theme),
     '& .linenumber': {
       display: 'inline-block !important',
       float: 'left',
     },
     // these styles are for line highlighting
     '& [data-ds--code--row]': {
-      display: 'block',
+      display: showLineNumbers ? 'flex' : 'block',
       paddingRight: `${SPACING}px !important`,
       marginRight: `-${SPACING}px`,
     },
@@ -253,11 +259,12 @@ export const getCodeBlockStyles =
         whiteSpace: 'nowrap',
         width: '1px',
       },
+      // The formatting here is an accessibility convention
       '&::before': {
-        content: `", ${highlightedStartText}, "`,
+        content: `" [${highlightedStartText}] "`,
       },
       '&::after': {
-        content: `", ${highlightedEndText}, "`,
+        content: `" [${highlightedEndText}] "`,
       },
     },
     '& [data-ds--code--row--highlight] .linenumber': {
@@ -283,7 +290,7 @@ export const getCodeBlockStyles =
     },
     '& code:first-of-type': {
       paddingRight: `0px !important`,
-      backgroundImage: hasLineNumbers
+      backgroundImage: showLineNumbers
         ? `linear-gradient(to right, var(${VAR_CODE_LINE_NUMBER_BG_COLOR},${theme.lineNumberBgColor}), var(${VAR_CODE_LINE_NUMBER_BG_COLOR},${theme.lineNumberBgColor})
     calc(${theme.lineNumberWidth} + ${LINE_NUMBER_GUTTER}px), transparent calc(${theme.lineNumberWidth} + ${LINE_NUMBER_GUTTER}px), transparent)`
         : undefined,
@@ -293,7 +300,10 @@ export const getCodeBlockStyles =
     // applied to the first one
     '& code:last-of-type': {
       paddingRight: `${SPACING}px !important`,
-      flex: '1 0 auto',
+      flexBasis: 'auto',
+      flexGrow: 1, // Needed for the highlight line to extend full-width
+      flexShrink: shouldWrapLongLines ? 1 : 0,
+      wordBreak: 'break-word',
     },
 
     // Prevents empty code blocks from vertically collapsing

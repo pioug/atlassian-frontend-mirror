@@ -120,7 +120,7 @@ describe('MediaInline ReactNodeView', () => {
     mountWithIntl(<MediaInline {...mediaInlineProps} />);
     await flushPromises();
     expect(instances).toHaveLength(1);
-    expect(instances[0].updateFileAttrs).toHaveBeenCalledTimes(1);
+    expect(instances[0].updateMediaSingleFileAttrs).toHaveBeenCalledTimes(1);
   });
 
   test('calls updates file attrs on props change', async () => {
@@ -130,7 +130,7 @@ describe('MediaInline ReactNodeView', () => {
     });
     await flushPromises();
     expect(instances).toHaveLength(2);
-    expect(instances[1].updateFileAttrs).toHaveBeenCalledTimes(1);
+    expect(instances[1].updateMediaSingleFileAttrs).toHaveBeenCalledTimes(1);
   });
 
   test('returns loading view without message when no mediaClientConfig is present', async () => {

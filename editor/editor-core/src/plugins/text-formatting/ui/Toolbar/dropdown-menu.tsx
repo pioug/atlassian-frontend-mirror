@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 
 import { EditorView } from 'prosemirror-view';
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
@@ -31,6 +31,7 @@ export const FormattingTextDropdownMenu: React.FC<DropdownMenuProps> =
       popupsScrollableElement,
     }) => {
       const [isMenuOpen, toggleMenu, closeMenu] = useMenuState();
+      const [isOpenedByKeyboard, setIsOpenedByKeyboard] = useState(false);
       const group = useMemo(
         () => [
           {
@@ -54,6 +55,7 @@ export const FormattingTextDropdownMenu: React.FC<DropdownMenuProps> =
         },
         [editorView.state, editorView.dispatch, closeMenu],
       );
+
       return (
         <DropdownMenu
           mountTo={popupsMountPoint}
@@ -67,13 +69,29 @@ export const FormattingTextDropdownMenu: React.FC<DropdownMenuProps> =
           fitHeight={188}
           fitWidth={136}
           shouldUseDefaultRole
+          shouldFocusFirstItem={() => {
+            if (isOpenedByKeyboard) {
+              setIsOpenedByKeyboard(false);
+            }
+            return isOpenedByKeyboard;
+          }}
         >
           <MoreButton
             isSelected={isMenuOpen || hasFormattingActive}
             label={moreButtonLabel}
             isReducedSpacing={isReducedSpacing}
             isDisabled={false}
-            onClick={toggleMenu}
+            onClick={() => {
+              toggleMenu();
+              setIsOpenedByKeyboard(false);
+            }}
+            onKeyDown={(event: React.KeyboardEvent) => {
+              if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                toggleMenu();
+                setIsOpenedByKeyboard(true);
+              }
+            }}
             aria-expanded={isMenuOpen}
           />
         </DropdownMenu>

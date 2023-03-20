@@ -25,13 +25,19 @@ export const ErrorCodeMapper = {
     code: 'FAIL_TO_SAVE',
     message: 'Collab service is not able to save changes',
   },
+  restoreError: {
+    code: 'DOCUMENT_RESTORE_ERROR',
+    message: 'Collab service unable to restore document',
+  },
   internalError: {
     code: 'INTERNAL_SERVICE_ERROR',
     message: 'Collab service has experienced an internal server error',
   },
 };
 
-export const errorCodeMapper = (error: ErrorPayload): CollabErrorPayload => {
+export const errorCodeMapper = (
+  error: ErrorPayload,
+): CollabErrorPayload | undefined => {
   switch (error.data?.code) {
     case 'INSUFFICIENT_EDITING_PERMISSION':
       return {
@@ -57,11 +63,22 @@ export const errorCodeMapper = (error: ErrorPayload): CollabErrorPayload => {
         code: ErrorCodeMapper.failToSave.code,
         message: ErrorCodeMapper.failToSave.message,
       };
-    default:
+    case 'DOCUMENT_RESTORE_ERROR':
+      return {
+        status: 500,
+        code: ErrorCodeMapper.restoreError.code,
+        message: ErrorCodeMapper.restoreError.message,
+      };
+    // Temporarily re-added so we don't emit errors to Confluence by default as they will disconnect the collab provider
+    case 'CATCHUP_FAILED':
+    case 'GET_QUERY_TIME_OUT':
+    case 'INIT_DATA_LOAD_FAILED':
       return {
         status: 500,
         code: ErrorCodeMapper.internalError.code,
         message: ErrorCodeMapper.internalError.message,
       };
+    default:
+      break;
   }
 };

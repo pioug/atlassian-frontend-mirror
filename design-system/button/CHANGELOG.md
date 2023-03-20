@@ -1,5 +1,12 @@
 # @atlaskit/button
 
+## 16.5.7
+
+### Patch Changes
+
+- [`729e45efa7f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/729e45efa7f) - [ux] Fix a bug where the incorrect design tokens were used for the color of spinners in warning, disabled and selected buttons
+- Updated dependencies
+
 ## 16.5.6
 
 ### Patch Changes

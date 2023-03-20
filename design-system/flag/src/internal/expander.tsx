@@ -1,9 +1,7 @@
 import React from 'react';
 
-import {
-  UNSAFE_Box as Box,
-  UNSAFE_Stack as Stack,
-} from '@atlaskit/ds-explorations';
+import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
+import Stack from '@atlaskit/primitives/stack';
 import { ExitingPersistence, FadeIn } from '@atlaskit/motion';
 
 type ExpanderProps = {
@@ -36,7 +34,7 @@ const Expander: React.FC<ExpanderProps> = ({
           <FadeIn>
             {(props) => (
               <Box display="block" UNSAFE_style={{ width: '100%' }} {...props}>
-                <Stack gap="space.100">{children}</Stack>
+                <Stack space="100">{children}</Stack>
               </Box>
             )}
           </FadeIn>

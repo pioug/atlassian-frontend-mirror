@@ -225,9 +225,7 @@ export class MediaCardInternal extends Component<MediaCardProps, State> {
         resizeMode={resizeMode}
         disableOverlay={disableOverlay}
         shouldOpenMediaViewer={shouldOpenMediaViewer}
-        mediaViewerDataSource={{
-          list: Array.from(mediaIdentifierMap.values()),
-        }}
+        mediaViewerItems={Array.from(mediaIdentifierMap.values())}
         featureFlags={featureFlags}
         ssr={ssr?.mode}
       />
@@ -348,9 +346,7 @@ export class MediaCardInternal extends Component<MediaCardProps, State> {
           disableOverlay={disableOverlay}
           useInlinePlayer={isInlinePlayer}
           shouldOpenMediaViewer={shouldOpenMediaViewer}
-          mediaViewerDataSource={{
-            list: Array.from(mediaIdentifierMap.values()),
-          }}
+          mediaViewerItems={Array.from(mediaIdentifierMap.values())}
           featureFlags={featureFlags}
           shouldEnableDownloadButton={shouldEnableDownloadButton}
           ssr={ssr?.mode}

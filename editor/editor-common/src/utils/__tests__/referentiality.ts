@@ -15,7 +15,11 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { setNodeSelection } from '../index';
-import { removeConnectedNodes } from '../referentiality';
+import {
+  getChildrenInfo,
+  getConnections,
+  removeConnectedNodes,
+} from '../referentiality';
 
 export const getSelectedExtension = (
   state: EditorState,
@@ -47,6 +51,118 @@ describe('Referentiality API', () => {
 
     return instance;
   };
+
+  describe('name of extension', () => {
+    it('should be NULL when name does not exist on fragment mark', () => {
+      const { editorView } = editor(
+        doc(
+          fragmentMark({ localId: 'frag_A1' })(
+            extension({
+              localId: 'id_A1',
+              extensionType: 'com.atlassian.extensions.extension',
+              extensionKey: 'A1',
+              parameters: {},
+            })(),
+          ),
+        ),
+      );
+
+      expect(getConnections(editorView.state)['frag_A1'].name).toEqual(null);
+    });
+  });
+
+  describe('getChildrenInfo ', () => {
+    it('should return chilren array if all children had name', () => {
+      const { editorView } = editor(
+        doc(
+          p('hello'),
+          fragmentMark({ localId: 'frag_A1', name: 'Ext A1' })(
+            extension({
+              localId: 'id_A1',
+              extensionType: 'com.atlassian.extensions.extension',
+              extensionKey: 'A1',
+              parameters: {},
+            })(),
+          ),
+          fragmentMark({ localId: 'frag_B1', name: 'Ext B1' })(
+            dataConsumer({ sources: ['frag_A1'] })(
+              extension({
+                localId: 'id_B1',
+                extensionType: 'com.atlassian.extensions.extension',
+                extensionKey: 'B1',
+                parameters: {},
+              })(),
+            ),
+          ),
+          fragmentMark({ localId: 'frag_C1', name: 'Ext C1' })(
+            dataConsumer({ sources: ['frag_A1'] })(
+              extension({
+                localId: 'id_C1',
+                extensionType: 'com.atlassian.extensions.extension',
+                extensionKey: 'C1',
+                parameters: {},
+              })(),
+            ),
+          ),
+        ),
+      );
+      const positionOfDeletingNode = 7;
+
+      setNodeSelection(editorView, positionOfDeletingNode);
+      const extensionObj = getSelectedExtension(editorView.state, true);
+      const expectedResult = getChildrenInfo(
+        editorView.state,
+        extensionObj?.node,
+      );
+      expect(expectedResult).toBeInstanceOf(Array);
+      expect(expectedResult).toHaveLength(2);
+    });
+
+    it('getChildrenInfo should return empty array if any child does not have a name', () => {
+      const { editorView } = editor(
+        doc(
+          p('hello'),
+          fragmentMark({ localId: 'frag_A1', name: 'Ext A1' })(
+            extension({
+              localId: 'id_A1',
+              extensionType: 'com.atlassian.extensions.extension',
+              extensionKey: 'A1',
+              parameters: {},
+            })(),
+          ),
+          fragmentMark({ localId: 'frag_B1' })(
+            dataConsumer({ sources: ['frag_A1'] })(
+              extension({
+                localId: 'id_B1',
+                extensionType: 'com.atlassian.extensions.extension',
+                extensionKey: 'B1',
+                parameters: {},
+              })(),
+            ),
+          ),
+          fragmentMark({ localId: 'frag_C1', name: 'Ext C1' })(
+            dataConsumer({ sources: ['frag_A1'] })(
+              extension({
+                localId: 'id_C1',
+                extensionType: 'com.atlassian.extensions.extension',
+                extensionKey: 'C1',
+                parameters: {},
+              })(),
+            ),
+          ),
+        ),
+      );
+      const positionOfDeletingNode = 7;
+      setNodeSelection(editorView, positionOfDeletingNode);
+      const extensionObj = getSelectedExtension(editorView.state, true);
+      const expectedResult = getChildrenInfo(
+        editorView.state,
+        extensionObj?.node,
+      );
+      expect(expectedResult).toBeInstanceOf(Array);
+      expect(expectedResult).toHaveLength(0);
+    });
+  });
 
   describe('removeConnectedNodes', () => {
     it('should delete all related extension', () => {
@@ -160,8 +276,4 @@ describe('Referentiality API', () => {
       );
     });
   });
-
-  // describe('getChildrenInfo', () => {
-  // TODO: write tests which validate this functionality via the public API
-  // });
 });

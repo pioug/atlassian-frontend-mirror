@@ -1,4 +1,4 @@
-import { VirtualList } from '../../../../components/picker/VirtualList';
+import { ListRef } from '../../../../components/picker/VirtualList';
 import CategoryTracker from '../../../../components/picker/CategoryTracker';
 import { defaultCategories } from '../../../../util/constants';
 
@@ -39,15 +39,15 @@ describe('CategoryTracker', () => {
     });
 
     it('returns category if first row matches startIndex', () => {
-      expect(
-        getTracker().findNearestCategoryAbove(10, {} as VirtualList),
-      ).toEqual(defaultCategories[5]);
+      expect(getTracker().findNearestCategoryAbove(10, {} as ListRef)).toEqual(
+        defaultCategories[5],
+      );
     });
 
     it('returns first above category whose row matches startIndex', () => {
-      expect(
-        getTracker().findNearestCategoryAbove(11, {} as VirtualList),
-      ).toEqual(defaultCategories[5]);
+      expect(getTracker().findNearestCategoryAbove(11, {} as ListRef)).toEqual(
+        defaultCategories[5],
+      );
     });
   });
 });

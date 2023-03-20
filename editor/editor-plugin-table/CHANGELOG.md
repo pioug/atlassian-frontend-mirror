@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-table
 
+## 1.2.0
+
+### Minor Changes
+
+- [`1d11b24f17e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1d11b24f17e) - [ux] ED-15549 Implemented keyboard navigation in color palette
+
+### Patch Changes
+
+- [`a3b5b5b28d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a3b5b5b28d4) - [ux] Fixed issue where first row control dot was off by 10px when on narrow screens, the issue was caused by updated padding on smaller screens which adjusted the "total width" of the element, which then offset the control dot
+- [`ac424e40c77`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ac424e40c77) - [ED-16817] Removed isObserved flag from table sentinels after intersection observer has been disconnected
+- [`6a031b9b2da`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6a031b9b2da) - [ED-16334] Merge NextEditorPlugin interface with NextEditorPluginWithDependencies
+- [`e907b6924cc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e907b6924cc) - [ux] ED-16505 Update confirmation dialog message shown when data source element is about to removed
+- [`19c1c5e554a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19c1c5e554a) - [ux] TSLA-487 Fixes horizontal scroll shadow and places the scroll bar on the last row instead of below the table. See expected behavior on TSLA-27
+- Updated dependencies
+
 ## 1.1.5
 
 ### Patch Changes

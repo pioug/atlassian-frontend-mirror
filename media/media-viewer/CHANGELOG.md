@@ -1,5 +1,15 @@
 # @atlaskit/media-viewer
 
+## 47.5.0
+
+### Minor Changes
+
+- [`c3eba8c788d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c3eba8c788d) - Deprecation notice: Media Viewer no longer accepts a collection name as a data source. Integrators should pass the full list of files to browse through the new "items" property.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 47.4.3
 
 ### Patch Changes

@@ -20,10 +20,10 @@ import {
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
   INPUT_METHOD,
-} from '../plugins/analytics/types/enums';
-import EditorActions from '../actions';
+  fireAnalyticsEvent,
+} from '@atlaskit/editor-common/analytics';
 
-import { fireAnalyticsEvent } from '../plugins/analytics';
+import EditorActions from '../actions';
 
 /**
  * Utils to send analytics event when a extension is inserted using quickInsert

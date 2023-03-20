@@ -1,5 +1,9 @@
-import { DispatchAnalyticsEvent } from '../../plugins/analytics/types';
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../../plugins/analytics';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import {
+  ACTION,
+  ACTION_SUBJECT,
+  EVENT_TYPE,
+} from '@atlaskit/editor-common/analytics';
 
 export const UNSAFE_PROPERTY_SET_ERROR =
   'Setting an unsafe property on transaction after dispatch!';

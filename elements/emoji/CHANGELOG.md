@@ -1,5 +1,19 @@
 # @atlaskit/emoji
 
+## 67.1.0
+
+### Minor Changes
+
+- [`27b1925f52a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/27b1925f52a) - - search emoji in emoji picker will scroll to top
+  - improve emoji search analytics tracking
+  - add debounce to emoji search
+  - fix duplicated calls triggered by each emoji search
+  - functional component refactoring for VirtualList and EmojiPickerListSearch
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 67.0.7
 
 ### Patch Changes

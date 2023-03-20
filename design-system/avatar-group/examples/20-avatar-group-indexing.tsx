@@ -33,7 +33,6 @@ function getStatus() {
 const data = RANDOM_USERS.map((user) => ({
   ...user,
   appearance: 'circle' as AppearanceType,
-  enableTooltip: true,
   size: 'medium' as SizeType,
   status: getStatus(),
   href: '#',

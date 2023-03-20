@@ -50,7 +50,7 @@ describe('Mention', () => {
 
     await page.keyboard.type('@carolyn\n');
 
-    const selector = '.theme-select';
+    const selector = '.legacy-theme-changer';
     await page.waitForSelector(selector);
     await page.click(selector);
 

@@ -10,6 +10,7 @@ import {
 import { DefaultReactions } from '../../shared/constants';
 import { ReactionPicker } from '../ReactionPicker';
 import { RENDER_BUTTON_TESTID } from '../EmojiButton';
+import { RENDER_REACTIONPICKERPANEL_TESTID } from './ReactionPicker';
 
 describe('@atlaskit/reactions/components/ReactionPicker', () => {
   const renderPicker = (
@@ -97,5 +98,17 @@ describe('@atlaskit/reactions/components/ReactionPicker', () => {
       const prop = triggerPickerButton.getAttribute('disabled');
       expect(prop).toBeDefined();
     }
+  });
+
+  it('should close emoji picker when `ESC` is pressed', async () => {
+    renderWithIntl(renderPicker());
+
+    const triggerPickerButton = await screen.findByLabelText('Add reaction');
+    expect(triggerPickerButton).toBeInTheDocument();
+    fireEvent.click(triggerPickerButton);
+
+    const emojiPicker = screen.getByTestId(RENDER_REACTIONPICKERPANEL_TESTID);
+    fireEvent.keyDown(emojiPicker, { key: 'Escape' });
+    expect(emojiPicker).not.toBeInTheDocument();
   });
 });

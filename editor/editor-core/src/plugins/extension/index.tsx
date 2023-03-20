@@ -21,8 +21,9 @@ interface ExtensionPluginOptions extends LongPressSelectionPluginOptions {
 
 const extensionPlugin: NextEditorPlugin<
   'extension',
-  never,
-  ExtensionPluginOptions
+  {
+    pluginConfiguration: ExtensionPluginOptions | undefined;
+  }
 > = (options = {}) => ({
   name: 'extension',
 

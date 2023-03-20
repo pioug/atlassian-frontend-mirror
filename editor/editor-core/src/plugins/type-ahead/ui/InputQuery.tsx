@@ -23,7 +23,23 @@ import { AssistiveText } from './AssistiveText';
 import { typeAheadListMessages } from '../messages';
 import { IntlShape, useIntl } from 'react-intl-next';
 import { token } from '@atlaskit/tokens';
-import * as colors from '@atlaskit/theme/colors';
+import { blockNodesVerticalMargin } from '@atlaskit/editor-shared-styles';
+
+const querySpan = css({
+  outline: 'none',
+
+  '& input': {
+    width: '5px',
+    border: 'none',
+    background: 'transparent',
+    padding: 0,
+    margin: 0,
+    // ED-17022 Fixes firefox caret position
+    fontSize: '1em',
+    height: blockNodesVerticalMargin,
+    caretColor: token('color.text.accent.blue', '#0052CC'),
+  },
+});
 
 const isNavigationKey = (event: KeyboardEvent): boolean => {
   return ['Enter', 'Tab', 'ArrowDown', 'ArrowUp'].includes(event.key);
@@ -47,11 +63,6 @@ const isUndoRedoShortcut = (
   }
 
   return false;
-};
-
-const isSelectAllShortcut = (event: KeyboardEvent): boolean => {
-  const key = keyNameNormalized(event as any);
-  return (event.ctrlKey || event.metaKey) && key === 'a';
 };
 
 const getAriaLabel = (triggerPrefix: string, intl: IntlShape) => {
@@ -86,6 +97,7 @@ type InputQueryProps = {
   editorView: EditorView;
   items: any[];
 };
+
 export const InputQuery: React.FC<InputQueryProps> = React.memo(
   ({
     triggerQueryPrefix,
@@ -101,28 +113,31 @@ export const InputQuery: React.FC<InputQueryProps> = React.memo(
     editorView,
     items,
   }) => {
-    const ref = useRef<HTMLInputElement>(document.createElement('input'));
-    const sizeSpanRef = useRef<HTMLSpanElement>(document.createElement('span'));
+    const ref = useRef<HTMLSpanElement>(document.createElement('span'));
+    const inputRef = useRef<HTMLInputElement | null>(null);
+    const [query, setQuery] = useState<string | null>(null);
 
-    const [redoBuffer, setRedoBuffer] = useState<string[]>([]);
-    const [query, setQuery] = useState<string | undefined>(reopenQuery);
+    const cleanedInputContent = useCallback(() => {
+      const raw = ref.current?.textContent || '';
+      return raw;
+    }, []);
 
-    const onChange = useCallback(
-      (event: React.FormEvent<HTMLInputElement>) => {
-        const text = event.currentTarget.value;
-        sizeSpanRef.current.textContent = text;
-        setQuery(text);
+    const onKeyUp = useCallback(
+      (event: React.KeyboardEvent<HTMLSpanElement>) => {
+        const text = cleanedInputContent();
+
         onQueryChange(text);
       },
-      [onQueryChange],
+      [onQueryChange, cleanedInputContent],
     );
-
     const [isInFocus, setInFocus] = useState(false);
 
     const checkKeyEvent = useCallback(
       (event: KeyboardEvent) => {
         const key = keyNameNormalized(event as any);
-        const text = ref.current.value;
+        const sel = document.getSelection();
+        const raw = ref.current?.textContent || '';
+        const text = cleanedInputContent();
         let stopDefault = false;
         const { selectedIndex } = getPluginState(editorView.state);
         setInFocus(true);
@@ -152,7 +167,7 @@ export const InputQuery: React.FC<InputQueryProps> = React.memo(
             stopDefault = true;
             break;
           case 'Backspace':
-            if (text.length === 0 || ref.current.selectionStart === 0) {
+            if (raw.length === 0 || sel?.anchorOffset === 0) {
               event.stopPropagation();
               event.preventDefault();
               cancel({
@@ -199,39 +214,9 @@ export const InputQuery: React.FC<InputQueryProps> = React.memo(
             break;
         }
 
-        if (isSelectAllShortcut(event)) {
-          cancel({
-            forceFocusOnEditor: true,
-            addPrefixTrigger: true,
-            text: ref.current.value,
-            setSelectionAt: CloseSelectionOptions.BEFORE_TEXT_INSERTED,
-          });
-          return true;
-        }
-
         const undoRedoType = isUndoRedoShortcut(event);
-
-        const hasReopenQuery = reopenQuery && reopenQuery.length > 0;
-        if (onUndoRedo && undoRedoType) {
-          if (
-            !hasReopenQuery &&
-            undoRedoType === 'historyUndo' &&
-            text.length > 0
-          ) {
-            setRedoBuffer((buffer) => [ref.current.value, ...buffer]);
-            const undoValue = text.substring(0, text.length - 1);
-            ref.current.value = undoValue;
-            sizeSpanRef.current.textContent = undoValue;
-            stopDefault = true;
-          } else if (undoRedoType === 'historyRedo' && redoBuffer.length > 0) {
-            const redoValue = redoBuffer[0];
-            ref.current.value = redoValue;
-            sizeSpanRef.current.textContent = redoValue;
-            setRedoBuffer((buffer) => buffer.slice(1));
-            stopDefault = true;
-          } else {
-            stopDefault = onUndoRedo(undoRedoType);
-          }
+        if (onUndoRedo && undoRedoType && onUndoRedo(undoRedoType)) {
+          stopDefault = true;
         }
 
         if (isNavigationKey(event) || stopDefault) {
@@ -246,9 +231,8 @@ export const InputQuery: React.FC<InputQueryProps> = React.memo(
         selectNextItem,
         selectPreviousItem,
         cancel,
+        cleanedInputContent,
         editorView.state,
-        redoBuffer,
-        reopenQuery,
       ],
     );
 
@@ -257,37 +241,17 @@ export const InputQuery: React.FC<InputQueryProps> = React.memo(
         event.stopPropagation();
         event.preventDefault();
         onQueryFocus();
-        ref.current?.focus();
+        inputRef.current?.focus();
 
         return false;
       },
       [onQueryFocus],
     );
 
-    const queryStyle = css({
-      '&&': {
-        outline: 'none',
-        position: 'absolute',
-        fontFamily: 'inherit',
-        fontSize: 'inherit',
-        fontWeight: 'inherit',
-        letterSpacing: 'inherit',
-        padding: 0,
-        height: '100%',
-        width: '100%',
-        top: 0,
-        left: 0,
-        background: 'transparent',
-        border: 'none',
-        color: `${token('color.link', colors.B400)}`,
-      },
-    });
-
     useLayoutEffect(() => {
       if (!ref.current) {
         return;
       }
-
       const { current: element } = ref;
       const onFocusIn = (event: FocusEvent) => {
         onQueryFocus();
@@ -301,13 +265,15 @@ export const InputQuery: React.FC<InputQueryProps> = React.memo(
           document.getSelection &&
           document.getSelection()
         ) {
-          const q = ref.current?.value || '';
-          const anchorOffset = ref.current?.selectionStart;
+          const q = ref.current?.textContent || '';
+          const sel = document.getSelection();
 
           const isMovingRight =
-            'ArrowRight' === key && anchorOffset === q.length;
+            sel && 'ArrowRight' === key && sel.anchorOffset === q.length;
           const isMovingLeft =
-            'ArrowLeft' === key && (anchorOffset === 0 || event.metaKey);
+            sel &&
+            'ArrowLeft' === key &&
+            (sel.anchorOffset === 0 || event.metaKey);
 
           if (!isMovingRight && !isMovingLeft) {
             return;
@@ -316,7 +282,7 @@ export const InputQuery: React.FC<InputQueryProps> = React.memo(
           cancel({
             forceFocusOnEditor: true,
             addPrefixTrigger: true,
-            text: ref.current.value,
+            text: cleanedInputContent(),
             setSelectionAt: isMovingRight
               ? CloseSelectionOptions.AFTER_TEXT_INSERTED
               : CloseSelectionOptions.BEFORE_TEXT_INSERTED,
@@ -360,8 +326,8 @@ export const InputQuery: React.FC<InputQueryProps> = React.memo(
 
         cancel({
           addPrefixTrigger: true,
-          text: ref.current.value,
-          setSelectionAt: CloseSelectionOptions.AFTER_TEXT_INSERTED,
+          text: cleanedInputContent(),
+          setSelectionAt: CloseSelectionOptions.BEFORE_TEXT_INSERTED,
           forceFocusOnEditor: false,
         });
       };
@@ -378,7 +344,7 @@ export const InputQuery: React.FC<InputQueryProps> = React.memo(
       const beforeinput = (e: InputEvent) => {
         setInFocus(false);
         const { target } = e;
-        if (e.isComposing || !(target instanceof HTMLInputElement)) {
+        if (e.isComposing || !(target instanceof HTMLElement)) {
           return;
         }
 
@@ -387,6 +353,25 @@ export const InputQuery: React.FC<InputQueryProps> = React.memo(
           e.stopPropagation();
           close();
           return;
+        }
+
+        if (e.data != null && inputRef.current === null) {
+          setQuery('');
+
+          // We need to change the content on Safari
+          // and set the cursor at the right place
+          if (browser.safari) {
+            e.preventDefault();
+            const dataElement = document.createTextNode(e.data);
+            element.appendChild(dataElement);
+            const sel = window.getSelection();
+
+            const range = document.createRange();
+            range.setStart(dataElement, dataElement.length);
+            range.collapse(true);
+            sel?.removeAllRanges();
+            sel?.addRange(range);
+          }
         }
       };
       let onInput: Function | null = null;
@@ -397,7 +382,7 @@ export const InputQuery: React.FC<InputQueryProps> = React.memo(
         // That why we need to have an specific branch only for Safari.
         const onInput = (e: InputEvent) => {
           const { target } = e;
-          if (e.isComposing || !(target instanceof HTMLInputElement)) {
+          if (e.isComposing || !(target instanceof HTMLElement)) {
             return;
           }
 
@@ -432,7 +417,7 @@ export const InputQuery: React.FC<InputQueryProps> = React.memo(
       };
     }, [
       triggerQueryPrefix,
-      ref.current.value,
+      cleanedInputContent,
       onQueryFocus,
       cancel,
       checkKeyEvent,
@@ -443,8 +428,7 @@ export const InputQuery: React.FC<InputQueryProps> = React.memo(
       const hasReopenQuery =
         typeof reopenQuery === 'string' && reopenQuery.trim().length > 0;
       if (ref.current && forceFocus) {
-        ref.current.value = hasReopenQuery ? reopenQuery! : '';
-        sizeSpanRef.current.textContent = hasReopenQuery ? reopenQuery! : '';
+        setQuery(hasReopenQuery ? reopenQuery! : null);
 
         requestAnimationFrame(() => {
           if (!ref?.current) {
@@ -480,32 +464,21 @@ export const InputQuery: React.FC<InputQueryProps> = React.memo(
       <Fragment>
         {triggerQueryPrefix}
         {/* eslint-disable-next-line jsx-a11y/interactive-supports-focus */}
-
-        <span style={{ position: 'relative' }}>
-          <span
-            ref={sizeSpanRef}
-            aria-hidden={true}
-            style={{
-              marginLeft: '1px',
-              visibility: 'hidden',
-            }}
-          >
-            {/* This span is used to control the width of input */}
-          </span>
-          <input
-            css={queryStyle}
-            ref={ref}
-            onChange={onChange}
-            onClick={onClick}
-            role="combobox"
-            aria-controls={TYPE_AHEAD_DECORATION_ELEMENT_ID}
-            aria-autocomplete="list"
-            aria-expanded={items.length !== 0}
-            aria-labelledby={assistiveHintID}
-            suppressContentEditableWarning
-            data-query-prefix={triggerQueryPrefix}
-            value={query}
-          />
+        <span
+          css={querySpan}
+          contentEditable={true}
+          ref={ref}
+          onKeyUp={onKeyUp}
+          onClick={onClick}
+          role="combobox"
+          aria-controls={TYPE_AHEAD_DECORATION_ELEMENT_ID}
+          aria-autocomplete="list"
+          aria-expanded={items.length !== 0}
+          aria-labelledby={assistiveHintID}
+          suppressContentEditableWarning
+          data-query-prefix={triggerQueryPrefix}
+        >
+          {query === null ? <input ref={inputRef} type="text" /> : query}
         </span>
         <span id={assistiveHintID} style={{ display: 'none' }}>
           {intl.formatMessage(getAriaLabel(triggerQueryPrefix, intl))},

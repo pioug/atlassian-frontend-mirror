@@ -12,7 +12,7 @@ import {
   ACTION_SUBJECT,
   ACTION,
   FireAnalyticsCallback,
-} from '../../../plugins/analytics';
+} from '@atlaskit/editor-common/analytics';
 
 type RenderActions = ACTION.RE_RENDERED;
 type RenderActionSubjects =

@@ -1,14 +1,14 @@
 /** @jsx jsx */
 import { FC, useCallback, useEffect, useState } from 'react';
 
-import { jsx } from '@emotion/react';
+import { jsx, css } from '@emotion/react';
 
 import {
   UNSAFE_Box as Box,
-  UNSAFE_Inline as Inline,
-  UNSAFE_Stack as Stack,
   UNSAFE_Text as Text,
 } from '@atlaskit/ds-explorations';
+import Inline from '@atlaskit/primitives/inline';
+import Stack from '@atlaskit/primitives/stack';
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 import noop from '@atlaskit/ds-lib/noop';
@@ -27,6 +27,11 @@ const analyticsAttributes = {
   packageName: process.env._PACKAGE_NAME_ as string,
   packageVersion: process.env._PACKAGE_VERSION_ as string,
 };
+
+const transitionStyles = css({
+  flexGrow: 1,
+  transition: `gap 0.3s`,
+});
 
 /**
  * __Flag__
@@ -141,68 +146,66 @@ const Flag: FC<FlagProps> = (props) => {
         testId={testId}
         {...autoDismissProps}
       >
-        <Inline gap="space.200">
+        <Inline space="200">
           <Box
             alignItems="start"
             UNSAFE_style={{ color: iconColor, flexShrink: 0 }}
           >
             {icon}
           </Box>
-          <Stack
-            gap={shouldRenderGap ? 'space.100' : 'space.0'} // Gap exists even when not expanded due to Expander internals always being in the DOM
-            UNSAFE_style={{
-              flexGrow: 1,
-              transition: `gap 0.3s`,
-            }}
-          >
-            <Inline gap="space.100" justifyContent="spaceBetween">
-              <Box display="block" UNSAFE_style={{ paddingTop: 2 }}>
-                <Text
-                  color={textColor}
-                  fontWeight="semibold"
-                  UNSAFE_style={{
-                    overflowWrap: 'anywhere', // For cases where a single word is longer than the container (e.g. filenames)
-                  }}
-                >
-                  {title}
-                </Text>
-              </Box>
-              {isDismissable
-                ? !(isBold && !description && !actions.length) && (
-                    <DismissButton
-                      testId={testId}
-                      appearance={appearance}
-                      isBold={isBold}
-                      isExpanded={isExpanded}
-                      onClick={isBold ? toggleExpand : buttonActionCallback}
-                    />
-                  )
-                : null}
-            </Inline>
-            {/* Normal appearance can't be expanded so isExpanded is always true */}
-            <Expander isExpanded={!isBold || isExpanded} testId={testId}>
-              {description && (
-                <Text
-                  as="div"
-                  color={textColor}
-                  UNSAFE_style={{
-                    maxHeight: 100, // height is defined as 5 lines maximum by design
-                    overflow: 'auto',
-                    overflowWrap: 'anywhere', // For cases where a single word is longer than the container (e.g. filenames)
-                  }}
-                  testId={testId && `${testId}-description`}
-                >
-                  {description}
-                </Text>
-              )}
-              <Actions
-                actions={actions}
-                appearance={appearance}
-                linkComponent={linkComponent}
-                testId={testId}
-              />
-            </Expander>
-          </Stack>
+          <span css={transitionStyles}>
+            <Stack
+              space={shouldRenderGap ? '100' : '0'} // Gap exists even when not expanded due to Expander internals always being in the DOM
+            >
+              <Inline space="100" spread="space-between">
+                <Box display="block" UNSAFE_style={{ paddingTop: 2 }}>
+                  <Text
+                    color={textColor}
+                    fontWeight="semibold"
+                    UNSAFE_style={{
+                      overflowWrap: 'anywhere', // For cases where a single word is longer than the container (e.g. filenames)
+                    }}
+                  >
+                    {title}
+                  </Text>
+                </Box>
+                {isDismissable
+                  ? !(isBold && !description && !actions.length) && (
+                      <DismissButton
+                        testId={testId}
+                        appearance={appearance}
+                        isBold={isBold}
+                        isExpanded={isExpanded}
+                        onClick={isBold ? toggleExpand : buttonActionCallback}
+                      />
+                    )
+                  : null}
+              </Inline>
+              {/* Normal appearance can't be expanded so isExpanded is always true */}
+              <Expander isExpanded={!isBold || isExpanded} testId={testId}>
+                {description && (
+                  <Text
+                    as="div"
+                    color={textColor}
+                    UNSAFE_style={{
+                      maxHeight: 100, // height is defined as 5 lines maximum by design
+                      overflow: 'auto',
+                      overflowWrap: 'anywhere', // For cases where a single word is longer than the container (e.g. filenames)
+                    }}
+                    testId={testId && `${testId}-description`}
+                  >
+                    {description}
+                  </Text>
+                )}
+                <Actions
+                  actions={actions}
+                  appearance={appearance}
+                  linkComponent={linkComponent}
+                  testId={testId}
+                />
+              </Expander>
+            </Stack>
+          </span>
         </Inline>
       </Box>
     </FocusRing>

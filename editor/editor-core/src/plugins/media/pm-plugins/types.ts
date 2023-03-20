@@ -27,7 +27,6 @@ export interface MediaPluginState {
   element?: HTMLElement;
   layout: MediaSingleLayout;
   mediaNodes: MediaNodeWithPosHandler[];
-  mediaGroupNodes: Record<string, any>;
   options: MediaPluginOptions;
   mediaProvider?: MediaProvider;
   pickers: PickerFacade[];
@@ -68,12 +67,10 @@ export interface MediaPluginState {
   handleMediaNodeUnmount: (oldNode: PMNode) => void;
   handleMediaGroupUpdate: (oldNodes: PMNode[], newNodes: PMNode[]) => void;
   findMediaNode: (id: string) => MediaNodeWithPosHandler | null;
-  updateMediaNodeAttrs: (
+  updateMediaSingleNodeAttrs: (
     id: string,
     attrs: object,
-    isMediaSingle: boolean,
   ) => undefined | boolean;
-  removeNodeById: (state: MediaState) => void;
   removeSelectedMediaContainer: () => boolean;
   selectedMediaContainerNode: () => PMNode | undefined;
   handleDrag: (dragState: 'enter' | 'leave') => void;
@@ -89,5 +86,4 @@ export interface MediaPluginState {
       Pick<this, 'allowsUploads' | 'allUploadsFinished' | 'isFullscreen'>
     >,
   ): void;
-  setMediaGroupNode: (node: PMNode<any>, getPos: () => number) => void;
 }

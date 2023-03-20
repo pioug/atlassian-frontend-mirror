@@ -175,8 +175,9 @@ export function createPlugin(
 
 const basePlaceholderTextPlugin: NextEditorPlugin<
   'placeholderText',
-  never,
-  PlaceholderTextOptions
+  {
+    pluginConfiguration: PlaceholderTextOptions;
+  }
 > = (options: PlaceholderTextOptions) => ({
   name: 'placeholderText',
 
@@ -234,7 +235,12 @@ const basePlaceholderTextPlugin: NextEditorPlugin<
 
 const decorateWithPluginOptions = (
   plugin: ReturnType<
-    NextEditorPlugin<'placeholderText', never, PlaceholderTextOptions>
+    NextEditorPlugin<
+      'placeholderText',
+      {
+        pluginConfiguration: PlaceholderTextOptions;
+      }
+    >
   >,
   options: PlaceholderTextOptions,
 ) => {
@@ -273,9 +279,10 @@ const decorateWithPluginOptions = (
 
 const placeholderTextPlugin: NextEditorPlugin<
   'placeholderText',
-  never,
-  PlaceholderTextOptions
-> = (options: PlaceholderTextOptions) =>
-  decorateWithPluginOptions(basePlaceholderTextPlugin(options), options);
+  {
+    pluginConfiguration: PlaceholderTextOptions;
+  }
+> = (options: PlaceholderTextOptions, api) =>
+  decorateWithPluginOptions(basePlaceholderTextPlugin(options, api), options);
 
 export default placeholderTextPlugin;

@@ -1,4 +1,4 @@
-import { normalizeUrl, getLinkMatch } from '../../../utils/url';
+import { getLinkMatch, isRootRelative, normalizeUrl } from '../../../utils/url';
 const packageName = process.env._PACKAGE_NAME_ as string;
 
 describe(`${packageName}/url url utils`, () => {
@@ -167,6 +167,19 @@ describe(`${packageName}/url url utils`, () => {
       expect(getLinkMatch('test.ps')).toEqual(null);
       expect(getLinkMatch('test.so')).toEqual(null);
       expect(getLinkMatch('test.pl')).toEqual(null);
+    });
+  });
+
+  describe('isRootRelative', () => {
+    it('should return true', () => {
+      expect(isRootRelative('/test')).toEqual(true);
+      expect(isRootRelative('/home/test')).toEqual(true);
+    });
+    it('should return false', () => {
+      expect(isRootRelative('www.atlassian.com')).toEqual(false);
+      expect(isRootRelative('https://www.atlassian.com')).toEqual(false);
+      expect(isRootRelative('test/')).toEqual(false);
+      expect(isRootRelative('  /test')).toEqual(false);
     });
   });
 });

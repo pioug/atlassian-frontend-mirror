@@ -6,6 +6,7 @@ import {
 } from 'prosemirror-utils';
 import { PanelType, PanelAttributes } from '@atlaskit/adf-schema';
 import { PanelSharedCssClassName } from '@atlaskit/editor-common/panel';
+import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette';
 import { DomPanelAtrrs } from './types';
 
 export const findPanel = (
@@ -28,8 +29,16 @@ export const panelAttrsToDom = (
   const isCustomPanel = panelType === PanelType.CUSTOM && allowCustomPanel;
   const hasIcon = !isCustomPanel || !!panelIcon || !!panelIconId;
 
+  const tokenColor =
+    panelColor && hexToEditorBackgroundPaletteColor(panelColor);
+  const panelBackgroundColor = tokenColor || panelColor;
+
   const style = [
-    `${panelColor && isCustomPanel ? `background-color: ${panelColor};` : ''}`,
+    `${
+      panelColor && isCustomPanel
+        ? `background-color: ${panelBackgroundColor};`
+        : ''
+    }`,
     `${hasIcon ? '' : 'padding-left: 12px;'}`,
   ].join('');
 

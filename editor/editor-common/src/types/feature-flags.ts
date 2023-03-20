@@ -416,6 +416,18 @@ export type FeatureFlags = {
    * @default false
    */
   preventPopupOverflow?: boolean;
+
+  /**
+   * @description
+   * Use the new editor next component which uses a preset to configure the editor plugins used.
+   *
+   * @see https://product-fabric.atlassian.net/wiki/spaces/EA/pages/3356459260/MAKE+Project+Poster+Editor+Presets+for+Easy+Adoption
+   * @see https://product-fabric.atlassian.net/browse/ED-16576
+   * @see https://product-fabric.atlassian.net/browse/ED-16577
+   * DUE DATE: April 2023
+   * @default false
+   */
+  useEditorNext?: boolean;
 };
 
 export type FeatureFlagKey = keyof FeatureFlags;

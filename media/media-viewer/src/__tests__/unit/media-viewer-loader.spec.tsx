@@ -21,7 +21,7 @@ const identifier: Identifier = {
 const props = {
   mediaClientConfig: mediaClient.config,
   selectedItem: identifier,
-  dataSource: { list: [identifier] },
+  items: [identifier],
   collectionName: `${identifier.collectionName}`,
 };
 

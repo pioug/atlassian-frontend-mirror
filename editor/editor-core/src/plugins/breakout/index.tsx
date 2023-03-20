@@ -176,8 +176,9 @@ interface BreakoutPluginOptions {
 
 const breakoutPlugin: NextEditorPlugin<
   'breakout',
-  never,
-  BreakoutPluginOptions
+  {
+    pluginConfiguration: BreakoutPluginOptions | undefined;
+  }
 > = (options) => ({
   name: 'breakout',
 

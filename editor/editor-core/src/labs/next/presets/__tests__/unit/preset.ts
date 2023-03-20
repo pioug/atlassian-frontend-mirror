@@ -53,16 +53,20 @@ describe('Editor Preset', () => {
 
   it('should support different cases for providing plugin configuration in a type-safe way', () => {
     const p1: NextEditorPlugin<'p1'> = () => ({ name: 'p1' });
-    const p2: NextEditorPlugin<'p2', never, boolean> = (bool: boolean) => ({
+    const p2: NextEditorPlugin<'p2', { pluginConfiguration: boolean }> = (
+      bool: boolean,
+    ) => ({
       name: 'p2',
     });
     type P3Props = { b: number };
-    const p3: NextEditorPlugin<'p3', never, P3Props | undefined> = (
-      props?: P3Props,
-    ) => ({ name: 'p3' });
-    const p4: NextEditorPlugin<'p4', never, { a: string }> = (props: {
-      a: string;
-    }) => ({ name: 'p4' });
+    const p3: NextEditorPlugin<
+      'p3',
+      { pluginConfiguration: P3Props | undefined }
+    > = (props?: P3Props) => ({ name: 'p3' });
+    const p4: NextEditorPlugin<
+      'p4',
+      { pluginConfiguration: { a: string } }
+    > = (props: { a: string }) => ({ name: 'p4' });
 
     const preset = new Preset();
     preset.add(p1);

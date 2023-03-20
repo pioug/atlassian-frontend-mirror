@@ -17,7 +17,7 @@ import {
   FileIdentifier,
   MediaSubscription,
 } from '@atlaskit/media-client';
-import { MediaViewer, MediaViewerDataSource } from '@atlaskit/media-viewer';
+import { MediaViewer } from '@atlaskit/media-viewer';
 import { mediaTableWrapperStyles } from './styles';
 import DownloadButton from './downloadButton';
 import PreviewButton from './previewButton';
@@ -280,9 +280,7 @@ export class MediaTable extends Component<
       return null;
     }
 
-    const dataSource: MediaViewerDataSource = {
-      list: items.map((item) => item.identifier),
-    };
+    const mediaViewerItems = items.map((item) => item.identifier);
 
     const collectionName =
       (isFileIdentifier(mediaViewerSelectedItem) &&
@@ -291,7 +289,7 @@ export class MediaTable extends Component<
     return ReactDOM.createPortal(
       <MediaViewer
         mediaClientConfig={mediaClient.config}
-        dataSource={dataSource}
+        items={mediaViewerItems}
         selectedItem={mediaViewerSelectedItem}
         onClose={this.onMediaViewerClose}
         collectionName={collectionName}

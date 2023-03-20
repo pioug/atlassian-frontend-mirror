@@ -8,6 +8,7 @@
 ### Table of contents
 
 - [Main Entry Types](#main-entry-types)
+- [Peer Dependencies](#peer-dependencies)
 
 ### Main Entry Types
 
@@ -184,14 +185,36 @@ export interface SidebarProps extends React.HTMLProps<HTMLDivElement> {
 
 // @public (undocumented)
 export type Widths = {
-  extended: string;
-  full: string;
-  medium: number;
-  narrow: number;
-  wide: number;
+  extended: {
+    width: string;
+  };
+  full: {
+    width: string;
+  };
+  medium: {
+    width: number;
+  };
+  narrow: {
+    width: number;
+  };
+  wide: {
+    width: number;
+  };
 };
 
 // (No @packageDocumentation comment for this package)
 ```
 
 <!--SECTION END: Main Entry Types-->
+
+### Peer Dependencies
+
+<!--SECTION START: Peer Dependencies-->
+
+```json
+{
+  "react": "^16.8.0"
+}
+```
+
+<!--SECTION END: Peer Dependencies-->

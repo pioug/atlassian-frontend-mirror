@@ -47,8 +47,9 @@ export { insertMediaSingleNode } from './utils/media-single';
 
 const mediaPlugin: NextEditorPlugin<
   'media',
-  never,
-  MediaOptions | undefined
+  {
+    pluginConfiguration: MediaOptions | undefined;
+  }
 > = (options?) => ({
   name: 'media',
 

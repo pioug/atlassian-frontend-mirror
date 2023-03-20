@@ -1,6 +1,6 @@
 import { Provider } from './provider';
-import { io } from 'socket.io-client';
-import { Socket, Config, ProductInformation } from './types';
+import { io, Socket } from 'socket.io-client';
+import { Config, ProductInformation } from './types';
 import { getProduct, getSubProduct } from './helpers/utils';
 import { SOCKET_IO_OPTIONS } from './config';
 

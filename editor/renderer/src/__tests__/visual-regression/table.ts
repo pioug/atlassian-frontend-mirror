@@ -508,7 +508,6 @@ describe('Snapshot Test: triple click selection', () => {
 
     expect(collapsed).toBe(false);
     expect(selectionInsideCodeBlock).toBe(true);
-    // NOTE: the selection text ends with "2", even though what is actually selected on screen doesn't contain it.
-    expect(selectionText).toBe('first code line\n2');
+    expect(selectionText).toBe('first code line\n');
   });
 });

@@ -71,7 +71,7 @@ describe('@atlaskit/reactions/components/selector', () => {
     renderWithIntl(renderSelector(onSelection, true, onMoreClick));
     const button = await screen.findByTestId(RENDER_SHOWMORE_TESTID);
     expect(button).toBeInTheDocument();
-    fireEvent.mouseDown(button);
+    fireEvent.click(button);
 
     expect(onMoreClick.mock.calls).toHaveLength(1);
   });

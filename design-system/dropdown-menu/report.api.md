@@ -21,6 +21,7 @@ import type { CustomItemProps } from '@atlaskit/menu/types';
 import { default as DropdownItemGroup } from '@atlaskit/menu/section';
 import { KeyboardEvent as KeyboardEvent_2 } from 'react';
 import { MouseEvent as MouseEvent_2 } from 'react';
+import { default as React_2 } from 'react';
 import { ReactElement } from 'react';
 import { ReactNode } from 'react';
 import { Ref } from 'react';
@@ -39,7 +40,9 @@ export interface CustomTriggerProps<
 }
 
 // @public
-export const DropdownItem: (props: DropdownItemProps) => JSX.Element;
+export const DropdownItem: React_2.ForwardRefExoticComponent<
+  DropdownItemProps & React_2.RefAttributes<HTMLElement>
+>;
 
 // @public
 export const DropdownItemCheckbox: (

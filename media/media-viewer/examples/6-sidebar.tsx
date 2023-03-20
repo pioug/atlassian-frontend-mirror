@@ -37,17 +37,13 @@ import {
   audioItem,
   audioItemNoCover,
 } from '../example-helpers';
-import {
-  MediaViewer,
-  MediaViewerDataSource,
-  MediaViewerExtensionsActions,
-} from '../src';
+import { MediaViewer, MediaViewerExtensionsActions } from '../src';
 
 const mediaClient = createStorybookMediaClient();
 
 export type State = {
   selected?: {
-    dataSource: MediaViewerDataSource;
+    items: Array<Identifier>;
     identifier: Identifier;
   };
   sidebarFileState?: FileState;
@@ -61,22 +57,20 @@ export default class Example extends React.Component<{}, State> {
   private openList = () => {
     this.setState({
       selected: {
-        dataSource: {
-          list: [
-            externalImageIdentifier,
-            imageIdentifier,
-            videoIdentifier,
-            externalSmallImageIdentifier,
-            videoHorizontalFileItem,
-            wideImageIdentifier,
-            audioItem,
-            audioItemNoCover,
-            docIdentifier,
-            largePdfIdentifier,
-            imageIdentifier2,
-            unsupportedIdentifier,
-          ],
-        },
+        items: [
+          externalImageIdentifier,
+          imageIdentifier,
+          videoIdentifier,
+          externalSmallImageIdentifier,
+          videoHorizontalFileItem,
+          wideImageIdentifier,
+          audioItem,
+          audioItemNoCover,
+          docIdentifier,
+          largePdfIdentifier,
+          imageIdentifier2,
+          unsupportedIdentifier,
+        ],
         identifier: imageIdentifier,
       },
     });
@@ -109,7 +103,7 @@ export default class Example extends React.Component<{}, State> {
           <MediaViewer
             mediaClientConfig={mediaClient.config}
             selectedItem={selected.identifier}
-            dataSource={selected.dataSource}
+            items={selected.items}
             collectionName={defaultCollectionName}
             onClose={this.onClose}
             pageSize={5}

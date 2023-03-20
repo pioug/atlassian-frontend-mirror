@@ -7,8 +7,12 @@ import { CollabEditProvider } from './provider';
 import { PluginState } from './plugin-state';
 import { pluginKey } from './plugin-key';
 import { addSynchronyErrorAnalytics } from './analytics';
-import { fireAnalyticsEvent } from '../analytics/fire-analytics-event';
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../analytics';
+import {
+  fireAnalyticsEvent,
+  ACTION,
+  ACTION_SUBJECT,
+  EVENT_TYPE,
+} from '@atlaskit/editor-common/analytics';
 import { SyncUpErrorFunction } from '@atlaskit/editor-common/types';
 
 export { PluginState, pluginKey };

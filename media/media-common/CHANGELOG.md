@@ -1,5 +1,15 @@
 # @atlaskit/media-common
 
+## 3.0.0
+
+### Major Changes
+
+- [`c2bc38829e1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c2bc38829e1) - Removed mediaUploadApiV2 feature flag (now as a breaking change)
+
+### Minor Changes
+
+- [`8a0a92b2885`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8a0a92b2885) - MEX-2210 improve inconsistent behaviour on timestampOnVideo playback
+
 ## 2.19.2
 
 ### Patch Changes

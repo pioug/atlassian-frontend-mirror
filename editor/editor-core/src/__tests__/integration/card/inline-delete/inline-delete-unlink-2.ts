@@ -7,7 +7,6 @@ import {
 import {
   getDocFromElement,
   editable,
-  gotoEditor,
   linkUrlSelector,
   fullpage,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
@@ -19,9 +18,21 @@ BrowserTestCase(
   `card: unlinking a card created from CMD + K should leave only url text`,
   {},
   async (client: ConstructorParameters<typeof Page>[0], testName: string) => {
-    const page = new Page(client);
-
-    await gotoEditor(page);
+    const page = await goToEditorTestingWDExample(client);
+    await mountEditor(
+      page,
+      {
+        appearance: fullpage.appearance,
+        smartLinks: {
+          allowEmbeds: true,
+        },
+      },
+      {
+        providers: {
+          cards: true,
+        },
+      },
+    );
 
     await page.click(`[aria-label="${messages.link.defaultMessage}"]`);
     await page.waitForSelector(linkUrlSelector);

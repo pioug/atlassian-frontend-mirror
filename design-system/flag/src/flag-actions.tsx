@@ -6,7 +6,7 @@ import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/custom-theme-button';
 import type { CustomThemeButtonProps } from '@atlaskit/button/types';
-import { UNSAFE_Inline as Inline } from '@atlaskit/ds-explorations';
+import Inline from '@atlaskit/primitives/inline';
 import { gridSize as getGridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
@@ -63,6 +63,12 @@ const appearanceNormalButtonStyles = css({
   },
 });
 
+const appearanceNormalActionsContainerStyles = css({
+  '&&, a&&': {
+    transform: 'translateX(-2px)',
+  },
+});
+
 const FlagActions: FC<FlagActionsProps> = (props) => {
   const {
     appearance = DEFAULT_APPEARANCE,
@@ -77,42 +83,43 @@ const FlagActions: FC<FlagActionsProps> = (props) => {
   const isBold = appearance !== DEFAULT_APPEARANCE;
 
   return (
-    <Inline
-      gap="space.100"
-      flexWrap="wrap"
-      alignItems="center"
-      divider={isBold ? null : '·'}
-      UNSAFE_style={isBold ? undefined : { transform: `translateX(-2px)` }}
-      testId={testId && `${testId}-actions`}
-    >
-      {actions.map((action, index) => (
-        <Button
-          onClick={action.onClick}
-          href={action.href}
-          target={action.target}
-          appearance={isBold ? 'default' : 'link'}
-          component={linkComponent}
-          spacing="compact"
-          testId={action.testId}
-          key={index}
-          style={
-            {
-              [VAR_COLOR]: actionTextColor[appearance],
-              [VAR_BG_COLOR]: actionBackgroundColor[appearance].default,
-              [VAR_BG_COLOR_HOVER]: actionBackgroundColor[appearance].pressed,
-              [VAR_BG_COLOR_ACTIVE]: actionBackgroundColor[appearance].active,
-              [VAR_FOCUS_COLOR]: flagFocusRingColor[appearance],
-            } as CSSProperties
-          }
-          css={[
-            buttonStyles,
-            appearance === 'normal' && appearanceNormalButtonStyles,
-          ]}
-        >
-          {action.content}
-        </Button>
-      ))}
-    </Inline>
+    <span css={!isBold && appearanceNormalActionsContainerStyles}>
+      <Inline
+        space="100"
+        shouldWrap
+        alignBlock="center"
+        separator={isBold ? undefined : '·'}
+        testId={testId && `${testId}-actions`}
+      >
+        {actions.map((action, index) => (
+          <Button
+            onClick={action.onClick}
+            href={action.href}
+            target={action.target}
+            appearance={isBold ? 'default' : 'link'}
+            component={linkComponent}
+            spacing="compact"
+            testId={action.testId}
+            key={index}
+            style={
+              {
+                [VAR_COLOR]: actionTextColor[appearance],
+                [VAR_BG_COLOR]: actionBackgroundColor[appearance].default,
+                [VAR_BG_COLOR_HOVER]: actionBackgroundColor[appearance].pressed,
+                [VAR_BG_COLOR_ACTIVE]: actionBackgroundColor[appearance].active,
+                [VAR_FOCUS_COLOR]: flagFocusRingColor[appearance],
+              } as CSSProperties
+            }
+            css={[
+              buttonStyles,
+              appearance === DEFAULT_APPEARANCE && appearanceNormalButtonStyles,
+            ]}
+          >
+            {action.content}
+          </Button>
+        ))}
+      </Inline>
+    </span>
   );
 };
 

@@ -6,9 +6,11 @@ import {
 } from '@atlaskit/editor-common/utils';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { ACTION, AnalyticsEventPayload, EVENT_TYPE } from './types';
-import { getAnalyticsEventsFromTransaction } from './utils';
 import { analyticsPluginKey } from './plugin-key';
-import { fireAnalyticsEvent } from './fire-analytics-event';
+import {
+  fireAnalyticsEvent,
+  getAnalyticsEventsFromTransaction,
+} from '@atlaskit/editor-common/analytics';
 import { getFeatureFlags } from '../feature-flags-context';
 import {
   AnalyticsStep,
@@ -81,8 +83,9 @@ function createPlugin(options: AnalyticsPluginOptions) {
 
 const analyticsPlugin: NextEditorPlugin<
   'analytics',
-  never,
-  AnalyticsPluginOptions
+  {
+    pluginConfiguration: AnalyticsPluginOptions;
+  }
 > = (options) => ({
   name: 'analytics',
 

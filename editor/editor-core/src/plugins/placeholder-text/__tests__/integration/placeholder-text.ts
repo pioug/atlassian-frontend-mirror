@@ -1,4 +1,5 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
+import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 import {
   goToEditorTestingWDExample,
   mountEditor,
@@ -9,7 +10,6 @@ import {
   fullpage,
   insertBlockMenuItem,
   copyAsHTML,
-  gotoEditor,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
 import placeholderAdf from './__fixtures__/placeholder.adf.json';
 
@@ -64,21 +64,23 @@ BrowserTestCase(
   'placeholder text: can replace with pasted inline node',
   {},
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingWDExample(client);
+    let page = new Page(client);
+
     await copyAsHTML(
       page,
       `<meta charset='utf-8'><p data-pm-slice="1 1 []">test<span data-node-type="status" data-color="neutral" data-local-id="cd5fe1cb-6828-4d85-b483-ee8fba47b3d3" data-style="" contenteditable="false">test</span></p>`,
     );
 
+    page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
       allowTemplatePlaceholders: {
         allowInserting: true,
       },
+      allowStatus: true,
       defaultValue: placeholderAdf,
     });
 
-    await gotoEditor(page);
     await page.click(placeholderNodeSelector);
     await page.paste();
     await page.waitForSelector('.statusView-content-wrap');

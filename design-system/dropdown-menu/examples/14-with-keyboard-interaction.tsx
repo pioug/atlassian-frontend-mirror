@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
-import {
-  UNSAFE_Box as Box,
-  UNSAFE_Stack as Stack,
-} from '@atlaskit/ds-explorations';
+import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
 import Heading from '@atlaskit/heading';
 import ModalDialog, {
   ModalBody,
@@ -12,6 +9,7 @@ import ModalDialog, {
   ModalTitle,
   ModalTransition,
 } from '@atlaskit/modal-dialog';
+import Stack from '@atlaskit/primitives/stack';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../src';
 
@@ -19,7 +17,7 @@ export default () => {
   const [isModalOpen, setModalOpen] = useState(false);
 
   return (
-    <Stack gap="space.250">
+    <Stack space="250">
       <Heading level="h700">
         Click dropdown button and try to open the modal using your keyboard.
       </Heading>

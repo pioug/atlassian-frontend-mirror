@@ -6,6 +6,11 @@ import Mention from '../src/components/Mention';
 import { ELEMENTS_CHANNEL } from '../src/_constants';
 import debug from '../src/util/logger';
 import { mockMentionData as mentionData } from '../src/__tests__/unit/_test-helpers';
+import {
+  MENTION_ID_HIGHLIGHTED,
+  MENTION_ID_WITH_CONTAINER_ACCESS,
+  MENTION_ID_WITH_NO_ACCESS,
+} from '../src/__tests__/unit/_test-constants';
 import { IntlProvider } from 'react-intl-next';
 
 const padding = { padding: '10px' };
@@ -38,7 +43,7 @@ const handler = (
 export default function Example() {
   return (
     <IntlProvider locale="en">
-      <div>
+      <div data-testid="vr-tested">
         <div style={padding}>
           <AnalyticsListener
             onEvent={listenerHandler}
@@ -46,6 +51,7 @@ export default function Example() {
           >
             <Mention
               {...mentionData}
+              id={MENTION_ID_WITH_CONTAINER_ACCESS}
               accessLevel={'CONTAINER'}
               onClick={handler}
               onMouseEnter={onMentionEvent}
@@ -56,6 +62,7 @@ export default function Example() {
         <div style={padding}>
           <Mention
             {...mentionData}
+            id={MENTION_ID_HIGHLIGHTED}
             isHighlighted={true}
             onClick={onMentionEvent}
             onMouseEnter={onMentionEvent}
@@ -65,6 +72,7 @@ export default function Example() {
         <div style={padding}>
           <Mention
             {...mentionData}
+            id={MENTION_ID_WITH_NO_ACCESS}
             accessLevel={'NONE'}
             onClick={onMentionEvent}
             onMouseEnter={onMentionEvent}

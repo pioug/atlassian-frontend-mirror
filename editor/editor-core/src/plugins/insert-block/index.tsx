@@ -61,8 +61,9 @@ function handleInsertBlockType(name: string) {
 
 const insertBlockPlugin: NextEditorPlugin<
   'insertBlock',
-  never,
-  InsertBlockOptions
+  {
+    pluginConfiguration: InsertBlockOptions | undefined;
+  }
 > = (options = {}) => ({
   name: 'insertBlock',
 

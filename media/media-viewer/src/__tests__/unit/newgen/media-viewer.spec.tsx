@@ -20,7 +20,6 @@ import {
   Blanket,
 } from '../../../styleWrappers';
 import Header from '../../../header';
-import { ItemSource } from '../../../domain';
 import { List } from '../../../list';
 import {
   MediaViewerProps,
@@ -37,16 +36,12 @@ function createFixture(
     createMediaSubscribable(),
   );
   const onClose = jest.fn();
-  const itemSource: ItemSource = {
-    kind: 'ARRAY',
-    items,
-  };
   const onEvent = jest.fn();
   const el = mount(
     <AnalyticsListener channel="media" onEvent={onEvent}>
       <MediaViewer
         selectedItem={identifier}
-        itemSource={itemSource}
+        items={items}
         mediaClient={mediaClient}
         onClose={onClose}
         {...overrides}

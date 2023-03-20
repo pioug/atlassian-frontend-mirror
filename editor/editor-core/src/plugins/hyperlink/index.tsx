@@ -23,8 +23,9 @@ import { HyperlinkPluginOptions } from './types';
 
 const hyperlinkPlugin: NextEditorPlugin<
   'hyperlink',
-  never,
-  HyperlinkPluginOptions | undefined
+  {
+    pluginConfiguration: HyperlinkPluginOptions | undefined;
+  }
 > = (options?) => ({
   name: 'hyperlink',
 
@@ -38,7 +39,10 @@ const hyperlinkPlugin: NextEditorPlugin<
     const skipAnalytics = !!options?.cardOptions?.provider;
 
     return [
-      { name: 'hyperlink', plugin: ({ dispatch }) => plugin(dispatch) },
+      {
+        name: 'hyperlink',
+        plugin: ({ dispatch }) => plugin(dispatch, options?.editorAppearance),
+      },
       {
         name: 'fakeCursorToolbarPlugin',
         plugin: () => fakeCursorToolbarPlugin,

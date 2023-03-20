@@ -67,6 +67,7 @@ export {
   getMediaTypeFromMimeType,
   isImageMimeTypeSupportedByBrowser,
   isDocumentMimeTypeSupportedByBrowser,
+  isVideoMimeTypeSupportedByBrowser,
   isMimeTypeSupportedByBrowser,
   isImageMimeTypeSupportedByServer,
   isDocumentMimeTypeSupportedByServer,

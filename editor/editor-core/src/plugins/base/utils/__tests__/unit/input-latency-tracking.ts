@@ -31,8 +31,8 @@ describe('InputLatencyTracker', () => {
       });
 
       for (let i = 0; i < 5; i++) {
-        tracker.start();
-        tracker.end();
+        const end = tracker.start();
+        end();
       }
 
       expect(onSampleStart).toHaveBeenCalledTimes(1);
@@ -90,8 +90,8 @@ describe('InputLatencyTracker', () => {
       });
 
       for (let i = 0; i < 6; i++) {
-        tracker.start();
-        tracker.end();
+        const end = tracker.start();
+        end();
       }
 
       expect(onSampleStart).toHaveBeenCalledTimes(1);

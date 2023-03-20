@@ -5,7 +5,7 @@ import {
   EVENT_TYPE,
   AnalyticsEventPayload,
   InputMethodInsertLink,
-} from '../analytics';
+} from '../analytics/types';
 import { getLinkDomain, isFromCurrentDomain } from './utils';
 
 export function getLinkCreationAnalyticsEvent(

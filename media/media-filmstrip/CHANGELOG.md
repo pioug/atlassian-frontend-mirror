@@ -1,5 +1,12 @@
 # @atlaskit/media-filmstrip
 
+## 46.1.5
+
+### Patch Changes
+
+- [`c3eba8c788d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c3eba8c788d) - Updates Media Card input data object
+- Updated dependencies
+
 ## 46.1.4
 
 ### Patch Changes

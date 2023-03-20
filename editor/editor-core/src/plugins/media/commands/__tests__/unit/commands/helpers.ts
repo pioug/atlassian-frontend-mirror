@@ -1,7 +1,7 @@
 import {
   isMediaNode,
   replaceExternalMedia,
-  updateMediaNodeAttrs,
+  updateMediaSingleNodeAttrs,
   updateCurrentMediaNodeAttrs,
 } from '../../../helpers';
 import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
@@ -141,7 +141,7 @@ describe('media -> commands -> helpers.ts', () => {
     });
   });
 
-  describe('#updateMediaNodeAttrs', () => {
+  describe('#updateMediaSingleNodeAttrs', () => {
     describe('when the media node is at the same position', () => {
       const sourceDocument = doc(
         // prettier-ignore
@@ -169,11 +169,9 @@ describe('media -> commands -> helpers.ts', () => {
 
       it('should return true', () => {
         const { editorView } = editor(sourceDocument);
-        const update = updateMediaNodeAttrs(
-          temporaryFileId,
-          { collection: 'lol3' },
-          true,
-        );
+        const update = updateMediaSingleNodeAttrs(temporaryFileId, {
+          collection: 'lol3',
+        });
 
         const result = update(editorView.state, editorView.dispatch);
         expect(result).toBeTruthy();
@@ -181,11 +179,9 @@ describe('media -> commands -> helpers.ts', () => {
 
       it('should replace the media attributes', () => {
         const { editorView } = editor(sourceDocument);
-        const update = updateMediaNodeAttrs(
-          temporaryFileId,
-          { collection: 'lol3' },
-          true,
-        );
+        const update = updateMediaSingleNodeAttrs(temporaryFileId, {
+          collection: 'lol3',
+        });
 
         update(editorView.state, editorView.dispatch);
 
@@ -201,11 +197,9 @@ describe('media -> commands -> helpers.ts', () => {
 
       it('should return false', () => {
         const { editorView } = editor(sourceDocument);
-        const update = updateMediaNodeAttrs(
-          temporaryFileId,
-          { collection: 'lol3' },
-          true,
-        );
+        const update = updateMediaSingleNodeAttrs(temporaryFileId, {
+          collection: 'lol3',
+        });
 
         const result = update(editorView.state, editorView.dispatch);
         expect(result).toBeFalsy();

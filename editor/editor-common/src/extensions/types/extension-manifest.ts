@@ -37,7 +37,7 @@ export type ExtensionModuleActionObject<T extends Parameters = Parameters> = {
   parameters?: T;
 };
 
-export type MaybeADFEntity = MaybeESModule<ADFEntity | void>;
+export type MaybeADFEntity = MaybeESModule<ADFEntity | Array<ADFEntity> | void>;
 export type ExtensionModuleActionHandler = () => Promise<MaybeADFEntity>;
 
 export type ExtensionModuleAction<T extends Parameters = Parameters> =

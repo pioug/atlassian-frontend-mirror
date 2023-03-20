@@ -1,5 +1,11 @@
 # @atlaskit/comment
 
+## 10.7.11
+
+### Patch Changes
+
+- [`b6c5779d358`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b6c5779d358) - Internal changes only to restrict usage of `Box` from the primitives package.
+
 ## 10.7.10
 
 ### Patch Changes

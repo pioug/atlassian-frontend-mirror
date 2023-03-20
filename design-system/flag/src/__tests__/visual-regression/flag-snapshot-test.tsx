@@ -74,6 +74,31 @@ describe('Snapshot Test', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
+  it('expanded flag should match production example', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'flag',
+      'all-flags',
+      global.__BASEURL__,
+    );
+
+    const button = "[data-testid='flag-error-toggle']";
+    const actions = "[data-testid='flag-error-actions']";
+
+    await loadPage(page, url);
+
+    // click on toggle to expand
+    await page.waitForSelector(button);
+    await page.click(button);
+
+    // wait for expansion by ensuring actions are present
+    await page.waitForSelector(actions);
+
+    const image = await page.screenshot();
+
+    expect(image).toMatchProdImageSnapshot();
+  });
+
   it('Flag with long title should match production example', async () => {
     const url = getExampleUrl(
       'design-system',

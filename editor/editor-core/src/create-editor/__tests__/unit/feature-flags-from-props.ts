@@ -550,4 +550,44 @@ describe('Feature Flags from Props', () => {
       );
     });
   });
+
+  describe('editor plugins computed from preset', () => {
+    it('should add the FF value', () => {
+      expect(
+        createFeatureFlagsFromProps({
+          featureFlags: {
+            'use-editor-next': true,
+          },
+        }),
+      ).toEqual(
+        expect.objectContaining({
+          useEditorNext: true,
+        }),
+      );
+    });
+    it('should default to false if nothing passed in', () => {
+      expect(
+        createFeatureFlagsFromProps({
+          featureFlags: {},
+        }),
+      ).toEqual(
+        expect.objectContaining({
+          useEditorNext: false,
+        }),
+      );
+    });
+    it('should default to false if something invalid passed in', () => {
+      expect(
+        createFeatureFlagsFromProps({
+          featureFlags: {
+            'use-editor-next': 'somethingInvalid',
+          },
+        }),
+      ).toEqual(
+        expect.objectContaining({
+          useEditorNext: false,
+        }),
+      );
+    });
+  });
 });

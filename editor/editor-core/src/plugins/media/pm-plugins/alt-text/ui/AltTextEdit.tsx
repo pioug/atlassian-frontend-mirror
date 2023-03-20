@@ -24,7 +24,7 @@ import {
   ACTION,
   MediaAltTextActionType,
   FireAnalyticsCallback,
-} from '../../../../analytics';
+} from '@atlaskit/editor-common/analytics';
 import { RECENT_SEARCH_WIDTH_IN_PX } from '../../../../../ui/LinkSearch/ToolbarComponents';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 

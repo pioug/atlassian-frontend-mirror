@@ -2,11 +2,22 @@
 import React from 'react';
 import { css, jsx } from '@emotion/react';
 
-import { Popup, withOuterListeners } from '@atlaskit/editor-common/ui';
+import {
+  Popup,
+  PopupPosition,
+  withOuterListeners,
+} from '@atlaskit/editor-common/ui';
+import {
+  ArrowKeyNavigationProvider,
+  ArrowKeyNavigationType,
+} from '@atlaskit/editor-common/ui-menu';
+import { getSelectedRowAndColumnFromPalette } from '@atlaskit/editor-common/ui-color';
 import Button from '@atlaskit/button';
 import Tooltip from '@atlaskit/tooltip';
-import { N60A } from '@atlaskit/theme/colors';
+import { DN50, N0, N60A } from '@atlaskit/theme/colors';
+import { themed } from '@atlaskit/theme/components';
 import { borderRadius } from '@atlaskit/theme/constants';
+import { ThemeProps } from '@atlaskit/theme/types';
 
 import ColorPalette from '../ColorPalette';
 import { DEFAULT_BORDER_COLOR } from '../ColorPalette/Palettes/common';
@@ -34,9 +45,12 @@ const colorPickerButtonWrapper = css`
 // Control the size of color picker buttons and preview
 // TODO: https://product-fabric.atlassian.net/browse/DSP-4134
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
-const colorPickerWrapper = css`
+const colorPickerWrapper = (theme: ThemeProps) => css`
   border-radius: ${borderRadius()}px;
-  background-color: white;
+  background-color: ${themed({
+    light: token('elevation.surface.overlay', N0),
+    dark: token('elevation.surface.overlay', DN50),
+  })(theme)};
   box-shadow: 0 4px 8px -2px ${N60A}, 0 0 1px ${N60A};
   padding: 8px 0px;
 `;
@@ -56,14 +70,21 @@ type Props = WithAnalyticsEventsProps & {
   };
   mountPoint?: HTMLElement;
   setDisableParentScroll?: (disable: boolean) => void;
+  hexToPaletteColor?: (hexColor: string) => string | undefined;
 };
 
 const ColorPickerButton = (props: Props) => {
   const buttonRef = React.useRef<HTMLButtonElement>(null);
   const [isPopupOpen, setIsPopupOpen] = React.useState(false);
+  const [isPopupPositioned, setIsPopupPositioned] = React.useState(false);
+  const [isOpenedByKeyboard, setIsOpenedByKeyboard] = React.useState(false);
 
   const togglePopup = () => {
     setIsPopupOpen(!isPopupOpen);
+    if (!isPopupOpen) {
+      setIsOpenedByKeyboard(false);
+      setIsPopupPositioned(false);
+    }
   };
 
   React.useEffect(() => {
@@ -73,10 +94,27 @@ const ColorPickerButton = (props: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isPopupOpen]);
 
+  const focusButton = () => {
+    buttonRef.current?.focus();
+  };
+  const handleEsc = React.useCallback(() => {
+    setIsOpenedByKeyboard(false);
+    setIsPopupPositioned(false);
+    setIsPopupOpen(false);
+    focusButton();
+  }, []);
+
+  const onPositionCalculated = React.useCallback((position: PopupPosition) => {
+    setIsPopupPositioned(true);
+    return position;
+  }, []);
+
   const ColorPaletteWithListeners = withOuterListeners(ColorPalette);
 
   const onColorSelected = (color: string, label: string) => {
+    setIsOpenedByKeyboard(false);
     setIsPopupOpen(false);
+    setIsPopupPositioned(false);
     if (props.onChange) {
       if (props.createAnalyticsEvent) {
         // fire analytics
@@ -99,12 +137,21 @@ const ColorPickerButton = (props: Props) => {
       );
       newPalette && props.onChange(newPalette);
     }
+    focusButton();
   };
 
   const renderPopup = () => {
     if (!isPopupOpen || !buttonRef.current) {
       return;
     }
+
+    const selectedColor = props.currentColor || null;
+    const { selectedRowIndex, selectedColumnIndex } =
+      getSelectedRowAndColumnFromPalette(
+        props.colorPalette,
+        selectedColor,
+        props.cols,
+      );
 
     return (
       <Popup
@@ -119,21 +166,38 @@ const ColorPickerButton = (props: Props) => {
         // we need an index of > 500 to display over it
         zIndex={props.setDisableParentScroll ? 600 : undefined}
         ariaLabel="Color picker popup"
+        onPositionCalculated={onPositionCalculated}
       >
         <div css={colorPickerWrapper} data-test-id="color-picker-menu">
-          <ColorPaletteWithListeners
-            palette={props.colorPalette}
-            cols={props.cols}
-            selectedColor={props.currentColor || null}
-            onClick={onColorSelected}
-            handleClickOutside={togglePopup}
-          />
+          <ArrowKeyNavigationProvider
+            type={ArrowKeyNavigationType.COLOR}
+            selectedRowIndex={selectedRowIndex}
+            selectedColumnIndex={selectedColumnIndex}
+            closeOnTab={true}
+            handleClose={() => setIsPopupOpen(false)}
+            isOpenedByKeyboard={isOpenedByKeyboard}
+            isPopupPositioned={isPopupPositioned}
+          >
+            <ColorPaletteWithListeners
+              palette={props.colorPalette}
+              cols={props.cols}
+              selectedColor={selectedColor}
+              onClick={onColorSelected}
+              handleClickOutside={togglePopup}
+              handleEscapeKeydown={handleEsc}
+              hexToPaletteColor={props.hexToPaletteColor}
+            />
+          </ArrowKeyNavigationProvider>
         </div>
       </Popup>
     );
   };
 
   const title = props.title || '';
+  const currentColor =
+    props.currentColor && props.hexToPaletteColor
+      ? props.hexToPaletteColor(props.currentColor)
+      : props.currentColor;
   const buttonStyle = css`
     padding: 6px;
     background-color: ${token('color.background.neutral', 'transparent')};
@@ -145,7 +209,7 @@ const ColorPickerButton = (props: Props) => {
       content: '';
       border: 1px solid ${DEFAULT_BORDER_COLOR};
       border-radius: ${borderRadius()}px;
-      background-color: ${props.currentColor || 'transparent'};
+      background-color: ${currentColor || 'transparent'};
       width: ${props.size?.width || 14}px;
       height: ${props.size?.height || 14}px;
       padding: 0;
@@ -160,6 +224,13 @@ const ColorPickerButton = (props: Props) => {
           aria-label={title}
           spacing="compact"
           onClick={togglePopup}
+          onKeyDown={(event: React.KeyboardEvent) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+              event.preventDefault();
+              togglePopup();
+              setIsOpenedByKeyboard(true);
+            }
+          }}
           css={buttonStyle}
         />
       </Tooltip>

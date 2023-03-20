@@ -28,8 +28,9 @@ export { mentionPluginKey };
 
 const mentionsPlugin: NextEditorPlugin<
   'mention',
-  never,
-  MentionPluginOptions | undefined
+  {
+    pluginConfiguration: MentionPluginOptions | undefined;
+  }
 > = (options?) => {
   let sessionId = uuid();
   const fireEvent: FireElementsChannelEvent = <T extends AnalyticsEventPayload>(

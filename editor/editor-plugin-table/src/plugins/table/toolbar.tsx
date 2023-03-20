@@ -475,6 +475,8 @@ export const getToolbarConfig =
       let confirmDialog;
 
       if (isReferencedSource(state, tableObject.node)) {
+        const localSourceName = intl.formatMessage(tableMessages.unnamedSource);
+
         confirmDialog = (): ConfirmDialogOptions => ({
           title: intl.formatMessage(tableMessages.deleteElementTitle),
           okButtonLabel: intl.formatMessage(
@@ -482,7 +484,9 @@ export const getToolbarConfig =
           ),
           message: intl.formatMessage(
             tableMessages.confirmDeleteLinkedModalMessage,
-            { nodeName: getNodeName(state, tableObject.node) },
+            {
+              nodeName: getNodeName(state, tableObject.node) || localSourceName,
+            },
           ),
           messagePrefix: intl.formatMessage(
             tableMessages.confirmDeleteLinkedModalMessagePrefix,
@@ -524,7 +528,7 @@ export const getToolbarConfig =
         title: 'Table floating controls',
         getDomRef,
         nodeType,
-        offset: [0, 3],
+        offset: [0, 18],
         zIndex: akEditorFloatingPanelZIndex + 1, // Place the context menu slightly above the others
         items: [
           menu,

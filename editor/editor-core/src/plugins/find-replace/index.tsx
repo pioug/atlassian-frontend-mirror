@@ -10,8 +10,9 @@ type Config = {
 };
 export const findReplacePlugin: NextEditorPlugin<
   'findReplace',
-  never,
-  Config
+  {
+    pluginConfiguration: Config;
+  }
 > = (props) => {
   return {
     name: 'findReplace',

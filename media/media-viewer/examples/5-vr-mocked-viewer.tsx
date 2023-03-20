@@ -113,24 +113,22 @@ export default class Example extends React.Component<{}, State> {
       <MainWrapper>
         {isMediaViewerActive && files.length && (
           <MediaViewer
-            dataSource={{
-              list: files
-                .map(
-                  ({ id }): Identifier => ({
-                    id,
-                    collectionName: defaultCollectionName,
-                    mediaItemType: 'file',
-                  }),
-                )
-                .concat([
-                  {
-                    mediaItemType: 'external-image',
-                    dataURI:
-                      /* eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage */
-                      'https://wac-cdn.atlassian.com/dam/jcr:616e6748-ad8c-48d9-ae93-e49019ed5259/Atlassian-horizontal-blue-rgb.svg',
-                  },
-                ]),
-            }}
+            items={files
+              .map(
+                ({ id }): Identifier => ({
+                  id,
+                  collectionName: defaultCollectionName,
+                  mediaItemType: 'file',
+                }),
+              )
+              .concat([
+                {
+                  mediaItemType: 'external-image',
+                  dataURI:
+                    /* eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage */
+                    'https://wac-cdn.atlassian.com/dam/jcr:616e6748-ad8c-48d9-ae93-e49019ed5259/Atlassian-horizontal-blue-rgb.svg',
+                },
+              ])}
             selectedItem={{
               id: files[1].id,
               collectionName: defaultCollectionName,

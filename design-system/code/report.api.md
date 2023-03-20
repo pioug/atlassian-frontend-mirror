@@ -409,6 +409,7 @@ export interface CodeBlockProps {
   highlightedEndText?: string;
   highlightedStartText?: string;
   language?: SupportedLanguages;
+  shouldWrapLongLines?: boolean;
   showLineNumbers?: boolean;
   testId?: string;
   text: string;

@@ -215,7 +215,6 @@ ${code`
 
   Full light and dark mode support for the Editor is a work in progress. Currently, the following experiences do not yet support theming:
   - Custom table backgrounds
-  - Custom panel backgrounds
 
   ## Tab indexing / focus
   If you are displaying a title you may need to listen for a tab event to

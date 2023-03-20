@@ -15,8 +15,9 @@ type Config = {
 };
 const toolbarListsIndentationPlugin: NextEditorPlugin<
   'toolbarListsIndentation',
-  never,
-  Config
+  {
+    pluginConfiguration: Config;
+  }
 > = ({ showIndentationButtons, allowHeadingAndParagraphIndentation }) => ({
   name: 'toolbarListsIndentation',
 

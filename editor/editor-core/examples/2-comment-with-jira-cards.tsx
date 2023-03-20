@@ -10,7 +10,7 @@ import {
 } from '@atlaskit/link-provider';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 
-import Editor from './../src/editor';
+import { EditorMigrationComponent as Editor } from './../src';
 import EditorContext from './../src/ui/EditorContext';
 
 const jiraUrlMatch = /https?\:\/\/[a-zA-Z0-9]+\.atlassian\.net\/browse\//i;

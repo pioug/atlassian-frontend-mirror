@@ -97,19 +97,14 @@ export default ({ intl, scrollContainerRef, node, disabled }: Props) => {
   });
 
   useEffect(() => {
-    const scrollContainerRefCurrent = scrollContainerRef.current;
     onScroll();
+    const scrollContainerRefCurrent = scrollContainerRef.current;
     if (scrollContainerRefCurrent) {
       // enable/disable scroll buttons depending on scroll position
       scrollContainerRefCurrent.addEventListener('scroll', onScroll);
 
       // watch for toolbar resize and show/hide scroll buttons if needed
       resizeObserver.observe(scrollContainerRefCurrent);
-
-      // reset scroll position when switching from one node with toolbar to another
-      scrollContainerRefCurrent.scrollTo({
-        left: 0,
-      });
     }
 
     return () => {
@@ -119,7 +114,18 @@ export default ({ intl, scrollContainerRef, node, disabled }: Props) => {
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [node, scrollContainerRef]);
+  }, []);
+
+  useEffect(() => {
+    const scrollContainerRefCurrent = scrollContainerRef.current;
+    if (scrollContainerRefCurrent) {
+      // reset scroll position when switching from one node with toolbar to another
+      scrollContainerRefCurrent.scrollTo({
+        left: 0,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [node.type]);
 
   return needScroll ? (
     <div

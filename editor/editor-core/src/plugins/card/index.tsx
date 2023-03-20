@@ -7,9 +7,12 @@ import { EditorSmartCardEvents } from './ui/EditorSmartCardEvents';
 import { cardKeymap } from './pm-plugins/keymap';
 import { CardPluginOptions } from './types';
 
-const cardPlugin: NextEditorPlugin<'card', never, CardPluginOptions> = (
-  options,
-) => {
+const cardPlugin: NextEditorPlugin<
+  'card',
+  {
+    pluginConfiguration: CardPluginOptions;
+  }
+> = (options) => {
   return {
     name: 'card',
 

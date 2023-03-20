@@ -218,3 +218,4 @@ export { DEFAULT_BORDER_COLOR } from './ui/ColorPalette/Palettes/common';
 export { default as messages, statusMessages, dateMessages } from './messages';
 export { createTypeAheadTools } from './plugins/type-ahead/api';
 export { createQuickInsertTools } from './plugins/quick-insert/api';
+export { default as EditorMigrationComponent } from './editor-next/editor-migration-component';

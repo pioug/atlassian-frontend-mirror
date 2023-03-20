@@ -7,6 +7,7 @@ order: 0
 import CodeBlock from '../../examples/constellation/code-block';
 import CodeBlockLineNumbers from '../../examples/constellation/code-block-line-numbers';
 import CodeBlockLineHighlight from '../../examples/constellation/code-block-line-highlight';
+import CodeBlockShouldWrapLongLinesExample from '../../examples/constellation/code-block-should-wrap-long-lines';
 
 ## Default
 
@@ -29,3 +30,9 @@ Lines in a code block can be highlighted.
 - To highlight multiple groups: `highlight="1-5,7,10,15-20"`
 
 <Example Component={CodeBlockLineHighlight} packageName="@atlaskit/code" />
+
+## Wrapping long lines
+
+Long lines in a code block can be made to wrap using the `shouldWrapLongLines` prop.
+
+<Example Component={CodeBlockShouldWrapLongLinesExample} packageName="@atlaskit/code" />

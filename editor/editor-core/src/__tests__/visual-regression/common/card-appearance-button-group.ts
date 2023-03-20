@@ -133,7 +133,14 @@ describe('Cards with icons toolbar', () => {
     await snapshot(page);
   });
 
-  describe.each(contexts)('', ({ name, adf, appearances }) => {
+  // TODO: Unskip tests https://product-fabric.atlassian.net/browse/ED-17208
+  const skipContexts = [{ name: 'layout' }];
+
+  const contextsFiltered = contexts.filter(
+    ({ name }) => !skipContexts.some(({ name: skipName }) => skipName === name),
+  );
+
+  describe.each(contextsFiltered)('', ({ name, adf, appearances }) => {
     describe(`can switch appearance inside ${name} from inline to`, () => {
       const setup = async () => {
         await initEditor(adf, {

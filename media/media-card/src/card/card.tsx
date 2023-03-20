@@ -28,7 +28,6 @@ import {
   RECENTS_COLLECTION,
   isImageRepresentationReady,
   isExternalImageIdentifier,
-  isProcessedFileState,
   imageResizeModeToFileImageMode,
   MediaStoreGetFileImageParams,
   MediaBlobUrlAttrs,
@@ -45,6 +44,7 @@ import { CardAction } from './actions';
 import { CardProps, CardState, CardStatus, CardPreview } from '../types';
 import { CardView } from './cardView';
 import { ViewportDetector } from '../utils/viewportDetector';
+import { videoIsPlayable } from '../utils/videoIsPlayable';
 import { getRequestedDimensions } from '../utils/getDataURIDimension';
 import {
   getCardPreview,
@@ -382,14 +382,19 @@ export class CardBase extends Component<CardBaseProps, CardState> {
 
     const isVideo = this.fileAttributes.fileMediatype === 'video';
 
-    const videoAvailableToPlay = fileState && isProcessedFileState(fileState);
+    const { mimeType } = getFileDetails(identifier, fileState);
+    const isVideoPlayable = videoIsPlayable(
+      isBannedLocalPreview,
+      fileState,
+      mimeType,
+    );
 
     if (
       isVideo &&
       !isPlayingFile &&
       disableOverlay &&
       useInlinePlayer &&
-      videoAvailableToPlay &&
+      isVideoPlayable &&
       getMediaFeatureFlag('timestampOnVideo', this.props.featureFlags)
     ) {
       this.setState({
@@ -949,6 +954,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
       mediaClient,
       identifier,
       mediaViewerDataSource,
+      mediaViewerItems,
       contextId,
       featureFlags,
     } = this.props;
@@ -967,6 +973,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
       <MediaViewer
         collectionName={collectionName}
         dataSource={dataSource}
+        items={mediaViewerItems}
         mediaClientConfig={mediaClient.config}
         selectedItem={mediaViewerSelectedItem}
         onClose={this.onMediaViewerClose}

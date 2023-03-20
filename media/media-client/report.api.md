@@ -82,13 +82,13 @@ export type ClientOptions = {
 // @public (undocumented)
 export class CollectionFetcher {
   constructor(mediaStore: MediaStore);
-  // (undocumented)
+  // @deprecated (undocumented)
   getItems(
     collectionName: string,
     params?: MediaStoreGetCollectionItemsParams,
     traceContext?: MediaTraceContext,
   ): MediaSubscribable<MediaCollectionItem[]>;
-  // (undocumented)
+  // @deprecated (undocumented)
   loadNextPage(
     collectionName: string,
     params?: MediaStoreGetCollectionItemsParams,
@@ -827,6 +827,7 @@ export type MediaClientErrorReason =
   | 'clientAbortedRequest'
   | 'clientOffline'
   | 'clientTimeoutRequest'
+  | 'deprecatedEndpoint'
   | 'emptyAuth'
   | 'emptyItems'
   | 'failedAuthProvider'
@@ -979,7 +980,7 @@ export class MediaStore {
     artifactName: keyof MediaFileArtifacts,
     collectionName?: string,
   ): Promise<string>;
-  // (undocumented)
+  // @deprecated (undocumented)
   getCollectionItems(
     collectionName: string,
     params?: MediaStoreGetCollectionItemsParams,

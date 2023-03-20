@@ -17,6 +17,7 @@ import {
 import {
   canInsert,
   findParentNodeOfType,
+  findParentNodeOfTypeClosestToPos,
   hasParentNodeOfType,
   safeInsert,
 } from 'prosemirror-utils';
@@ -206,12 +207,172 @@ export function handlePasteIntoTaskOrDecisionOrPanel(slice: Slice): Command {
   };
 }
 
-export function handlePastePanelIntoList(slice: Slice): Command {
+export function handlePasteNonNestableBlockNodesIntoList(
+  slice: Slice,
+): Command {
+  return (state: EditorState, dispatch?: CommandDispatch): boolean => {
+    const { tr } = state;
+    const { selection } = tr;
+    const { $from, $to, from, to } = selection;
+    const { orderedList, bulletList, listItem } = state.schema.nodes;
+
+    // Selected nodes
+    const selectionParentListItemNode =
+      findParentNodeOfType(listItem)(selection);
+    const selectionParentListNodeWithPos = findParentNodeOfType([
+      bulletList,
+      orderedList,
+    ])(selection);
+    const selectionParentListNode = selectionParentListNodeWithPos?.node;
+
+    // Slice info
+    const sliceContent = slice.content;
+    const sliceIsListItems =
+      isListNode(sliceContent.firstChild) && isListNode(sliceContent.lastChild);
+
+    // Find case of slices that can be inserted into a list item
+    // (eg. paragraphs, list items, code blocks, media single)
+    // These scenarios already get handled elsewhere and don't need to split the list
+    let sliceContainsBlockNodesOtherThanThoseAllowedInListItem = false;
+    slice.content.forEach((child) => {
+      if (child.isBlock && !listItem.spec.content.includes(child.type.name)) {
+        sliceContainsBlockNodesOtherThanThoseAllowedInListItem = true;
+      }
+    });
+
+    if (
+      !selectionParentListItemNode ||
+      !sliceContent ||
+      canInsert($from, sliceContent) || // eg. inline nodes that can be inserted in a list item
+      !sliceContainsBlockNodesOtherThanThoseAllowedInListItem ||
+      sliceIsListItems ||
+      !selectionParentListNodeWithPos
+    ) {
+      return false;
+    }
+
+    // Offsets
+    const listWrappingOffset =
+      $to.depth - selectionParentListNodeWithPos.depth + 1; // difference in depth between to position and list node
+    const listItemWrappingOffset =
+      $to.depth - selectionParentListNodeWithPos.depth; // difference in depth between to position and list item node
+
+    // Anything to do with nested lists should safeInsert and not be handled here
+    const grandParentListNode = findParentNodeOfTypeClosestToPos(
+      tr.doc.resolve(selectionParentListNodeWithPos.pos),
+      [bulletList, orderedList],
+    );
+    const selectionIsInNestedList = !!grandParentListNode;
+    let selectedListItemHasNestedList = false;
+    selectionParentListItemNode.node.content.forEach((child) => {
+      if (isListNode(child)) {
+        selectedListItemHasNestedList = true;
+      }
+    });
+    if (selectedListItemHasNestedList || selectionIsInNestedList) {
+      return false;
+    }
+
+    // Node after the insert position
+    const nodeAfterInsertPositionIsListItem =
+      tr.doc.nodeAt(to + listItemWrappingOffset)?.type.name === 'listItem';
+
+    // Get the next list items position (used later to find the split out ordered list)
+    const indexOfNextListItem = $to.indexAfter(
+      $to.depth - listItemWrappingOffset,
+    );
+    const positionOfNextListItem = tr.doc
+      .resolve(selectionParentListNodeWithPos.pos + 1)
+      .posAtIndex(indexOfNextListItem);
+
+    // These nodes paste as plain text by default so need to be handled differently
+    const sliceContainsNodeThatPastesAsPlainText =
+      sliceContent.firstChild &&
+      ['taskItem', 'taskList', 'heading', 'blockquote'].includes(
+        sliceContent.firstChild.type.name,
+      );
+
+    // Work out position to replace up to
+    let replaceTo;
+    if (
+      sliceContainsNodeThatPastesAsPlainText &&
+      nodeAfterInsertPositionIsListItem
+    ) {
+      replaceTo = to + listItemWrappingOffset;
+    } else if (
+      sliceContainsNodeThatPastesAsPlainText ||
+      !nodeAfterInsertPositionIsListItem
+    ) {
+      replaceTo = to;
+    } else {
+      replaceTo = to + listWrappingOffset;
+    }
+
+    // handle the insertion of the slice
+    if (
+      sliceContainsNodeThatPastesAsPlainText ||
+      nodeAfterInsertPositionIsListItem ||
+      (sliceContent.childCount > 1 &&
+        sliceContent.firstChild?.type.name !== 'paragraph')
+    ) {
+      tr.replaceWith(from, replaceTo, sliceContent).scrollIntoView();
+    } else {
+      // When the selection is not at the end of a list item
+      // eg. middle of list item, start of list item
+      tr.replaceSelection(slice).scrollIntoView();
+    }
+
+    // Find the ordered list node after the pasted content so we can set it's order
+    const mappedPositionOfNextListItem = tr.mapping.map(positionOfNextListItem);
+    if (mappedPositionOfNextListItem > tr.doc.nodeSize) {
+      return false;
+    }
+    const nodeAfterPastedContentResolvedPos = findParentNodeOfTypeClosestToPos(
+      tr.doc.resolve(mappedPositionOfNextListItem),
+      [orderedList],
+    );
+
+    // Work out the new split out lists 'order' (the number it starts from)
+    const originalParentOrderedListNodeOrder =
+      selectionParentListNode?.attrs.order;
+    const numOfListItemsInOriginalList = findParentNodeOfTypeClosestToPos(
+      tr.doc.resolve(from - 1),
+      [orderedList],
+    )?.node.childCount;
+
+    // Set the new split out lists order attribute
+    if (
+      typeof originalParentOrderedListNodeOrder === 'number' &&
+      numOfListItemsInOriginalList &&
+      nodeAfterPastedContentResolvedPos
+    ) {
+      tr.setNodeMarkup(nodeAfterPastedContentResolvedPos.pos, orderedList, {
+        ...nodeAfterPastedContentResolvedPos.node.attrs,
+        order:
+          originalParentOrderedListNodeOrder + numOfListItemsInOriginalList,
+      });
+    }
+
+    // dispatch transaction
+    if (tr.docChanged) {
+      if (dispatch) {
+        dispatch(tr);
+      }
+      return true;
+    }
+
+    return false;
+  };
+}
+
+export function handlePastePanelOrDecisionContentIntoList(
+  slice: Slice,
+): Command {
   return (state: EditorState, dispatch?: CommandDispatch): boolean => {
     const { schema, tr } = state;
     const { selection } = tr;
     // Check this pasting action is related to copy content from panel node into a selected the list node
-    const panelNode = slice.content.firstChild;
+    const blockNode = slice.content.firstChild;
     const isSliceWholeNode = slice.openStart === 0 && slice.openEnd === 0;
     const selectionParentListItemNode = selection.$to.node(
       selection.$to.depth - 1,
@@ -222,12 +383,12 @@ export function handlePastePanelIntoList(slice: Slice): Command {
       !doesSelectionWhichStartsOrEndsInListContainEntireList(selection);
 
     if (
-      !dispatch ||
       !selectionParentListItemNode ||
       selectionParentListItemNode?.type !== schema.nodes.listItem ||
-      !panelNode ||
-      panelNode?.type !== schema.nodes.panel ||
-      panelNode?.content.firstChild === undefined ||
+      !blockNode ||
+      !['panel', 'decisionList'].includes(blockNode?.type.name) ||
+      slice.content.childCount > 1 ||
+      blockNode?.content.firstChild === undefined ||
       sliceIsWholeNodeButShouldNotReplaceSelection
     ) {
       return false;
@@ -235,7 +396,9 @@ export function handlePastePanelIntoList(slice: Slice): Command {
 
     // Paste the panel node contents extracted instead of pasting the entire panel node
     tr.replaceSelection(slice).scrollIntoView();
-    dispatch(tr);
+    if (dispatch) {
+      dispatch(tr);
+    }
     return true;
   };
 }

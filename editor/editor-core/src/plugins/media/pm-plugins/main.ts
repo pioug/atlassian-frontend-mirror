@@ -32,7 +32,7 @@ import {
   splitMediaGroup,
 } from '../utils/media-common';
 import * as helpers from '../commands/helpers';
-import { updateMediaNodeAttrs } from '../commands/helpers';
+import { updateMediaSingleNodeAttrs } from '../commands/helpers';
 import { stateKey } from './plugin-key';
 import PickerFacade, {
   MediaStateEventListener,
@@ -40,7 +40,6 @@ import PickerFacade, {
   PickerFacadeConfig,
 } from '../picker-facade';
 import { INPUT_METHOD, InputMethodInsertMedia } from '../../analytics/types';
-import { isImage } from '../utils/is-image';
 import { MediaNodeWithPosHandler, MediaPluginState } from './types';
 import { isInEmptyLine } from '../../../utils/document';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
@@ -95,7 +94,6 @@ export class MediaPluginStateImplementation implements MediaPluginState {
   element?: HTMLElement;
   layout: MediaSingleLayout = 'center';
   mediaNodes: MediaNodeWithPosHandler[] = [];
-  mediaGroupNodes: Record<string, any> = {};
   options: MediaPluginOptions;
   mediaProvider?: MediaProvider;
 
@@ -578,21 +576,13 @@ export class MediaPluginStateImplementation implements MediaPluginState {
     return;
   };
 
-  updateMediaNodeAttrs = (
-    id: string,
-    attrs: object,
-    isMediaSingle: boolean,
-  ) => {
+  updateMediaSingleNodeAttrs = (id: string, attrs: object) => {
     const { view } = this;
     if (!view) {
       return;
     }
 
-    return updateMediaNodeAttrs(
-      id,
-      attrs,
-      isMediaSingle,
-    )(view.state, view.dispatch);
+    return updateMediaSingleNodeAttrs(id, attrs)(view.state, view.dispatch);
   };
 
   private collectionFromProvider(): string | undefined {
@@ -611,45 +601,6 @@ export class MediaPluginStateImplementation implements MediaPluginState {
           uploadErrorHandler(state);
         }
         break;
-
-      case 'mobile-upload-end':
-        const attrs: { id: string; collection?: string } = {
-          id: state.publicId || state.id,
-        };
-
-        if (typeof state.collection === 'string') {
-          attrs.collection = state.collection;
-        }
-
-        this.updateMediaNodeAttrs(
-          state.id,
-          attrs,
-          isMediaSingle(this.view.state.schema, state.fileMimeType),
-        );
-
-        delete this.mediaGroupNodes[state.id];
-        break;
-    }
-  };
-
-  public setMediaGroupNode = (node: PMNode<any>, getPos: () => number) => {
-    this.mediaGroupNodes[node.attrs.id] = { node, getPos };
-  };
-
-  removeNodeById = (state: MediaState) => {
-    const { id } = state;
-    const mediaNodeWithPos = helpers.findMediaNode(
-      this,
-      id,
-      isImage(state.fileMimeType),
-    );
-
-    if (mediaNodeWithPos) {
-      removeMediaNode(
-        this.view,
-        mediaNodeWithPos.node,
-        mediaNodeWithPos.getPos,
-      );
     }
   };
 

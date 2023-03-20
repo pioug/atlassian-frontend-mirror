@@ -51,6 +51,8 @@ export const migrationUserId = 'hipchat_migration_emoticons';
 
 export const analyticsEmojiPrefix = 'atlassian.fabric.emoji.picker';
 
+export const EMOJI_SEARCH_DEBOUNCE = 150;
+
 // This is the base sampling rate in Emoji
 export const SAMPLING_RATE_EMOJI_RENDERED_EXP = 20;
 // This rate is used in fetching emoji resource

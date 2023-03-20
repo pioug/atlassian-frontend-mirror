@@ -64,7 +64,9 @@ export default class DemoMentionList extends React.Component<any, State> {
             403
           </button>
         </div>
-        <IntlProvider locale="en">{mentionList}</IntlProvider>
+        <IntlProvider locale="en">
+          <div data-testid="vr-tested">{mentionList}</div>
+        </IntlProvider>
       </div>
     );
   }

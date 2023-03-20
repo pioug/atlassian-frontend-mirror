@@ -5,7 +5,7 @@ import { IntlProvider } from 'react-intl-next';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
-import Editor from './../src/editor';
+import { EditorMigrationComponent as Editor } from './../src';
 import EditorContext from './../src/ui/EditorContext';
 import WithEditorActions from './../src/ui/WithEditorActions';
 import ToolbarHelp from './../src/ui/ToolbarHelp';

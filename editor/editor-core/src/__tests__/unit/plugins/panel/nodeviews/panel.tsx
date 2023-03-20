@@ -167,8 +167,9 @@ describe('Panel - NodeView', () => {
     it('renders panel with emoji and color when feature flag enabled', () => {
       const { panelElement } = setupEditor(true, true, testDocWithPanel);
       expect(panelElement.getAttribute('data-panel-type')).toBe('custom');
-
-      expect(panelElement.style.backgroundColor).toEqual('rgb(0, 255, 0)');
+      expect(panelElement.getAttribute('data-panel-color')).toBe(
+        'rgb(0, 255, 0)',
+      );
       expect(ResourcedEmoji).toBeCalledWith(
         expect.objectContaining({
           emojiId: {
@@ -192,8 +193,10 @@ describe('Panel - NodeView', () => {
         testDocWithWrongShortNameAndId,
       );
       expect(panelElement.getAttribute('data-panel-type')).toBe('custom');
+      expect(panelElement.getAttribute('data-panel-color')).toBe(
+        'rgb(0, 255, 0)',
+      );
 
-      expect(panelElement.style.backgroundColor).toEqual('rgb(0, 255, 0)');
       expect(ResourcedEmoji).toBeCalledWith(
         expect.objectContaining({
           emojiId: {
@@ -217,8 +220,9 @@ describe('Panel - NodeView', () => {
         testDocWithWrongShortNameAndFallback,
       );
       expect(panelElement.getAttribute('data-panel-type')).toBe('custom');
-
-      expect(panelElement.style.backgroundColor).toEqual('rgb(0, 255, 0)');
+      expect(panelElement.getAttribute('data-panel-color')).toBe(
+        'rgb(0, 255, 0)',
+      );
       expect(ResourcedEmoji).toBeCalledWith(
         expect.objectContaining({
           emojiId: {

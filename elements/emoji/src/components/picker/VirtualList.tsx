@@ -1,15 +1,9 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import {
-  VirtualItem as VirtualItemContext,
-  Virtualizer,
-  VirtualizerOptions,
-  observeElementRect,
-  observeElementOffset,
-  elementScroll,
-} from '@tanstack/react-virtual';
-import React, { PureComponent, createRef, UIEvent } from 'react';
+import { VirtualItem as VirtualItemContext } from '@tanstack/react-virtual';
+import React, { useCallback, useImperativeHandle } from 'react';
 import { virtualList } from './styles';
+import { useVirtualizer } from '@tanstack/react-virtual';
 
 type Props = {
   overscanRowCount: number;
@@ -22,40 +16,36 @@ type Props = {
   height: number;
 };
 
+export type ListRef = {
+  scrollToRow: (index?: number) => void;
+};
+
 export const virtualListScrollContainerTestId = 'virtual-list-scroll-container';
 
-export class VirtualList extends PureComponent<Props> {
-  private parentRef: React.RefObject<HTMLDivElement>;
-  private rowVirtualizer: Virtualizer<any, any>;
-  /**
-   * Determine if the component is mounted to the DOM or not
-   */
-  private _isMounted = false;
+export const VirtualList = React.forwardRef<ListRef, Props>((props, ref) => {
+  const parentRef = React.useRef<HTMLDivElement>(null);
+  const currentIndex = React.useRef<number>(0);
+  const { rowRenderer, onRowsRendered, scrollToAlignment, width, height } =
+    props;
 
-  constructor(props: Props) {
-    super(props);
-    this.parentRef = createRef<HTMLDivElement>();
-    this.rowVirtualizer = new Virtualizer(this.getVirtualizerOptions(props));
-  }
-
-  private getVirtualizerOptions(props: Props) {
+  const getVirtualizerOptions = () => {
     const { rowCount, rowHeight, overscanRowCount } = props;
     return {
-      observeElementRect: observeElementRect,
-      observeElementOffset: observeElementOffset,
-      scrollToFn: elementScroll,
       count: rowCount,
-      getScrollElement: () => this.parentRef.current,
+      getScrollElement: () => parentRef.current,
       estimateSize: rowHeight,
       overscan: overscanRowCount,
       onChange: () => {
-        this.forceUpdateGrid();
+        const startIndex = getFirstVisibleListElementIndex();
+        onRowsRendered({ startIndex });
       },
-    } as VirtualizerOptions<any, any>;
-  }
+    };
+  };
 
-  private isElementVisible(element: Element) {
-    const parent = this.parentRef.current as Element;
+  const rowVirtualizer = useVirtualizer(getVirtualizerOptions());
+
+  const isElementVisible = (element: Element) => {
+    const parent = parentRef.current as Element;
     const elementRect = element.getBoundingClientRect();
     const parentRect = parent.getBoundingClientRect();
     const elemTop = elementRect.top;
@@ -66,12 +56,11 @@ export class VirtualList extends PureComponent<Props> {
     // Only completely visible elements return true:
     const isVisible = elemTop >= parentTop && elemBottom <= parentBottom;
     return isVisible;
-  }
+  };
 
-  private getFirstVisibleListElementIndex() {
-    const virtualList = this.rowVirtualizer.getVirtualItems();
-    const renderedElements = this.parentRef.current?.firstChild?.childNodes;
-
+  const getFirstVisibleListElementIndex = useCallback(() => {
+    const virtualList = rowVirtualizer.getVirtualItems();
+    const renderedElements = parentRef.current?.firstChild?.childNodes;
     if (
       virtualList.length === 0 ||
       !renderedElements ||
@@ -79,106 +68,72 @@ export class VirtualList extends PureComponent<Props> {
     ) {
       return 0;
     }
-
     // Convert NodeListOf<ChildNodes> to ChildNodes[]
     const renderedElementsToArray = Array.from(renderedElements);
-
     const firstVisibleIndex = renderedElementsToArray.findIndex((elem) =>
-      this.isElementVisible(elem as Element),
+      isElementVisible(elem as Element),
     );
     if (firstVisibleIndex !== -1) {
       return virtualList[firstVisibleIndex]?.index || 0;
     }
     return 0;
-  }
+  }, [rowVirtualizer]);
 
-  private onRendered() {
-    const { onRowsRendered } = this.props;
-    this.rowVirtualizer.setOptions(this.getVirtualizerOptions(this.props));
+  // Exposing a custom ref handle to the parent component EmojiPickerList to trigger scrollToRow via the listRef
+  // https://beta.reactjs.org/reference/react/useImperativeHandle
+  useImperativeHandle(
+    ref,
+    () => {
+      return {
+        scrollToRow(index?: number) {
+          // only scroll if row index is defined and has changed
+          if (index !== undefined && currentIndex.current !== index) {
+            currentIndex.current = index;
+            rowVirtualizer.scrollToIndex(index, {
+              align: scrollToAlignment,
+              smoothScroll: false,
+            });
+          }
+        },
+      };
+    },
+    [scrollToAlignment, rowVirtualizer],
+  );
 
-    const startIndex = this.getFirstVisibleListElementIndex();
-    onRowsRendered({ startIndex });
-  }
-
-  componentDidUpdate() {
-    this.onRendered();
-  }
-
-  componentDidMount() {
-    if (this.rowVirtualizer) {
-      this.rowVirtualizer._didMount();
-      this.rowVirtualizer._willUpdate();
-      this._isMounted = true;
-    }
-  }
-
-  componentWillUnmount() {
-    this._isMounted = false;
-  }
-
-  scrollToRow(index?: number) {
-    const { scrollToAlignment } = this.props;
-    if (index !== undefined) {
-      this.rowVirtualizer?.scrollToIndex(index, {
-        align: scrollToAlignment,
-        smoothScroll: false,
-      });
-      this.forceUpdateGrid();
-    }
-  }
-
-  forceUpdateGrid() {
-    if (this._isMounted) {
-      this.forceUpdate();
-    }
-  }
-
-  recomputeRowHeights() {
-    this.rowVirtualizer?.measure();
-  }
-
-  handleScroll(e: UIEvent<HTMLDivElement>) {
-    e.preventDefault();
-  }
-
-  render() {
-    const { rowRenderer, width, height } = this.props;
-    return (
+  return (
+    <div
+      ref={parentRef}
+      role="grid"
+      style={{
+        height: `${height}px`,
+        width: `${width}px`,
+      }}
+      css={virtualList}
+      data-testid={virtualListScrollContainerTestId}
+    >
       <div
-        ref={this.parentRef}
-        role="grid"
         style={{
-          height: `${height}px`,
-          width: `${width}px`,
+          height: `${rowVirtualizer.getTotalSize()}px`,
+          width: '100%',
+          position: 'relative',
         }}
-        css={virtualList}
-        data-testid={virtualListScrollContainerTestId}
-        onScroll={this.handleScroll}
       >
-        <div
-          style={{
-            height: `${this.rowVirtualizer?.getTotalSize()}px`,
-            width: '100%',
-            position: 'relative',
-          }}
-        >
-          {this.rowVirtualizer?.getVirtualItems().map((virtualRow) => (
-            <div
-              key={virtualRow.key}
-              style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                width: '100%',
-                height: `${virtualRow.size}px`,
-                transform: `translateY(${virtualRow.start}px)`,
-              }}
-            >
-              {rowRenderer(virtualRow)}
-            </div>
-          ))}
-        </div>
+        {rowVirtualizer.getVirtualItems().map((virtualRow) => (
+          <div
+            key={virtualRow.key}
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: `${virtualRow.size}px`,
+              transform: `translateY(${virtualRow.start}px)`,
+            }}
+          >
+            {rowRenderer(virtualRow)}
+          </div>
+        ))}
       </div>
-    );
-  }
-}
+    </div>
+  );
+});

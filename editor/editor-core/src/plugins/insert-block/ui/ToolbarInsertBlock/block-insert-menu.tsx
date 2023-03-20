@@ -26,6 +26,7 @@ export interface BlockInsertMenuProps {
   onInsert: OnInsert;
   onOpenChange(attrs: any): void;
   togglePlusMenuVisibility(): void;
+  onKeyDown?: React.KeyboardEventHandler;
 }
 
 export const BlockInsertMenu: React.FC<BlockInsertMenuProps> = (props) => {
@@ -43,6 +44,7 @@ export const BlockInsertMenu: React.FC<BlockInsertMenuProps> = (props) => {
           selected={props.open}
           disabled={props.disabled}
           onClick={props.onClick}
+          onKeyDown={props.onKeyDown}
           spacing={props.spacing}
           label={props.label}
           aria-keyshortcuts="/"
@@ -59,6 +61,7 @@ export const BlockInsertMenu: React.FC<BlockInsertMenuProps> = (props) => {
         items={props.items}
         label={props.label}
         onClick={props.onClick}
+        onKeyDown={props.onKeyDown}
         onInsert={props.onInsert}
         onRef={props.onPlusButtonRef}
         open={props.open}
@@ -79,6 +82,7 @@ export const BlockInsertMenu: React.FC<BlockInsertMenuProps> = (props) => {
       items={props.items}
       label={props.label}
       onClick={props.onClick}
+      onKeyDown={props.onKeyDown}
       onItemActivated={props.onItemActivated}
       onOpenChange={props.onOpenChange}
       onRef={props.onRef}

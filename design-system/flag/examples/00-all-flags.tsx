@@ -98,6 +98,7 @@ export default () => (
           id={type}
           key={type}
           title={appearances[type].title}
+          testId={`flag-${type}`}
         />
       </Box>
     ))}

@@ -1,64 +1,59 @@
 /** @jsx jsx */
-import React, { Fragment } from 'react';
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 import PropTypes from 'prop-types';
 import { EditorView } from 'prosemirror-view';
-import type { IntlShape } from 'react-intl-next';
-import memoizeOne from 'memoize-one';
-import uuid from 'uuid/v4';
-import { name, version } from './version-wrapper';
-import { combineExtensionProviders } from '@atlaskit/editor-common/extensions';
+import React from 'react';
+
 import type { ExtensionProvider } from '@atlaskit/editor-common/extensions';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import {
-  BaseTheme,
-  WithCreateAnalyticsEvent,
-  WidthProvider,
-} from '@atlaskit/editor-common/ui';
-import {
-  getAnalyticsAppearance,
-  startMeasure,
-  stopMeasure,
-  clearMeasure,
-  measureTTI,
-  getTTISeverity,
-} from '@atlaskit/editor-common/utils';
 import { Transformer } from '@atlaskit/editor-common/types';
+import { WithCreateAnalyticsEvent } from '@atlaskit/editor-common/ui';
+import { getAnalyticsAppearance } from '@atlaskit/editor-common/utils';
+import { name, version } from './version-wrapper';
 
-import { EditorExperience, ExperienceStore } from '@atlaskit/editor-common/ufo';
-import { akEditorFullPageDefaultFontSize } from '@atlaskit/editor-shared-styles';
 import { FabricEditorAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 
-import { getUiComponent } from './create-editor';
+import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { ExperienceStore } from '@atlaskit/editor-common/ufo';
+import uuid from 'uuid/v4';
 import EditorActions from './actions';
-import { EditorProps, ExtensionProvidersProp } from './types/editor-props';
-import { ReactEditorView } from './create-editor';
+import { EditorInternalWithoutHooks as EditorInternal } from './editor-next/editor-internal';
+import {
+  Context,
+  defaultProps,
+  propTypes,
+} from './editor-next/utils/editorPropTypes';
+import trackEditorActions from './editor-next/utils/trackEditorActions';
+import onEditorCreated from './editor-next/utils/onEditorCreated';
+import deprecationWarnings from './editor-next/utils/deprecationWarnings';
+
 import { EventDispatcher } from './event-dispatcher';
-import EditorContext from './ui/EditorContext';
 import {
-  PortalProviderWithThemeProviders,
-  PortalRenderer,
-} from './ui/PortalProvider';
-import { nextMajorVersion } from './version-wrapper';
-import { ContextAdapter } from './nodeviews/context-adapter';
-import measurements from './utils/performance/measure-enum';
-import prepareQuickInsertProvider from './utils/prepare-quick-insert-provider';
-import {
-  fireAnalyticsEvent,
-  EVENT_TYPE,
-  ACTION_SUBJECT,
-  ACTION,
   FireAnalyticsCallback,
-  AnalyticsEventPayload,
-} from './plugins/analytics';
-import ErrorBoundary from './create-editor/ErrorBoundary';
+  fireAnalyticsEvent,
+} from '@atlaskit/editor-common/analytics';
 import {
-  QuickInsertProvider,
   QuickInsertOptions,
+  QuickInsertProvider,
 } from './plugins/quick-insert/types';
-import { createFeatureFlagsFromProps } from './create-editor/feature-flags-from-props';
-import { RenderTracking } from './utils/performance/components/RenderTracking';
+import { EditorProps } from './types/editor-props';
+import prepareQuickInsertProvider from './utils/prepare-quick-insert-provider';
+import prepareExtensionProvider from './utils/prepare-extension-provider';
+import { ProviderFactoryState } from './editor-next/hooks/useProviderFactory';
+import handleProviders from './editor-next/utils/handleProviders';
+import {
+  startMeasure,
+  clearMeasure,
+  stopMeasure,
+  measureTTI,
+} from '@atlaskit/editor-common/utils';
+import measurements from './utils/performance/measure-enum';
+import editorMeasureTTICallback from './editor-next/utils/editorMeasureTTICallback';
+import { ACTION } from '@atlaskit/editor-common/analytics';
+import sendDurationAnalytics from './editor-next/utils/sendDurationAnalytics';
+import getEditorPlugins from './utils/get-editor-plugins';
+import { GetEditorPluginsProps } from './types/get-editor-props';
+import { EditorPlugin } from './types';
 
 export type {
   AllowedBlockTypes,
@@ -71,18 +66,18 @@ export type {
   EditorInstance,
   EditorPlugin,
   EditorProps,
-  ExtensionProvidersProp,
   ExtensionConfig,
+  ExtensionProvidersProp,
   FeedbackInfo,
   MarkConfig,
   MessageDescriptor,
   NodeConfig,
   NodeViewConfig,
+  PluginsOptions,
   PMPlugin,
   PMPluginCreateConfig,
   PMPluginFactory,
   PMPluginFactoryParams,
-  PluginsOptions,
   ReactComponents,
   ToolbarUIComponentFactory,
   ToolbarUiComponentFactoryParams,
@@ -90,48 +85,25 @@ export type {
   UiComponentFactoryParams,
 } from './types';
 
-type Context = {
-  editorActions?: EditorActions;
-  intl: IntlShape;
-};
+export default class Editor extends React.Component<
+  EditorProps,
+  ProviderFactoryState
+> {
+  /**
+   * WARNING: Code should be shared between Editor + EditorNext
+   * If you are making changes that affect both, consider making them
+   * in editor-next/editor-internal.tsx or editor-next/editor-utils.ts
+   */
 
-type State = {
-  extensionProvider?: ExtensionProvider;
-  quickInsertProvider?: Promise<QuickInsertProvider>;
-};
-
-const fullHeight = css`
-  height: 100%;
-`;
-
-export default class Editor extends React.Component<EditorProps, State> {
-  static defaultProps: EditorProps = {
-    appearance: 'comment',
-    disabled: false,
-    extensionHandlers: {},
-    allowHelpDialog: true,
-    allowNewInsertionBehaviour: true,
-    quickInsert: true,
-  };
-
-  static propTypes = {
-    minHeight: ({ appearance, minHeight }: EditorProps) => {
-      if (
-        minHeight &&
-        appearance &&
-        !['comment', 'chromeless'].includes(appearance)
-      ) {
-        return new Error(
-          'minHeight only supports editor appearance chromeless and comment',
-        );
-      }
-      return null;
-    },
-  };
+  static defaultProps = defaultProps;
 
   static contextTypes = {
     editorActions: PropTypes.object,
   };
+
+  static propTypes = propTypes(
+    'minHeight only supports editor appearance chromeless and comment for Editor',
+  );
 
   private providerFactory: ProviderFactory;
   private editorActions: EditorActions;
@@ -144,14 +116,20 @@ export default class Editor extends React.Component<EditorProps, State> {
     super(props);
 
     this.providerFactory = new ProviderFactory();
-    this.deprecationWarnings(props);
-    this.onEditorCreated = this.onEditorCreated.bind(this);
-    this.onEditorDestroyed = this.onEditorDestroyed.bind(this);
+    deprecationWarnings(props);
     this.editorActions = (context || {}).editorActions || new EditorActions();
-    this.trackEditorActions(this.editorActions, props);
     this.editorSessionId = uuid();
     this.startTime = performance.now();
+    this.onEditorCreated = this.onEditorCreated.bind(this);
+    this.onEditorDestroyed = this.onEditorDestroyed.bind(this);
+    this.getEditorPlugins = this.getEditorPlugins.bind(this);
+    this.getExperienceStore = this.getExperienceStore.bind(this);
+    this.trackEditorActions(this.editorActions, props);
 
+    /**
+     * Consider any changes here to corresponding file for `EditorNext` in
+     * `useEditorConstructor` (editor-next/hooks/useEditorMeasuresConstructor.ts)
+     */
     startMeasure(measurements.EDITOR_MOUNTED);
     if (
       props.performanceTracking?.ttiTracking?.enabled ||
@@ -159,54 +137,25 @@ export default class Editor extends React.Component<EditorProps, State> {
     ) {
       measureTTI(
         (tti, ttiFromInvocation, canceled) => {
-          if (
-            props.performanceTracking?.ttiTracking?.enabled &&
-            this.createAnalyticsEvent
-          ) {
-            const ttiEvent: { payload: AnalyticsEventPayload } = {
-              payload: {
-                action: ACTION.EDITOR_TTI,
-                actionSubject: ACTION_SUBJECT.EDITOR,
-                attributes: { tti, ttiFromInvocation, canceled },
-                eventType: EVENT_TYPE.OPERATIONAL,
-              },
-            };
-            if (props.performanceTracking!.ttiTracking?.trackSeverity) {
-              const {
-                ttiSeverityNormalThreshold,
-                ttiSeverityDegradedThreshold,
-                ttiFromInvocationSeverityNormalThreshold,
-                ttiFromInvocationSeverityDegradedThreshold,
-              } = props.performanceTracking!.ttiTracking;
-              const { ttiSeverity, ttiFromInvocationSeverity } = getTTISeverity(
-                tti,
-                ttiFromInvocation,
-                ttiSeverityNormalThreshold,
-                ttiSeverityDegradedThreshold,
-                ttiFromInvocationSeverityNormalThreshold,
-                ttiFromInvocationSeverityDegradedThreshold,
-              );
-              ttiEvent.payload.attributes.ttiSeverity = ttiSeverity;
-              ttiEvent.payload.attributes.ttiFromInvocationSeverity =
-                ttiFromInvocationSeverity;
-            }
-            fireAnalyticsEvent(this.createAnalyticsEvent)(ttiEvent);
-          }
-
-          if (props.featureFlags?.ufo) {
-            this.experienceStore?.mark(
-              EditorExperience.loadEditor,
-              ACTION.EDITOR_TTI,
-              tti,
-            );
-            this.experienceStore?.success(EditorExperience.loadEditor);
-          }
+          editorMeasureTTICallback(
+            tti,
+            ttiFromInvocation,
+            canceled,
+            this.props.performanceTracking,
+            this.props.featureFlags,
+            this.createAnalyticsEvent,
+            this.experienceStore,
+          );
         },
         props.performanceTracking?.ttiTracking?.ttiIdleThreshold,
         props.performanceTracking?.ttiTracking?.ttiCancelTimeout,
       );
     }
 
+    /**
+     * Consider any changes here to corresponding file for `EditorNext` in
+     * `useProviderFactory` (editor-next/hooks/useProviderFactory.ts)
+     */
     const extensionProvider = this.prepareExtensionProvider(
       props.extensionProviders,
     );
@@ -222,14 +171,33 @@ export default class Editor extends React.Component<EditorProps, State> {
     };
   }
 
+  /**
+   * Consider any changes here to corresponding file for `EditorNext` in
+   * `useProviderFactory` (editor-next/hooks/useProviderFactory.ts) and
+   * `useMeasureEditorMountTime` (editor-next/hooks/useMeasureEditorMountTime.ts)
+   */
   componentDidMount() {
     stopMeasure(
       measurements.EDITOR_MOUNTED,
-      this.sendDurationAnalytics(ACTION.EDITOR_MOUNTED),
+      sendDurationAnalytics(
+        ACTION.EDITOR_MOUNTED,
+        this.props,
+        this.getExperienceStore,
+        this.createAnalyticsEvent,
+      ),
     );
-    this.handleProviders(this.props);
+    handleProviders(
+      this.providerFactory,
+      this.props,
+      this.state.extensionProvider,
+      this.state.quickInsertProvider,
+    );
   }
 
+  /**
+   * Consider any changes here to corresponding file for `EditorNext` in
+   * `useProviderFactory` (editor-next/hooks/useProviderFactory.ts)
+   */
   componentDidUpdate(prevProps: EditorProps) {
     const { extensionProviders, quickInsert } = this.props;
     if (
@@ -252,13 +220,29 @@ export default class Editor extends React.Component<EditorProps, State> {
           extensionProvider,
           quickInsertProvider,
         },
-        () => this.handleProviders(this.props),
+        () =>
+          handleProviders(
+            this.providerFactory,
+            this.props,
+            this.state.extensionProvider,
+            this.state.quickInsertProvider,
+          ),
       );
       return;
     }
-    this.handleProviders(this.props);
+    handleProviders(
+      this.providerFactory,
+      this.props,
+      this.state.extensionProvider,
+      this.state.quickInsertProvider,
+    );
   }
 
+  /**
+   * Consider any changes here to corresponding file for `EditorNext` in
+   * `useProviderFactory` (editor-next/hooks/useProviderFactory.ts) and
+   * `useMeasureEditorMountTime` (editor-next/hooks/useMeasureEditorMountTime.ts)
+   */
   componentWillUnmount() {
     this.unregisterEditorFromActions();
     this.providerFactory.destroy();
@@ -286,77 +270,11 @@ export default class Editor extends React.Component<EditorProps, State> {
     },
     props: EditorProps,
   ) {
-    if (props?.performanceTracking?.contentRetrievalTracking?.enabled) {
-      const DEFAULT_SAMPLING_RATE = 100;
-      const getValue = editorActions.getValue.bind(editorActions);
-      if (!editorActions._contentRetrievalTracking) {
-        editorActions._contentRetrievalTracking = {
-          samplingCounters: {
-            success: 1,
-            failure: 1,
-          },
-          getValueTracked: false,
-        };
-      }
-      const {
-        _contentRetrievalTracking: { samplingCounters, getValueTracked },
-      } = editorActions;
-
-      if (!getValueTracked) {
-        const getValueWithTracking = async () => {
-          try {
-            const value = await getValue();
-            if (
-              samplingCounters.success ===
-              (props?.performanceTracking?.contentRetrievalTracking
-                ?.successSamplingRate ?? DEFAULT_SAMPLING_RATE)
-            ) {
-              this.handleAnalyticsEvent({
-                payload: {
-                  action: ACTION.EDITOR_CONTENT_RETRIEVAL_PERFORMED,
-                  actionSubject: ACTION_SUBJECT.EDITOR,
-                  attributes: {
-                    success: true,
-                  },
-                  eventType: EVENT_TYPE.OPERATIONAL,
-                },
-              });
-              samplingCounters.success = 0;
-            }
-            samplingCounters.success++;
-            return value;
-          } catch (err: any) {
-            if (
-              samplingCounters.failure ===
-              (props?.performanceTracking?.contentRetrievalTracking
-                ?.failureSamplingRate ?? DEFAULT_SAMPLING_RATE)
-            ) {
-              this.handleAnalyticsEvent({
-                payload: {
-                  action: ACTION.EDITOR_CONTENT_RETRIEVAL_PERFORMED,
-                  actionSubject: ACTION_SUBJECT.EDITOR,
-                  attributes: {
-                    success: false,
-                    errorInfo: err.toString(),
-                    errorStack: props?.performanceTracking
-                      ?.contentRetrievalTracking?.reportErrorStack
-                      ? err.stack
-                      : undefined,
-                  },
-                  eventType: EVENT_TYPE.OPERATIONAL,
-                },
-              });
-              samplingCounters.failure = 0;
-            }
-            samplingCounters.failure++;
-            throw err;
-          }
-        };
-        editorActions.getValue = getValueWithTracking;
-        editorActions._contentRetrievalTracking.getValueTracked = true;
-      }
-    }
-    return editorActions;
+    return trackEditorActions(
+      editorActions,
+      props.performanceTracking,
+      (value) => this.handleAnalyticsEvent(value),
+    );
   }
 
   /**
@@ -365,21 +283,7 @@ export default class Editor extends React.Component<EditorProps, State> {
    * Please reach out to the Editor team if you were previously using this
    * and need to find a workaround.
    */
-  prepareExtensionProvider = memoizeOne(
-    (extensionProviders?: ExtensionProvidersProp) => {
-      if (!extensionProviders) {
-        return;
-      }
-
-      if (typeof extensionProviders === 'function') {
-        return combineExtensionProviders(
-          extensionProviders(this.editorActions),
-        );
-      }
-
-      return combineExtensionProviders(extensionProviders);
-    },
-  );
+  prepareExtensionProvider = prepareExtensionProvider(() => this.editorActions);
 
   /**
    * @private
@@ -390,7 +294,7 @@ export default class Editor extends React.Component<EditorProps, State> {
   prepareQuickInsertProvider = (
     extensionProvider?: ExtensionProvider,
     quickInsert?: QuickInsertOptions,
-  ) => {
+  ): Promise<QuickInsertProvider> | undefined => {
     return prepareQuickInsertProvider(
       this.editorActions,
       extensionProvider,
@@ -410,134 +314,17 @@ export default class Editor extends React.Component<EditorProps, State> {
     eventDispatcher: EventDispatcher;
     transformer?: Transformer<string>;
   }) {
-    this.registerEditorForActions(
-      instance.view,
-      instance.eventDispatcher,
-      instance.transformer,
+    onEditorCreated(
+      instance,
+      this.props,
+      (experienceStore) => (this.experienceStore = experienceStore),
+      this.getExperienceStore,
+      () => this.createAnalyticsEvent,
+      this.editorActions,
+      this.startTime,
+      (view, dispatcher, transformerForActions) =>
+        this.registerEditorForActions(view, dispatcher, transformerForActions),
     );
-
-    if (this.props.featureFlags?.ufo) {
-      this.experienceStore = ExperienceStore.getInstance(instance.view);
-      this.experienceStore.start(EditorExperience.loadEditor, this.startTime);
-    }
-
-    if (this.props.onEditorReady) {
-      const measureEditorReady =
-        this.props?.performanceTracking?.onEditorReadyCallbackTracking
-          ?.enabled || this.props.featureFlags?.ufo;
-
-      measureEditorReady && startMeasure(measurements.ON_EDITOR_READY_CALLBACK);
-
-      this.props.onEditorReady(this.editorActions);
-
-      measureEditorReady &&
-        stopMeasure(
-          measurements.ON_EDITOR_READY_CALLBACK,
-          this.sendDurationAnalytics(ACTION.ON_EDITOR_READY_CALLBACK),
-        );
-    }
-  }
-
-  private sendDurationAnalytics(
-    action: ACTION.EDITOR_MOUNTED | ACTION.ON_EDITOR_READY_CALLBACK,
-  ) {
-    return async (duration: number, startTime: number) => {
-      const contextIdentifier = await this.props.contextIdentifierProvider;
-      const objectId = contextIdentifier?.objectId;
-
-      if (this.createAnalyticsEvent) {
-        fireAnalyticsEvent(this.createAnalyticsEvent)({
-          payload: {
-            action,
-            actionSubject: ACTION_SUBJECT.EDITOR,
-            attributes: {
-              duration,
-              startTime,
-              objectId,
-            },
-            eventType: EVENT_TYPE.OPERATIONAL,
-          },
-        });
-      }
-
-      if (this.props.featureFlags?.ufo) {
-        this.experienceStore?.mark(
-          EditorExperience.loadEditor,
-          action,
-          startTime + duration,
-        );
-        this.experienceStore?.addMetadata(EditorExperience.loadEditor, {
-          objectId,
-        });
-      }
-    };
-  }
-
-  private deprecationWarnings(props: EditorProps) {
-    if (process.env.NODE_ENV === 'production') {
-      return;
-    }
-    const nextVersion = nextMajorVersion();
-    const deprecatedProperties = {
-      allowTasksAndDecisions: {
-        message:
-          'To allow tasks and decisions use taskDecisionProvider – <Editor taskDecisionProvider={{ provider }} />',
-        type: 'removed',
-      },
-
-      allowConfluenceInlineComment: {
-        message:
-          'To integrate inline comments use experimental annotationProvider – <Editor annotationProviders={{ provider }} />',
-        type: 'removed',
-      },
-
-      smartLinks: {
-        message:
-          'To use smartLinks, pass the same object into the smartlinks key of linking - <Editor linking={{ smartLinks: {existing object} }}.',
-        type: 'removed',
-      },
-    };
-
-    (
-      Object.keys(deprecatedProperties) as Array<
-        keyof typeof deprecatedProperties
-      >
-    ).forEach((property) => {
-      if (props.hasOwnProperty(property)) {
-        const meta: { type?: string; message?: string } =
-          deprecatedProperties[property];
-        const type = meta.type || 'enabled by default';
-
-        // eslint-disable-next-line no-console
-        console.warn(
-          `${property} property is deprecated. ${
-            meta.message || ''
-          } [Will be ${type} in editor-core@${nextVersion}]`,
-        );
-      }
-    });
-
-    if (
-      props.hasOwnProperty('allowTables') &&
-      typeof props.allowTables !== 'boolean' &&
-      (!props.allowTables || !props.allowTables.advanced)
-    ) {
-      // eslint-disable-next-line no-console
-      console.warn(
-        `Advanced table options are deprecated (except isHeaderRowRequired) to continue using advanced table features use - <Editor allowTables={{ advanced: true }} /> [Will be changed in editor-core@${nextVersion}]`,
-      );
-    }
-
-    if (
-      props.hasOwnProperty('allowTextColor') &&
-      typeof props.allowTextColor !== 'boolean' &&
-      props?.allowTextColor?.allowMoreTextColors !== undefined
-    ) {
-      // eslint-disable-next-line no-console
-      console.warn(
-        `"allowMoreTextColors" field of "allowTextColor" property is deprecated. It will be removedin editor-core@${nextVersion}. The color palette now shows more colors by default.`,
-      );
-    }
   }
 
   /**
@@ -551,13 +338,33 @@ export default class Editor extends React.Component<EditorProps, State> {
     transformer?: Transformer<string>;
   }) {
     this.unregisterEditorFromActions();
-
-    if (this.props.onDestroy) {
-      this.props.onDestroy();
-    }
+    this.props.onDestroy?.();
   }
 
-  private registerEditorForActions(
+  /**
+   * @private
+   * @deprecated - Do not override this at all, this is an antipattern.
+   * Please reach out to the Editor team if you were previously using this
+   * and need to find a workaround.
+   */
+  handleSave = (view: EditorView): void => this.props.onSave?.(view);
+
+  /**
+   * @private
+   * @deprecated - Do not override this at all, this is an antipattern.
+   * Please reach out to the Editor team if you were previously using this
+   * and need to find a workaround.
+   */
+  handleAnalyticsEvent: FireAnalyticsCallback = (data) =>
+    fireAnalyticsEvent(this.createAnalyticsEvent)(data);
+
+  /**
+   * @private
+   * @deprecated - Do not override this at all, this is an antipattern.
+   * Please reach out to the Editor team if you were previously using this
+   * and need to find a workaround.
+   */
+  registerEditorForActions(
     editorView: EditorView,
     eventDispatcher: EventDispatcher,
     contentTransformer?: Transformer<string>,
@@ -569,134 +376,19 @@ export default class Editor extends React.Component<EditorProps, State> {
     );
   }
 
-  private unregisterEditorFromActions() {
-    if (this.editorActions) {
-      this.editorActions._privateUnregisterEditor();
-    }
-  }
-
-  private handleProviders(props: EditorProps) {
-    const {
-      emojiProvider,
-      mentionProvider,
-      taskDecisionProvider,
-      contextIdentifierProvider,
-      collabEditProvider,
-      activityProvider,
-      presenceProvider,
-      macroProvider,
-      legacyImageUploadProvider,
-      media,
-      collabEdit,
-      autoformattingProvider,
-      searchProvider,
-      UNSAFE_cards,
-      smartLinks,
-      linking,
-    } = props;
-
-    const { extensionProvider, quickInsertProvider } = this.state;
-
-    this.providerFactory.setProvider('emojiProvider', emojiProvider);
-    this.providerFactory.setProvider('mentionProvider', mentionProvider);
-    this.providerFactory.setProvider(
-      'taskDecisionProvider',
-      taskDecisionProvider,
-    );
-    this.providerFactory.setProvider(
-      'contextIdentifierProvider',
-      contextIdentifierProvider,
-    );
-
-    this.providerFactory.setProvider('mediaProvider', media && media.provider);
-    this.providerFactory.setProvider(
-      'imageUploadProvider',
-      legacyImageUploadProvider,
-    );
-    this.providerFactory.setProvider(
-      'collabEditProvider',
-      collabEdit && collabEdit.provider
-        ? collabEdit.provider
-        : collabEditProvider,
-    );
-    this.providerFactory.setProvider('activityProvider', activityProvider);
-    this.providerFactory.setProvider('searchProvider', searchProvider);
-    this.providerFactory.setProvider('presenceProvider', presenceProvider);
-    this.providerFactory.setProvider('macroProvider', macroProvider);
-
-    const cardProvider =
-      linking?.smartLinks?.provider ||
-      (smartLinks && smartLinks.provider) ||
-      (UNSAFE_cards && UNSAFE_cards.provider);
-    if (cardProvider) {
-      this.providerFactory.setProvider('cardProvider', cardProvider);
-    }
-
-    this.providerFactory.setProvider(
-      'autoformattingProvider',
-      autoformattingProvider,
-    );
-
-    if (extensionProvider) {
-      this.providerFactory.setProvider(
-        'extensionProvider',
-        Promise.resolve(extensionProvider),
-      );
-    }
-
-    if (quickInsertProvider) {
-      this.providerFactory.setProvider(
-        'quickInsertProvider',
-        quickInsertProvider,
-      );
-    }
-  }
-
-  private getBaseFontSize() {
-    return !['comment', 'chromeless', 'mobile'].includes(this.props.appearance!)
-      ? akEditorFullPageDefaultFontSize
-      : undefined;
-  }
-
   /**
    * @private
    * @deprecated - Do not override this at all, this is an antipattern.
    * Please reach out to the Editor team if you were previously using this
    * and need to find a workaround.
    */
-  handleSave = (view: EditorView): void => {
-    if (!this.props.onSave) {
-      return;
-    }
+  unregisterEditorFromActions() {
+    this.editorActions._privateUnregisterEditor();
+  }
 
-    return this.props.onSave(view);
-  };
-
-  /**
-   * @private
-   * @deprecated - Do not override this at all, this is an antipattern.
-   * Please reach out to the Editor team if you were previously using this
-   * and need to find a workaround.
-   */
-  handleAnalyticsEvent: FireAnalyticsCallback = (data) =>
-    fireAnalyticsEvent(this.createAnalyticsEvent)(data);
+  private getExperienceStore = () => this.experienceStore;
 
   render() {
-    const Component = getUiComponent(this.props.appearance!);
-
-    const overriddenEditorProps = {
-      ...this.props,
-      onSave: this.props.onSave ? this.handleSave : undefined,
-      // noop all analytic events, even if a handler is still passed.
-      analyticsHandler: undefined,
-    };
-
-    const featureFlags = createFeatureFlagsFromProps(this.props);
-    const renderTracking =
-      this.props.performanceTracking?.renderTracking?.editor;
-    const renderTrackingEnabled = renderTracking?.enabled;
-    const useShallow = renderTracking?.useShallow;
-
     return (
       <FabricEditorAnalyticsContext
         data={{
@@ -710,143 +402,25 @@ export default class Editor extends React.Component<EditorProps, State> {
         <WithCreateAnalyticsEvent
           render={(createAnalyticsEvent) =>
             (this.createAnalyticsEvent = createAnalyticsEvent) && (
-              <Fragment>
-                {renderTrackingEnabled && (
-                  <RenderTracking
-                    componentProps={this.props}
-                    action={ACTION.RE_RENDERED}
-                    actionSubject={ACTION_SUBJECT.EDITOR}
-                    handleAnalyticsEvent={this.handleAnalyticsEvent}
-                    propsToIgnore={['defaultValue']}
-                    useShallow={useShallow}
-                  />
-                )}
-                <ErrorBoundary
-                  createAnalyticsEvent={createAnalyticsEvent}
-                  contextIdentifierProvider={
-                    this.props.contextIdentifierProvider
-                  }
-                >
-                  <WidthProvider css={fullHeight}>
-                    <EditorContext editorActions={this.editorActions}>
-                      <ContextAdapter>
-                        <PortalProviderWithThemeProviders
-                          onAnalyticsEvent={this.handleAnalyticsEvent}
-                          useAnalyticsContext={
-                            this.props.UNSAFE_useAnalyticsContext
-                          }
-                          render={(portalProviderAPI) => (
-                            <Fragment>
-                              <ReactEditorView
-                                editorProps={overriddenEditorProps}
-                                createAnalyticsEvent={createAnalyticsEvent}
-                                portalProviderAPI={portalProviderAPI}
-                                providerFactory={this.providerFactory}
-                                onEditorCreated={this.onEditorCreated}
-                                onEditorDestroyed={this.onEditorDestroyed}
-                                allowAnalyticsGASV3={
-                                  this.props.allowAnalyticsGASV3
-                                }
-                                disabled={this.props.disabled}
-                                render={({
-                                  editor,
-                                  view,
-                                  eventDispatcher,
-                                  config,
-                                  dispatchAnalyticsEvent,
-                                  editorRef,
-                                }) => (
-                                  <BaseTheme
-                                    baseFontSize={this.getBaseFontSize()}
-                                  >
-                                    <Component
-                                      innerRef={editorRef}
-                                      appearance={this.props.appearance!}
-                                      disabled={this.props.disabled}
-                                      editorActions={this.editorActions}
-                                      editorDOMElement={editor}
-                                      editorView={view}
-                                      providerFactory={this.providerFactory}
-                                      eventDispatcher={eventDispatcher}
-                                      dispatchAnalyticsEvent={
-                                        dispatchAnalyticsEvent
-                                      }
-                                      maxHeight={this.props.maxHeight}
-                                      minHeight={this.props.minHeight}
-                                      onSave={
-                                        this.props.onSave
-                                          ? this.handleSave
-                                          : undefined
-                                      }
-                                      onCancel={this.props.onCancel}
-                                      popupsMountPoint={
-                                        this.props.popupsMountPoint
-                                      }
-                                      popupsBoundariesElement={
-                                        this.props.popupsBoundariesElement
-                                      }
-                                      popupsScrollableElement={
-                                        this.props.popupsScrollableElement
-                                      }
-                                      contentComponents={
-                                        config.contentComponents
-                                      }
-                                      primaryToolbarComponents={
-                                        config.primaryToolbarComponents
-                                      }
-                                      primaryToolbarIconBefore={
-                                        this.props.primaryToolbarIconBefore
-                                      }
-                                      secondaryToolbarComponents={
-                                        config.secondaryToolbarComponents
-                                      }
-                                      insertMenuItems={
-                                        this.props.insertMenuItems
-                                      }
-                                      customContentComponents={
-                                        this.props.contentComponents
-                                      }
-                                      customPrimaryToolbarComponents={
-                                        this.props.primaryToolbarComponents
-                                      }
-                                      customSecondaryToolbarComponents={
-                                        this.props.secondaryToolbarComponents
-                                      }
-                                      contextPanel={this.props.contextPanel}
-                                      collabEdit={this.props.collabEdit}
-                                      persistScrollGutter={
-                                        this.props.persistScrollGutter
-                                      }
-                                      enableToolbarMinWidth={
-                                        this.props.featureFlags
-                                          ?.toolbarMinWidthOverflow != null
-                                          ? !!this.props.featureFlags
-                                              ?.toolbarMinWidthOverflow
-                                          : this.props.allowUndoRedoButtons
-                                      }
-                                      useStickyToolbar={
-                                        this.props.useStickyToolbar
-                                      }
-                                      featureFlags={featureFlags}
-                                    />
-                                  </BaseTheme>
-                                )}
-                              />
-                              <PortalRenderer
-                                portalProviderAPI={portalProviderAPI}
-                              />
-                            </Fragment>
-                          )}
-                        />
-                      </ContextAdapter>
-                    </EditorContext>
-                  </WidthProvider>
-                </ErrorBoundary>
-              </Fragment>
+              <EditorInternal
+                props={this.props}
+                handleAnalyticsEvent={this.handleAnalyticsEvent}
+                createAnalyticsEvent={this.createAnalyticsEvent}
+                getEditorPlugins={this.getEditorPlugins}
+                handleSave={this.handleSave}
+                editorActions={this.editorActions}
+                providerFactory={this.providerFactory}
+                onEditorCreated={this.onEditorCreated}
+                onEditorDestroyed={this.onEditorDestroyed}
+              />
             )
           }
         />
       </FabricEditorAnalyticsContext>
     );
+  }
+
+  private getEditorPlugins(props: GetEditorPluginsProps): EditorPlugin[] {
+    return getEditorPlugins(props);
   }
 }

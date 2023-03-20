@@ -10,6 +10,7 @@ export interface Props {
   icon?: React.ReactElement<any>;
   iconAfter?: React.ReactElement<any>;
   onClick?: React.MouseEventHandler;
+  onKeyDown?: React.KeyboardEventHandler;
   onMouseEnter?: <T>(event: React.MouseEvent<T>) => void;
   onMouseLeave?: <T>(event: React.MouseEvent<T>) => void;
   onFocus?: <T>(event: React.FocusEvent<T>) => void;
@@ -40,6 +41,7 @@ export default ({
   icon,
   iconAfter,
   onClick,
+  onKeyDown,
   onMouseEnter,
   onMouseLeave,
   onFocus,
@@ -60,7 +62,6 @@ export default ({
   // Check if there's only an icon and add additional styles
   const iconOnly = (icon || iconAfter) && !children;
   const customSpacing = iconOnly ? iconOnlySpacing : {};
-
   return (
     <Tooltip
       content={tooltipContent || title}
@@ -96,6 +97,7 @@ export default ({
           iconBefore={icon || undefined}
           iconAfter={iconAfter}
           onClick={onClick}
+          onKeyDown={onKeyDown}
           isSelected={selected}
           isDisabled={disabled}
           testId={testId}

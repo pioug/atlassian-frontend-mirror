@@ -81,9 +81,13 @@ const AvatarStatus: FC<StatusProps> = ({
   children,
   status,
 }: StatusProps) => (
-  <IconWrapper bgColor={borderColor}>
+  <IconWrapper
+    bgColor={borderColor}
+    label={typeof status === 'string' ? status : undefined}
+  >
     {status ? (
       <svg
+        aria-hidden="true"
         height="100%"
         version="1.1"
         viewBox="0 0 8 8"
@@ -124,6 +128,7 @@ export const StatusWrapper: FC<StatusWrapperProps> = ({
 
   return (
     <span
+      aria-hidden="true"
       data-testid={testId && `${testId}--status`}
       style={{
         position: 'absolute',

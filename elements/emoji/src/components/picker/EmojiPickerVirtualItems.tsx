@@ -71,6 +71,5 @@ export const virtualItemRenderer = (
   const { index, key } = context;
   const row: VirtualItem<CategoryHeadingProps | EmojiRowProps | {}> =
     rows[index];
-
   return <div key={key}>{row && row.renderItem(context)}</div>;
 };

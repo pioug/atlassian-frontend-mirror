@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { EditorActionsOptions as EditorActions } from '../../types';
+import { ArrowKeyNavigationProviderOptions } from '../ArrowKeyNavigationProvider/types';
 
 export interface Props {
   mountTo?: HTMLElement;
@@ -11,7 +12,6 @@ export interface Props {
   onItemActivated?: (attrs: any) => void;
   onMouseEnter?: (attrs: any) => void;
   onMouseLeave?: (attrs: any) => void;
-  keyDownHandlerContext?: KeyDownHandlerContext;
   fitWidth?: number;
   fitHeight?: number;
   offset?: Array<number>;
@@ -21,13 +21,10 @@ export interface Props {
   }>;
   shouldUseDefaultRole?: boolean;
   disableArrowKeyNavigation?: boolean;
+  shouldFocusFirstItem?: () => boolean;
+  arrowKeyNavigationProviderOptions: ArrowKeyNavigationProviderOptions;
 }
 
-export interface KeyDownHandlerContext {
-  handleArrowRight: () => void;
-  handleArrowLeft: () => void;
-  handleTab: () => void;
-}
 export interface MenuItem {
   key?: string;
   content: string | React.ReactChild | React.ReactFragment;

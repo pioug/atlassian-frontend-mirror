@@ -21,6 +21,7 @@ import {
   tooltip,
 } from '../../../keymaps';
 import { getAriaKeyshortcuts } from '@atlaskit/editor-common/keymaps';
+import { ArrowKeyNavigationType } from '@atlaskit/editor-common/ui-menu';
 
 const toolbarButtonWrapper = css`
   display: flex;
@@ -116,7 +117,10 @@ class FindReplaceToolbarButton extends React.PureComponent<
           }}
           fitWidth={352}
           zIndex={stackBelowOtherEditorFloatingPanels}
-          disableArrowKeyNavigation={true}
+          arrowKeyNavigationProviderOptions={{
+            type: ArrowKeyNavigationType.MENU,
+            disableArrowKeyNavigation: true,
+          }}
           trigger={
             <ToolbarButton
               buttonId={TOOLBAR_BUTTON.FIND_REPLACE}

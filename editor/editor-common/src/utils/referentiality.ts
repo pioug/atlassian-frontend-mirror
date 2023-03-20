@@ -63,7 +63,7 @@ export const isReferencedSource = (
   return found;
 };
 
-const getConnections = (state: EditorState) => {
+export const getConnections = (state: EditorState) => {
   const result: Record<LocalId, NodeAndTargetLinkages> = {};
 
   const { doc, schema } = state;
@@ -117,7 +117,7 @@ const getConnections = (state: EditorState) => {
 
     result[normalizedId] = {
       localId: normalizedId,
-      name: fragmentMark?.attrs?.name ?? normalizedId,
+      name: fragmentMark?.attrs?.name,
       node,
       pos,
       targets: [],
@@ -208,6 +208,8 @@ export const getChildrenInfo = (
   state: EditorState,
   node?: PMNode,
 ): ConfirmDialogChildInfo[] => {
+  let allChildrenHadName = true;
+
   if (!node) {
     return [];
   }
@@ -222,14 +224,20 @@ export const getChildrenInfo = (
       allNodes[id].targets.forEach(childrenIdSet.add, childrenIdSet);
     }
   });
-  childrenIdSet.forEach((id) => {
-    childrenInfoArray.push({
-      id,
-      name: getNodeNameById(id, allNodes),
-      amount: getChildrenNodeAmount(id, allNodes),
-    });
-  });
-  return childrenInfoArray;
+
+  for (const id of childrenIdSet) {
+    if (!getNodeNameById(id, allNodes)) {
+      allChildrenHadName = false;
+      break;
+    } else {
+      childrenInfoArray.push({
+        id,
+        name: getNodeNameById(id, allNodes),
+        amount: getChildrenNodeAmount(id, allNodes),
+      });
+    }
+  }
+  return allChildrenHadName ? childrenInfoArray : [];
 };
 
 const getChildrenNodeAmount = (
@@ -271,23 +279,22 @@ const getNodeTargetsById = (
   return allNodes[id].targets;
 };
 
-const DEFAULT_EXTENSION_NAME = 'Default extension';
-
 const getNodeNameById = (
   id: string | Set<string>,
   allNodes: Record<LocalId, NodeAndTargetLinkages>,
-): string => {
+): string | null => {
   if (typeof id === 'object') {
     let name: string | undefined;
     id.forEach((localId) => {
       name = name ?? allNodes[localId]?.name;
     });
+    return name || null;
+  }
 
-    return name ?? DEFAULT_EXTENSION_NAME;
-  }
   if (!id || !allNodes[id]) {
-    return DEFAULT_EXTENSION_NAME;
+    return null;
   }
+
   return allNodes[id].name;
 };
 

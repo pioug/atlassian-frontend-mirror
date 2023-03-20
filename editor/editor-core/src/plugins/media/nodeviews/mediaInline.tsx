@@ -84,7 +84,7 @@ export const updateMediaNodeAttributes = async (props: MediaInlineProps) => {
       return;
     }
   }
-  await mediaNodeUpdater.updateFileAttrs();
+  await mediaNodeUpdater.updateMediaSingleFileAttrs();
 };
 
 export const handleNewNode = (props: MediaInlineProps) => {

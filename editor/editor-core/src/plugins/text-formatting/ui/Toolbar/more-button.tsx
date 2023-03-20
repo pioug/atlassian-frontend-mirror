@@ -13,7 +13,8 @@ type MoreButtonProps = {
   isSelected: boolean;
   isDisabled: boolean;
   'aria-expanded': React.AriaAttributes['aria-expanded'];
-  onClick?: () => void;
+  onClick?: (event: React.MouseEvent<HTMLElement>) => void;
+  onKeyDown?: (event: React.KeyboardEvent) => void;
 };
 export const MoreButton: React.FC<MoreButtonProps> = React.memo(
   ({
@@ -23,12 +24,14 @@ export const MoreButton: React.FC<MoreButtonProps> = React.memo(
     isSelected,
     isDisabled,
     onClick,
+    onKeyDown,
   }) => {
     return (
       <ToolbarButton
         disabled={isDisabled}
         selected={isSelected}
         onClick={onClick}
+        onKeyDown={onKeyDown}
         spacing={isReducedSpacing ? 'none' : 'default'}
         title={label}
         iconBefore={

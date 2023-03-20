@@ -1,5 +1,12 @@
 export const bidiCharacterRegex = /[\u202A-\u202E\u2066-\u2069]/g;
 
+/**
+ * __Code Bidi Warning Decorator__
+ *
+ * Checks the code to see if it contains any bidi characters.
+ * In case if bidi characters found - returns children with decorated
+ * bidi characters. If no bidi characters found - original text returned.
+ */
 export default function codeBidiWarningDecorator<DecoratorOutput>(
   originalText: string,
   decorate: (options: {

@@ -42,11 +42,13 @@ export default function Example() {
     'Selected mention with nickname, avatar, highlights presence, lozenge and restricted access';
   const component = (
     <IntlProvider locale="en">
-      <MentionItem
-        mention={mention}
-        selected={mention.selected}
-        onSelection={onSelection}
-      />
+      <div data-testid="vr-tested">
+        <MentionItem
+          mention={mention}
+          selected={mention.selected}
+          onSelection={onSelection}
+        />
+      </div>
     </IntlProvider>
   );
 

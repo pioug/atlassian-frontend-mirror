@@ -129,3 +129,10 @@ export function normalizeUrl(url?: string) {
   const match = getLinkMatch(url);
   return (match && match.url) || '';
 }
+
+/**
+ * checks if root relative link
+ */
+export function isRootRelative(url: string) {
+  return url.startsWith('/');
+}

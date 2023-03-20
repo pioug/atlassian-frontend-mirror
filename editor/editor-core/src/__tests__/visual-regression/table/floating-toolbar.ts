@@ -4,6 +4,7 @@ import {
   initFullPageEditorWithAdf,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import adf from './__fixtures__/default-table.adf.json';
+import { pressKey } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
 import {
   clickFirstCell,
   clickTableOptions,
@@ -131,6 +132,20 @@ describe('Table floating toolbar:fullpage', () => {
     it('display cell background in floating toolbar', async () => {
       await clickCellBackgroundInFloatingToolbar(page);
       await page.waitForSelector(selectors.colorPicker);
+    });
+
+    it('arrow navigation key works in color palatte', async () => {
+      await clickCellBackgroundInFloatingToolbar(page);
+      await page.waitForSelector(selectors.colorPicker);
+      await pressKey(page, 'ArrowDown');
+      await pressKey(page, 'ArrowDown');
+      await pressKey(page, 'ArrowRight');
+      await pressKey(page, 'ArrowUp');
+      await pressKey(page, 'ArrowRight');
+      await pressKey(page, 'ArrowRight');
+      await pressKey(page, 'ArrowDown');
+      await pressKey(page, 'ArrowDown');
+      await pressKey(page, 'ArrowLeft');
     });
   });
 });

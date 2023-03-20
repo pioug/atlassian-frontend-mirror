@@ -27,7 +27,8 @@ export default async () => {
 
   MobileTestCase(
     'Renderer Media: Load ADF with a MediaSingle node',
-    {},
+    // TODO: https://product-fabric.atlassian.net/browse/MEX-1842
+    { skipPlatform: ['*'] },
     async (client) => {
       const page = await Page.create(client);
       await loadRenderer(page);

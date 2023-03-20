@@ -13,7 +13,7 @@ import EditorContext from '../src/ui/EditorContext';
 import WithEditorActions from '../src/ui/WithEditorActions';
 import { EditorActions } from '../src';
 import ToolbarHelp from '../src/ui/ToolbarHelp';
-import Editor from './../src/editor';
+import { EditorMigrationComponent as Editor } from './../src';
 import {
   getEmojiProvider,
   currentUser,

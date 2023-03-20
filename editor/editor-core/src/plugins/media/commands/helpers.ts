@@ -8,6 +8,11 @@ import type {
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
 import { EditorState } from 'prosemirror-state';
 
+/**
+ * Note that Media Inline is inserted like a media single node into the media plugin state.
+ * Though it is not of type mediaSingle, it shares the same `findMediaSingleNode` method
+ *
+ */
 export const findMediaSingleNode = (
   mediaPluginState: MediaPluginState,
   id: string,
@@ -35,27 +40,6 @@ export const findMediaSingleNode = (
   );
 };
 
-/**
- * Finds the media inline node with the given id.
- * Media Inline is inserted like a media single node into the media plugin state.
- * However it is not of type mediaSingle.
- *
- * @param mediaPluginState
- * @param id
- * @param isMediaSingle
- * @returns {MediaNodeWithPosHandler | null}
- */
-export const findMediaInlineNode = (
-  mediaPluginState: MediaPluginState,
-  id: string,
-  isMediaSingle: boolean,
-): MediaNodeWithPosHandler | null => {
-  if (!isMediaSingle) {
-    return findMediaSingleNode(mediaPluginState, id);
-  }
-  return null;
-};
-
 export const findAllMediaSingleNodes = (
   mediaPluginState: MediaPluginState,
   id: string,
@@ -68,40 +52,18 @@ export const findAllMediaSingleNodes = (
   );
 };
 
-export const findMediaNode = (
-  mediaPluginState: MediaPluginState,
-  id: string,
-  isMediaSingle: boolean,
-): MediaNodeWithPosHandler | null => {
-  const mediaNodeWithPos = isMediaSingle
-    ? findMediaSingleNode(mediaPluginState, id)
-    : mediaPluginState.mediaGroupNodes[id];
-
-  // Should attempt to find media inline node if media single node or media group node is not found
-  if (!mediaNodeWithPos) {
-    return findMediaInlineNode(mediaPluginState, id, isMediaSingle);
-  }
-
-  return mediaNodeWithPos;
-};
-
 export const isMediaNode = (pos: number, state: EditorState) => {
   const node = state.doc.nodeAt(pos);
   return node && ['media', 'mediaInline'].includes(node.type.name);
 };
 
-export const updateAllMediaNodesAttrs =
-  (id: string, attrs: object, isMediaSingle: boolean): Command =>
+export const updateAllMediaSingleNodesAttrs =
+  (id: string, attrs: object): Command =>
   (state, dispatch) => {
     const mediaPluginState: MediaPluginState = mediaPluginKey.getState(state);
 
     let mediaNodes: MediaNodeWithPosHandler[];
-    if (isMediaSingle) {
-      mediaNodes = findAllMediaSingleNodes(mediaPluginState, id);
-    } else {
-      const mediaGroupNode = findMediaNode(mediaPluginState, id, isMediaSingle);
-      mediaNodes = mediaGroupNode ? [mediaGroupNode] : [];
-    }
+    mediaNodes = findAllMediaSingleNodes(mediaPluginState, id);
 
     const validMediaNodePositions: number[] = mediaNodes.reduce<number[]>(
       (acc, { getPos }) => {
@@ -154,12 +116,12 @@ export const updateCurrentMediaNodeAttrs =
     return true;
   };
 
-export const updateMediaNodeAttrs =
-  (id: string, attrs: object, isMediaSingle: boolean): Command =>
+export const updateMediaSingleNodeAttrs =
+  (id: string, attrs: object): Command =>
   (state, dispatch) => {
     const mediaPluginState: MediaPluginState = mediaPluginKey.getState(state);
 
-    const mediaNodeWithPos = findMediaNode(mediaPluginState, id, isMediaSingle);
+    const mediaNodeWithPos = findMediaSingleNode(mediaPluginState, id);
 
     if (!mediaNodeWithPos) {
       return false;

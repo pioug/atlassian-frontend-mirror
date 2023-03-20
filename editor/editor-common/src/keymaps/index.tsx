@@ -50,7 +50,7 @@ export const toggleBulletList = makeKeyMapWithCommon(
   'Bullet list',
   'Mod-Shift-8',
 );
-export const toggleBlockQuote = makeKeymap('Quote', '', 'Cmd-Alt-9');
+export const toggleBlockQuote = makeKeyMapWithCommon('Quote', 'Mod-Shift-9');
 export const insertNewLine = makeKeyMapWithCommon(
   'Insert new line',
   'Shift-Enter',

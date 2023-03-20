@@ -38,7 +38,12 @@ export type {
   MentionEventHandlers,
   SmartCardEventClickHandler,
 } from './EventHandlers';
-export { WidthConsumer, WidthProvider, getBreakpoint } from './WidthProvider';
+export {
+  WidthContext,
+  WidthConsumer,
+  WidthProvider,
+  getBreakpoint,
+} from './WidthProvider';
 export type { WidthConsumerContext, Breakpoints } from './WidthProvider';
 
 export { default as overflowShadow, shadowClassNames } from './OverflowShadow';

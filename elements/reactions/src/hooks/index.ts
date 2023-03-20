@@ -1,1 +1,1 @@
-export { useClickAway } from './useClickAway';
+export { useCloseManager } from './useCloseManager';

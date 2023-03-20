@@ -343,69 +343,132 @@ describe('<ConfirmationModal />', () => {
     expect(onClose).toBeCalledTimes(1);
   });
 
-  it('should render CheckboxModal with checkbox', () => {
-    const nodes = [{ id: '1', name: 'ext 1', amount: 3 }];
-    const wrapper = mount(
-      <IntlProvider locale="en">
-        <ConfirmationModal
-          options={{
-            message: 'This is the message.',
-            isReferentialityDialog: true,
-            getChildrenInfo: () => nodes,
-            onConfirm,
-          }}
-          onConfirm={onConfirm}
-          onClose={onClose}
-          testId={testId}
-        />
-      </IntlProvider>,
-    );
+  describe('with CheckboxModal', () => {
+    type ConfirmDialogChildInfo = {
+      id: string;
+      name: string | null;
+      amount: number;
+    };
 
-    expect(wrapper.find(`input[type="checkbox"]`).length).toEqual(1);
-    expect(wrapper.find(`li`).first().text()).toContain('3 connected elements');
-  });
+    it('should render CheckboxModal with checkbox', () => {
+      const nodes: ConfirmDialogChildInfo[] = [
+        { id: '1', name: 'ext 1', amount: 3 },
+      ];
+      const wrapper = mount(
+        <IntlProvider locale="en">
+          <ConfirmationModal
+            options={{
+              message: 'This is the message.',
+              isReferentialityDialog: true,
+              getChildrenInfo: () => nodes,
+              onConfirm,
+            }}
+            onConfirm={onConfirm}
+            onClose={onClose}
+            testId={testId}
+          />
+        </IntlProvider>,
+      );
 
-  it('should render CheckboxModal with checkbox - singular check', () => {
-    const nodes = [{ id: '1', name: 'ext 1', amount: 1 }];
-    const wrapper = mount(
-      <IntlProvider locale="en">
-        <ConfirmationModal
-          options={{
-            message: 'This is the message.',
-            isReferentialityDialog: true,
-            getChildrenInfo: () => nodes,
-            onConfirm,
-          }}
-          onConfirm={onConfirm}
-          onClose={onClose}
-          testId={testId}
-        />
-      </IntlProvider>,
-    );
+      expect(wrapper.find(`input[type="checkbox"]`).length).toEqual(1);
+      expect(wrapper.find(`li`).first().text()).toContain(
+        '3 connected elements',
+      );
+    });
 
-    expect(wrapper.find(`input[type="checkbox"]`).length).toEqual(1);
-    expect(wrapper.find(`li`).first().text()).toMatch(/.*\(.*element\)$/);
-  });
+    it('should render CheckboxModal with checkbox - singular check', () => {
+      const nodes: ConfirmDialogChildInfo[] = [
+        { id: '1', name: 'ext 1', amount: 1 },
+      ];
+      const wrapper = mount(
+        <IntlProvider locale="en">
+          <ConfirmationModal
+            options={{
+              message: 'This is the message.',
+              isReferentialityDialog: true,
+              getChildrenInfo: () => nodes,
+              onConfirm,
+            }}
+            onConfirm={onConfirm}
+            onClose={onClose}
+            testId={testId}
+          />
+        </IntlProvider>,
+      );
 
-  it('should render CheckboxModal with checkbox - zero check', () => {
-    const nodes = [{ id: '1', name: 'ext 1', amount: 0 }];
-    const wrapper = mount(
-      <IntlProvider locale="en">
-        <ConfirmationModal
-          options={{
-            message: 'This is the message.',
-            isReferentialityDialog: true,
-            getChildrenInfo: () => nodes,
-            onConfirm,
-          }}
-          onConfirm={onConfirm}
-          onClose={onClose}
-          testId={testId}
-        />
-      </IntlProvider>,
-    );
+      expect(wrapper.find(`input[type="checkbox"]`).length).toEqual(1);
+      expect(wrapper.find(`li`).first().text()).toMatch(/.*\(.*element\)$/);
+    });
 
-    expect(wrapper.find('input[type="checkbox"]').length).toEqual(1);
-    expect(wrapper.find('li').first().text()).not.toMatch(/.*\d*\selement/);
+    it('should render CheckboxModal with checkbox - zero check', () => {
+      const nodes: ConfirmDialogChildInfo[] = [
+        { id: '1', name: 'ext 1', amount: 0 },
+      ];
+      const wrapper = mount(
+        <IntlProvider locale="en">
+          <ConfirmationModal
+            options={{
+              message: 'This is the message.',
+              isReferentialityDialog: true,
+              getChildrenInfo: () => nodes,
+              onConfirm,
+            }}
+            onConfirm={onConfirm}
+            onClose={onClose}
+            testId={testId}
+          />
+        </IntlProvider>,
+      );
+
+      expect(wrapper.find('input[type="checkbox"]').length).toEqual(1);
+      expect(wrapper.find('li').first().text()).not.toMatch(/.*\d*\selement/);
+    });
+
+    it("hide list if any child doesn't had a name", () => {
+      const nodes: ConfirmDialogChildInfo[] = [];
+      const wrapper = mount(
+        <IntlProvider locale="en">
+          <ConfirmationModal
+            options={{
+              message: 'This is the message.',
+              isReferentialityDialog: true,
+              getChildrenInfo: () => nodes,
+              onConfirm,
+            }}
+            onConfirm={onConfirm}
+            onClose={onClose}
+            testId={testId}
+          />
+        </IntlProvider>,
+      );
+
+      expect(wrapper.find('input[type="checkbox"]').length).toEqual(1);
+      expect(wrapper.find('li').length).toEqual(0);
+    });
+
+    it('show list if all children had a name', () => {
+      const nodes: ConfirmDialogChildInfo[] = [
+        { id: '1', name: 'ext 1', amount: 0 },
+        { id: '2', name: 'ext 2', amount: 3 },
+      ];
+      const wrapper = mount(
+        <IntlProvider locale="en">
+          <ConfirmationModal
+            options={{
+              message: 'This is the message.',
+              isReferentialityDialog: true,
+              getChildrenInfo: () => nodes,
+              onConfirm,
+            }}
+            onConfirm={onConfirm}
+            onClose={onClose}
+            testId={testId}
+          />
+        </IntlProvider>,
+      );
+
+      expect(wrapper.find('input[type="checkbox"]').length).toEqual(1);
+      expect(wrapper.find('li').length).toEqual(2);
+    });
   });
 });

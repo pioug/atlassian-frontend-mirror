@@ -1,5 +1,11 @@
 # @atlaskit/ds-explorations
 
+## 2.0.7
+
+### Patch Changes
+
+- [`66493433ce9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/66493433ce9) - Removes temporary, internal-only unsafe exports as they now live in @atlaskit/primitives/responsive.
+
 ## 2.0.6
 
 ### Patch Changes

@@ -40,6 +40,9 @@ export interface Props {
   defaultColor?: Color;
   defaultLocalId?: string;
   createAnalyticsEvent?: CreateUIAnalyticsEvent;
+  mountTo?: HTMLElement;
+  boundariesElement?: HTMLElement;
+  scrollableElement?: HTMLElement;
 }
 
 export interface State {
@@ -166,7 +169,8 @@ export class StatusPickerWithoutAnalytcs extends React.Component<Props, State> {
   };
 
   render() {
-    const { isNew, target } = this.props;
+    const { isNew, target, mountTo, boundariesElement, scrollableElement } =
+      this.props;
     const { color, text } = this.state;
     return (
       target && (
@@ -177,6 +181,9 @@ export class StatusPickerWithoutAnalytcs extends React.Component<Props, State> {
           handleEscapeKeydown={this.handleEscapeKeydown}
           zIndex={akEditorFloatingDialogZIndex}
           fitHeight={40}
+          mountTo={mountTo}
+          boundariesElement={boundariesElement}
+          scrollableElement={scrollableElement}
         >
           <div css={pickerContainer} onClick={this.handlePopupClick}>
             <AkStatusPicker

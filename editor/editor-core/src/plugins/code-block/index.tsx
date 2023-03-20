@@ -24,8 +24,9 @@ import refreshBrowserSelectionOnChange from './refresh-browser-selection';
 
 const codeBlockPlugin: NextEditorPlugin<
   'codeBlock',
-  never,
-  CodeBlockOptions
+  {
+    pluginConfiguration: CodeBlockOptions;
+  }
 > = (options) => ({
   name: 'codeBlock',
 

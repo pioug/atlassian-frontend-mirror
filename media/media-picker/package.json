@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-picker",
-  "version": "64.2.1",
+  "version": "64.2.2",
   "description": "Library for handling file uploads",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -27,8 +27,8 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^9.0.0",
-    "@atlaskit/media-client": "^20.0.0",
-    "@atlaskit/media-common": "^2.19.0",
+    "@atlaskit/media-client": "^20.1.0",
+    "@atlaskit/media-common": "^3.0.0",
     "@atlaskit/media-ui": "^22.3.0",
     "@atlaskit/ufo": "^0.1.0",
     "@babel/runtime": "^7.0.0",
@@ -41,7 +41,7 @@
     "uuid-validate": "^0.0.3"
   },
   "peerDependencies": {
-    "@atlaskit/media-core": "^34.0.1",
+    "@atlaskit/media-core": "^34.0.2",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "react-intl-next": "npm:react-intl@^5.18.1"
@@ -51,11 +51,11 @@
     "@atlaskit/analytics-namespaced-context": "^6.6.0",
     "@atlaskit/button": "^16.5.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/dropdown-menu": "^11.6.0",
-    "@atlaskit/media-card": "^74.6.0",
+    "@atlaskit/dropdown-menu": "^11.7.0",
+    "@atlaskit/media-card": "^74.7.0",
     "@atlaskit/media-core": "^34.0.0",
     "@atlaskit/media-test-helpers": "^30.1.0",
-    "@atlaskit/spinner": "^15.3.0",
+    "@atlaskit/spinner": "^15.4.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/toggle": "^12.5.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",

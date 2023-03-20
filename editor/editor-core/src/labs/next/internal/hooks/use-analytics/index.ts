@@ -4,8 +4,8 @@ import { EditorSharedConfig } from '../../../internal/context/shared-config';
 import {
   AnalyticsEventPayload,
   fireAnalyticsEvent,
-} from '../../../../../plugins/analytics';
-import { analyticsEventKey } from '../../../../../plugins/analytics/consts';
+} from '@atlaskit/editor-common/analytics';
+import { analyticsEventKey } from '@atlaskit/editor-common/utils';
 
 /**
  * Subscribes to analytics events fired from editor components

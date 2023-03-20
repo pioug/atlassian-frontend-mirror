@@ -95,8 +95,9 @@ interface TablePluginOptions {
 // @public (undocumented)
 export const tablesPlugin: NextEditorPlugin<
   'table',
-  never,
-  TablePluginOptions | undefined
+  {
+    pluginConfiguration: TablePluginOptions | undefined;
+  }
 >;
 
 // (No @packageDocumentation comment for this package)

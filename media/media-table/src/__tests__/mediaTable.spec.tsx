@@ -243,20 +243,18 @@ describe('MediaTable', () => {
 
     expect(mediaTable.find(MediaViewer).props()).toEqual(
       expect.objectContaining({
-        dataSource: {
-          list: [
-            {
-              id: audioFileId.id,
-              mediaItemType: 'file',
-              collectionName: audioFileId.collectionName,
-            },
-            {
-              id: imageFileId.id,
-              mediaItemType: 'file',
-              collectionName: imageFileId.collectionName,
-            },
-          ],
-        },
+        items: [
+          {
+            id: audioFileId.id,
+            mediaItemType: 'file',
+            collectionName: audioFileId.collectionName,
+          },
+          {
+            id: imageFileId.id,
+            mediaItemType: 'file',
+            collectionName: imageFileId.collectionName,
+          },
+        ],
         mediaClientConfig,
         selectedItem: {
           id: imageFileId.id,

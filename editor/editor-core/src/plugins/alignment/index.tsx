@@ -13,7 +13,7 @@ export const defaultConfig: AlignmentPluginState = {
   align: 'start',
 };
 
-const alignmentPlugin: NextEditorPlugin<'alignment', never> = () => ({
+const alignmentPlugin: NextEditorPlugin<'alignment'> = () => ({
   name: 'alignment',
 
   marks() {

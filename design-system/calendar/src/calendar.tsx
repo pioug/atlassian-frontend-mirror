@@ -5,8 +5,8 @@ import { jsx } from '@emotion/react';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 import Box from '@atlaskit/ds-explorations/box';
-import Stack from '@atlaskit/ds-explorations/stack';
 import noop from '@atlaskit/ds-lib/noop';
+import Stack from '@atlaskit/primitives/stack';
 import GlobalTheme from '@atlaskit/theme/components';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
@@ -176,7 +176,7 @@ const CalendarWithMode = forwardRef<HTMLDivElement, CalendarProps>(
           role="grid"
           tabIndex={tabIndex}
         >
-          <Stack gap="space.150">
+          <Stack space="150">
             <Header
               // The month number needs to be translated to index in the month
               // name array e.g. 1 (January) -> 0

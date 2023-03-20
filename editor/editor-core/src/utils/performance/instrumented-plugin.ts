@@ -11,7 +11,7 @@ import { EditorProps } from '../../types/editor-props';
 import { TransactionTracker } from './track-transactions';
 import { freezeUnsafeTransactionProperties } from './safer-transactions';
 import { FeatureFlags } from '../../types/feature-flags';
-import { DispatchAnalyticsEvent } from '../../plugins/analytics/types';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 
 type InstrumentedPluginOptions = EditorProps['performanceTracking'] & {
   saferDispatchedTransactions?: FeatureFlags['saferDispatchedTransactions'];

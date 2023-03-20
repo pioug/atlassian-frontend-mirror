@@ -11,6 +11,7 @@ export {
   TableSharedCssClassName,
   tableResizeHandleWidth,
   tableCellPadding,
+  tableMarginTopWithControl,
 } from './shared/table';
 
 export {

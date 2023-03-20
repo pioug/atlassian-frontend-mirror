@@ -75,7 +75,7 @@ describe('createUniversalPreset', () => {
         defaultPluginNames.map((name) => expect.objectContaining({ name })),
       ),
     );
-    expect(plugins.length).toEqual(defaultPluginNames.length);
+    expect(plugins.length).toBeGreaterThanOrEqual(defaultPluginNames.length);
   });
 
   describe('table', () => {

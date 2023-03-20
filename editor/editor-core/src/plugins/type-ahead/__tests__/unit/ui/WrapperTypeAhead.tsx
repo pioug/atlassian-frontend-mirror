@@ -230,10 +230,12 @@ describe('WrapperTypeAhead', () => {
 
         const inputQuery = getByRole('combobox');
         act(() => {
-          // Trigger a change event on the typeahead input field
+          // There is no way to test a true contenteditable event with jsdom
+          // so we are faking it
           fireEvent.change(inputQuery, {
-            target: { value: 'l' },
+            target: { innerHTML: 'l' },
           });
+          fireEvent.keyUp(inputQuery, { key: 'l' });
         });
 
         expect(forceSelect).toHaveBeenCalledTimes(1);
@@ -255,9 +257,12 @@ describe('WrapperTypeAhead', () => {
 
         const inputQuery = getByRole('combobox');
         act(() => {
+          // There is no way to test a true contenteditable event with jsdom
+          // so we are faking it
           fireEvent.change(inputQuery, {
-            target: { value: 'l' },
+            target: { innerHTML: 'l' },
           });
+          fireEvent.keyUp(inputQuery, { key: 'l' });
         });
 
         expect(editorView.state).toEqualDocumentAndSelection(
@@ -285,7 +290,7 @@ describe('WrapperTypeAhead', () => {
         // There is no way to test a true contenteditable event with jsdom
         // so we are faking it
         fireEvent.change(inputQuery, {
-          target: { value: 'Ea' },
+          target: { innerHTML: 'Ea' },
         });
         fireEvent.keyUp(inputQuery, { key: 'Ea' });
       });
@@ -333,7 +338,7 @@ describe('WrapperTypeAhead', () => {
         // There is no way to test a true contenteditable event with jsdom
         // so we are faking it
         fireEvent.change(inputQuery, {
-          target: { value: 'Ea' },
+          target: { innerHTML: 'Ea' },
         });
         fireEvent.keyUp(inputQuery, { key: 'Ea' });
       });

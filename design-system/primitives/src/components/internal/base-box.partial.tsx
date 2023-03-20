@@ -14,21 +14,19 @@ import invariant from 'tiny-invariant';
 
 import { token } from '@atlaskit/tokens';
 
+import { Layer, LAYERS } from '../../constants';
 import {
   Breakpoint,
-  BreakpointConfig,
-  BREAKPOINTS_CONFIG,
-  BREAKPOINTS_LIST,
-  Layer,
-  LAYERS,
-} from '../../constants';
+  ResponsiveObject,
+  UNSAFE_buildAboveMediaQueryCSS,
+} from '../../helpers/responsive';
 import type { BasePrimitiveProps } from '../types';
 
 import {
   BOX_RESPONSIVE_PROPS,
   BoxResponsiveProp,
-  BreakpointIndexedStyle,
   GenericPropertyValue,
+  StaticResponsiveCSSObject,
 } from './types';
 import { isResponsiveStyleProp, isStaticStyleProp } from './utils';
 
@@ -79,7 +77,7 @@ type BaseBoxPropsFoundation<T extends ElementType> = {
   /**
    * Defines border width.
    */
-  borderWidth?: BorderWidth | Partial<Record<Breakpoint, BorderWidth>>;
+  borderWidth?: BorderWidth | ResponsiveObject<BorderWidth>;
   /**
    * Token representing border color with a fallback.
    */
@@ -130,45 +128,39 @@ type BaseBoxPropsFoundation<T extends ElementType> = {
    * @see paddingBlock
    * @see paddingInline
    */
-  padding?: Padding | Partial<Record<Breakpoint, Padding>>;
+  padding?: Padding | ResponsiveObject<Padding>;
   /**
    * Tokens representing CSS shorthand `paddingBlock`.
    *
    * @see paddingBlockStart
    * @see paddingBlockEnd
    */
-  paddingBlock?: PaddingBlock | Partial<Record<Breakpoint, PaddingBlock>>;
+  paddingBlock?: PaddingBlock | ResponsiveObject<PaddingBlock>;
   /**
    * Tokens representing CSS `paddingBlockStart`.
    */
-  paddingBlockStart?:
-    | PaddingBlockStart
-    | Partial<Record<Breakpoint, PaddingBlockStart>>;
+  paddingBlockStart?: PaddingBlockStart | ResponsiveObject<PaddingBlockStart>;
   /**
    * Tokens representing CSS `paddingBlockEnd`.
    */
-  paddingBlockEnd?:
-    | PaddingBlockEnd
-    | Partial<Record<Breakpoint, PaddingBlockEnd>>;
+  paddingBlockEnd?: PaddingBlockEnd | ResponsiveObject<PaddingBlockEnd>;
   /**
    * Tokens representing CSS shorthand `paddingInline`.
    *
    * @see paddingInlineStart
    * @see paddingInlineEnd
    */
-  paddingInline?: PaddingInline | Partial<Record<Breakpoint, PaddingInline>>;
+  paddingInline?: PaddingInline | ResponsiveObject<PaddingInline>;
   /**
    * Tokens representing CSS `paddingInlineStart`.
    */
   paddingInlineStart?:
     | PaddingInlineStart
-    | Partial<Record<Breakpoint, PaddingInlineStart>>;
+    | ResponsiveObject<PaddingInlineStart>;
   /**
    * Tokens representing CSS `paddingInlineEnd`.
    */
-  paddingInlineEnd?:
-    | PaddingInlineEnd
-    | Partial<Record<Breakpoint, PaddingInlineEnd>>;
+  paddingInlineEnd?: PaddingInlineEnd | ResponsiveObject<PaddingInlineEnd>;
   /**
    * Token representing width.
    * @experimental The existing tokens will be replaced to better reflect dimensions.
@@ -182,7 +174,7 @@ type BaseBoxPropsFoundation<T extends ElementType> = {
   /**
    * Defines display type and layout. Defaults to `block`.
    */
-  display?: Display | Partial<Record<Breakpoint, Display>>;
+  display?: Display | ResponsiveObject<Display>;
   /**
    * CSS position property.
    */
@@ -191,27 +183,17 @@ type BaseBoxPropsFoundation<T extends ElementType> = {
 };
 
 const responsiveRules: Partial<
-  Record<BoxResponsiveProp, BreakpointIndexedStyle>
+  Record<BoxResponsiveProp, StaticResponsiveCSSObject>
 > = BOX_RESPONSIVE_PROPS.reduce((mapping, cssProperty) => {
   return Object.assign(mapping, {
-    [cssProperty]: BREAKPOINTS_LIST.reduce(
-      (configs, breakpoint) => {
-        const config: BreakpointConfig = BREAKPOINTS_CONFIG[breakpoint];
-        return Object.assign(configs, {
-          [breakpoint]: css({
-            // eslint-disable-next-line @repo/internal/styles/no-nested-styles
-            [`@media (min-width: ${config.min}px)`]: {
-              [cssProperty]: `var(--ds-box-responsive-${cssProperty}-${breakpoint})`,
-            },
-          }),
-        });
-      },
-      {
-        static: css({
-          [cssProperty]: `var(--ds-box-static-${cssProperty})`,
-        }),
-      },
-    ),
+    [cssProperty]: {
+      static: css({
+        [cssProperty]: `var(--ds-box-static-${cssProperty})`,
+      }),
+      ...UNSAFE_buildAboveMediaQueryCSS(breakpoint => ({
+        [cssProperty]: `var(--ds-box-responsive-${cssProperty}-${breakpoint})`,
+      })),
+    },
   });
 }, {});
 
@@ -223,11 +205,11 @@ const getResponsiveVars = (
   },
 ) => {
   if (isResponsiveStyleProp(propertyValue)) {
-    return Object.keys(propertyValue).reduce(
+    return (Object.keys(propertyValue) as Breakpoint[]).reduce(
       (vars, breakpoint) => ({
         ...vars,
         [`--ds-box-responsive-${propertyName}-${breakpoint}`]:
-          mapping[propertyValue[breakpoint as Breakpoint]!],
+          mapping[propertyValue[breakpoint]!],
       }),
       {},
     );
@@ -248,9 +230,8 @@ const getResponsiveStyles = (
   );
 
   if (isResponsiveStyleProp(propertyValue)) {
-    return Object.keys(propertyValue).map(
-      responsiveProp =>
-        responsiveRules[propertyName]![responsiveProp as Breakpoint],
+    return (Object.keys(propertyValue) as Breakpoint[]).map(
+      breakpoint => responsiveRules[propertyName]![breakpoint],
     );
   } else if (isStaticStyleProp(propertyValue)) {
     return responsiveRules[propertyName]!.static;

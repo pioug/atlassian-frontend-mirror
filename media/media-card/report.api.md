@@ -148,7 +148,10 @@ export interface CardProps extends SharedCardProps, CardEventProps {
   readonly isLazy?: boolean;
   // (undocumented)
   readonly mediaClient: MediaClient;
+  // @deprecated
   readonly mediaViewerDataSource?: MediaViewerDataSource;
+  // (undocumented)
+  readonly mediaViewerItems?: Identifier[];
   // (undocumented)
   readonly shouldEnableDownloadButton?: boolean;
   // (undocumented)
@@ -311,8 +314,10 @@ interface MediaInlineCardProps {
   isSelected?: boolean;
   // (undocumented)
   mediaClient: MediaClient;
-  // (undocumented)
+  // @deprecated
   mediaViewerDataSource?: MediaViewerDataSource;
+  // (undocumented)
+  mediaViewerItems?: Identifier[];
   // (undocumented)
   onClick?: React_2.EventHandler<React_2.KeyboardEvent | React_2.MouseEvent>;
   // (undocumented)

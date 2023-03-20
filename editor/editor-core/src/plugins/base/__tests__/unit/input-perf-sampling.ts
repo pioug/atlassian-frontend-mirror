@@ -47,7 +47,9 @@ describe('Input performance latency', () => {
     trackSeverity?: boolean,
     severityNormalThreshold?: number,
     severityDegradedThreshold?: number,
-    samplingRate = 1, // send analytics event every x keystrokes
+    samplingRate = 1, // send analytics event every x keystrokes,
+    trackSingleKeypress = false,
+    trackRenderingTime = false,
   ) => {
     return editorFactory({
       doc,
@@ -60,6 +62,8 @@ describe('Input performance latency', () => {
             trackSeverity,
             severityNormalThreshold,
             severityDegradedThreshold,
+            trackSingleKeypress,
+            trackRenderingTime,
           },
         },
       ]),
@@ -100,7 +104,7 @@ describe('Input performance latency', () => {
 
         expect(dispatchAnalyticsEvent).toHaveBeenCalledTimes(2);
 
-        getTimeSinceMock.mockClear();
+        getTimeSinceMock.mockRestore();
       });
 
       it('should not send analytics event with severity when trackSeverity is turned off', () => {
@@ -136,7 +140,7 @@ describe('Input performance latency', () => {
 
         expect(dispatchAnalyticsEvent).toHaveBeenCalledTimes(2);
 
-        getTimeSinceMock.mockClear();
+        getTimeSinceMock.mockRestore();
       });
 
       it('should send analytics event with severity normal when duration < DEFAULT_TRACK_SEVERITY_THRESHOLD_NORMAL', () => {
@@ -173,7 +177,7 @@ describe('Input performance latency', () => {
 
         expect(dispatchAnalyticsEvent).toHaveBeenCalledTimes(2);
 
-        getTimeSinceMock.mockClear();
+        getTimeSinceMock.mockRestore();
       });
 
       it('should send analytics event with severity degraded when duration > DEFAULT_TRACK_SEVERITY_THRESHOLD_NORMAL', async () => {
@@ -212,7 +216,7 @@ describe('Input performance latency', () => {
 
         expect(dispatchAnalyticsEvent).toHaveBeenCalledTimes(2);
 
-        getTimeSinceMock.mockClear();
+        getTimeSinceMock.mockRestore();
       });
 
       it('should send analytics event with severity blocking when duration > DEFAULT_TRACK_SEVERITY_THRESHOLD_DEGRADED', async () => {
@@ -261,7 +265,7 @@ describe('Input performance latency', () => {
         // once for INPUT_PERF_SAMPLING, once for INPUT_PERF_SAMPLING_AVG and once for SLOW_INPUT
         expect(dispatchAnalyticsEvent).toHaveBeenCalledTimes(3);
 
-        getTimeSinceMock.mockClear();
+        getTimeSinceMock.mockRestore();
       });
     });
 
@@ -306,7 +310,7 @@ describe('Input performance latency', () => {
 
         expect(dispatchAnalyticsEvent).toHaveBeenCalledTimes(2);
 
-        getTimeSinceMock.mockClear();
+        getTimeSinceMock.mockRestore();
       });
 
       it('should send analytics event with severity degraded when duration > custom severityNormalThreshold', async () => {
@@ -349,7 +353,7 @@ describe('Input performance latency', () => {
 
         expect(dispatchAnalyticsEvent).toHaveBeenCalledTimes(2);
 
-        getTimeSinceMock.mockClear();
+        getTimeSinceMock.mockRestore();
       });
 
       it('should send analytics event with severity blocking when duration > custom severityDegradedThreshold', async () => {
@@ -401,7 +405,7 @@ describe('Input performance latency', () => {
 
         expect(dispatchAnalyticsEvent).toHaveBeenCalledTimes(3);
 
-        getTimeSinceMock.mockClear();
+        getTimeSinceMock.mockRestore();
       });
 
       it('should flush analytics when editorView is destroyed', () => {
@@ -442,7 +446,143 @@ describe('Input performance latency', () => {
             eventType: EVENT_TYPE.OPERATIONAL,
           }),
         );
+
+        getTimeSinceMock.mockRestore();
       });
+    });
+  });
+
+  describe('tracking timings', () => {
+    it('should not share tracking start time and calculate timings separately', () => {
+      const editor = createEditor(adfDoc, true);
+      const { editorView, dispatchAnalyticsEvent } = editor;
+      const performanceNowMock = jest.spyOn(performance, 'now');
+
+      performanceNowMock.mockImplementation(() => 1);
+      typeText(editorView, 'X');
+
+      performanceNowMock.mockImplementation(() => 2);
+      typeText(editorView, 'Y');
+
+      performanceNowMock.mockImplementation(() => 3);
+      //@ts-ignore
+      requestAnimationFrame.step();
+
+      expect(dispatchAnalyticsEvent).nthCalledWith(1, {
+        action: ACTION.INPUT_PERF_SAMPLING,
+        actionSubject: ACTION_SUBJECT.EDITOR,
+        attributes: expect.objectContaining({
+          time: 2,
+        }),
+        eventType: EVENT_TYPE.OPERATIONAL,
+      });
+
+      expect(dispatchAnalyticsEvent).nthCalledWith(2, {
+        action: ACTION.INPUT_PERF_SAMPLING_AVG,
+        actionSubject: ACTION_SUBJECT.EDITOR,
+        attributes: expect.objectContaining({
+          mean: 2,
+          median: 2,
+          sampleSize: 1,
+        }),
+        eventType: EVENT_TYPE.OPERATIONAL,
+      });
+
+      expect(dispatchAnalyticsEvent).nthCalledWith(3, {
+        action: ACTION.INPUT_PERF_SAMPLING,
+        actionSubject: ACTION_SUBJECT.EDITOR,
+        attributes: expect.objectContaining({
+          time: 1,
+        }),
+        eventType: EVENT_TYPE.OPERATIONAL,
+      });
+
+      expect(dispatchAnalyticsEvent).nthCalledWith(4, {
+        action: ACTION.INPUT_PERF_SAMPLING_AVG,
+        actionSubject: ACTION_SUBJECT.EDITOR,
+        attributes: expect.objectContaining({
+          mean: 1,
+          median: 1,
+          sampleSize: 1,
+        }),
+        eventType: EVENT_TYPE.OPERATIONAL,
+      });
+
+      expect(dispatchAnalyticsEvent).toHaveBeenCalledTimes(4);
+
+      performanceNowMock.mockRestore();
+    });
+
+    it('should track individual keypress processing time when 2 keys are pressed at the same time', async () => {
+      const editor = createEditor(
+        adfDoc,
+        true,
+        undefined,
+        undefined,
+        undefined,
+        true,
+      );
+      const { editorView, dispatchAnalyticsEvent } = editor;
+      const performanceNowMock = jest.spyOn(performance, 'now');
+
+      performanceNowMock.mockImplementation(() => 1);
+      typeText(editorView, 'X');
+
+      performanceNowMock.mockImplementation(() => 2);
+      await Promise.resolve();
+
+      performanceNowMock.mockImplementation(() => 3);
+      typeText(editorView, 'Y');
+
+      performanceNowMock.mockImplementation(() => 5);
+      await Promise.resolve();
+
+      //@ts-ignore
+      requestAnimationFrame.step();
+
+      expect(dispatchAnalyticsEvent).nthCalledWith(1, {
+        action: ACTION.INPUT_PERF_SAMPLING_SINGLE_KEYPRESS,
+        actionSubject: ACTION_SUBJECT.EDITOR,
+        attributes: expect.objectContaining({
+          time: 1,
+        }),
+        eventType: EVENT_TYPE.OPERATIONAL,
+      });
+
+      expect(dispatchAnalyticsEvent).nthCalledWith(2, {
+        action: ACTION.INPUT_PERF_SAMPLING_SINGLE_KEYPRESS_AVG,
+        actionSubject: ACTION_SUBJECT.EDITOR,
+        attributes: expect.objectContaining({
+          mean: 1,
+          median: 1,
+          sampleSize: 1,
+        }),
+        eventType: EVENT_TYPE.OPERATIONAL,
+      });
+
+      expect(dispatchAnalyticsEvent).nthCalledWith(3, {
+        action: ACTION.INPUT_PERF_SAMPLING_SINGLE_KEYPRESS,
+        actionSubject: ACTION_SUBJECT.EDITOR,
+        attributes: expect.objectContaining({
+          time: 2,
+        }),
+        eventType: EVENT_TYPE.OPERATIONAL,
+      });
+
+      expect(dispatchAnalyticsEvent).nthCalledWith(4, {
+        action: ACTION.INPUT_PERF_SAMPLING_SINGLE_KEYPRESS_AVG,
+        actionSubject: ACTION_SUBJECT.EDITOR,
+        attributes: expect.objectContaining({
+          mean: 2,
+          median: 2,
+          sampleSize: 1,
+        }),
+        eventType: EVENT_TYPE.OPERATIONAL,
+      });
+
+      expect(dispatchAnalyticsEvent).toHaveBeenCalledTimes(8);
+
+      performanceNowMock.mockRestore();
     });
   });
 });

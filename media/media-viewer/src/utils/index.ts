@@ -1,24 +1,10 @@
 import {
-  FileIdentifier,
   Identifier,
   isFileIdentifier,
-  MediaCollectionItem,
   MediaType,
   getMediaTypeFromMimeType,
 } from '@atlaskit/media-client';
 import { getType } from 'mime';
-
-export const toIdentifier = (
-  item: MediaCollectionItem,
-  collectionName: string,
-): FileIdentifier => {
-  return {
-    id: item.id,
-    mediaItemType: 'file',
-    occurrenceKey: item.occurrenceKey,
-    collectionName,
-  };
-};
 
 // TODO MS-1752 - current implementation makes viewer navigation to misbehave
 // if passed a file with the same id (with different occurrenceKeys) or with the same dataURI twice

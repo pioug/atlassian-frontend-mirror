@@ -30,7 +30,7 @@ import {
   EVENT_TYPE,
   ACTION_SUBJECT,
   ACTION,
-} from '../../plugins/analytics';
+} from '@atlaskit/editor-common/analytics';
 
 import LoadingState from './LoadingState';
 import Header from './Header';

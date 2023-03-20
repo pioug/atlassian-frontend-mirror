@@ -25,7 +25,6 @@ const AvatarGroupOverridesExample = () => {
     href: '#',
     appearance: 'circle' as AppearanceType,
     size: 'medium' as SizeType,
-    enableTooltip: true,
     src: getFreeToUseAvatarImage(i),
   }));
 

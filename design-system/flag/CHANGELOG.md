@@ -1,5 +1,11 @@
 # @atlaskit/flag
 
+## 15.0.8
+
+### Patch Changes
+
+- [`842bb999a85`](https://bitbucket.org/atlassian/atlassian-frontend/commits/842bb999a85) - Internal change only. Replace usages of Inline/Stack with stable version from `@atlaskit/primitives`.
+
 ## 15.0.7
 
 ### Patch Changes

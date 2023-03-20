@@ -52,10 +52,6 @@ export class Filmstrip extends Component<FilmstripProps, FilmstripState> {
     const { items, mediaClientConfig, shouldOpenMediaViewer, featureFlags } =
       this.props;
 
-    const mediaViewerDataSource = shouldOpenMediaViewer
-      ? { list: items.map((item) => item.identifier) }
-      : undefined;
-
     return items.map((item) => {
       const key = generateIdentifierKey(item.identifier);
 
@@ -65,6 +61,10 @@ export class Filmstrip extends Component<FilmstripProps, FilmstripState> {
         );
       }
 
+      const mediaViewerItems = shouldOpenMediaViewer
+        ? items.map((item) => item.identifier)
+        : undefined;
+
       return (
         <Card
           key={key}
@@ -72,7 +72,7 @@ export class Filmstrip extends Component<FilmstripProps, FilmstripState> {
           dimensions={defaultImageCardDimensions}
           useInlinePlayer={false}
           shouldOpenMediaViewer={shouldOpenMediaViewer}
-          mediaViewerDataSource={mediaViewerDataSource}
+          mediaViewerItems={mediaViewerItems}
           featureFlags={featureFlags}
           {...item}
         />

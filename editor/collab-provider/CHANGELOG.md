@@ -1,5 +1,38 @@
 # @atlaskit/collab-provider
 
+## 8.3.0
+
+### Minor Changes
+
+- [`1d36e909618`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1d36e909618) - Log error on document restore
+- [`0529b1b833c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0529b1b833c) - Trigger catch up call on process steps failing
+- [`4f005660ce2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4f005660ce2) - Log step commit errors to analytics
+- [`6034004a812`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6034004a812) - Log errors on reconnection failure
+- [`a261b2a9e6a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a261b2a9e6a) - [ESS-3183] Catch any errors in Presence functionality so an uncaught error there doesn't impact regular operation of the collab provider
+- [`7f35ae7d99c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7f35ae7d99c) - [ESS-2815] Added network status to analytics events
+- [`80feb6de229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/80feb6de229) - [ESS-2815] Emit an error to consumers if the reconnections fails 8 times due to the network issues
+- [`611d9c643c6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/611d9c643c6) - [ESS-3183] Retry syncing unconfirmed steps
+
+### Patch Changes
+
+- [`fccc5952d49`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fccc5952d49) - Revert emitting errors to Confluence by default
+- [`0d25bcca6bb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0d25bcca6bb) - Added more comprehensive error handling for performance/analytics/ufo events in collab provider
+- [`e97495c5748`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e97495c5748) - Extract emitTelepointer logic from Provider
+- [`260d1355cc6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/260d1355cc6) - Reconnect collab provider immediately when browser emits online event.
+- [`5725fb45955`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5725fb45955) - Introduce a file for UFO.
+
+  Introduce a file for commit step logic, which was already separate from the provider class
+
+- [`2b648e4db70`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2b648e4db70) - NO-ISSUE Remove the analytics fall-back after validating acks work as expected
+- [`35c5e7dd9d5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/35c5e7dd9d5) - NO-ISSUE deduplicate the analytics types dependency (again)
+- [`1c255047a29`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1c255047a29) - improve catchup error handling
+- [`c9ad25cf224`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c9ad25cf224) - [ESS-3183] Create abstraction around sending analytics events for errors or action events
+- [`607a34f4426`](https://bitbucket.org/atlassian/atlassian-frontend/commits/607a34f4426) - Pass through the analytics web client in places it was missing
+- [`efb112b06ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/efb112b06ab) - Move disonnected reason mapper
+- [`9e6ceda8977`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9e6ceda8977) - Provide the reason for a page reset
+- [`6956eedc944`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6956eedc944) - Tighten type definitions on analytics events
+- Updated dependencies
+
 ## 8.2.0
 
 ### Minor Changes

@@ -7,9 +7,9 @@ import Lorem from 'react-lorem-component';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
 import Box from '@atlaskit/ds-explorations/box';
-import Inline from '@atlaskit/ds-explorations/inline';
-import Stack from '@atlaskit/ds-explorations/stack';
 import Text from '@atlaskit/ds-explorations/text';
+import Inline from '@atlaskit/primitives/inline';
+import Stack from '@atlaskit/primitives/stack';
 import { N900 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -53,7 +53,7 @@ const SpreadInlineLayout: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   return (
-    <Inline gap="space.100" justifyContent="space-between" alignItems="center">
+    <Inline space="100" spread="space-between" alignBlock="center">
       {children}
     </Inline>
   );
@@ -101,9 +101,9 @@ const ProgressIndicatorDots: FC<{}> = () => {
   return (
     <Box display="block" css={pageStyles}>
       <Box display="block" paddingBlock="space.400">
-        <Stack gap="space.400">
+        <Stack space="400">
           <SpreadInlineLayout>
-            <Stack gap="space.150">
+            <Stack space="150">
               <Box css={headingStyles} display="block">
                 Appearance
               </Box>
@@ -120,7 +120,7 @@ const ProgressIndicatorDots: FC<{}> = () => {
                 ))}
               </ButtonGroup>
             </Stack>
-            <Stack gap="space.150">
+            <Stack space="150">
               <Box css={headingStyles} display="block">
                 Spacing
               </Box>
@@ -137,7 +137,7 @@ const ProgressIndicatorDots: FC<{}> = () => {
                 ))}
               </ButtonGroup>
             </Stack>
-            <Stack gap="space.150">
+            <Stack space="150">
               <Box css={headingStyles} display="block">
                 Size
               </Box>
@@ -157,7 +157,7 @@ const ProgressIndicatorDots: FC<{}> = () => {
           </SpreadInlineLayout>
           <SpreadInlineLayout>
             <Box as="label" htmlFor="input">
-              <Inline gap="space.100" alignItems="center">
+              <Inline space="100" alignBlock="center">
                 <input
                   checked={isInteractive}
                   id="input"
@@ -185,7 +185,7 @@ const ProgressIndicatorDots: FC<{}> = () => {
                   role="tabpanel"
                   UNSAFE_style={{ display: selected ? 'block' : 'none' }}
                 >
-                  <Stack gap="space.100">
+                  <Stack space="100">
                     <Text as="strong" fontSize="size.100" fontWeight="bold">
                       Panel {i + 1}
                     </Text>

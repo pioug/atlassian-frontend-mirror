@@ -6,11 +6,11 @@ import { jsx } from '@emotion/react';
 import {
   UNSAFE_Box as Box,
   UNSAFE_BoxProps as BoxProps,
-  UNSAFE_Inline as Inline,
-  UNSAFE_Stack as Stack,
   UNSAFE_Text as Text,
 } from '@atlaskit/ds-explorations';
 import Heading from '@atlaskit/heading';
+import Inline from '@atlaskit/primitives/inline';
+import Stack from '@atlaskit/primitives/stack';
 
 import Card from './94-card';
 
@@ -24,7 +24,7 @@ const JSMCard: FC<{
 }) => {
   return (
     <Card>
-      <Inline gap="space.200">
+      <Inline space="200">
         <Box
           UNSAFE_style={{ flexShrink: 0 }}
           display="block"
@@ -33,7 +33,7 @@ const JSMCard: FC<{
           width="size.500"
           height="size.500"
         />
-        <Stack gap="space.100">
+        <Stack space="100">
           <Heading as="h3" level="h600">
             {title}
           </Heading>

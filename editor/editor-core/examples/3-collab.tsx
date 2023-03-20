@@ -33,7 +33,7 @@ import {
   akEditorCodeFontFamily,
 } from '@atlaskit/editor-shared-styles';
 
-import Editor, { EditorProps } from './../src/editor';
+import { EditorMigrationComponent as Editor, EditorProps } from './../src';
 import EditorContext from './../src/ui/EditorContext';
 import WithEditorActions from './../src/ui/WithEditorActions';
 

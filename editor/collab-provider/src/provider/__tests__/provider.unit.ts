@@ -1,9 +1,3 @@
-import { createSocketIOCollabProvider } from '../../socket-io-provider';
-import type { Provider } from '../';
-import * as Utilities from '../../helpers/utils';
-import { nextTick } from '@atlaskit/editor-test-helpers/next-tick';
-import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
-
 jest.useFakeTimers();
 
 jest.mock('@atlaskit/prosemirror-collab', () => {
@@ -52,15 +46,22 @@ jest.mock('../catchup', () => {
 
 jest.mock('lodash/throttle', () => jest.fn((fn) => fn));
 
-import * as analytics from '../../analytics';
+import { CollabParticipant } from '@atlaskit/editor-common/collab';
+import { nextTick } from '@atlaskit/editor-test-helpers/next-tick';
+import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
+import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
+import { createSocketIOCollabProvider } from '../../socket-io-provider';
+import * as Utilities from '../../helpers/utils';
+import * as Telepointer from '../telepointers';
 import { catchup } from '../catchup';
-import { triggerAnalyticsEvent } from '../../analytics';
+import AnalyticsHelper from '../../analytics';
 import { Channel } from '../../channel';
 import { ErrorPayload } from '../../types';
 import { MAX_STEP_REJECTED_ERROR } from '../';
-import { ACK_MAX_TRY, EVENT_ACTION, EVENT_STATUS } from '../../helpers/const';
+import { ACK_MAX_TRY } from '../../helpers/const';
 import { Node } from 'prosemirror-model';
-import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
+import { ErrorCodeMapper } from '../../error-code-mapper';
+import type { Provider } from '../';
 
 const testProviderConfig = {
   url: `http://provider-url:66661`,
@@ -68,11 +69,12 @@ const testProviderConfig = {
 };
 const clientId = 'some-random-prosmirror-client-Id';
 
-describe('provider unit tests', () => {
+describe('Provider', () => {
   let channel: any;
 
   beforeEach(() => {
-    channel = new Channel({} as any);
+    const analyticsHelper = new AnalyticsHelper(testProviderConfig.documentAri);
+    channel = new Channel({} as any, analyticsHelper);
   });
 
   afterEach(jest.clearAllMocks);
@@ -185,11 +187,7 @@ describe('provider unit tests', () => {
       });
     });
 
-    it('should emit events for restoration', async (done) => {
-      const triggerAnalyticsEventSpy = jest.spyOn(
-        analytics,
-        'triggerAnalyticsEvent',
-      );
+    describe('document restore', () => {
       const mockedMetadata = { b: 1 };
       const mockedSteps = [{ type: 'fakeStep' }, { type: 'fakeStep' }];
       const mockRestoreData = {
@@ -198,43 +196,94 @@ describe('provider unit tests', () => {
         userId: 'abc',
         metadata: mockedMetadata,
       };
-      const provider = createSocketIOCollabProvider(testProviderConfig);
-      jest
-        .spyOn(provider as any, 'getUnconfirmedSteps')
-        .mockImplementation(() => {
-          return {
-            steps: mockedSteps,
-          };
+
+      it('should emit events for restoration', (done) => {
+        expect.assertions(5);
+        const sendActionEventSpy = jest.spyOn(
+          AnalyticsHelper.prototype,
+          'sendActionEvent',
+        );
+        const provider = createSocketIOCollabProvider(testProviderConfig);
+        jest
+          .spyOn(provider as any, 'getUnconfirmedSteps')
+          .mockImplementation(() => mockedSteps);
+        provider.initialize(() => editorState);
+        provider.on('init', (data) => {
+          expect(data).toEqual({
+            doc: mockRestoreData.doc,
+            version: mockRestoreData.version,
+            metadata: mockedMetadata,
+            reserveCursor: true,
+          });
         });
-      provider.initialize(() => editorState);
-      provider.on('init', (data) => {
-        expect(data).toEqual({
-          doc: mockRestoreData.doc,
-          version: mockRestoreData.version,
-          metadata: mockedMetadata,
-          reserveCursor: true,
+        provider.on('metadata:changed', (metadata) => {
+          expect(metadata).toEqual(mockedMetadata);
         });
-      });
-      provider.on('metadata:changed', (metadata) => {
-        expect(metadata).toEqual(mockedMetadata);
-      });
-      provider.on('local-steps', ({ steps }) => {
-        expect(steps).toEqual(mockedSteps);
-        // Event emmit is a sync operation, so put done here is enough.
-        expect(triggerAnalyticsEventSpy).toBeCalledTimes(1);
-        expect(triggerAnalyticsEventSpy).toBeCalledWith(
-          {
-            attributes: {
-              documentAri: 'ari:cloud:confluence:ABC:page/testpage',
+
+        provider.on('local-steps', ({ steps }) => {
+          expect(steps).toEqual(mockedSteps);
+          // Event emit is a sync operation, so put done here is enough.
+          expect(sendActionEventSpy).toHaveBeenCalledTimes(1);
+          expect(sendActionEventSpy).toBeCalledWith(
+            'reinitialiseDocument',
+            'SUCCESS',
+            {
               numUnconfirmedSteps: 2,
             },
-            eventAction: 'reinitialiseDocument',
-          },
-          undefined,
-        );
-        done();
+          );
+          done();
+        });
+
+        channel.emit('restore', mockRestoreData);
       });
-      channel.emit('restore', mockRestoreData);
+
+      it('should fire analytics on document restore failure', (done) => {
+        expect.assertions(5);
+        const sendActionEventSpy = jest.spyOn(
+          AnalyticsHelper.prototype,
+          'sendActionEvent',
+        );
+        const sendErrorEventSpy = jest.spyOn(
+          AnalyticsHelper.prototype,
+          'sendErrorEvent',
+        );
+        const provider = createSocketIOCollabProvider(testProviderConfig);
+        const restoreError: Error = {
+          name: 'Oh no!',
+          message: 'Someone has fallen in the river in LEGO city!',
+        };
+        jest
+          .spyOn(provider as any, 'getUnconfirmedSteps')
+          .mockImplementationOnce(() => mockedSteps);
+        jest
+          .spyOn(provider as any, 'updateDocumentWithMetadata')
+          .mockImplementationOnce(() => {
+            throw restoreError;
+          });
+        provider.initialize(() => editorState);
+        provider.on('error', (error) => {
+          expect(error).toEqual({
+            status: 500,
+            code: ErrorCodeMapper.restoreError.code,
+            message: ErrorCodeMapper.restoreError.message,
+          });
+          expect(sendActionEventSpy).toHaveBeenCalledTimes(1);
+          expect(sendActionEventSpy).toHaveBeenCalledWith(
+            'reinitialiseDocument',
+            'FAILURE',
+            {
+              numUnconfirmedSteps: 2,
+            },
+          );
+          expect(sendErrorEventSpy).toHaveBeenCalledTimes(1);
+          expect(sendErrorEventSpy).toHaveBeenCalledWith(
+            restoreError,
+            'Error while reinitialising document',
+          );
+          done();
+        });
+        channel.emit('restore', mockRestoreData);
+      });
     });
 
     it('should emit error and trigger catchup', () => {
@@ -254,7 +303,7 @@ describe('provider unit tests', () => {
       for (let i = 1; i <= MAX_STEP_REJECTED_ERROR + 2; i++) {
         channel.emit('error', stepRejectedError);
       }
-      expect(throttledCatchupSpy).toBeCalledTimes(3);
+      expect(throttledCatchupSpy).toHaveBeenCalledTimes(3);
     });
 
     it('should not emit empty joined or left presence', async () => {
@@ -404,16 +453,8 @@ describe('provider unit tests', () => {
   });
 
   describe('Handle fire analytic requests', () => {
-    const stepRejectedError: ErrorPayload = {
-      data: {
-        status: 409,
-        code: 'HEAD_VERSION_UPDATE_FAILED',
-        meta: 'The version number does not match the current head version.',
-      },
-      message: 'Version number does not match current head version.',
-    };
-    let fakeAnalyticsWebClient: AnalyticsWebClient;
     let provider: Provider;
+    let fakeAnalyticsWebClient: AnalyticsWebClient;
 
     beforeEach(() => {
       fakeAnalyticsWebClient = {
@@ -431,66 +472,11 @@ describe('provider unit tests', () => {
       provider.initialize(() => editorState);
     });
 
-    describe('when fireAnalyticsEvent is called', () => {
-      let originalRequestIdleCallback: Function | undefined;
-      beforeEach(() => {
-        jest.spyOn(window, 'requestAnimationFrame');
-        originalRequestIdleCallback = (window as any).requestIdleCallback;
-        (window as any).requestIdleCallback = undefined;
-      });
-
-      afterEach(() => {
-        (window.requestAnimationFrame as jest.Mock).mockRestore();
-        (window as any).requestIdleCallback = originalRequestIdleCallback;
-      });
-
-      describe('and when requestIdleCallback is available', () => {
-        let requestIdleCallbackMock: jest.Mock;
-        beforeEach(() => {
-          requestIdleCallbackMock = jest.fn();
-          (window as any).requestIdleCallback = requestIdleCallbackMock;
-        });
-
-        it('should use this window function', () => {
-          channel.emit('error', stepRejectedError);
-          expect(requestIdleCallbackMock).toHaveBeenCalled();
-        });
-
-        it('should fire the analytics events', () => {
-          requestIdleCallbackMock.mockImplementation((cb) =>
-            (cb as Function)(),
-          );
-
-          channel.emit('error', stepRejectedError);
-          expect(fakeAnalyticsWebClient.sendOperationalEvent).toBeCalledTimes(
-            1,
-          );
-        });
-      });
-
-      describe('and when requestIdleCallback is not available', () => {
-        it('should use the requestAnimationFrame', () => {
-          channel.emit('error', stepRejectedError);
-          expect(window.requestAnimationFrame).toHaveBeenCalled();
-        });
-
-        it('should fire the analytics events', () => {
-          (window.requestAnimationFrame as jest.Mock).mockImplementation((cb) =>
-            (cb as Function)(),
-          );
-          channel.emit('error', stepRejectedError);
-          expect(fakeAnalyticsWebClient.sendOperationalEvent).toBeCalledTimes(
-            1,
-          );
-        });
-      });
-    });
-
     describe('fire participants events', () => {
-      it('should update the the participants', async () => {
-        const triggerAnalyticsEventSpy = jest.spyOn(
-          analytics,
-          'triggerAnalyticsEvent',
+      it('should update the participants', async () => {
+        const sendActionEventSpy = jest.spyOn(
+          AnalyticsHelper.prototype,
+          'sendActionEvent',
         );
         const provider = createSocketIOCollabProvider(testProviderConfig);
         provider.on('presence', ({ joined, left }) => {
@@ -514,28 +500,22 @@ describe('provider unit tests', () => {
         });
 
         await new Promise(process.nextTick);
-        expect(triggerAnalyticsEventSpy).toHaveBeenCalledTimes(2);
-        expect(triggerAnalyticsEventSpy).toHaveBeenNthCalledWith(
+        expect(sendActionEventSpy).toHaveBeenCalledTimes(2);
+        expect(sendActionEventSpy).toHaveBeenNthCalledWith(
           1,
+          'updateParticipants',
+          'SUCCESS',
           {
-            eventAction: 'updateParticipants',
-            attributes: {
-              documentAri: 'ari:cloud:confluence:ABC:page/testpage',
-              participants: 1,
-            },
+            participants: 1,
           },
-          undefined,
         );
-        expect(triggerAnalyticsEventSpy).toHaveBeenNthCalledWith(
+        expect(sendActionEventSpy).toHaveBeenNthCalledWith(
           2,
+          'updateParticipants',
+          'SUCCESS',
           {
-            eventAction: 'updateParticipants',
-            attributes: {
-              documentAri: 'ari:cloud:confluence:ABC:page/testpage',
-              participants: 2,
-            },
+            participants: 2,
           },
-          undefined,
         );
       });
     });
@@ -679,9 +659,9 @@ describe('provider unit tests', () => {
 
   describe('getFinalAcknowledgedState', () => {
     it('should return the final state', async () => {
-      const triggerAnalyticsEventSpy = jest.spyOn(
-        analytics,
-        'triggerAnalyticsEvent',
+      const sendActionEventSpy = jest.spyOn(
+        AnalyticsHelper.prototype,
+        'sendActionEvent',
       );
       const provider = createSocketIOCollabProvider(testProviderConfig);
       provider.initialize(() => editorState);
@@ -715,16 +695,11 @@ describe('provider unit tests', () => {
           version: 1,
         },
       });
-      expect(triggerAnalyticsEventSpy).toHaveBeenCalledTimes(1);
-      expect(triggerAnalyticsEventSpy).toHaveBeenCalledWith(
-        {
-          eventAction: 'convertPMToADF',
-          attributes: {
-            documentAri: 'ari:cloud:confluence:ABC:page/testpage',
-            eventStatus: 'SUCCESS',
-          },
-        },
-        undefined,
+      expect(sendActionEventSpy).toHaveBeenCalledTimes(1);
+      expect(sendActionEventSpy).toHaveBeenCalledWith(
+        'publishPage',
+        'SUCCESS',
+        { latency: undefined },
       );
     });
 
@@ -740,11 +715,11 @@ describe('provider unit tests', () => {
           origins: [1],
         },
       };
-      let triggerAnalyticsEventSpy: jest.SpyInstance;
+      let sendActionEventSpy: jest.SpyInstance;
       beforeEach(() => {
-        triggerAnalyticsEventSpy = jest.spyOn(
-          analytics,
-          'triggerAnalyticsEvent',
+        sendActionEventSpy = jest.spyOn(
+          AnalyticsHelper.prototype,
+          'sendActionEvent',
         );
         jest.spyOn(Utilities, 'sleep').mockResolvedValue(() => undefined);
       });
@@ -758,18 +733,14 @@ describe('provider unit tests', () => {
           ).rejects.toThrowError(
             new Error("Can't sync up with Collab Service"),
           );
-          expect(triggerAnalyticsEventSpy).toHaveBeenCalledTimes(1);
-          expect(triggerAnalyticsEventSpy).toHaveBeenCalledWith(
+          expect(sendActionEventSpy).toHaveBeenCalledTimes(1);
+          expect(sendActionEventSpy).toHaveBeenCalledWith(
+            'commitUnconfirmedSteps',
+            'FAILURE',
             {
-              eventAction: 'commitUnconfirmedSteps',
-              attributes: {
-                documentAri: 'ari:cloud:confluence:ABC:page/testpage',
-                eventStatus: 'FAILURE',
-                numUnconfirmedSteps: 1,
-                latency: undefined, // undefined because performance API is not available in jest env
-              },
+              numUnconfirmedSteps: 1,
+              latency: undefined, // undefined because performance API is not available in jest env
             },
-            undefined,
           );
           expect(sendSpy).toHaveBeenCalledTimes(ACK_MAX_TRY + 1);
         });
@@ -801,46 +772,33 @@ describe('provider unit tests', () => {
           .mockImplementation(() => {});
         jest
           .spyOn(provider as any, 'getUnconfirmedSteps')
-          .mockImplementationOnce(() => {
-            return {
-              steps: mockedSteps,
-              origins: [1],
-            };
-          })
-          .mockImplementationOnce(() => {
-            return {
-              steps: [],
-            };
-          });
+          .mockImplementationOnce(() => mockedSteps)
+          .mockImplementationOnce(() => []);
+        jest
+          .spyOn(provider as any, 'getUnconfirmedStepsOrigins')
+          .mockImplementationOnce(() => [1])
+          .mockImplementationOnce(() => undefined);
         provider.initialize(() => editorState);
 
         const finalAck = await provider.getFinalAcknowledgedState();
 
-        expect(triggerAnalyticsEventSpy).toHaveBeenCalledTimes(2);
-        expect(triggerAnalyticsEventSpy).toHaveBeenNthCalledWith(
+        expect(sendActionEventSpy).toHaveBeenCalledTimes(2);
+        expect(sendActionEventSpy).toHaveBeenNthCalledWith(
           1,
+          'commitUnconfirmedSteps',
+          'SUCCESS',
           {
-            eventAction: 'commitUnconfirmedSteps',
-            attributes: {
-              documentAri: 'ari:cloud:confluence:ABC:page/testpage',
-              eventStatus: 'SUCCESS',
-              numUnconfirmedSteps: 1,
-              latency: undefined, // undefined because performance API is not available in jest env
-            },
+            numUnconfirmedSteps: 1,
+            latency: undefined, // undefined because performance API is not available in jest env
           },
-          undefined,
         );
-        expect(triggerAnalyticsEventSpy).toHaveBeenNthCalledWith(
+        expect(sendActionEventSpy).toHaveBeenNthCalledWith(
           2,
+          'publishPage',
+          'SUCCESS',
           {
-            eventAction: 'convertPMToADF',
-            attributes: {
-              documentAri: 'ari:cloud:confluence:ABC:page/testpage',
-              eventStatus: 'SUCCESS',
-              latency: undefined, // undefined because performance API is not available in jest env
-            },
+            latency: undefined, // undefined because performance API is not available in jest env
           },
-          undefined,
         );
         expect(finalAck).toEqual({
           stepVersion: 0,
@@ -899,9 +857,13 @@ describe('provider unit tests', () => {
     });
 
     it('should not log UGC when logging an error', async () => {
-      const triggerAnalyticsEventSpy = jest.spyOn(
-        analytics,
-        'triggerAnalyticsEvent',
+      const sendActionEventSpy = jest.spyOn(
+        AnalyticsHelper.prototype,
+        'sendActionEvent',
+      );
+      const sendErrorEventSpy = jest.spyOn(
+        AnalyticsHelper.prototype,
+        'sendErrorEvent',
       );
       const provider = createSocketIOCollabProvider(testProviderConfig);
       const invalidDocument = {
@@ -918,28 +880,45 @@ describe('provider unit tests', () => {
         doc: invalidDocument,
       }));
 
-      await provider.getFinalAcknowledgedState();
+      const finalState = await provider.getFinalAcknowledgedState();
 
-      expect(triggerAnalyticsEventSpy).toHaveBeenCalledTimes(1);
-      expect(triggerAnalyticsEventSpy).toHaveBeenCalledWith(
-        {
-          eventAction: 'convertPMToADF',
-          attributes: {
-            documentAri: 'ari:cloud:confluence:ABC:page/testpage',
-            eventStatus: 'FAILURE',
-            error: new TypeError(
-              "Cannot read properties of undefined (reading 'forEach')",
-            ),
-          },
-        },
-        undefined,
+      expect(sendActionEventSpy).toHaveBeenCalledTimes(1);
+      expect(sendActionEventSpy).toHaveBeenCalledWith(
+        'publishPage',
+        'FAILURE',
+        { latency: undefined },
       );
+      expect(sendErrorEventSpy).toHaveBeenCalledTimes(2);
+      expect(sendErrorEventSpy).toHaveBeenNthCalledWith(
+        1,
+        new TypeError(
+          "Cannot read properties of undefined (reading 'forEach')",
+        ),
+        'Error while returning ADF version of current draft document',
+      );
+      expect(sendErrorEventSpy).toHaveBeenNthCalledWith(
+        2,
+        new TypeError(
+          "Cannot read properties of undefined (reading 'forEach')",
+        ),
+        'Error while returning ADF version of the final draft document',
+      );
+      // This is bad
+      expect(finalState).toEqual({
+        content: undefined,
+        stepVersion: 0,
+        title: undefined,
+      });
     });
   });
 
   describe('catchup should reset the flags (pauseQueue and stepRejectCounter) when called', () => {
+    let sendActionEventSpy: jest.SpyInstance;
     beforeEach(() => {
-      jest.spyOn(analytics, 'triggerAnalyticsEvent');
+      sendActionEventSpy = jest.spyOn(
+        AnalyticsHelper.prototype,
+        'sendActionEvent',
+      );
     });
 
     it('should reset pauseQueue and stepRejectCounter flags', async () => {
@@ -963,8 +942,8 @@ describe('provider unit tests', () => {
         channel.emit('error', stepRejectedError);
       }
 
-      expect(throttledCatchupSpy).toBeCalledTimes(1);
-      expect(catchup).toBeCalledTimes(1);
+      expect(throttledCatchupSpy).toHaveBeenCalledTimes(1);
+      expect(catchup).toHaveBeenCalledTimes(1);
 
       await new Promise(process.nextTick);
 
@@ -972,8 +951,8 @@ describe('provider unit tests', () => {
         channel.emit('error', stepRejectedError);
       }
 
-      expect(throttledCatchupSpy).toBeCalledTimes(2);
-      expect(catchup).toBeCalledTimes(2);
+      expect(throttledCatchupSpy).toHaveBeenCalledTimes(2);
+      expect(catchup).toHaveBeenCalledTimes(2);
     });
 
     it('should reset pauseQueue and stepRejectCounter flags when catchup causes an error', async () => {
@@ -1002,28 +981,230 @@ describe('provider unit tests', () => {
         channel.emit('error', stepRejectedError);
       }
 
-      expect(throttledCatchupSpy).toBeCalledTimes(1);
-      expect(catchup).toBeCalledTimes(1);
-      expect(triggerAnalyticsEvent).nthCalledWith(
-        MAX_STEP_REJECTED_ERROR + 1,
-        {
-          eventAction: EVENT_ACTION.CATCHUP,
-          attributes: expect.objectContaining({
-            eventStatus: EVENT_STATUS.FAILURE,
-          }),
-        },
-        undefined,
-      );
+      expect(throttledCatchupSpy).toHaveBeenCalledTimes(1);
+      expect(catchup).toHaveBeenCalledTimes(1);
+      expect(sendActionEventSpy).toHaveBeenCalledTimes(1);
+      expect(sendActionEventSpy).toBeCalledWith('catchup', 'FAILURE', {
+        latency: 0,
+      });
 
       for (let i = 1; i <= MAX_STEP_REJECTED_ERROR; i++) {
         channel.emit('error', stepRejectedError);
       }
 
-      expect(triggerAnalyticsEvent).toBeCalledTimes(
-        MAX_STEP_REJECTED_ERROR * 2 + 2,
+      expect(sendActionEventSpy).toHaveBeenCalledTimes(2);
+      expect(throttledCatchupSpy).toHaveBeenCalledTimes(2);
+      expect(catchupMock).toHaveBeenCalledTimes(2);
+    });
+  });
+
+  describe('gracefully fails when Presence features throw', () => {
+    let sendErrorEventSpy: jest.SpyInstance;
+    let provider: Provider;
+    const fakeError = new Error('Kaboooooom!');
+
+    beforeEach(() => {
+      sendErrorEventSpy = jest.spyOn(
+        AnalyticsHelper.prototype,
+        'sendErrorEvent',
       );
-      expect(throttledCatchupSpy).toBeCalledTimes(2);
-      expect(catchupMock).toBeCalledTimes(2);
+      provider = createSocketIOCollabProvider(testProviderConfig);
+    });
+
+    it('when emitting telepointers from steps', () => {
+      const fakeSteps = [
+        {
+          stepType: 'replace',
+          from: 123,
+          to: 123,
+          slice: { content: [{ type: 'text', text: 'J' }] },
+          clientId: 2827051402,
+          userId: '70121:8fce2c13-5f60-40be-a9f2-956c6f041fbe',
+        },
+      ];
+      jest
+        .spyOn(Telepointer, 'telepointersFromStep')
+        .mockImplementationOnce(() => {
+          throw fakeError;
+        });
+      // @ts-ignore You're not my mom, I call private methods in a negative test
+      provider.emitTelepointersFromSteps(fakeSteps);
+
+      expect(sendErrorEventSpy).toHaveBeenCalledTimes(1);
+      expect(sendErrorEventSpy).toHaveBeenCalledWith(
+        fakeError,
+        'Error while emitting telepointers from steps',
+      );
+    });
+
+    it('when the consumer sends a telepointer message', () => {
+      jest
+        .spyOn(Telepointer, 'telepointerCallback')
+        .mockImplementationOnce(() => {
+          throw fakeError;
+        });
+      provider.sendMessage({
+        type: 'telepointer',
+        selection: { type: 'textSelection', anchor: 693, head: 693 },
+      });
+
+      expect(sendErrorEventSpy).toHaveBeenCalledTimes(1);
+      expect(sendErrorEventSpy).toHaveBeenCalledWith(
+        fakeError,
+        'Error while sending message - telepointer',
+      );
+    });
+
+    it('when sending presence', () => {
+      jest.spyOn(window, 'setTimeout').mockImplementationOnce(() => {
+        throw fakeError;
+      });
+      // @ts-ignore You're not my mom, I call private methods in a negative test
+      provider.sendPresence();
+
+      expect(sendErrorEventSpy).toHaveBeenCalledTimes(1);
+      expect(sendErrorEventSpy).toHaveBeenCalledWith(
+        fakeError,
+        'Error while sending presence',
+      );
+    });
+
+    it('when joining presence', () => {
+      // @ts-ignore don't care about type issues for a mock
+      jest.spyOn(provider, 'sendPresence').mockImplementationOnce(() => {
+        throw fakeError;
+      });
+      // @ts-ignore You're not my mom, I call private methods in a negative test
+      provider.onPresenceJoined({ sessionId: 'cAA0xTLkAZj-r79VBzG0' });
+
+      expect(sendErrorEventSpy).toHaveBeenCalledTimes(1);
+      expect(sendErrorEventSpy).toHaveBeenCalledWith(
+        fakeError,
+        'Error while joining presence',
+      );
+    });
+
+    it('when receiving presence', () => {
+      // @ts-ignore don't care about type issues for a mock
+      jest.spyOn(provider, 'sendPresence').mockImplementationOnce(() => {
+        throw fakeError;
+      });
+      // @ts-ignore You're not my mom, I call private methods in a negative test
+      provider.onPresence({
+        userId: '70121:8fce2c13-5f60-40be-a9f2-956c6f041fbe',
+      });
+
+      expect(sendErrorEventSpy).toHaveBeenCalledTimes(1);
+      expect(sendErrorEventSpy).toHaveBeenCalledWith(
+        fakeError,
+        'Error while receiving presence',
+      );
+    });
+
+    it('when participant leaves', () => {
+      // @ts-ignore don't care about type issues for a mock
+      jest.spyOn(provider, 'emit').mockImplementationOnce(() => {
+        throw fakeError;
+      });
+      // @ts-ignore You're not my mom, I call private methods in a negative test
+      provider.onParticipantLeft({
+        sessionId: 'cAA0xTLkAZj-r79VBzG0',
+      });
+
+      expect(sendErrorEventSpy).toHaveBeenCalledTimes(1);
+      expect(sendErrorEventSpy).toHaveBeenCalledWith(
+        fakeError,
+        'Error while participant leaving',
+      );
+    });
+
+    it('when handling participant updated event', () => {
+      // @ts-ignore don't care about type issues for a mock
+      jest.spyOn(provider, 'updateParticipant').mockImplementationOnce(() => {
+        throw fakeError;
+      });
+      // @ts-ignore You're not my mom, I call private methods in a negative test
+      provider.onParticipantUpdated({
+        timestamp: Date.now(),
+        sessionId: 'vXrOwZ7OIyXq17jdB2jh',
+        userId: '70121:8fce2c13-5f60-40be-a9f2-956c6f041fbe',
+        clientId: 328374441,
+      });
+
+      expect(sendErrorEventSpy).toHaveBeenCalledTimes(1);
+      expect(sendErrorEventSpy).toHaveBeenCalledWith(
+        fakeError,
+        'Error while handling participant updated event',
+      );
+    });
+
+    it('when handling participant updated event', () => {
+      // @ts-ignore don't care about type issues for a mock
+      jest.spyOn(provider, 'updateParticipant').mockImplementationOnce(() => {
+        throw fakeError;
+      });
+      // @ts-ignore You're not my mom, I call private methods in a negative test
+      provider.onParticipantTelepointer({
+        userId: '70121:8fce2c13-5f60-40be-a9f2-956c6f041fbe',
+        sessionId: 'vXrOwZ7OIyXq17jdB2jh',
+        clientId: 328374441,
+        selection: { type: 'textSelection', anchor: 1, head: 1 },
+      });
+
+      expect(sendErrorEventSpy).toHaveBeenCalledTimes(1);
+      expect(sendErrorEventSpy).toHaveBeenCalledWith(
+        fakeError,
+        'Error while handling participant telepointer event',
+      );
+    });
+
+    it('when updating participant', async () => {
+      // @ts-ignore don't care about type issues for a mock
+      jest.spyOn(provider, 'updateParticipants').mockImplementationOnce(() => {
+        throw fakeError;
+      });
+      // @ts-ignore You're not my mom, I call private methods in a negative test
+      await provider.updateParticipant({
+        sessionId: 'vXrOwZ7OIyXq17jdB2jh',
+        timestamp: Date.now(),
+        userId: '70121:8fce2c13-5f60-40be-a9f2-956c6f041fbe',
+        clientId: 328374441,
+      });
+
+      expect(sendErrorEventSpy).toHaveBeenCalledTimes(1);
+      expect(sendErrorEventSpy).toHaveBeenCalledWith(
+        fakeError,
+        'Error while updating participant',
+      );
+    });
+
+    it('when updating participants', () => {
+      // @ts-ignore don't care about type issues for a mock
+      jest.spyOn(window, 'setTimeout').mockImplementationOnce(() => {
+        throw fakeError;
+      });
+      // @ts-ignore You're not my mom, I call private methods in a negative test
+      provider.updateParticipants(
+        [
+          {
+            name: 'Joni Vanderheijden',
+            email: '',
+            avatar:
+              'https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/70121:8fce2c13-5f60-40be-a9f2-956c6f041fbe/5955acd3-cc59-4220-b886-e9d4c33ed8e6/128',
+            sessionId: 'kxPWnuWui2kx-qUDB5LU',
+            lastActive: 1676954400001,
+            userId: '70121:8fce2c13-5f60-40be-a9f2-956c6f041fbe',
+            clientId: 433693308,
+          } as CollabParticipant, // TODO: Review CollabParticipant type, it's deviating from the real data
+        ],
+        [],
+      );
+
+      expect(sendErrorEventSpy).toHaveBeenCalledTimes(1);
+      expect(sendErrorEventSpy).toHaveBeenCalledWith(
+        fakeError,
+        'Error while updating participants',
+      );
     });
   });
 });

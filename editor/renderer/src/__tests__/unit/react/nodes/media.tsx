@@ -577,7 +577,7 @@ describe('Media', () => {
     });
 
     describe('populates identifier cache for the page mediaClientConfig', () => {
-      it('should have a mediaViewerDataSource if doc is passed for a file card', async () => {
+      it('should have a mediaViewerItems if doc is passed for a file card', async () => {
         const fileIdentifier = createFileIdentifier();
         const mediaFileCard = await mountFileCard(fileIdentifier);
 
@@ -585,15 +585,15 @@ describe('Media', () => {
         mediaFileCard.update();
 
         expect(mediaFileCard.find(Card).at(0).props()).toHaveProperty(
-          'mediaViewerDataSource',
+          'mediaViewerItems',
         );
-        expect(
-          mediaFileCard.find(Card).at(0).props().mediaViewerDataSource,
-        ).toEqual({ list: [fileIdentifier] });
+        expect(mediaFileCard.find(Card).at(0).props().mediaViewerItems).toEqual(
+          [fileIdentifier],
+        );
         mediaFileCard.unmount();
       });
 
-      it('should have a mediaViewerDataSource if doc is passed for an external card', async () => {
+      it('should have a mediaViewerItems if doc is passed for an external card', async () => {
         const externalIdentifier = createExternalIdentifier();
         const mediaExternalCard = mountExternalCard(externalIdentifier);
 
@@ -601,15 +601,15 @@ describe('Media', () => {
         mediaExternalCard.update();
 
         expect(mediaExternalCard.find(Card).at(0).props()).toHaveProperty(
-          'mediaViewerDataSource',
+          'mediaViewerItems',
         );
         expect(
-          mediaExternalCard.find(Card).at(0).props().mediaViewerDataSource,
-        ).toEqual({ list: [externalIdentifier] });
+          mediaExternalCard.find(Card).at(0).props().mediaViewerItems,
+        ).toEqual([externalIdentifier]);
         mediaExternalCard.unmount();
       });
 
-      it('should have a mediaViewerDataSource if doc content has mutiple media cards with different collection ids', async () => {
+      it('should have a mediaViewerItems if doc content has mutiple media cards with different collection ids', async () => {
         const fileIdentifier = createFileIdentifier(1, 'collection1');
         const fileIdentifier2 = createFileIdentifier(2, 'collection2');
         const adDocContent = [
@@ -644,20 +644,20 @@ describe('Media', () => {
         mediaFileCard.update();
         mediaFileCard2.update();
 
+        expect(mediaFileCard.find(Card).at(0).props().mediaViewerItems).toEqual(
+          [fileIdentifier],
+        );
         expect(
-          mediaFileCard.find(Card).at(0).props().mediaViewerDataSource,
-        ).toEqual({ list: [fileIdentifier] });
-        expect(
-          mediaFileCard2.find(Card).at(0).props().mediaViewerDataSource,
-        ).toEqual({ list: [fileIdentifier, fileIdentifier2] });
+          mediaFileCard2.find(Card).at(0).props().mediaViewerItems,
+        ).toEqual([fileIdentifier, fileIdentifier2]);
 
         mediaFileCard.setProps({});
         expect(mediaFileCard.find(Card).at(0).props()).toHaveProperty(
-          'mediaViewerDataSource',
+          'mediaViewerItems',
         );
-        expect(
-          mediaFileCard.find(Card).at(0).props().mediaViewerDataSource,
-        ).toEqual({ list: [fileIdentifier, fileIdentifier2] });
+        expect(mediaFileCard.find(Card).at(0).props().mediaViewerItems).toEqual(
+          [fileIdentifier, fileIdentifier2],
+        );
         mediaFileCard.unmount();
         mediaFileCard2.unmount();
       });
@@ -672,20 +672,20 @@ describe('Media', () => {
         mediaFileCard.update();
         mediaExternalCard.update();
 
+        expect(mediaFileCard.find(Card).at(0).props().mediaViewerItems).toEqual(
+          [fileIdentifier],
+        );
         expect(
-          mediaFileCard.find(Card).at(0).props().mediaViewerDataSource,
-        ).toEqual({ list: [fileIdentifier] });
-        expect(
-          mediaExternalCard.find(Card).at(0).props().mediaViewerDataSource,
-        ).toEqual({ list: [fileIdentifier, externalIdentifier] });
+          mediaExternalCard.find(Card).at(0).props().mediaViewerItems,
+        ).toEqual([fileIdentifier, externalIdentifier]);
 
         mediaFileCard.setProps({});
         expect(mediaFileCard.find(Card).at(0).props()).toHaveProperty(
-          'mediaViewerDataSource',
+          'mediaViewerItems',
         );
-        expect(
-          mediaFileCard.find(Card).at(0).props().mediaViewerDataSource,
-        ).toEqual({ list: [fileIdentifier, externalIdentifier] });
+        expect(mediaFileCard.find(Card).at(0).props().mediaViewerItems).toEqual(
+          [fileIdentifier, externalIdentifier],
+        );
         mediaFileCard.unmount();
         mediaExternalCard.unmount();
       });
@@ -713,11 +713,11 @@ describe('Media', () => {
         mediaExternalCard0.setProps({});
 
         expect(
-          mediaFileCard1.find(Card).at(0).props().mediaViewerDataSource,
-        ).toEqual({ list: [fileIdentifier1, externalIdentifier0] });
+          mediaFileCard1.find(Card).at(0).props().mediaViewerItems,
+        ).toEqual([fileIdentifier1, externalIdentifier0]);
         expect(
-          mediaExternalCard0.find(Card).at(0).props().mediaViewerDataSource,
-        ).toEqual({ list: [fileIdentifier1, externalIdentifier0] });
+          mediaExternalCard0.find(Card).at(0).props().mediaViewerItems,
+        ).toEqual([fileIdentifier1, externalIdentifier0]);
 
         mediaFileCard1.unmount();
         mediaExternalCard0.unmount();

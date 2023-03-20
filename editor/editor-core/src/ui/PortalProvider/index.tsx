@@ -7,13 +7,13 @@ import {
 import PropTypes from 'prop-types';
 import { default as AnalyticsReactContext } from '@atlaskit/analytics-next-stable-react-context';
 import { EventDispatcher } from '../../event-dispatcher';
-import { FireAnalyticsCallback } from '../../plugins/analytics/fire-analytics-event';
 import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
-} from '../../plugins/analytics/types/enums';
+  FireAnalyticsCallback,
+} from '@atlaskit/editor-common/analytics';
 import {
   useIntl,
   IntlShape,

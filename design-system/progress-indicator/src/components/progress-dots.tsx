@@ -13,8 +13,8 @@ import { bind } from 'bind-event-listener';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
 import Box from '@atlaskit/ds-explorations/box';
-import Inline from '@atlaskit/ds-explorations/inline';
 import noop from '@atlaskit/ds-lib/noop';
+import Inline from '@atlaskit/primitives/inline';
 import { useGlobalTheme } from '@atlaskit/theme/components';
 
 import type { ProgressDotsProps } from '../types';
@@ -133,8 +133,8 @@ const ProgressDots: FC<ProgressDotsProps> = ({
         ref={(r: HTMLDivElement) => {
           tablistRef.current = r;
         }}
-        justifyContent="center"
-        gap={inlineGapValue}
+        alignInline="center"
+        space={inlineGapValue}
       >
         {values.map((_, index) => {
           const isSelected = selectedIndex === index;

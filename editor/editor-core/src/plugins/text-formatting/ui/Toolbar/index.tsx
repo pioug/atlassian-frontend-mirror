@@ -28,12 +28,9 @@ import { SingleToolbarButtons } from './single-toolbar-buttons';
 import { MoreButton } from './more-button';
 import { FormattingTextDropdownMenu } from './dropdown-menu';
 import { toolbarMessages } from './toolbar-messages';
-import {
-  usePreviousObjectState,
-  compareItemsArrays,
-  isArrayContainsContent,
-} from '../../utils';
+import { compareItemsArrays, isArrayContainsContent } from '../../utils';
 import Announcer from '../../../../utils/announcer/announcer';
+import { usePreviousState } from '@atlaskit/editor-common/hooks';
 
 export type ToolbarFormattingProps = {
   editorView: EditorView;
@@ -99,7 +96,7 @@ const ToolbarFormatting: React.FC<
   const activeItems = [...dropdownItems, ...singleItems].filter(
     (item) => item.isActive,
   );
-  const prevActiveItems = usePreviousObjectState(activeItems);
+  const prevActiveItems = usePreviousState(activeItems) ?? [];
 
   const fromSuperscriptToSubscript =
     isArrayContainsContent(activeItems, 'Subscript') &&

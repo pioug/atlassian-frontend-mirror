@@ -22,7 +22,7 @@ import {
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
   ACTION,
-} from '../../../plugins/analytics';
+} from '@atlaskit/editor-common/analytics';
 import { token } from '@atlaskit/tokens';
 
 interface Props {

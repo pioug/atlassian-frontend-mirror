@@ -114,6 +114,7 @@ export function getDefaultPresetOptionsFromEditorProps(
     selection: { useLongPressSelection: false },
     cardOptions,
     hyperlinkOptions: {
+      editorAppearance: props.appearance,
       linkPicker: props.linking?.linkPicker,
       cardOptions,
       platform: isMobile ? 'mobile' : 'web',

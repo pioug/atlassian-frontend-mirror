@@ -13,7 +13,9 @@ type ClientType = Parameters<typeof goToEditorTestingWDExample>[0];
 
 BrowserTestCase(
   'inline: should open a new window to authenticate with a provider when connecting a different account',
-  {},
+
+  // Skipped test https://product-fabric.atlassian.net/browse/ED-17199
+  { skip: ['safari'] },
   async (client: ClientType) => {
     const page = await goToEditorTestingWDExample(client);
     const authorizationWindow = new AuthorizationWindow(client, page);

@@ -59,9 +59,12 @@ const insertPanelType = (
     state.schema.nodes.paragraph.createChecked(),
   );
 
-const panelPlugin: NextEditorPlugin<'panel', never, PanelPluginOptions> = (
-  options = {},
-) => ({
+const panelPlugin: NextEditorPlugin<
+  'panel',
+  {
+    pluginConfiguration: PanelPluginOptions | undefined;
+  }
+> = (options = {}) => ({
   name: 'panel',
 
   nodes() {

@@ -39,8 +39,9 @@ export const isChromeWithSelectionBug =
 
 const basePlugin: NextEditorPlugin<
   'base',
-  never,
-  BasePluginOptions | undefined
+  {
+    pluginConfiguration: BasePluginOptions | undefined;
+  }
 > = (options?) => ({
   name: 'base',
 

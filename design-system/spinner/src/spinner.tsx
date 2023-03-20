@@ -28,13 +28,13 @@ function getStrokeColor({
 }): string {
   if (mode === 'light') {
     return appearance === 'inherit'
-      ? token('color.text.subtle', N500)
-      : token('color.text.inverse', N0);
+      ? token('color.icon.subtle', N500)
+      : token('color.icon.inverse', N0);
   }
 
   return appearance === 'inherit'
-    ? token('color.text.subtle', DN900)
-    : token('color.text.inverse', DN500);
+    ? token('color.icon.subtle', DN900)
+    : token('color.icon.inverse', DN500);
 }
 
 const rotate = keyframes({

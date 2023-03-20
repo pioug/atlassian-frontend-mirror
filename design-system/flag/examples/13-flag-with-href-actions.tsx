@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 
-import { UNSAFE_Stack as Stack } from '@atlaskit/ds-explorations';
+import Stack from '@atlaskit/primitives/stack';
 import Tick from '@atlaskit/icon/glyph/check-circle';
 import Error from '@atlaskit/icon/glyph/error';
 import Info from '@atlaskit/icon/glyph/info';
@@ -91,7 +91,7 @@ const flagVariants: Array<FlagVariant> = [
 ];
 
 export default () => (
-  <Stack gap="space.100">
+  <Stack space="100">
     {flagVariants.map((flag: FlagVariant) => (
       <Flag
         appearance={flag.appearance}

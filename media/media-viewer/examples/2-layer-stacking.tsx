@@ -37,7 +37,7 @@ export default class Example extends React.Component<{}, State> {
           <MediaViewer
             mediaClientConfig={mediaClientConfig}
             selectedItem={this.state.selectedItem}
-            dataSource={{ list: [this.state.selectedItem] }}
+            items={[this.state.selectedItem]}
             collectionName={defaultCollectionName}
             onClose={() => this.setState({ selectedItem: undefined })}
           />

@@ -11,6 +11,7 @@ describe('Catchup ', () => {
     const options: CatchupOptions = {
       getCurrentPmVersion: jest.fn().mockReturnValue(1),
       getUnconfirmedSteps: jest.fn().mockReturnValue(undefined),
+      getUnconfirmedStepsOrigins: jest.fn().mockReturnValue(undefined),
       fetchCatchup: jest.fn().mockResolvedValue({
         doc: exampleDoc,
         stepMaps: [
@@ -27,7 +28,8 @@ describe('Catchup ', () => {
     };
 
     await catchup(options);
-    expect(options.filterQueue).toBeCalled();
+    expect(options.filterQueue).toHaveBeenCalledTimes(1);
+    expect(options.filterQueue).toHaveBeenCalledWith(expect.any(Function));
     expect(options.updateDocumentWithMetadata).toBeCalledWith({
       doc: JSON.parse(exampleDoc),
       version: 2,
@@ -41,6 +43,7 @@ describe('Catchup ', () => {
     const options: CatchupOptions = {
       getCurrentPmVersion: jest.fn().mockReturnValue(50),
       getUnconfirmedSteps: jest.fn().mockReturnValue(undefined),
+      getUnconfirmedStepsOrigins: jest.fn().mockReturnValue(undefined),
       fetchCatchup: jest.fn().mockResolvedValue({
         doc: exampleDoc,
         stepMaps: [

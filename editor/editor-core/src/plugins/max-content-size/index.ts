@@ -35,8 +35,9 @@ export function createPlugin(
 
 const maxContentSizePlugin: NextEditorPlugin<
   'maxContentSize',
-  never,
-  number
+  {
+    pluginConfiguration: number | undefined;
+  }
 > = (maxContentSize?: number) => ({
   name: 'maxContentSize',
 

@@ -31,6 +31,7 @@ import { CardProvider } from '@atlaskit/editor-common/provider-factory';
 import { CollabEditProvider } from '@atlaskit/editor-common/collab';
 import { Color } from '@atlaskit/status/element';
 import { Command as Command_2 } from '@atlaskit/editor-common/types';
+import { ComponentType } from 'react';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 import { ContextUpdateHandler } from '@atlaskit/editor-common/types';
 import { createTable } from '@atlaskit/editor-plugin-table/commands';
@@ -44,6 +45,7 @@ import { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { DropdownOptionT } from '@atlaskit/editor-common/types';
 import { EditorActionsOptions } from '@atlaskit/editor-common/types';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { EditorAppearance } from '@atlaskit/editor-common/types';
 import { FeatureFlags as EditorFeatureFlags } from '@atlaskit/editor-common/types';
 import { EditorPlugin } from '@atlaskit/editor-common/types';
@@ -62,6 +64,8 @@ import { ExperienceStore } from '@atlaskit/editor-common/ufo';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import type { ExtensionProvider } from '@atlaskit/editor-common/extensions';
 import { ExtensionType } from '@atlaskit/editor-common/provider-factory';
+import { FC } from 'react';
+import { FireAnalyticsCallback } from '@atlaskit/editor-common/analytics';
 import { FloatingToolbarButton } from '@atlaskit/editor-common/types';
 import { FloatingToolbarColorPicker } from '@atlaskit/editor-common/types';
 import { FloatingToolbarConfig } from '@atlaskit/editor-common/types';
@@ -90,7 +94,6 @@ import { MediaFeatureFlags } from '@atlaskit/media-common';
 import { MediaFeatureFlags as MediaFeatureFlags_2 } from '@atlaskit/media-common/mediaFeatureFlags';
 import { MediaFile } from '@atlaskit/media-picker/types';
 import { MediaProvider as MediaProvider_2 } from '@atlaskit/editor-common/provider-factory';
-import { MemoizedFn } from 'memoize-one';
 import { MentionDescription } from '@atlaskit/mention';
 import { MentionProvider } from '@atlaskit/mention/resource';
 import { MentionProvider as MentionProvider_2 } from '@atlaskit/mention';
@@ -120,6 +123,7 @@ import { QuickInsertProvider } from '@atlaskit/editor-common/provider-factory';
 import { default as React_2 } from 'react';
 import { ReactElement } from 'react';
 import { RefObject } from 'react';
+import { ReplaceRawValue } from '@atlaskit/editor-common/types';
 import { ResolvedEditorState } from '@atlaskit/editor-common/collab';
 import { RichMediaLayout } from '@atlaskit/adf-schema';
 import { Schema } from 'prosemirror-model';
@@ -251,88 +255,11 @@ type BasePortalProviderProps = {
 } & WrappedComponentProps;
 
 // @public (undocumented)
-export class BaseReactEditorView<T = {}> extends React_2.Component<
-  EditorViewProps & WrappedComponentProps & T,
-  {},
-  EditorReactContext
-> {
-  constructor(
-    props: EditorViewProps & WrappedComponentProps & T,
-    context: EditorReactContext,
-  );
+export class BaseReactEditorView<T = {}> extends ReactEditorView_2<T> {
   // (undocumented)
-  blur: () => void;
-  // (undocumented)
-  componentDidMount(): void;
-  componentWillUnmount(): void;
-  // (undocumented)
-  config: EditorConfig;
-  // (undocumented)
-  contentTransformer?: Transformer_2<string>;
-  // (undocumented)
-  static contextTypes: {
-    getAtlaskitAnalyticsEventHandlers: PropTypes.Requireable<
-      (...args: any[]) => any
-    >;
+  static defaultProps: {
+    getEditorPlugins: GetEditorPlugins;
   };
-  // (undocumented)
-  createEditorState: (options: CreateEditorStateOptions) => EditorState<any>;
-  // (undocumented)
-  dispatch: Dispatch;
-  // (undocumented)
-  dispatchAnalyticsEvent: (payload: AnalyticsEventPayload) => void;
-  // (undocumented)
-  editorRef: React_2.RefObject<HTMLDivElement>;
-  // (undocumented)
-  editorState: EditorState;
-  // (undocumented)
-  errorReporter: ErrorReporter;
-  // (undocumented)
-  eventDispatcher: EventDispatcher;
-  // (undocumented)
-  experienceStore?: ExperienceStore;
-  // (undocumented)
-  formatFullWidthAppearance: (
-    appearance: EditorAppearance | undefined,
-  ) => FULL_WIDTH_MODE;
-  // (undocumented)
-  getDirectEditorProps: (
-    state?: EditorState<any> | undefined,
-  ) => DirectEditorProps;
-  // (undocumented)
-  getPlugins(
-    editorProps: EditorProps,
-    prevEditorProps?: EditorProps,
-    createAnalyticsEvent?: CreateUIAnalyticsEvent,
-  ): EditorPlugin[];
-  // (undocumented)
-  handleAnalyticsEvent: FireAnalyticsCallback;
-  // (undocumented)
-  handleEditorViewRef: (node: HTMLDivElement) => void;
-  // (undocumented)
-  proseMirrorRenderedSeverity?: SEVERITY;
-  // (undocumented)
-  reconfigureState: (props: EditorViewProps) => void;
-  // (undocumented)
-  render(): JSX.Element;
-  // (undocumented)
-  resetEditorState: ({
-    doc,
-    shouldScrollToBottom,
-  }: {
-    doc: string;
-    shouldScrollToBottom: boolean;
-  }) => void;
-  // (undocumented)
-  transactionTracker: TransactionTracker;
-  // (undocumented)
-  get transactionTracking(): TransactionTracking;
-  // (undocumented)
-  UNSAFE_componentWillReceiveProps(nextProps: EditorViewProps): void;
-  // (undocumented)
-  validTransactionCount: number;
-  // (undocumented)
-  view?: EditorView;
 }
 
 // @public (undocumented)
@@ -460,22 +387,20 @@ interface CollabInviteToEditProps {
 }
 
 // @public (undocumented)
-export class CollapsedEditor extends React_2.Component<Props, State_2> {
+export class CollapsedEditor extends React_2.Component<Props, State> {
   // (undocumented)
   componentDidUpdate(): void;
   // (undocumented)
-  editorComponent?: Editor;
+  editorComponent?: Editor | EditorMigrationComponent | EditorNext;
   // (undocumented)
   handleEditorRef: (
     editorRef?: Editor | undefined,
     editorRefCallback?: any,
   ) => void;
   // (undocumented)
+  previouslyExpanded?: boolean;
+  // (undocumented)
   render(): JSX.Element;
-  // (undocumented)
-  shouldTriggerExpandEvent?: boolean;
-  // (undocumented)
-  UNSAFE_componentWillReceiveProps(nextProps: Props): void;
 }
 
 // @public (undocumented)
@@ -686,42 +611,39 @@ type EditInsertedState = {
 };
 
 // @public (undocumented)
-export class Editor extends React_2.Component<EditorProps, State> {
+export class Editor extends React_2.Component<
+  EditorProps,
+  ProviderFactoryState
+> {
   constructor(props: EditorProps, context: Context);
-  // (undocumented)
   componentDidMount(): void;
-  // (undocumented)
   componentDidUpdate(prevProps: EditorProps): void;
-  // (undocumented)
   componentWillUnmount(): void;
   // (undocumented)
   static contextTypes: {
     editorActions: PropTypes.Requireable<object>;
   };
-  // (undocumented)
   static defaultProps: EditorProps;
-  // (undocumented)
+  // @deprecated (undocumented)
   handleAnalyticsEvent: FireAnalyticsCallback;
-  // (undocumented)
+  // @deprecated (undocumented)
   handleSave: (view: EditorView) => void;
-  // (undocumented)
+  // @deprecated (undocumented)
   onEditorCreated(instance: {
     view: EditorView;
     eventDispatcher: EventDispatcher;
     transformer?: Transformer_2<string>;
   }): void;
-  // (undocumented)
+  // @deprecated (undocumented)
   onEditorDestroyed(_instance: {
     view: EditorView;
     transformer?: Transformer_2<string>;
   }): void;
-  // (undocumented)
-  prepareExtensionProvider: MemoizedFn<
-    (
-      extensionProviders?: ExtensionProvidersProp | undefined,
-    ) => ExtensionProvider<any> | undefined
-  >;
-  // (undocumented)
+  // @deprecated (undocumented)
+  prepareExtensionProvider: (
+    extensionProviders?: ExtensionProvidersProp | undefined,
+  ) => ExtensionProvider<any> | undefined;
+  // @deprecated (undocumented)
   prepareQuickInsertProvider: (
     extensionProvider?: ExtensionProvider<any> | undefined,
     quickInsert?: QuickInsertOptions | undefined,
@@ -730,9 +652,15 @@ export class Editor extends React_2.Component<EditorProps, State> {
   static propTypes: {
     minHeight: ({ appearance, minHeight }: EditorProps) => Error | null;
   };
+  // @deprecated (undocumented)
+  registerEditorForActions(
+    editorView: EditorView,
+    eventDispatcher: EventDispatcher,
+    contentTransformer?: Transformer_2<string>,
+  ): void;
   // (undocumented)
   render(): jsx.JSX.Element;
-  // (undocumented)
+  // @deprecated (undocumented)
   trackEditorActions(
     editorActions: EditorActions & {
       _contentRetrievalTracking?: {
@@ -755,6 +683,8 @@ export class Editor extends React_2.Component<EditorProps, State> {
           };
         };
   };
+  // @deprecated (undocumented)
+  unregisterEditorFromActions(): void;
 }
 
 // @public (undocumented)
@@ -811,7 +741,7 @@ export class EditorActions<T = any> implements EditorActionsOptions<T> {
   ): boolean;
   // (undocumented)
   replaceSelection(
-    rawValue: Node_2 | Object | string,
+    rawValue: Array<ReplaceRawValue> | ReplaceRawValue,
     tryToReplace?: boolean,
   ): boolean;
 }
@@ -880,6 +810,28 @@ export interface EditorInstance {
   primaryToolbarComponents: ToolbarUIComponentFactory[];
   // (undocumented)
   secondaryToolbarComponents: UIComponentFactory[];
+}
+
+// @public (undocumented)
+export class EditorMigrationComponent extends React_2.Component<EditorProps> {
+  // (undocumented)
+  render(): JSX.Element;
+}
+
+// @public (undocumented)
+class EditorNext extends React_2.Component<EditorProps> {
+  constructor(props: EditorProps, context: Context);
+  // (undocumented)
+  static contextTypes: {
+    editorActions: PropTypes.Requireable<object>;
+  };
+  static defaultProps: EditorProps;
+  // (undocumented)
+  static propTypes: {
+    minHeight: ({ appearance, minHeight }: EditorProps) => Error | null;
+  };
+  // (undocumented)
+  render(): jsx.JSX.Element;
 }
 
 // @public (undocumented)
@@ -1148,6 +1100,8 @@ interface EditorViewProps {
   // (undocumented)
   experienceStore?: ExperienceStore;
   // (undocumented)
+  getEditorPlugins?: GetEditorPlugins;
+  // (undocumented)
   onEditorCreated: (instance: {
     view: EditorView;
     config: EditorConfig;
@@ -1239,17 +1193,6 @@ type FindReplaceOptions = {
   allowMatchCase?: boolean;
 };
 
-// @public (undocumented)
-type FireAnalyticsCallback = <T>(
-  payload: FireAnalyticsEventPayload<T>,
-) => undefined | void;
-
-// @public (undocumented)
-type FireAnalyticsEventPayload<T = void> = {
-  payload: AnalyticsEventPayload<T>;
-  channel?: string;
-};
-
 export { FloatingToolbarButton };
 
 export { FloatingToolbarColorPicker };
@@ -1299,6 +1242,18 @@ export function getDefaultPresetOptionsFromEditorProps(
   props: EditorProps,
   createAnalyticsEvent?: CreateUIAnalyticsEvent,
 ): EditorPresetProps & DefaultPresetPluginOptions & EditorPluginFeatureProps;
+
+// @public (undocumented)
+type GetEditorPlugins = (props: GetEditorPluginsProps) => EditorPlugin[];
+
+// @public (undocumented)
+type GetEditorPluginsProps = {
+  props: EditorProps;
+  prevAppearance?: EditorAppearance;
+  createAnalyticsEvent?: CreateUIAnalyticsEvent;
+  insertNodeAPI?: InsertNodeAPI;
+  editorAnalyticsAPI?: EditorAnalyticsAPI;
+};
 
 // @public (undocumented)
 export const getListCommands: () => {
@@ -1352,6 +1307,8 @@ interface HyperlinkPluginOptions {
   // (undocumented)
   cardOptions?: CardOptions;
   // (undocumented)
+  editorAppearance?: EditorAppearance;
+  // (undocumented)
   linkPicker?: LinkPickerOptions;
   // (undocumented)
   platform?: 'mobile' | 'web';
@@ -1365,6 +1322,8 @@ export interface HyperlinkState {
   activeText?: string;
   // (undocumented)
   canInsertLink: boolean;
+  // (undocumented)
+  editorAppearance?: EditorAppearance;
   // (undocumented)
   inputMethod?: INPUT_METHOD;
   // (undocumented)
@@ -1423,7 +1382,9 @@ interface InputTracking {
   severityDegradedThreshold?: number;
   severityNormalThreshold?: number;
   slowThreshold?: number;
+  trackRenderingTime?: boolean;
   trackSeverity?: boolean;
+  trackSingleKeypress?: boolean;
 }
 
 // @public (undocumented)
@@ -1507,6 +1468,20 @@ export const insertMediaSingleNode: (
   collection?: string | undefined,
   alignLeftOnInsert?: boolean | undefined,
 ) => boolean;
+
+// @public (undocumented)
+type InsertNodeAPI = {
+  insert: (props: InsertNodeConfig) => boolean;
+};
+
+// @public (undocumented)
+type InsertNodeConfig = {
+  node: 'table';
+  options: {
+    selectNodeInserted: boolean;
+    analyticsPayload?: AnalyticsEventPayload;
+  };
+};
 
 // @public (undocumented)
 type InsertState = {
@@ -1699,8 +1674,9 @@ export interface MediaOptions {
 // @public (undocumented)
 export const mediaPlugin: NextEditorPlugin<
   'media',
-  never,
-  MediaOptions | undefined
+  {
+    pluginConfiguration: MediaOptions | undefined;
+  }
 >;
 
 // @public (undocumented)
@@ -1775,8 +1751,6 @@ interface MediaPluginState {
   // (undocumented)
   mediaClientConfig?: MediaClientConfig;
   // (undocumented)
-  mediaGroupNodes: Record<string, any>;
-  // (undocumented)
   mediaNodes: MediaNodeWithPosHandler[];
   // (undocumented)
   mediaOptions?: MediaOptions;
@@ -1798,15 +1772,11 @@ interface MediaPluginState {
   // (undocumented)
   pickers: PickerFacade[];
   // (undocumented)
-  removeNodeById: (state: MediaState) => void;
-  // (undocumented)
   removeSelectedMediaContainer: () => boolean;
   // (undocumented)
   selectedMediaContainerNode: () => Node_2 | undefined;
   // (undocumented)
   setBrowseFn: (browseFn: () => void) => void;
-  // (undocumented)
-  setMediaGroupNode: (node: Node_2<any>, getPos: () => number) => void;
   // (undocumented)
   setMediaProvider: (mediaProvider?: Promise<MediaProvider_2>) => Promise<void>;
   // (undocumented)
@@ -1828,10 +1798,9 @@ interface MediaPluginState {
   // (undocumented)
   updateElement(): void;
   // (undocumented)
-  updateMediaNodeAttrs: (
+  updateMediaSingleNodeAttrs: (
     id: string,
     attrs: object,
-    isMediaSingle: boolean,
   ) => boolean | undefined;
   // (undocumented)
   uploadMediaClientConfig?: MediaClientConfig;
@@ -2259,6 +2228,12 @@ type ProseMirrorRenderedTracking = {
   severityDegradedThreshold: number;
 };
 
+// @public (undocumented)
+type ProviderFactoryState = {
+  extensionProvider?: ExtensionProvider;
+  quickInsertProvider?: Promise<QuickInsertProvider>;
+};
+
 export { QuickInsertActionInsert };
 
 // @public (undocumented)
@@ -2309,13 +2284,98 @@ export { QuickInsertProvider };
 type ReactComponents = ReactElement<any> | ReactElement<any>[];
 
 // @public (undocumented)
-export const ReactEditorView: React_2.FC<
+export const ReactEditorView: FC<
   WithIntlProps<EditorViewProps & WrappedComponentProps<'intl'>>
 > & {
-  WrappedComponent: React_2.ComponentType<
+  WrappedComponent: ComponentType<
     EditorViewProps & WrappedComponentProps<'intl'>
   >;
 };
+
+// @public (undocumented)
+class ReactEditorView_2<T = {}> extends React_2.Component<
+  EditorViewProps & WrappedComponentProps & T,
+  {},
+  EditorReactContext
+> {
+  constructor(
+    props: EditorViewProps & WrappedComponentProps & T,
+    context: EditorReactContext,
+  );
+  // (undocumented)
+  blur: () => void;
+  // (undocumented)
+  componentDidMount(): void;
+  componentWillUnmount(): void;
+  // (undocumented)
+  config: EditorConfig;
+  // (undocumented)
+  contentTransformer?: Transformer_2<string>;
+  // (undocumented)
+  static contextTypes: {
+    getAtlaskitAnalyticsEventHandlers: PropTypes.Requireable<
+      (...args: any[]) => any
+    >;
+  };
+  // (undocumented)
+  createEditorState: (options: CreateEditorStateOptions) => EditorState<any>;
+  // (undocumented)
+  dispatch: Dispatch;
+  // (undocumented)
+  dispatchAnalyticsEvent: (payload: AnalyticsEventPayload) => void;
+  // (undocumented)
+  editorRef: React_2.RefObject<HTMLDivElement>;
+  // (undocumented)
+  editorState: EditorState;
+  // (undocumented)
+  errorReporter: ErrorReporter;
+  // (undocumented)
+  eventDispatcher: EventDispatcher;
+  // (undocumented)
+  experienceStore?: ExperienceStore;
+  // (undocumented)
+  formatFullWidthAppearance: (
+    appearance: EditorAppearance | undefined,
+  ) => FULL_WIDTH_MODE;
+  // (undocumented)
+  getDirectEditorProps: (
+    state?: EditorState<any> | undefined,
+  ) => DirectEditorProps;
+  // (undocumented)
+  getPlugins(
+    editorProps: EditorProps,
+    prevEditorProps?: EditorProps,
+    createAnalyticsEvent?: CreateUIAnalyticsEvent,
+  ): EditorPlugin[];
+  // (undocumented)
+  handleAnalyticsEvent: FireAnalyticsCallback;
+  // (undocumented)
+  handleEditorViewRef: (node: HTMLDivElement) => void;
+  // (undocumented)
+  proseMirrorRenderedSeverity?: SEVERITY;
+  // (undocumented)
+  reconfigureState: (props: EditorViewProps) => void;
+  // (undocumented)
+  render(): JSX.Element;
+  // (undocumented)
+  resetEditorState: ({
+    doc,
+    shouldScrollToBottom,
+  }: {
+    doc: string;
+    shouldScrollToBottom: boolean;
+  }) => void;
+  // (undocumented)
+  transactionTracker: TransactionTracker;
+  // (undocumented)
+  get transactionTracking(): TransactionTracking;
+  // (undocumented)
+  UNSAFE_componentWillReceiveProps(nextProps: EditorViewProps): void;
+  // (undocumented)
+  validTransactionCount: number;
+  // (undocumented)
+  view?: EditorView;
+}
 
 // @public (undocumented)
 interface RectData {
@@ -2412,16 +2472,10 @@ interface SimpleEntry {
 }
 
 // @public (undocumented)
-type State = {
-  extensionProvider?: ExtensionProvider;
-  quickInsertProvider?: Promise<QuickInsertProvider>;
-};
+interface State {}
 
 // @public (undocumented)
-interface State_2 {}
-
-// @public (undocumented)
-interface State_3 {
+interface State_2 {
   // (undocumented)
   jiraIssueCollectorScriptLoading: boolean;
   // (undocumented)
@@ -2693,7 +2747,7 @@ export const toggleUnderlineWithAnalytics: ({
 }) => Command;
 
 // @public (undocumented)
-export class ToolbarFeedback extends PureComponent<Props_3, State_3> {
+export class ToolbarFeedback extends PureComponent<Props_3, State_2> {
   constructor(props: Props_3);
   // (undocumented)
   static contextTypes: {
@@ -2704,7 +2758,7 @@ export class ToolbarFeedback extends PureComponent<Props_3, State_3> {
   // (undocumented)
   showJiraCollectorDialogCallback?: () => void;
   // (undocumented)
-  state: State_3;
+  state: State_2;
 }
 
 // @public (undocumented)
@@ -2882,7 +2936,7 @@ export { WithPluginState };
 
 ```json
 {
-  "@atlaskit/link-provider": "^1.3.8",
+  "@atlaskit/link-provider": "^1.4.0",
   "@atlaskit/media-core": "^34.0.1",
   "react": "^16.8.0",
   "react-dom": "^16.8.0",

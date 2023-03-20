@@ -61,6 +61,7 @@ export const KitchenSinkControls: React.FunctionComponent<KitchenSinkControlsPro
       editorEnabled,
       errorsEnabled,
       sanitizePrivateContent,
+      theme,
       onAdfToggle,
       onEditorToggle,
       onErrorToggle,
@@ -68,6 +69,7 @@ export const KitchenSinkControls: React.FunctionComponent<KitchenSinkControlsPro
       onOrientationChange,
       onScrubToggle,
       onSanitizePrivateContent,
+      onThemeChange,
       scrubContent,
       vertical,
     } = props;
@@ -95,6 +97,10 @@ export const KitchenSinkControls: React.FunctionComponent<KitchenSinkControlsPro
     const onAdfToggleCb = React.useCallback(
       () => onAdfToggle(!adfEnabled),
       [adfEnabled, onAdfToggle],
+    );
+    const onLegacyDarkThemeChange = React.useCallback(
+      () => onThemeChange(theme !== 'dark' ? 'dark' : 'light'),
+      [theme, onThemeChange],
     );
 
     const onSanitizePrivateContentCb = React.useCallback(
@@ -128,18 +134,16 @@ export const KitchenSinkControls: React.FunctionComponent<KitchenSinkControlsPro
               onFullWidthChange={props.onFullWidthChange}
             />
           </div>
-          <Select
+          <Button
+            appearance="primary"
+            isSelected={theme === 'dark'}
+            onClick={onLegacyDarkThemeChange}
             css={kitchenSinkControl}
-            formatOptionLabel={formatAppearanceOption}
-            options={props.themeOptions}
-            onChange={(opt: any) => props.onThemeChange(opt.value)}
-            spacing="compact"
-            defaultValue={props.themeOptions.find(
-              (opt) => opt.value === props.theme,
-            )}
-            className="theme-select"
-            styles={selectStyles}
-          />
+            className="legacy-theme-changer"
+          >
+            Mobile dark mode
+            {theme === 'dark' ? ' activated' : ' deactivated'}
+          </Button>
           <Button onClick={onOrientationChangeCb} css={kitchenSinkControl}>
             Display {!props.vertical ? 'Vertical' : 'Horizontal'}
           </Button>

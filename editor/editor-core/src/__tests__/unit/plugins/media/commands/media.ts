@@ -12,8 +12,8 @@ import { stateKey as mediaPluginKey } from '../../../../../plugins/media/pm-plug
 import { getFreshMediaProvider, testCollectionName } from '../_utils';
 import { MediaAttributes } from '@atlaskit/adf-schema';
 import {
-  updateAllMediaNodesAttrs,
-  updateMediaNodeAttrs,
+  updateAllMediaSingleNodesAttrs,
+  updateMediaSingleNodeAttrs,
 } from '../../../../../plugins/media/commands/helpers';
 import { MediaPluginState } from '../../../../../plugins/media/pm-plugins/types';
 
@@ -79,11 +79,10 @@ describe('Media plugin commands', () => {
         ),
       );
 
-      updateMediaNodeAttrs(
-        testMediaSingle.id,
-        newDimensions,
-        true,
-      )(editorView.state, editorView.dispatch);
+      updateMediaSingleNodeAttrs(testMediaSingle.id, newDimensions)(
+        editorView.state,
+        editorView.dispatch,
+      );
 
       expect(editorView.state.doc).toEqualDocument(
         doc(
@@ -109,14 +108,10 @@ describe('Media plugin commands', () => {
         ),
       );
 
-      updateAllMediaNodesAttrs(
-        testMediaSingle.id,
-        {
-          height: 200,
-          width: 200,
-        },
-        true,
-      )(editorView.state, editorView.dispatch);
+      updateAllMediaSingleNodesAttrs(testMediaSingle.id, {
+        height: 200,
+        width: 200,
+      })(editorView.state, editorView.dispatch);
 
       expect(editorView.state.doc).toEqualDocument(
         doc(

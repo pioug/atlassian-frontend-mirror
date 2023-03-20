@@ -51,7 +51,7 @@ import {
   RenderResult,
 } from '@testing-library/react';
 import React from 'react';
-import Editor from '../../editor';
+import EditorNext from '../../editor-next/editor-migration-component';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { analyticsClient } from '@atlaskit/editor-test-helpers/analytics-client-mock';
 import FabricAnalyticsListeners, {
@@ -92,15 +92,41 @@ const { EmojiResource } =
 import type { ExtensionProvider } from '@atlaskit/editor-common/extensions';
 import { measureTTI as mockMeasureTTI } from '@atlaskit/editor-common/utils';
 import { CardOptions } from '@atlaskit/editor-common/card';
-import * as sinon from 'sinon';
 import { matchers } from '@emotion/jest';
+import * as utils from '@atlaskit/editor-common/utils';
+import measurements from '../../utils/performance/measure-enum';
 
 const measureTTI: any = mockMeasureTTI;
 
 expect.extend(matchers);
 
-describe(packageName, () => {
+const featureFlagOptions = [{ useEditorNext: true }, { useEditorNext: false }];
+
+describe.each(featureFlagOptions)(packageName, (flags) => {
+  const Editor = (props: EditorProps) => {
+    const newFeatureFlags = {
+      featureFlags: { ...props.featureFlags, ...flags },
+    };
+    const mergedProps = { ...props, ...newFeatureFlags };
+    return <EditorNext {...mergedProps} />;
+  };
+
   describe('Editor', () => {
+    describe('errors', () => {
+      it('should not have any unknown console errors on mount', () => {
+        const knownErrors = ['The pseudo class ":first-child" is potentially'];
+        const consoleErrorSpy = jest.spyOn(console, 'error');
+        render(<Editor />);
+        const calls = consoleErrorSpy.mock.calls
+          .map((call) => call[0])
+          .filter(
+            (call) => !knownErrors.some((error) => call.startsWith(error)),
+          );
+        expect(calls.length).toBe(0);
+        consoleErrorSpy.mockRestore();
+      });
+    });
+
     describe('callbacks', () => {
       it('should fire onChange when text is inserted', async () => {
         let instance: EditorActions | undefined;
@@ -156,15 +182,18 @@ describe(packageName, () => {
           expect(editorElement).toHaveStyleRule('min-height', '250px');
         });
 
+        // Testing prop-types has some issues due to `loggedTypeFailures` preventing multiple errors of the same code being logged
+        // github.com/facebook/react/issues/7047
+        // https://github.com/facebook/prop-types/blob/be165febc8133dfbe2c45133db6d25664dd68ad8/checkPropTypes.js#L47-L50
         it('should minHeight prop error for full-page', () => {
-          const stub = sinon.stub(console, 'error');
+          const consoleErrorSpy = jest.spyOn(console, 'error');
           render(<Editor appearance="full-page" minHeight={250} />);
-          expect(stub.getCall(0).args[0]).toEqual(
-            expect.stringMatching(
+
+          expect(consoleErrorSpy).toHaveBeenCalledWith(
+            expect.stringContaining(
               'minHeight only supports editor appearance chromeless and comment',
             ),
           );
-          stub.restore();
         });
 
         it('should fire onCancel when Cancel is clicked', () => {
@@ -385,7 +414,7 @@ describe(packageName, () => {
       });
 
       describe('contentRetrievalPerformed events', () => {
-        async function testContentRetrievalPerformedAnalytics({
+        function testContentRetrievalPerformedAnalytics({
           editorProps,
           editorActions,
           useOnReadyEditorActions,
@@ -418,12 +447,10 @@ describe(packageName, () => {
           const editorActionsFinal = useOnReadyEditorActions
             ? onReadyEditorActions!
             : editorActions;
-          try {
-            await editorActionsFinal?.getValue();
-          } catch (error) {}
+          editorActionsFinal?.getValue().catch(() => {});
         }
-        it('should not dispatch a contentRetrievalPerformed event with success=true if contentRetrievalTracking prop is not set', async () => {
-          await testContentRetrievalPerformedAnalytics({
+        it('should not dispatch a contentRetrievalPerformed event with success=true if contentRetrievalTracking prop is not set', (done) => {
+          testContentRetrievalPerformedAnalytics({
             editorProps: {},
             editorActions: undefined,
             useOnReadyEditorActions: true,
@@ -437,15 +464,16 @@ describe(packageName, () => {
                   }),
                 }),
               );
+              done();
             },
           });
         });
-        it('should not dispatch a contentRetrievalPerformed event success=false if contentRetrievalTracking prop is not set and an exception is thrown', async () => {
+        it('should not dispatch a contentRetrievalPerformed event success=false if contentRetrievalTracking prop is not set and an exception is thrown', (done) => {
           const badEditorActions = new EditorActions();
           badEditorActions.getValue = async () => {
             throw new Error('a bad error');
           };
-          await testContentRetrievalPerformedAnalytics({
+          testContentRetrievalPerformedAnalytics({
             editorProps: {
               performanceTracking: {},
             },
@@ -463,15 +491,16 @@ describe(packageName, () => {
                   }),
                 }),
               );
+              done();
             },
           });
         });
-        it('should not dispatch a contentRetrievalPerformed event with success=true if contentRetrievalTracking prop is enabled=false', async () => {
+        it('should not dispatch a contentRetrievalPerformed event with success=true if contentRetrievalTracking prop is enabled=false', (done) => {
           const badEditorActions = new EditorActions();
           badEditorActions.getValue = async () => {
             throw new Error('a bad error');
           };
-          await testContentRetrievalPerformedAnalytics({
+          testContentRetrievalPerformedAnalytics({
             editorProps: {
               performanceTracking: {
                 contentRetrievalTracking: {
@@ -490,11 +519,12 @@ describe(packageName, () => {
                   attributes: expect.objectContaining({ success: true }),
                 }),
               );
+              done();
             },
           });
         });
-        it('should dispatch a contentRetrievalPerformed event with success=true if contentRetrievalTracking prop is set', async () => {
-          await testContentRetrievalPerformedAnalytics({
+        it('should dispatch a contentRetrievalPerformed event with success=true if contentRetrievalTracking prop is set', (done) => {
+          testContentRetrievalPerformedAnalytics({
             editorProps: {
               performanceTracking: {
                 contentRetrievalTracking: {
@@ -515,15 +545,16 @@ describe(packageName, () => {
                   }),
                 }),
               );
+              done();
             },
           });
         });
-        it('should dispatch a contentRetrievalPerformed event success=false if contentRetrievalTracking prop is set and an exception is thrown', async () => {
+        it('should dispatch a contentRetrievalPerformed event success=false if contentRetrievalTracking prop is set and an exception is thrown', (done) => {
           const badEditorActions = new EditorActions();
           badEditorActions.getValue = async () => {
             throw new Error('a bad error');
           };
-          await testContentRetrievalPerformedAnalytics({
+          testContentRetrievalPerformedAnalytics({
             editorProps: {
               performanceTracking: {
                 contentRetrievalTracking: {
@@ -546,15 +577,16 @@ describe(packageName, () => {
                   }),
                 }),
               );
+              done();
             },
           });
         });
-        it('should dispatch a contentRetrievalPerformed event success=false with error stack trace if contentRetrievalTracking prop is set with reportErrorStack=true and an exception is thrown', async () => {
+        it('should dispatch a contentRetrievalPerformed event success=false with error stack trace if contentRetrievalTracking prop is set with reportErrorStack=true and an exception is thrown', (done) => {
           const badEditorActions = new EditorActions();
           badEditorActions.getValue = async () => {
             throw new Error('a bad error');
           };
-          await testContentRetrievalPerformedAnalytics({
+          testContentRetrievalPerformedAnalytics({
             editorProps: {
               performanceTracking: {
                 contentRetrievalTracking: {
@@ -578,6 +610,7 @@ describe(packageName, () => {
                   }),
                 }),
               );
+              done();
             },
           });
         });
@@ -617,7 +650,7 @@ describe(packageName, () => {
             </FabricAnalyticsListeners>,
           );
         });
-        it('should not dispatch an onEditorReadyCallback event if disabled', () => {
+        it('should not dispatch an onEditorReadyCallback event if disabled', (done) => {
           const mockAnalyticsClient = (): AnalyticsWebClient => {
             const analyticsEventHandler = (
               event: GasPurePayload | GasPureScreenEventPayload,
@@ -632,6 +665,7 @@ describe(packageName, () => {
                   }),
                 }),
               );
+              done();
             };
             return analyticsClient(analyticsEventHandler);
           };
@@ -647,6 +681,39 @@ describe(packageName, () => {
               />
             </FabricAnalyticsListeners>,
           );
+        });
+      });
+
+      describe('running the constructor once', () => {
+        it('should start measure', () => {
+          const startMeasureSpy = jest.spyOn(utils, 'startMeasure');
+          render(<Editor />);
+
+          expect(startMeasureSpy).toHaveBeenCalledWith(
+            measurements.EDITOR_MOUNTED,
+          );
+          startMeasureSpy.mockRestore();
+        });
+
+        it('should call the editorMeasureTTICallback once', () => {
+          const measureTTICallback = jest.spyOn(utils, 'measureTTI');
+          const { rerender } = render(
+            <Editor
+              performanceTracking={{
+                ttiTracking: { enabled: true },
+              }}
+            />,
+          );
+          rerender(
+            <Editor
+              performanceTracking={{
+                ttiTracking: { enabled: true },
+              }}
+            />,
+          );
+
+          expect(measureTTICallback).toHaveBeenCalledTimes(1);
+          measureTTICallback.mockRestore();
         });
       });
     });
@@ -754,9 +821,6 @@ describe(packageName, () => {
     });
 
     describe('providerFactory passed to ReactEditorView', () => {
-      beforeEach(() => {
-        jest.resetAllMocks();
-      });
       const setup = (
         useCollabEditObject: boolean = false,
         defineExtensionsProvider: boolean = true,
@@ -1044,6 +1108,49 @@ describe(packageName, () => {
           'extensionProvider',
           expect.any(Object),
         );
+      });
+
+      describe('destroy the provider factory', () => {
+        beforeEach(() => {
+          jest.clearAllMocks();
+        });
+
+        it('should destroy if unmounting', () => {
+          const destroySpy = jest.spyOn(ProviderFactory.prototype, 'destroy');
+          const { unmount } = render(<Editor />);
+          unmount();
+          expect(destroySpy).toHaveBeenCalledTimes(1);
+          destroySpy.mockRestore();
+        });
+
+        it('should not destroy the provider if not unmounting', () => {
+          const destroySpy = jest.spyOn(ProviderFactory.prototype, 'destroy');
+          const { rerender } = render(<Editor />);
+          rerender(<Editor placeholder="different" />);
+          expect(destroySpy).toHaveBeenCalledTimes(0);
+          destroySpy.mockRestore();
+        });
+      });
+
+      it('should unregister editor actions if unmounting', () => {
+        const unregisterSpy = jest.spyOn(
+          EditorActions.prototype,
+          '_privateUnregisterEditor',
+        );
+        const { unmount } = render(<Editor />);
+        unmount();
+        expect(unregisterSpy).toHaveBeenCalled();
+        unregisterSpy.mockRestore();
+      });
+
+      it('should not unregister editor actions if not unmounting', () => {
+        const unregisterSpy = jest.spyOn(
+          EditorActions.prototype,
+          '_privateUnregisterEditor',
+        );
+        render(<Editor />);
+        expect(unregisterSpy).toHaveBeenCalledTimes(0);
+        unregisterSpy.mockRestore();
       });
     });
   });

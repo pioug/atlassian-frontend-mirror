@@ -17,7 +17,7 @@ export default function Responsive() {
           padding="space.100"
           borderStyle="solid"
           borderWidth={{
-            xs: 'size.0',
+            xxs: 'size.0',
             md: 'size.050',
             lg: 'size.100',
           }}
@@ -35,7 +35,7 @@ export default function Responsive() {
         </p>
         <Box
           testId="box-responsive-display"
-          display={{ xs: 'block', md: 'flex' }}
+          display={{ xxs: 'block', md: 'flex' }}
           padding="space.300"
         >
           <Box padding="space.100">1</Box>
@@ -49,6 +49,7 @@ export default function Responsive() {
           backgroundColor="success.bold"
           display="inline-block"
           padding={{
+            xxs: 'space.025',
             xs: 'space.050',
             sm: 'space.100',
             md: 'space.200',
@@ -62,6 +63,7 @@ export default function Responsive() {
             height="size.100"
             backgroundColor="warning.bold"
             padding={{
+              xxs: 'space.600',
               xs: 'space.500',
               sm: 'space.400',
               md: 'space.300',

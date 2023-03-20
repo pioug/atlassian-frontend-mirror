@@ -351,6 +351,15 @@ describe('Avatar', () => {
     expect(queryByTestId('avatar--presence')).toBeTruthy();
   });
 
+  it('should keep presence out of the accessibility tree', () => {
+    const { queryByTestId } = render(<Avatar testId={'avatar'} presence />);
+
+    expect(queryByTestId('avatar--presence')).toHaveAttribute(
+      'aria-hidden',
+      'true',
+    );
+  });
+
   it('should show a custom presence indicator if provided', () => {
     const MyComponent: FC = () => <div data-testid="custom-presence">yo</div>;
 
@@ -372,6 +381,15 @@ describe('Avatar', () => {
     const { queryByTestId } = render(<Avatar testId={'avatar'} status />);
 
     expect(queryByTestId('avatar--status')).toBeTruthy();
+  });
+
+  it('should keep status out of the accessibility tree', () => {
+    const { queryByTestId } = render(<Avatar testId={'avatar'} status />);
+
+    expect(queryByTestId('avatar--status')).toHaveAttribute(
+      'aria-hidden',
+      'true',
+    );
   });
 
   it('should show a custom status indicator if provided', () => {

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/smart-card",
-  "version": "25.0.4",
+  "version": "25.0.5",
   "description": "Smart card component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -24,10 +24,10 @@
   "dependencies": {
     "@atlaskit/analytics-gas-types": "^5.0.0",
     "@atlaskit/analytics-next": "^9.0.0",
-    "@atlaskit/avatar": "^21.1.0",
+    "@atlaskit/avatar": "^21.2.0",
     "@atlaskit/avatar-group": "^9.2.0",
     "@atlaskit/button": "^16.5.0",
-    "@atlaskit/dropdown-menu": "^11.6.0",
+    "@atlaskit/dropdown-menu": "^11.7.0",
     "@atlaskit/icon": "^21.11.0",
     "@atlaskit/icon-file-type": "^6.3.0",
     "@atlaskit/icon-object": "^6.2.0",
@@ -36,14 +36,14 @@
     "@atlaskit/linking-common": "^2.2.0",
     "@atlaskit/logo": "^13.11.0",
     "@atlaskit/lozenge": "^11.3.0",
-    "@atlaskit/media-common": "^2.19.0",
+    "@atlaskit/media-common": "^3.0.0",
     "@atlaskit/modal-dialog": "^12.4.0",
     "@atlaskit/outbound-auth-flow-client": "^3.3.0",
     "@atlaskit/popup": "^1.5.0",
-    "@atlaskit/spinner": "^15.3.0",
+    "@atlaskit/spinner": "^15.4.0",
     "@atlaskit/theme": "^12.2.0",
     "@atlaskit/tokens": "^1.2.0",
-    "@atlaskit/tooltip": "^17.6.0",
+    "@atlaskit/tooltip": "^17.7.0",
     "@atlaskit/ufo": "^0.1.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
@@ -64,9 +64,9 @@
     "react-intl-next": "npm:react-intl@^5.18.1"
   },
   "devDependencies": {
-    "@atlaskit/avatar": "^21.1.0",
+    "@atlaskit/avatar": "^21.2.0",
     "@atlaskit/checkbox": "^12.4.0",
-    "@atlaskit/code": "^14.4.0",
+    "@atlaskit/code": "^14.5.0",
     "@atlaskit/css-reset": "^6.3.0",
     "@atlaskit/docs": "*",
     "@atlaskit/field-base": "^15.0.6",

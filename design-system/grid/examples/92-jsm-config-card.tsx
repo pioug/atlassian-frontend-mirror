@@ -3,8 +3,8 @@ import { FC, Fragment } from 'react';
 
 import { jsx } from '@emotion/react';
 
-import { UNSAFE_Stack as Stack } from '@atlaskit/ds-explorations';
 import Heading from '@atlaskit/heading';
+import Stack from '@atlaskit/primitives/stack';
 
 import IconLink from './95-icon-link';
 
@@ -22,7 +22,7 @@ const JSMConfigCard: FC<{
   title = 'Title',
 }) => {
   return (
-    <Stack gap="space.150">
+    <Stack space="150">
       <Heading as="h3" level="h600">
         {title}
       </Heading>

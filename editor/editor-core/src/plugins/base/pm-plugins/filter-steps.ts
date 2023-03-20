@@ -7,7 +7,7 @@ import {
   ACTION,
   EVENT_TYPE,
   getAnalyticsEventsFromTransaction,
-} from '../../analytics';
+} from '@atlaskit/editor-common/analytics';
 
 const hasInvalidSteps = (tr: Transaction) =>
   ((tr.steps || []) as (Step & { from: number; to: number })[]).some(

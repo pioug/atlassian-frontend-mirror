@@ -65,7 +65,7 @@ export const ShowMore: React.FC<ShowMoreProps> = ({
               aria-label={i18n.messages.moreEmoji.defaultMessage}
               type="button"
               style={style.button}
-              onMouseDown={onClick}
+              onClick={onClick}
               data-testid={RENDER_SHOWMORE_TESTID}
             >
               <EditorMoreIcon label="More" />

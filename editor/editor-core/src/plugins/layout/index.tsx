@@ -21,9 +21,12 @@ import { LayoutPluginOptions } from './types';
 
 export { pluginKey };
 
-const layoutPlugin: NextEditorPlugin<'layout', never, LayoutPluginOptions> = (
-  options = {},
-) => ({
+const layoutPlugin: NextEditorPlugin<
+  'layout',
+  {
+    pluginConfiguration: LayoutPluginOptions | undefined;
+  }
+> = (options = {}) => ({
   name: 'layout',
 
   nodes() {

@@ -1,8 +1,8 @@
 import { css } from '@emotion/react';
 import {
   tableCellBorderWidth,
-  tableMarginBottom,
   tableMarginTop,
+  tableMarginTopWithControl,
 } from '@atlaskit/editor-common/styles';
 import {
   akEditorShadowZIndex,
@@ -246,7 +246,7 @@ export const DeleteButton = css`
 export const OverflowShadow = (props: ThemeProps) => css`
   .${ClassName.TABLE_RIGHT_SHADOW}, .${ClassName.TABLE_LEFT_SHADOW} {
     display: block;
-    height: calc(100% - ${tableMarginTop + tableMarginBottom}px);
+    height: calc(100% - ${tableMarginTop}px);
     position: absolute;
     pointer-events: none;
     top: ${tableMarginTop}px;
@@ -282,10 +282,13 @@ export const OverflowShadow = (props: ThemeProps) => css`
       );
     left: calc(100% + 2px);
   }
+  .${ClassName.TABLE_COLUMN_CONTROLS_DECORATIONS} {
+    z-index: 0;
+  }
   .${ClassName.WITH_CONTROLS} {
     .${ClassName.TABLE_RIGHT_SHADOW}, .${ClassName.TABLE_LEFT_SHADOW} {
-      height: calc(100% - ${tableMarginTop + tableMarginBottom}px);
-      top: ${tableMarginTop}px;
+      height: calc(100% - ${tableMarginTopWithControl}px);
+      top: ${tableMarginTopWithControl}px;
     }
     .${ClassName.TABLE_LEFT_SHADOW} {
       border-left: 1px solid ${tableBorderColor(props)};
@@ -326,6 +329,7 @@ export const columnControlsDecoration = (props: ThemeProps) => css`
     left: -1px;
     top: -${columnControlsDecorationHeight + tableCellBorderWidth}px;
     height: ${columnControlsDecorationHeight}px;
+    z-index: 0;
 
     &::before {
       content: ' ';

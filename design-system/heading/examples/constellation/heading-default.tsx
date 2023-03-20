@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { Stack } from '@atlaskit/primitives';
+import Stack from '@atlaskit/ds-explorations/stack';
 
 import Heading from '../../src';
 
 export default () => {
   return (
-    <Stack space="100">
+    <Stack gap="space.100">
       <Heading level="h900">H900 (I'm h1)</Heading>
       <Heading level="h800">H800 (I'm h1)</Heading>
       <Heading level="h700">H700 (I'm h2)</Heading>

@@ -4,7 +4,11 @@
 import React from 'react';
 import Lozenge from '@atlaskit/lozenge';
 import ToolsDrawer from '../example-helpers/ToolsDrawer';
-import { Editor, EditorContext, mediaPluginKey } from '../src';
+import {
+  EditorMigrationComponent as Editor,
+  EditorContext,
+  mediaPluginKey,
+} from '../src';
 import WithPluginState from '../src/ui/WithPluginState';
 import { pluginKey as typeAheadPluginKey } from '../src/plugins/type-ahead/pm-plugins/key';
 

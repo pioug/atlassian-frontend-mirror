@@ -16,6 +16,10 @@ import {
 } from './Palettes/paletteMessagesTokenModeNames';
 import { PaletteColor } from './Palettes/type';
 import { colorPaletteWrapper } from './styles';
+import {
+  DEFAULT_COLOR_PICKER_COLUMNS,
+  getColorsPerRowFromPalette,
+} from './utils';
 
 interface Props {
   palette: PaletteColor[];
@@ -31,6 +35,7 @@ interface Props {
    * @default false
    */
   textPalette?: boolean;
+  hexToPaletteColor?: (hexColor: string) => string | undefined;
   /**
    * Used to detect if the useSomewhatSemanticTextColorNames feature flag
    * is true. If so, text color tooltips in the color picker will
@@ -47,13 +52,13 @@ interface Props {
  * @param color color string, suppports HEX, RGB, RGBA etc.
  * @return Highest contrast color in pool
  */
-function getCheckMarkColor(color: string, textPalette: boolean): string {
+function getCheckMarkColor(color: string, useIconToken: boolean): string {
   // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   const contrastColor = [N0, N500].sort(
     (a, b) => chromatism.difference(b, color) - chromatism.difference(a, color),
   )[0];
 
-  if (!textPalette) {
+  if (!useIconToken) {
     return contrastColor;
   }
 
@@ -69,29 +74,21 @@ function getCheckMarkColor(color: string, textPalette: boolean): string {
 const ColorPalette = (props: Props & WrappedComponentProps) => {
   const {
     palette,
-    cols = 7,
+    cols = DEFAULT_COLOR_PICKER_COLUMNS,
     onClick,
     selectedColor,
     className,
     intl: { formatMessage },
     textPalette = false,
+    hexToPaletteColor,
     useSomewhatSemanticTextColorNames = false,
   } = props;
 
   const { colorMode: tokenTheme } = useThemeObserver();
+  const useIconToken = !!hexToPaletteColor;
 
   const colorsPerRow = React.useMemo(() => {
-    return palette.reduce(
-      (resultArray: PaletteColor[][], item: PaletteColor, index: number) => {
-        const chunkIndex = Math.floor(index / cols);
-
-        resultArray[chunkIndex] = resultArray[chunkIndex] || []; // start a new chunk
-        resultArray[chunkIndex].push(item);
-
-        return resultArray;
-      },
-      [],
-    );
+    return getColorsPerRowFromPalette(palette, cols);
   }, [palette, cols]);
 
   return (
@@ -120,8 +117,8 @@ const ColorPalette = (props: Props & WrappedComponentProps) => {
                 label={message ? formatMessage(message) : label}
                 onClick={onClick}
                 isSelected={value === selectedColor}
-                checkMarkColor={getCheckMarkColor(value, textPalette)}
-                useDesignTokens={textPalette === true}
+                checkMarkColor={getCheckMarkColor(value, useIconToken)}
+                hexToPaletteColor={hexToPaletteColor}
               />
             );
           })}

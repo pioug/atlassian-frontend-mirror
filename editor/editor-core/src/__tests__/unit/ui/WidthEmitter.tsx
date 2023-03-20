@@ -1,5 +1,5 @@
 import { name } from '../../../version-wrapper';
-import { mount } from 'enzyme';
+import { render } from '@testing-library/react';
 import React from 'react';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { ReadonlyTransaction } from 'prosemirror-state';
@@ -58,7 +58,7 @@ describe(name, () => {
         ],
       });
 
-      const wrapper = mount(
+      const { unmount } = render(
         <WidthProvider>
           <WidthEmitter editorView={editorView} />
         </WidthProvider>,
@@ -74,7 +74,7 @@ describe(name, () => {
       jest.runOnlyPendingTimers();
 
       expect(width).toEqual(fakeWidth);
-      wrapper.unmount();
+      unmount();
       editorView.destroy();
     });
   });

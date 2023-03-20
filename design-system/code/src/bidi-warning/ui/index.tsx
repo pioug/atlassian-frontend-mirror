@@ -5,6 +5,14 @@ import Tooltip from '@atlaskit/tooltip';
 import { Decorator } from './styled';
 import { CodeBidiWarningProps } from './types';
 
+/**
+ * __Bidi Warning__
+ *
+ * A component used to render a bidi character warning.
+ * A bidi character can be used to perform a "bidi override attack".
+ *
+ * See https://hello.atlassian.net/wiki/spaces/PRODSEC/pages/1347434677/PSHELP-2943+Investigate+Trojan+Source+Attack+Vulnerability#1)-Providing-visual-cues-for-our-Customers-in-our-affected-products
+ */
 export default function BidiWarning({
   testId,
   bidiCharacter,

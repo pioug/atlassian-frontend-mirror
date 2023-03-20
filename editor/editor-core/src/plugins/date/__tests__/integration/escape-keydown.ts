@@ -27,7 +27,9 @@ const adf = {
   ],
 };
 
+// TODO: https://product-fabric.atlassian.net/browse/ED-16966
 runEscapeKeydownSuite({
   adf,
   openMenu: clickOnDate,
+  skip: ['*'],
 });

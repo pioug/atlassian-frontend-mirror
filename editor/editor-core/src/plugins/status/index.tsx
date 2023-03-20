@@ -26,8 +26,9 @@ import StatusPicker from './ui/statusPicker';
 
 const baseStatusPlugin: NextEditorPlugin<
   'status',
-  never,
-  StatusPluginOptions
+  {
+    pluginConfiguration: StatusPluginOptions | undefined;
+  }
 > = (options?) => ({
   name: 'status',
 
@@ -46,7 +47,12 @@ const baseStatusPlugin: NextEditorPlugin<
     ];
   },
 
-  contentComponent({ editorView }) {
+  contentComponent({
+    editorView,
+    popupsMountPoint,
+    popupsBoundariesElement,
+    popupsScrollableElement,
+  }) {
     const domAtPos = editorView.domAtPos.bind(editorView);
     return (
       <WithPluginState
@@ -80,6 +86,9 @@ const baseStatusPlugin: NextEditorPlugin<
               defaultText={text}
               defaultColor={color}
               defaultLocalId={localId}
+              mountTo={popupsMountPoint}
+              boundariesElement={popupsBoundariesElement}
+              scrollableElement={popupsScrollableElement}
               onSelect={(status: StatusType) => {
                 updateStatus(status)(editorView.state, editorView.dispatch);
               }}
@@ -101,7 +110,14 @@ const baseStatusPlugin: NextEditorPlugin<
 });
 
 const decorateWithPluginOptions = (
-  plugin: ReturnType<NextEditorPlugin<'status', never, StatusPluginOptions>>,
+  plugin: ReturnType<
+    NextEditorPlugin<
+      'status',
+      {
+        pluginConfiguration: StatusPluginOptions;
+      }
+    >
+  >,
   options: StatusPluginOptions,
 ) => {
   if (options.menuDisabled === true) {
@@ -133,8 +149,12 @@ const decorateWithPluginOptions = (
   return plugin;
 };
 
-const statusPlugin: NextEditorPlugin<'status', never, StatusPluginOptions> = (
-  options: StatusPluginOptions,
-) => decorateWithPluginOptions(baseStatusPlugin(options), options);
+const statusPlugin: NextEditorPlugin<
+  'status',
+  {
+    pluginConfiguration: StatusPluginOptions;
+  }
+> = (options: StatusPluginOptions, api) =>
+  decorateWithPluginOptions(baseStatusPlugin(options, api), options);
 
 export default statusPlugin;

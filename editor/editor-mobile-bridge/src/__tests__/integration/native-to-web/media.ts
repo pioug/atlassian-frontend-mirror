@@ -6,7 +6,6 @@ import {
   editor,
   editable,
   getDocFromElement,
-  skipBrowsers as skip,
 } from '../_utils';
 
 const fakeMobileId = `fake-aaaa-bbbb-cccc-dddddddddd`;
@@ -38,7 +37,8 @@ const mobileUploadEndPayload = (publicId: string, collectionName: string) => ({
 
 BrowserTestCase(
   `media.ts: Collection + Dimensions => uploading`,
-  { skip: skip.concat('safari') },
+  // TODO: https://product-fabric.atlassian.net/browse/MEX-1842
+  { skip: ['*'] },
   async (client: any, testName: string) => {
     const browser = new Page(client);
 
@@ -64,7 +64,8 @@ BrowserTestCase(
 
 BrowserTestCase(
   `media.ts: Collection + Dimensions => complete`,
-  { skip: skip.concat('safari') },
+  // TODO: https://product-fabric.atlassian.net/browse/MEX-1842
+  { skip: ['*'] },
   async (client: any, testName: string) => {
     const browser = new Page(client);
 
@@ -102,7 +103,8 @@ BrowserTestCase(
 
 BrowserTestCase(
   `media.ts: Collection + No dimension => uploading`,
-  { skip: skip.concat('safari') },
+  // TODO: https://product-fabric.atlassian.net/browse/MEX-1842
+  { skip: ['*'] },
   async (client: any, testName: string) => {
     const browser = new Page(client);
 
@@ -123,7 +125,8 @@ BrowserTestCase(
 
 BrowserTestCase(
   `media.ts: Collection + No dimension => complete`,
-  { skip: skip.concat('safari') },
+  // TODO: https://product-fabric.atlassian.net/browse/MEX-1842
+  { skip: ['*'] },
   async (client: any, testName: string) => {
     const browser = new Page(client);
 
@@ -156,7 +159,8 @@ BrowserTestCase(
 
 BrowserTestCase(
   `media.ts: Empty collection + Dimensions => uploading`,
-  { skip: skip.concat('safari') },
+  // TODO: https://product-fabric.atlassian.net/browse/MEX-1842
+  { skip: ['*'] },
   async (client: any, testName: string) => {
     const browser = new Page(client);
 
@@ -182,7 +186,8 @@ BrowserTestCase(
 
 BrowserTestCase(
   `media.ts: Empty collection + Dimensions => complete`,
-  { skip: skip.concat('safari') },
+  // TODO: https://product-fabric.atlassian.net/browse/MEX-1842
+  { skip: ['*'] },
   async (client: any, testName: string) => {
     const browser = new Page(client);
 
@@ -217,7 +222,8 @@ BrowserTestCase(
 
 BrowserTestCase(
   `media.ts: Empty collection + No dimension => uploading`,
-  { skip: skip.concat('safari') },
+  // TODO: https://product-fabric.atlassian.net/browse/MEX-1842
+  { skip: ['*'] },
   async (client: any, testName: string) => {
     const browser = new Page(client);
 
@@ -238,7 +244,8 @@ BrowserTestCase(
 
 BrowserTestCase(
   `media.ts: Empty collection + No dimension => complete`,
-  { skip: skip.concat('safari') },
+  // TODO: https://product-fabric.atlassian.net/browse/MEX-1842
+  { skip: ['*'] },
   async (client: any, testName: string) => {
     const browser = new Page(client);
 

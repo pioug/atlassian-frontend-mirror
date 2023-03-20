@@ -8,8 +8,9 @@ type Config = {
 
 const beforePrimaryToolbar: NextEditorPlugin<
   'beforePrimaryToolbar',
-  never,
-  Config
+  {
+    pluginConfiguration: Config;
+  }
 > = (props) => ({
   name: 'beforePrimaryToolbar',
 

@@ -254,5 +254,9 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
         ? !!props.featureFlags?.['prevent-popup-overflow']
         : false,
     ),
+
+    useEditorNext:
+      normalizedFeatureFlags.useEditorNext === true ||
+      props.featureFlags?.useEditorNext === true,
   };
 }

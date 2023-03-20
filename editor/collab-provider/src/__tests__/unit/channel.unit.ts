@@ -24,10 +24,10 @@ import * as Performance from '../../analytics/performance';
 import type { CollabSendableSelection } from '@atlaskit/editor-common/collab';
 import { createSocketIOSocket } from '../../socket-io-provider';
 import { io, Socket } from 'socket.io-client';
-import * as Analytics from '../../analytics';
+import AnalyticsHelper from '../../analytics';
 import { getProduct, getSubProduct } from '../../helpers/utils';
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
-import { EVENT_ACTION, EVENT_STATUS } from '../../helpers/const';
+import Network from '../../connectivity/network';
 
 const expectValidChannel = (channel: Channel): void => {
   expect(channel).toBeDefined();
@@ -59,15 +59,21 @@ let fakeAnalyticsWebClient: AnalyticsWebClient = {
   sendUIEvent: jest.fn(),
 };
 
+const fakeDocumentAri =
+  'ari:cloud:confluence:a436116f-02ce-4520-8fbb-7301462a1674:page/1731046230';
 const testChannelConfig: Config = {
-  url: `http://dummy-url:6666`,
-  documentAri: 'ari:cloud:confluence:ABC:page/testpage',
+  url: 'https://localhost/ccollab',
+  documentAri: fakeDocumentAri,
   createSocket: createSocketIOSocket,
   analyticsClient: fakeAnalyticsWebClient,
 };
 
 const getChannel = (config: Config = testChannelConfig): Channel => {
-  const channel = new Channel(config);
+  const analyticsHelper = new AnalyticsHelper(
+    config.documentAri,
+    config.analyticsClient,
+  );
+  const channel = new Channel(config, analyticsHelper);
   expectValidChannel(channel);
   return channel;
 };
@@ -99,8 +105,6 @@ describe('Channel unit tests', () => {
       sendTrackEvent: jest.fn(),
       sendUIEvent: jest.fn(),
     };
-
-    jest.spyOn(console, 'log').mockImplementation(() => {});
   });
 
   afterEach(jest.clearAllMocks);
@@ -113,20 +117,21 @@ describe('Channel unit tests', () => {
   });
 
   it('should return analytics upon successful initial document load', (done) => {
+    expect.assertions(6);
     const channel = getChannel();
 
-    const triggerAnalyticsEventSpy = jest.spyOn(
-      Analytics,
-      'triggerAnalyticsEvent',
+    const sendActionEventSpy = jest.spyOn(
+      AnalyticsHelper.prototype,
+      'sendActionEvent',
     );
 
-    channel.on('init', (data: any) => {
+    channel.on('init', (_data: any) => {
       done();
     });
 
     channel.getSocket()!.emit('data', <InitPayload & { type: 'initial' }>{
       type: 'initial',
-      doc: 'ari:cloud:confluence:ABC:page/testpage',
+      doc: 'ari:cloud:confluence:a436116f-02ce-4520-8fbb-7301462a1674:page/1731046230',
       version: 1234567,
       userId: '123',
       ttlEnabled: false,
@@ -135,19 +140,12 @@ describe('Channel unit tests', () => {
         title: 'a-title',
       },
     });
-    expect(triggerAnalyticsEventSpy).toHaveBeenCalledWith(
-      {
-        attributes: {
-          documentAri: 'ari:cloud:confluence:ABC:page/testpage',
-          eventStatus: 'SUCCESS',
-          latency: undefined,
-          requiredPageRecovery: true,
-          ttlEnabled: false,
-        },
-        eventAction: 'documentInit',
-      },
-      testChannelConfig.analyticsClient,
-    );
+    expect(sendActionEventSpy).toHaveBeenCalledTimes(1);
+    expect(sendActionEventSpy).toHaveBeenCalledWith('documentInit', 'SUCCESS', {
+      latency: undefined,
+      resetReason: undefined,
+      ttlEnabled: false,
+    });
   });
 
   it('should create connected channel as expected', (done) => {
@@ -224,12 +222,18 @@ describe('Channel unit tests', () => {
   });
 
   it('should handle connect_error when no data in error', () => {
+    // There is 5 assertions in the test, plus 4 from `getChannel` calling `expectValidChannel`
+    expect.assertions(7 + 4);
     const measureStopSpy = jest
       .spyOn(Performance, 'stopMeasure')
       .mockImplementation(() => ({ duration: 69, startTime: 420 }));
-    const triggerAnalyticsEventSpy = jest.spyOn(
-      Analytics,
-      'triggerAnalyticsEvent',
+    const sendActionEventSpy = jest.spyOn(
+      AnalyticsHelper.prototype,
+      'sendActionEvent',
+    );
+    const sendErrorEventSpy = jest.spyOn(
+      AnalyticsHelper.prototype,
+      'sendErrorEvent',
     );
 
     const error: Error = { name: 'kerfuffle', message: 'oh gosh oh bother' };
@@ -243,47 +247,42 @@ describe('Channel unit tests', () => {
     // @ts-ignore private method for test
     channel.onConnectError(error);
 
-    expect(measureStopSpy).toHaveBeenCalledWith(
-      Performance.MEASURE_NAME.SOCKET_CONNECT,
-    );
     expect(measureStopSpy).toHaveBeenCalledTimes(1);
-    expect(triggerAnalyticsEventSpy).toHaveBeenCalledWith(
-      {
-        eventAction: EVENT_ACTION.CONNECTION,
-        attributes: {
-          eventStatus: EVENT_STATUS.FAILURE,
-          error: error as ErrorPayload,
-          latency: 69,
-          documentAri: testChannelConfig.documentAri,
-        },
-      },
-      testChannelConfig.analyticsClient,
+    expect(measureStopSpy).toHaveBeenCalledWith(
+      'socketConnect',
+      expect.any(AnalyticsHelper),
     );
-    expect(triggerAnalyticsEventSpy).toHaveBeenCalledTimes(1);
-    // There is 5 assertions in the test, plus 4 from `getChannel` calling `expectValidChannel`
-    expect.assertions(5 + 4);
+    expect(sendActionEventSpy).toHaveBeenCalledTimes(1);
+    expect(sendActionEventSpy).toHaveBeenCalledWith('connection', 'FAILURE', {
+      latency: 69,
+    });
+    expect(sendErrorEventSpy).toHaveBeenCalledTimes(1);
+    expect(sendErrorEventSpy).toHaveBeenCalledWith(
+      error,
+      'Error while establishing connection',
+    );
   });
 
   it('should connect, then disconnect channel as expected', (done) => {
     const channel = getChannel();
+
+    channel.on('disconnect', (data: any) => {
+      try {
+        expect(data).toEqual({
+          reason: 'User disconnect for some reason',
+        });
+        expect(channel.getConnected()).toBe(false);
+        done();
+      } catch (err) {
+        done(err);
+      }
+    });
 
     channel.on('connected', (data: any) => {
       try {
         expect(data).toEqual({
           sid: channel.getSocket()!.id,
           initialized: false,
-        });
-        expect(channel.getConnected()).toBe(true);
-        channel.on('disconnect', (data: any) => {
-          try {
-            expect(data).toEqual({
-              reason: 'User disconnect for some reason',
-            });
-            expect(channel.getConnected()).toBe(false);
-            done();
-          } catch (err) {
-            done(err);
-          }
         });
         expect(channel.getConnected()).toBe(true);
         channel
@@ -296,6 +295,70 @@ describe('Channel unit tests', () => {
 
     expect(channel.getConnected()).toBe(false);
     channel.getSocket()!.emit('connect');
+  });
+
+  it('should connect and disconnect', (done) => {
+    expect.assertions(9);
+    const channel = getChannel();
+
+    channel.on('connected', (data: any) => {
+      expect(data).toEqual({
+        sid: channel.getSocket()!.id,
+        initialized: false,
+      });
+      expect(channel.getConnected()).toBe(true);
+
+      // Now disconnect
+      channel.getSocket()!.emit('disconnect', 'io server disconnect');
+    });
+
+    channel.on('disconnect', (data: any) => {
+      expect(data).toEqual({
+        reason: 'io server disconnect',
+      });
+      expect(channel.getConnected()).toBe(false);
+      done();
+    });
+
+    expect(channel.getConnected()).toBe(false);
+    channel.getSocket()!.emit('connect');
+  });
+
+  it('should emit an error if we catch an error during reconnecting', (done) => {
+    expect.assertions(7);
+    const channel = getChannel();
+    const sendErrorEventSpy = jest.spyOn(
+      AnalyticsHelper.prototype,
+      'sendErrorEvent',
+    );
+    const connectError = new Error(
+      'Have you ever been so far as decided to use even want more like',
+    );
+
+    // Now make reconnects fail, only once, so we don't mess up the global socket IO mock
+    channel.getSocket()!.connect = jest.fn().mockImplementationOnce(() => {
+      throw new Error(
+        'Have you ever been so far as decided to use even want more like',
+      );
+    });
+
+    channel.on('error', (error) => {
+      expect(error).toEqual({
+        data: {
+          code: 'RECONNECTION_ERROR',
+          status: 500,
+        },
+        message: 'Caught error during reconnection.',
+      });
+      expect(sendErrorEventSpy).toHaveBeenCalledTimes(1);
+      expect(sendErrorEventSpy).toHaveBeenCalledWith(
+        connectError,
+        'Error while reconnecting the channel',
+      );
+      done();
+    });
+
+    channel.getSocket()!.emit('disconnect', 'io server disconnect');
   });
 
   it('should handle receiving initial data', (done) => {
@@ -469,24 +532,24 @@ describe('Channel unit tests', () => {
   it('should handle receiving participant:updated from server', (done) => {
     const channel = getChannel();
 
-    channel.on('participant:updated', (data: any) => {
-      try {
-        expect(data).toEqual(<PresencePayload>{
-          sessionId: 'abc',
-          clientId: 'fbfbfb',
-          timestamp: 1245623567234,
-        });
-        done();
-      } catch (err) {
-        done(err);
-      }
+    channel.on('participant:updated', (data) => {
+      expect(data).toEqual({
+        timestamp: 1676945569495,
+        sessionId: 'cAA0xTLkAZj-r79VBzG0',
+        userId: '70121:8fce2c13-5f60-40be-a9f2-956c6f041fbe',
+        clientId: 2778370292,
+      });
+      done();
     });
 
-    channel.getSocket()!.emit('participant:updated', <PresencePayload>{
-      sessionId: 'abc',
-      userId: 'cbfb',
-      clientId: 'fbfbfb',
-      timestamp: 1245623567234,
+    channel.getSocket()!.emit('participant:updated', {
+      sessionId: 'cAA0xTLkAZj-r79VBzG0',
+      timestamp: 1676945569495,
+      data: {
+        sessionId: 'cAA0xTLkAZj-r79VBzG0',
+        userId: '70121:8fce2c13-5f60-40be-a9f2-956c6f041fbe',
+        clientId: 2778370292,
+      },
     });
   });
 
@@ -573,7 +636,7 @@ describe('Channel unit tests', () => {
     expect(permissionTokenRefresh).toBeCalledTimes(2);
     expect(spy).toHaveBeenCalledTimes(1);
     expect(spy).toHaveBeenCalledWith(expect.anything(), {
-      path: 'document/ari%3Acloud%3Aconfluence%3AABC%3Apage%2Ftestpage/catchup',
+      path: 'document/ari%3Acloud%3Aconfluence%3Aa436116f-02ce-4520-8fbb-7301462a1674%3Apage%2F1731046230/catchup',
       queryParams: {
         version: 1,
       },
@@ -611,6 +674,7 @@ describe('Channel unit tests', () => {
       timestamp: 234562345623653,
     } as NamespaceStatus);
   });
+
   it('should handle receiving namespace unlock status event from server', (done) => {
     const channel = getChannel();
 
@@ -638,12 +702,15 @@ describe('Channel unit tests', () => {
     it('should pass the product information to the socket.io client', () => {
       const events = new Map<string, (...args: any) => {}>();
       const createSocketMock = jest.fn().mockImplementation(() => ({
+        connect: jest.fn(),
+        close: jest.fn(),
+        events,
         on: jest
           .fn()
           .mockImplementation((eventName, callback) =>
             events.set(eventName, callback),
           ),
-        events,
+        io: { on: jest.fn() },
       }));
       getChannel({
         ...testChannelConfig,
@@ -655,7 +722,7 @@ describe('Channel unit tests', () => {
 
       expect(createSocketMock).toHaveBeenCalledTimes(1);
       expect(createSocketMock).toHaveBeenCalledWith(
-        'http://dummy-url:6666/session/ari:cloud:confluence:ABC:page/testpage',
+        'https://localhost/ccollab/session/ari:cloud:confluence:a436116f-02ce-4520-8fbb-7301462a1674:page/1731046230',
         expect.any(Function),
         { product: 'confluence' },
       );
@@ -675,7 +742,7 @@ describe('Channel unit tests', () => {
 
       expect(spy).toHaveBeenCalledTimes(1);
       expect(spy).toHaveBeenCalledWith(expect.any(Object), {
-        path: 'document/ari%3Acloud%3Aconfluence%3AABC%3Apage%2Ftestpage/catchup',
+        path: 'document/ari%3Acloud%3Aconfluence%3Aa436116f-02ce-4520-8fbb-7301462a1674%3Apage%2F1731046230/catchup',
         queryParams: {
           version: 1,
         },
@@ -694,10 +761,7 @@ describe('Channel unit tests', () => {
       code: 404,
       reason: 'Page has been deleted for recovery',
     });
-    const configuration = {
-      ...testChannelConfig,
-    };
-    const channel = getChannel(configuration);
+    const channel = getChannel();
     channel.on('error', (error) => {
       try {
         expect(error).toEqual({
@@ -710,5 +774,82 @@ describe('Channel unit tests', () => {
       }
     });
     channel.fetchCatchup(1).then((data) => expect(data).toEqual({}));
+  });
+
+  describe('Network', () => {
+    it('should emit an error if reconnection issues are detected due to network issues', (done) => {
+      const sendErrorEventSpy = jest.spyOn(
+        AnalyticsHelper.prototype,
+        'sendErrorEvent',
+      );
+      const reconnectError = new Error('xhr poll error');
+      const channel = getChannel();
+      channel.on('error', (error) => {
+        expect(error).toEqual({
+          data: {
+            status: 400,
+            code: 'RECONNECTION_NETWORK_ISSUE',
+          },
+          message:
+            'Reconnection failed 8 times when browser was offline, likely there was a network issue.',
+        });
+        expect(sendErrorEventSpy).toHaveBeenCalledTimes(1);
+        expect(sendErrorEventSpy).toHaveBeenCalledWith(
+          reconnectError,
+          'Likely network issue while reconnecting the channel',
+        );
+        // Go back online
+        window.dispatchEvent(new Event('online'));
+        done();
+      });
+
+      // Go offline
+      window.dispatchEvent(new Event('offline'));
+      for (var i = 0; i < 8; i++) {
+        (channel.getSocket()!.io as any).emit(
+          'reconnect_error',
+          reconnectError,
+        );
+      }
+    });
+
+    describe('Reconnection logic', () => {
+      it('Should initialize the network helper on connect', () => {
+        const analyticsHelper = new AnalyticsHelper(
+          fakeDocumentAri,
+          fakeAnalyticsWebClient,
+        );
+        const channel = new Channel(testChannelConfig, analyticsHelper);
+        // @ts-ignore private method
+        expect(channel.network).toBeNull();
+        channel.connect();
+        // @ts-ignore private method
+        expect(channel.network).toBeInstanceOf(Network);
+        // @ts-ignore private method
+        expect(channel.network.onlineCallback).toEqual(channel.onOnlineHandler);
+      });
+
+      it('Should attempt to immediately reconnect when the browser online event is triggered', () => {
+        const channel = getChannel();
+        window.dispatchEvent(new Event('online'));
+        expect(channel.getSocket()?.close).toBeCalled();
+        expect(channel.getSocket()?.connect).toBeCalled();
+      });
+
+      it('Should destroy the network utility when the channel disconnects', () => {
+        const channel = getChannel();
+        // @ts-ignore
+        const destroyMock = jest.spyOn(channel.network, 'destroy');
+        // @ts-ignore
+        window.dispatchEvent(new Event('online'));
+        expect(channel.getSocket()?.close).toBeCalled();
+        expect(channel.getSocket()?.connect).toBeCalled();
+        channel.disconnect();
+        // @ts-ignore
+        expect(destroyMock).toBeCalled();
+        // @ts-ignore
+        expect(channel.network).toBeNull();
+      });
+    });
   });
 });

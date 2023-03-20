@@ -38,6 +38,7 @@ import {
   PickerSize,
   SearchOptions,
   SearchSort,
+  SearchSourceTypes,
   ToneSelection,
 } from '../../types';
 import { getToneEmoji } from '../../util/filters';
@@ -69,8 +70,8 @@ import {
   ufoExperiences,
 } from '../../util/analytics';
 import { emojiPicker } from './styles';
-import { useDidMount } from '../hooks';
 import { useEmoji } from '../../hooks/useEmoji';
+import { useIsMounted } from '../hooks';
 
 const FREQUENTLY_USED_MAX = 16;
 
@@ -133,12 +134,11 @@ const EmojiPickerComponent = ({
   const emojiPickerList = useMemo(() => createRef<EmojiPickerList>(), []);
   const openTime = useRef(0);
   const isMounting = useRef(true);
-  const didMount = useDidMount();
-  const updateAfterDidMount = useRef(true);
   const previousEmojiProvider = useRef(emojiProvider);
   const currentUser = useMemo(() => {
     return emojiProvider.getCurrentUser();
   }, [emojiProvider]);
+  const isMounted = useIsMounted();
 
   const fireAnalytics = useCallback(
     (analyticsEvent: AnalyticsEventPayload) => {
@@ -291,8 +291,15 @@ const EmojiPickerComponent = ({
         emojiToRender,
         searchEmoji: searchResults.emojis,
       });
+
+      fireAnalytics(
+        pickerSearchedEvent({
+          queryLength: searchQuery.length,
+          numMatches: searchResults.emojis.length,
+        }),
+      );
     },
-    [frequentlyUsedEmojis, query, setStateAfterEmojiChange],
+    [frequentlyUsedEmojis, query, setStateAfterEmojiChange, fireAnalytics],
   );
 
   const onProviderChange: OnEmojiProviderChange = useMemo(() => {
@@ -330,7 +337,6 @@ const EmojiPickerComponent = ({
           .getFrequentlyUsed(frequentOptions)
           .then(onFrequentEmojiResult);
       }
-
       emojiProvider.filter(query, options);
     },
     [emojiProvider, onFrequentEmojiResult],
@@ -425,22 +431,25 @@ const EmojiPickerComponent = ({
     fireAnalytics(selectedFileEvent());
   }, [fireAnalytics]);
 
+  const scrollToTopOfList = useCallback(() => {
+    emojiPickerList.current?.scrollToTop();
+  }, [emojiPickerList]);
+
   const onSearch = useCallback(
     (searchQuery: string) => {
-      const options = { skinTone: selectedTone };
-      if (query) {
-        ufoExperiences['emoji-searched'].start();
-        ufoExperiences['emoji-searched'].addMetadata({
-          queryLength: query.length,
-          source: 'EmojiPickerComponent',
-        });
-      }
+      const options = {
+        skinTone: selectedTone,
+        source: SearchSourceTypes.PICKER,
+      };
       if (searchQuery !== query) {
         setQuery(searchQuery);
+        // scroll to top when search, which is search results section
+        scrollToTopOfList();
       }
-      updateEmojis(query, options);
+
+      updateEmojis(searchQuery, options);
     },
-    [query, selectedTone, updateEmojis],
+    [query, selectedTone, updateEmojis, scrollToTopOfList],
   );
 
   const onOpenUpload = useCallback(() => {
@@ -556,11 +565,10 @@ const EmojiPickerComponent = ({
 
   useEffect(() => {
     // componentDidMount logic
-    if (didMount && updateAfterDidMount.current) {
+    if (!isMounted) {
       onComponentDidMount();
-      updateAfterDidMount.current = false;
     }
-  }, [didMount, onComponentDidMount]);
+  }, [onComponentDidMount, isMounted]);
 
   useEffect(() => {
     previousEmojiProvider.current.unsubscribe(onProviderChange);
@@ -572,28 +580,6 @@ const EmojiPickerComponent = ({
       emojiProvider.unsubscribe(onProviderChange);
     };
   }, [emojiProvider, onProviderChange]);
-
-  useEffect(() => {
-    // We changed provider which means we subscribed to filter results for a new subscriber.
-    // So we refresh the emoji display with onSearch and we do it here, after the new props have
-    // been set since onSearch leads to filter being called on the current emojiProvider.
-    // (Calling onSearch in a '...Will...' lifecycle method would lead to filter being called on
-    // an emojiProvider we have already unsubscribed from)
-    onSearch(query);
-  }, [emojiProvider, onSearch, query]);
-
-  useEffect(() => {
-    // Fire analytics event whenever query changes
-    fireAnalytics(
-      pickerSearchedEvent({
-        queryLength: query.length,
-        numMatches: filteredEmojis.length,
-      }),
-    );
-    ufoExperiences['emoji-searched'].success({
-      metadata: { emojisLength: filteredEmojis.length },
-    });
-  }, [filteredEmojis.length, fireAnalytics, query]);
 
   useEffect(() => {
     if (!frequentlyUsedEmojis.length || query) {
@@ -670,6 +656,7 @@ const EmojiPickerComponent = ({
         onFileChooserClicked={onFileChooserClicked}
         onOpenUpload={onOpenUpload}
         size={size}
+        activeCategoryId={activeCategory}
       />
       {showPreview && <EmojiPickerFooter selectedEmoji={selectedEmoji} />}
     </div>

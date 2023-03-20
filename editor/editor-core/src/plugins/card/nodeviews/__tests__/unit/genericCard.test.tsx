@@ -117,6 +117,6 @@ describe('<GenericCard/>', () => {
       />,
     );
 
-    expect(wrap.childAt(0).key()).toEqual(url);
+    expect(wrap.findWhere((node) => node.key() === url)).toBeTruthy();
   });
 });

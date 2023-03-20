@@ -14,7 +14,7 @@ import {
   EVENT_TYPE,
   ACTION_SUBJECT,
   ACTION,
-} from '../../../plugins/analytics';
+} from '@atlaskit/editor-common/analytics';
 import ElementList from './ElementList/ElementList';
 import CategoryList from './CategoryList';
 import ElementSearch from './ElementSearch';

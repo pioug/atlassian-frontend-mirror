@@ -67,11 +67,16 @@ export default async () => {
     },
   );
 
-  MobileTestCase('Media: Upload media', {}, async (client) => {
-    const page = await setup(client);
-    await uploadMedia(page);
-    await page.waitForSelector(mediaCardSelector());
-  });
+  MobileTestCase(
+    'Media: Upload media',
+    // TODO: https://product-fabric.atlassian.net/browse/MEX-1842
+    { skipPlatform: ['*'] },
+    async (client) => {
+      const page = await setup(client);
+      await uploadMedia(page);
+      await page.waitForSelector(mediaCardSelector());
+    },
+  );
 
   MobileTestCase(
     'Media in Layouts: 2 column',

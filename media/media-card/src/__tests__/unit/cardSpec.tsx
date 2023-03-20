@@ -837,31 +837,6 @@ describe('Card', () => {
       expect(player.props().cardPreview).toBe(cardPreview);
     });
 
-    it('should set isPlayingFile=true when the mediatype is a video, with useInlineplayer=true and disableOverlay=true and feature flag is on', () => {
-      const { component } = setup(undefined, {
-        useInlinePlayer: true,
-        disableOverlay: true,
-        featureFlags: { timestampOnVideo: true },
-      });
-      component.setState({
-        cardPreview: { dataURI: 'data-uri', source: 'remote' },
-        fileState: {
-          id: 'some-id',
-          name: 'some-video.mp4',
-          mediaType: 'video',
-          mimeType: 'video/mp4',
-          size: 12345,
-          status: 'processed',
-          artifacts: {},
-        },
-      });
-
-      expect(component.state('isPlayingFile')).toBeTruthy();
-
-      //autoplay disabled when control bar is shown by default
-      expect(component.state('shouldAutoplay')).toBeFalsy();
-    });
-
     it('should set isPlayingFile=false when status is error', () => {
       const fileState: FileState = {
         id: 'some-id',
@@ -912,7 +887,7 @@ describe('Card', () => {
       expect(component.state('shouldAutoplay')).toBeFalsy();
     });
 
-    it('should set isPlayingFile=false when status is uploading', () => {
+    it('should set isPlayingFile=false when status is processing', () => {
       const fileState: FileState = {
         id: 'some-id',
         name: 'some-video.mp4',
@@ -985,7 +960,6 @@ describe('Card', () => {
       expect(MV.props()).toEqual(
         expect.objectContaining({
           collectionName: 'some-collection-name',
-          dataSource: { list: [] },
           selectedItem: identifier,
         }),
       );
@@ -994,14 +968,15 @@ describe('Card', () => {
     it('should pass dataSource to MV', () => {
       const { component } = setup(undefined, {
         shouldOpenMediaViewer: true,
-        mediaViewerDataSource: { list: [identifier, identifier] },
+        mediaViewerItems: [identifier, identifier],
       });
       component.setState({ fileState: defaultFileState });
       component.find(CardView).simulate('click');
 
-      expect(component.find(MediaViewer).prop('dataSource')).toEqual({
-        list: [identifier, identifier],
-      });
+      expect(component.find(MediaViewer).prop('items')).toEqual([
+        identifier,
+        identifier,
+      ]);
     });
 
     it('should not render MV if useInlinePlayer=true and identifier is video type', async () => {
@@ -1035,7 +1010,7 @@ describe('Card', () => {
     it('should pass contextId to MV', async () => {
       const { component } = setup(undefined, {
         shouldOpenMediaViewer: true,
-        mediaViewerDataSource: { list: [identifier, identifier] },
+        mediaViewerItems: [identifier, identifier],
         contextId: 'some-context-id',
       });
 
@@ -1054,7 +1029,7 @@ describe('Card', () => {
 
       const { component } = setup(undefined, {
         shouldOpenMediaViewer: true,
-        mediaViewerDataSource: { list: [identifier, identifier] },
+        mediaViewerItems: [identifier, identifier],
         contextId: 'some-context-id',
         featureFlags,
       });

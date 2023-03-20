@@ -31,8 +31,9 @@ import Toolbar from './ui/Toolbar';
 
 const textFormatting: NextEditorPlugin<
   'textFormatting',
-  never,
-  TextFormattingOptions | undefined
+  {
+    pluginConfiguration: TextFormattingOptions | undefined;
+  }
 > = (options = {}) => ({
   name: 'textFormatting',
 

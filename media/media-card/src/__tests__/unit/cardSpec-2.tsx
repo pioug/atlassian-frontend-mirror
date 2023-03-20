@@ -37,11 +37,14 @@ import * as getCardPreviewModule from '../../card/getCardPreview';
 import * as stateUpdaterModule from '../../card/cardState';
 import * as cardAnalyticsModule from '../../card/cardAnalytics';
 import { getSSRData } from '../../utils/globalScope';
+import * as videoIsPlayableModule from '../../utils/videoIsPlayable';
 import { extractErrorInfo, getFileAttributes } from '../../utils/analytics';
 import { getFileDetails } from '../../utils/metadata';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { ImageResizeMode } from '@atlaskit/media-client';
 import cardPreviewCache from '../../card/getCardPreview/cache';
+
+const videoIsPlayable = jest.spyOn(videoIsPlayableModule, 'videoIsPlayable');
 
 const getCardPreviewFromCache = jest.spyOn(
   getCardPreviewModule,
@@ -1061,6 +1064,37 @@ describe('Media Card', () => {
       expect(getCardPreview).toBeCalledWith(
         expect.objectContaining({ filePreview: undefined }),
       );
+    });
+
+    it('should call videoIsPlayable helper with the right parameter and set isPlayingFile state to true', () => {
+      const mediaCard = shallow(
+        <CardBase
+          mediaClient={fakeMediaClient()}
+          identifier={indentifiers.file}
+          disableOverlay={true}
+          useInlinePlayer={true}
+          featureFlags={{ timestampOnVideo: true }}
+        />,
+      );
+
+      const fileState: Partial<FileState> = {
+        status: 'processing',
+        mimeType: 'video/mp4',
+        mediaType: 'video',
+        preview: { value: 'some-file-preview' },
+      };
+
+      mediaCard.setState({
+        isBannedLocalPreview: false,
+        fileState,
+        cardPreview: filePreviews.local,
+      });
+
+      // videoIsPlayable helper is tested more thoroughly in packages/media/media-card/src/utils/__tests__/unit/videoIsPlayableSpec.ts
+
+      expect(videoIsPlayable).toHaveBeenCalled();
+      expect(videoIsPlayable).toHaveReturnedWith(true);
+      expect(mediaCard.state('isPlayingFile')).toBe(true);
     });
 
     describe('SSR preview cache', () => {

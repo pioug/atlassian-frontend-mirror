@@ -530,7 +530,7 @@ describe('@atlaskit/reactions/components/Reactions', () => {
         expect(showMoreButton).toBeInTheDocument();
 
         act(() => {
-          fireEvent.mouseDown(showMoreButton);
+          fireEvent.click(showMoreButton);
         });
 
         expect(mockOnEvent).toHaveBeenCalledWith(

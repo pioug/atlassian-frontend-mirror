@@ -72,6 +72,8 @@ export default (
 ) => {
   let interactionType: BROWSER_FREEZE_INTERACTION_TYPE;
   let inputLatencyTracker: InputLatencyTracker | null = null;
+  let inputLatencySingleKeyTracker: InputLatencyTracker | null = null;
+  let inputLatencyRenderedTracker: InputLatencyTracker | null = null;
 
   if (browserFreezeTracking?.trackInteractionType) {
     interactionType = setInteractionType(
@@ -120,20 +122,104 @@ export default (
     inputTracking?.severityDegradedThreshold ||
     DEFAULT_TRACK_SEVERITY_THRESHOLD_DEGRADED;
 
+  const createDispatchSample =
+    (
+      action:
+        | ACTION.INPUT_PERF_SAMPLING
+        | ACTION.INPUT_PERF_SAMPLING_SINGLE_KEYPRESS
+        | ACTION.INPUT_PERF_SAMPLING_RENDERED,
+      view: EditorView,
+    ) =>
+    (time: number, severity: SEVERITY) => {
+      const { state } = view;
+      const nodesCount = getNodeCount(state);
+
+      const samplePayload: AnalyticsEventPayload = {
+        action,
+        actionSubject: ACTION_SUBJECT.EDITOR,
+        attributes: {
+          time,
+          nodeSize: state.doc.nodeSize,
+          ...nodesCount,
+          participants: getParticipantsCount(state),
+          objectId: getContextIdentifier(state)?.objectId,
+          severity: shouldTrackSeverity ? severity : undefined,
+        },
+        eventType: EVENT_TYPE.OPERATIONAL,
+      };
+
+      dispatchAnalyticsEvent(samplePayload);
+    };
+
+  const createDispatchAverage =
+    (
+      action:
+        | ACTION.INPUT_PERF_SAMPLING_AVG
+        | ACTION.INPUT_PERF_SAMPLING_SINGLE_KEYPRESS_AVG
+        | ACTION.INPUT_PERF_SAMPLING_RENDERED_AVG,
+      view: EditorView,
+    ) =>
+    (
+      {
+        mean,
+        median,
+        sampleSize,
+      }: { mean: number; median: number; sampleSize: number },
+      severity: SEVERITY,
+    ) => {
+      const { state } = view;
+      const nodeCount = getNodeCount(state);
+
+      const averagePayload: AnalyticsEventPayload = {
+        action,
+        actionSubject: ACTION_SUBJECT.EDITOR,
+        attributes: {
+          mean,
+          median,
+          sampleSize,
+          ...nodeCount,
+          nodeSize: state.doc.nodeSize,
+          severity: shouldTrackSeverity ? severity : undefined,
+          participants: getParticipantsCount(state),
+          objectId: getContextIdentifier(state)?.objectId,
+        },
+        eventType: EVENT_TYPE.OPERATIONAL,
+      };
+
+      dispatchAnalyticsEvent(averagePayload);
+    };
+
   return new SafePlugin({
     key: frozenEditorPluginKey,
     props: isPerformanceAPIAvailable()
       ? {
           handleTextInput(view) {
-            inputLatencyTracker?.start();
-
             if (browserFreezeTracking?.trackInteractionType) {
               interactionType = BROWSER_FREEZE_INTERACTION_TYPE.TYPING;
             }
 
-            requestAnimationFrame(() => {
-              inputLatencyTracker?.end();
-            });
+            if (inputLatencyTracker) {
+              const end = inputLatencyTracker.start();
+
+              // This is called after all handleTextInput events are executed which means first handleTextInput time incorporates following handleTextInput processing time
+              // Also this is called before browser rendering so it doesn't count it.
+              requestAnimationFrame(end);
+            }
+
+            if (inputLatencySingleKeyTracker) {
+              const end = inputLatencySingleKeyTracker.start();
+
+              // This is executed before next handleTextInput when multiple keypress events are in one animation frame
+              // so it tracks individual keypress processing time
+              Promise.resolve().then(end);
+            }
+
+            if (inputLatencyRenderedTracker) {
+              const end = inputLatencyRenderedTracker.start();
+
+              // This is called at the next event loop so it counts browser rendering time.
+              setTimeout(end);
+            }
 
             return false;
           },
@@ -192,48 +278,14 @@ export default (
               severity: shouldTrackSeverity ? severity : undefined,
             });
           },
-          dispatchSample: (time, severity) => {
-            const { state } = view;
-            const nodesCount = getNodeCount(state);
-
-            const samplePayload: AnalyticsEventPayload = {
-              action: ACTION.INPUT_PERF_SAMPLING,
-              actionSubject: ACTION_SUBJECT.EDITOR,
-              attributes: {
-                time,
-                nodeSize: state.doc.nodeSize,
-                ...nodesCount,
-                participants: getParticipantsCount(state),
-                objectId: getContextIdentifier(state)?.objectId,
-                severity: shouldTrackSeverity ? severity : undefined,
-              },
-              eventType: EVENT_TYPE.OPERATIONAL,
-            };
-
-            dispatchAnalyticsEvent(samplePayload);
-          },
-          dispatchAverage: ({ mean, median, sampleSize }, severity) => {
-            const { state } = view;
-            const nodeCount = getNodeCount(state);
-
-            const averagePayload: AnalyticsEventPayload = {
-              action: ACTION.INPUT_PERF_SAMPLING_AVG,
-              actionSubject: ACTION_SUBJECT.EDITOR,
-              attributes: {
-                mean,
-                median,
-                sampleSize,
-                ...nodeCount,
-                nodeSize: state.doc.nodeSize,
-                severity: shouldTrackSeverity ? severity : undefined,
-                participants: getParticipantsCount(state),
-                objectId: getContextIdentifier(state)?.objectId,
-              },
-              eventType: EVENT_TYPE.OPERATIONAL,
-            };
-
-            dispatchAnalyticsEvent(averagePayload);
-          },
+          dispatchSample: createDispatchSample(
+            ACTION.INPUT_PERF_SAMPLING,
+            view,
+          ),
+          dispatchAverage: createDispatchAverage(
+            ACTION.INPUT_PERF_SAMPLING_AVG,
+            view,
+          ),
           onSlowInput: (time) => {
             const { state } = view;
             const nodesCount = getNodeCount(state);
@@ -251,6 +303,40 @@ export default (
               eventType: EVENT_TYPE.OPERATIONAL,
             });
           },
+        });
+      }
+
+      if (inputTracking?.trackSingleKeypress) {
+        inputLatencySingleKeyTracker = new InputLatencyTracker({
+          samplingRate,
+          slowThreshold,
+          normalThreshold: severityThresholdNormal,
+          degradedThreshold: severityThresholdDegraded,
+          dispatchSample: createDispatchSample(
+            ACTION.INPUT_PERF_SAMPLING_SINGLE_KEYPRESS,
+            view,
+          ),
+          dispatchAverage: createDispatchAverage(
+            ACTION.INPUT_PERF_SAMPLING_SINGLE_KEYPRESS_AVG,
+            view,
+          ),
+        });
+      }
+
+      if (inputTracking?.trackRenderingTime) {
+        inputLatencyRenderedTracker = new InputLatencyTracker({
+          samplingRate,
+          slowThreshold,
+          normalThreshold: severityThresholdNormal,
+          degradedThreshold: severityThresholdDegraded,
+          dispatchSample: createDispatchSample(
+            ACTION.INPUT_PERF_SAMPLING_RENDERED,
+            view,
+          ),
+          dispatchAverage: createDispatchAverage(
+            ACTION.INPUT_PERF_SAMPLING_RENDERED_AVG,
+            view,
+          ),
         });
       }
 

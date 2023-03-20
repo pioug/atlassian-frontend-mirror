@@ -283,8 +283,8 @@ const AvatarGroupExample: FC = () => {
             name: `Stack Avatar ${i + 1}`,
             size: avatarSize,
             appearance: 'circle',
-            enableTooltip: !state.isTooltipsDisabled,
           }))}
+          isTooltipDisabled={state.isTooltipsDisabled}
           size={avatarSize}
         />
       </div>

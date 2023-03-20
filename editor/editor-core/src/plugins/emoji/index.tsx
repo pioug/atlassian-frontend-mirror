@@ -101,9 +101,12 @@ type EmojiProviderChangeHandler = {
   result: (res: { emojis: Array<EmojiDescription> }) => void;
 };
 const TRIGGER = ':';
-const emojiPlugin: NextEditorPlugin<'emoji', never, EmojiPluginOptions> = (
-  options,
-) => {
+const emojiPlugin: NextEditorPlugin<
+  'emoji',
+  {
+    pluginConfiguration: EmojiPluginOptions | undefined;
+  }
+> = (options) => {
   const typeAhead: TypeAheadHandler = {
     id: TypeAheadAvailableNodes.EMOJI,
     trigger: TRIGGER,

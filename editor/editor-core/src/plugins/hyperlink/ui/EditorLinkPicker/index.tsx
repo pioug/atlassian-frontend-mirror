@@ -8,6 +8,8 @@ import { hideLinkToolbar } from '../../commands';
 
 import { useEscapeClickaway } from './useEscapeClickaway';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
+import { EditorAppearance } from '@atlaskit/editor-common/types';
+import { getAnalyticsEditorAppearance } from '@atlaskit/editor-common/utils';
 
 /**
  * Returns a type that matches T but where keys (K) are now optional
@@ -23,12 +25,14 @@ export interface EditorLinkPickerProps
    * Should be roughly equivalent to the `inputMethod` analytics value
    */
   invokeMethod?: string;
+  editorAppearance?: EditorAppearance;
 }
 
 export const EditorLinkPicker = ({
   view,
   onCancel,
   invokeMethod = '_unknown',
+  editorAppearance,
   ...restProps
 }: EditorLinkPickerProps) => {
   const onEscape = useCallback(() => {
@@ -43,14 +47,19 @@ export const EditorLinkPicker = ({
   }, [view, onCancel]);
 
   const ref = useEscapeClickaway<HTMLDivElement>(onEscape, onClickAway);
+  const analyticsEditorAppearance =
+    getAnalyticsEditorAppearance(editorAppearance);
 
   const analyticsData = useMemo(
     () => ({
       attributes: {
         invokeMethod,
+        location: analyticsEditorAppearance,
       },
+      // Below is added for the future implementation of Linking Platform namespaced analytic context
+      location: analyticsEditorAppearance,
     }),
-    [invokeMethod],
+    [invokeMethod, analyticsEditorAppearance],
   );
 
   return (

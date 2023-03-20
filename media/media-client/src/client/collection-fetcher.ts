@@ -1,15 +1,11 @@
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { getFileStreamsCache } from '../file-streams-cache';
-import { FileState, mapMediaFileToFileState } from '../models/file-state';
 import { FileDetails, FileItem } from '../models/item';
-import {
-  MediaCollectionItem,
-  MediaCollectionItemFullDetails,
-  MediaFile,
-} from '../models/media';
+import { MediaCollectionItem } from '../models/media';
 import { MediaStore, MediaStoreGetCollectionItemsParams } from './media-store';
-import { fromObservable, MediaSubscribable } from '../utils/mediaSubscribable';
+import { MediaSubscribable } from '../utils/mediaSubscribable';
 import { MediaTraceContext } from '@atlaskit/media-common';
+import { DeprecatedError } from '../utils/deprecatedEndpointError';
 
 export interface MediaCollectionFileItemDetails extends FileDetails {
   occurrenceKey: string;
@@ -37,41 +33,8 @@ export type CollectionCache = {
 
 export const collectionCache: CollectionCache = {};
 
-const createCacheEntry = (): CollectionCacheEntry => ({
-  items: [],
-  subject: new ReplaySubject<MediaCollectionItem[]>(1),
-  isLoadingNextPage: false,
-});
-
 export class CollectionFetcher {
   constructor(readonly mediaStore: MediaStore) {}
-
-  private createFileStateObserver(
-    id: string,
-    details: MediaCollectionItemFullDetails,
-  ): ReplaySubject<FileState> {
-    const subject = new ReplaySubject<FileState>(1);
-    const mediaFile: MediaFile = {
-      id,
-      ...details,
-    };
-    const fileState = mapMediaFileToFileState({ data: mediaFile });
-
-    subject.next(fileState);
-
-    return subject;
-  }
-
-  private populateCache(items: MediaCollectionItem[]) {
-    items.forEach((item) => {
-      const fileStream = this.createFileStateObserver(
-        item.id,
-        item.details as MediaCollectionItemFullDetails,
-      );
-
-      getFileStreamsCache().set(item.id, fileStream);
-    });
-  }
 
   private removeFromCache(id: string, collectionName: string) {
     const collectionCacheIndex = collectionCache[
@@ -86,39 +49,16 @@ export class CollectionFetcher {
     collectionCache[collectionName].items.splice(collectionCacheIndex, 1);
   }
 
+  /**
+   * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-170 Internal documentation for deprecation (no external access)}
+   * This method is no longer working. Will be removed in the next release
+   */
   getItems(
     collectionName: string,
     params?: MediaStoreGetCollectionItemsParams,
     traceContext?: MediaTraceContext,
   ): MediaSubscribable<MediaCollectionItem[]> {
-    if (!collectionCache[collectionName]) {
-      collectionCache[collectionName] = createCacheEntry();
-    }
-    const collection = collectionCache[collectionName];
-    const subject = collection.subject;
-
-    this.mediaStore
-      .getCollectionItems(
-        collectionName,
-        {
-          ...params,
-          details: 'full',
-        },
-        traceContext,
-      )
-      .then((items) => {
-        const { contents, nextInclusiveStartKey } = items.data;
-
-        this.populateCache(contents);
-        // It's hard to merge two together, so we just take what's came from the server.
-        // Since we load only one page > 2 pages will be ditched from the cache.
-        collection.items = items.data.contents;
-        collection.nextInclusiveStartKey = nextInclusiveStartKey;
-        subject.next(collection.items);
-      })
-      .catch((error) => subject.error(error));
-
-    return fromObservable(subject);
+    throw new DeprecatedError('collection/:name/items');
   }
 
   async removeFile(
@@ -138,46 +78,15 @@ export class CollectionFetcher {
     collection.subject.next(collection.items);
   }
 
+  /**
+   * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-170 Internal documentation for deprecation (no external access)}
+   * This method is no longer working. Will be removed in the next release
+   */
   async loadNextPage(
     collectionName: string,
     params?: MediaStoreGetCollectionItemsParams,
     traceContext?: MediaTraceContext,
   ) {
-    const collection = collectionCache[collectionName];
-    const isLoading = collection ? collection.isLoadingNextPage : false;
-
-    if (!collection || !collection.nextInclusiveStartKey || isLoading) {
-      return;
-    }
-
-    collection.isLoadingNextPage = true;
-
-    const {
-      nextInclusiveStartKey: inclusiveStartKey,
-      items: currentItems,
-      subject,
-    } = collectionCache[collectionName];
-    const response = await this.mediaStore.getCollectionItems(
-      collectionName,
-      {
-        ...params,
-        inclusiveStartKey,
-        details: 'full',
-      },
-      traceContext,
-    );
-    const { contents, nextInclusiveStartKey } = response.data;
-    this.populateCache(contents);
-    const newItems = response.data.contents;
-    const items = [...currentItems, ...newItems];
-
-    subject.next(items);
-
-    collectionCache[collectionName] = {
-      items,
-      nextInclusiveStartKey,
-      subject,
-      isLoadingNextPage: false,
-    };
+    throw new DeprecatedError('collection/:name/items');
   }
 }

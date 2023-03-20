@@ -34,8 +34,9 @@ export { pluginKey };
 
 const quickInsertPlugin: NextEditorPlugin<
   'quickInsert',
-  never,
-  QuickInsertPluginOptions | undefined
+  {
+    pluginConfiguration: QuickInsertPluginOptions | undefined;
+  }
 > = (options?) => ({
   name: 'quickInsert',
 

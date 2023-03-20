@@ -8,9 +8,12 @@ type Config = {
   takeFullWidth: boolean;
 };
 
-const avatarGroup: NextEditorPlugin<'avatarGroup', never, Config> = (
-  props,
-) => ({
+const avatarGroup: NextEditorPlugin<
+  'avatarGroup',
+  {
+    pluginConfiguration: Config;
+  }
+> = (props) => ({
   name: 'avatarGroup',
 
   primaryToolbarComponent({

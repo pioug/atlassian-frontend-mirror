@@ -11,8 +11,6 @@ export type DeepRequired<T> = {
 
 export type AvatarProps = AvatarPropTypes & {
   name: string;
-  // eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
-  enableTooltip?: boolean;
   key?: string | number;
 };
 

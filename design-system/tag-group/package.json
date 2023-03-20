@@ -34,7 +34,7 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/avatar": "^21.1.0",
+    "@atlaskit/avatar": "^21.2.0",
     "@atlaskit/docs": "*",
     "@atlaskit/ds-lib": "^2.0.1",
     "@atlaskit/section-message": "^6.3.0",

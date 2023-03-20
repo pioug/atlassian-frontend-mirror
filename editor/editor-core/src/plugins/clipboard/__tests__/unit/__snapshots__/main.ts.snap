@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`clipboard plugin clipboardSerializer when copying a table row from a table should write to the clipboard a table keeping the same attributes, including the layout 1`] = `
+exports[`clipboard plugin clipboardSerializer when copying a table row from a table should write to the clipboard a table keeping the same attributes exlcuding the local id, including the layout 1`] = `
 <div>
   <table
     data-autosize="false"
     data-layout="default"
     data-number-column="false"
     data-pm-slice="1 1 []"
-    data-table-local-id="test-table-local-id"
+    data-table-local-id=""
   >
     <tbody>
       <tr>
@@ -38,14 +38,14 @@ exports[`clipboard plugin clipboardSerializer when copying a table row from a ta
 </div>
 `;
 
-exports[`clipboard plugin clipboardSerializer when copying a table row from a table should write to the clipboard a table keeping the same attributes, including the layout 2`] = `
+exports[`clipboard plugin clipboardSerializer when copying a table row from a table should write to the clipboard a table keeping the same attributes exlcuding the local id, including the layout 2`] = `
 <div>
   <table
     data-autosize="false"
     data-layout="wide"
     data-number-column="false"
     data-pm-slice="1 1 []"
-    data-table-local-id="test-table-local-id"
+    data-table-local-id=""
   >
     <tbody>
       <tr>
@@ -76,14 +76,14 @@ exports[`clipboard plugin clipboardSerializer when copying a table row from a ta
 </div>
 `;
 
-exports[`clipboard plugin clipboardSerializer when copying a table row from a table should write to the clipboard a table keeping the same attributes, including the layout 3`] = `
+exports[`clipboard plugin clipboardSerializer when copying a table row from a table should write to the clipboard a table keeping the same attributes exlcuding the local id, including the layout 3`] = `
 <div>
   <table
     data-autosize="false"
     data-layout="full-width"
     data-number-column="false"
     data-pm-slice="1 1 []"
-    data-table-local-id="test-table-local-id"
+    data-table-local-id=""
   >
     <tbody>
       <tr>

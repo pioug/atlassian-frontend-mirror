@@ -9,6 +9,7 @@ import {
   panelSharedStylesWithoutPrefix,
   PanelSharedCssClassName,
 } from '@atlaskit/editor-common/panel';
+import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette';
 import EmojiIcon from '@atlaskit/icon/glyph/editor/emoji';
 import EmojiItem from './emoji';
 // AFP-2532 TODO: Fix automatic suppressions below
@@ -44,9 +45,10 @@ const PanelStyled: React.FC<
 
   if (props['data-panel-type'] === PanelType.CUSTOM && backgroundColor) {
     styles = (theme: ThemeProps['theme']) => {
+      const tokenColor = hexToEditorBackgroundPaletteColor(backgroundColor);
       const customStyle = themed({
         dark: getPanelBackgroundDarkModeColors,
-        light: `background-color: ${backgroundColor};`,
+        light: `background-color: ${tokenColor || backgroundColor};`,
       })({ theme });
 
       return css`

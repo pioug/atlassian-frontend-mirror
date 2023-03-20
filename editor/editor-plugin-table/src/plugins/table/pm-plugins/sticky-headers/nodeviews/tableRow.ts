@@ -190,9 +190,15 @@ export class TableRowNodeView implements NodeView {
     if (!this.listening) {
       return;
     }
-
     if (this.intersectionObserver) {
       this.intersectionObserver.disconnect();
+      // ED-16211 Once intersection observer is disconnected, we need to remove the isObserved from the sentinels
+      // Otherwise when new intersection observer is created it will not observe because it thinks its already being observed
+      [this.sentinels.top, this.sentinels.bottom].forEach((el) => {
+        if (el) {
+          delete el.dataset.isObserved;
+        }
+      });
     }
 
     if (this.resizeObserver) {
@@ -633,7 +639,6 @@ export class TableRowNodeView implements NodeView {
     table.classList.remove(ClassName.TABLE_STICKY);
 
     this.isSticky = false;
-
     this.dom.style.top = '';
     table.style.removeProperty('margin-top');
 

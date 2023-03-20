@@ -22,7 +22,10 @@ import {
 } from '@atlaskit/editor-common/ui-color';
 import { DropdownMenuSharedCssClassName } from '@atlaskit/editor-common/styles';
 
-import { DropdownMenu } from '@atlaskit/editor-common/ui-menu';
+import {
+  ArrowKeyNavigationType,
+  DropdownMenu,
+} from '@atlaskit/editor-common/ui-menu';
 
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 import { cellColourPreviewStyles } from './styles';
@@ -162,7 +165,10 @@ export class ContextualMenu extends Component<
           mountTo={mountPoint}
           //This needs be removed when the a11y is completely handled
           //Disabling key navigation now as it works only partially
-          disableArrowKeyNavigation={true}
+          arrowKeyNavigationProviderOptions={{
+            type: ArrowKeyNavigationType.MENU,
+            disableArrowKeyNavigation: true,
+          }}
           items={items}
           isOpen={isOpen}
           onOpenChange={this.handleOpenChange}

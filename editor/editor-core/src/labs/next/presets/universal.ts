@@ -74,6 +74,7 @@ import {
   EditorPluginFeatureProps,
   EditorProviderProps,
 } from '../../../types/editor-props';
+import { createStubInternalApis } from './create-stub-internal-apis';
 
 type UniversalPresetProps = EditorPresetProps &
   DefaultPresetPluginOptions &
@@ -101,17 +102,29 @@ export default function createUniversalPreset(
   props: UniversalPresetProps,
   featureFlags: FeatureFlags,
   prevAppearance?: EditorAppearance,
-  createAnalyticsEvent?: CreateUIAnalyticsEvent,
-  insertNodeAPI?: InsertNodeAPI,
-  editorAnalyticsAPI?: EditorAnalyticsAPI,
-  editorSelectionAPI?: EditorSelectionAPI,
-  getEditorContainerWidth?: GetEditorContainerWidth,
+  maybeCreateAnalyticsEvent?: CreateUIAnalyticsEvent,
+  _insertNodeAPI?: InsertNodeAPI,
+  _editorAnalyticsAPI?: EditorAnalyticsAPI,
+  _editorSelectionAPI?: EditorSelectionAPI,
+  _getEditorContainerWidth?: GetEditorContainerWidth,
 ): Preset<EditorPlugin, []> {
   const isMobile = appearance === 'mobile';
   const isComment = appearance === 'comment';
   const isFullPage = fullPageCheck(appearance);
   const preset = createDefaultPreset(props);
   const getEditorFeatureFlags = () => featureFlags;
+  const stubs = createStubInternalApis();
+  const {
+    editorSelectionAPI,
+    insertNodeAPI,
+    editorAnalyticsAPI,
+    stubInternalApisPlugin,
+  } = stubs;
+  const createAnalyticsEvent = maybeCreateAnalyticsEvent
+    ? maybeCreateAnalyticsEvent
+    : stubs.createAnalyticsEvent;
+
+  preset.add(stubInternalApisPlugin);
 
   if (props.allowAnalyticsGASV3) {
     const { performanceTracking } = props;
@@ -397,6 +410,7 @@ export default function createUniversalPreset(
         fullWidthMode,
         createAnalyticsEvent,
         linkPicker: props.linking?.linkPicker,
+        editorAppearance: appearance,
       },
     ]);
   }

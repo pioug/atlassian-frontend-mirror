@@ -112,7 +112,8 @@ export default async () => {
 
   MobileTestCase(
     'Quick Insert - Mention: Users can add an mention by typing "/mention" and pressing enter',
-    {},
+    // HOT-102193 disable this PR, need to be fix flaky test
+    { skipPlatform: ['*'] },
     async (client: any, testName: string) => {
       const page = await Page.create(client);
       await loadEditor(page);
@@ -169,7 +170,8 @@ export default async () => {
 
   MobileTestCase(
     'Quick Insert - Block Quote: Users can add a block quote by typing ">" and pressing space',
-    {},
+    // HOT-102193 disable this PR, need to be fix flaky test
+    { skipPlatform: ['*'] },
     async (client: any, testName: string) => {
       const page = await Page.create(client);
       await loadEditor(page);

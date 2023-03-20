@@ -1,5 +1,57 @@
 # @atlaskit/editor-common
 
+## 72.5.0
+
+### Minor Changes
+
+- [`2ee31675e66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2ee31675e66) - [ED-16557] Refactor Editor and EditorNext to share common code in editor-core.
+
+  Introduce new hooks in editor-common including:
+
+  1. `usePreviousState` can be used to remember the last props passed to a functional component
+
+  2. `useConstructor` can be used to run only once on a functional component
+
+- [`15059b00c15`](https://bitbucket.org/atlassian/atlassian-frontend/commits/15059b00c15) - [ED-16585] Allow editorActions.replaceSelection and processRawValue to accept fragments. Allow quickInsert actions on extensions to return a fragment.
+- [`c22905e224e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c22905e224e) - [ux] ED-16335: First menu item gains focus when the dropdown menu is opened by keyboard.
+- [`9a25538e0ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a25538e0ef) - [ux] ED-16723 Custom panel background color is tokensied. More details at https://hello.atlassian.net/wiki/spaces/DST/pages/2382075153/Draft+Custom+panel+background+color+is+tokenised
+- [`c14933555ee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c14933555ee) - Add getAnalyticsEditorAppearance utility function
+- [`1d11b24f17e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1d11b24f17e) - [ux] ED-15549 Implemented keyboard navigation in color palette
+- [`dfb37c5d4c2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dfb37c5d4c2) - [ED-16752] Migrated fireAnlyticsEvent, getAnalyticsEventsFromTransaction, FireAnalyticsEvent, FireAnalyticsEventPayload
+  and extended FireAnalyticsEvent type with optional createAnalyticsEvent parameter in @atlaskit/editor-common. Decoupled
+  plugin dependency in some areas of @atlaskit/editor-core to now use the migrated code from @atlaskit/editor-common instead by
+  updating import endpoints.
+- [`56d6c797d39`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56d6c797d39) - ED-16654 Calculate correct input latency and also added other timings for it
+
+### Patch Changes
+
+- [`286cc5d6e94`](https://bitbucket.org/atlassian/atlassian-frontend/commits/286cc5d6e94) - Minor improvement to WidthEmitter to stop console error logging and test migration.
+- [`6a031b9b2da`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6a031b9b2da) - [ED-16334] Merge NextEditorPlugin interface with NextEditorPluginWithDependencies
+- [`e907b6924cc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e907b6924cc) - [ux] ED-16505 Update confirmation dialog message shown when data source element is about to removed
+- [`19c1c5e554a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19c1c5e554a) - [ux] TSLA-487 Fixes horizontal scroll shadow and places the scroll bar on the last row instead of below the table. See expected behavior on TSLA-27
+- [`2d6074f31bb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2d6074f31bb) - ED-16740: [ux] Updated the dropdown menu to shift the focus for indentation and outdentation button to their respective opposite in case they become disabled. Also added fallback case where any disabled button will adjust focus to the next button down in the dropdown menu
+- [`710adab73cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/710adab73cf) - [ED-16557] Introduces EditorMigrationComponent which
+  can be used as a replacement for Editor. This
+  component calls Editor under the hood but if the
+  `useEditorNext` feature flag is active will start
+  using an experimental version of the Editor API.
+
+  At this stage Makers can start adopting
+  EditorMigrationComponent to replace the Editor
+  component.
+
+  This change also introduces the `useEditorNext`
+  feature flag. Activating this flag will start to use
+  the new Editor API.
+
+  Warning: This new Editor API is in development and
+  should not be used until the EditorNext component is
+  released and the API is stable.
+
+- [`2644ff2a1e7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2644ff2a1e7) - [ux] ED-16838: fix keyboard shortcut toggleBlockQuote, now matches shortcut listed in https://support.atlassian.com/jira-software-cloud/docs/markdown-and-keyboard-shortcuts/ and made it work on Windows
+- [`a6cf418fe1b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a6cf418fe1b) - ED-16904 Fixed floating toolbar disappearing on clicking color picker button."
+- Updated dependencies
+
 ## 72.4.1
 
 ### Patch Changes

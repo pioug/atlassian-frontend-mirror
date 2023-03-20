@@ -31,8 +31,8 @@ import {
 import { MediaProvider } from '../../../../../plugins/media/pm-plugins/main';
 import {
   replaceExternalMedia,
-  updateAllMediaNodesAttrs,
-  updateMediaNodeAttrs,
+  updateAllMediaSingleNodesAttrs,
+  updateMediaSingleNodeAttrs,
   updateCurrentMediaNodeAttrs,
 } from '../../../../../plugins/media/commands/helpers';
 
@@ -45,12 +45,14 @@ describe('MediaNodeUpdater', () => {
       .spyOn(MediaClientModule, 'getMediaClient')
       .mockReturnValue(mediaClient);
     jest
-      .spyOn(commands, 'updateAllMediaNodesAttrs')
+      .spyOn(commands, 'updateAllMediaSingleNodesAttrs')
       .mockReturnValue(() => true);
     jest
       .spyOn(commands, 'updateCurrentMediaNodeAttrs')
       .mockReturnValue(() => true);
-    jest.spyOn(commands, 'updateMediaNodeAttrs').mockReturnValue(() => true);
+    jest
+      .spyOn(commands, 'updateMediaSingleNodeAttrs')
+      .mockReturnValue(() => true);
     jest.spyOn(commands, 'replaceExternalMedia').mockReturnValue(() => true);
 
     const contextIdentifierProvider: Promise<ContextIdentifierProvider> =
@@ -107,18 +109,35 @@ describe('MediaNodeUpdater', () => {
 
       await mediaNodeUpdater.updateContextId();
 
-      expect(updateAllMediaNodesAttrs).toBeCalledTimes(1);
-      expect(updateAllMediaNodesAttrs).toBeCalledWith(
-        'source-file-id',
+      expect(updateAllMediaSingleNodesAttrs).toBeCalledTimes(1);
+      expect(updateAllMediaSingleNodesAttrs).toBeCalledWith('source-file-id', {
+        __contextId: 'object-id',
+      });
+    });
+  });
+
+  describe('updatNodeContextId()', () => {
+    it('should update node attrs with contextId', async () => {
+      const { mediaNodeUpdater, node } = setup();
+
+      const getPos = () => 2;
+
+      await mediaNodeUpdater.updateNodeContextId(getPos);
+
+      expect(updateCurrentMediaNodeAttrs).toBeCalledTimes(1);
+      expect(updateCurrentMediaNodeAttrs).toBeCalledWith(
         {
           __contextId: 'object-id',
         },
-        true,
+        {
+          node,
+          getPos,
+        },
       );
     });
   });
 
-  describe('updateFileAttrs()', () => {
+  describe('updateMediaSingleFileAttrs()', () => {
     it('should update node attrs with file attributes', async () => {
       const { mediaNodeUpdater } = setup();
 
@@ -136,7 +155,7 @@ describe('MediaNodeUpdater', () => {
 
       asMockReturnValue(getMediaClient, mediaClient);
 
-      await mediaNodeUpdater.updateFileAttrs();
+      await mediaNodeUpdater.updateMediaSingleFileAttrs();
 
       expect(mediaClient.file.getCurrentState).toBeCalledWith(
         'source-file-id',
@@ -144,17 +163,13 @@ describe('MediaNodeUpdater', () => {
           collectionName: 'source-collection',
         },
       );
-      expect(updateAllMediaNodesAttrs).toBeCalledTimes(1);
-      expect(updateAllMediaNodesAttrs).toBeCalledWith(
-        'source-file-id',
-        {
-          __fileName: 'some-file',
-          __fileMimeType: 'image/jpeg',
-          __fileSize: 10,
-          __contextId: 'source-context-id',
-        },
-        true,
-      );
+      expect(updateAllMediaSingleNodesAttrs).toBeCalledTimes(1);
+      expect(updateAllMediaSingleNodesAttrs).toBeCalledWith('source-file-id', {
+        __fileName: 'some-file',
+        __fileMimeType: 'image/jpeg',
+        __fileSize: 10,
+        __contextId: 'source-context-id',
+      });
     });
 
     it('should update contextId if its not defined', async () => {
@@ -181,7 +196,7 @@ describe('MediaNodeUpdater', () => {
 
       asMockReturnValue(getMediaClient, mediaClient);
 
-      await mediaNodeUpdater.updateFileAttrs();
+      await mediaNodeUpdater.updateMediaSingleFileAttrs();
 
       expect(mediaClient.file.getCurrentState).toBeCalledWith(
         'source-file-id',
@@ -189,17 +204,13 @@ describe('MediaNodeUpdater', () => {
           collectionName: 'source-collection',
         },
       );
-      expect(updateAllMediaNodesAttrs).toBeCalledTimes(1);
-      expect(updateAllMediaNodesAttrs).toBeCalledWith(
-        'source-file-id',
-        {
-          __fileName: 'some-file',
-          __fileMimeType: 'image/jpeg',
-          __fileSize: 10,
-          __contextId: 'object-id',
-        },
-        true,
-      );
+      expect(updateAllMediaSingleNodesAttrs).toBeCalledTimes(1);
+      expect(updateAllMediaSingleNodesAttrs).toBeCalledWith('source-file-id', {
+        __fileName: 'some-file',
+        __fileMimeType: 'image/jpeg',
+        __fileSize: 10,
+        __contextId: 'object-id',
+      });
     });
 
     it('should not update node if new attrs are the same', async () => {
@@ -213,8 +224,8 @@ describe('MediaNodeUpdater', () => {
         Promise.resolve(fileState),
       );
       asMockReturnValue(getMediaClient, mediaClient);
-      await mediaNodeUpdater.updateFileAttrs();
-      expect(updateAllMediaNodesAttrs).not.toBeCalled();
+      await mediaNodeUpdater.updateMediaSingleFileAttrs();
+      expect(updateAllMediaSingleNodesAttrs).not.toBeCalled();
     });
 
     it('should not update node if media client rejects with error', async () => {
@@ -225,8 +236,8 @@ describe('MediaNodeUpdater', () => {
         Promise.reject(new Error('an error')),
       );
       asMockReturnValue(getMediaClient, mediaClient);
-      await mediaNodeUpdater.updateFileAttrs();
-      expect(updateAllMediaNodesAttrs).not.toBeCalled();
+      await mediaNodeUpdater.updateMediaSingleFileAttrs();
+      expect(updateAllMediaSingleNodesAttrs).not.toBeCalled();
     });
   });
 
@@ -264,6 +275,7 @@ describe('MediaNodeUpdater', () => {
         __fileSize: 10,
         __contextId: 'source-context-id',
       };
+      expect(updateMediaSingleNodeAttrs).toBeCalledTimes(0);
       expect(updateCurrentMediaNodeAttrs).toBeCalledTimes(1);
       expect(updateCurrentMediaNodeAttrs).toBeCalledWith(newAttrs, {
         node,
@@ -423,19 +435,82 @@ describe('MediaNodeUpdater', () => {
     });
 
     it('should update media node attrs with the new id', async () => {
-      const { mediaNodeUpdater } = setup({ isMediaSingle: false });
+      const { mediaNodeUpdater } = setup({ isMediaSingle: true });
 
       await mediaNodeUpdater.copyNode();
 
-      expect(updateMediaNodeAttrs).toBeCalledTimes(1);
-      expect(updateMediaNodeAttrs).toBeCalledWith(
-        'source-file-id',
+      expect(updateMediaSingleNodeAttrs).toBeCalledTimes(1);
+      expect(updateMediaSingleNodeAttrs).toBeCalledWith('source-file-id', {
+        id: 'copied-file-id',
+        collection: 'destination-collection',
+        __contextId: 'object-id',
+      });
+    });
+  });
+
+  describe('copyNodeFromPos()', () => {
+    it('should use getAuthFromContext to get auth', async () => {
+      const { mediaNodeUpdater, uploadMediaClientConfig } = setup();
+
+      const getPos = () => 2;
+
+      await mediaNodeUpdater.copyNodeFromPos(getPos);
+      expect(uploadMediaClientConfig.getAuthFromContext).toBeCalledTimes(1);
+      expect(uploadMediaClientConfig.getAuthFromContext).toBeCalledWith(
+        'source-context-id',
+      );
+    });
+
+    it('should call copyFile with media traceId, right source and destination', async () => {
+      const {
+        mediaNodeUpdater,
+        mediaClient,
+        uploadMediaClientConfig,
+        authFromContext,
+      } = setup();
+      const traceId = '123';
+
+      const getPos = () => 2;
+
+      await mediaNodeUpdater.copyNodeFromPos(getPos, { traceId });
+      expect(mediaClient.file.copyFile).toBeCalledTimes(1);
+      expect(mediaClient.file.copyFile).toBeCalledWith(
+        {
+          id: 'source-file-id',
+          collection: 'source-collection',
+          authProvider: expect.anything(),
+        },
+        {
+          collection: 'destination-collection',
+          authProvider: uploadMediaClientConfig.authProvider,
+          occurrenceKey: expect.anything(),
+        },
+        undefined,
+        { traceId },
+      );
+      const authProvider = (mediaClient.file.copyFile as jest.Mock).mock
+        .calls[0][0].authProvider;
+      expect(authProvider()).toEqual(authFromContext);
+    });
+
+    it('should update media node attrs with the new id', async () => {
+      const { mediaNodeUpdater, node } = setup({ isMediaSingle: false });
+
+      const getPos = () => 2;
+
+      await mediaNodeUpdater.copyNodeFromPos(getPos);
+
+      expect(updateCurrentMediaNodeAttrs).toBeCalledTimes(1);
+      expect(updateCurrentMediaNodeAttrs).toBeCalledWith(
         {
           id: 'copied-file-id',
           collection: 'destination-collection',
           __contextId: 'object-id',
         },
-        false,
+        {
+          node,
+          getPos,
+        },
       );
     });
   });

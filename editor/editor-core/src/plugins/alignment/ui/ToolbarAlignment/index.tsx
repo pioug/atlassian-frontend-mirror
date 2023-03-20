@@ -18,6 +18,7 @@ import { messages } from './messages';
 
 export interface State {
   isOpen: boolean;
+  isOpenedByKeyboard: boolean;
 }
 
 export interface Props {
@@ -39,10 +40,11 @@ export class AlignmentToolbar extends React.Component<
 
   state: State = {
     isOpen: false,
+    isOpenedByKeyboard: false,
   };
 
   render() {
-    const { isOpen } = this.state;
+    const { isOpen, isOpenedByKeyboard } = this.state;
     const {
       popupsMountPoint,
       popupsBoundariesElement,
@@ -62,9 +64,14 @@ export class AlignmentToolbar extends React.Component<
           boundariesElement={popupsBoundariesElement}
           scrollableElement={popupsScrollableElement}
           isOpen={isOpen}
+          shouldFocusFirstItem={() => {
+            if (isOpenedByKeyboard) {
+              this.setState({ ...this.state, isOpenedByKeyboard: false });
+            }
+            return isOpenedByKeyboard;
+          }}
           onOpenChange={({ isOpen }: { isOpen: boolean }) => {
             this.setState({ isOpen });
-            this.toolbarItemRef?.current?.focus();
           }}
           handleClickOutside={(event: MouseEvent) => {
             if (event instanceof MouseEvent) {
@@ -86,6 +93,7 @@ export class AlignmentToolbar extends React.Component<
               aria-expanded={isOpen}
               aria-haspopup
               onClick={this.toggleOpen}
+              onKeyDown={this.toggleOpenByKeyboard}
               iconBefore={
                 <div css={triggerWrapper}>
                   <IconMap alignment={pluginState.align} />
@@ -108,6 +116,22 @@ export class AlignmentToolbar extends React.Component<
     );
   }
 
+  componentDidUpdate(prevProps: Props) {
+    if (this.state.isOpen && this.state.isOpenedByKeyboard) {
+      // by triggering the keyboard event with a setTimeout, we ensure that the tooltip
+      // associated with the alignment button doesn't render until the next render cycle
+      // where the popup will be correctly positioned and the relative position of the tooltip
+      // will not overlap with the button.
+      setTimeout(() => {
+        const keyboardEvent = new KeyboardEvent('keydown', {
+          bubbles: true,
+          key: 'ArrowDown',
+        });
+        this.toolbarItemRef.current?.dispatchEvent(keyboardEvent);
+      }, 0);
+    }
+  }
+
   private changeAlignment = (align: AlignmentState, togglePopup: boolean) => {
     if (togglePopup) {
       this.toggleOpen();
@@ -116,11 +140,14 @@ export class AlignmentToolbar extends React.Component<
   };
 
   private toggleOpen = () => {
-    this.handleOpenChange({ isOpen: !this.state.isOpen });
+    this.setState({ isOpen: !this.state.isOpen, isOpenedByKeyboard: false });
   };
 
-  private handleOpenChange = ({ isOpen }: { isOpen: boolean }) => {
-    this.setState({ isOpen });
+  private toggleOpenByKeyboard = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      this.setState({ isOpen: !this.state.isOpen, isOpenedByKeyboard: true });
+    }
   };
 
   private hide = (attrs?: OpenChangedEvent) => {

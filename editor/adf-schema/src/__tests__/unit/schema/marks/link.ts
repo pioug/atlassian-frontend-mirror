@@ -88,6 +88,13 @@ describe(`${packageName}/schema link mark`, () => {
       expect(textNode.marks).toHaveLength(1);
     });
 
+    it(`should parse root relative links`, () => {
+      const doc = fromHTML(`<p><a href="/TEST-100">TEST-100</a></p>`, schema);
+      const textNode = doc.firstChild!.firstChild!;
+
+      expect(textNode.marks).toHaveLength(1);
+    });
+
     it(`should not parse links starting from javascript://`, () => {
       const doc = fromHTML(
         `<p><a href="javascript:alert(1)">Click me</a></p>`,

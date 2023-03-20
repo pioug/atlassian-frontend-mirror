@@ -39,7 +39,7 @@
     "@atlaskit/focus-ring": "^1.2.1",
     "@atlaskit/icon": "^21.11.2",
     "@atlaskit/tokens": "^1.2.0",
-    "@atlaskit/tooltip": "^17.5.16",
+    "@atlaskit/tooltip": "^17.7.0",
     "@atlaskit/visually-hidden": "^1.0.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",

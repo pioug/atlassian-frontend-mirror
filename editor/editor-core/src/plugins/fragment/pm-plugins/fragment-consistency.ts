@@ -81,6 +81,7 @@ const regenerateFragmentIdIfNeeded = ({
         node.marks.map((mark) => {
           if (mark.type === fragment) {
             mark.attrs.localId = uuid.generate();
+            mark.attrs.name = null;
           }
 
           return mark;

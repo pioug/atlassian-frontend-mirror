@@ -1,6 +1,6 @@
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import type { ErrorPayload } from '../../types';
-import { triggerAnalyticsEvent } from '../index';
+import AnalyticsHelper from '../index';
 import { EVENT_ACTION, EVENT_STATUS } from '../../helpers/const';
 
 import {
@@ -16,6 +16,9 @@ describe('Analytics helper function', () => {
     sendUIEvent: jest.fn(),
   };
   const originalRequestIdleCallback = (window as any).requestIdleCallback;
+  const fakeDocumentAri =
+    'ari:cloud:confluence:a436116f-02ce-4520-8fbb-7301462a1674:page/1731046230';
+  let analyticsHelper: AnalyticsHelper;
 
   beforeAll(() => {
     (window as any).requestIdleCallback = undefined;
@@ -29,20 +32,24 @@ describe('Analytics helper function', () => {
     jest
       .spyOn(window, 'requestAnimationFrame')
       .mockImplementationOnce((cb) => (cb as Function)());
-  });
 
-  afterEach(jest.resetAllMocks);
-
-  it('should send an analytics event without attributes', () => {
-    triggerAnalyticsEvent(
-      {
-        eventAction: EVENT_ACTION.UPDATE_PARTICIPANTS,
-        attributes: {},
-      },
+    analyticsHelper = new AnalyticsHelper(
+      fakeDocumentAri,
       fakeAnalyticsWebClient,
     );
+  });
 
-    expect(fakeAnalyticsWebClient.sendOperationalEvent).toBeCalledTimes(1);
+  afterEach(jest.clearAllMocks);
+
+  it('should send an analytics event without attributes', () => {
+    analyticsHelper.sendActionEvent(
+      EVENT_ACTION.UPDATE_PARTICIPANTS,
+      EVENT_STATUS.SUCCESS,
+    );
+
+    expect(fakeAnalyticsWebClient.sendOperationalEvent).toHaveBeenCalledTimes(
+      1,
+    );
     expect(fakeAnalyticsWebClient.sendOperationalEvent).toBeCalledWith({
       action: 'updateParticipants',
       actionSubject: 'collab',
@@ -50,6 +57,11 @@ describe('Analytics helper function', () => {
         packageName,
         packageVersion,
         collabService: 'ncs',
+        network: {
+          status: 'ONLINE',
+        },
+        documentAri: fakeDocumentAri,
+        eventStatus: 'SUCCESS',
       },
       tags: ['editor'],
       source: 'unknown',
@@ -57,37 +69,36 @@ describe('Analytics helper function', () => {
   });
 
   it('should send an analytics event with optional attributes', () => {
-    triggerAnalyticsEvent(
+    analyticsHelper.sendActionEvent(
+      EVENT_ACTION.CONNECTION,
+      EVENT_STATUS.SUCCESS,
       {
-        eventAction: EVENT_ACTION.CONVERT_PM_TO_ADF,
-        attributes: {
-          documentAri:
-            'ari:cloud:confluence:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:page/3110142491',
-          eventStatus: EVENT_STATUS.SUCCESS,
-          meetsSLO: true,
-          latency: 123.45,
-          participants: 3,
-          numUnconfirmedSteps: 6,
-        },
+        meetsSLO: true,
+        latency: 123.45,
+        participants: 3,
+        numUnconfirmedSteps: 6,
       },
-      fakeAnalyticsWebClient,
     );
 
-    expect(fakeAnalyticsWebClient.sendOperationalEvent).toBeCalledTimes(1);
+    expect(fakeAnalyticsWebClient.sendOperationalEvent).toHaveBeenCalledTimes(
+      1,
+    );
     expect(fakeAnalyticsWebClient.sendOperationalEvent).toBeCalledWith({
-      action: 'convertPMToADF',
+      action: 'connection',
       actionSubject: 'collab',
       attributes: {
         packageName,
         packageVersion,
         collabService: 'ncs',
+        network: {
+          status: 'ONLINE',
+        },
+        documentAri: fakeDocumentAri,
         eventStatus: 'SUCCESS',
         latency: 123.45,
         meetsSLO: true,
         participants: 3,
         numUnconfirmedSteps: 6,
-        documentAri:
-          'ari:cloud:confluence:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:page/3110142491',
       },
       tags: ['editor'],
       source: 'unknown',
@@ -104,30 +115,98 @@ describe('Analytics helper function', () => {
       message: 'Version number does not match current head version.',
     };
 
-    triggerAnalyticsEvent(
-      {
-        eventAction: EVENT_ACTION.CONNECTION,
-        attributes: {
-          eventStatus: EVENT_STATUS.FAILURE,
-          error: stepRejectedError,
-        },
-      },
-      fakeAnalyticsWebClient,
+    analyticsHelper.sendErrorEvent(
+      stepRejectedError,
+      'Meaningful Context-Aware Error Message',
     );
 
-    expect(fakeAnalyticsWebClient.sendOperationalEvent).toBeCalledTimes(1);
+    expect(fakeAnalyticsWebClient.sendOperationalEvent).toHaveBeenCalledTimes(
+      1,
+    );
     expect(fakeAnalyticsWebClient.sendOperationalEvent).toBeCalledWith({
-      action: 'connection',
+      action: 'error',
       actionSubject: 'collab',
       attributes: {
         packageName,
         packageVersion,
         collabService: 'ncs',
-        eventStatus: 'FAILURE',
+        network: {
+          status: 'ONLINE',
+        },
+        documentAri: fakeDocumentAri,
+        errorMessage: 'Meaningful Context-Aware Error Message',
+      },
+      nonPrivacySafeAttributes: {
         error: stepRejectedError,
       },
       tags: ['editor'],
       source: 'unknown',
+    });
+  });
+
+  describe('when sendActionEvent is called', () => {
+    let originalRequestIdleCallback: Function | undefined;
+    beforeEach(() => {
+      originalRequestIdleCallback = (window as any).requestIdleCallback;
+      (window as any).requestIdleCallback = undefined;
+    });
+
+    afterEach(() => {
+      (window.requestAnimationFrame as jest.Mock).mockRestore();
+      (window as any).requestIdleCallback = originalRequestIdleCallback;
+    });
+
+    describe('and when requestIdleCallback is available', () => {
+      let requestIdleCallbackMock: jest.Mock;
+      beforeEach(() => {
+        requestIdleCallbackMock = jest.fn();
+        (window as any).requestIdleCallback = requestIdleCallbackMock;
+      });
+
+      it('should use this window function', () => {
+        analyticsHelper.sendActionEvent(
+          EVENT_ACTION.UPDATE_PARTICIPANTS,
+          EVENT_STATUS.SUCCESS,
+        );
+
+        expect(requestIdleCallbackMock).toHaveBeenCalled();
+      });
+
+      it('should fire the analytics events', () => {
+        requestIdleCallbackMock.mockImplementation((cb) => (cb as Function)());
+
+        analyticsHelper.sendActionEvent(
+          EVENT_ACTION.UPDATE_PARTICIPANTS,
+          EVENT_STATUS.SUCCESS,
+        );
+
+        expect(
+          fakeAnalyticsWebClient.sendOperationalEvent,
+        ).toHaveBeenCalledTimes(1);
+      });
+    });
+
+    describe('and when requestIdleCallback is not available', () => {
+      it('should use the requestAnimationFrame', () => {
+        analyticsHelper.sendActionEvent(
+          EVENT_ACTION.UPDATE_PARTICIPANTS,
+          EVENT_STATUS.SUCCESS,
+        );
+        expect(window.requestAnimationFrame).toHaveBeenCalled();
+      });
+
+      it('should fire the analytics events', () => {
+        (window.requestAnimationFrame as jest.Mock).mockImplementation((cb) =>
+          (cb as Function)(),
+        );
+        analyticsHelper.sendActionEvent(
+          EVENT_ACTION.UPDATE_PARTICIPANTS,
+          EVENT_STATUS.SUCCESS,
+        );
+        expect(
+          fakeAnalyticsWebClient.sendOperationalEvent,
+        ).toHaveBeenCalledTimes(1);
+      });
     });
   });
 });

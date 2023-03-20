@@ -149,7 +149,7 @@ describe('typeahead: undo redo', () => {
         await page.undo();
         await page.waitForVisible(TYPE_AHEAD_MENU_LIST);
 
-        const query = await page.getValue(TYPE_AHEAD_SEARCH_BOX);
+        const query = await page.getText(TYPE_AHEAD_SEARCH_BOX);
         expect(query).toEqual(title);
       },
     );
@@ -302,7 +302,7 @@ describe('typeahead: undo redo', () => {
 
             await page.waitForVisible(TYPE_AHEAD_MENU_LIST);
 
-            const query = await page.getValue(TYPE_AHEAD_SEARCH_BOX);
+            const query = await page.getText(TYPE_AHEAD_SEARCH_BOX);
             expect(query).toEqual(title);
           },
         );

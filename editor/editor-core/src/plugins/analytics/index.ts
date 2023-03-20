@@ -27,6 +27,8 @@ export {
   USER_CONTEXT,
   DELETE_DIRECTION,
   LIST_TEXT_SCENARIOS,
+  fireAnalyticsEvent,
+  getAnalyticsEventsFromTransaction,
 } from '@atlaskit/editor-common/analytics';
 export type {
   AnalyticsDispatch,
@@ -52,12 +54,13 @@ export type {
   PasteType,
   SubstituteEventPayload,
   TableEventPayload,
+  FireAnalyticsCallback,
+  FireAnalyticsEvent,
 } from '@atlaskit/editor-common/analytics';
 export {
   withAnalytics,
   addAnalytics,
   findInsertLocation,
-  getAnalyticsEventsFromTransaction,
   getSelectionType,
   getStateContext,
   mapActionSubjectIdToAttributes,
@@ -65,8 +68,5 @@ export {
 
 export const analyticsPluginKey = pluginKey;
 export default analyticsPlugin;
-export { fireAnalyticsEvent } from './fire-analytics-event';
-export type { FireAnalyticsEvent } from './fire-analytics-event';
-export type { FireAnalyticsCallback } from './fire-analytics-event';
 export type { HigherOrderCommand } from '../../types/command';
 export type { DispatchAnalyticsEvent } from './types/dispatch-analytics-event';

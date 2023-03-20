@@ -1,5 +1,12 @@
 # @atlaskit/reactions
 
+## 22.2.5
+
+### Patch Changes
+
+- [`dfbecb4aa7c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dfbecb4aa7c) - [ux] [COLLAB-2263] allow `Enter` to open Show more to show emoji picker, allow `ESC` to close emoji picker / reaction selector.
+- Updated dependencies
+
 ## 22.2.4
 
 ### Patch Changes

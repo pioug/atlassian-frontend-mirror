@@ -22,7 +22,7 @@ describe('#handleInsertContent: Insert Nodes', () => {
   const createEditor = createProsemirrorEditorFactory();
   const editor = (doc: DocBuilder, fakeEditorPlugin: () => EditorPlugin) => {
     const preset = new Preset<EditorPlugin>().add(
-      fakeEditorPlugin as NextEditorPlugin<string, never, any>,
+      fakeEditorPlugin as NextEditorPlugin<string>,
     );
     const editorPlugins = preset.getEditorPlugins();
 

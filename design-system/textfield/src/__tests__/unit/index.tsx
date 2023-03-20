@@ -14,7 +14,7 @@ describe('Textfield', () => {
     expect(input).toBeInstanceOf(HTMLInputElement);
   });
 
-  describe('- Properties', () => {
+  describe('Properties', () => {
     describe('isCompact', () => {
       beforeEach(() => {
         jest.spyOn(themeConstants, 'gridSize').mockImplementation(() => 8);
@@ -29,7 +29,7 @@ describe('Textfield', () => {
         it(`when isCompact is set to ${isCompact}`, () => {
           const input = render(
             <Textfield testId="test" isCompact={isCompact} />,
-          ).getByTestId('test') as HTMLInputElement;
+          ).getByTestId('test');
           expect(input).toHaveStyle(`padding: ${padding}`);
           expect(input).toHaveStyle(`height: ${height}`);
         });
@@ -45,8 +45,8 @@ describe('Textfield', () => {
             }
           />,
         );
-        const before = getByTestId('beforeElement') as HTMLInputElement;
-        expect(before.innerText).toBe('Before Element');
+        const before = getByTestId('beforeElement');
+        expect(before).toHaveTextContent('Before Element');
       });
       it('should render after element', () => {
         const { getByTestId } = render(
@@ -56,8 +56,8 @@ describe('Textfield', () => {
             }
           />,
         );
-        const after = getByTestId('afterElement') as HTMLInputElement;
-        expect(after.innerText).toBe('After Element');
+        const after = getByTestId('afterElement');
+        expect(after).toHaveTextContent('After Element');
       });
       it('should render before & after element', () => {
         const { getByTestId } = render(
@@ -71,34 +71,44 @@ describe('Textfield', () => {
           />,
         );
 
-        const before = getByTestId('beforeElement') as HTMLInputElement;
-        expect(before.innerText).toBe('Before Element');
-        const after = getByTestId('afterElement') as HTMLInputElement;
-        expect(after.innerText).toBe('After Element');
+        const before = getByTestId('beforeElement');
+        expect(before).toHaveTextContent('Before Element');
+        const after = getByTestId('afterElement');
+        expect(after).toHaveTextContent('After Element');
       });
     });
 
     describe('isDisabled', () => {
-      it('should make input as disabled', () => {
+      it('should make input disabled', () => {
         const { getByTestId } = render(<Textfield isDisabled testId="test" />);
-        const input = getByTestId('test') as HTMLInputElement;
-        expect(input.disabled).toBe(true);
+        const input = getByTestId('test');
+        expect(input).toBeDisabled();
+      });
+    });
+
+    describe('isInvalid', () => {
+      it('should give input invalid styling if invalid', () => {
+        const { getByTestId } = render(<Textfield isInvalid testId="test" />);
+        const container = getByTestId('test-container');
+        const input = getByTestId('test');
+        expect(container).toHaveAttribute('data-invalid', 'true');
+        expect(input).toHaveAttribute('aria-invalid', 'true');
       });
     });
 
     describe('isReadOnly', () => {
-      it('should make input  readOnly', () => {
+      it('should make input readOnly', () => {
         const { getByTestId } = render(<Textfield isReadOnly testId="test" />);
-        const input = getByTestId('test') as HTMLInputElement;
-        expect(input.readOnly).toBe(true);
+        const input = getByTestId('test');
+        expect(input).toHaveAttribute('readonly');
       });
     });
 
     describe('isRequired', () => {
       it('should make input required', () => {
         const { getByTestId } = render(<Textfield isRequired testId="test" />);
-        const input = getByTestId('test') as HTMLInputElement;
-        expect(input.required).toBe(true);
+        const input = getByTestId('test');
+        expect(input).toBeRequired();
       });
     });
 
@@ -107,39 +117,23 @@ describe('Textfield', () => {
         const { getByTestId } = render(
           <Textfield isRequired name="testName" testId="test" />,
         );
-        const input = getByTestId('test') as HTMLInputElement;
-        expect(input.name).toBe('testName');
+        const input = getByTestId('test');
+        expect(input).toHaveAttribute('name', 'testName');
       });
     });
 
     describe('appearance', () => {
-      it('When appearance is not none', () => {
+      it('should have a solid border when appearance is not none', () => {
         const { getByTestId } = render(<Textfield testId="test" />);
         const textFieldContainer = getByTestId('test-container');
         expect(textFieldContainer).toHaveStyle(`border-style: solid`);
       });
-      it('When appearance is not none', () => {
+      it('should have no border when appearance is none', () => {
         const { getByTestId } = render(
           <Textfield appearance="none" testId="test" />,
         );
         const textFieldContainer = getByTestId('test-container');
         expect(textFieldContainer).toHaveStyle(`border-style: none`);
-      });
-    });
-
-    describe('appearance', () => {
-      it('When appearance is not none', () => {
-        const { getByTestId } = render(
-          <Textfield
-            testId="test"
-            elemBeforeInput={<span data-testid="beforeElement">Before</span>}
-            elemAfterInput={<span data-testid="afterElement">After</span>}
-          />,
-        );
-        const beforeElement = getByTestId('beforeElement') as HTMLElement;
-        const afterElement = getByTestId('afterElement');
-        expect(beforeElement.innerText).toBe('Before');
-        expect(afterElement.innerText).toBe('After');
       });
     });
 
@@ -197,15 +191,24 @@ describe('Textfield', () => {
         const { getByTestId } = render(
           <Textfield {...nativeProps} testId="test" />,
         );
-        const textField = getByTestId('test') as HTMLInputElement;
-        expect(textField.type).toEqual(nativeProps.type);
-        expect(textField.name).toEqual(nativeProps.name);
-        expect(textField.placeholder).toEqual(nativeProps.placeholder);
-        expect(textField.maxLength).toEqual(nativeProps.maxLength);
-        expect(+textField.min).toEqual(nativeProps.min);
-        expect(+textField.max).toEqual(nativeProps.max);
-        expect(textField.autocomplete).toEqual(nativeProps.autoComplete);
-        expect(textField.pattern).toEqual(nativeProps.pattern);
+        const textField = getByTestId('test');
+        expect(textField).toHaveAttribute('type', nativeProps.type);
+        expect(textField).toHaveAttribute('name', nativeProps.name);
+        expect(textField).toHaveAttribute(
+          'placeholder',
+          nativeProps.placeholder,
+        );
+        expect(textField).toHaveAttribute(
+          'maxLength',
+          nativeProps.maxLength.toString(),
+        );
+        expect(textField).toHaveAttribute('min', nativeProps.min.toString());
+        expect(textField).toHaveAttribute('max', nativeProps.max.toString());
+        expect(textField).toHaveAttribute(
+          'autocomplete',
+          nativeProps.autoComplete,
+        );
+        expect(textField).toHaveAttribute('pattern', nativeProps.pattern);
       });
     });
 
@@ -244,11 +247,11 @@ describe('Textfield', () => {
     });
 
     describe('defaultValue', () => {
-      it('should have defaultValue="test default value"', () => {
+      it('should pass defaultValue to value on render', () => {
         const input = render(
           <Textfield testId="test" defaultValue="test default value" />,
-        ).getByTestId('test') as HTMLInputElement;
-        expect(input.value).toBe('test default value');
+        ).getByTestId('test');
+        expect(input).toHaveValue('test default value');
       });
     });
 
@@ -256,8 +259,8 @@ describe('Textfield', () => {
       it('should have value="test value"', () => {
         const input = render(
           <Textfield testId="test" onChange={__noop} value="test value" />,
-        ).getByTestId('test') as HTMLInputElement;
-        expect(input.value).toBe('test value');
+        ).getByTestId('test');
+        expect(input).toHaveValue('test value');
       });
     });
 
@@ -269,7 +272,7 @@ describe('Textfield', () => {
         );
         const input = getByTestId('test') as HTMLInputElement;
         fireEvent.change(input, { target: { value: 'foo' } });
-        expect(input.value).toBe('foo');
+        expect(input).toHaveValue('foo');
       });
     });
     describe('ref', () => {

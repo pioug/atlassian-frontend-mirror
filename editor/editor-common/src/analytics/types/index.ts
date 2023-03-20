@@ -17,6 +17,8 @@ export type {
   ErrorEventPayload,
   FeatureExposureAEP,
   FireAnalyticsCallback,
+  FireAnalyticsEvent,
+  FireAnalyticsEventPayload,
   SimplifiedNode,
   TransactionEventPayload,
 } from './events';

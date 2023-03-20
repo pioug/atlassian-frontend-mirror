@@ -11,6 +11,7 @@ export type ContextUpdateHandler = (
   eventDispatcher: EventDispatcher,
 ) => void;
 
+export type ReplaceRawValue = Node | object | string;
 export interface EditorActionsOptions<T = any> {
   focus(): boolean;
   blur(): boolean;
@@ -20,7 +21,7 @@ export interface EditorActionsOptions<T = any> {
   getNodeByFragmentLocalId(id: string): Node | undefined;
   getSelectedNode(): Node | undefined;
   replaceDocument(rawValue: any): boolean;
-  replaceSelection(rawValue: Node | Object | string): boolean;
+  replaceSelection(rawValue: ReplaceRawValue | Array<ReplaceRawValue>): boolean;
   appendText(text: string): boolean;
   isDocumentEmpty(): boolean;
   getResolvedEditorState(): Promise<ResolvedEditorState | undefined>;

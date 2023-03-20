@@ -7,8 +7,9 @@ import { pluginKey } from './plugin-key';
 
 const featureFlagsContextPlugin: NextEditorPlugin<
   'featureFlagsContext',
-  never,
-  FeatureFlags
+  {
+    pluginConfiguration: FeatureFlags;
+  }
 > = (featureFlags = {}) => ({
   name: 'featureFlagsContext',
   pmPlugins() {

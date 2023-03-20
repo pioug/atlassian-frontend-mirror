@@ -28,6 +28,7 @@ export interface BlockTypeButtonProps {
   disabled: boolean;
   title: MessageDescriptor;
   onClick(e: React.MouseEvent): void;
+  onKeyDown(e: React.KeyboardEvent): void;
   formatMessage: WrappedComponentProps['intl']['formatMessage'];
 }
 
@@ -51,6 +52,7 @@ export const BlockTypeButton: React.StatelessComponent<BlockTypeButtonProps> = (
       className="block-type-btn"
       disabled={props.disabled}
       onClick={props.onClick}
+      onKeyDown={props.onKeyDown}
       title={labelTextStyles}
       aria-label={labelTextStyles}
       aria-haspopup

@@ -1,12 +1,10 @@
 import React from 'react';
 import Button from '@atlaskit/button/standard-button';
-import AkSpinner from '@atlaskit/spinner';
 import {
   externalImageIdentifier,
   externalSmallImageIdentifier,
   createStorybookMediaClient,
   defaultCollectionName,
-  defaultMediaPickerCollectionName,
 } from '@atlaskit/media-test-helpers';
 import { ButtonList, Group, MainWrapper } from '../example-helpers/MainWrapper';
 import {
@@ -21,11 +19,10 @@ import {
   audioItem,
   audioItemNoCover,
 } from '../example-helpers';
-import { MediaViewer, MediaViewerDataSource } from '../src';
+import { MediaViewer } from '../src';
 import { videoFileId } from '@atlaskit/media-test-helpers';
 import { I18NWrapper } from '@atlaskit/media-test-helpers';
-import { Identifier, FileIdentifier, MediaStore } from '@atlaskit/media-client';
-import { Card } from '@atlaskit/media-card';
+import { Identifier } from '@atlaskit/media-client';
 import { addGlobalEventEmitterListeners } from '@atlaskit/media-test-helpers';
 
 addGlobalEventEmitterListeners();
@@ -34,68 +31,31 @@ const mediaClient = createStorybookMediaClient();
 
 export type State = {
   selected?: {
-    dataSource: MediaViewerDataSource;
+    items: Identifier[];
     identifier: Identifier;
   };
-  firstItemFromDefaultCollection?: FileIdentifier;
-  firstItemFromMediaPickerCollection?: FileIdentifier;
 };
 
 export default class Example extends React.Component<{}, State> {
   state: State = {};
 
-  async componentDidMount() {
-    const firstDefaultCollectionItem = await this.getFirstCollectionItem(
-      defaultCollectionName,
-    );
-    this.setState({
-      firstItemFromDefaultCollection: {
-        id: firstDefaultCollectionItem.id,
-        mediaItemType: 'file',
-        occurrenceKey: firstDefaultCollectionItem.occurrenceKey,
-      },
-    });
-
-    const firstDefaultMPCollectionItem = await this.getFirstCollectionItem(
-      defaultMediaPickerCollectionName,
-    );
-
-    this.setState({
-      firstItemFromMediaPickerCollection: {
-        id: firstDefaultMPCollectionItem.id,
-        mediaItemType: 'file',
-        occurrenceKey: firstDefaultMPCollectionItem.occurrenceKey,
-      },
-    });
-  }
-
-  getFirstCollectionItem = async (collectionName: string) => {
-    const store = new MediaStore(mediaClient.config);
-    const items = (await store.getCollectionItems(collectionName, { limit: 1 }))
-      .data.contents;
-
-    return items[0];
-  };
-
   private openList = () => {
     this.setState({
       selected: {
-        dataSource: {
-          list: [
-            externalImageIdentifier,
-            imageIdentifier,
-            videoIdentifier,
-            externalSmallImageIdentifier,
-            videoHorizontalFileItem,
-            wideImageIdentifier,
-            audioItem,
-            audioItemNoCover,
-            docIdentifier,
-            largePdfIdentifier,
-            imageIdentifier2,
-            unsupportedIdentifier,
-          ],
-        },
+        items: [
+          externalImageIdentifier,
+          imageIdentifier,
+          videoIdentifier,
+          externalSmallImageIdentifier,
+          videoHorizontalFileItem,
+          wideImageIdentifier,
+          audioItem,
+          audioItemNoCover,
+          docIdentifier,
+          largePdfIdentifier,
+          imageIdentifier2,
+          unsupportedIdentifier,
+        ],
         identifier: imageIdentifier,
       },
     });
@@ -104,19 +64,17 @@ export default class Example extends React.Component<{}, State> {
   private openListWithItemNotOnList = () => {
     this.setState({
       selected: {
-        dataSource: {
-          list: [
-            imageIdentifier,
-            videoIdentifier,
-            videoHorizontalFileItem,
-            wideImageIdentifier,
-            audioItem,
-            audioItemNoCover,
-            largePdfIdentifier,
-            imageIdentifier2,
-            unsupportedIdentifier,
-          ],
-        },
+        items: [
+          imageIdentifier,
+          videoIdentifier,
+          videoHorizontalFileItem,
+          wideImageIdentifier,
+          audioItem,
+          audioItemNoCover,
+          largePdfIdentifier,
+          imageIdentifier2,
+          unsupportedIdentifier,
+        ],
         identifier: docIdentifier,
       },
     });
@@ -131,40 +89,28 @@ export default class Example extends React.Component<{}, State> {
 
     this.setState({
       selected: {
-        dataSource: {
-          list: [
-            imageIdentifier,
-            invalidItem,
-            wideImageIdentifier,
-            videoIdentifier,
-            videoHorizontalFileItem,
-            audioItem,
-            audioItemNoCover,
-            docIdentifier,
-            largePdfIdentifier,
-            imageIdentifier2,
-            unsupportedIdentifier,
-          ],
-        },
+        items: [
+          imageIdentifier,
+          invalidItem,
+          wideImageIdentifier,
+          videoIdentifier,
+          videoHorizontalFileItem,
+          audioItem,
+          audioItemNoCover,
+          docIdentifier,
+          largePdfIdentifier,
+          imageIdentifier2,
+          unsupportedIdentifier,
+        ],
         identifier: imageIdentifier,
       },
     });
   };
 
-  private openCollection =
-    (identifier: Identifier, collectionName: string) => () => {
-      this.setState({
-        selected: {
-          dataSource: { collectionName },
-          identifier,
-        },
-      });
-    };
-
   private openNotFound = () => {
     this.setState({
       selected: {
-        dataSource: { list: [imageIdentifier, wideImageIdentifier] },
+        items: [imageIdentifier, wideImageIdentifier],
         identifier: {
           mediaItemType: 'file',
           id: videoFileId.id,
@@ -184,16 +130,7 @@ export default class Example extends React.Component<{}, State> {
     this.setState({
       selected: {
         identifier: invalidItem,
-        dataSource: { list: [invalidItem] },
-      },
-    });
-  };
-
-  private openInvalidCollection = () => {
-    this.setState({
-      selected: {
-        identifier: imageIdentifier,
-        dataSource: { collectionName: 'invalid-name' },
+        items: [invalidItem],
       },
     });
   };
@@ -203,11 +140,7 @@ export default class Example extends React.Component<{}, State> {
   };
 
   render() {
-    const {
-      firstItemFromDefaultCollection,
-      firstItemFromMediaPickerCollection,
-      selected,
-    } = this.state;
+    const { selected } = this.state;
     return (
       <I18NWrapper>
         <MainWrapper>
@@ -224,51 +157,6 @@ export default class Example extends React.Component<{}, State> {
               </li>
             </ButtonList>
           </Group>
-
-          <Group>
-            <h2>Collection names</h2>
-            <ButtonList>
-              <li>
-                <h4>{defaultCollectionName}</h4>
-                {firstItemFromDefaultCollection ? (
-                  <Card
-                    mediaClientConfig={mediaClient.config}
-                    identifier={{
-                      collectionName: defaultCollectionName,
-                      id: firstItemFromDefaultCollection.id,
-                      mediaItemType: 'file',
-                    }}
-                    onClick={this.openCollection(
-                      firstItemFromDefaultCollection,
-                      defaultCollectionName,
-                    )}
-                  />
-                ) : (
-                  <AkSpinner />
-                )}
-              </li>
-              <li>
-                <h4>{defaultMediaPickerCollectionName}</h4>
-                {firstItemFromMediaPickerCollection ? (
-                  <Card
-                    mediaClientConfig={mediaClient.config}
-                    identifier={{
-                      collectionName: defaultMediaPickerCollectionName,
-                      id: firstItemFromMediaPickerCollection.id,
-                      mediaItemType: 'file',
-                    }}
-                    onClick={this.openCollection(
-                      firstItemFromMediaPickerCollection,
-                      defaultMediaPickerCollectionName,
-                    )}
-                  />
-                ) : (
-                  <AkSpinner />
-                )}
-              </li>
-            </ButtonList>
-          </Group>
-
           <Group>
             <h2>Errors</h2>
             <ButtonList>
@@ -281,11 +169,6 @@ export default class Example extends React.Component<{}, State> {
                 <Button onClick={this.openInvalidId}>Invalid ID</Button>
               </li>
               <li>
-                <Button onClick={this.openInvalidCollection}>
-                  Invalid collection name
-                </Button>
-              </li>
-              <li>
                 <Button onClick={this.openErrorList}>Error list</Button>
               </li>
             </ButtonList>
@@ -295,7 +178,7 @@ export default class Example extends React.Component<{}, State> {
             <MediaViewer
               mediaClientConfig={mediaClient.config}
               selectedItem={selected.identifier}
-              dataSource={selected.dataSource}
+              items={selected.items}
               collectionName={defaultCollectionName}
               onClose={this.onClose}
               pageSize={5}

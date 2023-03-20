@@ -2,32 +2,35 @@ import type { SupportedLanguages } from '../constants';
 
 export interface CodeBlockProps {
   /**
-   * The code to be formatted
+   * The code to be formatted.
    */
-  // See DSP-5460
   // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   text: string;
-
   /**
-   * A unique string that appears as a data attribute `data-testid`
-   * in the rendered code. Serves as a hook for automated tests.
+   * A unique string that appears as a data attribute `data-testid` in the
+   * rendered code. Serves as a hook for automated tests.
    */
   testId?: string;
-
   /**
-   * Whether to showLineNumbers or not, defaults to true
+   *  Sets whether to display code line numbers or not.
+   *  @default true
    */
-  // See DSP-5460
   // eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
   showLineNumbers?: boolean;
-
   /**
-   * The language in which the code is written
+   * Language reference designed to be populated from `SUPPORTED_LANGUAGES` in
+   * `design-system/code`. Run against language grammars from PrismJS (full list
+   * available at [PrismJS documentation](https://prismjs.com/#supported-languages)).
+   *
+   * When set to "text" will not perform highlighting. If unsupported language
+   * provided - code will be treated as "text" with no highlighting.
+   *
+   * @default 'text'
    */
   language?: SupportedLanguages;
-
   /**
-   * Lines to highlight comma delimited.
+   * Comma delimited lines to highlight.
+   *
    * Example uses:
    * - To highlight one line `highlight="3"`
    * - To highlight a group of lines `highlight="1-5"`
@@ -36,40 +39,39 @@ export interface CodeBlockProps {
   highlight?: string;
 
   /**
-   * Screen reader text for the start of a highlighted line
+   * Screen reader text for the start of a highlighted line.
    */
   highlightedStartText?: string;
 
   /**
-   * Screen reader text for the end of a highlighted line
+   * Screen reader text for the end of a highlighted line.
    */
   highlightedEndText?: string;
-
   /**
-   * When false, disables decorating code with bidi warnings
-   *
-   * defaults to true
+   * When set to `false`, disables code decorating with bidi warnings.
+   * @default true
    */
-  // See DSP-5460
   // eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
   codeBidiWarnings?: boolean;
-
   /**
-   * Labels for the previous and next buttons used in pagination.
-   * Defaults to `Bidirectional characters change the order that text is rendered. This could be used to obscure malicious code.`.
+   * Label for the bidi warning tooltip.
+   * @default 'Bidirectional characters change the order that text is rendered. This could be used to obscure malicious code.'
    */
   codeBidiWarningLabel?: string;
-
   /**
-   * Defaults to enabled (true)
-   *
-   * Intended to be disabled when used in a mobile view, such as in the editor
-   * via mobile bridge, where the tooltip could end up being cut off of otherwise
-   * not work as expected.
+   * Sets whether to render tooltip with the warning or not.
+   * Intended to be disabled when used in a mobile view, such as in the editor via mobile bridge,
+   * where the tooltip could end up being cut off or otherwise not work as expected.
+   * @default true
    */
-  // See DSP-5460
   // eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
   codeBidiWarningTooltipEnabled?: boolean;
+  /**
+   * Sets whether long lines will create a horizontally scrolling container.
+   * When set to `true`, these lines will visually wrap instead.
+   * @default false
+   */
+  shouldWrapLongLines?: boolean;
 }
 
 export type { SupportedLanguages, LanguageAlias, Language } from '../constants';

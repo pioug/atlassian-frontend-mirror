@@ -43,9 +43,12 @@ export function createPlugin(dispatch: Function, imageEnabled: boolean) {
   });
 }
 
-const helpDialog: NextEditorPlugin<'helpDialog', never, boolean> = (
-  imageUploadProviderExists = false,
-) => ({
+const helpDialog: NextEditorPlugin<
+  'helpDialog',
+  {
+    pluginConfiguration: boolean;
+  }
+> = (imageUploadProviderExists = false) => ({
   name: 'helpDialog',
 
   pmPlugins() {

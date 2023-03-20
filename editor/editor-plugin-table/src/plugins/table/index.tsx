@@ -79,8 +79,9 @@ const defaultGetEditorFeatureFlags = () => ({});
 
 const tablesPlugin: NextEditorPlugin<
   'table',
-  never,
-  TablePluginOptions | undefined
+  {
+    pluginConfiguration: TablePluginOptions | undefined;
+  }
 > = (options?: TablePluginOptions) => {
   const editorViewRef: Record<'current', EditorView | null> = { current: null };
   const defaultGetEditorContainerWidth: GetEditorContainerWidth = () => {

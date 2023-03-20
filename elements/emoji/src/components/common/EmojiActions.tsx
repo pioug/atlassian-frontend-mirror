@@ -19,7 +19,7 @@ import EmojiDeletePreview, {
   OnDeleteEmoji,
 } from '../common/EmojiDeletePreview';
 import EmojiUploadPicker, { OnUploadEmoji } from '../common/EmojiUploadPicker';
-import EmojiPickerListSearch from '../picker/EmojiPickerListSearch';
+import { EmojiPickerListSearch } from '../picker/EmojiPickerListSearch';
 import ToneSelector from './ToneSelector';
 import EmojiButton from './EmojiButton';
 import { messages } from '../i18n';
@@ -55,7 +55,7 @@ export interface Props {
   onFileChooserClicked?: () => void;
   onOpenUpload: () => void;
   query?: string;
-  onChange: any;
+  onChange: (value: string) => void;
 }
 
 export const emojiActionsTestId = 'emoji-actions';

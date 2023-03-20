@@ -144,7 +144,6 @@ Learn more about this utility in the [Editor Palette docs](/packages/editor/edit
 
 Full light and dark mode support for the Editor is a work in progress. Currently, the following experiences do not yet support theming:
 - Custom table backgrounds
-- Custom panel backgrounds
 
 ${(
   <Props

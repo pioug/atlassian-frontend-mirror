@@ -1,5 +1,11 @@
 # @atlaskit/spinner
 
+## 15.4.0
+
+### Minor Changes
+
+- [`9c2b9a0062e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9c2b9a0062e) - [ux] Change the design tokens used for spinner from text to icon tokens
+
 ## 15.3.4
 
 ### Patch Changes

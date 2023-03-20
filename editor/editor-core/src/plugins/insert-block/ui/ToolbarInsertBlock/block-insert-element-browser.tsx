@@ -22,6 +22,7 @@ export interface BlockInsertElementBrowserProps {
   showElementBrowserLink: boolean;
   onRef(el: HTMLElement): void;
   onClick: React.MouseEventHandler;
+  onKeyDown?: React.KeyboardEventHandler;
   onInsert: OnInsert;
   togglePlusMenuVisibility: SimpleEventHandler<MouseEvent | KeyboardEvent>;
 }
@@ -59,6 +60,7 @@ export const BlockInsertElementBrowser: React.FC<
         selected={props.open}
         disabled={props.disabled}
         onClick={props.onClick}
+        onKeyDown={props.onKeyDown}
         spacing={props.spacing}
         label={props.label}
         aria-keyshortcuts="/"

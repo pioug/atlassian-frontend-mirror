@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 
+import {
+  UNSAFE_Box as Box,
+  UNSAFE_Inline as Inline,
+  UNSAFE_Stack as Stack,
+} from '@atlaskit/ds-explorations';
 import { Label } from '@atlaskit/form';
-import { Box, Stack } from '@atlaskit/primitives';
 import Toggle from '@atlaskit/toggle';
 
 import Heading from '../../src';
@@ -11,16 +15,18 @@ export default () => {
   const color = isInverse ? 'inverse' : undefined;
 
   return (
-    <Stack space="100">
+    <Stack gap="space.100">
       <Box padding="space.100">
-        <Label htmlFor="colorToggle">Is inverse</Label>
-        <Toggle
-          id="colorToggle"
-          onChange={() => setIsInverse(!isInverse)}
-          isChecked={isInverse}
-        />
+        <Inline alignItems="center" gap={'space.0'}>
+          <Label htmlFor="colorToggle">Is inverse</Label>
+          <Toggle
+            id="colorToggle"
+            onChange={() => setIsInverse(!isInverse)}
+            isChecked={isInverse}
+          />
+        </Inline>
       </Box>
-      <Box padding="space.100" backgroundColor={'accent.gray.subtler'}>
+      <Box padding="space.100" backgroundColor="neutral.bold">
         <Heading color={color} level="h900">
           H900
         </Heading>

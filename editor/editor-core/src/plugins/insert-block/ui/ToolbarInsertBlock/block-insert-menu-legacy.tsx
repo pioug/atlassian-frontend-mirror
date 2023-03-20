@@ -14,6 +14,7 @@ export interface BlockInsertMenuLegacyProps {
   popupsBoundariesElement?: HTMLElement;
   popupsScrollableElement?: HTMLElement;
   onClick: React.MouseEventHandler;
+  onKeyDown?: React.KeyboardEventHandler;
   onRef(el: HTMLElement): void;
   onItemActivated(attrs: any): void;
   onOpenChange(attrs: any): void;
@@ -45,6 +46,7 @@ export const BlockInsertMenuLegacy: React.FC<BlockInsertMenuLegacyProps> = (
         selected={props.open}
         disabled={props.disabled}
         onClick={props.onClick}
+        onKeyDown={props.onKeyDown}
         spacing={props.spacing}
         label={props.label}
         aria-keyshortcuts="/"

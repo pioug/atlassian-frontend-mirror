@@ -34,6 +34,7 @@ import { Mark } from 'prosemirror-model';
 import { MediaClientConfig } from '@atlaskit/media-core';
 import { MediaFeatureFlags } from '@atlaskit/media-common';
 import { Node as Node_2 } from 'prosemirror-model';
+import { OperationalAEP } from '@atlaskit/editor-common/analytics';
 import { PropsDifference } from '@atlaskit/editor-common/utils';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { Schema } from 'prosemirror-model';
@@ -152,7 +153,7 @@ type ButtonAEP<ActionSubjectID, Attributes> = UIAEP<
 >;
 
 // @public (undocumented)
-type ComponentCrashErrorAEP = AEP<
+type ComponentCrashErrorAEP = OperationalAEP<
   ACTION.CRASHED,
   ACTION_SUBJECT.RENDERER,
   ACTION_SUBJECT_ID,
@@ -163,7 +164,9 @@ type ComponentCrashErrorAEP = AEP<
     componentStack?: string;
     errorRethrown?: boolean;
   },
-  EVENT_TYPE.OPERATIONAL
+  {
+    errorStack?: string;
+  }
 >;
 
 // @public (undocumented)
@@ -737,7 +740,7 @@ type VisitMediaLinkAEP = AEP<
 
 ```json
 {
-  "@atlaskit/link-provider": "^1.3.8",
+  "@atlaskit/link-provider": "^1.4.0",
   "@atlaskit/media-core": "^34.0.1",
   "react": "^16.8.0",
   "react-dom": "^16.8.0"

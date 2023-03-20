@@ -42,7 +42,7 @@ import {
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
   CreateLinkInlineDialogEventPayload,
-} from '../../../analytics';
+} from '@atlaskit/editor-common/analytics';
 import { normalizeUrl } from '../../utils';
 import { filterUniqueItems } from '../../../../utils/array';
 import { LinkSearchListItemData } from '../../../../ui/LinkSearch/types';

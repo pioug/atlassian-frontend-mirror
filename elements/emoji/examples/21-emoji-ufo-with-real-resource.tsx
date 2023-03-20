@@ -6,12 +6,13 @@ import {
   getEmojiConfig,
   getRealEmojiProvider,
 } from '../example-helpers/demo-resource-control';
-import EmojiPicker, { EmojiUploader } from '../src';
+import { EmojiUploader } from '../src';
 import { onSelection } from '../example-helpers';
 import { SAMPLING_RATE_EMOJI_RENDERED_EXP } from '../src/util/constants';
 import { RenderRealResourcedEmojis } from './22-resourced-emoji-real-resource-backend';
 import { EmojiTypeAheadTextInput } from './03-standard-emoji-typeahead';
 import { RenderSpriteEmojis } from './23-sprite-emoji';
+import { EmojiPickerPopup } from './26-emoji-common-provider-with-real-backend';
 /**
  * The publisher will be set up in product side in the real world
  * We add it in the example here so we can see events coming from UFO in the console
@@ -46,7 +47,7 @@ export default () => (
               {SAMPLING_RATE_EMOJI_RENDERED_EXP}
             </p>
             <br />
-            <EmojiPicker emojiProvider={provider} onSelection={onSelection} />
+            <EmojiPickerPopup emojiProvider={provider} />
             <hr />
             <br />
             <RenderRealResourcedEmojis emailProvider={provider} />

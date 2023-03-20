@@ -1,0 +1,208 @@
+{
+  "type": "doc",
+  "version": 1,
+  "content": [
+    {
+      "type": "panel",
+      "attrs": {
+        "panelType": "info"
+      },
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "<LinkUrl /> is a link component from the '@atlaskit/smart-card' package with a built-in link text safety check. "
+            },
+            {
+              "type": "text",
+              "text": "Documentation",
+              "marks": [
+                {
+                  "type": "link",
+                  "attrs": {
+                    "href": "https://atlaskit.atlassian.com/packages/linking-platform/smart-card/docs/LinkUrl"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "By default a link safety validation is on. You can turn it off by passing "
+        },
+        {
+          "type": "text",
+          "text": "withSafetyCheck",
+          "marks": [
+            {
+              "type": "em"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " prop as "
+        },
+        {
+          "type": "text",
+          "text": "false",
+          "marks": [
+            {
+              "type": "strong"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "codeBlock",
+          "content": [
+            {
+              "type": "text",
+              "text": "<LinkUrl safetyCheck={false} {...other props}>"
+            }
+      ]}]
+    },
+    {
+      "type": "heading",
+      "content": [
+        {
+          "type": "text",
+          "text": "Show link safety warnings",
+          "marks": [
+            {
+              "type": "underline"
+            }
+          ]
+        }
+      ],
+      "attrs": {
+        "level": 1
+      }
+    },
+    {
+      "type": "heading",
+      "content": [
+        {
+          "type": "text",
+          "text": "- Link description is a URL and it's different from a destination."
+        }
+      ],
+      "attrs": {
+        "level": 2
+      }
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "link",
+          "attrs": {
+            "textUrl": "http://www.atlassian.com/"
+          },
+          "text": "http://www.google.com"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "link",
+          "attrs": {
+            "textUrl": "http://www.atlassian.com/"
+          },
+          "text": "www.google.com"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "content": [
+        {
+          "type": "text",
+          "text": "No link safety warnings",
+          "marks": [
+            {
+              "type": "underline"
+            }
+          ]
+        }
+      ],
+      "attrs": {
+        "level": 1
+      }
+    },
+    {
+      "type": "heading",
+      "content": [
+        {
+          "type": "text",
+          "text": "- Link description is a text not URL"
+        }
+      ],
+      "attrs": {
+        "level": 2
+      }
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "link",
+          "attrs": {
+            "textUrl": "https://www.atlassian.com/"
+          },
+          "text": "It's a link!"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "content": [
+        {
+          "type": "text",
+          "text": "- Link description is a URL identical to a destination"
+        }
+      ],
+      "attrs": {
+        "level": 2
+      }
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "link",
+          "attrs": {
+            "textUrl": "https://www.atlassian.com"
+          },
+          "text": "https://www.atlassian.com"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "link",
+          "attrs": {
+            "textUrl": "http://www.atlassian.com"
+          },
+          "text": "www.atlassian.com"
+        }
+      ]
+    }
+  ]
+}

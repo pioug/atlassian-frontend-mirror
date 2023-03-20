@@ -2,14 +2,12 @@ import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import {
   getDocFromElement,
   editable,
-  copyToClipboard,
-  gotoEditor,
   linkUrlSelector,
   clearLinkToolbarUrl,
   fullpage,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
-  goToEditorTestingWDExample,
+  goToEditorTestingWDClipboardExample,
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
 import { waitForInlineCardSelection } from '@atlaskit/media-integration-test-helpers';
@@ -22,12 +20,26 @@ BrowserTestCase(
     skip: ['safari', 'firefox'],
   },
   async (client: ConstructorParameters<typeof Page>[0], testName: string) => {
-    const page = new Page(client);
+    // Copy stuff to clipboard and go to editor
+    const page = await goToEditorTestingWDClipboardExample(
+      client,
+      'https://www.atlassian.com',
+    );
+    await mountEditor(
+      page,
+      {
+        appearance: fullpage.appearance,
+        smartLinks: {
+          allowEmbeds: true,
+        },
+      },
+      {
+        providers: {
+          cards: true,
+        },
+      },
+    );
 
-    // Copy stuff to clipboard
-    await copyToClipboard(page, 'https://www.atlassian.com');
-
-    await gotoEditor(page);
     // Paste the link
     await page.paste();
     await page.keys('Enter');
@@ -55,12 +67,11 @@ describe('with feature flag: lp-link-picker', () => {
       skip: ['safari', 'firefox'],
     },
     async (client: ConstructorParameters<typeof Page>[0], testName: string) => {
-      let page = new Page(client);
-
-      // Copy stuff to clipboard
-      await copyToClipboard(page, 'https://www.atlassian.com');
-
-      page = await goToEditorTestingWDExample(client);
+      // Copy stuff to clipboard and go to editor
+      const page = await goToEditorTestingWDClipboardExample(
+        client,
+        'https://www.atlassian.com',
+      );
       await mountEditor(
         page,
         {

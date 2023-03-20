@@ -41,7 +41,10 @@ import {
   OptimisticImageApiLoaderConfig,
   SingleEmojiApiLoaderConfig,
 } from './EmojiUtils';
-import { sampledUfoEmojiResourceFetched } from '../util/analytics/ufoExperiences';
+import {
+  sampledUfoEmojiResourceFetched,
+  ufoExperiences,
+} from '../util/analytics/ufoExperiences';
 
 interface GetEmojiProviderOptions {
   /**
@@ -464,12 +467,23 @@ export class EmojiResource
   }
 
   filter(query?: string, options?: SearchOptions): void {
+    ufoExperiences['emoji-searched'].start();
+    ufoExperiences['emoji-searched'].addMetadata({
+      queryLength: query?.length || 0,
+    });
     this.lastQuery = {
       query,
       options,
     };
     if (this.emojiRepository) {
-      this.notifyResult(this.emojiRepository.search(query, options));
+      const searchResults = this.emojiRepository.search(query, options);
+      this.notifyResult(searchResults);
+      ufoExperiences['emoji-searched'].success({
+        metadata: {
+          emojisLength: searchResults.emojis.length,
+          source: options?.source || 'typeahead',
+        },
+      });
     } else {
       // not ready
       this.notifyNotReady();

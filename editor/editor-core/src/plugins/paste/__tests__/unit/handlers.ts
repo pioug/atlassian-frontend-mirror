@@ -48,7 +48,7 @@ import {
   handleExpandPasteInTable,
   handleRichText,
   handlePasteIntoCaption,
-  handlePastePanelIntoList,
+  handlePastePanelOrDecisionContentIntoList,
   handleMarkdown,
 } from '../../handlers';
 import pastePlugin from '../../index';
@@ -1257,7 +1257,7 @@ describe('handlePasteIntoTaskOrDecisionOrPanel', () => {
   );
 });
 
-describe('handlePastePanelIntoList', () => {
+describe('handlePastePanelOrDecisionContentIntoList', () => {
   const destinationDocument = doc(ul(li(p('1')), li(p('2 {<>}')), li(p('3'))));
   const destinationDocumentMiddleOfListItemSelected = doc(
     ul(li(p('1')), li(p('2{<>}2')), li(p('3'))),
@@ -1295,12 +1295,35 @@ describe('handlePastePanelIntoList', () => {
       openStart,
       openEnd,
     );
-    handlePastePanelIntoList(pasteSlice)(editorView.state, editorView.dispatch);
+    handlePastePanelOrDecisionContentIntoList(pasteSlice)(
+      editorView.state,
+      editorView.dispatch,
+    );
   };
 
   it('should paste over the list when pasting panel content with the whole list selected', () => {
     const pasteContent = doc(panel()(p('{<}Test{>}')));
     const expectedDocument = doc(panel()(p('Test')));
+    const { editorView } = editor(destinationDocumentWholeListSelected);
+    createPasteSlice(pasteContent, editorView, 0, 0);
+
+    expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
+    expect(() => {
+      editorView.state.tr.doc.check();
+    }).not.toThrow();
+  });
+
+  it('should paste over the list when pasting decision content with the whole list selected', () => {
+    const pasteContent = doc(
+      decisionList({ localId: 'local-uuid' })(
+        decisionItem({ localId: 'local-uuid' })('{<}Hello{>}'),
+      ),
+    );
+    const expectedDocument = doc(
+      decisionList({ localId: 'local-uuid' })(
+        decisionItem({ localId: 'local-uuid' })('Hello'),
+      ),
+    );
     const { editorView } = editor(destinationDocumentWholeListSelected);
     createPasteSlice(pasteContent, editorView, 0, 0);
 
@@ -1326,6 +1349,24 @@ describe('handlePastePanelIntoList', () => {
     const pasteContent = doc(panel()(p('{<}This is a test{>}')));
     const expectedDocument = doc(
       ul(li(p('1')), li(p('2 This is a test{<>}')), li(p('3'))),
+    );
+    const { editorView } = editor(destinationDocument);
+    createPasteSlice(pasteContent, editorView, 2, 2);
+
+    expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
+    expect(() => {
+      editorView.state.tr.doc.check();
+    }).not.toThrow();
+  });
+
+  it('should paste inside the list when pasting decision content', () => {
+    const pasteContent = doc(
+      decisionList({ localId: 'local-uuid' })(
+        decisionItem({ localId: 'local-uuid' })('{<}Hello{>}'),
+      ),
+    );
+    const expectedDocument = doc(
+      ul(li(p('1')), li(p('2 Hello{<>}')), li(p('3'))),
     );
     const { editorView } = editor(destinationDocument);
     createPasteSlice(pasteContent, editorView, 2, 2);

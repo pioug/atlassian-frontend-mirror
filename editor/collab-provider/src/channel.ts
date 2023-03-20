@@ -1,11 +1,8 @@
 import { utils } from '@atlaskit/util-service-support';
-// TODO: Validate if this is actually equivalent to the AnalyticsWebClient in @atlassiansox/analytics-web-client
-import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { Emitter } from './emitter';
 import { ErrorCodeMapper } from './error-code-mapper';
 import type {
   Config,
-  Socket,
   ChannelEvent,
   StepsPayload,
   InitPayload,
@@ -22,13 +19,13 @@ import {
   startMeasure,
   stopMeasure,
 } from './analytics/performance';
-import { triggerAnalyticsEvent } from './analytics';
 import { EVENT_ACTION, EVENT_STATUS } from './helpers/const';
-import {
-  ExperiencePerformanceTypes,
-  ExperienceTypes,
-  UFOExperience,
-} from '@atlaskit/ufo';
+import type { Socket } from 'socket.io-client';
+import ReconnectHelper from './connectivity/reconnect-helper';
+import { UFOExperience } from '@atlaskit/ufo';
+import { createDocInitExp } from './analytics/ufo';
+import Network from './connectivity/network';
+import AnalyticsHelper from './analytics';
 
 const logger = createLogger('Channel', 'green');
 
@@ -36,27 +33,18 @@ export class Channel extends Emitter<ChannelEvent> {
   private connected: boolean = false;
   private config: Config;
   private socket: Socket | null = null;
-
+  private reconnectHelper?: ReconnectHelper | null = null;
   private initialized: boolean = false;
-  private analyticsClient?: AnalyticsWebClient;
-  private initExperience = new UFOExperience('collab-provider.document-init', {
-    type: ExperienceTypes.Load,
-    performanceType: ExperiencePerformanceTypes.Custom,
-    performanceConfig: {
-      histogram: {
-        [ExperiencePerformanceTypes.Custom]: {
-          duration: '250_500_1000_1500_2000_3000_4000',
-        },
-      },
-    },
-  });
+  private analyticsHelper?: AnalyticsHelper;
+  private initExperience?: UFOExperience;
 
-  constructor(config: Config) {
+  private network: Network | null = null;
+
+  constructor(config: Config, analyticsHelper: AnalyticsHelper) {
     super();
     this.config = config;
-    if (config.analyticsClient) {
-      this.analyticsClient = config.analyticsClient;
-    }
+    this.analyticsHelper = analyticsHelper;
+    this.initExperience = createDocInitExp(this.analyticsHelper);
   }
 
   // read-only getters used for tests
@@ -68,10 +56,10 @@ export class Channel extends Emitter<ChannelEvent> {
    * Connect to collab service using websockets
    */
   connect() {
-    startMeasure(MEASURE_NAME.SOCKET_CONNECT);
+    startMeasure(MEASURE_NAME.SOCKET_CONNECT, this.analyticsHelper);
     if (!this.initialized) {
-      startMeasure(MEASURE_NAME.DOCUMENT_INIT);
-      this.initExperience.start();
+      startMeasure(MEASURE_NAME.DOCUMENT_INIT, this.analyticsHelper);
+      this.initExperience?.start();
     }
     const { documentAri, url } = this.config;
     const { createSocket } = this.config;
@@ -109,7 +97,7 @@ export class Channel extends Emitter<ChannelEvent> {
       `${url}/session/${documentAri}`,
       authCb,
       this.config.productInfo,
-    );
+    ) as Socket;
 
     // Due to https://github.com/socketio/socket.io-client/issues/1473,
     // reconnect no longer fired on the socket.
@@ -165,33 +153,59 @@ export class Channel extends Emitter<ChannelEvent> {
       this.emit('disconnect', { reason });
       if (reason === 'io server disconnect' && this.socket) {
         // The disconnection was initiated by the server, we need to reconnect manually.
-        this.socket.connect();
+        try {
+          this.socket.connect();
+        } catch (error) {
+          this.analyticsHelper?.sendErrorEvent(
+            error,
+            'Error while reconnecting the channel',
+          );
+          this.emit('error', {
+            message: 'Caught error during reconnection.',
+            data: {
+              status: 500,
+              code: 'RECONNECTION_ERROR',
+            },
+          });
+        }
       }
     });
 
-    // Socket error, including errors from `packetMiddleware`, `controllers` and `onconnect` and more. Paramter is a plain JSON object.
+    // Socket error, including errors from `packetMiddleware`, `controllers` and `onconnect` and more. Parameter is a plain JSON object.
     this.socket.on('error', (error: ErrorPayload) => {
       this.emit('error', error);
     });
 
-    // `connect_error`'s paramter type is `Error`.
+    // `connect_error`'s parameter type is `Error`.
     // Ensure the error emit to the provider has the same structure, so we can handle them unified.
     this.socket.on('connect_error', this.onConnectError);
+
+    // To trigger reconnection when browser comes back online
+    if (!this.network) {
+      this.network = new Network({
+        onlineCallback: this.onOnlineHandler,
+      });
+    }
+
+    // Helper class to track reconnection issues, to emit an error if too many failed reconnection attempts happen
+    this.reconnectHelper = new ReconnectHelper();
+    // Fired upon a reconnection attempt error (from Socket.IO Manager)
+    this.socket.io.on('reconnect_error', this.onReconnectError);
   }
 
   private onConnectError = (error: Error) => {
-    const measure = stopMeasure(MEASURE_NAME.SOCKET_CONNECT);
-    triggerAnalyticsEvent(
-      {
-        eventAction: EVENT_ACTION.CONNECTION,
-        attributes: {
-          eventStatus: EVENT_STATUS.FAILURE,
-          error: error as ErrorPayload,
-          latency: measure?.duration,
-          documentAri: this.config.documentAri,
-        },
-      },
-      this.analyticsClient,
+    const measure = stopMeasure(
+      MEASURE_NAME.SOCKET_CONNECT,
+      this.analyticsHelper,
+    );
+    this.analyticsHelper?.sendActionEvent(
+      EVENT_ACTION.CONNECTION,
+      EVENT_STATUS.FAILURE,
+      { latency: measure?.duration },
+    );
+    this.analyticsHelper?.sendErrorEvent(
+      error,
+      'Error while establishing connection',
     );
     // If error received with `data`, it means the connection is rejected
     // by the server on purpose for example no permission, so no need to
@@ -206,20 +220,35 @@ export class Channel extends Emitter<ChannelEvent> {
     });
   };
 
+  private onReconnectError = (error: Error) => {
+    this.reconnectHelper?.countReconnectError();
+    if (this.reconnectHelper?.isLikelyNetworkIssue()) {
+      this.analyticsHelper?.sendErrorEvent(
+        error,
+        'Likely network issue while reconnecting the channel',
+      );
+      this.emit('error', {
+        message:
+          'Reconnection failed 8 times when browser was offline, likely there was a network issue.',
+        data: {
+          status: 400,
+          code: 'RECONNECTION_NETWORK_ISSUE',
+        },
+      });
+    }
+  };
+
   private onConnect = () => {
     this.connected = true;
     logger('Connected.', this.socket!.id);
-    const measure = stopMeasure(MEASURE_NAME.SOCKET_CONNECT);
-    triggerAnalyticsEvent(
-      {
-        eventAction: EVENT_ACTION.CONNECTION,
-        attributes: {
-          eventStatus: EVENT_STATUS.SUCCESS,
-          latency: measure?.duration,
-          documentAri: this.config.documentAri,
-        },
-      },
-      this.analyticsClient,
+    const measure = stopMeasure(
+      MEASURE_NAME.SOCKET_CONNECT,
+      this.analyticsHelper,
+    );
+    this.analyticsHelper?.sendActionEvent(
+      EVENT_ACTION.CONNECTION,
+      EVENT_STATUS.SUCCESS,
+      { latency: measure?.duration },
     );
 
     this.emit('connected', {
@@ -235,20 +264,19 @@ export class Channel extends Emitter<ChannelEvent> {
 
     if (data.type === 'initial') {
       if (!this.initialized) {
-        const measure = stopMeasure(MEASURE_NAME.DOCUMENT_INIT);
-        this.initExperience.success();
-        triggerAnalyticsEvent(
+        const measure = stopMeasure(
+          MEASURE_NAME.DOCUMENT_INIT,
+          this.analyticsHelper,
+        );
+        this.initExperience?.success();
+        this.analyticsHelper?.sendActionEvent(
+          EVENT_ACTION.DOCUMENT_INIT, // TODO: detect when document init fails and fire corresponding event for it
+          EVENT_STATUS.SUCCESS,
           {
-            eventAction: EVENT_ACTION.DOCUMENT_INIT,
-            attributes: {
-              eventStatus: EVENT_STATUS.SUCCESS, // TODO: detect when document init fails and fire corresponding event for it
-              latency: measure?.duration,
-              documentAri: this.config.documentAri,
-              requiredPageRecovery: data?.requiredPageRecovery,
-              ttlEnabled: data?.ttlEnabled,
-            },
+            latency: measure?.duration,
+            resetReason: data?.resetReason,
+            ttlEnabled: data?.ttlEnabled,
           },
-          this.analyticsClient,
         );
 
         const { doc, version, userId, metadata }: InitPayload = data;
@@ -324,7 +352,7 @@ export class Channel extends Emitter<ChannelEvent> {
         },
       };
       this.emit('error', errorCatchup);
-      return {};
+      throw error;
     }
   }
 
@@ -357,12 +385,23 @@ export class Channel extends Emitter<ChannelEvent> {
     this.socket.emit('presence:joined');
   }
 
+  onOnlineHandler = () => {
+    // Force an immediate reconnect, the socket must first be closed to reset reconnection delay logic
+    if (!this.connected) {
+      this.socket?.close();
+      this.socket?.connect();
+    }
+  };
+
   disconnect() {
     this.unsubscribeAll();
+    this.network?.destroy();
+    this.network = null;
 
     if (this.socket) {
       this.socket.close();
       this.socket = null;
+      this.reconnectHelper?.destroy();
     }
   }
 }

@@ -50,7 +50,7 @@ export const debounce: (
   wait: number,
 ) => (...args: any[]) => void;
 
-// @public (undocumented)
+// @public
 export const defaultMediaFeatureFlags: Required<MediaFeatureFlags>;
 
 // @public (undocumented)
@@ -141,6 +141,9 @@ export const isUndefined: (value: any) => boolean;
 
 // @public (undocumented)
 export const isUnknownMimeTypeSupportedByServer: (mimeType: string) => boolean;
+
+// @public
+export const isVideoMimeTypeSupportedByBrowser: (mimeType: string) => boolean;
 
 // @public (undocumented)
 export const isVideoMimeTypeSupportedByServer: (mimeType: string) => boolean;

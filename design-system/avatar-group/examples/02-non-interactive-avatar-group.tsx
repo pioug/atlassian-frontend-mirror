@@ -12,7 +12,6 @@ const Example = () => {
     name: d.name,
     appearance: 'circle' as AppearanceType,
     size: 'medium' as SizeType,
-    enableTooltip: true,
   }));
 
   return (

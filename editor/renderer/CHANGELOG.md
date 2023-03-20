@@ -1,5 +1,17 @@
 # @atlaskit/renderer
 
+## 107.1.0
+
+### Minor Changes
+
+- [`9a25538e0ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a25538e0ef) - [ux] ED-16723 Custom panel background color is tokensied. More details at https://hello.atlassian.net/wiki/spaces/DST/pages/2382075153/Draft+Custom+panel+background+color+is+tokenised
+- [`9d84c21338b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d84c21338b) - Renderer link mark updated by LinkUrl from the smart-card package with a built-in link safety validation
+
+### Patch Changes
+
+- [`c3eba8c788d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c3eba8c788d) - Updates Media Card input data object
+- Updated dependencies
+
 ## 107.0.0
 
 ### Patch Changes

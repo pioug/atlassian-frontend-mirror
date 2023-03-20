@@ -125,7 +125,7 @@ export interface TooltipProps {
 // @public (undocumented)
 interface TriggerProps {
   // (undocumented)
-  'aria-describedby': string | undefined;
+  'aria-describedby'?: string | undefined;
   // (undocumented)
   onBlur: (event: React.FocusEvent<HTMLElement>) => void;
   // (undocumented)

@@ -50,11 +50,9 @@ describe('nodeviews/mediaGroup', () => {
     mediaProvider = fakeMediaProvider();
     pluginState = {} as MediaPluginState;
     pluginState.getMediaOptions = () => ({} as any);
-    pluginState.mediaGroupNodes = {};
     pluginState.handleMediaNodeRemoval = () => {};
     pluginState.handleMediaGroupUpdate = () => {};
     pluginState.mediaClientConfig = (await mediaProvider).viewMediaClientConfig;
-    pluginState.setMediaGroupNode = jest.fn();
     jest.spyOn(mediaStateKey, 'getState').mockImplementation(() => pluginState);
     MockMediaNodeUpdater.mockReset(); // part of mocked class API, not original
   });
@@ -168,7 +166,7 @@ describe('nodeviews/mediaGroup', () => {
       await setup({});
 
       expect(instances).toHaveLength(1);
-      expect(instances[0].copyNode).toHaveBeenCalled();
+      expect(instances[0].copyNodeFromPos).toHaveBeenCalled();
     });
 
     it('should not create a MediaNodeUpdater when node is external', async () => {
@@ -177,17 +175,17 @@ describe('nodeviews/mediaGroup', () => {
       expect(instances).toHaveLength(0);
     });
 
-    it('should call MediaNodeUpdater.updateContextId when node contextId is not found', async () => {
+    it('should call MediaNodeUpdater.updateNodeContextId when node contextId is not found', async () => {
       (MediaNodeUpdater as any).setMock(
         'getNodeContextId',
         jest.fn().mockReturnValue(undefined),
       );
       await setup({});
 
-      expect(instances[0].updateContextId).toHaveBeenCalled();
+      expect(instances[0].updateNodeContextId).toHaveBeenCalled();
     });
 
-    it('should only call MediaNodeUpdater.copyNode when node from different collection', async () => {
+    it('should only call MediaNodeUpdater.copyNodeFromPos when node from different collection', async () => {
       (MediaNodeUpdater as any).setMock(
         'hasDifferentContextId',
         jest.fn().mockResolvedValue(false),
@@ -195,7 +193,7 @@ describe('nodeviews/mediaGroup', () => {
       await setup({});
 
       expect(instances).toHaveLength(1);
-      expect(instances[0].copyNode).not.toHaveBeenCalled();
+      expect(instances[0].copyNodeFromPos).not.toHaveBeenCalled();
     });
 
     it('should update node attrs when props change', async () => {

@@ -102,9 +102,13 @@ const AvatarPresence: FC<PresenceProps> = ({
   children,
   presence,
 }: PresenceProps) => (
-  <IconWrapper bgColor={borderColor}>
+  <IconWrapper
+    bgColor={borderColor}
+    label={typeof presence === 'string' ? presence : undefined}
+  >
     {presence ? (
       <svg
+        aria-hidden="true"
         height="100%"
         version="1.1"
         viewBox="0 0 8 8"
@@ -144,6 +148,7 @@ export const PresenceWrapper: FC<PresenceWrapperProps> = ({
 
   return (
     <span
+      aria-hidden="true"
       data-testid={testId && `${testId}--presence`}
       style={{
         pointerEvents: 'none',

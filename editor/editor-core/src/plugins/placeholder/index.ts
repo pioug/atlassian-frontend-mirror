@@ -166,8 +166,9 @@ export interface PlaceholderPluginOptions {
 
 const placeholderPlugin: NextEditorPlugin<
   'placeholder',
-  never,
-  PlaceholderPluginOptions | undefined
+  {
+    pluginConfiguration: PlaceholderPluginOptions | undefined;
+  }
 > = (options?) => ({
   name: 'placeholder',
 

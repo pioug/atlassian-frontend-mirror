@@ -1,5 +1,12 @@
 # @atlaskit/media-table
 
+## 14.1.6
+
+### Patch Changes
+
+- [`c3eba8c788d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c3eba8c788d) - Updates Media Viewer input data object
+- Updated dependencies
+
 ## 14.1.5
 
 ### Patch Changes

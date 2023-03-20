@@ -28,8 +28,9 @@ import type { ListPluginOptions } from './types';
  */
 const listPlugin: NextEditorPlugin<
   'list',
-  never,
-  ListPluginOptions | undefined
+  {
+    pluginConfiguration: ListPluginOptions | undefined;
+  }
 > = (options?) => ({
   name: 'list',
 

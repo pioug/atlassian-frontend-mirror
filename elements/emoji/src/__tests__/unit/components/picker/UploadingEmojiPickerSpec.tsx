@@ -26,9 +26,11 @@ import {
 } from '../../../../util/analytics';
 import console from 'console';
 import { fireEvent, screen, waitFor, within } from '@testing-library/react';
-import { VirtualList } from '../../../../components/picker/VirtualList';
 import { cancelUploadButtonTestId } from '../../../../components/common/EmojiUploadPreview';
 import { emojiDeletePreviewTestId } from '../../../../components/common/EmojiDeletePreview';
+
+import * as constants from '../../../../util/constants';
+import EmojiPickerVirtualList from '../../../../components/picker/EmojiPickerList';
 
 describe('<UploadingEmojiPicker />', () => {
   let onEvent: jest.SpyInstance;
@@ -46,10 +48,13 @@ describe('<UploadingEmojiPicker />', () => {
     // scrolling of the virutal list doesn't work out of the box for the tests
     // mocking `scrollToRow` for all tests
     jest
-      .spyOn(VirtualList.prototype, 'scrollToRow')
+      .spyOn(EmojiPickerVirtualList.prototype, 'scrollToRow')
       .mockImplementation((index?: number) =>
         helperTestingLibrary.scrollToIndex(index || 0),
       );
+
+    // set search debounce to 0
+    Object.defineProperty(constants, 'EMOJI_SEARCH_DEBOUNCE', { value: 0 });
   });
 
   describe('upload', () => {
@@ -506,7 +511,7 @@ describe('<UploadingEmojiPicker />', () => {
         }),
         'fabric-elements',
       );
-      expect(onEvent).toHaveBeenLastCalledWith(
+      expect(onEvent).toHaveBeenCalledWith(
         expect.objectContaining({
           payload: uploadCancelButton(),
         }),
@@ -626,7 +631,7 @@ describe('<UploadingEmojiPicker />', () => {
         }),
         'fabric-elements',
       );
-      expect(onEvent).toHaveBeenLastCalledWith(
+      expect(onEvent).toHaveBeenCalledWith(
         expect.objectContaining({
           payload: uploadCancelButton(),
         }),

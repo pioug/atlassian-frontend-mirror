@@ -41,7 +41,7 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/code": "^14.4.1",
+    "@atlaskit/code": "^14.5.0",
     "@atlaskit/docs": "*",
     "@atlaskit/ds-lib": "^2.1.0",
     "@atlaskit/dynamic-table": "^14.8.0",

@@ -30,6 +30,7 @@ export type Props = {
   iconBefore?: React.ReactElement<any>;
   onClick?: (event: React.MouseEvent<HTMLElement>) => void;
   onItemClick?: (item: MenuItem) => void;
+  onKeyDown?: (event: React.KeyboardEvent<HTMLElement>) => void;
   selected?: boolean;
   spacing?: 'default' | 'compact' | 'none';
   target?: string;
@@ -74,6 +75,7 @@ const ToolbarButton = React.forwardRef<ToolbarButtonRef, Props>(
       'aria-pressed': ariaPressed,
       'aria-keyshortcuts': ariaKeyShortcuts,
       onClick,
+      onKeyDown,
       onItemClick,
     } = props;
 
@@ -132,6 +134,7 @@ const ToolbarButton = React.forwardRef<ToolbarButtonRef, Props>(
         aria-label={ariaLabel}
         aria-pressed={ariaPressed}
         aria-keyshortcuts={ariaKeyShortcuts}
+        onKeyDown={onKeyDown}
       >
         {children}
       </Button>

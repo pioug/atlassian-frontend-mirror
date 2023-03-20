@@ -68,6 +68,14 @@ export default function VariationsExample() {
       <Textfield testId="invalid" id="invalid" isInvalid />
       <ErrorMessage>Invalid</ErrorMessage>
 
+      <label htmlFor="read-only">Read Only</label>
+      <Textfield
+        testId="read-only"
+        id="read-only"
+        isReadOnly
+        defaultValue="Is read only."
+      />
+
       <label htmlFor="placeholder">Placeholder</label>
       <Textfield
         testId="placeholder"

@@ -26,6 +26,7 @@ export type {
 export type {
   ContextUpdateHandler,
   EditorActionsOptions,
+  ReplaceRawValue,
 } from './editor-actions';
 
 export type {
@@ -136,9 +137,7 @@ export type {
 export type {
   AllBuilderPlugins,
   VerifyPluginDependencies,
-  AllNextEditorPlugins,
   NextEditorPlugin,
-  NextEditorPluginWithDependencies,
   SafePresetCheck,
 } from './next-editor-plugin';
 

@@ -58,6 +58,7 @@ export class ToolbarInsertBlock extends React.PureComponent<
   state: State = {
     isPlusMenuOpen: false,
     emojiPickerOpen: false,
+    isOpenedByKeyboard: false,
     buttons: [],
     dropdownItems: [],
   };
@@ -107,6 +108,15 @@ export class ToolbarInsertBlock extends React.PureComponent<
     // If number of visible buttons changed, close emoji picker
     if (prevProps.buttons !== this.props.buttons) {
       this.setState({ emojiPickerOpen: false });
+    }
+
+    if (this.state.isOpenedByKeyboard) {
+      const downArrowEvent = new KeyboardEvent('keydown', {
+        bubbles: true,
+        key: 'ArrowDown',
+      });
+      this.dropdownButtonRef?.dispatchEvent(downArrowEvent);
+      this.setState({ ...this.state, isOpenedByKeyboard: false });
     }
   }
 
@@ -298,6 +308,7 @@ export class ToolbarInsertBlock extends React.PureComponent<
             onRef={this.handleDropDownButtonRef}
             onPlusButtonRef={this.handlePlusButtonRef}
             onClick={this.handleClick}
+            onKeyDown={this.handleOpenByKeyboard}
             onItemActivated={this.insertInsertMenuItem}
             onInsert={this.insertInsertMenuItem as OnInsert}
             onOpenChange={this.onOpenChange}
@@ -315,6 +326,14 @@ export class ToolbarInsertBlock extends React.PureComponent<
 
   private handleClick = () => {
     this.togglePlusMenuVisibility();
+  };
+
+  private handleOpenByKeyboard = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      this.setState({ ...this.state, isOpenedByKeyboard: true });
+      event.preventDefault();
+      this.togglePlusMenuVisibility();
+    }
   };
 
   private toggleLinkPanel = (inputMethod: TOOLBAR_MENU_TYPE): boolean => {

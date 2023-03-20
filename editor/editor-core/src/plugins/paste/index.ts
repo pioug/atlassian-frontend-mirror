@@ -8,11 +8,12 @@ export type PastePluginOptions = {
   sanitizePrivateContent?: boolean;
 };
 
-const pastePlugin: NextEditorPlugin<'paste', never, PastePluginOptions> = ({
-  cardOptions,
-  sanitizePrivateContent,
-  plainTextPasteLinkification,
-}) => ({
+const pastePlugin: NextEditorPlugin<
+  'paste',
+  {
+    pluginConfiguration: PastePluginOptions;
+  }
+> = ({ cardOptions, sanitizePrivateContent, plainTextPasteLinkification }) => ({
   name: 'paste',
 
   pmPlugins() {

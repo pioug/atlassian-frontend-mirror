@@ -1,6 +1,5 @@
 import * as mocks from './mediaSingle.mock';
 import React from 'react';
-import { mount } from 'enzyme';
 import { EditorView } from 'prosemirror-view';
 import { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import { mediaSingle, media } from '@atlaskit/editor-test-helpers/doc-builder';
@@ -37,16 +36,16 @@ describe('mediaSingle', () => {
 
   test('updates file attrs on mount', async () => {
     const { MediaNodeUpdater } = await import('../mediaNodeUpdater');
-    mount(<MediaSingleNode {...getMediaSingleProps()} />);
+    render(<MediaSingleNode {...getMediaSingleProps()} />);
     expect(MediaNodeUpdater).toHaveBeenCalledTimes(1);
   });
 
   test('updates file attrs for props change', async () => {
     const { MediaNodeUpdater } = await import('../mediaNodeUpdater');
 
-    mount(<MediaSingleNode {...getMediaSingleProps()} />).setProps({
-      mediaProvider: createMediaProvider(),
-    });
+    const { rerender } = render(<MediaSingleNode {...getMediaSingleProps()} />);
+
+    rerender(<MediaSingleNode {...getMediaSingleProps()} />);
 
     expect(MediaNodeUpdater).toHaveBeenCalledTimes(2);
   });
@@ -54,11 +53,13 @@ describe('mediaSingle', () => {
   test('does not update file attrs for props change if copy/paste is not enabled', async () => {
     const { MediaNodeUpdater } = await import('../mediaNodeUpdater');
 
-    mount(
+    const { rerender } = render(
       <MediaSingleNode {...getMediaSingleProps()} isCopyPasteEnabled={false} />,
-    ).setProps({
-      mediaProvider: createMediaProvider(),
-    });
+    );
+
+    rerender(
+      <MediaSingleNode {...getMediaSingleProps()} isCopyPasteEnabled={false} />,
+    );
 
     expect(MediaNodeUpdater).toHaveBeenCalledTimes(1);
   });
@@ -76,7 +77,7 @@ describe('mediaSingle', () => {
 
     const addPendingTaskMock = jest.fn();
 
-    mount(
+    render(
       <MediaSingleNode
         {...{
           ...getMediaSingleProps(),
@@ -111,7 +112,7 @@ describe('mediaSingle', () => {
 
     const addPendingTaskMock = jest.fn();
 
-    mount(
+    render(
       <MediaSingleNode
         {...{
           ...getMediaSingleProps(),

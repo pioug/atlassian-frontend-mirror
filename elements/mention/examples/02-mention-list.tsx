@@ -1,5 +1,9 @@
 import React from 'react';
-import { onSelection, randomMentions } from '../example-helpers';
+import {
+  mentions as mentionsData,
+  onSelection,
+  randomMentions,
+} from '../example-helpers';
 import MentionList from '../src/components/MentionList';
 import { MentionDescription } from '../src/types';
 import { IntlProvider } from 'react-intl-next';
@@ -14,7 +18,7 @@ export default class DemoMentionList extends React.Component<any, State> {
   constructor(props: any) {
     super(props);
     this.state = {
-      mentions: randomMentions(),
+      mentions: mentionsData, // Show all mentions on initial render
     };
   }
 
@@ -72,7 +76,9 @@ export default class DemoMentionList extends React.Component<any, State> {
             Down
           </button>
         </div>
-        <IntlProvider locale="en">{mentionList}</IntlProvider>
+        <IntlProvider locale="en">
+          <div data-testid="vr-tested">{mentionList}</div>
+        </IntlProvider>
       </div>
     );
   }

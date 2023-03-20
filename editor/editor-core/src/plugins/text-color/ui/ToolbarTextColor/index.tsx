@@ -9,6 +9,9 @@ import {
   injectIntl,
 } from 'react-intl-next';
 
+import { getSelectedRowAndColumnFromPalette } from '@atlaskit/editor-common/ui-color';
+import { ArrowKeyNavigationType } from '@atlaskit/editor-common/ui-menu';
+import { hexToEditorTextPaletteColor } from '@atlaskit/editor-palette';
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 
@@ -59,6 +62,7 @@ export const messages = defineMessages({
 
 export interface State {
   isOpen: boolean;
+  isOpenedByKeyboard: boolean;
 }
 
 export interface Props {
@@ -84,6 +88,7 @@ export class ToolbarTextColor extends React.Component<
 > {
   state: State = {
     isOpen: false,
+    isOpenedByKeyboard: false,
   };
   private toolbarItemRef = React.createRef<HTMLElement>();
 
@@ -94,7 +99,7 @@ export class ToolbarTextColor extends React.Component<
     );
 
   render() {
-    const { isOpen } = this.state;
+    const { isOpen, isOpenedByKeyboard } = this.state;
     const {
       popupsMountPoint,
       popupsBoundariesElement,
@@ -125,6 +130,9 @@ export class ToolbarTextColor extends React.Component<
     const selectedColor =
       pluginState.color !== pluginState.defaultColor && pluginState.color;
 
+    const { selectedRowIndex, selectedColumnIndex } =
+      getSelectedRowAndColumnFromPalette(palette, pluginState.color);
+
     return (
       <span css={wrapperStyle}>
         <Dropdown
@@ -138,6 +146,13 @@ export class ToolbarTextColor extends React.Component<
           fitWidth={fitWidth}
           onOpenChange={this.onOpenChange}
           closeOnTab={true}
+          arrowKeyNavigationProviderOptions={{
+            type: ArrowKeyNavigationType.COLOR,
+            selectedRowIndex,
+            selectedColumnIndex,
+            isOpenedByKeyboard,
+            isPopupPositioned: true,
+          }}
           trigger={
             <ToolbarButton
               buttonId={TOOLBAR_BUTTON.TEXT_COLOR}
@@ -149,6 +164,7 @@ export class ToolbarTextColor extends React.Component<
               aria-haspopup
               title={labelTextColor}
               onClick={this.toggleOpen}
+              onKeyDown={this.onKeyDown}
               ref={this.toolbarItemRef}
               iconBefore={
                 <div css={triggerWrapperStyles}>
@@ -179,6 +195,7 @@ export class ToolbarTextColor extends React.Component<
               }
               selectedColor={pluginState.color}
               textPalette={true}
+              hexToPaletteColor={hexToEditorTextPaletteColor}
               useSomewhatSemanticTextColorNames={
                 useSomewhatSemanticTextColorNames
               }
@@ -222,11 +239,23 @@ export class ToolbarTextColor extends React.Component<
       this.props.editorView?.focus();
     }
 
+    this.toolbarItemRef?.current?.focus();
+
     return false;
   };
 
   private toggleOpen = () => {
     this.handleOpenChange({ isOpen: !this.state.isOpen, logCloseEvent: true });
+  };
+
+  private onKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      this.setState({
+        isOpenedByKeyboard: true,
+      });
+      this.toggleOpen();
+    }
   };
 
   private handleOpenChange = ({
@@ -237,6 +266,11 @@ export class ToolbarTextColor extends React.Component<
     this.setState({
       isOpen,
     });
+    if (!isOpen) {
+      this.setState({
+        isOpenedByKeyboard: false,
+      });
+    }
 
     if (logCloseEvent) {
       this.dispatchAnalyticsEvent(

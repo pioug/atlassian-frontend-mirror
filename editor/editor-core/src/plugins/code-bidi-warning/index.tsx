@@ -4,9 +4,12 @@ import { createPlugin } from './pm-plugins/main';
 type Config = {
   appearance: EditorProps['appearance'];
 };
-const codeBidiWarning: NextEditorPlugin<'codeBidiWarning', never, Config> = ({
-  appearance,
-}) => ({
+const codeBidiWarning: NextEditorPlugin<
+  'codeBidiWarning',
+  {
+    pluginConfiguration: Config;
+  }
+> = ({ appearance }) => ({
   name: 'codeBidiWarning',
 
   pmPlugins() {

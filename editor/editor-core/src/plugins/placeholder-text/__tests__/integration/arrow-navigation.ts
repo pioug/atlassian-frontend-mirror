@@ -94,7 +94,9 @@ describe('placeholder-text: arrow navigation', () => {
       describe('and the cursor ends at the second placeholder', () => {
         BrowserTestCase(
           'it should replace the placeholder to the text content',
-          {},
+
+          // Skipped test https://product-fabric.atlassian.net/browse/ED-17199
+          { skip: ['safari'] },
           async (client: any, testName: string) => {
             const page = await startEditor(
               client,

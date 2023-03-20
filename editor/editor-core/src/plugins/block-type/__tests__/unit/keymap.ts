@@ -501,23 +501,60 @@ describe('keymaps', () => {
     });
   });
 
-  describe('when on a Mac', () => {
-    simulatePlatform(Platforms.Mac);
+  describe('when not on Mac', () => {
+    simulatePlatform(Platforms.Window);
 
-    describe('when hits Cmd-Alt-9', () => {
+    describe('when hits Ctrl-Shift-9', () => {
       let editorView: EditorView;
       beforeEach(() => {
         ({ editorView } = editor(doc(p('text'))));
-        sendKeyToPm(editorView, 'Cmd-Alt-9');
+        sendKeyToPm(editorView, 'Ctrl-Shift-9');
       });
 
       it('should inserts blockquote', () => {
         expect(editorView.state.doc).toEqualDocument(
           doc(blockquote(p('text'))),
         );
+
+        expect(createAnalyticsEvent).toHaveBeenCalledWith(
+          codeBlockGASV3Payload,
+        );
+      });
+    });
+
+    describe('when blockquote nodetype is not in schema', () => {
+      it('corresponding keymaps should not work', () => {
+        const editor = (doc: DocBuilder) =>
+          createEditor({
+            doc,
+            preset: new Preset<LightEditorPlugin>().add([
+              blockTypePlugin,
+              { allowBlockType: { exclude: ['blockquote'] } },
+            ]),
+          });
+        const { editorView } = editor(doc(p('text')));
+        sendKeyToPm(editorView, 'Ctrl-Shift-9');
+
+        expect(editorView.state.doc).toEqualDocument(doc(p('text')));
+      });
+    });
+  });
+
+  describe('when on a Mac', () => {
+    simulatePlatform(Platforms.Mac);
+
+    describe('when hits Cmd-Shift-9', () => {
+      let editorView: EditorView;
+      beforeEach(() => {
+        ({ editorView } = editor(doc(p('text'))));
+        sendKeyToPm(editorView, 'Cmd-Shift-9');
       });
 
-      it('should create analytics GAS V3 event', () => {
+      it('should inserts blockquote', () => {
+        expect(editorView.state.doc).toEqualDocument(
+          doc(blockquote(p('text'))),
+        );
+
         expect(createAnalyticsEvent).toHaveBeenCalledWith(
           codeBlockGASV3Payload,
         );

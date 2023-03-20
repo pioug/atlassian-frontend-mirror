@@ -50,7 +50,7 @@
     "react-dom": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/avatar": "^21.1.0",
+    "@atlaskit/avatar": "^21.2.0",
     "@atlaskit/docs": "*",
     "@atlaskit/icon": "^21.11.0",
     "@atlaskit/progress-indicator": "^9.4.0",

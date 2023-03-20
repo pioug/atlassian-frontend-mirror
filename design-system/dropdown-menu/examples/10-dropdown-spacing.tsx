@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Inline from '@atlaskit/ds-explorations/inline';
+import Inline from '@atlaskit/primitives/inline';
 
 import DropdownMenu, {
   DropdownItem,
@@ -9,7 +9,7 @@ import DropdownMenu, {
 } from '../src';
 
 export default () => (
-  <Inline gap="space.600">
+  <Inline space="600">
     <DropdownMenu
       isOpen
       trigger="Page actions"

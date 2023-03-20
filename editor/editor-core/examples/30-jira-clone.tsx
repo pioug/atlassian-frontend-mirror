@@ -1,13 +1,13 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 /** @jsx jsx */
-import { useRef } from 'react';
+import { useRef, useState, useEffect, Fragment } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { NavigationSkeleton as TopNavigationSkeleton } from '@atlaskit/atlassian-navigation/skeleton';
 import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
 import { LeftSidebar, TopNavigation } from '@atlaskit/page-layout';
 
-import Editor from '../src/editor';
+import { EditorMigrationComponent as Editor } from '../src';
 import EditorContext from '../src/ui/EditorContext';
 
 const stickyHeader = css`
@@ -37,6 +37,9 @@ const contentSection = css`
   height: 100%;
   position: relative;
 `;
+const portalContainer = css`
+  display: flex;
+`;
 
 const main = css`
   outline: currentColor none medium;
@@ -53,60 +56,76 @@ const main = css`
 
 export default function CommentWithJiraCardsExample() {
   const jiraToolbarRef = useRef(null);
+  const [portalElement, setPortalElement] = useState<HTMLDivElement>();
 
+  useEffect(() => {
+    document.documentElement.style.setProperty('--leftSidebarWidth', '240px');
+  }, []);
+
+  const handlePortalRef = (portal: HTMLDivElement) => {
+    setPortalElement(portal);
+  };
   return (
-    <main css={main}>
-      <TopNavigation isFixed height={50} id="ak-jira-navigation">
-        <TopNavigationSkeleton />
-      </TopNavigation>
-      <section css={contentSection}>
-        <LeftSidebar
-          isFixed
-          width={100}
-          collapsedState={'expanded'}
-          id="ak-side-navigation"
-        >
-          <br />
-          <ul>
-            <li>Menu item</li>
-            <li>Menu item</li>
-            <li>Menu item</li>
-          </ul>
-        </LeftSidebar>
-        <div css={editorSide} className="the-editor-side">
-          <h2>Some content</h2>
-          <p>Toast is fun</p>
-          <section
-            css={stickyHeader}
-            className="external-sticky-toolbar"
-            ref={jiraToolbarRef}
+    <Fragment>
+      <main css={main}>
+        <TopNavigation isFixed height={50} id="ak-jira-navigation">
+          <TopNavigationSkeleton />
+        </TopNavigation>
+        <section css={contentSection}>
+          <LeftSidebar
+            isFixed
+            width={100}
+            collapsedState={'expanded'}
+            id="ak-side-navigation"
           >
-            <Breadcrumbs maxItems={5}>
-              <BreadcrumbsItem text={'Projects'} />
-              <BreadcrumbsItem text={'ED-11516'} />
-              <BreadcrumbsItem text={'ED-2942'} />
-            </Breadcrumbs>
-          </section>
-          <h1>ED-1234 Add a sticky toolbar to the comment editor</h1>
+            <br />
+            <ul>
+              <li>Menu item</li>
+              <li>Menu item</li>
+              <li>Menu item</li>
+            </ul>
+          </LeftSidebar>
+          <div css={editorSide} className="the-editor-side">
+            <h2>Some content</h2>
+            <p>Toast is fun</p>
+            <section
+              css={stickyHeader}
+              className="external-sticky-toolbar"
+              ref={jiraToolbarRef}
+            >
+              <Breadcrumbs maxItems={5}>
+                <BreadcrumbsItem text={'Projects'} />
+                <BreadcrumbsItem text={'ED-11516'} />
+                <BreadcrumbsItem text={'ED-2942'} />
+              </Breadcrumbs>
+            </section>
+            <h1>ED-1234 Add a sticky toolbar to the comment editor</h1>
 
-          <EditorContext>
-            <h3>Description</h3>
-            <Editor
-              appearance="comment"
-              placeholder="What do you want to say?"
-              shouldFocus={true}
-              quickInsert={true}
-              allowTextColor={true}
-              allowRule={true}
-              allowTables={true}
-              allowHelpDialog={true}
-              useStickyToolbar={jiraToolbarRef}
-              defaultValue={exampleDocument}
-            />
-          </EditorContext>
-        </div>
-      </section>
-    </main>
+            <EditorContext>
+              <h3>Description</h3>
+              <Editor
+                appearance="comment"
+                placeholder="What do you want to say?"
+                shouldFocus={true}
+                quickInsert={true}
+                allowTextColor={true}
+                allowRule={true}
+                allowTables={true}
+                allowHelpDialog={true}
+                allowPanel
+                allowStatus
+                popupsMountPoint={portalElement}
+                useStickyToolbar={jiraToolbarRef}
+                defaultValue={exampleDocument}
+              />
+            </EditorContext>
+          </div>
+        </section>
+      </main>
+      <div css={portalContainer}>
+        <div ref={handlePortalRef} style={{ zIndex: 511 }} />
+      </div>
+    </Fragment>
   );
 }
 

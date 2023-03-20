@@ -3,7 +3,6 @@ import React, { PureComponent } from 'react';
 
 import { jsx } from '@emotion/react';
 
-import { hexToEditorTextPaletteColor } from '@atlaskit/editor-palette';
 import EditorDoneIcon from '@atlaskit/icon/glyph/editor/done';
 import { N0 } from '@atlaskit/theme/colors';
 import Tooltip from '@atlaskit/tooltip';
@@ -19,11 +18,7 @@ export interface Props {
   borderColor: string;
   checkMarkColor?: string;
   autoFocus?: boolean;
-  /**
-   * When set to true -- the presentation of colors in the
-   * palette will use design tokens when available.
-   */
-  useDesignTokens: boolean;
+  hexToPaletteColor?: (hexColor: string) => string | undefined;
 }
 
 class Color extends PureComponent<Props> {
@@ -39,13 +34,15 @@ class Color extends PureComponent<Props> {
       /** this is not new usage - old code extracted from editor-core */
       /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
       checkMarkColor = N0,
-      /* eslint-enable @atlaskit/design-system/ensure-design-token-usage */
-      useDesignTokens,
+      /**
+       * When hexToPaletteColor prop is set,
+       * it will be used to get background color style based on
+       * value (which will be hexcode) prop
+       */
+      hexToPaletteColor,
     } = this.props;
 
-    const colorStyle = useDesignTokens
-      ? hexToEditorTextPaletteColor(value)
-      : value;
+    const colorStyle = hexToPaletteColor ? hexToPaletteColor(value) : value;
     return (
       <Tooltip content={label}>
         <span css={buttonWrapperStyle}>

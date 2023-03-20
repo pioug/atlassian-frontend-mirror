@@ -13,12 +13,12 @@ import messages from './messages';
 import { ConfirmationDialogProps } from './types';
 
 type ListComponentProps = {
-  nodes: ConfirmDialogChildrenListItemProps[] | undefined;
+  nodes: ConfirmDialogChildrenListItemProps[];
 };
 
 type ConfirmDialogChildrenListItemProps = {
   id: string;
-  name: string;
+  name: string | null;
   amount: number;
 };
 
@@ -41,9 +41,10 @@ export const CheckboxModal = (
   const cancelButtonLabel =
     options?.cancelButtonLabel || formatMessage(messages.confirmModalCancel);
   const checkboxlabel = options?.checkboxLabel;
+  const childrenInfo = options?.getChildrenInfo?.();
 
   const ListComponent = ({ nodes }: ListComponentProps) => {
-    if (!nodes) {
+    if (nodes.length === 0) {
       return null;
     }
 
@@ -73,9 +74,7 @@ export const CheckboxModal = (
 
       <ModalBody>
         <p>{options?.message}</p>
-        {options?.getChildrenInfo && (
-          <ListComponent nodes={options?.getChildrenInfo()} />
-        )}
+        {!!childrenInfo?.length && <ListComponent nodes={childrenInfo} />}
         <p>
           <Checkbox
             isChecked={isChecked}

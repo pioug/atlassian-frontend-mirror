@@ -15,3 +15,20 @@ export enum DisconnectReason {
   SOCKET_TIMEOUT = 'SOCKET_TIMEOUT',
   UNKNOWN_DISCONNECT = 'UNKNOWN_DISCONNECT',
 }
+
+export const disconnectedReasonMapper = (reason: string): DisconnectReason => {
+  switch (reason) {
+    case socketIOReasons.IO_CLIENT_DISCONNECT:
+      return DisconnectReason.CLIENT_DISCONNECT;
+    case socketIOReasons.IO_SERVER_DISCONNECT:
+      return DisconnectReason.SERVER_DISCONNECT;
+    case socketIOReasons.TRANSPORT_CLOSED:
+      return DisconnectReason.SOCKET_CLOSED;
+    case socketIOReasons.TRANSPORT_ERROR:
+      return DisconnectReason.SOCKET_ERROR;
+    case socketIOReasons.PING_TIMEOUT:
+      return DisconnectReason.SOCKET_TIMEOUT;
+    default:
+      return DisconnectReason.UNKNOWN_DISCONNECT;
+  }
+};

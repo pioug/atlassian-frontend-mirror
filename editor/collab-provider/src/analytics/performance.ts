@@ -1,8 +1,10 @@
+import AnalyticsHelper from '.';
+
 export enum MEASURE_NAME {
   SOCKET_CONNECT = 'socketConnect',
   DOCUMENT_INIT = 'documentInit',
-  CONVERT_PM_TO_ADF = 'convertPMToADF',
   COMMIT_UNCONFIRMED_STEPS = 'commitUnconfirmedSteps',
+  PUBLISH_PAGE = 'publishPage',
 }
 
 const isPerformanceAPIAvailable = (): boolean => {
@@ -22,53 +24,79 @@ const hasPerformanceAPIAvailable = isPerformanceAPIAvailable();
 
 const measureMap = new Map<string, number>();
 
-export function startMeasure(measureName: MEASURE_NAME) {
-  if (!hasPerformanceAPIAvailable) {
-    return;
-  }
+export function startMeasure(
+  measureName: MEASURE_NAME,
+  analyticsHelper: AnalyticsHelper | undefined,
+) {
+  try {
+    if (!hasPerformanceAPIAvailable) {
+      return;
+    }
 
-  performance.mark(`${measureName}::start`);
-  measureMap.set(measureName, performance.now());
+    performance.mark(`${measureName}::start`);
+    measureMap.set(measureName, performance.now());
+  } catch (error) {
+    analyticsHelper?.sendErrorEvent(
+      error,
+      'Error while measuring performance when marking the start',
+    );
+  }
 }
 
 export function stopMeasure(
   measureName: MEASURE_NAME,
+  analyticsHelper: AnalyticsHelper | undefined,
   onMeasureComplete?: (duration: number, startTime: number) => void,
 ): { duration: number; startTime: number } | undefined {
-  if (!hasPerformanceAPIAvailable) {
-    return;
-  }
-
-  // `startMeasure` is not called with `measureName` before.
-  if (!measureMap.get(measureName)) {
-    return;
-  }
-
-  performance.mark(`${measureName}::end`);
-  const start = onMeasureComplete ? measureMap.get(measureName) : undefined;
+  let start: number | undefined;
   try {
+    if (!hasPerformanceAPIAvailable) {
+      return;
+    }
+
+    // `startMeasure` is not called with `measureName` before.
+    if (!measureMap.get(measureName)) {
+      return;
+    }
+
+    performance.mark(`${measureName}::end`);
+    start = onMeasureComplete ? measureMap.get(measureName) : undefined;
+
     performance.measure(
       measureName,
       `${measureName}::start`,
       `${measureName}::end`,
     );
-  } catch (e) {}
+  } catch (error) {
+    analyticsHelper?.sendErrorEvent(
+      error,
+      'Error while measuring performance when marking the end',
+    );
+  }
 
-  const entry = performance.getEntriesByName(measureName).pop();
-  clearMeasure(measureName);
-  let measure;
-  if (entry) {
-    measure = { duration: entry.duration, startTime: entry.startTime };
-  } else if (start) {
-    measure = { duration: performance.now() - start, startTime: start };
+  try {
+    const entry = performance.getEntriesByName(measureName).pop();
+
+    clearMeasure(measureName);
+    let measure;
+    if (entry) {
+      measure = { duration: entry.duration, startTime: entry.startTime };
+    } else if (start) {
+      measure = { duration: performance.now() - start, startTime: start };
+    }
+    if (measure && onMeasureComplete) {
+      onMeasureComplete(measure.duration, measure.startTime);
+    }
+    return measure;
+  } catch (error) {
+    analyticsHelper?.sendErrorEvent(
+      error,
+      'Error while measuring performance when completing the measurement',
+    );
   }
-  if (measure && onMeasureComplete) {
-    onMeasureComplete(measure.duration, measure.startTime);
-  }
-  return measure;
 }
 
-export function clearMeasure(measureName: string) {
+function clearMeasure(measureName: string) {
   if (!hasPerformanceAPIAvailable) {
     return;
   }

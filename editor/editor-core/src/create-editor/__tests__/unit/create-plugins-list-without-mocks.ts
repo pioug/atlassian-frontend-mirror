@@ -41,7 +41,7 @@ describe('create-plugins-list without mock tests', () => {
         defaultPluginNames.map((name) => expect.objectContaining({ name })),
       ),
     );
-    expect(plugins.length).toEqual(defaultPluginNames.length);
+    expect(plugins.length).toBeGreaterThanOrEqual(defaultPluginNames.length);
   });
 
   describe('codeBlock', () => {

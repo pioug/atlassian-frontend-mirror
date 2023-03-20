@@ -26,7 +26,6 @@ import { ReactElement } from 'react';
 import { ReactNode } from 'react';
 import { RefAttributes } from 'react';
 import { SerializedStyles } from '@emotion/react';
-import { UNSAFE_Breakpoint } from '@atlaskit/ds-explorations';
 
 // @public (undocumented)
 type AlignBlock = 'baseline' | 'center' | 'end' | 'start';
@@ -138,7 +137,7 @@ type BaseBoxPropsFoundation<T extends ElementType> = {
   backgroundColor?: BackgroundColor;
   shadow?: Shadow;
   borderStyle?: BorderStyle;
-  borderWidth?: BorderWidth | Partial<Record<UNSAFE_Breakpoint, BorderWidth>>;
+  borderWidth?: BorderWidth | ResponsiveObject<BorderWidth>;
   borderColor?: BorderColor;
   borderRadius?: BorderRadius;
   layer?: Layer;
@@ -149,28 +148,18 @@ type BaseBoxPropsFoundation<T extends ElementType> = {
   overflow?: Overflow;
   overflowInline?: OverflowInline;
   overflowBlock?: OverflowBlock;
-  padding?: Padding | Partial<Record<UNSAFE_Breakpoint, Padding>>;
-  paddingBlock?:
-    | PaddingBlock
-    | Partial<Record<UNSAFE_Breakpoint, PaddingBlock>>;
-  paddingBlockStart?:
-    | PaddingBlockStart
-    | Partial<Record<UNSAFE_Breakpoint, PaddingBlockStart>>;
-  paddingBlockEnd?:
-    | PaddingBlockEnd
-    | Partial<Record<UNSAFE_Breakpoint, PaddingBlockEnd>>;
-  paddingInline?:
-    | PaddingInline
-    | Partial<Record<UNSAFE_Breakpoint, PaddingInline>>;
+  padding?: Padding | ResponsiveObject<Padding>;
+  paddingBlock?: PaddingBlock | ResponsiveObject<PaddingBlock>;
+  paddingBlockStart?: PaddingBlockStart | ResponsiveObject<PaddingBlockStart>;
+  paddingBlockEnd?: PaddingBlockEnd | ResponsiveObject<PaddingBlockEnd>;
+  paddingInline?: PaddingInline | ResponsiveObject<PaddingInline>;
   paddingInlineStart?:
     | PaddingInlineStart
-    | Partial<Record<UNSAFE_Breakpoint, PaddingInlineStart>>;
-  paddingInlineEnd?:
-    | PaddingInlineEnd
-    | Partial<Record<UNSAFE_Breakpoint, PaddingInlineEnd>>;
+    | ResponsiveObject<PaddingInlineStart>;
+  paddingInlineEnd?: PaddingInlineEnd | ResponsiveObject<PaddingInlineEnd>;
   width?: Width;
   height?: Height;
-  display?: Display | Partial<Record<UNSAFE_Breakpoint, Display>>;
+  display?: Display | ResponsiveObject<Display>;
   position?: Position;
   ref?: ComponentPropsWithRef<T>['ref'];
 };
@@ -274,6 +263,9 @@ export type BoxProps<T extends ElementType = 'div'> = Omit<
 
 // @public (undocumented)
 type BoxResponsiveProp = typeof BOX_RESPONSIVE_PROPS[number];
+
+// @public
+type Breakpoint = 'lg' | 'md' | 'sm' | 'xl' | 'xs' | 'xxl' | 'xxs';
 
 // @public
 type CustomStyles = Pick<
@@ -486,6 +478,9 @@ type PublicBoxPropsBase = {
   paddingInlineEnd?: PaddingInlineEnd;
   customStyles?: CustomStyles;
 };
+
+// @public
+type ResponsiveObject<T> = Partial<Record<Breakpoint, T>>;
 
 // @public (undocumented)
 type Shadow = keyof typeof shadowMap;

@@ -46,6 +46,7 @@ export const KitchenSinkRenderer: React.StatelessComponent<KitchenSinkRendererPr
             useSpecBasedValidator={true}
             allowSelectAllTrap
             featureFlags={props.featureFlags}
+            allowCustomPanels={true}
           />
         </SmartCardProvider>
       </div>

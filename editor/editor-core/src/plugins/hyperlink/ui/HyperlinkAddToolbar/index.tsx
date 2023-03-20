@@ -8,7 +8,7 @@ import { LinkPickerProps } from '@atlaskit/link-picker';
 
 import HyperlinkAddToolbarComp from './HyperlinkAddToolbar';
 import { LinkInputType, LinkPickerOptions } from '../../types';
-import { INPUT_METHOD } from '../../../analytics';
+import { INPUT_METHOD } from '../../../analytics/types';
 import { stateKey as pluginKey } from '../../pm-plugins/main';
 import WithPluginState from '../../../../ui/WithPluginState';
 import { getFeatureFlags } from '../../../feature-flags-context';
@@ -80,6 +80,7 @@ export default class HyperlinkAddToolbar extends React.PureComponent<Props> {
                       // is being used from inside the hyperlink plugin and use inputMethod from plugin state
                       invokeMethod ?? hyperlinkPluginState?.inputMethod
                     }
+                    editorAppearance={hyperlinkPluginState?.editorAppearance}
                     {...linkPickerOptions}
                     url={displayUrl}
                     displayText={displayText}

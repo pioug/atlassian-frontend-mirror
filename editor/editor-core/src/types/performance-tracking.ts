@@ -233,6 +233,18 @@ export interface InputTracking {
    * @default 500
    */
   severityDegradedThreshold?: number;
+
+  /**
+   * @description Track individual keypress processing time when multiple keypress happened in one frame.
+   * @default false
+   */
+  trackSingleKeypress?: boolean;
+
+  /**
+   * @description Track keypress processing time including browser rendering time.
+   * @default false
+   */
+  trackRenderingTime?: boolean;
 }
 
 export type ContentRetrievalTracking = {

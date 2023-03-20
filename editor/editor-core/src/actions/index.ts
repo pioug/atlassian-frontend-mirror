@@ -3,13 +3,18 @@ import { Node } from 'prosemirror-model';
 import {
   EditorActionsOptions,
   ContextUpdateHandler,
+  ReplaceRawValue,
 } from '@atlaskit/editor-common/types';
 
 import { TextSelection, NodeSelection } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { findParentNode } from 'prosemirror-utils';
 import { toJSON } from '../utils';
-import { processRawValue, isEmptyDocument } from '../utils/document';
+import {
+  processRawValue,
+  isEmptyDocument,
+  processRawFragmentValue,
+} from '../utils/document';
 import {
   getEditorValueWithMedia,
   __temporaryFixForConfigPanel,
@@ -238,7 +243,7 @@ export default class EditorActions<T = any> implements EditorActionsOptions<T> {
   }
 
   replaceSelection(
-    rawValue: Node | Object | string,
+    rawValue: ReplaceRawValue | Array<ReplaceRawValue>,
     tryToReplace?: boolean,
   ): boolean {
     if (!this.editorView) {
@@ -254,7 +259,9 @@ export default class EditorActions<T = any> implements EditorActionsOptions<T> {
     }
 
     const { schema } = state;
-    const content = processRawValue(schema, rawValue);
+    const content = Array.isArray(rawValue)
+      ? processRawFragmentValue(schema, rawValue)
+      : processRawValue(schema, rawValue);
 
     if (!content) {
       return false;

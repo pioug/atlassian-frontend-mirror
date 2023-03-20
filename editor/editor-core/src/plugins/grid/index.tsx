@@ -198,9 +198,12 @@ interface GridPluginOptions {
   shouldCalcBreakoutGridLines?: boolean;
 }
 
-const gridPlugin: NextEditorPlugin<'grid', never, GridPluginOptions> = (
-  options?,
-) => ({
+const gridPlugin: NextEditorPlugin<
+  'grid',
+  {
+    pluginConfiguration: GridPluginOptions | undefined;
+  }
+> = (options?) => ({
   name: 'grid',
 
   contentComponent: ({ editorView }) => {

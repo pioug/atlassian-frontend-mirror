@@ -300,4 +300,59 @@ Object {
       expect(node).toBeUndefined();
     });
   });
+
+  describe('replaceSelection', () => {
+    it('replaces the selection with a node', () => {
+      const { editorView, eventDispatcher } = createEditorFactory()({
+        doc: doc(p('')),
+      });
+
+      const editorActions = EditorActions.from(editorView, eventDispatcher);
+
+      editorActions.replaceSelection({
+        type: 'paragraph',
+        content: [
+          {
+            type: 'text',
+            text: 'Hello World!',
+          },
+        ],
+      });
+
+      expect(editorView.state.doc).toEqualDocument(doc(p('Hello World!')));
+    });
+
+    it('replaces the selection with a fragment', () => {
+      const { editorView, eventDispatcher } = createEditorFactory()({
+        doc: doc(p('')),
+      });
+
+      const editorActions = EditorActions.from(editorView, eventDispatcher);
+
+      editorActions.replaceSelection([
+        {
+          type: 'paragraph',
+          content: [
+            {
+              type: 'text',
+              text: 'Hello',
+            },
+          ],
+        },
+        {
+          type: 'paragraph',
+          content: [
+            {
+              type: 'text',
+              text: 'World!',
+            },
+          ],
+        },
+      ]);
+
+      expect(editorView.state.doc).toEqualDocument(
+        doc(p('Hello'), p('World!')),
+      );
+    });
+  });
 });

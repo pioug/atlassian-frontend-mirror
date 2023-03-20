@@ -5,10 +5,10 @@ import { jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/standard-button';
 import Box from '@atlaskit/ds-explorations/box';
-import Inline from '@atlaskit/ds-explorations/inline';
 import Heading from '@atlaskit/heading';
 import ArrowleftIcon from '@atlaskit/icon/glyph/chevron-left-large';
 import ArrowrightIcon from '@atlaskit/icon/glyph/chevron-right-large';
+import Inline from '@atlaskit/primitives/inline';
 import { N70 } from '@atlaskit/theme/colors';
 import { ThemeModes } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
@@ -35,7 +35,7 @@ const Header = memo<HeaderProps>(function Header({
 }) {
   return (
     <Box display="block" paddingInline="space.100" aria-hidden="true">
-      <Inline gap="space.0" alignItems="center" justifyContent="space-between">
+      <Inline space="0" alignBlock="center" spread="space-between">
         <Button
           appearance="subtle"
           spacing="none"

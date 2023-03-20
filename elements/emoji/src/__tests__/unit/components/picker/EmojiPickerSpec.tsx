@@ -1,6 +1,6 @@
 import React from 'react';
 import { waitUntil } from '@atlaskit/elements-test-helpers';
-import { act, waitFor, within } from '@testing-library/react';
+import { act, screen, waitFor, within } from '@testing-library/react';
 import { matchers } from '@emotion/jest';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { ReactWrapper } from 'enzyme';
@@ -40,6 +40,7 @@ import {
   getEmojiResourcePromise,
   mediaEmoji,
   standardEmojis,
+  standardServiceEmojis,
 } from '../../_test-data';
 import * as helper from './_emoji-picker-test-helpers';
 import * as helperTestingLibrary from './_emoji-picker-helpers-testing-library';
@@ -61,6 +62,28 @@ import EmojiActions, {
 import { ufoExperiences } from '../../../../util/analytics';
 import EmojiPickerComponent from '../../../../components/picker/EmojiPickerComponent';
 import { emojiPickerHeightOffset } from '../../../../components/picker/utils';
+import * as constants from '../../../../util/constants';
+import fetchMock from 'fetch-mock/cjs/client';
+import { ServiceConfig } from '@atlaskit/util-service-support';
+import {
+  EmojiResource,
+  EmojiResourceConfig,
+} from '../../../../api/EmojiResource';
+import EmojiPickerVirtualList from '../../../../components/picker/EmojiPickerList';
+
+const baseUrl = 'https://bogus/';
+const p1Url = 'https://p1/standard';
+
+const provider1: ServiceConfig = {
+  url: p1Url,
+};
+
+const defaultApiConfig: EmojiResourceConfig = {
+  recordConfig: {
+    url: baseUrl,
+  },
+  providers: [provider1],
+};
 
 const emojiListHeaders = {
   ALL_UPLOADS: 'All uploads',
@@ -72,7 +95,6 @@ const emojiCategoryIds = {
   ATLASSIAN: 'ATLASSIAN',
   FLAGS: 'FLAGS',
 };
-
 // Add the custom matchers provided by '@emotion/jest'
 expect.extend(matchers);
 
@@ -106,18 +128,7 @@ describe('<EmojiPicker />', () => {
     ufoPickerMarkFMPSpy.mockClear();
     ufoSearchedStartSpy.mockClear();
     ufoSearchedFailureSpy.mockClear();
-    ufoSearchedSuccessSpy.mockClear();
-    ufoEmojiRecordedStartSpy.mockClear();
-    ufoEmojiRecordedSuccessSpy.mockClear();
-    ufoEmojiRecordedFailureSpy.mockClear();
-    onEvent = jest.fn();
-    ufoPickerStartSpy.mockClear();
-    ufoPickerSuccessSpy.mockClear();
-    ufoPickerFailureSpy.mockClear();
-    ufoPickerAbortSpy.mockClear();
-    ufoPickerMarkFMPSpy.mockClear();
-    ufoSearchedStartSpy.mockClear();
-    ufoSearchedFailureSpy.mockClear();
+    ufoSearchedAbortSpy.mockClear();
     ufoSearchedSuccessSpy.mockClear();
     ufoEmojiRecordedStartSpy.mockClear();
     ufoEmojiRecordedSuccessSpy.mockClear();
@@ -126,10 +137,15 @@ describe('<EmojiPicker />', () => {
     // scrolling of the virutal list doesn't work out of the box for the tests
     // mocking `scrollToRow` for all tests
     jest
-      .spyOn(VirtualList.prototype, 'scrollToRow')
+      .spyOn(EmojiPickerVirtualList.prototype, 'scrollToRow')
       .mockImplementation((index?: number) =>
         helperTestingLibrary.scrollToIndex(index || 0),
       );
+  });
+
+  beforeAll(() => {
+    // set search debounce to 0
+    Object.defineProperty(constants, 'EMOJI_SEARCH_DEBOUNCE', { value: 0 });
   });
 
   const renderEmojiPicker = (pickerProps: Partial<EmojiPickerProps> = {}) => {
@@ -326,7 +342,7 @@ describe('<EmojiPicker />', () => {
         ).toBeInTheDocument();
       });
 
-      expect(onEvent).toHaveBeenLastCalledWith(
+      expect(onEvent).toHaveBeenCalledWith(
         expect.objectContaining({
           payload: categoryClickedEvent({ category: emojiCategoryIds.FLAGS }),
         }),
@@ -612,98 +628,96 @@ describe('<EmojiPicker />', () => {
 
   describe('search', () => {
     it('searching for "al" should match emoji via description', async () => {
-      const component = await helper.setupPicker();
-      await waitUntil(() => helper.searchInputVisible(component));
-      // click search
-      const searchInput = helper.findSearchInput(component);
-      act(() => {
-        searchInput.simulate('focus');
-        // type "al"
-        searchInput.simulate('change', {
-          target: {
-            value: 'al',
-          },
-        });
+      helperTestingLibrary.renderPicker();
+
+      await waitFor(() => {
+        expect(helperTestingLibrary.getVirtualList()).toBeInTheDocument();
+        expect(helperTestingLibrary.getEmojiSearchInput()).toBeInTheDocument();
       });
 
-      await waitUntil(
-        () => helper.findEmoji(getUpdatedList(component)).length === 2,
-      );
-      const list = getUpdatedList(component);
-      const emojis = list.find(Emoji);
-      expect(emojis).toHaveLength(2);
-      // Albania and Algeria emoji displayed
-      expect(emojis.at(0).prop('emoji').shortName).toEqual(':flag_al:');
-      expect(emojis.at(1).prop('emoji').shortName).toEqual(':flag_dz:');
+      helperTestingLibrary.searchEmoji('al');
+
+      await waitFor(() => {
+        expect(
+          screen.queryByTestId('sprite-emoji-:flag_al:'),
+        ).toBeInTheDocument();
+        expect(
+          screen.queryByTestId('sprite-emoji-:flag_dz:'),
+        ).toBeInTheDocument();
+
+        const emojis = within(
+          helperTestingLibrary.getVirtualList(),
+        ).getAllByRole('button');
+
+        expect(emojis.length).toEqual(2);
+      });
     });
 
     it('searching for red car should match emoji via shortName', async () => {
-      const component = await helper.setupPicker();
-      await waitUntil(() => helper.searchInputVisible(component));
-      // click search
-      const searchInput = helper.findSearchInput(component);
-      act(() => {
-        searchInput.simulate('focus');
-        // type "red car"
-        searchInput.simulate('change', {
-          target: {
-            value: 'red car',
-          },
-        });
+      helperTestingLibrary.renderPicker();
+
+      await waitFor(() => {
+        expect(helperTestingLibrary.getVirtualList()).toBeInTheDocument();
+        expect(helperTestingLibrary.getEmojiSearchInput()).toBeInTheDocument();
       });
 
-      await waitUntil(
-        () => helper.findEmoji(getUpdatedList(component)).length === 1,
-      );
-      const list = getUpdatedList(component);
-      const emojis = list.find(Emoji);
-      expect(emojis).toHaveLength(1);
-      const emojiDescription = emojis.at(0).prop('emoji');
-      expect(emojiDescription.name).toEqual('automobile');
-      expect(emojiDescription.shortName).toEqual(':red_car:');
+      helperTestingLibrary.searchEmoji('red car');
+
+      await waitFor(() => {
+        expect(
+          screen.queryByTestId('sprite-emoji-:red_car:'),
+        ).toBeInTheDocument();
+
+        expect(screen.getByLabelText(':red_car:')).toBeInTheDocument();
+
+        const emojis = within(
+          helperTestingLibrary.getVirtualList(),
+        ).getAllByRole('button');
+
+        expect(emojis.length).toEqual(1);
+      });
     });
 
     it('searching should disable categories in selector', async () => {
-      const component = await helper.setupPicker();
-      await waitUntil(() => helper.searchInputVisible(component));
-      // click search
-      const searchInput = helper.findSearchInput(component);
-      act(() => {
-        searchInput.simulate('focus');
-        // type "al"
-        searchInput.simulate('change', {
-          target: {
-            value: 'al',
-          },
-        });
+      helperTestingLibrary.renderPicker();
+
+      await waitFor(() => {
+        expect(helperTestingLibrary.getVirtualList()).toBeInTheDocument();
+        expect(helperTestingLibrary.getEmojiSearchInput()).toBeInTheDocument();
       });
 
-      await waitUntil(
-        () => helper.findEmoji(getUpdatedList(component)).length === 2,
-      );
-      expect(component.find(CategorySelector).prop('disableCategories')).toBe(
-        true,
-      );
+      helperTestingLibrary.searchEmoji('al');
+
+      await waitFor(() => {
+        const emojis = within(
+          helperTestingLibrary.getVirtualList(),
+        ).getAllByRole('button');
+
+        expect(emojis.length).toEqual(2);
+
+        expect(
+          helperTestingLibrary.queryCategorySelector(emojiCategoryIds.FLAGS),
+        ).toHaveAttribute('disabled');
+      });
     });
 
     it('searching should fire analytics', async () => {
-      const component = await helper.setupPicker(undefined, undefined, onEvent);
-      await waitUntil(() => helper.searchInputVisible(component));
-      // click search
-      const searchInput = helper.findSearchInput(component);
-      act(() => {
-        searchInput.simulate('focus');
-        // type "al"
-        searchInput.simulate('change', {
-          target: {
-            value: 'al',
-          },
-        });
+      helperTestingLibrary.renderPicker(undefined, undefined, onEvent);
+
+      await waitFor(() => {
+        expect(helperTestingLibrary.getVirtualList()).toBeInTheDocument();
+        expect(helperTestingLibrary.getEmojiSearchInput()).toBeInTheDocument();
       });
 
-      await waitUntil(
-        () => helper.findEmoji(getUpdatedList(component)).length === 2,
-      );
+      helperTestingLibrary.searchEmoji('al');
+
+      await waitFor(() => {
+        const emojis = within(
+          helperTestingLibrary.getVirtualList(),
+        ).getAllByRole('button');
+
+        expect(emojis.length).toEqual(2);
+      });
 
       expect(onEvent).toHaveBeenLastCalledWith(
         expect.objectContaining({
@@ -717,30 +731,33 @@ describe('<EmojiPicker />', () => {
     });
 
     it('searching should fire ufo experiences', async () => {
-      const component = await helper.setupPicker(undefined, undefined, onEvent);
-      await waitUntil(() => helper.searchInputVisible(component));
-      // click search
-      const searchInput = helper.findSearchInput(component);
+      // arrange emoji provider
+      fetchMock.mock({
+        matcher: `begin:${provider1.url}`,
+        response: standardServiceEmojis,
+      });
+      const resource = new EmojiResource(defaultApiConfig);
+      const emojiProvider = resource.getEmojiProvider();
 
-      act(() => {
-        searchInput.simulate('focus');
-        // type "al"
-        searchInput.simulate('change', {
-          target: {
-            value: 'al',
-          },
-        });
+      helperTestingLibrary.renderPicker({
+        emojiProvider,
+        hideToneSelector: true,
       });
 
-      await waitUntil(
-        () => helper.findEmoji(getUpdatedList(component)).length === 2,
-      );
-
-      component.unmount();
+      // search emoji
+      await waitFor(() => {
+        expect(helperTestingLibrary.getEmojiSearchInput()).toBeInTheDocument();
+      });
+      helperTestingLibrary.searchEmoji('grinning');
+      await waitFor(() => {
+        expect(
+          screen.queryByTestId('sprite-emoji-:grinning:'),
+        ).toBeInTheDocument();
+      });
 
       expect(ufoSearchedStartSpy).toBeCalled();
       expect(ufoSearchedSuccessSpy).toBeCalled();
-      expect(ufoSearchedAbortSpy).toBeCalled();
+      expect(ufoSearchedAbortSpy).not.toBeCalled();
       expect(ufoSearchedFailureSpy).not.toBeCalled();
     });
   });
@@ -804,7 +821,7 @@ describe('<EmojiPicker />', () => {
         () => component.update() && component.find(ToneSelector).length > 0,
       );
 
-      expect(onEvent).toHaveBeenLastCalledWith(
+      expect(onEvent).toHaveBeenCalledWith(
         expect.objectContaining({
           payload: toneSelectorOpenedEvent({}),
         }),
@@ -853,7 +870,7 @@ describe('<EmojiPicker />', () => {
         () => component.update() && component.find(ToneSelector).length > 0,
       );
 
-      expect(onEvent).toHaveBeenLastCalledWith(
+      expect(onEvent).toHaveBeenCalledWith(
         expect.objectContaining({
           payload: toneSelectorOpenedEvent({}),
         }),

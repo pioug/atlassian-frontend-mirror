@@ -87,7 +87,7 @@ describe('<Filmstrip />', () => {
           mediaItemType: 'file',
         },
         shouldOpenMediaViewer: true,
-        mediaViewerDataSource: { list: [firstIdenfier, secondIdentifier] },
+        mediaViewerItems: [firstIdenfier, secondIdentifier],
       }),
     );
   });
@@ -100,7 +100,7 @@ describe('<Filmstrip />', () => {
     expect(component.find(FilmstripView).find(Card).first().props()).toEqual(
       expect.objectContaining({
         shouldOpenMediaViewer: undefined,
-        mediaViewerDataSource: undefined,
+        mediaViewerItems: undefined,
       }),
     );
   });
@@ -114,7 +114,7 @@ describe('<Filmstrip />', () => {
     expect(component.find(FilmstripView).find(Card).first().props()).toEqual(
       expect.objectContaining({
         shouldOpenMediaViewer: false,
-        mediaViewerDataSource: undefined,
+        mediaViewerItems: undefined,
       }),
     );
   });

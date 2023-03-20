@@ -26,7 +26,7 @@ import {
   ACTION_SUBJECT,
   EVENT_TYPE,
   fireAnalyticsEvent,
-} from '../../../../plugins/analytics';
+} from '@atlaskit/editor-common/analytics';
 
 import IconFallback from '../../../../plugins/quick-insert/assets/fallback';
 import { itemIcon } from '../../../../plugins/type-ahead/ui/TypeAheadListItem';

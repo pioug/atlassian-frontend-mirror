@@ -386,10 +386,16 @@ export enum SearchSort {
   UsageFrequency,
 }
 
+export enum SearchSourceTypes {
+  PICKER = 'picker',
+  TYPEAHEAD = 'typeahead',
+}
+
 export interface SearchOptions {
   skinTone?: number; // skin tone offset starting at 1
   limit?: number;
   sort?: SearchSort;
+  source?: SearchSourceTypes; // only used for analytics
 }
 
 export interface EmojiSearchResult {

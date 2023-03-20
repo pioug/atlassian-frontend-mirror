@@ -34,6 +34,7 @@ import { CodeBlockSharedCssClassName } from './code-block';
 
 export const tableMarginTop = 24;
 export const tableMarginBottom = 16;
+export const tableMarginTopWithControl = 14;
 export const tableMarginSides = 8;
 export const tableCellMinWidth = 48;
 export const tableNewColumnMinWidth = 140;

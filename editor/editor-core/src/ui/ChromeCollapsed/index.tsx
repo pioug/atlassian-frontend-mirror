@@ -41,6 +41,7 @@ class ChromeCollapsed extends PureComponent<Props & WrappedComponentProps, {}> {
 
     return (
       <input
+        data-testid="chrome-collapsed"
         css={inputStyle}
         ref={this.handleInputRef}
         onFocus={this.focusHandler}

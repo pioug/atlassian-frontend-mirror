@@ -156,7 +156,54 @@ describe('fragment mark consistency plugin', () => {
           ),
         );
       });
+
+      it('remove existing name for copy paste', () => {
+        jest.spyOn(uuid, 'generate').mockReturnValueOnce(flooFirst);
+        const {
+          editorView,
+          refs: { paragraphPos },
+        } = editor(
+          doc(
+            fragmentMark({ localId: localIdString, name: 'test1' })(
+              table({ localId: mockUuidGenerated })(tr(th()(p('{<>}1')))),
+            ),
+            p('{paragraphPos}'),
+          ),
+        );
+
+        let { state } = editorView;
+        // select table
+        state = state.apply(selectTable(state.tr));
+
+        // copy table
+        const { dom, text } = __serializeForClipboard(
+          editorView,
+          state.selection.content(),
+        );
+
+        // move to paragraph
+        const $paraPos = state.doc.resolve(paragraphPos);
+        state = state.apply(
+          state.tr.setSelection(new TextSelection($paraPos, $paraPos)),
+        );
+
+        editorView.updateState(state);
+
+        dispatchPasteEvent(editorView, { html: dom.innerHTML, plain: text });
+
+        expect(editorView.state.doc).toEqualDocument(
+          doc(
+            fragmentMark({ localId: localIdString, name: 'test1' })(
+              table({ localId: mockUuidGenerated })(tr(th()(p('1')))),
+            ),
+            fragmentMark({ localId: flooFirst })(
+              table({ localId: mockUuidGenerated })(tr(th()(p('1')))),
+            ),
+          ),
+        );
+      });
     });
+
     describe('cut & multiple pastes', () => {
       it('detects duplicates inside expand & tables', () => {
         jest.spyOn(uuid, 'generate').mockReturnValueOnce(flooSecond);

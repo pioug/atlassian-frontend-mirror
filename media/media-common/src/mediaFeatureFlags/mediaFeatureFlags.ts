@@ -27,8 +27,6 @@ export const areEqualFeatureFlags = (
     folderUploads: ffA.folderUploads === ffB.folderUploads,
     observedWidth: ffA.observedWidth === ffB.observedWidth,
     timestampOnVideo: ffA.timestampOnVideo === ffB.timestampOnVideo,
-    // @ts-ignore
-    mediaUploadApiV2: ffA.mediaUploadApiV2 === ffB.mediaUploadApiV2,
     memoryCacheLogging: ffA.memoryCacheLogging === ffB.memoryCacheLogging,
     fetchFileStateAfterUpload:
       ffA.fetchFileStateAfterUpload === ffB.fetchFileStateAfterUpload,
@@ -75,7 +73,17 @@ export const filterFeatureFlagKeysAllProducts = (
   return ldFeatureFlags.filter((flag) => flag !== '');
 };
 
-// default values defined here, not necessary for components to know directly as they should use the function below
+/**
+ * defaultMediaFeatureFlags set default values used by the getter function getMediaFeatureFlag
+ *
+ * *************************************
+ * ************* IMPORTANT *************
+ * *************************************
+ * Only in exceptional cases a FF should be 'true' by default.
+ * Making a flag default to 'true' can lead to confusing and unexpected scenarios.
+ * If you must set a flag default = true, whenever you remove that flag
+ * that change should be released as a MAJOR, because it's a breaking change.
+ */
 export const defaultMediaFeatureFlags: Required<MediaFeatureFlags> = {
   newCardExperience: false,
   captions: false,
@@ -85,8 +93,6 @@ export const defaultMediaFeatureFlags: Required<MediaFeatureFlags> = {
   folderUploads: false,
   observedWidth: false,
   timestampOnVideo: false,
-  // @ts-ignore
-  mediaUploadApiV2: true,
   memoryCacheLogging: false,
   fetchFileStateAfterUpload: false,
 };

@@ -43,6 +43,7 @@ export function ToolbarDropdown(props: DropdownProps) {
     onItemActivated,
   } = props;
   const [isDropdownOpen, setIsDropdownOpen] = React.useState(false);
+  const [isOpenedByKeyboard, setOpenedByKeyboard] = React.useState(false);
 
   const labelLists = formatMessage(listMessages.lists);
 
@@ -52,6 +53,14 @@ export function ToolbarDropdown(props: DropdownProps) {
 
   const handleTriggerClick = () => {
     onOpenChange({ isDropdownOpen: !isDropdownOpen });
+  };
+
+  const handleOnKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      setIsDropdownOpen(!isDropdownOpen);
+      setOpenedByKeyboard(true);
+    }
   };
 
   const items = useItems(props);
@@ -83,6 +92,12 @@ export function ToolbarDropdown(props: DropdownProps) {
         fitHeight={188}
         fitWidth={175}
         shouldUseDefaultRole
+        shouldFocusFirstItem={() => {
+          if (isOpenedByKeyboard) {
+            setOpenedByKeyboard(false);
+          }
+          return isOpenedByKeyboard;
+        }}
       >
         <ToolbarButton
           spacing={isReducedSpacing ? 'none' : 'default'}
@@ -92,6 +107,7 @@ export function ToolbarDropdown(props: DropdownProps) {
           aria-label={labelLists}
           disabled={disabled}
           onClick={handleTriggerClick}
+          onKeyDown={handleOnKeyDown}
           title={labelLists}
           iconBefore={
             <span css={wrapperStyle}>

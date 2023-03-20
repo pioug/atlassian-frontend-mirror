@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { jsx } from '@emotion/react';
 
 import Box from '@atlaskit/ds-explorations/box';
-import Stack from '@atlaskit/ds-explorations/stack';
 import {
   Content,
   LeftSidebarWithoutResize,
@@ -13,10 +12,12 @@ import {
   RightPanel,
   TopNavigation,
 } from '@atlaskit/page-layout';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import {
   UNSAFE_BREAKPOINTS_CONFIG,
   UNSAFE_buildAboveMediaQueryCSS,
 } from '@atlaskit/primitives/responsive';
+import Stack from '@atlaskit/primitives/stack';
 
 import { GridProps } from '../src';
 
@@ -64,7 +65,7 @@ export default () => {
               height: '100%',
             }}
           >
-            <Stack gap="space.100">
+            <Stack space="100">
               <div>Space Navigation</div>
               <select
                 value={maxWidth}

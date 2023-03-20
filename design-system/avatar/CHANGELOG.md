@@ -1,5 +1,16 @@
 # @atlaskit/avatar
 
+## 21.2.0
+
+### Minor Changes
+
+- [`51928bbe70c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/51928bbe70c) - [ux] Removes status/presence indicator images from the accessibility tree for the Avatar component.
+
+### Patch Changes
+
+- [`64f11e50567`](https://bitbucket.org/atlassian/atlassian-frontend/commits/64f11e50567) - [ux] Adds accessible name to standalone Presence and Status components.
+- [`0ecd2a2238b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ecd2a2238b) - Add more precision to custom component check for status and presence
+
 ## 21.1.10
 
 ### Patch Changes

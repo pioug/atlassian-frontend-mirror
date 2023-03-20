@@ -19,6 +19,7 @@
 
 import { default as AnalyticsReactContext } from '@atlaskit/analytics-next-stable-react-context';
 import { AnalyticsReactContextInterface } from '@atlaskit/analytics-next-stable-react-context';
+import { Component } from 'react';
 import { default as React_2 } from 'react';
 import { ReactNode } from 'react';
 
@@ -34,11 +35,17 @@ type AnalyticsContextFunction = (
   context?: AnalyticsReactContextInterface,
 ) => JSX.Element;
 
-// @public (undocumented)
-export const AnalyticsErrorBoundary: React_2.ForwardRefExoticComponent<
-  Omit<AnalyticsErrorBoundaryProps, keyof WithAnalyticsEventsProps> &
-    React_2.RefAttributes<any>
->;
+// @public @deprecated (undocumented)
+export class AnalyticsErrorBoundary extends Component<
+  AnalyticsErrorBoundaryProps,
+  AnalyticsErrorBoundaryState
+> {
+  constructor(props: AnalyticsErrorBoundaryProps);
+  // (undocumented)
+  componentDidCatch(error: Error, info?: AnalyticsErrorBoundaryErrorInfo): void;
+  // (undocumented)
+  render(): JSX.Element | null;
+}
 
 // @public (undocumented)
 type AnalyticsErrorBoundaryErrorInfo = {
@@ -46,7 +53,7 @@ type AnalyticsErrorBoundaryErrorInfo = {
 };
 
 // @public (undocumented)
-export interface AnalyticsErrorBoundaryProps extends WithAnalyticsEventsProps {
+export interface AnalyticsErrorBoundaryProps {
   // (undocumented)
   channel: string;
   children: ReactNode;
@@ -57,6 +64,11 @@ export interface AnalyticsErrorBoundaryProps extends WithAnalyticsEventsProps {
   // (undocumented)
   onError?: (error: Error, info?: AnalyticsErrorBoundaryErrorInfo) => void;
 }
+
+// @public (undocumented)
+type AnalyticsErrorBoundaryState = {
+  hasError: boolean;
+};
 
 // @public (undocumented)
 export class AnalyticsEvent {

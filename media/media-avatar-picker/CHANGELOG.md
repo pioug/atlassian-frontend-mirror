@@ -1,5 +1,12 @@
 # @atlaskit/media-avatar-picker
 
+## 24.2.4
+
+### Patch Changes
+
+- [`d820dfd611c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d820dfd611c) - Fixed show more button flicker on mouse hover
+- Updated dependencies
+
 ## 24.2.3
 
 ### Patch Changes

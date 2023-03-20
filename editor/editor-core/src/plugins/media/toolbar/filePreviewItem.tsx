@@ -1,7 +1,7 @@
 import React, { useState, FC } from 'react';
 import ReactDOM from 'react-dom';
 import { FileIdentifier } from '@atlaskit/media-client';
-import { MediaViewer, MediaViewerDataSource } from '@atlaskit/media-viewer';
+import { MediaViewer } from '@atlaskit/media-viewer';
 import { messages } from '@atlaskit/media-ui';
 import FilePreviewIcon from '@atlaskit/icon/glyph/editor/file-preview';
 import ToolbarButton from '../../floating-toolbar/ui/Button';
@@ -28,9 +28,6 @@ export const FilePreviewItem: FC<FilePreviewProps> = ({
 
   const renderMediaViewer = () => {
     if (isMediaViewerVisible) {
-      const dataSource: MediaViewerDataSource = {
-        list: [],
-      };
       const selectedNodeAttrs =
         getSelectedMediaContainerNodeAttrs(mediaPluginState);
       if (selectedNodeAttrs && mediaPluginState.mediaClientConfig) {
@@ -43,7 +40,7 @@ export const FilePreviewItem: FC<FilePreviewProps> = ({
         return ReactDOM.createPortal(
           <MediaViewer
             collectionName={collection}
-            dataSource={dataSource}
+            items={[]}
             mediaClientConfig={mediaPluginState.mediaClientConfig}
             selectedItem={identifier}
             onClose={onMediaViewerClose}

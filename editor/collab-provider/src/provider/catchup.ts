@@ -35,9 +35,8 @@ export const catchup = async (opt: CatchupOptions) => {
       logger(`Could not determine server version`);
     } else if (serverVersion <= currentPmVersion) {
       // there are no step maps in this case after page recovery
-      const { steps: unconfirmedSteps } = opt.getUnconfirmedSteps() || {
-        steps: [],
-      };
+      const unconfirmedSteps = opt.getUnconfirmedSteps();
+
       // replace the entire document
       logger(`Replacing document: ${doc}`);
       logger(`getting metadata: ${metadata}`);
@@ -48,15 +47,13 @@ export const catchup = async (opt: CatchupOptions) => {
         metadata,
         reserveCursor: true,
       });
-      if (unconfirmedSteps.length) {
+      if (unconfirmedSteps?.length) {
         opt.applyLocalSteps(unconfirmedSteps as Step<any>[]);
       }
     } else {
       // Please, do not use those steps inside of async
       // method. That will lead to outdated steps
-      const { steps: unconfirmedSteps } = opt.getUnconfirmedSteps() || {
-        steps: [],
-      };
+      const unconfirmedSteps = opt.getUnconfirmedSteps();
       logger(
         `Too far behind[current: v${currentPmVersion}, server: v${serverVersion}. ${
           serverStepMaps!.length
@@ -85,7 +82,7 @@ export const catchup = async (opt: CatchupOptions) => {
       // steps back into the editor, so we don't lose any data. But before that, we need to rebase
       // those steps since their position could be changed after replacing.
       // https://prosemirror.net/docs/guide/#transform.rebasing
-      if (unconfirmedSteps.length) {
+      if (unconfirmedSteps?.length) {
         // Create StepMap from StepMap JSON
         // eslint-disable-next-line no-unused-vars
         const stepMaps = serverStepMaps!.map(

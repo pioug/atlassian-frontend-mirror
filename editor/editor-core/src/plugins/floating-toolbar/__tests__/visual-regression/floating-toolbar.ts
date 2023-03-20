@@ -14,7 +14,10 @@ import {
   clickOnExtension,
   waitForExtensionToolbar,
 } from '@atlaskit/editor-test-helpers/page-objects/extensions';
-import { retryUntilStablePosition } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
+import {
+  isDropdownMenuItemFocused,
+  retryUntilStablePosition,
+} from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 import { EditorProps } from '../../../../types/editor-props';
 import { PuppeteerPage } from '@atlaskit/editor-test-helpers/page-objects/types';
 import {
@@ -69,7 +72,7 @@ describe('Floating toolbars:', () => {
       await snapshot(page, undefined, undefined, {
         captureBeyondViewport: false,
       });
-      focusToolbar();
+      await focusToolbar();
       await snapshot(page, undefined, undefined, {
         captureBeyondViewport: false,
       });
@@ -132,7 +135,7 @@ describe('Floating toolbars:', () => {
       await snapshot(page, undefined, undefined, {
         captureBeyondViewport: false,
       });
-      focusToolbar();
+      await focusToolbar();
     });
 
     // TODO: Restore skipped test https://product-fabric.atlassian.net/browse/ED-16714
@@ -150,7 +153,7 @@ describe('Floating toolbars:', () => {
       await snapshot(page, undefined, undefined, {
         captureBeyondViewport: false,
       });
-      focusToolbar();
+      await focusToolbar();
       await pressKey(page, ['ArrowRight', 'ArrowRight', 'ArrowRight']);
     });
 
@@ -231,7 +234,7 @@ describe('Floating toolbars:', () => {
       await page.click(`${endCellSelector} .inlineExtensionView-content-wrap`);
 
       await waitForExtensionToolbar(page);
-      focusToolbar();
+      await focusToolbar();
       await pressKey(page, ['Escape']);
     });
   });
@@ -308,11 +311,32 @@ describe('Table Floating Toolbar with Cell options', () => {
     );
 
     await waitForElementWithText(page, tableSelectors.tableOptionsText);
-    focusToolbar();
+    await focusToolbar();
     await pressKey(page, ['ArrowRight', 'Enter']);
-    await pressKey(page, ['ArrowDown', 'ArrowDown', 'ArrowDown']);
+    await pressKey(page, ['ArrowDown', 'ArrowDown']);
     await snapshot(page);
     await pressKey(page, ['ArrowDown']);
     await snapshot(page);
+  });
+
+  it('should focus first menu item in when opening dropdown by keyboard', async () => {
+    await initEditor();
+    const endCellSelector = getSelectorForTableCell({ row: 3, cell: 2 });
+    await page.waitForSelector(endCellSelector);
+    await retryUntilStablePosition(
+      page,
+      () => page.click(endCellSelector),
+      tableSelectors.floatingToolbar,
+    );
+
+    await waitForElementWithText(page, tableSelectors.tableOptionsText);
+    await focusToolbar();
+    await pressKey(page, ['Enter']);
+    expect(
+      await isDropdownMenuItemFocused(
+        page,
+        '[data-role="droplistContent"] button',
+      ),
+    ).toBe(true);
   });
 });

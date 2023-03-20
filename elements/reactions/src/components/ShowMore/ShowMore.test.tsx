@@ -21,7 +21,7 @@ describe('@atlaskit/reactions/components/ShowMore', () => {
     const btn = await screen.findByRole('button');
     expect(btn).toBeInTheDocument();
 
-    fireEvent.mouseDown(btn);
+    fireEvent.click(btn);
     expect(onClick).toHaveBeenCalledTimes(1);
   });
 

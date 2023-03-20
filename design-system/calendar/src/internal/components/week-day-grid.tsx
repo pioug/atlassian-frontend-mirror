@@ -20,7 +20,6 @@ interface WeekDayGridProps extends React.HTMLAttributes<HTMLElement> {
  *
  */
 const WeekDayGrid = ({ testId, children }: WeekDayGridProps) => (
-  // eslint-disable-next-line @repo/internal/react/use-primitives
   <div data-testid={testId} css={gridStyles}>
     {children}
   </div>

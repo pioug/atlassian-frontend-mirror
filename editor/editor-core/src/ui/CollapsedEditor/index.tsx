@@ -1,6 +1,8 @@
 import { IntlProviderIfMissingWrapper } from '@atlaskit/editor-common/ui';
 import React from 'react';
 import Editor from '../../editor';
+import EditorNext from '../../editor-next';
+import EditorMigrationComponent from '../../editor-next/editor-migration-component';
 import EditorWithActions from '../../labs/EditorWithActions';
 import ChromeCollapsed from '../ChromeCollapsed';
 
@@ -16,22 +18,18 @@ export interface Props {
 export interface State {}
 
 export default class CollapsedEditor extends React.Component<Props, State> {
-  editorComponent?: Editor;
-  shouldTriggerExpandEvent?: boolean;
-
-  UNSAFE_componentWillReceiveProps(nextProps: Props) {
-    if (!this.props.isExpanded && nextProps.isExpanded) {
-      this.shouldTriggerExpandEvent = true;
-    }
-  }
+  editorComponent?: Editor | EditorNext | EditorMigrationComponent;
+  previouslyExpanded?: boolean;
 
   componentDidUpdate() {
-    if (this.shouldTriggerExpandEvent && this.editorComponent) {
-      this.shouldTriggerExpandEvent = false;
-      if (this.props.onExpand) {
-        this.props.onExpand();
-      }
+    if (
+      this.props.isExpanded &&
+      this.editorComponent &&
+      (!this.previouslyExpanded || this.previouslyExpanded === undefined)
+    ) {
+      this.props.onExpand?.();
     }
+    this.previouslyExpanded = this.props.isExpanded;
   }
 
   handleEditorRef = (editorRef?: Editor, editorRefCallback?: any) => {
@@ -43,7 +41,12 @@ export default class CollapsedEditor extends React.Component<Props, State> {
 
   render() {
     const child = React.Children.only(this.props.children);
-    if (child.type !== Editor && child.type !== EditorWithActions) {
+    if (
+      child.type !== Editor &&
+      child.type !== EditorWithActions &&
+      child.type !== EditorNext &&
+      child.type !== EditorMigrationComponent
+    ) {
       throw new Error('Expected child to be of type `Editor`');
     }
 

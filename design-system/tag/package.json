@@ -42,7 +42,7 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/avatar": "^21.1.0",
+    "@atlaskit/avatar": "^21.2.0",
     "@atlaskit/docs": "*",
     "@atlaskit/section-message": "^6.3.0",
     "@atlaskit/ssr": "*",

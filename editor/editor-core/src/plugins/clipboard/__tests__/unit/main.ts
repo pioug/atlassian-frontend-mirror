@@ -189,7 +189,7 @@ describe('clipboard plugin', () => {
   describe('clipboardSerializer', () => {
     describe('when copying a table row from a table', () => {
       it.each(['default', 'wide', 'full-width'])(
-        'should write to the clipboard a table keeping the same attributes, including the layout',
+        'should write to the clipboard a table keeping the same attributes exlcuding the local id, including the layout',
         (tableLayout) => {
           const { editorView } = editor(
             doc(

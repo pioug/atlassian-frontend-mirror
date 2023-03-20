@@ -11,8 +11,11 @@ import { SmartCardContext } from '@atlaskit/link-provider';
 import { getPosHandler, ReactComponentProps } from '../../../nodeviews';
 import { titleUrlPairFromNode } from '../utils';
 import { EventDispatcher } from '../../../event-dispatcher';
-import { DispatchAnalyticsEvent } from '../../../plugins/analytics';
+import { DispatchAnalyticsEvent } from '../../../plugins/analytics/types';
 import { changeSelectedCardToLinkFallback } from '../pm-plugins/doc';
+import { AnalyticsContext } from '@atlaskit/analytics-next';
+import { getPluginState } from '../pm-plugins/util/state';
+import { getAnalyticsEditorAppearance } from '@atlaskit/editor-common/utils';
 
 export type EditorContext<T> = React.Context<T> & { value: T };
 
@@ -78,13 +81,26 @@ export function Card(
       const cardContext = this.context.contextAdapter
         ? this.context.contextAdapter.card
         : undefined;
+      const editorAppearance = getPluginState(
+        this.props.view.state,
+      )?.editorAppearance;
+      const analyticsEditorAppearance =
+        getAnalyticsEditorAppearance(editorAppearance);
 
       return (
-        <SmartCardComponent
-          key={url}
-          cardContext={cardContext}
-          {...this.props}
-        />
+        <AnalyticsContext
+          data={{
+            attributes: { location: analyticsEditorAppearance },
+            // Below is added for the future implementation of Linking Platform namespaced analytics context
+            location: analyticsEditorAppearance,
+          }}
+        >
+          <SmartCardComponent
+            key={url}
+            cardContext={cardContext}
+            {...this.props}
+          />
+        </AnalyticsContext>
       );
     }
 

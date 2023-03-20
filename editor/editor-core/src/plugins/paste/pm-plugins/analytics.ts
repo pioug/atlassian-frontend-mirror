@@ -29,7 +29,8 @@ import {
   handleSelectedTable,
   handlePasteLinkOnSelectedText,
   handlePasteIntoCaption,
-  handlePastePanelIntoList,
+  handlePastePanelOrDecisionContentIntoList,
+  handlePasteNonNestableBlockNodesIntoList,
 } from '../handlers';
 import { Command } from '../../../types';
 import { pipe } from '../../../utils';
@@ -43,6 +44,8 @@ type PasteContext = {
   asPlain?: boolean;
   /** Has the hyperlink been pasted while text is selected, making the text into a link? */
   hyperlinkPasteOnText?: boolean;
+  /** Did this paste action split a list in half? */
+  pasteSplitList?: boolean;
 };
 
 type PastePayloadAttributes = {
@@ -56,6 +59,8 @@ type PastePayloadAttributes = {
   linksInPasteCount: number;
   /** An identifier for tracing media operations(trouble shooting purpose) */
   mediaTraceId?: string;
+  /** Did this paste action split a list in half? */
+  pasteSplitList?: boolean;
 };
 
 const contentToPasteContent: { [name: string]: PasteContent } = {
@@ -271,6 +276,7 @@ export function createPasteAnalyticsPayload(
       source,
       hyperlinkPasteOnText: false,
       linksInPasteCount: linkUrls.length,
+      pasteSplitList: pasteContext.pasteSplitList,
     });
   }
 
@@ -285,6 +291,7 @@ export function createPasteAnalyticsPayload(
       hyperlinkPasteOnText: !!pasteContext.hyperlinkPasteOnText,
       linksInPasteCount: linkUrls.length,
       mediaTraceId,
+      pasteSplitList: pasteContext.pasteSplitList,
     },
     linkDomains,
   );
@@ -418,15 +425,28 @@ export const handleRichTextWithAnalytics = (
     }),
   )(slice);
 
-export const handlePastePanelIntoListWithAnalytics = (
+export const handlePastePanelOrDecisionIntoListWithAnalytics = (
   view: EditorView,
   event: ClipboardEvent,
   slice: Slice,
 ): Command =>
   pipe(
-    handlePastePanelIntoList,
+    handlePastePanelOrDecisionContentIntoList,
     pasteCommandWithAnalytics(view, event, slice, {
       type: PasteTypes.richText,
+    }),
+  )(slice);
+
+export const handlePasteNonNestableBlockNodesIntoListWithAnalytics = (
+  view: EditorView,
+  event: ClipboardEvent,
+  slice: Slice,
+): Command =>
+  pipe(
+    handlePasteNonNestableBlockNodesIntoList,
+    pasteCommandWithAnalytics(view, event, slice, {
+      type: PasteTypes.richText,
+      pasteSplitList: true,
     }),
   )(slice);
 

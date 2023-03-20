@@ -34,7 +34,7 @@ import {
   EVENT_TYPE,
   fireAnalyticsEvent,
   FireAnalyticsCallback,
-} from '../analytics';
+} from '@atlaskit/editor-common/analytics';
 import { CloseSelectionOptions } from './constants';
 
 export type TypeAheadPluginOptions = {
@@ -160,8 +160,9 @@ const TypeAheadMenu: React.FC<TypeAheadMenuType> = React.memo(
  */
 const typeAheadPlugin: NextEditorPlugin<
   'typeAhead',
-  never,
-  TypeAheadPluginOptions
+  {
+    pluginConfiguration: TypeAheadPluginOptions | undefined;
+  }
 > = (options?) => {
   const fireAnalyticsCallback = fireAnalyticsEvent(
     options?.createAnalyticsEvent,

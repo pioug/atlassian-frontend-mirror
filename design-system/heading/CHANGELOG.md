@@ -1,5 +1,11 @@
 # @atlaskit/heading
 
+## 1.1.3
+
+### Patch Changes
+
+- [`b6c5779d358`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b6c5779d358) - Internal changes only to restrict usage of `Box` from the primitives package.
+
 ## 1.1.2
 
 ### Patch Changes

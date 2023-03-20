@@ -1,4 +1,3 @@
-import { useRef, useEffect } from 'react';
 import { MarkType, Mark as PMMark } from 'prosemirror-model';
 import { EditorState } from 'prosemirror-state';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
@@ -123,16 +122,6 @@ const marksArePresent = (state: EditorState) => {
 
 export const checkFormattingIsPresent = (state: EditorState) => {
   return marksArePresent(state) || blockStylingIsPresent(state);
-};
-
-export const usePreviousObjectState = (
-  value: MenuIconItem[],
-): MenuIconItem[] => {
-  const ref = useRef<MenuIconItem[]>([]);
-  useEffect(() => {
-    ref.current = value;
-  });
-  return ref.current;
 };
 
 export const compareItemsArrays = (

@@ -16,6 +16,7 @@ export interface DropDownButtonProps {
   'aria-haspopup': React.AriaAttributes['aria-haspopup'];
   'aria-keyshortcuts'?: React.AriaAttributes['aria-keyshortcuts'];
   onClick: React.MouseEventHandler;
+  onKeyDown?: React.KeyboardEventHandler;
   spacing: 'none' | 'default';
   handleRef(el: ToolbarButtonRef): void;
 }
@@ -38,6 +39,7 @@ export const DropDownButton: React.StatelessComponent<DropDownButtonProps> =
       selected={props.selected}
       disabled={props.disabled}
       onClick={props.onClick}
+      onKeyDown={props.onKeyDown}
       spacing={props.spacing}
       aria-expanded={props['aria-expanded']}
       aria-haspopup={props['aria-haspopup']}

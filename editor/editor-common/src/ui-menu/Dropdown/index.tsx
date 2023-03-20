@@ -3,8 +3,8 @@ import React, { PureComponent } from 'react';
 import { withReactEditorViewOuterListeners } from '../../ui-react';
 import DropdownList, { OpenChangedEvent } from '../../ui/DropList';
 import Popup from '../../ui/Popup';
-import { KeyDownHandlerContext } from '../DropdownMenu/types';
-import { MenuArrowKeyNavigationProvider } from '../MenuArrowKeyNavigationProvider';
+import { ArrowKeyNavigationProvider } from '../ArrowKeyNavigationProvider';
+import { ArrowKeyNavigationProviderOptions } from '../ArrowKeyNavigationProvider/types';
 
 export interface Props {
   mountTo?: HTMLElement;
@@ -16,8 +16,7 @@ export interface Props {
   fitWidth?: number;
   fitHeight?: number;
   zIndex?: number;
-  disableArrowKeyNavigation?: boolean;
-  keyDownHandlerContext?: KeyDownHandlerContext;
+  arrowKeyNavigationProviderOptions: ArrowKeyNavigationProviderOptions;
 }
 
 export interface State {
@@ -59,9 +58,9 @@ export class Dropdown extends PureComponent<Props, State> {
       fitHeight,
       fitWidth,
       zIndex,
-      disableArrowKeyNavigation,
-      keyDownHandlerContext,
+      arrowKeyNavigationProviderOptions,
     } = this.props;
+
     return (
       <Popup
         target={target}
@@ -73,9 +72,8 @@ export class Dropdown extends PureComponent<Props, State> {
         fitWidth={fitWidth}
         zIndex={zIndex}
       >
-        <MenuArrowKeyNavigationProvider
-          disableArrowKeyNavigation={disableArrowKeyNavigation}
-          keyDownHandlerContext={keyDownHandlerContext}
+        <ArrowKeyNavigationProvider
+          {...arrowKeyNavigationProviderOptions}
           closeOnTab={true}
           handleClose={(event) =>
             onOpenChange && onOpenChange({ isOpen: false, event })
@@ -91,7 +89,7 @@ export class Dropdown extends PureComponent<Props, State> {
               {children}
             </DropdownList>
           </div>
-        </MenuArrowKeyNavigationProvider>
+        </ArrowKeyNavigationProvider>
       </Popup>
     );
   }

@@ -50,12 +50,16 @@ const resolveExtensionIcon = async (getIcon: ExtensionIconModule) => {
 const ExtensionButton = (props: ExtensionButtonProps) => {
   const { item, node, editorView } = props;
 
-  const ButtonIcon = item.icon
-    ? Loadable<{ label: string }, never>({
-        loader: async () => resolveExtensionIcon(item.icon),
-        loading: noop,
-      })
-    : undefined;
+  const ButtonIcon = React.useMemo(
+    () =>
+      item.icon
+        ? Loadable<{ label: string }, never>({
+            loader: async () => resolveExtensionIcon(item.icon),
+            loading: noop,
+          })
+        : undefined,
+    [item.icon],
+  );
 
   const onClick = () => {
     if (typeof item.action !== 'function') {

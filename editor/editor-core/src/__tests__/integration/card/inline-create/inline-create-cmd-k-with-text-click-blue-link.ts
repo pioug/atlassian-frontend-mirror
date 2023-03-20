@@ -7,7 +7,6 @@ import {
 import {
   getDocFromElement,
   editable,
-  gotoEditor,
   linkUrlSelector,
   linkLabelSelector,
   linkRecentList,
@@ -26,10 +25,21 @@ BrowserTestCase(
     skip: ['safari'],
   },
   async (client: ConstructorParameters<typeof Page>[0], testName: string) => {
-    const page = new Page(client);
-
-    // Go to the editor example.
-    await gotoEditor(page);
+    const page = await goToEditorTestingWDExample(client);
+    await mountEditor(
+      page,
+      {
+        appearance: fullpage.appearance,
+        smartLinks: {
+          allowEmbeds: true,
+        },
+      },
+      {
+        providers: {
+          cards: true,
+        },
+      },
+    );
 
     // Open up the link toolbar from the Editor toolbar (top).
     await insertLongText(page);

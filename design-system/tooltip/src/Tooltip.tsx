@@ -373,7 +373,6 @@ function Tooltip({
     onFocus,
     onBlur,
     ref: setRef,
-    'aria-describedby': tooltipId,
   };
 
   // Don't set `data-testid` unless it's defined, as it's not in the interface.
@@ -382,10 +381,37 @@ function Tooltip({
     tooltipTriggerProps['data-testid'] = `${testId}--container`;
   }
 
+  // This useEffect is purely for managing the aria attribute when using the
+  // wrapped children approach.
+  useEffect(() => {
+    // If there is no container element, we should exit early, because that
+    // means they are using the render prop API, and that is implemented in a
+    // different way. If there is no target element yet or tooltipId, we also
+    // shouldn't do anything because there is nothing to operate on or with.
+    if (!containerRef.current || !targetRef.current || !tooltipId) {
+      return;
+    }
+
+    // Necessary for TS to know that it has the attribute methods
+    const target = targetRef.current as HTMLElement;
+
+    if (shouldRenderTooltipContainer) {
+      target.setAttribute('aria-describedby', tooltipId);
+    } else {
+      target.removeAttribute('aria-describedby');
+    }
+  }, [shouldRenderTooltipContainer, tooltipId]);
+
   return (
     <React.Fragment>
       {typeof children === 'function' ? (
-        children(tooltipTriggerProps)
+        // once we deprecate the wrapped approach, we can put the aria
+        // attribute back into the tooltipTriggerProps and make it required
+        // instead of optional in `types`
+        children({
+          ...tooltipTriggerProps,
+          'aria-describedby': tooltipId,
+        })
       ) : (
         <CastTargetContainer {...tooltipTriggerProps} role="presentation">
           {children}

@@ -170,7 +170,7 @@ describe('nodeviews/mediaSingle', () => {
       handleMediaNodeMount: () => {},
       handleMediaNodeUnmount: () => {},
       updateElement: jest.fn(),
-      updateMediaNodeAttrs: jest.fn(),
+      updateMediaSingleNodeAttrs: jest.fn(),
       isMobileUploadCompleted: () => undefined,
       addPendingTask: jest.fn(),
     } as any as MediaPluginState;
@@ -446,7 +446,7 @@ describe('nodeviews/mediaSingle', () => {
     expect(wrapper.state('viewMediaClientConfig')).toBeDefined();
   });
 
-  it('should call updateFileAttrs if mediaProvider changes', async () => {
+  it('should call updateMediaSingleFileAttrs if mediaProvider changes', async () => {
     const mediaNodeAttrs = {
       id: 'some-id',
       type: 'file',
@@ -460,7 +460,9 @@ describe('nodeviews/mediaSingle', () => {
     expect(wrapper.state('viewMediaClientConfig')).toBeUndefined();
     wrapper.setProps({ mediaProvider });
 
-    expect(getLastMediaNodeUpdaterMockInstance().updateFileAttrs).toBeCalled();
+    expect(
+      getLastMediaNodeUpdaterMockInstance().updateMediaSingleFileAttrs,
+    ).toBeCalled();
   });
   describe('selected state for mediaSingle', () => {
     const node = mediaSingle()(mediaNode)(defaultSchema);

@@ -70,7 +70,7 @@ interface Position {
 
 export type ConfirmDialogChildInfo = {
   id: string;
-  name: string;
+  name: string | null;
   amount: number;
 };
 

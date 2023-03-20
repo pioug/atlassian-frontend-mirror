@@ -1,5 +1,21 @@
 # @atlaskit/dropdown-menu
 
+## 11.7.0
+
+### Minor Changes
+
+- [`7d3e5393e87`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d3e5393e87) - Enable forwardRef on DropdownItem
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.6.1
+
+### Patch Changes
+
+- [`842bb999a85`](https://bitbucket.org/atlassian/atlassian-frontend/commits/842bb999a85) - Internal change only. Replace usages of Inline/Stack with stable version from `@atlaskit/primitives`.
+
 ## 11.6.0
 
 ### Minor Changes

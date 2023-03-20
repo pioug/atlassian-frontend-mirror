@@ -26,21 +26,25 @@ import {
 } from './analytics';
 import { createModalEvent } from './analytics/events/screen/modal';
 import { createClosedEvent } from './analytics/events/ui/closed';
-import { ItemSource } from './domain';
 import { List } from './list';
-import { Collection } from './collection';
 import { Content } from './content';
 import { Blanket, SidebarWrapper } from './styleWrappers';
 import { start } from 'perf-marks';
 import { MediaViewerExtensions } from './components/types';
 import { mediaViewerPopupClass } from './classnames';
+import ErrorMessage from './errorMessage';
+import { MediaViewerError } from './errors';
 
 export type Props = {
   onClose?: () => void;
   selectedItem?: Identifier;
   featureFlags?: MediaFeatureFlags;
   mediaClient: MediaClient;
-  itemSource: ItemSource;
+  /**
+   * TODO: https://product-fabric.atlassian.net/browse/MEX-2207
+   * property should be mandatory
+   */
+  items?: Identifier[];
   extensions?: MediaViewerExtensions;
   contextId?: string;
 } & WithAnalyticsEventsProps;
@@ -92,14 +96,9 @@ export class MediaViewerComponent extends React.Component<
   };
 
   private get defaultSelectedItem(): Identifier | undefined {
-    const { itemSource, selectedItem } = this.props;
+    const { items, selectedItem } = this.props;
 
-    if (itemSource.kind === 'COLLECTION') {
-      return selectedItem;
-    }
-
-    const { items } = itemSource;
-    const firstItem = items[0];
+    const firstItem = items?.[0];
 
     return selectedItem || firstItem;
   }
@@ -126,7 +125,29 @@ export class MediaViewerComponent extends React.Component<
     }
   };
 
+  /**
+   * TODO: https://product-fabric.atlassian.net/browse/MEX-2207
+   * This error message is simulating the current error thrown by the backend when consumer provides a collection as datasource.
+   * This is displayed at this level when no items are provided from the parent component.
+   * This error message should be removed when the deprecated API is removed.
+   */
+  renderError() {
+    return (
+      <ErrorMessage
+        fileId={'undefined'}
+        error={
+          new MediaViewerError(
+            'collection-fetch-metadata',
+            new Error('collection as datasource is no longer supported'),
+          )
+        }
+      />
+    );
+  }
+
   render() {
+    const { mediaClient, onClose, items, extensions, contextId, featureFlags } =
+      this.props;
     const { isSidebarVisible } = this.state;
     const content = (
       <Blanket
@@ -138,7 +159,22 @@ export class MediaViewerComponent extends React.Component<
           isSidebarVisible={isSidebarVisible}
           onClose={this.onContentClose}
         >
-          {this.renderContent()}
+          {!items ? (
+            this.renderError()
+          ) : (
+            <List
+              defaultSelectedItem={this.defaultSelectedItem || items[0]}
+              items={items}
+              mediaClient={mediaClient}
+              onClose={onClose}
+              extensions={extensions}
+              onNavigationChange={this.onNavigationChange}
+              onSidebarButtonClick={this.toggleSidebar}
+              isSidebarVisible={isSidebarVisible}
+              contextId={contextId}
+              featureFlags={featureFlags}
+            />
+          )}
         </Content>
         {this.renderSidebar()}
       </Blanket>
@@ -154,53 +190,6 @@ export class MediaViewerComponent extends React.Component<
   private onNavigationChange = (selectedIdentifier: Identifier) => {
     this.setState({ selectedIdentifier });
   };
-
-  private renderContent() {
-    const {
-      mediaClient,
-      onClose,
-      itemSource,
-      extensions,
-      contextId,
-      featureFlags,
-    } = this.props;
-    const { isSidebarVisible } = this.state;
-
-    if (itemSource.kind === 'COLLECTION') {
-      return (
-        <Collection
-          pageSize={itemSource.pageSize}
-          defaultSelectedItem={this.defaultSelectedItem}
-          collectionName={itemSource.collectionName}
-          mediaClient={mediaClient}
-          onClose={onClose}
-          extensions={extensions}
-          onNavigationChange={this.onNavigationChange}
-          onSidebarButtonClick={this.toggleSidebar}
-          featureFlags={featureFlags}
-        />
-      );
-    } else if (itemSource.kind === 'ARRAY') {
-      const { items } = itemSource;
-
-      return (
-        <List
-          defaultSelectedItem={this.defaultSelectedItem || items[0]}
-          items={items}
-          mediaClient={mediaClient}
-          onClose={onClose}
-          extensions={extensions}
-          onNavigationChange={this.onNavigationChange}
-          onSidebarButtonClick={this.toggleSidebar}
-          isSidebarVisible={isSidebarVisible}
-          contextId={contextId}
-          featureFlags={featureFlags}
-        />
-      );
-    } else {
-      return null as never;
-    }
-  }
 }
 
 export const MediaViewer: React.ComponentType<Props> =

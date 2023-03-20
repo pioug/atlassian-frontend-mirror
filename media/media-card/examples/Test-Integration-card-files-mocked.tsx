@@ -98,7 +98,7 @@ const standardCardWithMediaViewer = [
           mediaClientConfig={mediaClientConfig}
           appearance="image"
           shouldOpenMediaViewer
-          mediaViewerDataSource={identifiers[2]}
+          mediaViewerItems={[identifiers[2]]}
         />
       </div>
     ),

@@ -41,7 +41,8 @@ import {
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 import { simpleMockProfilecardClient } from '@atlaskit/util-data-test/get-mock-profilecard-client';
 
-import Editor, {
+import { EditorMigrationComponent as Editor } from './../src';
+import {
   EditorProps,
   // EditorPlugin,
 } from './../src/editor';
@@ -490,7 +491,12 @@ export class ExampleEditorComponent extends React.Component<
                   transactionTracking: { enabled: true },
                   uiTracking: { enabled: true },
                   nodeViewTracking: { enabled: true },
-                  inputTracking: { enabled: true, countNodes: true },
+                  inputTracking: {
+                    enabled: true,
+                    countNodes: true,
+                    trackSingleKeypress: true,
+                    trackRenderingTime: true,
+                  },
                   bFreezeTracking: {
                     trackInteractionType: true,
                     trackSeverity: true,

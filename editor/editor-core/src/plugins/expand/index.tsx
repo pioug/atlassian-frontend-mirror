@@ -22,9 +22,12 @@ interface ExpandPluginOptions extends LongPressSelectionPluginOptions {
   appearance?: EditorProps['appearance'];
 }
 
-const expandPlugin: NextEditorPlugin<'expand', never, ExpandPluginOptions> = (
-  options = {},
-) => ({
+const expandPlugin: NextEditorPlugin<
+  'expand',
+  {
+    pluginConfiguration: ExpandPluginOptions | undefined;
+  }
+> = (options = {}) => ({
   name: 'expand',
 
   nodes() {

@@ -362,6 +362,13 @@ export const tableStyles = (
 
       .${ClassName.ROW_CONTROLS_WRAPPER} {
         padding: 0 ${tablePadding}px;
+
+        // https://product-fabric.atlassian.net/browse/ED-16386
+        // Fixes issue where the extra padding that is added here throws off the position
+        // of the rows control dot
+        &::after {
+          right: 6px !important;
+        }
       }
 
       &.${ClassName.TABLE_CONTAINER}[data-number-column='true'] {
@@ -707,8 +714,7 @@ export const tableStyles = (
     .${ClassName.TABLE_NODE_WRAPPER} {
       padding-right: ${insertColumnButtonOffset}px;
       margin-right: -${insertColumnButtonOffset}px;
-      padding-bottom: ${tableScrollbarOffset}px;
-      margin-bottom: -${tableScrollbarOffset}px;
+      padding-bottom: 0px;
       /* fixes gap cursor height */
       overflow: auto;
       position: relative;
@@ -726,7 +732,7 @@ export const tableStyles = (
     cursor: col-resize;
   }
 
-  /* 
+  /*
   ED-15882: When custom start numbers is enabled for lists, we have
   styles that handle this generally (in editor-common) so we can
   throw away the older table-specific styles here.

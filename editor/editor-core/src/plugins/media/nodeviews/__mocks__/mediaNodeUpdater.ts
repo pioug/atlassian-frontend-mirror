@@ -11,6 +11,9 @@ export class MediaNodeUpdater {
     this.updateContextId =
       mockOverrides['updateContextId'] ||
       jest.fn().mockResolvedValue(undefined);
+    this.updateNodeContextId =
+      mockOverrides['updateNodeContextId'] ||
+      jest.fn().mockResolvedValue(undefined);
     this.getAttrs = mockOverrides['getAttrs'] || jest.fn();
     this.getObjectId =
       mockOverrides['getObjectId'] || jest.fn().mockResolvedValue(undefined);
@@ -27,7 +30,11 @@ export class MediaNodeUpdater {
       jest.fn().mockResolvedValue(true);
     this.copyNode =
       mockOverrides['copyNode'] || jest.fn().mockResolvedValue(undefined);
-    this.updateFileAttrs = mockOverrides['updateFileAttrs'] || jest.fn();
+    this.copyNodeFromPos =
+      mockOverrides['copyNodeFromPos'] ||
+      jest.fn().mockResolvedValue(undefined);
+    this.updateMediaSingleFileAttrs =
+      mockOverrides['updateMediaSingleFileAttrs'] || jest.fn();
     MediaNodeUpdater.instances.push(this);
     this.uploadExternalMedia =
       mockOverrides['uploadExternalMedia'] ||
@@ -50,6 +57,7 @@ export class MediaNodeUpdater {
   }
 
   async updateContextId() {}
+  async updateNodeContextId() {}
   getAttrs() {}
   async getObjectId() {}
   getNodeContextId() {}
@@ -58,7 +66,8 @@ export class MediaNodeUpdater {
   async isNodeFromDifferentCollection() {}
   async hasDifferentContextId() {}
   async copyNode() {}
-  async updateFileAttrs() {}
+  async copyNodeFromPos() {}
+  async updateMediaSingleFileAttrs() {}
   async uploadExternalMedia() {}
   isMediaBlobUrl() {}
   copyNodeFromBlobUrl() {}

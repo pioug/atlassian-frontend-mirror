@@ -23,7 +23,7 @@ import { Selector, SelectorProps } from '../Selector';
 import { Trigger, TriggerProps } from '../Trigger';
 import { UFO } from '../../analytics';
 import { i18n } from '../../shared';
-import { useClickAway } from '../../hooks';
+import { useCloseManager } from '../../hooks';
 import { ReactionSource } from '../../types';
 import * as styles from './styles';
 
@@ -31,6 +31,11 @@ import * as styles from './styles';
  * Test id for wrapper ReactionPicker div
  */
 export const RENDER_REACTIONPICKER_TESTID = 'reactionPicker-testid';
+
+/**
+ * Test id for ReactionPicker panel div
+ */
+export const RENDER_REACTIONPICKERPANEL_TESTID = 'reactionPickerPanel-testid';
 
 /**
  * Emoji Picker Controller Id for Accessibility Labels
@@ -157,13 +162,12 @@ export const ReactionPicker: React.FC<ReactionPickerProps> = React.memo(
     /**
      * Custom hook triggers when user clicks outside the reactions picker
      */
-    useClickAway(
+    useCloseManager(
       wrapperRef,
       () => {
         onCancel();
         close();
       },
-      'click',
       true,
       settings.isOpen,
     );
@@ -296,6 +300,7 @@ export const ReactionPicker: React.FC<ReactionPickerProps> = React.memo(
                   {settings.isOpen && (
                     <div
                       id={PICKER_CONTROL_ID}
+                      data-testid={RENDER_REACTIONPICKERPANEL_TESTID}
                       style={{ zIndex: layers.layer(), ...style }}
                       ref={ref}
                     >

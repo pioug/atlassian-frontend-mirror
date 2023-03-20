@@ -1,5 +1,23 @@
 # @atlaskit/code
 
+## 14.5.0
+
+### Minor Changes
+
+- [`f5ca132a05e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f5ca132a05e) - [ux] CodeBlock has had some significant under-the-hood changes in this version. While technically it is a minor update as all API changes are additive and backwards-compatible, this is a heads up that there are some small visual changes that may require visual regression snapshots to be updated.
+
+  - Adds a new `shouldWrapLongLines` prop that allows you to wrap long lines of code over multiple lines, instead of always forcing the container to scroll horizontally.
+
+  - Fixes a frustrating bug where copying code from `CodeBlock` would also copy line numbers — this no longer occurs!
+
+  - Replaces the dependency of `react-syntax-highlighter` with our own implementation that is more maintainable and performant. This also lead to a bump in an underlying dependency `prismjs` which added new syntax highlighting features for some languages. This may cause some blocks of code to look slightly different, potentially impacting VR tests — some changes are expected! Reach out to #help-design-system if you have any questions.
+
+  - Improves the presentation and security of `CodeBlock`'s with bidirectional characters to present the source code exactly how it was written. The bidirectional characters themselves are still highlighted in the same way as before with a warning and a tooltip. This may also impact VR tests, but is expected.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.4.8
 
 ### Patch Changes

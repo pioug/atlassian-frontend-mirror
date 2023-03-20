@@ -571,7 +571,8 @@ export async function runInlineNodeViewTestSuite({
         },
       );
 
-      // TODO: To unskip this test we need to fix the behaviour in Firefox to match Safari & Chrome
+      // Tests have been unskipped to match behaviour in Chrome+Safari and Firefox
+      // TODO: However the behaviour across browsers should match
       // Firefox: Extends selection to the start of the line
       // Safari + Chrome: Extends selection by one as expected
       testCaseName =
@@ -604,7 +605,8 @@ export async function runInlineNodeViewTestSuite({
         },
       );
 
-      // TODO To unskip this test we need to fix the behaviour in Chrome + Safari to match Firefox
+      // Tests have been unskipped to match behaviour in Chrome+Safari and Firefox
+      // TODO: However the behaviour across browsers should match
       // Firefox: Extends selection to same vertical position one line up
       // Chrome + Safari: Extends selection to position after the last node on the line above
       testCaseName =
@@ -612,7 +614,7 @@ export async function runInlineNodeViewTestSuite({
       BrowserTestCase(
         testCaseName,
         {
-          skip: ['safari', 'chrome', ...(skipTests?.[testCaseName] || [])],
+          skip: skipTests?.[testCaseName],
         },
         async (client: BrowserObject) => {
           const page = await initEditor({
@@ -620,12 +622,22 @@ export async function runInlineNodeViewTestSuite({
             selection: { anchor: 18, head: 18 },
             adf: JSON.stringify(buildAdfMultipleNodesAcrossLines({ node })),
           });
-          const expectedSelections: SelectionMatch[] = [
-            { type: 'text', anchor: 18, head: 13 },
-            { type: 'text', anchor: 18, head: 8 },
-            { type: 'text', anchor: 18, head: 3 },
+
+          let expectedSelections: SelectionMatch[] = [
+            { type: 'text', anchor: 18, head: 16 },
+            { type: 'text', anchor: 18, head: 11 },
+            { type: 'text', anchor: 18, head: 6 },
             { type: 'text', anchor: 18, head: 1 },
           ];
+
+          if (page.isBrowser('firefox')) {
+            expectedSelections = [
+              { type: 'text', anchor: 18, head: 13 },
+              { type: 'text', anchor: 18, head: 8 },
+              { type: 'text', anchor: 18, head: 3 },
+              { type: 'text', anchor: 18, head: 1 },
+            ];
+          }
 
           await holdShiftInChrome(page);
           for (const selection of expectedSelections) {
@@ -646,7 +658,7 @@ export async function runInlineNodeViewTestSuite({
       BrowserTestCase(
         testCaseName,
         {
-          skip: ['safari', 'chrome', ...(skipTests?.[testCaseName] || [])],
+          skip: skipTests?.[testCaseName],
         },
         async (client: BrowserObject) => {
           const page = await initEditor({
@@ -654,12 +666,22 @@ export async function runInlineNodeViewTestSuite({
             selection: { anchor: 1, head: 1 },
             adf: JSON.stringify(buildAdfMultipleNodesAcrossLines({ node })),
           });
-          const expectedSelections: SelectionMatch[] = [
-            { type: 'text', anchor: 1, head: 3 },
-            { type: 'text', anchor: 1, head: 8 },
-            { type: 'text', anchor: 1, head: 13 },
+
+          let expectedSelections: SelectionMatch[] = [
+            { type: 'text', anchor: 1, head: 6 },
+            { type: 'text', anchor: 1, head: 11 },
+            { type: 'text', anchor: 1, head: 16 },
             { type: 'text', anchor: 1, head: 18 },
           ];
+
+          if (page.isBrowser('firefox')) {
+            expectedSelections = [
+              { type: 'text', anchor: 1, head: 3 },
+              { type: 'text', anchor: 1, head: 8 },
+              { type: 'text', anchor: 1, head: 13 },
+              { type: 'text', anchor: 1, head: 18 },
+            ];
+          }
 
           await holdShiftInChrome(page);
           for (const selection of expectedSelections) {

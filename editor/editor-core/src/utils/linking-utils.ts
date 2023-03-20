@@ -6,7 +6,7 @@ import {
   AnalyticsEventPayload,
   ACTION_SUBJECT_ID,
   INPUT_METHOD,
-} from '../plugins/analytics';
+} from '@atlaskit/editor-common/analytics';
 
 export const buildEditLinkPayload = (type: LinkType): AnalyticsEventPayload => {
   return {

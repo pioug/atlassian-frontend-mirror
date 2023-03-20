@@ -2,13 +2,14 @@ import { EditorView } from 'prosemirror-view';
 import { Transaction } from 'prosemirror-state';
 import { Node as PMNode, Node } from 'prosemirror-model';
 import { Transformer } from '@atlaskit/editor-common/types';
+import { analyticsEventKey } from '@atlaskit/editor-common/utils';
 import {
   ACTION,
   ACTION_SUBJECT,
   EVENT_TYPE,
   getAnalyticsEventsFromTransaction,
   AnalyticsEventPayload,
-} from '../../../../../plugins/analytics';
+} from '@atlaskit/editor-common/analytics';
 import {
   findChangedNodesFromTransaction,
   validateNodes,
@@ -18,7 +19,6 @@ import { compose, toJSON } from '../../../../../utils';
 import { EditorSharedConfig } from '../../context/shared-config';
 import { getDocStructure } from '../../../../../utils/document-logger';
 import { Dispatch } from '../../../../../event-dispatcher';
-import { analyticsEventKey } from '../../../../../plugins/analytics/consts';
 
 // Helper to assure correct payload when dispatch analytics
 function dispatchAnalytics(dispatch: Dispatch, payload: AnalyticsEventPayload) {

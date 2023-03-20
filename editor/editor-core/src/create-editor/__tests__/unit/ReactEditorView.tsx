@@ -52,6 +52,11 @@ jest.mock('@atlaskit/editor-common/ufo', () => ({
   },
 }));
 
+jest.mock('@atlaskit/editor-common/analytics', () => ({
+  ...jest.requireActual<Object>('@atlaskit/editor-common/analytics'),
+  fireAnalyticsEvent: jest.fn(),
+}));
+
 import React from 'react';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { EditorView } from 'prosemirror-view';
@@ -60,7 +65,8 @@ import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { measureRender, SEVERITY } from '@atlaskit/editor-common/utils';
 import { toJSON } from '../../../utils';
-import { ReactEditorView, shouldReconfigureState } from '../../ReactEditorView';
+import { ReactEditorView } from '../../ReactEditorView';
+import { shouldReconfigureState } from '../../ReactEditorViewInternal';
 import { EditorConfig } from '../../../types/editor-config';
 import { mount, ReactWrapper } from 'enzyme';
 import { TextSelection } from 'prosemirror-state';
@@ -94,7 +100,8 @@ import {
   PROSEMIRROR_RENDERED_NORMAL_SEVERITY_THRESHOLD,
   PROSEMIRROR_RENDERED_DEGRADED_SEVERITY_THRESHOLD,
 } from '../../consts';
-import * as FireAnalyticsEvent from '../../../plugins/analytics/fire-analytics-event';
+import type { FireAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import { fireAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 import {
   EditorExperience,
@@ -134,13 +141,11 @@ type Props = {
   config: EditorConfig;
 };
 describe('@atlaskit/editor-core', () => {
-  let mockFire: ReturnType<typeof FireAnalyticsEvent.fireAnalyticsEvent>;
+  let mockFire: ReturnType<FireAnalyticsEvent>;
 
   beforeEach(() => {
     mockFire = jest.fn();
-    jest
-      .spyOn(FireAnalyticsEvent, 'fireAnalyticsEvent')
-      .mockReturnValue(mockFire);
+    (fireAnalyticsEvent as jest.Mock).mockReturnValue(mockFire);
   });
 
   afterEach(() => {

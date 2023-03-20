@@ -2,6 +2,7 @@ import {
   getExampleUrl,
   loadPage,
   PuppeteerPage,
+  takeElementScreenShot,
 } from '@atlaskit/visual-regression/helper';
 
 async function waitForInlineCode(page: PuppeteerPage) {
@@ -164,6 +165,24 @@ describe('Snapshot Test', () => {
       '[data-testid="bidi-warning-renderedConditionalJs"]',
     );
     const image = await page.screenshot();
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('CodeBlock highlighting lines with long lines wrapped should match production example', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'code',
+      'code-block-highlighting-long-lines',
+      global.__BASEURL__,
+    );
+    const { page } = global;
+    await page.setViewport({ width: 450, height: 700 });
+    await loadPage(page, url);
+    await page.waitForSelector('[data-testid="highlight-long-lines"]');
+    const image = await takeElementScreenShot(
+      page,
+      '[data-testid="highlight-long-lines"]',
+    );
     expect(image).toMatchProdImageSnapshot();
   });
 });

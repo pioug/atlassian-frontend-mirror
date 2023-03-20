@@ -1,5 +1,7 @@
 import type { EditorState, PluginKey } from 'prosemirror-state';
 
+import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+
 import type { NewCollabSyncUpErrorAttributes } from '../../types';
 import type {
   UnsupportedContentPayload,
@@ -287,7 +289,9 @@ export type FireAnalyticsCallback = <T>(
   payload: FireAnalyticsEventPayload<T>,
 ) => void | undefined;
 
-export type FireAnalyticsEvent = () => FireAnalyticsCallback;
+export type FireAnalyticsEvent = (
+  createAnalyticsEvent?: CreateUIAnalyticsEvent,
+) => FireAnalyticsCallback;
 
 export type FireAnalyticsEventPayload<T = void> = {
   payload: AnalyticsEventPayload<T>;

@@ -25,7 +25,6 @@ interface Opts {
 export default class InputLatencyTracker {
   private samples: number[] = [];
   private total: number = 0;
-  private currentStart: number | null;
   private samplingRate: Opts['samplingRate'];
   private slowThreshold: Opts['slowThreshold'];
   private normalThreshold: Opts['normalThreshold'];
@@ -47,7 +46,6 @@ export default class InputLatencyTracker {
     onSampleEnd,
     onSlowInput,
   }: Opts) {
-    this.currentStart = null;
     this.samplingRate = samplingRate;
     this.slowThreshold = slowThreshold;
     this.normalThreshold = normalThreshold;
@@ -60,31 +58,33 @@ export default class InputLatencyTracker {
   }
 
   start() {
-    this.currentStart = performance.now();
+    const currentStart = performance.now();
 
     if (this.samples.length + 1 === this.samplingRate) {
       this.onSampleStart?.();
     }
-  }
 
-  end() {
-    if (this.currentStart === null) {
-      return;
-    }
+    const end = () => {
+      if (currentStart === null) {
+        return;
+      }
 
-    let isSlow = false;
-    const time = getTimeSince(this.currentStart);
-    this.push(time);
+      let isSlow = false;
+      const time = getTimeSince(currentStart);
+      this.push(time);
 
-    if (time > this.slowThreshold) {
-      this.onSlowInput?.(time);
-      isSlow = true;
-    }
+      if (time > this.slowThreshold) {
+        this.onSlowInput?.(time);
+        isSlow = true;
+      }
 
-    if (this.samples.length === this.samplingRate) {
-      this.flush();
-      this.onSampleEnd?.(time, { isSlow, severity: this.severity(time) });
-    }
+      if (this.samples.length === this.samplingRate) {
+        this.flush();
+        this.onSampleEnd?.(time, { isSlow, severity: this.severity(time) });
+      }
+    };
+
+    return end;
   }
 
   flush() {

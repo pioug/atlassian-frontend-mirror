@@ -9,8 +9,9 @@ import gapCursorKeymapPlugin from './pm-plugins/gap-cursor-keymap';
 
 export const selectionPlugin: NextEditorPlugin<
   'selection',
-  never,
-  SelectionPluginOptions | undefined
+  {
+    pluginConfiguration: SelectionPluginOptions | undefined;
+  }
 > = (options?) => ({
   name: 'selection',
 

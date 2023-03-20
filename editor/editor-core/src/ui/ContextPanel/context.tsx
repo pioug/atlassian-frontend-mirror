@@ -22,7 +22,7 @@ export type ContextPanelContext = {
   broadcastPosition: (positionedOverEditor: boolean) => void;
 };
 
-const { Provider, Consumer } = React.createContext<ContextPanelContext>({
+export const ContextPanel = React.createContext<ContextPanelContext>({
   width: 0,
   positionedOverEditor: false,
   broadcastWidth: () => {},
@@ -77,5 +77,7 @@ export class ContextPanelWidthProvider extends React.Component<
     );
   }
 }
+
+const { Provider, Consumer } = ContextPanel;
 
 export { Provider as ContextPanelProvider, Consumer as ContextPanelConsumer };

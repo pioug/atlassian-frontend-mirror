@@ -64,7 +64,7 @@ function contextPanelPluginFactory(
   });
 }
 
-const contextPanelPlugin: NextEditorPlugin<'contextPanel', never> = () => ({
+const contextPanelPlugin: NextEditorPlugin<'contextPanel'> = () => ({
   name: 'contextPanel',
 
   pmPlugins(contextPanels: Array<ContextPanelHandler> = []) {

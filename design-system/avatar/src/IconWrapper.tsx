@@ -12,6 +12,7 @@ import { BORDER_WIDTH } from './constants';
 interface IconWrapperProps {
   bgColor?: string;
   children?: ReactNode;
+  label?: string;
 }
 
 const iconWrapperStyles = css({
@@ -33,9 +34,12 @@ const iconWrapperStyles = css({
 const IconWrapper: FC<IconWrapperProps> = ({
   bgColor = token('elevation.surface.overlay', background()),
   children,
+  label,
 }) => (
   <span
+    aria-label={label || undefined}
     css={iconWrapperStyles}
+    role={label ? 'img' : 'presentation'}
     style={{
       border: `${BORDER_WIDTH}px solid ${bgColor}`,
       backgroundColor: bgColor,

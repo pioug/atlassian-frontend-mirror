@@ -12,12 +12,15 @@ import {
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import {
   clickToolbarMenu,
+  isDropdownMenuItemFocused,
   mainToolbarSelector,
   retryUntilStablePosition,
+  selectToolbarMenuWithKeyboard,
   toolbarDropdownMenuSelectors,
   ToolbarMenuItem,
   toolbarMenuItemsSelectors as selectors,
 } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
+import { pressKey } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
 import {
   animationFrame,
   scrollToBottom,
@@ -279,12 +282,6 @@ describe.skip('Toolbar: IconBefore', () => {
     it.skip('should show the icon in narrow view', async () => {
       await page.setViewport({ width: 400, height: 350 });
     });
-
-    // TODO: Restore skipped test https://product-fabric.atlassian.net/browse/ED-16795
-    it.skip('should carry the keyline across', async () => {
-      await page.setViewport({ width: 1000, height: 350 });
-      await scrollToBottom(page);
-    });
   });
 
   // TODO: Restore skipped test https://product-fabric.atlassian.net/browse/ED-16794
@@ -298,9 +295,53 @@ describe.skip('Toolbar: IconBefore', () => {
   });
 });
 
-// FIXME: Skipped because of flakiness
-// https://product-fabric.atlassian.net/browse/ED-16626
-describe.skip('Toolbar: Undo Redo', () => {
+describe('Toolbar: IconBefore enabled', () => {
+  beforeEach(async () => {
+    page = global.page;
+    await initEditorWithAdf(page, {
+      adf: parapgrahADF,
+      appearance: Appearance.fullPage,
+      viewport: { width: 1000, height: 350 },
+      editorProps: {
+        primaryToolbarIconBefore: <div></div>,
+      },
+    });
+  });
+
+  it('should carry the keyline across', async () => {
+    await page.setViewport({ width: 1000, height: 150 });
+
+    const keylineBoxShadowBefore = await getElementComputedStyle(
+      page,
+      mainToolbarSelector,
+      'box-shadow',
+    );
+    expect(keylineBoxShadowBefore).toBe('none');
+
+    await scrollToBottom(page);
+    await page.waitForTimeout(200); //wait for scroll to finish
+
+    const keylineBoxShadowAfter = await getElementComputedStyle(
+      page,
+      mainToolbarSelector,
+      'box-shadow',
+    );
+    expect(keylineBoxShadowAfter).not.toBe('none');
+
+    // only capturing the left part of the keyline to avoid capturing overlapping content
+    await snapshot(page, undefined, mainToolbarSelector, {
+      captureBeyondViewport: false,
+      clip: {
+        x: 0,
+        y: 50,
+        width: 100,
+        height: 15,
+      },
+    });
+  });
+});
+
+describe('Toolbar: Undo Redo', () => {
   let page: PuppeteerPage;
 
   beforeEach(async () => {
@@ -315,11 +356,6 @@ describe.skip('Toolbar: Undo Redo', () => {
 
   afterEach(async () => {
     await snapshot(page, undefined, mainToolbarSelector);
-  });
-
-  // TODO: Restore skipped test https://product-fabric.atlassian.net/browse/ED-16793
-  it.skip('should show the Undo / Redo buttons in a disabled state', async () => {
-    await page.waitForSelector(selectors[ToolbarMenuItem.undo]);
   });
 
   it('should show the Undo button in a active state', async () => {
@@ -342,9 +378,33 @@ describe.skip('Toolbar: Undo Redo', () => {
   });
 });
 
-// FIXME: Skipped because of flakiness
-// https://product-fabric.atlassian.net/browse/ED-16626
-describe.skip('Toolbar: Responsive toolbar', () => {
+describe('Toolbar: Undo Redo', () => {
+  let page: PuppeteerPage;
+
+  beforeEach(async () => {
+    page = global.page;
+    await initEditorWithAdf(page, {
+      appearance: Appearance.fullPage,
+      editorProps: {
+        allowUndoRedoButtons: true,
+      },
+    });
+  });
+
+  it('should show the Undo / Redo buttons in a disabled state', async () => {
+    const undoRedoDisabled = await page.evaluate(() => {
+      return (
+        (document.querySelector('#editor-toolbar__undo') as HTMLButtonElement)
+          ?.disabled &&
+        (document.querySelector('#editor-toolbar__redo') as HTMLButtonElement)
+          ?.disabled
+      );
+    });
+    expect(undoRedoDisabled).toBe(true);
+  });
+});
+
+describe('Toolbar: Responsive toolbar', () => {
   let page: PuppeteerPage;
 
   const initEditor = async (viewport: any, twoLineEditorToolbar: boolean) => {
@@ -395,5 +455,44 @@ describe.skip('Toolbar: Responsive toolbar', () => {
   it('should show one line toolbar with squashed non-custom toolbar when viewport is around 870px if feature flag is on', async () => {
     await initEditor({ width: 870, height: 300 }, true);
     await page.waitForSelector(mainToolbarSelector);
+  });
+});
+
+describe('Toolbar: Dropdown behaviours', () => {
+  let page: PuppeteerPage;
+  beforeEach(async () => {
+    page = global.page;
+    await initEditorWithAdf(page, {
+      appearance: Appearance.fullPage,
+      viewport: { width: 500, height: 500 },
+      editorProps: {
+        featureFlags: {
+          indentationButtonsInTheToolbar: true,
+        },
+      },
+    });
+    await page.waitForSelector("[data-testid='ak-editor-main-toolbar']");
+  });
+
+  const dropdowns = [
+    selectors[ToolbarMenuItem.fontStyle],
+    selectors[ToolbarMenuItem.moreFormatting],
+    selectors[ToolbarMenuItem.alignment],
+    '[aria-label="Lists"]',
+    selectors[ToolbarMenuItem.insertMenu],
+  ];
+
+  dropdowns.forEach((dropdownButton) => {
+    it('should focus first menu item when opening Dropdown by keyboard', async () => {
+      await page.click('[aria-label="Editable content"]');
+      await selectToolbarMenuWithKeyboard(page, dropdownButton);
+      await pressKey(page, 'Enter');
+      expect(
+        await isDropdownMenuItemFocused(
+          page,
+          '[data-role="droplistContent"] span',
+        ),
+      ).toBe(true);
+    });
   });
 });

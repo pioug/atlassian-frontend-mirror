@@ -1,4 +1,4 @@
-import { mount } from 'enzyme';
+import { render } from '@testing-library/react';
 import React from 'react';
 import { WidthProvider } from '@atlaskit/editor-common/ui';
 import WidthEmitter from '../../index';
@@ -17,7 +17,7 @@ describe('WidthEmiter', () => {
       };
 
       // @ts-ignore
-      mount(<WidthEmitter editorView={editorView} />);
+      render(<WidthEmitter editorView={editorView} />);
 
       expect(editorView.dispatch).not.toHaveBeenCalled();
     });
@@ -54,7 +54,7 @@ describe('WidthEmiter', () => {
     });
 
     it('should set the meta information in the transaction', () => {
-      mount(
+      render(
         <WidthProvider>
           <WidthEmitter editorView={editorView} />
         </WidthProvider>,
@@ -68,7 +68,7 @@ describe('WidthEmiter', () => {
     });
 
     it('should call the dispatch function with the transaction', () => {
-      mount(
+      render(
         <WidthProvider>
           <WidthEmitter editorView={editorView} />
         </WidthProvider>,
@@ -117,7 +117,7 @@ describe('WidthEmiter', () => {
 
     describe('when there is no WidthProvider', () => {
       it('should not call the dispatch function with the transaction', () => {
-        mount(
+        render(
           <ContextPanelProvider value={{ ...defaultContextPanelProviderProps }}>
             <WidthEmitter editorView={editorView} />
           </ContextPanelProvider>,
@@ -128,7 +128,7 @@ describe('WidthEmiter', () => {
     });
 
     it('should set the meta information in the transaction', () => {
-      mount(
+      render(
         <WidthProvider>
           <ContextPanelProvider value={{ ...defaultContextPanelProviderProps }}>
             <WidthEmitter editorView={editorView} />
@@ -144,7 +144,7 @@ describe('WidthEmiter', () => {
     });
 
     it('should call the dispatch function with the transaction', () => {
-      mount(
+      render(
         <WidthProvider>
           <ContextPanelProvider
             value={{ ...defaultContextPanelProviderProps, width: 0 }}

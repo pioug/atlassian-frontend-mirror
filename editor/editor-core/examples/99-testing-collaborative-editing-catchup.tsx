@@ -7,7 +7,7 @@ import React, { Fragment } from 'react';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
 
-import Editor from './../src/editor';
+import { EditorMigrationComponent as Editor } from './../src';
 import EditorContext from './../src/ui/EditorContext';
 import { LOCALSTORAGE_defaultTitleKey } from './5-full-page';
 import WithEditorActions from './../src/ui/WithEditorActions';

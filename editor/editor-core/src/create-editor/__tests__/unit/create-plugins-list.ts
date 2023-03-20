@@ -386,6 +386,7 @@ describe('createPluginsList', () => {
       nativeStatusSupported: false,
       replacePlusMenuWithElementBrowser: false,
       showElementBrowserLink: false,
+      insertNodeAPI: expect.any(Object),
     };
 
     createPluginsList(props);

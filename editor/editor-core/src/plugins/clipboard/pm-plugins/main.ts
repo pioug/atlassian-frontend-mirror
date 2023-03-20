@@ -112,7 +112,11 @@ export const createClipboardSerializer = (
       const attributes = parentTable?.node.attrs;
 
       const newTable: NodeType = schema.nodes.table;
-      const newTableNode = newTable.createChecked({ ...attributes }, content);
+      // Explicitly remove local id since we are creating a new table and it should have a unique local id which will be generated.
+      const newTableNode = newTable.createChecked(
+        { ...attributes, localId: undefined },
+        content,
+      );
       const newContent = Fragment.from(newTableNode);
       // Pass updated content into original ProseMirror serializeFragment function.
       // Currently incorrectly typed in @Types. See this GitHub thread: https://github.com/DefinitelyTyped/DefinitelyTyped/pull/57668

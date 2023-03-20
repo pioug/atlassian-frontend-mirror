@@ -26,7 +26,7 @@ const Example = () => {
         <MediaViewer
           mediaClientConfig={mediaClientConfig}
           selectedItem={selectedIdentifier}
-          dataSource={{ list: [selectedIdentifier] }}
+          items={[selectedIdentifier]}
           collectionName={defaultCollectionName}
           onClose={() => setSelectedIdentifier(undefined)}
         />

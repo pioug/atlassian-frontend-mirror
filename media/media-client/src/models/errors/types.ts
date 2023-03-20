@@ -25,7 +25,9 @@ export type MediaClientErrorReason =
   // PollingErrorReason ----------------------------
   | 'pollingMaxAttemptsExceeded'
   //UploaderErrorReason ----------------------------
-  | 'fileSizeExceedsLimit';
+  | 'fileSizeExceedsLimit'
+  // DeprecatedErrorReason ----------------------------
+  | 'deprecatedEndpoint';
 
 export interface MediaClientErrorAttributes {
   reason: MediaClientErrorReason;

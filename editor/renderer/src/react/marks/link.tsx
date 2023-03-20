@@ -14,6 +14,7 @@ import {
 import { MarkProps } from '../types';
 
 import { token } from '@atlaskit/tokens';
+import LinkUrl from '@atlaskit/smart-card/link-url';
 
 const anchorStyles = css`
   color: ${token('color.link', B400)};
@@ -60,7 +61,7 @@ export default function Link(props: MarkProps<LinkProps>) {
   }
 
   return (
-    <a
+    <LinkUrl
       css={anchorStyles}
       onClick={(e) => {
         if (fireAnalyticsEvent) {
@@ -83,6 +84,6 @@ export default function Link(props: MarkProps<LinkProps>) {
       {...dataAttributes}
     >
       {props.children}
-    </a>
+    </LinkUrl>
   );
 }

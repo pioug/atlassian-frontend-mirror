@@ -1,19 +1,17 @@
-import {
-  NextEditorPlugin,
-  NextEditorPluginWithDependencies,
-} from '../../types';
+import { NextEditorPlugin } from '../../types';
 import { Builder } from '../../utils';
 
 type BasicPlugin = { name: string };
 
 type BasicDogConfig = { lovesTreats?: boolean; treatsPerBite?: number };
-// type BasicDogConfigWithMandatory = BasicDogConfig & { requiresPats: boolean };
 
-const PluginDog: NextEditorPlugin<
-  'dog',
-  { something: number; goodDog: boolean },
-  BasicDogConfig | undefined
-> = () => ({
+interface DogPlugin {
+  name: 'dog';
+  sharedState: { something: number; goodDog: boolean };
+  pluginConfiguration: BasicDogConfig | undefined;
+}
+
+const PluginDog: NextEditorPlugin<'dog', DogPlugin> = () => ({
   name: 'dog',
   getSharedState: () => {
     return {
@@ -22,39 +20,45 @@ const PluginDog: NextEditorPlugin<
     };
   },
 });
+
 type BarkState = Record<'coisa', string>;
-const PluginBark: NextEditorPluginWithDependencies<
+const PluginBark: NextEditorPlugin<
   'bark',
-  BarkState,
-  [typeof PluginDog]
-> =
-  ({ externalPlugins }) =>
-  () => {
-    const dogState = externalPlugins.dog.sharedPluginState.currentState();
+  {
+    name: 'bark';
+    sharedState: BarkState;
+    dependencies: [typeof PluginDog];
+  }
+> = (_, api) => {
+  const dogState = api?.externalPlugins.dog.sharedPluginState.currentState();
+  // eslint-disable-next-line no-console
+  console.log(dogState?.goodDog);
+
+  api?.externalPlugins.dog.sharedPluginState.onChange((nextDogState) => {
     // eslint-disable-next-line no-console
-    console.log(dogState.goodDog);
+    console.log(nextDogState.goodDog);
+  });
 
-    externalPlugins.dog.sharedPluginState.onChange((nextDogState) => {
-      // eslint-disable-next-line no-console
-      console.log(nextDogState.goodDog);
-    });
-
-    return {
-      name: 'bark',
-      getSharedState: () => {
-        return {
-          coisa: 'dasdas',
-        };
-      },
-    };
+  return {
+    name: 'bark',
+    getSharedState: () => {
+      return {
+        coisa: 'dasdas',
+      };
+    },
   };
+};
 
-const PluginBarkWithMandatoryConfig: NextEditorPluginWithDependencies<
+const PluginBarkWithMandatoryConfig: NextEditorPlugin<
   'barkWithMandatoryConfig',
-  BarkState,
-  [typeof PluginDog],
-  { enabled: boolean }
-> = () => () => {
+  {
+    name: 'barkWithMandatoryConfig';
+    sharedState: BarkState;
+    pluginConfiguration: { enabled: boolean };
+    dependencies: [typeof PluginDog];
+  }
+> = () => {
+  // mandatoryHere
   return {
     name: 'barkWithMandatoryConfig',
     getSharedState: () => {
@@ -65,29 +69,33 @@ const PluginBarkWithMandatoryConfig: NextEditorPluginWithDependencies<
   };
 };
 
-const PluginBarkLoud: NextEditorPluginWithDependencies<
+const PluginBarkLoud: NextEditorPlugin<
   'bark-loud',
-  never,
-  [typeof PluginBark]
-> =
-  ({}) =>
-  () => {
-    return {
-      name: 'bark-loud',
-    };
-  };
+  {
+    dependencies: [typeof PluginBark, typeof PluginDog];
+  }
+> = (_, api) => {
+  //externalPlugins.dog.sharedPluginState.currentState().coisa;
+  //externalPlugins.bark.sharedPluginState.currentState().coisa;
+  //externalPlugins.
+  api?.externalPlugins.dog.sharedPluginState.currentState().goodDog;
+  api?.externalPlugins.bark.sharedPluginState.currentState().coisa;
 
-const PluginRelyingOnPluginBarkWithMandatoryConfig: NextEditorPluginWithDependencies<
-  'pluginRelyingOnPluginBarkWithMandatoryConfig',
-  never,
-  [typeof PluginBarkWithMandatoryConfig]
-> =
-  ({}) =>
-  () => {
-    return {
-      name: 'pluginRelyingOnPluginBarkWithMandatoryConfig',
-    };
+  return {
+    name: 'bark-loud',
   };
+};
+
+const PluginRelyingOnPluginBarkWithMandatoryConfig: NextEditorPlugin<
+  'pluginRelyingOnPluginBarkWithMandatoryConfig',
+  {
+    dependencies: [typeof PluginBarkWithMandatoryConfig];
+  }
+> = () => {
+  return {
+    name: 'pluginRelyingOnPluginBarkWithMandatoryConfig',
+  };
+};
 
 describe('next-editor-plugin internal plugin / consumer behaviour', () => {
   it('forces config to be mandatory when supplied', () => {
@@ -98,17 +106,18 @@ describe('next-editor-plugin internal plugin / consumer behaviour', () => {
       };
       const PluginWithSomeMandatoryConfig: NextEditorPlugin<
         'pluginWithSomeMandatoryConfig',
-        never,
-        Config
-      > = (props) => ({
+        {
+          pluginConfiguration: Config;
+        }
+      > = (config) => ({
         name: 'pluginWithSomeMandatoryConfig',
         readProps: () => {
-          expect(props.mandatoryValue).toEqual(props.mandatoryValue);
+          expect(config.mandatoryValue).toEqual(config.mandatoryValue);
 
-          expect(props.optionalValue).toEqual(props.optionalValue);
-          expect(props.optionalValue).not.toEqual(null);
+          expect(config.optionalValue).toEqual(config.optionalValue);
+          expect(config.optionalValue).not.toEqual(null);
 
-          return props;
+          return config;
         },
       });
 
@@ -117,7 +126,9 @@ describe('next-editor-plugin internal plugin / consumer behaviour', () => {
         mandatoryValue: { bar: false },
       };
 
-      const plugin = PluginWithSomeMandatoryConfig(config);
+      const plugin = PluginWithSomeMandatoryConfig(config, {
+        externalPlugins: {},
+      });
 
       expect((plugin as any).readProps()).toEqual(config);
       expect((plugin as any).readProps()).not.toEqual({ nonsense: true });
@@ -131,8 +142,9 @@ describe('next-editor-plugin internal plugin / consumer behaviour', () => {
       };
       const PluginWithSomeMandatoryConfig: NextEditorPlugin<
         'pluginWithSomeMandatoryConfig',
-        never,
-        Config
+        {
+          pluginConfiguration: Config;
+        }
       > = (props = { mandatoryValue: { bar: true } }) => ({
         name: 'pluginWithSomeMandatoryConfig',
         readProps: () => {
@@ -144,7 +156,9 @@ describe('next-editor-plugin internal plugin / consumer behaviour', () => {
         optionalValue: { foo: true },
         mandatoryValue: { bar: false },
       };
-      const plugin = PluginWithSomeMandatoryConfig(config);
+      const plugin = PluginWithSomeMandatoryConfig(config, {
+        externalPlugins: {},
+      });
 
       expect((plugin as any).readProps()).toEqual(config);
       expect((plugin as any).readProps()).not.toEqual({ nonsense: true });
@@ -158,7 +172,8 @@ describe('next-editor-plugin internal plugin / consumer behaviour', () => {
 
 describe('next-editor-plugin types', () => {
   const PluginWithNoArgsOrConfig: NextEditorPlugin<
-    'pluginWithNoArgsOrConfig'
+    'pluginWithNoArgsOrConfig',
+    {}
   > = () => ({
     name: 'pluginWithNoArgsOrConfig',
   });
@@ -181,9 +196,9 @@ describe('next-editor-plugin types', () => {
      */
     it('expects a value for its first argument', () => {
       expect(() => {
-        PluginWithNoArgsOrConfig(undefined);
+        PluginWithNoArgsOrConfig(undefined, { externalPlugins: {} });
 
-        PluginWithNoArgsOrConfig();
+        PluginWithNoArgsOrConfig(undefined, { externalPlugins: {} });
       }).not.toThrow();
     });
   });
@@ -223,20 +238,23 @@ describe('next-editor-plugin types', () => {
     };
     const PluginWithOptionalConfig: NextEditorPlugin<
       'pluginWithOptionalConfig',
-      never,
-      ConfigProps | undefined
+      {
+        pluginConfiguration: ConfigProps | undefined;
+      }
     > = (props?) => ({
       name: 'pluginWithOptionalConfig',
     });
     const PluginWithMandatoryConfig: NextEditorPlugin<
       'pluginWithMandatoryConfig',
-      never,
-      ConfigProps
+      {
+        pluginConfiguration: ConfigProps;
+      }
     > = (props) => ({
       name: 'pluginWithMandatoryConfig',
     });
     it('should type-error when adding basic plugin non-optional config without providing them in [plugin,config]', () => {
       expect(() => {
+        // @ts-expect-error
         new Builder<BasicPlugin>().add(PluginWithMandatoryConfig);
       }).not.toThrow();
     });
@@ -251,6 +269,7 @@ describe('next-editor-plugin types', () => {
     it('should work when adding plugin with optional config', () => {
       expect(() => {
         new Builder<BasicPlugin>().add(PluginWithOptionalConfig);
+        new Builder<BasicPlugin>().add([PluginWithOptionalConfig]);
         new Builder<BasicPlugin>().add([PluginWithOptionalConfig, undefined]);
         new Builder<BasicPlugin>().add([
           PluginWithOptionalConfig,
@@ -258,10 +277,15 @@ describe('next-editor-plugin types', () => {
         ]);
       }).not.toThrow();
     });
+
     it('should work when adding plugin with non-optional config', () => {
       expect(() => {
-        // TODO: why is this not type-erroring?
+        // @ts-expect-error
         new Builder<BasicPlugin>().add(PluginWithMandatoryConfig);
+
+        // @ts-expect-error
+        new Builder<BasicPlugin>().add([PluginWithMandatoryConfig]);
+
         new Builder<BasicPlugin>().add([
           PluginWithMandatoryConfig,
           { treatsPerBite: 5, requiresPats: true },
@@ -282,7 +306,7 @@ describe('next-editor-plugin types', () => {
     }).not.toThrow();
   });
 
-  it('should prevent adding `NextEditorPluginWithDependencies` when mandatory config exists', () => {
+  it('should prevent adding `NextEditorPlugin` when mandatory config exists', () => {
     expect(() => {
       new Builder<BasicPlugin>()
         .add(PluginDog)
@@ -291,7 +315,7 @@ describe('next-editor-plugin types', () => {
     }).not.toThrow();
   });
 
-  it('should type-error on `NextEditorPluginWithDependencies` inferred config', () => {
+  it('should type-error on `NextEditorPlugin` inferred config', () => {
     expect(() => {
       new Builder<BasicPlugin>().add(PluginDog).add([
         PluginBarkWithMandatoryConfig,
@@ -309,7 +333,8 @@ describe('next-editor-plugin types', () => {
       ]);
     }).not.toThrow();
   });
-  it('should correctly infer `NextEditorPluginWithDependencies` config', () => {
+
+  it('should correctly infer `NextEditorPlugin` config', () => {
     expect(() => {
       new Builder<BasicPlugin>().add(PluginDog).add([
         PluginBarkWithMandatoryConfig,
@@ -329,23 +354,39 @@ describe('next-editor-plugin types', () => {
     }).not.toThrow();
   });
 
-  it('errors with plugins', () => {
-    expect(() => {
-      new Builder<BasicPlugin>()
-        // .add(PluginDog)
-        // @ts-expect-error
-        .add(PluginBark)
-        .add(PluginBarkLoud);
-    }).not.toThrow();
+  describe('when PluginDog was not add prior', () => {
+    it('should type-error on PluginBark and PluginBarkLoud', () => {
+      expect(() => {
+        new Builder<BasicPlugin>()
+          // .add(PluginDog)
+          // @ts-expect-error
+          .add(PluginBark)
+          // @ts-expect-error
+          .add(PluginBarkLoud);
+      }).not.toThrow();
+    });
   });
 
-  it('type-errors when a plugin is missing in a multi-chain of dependencies', () => {
-    expect(() => {
-      new Builder<BasicPlugin>()
-        .add(PluginDog)
-        // .add(PluginBark)
-        // @ts-expect-error
-        .add(PluginBarkLoud);
-    }).not.toThrow();
+  describe('when PluginBark was not add prior', () => {
+    it('should type-error PluginBarkLoud', () => {
+      expect(() => {
+        new Builder<BasicPlugin>()
+          .add(PluginDog)
+          //.add(PluginBark)
+          // @ts-expect-error
+          .add(PluginBarkLoud);
+      }).not.toThrow();
+    });
+  });
+
+  describe('when all plugins were added in the right order', () => {
+    it('should work without errors', () => {
+      expect(() => {
+        new Builder<BasicPlugin>()
+          .add(PluginDog)
+          .add(PluginBark)
+          .add(PluginBarkLoud);
+      }).not.toThrow();
+    });
   });
 });

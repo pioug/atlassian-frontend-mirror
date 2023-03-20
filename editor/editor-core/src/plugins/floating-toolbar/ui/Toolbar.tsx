@@ -8,6 +8,7 @@ import { Node } from 'prosemirror-model';
 import ButtonGroup from '@atlaskit/button/button-group';
 import type { ExtensionProvider } from '@atlaskit/editor-common/extensions';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette';
 import { themed } from '@atlaskit/theme/components';
 import { borderRadius, gridSize } from '@atlaskit/theme/constants';
 import { DN70 } from '@atlaskit/theme/colors';
@@ -223,6 +224,14 @@ const ToolbarItems = React.memo(
                       setDisableParentScroll={
                         scrollable ? setDisableScroll : undefined
                       }
+                      // Currently in floating toolbar, color picker is only
+                      //  used in panel and table cell background color.
+                      // Both uses same color palette.
+                      // That's why hard-coding hexToEditorBackgroundPaletteColor.
+                      // When we need to support different color palette
+                      //  in floating toolbar, we need to set hexToPaletteColor
+                      //  in item options.
+                      hexToPaletteColor={hexToEditorBackgroundPaletteColor}
                     />
                   );
                 }
@@ -613,6 +622,7 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
               delay={250}
             />
             <div
+              data-testid="floating-toolbar-items"
               ref={this.scrollContainerRef}
               css={toolbarOverflow(
                 scrollable,

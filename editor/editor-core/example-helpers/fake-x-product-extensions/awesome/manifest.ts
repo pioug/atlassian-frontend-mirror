@@ -94,6 +94,34 @@ const manifest: ExtensionManifest = {
           parameters: {},
         },
       },
+      {
+        key: 'fragmentInsert',
+        title: 'Awesome fragment insert',
+        icon: () =>
+          import(
+            /* webpackChunkName: "@atlaskit-internal_icon-cross" */ '@atlaskit/icon/glyph/cross'
+          ).then((mod) => mod.default),
+        action: async () => [
+          {
+            type: 'paragraph',
+            content: [
+              {
+                type: 'text',
+                text: 'Sean is',
+              },
+            ],
+          },
+          {
+            type: 'paragraph',
+            content: [
+              {
+                type: 'text',
+                text: 'Awesome :)',
+              },
+            ],
+          },
+        ],
+      },
     ],
     nodes: {
       default: {

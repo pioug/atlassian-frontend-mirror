@@ -77,7 +77,8 @@ describe('BaseBox component', () => {
       <BaseBox
         testId={testId}
         display={{
-          xs: 'block',
+          xxs: 'inline',
+          sm: 'block',
           lg: 'flex',
         }}
         borderWidth="size.100"
@@ -97,7 +98,8 @@ describe('BaseBox component', () => {
       .sort();
     expect(vars).toEqual([
       '--ds-box-responsive-display-lg',
-      '--ds-box-responsive-display-xs',
+      '--ds-box-responsive-display-sm',
+      '--ds-box-responsive-display-xxs',
       '--ds-box-static-borderWidth',
     ]);
   });

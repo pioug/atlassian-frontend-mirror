@@ -27,5 +27,10 @@ runBlockNodeSelectionTestSuite({
       ['safari'],
     'Extend selection right two characters to select [block-node] from line above with shift + arrow right':
       ['safari'],
+
+    // Skipped test https://product-fabric.atlassian.net/browse/ED-17199
+    'Click and drag from start to end of document and select [block-node]': [
+      'firefox',
+    ],
   },
 });

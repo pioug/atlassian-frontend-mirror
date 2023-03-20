@@ -51,8 +51,9 @@ const addItem =
 
 const tasksAndDecisionsPlugin: NextEditorPlugin<
   'taskDecision',
-  never,
-  TaskDecisionPluginOptions
+  {
+    pluginConfiguration: TaskDecisionPluginOptions | undefined;
+  }
 > = ({ allowNestedTasks, consumeTabs, useLongPressSelection } = {}) => ({
   name: 'taskDecision',
   nodes() {

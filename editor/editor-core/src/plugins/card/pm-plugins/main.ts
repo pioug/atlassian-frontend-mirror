@@ -30,6 +30,7 @@ export const createPlugin =
   (options: CardPluginOptions) =>
   (pmPluginFactoryParams: PMPluginFactoryParams) => {
     const {
+      editorAppearance,
       platform,
       allowResizing,
       useAlternativePreloader,
@@ -46,6 +47,7 @@ export const createPlugin =
             showLinkingToolbar: false,
             smartLinkEvents: undefined,
             createAnalyticsEvent,
+            editorAppearance,
           };
         },
 

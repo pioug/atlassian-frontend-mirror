@@ -1,5 +1,21 @@
 # @atlaskit/media-client
 
+## 20.1.0
+
+### Minor Changes
+
+- [`894e1910ed4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/894e1910ed4) - Deprecation notice: Media Client and Media Store classes will no longer expose collection items listing methods. They will be removed in the next release
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.0.3
+
+### Patch Changes
+
+- [`4fdaa8a4645`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4fdaa8a4645) - update default chunk size from 4mb to 5mb
+
 ## 20.0.2
 
 ### Patch Changes

@@ -69,8 +69,9 @@ export const openFeedbackDialog = async (feedbackInfo?: FeedbackInfo) =>
 
 const feedbackDialog: NextEditorPlugin<
   'feedbackDialog',
-  never,
-  FeedbackInfo
+  {
+    pluginConfiguration: FeedbackInfo;
+  }
 > = (feedbackInfo: FeedbackInfo) => {
   defaultFeedbackInfo = feedbackInfo;
   return {

@@ -1083,6 +1083,8 @@ export interface SearchOptions {
   skinTone?: number;
   // (undocumented)
   sort?: SearchSort;
+  // (undocumented)
+  source?: SearchSourceTypes;
 }
 
 // @public (undocumented)
@@ -1093,6 +1095,14 @@ export enum SearchSort {
   None = 0,
   // (undocumented)
   UsageFrequency = 2,
+}
+
+// @public (undocumented)
+enum SearchSourceTypes {
+  // (undocumented)
+  PICKER = 'picker',
+  // (undocumented)
+  TYPEAHEAD = 'typeahead',
 }
 
 // @public (undocumented)

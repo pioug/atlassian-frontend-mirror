@@ -1,5 +1,12 @@
 # @atlaskit/avatar-group
 
+## 9.2.4
+
+### Patch Changes
+
+- [`a8a1fe824b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a8a1fe824b0) - Removed unused prop `enableTooltip` and fixed tooltip toggle in examples.
+- Updated dependencies
+
 ## 9.2.3
 
 ### Patch Changes

@@ -17,7 +17,8 @@ export interface TriggerProps {
   onFocus: (event: React.FocusEvent<HTMLElement>) => void;
   onBlur: (event: React.FocusEvent<HTMLElement>) => void;
   ref: (node: HTMLElement | null) => void;
-  'aria-describedby': string | undefined;
+  // We can make this required once the wrapped children approach is deprecated
+  'aria-describedby'?: string | undefined;
 }
 
 export interface TooltipProps {

@@ -9,6 +9,7 @@ import { token } from '@atlaskit/tokens';
 import { messages } from './messages';
 
 import Caption from './index';
+import '@testing-library/jest-dom';
 
 const renderWithIntl = (component: React.ReactNode) => {
   return render(<IntlProvider locale="en">{component}</IntlProvider>);

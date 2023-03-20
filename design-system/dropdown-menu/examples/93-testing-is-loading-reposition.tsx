@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
-import { UNSAFE_Inline as Inline } from '@atlaskit/ds-explorations';
+import Inline from '@atlaskit/primitives/inline';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../src';
 
@@ -9,7 +9,7 @@ export default () => {
   const [isLoading, setLoading] = useState(true);
 
   return (
-    <Inline gap="space.200">
+    <Inline space="200">
       <Button
         testId="toggle"
         onClick={() => setLoading((loadingState) => !loadingState)}

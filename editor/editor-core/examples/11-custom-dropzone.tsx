@@ -1,6 +1,6 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React from 'react';
-import { Editor } from '../src';
+import { EditorMigrationComponent as Editor } from '../src';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 
 type State = {

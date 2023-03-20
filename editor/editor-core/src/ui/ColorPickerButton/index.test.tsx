@@ -1,6 +1,7 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React from 'react';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { token } from '@atlaskit/tokens';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { colors } from '@atlaskit/theme';
@@ -98,7 +99,7 @@ describe('color-picker-button', () => {
     expect(onChangeMock).toBeCalledWith({
       label: 'Green',
       value: colors.G75,
-      border: DEFAULT_BORDER_COLOR,
+      border: token('color.border', DEFAULT_BORDER_COLOR),
     });
   });
 

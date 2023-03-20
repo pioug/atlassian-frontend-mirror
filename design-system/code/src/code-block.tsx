@@ -2,7 +2,6 @@
 import { memo, useCallback, useMemo } from 'react';
 
 import { css, jsx } from '@emotion/react';
-import { PrismAsync as SyntaxHighlighter } from 'react-syntax-highlighter';
 
 import { useGlobalTheme } from '@atlaskit/theme/components';
 
@@ -10,7 +9,7 @@ import { useHighlightLines } from './internal/hooks/use-highlight';
 import { getCodeBlockStyles, getCodeBlockTheme } from './internal/theme/styles';
 import type { CodeBlockProps } from './internal/types';
 import { normalizeLanguage } from './internal/utils/get-normalized-language';
-import { createBidiWarningRenderer } from './react-syntax-highlighter-bidi-warning-renderer';
+import SyntaxHighlighter from './syntax-highlighter';
 
 /**
  * __Code block__
@@ -32,6 +31,7 @@ const CodeBlock = memo<CodeBlockProps>(function CodeBlock({
   codeBidiWarnings = true,
   codeBidiWarningLabel,
   codeBidiWarningTooltipEnabled = true,
+  shouldWrapLongLines = false,
 }) {
   const numLines = (text || '').split('\n').length;
   const globalTheme = useGlobalTheme();
@@ -43,8 +43,21 @@ const CodeBlock = memo<CodeBlockProps>(function CodeBlock({
   const getStyles = useMemo(() => getCodeBlockStyles(theme), [theme]);
   const styles = useMemo(
     () =>
-      css(getStyles(highlightedStartText, highlightedEndText, showLineNumbers)),
-    [highlightedStartText, highlightedEndText, showLineNumbers, getStyles],
+      css(
+        getStyles(
+          highlightedStartText,
+          highlightedEndText,
+          showLineNumbers,
+          shouldWrapLongLines,
+        ),
+      ),
+    [
+      highlightedStartText,
+      highlightedEndText,
+      showLineNumbers,
+      shouldWrapLongLines,
+      getStyles,
+    ],
   );
 
   const { getHighlightStyles, highlightedLines } = useHighlightLines({
@@ -65,30 +78,25 @@ const CodeBlock = memo<CodeBlockProps>(function CodeBlock({
   // https://product-fabric.atlassian.net/browse/DST-2472
   const languageToUse = text ? language : 'text';
 
-  const renderer = codeBidiWarnings
-    ? createBidiWarningRenderer({
-        codeBidiWarningLabel,
-        codeBidiWarningTooltipEnabled,
-      })
-    : undefined;
-
   return (
     <SyntaxHighlighter
-      data-testid={testId}
       data-code-lang={language}
       data-ds--code--code-block=""
-      css={styles}
+      testId={testId}
       language={languageToUse}
-      PreTag="span"
+      css={styles}
       showLineNumbers={showLineNumbers}
-      // Wrap lines is needed to set styles on the line when highlighting.
-      wrapLines={highlight.length > 0 || !!testId}
       lineProps={getLineProps}
-      useInlineStyles={false}
-      renderer={renderer}
-    >
-      {text}
-    </SyntaxHighlighter>
+      // shouldCreateParentElementForLines is needed to pass down props to each line.
+      // This is necessary for both line highlighting and testId's, as each of
+      // these rely on a data attribute being passed down to lines.
+      shouldCreateParentElementForLines={highlight.length > 0 || !!testId}
+      shouldWrapLongLines={shouldWrapLongLines}
+      codeBidiWarnings={codeBidiWarnings}
+      codeBidiWarningLabel={codeBidiWarningLabel}
+      codeBidiWarningTooltipEnabled={codeBidiWarningTooltipEnabled}
+      text={text}
+    />
   );
 });
 

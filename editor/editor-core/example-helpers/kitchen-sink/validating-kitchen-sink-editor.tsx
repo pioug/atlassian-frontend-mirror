@@ -19,7 +19,7 @@ import {
 } from '@atlaskit/util-data-test/mention-story-data';
 import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
 import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
-import Editor from '../../src/editor';
+import { EditorMigrationComponent as Editor } from '../../src';
 import { EditorAppearance, EditorPlugin, EditorProps } from '../../src/types';
 import { EditorActions } from '../../src';
 
@@ -136,7 +136,10 @@ export class ValidatingKitchenSinkEditor extends React.Component<
           // allowTables={false}
           allowBreakout={true}
           allowJiraIssue={true}
-          allowPanel={true}
+          allowPanel={{
+            allowCustomPanel: true,
+            allowCustomPanelEdit: true,
+          }}
           allowExtension={{
             allowBreakout: true,
             allowAutoSave: true,
@@ -196,6 +199,8 @@ export class ValidatingKitchenSinkEditor extends React.Component<
             'safer-dispatched-transactions': true,
             'floating-toolbar-copy-button': true,
             'restart-numbered-lists': true,
+            tableCellOptionsInFloatingToolbar: true,
+            indentationButtonsInTheToolbar: true,
             ...this.props.featureFlags,
           }}
           dangerouslyAppendPlugins={{

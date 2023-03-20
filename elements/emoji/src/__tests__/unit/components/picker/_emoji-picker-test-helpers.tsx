@@ -14,7 +14,7 @@ import EmojiPickerCategoryHeading from '../../../../components/picker/EmojiPicke
 import EmojiPickerComponent from '../../../../components/picker/EmojiPickerComponent';
 import EmojiPickerEmojiRow from '../../../../components/picker/EmojiPickerEmojiRow';
 import EmojiPickerList from '../../../../components/picker/EmojiPickerList';
-import EmojiPickerListSearch from '../../../../components/picker/EmojiPickerListSearch';
+import { EmojiPickerListSearch } from '../../../../components/picker/EmojiPickerListSearch';
 import { EmojiDescription } from '../../../../types';
 import { hasSelector } from '../../_emoji-selectors';
 import { getEmojiResourcePromise, newEmojiRepository } from '../../_test-data';

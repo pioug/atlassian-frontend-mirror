@@ -3,6 +3,7 @@
 import {
   createElement,
   forwardRef,
+  isValidElement,
   MouseEvent,
   MouseEventHandler,
   ReactNode,
@@ -289,8 +290,8 @@ const Avatar = forwardRef<HTMLElement, AvatarPropTypes>(
     ref,
   ) => {
     const { createAnalyticsEvent } = useAnalyticsEvents();
-    const customPresenceNode = typeof presence === 'object' ? presence : null;
-    const customStatusNode = typeof status === 'object' ? status : null;
+    const customPresenceNode = isValidElement(presence) ? presence : null;
+    const customStatusNode = isValidElement(status) ? status : null;
     const isValidIconSize = size !== 'xxlarge' && size !== 'xsmall';
     const lastAnalytics = useRef(analyticsContext);
 

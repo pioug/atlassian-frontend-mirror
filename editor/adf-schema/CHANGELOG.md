@@ -1,5 +1,11 @@
 # @atlaskit/adf-schema
 
+## 25.3.0
+
+### Minor Changes
+
+- [`7f755f463e0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7f755f463e0) - EDM-4553: allowing root relative links to be copied and pasted as a link by appending the parent root to the root relative link when it is copy and pasted.
+
 ## 25.2.3
 
 ### Patch Changes

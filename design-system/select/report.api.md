@@ -42,6 +42,7 @@ import { MenuListProps } from 'react-select';
 import { MenuProps as MenuProps_2 } from 'react-select';
 import { mergeStyles } from 'react-select';
 import { MultiValueProps } from 'react-select';
+import { MultiValueRemoveProps } from 'react-select';
 import { NoticeProps } from 'react-select';
 import { OnChangeValue } from 'react-select';
 import { OptionProps as OptionProps_2 } from 'react-select';
@@ -654,6 +655,8 @@ export type ModifierList =
   | 'preventOverflow';
 
 export { MultiValueProps };
+
+export { MultiValueRemoveProps };
 
 export { NoticeProps };
 

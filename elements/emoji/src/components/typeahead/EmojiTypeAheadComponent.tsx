@@ -241,12 +241,6 @@ export default class EmojiTypeAheadComponent extends PureComponent<
       options.sort = SearchSort.UsageFrequency;
     }
 
-    ufoExperiences['emoji-searched'].start();
-    ufoExperiences['emoji-searched'].addMetadata({
-      queryLength: query?.length || 0,
-      source: 'EmojiTypeAheadComponent',
-    });
-
     this.renderStartTime = Date.now();
 
     emojiProvider.filter(query, options);
@@ -259,10 +253,6 @@ export default class EmojiTypeAheadComponent extends PureComponent<
     this.fireAnalyticsEvent(
       typeaheadRenderedEvent(Date.now() - this.renderStartTime, query, emojis),
     );
-
-    ufoExperiences['emoji-searched'].success({
-      metadata: { emojisLength: emojis.length },
-    });
 
     debug(
       'emoji-typeahead.applyPropChanges',

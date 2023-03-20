@@ -48,10 +48,12 @@ export interface Props {
 
 export interface State {
   isOpen: boolean;
+  isOpenedByKeyboard: boolean;
 }
 
 export default class Dropdown extends Component<Props, State> {
-  state: State = { isOpen: false };
+  state: State = { isOpen: false, isOpenedByKeyboard: false };
+  triggerRef = React.createRef<HTMLDivElement>();
 
   render() {
     const { isOpen } = this.state;
@@ -80,6 +82,7 @@ export default class Dropdown extends Component<Props, State> {
           title={title}
           icon={TriggerIcon}
           onClick={this.toggleOpen}
+          onKeyDown={this.toggleOpenByKeyboard}
           selected={isOpen}
           disabled={disabled}
           tooltipContent={tooltip}
@@ -95,6 +98,7 @@ export default class Dropdown extends Component<Props, State> {
             </span>
           }
           onClick={this.toggleOpen}
+          onKeyDown={this.toggleOpenByKeyboard}
           selected={isOpen}
           disabled={disabled}
           tooltipContent={tooltip}
@@ -118,12 +122,13 @@ export default class Dropdown extends Component<Props, State> {
 
     return (
       <UiDropdown
+        ref={this.triggerRef}
         mountTo={mountPoint}
         boundariesElement={boundariesElement}
         scrollableElement={scrollableElement}
         isOpen={isOpen}
         handleClickOutside={this.hide}
-        handleEscapeKeydown={this.hideonEsc}
+        handleEscapeKeydown={this.hideOnEsc}
         onOpenChange={this.onOpenChanged}
         fitWidth={fitWidth + fitTolerance}
         fitHeight={fitHeight + fitTolerance}
@@ -151,14 +156,21 @@ export default class Dropdown extends Component<Props, State> {
   };
 
   private toggleOpen = () => {
-    this.setState({ isOpen: !this.state.isOpen });
+    this.setState({ isOpen: !this.state.isOpen, isOpenedByKeyboard: false });
+  };
+
+  private toggleOpenByKeyboard = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      this.setState({ isOpen: !this.state.isOpen, isOpenedByKeyboard: true });
+    }
   };
 
   private hide = () => {
-    this.setState({ isOpen: false });
+    this.setState({ ...this.state, isOpen: false });
   };
 
-  private hideonEsc = () => {
+  private hideOnEsc = () => {
     this.hide();
     //Focus the trigger button only on Escape
     (
@@ -173,16 +185,27 @@ export default class Dropdown extends Component<Props, State> {
       !openChangedEvent.isOpen &&
       openChangedEvent.event instanceof KeyboardEvent
     ) {
-      openChangedEvent.event?.key === 'Escape' ? this.hideonEsc() : this.hide();
+      openChangedEvent.event?.key === 'Escape' ? this.hideOnEsc() : this.hide();
     }
   };
 
   componentDidUpdate(prevProps: Props, prevState: State) {
-    if (
-      this.props.setDisableParentScroll &&
-      prevState.isOpen !== this.state.isOpen
-    ) {
-      this.props.setDisableParentScroll(this.state.isOpen);
+    if (prevState.isOpen !== this.state.isOpen) {
+      if (this.props.setDisableParentScroll) {
+        this.props.setDisableParentScroll(this.state.isOpen);
+      }
+      if (this.state.isOpen && this.state.isOpenedByKeyboard) {
+        const dropList = document.querySelector(
+          '[data-role="droplistContent"]',
+        );
+        if (dropList) {
+          const keyboardEvent = new KeyboardEvent('keydown', {
+            bubbles: true,
+            key: 'ArrowDown',
+          });
+          dropList.dispatchEvent(keyboardEvent);
+        }
+      }
     }
   }
 }

@@ -143,11 +143,12 @@ export default React.forwardRef<HTMLElement, ButtonBaseProps>(
     var spinnerHackCss = {};
     if (isSelected || isDisabled || appearance === 'warning') {
       spinnerHackCss = {
-        '[data-theme] & svg': {
-          stroke:
+        '[data-theme] & circle': {
+          stroke: `${
             isSelected || isDisabled
-              ? token('color.text.subtle', N500)
-              : token('color.text.warning.inverse', N500),
+              ? token('color.icon.subtle', N500)
+              : token('color.icon.warning.inverse', N500)
+          } !important`,
         },
       };
     }

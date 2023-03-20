@@ -1,6 +1,7 @@
 import { CardOptions } from '@atlaskit/editor-common/card';
 import { LinkPickerProps } from '@atlaskit/link-picker';
-import { INPUT_METHOD } from '../analytics';
+import { INPUT_METHOD } from '../analytics/types';
+import { EditorAppearance } from '@atlaskit/editor-common/types';
 
 export type LinkInputType = INPUT_METHOD.MANUAL | INPUT_METHOD.TYPEAHEAD;
 
@@ -33,4 +34,5 @@ export interface HyperlinkPluginOptions {
   cardOptions?: CardOptions;
   linkPicker?: LinkPickerOptions;
   platform?: 'mobile' | 'web';
+  editorAppearance?: EditorAppearance;
 }

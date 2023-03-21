@@ -10,6 +10,7 @@ import { AKIconWrapper } from '../Icon';
 import { IconAndTitleLayout } from '../IconAndTitleLayout';
 import { IconStyledButton } from '../styled';
 import { HoverCard } from '../../HoverCard';
+import { AnalyticsFacade } from '../../../state/analytics';
 
 export interface InlineCardUnauthorizedViewProps {
   /** The url to display */
@@ -30,6 +31,10 @@ export interface InlineCardUnauthorizedViewProps {
   showAuthTooltip?: boolean;
   /** A smart link id that may be used in analytics */
   id?: string;
+  /** An AnalyticsFacade object used for calling analytics. */
+  analytics: AnalyticsFacade;
+  /** An identifier of the provider which will be executing the action. */
+  extensionKey?: string;
 }
 
 const FallbackUnauthorizedIcon = (
@@ -44,9 +49,15 @@ const FallbackUnauthorizedIcon = (
 
 export class InlineCardUnauthorizedView extends React.Component<InlineCardUnauthorizedViewProps> {
   handleConnectAccount = (event: React.MouseEvent<HTMLElement>) => {
-    const { onAuthorise } = this.props;
+    const { analytics, extensionKey, onAuthorise } = this.props;
     event.preventDefault();
     event.stopPropagation();
+
+    if (onAuthorise) {
+      analytics?.track.appAccountAuthStarted({
+        extensionKey,
+      });
+    }
     return onAuthorise!();
   };
 

@@ -15,7 +15,7 @@ describe('JIRA wiki markup - Links', () => {
       'This is a [mailto:legendaryservice@atlassian.com] link',
     ],
     [
-      'should ignore file links',
+      'should convert file links to link marks',
       'This is a local file [file:///c:/temp/foo.txt] link',
     ],
     ['should accept anchor-links starting with #', 'This is an [#anchor] link'],

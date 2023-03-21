@@ -422,6 +422,40 @@ Object {
 }
 `;
 
+exports[`JIRA wiki markup - Links should convert file links to link marks 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "This is a local file ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "__confluenceMetadata": null,
+                "href": "file:///c:/temp/foo.txt",
+              },
+              "type": "link",
+            },
+          ],
+          "text": "file:///c:/temp/foo.txt",
+          "type": "text",
+        },
+        Object {
+          "text": " link",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
 exports[`JIRA wiki markup - Links should convert links with port to link marks 1`] = `
 Object {
   "content": Array [
@@ -749,23 +783,6 @@ Object {
       "content": Array [
         Object {
           "text": "Anchor  here",
-          "type": "text",
-        },
-      ],
-      "type": "paragraph",
-    },
-  ],
-  "type": "doc",
-}
-`;
-
-exports[`JIRA wiki markup - Links should ignore file links 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "content": Array [
-        Object {
-          "text": "This is a local file [file:///c:/temp/foo.txt] link",
           "type": "text",
         },
       ],

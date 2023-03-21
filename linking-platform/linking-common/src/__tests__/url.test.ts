@@ -20,6 +20,12 @@ describe('normalizeUrl', () => {
     // This is a root-relative url
     '/etc',
     '/etc/xyz/index.html',
+    // other protocols
+    'gopher://go.com',
+    'dynamicsnav://go.com',
+    'integrity://go.com',
+    'file://go.pdf',
+    'smb://go.com',
     // mailto
     'mailto:',
     'mailto:hello@test.com',

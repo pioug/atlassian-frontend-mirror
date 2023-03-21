@@ -5,6 +5,11 @@ describe(`${packageName}/url url utils`, () => {
   describe('normalizeUrl', () => {
     const examples = [
       ['prettyandsimple@example.com', 'mailto:prettyandsimple@example.com'],
+      ['gopher://go.com', 'gopher://go.com'],
+      ['dynamicsnav://go.com', 'dynamicsnav://go.com'],
+      ['integrity://go.com', 'integrity://go.com'],
+      ['file://go.pdf', 'file://go.pdf'],
+      ['smb://go.com', 'smb://go.com'],
       [
         'mailto:prettyandsimple@example.com',
         'mailto:prettyandsimple@example.com',

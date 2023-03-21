@@ -5,19 +5,22 @@ order: 1
 import SectionMessage, {
   SectionMessageAction,
 } from '@atlaskit/section-message';
-import TokenExplorer from '../../docs/token-explorer';
+import { Stack } from '@atlaskit/primitives'
+import { TokenExplorer } from '@af/design-system-docs-ui';
 
-<SectionMessage
-  title="This is a preview of our new color and theming system, powered by design tokens"
-  appearance="warning"
->
-  <p>
-    Expect frequent changes as we iterate over the coming months. 
-    For early access and release updates, <a href="https://community.developer.atlassian.com/t/introducing-design-tokens-new-colour-foundations-and-dark-mode/62258">see our developer community announcement</a>.
-    For Atlassian employees, <a href="https://go.atlassian.com/tokens">see details</a>.
-    <br/><br/>
-    Design tokens use our new color palette and will not always match those imported from @atlaskit/theme/colors. For more information, see the <a href="/components/tokens/migration-guide#colors-are-changing">migration guide</a>.
-  </p>
-</SectionMessage>
+<Stack space="400">
+  <SectionMessage
+    title="This is a preview of our new color and theming system, powered by design tokens"
+    appearance="warning"
+  >
+    <p>
+      Expect frequent changes as we iterate over the coming months.
+      For early access and release updates, <a href="https://community.developer.atlassian.com/t/introducing-design-tokens-new-colour-foundations-and-dark-mode/62258">see our developer community announcement</a>.
+      For Atlassian employees, <a href="https://go.atlassian.com/tokens">see details</a>.
+      <br/><br/>
+      Design tokens use our new color palette and will not always match those imported from @atlaskit/theme/colors. For more information, see the <a href="/components/tokens/migration-guide#colors-are-changing">migration guide</a>.
+    </p>
+  </SectionMessage>
 
-<TokenExplorer scrollOffset={56} />
+  <TokenExplorer scrollOffset={56} />
+</Stack>

@@ -2,6 +2,7 @@ import { EventHandler, MouseEvent, KeyboardEvent } from 'react';
 import { CardProviderRenderers } from '@atlaskit/link-provider';
 import { CardState } from '../../state/types';
 import { InlinePreloaderStyle, OnErrorCallback } from '../types';
+import { AnalyticsFacade } from '../../state/analytics';
 
 export type InlineCardProps = {
   id: string;
@@ -17,4 +18,5 @@ export type InlineCardProps = {
   renderers?: CardProviderRenderers;
   showHoverPreview?: boolean;
   showAuthTooltip?: boolean;
+  analytics: AnalyticsFacade;
 };

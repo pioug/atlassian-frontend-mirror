@@ -286,6 +286,7 @@ export function CardWithUrlContent({
     case 'inline':
       return (
         <InlineCard
+          analytics={analytics}
           id={id}
           url={url}
           renderers={renderers}

@@ -20,6 +20,11 @@ linkify.tlds(tlds, false);
 const whitelistedURLPatterns = [
   /^https?:\/\/[^\s]*$/im,
   /^ftps?:\/\//im,
+  /^gopher:\/\//im,
+  /^integrity:\/\//im,
+  /^file:\/\//im,
+  /^smb:\/\//im,
+  /^dynamicsnav:\/\//im,
   /^jamfselfservice:\/\/[^\s]*$/im,
   /^\//im,
   /^mailto:/im,
@@ -78,7 +83,9 @@ const getLinkMatch = (str?: string): Match | null => {
     : null;
 };
 
-const LINK_REGEXP = /(https?|ftp|jamfselfservice):\/\/[^\s]+/;
+const LINK_REGEXP =
+  /(https?|ftp|jamfselfservice|gopher|dynamicsnav|integrity|file|smb):\/\/[^\s]+/;
+
 const linkifyMatch = (text: string): Match[] => {
   const matches: Match[] = [];
 

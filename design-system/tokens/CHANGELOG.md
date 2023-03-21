@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 1.2.5
+
+### Patch Changes
+
+- [`d1adc718599`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d1adc718599) - Added token-order entry-point, exported ActiveTokens type.
+
 ## 1.2.4
 
 ### Patch Changes

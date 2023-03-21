@@ -23,6 +23,7 @@ export type {
   InvokeActionErrorResponse,
   InvokeActionRequest,
   InvokeActionResponse,
-  SmartLinkActionType,
   StatusUpdateActionRequest,
 } from './smart-link-action-types';
+
+export { SmartLinkActionType } from './smart-link-action-types';

@@ -294,6 +294,49 @@ describe('smart-card: unauthorized analytics', () => {
       });
     });
 
+    it('should fire clicked event when the connect button is clicked on unauthorized inline card', async () => {
+      const mockUrl = 'https://https://this.is.a.url';
+      mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
+      const { getByTestId } = render(
+        <IntlProvider locale="en">
+          <Provider client={mockClient}>
+            <Card
+              url={mockUrl}
+              appearance="inline"
+              testId="unauthorized-inline-card"
+            />
+          </Provider>
+        </IntlProvider>,
+      );
+
+      const connectButton = await waitFor(
+        () => getByTestId('button-connect-account'),
+
+        { timeout: 10000 },
+      );
+
+      expect(connectButton).toBeTruthy();
+
+      asMockFunction(auth).mockImplementationOnce(async () => {});
+      fireEvent.click(connectButton!);
+
+      // verify ui button clicked event is fired
+      expect(analytics.uiAuthEvent).toHaveBeenCalledTimes(1);
+      expect(analytics.uiAuthEvent).toHaveBeenCalledWith({
+        display: 'inline',
+        definitionId: 'd1',
+        extensionKey: 'object-provider',
+      });
+
+      // verify track event is fired
+      expect(analytics.trackAppAccountAuthStarted).toHaveBeenCalledTimes(1);
+      expect(analytics.trackAppAccountAuthStarted).toHaveBeenCalledWith({
+        extensionKey: 'object-provider',
+        definitionId: 'd1',
+        id: 'some-uuid-1',
+      });
+    });
+
     it('should fire success event when the link is rendered', async () => {
       const mockUrl = 'https://https://this.is.a.url';
       mockFetch.mockImplementationOnce(async () => mocks.unauthorized);

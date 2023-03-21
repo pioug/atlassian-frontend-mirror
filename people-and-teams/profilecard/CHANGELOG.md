@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 19.0.0
+
+### Major Changes
+
+- [`6e57454a13a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6e57454a13a) - makeRequestViaGateway removed from TeamProfileClient, instead use makeRequest. teamsUseV2 removed from ProfileCardClient, it will now always use V3.
+
 ## 18.4.0
 
 ### Minor Changes

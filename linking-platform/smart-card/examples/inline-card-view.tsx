@@ -9,6 +9,7 @@ import {
   InlineCardUnauthorizedView,
 } from '../src/view/InlineCard';
 import { IntlProvider } from 'react-intl-next';
+import { mockAnalytics } from '../src/utils/mocks';
 
 interface Lozenge {
   text: string;
@@ -62,6 +63,7 @@ class Example extends React.Component {
                   alert('Does nothing...');
                 }}
                 url={url}
+                analytics={mockAnalytics}
               />
               <h4>ResolvingView</h4>
               Labore sunt adipisicing esse magna.

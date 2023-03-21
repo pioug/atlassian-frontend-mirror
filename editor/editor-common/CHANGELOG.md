@@ -1,5 +1,11 @@
 # @atlaskit/editor-common
 
+## 72.5.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 72.5.0
 
 ### Minor Changes

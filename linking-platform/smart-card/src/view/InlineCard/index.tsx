@@ -12,6 +12,7 @@ import { InlineCardResolvingView } from './ResolvingView';
 import { InlineCardUnauthorizedView } from './UnauthorisedView';
 import { extractProvider } from '@atlaskit/linking-common/extractors';
 import { useFeatureFlag } from '@atlaskit/link-provider';
+import { getExtensionKey } from '../../state/helpers';
 
 export {
   InlineCardResolvedView,
@@ -22,6 +23,7 @@ export {
 };
 
 export const InlineCard: FC<InlineCardProps> = ({
+  analytics,
   id,
   url,
   cardState,
@@ -38,6 +40,7 @@ export const InlineCard: FC<InlineCardProps> = ({
 }) => {
   const { status, details } = cardState;
   const cardDetails = (details && details.data) || getEmptyJsonLd();
+  const extensionKey = getExtensionKey(details);
   const testIdWithStatus = testId ? `${testId}-${status}-view` : undefined;
 
   const showHoverPreviewFlag = useFeatureFlag('showHoverPreview');
@@ -98,6 +101,8 @@ export const InlineCard: FC<InlineCardProps> = ({
           testId={testIdWithStatus}
           showAuthTooltip={showAuthTooltip}
           id={id}
+          analytics={analytics}
+          extensionKey={extensionKey}
         />
       );
     case 'forbidden':

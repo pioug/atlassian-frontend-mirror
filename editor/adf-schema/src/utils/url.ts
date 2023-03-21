@@ -7,6 +7,11 @@ import LinkifyIt from 'linkify-it';
 const whitelistedURLPatterns = [
   /^https?:\/\//im,
   /^ftps?:\/\//im,
+  /^gopher:\/\//im,
+  /^integrity:\/\//im,
+  /^file:\/\//im,
+  /^smb:\/\//im,
+  /^dynamicsnav:\/\//im,
   /^jamfselfservice:\/\//im,
   /^\//im,
   /^mailto:/im,
@@ -76,7 +81,8 @@ const tlds2Char =
 tlds.push(tlds2Char);
 linkify.tlds(tlds, false);
 
-export const LINK_REGEXP = /(https?|ftp|jamfselfservice):\/\/[^\s]+/;
+export const LINK_REGEXP =
+  /(https?|ftp|jamfselfservice|gopher|dynamicsnav|integrity|file|smb):\/\/[^\s]+/;
 
 export const linkifyMatch = (text: string): Match[] => {
   const matches: Match[] = [];

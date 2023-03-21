@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 25.0.6
+
+### Patch Changes
+
+- [`c85ee838eae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c85ee838eae) - [ux] Added analytics event 'appAccount authStarted' for inline smart card
+
 ## 25.0.5
 
 ### Patch Changes

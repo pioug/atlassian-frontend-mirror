@@ -4,6 +4,7 @@ import { Label } from '@atlaskit/form';
 import TextField from '@atlaskit/textfield';
 import { IntlProvider } from 'react-intl-next';
 import { InlineCardUnauthorizedView } from '../src/view/InlineCard/UnauthorisedView';
+import { mockAnalytics } from '../src/utils/mocks';
 
 class Example extends React.Component {
   state = {
@@ -34,6 +35,7 @@ class Example extends React.Component {
               <InlineCardUnauthorizedView
                 url={this.state.url}
                 onClick={() => alert('This will have zero effect...')}
+                analytics={mockAnalytics}
               />
               <hr />
             </GridColumn>
@@ -43,7 +45,11 @@ class Example extends React.Component {
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                 Praesent in finibus augue. Etiam ut leo justo. Proin consequat
-                lacus id leo <InlineCardUnauthorizedView url={this.state.url} />{' '}
+                lacus id leo{' '}
+                <InlineCardUnauthorizedView
+                  url={this.state.url}
+                  analytics={mockAnalytics}
+                />{' '}
                 volutpat ornare sodales nec purus. Curabitur tempor lacinia
                 auctor. Proin commodo quis nisi at rutrum. In hac habitasse
                 platea dictumst. Nam feugiat neque eget est pharetra euismod.

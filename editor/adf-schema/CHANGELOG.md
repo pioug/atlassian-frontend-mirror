@@ -1,5 +1,17 @@
 # @atlaskit/adf-schema
 
+## 25.3.1
+
+### Patch Changes
+
+- [`f5568785246`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f5568785246) - Support common URL protocols:
+
+  - gopher
+  - integrity
+  - file
+  - smb
+  - dynamicsnav
+
 ## 25.3.0
 
 ### Minor Changes

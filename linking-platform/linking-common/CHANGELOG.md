@@ -1,5 +1,17 @@
 # @atlaskit/linking-common
 
+## 2.2.1
+
+### Patch Changes
+
+- [`a132b532d6a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a132b532d6a) - Support common URL protocols:
+
+  - gopher
+  - integrity
+  - file
+  - smb
+  - dynamicsnav
+
 ## 2.2.0
 
 ### Minor Changes

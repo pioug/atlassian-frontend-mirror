@@ -17,6 +17,422 @@
 ```ts
 import { UnbindFn } from 'bind-event-listener';
 
+// @public
+export type ActiveTokens =
+  | 'color.background.accent.blue.bolder'
+  | 'color.background.accent.blue.subtle'
+  | 'color.background.accent.blue.subtler'
+  | 'color.background.accent.blue.subtlest'
+  | 'color.background.accent.gray.bolder'
+  | 'color.background.accent.gray.subtle'
+  | 'color.background.accent.gray.subtler'
+  | 'color.background.accent.gray.subtlest'
+  | 'color.background.accent.green.bolder'
+  | 'color.background.accent.green.subtle'
+  | 'color.background.accent.green.subtler'
+  | 'color.background.accent.green.subtlest'
+  | 'color.background.accent.magenta.bolder'
+  | 'color.background.accent.magenta.subtle'
+  | 'color.background.accent.magenta.subtler'
+  | 'color.background.accent.magenta.subtlest'
+  | 'color.background.accent.orange.bolder'
+  | 'color.background.accent.orange.subtle'
+  | 'color.background.accent.orange.subtler'
+  | 'color.background.accent.orange.subtlest'
+  | 'color.background.accent.purple.bolder'
+  | 'color.background.accent.purple.subtle'
+  | 'color.background.accent.purple.subtler'
+  | 'color.background.accent.purple.subtlest'
+  | 'color.background.accent.red.bolder'
+  | 'color.background.accent.red.subtle'
+  | 'color.background.accent.red.subtler'
+  | 'color.background.accent.red.subtlest'
+  | 'color.background.accent.teal.bolder'
+  | 'color.background.accent.teal.subtle'
+  | 'color.background.accent.teal.subtler'
+  | 'color.background.accent.teal.subtlest'
+  | 'color.background.accent.yellow.bolder'
+  | 'color.background.accent.yellow.subtle'
+  | 'color.background.accent.yellow.subtler'
+  | 'color.background.accent.yellow.subtlest'
+  | 'color.background.brand.bold'
+  | 'color.background.brand.bold.hovered'
+  | 'color.background.brand.bold.pressed'
+  | 'color.background.danger'
+  | 'color.background.danger.bold'
+  | 'color.background.danger.bold.hovered'
+  | 'color.background.danger.bold.pressed'
+  | 'color.background.danger.hovered'
+  | 'color.background.danger.pressed'
+  | 'color.background.disabled'
+  | 'color.background.discovery'
+  | 'color.background.discovery.bold'
+  | 'color.background.discovery.bold.hovered'
+  | 'color.background.discovery.bold.pressed'
+  | 'color.background.discovery.hovered'
+  | 'color.background.discovery.pressed'
+  | 'color.background.information'
+  | 'color.background.information.bold'
+  | 'color.background.information.bold.hovered'
+  | 'color.background.information.bold.pressed'
+  | 'color.background.information.hovered'
+  | 'color.background.information.pressed'
+  | 'color.background.input'
+  | 'color.background.input.hovered'
+  | 'color.background.input.pressed'
+  | 'color.background.inverse.subtle'
+  | 'color.background.inverse.subtle.hovered'
+  | 'color.background.inverse.subtle.pressed'
+  | 'color.background.neutral'
+  | 'color.background.neutral.bold'
+  | 'color.background.neutral.bold.hovered'
+  | 'color.background.neutral.bold.pressed'
+  | 'color.background.neutral.hovered'
+  | 'color.background.neutral.pressed'
+  | 'color.background.neutral.subtle'
+  | 'color.background.neutral.subtle.hovered'
+  | 'color.background.neutral.subtle.pressed'
+  | 'color.background.selected'
+  | 'color.background.selected.bold'
+  | 'color.background.selected.bold.hovered'
+  | 'color.background.selected.bold.pressed'
+  | 'color.background.selected.hovered'
+  | 'color.background.selected.pressed'
+  | 'color.background.success'
+  | 'color.background.success.bold'
+  | 'color.background.success.bold.hovered'
+  | 'color.background.success.bold.pressed'
+  | 'color.background.success.hovered'
+  | 'color.background.success.pressed'
+  | 'color.background.warning'
+  | 'color.background.warning.bold'
+  | 'color.background.warning.bold.hovered'
+  | 'color.background.warning.bold.pressed'
+  | 'color.background.warning.hovered'
+  | 'color.background.warning.pressed'
+  | 'color.blanket'
+  | 'color.blanket.danger'
+  | 'color.blanket.selected'
+  | 'color.border'
+  | 'color.border.accent.blue'
+  | 'color.border.accent.gray'
+  | 'color.border.accent.green'
+  | 'color.border.accent.magenta'
+  | 'color.border.accent.orange'
+  | 'color.border.accent.purple'
+  | 'color.border.accent.red'
+  | 'color.border.accent.teal'
+  | 'color.border.accent.yellow'
+  | 'color.border.bold'
+  | 'color.border.brand'
+  | 'color.border.danger'
+  | 'color.border.disabled'
+  | 'color.border.discovery'
+  | 'color.border.focused'
+  | 'color.border.information'
+  | 'color.border.input'
+  | 'color.border.inverse'
+  | 'color.border.selected'
+  | 'color.border.success'
+  | 'color.border.warning'
+  | 'color.chart.blue.bold'
+  | 'color.chart.blue.bold.hovered'
+  | 'color.chart.blue.bolder'
+  | 'color.chart.blue.bolder.hovered'
+  | 'color.chart.blue.boldest'
+  | 'color.chart.blue.boldest.hovered'
+  | 'color.chart.brand'
+  | 'color.chart.brand.hovered'
+  | 'color.chart.categorical.1'
+  | 'color.chart.categorical.1.hovered'
+  | 'color.chart.categorical.2'
+  | 'color.chart.categorical.2.hovered'
+  | 'color.chart.categorical.3'
+  | 'color.chart.categorical.3.hovered'
+  | 'color.chart.categorical.4'
+  | 'color.chart.categorical.4.hovered'
+  | 'color.chart.categorical.5'
+  | 'color.chart.categorical.5.hovered'
+  | 'color.chart.categorical.6'
+  | 'color.chart.categorical.6.hovered'
+  | 'color.chart.categorical.7'
+  | 'color.chart.categorical.7.hovered'
+  | 'color.chart.categorical.8'
+  | 'color.chart.categorical.8.hovered'
+  | 'color.chart.danger'
+  | 'color.chart.danger.bold'
+  | 'color.chart.danger.bold.hovered'
+  | 'color.chart.danger.hovered'
+  | 'color.chart.discovery'
+  | 'color.chart.discovery.bold'
+  | 'color.chart.discovery.bold.hovered'
+  | 'color.chart.discovery.hovered'
+  | 'color.chart.gray.bold'
+  | 'color.chart.gray.bold.hovered'
+  | 'color.chart.gray.bolder'
+  | 'color.chart.gray.bolder.hovered'
+  | 'color.chart.gray.boldest'
+  | 'color.chart.gray.boldest.hovered'
+  | 'color.chart.green.bold'
+  | 'color.chart.green.bold.hovered'
+  | 'color.chart.green.bolder'
+  | 'color.chart.green.bolder.hovered'
+  | 'color.chart.green.boldest'
+  | 'color.chart.green.boldest.hovered'
+  | 'color.chart.information'
+  | 'color.chart.information.bold'
+  | 'color.chart.information.bold.hovered'
+  | 'color.chart.information.hovered'
+  | 'color.chart.magenta.bold'
+  | 'color.chart.magenta.bold.hovered'
+  | 'color.chart.magenta.bolder'
+  | 'color.chart.magenta.bolder.hovered'
+  | 'color.chart.magenta.boldest'
+  | 'color.chart.magenta.boldest.hovered'
+  | 'color.chart.neutral'
+  | 'color.chart.neutral.hovered'
+  | 'color.chart.orange.bold'
+  | 'color.chart.orange.bold.hovered'
+  | 'color.chart.orange.bolder'
+  | 'color.chart.orange.bolder.hovered'
+  | 'color.chart.orange.boldest'
+  | 'color.chart.orange.boldest.hovered'
+  | 'color.chart.purple.bold'
+  | 'color.chart.purple.bold.hovered'
+  | 'color.chart.purple.bolder'
+  | 'color.chart.purple.bolder.hovered'
+  | 'color.chart.purple.boldest'
+  | 'color.chart.purple.boldest.hovered'
+  | 'color.chart.red.bold'
+  | 'color.chart.red.bold.hovered'
+  | 'color.chart.red.bolder'
+  | 'color.chart.red.bolder.hovered'
+  | 'color.chart.red.boldest'
+  | 'color.chart.red.boldest.hovered'
+  | 'color.chart.success'
+  | 'color.chart.success.bold'
+  | 'color.chart.success.bold.hovered'
+  | 'color.chart.success.hovered'
+  | 'color.chart.teal.bold'
+  | 'color.chart.teal.bold.hovered'
+  | 'color.chart.teal.bolder'
+  | 'color.chart.teal.bolder.hovered'
+  | 'color.chart.teal.boldest'
+  | 'color.chart.teal.boldest.hovered'
+  | 'color.chart.warning'
+  | 'color.chart.warning.bold'
+  | 'color.chart.warning.bold.hovered'
+  | 'color.chart.warning.hovered'
+  | 'color.chart.yellow.bold'
+  | 'color.chart.yellow.bold.hovered'
+  | 'color.chart.yellow.bolder'
+  | 'color.chart.yellow.bolder.hovered'
+  | 'color.chart.yellow.boldest'
+  | 'color.chart.yellow.boldest.hovered'
+  | 'color.icon'
+  | 'color.icon.accent.blue'
+  | 'color.icon.accent.gray'
+  | 'color.icon.accent.green'
+  | 'color.icon.accent.magenta'
+  | 'color.icon.accent.orange'
+  | 'color.icon.accent.purple'
+  | 'color.icon.accent.red'
+  | 'color.icon.accent.teal'
+  | 'color.icon.accent.yellow'
+  | 'color.icon.brand'
+  | 'color.icon.danger'
+  | 'color.icon.disabled'
+  | 'color.icon.discovery'
+  | 'color.icon.information'
+  | 'color.icon.inverse'
+  | 'color.icon.selected'
+  | 'color.icon.subtle'
+  | 'color.icon.success'
+  | 'color.icon.warning'
+  | 'color.icon.warning.inverse'
+  | 'color.interaction.hovered'
+  | 'color.interaction.pressed'
+  | 'color.link'
+  | 'color.link.pressed'
+  | 'color.skeleton'
+  | 'color.skeleton.subtle'
+  | 'color.text'
+  | 'color.text.accent.blue'
+  | 'color.text.accent.blue.bolder'
+  | 'color.text.accent.gray'
+  | 'color.text.accent.gray.bolder'
+  | 'color.text.accent.green'
+  | 'color.text.accent.green.bolder'
+  | 'color.text.accent.magenta'
+  | 'color.text.accent.magenta.bolder'
+  | 'color.text.accent.orange'
+  | 'color.text.accent.orange.bolder'
+  | 'color.text.accent.purple'
+  | 'color.text.accent.purple.bolder'
+  | 'color.text.accent.red'
+  | 'color.text.accent.red.bolder'
+  | 'color.text.accent.teal'
+  | 'color.text.accent.teal.bolder'
+  | 'color.text.accent.yellow'
+  | 'color.text.accent.yellow.bolder'
+  | 'color.text.brand'
+  | 'color.text.danger'
+  | 'color.text.disabled'
+  | 'color.text.discovery'
+  | 'color.text.information'
+  | 'color.text.inverse'
+  | 'color.text.selected'
+  | 'color.text.subtle'
+  | 'color.text.subtlest'
+  | 'color.text.success'
+  | 'color.text.warning'
+  | 'color.text.warning.inverse'
+  | 'elevation.shadow.overflow'
+  | 'elevation.shadow.overflow.perimeter'
+  | 'elevation.shadow.overflow.spread'
+  | 'elevation.shadow.overlay'
+  | 'elevation.shadow.raised'
+  | 'elevation.surface'
+  | 'elevation.surface.hovered'
+  | 'elevation.surface.overlay'
+  | 'elevation.surface.overlay.hovered'
+  | 'elevation.surface.overlay.pressed'
+  | 'elevation.surface.pressed'
+  | 'elevation.surface.raised'
+  | 'elevation.surface.raised.hovered'
+  | 'elevation.surface.raised.pressed'
+  | 'elevation.surface.sunken'
+  | 'font.family.monospace'
+  | 'font.family.sans'
+  | 'font.lineHeight.100'
+  | 'font.lineHeight.200'
+  | 'font.lineHeight.300'
+  | 'font.lineHeight.400'
+  | 'font.lineHeight.500'
+  | 'font.lineHeight.600'
+  | 'font.size.050'
+  | 'font.size.075'
+  | 'font.size.100'
+  | 'font.size.200'
+  | 'font.size.300'
+  | 'font.size.400'
+  | 'font.size.500'
+  | 'font.size.600'
+  | 'font.weight.bold'
+  | 'font.weight.medium'
+  | 'font.weight.regular'
+  | 'font.weight.semibold'
+  | 'opacity.disabled'
+  | 'opacity.loading'
+  | 'space.0'
+  | 'space.025'
+  | 'space.050'
+  | 'space.075'
+  | 'space.100'
+  | 'space.1000'
+  | 'space.150'
+  | 'space.200'
+  | 'space.250'
+  | 'space.300'
+  | 'space.400'
+  | 'space.500'
+  | 'space.600'
+  | 'space.800'
+  | 'utility.UNSAFE.transparent';
+
+// @public (undocumented)
+type ActiveTokenState = 'active';
+
+// @public (undocumented)
+const baseSpacingTokens: {
+  readonly Space0: {
+    readonly value: '0';
+    readonly attributes: {
+      readonly group: 'spacing';
+    };
+  };
+  readonly Space025: {
+    readonly value: '0.125rem';
+    readonly attributes: {
+      readonly group: 'spacing';
+    };
+  };
+  readonly Space050: {
+    readonly value: '0.25rem';
+    readonly attributes: {
+      readonly group: 'spacing';
+    };
+  };
+  readonly Space075: {
+    readonly value: '0.375rem';
+    readonly attributes: {
+      readonly group: 'spacing';
+    };
+  };
+  readonly Space100: {
+    readonly value: '0.5rem';
+    readonly attributes: {
+      readonly group: 'spacing';
+    };
+  };
+  readonly Space150: {
+    readonly value: '0.75rem';
+    readonly attributes: {
+      readonly group: 'spacing';
+    };
+  };
+  readonly Space200: {
+    readonly value: '1rem';
+    readonly attributes: {
+      readonly group: 'spacing';
+    };
+  };
+  readonly Space250: {
+    readonly value: '1.25rem';
+    readonly attributes: {
+      readonly group: 'spacing';
+    };
+  };
+  readonly Space300: {
+    readonly value: '1.5rem';
+    readonly attributes: {
+      readonly group: 'spacing';
+    };
+  };
+  readonly Space400: {
+    readonly value: '2rem';
+    readonly attributes: {
+      readonly group: 'spacing';
+    };
+  };
+  readonly Space500: {
+    readonly value: '2.5rem';
+    readonly attributes: {
+      readonly group: 'spacing';
+    };
+  };
+  readonly Space600: {
+    readonly value: '3rem';
+    readonly attributes: {
+      readonly group: 'spacing';
+    };
+  };
+  readonly Space800: {
+    readonly value: '4rem';
+    readonly attributes: {
+      readonly group: 'spacing';
+    };
+    readonly pixelValue: '64px';
+  };
+  readonly Space1000: {
+    readonly value: '5rem';
+    readonly attributes: {
+      readonly group: 'spacing';
+    };
+    readonly pixelValue: '80px';
+  };
+};
+
 // @public (undocumented)
 export type CSSToken = CSSTokenMap[keyof CSSTokenMap];
 
@@ -353,6 +769,58 @@ type CSSTokenMap = {
   'font.lineHeight.600': 'var(--ds-font-lineHeight-600)';
 };
 
+// @public (undocumented)
+type DeletedTokenState = 'deleted';
+
+// @public (undocumented)
+type DeprecatedTokenState = 'deprecated';
+
+// @public
+interface DesignToken<TValue, Group extends Groups>
+  extends Token<TValue, Group> {
+  // (undocumented)
+  attributes:
+    | {
+        state: ActiveTokenState;
+        group: Group;
+        description: string;
+        introduced: string;
+        pixelValue?: Group extends 'spacing' ? string : never;
+        suggest?: string[];
+      }
+    | {
+        state: DeletedTokenState;
+        group: Group;
+        description: string;
+        introduced: string;
+        deprecated: string;
+        deleted: string;
+        replacement?: Replacement;
+      }
+    | {
+        state: DeprecatedTokenState;
+        group: Group;
+        description: string;
+        introduced: string;
+        deprecated: string;
+        replacement?: Replacement;
+      }
+    | {
+        state: ExperimentalTokenState;
+        group: Group;
+        description: string;
+        introduced: string;
+        replacement?: ExperimentalReplacement;
+        suggest?: string[];
+      };
+}
+
+// @public (undocumented)
+type ExperimentalReplacement = InternalTokenIds | InternalTokenIds[] | string;
+
+// @public (undocumented)
+type ExperimentalTokenState = 'experimental';
+
 // @public
 type ExtensionThemeId = ThemeIds;
 
@@ -388,6 +856,350 @@ export function getTokenValue<T extends keyof Tokens_2>(
   fallback?: string,
 ): string;
 
+// @public (undocumented)
+export type Groups =
+  | 'fontFamily'
+  | 'fontSize'
+  | 'fontWeight'
+  | 'lineHeight'
+  | 'opacity'
+  | 'paint'
+  | 'palette'
+  | 'raw'
+  | 'shadow'
+  | 'shape'
+  | 'spacing'
+  | 'typography';
+
+// @public
+type InternalTokenIds =
+  | 'color.background.accent.blue.bolder'
+  | 'color.background.accent.blue.subtle'
+  | 'color.background.accent.blue.subtler'
+  | 'color.background.accent.blue.subtlest'
+  | 'color.background.accent.gray.bolder'
+  | 'color.background.accent.gray.subtle'
+  | 'color.background.accent.gray.subtler'
+  | 'color.background.accent.gray.subtlest'
+  | 'color.background.accent.green.bolder'
+  | 'color.background.accent.green.subtle'
+  | 'color.background.accent.green.subtler'
+  | 'color.background.accent.green.subtlest'
+  | 'color.background.accent.magenta.bolder'
+  | 'color.background.accent.magenta.subtle'
+  | 'color.background.accent.magenta.subtler'
+  | 'color.background.accent.magenta.subtlest'
+  | 'color.background.accent.orange.bolder'
+  | 'color.background.accent.orange.subtle'
+  | 'color.background.accent.orange.subtler'
+  | 'color.background.accent.orange.subtlest'
+  | 'color.background.accent.purple.bolder'
+  | 'color.background.accent.purple.subtle'
+  | 'color.background.accent.purple.subtler'
+  | 'color.background.accent.purple.subtlest'
+  | 'color.background.accent.red.bolder'
+  | 'color.background.accent.red.subtle'
+  | 'color.background.accent.red.subtler'
+  | 'color.background.accent.red.subtlest'
+  | 'color.background.accent.teal.bolder'
+  | 'color.background.accent.teal.subtle'
+  | 'color.background.accent.teal.subtler'
+  | 'color.background.accent.teal.subtlest'
+  | 'color.background.accent.yellow.bolder'
+  | 'color.background.accent.yellow.subtle'
+  | 'color.background.accent.yellow.subtler'
+  | 'color.background.accent.yellow.subtlest'
+  | 'color.background.brand.bold.[default]'
+  | 'color.background.brand.bold.hovered'
+  | 'color.background.brand.bold.pressed'
+  | 'color.background.danger.[default].[default]'
+  | 'color.background.danger.[default].hovered'
+  | 'color.background.danger.[default].pressed'
+  | 'color.background.danger.bold.[default]'
+  | 'color.background.danger.bold.hovered'
+  | 'color.background.danger.bold.pressed'
+  | 'color.background.disabled'
+  | 'color.background.discovery.[default].[default]'
+  | 'color.background.discovery.[default].hovered'
+  | 'color.background.discovery.[default].pressed'
+  | 'color.background.discovery.bold.[default]'
+  | 'color.background.discovery.bold.hovered'
+  | 'color.background.discovery.bold.pressed'
+  | 'color.background.information.[default].[default]'
+  | 'color.background.information.[default].hovered'
+  | 'color.background.information.[default].pressed'
+  | 'color.background.information.bold.[default]'
+  | 'color.background.information.bold.hovered'
+  | 'color.background.information.bold.pressed'
+  | 'color.background.input.[default]'
+  | 'color.background.input.hovered'
+  | 'color.background.input.pressed'
+  | 'color.background.inverse.subtle.[default]'
+  | 'color.background.inverse.subtle.hovered'
+  | 'color.background.inverse.subtle.pressed'
+  | 'color.background.neutral.[default].[default]'
+  | 'color.background.neutral.[default].hovered'
+  | 'color.background.neutral.[default].pressed'
+  | 'color.background.neutral.bold.[default]'
+  | 'color.background.neutral.bold.hovered'
+  | 'color.background.neutral.bold.pressed'
+  | 'color.background.neutral.subtle.[default]'
+  | 'color.background.neutral.subtle.hovered'
+  | 'color.background.neutral.subtle.pressed'
+  | 'color.background.selected.[default].[default]'
+  | 'color.background.selected.[default].hovered'
+  | 'color.background.selected.[default].pressed'
+  | 'color.background.selected.bold.[default]'
+  | 'color.background.selected.bold.hovered'
+  | 'color.background.selected.bold.pressed'
+  | 'color.background.success.[default].[default]'
+  | 'color.background.success.[default].hovered'
+  | 'color.background.success.[default].pressed'
+  | 'color.background.success.bold.[default]'
+  | 'color.background.success.bold.hovered'
+  | 'color.background.success.bold.pressed'
+  | 'color.background.warning.[default].[default]'
+  | 'color.background.warning.[default].hovered'
+  | 'color.background.warning.[default].pressed'
+  | 'color.background.warning.bold.[default]'
+  | 'color.background.warning.bold.hovered'
+  | 'color.background.warning.bold.pressed'
+  | 'color.blanket.[default]'
+  | 'color.blanket.danger'
+  | 'color.blanket.selected'
+  | 'color.border.[default]'
+  | 'color.border.accent.blue'
+  | 'color.border.accent.gray'
+  | 'color.border.accent.green'
+  | 'color.border.accent.magenta'
+  | 'color.border.accent.orange'
+  | 'color.border.accent.purple'
+  | 'color.border.accent.red'
+  | 'color.border.accent.teal'
+  | 'color.border.accent.yellow'
+  | 'color.border.bold'
+  | 'color.border.brand'
+  | 'color.border.danger'
+  | 'color.border.disabled'
+  | 'color.border.discovery'
+  | 'color.border.focused'
+  | 'color.border.information'
+  | 'color.border.input'
+  | 'color.border.inverse'
+  | 'color.border.selected'
+  | 'color.border.success'
+  | 'color.border.warning'
+  | 'color.chart.blue.bold.[default]'
+  | 'color.chart.blue.bold.hovered'
+  | 'color.chart.blue.bolder.[default]'
+  | 'color.chart.blue.bolder.hovered'
+  | 'color.chart.blue.boldest.[default]'
+  | 'color.chart.blue.boldest.hovered'
+  | 'color.chart.brand.[default]'
+  | 'color.chart.brand.hovered'
+  | 'color.chart.categorical.1.[default]'
+  | 'color.chart.categorical.1.hovered'
+  | 'color.chart.categorical.2.[default]'
+  | 'color.chart.categorical.2.hovered'
+  | 'color.chart.categorical.3.[default]'
+  | 'color.chart.categorical.3.hovered'
+  | 'color.chart.categorical.4.[default]'
+  | 'color.chart.categorical.4.hovered'
+  | 'color.chart.categorical.5.[default]'
+  | 'color.chart.categorical.5.hovered'
+  | 'color.chart.categorical.6.[default]'
+  | 'color.chart.categorical.6.hovered'
+  | 'color.chart.categorical.7.[default]'
+  | 'color.chart.categorical.7.hovered'
+  | 'color.chart.categorical.8.[default]'
+  | 'color.chart.categorical.8.hovered'
+  | 'color.chart.danger.[default].[default]'
+  | 'color.chart.danger.[default].hovered'
+  | 'color.chart.danger.bold.[default]'
+  | 'color.chart.danger.bold.hovered'
+  | 'color.chart.discovery.[default].[default]'
+  | 'color.chart.discovery.[default].hovered'
+  | 'color.chart.discovery.bold.[default]'
+  | 'color.chart.discovery.bold.hovered'
+  | 'color.chart.gray.bold.[default]'
+  | 'color.chart.gray.bold.hovered'
+  | 'color.chart.gray.bolder.[default]'
+  | 'color.chart.gray.bolder.hovered'
+  | 'color.chart.gray.boldest.[default]'
+  | 'color.chart.gray.boldest.hovered'
+  | 'color.chart.green.bold.[default]'
+  | 'color.chart.green.bold.hovered'
+  | 'color.chart.green.bolder.[default]'
+  | 'color.chart.green.bolder.hovered'
+  | 'color.chart.green.boldest.[default]'
+  | 'color.chart.green.boldest.hovered'
+  | 'color.chart.information.[default].[default]'
+  | 'color.chart.information.[default].hovered'
+  | 'color.chart.information.bold.[default]'
+  | 'color.chart.information.bold.hovered'
+  | 'color.chart.magenta.bold.[default]'
+  | 'color.chart.magenta.bold.hovered'
+  | 'color.chart.magenta.bolder.[default]'
+  | 'color.chart.magenta.bolder.hovered'
+  | 'color.chart.magenta.boldest.[default]'
+  | 'color.chart.magenta.boldest.hovered'
+  | 'color.chart.neutral.[default]'
+  | 'color.chart.neutral.hovered'
+  | 'color.chart.orange.bold.[default]'
+  | 'color.chart.orange.bold.hovered'
+  | 'color.chart.orange.bolder.[default]'
+  | 'color.chart.orange.bolder.hovered'
+  | 'color.chart.orange.boldest.[default]'
+  | 'color.chart.orange.boldest.hovered'
+  | 'color.chart.purple.bold.[default]'
+  | 'color.chart.purple.bold.hovered'
+  | 'color.chart.purple.bolder.[default]'
+  | 'color.chart.purple.bolder.hovered'
+  | 'color.chart.purple.boldest.[default]'
+  | 'color.chart.purple.boldest.hovered'
+  | 'color.chart.red.bold.[default]'
+  | 'color.chart.red.bold.hovered'
+  | 'color.chart.red.bolder.[default]'
+  | 'color.chart.red.bolder.hovered'
+  | 'color.chart.red.boldest.[default]'
+  | 'color.chart.red.boldest.hovered'
+  | 'color.chart.success.[default].[default]'
+  | 'color.chart.success.[default].hovered'
+  | 'color.chart.success.bold.[default]'
+  | 'color.chart.success.bold.hovered'
+  | 'color.chart.teal.bold.[default]'
+  | 'color.chart.teal.bold.hovered'
+  | 'color.chart.teal.bolder.[default]'
+  | 'color.chart.teal.bolder.hovered'
+  | 'color.chart.teal.boldest.[default]'
+  | 'color.chart.teal.boldest.hovered'
+  | 'color.chart.warning.[default].[default]'
+  | 'color.chart.warning.[default].hovered'
+  | 'color.chart.warning.bold.[default]'
+  | 'color.chart.warning.bold.hovered'
+  | 'color.chart.yellow.bold.[default]'
+  | 'color.chart.yellow.bold.hovered'
+  | 'color.chart.yellow.bolder.[default]'
+  | 'color.chart.yellow.bolder.hovered'
+  | 'color.chart.yellow.boldest.[default]'
+  | 'color.chart.yellow.boldest.hovered'
+  | 'color.icon.[default]'
+  | 'color.icon.accent.blue'
+  | 'color.icon.accent.gray'
+  | 'color.icon.accent.green'
+  | 'color.icon.accent.magenta'
+  | 'color.icon.accent.orange'
+  | 'color.icon.accent.purple'
+  | 'color.icon.accent.red'
+  | 'color.icon.accent.teal'
+  | 'color.icon.accent.yellow'
+  | 'color.icon.brand'
+  | 'color.icon.danger'
+  | 'color.icon.disabled'
+  | 'color.icon.discovery'
+  | 'color.icon.information'
+  | 'color.icon.inverse'
+  | 'color.icon.selected'
+  | 'color.icon.subtle'
+  | 'color.icon.success'
+  | 'color.icon.warning.[default]'
+  | 'color.icon.warning.inverse'
+  | 'color.interaction.hovered'
+  | 'color.interaction.pressed'
+  | 'color.link.[default]'
+  | 'color.link.pressed'
+  | 'color.skeleton.[default]'
+  | 'color.skeleton.subtle'
+  | 'color.text.[default]'
+  | 'color.text.accent.blue.[default]'
+  | 'color.text.accent.blue.bolder'
+  | 'color.text.accent.gray.[default]'
+  | 'color.text.accent.gray.bolder'
+  | 'color.text.accent.green.[default]'
+  | 'color.text.accent.green.bolder'
+  | 'color.text.accent.magenta.[default]'
+  | 'color.text.accent.magenta.bolder'
+  | 'color.text.accent.orange.[default]'
+  | 'color.text.accent.orange.bolder'
+  | 'color.text.accent.purple.[default]'
+  | 'color.text.accent.purple.bolder'
+  | 'color.text.accent.red.[default]'
+  | 'color.text.accent.red.bolder'
+  | 'color.text.accent.teal.[default]'
+  | 'color.text.accent.teal.bolder'
+  | 'color.text.accent.yellow.[default]'
+  | 'color.text.accent.yellow.bolder'
+  | 'color.text.brand'
+  | 'color.text.danger'
+  | 'color.text.disabled'
+  | 'color.text.discovery'
+  | 'color.text.information'
+  | 'color.text.inverse'
+  | 'color.text.selected'
+  | 'color.text.subtle'
+  | 'color.text.subtlest'
+  | 'color.text.success'
+  | 'color.text.warning.[default]'
+  | 'color.text.warning.inverse'
+  | 'elevation.shadow.overflow.[default]'
+  | 'elevation.shadow.overflow.perimeter'
+  | 'elevation.shadow.overflow.spread'
+  | 'elevation.shadow.overlay'
+  | 'elevation.shadow.raised'
+  | 'elevation.surface.[default].[default]'
+  | 'elevation.surface.[default].hovered'
+  | 'elevation.surface.[default].pressed'
+  | 'elevation.surface.overlay.[default]'
+  | 'elevation.surface.overlay.hovered'
+  | 'elevation.surface.overlay.pressed'
+  | 'elevation.surface.raised.[default]'
+  | 'elevation.surface.raised.hovered'
+  | 'elevation.surface.raised.pressed'
+  | 'elevation.surface.sunken'
+  | 'font.family.monospace'
+  | 'font.family.sans'
+  | 'font.lineHeight.100'
+  | 'font.lineHeight.200'
+  | 'font.lineHeight.300'
+  | 'font.lineHeight.400'
+  | 'font.lineHeight.500'
+  | 'font.lineHeight.600'
+  | 'font.size.050'
+  | 'font.size.075'
+  | 'font.size.100'
+  | 'font.size.200'
+  | 'font.size.300'
+  | 'font.size.400'
+  | 'font.size.500'
+  | 'font.size.600'
+  | 'font.weight.bold'
+  | 'font.weight.medium'
+  | 'font.weight.regular'
+  | 'font.weight.semibold'
+  | 'opacity.disabled'
+  | 'opacity.loading'
+  | 'space.0'
+  | 'space.025'
+  | 'space.050'
+  | 'space.075'
+  | 'space.100'
+  | 'space.1000'
+  | 'space.150'
+  | 'space.200'
+  | 'space.250'
+  | 'space.300'
+  | 'space.400'
+  | 'space.500'
+  | 'space.600'
+  | 'space.800'
+  | 'utility.UNSAFE.transparent';
+
+// @public (undocumented)
+export type OpacityToken = DesignToken<string, 'opacity'>;
+
+// @public (undocumented)
+export type PaintToken<BaseToken> = DesignToken<BaseToken, 'paint'>;
+
 // @public
 type Palettes =
   | 'defaultPalette'
@@ -395,6 +1207,12 @@ type Palettes =
   | 'shapePalette'
   | 'spacingScale'
   | 'typographyPalette';
+
+// @public (undocumented)
+export type RawToken = DesignToken<string, 'raw'>;
+
+// @public (undocumented)
+type Replacement = InternalTokenIds | InternalTokenIds[];
 
 // @public
 export const setGlobalTheme: ({
@@ -404,6 +1222,28 @@ export const setGlobalTheme: ({
   spacing,
   typography,
 }?: Partial<ThemeState>) => Promise<UnbindFn>;
+
+// @public (undocumented)
+export type ShadowToken<BaseToken> = DesignToken<
+  Array<{
+    color: BaseToken;
+    opacity: number;
+    offset: {
+      x: number;
+      y: number;
+    };
+    radius: number;
+    spread?: number;
+    inset?: boolean;
+  }>,
+  'shadow'
+>;
+
+// @public
+type SpacingPaletteToken = keyof typeof baseSpacingTokens;
+
+// @public (undocumented)
+export type SpacingToken = DesignToken<SpacingPaletteToken, 'spacing'>;
 
 // @public (undocumented)
 export type ThemeColorModes = typeof themeColorModes[number];
@@ -504,6 +1344,19 @@ interface ThemeStyles {
   css: string;
   // (undocumented)
   id: ThemeIds;
+}
+
+// @public (undocumented)
+interface Token<TValue, Group extends Groups> {
+  // (undocumented)
+  attributes: {
+    group: Group;
+    description?: string;
+    state?: TokenState;
+    replacement?: ExperimentalReplacement | Replacement;
+  };
+  // (undocumented)
+  value: TValue;
 }
 
 // @public
@@ -850,6 +1703,13 @@ const tokens: {
 
 // @public (undocumented)
 type Tokens_2 = typeof tokens;
+
+// @public (undocumented)
+type TokenState =
+  | ActiveTokenState
+  | DeletedTokenState
+  | DeprecatedTokenState
+  | ExperimentalTokenState;
 
 // @public
 export const useThemeObserver: () => Partial<ThemeState>;

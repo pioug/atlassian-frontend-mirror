@@ -1,6 +1,7 @@
 import './unauthorized.test.mock';
-import '../../__mocks__/intersection-observer.mock';
-import { asMockFunction } from '@atlaskit/media-test-helpers';
+
+import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
+import { asMockFunction, JestFunction } from '@atlaskit/media-test-helpers';
 import { auth, AuthError } from '@atlaskit/outbound-auth-flow-client';
 import * as analytics from '../../../utils/analytics';
 import { CardClient } from '@atlaskit/link-provider';
@@ -11,9 +12,10 @@ import { fakeFactory, mocks } from '../../../utils/mocks';
 import { render, waitFor, fireEvent, cleanup } from '@testing-library/react';
 import * as ufoWrapper from '../../../state/analytics/ufoExperiences';
 import 'jest-extended';
-import { JestFunction } from '@atlaskit/media-test-helpers';
 import uuid from 'uuid';
 import { IntlProvider } from 'react-intl-next';
+
+mockSimpleIntersectionObserver();
 
 describe('smart-card: unauthorized analytics', () => {
   let mockClient: CardClient;

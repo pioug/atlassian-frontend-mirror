@@ -147,7 +147,7 @@
     "@atlaskit/flag": "^15.0.0",
     "@atlaskit/inline-dialog": "^13.4.0",
     "@atlaskit/link-provider": "^1.5.0",
-    "@atlaskit/link-test-helpers": "^2.1.0",
+    "@atlaskit/link-test-helpers": "^2.2.0",
     "@atlaskit/lozenge": "^11.3.0",
     "@atlaskit/media-core": "^34.0.0",
     "@atlaskit/media-integration-test-helpers": "^2.6.0",

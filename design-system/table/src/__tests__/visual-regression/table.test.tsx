@@ -6,7 +6,7 @@ import {
 
 const selector = '[data-testid="table"]';
 
-describe('@af/table', () => {
+describe('@atlaskit/table', () => {
   it.each(['light', 'dark'] as const)(
     'Table basic example should match production example (%s)',
     async mode => {
@@ -54,6 +54,38 @@ describe('@af/table', () => {
     await loadPage(page, url);
     const image = await takeElementScreenShot(page, selector);
 
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('complex row should match production example', async () => {
+    const { __BASEURL__, page } = global;
+    const url = getExampleUrl('design-system', 'table', 'row', __BASEURL__);
+
+    await loadPage(page, url);
+    const unselectedRowImage = await takeElementScreenShot(page, selector);
+    expect(unselectedRowImage).toMatchProdImageSnapshot();
+
+    const handle = await page.waitForSelector('input[type="checkbox"]');
+    await handle?.click();
+    const selectedRowImage = await takeElementScreenShot(page, selector);
+    expect(selectedRowImage).toMatchProdImageSnapshot();
+  });
+
+  it('table with sortable columns should match production example', async () => {
+    const { __BASEURL__, page } = global;
+    const url = getExampleUrl(
+      'design-system',
+      'table',
+      'basic-with-actions',
+      __BASEURL__,
+    );
+
+    await loadPage(page, url);
+    const button = await page.waitForSelector(
+      '[data-testid="column-name--button"]',
+    );
+    await button?.click();
+    const image = await takeElementScreenShot(page, selector);
     expect(image).toMatchProdImageSnapshot();
   });
 });

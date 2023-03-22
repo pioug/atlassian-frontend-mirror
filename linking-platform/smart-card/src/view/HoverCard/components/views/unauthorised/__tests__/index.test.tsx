@@ -1,8 +1,8 @@
 import React from 'react';
 import { renderHook } from '@testing-library/react-hooks';
-import '../../../../../__mocks__/intersection-observer.mock';
 import { IntlProvider } from 'react-intl-next';
 import { render } from '@testing-library/react';
+import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { useSmartLinkAnalytics } from '../../../../../../';
 import { AnalyticsFacade } from '../../../../../../state/analytics';
 import HoverCardUnauthorisedView from '../index';
@@ -10,6 +10,8 @@ import { getCardState } from '../../../../../../../examples/utils/flexible-ui';
 import { mockGetContext } from '../../../../../../state/actions/__tests__/index.test.mock';
 import { mocks } from '../../../../../../utils/mocks';
 import { mockUnauthorisedResponse } from '../../../../__tests__/__mocks__/mocks';
+
+mockSimpleIntersectionObserver();
 
 jest.mock('@atlaskit/link-provider', () => ({
   useSmartLinkContext: () => ({

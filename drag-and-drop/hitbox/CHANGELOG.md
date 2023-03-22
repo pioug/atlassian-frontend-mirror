@@ -1,5 +1,11 @@
 # @atlaskit/drag-and-drop-hitbox
 
+## 0.6.0
+
+### Minor Changes
+
+- [`179d953be18`](https://bitbucket.org/atlassian/atlassian-frontend/commits/179d953be18) - [ux] Tweaking the hitbox of "expanded" tree items to improve the experience when expanding tree items during a drag. Note: our tree item hitbox is still _experimental_
+
 ## 0.5.0
 
 ### Minor Changes

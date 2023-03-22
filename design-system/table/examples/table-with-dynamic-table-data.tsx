@@ -13,6 +13,9 @@ import { head, rows } from './content/dynamic-table-data';
 
 /**
  * Example use case of the full 'data table' using 'dynamic table data'.
+ *
+ * FIXME: sorting seems to be broken on this example, but works fine in `examples/basic-with-actions.tsx`
+ * Every column seems to sort by 'term'
  */
 export default function Basic() {
   return (

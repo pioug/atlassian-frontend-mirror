@@ -6,16 +6,17 @@ import { IntlProvider } from 'react-intl-next';
 import { screen } from '@testing-library/react';
 import { render, fireEvent, act } from '@testing-library/react';
 
+import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { CardClient } from '@atlaskit/link-provider';
 import * as userAgent from '@atlaskit/linking-common/user-agent';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
-
-import '../../__mocks__/intersection-observer.mock';
 
 import { CardAppearance, Provider, TitleBlock } from '../../..';
 import { Card } from '../../Card';
 import { ANALYTICS_CHANNEL } from '../../../utils/analytics';
 import { fakeFactory, mocks } from '../../../utils/mocks';
+
+mockSimpleIntersectionObserver();
 
 jest.mock('react-lazily-render', () => (data: any) => data.content);
 jest.mock(

@@ -1,4 +1,3 @@
-import '../../__mocks__/intersection-observer.mock';
 import { JsonLd } from 'json-ld-types';
 import React from 'react';
 import { TestErrorBoundary } from '../_boundary';
@@ -6,11 +5,14 @@ import { Card } from '../../Card';
 import { Provider } from '../../..';
 import { render, waitFor, cleanup } from '@testing-library/react';
 import { mocks } from '../../../utils/mocks';
+import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { APIError } from '@atlaskit/linking-common';
 import { CardClient } from '@atlaskit/link-provider';
 import * as analytics from '../../../utils/analytics';
 import * as lazyComponent from '../../CardWithUrl/component-lazy/index';
 import { ChunkLoadError } from '../../../utils/__tests__/index.test';
+
+mockSimpleIntersectionObserver();
 
 jest.mock('react-lazily-render', () => (data: any) => data.content);
 

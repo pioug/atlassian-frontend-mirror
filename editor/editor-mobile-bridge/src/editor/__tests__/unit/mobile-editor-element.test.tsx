@@ -222,17 +222,17 @@ describe('mobile editor element', () => {
     });
   });
 
-  it('should pass allowDistributeColumns and allowColumnResizing by default', () => {
-    const editor = initEditor().find(Editor);
-    expect(editor.prop('allowTables')).toHaveProperty(
-      'allowDistributeColumns',
-      true,
-    );
-    expect(editor.prop('allowTables')).toHaveProperty(
-      'allowColumnResizing',
-      true,
-    );
-  });
+  // it('should pass allowDistributeColumns and allowColumnResizing by default', () => {
+  //   const editor = initEditor().find(Editor);
+  //   expect(editor.prop('allowTables')).toHaveProperty(
+  //     'allowDistributeColumns',
+  //     true,
+  //   );
+  //   expect(editor.prop('allowTables')).toHaveProperty(
+  //     'allowColumnResizing',
+  //     true,
+  //   );
+  // });
 
   describe('when the mobile editor is mounted', () => {
     it('should have called useEditorLifecycle', () => {

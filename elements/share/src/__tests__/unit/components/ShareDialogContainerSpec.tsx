@@ -67,6 +67,18 @@ describe('ShareDialogContainer', () => {
   let mockRenderCustomTriggerButton: jest.Mock;
   const mockTriggerButtonTooltipText = 'Share Tooltip';
   const mockTriggerButtonTooltipPosition: TooltipPosition = 'mouse';
+  const mockShortLinkData = {
+    cloudId: mockCloudId,
+    product: mockProductId,
+    type: 'page',
+    params: { spaceKey: 'X', contentId: '123' },
+  };
+  const mockShortLinkData2 = {
+    cloudId: 'differentCloudId',
+    product: 'jira',
+    type: 'page',
+    params: { spaceKey: 'NEW', contentId: '456' },
+  };
 
   beforeEach(() => {
     mockOriginTracing = {
@@ -590,6 +602,7 @@ describe('ShareDialogContainer', () => {
       it('should send an analytics on short URL request', () => {
         const wrapper = getWrapper({
           useUrlShortener: true,
+          shortLinkData: mockShortLinkData,
         });
 
         expect(mockCreateAnalyticsEvent).not.toHaveBeenCalled();
@@ -614,6 +627,7 @@ describe('ShareDialogContainer', () => {
       it('should decorate the copy link analytics with shortUrl', async () => {
         const wrapper = getWrapper({
           useUrlShortener: true,
+          shortLinkData: mockShortLinkData,
         });
 
         let finalPayload = wrapper
@@ -650,6 +664,7 @@ describe('ShareDialogContainer', () => {
       describe('on short URL reception', () => {
         it('should send an analytics', async () => {
           const wrapper = getWrapper({
+            shortLinkData: mockShortLinkData,
             useUrlShortener: true,
           });
           let resolveShortening: any;
@@ -688,6 +703,7 @@ describe('ShareDialogContainer', () => {
         it('should includes perf info - too slow', async () => {
           const wrapper = getWrapper({
             useUrlShortener: true,
+            shortLinkData: mockShortLinkData,
           });
           let resolveShortening: any;
           const shortenResult = new Promise((resolve) => {
@@ -727,6 +743,7 @@ describe('ShareDialogContainer', () => {
       it('should send an analytics on short URL generation error', async () => {
         const wrapper = getWrapper({
           useUrlShortener: true,
+          shortLinkData: mockShortLinkData,
         });
         let rejectShortening: any;
         const shortenResult = new Promise((resolve, reject) => {
@@ -777,6 +794,7 @@ describe('ShareDialogContainer', () => {
     it('should not attempt to shorten before the popup opens', async () => {
       const wrapper = getWrapper({
         useUrlShortener: true,
+        shortLinkData: mockShortLinkData,
       });
       const updateShortCopyLink = (wrapper.instance().updateShortCopyLink =
         jest.fn(wrapper.instance().updateShortCopyLink));
@@ -818,6 +836,7 @@ describe('ShareDialogContainer', () => {
       const wrapper = getWrapper({
         useUrlShortener: true,
         urlShortenerClient: mockShortenerClient,
+        shortLinkData: mockShortLinkData,
       });
       const updateShortCopyLink = (wrapper.instance().updateShortCopyLink =
         jest.fn(wrapper.instance().updateShortCopyLink));
@@ -849,7 +868,10 @@ describe('ShareDialogContainer', () => {
       (mockShortenerClient.shorten as jest.Mock).mockResolvedValue({
         shortUrl: NEW_SHORTENED_URL,
       } as ShortenResponse);
-      wrapper.setProps({ shareLink: '/new-share-link' });
+      expect(updateShortCopyLink).toHaveBeenCalledTimes(2);
+
+      wrapper.setProps({ shortLinkData: mockShortLinkData });
+      // The above line is calling the updateShortLink again
 
       // no re-open yet = no change
       await currentEventLoopEnd();
@@ -857,9 +879,11 @@ describe('ShareDialogContainer', () => {
       expect(getUpToDateShortenedCopyLink).toHaveBeenCalledTimes(2);
       expect(mockShortenerClient.shorten).toHaveBeenCalledTimes(1);
 
+      wrapper.setProps({ shortLinkData: mockShortLinkData2 });
+
       wrapper.instance().handleDialogOpen();
-      expect(updateShortCopyLink).toHaveBeenCalledTimes(3);
-      expect(getUpToDateShortenedCopyLink).toHaveBeenCalledTimes(3);
+      expect(updateShortCopyLink).toHaveBeenCalledTimes(4);
+      expect(getUpToDateShortenedCopyLink).toHaveBeenCalledTimes(4);
       expect(mockShortenerClient.shorten).toHaveBeenCalledTimes(2);
       expect(wrapper.state().shortenedCopyLink).toBeNull(); // invalidated
 
@@ -879,6 +903,7 @@ describe('ShareDialogContainer', () => {
         useUrlShortener: true,
         urlShortenerClient: mockShortenerClient,
         shareLink: undefined,
+        shortLinkData: mockShortLinkData,
       });
       const updateShortCopyLink = (wrapper.instance().updateShortCopyLink =
         jest.fn(wrapper.instance().updateShortCopyLink));
@@ -894,8 +919,9 @@ describe('ShareDialogContainer', () => {
       expect(mockShortenerClient.shorten).toHaveBeenCalledWith({
         cloudId: mockCloudId,
         product: mockProductId,
-        type: 'legacy',
-        params: { path: 'http://localhost/test0&someOrigin' },
+        originId: 'id',
+        type: 'page',
+        params: { contentId: '123', spaceKey: 'X' },
       });
 
       // change page URL
@@ -910,12 +936,13 @@ describe('ShareDialogContainer', () => {
       wrapper.instance().handleDialogOpen();
       expect(updateShortCopyLink).toHaveBeenCalledTimes(2);
       expect(getUpToDateShortenedCopyLink).toHaveBeenCalledTimes(2);
-      expect(mockShortenerClient.shorten).toHaveBeenCalledTimes(2);
+      expect(mockShortenerClient.shorten).toHaveBeenCalledTimes(1); // thanks to memo
       expect(mockShortenerClient.shorten).toHaveBeenCalledWith({
         cloudId: mockCloudId,
         product: mockProductId,
-        type: 'legacy',
-        params: { path: 'http://localhost/test0&someOrigin' },
+        originId: 'id',
+        type: 'page',
+        params: { contentId: '123', spaceKey: 'X' },
       });
     });
 
@@ -924,12 +951,6 @@ describe('ShareDialogContainer', () => {
         shorten: jest
           .fn()
           .mockResolvedValue({ shortUrl: SHORTENED_URL } as ShortenResponse),
-      };
-      const mockShortLinkData = {
-        cloudId: mockCloudId,
-        product: mockProductId,
-        type: 'page',
-        params: { spaceKey: 'X', contentId: '123' },
       };
       const wrapper = getWrapper({
         shortLinkData: mockShortLinkData,
@@ -947,9 +968,10 @@ describe('ShareDialogContainer', () => {
       expect(updateShortCopyLink).toHaveBeenCalledTimes(1);
       expect(getUpToDateShortenedCopyLink).toHaveBeenCalledTimes(1);
       expect(mockShortenerClient.shorten).toHaveBeenCalledTimes(1);
-      expect(mockShortenerClient.shorten).toHaveBeenCalledWith(
-        mockShortLinkData,
-      );
+      expect(mockShortenerClient.shorten).toHaveBeenCalledWith({
+        ...mockShortLinkData,
+        originId: 'id',
+      });
     });
 
     it('should properly swap and refresh the passed down "copy link" to the short URL once available', async () => {
@@ -961,6 +983,7 @@ describe('ShareDialogContainer', () => {
       const wrapper = getWrapper({
         useUrlShortener: true,
         urlShortenerClient: mockShortenerClient,
+        shortLinkData: mockShortLinkData,
       });
 
       wrapper.instance().handleDialogOpen();
@@ -998,6 +1021,7 @@ describe('ShareDialogContainer', () => {
       const wrapper = getWrapper({
         useUrlShortener: true,
         urlShortenerClient: mockShortenerClient,
+        shortLinkData: mockShortLinkData,
       });
 
       expect(mockShortenerClient.shorten).not.toHaveBeenCalled();
@@ -1008,7 +1032,7 @@ describe('ShareDialogContainer', () => {
       expect(wrapper.state().shortenedCopyLink).toBeNull(); // still not set
 
       // change in props
-      wrapper.setProps({ shareLink: '/new-share-link' });
+      wrapper.setProps({ shortLinkData: mockShortLinkData2 });
 
       wrapper.instance().handleDialogOpen();
       expect(mockShortenerClient.shorten).toHaveBeenCalledTimes(2);

@@ -1,5 +1,3 @@
-import '../../__mocks__/intersection-observer.mock';
-
 jest.mock('react-lazily-render', () => (data: any) => data.content);
 jest.mock(
   'react-transition-group/Transition',
@@ -10,10 +8,13 @@ jest.doMock('../../../utils/analytics/analytics');
 import React from 'react';
 import { render, cleanup, waitFor } from '@testing-library/react';
 import { CardClient, CardProviderStoreOpts } from '@atlaskit/link-provider';
+import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { Card } from '../../Card';
 import { Provider } from '../../..';
 import { fakeFactory, mocks } from '../../../utils/mocks';
 import { IntlProvider } from 'react-intl-next';
+
+mockSimpleIntersectionObserver();
 
 describe('smart-card: card states, block', () => {
   const mockOnError = jest.fn();

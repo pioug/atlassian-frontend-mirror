@@ -14,10 +14,10 @@ jest.mock('@atlaskit/outbound-auth-flow-client', () => {
   };
 });
 
-import '../../__mocks__/intersection-observer.mock';
 import { asMockFunction } from '@atlaskit/media-test-helpers/jestHelpers';
 import * as analyticsEvents from '../../../utils/analytics';
 import { auth, AuthError } from '@atlaskit/outbound-auth-flow-client';
+import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { CardClient } from '@atlaskit/link-provider';
 import React from 'react';
 import { Card } from '../../Card';
@@ -25,6 +25,8 @@ import { Provider } from '../../..';
 import { fakeFactory, mocks } from '../../../utils/mocks';
 import { render, waitFor, fireEvent, cleanup } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
+
+mockSimpleIntersectionObserver();
 
 describe('smart-card: forbidden analytics', () => {
   let mockClient: CardClient;

@@ -4,7 +4,6 @@ jest.mock(
   () => (data: any) => data.children,
 );
 jest.doMock('../../../utils/analytics/analytics');
-import '../../__mocks__/intersection-observer.mock';
 import { APIError } from '@atlaskit/linking-common';
 import {
   CardClient,
@@ -13,11 +12,14 @@ import {
 } from '@atlaskit/link-provider';
 import React, { useState } from 'react';
 import { render, cleanup, waitFor, fireEvent } from '@testing-library/react';
+import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { Card, CardAppearance } from '../../Card';
 import { fakeFactory, mockByUrl, mocks } from '../../../utils/mocks';
 import { TitleBlock } from '../../FlexibleCard/components/blocks';
 import { flushPromises } from '@atlaskit/media-test-helpers';
 import { JsonLd } from 'json-ld-types';
+
+mockSimpleIntersectionObserver();
 
 describe('smart-card: card states, flexible', () => {
   const mockOnError = jest.fn();

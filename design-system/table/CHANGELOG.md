@@ -1,5 +1,11 @@
 # @atlaskit/table
 
+## 0.2.3
+
+### Patch Changes
+
+- [`8fb961ffa76`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8fb961ffa76) - [ux] Fixed some accessibility bugs. Now checkboxes in selectable cells are labelled for assistive technology users, sortable columns have their sorting state programmatically associated through the `aria-sort` attribute, and the sort button has an `aria-roledescription` to ensure that assistive technology users are informed that the column headers are sortable in nature.
+
 ## 0.2.2
 
 ### Patch Changes

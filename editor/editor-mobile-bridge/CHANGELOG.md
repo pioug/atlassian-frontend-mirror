@@ -1,5 +1,11 @@
 # @atlaskit/editor-mobile-bridge
 
+## 36.2.3
+
+### Patch Changes
+
+- [`9ef3576ee60`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9ef3576ee60) - [ux] HOT-102812: revert ED-16120
+
 ## 36.2.2
 
 ### Patch Changes

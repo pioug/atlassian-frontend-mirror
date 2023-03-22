@@ -16,6 +16,7 @@ export const MockIntersectionObserverFactory = (
   mockIntersectionObserverOpts: MockIntersectionObserverOpts,
 ) =>
   class MockIntersectionObserver implements IntersectionObserver {
+    isDisconnected = false;
     readonly root!: Element | null;
     readonly rootMargin!: string;
     readonly thresholds!: ReadonlyArray<number>;
@@ -42,9 +43,41 @@ export const MockIntersectionObserverFactory = (
         this.previousMockEntries = mockEntries;
         this.callIntersectionObserverCallback();
       }
-      setTimeout(this.checkIntersection, 100);
+      if (!this.isDisconnected) {
+        setTimeout(this.checkIntersection, 100);
+      }
     };
-    disconnect = mockIntersectionObserverOpts.disconnect;
+
+    disconnect = () => {
+      this.isDisconnected = true;
+      mockIntersectionObserverOpts.disconnect();
+    };
     takeRecords = mockIntersectionObserverOpts.takeRecords || jest.fn();
     unobserve = mockIntersectionObserverOpts.unobserve || jest.fn();
   };
+
+export const mockSimpleIntersectionObserver = () => {
+  class MockIntersectionObserver implements IntersectionObserver {
+    readonly root!: Element | null;
+    readonly rootMargin!: string;
+    readonly thresholds!: ReadonlyArray<number>;
+
+    constructor(public callback: IntersectionObserverCallback) {}
+
+    observe(_element: HTMLElement) {
+      const entries = [
+        { isIntersecting: true, intersectionRatio: 1 },
+      ] as IntersectionObserverEntry[];
+      this.callback(entries, this);
+    }
+    disconnect = jest.fn();
+    takeRecords = jest.fn();
+    unobserve = jest.fn();
+  }
+
+  Object.defineProperty(window, 'IntersectionObserver', {
+    writable: true,
+    configurable: true,
+    value: MockIntersectionObserver,
+  });
+};

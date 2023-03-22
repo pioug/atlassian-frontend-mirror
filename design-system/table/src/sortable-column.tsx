@@ -79,17 +79,24 @@ const SortableColumn: FC<CellProps> = ({
   );
 
   return (
-    // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-    <TH testId={testId} {...other}>
+    <TH
+      testId={testId}
+      sortDirection={sortKey === name ? sortDirection : 'none'}
+      // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+      {...other}
+    >
       <Tooltip content={getSortMessage()} position="top">
         {tooltipProps => (
           <Button
+            testId={`${testId}--button`}
             spacing="compact"
             appearance="subtle"
             iconAfter={<SortIcon name={name} />}
             {...tooltipProps}
             onClick={updateSortState}
             css={overrideStyles}
+            // TODO: i18n support for this attr
+            aria-roledescription="Column sort button"
           >
             {children}
           </Button>

@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 4.0.0
+
+### Major Changes
+
+- [`95aac8bb852`](https://bitbucket.org/atlassian/atlassian-frontend/commits/95aac8bb852) - Adding originId to shortenRequest; removing query prop from ShortenRequest
+
 ## 3.7.4
 
 ### Patch Changes

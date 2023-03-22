@@ -1,5 +1,11 @@
 # @atlaskit/link-test-helpers
 
+## 2.2.0
+
+### Minor Changes
+
+- [`84881060de0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/84881060de0) - Introduce `MockIntersectionObserverFactory`, `MockIntersectionObserverOpts` and `mockSimpleIntersectionObserver`helpers to help testing IntersectObserver interface
+
 ## 2.1.1
 
 ### Patch Changes

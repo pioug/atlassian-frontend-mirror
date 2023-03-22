@@ -37,12 +37,13 @@ const THead: FC<THeadProps> = ({ actions, children }) => {
       <Primitives.TR isBodyRow={false}>
         <Primitives.SelectableCell as="th">
           <Checkbox
-            aria-labelledby="select-all"
+            label={
+              <VisuallyHidden id="select-all">Select all rows</VisuallyHidden>
+            }
             onChange={isChecked ? removeAll : setAll}
             isChecked={isChecked}
             isIndeterminate={state.anyChecked && !state.allChecked}
           />
-          <VisuallyHidden id="select-all">Select all rows</VisuallyHidden>
         </Primitives.SelectableCell>
         {children}
         {isChecked && (

@@ -4,6 +4,7 @@ import { ChangeEventHandler, FC, memo, useCallback, useMemo } from 'react';
 import { jsx } from '@emotion/react';
 
 import Checkbox from '@atlaskit/checkbox';
+import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import { useSelection } from './hooks/selection-provider';
 import { useRowId } from './hooks/use-row-id';
@@ -25,7 +26,11 @@ const SelectableCell: FC = () => {
 
   return (
     <Primitives.SelectableCell as="td">
-      <Checkbox isChecked={isChecked} onChange={onChange} />
+      <Checkbox
+        isChecked={isChecked}
+        onChange={onChange}
+        label={<VisuallyHidden>Select row {idx + 1}</VisuallyHidden>}
+      />
     </Primitives.SelectableCell>
   );
 };

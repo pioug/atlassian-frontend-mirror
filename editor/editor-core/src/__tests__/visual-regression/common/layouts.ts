@@ -18,7 +18,7 @@ import * as layoutWithAction from './__fixtures__/layout-with-action-adf.json';
 import * as layoutWithDecision from './__fixtures__/layout-with-decision-adf.json';
 import * as layoutWithDecisions from './__fixtures__/layout-with-decisions-adf.json';
 import * as colLeftSidebar from './__fixtures__/columnLeftSidebar-adf.json';
-// import * as colRightSidebar from './__fixtures__/columnRightSidebar-adf.json';
+import * as colRightSidebar from './__fixtures__/columnRightSidebar-adf.json';
 import * as col3WithSidebars from './__fixtures__/column3WithSidebars-adf.json';
 import { layoutToolbarTitle } from '../../../plugins/layout/toolbar';
 
@@ -30,8 +30,7 @@ describe('Layouts:', () => {
     ['2 columns', col2],
     ['3 columns', col3],
     ['left sidebar', colLeftSidebar],
-    // TODO: Unskip test "right sidebar" https://product-fabric.atlassian.net/browse/ED-17208
-    // ['right sidebar', colRightSidebar],
+    ['right sidebar', colRightSidebar],
     ['3 columns with sidebars', col3WithSidebars],
   ];
 

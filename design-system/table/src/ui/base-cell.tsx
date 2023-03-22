@@ -41,6 +41,13 @@ export type BaseCellProps = {
   'paddingBlock' | 'paddingInline' | 'backgroundColor' | 'className'
 >;
 
+/**
+ * https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-sort
+ */
+export type SortDirection = 'ascending' | 'descending' | 'none' | 'other';
+
+type InternalBaseCellProps = BaseCellProps & { sortDirection?: SortDirection };
+
 const alignMap = {
   text: 'flexStart',
   number: 'flexEnd',
@@ -65,7 +72,7 @@ const baseResetStyles = css({
  *
  * Basic cell element.
  */
-export const BaseCell = forwardRef<HTMLTableCellElement, BaseCellProps>(
+export const BaseCell = forwardRef<HTMLTableCellElement, InternalBaseCellProps>(
   (
     {
       testId,
@@ -78,6 +85,7 @@ export const BaseCell = forwardRef<HTMLTableCellElement, BaseCellProps>(
       scope,
       width,
       className,
+      sortDirection,
     },
     ref,
   ) => (
@@ -92,6 +100,7 @@ export const BaseCell = forwardRef<HTMLTableCellElement, BaseCellProps>(
       testId={testId}
       className={className}
       UNSAFE_style={width ? { width } : undefined}
+      aria-sort={sortDirection}
     >
       <Inline justifyContent={alignMap[align]} gap="space.0">
         {children}

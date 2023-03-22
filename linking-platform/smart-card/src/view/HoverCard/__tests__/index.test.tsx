@@ -22,7 +22,11 @@ jest.mock('@atlaskit/analytics-next', () => ({
 
 import '@atlaskit/link-test-helpers/jest';
 
-import '../../__mocks__/intersection-observer.mock';
+import {
+  MockIntersectionObserverFactory,
+  MockIntersectionObserverOpts,
+} from '@atlaskit/link-test-helpers';
+
 import React, { ReactElement } from 'react';
 import { fireEvent, render, cleanup, waitFor } from '@testing-library/react';
 import { withAnalyticsContext } from '@atlaskit/analytics-next';
@@ -51,6 +55,8 @@ describe('HoverCard', () => {
   let mockClient: CardClient;
   let mockFetch: jest.Mock;
   let mockUrl: string;
+  let mockGetEntries: jest.Mock;
+  let mockIntersectionObserverOpts: MockIntersectionObserverOpts;
 
   const setup = async ({
     mock = mockConfluenceResponse,
@@ -108,6 +114,21 @@ describe('HoverCard', () => {
 
     return { findByTestId, queryByTestId, element, analyticsSpy };
   };
+
+  beforeEach(() => {
+    mockGetEntries = jest
+      .fn()
+      .mockImplementation(() => [{ isIntersecting: true }]);
+    mockIntersectionObserverOpts = {
+      disconnect: jest.fn(),
+      getMockEntries: mockGetEntries,
+    };
+    // Gives us access to a mock IntersectionObserver, which we can
+    // use to spoof visibility of a Smart Link.
+    window.IntersectionObserver = MockIntersectionObserverFactory(
+      mockIntersectionObserverOpts,
+    );
+  });
 
   afterEach(() => {
     jest.useRealTimers();
@@ -1144,7 +1165,7 @@ describe('HoverCard', () => {
     });
   });
 
-  describe('Standalone hover card', async () => {
+  describe('Standalone hover card', () => {
     it('should render a hover card over a div', async () => {
       const testId = 'hover-test-div';
       const hoverCardComponent = (

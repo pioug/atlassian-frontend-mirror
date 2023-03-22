@@ -5,15 +5,17 @@ jest.mock(
 );
 jest.doMock('../../../utils/analytics/analytics');
 
-import '../../__mocks__/intersection-observer.mock';
 import React from 'react';
 import { JsonLd } from 'json-ld-types';
 import { render, cleanup, waitFor } from '@testing-library/react';
 import { CardClient, CardProviderStoreOpts } from '@atlaskit/link-provider';
+import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { Card } from '../../Card';
 import { Provider } from '../../..';
 import { fakeFactory, mocks } from '../../../utils/mocks';
 import { IntlProvider } from 'react-intl-next';
+
+mockSimpleIntersectionObserver();
 
 describe('smart-card: card states, embed', () => {
   const mockOnError = jest.fn();

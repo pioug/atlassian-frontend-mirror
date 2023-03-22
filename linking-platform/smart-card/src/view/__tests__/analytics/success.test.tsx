@@ -4,7 +4,7 @@ jest.mock('../../../utils', () => ({
 }));
 
 import './success.test.mock';
-import '../../__mocks__/intersection-observer.mock';
+import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { CardClient } from '@atlaskit/link-provider';
 import React from 'react';
 import { Card } from '../../Card';
@@ -21,6 +21,8 @@ import { isSpecialEvent } from '../../../utils';
 import * as cardWithUrlContent from '../../CardWithUrl/component';
 import { TestErrorBoundary } from '../_boundary';
 import { act } from '@testing-library/react';
+
+mockSimpleIntersectionObserver();
 
 jest.mock('@atlaskit/link-provider', () => ({
   useFeatureFlag: () => true,

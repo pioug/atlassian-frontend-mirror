@@ -369,11 +369,11 @@ interface ShortenRequest {
   // (undocumented)
   cloudId?: string;
   // (undocumented)
+  originId?: string;
+  // (undocumented)
   params: Record<string, string>;
   // (undocumented)
   product: string;
-  // (undocumented)
-  query?: string;
   // (undocumented)
   type: string;
 }

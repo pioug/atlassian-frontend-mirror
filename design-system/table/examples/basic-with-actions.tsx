@@ -41,7 +41,9 @@ export default function Basic() {
           </Fragment>
         )}
       >
-        <SortableColumn name="name">Name</SortableColumn>
+        <SortableColumn name="name" testId="column-name">
+          Name
+        </SortableColumn>
         <SortableColumn name="party">Party</SortableColumn>
         <HeadCell>Year</HeadCell>
       </THead>

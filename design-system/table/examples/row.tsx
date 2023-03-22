@@ -15,7 +15,7 @@ const user = userData.results[0];
 export default function RowExample() {
   const name = `${user.name.first} ${user.name.last}`;
   return (
-    <Table isSelectable>
+    <Table isSelectable testId="table">
       <TBody>
         <Row>
           <Cell>

@@ -121,12 +121,7 @@ export class ShareDialogContainerInternal extends React.Component<
   }
 
   componentDidUpdate(prevProps: ShareDialogContainerProps) {
-    if (
-      !deepEqual(
-        this.getShortLinkData(prevProps),
-        this.getShortLinkData(this.props),
-      )
-    ) {
+    if (!deepEqual(prevProps.shortLinkData, this.props.shortLinkData)) {
       this.updateShortCopyLink();
     }
   }
@@ -210,7 +205,6 @@ export class ShareDialogContainerInternal extends React.Component<
     if (this.props.onDialogOpen) {
       this.props.onDialogOpen();
     }
-
     this.setState(
       {
         currentPageUrl: getCurrentPageUrl(),
@@ -273,16 +267,16 @@ export class ShareDialogContainerInternal extends React.Component<
 
   getUpToDateShortenedCopyLink: (
     data: ShortenRequest,
+    originId: string,
   ) => Promise<string | null> = memoizeOne(
-    (data: ShortenRequest): Promise<string | null> => {
+    (data: ShortenRequest, originId: string): Promise<string | null> => {
       this._lastUrlShorteningWasTooSlow = false;
       this._urlShorteningRequestCounter++;
-
       this.createAndFireEvent(shortUrlRequested());
 
       const start = Date.now();
       return this.urlShortenerClient
-        .shorten(data)
+        .shorten({ ...data, originId: originId })
         .then((response) => {
           this.createAndFireEvent(
             shortUrlGenerated(start, this._lastUrlShorteningWasTooSlow),
@@ -345,45 +339,23 @@ export class ShareDialogContainerInternal extends React.Component<
     return this.getShortenedCopyLink() || this.getFullCopyLink();
   }
 
-  addOriginToShortQuery(query = ''): string {
-    const copyLinkOrigin = this.getCopyLinkOriginTracing();
-    return copyLinkOrigin.addToUrl(query);
-  }
-
-  getShortLinkData(
-    props: ShareDialogContainerProps,
-  ): ShortenRequest | undefined {
-    let { shortLinkData, useUrlShortener, cloudId, product } = props;
-    if (shortLinkData) {
-      return {
-        ...shortLinkData,
-        query: this.addOriginToShortQuery(shortLinkData.query),
-      };
-    }
-
-    // Use the legacy link type if old API is being used
-    if (useUrlShortener && product === 'confluence') {
-      return {
-        cloudId,
-        product,
-        type: 'legacy',
-        params: { path: this.getFullCopyLink() },
-      };
-    }
-
-    return undefined;
-  }
-
   updateShortCopyLink() {
     this.setState({
       shortenedCopyLink: null,
     });
-    const shortLinkData = this.getShortLinkData(this.props);
+    const { shortLinkData } = this.props;
+
     if (!shortLinkData) {
       return;
     }
 
-    const shortLink = this.getUpToDateShortenedCopyLink(shortLinkData);
+    const originId = this.getCopyLinkOriginTracing().id;
+
+    const shortLink = this.getUpToDateShortenedCopyLink(
+      shortLinkData,
+      originId,
+    );
+
     const requestCounter = this._urlShorteningRequestCounter;
     shortLink.then((shortenedCopyLink) => {
       if (!this._isMounted) {

@@ -3,7 +3,7 @@ export interface ShortenRequest {
   product: string;
   type: string;
   params: Record<string, string>;
-  query?: string;
+  originId?: string;
 }
 
 export interface ShortenResponse {

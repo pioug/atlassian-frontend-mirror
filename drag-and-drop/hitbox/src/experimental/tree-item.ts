@@ -38,30 +38,26 @@ function getCenter(rect: DOMRect): Position {
   };
 }
 
-function reorderAndMakeChildArea({
+function standardHitbox({
   client,
   borderBox,
-  indentPerLevel,
-  currentLevel,
 }: {
   client: Position;
   borderBox: DOMRect;
-  indentPerLevel: number;
-  currentLevel: number;
-}): Instruction {
+}): 'reorder-above' | 'reorder-below' | 'make-child' {
   const quarterOfHeight = borderBox.height / 4;
 
   // In the top 1/4: reorder-above
   // On the line = in the top 1/4 to give this zone a bit more space
   if (client.y <= borderBox.top + quarterOfHeight) {
-    return { type: 'reorder-above', indentPerLevel, currentLevel };
+    return 'reorder-above';
   }
   // In the bottom 1/4: reorder-below
   // On the line = in the bottom 1/4 to give this zone a bit more space
   if (client.y >= borderBox.bottom - quarterOfHeight) {
-    return { type: 'reorder-below', indentPerLevel, currentLevel };
+    return 'reorder-below';
   }
-  return { type: 'make-child', indentPerLevel, currentLevel };
+  return 'make-child';
 }
 
 function getInstruction({
@@ -84,23 +80,25 @@ function getInstruction({
 
   const borderBox = element.getBoundingClientRect();
   if (mode === 'standard') {
-    return reorderAndMakeChildArea({
-      borderBox,
-      client,
-      indentPerLevel,
-      currentLevel,
-    });
+    const type = standardHitbox({ borderBox, client });
+    return { type, indentPerLevel, currentLevel };
   }
   const center: Position = getCenter(borderBox);
 
   if (mode === 'expanded') {
-    // Note: We are giving a slight preference to actions were the user is moving something down in the tree
-    // So 'on the line' in this case will cause a 'make-child' action
-    if (client.y < center.y) {
-      return { type: 'reorder-above', indentPerLevel, currentLevel };
-    }
-    return { type: 'make-child', indentPerLevel, currentLevel };
+    // leveraging "standard" hitbox to ensure that the 'reorder-above' hit zone is
+    // exactly the same for "standard" and "expanded" items
+    const type = standardHitbox({ borderBox, client });
+    return {
+      // Use the "standard" hitbox for "reorder above",
+      // The rest of the item is "make-child"
+      type: type === 'reorder-above' ? type : 'make-child',
+      indentPerLevel,
+      currentLevel,
+    };
   }
+
+  // `mode` is "last-in-group"
 
   const visibleInset = indentPerLevel * currentLevel;
 
@@ -126,12 +124,11 @@ function getInstruction({
     };
   }
   // On the visible item
-  return reorderAndMakeChildArea({
-    borderBox,
-    client,
+  return {
+    type: standardHitbox({ borderBox, client }),
     indentPerLevel,
     currentLevel,
-  });
+  };
 }
 
 function applyInstructionBlock({

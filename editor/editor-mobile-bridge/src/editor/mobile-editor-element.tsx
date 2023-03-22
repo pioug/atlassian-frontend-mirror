@@ -81,8 +81,8 @@ const tableOptions: EditorProps['allowTables'] = {
   allowHeaderRow: true,
   allowMergeCells: true,
   allowNumberColumn: true,
-  allowDistributeColumns: true,
-  allowColumnResizing: true,
+  allowDistributeColumns: false,
+  allowColumnResizing: false,
 };
 
 const expandOptions: EditorProps['allowExpand'] = {

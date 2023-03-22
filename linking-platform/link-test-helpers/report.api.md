@@ -15,6 +15,8 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
+/// <reference types="jest" />
+
 import { default as React_2 } from 'react';
 import { RenderResult } from '@testing-library/react';
 
@@ -36,6 +38,47 @@ export class ManualPromise<T> extends Promise<T> {
   // (undocumented)
   resolve(value?: T): this;
 }
+
+// @public (undocumented)
+interface MockEntry {
+  // (undocumented)
+  isIntersecting: boolean;
+}
+
+// @public (undocumented)
+export const MockIntersectionObserverFactory: (
+  mockIntersectionObserverOpts: MockIntersectionObserverOpts,
+) => {
+  new (callback: IntersectionObserverCallback): {
+    isDisconnected: boolean;
+    readonly root: Element | null;
+    readonly rootMargin: string;
+    readonly thresholds: ReadonlyArray<number>;
+    previousMockEntries: MockEntry[];
+    callback: IntersectionObserverCallback;
+    observe(_element: HTMLElement): void;
+    callIntersectionObserverCallback: () => void;
+    checkIntersection: () => void;
+    disconnect: () => void;
+    takeRecords: jest.Mock<any, any>;
+    unobserve: jest.Mock<any, any>;
+  };
+};
+
+// @public (undocumented)
+export interface MockIntersectionObserverOpts {
+  // (undocumented)
+  disconnect: jest.Mock;
+  // (undocumented)
+  getMockEntries: () => MockEntry[];
+  // (undocumented)
+  takeRecords?: jest.Mock;
+  // (undocumented)
+  unobserve?: jest.Mock;
+}
+
+// @public (undocumented)
+export const mockSimpleIntersectionObserver: () => void;
 
 // @public (undocumented)
 export const renderWithIntl: (component: React_2.ReactNode) => RenderResult;

@@ -90,24 +90,23 @@ const scenarios: Scenario[] = [
   },
   {
     mode: 'expanded',
-    description: 'in top half should reorder above',
+    description: 'in top 1/4 should reorder above (same as "standard")',
     expected: { type: 'reorder-above', ...baseData },
     hitbox: getRect({
       top: rect.top,
       left: rect.left,
       right: rect.right,
-      // We are giving a slight preference to actions were the user is moving something down in the tree
-      // So 'on the line' in this case will cause a 'make-child' action
-      bottom: rect.top + rect.width / 2 - 1,
+      // we are ensuring the whole top 1/4 is the hit zone to match "standard" items
+      bottom: rect.top + quarterOfHeight,
     }),
     ...baseData,
   },
   {
     mode: 'expanded',
-    description: 'in bottom half should make-child',
+    description: 'in bottom 3/4 should make-child',
     expected: { type: 'make-child', ...baseData },
     hitbox: getRect({
-      top: rect.top + rect.width / 2,
+      top: rect.top + quarterOfHeight + 1,
       left: rect.left,
       right: rect.right,
       bottom: rect.bottom,

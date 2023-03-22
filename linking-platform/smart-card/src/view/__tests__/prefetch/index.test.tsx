@@ -22,7 +22,7 @@ import { fakeFactory, mocks } from '../../../utils/mocks';
 import {
   MockIntersectionObserverFactory,
   MockIntersectionObserverOpts,
-} from '../../__mocks__/intersection-observer';
+} from '@atlaskit/link-test-helpers';
 import * as ufoWrapper from '../../../state/analytics/ufoExperiences';
 import 'jest-extended';
 import uuid from 'uuid';

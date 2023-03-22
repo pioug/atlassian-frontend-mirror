@@ -19,9 +19,11 @@ import {
 import { dropTargetForFiles } from '@atlaskit/drag-and-drop/adapter/file';
 import { combine } from '@atlaskit/drag-and-drop/util/combine';
 import { scrollJustEnoughIntoView } from '@atlaskit/drag-and-drop/util/scroll-just-enough-into-view';
+// eslint-disable-next-line @atlaskit/design-system/no-banned-imports
+import Box from '@atlaskit/ds-explorations/box';
 import Heading from '@atlaskit/heading';
 import MoreIcon from '@atlaskit/icon/glyph/more';
-import { Box, Inline, Stack } from '@atlaskit/primitives';
+import { Inline, Stack } from '@atlaskit/primitives';
 
 import { Item } from '../data/people';
 import { cardGap } from '../util/constants';
@@ -94,11 +96,10 @@ export const Card = memo(function Card({ item }: { item: Item }) {
       testId={`item-${itemId}`}
       width="100%"
       backgroundColor="elevation.surface"
-      borderRadius="radius.200"
+      borderRadius="normal"
       padding="space.100"
       shadow="raised"
       position="relative"
-      // @ts-expect-error
       UNSAFE_style={state === 'dragging' ? { opacity: 0.6 } : undefined}
     >
       <Inline space="100" alignBlock="center" grow="fill">

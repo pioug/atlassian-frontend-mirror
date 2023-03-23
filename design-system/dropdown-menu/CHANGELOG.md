@@ -1,5 +1,11 @@
 # @atlaskit/dropdown-menu
 
+## 11.7.1
+
+### Patch Changes
+
+- [`cfe48bb7ece`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cfe48bb7ece) - Internal change only. Replace usages of Inline/Stack with stable version from `@atlaskit/primitives`.
+
 ## 11.7.0
 
 ### Minor Changes

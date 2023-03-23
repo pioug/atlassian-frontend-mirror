@@ -59,7 +59,27 @@ describe('Inline', () => {
 
     const image = await takeElementScreenShot(
       page,
-      `[data-testid="inline-example"]`,
+      `[data-testid="inline-space"]`,
+    );
+
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('should render with rowSpace', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'primitives',
+      'inline-space',
+      global.__BASEURL__,
+      'light',
+    );
+    const { page } = global;
+
+    await loadPage(page, url);
+
+    const image = await takeElementScreenShot(
+      page,
+      `[data-testid="inline-rowSpace"]`,
     );
 
     expect(image).toMatchProdImageSnapshot();

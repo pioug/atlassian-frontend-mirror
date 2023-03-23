@@ -4,10 +4,8 @@ import { FC, ReactNode } from 'react';
 import { jsx } from '@emotion/react';
 
 import Checkbox from '@atlaskit/checkbox';
-import {
-  UNSAFE_Inline as Inline,
-  UNSAFE_Text as Text,
-} from '@atlaskit/ds-explorations';
+import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
+import Inline from '@atlaskit/primitives/inline';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import { useSelection } from './hooks/selection-provider';
@@ -51,9 +49,7 @@ const THead: FC<THeadProps> = ({ actions, children }) => {
             <Text color="color.text" fontWeight="medium">
               {state.checked.length} selected
             </Text>
-            {actions && (
-              <Inline gap="space.100">{actions(state.checked)}</Inline>
-            )}
+            {actions && <Inline space="100">{actions(state.checked)}</Inline>}
           </Primitives.BulkActionOverlay>
         )}
       </Primitives.TR>

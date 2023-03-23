@@ -1,5 +1,11 @@
 # @atlaskit/progress-tracker
 
+## 8.4.7
+
+### Patch Changes
+
+- [`cfe48bb7ece`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cfe48bb7ece) - Internal change only. Replace usages of Inline/Stack with stable version from `@atlaskit/primitives`.
+
 ## 8.4.6
 
 ### Patch Changes

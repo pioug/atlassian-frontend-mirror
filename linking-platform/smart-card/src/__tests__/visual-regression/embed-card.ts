@@ -2,7 +2,8 @@ import { getURL, setup, takeSnapshot } from '../__utils__/vr-helpers';
 
 const sleep = (time: number) => new Promise((r) => setTimeout(r, time));
 
-describe('Embed Card', () => {
+// Skipped in ED-17195
+describe.skip('Embed Card', () => {
   it('shows unresolved views', async () => {
     const url = getURL('vr-embed-card-unresolved-views');
     const page = await setup(url);

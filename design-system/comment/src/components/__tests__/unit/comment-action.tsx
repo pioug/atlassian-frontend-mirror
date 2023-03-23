@@ -1,9 +1,7 @@
 import React from 'react';
 
-import { mount, shallow } from 'enzyme';
-
-import Button from '@atlaskit/button/custom-theme-button';
-import __noop from '@atlaskit/ds-lib/noop';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import CommentActionWithAnalytics, {
   CommentActionWithoutAnalytics as CommentAction,
@@ -19,29 +17,58 @@ describe('@atlaskit comments', () => {
     });
 
     describe('construction', () => {
-      it('should be able to create a component', () => {
-        const wrapper = shallow(<CommentAction />);
-        expect(wrapper).not.toBe(undefined);
+      afterEach(() => {
+        jest.resetAllMocks();
+      });
+
+      it('should be able to create a component', async () => {
+        render(<CommentAction />);
+
+        const buttons = await screen.findAllByRole('button');
+
+        expect(buttons).toHaveLength(1);
       });
 
       it('should render a Button containing the children', () => {
         const children = <span>children</span>;
-        const wrapper = shallow(<CommentAction>{children}</CommentAction>);
-        expect(wrapper.find(Button).length).toBeGreaterThan(0);
-        expect(wrapper.find(Button).contains(children)).toBe(true);
+        render(<CommentAction>{children}</CommentAction>);
+
+        expect(screen.getByRole('button').textContent).toBe('children');
       });
 
-      it('should reflect onClick, onFocus, and onMouseOver to a wrapping element', () => {
+      it('should pass onClick, onFocus, and onMouseOver functions to button via props', async () => {
+        const onClickMock = jest.fn();
+        const onHoverMock = jest.fn();
+        const onFocusMock = jest.fn();
+
         const props: CommentActionItemProps = {
-          onClick: __noop,
-          onFocus: __noop,
-          onMouseOver: __noop,
+          onClick: onClickMock,
+          onFocus: onFocusMock,
+          onMouseOver: onHoverMock,
         };
-        const wrapper = shallow(<CommentAction {...props} />);
-        const Keys = Object.keys(props) as (keyof CommentActionItemProps)[];
-        Keys.forEach((propName) => {
-          expect(wrapper.prop(propName)).toBe(props[propName]);
-        });
+        render(<CommentAction {...props} />);
+
+        const button = screen.getByRole('button');
+        const user = userEvent.setup();
+
+        await user.click(button);
+        expect(onClickMock).toHaveBeenCalledTimes(1);
+        expect(onHoverMock).toHaveBeenCalledTimes(1);
+
+        await user.tab();
+        expect(onFocusMock).toHaveBeenCalledTimes(1);
+      });
+
+      it('should disable button if isDisabled prop set to true', async () => {
+        const onClickMock = jest.fn();
+        render(<CommentAction isDisabled={true} onClick={onClickMock} />);
+
+        const button = screen.getByRole('button');
+        const user = userEvent.setup();
+
+        await user.click(button);
+        expect(onClickMock).not.toHaveBeenCalled();
+        expect(button).toHaveAttribute('disabled');
       });
     });
   });
@@ -60,7 +87,7 @@ describe('CommentActionWithAnalytics', () => {
   });
 
   it('should mount without errors', () => {
-    mount(<CommentActionWithAnalytics />);
+    render(<CommentActionWithAnalytics />);
     /* eslint-disable no-console */
     expect(console.warn).not.toHaveBeenCalled();
     expect(console.error).not.toHaveBeenCalled();

@@ -1,22 +1,16 @@
 import React from 'react';
 
-import { mount, shallow } from 'enzyme';
+import { render, screen } from '@testing-library/react';
 
 import Avatar from '@atlaskit/avatar';
-import Button from '@atlaskit/button/custom-theme-button';
 import __noop from '@atlaskit/ds-lib/noop';
-import LockFilledIcon from '@atlaskit/icon/glyph/lock-filled';
-import WarningIcon from '@atlaskit/icon/glyph/warning';
-import Lozenge from '@atlaskit/lozenge';
 
 import Comment, {
   CommentAction,
   CommentAuthor,
   CommentEdited,
-  CommentLayout,
   CommentTime,
 } from '../../../index';
-import CommentHeader from '../../header';
 
 describe('@atlaskit comments', () => {
   describe('Comment', () => {
@@ -28,8 +22,9 @@ describe('@atlaskit comments', () => {
 
     describe('construction', () => {
       it('should be able to create a component', () => {
-        const wrapper = shallow(<Comment avatar="" />);
-        expect(wrapper).not.toBe(undefined);
+        render(<Comment testId="comment" avatar="" />);
+
+        expect(screen.getByTestId('comment')).toBeInTheDocument();
       });
     });
 
@@ -41,42 +36,54 @@ describe('@atlaskit comments', () => {
             <CommentAction>action content</CommentAction>,
             <CommentAction onClick={__noop}>action content</CommentAction>,
           ];
-          const wrapper = mount(<Comment avatar="" actions={actions} />);
-          const container = wrapper.find(CommentAction);
-          expect(container.find(CommentAction).length).toBe(actions.length);
-          actions.forEach((action) => {
-            expect(container.contains(action)).toBe(true);
-          });
+          render(<Comment avatar="" actions={actions} testId="comment" />);
+
+          const footer = screen.getByTestId('comment-footer');
+          // 3 actions and 2 separators between
+          expect(footer.childElementCount).toBe(5);
         });
       });
 
       describe('author prop', () => {
         it('should render the author in the correct container', () => {
           const author = <CommentAuthor>Joshua Nelson</CommentAuthor>;
-          const wrapper = mount(<Comment avatar="" author={author} />);
-          expect(wrapper.find(Comment).contains(author)).toBe(true);
+          render(<Comment avatar="" author={author} testId="comment" />);
+
+          expect(screen.getByText('Joshua Nelson')).toBeInTheDocument();
+          expect(screen.getByTestId('comment-header').textContent).toBe(
+            'Joshua Nelson',
+          );
         });
       });
 
       describe('avatar prop', () => {
         it('should be reflected to the CommentLayout', () => {
           const avatar = <Avatar src="test/src" />;
-          const wrapper = shallow(<Comment avatar={avatar} />);
-          expect(wrapper.find(CommentLayout).prop('avatar')).toBe(avatar);
+          render(<Comment avatar={avatar} />);
+
+          const avatarImg = screen.queryByRole('img');
+
+          expect(avatarImg).toBeInTheDocument();
+          expect(avatarImg).toHaveAttribute('src', 'test/src');
         });
       });
 
       describe('content prop', () => {
         it('should render the provided content in the correct container', () => {
-          const content = <p>My sample content</p>;
-          const wrapper = mount(<Comment avatar="" content={content} />);
-          expect(wrapper.find(Comment).contains(content)).toBe(true);
+          const content = (
+            <p data-testid="comment-content">My sample content</p>
+          );
+          render(<Comment avatar="" content={content} />);
+
+          expect(screen.getByText('My sample content')).toBeInTheDocument();
+          expect(screen.getByTestId('comment-content')).toBeInTheDocument();
         });
 
         it('can render string content', () => {
           const textContent = 'My sample content';
-          const wrapper = mount(<Comment avatar="" content={textContent} />);
-          expect(wrapper.find(Comment).text()).toBe(textContent);
+          render(<Comment avatar="" content={textContent} />);
+
+          expect(screen.getByText('My sample content')).toBeInTheDocument();
         });
       });
 
@@ -86,70 +93,96 @@ describe('@atlaskit comments', () => {
           const afterContent = (
             <button type="button">My sample after content</button>
           );
-          const wrapper = mount(
+          render(
             <Comment avatar="" content={content} afterContent={afterContent} />,
           );
-          expect(wrapper.contains(content)).toBe(true);
-          expect(wrapper.contains(afterContent)).toBe(true);
+
+          expect(screen.queryByRole('button')).toBeInTheDocument();
+          expect(screen.getByText('My sample content')).toBeInTheDocument();
         });
       });
 
       describe('time prop', () => {
         it('should render the time in the correct container', () => {
           const time = <CommentTime>30 August, 2016</CommentTime>;
-          const wrapper = mount(<Comment avatar="" time={time} />);
-          expect(wrapper.find(Comment).contains(time)).toBe(true);
+          render(<Comment avatar="" time={time} testId="comment" />);
+
+          expect(screen.getByText('30 August, 2016')).toBeInTheDocument();
+          expect(screen.getByTestId('comment-header').textContent).toBe(
+            '30 August, 2016',
+          );
         });
       });
 
       describe('edited prop', () => {
         it('should render edited correctly', () => {
           const edited = <CommentEdited>Edited</CommentEdited>;
-          const wrapper = mount(<Comment avatar="" edited={edited} />);
-          expect(wrapper.find(Comment).contains(edited)).toBe(true);
+          render(<Comment avatar="" edited={edited} testId="comment" />);
+
+          expect(screen.getByText('Edited')).toBeInTheDocument();
+          expect(screen.getByTestId('comment-header').textContent).toBe(
+            'Edited',
+          );
         });
       });
 
       describe('type prop', () => {
         it('should render a Lozenge with the type in the correct container', () => {
           const type = 'type';
-          const wrapper = mount(<Comment avatar="" type={type} />);
-          expect(wrapper.find(CommentHeader).find(Lozenge).length).toBe(1);
+          render(<Comment avatar="" type={type} testId="comment" />);
+
+          expect(screen.getByText('type')).toBeInTheDocument();
+          expect(screen.getByTestId('comment-header').textContent).toBe('type');
         });
       });
 
       describe('restrictedTo prop', () => {
         it('should render a Lock icon and restrictedTo text when supplied', () => {
-          const wrapper = mount(
-            <Comment avatar="" restrictedTo="atlassian-staff" />,
+          const { container } = render(
+            <Comment
+              avatar=""
+              restrictedTo="atlassian-staff"
+              testId="comment"
+            />,
           );
-          expect(wrapper.find(LockFilledIcon).length).toBe(1);
-          expect(wrapper.text()).toEqual(
-            expect.stringMatching('atlassian-staff'),
+
+          const svg = container.querySelectorAll('svg');
+
+          expect(svg).toHaveLength(1);
+          expect(screen.getByTestId('comment').textContent).toContain(
+            'atlassian-staff',
           );
         });
 
         it('should not render a Lock icon if restrictedTo prop is not set', () => {
-          const wrapper = mount(<Comment avatar="" />);
-          expect(wrapper.find(LockFilledIcon).length).toBe(0);
+          const { container } = render(<Comment avatar="" />);
+
+          expect(container.querySelector('svg')).not.toBeInTheDocument();
         });
       });
 
       describe('isSaving and savingText props', () => {
         describe('if isSaving prop is set', () => {
           it('should render the default savingText if no savingText is set', () => {
-            const wrapper = mount(<Comment avatar="" isSaving />);
-            expect(wrapper.text()).toEqual(
-              expect.stringContaining('Sending...'),
+            render(<Comment avatar="" isSaving testId="comment" />);
+
+            expect(screen.getByTestId('comment-header').textContent).toContain(
+              'Sending...',
             );
           });
 
           it('should render the savingText text if it is set', () => {
-            const wrapper = mount(
-              <Comment avatar="" isSaving savingText="Saving..." />,
+            render(
+              <Comment
+                avatar=""
+                isSaving
+                savingText="Saving..."
+                testId="comment"
+              />,
             );
-            expect(wrapper.text()).toEqual(
-              expect.stringContaining('Saving...'),
+
+            expect(screen.getByTestId('comment-header').textContent).toContain(
+              'Saving...',
             );
           });
 
@@ -159,7 +192,7 @@ describe('@atlaskit comments', () => {
               <CommentAction>action content</CommentAction>,
               <CommentAction onClick={__noop}>action content</CommentAction>,
             ];
-            const wrapper = mount(
+            render(
               <Comment
                 avatar=""
                 actions={actions}
@@ -167,17 +200,24 @@ describe('@atlaskit comments', () => {
                 savingText="Saving..."
                 isError
                 errorActions={actions}
+                testId="comment"
               />,
             );
-            expect(wrapper.find(CommentAction).length).toBe(0);
+
+            expect(
+              screen.queryByTestId('comment-footer'),
+            ).not.toBeInTheDocument();
           });
         });
 
         describe('if isSaving prop is not set', () => {
           it('should not render savingText', () => {
-            const wrapper = mount(<Comment avatar="" savingText="Saving..." />);
-            expect(wrapper.text()).not.toEqual(
-              expect.stringContaining('Saving...'),
+            render(
+              <Comment avatar="" savingText="Saving..." testId="comment" />,
+            );
+
+            expect(screen.getByTestId('comment').textContent).not.toContain(
+              'Saving...',
             );
           });
         });
@@ -191,16 +231,24 @@ describe('@atlaskit comments', () => {
 
         describe('if isError prop is set', () => {
           it('should render the default (empty) if no errorIconLabel is set', () => {
-            const wrapper = mount(
-              <Comment avatar="" isError errorActions={errorActions} />,
+            const { container } = render(
+              <Comment
+                avatar=""
+                isError
+                errorActions={errorActions}
+                testId="comment"
+              />,
             );
-            expect(wrapper.find(WarningIcon).length).toBe(1);
-            expect(wrapper.find(WarningIcon).at(0).prop('label')).toBe('');
+
+            const errorIconWithLabel = screen.queryByRole('img');
+
+            expect(errorIconWithLabel).not.toBeInTheDocument();
+            expect(container.querySelectorAll('svg')).toHaveLength(1);
           });
 
-          it('should render the errorIconLabel text if it is set', () => {
+          it('should render the errorIconLabel text if it is set', async () => {
             const label = 'Error';
-            const wrapper = mount(
+            render(
               <Comment
                 avatar=""
                 isError
@@ -208,78 +256,91 @@ describe('@atlaskit comments', () => {
                 errorIconLabel={label}
               />,
             );
-            expect(wrapper.find(WarningIcon).length).toBe(1);
-            expect(wrapper.find(WarningIcon).at(0).prop('label')).toBe(label);
+
+            const errorIconWithLabel = await screen.findByRole('img');
+
+            expect(errorIconWithLabel).toHaveAttribute('aria-label', label);
           });
 
-          it('should render the icon and errorActions instead of the actions', () => {
+          it('should render the icon and errorActions instead of the actions', async () => {
             const actions = [
               <CommentAction />,
               <CommentAction>action content</CommentAction>,
               <CommentAction onClick={__noop}>action content</CommentAction>,
             ];
-            const wrapper = mount(
+            const { container } = render(
               <Comment
                 avatar=""
                 actions={actions}
                 isError
                 errorActions={errorActions}
+                testId="comment"
               />,
             );
-            const actionItems = wrapper.find(CommentAction);
-            expect(actionItems).toHaveLength(2);
-            expect(wrapper.find(WarningIcon)).toHaveLength(1);
-            expect(actionItems.find(Button).at(0).text()).toContain('Retry');
-            expect(actionItems.find(Button).at(1).text()).toBe('Cancel');
+
+            const buttons = await screen.findAllByRole('button');
+
+            expect(container.querySelectorAll('svg')).toHaveLength(1);
+            expect(buttons[0]).toHaveTextContent('Retry');
+            expect(buttons[1]).toHaveTextContent('Cancel');
           });
         });
 
         describe('if isError prop is not set', () => {
           it('should not render the icon and errorActions', () => {
-            const wrapper = mount(
+            const { container } = render(
               <Comment avatar="" errorActions={errorActions} />,
             );
-            expect(wrapper.find(WarningIcon).length).toBe(0);
-            expect(wrapper.find(CommentAction).length).toBe(0);
+
+            expect(container.querySelector('svg')).not.toBeInTheDocument();
+            expect(screen.queryByRole('button')).not.toBeInTheDocument();
           });
         });
       });
 
       describe('headingLevel prop', () => {
         it('should add aria heading role and level', () => {
-          const wrapper = mount(
-            <Comment avatar="" headingLevel="3" type="hello" author="DDC" />,
+          render(
+            <Comment
+              avatar=""
+              headingLevel="3"
+              type="hello"
+              author="DDC"
+              testId="comment"
+            />,
           );
 
-          expect(wrapper.find(CommentHeader).prop('headingLevel')).toBe('3');
+          const heading = screen.getByRole('heading');
 
-          const spanHeading = wrapper.find(CommentHeader).find('span').first();
-          expect(spanHeading.prop('role')).toBe('heading');
-          expect(spanHeading.prop('aria-level')).toBe(3);
+          expect(heading).toBeInTheDocument();
+          expect(heading).toHaveAttribute('aria-level', '3');
         });
       });
 
       describe('Top items', () => {
         it('Should render in the order author, type, time, restrictedTo', () => {
           const time = <CommentTime>30 August, 2016</CommentTime>;
-          const wrapper = mount(
+          render(
             <Comment
               author="Mary"
               avatar=""
               type="Type"
               time={time}
               restrictedTo="atlassian-staff"
+              testId="comment"
             />,
           );
-          const header = wrapper.find(CommentHeader);
-          expect(header.props().author).toBe('Mary');
-          expect(header.props().restrictedTo).toBe('atlassian-staff');
-          expect(header.props().type).toContain('Type');
-          expect(header.find(CommentTime).text()).toContain('30 August, 2016');
+
+          const header = screen.getByTestId('comment-header');
+
+          expect(header.textContent).toContain('Mary');
+          expect(header.textContent).toContain('atlassian-staff');
+          expect(header.textContent).toContain('Type');
+          expect(header.textContent).toContain('30 August, 2016');
         });
 
         it('Should render in the order author, type, savingText, restrictedTo', () => {
-          const wrapper = mount(
+          render(
             <Comment
               author="Mary"
               avatar=""
@@ -287,16 +348,21 @@ describe('@atlaskit comments', () => {
               restrictedTo="atlassian-staff"
               isSaving
               savingText="Saving..."
+              testId="comment"
             />,
           );
-          expect(wrapper.find(CommentLayout).text()).toEqual(
-            expect.stringContaining('Saving...'),
-          );
+
+          const header = screen.getByTestId('comment');
+
+          expect(header.textContent).toContain('Mary');
+          expect(header.textContent).toContain('atlassian-staff');
+          expect(header.textContent).toContain('Type');
+          expect(header.textContent).toContain('Saving...');
         });
 
         it('should not render time if isSaving is set', () => {
           const time = <CommentTime>30 August, 2016</CommentTime>;
-          const wrapper = mount(
+          render(
             <Comment
               avatar=""
               author="Mary"
@@ -305,23 +371,34 @@ describe('@atlaskit comments', () => {
               restrictedTo="atlassian-staff"
               isSaving
               savingText="Saving..."
+              testId="comment"
             />,
           );
-          expect(wrapper.find(CommentTime).length).toBe(0);
-          expect(wrapper.text()).toEqual(expect.stringContaining('Saving...'));
+
+          const header = screen.getByTestId('comment');
+
+          expect(header.textContent).toContain('Saving...');
+          expect(header.textContent).not.toContain('30 August, 2016');
         });
       });
     });
 
     describe('nesting', () => {
       it('should reflect children to the CommentLayout', () => {
-        const childComment = <Comment avatar="" content="child" />;
-        const wrapper = shallow(
-          <Comment avatar="" content="parent'">
+        const childComment = (
+          <Comment avatar="" content="child" testId="child" />
+        );
+        render(
+          <Comment avatar="" content="parent" testId="parent">
             {childComment}
           </Comment>,
         );
-        expect(wrapper.find(CommentLayout).prop('children')).toBe(childComment);
+
+        const child = screen.getByTestId('child');
+
+        expect(child).toBeInTheDocument();
+        expect(child).toHaveTextContent('child');
+        expect(screen.getByTestId('parent').textContent).toContain('parent');
       });
     });
   });

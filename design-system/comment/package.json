@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/comment",
-  "version": "10.7.11",
+  "version": "10.7.12",
   "description": "A comment displays discussions and user feedback.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -48,7 +48,9 @@
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
-    "enzyme": "^3.10.0",
+    "@emotion/jest": "^11.8.0",
+    "@testing-library/react": "^12.1.5",
+    "@testing-library/user-event": "^14.4.3",
     "react-dom": "^16.8.0",
     "typescript": "4.5.5"
   },

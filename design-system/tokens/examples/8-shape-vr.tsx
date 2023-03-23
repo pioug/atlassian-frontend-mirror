@@ -3,10 +3,8 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 
-import {
-  UNSAFE_Box as Box,
-  UNSAFE_Inline as Inline,
-} from '@atlaskit/ds-explorations';
+import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
+import Inline from '@atlaskit/primitives/inline';
 
 import { CSSToken, token } from '../src';
 
@@ -27,7 +25,7 @@ export default () => {
   return (
     <div data-testid="shape">
       <h1>Shape scale</h1>
-      <Inline gap="space.100" alignItems="flexEnd">
+      <Inline space="100" alignBlock="end">
         <RadiusBox radius={token('border.radius.050', '2px')} />
         <RadiusBox radius={token('border.radius.100', '4px')} />
         <RadiusBox radius={token('border.radius.200', '8px')} />

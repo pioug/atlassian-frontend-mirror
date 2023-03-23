@@ -1,8 +1,8 @@
 import React, { SyntheticEvent, useState } from 'react';
 
 import { Code } from '@atlaskit/code';
-import Stack from '@atlaskit/ds-explorations/stack';
 import Text from '@atlaskit/ds-explorations/text';
+import Stack from '@atlaskit/primitives/stack';
 
 import Pagination from '../src';
 
@@ -23,7 +23,7 @@ export default function ComplexDataExample() {
   const getLabel = ({ label }: any) => label;
 
   return (
-    <Stack gap="space.150">
+    <Stack space="150">
       <Pagination
         testId="pagination"
         pages={PAGES}

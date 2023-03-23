@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
-import Stack from '@atlaskit/ds-explorations/stack';
 import Text from '@atlaskit/ds-explorations/text';
+import Stack from '@atlaskit/primitives/stack';
 import SectionMessage from '@atlaskit/section-message';
 
 import Pagination from '../src';
@@ -13,7 +13,7 @@ export default function CustomEllipsisExample() {
   const handleEllipsisCLick = () => setMaxPageSize(10);
 
   return (
-    <Stack gap="space.150">
+    <Stack space="150">
       <SectionMessage title="Using the example">
         <Text as="p">
           Please click on the ellipsis to expand the Pagination

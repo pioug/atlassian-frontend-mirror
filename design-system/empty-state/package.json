@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/empty-state",
-  "version": "7.4.8",
+  "version": "7.4.9",
   "description": "An empty state appears when there is no data to display and describes what the user can do next.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -41,7 +41,6 @@
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@testing-library/react": "^12.1.5",
-    "enzyme": "^3.10.0",
     "react-dom": "^16.8.0",
     "typescript": "4.5.5",
     "wait-for-expect": "^1.2.0"

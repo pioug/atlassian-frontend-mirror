@@ -1,5 +1,11 @@
 # @atlaskit/primitives
 
+## 0.3.2
+
+### Patch Changes
+
+- [`e7b64da97a1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7b64da97a1) - Add `rowSpace` prop to override the `space` prop's spacing between rows.
+
 ## 0.3.1
 
 ### Patch Changes

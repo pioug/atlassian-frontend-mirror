@@ -1,5 +1,11 @@
 # @atlaskit/comment
 
+## 10.7.12
+
+### Patch Changes
+
+- [`f43b2c99748`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f43b2c99748) - Migrates unit tests from enzyme to RTL.
+
 ## 10.7.11
 
 ### Patch Changes

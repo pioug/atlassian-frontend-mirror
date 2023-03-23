@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { Code } from '@atlaskit/code';
-import Stack from '@atlaskit/ds-explorations/stack';
 import Heading from '@atlaskit/heading';
+import Stack from '@atlaskit/primitives/stack';
 
 import Pagination from '../src';
 
@@ -18,7 +18,7 @@ export default function AnalyticsExample() {
 
   return (
     <AnalyticsListener channel="atlaskit" onEvent={sendAnalytics}>
-      <Stack gap="space.500">
+      <Stack space="500">
         <Pagination
           testId="pagination"
           getPageLabel={(page: any) =>
@@ -26,11 +26,11 @@ export default function AnalyticsExample() {
           }
           pages={pageLinks}
         />
-        <Stack gap="space.150">
+        <Stack space="150">
           <Heading level="h700">Analytics event context received</Heading>
           <Code>{JSON.stringify(analyticEventContext, null, 2)}</Code>
         </Stack>
-        <Stack gap="space.150">
+        <Stack space="150">
           <Heading level="h700">Analytics event payload received</Heading>
           <Code>{JSON.stringify(analyticEventPayload, null, 2)}</Code>
         </Stack>

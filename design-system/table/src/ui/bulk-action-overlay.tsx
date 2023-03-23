@@ -3,10 +3,8 @@ import { FC } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import {
-  UNSAFE_Box as Box,
-  UNSAFE_Inline as Inline,
-} from '@atlaskit/ds-explorations';
+import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
+import Inline from '@atlaskit/primitives/inline';
 
 const overlayStyles = css({
   top: 0,
@@ -28,7 +26,7 @@ export const BulkActionOverlay: FC = ({ children }) => (
     backgroundColor="elevation.surface"
     css={overlayStyles}
   >
-    <Inline gap="space.300" alignItems="center">
+    <Inline space="300" alignBlock="center">
       {children}
     </Inline>
   </Box>

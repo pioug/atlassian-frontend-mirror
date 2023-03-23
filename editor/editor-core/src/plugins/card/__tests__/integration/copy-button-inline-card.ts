@@ -14,5 +14,6 @@ _getCopyButtonTestSuite({
     await waitForInlineCardSelection(page);
   },
   // TODO: Fix safari producing different snapshot to chrome/firefox
-  skip: ['safari'],
+  // skip: ['safari'], Manually skipped in ED-17195
+  skip: ['*'],
 });

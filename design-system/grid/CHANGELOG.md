@@ -1,5 +1,17 @@
 # @atlaskit/grid
 
+## 0.8.3
+
+### Patch Changes
+
+- [`cfe48bb7ece`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cfe48bb7ece) - Internal change only. Replace usages of Inline/Stack with stable version from `@atlaskit/primitives`.
+
+## 0.8.2
+
+### Patch Changes
+
+- [`49af5b4261e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/49af5b4261e) - Consider the Grid now in Closed Beta!
+
 ## 0.8.1
 
 ### Patch Changes

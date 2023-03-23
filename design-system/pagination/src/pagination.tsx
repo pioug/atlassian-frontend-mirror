@@ -5,11 +5,11 @@ import {
   usePlatformLeafEventHandler,
 } from '@atlaskit/analytics-next';
 import Box from '@atlaskit/ds-explorations/box';
-import Inline from '@atlaskit/ds-explorations/inline';
 import noop from '@atlaskit/ds-lib/noop';
 import useControlled from '@atlaskit/ds-lib/use-controlled';
 import ChevronLeftLargeIcon from '@atlaskit/icon/glyph/chevron-left-large';
 import ChevronRightLargeIcon from '@atlaskit/icon/glyph/chevron-right-large';
+import Inline from '@atlaskit/primitives/inline';
 
 import Navigator from './internal/components/navigator';
 import PageComponent from './internal/components/page';
@@ -102,7 +102,7 @@ function InnerPagination<T>(
       aria-label={label}
       as="nav"
     >
-      <Inline gap="space.0" alignItems="center">
+      <Inline space="0" alignBlock="center">
         <Navigator
           key="left-navigator"
           component={components!.Previous}

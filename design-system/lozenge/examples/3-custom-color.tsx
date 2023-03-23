@@ -1,15 +1,13 @@
 import React from 'react';
 
-import {
-  UNSAFE_Stack as Stack,
-  UNSAFE_Text as Text,
-} from '@atlaskit/ds-explorations';
+import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
+import Stack from '@atlaskit/primitives/stack';
 
 import Lozenge from '../src';
 
 export default function Example() {
   return (
-    <Stack gap="space.100" testId="test-container">
+    <Stack space="100" testId="test-container">
       <Text>
         default: <Lozenge>default</Lozenge>
       </Text>

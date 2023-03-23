@@ -3,11 +3,11 @@ import React, { forwardRef } from 'react';
 
 import {
   UNSAFE_Box as Box,
-  UNSAFE_Inline as Inline,
-  UNSAFE_Stack as Stack,
   UNSAFE_Text as Text,
 } from '@atlaskit/ds-explorations';
 import Heading from '@atlaskit/heading';
+import Inline from '@atlaskit/primitives/inline';
+import Stack from '@atlaskit/primitives/stack';
 
 import { getAppearanceIconStyles } from './internal/appearance-icon';
 import type { SectionMessageProps } from './types';
@@ -50,7 +50,7 @@ const SectionMessage = forwardRef<HTMLElement, SectionMessageProps>(
           wordBreak: 'break-word',
         }}
       >
-        <Inline gap="space.200">
+        <Inline space="200">
           <Box
             UNSAFE_style={{
               margin: '-2px 0',
@@ -62,7 +62,7 @@ const SectionMessage = forwardRef<HTMLElement, SectionMessageProps>(
               secondaryColor={secondaryColor}
             />
           </Box>
-          <Stack gap="space.100" testId={testId && `${testId}--content`}>
+          <Stack space="100" testId={testId && `${testId}--content`}>
             {!!title && (
               <Heading as="h2" level="h500">
                 {title}
@@ -71,10 +71,11 @@ const SectionMessage = forwardRef<HTMLElement, SectionMessageProps>(
             <Text>{children}</Text>
             {actionsArray.length > 0 && (
               <Inline
-                flexWrap="wrap"
+                shouldWrap
                 testId={testId && `${testId}--actions`}
-                divider="·"
-                gap="space.100"
+                separator="·"
+                space="100"
+                rowSpace="0"
               >
                 {actionsArray}
               </Inline>

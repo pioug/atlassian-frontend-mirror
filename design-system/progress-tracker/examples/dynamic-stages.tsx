@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
 import Box from '@atlaskit/ds-explorations/box';
-import Inline from '@atlaskit/ds-explorations/inline';
-import Stack from '@atlaskit/ds-explorations/stack';
 import ArrowLeftCircleIcon from '@atlaskit/icon/glyph/arrow-left';
 import ArrowRightCircleIcon from '@atlaskit/icon/glyph/arrow-right';
+import Inline from '@atlaskit/primitives/inline';
+import Stack from '@atlaskit/primitives/stack';
 
 import { ProgressTracker, Stages } from '../src';
 
@@ -41,7 +41,7 @@ export default () => {
   const [itemsNumber, setItemsNumber] = useState(3);
   const [currentStage, setCurrentStage] = useState(0);
   return (
-    <Stack gap="space.100">
+    <Stack space="100">
       <Tracker itemsNumber={itemsNumber} currentStage={currentStage} />
       <Box UNSAFE_style={{ borderBottom: '1px solid' }}>
         <Button
@@ -74,7 +74,7 @@ export default () => {
         </Button>
       </Box>
 
-      <Inline gap="space.100">
+      <Inline space="100">
         <Button
           testId="button--add"
           className="button"

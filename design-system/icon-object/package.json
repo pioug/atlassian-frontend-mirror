@@ -40,7 +40,7 @@
   },
   "devDependencies": {
     "@af/icon-build-process": "^0.3.0",
-    "@af/icon-explorer": "^0.0.14",
+    "@af/icon-explorer": "^0.0.15",
     "@atlaskit/button": "^16.5.0",
     "@atlaskit/docs": "*",
     "@atlaskit/modal-dialog": "^12.4.0",

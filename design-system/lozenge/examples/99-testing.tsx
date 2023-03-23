@@ -2,9 +2,9 @@ import React from 'react';
 
 import {
   UNSAFE_Box as Box,
-  UNSAFE_Stack as Stack,
   UNSAFE_Text as Text,
 } from '@atlaskit/ds-explorations';
+import Stack from '@atlaskit/primitives/stack';
 import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
 
 import Lozenge from '../src';
@@ -12,7 +12,7 @@ import Lozenge from '../src';
 export default function Example() {
   return (
     <AtlaskitThemeProvider mode="light">
-      <Stack gap="space.100">
+      <Stack space="100">
         <Box>
           <Text>
             default: <Lozenge testId="default-lozenge">default</Lozenge>

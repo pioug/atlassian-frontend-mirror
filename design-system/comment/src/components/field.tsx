@@ -8,7 +8,7 @@ import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-interface CommentFieldProps {
+export interface CommentFieldProps {
   hasAuthor?: boolean;
   children?: ReactNode;
   href?: string;
@@ -18,6 +18,7 @@ interface CommentFieldProps {
   ) => void;
   onFocus?: (event: React.FocusEvent<HTMLElement>) => void;
   onMouseOver?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+  testId?: string;
 }
 
 const textStyles = css({
@@ -45,6 +46,7 @@ const Field: FC<CommentFieldProps> = ({
   onClick,
   onFocus,
   onMouseOver,
+  testId,
 }) => {
   return href ? (
     <a
@@ -53,6 +55,7 @@ const Field: FC<CommentFieldProps> = ({
       onClick={onClick}
       onFocus={onFocus}
       onMouseOver={onMouseOver}
+      data-testid={testId}
     >
       {children}
     </a>
@@ -63,6 +66,7 @@ const Field: FC<CommentFieldProps> = ({
       onClick={onClick}
       onFocus={onFocus}
       onMouseOver={onMouseOver}
+      data-testid={testId}
     >
       {children}
     </span>

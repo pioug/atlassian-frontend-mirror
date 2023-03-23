@@ -2,15 +2,15 @@ import React from 'react';
 
 import {
   UNSAFE_Box as Box,
-  UNSAFE_Stack as Stack,
   UNSAFE_Text as Text,
 } from '@atlaskit/ds-explorations';
+import Stack from '@atlaskit/primitives/stack';
 
 import SectionMessage, { SectionMessageAction } from '../src';
 
 const Example = () => (
   <Box display="block" padding="space.100">
-    <Stack gap="space.200">
+    <Stack space="200">
       <SectionMessage
         appearance="information"
         title="Atlassian"
@@ -24,7 +24,7 @@ const Example = () => (
           </SectionMessageAction>,
         ]}
       >
-        <Stack gap="space.100">
+        <Stack space="100">
           <Text>
             Atlassian provides the tools to help every team unleash their full
             potential.
@@ -50,7 +50,7 @@ const Example = () => (
           </SectionMessageAction>
         }
       >
-        <Stack gap="space.100">
+        <Stack space="100">
           <Text fontWeight="bold">Google:</Text>
           <Text>
             Our mission is to organise the world’s information and make it

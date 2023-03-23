@@ -1,7 +1,7 @@
 import React, { SyntheticEvent, useState } from 'react';
 
-import Stack from '@atlaskit/ds-explorations/stack';
 import Text from '@atlaskit/ds-explorations/text';
+import Stack from '@atlaskit/primitives/stack';
 
 import Pagination from '../src';
 
@@ -14,7 +14,7 @@ export default function BasicExample() {
     setOnChangeEvent(newPage);
 
   return (
-    <Stack gap="space.150">
+    <Stack space="150">
       <Pagination testId="pagination" pages={Pages} onChange={handleChange} />
       <Text testId="description" as="p">
         selected page from onChange hook: {onChangeEvent}

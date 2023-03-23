@@ -23,8 +23,8 @@ import { ReactNode } from 'react';
 
 // @public (undocumented)
 const alignMap: {
-  readonly text: 'flexStart';
-  readonly number: 'flexEnd';
+  readonly text: 'start';
+  readonly number: 'end';
   readonly icon: 'center';
 };
 

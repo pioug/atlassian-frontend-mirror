@@ -1,5 +1,11 @@
 # @atlaskit/empty-state
 
+## 7.4.9
+
+### Patch Changes
+
+- [`24f81932945`](https://bitbucket.org/atlassian/atlassian-frontend/commits/24f81932945) - Migrates unit tests from enzyme to RTL. Adds testId to Spinner component.
+
 ## 7.4.8
 
 ### Patch Changes

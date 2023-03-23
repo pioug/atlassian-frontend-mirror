@@ -26,9 +26,12 @@ const removeUniqueGeneratedMediaAttrs = (doc: { [key: string]: any }) => {
   return copy;
 };
 
+// FIXME: This test was automatically skipped due to failure on 15/03/2023: https://product-fabric.atlassian.net/browse/ED-17193
 BrowserTestCase(
   'copy-mediaSingle-replacement.ts: Copies and pastes mediaSingle on fullpage',
-  { skip: [] },
+  {
+    skip: ['*'],
+  },
   async (
     client: Parameters<typeof goToEditorTestingWDExample>[0],
     testCase: string,

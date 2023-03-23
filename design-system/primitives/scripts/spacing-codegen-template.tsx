@@ -10,6 +10,7 @@ const spacingProperties: Record<
   {
     cssProperties: readonly string[];
     responsiveOutput?: boolean;
+    propNameFormatter?: (propName: string) => string;
   }
 > = {
   padding: {
@@ -24,17 +25,13 @@ const spacingProperties: Record<
     ],
     responsiveOutput: true,
   },
-  gap: {
-    cssProperties: ['gap'],
-  },
   space: {
     cssProperties: ['gap'],
+    propNameFormatter: tokenName => tokenName.replace(spacingTokenPrefix, ''),
   },
-  columnGap: {
-    cssProperties: ['columnGap'],
-  },
-  rowGap: {
+  rowSpace: {
     cssProperties: ['rowGap'],
+    propNameFormatter: tokenName => tokenName.replace(spacingTokenPrefix, ''),
   },
 } as const;
 
@@ -55,7 +52,7 @@ export const createSpacingStylesFromTemplate = (
     throw new Error(`[codegen] Unknown option found "${spacingProperty}"`);
   }
 
-  const { cssProperties, responsiveOutput } =
+  const { cssProperties, responsiveOutput, propNameFormatter } =
     spacingProperties[spacingProperty]!;
 
   return (
@@ -65,10 +62,9 @@ const ${spacingProperty}Map = {
   ${activeTokens
     .sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }))
     .map(token => {
-      const propName =
-        spacingProperty === 'space'
-          ? token.name.replace(spacingTokenPrefix, '')
-          : token.name;
+      const propName = propNameFormatter
+        ? propNameFormatter(token.name)
+        : token.name;
 
       // a responsive output simply prints out a mapping of tokens
       if (responsiveOutput) {

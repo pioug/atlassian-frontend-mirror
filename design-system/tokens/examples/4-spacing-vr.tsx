@@ -3,10 +3,8 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 
-import {
-  UNSAFE_Box as Box,
-  UNSAFE_Inline as Inline,
-} from '@atlaskit/ds-explorations';
+import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
+import Inline from '@atlaskit/primitives/inline';
 
 import { CSSToken, token } from '../src';
 
@@ -25,7 +23,7 @@ export default () => {
   return (
     <div data-testid="spacing">
       <h1>Spacing scale</h1>
-      <Inline gap="space.100" alignItems="flexEnd">
+      <Inline space="100" alignBlock="end">
         {/* fallbacks specifically chosen to validate tokens are applied correctly when present and not applied when not */}
         <ExampleSizeBox scaleToken={token('space.025', '12px')} />
         <ExampleSizeBox scaleToken={token('space.050', '6px')} />

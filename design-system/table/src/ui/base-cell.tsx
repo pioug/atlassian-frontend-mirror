@@ -5,7 +5,7 @@ import { forwardRef, ReactNode } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import Box, { BoxProps } from '@atlaskit/ds-explorations/box';
-import Inline from '@atlaskit/ds-explorations/inline';
+import Inline from '@atlaskit/primitives/inline';
 import { token } from '@atlaskit/tokens';
 
 export type BaseCellProps = {
@@ -49,8 +49,8 @@ export type SortDirection = 'ascending' | 'descending' | 'none' | 'other';
 type InternalBaseCellProps = BaseCellProps & { sortDirection?: SortDirection };
 
 const alignMap = {
-  text: 'flexStart',
-  number: 'flexEnd',
+  text: 'start',
+  number: 'end',
   icon: 'center',
 } as const;
 
@@ -102,7 +102,7 @@ export const BaseCell = forwardRef<HTMLTableCellElement, InternalBaseCellProps>(
       UNSAFE_style={width ? { width } : undefined}
       aria-sort={sortDirection}
     >
-      <Inline justifyContent={alignMap[align]} gap="space.0">
+      <Inline alignInline={alignMap[align]} space="0">
         {children}
       </Inline>
     </Box>

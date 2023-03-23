@@ -94,6 +94,16 @@ class ProfilecardTrigger extends React.PureComponent<
     }
   };
 
+  onKeyPress = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      this.showProfilecard();
+      if (!this.state.visible) {
+        this.fireAnalytics(cardTriggered('user', 'click'));
+      }
+    }
+  };
+
   containerListeners =
     this.props.trigger === 'hover'
       ? {
@@ -102,6 +112,7 @@ class ProfilecardTrigger extends React.PureComponent<
         }
       : {
           onClick: this.onClick,
+          onKeyPress: this.onKeyPress,
         };
 
   layerListeners = {
@@ -303,6 +314,8 @@ class ProfilecardTrigger extends React.PureComponent<
                 {...this.containerListeners}
                 ref={ref}
                 data-testid={this.props.testId}
+                tabIndex={0}
+                role={this.props.trigger !== 'hover' ? 'button' : ''}
               >
                 {this.props.children}
               </span>

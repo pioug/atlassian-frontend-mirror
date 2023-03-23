@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { act, fireEvent, render, within } from '@testing-library/react';
 import { mount } from 'enzyme';
 
 import { ProfilecardInternal as ProfileCard } from '../../components/User/ProfileCard';
 import { ActionButtonGroup } from '../../styled/Card';
-import { profileCardRendered } from '../../util/analytics';
+import { moreActionsClicked, profileCardRendered } from '../../util/analytics';
 
 jest.mock('react-intl-next', () => {
   return {
@@ -173,6 +173,32 @@ describe('ProfileCard', () => {
       expect(getByText(actions[1].label)).not.toBeNull();
       expect(queryByText(actions[2].label)).toBeNull();
       expect(getByTestId('profilecard-actions-overflow')).not.toBeNull();
+    });
+
+    it('should send analytics events when clicking on meatballs overflow menu', () => {
+      const { getByTestId } = renderComponent({
+        actions,
+      });
+
+      expect(getByTestId('profilecard-actions')).not.toBeNull();
+      expect(getByTestId('profilecard-actions-overflow')).not.toBeNull();
+
+      act(() => {
+        const dropdownWrapper = getByTestId('profilecard-actions-overflow');
+        const moreButton = within(dropdownWrapper).getByRole('button');
+        fireEvent.click(moreButton);
+        jest.runAllTimers();
+      });
+
+      expect(mockAnalytics).toHaveBeenCalledWith(
+        flexiTime(
+          moreActionsClicked('user', {
+            duration: expect.anything(),
+            numActions: 3,
+          }),
+          true,
+        ),
+      );
     });
 
     it('should not render any action buttons if actions property is not set', () => {

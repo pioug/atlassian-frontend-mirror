@@ -1,15 +1,13 @@
 import React from 'react';
 
-import {
-  UNSAFE_Box as Box,
-  UNSAFE_Stack as Stack,
-} from '@atlaskit/ds-explorations';
+import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
+import Stack from '@atlaskit/primitives/stack';
 
 import Heading from '../src';
 
 export default () => {
   return (
-    <Stack testId="headings" gap="space.0">
+    <Stack testId="headings" space="0">
       <Heading level="h100">h100</Heading>
       <Heading level="h200">h200</Heading>
       <Heading level="h300">h300</Heading>

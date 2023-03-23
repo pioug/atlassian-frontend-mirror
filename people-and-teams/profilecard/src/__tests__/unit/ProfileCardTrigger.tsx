@@ -133,7 +133,6 @@ describe('ProfileCardTrigger', () => {
     );
 
     expect(queryByTestId('profilecard')).toBe(null);
-
     expect(getByTestId('test-inner-trigger')).toBeDefined();
     expect(getByTestId('profilecard-trigger')).toBeDefined();
 
@@ -155,5 +154,117 @@ describe('ProfileCardTrigger', () => {
     });
 
     expect(queryByTestId('profilecard')).toBe(null);
+  });
+
+  it('should open "click" trigger after focus and enter keypress', () => {
+    const { getByTestId, queryByTestId } = renderWithIntl(
+      <>
+        <ProfileCardTrigger
+          {...defaultProps}
+          resourceClient={mockResourceClient as ProfileClient}
+          trigger="click"
+          testId="profilecard-trigger"
+        >
+          <span data-testid="test-inner-trigger">This is the trigger</span>
+        </ProfileCardTrigger>
+      </>,
+    );
+
+    expect(queryByTestId('profilecard')).toBe(null);
+    expect(queryByTestId('test-inner-trigger')).toBeDefined();
+    expect(queryByTestId('profilecard-trigger')).toBeDefined();
+
+    act(() => {
+      fireEvent.keyDown(getByTestId('test-inner-trigger'), {
+        key: 'Enter',
+        code: 'Enter',
+      });
+      jest.runAllTimers();
+    });
+
+    expect(fireAnalyticsEvent).toHaveBeenCalledWith(
+      expect.any(Function),
+      flexiTime(cardTriggered('user', 'click')),
+    );
+    expect(queryByTestId('profilecard')).toBeDefined();
+  });
+
+  it('should open "click" trigger after focus and spacebar keypress', () => {
+    const { getByTestId, queryByTestId } = renderWithIntl(
+      <>
+        <ProfileCardTrigger
+          {...defaultProps}
+          resourceClient={mockResourceClient as ProfileClient}
+          trigger="click"
+          testId="profilecard-trigger"
+        >
+          <span data-testid="test-inner-trigger">This is the trigger</span>
+        </ProfileCardTrigger>
+      </>,
+    );
+
+    expect(queryByTestId('profilecard')).toBe(null);
+    expect(queryByTestId('test-inner-trigger')).toBeDefined();
+    expect(queryByTestId('profilecard-trigger')).toBeDefined();
+
+    act(() => {
+      fireEvent.keyDown(getByTestId('test-inner-trigger'), {
+        key: ' ',
+        code: 'Space',
+      });
+      jest.runAllTimers();
+    });
+
+    expect(fireAnalyticsEvent).toHaveBeenCalledWith(
+      expect.any(Function),
+      flexiTime(cardTriggered('user', 'click')),
+    );
+    expect(queryByTestId('profilecard')).toBeDefined();
+  });
+
+  it('should set role="button" when trigger is "click"', () => {
+    const { getByTestId, queryByTestId } = renderWithIntl(
+      <>
+        <ProfileCardTrigger
+          {...defaultProps}
+          resourceClient={mockResourceClient as ProfileClient}
+          trigger="click"
+          testId="profilecard-trigger"
+        >
+          <span data-testid="test-inner-trigger">This is the trigger</span>
+        </ProfileCardTrigger>
+      </>,
+    );
+
+    expect(queryByTestId('profilecard')).toBe(null);
+    expect(queryByTestId('test-inner-trigger')).toBeDefined();
+    expect(queryByTestId('profilecard-trigger')).toBeDefined();
+
+    const triggerSpan = getByTestId('profilecard-trigger');
+
+    expect(triggerSpan.getAttribute('role')).toEqual('button');
+  });
+
+  it('should not set role="button" when trigger is "hover"', () => {
+    const { getByTestId, queryByTestId } = renderWithIntl(
+      <>
+        <ProfileCardTrigger
+          {...defaultProps}
+          resourceClient={mockResourceClient as ProfileClient}
+          trigger="hover"
+          testId="profilecard-trigger"
+        >
+          <span data-testid="test-inner-trigger">This is the trigger</span>
+        </ProfileCardTrigger>
+      </>,
+    );
+
+    expect(queryByTestId('profilecard')).toBe(null);
+    expect(getByTestId('test-inner-trigger')).toBeDefined();
+    expect(getByTestId('profilecard-trigger')).toBeDefined();
+
+    const triggerSpan = getByTestId('profilecard-trigger');
+
+    expect(triggerSpan.getAttribute('role')).toEqual('');
   });
 });

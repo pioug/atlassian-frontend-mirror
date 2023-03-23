@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 19.1.0
+
+### Minor Changes
+
+- [`13af6ca0e48`](https://bitbucket.org/atlassian/atlassian-frontend/commits/13af6ca0e48) - [ux] TSLA-521 docs(changeset): [ux] This change (TSLA-521) adds keyboard support for the profile card component by adding tabindex, an onKeyPress handler, and setting role="button" when the card is trigged by click. This change also adds unit tests for the profile card trigger as well as notifcations.
+
 ## 19.0.0
 
 ### Major Changes

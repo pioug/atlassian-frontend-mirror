@@ -1,88 +1,103 @@
 import React from 'react';
 
-import { mount, shallow } from 'enzyme';
+import { render, screen } from '@testing-library/react';
 
-import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/custom-theme-button';
-import Spinner from '@atlaskit/spinner';
 
 import EmptyState from '../../empty-state';
-import { Description, Image } from '../../styled';
 import type { RenderImageProps } from '../../types';
 
 describe('Empty state', () => {
-  it('should render primary action when primaryAction prop is not empty', () => {
-    const wrapper = shallow(
-      <EmptyState header="Test header" primaryAction={<Button />} />,
+  it('should render primary action when primaryAction prop is not empty', async () => {
+    render(
+      <EmptyState
+        header="Test header"
+        primaryAction={<Button testId="primary-action" />}
+      />,
     );
 
-    expect(wrapper.find(Button).length).toBe(1);
+    const buttons = await screen.findAllByRole('button');
+
+    expect(screen.getByTestId('primary-action')).toBeInTheDocument();
+    expect(buttons).toHaveLength(1);
   });
 
-  it('should render secondary action when secondaryAction prop is not empty', () => {
-    const wrapper = shallow(
-      <EmptyState header="Test header" secondaryAction={<Button />} />,
+  it('should render secondary action when secondaryAction prop is not empty', async () => {
+    render(
+      <EmptyState
+        header="Test header"
+        secondaryAction={<Button testId="secondary-action" />}
+      />,
     );
 
-    expect(wrapper.find(Button).length).toBe(1);
+    const buttons = await screen.findAllByRole('button');
+
+    expect(screen.getByTestId('secondary-action')).toBeInTheDocument();
+    expect(buttons).toHaveLength(1);
   });
 
-  it('should render tertiary action when tertiaryAction prop is not empty', () => {
-    const wrapper = shallow(
-      <EmptyState header="Test header" tertiaryAction={<Button />} />,
+  it('should render tertiary action when tertiaryAction prop is not empty', async () => {
+    render(
+      <EmptyState
+        header="Test header"
+        tertiaryAction={<Button testId="tertiary-action" />}
+      />,
     );
 
-    expect(wrapper.find(Button).length).toBe(1);
+    const buttons = await screen.findAllByRole('button');
+
+    expect(screen.getByTestId('tertiary-action')).toBeInTheDocument();
+    expect(buttons).toHaveLength(1);
   });
 
   it('should render no action when no action prop is provided', () => {
-    const wrapper = shallow(<EmptyState header="Test header" />);
+    render(<EmptyState header="Test header" />);
 
-    expect(wrapper.find(Button).length).toBe(0);
+    const buttons = screen.queryAllByRole('button');
+
+    expect(buttons).toHaveLength(0);
   });
 
-  it('should render image when imageUrl prop is not empty', () => {
-    const wrapper = shallow(
-      <EmptyState header="Test header" imageUrl="test" />,
-    );
+  it('should render image when imageUrl prop is not empty', async () => {
+    render(<EmptyState header="Test header" imageUrl="test" />);
 
-    expect(wrapper.find(Image).length).toBe(1);
-  });
+    const images = await screen.findAllByRole('presentation');
 
-  it('should render the image as a presentational element', () => {
-    const wrapper = mount(<EmptyState header="Test header" imageUrl="test" />);
-
-    expect(wrapper.find('img').props()).toHaveProperty('alt', '');
-    expect(wrapper.find('img').props()).toHaveProperty('role', 'presentation');
+    expect(images).toHaveLength(1);
+    expect(images[0]).toHaveAttribute('src', 'test');
+    expect(images[0]).toHaveAttribute('alt', '');
   });
 
   it('should render description when description prop is not empty', () => {
-    const wrapper = shallow(
-      <EmptyState header="Test header" description="test" />,
-    );
+    render(<EmptyState header="Test header" description="test-description" />);
 
-    expect(wrapper.find(Description).length).toBe(1);
+    expect(screen.getByText('test-description')).toBeInTheDocument();
   });
 
   it('should render spinner when isLoading prop is true', () => {
-    const wrapper = shallow(<EmptyState header="Test header" isLoading />);
+    render(<EmptyState header="Test header" isLoading />);
 
-    expect(wrapper.find(Spinner).length).toBe(1);
+    expect(screen.getByTestId('empty-state-spinner')).toBeInTheDocument();
   });
 
-  it('should render primary and seconday actions inside a ButtonGroup', () => {
-    const wrapper = shallow(
+  it('should render primary and seconday actions inside a ButtonGroup', async () => {
+    render(
       <EmptyState
         header="Test header"
-        primaryAction={<Button />}
-        secondaryAction={<Button />}
+        primaryAction={<Button testId="primary-action" />}
+        secondaryAction={<Button testId="secondary-action" />}
       />,
     );
-    expect(wrapper.find(ButtonGroup).length).toBe(1);
+
+    const buttons = await screen.findAllByRole('button');
+
+    expect(screen.getByTestId('primary-action')).toBeInTheDocument();
+    expect(screen.getByTestId('secondary-action')).toBeInTheDocument();
+    expect(buttons).toHaveLength(2);
   });
 
-  it('should render image with fixed width and height so it doesnt jump around when the image is loading in', () => {
-    const wrapper = shallow(
+  it('should render image with fixed width and height so it does not jump around when the image is loading in', async () => {
+    render(
       <EmptyState
         header="Test header"
         imageUrl="test"
@@ -91,15 +106,29 @@ describe('Empty state', () => {
       />,
     );
 
-    expect(wrapper.find(Image).props().height).toEqual(100);
-    expect(wrapper.find(Image).props().width).toEqual(200);
+    const images = await screen.findAllByRole('presentation');
+
+    expect(images).toHaveLength(1);
+    expect(images[0]).toHaveAttribute('height', '100');
+    expect(images[0]).toHaveAttribute('width', '200');
   });
 
-  it('should render ImageComponent', () => {
-    const TestImageComponent = (props: RenderImageProps) => (
-      <div>Example Image: {JSON.stringify(props)}</div>
-    );
-    const wrapper = shallow(
+  it('should render ImageComponent with RenderImageProps', () => {
+    const TestImageComponent = (props: RenderImageProps) => {
+      const { imageHeight, imageWidth, maxImageHeight, maxImageWidth } = props;
+
+      return (
+        <img
+          data-testid="image-component"
+          src="test"
+          height={imageHeight}
+          width={imageWidth}
+          alt={`maxImageHeight: ${maxImageHeight}, maxImageWidth: ${maxImageWidth}`}
+        />
+      );
+    };
+
+    render(
       <EmptyState
         header="Test header"
         renderImage={(props) => <TestImageComponent {...props} />}
@@ -110,26 +139,35 @@ describe('Empty state', () => {
       />,
     );
 
-    expect(wrapper.find(TestImageComponent).length).toBe(1);
-    expect(wrapper.find(TestImageComponent).props().imageHeight).toEqual(100);
-    expect(wrapper.find(TestImageComponent).props().imageWidth).toEqual(200);
-    expect(wrapper.find(TestImageComponent).props().maxImageHeight).toEqual(
-      300,
+    const image = screen.getByTestId('image-component');
+
+    expect(image).toBeInTheDocument();
+    expect(image).toHaveAttribute('height', '100');
+    expect(image).toHaveAttribute('width', '200');
+    expect(image).toHaveAttribute(
+      'alt',
+      'maxImageHeight: 300, maxImageWidth: 400',
     );
-    expect(wrapper.find(TestImageComponent).props().maxImageWidth).toEqual(400);
   });
 
-  it('imageUrl should take precedence over ImageComponent', () => {
-    const TestImageComponent = () => <div>Example Image</div>;
-    const wrapper = shallow(
+  it('imageUrl should take precedence over ImageComponent', async () => {
+    const TestImageComponent = () => (
+      <img src="custom-image-url" data-testid="custom-image-component" alt="" />
+    );
+    render(
       <EmptyState
         header="Test header"
-        imageUrl="test"
+        imageUrl="image-url-in-props"
         renderImage={() => <TestImageComponent />}
       />,
     );
 
-    expect(wrapper.find(Image).length).toBe(1);
-    expect(wrapper.find(TestImageComponent).length).toBe(0);
+    const images = await screen.findAllByRole('presentation');
+
+    expect(
+      screen.queryByTestId('custom-image-component'),
+    ).not.toBeInTheDocument();
+    expect(images).toHaveLength(1);
+    expect(images[0]).toHaveAttribute('src', 'image-url-in-props');
   });
 });

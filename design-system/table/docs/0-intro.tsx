@@ -7,11 +7,11 @@ import {
   Example,
   md,
 } from '@atlaskit/docs';
-import Stack from '@atlaskit/ds-explorations/stack';
+import Stack from '@atlaskit/primitives/stack';
 
 export default md`
   ${(
-    <Stack gap="space.200">
+    <Stack space="200">
       <AtlassianInternalWarning />
       <DevPreviewWarning />
     </Stack>

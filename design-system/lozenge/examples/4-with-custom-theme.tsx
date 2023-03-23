@@ -2,10 +2,8 @@
 import React, { useCallback, useState } from 'react';
 
 import Button from '@atlaskit/button';
-import {
-  UNSAFE_Stack as Stack,
-  UNSAFE_Text as Text,
-} from '@atlaskit/ds-explorations';
+import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
+import Stack from '@atlaskit/primitives/stack';
 import {
   B50,
   B500,
@@ -75,7 +73,7 @@ export default function Example() {
 
   return (
     <AtlaskitThemeProvider mode={themeMode}>
-      <Stack gap="space.100" testId="test-container">
+      <Stack space="100" testId="test-container">
         <Text>
           Default:
           <CustomLozenge testId="custom-lozenge-default">default</CustomLozenge>

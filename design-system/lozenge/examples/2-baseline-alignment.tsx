@@ -2,14 +2,14 @@ import React from 'react';
 
 import {
   UNSAFE_Box as Box,
-  UNSAFE_Stack as Stack,
   UNSAFE_Text as Text,
 } from '@atlaskit/ds-explorations';
+import Stack from '@atlaskit/primitives/stack';
 
 import Lozenge from '../src';
 
 export default () => (
-  <Stack gap="space.200" testId="test-container">
+  <Stack space="200" testId="test-container">
     <Box display="block">
       <Text UNSAFE_style={{ fontSize: '30px' }}>Heading</Text>
       <Text> </Text>

@@ -113,6 +113,7 @@ const Layout: FC<CommentLayoutProps> = ({
         padding="space.100"
         position="absolute"
         css={highlightOverlayStyles}
+        testId={testId && `${testId}-highlighted`}
       />
     )}
   </div>

@@ -2,10 +2,10 @@ import React from 'react';
 
 import {
   UNSAFE_Box as Box,
-  UNSAFE_Inline as Inline,
-  UNSAFE_Stack as Stack,
   UNSAFE_Text as Text,
 } from '@atlaskit/ds-explorations';
+import Inline from '@atlaskit/primitives/inline';
+import Stack from '@atlaskit/primitives/stack';
 
 import Lozenge, { ThemeAppearance } from '../src';
 
@@ -19,9 +19,9 @@ const APPEARANCES: { label: string; value: ThemeAppearance }[] = [
 ];
 
 export default () => (
-  <Stack testId="test-container" gap="space.400">
-    <Inline gap="space.400">
-      <Stack gap="space.100">
+  <Stack testId="test-container" space="400">
+    <Inline space="400">
+      <Stack space="100">
         <Text fontWeight="medium">Subtle</Text>
         <>
           {APPEARANCES.map((a) => (
@@ -33,7 +33,7 @@ export default () => (
           ))}
         </>
       </Stack>
-      <Stack gap="space.100">
+      <Stack space="100">
         <Text fontWeight="medium">Bold</Text>
         <>
           {APPEARANCES.map((a) => (
@@ -47,7 +47,7 @@ export default () => (
       </Stack>
     </Inline>
 
-    <Stack gap="space.100">
+    <Stack space="100">
       <Text fontWeight="medium">Overflowed Lozenge</Text>
       <Box>
         <Lozenge testId="lozenge-truncated">
@@ -65,7 +65,7 @@ export default () => (
       </Box>
     </Stack>
 
-    <Stack gap="space.100">
+    <Stack space="100">
       <Text fontWeight="medium">Defaults</Text>
       <Box>
         <Lozenge maxWidth="none" testId="lozenge-defaults">

@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 1.2.6
+
+### Patch Changes
+
+- [`cfe48bb7ece`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cfe48bb7ece) - Internal change only. Replace usages of Inline/Stack with stable version from `@atlaskit/primitives`.
+
 ## 1.2.5
 
 ### Patch Changes

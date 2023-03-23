@@ -365,6 +365,7 @@ export interface InlineProps {
   alignInline?: AlignInline;
   children: ReactNode;
   grow?: Grow;
+  rowSpace?: RowSpace;
   separator?: string;
   shouldWrap?: boolean;
   space?: Space;
@@ -481,6 +482,27 @@ type PublicBoxPropsBase = {
 
 // @public
 type ResponsiveObject<T> = Partial<Record<Breakpoint, T>>;
+
+// @public (undocumented)
+type RowSpace = keyof typeof rowSpaceMap;
+
+// @public (undocumented)
+const rowSpaceMap: {
+  readonly '0': SerializedStyles;
+  readonly '025': SerializedStyles;
+  readonly '050': SerializedStyles;
+  readonly '075': SerializedStyles;
+  readonly '100': SerializedStyles;
+  readonly '150': SerializedStyles;
+  readonly '200': SerializedStyles;
+  readonly '250': SerializedStyles;
+  readonly '300': SerializedStyles;
+  readonly '400': SerializedStyles;
+  readonly '500': SerializedStyles;
+  readonly '600': SerializedStyles;
+  readonly '800': SerializedStyles;
+  readonly '1000': SerializedStyles;
+};
 
 // @public (undocumented)
 type Shadow = keyof typeof shadowMap;

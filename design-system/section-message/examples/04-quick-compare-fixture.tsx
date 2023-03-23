@@ -2,9 +2,9 @@ import React from 'react';
 
 import {
   UNSAFE_Box as Box,
-  UNSAFE_Stack as Stack,
   UNSAFE_Text as Text,
 } from '@atlaskit/ds-explorations';
+import Stack from '@atlaskit/primitives/stack';
 
 import SectionMessage, { SectionMessageAction } from '../src';
 
@@ -52,7 +52,7 @@ const Example = () => (
       developing section message. It is not a suggested implementation.
     </Text>
     <Box display="block" padding="space.100">
-      <Stack gap="space.200">
+      <Stack space="200">
         <SomeParts body title actions />
         <SomeParts body title />
         <SomeParts body actions />

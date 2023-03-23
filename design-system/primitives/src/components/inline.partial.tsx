@@ -37,6 +37,12 @@ export interface InlineProps {
   space?: Space;
 
   /**
+   * Represents the space between rows when content wraps.
+   * Used to override the `space` value in between rows.
+   */
+  rowSpace?: RowSpace;
+
+  /**
    * Renders a separator string between each child.
    */
   separator?: string;
@@ -80,10 +86,10 @@ const flexWrapStyles = css({ flexWrap: 'wrap' });
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::41d7002b7f69aa44d0d8598e07a1afc6>>
+ * @codegen <<SignedSource::44cacef18982a4b0e43102900c42bdcf>>
  * @codegenId spacing
  * @codegenCommand yarn codegen-styles
- * @codegenParams ["space"]
+ * @codegenParams ["space", "rowSpace"]
  * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-spacing.tsx <<SignedSource::167d3b69b159ae33e74d4ea5ab7eade6>>
  */
 const spaceMap = {
@@ -133,6 +139,53 @@ const spaceMap = {
 
 export type Space = keyof typeof spaceMap;
 
+const rowSpaceMap = {
+  '0': css({
+    rowGap: token('space.0', '0px'),
+  }),
+  '025': css({
+    rowGap: token('space.025', '2px'),
+  }),
+  '050': css({
+    rowGap: token('space.050', '4px'),
+  }),
+  '075': css({
+    rowGap: token('space.075', '6px'),
+  }),
+  '100': css({
+    rowGap: token('space.100', '8px'),
+  }),
+  '150': css({
+    rowGap: token('space.150', '12px'),
+  }),
+  '200': css({
+    rowGap: token('space.200', '16px'),
+  }),
+  '250': css({
+    rowGap: token('space.250', '20px'),
+  }),
+  '300': css({
+    rowGap: token('space.300', '24px'),
+  }),
+  '400': css({
+    rowGap: token('space.400', '32px'),
+  }),
+  '500': css({
+    rowGap: token('space.500', '40px'),
+  }),
+  '600': css({
+    rowGap: token('space.600', '48px'),
+  }),
+  '800': css({
+    rowGap: token('space.800', '64px'),
+  }),
+  '1000': css({
+    rowGap: token('space.1000', '80px'),
+  }),
+} as const;
+
+export type RowSpace = keyof typeof rowSpaceMap;
+
 /**
  * @codegenEnd
  */
@@ -180,6 +233,7 @@ const Inline = memo(
         spread,
         grow,
         space,
+        rowSpace,
         separator,
         testId,
         children: rawChildren,
@@ -217,6 +271,7 @@ const Inline = memo(
             grow && flexGrowMap[grow],
             alignItems && alignItemsMap[alignItems],
             shouldWrap && flexWrapStyles,
+            rowSpace && rowSpaceMap[rowSpace],
           ]}
           data-testid={testId}
           ref={ref}

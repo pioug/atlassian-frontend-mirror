@@ -1,8 +1,12 @@
 import React from 'react';
 
-import { mount, shallow } from 'enzyme';
+import { matchers } from '@emotion/jest';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
-import CommentField from '../../field';
+import CommentField, { CommentFieldProps } from '../../field';
+
+expect.extend(matchers);
 
 describe('@atlaskit comments', () => {
   describe('CommentField', () => {
@@ -14,42 +18,82 @@ describe('@atlaskit comments', () => {
 
     describe('construction', () => {
       it('should be able to create a component', () => {
-        const wrapper = shallow(<CommentField />);
-        expect(wrapper).not.toBe(undefined);
+        render(<CommentField testId="comment-field" />);
+
+        expect(screen.getByTestId('comment-field')).toBeInTheDocument();
       });
 
       describe('if href provided', () => {
         it('should render a link', () => {
           const children = <span>children</span>;
           const href = '/test-href';
-          const wrapper = mount(
-            <CommentField href={href}>{children}</CommentField>,
-          );
+          render(<CommentField href={href}>{children}</CommentField>);
 
-          expect(wrapper.find('a').length).toBe(1);
-          expect(wrapper.find('a').contains(children)).toBe(true);
-          expect(wrapper.find('a').prop('href')).toBe(href);
+          const link = screen.getByRole('link');
+
+          expect(link).toBeInTheDocument();
+          expect(link).toHaveAttribute('href', href);
+          expect(screen.getByText('children')).toBeInTheDocument();
         });
 
-        it('should render link with extra styles', () => {
-          const wrapper = mount(<CommentField href="#" hasAuthor />);
-          expect(wrapper.find('a')).toBeDefined();
+        it('should render link with author styles', () => {
+          render(<CommentField href="#" hasAuthor />);
+
+          expect(screen.getByRole('link')).toHaveStyleRule(
+            'font-weight',
+            'var(--ds-font-weight-medium, 500)',
+          );
         });
       });
 
       describe('if href not provided', () => {
         it('should render a span', () => {
           const children = <p>children</p>;
-          const wrapper = mount(<CommentField>{children}</CommentField>);
+          const { container } = render(<CommentField>{children}</CommentField>);
 
-          expect(wrapper.find('span').length).toBe(1);
-          expect(wrapper.find('span').contains(children)).toBe(true);
+          expect(container.querySelector('span')).toBeInTheDocument();
+          expect(screen.queryByRole('link')).not.toBeInTheDocument();
+          expect(screen.getByText('children')).toBeInTheDocument();
         });
 
         it('should render span with author styles', () => {
-          const wrapper = mount(<CommentField hasAuthor />);
-          expect(wrapper.find('span')).toBeDefined();
+          render(<CommentField hasAuthor testId="comment-field" />);
+
+          expect(screen.getByTestId('comment-field')).toHaveStyleRule(
+            'font-weight',
+            'var(--ds-font-weight-medium, 500)',
+          );
         });
+      });
+    });
+
+    describe('if onClick, onFocus, and onMouseOver props provided', () => {
+      afterEach(() => {
+        jest.resetAllMocks();
+      });
+
+      it('should pass onClick, onFocus, and onMouseOver functions to link via props', async () => {
+        const onClickMock = jest.fn();
+        const onHoverMock = jest.fn();
+        const onFocusMock = jest.fn();
+
+        const props: CommentFieldProps = {
+          onClick: onClickMock,
+          onFocus: onFocusMock,
+          onMouseOver: onHoverMock,
+          href: '#',
+        };
+        render(<CommentField {...props} />);
+
+        const link = screen.getByRole('link');
+        const user = userEvent.setup();
+
+        await user.click(link);
+        expect(onClickMock).toHaveBeenCalledTimes(1);
+        expect(onHoverMock).toHaveBeenCalledTimes(1);
+
+        await user.tab();
+        expect(onFocusMock).toHaveBeenCalledTimes(1);
       });
     });
   });

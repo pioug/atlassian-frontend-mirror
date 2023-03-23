@@ -59,7 +59,9 @@ const EmptyState = ({
           {secondaryAction}
           {primaryAction}
         </ButtonGroup>
-        <SpinnerContainer>{isLoading && <Spinner />}</SpinnerContainer>
+        <SpinnerContainer>
+          {isLoading && <Spinner testId="empty-state-spinner" />}
+        </SpinnerContainer>
       </ActionsContainer>
     ) : null;
 

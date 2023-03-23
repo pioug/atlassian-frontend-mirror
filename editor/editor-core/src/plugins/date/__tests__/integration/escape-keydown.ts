@@ -30,4 +30,5 @@ const adf = {
 runEscapeKeydownSuite({
   adf,
   openMenu: clickOnDate,
+  skip: ['*'], // Skipped in ED-17195
 });

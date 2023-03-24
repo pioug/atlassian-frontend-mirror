@@ -14,6 +14,7 @@ export type {
   IconType,
   DatasourceResponseSchemaProperty,
   DatasourceDataResponseItem,
+  DatasourceType,
 } from './datasource-types';
 
 export type {

@@ -1,17 +1,12 @@
-import { fireEvent } from '@testing-library/dom';
-
 import {
   draggable,
   dropTargetForElements,
   monitorForElements,
 } from '../../../src/entry-point/adapter/element';
 import { combine } from '../../../src/entry-point/util/combine';
-import { appendToBody, getBubbleOrderedTree, userEvent } from '../_util';
+import { appendToBody, getBubbleOrderedTree, reset, userEvent } from '../_util';
 
-afterEach(() => {
-  // cleanup any pending drags
-  fireEvent.dragEnd(window);
-});
+afterEach(reset);
 
 test('drop targets and monitors should be notified of events even if they are mounted before the first draggable', () => {
   const [draggableEl, A] = getBubbleOrderedTree();

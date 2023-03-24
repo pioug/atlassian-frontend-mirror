@@ -1,5 +1,11 @@
 # @atlaskit/progress-indicator
 
+## 9.4.10
+
+### Patch Changes
+
+- [`8ecf086a095`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8ecf086a095) - Migrates unit tests from enzyme to RTL.
+
 ## 9.4.9
 
 ### Patch Changes

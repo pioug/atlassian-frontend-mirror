@@ -2,6 +2,7 @@ import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import {
   getDocFromElement,
   editable,
+  animationFrame,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
   goToEditorTestingWDExample,
@@ -14,12 +15,9 @@ import { linkPickerSelectors } from '@atlaskit/editor-test-helpers/page-objects/
 
 type ClientType = Parameters<typeof goToEditorTestingWDExample>[0];
 
-// FIXME: This test was automatically skipped due to failure on 20/02/2023: https://product-fabric.atlassian.net/browse/ED-16956
 BrowserTestCase(
   'card: changing the link label of a block link should convert it to a "dumb" link',
-  {
-    skip: ['*'],
-  },
+  {},
   async (client: ClientType, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -37,6 +35,7 @@ BrowserTestCase(
       },
     });
 
+    await animationFrame(page);
     await waitForBlockCardSelection(page);
     await page.click('button[aria-label="Edit link"]');
     // Clear the Link Label field before typing
@@ -44,6 +43,8 @@ BrowserTestCase(
     // Change the 'text to display' field to 'New heading' and press enter
     await page.type('[data-testid="link-label"]', 'New heading');
     await page.keys(['Enter']);
+    await animationFrame(page);
+    await page.waitForSelector('a[href]');
 
     expect(
       await page.$eval(editable, getDocFromElement),
@@ -52,12 +53,9 @@ BrowserTestCase(
 );
 
 describe('with feature flag: lp-link-picker', () => {
-  // FIXME: This test was automatically skipped due to failure on 20/02/2023: https://product-fabric.atlassian.net/browse/ED-16956
   BrowserTestCase(
     'card: changing the link label of a block link should convert it to a "dumb" link',
-    {
-      skip: ['*'],
-    },
+    {},
     async (client: ClientType, testName: string) => {
       const page = await goToEditorTestingWDExample(client);
 
@@ -84,13 +82,17 @@ describe('with feature flag: lp-link-picker', () => {
         },
       );
 
+      await animationFrame(page);
       await waitForBlockCardSelection(page);
+
       await page.click('button[aria-label="Edit link"]');
       // Clear the Link Label field before typing
       await page.clear(linkPickerSelectors.linkDisplayTextInput);
       // Change the 'text to display' field to 'New heading' and press enter
       await page.type(linkPickerSelectors.linkDisplayTextInput, 'New heading');
       await page.keys(['Enter']);
+      await animationFrame(page);
+      await page.waitForSelector('a[href]');
 
       expect(
         await page.$eval(editable, getDocFromElement),

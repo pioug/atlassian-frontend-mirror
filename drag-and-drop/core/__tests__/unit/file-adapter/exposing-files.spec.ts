@@ -14,7 +14,10 @@ import {
   getBubbleOrderedTree,
   getDefaultInput,
   getEmptyHistory,
+  reset,
 } from '../_util';
+
+afterEach(reset);
 
 it('should expose files (items) only during the drop event', () => {
   const [A] = getBubbleOrderedTree();

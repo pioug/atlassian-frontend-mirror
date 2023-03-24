@@ -1,5 +1,11 @@
 # @atlaskit/linking-types
 
+## 0.2.0
+
+### Minor Changes
+
+- [`82ce247716c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/82ce247716c) - Adds a new link datasource component `JiraIssuesTableView` (still under development) is added
+
 ## 0.1.1
 
 ### Patch Changes

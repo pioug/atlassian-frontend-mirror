@@ -54,7 +54,7 @@ export interface DatasourceResponseSchemaProperty {
 }
 
 // @public (undocumented)
-type DatasourceType =
+export type DatasourceType =
   | BooleanType
   | IconType
   | LinkType

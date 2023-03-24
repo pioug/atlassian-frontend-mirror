@@ -11,6 +11,7 @@ import {
   appendToBody,
   getElements,
   getRect,
+  reset,
   setBoundingClientRect,
   userEvent,
 } from '../_util';
@@ -23,10 +24,7 @@ import {
  * the browser window on a separate native layer.
  */
 
-afterEach(() => {
-  // cleanup any pending drags
-  fireEvent.dragEnd(window);
-});
+afterEach(reset);
 
 describe('cleanup in `onDragStart`', () => {
   it('should remove the container element from the body', () => {

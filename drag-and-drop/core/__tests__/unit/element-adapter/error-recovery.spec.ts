@@ -2,12 +2,9 @@ import { fireEvent } from '@testing-library/dom';
 
 import { draggable } from '../../../src/entry-point/adapter/element';
 import { combine } from '../../../src/entry-point/util/combine';
-import { appendToBody, getElements } from '../_util';
+import { appendToBody, getElements, reset } from '../_util';
 
-afterEach(() => {
-  // cleanup any pending drags
-  fireEvent.dragEnd(window);
-});
+afterEach(reset);
 
 test('an error in "dragstart" will cause a "dragend" which will cancel the drag', () => {
   const [draggableEl] = getElements();

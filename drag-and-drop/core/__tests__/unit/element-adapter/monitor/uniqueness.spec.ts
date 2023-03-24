@@ -5,12 +5,9 @@ import {
   monitorForElements,
 } from '../../../../src/entry-point/adapter/element';
 import { combine } from '../../../../src/entry-point/util/combine';
-import { appendToBody, getElements } from '../../_util';
+import { appendToBody, getElements, reset } from '../../_util';
 
-afterEach(() => {
-  // cleanup any pending drags
-  fireEvent.dragEnd(window);
-});
+afterEach(reset);
 
 it('should not treat two monitors as equal that share the same arguments', () => {
   const [A] = getElements();

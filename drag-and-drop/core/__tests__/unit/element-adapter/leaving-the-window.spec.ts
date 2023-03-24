@@ -5,12 +5,9 @@ import {
   dropTargetForElements,
 } from '../../../src/entry-point/adapter/element';
 import { combine } from '../../../src/entry-point/util/combine';
-import { appendToBody, getBubbleOrderedTree, userEvent } from '../_util';
+import { appendToBody, getBubbleOrderedTree, reset, userEvent } from '../_util';
 
-afterEach(() => {
-  // cleanup any pending drags
-  fireEvent.dragEnd(window);
-});
+afterEach(reset);
 
 [true, false].forEach(isSticky => {
   it(`should clear drop targets when leaving the window (Sticky: ${isSticky})`, () => {

@@ -44,9 +44,15 @@ import {
 import { combine } from '../../../../src/entry-point/util/combine';
 import { appendToBody, getElements } from '../../_util';
 
-afterEach(() => {
+afterEach(async () => {
   // cleanup any pending drags
   fireEvent.dragEnd(window);
+
+  // Optional: unwind a post-drop browser bug fix
+  // tick forward a micro task to flush a post-drag bug fix
+  await 1;
+  // this will trigger the fix to be released
+  fireEvent.pointerMove(window);
 });
 
 it('should execute callbacks in response to native events', () => {

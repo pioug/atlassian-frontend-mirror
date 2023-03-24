@@ -5,12 +5,9 @@ import {
   monitorForFiles,
 } from '../../../src/entry-point/adapter/file';
 import { combine } from '../../../src/entry-point/util/combine';
-import { appendToBody, getBubbleOrderedTree } from '../_util';
+import { appendToBody, getBubbleOrderedTree, reset } from '../_util';
 
-afterEach(() => {
-  // cleanup any pending drags
-  fireEvent.dragEnd(window);
-});
+afterEach(reset);
 
 it('should set "copy" as the default drop effect', () => {
   const [A] = getBubbleOrderedTree();

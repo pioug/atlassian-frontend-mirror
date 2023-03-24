@@ -1,13 +1,8 @@
-import { fireEvent } from '@testing-library/dom';
-
 import { draggable } from '../../../src/entry-point/adapter/element';
 import { combine } from '../../../src/entry-point/util/combine';
-import { appendToBody, getElements, userEvent } from '../_util';
+import { appendToBody, getElements, reset, userEvent } from '../_util';
 
-afterEach(() => {
-  // cleanup any pending drags
-  fireEvent.dragEnd(window);
-});
+afterEach(reset);
 
 it('should cancel the drag', () => {
   const [draggableEl] = getElements();

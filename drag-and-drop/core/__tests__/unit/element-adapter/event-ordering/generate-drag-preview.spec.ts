@@ -6,12 +6,9 @@ import {
   monitorForElements,
 } from '../../../../src/entry-point/adapter/element';
 import { combine } from '../../../../src/entry-point/util/combine';
-import { appendToBody, getBubbleOrderedTree } from '../../_util';
+import { appendToBody, getBubbleOrderedTree, reset } from '../../_util';
 
-afterEach(() => {
-  // cleanup any pending drags
-  fireEvent.dragEnd(window);
-});
+afterEach(reset);
 
 it('should notify the source draggable, drop targets in bubble order, then monitors in bind order', () => {
   const [draggableEl, child, parent] = getBubbleOrderedTree();

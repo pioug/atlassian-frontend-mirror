@@ -1,17 +1,12 @@
-import { fireEvent } from '@testing-library/dom';
-
 import {
   draggable,
   dropTargetForElements,
   monitorForElements,
 } from '../../../../src/entry-point/adapter/element';
 import { combine } from '../../../../src/entry-point/util/combine';
-import { appendToBody, getElements, userEvent } from '../../_util';
+import { appendToBody, getElements, reset, userEvent } from '../../_util';
 
-afterEach(() => {
-  // cleanup any pending drags
-  fireEvent.dragEnd(window);
-});
+afterEach(reset);
 
 it('should not call a monitor that is removed during an event (draggable removing monitor)', () => {
   const ordered: string[] = [];

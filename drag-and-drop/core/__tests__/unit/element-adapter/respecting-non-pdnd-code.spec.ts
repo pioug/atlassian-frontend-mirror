@@ -3,12 +3,9 @@ import { bind } from 'bind-event-listener';
 
 import { draggable } from '../../../src/entry-point/adapter/element';
 import { combine } from '../../../src/entry-point/util/combine';
-import { appendToBody, getBubbleOrderedTree } from '../_util';
+import { appendToBody, getBubbleOrderedTree, reset } from '../_util';
 
-afterEach(() => {
-  // cleanup any pending drags
-  fireEvent.dragEnd(window);
-});
+afterEach(reset);
 
 test('do not start a drag if an unmanaged child element is being dragged', () => {
   const [child, parent] = getBubbleOrderedTree();

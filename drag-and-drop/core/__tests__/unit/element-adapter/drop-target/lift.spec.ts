@@ -13,13 +13,11 @@ import {
   appendToBody,
   getDefaultInput,
   getInitialHistory,
+  reset,
   setElementFromPoint,
 } from '../../_util';
 
-afterEach(() => {
-  // cleanup any pending drags
-  fireEvent.dragEnd(window);
-});
+afterEach(reset);
 
 it('should notify a drop target when a draggable is being lifted inside of it', () => {
   const element = document.createElement('div');

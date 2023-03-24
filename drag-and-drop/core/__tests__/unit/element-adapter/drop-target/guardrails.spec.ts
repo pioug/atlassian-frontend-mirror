@@ -1,11 +1,12 @@
 import { dropTargetForElements } from '../../../../src/entry-point/adapter/element';
 import { dropTargetForFiles } from '../../../../src/entry-point/adapter/file';
-import { getElements } from '../../_util';
+import { getElements, reset } from '../../_util';
 
 const warn = jest.spyOn(console, 'warn').mockImplementation(() => {});
 
-beforeEach(() => {
+beforeEach(async () => {
   warn.mockClear();
+  await reset();
 });
 
 it('should warn if registering two drop targets of the same type on an element', () => {

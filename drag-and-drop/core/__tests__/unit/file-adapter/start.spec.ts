@@ -3,7 +3,9 @@ import {
   monitorForFiles,
 } from '../../../src/entry-point/adapter/file';
 import { combine } from '../../../src/entry-point/util/combine';
-import { appendToBody, getBubbleOrderedTree } from '../_util';
+import { appendToBody, getBubbleOrderedTree, reset } from '../_util';
+
+afterEach(reset);
 
 it('should only start a drag if files are being dragged', () => {
   const [A] = getBubbleOrderedTree();

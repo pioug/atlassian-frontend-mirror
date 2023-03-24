@@ -1,5 +1,3 @@
-import { fireEvent } from '@testing-library/dom';
-
 import {
   draggable,
   dropTargetForElements,
@@ -9,13 +7,11 @@ import {
   appendToBody,
   getBubbleOrderedTree,
   getElements,
+  reset,
   userEvent,
 } from '../../_util';
 
-afterEach(() => {
-  // cleanup any pending drags
-  fireEvent.dragEnd(window);
-});
+afterEach(reset);
 
 test('scenario: [] (lifting outside a drop target)', () => {
   const [draggableEl] = getElements();

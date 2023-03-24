@@ -8,12 +8,9 @@ import {
   monitorForElements,
 } from '../../../src/entry-point/adapter/element';
 import { combine } from '../../../src/entry-point/util/combine';
-import { appendToBody, getElements } from '../_util';
+import { appendToBody, getElements, reset } from '../_util';
 
-afterEach(() => {
-  // cleanup any pending drags
-  fireEvent.dragEnd(window);
-});
+afterEach(reset);
 
 test('no double calls for created in effects', () => {
   const [container] = getElements();

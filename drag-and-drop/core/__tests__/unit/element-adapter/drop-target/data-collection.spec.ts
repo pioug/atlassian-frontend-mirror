@@ -9,8 +9,11 @@ import {
   appendToBody,
   getBubbleOrderedTree,
   getDefaultInput,
+  reset,
   userEvent,
 } from '../../_util';
+
+afterEach(reset);
 
 it('should recollect data, dropEffect and stickiness during a drag', () => {
   const [draggableEl, A] = getBubbleOrderedTree();

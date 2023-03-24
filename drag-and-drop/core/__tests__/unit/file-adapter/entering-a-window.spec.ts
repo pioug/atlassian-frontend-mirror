@@ -1,5 +1,3 @@
-import { fireEvent } from '@testing-library/dom';
-
 import {
   dropTargetForFiles,
   FileEventPayloadMap,
@@ -10,13 +8,11 @@ import {
   appendToBody,
   getBubbleOrderedTree,
   getEmptyHistory,
+  reset,
   userEvent,
 } from '../_util';
 
-afterEach(() => {
-  // cleanup any pending drags
-  fireEvent.dragEnd(window);
-});
+afterEach(reset);
 
 test('enter-window[body] => []', () => {
   const [A] = getBubbleOrderedTree();

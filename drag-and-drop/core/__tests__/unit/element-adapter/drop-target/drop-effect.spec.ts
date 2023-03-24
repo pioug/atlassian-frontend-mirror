@@ -6,12 +6,14 @@ import {
   dropTargetForElements,
 } from '../../../../src/entry-point/adapter/element';
 import { combine } from '../../../../src/entry-point/util/combine';
-import { appendToBody, getBubbleOrderedTree, getElements } from '../../_util';
+import {
+  appendToBody,
+  getBubbleOrderedTree,
+  getElements,
+  reset,
+} from '../../_util';
 
-afterEach(() => {
-  // cleanup any pending drags
-  fireEvent.dragEnd(window);
-});
+afterEach(reset);
 
 test('[] -> none', () => {
   const [draggableEl] = getElements();

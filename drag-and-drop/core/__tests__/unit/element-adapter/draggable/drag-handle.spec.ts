@@ -8,13 +8,11 @@ import { combine } from '../../../../src/entry-point/util/combine';
 import {
   appendToBody,
   getEmptyHistory,
+  reset,
   setElementFromPoint,
 } from '../../_util';
 
-afterEach(() => {
-  // cleanup any pending drags
-  fireEvent.dragEnd(window);
-});
+afterEach(reset);
 
 it('should allow dragging from the drag handle when the drag handle is the same element as the draggable', () => {
   const parent = document.createElement('div');

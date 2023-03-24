@@ -11,13 +11,11 @@ import {
   appendToBody,
   getBubbleOrderedTree,
   getElements,
+  reset,
   userEvent,
 } from '../_util';
 
-afterEach(() => {
-  // cleanup any pending drags
-  fireEvent.dragEnd(window);
-});
+afterEach(reset);
 
 test('adding a draggable during a drag', () => {
   const [A, B] = getElements();

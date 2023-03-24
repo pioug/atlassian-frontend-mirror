@@ -10,13 +10,11 @@ import {
   appendToBody,
   getBubbleOrderedTree,
   getElements,
+  reset,
   userEvent,
 } from '../../_util';
 
-afterEach(() => {
-  // cleanup any pending drags
-  fireEvent.dragEnd(window);
-});
+afterEach(reset);
 
 const triggers = [
   {

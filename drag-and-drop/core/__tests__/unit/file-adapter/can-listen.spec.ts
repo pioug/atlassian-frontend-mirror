@@ -10,13 +10,11 @@ import {
   appendToBody,
   getDefaultInput,
   getElements,
+  reset,
   userEvent,
 } from '../_util';
 
-afterEach(() => {
-  // cleanup any pending drags
-  fireEvent.dragEnd(window);
-});
+afterEach(reset);
 
 it('should give the `source` from the beginning of the drag and not the latest (`source` can be updated for external drag types)', () => {
   const [A] = getElements();

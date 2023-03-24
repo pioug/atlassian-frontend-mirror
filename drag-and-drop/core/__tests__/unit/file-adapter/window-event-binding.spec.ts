@@ -16,11 +16,15 @@ afterEach(() => {
   jest.resetModules();
 });
 
-afterEach(() => {
+afterEach(async () => {
   // cleanup any pending drags
   window.dispatchEvent(
     new DragEvent('dragend', { cancelable: true, bubbles: true }),
   );
+
+  // Flushing postDropBugFix
+  await 'microtask';
+  window.dispatchEvent(new Event('pointerdown'));
 });
 
 it('should add event listeners when the first drop target is mounted', () => {
@@ -134,7 +138,7 @@ it('should remove initiating event listener when the last drop target is removed
   expect(removeEventListener).toHaveBeenCalledTimes(1);
 });
 
-it('should bind event listeners needed for the drag only while dragging', () => {
+it('should bind event listeners needed for the drag only while dragging (drag cancelled)', () => {
   const {
     dropTargetForFiles,
     monitorForFiles,
@@ -175,6 +179,60 @@ it('should bind event listeners needed for the drag only while dragging', () => 
   window.dispatchEvent(
     new DragEvent('dragend', { cancelable: true, bubbles: true }),
   );
+
+  expect(ordered).toEqual(['drop']);
+
+  // all new event listeners have been removed
+  expect(removeEventListener).toHaveBeenCalledTimes(
+    postLiftAddEventListenerCount,
+  );
+  // no more event listeners added
+  expect(addEventListener).toHaveBeenCalledTimes(
+    postLiftAddEventListenerCount + 1,
+  );
+
+  unbindA();
+});
+
+it('should bind event listeners needed for the drag only while dragging (dropped)', () => {
+  const {
+    dropTargetForFiles,
+    monitorForFiles,
+  } = require('../../../src/entry-point/adapter/file');
+  const ordered: string[] = [];
+
+  // no event listeners added or removed yet
+  expect(addEventListener).not.toHaveBeenCalled();
+  expect(removeEventListener).not.toHaveBeenCalled();
+
+  const [A] = getElements();
+  const unbindA = combine(
+    appendToBody(A),
+    dropTargetForFiles({
+      element: A,
+    }),
+    monitorForFiles({
+      onDragStart: () => ordered.push('start'),
+      onDrop: () => ordered.push('drop'),
+    }),
+  );
+
+  expect(addEventListener).toHaveBeenCalledTimes(1);
+  // Note: Cannot reset the mock. It causes internal reference mismatches
+  // addEventListener.mockReset();
+
+  // let's start a drag
+  userEvent.startExternalDrag({ types: ['Files'] });
+  expect(ordered).toEqual(['start']);
+  ordered.length = 0;
+
+  // we expect that *new* event listeners have been added for the duration of a the drag
+  const postLiftAddEventListenerCount = addEventListener.mock.calls.length - 1;
+  expect(postLiftAddEventListenerCount).toBeGreaterThan(0);
+  expect(removeEventListener).not.toHaveBeenCalled();
+
+  // finish the drag
+  A.dispatchEvent(new DragEvent('drop', { cancelable: true, bubbles: true }));
 
   expect(ordered).toEqual(['drop']);
 
@@ -249,7 +307,7 @@ it('should keep dragging event listeners bound even if only drop target is remov
   unbindMonitor();
 });
 
-it('should keep dragging event listeners bound if only drop  is remounted mid drag', () => {
+it('should keep dragging event listeners bound if only drop is remounted mid drag', () => {
   const {
     dropTargetForFiles,
     monitorForFiles,

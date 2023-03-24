@@ -5,12 +5,9 @@ import {
   monitorForElements,
 } from '../../../../src/entry-point/adapter/element';
 import { combine } from '../../../../src/entry-point/util/combine';
-import { appendToBody } from '../../_util';
+import { appendToBody, reset } from '../../_util';
 
-afterEach(() => {
-  // cleanup any pending drags
-  fireEvent.dragEnd(window);
-});
+afterEach(reset);
 
 it('should call monitors in order in which they where bound', () => {
   const draggableEl = document.createElement('div');

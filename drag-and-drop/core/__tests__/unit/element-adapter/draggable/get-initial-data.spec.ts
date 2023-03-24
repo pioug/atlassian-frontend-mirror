@@ -11,13 +11,11 @@ import {
   getBubbleOrderedTree,
   getDefaultInput,
   getElements,
+  reset,
   userEvent,
 } from '../../_util';
 
-afterEach(() => {
-  // cleanup any pending drags
-  fireEvent.dragEnd(window);
-});
+afterEach(reset);
 
 it('should only collect data once during a drag', () => {
   const [draggableEl, A] = getBubbleOrderedTree();

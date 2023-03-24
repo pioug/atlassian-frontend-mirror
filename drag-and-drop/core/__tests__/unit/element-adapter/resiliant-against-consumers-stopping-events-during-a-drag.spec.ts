@@ -6,12 +6,9 @@ import {
   dropTargetForElements,
 } from '../../../src/entry-point/adapter/element';
 import { combine } from '../../../src/entry-point/util/combine';
-import { appendToBody, getElements, userEvent } from '../_util';
+import { appendToBody, getElements, reset, userEvent } from '../_util';
 
-afterEach(() => {
-  // cleanup any pending drags
-  fireEvent.dragEnd(window);
-});
+afterEach(reset);
 
 test('stopping events in the bubble phase during a drag should not impact us [case: successful drop]', () => {
   const [draggableEl, A] = getElements();

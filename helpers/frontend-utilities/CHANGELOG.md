@@ -1,5 +1,11 @@
 # @af/frontend-utilities
 
+## 2.4.0
+
+### Minor Changes
+
+- [`8fcfef70ee7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8fcfef70ee7) - useLocalStorage now reads local storage on initial render
+
 ## 2.3.0
 
 ### Minor Changes

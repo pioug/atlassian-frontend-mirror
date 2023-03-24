@@ -4,6 +4,7 @@
 // (this is how the @atlaskit/ssr package works)
 
 // 0. Turning file into a module so that we can do a top level `window.close()`
+// Need to do an `import` or an `export` for this file to be treated as a module
 export {};
 
 // 1. Close down any existing jsdom windows

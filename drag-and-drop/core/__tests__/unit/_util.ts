@@ -226,3 +226,15 @@ export const userEvent = {
   //   requestAnimationFrame.step();
   // }
 };
+
+/** Cleanup function to unbind all event listeners */
+export async function reset(): Promise<void> {
+  // cleanup any pending drags
+  fireEvent.dragEnd(window);
+
+  // Cleaning up post-drop fix
+  // Waiting for a microtask just incase the microtask queue has not been flushed by jest
+  // [Discussion](https://twitter.com/alexandereardon/status/1635059194226446342)
+  await 'microtask';
+  fireEvent.pointerMove(window);
+}

@@ -11,6 +11,7 @@ import {
   Input,
 } from '../internal-types';
 import { isLeavingWindow } from '../util/entering-and-leaving-the-window';
+import { fixPostDragPointerBug } from '../util/fix-post-drag-pointer-bug';
 import { getInput } from '../util/get-input';
 
 import { makeDispatch } from './dispatch-consumer-event';
@@ -246,6 +247,12 @@ function start<DragType extends AllDragTypes>({
           });
 
           finish();
+
+          // Applying this fix after `dispatch.drop` so that frameworks have the opportunity
+          // to update UI in response to a "onDrop".
+          if (dragInterface.startedFrom === 'internal') {
+            fixPostDragPointerBug(state);
+          }
         },
       },
       {
@@ -255,7 +262,15 @@ function start<DragType extends AllDragTypes>({
         // "dragend" does not fire if the draggable source has been removed during the drag
         // or for external drag sources (eg files)
         type: 'dragend',
-        listener: cancel,
+        listener() {
+          cancel();
+
+          // Applying this fix after `dispatch.drop` so that frameworks have the opportunity
+          // to update UI in response to a "onDrop".
+          if (dragInterface.startedFrom === 'internal') {
+            fixPostDragPointerBug(state);
+          }
+        },
       },
       // ## Detecting drag ending for removed draggables
       //

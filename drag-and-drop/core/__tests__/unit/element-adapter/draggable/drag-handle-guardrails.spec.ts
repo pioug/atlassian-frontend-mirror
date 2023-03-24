@@ -1,13 +1,8 @@
-import { fireEvent } from '@testing-library/dom';
-
 import { draggable } from '../../../../src/entry-point/adapter/element';
 import { combine } from '../../../../src/entry-point/util/combine';
-import { appendToBody, setElementFromPoint } from '../../_util';
+import { appendToBody, reset, setElementFromPoint } from '../../_util';
 
-afterEach(() => {
-  // cleanup any pending drags
-  fireEvent.dragEnd(window);
-});
+afterEach(reset);
 
 it('should warn if a drag handle is parent of the draggable', () => {
   const warn = jest.spyOn(console, 'warn').mockImplementation(() => {});

@@ -6,12 +6,9 @@ import {
   ElementEventPayloadMap,
 } from '../../../../src/entry-point/adapter/element';
 import { combine } from '../../../../src/entry-point/util/combine';
-import { appendToBody, getEmptyHistory } from '../../_util';
+import { appendToBody, getEmptyHistory, reset } from '../../_util';
 
-afterEach(() => {
-  // cleanup any pending drags
-  fireEvent.dragEnd(window);
-});
+afterEach(reset);
 
 it('should be possible to modify the element during the "dragstart" event in order to customise the drag preview', () => {
   const element = document.createElement('div');

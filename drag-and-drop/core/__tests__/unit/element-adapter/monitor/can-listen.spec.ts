@@ -11,13 +11,11 @@ import {
   appendToBody,
   getDefaultInput,
   getElements,
+  reset,
   userEvent,
 } from '../../_util';
 
-afterEach(() => {
-  // cleanup any pending drags
-  fireEvent.dragEnd(window);
-});
+afterEach(reset);
 
 it('should publish events on active monitors during a drag', () => {
   const draggableEl = document.createElement('div');

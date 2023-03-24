@@ -6,12 +6,9 @@ import {
 } from '../../../../src/entry-point/adapter/element';
 import { CleanupFn } from '../../../../src/entry-point/types';
 import { combine } from '../../../../src/entry-point/util/combine';
-import { appendToBody, getElements } from '../../_util';
+import { appendToBody, getElements, reset } from '../../_util';
 
-afterEach(() => {
-  // cleanup any pending drags
-  fireEvent.dragEnd(window);
-});
+afterEach(reset);
 
 it('should not call a new monitor for an active event', () => {
   const ordered: string[] = [];

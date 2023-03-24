@@ -1,13 +1,13 @@
-import { fireEvent } from '@testing-library/dom';
-
 import { draggable } from '../../../../src/entry-point/adapter/element';
 import { combine } from '../../../../src/entry-point/util/combine';
-import { appendToBody, getBubbleOrderedTree, userEvent } from '../../_util';
+import {
+  appendToBody,
+  getBubbleOrderedTree,
+  reset,
+  userEvent,
+} from '../../_util';
 
-afterEach(() => {
-  // cleanup any pending drags
-  fireEvent.dragEnd(window);
-});
+afterEach(reset);
 
 it('should allow nested draggables', () => {
   const [child, parent] = getBubbleOrderedTree();

@@ -5,12 +5,9 @@ import {
   dropTargetForElements,
 } from '../../../src/entry-point/adapter/element';
 import { combine } from '../../../src/entry-point/util/combine';
-import { appendToBody, getElements, userEvent } from '../_util';
+import { appendToBody, getElements, reset, userEvent } from '../_util';
 
-afterEach(() => {
-  // cleanup any pending drags
-  fireEvent.dragEnd(window);
-});
+afterEach(reset);
 
 it('should allow consecutive drag and drop operations', () => {
   const [target] = getElements();

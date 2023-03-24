@@ -9,13 +9,11 @@ import {
   appendToBody,
   getBubbleOrderedTree,
   getDefaultInput,
+  reset,
   userEvent,
 } from '../../_util';
 
-afterEach(() => {
-  // cleanup any pending drags
-  fireEvent.dragEnd(window);
-});
+afterEach(reset);
 
 test('scenario:start flushed by a drop', () => {
   const [draggableEl, A] = getBubbleOrderedTree();

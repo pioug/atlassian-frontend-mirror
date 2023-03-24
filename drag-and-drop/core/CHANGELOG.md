@@ -1,5 +1,14 @@
 # @atlaskit/drag-and-drop
 
+## 0.13.0
+
+### Minor Changes
+
+- [`2582df26509`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2582df26509) - Fixing a browser bug where after a drag finishes, a unrelated element can be entered into by the browser
+
+  - [Visual explanation of bug](https://twitter.com/alexandereardon/status/1633614212873465856)
+  - [Chrome bug](https://bugs.chromium.org/p/chromium/issues/detail?id=410328)
+
 ## 0.12.0
 
 ### Minor Changes

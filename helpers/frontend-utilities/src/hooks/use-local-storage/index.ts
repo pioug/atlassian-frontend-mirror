@@ -8,7 +8,9 @@ export const useLocalStorage = <T extends unknown>(
 ): [value: T, setValue: (value: T) => void] => {
   const storageClient = useMemo(() => new StorageClient(key), [key]);
 
-  const [value, setValue] = useState<T>(defaultValue);
+  const [value, setValue] = useState<T>(
+    () => storageClient.getItem(key) ?? defaultValue,
+  );
 
   useEffect(() => {
     const loadedValue = (storageClient.getItem(key) as T) ?? undefined;

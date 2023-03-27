@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import { jsx } from '@emotion/react';
 
-import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import Button, { ButtonGroup } from '../src';
 
@@ -22,7 +22,7 @@ function Overlay() {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        '> *': { marginBottom: gridSize() },
+        '> *': { marginBottom: token('space.100', '8px') },
       }}
     >
       <Button onClick={() => setOverlay((value) => !value)}>

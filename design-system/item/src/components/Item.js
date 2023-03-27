@@ -150,7 +150,10 @@ export default class Item extends Component {
           <Before isCompact={isCompact}>{this.props.elemBefore}</Before>
         )}
         <ContentWrapper>
-          <Content allowMultiline={this.props.shouldAllowMultiline}>
+          <Content
+            allowMultiline={this.props.shouldAllowMultiline}
+            data-testid="item-content"
+          >
             {this.props.children}
           </Content>
           {!!this.props.description && (

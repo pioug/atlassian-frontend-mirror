@@ -2,14 +2,14 @@
 
 import { css, CSSObject, jsx } from '@emotion/react';
 
-import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import { ContentProps } from '../types';
 
 const defaultStyles: CSSObject = {
   flex: 1,
   overflow: 'auto',
-  marginTop: 3 * gridSize(),
+  marginTop: token('space.300', '24px'),
 };
 
 const contentCSS = (): CSSObject => defaultStyles;

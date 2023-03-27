@@ -3,15 +3,15 @@ import { FC } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import { gridSize as getGridSize } from '@atlaskit/theme/constants';
 import { h600 } from '@atlaskit/theme/typography';
+import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
 const headerStyles = css([
   h600(),
   {
-    marginTop: 0,
-    marginBottom: `${getGridSize() * 2}px`,
+    marginTop: token('space.0', '0px'),
+    marginBottom: token('space.200', '16px'),
   },
 ]);
 

@@ -4,10 +4,9 @@ import React, { ReactNode } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { useGlobalTheme } from '@atlaskit/theme/components';
-import { gridSize as getGridSize } from '@atlaskit/theme/constants';
 import { h600 } from '@atlaskit/theme/typography';
+import { token } from '@atlaskit/tokens';
 
-const gridSize = getGridSize();
 export interface FormSectionProps {
   /**
    * Title of the form section.
@@ -24,20 +23,20 @@ export interface FormSectionProps {
 }
 
 const formSectionDescriptionStyles = css({
-  marginTop: `${gridSize}px`,
+  marginTop: token('space.100', '8px'),
 });
 
 const formSectionTitleStyles = css({
   marginTop: 0,
-  marginRight: `${gridSize * 4}px`,
-  lineHeight: `${gridSize * 4}px`,
+  marginRight: token('space.400', '32px'),
+  lineHeight: token('space.400', '32px'),
   overflow: 'hidden',
   textOverflow: 'ellipsis',
   whiteSpace: 'nowrap',
 });
 
 const formSectionWrapperStyles = css({
-  marginTop: `${gridSize * 3}px`,
+  marginTop: token('space.300', '24px'),
 });
 
 // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage

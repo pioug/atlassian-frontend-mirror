@@ -7,7 +7,6 @@ import Lorem from 'react-lorem-component';
 import Button from '@atlaskit/button/standard-button';
 import { DN50, N0 } from '@atlaskit/theme/colors';
 import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
-import { gridSize } from '@atlaskit/theme/constants';
 import type { ThemeModes } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
 
@@ -58,7 +57,7 @@ const BasicExample = () => {
           Show blanket
         </Button>
         <Button
-          style={{ marginLeft: token('space.100', `${gridSize()}px`) }}
+          style={{ marginLeft: token('space.100', '8px') }}
           testId="toggle-theme"
           onClick={toggleMode}
         >

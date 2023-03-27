@@ -95,7 +95,6 @@ export type TabSubjectIdType = 'shareTab' | 'shareToSlackTab';
 export const shareTabClicked = (
   subjectId: TabSubjectIdType,
   shareContentType?: string,
-  isJwmShareToSlackFFEnabled?: boolean,
 ) =>
   createEvent(
     'ui',
@@ -103,7 +102,7 @@ export const shareTabClicked = (
     'clicked',
     'tab',
     subjectId || 'shareTab',
-    isJwmShareToSlackFFEnabled && {
+    {
       shareContentType,
     },
   );

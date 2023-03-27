@@ -3,13 +3,13 @@ import React, { ChangeEvent, FC, FormEvent, useState } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
 import { ButtonProps } from '@atlaskit/button/types';
-import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import { Note } from '../examples-util/helpers';
 import Avatar from '../src';
 
 const Btn = (props: ButtonProps) => (
-  <span style={{ marginLeft: gridSize() }}>
+  <span style={{ marginLeft: token('space.100', '8px') }}>
     {/* eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props */}
     <Button type="button" {...props} />
   </span>
@@ -56,8 +56,8 @@ const ExternalSrcAvatar: FC = (props) => {
       <div
         style={{
           display: 'flex',
-          marginBottom: gridSize(),
-          marginTop: gridSize(),
+          marginBottom: token('space.100', '8px'),
+          marginTop: token('space.100', '8px'),
         }}
       >
         <input

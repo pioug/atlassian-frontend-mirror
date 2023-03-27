@@ -3,20 +3,22 @@ import { FC } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize as getGridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import type { Width } from '../index';
 
 const gridSize = getGridSize();
 
-const verticalMarginSize = gridSize * 6;
+const verticalMarginSize = token('space.600', '48px');
 
 const columnWidth = gridSize * 8;
 const gutter = gridSize * 2;
 
 const containerStyles = css({
   // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
-  margin: `${verticalMarginSize}px auto`,
+  margin: `${verticalMarginSize} auto`,
   textAlign: 'center',
 });
 

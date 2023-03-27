@@ -15,6 +15,7 @@ import { easeIn, ExitingPersistence, SlideIn } from '@atlaskit/motion';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 import noop from '@atlaskit/ds-lib/noop';
 import Portal from '@atlaskit/portal';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize as getGridSize, layers } from '@atlaskit/theme/constants';
 
 type FlagGroupProps = {

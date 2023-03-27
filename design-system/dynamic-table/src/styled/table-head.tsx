@@ -5,6 +5,7 @@ import { FC, forwardRef, HTMLProps } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { B100, N30A } from '@atlaskit/theme/colors';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize as getGridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 

@@ -151,15 +151,13 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
 
   private onTabChange = (index: number) => {
     let subjectId = 'shareTab' as TabSubjectIdType;
-    const { shareContentType, isJwmShareToSlackFFEnabled } = this.props;
+    const { shareContentType } = this.props;
 
     if (index === 1) {
       subjectId = 'shareToSlackTab';
     }
 
-    this.createAndFireEvent(
-      shareTabClicked(subjectId, shareContentType, isJwmShareToSlackFFEnabled),
-    );
+    this.createAndFireEvent(shareTabClicked(subjectId, shareContentType));
     this.setState({ tabIndex: index });
   };
 

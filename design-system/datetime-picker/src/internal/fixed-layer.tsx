@@ -10,6 +10,7 @@ import {
   PopperChildrenProps,
   Reference,
 } from '@atlaskit/popper';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize, layers } from '@atlaskit/theme/constants';
 
 interface FixedLayerProps {

@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 
 import Button from '@atlaskit/button';
 import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
-import { gridSize } from '@atlaskit/theme/constants';
 import { ThemeModes } from '@atlaskit/theme/types';
+import { token } from '@atlaskit/tokens';
 
 import Calendar from '../src';
 
@@ -36,7 +36,7 @@ export default function ThemeExample() {
           style={style}
           testId={'calendar'}
         />
-        <div style={{ marginTop: gridSize() }}>
+        <div style={{ marginTop: token('space.100', '8px') }}>
           <Button onClick={toggleMode}>
             Toggle theme{' '}
             <span role="img" aria-label="irony">

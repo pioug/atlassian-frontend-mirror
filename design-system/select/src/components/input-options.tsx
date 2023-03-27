@@ -5,7 +5,6 @@ import { Component, FC } from 'react';
 import RadioIcon from '@atlaskit/icon/glyph/radio';
 import CheckboxIcon from '@atlaskit/icon/glyph/checkbox';
 import { themed } from '@atlaskit/theme/components';
-import { gridSize } from '@atlaskit/theme/constants';
 import { ThemedValue } from '@atlaskit/theme/types';
 import {
   B100,
@@ -39,9 +38,9 @@ const getPrimitiveStyles = (
       : 'transparent',
     color: isDisabled ? token('color.text.disabled', 'inherit') : 'inherit',
     display: 'flex ',
-    paddingBottom: 4,
-    paddingLeft: `${gridSize() * 2}px`,
-    paddingTop: 4,
+    paddingBottom: token('space.050', '4px'),
+    paddingLeft: token('space.200', '16px'),
+    paddingTop: token('space.050', '4px'),
     boxShadow: isFocused
       ? `inset 2px 0px 0px ${token('color.border.focused', B400)};`
       : '',

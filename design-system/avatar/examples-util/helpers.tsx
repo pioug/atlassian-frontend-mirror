@@ -5,7 +5,6 @@ import React, { ReactNode } from 'react';
 import styled from '@emotion/styled';
 
 import { N100, R400, R50, subtleHeading, text } from '@atlaskit/theme/colors';
-import { gridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 const Wrapper = styled.div`
@@ -45,8 +44,8 @@ export const Gap = styled.span`
 `;
 
 export const ShrinkWrap = styled(Gap)`
-  height: ${gridSize() * 3}px;
-  width: ${gridSize() * 3}px;
+  height: ${token('space.300', '24px')};
+  width: ${token('space.300', '24px')};
 `;
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 export const Heading = styled.div`

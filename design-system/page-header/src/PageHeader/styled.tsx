@@ -9,10 +9,8 @@ import React from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import { gridSize as getGridSize } from '@atlaskit/theme/constants';
 import { h700 } from '@atlaskit/theme/typography';
-
-const gridSize = getGridSize();
+import { token } from '@atlaskit/tokens';
 
 const truncateStyles = css({
   overflowX: 'hidden',
@@ -21,12 +19,12 @@ const truncateStyles = css({
 });
 
 const outerStyles = css({
-  margin: `${gridSize * 3}px 0 ${gridSize * 2}px 0`,
+  margin: `${token('space.300', '24px')} 0 ${token('space.200', '16px')} 0`,
 });
 
 const styledTitleStyles = css({
   marginTop: 0,
-  lineHeight: `${gridSize * 4}px`,
+  lineHeight: token('font.lineHeight.500', '32px'),
   outline: 'none',
 });
 
@@ -43,16 +41,16 @@ const titleWrapperTruncateStyles = css({
 const titleContainerStyles = css({
   minWidth: 0,
   maxWidth: '100%',
-  marginBottom: `${gridSize}px`,
+  marginBottom: token('space.100', '8px'),
   flex: '1 0 auto',
   flexShrink: undefined,
 });
 
 const actionStyles = css({
   maxWidth: '100%',
-  marginBottom: `${gridSize}px`,
+  marginBottom: token('space.100', '8px'),
   marginLeft: 'auto',
-  paddingLeft: `${gridSize * 4}px`,
+  paddingLeft: token('space.400', '32px'),
   flex: '0 0 auto',
   whiteSpace: 'nowrap',
   // eslint-disable-next-line @repo/internal/styles/no-nested-styles
@@ -66,7 +64,7 @@ const titleContainerTruncateStyles = css({
 });
 
 const bottomBarStyles = css({
-  marginTop: `${gridSize * 2}px`,
+  marginTop: token('space.200', '16px'),
 });
 
 /**

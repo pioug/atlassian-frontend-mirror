@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Label } from '@atlaskit/form';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize } from '@atlaskit/theme/constants';
 
 import { DatePicker, DateTimePicker, TimePicker } from '../src';

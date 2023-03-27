@@ -1,104 +1,119 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+
+import { render, screen } from '@testing-library/react';
 
 import Item, { ItemGroup } from '../../..';
-
-import {
-  GroupTitle,
-  GroupTitleText,
-  GroupTitleAfter,
-} from '../../../styled/ItemGroup';
 
 describe('@atlaskit/item - ItemGroup', () => {
   describe('props', () => {
     describe('children', () => {
       it('should render provided children', () => {
-        const wrapper = shallow(
+        render(
           <ItemGroup>
             <Item>Item one</Item>
             <Item>Item two</Item>
           </ItemGroup>,
         );
-        expect(wrapper.find('[role="group"]').find(Item).length).toBe(2);
+
+        expect(screen.getByText('Item one')).toBeInTheDocument();
+        expect(screen.getByText('Item two')).toBeInTheDocument();
       });
     });
     describe('title', () => {
       it('should render title if provided', () => {
-        const wrapper = mount(<ItemGroup title="Hello" />);
-        expect(wrapper.find(GroupTitleText).text()).toBe('Hello');
+        render(<ItemGroup title="Title" />);
+
+        expect(screen.getByText('Title')).toBeInTheDocument();
       });
+
       it('should not render title if omitted', () => {
-        const wrapper = mount(<ItemGroup />);
-        expect(wrapper.find(GroupTitle).length).toBe(0);
+        render(<ItemGroup />);
+
+        expect(screen.getByRole('group').childElementCount).toBe(0);
       });
     });
     describe('elemAfter', () => {
       it('should not be rendered if title is omitted', () => {
-        const wrapper = mount(<ItemGroup elemAfter="Hello" />);
-        expect(wrapper.find(GroupTitleAfter).length).toBe(0);
+        render(<ItemGroup elemAfter="Element After" />);
+
+        expect(screen.queryByText('Element After')).not.toBeInTheDocument();
       });
+
       it('should be rendered if title is provided', () => {
-        const wrapper = mount(<ItemGroup elemAfter="Hello" title="Hello" />);
-        expect(wrapper.find(GroupTitleAfter).length).toBe(1);
+        render(<ItemGroup elemAfter="Element After" title="Title" />);
+
+        expect(screen.getByText('Element After')).toBeInTheDocument();
       });
-      it('should accept a string value', () => {
-        const wrapper = mount(<ItemGroup elemAfter="Hello there" title="Hi" />);
-        expect(wrapper.find(GroupTitleAfter).text()).toBe('Hello there');
-      });
+
       it('should accept a node value', () => {
-        const wrapper = mount(
+        render(
           <ItemGroup
-            elemAfter={<span className="after-custom" />}
-            title="Hi"
+            elemAfter={<span data-testid="element-after" />}
+            title="Title"
           />,
         );
-        expect(wrapper.find('.after-custom').length).toBe(1);
+
+        expect(screen.getByTestId('element-after')).toBeInTheDocument();
       });
     });
   });
 
   describe('accessibility', () => {
     it('root element should have role="group" by default', () => {
-      const wrapper = shallow(<ItemGroup />);
-      expect(wrapper.prop('role')).toBe('group');
+      render(<ItemGroup />);
+
+      expect(screen.getByRole('group')).toBeInTheDocument();
     });
 
     it('root element should apply role prop if supplied', () => {
-      const wrapper = shallow(<ItemGroup role="menu" />);
-      expect(wrapper.prop('role')).toBe('menu');
+      render(<ItemGroup role="menu" />);
+
+      expect(screen.getByRole('menu')).toBeInTheDocument();
     });
 
     it('title should always have aria-hidden="true" because we use aria-label', () => {
-      const wrapper = shallow(<ItemGroup title="Hello" />);
-      expect(wrapper.find(GroupTitle).prop('aria-hidden')).toBe('true');
+      render(<ItemGroup title="Title" />);
+
+      expect(screen.getByTestId('item-group-title')).toHaveAttribute(
+        'aria-hidden',
+        'true',
+      );
     });
 
     describe('root element aria-label', () => {
       it('label should be used even if title is provided', () => {
-        const wrapper = shallow(<ItemGroup title="Hello" label="Bye" />);
-        expect(wrapper.find('[aria-label]').prop('aria-label')).toBe('Bye');
+        render(<ItemGroup title="Title" label="Label" />);
+
+        expect(screen.getByRole('group')).toHaveAttribute(
+          'aria-label',
+          'Label',
+        );
       });
 
       it('title should be used when label is not provided', () => {
-        const wrapper = shallow(<ItemGroup title="Hello" />);
-        expect(wrapper.find('[aria-label]').prop('aria-label')).toBe('Hello');
+        render(<ItemGroup title="Title" />);
+
+        expect(screen.getByRole('group')).toHaveAttribute(
+          'aria-label',
+          'Title',
+        );
       });
 
       it('it should default to empty string if there are no title and no label', () => {
-        const wrapper = shallow(<ItemGroup />);
-        expect(wrapper.find('[aria-label]').prop('aria-label')).toBe('');
+        render(<ItemGroup />);
+
+        expect(screen.getByRole('group')).toHaveAttribute('aria-label', '');
       });
 
       it('aria-label should still be correct if passing a node', () => {
-        const wrapper = shallow(
-          <ItemGroup title={<span className="nodeClass">Hello</span>} />,
-        );
-        expect(wrapper.find('[aria-label]').prop('aria-label')).toBe('Hello');
+        render(<ItemGroup title={<span className="nodeClass">Node</span>} />);
+
+        expect(screen.getByRole('group')).toHaveAttribute('aria-label', 'Node');
       });
 
       it('aria-label should still be correct if passing a Formatted message in a component', () => {
         const projectName = 'Atlaskit';
-        const wrapper = shallow(
+        render(
           <ItemGroup
             title={
               <div>
@@ -107,7 +122,9 @@ describe('@atlaskit/item - ItemGroup', () => {
             }
           />,
         );
-        expect(wrapper.find('[aria-label]').prop('aria-label')).toBe(
+
+        expect(screen.getByRole('group')).toHaveAttribute(
+          'aria-label',
           'Hello Atlaskit',
         );
       });

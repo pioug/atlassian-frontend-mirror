@@ -1,7 +1,7 @@
 // eslint-disable-next-line @repo/internal/fs/filename-pattern-match
 import React from 'react';
 
-import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import Avatar, { AppearanceType } from '../src';
 
@@ -20,7 +20,7 @@ export default ({
       <Code>medium</Code> size - no <Code>presence</Code>, or
       <Code>status</Code>
     </Note>
-    <div style={{ marginTop: gridSize() }}>
+    <div style={{ marginTop: token('space.100', '8px') }}>
       <Avatar appearance={appearance} />
     </div>
 

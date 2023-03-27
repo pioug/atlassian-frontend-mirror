@@ -1,5 +1,11 @@
 # @atlaskit/form
 
+## 8.8.5
+
+### Patch Changes
+
+- [`74c1b81a476`](https://bitbucket.org/atlassian/atlassian-frontend/commits/74c1b81a476) - Replaces use of `gridSize` with space tokens. There is no expected visual change.
+
 ## 8.8.4
 
 ### Patch Changes

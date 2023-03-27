@@ -1,5 +1,11 @@
 # @atlaskit/ds-explorations
 
+## 2.0.8
+
+### Patch Changes
+
+- [`6ce08fbcba2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6ce08fbcba2) - [ux] Fixed a bug where the `<Box>` `justifyContent` prop was mistakenly applying `alignItems` for `start` and `end` values
+
 ## 2.0.7
 
 ### Patch Changes

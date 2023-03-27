@@ -1,5 +1,11 @@
 # @atlaskit/empty-state
 
+## 7.4.10
+
+### Patch Changes
+
+- [`74c1b81a476`](https://bitbucket.org/atlassian/atlassian-frontend/commits/74c1b81a476) - Replaces use of `gridSize` with space tokens. There is no expected visual change.
+
 ## 7.4.9
 
 ### Patch Changes

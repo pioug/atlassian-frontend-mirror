@@ -1,5 +1,11 @@
 # @atlaskit/flag
 
+## 15.0.10
+
+### Patch Changes
+
+- [`74c1b81a476`](https://bitbucket.org/atlassian/atlassian-frontend/commits/74c1b81a476) - Replaces use of `gridSize` with space tokens. There is no expected visual change.
+
 ## 15.0.9
 
 ### Patch Changes

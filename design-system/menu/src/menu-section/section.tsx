@@ -5,6 +5,7 @@ import { forwardRef, Fragment, Ref } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { N30A } from '@atlaskit/theme/colors';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize as gridSizeFn } from '@atlaskit/theme/constants';
 import { headingSizes } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';

@@ -285,8 +285,8 @@ const flexJustifyContentMap = {
   center: css({ justifyContent: 'center' }),
   flexStart: css({ justifyContent: 'flex-start' }),
   flexEnd: css({ justifyContent: 'flex-end' }),
-  start: css({ alignItems: 'start' }),
-  end: css({ alignItems: 'end' }),
+  start: css({ justifyContent: 'start' }),
+  end: css({ justifyContent: 'end' }),
 };
 
 type Display = keyof typeof displayMap;

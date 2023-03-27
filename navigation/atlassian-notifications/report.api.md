@@ -8,6 +8,7 @@
 ### Table of contents
 
 - [Main Entry Types](#main-entry-types)
+- [Peer Dependencies](#peer-dependencies)
 
 ### Main Entry Types
 
@@ -41,3 +42,16 @@ export type NotificationsProps = Omit<IframeProps, 'src'> & {
 ```
 
 <!--SECTION END: Main Entry Types-->
+
+### Peer Dependencies
+
+<!--SECTION START: Peer Dependencies-->
+
+```json
+{
+  "react": "^16.8.0",
+  "react-dom": "^16.8.0"
+}
+```
+
+<!--SECTION END: Peer Dependencies-->

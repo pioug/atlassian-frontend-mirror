@@ -3,7 +3,6 @@ import React from 'react';
 import Button from '@atlaskit/button/standard-button';
 import SuccessIcon from '@atlaskit/icon/glyph/check-circle';
 import { G300 } from '@atlaskit/theme/colors';
-import { gridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import { AutoDismissFlag, FlagGroup } from '../../src';
@@ -25,7 +24,7 @@ const AutoDismissFlagDefaultExample = () => {
 
   return (
     <div>
-      <p style={{ padding: `${gridSize() * 2}px` }}>
+      <p style={{ padding: token('space.200', '16px') }}>
         <Button appearance="primary" onClick={addFlag}>
           Add flag
         </Button>

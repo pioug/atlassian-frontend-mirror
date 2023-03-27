@@ -17,6 +17,8 @@ describe('@atlaskit comments', () => {
     });
 
     describe('construction', () => {
+      const user = userEvent.setup();
+
       afterEach(() => {
         jest.resetAllMocks();
       });
@@ -49,7 +51,6 @@ describe('@atlaskit comments', () => {
         render(<CommentAction {...props} />);
 
         const button = screen.getByRole('button');
-        const user = userEvent.setup();
 
         await user.click(button);
         expect(onClickMock).toHaveBeenCalledTimes(1);
@@ -64,7 +65,6 @@ describe('@atlaskit comments', () => {
         render(<CommentAction isDisabled={true} onClick={onClickMock} />);
 
         const button = screen.getByRole('button');
-        const user = userEvent.setup();
 
         await user.click(button);
         expect(onClickMock).not.toHaveBeenCalled();

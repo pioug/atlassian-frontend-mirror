@@ -7,7 +7,6 @@ import Error from '@atlaskit/icon/glyph/error';
 import Info from '@atlaskit/icon/glyph/info';
 import Warning from '@atlaskit/icon/glyph/warning';
 import { G300, G400, N500, R300, Y300 } from '@atlaskit/theme/colors';
-import { gridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import Flag from '../src';
@@ -88,7 +87,9 @@ export default () => (
     {Object.keys(appearances).map((type, idx) => (
       <Box
         key={type}
-        UNSAFE_style={idx ? { marginTop: gridSize() } : undefined}
+        UNSAFE_style={
+          idx ? { marginTop: token('space.100', '8px') } : undefined
+        }
       >
         <Flag
           actions={actions}

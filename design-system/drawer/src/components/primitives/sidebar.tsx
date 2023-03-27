@@ -5,7 +5,6 @@ import { FC } from 'react';
 import { css, CSSObject, jsx } from '@emotion/react';
 
 import { N500 } from '@atlaskit/theme/colors';
-import { gridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import { SidebarProps } from '../types';
@@ -18,9 +17,9 @@ const defaultStyle: CSSObject = {
   flexShrink: 0,
   flexDirection: 'column',
   height: '100vh',
-  paddingBottom: 2 * gridSize(),
-  paddingTop: 3 * gridSize(),
-  width: 8 * gridSize(),
+  paddingBottom: token('space.200', '16px'),
+  paddingTop: token('space.300', '24px'),
+  width: token('space.800', '64px'),
 };
 
 const sidebarCSS = (): CSSObject => defaultStyle;

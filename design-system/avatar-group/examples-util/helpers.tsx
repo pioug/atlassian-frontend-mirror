@@ -5,10 +5,7 @@ import styled from '@emotion/styled';
 
 import { SizeType } from '@atlaskit/avatar';
 import { N100, R400, R50, subtleHeading, text } from '@atlaskit/theme/colors';
-import { gridSize as getGridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
-
-const gridSize = getGridSize();
 
 const Wrapper = styled.div`
   margin-top: ${token('space.100', '8px')};
@@ -46,8 +43,8 @@ export const Gap = styled.span`
 `;
 
 export const Dot = styled(Gap)`
-  height: ${gridSize * 3}px;
-  width: ${gridSize * 3}px;
+  height: ${token('space.300', '24px')};
+  width: ${token('space.300', '24px')};
 `;
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 export const Heading = styled.div`

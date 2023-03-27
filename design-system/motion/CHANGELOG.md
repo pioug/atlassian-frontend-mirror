@@ -1,5 +1,11 @@
 # @atlaskit/motion
 
+## 1.3.2
+
+### Patch Changes
+
+- [`8081a4b12d3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8081a4b12d3) - Fixed a type error for the `ResizingHeight` component caused by not rendering valid JSX
+
 ## 1.3.1
 
 ### Patch Changes

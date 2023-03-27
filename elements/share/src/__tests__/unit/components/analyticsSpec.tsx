@@ -56,8 +56,8 @@ describe('share analytics', () => {
   });
 
   describe('shareTabClicked', () => {
-    it('should create event payload with shareContentType attribute if FF is ON', () => {
-      expect(shareTabClicked('shareToSlackTab', 'list', true)).toMatchObject({
+    it('should create event payload with shareContentType attribute', () => {
+      expect(shareTabClicked('shareToSlackTab', 'list')).toMatchObject({
         eventType: 'ui',
         action: 'clicked',
         actionSubject: 'tab',
@@ -66,19 +66,6 @@ describe('share analytics', () => {
           packageVersion: expect.any(String),
           packageName: expect.any(String),
           shareContentType: 'list',
-        }),
-      });
-    });
-
-    it('should create event payload without shareContentType attribute if FF is OFF', () => {
-      expect(shareTabClicked('shareToSlackTab', 'list', false)).toMatchObject({
-        eventType: 'ui',
-        action: 'clicked',
-        actionSubject: 'tab',
-        actionSubjectId: 'shareToSlackTab',
-        attributes: expect.objectContaining({
-          packageVersion: expect.any(String),
-          packageName: expect.any(String),
         }),
       });
     });

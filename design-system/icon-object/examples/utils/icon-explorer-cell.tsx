@@ -10,6 +10,7 @@ import Modal, {
   ModalFooter,
 } from '@atlaskit/modal-dialog';
 import Tooltip from '@atlaskit/tooltip';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize } from '@atlaskit/theme/constants';
 import { N30A } from '@atlaskit/theme/colors';
 

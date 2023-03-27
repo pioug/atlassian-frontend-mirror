@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import React, { Fragment, useRef } from 'react';
 
 import { isReducedMotion } from '../utils/accessibility';
 import { easeInOut } from '../utils/curves';
@@ -143,7 +143,7 @@ export const ResizingHeight = ({
   children: (opts: { ref: CallbackRef }) => React.ReactNode;
 }) => {
   const resizing = useResizingHeight(props);
-  return children(resizing);
+  return <Fragment>{children(resizing)}</Fragment>;
 };
 
 /**

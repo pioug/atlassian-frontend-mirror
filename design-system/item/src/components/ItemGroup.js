@@ -29,7 +29,11 @@ export default class ItemGroup extends Component {
     return (
       <div aria-label={ariaLabel} role={role} ref={innerRef}>
         {title ? (
-          <GroupTitle aria-hidden="true" isCompact={isCompact}>
+          <GroupTitle
+            aria-hidden="true"
+            isCompact={isCompact}
+            data-testid="item-group-title"
+          >
             <GroupTitleText>{title}</GroupTitleText>
             {elemAfter ? (
               <GroupTitleAfter

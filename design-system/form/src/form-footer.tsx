@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import { gridSize as getGridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import { Align } from './types';
 export interface FormFooterProps {
@@ -17,11 +17,9 @@ export interface FormFooterProps {
   align?: Align;
 }
 
-const gridSize = getGridSize();
-
 const formFooterWrapperStyles = css({
   display: 'flex',
-  marginTop: `${gridSize * 3}px`,
+  marginTop: token('space.300', '24px'),
   justifyContent: 'flex-end',
 });
 

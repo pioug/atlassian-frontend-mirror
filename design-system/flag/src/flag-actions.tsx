@@ -7,7 +7,6 @@ import { css, jsx } from '@emotion/react';
 import Button from '@atlaskit/button/custom-theme-button';
 import type { CustomThemeButtonProps } from '@atlaskit/button/types';
 import Inline from '@atlaskit/primitives/inline';
-import { gridSize as getGridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -32,12 +31,10 @@ type FlagActionsProps = {
   testId?: string;
 };
 
-const gridSize = getGridSize();
-
 const buttonStyles = css({
   '&&, a&&': {
     // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
-    padding: `0 ${gridSize}px !important`,
+    padding: `0 ${token('space.100', '8px')} !important`,
     background: `var(${VAR_BG_COLOR})`,
     color: `var(${VAR_COLOR}) !important`,
     fontWeight: token('font.weight.medium', '500'),

@@ -1,5 +1,11 @@
 # @atlaskit/page-header
 
+## 10.3.3
+
+### Patch Changes
+
+- [`74c1b81a476`](https://bitbucket.org/atlassian/atlassian-frontend/commits/74c1b81a476) - Replaces use of `gridSize` with space tokens. There is no expected visual change.
+
 ## 10.3.2
 
 ### Patch Changes

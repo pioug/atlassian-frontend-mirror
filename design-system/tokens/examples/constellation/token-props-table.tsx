@@ -1,9 +1,9 @@
-// import React from 'react';
 /** @jsx jsx */
 
 import { css, jsx } from '@emotion/react';
 
 import { N20, N300, N500, N800, R500 } from '@atlaskit/theme/colors';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize } from '@atlaskit/theme/constants';
 
 import token from '../../src/get-token';

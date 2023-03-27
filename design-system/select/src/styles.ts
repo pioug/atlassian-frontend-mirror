@@ -1,3 +1,4 @@
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize, fontFamily } from '@atlaskit/theme/constants';
 import {
   B100,

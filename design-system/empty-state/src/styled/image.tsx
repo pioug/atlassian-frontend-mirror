@@ -3,7 +3,7 @@ import { FC } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import { gridSize as getGridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 const CSS_VAR_MAX_WIDTH = '--max-width';
 const CSS_VAR_MAX_HEIGHT = '--max-height';
@@ -21,7 +21,7 @@ const imageStyles = css({
   maxWidth: `var(${CSS_VAR_MAX_WIDTH})`,
   maxHeight: `var(${CSS_VAR_MAX_HEIGHT})`,
   // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
-  margin: `0 auto ${getGridSize() * 3}px`,
+  margin: `0 auto ${token('space.300', '24px')}`,
 });
 
 /**

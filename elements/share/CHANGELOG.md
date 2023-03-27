@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 4.1.0
+
+### Minor Changes
+
+- [`d18dc3069a2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d18dc3069a2) - Removing the share to slack FF attribute as part of FF clean up
+
 ## 4.0.0
 
 ### Major Changes

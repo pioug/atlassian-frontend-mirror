@@ -26,6 +26,7 @@ import Select, {
   SelectProps,
   ValueType,
 } from '@atlaskit/select';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize } from '@atlaskit/theme/constants';
 
 import {

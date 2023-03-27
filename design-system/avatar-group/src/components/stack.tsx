@@ -4,6 +4,7 @@ import { Children, FC, ReactNode } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { BORDER_WIDTH } from '@atlaskit/avatar';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 

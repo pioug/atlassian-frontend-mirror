@@ -6,7 +6,6 @@ import AppSwitcherIcon from '@atlaskit/icon/glyph/app-switcher';
 import { token } from '@atlaskit/tokens';
 import { Checkbox } from '@atlaskit/checkbox';
 import Button from '@atlaskit/button';
-import { gridSize } from '@atlaskit/theme/constants';
 
 import { PopupSelect } from '../../src';
 
@@ -55,7 +54,7 @@ const PopupSelectExample = () => {
     <div
       css={{
         display: 'grid',
-        gap: gridSize() * 2,
+        gap: token('space.200', '16px'),
       }}
     >
       <div css={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -102,7 +101,7 @@ const PopupSelectExample = () => {
         css={{
           display: 'grid',
           gridTemplateColumns: '250px auto',
-          gap: gridSize() * 2,
+          gap: token('space.200', '16px'),
         }}
       >
         <div

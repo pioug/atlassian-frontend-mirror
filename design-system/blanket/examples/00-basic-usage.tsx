@@ -5,7 +5,6 @@ import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/standard-button';
 import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
-import { gridSize } from '@atlaskit/theme/constants';
 import type { ThemeModes } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
 
@@ -63,7 +62,7 @@ const BasicExample = () => {
           Show blanket
         </Button>
         <Button
-          style={{ marginLeft: gridSize() }}
+          style={{ marginLeft: token('space.100', '8px') }}
           testId="toggle-theme"
           onClick={toggleMode}
         >

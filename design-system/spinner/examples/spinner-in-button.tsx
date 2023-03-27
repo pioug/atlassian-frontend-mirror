@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
-// AFP-2532 TODO: Fix automatic suppressions below
-// eslint-disable-next-line @atlassian/tangerine/import/entry-points
-import { gridSize } from '@atlaskit/theme';
+import { token } from '@atlaskit/tokens';
 
 import Spinner from '../src';
 
@@ -24,7 +22,7 @@ function SpinnerButton() {
 }
 
 export default () => (
-  <div style={{ padding: gridSize() }}>
+  <div style={{ padding: token('space.100', '8px') }}>
     <SpinnerButton />
   </div>
 );

@@ -6,6 +6,7 @@ import { jsx } from '@emotion/react';
 import { useMergeRefs } from 'use-callback-ref';
 
 import Box from '@atlaskit/ds-explorations/box';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize } from '@atlaskit/theme/constants';
 
 import { DrawerPrimitiveProps, Widths } from '../types';

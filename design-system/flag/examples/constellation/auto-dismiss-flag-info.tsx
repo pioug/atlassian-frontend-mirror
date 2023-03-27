@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Button from '@atlaskit/button/standard-button';
-import { gridSize } from '@atlaskit/theme/constants';
 import InfoIcon from '@atlaskit/icon/glyph/info';
 import { N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -25,7 +24,7 @@ const AutoDismissFlagInfoExample = () => {
 
   return (
     <div>
-      <p style={{ padding: `${gridSize() * 2}px` }}>
+      <p style={{ padding: token('space.200', '16px') }}>
         <Button appearance="primary" onClick={addFlag}>
           Add flag
         </Button>

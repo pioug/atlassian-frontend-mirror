@@ -1,5 +1,12 @@
 # @atlaskit/page-header
 
+## 10.3.4
+
+### Patch Changes
+
+- [`261420360ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/261420360ec) - Upgrades component types to support React 18.
+- Updated dependencies
+
 ## 10.3.3
 
 ### Patch Changes

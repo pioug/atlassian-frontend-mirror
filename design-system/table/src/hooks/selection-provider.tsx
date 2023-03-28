@@ -1,4 +1,4 @@
-import React, { createContext, FC, useContext } from 'react';
+import React, { createContext, FC, ReactNode, useContext } from 'react';
 
 import useSelectionReducer, {
   defaultSelectableState,
@@ -28,7 +28,7 @@ const SelectionContext = createContext<SelectionContext>([
  * - [Code](https://atlassian.design/components/{packageName}/code)
  * - [Usage](https://atlassian.design/components/{packageName}/usage)
  */
-const SelectionProvider: FC = ({ children }) => {
+const SelectionProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const reducer = useSelectionReducer();
 
   return (

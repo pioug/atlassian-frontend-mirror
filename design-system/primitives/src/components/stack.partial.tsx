@@ -62,7 +62,10 @@ const alignItemsMap = {
 
 const flexGrowMap = {
   hug: css({ flexGrow: 0 }),
-  fill: css({ flexGrow: 1 }),
+  fill: css({
+    width: '100%',
+    flexGrow: 1,
+  }),
 };
 
 /**

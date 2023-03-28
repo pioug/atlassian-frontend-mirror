@@ -25,7 +25,7 @@ const defaultStyle: CSSObject = {
 const sidebarCSS = (): CSSObject => defaultStyle;
 
 const Sidebar: FC<SidebarProps> = ({ cssFn, ...props }) => {
-  // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage, @repo/internal/react/no-unsafe-spread-props, @repo/internal/react/use-primitives
+  // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage, @repo/internal/react/no-unsafe-spread-props
   return <div css={css(cssFn(defaultStyle))} {...props} />;
 };
 

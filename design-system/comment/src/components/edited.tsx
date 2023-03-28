@@ -36,7 +36,6 @@ export interface EditedProps extends WithAnalyticsEventsProps {
 
 const Edited: FC<EditedProps> = ({ children, onFocus, onMouseOver }) => {
   return (
-    // eslint-disable-next-line @repo/internal/react/use-primitives
     <span css={editedContentStyles} onFocus={onFocus} onMouseOver={onMouseOver}>
       {children}
     </span>

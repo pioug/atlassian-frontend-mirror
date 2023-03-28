@@ -1,4 +1,3 @@
-/* eslint-disable @repo/internal/react/use-primitives */
 /** @jsx jsx */
 import { forwardRef, HTMLAttributes, Ref } from 'react';
 

@@ -2,10 +2,10 @@
 import { jsx } from '@emotion/react';
 
 import Lozenge from '@atlaskit/lozenge';
+import Inline from '@atlaskit/primitives/inline';
+import Stack from '@atlaskit/primitives/stack';
 
 import { UNSAFE_Box as Box } from '../src';
-import Inline from '../src/components/inline.partial';
-import Stack from '../src/components/stack.partial';
 import Text from '../src/components/text.partial';
 
 const Author = ({ children }: any) => {
@@ -27,8 +27,8 @@ const CommentAction = ({ children }: any) => {
 export default () => {
   return (
     <Box>
-      <Stack gap="space.050">
-        <Inline gap="space.100" alignItems="center">
+      <Stack space="050">
+        <Inline space="100" alignBlock="center">
           <Author>Jane Citizen</Author>
           <Lozenge>Author</Lozenge>
           <Date>Jun 15, 2022</Date>
@@ -41,7 +41,7 @@ export default () => {
           aliquip ex ea commodo consequat.
         </Text>
         <Box color="subtle">
-          <Inline gap="space.100" divider="·">
+          <Inline space="100" separator="·">
             <CommentAction>Reply</CommentAction>
             <CommentAction>Edit</CommentAction>
             <CommentAction>Like</CommentAction>

@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, ReactNode } from 'react';
 
 import Avatar from '@atlaskit/avatar';
 import {
@@ -10,7 +10,7 @@ import Comment, { CommentAction, CommentAuthor } from '../src';
 
 import avatarImg from './utils/sample-avatar';
 
-const ExampleComment: FC<{ isHighlighted?: boolean }> = ({
+const ExampleComment: FC<{ isHighlighted?: boolean; children?: ReactNode }> = ({
   children,
   isHighlighted,
 }) => (

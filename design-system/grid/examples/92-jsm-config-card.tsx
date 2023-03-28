@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { FC, Fragment } from 'react';
+import { FC, Fragment, ReactNode } from 'react';
 
 import { jsx } from '@emotion/react';
 
@@ -10,6 +10,7 @@ import IconLink from './95-icon-link';
 
 const JSMConfigCard: FC<{
   title: string;
+  children?: ReactNode;
 }> = ({
   children = (
     <Fragment>

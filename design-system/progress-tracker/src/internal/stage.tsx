@@ -110,7 +110,6 @@ export default class ProgressTrackerStage extends PureComponent<
     } as CSSProperties;
 
     return (
-      // eslint-disable-next-line @repo/internal/react/use-primitives
       <li
         data-testid={testId}
         style={listInlineStyles}
@@ -146,7 +145,6 @@ export default class ProgressTrackerStage extends PureComponent<
             timeout={transitionDelay + transitionSpeed}
             classNames="fade"
           >
-            {/* eslint-disable-next-line @repo/internal/react/use-primitives */}
             <div css={titleStyles}>
               <Text
                 fontSize="size.100"

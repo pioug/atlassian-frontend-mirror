@@ -1,4 +1,4 @@
-import React, { createContext, FC, useContext } from 'react';
+import React, { createContext, FC, ReactNode, useContext } from 'react';
 
 type HeadingElement = 1 | 2 | 3 | 4 | 5 | 6;
 
@@ -13,6 +13,7 @@ export interface HeadingContextProps {
    * Optional - only apply this value if the intent is to reset the heading context outside the normal content flow, for example inside a `section`.
    */
   value?: HeadingElement;
+  children: ReactNode;
 }
 
 /**

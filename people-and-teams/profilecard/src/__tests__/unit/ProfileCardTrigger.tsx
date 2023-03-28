@@ -156,6 +156,35 @@ describe('ProfileCardTrigger', () => {
     expect(queryByTestId('profilecard')).toBe(null);
   });
 
+  it('should open "hover" trigger after focus', async () => {
+    const { getByTestId, queryByTestId, findByTestId } = renderWithIntl(
+      <ProfileCardTrigger
+        {...defaultProps}
+        resourceClient={mockResourceClient as ProfileClient}
+        trigger="hover"
+        testId="profilecard-trigger"
+      >
+        <span data-testid="test-inner-trigger">This is the trigger</span>
+      </ProfileCardTrigger>,
+    );
+
+    expect(queryByTestId('profilecard')).toBe(null);
+    expect(getByTestId('test-inner-trigger')).toBeDefined();
+    expect(getByTestId('profilecard-trigger')).toBeDefined();
+
+    act(() => {
+      fireEvent.focus(getByTestId('profilecard-trigger'));
+      jest.runAllTimers();
+    });
+
+    expect(fireAnalyticsEvent).toHaveBeenCalledWith(
+      expect.any(Function),
+      flexiTime(cardTriggered('user', 'hover')),
+    );
+
+    expect(await findByTestId('profilecard')).toBeDefined();
+  });
+
   it('should open "click" trigger after focus and enter keypress', () => {
     const { getByTestId, queryByTestId } = renderWithIntl(
       <>

@@ -1,4 +1,4 @@
-/* eslint-disable @repo/internal/react/use-primitives, @atlaskit/design-system/ensure-design-token-usage */
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React from 'react';
 
 import { CustomGlyphProps } from '@atlaskit/icon/types';

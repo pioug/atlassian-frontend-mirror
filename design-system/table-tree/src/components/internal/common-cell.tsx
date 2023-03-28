@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { CSSProperties, FC, HTMLAttributes } from 'react';
+import { CSSProperties, FC, HTMLAttributes, ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -25,6 +25,7 @@ const commonStyles = css({
 interface CommonCellProps {
   indent?: string;
   width?: string | number;
+  children?: ReactNode;
 }
 
 /**

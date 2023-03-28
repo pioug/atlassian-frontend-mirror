@@ -43,7 +43,7 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'このプレビューを表示するには、アクセスをリクエストするか別のアカウントで試してください。',
   'fabric.linking.join_to_view': '{context}に参加してこの課題を見る',
-  'fabric.linking.learn_more_about_smart_links': 'Smart Link の詳細',
+  'fabric.linking.learn_more_about_smart_links': 'スマート リンクの詳細',
   'fabric.linking.link_safety_warning_message':
     'リンク {unsafeLinkText} をクリックすると別のサイトが開きます。<a>実際のリンク先</a>',
   'fabric.linking.loading': '読み込み中…',
@@ -60,15 +60,15 @@ export default {
   'fabric.linking.preview_max_size': '全画面表示',
   'fabric.linking.preview_min_size': '全画面表示を閉じる',
   'fabric.linking.priority_blocker': 'ブロッカー',
-  'fabric.linking.priority_critical': '重度',
+  'fabric.linking.priority_critical': 'クリティカル',
   'fabric.linking.priority_high': '高',
   'fabric.linking.priority_highest': '最高',
   'fabric.linking.priority_low': '低',
   'fabric.linking.priority_lowest': '最低',
-  'fabric.linking.priority_major': '重大',
+  'fabric.linking.priority_major': 'メジャー',
   'fabric.linking.priority_medium': '中',
-  'fabric.linking.priority_minor': '中度',
-  'fabric.linking.priority_trivial': '最低',
+  'fabric.linking.priority_minor': 'マイナー',
+  'fabric.linking.priority_trivial': '軽度',
   'fabric.linking.priority_undefined': '未定義',
   'fabric.linking.request_access': 'アクセスをリクエスト',
   'fabric.linking.request_access_description':

@@ -1,4 +1,3 @@
-/* eslint-disable @repo/internal/react/use-primitives */
 import React, { forwardRef } from 'react';
 
 import Box, { BoxProps } from '@atlaskit/ds-explorations/box';

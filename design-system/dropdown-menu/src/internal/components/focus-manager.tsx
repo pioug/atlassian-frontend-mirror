@@ -1,6 +1,7 @@
 import React, {
   createContext,
   FC,
+  ReactNode,
   useCallback,
   useEffect,
   useRef,
@@ -32,7 +33,7 @@ export const FocusManagerContext = createContext<{
 /**
  * Focus manager logic
  */
-const FocusManager: FC = ({ children }) => {
+const FocusManager: FC<{ children: ReactNode }> = ({ children }) => {
   const menuItemRefs = useRef<FocusableElement[]>([]);
   const registerRef = useCallback((ref: FocusableElement) => {
     if (ref && !menuItemRefs.current.includes(ref)) {

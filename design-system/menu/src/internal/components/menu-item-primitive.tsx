@@ -3,8 +3,8 @@ import { useContext } from 'react';
 
 import { ClassNames, css, jsx } from '@emotion/react';
 
-import Inline, { InlineProps } from '@atlaskit/ds-explorations/inline';
 import FocusRing from '@atlaskit/focus-ring';
+import Inline, { InlineProps } from '@atlaskit/primitives/inline';
 import { N20, N200, N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -138,9 +138,9 @@ const selectedStyles = css({
   },
 });
 
-const gapMap: Record<SpacingMode, InlineProps['gap']> = {
-  compact: 'space.100',
-  cozy: 'space.150',
+const gapMap: Record<SpacingMode, InlineProps['space']> = {
+  compact: '100',
+  cozy: '150',
 };
 
 /**
@@ -192,10 +192,10 @@ const MenuItemPrimitive = ({
               ]),
               children: (
                 <Inline
-                  justifyContent="space-between"
-                  alignItems="center"
-                  gap={gapMap[spacing]}
-                  UNSAFE_style={{ flexGrow: 1, width: '100%' }}
+                  spread="space-between"
+                  alignBlock="center"
+                  space={gapMap[spacing]}
+                  grow="fill"
                 >
                   {iconBefore && (
                     <span data-item-elem-before css={beforeAfterElementStyles}>

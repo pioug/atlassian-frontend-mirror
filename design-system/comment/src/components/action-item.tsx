@@ -46,7 +46,7 @@ const ActionItem: FC<CommentActionItemProps> = ({
   isDisabled,
 }) => {
   return (
-    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions, @repo/internal/react/use-primitives
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
     <span onClick={onClick} onFocus={onFocus} onMouseOver={onMouseOver}>
       <Button
         appearance="subtle-link"

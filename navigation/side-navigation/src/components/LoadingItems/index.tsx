@@ -69,7 +69,6 @@ const LoadingItems = ({
     <ExitingPersistence>
       <FadeIn key={`loading-section-${isLoading}`} duration={mediumDurationMs}>
         {(motion, state) => (
-          // eslint-disable-next-line @repo/internal/react/use-primitives
           <span
             {...motion}
             data-testid={testId && `${testId}--${state}`}

@@ -1,5 +1,18 @@
 # @atlaskit/code
 
+## 14.5.2
+
+### Patch Changes
+
+- [`3ca97be0c06`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3ca97be0c06) - Internal change only. Replace usages of Inline/Stack with stable version from `@atlaskit/primitives`.
+
+## 14.5.1
+
+### Patch Changes
+
+- [`261420360ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/261420360ec) - Upgrades component types to support React 18.
+- Updated dependencies
+
 ## 14.5.0
 
 ### Minor Changes

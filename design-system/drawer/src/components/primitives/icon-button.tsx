@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { FC, MouseEventHandler } from 'react';
+import { FC, MouseEventHandler, ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -25,10 +25,10 @@ const iconButtonStyles = css({
 interface IconButtonProps {
   testId?: string;
   onClick?: MouseEventHandler<HTMLButtonElement>;
+  children: ReactNode;
 }
 
 const IconButton: FC<IconButtonProps> = ({ children, onClick, testId }) => (
-  // eslint-disable-next-line @repo/internal/react/use-primitives
   <button
     type="button"
     css={iconButtonStyles}

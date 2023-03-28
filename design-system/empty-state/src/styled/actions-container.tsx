@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -20,7 +20,7 @@ const actionsStyles = css({
  *
  * @internal
  */
-const ActionsContainer: FC = ({ children }) => (
+const ActionsContainer: FC<{ children: ReactNode }> = ({ children }) => (
   <div css={actionsStyles}>{children}</div>
 );
 

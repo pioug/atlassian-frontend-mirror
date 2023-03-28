@@ -1,5 +1,12 @@
 # @atlaskit/form
 
+## 8.8.6
+
+### Patch Changes
+
+- [`261420360ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/261420360ec) - Upgrades component types to support React 18.
+- Updated dependencies
+
 ## 8.8.5
 
 ### Patch Changes

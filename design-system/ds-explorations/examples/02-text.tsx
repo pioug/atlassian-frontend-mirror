@@ -1,24 +1,21 @@
 import React from 'react';
 
 import Heading from '@atlaskit/heading';
+import Inline from '@atlaskit/primitives/inline';
+import Stack from '@atlaskit/primitives/stack';
 
-import {
-  UNSAFE_Box as Box,
-  UNSAFE_Inline as Inline,
-  UNSAFE_Stack as Stack,
-  UNSAFE_Text as Text,
-} from '../src';
+import { UNSAFE_Box as Box, UNSAFE_Text as Text } from '../src';
 
 export default () => {
   return (
-    <Stack gap="space.300">
+    <Stack space="300">
       <Heading level="h400" as="h3">
         Text examples
       </Heading>
-      <Stack gap="space.200">
+      <Stack space="200">
         <Box display="block">
           <Heading level="h300">Font size</Heading>
-          <Inline gap="space.200" testId="font-sizes">
+          <Inline space="200" testId="font-sizes">
             {(
               [
                 'size.050',
@@ -41,7 +38,7 @@ export default () => {
           <Heading level="h300" as="h4">
             Font weight
           </Heading>
-          <Inline gap="space.200" testId="font-weights">
+          <Inline space="200" testId="font-weights">
             {(['regular', 'medium', 'semibold', 'bold'] as const).map(
               (fontWeight) => (
                 <Text key={fontWeight} fontWeight={fontWeight}>
@@ -55,7 +52,7 @@ export default () => {
           <Heading level="h300" as="h4">
             Line height
           </Heading>
-          <Inline gap="space.200" testId="line-heights" alignItems="center">
+          <Inline space="200" testId="line-heights" alignBlock="center">
             {(
               [
                 'lineHeight.100',
@@ -80,7 +77,7 @@ export default () => {
           <Heading level="h300" as="h4">
             Testing
           </Heading>
-          <Stack gap="space.050" testId="testing">
+          <Stack space="050" testId="testing">
             <Text as="p">Paragraph</Text>
             <Text as="div">A div</Text>
             <Text>

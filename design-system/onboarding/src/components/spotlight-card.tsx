@@ -30,7 +30,7 @@ const defaultHeaderStyles = css({
   justifyContent: 'space-between',
 });
 
-const DefaultHeader: React.FC<{}> = ({ children }) => (
+const DefaultHeader: React.FC<{ children: ReactNode }> = ({ children }) => (
   <div css={defaultHeaderStyles}>{children}</div>
 );
 
@@ -41,7 +41,7 @@ const defaultFooterStyles = css({
   justifyContent: 'space-between',
 });
 
-const DefaultFooter: React.FC<{}> = ({ children }) => (
+const DefaultFooter: React.FC<{ children: ReactNode }> = ({ children }) => (
   <div css={defaultFooterStyles}>{children}</div>
 );
 

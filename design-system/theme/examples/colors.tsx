@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 import color from 'color';
@@ -98,10 +98,12 @@ const firstHeadingStyles = css({
   marginTop: 0,
 });
 
-export const Heading: FC<{ className?: string }> = ({
-  children,
-  className,
-}) => (
+type HeadingProps = {
+  className?: string;
+  children: ReactNode;
+};
+
+export const Heading: FC<HeadingProps> = ({ children, className }) => (
   <h6 className={className} css={headingStyles}>
     {children}
   </h6>

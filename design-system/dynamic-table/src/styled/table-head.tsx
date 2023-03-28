@@ -1,6 +1,6 @@
 /* eslint-disable @repo/internal/react/require-jsdoc */
 /** @jsx jsx */
-import { FC, forwardRef, HTMLProps } from 'react';
+import { FC, forwardRef, HTMLProps, ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -23,8 +23,10 @@ import {
 } from './constants';
 
 const gridSize = getGridSize();
+
 interface HeadProps {
   isRanking?: boolean;
+  children: ReactNode;
 }
 
 const CSS_VAR_TEXT_COLOR = '--local-dynamic-table-text-color';

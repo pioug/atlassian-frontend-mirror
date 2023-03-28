@@ -31,7 +31,6 @@ const LoadingIndicator = ({
 }: {
   statusLabel: MenuWrapperProps['statusLabel'];
 }) => (
-  // eslint-disable-next-line @repo/internal/react/use-primitives
   <div css={spinnerContainerStyles}>
     <Spinner size="small" />
     <VisuallyHidden role="status">{statusLabel}</VisuallyHidden>

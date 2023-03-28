@@ -1,5 +1,17 @@
 # @atlaskit/ds-explorations
 
+## 2.0.10
+
+### Patch Changes
+
+- [`9fb52345e8d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9fb52345e8d) - Update some examples to use Inline and Stack from `@atlaskit/primitives`.
+
+## 2.0.9
+
+### Patch Changes
+
+- [`261420360ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/261420360ec) - Upgrades component types to support React 18.
+
 ## 2.0.8
 
 ### Patch Changes

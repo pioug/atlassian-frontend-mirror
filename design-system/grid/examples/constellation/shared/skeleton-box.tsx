@@ -1,8 +1,8 @@
-import React, { FC } from 'react';
+import React, { FC, ReactNode } from 'react';
 
 import Box from '@atlaskit/ds-explorations/box';
 
-export const SkeletonBox: FC = ({ children }) => (
+export const SkeletonBox: FC<{ children: ReactNode }> = ({ children }) => (
   <Box
     display="flex"
     alignItems="center"

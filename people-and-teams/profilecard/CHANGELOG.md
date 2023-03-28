@@ -1,5 +1,17 @@
 # @atlaskit/profilecard
 
+## 19.2.0
+
+### Minor Changes
+
+- [`2af6359970f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2af6359970f) - [ux] This change (related to TSLA-521) adds an onFocus handler for the profile card trigger that performs the same behavior as onHover. The change also adds an onBlur handler.
+
+## 19.1.1
+
+### Patch Changes
+
+- [`f80d2e43a41`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f80d2e43a41) - Added traceId, errorSource and errorMessage to analytic events
+
 ## 19.1.0
 
 ### Minor Changes

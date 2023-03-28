@@ -1,6 +1,6 @@
 /* eslint-disable @repo/internal/react/require-jsdoc */
 /** @jsx jsx */
-import { FC, forwardRef, HTMLProps } from 'react';
+import { FC, forwardRef, HTMLProps, ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -12,6 +12,7 @@ const containerStyles = css({
 });
 
 type ContainerProps = HTMLProps<HTMLDivElement> & { testId?: string };
+
 export const Container = (props: ContainerProps) => {
   const { testId, ...rest } = props;
   return (
@@ -32,7 +33,12 @@ const spinnerBackdropStyles = css({
   pointerEvents: 'none',
 });
 
-export const SpinnerBackdrop: FC<{ testId?: string }> = ({
+type SpinnerBackdropProps = {
+  testId?: string;
+  children: ReactNode;
+};
+
+export const SpinnerBackdrop: FC<SpinnerBackdropProps> = ({
   children,
   testId,
 }) => (

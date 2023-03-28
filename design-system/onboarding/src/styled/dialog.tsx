@@ -1,4 +1,6 @@
 /** @jsx jsx */
+import { ReactNode } from 'react';
+
 import { css, jsx } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
@@ -39,9 +41,9 @@ export const DialogImage: React.FC<
  *
  * @internal
  */
-export const DialogActionItemContainer: React.FC<{}> = ({ children }) => (
-  <div css={actionItemContainerStyles}>{children}</div>
-);
+export const DialogActionItemContainer: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => <div css={actionItemContainerStyles}>{children}</div>;
 
 /**
  * __Dialog action item__
@@ -50,6 +52,6 @@ export const DialogActionItemContainer: React.FC<{}> = ({ children }) => (
  *
  * @internal
  */
-export const DialogActionItem: React.FC<{}> = ({ children }) => (
-  <div css={actionItemStyles}>{children}</div>
-);
+export const DialogActionItem: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => <div css={actionItemStyles}>{children}</div>;

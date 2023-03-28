@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { FC, memo, useMemo } from 'react';
+import { FC, memo, ReactNode, useMemo } from 'react';
 
 import { jsx } from '@emotion/react';
 
@@ -16,6 +16,10 @@ export type RowProps = {
    * in the rendered code, serving as a hook for automated tests.
    */
   testId?: string;
+  /**
+   * Content of the row.
+   */
+  children?: ReactNode;
 };
 
 /**

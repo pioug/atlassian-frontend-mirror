@@ -1,11 +1,11 @@
 /** @jsx jsx */
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 
 import { jsx } from '@emotion/react';
 
 import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
 
-const Card: FC = ({ children }) => {
+const Card: FC<{ children: ReactNode }> = ({ children }) => {
   return (
     <Box
       display="block"

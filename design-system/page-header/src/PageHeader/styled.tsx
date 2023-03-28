@@ -5,7 +5,7 @@
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention */
 /** @jsx jsx */
 
-import React from 'react';
+import React, { ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -74,7 +74,9 @@ const bottomBarStyles = css({
  * the BottomBar and its Breadcrumbs.
  *
  */
-export const OuterWrapper: React.FC<React.ReactNode> = ({ children }) => {
+export const OuterWrapper: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
   return <div css={outerStyles}>{children}</div>;
 };
 
@@ -111,6 +113,7 @@ export const StyledTitleWrapper = React.forwardRef<
 
 interface TitleProps {
   truncateTitle?: boolean;
+  children?: ReactNode;
 }
 
 /**
@@ -160,7 +163,9 @@ export const TitleContainer: React.FC<TitleProps> = ({
  * An actions wrapper is a wrapper for the actions, which appear on the top right of the PageHeader component.
  *
  */
-export const ActionsWrapper: React.FC = ({ children }) => {
+export const ActionsWrapper: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
   return <div css={actionStyles}>{children}</div>;
 };
 
@@ -170,6 +175,8 @@ export const ActionsWrapper: React.FC = ({ children }) => {
  * A bottom bar wrapper is a wrapper for the bottom bar, which appears at the bottom of the PageHeader component.
  *
  */
-export const BottomBarWrapper: React.FC = ({ children }) => {
+export const BottomBarWrapper: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
   return <div css={bottomBarStyles}>{children}</div>;
 };

@@ -39,7 +39,7 @@ const NoIcons = styled.div`
 
 interface Icon {
   keywords: string[];
-  component: ComponentType;
+  component: ComponentType<any>;
   componentName: string;
   package: string;
 }

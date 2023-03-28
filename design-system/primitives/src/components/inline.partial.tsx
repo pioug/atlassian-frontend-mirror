@@ -79,7 +79,10 @@ const justifyContentMap = {
 
 const flexGrowMap = {
   hug: css({ flexGrow: 0 }),
-  fill: css({ flexGrow: 1 }),
+  fill: css({
+    width: '100%',
+    flexGrow: 1,
+  }),
 };
 
 const flexWrapStyles = css({ flexWrap: 'wrap' });
@@ -204,7 +207,7 @@ const separatorStyles = css({
   userSelect: 'none',
 });
 
-const Separator: FC = ({ children }) => (
+const Separator: FC<{ children: string }> = ({ children }) => (
   <span css={separatorStyles}>{children}</span>
 );
 

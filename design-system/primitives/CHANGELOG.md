@@ -1,5 +1,17 @@
 # @atlaskit/primitives
 
+## 0.4.0
+
+### Minor Changes
+
+- [`003c381e37d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/003c381e37d) - Apply `width: 100%` to Inline and Stack when `grow` prop is set to `fill`.
+
+## 0.3.3
+
+### Patch Changes
+
+- [`261420360ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/261420360ec) - Upgrades component types to support React 18.
+
 ## 0.3.2
 
 ### Patch Changes

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -14,9 +14,11 @@ import { token } from '@atlaskit/tokens';
 
 const fontFamily = getFontFamily();
 const gridSize = getGridSize();
+
 export interface LabelProps {
   id?: string;
   htmlFor: string;
+  children: ReactNode;
 }
 
 const labelStyles = css({

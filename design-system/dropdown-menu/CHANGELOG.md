@@ -1,5 +1,12 @@
 # @atlaskit/dropdown-menu
 
+## 11.7.2
+
+### Patch Changes
+
+- [`261420360ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/261420360ec) - Upgrades component types to support React 18.
+- Updated dependencies
+
 ## 11.7.1
 
 ### Patch Changes

@@ -79,7 +79,7 @@ const dividerStyles = css({
   userSelect: 'none',
 });
 
-const Divider: FC = ({ children }) => (
+const Divider: FC<{ children: string }> = ({ children }) => (
   <span css={dividerStyles}>{children}</span>
 );
 

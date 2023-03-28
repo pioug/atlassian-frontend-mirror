@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 1.2.7
+
+### Patch Changes
+
+- [`23b381db41c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/23b381db41c) - Upgrades component types to support React 18.
+
 ## 1.2.6
 
 ### Patch Changes

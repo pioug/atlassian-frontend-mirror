@@ -160,7 +160,6 @@ const CalendarWithMode = forwardRef<HTMLDivElement, CalendarProps>(
         ref={ref}
       >
         <VisuallyHidden>
-          {/* eslint-disable-next-line @repo/internal/react/use-primitives */}
           <span id={announceId} aria-live="assertive" aria-relevant="text">
             {announcerDate}
           </span>

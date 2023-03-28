@@ -55,7 +55,6 @@ const Skeleton = ({
   const groupDataAttribute = groupName && `data-${groupName}`;
 
   return (
-    // eslint-disable-next-line @repo/internal/react/use-primitives
     <div
       data-testid={testId}
       css={[

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { FC, useState } from 'react';
+import { FC, ReactNode, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -12,7 +12,7 @@ const readViewContainerStyles = css({
   margin: `${token('space.100', '8px')} ${token('space.0', '0px')}`,
 });
 
-const ReadViewContainer: FC = ({ children }) => (
+const ReadViewContainer: FC<{ children: ReactNode }> = ({ children }) => (
   <div css={readViewContainerStyles}>{children}</div>
 );
 
@@ -24,7 +24,9 @@ const messageStyles = css({
   color: token('color.text.inverse', 'white'),
 });
 
-const Message: FC = ({ children }) => <div css={messageStyles}>{children}</div>;
+const Message: FC<{ children: string }> = ({ children }) => (
+  <div css={messageStyles}>{children}</div>
+);
 
 const headingOneStyles = css({
   fontSize: token('font.size.400', '24px'),
@@ -32,7 +34,7 @@ const headingOneStyles = css({
   lineHeight: 'inherit',
 });
 
-const HeadingOne: FC = ({ children }) => (
+const HeadingOne: FC<{ children: string }> = ({ children }) => (
   <h1 css={headingOneStyles}>{children}</h1>
 );
 

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 
 import { jsx } from '@emotion/react';
 
@@ -15,6 +15,10 @@ type TableProps = {
    * @see 'https://www.w3.org/WAI/EO/Drafts/tutorials/tables/summary/'
    */
   summary?: string;
+  /**
+   * Table content.
+   */
+  children: ReactNode;
 };
 
 /**

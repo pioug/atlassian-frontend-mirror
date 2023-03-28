@@ -1,4 +1,4 @@
-import React, { FC, useRef, useState } from 'react';
+import React, { FC, ReactNode, useRef, useState } from 'react';
 
 import { PAGE_LAYOUT_SLOT_SELECTOR } from '../common/constants';
 
@@ -33,7 +33,9 @@ const byDOMOrder = (a: SkipLinkData, b: SkipLinkData) => {
 };
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const SkipLinksController: FC = ({ children }) => {
+export const SkipLinksController: FC<{ children: ReactNode }> = ({
+  children,
+}) => {
   const [links, setLinks] = useState<SkipLinkData[]>([]);
 
   const registerSkipLink = useRef((skipLinkData: SkipLinkData) => {

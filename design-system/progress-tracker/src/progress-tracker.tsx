@@ -169,7 +169,6 @@ export default class ProgressTracker extends PureComponent<
     };
 
     return (
-      // eslint-disable-next-line @repo/internal/react/use-primitives
       <ul
         data-testid={testId}
         style={listInlineStyles}

@@ -1,12 +1,13 @@
 import React from 'react';
 
+import Inline from '@atlaskit/primitives/inline';
+
 import Box from '../src/components/box.partial';
-import Inline from '../src/components/inline.partial';
 import Text from '../src/components/text.partial';
 
 export default () => {
   return (
-    <Inline gap="space.100">
+    <Inline space="100">
       <Box
         paddingBlock="space.400"
         paddingInline="space.400"

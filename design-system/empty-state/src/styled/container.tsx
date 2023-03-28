@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -31,6 +31,12 @@ const narrowContainerStyles = css({
   maxWidth: `${columnWidth * 4 + gutter * 3}px`,
 });
 
+type ContainerProps = {
+  testId?: string;
+  width: Width;
+  children: ReactNode;
+};
+
 /**
  * __Container__
  *
@@ -38,11 +44,7 @@ const narrowContainerStyles = css({
  *
  * @internal
  */
-const Container: FC<{ testId?: string; width: Width }> = ({
-  children,
-  width,
-  testId,
-}) => (
+const Container: FC<ContainerProps> = ({ children, width, testId }) => (
   <div
     data-testid={testId}
     css={[

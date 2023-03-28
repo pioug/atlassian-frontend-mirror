@@ -9,19 +9,16 @@ const IGNORED_ERRORS = [
   'TEAMS_TEAM_DELETED',
 ];
 
-function isIgnoredError(error: GraphQLError): boolean {
-  return !!error && IGNORED_ERRORS.includes(error.reason);
+function isIgnoredError(error?: GraphQLError): boolean {
+  return !!error && !!error.reason && IGNORED_ERRORS.includes(error.reason);
 }
 
-export const getErrorAttributes = (error?: any) => {
-  const traceId: string | null | undefined = !!error
-    ? (error.response as Response | undefined)?.headers?.get('atl-traceid')
-    : undefined;
-
+export const getErrorAttributes = (error?: GraphQLError) => {
   return {
+    errorMessage: error?.message,
     errorStatus: error?.code,
-    errorReason: error?.reason,
+    errorReason: error?.reason || 'default',
     isSLOFailure: !isIgnoredError(error),
-    traceId: traceId ?? undefined,
+    traceId: error?.traceId ?? undefined,
   };
 };

@@ -1,5 +1,11 @@
 # @atlaskit/heading
 
+## 1.2.0
+
+### Minor Changes
+
+- [`261420360ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/261420360ec) - Upgrades component types to support React 18.
+
 ## 1.1.4
 
 ### Patch Changes

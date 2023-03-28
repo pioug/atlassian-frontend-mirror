@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -17,7 +17,7 @@ const spinnerContainerStyles = css({
  *
  * @internal
  */
-const SpinnerContainer: FC = ({ children }) => (
+const SpinnerContainer: FC<{ children?: ReactNode }> = ({ children }) => (
   <div css={spinnerContainerStyles}>{children}</div>
 );
 

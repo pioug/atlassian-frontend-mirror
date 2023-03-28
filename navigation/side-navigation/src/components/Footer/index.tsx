@@ -2,9 +2,9 @@
 import React from 'react';
 
 import Box from '@atlaskit/ds-explorations/box';
-import Stack from '@atlaskit/ds-explorations/stack';
 import Text from '@atlaskit/ds-explorations/text';
 import warnOnce from '@atlaskit/ds-lib/warn-once';
+import Stack from '@atlaskit/primitives/stack';
 import { N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -121,11 +121,11 @@ const Footer = ({
 }: NewFooterProps) => {
   return (
     <Box display="block" padding="space.100" testId={testId}>
-      <Stack gap="space.100" alignItems="center">
+      <Stack space="100" alignInline="center">
         <Box display="inlineBlock" width="size.200" height="size.200">
           {iconBefore}
         </Box>
-        <Stack gap="space.075">
+        <Stack space="075">
           <Text
             fontSize="size.075"
             textAlign="center"

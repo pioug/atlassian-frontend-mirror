@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -19,7 +19,7 @@ const descriptionStyles = css({
  *
  * @internal
  */
-const Description: FC = ({ children }) => (
+const Description: FC<{ children: ReactNode }> = ({ children }) => (
   <p css={descriptionStyles}>{children}</p>
 );
 

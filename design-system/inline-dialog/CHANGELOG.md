@@ -1,5 +1,12 @@
 # @atlaskit/inline-dialog
 
+## 13.4.9
+
+### Patch Changes
+
+- [`261420360ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/261420360ec) - Upgrades component types to support React 18.
+- Updated dependencies
+
 ## 13.4.8
 
 ### Patch Changes

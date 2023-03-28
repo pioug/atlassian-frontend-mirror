@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { ChangeEvent, FC, useState } from 'react';
+import React, { ChangeEvent, FC, ReactNode, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 import Lorem from 'react-lorem-component';
@@ -24,11 +24,16 @@ const sizes: Sizes[] = ['small', 'default', 'large'];
 const spacing: Spacing[] = ['comfortable', 'cozy', 'compact'];
 const values = ['first', 'second', 'third', 'fourth', 'fifth', 'sixth'];
 
+type FooterProps = {
+  appearance: string;
+  children: ReactNode;
+};
+
 const invertedFooterStyles = css({
   backgroundColor: token('color.text', N900),
 });
 
-const Footer: FC<{ appearance: string }> = ({ appearance, children }) => (
+const Footer: FC<FooterProps> = ({ appearance, children }) => (
   <Box
     as="footer"
     display="block"
@@ -49,7 +54,7 @@ const pageStyles = css({
   marginInline: 'auto',
 });
 
-const SpreadInlineLayout: React.FC<{ children: React.ReactNode }> = ({
+const SpreadInlineLayout: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   return (

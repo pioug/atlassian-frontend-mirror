@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { ReactNode, useRef } from 'react';
 
 import { waitFor } from '@testing-library/dom';
 import { cleanup, fireEvent, render } from '@testing-library/react';
@@ -65,7 +65,10 @@ const ThemedComponent = () => {
   );
 };
 
-const HookWrapper: React.FC<{ isAuto?: boolean }> = ({ isAuto, children }) => {
+const HookWrapper: React.FC<{ isAuto?: boolean; children: ReactNode }> = ({
+  isAuto,
+  children,
+}) => {
   setGlobalTheme({ colorMode: isAuto ? 'auto' : 'dark' });
   return <>{children}</>;
 };

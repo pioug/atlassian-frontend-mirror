@@ -40,7 +40,6 @@ const progressBarStyles = css({
  *
  */
 const ProgressBar = ({ percentageComplete, testId }: StageBarProps) => (
-  // eslint-disable-next-line @repo/internal/react/use-primitives
   <div
     data-testid={testId}
     style={{

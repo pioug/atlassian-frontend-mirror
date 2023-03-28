@@ -26,6 +26,8 @@ interface AKThemeProviderProps {
   // (undocumented)
   background?: ThemedValue<string>;
   // (undocumented)
+  children?: ReactNode;
+  // (undocumented)
   mode?: ThemeModes;
 }
 

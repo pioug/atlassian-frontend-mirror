@@ -7,6 +7,7 @@ import { ExitingPersistence, FadeIn } from '@atlaskit/motion';
 type ExpanderProps = {
   isExpanded: boolean;
   testId?: string;
+  children: React.ReactNode;
 };
 
 const Expander: React.FC<ExpanderProps> = ({

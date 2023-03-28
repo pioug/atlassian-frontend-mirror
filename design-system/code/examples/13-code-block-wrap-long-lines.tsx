@@ -1,9 +1,7 @@
 import React from 'react';
 
-import {
-  UNSAFE_Stack as Stack,
-  UNSAFE_Text as Text,
-} from '@atlaskit/ds-explorations';
+import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
+import Stack from '@atlaskit/primitives/stack';
 
 import { Code, CodeBlock } from '../src';
 
@@ -14,8 +12,8 @@ import QUERY, {type criticalDataQuery} from '@atlassian/jira-software-backlog/sr
 
 export default function Component() {
   return (
-    <Stack gap="space.600">
-      <Stack gap="space.075">
+    <Stack space="600">
+      <Stack space="075">
         <Text fontWeight="semibold">
           <Code>{`showLineNumbers={true}`}</Code> and{' '}
           <Code>{`shouldWrapLongLines={true}`}</Code>
@@ -27,7 +25,7 @@ export default function Component() {
           shouldWrapLongLines={true}
         />
       </Stack>
-      <Stack gap="space.075">
+      <Stack space="075">
         <Text fontWeight="semibold">
           <Code>{`showLineNumbers={true}`}</Code> and{' '}
           <Code>{`shouldWrapLongLines={true}`}</Code> and{' '}
@@ -41,7 +39,7 @@ export default function Component() {
           shouldWrapLongLines={true}
         />
       </Stack>
-      <Stack gap="space.075">
+      <Stack space="075">
         <Text fontWeight="semibold">
           <Code>{`showLineNumbers={true}`}</Code> and{' '}
           <Code>{`shouldWrapLongLines={false}`}</Code>
@@ -53,7 +51,7 @@ export default function Component() {
           shouldWrapLongLines={false}
         />
       </Stack>
-      <Stack gap="space.075">
+      <Stack space="075">
         <Text fontWeight="semibold">
           <Code>{`showLineNumbers={true}`}</Code> and{' '}
           <Code>{`shouldWrapLongLines={false}`}</Code> and{' '}
@@ -67,7 +65,7 @@ export default function Component() {
           shouldWrapLongLines={false}
         />
       </Stack>
-      <Stack gap="space.075">
+      <Stack space="075">
         <Text fontWeight="semibold">
           <Code>{`showLineNumbers={false}`}</Code> and{' '}
           <Code>{`shouldWrapLongLines={true}`}</Code>
@@ -79,7 +77,7 @@ export default function Component() {
           shouldWrapLongLines={true}
         />
       </Stack>
-      <Stack gap="space.075">
+      <Stack space="075">
         <Text fontWeight="semibold">
           <Code>{`showLineNumbers={false}`}</Code> and{' '}
           <Code>{`shouldWrapLongLines={true}`}</Code> and{' '}
@@ -93,7 +91,7 @@ export default function Component() {
           shouldWrapLongLines={true}
         />
       </Stack>
-      <Stack gap="space.075">
+      <Stack space="075">
         <Text fontWeight="semibold">
           <Code>{`showLineNumbers={false}`}</Code> and{' '}
           <Code>{`shouldWrapLongLines={false}`}</Code>
@@ -105,7 +103,7 @@ export default function Component() {
           shouldWrapLongLines={false}
         />
       </Stack>
-      <Stack gap="space.075">
+      <Stack space="075">
         <Text fontWeight="semibold">
           <Code>{`showLineNumbers={false}`}</Code> and{' '}
           <Code>{`shouldWrapLongLines={false}`}</Code> and{' '}

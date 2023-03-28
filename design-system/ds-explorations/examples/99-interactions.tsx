@@ -8,14 +8,14 @@ import { Code } from '@atlaskit/code';
 import FocusRing from '@atlaskit/focus-ring';
 import Heading from '@atlaskit/heading';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
+import Inline from '@atlaskit/primitives/inline';
+import Stack from '@atlaskit/primitives/stack';
 import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
 
 import {
   UNSAFE_Box as Box,
-  UNSAFE_Inline as Inline,
   UNSAFE_InteractionSurface as InteractionSurface,
-  UNSAFE_Stack as Stack,
   UNSAFE_Text as Text,
 } from '../src';
 
@@ -36,9 +36,9 @@ const fieldsetStyles = css({
 export default () => {
   return (
     <Box width="size.500" padding="space.100" testId="all">
-      <Stack gap="space.200">
+      <Stack space="200">
         <Heading level="h400">Current ADS Buttons</Heading>
-        <Inline gap="space.200">
+        <Inline space="200">
           <Button appearance="primary">brand.bold</Button>
           <Button appearance="default">neutral</Button>
           <Button appearance="warning">warning.bold</Button>
@@ -46,7 +46,7 @@ export default () => {
         <Heading level="h400">
           Buttons with <Code>InteractionSurface</Code>
         </Heading>
-        <Inline gap="space.200" testId="buttons">
+        <Inline space="200" testId="buttons">
           {(['brand.bold', 'neutral', 'warning.bold'] as const).map((app) => (
             <FocusRing key={app}>
               <Box
@@ -74,7 +74,7 @@ export default () => {
         <Heading level="h400">
           Icon Buttons with <Code>InteractionSurface</Code>
         </Heading>
-        <Inline gap="space.200" testId="icon-buttons">
+        <Inline space="200" testId="icon-buttons">
           <FocusRing>
             <Box
               as="button"
@@ -129,7 +129,7 @@ export default () => {
         <Heading level="h400">
           Progress Indicator with <Code>InteractionSurface</Code>
         </Heading>
-        <Inline gap="space.200" testId="progress-indicators">
+        <Inline space="200" testId="progress-indicators">
           {(['brand.bold', 'neutral', 'warning.bold'] as const).map((app) => (
             <FocusRing>
               <Box
@@ -149,7 +149,7 @@ export default () => {
           ))}
         </Inline>
         <Heading level="h400">Textfield / input spikes</Heading>
-        <Inline gap="space.200">
+        <Inline space="200">
           <Textfield />
           <Box
             as="fieldset"

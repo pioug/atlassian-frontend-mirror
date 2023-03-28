@@ -21,7 +21,7 @@ const CustomNestingItem = ({
   ...props
 }: CustomItemComponentProps & { href: string }) => {
   return (
-    // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props, @repo/internal/react/use-primitives
+    // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
     <a href={href} {...props}>
       {children}
     </a>

@@ -22,7 +22,7 @@ const headerStyles = css([
  *
  * @internal
  */
-const EmptyStateHeader: FC = ({ children }) => (
+const EmptyStateHeader: FC<{ children: string }> = ({ children }) => (
   <h4 css={headerStyles}>{children}</h4>
 );
 

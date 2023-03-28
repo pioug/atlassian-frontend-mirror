@@ -45,7 +45,7 @@ const progressMarkerStyles = css({
  */
 const ProgressMarker: FC<{ testId?: string }> = ({ testId }) => (
   // too many props that would go in UNSAFE_style + css transition prop having issues
-  // eslint-disable-next-line @repo/internal/react/use-primitives
+
   <div data-testid={testId} css={progressMarkerStyles} />
 );
 

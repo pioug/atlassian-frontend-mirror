@@ -1,4 +1,6 @@
 /** @jsx jsx */
+import { ReactNode } from 'react';
+
 import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/custom-theme-button';
@@ -28,7 +30,7 @@ const optionStyles = css({
   padding: token('space.050', '4px'),
 });
 
-const Option: React.FC<{}> = ({ children }) => (
+const Option: React.FC<{ children: ReactNode }> = ({ children }) => (
   <div css={optionStyles}>{children}</div>
 );
 

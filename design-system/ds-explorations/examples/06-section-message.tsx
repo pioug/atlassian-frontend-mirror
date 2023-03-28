@@ -6,30 +6,30 @@ import Button from '@atlaskit/button';
 import __noop from '@atlaskit/ds-lib/noop';
 import Heading from '@atlaskit/heading';
 import InfoIcon from '@atlaskit/icon/glyph/info';
+import Inline from '@atlaskit/primitives/inline';
+import Stack from '@atlaskit/primitives/stack';
 import SectionMessage, {
   SectionMessageAction,
 } from '@atlaskit/section-message';
 import { token } from '@atlaskit/tokens';
 
 import { UNSAFE_Box as Box } from '../src';
-import Inline from '../src/components/inline.partial';
-import Stack from '../src/components/stack.partial';
 import Text from '../src/components/text.partial';
 
 export default () => {
   return (
-    <Stack gap="space.100">
+    <Stack space="100">
       <Box
         paddingBlock="space.200"
         paddingInline="space.200"
         backgroundColor="information"
       >
-        <Inline gap="space.200">
+        <Inline space="200">
           <InfoIcon
             primaryColor={token('color.icon.information')}
             label="info"
           />
-          <Stack gap="space.100">
+          <Stack space="100">
             <Heading as="h1" level="h500">
               The Modern Prometheus
             </Heading>
@@ -40,7 +40,7 @@ export default () => {
               to assure my dear sister of my welfare and increasing confidence
               in the success of my undertaking.
             </Text>
-            <Inline divider="·" gap="space.075">
+            <Inline separator="·" space="075">
               <Button
                 appearance="link"
                 spacing="none"

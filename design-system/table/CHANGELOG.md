@@ -1,5 +1,17 @@
 # @atlaskit/table
 
+## 0.2.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.2.5
+
+### Patch Changes
+
+- [`261420360ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/261420360ec) - Upgrades component types to support React 18.
+
 ## 0.2.4
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 4.17.0
+
+### Minor Changes
+
+- [`c80505045f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c80505045f0) - Added new rule to encourage use of @atlaskit/primitives components where relavant. Currently disabled by default, so there should be no expected change to consumers.
+
 ## 4.16.5
 
 ### Patch Changes

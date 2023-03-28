@@ -24,7 +24,7 @@ const readViewContainerStyles = css({
   wordBreak: 'break-word',
 });
 
-const ReadViewContainer: FC = ({ children }) => (
+const ReadViewContainer: FC<{ children: string }> = ({ children }) => (
   <div css={readViewContainerStyles}>{children}</div>
 );
 

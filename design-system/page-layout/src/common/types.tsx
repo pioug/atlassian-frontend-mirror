@@ -105,6 +105,10 @@ export interface LeftSidebarProps extends SlotWidthProps {
 
 export type SidebarResizeControllerProps = {
   /**
+   * React children!
+   */
+  children: ReactNode;
+  /**
    * Called when left-sidebar expanded.
    */
   onLeftSidebarExpand?: (leftSidebarState: LeftSidebarState) => void;
@@ -126,10 +130,6 @@ export type DimensionNames =
 export type Dimensions = Partial<Record<DimensionNames, number>>;
 
 export interface PageLayoutProps extends SidebarResizeControllerProps {
-  /**
-   * React children!
-   */
-  children: ReactNode;
   /* This prop is used to label the skip links container. Defaults to "Skip to:" */
   skipLinksLabel?: string;
   /**

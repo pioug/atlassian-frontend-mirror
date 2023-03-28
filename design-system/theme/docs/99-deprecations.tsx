@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import { Example, md, Props } from '@atlaskit/docs';
 import Lozenge from '@atlaskit/lozenge';
 
-const Deprecated: FC = ({ children }) => (
+const Deprecated: FC<{ children: string }> = ({ children }) => (
   <h2>
     {children}{' '}
     <Lozenge appearance="removed" isBold>

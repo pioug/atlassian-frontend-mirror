@@ -1,7 +1,10 @@
+import fetchMock from 'fetch-mock/cjs/client';
+
 import {
   addExperimentalHeaders,
   convertTeam,
   extractIdFromAri,
+  getTeamFromAGG,
   idToAri,
 } from '../../client/getTeamFromAGG';
 
@@ -123,5 +126,67 @@ describe('addExperimentalHeaders', () => {
     const result = addExperimentalHeaders(headers);
 
     expect(result.get('Test')).toBe('123');
+  });
+});
+
+describe('getTeamFromAGG', () => {
+  const serviceUrl = 'test/url';
+
+  afterEach(() => {
+    fetchMock.restore();
+  });
+
+  it('should return error when response is not ok', async () => {
+    const status = 400;
+    const statusText = 'Bad Request';
+    const traceId = '123';
+    fetchMock.mock(serviceUrl, (_: any, __: any) => ({
+      status,
+      headers: {
+        'atl-traceid': traceId,
+      },
+    }));
+
+    await expect(getTeamFromAGG(serviceUrl, teamId)).rejects.toEqual({
+      code: status,
+      reason: statusText,
+      traceId,
+    });
+  });
+
+  it('should return error when the response contains errors from AGG', async () => {
+    const status = 403;
+    const reason = 'TEAMS_FORBIDDEN';
+    const traceId = '123';
+    const errorSource = 'test-error-source';
+    const message = 'test-error-message';
+    fetchMock.mock(serviceUrl, (_: any, __: any) => ({
+      status: 200,
+      body: {
+        errors: [
+          {
+            extensions: {
+              classification: reason,
+              statusCode: status,
+              errorSource: errorSource,
+            },
+            message,
+          },
+        ],
+        extensions: {
+          gateway: {
+            request_id: traceId,
+          },
+        },
+      },
+    }));
+
+    await expect(getTeamFromAGG(serviceUrl, teamId)).rejects.toEqual({
+      code: status,
+      reason,
+      traceId,
+      errorSource,
+      message,
+    });
   });
 });

@@ -1,5 +1,12 @@
 # @atlaskit/page-layout
 
+## 1.3.10
+
+### Patch Changes
+
+- [`261420360ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/261420360ec) - Upgrades component types to support React 18.
+- Updated dependencies
+
 ## 1.3.9
 
 ### Patch Changes

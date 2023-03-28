@@ -173,7 +173,6 @@ const generateDraggableCats = (): CustomDraggable[] => {
   return urls.map((url) => ({
     key: url,
     renderItem: (props) => (
-      // eslint-disable-next-line @repo/internal/react/use-primitives
       <img
         ref={props.ref}
         {...props.dragHandleProps}

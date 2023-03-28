@@ -1,17 +1,27 @@
 /* eslint-disable @repo/internal/react/require-jsdoc */
 /** @jsx jsx */
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize } from '@atlaskit/theme/constants';
 
+type EmptyViewWithFixedHeightProps = {
+  testId?: string;
+  children?: ReactNode;
+};
+
+type EmptyViewContainerProps = {
+  testId?: string;
+  children: ReactNode;
+};
+
 const fixedHeightStyles = css({
   height: `${gridSize() * 18}px`,
 });
 
-export const EmptyViewWithFixedHeight: FC<{ testId?: string }> = ({
+export const EmptyViewWithFixedHeight: FC<EmptyViewWithFixedHeightProps> = ({
   children,
   testId,
 }) => (
@@ -32,7 +42,7 @@ const emptyViewContainerStyles = css({
   textAlign: 'center',
 });
 
-export const EmptyViewContainer: FC<{ testId?: string }> = (props) => {
+export const EmptyViewContainer: FC<EmptyViewContainerProps> = (props) => {
   const { children, testId } = props;
   return (
     <div

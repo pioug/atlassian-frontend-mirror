@@ -44,11 +44,13 @@ const lightH600Styles = css(h600({ theme: { mode: 'light' } }));
 // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
 const darkH600Styles = css(h600({ theme: { mode: 'dark' } }));
 
-const FormSectionWrapper: React.FC<FormSectionProps> = ({ children }) => {
+const FormSectionWrapper: React.FC<{ children?: ReactNode }> = ({
+  children,
+}) => {
   return <div css={formSectionWrapperStyles}>{children}</div>;
 };
 
-const FormSectionTitle: React.FC<FormSectionProps> = ({ children }) => {
+const FormSectionTitle: React.FC<{ children: ReactNode }> = ({ children }) => {
   const { mode } = useGlobalTheme();
   return (
     <h3
@@ -62,7 +64,9 @@ const FormSectionTitle: React.FC<FormSectionProps> = ({ children }) => {
   );
 };
 
-const FormSectionDescription: React.FC = ({ children }) => {
+const FormSectionDescription: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
   return <div css={formSectionDescriptionStyles}>{children}</div>;
 };
 

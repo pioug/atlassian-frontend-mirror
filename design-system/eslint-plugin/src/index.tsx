@@ -6,6 +6,7 @@ import noDeprecatedAPIs from './rules/no-deprecated-apis';
 import noDeprecatedUsage from './rules/no-deprecated-design-token-usage';
 import noDeprecatedImports from './rules/no-deprecated-imports';
 import noUnsafeUsage from './rules/no-unsafe-design-token-usage';
+import usePrimitives from './rules/use-primitives';
 import useVisuallyHidden from './rules/use-visually-hidden';
 
 export const rules = {
@@ -18,6 +19,7 @@ export const rules = {
   'no-unsafe-design-token-usage': noUnsafeUsage,
   'use-visually-hidden': useVisuallyHidden,
   'ensure-design-token-usage-spacing': ensureTokenUsageSpacing,
+  'use-primitives': usePrimitives,
 };
 
 export const configs = {

@@ -1,5 +1,12 @@
 # @atlaskit/side-navigation
 
+## 1.6.1
+
+### Patch Changes
+
+- [`3ca97be0c06`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3ca97be0c06) - Internal change only. Replace usages of Inline/Stack with stable version from `@atlaskit/primitives`.
+- Updated dependencies
+
 ## 1.6.0
 
 ### Minor Changes

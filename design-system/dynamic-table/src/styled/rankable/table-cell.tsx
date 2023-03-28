@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { FC, HTMLProps } from 'react';
+import { FC, HTMLProps, ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -11,6 +11,7 @@ type RankableTableBodyCellProps = HTMLProps<
 > &
   TruncateStyleProps & {
     isRanking?: boolean;
+    children?: ReactNode;
   };
 
 const rankingStyles = css({

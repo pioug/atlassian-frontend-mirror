@@ -1,4 +1,5 @@
 /** @jsx jsx */
+import { ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -43,6 +44,7 @@ interface StackLayoutProps {
     | 'XXLARGE'
     | 'LARGEST';
   testId?: string;
+  children: ReactNode;
 }
 
 /**

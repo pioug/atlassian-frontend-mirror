@@ -22,7 +22,6 @@ const Link: FC<Stage & { testId?: string }> = ({
   label,
   testId,
 }) => (
-  // eslint-disable-next-line @repo/internal/react/use-primitives
   <a css={linkStyles} href={href} onClick={onClick} data-testid={testId}>
     {label}
   </a>

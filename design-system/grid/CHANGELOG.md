@@ -1,5 +1,17 @@
 # @atlaskit/grid
 
+## 0.8.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.8.4
+
+### Patch Changes
+
+- [`261420360ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/261420360ec) - Upgrades component types to support React 18.
+
 ## 0.8.3
 
 ### Patch Changes

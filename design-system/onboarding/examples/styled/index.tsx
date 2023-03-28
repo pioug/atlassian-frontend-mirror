@@ -1,6 +1,6 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 /** @jsx jsx */
-import { forwardRef } from 'react';
+import { forwardRef, ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -22,7 +22,9 @@ const highlightGroupStyles = css({
   justifyContent: 'space-between',
 });
 
-export const HighlightGroup: React.FC<React.HTMLAttributes<HTMLDivElement>> = (
+export const HighlightGroup: React.FC<
+  React.HTMLAttributes<HTMLDivElement> & { children?: ReactNode }
+> = (
   props,
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 ) => <div {...props} css={highlightGroupStyles} />;
@@ -91,7 +93,9 @@ const codeStyles = css({
   verticalAlign: 'baseline',
 });
 
-export const Code: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => (
+export const Code: React.FC<
+  React.HTMLAttributes<HTMLElement> & { children?: ReactNode }
+> = (props) => (
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
   <code {...props} css={codeStyles} />
 );

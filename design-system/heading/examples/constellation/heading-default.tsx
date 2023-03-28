@@ -1,12 +1,19 @@
-import React from 'react';
+/** @jsx jsx */
+import { css, jsx } from '@emotion/react';
 
-import Stack from '@atlaskit/ds-explorations/stack';
+import { token } from '@atlaskit/tokens';
 
 import Heading from '../../src';
 
+const wrapperStyles = css({
+  display: 'flex',
+  rowGap: token('space.100', '8px'),
+  flexDirection: 'column',
+});
+
 export default () => {
   return (
-    <Stack gap="space.100">
+    <div css={wrapperStyles}>
       <Heading level="h900">H900 (I'm h1)</Heading>
       <Heading level="h800">H800 (I'm h1)</Heading>
       <Heading level="h700">H700 (I'm h2)</Heading>
@@ -16,6 +23,6 @@ export default () => {
       <Heading level="h300">H300 (I'm h6)</Heading>
       <Heading level="h200">H200 (I'm div)</Heading>
       <Heading level="h100">H100 (I'm div)</Heading>
-    </Stack>
+    </div>
   );
 };

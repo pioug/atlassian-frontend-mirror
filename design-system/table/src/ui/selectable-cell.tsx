@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -18,12 +18,17 @@ const spacingStyles = css({
   },
 });
 
+type SelectableCellProps = {
+  as: 'td' | 'th';
+  children?: ReactNode;
+};
+
 /**
  * __Selectable cell__
  *
  * A selectable cell primitive designed to be used for light weight composition.
  */
-export const SelectableCell: FC<{ as: 'td' | 'th' }> = ({
+export const SelectableCell: FC<SelectableCellProps> = ({
   children,
   as = 'td',
 }) => {

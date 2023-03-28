@@ -1,6 +1,6 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 /** @jsx jsx */
-import React, { Fragment } from 'react';
+import React, { Fragment, ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -45,6 +45,7 @@ const iconVariants = [
 interface WrapperDivProps {
   color: string;
   background: string;
+  children: ReactNode;
 }
 
 const wrapperDivStyles = css({

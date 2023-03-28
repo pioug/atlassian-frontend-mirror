@@ -1,4 +1,4 @@
-import React, { FC, memo } from 'react';
+import React, { FC, memo, ReactNode } from 'react';
 
 import { render } from '@testing-library/react';
 
@@ -8,7 +8,7 @@ import { useGlobalTheme } from '../../theme';
 interface RenderCountProps {
   onRender: () => void;
 }
-const StyledComponent: FC = ({ children }) => {
+const StyledComponent: FC<{ children: ReactNode }> = ({ children }) => {
   const theme = useGlobalTheme();
   return <div data-theme={theme.mode}>{children}</div>;
 };

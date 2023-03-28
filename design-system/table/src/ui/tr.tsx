@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -48,6 +48,10 @@ interface TRProps {
    * Adjust the behavior of the element depending on whether the row is in the `THead` or in the `TBody`.
    */
   isBodyRow?: boolean;
+  /**
+   * Content of the row.
+   */
+  children?: ReactNode;
 }
 
 /**

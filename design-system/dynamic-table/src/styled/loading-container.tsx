@@ -1,21 +1,23 @@
 /* eslint-disable @repo/internal/react/require-jsdoc */
 /** @jsx jsx */
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
 export const CSS_VAR_CONTENTS_OPACITY = '--contents-opacity';
 
-type LoadingContainerProps = {
-  contentsOpacity: number;
+type ContainerProps = {
   testId?: string;
+  children: ReactNode;
 };
+
+type LoadingContainerProps = ContainerProps & { contentsOpacity: number };
 
 const containerStyles = css({
   position: 'relative',
 });
 
-export const Container: FC<{ testId?: string }> = ({ children, testId }) => (
+export const Container: FC<ContainerProps> = ({ children, testId }) => (
   <div css={containerStyles} data-testid={testId && `${testId}--container`}>
     {children}
   </div>
@@ -53,10 +55,7 @@ const spinnerContainerStyles = css({
   justifyContent: 'center',
 });
 
-export const SpinnerContainer: FC<{ testId?: string }> = ({
-  children,
-  testId,
-}) => (
+export const SpinnerContainer: FC<ContainerProps> = ({ children, testId }) => (
   <div
     css={spinnerContainerStyles}
     data-testid={testId && `${testId}--spinner--container`}

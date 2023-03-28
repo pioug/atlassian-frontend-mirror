@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { Component, ComponentType } from 'react';
+import { Component, ComponentType, ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -44,7 +44,7 @@ const selectWrapperStyles = css({
   padding: '20px',
 });
 
-const SelectWrapper: React.FC = ({ children }) => {
+const SelectWrapper: React.FC<{ children: ReactNode }> = ({ children }) => {
   return <div css={selectWrapperStyles}>{children}</div>;
 };
 

@@ -1,6 +1,6 @@
 /* eslint-disable @repo/internal/react/no-clone-element */
 /** @jsx jsx */
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -22,7 +22,7 @@ const bodyStyles = css({
  * __TBody__
  * @primitive
  */
-export const TBody: FC = ({ children }) => (
+export const TBody: FC<{ children: ReactNode }> = ({ children }) => (
   <tbody css={bodyStyles}>{children}</tbody>
 );
 

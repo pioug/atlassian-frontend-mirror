@@ -77,7 +77,7 @@ const iconWrapperStyles = css({
   display: 'flex',
 });
 
-const IconWrapper: React.FC = ({ children }) => {
+const IconWrapper: React.FC<{ children: ReactNode }> = ({ children }) => {
   return <span css={iconWrapperStyles}>{children}</span>;
 };
 

@@ -2,16 +2,13 @@
 import { jsx } from '@emotion/react';
 
 import Lozenge from '@atlaskit/lozenge';
+import Inline from '@atlaskit/primitives/inline';
 
-import {
-  UNSAFE_Box as Box,
-  UNSAFE_Inline as Inline,
-  UNSAFE_Text as Text,
-} from '../src';
+import { UNSAFE_Box as Box, UNSAFE_Text as Text } from '../src';
 
 export default () => {
   return (
-    <Inline gap="space.200">
+    <Inline space="200">
       <Lozenge>Default</Lozenge>
       <Box
         backgroundColor="neutral"

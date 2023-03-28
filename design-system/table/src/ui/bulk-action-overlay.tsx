@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -18,7 +18,9 @@ const overlayStyles = css({
  *
  * A bulk action overlay is used to conditionally render when a user makes a row selection
  */
-export const BulkActionOverlay: FC = ({ children }) => (
+export const BulkActionOverlay: FC<{ children: ReactNode }> = ({
+  children,
+}) => (
   <Box
     as="th"
     position="absolute"

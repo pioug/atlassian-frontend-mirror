@@ -14,6 +14,7 @@ import * as Primitives from './ui';
 
 type THeadProps = {
   actions?: (selected: number[]) => ReactNode;
+  children?: ReactNode;
 };
 
 const THead: FC<THeadProps> = ({ actions, children }) => {

@@ -26,7 +26,7 @@
     "@atlaskit/avatar": "^21.2.0",
     "@atlaskit/item": "^12.0.0",
     "@atlaskit/spinner": "^15.4.0",
-    "@atlaskit/theme": "^12.2.0",
+    "@atlaskit/theme": "^12.3.0",
     "@babel/runtime": "^7.0.0",
     "keycode": "^2.1.7"
   },

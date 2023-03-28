@@ -29,7 +29,7 @@
     "@atlaskit/icon": "^21.11.0",
     "@atlaskit/lozenge": "^11.3.0",
     "@atlaskit/textfield": "^5.3.0",
-    "@atlaskit/theme": "^12.2.0",
+    "@atlaskit/theme": "^12.3.0",
     "@atlaskit/tokens": "^1.2.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 
 import { jsx } from '@emotion/react';
 
@@ -17,6 +17,7 @@ import Card from './94-card';
 const JSMCard: FC<{
   title: string;
   iconColor: BoxProps['backgroundColor'];
+  children?: ReactNode;
 }> = ({
   iconColor = 'discovery',
   children = 'Wow, finally after so many years, we have an amazing portal with a long description to top up the lorem ipsum',

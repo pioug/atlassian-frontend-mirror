@@ -55,15 +55,17 @@ const darkH700Styles = css(h700({ theme: { mode: 'dark' } }));
 // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
 const lightH700Styles = css(h700({ theme: { mode: 'light' } }));
 
-const FormHeaderContent: React.FC = ({ children }) => {
+const FormHeaderContent: React.FC<{ children: ReactNode }> = ({ children }) => {
   return <div css={formHeaderContentStyles}>{children}</div>;
 };
 
-const FormHeaderDescription: React.FC = ({ children }) => {
+const FormHeaderDescription: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
   return <div css={formHeaderDescriptionStyles}>{children}</div>;
 };
 
-const FormHeaderTitle: React.FC = ({ children }) => {
+const FormHeaderTitle: React.FC<{ children: ReactNode }> = ({ children }) => {
   const { mode } = useGlobalTheme();
 
   return (
@@ -78,7 +80,9 @@ const FormHeaderTitle: React.FC = ({ children }) => {
   );
 };
 
-const FormHeaderWrapper: React.FC = ({ children }) => {
+const FormHeaderWrapper: React.FC<{ children?: ReactNode }> = ({
+  children,
+}) => {
   return <div css={formHeaderWrapperStyles}>{children}</div>;
 };
 

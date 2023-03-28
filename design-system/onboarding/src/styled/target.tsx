@@ -1,4 +1,6 @@
 /** @jsx jsx */
+import { ReactNode } from 'react';
+
 import { css, jsx, keyframes } from '@emotion/react';
 
 import { P300 } from '@atlaskit/theme/colors';
@@ -10,6 +12,7 @@ type BaseProps = React.HTMLAttributes<HTMLDivElement> & {
   radius?: number;
   className?: string;
   testId?: string;
+  children?: ReactNode;
 };
 
 type TargetProps = Omit<BaseProps, 'css'> & {

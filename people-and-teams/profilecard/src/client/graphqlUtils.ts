@@ -12,7 +12,10 @@ interface Query {
 
 export interface GraphQLError {
   code?: number;
-  reason: string;
+  reason?: string;
+  errorSource?: string;
+  message?: string;
+  traceId?: string;
 }
 
 type HeaderProcessor = (headers: Headers) => Headers;
@@ -41,9 +44,11 @@ export function graphqlQuery<D>(
   )
     .then((response) => {
       if (!response.ok) {
+        const traceIdFromHeaders = response?.headers?.get('atl-traceid');
         return Promise.reject({
           code: response.status,
           reason: response.statusText,
+          traceId: traceIdFromHeaders,
         });
       }
 
@@ -52,13 +57,15 @@ export function graphqlQuery<D>(
     .then((response) => response.json())
     .then((json) => {
       if (json.errors) {
-        // We need to handle responses from pf-directory and AGG
         return Promise.reject({
           reason:
             json.errors[0]?.category ||
             json.errors[0]?.extensions?.classification ||
             'default',
           code: json.errors[0]?.extensions?.statusCode,
+          errorSource: json.errors[0]?.extensions?.errorSource,
+          message: json.errors[0].message,
+          traceId: json.extensions?.gateway?.request_id,
         });
       }
 

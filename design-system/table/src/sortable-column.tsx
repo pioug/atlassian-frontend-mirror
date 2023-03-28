@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /** @jsx jsx */
-import { FC, useCallback } from 'react';
+import { FC, ReactNode, useCallback } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -22,6 +22,7 @@ export interface CellProps {
    */
   testId?: string;
   onClick?: React.MouseEventHandler;
+  children?: ReactNode;
 }
 
 /**

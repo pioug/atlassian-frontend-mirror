@@ -1,6 +1,6 @@
 /* eslint-disable @repo/internal/react/require-jsdoc */
 /** @jsx jsx */
-import { FC, forwardRef, HTMLProps } from 'react';
+import { FC, forwardRef, HTMLProps, ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -86,7 +86,7 @@ const captionStyles = css({
   willChange: 'transform',
 });
 
-export const Caption: FC = ({ children }) => (
+export const Caption: FC<{ children: ReactNode }> = ({ children }) => (
   <caption css={captionStyles}>{children}</caption>
 );
 
@@ -95,6 +95,6 @@ const paginationWrapperStyles = css({
   justifyContent: 'center',
 });
 
-export const PaginationWrapper: FC = ({ children }) => (
-  <div css={paginationWrapperStyles}>{children}</div>
-);
+export const PaginationWrapper: FC<{ children: ReactNode }> = ({
+  children,
+}) => <div css={paginationWrapperStyles}>{children}</div>;

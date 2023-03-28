@@ -1,6 +1,12 @@
 /** @jsx jsx */
 
-import { Component, FC, MouseEventHandler, SyntheticEvent } from 'react';
+import {
+  Component,
+  FC,
+  MouseEventHandler,
+  ReactNode,
+  SyntheticEvent,
+} from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -17,6 +23,7 @@ interface State {
 
 interface IconWrapperProps {
   onClick: MouseEventHandler;
+  children: ReactNode;
 }
 
 const iconButtonStyles = css({
@@ -49,7 +56,9 @@ const IconWrapper: FC<IconWrapperProps> = (props) => (
   </button>
 );
 
-const SidebarOverrideComponent: FC = ({ children }) => {
+const SidebarOverrideComponent: FC<{ children?: ReactNode }> = ({
+  children,
+}) => {
   return (
     <div
       style={{

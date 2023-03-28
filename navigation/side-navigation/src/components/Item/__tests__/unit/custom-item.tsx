@@ -10,7 +10,7 @@ describe('<CustomItem />', () => {
       children,
       ...props
     }: CustomItemComponentProps & { href: string }) => (
-      // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props, @repo/internal/react/use-primitives
+      // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
       <a {...props}>{children}</a>
     );
 

@@ -1,4 +1,3 @@
-/* eslint-disable @repo/internal/react/use-primitives */
 import React, { forwardRef } from 'react';
 
 import OpenIcon from '@atlaskit/icon/glyph/open';

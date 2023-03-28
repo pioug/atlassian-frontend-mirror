@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -10,7 +10,7 @@ const rowPlaceholderStyles = css({
 });
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const RowPlaceholderCell: FC = (props) => (
+export const RowPlaceholderCell: FC<{ children?: ReactNode }> = (props) => (
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
   <td css={rowPlaceholderStyles} {...props} />
 );

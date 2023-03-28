@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -33,7 +33,7 @@ const nameWrapperStyles = css({
   alignItems: 'center',
 });
 
-const NameWrapper: FC = ({ children }) => (
+const NameWrapper: FC<{ children: ReactNode }> = ({ children }) => (
   <span css={nameWrapperStyles}>{children}</span>
 );
 
@@ -41,7 +41,7 @@ const avatarWrapperStyles = css({
   marginRight: token('space.100', '8px'),
 });
 
-const AvatarWrapper: FC = ({ children }) => (
+const AvatarWrapper: FC<{ children: ReactNode }> = ({ children }) => (
   <div css={avatarWrapperStyles}>{children}</div>
 );
 

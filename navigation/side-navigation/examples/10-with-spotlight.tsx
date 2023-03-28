@@ -4,7 +4,6 @@ import { Fragment, useState } from 'react';
 import { jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button';
-import { UNSAFE_Inline as Inline } from '@atlaskit/ds-explorations';
 import Box from '@atlaskit/ds-explorations/box';
 import Text from '@atlaskit/ds-explorations/text';
 import DropboxIcon from '@atlaskit/icon/glyph/dropbox';
@@ -19,6 +18,7 @@ import {
   SpotlightTarget,
   SpotlightTransition,
 } from '@atlaskit/onboarding';
+import Inline from '@atlaskit/primitives/inline';
 import { N10 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -65,7 +65,7 @@ const LanguageSettings = () => {
 const BasicExample = () => {
   return (
     <SpotlightManager>
-      <Inline gap="space.100">
+      <Inline space="100">
         <AppFrame shouldHideAppBar>
           <SideNavigation label="project" testId="side-navigation">
             <NavigationHeader>

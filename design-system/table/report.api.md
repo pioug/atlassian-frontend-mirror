@@ -57,6 +57,8 @@ export const Cell: FC<Omit<BaseCellProps, 'as'>>;
 
 // @public (undocumented)
 interface CellProps {
+  // (undocumented)
+  children?: ReactNode;
   name: string;
   // (undocumented)
   onClick?: React.MouseEventHandler;
@@ -72,6 +74,7 @@ export const Row: FC<RowProps>;
 // @public (undocumented)
 type RowProps = {
   testId?: string;
+  children?: ReactNode;
 };
 
 // @public
@@ -116,6 +119,7 @@ export const THead: FC<THeadProps>;
 // @public (undocumented)
 type THeadProps = {
   actions?: (selected: number[]) => ReactNode;
+  children?: ReactNode;
 };
 
 // @public (undocumented)

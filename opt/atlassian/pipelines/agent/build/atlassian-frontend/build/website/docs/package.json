@@ -19,7 +19,7 @@
     "@atlaskit/code": "^14.5.0",
     "@atlaskit/icon": "^21.11.0",
     "@atlaskit/section-message": "^6.3.0",
-    "@atlaskit/theme": "^12.2.0",
+    "@atlaskit/theme": "^12.3.0",
     "@babel/runtime": "^7.0.0",
     "codesandboxer": "^1.0.3",
     "pretty-proptypes": "^1.7.0",

@@ -1,10 +1,11 @@
 /** @jsx jsx */
-import { FC, HTMLAttributes } from 'react';
+import { FC, HTMLAttributes, ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
 interface OverflowContainerProps {
   isSingleLine?: boolean;
+  chilren?: ReactNode;
 }
 
 const overflowContainerStyles = css({

@@ -24,6 +24,8 @@ export default Heading;
 
 // @public (undocumented)
 interface HeadingContextProps {
+  // (undocumented)
+  children: ReactNode;
   value?: HeadingElement;
 }
 

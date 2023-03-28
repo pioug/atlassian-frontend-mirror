@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { FC, HTMLAttributes } from 'react';
+import { FC, HTMLAttributes, ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -17,7 +17,9 @@ const treeRowContainerStyles = css({
 /**
  * __Tree row container__
  */
-export const TreeRowContainer: FC<HTMLAttributes<HTMLDivElement>> = (props) => (
+export const TreeRowContainer: FC<
+  HTMLAttributes<HTMLDivElement> & { children: ReactNode }
+> = (props) => (
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
   <div css={treeRowContainerStyles} {...props} />
 );
@@ -31,10 +33,16 @@ const commonChevronContainerStyles = css({
   alignItems: 'center',
 });
 
+type ChevronContainerProps = HTMLAttributes<HTMLSpanElement> & {
+  children: ReactNode;
+};
+
 /**
  * __Chevron container__
+ *
+ * A wrapper container around the expand table tree button.
  */
-export const ChevronContainer: FC<HTMLAttributes<HTMLSpanElement>> = (
+export const ChevronContainer: FC<ChevronContainerProps> = (
   props,
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 ) => <span {...props} css={commonChevronContainerStyles} />;
@@ -49,7 +57,7 @@ const chevronIconContainerStyles = css({
  *
  * A chevron icon container.
  */
-export const ChevronIconContainer: FC<HTMLAttributes<HTMLSpanElement>> = (
+export const ChevronIconContainer: FC<ChevronContainerProps> = (
   props,
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 ) => <span {...props} css={chevronIconContainerStyles} />;
@@ -65,12 +73,17 @@ const paddingLeftStyles = css({
   paddingLeft: '50%',
 });
 
+type LoaderItemContainerProps = {
+  isRoot?: boolean;
+  children: ReactNode;
+};
+
 /**
  * __Loader item container__
  *
  * A loader item container.
  */
-export const LoaderItemContainer: FC<{ isRoot?: boolean }> = ({
+export const LoaderItemContainer: FC<LoaderItemContainerProps> = ({
   isRoot,
   ...props
 }) => (

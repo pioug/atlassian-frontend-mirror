@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -22,6 +22,6 @@ const baseStyles = css({
  *
  * @primitive
  */
-export const THead: FC = ({ children }) => {
+export const THead: FC<{ children?: ReactNode }> = ({ children }) => {
   return <thead css={baseStyles}>{children}</thead>;
 };

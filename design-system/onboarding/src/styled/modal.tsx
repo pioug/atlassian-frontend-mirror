@@ -1,4 +1,6 @@
 /** @jsx jsx */
+import { ReactNode } from 'react';
+
 import { css, jsx } from '@emotion/react';
 
 import { useGlobalTheme } from '@atlaskit/theme/components';
@@ -58,7 +60,7 @@ const modalActionItemStyles = css({
  *
  * @internal
  */
-export const ModalBody: React.FC<{}> = ({ children }) => (
+export const ModalBody: React.FC<{ children: ReactNode }> = ({ children }) => (
   <div css={modalBodyStyles}>{children}</div>
 );
 
@@ -67,7 +69,7 @@ export const ModalBody: React.FC<{}> = ({ children }) => (
  *
  * @internal
  */
-export const ModalHeading: React.FC<{}> = ({ children }) => {
+export const ModalHeading: React.FC<{ children: string }> = ({ children }) => {
   const { mode } = useGlobalTheme();
   return (
     <h4
@@ -98,6 +100,7 @@ export const ModalImage: React.FC<{ alt: string; src?: string }> = ({
  */
 export const ModalActionContainer: React.FC<{
   shouldReverseButtonOrder: boolean;
+  children: ReactNode;
 }> = ({ children, shouldReverseButtonOrder }) => (
   <div
     css={[
@@ -114,6 +117,6 @@ export const ModalActionContainer: React.FC<{
  *
  * @internal
  */
-export const ModalActionItem: React.FC<{}> = ({ children }) => (
-  <div css={modalActionItemStyles}>{children}</div>
-);
+export const ModalActionItem: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => <div css={modalActionItemStyles}>{children}</div>;

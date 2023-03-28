@@ -1,5 +1,3 @@
-// TODO remove the eslint-disable and fix the lint issues.
-/* eslint-disable @repo/internal/react/use-primitives */
 /** @jsx jsx */
 import { useState } from 'react';
 

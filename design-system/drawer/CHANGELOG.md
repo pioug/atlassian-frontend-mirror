@@ -1,5 +1,12 @@
 # @atlaskit/drawer
 
+## 7.4.12
+
+### Patch Changes
+
+- [`261420360ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/261420360ec) - Upgrades component types to support React 18.
+- Updated dependencies
+
 ## 7.4.11
 
 ### Patch Changes

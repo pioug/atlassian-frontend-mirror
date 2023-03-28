@@ -1,12 +1,12 @@
 /** @jsx jsx */
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 
 import { jsx } from '@emotion/react';
 
 import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
 import Inline from '@atlaskit/primitives/inline';
 
-const IconLink: FC = ({ children }) => {
+const IconLink: FC<{ children: ReactNode }> = ({ children }) => {
   return (
     <Inline space="100" alignBlock="center">
       <Box

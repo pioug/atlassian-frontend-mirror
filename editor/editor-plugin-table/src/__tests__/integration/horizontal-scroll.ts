@@ -55,10 +55,9 @@ const assertTableDoesScroll = async (page: WebdriverPage) => {
   expect(tableScrollWidth).toBeGreaterThan(tableOffsetWidth);
 };
 
-// insertColumn helper doesn't work in Safari
 BrowserTestCase(
   'Table: Does not scroll when column is resized and a new column is inserted',
-  { skip: ['safari'] },
+  { skip: [] },
   async (client: any, testName: string) => {
     for (const screenWidth of screenWidths) {
       const page = await goToEditorTestingWDExample(
@@ -84,7 +83,6 @@ BrowserTestCase(
   },
 );
 
-// insertColumn helper doesn't work in Safari
 BrowserTestCase(
   'Table: Does not scroll when column is resized and breakout button is clicked 3x',
   { skip: ['safari'] },
@@ -281,10 +279,9 @@ BrowserTestCase(
   },
 );
 
-// insertColumn helper doesn't work in Safari
 BrowserTestCase(
   'Table: Scrolls when there are more columns added than can fit the current width',
-  { skip: ['safari'] },
+  { skip: [] },
   async (client: any, testName: string) => {
     for (const screenWidth of screenWidths) {
       const page = await goToEditorTestingWDExample(
@@ -315,10 +312,9 @@ BrowserTestCase(
   },
 );
 
-// insertColumn helper doesn't work in Safari
 BrowserTestCase(
   'Table: Does not scroll when nested in Bodied Macro, column is resized and breakout button is clicked',
-  { skip: ['safari'] },
+  { skip: [] },
   async (client: any, testName: string) => {
     for (const screenWidth of screenWidths) {
       const page = await goToEditorTestingWDExample(
@@ -451,10 +447,9 @@ BrowserTestCase(
   },
 );
 
-// insertColumn helper doesn't work in Safari
 BrowserTestCase(
   'Table: Does not scroll when nested in full-width layout, columns is resized and new column is inserted',
-  { skip: ['safari'] },
+  { skip: [] },
   async (client: any, testName: string) => {
     for (const screenWidth of screenWidths) {
       const page = await goToEditorTestingWDExample(

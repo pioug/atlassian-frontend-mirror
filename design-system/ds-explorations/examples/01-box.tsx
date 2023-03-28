@@ -1,13 +1,10 @@
 import React from 'react';
 
 import Heading from '@atlaskit/heading';
+import Inline from '@atlaskit/primitives/inline';
+import Stack from '@atlaskit/primitives/stack';
 
-import {
-  UNSAFE_Box as Box,
-  UNSAFE_Inline as Inline,
-  UNSAFE_Stack as Stack,
-  UNSAFE_Text as Text,
-} from '../src';
+import { UNSAFE_Box as Box, UNSAFE_Text as Text } from '../src';
 import { spacingScale } from '../src/internal/spacing-scale';
 
 /**
@@ -15,10 +12,10 @@ import { spacingScale } from '../src/internal/spacing-scale';
  */
 export default () => {
   return (
-    <Stack gap="space.400" alignItems="flexStart">
-      <Stack gap="space.200" testId="box-with-background-and-paddingBlock">
+    <Stack space="400" alignInline="start">
+      <Stack space="200" testId="box-with-background-and-paddingBlock">
         <Heading level="h600">paddingBlock</Heading>
-        <Inline gap="space.200" alignItems="center">
+        <Inline space="200" alignBlock="center">
           {spacingScale.map((space) => (
             <Box
               key={space}
@@ -33,9 +30,9 @@ export default () => {
         </Inline>
       </Stack>
 
-      <Stack gap="space.200" testId="box-with-background-and-paddingInline">
+      <Stack space="200" testId="box-with-background-and-paddingInline">
         <Heading level="h600">paddingInline</Heading>
-        <Stack gap="space.200" alignItems="center">
+        <Stack space="200" alignInline="center">
           {spacingScale.map((space) => (
             <Box
               key={space}
@@ -50,9 +47,9 @@ export default () => {
         </Stack>
       </Stack>
 
-      <Stack gap="space.200" testId="box-with-background-and-padding">
+      <Stack space="200" testId="box-with-background-and-padding">
         <Heading level="h600">padding</Heading>
-        <Inline gap="space.200" alignItems="center">
+        <Inline space="200" alignBlock="center">
           {spacingScale.map((space) => (
             <Box key={space} backgroundColor="discovery.bold" padding={space}>
               <Box backgroundColor="elevation.surface" justifyContent="center">
@@ -63,9 +60,9 @@ export default () => {
         </Inline>
       </Stack>
 
-      <Stack gap="space.200" testId="box-with-backgroundColor">
+      <Stack space="200" testId="box-with-backgroundColor">
         <Heading level="h600">backgroundColor</Heading>
-        <Inline gap="space.200" alignItems="center">
+        <Inline space="200" alignBlock="center">
           {(
             [
               'discovery.bold',
@@ -85,9 +82,9 @@ export default () => {
         </Inline>
       </Stack>
 
-      <Stack gap="space.200" testId="box-with-borderColor">
+      <Stack space="200" testId="box-with-borderColor">
         <Heading level="h600">borderColor</Heading>
-        <Inline gap="space.200" alignItems="center">
+        <Inline space="200" alignBlock="center">
           {(
             [
               'discovery',
@@ -114,9 +111,9 @@ export default () => {
         </Inline>
       </Stack>
 
-      <Stack gap="space.200" testId="box-with-shadow">
+      <Stack space="200" testId="box-with-shadow">
         <Heading level="h600">shadow</Heading>
-        <Inline gap="space.200" alignItems="center">
+        <Inline space="200" alignBlock="center">
           {(['raised', 'overflow', 'overlay'] as const).map((shadow) => (
             <Box
               key={shadow}
@@ -132,7 +129,7 @@ export default () => {
         </Inline>
       </Stack>
 
-      <Stack gap="space.200" testId="box-with-layer">
+      <Stack space="200" testId="box-with-layer">
         <Heading level="h600">layer</Heading>
         <Box alignItems="center" UNSAFE_style={{ width: 800, height: 650 }}>
           {(

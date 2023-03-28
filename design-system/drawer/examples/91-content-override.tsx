@@ -1,6 +1,6 @@
 /** @jsx jsx */
 
-import { Component, FC, SyntheticEvent } from 'react';
+import { Component, FC, ReactNode, SyntheticEvent } from 'react';
 
 import { jsx } from '@emotion/react';
 
@@ -13,7 +13,9 @@ interface State {
   isDrawerOpen: boolean;
 }
 
-const ContentOverrideComponent: FC = ({ children }) => {
+const ContentOverrideComponent: FC<{ children?: ReactNode }> = ({
+  children,
+}) => {
   return (
     <div
       style={{

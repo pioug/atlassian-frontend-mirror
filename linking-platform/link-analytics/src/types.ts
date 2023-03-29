@@ -1,11 +1,31 @@
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { CardState } from '@atlaskit/linking-common';
 
 export type LinkAnalyticsAttributes = Record<string, any>;
 
 export type LifecycleAction = 'created' | 'updated' | 'deleted';
 
+export type CardStore = {
+  getState: () => Record<string, CardState | undefined>;
+};
+
 export interface LinkDetails {
+  /**
+   * The URL of the link.
+   * If the link has been updated and the URL has changed, this is the new URL.
+   */
   url: string;
+  /**
+   * The display category of the link.
+   * This is optional and should be set to `link` if the link in question is not
+   * being displayed as a smart link, but instead as some other type of "link" (eg. a blue link in editor).
+   * If set to `link` then there will be no attempt to fetch "resolved" attributes
+   * if they aren't already available in the SmartCardProvider store.
+   */
+  displayCategory?: 'smartLink' | 'link';
+  /**
+   * We aren't using this yet.
+   */
   smartLinkId?: string;
 }
 

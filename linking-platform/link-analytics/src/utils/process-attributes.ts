@@ -1,7 +1,7 @@
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { normalizeUrl } from '@atlaskit/linking-common/url';
 
-import { LinkDetails } from './types';
+import { LinkDetails } from '../types';
 
 const getSourceEvent = (payload: Record<string, unknown>): string | null => {
   const base = (

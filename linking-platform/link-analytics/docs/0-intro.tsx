@@ -37,26 +37,54 @@ ${code`
 ### Example Link Created with Link Picker
 
 ${code`
-  import { LinkPicker } from '@atlaskit/link-picker';
-  import { useSmartLinkLifecycleAnalytics } from '@atlaskit/link-analytics';
+import { LinkPicker } from '@atlaskit/link-picker';
+import { useSmartLinkLifecycleAnalytics } from '@atlaskit/link-analytics';
 
-  const Component = () => {
-    const { linkCreated } = useSmartLinkLifecycleAnalytics();
+const Component = () => {
+  const { linkCreated } = useSmartLinkLifecycleAnalytics();
 
-    const handleCreateLink = (payload, analytic) => {
-      // ... execute your insert logic ...
+  const handleCreateLink = (payload, analytic) => {
+    // ... execute your insert logic ...
 
-      // ... track the creation of the link ...
-      linkCreated(payload, analytic)
-    }
-
-    return (
-      <LinkPicker
-        onSubmit={handleCreateLink}
-        {...}
-        />
-    )
+    // ... track the creation of the link ...
+    linkCreated(payload, analytic)
   }
+
+  return (
+    <LinkPicker
+      onSubmit={handleCreateLink}
+      {...}
+      />
+  )
+}
+`}
+
+## Non-"Smart Link" Display Category
+
+If firing an event for a link that is not yet (or is no longer) displayed as a smart link, provide the link details \`displayCategory\` field the value of \`link\`.
+This allows us to understand the lifecycle of links before and after they are rendered as a smart link.
+
+${code`
+const { linkCreated } = useSmartLinkLifecycleAnalytics();
+
+/**
+ * If creating a link that won't be displayed as smart link
+ * fire link created with displayCategory = link
+ */
+linkCreated({ url: "https://atlassian.com", displayCategory: "link" })
+
+/**
+ * If the user changes the appearance of the link so it will now be displayed
+ * as a smart link, call linkUpdated but do not provide displayCategory field,
+ * indicating the link is currently displayed as smart link
+ */
+linkUpdated({ url: "https://atlassian.com" })
+
+/**
+ * If the user deletes a link that is currently being displayed as a smart link,
+ * do not provide displayCategory field
+ */
+linkDeleted({ url: "https://atlassian.com" })
 `}
 
 ## Analytic Event Hand-off
@@ -73,48 +101,74 @@ If the source event hasn't come from a linking platform component, then you're l
 We can associate these events with a "hand-off" of an existing analytic event as the "source" event that lead to the link lifecycle event.
 
 ${code`
-  import {
-    createAndFireEvent,
-    useAnalyticsEvents,
-  } from '@atlaskit/analytics-next';
-  import { useSmartLinkLifecycleAnalytics } from '@atlaskit/link-analytics';
+import {
+  createAndFireEvent,
+  useAnalyticsEvents,
+} from '@atlaskit/analytics-next';
+import { useSmartLinkLifecycleAnalytics } from '@atlaskit/link-analytics';
 
-  // ...
+// ...
 
-  const { linkCreated, linkDeleted } = useSmartLinkLifecycleAnalytics();
+const { linkCreated, linkDeleted } = useSmartLinkLifecycleAnalytics();
 
-  // ...
+// ...
 
-  const onUndoDelete = ({ url }) => {
-    //  your existing event
-    const analytic = createAndFireEvent(SOME_CHANNEL)({
-      actionSubject: 'linkDeletion',
-      action: 'undo',
-    })(createAnalyticsEvent);
+const onUndoDelete = ({ url }) => {
+  //  your existing event
+  const analytic = createAndFireEvent(SOME_CHANNEL)({
+    actionSubject: 'linkDeletion',
+    action: 'undo',
+  })(createAnalyticsEvent);
 
-    //  hand-off event
-    linkDeleted({ url }, analytic)
-  }
+  //  hand-off event
+  linkDeleted({ url }, analytic)
+}
 
-  // ...
+// ...
 
-  const onUndoInsert = ({ url }) => {
-    //  your existing event
-    const analytic = createAndFireEvent(SOME_CHANNEL)({
-      actionSubject: 'linkInsert',
-      action: 'undo',
-    })(createAnalyticsEvent);
+const onUndoInsert = ({ url }) => {
+  //  your existing event
+  const analytic = createAndFireEvent(SOME_CHANNEL)({
+    actionSubject: 'linkInsert',
+    action: 'undo',
+  })(createAnalyticsEvent);
 
-    //  hand-off event
-    linkDeleted({ url }, analytic)
-  }
+  //  hand-off event
+  linkDeleted({ url }, analytic)
+}
 `}
 
 
 ## Link Provider
 
-Make sure the usage of this hook is within the scope of a \`LinkProvider\` context.
+Make sure the usage of this hook is within the scope of a \`SmartCardProvider\` context.
 The link provider provides the ability to connect and resolve meta data about the link.
+
+${code`
+import { SmartCardProvider } from '@atlaskit/link-provider';
+import { useSmartLinkLifecycleAnalytics } from '@atlaskit/link-analytics';
+
+const Component = () => {
+  const { linkCreated } = useSmartLinkLifecycleAnalytics();
+
+  useCallback((url) => {
+    // ... some other code ...
+    linkCreated({ url })
+  }, [linkCreated])
+
+  // ... etc ...
+}
+
+const App = () => {
+  return (
+    <SmartCardProvider>
+      <Component />
+    </SmartCardProvider>
+  )
+}
+
+`}
+
 
 ## Smart Link Id
 
@@ -122,7 +176,7 @@ We've afforded the link tracking handlers with a slot to provide a \`smartLinkId
 While this is not currently in use, expect to see the this in the future to enhance insights.
 
 ${code`
-  linkCreated({ url, smartLinkId }, analytic)
+linkCreated({ url, smartLinkId }, analytic)
 `}
 
 

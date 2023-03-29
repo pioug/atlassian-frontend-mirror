@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { fireEvent, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import InlineMessage from '../../../index';
 
@@ -29,6 +30,8 @@ const createWrapper = (testId?: string) => (
 );
 
 describe('Inline message should be found by data-testid', () => {
+  const user = userEvent.setup();
+
   test('Using getByTestId()', async () => {
     const inlineMessageBtn = 'the-inline-message--button';
     const inlineMessageComponent = 'the-inline-message';
@@ -42,7 +45,7 @@ describe('Inline message should be found by data-testid', () => {
     expect(getByTestId(inlineMessageTitle)).toBeTruthy();
     expect(getByTestId(inlineMessageText)).toBeTruthy();
     // the content is only displayed when it is clicked on the inline-message.
-    fireEvent.click(getByTestId(inlineMessageBtn));
+    await user.click(getByTestId(inlineMessageBtn));
     expect(getByTestId(inlineMessageContent)).toBeTruthy();
   });
 });

@@ -13,6 +13,12 @@ context:
       type: ['flexible', 'inline', 'url', 'card', 'embed']
       description: In what format is the link shown as?
 
+  URLAttributes: &URLAttributes
+    urlHash:
+      type: string
+      description: |
+        Cryptographic hash of the link in question
+
   ResolvedAttributes: &ResolvedAttributes
     status:
       type: ['pending', 'resolving', 'resolved', 'errored', 'fallback', 'unauthorized', 'forbidden', 'not_found']
@@ -66,30 +72,27 @@ context:
       required: false
       description: |
         The `tenantId` of the linked resource if relevant.
-    urlHash:
-      type: string
-      description: |
-        Cryptographic hash of the link in question
+
 
 events:
   - link created:
       type: track
       description: fired when a link is created
       attributes:
-        <<: [*ExternalContext, *ResolvedAttributes]
+        <<: [*ExternalContext, *ResolvedAttributes, *URLAttributes]
 
 
   - link updated:
       type: track
       description: fired when a link is updated
       attributes:
-        <<: [*ExternalContext, *ResolvedAttributes]
+        <<: [*ExternalContext, *ResolvedAttributes, *URLAttributes]
 
   - link deleted:
       type: track
       description: fired when a link is deleted
       attributes:
-        <<: [*ExternalContext, *ResolvedAttributes]
+        <<: [*ExternalContext, *ResolvedAttributes, *URLAttributes]
 
   - fireAnalyticEvent commenced:
       type: operational

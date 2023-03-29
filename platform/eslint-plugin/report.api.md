@@ -24,7 +24,6 @@ export const configs: {
     plugins: string[];
     rules: {
       '@atlaskit/platform/ensure-feature-flag-registration': string;
-      '@atlaskit/platform/no-pre-post-install-scripts': string;
       '@atlaskit/platform/ensure-test-runner-arguments': string;
       '@atlaskit/platform/ensure-test-runner-nested-count': string;
       '@atlaskit/platform/no-invalid-feature-flag-usage': string;

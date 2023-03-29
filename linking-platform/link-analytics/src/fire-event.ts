@@ -1,10 +1,14 @@
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { CardClient } from '@atlaskit/link-provider';
 
-import { LinkLifecycleEventCallback, LifecycleAction } from './types';
-import { getDomainFromUrl, mergeAttributes } from './process-attributes';
+import {
+  LinkLifecycleEventCallback,
+  LifecycleAction,
+  CardStore,
+} from './types';
+import { getDomainFromUrl, mergeAttributes } from './utils';
 import { name as packageName, version as packageVersion } from './version.json';
-import { resolveAttributes } from './resolved-attributes';
+import { resolveAttributes } from './utils';
 import { ANALYTICS_CHANNEL } from './consts';
 import createEventPayload from './analytics.codegen';
 
@@ -17,6 +21,7 @@ const fireEvent = (
   action: LifecycleAction,
   createAnalyticsEvent: CreateUIAnalyticsEvent,
   client: CardClient,
+  store: CardStore,
   featureFlags: {
     enableResolveMetadataForLinkAnalytics?: boolean;
   },
@@ -24,7 +29,7 @@ const fireEvent = (
   return async (details, sourceEvent, attributes = {}) => {
     const resolvedAttributes =
       featureFlags.enableResolveMetadataForLinkAnalytics
-        ? await resolveAttributes(details.url, client)
+        ? await resolveAttributes(details, client, store)
         : {};
 
     const event = createAnalyticsEvent({

@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { cleanup, fireEvent, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import * as colors from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -19,7 +20,6 @@ const item = {
 
 describe('@atlaskit/progress-tracker/link', () => {
   beforeEach(jest.resetAllMocks);
-  afterEach(cleanup);
 
   it('sanity check', () => {
     const { getByTestId } = render(<ProgressTrackerLink {...item} />);
@@ -33,9 +33,11 @@ describe('@atlaskit/progress-tracker/link', () => {
     expect(element.getAttribute('href')).toEqual(item.href);
   });
 
-  it('clicking visited link should trigger onClick', () => {
+  it('clicking visited link should trigger onClick', async () => {
+    const user = userEvent.setup();
+
     const { getByText } = render(<ProgressTrackerLink {...item} />);
-    fireEvent.click(getByText(item.label));
+    await user.click(getByText(item.label));
     expect(item.onClick).toHaveBeenCalledTimes(1);
   });
 });

@@ -13,7 +13,7 @@ interface Query {
 export interface GraphQLError {
   code?: number;
   reason?: string;
-  errorSource?: string;
+  source?: string;
   message?: string;
   traceId?: string;
 }
@@ -63,7 +63,7 @@ export function graphqlQuery<D>(
             json.errors[0]?.extensions?.classification ||
             'default',
           code: json.errors[0]?.extensions?.statusCode,
-          errorSource: json.errors[0]?.extensions?.errorSource,
+          source: json.errors[0]?.extensions?.errorSource,
           message: json.errors[0].message,
           traceId: json.extensions?.gateway?.request_id,
         });

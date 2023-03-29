@@ -1,14 +1,12 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
-import { mount } from 'enzyme';
+import { matchers } from '@emotion/jest';
+import { render, screen } from '@testing-library/react';
 
-import CheckCircleIcon from '@atlaskit/icon/glyph/check-circle';
-import ErrorIcon from '@atlaskit/icon/glyph/error';
-import InfoIcon from '@atlaskit/icon/glyph/info';
-import WarningIcon from '@atlaskit/icon/glyph/warning';
-
+import { typesMapping } from '../../../constants';
 import MessageIcon from '../../message-icon';
+
+expect.extend(matchers);
 
 describe('MessageIcon component', () => {
   describe('props', () => {
@@ -16,32 +14,48 @@ describe('MessageIcon component', () => {
     // See https://ecosystem.atlassian.net/browse/AK-1416
     describe('type', () => {
       it('connectivity type produces connectivity icon', () => {
-        const wrapper = mount(
-          <MessageIcon isOpen={false} appearance="connectivity" />,
-        );
-        expect(wrapper.find(WarningIcon).length).toBeGreaterThan(0);
+        render(<MessageIcon isOpen={false} appearance="connectivity" />);
+
+        expect(screen.getByRole('presentation')).toBeInTheDocument();
+        expect(
+          screen.getByLabelText(typesMapping.connectivity.defaultLabel),
+        ).toBeInTheDocument();
       });
+
       it('confirmation appearance produces confirmation icon', () => {
-        const wrapper = mount(
-          <MessageIcon isOpen={false} appearance="confirmation" />,
-        );
-        expect(wrapper.find(CheckCircleIcon).length).toBeGreaterThan(0);
+        render(<MessageIcon isOpen={false} appearance="confirmation" />);
+
+        expect(screen.getByRole('presentation')).toBeInTheDocument();
+        expect(
+          screen.getByLabelText(typesMapping.confirmation.defaultLabel),
+        ).toBeInTheDocument();
       });
+
       it('info appearance produces info icon', () => {
-        const wrapper = mount(<MessageIcon isOpen={false} appearance="info" />);
-        expect(wrapper.find(InfoIcon).length).toBeGreaterThan(0);
+        render(<MessageIcon isOpen={false} appearance="info" />);
+
+        expect(screen.getByRole('presentation')).toBeInTheDocument();
+        expect(
+          screen.getByLabelText(typesMapping.info.defaultLabel),
+        ).toBeInTheDocument();
       });
+
       it('warning appearance produces warning icon', () => {
-        const wrapper = mount(
-          <MessageIcon isOpen={false} appearance="warning" />,
-        );
-        expect(wrapper.find(WarningIcon).length).toBeGreaterThan(0);
+        render(<MessageIcon isOpen={false} appearance="warning" />);
+
+        expect(screen.getByRole('presentation')).toBeInTheDocument();
+        expect(
+          screen.getByLabelText(typesMapping.warning.defaultLabel),
+        ).toBeInTheDocument();
       });
+
       it('error appearance produces error icon', () => {
-        const wrapper = mount(
-          <MessageIcon isOpen={false} appearance="error" />,
-        );
-        expect(wrapper.find(ErrorIcon).length).toBeGreaterThan(0);
+        render(<MessageIcon isOpen={false} appearance="error" />);
+
+        expect(screen.getByRole('presentation')).toBeInTheDocument();
+        expect(
+          screen.getByLabelText(typesMapping.error.defaultLabel),
+        ).toBeInTheDocument();
       });
     });
 
@@ -50,7 +64,7 @@ describe('MessageIcon component', () => {
         (
           ['connectivity', 'confirmation', 'info', 'warning', 'error'] as const
         ).forEach((appearance) => {
-          it(`should set defaultLabel for icon wiht type = ${appearance}`, () => {
+          it(`should set defaultLabel for icon with type = ${appearance}`, () => {
             const { getByTestId } = render(
               <MessageIcon isOpen={false} appearance={appearance} />,
             );
@@ -74,6 +88,30 @@ describe('MessageIcon component', () => {
 
         const icon = getByTestId('inline-message-icon');
         expect(icon.getAttribute('aria-label')).toBe('test label');
+      });
+    });
+
+    describe('isOpen', () => {
+      it('should apply iconColorStyles if isOpen prop is true', () => {
+        const { container } = render(
+          <MessageIcon appearance="info" isOpen={true} />,
+        );
+
+        expect(container.querySelector('span')).toHaveStyleRule(
+          'color',
+          'var(--icon-accent-color)',
+        );
+      });
+
+      it('should not apply iconColorStyles if isOpen prop is false', () => {
+        const { container } = render(
+          <MessageIcon appearance="info" isOpen={false} />,
+        );
+
+        expect(container.querySelector('span')).toHaveStyleRule(
+          'color',
+          'var(--icon-color)',
+        );
       });
     });
   });

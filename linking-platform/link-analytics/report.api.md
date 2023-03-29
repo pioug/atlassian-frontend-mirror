@@ -22,9 +22,8 @@ type LinkAnalyticsAttributes = Record<string, any>;
 
 // @public (undocumented)
 interface LinkDetails {
-  // (undocumented)
+  displayCategory?: 'link' | 'smartLink';
   smartLinkId?: string;
-  // (undocumented)
   url: string;
 }
 
@@ -59,7 +58,7 @@ export const useSmartLinkLifecycleAnalytics: () => SmartLinkLifecycleMethods;
 
 ```json
 {
-  "@atlaskit/link-provider": "^1.5.0",
+  "@atlaskit/link-provider": "^1.5.1",
   "react": "^16.8.0"
 }
 ```

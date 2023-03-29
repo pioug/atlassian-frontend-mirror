@@ -1,5 +1,17 @@
 # @atlaskit/eslint-plugin-platform
 
+## 0.1.3
+
+### Patch Changes
+
+- [`7facf919a4e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7facf919a4e) - Remove product specific rules and make it so the recommended set is used everywhere instead
+
+## 0.1.2
+
+### Patch Changes
+
+- [`166815fbd8f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/166815fbd8f) - Add recommended set of flags for use in products
+
 ## 0.1.1
 
 ### Patch Changes

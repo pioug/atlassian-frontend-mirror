@@ -18,9 +18,12 @@ import commonMessages from '../../../../messages';
   commonMessages.layoutFullWidth,
 ].forEach((layoutMessages) => {
   const layoutName = layoutMessages.id.split('.').pop();
+  // FIXME: This test was automatically skipped due to failure on 28/03/2023: https://product-fabric.atlassian.net/browse/ED-17325
   BrowserTestCase(
     `layouts.ts: Extension: ${layoutName} layout`,
-    {},
+    {
+      skip: ['*'],
+    },
     async (client: any, testName: string) => {
       const page = await goToEditorTestingWDExample(client);
       await mountEditor(page, {

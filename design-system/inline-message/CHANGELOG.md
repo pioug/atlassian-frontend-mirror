@@ -1,5 +1,11 @@
 # @atlaskit/inline-message
 
+## 11.4.10
+
+### Patch Changes
+
+- [`f6d92b4a378`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f6d92b4a378) - Migrates unit tests from enzyme to RTL.
+
 ## 11.4.9
 
 ### Patch Changes

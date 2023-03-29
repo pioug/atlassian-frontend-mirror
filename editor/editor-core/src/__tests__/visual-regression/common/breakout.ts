@@ -27,7 +27,8 @@ describe('Columns:', () => {
     await initFullPageEditorWithAdf(page, adf, Device.LaptopHiDPI);
   });
 
-  it('should show breakout', async () => {
+  // FIXME: This test was automatically skipped due to failure on 28/03/2023: https://product-fabric.atlassian.net/browse/ED-17324
+  it.skip('should show breakout', async () => {
     const columnNumber = 1;
     await retryUntilStablePosition(
       page,

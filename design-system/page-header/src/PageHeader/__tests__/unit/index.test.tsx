@@ -1,10 +1,9 @@
 import React from 'react';
 
-import { mount, shallow } from 'enzyme';
+import { render, screen } from '@testing-library/react';
 import renderer from 'react-test-renderer';
 
 import PageHeader from '../../../index';
-import { StyledTitleWrapper } from '../../styled';
 
 describe('@atlaskit/page-header', () => {
   it('should render correctly', () => {
@@ -45,49 +44,54 @@ describe('@atlaskit/page-header', () => {
     expect(Component).toMatchSnapshot();
   });
 
+  it('should render component as <h1> level heading', () => {
+    const { container } = render(<PageHeader>Title</PageHeader>);
+
+    expect(container.querySelector('h1')).toBeInTheDocument();
+  });
+
   it('should render passed children', () => {
-    const wrapper = shallow(<PageHeader>Title</PageHeader>);
-    expect(wrapper.contains('Title')).toBe(true);
+    render(<PageHeader>Title</PageHeader>);
+
+    expect(screen.getByText('Title')).toBeInTheDocument();
   });
 
-  it('should render passed breadcrumbs', () => {
+  it('should render all passed children components', () => {
+    const Bar = () => <div>Bottom bar</div>;
+    const Actions = () => <div>Actions</div>;
     const BreadCrumbs = () => <div>Breadcrumb</div>;
-    const wrapper = shallow(
-      <PageHeader breadcrumbs={<BreadCrumbs />}>Title</PageHeader>,
+    render(
+      <PageHeader
+        bottomBar={<Bar />}
+        actions={<Actions />}
+        breadcrumbs={<BreadCrumbs />}
+      >
+        Title
+      </PageHeader>,
     );
-    expect(wrapper.find(BreadCrumbs).length).toBe(1);
-  });
 
-  it('should render passed actions', () => {
-    const Actions = () => <div>Breadcrumb</div>;
-    const wrapper = shallow(
-      <PageHeader actions={<Actions />}>Title</PageHeader>,
-    );
-    expect(wrapper.find(Actions).length).toBe(1);
-  });
-
-  it('should render passed bottom bar', () => {
-    const Bar = () => <div>Breadcrumb</div>;
-    const wrapper = shallow(<PageHeader bottomBar={<Bar />}>Title</PageHeader>);
-    expect(wrapper.find(Bar).length).toBe(1);
+    expect(screen.getByText('Bottom bar')).toBeInTheDocument();
+    expect(screen.getByText('Actions')).toBeInTheDocument();
+    expect(screen.getByText('Breadcrumb')).toBeInTheDocument();
+    expect(screen.getByText('Title')).toBeInTheDocument();
   });
 
   it('should render custom component without the StyledTitle when disableTitleStyles is true', () => {
     const CustomTitle = () => <span>Custom component</span>;
-    const wrapper = shallow(
+    const { container } = render(
       <PageHeader disableTitleStyles>
         <CustomTitle />
       </PageHeader>,
     );
-    expect(wrapper.find(StyledTitleWrapper)).toHaveLength(0);
+
+    expect(screen.getByText('Custom component')).toBeInTheDocument();
+    expect(container.querySelector('h1')).not.toBeInTheDocument();
   });
 
   it('should truncate with truncateTitle prop', () => {
-    const wrapper = mount(
-      <PageHeader truncateTitle>Long heading text</PageHeader>,
-    );
+    render(<PageHeader truncateTitle>Long heading text</PageHeader>);
 
-    const element = wrapper.find('h1');
+    const element = screen.getByText('Long heading text');
 
     expect(element).toHaveStyleDeclaration('white-space', 'nowrap');
     expect(element).toHaveStyleDeclaration('text-overflow', 'ellipsis');
@@ -95,13 +99,8 @@ describe('@atlaskit/page-header', () => {
   });
 
   it('should set received id prop as id of inner h1 element', () => {
-    const wrapper = mount(
-      <PageHeader id="page-heading">Long heading text</PageHeader>,
-    );
+    render(<PageHeader id="page-heading">Title</PageHeader>);
 
-    expect(wrapper.find('h1').getDOMNode()).toHaveAttribute(
-      'id',
-      'page-heading',
-    );
+    expect(screen.getByText('Title')).toHaveAttribute('id', 'page-heading');
   });
 });

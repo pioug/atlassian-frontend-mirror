@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 19.2.1
+
+### Patch Changes
+
+- [`052672d7eca`](https://bitbucket.org/atlassian/atlassian-frontend/commits/052672d7eca) - Added errorSource to analytics events, added tests for fail events
+
 ## 19.2.0
 
 ### Minor Changes

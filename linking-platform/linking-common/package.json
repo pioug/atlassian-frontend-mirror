@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/linking-common",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "description": "Contains utils and interfaces shared across different LP components",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -27,7 +27,7 @@
     "@atlaskit/theme": "^12.3.0",
     "@atlaskit/tokens": "^1.2.0",
     "@babel/runtime": "^7.0.0",
-    "json-ld-types": "3.2.0",
+    "json-ld-types": "3.4.0",
     "linkify-it": "^2.0.3",
     "redux": "^3.7.2"
   },

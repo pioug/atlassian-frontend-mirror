@@ -1,11 +1,17 @@
 import React from 'react';
 
-import { shallow, ShallowWrapper } from 'enzyme';
+import { render, screen } from '@testing-library/react';
+
+import { token } from '@atlaskit/tokens';
 
 import { ProgressTracker, Stages } from '../../index';
-import ProgressTrackerStage, {
-  ProgressTrackerStageProps,
-} from '../../internal/stage';
+import {
+  varSpacing,
+  varTransitionDelay,
+  varTransitionEasing,
+  varTransitionSpeed,
+} from '../../internal/constants';
+import { Stage } from '../../types';
 
 const items: Stages = [
   {
@@ -98,88 +104,137 @@ const completedStages: Stages = [
 ];
 
 const testBackwardsRenderTransitions = (
-  progressTrackerStages: ShallowWrapper<ProgressTrackerStageProps>,
+  progressTrackerStages: NodeListOf<HTMLLIElement>,
 ) => {
   progressTrackerStages.forEach((stage, index) => {
-    expect(stage.props().transitionDelay).toBe(
-      (progressTrackerStages.length - 1 - index) * 50,
-    );
+    const delay = (progressTrackerStages.length - 1 - index) * 50;
+    expect(stage).toHaveStyle(`${varTransitionDelay}: ${delay}ms`);
   });
 };
 
 const testMultiStepRenderTransitions = (
-  progressTrackerStages: ShallowWrapper<ProgressTrackerStageProps>,
+  progressTrackerStages: NodeListOf<HTMLLIElement>,
 ) => {
   progressTrackerStages.forEach((stage, index) => {
-    expect(stage.props().transitionDelay).toBe(index * 50);
-    expect(stage.props().transitionEasing).toBe('linear');
+    expect(stage).toHaveStyle(`${varTransitionDelay}: ${index * 50}ms`);
+    expect(stage).toHaveStyle(`${varTransitionEasing}: linear`);
   });
 };
 
 const testNoOrSingleStepRenderTransitions = (
-  progressTrackerStages: ShallowWrapper<ProgressTrackerStageProps>,
+  progressTrackerStages: NodeListOf<HTMLLIElement>,
 ) => {
   progressTrackerStages.forEach((stage) => {
-    expect(stage.props().transitionDelay).toBe(0);
-    expect(stage.props().transitionEasing).toBe('cubic-bezier(0.15,1,0.3,1)');
+    expect(stage).toHaveStyle(`${varTransitionDelay}: 0ms`);
+    expect(stage).toHaveStyle(
+      `${varTransitionEasing}: cubic-bezier(0.15,1,0.3,1)`,
+    );
+  });
+};
+
+const testNotAnimated = (progressTrackerStages: NodeListOf<HTMLLIElement>) => {
+  progressTrackerStages.forEach((stage) => {
+    expect(stage).toHaveStyle(`${varTransitionDelay}: 0ms`);
+    expect(stage).toHaveStyle(`${varTransitionSpeed}: 0ms`);
   });
 };
 
 describe('@atlaskit/progress-tracker', () => {
   it('should render the component', () => {
-    const wrapper = shallow(<ProgressTracker items={items} />);
-    expect(wrapper.length).toBeGreaterThan(0);
-    expect(wrapper.find(ProgressTrackerStage)).toHaveLength(6);
+    render(<ProgressTracker items={items} testId="progress-tracker" />);
+
+    const progressTracker = screen.getByTestId('progress-tracker');
+    expect(progressTracker).toBeInTheDocument();
+    expect(progressTracker.childElementCount).toBe(6);
+  });
+
+  it('should have "cosy" spacing style by default', () => {
+    render(<ProgressTracker items={items} testId="progress-tracker" />);
+
+    expect(screen.getByTestId('progress-tracker')).toHaveStyle(
+      `${varSpacing}: ${token('space.200', '16px')}`,
+    );
+  });
+
+  it('should apply spacing style to the ul element', () => {
+    render(
+      <ProgressTracker
+        items={items}
+        testId="progress-tracker"
+        spacing="compact"
+      />,
+    );
+
+    expect(screen.getByTestId('progress-tracker')).toHaveStyle(
+      `${varSpacing}: ${token('space.050', '4px')}`,
+    );
+  });
+
+  it('should not set transition if animated prop is false', () => {
+    const { container } = render(
+      <ProgressTracker items={items} animated={false} />,
+    );
+
+    const progressTrackerStages = container.querySelectorAll('li');
+    testNotAnimated(progressTrackerStages);
   });
 
   it('should set initial transition', () => {
-    const wrapper = shallow(<ProgressTracker items={items} />);
-    const progressTrackerStages = wrapper.find(ProgressTrackerStage);
+    const { container } = render(<ProgressTracker items={items} />);
+
+    const progressTrackerStages = container.querySelectorAll('li');
     testNoOrSingleStepRenderTransitions(progressTrackerStages);
   });
 
   it('should set backwards transition', () => {
-    const wrapper = shallow(<ProgressTracker items={completedStages} />);
-    wrapper.setProps({ items });
-    const progressTrackerStages = wrapper.find(ProgressTrackerStage);
+    const { container, rerender } = render(
+      <ProgressTracker items={completedStages} />,
+    );
+    rerender(<ProgressTracker items={items} />);
+
+    const progressTrackerStages = container.querySelectorAll('li');
     testBackwardsRenderTransitions(progressTrackerStages);
   });
 
   it('should set multistep transition on first render', () => {
-    const wrapper = shallow(<ProgressTracker items={completedStages} />);
-    const progressTrackerStages = wrapper.find(ProgressTrackerStage);
+    const { container } = render(<ProgressTracker items={completedStages} />);
+
+    const progressTrackerStages = container.querySelectorAll('li');
     testMultiStepRenderTransitions(progressTrackerStages);
   });
 
   it('should set multistep transition when multiple stages are completed', () => {
-    const wrapper = shallow(<ProgressTracker items={items} />);
-    wrapper.setProps({ items: completedStages });
-    const progressTrackerStages = wrapper.find(ProgressTrackerStage);
+    const { container, rerender } = render(<ProgressTracker items={items} />);
+    rerender(<ProgressTracker items={completedStages} />);
+
+    const progressTrackerStages = container.querySelectorAll('li');
     testMultiStepRenderTransitions(progressTrackerStages);
   });
 
   it('should set single step transitions', () => {
-    const wrapper = shallow(<ProgressTracker items={items} />);
+    const { container, rerender } = render(<ProgressTracker items={items} />);
     const changedStages = items.map((stage) => {
       if (stage.id === '1') {
-        return {
+        const newStage: Stage = {
           id: '1',
           label: 'Step 1',
           percentageComplete: 50,
           href: '#',
           status: 'current',
         };
+        return newStage;
       }
       return stage;
     });
-    wrapper.setProps({ changedStages });
-    const progressTrackerStages = wrapper.find(ProgressTrackerStage);
+    rerender(<ProgressTracker items={changedStages} />);
+
+    const progressTrackerStages = container.querySelectorAll('li');
     testNoOrSingleStepRenderTransitions(progressTrackerStages);
   });
 
   it('should adapt to having a stage added', () => {
-    const wrapper = shallow(<ProgressTracker items={items} />);
-    expect(wrapper.find(ProgressTrackerStage)).toHaveLength(6);
+    const { container, rerender } = render(<ProgressTracker items={items} />);
+    expect(container.querySelectorAll('li')).toHaveLength(6);
 
     const newItems = items.map((oldStage) => {
       return {
@@ -188,25 +243,27 @@ describe('@atlaskit/progress-tracker', () => {
       };
     });
 
-    newItems.push({
+    const newStage: Stage = {
       id: '7',
       label: 'Step 7',
       percentageComplete: 0,
       href: '#',
       status: 'unvisited',
-    });
+    };
 
-    wrapper.setProps({ items: newItems });
-    expect(wrapper.find(ProgressTrackerStage)).toHaveLength(newItems.length);
+    newItems.push(newStage);
+
+    rerender(<ProgressTracker items={newItems} />);
+    expect(container.querySelectorAll('li')).toHaveLength(newItems.length);
   });
 
   it('should adapt to having a stage removed', () => {
-    const wrapper = shallow(<ProgressTracker items={items} />);
-    expect(wrapper.find(ProgressTrackerStage)).toHaveLength(6);
+    const { container, rerender } = render(<ProgressTracker items={items} />);
+    expect(container.querySelectorAll('li')).toHaveLength(6);
 
     const newItems = items.slice(0, 4);
 
-    wrapper.setProps({ items: newItems });
-    expect(wrapper.find(ProgressTrackerStage)).toHaveLength(newItems.length);
+    rerender(<ProgressTracker items={newItems} />);
+    expect(container.querySelectorAll('li')).toHaveLength(newItems.length);
   });
 });

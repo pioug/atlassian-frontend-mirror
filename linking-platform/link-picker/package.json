@@ -62,7 +62,7 @@
     "@af/codegen": "*",
     "@atlaskit/activity-provider": "^2.3.2",
     "@atlaskit/docs": "*",
-    "@atlaskit/link-analytics": "^6.0.0",
+    "@atlaskit/link-analytics": "^7.0.0",
     "@atlaskit/link-provider": "^1.5.0",
     "@atlaskit/link-test-helpers": "^2.2.0",
     "@atlaskit/popup": "^1.5.0",

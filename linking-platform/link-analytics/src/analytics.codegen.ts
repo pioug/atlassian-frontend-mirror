@@ -3,12 +3,15 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::dd6cfafdb7c85ea6f99e44b971529ea4>>
+ * @codegen <<SignedSource::c4211cfd2b40eee5d4fbe8749f260732>>
  * @codegenCommand yarn workspace @atlaskit/link-analytics run codegen-analytics
  */
 export type ExternalContextType = {
   location: string;
   display: 'flexible' | 'inline' | 'url' | 'card' | 'embed';
+};
+export type URLAttributesType = {
+  urlHash: string;
 };
 export type ResolvedAttributesType = {
   status:
@@ -22,15 +25,14 @@ export type ResolvedAttributesType = {
     | 'not_found'
     | null;
   displayCategory: 'smartLink' | 'link';
-  extensionKey: string;
-  destinationProduct: string;
-  destinationSubproduct: string;
-  destinationCategory: string;
-  destinationObjectId: string;
-  destinationObjectType: string;
-  destinationContainerId: string;
-  destinationTenantId: string;
-  urlHash: string;
+  extensionKey: string | null;
+  destinationProduct: string | null;
+  destinationSubproduct: string | null;
+  destinationCategory: string | null;
+  destinationObjectId: string | null;
+  destinationObjectType: string | null;
+  destinationContainerId: string | null;
+  destinationTenantId: string | null;
 };
 export type LinkCreatedAttributesType = {};
 export type LinkUpdatedAttributesType = {};

@@ -20,6 +20,17 @@ tester.run('ensure-design-token-usage', rule, {
       code: `import { e100 } from 'lib';`,
     },
     {
+      // Variable declarations with color names
+      code: `var YELLOW = 'foo';`,
+    },
+    {
+      // Variable declarations with color names
+      code: `var yellow = 'foo';`,
+    },
+    {
+      code: `var NOT_YELLOW = 'foo';`,
+    },
+    {
       code: `
       css({background:'none'})
       `,
@@ -57,6 +68,15 @@ tester.run('ensure-design-token-usage', rule, {
         color: inherit;
         color: \${token('color.background.blanket')};
       \`
+    `,
+    },
+    {
+      // Should not enforce types
+      code: `
+      type Colors =
+      | 'red'
+      | 'green'
+      | 'yellow';
     `,
     },
     {
@@ -247,6 +267,29 @@ tester.run('ensure-design-token-usage', rule, {
           },
         });
       `,
+    },
+    {
+      // Object keys with color names
+      code: `const foo = { green: 'foo', YELLOW: 'bar' }`,
+    },
+    {
+      // Switches with color names as conditions
+      code: `
+      switch (color) {
+        case RED:
+          break;
+        case GREEN:
+          break;
+        case blue:
+          break;
+        case yellowDark:
+          break;
+      }
+      `,
+    },
+    {
+      // Conditions
+      code: `if (response.status === YELLOW_STATUS) {}`,
     },
   ],
   invalid: [
@@ -470,20 +513,6 @@ tester.run('ensure-design-token-usage', rule, {
     {
       code: `const options: CSSObject = { color: 'red' };`,
       errors: [{ messageId: 'hardCodedColor' }],
-    },
-    {
-      code: `
-        const MARKER_LABEL_COLORS = new Map([
-          ['black', Colors.N600],
-          ['blue', Colors.TrelloBlue500],
-          ['green', Colors.Green500],
-        ]);
-      `,
-      errors: [
-        { messageId: 'hardCodedColor' },
-        { messageId: 'hardCodedColor' },
-        { messageId: 'hardCodedColor' },
-      ],
     },
   ],
 });

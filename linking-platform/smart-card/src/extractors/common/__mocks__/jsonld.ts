@@ -179,9 +179,9 @@ export const TEST_DATA_WITH_LATEST_COMMIT_OBJ = {
     '@type': 'atlassian:SourceCodeCommit',
     name: '83f45c9',
   },
-};
+} as JsonLd.Data.SourceCodeRepository;
 
 export const TEST_DATA_WITH_LATEST_COMMIT_TEXT = {
   ...TEST_BASE_DATA,
   'atlassian:latestCommit': '83f45c9',
-};
+} as JsonLd.Data.SourceCodeRepository;

@@ -536,7 +536,13 @@ describe('TeamProfileCardTrigger', () => {
     });
 
     it('Request failure analytics', async () => {
-      const error = 'An error occurred';
+      const error = {
+        reason: 'Bad request',
+        code: 400,
+        source: 'UNDERLYING_SERVICE',
+        message: 'An error occurred',
+        traceId: '123',
+      };
       const MockTeamClient = getMockTeamClient({
         team: sampleProfile,
         timeout: 0,
@@ -581,7 +587,11 @@ describe('TeamProfileCardTrigger', () => {
         flexiTime(
           teamRequestAnalytics('failed', {
             duration: expect.anything(),
-            errorReason: error,
+            errorReason: error.reason,
+            errorMessage: error.message,
+            errorSource: error.source,
+            errorStatus: error.code,
+            traceId: error.traceId,
             gateway: true,
             isSLOFailure: true,
           }),

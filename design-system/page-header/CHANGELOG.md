@@ -1,5 +1,11 @@
 # @atlaskit/page-header
 
+## 10.3.5
+
+### Patch Changes
+
+- [`e517bb1ead3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e517bb1ead3) - Migrates unit tests from enzyme to RTL.
+
 ## 10.3.4
 
 ### Patch Changes

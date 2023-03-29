@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/inline-message",
-  "version": "11.4.9",
+  "version": "11.4.10",
   "description": "An inline message lets users know when important information is available or when an action is required.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -43,8 +43,9 @@
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
+    "@emotion/jest": "^11.8.0",
     "@testing-library/react": "^12.1.5",
-    "enzyme": "^3.10.0",
+    "@testing-library/user-event": "^14.4.3",
     "react-dom": "^16.8.0",
     "typescript": "4.5.5"
   },

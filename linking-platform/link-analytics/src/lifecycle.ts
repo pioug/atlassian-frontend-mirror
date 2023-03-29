@@ -39,6 +39,7 @@ import { runWhenIdle } from './utils';
 export const useSmartLinkLifecycleAnalytics = (): SmartLinkLifecycleMethods => {
   const { createAnalyticsEvent } = useAnalyticsEvents();
   const {
+    store,
     connections: { client },
   } = useSmartLinkContext();
   const enableResolveMetadataForLinkAnalytics = !!useFeatureFlag(
@@ -61,7 +62,7 @@ export const useSmartLinkLifecycleAnalytics = (): SmartLinkLifecycleMethods => {
             const { default: fireEvent } = await import(
               /* webpackChunkName: "@atlaskit-internal_@atlaskit/link-analytics/fire-event" */ './fire-event'
             );
-            fireEvent(action, createAnalyticsEvent, client, {
+            fireEvent(action, createAnalyticsEvent, client, store, {
               enableResolveMetadataForLinkAnalytics,
             })(...args);
           });
@@ -80,5 +81,10 @@ export const useSmartLinkLifecycleAnalytics = (): SmartLinkLifecycleMethods => {
       linkUpdated: factory('updated'),
       linkDeleted: factory('deleted'),
     };
-  }, [client, createAnalyticsEvent, enableResolveMetadataForLinkAnalytics]);
+  }, [
+    client,
+    store,
+    createAnalyticsEvent,
+    enableResolveMetadataForLinkAnalytics,
+  ]);
 };

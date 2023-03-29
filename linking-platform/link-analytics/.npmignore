@@ -4,6 +4,7 @@ examples/
 index.ts
 docs/
 build/
+__fixtures__/
 __tests__/
 tsconfig.json
 analytics.spec.yaml

@@ -37,6 +37,10 @@ export const mocks = {
       auth: [],
       definitionId: 'd1',
       key: 'object-provider',
+      tenantId: 'tenantId',
+      subproduct: 'core',
+      product: 'jira',
+      category: 'object',
     },
     data: {
       '@context': {

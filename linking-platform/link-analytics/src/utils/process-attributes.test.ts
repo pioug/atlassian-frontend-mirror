@@ -3,7 +3,7 @@ import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import {
   getDomainFromUrl,
   processAttributesFromBaseEvent,
-} from '../../process-attributes';
+} from './process-attributes';
 
 describe('processAttributesFromBaseEvent', () => {
   it('should correctly assign `sourceEvent` attribute with `actionSubjectId`', () => {

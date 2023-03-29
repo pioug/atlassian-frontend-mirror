@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 4.17.1
+
+### Patch Changes
+
+- [`fd4bdeabac4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd4bdeabac4) - ensure-design-token-usage: Fixes various false positives including linting of variable declarations, type definitions, switch cases and if statements
+
 ## 4.17.0
 
 ### Minor Changes

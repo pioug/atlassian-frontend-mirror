@@ -10,4 +10,4 @@ yarn add @atlaskit/feedback-collector
 
 ## Usage
 
-Detailed docs and example usage can be found [here](https://atlaskit.atlassian.com/packages/core/feedback-collector).
+Detailed docs and example usage can be found [here](https://atlaskit.atlassian.com/packages/self-help-experience/feedback-collector).

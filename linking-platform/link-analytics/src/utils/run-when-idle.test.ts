@@ -1,4 +1,4 @@
-import { runWhenIdle } from '../../../utils';
+import { runWhenIdle } from './run-when-idle';
 
 describe('runWhenIdle', () => {
   it('calls `window.requestIdleCallback` with the callback function and set 5s timeout', () => {

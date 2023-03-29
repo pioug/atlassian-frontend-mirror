@@ -18,6 +18,7 @@ export const getErrorAttributes = (error?: GraphQLError) => {
     errorMessage: error?.message,
     errorStatus: error?.code,
     errorReason: error?.reason || 'default',
+    errorSource: error?.source,
     isSLOFailure: !isIgnoredError(error),
     traceId: error?.traceId ?? undefined,
   };

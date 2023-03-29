@@ -158,7 +158,7 @@ describe('getTeamFromAGG', () => {
     const status = 403;
     const reason = 'TEAMS_FORBIDDEN';
     const traceId = '123';
-    const errorSource = 'test-error-source';
+    const source = 'test-error-source';
     const message = 'test-error-message';
     fetchMock.mock(serviceUrl, (_: any, __: any) => ({
       status: 200,
@@ -168,7 +168,7 @@ describe('getTeamFromAGG', () => {
             extensions: {
               classification: reason,
               statusCode: status,
-              errorSource: errorSource,
+              errorSource: source,
             },
             message,
           },
@@ -185,7 +185,7 @@ describe('getTeamFromAGG', () => {
       code: status,
       reason,
       traceId,
-      errorSource,
+      source,
       message,
     });
   });

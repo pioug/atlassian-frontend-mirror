@@ -122,7 +122,9 @@ token('color.background.blanket');
         if (
           isException(node) ||
           isDecendantOfGlobalToken(node) ||
+          isDecendantOfType(node, 'SwitchCase') ||
           isDecendantOfType(node, 'ImportDeclaration') ||
+          isDecendantOfType(node, 'IfStatement') ||
           isPropertyKey(node) ||
           isVariableName(node)
         ) {

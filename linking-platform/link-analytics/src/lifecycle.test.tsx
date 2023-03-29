@@ -7,10 +7,10 @@ import { SmartCardProvider, useFeatureFlag } from '@atlaskit/link-provider';
 import { act, renderHook } from '@testing-library/react-hooks';
 import { waitFor } from '@testing-library/dom';
 
-import { ANALYTICS_CHANNEL } from '../../consts';
-import { useSmartLinkLifecycleAnalytics } from '../../lifecycle';
-import { runWhenIdle } from '../../utils';
-import { fakeFactory, mocks } from '../__fixtures__/mocks';
+import { ANALYTICS_CHANNEL } from './consts';
+import { useSmartLinkLifecycleAnalytics } from './lifecycle';
+import { runWhenIdle } from './utils';
+import { fakeFactory, mocks } from './__fixtures__/mocks';
 
 jest.mock('@atlaskit/link-provider', () => {
   const originalModule = jest.requireActual('@atlaskit/link-provider');
@@ -20,8 +20,8 @@ jest.mock('@atlaskit/link-provider', () => {
   };
 });
 
-jest.mock('../../utils', () => {
-  const originalModule = jest.requireActual('../../utils');
+jest.mock('./utils', () => {
+  const originalModule = jest.requireActual('./utils');
   return {
     ...originalModule,
     runWhenIdle: jest.fn(),
@@ -268,7 +268,7 @@ describe('useSmartLinkLifecycleAnalytics', () => {
 
   describe('runWhenIdle', () => {
     const fireEventSpy = jest.spyOn(
-      jest.requireActual('../../fire-event'),
+      jest.requireActual('./fire-event'),
       'default',
     );
 

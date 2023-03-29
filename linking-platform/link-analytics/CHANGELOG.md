@@ -1,5 +1,47 @@
 # @atlaskit/link-analytics
 
+## 7.0.0
+
+### Major Changes
+
+- [`d2703b479a1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2703b479a1) - Removes extraneous exports from /resolved-attributes entry point.
+
+### Minor Changes
+
+- [`13ea25a119c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/13ea25a119c) - Adds support to callbacks to provide `displayCategory` link detail.
+
+  If firing an event for a link that is not yet (or is no longer) displayed as a smart link, provide the link details `displayCategory` field the value of `link`.
+
+  ```ts
+  const { linkCreated } = useSmartLinkLifecycleAnalytics();
+
+  /**
+   * If creating a link that won't be displayed as smart link
+   * fire link created with displayCategory = link
+   */
+  linkCreated({ url: 'https://atlassian.com', displayCategory: 'link' });
+
+  /**
+   * If the user changes the appearance of the link so it will now be displayed
+   * as a smart link, call linkUpdated but do not provide displayCategory field,
+   * indicating the link is currently displayed as smart link
+   */
+  linkUpdated({ url: 'https://atlassian.com' });
+
+  /**
+   * If the user deletes a link that is currently being displayed as a smart link,
+   * do not provide displayCategory field
+   */
+  linkDeleted({ url: 'https://atlassian.com' });
+  ```
+
+## 6.0.1
+
+### Patch Changes
+
+- [`0af4a6b6426`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0af4a6b6426) - Dependency update json-ld-types@3.4.0
+- Updated dependencies
+
 ## 6.0.0
 
 ### Patch Changes

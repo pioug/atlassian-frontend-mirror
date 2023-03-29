@@ -16,18 +16,14 @@ describe('extractors.latestCommit', () => {
   });
 
   it('should return correct value when latestCommit object is presentIN JSON-LD', () => {
-    expect(
-      extractLatestCommit(
-        TEST_DATA_WITH_LATEST_COMMIT_OBJ as JsonLd.Data.SourceCodeRepository,
-      ),
-    ).toEqual(TEST_COMMIT);
+    expect(extractLatestCommit(TEST_DATA_WITH_LATEST_COMMIT_OBJ)).toEqual(
+      TEST_COMMIT,
+    );
   });
 
   it('should return the passed string if latestCommit object is a string', () => {
-    expect(
-      extractLatestCommit(
-        TEST_DATA_WITH_LATEST_COMMIT_TEXT as JsonLd.Data.SourceCodeRepository,
-      ),
-    ).toEqual(TEST_COMMIT);
+    expect(extractLatestCommit(TEST_DATA_WITH_LATEST_COMMIT_TEXT)).toEqual(
+      TEST_COMMIT,
+    );
   });
 });

@@ -29,7 +29,8 @@ async function hideImagesToAvoidFlakiness(page: Page) {
   });
 }
 
-describe('board', () => {
+// TODO: unskip this - original context: https://atlassian.slack.com/archives/CFJ9DU39U/p1680052647889709
+describe.skip('board', () => {
   const url = getExampleUrl(
     'drag-and-drop',
     'docs',

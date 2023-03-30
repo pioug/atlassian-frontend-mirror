@@ -122,6 +122,7 @@ export interface FileFetcher {
     controller?: UploadController,
     uploadableFileUpfrontIds?: UploadableFileUpfrontIds,
     traceContext?: MediaTraceContext,
+    featureFlags?: MediaFeatureFlags,
   ): MediaSubscribable<FileState>;
   uploadExternal(
     url: string,
@@ -605,10 +606,11 @@ export class FileFetcherImpl implements FileFetcher {
     controller?: UploadController,
     uploadableFileUpfrontIds?: UploadableFileUpfrontIds,
     traceContext?: MediaTraceContext,
+    featureFlags?: MediaFeatureFlags,
   ): MediaSubscribable<FileState> {
     const shouldAlwaysFetchFileState = getMediaFeatureFlag(
       'fetchFileStateAfterUpload',
-      this.featureFlags,
+      featureFlags || this.featureFlags,
     );
 
     if (shouldAlwaysFetchFileState) {

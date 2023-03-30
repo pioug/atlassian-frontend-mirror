@@ -18,9 +18,10 @@ export default function createLineElement({
   lineProps = {},
   className = [],
 }: CreateLineElementProps): AST.Element {
-  const properties =
+  const propsPassedInFromCodeBlock =
     typeof lineProps === 'function' ? lineProps(lineNumber) : lineProps;
-  properties.className = className;
+  const properties = { ...propsPassedInFromCodeBlock, className };
+
   let currentChildren = children;
 
   if (lineNumber && showLineNumbers) {

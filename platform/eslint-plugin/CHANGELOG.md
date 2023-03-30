@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-platform
 
+## 0.1.4
+
+### Patch Changes
+
+- [`971489f4ff4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/971489f4ff4) - Add test runner to identified calls that require registration of platform feature flags
+
 ## 0.1.3
 
 ### Patch Changes

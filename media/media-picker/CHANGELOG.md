@@ -1,5 +1,12 @@
 # @atlaskit/media-picker
 
+## 64.2.3
+
+### Patch Changes
+
+- [`0e2981295ce`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0e2981295ce) - Media Picker passes feature flags object through Media Client upload method, overriding internal Media Client flags
+- Updated dependencies
+
 ## 64.2.2
 
 ### Patch Changes

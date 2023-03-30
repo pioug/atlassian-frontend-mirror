@@ -1,7 +1,7 @@
 {
   "name": "@atlaskit/eslint-plugin-platform",
   "description": "The essential plugin for use with Atlassian frontend platform tools",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "author": "Atlassian Pty Ltd",
   "atlassian": {
     "team": "UIP - Platform Integration Trust (PITa)",

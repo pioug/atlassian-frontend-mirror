@@ -151,6 +151,7 @@ export class DropzoneBase extends LocalUploadComponentReact<
     dragEvent.preventDefault();
     dragEvent.stopPropagation();
 
+    const { featureFlags } = this.props;
     /*
      * Only enable support for folders if (1) the browser is supported (2) feature flag is enabled
      * The file flattening library used to add support for Folders uses a function called webkitEntry.
@@ -158,7 +159,7 @@ export class DropzoneBase extends LocalUploadComponentReact<
      */
     if (
       isWebkitSupported() &&
-      getMediaFeatureFlag('folderUploads', this.props.featureFlags)
+      getMediaFeatureFlag('folderUploads', featureFlags)
     ) {
       this.fireAnalyticsForFolders(dragEvent.dataTransfer.items);
       const flattenedDirectoryFiles = await this.getFilesFromDragEvent(
@@ -166,13 +167,13 @@ export class DropzoneBase extends LocalUploadComponentReact<
       );
 
       this.onDropFolders(flattenedDirectoryFiles.length);
-      this.uploadService.addFiles(flattenedDirectoryFiles);
+      this.uploadService.addFiles(flattenedDirectoryFiles, featureFlags);
     } else {
       this.onDrop(dragEvent);
 
       const files = Array.from(dragEvent.dataTransfer.files);
 
-      this.uploadService.addFiles(files);
+      this.uploadService.addFiles(files, featureFlags);
     }
   };
 

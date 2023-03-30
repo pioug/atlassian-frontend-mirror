@@ -4,8 +4,10 @@ import path from 'path';
 import Fuse from 'fuse.js';
 
 // defines a "getter" to "type" map, if more types are required for feature flags (like string) add it here!
+// if you don't want to verify the type use `null` as the value
 const getterIdentifierToFlagTypeMap = {
   getBooleanFF: 'boolean' as const,
+  ffTest: 'boolean' as const,
 } as const;
 
 type PlatformFeatureFlagRegistrationSection = {
@@ -69,6 +71,7 @@ const rule: Rule.RuleModule = {
         'Please add a "platform-feature-flags" section to your package.json! See http://go/pff-eslint for more details',
       featureFlagMissing: `Please add a "{{ featureFlag }}" section to the "platform-feature-flags" section in your package.json. See http://go/pff-eslint for more details`,
       changeFeatureFlag: `Change flag key to "{{ closestFlag }}" already defined in package.json`,
+      featureFlagIncorrectType: `Please change the type for "{{ featureFlag }}" to "{{ expectedType }}" in the section to the "platform-feature-flags" section in your package.json. See http://go/pff-eslint for more details"`,
     },
 
     hasSuggestions: true,
@@ -105,6 +108,25 @@ const rule: Rule.RuleModule = {
             ) {
               const featureFlag = args[0].value as string;
               const featureFlagRegistration = platformFeatureFlags[featureFlag];
+
+              const expectedType =
+                getterIdentifierToFlagTypeMap[getterIdentifier];
+
+              // ensure the flag type matches what is registered
+              if (
+                featureFlagRegistration != null &&
+                expectedType != null &&
+                featureFlagRegistration?.type !== expectedType
+              ) {
+                return context.report({
+                  node: args[0],
+                  messageId: 'featureFlagIncorrectType',
+                  data: {
+                    featureFlag,
+                    expectedType,
+                  },
+                });
+              }
 
               if (!featureFlagRegistration) {
                 // find the closest match in existing section for suggestion text

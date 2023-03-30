@@ -50,11 +50,11 @@ export type {
   ValidationState,
   GroupProps,
   AsyncSelectProps,
+  PlaceholderProps,
 } from './types';
 
 /**
  * Types not exported on the public API, didn't find usages in sourcegraph
  *
  * CreatableSelectProps,
- * PlaceholderProps,
  */

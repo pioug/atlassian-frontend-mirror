@@ -228,15 +228,19 @@ const container = document.createElement('div');
       expectedContainer.dispatchEvent(createDropEvent());
 
       expect(componentInstance.uploadService.addFiles).toHaveBeenCalledTimes(1);
-      expect(componentInstance.uploadService.addFiles).toBeCalledWith(files);
+      expect(componentInstance.uploadService.addFiles).toBeCalledWith(
+        files,
+        undefined,
+      );
     });
 
     it('should ensure non-supported browser fallback works (in the context of folder uploads)', async () => {
+      const featureFlags = { folderUploads: true };
       component = mount(
         <DropzoneBase
           mediaClient={mediaClient}
           config={config}
-          featureFlags={{ folderUploads: true }}
+          featureFlags={featureFlags}
         />,
       );
 
@@ -249,19 +253,22 @@ const container = document.createElement('div');
       //non-supported browser or feature flag off option calls onDrop function
       expect(componentInstance.onDrop).toHaveBeenCalledTimes(1);
       expect(componentInstance.uploadService.addFiles).toHaveBeenCalledTimes(1);
-      expect(componentInstance.uploadService.addFiles).toBeCalledWith(files);
+      expect(componentInstance.uploadService.addFiles).toBeCalledWith(
+        files,
+        featureFlags,
+      );
     });
 
     it('should filter files uploaded against a blocked list (when folder uploading is enabled)', async () => {
       asMockFunction(isWebkitSupported).mockImplementationOnce(() => {
         return true;
       });
-
+      const featureFlags = { folderUploads: true };
       component = mount(
         <DropzoneBase
           mediaClient={mediaClient}
           config={config}
-          featureFlags={{ folderUploads: true }}
+          featureFlags={featureFlags}
         />,
       );
 
@@ -277,15 +284,19 @@ const container = document.createElement('div');
       await asyncUpdateComponentTick(component);
 
       expect(componentInstance.uploadService.addFiles).toHaveBeenCalledTimes(1);
-      expect(componentInstance.uploadService.addFiles).toBeCalledWith(files);
+      expect(componentInstance.uploadService.addFiles).toBeCalledWith(
+        files,
+        featureFlags,
+      );
     });
 
     it('should ensure fallback works if the feature flag for folders is not enabled', async () => {
+      const featureFlags = { folderUploads: false };
       component = mount(
         <DropzoneBase
           mediaClient={mediaClient}
           config={config}
-          featureFlags={{ folderUploads: false }}
+          featureFlags={featureFlags}
         />,
       );
 
@@ -298,7 +309,10 @@ const container = document.createElement('div');
       //non-supported browser or feature flag off option calls onDrop function
       expect(componentInstance.onDrop).toHaveBeenCalledTimes(1);
       expect(componentInstance.uploadService.addFiles).toHaveBeenCalledTimes(1);
-      expect(componentInstance.uploadService.addFiles).toBeCalledWith(files);
+      expect(componentInstance.uploadService.addFiles).toBeCalledWith(
+        files,
+        featureFlags,
+      );
     });
 
     it('should provide a function to onCancelFn callback property and call uploadService.cancel', () => {

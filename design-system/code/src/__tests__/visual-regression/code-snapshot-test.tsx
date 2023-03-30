@@ -185,4 +185,24 @@ describe('Snapshot Test', () => {
     );
     expect(image).toMatchProdImageSnapshot();
   });
+
+  it('CodeBlock syntax highlighting and line wrapping should not be impacted by testId', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'code',
+      'vr-python-test-id-and-wrapping',
+      global.__BASEURL__,
+    );
+    const { page } = global;
+    await page.setViewport({ width: 425, height: 900 });
+    await loadPage(page, url);
+    await page.waitForSelector(
+      '[data-testid="testid-and-wrapping-with-python"]',
+    );
+    const image = await takeElementScreenShot(
+      page,
+      '[data-testid="testid-and-wrapping-with-python"]',
+    );
+    expect(image).toMatchProdImageSnapshot();
+  });
 });

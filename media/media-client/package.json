@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-client",
-  "version": "20.1.0",
+  "version": "20.2.0",
   "description": "Media API Web Client Library",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

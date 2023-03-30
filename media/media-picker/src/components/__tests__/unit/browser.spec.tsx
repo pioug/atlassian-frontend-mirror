@@ -22,7 +22,7 @@ describe('Browser', () => {
     browser.find('input').simulate('change');
 
     expect(addFilesSpy).toHaveBeenCalledTimes(1);
-    expect(addFilesSpy).toBeCalledWith([]);
+    expect(addFilesSpy).toBeCalledWith([], undefined);
   });
 
   it('should provide a function to onBrowseFn callback property and call click function on native input element', () => {
@@ -147,7 +147,7 @@ describe('Browser', () => {
     browser.find('input').simulate('change');
 
     expect(addFileSpy).toHaveBeenCalledTimes(1);
-    expect(addFileSpy).toBeCalledWith(undefined, 'some-file-id');
+    expect(addFileSpy).toBeCalledWith(undefined, 'some-file-id', undefined);
   });
 
   it('should use latest UploadParams during upload', () => {

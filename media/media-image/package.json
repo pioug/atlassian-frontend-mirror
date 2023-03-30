@@ -33,7 +33,7 @@
     }
   },
   "dependencies": {
-    "@atlaskit/media-client": "^20.1.0",
+    "@atlaskit/media-client": "^20.2.0",
     "@babel/runtime": "^7.0.0"
   },
   "peerDependencies": {

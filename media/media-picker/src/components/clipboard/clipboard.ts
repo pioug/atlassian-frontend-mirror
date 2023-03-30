@@ -5,6 +5,7 @@ import {
 
 import {
   ANALYTICS_MEDIA_CHANNEL,
+  MediaFeatureFlags,
   withMediaAnalyticsContext,
 } from '@atlaskit/media-common';
 
@@ -55,6 +56,7 @@ class ClipboardImpl {
   constructor(
     private readonly uploadService: UploadService,
     private readonly createAnalyticsEvent?: CreateUIAnalyticsEvent,
+    public featureFlags?: MediaFeatureFlags,
   ) {}
 
   static get latestInstance(): ClipboardImpl | undefined {
@@ -83,7 +85,8 @@ class ClipboardImpl {
   }
 
   public onFilesPasted(files: LocalFileWithSource[]) {
-    this.uploadService.addFilesWithSource(files);
+    const { featureFlags } = this;
+    this.uploadService.addFilesWithSource(files, featureFlags);
     this.fireAnalyticsEvent(files);
   }
 
@@ -145,13 +148,16 @@ class ClipboardImpl {
 }
 
 export class ClipboardBase extends LocalUploadComponentReact<ClipboardProps> {
-  clipboard: ClipboardImpl = new ClipboardImpl(
-    this.uploadService,
-    this.props.createAnalyticsEvent,
-  );
+  clipboard: ClipboardImpl;
 
   constructor(props: ClipboardProps) {
     super(props, COMPONENT_NAME);
+
+    this.clipboard = new ClipboardImpl(
+      this.uploadService,
+      this.props.createAnalyticsEvent,
+      props.featureFlags,
+    );
   }
 
   static defaultProps = {
@@ -160,6 +166,12 @@ export class ClipboardBase extends LocalUploadComponentReact<ClipboardProps> {
 
   componentDidMount() {
     this.clipboard.activate();
+  }
+
+  componentDidUpdate(prevProps: ClipboardProps) {
+    if (prevProps.featureFlags !== this.props.featureFlags) {
+      this.clipboard.featureFlags = this.props.featureFlags;
+    }
   }
 
   componentWillUnmount() {

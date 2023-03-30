@@ -26,7 +26,11 @@ import {
 } from './types';
 import { LocalFileSource, LocalFileWithSource } from '../service/types';
 import { getPreviewFromBlob } from '../util/getPreviewFromBlob';
-import { getRandomHex, MediaTraceContext } from '@atlaskit/media-common';
+import {
+  getRandomHex,
+  MediaFeatureFlags,
+  MediaTraceContext,
+} from '@atlaskit/media-common';
 
 export interface CancellableFileUpload {
   mediaFile: MediaFile;
@@ -58,12 +62,13 @@ export class UploadServiceImpl implements UploadService {
     return new UploadController();
   }
 
-  addFiles(files: File[]): void {
+  addFiles(files: File[], featureFlags?: MediaFeatureFlags): void {
     this.addFilesWithSource(
       files.map((file: File) => ({
         file,
         source: LocalFileSource.LocalUpload,
       })),
+      featureFlags,
     );
   }
 
@@ -73,7 +78,10 @@ export class UploadServiceImpl implements UploadService {
     ]);
   }
 
-  addFilesWithSource(files: LocalFileWithSource[]): void {
+  addFilesWithSource(
+    files: LocalFileWithSource[],
+    featureFlags?: MediaFeatureFlags,
+  ): void {
     if (files.length === 0) {
       return;
     }
@@ -169,6 +177,7 @@ export class UploadServiceImpl implements UploadService {
           controller,
           uploadableUpfrontIds,
           traceContext,
+          featureFlags,
         );
 
         const mediaFile: MediaFile = {

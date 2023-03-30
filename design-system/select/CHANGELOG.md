@@ -1,5 +1,11 @@
 # @atlaskit/select
 
+## 16.1.7
+
+### Patch Changes
+
+- [`c3a92e0b058`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c3a92e0b058) - Export placeholder props from figma plugin
+
 ## 16.1.6
 
 ### Patch Changes

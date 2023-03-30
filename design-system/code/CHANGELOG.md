@@ -1,5 +1,11 @@
 # @atlaskit/code
 
+## 14.5.3
+
+### Patch Changes
+
+- [`74750bef5c4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/74750bef5c4) - Fixes some bugs with the long line wrapping and syntax-highlighting changes that were released in v14.5.0.
+
 ## 14.5.2
 
 ### Patch Changes

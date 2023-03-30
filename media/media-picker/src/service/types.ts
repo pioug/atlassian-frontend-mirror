@@ -1,3 +1,4 @@
+import { MediaFeatureFlags } from '@atlaskit/media-common';
 import {
   UploadEndEventPayload,
   UploadErrorEventPayload,
@@ -22,9 +23,16 @@ export const MAX_FILE_SIZE_FOR_PREVIEW = 10e6; // 10 MB
 
 export interface UploadService {
   setUploadParams(uploadParams: UploadParams): void;
-  addFile(file: File, replaceFileId?: string): void;
-  addFiles(files: File[]): void;
-  addFilesWithSource(files: LocalFileWithSource[]): void;
+  addFile(
+    file: File,
+    replaceFileId?: string,
+    featureFlags?: MediaFeatureFlags,
+  ): void;
+  addFiles(files: File[], featureFlags?: MediaFeatureFlags): void;
+  addFilesWithSource(
+    files: LocalFileWithSource[],
+    featureFlags?: MediaFeatureFlags,
+  ): void;
   cancel(id?: string): void;
   on<E extends keyof UploadServiceEventPayloadTypes>(
     event: E,

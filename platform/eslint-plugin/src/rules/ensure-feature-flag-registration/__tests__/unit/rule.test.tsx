@@ -27,6 +27,9 @@ describe('with existing platform-feature-flags section', () => {
         'test-flag': {
           type: 'boolean',
         },
+        'string-flag': {
+          type: 'string',
+        },
       },
     };
   });
@@ -37,10 +40,30 @@ describe('with existing platform-feature-flags section', () => {
       {
         code: `getBooleanFF('test-flag')`,
       },
+      {
+        code: `ffTest('test-flag')`,
+      },
     ],
     invalid: [
       {
-        code: `getBooleanFF('invalid-flag')`,
+        code: `ffTest('test-flag-invalid')`,
+        errors: [
+          {
+            messageId: 'featureFlagMissing',
+            suggestions: [
+              {
+                messageId: 'changeFeatureFlag',
+                data: {
+                  closestFlag: 'test-flag',
+                },
+                output: `ffTest('test-flag')`,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        code: `getBooleanFF('test-flag-invalid')`,
         errors: [
           {
             messageId: 'featureFlagMissing',
@@ -53,6 +76,18 @@ describe('with existing platform-feature-flags section', () => {
                 output: `getBooleanFF('test-flag')`,
               },
             ],
+          },
+        ],
+      },
+      {
+        code: `getBooleanFF('string-flag')`,
+        errors: [
+          {
+            messageId: 'featureFlagIncorrectType',
+            data: {
+              featureFlag: 'string-flag',
+              expectedType: 'boolean',
+            },
           },
         ],
       },

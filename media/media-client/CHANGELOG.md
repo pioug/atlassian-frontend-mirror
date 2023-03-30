@@ -1,5 +1,11 @@
 # @atlaskit/media-client
 
+## 20.2.0
+
+### Minor Changes
+
+- [`0e2981295ce`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0e2981295ce) - Media Client accepts a feature flags object in the upload method overriding internal flags
+
 ## 20.1.0
 
 ### Minor Changes

@@ -52,9 +52,10 @@ const lineNumberStyle = (theme: CodeBlockTheme): CSSObject => ({
 const syntaxKeywordColors = (theme: CodeBlockTheme): CSSObject => ({
   '.token': {
     // this specifically stops prism css cascading.
-    '&:not([class=token],[data-ds--code--row--highlight])': {
-      all: 'unset',
-    },
+    '&:not([class=token],[data-ds--code--row--highlight],[data-ds--code--row])':
+      {
+        all: 'unset',
+      },
     // additional specificity required to match the all: unset
     '&.key,&.keyword': {
       color: theme.keywordColor,

@@ -1,6 +1,3 @@
-import fs from 'fs';
-import path from 'path';
-
 import {
   AST_NODE_TYPES,
   ASTUtils,
@@ -9,16 +6,11 @@ import {
 } from '@typescript-eslint/utils';
 
 import { createRule } from '../utils/create-rule';
-
-interface DeprecatedConfigEntry {
-  moduleSpecifier: string;
-  namedSpecifiers?: string[];
-  actionableVersion?: string;
-}
-
-export interface DeprecatedConfig {
-  [key: string]: DeprecatedConfigEntry[];
-}
+import { getConfig } from '../utils/get-deprecated-config';
+import {
+  DeprecatedConfig,
+  isDeprecatedJSXAttributeConfig,
+} from '../utils/types';
 
 export const noDeprecatedJSXAttributeMessageId = 'noDeprecatedJSXAttributes';
 
@@ -51,21 +43,6 @@ const findJSXElementName = (
   return (openingElement.name as TSESTree.JSXIdentifier).name;
 };
 
-const getConfig = () => {
-  const configPath = path.resolve(
-    __dirname,
-    '..',
-    '..',
-    '..',
-    'configs',
-    'deprecated.json',
-  );
-  const source = fs.readFileSync(configPath, 'utf8');
-  const parsedConfig = JSON.parse(source) as DeprecatedConfig;
-
-  return parsedConfig;
-};
-
 export const name = 'no-deprecated-apis';
 
 const rule = createRule<
@@ -74,7 +51,11 @@ const rule = createRule<
   TSESLint.RuleListener
 >({
   name,
-  defaultOptions: [{ deprecatedConfig: getConfig() }],
+  defaultOptions: [
+    {
+      deprecatedConfig: getConfig('jsxAttributes'),
+    },
+  ],
   meta: {
     type: 'suggestion',
     docs: {
@@ -136,7 +117,10 @@ const rule = createRule<
         }
         const jsxAttributeName = jsxAttributeIdentifier.name as string;
 
-        if (!deprecatedConfig[jsxAttributeName]) {
+        if (
+          !isDeprecatedJSXAttributeConfig(deprecatedConfig) ||
+          !deprecatedConfig[jsxAttributeName]
+        ) {
           return;
         }
 

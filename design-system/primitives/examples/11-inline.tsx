@@ -45,7 +45,7 @@ export default () => (
                 borderRadius="radius.200"
                 backgroundColor="neutral"
                 padding="space.050"
-                customStyles={{
+                style={{
                   width: '200px',
                 }}
               >
@@ -81,7 +81,7 @@ export default () => (
                 borderRadius="radius.200"
                 backgroundColor="neutral"
                 padding="space.050"
-                customStyles={{
+                style={{
                   width: '200px',
                 }}
               >
@@ -116,7 +116,7 @@ export default () => (
                   backgroundColor="neutral"
                   padding="space.050"
                   borderRadius="radius.200"
-                  customStyles={{
+                  style={{
                     height: '200px',
                   }}
                   display="flex"

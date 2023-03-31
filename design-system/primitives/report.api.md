@@ -18,6 +18,8 @@
 import { ComponentPropsWithoutRef } from 'react';
 import { ComponentPropsWithRef } from 'react';
 import type { CSSProperties } from 'react';
+import { CSSPropertiesWithMultiValues } from '@emotion/serialize';
+import { CSSPseudos } from '@emotion/serialize';
 import { ElementType } from 'react';
 import { FC } from 'react';
 import { ForwardRefExoticComponent } from 'react';
@@ -53,6 +55,9 @@ const alignSelfMap: {
 
 // @public (undocumented)
 type BackgroundColor = keyof typeof backgroundColorMap;
+
+// @public (undocumented)
+type BackgroundColor_2 = keyof typeof backgroundColorMap_2;
 
 // @public (undocumented)
 const backgroundColorMap: {
@@ -121,16 +126,46 @@ const backgroundColorMap: {
 };
 
 // @public (undocumented)
+const backgroundColorMap_2: {
+  readonly disabled: 'var(--ds-background-disabled)';
+  readonly input: 'var(--ds-background-input)';
+  readonly 'inverse.subtle': 'var(--ds-background-inverse-subtle)';
+  readonly neutral: 'var(--ds-background-neutral)';
+  readonly 'neutral.subtle': 'var(--ds-background-neutral-subtle)';
+  readonly 'neutral.bold': 'var(--ds-background-neutral-bold)';
+  readonly selected: 'var(--ds-background-selected)';
+  readonly 'selected.bold': 'var(--ds-background-selected-bold)';
+  readonly 'brand.bold': 'var(--ds-background-brand-bold)';
+  readonly danger: 'var(--ds-background-danger)';
+  readonly 'danger.bold': 'var(--ds-background-danger-bold)';
+  readonly warning: 'var(--ds-background-warning)';
+  readonly 'warning.bold': 'var(--ds-background-warning-bold)';
+  readonly success: 'var(--ds-background-success)';
+  readonly 'success.bold': 'var(--ds-background-success-bold)';
+  readonly discovery: 'var(--ds-background-discovery)';
+  readonly 'discovery.bold': 'var(--ds-background-discovery-bold)';
+  readonly information: 'var(--ds-background-information)';
+  readonly 'information.bold': 'var(--ds-background-information-bold)';
+  readonly 'color.blanket': 'var(--ds-blanket)';
+  readonly 'color.blanket.selected': 'var(--ds-blanket-selected)';
+  readonly 'color.blanket.danger': 'var(--ds-blanket-danger)';
+  readonly 'elevation.surface': 'var(--ds-surface)';
+  readonly 'elevation.surface.overlay': 'var(--ds-surface-overlay)';
+  readonly 'elevation.surface.raised': 'var(--ds-surface-raised)';
+  readonly 'elevation.surface.sunken': 'var(--ds-surface-sunken)';
+};
+
+// @public (undocumented)
 type BaseBoxProps<T extends ElementType = 'div'> = Omit<
   ComponentPropsWithoutRef<T>,
-  'as' | 'className' | 'style'
+  'as' | 'className'
 > &
   BasePrimitiveProps &
   BaseBoxPropsFoundation<T>;
 
 // @public (undocumented)
 type BaseBoxPropsFoundation<T extends ElementType> = {
-  as?: 'div' | 'span';
+  as?: 'div' | 'li' | 'span';
   className?: string;
   children?: ReactNode;
   color?: TextColor;
@@ -165,13 +200,16 @@ type BaseBoxPropsFoundation<T extends ElementType> = {
 };
 
 // @public (undocumented)
-interface BasePrimitiveProps {
+type BasePrimitiveProps = {
   testId?: string;
-  UNSAFE_style?: CSSProperties;
-}
+  style?: CSSProperties;
+};
 
 // @public (undocumented)
 type BorderColor = keyof typeof borderColorMap;
+
+// @public (undocumented)
+type BorderColor_2 = keyof typeof borderColorMap_2;
 
 // @public
 const borderColorMap: {
@@ -200,6 +238,23 @@ const borderColorMap: {
 };
 
 // @public (undocumented)
+const borderColorMap_2: {
+  readonly 'color.border': 'var(--ds-border)';
+  readonly disabled: 'var(--ds-border-disabled)';
+  readonly focused: 'var(--ds-border-focused)';
+  readonly input: 'var(--ds-border-input)';
+  readonly inverse: 'var(--ds-border-inverse)';
+  readonly selected: 'var(--ds-border-selected)';
+  readonly brand: 'var(--ds-border-brand)';
+  readonly danger: 'var(--ds-border-danger)';
+  readonly warning: 'var(--ds-border-warning)';
+  readonly success: 'var(--ds-border-success)';
+  readonly discovery: 'var(--ds-border-discovery)';
+  readonly information: 'var(--ds-border-information)';
+  readonly bold: 'var(--ds-border-bold)';
+};
+
+// @public (undocumented)
 type BorderRadius = keyof typeof borderRadiusMap;
 
 // @public (undocumented)
@@ -224,7 +279,17 @@ const borderStyleMap: {
 type BorderWidth = keyof typeof borderWidthMap;
 
 // @public (undocumented)
+type BorderWidth_2 = keyof typeof borderWidthMap_2;
+
+// @public (undocumented)
 const borderWidthMap: {
+  readonly 'size.0': 'var(--ds-width-0)';
+  readonly 'size.050': 'var(--ds-width-050)';
+  readonly 'size.100': 'var(--ds-width-100)';
+};
+
+// @public (undocumented)
+const borderWidthMap_2: {
   readonly 'size.0': 'var(--ds-width-0)';
   readonly 'size.050': 'var(--ds-width-050)';
   readonly 'size.100': 'var(--ds-width-100)';
@@ -257,7 +322,7 @@ type BoxComponent<T extends ElementType = 'div'> = (<
 // @public (undocumented)
 export type BoxProps<T extends ElementType = 'div'> = Omit<
   BaseBoxProps<T>,
-  'UNSAFE_style' | 'className' | BoxResponsiveProp
+  'className' | BoxResponsiveProp
 > &
   PublicBoxPropsBase;
 
@@ -267,33 +332,17 @@ type BoxResponsiveProp = typeof BOX_RESPONSIVE_PROPS[number];
 // @public
 type Breakpoint = 'lg' | 'md' | 'sm' | 'xl' | 'xs' | 'xxl' | 'xxs';
 
-// @public
-type CustomStyles = Pick<
-  CSSProperties,
-  | 'flex'
-  | 'flexBasis'
-  | 'float'
-  | 'height'
-  | 'insetBlockStart'
-  | 'insetInlineEnd'
-  | 'insetInlineStart'
-  | 'margin'
-  | 'marginBlock'
-  | 'marginBlockEnd'
-  | 'marginBlockStart'
-  | 'marginInline'
-  | 'marginInlineEnd'
-  | 'marginInlineStart'
-  | 'maxHeight'
-  | 'maxWidth'
-  | 'minHeight'
-  | 'minWidth'
-  | 'paddingBottom'
-  | 'paddingLeft'
-  | 'paddingRight'
-  | 'paddingTop'
-  | 'width'
->;
+// @public (undocumented)
+const dimensionMap: {
+  readonly '100%': '100%';
+  readonly 'size.100': '16px';
+  readonly 'size.200': '24px';
+  readonly 'size.300': '32px';
+  readonly 'size.400': '40px';
+  readonly 'size.500': '48px';
+  readonly 'size.600': '96px';
+  readonly 'size.1000': '192px';
+};
 
 // @public (undocumented)
 type Display = keyof typeof displayMap;
@@ -343,6 +392,9 @@ type Grow_2 = 'fill' | 'hug';
 type Height = keyof typeof heightMap;
 
 // @public (undocumented)
+type Height_2 = keyof typeof dimensionMap;
+
+// @public (undocumented)
 const heightMap: {
   readonly '100%': SerializedStyles;
   readonly 'size.100': SerializedStyles;
@@ -356,15 +408,34 @@ const heightMap: {
 
 // @public
 export const Inline: MemoExoticComponent<
-  ForwardRefExoticComponent<InlineProps & RefAttributes<HTMLDivElement>>
+  ForwardRefExoticComponent<
+    Pick<
+      InlineProps<ElementType<any>>,
+      | 'alignBlock'
+      | 'alignInline'
+      | 'as'
+      | 'children'
+      | 'grow'
+      | 'rowSpace'
+      | 'separator'
+      | 'shouldWrap'
+      | 'space'
+      | 'spread'
+      | 'testId'
+    > &
+      RefAttributes<any>
+  >
 >;
 
 // @public (undocumented)
-export interface InlineProps {
+export interface InlineProps<T extends ElementType = 'div'> {
   alignBlock?: AlignBlock;
   alignInline?: AlignInline;
+  as?: 'div' | 'ol' | 'span' | 'ul';
   children: ReactNode;
   grow?: Grow;
+  // (undocumented)
+  ref?: ComponentPropsWithRef<T>['ref'];
   rowSpace?: RowSpace;
   separator?: string;
   shouldWrap?: boolean;
@@ -388,6 +459,18 @@ const LAYERS: {
   readonly spotlight: 700;
   readonly tooltip: 800;
 };
+
+// @public (undocumented)
+type MaxHeight = keyof typeof dimensionMap;
+
+// @public (undocumented)
+type MaxWidth = keyof typeof dimensionMap;
+
+// @public (undocumented)
+type MinHeight = keyof typeof dimensionMap;
+
+// @public (undocumented)
+type MinWidth = keyof typeof dimensionMap;
 
 // @public (undocumented)
 type Overflow = keyof typeof overflowMap;
@@ -418,6 +501,9 @@ const overflowMap: {
 
 // @public (undocumented)
 type Padding = keyof typeof paddingMap;
+
+// @public (undocumented)
+type Padding_2 = keyof typeof paddingMap_2;
 
 // @public (undocumented)
 type PaddingBlock = keyof typeof paddingMap;
@@ -456,6 +542,24 @@ const paddingMap: {
 };
 
 // @public (undocumented)
+const paddingMap_2: {
+  readonly 'space.0': 'var(--ds-space-0)';
+  readonly 'space.025': 'var(--ds-space-025)';
+  readonly 'space.050': 'var(--ds-space-050)';
+  readonly 'space.075': 'var(--ds-space-075)';
+  readonly 'space.100': 'var(--ds-space-100)';
+  readonly 'space.150': 'var(--ds-space-150)';
+  readonly 'space.200': 'var(--ds-space-200)';
+  readonly 'space.250': 'var(--ds-space-250)';
+  readonly 'space.300': 'var(--ds-space-300)';
+  readonly 'space.400': 'var(--ds-space-400)';
+  readonly 'space.500': 'var(--ds-space-500)';
+  readonly 'space.600': 'var(--ds-space-600)';
+  readonly 'space.800': 'var(--ds-space-800)';
+  readonly 'space.1000': 'var(--ds-space-1000)';
+};
+
+// @public (undocumented)
 type Position = keyof typeof positionMap;
 
 // @public (undocumented)
@@ -477,7 +581,7 @@ type PublicBoxPropsBase = {
   paddingInline?: PaddingInline;
   paddingInlineStart?: PaddingInlineStart;
   paddingInlineEnd?: PaddingInlineEnd;
-  customStyles?: CustomStyles;
+  xcss?: SafeCSS;
 };
 
 // @public
@@ -503,6 +607,14 @@ const rowSpaceMap: {
   readonly '800': SerializedStyles;
   readonly '1000': SerializedStyles;
 };
+
+// @public (undocumented)
+type SafeCSS = XCSS | XCSS[];
+
+// @public (undocumented)
+type SafeCSSObject = CSSPseudos &
+  TokenisedProps &
+  Omit<CSSPropertiesWithMultiValues, keyof TokenisedProps>;
 
 // @public (undocumented)
 type Shadow = keyof typeof shadowMap;
@@ -566,15 +678,31 @@ type Spread_2 = 'space-between';
 
 // @public
 export const Stack: MemoExoticComponent<
-  ForwardRefExoticComponent<StackProps & RefAttributes<HTMLDivElement>>
+  ForwardRefExoticComponent<
+    Pick<
+      StackProps<ElementType<any>>,
+      | 'alignBlock'
+      | 'alignInline'
+      | 'as'
+      | 'children'
+      | 'grow'
+      | 'space'
+      | 'spread'
+      | 'testId'
+    > &
+      RefAttributes<any>
+  >
 >;
 
 // @public (undocumented)
-export interface StackProps {
+export interface StackProps<T extends ElementType = 'div'> {
   alignBlock?: AlignBlock_2;
   alignInline?: AlignInline_2;
+  as?: 'div' | 'ol' | 'span' | 'ul';
   children: ReactNode;
   grow?: Grow_2;
+  // (undocumented)
+  ref?: ComponentPropsWithRef<T>['ref'];
   space?: Space_2;
   spread?: Spread_2;
   testId?: string;
@@ -582,6 +710,9 @@ export interface StackProps {
 
 // @public (undocumented)
 type TextColor = keyof typeof textColorMap;
+
+// @public (undocumented)
+type TextColor_2 = keyof typeof textColorMap_2;
 
 // @public (undocumented)
 const textColorMap: {
@@ -619,7 +750,69 @@ const textColorMap: {
 };
 
 // @public (undocumented)
+const textColorMap_2: {
+  readonly 'color.text': 'var(--ds-text)';
+  readonly 'accent.red': 'var(--ds-text-accent-red)';
+  readonly 'accent.red.bolder': 'var(--ds-text-accent-red-bolder)';
+  readonly 'accent.orange': 'var(--ds-text-accent-orange)';
+  readonly 'accent.orange.bolder': 'var(--ds-text-accent-orange-bolder)';
+  readonly 'accent.yellow': 'var(--ds-text-accent-yellow)';
+  readonly 'accent.yellow.bolder': 'var(--ds-text-accent-yellow-bolder)';
+  readonly 'accent.green': 'var(--ds-text-accent-green)';
+  readonly 'accent.green.bolder': 'var(--ds-text-accent-green-bolder)';
+  readonly 'accent.teal': 'var(--ds-text-accent-teal)';
+  readonly 'accent.teal.bolder': 'var(--ds-text-accent-teal-bolder)';
+  readonly 'accent.blue': 'var(--ds-text-accent-blue)';
+  readonly 'accent.blue.bolder': 'var(--ds-text-accent-blue-bolder)';
+  readonly 'accent.purple': 'var(--ds-text-accent-purple)';
+  readonly 'accent.purple.bolder': 'var(--ds-text-accent-purple-bolder)';
+  readonly 'accent.magenta': 'var(--ds-text-accent-magenta)';
+  readonly 'accent.magenta.bolder': 'var(--ds-text-accent-magenta-bolder)';
+  readonly 'accent.gray': 'var(--ds-text-accent-gray)';
+  readonly 'accent.gray.bolder': 'var(--ds-text-accent-gray-bolder)';
+  readonly disabled: 'var(--ds-text-disabled)';
+  readonly inverse: 'var(--ds-text-inverse)';
+  readonly selected: 'var(--ds-text-selected)';
+  readonly brand: 'var(--ds-text-brand)';
+  readonly danger: 'var(--ds-text-danger)';
+  readonly warning: 'var(--ds-text-warning)';
+  readonly 'warning.inverse': 'var(--ds-text-warning-inverse)';
+  readonly success: 'var(--ds-text-success)';
+  readonly discovery: 'var(--ds-text-discovery)';
+  readonly information: 'var(--ds-text-information)';
+  readonly subtlest: 'var(--ds-text-subtlest)';
+  readonly subtle: 'var(--ds-text-subtle)';
+};
+
+// @public (undocumented)
+type TokenisedProps = {
+  backgroundColor?: BackgroundColor_2;
+  borderColor?: BorderColor_2;
+  borderWidth?: BorderWidth_2;
+  color?: TextColor_2;
+  height?: Height_2;
+  minHeight?: MinHeight;
+  minWidth?: MinWidth;
+  maxHeight?: MaxHeight;
+  maxWidth?: MaxWidth;
+  padding?: Padding_2;
+  paddingBlock?: Padding_2;
+  paddingInline?: Padding_2;
+  paddingBlockStart?: Padding_2;
+  paddingBlockEnd?: Padding_2;
+  paddingInlineStart?: Padding_2;
+  paddingInlineEnd?: Padding_2;
+  width?: Width_2;
+};
+
+// @public (undocumented)
+const uniqueSymbol: unique symbol;
+
+// @public (undocumented)
 type Width = keyof typeof widthMap;
+
+// @public (undocumented)
+type Width_2 = keyof typeof dimensionMap;
 
 // @public
 const widthMap: {
@@ -631,6 +824,15 @@ const widthMap: {
   readonly 'size.500': SerializedStyles;
   readonly 'size.600': SerializedStyles;
   readonly 'size.1000': SerializedStyles;
+};
+
+// @public (undocumented)
+type XCSS = ReturnType<typeof xcss>;
+
+// @public (undocumented)
+export const xcss: (style?: SafeCSSObject | SafeCSSObject[] | undefined) => {
+  readonly symbol: typeof uniqueSymbol;
+  readonly styles: SerializedStyles;
 };
 
 // (No @packageDocumentation comment for this package)

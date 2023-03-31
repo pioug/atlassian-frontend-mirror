@@ -1,4 +1,5 @@
-import React, {
+/** @jsx jsx */
+import {
   ComponentPropsWithRef,
   ElementType,
   FC,
@@ -6,14 +7,17 @@ import React, {
   ReactElement,
 } from 'react';
 
+import { jsx } from '@emotion/react';
+
+import { parseXcss } from '../internal/xcss';
+
 import { BaseBox, BaseBoxProps } from './internal/base-box.partial';
-import { BoxResponsiveProp } from './internal/types';
-import { PublicBoxPropsBase } from './types';
+import type { BoxResponsiveProp } from './internal/types';
+import type { PublicBoxPropsBase } from './types';
 
 export type BoxProps<T extends ElementType = 'div'> = Omit<
   BaseBoxProps<T>,
   | 'className'
-  | 'UNSAFE_style'
   // Omit all responsive props until they are ready for prime time
   | BoxResponsiveProp
 > &
@@ -26,16 +30,15 @@ type BoxComponent<T extends ElementType = 'div'> = (<
 ) => ReactElement | null) &
   FC<BoxProps<T>>;
 
-// TODO: Fill in the component {description} and ensure links point to the correct {packageName} location.
-// Remove links that the component does not have (such as usage). If there are no links remove them all.
 /**
  * __Box__
  *
- * A box {description}.
+ * A Box is a primitive component that has the design decisions of the Atlassian Design System baked in.
+ * Renders a `div` by default.
  *
- * - [Examples](https://atlassian.design/components/{packageName}/examples)
- * - [Code](https://atlassian.design/components/{packageName}/code)
- * - [Usage](https://atlassian.design/components/{packageName}/usage)
+ * - [Examples](https://atlassian.design/components/primitives/box/examples)
+ * - [Code](https://atlassian.design/components/primitives/box/code)
+ * - [Usage](https://atlassian.design/components/primitives/box/usage)
  */
 const Box: BoxComponent = forwardRef(
   <T extends ElementType = 'div'>(
@@ -68,13 +71,15 @@ const Box: BoxComponent = forwardRef(
       width,
       display = 'block',
       position = 'static',
-      customStyles,
+      style,
       testId,
+      xcss,
       ...htmlAttributes
     }: BoxProps<T>,
     ref?: ComponentPropsWithRef<T>['ref'],
   ) => {
-    const { style, className, ...safeHtmlAttributes } = htmlAttributes;
+    const { className: spreadClass, ...safeHtmlAttributes } = htmlAttributes;
+    const className = xcss && parseXcss(xcss);
     return (
       <BaseBox
         as={as}
@@ -104,9 +109,11 @@ const Box: BoxComponent = forwardRef(
         width={width}
         display={display}
         position={position}
-        UNSAFE_style={customStyles}
+        style={style}
         testId={testId}
         ref={ref}
+        // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
+        css={className}
         {...safeHtmlAttributes}
       >
         {children}
@@ -114,5 +121,7 @@ const Box: BoxComponent = forwardRef(
     );
   },
 );
+
+Box.displayName = 'Box';
 
 export default Box;

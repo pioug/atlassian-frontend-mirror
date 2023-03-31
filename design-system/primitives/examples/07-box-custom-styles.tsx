@@ -9,17 +9,14 @@ export default () => {
     <Stack space="400" alignInline="start">
       <Heading level="h600">Custom width</Heading>
       <Stack space="200" testId="box-custom-width">
-        <Box borderStyle="solid" customStyles={{ width: '600px' }}>
+        <Box borderStyle="solid" style={{ width: '600px' }}>
           custom width
         </Box>
       </Stack>
 
       <Stack space="200" testId="box-custom-padding">
         <Heading level="h600">Custom padding</Heading>
-        <Box
-          customStyles={{ paddingLeft: '14px' }}
-          backgroundColor="discovery.bold"
-        >
+        <Box style={{ paddingLeft: '14px' }} backgroundColor="discovery.bold">
           <Box backgroundColor="elevation.surface">custom padding</Box>
         </Box>
       </Stack>

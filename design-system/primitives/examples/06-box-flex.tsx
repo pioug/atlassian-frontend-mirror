@@ -24,11 +24,7 @@ export default () => {
       <Stack space="200" testId="box-with-flex">
         <Heading level="h600">flexGrow</Heading>
         <Inline space="200" alignBlock="center">
-          <Box
-            display="flex"
-            padding="space.400"
-            customStyles={{ width: '300px' }}
-          >
+          <Box display="flex" padding="space.400" style={{ width: '300px' }}>
             <Box borderStyle="solid" flexGrow="0">
               flexGrow=0
             </Box>

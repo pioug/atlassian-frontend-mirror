@@ -15,7 +15,7 @@ export default () => (
             display="flex"
             backgroundColor="neutral"
             borderRadius="radius.200"
-            customStyles={{
+            style={{
               height: '200px',
             }}
           >

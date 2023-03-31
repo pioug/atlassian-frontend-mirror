@@ -1,5 +1,11 @@
 # @atlaskit/menu
 
+## 1.5.3
+
+### Patch Changes
+
+- [`a8debc96871`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a8debc96871) - Internal update to menu primitive so it renders a span instead of a div as child of button.
+
 ## 1.5.2
 
 ### Patch Changes

@@ -32,7 +32,7 @@ import { isResponsiveStyleProp, isStaticStyleProp } from './utils';
 
 export type BaseBoxProps<T extends ElementType = 'div'> = Omit<
   ComponentPropsWithoutRef<T>,
-  'as' | 'className' | 'style'
+  'as' | 'className'
 > &
   BasePrimitiveProps &
   BaseBoxPropsFoundation<T>;
@@ -41,7 +41,7 @@ type BaseBoxPropsFoundation<T extends ElementType> = {
   /**
    * The DOM element to render as the Box. Defaults to `div`.
    */
-  as?: 'div' | 'span';
+  as?: 'div' | 'span' | 'li';
   /**
    * The HTML className attribute.
    *
@@ -59,54 +59,80 @@ type BaseBoxPropsFoundation<T extends ElementType> = {
    */
   children?: ReactNode;
   /**
+   * @private
+   * @deprecated Use `xcss` to achieve this functionality.
    * Token representing color with a fallback.
    */
   color?: TextColor;
   /**
+   * @private
+   * @deprecated Use `xcss` to achieve this functionality.
    * Token representing background color with a fallback.
    */
   backgroundColor?: BackgroundColor;
   /**
+   * @private
+   * @deprecated Use `xcss` to achieve this functionality.
    * Token representing shadow with a fallback
    */
   shadow?: Shadow;
   /**
+   * @private
+   * @deprecated Use `xcss` to achieve this functionality.
    * Defines border style.
    */
   borderStyle?: BorderStyle;
   /**
+   * @private
+   * @deprecated Use `xcss` to achieve this functionality.
    * Defines border width.
    */
   borderWidth?: BorderWidth | ResponsiveObject<BorderWidth>;
   /**
+   * @private
+   * @deprecated Use `xcss` to achieve this functionality.
    * Token representing border color with a fallback.
    */
   borderColor?: BorderColor;
   /**
+   * @private
+   * @deprecated Use `xcss` to achieve this functionality.
    * Defines border radius.
    */
   borderRadius?: BorderRadius;
   /**
+   * @private
+   * @deprecated Use `xcss` to achieve this functionality.
    * Used for providing a z-index.
    */
   layer?: Layer;
   /**
+   * @private
+   * @deprecated Use `xcss` to achieve this functionality.
    * Shorthand `flex` property.
    */
   flex?: Flex;
   /**
+   * @private
+   * @deprecated Use `xcss` to achieve this functionality.
    * Defines the flex grow factor -- how much remaining space should be taken up.
    */
   flexGrow?: FlexGrow;
   /**
+   * @private
+   * @deprecated Use `xcss` to achieve this functionality.
    * Defines the flex shrink factor -- how the item will shrink relative to other flex items in the container.
    */
   flexShrink?: FlexShrink;
   /**
+   * @private
+   * @deprecated Use `xcss` to achieve this functionality.
    * Overrides the `align-items` value.
    */
   alignSelf?: AlignSelf;
   /**
+   * @private
+   * @deprecated Use `xcss` to achieve this functionality.
    * Defines what happens if content overflows the box.
    * Shorthand for overflow-inline and overflow-block.
    *
@@ -115,10 +141,14 @@ type BaseBoxPropsFoundation<T extends ElementType> = {
    */
   overflow?: Overflow;
   /**
+   * @private
+   * @deprecated Use `xcss` to achieve this functionality.
    * Defines what happens if content overflows the box in the horizontal direction (inline).
    */
   overflowInline?: OverflowInline;
   /**
+   * @private
+   * @deprecated Use `xcss` to achieve this functionality.
    * Defines what happens if content overflows the box in the vertical direction (block).
    */
   overflowBlock?: OverflowBlock;
@@ -162,23 +192,32 @@ type BaseBoxPropsFoundation<T extends ElementType> = {
    */
   paddingInlineEnd?: PaddingInlineEnd | ResponsiveObject<PaddingInlineEnd>;
   /**
+   * @private
+   * @deprecated Use `xcss` to achieve this functionality.
    * Token representing width.
-   * @experimental The existing tokens will be replaced to better reflect dimensions.
    */
   width?: Width;
   /**
+   * @private
+   * @deprecated Use `xcss` to achieve this functionality.
    * Token representing height.
-   * @experimental The existing tokens will be replaced to better reflect dimensions.
    */
   height?: Height;
   /**
+   * @private
+   * @deprecated Use `xcss` to achieve this functionality.
    * Defines display type and layout. Defaults to `block`.
    */
   display?: Display | ResponsiveObject<Display>;
   /**
+   * @private
+   * @deprecated Use `xcss` to achieve this functionality.
    * CSS position property.
    */
   position?: Position;
+  /**
+   * Forwarded ref element
+   */
   ref?: ComponentPropsWithRef<T>['ref'];
 };
 
@@ -286,7 +325,7 @@ export const BaseBox: BaseBoxComponent = forwardRef(
       width,
       display = displayMap.block,
       position = 'static',
-      UNSAFE_style,
+      style,
       testId,
       ...htmlAttributes
     }: BaseBoxProps<T>,
@@ -296,7 +335,7 @@ export const BaseBox: BaseBoxComponent = forwardRef(
 
     const inlineStyles = Object.assign(
       {},
-      UNSAFE_style,
+      style,
       getResponsiveVars('borderWidth', borderWidth, borderWidthMap),
       getResponsiveVars('display', display, displayMap),
       getResponsiveVars('padding', padding, paddingMap),

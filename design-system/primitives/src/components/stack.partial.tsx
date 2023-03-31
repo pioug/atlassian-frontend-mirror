@@ -1,11 +1,22 @@
 /** @jsx jsx */
-import { forwardRef, memo, ReactNode } from 'react';
+import {
+  ComponentPropsWithRef,
+  ElementType,
+  forwardRef,
+  memo,
+  ReactNode,
+  Ref,
+} from 'react';
 
 import { css, jsx } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
-export interface StackProps {
+export interface StackProps<T extends ElementType = 'div'> {
+  /**
+   * The DOM element to render as the Stack. Defaults to `div`.
+   */
+  as?: 'div' | 'span' | 'ul' | 'ol';
   /**
    * Used to align children along the main axis.
    */
@@ -40,6 +51,7 @@ export interface StackProps {
    * Elements to be rendered inside the Stack.
    */
   children: ReactNode;
+  ref?: ComponentPropsWithRef<T>['ref'];
 }
 
 export type AlignInline = 'start' | 'center' | 'end';
@@ -148,9 +160,10 @@ const baseStyles = css({
  *
  */
 const Stack = memo(
-  forwardRef<HTMLDivElement, StackProps>(
-    (
+  forwardRef(
+    <T extends ElementType = 'div'>(
       {
+        as,
         alignInline: alignItems,
         alignBlock,
         spread,
@@ -158,13 +171,14 @@ const Stack = memo(
         space,
         children,
         testId,
-      }: StackProps,
-      ref,
+      }: StackProps<T>,
+      ref: Ref<any>,
     ) => {
+      const Component = as || 'div';
       const justifyContent = spread || alignBlock;
 
       return (
-        <div
+        <Component
           css={[
             baseStyles,
             space && spaceMap[space],
@@ -176,7 +190,7 @@ const Stack = memo(
           ref={ref}
         >
           {children}
-        </div>
+        </Component>
       );
     },
   ),

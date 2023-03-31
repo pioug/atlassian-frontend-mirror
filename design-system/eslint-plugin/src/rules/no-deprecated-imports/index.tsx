@@ -25,82 +25,92 @@
  * THE SOFTWARE.
  */
 
-import type { Rule } from 'eslint';
+import { TSESLint, TSESTree } from '@typescript-eslint/utils';
 
-import { restrictedPaths } from './paths';
+import { createRule } from '../utils/create-rule';
+import { getConfig } from '../utils/get-deprecated-config';
+import { DeprecatedConfig, isDeprecatedImportConfig } from '../utils/types';
 
-const rule: Rule.RuleModule = {
+export const name = 'no-deprecated-imports';
+
+export const importNameWithCustomMessageId = 'importNameWithCustomMessage';
+export const pathWithCustomMessageId = 'pathWithCustomMessage';
+
+const rule = createRule<
+  [{ deprecatedConfig: DeprecatedConfig }],
+  string,
+  TSESLint.RuleListener
+>({
+  name,
+  defaultOptions: [{ deprecatedConfig: getConfig('imports') }],
   meta: {
     type: 'suggestion',
 
     docs: {
       description: 'disallow specified modules when loaded by `import`',
-      recommended: true,
-      url: 'https://eslint.org/docs/rules/no-restricted-imports',
+      recommended: 'warn',
     },
 
     messages: {
-      path: "'{{importSource}}' import is restricted from being used.",
       pathWithCustomMessage:
         "'{{importSource}}' import is restricted from being used. {{customMessage}}",
-
-      everything:
-        "* import is invalid because '{{importNames}}' from '{{importSource}}' is restricted.",
-      everythingWithCustomMessage:
-        "* import is invalid because '{{importNames}}' from '{{importSource}}' is restricted. {{customMessage}}",
-
-      importName:
-        "'{{importName}}' import from '{{importSource}}' is restricted.",
       importNameWithCustomMessage:
         "'{{importName}}' import from '{{importSource}}' is restricted. {{customMessage}}",
     },
+    schema: [
+      {
+        type: 'object',
+        properties: {
+          deprecatedConfig: {
+            type: 'object',
+            properties: {
+              '.+': {
+                type: 'object',
+                properties: {
+                  message: { type: 'string' },
+                  importSpecifiers: {
+                    type: 'array',
+                    items: {
+                      type: 'object',
+                      properties: {
+                        importName: { type: 'string' },
+                        message: { type: 'string' },
+                      },
+                      required: ['importName'],
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    ],
   },
 
-  create(context) {
-    const restrictedPathMessages = restrictedPaths.reduce(
-      (memo, importSource) => {
-        if (typeof importSource === 'string') {
-          memo[importSource] = { message: '' };
-        } else {
-          if ('message' in importSource) {
-            memo[importSource.path] = {
-              message: importSource.message,
-            };
-          }
-          if ('imports' in importSource) {
-            memo[importSource.path] = {
-              // @ts-ignore
-              imports: importSource.imports,
-            };
-          }
-        }
-        return memo;
-      },
-      {} as Record<
-        string,
-        {
-          message?: string;
-          imports?: {
-            importName: string;
-            message: string;
-          }[];
-        }
-      >,
-    );
+  create(context, [options]) {
+    const { deprecatedConfig: defaultDeprecatedConfig } = options;
+
+    const restrictedPathMessages =
+      context.options[0]?.deprecatedConfig || defaultDeprecatedConfig;
+
+    if (!isDeprecatedImportConfig(restrictedPathMessages)) {
+      throw new Error('Config is invalid for deprecated imports');
+    }
 
     /**
      * Report a restricted path.
      * @param {string} importSource path of the import
      * @param {node} node representing the restricted path reference
-     * @param {Map<string,Rule.Node>} importNames Map of import names that are being imported
+     * @param {Map<string,TSESTree.Node>} importNames Map of import names that are being imported
      * @returns {void}
      * @private
      */
     function checkRestrictedPathAndReport(
       importSource: string,
-      node: Rule.Node,
-      importNames: Map<string, Rule.Node>,
-    ) {
+      node: TSESTree.Node,
+      importNames: Map<string, TSESTree.Node>,
+    ): void {
       if (
         !Object.prototype.hasOwnProperty.call(
           restrictedPathMessages,
@@ -117,7 +127,7 @@ const rule: Rule.RuleModule = {
       if ('message' in config) {
         context.report({
           node,
-          messageId: config.message ? 'pathWithCustomMessage' : 'path',
+          messageId: pathWithCustomMessageId,
           data: {
             importSource,
             customMessage: config.message,
@@ -127,12 +137,17 @@ const rule: Rule.RuleModule = {
 
       // if there are specific named exports that are banned,
       // iterate through and check if they're being imported
-      if ('imports' in config) {
-        config.imports?.forEach((restrictedImport) => {
+      if ('importSpecifiers' in config) {
+        config.importSpecifiers?.forEach((restrictedImport) => {
           if (importNames.has(restrictedImport.importName)) {
             context.report({
               node: importNames.get(restrictedImport.importName)!,
-              message: restrictedImport.message,
+              messageId: importNameWithCustomMessageId,
+              data: {
+                importName: restrictedImport.importName,
+                importSource: importSource,
+                customMessage: restrictedImport.message,
+              },
             });
           }
         });
@@ -145,11 +160,11 @@ const rule: Rule.RuleModule = {
      * @returns {void}
      * @private
      */
-    const checkNode = <ImportExportNode extends Rule.Node>(
+    const checkNode = <ImportExportNode extends TSESTree.Node>(
       node: ImportExportNode,
-    ) => {
+    ): void => {
       const importSource = (node as any).source.value.trim();
-      const importNames = new Map<string, Rule.Node>();
+      const importNames = new Map<string, TSESTree.Node>();
 
       if ('specifiers' in node) {
         // @ts-ignore
@@ -167,7 +182,7 @@ const rule: Rule.RuleModule = {
           }
 
           if (name) {
-            importNames.set(name, specifier as Rule.Node);
+            importNames.set(name, specifier as TSESTree.Node);
           }
         }
       }
@@ -184,6 +199,6 @@ const rule: Rule.RuleModule = {
       },
     };
   },
-};
+});
 
 export default rule;

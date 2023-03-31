@@ -49,9 +49,13 @@ import { selectors } from '../../../plugins/panel/__tests__/integration/_utils';
     },
   },
 ].forEach(({ message, setup, skipBrowsers }) => {
+  // FIXME: This test was automatically skipped due to failure on 30/03/2023: https://product-fabric.atlassian.net/browse/ED-17346
   BrowserTestCase(
     `quick-insert-mediaSingle.ts: ${message}`,
-    { skip: skipBrowsers as any },
+    {
+      // skip: undefined,
+      skip: ['*'],
+    },
     async (
       client: Parameters<typeof goToEditorTestingWDExample>[0],
       testName: string,

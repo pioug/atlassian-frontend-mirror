@@ -19,7 +19,7 @@ export default () => (
           {grow}
           <Box
             backgroundColor="neutral"
-            customStyles={{
+            style={{
               width: '200px',
             }}
           >
@@ -49,7 +49,7 @@ export default () => (
 
     <Stack space="100">
       width=100% enables truncation
-      <Box backgroundColor="neutral" customStyles={{ maxWidth: 200 }}>
+      <Box backgroundColor="neutral" style={{ maxWidth: 200 }}>
         <Inline grow="fill">
           <Stack space="100" grow="fill">
             <span css={truncateStyles}>

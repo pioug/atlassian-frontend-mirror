@@ -12,7 +12,7 @@ export default () => (
         display="block"
         padding="space.050"
         backgroundColor="neutral"
-        customStyles={{
+        style={{
           width: '200px',
         }}
       >

@@ -12,7 +12,7 @@ export default () => (
         borderRadius="radius.200"
         padding="space.050"
         backgroundColor="neutral"
-        customStyles={{ height: '200px' }}
+        style={{ height: '200px' }}
       >
         <Stack space="200" spread="space-between">
           <Box

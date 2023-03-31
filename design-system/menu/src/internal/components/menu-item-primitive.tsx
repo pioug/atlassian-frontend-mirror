@@ -192,6 +192,7 @@ const MenuItemPrimitive = ({
               ]),
               children: (
                 <Inline
+                  as="span"
                   spread="space-between"
                   alignBlock="center"
                   space={gapMap[spacing]}

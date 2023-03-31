@@ -1,5 +1,17 @@
 # @atlaskit/primitives
 
+## 0.4.2
+
+### Patch Changes
+
+- [`fa26963628c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa26963628c) - Removes `customStyles` in favour of `xcss`.
+
+## 0.4.1
+
+### Patch Changes
+
+- [`8e03331eb8b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8e03331eb8b) - Introduce 'as' prop to Inline and Stack so the resulting element can be controlled.
+
 ## 0.4.0
 
 ### Minor Changes

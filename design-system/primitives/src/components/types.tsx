@@ -1,6 +1,8 @@
 import type { CSSProperties } from 'react';
 
-import {
+import type { SafeCSS } from '../internal/xcss';
+
+import type {
   BorderWidth,
   Display,
   Padding,
@@ -12,39 +14,7 @@ import {
   PaddingInlineStart,
 } from './internal/base-box.partial';
 
-/**
- * Restricted set of inline styles to be applied to the primitive.
- * Should be avoided where possible, in favor of the pre-defined props and values on the primitive itself.
- * Tokens should be used where possible.
- */
-export type CustomStyles = Pick<
-  CSSProperties,
-  | 'flexBasis'
-  | 'flex'
-  | 'width'
-  | 'height'
-  | 'minWidth'
-  | 'maxWidth'
-  | 'minHeight'
-  | 'maxHeight'
-  | 'insetInlineStart'
-  | 'insetInlineEnd'
-  | 'insetBlockStart'
-  | 'float'
-  | 'margin'
-  | 'marginInlineStart'
-  | 'marginInlineEnd'
-  | 'marginBlockStart'
-  | 'marginBlockEnd'
-  | 'marginInline'
-  | 'marginBlock'
-  | 'paddingLeft'
-  | 'paddingRight'
-  | 'paddingTop'
-  | 'paddingBottom'
->;
-
-export interface BasePrimitiveProps {
+export type BasePrimitiveProps = {
   /**
    * A unique string that appears as data attribute `data-testid` in the rendered code, serving as a hook for automated tests.
    */
@@ -52,12 +22,9 @@ export interface BasePrimitiveProps {
 
   /**
    * Inline styles to be applied to the primitive.
-   * Marked as "unsafe" because any CSS properties can be provided here without any extra control or validation, including those that would be better managed by the primitive itself via props.
-   * Effectively equivalent to the standard `style` prop but marked with a special name.
-   * Used only internally.
    */
-  UNSAFE_style?: CSSProperties;
-}
+  style?: CSSProperties;
+};
 
 // Some redeclaration needed until responsive props graduate to the public API
 export type PublicBoxPropsBase = {
@@ -108,6 +75,8 @@ export type PublicBoxPropsBase = {
    * Tokens representing CSS `paddingInlineEnd`.
    */
   paddingInlineEnd?: PaddingInlineEnd;
-
-  customStyles?: CustomStyles;
+  /**
+   * Safe subset of styles that can be applied as a classname.
+   */
+  xcss?: SafeCSS;
 };

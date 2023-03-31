@@ -1,9 +1,15 @@
 import { runBlockNodeSelectionTestSuite } from '@atlaskit/editor-test-helpers/integration/selection';
 import { default as WebDriverPage } from '@atlaskit/webdriver-runner/wd-wrapper';
+import { animationFrame } from '@atlaskit/editor-test-helpers/integration/helpers';
+
+const TIMEOUT = 60000;
 
 // helper function to wait for the iframe to load
 const customBeforeEach = async (page: WebDriverPage): Promise<void> => {
-  await page.waitForSelector('iframe[data-iframe-loaded="true"]');
+  await animationFrame(page);
+  await page.waitForSelector('iframe[data-iframe-loaded="true"]', {
+    timeout: TIMEOUT,
+  });
 };
 
 runBlockNodeSelectionTestSuite({

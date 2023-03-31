@@ -100,6 +100,18 @@ rules: {
 }
 ```
 
+## Deprecated imports enries in the default deprecated.json file
+
+The deprecated imports entry contains the following fields:
+
+- `packagePath`, which is the name of the package. For example: `@atlaskit/navigation-next` and `@atlaskit/navigation`.
+  With the package path as the key, you can either provide the values as:
+  - `message`**(optional)**, the message to display when the deprecated packages path is used. For example: `multi-select is deprecated. Please use '@atlaskit/select' instead.`
+    Or as:
+  - `imports`, which is an array of named imports to be deprecated. Each named import has the following fields:
+    - `importName`, which is the name of the import to be deprecated. For example: `assistive` and `visuallyHidden`.
+    - `message`**(optional)**, which is the message to display when the deprecated import is used. For example: `The assistive mixin is deprecated. Please use `@atlaskit/visually-hidden` instead.`.
+
 Rules may come with fixers to assist.
 For individual rules see the [`rules`](./src/rules) folder,
 however its strongly recommended to use the rules as above.

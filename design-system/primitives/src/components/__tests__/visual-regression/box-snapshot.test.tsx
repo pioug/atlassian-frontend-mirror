@@ -104,7 +104,7 @@ describe('Box color', () => {
   });
 });
 
-describe('Box customStyles', () => {
+describe('Box style', () => {
   it(`example with custom width should match snapshot`, async () => {
     const url = getExampleUrl(
       'design-system',

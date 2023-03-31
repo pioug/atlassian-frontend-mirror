@@ -138,7 +138,7 @@ export default () => {
 
       <Stack space="200" testId="box-with-layer">
         <Heading level="h600">layer</Heading>
-        <Box customStyles={{ width: 800, height: 650 }} position="relative">
+        <Box style={{ width: 800, height: 650 }} position="relative">
           {(
             [
               'card',
@@ -159,7 +159,7 @@ export default () => {
               shadow="overlay"
               padding="space.400"
               position="absolute"
-              customStyles={{
+              style={{
                 insetBlockStart: index * 64,
                 insetInlineStart: index * 64,
               }}

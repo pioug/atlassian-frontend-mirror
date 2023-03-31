@@ -1,6 +1,6 @@
 import Ajv from 'ajv';
 
-import type { DeprecatedConfig } from '../index';
+import type { DeprecatedJSXAttributeConfig } from '../../../../src/rules/utils/types';
 
 const deprecatedSchema = {
   type: 'object',
@@ -27,8 +27,8 @@ const deprecatedSchema = {
 
 export const getValidatedConfig = (
   originalDeprecatedConfig: string,
-): DeprecatedConfig => {
-  let parsedDeprecatedConfig: DeprecatedConfig = {};
+): DeprecatedJSXAttributeConfig => {
+  let parsedDeprecatedConfig: DeprecatedJSXAttributeConfig = {};
   try {
     parsedDeprecatedConfig = JSON.parse(originalDeprecatedConfig);
   } catch (e) {

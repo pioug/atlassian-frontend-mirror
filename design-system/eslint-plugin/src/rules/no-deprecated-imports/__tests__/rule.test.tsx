@@ -1,9 +1,32 @@
-import { tester } from '../../__tests__/utils/_tester';
-import rule from '../index';
-import { namedLogoConstantsExports, namedLogoExports } from '../logo-paths';
-import { namedThemeExports, restrictedPaths } from '../paths';
+import { typescriptEslintTester } from '../../__tests__/utils/_tester';
+import { getConfig } from '../../utils/get-deprecated-config';
+import rule, {
+  importNameWithCustomMessageId,
+  pathWithCustomMessageId,
+} from '../index';
 
-tester.run('no-deprecated-imports', rule, {
+const deprecatedImports = getConfig('imports');
+
+const pathImports: { path: string; message: string }[] = [];
+const namedImports: {
+  path: string;
+  import: { importName: string; message: string };
+}[] = [];
+
+for (const [path, value] of Object.entries(deprecatedImports)) {
+  if (value.message) {
+    pathImports.push({ path, message: value.message as string });
+  } else if (value.importSpecifiers) {
+    for (const individualImport of value.importSpecifiers) {
+      namedImports.push({
+        path,
+        import: individualImport,
+      });
+    }
+  }
+}
+
+typescriptEslintTester.run('no-deprecated-imports', rule, {
   valid: [
     {
       code: `import foo from 'foo';`,
@@ -15,49 +38,45 @@ tester.run('no-deprecated-imports', rule, {
   invalid: [
     {
       code: `import * as _ from '@atlaskit/global-navigation';`,
-      errors: [{ messageId: 'pathWithCustomMessage' }],
+      errors: [{ messageId: pathWithCustomMessageId }],
     },
-    ...namedThemeExports.map(({ importName, message }) => ({
-      code: `import { ${importName} } from '@atlaskit/theme';`,
+    {
+      code: `import _ from 'foo';`,
+      errors: [{ messageId: pathWithCustomMessageId }],
+      options: [
+        {
+          deprecatedConfig: JSON.parse('{"foo":{"message":"foo message."}}'),
+        },
+      ],
+    },
+    {
+      code: `import { foo } from 'foo';`,
+      errors: [{ messageId: importNameWithCustomMessageId }],
+      options: [
+        {
+          deprecatedConfig: JSON.parse(
+            '{"foo":{"importSpecifiers":[{"importName":"foo","message":"foo message."}]}}',
+          ),
+        },
+      ],
+    },
+
+    ...namedImports.map(({ path, import: { importName } }) => ({
+      code: `import { ${importName} } from '${path}';`,
       errors: [
         {
-          message,
+          messageId: importNameWithCustomMessageId,
         },
       ],
     })),
-    ...namedThemeExports.map(({ importName, message }) => ({
-      code: `import { ${importName} as randomAlias } from '@atlaskit/theme';`,
+
+    ...pathImports.map(({ path }) => ({
+      code: `import _ from '${path}';`,
       errors: [
         {
-          message,
+          messageId: pathWithCustomMessageId,
         },
       ],
     })),
-    ...namedLogoExports.map(({ importName, message }) => ({
-      code: `import { ${importName} } from '@atlaskit/logo';`,
-      errors: [
-        {
-          message,
-        },
-      ],
-    })),
-    ...namedLogoConstantsExports.map(({ importName, message }) => ({
-      code: `import { ${importName} } from '@atlaskit/logo/constants';`,
-      errors: [
-        {
-          message,
-        },
-      ],
-    })),
-    ...restrictedPaths
-      .filter((config) => 'message' in config)
-      .map(({ path, message }: any) => ({
-        code: `import _ from '${path}';`,
-        errors: [
-          {
-            message: `'${path}' import is restricted from being used. ${message}`,
-          },
-        ],
-      })),
   ],
 });

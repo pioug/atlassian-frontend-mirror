@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 4.18.0
+
+### Minor Changes
+
+- [`c858ddc70ff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c858ddc70ff) - Add deprecated-imports entries to config that the rule no-deprecated-imports can read from.
+
 ## 4.17.1
 
 ### Patch Changes

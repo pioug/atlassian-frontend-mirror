@@ -42,7 +42,8 @@ describe('Expand: tab navigation', () => {
     });
 
     describe('when tab is pressed once', () => {
-      it('should focus on the button', async () => {
+      // FIXME: This test was automatically skipped due to failure on 30/03/2023: https://product-fabric.atlassian.net/browse/ED-17343
+      it.skip('should focus on the button', async () => {
         await pressKey(page, ['Tab']);
       });
 

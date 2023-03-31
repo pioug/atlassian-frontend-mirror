@@ -1,11 +1,25 @@
 /** @jsx jsx */
-import { Children, FC, forwardRef, Fragment, memo, ReactNode } from 'react';
+import {
+  Children,
+  ComponentPropsWithRef,
+  ElementType,
+  FC,
+  forwardRef,
+  Fragment,
+  memo,
+  ReactNode,
+  Ref,
+} from 'react';
 
 import { css, jsx } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
-export interface InlineProps {
+export interface InlineProps<T extends ElementType = 'div'> {
+  /**
+   * The DOM element to render as the Inline. Defaults to `div`.
+   */
+  as?: 'div' | 'span' | 'ul' | 'ol';
   /**
    * Used to align children along the main axis.
    */
@@ -56,6 +70,7 @@ export interface InlineProps {
    * Elements to be rendered inside the Stack.
    */
   children: ReactNode;
+  ref?: ComponentPropsWithRef<T>['ref'];
 }
 
 export type AlignInline = 'start' | 'center' | 'end';
@@ -227,9 +242,10 @@ const Separator: FC<{ children: string }> = ({ children }) => (
  *
  */
 const Inline = memo(
-  forwardRef<HTMLDivElement, InlineProps>(
-    (
+  forwardRef(
+    <T extends ElementType = 'div'>(
       {
+        as,
         alignInline,
         alignBlock: alignItems,
         shouldWrap = false,
@@ -240,9 +256,10 @@ const Inline = memo(
         separator,
         testId,
         children: rawChildren,
-      }: InlineProps,
-      ref,
+      }: InlineProps<T>,
+      ref: Ref<any>,
     ) => {
+      const Component = as || 'div';
       const separatorComponent =
         typeof separator === 'string' ? (
           <Separator>{separator}</Separator>
@@ -266,7 +283,7 @@ const Inline = memo(
       const justifyContent = spread || alignInline;
 
       return (
-        <div
+        <Component
           css={[
             baseStyles,
             space && spaceMap[space],
@@ -280,7 +297,7 @@ const Inline = memo(
           ref={ref}
         >
           {children}
-        </div>
+        </Component>
       );
     },
   ),

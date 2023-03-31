@@ -16,7 +16,7 @@ export default () => (
             borderRadius="radius.200"
             backgroundColor="neutral"
             padding="space.050"
-            customStyles={{
+            style={{
               width: '200px',
             }}
           >

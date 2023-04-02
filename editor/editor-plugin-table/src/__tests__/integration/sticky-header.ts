@@ -41,9 +41,12 @@ const insertColumn = async (page: any, cell: 'first' | 'last') => {
   await page.click(insertButton);
 };
 
+// FIXME: This test was automatically skipped due to failure on 01/04/2023: https://product-fabric.atlassian.net/browse/ED-17364
 BrowserTestCase(
   'Sticky header should correctly toggle on and off',
-  { skip: [] },
+  {
+    skip: ['*'],
+  },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(
       client,

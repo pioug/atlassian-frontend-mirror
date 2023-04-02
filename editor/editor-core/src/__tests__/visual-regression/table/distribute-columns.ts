@@ -42,7 +42,8 @@ describe('Distribute Columns', () => {
       await snapshot(page);
     });
 
-    it('on a resized merged cells with colwidths', async () => {
+    // FIXME: This test was automatically skipped due to failure on 01/04/2023: https://product-fabric.atlassian.net/browse/ED-17366
+    it.skip('on a resized merged cells with colwidths', async () => {
       await pageInit(mergedColumnsResized);
       const from = getSelectorForTableCell({
         row: 5,

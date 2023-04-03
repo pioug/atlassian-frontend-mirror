@@ -8,6 +8,15 @@ import * as v1schema from '../../../../json-schema/v1/full.json';
 import { initialize } from '@atlaskit/editor-test-helpers/ajv';
 import { NodeType, MarkType, Node } from 'prosemirror-model';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
+import {
+  p,
+  extension,
+  bodiedExtension,
+  table,
+  tr,
+  th,
+  td,
+} from '@atlaskit/editor-test-helpers/doc-builder';
 
 // TODO: We did this change when we bump ajv version 6.
 // It will be refactored in this ticket: https://product-fabric.atlassian.net/browse/ED-10888.
@@ -40,7 +49,6 @@ const unsupportedNodes = [
   'blockCard',
   'status',
   'embedCard',
-  'mediaInline',
 ];
 
 const unsupportedMarks = [
@@ -58,7 +66,7 @@ const unsupportedMarks = [
   'unsupportedNodeAttribute',
   'typeAheadQuery',
   'dataConsumer',
-  'fragment', // This test suite only works well for marks which act on text, not marks acting on other nodes
+  'fragment', // The test suite was designed to test the marks on the text and generates an invalid dataset for the marks on the node.
 ];
 
 /**
@@ -174,6 +182,43 @@ describe('ProseMirror and JSON schema tests', () => {
     it(`should validate JSON schema for ${getDisplayName(editorDoc)}`, () => {
       expect(isValidJSONSchema(editorJson)).toEqual(true);
     });
+  });
+
+  /**
+   *  Seprately testing fragment with supported nodes, as the above test suite generates an invalid dataset for nodes with fragment marks
+   */
+  it(`should validate JSON schema for  -> extension -> fragment -> doc`, () => {
+    const editorDoc = (factory as any)['doc'](
+      (markBuilder as any)['fragment'](
+        extension({ extensionKey: '123', extensionType: 'extension' })(),
+      ),
+    )(defaultSchema);
+    const editorJson = transformer.encode(editorDoc);
+    expect(isValidJSONSchema(editorJson)).toEqual(true);
+  });
+  it(`should validate JSON schema for  -> bodiedExtension -> fragment -> doc`, () => {
+    const editorDoc = (factory as any)['doc'](
+      (markBuilder as any)['fragment'](
+        bodiedExtension({
+          extensionKey: '123',
+          extensionType: 'bodiedExtension',
+        })(p('extended paragraph')),
+      ),
+    )(defaultSchema);
+    const editorJson = transformer.encode(editorDoc);
+    expect(isValidJSONSchema(editorJson)).toEqual(true);
+  });
+  it(`should validate JSON schema for  -> table -> fragment -> doc`, () => {
+    const editorDoc = (factory as any)['doc'](
+      (markBuilder as any)['fragment'](
+        table()(
+          tr(th({ colspan: 1, rowspan: 1 })(p('fake table header'))),
+          tr(td({ colspan: 1, rowspan: 1 })(p('fake table row'))),
+        ),
+      ),
+    )(defaultSchema);
+    const editorJson = transformer.encode(editorDoc);
+    expect(isValidJSONSchema(editorJson)).toEqual(true);
   });
 });
 

@@ -119,4 +119,27 @@ describe('<GenericCard/>', () => {
 
     expect(wrap.findWhere((node) => node.key() === url)).toBeTruthy();
   });
+
+  it('should pass showServerActions to component', () => {
+    const SmartCardComponent = () => <span></span>;
+
+    const mockInlinePmNode = inlineCard({ url: 'https://some/url' })()(
+      defaultSchema,
+    );
+    const WrappedCard = Card(SmartCardComponent, () => {
+      return null;
+    });
+
+    const node = mount(
+      <WrappedCard
+        node={mockInlinePmNode}
+        view={mockEditorView}
+        getPos={() => 0}
+        showServerActions={true}
+      />,
+    );
+    expect(node.find(SmartCardComponent).prop('showServerActions')).toEqual(
+      true,
+    );
+  });
 });

@@ -9,7 +9,8 @@ import {
 } from '../../providers';
 import { Provider as CollabProvider } from '@atlaskit/collab-provider';
 import WebBridgeImpl from '../native-to-web';
-import { CardClient, EditorCardProvider } from '@atlaskit/link-provider';
+import { CardClient } from '@atlaskit/link-provider';
+import { EditorCardProvider } from '@atlaskit/editor-card-provider';
 import { fetchProxy } from '../../utils/fetch-proxy';
 import { EmojiResource } from '@atlaskit/emoji';
 import { MentionProvider } from '@atlaskit/mention';

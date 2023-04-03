@@ -1,11 +1,11 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { render, fireEvent, screen } from '@testing-library/react';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { doc, p, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import { ClickAreaBlock } from '../../../../ui/Addon';
 import * as ClickAreaHelper from '../../../../ui/Addon/click-area-helper';
 
-const clickWrapperSelector = 'div[data-testid="click-wrapper"]';
+const clickWrapperId = 'click-wrapper';
 describe('ClickAreaBlock', () => {
   const createEditor = createEditorFactory();
   const editor = (doc: DocBuilder) =>
@@ -27,11 +27,9 @@ describe('ClickAreaBlock', () => {
   });
   it('should invoke clickAreaClickHandler when clicked', () => {
     const { editorView } = editor(doc(p('Hello world')));
-    const clickWrapper = mount(<ClickAreaBlock editorView={editorView} />);
+    render(<ClickAreaBlock editorView={editorView} />);
 
-    clickWrapper
-      .find(clickWrapperSelector)
-      .simulate('mousedown', { clientY: 200 });
+    fireEvent.mouseDown(screen.getByTestId(clickWrapperId), { clientY: 200 });
     expect(clickAreaClickHandlerMock).toHaveBeenCalledTimes(1);
     expect(clickAreaClickHandlerMock).toHaveBeenCalledWith(
       editorView,
@@ -40,10 +38,8 @@ describe('ClickAreaBlock', () => {
   });
 
   it('should not invoke clickAreaClickHandler when clicked and view is not defined', () => {
-    const clickWrapper = mount(<ClickAreaBlock />);
-    clickWrapper
-      .find(clickWrapperSelector)
-      .simulate('mousedown', { clientY: 200 });
+    render(<ClickAreaBlock />);
+    fireEvent.mouseDown(screen.getByTestId(clickWrapperId), { clientY: 200 });
     expect(clickAreaClickHandlerMock).toHaveBeenCalledTimes(0);
   });
 });

@@ -35,7 +35,7 @@ export interface CachingEmojiProps extends EmojiProps {
 export const CachingEmoji: FC<CachingEmojiProps> = (props) => {
   // Optimisation to only render CachingMediaEmoji if necessary
   // slight performance hit, which accumulates for a large number of emoji.
-  const { emoji } = props;
+  const { emoji, placeholderSize, ...restProps } = props;
   // start emoji rendered experience, it may have already started earlier in `ResourcedEmoji`.
   useSampledUFOComponentExperience(
     ufoExperiences['emoji-rendered'].getInstance(emoji.id || emoji.shortName),
@@ -52,9 +52,15 @@ export const CachingEmoji: FC<CachingEmojiProps> = (props) => {
 
   const emojiNode = () => {
     if (isMediaEmoji(emoji)) {
-      return <CachingMediaEmoji {...props} />;
+      return (
+        <CachingMediaEmoji
+          emoji={emoji}
+          placeholderSize={placeholderSize}
+          {...restProps}
+        />
+      );
     }
-    return <Emoji {...props} />;
+    return <Emoji emoji={emoji} {...restProps} />;
   };
 
   return (

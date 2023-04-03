@@ -24,7 +24,10 @@ import {
   EditorExperience,
   RELIABILITY_INTERVAL,
 } from '@atlaskit/editor-common/ufo';
-import { Transformer } from '@atlaskit/editor-common/types';
+import {
+  Transformer,
+  AllEditorPresetPluginTypes,
+} from '@atlaskit/editor-common/types';
 
 import { createDispatch, Dispatch, EventDispatcher } from '../event-dispatcher';
 import { processRawValue } from '../utils';
@@ -56,6 +59,7 @@ import {
   EditorPlugin,
   EditorProps,
 } from '../types';
+import type { EditorNextProps } from '../types/editor-props';
 import { FeatureFlags } from '../types/feature-flags';
 import { PortalProviderAPI } from '../ui/PortalProvider';
 import {
@@ -90,19 +94,16 @@ import { getContextIdentifier } from '../plugins/base/pm-plugins/context-identif
 import type { FireAnalyticsCallback } from '@atlaskit/editor-common/analytics';
 import { UfoSessionCompletePayloadAEP } from '../plugins/analytics/types/general-events';
 import ReactEditorViewContext from './ReactEditorViewContext';
-import { createInsertNodeAPI } from '../insert-api/api';
-import { createEditorAnalyticsAPI } from '../analytics-api/api';
 import {
-  GetEditorPlugins,
-  GetEditorPluginsProps,
-} from '../types/get-editor-props';
+  EditorPresetBuilder,
+  EditorPluginInjectionAPI,
+} from '@atlaskit/editor-common/preset';
 
 export interface EditorViewProps {
-  editorProps: EditorProps;
+  editorProps: EditorProps | EditorNextProps;
   createAnalyticsEvent?: CreateUIAnalyticsEvent;
   providerFactory: ProviderFactory;
   portalProviderAPI: PortalProviderAPI;
-  getEditorPlugins?: GetEditorPlugins;
   allowAnalyticsGASV3?: boolean;
   disabled?: boolean;
   experienceStore?: ExperienceStore;
@@ -127,6 +128,7 @@ export interface EditorViewProps {
     eventDispatcher: EventDispatcher;
     transformer?: Transformer<string>;
   }) => void;
+  preset: EditorPresetBuilder<string[], AllEditorPresetPluginTypes[]>;
 }
 
 function handleEditorFocus(view: EditorView): number | undefined {
@@ -137,42 +139,6 @@ function handleEditorFocus(view: EditorView): number | undefined {
   return window.setTimeout(() => {
     view.focus();
   }, 0);
-}
-
-const EMPTY: EditorPlugin[] = [];
-
-export function shouldReconfigureState(
-  props: EditorProps,
-  nextProps: EditorProps,
-) {
-  const prevPlugins = props.dangerouslyAppendPlugins?.__plugins ?? EMPTY;
-  const nextPlugins = nextProps.dangerouslyAppendPlugins?.__plugins ?? EMPTY;
-
-  if (
-    nextPlugins.length !== prevPlugins.length ||
-    prevPlugins.some((p) =>
-      nextPlugins.some((n) => n.name === p.name && n !== p),
-    )
-  ) {
-    return true;
-  }
-
-  const mobileProperties: Array<keyof EditorProps> =
-    props.appearance === 'mobile' ? ['featureFlags', 'quickInsert'] : [];
-
-  const properties: Array<keyof EditorProps> = [
-    'appearance',
-    'persistScrollGutter',
-    'allowUndoRedoButtons',
-    'placeholder',
-    'sanitizePrivateContent',
-    ...mobileProperties,
-  ];
-
-  return properties.reduce(
-    (acc, curr) => acc || props[curr] !== nextProps[curr],
-    false,
-  );
 }
 
 interface CreateEditorStateOptions {
@@ -216,6 +182,8 @@ export class ReactEditorView<T = {}> extends React.Component<
 
   private featureFlags: FeatureFlags;
 
+  private pluginInjectionAPI: EditorPluginInjectionAPI;
+
   private onPluginObservation = (
     report: PluginPerformanceReportData,
     editorState: EditorState,
@@ -252,6 +220,10 @@ export class ReactEditorView<T = {}> extends React.Component<
     context: EditorReactContext,
   ) {
     super(props, context);
+
+    this.pluginInjectionAPI = new EditorPluginInjectionAPI({
+      getEditorState: this.getEditorState,
+    });
 
     this.eventDispatcher = new EventDispatcher();
 
@@ -308,6 +280,8 @@ export class ReactEditorView<T = {}> extends React.Component<
     });
   }
 
+  getEditorState = () => this.view?.state;
+
   UNSAFE_componentWillReceiveProps(nextProps: EditorViewProps) {
     // START TEMPORARY CODE ED-10584
     if (
@@ -340,7 +314,7 @@ export class ReactEditorView<T = {}> extends React.Component<
     const { appearance } = this.props.editorProps;
     const { appearance: nextAppearance } = nextProps.editorProps;
 
-    if (shouldReconfigureState(this.props.editorProps, nextProps.editorProps)) {
+    if (this.props.preset !== nextProps.preset) {
       this.reconfigureState(nextProps);
     }
 
@@ -420,7 +394,7 @@ export class ReactEditorView<T = {}> extends React.Component<
     }
   };
 
-  reconfigureState = (props: EditorViewProps) => {
+  reconfigureState(props: EditorViewProps) {
     if (!this.view) {
       return;
     }
@@ -430,11 +404,8 @@ export class ReactEditorView<T = {}> extends React.Component<
     // nodes that haven't been re-rendered to the document yet.
     this.blur();
 
-    const editorPlugins = this.getPlugins(
-      props.editorProps,
-      this.props.editorProps,
-      this.props.createAnalyticsEvent,
-    );
+    const editorPlugins = this.getPlugins(props.preset);
+
     this.config = processPluginsList(editorPlugins);
 
     const state = this.editorState;
@@ -462,7 +433,7 @@ export class ReactEditorView<T = {}> extends React.Component<
     this.view.updateState(newState);
 
     return this.view.update({ ...this.view.props, state: newState });
-  };
+  }
 
   handleAnalyticsEvent: FireAnalyticsCallback = (payload) => {
     if (!this.props.allowAnalyticsGASV3) {
@@ -521,34 +492,13 @@ export class ReactEditorView<T = {}> extends React.Component<
 
   // Helper to allow tests to inject plugins directly
   getPlugins(
-    editorProps: EditorProps,
-    prevEditorProps?: EditorProps,
-    createAnalyticsEvent?: CreateUIAnalyticsEvent,
+    preset: EditorPresetBuilder<string[], AllEditorPresetPluginTypes[]>,
   ): EditorPlugin[] {
-    const insertNodeAPI = createInsertNodeAPI({
-      getEditorView: () => this.view,
-      getEditorPlugins: () => this.editorPlugins,
-    });
-    const editorAnalyticsAPI = createEditorAnalyticsAPI({
-      getEditorView: () => this.view,
-      getCreateUIAnalyticsEvent: () => createAnalyticsEvent,
+    const plugins = preset.build({
+      pluginInjectionAPI: this.pluginInjectionAPI,
     });
 
-    const getPluginsProps: GetEditorPluginsProps = {
-      props: editorProps,
-      prevAppearance: prevEditorProps?.appearance,
-      createAnalyticsEvent,
-      insertNodeAPI,
-      editorAnalyticsAPI,
-    };
-
-    if (this.props.getEditorPlugins === undefined) {
-      // eslint-disable-next-line no-console
-      console.error(
-        'getEditorPlugins is undefined in ReactEditorViewInternal - no editor plugins will be added.',
-      );
-    }
-    this.editorPlugins = this.props.getEditorPlugins?.(getPluginsProps) ?? [];
+    this.editorPlugins = plugins;
 
     return this.editorPlugins;
   }
@@ -578,13 +528,7 @@ export class ReactEditorView<T = {}> extends React.Component<
         return this.editorState;
       }
     } else {
-      this.config = processPluginsList(
-        this.getPlugins(
-          options.props.editorProps,
-          undefined,
-          options.props.createAnalyticsEvent,
-        ),
-      );
+      this.config = processPluginsList(this.getPlugins(options.props.preset));
       schema = createSchema(this.config);
     }
 
@@ -751,6 +695,11 @@ export class ReactEditorView<T = {}> extends React.Component<
         );
       });
 
+      this.pluginInjectionAPI.onEditorViewUpdated({
+        newEditorState: editorState,
+        oldEditorState,
+      });
+
       startMeasure(EVENT_NAME_VIEW_STATE_UPDATED);
       this.onEditorViewStateUpdated({
         originalTransaction: transaction,
@@ -910,6 +859,10 @@ export class ReactEditorView<T = {}> extends React.Component<
     // Creates the editor-view from this.editorState. If an editor has been mounted
     // previously, this will contain the previous state of the editor.
     this.view = new EditorView({ mount: node }, this.getDirectEditorProps());
+    this.pluginInjectionAPI.onEditorViewUpdated({
+      newEditorState: this.view.state,
+      oldEditorState: undefined,
+    });
   };
 
   handleEditorViewRef = (node: HTMLDivElement) => {

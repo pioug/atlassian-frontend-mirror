@@ -1,8 +1,9 @@
 /** @jsx jsx */
-import React, { useLayoutEffect, useRef } from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 import { jsx } from '@emotion/react';
 import TextField from '@atlaskit/textfield';
 import SearchIcon from '@atlaskit/icon/glyph/search';
+import VisuallyHidden from '@atlaskit/visually-hidden';
 import { useIntl } from 'react-intl-next';
 import { Styles } from '../../types';
 import { messages } from '../i18n';
@@ -14,13 +15,15 @@ export interface Props {
   style?: Styles;
   query?: string;
   onChange: (value: string) => void;
+  resultsCount: number;
 }
 
 export const emojiPickerSearchTestId = 'emoji-picker-serach';
 
 export const EmojiPickerListSearch = (props: Props) => {
-  const { style, query, onChange } = props;
+  const { style, query, resultsCount, onChange } = props;
   const textRef = useRef<HTMLInputElement>(null);
+  const [dirty, setDirty] = useState(false);
 
   const { formatMessage } = useIntl();
 
@@ -28,6 +31,7 @@ export const EmojiPickerListSearch = (props: Props) => {
   const [debouncedSearch] = useDebouncedCallback(
     (value: string) => {
       onChange(value);
+      setDirty(true);
     },
     // delay in ms
     EMOJI_SEARCH_DEBOUNCE,
@@ -47,7 +51,17 @@ export const EmojiPickerListSearch = (props: Props) => {
 
   return (
     <div css={pickerSearch} style={style}>
+      <VisuallyHidden id="emoji-search-results-status" role="status">
+        {dirty &&
+          query === '' &&
+          formatMessage(messages.searchResultsStatusSeeAll)}
+        {query !== '' &&
+          formatMessage(messages.searchResultsStatus, {
+            count: resultsCount,
+          })}
+      </VisuallyHidden>
       <TextField
+        role="searchbox"
         aria-label={formatMessage(messages.searchLabel)}
         css={input}
         autoComplete="off"
@@ -55,7 +69,6 @@ export const EmojiPickerListSearch = (props: Props) => {
         placeholder={`${formatMessage(messages.searchPlaceholder)}...`}
         defaultValue={query || ''}
         onChange={handleOnChange}
-        isCompact
         elemBeforeInput={
           <span css={searchIcon}>
             <SearchIcon label="" />
@@ -63,6 +76,7 @@ export const EmojiPickerListSearch = (props: Props) => {
         }
         testId={emojiPickerSearchTestId}
         ref={textRef}
+        isCompact
       />
     </div>
   );

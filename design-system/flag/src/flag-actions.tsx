@@ -15,13 +15,8 @@ import {
   VAR_BG_COLOR,
   VAR_BG_COLOR_HOVER,
   VAR_BG_COLOR_ACTIVE,
-  VAR_FOCUS_COLOR,
 } from './constants';
-import {
-  flagFocusRingColor,
-  actionBackgroundColor,
-  actionTextColor,
-} from './theme';
+import { actionBackgroundColor, actionTextColor } from './theme';
 import type { ActionsType, AppearanceTypes } from './types';
 
 type FlagActionsProps = {
@@ -38,9 +33,6 @@ const buttonStyles = css({
     background: `var(${VAR_BG_COLOR})`,
     color: `var(${VAR_COLOR}) !important`,
     fontWeight: token('font.weight.medium', '500'),
-  },
-  '&&:focus, a&&:focus': {
-    boxShadow: `0 0 0 2px var(${VAR_FOCUS_COLOR})`,
   },
   '&&:hover, &&:active, a&&:hover, a&&:active': {
     textDecoration: 'underline',
@@ -104,7 +96,6 @@ const FlagActions: FC<FlagActionsProps> = (props) => {
                 [VAR_BG_COLOR]: actionBackgroundColor[appearance].default,
                 [VAR_BG_COLOR_HOVER]: actionBackgroundColor[appearance].pressed,
                 [VAR_BG_COLOR_ACTIVE]: actionBackgroundColor[appearance].active,
-                [VAR_FOCUS_COLOR]: flagFocusRingColor[appearance],
               } as CSSProperties
             }
             css={[

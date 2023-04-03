@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { Children, cloneElement, FC } from 'react';
+import { Children, cloneElement, FC, memo } from 'react';
 
 import { ClassNames, css, jsx } from '@emotion/react';
 
@@ -72,7 +72,7 @@ const insetFocusRingStyles = css({
  * )
  * ```
  */
-const FocusRing: FC<FocusRingProps> = ({ children, isInset, focus }) => {
+const FocusRing: FC<FocusRingProps> = memo(({ children, isInset, focus }) => {
   const controlledStyles = isInset ? baseInsetStyles : baseFocusOutsideStyles;
   const uncontrolledStyles = isInset ? insetFocusRingStyles : focusRingStyles;
   const focusCls =
@@ -95,6 +95,8 @@ const FocusRing: FC<FocusRingProps> = ({ children, isInset, focus }) => {
       }
     </ClassNames>
   );
-};
+});
+
+FocusRing.displayName = 'FocusRing';
 
 export default FocusRing;

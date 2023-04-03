@@ -132,7 +132,7 @@ describe('inline-dialog', () => {
     });
   });
 
-  describe('handleClickOutside', () => {
+  describe('handleCloseRequest', () => {
     describe('EventListeners', () => {
       let addSpy: jest.SpyInstance;
       let removeSpy: jest.SpyInstance;
@@ -161,7 +161,13 @@ describe('inline-dialog', () => {
           addSpy.mock.calls.filter(([event]) => event === 'click'),
         ).toHaveLength(1);
         expect(
+          addSpy.mock.calls.filter(([event]) => event === 'keydown'),
+        ).toHaveLength(1);
+        expect(
           removeSpy.mock.calls.filter(([event]) => event === 'click'),
+        ).toHaveLength(0);
+        expect(
+          removeSpy.mock.calls.filter(([event]) => event === 'keydown'),
         ).toHaveLength(0);
       });
 
@@ -182,6 +188,9 @@ describe('inline-dialog', () => {
         expect(
           addSpy.mock.calls.filter(([event]) => event === 'click'),
         ).toHaveLength(1);
+        expect(
+          addSpy.mock.calls.filter(([event]) => event === 'keydown'),
+        ).toHaveLength(1);
 
         rerender(
           <InlineDialog content={() => null} testId="inline-dialog">
@@ -194,7 +203,13 @@ describe('inline-dialog', () => {
           addSpy.mock.calls.filter(([event]) => event === 'click'),
         ).toHaveLength(1);
         expect(
+          addSpy.mock.calls.filter(([event]) => event === 'keydown'),
+        ).toHaveLength(1);
+        expect(
           removeSpy.mock.calls.filter(([event]) => event === 'click'),
+        ).toHaveLength(1);
+        expect(
+          removeSpy.mock.calls.filter(([event]) => event === 'keydown'),
         ).toHaveLength(1);
       });
     });
@@ -215,6 +230,53 @@ describe('inline-dialog', () => {
 
       // click anywhere outside of inline dialog
       fireEvent.click(document.body);
+      expect(callback).toHaveBeenCalledTimes(1);
+    });
+
+    it('should invoke onClose callback on escaoe by default', () => {
+      const callback = jest.fn();
+      jest.useFakeTimers(); // mock timers
+
+      render(
+        <InlineDialog content={() => null} onClose={callback} isOpen>
+          <div id="children" />
+        </InlineDialog>,
+      );
+
+      act(() => {
+        jest.runAllTimers(); // trigger setTimeout
+      });
+
+      // press escape anywhere outside of inline dialog
+      fireEvent.keyDown(document.body, { key: 'Escape' });
+      expect(callback).toHaveBeenCalledTimes(1);
+    });
+
+    it('should invoke onClose callback on escaoe when focused on triggering element', () => {
+      const callback = jest.fn();
+      jest.useFakeTimers(); // mock timers
+
+      const { getByText } = render(
+        <InlineDialog content={() => null} onClose={callback} isOpen>
+          <button type="button" id="children">
+            Test
+          </button>
+        </InlineDialog>,
+      );
+
+      act(() => {
+        jest.runAllTimers(); // trigger setTimeout
+      });
+
+      const el = getByText('Test');
+
+      // Focus on triggering element. Not sure this is necessary considering
+      // we're calling keydown on the element itself, but wanted to make sure
+      el.focus();
+      expect(el).toHaveFocus();
+
+      // press escape on triggering element
+      fireEvent.keyDown(el, { key: 'Escape' });
       expect(callback).toHaveBeenCalledTimes(1);
     });
 

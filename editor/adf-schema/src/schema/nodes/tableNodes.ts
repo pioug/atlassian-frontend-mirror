@@ -1,5 +1,7 @@
 import { Node as PmNode, NodeSpec } from 'prosemirror-model';
 import { CellAttributes } from '@atlaskit/editor-tables/types';
+import { hexToEditorBackgroundPaletteColorTokenName } from '@atlaskit/editor-palette';
+import { getTokenValue } from '@atlaskit/tokens';
 import {
   B100,
   B50,
@@ -161,8 +163,11 @@ export const getCellDomAttrs = (node: PmNode): CellDomAttrs => {
       attrs.style = '';
     } else {
       const color = isRgb(background) ? rgbToHex(background) : background;
+      const tokenName = hexToEditorBackgroundPaletteColorTokenName(color);
+      // eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
+      const tokenColor = tokenName ? getTokenValue(tokenName) : color;
 
-      attrs.style = `${attrs.style || ''}background-color: ${color}`;
+      attrs.style = `${attrs.style || ''}background-color: ${tokenColor};`;
 
       /**
        * Storing hex code in data-cell-background because

@@ -1,1 +1,4 @@
-export type { PaletteColor } from '@atlaskit/editor-common/ui-color';
+export type {
+  PaletteColor,
+  PaletteTooltipMessages,
+} from '@atlaskit/editor-common/ui-color';

@@ -21,10 +21,7 @@ import {
 } from '../../service/types';
 
 import { ClipboardPastePayload, ClipboardConfig } from '../../types';
-import {
-  getPackageAttributes,
-  LOGGED_FEATURE_FLAGS,
-} from '../../util/analytics';
+import { getPackageAttributes } from '../../util/analytics';
 import { appendTimestamp } from '../../util/appendTimestamp';
 
 export const getFilesFromClipboard = (files: FileList) => {
@@ -187,7 +184,4 @@ export default ClipboardBase;
 
 export const Clipboard = withMediaAnalyticsContext(
   getPackageAttributes(COMPONENT_NAME),
-  {
-    filterFeatureFlags: LOGGED_FEATURE_FLAGS,
-  },
 )(withAnalyticsEvents()(ClipboardBase));

@@ -13,11 +13,6 @@ import { createEditorContentStyle } from '../ContentStyles';
 import { ClickAreaMobile as ClickArea } from '../Addon';
 import { EditorView } from 'prosemirror-view';
 
-export interface MobileEditorProps {
-  isMaxContentSizeReached?: boolean;
-  maxHeight?: number;
-}
-
 const mobileEditor = css`
   min-height: 30px;
   width: 100%;
@@ -36,7 +31,7 @@ const mobileEditor = css`
 const ContentArea = createEditorContentStyle();
 ContentArea.displayName = 'ContentArea';
 
-export type MobileAppearanceProps = React.PropsWithChildren<{
+type MobileAppearanceProps = React.PropsWithChildren<{
   editorView: EditorView | null;
   maxHeight?: number;
   persistScrollGutter?: boolean;

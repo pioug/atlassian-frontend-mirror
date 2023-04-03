@@ -21,7 +21,7 @@ import { ThemeProps } from '@atlaskit/theme/types';
 
 import ColorPalette from '../ColorPalette';
 import { DEFAULT_BORDER_COLOR } from '../ColorPalette/Palettes/common';
-import { PaletteColor } from '../ColorPalette/Palettes';
+import { PaletteColor, PaletteTooltipMessages } from '../ColorPalette/Palettes';
 import {
   withAnalyticsContext,
   withAnalyticsEvents,
@@ -71,6 +71,8 @@ type Props = WithAnalyticsEventsProps & {
   mountPoint?: HTMLElement;
   setDisableParentScroll?: (disable: boolean) => void;
   hexToPaletteColor?: (hexColor: string) => string | undefined;
+  showSomewhatSemanticTooltips?: boolean;
+  paletteColorTooltipMessages?: PaletteTooltipMessages;
 };
 
 const ColorPickerButton = (props: Props) => {
@@ -179,13 +181,18 @@ const ColorPickerButton = (props: Props) => {
             isPopupPositioned={isPopupPositioned}
           >
             <ColorPaletteWithListeners
-              palette={props.colorPalette}
               cols={props.cols}
               selectedColor={selectedColor}
               onClick={onColorSelected}
               handleClickOutside={togglePopup}
               handleEscapeKeydown={handleEsc}
-              hexToPaletteColor={props.hexToPaletteColor}
+              paletteOptions={{
+                palette: props.colorPalette,
+                hexToPaletteColor: props.hexToPaletteColor,
+                showSomewhatSemanticTooltips:
+                  props.showSomewhatSemanticTooltips,
+                paletteColorTooltipMessages: props.paletteColorTooltipMessages,
+              }}
             />
           </ArrowKeyNavigationProvider>
         </div>

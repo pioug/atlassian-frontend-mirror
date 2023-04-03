@@ -27,7 +27,7 @@ export interface Config {
   need404?: boolean;
   createSocket: (
     path: string,
-    auth?: (cb: (data: object) => void) => void,
+    auth?: AuthCallback | InitAndAuthData,
     productInfo?: ProductInformation,
   ) => Socket;
   analyticsClient?: AnalyticsWebClient;
@@ -37,9 +37,29 @@ export interface Config {
   ): Promise<
     Pick<CollabParticipant, 'avatar' | 'email' | 'name'> & { userId: string }
   >;
+  /**
+   * If provided, permissionTokenRefresh is called whenever a new JWT token is required.
+   */
   permissionTokenRefresh?: () => Promise<string | null>;
+  //flag to signal if the token should be cached locally
+  cacheToken?: boolean;
   productInfo?: ProductInformation;
+  /**
+   * Throws errors when trying to send data to collab but the client is not offline.
+   * This can lead to potential dataloss and retrying should be considered. Without this flag the provider silently drops the requests.
+   */
+  throwOnNotConnected?: boolean;
 }
+
+export interface InitAndAuthData {
+  // The initialized status. If false, BE will send document, otherwise not.
+  initialized: boolean;
+  // ESS-1009 Allow to opt-in into 404 response
+  need404?: boolean;
+  token?: string;
+}
+
+export type AuthCallback = (cb: (data: InitAndAuthData) => void) => void;
 
 interface SimpleEventEmitter {
   on(event: string, fn: Function): SimpleEventEmitter;
@@ -153,14 +173,14 @@ type SliceJson = {
 };
 
 export type StepJson = {
+  stepType?: string; // Likely required
   from?: number;
   to?: number;
-  stepType?: string;
+  slice?: SliceJson;
   clientId: number | string;
   userId: string;
   createdAt?: number; // Potentially required?
   structure?: boolean;
-  slice?: SliceJson;
 };
 
 export enum AcknowledgementResponseTypes {

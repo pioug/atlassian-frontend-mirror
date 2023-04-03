@@ -8,3 +8,8 @@ export interface PaletteColor {
 }
 
 export type Palette = Array<PaletteColor>;
+
+export type PaletteTooltipMessages = {
+  dark: Record<string, MessageDescriptor>;
+  light: Record<string, MessageDescriptor>;
+};

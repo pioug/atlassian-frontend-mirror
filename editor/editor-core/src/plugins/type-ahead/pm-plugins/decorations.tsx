@@ -5,7 +5,6 @@ import {
   ReadonlyTransaction,
   Transaction,
   TextSelection,
-  Selection,
 } from 'prosemirror-state';
 import { EditorView, DecorationSet, Decoration } from 'prosemirror-view';
 import { B400 } from '@atlaskit/theme/colors';
@@ -211,64 +210,4 @@ export const factoryDecorations = ({
     createDecorations,
     removeDecorations,
   };
-};
-
-export const isSelectionInsideTypeAhead = ({
-  decorationSet,
-  selection,
-}: {
-  decorationSet?: DecorationSet;
-  selection: Selection;
-}): boolean => {
-  if (!decorationSet || decorationSet === DecorationSet.empty) {
-    return false;
-  }
-
-  const typeAheadDecorations = decorationSet.find(
-    undefined,
-    undefined,
-    (spec) => {
-      return spec.isTypeAheadDecoration;
-    },
-  );
-
-  if (!typeAheadDecorations || typeAheadDecorations.length === 0) {
-    return false;
-  }
-
-  return typeAheadDecorations.some((dec) => {
-    return dec.from === selection.from && dec.to === selection.to;
-  });
-};
-
-export const findDecorationElement = ({
-  selection,
-  decorationSet,
-}: {
-  selection: Selection;
-  decorationSet?: DecorationSet;
-}): HTMLElement | null => {
-  if (
-    !decorationSet ||
-    decorationSet === DecorationSet.empty ||
-    !(selection instanceof TextSelection) ||
-    !selection.$cursor
-  ) {
-    return null;
-  }
-
-  const {
-    $cursor: { pos },
-  } = selection;
-  const decoration = decorationSet.find(
-    pos,
-    pos,
-    (spec: Record<string, any>) => spec?.isTypeAheadDecoration,
-  );
-
-  if (!decoration || decoration.length !== 1) {
-    return null;
-  }
-
-  return document.querySelector(`#${decoration[0].spec.key}`);
 };

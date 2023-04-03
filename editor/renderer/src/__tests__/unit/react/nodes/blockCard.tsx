@@ -73,4 +73,13 @@ describe('Renderer - React/Nodes/BlockCard', () => {
 
     expect(node.find(Card).prop('onClick')).toBeUndefined();
   });
+
+  it('should render with showServerActions if defined in smartLinks options', () => {
+    node = mount(
+      <Provider client={new Client('staging')}>
+        <BlockCard url={url} smartLinks={{ showServerActions: true }} />
+      </Provider>,
+    );
+    expect(node.find(Card).prop('showServerActions')).toEqual(true);
+  });
 });

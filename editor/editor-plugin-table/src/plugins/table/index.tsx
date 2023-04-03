@@ -371,6 +371,10 @@ const tablesPlugin: NextEditorPlugin<
                     pluginConfig={pluginConfig}
                     editorAnalyticsAPI={options?.editorAnalyticsAPI}
                     getEditorContainerWidth={defaultGetEditorContainerWidth}
+                    getEditorFeatureFlags={
+                      options?.getEditorFeatureFlags ||
+                      defaultGetEditorFeatureFlags
+                    }
                   />
                   {allowControls && (
                     <FloatingDeleteButton

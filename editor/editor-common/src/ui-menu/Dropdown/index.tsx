@@ -17,6 +17,7 @@ export interface Props {
   fitHeight?: number;
   zIndex?: number;
   arrowKeyNavigationProviderOptions: ArrowKeyNavigationProviderOptions;
+  dropdownListId?: string;
 }
 
 export interface State {
@@ -47,6 +48,17 @@ export class Dropdown extends PureComponent<Props, State> {
     this.setState({ popupPlacement: placement });
   };
 
+  private handleCloseAndFocus = (event: MouseEvent | KeyboardEvent) => {
+    this.state.target?.querySelector('button')?.focus();
+    this.handleClose(event);
+  };
+
+  private handleClose = (event: MouseEvent | KeyboardEvent) => {
+    if (this.props.onOpenChange) {
+      this.props.onOpenChange({ isOpen: false, event });
+    }
+  };
+
   private renderDropdown() {
     const { target, popupPlacement } = this.state;
     const {
@@ -59,6 +71,7 @@ export class Dropdown extends PureComponent<Props, State> {
       fitWidth,
       zIndex,
       arrowKeyNavigationProviderOptions,
+      dropdownListId,
     } = this.props;
 
     return (
@@ -75,9 +88,7 @@ export class Dropdown extends PureComponent<Props, State> {
         <ArrowKeyNavigationProvider
           {...arrowKeyNavigationProviderOptions}
           closeOnTab={true}
-          handleClose={(event) =>
-            onOpenChange && onOpenChange({ isOpen: false, event })
-          }
+          handleClose={this.handleCloseAndFocus}
         >
           <div style={{ height: 0, minWidth: fitWidth || 0 }}>
             <DropdownList
@@ -85,6 +96,7 @@ export class Dropdown extends PureComponent<Props, State> {
               onOpenChange={onOpenChange}
               position={popupPlacement.join(' ')}
               shouldFitContainer={true}
+              id={dropdownListId}
             >
               {children}
             </DropdownList>

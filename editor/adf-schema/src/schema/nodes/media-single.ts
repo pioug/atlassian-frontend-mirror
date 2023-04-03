@@ -21,6 +21,23 @@ export interface MediaSingleBaseDefinition {
 /**
  * @additionalProperties true
  */
+export interface MediaCaptionContent {
+  /**
+   * @minItems 1
+   * @maxItems 2
+   * @allowUnsupportedBlock true
+   */
+  content: [Media, Caption?];
+}
+/**
+ * @name mediaSingle_caption_node
+ */
+export type MediaSingleWithCaptionDefinition = MediaSingleBaseDefinition &
+  MediaCaptionContent;
+
+/**
+ * @additionalProperties true
+ */
 export interface MediaSingleFullContent {
   /**
    * @minItems 1
@@ -35,23 +52,6 @@ export interface MediaSingleFullContent {
  */
 export type MediaSingleFullDefinition = MediaSingleBaseDefinition &
   MediaSingleFullContent;
-
-/**
- * @additionalProperties true
- */
-export interface MediaCaptionContent {
-  /**
-   * @minItems 1
-   * @maxItems 2
-   * @allowUnsupportedBlock true
-   */
-  content: [Media, Caption?];
-}
-/**
- * @name mediaSingle_caption_node
- */
-export type MediaSingleWithCaptionDefinition = MediaSingleBaseDefinition &
-  MediaCaptionContent;
 
 export const defaultAttrs = {
   width: { default: null }, // null makes small images to have original size by default

@@ -66,7 +66,6 @@ import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { measureRender, SEVERITY } from '@atlaskit/editor-common/utils';
 import { toJSON } from '../../../utils';
 import { ReactEditorView } from '../../ReactEditorView';
-import { shouldReconfigureState } from '../../ReactEditorViewInternal';
 import { EditorConfig } from '../../../types/editor-config';
 import { mount, ReactWrapper } from 'enzyme';
 import { TextSelection } from 'prosemirror-state';
@@ -108,6 +107,7 @@ import {
   RELIABILITY_INTERVAL,
 } from '@atlaskit/editor-common/ufo';
 import { createIntl } from 'react-intl-next';
+import { createPreset } from '../../create-plugins-list';
 
 const portalProviderAPI: any = {
   render() {},
@@ -121,6 +121,7 @@ const requiredProps = () => ({
   onEditorDestroyed: () => {},
   editorProps: {},
   intl: createIntl({ locale: 'en' }),
+  preset: createPreset({}),
 });
 
 const analyticsProps = () => ({
@@ -539,14 +540,16 @@ describe('@atlaskit/editor-core', () => {
       let invalidTr;
 
       beforeEach(() => {
+        const editorProps = {
+          allowDate: true,
+          ...analyticsProps(),
+        };
         wrapper = mountWithIntl(
           <ReactEditorView
             {...requiredProps()}
             {...analyticsProps()}
-            editorProps={{
-              allowDate: true,
-              ...analyticsProps(),
-            }}
+            editorProps={editorProps}
+            preset={createPreset(editorProps)}
           />,
         );
         editor = wrapper.instance() as ReactEditorView;
@@ -988,17 +991,19 @@ describe('@atlaskit/editor-core', () => {
 
           describe('and invalid transaction is applied', () => {
             it('fails interaction experience if an invalid transaction is applied', async () => {
+              const editorProps = {
+                featureFlags: { ufo: true },
+                performanceTracking: {
+                  transactionTracking: { enabled: true, samplingRate: 1 },
+                },
+                onChange: () => {},
+                allowDate: true,
+              };
               const wrapper = mountWithIntl(
                 <ReactEditorView
                   {...requiredProps()}
-                  editorProps={{
-                    featureFlags: { ufo: true },
-                    performanceTracking: {
-                      transactionTracking: { enabled: true, samplingRate: 1 },
-                    },
-                    onChange: () => {},
-                    allowDate: true,
-                  }}
+                  preset={createPreset(editorProps)}
+                  editorProps={editorProps}
                 />,
               );
               await flushPromises();
@@ -1153,14 +1158,16 @@ describe('@atlaskit/editor-core', () => {
     );
 
     it('mentions should be sanitized when sanitizePrivateContent true', () => {
+      const editorProps = {
+        defaultValue: toJSON(document),
+        mentionProvider,
+        sanitizePrivateContent: true,
+      };
       const wrapper = mountWithIntl(
         <ReactEditorView
           {...requiredProps()}
-          editorProps={{
-            defaultValue: toJSON(document),
-            mentionProvider,
-            sanitizePrivateContent: true,
-          }}
+          editorProps={editorProps}
+          preset={createPreset(editorProps)}
           providerFactory={ProviderFactory.create({ mentionProvider })}
         />,
       );
@@ -1176,14 +1183,16 @@ describe('@atlaskit/editor-core', () => {
     });
 
     it('mentions should not be sanitized when sanitizePrivateContent false', () => {
+      const editorProps = {
+        defaultValue: toJSON(document),
+        sanitizePrivateContent: false,
+        mentionProvider,
+      };
       const wrapper = mountWithIntl(
         <ReactEditorView
           {...requiredProps()}
-          editorProps={{
-            defaultValue: toJSON(document),
-            sanitizePrivateContent: false,
-            mentionProvider,
-          }}
+          editorProps={editorProps}
+          preset={createPreset(editorProps)}
           providerFactory={ProviderFactory.create({ mentionProvider })}
         />,
       );
@@ -1195,13 +1204,15 @@ describe('@atlaskit/editor-core', () => {
     });
 
     it('mentions should not be sanitized when no collabEdit options', () => {
+      const editorProps = {
+        defaultValue: toJSON(document),
+        mentionProvider,
+      };
       const wrapper = mountWithIntl(
         <ReactEditorView
           {...requiredProps()}
-          editorProps={{
-            defaultValue: toJSON(document),
-            mentionProvider,
-          }}
+          editorProps={editorProps}
+          preset={createPreset(editorProps)}
           providerFactory={ProviderFactory.create({ mentionProvider })}
         />,
       );
@@ -1280,6 +1291,7 @@ describe('@atlaskit/editor-core', () => {
           tr.insertText('a', 2);
           view!.dispatch(tr);
         };
+
         const wrapper = mountWithIntl(
           <ReactEditorView
             {...requiredProps()}
@@ -1303,11 +1315,14 @@ describe('@atlaskit/editor-core', () => {
           tr.setMeta('isRemote', 'true');
           view!.dispatch(tr);
         };
+
+        const editorProps = { defaultValue: toJSON(document), onChange };
         const wrapper = mountWithIntl(
           <ReactEditorView
             {...requiredProps()}
             onEditorCreated={onEditorCreated}
-            editorProps={{ defaultValue: toJSON(document), onChange }}
+            preset={createPreset(editorProps)}
+            editorProps={editorProps}
           />,
         );
         wrapper.unmount();
@@ -1331,23 +1346,25 @@ describe('@atlaskit/editor-core', () => {
             callback && callback({ duration: threshold, startTime: 1 });
           },
         );
+        const editorProps = {
+          performanceTracking: {
+            proseMirrorRenderedTracking: {
+              trackSeverity: true,
+              severityNormalThreshold:
+                PROSEMIRROR_RENDERED_NORMAL_SEVERITY_THRESHOLD,
+              severityDegradedThreshold:
+                PROSEMIRROR_RENDERED_DEGRADED_SEVERITY_THRESHOLD,
+            },
+          },
+        };
 
         const wrapper = mountWithIntl(
           <ReactEditorView
             {...requiredProps()}
             {...analyticsProps()}
             allowAnalyticsGASV3={true}
-            editorProps={{
-              performanceTracking: {
-                proseMirrorRenderedTracking: {
-                  trackSeverity: true,
-                  severityNormalThreshold:
-                    PROSEMIRROR_RENDERED_NORMAL_SEVERITY_THRESHOLD,
-                  severityDegradedThreshold:
-                    PROSEMIRROR_RENDERED_DEGRADED_SEVERITY_THRESHOLD,
-                },
-              },
-            }}
+            preset={createPreset(editorProps)}
+            editorProps={editorProps}
           />,
         );
 
@@ -1356,56 +1373,6 @@ describe('@atlaskit/editor-core', () => {
         ).toBe(severity);
       },
     );
-  });
-
-  describe('shouldReconfigureState', () => {
-    const props: EditorProps = {
-      appearance: 'full-width',
-    };
-
-    it('should return TRUE when appearance changed', () => {
-      const nextProps: EditorProps = {
-        ...props,
-        appearance: 'full-page',
-      };
-
-      const actual = shouldReconfigureState(props, nextProps);
-
-      expect(actual).toBe(true);
-    });
-
-    it('should return TRUE when allowUndoRedoButtons is changed', () => {
-      const nextProps: EditorProps = {
-        ...props,
-        allowUndoRedoButtons: true,
-      };
-
-      const actual = shouldReconfigureState(props, nextProps);
-
-      expect(actual).toBe(true);
-    });
-
-    it('should return TRUE when persistScrollGutter changed', () => {
-      const nextProps: EditorProps = {
-        ...props,
-        persistScrollGutter: true,
-      };
-
-      const actual = shouldReconfigureState(props, nextProps);
-
-      expect(actual).toBe(true);
-    });
-
-    it('should return FALSE when relevant properties is not changed', () => {
-      const nextProps = {
-        ...props,
-        inputSamplingLimit: 5,
-      };
-
-      const actual = shouldReconfigureState(props, nextProps);
-
-      expect(actual).toBe(false);
-    });
   });
 
   describe('resetEditorState', () => {
@@ -1428,24 +1395,6 @@ describe('@atlaskit/editor-core', () => {
       instance.resetEditorState({ doc: '', shouldScrollToBottom: false });
 
       expect(schema === instance.view?.state.schema).toBeTruthy();
-    });
-  });
-
-  describe('dangerouslyAppendPlugins', () => {
-    it('should call pmPlugins factory of passed plugin', () => {
-      const pmPlugins = jest.fn(() => []);
-      const __plugins = [{ name: 'dangerouslyAppendPlugins', pmPlugins }];
-
-      mountWithIntl(
-        <ReactEditorView
-          {...requiredProps()}
-          editorProps={{
-            dangerouslyAppendPlugins: { __plugins },
-          }}
-        />,
-      );
-
-      expect(pmPlugins).toHaveBeenCalled();
     });
   });
 });

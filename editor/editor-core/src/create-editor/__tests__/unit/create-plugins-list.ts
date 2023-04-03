@@ -3,15 +3,15 @@ jest.mock('../../../plugins/hyperlink');
 jest.mock('../../../plugins/placeholder');
 jest.mock('../../../plugins/selection');
 jest.mock('../../../plugins/code-block');
+jest.mock('../../../plugins/fake-text-cursor');
+jest.mock('../../../plugins/submit-editor');
+jest.mock('../../../plugins/quick-insert');
 jest.mock('@atlaskit/editor-plugin-table');
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 
 import {
   analyticsPlugin,
   mediaPlugin,
-  helpDialogPlugin,
-  fakeTextCursorPlugin,
-  submitEditorPlugin,
   insertBlockPlugin,
   feedbackDialogPlugin,
   placeholderTextPlugin,
@@ -23,13 +23,16 @@ import {
   mobileDimensionsPlugin,
   findReplacePlugin,
   contextPanelPlugin,
-  quickInsertPlugin,
+  helpDialogPlugin,
 } from '../../../plugins';
 
 import hyperlinkPlugin from '../../../plugins/hyperlink';
 import placeholderPlugin from '../../../plugins/placeholder';
 import selectionPlugin from '../../../plugins/selection';
 import codeBlockPlugin from '../../../plugins/code-block';
+import fakeTextCursorPlugin from '../../../plugins/fake-text-cursor';
+import submitEditorPlugin from '../../../plugins/submit-editor';
+import quickInsertPlugin from '../../../plugins/quick-insert';
 
 import createPluginsList, {
   getScrollGutterOptions,
@@ -43,13 +46,13 @@ describe('createPluginsList', () => {
   });
 
   it('should add helpDialogPlugin if allowHelpDialog is true', () => {
-    const plugins = createPluginsList({ allowHelpDialog: true });
-    expect(plugins).toContain(helpDialogPlugin(false));
+    createPluginsList({ allowHelpDialog: true });
+    expect(helpDialogPlugin).toHaveBeenCalledWith(false);
   });
 
   it('should add fakeTextCursorPlugin by default', () => {
-    const plugins = createPluginsList({});
-    expect(plugins).toContain(fakeTextCursorPlugin());
+    createPluginsList({});
+    expect(fakeTextCursorPlugin).toHaveBeenCalled();
   });
 
   it('should add tablePlugin if allowTables is true', () => {
@@ -91,23 +94,21 @@ describe('createPluginsList', () => {
   });
 
   it('should always add submitEditorPlugin to the editor', () => {
-    const plugins = createPluginsList({});
-    expect(plugins).toContain(submitEditorPlugin());
+    createPluginsList({});
+    expect(submitEditorPlugin).toHaveBeenCalled();
   });
 
   it('should always add quickInsert', () => {
-    const plugins = createPluginsList({});
-    expect(plugins).toContain(quickInsertPlugin());
+    createPluginsList({});
+    expect(quickInsertPlugin).toHaveBeenCalled();
   });
 
   it('should add quickInsertPlugin with special options when appearance === "mobile"', () => {
-    const plugins = createPluginsList({ appearance: 'mobile' });
-    expect(plugins).toContain(
-      quickInsertPlugin({
-        disableDefaultItems: true,
-        headless: true,
-      }),
-    );
+    createPluginsList({ appearance: 'mobile' });
+    expect(quickInsertPlugin).toHaveBeenCalledWith({
+      disableDefaultItems: true,
+      headless: true,
+    });
   });
 
   it('should add selectionPlugin with useLongPressSelection disable when appearance === "mobile"', () => {
@@ -128,9 +129,8 @@ describe('createPluginsList', () => {
   });
 
   it('should add placeholderText plugin if allowTemplatePlaceholders prop is provided', () => {
-    (placeholderTextPlugin as any).mockReturnValue('placeholderText');
-    const plugins = createPluginsList({ allowTemplatePlaceholders: true });
-    expect(plugins).toContain('placeholderText');
+    createPluginsList({ allowTemplatePlaceholders: true });
+    expect(placeholderTextPlugin).toHaveBeenCalled();
   });
 
   it('should pass empty options to placeholderText plugin if allowTemplatePlaceholders is true', () => {
@@ -148,8 +148,8 @@ describe('createPluginsList', () => {
   });
 
   it('should add layoutPlugin if allowLayout prop is provided', () => {
-    const plugins = createPluginsList({ allowLayouts: true });
-    expect(plugins).toContain(layoutPlugin({}));
+    createPluginsList({ allowLayouts: true });
+    expect(layoutPlugin).toHaveBeenCalled();
   });
 
   it('should initialise hyperlink with `linking.smartLinks` if provided', () => {

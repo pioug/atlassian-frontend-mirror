@@ -8,6 +8,7 @@ import {
   akEditorToolbarKeylineHeight,
   akEditorMenuZIndex,
 } from '@atlaskit/editor-shared-styles';
+import { UseStickyToolbarType } from '../../../types/editor-props';
 
 export const TableControlsPadding = 20;
 
@@ -49,14 +50,22 @@ const stickyToolbarWrapperStyle = css`
 
 type StickyToolbarProps = {
   externalToolbarRef?: RefObject<HTMLElement>;
+  offsetTop?: number;
 };
 
 const StickyToolbar: React.FC<StickyToolbarProps> = (props) => {
   const [top, setTop] = useState(0);
 
+  // ED-15802: if externalToolbarRef is passed in, set top to externalToolbarRef?.current?.clientHeight
+  // else if offsetTop is a number set top to offsetTop
+  // otherwise top is 0 as initial state
   useEffect(() => {
-    setTop(props.externalToolbarRef?.current?.clientHeight || 0);
-  }, [setTop, props.externalToolbarRef]);
+    if (props.externalToolbarRef?.current?.clientHeight) {
+      setTop(props.externalToolbarRef.current.clientHeight);
+    } else {
+      setTop(props.offsetTop || 0);
+    }
+  }, [props.externalToolbarRef, props.offsetTop]);
 
   return (
     <div
@@ -81,21 +90,43 @@ const FixedToolbar: React.FC = (props) => (
   </div>
 );
 
+/**
+ * ED-15802: Scenarios when a sticky bar is used:
+ * 1. useStickyToolbar is true
+ * 2. useStickyToolbar is a DOM element
+ * 3. useStickyToolbar is an object and has offsetTop key;
+ */
+const getStickyParameters = (configuration: UseStickyToolbarType) => {
+  // const isUsingStickyOffset, isHTMLElement is used so TS can properly infer types.
+  const isHTMLElement =
+    typeof configuration === 'object' && !('offsetTop' in configuration);
+  const isUsingStickyOffset =
+    typeof configuration === 'object' && 'offsetTop' in configuration;
+
+  if (typeof configuration !== 'object') {
+    return { externalToolbarRef: undefined, offsetTop: undefined };
+  }
+  if (isUsingStickyOffset) {
+    return { offsetTop: configuration.offsetTop };
+  }
+  if (isHTMLElement) {
+    return {
+      externalToolbarRef: configuration,
+    };
+  }
+};
+
 type MainToolbarProps = {
-  useStickyToolbar?: boolean | RefObject<HTMLElement>;
+  useStickyToolbar?: UseStickyToolbarType;
 };
 
 export const MainToolbar: React.FC<MainToolbarProps> = ({
   useStickyToolbar,
   children,
 }) => {
-  if (!!useStickyToolbar) {
+  if (useStickyToolbar) {
     return (
-      <StickyToolbar
-        externalToolbarRef={
-          typeof useStickyToolbar === 'boolean' ? undefined : useStickyToolbar
-        }
-      >
+      <StickyToolbar {...getStickyParameters(useStickyToolbar)}>
         {children}
       </StickyToolbar>
     );

@@ -36,6 +36,7 @@ export const createPlugin =
       useAlternativePreloader,
       fullWidthMode,
       createAnalyticsEvent,
+      showServerActions,
     } = options;
     return new SafePlugin({
       state: {
@@ -141,13 +142,14 @@ export const createPlugin =
           inlineCard: getInlineNodeViewProducer({
             pmPluginFactoryParams,
             Component: InlineCardNodeView,
-            extraComponentProps: { useAlternativePreloader },
+            extraComponentProps: { useAlternativePreloader, showServerActions },
           }),
           blockCard: (node, view, getPos) => {
             const { portalProviderAPI, eventDispatcher } =
               pmPluginFactoryParams;
             const reactComponentProps: BlockCardNodeViewProps = {
               platform,
+              showServerActions,
             };
             const hasIntlContext = true;
             return new BlockCard(

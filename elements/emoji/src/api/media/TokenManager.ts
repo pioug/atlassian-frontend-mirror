@@ -63,10 +63,11 @@ export default class TokenManager {
         // still valid
         return Promise.resolve(mediaApiToken);
       }
-      if (activeTokenRefresh) {
-        // refresh token promise already active, return that
-        return activeTokenRefresh;
-      }
+    }
+
+    if (activeTokenRefresh) {
+      // refresh token promise already active, return that
+      return activeTokenRefresh;
     }
 
     // request a new token and track the promise for future requests until completed

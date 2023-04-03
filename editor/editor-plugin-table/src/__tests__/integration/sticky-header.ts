@@ -3,6 +3,7 @@ import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import {
   fullpage,
   tableSelectors,
+  toggleBreakout,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
   goToEditorTestingWDExample,
@@ -21,6 +22,15 @@ const scrollTo = async (page: WebdriverPage, height: number) => {
     height,
   );
 };
+
+// const resizeScrollParent = async (page: WebdriverPage) => {
+//   const editorScrollParentSelector = '.ak-editor-fp-content-area';
+//   await page.execute((editorScrollParentSelector: string) => {
+//     const editor = document.querySelector(editorScrollParentSelector);
+//     console.log('editort', editor);
+//     editor && editor.setAttribute('width', '1000px');
+//   }, editorScrollParentSelector);
+// };
 
 const insertColumn = async (page: any, cell: 'first' | 'last') => {
   const columnControl = tableSelectors.nthColumnControl(1);
@@ -159,5 +169,52 @@ BrowserTestCase(
     const numberedCol = await page.$(tableSelectors.numberedColumnTopLeftCell);
     const numberedColStyle = await numberedCol.getAttribute('style');
     expect(!numberedColStyle.includes('top')).toBeTruthy();
+  },
+);
+
+BrowserTestCase(
+  'Sticky header should resize when the width of parent scroll container changes',
+  {},
+  async (client: any, testName: string) => {
+    const page = await goToEditorTestingWDExample(
+      client,
+      'editor-plugin-table',
+    );
+
+    await mountEditor(page, {
+      appearance: fullpage.appearance,
+      defaultValue: JSON.stringify(stickyTable),
+      allowTables: {
+        advanced: true,
+        stickyHeaders: true,
+      },
+      featureFlags: {
+        stickyHeadersOptimization: true,
+      },
+    });
+
+    await page.waitForSelector('table');
+
+    await toggleBreakout(page, 2);
+
+    await scrollTo(page, window.innerHeight * 100);
+
+    await page.execute(() => {
+      const editorScrollParentSelector = '.fabric-editor-popup-scroll-parent';
+      const editor = document.querySelector(
+        editorScrollParentSelector,
+      ) as HTMLElement;
+      if (editor) {
+        editor.style.flexGrow = '0';
+        editor.style.width = '750px';
+      }
+    });
+
+    const table = await page.$(tableSelectors.stickyTable);
+    const tableWidth = await table.getSize();
+    const stickyHeader = await page.$(tableSelectors.stickyTr);
+    const stickyHeaderWidth = await stickyHeader.getSize();
+
+    expect(tableWidth.width).toEqual(stickyHeaderWidth.width);
   },
 );

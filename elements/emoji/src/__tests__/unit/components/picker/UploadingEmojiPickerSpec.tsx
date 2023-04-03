@@ -31,6 +31,7 @@ import { emojiDeletePreviewTestId } from '../../../../components/common/EmojiDel
 
 import * as constants from '../../../../util/constants';
 import EmojiPickerVirtualList from '../../../../components/picker/EmojiPickerList';
+import { cancelEmojiUploadPickerTestId } from '../../../../components/common/EmojiUploadPicker';
 
 describe('<UploadingEmojiPicker />', () => {
   let onEvent: jest.SpyInstance;
@@ -207,7 +208,7 @@ describe('<UploadingEmojiPicker />', () => {
         // list is scrolled to the bottom and new emoji is visible
         expect(
           screen.getAllByTestId('image-emoji-:cheese_burger:').length,
-        ).toBe(2);
+        ).toBe(1);
         // picker footer is in the view
         expect(helperTestingLibrary.getEmojiPickerFooter()).toBeInTheDocument();
       });
@@ -303,9 +304,11 @@ describe('<UploadingEmojiPicker />', () => {
         expect(helperTestingLibrary.getEmojiErrorMessage()).toBeInTheDocument();
       });
 
-      expect(
-        screen.getByText(messages.emojiInvalidImage.defaultMessage),
-      ).toBeInTheDocument();
+      // Expect to have 2 identical error message texts
+      // as we have one for visual display and one for accessibility message (visually hidden)
+      screen
+        .getAllByText(messages.emojiInvalidImage.defaultMessage)
+        .forEach((element) => expect(element).toBeInTheDocument());
     });
 
     it('Upload failure with file too big', async () => {
@@ -350,9 +353,11 @@ describe('<UploadingEmojiPicker />', () => {
         expect(helperTestingLibrary.getEmojiErrorMessage()).toBeInTheDocument();
       });
 
-      expect(
-        screen.getByText(messages.emojiImageTooBig.defaultMessage),
-      ).toBeInTheDocument();
+      // Expect to have 2 identical error message texts
+      // as we have one for visual display and one for accessibility message (visually hidden)
+      screen
+        .getAllByText(messages.emojiImageTooBig.defaultMessage)
+        .forEach((element) => expect(element).toBeInTheDocument());
     });
 
     it('Upload after searching', async () => {
@@ -517,6 +522,60 @@ describe('<UploadingEmojiPicker />', () => {
         }),
         'fabric-elements',
       );
+    });
+
+    it('Focus Add Emoji Button after upload cancel interaction when it was previously focused', async () => {
+      helperTestingLibrary.renderPicker(
+        {
+          emojiProvider,
+          hideToneSelector: true,
+        },
+        undefined,
+        onEvent,
+      );
+
+      // click add
+      await waitFor(() => {
+        expect(
+          helperTestingLibrary.getEmojiActionsSection(),
+        ).toBeInTheDocument();
+        expect(
+          helperTestingLibrary.getAddCustomEmojiButton(),
+        ).toBeInTheDocument();
+      });
+
+      const addCustomEmojiButton =
+        helperTestingLibrary.getAddCustomEmojiButton();
+
+      // fireEvent.focus(addCustomEmojiButton);
+      addCustomEmojiButton.focus();
+
+      await waitFor(() => {
+        expect(document.activeElement).toBe(addCustomEmojiButton);
+      });
+
+      fireEvent.click(addCustomEmojiButton);
+
+      await waitFor(() => {
+        expect(
+          helperTestingLibrary.getUploadEmojiNameInput(),
+        ).toBeInTheDocument();
+      });
+
+      const closeButton = screen.getByTestId(cancelEmojiUploadPickerTestId);
+      fireEvent.click(closeButton);
+
+      // wait for emoji picker footer to appear and upload preview to disappear
+      await waitFor(() => {
+        expect(
+          helperTestingLibrary.queryUploadPreview(),
+        ).not.toBeInTheDocument();
+      });
+
+      const addCustomEmojiButtonAfterCancel =
+        helperTestingLibrary.getAddCustomEmojiButton();
+
+      expect(addCustomEmojiButtonAfterCancel).toHaveFocus();
     });
 
     it('Upload error interaction', async () => {

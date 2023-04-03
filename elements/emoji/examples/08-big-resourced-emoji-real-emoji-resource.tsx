@@ -10,6 +10,7 @@ import { ResourcedEmoji } from '../src/element';
 import { customCategory } from '../src/util/constants';
 import { toEmojiId } from '../src/util/type-helpers';
 import { EmojiDescription, EmojiSearchResult } from '../src/types';
+import { IntlProvider } from 'react-intl-next';
 
 const customFilter = (emoji: EmojiDescription) =>
   emoji.category === customCategory;
@@ -108,10 +109,12 @@ export default function Example() {
     />
   );
   return (
-    <ResourcedEmojiControl
-      emojiConfig={getEmojiConfig()}
-      customEmojiProvider={emojiProvider}
-      children={emojiList}
-    />
+    <IntlProvider locale="en">
+      <ResourcedEmojiControl
+        emojiConfig={getEmojiConfig()}
+        customEmojiProvider={emojiProvider}
+        children={emojiList}
+      />
+    </IntlProvider>
   );
 }

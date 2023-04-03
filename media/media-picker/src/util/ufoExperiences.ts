@@ -3,13 +3,17 @@ import {
   ExperiencePerformanceTypes,
   ExperienceTypes,
 } from '@atlaskit/ufo';
-import { FileAttributes, WithFileAttributes } from '@atlaskit/media-common';
+import {
+  FileAttributes,
+  WithFileAttributes,
+  getFeatureFlagKeysAllProducts,
+} from '@atlaskit/media-common';
 import {
   RequestMetadata,
   getMediaEnvironment,
   getMediaRegion,
 } from '@atlaskit/media-client';
-import { ComponentName, LOGGED_FEATURE_FLAG_KEYS } from './analytics';
+import { ComponentName } from './analytics';
 
 export type UFOFailedEventPayload = {
   failReason: string;
@@ -30,7 +34,7 @@ const initExperience = (id: string, componentName: ComponentName) => {
       platform: { component: `media-picker-${componentName}` },
       type: ExperienceTypes.Experience,
       performanceType: ExperiencePerformanceTypes.InlineResult,
-      featureFlags: LOGGED_FEATURE_FLAG_KEYS,
+      featureFlags: getFeatureFlagKeysAllProducts(),
     };
     ufoExperience = new ConcurrentExperience('media-upload', inlineExperience);
   }

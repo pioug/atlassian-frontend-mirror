@@ -1,5 +1,4 @@
 // #region Imports
-import React from 'react';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import pastePlugin, { PastePluginOptions } from '../../../plugins/paste';
 import blockTypePlugin from '../../../plugins/block-type';
@@ -15,10 +14,8 @@ import submitEditorPlugin from '../../../plugins/submit-editor';
 import fakeTextCursorPlugin from '../../../plugins/fake-text-cursor';
 import featureFlagsContextPlugin from '../../../plugins/feature-flags-context';
 import floatingToolbarPlugin from '../../../plugins/floating-toolbar';
-import { PresetProvider, EditorProps } from '../Editor';
+import { EditorProps } from '../Editor';
 import { EditorPresetProps } from './types';
-import { Preset } from './preset';
-import { EditorPlugin } from '../../../types/editor-plugin';
 import clipboardPlugin from '../../../plugins/clipboard';
 import { BlockTypePluginOptions } from '../../../plugins/block-type/types';
 import placeholderPlugin, {
@@ -39,11 +36,8 @@ import { CardOptions } from '@atlaskit/editor-common/card';
 import undoRedoPlugin from '../../../plugins/undo-redo';
 import { TypeAheadPluginOptions } from '../../../plugins/type-ahead';
 import { HyperlinkPluginOptions } from '../../../plugins/hyperlink/types';
+import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 // #endregion
-
-interface EditorPresetDefaultProps {
-  children?: React.ReactNode;
-}
 
 export type DefaultPresetPluginOptions = {
   paste: PastePluginOptions;
@@ -69,42 +63,46 @@ export type DefaultPresetPluginOptions = {
 export function createDefaultPreset(
   options: EditorPresetProps & DefaultPresetPluginOptions,
 ) {
-  const preset = new Preset<EditorPlugin>();
-  preset.add([pastePlugin, options.paste]);
-  preset.add(clipboardPlugin);
-  preset.add([basePlugin, options.base]);
-  if (options.featureFlags?.undoRedoButtons) {
-    preset.add(undoRedoPlugin);
-  }
-  preset.add([blockTypePlugin, options.blockType]);
-  preset.add([placeholderPlugin, options.placeholder]);
-  preset.add(clearMarksOnChangeToEmptyDocumentPlugin);
+  const preset = new EditorPresetBuilder()
+    .add([pastePlugin, options.paste])
+    .add(clipboardPlugin)
+    .add([basePlugin, options.base])
+    .maybeAdd(undoRedoPlugin, (p, builder) => {
+      // The undo redo plugin needs to be add before the blockTypePlugin
+      if (options.featureFlags?.undoRedoButtons) {
+        return builder.add(p);
+      }
+      return builder;
+    })
+    .add([blockTypePlugin, options.blockType])
+    .add([placeholderPlugin, options.placeholder])
+    .add(clearMarksOnChangeToEmptyDocumentPlugin)
 
-  if (options.annotationProviders) {
-    preset.add([annotationPlugin, options.annotationProviders]);
-  }
+    .maybeAdd(annotationPlugin, (p, builder) => {
+      if (options.annotationProviders) {
+        return builder.add([p, options.annotationProviders]);
+      }
+      return builder;
+    })
+    .add([hyperlinkPlugin, options.hyperlinkOptions])
+    .add([textFormattingPlugin, options.textFormatting])
+    .add(widthPlugin)
+    .add([quickInsertPlugin, options.quickInsert])
+    .add([
+      typeAheadPlugin,
+      options.typeAhead || {
+        createAnalyticsEvent: options.createAnalyticsEvent,
+      },
+    ])
+    .add(unsupportedContentPlugin)
+    .add(editorDisabledPlugin)
+    .add([submitEditorPlugin, options.submitEditor])
+    .add(fakeTextCursorPlugin)
+    .add(floatingToolbarPlugin)
+    .add([featureFlagsContextPlugin, options.featureFlags || {}])
+    .add([selectionPlugin, options.selection])
+    .add([codeBlockPlugin, options.codeBlock || { appearance: 'full-page' }]);
 
-  preset.add([hyperlinkPlugin, options.hyperlinkOptions]);
-  preset.add([textFormattingPlugin, options.textFormatting]);
-  preset.add(widthPlugin);
-  preset.add([quickInsertPlugin, options.quickInsert]);
-  preset.add([
-    typeAheadPlugin,
-    options.typeAhead || {
-      createAnalyticsEvent: options.createAnalyticsEvent,
-    },
-  ]);
-  preset.add(unsupportedContentPlugin);
-  preset.add(editorDisabledPlugin);
-  preset.add([submitEditorPlugin, options.submitEditor]);
-  preset.add(fakeTextCursorPlugin);
-  preset.add(floatingToolbarPlugin);
-  preset.add([featureFlagsContextPlugin, options.featureFlags || {}]);
-  preset.add([selectionPlugin, options.selection]);
-  preset.add([
-    codeBlockPlugin,
-    options.codeBlock || { appearance: 'full-page' },
-  ]);
   return preset;
 }
 
@@ -113,14 +111,4 @@ export function useDefaultPreset(
 ) {
   const preset = createDefaultPreset(props);
   return [preset];
-}
-
-export function EditorPresetDefault(
-  props: EditorPresetDefaultProps &
-    EditorPresetProps &
-    DefaultPresetPluginOptions,
-) {
-  const [preset] = useDefaultPreset(props);
-  const plugins = preset.getEditorPlugins();
-  return <PresetProvider value={plugins}>{props.children}</PresetProvider>;
 }

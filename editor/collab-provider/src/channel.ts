@@ -1,10 +1,11 @@
 import { utils } from '@atlaskit/util-service-support';
 import { Emitter } from './emitter';
-import { ErrorCodeMapper } from './error-code-mapper';
+import { ErrorCodeMapper } from './errors/error-code-mapper';
 import type {
   Config,
   ChannelEvent,
   StepsPayload,
+  InitAndAuthData,
   InitPayload,
   TelepointerPayload,
   CatchupResponse,
@@ -12,6 +13,7 @@ import type {
   Metadata,
   ErrorPayload,
   NamespaceStatus,
+  AuthCallback,
 } from './types';
 import { createLogger, getProduct, getSubProduct } from './helpers/utils';
 import {
@@ -24,8 +26,10 @@ import type { Socket } from 'socket.io-client';
 import ReconnectHelper from './connectivity/reconnect-helper';
 import { UFOExperience } from '@atlaskit/ufo';
 import { createDocInitExp } from './analytics/ufo';
+import { socketIOReasons } from './disconnected-reason-mapper';
 import Network from './connectivity/network';
 import AnalyticsHelper from './analytics';
+import { NotConnectedError, NotInitializedError } from './errors/error-types';
 
 const logger = createLogger('Channel', 'green');
 
@@ -37,7 +41,7 @@ export class Channel extends Emitter<ChannelEvent> {
   private initialized: boolean = false;
   private analyticsHelper?: AnalyticsHelper;
   private initExperience?: UFOExperience;
-
+  private token?: string;
   private network: Network | null = null;
 
   constructor(config: Config, analyticsHelper: AnalyticsHelper) {
@@ -51,6 +55,15 @@ export class Channel extends Emitter<ChannelEvent> {
   getInitialized = () => this.initialized;
   getConnected = () => this.connected;
   getSocket = () => this.socket;
+  getToken = () => this.token;
+
+  private setToken = (value?: string) => {
+    if (this.config.cacheToken) {
+      this.token = value;
+    }
+  };
+  // sets the token as undefined
+  private unsetToken = () => this.setToken();
 
   /**
    * Connect to collab service using websockets
@@ -63,39 +76,62 @@ export class Channel extends Emitter<ChannelEvent> {
     }
     const { documentAri, url } = this.config;
     const { createSocket } = this.config;
-    const { permissionTokenRefresh } = this.config;
+    const { permissionTokenRefresh, cacheToken } = this.config;
 
-    let authCb = null;
+    let auth: InitAndAuthData | AuthCallback;
+    const authData: InitAndAuthData = {
+      // The initialized status. If false, BE will send document, otherwise not.
+      initialized: this.initialized,
+      // ESS-1009 Allow to opt-in into 404 response
+      need404: this.config.need404,
+    };
+
     if (permissionTokenRefresh) {
-      authCb = (cb: (data: object) => void) => {
-        permissionTokenRefresh()
-          .then((token) => {
-            cb({
-              // The permission token.
-              ...(token ? { token } : {}),
-              // The initialized status. If false, BE will send document, otherwise not.
-              initialized: this.initialized,
-              // ESS-1009 Allow to opt-in into 404 response
-              need404: this.config.need404,
-            });
-          })
-          .catch((err) => {
-            this.emit('error', err);
-          });
+      auth = async (cb: (data: InitAndAuthData) => void) => {
+        // use the cached token if caching in enabled and token valid
+        if (cacheToken && this.token) {
+          authData.token = this.token;
+          cb(authData);
+        } else {
+          try {
+            const token = await permissionTokenRefresh();
+
+            if (token) {
+              // save token locally
+              this.setToken(token);
+              authData.token = token;
+            }
+
+            cb(authData);
+          } catch (err: any) {
+            const newErr: ErrorPayload = {
+              message: err.message ? err.message : 'Content not found',
+              data: {
+                status: 403,
+                code: err.data.code
+                  ? err.data.code
+                  : 'INSUFFICIENT_EDITING_PERMISSION',
+                meta: {
+                  description: err.data.meta.description
+                    ? err.data.meta.description
+                    : 'RESOURCE_DELETED',
+                  reason: err.data.meta.reason
+                    ? err.data.meta.reason
+                    : 'RESOURCE_DELETED',
+                },
+              },
+            };
+            this.emit('error', newErr);
+          }
+        }
       };
     } else {
-      authCb = (cb: (data: object) => void) => {
-        cb({
-          // The initialized status. If false, BE will send document, otherwise not.
-          initialized: this.initialized,
-          // ESS-1009 Allow to opt-in into 404 response
-          need404: this.config.need404,
-        });
-      };
+      auth = authData;
     }
+
     this.socket = createSocket(
       `${url}/session/${documentAri}`,
-      authCb,
+      auth,
       this.config.productInfo,
     ) as Socket;
 
@@ -151,7 +187,7 @@ export class Channel extends Emitter<ChannelEvent> {
       this.connected = false;
       logger(`disconnect reason: ${reason}`);
       this.emit('disconnect', { reason });
-      if (reason === 'io server disconnect' && this.socket) {
+      if (reason === socketIOReasons.IO_SERVER_DISCONNECT && this.socket) {
         // The disconnection was initiated by the server, we need to reconnect manually.
         try {
           this.socket.connect();
@@ -179,6 +215,10 @@ export class Channel extends Emitter<ChannelEvent> {
     // `connect_error`'s parameter type is `Error`.
     // Ensure the error emit to the provider has the same structure, so we can handle them unified.
     this.socket.on('connect_error', this.onConnectError);
+    this.socket.on(
+      'permission:invalidateToken',
+      this.handlePermissionInvalidateToken,
+    );
 
     // To trigger reconnection when browser comes back online
     if (!this.network) {
@@ -193,15 +233,36 @@ export class Channel extends Emitter<ChannelEvent> {
     this.socket.io.on('reconnect_error', this.onReconnectError);
   }
 
+  private handlePermissionInvalidateToken = (data: { reason: string }) => {
+    logger('Received permission invalidate event ', data);
+    this.analyticsHelper?.sendActionEvent(
+      EVENT_ACTION.INVALIDATE_TOKEN,
+      EVENT_STATUS.SUCCESS,
+      {
+        reason: data.reason,
+        // Potentially incorrect when value of token changes between connecting and connect.
+        // See: https://bitbucket.org/atlassian/%7Bc8e2f021-38d2-46d0-9b7a-b3f7b428f724%7D/pull-requests/29905#comment-375308874
+        usedCachedToken: this.token ? true : false,
+      },
+    );
+    this.unsetToken();
+  };
+
   private onConnectError = (error: Error) => {
     const measure = stopMeasure(
       MEASURE_NAME.SOCKET_CONNECT,
       this.analyticsHelper,
     );
+
     this.analyticsHelper?.sendActionEvent(
       EVENT_ACTION.CONNECTION,
       EVENT_STATUS.FAILURE,
-      { latency: measure?.duration },
+      {
+        latency: measure?.duration,
+        // Potentially incorrect when value of token changes between connecting and connect.
+        // See: https://bitbucket.org/atlassian/%7Bc8e2f021-38d2-46d0-9b7a-b3f7b428f724%7D/pull-requests/29905#comment-375308874
+        usedCachedToken: this.token ? true : false,
+      },
     );
     this.analyticsHelper?.sendErrorEvent(
       error,
@@ -211,12 +272,18 @@ export class Channel extends Emitter<ChannelEvent> {
     // by the server on purpose for example no permission, so no need to
     // keep the underneath connection, need to close. But some error like
     // `xhr polling error` needs to retry.
-    if (!!(error as ErrorPayload).data) {
+    const errorData = (error as ErrorPayload).data;
+    if (errorData) {
+      // We only want to refresh the token if only its invalid
+      if ([401, 403].includes(errorData.status)) {
+        //nullify token so it is forced to generate new token on reconnect
+        this.unsetToken();
+      }
       this.socket?.close();
     }
     this.emit('error', {
       message: error.message,
-      data: (error as ErrorPayload).data,
+      data: errorData,
     });
   };
 
@@ -245,10 +312,16 @@ export class Channel extends Emitter<ChannelEvent> {
       MEASURE_NAME.SOCKET_CONNECT,
       this.analyticsHelper,
     );
+
     this.analyticsHelper?.sendActionEvent(
       EVENT_ACTION.CONNECTION,
       EVENT_STATUS.SUCCESS,
-      { latency: measure?.duration },
+      {
+        latency: measure?.duration,
+        // Potentially incorrect when value of token changes between connecting and connect.
+        // See: https://bitbucket.org/atlassian/%7Bc8e2f021-38d2-46d0-9b7a-b3f7b428f724%7D/pull-requests/29905#comment-375308874
+        usedCachedToken: this.token ? true : false,
+      },
     );
 
     this.emit('connected', {
@@ -317,7 +390,16 @@ export class Channel extends Emitter<ChannelEvent> {
               ...(this.config.permissionTokenRefresh
                 ? {
                     'x-token':
-                      (await this.config.permissionTokenRefresh()) ?? undefined,
+                      this.token ??
+                      (await this.config
+                        .permissionTokenRefresh()
+                        .then((token) => {
+                          if (token) {
+                            this.setToken(token);
+                          }
+                          return token;
+                        })) ??
+                      undefined,
                   }
                 : {}),
               'x-product': getProduct(this.config.productInfo),
@@ -343,6 +425,10 @@ export class Channel extends Emitter<ChannelEvent> {
         this.emit('error', errorNotFound);
         return {};
       }
+
+      //nullify token so it is forced to generate new token on reconnect
+      this.unsetToken();
+
       logger("Can't fetch the catchup", error.message);
       const errorCatchup: ErrorPayload = {
         message: ErrorCodeMapper.catchupFail.message,
@@ -364,7 +450,13 @@ export class Channel extends Emitter<ChannelEvent> {
     data: Omit<ChannelEvent[K], 'timestamp'>,
     callback?: Function,
   ) {
-    if (!this.connected || !this.socket) {
+    if (!this.socket) {
+      throw new NotInitializedError('Cannot broadcast, not initialized yet');
+    }
+    if (!this.connected) {
+      if (this.config.throwOnNotConnected) {
+        throw new NotConnectedError('Cannot broadcast, currently offline.');
+      }
       return;
     }
 
@@ -372,8 +464,15 @@ export class Channel extends Emitter<ChannelEvent> {
   }
 
   sendMetadata(metadata: Metadata) {
-    if (!this.connected || !this.socket) {
-      return;
+    if (!this.socket) {
+      throw new NotInitializedError(
+        'Cannot send metadata, not initialized yet',
+      );
+    }
+    if (!this.connected) {
+      if (this.config.throwOnNotConnected) {
+        throw new NotConnectedError('Cannot send metadata, currently offline.');
+      }
     }
     this.socket.emit('metadata', metadata);
   }
@@ -397,6 +496,8 @@ export class Channel extends Emitter<ChannelEvent> {
     this.unsubscribeAll();
     this.network?.destroy();
     this.network = null;
+    //nullify token so it is forced to generate new token on reconnect
+    this.unsetToken();
 
     if (this.socket) {
       this.socket.close();

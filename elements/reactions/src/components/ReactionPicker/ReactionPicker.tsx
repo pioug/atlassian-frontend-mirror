@@ -1,11 +1,5 @@
 /** @jsx jsx */
-import React, {
-  Fragment,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { useCallback, useLayoutEffect, useRef, useState } from 'react';
 import { jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
 import { EmojiId, PickerSize } from '@atlaskit/emoji/types';
@@ -26,6 +20,7 @@ import { i18n } from '../../shared';
 import { useCloseManager } from '../../hooks';
 import { ReactionSource } from '../../types';
 import * as styles from './styles';
+import { useFocusTrap } from '../../hooks/useFocusTrap';
 
 /**
  * Test id for wrapper ReactionPicker div
@@ -136,13 +131,16 @@ export const ReactionPicker: React.FC<ReactionPickerProps> = React.memo(
       tooltipContent = <FormattedMessage {...i18n.messages.addReaction} />,
       emojiPickerSize,
     } = props;
+
+    const [triggerRef, setTriggerRef] = useState<HTMLButtonElement | null>(
+      null,
+    );
+    const [popupRef, setPopupRef] = useState<HTMLDivElement | null>(null);
     /**
      * Container <div /> reference (used by custom hook to detect click outside)
      */
     const wrapperRef = useRef<HTMLDivElement>(null);
-    /**
-     * a function you can ask Popper to recompute your tooltip's position. It will directly call the Popper#update method
-     */
+
     const updatePopper = useRef<PopperChildrenProps['update']>();
 
     const [settings, setSettings] = useState({
@@ -164,13 +162,21 @@ export const ReactionPicker: React.FC<ReactionPickerProps> = React.memo(
      */
     useCloseManager(
       wrapperRef,
-      () => {
-        onCancel();
+      (callbackType) => {
         close();
+        onCancel();
+        if (triggerRef && callbackType === 'ESCAPE') {
+          requestAnimationFrame(() => triggerRef.focus());
+        }
       },
       true,
       settings.isOpen,
     );
+
+    /**
+     * add focus lock to popup
+     */
+    useFocusTrap({ initialFocusRef: null, targetRef: popupRef });
 
     /**
      * Event callback when the picker is closed
@@ -179,11 +185,8 @@ export const ReactionPicker: React.FC<ReactionPickerProps> = React.memo(
     const close = useCallback(
       (_id?: string) => {
         setSettings({
+          ...settings,
           isOpen: false,
-          showFullPicker:
-            !!allowAllEmojis &&
-            Array.isArray(pickerQuickReactionEmojiIds) &&
-            pickerQuickReactionEmojiIds.length === 0,
         });
         // ufo abort reaction experience
         UFO.PickerRender.abort({
@@ -194,7 +197,7 @@ export const ReactionPicker: React.FC<ReactionPickerProps> = React.memo(
           },
         });
       },
-      [allowAllEmojis, pickerQuickReactionEmojiIds],
+      [settings],
     );
 
     /**
@@ -247,25 +250,19 @@ export const ReactionPicker: React.FC<ReactionPickerProps> = React.memo(
           Array.isArray(pickerQuickReactionEmojiIds) &&
           pickerQuickReactionEmojiIds.length === 0,
       });
+
       onOpen();
       // ufo reactions picker opened success
       UFO.PickerRender.success();
     };
 
-    /**
-     * When picker is opened, re-calculate the picker position
-     */
-    useEffect(() => {
-      if (settings.isOpen) {
-        if (updatePopper.current) {
-          updatePopper.current();
-        }
-      }
-    }, [settings]);
-
     const wrapperClassName = ` ${settings.isOpen ? 'isOpen' : ''} ${
       miniMode ? 'miniMode' : ''
     } ${className}`;
+
+    useLayoutEffect(() => {
+      updatePopper.current?.();
+    }, [settings]);
 
     return (
       <div
@@ -276,14 +273,25 @@ export const ReactionPicker: React.FC<ReactionPickerProps> = React.memo(
       >
         <Manager>
           <Reference>
-            {({ ref: popperRef }) => (
+            {({ ref }) => (
               // Render a button to open the <Selector /> panel
               <Trigger
                 ariaAttributes={{
                   'aria-expanded': settings.isOpen,
                   'aria-controls': PICKER_CONTROL_ID,
                 }}
-                ref={popperRef}
+                ref={(node: HTMLButtonElement | null) => {
+                  if (node && settings.isOpen) {
+                    if (typeof ref === 'function') {
+                      ref(node);
+                    } else {
+                      (
+                        ref as React.MutableRefObject<HTMLButtonElement>
+                      ).current = node;
+                    }
+                    setTriggerRef(node);
+                  }
+                }}
                 onClick={onTriggerClick}
                 miniMode={miniMode}
                 disabled={disabled}
@@ -291,46 +299,55 @@ export const ReactionPicker: React.FC<ReactionPickerProps> = React.memo(
               />
             )}
           </Reference>
-          <Popper placement="bottom-start" modifiers={popperModifiers}>
-            {({ ref, style, update }) => {
-              updatePopper.current = update;
-              return (
-                <Fragment>
-                  {/* Is the panel opened / hidden */}
-                  {settings.isOpen && (
-                    <div
-                      id={PICKER_CONTROL_ID}
-                      data-testid={RENDER_REACTIONPICKERPANEL_TESTID}
-                      style={{ zIndex: layers.layer(), ...style }}
-                      ref={ref}
-                    >
-                      <div css={styles.popupStyle}>
-                        {settings.showFullPicker ? (
-                          <EmojiPicker
+          {settings.isOpen && (
+            <Popper placement="bottom-start" modifiers={popperModifiers}>
+              {({ ref, style, update }) => {
+                updatePopper.current = update;
+                return (
+                  <div
+                    id={PICKER_CONTROL_ID}
+                    data-testid={RENDER_REACTIONPICKERPANEL_TESTID}
+                    style={{ zIndex: layers.layer(), ...style }}
+                    ref={(node: HTMLDivElement) => {
+                      if (node) {
+                        if (typeof ref === 'function') {
+                          ref(node);
+                        } else {
+                          (ref as React.MutableRefObject<HTMLElement>).current =
+                            node;
+                        }
+                        setPopupRef(node);
+                      }
+                    }}
+                    css={styles.popupWrapperStyle}
+                    tabIndex={0}
+                  >
+                    <div css={styles.popupStyle}>
+                      {settings.showFullPicker ? (
+                        <EmojiPicker
+                          emojiProvider={emojiProvider}
+                          onSelection={onEmojiSelected}
+                          size={emojiPickerSize}
+                        />
+                      ) : (
+                        <div css={styles.contentStyle}>
+                          <Selector
                             emojiProvider={emojiProvider}
                             onSelection={onEmojiSelected}
-                            size={emojiPickerSize}
+                            showMore={allowAllEmojis}
+                            onMoreClick={onSelectMoreClick}
+                            pickerQuickReactionEmojiIds={
+                              pickerQuickReactionEmojiIds
+                            }
                           />
-                        ) : (
-                          <div css={styles.contentStyle}>
-                            <Selector
-                              emojiProvider={emojiProvider}
-                              onSelection={onEmojiSelected}
-                              showMore={allowAllEmojis}
-                              onMoreClick={onSelectMoreClick}
-                              pickerQuickReactionEmojiIds={
-                                pickerQuickReactionEmojiIds
-                              }
-                            />
-                          </div>
-                        )}
-                      </div>
+                        </div>
+                      )}
                     </div>
-                  )}
-                </Fragment>
-              );
-            }}
-          </Popper>
+                  </div>
+                );
+              }}
+            </Popper>
+          )}
         </Manager>
       </div>
     );

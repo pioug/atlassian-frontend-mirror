@@ -15,7 +15,7 @@ import {
   withAnalytics,
 } from '../../analytics';
 import { EditorView } from 'prosemirror-view';
-import { Slice, Node, Fragment } from 'prosemirror-model';
+import { Slice, Node, Fragment, Schema } from 'prosemirror-model';
 import { getPasteSource } from '../util';
 import {
   handlePasteAsPlainText,
@@ -33,8 +33,7 @@ import {
   handlePasteNonNestableBlockNodesIntoList,
 } from '../handlers';
 import { Command } from '../../../types';
-import { pipe } from '../../../utils';
-import { EditorState } from 'prosemirror-state';
+import { Transaction, Selection } from 'prosemirror-state';
 import { findParentNode } from 'prosemirror-utils';
 import { mapSlice } from '../../../utils/slice';
 import { getLinkDomain } from '../../hyperlink/utils';
@@ -110,13 +109,15 @@ const nodeToActionSubjectId: { [name: string]: PASTE_ACTION_SUBJECT_ID } = {
   taskList: ACTION_SUBJECT_ID.PASTE_TASK_LIST,
 };
 
-export function getContent(state: EditorState, slice: Slice): PasteContent {
+type GetContentProps = {
+  schema: Schema;
+  slice: Slice;
+};
+export function getContent({ schema, slice }: GetContentProps): PasteContent {
   const {
-    schema: {
-      nodes: { paragraph },
-      marks: { link },
-    },
-  } = state;
+    nodes: { paragraph },
+    marks: { link },
+  } = schema;
   const nodeOrMarkName = new Set<string>();
   slice.content.forEach((node: Node) => {
     if (node.type === paragraph && node.content.size === 0) {
@@ -164,15 +165,17 @@ export function getMediaTraceId(slice: Slice) {
   return traceId;
 }
 
-function getActionSubjectId(view: EditorView): PASTE_ACTION_SUBJECT_ID {
+type GetActionSubjectIdProps = {
+  selection: Selection;
+  schema: Schema;
+};
+function getActionSubjectId({
+  selection,
+  schema,
+}: GetActionSubjectIdProps): PASTE_ACTION_SUBJECT_ID {
   const {
-    state: {
-      selection,
-      schema: {
-        nodes: { paragraph, listItem, taskItem, decisionItem },
-      },
-    },
-  } = view;
+    nodes: { paragraph, listItem, taskItem, decisionItem },
+  } = schema;
   const parent = findParentNode((node: Node) => {
     if (
       node.type !== paragraph &&
@@ -232,69 +235,89 @@ function createPastePayload(
   };
 }
 
+function createPasteAnalyticsPayloadBySelection(
+  event: ClipboardEvent,
+  slice: Slice,
+  pasteContext: PasteContext,
+) {
+  return (selection: Selection): AnalyticsEventPayload => {
+    const text = event.clipboardData
+      ? event.clipboardData.getData('text/plain') ||
+        event.clipboardData.getData('text/uri-list')
+      : '';
+
+    const actionSubjectId = getActionSubjectId({
+      selection: selection,
+      schema: selection.$from.doc.type.schema,
+    });
+
+    const pasteSize = slice.size;
+    const content = getContent({
+      schema: selection.$from.doc.type.schema,
+      slice,
+    });
+    const linkUrls: string[] = [];
+    const mediaTraceId = getMediaTraceId(slice);
+
+    // If we have a link among the pasted content, grab the
+    // domain and send it up with the analytics event
+    if (content === PasteContents.url || content === PasteContents.mixed) {
+      mapSlice(slice, (node) => {
+        const linkMark = node.marks.find((mark) => mark.type.name === 'link');
+        if (linkMark) {
+          linkUrls.push(linkMark.attrs.href);
+        }
+        return node;
+      });
+    }
+
+    if (pasteContext.asPlain) {
+      return createPasteAsPlainPayload(actionSubjectId, text, linkUrls.length);
+    }
+
+    const source = getPasteSource(event);
+
+    if (pasteContext.type === PasteTypes.plain) {
+      return createPastePayload(actionSubjectId, {
+        pasteSize: text.length,
+        type: pasteContext.type,
+        content: PasteContents.text,
+        source,
+        hyperlinkPasteOnText: false,
+        linksInPasteCount: linkUrls.length,
+        pasteSplitList: pasteContext.pasteSplitList,
+      });
+    }
+
+    const linkDomains = linkUrls.map(getLinkDomain);
+    return createPastePayload(
+      actionSubjectId,
+      {
+        type: pasteContext.type,
+        pasteSize,
+        content,
+        source,
+        hyperlinkPasteOnText: !!pasteContext.hyperlinkPasteOnText,
+        linksInPasteCount: linkUrls.length,
+        mediaTraceId,
+        pasteSplitList: pasteContext.pasteSplitList,
+      },
+      linkDomains,
+    );
+  };
+}
+
 export function createPasteAnalyticsPayload(
   view: EditorView,
   event: ClipboardEvent,
   slice: Slice,
   pasteContext: PasteContext,
 ): AnalyticsEventPayload {
-  const text = event.clipboardData
-    ? event.clipboardData.getData('text/plain') ||
-      event.clipboardData.getData('text/uri-list')
-    : '';
-
-  const actionSubjectId = getActionSubjectId(view);
-
-  const pasteSize = slice.size;
-  const content = getContent(view.state, slice);
-  const linkUrls: string[] = [];
-  const mediaTraceId = getMediaTraceId(slice);
-
-  // If we have a link among the pasted content, grab the
-  // domain and send it up with the analytics event
-  if (content === PasteContents.url || content === PasteContents.mixed) {
-    mapSlice(slice, (node) => {
-      const linkMark = node.marks.find((mark) => mark.type.name === 'link');
-      if (linkMark) {
-        linkUrls.push(linkMark.attrs.href);
-      }
-      return node;
-    });
-  }
-
-  if (pasteContext.asPlain) {
-    return createPasteAsPlainPayload(actionSubjectId, text, linkUrls.length);
-  }
-
-  const source = getPasteSource(event);
-
-  if (pasteContext.type === PasteTypes.plain) {
-    return createPastePayload(actionSubjectId, {
-      pasteSize: text.length,
-      type: pasteContext.type,
-      content: PasteContents.text,
-      source,
-      hyperlinkPasteOnText: false,
-      linksInPasteCount: linkUrls.length,
-      pasteSplitList: pasteContext.pasteSplitList,
-    });
-  }
-
-  const linkDomains = linkUrls.map(getLinkDomain);
-  return createPastePayload(
-    actionSubjectId,
-    {
-      type: pasteContext.type,
-      pasteSize,
-      content,
-      source,
-      hyperlinkPasteOnText: !!pasteContext.hyperlinkPasteOnText,
-      linksInPasteCount: linkUrls.length,
-      mediaTraceId,
-      pasteSplitList: pasteContext.pasteSplitList,
-    },
-    linkDomains,
-  );
+  return createPasteAnalyticsPayloadBySelection(
+    event,
+    slice,
+    pasteContext,
+  )(view.state.selection);
 }
 
 // TODO: ED-6612 We should not dispatch only analytics, it's preferred to wrap each command with his own analytics.
@@ -327,13 +350,12 @@ export const handlePasteAsPlainTextWithAnalytics = (
   event: ClipboardEvent,
   slice: Slice,
 ): Command =>
-  pipe(
-    handlePasteAsPlainText,
-    pasteCommandWithAnalytics(view, event, slice, {
+  injectAnalyticsPayloadBeforeCommand(
+    createPasteAnalyticsPayloadBySelection(event, slice, {
       type: PasteTypes.plain,
       asPlain: true,
     }),
-  )(slice, event);
+  )(handlePasteAsPlainText(slice, event));
 
 export const handlePasteIntoTaskAndDecisionWithAnalytics = (
   view: EditorView,
@@ -341,12 +363,11 @@ export const handlePasteIntoTaskAndDecisionWithAnalytics = (
   slice: Slice,
   type: PasteType,
 ): Command =>
-  pipe(
-    handlePasteIntoTaskOrDecisionOrPanel,
-    pasteCommandWithAnalytics(view, event, slice, {
-      type: type,
+  injectAnalyticsPayloadBeforeCommand(
+    createPasteAnalyticsPayloadBySelection(event, slice, {
+      type,
     }),
-  )(slice);
+  )(handlePasteIntoTaskOrDecisionOrPanel(slice));
 
 export const handlePasteIntoCaptionWithAnalytics = (
   view: EditorView,
@@ -354,12 +375,11 @@ export const handlePasteIntoCaptionWithAnalytics = (
   slice: Slice,
   type: PasteType,
 ): Command =>
-  pipe(
-    handlePasteIntoCaption,
-    pasteCommandWithAnalytics(view, event, slice, {
-      type: type,
+  injectAnalyticsPayloadBeforeCommand(
+    createPasteAnalyticsPayloadBySelection(event, slice, {
+      type,
     }),
-  )(slice);
+  )(handlePasteIntoCaption(slice));
 
 export const handleCodeBlockWithAnalytics = (
   view: EditorView,
@@ -367,12 +387,11 @@ export const handleCodeBlockWithAnalytics = (
   slice: Slice,
   text: string,
 ): Command =>
-  pipe(
-    handleCodeBlock,
-    pasteCommandWithAnalytics(view, event, slice, {
+  injectAnalyticsPayloadBeforeCommand(
+    createPasteAnalyticsPayloadBySelection(event, slice, {
       type: PasteTypes.plain,
     }),
-  )(text);
+  )(handleCodeBlock(text));
 
 export const handleMediaSingleWithAnalytics = (
   view: EditorView,
@@ -380,99 +399,119 @@ export const handleMediaSingleWithAnalytics = (
   slice: Slice,
   type: PasteType,
 ): Command =>
-  pipe(
-    handleMediaSingle(INPUT_METHOD.CLIPBOARD),
-    pasteCommandWithAnalytics(view, event, slice, {
+  injectAnalyticsPayloadBeforeCommand(
+    createPasteAnalyticsPayloadBySelection(event, slice, {
       type,
     }),
-  )(slice);
+  )(handleMediaSingle(INPUT_METHOD.CLIPBOARD)(slice));
 
 export const handlePastePreservingMarksWithAnalytics = (
   view: EditorView,
   event: ClipboardEvent,
   slice: Slice,
   type: PasteType,
-): Command => {
-  return pipe(
-    handlePastePreservingMarks,
-    pasteCommandWithAnalytics(view, event, slice, {
+): Command =>
+  injectAnalyticsPayloadBeforeCommand(
+    createPasteAnalyticsPayloadBySelection(event, slice, {
       type,
     }),
-  )(slice);
-};
+  )(handlePastePreservingMarks(slice));
 
 export const handleMarkdownWithAnalytics = (
   view: EditorView,
   event: ClipboardEvent,
   slice: Slice,
 ): Command =>
-  pipe(
-    handleMarkdown,
-    pasteCommandWithAnalytics(view, event, slice, {
+  injectAnalyticsPayloadBeforeCommand(
+    createPasteAnalyticsPayloadBySelection(event, slice, {
       type: PasteTypes.markdown,
     }),
-  )(slice);
+  )(handleMarkdown(slice));
 
 export const handleRichTextWithAnalytics = (
   view: EditorView,
   event: ClipboardEvent,
   slice: Slice,
 ): Command =>
-  pipe(
-    handleRichText,
-    pasteCommandWithAnalytics(view, event, slice, {
+  injectAnalyticsPayloadBeforeCommand(
+    createPasteAnalyticsPayloadBySelection(event, slice, {
       type: PasteTypes.richText,
     }),
-  )(slice);
+  )(handleRichText(slice));
+
+function injectAnalyticsPayloadBeforeCommand(
+  createPayloadByTransaction: (selection: Selection) => AnalyticsEventPayload,
+) {
+  return (mainCommand: Command): Command => {
+    return (state, dispatch, view) => {
+      let originalTransaction: Transaction = state.tr;
+      const fakeDispatch = (tr: Transaction) => {
+        originalTransaction = tr;
+      };
+
+      const result = mainCommand(state, fakeDispatch, view);
+
+      if (!result) {
+        return false;
+      }
+      if (dispatch && originalTransaction.docChanged) {
+        // it needs to know the selection before the changes
+        const payload = createPayloadByTransaction(state.selection);
+        addAnalytics(state, originalTransaction, payload);
+
+        dispatch(originalTransaction);
+      }
+
+      return true;
+    };
+  };
+}
 
 export const handlePastePanelOrDecisionIntoListWithAnalytics = (
   view: EditorView,
   event: ClipboardEvent,
   slice: Slice,
 ): Command =>
-  pipe(
-    handlePastePanelOrDecisionContentIntoList,
-    pasteCommandWithAnalytics(view, event, slice, {
+  injectAnalyticsPayloadBeforeCommand(
+    createPasteAnalyticsPayloadBySelection(event, slice, {
       type: PasteTypes.richText,
     }),
-  )(slice);
+  )(handlePastePanelOrDecisionContentIntoList(slice));
 
 export const handlePasteNonNestableBlockNodesIntoListWithAnalytics = (
   view: EditorView,
   event: ClipboardEvent,
   slice: Slice,
 ): Command =>
-  pipe(
-    handlePasteNonNestableBlockNodesIntoList,
-    pasteCommandWithAnalytics(view, event, slice, {
+  injectAnalyticsPayloadBeforeCommand(
+    createPasteAnalyticsPayloadBySelection(event, slice, {
       type: PasteTypes.richText,
       pasteSplitList: true,
     }),
-  )(slice);
+  )(handlePasteNonNestableBlockNodesIntoList(slice));
 
 export const handleExpandWithAnalytics = (
   view: EditorView,
   event: ClipboardEvent,
   slice: Slice,
 ): Command =>
-  pipe(
-    handleExpandPasteInTable,
-    pasteCommandWithAnalytics(view, event, slice, {
+  injectAnalyticsPayloadBeforeCommand(
+    createPasteAnalyticsPayloadBySelection(event, slice, {
       type: PasteTypes.richText,
+      pasteSplitList: true,
     }),
-  )(slice);
+  )(handleExpandPasteInTable(slice));
 
 export const handleSelectedTableWithAnalytics = (
   view: EditorView,
   event: ClipboardEvent,
   slice: Slice,
 ): Command =>
-  pipe(
-    handleSelectedTable,
-    pasteCommandWithAnalytics(view, event, slice, {
+  injectAnalyticsPayloadBeforeCommand(
+    createPasteAnalyticsPayloadBySelection(event, slice, {
       type: PasteTypes.richText,
     }),
-  )(slice);
+  )(handleSelectedTable(slice));
 
 export const handlePasteLinkOnSelectedTextWithAnalytics = (
   view: EditorView,
@@ -480,13 +519,12 @@ export const handlePasteLinkOnSelectedTextWithAnalytics = (
   slice: Slice,
   type: PasteType,
 ): Command =>
-  pipe(
-    handlePasteLinkOnSelectedText,
-    pasteCommandWithAnalytics(view, event, slice, {
+  injectAnalyticsPayloadBeforeCommand(
+    createPasteAnalyticsPayloadBySelection(event, slice, {
       type,
       hyperlinkPasteOnText: true,
     }),
-  )(slice);
+  )(handlePasteLinkOnSelectedText(slice));
 
 export const createPasteMeasurePayload = ({
   view,
@@ -499,7 +537,10 @@ export const createPasteMeasurePayload = ({
   content: Array<string>;
   distortedDuration: boolean;
 }): AnalyticsEventPayload => {
-  const pasteIntoNode = getActionSubjectId(view);
+  const pasteIntoNode = getActionSubjectId({
+    selection: view.state.selection,
+    schema: view.state.schema,
+  });
   return {
     action: ACTION.PASTED_TIMED,
     actionSubject: ACTION_SUBJECT.EDITOR,

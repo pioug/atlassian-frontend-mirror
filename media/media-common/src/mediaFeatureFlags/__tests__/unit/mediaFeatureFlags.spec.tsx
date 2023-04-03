@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { asMockFunction } from '@atlaskit/media-test-helpers/jestHelpers';
 import { ProductKeys } from '../../types';
+import * as genericFeatureFlagModule from '../../genericFeatureFlag';
 import * as productKeys from '../../productKeys';
 jest.mock('../../../mediaFeatureFlag-local', () => ({
   getLocalMediaFeatureFlag: jest.fn().mockReturnValue(null),
@@ -31,61 +31,28 @@ import {
   getMediaFeatureFlag,
   useMemoizeFeatureFlags,
   filterFeatureFlagNames,
-  mapAndFilterFeatureFlagNames,
-  filterFeatureFlagKeysAllProducts,
+  getFeatureFlagKeysAllProducts,
 } from '../../mediaFeatureFlags';
 import { MediaFeatureFlags, RequiredMediaFeatureFlags } from '../../types';
-import { getLocalMediaFeatureFlag } from '../../../mediaFeatureFlag-local';
+
+const getGenericFeatureFlagMock = jest
+  .spyOn(genericFeatureFlagModule, 'getGenericFeatureFlag')
+  .mockImplementation(() => 'some-value');
 
 describe('Media Feature Flags', () => {
-  describe('shoud return default if no value passed', () => {
-    let key: keyof MediaFeatureFlags;
-    for (key in defaultMediaFeatureFlags) {
-      it(key, () => {
-        expect(getMediaFeatureFlag(key)).toEqual(defaultMediaFeatureFlags[key]);
-        expect(getMediaFeatureFlag(key, {})).toEqual(
-          defaultMediaFeatureFlags[key],
-        );
-      });
-    }
-  });
-
-  it('should return consumer value if passed through', () => {
-    expect(
-      getMediaFeatureFlag('newCardExperience', {
-        newCardExperience: true,
-      }),
-    ).toEqual(true);
-    expect(
-      getMediaFeatureFlag('newCardExperience', {
-        newCardExperience: false,
-      }),
-    ).toEqual(false);
-    expect(
-      getMediaFeatureFlag('captions', {
-        captions: false,
-      }),
-    ).toEqual(false);
-  });
-
-  it('should use localStorage override if available even if flags passed', () => {
-    asMockFunction(getLocalMediaFeatureFlag).mockReturnValue('true');
-    expect(
-      getMediaFeatureFlag('newCardExperience', {
-        newCardExperience: false,
-      }),
-    ).toEqual(true);
-    expect(
-      getMediaFeatureFlag('captions', {
-        captions: false,
-      }),
-    ).toEqual(true);
-  });
-
-  it('should use localStorage override if available even if default exists', () => {
-    asMockFunction(getLocalMediaFeatureFlag).mockReturnValue('true');
-    expect(getMediaFeatureFlag('newCardExperience')).toEqual(true);
-    expect(getMediaFeatureFlag('captions')).toEqual(true);
+  it('calls the internal getter with the right parameters', () => {
+    const consumerFlags = { someKey: 'some-consumer-value' };
+    const requestedKey = 'someRequestedKey';
+    const value = getMediaFeatureFlag(
+      requestedKey as keyof MediaFeatureFlags,
+      consumerFlags as MediaFeatureFlags,
+    );
+    expect(value).toBe('some-value');
+    expect(getGenericFeatureFlagMock).toBeCalledWith(
+      requestedKey,
+      defaultMediaFeatureFlags,
+      consumerFlags,
+    );
   });
 
   describe('areEqualFeatureFlags', () => {
@@ -120,7 +87,9 @@ describe('Media Feature Flags', () => {
       const changedMediaFeatureFlags = Object.keys(
         defaultMediaFeatureFlags,
       ).reduce<Record<string, boolean>>((acc: any, key: any) => {
-        acc[key] = !(defaultMediaFeatureFlags as Record<string, boolean>)[key];
+        acc[key] = !(
+          defaultMediaFeatureFlags as unknown as Record<string, boolean>
+        )[key];
         return acc;
       }, {});
       expect(
@@ -139,11 +108,13 @@ describe('Media Feature Flags', () => {
         defaultMediaFeatureFlags,
       ).reduce<Record<string, boolean>>((acc: any, key: string, i: number) => {
         if (i === randomIndex) {
-          acc[key] = !(defaultMediaFeatureFlags as Record<string, boolean>)[
-            key
-          ];
+          acc[key] = !(
+            defaultMediaFeatureFlags as unknown as Record<string, boolean>
+          )[key];
         } else {
-          acc[key] = (defaultMediaFeatureFlags as Record<string, boolean>)[key];
+          acc[key] = (
+            defaultMediaFeatureFlags as unknown as Record<string, boolean>
+          )[key];
         }
         return acc;
       }, {});
@@ -210,49 +181,18 @@ describe('Media Feature Flags', () => {
       ).toEqual(['my-first-flag', 'my-third-flag']);
     });
   });
-  describe('mapAndFilterFeatureFlagNames', () => {
-    it('returns the Confluence launch darkly flag names switched on', () => {
-      expect(
-        mapAndFilterFeatureFlagNames(
-          {
-            'my-first-flag': true,
-            'my-second-flag': false,
-            'my-third-flag': true,
-            'my-fourth-flag': false,
-          } as unknown as RequiredMediaFeatureFlags,
-          'confluence',
-        ),
-      ).toEqual(['conflu-my-first-flag', 'conflu-my-third-flag']);
-    });
 
-    it('returns the Jira launch darkly flag names switched on', () => {
-      expect(
-        mapAndFilterFeatureFlagNames(
-          {
-            'my-first-flag': true,
-            'my-second-flag': false,
-            'my-third-flag': true,
-            'my-fourth-flag': false,
-          } as unknown as RequiredMediaFeatureFlags,
-          'jira',
-        ),
-      ).toEqual(['jira-my-first-flag', 'jira-my-third-flag']);
-    });
-  });
-  describe('filterFeatureFlagNamesWithAllProducts', () => {
-    it('returns all the launch darkly flag names switched on', () => {
-      expect(
-        filterFeatureFlagKeysAllProducts({
-          'my-first-flag': true,
-          'my-second-flag': false,
-          'my-third-flag': true,
-          'my-fourth-flag': false,
-        } as unknown as RequiredMediaFeatureFlags),
-      ).toEqual([
+  describe('getFeatureFlagKeysAllProducts', () => {
+    it('returns all the launch darkly flag names', () => {
+      expect(getFeatureFlagKeysAllProducts()).toEqual([
         'conflu-my-first-flag',
-        'jira-my-first-flag',
+        'conflu-my-second-flag',
         'conflu-my-third-flag',
+        'conflu-my-fourth-flag',
+        'jira-my-first-flag',
+        'jira-my-second-flag',
         'jira-my-third-flag',
+        'jira-my-fourth-flag',
       ]);
     });
   });

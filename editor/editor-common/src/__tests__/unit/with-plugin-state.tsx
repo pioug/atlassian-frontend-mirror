@@ -86,33 +86,6 @@ describe('with-plugin-state', () => {
     };
   };
 
-  const createAnalyticsPlugin = (state: any): EditorPlugin => {
-    return {
-      name: 'analytics',
-      pmPlugins() {
-        return [
-          {
-            name: 'analyticsPlugin',
-            plugin: () =>
-              new SafePlugin({
-                key: {
-                  key: 'analyticsPlugin$',
-                } as any,
-                state: {
-                  init() {
-                    return state;
-                  },
-                  apply() {
-                    return state;
-                  },
-                },
-              }),
-          },
-        ];
-      },
-    };
-  };
-
   let eventDispatcher: EventDispatcher;
   let dispatch: Dispatch;
 
@@ -314,21 +287,20 @@ describe('with-plugin-state', () => {
     const key = (pluginKey as any).key;
     const mark = performance.mark as jest.Mock;
 
-    const analyticsPlugin = createAnalyticsPlugin({
-      performanceTracking: {
-        uiTracking: {
-          enabled: false,
-          samplingRate: 1,
-          slowThreshold: 0,
-        },
+    const performanceTracking = {
+      uiTracking: {
+        enabled: false,
+        samplingRate: 1,
+        slowThreshold: 0,
       },
-    });
+    };
 
     const { editorView } = createEditor({
       doc: doc(p()),
-      editorPlugins: [plugin, analyticsPlugin],
+      editorPlugins: [plugin],
       editorProps: {
         allowAnalyticsGASV3: true,
+        performanceTracking,
       },
     });
 
@@ -362,21 +334,19 @@ describe('with-plugin-state', () => {
     const key = (pluginKey as any).key;
     const mark = performance.mark as jest.Mock;
 
-    const analyticsPlugin = createAnalyticsPlugin({
-      performanceTracking: {
-        uiTracking: {
-          enabled: true,
-          samplingRate: 1,
-          slowThreshold: 0,
-        },
+    const performanceTracking = {
+      uiTracking: {
+        enabled: true,
+        samplingRate: 1,
+        slowThreshold: 0,
       },
-    });
-
+    };
     const { editorView } = createEditor({
       doc: doc(p()),
-      editorPlugins: [plugin, analyticsPlugin],
+      editorPlugins: [plugin],
       editorProps: {
         allowAnalyticsGASV3: true,
+        performanceTracking,
       },
     });
 
@@ -414,21 +384,20 @@ describe('with-plugin-state', () => {
     const key = (pluginKey as any).key;
     const mark = performance.mark as jest.Mock;
 
-    const analyticsPlugin = createAnalyticsPlugin({
-      performanceTracking: {
-        uiTracking: {
-          enabled: true,
-          samplingRate: 1,
-          slowThreshold: 0,
-        },
+    const performanceTracking = {
+      uiTracking: {
+        enabled: true,
+        samplingRate: 1,
+        slowThreshold: 0,
       },
-    });
+    };
 
     const { editorView } = createEditor({
       doc: doc(p()),
-      editorPlugins: [plugin, analyticsPlugin],
+      editorPlugins: [plugin],
       editorProps: {
         allowAnalyticsGASV3: true,
+        performanceTracking,
       },
     });
 

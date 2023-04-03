@@ -31,6 +31,8 @@ import { ReactionsDialog } from '../ReactionDialog';
 import { ReactionPicker, ReactionPickerProps } from '../ReactionPicker';
 import { SelectorProps } from '../Selector';
 import * as styles from './styles';
+import { isSampled } from '../../analytics/analytics';
+import { SAMPLING_RATE_REACTIONS_RENDERED_EXP } from '../../shared/constants';
 
 /**
  * Set of all available UFO experiences relating to reactions dialog
@@ -183,11 +185,13 @@ export const Reactions: React.FC<ReactionsProps> = React.memo(
       if (status !== ReactionStatus.ready) {
         renderTime.current = Date.now();
       } else {
-        Analytics.createAndFireSafe(
-          createAnalyticsEvent,
-          Analytics.createReactionsRenderedEvent,
-          renderTime.current ?? Date.now(), //renderTime.current can be null during unit test cases
-        );
+        if (isSampled(SAMPLING_RATE_REACTIONS_RENDERED_EXP)) {
+          Analytics.createAndFireSafe(
+            createAnalyticsEvent,
+            Analytics.createReactionsRenderedEvent,
+            renderTime.current ?? Date.now(), //renderTime.current can be null during unit test cases
+          );
+        }
         renderTime.current = undefined;
       }
     }, [createAnalyticsEvent, status]);

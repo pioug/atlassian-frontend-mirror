@@ -36,19 +36,6 @@ export const DefaultAdvisedAction = propFormatter(
 export const LoginAgain = propFormatter(messages.loginAgain);
 export const DifferentText = propFormatter(messages.differentText);
 
-export const TeamMentionHighlightTitle = propFormatter(
-  messages.TeamMentionHighlightTitle,
-);
-export const TeamMentionHighlightCloseTooltip = propFormatter(
-  messages.TeamMentionHighlightCloseButtonToolTip,
-);
-export const TeamMentionHighlightDescription = propFormatter(
-  messages.TeamMentionHighlightDescription,
-);
-export const TeamMentionHighlightDescriptionLink = propFormatter(
-  messages.TeamMentionHighlightDescriptionLink,
-);
-
 /**
  * Tries to get the most specific messages bundle for a given locale.
  *

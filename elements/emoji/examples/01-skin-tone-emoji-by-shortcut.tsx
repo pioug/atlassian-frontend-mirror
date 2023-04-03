@@ -4,10 +4,11 @@ import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 
 import { EmojiProvider } from '../src/resource';
 import { ResourcedEmoji } from '../src/element';
+import { IntlProvider } from 'react-intl-next';
 
 export default function Example() {
   return (
-    <span>
+    <IntlProvider locale="en">
       <ResourcedEmoji
         emojiId={{ shortName: ':thumbsup:' }}
         emojiProvider={getEmojiResource() as Promise<EmojiProvider>}
@@ -46,6 +47,6 @@ export default function Example() {
         emojiProvider={getEmojiResource() as Promise<EmojiProvider>}
         showTooltip={true} /* should not show tooltip */
       />
-    </span>
+    </IntlProvider>
   );
 }

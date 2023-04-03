@@ -9,32 +9,6 @@ import {
 
 import { MenuIconItem } from './ui/Toolbar/types';
 
-export const nodeLen = (node: Node): number => {
-  return node.nodeType === 3 && node.nodeValue
-    ? node.nodeValue.length
-    : node.childNodes.length;
-};
-
-export const isIgnorable = (dom: any): boolean =>
-  dom.pmViewDesc && dom.pmViewDesc.size === 0;
-
-export const isBlockNode = (dom: any): boolean => {
-  const desc = dom.pmViewDesc;
-  return desc && desc.node && desc.node.isBlock;
-};
-
-export const domIndex = function (node: Node | null): number | undefined {
-  if (node) {
-    for (let index = 0; ; index++) {
-      node = node.previousSibling;
-      if (!node) {
-        return index;
-      }
-    }
-  }
-  return;
-};
-
 export const hasCode = (state: EditorState, pos: number): boolean => {
   const { code } = state.schema.marks;
   const node = pos >= 0 && state.doc.nodeAt(pos);

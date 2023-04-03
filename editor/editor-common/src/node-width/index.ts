@@ -7,6 +7,7 @@ import {
   akLayoutGutterOffset,
   gridMediumMaxWidth,
 } from '@atlaskit/editor-shared-styles';
+import { gridSize } from '@atlaskit/theme/constants';
 
 import { BODIED_EXT_PADDING } from '../styles/shared/extension';
 import {
@@ -66,10 +67,25 @@ export const getParentNodeWidth = (
   }
 
   // account for the padding of the parent node
-  if (node.type === schema.nodes.layoutSection) {
-    parentWidth -= LAYOUT_COLUMN_PADDING * 2;
-  } else if (node.type === schema.nodes.bodiedExtension) {
-    parentWidth -= BODIED_EXT_PADDING * 2;
+  switch (node.type) {
+    case schema.nodes.layoutSection:
+      parentWidth -= LAYOUT_COLUMN_PADDING * 2;
+      break;
+
+    case schema.nodes.bodiedExtension:
+      parentWidth -= BODIED_EXT_PADDING * 2;
+      break;
+
+    case schema.nodes.expand:
+      // padding
+      parentWidth -= gridSize() * 2;
+      // gutter offset
+      parentWidth += gridSize() * 1.5 * 2;
+      // padding right
+      parentWidth -= gridSize();
+      // padding left
+      parentWidth -= gridSize() * 4 - gridSize() / 2;
+      break;
   }
 
   parentWidth -= 2; // border

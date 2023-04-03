@@ -1,5 +1,16 @@
 # @atlaskit/renderer
 
+## 107.2.0
+
+### Minor Changes
+
+- [`0078ddc7e2e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0078ddc7e2e) - New smartLinks prop to allow renderer and editor to determine whether smart link should show actions that can change the link resource.
+
+### Patch Changes
+
+- [`2367ba14aa0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2367ba14aa0) - [ux] ED-16758 Added support for theme tokens in table cell background color.
+- Updated dependencies
+
 ## 107.1.0
 
 ### Minor Changes

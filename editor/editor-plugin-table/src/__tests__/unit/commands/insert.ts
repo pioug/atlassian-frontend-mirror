@@ -37,14 +37,14 @@ describe('table plugin: insert', () => {
 
     const createEditor = createProsemirrorEditorFactory();
 
-    const preset = new Preset<LightEditorPlugin>();
-    preset.add([
-      tablePlugin,
-      {
-        tableOptions: {},
-      },
-    ]);
-    preset.add(widthPlugin);
+    const preset = new Preset<LightEditorPlugin>()
+      .add([
+        tablePlugin,
+        {
+          tableOptions: {},
+        },
+      ])
+      .add(widthPlugin);
 
     const editor = (doc: DocBuilder) =>
       createEditor<TablePluginState, PluginKey>({

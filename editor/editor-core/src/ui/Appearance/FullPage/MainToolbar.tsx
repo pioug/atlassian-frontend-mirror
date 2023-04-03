@@ -11,11 +11,6 @@ import {
 
 export const MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT = 868;
 
-export interface MainToolbarProps {
-  showKeyline: boolean;
-  twoLineEditorToolbar: boolean;
-}
-
 const toolbarLineHeight = 56;
 
 // box-shadow is overriden by the mainToolbar

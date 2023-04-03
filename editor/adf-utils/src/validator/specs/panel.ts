@@ -16,9 +16,9 @@ export default {
           ],
         },
         panelIcon: { type: 'string', optional: true },
-        panelColor: { type: 'string', optional: true },
         panelIconId: { type: 'string', optional: true },
         panelIconText: { type: 'string', optional: true },
+        panelColor: { type: 'string', optional: true },
       },
     },
     content: {

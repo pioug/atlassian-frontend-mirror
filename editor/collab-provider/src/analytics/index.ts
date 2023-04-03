@@ -73,16 +73,17 @@ export default class AnalyticsHelper {
   }
 
   sendErrorEvent(error: unknown, errorMessage: string) {
-    const errorAnalyticsEvent = {
+    const errorAnalyticsEvent: ErrorAnalyticsEvent = {
       eventAction: EVENT_ACTION.ERROR,
       attributes: {
         documentAri: this.documentAri,
         errorMessage,
+        errorName: error instanceof Error ? error.name : undefined,
       },
       nonPrivacySafeAttributes: {
         error,
       },
-    } as ErrorAnalyticsEvent;
+    };
     triggerAnalyticsEvent(errorAnalyticsEvent, this.analyticsClient);
   }
 

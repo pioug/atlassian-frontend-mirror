@@ -91,15 +91,13 @@ export type FileStatus =
   | 'processing'
   | 'uploading';
 
-// @public
-export const filterFeatureFlagKeysAllProducts: (
-  flags: RequiredMediaFeatureFlags,
-) => Array<string>;
-
 // @public (undocumented)
 export const filterFeatureFlagNames: (
   flags: RequiredMediaFeatureFlags,
 ) => Array<keyof MediaFeatureFlags>;
+
+// @public
+export const getFeatureFlagKeysAllProducts: () => Array<string>;
 
 // @public
 export function getMediaFeatureFlag<T = boolean>(
@@ -331,9 +329,6 @@ export type WithFileAttributes = {
 // @public
 export const withMediaAnalyticsContext: (
   contextPublicAttributes: ContextPublicAttributes,
-  options?: {
-    filterFeatureFlags?: Array<keyof MediaFeatureFlags>;
-  },
 ) => <
   Props extends WithMediaFeatureFlags,
   Component extends React_2.ComponentType<Props>,

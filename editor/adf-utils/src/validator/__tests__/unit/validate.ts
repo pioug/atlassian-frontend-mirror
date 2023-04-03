@@ -1,6 +1,5 @@
 import * as fs from 'fs';
 import { validator } from '../../../validator';
-import waitForExpect from 'wait-for-expect';
 
 const validate = validator();
 
@@ -26,6 +25,7 @@ describe('validate', () => {
     } catch (e) {
       return;
     }
+
     valid.forEach((file: any) => {
       it(`${schemaType} schema validates '${file.name}'`, async () => {
         // Added because of expect.hasAssertions()
@@ -43,9 +43,8 @@ describe('validate', () => {
           const run = () => {
             validate(file.data);
           };
-          await waitForExpect(() => {
-            expect(run).not.toThrowError();
-          });
+
+          expect(run).not.toThrowError();
         }
       });
     });

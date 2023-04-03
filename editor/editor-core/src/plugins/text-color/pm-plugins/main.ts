@@ -1,5 +1,5 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { EditorState, PluginKey, Transaction } from 'prosemirror-state';
+import { EditorState, PluginKey } from 'prosemirror-state';
 
 import { Dispatch } from '../../../event-dispatcher';
 import { textColorPalette } from '../../../ui/ColorPalette/Palettes/textColorPalette';
@@ -17,17 +17,7 @@ export type TextColorPluginState = {
   color: string | null;
 };
 
-export type ActionHandlerParams = {
-  dispatch: Dispatch;
-  pluginState: TextColorPluginState;
-  tr: Transaction;
-  params?: {
-    color?: string;
-    disabled?: boolean;
-  };
-};
-
-export type TextColorDefaultColor = {
+type TextColorDefaultColor = {
   color: string;
   label: string;
 };
@@ -38,7 +28,7 @@ export interface TextColorPluginConfig {
   allowMoreTextColors?: boolean;
 }
 
-export function createInitialPluginState(
+function createInitialPluginState(
   editorState: EditorState,
   pluginConfig?: TextColorPluginConfig,
 ): TextColorPluginState {

@@ -2,10 +2,8 @@ export enum HistoryActionTypes {
   UPDATE = 'UPDATE',
 }
 
-export interface Update {
+export interface HistoryAction {
   type: HistoryActionTypes.UPDATE;
   canUndo: boolean;
   canRedo: boolean;
 }
-
-export type HistoryAction = Update;

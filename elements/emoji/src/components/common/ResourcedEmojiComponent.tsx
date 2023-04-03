@@ -167,6 +167,9 @@ export const ResourcedEmojiComponent: FC<Props> = (props) => {
     fetchOrGetEmoji(resolvedEmojiProvider, emojiId, optimistic);
   }, [resolvedEmojiProvider, emojiId, optimistic, fetchOrGetEmoji]);
 
+  /**
+   * Setting resolved emoji provider for optimistic rendering
+   */
   useEffect(() => {
     Promise.resolve(emojiProvider).then((emojiProvider) => {
       setResolvedEmojiProvider(emojiProvider);

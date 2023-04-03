@@ -23,11 +23,13 @@ jest.mock('@atlaskit/media-client', () => {
   };
 });
 
-jest.mock('../../../../analytics/index.ts', () => {
-  const actual = jest.requireActual('@atlaskit/ufo');
+jest.mock('@atlaskit/media-common/mediaFeatureFlags', () => {
+  const actualUfo = jest.requireActual(
+    '@atlaskit/media-common/mediaFeatureFlags',
+  );
   return {
-    ...actual,
-    LOGGED_FEATURE_FLAG_KEYS: ['feature-flag-1', 'feature-flag-2'],
+    ...actualUfo,
+    getFeatureFlagKeysAllProducts: () => ['feature-flag-1', 'feature-flag-2'],
   };
 });
 

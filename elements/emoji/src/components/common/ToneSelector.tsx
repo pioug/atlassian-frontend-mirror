@@ -1,11 +1,13 @@
-import React, { FC, useEffect, useMemo, useRef } from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+import { FC, memo, useEffect, useMemo, useRef } from 'react';
 import {
   EmojiDescription,
   EmojiDescriptionWithVariations,
   OnToneSelected,
+  ToneSelection,
   ToneValueType,
 } from '../../types';
-import EmojiButton from './EmojiButton';
 import {
   withAnalyticsEvents,
   WithAnalyticsEventsProps,
@@ -17,12 +19,20 @@ import {
   toneSelectorOpenedEvent,
 } from '../../util/analytics';
 import { setSkinToneAriaLabelText } from './setSkinToneAriaLabelText';
+import EmojiRadioButton from './EmojiRadioButton';
+import { useIntl } from 'react-intl-next';
+import { messages } from '../i18n';
+import { hidden } from './styles';
 
 export interface Props {
   emoji: EmojiDescriptionWithVariations;
+  isVisible: boolean;
   onToneSelected: OnToneSelected;
-  previewEmojiId?: string;
+  onToneClose?: () => void;
+  selectedTone?: ToneSelection;
 }
+
+export const toneSelectorTestId = 'tone-selector';
 
 const extractAllTones = (
   emoji: EmojiDescriptionWithVariations,
@@ -37,23 +47,45 @@ type PropsWithAnalyticsEventsPropsType = Props & WithAnalyticsEventsProps;
 export const ToneSelectorInternal: FC<PropsWithAnalyticsEventsPropsType> = (
   props,
 ) => {
-  const { createAnalyticsEvent, emoji, previewEmojiId, onToneSelected } = props;
+  const {
+    createAnalyticsEvent,
+    emoji,
+    onToneSelected,
+    onToneClose,
+    selectedTone,
+    isVisible,
+  } = props;
   const isMounted = useRef(false);
-  const firstToneButtonRef = useRef<HTMLButtonElement>(null);
+  const selectedToneRadioRef = useRef<HTMLInputElement>(null);
+  const { formatMessage } = useIntl();
+
   const emojiToneCollection = useMemo(() => {
-    return extractAllTones(emoji).map((tone, index) => ({
-      ...tone,
-      focused: tone.id !== previewEmojiId,
-      label: setSkinToneAriaLabelText(tone.name),
-      toneId: index,
-    }));
-  }, [emoji, previewEmojiId]);
+    var selectedToneIndex: number = -1;
+    const toneColletion = extractAllTones(emoji).map((tone, index) => {
+      const isSelected = index === selectedTone;
+      if (isSelected) {
+        selectedToneIndex = index;
+      }
+      return {
+        ...tone,
+        isSelected: isSelected,
+        label: setSkinToneAriaLabelText(tone.name),
+        toneIndex: index,
+      };
+    });
+
+    // push description of selected tone to the end of the array
+    // so that it gets rendered last/rightmost
+    toneColletion.push(toneColletion.splice(selectedToneIndex, 1)[0]);
+
+    return toneColletion;
+  }, [emoji, selectedTone]);
 
   useEffect(() => {
-    if (firstToneButtonRef.current) {
-      firstToneButtonRef.current.focus();
+    if (isVisible) {
+      selectedToneRadioRef.current?.focus();
     }
-  }, [firstToneButtonRef]);
+  }, [isVisible, selectedToneRadioRef]);
 
   const fireAnalyticsEvent = (event: AnalyticsEventPayload) => {
     if (createAnalyticsEvent) {
@@ -62,6 +94,11 @@ export const ToneSelectorInternal: FC<PropsWithAnalyticsEventsPropsType> = (
   };
 
   const onToneSelectedHandler = (toneValue: ToneValueType) => () => {
+    if (selectedTone === toneValue && onToneClose) {
+      onToneClose();
+      return;
+    }
+
     onToneSelected(toneValue);
 
     const toneList = [
@@ -87,16 +124,22 @@ export const ToneSelectorInternal: FC<PropsWithAnalyticsEventsPropsType> = (
   isMounted.current = true;
 
   return (
-    <div>
+    <div
+      role="radiogroup"
+      data-testid={toneSelectorTestId}
+      id="emoji-picker-tone-selector"
+      aria-label={formatMessage(messages.emojiSelectSkinToneListAriaLabelText)}
+      css={!isVisible && hidden}
+    >
       {emojiToneCollection.map((tone) => {
         return (
-          <EmojiButton
-            ref={tone.focused ? firstToneButtonRef : null}
-            shouldHideButton={tone.id === previewEmojiId}
+          <EmojiRadioButton
+            ref={tone.isSelected ? selectedToneRadioRef : null}
+            defaultChecked={tone.isSelected}
             ariaLabelText={tone.label}
             key={`${tone.id}`}
-            onSelected={onToneSelectedHandler(tone.toneId)}
             emoji={tone}
+            onSelected={onToneSelectedHandler(tone.toneIndex)}
             selectOnHover
           />
         );
@@ -107,4 +150,4 @@ export const ToneSelectorInternal: FC<PropsWithAnalyticsEventsPropsType> = (
 
 const ToneSelector = withAnalyticsEvents()(ToneSelectorInternal);
 
-export default ToneSelector;
+export default memo(ToneSelector);

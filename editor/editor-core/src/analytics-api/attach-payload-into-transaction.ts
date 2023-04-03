@@ -36,7 +36,7 @@ export const attachPayloadIntoTransaction: AttachPayloadIntoTransaction = ({
         },
       ],
       actionsToIgnore,
-      tr.selection.$from.pos, // We need to create the step based on a position, this prevent split history for relative changes.
+      editorState.selection.$from.pos, // We need to create the step based on a position, this prevent split history for relative changes.
     ),
   );
 

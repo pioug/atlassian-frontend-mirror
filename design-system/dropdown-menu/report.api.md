@@ -20,6 +20,7 @@
 import type { CustomItemProps } from '@atlaskit/menu/types';
 import { default as DropdownItemGroup } from '@atlaskit/menu/section';
 import { KeyboardEvent as KeyboardEvent_2 } from 'react';
+import type { MenuGroupProps } from '@atlaskit/menu/types';
 import { MouseEvent as MouseEvent_2 } from 'react';
 import { default as React_2 } from 'react';
 import { ReactElement } from 'react';
@@ -146,6 +147,7 @@ export interface DropdownMenuProps<
   onOpenChange?: (args: OnOpenChangeArgs) => void;
   placement?: Placement;
   shouldFlip?: boolean;
+  spacing?: Extract<MenuGroupProps['spacing'], 'compact' | 'cozy'>;
   statusLabel?: string;
   testId?: string;
   trigger?:

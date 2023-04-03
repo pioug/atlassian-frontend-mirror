@@ -128,12 +128,12 @@ export const MenuArrowKeyNavigationProvider: React.FC<
           if (!targetElement.closest('.custom-key-handler-wrapper')) {
             return;
           }
+          handleClose!(event);
           if (
             !targetElement.closest('[data-testid="editor-floating-toolbar"]')
           ) {
             keyDownHandlerContext?.handleArrowLeft();
           }
-          handleClose!(event);
           break;
 
         case 'ArrowRight':
@@ -141,12 +141,12 @@ export const MenuArrowKeyNavigationProvider: React.FC<
           if (!targetElement.closest('.custom-key-handler-wrapper')) {
             return;
           }
+          handleClose!(event);
           if (
             !targetElement.closest('[data-testid="editor-floating-toolbar"]')
           ) {
             keyDownHandlerContext?.handleArrowRight();
           }
-          handleClose!(event);
           break;
 
         case 'Escape':

@@ -25,10 +25,10 @@
   },
   "dependencies": {
     "@atlaskit/avatar": "^21.2.0",
-    "@atlaskit/button": "^16.5.0",
+    "@atlaskit/button": "^16.6.0",
     "@atlaskit/drawer": "^7.4.0",
     "@atlaskit/icon": "^21.11.0",
-    "@atlaskit/inline-dialog": "^13.4.0",
+    "@atlaskit/inline-dialog": "^13.5.0",
     "@atlaskit/section-message": "^6.3.0",
     "@atlaskit/theme": "^12.3.0",
     "@atlaskit/tokens": "^1.2.0",

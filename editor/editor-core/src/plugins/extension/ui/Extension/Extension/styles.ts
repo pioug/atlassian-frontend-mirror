@@ -46,8 +46,11 @@ export const content = (theme: ThemeProps) => css`
   border: 1px solid ${token('color.border', N30)};
   border-radius: ${borderRadius()}px;
   cursor: initial;
+  width: 100%;
 `;
 
 export const contentWrapper = css`
   padding: 0 ${padding}px ${padding}px;
+  display: flex;
+  justify-content: center;
 `;

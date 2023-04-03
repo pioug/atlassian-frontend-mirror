@@ -2,31 +2,34 @@ import React from 'react';
 import { waitUntil } from '@atlaskit/elements-test-helpers';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { MockEmojiResource } from '@atlaskit/util-data-test/mock-emoji-resource';
-
 import { AnalyticsListener } from '@atlaskit/analytics-next';
+import { axe, toHaveNoViolations } from 'jest-axe';
+import TextField from '@atlaskit/textfield';
+import { ReactWrapper } from 'enzyme';
+import { screen, waitFor } from '@testing-library/react';
 
 import * as ImageUtil from '../../../../util/image';
-
 import * as helper from '../picker/_emoji-picker-test-helpers';
-
+import * as helperTestingLibrary from '../picker/_emoji-picker-helpers-testing-library';
 import {
   getEmojiResourcePromise,
   createPngFile,
   pngDataURL,
   pngFileUploadData,
 } from '../../_test-data';
-
 import FileChooser from '../../../../components/common/FileChooser';
-import TextField from '@atlaskit/textfield';
-
 import Emoji from '../../../../components/common/Emoji';
 import EmojiUploader, {
   Props,
 } from '../../../../components/uploader/EmojiUploader';
 import EmojiUploadComponent from '../../../../components/uploader/EmojiUploadComponent';
-import EmojiUploadPreview from '../../../../components/common/EmojiUploadPreview';
-
-import { ReactWrapper } from 'enzyme';
+import EmojiUploadPreview, {
+  uploadPreviewTestId,
+} from '../../../../components/common/EmojiUploadPreview';
+import {
+  uploadEmojiComponentTestId,
+  uploadEmojiNameInputTestId,
+} from '../../../../components/common/EmojiUploadPicker';
 import {
   selectedFileEvent,
   uploadCancelButton,
@@ -35,6 +38,7 @@ import {
   uploadSucceededEvent,
 } from '../../../../util/analytics';
 import { messages } from '../../../../components/i18n';
+import { renderWithIntl } from '../../_testing-library';
 
 const sampleEmoji = {
   name: 'Sample',
@@ -42,6 +46,9 @@ const sampleEmoji = {
   width: 30,
   height: 30,
 };
+
+// Add matcher provided by 'jest-axe'
+expect.extend(toHaveNoViolations);
 
 export function setupUploader(
   props?: Props,
@@ -329,6 +336,100 @@ describe('<EmojiUploader />', () => {
         }),
         'fabric-elements',
       );
+    });
+  });
+
+  describe('Accessibility', () => {
+    let emojiProvider: Promise<any>;
+
+    beforeEach(async () => {
+      jest
+        .spyOn(ImageUtil, 'parseImage')
+        .mockImplementation(() => Promise.resolve(new Image()));
+
+      jest
+        .spyOn(ImageUtil, 'hasFileExceededSize')
+        .mockImplementation(() => false);
+
+      jest.spyOn(ImageUtil, 'getNaturalImageSize').mockImplementation(() =>
+        Promise.resolve({
+          width: 30,
+          height: 30,
+        }),
+      );
+
+      emojiProvider = getEmojiResourcePromise({
+        uploadSupported: true,
+      });
+    });
+
+    it('emoji upload picker should have no accessibility violations', async () => {
+      const { container } = renderWithIntl(
+        <EmojiUploader emojiProvider={emojiProvider} />,
+      );
+
+      const uploadEmojiComponent = await screen.findByTestId(
+        uploadEmojiComponentTestId,
+      );
+
+      expect(uploadEmojiComponent).toBeInTheDocument();
+
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
+    });
+
+    it('emoji upload preview should have no accessibility violations', async () => {
+      const { container } = renderWithIntl(
+        <EmojiUploader emojiProvider={emojiProvider} />,
+      );
+
+      const emojiNameInput = await screen.findByTestId(
+        uploadEmojiNameInputTestId,
+      );
+      expect(emojiNameInput).toBeInTheDocument();
+
+      // type name
+      helperTestingLibrary.typeEmojiName(':cheese burger:');
+
+      // choose file
+      await helperTestingLibrary.chooseFile(createPngFile());
+
+      const uploadEmojiPreviewComponent = await screen.findByTestId(
+        uploadPreviewTestId,
+      );
+
+      expect(uploadEmojiPreviewComponent).toBeInTheDocument();
+
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
+    });
+
+    it('emoji upload preview error should have no accessibility violations', async () => {
+      jest
+        .spyOn(ImageUtil, 'hasFileExceededSize')
+        .mockImplementation(() => true);
+
+      const { container } = renderWithIntl(
+        <EmojiUploader emojiProvider={emojiProvider} />,
+      );
+
+      const emojiNameInput = await screen.findByTestId(
+        uploadEmojiNameInputTestId,
+      );
+      expect(emojiNameInput).toBeInTheDocument();
+
+      // type name
+      helperTestingLibrary.typeEmojiName(':cheese burger:');
+
+      // choose file
+      await helperTestingLibrary.chooseFile(createPngFile());
+
+      await waitFor(() => {
+        expect(helperTestingLibrary.getEmojiErrorMessage()).toBeInTheDocument();
+      });
+
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

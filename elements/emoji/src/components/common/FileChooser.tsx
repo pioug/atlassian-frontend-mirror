@@ -1,6 +1,6 @@
 import React, { FC, useRef, ChangeEventHandler } from 'react';
 
-import AkButton from '@atlaskit/button/custom-theme-button';
+import AkButton from '@atlaskit/button/standard-button';
 
 export interface Props {
   label: string;

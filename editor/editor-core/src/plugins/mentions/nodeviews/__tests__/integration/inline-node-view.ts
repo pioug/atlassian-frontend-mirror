@@ -12,10 +12,4 @@ runInlineNodeViewTestSuite({
     },
   },
   multiLineNode: true,
-  skipTests: {
-    'Extend a selection to the end of the current line from the current position':
-      ['firefox'],
-    'No trailing spaces: Can move the selection up one line using up arrow key when [target] is the first node of each line':
-      ['firefox'],
-  },
 });

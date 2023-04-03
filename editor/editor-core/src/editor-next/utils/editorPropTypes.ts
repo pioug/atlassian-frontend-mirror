@@ -18,7 +18,10 @@ export type Context = {
  */
 export function propTypes(errorMessage: string) {
   return {
-    minHeight: ({ appearance, minHeight }: EditorProps) => {
+    minHeight: ({
+      appearance,
+      minHeight,
+    }: Pick<EditorProps, 'appearance' | 'minHeight'>) => {
       if (
         minHeight &&
         appearance &&

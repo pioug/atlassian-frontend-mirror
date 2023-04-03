@@ -20,20 +20,20 @@ class UsageShowingEmojiPickerTextInput extends UsageShowAndClearComponent {
   getWrappedComponent() {
     const { emojiResource } = this.props;
     return (
-      <IntlProvider locale="en">
-        <EmojiPicker
-          onSelection={this.onSelection}
-          emojiProvider={Promise.resolve(emojiResource as EmojiProvider)}
-        />
-      </IntlProvider>
+      <EmojiPicker
+        onSelection={this.onSelection}
+        emojiProvider={Promise.resolve(emojiResource as EmojiProvider)}
+      />
     );
   }
 }
 
 export default function Example() {
   return (
-    <UsageShowingEmojiPickerTextInput
-      emojiResource={new EmojiResource(config)}
-    />
+    <IntlProvider locale="en">
+      <UsageShowingEmojiPickerTextInput
+        emojiResource={new EmojiResource(config)}
+      />
+    </IntlProvider>
   );
 }

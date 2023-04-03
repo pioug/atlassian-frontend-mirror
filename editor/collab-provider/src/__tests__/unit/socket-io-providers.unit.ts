@@ -1,4 +1,5 @@
 import { createSocketIOSocket } from '../../socket-io-provider';
+import { InitAndAuthData } from '../../types';
 
 describe('Socket io provider', () => {
   const url = 'http://localhost:8080/ccollab/sessionId/123';
@@ -12,15 +13,18 @@ describe('Socket io provider', () => {
   it('attach `auth` tokenRefresh if tokenRefresh function exist', (done) => {
     const mockToken = 'a-token-for-embedded-confluence';
     const permissionTokenRefresh = async () => mockToken;
-    const socket = createSocketIOSocket(url, (cb: (data: object) => void) => {
-      permissionTokenRefresh().then((token: string) => {
-        cb({ token });
-      });
-    });
+    const socket = createSocketIOSocket(
+      url,
+      (cb: (data: InitAndAuthData) => void) => {
+        permissionTokenRefresh().then((token: string) => {
+          cb({ token, initialized: false });
+        });
+      },
+    );
     expect((socket as any).io.engine.opts.path).toEqual('/ccollab/socket.io/');
     expect((socket as any).io.opts.auth).toBeDefined();
     (socket as any).io.opts.auth((token: string) => {
-      expect(token).toEqual({ token: mockToken });
+      expect(token).toEqual({ token: mockToken, initialized: false });
       done();
     });
   });

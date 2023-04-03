@@ -23,7 +23,10 @@ import {
 import { tablePopupStyles } from './styles';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
-import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
+import type {
+  GetEditorContainerWidth,
+  GetEditorFeatureFlags,
+} from '@atlaskit/editor-common/types';
 import ContextualMenu from './ContextualMenu';
 
 // offset of the contextual menu dropdown
@@ -46,6 +49,7 @@ export interface Props {
   editorView: EditorView;
   isOpen: boolean;
   getEditorContainerWidth: GetEditorContainerWidth;
+  getEditorFeatureFlags: GetEditorFeatureFlags;
   targetCellPosition?: number;
   mountPoint?: HTMLElement;
   boundariesElement?: HTMLElement;
@@ -63,6 +67,7 @@ const FloatingContextualMenu = ({
   pluginConfig,
   editorAnalyticsAPI,
   getEditorContainerWidth,
+  getEditorFeatureFlags,
 }: Props) => {
   // TargetCellPosition could be outdated: https://product-fabric.atlassian.net/browse/ED-8129
   const { targetCellPosition } = getPluginState(editorView.state);
@@ -103,6 +108,7 @@ const FloatingContextualMenu = ({
       zIndex={akEditorFloatingOverlapPanelZIndex}
       forcePlacement={true}
       offset={[-7, 0]}
+      stick={true}
     >
       <div css={tablePopupStyles}>
         <ContextualMenu
@@ -120,6 +126,7 @@ const FloatingContextualMenu = ({
           boundariesElement={boundariesElement}
           editorAnalyticsAPI={editorAnalyticsAPI}
           getEditorContainerWidth={getEditorContainerWidth}
+          getEditorFeatureFlags={getEditorFeatureFlags}
         />
       </div>
     </Popup>

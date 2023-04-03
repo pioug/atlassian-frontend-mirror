@@ -13,8 +13,8 @@ Object {
     "color": "var(--ds-text-inverse, #FFFFFF)",
   },
   "focus": Object {
-    "backgroundColor": "var(--ds-background-brand-bold, #0052CC)",
-    "boxShadow": "0 0 0 2px var(--ds-border-focused, rgb(128,169,230))",
+    "backgroundColor": "",
+    "boxShadow": "",
     "color": "var(--ds-text-inverse, #FFFFFF)",
   },
   "hover": Object {
@@ -43,8 +43,8 @@ Object {
     "color": "var(--ds-text-subtle, #344563)",
   },
   "focus": Object {
-    "backgroundColor": "var(--ds-background-selected-hovered, rgba(222, 235, 255, 0.5))",
-    "boxShadow": "0 0 0 2px var(--ds-border-focused, #2684FF)",
+    "backgroundColor": "",
+    "boxShadow": "",
     "color": "var(--ds-text-subtle, #344563)",
   },
   "hover": Object {
@@ -86,7 +86,7 @@ Object {
   },
   "focus": Object {
     "backgroundColor": "",
-    "boxShadow": "0 0 0 2px var(--ds-border-focused, #2684FF)",
+    "boxShadow": "",
     "color": "var(--ds-text-subtle, #344563)",
   },
   "hover": Object {
@@ -157,7 +157,7 @@ Object {
   },
   "focus": Object {
     "backgroundColor": "#E94E34",
-    "boxShadow": "0 0 0 2px rgba(233, 78, 52, 0.5)",
+    "boxShadow": "none",
     "color": "#ffffff",
   },
   "hover": Object {
@@ -194,7 +194,7 @@ Object {
   },
   "focus": Object {
     "backgroundColor": "#272727",
-    "boxShadow": "0 0 0 2px rgba(233, 78, 52, 0.5)",
+    "boxShadow": "none",
     "color": "#ffffff",
   },
   "hover": Object {
@@ -238,7 +238,7 @@ Object {
   },
   "focus": Object {
     "backgroundColor": "#272727",
-    "boxShadow": "0 0 0 2px rgba(233, 78, 52, 0.5)",
+    "boxShadow": "none",
     "color": "#ffffff",
   },
   "hover": Object {
@@ -308,7 +308,7 @@ Object {
   },
   "focus": Object {
     "backgroundColor": "#333333",
-    "boxShadow": "0 0 0 2px rgba(51, 51, 51, 0.5)",
+    "boxShadow": "none",
     "color": "#ffffff",
   },
   "hover": Object {
@@ -345,7 +345,7 @@ Object {
   },
   "focus": Object {
     "backgroundColor": "#E8CBD2",
-    "boxShadow": "0 0 0 2px rgba(51, 51, 51, 0.5)",
+    "boxShadow": "none",
     "color": "#000000",
   },
   "hover": Object {
@@ -389,7 +389,7 @@ Object {
   },
   "focus": Object {
     "backgroundColor": "#E8CBD2",
-    "boxShadow": "0 0 0 2px rgba(51, 51, 51, 0.5)",
+    "boxShadow": "none",
     "color": "#000000",
   },
   "hover": Object {

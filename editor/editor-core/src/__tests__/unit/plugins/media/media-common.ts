@@ -791,7 +791,6 @@ describe('media-common', () => {
                   collection: testCollectionName,
                 })(),
               ),
-              p(),
             ),
           );
         });

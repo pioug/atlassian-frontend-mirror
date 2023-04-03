@@ -4,6 +4,14 @@ import { VirtualItem as VirtualItemContext } from '@tanstack/react-virtual';
 import React, { useCallback, useImperativeHandle } from 'react';
 import { virtualList } from './styles';
 import { useVirtualizer } from '@tanstack/react-virtual';
+import { useEmojiPickerListContext } from '../../hooks/useEmojiPickerListContext';
+import {
+  EMOJIPICKERLIST_KEYBOARD_KEYS_SUPPORTED,
+  EMOJI_LIST_COLUMNS,
+  EMOJI_LIST_PAGE_COUNT,
+  KeyboardNavigationDirection,
+  KeyboardKeys,
+} from '../../util/constants';
 
 type Props = {
   overscanRowCount: number;
@@ -18,15 +26,31 @@ type Props = {
 
 export type ListRef = {
   scrollToRow: (index?: number) => void;
+  scrollToRowAndFocusLastEmoji: (index?: number) => void;
+  updateFocusIndex: (index: number) => void;
+};
+
+type EmojiFocusInfo = {
+  rowIndex: number;
+  columnIndex: number;
+  element: HTMLButtonElement | null | undefined;
 };
 
 export const virtualListScrollContainerTestId = 'virtual-list-scroll-container';
 
 export const VirtualList = React.forwardRef<ListRef, Props>((props, ref) => {
   const parentRef = React.useRef<HTMLDivElement>(null);
-  const currentIndex = React.useRef<number>(0);
-  const { rowRenderer, onRowsRendered, scrollToAlignment, width, height } =
-    props;
+  const virtualistItemsRef = React.useRef<HTMLDivElement>(null);
+  const {
+    rowRenderer,
+    onRowsRendered,
+    scrollToAlignment,
+    width,
+    height,
+    rowCount,
+  } = props;
+
+  const { currentEmojisFocus, setEmojisFocus } = useEmojiPickerListContext();
 
   const getVirtualizerOptions = () => {
     const { rowCount, rowHeight, overscanRowCount } = props;
@@ -39,6 +63,8 @@ export const VirtualList = React.forwardRef<ListRef, Props>((props, ref) => {
         const startIndex = getFirstVisibleListElementIndex();
         onRowsRendered({ startIndex });
       },
+      scrollPaddingStart: 28,
+      scrollPaddingEnd: 28,
     };
   };
 
@@ -79,6 +105,243 @@ export const VirtualList = React.forwardRef<ListRef, Props>((props, ref) => {
     return 0;
   }, [rowVirtualizer]);
 
+  /**
+   * Recurisive function to find next available emoji and it's focus indexes in the grid
+   *
+   * current focus element is at rowIndex.columnIndex
+   * if found element then return the element and focus indexes
+   * otherwise change row/column till find the element
+   * if can't find the element till reach the edge of grid, we keep current focus states
+   *
+   * @param rowIndex search from row index (0 based)
+   * @param columnIndex search from column index (0 based)
+   * @param direction search direction
+   */
+  const findNextEmoji: (
+    rowIndex: number,
+    columnIndex: number,
+    direction: `${KeyboardNavigationDirection}`,
+  ) => EmojiFocusInfo | null = useCallback(
+    (
+      rowIndex: number,
+      columnIndex: number,
+      direction: `${KeyboardNavigationDirection}`,
+    ) => {
+      const emojiToFocus: HTMLButtonElement | undefined | null =
+        virtualistItemsRef.current?.querySelector(
+          `[data-focus-index="${rowIndex}-${columnIndex}"]`,
+        );
+      const lastRowIndex = rowCount - 1;
+      const lastColumnIndex = EMOJI_LIST_COLUMNS - 1;
+      if (emojiToFocus) {
+        return {
+          element: emojiToFocus,
+          rowIndex,
+          columnIndex,
+        };
+      }
+      switch (direction) {
+        case KeyboardNavigationDirection.Down:
+          if (rowIndex >= lastRowIndex) {
+            return null;
+          }
+          // find emoji in same column but lower row
+          return findNextEmoji(
+            rowIndex + 1,
+            columnIndex,
+            KeyboardNavigationDirection.Down,
+          );
+        case KeyboardNavigationDirection.Up:
+          if (rowIndex <= 0) {
+            return null;
+          }
+          // find emoji in same column but upper row
+          return findNextEmoji(
+            rowIndex - 1,
+            columnIndex,
+            KeyboardNavigationDirection.Up,
+          );
+        case KeyboardNavigationDirection.Left:
+          if (rowIndex <= 0) {
+            return null;
+          }
+          if (columnIndex < 0) {
+            // find emoji in upper row
+            return findNextEmoji(
+              rowIndex - 1,
+              lastColumnIndex,
+              KeyboardNavigationDirection.Left,
+            );
+          }
+          // find emoji on left in the current row
+          return findNextEmoji(
+            rowIndex,
+            columnIndex - 1,
+            KeyboardNavigationDirection.Left,
+          );
+        case KeyboardNavigationDirection.Right:
+          if (rowIndex >= lastRowIndex) {
+            return null;
+          }
+          // if no emoji on right, we try first emoji in next row
+          return findNextEmoji(
+            rowIndex + 1,
+            0,
+            KeyboardNavigationDirection.Right,
+          );
+        default:
+          return null;
+      }
+    },
+    [rowCount],
+  );
+
+  /**
+   * Find the valid emoji to scroll and focus
+   */
+  const scrollToRowAndFocusEmoji = useCallback(
+    (emojiToFocus: EmojiFocusInfo | null) => {
+      if (emojiToFocus) {
+        rowVirtualizer.scrollToIndex(emojiToFocus.rowIndex, {
+          align: 'auto',
+          smoothScroll: false,
+        });
+        emojiToFocus.element?.focus({ preventScroll: true });
+        setEmojisFocus({
+          rowIndex: emojiToFocus.rowIndex,
+          columnIndex: emojiToFocus.columnIndex,
+        });
+      }
+    },
+    [rowVirtualizer, setEmojisFocus],
+  );
+
+  const focusEmoji = useCallback(
+    (
+      rIndex: number,
+      cIndex: number,
+      direction: `${KeyboardNavigationDirection}`,
+      waitForScrollFinish = false,
+    ) => {
+      if (waitForScrollFinish) {
+        // scroll to target rowIndex first to ensure the row is rendered in list.
+        // used in page up/down, ctrl+Home, ctrl+End
+        rowVirtualizer.scrollToIndex(rIndex, {
+          align: 'auto',
+          smoothScroll: false,
+        });
+
+        setTimeout(() => {
+          const emojiToFocus = findNextEmoji(rIndex, cIndex, direction);
+          scrollToRowAndFocusEmoji(emojiToFocus);
+        }, 100); // 100ms is virtual list scrolling time
+      } else {
+        const emojiToFocus = findNextEmoji(rIndex, cIndex, direction);
+        scrollToRowAndFocusEmoji(emojiToFocus);
+      }
+    },
+    [scrollToRowAndFocusEmoji, findNextEmoji, rowVirtualizer],
+  );
+
+  // following the guide from https://www.w3.org/WAI/ARIA/apg/patterns/grid/
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (!EMOJIPICKERLIST_KEYBOARD_KEYS_SUPPORTED.includes(e.key)) {
+      return;
+    }
+    e.preventDefault();
+
+    const lastRowIndex = rowCount - 1;
+    const lastColumnIndex = EMOJI_LIST_COLUMNS - 1;
+
+    // focus first emoji on first row
+    if (e.key === KeyboardKeys.Home && e.ctrlKey) {
+      focusEmoji(1, 0, KeyboardNavigationDirection.Up, true);
+      return;
+    } else if (e.key === KeyboardKeys.End && e.ctrlKey) {
+      // focus last available emoji on last row
+      focusEmoji(
+        lastRowIndex,
+        lastColumnIndex,
+        KeyboardNavigationDirection.Left,
+        true,
+      );
+      return;
+    }
+
+    switch (e.key) {
+      // navigate to the right column
+      case KeyboardKeys.ArrowRight:
+        focusEmoji(
+          currentEmojisFocus.rowIndex,
+          currentEmojisFocus.columnIndex + 1,
+          KeyboardNavigationDirection.Right,
+        );
+        break;
+      // navigate to the left column
+      case KeyboardKeys.ArrowLeft:
+        focusEmoji(
+          currentEmojisFocus.rowIndex,
+          currentEmojisFocus.columnIndex - 1,
+          KeyboardNavigationDirection.Left,
+        );
+        break;
+      // navigate to the down row
+      case KeyboardKeys.ArrowDown:
+        focusEmoji(
+          currentEmojisFocus.rowIndex === lastRowIndex
+            ? lastRowIndex
+            : currentEmojisFocus.rowIndex + 1,
+          currentEmojisFocus.columnIndex,
+          KeyboardNavigationDirection.Down,
+        );
+        break;
+      // navigate to the row after {EMOJI_LIST_PAGE_COUNT} rows
+      case KeyboardKeys.PageDown:
+        focusEmoji(
+          currentEmojisFocus.rowIndex + EMOJI_LIST_PAGE_COUNT,
+          currentEmojisFocus.columnIndex,
+          KeyboardNavigationDirection.Down,
+          true,
+        );
+        break;
+      // navigate to the up row
+      case KeyboardKeys.ArrowUp:
+        focusEmoji(
+          currentEmojisFocus.rowIndex <= 1
+            ? 1
+            : currentEmojisFocus.rowIndex - 1,
+          currentEmojisFocus.columnIndex,
+          KeyboardNavigationDirection.Up,
+        );
+        break;
+      // navigate to the row before {EMOJI_LIST_PAGE_COUNT} rows
+      case KeyboardKeys.PageUp:
+        focusEmoji(
+          currentEmojisFocus.rowIndex - EMOJI_LIST_PAGE_COUNT,
+          currentEmojisFocus.columnIndex,
+          KeyboardNavigationDirection.Up,
+          true,
+        );
+        break;
+      // navigate to the first cell of current row
+      case KeyboardKeys.Home:
+        focusEmoji(
+          currentEmojisFocus.rowIndex,
+          0,
+          KeyboardNavigationDirection.Left,
+        );
+        break;
+      // navigate to the last cell of current row
+      case KeyboardKeys.End:
+        focusEmoji(
+          currentEmojisFocus.rowIndex,
+          lastColumnIndex,
+          KeyboardNavigationDirection.Left,
+        );
+        break;
+    }
+  };
+
   // Exposing a custom ref handle to the parent component EmojiPickerList to trigger scrollToRow via the listRef
   // https://beta.reactjs.org/reference/react/useImperativeHandle
   useImperativeHandle(
@@ -86,30 +349,49 @@ export const VirtualList = React.forwardRef<ListRef, Props>((props, ref) => {
     () => {
       return {
         scrollToRow(index?: number) {
-          // only scroll if row index is defined and has changed
-          if (index !== undefined && currentIndex.current !== index) {
-            currentIndex.current = index;
+          if (index !== undefined) {
+            rowVirtualizer.setOptions({
+              ...rowVirtualizer.options,
+              scrollPaddingStart: 0,
+            });
             rowVirtualizer.scrollToIndex(index, {
               align: scrollToAlignment,
               smoothScroll: false,
             });
           }
         },
+        scrollToRowAndFocusLastEmoji(index?: number) {
+          if (index !== undefined) {
+            focusEmoji(
+              index,
+              EMOJI_LIST_COLUMNS,
+              KeyboardNavigationDirection.Left,
+              true,
+            );
+          }
+        },
+        updateFocusIndex(index: number) {
+          // row could be removed from virtual list after scrolling, we'll update emoji cell tabIndex after losing focus
+          if (!virtualistItemsRef.current?.contains(document.activeElement)) {
+            setEmojisFocus({ rowIndex: index, columnIndex: 0 });
+          }
+        },
       };
     },
-    [scrollToAlignment, rowVirtualizer],
+    [setEmojisFocus, focusEmoji, rowVirtualizer, scrollToAlignment],
   );
 
   return (
     <div
       ref={parentRef}
-      role="grid"
       style={{
         height: `${height}px`,
         width: `${width}px`,
       }}
       css={virtualList}
       data-testid={virtualListScrollContainerTestId}
+      aria-labelledby="emoji-picker-table-description"
+      role="grid"
     >
       <div
         style={{
@@ -117,8 +399,11 @@ export const VirtualList = React.forwardRef<ListRef, Props>((props, ref) => {
           width: '100%',
           position: 'relative',
         }}
+        ref={virtualistItemsRef}
+        onKeyDown={handleKeyDown}
+        role="presentation"
       >
-        {rowVirtualizer.getVirtualItems().map((virtualRow) => (
+        {rowVirtualizer.getVirtualItems().map((virtualRow, index) => (
           <div
             key={virtualRow.key}
             style={{
@@ -129,6 +414,8 @@ export const VirtualList = React.forwardRef<ListRef, Props>((props, ref) => {
               height: `${virtualRow.size}px`,
               transform: `translateY(${virtualRow.start}px)`,
             }}
+            role="row"
+            aria-rowindex={index + 1}
           >
             {rowRenderer(virtualRow)}
           </div>

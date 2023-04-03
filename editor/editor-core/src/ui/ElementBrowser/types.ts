@@ -21,12 +21,6 @@ export type SelectedItemProps = {
   focusedItemIndex?: number;
 };
 
-export type IntlMessage = {
-  id: string;
-  description: string;
-  defaultMessage: string;
-};
-
 export interface InsertMenuProps {
   dropdownItems: BlockMenuItem[];
   editorView: EditorView;

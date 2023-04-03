@@ -1,40 +1,26 @@
-import React from 'react';
+import __noop from '@atlaskit/ds-lib/noop';
+import { cleanup, hydrate, ssr } from '@atlaskit/ssr/emotion';
 
-import ReactDOM from 'react-dom';
-import waitForExpect from 'wait-for-expect';
+jest.spyOn(global.console, 'error').mockImplementation(__noop);
 
-import noop from '@atlaskit/ds-lib/noop';
-import { getExamplesFor, ssr } from '@atlaskit/ssr';
-
-declare var global: any;
-
-jest.spyOn(global.console, 'error').mockImplementation(noop);
+const examplePath = require.resolve('../../../examples/00-default-modal.tsx');
 
 afterEach(() => {
+  // Check cleanup
+  cleanup();
+  // reset mocks
   jest.resetAllMocks();
 });
 
-test('should ssr then hydrate modal-dialog correctly', async () => {
-  const [example] = await getExamplesFor('modal-dialog');
-  const Example = require(example.filePath).default; // eslint-disable-line import/no-dynamic-require
-
+test('should ssr then hydrate component correctly', async () => {
   const elem = document.createElement('div');
-  elem.innerHTML = await ssr(example.filePath);
+  const { html, styles } = await ssr(examplePath);
 
-  await waitForExpect(() => {
-    ReactDOM.hydrate(<Example />, elem);
+  elem.innerHTML = html;
+  hydrate(examplePath, elem, styles);
 
-    // ignore warnings caused by emotion's server-side rendering approach
-    // @ts-ignore
-    // eslint-disable-next-line no-console
-    const mockCalls = console.error.mock.calls.filter(
-      ([f, s]: [string, string]) =>
-        !(
-          f ===
-            'Warning: Did not expect server HTML to contain a <%s> in <%s>.%s' &&
-          s === 'style'
-        ),
-    );
-    expect(mockCalls.length).toBe(0);
-  });
+  // No other errors from e.g. hydrate
+  // eslint-disable-next-line no-console
+  const mockCalls = (console.error as jest.Mock).mock.calls;
+  expect(mockCalls.length).toBe(0);
 });

@@ -15,7 +15,6 @@ import { stateKey as mediaPluginKey } from '../../../../plugins/media/pm-plugins
 import { EditorProps } from '../../../../types';
 import { EditorView } from 'prosemirror-view';
 import { insertMediaGroupNode } from '../../../../plugins/media/utils/media-files';
-import { ImagePreview, MediaFile } from '@atlaskit/media-picker/types';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { MediaPluginState } from '../../../../plugins/media/pm-plugins/types';
 export {
@@ -34,22 +33,6 @@ export const temporaryMediaWithDimensions = (width = 256, height = 128) => {
     width,
     height,
   })();
-};
-
-export const imageFile: MediaFile = {
-  id: '1',
-  type: 'image/jpeg',
-  name: 'quokka.jpg',
-  size: 100,
-  creationDate: 1553664168293,
-};
-
-export const imagePreview: ImagePreview = {
-  dimensions: {
-    height: 100,
-    width: 100,
-  },
-  scaleFactor: 2,
 };
 
 const createEditor = createEditorFactory<MediaPluginState>();

@@ -3,13 +3,11 @@
  * `packages/editor/editor-common/src/utils/__tests__/builder.ts`
  *
  * Here, we cover some preset
- * specific implementation behaviour surrounding `getEditorPlugins`
+ * specific implementation behaviour surrounding `build`
  */
 
 import { NextEditorPlugin } from '@atlaskit/editor-common/types';
-import { Preset } from '../../presets/preset';
-
-type BasicPlugin = { name: string };
+import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 
 type BasicDogConfig = { lovesTreats?: boolean; treatsPerBite?: number };
 
@@ -59,42 +57,9 @@ const PluginBarkLoud: NextEditorPlugin<
 };
 
 describe('Preset implementation of builder', () => {
-  it.skip('should disallow processing a preset with `NextEditorPlugin`', () => {
-    const basePreset = new Preset<BasicPlugin>();
-
-    const finalPreset = basePreset
-      .add(PluginDog)
-      .add(PluginBark)
-      .add(PluginBarkLoud);
-    expect(() => {
-      finalPreset.getEditorPlugins();
-    }).toThrow();
-  });
-
-  describe('calling getEditorPlugins after creating a preset', () => {
-    it.skip('handles when a preset is re-assigned in a multi-chain of dependencies', () => {
-      const basePreset = new Preset<{
-        name: string;
-      }>().add([PluginDog, { lovesTreats: true }]);
-
-      const basePresetWithBark = basePreset.add(PluginBark);
-      const finalPreset = basePresetWithBark.add(PluginBarkLoud);
-
-      expect(finalPreset.data).toEqual(
-        expect.arrayContaining([
-          [PluginDog, { lovesTreats: true }],
-          PluginBark,
-          PluginBarkLoud,
-        ]),
-      );
-
-      expect(() => {
-        finalPreset.getEditorPlugins();
-      }).toThrow();
-    });
-
-    it('errors out when adding a plugin twice without reconfiguring it', () => {
-      const basePreset = new Preset<BasicPlugin>().add(PluginDog);
+  describe('calling build after creating a preset', () => {
+    it('errors out when adding a plugin twice', () => {
+      const basePreset = new EditorPresetBuilder().add(PluginDog);
 
       const finalPreset = basePreset
         .add(PluginDog)
@@ -102,34 +67,27 @@ describe('Preset implementation of builder', () => {
         .add(PluginBarkLoud)
         .add(PluginBarkLoud);
       expect(() => {
-        finalPreset.getEditorPlugins();
+        finalPreset.build();
       }).toThrow();
     });
+    describe('when is the same plugin with multiple configurations', () => {
+      it('errors out when adding a plugin twice', () => {
+        const basePreset = new EditorPresetBuilder().add(PluginDog);
 
-    it('processes presets with the same `NextEditorPlugin` plugin added multiple times', () => {
-      const basePreset = new Preset<{
-        name: string;
-      }>().add([PluginDog, { lovesTreats: true }]);
-
-      const baseWithReconfiguredDog = basePreset.add([
-        PluginDog,
-        { lovesTreats: false },
-      ]);
-      const finalPreset = baseWithReconfiguredDog.add([
-        PluginDog,
-        { lovesTreats: true },
-      ]);
-
-      expect(() => {
-        finalPreset.getEditorPlugins();
-      }).not.toThrow();
+        const finalPreset = basePreset
+          .add(PluginDog)
+          .add([PluginDog, { lovesTreats: true }]);
+        expect(() => {
+          finalPreset.build();
+        }).toThrow();
+      });
     });
   });
 
   describe('expects a typescript error', () => {
     it('when a plugin is missing', () => {
       expect(() => {
-        const basePreset = new Preset<BasicPlugin>();
+        const basePreset = new EditorPresetBuilder();
 
         basePreset
           // @ts-expect-error
@@ -138,7 +96,7 @@ describe('Preset implementation of builder', () => {
     });
     it('when a plugin is missing in a multi-chain of dependencies', () => {
       expect(() => {
-        const basePreset = new Preset<BasicPlugin>().add(PluginDog);
+        const basePreset = new EditorPresetBuilder().add(PluginDog);
 
         basePreset
           // .add(PluginBark)

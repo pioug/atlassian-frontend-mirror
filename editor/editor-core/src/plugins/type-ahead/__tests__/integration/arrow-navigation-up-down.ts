@@ -14,6 +14,7 @@ import {
   goToEditorTestingWDExample,
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
+import { selectors } from '@atlaskit/editor-test-helpers/page-objects/editor';
 import { WebDriverPage } from '@atlaskit/editor-test-helpers/page-objects/types';
 import { spaceAtEnd } from './__fixtures__/base-adfs';
 import { doc, p, h1, h5 } from '@atlaskit/editor-test-helpers/doc-builder';
@@ -96,11 +97,10 @@ describe('typeahead: up & down arrow navigation', () => {
   });
 
   describe('when cursor is inside of query and arrow up is used with ENTER to select', () => {
-    // FIXME: This test was automatically skipped due to failure on 04/02/2023: https://product-fabric.atlassian.net/browse/ED-16776
     BrowserTestCase(
       'it navigates to the last typeahead search result',
       {
-        skip: ['*'],
+        skip: [],
       },
       async (client: any, testName: string) => {
         const page = await startEditor(client, spaceAtEnd);
@@ -109,6 +109,11 @@ describe('typeahead: up & down arrow navigation', () => {
         await page.keys(['X', 'Space']);
         await quickInsert(page, title, false);
         await sendArrowUpKey(page, { numTimes: 1 });
+        // wait until option is actually selected before pressing enter,
+        // going to end of list can sometimes be flaky otherwise
+        const h5Selector =
+          ' [role="option"][aria-label="Heading 5"][aria-selected="true"]';
+        await page.waitForSelector(selectors.typeaheadPopup.concat(h5Selector));
         await page.keys('Enter');
         await page.keys('X');
         const jsonDocument = await page.$eval(editable, getDocFromElement);

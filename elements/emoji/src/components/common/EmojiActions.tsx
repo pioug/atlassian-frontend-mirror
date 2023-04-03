@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { Fragment, useState, FC } from 'react';
+import { Fragment, useState, FC, useRef, useEffect, memo } from 'react';
 import { jsx } from '@emotion/react';
 import {
   FormattedMessage,
@@ -21,7 +21,7 @@ import EmojiDeletePreview, {
 import EmojiUploadPicker, { OnUploadEmoji } from '../common/EmojiUploadPicker';
 import { EmojiPickerListSearch } from '../picker/EmojiPickerListSearch';
 import ToneSelector from './ToneSelector';
-import EmojiButton from './EmojiButton';
+import TonePreviewButton from './TonePreviewButton';
 import { messages } from '../i18n';
 import AkButton from '@atlaskit/button/standard-button';
 import AddIcon from '@atlaskit/icon/glyph/add';
@@ -37,6 +37,7 @@ import {
   emojiActionsContainerWithBottomShadow,
   emojiPickerFooter,
 } from '../picker/styles';
+import { DEFAULT_TONE } from '../../util/constants';
 
 export interface Props {
   selectedTone?: ToneSelection;
@@ -56,6 +57,7 @@ export interface Props {
   onOpenUpload: () => void;
   query?: string;
   onChange: (value: string) => void;
+  resultsCount?: number;
 }
 
 export const emojiActionsTestId = 'emoji-actions';
@@ -66,11 +68,7 @@ type PropsWithWrappedComponentPropsType = Props & WrappedComponentProps;
 
 type AddOwnEmojiProps = PropsWithWrappedComponentPropsType;
 const AddOwnEmoji: FC<AddOwnEmojiProps> = (props) => {
-  const {
-    onOpenUpload,
-    uploadEnabled,
-    intl: { formatMessage },
-  } = props;
+  const { onOpenUpload, uploadEnabled } = props;
 
   return (
     <Fragment>
@@ -80,15 +78,12 @@ const AddOwnEmoji: FC<AddOwnEmojiProps> = (props) => {
             {(label) => (
               <AkButton
                 onClick={onOpenUpload}
-                iconBefore={
-                  <AddIcon
-                    label={formatMessage(messages.addCustomEmojiLabel)}
-                    size="small"
-                  />
-                }
+                iconBefore={<AddIcon label="" size="small" />}
                 appearance="subtle"
                 css={addCustomEmojiButton}
                 className={emojiPickerAddEmoji}
+                tabIndex={0}
+                id="add-custom-emoji"
               >
                 {label}
               </AkButton>
@@ -102,50 +97,78 @@ const AddOwnEmoji: FC<AddOwnEmojiProps> = (props) => {
 
 type TonesWrapperProps = PropsWithWrappedComponentPropsType & {
   onToneOpen: () => void;
+  onToneClose: () => void;
   onToneSelected: (toneValue: ToneValueType) => void;
   showToneSelector: boolean;
 };
 const TonesWrapper: FC<TonesWrapperProps> = (props) => {
   const {
     toneEmoji,
-    selectedTone,
+    selectedTone = DEFAULT_TONE,
     intl,
-    onToneSelected,
     onToneOpen,
     showToneSelector,
   } = props;
   const { formatMessage } = intl;
+  const tonePreviewButtonRef = useRef<HTMLButtonElement>(null);
+  const [focusTonePreviewButton, setFocusTonePreviewButton] = useState(false);
+
+  useEffect(() => {
+    if (focusTonePreviewButton && tonePreviewButtonRef.current) {
+      tonePreviewButtonRef.current.focus();
+    }
+    return () => {
+      setFocusTonePreviewButton(false);
+    };
+  });
+
+  const onToneCloseHandler = () => {
+    const { onToneClose } = props;
+    onToneClose();
+
+    setFocusTonePreviewButton(true);
+  };
+
+  const onToneSelectedHandler = (toneValue: ToneValueType) => {
+    const { onToneSelected } = props;
+    onToneSelected(toneValue);
+
+    setFocusTonePreviewButton(true);
+  };
+
   if (!toneEmoji) {
     return null;
   }
 
-  let previewEmoji = toneEmoji;
-  if (selectedTone && previewEmoji.skinVariations) {
-    previewEmoji = previewEmoji.skinVariations[(selectedTone || 1) - 1];
+  let previewToneEmoji = toneEmoji;
+  if (selectedTone !== DEFAULT_TONE && previewToneEmoji.skinVariations) {
+    previewToneEmoji = previewToneEmoji.skinVariations[selectedTone - 1];
   }
 
   return (
     <div css={emojiToneSelectorContainer}>
-      {showToneSelector && (
-        <ToneSelector
-          emoji={toneEmoji}
-          onToneSelected={onToneSelected}
-          previewEmojiId={previewEmoji.id}
-        />
-      )}
-      <EmojiButton
+      <ToneSelector
+        emoji={toneEmoji}
+        onToneSelected={onToneSelectedHandler}
+        onToneClose={onToneCloseHandler}
+        selectedTone={selectedTone}
+        isVisible={showToneSelector}
+      />
+      <TonePreviewButton
+        ref={tonePreviewButtonRef}
         ariaExpanded={showToneSelector}
-        emoji={previewEmoji}
-        selectOnHover={true}
+        emoji={previewToneEmoji}
+        selectOnHover
         onSelected={onToneOpen}
         ariaLabelText={formatMessage(
           messages.emojiSelectSkinToneButtonAriaLabelText,
           {
             selectedTone: `${setSkinToneAriaLabelText(
-              previewEmoji.name as string,
-            )} selected`,
+              previewToneEmoji.name as string,
+            )}`,
           },
         )}
+        isVisible={!showToneSelector}
       />
     </div>
   );
@@ -167,6 +190,7 @@ export const EmojiActions: FC<EmojiActionsProps> = (props) => {
     emojiToDelete,
     onChange,
     query,
+    resultsCount = 0,
   } = props;
   const [showToneSelector, setShowToneSelector] = useState(false);
 
@@ -176,6 +200,8 @@ export const EmojiActions: FC<EmojiActionsProps> = (props) => {
   ];
 
   const onToneOpenHandler = () => setShowToneSelector(true);
+
+  const onToneCloseHandler = () => setShowToneSelector(false);
 
   const onToneSelectedHandler = (toneValue: ToneValueType) => {
     setShowToneSelector(false);
@@ -225,11 +251,16 @@ export const EmojiActions: FC<EmojiActionsProps> = (props) => {
     >
       <div css={emojiActionsWrapper}>
         {!showToneSelector && (
-          <EmojiPickerListSearch onChange={onChange} query={query} />
+          <EmojiPickerListSearch
+            onChange={onChange}
+            query={query}
+            resultsCount={resultsCount}
+          />
         )}
         <TonesWrapper
           {...props}
           onToneOpen={onToneOpenHandler}
+          onToneClose={onToneCloseHandler}
           onToneSelected={onToneSelectedHandler}
           showToneSelector={showToneSelector}
         />
@@ -239,4 +270,4 @@ export const EmojiActions: FC<EmojiActionsProps> = (props) => {
   );
 };
 
-export default injectIntl(EmojiActions);
+export default injectIntl(memo(EmojiActions));

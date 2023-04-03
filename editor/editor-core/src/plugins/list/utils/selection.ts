@@ -156,9 +156,7 @@ export const normalizeListItemsSelection: NormalizeListItemsSelection = ({
   return new TextSelection(anchor, head);
 };
 
-export const resolvePositionToStartOfListItem = (
-  $pos: ResolvedPos,
-): ResolvedPos => {
+const resolvePositionToStartOfListItem = ($pos: ResolvedPos): ResolvedPos => {
   const fromRange = $pos.blockRange($pos, isListItemNode);
   const fromPosition =
     fromRange && $pos.textOffset === 0 && fromRange.end - 1 === $pos.pos
@@ -168,9 +166,7 @@ export const resolvePositionToStartOfListItem = (
   return fromPosition;
 };
 
-export const resolvePositionToEndOfListItem = (
-  $pos: ResolvedPos,
-): ResolvedPos => {
+const resolvePositionToEndOfListItem = ($pos: ResolvedPos): ResolvedPos => {
   const toRange = $pos.blockRange($pos, isListItemNode);
   const toPosition =
     toRange && $pos.textOffset === 0 && toRange.start + 1 === $pos.pos
@@ -184,16 +180,6 @@ type CreateNodeRange = (props: { selection: Selection }) => NodeRange | null;
 export const createListNodeRange: CreateNodeRange = ({ selection }) => {
   const { $from, $to } = selection;
   const range = $from.blockRange($to, isListNode);
-  if (!range) {
-    return null;
-  }
-
-  return range;
-};
-
-export const createListItemNodeRange: CreateNodeRange = ({ selection }) => {
-  const { $from, $to } = selection;
-  const range = $from.blockRange($to, isListItemNode);
   if (!range) {
     return null;
   }

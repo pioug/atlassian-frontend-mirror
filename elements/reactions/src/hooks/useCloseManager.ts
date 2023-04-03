@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 
+type callbackType = 'CLICK_OUTSIDE' | 'ESCAPE';
+
 /**
  * Custom hook to detect when user action is outside given container ref or press escape key
  * @param ref ref object to an html element
@@ -9,7 +11,7 @@ import React, { useEffect } from 'react';
  */
 export function useCloseManager(
   ref: React.RefObject<HTMLElement>,
-  callback: () => void,
+  callback: (type: callbackType) => void,
   useCapture: boolean = false,
   enabled: boolean = true,
 ) {
@@ -27,14 +29,14 @@ export function useCloseManager(
         event.target instanceof Node &&
         !ref.current.contains(event.target)
       ) {
-        callback();
+        callback('CLICK_OUTSIDE');
       }
     }
 
     function handleKeydown(event: KeyboardEvent | React.KeyboardEvent) {
       const { key } = event;
       if (key === 'Escape' || key === 'Esc') {
-        callback();
+        callback('ESCAPE');
       }
     }
 

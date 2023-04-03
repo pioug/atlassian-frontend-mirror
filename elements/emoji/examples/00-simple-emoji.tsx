@@ -1,6 +1,7 @@
 import React from 'react';
 import { getEmojiRepository } from '@atlaskit/util-data-test/get-emoji-repository';
 import { Emoji } from '../src/element';
+import { IntlProvider } from 'react-intl-next';
 
 const emojiService = getEmojiRepository();
 
@@ -40,7 +41,7 @@ export const renderEmoji = (fitToHeight: number = 24) => {
 
 export default function Example() {
   return (
-    <div>
+    <IntlProvider locale="en">
       <div>{renderEmoji(12)}</div>
       <br />
       <div>{renderEmoji()}</div>
@@ -49,6 +50,6 @@ export default function Example() {
       <br />
       <div>{renderEmoji(64)}</div>
       <br />
-    </div>
+    </IntlProvider>
   );
 }

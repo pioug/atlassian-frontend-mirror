@@ -6,9 +6,7 @@ import { doc, p, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import { createProsemirrorEditorFactory } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 
 import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
-import { LightEditorPlugin } from '../../../../create-editor/get-plugins';
 import { Command } from '../../../../types/command';
-import { Preset } from '../../../../labs/next/presets/preset';
 import { pluginKey as toolbarDataPluginKey } from '../../pm-plugins/toolbar-data/plugin-key';
 import { FloatingToolbarPluginData } from '../../pm-plugins/toolbar-data/types';
 import * as commands from '../../pm-plugins/toolbar-data/commands';
@@ -17,6 +15,7 @@ import floatingToolbarPlugin from '../../index';
 import Toolbar from '../../ui/Toolbar';
 import { FloatingToolbarItem } from '../../types';
 import floatingToolbarMessages from '../../ui/messages';
+import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 
 const emptyDoc = doc(p(''));
 
@@ -25,7 +24,7 @@ describe('toolbar-data', () => {
   const createEditor = (doc: DocBuilder) => {
     return createEditorFactory({
       doc,
-      preset: new Preset<LightEditorPlugin>().add(floatingToolbarPlugin),
+      preset: new EditorPresetBuilder().add(floatingToolbarPlugin),
     });
   };
 
@@ -65,7 +64,7 @@ describe('<Toolbar />', () => {
   const createEditor = (doc: DocBuilder) => {
     return createEditorFactory({
       doc,
-      preset: new Preset<LightEditorPlugin>().add(floatingToolbarPlugin),
+      preset: new EditorPresetBuilder().add(floatingToolbarPlugin),
     });
   };
   const { editorView } = createEditor(emptyDoc);

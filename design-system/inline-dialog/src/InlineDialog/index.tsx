@@ -46,43 +46,56 @@ const InlineDialog: FC<InlineDialogProps> = memo<InlineDialogProps>(
   }) {
     const containerRef = useRef<HTMLElement | null>(null);
     const triggerRef = useRef<HTMLElement | null>(null);
-    // we put this into a ref to avoid handleClickOutside having this as a dependency
+    // we put this into a ref to avoid handleCloseRequest having this as a dependency
     const onCloseRef = useRef<typeof onClose>(onClose);
 
     useEffect(() => {
       onCloseRef.current = onClose;
     });
 
-    const handleClickOutside = useCallback((event: MouseEvent) => {
-      const { target } = event;
+    const handleCloseRequest = useCallback(
+      (event: MouseEvent | KeyboardEvent) => {
+        const { target } = event;
 
-      // checks for when target is not HTMLElement
-      if (!(target instanceof HTMLElement)) {
-        return;
-      }
+        // checks for when target is not HTMLElement
+        if (!(target instanceof HTMLElement)) {
+          return;
+        }
 
-      // TODO: This is to handle the case where the target is no longer in the DOM.
-      // This happens with react-select in datetime picker. There might be other
-      // edge cases for this.
-      if (!document.body.contains(target)) {
-        return;
-      }
+        // TODO: This is to handle the case where the target is no longer in the DOM.
+        // This happens with react-select in datetime picker. There might be other
+        // edge cases for this.
+        if (!document.body.contains(target)) {
+          return;
+        }
 
-      // exit if we click outside but on the trigger — it can handle the clicks itself
-      if (triggerRef.current && triggerRef.current.contains(target)) {
-        return;
-      }
+        // handles the case where inline dialog opens portalled elements such as modal
+        if (checkIsChildOfPortal(target)) {
+          return;
+        }
 
-      // handles the case where inline dialog opens portalled elements such as modal
-      if (checkIsChildOfPortal(target)) {
-        return;
-      }
+        // call onClose if the click originated from outside the dialog
+        if (containerRef.current && !containerRef.current.contains(target)) {
+          onCloseRef.current?.({ isOpen: false, event });
+        }
+      },
+      [],
+    );
 
-      // call onClose if the click originated from outside the dialog
-      if (containerRef.current && !containerRef.current.contains(target)) {
-        onCloseRef.current?.({ isOpen: false, event: event as any });
-      }
-    }, []);
+    const handleClick = useCallback(
+      (event: MouseEvent) => {
+        // exit if we click outside but on the trigger — it can handle the clicks itself
+        if (
+          triggerRef.current &&
+          triggerRef.current.contains(event.target as Node)
+        ) {
+          return;
+        }
+
+        handleCloseRequest(event);
+      },
+      [handleCloseRequest],
+    );
 
     useEffect(() => {
       if (!isOpen) {
@@ -91,12 +104,35 @@ const InlineDialog: FC<InlineDialogProps> = memo<InlineDialogProps>(
 
       const unbind = bind(window, {
         type: 'click',
-        listener: handleClickOutside,
+        listener: handleClick,
         options: { capture: true },
       });
 
       return unbind;
-    }, [isOpen, handleClickOutside]);
+    }, [isOpen, handleClick]);
+
+    const handleKeyDown = useCallback(
+      (event: KeyboardEvent) => {
+        if (event.key === 'Escape') {
+          handleCloseRequest(event);
+        }
+      },
+      [handleCloseRequest],
+    );
+
+    useEffect(() => {
+      if (!isOpen) {
+        return;
+      }
+
+      const unbind = bind(window, {
+        type: 'keydown',
+        listener: handleKeyDown,
+        options: { capture: true },
+      });
+
+      return unbind;
+    }, [isOpen, handleKeyDown]);
 
     const popper = isOpen ? (
       <Popper placement={placement} strategy={strategy}>

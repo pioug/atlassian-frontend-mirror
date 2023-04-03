@@ -4,8 +4,6 @@ import { EditorState, PluginKey } from 'prosemirror-state';
 import { Dispatch } from '../../../event-dispatcher';
 import { checkFormattingIsPresent } from '../utils';
 
-export type StateChangeHandler = (state: ClearFormattingState) => any;
-
 export interface ClearFormattingState {
   formattingIsPresent?: boolean;
 }

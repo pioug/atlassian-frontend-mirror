@@ -35,8 +35,8 @@ describe('ExtensionsPlaceholder', () => {
   };
 
   const testItemSelectors: { [key: string]: any } = {
-    button: `button[aria-label="${testItemProps.label}"]`,
-    icon: `button[aria-label="${testItemProps.label}"] span[role="img"]`,
+    button: `button[aria-label="${testItemProps.tooltip}"]`,
+    icon: `button[aria-label="${testItemProps.tooltip}"] span[role="img"]`,
     tooltip: `[tooltipContent="${testItemProps.tooltip}"]`,
   };
 
@@ -167,7 +167,7 @@ describe('ExtensionsPlaceholder', () => {
     await flushPromises();
     wrapper.update();
 
-    const buttonSelector = `button[aria-label="${testItemProps.label}"]`;
+    const buttonSelector = `button[aria-label="${testItemProps.tooltip}"]`;
     expect(wrapper.find(buttonSelector).length).toBe(1);
     wrapper.find(buttonSelector).simulate('click');
 

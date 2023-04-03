@@ -7,6 +7,7 @@ import { getPlatform } from '../../utils';
 import { CardErrorBoundary } from './fallback';
 import { RendererAppearance } from '../../ui/Renderer/types';
 import { getCardClickHandler } from '../utils/getCardClickHandler';
+import { SmartLinksOptions } from '../../types/smartLinksOptions';
 
 export default function BlockCard(props: {
   url?: string;
@@ -14,8 +15,11 @@ export default function BlockCard(props: {
   eventHandlers?: EventHandlers;
   portal?: HTMLElement;
   rendererAppearance?: RendererAppearance;
+  smartLinks?: SmartLinksOptions;
 }) {
-  const { url, data, eventHandlers, portal, rendererAppearance } = props;
+  const { url, data, eventHandlers, portal, rendererAppearance, smartLinks } =
+    props;
+  const { showServerActions } = smartLinks || {};
   const onClick = getCardClickHandler(eventHandlers, url);
 
   const platform = useMemo(
@@ -37,6 +41,7 @@ export default function BlockCard(props: {
           appearance="block"
           showActions={rendererAppearance !== 'mobile'}
           platform={platform}
+          showServerActions={showServerActions}
           {...cardProps}
         />
       </CardErrorBoundary>

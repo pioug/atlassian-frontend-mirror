@@ -1,7 +1,6 @@
 import React from 'react';
 import * as sinon from 'sinon';
-import { mount } from 'enzyme';
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent } from '@testing-library/react';
 import CachingEmoji from '../../../../components/common/CachingEmoji';
 import EmojiResource from '../../../../api/EmojiResource';
 import { EmojiContextProvider } from '../../../../context/EmojiContextProvider';
@@ -13,6 +12,8 @@ import * as constants from '../../../../util/constants';
 import * as samplingUfo from '../../../../util/analytics/samplingUfo';
 import { mockAllIsIntersecting } from 'react-intersection-observer/test-utils';
 import * as browserSupport from '../../../../util/browser-support';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { renderWithIntl } from '../../_testing-library';
 
 const mockedBrowserSupport = browserSupport as {
   isIntersectionObserverSupported: boolean;
@@ -37,7 +38,7 @@ describe('<CachingEmoji />', () => {
 
   describe('Non-media emoji', () => {
     it('CachingMediaEmoji not used, just an Emoji rendered', async () => {
-      const result = await render(<CachingEmoji emoji={imageEmoji} />);
+      const result = await renderWithIntl(<CachingEmoji emoji={imageEmoji} />);
       mockAllIsIntersecting(true);
       expect(result).not.toBeNull();
       const image = result.getByAltText(':grimacing:');
@@ -53,7 +54,7 @@ describe('<CachingEmoji />', () => {
       jest.clearAllMocks();
     });
     it('renders nothing if context is missing', async () => {
-      const result = await render(<CachingEmoji emoji={mediaEmoji} />);
+      const result = await renderWithIntl(<CachingEmoji emoji={mediaEmoji} />);
       expect(result.container.children.length).toEqual(0);
     });
 
@@ -62,7 +63,7 @@ describe('<CachingEmoji />', () => {
         emojiContextValue: EmojiContextType,
         emojiDescription: EmojiDescription,
       ) => {
-        const component = await render(
+        const component = await renderWithIntl(
           <EmojiContextProvider emojiContextValue={emojiContextValue}>
             <CachingEmoji emoji={emojiDescription} />
           </EmojiContextProvider>,
@@ -255,7 +256,7 @@ describe('<CachingEmoji />', () => {
           }),
         );
 
-        const component = mount(
+        const component = mountWithIntl(
           <EmojiContextProvider emojiContextValue={emojiContext}>
             <CachingEmoji emoji={mediaEmoji} />
           </EmojiContextProvider>,

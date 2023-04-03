@@ -4,6 +4,7 @@ import { act, screen, waitFor, within } from '@testing-library/react';
 import { matchers } from '@emotion/jest';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { ReactWrapper } from 'enzyme';
+import { axe, toHaveNoViolations } from 'jest-axe';
 import {
   mockReactDomWarningGlobal,
   renderWithIntl,
@@ -14,13 +15,15 @@ import EmojiRepository from '../../../../api/EmojiRepository';
 import Emoji, {
   Props as EmojiProps,
 } from '../../../../components/common/Emoji';
-import EmojiButton from '../../../../components/common/EmojiButton';
+import EmojiRadioButton from '../../../../components/common/EmojiRadioButton';
 import { messages } from '../../../../components/i18n';
 import { CategoryDescriptionMap } from '../../../../components/picker/categories';
 import CategorySelector, {
   sortCategories,
 } from '../../../../components/picker/CategorySelector';
-import ToneSelector from '../../../../components/common/ToneSelector';
+import ToneSelector, {
+  toneSelectorTestId,
+} from '../../../../components/common/ToneSelector';
 import EmojiPicker, {
   Props as EmojiPickerProps,
 } from '../../../../components/picker/EmojiPicker';
@@ -70,6 +73,7 @@ import {
   EmojiResourceConfig,
 } from '../../../../api/EmojiResource';
 import EmojiPickerVirtualList from '../../../../components/picker/EmojiPickerList';
+import TonePreviewButton from '../../../../components/common/TonePreviewButton';
 
 const baseUrl = 'https://bogus/';
 const p1Url = 'https://p1/standard';
@@ -97,6 +101,8 @@ const emojiCategoryIds = {
 };
 // Add the custom matchers provided by '@emotion/jest'
 expect.extend(matchers);
+// Add matcher provided by 'jest-axe'
+expect.extend(toHaveNoViolations);
 
 describe('<EmojiPicker />', () => {
   let onEvent: jest.Mock;
@@ -219,7 +225,7 @@ describe('<EmojiPicker />', () => {
         const messageKey = CategoryDescriptionMap[expectedCategories[i]].name;
         expect(isMessagesKey(messageKey)).toBeTruthy();
         if (isMessagesKey(messageKey)) {
-          expect(button.prop('title')).toEqual(
+          expect(button.prop('aria-label')).toEqual(
             messages[messageKey].defaultMessage,
           );
         }
@@ -227,15 +233,16 @@ describe('<EmojiPicker />', () => {
     });
 
     it('should tone selector in preview by default', async () => {
-      const component = await helper.setupPicker();
-      const footer = component.find(EmojiActions);
-      const previewEmoji = footer.find(Emoji);
+      renderEmojiPicker();
 
-      // Only contains tone emoji
-      expect(previewEmoji).toHaveLength(1);
-      expect(previewEmoji.at(0).prop('emoji').shortName).toEqual(
-        ':raised_hand:',
+      const toneSelectorButton = await screen.findByLabelText(
+        'Choose your skin tone',
+        { exact: false },
       );
+      const toneSelector = await screen.getByTestId(toneSelectorTestId);
+
+      expect(toneSelectorButton).toBeVisible();
+      expect(toneSelector).not.toBeVisible();
     });
 
     it('should adjust picker height if preview is shown', async () => {
@@ -387,7 +394,7 @@ describe('<EmojiPicker />', () => {
 
       const buttons = within(
         helperTestingLibrary.getCategorySelector(),
-      ).getAllByRole('button');
+      ).getAllByRole('tab');
       expect(buttons).toHaveLength(defaultCategories.length);
 
       const lastRowIndex = Math.round(standardEmojis.length / 8);
@@ -481,7 +488,7 @@ describe('<EmojiPicker />', () => {
 
       const buttons = within(
         helperTestingLibrary.getCategorySelector(),
-      ).getAllByRole('button');
+      ).getAllByRole('tab');
       expect(buttons).toHaveLength(defaultCategories.length + 2);
 
       await waitFor(() => {
@@ -775,23 +782,20 @@ describe('<EmojiPicker />', () => {
       });
 
       const emojiActions = component.find(EmojiActions);
-      const toneEmoji = emojiActions.find(EmojiButton);
+      const toneEmoji = emojiActions.find(TonePreviewButton);
       expect(toneEmoji).toHaveLength(1);
     });
 
-    it('should not display the tone emoji if hideToneSelector is set to true', async () => {
-      const component = await helper.setupPickerWithoutToneSelector();
+    it('should display emojis without skin tone variations by default', async () => {
+      const component = await helper.setupPicker();
       const list = getUpdatedList(component);
-      await waitUntil(() => helper.emojisVisible(component, list));
-      const hoverButton = helper.findEmoji(list).at(0);
-      act(() => {
-        const btn = hoverButton.find({ role: 'button' }).last();
-        btn.simulate('mouseenter');
-      });
 
-      const footer = component.find(EmojiPickerFooter);
-      const toneEmoji = footer.find(EmojiButton);
-      expect(toneEmoji).toHaveLength(0);
+      await waitUntil(() => helper.emojisVisible(component, list));
+      const emojis = helper.findEmoji(list);
+      const hoverOffset = helper.findHandEmoji(emojis);
+      expect(hoverOffset).not.toEqual(-1);
+      const handEmoji = helper.findEmoji(list).at(hoverOffset).prop('emoji');
+      expect(handEmoji.shortName).toEqual(':raised_hand:');
     });
 
     it('should fire tone selected and not cancelled', async () => {
@@ -808,7 +812,7 @@ describe('<EmojiPicker />', () => {
       });
 
       const preview = component.find(EmojiActions);
-      const toneEmoji = preview.find(EmojiButton);
+      const toneEmoji = preview.find(TonePreviewButton);
       const toneSelectorOpener = toneEmoji.prop('onSelected');
       expect(toneSelectorOpener).toBeDefined();
       act(() => {
@@ -830,7 +834,7 @@ describe('<EmojiPicker />', () => {
 
       const toneSelector = component.find(ToneSelector);
       const toneButton = toneSelector
-        .find(EmojiButton)
+        .find(EmojiRadioButton)
         .at(0)
         .prop('onSelected');
       expect(toneButton).toBeDefined();
@@ -840,7 +844,7 @@ describe('<EmojiPicker />', () => {
 
       expect(onEvent).toHaveBeenLastCalledWith(
         expect.objectContaining({
-          payload: toneSelectedEvent({ skinToneModifier: 'default' }),
+          payload: toneSelectedEvent({ skinToneModifier: 'light' }),
         }),
         'fabric-elements',
       );
@@ -860,7 +864,7 @@ describe('<EmojiPicker />', () => {
       });
 
       const preview = component.find(EmojiActions);
-      const toneEmoji = preview.find(EmojiButton);
+      const toneEmoji = preview.find(TonePreviewButton);
       const toneSelectorOpener = toneEmoji.prop('onSelected');
       expect(toneSelectorOpener).toBeDefined();
 
@@ -888,18 +892,6 @@ describe('<EmojiPicker />', () => {
         }),
         'fabric-elements',
       );
-    });
-
-    it('should display emojis without skin tone variations by default', async () => {
-      const component = await helper.setupPicker();
-      const list = getUpdatedList(component);
-
-      await waitUntil(() => helper.emojisVisible(component, list));
-      const emojis = helper.findEmoji(list);
-      const hoverOffset = helper.findHandEmoji(emojis);
-      expect(hoverOffset).not.toEqual(-1);
-      const handEmoji = helper.findEmoji(list).at(hoverOffset).prop('emoji');
-      expect(handEmoji.shortName).toEqual(':raised_hand:');
     });
 
     it('should display emojis using the skin tone preference provided by the EmojiResource', async () => {
@@ -969,6 +961,20 @@ describe('<EmojiPicker />', () => {
       expect(ufoPickerStartSpy).toBeCalled();
       expect(ufoPickerSuccessSpy).toBeCalled();
       expect(ufoPickerFailureSpy).toBeCalled();
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('should have no accessibility violations', async () => {
+      const { container } = helperTestingLibrary.renderPicker();
+
+      await waitFor(() => {
+        expect(helperTestingLibrary.getVirtualList()).toBeInTheDocument();
+      });
+
+      const results = await axe(container);
+
+      expect(results).toHaveNoViolations();
     });
   });
 });

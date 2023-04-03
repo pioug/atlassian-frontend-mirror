@@ -39,11 +39,6 @@ import {
 } from './Toolbar';
 import { createEditorContentStyle } from '../../ContentStyles';
 
-export interface CommentEditorProps {
-  isMaxContentSizeReached?: boolean;
-  maxHeight?: number;
-  minHeight?: number;
-}
 const CommentEditorMargin = 14;
 const CommentEditorSmallerMargin = 8;
 
@@ -101,7 +96,7 @@ const secondaryToolbarStyle = css`
   padding: 12px 1px;
 `;
 
-export interface EditorAppearanceComponentState {}
+interface EditorAppearanceComponentState {}
 
 class Editor extends React.Component<
   EditorAppearanceComponentProps & WrappedComponentProps,

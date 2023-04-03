@@ -7,6 +7,7 @@ import EditorNext from '../../../editor-next';
 import EditorOld from '../../../editor';
 import CollapsedEditor from '../../../ui/CollapsedEditor';
 import { IntlProvider } from 'react-intl-next';
+import createUniversalPreset from '../../../labs/next/presets/universal';
 
 const featureFlagOptions = [{ useEditorNext: true }, { useEditorNext: false }];
 
@@ -122,9 +123,10 @@ describe('CollapsedEditor with individual components', () => {
     const setRef = (ref: EditorNext) => {
       editorRef = ref;
     };
+    const preset = createUniversalPreset('full-page', { paste: {} }, {});
     renderWithIntl(
       <CollapsedEditor isExpanded={true}>
-        <EditorNext ref={setRef} />
+        <EditorNext preset={preset} ref={setRef} />
       </CollapsedEditor>,
     );
     expect(editorRef instanceof EditorNext).toBe(true);

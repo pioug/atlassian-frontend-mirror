@@ -44,6 +44,7 @@ export interface Props {
   showSelected?: boolean;
   setDisableParentScroll?: (disable: boolean) => void;
   editorView?: EditorView;
+  dropdownListId?: string;
 }
 
 export interface State {
@@ -71,6 +72,7 @@ export default class Dropdown extends Component<Props, State> {
       buttonTestId,
       dropdownWidth,
       editorView,
+      dropdownListId,
     } = this.props;
 
     let trigger;
@@ -102,6 +104,8 @@ export default class Dropdown extends Component<Props, State> {
           selected={isOpen}
           disabled={disabled}
           tooltipContent={tooltip}
+          ariaHasPopup
+          areaControls={dropdownListId}
         >
           {title}
         </Button>
@@ -134,6 +138,7 @@ export default class Dropdown extends Component<Props, State> {
         fitHeight={fitHeight + fitTolerance}
         trigger={trigger}
         editorView={editorView}
+        dropdownListId={dropdownListId}
       >
         {Array.isArray(options)
           ? this.renderArrayOptions(options)
@@ -171,13 +176,14 @@ export default class Dropdown extends Component<Props, State> {
   };
 
   private hideOnEsc = () => {
-    this.hide();
-    //Focus the trigger button only on Escape
+    // Focus the trigger button only on Escape
+    // Focus is done before hiding to ensure onBlur is called
     (
       document.querySelector(
         `[data-testid=${this.props.buttonTestId}]`,
       ) as HTMLElement
     )?.focus();
+    this.hide();
   };
 
   private onOpenChanged = (openChangedEvent: OpenChangedEvent) => {

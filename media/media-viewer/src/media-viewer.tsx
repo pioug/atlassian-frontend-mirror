@@ -22,7 +22,6 @@ import {
   component,
   componentName,
   fireAnalytics,
-  LOGGED_FEATURE_FLAGS,
 } from './analytics';
 import { createModalEvent } from './analytics/events/screen/modal';
 import { createClosedEvent } from './analytics/events/ui/closed';
@@ -193,17 +192,12 @@ export class MediaViewerComponent extends React.Component<
 }
 
 export const MediaViewer: React.ComponentType<Props> =
-  withMediaAnalyticsContext(
-    {
-      packageName,
-      packageVersion,
-      component,
-      componentName,
-    },
-    {
-      filterFeatureFlags: LOGGED_FEATURE_FLAGS,
-    },
-  )(
+  withMediaAnalyticsContext({
+    packageName,
+    packageVersion,
+    component,
+    componentName,
+  })(
     withAnalyticsEvents()(
       injectIntl(MediaViewerComponent, { enforceContext: false }),
     ),

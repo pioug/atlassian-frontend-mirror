@@ -135,10 +135,16 @@ export type {
 } from './editor-plugin';
 
 export type {
-  AllBuilderPlugins,
-  VerifyPluginDependencies,
   NextEditorPlugin,
+  AllEditorPresetPluginTypes,
+  PluginDependenciesAPI,
+  ExtractPluginNameFromAllBuilderPlugins,
   SafePresetCheck,
+  DefaultEditorPlugin,
+  OptionalPlugin,
+  PluginInjectionAPI,
+  CreatePluginDependenciesAPI,
+  NextEditorPluginMetadata,
 } from './next-editor-plugin';
 
 export type IconProps = {

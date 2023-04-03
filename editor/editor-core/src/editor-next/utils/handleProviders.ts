@@ -1,8 +1,8 @@
 import type { ExtensionProvider } from '@atlaskit/editor-common/extensions';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 
+import { Providers } from '@atlaskit/editor-common/provider-factory';
 import { QuickInsertProvider } from '../../plugins/quick-insert/types';
-import { EditorProps } from '../../types/editor-props';
 
 /**
  *
@@ -15,11 +15,7 @@ import { EditorProps } from '../../types/editor-props';
  */
 export default function handleProviders(
   providerFactory: ProviderFactory,
-  props: EditorProps,
-  extensionProvider?: ExtensionProvider,
-  quickInsertProvider?: Promise<QuickInsertProvider>,
-): void {
-  const {
+  {
     emojiProvider,
     mentionProvider,
     taskDecisionProvider,
@@ -28,16 +24,15 @@ export default function handleProviders(
     activityProvider,
     presenceProvider,
     macroProvider,
-    legacyImageUploadProvider,
-    media,
-    collabEdit,
+    imageUploadProvider,
+    mediaProvider,
     autoformattingProvider,
     searchProvider,
-    UNSAFE_cards,
-    smartLinks,
-    linking,
-  } = props;
-
+    cardProvider,
+  }: Providers,
+  extensionProvider?: ExtensionProvider,
+  quickInsertProvider?: Promise<QuickInsertProvider>,
+): void {
   providerFactory.setProvider('emojiProvider', emojiProvider);
   providerFactory.setProvider('mentionProvider', mentionProvider);
   providerFactory.setProvider('taskDecisionProvider', taskDecisionProvider);
@@ -46,23 +41,14 @@ export default function handleProviders(
     contextIdentifierProvider,
   );
 
-  providerFactory.setProvider('mediaProvider', media && media.provider);
-  providerFactory.setProvider('imageUploadProvider', legacyImageUploadProvider);
-  providerFactory.setProvider(
-    'collabEditProvider',
-    collabEdit && collabEdit.provider
-      ? collabEdit.provider
-      : collabEditProvider,
-  );
+  providerFactory.setProvider('mediaProvider', mediaProvider);
+  providerFactory.setProvider('imageUploadProvider', imageUploadProvider);
+  providerFactory.setProvider('collabEditProvider', collabEditProvider);
   providerFactory.setProvider('activityProvider', activityProvider);
   providerFactory.setProvider('searchProvider', searchProvider);
   providerFactory.setProvider('presenceProvider', presenceProvider);
   providerFactory.setProvider('macroProvider', macroProvider);
 
-  const cardProvider =
-    linking?.smartLinks?.provider ||
-    (smartLinks && smartLinks.provider) ||
-    (UNSAFE_cards && UNSAFE_cards.provider);
   if (cardProvider) {
     providerFactory.setProvider('cardProvider', cardProvider);
   }

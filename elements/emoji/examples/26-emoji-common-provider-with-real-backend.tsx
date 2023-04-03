@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { getRealEmojiResource } from '../example-helpers/demo-resource-control';
 import { IntlProvider } from 'react-intl-next';
-import {
+import EmojiPicker, {
   EmojiId,
   EmojiProvider,
   EmojiCommonProvider,
@@ -9,7 +9,6 @@ import {
   ResourcedEmoji,
   useEmoji,
 } from '../src';
-import { EmojiPicker } from '@atlaskit/emoji/picker';
 import { EmojiTypeAheadTextInput } from './03-standard-emoji-typeahead';
 import { Popup } from '@atlaskit/popup';
 import Button from '@atlaskit/button';

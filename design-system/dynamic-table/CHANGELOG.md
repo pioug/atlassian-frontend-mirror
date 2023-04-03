@@ -1,5 +1,11 @@
 # @atlaskit/dynamic-table
 
+## 14.8.14
+
+### Patch Changes
+
+- [`df9b2633fe4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/df9b2633fe4) - [ux] Adds `aria-sort` to sortable headers when being used to sort.
+
 ## 14.8.13
 
 ### Patch Changes

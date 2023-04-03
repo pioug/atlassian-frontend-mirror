@@ -21,7 +21,7 @@ import { EditorProps } from '../../types/editor-props';
  */
 export default function sendDurationAnalytics(
   action: ACTION.EDITOR_MOUNTED | ACTION.ON_EDITOR_READY_CALLBACK,
-  props: EditorProps,
+  props: Pick<EditorProps, 'contextIdentifierProvider' | 'featureFlags'>,
   getExperienceStore: () => ExperienceStore | undefined,
   createAnalyticsEvent: CreateUIAnalyticsEvent | undefined,
 ) {

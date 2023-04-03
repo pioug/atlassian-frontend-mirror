@@ -18,33 +18,6 @@ export const getListLiftTarget = (resPos: ResolvedPos): number => {
   return target - 1;
 };
 
-export const getNextSiblingListItemPosition = (
-  $pos: ResolvedPos,
-): ResolvedPos | null => {
-  let target = $pos.depth;
-  let found = false;
-  for (let i = $pos.depth; i > 0; i--) {
-    const node = $pos.node(i);
-    if (isListItemNode(node)) {
-      target = i;
-      found = true;
-    }
-    if (found) {
-      break;
-    }
-  }
-  const listItemPosition = target - 1;
-  const listItemNodePosition = $pos.doc.nodeAt(listItemPosition)?.nodeSize || 0;
-  const nextListItemPosition = listItemPosition + listItemNodePosition;
-  const nextListItemNode = $pos.doc.nodeAt(nextListItemPosition);
-
-  if (nextListItemNode) {
-    return $pos.doc.resolve(nextListItemPosition);
-  }
-
-  return null;
-};
-
 export const hasValidListIndentationLevel = ({
   tr,
   maxIndentation,

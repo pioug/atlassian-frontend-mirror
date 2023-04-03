@@ -42,7 +42,7 @@ const generateButtonCSSStates = (
       color,
     },
     focus: {
-      boxShadow: getBoxShadow(hexToRGBA(highlightColor, 0.5)),
+      boxShadow: 'none',
       color,
       backgroundColor,
     },

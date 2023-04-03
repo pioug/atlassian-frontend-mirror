@@ -1,5 +1,15 @@
 # @atlaskit/util-data-test
 
+## 17.7.0
+
+### Minor Changes
+
+- [`001d3ca9cc6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/001d3ca9cc6) - PTC-6520 remove team mention highlight
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.6.11
 
 ### Patch Changes

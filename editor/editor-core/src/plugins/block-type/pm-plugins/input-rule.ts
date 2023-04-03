@@ -39,7 +39,7 @@ function getHeadingLevel(match: string[]): {
   };
 }
 
-export function headingRule(nodeType: NodeType, maxLevel: number) {
+function headingRule(nodeType: NodeType, maxLevel: number) {
   return createWrappingTextBlockRule({
     match: new RegExp('^(#{1,' + maxLevel + '})\\s$'),
     nodeType,
@@ -47,15 +47,8 @@ export function headingRule(nodeType: NodeType, maxLevel: number) {
   });
 }
 
-export function blockQuoteRule(nodeType: NodeType) {
+function blockQuoteRule(nodeType: NodeType) {
   return createJoinNodesRule(/^\s*>\s$/, nodeType) as InputRuleWrapper;
-}
-
-export function codeBlockRule(nodeType: NodeType) {
-  return createWrappingTextBlockRule({
-    match: /^```$/,
-    nodeType,
-  });
 }
 
 /**
@@ -218,7 +211,7 @@ function getCodeBlockRules(schema: Schema): InputRuleWrapper[] {
   ];
 }
 
-export function inputRulePlugin(
+function inputRulePlugin(
   schema: Schema,
   featureFlags: FeatureFlags,
 ): SafePlugin | undefined {

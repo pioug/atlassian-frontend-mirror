@@ -3,11 +3,8 @@
 import React from 'react';
 
 import { ResolveResponse, CardAppearance } from '@atlaskit/smart-card';
-import {
-  SmartCardProvider,
-  CardClient,
-  EditorCardProvider,
-} from '@atlaskit/link-provider';
+import { SmartCardProvider, CardClient } from '@atlaskit/link-provider';
+import { EditorCardProvider } from '@atlaskit/editor-card-provider';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 
 import { EditorMigrationComponent as Editor } from './../src';

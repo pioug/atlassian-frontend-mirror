@@ -717,6 +717,7 @@ export const tableStyles = (
       padding-bottom: 0px;
       /* fixes gap cursor height */
       overflow: auto;
+      overflow-y: hidden;
       position: relative;
     }
   }

@@ -5,7 +5,7 @@ jest.mock('@atlaskit/prosemirror-collab', () => {
     sendableSteps: function (state: any) {
       return state.collab;
     },
-    getVersion: function (state: any) {
+    getVersion: (state: any) => {
       return (state.collab as any).version;
     },
   };
@@ -57,17 +57,19 @@ import { catchup } from '../catchup';
 import AnalyticsHelper from '../../analytics';
 import { Channel } from '../../channel';
 import { ErrorPayload } from '../../types';
-import { MAX_STEP_REJECTED_ERROR } from '../';
+import { MAX_STEP_REJECTED_ERROR, throttledCommitStep } from '../';
 import { ACK_MAX_TRY } from '../../helpers/const';
 import { Node } from 'prosemirror-model';
-import { ErrorCodeMapper } from '../../error-code-mapper';
+import { ErrorCodeMapper } from '../../errors/error-code-mapper';
 import type { Provider } from '../';
+// @ts-ignore only used for mock
+import ProseMirrorCollab from '@atlaskit/prosemirror-collab';
 
 const testProviderConfig = {
   url: `http://provider-url:66661`,
   documentAri: 'ari:cloud:confluence:ABC:page/testpage',
 };
-const clientId = 'some-random-prosmirror-client-Id';
+const clientId = 'some-random-prosemirror-client-Id';
 
 describe('Provider', () => {
   let channel: any;
@@ -121,7 +123,7 @@ describe('Provider', () => {
     }),
   };
 
-  describe('Emit events', () => {
+  describe('initialisation', () => {
     it('should call initializeChannel once', () => {
       const provider = createSocketIOCollabProvider(testProviderConfig);
       const initializeChannelSpy = jest.spyOn(
@@ -136,232 +138,212 @@ describe('Provider', () => {
       expect(initializeChannelSpy).toHaveBeenCalledTimes(1);
     });
 
-    it('should emit an event indicating the connection is being established to the provider', (done) => {
-      const provider = createSocketIOCollabProvider(testProviderConfig);
-      provider.on('connecting', ({ initial }) => {
-        expect(initial).toBe(true);
-        done();
-      });
-      provider.initialize(() => editorState);
-      expect.assertions(1);
-    });
-
-    it('should emit connected event when provider is connected via socketIO', async (done) => {
-      const provider = createSocketIOCollabProvider(testProviderConfig);
-      provider.on('connected', ({ sid, initial }) => {
-        expect(sid).toBe('sid-123');
-        expect(initial).toBe(true);
-        done();
-      });
-      provider.initialize(() => editorState);
-      channel.emit('connected', { sid: 'sid-123' });
-      expect.assertions(2);
-    });
-
-    it('should emit init event', async (done) => {
-      let expectedSid: any;
-      const sid = 'expected-sid-123';
-      const userId = 'user-123';
-      const provider = createSocketIOCollabProvider(testProviderConfig);
-      provider.on('connected', ({ sid }) => {
-        expectedSid = sid;
-      });
-      provider.on('init', ({ doc, version, metadata }: any) => {
-        expect(expectedSid).toBe(sid);
-        expect(doc).toBe('bla');
-        expect(version).toBe(1);
-        expect(metadata).toEqual({
-          title: 'some-random-title',
-        });
-        done();
-      });
-      provider.initialize(() => editorState);
-      channel.emit('connected', { sid });
-      channel.emit('init', {
-        doc: 'bla',
-        version: 1,
-        userId,
-        metadata: {
-          title: 'some-random-title',
-        },
-      });
-    });
-
-    describe('document restore', () => {
-      const mockedMetadata = { b: 1 };
-      const mockedSteps = [{ type: 'fakeStep' }, { type: 'fakeStep' }];
-      const mockRestoreData = {
-        doc: { a: 1 },
-        version: 1,
-        userId: 'abc',
-        metadata: mockedMetadata,
-      };
-
-      it('should emit events for restoration', (done) => {
-        expect.assertions(5);
-        const sendActionEventSpy = jest.spyOn(
-          AnalyticsHelper.prototype,
-          'sendActionEvent',
-        );
+    describe('should emit an event on the provider emitter', () => {
+      it("'connecting' when the connection is being established to the provider", (done) => {
         const provider = createSocketIOCollabProvider(testProviderConfig);
-        jest
-          .spyOn(provider as any, 'getUnconfirmedSteps')
-          .mockImplementation(() => mockedSteps);
-        provider.initialize(() => editorState);
-        provider.on('init', (data) => {
-          expect(data).toEqual({
-            doc: mockRestoreData.doc,
-            version: mockRestoreData.version,
-            metadata: mockedMetadata,
-            reserveCursor: true,
-          });
-        });
-        provider.on('metadata:changed', (metadata) => {
-          expect(metadata).toEqual(mockedMetadata);
-        });
-
-        provider.on('local-steps', ({ steps }) => {
-          expect(steps).toEqual(mockedSteps);
-          // Event emit is a sync operation, so put done here is enough.
-          expect(sendActionEventSpy).toHaveBeenCalledTimes(1);
-          expect(sendActionEventSpy).toBeCalledWith(
-            'reinitialiseDocument',
-            'SUCCESS',
-            {
-              numUnconfirmedSteps: 2,
-            },
-          );
+        provider.on('connecting', ({ initial }) => {
+          expect(initial).toBe(true);
           done();
         });
-
-        channel.emit('restore', mockRestoreData);
+        provider.initialize(() => editorState);
       });
 
-      it('should fire analytics on document restore failure', (done) => {
-        expect.assertions(5);
-        const sendActionEventSpy = jest.spyOn(
-          AnalyticsHelper.prototype,
-          'sendActionEvent',
-        );
-        const sendErrorEventSpy = jest.spyOn(
-          AnalyticsHelper.prototype,
-          'sendErrorEvent',
-        );
+      it("'connected' when the connection is successfully established", async (done) => {
         const provider = createSocketIOCollabProvider(testProviderConfig);
-        const restoreError: Error = {
-          name: 'Oh no!',
-          message: 'Someone has fallen in the river in LEGO city!',
-        };
-        jest
-          .spyOn(provider as any, 'getUnconfirmedSteps')
-          .mockImplementationOnce(() => mockedSteps);
-        jest
-          .spyOn(provider as any, 'updateDocumentWithMetadata')
-          .mockImplementationOnce(() => {
-            throw restoreError;
-          });
-        provider.initialize(() => editorState);
-        provider.on('error', (error) => {
-          expect(error).toEqual({
-            status: 500,
-            code: ErrorCodeMapper.restoreError.code,
-            message: ErrorCodeMapper.restoreError.message,
-          });
-          expect(sendActionEventSpy).toHaveBeenCalledTimes(1);
-          expect(sendActionEventSpy).toHaveBeenCalledWith(
-            'reinitialiseDocument',
-            'FAILURE',
-            {
-              numUnconfirmedSteps: 2,
-            },
-          );
-          expect(sendErrorEventSpy).toHaveBeenCalledTimes(1);
-          expect(sendErrorEventSpy).toHaveBeenCalledWith(
-            restoreError,
-            'Error while reinitialising document',
-          );
+        provider.on('connected', ({ sid, initial }) => {
+          expect(sid).toBe('sid-123');
+          expect(initial).toBe(true);
           done();
         });
-        channel.emit('restore', mockRestoreData);
+        provider.initialize(() => editorState);
+        channel.emit('connected', { sid: 'sid-123' });
+      });
+
+      it("'init' with the initialisation data from the collab service", async (done) => {
+        let expectedSid: any;
+        const sid = 'expected-sid-123';
+        const userId = 'user-123';
+        const provider = createSocketIOCollabProvider(testProviderConfig);
+        provider.on('connected', ({ sid }) => {
+          expectedSid = sid;
+        });
+        provider.on('init', ({ doc, version, metadata }: any) => {
+          expect(expectedSid).toBe(sid);
+          expect(doc).toBe('bla');
+          expect(version).toBe(1);
+          expect(metadata).toEqual({
+            title: 'some-random-title',
+          });
+          done();
+        });
+        provider.initialize(() => editorState);
+        channel.emit('connected', { sid });
+        channel.emit('init', {
+          doc: 'bla',
+          version: 1,
+          userId,
+          metadata: {
+            title: 'some-random-title',
+          },
+        });
       });
     });
+  });
 
-    it('should emit error and trigger catchup', () => {
+  describe('document restore', () => {
+    const mockedMetadata = { b: 1 };
+    const mockedSteps = [{ type: 'fakeStep' }, { type: 'fakeStep' }];
+    const mockRestoreData = {
+      doc: { a: 1 },
+      version: 1,
+      userId: 'abc',
+      metadata: mockedMetadata,
+    };
+
+    it('should emit events for restoration', (done) => {
+      expect.assertions(5);
+      const sendActionEventSpy = jest.spyOn(
+        AnalyticsHelper.prototype,
+        'sendActionEvent',
+      );
       const provider = createSocketIOCollabProvider(testProviderConfig);
-      const throttledCatchupSpy = jest
-        .spyOn(provider as any, 'throttledCatchup')
-        .mockImplementation(() => {});
-      const stepRejectedError: ErrorPayload = {
-        data: {
-          status: 409,
-          code: 'HEAD_VERSION_UPDATE_FAILED',
-          meta: 'The version number does not match the current head version.',
-        },
-        message: 'Version number does not match current head version.',
+      jest
+        .spyOn(provider as any, 'getUnconfirmedSteps')
+        .mockImplementation(() => mockedSteps);
+      provider.initialize(() => editorState);
+      provider.on('init', (data) => {
+        expect(data).toEqual({
+          doc: mockRestoreData.doc,
+          version: mockRestoreData.version,
+          metadata: mockedMetadata,
+          reserveCursor: true,
+        });
+      });
+      provider.on('metadata:changed', (metadata) => {
+        expect(metadata).toEqual(mockedMetadata);
+      });
+
+      provider.on('local-steps', ({ steps }) => {
+        expect(steps).toEqual(mockedSteps);
+        // Event emit is a sync operation, so put done here is enough.
+        expect(sendActionEventSpy).toHaveBeenCalledTimes(1);
+        expect(sendActionEventSpy).toBeCalledWith(
+          'reinitialiseDocument',
+          'SUCCESS',
+          {
+            numUnconfirmedSteps: 2,
+          },
+        );
+        done();
+      });
+
+      channel.emit('restore', mockRestoreData);
+    });
+
+    it('should fire analytics on document restore failure', (done) => {
+      expect.assertions(5);
+      const sendActionEventSpy = jest.spyOn(
+        AnalyticsHelper.prototype,
+        'sendActionEvent',
+      );
+      const sendErrorEventSpy = jest.spyOn(
+        AnalyticsHelper.prototype,
+        'sendErrorEvent',
+      );
+      const provider = createSocketIOCollabProvider(testProviderConfig);
+      const restoreError: Error = {
+        name: 'Oh no!',
+        message: 'Someone has fallen in the river in LEGO city!',
       };
+      jest
+        .spyOn(provider as any, 'getUnconfirmedSteps')
+        .mockImplementationOnce(() => mockedSteps);
+      jest
+        .spyOn(provider as any, 'updateDocumentWithMetadata')
+        .mockImplementationOnce(() => {
+          throw restoreError;
+        });
       provider.initialize(() => editorState);
-      for (let i = 1; i <= MAX_STEP_REJECTED_ERROR + 2; i++) {
-        channel.emit('error', stepRejectedError);
-      }
-      expect(throttledCatchupSpy).toHaveBeenCalledTimes(3);
+      provider.on('error', (error) => {
+        expect(error).toEqual({
+          status: 500,
+          code: ErrorCodeMapper.restoreError.code,
+          message: ErrorCodeMapper.restoreError.message,
+        });
+        expect(sendActionEventSpy).toHaveBeenCalledTimes(1);
+        expect(sendActionEventSpy).toHaveBeenCalledWith(
+          'reinitialiseDocument',
+          'FAILURE',
+          {
+            numUnconfirmedSteps: 2,
+          },
+        );
+        expect(sendErrorEventSpy).toHaveBeenCalledTimes(1);
+        expect(sendErrorEventSpy).toHaveBeenCalledWith(
+          restoreError,
+          'Error while reinitialising document',
+        );
+        done();
+      });
+      channel.emit('restore', mockRestoreData);
+    });
+  });
+
+  it('should not emit empty joined or left presence', async () => {
+    const provider = createSocketIOCollabProvider(testProviderConfig);
+    let counter = 0;
+    provider.on('presence', ({ joined, left }) => {
+      counter++;
+      expect(joined?.length).toBe(1);
+      expect(left).toBe(undefined);
+    });
+    provider.initialize(() => editorState);
+    channel.emit('participant:updated', {
+      sessionId: 'random-sessionId',
+      timestamp: Date.now(),
+      userId: 'blabla-userId',
+      clientId: 'blabla-clientId',
+    });
+    channel.emit('participant:updated', {
+      sessionId: 'random-sessionId',
+      timestamp: Date.now(),
+      userId: 'blabla-userId',
+      clientId: 'blabla-clientId',
     });
 
-    it('should not emit empty joined or left presence', async () => {
-      const provider = createSocketIOCollabProvider(testProviderConfig);
-      let counter = 0;
-      provider.on('presence', ({ joined, left }) => {
-        counter++;
-        expect(joined?.length).toBe(1);
-        expect(left).toBe(undefined);
-      });
-      provider.initialize(() => editorState);
-      channel.emit('participant:updated', {
-        sessionId: 'random-sessionId',
-        timestamp: Date.now(),
-        userId: 'blabla-userId',
-        clientId: 'blabla-clientId',
-      });
-      channel.emit('participant:updated', {
-        sessionId: 'random-sessionId',
-        timestamp: Date.now(),
-        userId: 'blabla-userId',
-        clientId: 'blabla-clientId',
-      });
+    await new Promise(process.nextTick);
 
-      await new Promise(process.nextTick);
+    expect(counter).toBe(1);
+  });
 
-      expect(counter).toBe(1);
+  it('emit disconnected to consumer', () => {
+    const provider = createSocketIOCollabProvider(testProviderConfig);
+    const mockFn = jest.fn();
+    provider.on('disconnected', ({ reason, sid }) => {
+      mockFn(reason, sid);
     });
-
-    it('emit disconnected to consumer', () => {
-      const provider = createSocketIOCollabProvider(testProviderConfig);
-      const mockFn = jest.fn();
-      provider.on('disconnected', ({ reason, sid }) => {
-        mockFn(reason, sid);
-      });
-      provider.initialize(() => editorState);
-      channel.emit('connected', { sid: 'sid-1' });
-      channel.emit('disconnect', { reason: 'transport close' });
-      channel.emit('connected', { sid: 'sid-2' });
-      channel.emit('disconnect', { reason: 'transport error' });
-      channel.emit('connected', { sid: 'sid-3' });
-      channel.emit('disconnect', { reason: 'ping timeout' });
-      channel.emit('connected', { sid: 'sid-4' });
-      channel.emit('disconnect', { reason: 'io client disconnect' });
-      channel.emit('connected', { sid: 'sid-5' });
-      channel.emit('disconnect', { reason: 'io server disconnect' });
-      channel.emit('connected', { sid: 'sid-6' });
-      channel.emit('disconnect', { reason: 'blah?' });
-      expect(mockFn.mock.calls.length).toBe(6);
-      expect(mockFn.mock.calls).toEqual([
-        ['SOCKET_CLOSED', 'sid-1'],
-        ['SOCKET_ERROR', 'sid-2'],
-        ['SOCKET_TIMEOUT', 'sid-3'],
-        ['CLIENT_DISCONNECT', 'sid-4'],
-        ['SERVER_DISCONNECT', 'sid-5'],
-        ['UNKNOWN_DISCONNECT', 'sid-6'],
-      ]);
-    });
+    provider.initialize(() => editorState);
+    channel.emit('connected', { sid: 'sid-1' });
+    channel.emit('disconnect', { reason: 'transport close' });
+    channel.emit('connected', { sid: 'sid-2' });
+    channel.emit('disconnect', { reason: 'transport error' });
+    channel.emit('connected', { sid: 'sid-3' });
+    channel.emit('disconnect', { reason: 'ping timeout' });
+    channel.emit('connected', { sid: 'sid-4' });
+    channel.emit('disconnect', { reason: 'io client disconnect' });
+    channel.emit('connected', { sid: 'sid-5' });
+    channel.emit('disconnect', { reason: 'io server disconnect' });
+    channel.emit('connected', { sid: 'sid-6' });
+    channel.emit('disconnect', { reason: 'blah?' });
+    expect(mockFn.mock.calls.length).toBe(6);
+    expect(mockFn.mock.calls).toEqual([
+      ['SOCKET_CLOSED', 'sid-1'],
+      ['SOCKET_ERROR', 'sid-2'],
+      ['SOCKET_TIMEOUT', 'sid-3'],
+      ['CLIENT_DISCONNECT', 'sid-4'],
+      ['SERVER_DISCONNECT', 'sid-5'],
+      ['UNKNOWN_DISCONNECT', 'sid-6'],
+    ]);
   });
 
   describe('Emit metadata cases', () => {
@@ -589,7 +571,8 @@ describe('Provider', () => {
         expect(error).toEqual({
           status: 403,
           code: 'NO_PERMISSION_ERROR',
-          message: 'User does not have permissions to access this document',
+          message:
+            'User does not have permissions to access this document or document is not found',
         });
         done();
       });
@@ -657,263 +640,17 @@ describe('Provider', () => {
     });
   });
 
-  describe('getFinalAcknowledgedState', () => {
-    it('should return the final state', async () => {
-      const sendActionEventSpy = jest.spyOn(
-        AnalyticsHelper.prototype,
-        'sendActionEvent',
-      );
-      const provider = createSocketIOCollabProvider(testProviderConfig);
-      provider.initialize(() => editorState);
-      channel.emit('metadata:changed', {
-        title: "What's in a good title?",
-      });
-
-      const finalAck = await provider.getFinalAcknowledgedState();
-
-      expect(finalAck).toEqual({
-        title: "What's in a good title?",
-        stepVersion: 0,
-        content: {
-          content: [
-            {
-              content: [
-                {
-                  type: 'text',
-                  text: 'Hello, World!',
-                },
-                {
-                  type: 'text',
-                  text: '/',
-                  marks: [],
-                },
-              ],
-              type: 'paragraph',
-            },
-          ],
-          type: 'doc',
-          version: 1,
-        },
-      });
-      expect(sendActionEventSpy).toHaveBeenCalledTimes(1);
-      expect(sendActionEventSpy).toHaveBeenCalledWith(
-        'publishPage',
-        'SUCCESS',
-        { latency: undefined },
-      );
-    });
-
-    describe('when syncing up with server', () => {
-      const provider = createSocketIOCollabProvider(testProviderConfig);
-      const sendSpy = jest
-        .spyOn(provider as any, 'sendStepsFromCurrentState')
-        .mockImplementation(() => {});
-      const newState = {
-        ...editorState,
-        collab: {
-          steps: [1],
-          origins: [1],
-        },
-      };
-      let sendActionEventSpy: jest.SpyInstance;
-      beforeEach(() => {
-        sendActionEventSpy = jest.spyOn(
-          AnalyticsHelper.prototype,
-          'sendActionEvent',
-        );
-        jest.spyOn(Utilities, 'sleep').mockResolvedValue(() => undefined);
-      });
-
-      describe("should fail if can't sync up", () => {
-        it('should throw ', async () => {
-          provider.initialize(() => newState);
-
-          await expect(
-            provider.getFinalAcknowledgedState(),
-          ).rejects.toThrowError(
-            new Error("Can't sync up with Collab Service"),
-          );
-          expect(sendActionEventSpy).toHaveBeenCalledTimes(1);
-          expect(sendActionEventSpy).toHaveBeenCalledWith(
-            'commitUnconfirmedSteps',
-            'FAILURE',
-            {
-              numUnconfirmedSteps: 1,
-              latency: undefined, // undefined because performance API is not available in jest env
-            },
-          );
-          expect(sendSpy).toHaveBeenCalledTimes(ACK_MAX_TRY + 1);
-        });
-
-        it('should call onSyncUpError', async () => {
-          const onSyncUpErrorMock = jest.fn();
-          provider.setup({
-            getState: () => newState,
-            onSyncUpError: onSyncUpErrorMock,
-          });
-
-          await expect(provider.getFinalAcknowledgedState()).rejects.toThrow(); // Trigger error from function
-
-          expect(onSyncUpErrorMock).toHaveBeenCalledTimes(1);
-          expect(onSyncUpErrorMock).toHaveBeenCalledWith({
-            clientId: 'some-random-prosmirror-client-Id',
-            lengthOfUnconfirmedSteps: 1,
-            maxRetries: 30,
-            tries: 31,
-            version: undefined,
-          });
-        });
-      });
-
-      it('should return if it can sync up', async () => {
-        const mockedSteps = [{ type: 'fakeStep' }];
-        jest
-          .spyOn(provider as any, 'sendStepsFromCurrentState')
-          .mockImplementation(() => {});
-        jest
-          .spyOn(provider as any, 'getUnconfirmedSteps')
-          .mockImplementationOnce(() => mockedSteps)
-          .mockImplementationOnce(() => []);
-        jest
-          .spyOn(provider as any, 'getUnconfirmedStepsOrigins')
-          .mockImplementationOnce(() => [1])
-          .mockImplementationOnce(() => undefined);
-        provider.initialize(() => editorState);
-
-        const finalAck = await provider.getFinalAcknowledgedState();
-
-        expect(sendActionEventSpy).toHaveBeenCalledTimes(2);
-        expect(sendActionEventSpy).toHaveBeenNthCalledWith(
-          1,
-          'commitUnconfirmedSteps',
-          'SUCCESS',
-          {
-            numUnconfirmedSteps: 1,
-            latency: undefined, // undefined because performance API is not available in jest env
-          },
-        );
-        expect(sendActionEventSpy).toHaveBeenNthCalledWith(
-          2,
-          'publishPage',
-          'SUCCESS',
-          {
-            latency: undefined, // undefined because performance API is not available in jest env
-          },
-        );
-        expect(finalAck).toEqual({
-          stepVersion: 0,
-          content: {
-            content: [
-              {
-                content: [
-                  {
-                    type: 'text',
-                    text: 'Hello, World!',
-                  },
-                  {
-                    type: 'text',
-                    text: '/',
-                    marks: [],
-                  },
-                ],
-                type: 'paragraph',
-              },
-            ],
-            type: 'doc',
-            version: 1,
-          },
-        });
-      });
-    });
-
-    it('final acknowledge state should include latest updated metadata', async () => {
-      const verifyMetadataTitle = async (title: string) => {
-        const ackState = await provider.getFinalAcknowledgedState();
-        expect(ackState).toEqual(
-          expect.objectContaining({
-            title,
-          }),
-        );
-      };
-
-      const provider = createSocketIOCollabProvider(testProviderConfig);
-      provider.initialize(() => editorState);
-
-      channel.emit('init', {
-        doc: 'document-content',
-        version: 1,
-        metadata: {
-          title: 'original-title',
-        },
-      });
-      await nextTick();
-      await verifyMetadataTitle('original-title');
-
-      channel.emit('metadata:changed', {
-        title: 'new-title',
-      });
-      await nextTick();
-      await verifyMetadataTitle('new-title');
-    });
-
-    it('should not log UGC when logging an error', async () => {
-      const sendActionEventSpy = jest.spyOn(
-        AnalyticsHelper.prototype,
-        'sendActionEvent',
-      );
-      const sendErrorEventSpy = jest.spyOn(
-        AnalyticsHelper.prototype,
-        'sendErrorEvent',
-      );
-      const provider = createSocketIOCollabProvider(testProviderConfig);
-      const invalidDocument = {
-        type: 'doc',
-        content: [
-          {
-            type: 'some-invalid-type',
-            textContent: 'Super secret UGC',
-          },
-        ],
-      };
-      provider.initialize(() => ({
-        ...editorState,
-        doc: invalidDocument,
-      }));
-
-      const finalState = await provider.getFinalAcknowledgedState();
-
-      expect(sendActionEventSpy).toHaveBeenCalledTimes(1);
-      expect(sendActionEventSpy).toHaveBeenCalledWith(
-        'publishPage',
-        'FAILURE',
-        { latency: undefined },
-      );
-      expect(sendErrorEventSpy).toHaveBeenCalledTimes(2);
-      expect(sendErrorEventSpy).toHaveBeenNthCalledWith(
-        1,
-        new TypeError(
-          "Cannot read properties of undefined (reading 'forEach')",
-        ),
-        'Error while returning ADF version of current draft document',
-      );
-      expect(sendErrorEventSpy).toHaveBeenNthCalledWith(
-        2,
-        new TypeError(
-          "Cannot read properties of undefined (reading 'forEach')",
-        ),
-        'Error while returning ADF version of the final draft document',
-      );
-      // This is bad
-      expect(finalState).toEqual({
-        content: undefined,
-        stepVersion: 0,
-        title: undefined,
-      });
-    });
-  });
-
-  describe('catchup should reset the flags (pauseQueue and stepRejectCounter) when called', () => {
+  describe('catch-up', () => {
     let sendActionEventSpy: jest.SpyInstance;
+    const stepRejectedError: ErrorPayload = {
+      data: {
+        status: 409,
+        code: 'HEAD_VERSION_UPDATE_FAILED',
+        meta: 'The version number does not match the current head version.',
+      },
+      message: 'Version number does not match current head version.',
+    };
+
     beforeEach(() => {
       sendActionEventSpy = jest.spyOn(
         AnalyticsHelper.prototype,
@@ -921,21 +658,62 @@ describe('Provider', () => {
       );
     });
 
-    it('should reset pauseQueue and stepRejectCounter flags', async () => {
+    it('should be triggered when reconnecting after being disconnected for more than 3s', async () => {
       const provider = createSocketIOCollabProvider(testProviderConfig);
       const throttledCatchupSpy = jest.spyOn(
         provider as any,
         'throttledCatchup',
       );
+      provider.initialize(() => editorState);
 
-      const stepRejectedError: ErrorPayload = {
-        data: {
-          status: 409,
-          code: 'HEAD_VERSION_UPDATE_FAILED',
-          meta: 'The version number does not match the current head version.',
-        },
-        message: 'Version number does not match current head version.',
-      };
+      jest.spyOn(Date, 'now').mockReturnValueOnce(Date.now() - 3 * 1000); // Time travel 3s to the past
+      channel.emit('disconnect', {
+        reason:
+          'Testing - Faking that we got disconnected 3s ago, HAHAHA, take that code',
+      });
+
+      channel.emit('connected', {
+        sid: 'pweq3Q7NOPY4y88QAGyr',
+        initialized: true,
+      });
+
+      expect(throttledCatchupSpy).toHaveBeenCalledTimes(1);
+      expect(throttledCatchupSpy).toHaveBeenCalledWith();
+    });
+
+    it('should be triggered when confirmed steps from other participants were received from NCS that are further in the future than the local steps (aka some changes got lost before reaching us)', async () => {
+      const provider = createSocketIOCollabProvider(testProviderConfig);
+      const throttledCatchupSpy = jest.spyOn(
+        provider as any,
+        'throttledCatchup',
+      );
+      provider.initialize(() => editorState);
+
+      channel.emit('steps:added', {
+        version: 9999, // High version, indicated we didn't get a ton of steps, expected version is 1
+        steps: [
+          {
+            stepType: 'replace',
+            from: 1479,
+            to: 1479,
+            slice: { content: [{ type: 'text', text: 'lol' }] },
+            clientId: 666950124,
+            userId: '70121:8fce2c13-5f60-40be-a9f2-956c6f041fbe',
+            createdAt: 1679027507189,
+          },
+        ],
+      });
+
+      expect(throttledCatchupSpy).toHaveBeenCalledTimes(1);
+      expect(throttledCatchupSpy).toHaveBeenCalledWith();
+    });
+
+    it('should be triggered after 15 rejected steps and reset the rejected steps counter', async () => {
+      const provider = createSocketIOCollabProvider(testProviderConfig);
+      const throttledCatchupSpy = jest.spyOn(
+        provider as any,
+        'throttledCatchup',
+      );
 
       provider.initialize(() => editorState);
       for (let i = 1; i <= MAX_STEP_REJECTED_ERROR; i++) {
@@ -944,6 +722,15 @@ describe('Provider', () => {
 
       expect(throttledCatchupSpy).toHaveBeenCalledTimes(1);
       expect(catchup).toHaveBeenCalledTimes(1);
+      expect(catchup).toHaveBeenCalledWith({
+        applyLocalSteps: expect.any(Function),
+        fetchCatchup: expect.any(Function),
+        filterQueue: expect.any(Function),
+        getCurrentPmVersion: expect.any(Function),
+        getUnconfirmedSteps: expect.any(Function),
+        getUnconfirmedStepsOrigins: expect.any(Function),
+        updateDocumentWithMetadata: expect.any(Function),
+      });
 
       await new Promise(process.nextTick);
 
@@ -953,9 +740,18 @@ describe('Provider', () => {
 
       expect(throttledCatchupSpy).toHaveBeenCalledTimes(2);
       expect(catchup).toHaveBeenCalledTimes(2);
+      expect(catchup).toHaveBeenNthCalledWith(2, {
+        applyLocalSteps: expect.any(Function),
+        fetchCatchup: expect.any(Function),
+        filterQueue: expect.any(Function),
+        getCurrentPmVersion: expect.any(Function),
+        getUnconfirmedSteps: expect.any(Function),
+        getUnconfirmedStepsOrigins: expect.any(Function),
+        updateDocumentWithMetadata: expect.any(Function),
+      });
     });
 
-    it('should reset pauseQueue and stepRejectCounter flags when catchup causes an error', async () => {
+    it('should reset the rejected step counter when catchup throws an error', async () => {
       const catchupMock = (catchup as jest.Mock).mockImplementation(() => {
         throw new Error('catchup error');
       });
@@ -966,15 +762,6 @@ describe('Provider', () => {
         provider as any,
         'throttledCatchup',
       );
-
-      const stepRejectedError: ErrorPayload = {
-        data: {
-          status: 409,
-          code: 'HEAD_VERSION_UPDATE_FAILED',
-          meta: 'The version number does not match the current head version.',
-        },
-        message: 'Version number does not match current head version.',
-      };
 
       provider.initialize(() => editorState);
       for (let i = 1; i <= MAX_STEP_REJECTED_ERROR; i++) {
@@ -988,14 +775,26 @@ describe('Provider', () => {
         latency: 0,
       });
 
-      for (let i = 1; i <= MAX_STEP_REJECTED_ERROR; i++) {
-        channel.emit('error', stepRejectedError);
-      }
+      channel.emit('error', stepRejectedError);
 
-      expect(sendActionEventSpy).toHaveBeenCalledTimes(2);
-      expect(throttledCatchupSpy).toHaveBeenCalledTimes(2);
-      expect(catchupMock).toHaveBeenCalledTimes(2);
+      expect(sendActionEventSpy).toHaveBeenCalledTimes(1);
+      expect(throttledCatchupSpy).toHaveBeenCalledTimes(1);
+      expect(catchupMock).toHaveBeenCalledTimes(1);
     });
+  });
+
+  it('Does not throw errors when attempting to commit steps', () => {
+    expect(() => {
+      throttledCommitStep({
+        // @ts-ignore
+        channel: {
+          broadcast: jest.fn().mockImplementation(() => {
+            throw new Error('Test');
+          }),
+        },
+        steps: [],
+      });
+    }).not.toThrow();
   });
 
   describe('gracefully fails when Presence features throw', () => {
@@ -1205,6 +1004,411 @@ describe('Provider', () => {
         fakeError,
         'Error while updating participants',
       );
+    });
+  });
+
+  describe('API', () => {
+    let sendActionEventSpy: jest.SpyInstance;
+    let sendErrorEventSpy: jest.SpyInstance;
+    let provider: Provider;
+
+    beforeEach(() => {
+      // Jest spies
+      sendActionEventSpy = jest.spyOn(
+        AnalyticsHelper.prototype,
+        'sendActionEvent',
+      );
+      sendErrorEventSpy = jest.spyOn(
+        AnalyticsHelper.prototype,
+        'sendErrorEvent',
+      );
+
+      // Initialize provider
+      provider = createSocketIOCollabProvider(testProviderConfig);
+      provider.initialize(() => editorState);
+      provider.setTitle("What's in a good title?");
+    });
+
+    describe('get current state with converted ADF document (getCurrentState)', () => {
+      it('should resolve to the current editor state for a valid ADF document', async () => {
+        const currentState = await provider.getCurrentState();
+
+        expect(currentState).toEqual({
+          content: {
+            content: [
+              {
+                content: [
+                  {
+                    text: 'Hello, World!',
+                    type: 'text',
+                  },
+                  {
+                    marks: [],
+                    text: '/',
+                    type: 'text',
+                  },
+                ],
+                type: 'paragraph',
+              },
+            ],
+            type: 'doc',
+            version: 1,
+          },
+          stepVersion: 0,
+          title: "What's in a good title?",
+        });
+        expect(sendActionEventSpy).toHaveBeenCalledTimes(1);
+        expect(sendActionEventSpy).toHaveBeenCalledWith(
+          'getCurrentState',
+          'SUCCESS',
+          { latency: undefined }, // Performance API undefined when running jest tests
+        );
+        expect(sendErrorEventSpy).not.toHaveBeenCalled();
+      });
+
+      it('should reject if document conversion to ADF fails', async () => {
+        expect.assertions(5);
+        provider.initialize(() => ({
+          ...editorState,
+          doc: 'something invalid',
+        }));
+
+        try {
+          await provider.getCurrentState();
+        } catch (error) {
+          const adfConverterError = new TypeError(
+            "Cannot read properties of undefined (reading 'forEach')",
+          );
+
+          expect(error).toEqual(adfConverterError);
+          expect(sendErrorEventSpy).toHaveBeenCalledTimes(1);
+          expect(sendErrorEventSpy).toHaveBeenCalledWith(
+            adfConverterError,
+            'Error while returning ADF version of current draft document',
+          );
+          expect(sendActionEventSpy).toHaveBeenCalledTimes(1);
+          expect(sendActionEventSpy).toHaveBeenCalledWith(
+            'getCurrentState',
+            'FAILURE',
+            { latency: undefined }, // Performance API undefined when running jest tests
+          );
+        }
+      });
+
+      it('should reject if the prosemirror-collab plugin fails to retrieve the current version', async () => {
+        expect.assertions(5);
+        const fakeProseMirrorCollabError = new Error(
+          "Cannot read property 'version' of undefined",
+        );
+        jest
+          .spyOn(ProseMirrorCollab, 'getVersion')
+          .mockImplementationOnce(() => {
+            throw fakeProseMirrorCollabError;
+          });
+
+        try {
+          await provider.getCurrentState();
+        } catch (error) {
+          expect(error).toEqual(fakeProseMirrorCollabError);
+          expect(sendErrorEventSpy).toHaveBeenCalledTimes(1);
+          expect(sendErrorEventSpy).toHaveBeenCalledWith(
+            fakeProseMirrorCollabError,
+            'Error while returning ADF version of current draft document',
+          );
+          expect(sendActionEventSpy).toHaveBeenCalledTimes(1);
+          expect(sendActionEventSpy).toHaveBeenCalledWith(
+            'getCurrentState',
+            'FAILURE',
+            { latency: undefined }, // Performance API undefined when running jest tests
+          );
+        }
+      });
+
+      it('should return the title if set', async () => {
+        channel.emit('metadata:changed', {
+          title: "What's in a better title?",
+        });
+
+        const currentState = await provider.getCurrentState();
+
+        expect(currentState.title).toEqual("What's in a better title?");
+        expect(sendActionEventSpy).toHaveBeenCalledTimes(1);
+        expect(sendActionEventSpy).toHaveBeenCalledWith(
+          'getCurrentState',
+          'SUCCESS',
+          { latency: undefined }, // Performance API undefined when running jest tests
+        );
+        expect(sendErrorEventSpy).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('get final acknowledged state with converted ADF document (getFinalAcknowledgedState)', () => {
+      it('should resolve to the final editor state', async () => {
+        const finalAcknowledgedState =
+          await provider.getFinalAcknowledgedState();
+
+        expect(finalAcknowledgedState).toEqual({
+          title: "What's in a good title?",
+          stepVersion: 0,
+          content: {
+            content: [
+              {
+                content: [
+                  {
+                    type: 'text',
+                    text: 'Hello, World!',
+                  },
+                  {
+                    type: 'text',
+                    text: '/',
+                    marks: [],
+                  },
+                ],
+                type: 'paragraph',
+              },
+            ],
+            type: 'doc',
+            version: 1,
+          },
+        });
+        expect(sendActionEventSpy).toHaveBeenCalledTimes(2);
+        expect(sendActionEventSpy).toHaveBeenNthCalledWith(
+          1,
+          'getCurrentState',
+          'SUCCESS',
+          { latency: undefined }, // Performance API undefined when running jest tests
+        );
+        expect(sendActionEventSpy).toHaveBeenNthCalledWith(
+          2,
+          'publishPage',
+          'SUCCESS',
+          { latency: undefined }, // Performance API undefined when running jest tests
+        );
+        expect(sendErrorEventSpy).not.toHaveBeenCalled();
+      });
+
+      it('final acknowledge state should include latest updated metadata', async () => {
+        const verifyMetadataTitle = async (title: string) => {
+          const ackState = await provider.getFinalAcknowledgedState();
+          expect(ackState).toEqual(
+            expect.objectContaining({
+              title,
+            }),
+          );
+        };
+
+        const provider = createSocketIOCollabProvider(testProviderConfig);
+        provider.initialize(() => editorState);
+
+        channel.emit('init', {
+          doc: 'document-content',
+          version: 1,
+          metadata: {
+            title: 'original-title',
+          },
+        });
+        await nextTick();
+        await verifyMetadataTitle('original-title');
+
+        channel.emit('metadata:changed', {
+          title: 'new-title',
+        });
+        await nextTick();
+        await verifyMetadataTitle('new-title');
+      });
+
+      it('should not log UGC when logging an error', async () => {
+        expect.assertions(7);
+        const invalidDocument = {
+          type: 'doc',
+          content: [
+            {
+              type: 'some-invalid-type',
+              textContent: 'Super secret UGC',
+            },
+          ],
+        };
+        provider.initialize(() => ({
+          ...editorState,
+          doc: invalidDocument,
+        }));
+
+        try {
+          await provider.getFinalAcknowledgedState();
+        } catch (error) {
+          expect(error).toEqual(
+            new TypeError(
+              "Cannot read properties of undefined (reading 'forEach')",
+            ),
+          );
+
+          expect(sendActionEventSpy).toHaveBeenCalledTimes(2);
+          expect(sendActionEventSpy).toHaveBeenNthCalledWith(
+            1,
+            'getCurrentState',
+            'FAILURE',
+            { latency: undefined }, // Performance API undefined when running jest tests
+          );
+          expect(sendActionEventSpy).toHaveBeenNthCalledWith(
+            2,
+            'publishPage',
+            'FAILURE',
+            { latency: undefined }, // Performance API undefined when running jest tests
+          );
+          expect(sendErrorEventSpy).toHaveBeenCalledTimes(2);
+          expect(sendErrorEventSpy).toHaveBeenNthCalledWith(
+            1,
+            new TypeError(
+              "Cannot read properties of undefined (reading 'forEach')",
+            ),
+            'Error while returning ADF version of current draft document',
+          );
+          expect(sendErrorEventSpy).toHaveBeenNthCalledWith(
+            2,
+            new TypeError(
+              "Cannot read properties of undefined (reading 'forEach')",
+            ),
+            'Error while returning ADF version of the final draft document',
+          );
+        }
+      });
+
+      describe('when syncing up with server', () => {
+        let sendSpy: jest.SpyInstance;
+        const newState = {
+          ...editorState,
+          collab: {
+            steps: [1],
+            origins: [1],
+          },
+        };
+
+        beforeEach(() => {
+          sendSpy = jest
+            .spyOn(provider as any, 'sendStepsFromCurrentState')
+            .mockImplementation(() => {});
+
+          jest.spyOn(Utilities, 'sleep').mockResolvedValue(() => undefined);
+        });
+
+        it('should return if it can sync up', async () => {
+          const mockedSteps = [{ type: 'fakeStep' }];
+          jest
+            .spyOn(provider as any, 'getUnconfirmedSteps')
+            .mockImplementationOnce(() => mockedSteps)
+            .mockImplementationOnce(() => []);
+          jest
+            .spyOn(provider as any, 'getUnconfirmedStepsOrigins')
+            .mockImplementationOnce(() => [1])
+            .mockImplementationOnce(() => undefined);
+          provider.initialize(() => editorState);
+
+          const finalAck = await provider.getFinalAcknowledgedState();
+
+          expect(sendActionEventSpy).toHaveBeenCalledTimes(3);
+          expect(sendActionEventSpy).toHaveBeenNthCalledWith(
+            1,
+            'commitUnconfirmedSteps',
+            'SUCCESS',
+            {
+              numUnconfirmedSteps: 1,
+              latency: undefined, // Performance API undefined when running jest tests
+            },
+          );
+          expect(sendActionEventSpy).toHaveBeenNthCalledWith(
+            2,
+            'getCurrentState',
+            'SUCCESS',
+            {
+              latency: undefined, // Performance API undefined when running jest tests
+            },
+          );
+          expect(sendActionEventSpy).toHaveBeenNthCalledWith(
+            3,
+            'publishPage',
+            'SUCCESS',
+            {
+              latency: undefined, // Performance API undefined when running jest tests
+            },
+          );
+          expect(finalAck).toEqual({
+            stepVersion: 0,
+            title: "What's in a good title?",
+            content: {
+              content: [
+                {
+                  content: [
+                    {
+                      type: 'text',
+                      text: 'Hello, World!',
+                    },
+                    {
+                      type: 'text',
+                      text: '/',
+                      marks: [],
+                    },
+                  ],
+                  type: 'paragraph',
+                },
+              ],
+              type: 'doc',
+              version: 1,
+            },
+          });
+        });
+
+        describe("should fail if can't sync up", () => {
+          it('should throw ', async () => {
+            provider.initialize(() => newState);
+
+            await expect(
+              provider.getFinalAcknowledgedState(),
+            ).rejects.toThrowError(
+              new Error("Can't sync up with Collab Service"),
+            );
+            expect(sendActionEventSpy).toHaveBeenCalledTimes(2);
+            expect(sendActionEventSpy).toHaveBeenNthCalledWith(
+              1,
+              'commitUnconfirmedSteps',
+              'FAILURE',
+              {
+                numUnconfirmedSteps: 1,
+                latency: undefined, // Performance API undefined when running jest tests
+              },
+            );
+            expect(sendActionEventSpy).toHaveBeenNthCalledWith(
+              2,
+              'publishPage',
+              'FAILURE',
+              {
+                latency: undefined, // Performance API undefined when running jest tests
+              },
+            );
+            expect(sendSpy).toHaveBeenCalledTimes(ACK_MAX_TRY + 1);
+          });
+
+          it('should call onSyncUpError', async () => {
+            const onSyncUpErrorMock = jest.fn();
+            provider.setup({
+              getState: () => newState,
+              onSyncUpError: onSyncUpErrorMock,
+            });
+
+            await expect(
+              provider.getFinalAcknowledgedState(),
+            ).rejects.toThrow(); // Trigger error from function
+
+            expect(onSyncUpErrorMock).toHaveBeenCalledTimes(1);
+            expect(onSyncUpErrorMock).toHaveBeenCalledWith({
+              clientId: 'some-random-prosemirror-client-Id',
+              lengthOfUnconfirmedSteps: 1,
+              maxRetries: 30,
+              tries: 31,
+              version: undefined,
+            });
+          });
+        });
+      });
     });
   });
 });

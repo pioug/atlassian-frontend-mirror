@@ -12,6 +12,7 @@ exports[`ArticleLoadingFail Should match snapshot 1`] = `
 .emotion-1:hover,
 .emotion-1:active,
 .emotion-1:focus,
+.emotion-1:focus-visible,
 .emotion-1:visited,
 .emotion-1:disabled,
 .emotion-1[disabled] {
@@ -57,12 +58,31 @@ exports[`ArticleLoadingFail Should match snapshot 1`] = `
 .emotion-1:hover::-moz-focus-inner,
 .emotion-1:active::-moz-focus-inner,
 .emotion-1:focus::-moz-focus-inner,
+.emotion-1:focus-visible::-moz-focus-inner,
 .emotion-1:visited::-moz-focus-inner,
 .emotion-1:disabled::-moz-focus-inner,
 .emotion-1[disabled]::-moz-focus-inner {
   border: 0;
   margin: 0;
   padding: 0;
+}
+
+.emotion-1:focus-visible {
+  outline: 2px solid var(--ds-border-focused, #4C9AFF);
+  outline-offset: 2px;
+}
+
+@supports not selector(*:focus-visible) {
+  .emotion-1:focus {
+    outline: 2px solid var(--ds-border-focused, #4C9AFF);
+    outline-offset: 2px;
+  }
+}
+
+@media screen and (forced-colors: active),screen and (-ms-high-contrast: active) {
+  .emotion-1:focus-visible {
+    outline: 1px solid;
+  }
 }
 
 .emotion-0 {

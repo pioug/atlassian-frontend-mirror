@@ -70,5 +70,21 @@ describe('Comment with sticky toolbar', () => {
       await scrollToBottom(page);
       await animationFrame(page);
     });
+
+    test('offsetTop can set offset of sticky toolbar', async () => {
+      const url = getExampleUrl(
+        'editor',
+        'editor-core',
+        'jira-clone-right-panel',
+      );
+      const { page } = global;
+
+      await loadPage(page, url);
+      await page.waitForSelector('div[data-testid="ak-editor-main-toolbar"]');
+
+      await clickEditableContent(page);
+      await scrollToBottom(page);
+      await animationFrame(page);
+    });
   });
 });

@@ -6,7 +6,7 @@ import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { ExperienceStore } from '@atlaskit/editor-common/ufo';
 import { clearMeasure, stopMeasure } from '@atlaskit/editor-common/utils';
 import { ACTION } from '@atlaskit/editor-common/analytics';
-import { EditorProps } from '../../types/editor-props';
+import { EditorProps, EditorNextProps } from '../../types/editor-props';
 import measurements from '../../utils/performance/measure-enum';
 import sendDurationAnalytics from '../utils/sendDurationAnalytics';
 import useEditorConstructor from './useEditorMeasuresConstructor';
@@ -21,7 +21,7 @@ import useEditorConstructor from './useEditorMeasuresConstructor';
  * @param createAnalyticsEvent
  */
 export default function useMeasureEditorMountTime(
-  props: EditorProps,
+  props: EditorProps | EditorNextProps,
   getExperienceStore: () => ExperienceStore | undefined,
   createAnalyticsEvent: CreateUIAnalyticsEvent,
 ): void {

@@ -12,6 +12,7 @@ import { EmojiProvider } from '../src/resource';
 import { EmojiTypeAhead } from '../src/typeahead';
 import { EmojiId, OptionalEmojiDescription } from '../src/types';
 import debug from '../src/util/logger';
+import { IntlProvider } from 'react-intl-next';
 
 const tallPageStyle = {
   height: '1000px',
@@ -150,8 +151,10 @@ class UsageShowingEmojiTypeAheadTextInput extends UsageShowAndClearComponent {
 
 export default function Example() {
   return (
-    <UsageShowingEmojiTypeAheadTextInput
-      emojiResource={getEmojiResourceUsageClear()}
-    />
+    <IntlProvider locale="en">
+      <UsageShowingEmojiTypeAheadTextInput
+        emojiResource={getEmojiResourceUsageClear()}
+      />
+    </IntlProvider>
   );
 }

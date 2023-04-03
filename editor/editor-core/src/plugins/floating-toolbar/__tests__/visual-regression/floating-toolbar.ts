@@ -24,6 +24,7 @@ import {
   pressKey,
   pressKeyCombo,
 } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
+import { waitForNoTooltip } from '@atlaskit/visual-regression/helper';
 
 async function focusToolbar() {
   await pressKeyCombo(page, ['Alt', 'F10']);
@@ -120,26 +121,7 @@ describe('Floating toolbars:', () => {
       });
     });
 
-    // TODO: restore skipped test https://product-fabric.atlassian.net/browse/ED-16714
-    it.skip('should render the table toolbar', async () => {
-      const endCellSelector = getSelectorForTableCell({ row: 3, cell: 2 });
-      await page.waitForSelector(endCellSelector);
-      await retryUntilStablePosition(
-        page,
-        () => page.click(endCellSelector),
-        tableSelectors.floatingToolbar,
-      );
-
-      await waitForElementWithText(page, tableSelectors.tableOptionsText);
-
-      await snapshot(page, undefined, undefined, {
-        captureBeyondViewport: false,
-      });
-      await focusToolbar();
-    });
-
-    // TODO: Restore skipped test https://product-fabric.atlassian.net/browse/ED-16714
-    it.skip('should render the table toolbar', async () => {
+    it('should render the table toolbar', async () => {
       const endCellSelector = getSelectorForTableCell({ row: 3, cell: 2 });
       await page.waitForSelector(endCellSelector);
       await retryUntilStablePosition(
@@ -155,6 +137,9 @@ describe('Floating toolbars:', () => {
       });
       await focusToolbar();
       await pressKey(page, ['ArrowRight', 'ArrowRight', 'ArrowRight']);
+
+      await page.mouse.move(0, 0);
+      await waitForNoTooltip(page);
     });
 
     it('should remove danger styling from table when toolbar updates', async () => {

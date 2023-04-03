@@ -51,6 +51,7 @@ const EmojiPlaceholder = (props: Props) => {
     <span
       data-testid={emojiPlaceholderTestId(shortName)}
       aria-busy={loading}
+      role="status"
       aria-label={shortName}
       className={placeholder}
       css={

@@ -2,7 +2,8 @@ import React from 'react';
 import { ReactWrapper } from 'enzyme';
 
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
+import { fireEvent, screen } from '@testing-library/react';
 import {
   doc,
   p,
@@ -14,11 +15,9 @@ import FullPage from '../../../ui/Appearance/FullPage';
 import EditorContext from '../../../ui/EditorContext';
 
 const mountWithContext = (node: React.ReactNode) =>
-  mountWithIntl<any, unknown, EditorContext>(
-    <EditorContext>{node}</EditorContext>,
-  );
+  renderWithIntl(<EditorContext>{node}</EditorContext>);
 
-const clickWrapperSelector = 'div[data-testid="click-wrapper"]';
+const clickWrapperId = 'click-wrapper';
 
 describe('full page editor', () => {
   const createEditor = createEditorFactory();
@@ -38,14 +37,14 @@ describe('full page editor', () => {
 
   it('should create empty terminal empty paragraph when clicked outside editor', () => {
     const { editorView } = editor(doc(p('Hello world'), p('Hello world')));
-    fullPage = mountWithContext(
+    mountWithContext(
       <FullPage
         editorView={editorView}
         providerFactory={{} as any}
         editorDOMElement={<div />}
       />,
     );
-    fullPage.find(clickWrapperSelector).simulate('mousedown', { clientY: 200 });
+    fireEvent.mouseDown(screen.getByTestId(clickWrapperId), { clientY: 200 });
     expect(editorView.state.doc).toEqualDocument(
       doc(p('Hello world'), p('Hello world'), p('')),
     );
@@ -62,14 +61,14 @@ describe('full page editor', () => {
         })(),
       ),
     );
-    fullPage = mountWithContext(
+    mountWithContext(
       <FullPage
         editorView={editorView}
         providerFactory={{} as any}
         editorDOMElement={<div />}
       />,
     );
-    fullPage.find(clickWrapperSelector).simulate('mousedown', { clientY: 200 });
+    fireEvent.mouseDown(screen.getByTestId(clickWrapperId), { clientY: 200 });
     expect(editorView.state.doc).toEqualDocument(
       doc(
         p('Hello world'),
@@ -85,23 +84,22 @@ describe('full page editor', () => {
 
   it('should not create empty terminal empty paragraph if it is already present at end', () => {
     const { editorView } = editor(doc(p('Hello world'), p('')));
-    fullPage = mountWithContext(
+    mountWithContext(
       <FullPage
         editorView={editorView}
         providerFactory={{} as any}
         editorDOMElement={<div />}
       />,
     );
-    fullPage
-      .find(clickWrapperSelector)
-      .simulate('mousedown', { clientY: 200 })
-      .simulate('mousedown', { clientY: 200 });
+    const clickWrapper = screen.getByTestId(clickWrapperId);
+    fireEvent.mouseDown(clickWrapper, { clientY: 200 });
+    fireEvent.mouseDown(clickWrapper, { clientY: 200 });
     expect(editorView.state.doc).toEqualDocument(doc(p('Hello world'), p('')));
   });
 
   it('should not create empty terminal paragraph when clicked inside editor', () => {
     const { editorView } = editor(doc(p('Hello world')));
-    fullPage = mountWithContext(
+    mountWithContext(
       <FullPage
         editorView={editorView}
         providerFactory={{} as any}
@@ -114,14 +112,14 @@ describe('full page editor', () => {
 
   it('should set selection to end of editor content if paragraph is inserted', () => {
     const { editorView, sel } = editor(doc(p('Hello {<>}')));
-    fullPage = mountWithContext(
+    mountWithContext(
       <FullPage
         editorView={editorView}
         providerFactory={{} as any}
         editorDOMElement={<div />}
       />,
     );
-    fullPage.find(clickWrapperSelector).simulate('mousedown', { clientY: 300 });
+    fireEvent.mouseDown(screen.getByTestId(clickWrapperId), { clientY: 300 });
     const { selection } = editorView.state;
     expect(selection.empty).toEqual(true);
     expect(selection.$to.pos).toEqual(sel + 2);
@@ -129,14 +127,14 @@ describe('full page editor', () => {
 
   it('should set selection to end of editor content event if is already present at end', () => {
     const { editorView, sel } = editor(doc(p('Hello {<>}'), p('')));
-    fullPage = mountWithContext(
+    mountWithContext(
       <FullPage
         editorView={editorView}
         providerFactory={{} as any}
         editorDOMElement={<div />}
       />,
     );
-    fullPage.find(clickWrapperSelector).simulate('mousedown', { clientY: 300 });
+    fireEvent.mouseDown(screen.getByTestId(clickWrapperId), { clientY: 300 });
     const { selection } = editorView.state;
     expect(selection.empty).toEqual(true);
     expect(selection.$to.pos).toEqual(sel + 2);
@@ -144,23 +142,23 @@ describe('full page editor', () => {
 
   it('should create paragraph correctly when clicked outside and then inside the editor in sequence', () => {
     const { editorView } = editor(doc(p('Hello world'), p('Hello world')));
-    fullPage = mountWithContext(
+    mountWithContext(
       <FullPage
         editorView={editorView}
         providerFactory={{} as any}
         editorDOMElement={<div />}
       />,
     );
-    fullPage.find(clickWrapperSelector).simulate('mousedown', { clientY: 200 });
+    fireEvent.mouseDown(screen.getByTestId(clickWrapperId), { clientY: 200 });
     expect(editorView.state.doc).toEqualDocument(
       doc(p('Hello world'), p('Hello world'), p('')),
     );
     (editorView.dom as HTMLElement).click();
-    fullPage.find(clickWrapperSelector).simulate('mousedown', { clientY: 200 });
+    fireEvent.mouseDown(screen.getByTestId(clickWrapperId), { clientY: 200 });
     expect(editorView.state.doc).toEqualDocument(
       doc(p('Hello world'), p('Hello world'), p('')),
     );
-    fullPage.find(clickWrapperSelector).simulate('mousedown', { clientY: 200 });
+    fireEvent.mouseDown(screen.getByTestId(clickWrapperId), { clientY: 200 });
     expect(editorView.state.doc).toEqualDocument(
       doc(p('Hello world'), p('Hello world'), p('')),
     );

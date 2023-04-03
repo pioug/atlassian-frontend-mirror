@@ -7,10 +7,7 @@ import {
   LocalUploadComponentReact,
   LocalUploadComponentBaseProps,
 } from '../localUploadReact';
-import {
-  getPackageAttributes,
-  LOGGED_FEATURE_FLAGS,
-} from '../../util/analytics';
+import { getPackageAttributes } from '../../util/analytics';
 
 export interface BrowserOwnProps {
   config: BrowserConfig;
@@ -169,7 +166,4 @@ export default BrowserBase;
 
 export const Browser = withMediaAnalyticsContext(
   getPackageAttributes(COMPONENT_NAME),
-  {
-    filterFeatureFlags: LOGGED_FEATURE_FLAGS,
-  },
 )(withAnalyticsEvents()(BrowserBase));

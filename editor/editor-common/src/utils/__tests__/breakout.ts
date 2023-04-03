@@ -2,6 +2,7 @@ import {
   akEditorDefaultLayoutWidth,
   akEditorFullWidthLayoutLineLength,
   akEditorFullWidthLayoutWidth,
+  akEditorSwoopCubicBezier,
 } from '@atlaskit/editor-shared-styles';
 
 import {
@@ -39,7 +40,10 @@ describe('breakout utils', () => {
       });
       expect(breakoutStyles1).toMatchInlineSnapshot(`
         Object {
-          "marginLeft": "NaNpx",
+          "marginLeft": "50%",
+          "minWidth": undefined,
+          "transform": "translateX(-50%)",
+          "transition": "min-width 0.5s ${akEditorSwoopCubicBezier}",
           "type": "line-length-known",
           "width": "100%",
         }
@@ -52,7 +56,10 @@ describe('breakout utils', () => {
       });
       expect(breakoutStyles2).toMatchInlineSnapshot(`
         Object {
-          "marginLeft": "-2px",
+          "marginLeft": "50%",
+          "minWidth": 764,
+          "transform": "translateX(-50%)",
+          "transition": "min-width 0.5s ${akEditorSwoopCubicBezier}",
           "type": "line-length-known",
           "width": "764px",
         }
@@ -65,7 +72,10 @@ describe('breakout utils', () => {
       });
       expect(breakoutStyles3).toMatchInlineSnapshot(`
         Object {
-          "marginLeft": "-52px",
+          "marginLeft": "50%",
+          "minWidth": 864,
+          "transform": "translateX(-50%)",
+          "transition": "min-width 0.5s ${akEditorSwoopCubicBezier}",
           "type": "line-length-known",
           "width": "864px",
         }
@@ -84,7 +94,10 @@ describe('breakout utils', () => {
     });
     expect(breakoutStyles1).toMatchInlineSnapshot(`
       Object {
-        "marginLeft": "44px",
+        "marginLeft": "50%",
+        "minWidth": 1704,
+        "transform": "translateX(-50%)",
+        "transition": "min-width 0.5s ${akEditorSwoopCubicBezier}",
         "type": "line-length-known",
         "width": "1704px",
       }
@@ -97,7 +110,10 @@ describe('breakout utils', () => {
     });
     expect(breakoutStyles2).toMatchInlineSnapshot(`
       Object {
-        "marginLeft": "-4px",
+        "marginLeft": "50%",
+        "minWidth": 1800,
+        "transform": "translateX(-50%)",
+        "transition": "min-width 0.5s ${akEditorSwoopCubicBezier}",
         "type": "line-length-known",
         "width": "1800px",
       }
@@ -110,7 +126,10 @@ describe('breakout utils', () => {
     });
     expect(breakoutStyles3).toMatchInlineSnapshot(`
       Object {
-        "marginLeft": "44px",
+        "marginLeft": "50%",
+        "minWidth": 1604,
+        "transform": "translateX(-50%)",
+        "transition": "min-width 0.5s ${akEditorSwoopCubicBezier}",
         "type": "line-length-known",
         "width": "1604px",
       }

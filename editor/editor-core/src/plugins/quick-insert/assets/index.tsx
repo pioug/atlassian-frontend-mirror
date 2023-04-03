@@ -173,16 +173,6 @@ export const IconPanel = Loadable({
   loading: () => null,
 });
 
-export const IconCustomPanel = Loadable({
-  loader: () =>
-    import(
-      /* webpackChunkName: "@atlaskit-internal_editor-icon-custon-panel" */ './custom-panel'
-    ).then((module) => module.default) as Promise<
-      React.ComponentType<IconProps>
-    >,
-  loading: () => null,
-});
-
 export const IconQuote = Loadable({
   loader: () =>
     import(
@@ -197,16 +187,6 @@ export const IconStatus = Loadable({
   loader: () =>
     import(
       /* webpackChunkName: "@atlaskit-internal_editor-icon-status" */ './status'
-    ).then((module) => module.default) as Promise<
-      React.ComponentType<IconProps>
-    >,
-  loading: () => null,
-});
-
-export const IconFallback = Loadable({
-  loader: () =>
-    import(
-      /* webpackChunkName: "@atlaskit-internal_editor-icon-fallback" */ './fallback'
     ).then((module) => module.default) as Promise<
       React.ComponentType<IconProps>
     >,

@@ -56,7 +56,7 @@ describe('analytics', () => {
     it('should add current selection position to analytics step ', () => {
       tr = addAnalytics(state, tr, payload);
 
-      const pos = tr.selection.$from.pos;
+      const pos = state.selection.$from.pos;
       const analyticsStep = tr.steps[
         tr.steps.length - 1
       ] as AnalyticsStep<AnalyticsEventPayload>;

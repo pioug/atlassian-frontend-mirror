@@ -82,14 +82,13 @@ describe('fragment plugin', () => {
   const createEditor = createProsemirrorEditorFactory();
 
   const editor = (doc: DocBuilder) => {
-    const preset = new Preset<LightEditorPlugin>();
-
-    preset.add(fragmentMarkPlugin);
-    preset.add([tablesPlugin, { tableOptions: {} }]);
-    preset.add(extensionPlugin);
-    preset.add(layoutPlugin);
-    preset.add(expandPlugin);
-    preset.add(panelPlugin);
+    const preset = new Preset<LightEditorPlugin>()
+      .add(fragmentMarkPlugin)
+      .add([tablesPlugin, { tableOptions: {} }])
+      .add(extensionPlugin)
+      .add(layoutPlugin)
+      .add(expandPlugin)
+      .add(panelPlugin);
 
     return createEditor({
       doc,

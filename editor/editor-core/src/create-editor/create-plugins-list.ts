@@ -1,12 +1,8 @@
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { EditorPlugin, EditorProps } from '../types';
 import { EditorPluginFeatureProps } from '../types/editor-props';
-import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
 
 import { BlockTypePluginOptions } from '../plugins/block-type/types';
-import type { InsertNodeAPI } from '../insert-api/types';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import type { EditorSelectionAPI } from '@atlaskit/editor-common/selection';
 import createUniversalPreset from '../labs/next/presets/universal';
 import {
   GUTTER_SIZE_MOBILE_IN_PX,
@@ -16,6 +12,8 @@ import { DefaultPresetPluginOptions } from '../labs/next/presets/default';
 import { EditorPresetProps } from '../labs/next/presets/types';
 import { isFullPage as fullPageCheck } from '../utils/is-full-page';
 import { createFeatureFlagsFromProps } from './feature-flags-from-props';
+import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 
 const isCodeBlockAllowed = (
   options?: Pick<BlockTypePluginOptions, 'allowBlockType'>,
@@ -138,10 +136,6 @@ export default function createPluginsList(
   props: EditorProps,
   prevProps?: EditorProps,
   createAnalyticsEvent?: CreateUIAnalyticsEvent,
-  insertNodeAPI?: InsertNodeAPI,
-  editorAnalyticsAPI?: EditorAnalyticsAPI,
-  editorSelectionAPI?: EditorSelectionAPI,
-  getEditorContainerWidth?: GetEditorContainerWidth,
 ): EditorPlugin[] {
   const preset = createUniversalPreset(
     props.appearance,
@@ -149,10 +143,6 @@ export default function createPluginsList(
     createFeatureFlagsFromProps(props),
     prevProps?.appearance,
     createAnalyticsEvent,
-    insertNodeAPI,
-    editorAnalyticsAPI,
-    editorSelectionAPI,
-    getEditorContainerWidth,
   );
 
   const excludes = new Set<string>();
@@ -161,5 +151,48 @@ export default function createPluginsList(
     excludes.add('codeBlock');
   }
 
-  return preset.getEditorPlugins(excludes);
+  return preset.build({ excludePlugins: excludes });
+}
+
+function withDangerouslyAppendPlugins(preset: EditorPresetBuilder<any, any>) {
+  function createEditorNextPluginsFromDangerouslyAppended(
+    plugins: EditorPlugin[],
+  ): NextEditorPlugin<any, any>[] {
+    return plugins ? plugins.map((plugin) => () => plugin) : [];
+  }
+
+  return (editorPluginsToAppend?: EditorPlugin[]) => {
+    if (!editorPluginsToAppend || editorPluginsToAppend.length === 0) {
+      return preset;
+    }
+
+    const nextEditorPluginsToAppend =
+      createEditorNextPluginsFromDangerouslyAppended(editorPluginsToAppend);
+
+    const presetWithAppendedPlugins = nextEditorPluginsToAppend.reduce(
+      (acc, plugin) => {
+        return acc.add(plugin);
+      },
+      preset,
+    );
+
+    return presetWithAppendedPlugins;
+  };
+}
+export function createPreset(
+  props: EditorProps,
+  prevProps?: EditorProps,
+  createAnalyticsEvent?: CreateUIAnalyticsEvent,
+) {
+  const preset = createUniversalPreset(
+    props.appearance,
+    getDefaultPresetOptionsFromEditorProps(props, createAnalyticsEvent),
+    createFeatureFlagsFromProps(props),
+    prevProps?.appearance,
+    createAnalyticsEvent,
+  );
+
+  return withDangerouslyAppendPlugins(preset)(
+    props.dangerouslyAppendPlugins?.__plugins,
+  );
 }

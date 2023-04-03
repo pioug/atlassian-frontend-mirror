@@ -77,6 +77,7 @@ const ExtensionButton = (props: ExtensionButtonProps) => {
   return (
     <Button
       title={item.label}
+      ariaLabel={item.tooltip}
       icon={ButtonIcon ? <ButtonIcon label={item.label || ''} /> : undefined}
       onClick={onClick}
       tooltipContent={item.tooltip}

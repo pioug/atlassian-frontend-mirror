@@ -18,6 +18,7 @@ import {
 } from '@atlaskit/editor-common/keymaps';
 import {
   ColorPalette,
+  backgroundPaletteTooltipMessages,
   cellBackgroundColorPalette,
 } from '@atlaskit/editor-common/ui-color';
 import { DropdownMenuSharedCssClassName } from '@atlaskit/editor-common/styles';
@@ -32,7 +33,10 @@ import { cellColourPreviewStyles } from './styles';
 import { closestElement } from '@atlaskit/editor-common/utils';
 
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
+import type {
+  GetEditorContainerWidth,
+  GetEditorFeatureFlags,
+} from '@atlaskit/editor-common/types';
 
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 type DropdownItem = MenuItem & {
@@ -131,6 +135,7 @@ export interface Props {
   offset?: Array<number>;
   editorAnalyticsAPI?: EditorAnalyticsAPI;
   getEditorContainerWidth: GetEditorContainerWidth;
+  getEditorFeatureFlags: GetEditorFeatureFlags;
 }
 
 export interface State {
@@ -209,9 +214,11 @@ export class ContextualMenu extends Component<
       selectionRect,
       intl: { formatMessage },
       editorView,
+      getEditorFeatureFlags,
     } = this.props;
     const items: any[] = [];
     const { isSubmenuOpen } = this.state;
+    const { useSomewhatSemanticTextColorNames } = getEditorFeatureFlags();
     // TargetCellPosition could be outdated: https://product-fabric.atlassian.net/browse/ED-8129
     const {
       targetCellPosition,
@@ -239,9 +246,21 @@ export class ContextualMenu extends Component<
               >
                 <ColorPalette
                   cols={7}
-                  palette={cellBackgroundColorPalette}
                   onClick={this.setColor}
                   selectedColor={background}
+                  paletteOptions={{
+                    palette: cellBackgroundColorPalette,
+                    paletteColorTooltipMessages:
+                      backgroundPaletteTooltipMessages,
+                    // We did not want to create new FF or update
+                    //  useSomewhatSemanticTextColorNames name
+                    //  because it is temporary and require extra work.
+                    // So even though it says text color names,
+                    //  we are going to use for all color pickers
+                    //  such as text, background and table charts.
+                    showSomewhatSemanticTooltips:
+                      useSomewhatSemanticTextColorNames,
+                  }}
                 />
               </div>
             )}

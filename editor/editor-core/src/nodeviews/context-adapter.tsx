@@ -7,8 +7,6 @@ import {
   AnalyticsReactContextInterface,
 } from '@atlaskit/analytics-next-stable-react-context';
 
-export type ContextAdaptersMap = Record<string, React.Context<any>>;
-
 function useContextMemoized<T>(reactContext: React.Context<T>) {
   const value = React.useContext(reactContext);
   const context = React.useMemo(

@@ -33,6 +33,7 @@ import {
 import { RENDER_MODAL_TESTID } from '../ReactionDialog/ReactionsDialog';
 import { RENDER_SELECTOR_TESTID } from '../Selector';
 import { RENDER_SHOWMORE_TESTID } from '../ShowMore';
+import { RENDER_REACTIONPICKERPANEL_TESTID } from '../ReactionPicker/ReactionPicker';
 
 describe('@atlaskit/reactions/components/Reactions', () => {
   const mockOnReactionsClick = jest.fn();
@@ -303,6 +304,10 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 
   describe('with analytics', () => {
     it('should trigger render', async () => {
+      Object.defineProperty(constants, 'SAMPLING_RATE_REACTIONS_RENDERED_EXP', {
+        value: 1,
+      });
+
       const mockOnEvent = jest.fn();
       renderReactions({}, mockOnEvent);
 
@@ -402,8 +407,12 @@ describe('@atlaskit/reactions/components/Reactions', () => {
           fireEvent.click(pickerButton);
         });
 
+        const pickerPopup = await screen.findByTestId(
+          RENDER_REACTIONPICKERPANEL_TESTID,
+        );
+
         // render the selectors list insider <ReactionPicker />
-        const selectors = await within(picker).findAllByTestId(
+        const selectors = await within(pickerPopup).findAllByTestId(
           RENDER_SELECTOR_TESTID,
         );
         expect(selectors.length).toBeGreaterThan(1);
@@ -453,9 +462,11 @@ describe('@atlaskit/reactions/components/Reactions', () => {
         act(() => {
           fireEvent.click(pickerButton);
         });
-
+        const pickerPopup = await screen.findByTestId(
+          RENDER_REACTIONPICKERPANEL_TESTID,
+        );
         // render the selectors list insider <ReactionPicker />
-        const selectors = await within(picker).findAllByTestId(
+        const selectors = await within(pickerPopup).findAllByTestId(
           RENDER_SELECTOR_TESTID,
         );
         expect(selectors.length).toBeGreaterThan(1);
@@ -513,8 +524,12 @@ describe('@atlaskit/reactions/components/Reactions', () => {
           fireEvent.click(pickerButton);
         });
 
+        const pickerPopup = await screen.findByTestId(
+          RENDER_REACTIONPICKERPANEL_TESTID,
+        );
+
         // render the selectors list insider <ReactionPicker />
-        const selectors = await within(picker).findAllByTestId(
+        const selectors = await within(pickerPopup).findAllByTestId(
           RENDER_SELECTOR_TESTID,
         );
         expect(selectors.length).toBeGreaterThan(1);

@@ -91,11 +91,50 @@ describe('image-upload', () => {
     // Wait for imageUploadProvider to resolve and be ready
     await imageUploadProvider;
 
-    dispatchPasteEvent(editorView, { types: ['Files'] });
+    const html = `<html>
+      <head></head>
+      <body>Rich <strong>formatted</strong> content</body>
+    </html>`;
+
+    dispatchPasteEvent(editorView, {
+      html,
+      plain: 'Plain text content',
+      types: ['Files', 'text/plain', 'text/html', 'image/png'],
+      files: [new File([], 'image.png', { type: 'image/png' })],
+    });
     expect(imageUploadHandler).toHaveBeenCalledTimes(1);
     expect(imageUploadHandler.mock.calls[0][0].clipboardData.types).toContain(
       'Files',
     );
+  });
+
+  it('should ignore screenshot file when pasting text from Microsoft Office', async () => {
+    const imageUploadHandler = jest.fn();
+    const imageUploadProvider = Promise.resolve(imageUploadHandler);
+    const { editorView } = editor(doc(p('{<>}')), imageUploadProvider);
+
+    // Wait for imageUploadProvider to resolve and be ready
+    await imageUploadProvider;
+
+    const html = `<html
+      xmlns:v="urn:schemas-microsoft-com:vml"
+      xmlns:o="urn:schemas-microsoft-com:office:office"
+      xmlns:w="urn:schemas-microsoft-com:office:word"
+      xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
+      xmlns="http://www.w3.org/TR/REC-html40"
+    >
+      <head></head>
+      <body>Rich <strong>formatted</strong> content</body>
+    </html>`;
+
+    dispatchPasteEvent(editorView, {
+      types: ['Files', 'text/plain', 'text/html', 'image/png'],
+      html,
+      plain: 'Plain text content',
+      files: [new File([], 'image.png', { type: 'image/png' })],
+    });
+
+    expect(imageUploadHandler).not.toBeCalled();
   });
 
   it('should invoke upload handler after dropping an image', async () => {

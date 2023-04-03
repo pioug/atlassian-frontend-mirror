@@ -1,5 +1,46 @@
 # @atlaskit/editor-common
 
+## 72.6.0
+
+### Minor Changes
+
+- [`a697f9eb7ca`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a697f9eb7ca) - [ED-16746] Introduce the shareable actions concept into the NextEditorPlugin
+- [`a7e36157e01`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a7e36157e01) - [ED-15941] Refactor Preset into EditorPresetBuilder
+- [`66bbcd766fe`](https://bitbucket.org/atlassian/atlassian-frontend/commits/66bbcd766fe) - [ED-16735] Inject its own api on NextEditorPlugin
+- [`0078ddc7e2e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0078ddc7e2e) - New smartLinks prop to allow renderer and editor to determine whether smart link should show actions that can change the link resource.
+- [`568b7d96689`](https://bitbucket.org/atlassian/atlassian-frontend/commits/568b7d96689) - [ED-16819] Introduce 'isMediaNode' and 'isNodeBeforeMediaNode' utils that check if the node passed in (for isMediaNode) or the node before selection passed in (for isNodeBeforeMediaNode) has the type of media, mediaInline, mediaGroup or mediaSingle
+- [`592e3761622`](https://bitbucket.org/atlassian/atlassian-frontend/commits/592e3761622) - [ED-15941] NextEditorPlugins will receive an api with the plugins dependencies on runtime
+
+### Patch Changes
+
+- [`f81e7ba7c07`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f81e7ba7c07) - [ux] ED-16556 Fixed - Table floating toolbar "Table Options" and "Cell Options" are not accessible
+- [`2367ba14aa0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2367ba14aa0) - [ux] ED-16758 Added support for theme tokens in table cell background color.
+- [`49d121d9640`](https://bitbucket.org/atlassian/atlassian-frontend/commits/49d121d9640) - [ED-16310] Creates an optional dependency type `OptionalPlugin` to indicate `NextEditorPlugin` dependencies are optional.
+
+  You can use in the dependency array of a `NextEditorPlugin` like so:
+
+  ```ts
+  const examplePlugin = NextEditorPlugin<
+    'example',
+    { dependencies: [typeof plugin1, OptionalPlugin<typeof plugin2>] }
+  >;
+  ```
+
+- [`f7fc96b3738`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f7fc96b3738) - ED-17086 - Added feature flag for expandedChartColors
+- [`0379951cd05`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0379951cd05) - [ED-17210] Improve equality check for SharedStateAPI onChange behaviour
+- [`eb7ef06e38c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eb7ef06e38c) - Contextual toolbar focus will now be regained when exiting via ArrowLeft / ArrowRight keys, and will progress to the next toolbar item. onBlur will now also be called correctly when dropdown menu items lose focus.
+- [`2661a586431`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2661a586431) - ED-15843 Applied fix for bodiedExtensions animation as per DTR-807
+- [`747f7e45c27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/747f7e45c27) - [ux] ED-16816 Safari fix: add focus outline when focus is on color palatte options
+- [`db34131a1e4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db34131a1e4) - [ED-16579] Add methods to Preset object including `setProvider`, `getProvider` and `getAllProviders`.
+
+  These are used internally to set providers (objects which can return functionality such as `emojiProvider`).
+
+- [`68f4ce6955d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/68f4ce6955d) - Fix logic to reconfigure state in ReactEditorView to fix a breakage on NCS pages.
+- [`deef98920f4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/deef98920f4) - [ux] ED-16718 Table scroll troll - refactor nested expand logic back into editor-common
+- [`1720ddc8076`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1720ddc8076) - [ux] ED-16725 Added support for semantic tooltip names for background color palette.
+- [`3eea6eec479`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3eea6eec479) - [ux] ED-16930 Horizontally rendering multiple wrapped-left media items inside a table
+- Updated dependencies
+
 ## 72.5.1
 
 ### Patch Changes

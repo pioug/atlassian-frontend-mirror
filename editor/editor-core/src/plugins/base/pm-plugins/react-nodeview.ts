@@ -2,7 +2,7 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { PluginKey } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 
-export type StateChangeHandler = (fromPos: number, toPos: number) => any;
+type StateChangeHandler = (fromPos: number, toPos: number) => any;
 
 export class ReactNodeViewState {
   private changeHandlers: StateChangeHandler[] = [];
@@ -53,7 +53,3 @@ export const plugin = new SafePlugin({
     };
   },
 });
-
-const plugins = () => [plugin];
-
-export default plugins;

@@ -10,11 +10,7 @@ import { token, useThemeObserver } from '@atlaskit/tokens';
 
 import Color from './Color';
 import getColorMessage from './Palettes/getColorMessage';
-import {
-  newDarkPalette,
-  newLightPalette,
-} from './Palettes/paletteMessagesTokenModeNames';
-import { PaletteColor } from './Palettes/type';
+import { PaletteColor, PaletteTooltipMessages } from './Palettes/type';
 import { colorPaletteWrapper } from './styles';
 import {
   DEFAULT_COLOR_PICKER_COLUMNS,
@@ -22,27 +18,40 @@ import {
 } from './utils';
 
 interface Props {
-  palette: PaletteColor[];
   selectedColor: string | null;
   onClick: (value: string, label: string) => void;
   cols?: number;
   className?: string;
   /**
-   * When the color picker is used to present text colors we
-   * make a number of changes to how it works
-   * - the check mark color uses design tokens when available
-   * - the colors use design tokens when available
-   * @default false
+   * paletteOptions is the prop, where any configuration related to
+   * how palette should look or behave will be added.
    */
-  textPalette?: boolean;
-  hexToPaletteColor?: (hexColor: string) => string | undefined;
-  /**
-   * Used to detect if the useSomewhatSemanticTextColorNames feature flag
-   * is true. If so, text color tooltips in the color picker will
-   * show semantic names (excluding white/dark gray).
-   * @default false
-   */
-  useSomewhatSemanticTextColorNames?: boolean;
+  paletteOptions: {
+    palette: PaletteColor[];
+    /**
+     * If hexToPaletteColor is passed, it will be called to convert
+     *  hexCodes passed in palette props to DST token.
+     * Different color palette will set different mapping function.
+     * Such as text and background color palette uses different
+     *  mapping function to map tokens.
+     */
+    hexToPaletteColor?: (hexColor: string) => string | undefined;
+    /**
+     * We have pivoted from having logic inside ColorPalette determining
+     *  which tooltip messages should be used to consumer of ColorPalette giving
+     *  tooltip messages. Which is same as palette, where consumer determines which
+     *  colors ColorPalette should render.
+     * Same way now consumer will determine which tooltip messages should
+     *  be used using paletteColorTooltipMessages option.
+     */
+    paletteColorTooltipMessages?: PaletteTooltipMessages;
+    /**
+     * If true then color tooltips in the color picker for all color palettes
+     * such as text, background and table charts will show semantic names.
+     * @default false
+     */
+    showSomewhatSemanticTooltips?: boolean;
+  };
 }
 
 /**
@@ -73,16 +82,19 @@ function getCheckMarkColor(color: string, useIconToken: boolean): string {
 
 const ColorPalette = (props: Props & WrappedComponentProps) => {
   const {
-    palette,
     cols = DEFAULT_COLOR_PICKER_COLUMNS,
     onClick,
     selectedColor,
     className,
     intl: { formatMessage },
-    textPalette = false,
-    hexToPaletteColor,
-    useSomewhatSemanticTextColorNames = false,
+    paletteOptions,
   } = props;
+  const {
+    palette,
+    hexToPaletteColor,
+    showSomewhatSemanticTooltips = false,
+    paletteColorTooltipMessages,
+  } = paletteOptions;
 
   const { colorMode: tokenTheme } = useThemeObserver();
   const useIconToken = !!hexToPaletteColor;
@@ -101,12 +113,18 @@ const ColorPalette = (props: Props & WrappedComponentProps) => {
           role="radiogroup"
         >
           {row.map(({ value, label, border, message }, colorIdx) => {
-            if (textPalette === true && useSomewhatSemanticTextColorNames) {
+            if (showSomewhatSemanticTooltips && paletteColorTooltipMessages) {
               if (tokenTheme === 'dark') {
-                message = getColorMessage(newDarkPalette, value.toUpperCase());
+                message = getColorMessage(
+                  paletteColorTooltipMessages.dark,
+                  value.toUpperCase(),
+                );
               }
               if (tokenTheme === 'light') {
-                message = getColorMessage(newLightPalette, value.toUpperCase());
+                message = getColorMessage(
+                  paletteColorTooltipMessages.light,
+                  value.toUpperCase(),
+                );
               }
             }
             return (

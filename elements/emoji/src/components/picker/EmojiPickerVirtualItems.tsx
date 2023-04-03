@@ -39,7 +39,9 @@ export class EmojisRowItem extends AbstractItem<EmojiRowProps> {
     super(props, sizes.emojiRowHeight);
   }
 
-  renderItem = () => <EmojiPickerEmojiRow {...this.props} />;
+  renderItem = (context?: VirtualItemContext) => (
+    <EmojiPickerEmojiRow {...this.props} virtualItemContext={context} />
+  );
 }
 
 export class LoadingItem extends AbstractItem<{}> {

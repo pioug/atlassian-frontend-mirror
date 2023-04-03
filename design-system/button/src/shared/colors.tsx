@@ -22,18 +22,8 @@ export type ColorPreset = {
   [key in Appearance]: ColorGroup;
 };
 
-export type BoxShadowColorGroup = {
-  focus: ColorRule;
-  focusSelected: ColorRule;
-};
-
-type BoxShadowColorPreset = {
-  [key in Appearance]: BoxShadowColorGroup;
-};
-
 type Values = {
   background: ColorPreset;
-  boxShadowColor: BoxShadowColorPreset;
   color: ColorPreset;
 };
 
@@ -200,79 +190,6 @@ const values: Values = {
       focusSelected: {
         light: token('color.background.selected', colors.N700),
         dark: token('color.background.selected', colors.N20),
-      },
-    },
-  },
-
-  boxShadowColor: {
-    default: {
-      focus: {
-        light: token('color.border.focused', colors.B100),
-        dark: token('color.border.focused', colors.B75),
-      },
-      focusSelected: {
-        light: token('color.border.focused', colors.B100),
-        dark: token('color.border.focused', colors.B75),
-      },
-    },
-    primary: {
-      focus: {
-        light: token('color.border.focused', colors.B100),
-        dark: token('color.border.focused', colors.B75),
-      },
-      focusSelected: {
-        light: token('color.border.focused', colors.B100),
-        dark: token('color.border.focused', colors.B75),
-      },
-    },
-    warning: {
-      focus: {
-        light: token('color.border.focused', colors.Y500),
-        dark: token('color.border.focused', colors.Y500),
-      },
-      focusSelected: {
-        light: token('color.border.focused', colors.Y500),
-        dark: token('color.border.focused', colors.Y500),
-      },
-    },
-    danger: {
-      focus: {
-        light: token('color.border.focused', colors.R100),
-        dark: token('color.border.focused', colors.R100),
-      },
-      focusSelected: {
-        light: token('color.border.focused', colors.R100),
-        dark: token('color.border.focused', colors.R100),
-      },
-    },
-    link: {
-      focus: {
-        light: token('color.border.focused', colors.B100),
-        dark: token('color.border.focused', colors.B75),
-      },
-      focusSelected: {
-        light: token('color.border.focused', colors.B100),
-        dark: token('color.border.focused', colors.B75),
-      },
-    },
-    subtle: {
-      focus: {
-        light: token('color.border.focused', colors.B100),
-        dark: token('color.border.focused', colors.B75),
-      },
-      focusSelected: {
-        light: token('color.border.focused', colors.B100),
-        dark: token('color.border.focused', colors.B75),
-      },
-    },
-    'subtle-link': {
-      focus: {
-        light: token('color.border.focused', colors.B100),
-        dark: token('color.border.focused', colors.B75),
-      },
-      focusSelected: {
-        light: token('color.border.focused', colors.B100),
-        dark: token('color.border.focused', colors.B75),
       },
     },
   },

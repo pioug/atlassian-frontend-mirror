@@ -32,6 +32,7 @@ interface Props extends WithAnalyticsEventsProps {
   testId?: string;
   shouldFitContainer: boolean;
   children?: ReactNode;
+  id?: string;
 }
 
 type childContextTypes = {
@@ -167,7 +168,7 @@ class DropList extends Component<Props> {
   };
 
   render() {
-    const { children, isOpen, position, trigger, onPositioned, testId } =
+    const { children, isOpen, position, trigger, onPositioned, testId, id } =
       this.props;
 
     let layerContent = isOpen ? (
@@ -176,6 +177,8 @@ class DropList extends Component<Props> {
         data-role="droplistContent"
         data-testid={testId && `${testId}--content`}
         ref={this.handleContentRef}
+        id={id}
+        role="menu"
       >
         {children}
       </div>

@@ -1,5 +1,16 @@
 # @atlaskit/media-common
 
+## 4.0.0
+
+### Major Changes
+
+- [`b37723f2cfa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b37723f2cfa) - Removed unused method filterFeatureFlagKeysAllProducts
+  Added new method getFeatureFlagKeysAllProducts
+
+### Patch Changes
+
+- [`5859ee7d4e6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5859ee7d4e6) - Refactored code for better testing
+
 ## 3.0.0
 
 ### Major Changes

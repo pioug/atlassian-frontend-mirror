@@ -401,24 +401,6 @@ describe('TeamMentionResourceSpec', () => {
     });
   });
 
-  describe('#spotlightEnable', () => {
-    it('should return false by default', () => {
-      expect(resource.mentionTypeaheadHighlightEnabled()).toBe(false);
-    });
-    it('should return true when enabled', () => {
-      const withSpotlightResource = new TeamMentionResource(
-        apiUserMentionConfig,
-        {
-          ...apiTeamMentionConfig,
-          teamHighlightEnabled: true,
-        },
-      );
-      expect(withSpotlightResource.mentionTypeaheadHighlightEnabled()).toBe(
-        true,
-      );
-    });
-  });
-
   describe('#recordTeamMentionSelection', () => {
     it('should send analytics event when a team is selected', async () => {
       const analytics = jest.fn();

@@ -6,15 +6,10 @@ import {
   isResolvingMentionProvider,
   MentionDescription,
   MentionProvider,
-  TeamMentionProvider,
 } from '@atlaskit/mention/resource';
 import { MENTION_ITEM_HEIGHT, MentionItem } from '@atlaskit/mention/item';
 import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
 import type { MentionStats } from '@atlaskit/mention';
-import {
-  TeamMentionHighlight,
-  TeamMentionHighlightController,
-} from '@atlaskit/mention/spotlight';
 
 import { TeamMember } from '@atlaskit/mention/team-resource';
 import {
@@ -180,11 +175,6 @@ const buildAndSendElementsTypeAheadAnalytics =
     fireEvent(payload);
   };
 
-const isTeamMentionProvider = (p: any): p is TeamMentionProvider =>
-  !!(
-    (p as TeamMentionProvider).mentionTypeaheadHighlightEnabled &&
-    (p as TeamMentionProvider).mentionTypeaheadCreateTeamPath
-  );
 /**
  * When a team mention is selected, we render a team link and list of member/user mentions
  * in editor content
@@ -267,22 +257,6 @@ export const createTypeAheadConfig = ({
         return <CustomHighlightComponent />;
       }
 
-      const pluginState = getMentionPluginState(state);
-      const provider = pluginState.mentionProvider;
-      if (provider) {
-        const teamMentionProvider = provider as TeamMentionProvider;
-        if (
-          isTeamMentionProvider(teamMentionProvider) &&
-          teamMentionProvider.mentionTypeaheadHighlightEnabled()
-        ) {
-          return (
-            <TeamMentionHighlight
-              createTeamLink={teamMentionProvider.mentionTypeaheadCreateTeamPath()}
-              onClose={() => TeamMentionHighlightController.registerClosed()}
-            />
-          );
-        }
-      }
       return null;
     },
     getItems({ query, editorState }) {
@@ -434,8 +408,6 @@ export const createTypeAheadConfig = ({
       sessionId = uuid();
 
       if (mentionProvider && isTeamType(userType)) {
-        TeamMentionHighlightController.registerTeamMention();
-
         return insert(
           buildNodesForTeamMention(
             schema,

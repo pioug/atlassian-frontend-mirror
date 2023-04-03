@@ -25,6 +25,7 @@ import Separator from './Separator';
 import Input from './Input';
 import { ExtensionsPlaceholder } from './ExtensionsPlaceholder';
 import ColorPickerButton from '../../../ui/ColorPickerButton';
+import { backgroundPaletteTooltipMessages } from '../../../ui/ColorPalette';
 import { PaletteColor } from '../../../ui/ColorPalette/Palettes';
 import { EmojiPickerButton } from './EmojiPickerButton';
 import Announcer from '../../../utils/announcer/announcer';
@@ -90,6 +91,10 @@ const ToolbarItems = React.memo(
         editorView?.dom.closest('.ak-editor-content-area') ||
         undefined
       : popupsMountPoint;
+
+    const { useSomewhatSemanticTextColorNames } = editorView
+      ? getFeatureFlags(editorView.state)
+      : { useSomewhatSemanticTextColorNames: false };
 
     return (
       <ButtonGroup>
@@ -178,6 +183,7 @@ const ToolbarItems = React.memo(
                     setDisableParentScroll={
                       scrollable ? setDisableScroll : undefined
                     }
+                    dropdownListId={item?.id && `${item.id}-dropdownList`}
                   />
                 );
 
@@ -227,11 +233,24 @@ const ToolbarItems = React.memo(
                       // Currently in floating toolbar, color picker is only
                       //  used in panel and table cell background color.
                       // Both uses same color palette.
-                      // That's why hard-coding hexToEditorBackgroundPaletteColor.
+                      // That's why hard-coding hexToEditorBackgroundPaletteColor
+                      //  and paletteColorTooltipMessages.
                       // When we need to support different color palette
                       //  in floating toolbar, we need to set hexToPaletteColor
-                      //  in item options.
+                      //  and paletteColorTooltipMessages in item options.
                       hexToPaletteColor={hexToEditorBackgroundPaletteColor}
+                      paletteColorTooltipMessages={
+                        backgroundPaletteTooltipMessages
+                      }
+                      // We did not want to create new FF or update
+                      //  useSomewhatSemanticTextColorNames name
+                      //  because it is temporary and require extra work.
+                      // So even though it says text color names,
+                      //  we are going to use for all color pickers
+                      //  such as text, background and table charts.
+                      showSomewhatSemanticTooltips={
+                        useSomewhatSemanticTextColorNames
+                      }
                     />
                   );
                 }

@@ -54,6 +54,8 @@ export {
   SelectedState,
   isNodeSelectedOrInRange,
   isSupportedInParent,
+  isMediaNode,
+  isNodeBeforeMediaNode,
 } from './nodes';
 
 export type { Reducer } from './plugin-state-factory';
@@ -156,7 +158,6 @@ export {
 
 export { sendLogs } from './sendLogs';
 
-export { Builder } from './builder';
 export {
   getItemCounterDigitsSize,
   getOrderFromOrderedListNode,

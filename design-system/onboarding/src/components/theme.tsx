@@ -11,9 +11,6 @@ const spotlightTheme = {
       selected: token('color.background.inverse.subtle.pressed', colors.R500),
       focus: token('color.background.inverse.subtle', colors.P400),
     },
-    boxShadow: {
-      focus: `0 0 0 2px ${token('color.border.discovery', colors.P100)}`,
-    },
     color: {
       default: token('color.text.inverse', colors.N0),
       hover: token('color.text.inverse', colors.N0),
@@ -24,9 +21,6 @@ const spotlightTheme = {
       },
       selected: token('color.text.inverse', colors.N0),
       focus: token('color.text.inverse', colors.N0),
-    },
-    outline: {
-      focus: 'none',
     },
   },
   subtle: {
@@ -44,9 +38,6 @@ const spotlightTheme = {
         dark: token('color.background.selected.hovered', colors.DN0),
       },
     },
-    boxShadow: {
-      focus: `0 0 0 2px ${token('color.icon.discovery', colors.P100)}`,
-    },
     color: {
       default: token('color.text.inverse', colors.N0),
       hover: token('color.text.inverse', colors.N0),
@@ -55,9 +46,6 @@ const spotlightTheme = {
       selected: token('color.text.inverse', colors.N0),
       focus: token('color.text.inverse', colors.N0),
     },
-    outline: {
-      focus: 'none',
-    },
   },
   'subtle-link': {
     textDecoration: {
@@ -65,9 +53,6 @@ const spotlightTheme = {
     },
     textDecorationLine: {
       active: 'none',
-    },
-    boxShadow: {
-      focus: `0 0 0 2px ${token('color.border.discovery', colors.P100)}`,
     },
     color: {
       default: token('color.text.inverse', colors.N0),
@@ -92,12 +77,6 @@ const modalTheme = {
       },
       selected: token('color.background.selected.hovered', colors.R500),
       focus: token('color.background.discovery.bold.hovered', colors.P400),
-    },
-    boxShadow: {
-      focus: {
-        light: `0 0 0 2px ${token('color.border.discovery', colors.P100)}`,
-        dark: `0 0 0 2px ${token('color.border.discovery', colors.P100)}`,
-      },
     },
     color: {
       default: token('color.text.inverse', colors.N0),

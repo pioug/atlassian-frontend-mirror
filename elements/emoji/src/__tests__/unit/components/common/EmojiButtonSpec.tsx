@@ -5,24 +5,26 @@ import {
   renderWithIntl,
 } from '../../_testing-library';
 import { spriteEmoji, imageEmoji } from '../../_test-data';
-import EmojiButton, {
-  Props as EmojiButtonProps,
-} from '../../../../components/common/EmojiButton';
+import EmojiRadioButton, {
+  Props as EmojiRadioButtonProps,
+} from '../../../../components/common/EmojiRadioButton';
 
 describe('<EmojiButton />', () => {
   mockReactDomWarningGlobal();
 
-  const renderEmojiButton = (customProps: Partial<EmojiButtonProps> = {}) =>
-    renderWithIntl(<EmojiButton emoji={spriteEmoji} {...customProps} />);
+  const renderEmojiRadioButton = (
+    customProps: Partial<EmojiRadioButtonProps> = {},
+  ) =>
+    renderWithIntl(<EmojiRadioButton emoji={spriteEmoji} {...customProps} />);
 
   describe('as sprite', () => {
     it('should call onClick on click', async () => {
       const mockOnClickSpy = jest.fn();
-      renderEmojiButton({
+      renderEmojiRadioButton({
         emoji: spriteEmoji,
         onSelected: mockOnClickSpy,
       });
-      const btn = await screen.findByRole('button');
+      const btn = await screen.findByRole('radio');
       expect(btn).toBeInTheDocument();
       act(() => {
         fireEvent.mouseDown(btn);
@@ -34,11 +36,11 @@ describe('<EmojiButton />', () => {
   describe('as image', () => {
     it('should call onClick on click', async () => {
       const mockOnClickSpy = jest.fn();
-      renderEmojiButton({
+      renderEmojiRadioButton({
         emoji: imageEmoji,
         onSelected: mockOnClickSpy,
       });
-      const btn = await screen.findByRole('button');
+      const btn = await screen.findByRole('radio');
       expect(btn).toBeInTheDocument();
       act(() => {
         fireEvent.mouseDown(btn);

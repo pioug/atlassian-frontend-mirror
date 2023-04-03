@@ -15,7 +15,7 @@ import MentionResource, {
   MentionContextIdentifier,
   MentionResourceConfig,
   TeamMentionResourceConfig,
-  TeamMentionProvider,
+  MentionProvider,
 } from './MentionResource';
 import debug from '../util/logger';
 
@@ -28,7 +28,7 @@ const MAX_QUERY_TEAMS = 20;
  */
 export default class TeamMentionResource
   extends MentionResource
-  implements TeamMentionProvider
+  implements MentionProvider
 {
   private readonly teamMentionConfig: TeamMentionResourceConfig;
   private lastSearchQuery?: string = '';
@@ -60,11 +60,6 @@ export default class TeamMentionResource
       return this.handleBothRequests(query, getUserPromise, getTeamsPromise);
     }
   }
-
-  mentionTypeaheadHighlightEnabled = () =>
-    this.teamMentionConfig.teamHighlightEnabled || false;
-
-  mentionTypeaheadCreateTeamPath = () => this.teamMentionConfig.createTeamPath;
 
   /**
    * Returns the initial mention display list before a search is performed for the specified

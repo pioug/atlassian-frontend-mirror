@@ -8,6 +8,7 @@ import { UIComponentFactory } from '../types/ui-components';
 import {
   ReactComponents,
   PrimaryToolbarComponents,
+  UseStickyToolbarType,
 } from '../types/editor-props';
 import { ToolbarUIComponentFactory } from '../ui/Toolbar/types';
 import { CollabEditOptions } from '../plugins/collab-edit/types';
@@ -58,7 +59,7 @@ export interface EditorAppearanceComponentProps {
   enableToolbarMinWidth?: boolean;
 
   featureFlags?: FeatureFlags;
-  useStickyToolbar?: boolean | RefObject<HTMLElement>;
+  useStickyToolbar?: UseStickyToolbarType;
 
   innerRef?: RefObject<HTMLDivElement>;
 }

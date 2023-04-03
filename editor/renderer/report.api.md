@@ -631,6 +631,8 @@ interface SmartLinksOptions {
   // (undocumented)
   showAuthTooltip?: boolean;
   // (undocumented)
+  showServerActions?: boolean;
+  // (undocumented)
   ssr?: boolean;
 }
 
@@ -740,7 +742,7 @@ type VisitMediaLinkAEP = AEP<
 
 ```json
 {
-  "@atlaskit/link-provider": "^1.4.0",
+  "@atlaskit/link-provider": "^1.5.0",
   "@atlaskit/media-core": "^34.0.1",
   "react": "^16.8.0",
   "react-dom": "^16.8.0"

@@ -27,15 +27,11 @@ export const clearAllLocalFeatureFlags = () => {
   mediaFeatureFlagsKeys.forEach(clearLocalFeatureFlag);
 };
 
-export const getMediaFeatureFlags = (
-  filter?: Array<keyof MediaFeatureFlags>,
-): MediaFeatureFlags =>
-  mediaFeatureFlagsKeys
-    .filter((flagKey) => (filter ? filter.includes(flagKey) : true))
-    .reduce(
-      (result, flagName) => ({
-        ...result,
-        [flagName]: getMediaFeatureFlag(flagName),
-      }),
-      {},
-    );
+export const getMediaFeatureFlags = (): MediaFeatureFlags =>
+  mediaFeatureFlagsKeys.reduce(
+    (result, flagName) => ({
+      ...result,
+      [flagName]: getMediaFeatureFlag(flagName),
+    }),
+    {},
+  );

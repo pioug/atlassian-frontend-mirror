@@ -97,7 +97,7 @@ interface BaseIconButtonProps {
 type ButtonCSSContext = {
   default: ButtonCSSProperties;
   hover: ButtonCSSProperties;
-  focus: ButtonFocusCSSProperties;
+  focus: ButtonCSSProperties;
   active: ButtonCSSProperties;
   selected: ButtonCSSProperties;
   selectedHover?: ButtonCSSProperties;
@@ -106,13 +106,6 @@ type ButtonCSSContext = {
 // @public (undocumented)
 type ButtonCSSProperties = CSSProperties & {
   boxShadow: string;
-};
-
-// @public (undocumented)
-type ButtonFocusCSSProperties = {
-  boxShadow: string;
-  color: string;
-  backgroundColor: string;
 };
 
 // @public (undocumented)

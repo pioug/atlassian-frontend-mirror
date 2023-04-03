@@ -19,12 +19,6 @@ interface ExtensionNodeViewOptions {
   appearance?: EditorAppearance;
 }
 
-export interface Props {
-  node: PmNode;
-  providerFactory: ProviderFactory;
-  view: EditorView;
-}
-
 // getInlineNodeViewProducer is a new api to use instead of ReactNodeView
 // when creating inline node views, however, it is difficult to test the impact
 // on selections when migrating inlineExtension to use the new api.

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, {
+import {
   FC,
   Fragment,
   KeyboardEventHandler,
@@ -7,6 +7,10 @@ import React, {
   useState,
   ChangeEvent,
   ChangeEventHandler,
+  useRef,
+  memo,
+  useCallback,
+  useMemo,
 } from 'react';
 import { jsx } from '@emotion/react';
 import {
@@ -18,6 +22,7 @@ import {
 import TextField from '@atlaskit/textfield';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
 import AkButton from '@atlaskit/button/standard-button';
+import FocusLock from 'react-focus-lock';
 
 import { EmojiUpload, Message } from '../../types';
 import * as ImageUtil from '../../util/image';
@@ -44,6 +49,8 @@ export interface OnUploadEmoji {
 }
 
 export const uploadEmojiNameInputTestId = 'upload-emoji-name-input';
+export const uploadEmojiComponentTestId = 'upload-emoji-component';
+export const cancelEmojiUploadPickerTestId = 'cancel-emoji-upload-picker';
 
 export interface Props {
   onUploadEmoji: OnUploadEmoji;
@@ -92,7 +99,7 @@ interface ChooseEmojiFileProps {
 }
 
 type ChooseEmojiFilePropsType = ChooseEmojiFileProps & WrappedComponentProps;
-const ChooseEmojiFile: FC<ChooseEmojiFilePropsType> = (props) => {
+const ChooseEmojiFile: FC<ChooseEmojiFilePropsType> = memo((props) => {
   const {
     name = '',
     onChooseFile,
@@ -106,15 +113,36 @@ const ChooseEmojiFile: FC<ChooseEmojiFilePropsType> = (props) => {
   const disableChooser = !name;
   const fileChooserButtonDescriptionId =
     'choose.emoji.file.button.screen.reader.description.id';
+  const inputRef = useRef<HTMLElement>(null);
 
-  const onKeyDownHandler: KeyboardEventHandler<HTMLInputElement> = (event) => {
-    if (event.key === 'Escape') {
-      onUploadCancelled();
+  const onKeyDownHandler: KeyboardEventHandler<HTMLInputElement> = useCallback(
+    (event) => {
+      if (event.key === 'Escape') {
+        onUploadCancelled();
+      }
+    },
+    [onUploadCancelled],
+  );
+
+  const setInputFocus = useCallback(() => {
+    inputRef.current?.focus();
+    if (document.activeElement?.id !== inputRef.current?.id) {
+      setInputFocus();
     }
-  };
+  }, []);
+
+  // make sure input has focus after update
+  useEffect(() => {
+    window.requestAnimationFrame(setInputFocus);
+  }, [setInputFocus]);
+
+  const cancelLabel = formatMessage(messages.cancelLabel);
+  const emojiPlaceholder = formatMessage(messages.emojiPlaceholder);
+  const emojiNameAriaLabel = formatMessage(messages.emojiNameAriaLabel);
+  const emojiChooseFileTitle = formatMessage(messages.emojiChooseFileTitle);
 
   return (
-    <div css={emojiUpload}>
+    <div css={emojiUpload} data-testid={uploadEmojiComponentTestId}>
       <div css={emojiUploadTop}>
         <span css={uploadChooseFileMessage}>
           <FormattedMessage {...messages.addCustomEmojiLabel}>
@@ -124,23 +152,21 @@ const ChooseEmojiFile: FC<ChooseEmojiFilePropsType> = (props) => {
         <div css={closeEmojiUploadButton}>
           <AkButton
             onClick={onUploadCancelled}
-            aria-describedby={formatMessage(messages.cancelLabel)}
+            aria-label={cancelLabel}
             appearance="subtle"
             spacing="none"
             shouldFitContainer={true}
+            testId={cancelEmojiUploadPickerTestId}
           >
-            <CrossIcon
-              size="small"
-              label={formatMessage(messages.cancelLabel)}
-            />
+            <CrossIcon size="small" label={cancelLabel} />
           </AkButton>
         </div>
       </div>
       <div css={uploadChooseFileRow}>
         <span css={uploadChooseFileEmojiName}>
           <TextField
-            placeholder={formatMessage(messages.emojiPlaceholder)}
-            aria-label={formatMessage(messages.emojiNameAriaLabel)}
+            placeholder={emojiPlaceholder}
+            aria-label={emojiNameAriaLabel}
             maxLength={maxNameLength}
             onChange={onNameChange}
             onKeyDown={onKeyDownHandler}
@@ -148,6 +174,8 @@ const ChooseEmojiFile: FC<ChooseEmojiFilePropsType> = (props) => {
             isCompact
             autoFocus
             testId={uploadEmojiNameInputTestId}
+            ref={inputRef}
+            id="new-emoji-name-input"
           />
         </span>
         <span css={uploadChooseFileBrowse}>
@@ -160,7 +188,7 @@ const ChooseEmojiFile: FC<ChooseEmojiFilePropsType> = (props) => {
                   {screenReaderDescription}
                 </span>
                 <FileChooser
-                  label={formatMessage(messages.emojiChooseFileTitle)}
+                  label={emojiChooseFileTitle}
                   onChange={onChooseFile}
                   onClick={onClick}
                   accept="image/png,image/jpeg,image/gif"
@@ -186,7 +214,7 @@ const ChooseEmojiFile: FC<ChooseEmojiFilePropsType> = (props) => {
       </div>
     </div>
   );
-};
+});
 
 const EmojiUploadPicker: FC<Props & WrappedComponentProps> = (props) => {
   const {
@@ -207,6 +235,10 @@ const EmojiUploadPicker: FC<Props & WrappedComponentProps> = (props) => {
   );
   const [filename, setFilename] = useState<string>();
   const [previewImage, setPreviewImage] = useState<string>();
+  // document is undefined during ssr rendering and throws an error
+  const lastFocusedElementId = useRef(
+    typeof document !== 'undefined' ? document.activeElement?.id : '',
+  );
 
   useEffect(() => {
     if (errorMessage) {
@@ -225,14 +257,23 @@ const EmojiUploadPicker: FC<Props & WrappedComponentProps> = (props) => {
     }
   }, [initialUploadName]);
 
-  const onNameChange = (event: ChangeEvent<any>) => {
-    let newName = sanitizeName(event.target.value);
-    if (name !== newName) {
-      setName(newName);
-    }
-  };
+  const clearUploadPicker = useCallback(() => {
+    setName(undefined);
+    setPreviewImage(undefined);
+    setUploadStatus(UploadStatus.Waiting);
+  }, []);
 
-  const onAddEmoji = () => {
+  const onNameChange = useCallback(
+    (event: ChangeEvent<any>) => {
+      let newName = sanitizeName(event.target.value);
+      if (name !== newName) {
+        setName(newName);
+      }
+    },
+    [name],
+  );
+
+  const onAddEmoji = useCallback(() => {
     if (uploadStatus === UploadStatus.Uploading) {
       return;
     }
@@ -269,60 +310,94 @@ const EmojiUploadPicker: FC<Props & WrappedComponentProps> = (props) => {
           });
         });
     }
-  };
-  const errorOnUpload = (event: any): void => {
-    debug('File load error: ', event);
-    setChooseEmojiErrorMessage(messages.emojiUploadFailed);
-    cancelChooseFile();
-  };
-  const onFileLoad =
-    (file: File) =>
-    async (f: any): Promise<any> => {
-      try {
-        setFilename(file.name);
-        await ImageUtil.parseImage(f.target.result);
-        setPreviewImage(f.target.result);
-      } catch {
-        setChooseEmojiErrorMessage(messages.emojiInvalidImage);
-        cancelChooseFile();
-      }
-    };
-  const cancelChooseFile = () => {
+  }, [
+    clearUploadPicker,
+    filename,
+    name,
+    onUploadEmoji,
+    previewImage,
+    uploadStatus,
+  ]);
+
+  const cancelChooseFile = useCallback(() => {
     setPreviewImage(undefined);
-  };
-  const onChooseFile = (event: ChangeEvent<any>): void => {
-    const files = event.target.files;
+  }, []);
 
-    if (files.length) {
-      const reader = new FileReader();
-      const file: File = files[0];
-
-      if (ImageUtil.hasFileExceededSize(file)) {
-        setChooseEmojiErrorMessage(messages.emojiImageTooBig);
-        cancelChooseFile();
-        return;
-      }
-
-      reader.addEventListener('load', onFileLoad(file));
-      reader.addEventListener('abort', errorOnUpload);
-      reader.addEventListener('error', errorOnUpload);
-      reader.readAsDataURL(file);
-    } else {
+  const errorOnUpload = useCallback(
+    (event: any): void => {
+      debug('File load error: ', event);
+      setChooseEmojiErrorMessage(messages.emojiUploadFailed);
       cancelChooseFile();
-    }
-  };
-  const clearUploadPicker = () => {
-    setName(undefined);
-    setPreviewImage(undefined);
-    setUploadStatus(UploadStatus.Waiting);
-  };
-  const cancelUpload = () => {
+    },
+    [cancelChooseFile],
+  );
+
+  const onFileLoad = useCallback(
+    (file: File) =>
+      async (f: any): Promise<any> => {
+        try {
+          setFilename(file.name);
+          await ImageUtil.parseImage(f.target.result);
+          setPreviewImage(f.target.result);
+        } catch {
+          setChooseEmojiErrorMessage(messages.emojiInvalidImage);
+          cancelChooseFile();
+        }
+      },
+    [cancelChooseFile],
+  );
+
+  const onChooseFile = useCallback(
+    (event: ChangeEvent<any>): void => {
+      const files = event.target.files;
+
+      if (files.length) {
+        const reader = new FileReader();
+        const file: File = files[0];
+
+        if (ImageUtil.hasFileExceededSize(file)) {
+          setChooseEmojiErrorMessage(messages.emojiImageTooBig);
+          cancelChooseFile();
+          return;
+        }
+
+        reader.addEventListener('load', onFileLoad(file));
+        reader.addEventListener('abort', errorOnUpload);
+        reader.addEventListener('error', errorOnUpload);
+        reader.readAsDataURL(file);
+      } else {
+        cancelChooseFile();
+      }
+    },
+    [cancelChooseFile, errorOnUpload, onFileLoad],
+  );
+
+  const cancelUpload = useCallback(() => {
     clearUploadPicker();
     onUploadCancelled();
-  };
+
+    // using setTimeout here to allow the UI to update before setting focus
+    setTimeout(
+      (lastFocus) => {
+        if (lastFocus) {
+          document.getElementById(lastFocus)?.focus();
+        }
+      },
+      0,
+      lastFocusedElementId.current,
+    );
+  }, [clearUploadPicker, onUploadCancelled]);
+
+  const chooseErrorMessage = useMemo(
+    () =>
+      chooseEmojiErrorMessage ? (
+        <FormattedMessage {...chooseEmojiErrorMessage} />
+      ) : undefined,
+    [chooseEmojiErrorMessage],
+  );
 
   return (
-    <React.Fragment>
+    <FocusLock noFocusGuards>
       {name && previewImage ? (
         <EmojiUploadPreview
           errorMessage={errorMessage}
@@ -339,16 +414,14 @@ const EmojiUploadPicker: FC<Props & WrappedComponentProps> = (props) => {
           onClick={onFileChooserClicked}
           onNameChange={onNameChange}
           onUploadCancelled={cancelUpload}
-          errorMessage={
-            chooseEmojiErrorMessage ? (
-              <FormattedMessage {...chooseEmojiErrorMessage} />
-            ) : undefined
-          }
+          errorMessage={chooseErrorMessage}
           intl={intl}
         />
       )}
-    </React.Fragment>
+    </FocusLock>
   );
 };
 
-export default injectIntl(EmojiUploadPicker);
+const EmojiUploadPickerComponent = injectIntl(memo(EmojiUploadPicker));
+
+export default EmojiUploadPickerComponent;

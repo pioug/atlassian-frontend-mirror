@@ -3,7 +3,10 @@ import {
   goToEditorTestingWDExample,
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
-import { getBoundingRect } from '@atlaskit/editor-test-helpers/page-objects/editor';
+import {
+  getBoundingRect,
+  selectors,
+} from '@atlaskit/editor-test-helpers/page-objects/editor';
 import { STATUS_SELECTORS } from '@atlaskit/editor-test-helpers/page-objects/status';
 import {
   fullpage,
@@ -12,12 +15,9 @@ import {
 import statusAdf from './__fixtures__/status-single.adf.json';
 import statusWithTextAdf from './__fixtures__/status-with-text.adf.json';
 
-// FIXME: This test was automatically skipped due to failure on 12/02/2023: https://product-fabric.atlassian.net/browse/ED-16860
 BrowserTestCase(
   'selection.ts: Clicking after a status produces a text selection to its right',
-  {
-    skip: ['*'],
-  },
+  {},
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
@@ -25,6 +25,11 @@ BrowserTestCase(
       allowStatus: true,
       defaultValue: statusAdf,
     });
+    // ED-16860: force a click prior to resolve issue where Windows/Firefox
+    // does not move selection after the later test click.
+    if (page.isBrowser('firefox') && page.isWindowsPlatform()) {
+      await page.click(selectors.editor);
+    }
     await page.waitForSelector(STATUS_SELECTORS.STATUS_NODE);
     const positionAfterStatus = 2;
     const slightOffset = 10;

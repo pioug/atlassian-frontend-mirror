@@ -24,7 +24,7 @@ describe('#handleInsertContent: Insert Nodes', () => {
     const preset = new Preset<EditorPlugin>().add(
       fakeEditorPlugin as NextEditorPlugin<string>,
     );
-    const editorPlugins = preset.getEditorPlugins();
+    const editorPlugins = preset.build();
 
     return {
       ...createEditor({

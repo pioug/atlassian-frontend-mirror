@@ -6,11 +6,15 @@ import {
   Transaction,
 } from 'prosemirror-state';
 import { ResolvedPos } from 'prosemirror-model';
-import { findDomRefAtPos, removeNodeBefore } from 'prosemirror-utils';
+import {
+  findDomRefAtPos,
+  findPositionOfNodeBefore,
+  removeNodeBefore,
+} from 'prosemirror-utils';
 import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/utils';
 import { Direction, isBackward, isForward } from './direction';
 import { GapCursorSelection, Side } from './selection';
-import { getMediaNearPos, isTextBlockNearPos } from './utils';
+import { isTextBlockNearPos } from './utils';
 import { isValidTargetNode } from './utils/is-valid-target-node';
 import { Command } from '../../../types';
 import {
@@ -19,68 +23,10 @@ import {
 } from '../../../utils/prosemirror/position';
 import { gapCursorPluginKey } from '../pm-plugins/gap-cursor-plugin-key';
 import { isPositionNearTableRow } from '../../../utils/table';
-
-type MapDirection = { [name in Direction]: number };
-const mapDirection: MapDirection = {
-  [Direction.LEFT]: -1,
-  [Direction.RIGHT]: 1,
-  [Direction.UP]: -1,
-  [Direction.DOWN]: 1,
-  [Direction.BACKWARD]: -1,
-  [Direction.FORWARD]: 1,
-};
-
-function shouldHandleMediaGapCursor(
-  dir: Direction,
-  state: EditorState,
-): boolean {
-  const { doc, schema, selection } = state;
-  let $pos = isBackward(dir) ? selection.$from : selection.$to;
-
-  if (selection instanceof TextSelection) {
-    // Should not use gap cursor if I am moving from a text selection into a media node
-    if (
-      (dir === Direction.UP && !atTheBeginningOfDoc(state)) ||
-      (dir === Direction.DOWN && !atTheEndOfDoc(state))
-    ) {
-      const media = getMediaNearPos(doc, $pos, schema, mapDirection[dir]);
-      if (media) {
-        return false;
-      }
-    }
-
-    // Should not use gap cursor if I am moving from a text selection into a media node with layout wrap-right or wrap-left
-    if (dir === Direction.LEFT || dir === Direction.RIGHT) {
-      const media = getMediaNearPos(doc, $pos, schema, mapDirection[dir]);
-      const { mediaSingle } = schema.nodes;
-      if (
-        media &&
-        media.type === mediaSingle &&
-        (media.attrs.layout === 'wrap-right' ||
-          media.attrs.layout === 'wrap-left')
-      ) {
-        return false;
-      }
-    }
-  }
-
-  if (selection instanceof NodeSelection) {
-    // Should not use gap cursor if I am moving left/right from media node with layout wrap right or wrap-left
-    if (dir === Direction.LEFT || dir === Direction.RIGHT) {
-      const maybeMedia = doc.nodeAt(selection.$from.pos);
-      const { mediaSingle } = schema.nodes;
-      if (
-        maybeMedia &&
-        maybeMedia.type === mediaSingle &&
-        (maybeMedia.attrs.layout === 'wrap-right' ||
-          maybeMedia.attrs.layout === 'wrap-left')
-      ) {
-        return false;
-      }
-    }
-  }
-  return true;
-}
+import {
+  isMediaNode,
+  isNodeBeforeMediaNode,
+} from '@atlaskit/editor-common/utils';
 
 export type DirectionString =
   | 'up'
@@ -96,6 +42,7 @@ export const shouldSkipGapCursor = (
   $pos: ResolvedPos,
 ) => {
   const { doc, schema } = state;
+
   switch (direction) {
     case Direction.UP:
       if (atTheBeginningOfDoc(state)) {
@@ -103,18 +50,78 @@ export const shouldSkipGapCursor = (
       }
       return (
         isPositionNearTableRow($pos, schema, 'before') ||
-        isTextBlockNearPos(doc, schema, $pos, -1)
+        isTextBlockNearPos(doc, schema, $pos, -1) ||
+        isNodeBeforeMediaNode($pos, state)
       );
     case Direction.DOWN:
       return (
         atTheEndOfDoc(state) ||
         isTextBlockNearPos(doc, schema, $pos, 1) ||
-        isPositionNearTableRow($pos, schema, 'after')
+        isPositionNearTableRow($pos, schema, 'after') ||
+        ($pos.nodeBefore?.type.name === 'text' && !$pos.nodeAfter) // end of a paragraph
       );
     default:
       return false;
   }
 };
+
+// These cases should be handled using the handleMediaGapCursor function
+function shouldHandleMediaGapCursor(dir: Direction, state: EditorState) {
+  const { selection } = state;
+
+  const upArrowFromGapCursorIntoMedia =
+    selection instanceof GapCursorSelection &&
+    dir === Direction.UP &&
+    selection.$from.nodeBefore &&
+    isMediaNode(selection.$from.nodeBefore);
+  const downArrowFromGapCursorIntoMediaGroup =
+    selection instanceof GapCursorSelection &&
+    dir === Direction.DOWN &&
+    selection.$from.nodeAfter?.type.name === 'mediaGroup';
+
+  return upArrowFromGapCursorIntoMedia || downArrowFromGapCursorIntoMediaGroup;
+}
+
+// Handle media gap cursor for up/down arrow into media nodes
+// Should check this case by using shouldHandleMediaGapCursor first
+function handleMediaGapCursor(dir: Direction, state: EditorState): Transaction {
+  const { selection, tr } = state;
+  let $pos = isBackward(dir) ? selection.$from : selection.$to;
+
+  if (
+    dir === Direction.UP &&
+    selection.$from.nodeBefore &&
+    isMediaNode(selection.$from.nodeBefore)
+  ) {
+    const nodeBeforePos = findPositionOfNodeBefore(tr.selection);
+    if (
+      nodeBeforePos &&
+      (selection as GapCursorSelection).side === 'right' &&
+      tr.doc.nodeAt(nodeBeforePos)?.type.name === 'mediaSingle'
+    ) {
+      tr.setSelection(
+        new NodeSelection(tr.doc.resolve(nodeBeforePos)),
+      ).scrollIntoView();
+    } else if (nodeBeforePos || nodeBeforePos === 0) {
+      tr.setSelection(
+        new GapCursorSelection(tr.doc.resolve(nodeBeforePos), Side.LEFT),
+      ).scrollIntoView();
+    }
+  }
+
+  if (dir === Direction.DOWN && selection.$from.nodeAfter) {
+    const nodeAfterPos =
+      (selection as GapCursorSelection).side === 'right'
+        ? $pos.pos
+        : $pos.pos + selection.$from.nodeAfter.nodeSize;
+    if (nodeAfterPos) {
+      tr.setSelection(
+        new GapCursorSelection(tr.doc.resolve(nodeAfterPos), Side.LEFT),
+      ).scrollIntoView();
+    }
+  }
+  return tr;
+}
 
 export const arrow =
   (
@@ -123,7 +130,6 @@ export const arrow =
   ): Command =>
   (state, dispatch, view) => {
     const { doc, selection, tr } = state;
-
     let $pos = isBackward(dir) ? selection.$from : selection.$to;
     let mustMove = selection.empty;
 
@@ -151,14 +157,27 @@ export const arrow =
       if (selection.node.isInline) {
         return false;
       }
-      if (dir === Direction.UP || dir === Direction.DOWN) {
+
+      if (
+        (dir === Direction.UP &&
+          !atTheBeginningOfDoc(state) &&
+          !isNodeBeforeMediaNode($pos, state)) ||
+        dir === Direction.DOWN
+      ) {
         // We dont add gap cursor on node selections going up and down
+        // Except we do if we're going up for a block node which is the
+        // first node in the document OR the node before is a media node
         return false;
       }
     }
 
-    if (!shouldHandleMediaGapCursor(dir, state)) {
-      return false;
+    // Handle media gap cursor for up/down arrow into media nodes
+    if (shouldHandleMediaGapCursor(dir, state)) {
+      const updatedTr = handleMediaGapCursor(dir, state);
+      if (dispatch) {
+        dispatch(updatedTr);
+      }
+      return true;
     }
 
     // when jumping between block nodes at the same depth, we need to reverse cursor without changing ProseMirror position

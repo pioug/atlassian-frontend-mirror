@@ -19,17 +19,15 @@ import {
   FireAnalyticsCallback,
   fireAnalyticsEvent,
 } from '@atlaskit/editor-common/analytics';
-import { EditorProps } from '../types/editor-props';
+import { EditorNextProps } from '../types/editor-props';
 import EditorInternal from './editor-internal';
 import { Context, defaultProps, propTypes } from './utils/editorPropTypes';
 import trackEditorActions from './utils/trackEditorActions';
 import onEditorCreated from './utils/onEditorCreated';
 import deprecationWarnings from './utils/deprecationWarnings';
-import { EditorPlugin } from '../types';
-import { GetEditorPluginsProps } from '../types/get-editor-props';
-import getEditorPlugins from '../utils/get-editor-plugins';
+import { basePlugin } from '../plugins';
 
-export default class EditorNext extends React.Component<EditorProps> {
+export default class EditorNext extends React.Component<EditorNextProps> {
   /**
    * WARNING: Code should be shared between Editor + EditorNext
    * If you are making changes that affect both, consider making them
@@ -42,9 +40,17 @@ export default class EditorNext extends React.Component<EditorProps> {
     editorActions: PropTypes.object,
   };
 
-  static propTypes = propTypes(
-    'minHeight only supports editor appearance chromeless and comment for EditorNext',
-  );
+  static propTypes = {
+    ...propTypes(
+      'minHeight only supports editor appearance chromeless and comment for EditorNext',
+    ),
+    preset: ({ preset }: Pick<EditorNextProps, 'preset'>) => {
+      if (!preset.has(basePlugin)) {
+        return new Error('Presets must contain the base plugin');
+      }
+      return null;
+    },
+  };
 
   private editorActions: EditorActions;
   private createAnalyticsEvent?: CreateUIAnalyticsEvent;
@@ -52,7 +58,7 @@ export default class EditorNext extends React.Component<EditorProps> {
   private experienceStore?: ExperienceStore;
   private startTime?: number;
 
-  constructor(props: EditorProps, context: Context) {
+  constructor(props: EditorNextProps, context: Context) {
     super(props);
 
     deprecationWarnings(props);
@@ -62,7 +68,6 @@ export default class EditorNext extends React.Component<EditorProps> {
     this.onEditorCreated = this.onEditorCreated.bind(this);
     this.onEditorDestroyed = this.onEditorDestroyed.bind(this);
     this.getExperienceStore = this.getExperienceStore.bind(this);
-    this.getEditorPlugins = this.getEditorPlugins.bind(this);
     trackEditorActions(this.editorActions, props.performanceTracking, (value) =>
       this.handleAnalyticsEvent(value),
     );
@@ -135,7 +140,7 @@ export default class EditorNext extends React.Component<EditorProps> {
                 props={this.props}
                 handleAnalyticsEvent={this.handleAnalyticsEvent}
                 createAnalyticsEvent={this.createAnalyticsEvent}
-                getEditorPlugins={this.getEditorPlugins}
+                preset={this.props.preset}
                 handleSave={this.handleSave}
                 editorActions={this.editorActions}
                 getExperienceStore={this.getExperienceStore}
@@ -147,9 +152,5 @@ export default class EditorNext extends React.Component<EditorProps> {
         />
       </FabricEditorAnalyticsContext>
     );
-  }
-
-  private getEditorPlugins(props: GetEditorPluginsProps): EditorPlugin[] {
-    return getEditorPlugins(props);
   }
 }

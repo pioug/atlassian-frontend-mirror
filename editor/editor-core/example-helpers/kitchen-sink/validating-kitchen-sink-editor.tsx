@@ -15,7 +15,7 @@ import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import {
   mentionResourceProviderWithResolver,
-  mentionResourceProviderWithTeamMentionHighlight,
+  mentionResourceProvider,
 } from '@atlaskit/util-data-test/mention-story-data';
 import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
 import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
@@ -168,7 +168,7 @@ export class ValidatingKitchenSinkEditor extends React.Component<
           mentionProvider={Promise.resolve(
             sanitizePrivateContent ?? false
               ? mentionResourceProviderWithResolver
-              : mentionResourceProviderWithTeamMentionHighlight,
+              : mentionResourceProvider,
           )} // enable highlight only for kitchen sink example
           sanitizePrivateContent={sanitizePrivateContent ?? false}
           media={{
@@ -199,6 +199,7 @@ export class ValidatingKitchenSinkEditor extends React.Component<
             'safer-dispatched-transactions': true,
             'floating-toolbar-copy-button': true,
             'restart-numbered-lists': true,
+            'use-editor-next': true,
             tableCellOptionsInFloatingToolbar: true,
             indentationButtonsInTheToolbar: true,
             ...this.props.featureFlags,

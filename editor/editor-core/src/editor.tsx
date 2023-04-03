@@ -6,7 +6,12 @@ import React from 'react';
 
 import type { ExtensionProvider } from '@atlaskit/editor-common/extensions';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { Transformer } from '@atlaskit/editor-common/types';
+
+import type { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
+import type {
+  Transformer,
+  AllEditorPresetPluginTypes,
+} from '@atlaskit/editor-common/types';
 import { WithCreateAnalyticsEvent } from '@atlaskit/editor-common/ui';
 import { getAnalyticsAppearance } from '@atlaskit/editor-common/utils';
 import { name, version } from './version-wrapper';
@@ -41,6 +46,7 @@ import prepareQuickInsertProvider from './utils/prepare-quick-insert-provider';
 import prepareExtensionProvider from './utils/prepare-extension-provider';
 import { ProviderFactoryState } from './editor-next/hooks/useProviderFactory';
 import handleProviders from './editor-next/utils/handleProviders';
+import getProvidersFromEditorProps from './editor-next/utils/getProvidersFromEditorProps';
 import {
   startMeasure,
   clearMeasure,
@@ -51,9 +57,7 @@ import measurements from './utils/performance/measure-enum';
 import editorMeasureTTICallback from './editor-next/utils/editorMeasureTTICallback';
 import { ACTION } from '@atlaskit/editor-common/analytics';
 import sendDurationAnalytics from './editor-next/utils/sendDurationAnalytics';
-import getEditorPlugins from './utils/get-editor-plugins';
-import { GetEditorPluginsProps } from './types/get-editor-props';
-import { EditorPlugin } from './types';
+import { createPreset } from './create-editor/create-plugins-list';
 
 export type {
   AllowedBlockTypes,
@@ -84,10 +88,14 @@ export type {
   UIComponentFactory,
   UiComponentFactoryParams,
 } from './types';
+import { shouldRecreatePreset } from './create-editor/preset-utils';
 
+type PresetState = {
+  preset: EditorPresetBuilder<string[], AllEditorPresetPluginTypes[]>;
+};
 export default class Editor extends React.Component<
   EditorProps,
-  ProviderFactoryState
+  ProviderFactoryState & PresetState
 > {
   /**
    * WARNING: Code should be shared between Editor + EditorNext
@@ -122,7 +130,6 @@ export default class Editor extends React.Component<
     this.startTime = performance.now();
     this.onEditorCreated = this.onEditorCreated.bind(this);
     this.onEditorDestroyed = this.onEditorDestroyed.bind(this);
-    this.getEditorPlugins = this.getEditorPlugins.bind(this);
     this.getExperienceStore = this.getExperienceStore.bind(this);
     this.trackEditorActions(this.editorActions, props);
 
@@ -165,9 +172,12 @@ export default class Editor extends React.Component<
       props.quickInsert,
     );
 
+    const preset = createPreset(props, undefined, this.createAnalyticsEvent);
+
     this.state = {
       extensionProvider,
       quickInsertProvider,
+      preset,
     };
   }
 
@@ -188,7 +198,7 @@ export default class Editor extends React.Component<
     );
     handleProviders(
       this.providerFactory,
-      this.props,
+      getProvidersFromEditorProps(this.props),
       this.state.extensionProvider,
       this.state.quickInsertProvider,
     );
@@ -199,6 +209,10 @@ export default class Editor extends React.Component<
    * `useProviderFactory` (editor-next/hooks/useProviderFactory.ts)
    */
   componentDidUpdate(prevProps: EditorProps) {
+    const needsANewPreset = shouldRecreatePreset(prevProps, this.props);
+    const preset = needsANewPreset
+      ? createPreset(this.props, prevProps, this.createAnalyticsEvent)
+      : this.state.preset;
     const { extensionProviders, quickInsert } = this.props;
     if (
       (extensionProviders &&
@@ -219,20 +233,26 @@ export default class Editor extends React.Component<
         {
           extensionProvider,
           quickInsertProvider,
+          preset,
         },
         () =>
           handleProviders(
             this.providerFactory,
-            this.props,
+            getProvidersFromEditorProps(this.props),
             this.state.extensionProvider,
             this.state.quickInsertProvider,
           ),
       );
       return;
     }
+
+    if (needsANewPreset) {
+      this.setState({ preset });
+      return;
+    }
     handleProviders(
       this.providerFactory,
-      this.props,
+      getProvidersFromEditorProps(this.props),
       this.state.extensionProvider,
       this.state.quickInsertProvider,
     );
@@ -406,7 +426,7 @@ export default class Editor extends React.Component<
                 props={this.props}
                 handleAnalyticsEvent={this.handleAnalyticsEvent}
                 createAnalyticsEvent={this.createAnalyticsEvent}
-                getEditorPlugins={this.getEditorPlugins}
+                preset={this.state.preset}
                 handleSave={this.handleSave}
                 editorActions={this.editorActions}
                 providerFactory={this.providerFactory}
@@ -418,9 +438,5 @@ export default class Editor extends React.Component<
         />
       </FabricEditorAnalyticsContext>
     );
-  }
-
-  private getEditorPlugins(props: GetEditorPluginsProps): EditorPlugin[] {
-    return getEditorPlugins(props);
   }
 }

@@ -1238,30 +1238,6 @@
       ],
       "additionalProperties": true
     },
-    "mediaSingle_full_node": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/mediaSingle_node"
-        },
-        {
-          "type": "object",
-          "properties": {
-            "content": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/media_node"
-              },
-              "minItems": 1,
-              "maxItems": 1
-            }
-          },
-          "required": [
-            "content"
-          ],
-          "additionalProperties": true
-        }
-      ]
-    },
     "mediaSingle_caption_node": {
       "allOf": [
         {
@@ -1291,6 +1267,30 @@
         }
       ]
     },
+    "mediaSingle_full_node": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/mediaSingle_node"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "content": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/media_node"
+              },
+              "minItems": 1,
+              "maxItems": 1
+            }
+          },
+          "required": [
+            "content"
+          ],
+          "additionalProperties": true
+        }
+      ]
+    },
     "listItem_node": {
       "type": "object",
       "properties": {
@@ -1311,10 +1311,10 @@
                   "$ref": "#/definitions/paragraph_with_no_marks_node"
                 },
                 {
-                  "$ref": "#/definitions/mediaSingle_full_node"
+                  "$ref": "#/definitions/mediaSingle_caption_node"
                 },
                 {
-                  "$ref": "#/definitions/mediaSingle_caption_node"
+                  "$ref": "#/definitions/mediaSingle_full_node"
                 }
               ]
             },
@@ -1327,10 +1327,10 @@
                   "$ref": "#/definitions/paragraph_with_no_marks_node"
                 },
                 {
-                  "$ref": "#/definitions/mediaSingle_full_node"
+                  "$ref": "#/definitions/mediaSingle_caption_node"
                 },
                 {
-                  "$ref": "#/definitions/mediaSingle_caption_node"
+                  "$ref": "#/definitions/mediaSingle_full_node"
                 },
                 {
                   "$ref": "#/definitions/bulletList_node"
@@ -1920,10 +1920,10 @@
             "$ref": "#/definitions/paragraph_with_no_marks_node"
           },
           {
-            "$ref": "#/definitions/mediaSingle_full_node"
+            "$ref": "#/definitions/mediaSingle_caption_node"
           },
           {
-            "$ref": "#/definitions/mediaSingle_caption_node"
+            "$ref": "#/definitions/mediaSingle_full_node"
           },
           {
             "$ref": "#/definitions/heading_with_no_marks_node"
@@ -2073,10 +2073,10 @@
             "$ref": "#/definitions/paragraph_with_alignment_node"
           },
           {
-            "$ref": "#/definitions/mediaSingle_full_node"
+            "$ref": "#/definitions/mediaSingle_caption_node"
           },
           {
-            "$ref": "#/definitions/mediaSingle_caption_node"
+            "$ref": "#/definitions/mediaSingle_full_node"
           },
           {
             "$ref": "#/definitions/bulletList_node"
@@ -2214,10 +2214,10 @@
           "$ref": "#/definitions/paragraph_with_no_marks_node"
         },
         {
-          "$ref": "#/definitions/mediaSingle_full_node"
+          "$ref": "#/definitions/mediaSingle_caption_node"
         },
         {
-          "$ref": "#/definitions/mediaSingle_caption_node"
+          "$ref": "#/definitions/mediaSingle_full_node"
         },
         {
           "$ref": "#/definitions/bulletList_node"
@@ -2431,10 +2431,10 @@
           "$ref": "#/definitions/paragraph_with_indentation_node"
         },
         {
-          "$ref": "#/definitions/mediaSingle_full_node"
+          "$ref": "#/definitions/mediaSingle_caption_node"
         },
         {
-          "$ref": "#/definitions/mediaSingle_caption_node"
+          "$ref": "#/definitions/mediaSingle_full_node"
         },
         {
           "$ref": "#/definitions/bulletList_node"
@@ -2622,10 +2622,10 @@
                 "$ref": "#/definitions/paragraph_with_indentation_node"
               },
               {
-                "$ref": "#/definitions/mediaSingle_full_node"
+                "$ref": "#/definitions/mediaSingle_caption_node"
               },
               {
-                "$ref": "#/definitions/mediaSingle_caption_node"
+                "$ref": "#/definitions/mediaSingle_full_node"
               },
               {
                 "$ref": "#/definitions/bulletList_node"

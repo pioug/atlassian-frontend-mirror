@@ -1,28 +1,28 @@
 // #region Imports
 import React from 'react';
 import { MentionProvider } from '@atlaskit/mention/resource';
-import { tablesPlugin } from '@atlaskit/editor-plugin-table';
-
-import {
-  panelPlugin,
-  listPlugin,
-  textColorPlugin,
-  breakoutPlugin,
-  jiraIssuePlugin,
-  extensionPlugin,
-  rulePlugin,
-  datePlugin,
-  layoutPlugin,
-  indentationPlugin,
-  cardPlugin,
-  statusPlugin,
-  mediaPlugin,
-  mentionsPlugin,
-  tasksAndDecisionsPlugin,
-  insertBlockPlugin,
-  basePlugin,
-  placeholderPlugin,
-} from '../../../plugins';
+//import { tablesPlugin } from '@atlaskit/editor-plugin-table';
+//
+//import {
+//  panelPlugin,
+//  listPlugin,
+//  textColorPlugin,
+//  breakoutPlugin,
+//  jiraIssuePlugin,
+//  extensionPlugin,
+//  rulePlugin,
+//  datePlugin,
+//  layoutPlugin,
+//  indentationPlugin,
+//  cardPlugin,
+//  statusPlugin,
+//  mediaPlugin,
+//  mentionsPlugin,
+//  tasksAndDecisionsPlugin,
+//  insertBlockPlugin,
+//  basePlugin,
+//  //placeholderPlugin,
+//} from '../../../plugins';
 import { MediaProvider } from '../../../plugins/media';
 import { PresetProvider } from '../Editor';
 import { EditorPresetProps } from './types';
@@ -42,56 +42,62 @@ export function useCXHTMLPreset({
   placeholder,
   featureFlags,
 }: EditorPresetCXHTMLProps) {
-  const [preset] = useDefaultPreset({
+  const [defaultPreset] = useDefaultPreset({
     featureFlags,
     paste: {},
   });
 
-  preset.add([
-    basePlugin,
-    {
-      allowInlineCursorTarget: true,
-      allowScrollGutter: {
-        getScrollElement: (_view) =>
-          document.querySelector('.fabric-editor-popup-scroll-parent') || null,
-      },
-    },
-  ]);
-  preset.add([tablesPlugin, { tableOptions: { advanced: true } }]);
-  preset.add([panelPlugin, { allowCustomPanel: true }]);
-  preset.add(listPlugin);
-  preset.add(textColorPlugin);
-  preset.add(breakoutPlugin);
-  preset.add(jiraIssuePlugin);
-  preset.add(extensionPlugin);
-  preset.add(rulePlugin);
-  preset.add(datePlugin);
-  preset.add(layoutPlugin);
-  preset.add(indentationPlugin);
-  preset.add([cardPlugin, { allowBlockCards: true, platform: 'web' }]);
-  preset.add([statusPlugin, { menuDisabled: false }]);
-  preset.add(tasksAndDecisionsPlugin);
-  preset.add(insertBlockPlugin);
-  preset.add([placeholderPlugin, { placeholder }]);
-
-  if (mentionProvider) {
-    preset.add(mentionsPlugin);
-  }
-
-  if (mediaProvider) {
-    preset.add([
-      mediaPlugin,
-      {
-        provider: mediaProvider,
-        allowMediaSingle: true,
-        allowMediaGroup: true,
-        allowResizing: true,
-        allowLinking: true,
-        allowResizingInTables: true,
-        allowAltTextOnImages: true,
-      },
-    ]);
-  }
+  const preset = defaultPreset;
+  //.add([
+  //  basePlugin,
+  //  {
+  //    allowInlineCursorTarget: true,
+  //    allowScrollGutter: {
+  //      getScrollElement: (_view) =>
+  //        document.querySelector('.fabric-editor-popup-scroll-parent') ||
+  //        null,
+  //    },
+  //  },
+  //])
+  //.add([tablesPlugin, { tableOptions: { advanced: true } }])
+  //.add([panelPlugin, { allowCustomPanel: true }])
+  //.add(listPlugin)
+  //.add(textColorPlugin)
+  //.add(breakoutPlugin)
+  //.add(jiraIssuePlugin)
+  //.add(extensionPlugin)
+  //.add(rulePlugin)
+  //.add(datePlugin)
+  //.add(layoutPlugin)
+  //.add(indentationPlugin)
+  //.add([cardPlugin, { allowBlockCards: true, platform: 'web' }])
+  //.add([statusPlugin, { menuDisabled: false }])
+  //.add(tasksAndDecisionsPlugin)
+  //.add(insertBlockPlugin)
+  ////.add([placeholderPlugin, { placeholder }])
+  //.maybeAdd(mentionsPlugin, (plugin, builder) => {
+  //  if (mentionProvider) {
+  //    return builder.add(plugin);
+  //  }
+  //  return builder;
+  //})
+  //.maybeAdd(mediaPlugin, (plugin, builder) => {
+  //  if (mediaProvider) {
+  //    preset.add([
+  //      plugin,
+  //      {
+  //        provider: mediaProvider,
+  //        allowMediaSingle: true,
+  //        allowMediaGroup: true,
+  //        allowResizing: true,
+  //        allowLinking: true,
+  //        allowResizingInTables: true,
+  //        allowAltTextOnImages: true,
+  //      },
+  //    ]);
+  //  }
+  //  return builder;
+  //});
 
   return [preset];
 }
@@ -99,7 +105,7 @@ export function useCXHTMLPreset({
 export function EditorPresetCXHTML(props: EditorPresetCXHTMLProps) {
   const { children, excludes } = props;
   const [preset] = useCXHTMLPreset(props);
-  const plugins = preset.getEditorPlugins(excludes);
+  const plugins = preset.build({ excludePlugins: excludes });
 
   return <PresetProvider value={plugins}>{children}</PresetProvider>;
 }

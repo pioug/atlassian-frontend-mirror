@@ -1,6 +1,5 @@
-import React, { useState, FC } from 'react';
+import React, { useState } from 'react';
 import FeatureFlagsDropdown from './dropdown';
-import { MediaFeatureFlags } from '@atlaskit/media-common';
 
 const isLocalStorageSupported = () => {
   try {
@@ -13,14 +12,7 @@ const isLocalStorageSupported = () => {
   return false;
 };
 
-export type FeatureFlagsWrapperProps = {
-  filterFlags?: Array<keyof MediaFeatureFlags>;
-};
-
-const FeatureFlagsWrapper: FC<FeatureFlagsWrapperProps> = ({
-  children,
-  filterFlags,
-}) => {
+const FeatureFlagsWrapper = ({ children }: { children: React.ReactNode }) => {
   const [childrenKey, setChildrenKey] = useState(0);
   // This is a trick to force a re-render on the component's children to see the new FF values taking effect
   const onFlagChanged = () => {
@@ -28,10 +20,7 @@ const FeatureFlagsWrapper: FC<FeatureFlagsWrapperProps> = ({
   };
   return isLocalStorageSupported() ? (
     <>
-      <FeatureFlagsDropdown
-        onFlagChanged={onFlagChanged}
-        filterFlags={filterFlags}
-      />
+      <FeatureFlagsDropdown onFlagChanged={onFlagChanged} />
       <React.Fragment key={childrenKey}>{children}</React.Fragment>
     </>
   ) : (

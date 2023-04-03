@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/atlassian-navigation",
-  "version": "2.3.5",
+  "version": "2.4.0",
   "description": "A horizontal navigation component for Atlassian products.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "@atlaskit/analytics-namespaced-context": "^6.6.0",
-    "@atlaskit/button": "^16.5.0",
+    "@atlaskit/button": "^16.6.0",
     "@atlaskit/ds-lib": "^2.1.0",
     "@atlaskit/icon": "^21.11.0",
     "@atlaskit/logo": "*",

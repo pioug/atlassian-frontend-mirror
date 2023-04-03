@@ -1,3 +1,4 @@
+jest.mock('lodash/throttle', () => jest.fn((fn) => fn));
 import {
   createEditorFactory,
   TypeAheadTool,
@@ -28,14 +29,7 @@ import { EditorProps } from '../../../../types';
 
 const packageName = process.env._PACKAGE_NAME_;
 const packageVersion = process.env._PACKAGE_VERSION_;
-let mockRegisterTeamMention = jest.fn();
 
-jest.mock('@atlaskit/mention/spotlight', () => ({
-  __esModule: true,
-  TeamMentionHighlightController: {
-    registerTeamMention: () => mockRegisterTeamMention(),
-  },
-}));
 jest.useFakeTimers();
 beforeAll(() => {
   window.queueMicrotask = (cb: Function) => {};
@@ -727,20 +721,6 @@ describe('mentionTypeahead', () => {
       );
 
       it(
-        'should not register a team mention while selecting a user',
-        withMentionQuery(
-          'here',
-          async ({ editorView, mentionProvider, query, typeAheadTool }) => {
-            // select a user
-            await searchResultTypeAhead(typeAheadTool)(query).insert({
-              index: 0,
-            });
-            expect(mockRegisterTeamMention).not.toHaveBeenCalled();
-          },
-        ),
-      );
-
-      it(
         'should not insert mention name when collabEdit.sanitizePrivateContent is true and mentionInsertDisplayName is true',
         withMentionQuery(
           'april',
@@ -755,7 +735,7 @@ describe('mentionTypeahead', () => {
             });
 
             expect(mockMentionNameResolver!.lookupName).toHaveBeenCalledTimes(
-              1,
+              2,
             );
             expect(mockMentionNameResolver!.cacheName).toHaveBeenCalledTimes(1);
             expect(mockMentionNameResolver!.cacheName).toHaveBeenCalledWith(
@@ -799,7 +779,7 @@ describe('mentionTypeahead', () => {
             });
 
             expect(mockMentionNameResolver!.lookupName).toHaveBeenCalledTimes(
-              1,
+              2,
             );
             expect(mockMentionNameResolver!.cacheName).toHaveBeenCalledTimes(1);
             expect(mockMentionNameResolver!.cacheName).toHaveBeenCalledWith(
@@ -839,7 +819,7 @@ describe('mentionTypeahead', () => {
             });
 
             expect(mockMentionNameResolver!.lookupName).toHaveBeenCalledTimes(
-              1,
+              2,
             );
             expect(mockMentionNameResolver!.cacheName).toHaveBeenCalledTimes(1);
             expect(mockMentionNameResolver!.cacheName).toHaveBeenCalledWith(
@@ -984,20 +964,6 @@ describe('mentionTypeahead', () => {
       );
 
       it(
-        'should register a team mention ',
-        withMentionQuery(
-          'Team Beta',
-          async ({ editorView, query, typeAheadTool }) => {
-            // select Team Beta team
-            await searchResultTypeAhead(typeAheadTool)(query).insert({
-              index: 0,
-            });
-            expect(mockRegisterTeamMention).toHaveBeenCalled();
-          },
-        ),
-      );
-
-      it(
         'should not insert mention name when collabEdit.sanitizePrivateContent is true',
         withMentionQuery(
           'Team Beta',
@@ -1013,7 +979,7 @@ describe('mentionTypeahead', () => {
             });
 
             expect(mockMentionNameResolver!.lookupName).toHaveBeenCalledTimes(
-              2,
+              4,
             );
             expect(mockMentionNameResolver!.cacheName).toHaveBeenCalledTimes(2);
             expect(mockMentionNameResolver!.cacheName).toHaveBeenNthCalledWith(

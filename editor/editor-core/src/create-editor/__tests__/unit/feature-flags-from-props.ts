@@ -25,6 +25,7 @@ describe('Feature Flags from Props', () => {
       expect(flags.errorBoundaryDocStructure).toBe(false);
     });
   });
+
   describe('interactiveExpand', () => {
     it('should default interactiveExpand to true if allowExpand is true', () => {
       const flags = createFeatureFlagsFromProps({ allowExpand: true });
@@ -117,6 +118,7 @@ describe('Feature Flags from Props', () => {
       });
       expect(flags.findReplace).toBe(false);
     });
+
     describe('findReplaceMatchCase', () => {
       it('should set findReplaceMatchCase to false if allowFindReplace props is false', () => {
         const flags = createFeatureFlagsFromProps({
@@ -145,6 +147,7 @@ describe('Feature Flags from Props', () => {
         });
         expect(flags.findReplaceMatchCase).toBe(false);
       });
+
       it('should set findReplaceMatchCase to true if allowFindReplace props is object and allowMatchCase is true', () => {
         const flags = createFeatureFlagsFromProps({
           allowFindReplace: {
@@ -178,6 +181,7 @@ describe('Feature Flags from Props', () => {
         expect((flags as any)[flagName]).toBe(expected);
       });
     });
+
     describe.each(['tableRenderOptimization'])('%s', (flagName) => {
       it.each<{ actual?: any; expected?: any }>([
         { actual: true, expected: true },
@@ -295,6 +299,7 @@ describe('Feature Flags from Props', () => {
         }),
       );
     });
+
     it('should default to false if nothing passed in', () => {
       expect(
         createFeatureFlagsFromProps({
@@ -322,6 +327,7 @@ describe('Feature Flags from Props', () => {
         }),
       );
     });
+
     it('should default to false if nothing passed in', () => {
       expect(
         createFeatureFlagsFromProps({
@@ -349,6 +355,7 @@ describe('Feature Flags from Props', () => {
         }),
       );
     });
+
     it('should default to false if nothing passed in', () => {
       expect(
         createFeatureFlagsFromProps({
@@ -376,6 +383,7 @@ describe('Feature Flags from Props', () => {
         }),
       );
     });
+
     it('should default to false if nothing passed in', () => {
       expect(
         createFeatureFlagsFromProps({
@@ -403,6 +411,7 @@ describe('Feature Flags from Props', () => {
         }),
       );
     });
+
     it('should default to undefined if nothing passed in', () => {
       expect(
         createFeatureFlagsFromProps({
@@ -430,6 +439,7 @@ describe('Feature Flags from Props', () => {
         }),
       );
     });
+
     it('should default to false if nothing passed in', () => {
       expect(
         createFeatureFlagsFromProps({
@@ -457,6 +467,7 @@ describe('Feature Flags from Props', () => {
         }),
       );
     });
+
     it('should default to false if nothing passed in', () => {
       expect(
         createFeatureFlagsFromProps({
@@ -484,6 +495,7 @@ describe('Feature Flags from Props', () => {
         }),
       );
     });
+
     it('should default to false if nothing passed in', () => {
       expect(
         createFeatureFlagsFromProps({
@@ -511,6 +523,7 @@ describe('Feature Flags from Props', () => {
         }),
       );
     });
+
     it('should default to false if nothing passed in', () => {
       expect(
         createFeatureFlagsFromProps({
@@ -538,6 +551,7 @@ describe('Feature Flags from Props', () => {
         }),
       );
     });
+
     it('should default to false if nothing passed in', () => {
       expect(
         createFeatureFlagsFromProps({
@@ -565,6 +579,7 @@ describe('Feature Flags from Props', () => {
         }),
       );
     });
+
     it('should default to false if nothing passed in', () => {
       expect(
         createFeatureFlagsFromProps({
@@ -576,6 +591,7 @@ describe('Feature Flags from Props', () => {
         }),
       );
     });
+
     it('should default to false if something invalid passed in', () => {
       expect(
         createFeatureFlagsFromProps({
@@ -588,6 +604,36 @@ describe('Feature Flags from Props', () => {
           useEditorNext: false,
         }),
       );
+    });
+  });
+
+  describe('expanded chart colors', () => {
+    it('should add the FF value', () => {
+      expect(
+        createFeatureFlagsFromProps({
+          featureFlags: {
+            'expanded-chart-colors': true,
+          },
+        }),
+      ).toEqual(
+        expect.objectContaining({
+          expandedChartColors: true,
+        }),
+      );
+    });
+
+    it('should not exist in featureFlags if not set in props', () => {
+      const featureFlags = createFeatureFlagsFromProps({
+        featureFlags: {},
+      });
+      expect(featureFlags.expandedChartColors).toBeUndefined();
+    });
+
+    it('should not exist in feaureFlags if not set to boolean value', () => {
+      const featureFlags = createFeatureFlagsFromProps({
+        featureFlags: { 'expanded-chart-colors': 'somethingInvalid' },
+      });
+      expect(featureFlags.expandedChartColors).toBeUndefined();
     });
   });
 });

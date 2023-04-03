@@ -55,7 +55,7 @@ function Expand({ field, children, isExpanded = false, intl }: Props) {
   const [expanded, setExpanded] = useState(isExpanded);
 
   return (
-    <div css={expandContainer}>
+    <div data-testid="expand-config-field" css={expandContainer}>
       <div css={expandControl}>
         <div css={labelContainer}>{field.label}</div>
         <div css={chevronContainer}>

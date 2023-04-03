@@ -8,6 +8,9 @@ import mediaLinkInsideNestedExpand from './__fixtures__/media-link-inside-nested
 import mediaLinkInsideTable from './__fixtures__/media-link-inside-table.adf.json';
 import { waitForAllMedia } from '../__helpers/page-objects/_media';
 import { Page } from 'puppeteer';
+import leftWrappedMultipleMediaInsideTable from './__fixtures__/left-wrapped-multiple-media-link-in-table.adf.json';
+import rightWrappedMultipleMediaInsideTable from './__fixtures__/right-wrapped-multiple-media-link-in-table.adf.json';
+import leftRightWrappedMultipleMediaInsideTable from './__fixtures__/left-right-wrapped-multiple-media-link-in-table.adf.json';
 
 const mediaSingleSelector = `.${richMediaClassName}`;
 
@@ -96,8 +99,7 @@ describe('media link:', () => {
     await snapshot(page);
   });
 
-  // FIXME: This test was automatically skipped due to failure on 20/02/2023: https://product-fabric.atlassian.net/browse/ED-16955
-  it.skip(`should render a linked media image inside a nested expand correctly`, async () => {
+  it(`should render a linked media image inside a nested expand correctly`, async () => {
     await loadAdf(page, mediaLinkInsideNestedExpand);
 
     await waitForAllMedia(page, 1);
@@ -127,5 +129,50 @@ describe('media link:', () => {
 
     await animationFrame(page);
     await snapshot(page);
+  });
+
+  it(`should horizontally render multiple wrapped-left linked media images inside a table`, async () => {
+    await loadAdf(page, leftWrappedMultipleMediaInsideTable);
+
+    await waitForAllMedia(page, 2);
+
+    await page.waitForSelector('a[href="https://www.atlassian.com/"]', {
+      visible: true,
+    });
+    await page.focus('a[href="https://www.atlassian.com/"]');
+    await page.hover('a[href="https://www.atlassian.com/"]');
+
+    await animationFrame(page);
+    await snapshot(page, { useUnsafeThreshold: true, tolerance: 0.05 });
+  });
+
+  it(`should horizontally render multiple wrapped-right linked media images inside a table`, async () => {
+    await loadAdf(page, rightWrappedMultipleMediaInsideTable);
+
+    await waitForAllMedia(page, 2);
+
+    await page.waitForSelector('a[href="https://www.atlassian.com/"]', {
+      visible: true,
+    });
+    await page.focus('a[href="https://www.atlassian.com/"]');
+    await page.hover('a[href="https://www.atlassian.com/"]');
+
+    await animationFrame(page);
+    await snapshot(page, { useUnsafeThreshold: true, tolerance: 0.05 });
+  });
+
+  it(`should horizontally render multiple left & right wrapped linked media images inside a table`, async () => {
+    await loadAdf(page, leftRightWrappedMultipleMediaInsideTable);
+
+    await waitForAllMedia(page, 2);
+
+    await page.waitForSelector('a[href="https://www.atlassian.com/"]', {
+      visible: true,
+    });
+    await page.focus('a[href="https://www.atlassian.com/"]');
+    await page.hover('a[href="https://www.atlassian.com/"]');
+
+    await animationFrame(page);
+    await snapshot(page, { useUnsafeThreshold: true, tolerance: 0.05 });
   });
 });

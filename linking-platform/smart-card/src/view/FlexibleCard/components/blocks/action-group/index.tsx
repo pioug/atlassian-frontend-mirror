@@ -13,7 +13,6 @@ import { ActionName, SmartLinkSize } from '../../../../../constants';
 import Button from '@atlaskit/button/standard-button';
 import MoreIcon from '@atlaskit/icon/glyph/more';
 import { sizeToButtonSpacing } from '../../utils';
-import { tokens } from '../../../../../utils/token';
 import { messages } from '../../../../../messages';
 import { ActionItem } from '../types';
 import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
@@ -25,14 +24,14 @@ const styles = css`
   line-height: 1rem;
   > div {
     align-items: center;
-    button:focus {
+    button:focus-visible {
       // AK button removes the default browser outline on focus and apply
       // box-shadow styling to create the outline appearance.
       // Due to our container elements (Container/Block/ElementGroup) has
       // overflow hidden to prevent the metadata element from leaking outside
       // of its container, the box-shadow doesn't show properly.
       // Invert the AK box-shadow styling.
-      box-shadow: inset 0 0 0 2px ${tokens.focus};
+      outline-offset: -2px;
     }
   }
 `;

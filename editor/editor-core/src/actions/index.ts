@@ -1,34 +1,33 @@
 import { Node } from 'prosemirror-model';
 
 import {
-  EditorActionsOptions,
   ContextUpdateHandler,
+  EditorActionsOptions,
   ReplaceRawValue,
 } from '@atlaskit/editor-common/types';
 
-import { TextSelection, NodeSelection } from 'prosemirror-state';
+import { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
+import { ResolvedEditorState } from '@atlaskit/editor-common/collab';
+import { Transformer } from '@atlaskit/editor-common/types';
+import { analyticsEventKey } from '@atlaskit/editor-common/utils';
+import { NodeSelection, TextSelection } from 'prosemirror-state';
+import { findParentNode, safeInsert } from 'prosemirror-utils';
 import { EditorView } from 'prosemirror-view';
-import { findParentNode } from 'prosemirror-utils';
+import { createDispatch, EventDispatcher } from '../event-dispatcher';
+import { getCollabProvider } from '../plugins/collab-edit/native-collab-provider-plugin';
+import { findNodePosWithLocalId } from '../plugins/extension/utils';
+import { getFeatureFlags } from '../plugins/feature-flags-context/get-feature-flags';
 import { toJSON } from '../utils';
-import {
-  processRawValue,
-  isEmptyDocument,
-  processRawFragmentValue,
-} from '../utils/document';
 import {
   getEditorValueWithMedia,
   __temporaryFixForConfigPanel,
 } from '../utils/action';
-import { EventDispatcher, createDispatch } from '../event-dispatcher';
-import { safeInsert } from 'prosemirror-utils';
-import { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
-import { analyticsEventKey } from '@atlaskit/editor-common/utils';
-import { Transformer } from '@atlaskit/editor-common/types';
-import { findNodePosWithLocalId } from '../plugins/extension/utils';
-import { getFeatureFlags } from '../plugins/feature-flags-context/get-feature-flags';
-import { getCollabProvider } from '../plugins/collab-edit/native-collab-provider-plugin';
-import { ResolvedEditorState } from '@atlaskit/editor-common/collab';
 import deprecationWarnings from '../utils/deprecation-warnings';
+import {
+  isEmptyDocument,
+  processRawFragmentValue,
+  processRawValue,
+} from '../utils/document';
 import { findNodePosByFragmentLocalIds } from '../utils/nodes-by-localIds';
 
 export default class EditorActions<T = any> implements EditorActionsOptions<T> {
@@ -111,8 +110,23 @@ export default class EditorActions<T = any> implements EditorActionsOptions<T> {
       return false;
     }
 
-    this.editorView.focus();
+    // If we focus on componentDidMount the editor can crash due to a prosemirror error.
+    // This is fixed in prosemirror-view@1.23.7
+    // See: https:github.com/ProseMirror/prosemirror-view/commit/735b88107d1cbe7575a188edb85f05c22fb56e35
+    //
+    // We don't want this error to crash the editor in the case we can't
+    // focus correctly.
+    // Revert workaround in: https://product-fabric.atlassian.net/browse/ED-17172
+    try {
+      this.editorView.focus();
+    } catch (err) {
+      if (process.env.NODE_ENV !== 'production') {
+        // eslint-disable-next-line no-console
+        console.error('EditorView focus failed with an error', err);
+      }
+    }
     this.editorView.dispatch(this.editorView.state.tr.scrollIntoView());
+
     return true;
   }
 

@@ -1,6 +1,6 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 /** @jsx jsx */
-import React, { forwardRef, useMemo } from 'react';
+import React, { forwardRef } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -82,23 +82,6 @@ const Banner = forwardRef<HTMLDivElement, BannerProps>(
     const appearanceType =
       appearance in backgroundColors ? appearance : 'warning';
 
-    const accessibilityProps = useMemo(() => {
-      const baseProps = {
-        role: 'alert',
-      };
-
-      if (appearance === 'announcement') {
-        return {
-          ...baseProps,
-          'aria-label': 'announcement',
-          tabIndex: 0,
-          role: 'region',
-        };
-      }
-
-      return baseProps;
-    }, [appearance]);
-
     return (
       <Box
         display="block"
@@ -107,7 +90,7 @@ const Banner = forwardRef<HTMLDivElement, BannerProps>(
         padding="space.150"
         testId={testId}
         ref={ref}
-        {...accessibilityProps}
+        role="alert"
         UNSAFE_style={{
           maxHeight: '48px',
         }}

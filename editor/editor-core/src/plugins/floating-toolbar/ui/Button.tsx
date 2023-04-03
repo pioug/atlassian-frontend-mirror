@@ -26,6 +26,7 @@ export interface Props {
     | 'tree'
     | 'grid'
     | undefined;
+  ariaLabel?: string;
   href?: string;
   target?: string;
   children?: React.ReactNode;
@@ -34,6 +35,7 @@ export interface Props {
   testId?: string;
   hideTooltipOnClick?: boolean;
   tabIndex?: number | null | undefined;
+  areaControls?: string;
 }
 
 export default ({
@@ -58,6 +60,8 @@ export default ({
   hideTooltipOnClick = true,
   ariaHasPopup,
   tabIndex,
+  areaControls,
+  ariaLabel,
 }: Props) => {
   // Check if there's only an icon and add additional styles
   const iconOnly = (icon || iconAfter) && !children;
@@ -87,8 +91,10 @@ export default ({
               ...rest,
             };
           }}
-          aria-label={title}
-          aria-pressed={selected}
+          aria-label={ariaLabel || title}
+          aria-pressed={!ariaHasPopup ? selected : undefined}
+          aria-expanded={ariaHasPopup ? selected : undefined}
+          aria-controls={ariaHasPopup ? areaControls : undefined}
           spacing={'compact'}
           href={href}
           target={target}

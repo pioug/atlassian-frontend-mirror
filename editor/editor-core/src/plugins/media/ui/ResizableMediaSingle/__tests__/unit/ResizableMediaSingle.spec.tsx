@@ -73,9 +73,9 @@ describe('<ResizableMediaSingle />', () => {
   const getEditorView = (document: CreatePMEditorOptions['doc']) => {
     const createEditor = createProsemirrorEditorFactory();
 
-    const preset = new Preset<LightEditorPlugin>();
-    preset.add([mediaPlugin, { allowMediaSingle: true }]);
-    preset.add(layoutPlugin);
+    const preset = new Preset<LightEditorPlugin>()
+      .add([mediaPlugin, { allowMediaSingle: true }])
+      .add(layoutPlugin);
 
     const mediaProvider = Promise.resolve({
       viewMediaClientConfig: getDefaultMediaClientConfig(),

@@ -35,9 +35,9 @@ exports[`<CategorySelector /> active category highlighted 1`] = `
 .emotion-1 {
   background-color: transparent;
   border: 0;
+  border-radius: var(--ds-radius-100, 3px);
   color: var(--ds-text-subtlest, rgba(9, 30, 66, 0.54));
   cursor: pointer;
-  margin: 2px 0;
   padding: 0;
   -webkit-transition: color 0.2s ease;
   transition: color 0.2s ease;
@@ -53,44 +53,45 @@ exports[`<CategorySelector /> active category highlighted 1`] = `
   color: var(--ds-text-selected, #2684FF);
 }
 
+.emotion-1:focus {
+  box-shadow: 0 0 0 2px var(--ds-border-focused, #4C9AFF);
+  transition-duration: 0s,0.2s;
+  outline: none;
+}
+
 .emotion-1:hover {
   color: var(--ds-text-selected, #0065FF);
 }
 
 <button
   aria-label="Activity"
-  className="emotion-1"
-  data-category-id="ACTIVITY"
+  aria-selected="false"
+  class="emotion-1"
+  data-focus-index="3"
   data-testid="category-selector-ACTIVITY"
-  onClick={[Function]}
-  title="Activity"
+  id="category-selector-ACTIVITY"
+  role="tab"
+  tabindex="-1"
   type="button"
 >
-  <EmojiActivityIcon
-    label="Activity"
+  <span
+    aria-label="Activity"
+    class="emotion-0"
+    role="img"
+    style="--icon-primary-color: currentColor; --icon-secondary-color: var(--ds-surface, #FFFFFF);"
   >
-    <Memo(Icon)
-      dangerouslySetGlyph="<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" role=\\"presentation\\"><path d=\\"M15.677 16.738A5.97 5.97 0 0112 18a5.97 5.97 0 01-3.677-1.262 6.329 6.329 0 001.982-4.589 6.33 6.33 0 00-2.157-4.746A5.973 5.973 0 0112 6c1.465 0 2.808.528 3.851 1.403a6.33 6.33 0 00-2.156 4.746c0 1.751.736 3.41 1.982 4.589zm1.354-1.472c.613-.94.969-2.063.969-3.266 0-1.124-.31-2.176-.85-3.076a4.321 4.321 0 00-1.455 3.225c0 1.187.495 2.313 1.336 3.117zm-10.062 0A5.964 5.964 0 016 12c0-1.124.31-2.176.85-3.076a4.324 4.324 0 011.455 3.225 4.323 4.323 0 01-1.336 3.117zM12 4a8 8 0 100 16 8 8 0 000-16z\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>"
-      label="Activity"
+    <svg
+      height="24"
+      role="presentation"
+      viewBox="0 0 24 24"
+      width="24"
     >
-      <Noop />
-<span
-        aria-label="Activity"
-        className="emotion-0"
-        dangerouslySetInnerHTML={
-          Object {
-            "__html": "<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" role=\\"presentation\\"><path d=\\"M15.677 16.738A5.97 5.97 0 0112 18a5.97 5.97 0 01-3.677-1.262 6.329 6.329 0 001.982-4.589 6.33 6.33 0 00-2.157-4.746A5.973 5.973 0 0112 6c1.465 0 2.808.528 3.851 1.403a6.33 6.33 0 00-2.156 4.746c0 1.751.736 3.41 1.982 4.589zm1.354-1.472c.613-.94.969-2.063.969-3.266 0-1.124-.31-2.176-.85-3.076a4.321 4.321 0 00-1.455 3.225c0 1.187.495 2.313 1.336 3.117zm-10.062 0A5.964 5.964 0 016 12c0-1.124.31-2.176.85-3.076a4.324 4.324 0 011.455 3.225 4.323 4.323 0 01-1.336 3.117zM12 4a8 8 0 100 16 8 8 0 000-16z\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>",
-          }
-        }
-        role="img"
-        style={
-          Object {
-            "--icon-primary-color": "currentColor",
-            "--icon-secondary-color": "var(--ds-surface, #FFFFFF)",
-          }
-        }
+      <path
+        d="M15.677 16.738A5.97 5.97 0 0112 18a5.97 5.97 0 01-3.677-1.262 6.329 6.329 0 001.982-4.589 6.33 6.33 0 00-2.157-4.746A5.973 5.973 0 0112 6c1.465 0 2.808.528 3.851 1.403a6.33 6.33 0 00-2.156 4.746c0 1.751.736 3.41 1.982 4.589zm1.354-1.472c.613-.94.969-2.063.969-3.266 0-1.124-.31-2.176-.85-3.076a4.321 4.321 0 00-1.455 3.225c0 1.187.495 2.313 1.336 3.117zm-10.062 0A5.964 5.964 0 016 12c0-1.124.31-2.176.85-3.076a4.324 4.324 0 011.455 3.225 4.323 4.323 0 01-1.336 3.117zM12 4a8 8 0 100 16 8 8 0 000-16z"
+        fill="currentColor"
+        fill-rule="evenodd"
       />
-    </Memo(Icon)>
-  </EmojiActivityIcon>
+    </svg>
+  </span>
 </button>
 `;

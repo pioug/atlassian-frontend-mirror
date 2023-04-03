@@ -3,6 +3,7 @@ import {
   akEditorBreakoutPadding,
   akEditorDefaultLayoutWidth,
   akEditorFullWidthLayoutWidth,
+  akEditorSwoopCubicBezier,
   akEditorWideLayoutWidth,
   breakoutWideScaleRatio,
 } from '@atlaskit/editor-shared-styles';
@@ -126,11 +127,15 @@ export function calculateBreakoutStyles({
     // it breaks things like sticky headers.
     //
     // It can also cause bluriness for some child content (such as iframes)
+
     return {
       type: 'line-length-unknown' as const,
       width: breakoutWidth,
-      transform: 'translateX(-50%)',
-      marginLeft: '50%',
+      minWidth: breakoutWidthPx,
+      display: 'flex',
+      justifyContent: 'center',
+      transform: 'none',
+      transition: `min-width 0.5s ${akEditorSwoopCubicBezier}`,
     };
   }
 
@@ -139,12 +144,15 @@ export function calculateBreakoutStyles({
   // full-page appearance modes. There is a slight delay before
   // the widthState is updated.
   // During this period -- the marginLeftPx will be incorrect.
-  const marginLeftPx = -(breakoutWidthPx - widthStateLineLength) / 2;
+  // const marginLeftPx = -(breakoutWidthPx - widthStateLineLength) / 2;
 
   return {
     type: 'line-length-known' as const,
     width: breakoutWidth,
-    marginLeft: `${marginLeftPx}px`,
+    minWidth: breakoutWidthPx,
+    transition: `min-width 0.5s ${akEditorSwoopCubicBezier}`,
+    transform: `translateX(-50%)`,
+    marginLeft: `50%`,
   };
 }
 

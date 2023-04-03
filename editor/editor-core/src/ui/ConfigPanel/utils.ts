@@ -1,23 +1,12 @@
-import {
-  Option,
-  FieldDefinition,
-  Parameters,
-} from '@atlaskit/editor-common/extensions';
+import { Option, FieldDefinition } from '@atlaskit/editor-common/extensions';
 
-import { ValidationError, Entry } from './types';
+import { ValidationError } from './types';
 
 export const validate = <T>(
   field: Partial<FieldDefinition>,
   value: T,
 ): ValidationError | undefined => {
   return validateRequired<T>(field, value);
-};
-
-export const fromEntries = <T>(iterable: Entry<T>[]): Parameters => {
-  return [...iterable].reduce<{ [key: string]: T }>((obj, [key, val]) => {
-    obj[key] = val;
-    return obj;
-  }, {});
 };
 
 const isEmptyString = <T>(value: T) =>

@@ -1,7 +1,9 @@
 import { css } from '@emotion/react';
 
 import { gridSize } from '@atlaskit/theme/constants';
-import { N40A, N50A } from '@atlaskit/theme/colors';
+import { N40A, N50A, DN70, DN80 } from '@atlaskit/theme/colors';
+import { themed } from '@atlaskit/theme/components';
+import { ThemeProps } from '@atlaskit/theme/types';
 import {
   columnLayoutSharedStyle,
   LAYOUT_SECTION_MARGIN,
@@ -25,7 +27,7 @@ import { tableMarginFullWidthMode } from '@atlaskit/editor-plugin-table/ui/const
 
 export { LAYOUT_COLUMN_PADDING, LAYOUT_SECTION_MARGIN };
 
-export const layoutStyles = css`
+export const layoutStyles = (props: ThemeProps) => css`
   .ProseMirror {
     ${columnLayoutSharedStyle} [data-layout-section] {
       margin: ${gridSize() - 1}px -${akLayoutGutterOffset}px 0;
@@ -37,7 +39,10 @@ export const layoutStyles = css`
         flex: 1;
         min-width: 0;
         border: ${akEditorSelectedBorderSize}px solid
-          ${token('color.border', N40A)};
+          ${themed({
+            light: token('color.border', N40A),
+            dark: token('color.border', DN70),
+          })(props)};
         border-radius: 4px;
         padding: ${LAYOUT_COLUMN_PADDING}px;
         box-sizing: border-box;
@@ -124,7 +129,11 @@ export const layoutStyles = css`
       /* Shows the border when cursor is inside a layout */
       &.selected [data-layout-column],
       &:hover [data-layout-column] {
-        border-color: ${token('color.border', N50A)};
+        border: ${akEditorSelectedBorderSize}px solid
+          ${themed({
+            light: token('color.border', N50A),
+            dark: token('color.border', DN80),
+          })(props)};
       }
 
       &.selected.danger > [data-layout-column] {

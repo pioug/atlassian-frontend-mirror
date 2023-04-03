@@ -97,52 +97,6 @@ describe('withMediaAnalyticsContext()', () => {
     );
   });
 
-  it('should filter feature flags if filter is provided', () => {
-    const analyticsEventPayload = { test: 'ok' };
-    const filteredFlags: MediaFeatureFlags = {
-      someFilteredFlag: false,
-    } as MediaFeatureFlags;
-    const someFeatureFlags: MediaFeatureFlags = {
-      someFlag: true,
-      someOtherFlag: true,
-      ...filteredFlags,
-    } as MediaFeatureFlags;
-    const onEvent = jest.fn();
-
-    const { MediaComponentFiringAnalyticsEvent, someContextData } = setup(
-      analyticsEventPayload,
-    );
-
-    const MediaComponentFiringAnalyticsEventWithContext =
-      withMediaAnalyticsContext(someContextData, {
-        filterFeatureFlags: Object.keys(filteredFlags) as any,
-      })(MediaComponentFiringAnalyticsEvent);
-
-    mount(
-      <AnalyticsListener onEvent={onEvent} channel={ANALYTICS_MEDIA_CHANNEL}>
-        <MediaComponentFiringAnalyticsEventWithContext
-          featureFlags={someFeatureFlags}
-        />
-      </AnalyticsListener>,
-    );
-
-    expect(onEvent).toHaveBeenCalledWith(
-      expect.objectContaining({
-        context: expect.arrayContaining([
-          {
-            ...someContextData,
-            [MEDIA_CONTEXT]: {
-              featureFlags: filteredFlags,
-            },
-          },
-        ]),
-        payload: analyticsEventPayload,
-        hasFired: true,
-      }),
-      ANALYTICS_MEDIA_CHANNEL,
-    );
-  });
-
   it('should allow passing React refs', () => {
     const { someContextData } = setup();
     const someRef = React.createRef<HTMLButtonElement>();

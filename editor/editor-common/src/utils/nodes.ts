@@ -4,11 +4,13 @@ import {
   NodeType,
   Mark as PMMark,
   Node as PMNode,
+  ResolvedPos,
   Schema,
   Slice,
 } from 'prosemirror-model';
 import { EditorState, Transaction } from 'prosemirror-state';
 import { Step } from 'prosemirror-transform';
+import { findParentNodeOfType } from 'prosemirror-utils';
 
 import { CardAppearance } from '@atlaskit/smart-card';
 
@@ -122,4 +124,57 @@ export const isSupportedInParent = (
       : -1;
   const parent = state.selection.$from.node(depth);
   return parent && parent.type.validContent(fragment);
+};
+
+/**
+ * Checks if the passed in node is a media node
+ * Includes media, mediaInline, mediaGroup, mediaSingle
+ * @param node The PM node to be checked
+ */
+export const isMediaNode = (node: PMNode): boolean => {
+  return ['media', 'mediaInline', 'mediaGroup', 'mediaSingle'].includes(
+    node.type.name,
+  );
+};
+
+/**
+ * Checks if the node before selection is a media node
+ * If there is no node before, checks the node before the parent node
+ * Includes media, mediaInline, mediaGroup, mediaSingle
+ * @param $pos The position of the selection
+ * @param state The editor state
+ */
+export const isNodeBeforeMediaNode = (
+  $pos: ResolvedPos,
+  state: EditorState,
+): boolean => {
+  let nodeBefore = $pos.nodeBefore;
+  if (!nodeBefore) {
+    const depthOfParent = $pos.depth - 1 || 1;
+    const parentNode = findParentNodeOfType([
+      state.schema.nodes[`${$pos.node(depthOfParent).type.name}`],
+    ])(state.selection);
+
+    const resolvedPosOfParentNode = parentNode
+      ? state.tr.doc.resolve(parentNode.pos)
+      : undefined;
+
+    const nodeBeforeParent =
+      resolvedPosOfParentNode &&
+      resolvedPosOfParentNode.pos < state.doc.nodeSize
+        ? resolvedPosOfParentNode.nodeBefore
+        : undefined;
+
+    if (nodeBeforeParent) {
+      nodeBefore = nodeBeforeParent;
+    }
+  }
+
+  if (nodeBefore) {
+    return ['media', 'mediaInline', 'mediaGroup', 'mediaSingle'].includes(
+      nodeBefore.type.name,
+    );
+  }
+
+  return false;
 };

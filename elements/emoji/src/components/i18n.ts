@@ -24,8 +24,9 @@ export const messages = defineMessages({
   },
   emojiPlaceholder: {
     id: 'fabric.emoji.placeholder',
-    defaultMessage: 'Emoji name',
-    description: 'Placeholder for emoji',
+    defaultMessage: 'e.g. hello',
+    description:
+      'Placeholder for emoji that provides an example for emoji name',
   },
   emojiNameAriaLabel: {
     id: 'fabric.emoji.name.ariaLabel',
@@ -46,9 +47,15 @@ export const messages = defineMessages({
   },
   emojiSelectSkinToneButtonAriaLabelText: {
     id: 'fabric.emoji.select.skin.tone.ariaLabel',
-    defaultMessage: 'Select skin tone, {selectedTone}',
+    defaultMessage: 'Choose your skin tone, {selectedTone} selected',
     description:
       'Message indicating the purpose of the skin tone selection button and the selected tone',
+  },
+  emojiSelectSkinToneListAriaLabelText: {
+    id: 'fabric.emoji.select.skin.list.ariaLabel',
+    defaultMessage: 'Skin tone selector',
+    description:
+      'Message indicating the purpose of the skin tone list and make user to choose one tone',
   },
   emojiImageRequirements: {
     id: 'fabric.emoji.image.requirements',
@@ -87,8 +94,25 @@ export const messages = defineMessages({
   },
   searchLabel: {
     id: 'fabric.emoji.search.label',
-    defaultMessage: 'Search emoji',
+    defaultMessage: 'Emoji name',
     description: 'verb - button label to search',
+  },
+  searchResultsStatus: {
+    id: 'fabric.emoji.search.status',
+    defaultMessage: 'Found {count} emojis',
+    description: 'search results status for screenreader to read out',
+  },
+  searchResultsStatusSeeAll: {
+    id: 'fabric.emoji.search.status',
+    defaultMessage: 'Seeing all emojis',
+    description:
+      'search results status when no search query for screenreader to read out',
+  },
+  categoriesSelectorLabel: {
+    id: 'fabric.emoji.categories.label',
+    defaultMessage: 'Choose a emoji category',
+    description:
+      'Aria label for Emoji categories selector at the top of emoji picker',
   },
   categoriesSearchResults: {
     id: 'fabric.emoji.categories.search.results',
@@ -174,5 +198,27 @@ export const messages = defineMessages({
     id: 'fabric.emoji.error.image.too.big',
     defaultMessage: 'Selected image is more than 1 MB',
     description: 'Error message for image too big, beyond the size limit',
+  },
+  emojiPickerTitle: {
+    id: 'fabric.emoji.picker',
+    defaultMessage: 'Emoji picker',
+    description: 'Aria label for emoji picker',
+  },
+  emojiPickerListPanel: {
+    id: 'fabric.emoji.pickerlist.tabpanel',
+    defaultMessage: 'Emojis actions and list panel',
+    description:
+      'Aria lable for tabpanel of emoji picker, which shows emojis actions and list',
+  },
+  emojiPickerGrid: {
+    id: 'fabric.emoji.pickerlist.grid',
+    defaultMessage:
+      '{showSearchResults, select, true{Search results} other{Emojis}}',
+    description: `Aria label for emoji picker grid, showSearchResults is a boolean variable, message will be "Entering Emojis table", or "Leaving Emojis"`,
+  },
+  emojiButtonRoleDescription: {
+    id: 'fabric.emoji.emojipicker.emoi.roledescription',
+    defaultMessage: 'emoji button',
+    description: `Aria roledescription for emoji button, used in emoji picker.`,
   },
 });

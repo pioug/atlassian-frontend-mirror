@@ -8,7 +8,7 @@ import { emojiPickerHeight } from '../src/util/constants';
 import { IntlProvider } from 'react-intl-next';
 import { EmojiProvider, ResourcedEmoji } from '../src';
 import { token } from '@atlaskit/tokens';
-import { N0, Y50 } from '@atlaskit/theme/colors';
+import { B300, N0 } from '@atlaskit/theme/colors';
 
 interface RenderRealEmojisProps {
   emailProvider: Promise<EmojiProvider>;
@@ -22,7 +22,7 @@ const CustomFallbackElement: FC = ({ children }) => {
         borderRadius: '100%',
         height: '50px',
         width: '50px',
-        backgroundColor: token('color.background.neutral.bold', Y50),
+        backgroundColor: token('color.background.accent.blue.bolder', B300),
       }}
     >
       <div

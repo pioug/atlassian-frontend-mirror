@@ -40,6 +40,7 @@ describe('FloatingContextualMenu', () => {
             isOpen
             pluginConfig={getPluginState(editorView.state).pluginConfig}
             getEditorContainerWidth={jest.fn()}
+            getEditorFeatureFlags={() => ({})}
           />
         </IntlProvider>,
       );

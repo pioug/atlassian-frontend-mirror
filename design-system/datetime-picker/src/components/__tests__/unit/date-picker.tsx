@@ -249,6 +249,33 @@ describe('DatePicker', () => {
     expect(onChangeSpy).toBeCalledWith(expectedResult);
   });
 
+  it("should use today's date if year over 9999 is given", () => {
+    const onChangeSpy = jest.fn();
+    const today = format(new Date(), 'yyyy-MM-dd');
+
+    render(
+      <DatePicker
+        id="defaultDatePicker-ParseInputValue"
+        onChange={onChangeSpy}
+        testId="test"
+      />,
+    );
+
+    const input = screen.getByTestId('test--input');
+    fireEvent.input(input, {
+      target: {
+        value: '01/01/10000',
+      },
+    });
+    expect(onChangeSpy).not.toBeCalled();
+
+    fireEvent.keyDown(input, {
+      key: 'Enter',
+    });
+
+    expect(onChangeSpy).toBeCalledWith(today);
+  });
+
   it('pressing the Backspace key to empty the input should clear the value', () => {
     const dateValue = new Date('06/08/2018').toISOString();
     const onChangeSpy = jest.fn();

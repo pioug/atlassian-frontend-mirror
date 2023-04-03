@@ -13,6 +13,10 @@ export interface BreadcrumbsProps extends WithAnalyticsEventsProps {
    */
   isExpanded?: boolean;
   /**
+   * Uses the `nav` element if true and `div` if false. Defaults to true.
+   */
+  isNavigation?: boolean;
+  /**
    * Set the maximum number of breadcrumbs to display. When there are more
    * than the maximum number, only the first and last will be shown, with an
    * ellipsis in between.

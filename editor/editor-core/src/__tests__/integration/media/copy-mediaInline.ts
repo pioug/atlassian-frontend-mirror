@@ -74,10 +74,10 @@ BrowserTestCase(
       '[data-testid="media-inline-card-loaded-view"]';
 
     await page.waitForSelector(mediaInlineLoadedViewSelector);
-    await page.keys(['ArrowDown']);
     await page.click(mediaInlineLoadedViewSelector);
     await page.copy();
     await page.keys(['ArrowDown']);
+    await page.keys(['Enter']);
     await page.paste();
     await sleep(0);
 

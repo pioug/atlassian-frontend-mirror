@@ -26,8 +26,10 @@ export const buttonWrapperStyle = css`
   align-items: center;
   padding: 1px;
   border-radius: 6px;
+  &:focus-within,
+  &:focus,
   &:hover {
-    border-color: ${N50};
+    border-color: ${N50} !important;
   }
 `;
 /* eslint-enable @atlaskit/design-system/ensure-design-token-usage */

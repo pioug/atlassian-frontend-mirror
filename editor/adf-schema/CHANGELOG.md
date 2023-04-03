@@ -1,5 +1,19 @@
 # @atlaskit/adf-schema
 
+## 25.3.2
+
+### Patch Changes
+
+- [`2367ba14aa0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2367ba14aa0) - [ux] ED-16758 Added support for theme tokens in table cell background color.
+- [`6b52583b688`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6b52583b688) - ED-15974 Currently nodes are validated against single spec.
+  When a node has multiple specs, like mediaSingle, the first spec is used to validate the node.
+  Therefore, the validation fails with an error `INVALID_CONTENT_LENGTH` when the correct spec is not selected for validation.
+
+  This fix is to re-arrange the specs so that the less restrictive spec is at the top.
+
+- [`e771b41970b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e771b41970b) - Updating test cases for adf-schema json-compatibility-tests
+- Updated dependencies
+
 ## 25.3.1
 
 ### Patch Changes

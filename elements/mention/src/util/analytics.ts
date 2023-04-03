@@ -30,7 +30,6 @@ export enum SliNames {
 export enum ComponentNames {
   TYPEAHEAD = 'mentionTypeahead',
   MENTION = 'mention',
-  TEAM_MENTION_HIGHLIGHT = 'teamMentionHighlight',
 }
 
 export enum Actions {
@@ -65,34 +64,6 @@ export const fireAnalyticsMentionTypeaheadEvent =
       };
       const analyticsEvent: UIAnalyticsEvent =
         props.createAnalyticsEvent(eventPayload);
-      analyticsEvent.fire(ELEMENTS_CHANNEL);
-    }
-  };
-
-export const fireAnalyticsTeamMentionHighlightEvent =
-  (createEvent: CreateUIAnalyticsEvent) =>
-  (
-    actionSubject: string,
-    action: string,
-    source: string,
-    actionSubjectId?: string,
-    viewedCount?: number,
-  ): void => {
-    if (createEvent) {
-      const eventPayload: GasPayload = {
-        action,
-        actionSubject,
-        actionSubjectId,
-        eventType: UI_EVENT_TYPE,
-        attributes: {
-          source,
-          packageName,
-          packageVersion,
-          componentName: ComponentNames.TEAM_MENTION_HIGHLIGHT,
-          viewedCount,
-        },
-      };
-      const analyticsEvent: UIAnalyticsEvent = createEvent(eventPayload);
       analyticsEvent.fire(ELEMENTS_CHANNEL);
     }
   };

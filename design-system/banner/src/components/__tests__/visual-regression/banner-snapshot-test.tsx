@@ -10,12 +10,6 @@ async function waitForBannerVisible(page: PuppeteerPage) {
   });
 }
 
-async function waitForAnnouncementBannerVisible(page: PuppeteerPage) {
-  return page.waitForSelector('div[role="region"]', {
-    visible: true,
-  });
-}
-
 describe('@atlaskit/banner visual regression', () => {
   it.each(['none', 'light', 'dark'] as const)(
     'Announcement banner example should match production example (tokens %s)',
@@ -29,7 +23,7 @@ describe('@atlaskit/banner visual regression', () => {
       );
       const { page } = global;
       await loadPage(page, url);
-      const element = await waitForAnnouncementBannerVisible(page);
+      const element = await waitForBannerVisible(page);
       const image = await element?.screenshot();
       expect(image).toMatchProdImageSnapshot();
     },
@@ -96,7 +90,7 @@ describe('@atlaskit/banner visual regression', () => {
     );
     const { page } = global;
     await loadPage(page, url);
-    const element = await waitForAnnouncementBannerVisible(page);
+    const element = await waitForBannerVisible(page);
     const image = await element?.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });

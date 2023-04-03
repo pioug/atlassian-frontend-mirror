@@ -46,6 +46,10 @@ const updateCardType = (resolvedCard: CardAdf, options: CardOptions) => {
     (resolvedCard?.type === 'blockCard' && !options.allowBlockCards) ||
     (resolvedCard?.type === 'embedCard' && !options.allowEmbeds)
   ) {
+    // clean out the 'layout' attr from an embedCard type that should be transformed into the inlineCard type.
+    if (resolvedCard.type === 'embedCard') {
+      delete (resolvedCard as any).attrs.layout;
+    }
     resolvedCard.type = 'inlineCard' as any;
   }
 };

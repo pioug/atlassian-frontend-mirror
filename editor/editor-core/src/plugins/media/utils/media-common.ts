@@ -1,11 +1,5 @@
 import { deleteSelection, splitBlock } from 'prosemirror-commands';
-import {
-  Node as PMNode,
-  ResolvedPos,
-  Fragment,
-  Slice,
-  Schema,
-} from 'prosemirror-model';
+import { Node as PMNode, ResolvedPos, Slice, Schema } from 'prosemirror-model';
 import { EditorState, NodeSelection } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { findPositionOfNodeBefore } from 'prosemirror-utils';
@@ -148,7 +142,7 @@ export const isInsidePotentialEmptyParagraph = (
   );
 };
 
-export const posOfMediaGroupBelow = (
+const posOfMediaGroupBelow = (
   state: EditorState,
   $pos: ResolvedPos,
   prepend: boolean = true,
@@ -185,24 +179,6 @@ export const posOfParentMediaGroup = (
   }
   return;
 };
-
-/**
- * The function will return the position after current selection where mediaGroup can be inserted.
- */
-export function endPositionForMedia(
-  state: EditorState,
-  resolvedPos: ResolvedPos,
-): number {
-  const { mediaGroup } = state.schema.nodes;
-  let i = resolvedPos.depth;
-  for (; i > 1; i--) {
-    const nodeType = resolvedPos.node(i).type;
-    if (nodeType.validContent(Fragment.from(mediaGroup.create()))) {
-      break;
-    }
-  }
-  return resolvedPos.end(i) + 1;
-}
 
 export const removeMediaNode = (
   view: EditorView,

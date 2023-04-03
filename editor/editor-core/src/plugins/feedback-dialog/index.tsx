@@ -1,5 +1,4 @@
 import React from 'react';
-import { PluginKey } from 'prosemirror-state';
 import type { FeedbackInfo } from '../../types';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { IconFeedback } from '../quick-insert/assets';
@@ -14,8 +13,6 @@ import {
 } from '../analytics';
 import loadJiraCollectorDialogScript from './loadJiraCollectorDialogScript';
 import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
-
-export const pluginKey = new PluginKey('feedbackDialogPlugin');
 
 let showJiraCollectorDialog: () => void;
 let feedbackInfoHash: string;

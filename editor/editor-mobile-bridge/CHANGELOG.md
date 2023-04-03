@@ -1,5 +1,16 @@
 # @atlaskit/editor-mobile-bridge
 
+## 36.3.0
+
+### Minor Changes
+
+- [`6c543971074`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c543971074) - [ux] PTC-6520 remove team mention highlight
+
+### Patch Changes
+
+- [`9dde8374c54`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9dde8374c54) - Update import of EditorCardProvider from `@atlaskit/link-provider` to `@atlaskit/editor-card-provider` for scheduled release packages.
+- Updated dependencies
+
 ## 36.2.5
 
 ### Patch Changes

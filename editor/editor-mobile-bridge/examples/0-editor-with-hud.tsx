@@ -3,7 +3,7 @@ import React, { useMemo } from 'react';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import { EventEmitter2 } from 'eventemitter2';
 import { getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
-import { mentionResourceProviderWithTeamMentionHighlight } from '@atlaskit/util-data-test/mention-story-data';
+import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
 import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
 
@@ -37,9 +37,7 @@ function EditorWithFetchProxy() {
         cardProvider={Promise.resolve(new ConfluenceCardProvider('stg'))}
         cardClient={smartCardClient}
         emojiProvider={getEmojiProvider() as any}
-        mentionProvider={Promise.resolve(
-          mentionResourceProviderWithTeamMentionHighlight,
-        )}
+        mentionProvider={Promise.resolve(mentionResourceProvider)}
         mediaProvider={storyMediaProviderFactory({
           collectionName: 'InitialCollectionForTesting',
         })}

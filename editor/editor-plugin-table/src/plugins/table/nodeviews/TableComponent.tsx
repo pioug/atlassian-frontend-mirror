@@ -55,7 +55,6 @@ import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 
 import memoizeOne from 'memoize-one';
 import { OverflowShadowsObserver } from './OverflowShadowsObserver';
-import { getParentWidthWithoutPadding } from '../pm-plugins/table-resizing/utils/misc';
 
 const isIE11 = browser.ie_version === 11;
 const NOOP = () => undefined;
@@ -689,7 +688,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
       options && options.isFullWidthModeEnabled,
     );
 
-    return getParentWidthWithoutPadding(parentNodeWith, pos, state);
+    return parentNodeWith;
   };
 
   private updateParentWidth = (width?: number) => {

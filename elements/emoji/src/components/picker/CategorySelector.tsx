@@ -1,9 +1,13 @@
 /** @jsx jsx */
-import React from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { jsx } from '@emotion/react';
-import { PureComponent } from 'react';
-import { injectIntl, WrappedComponentProps } from 'react-intl-next';
-import { defaultCategories } from '../../util/constants';
+import { useIntl } from 'react-intl-next';
+import Tooltip from '@atlaskit/tooltip';
+import {
+  CATEGORYSELECTOR_KEYBOARD_KEYS_SUPPORTED,
+  defaultCategories,
+  KeyboardKeys,
+} from '../../util/constants';
 import { CategoryDescription, OnCategory } from '../../types';
 import { messages } from '../i18n';
 import {
@@ -11,17 +15,21 @@ import {
   CategoryGroupKey,
   CategoryId,
 } from './categories';
-import { active, categorySelector, disable, categoryStyles } from './styles';
+import {
+  active,
+  categorySelector,
+  disable,
+  categoryStyles,
+  categorySelectorTablist,
+} from './styles';
+import { usePrevious } from '../../hooks/usePrevious';
+import { RENDER_EMOJI_PICKER_LIST_TESTID } from './EmojiPickerList';
 
 export interface Props {
   dynamicCategories?: CategoryId[];
   activeCategoryId?: CategoryId | null;
   disableCategories?: boolean;
   onCategorySelected?: OnCategory;
-}
-
-export interface State {
-  categories: CategoryId[];
 }
 
 export type CategoryMap = {
@@ -49,101 +57,143 @@ export const categorySelectorComponentTestId = 'category-selector-component';
 export const categorySelectorCategoryTestId = (categoryId: string) =>
   `category-selector-${categoryId}`;
 
-class CategorySelector extends PureComponent<
-  Props & WrappedComponentProps,
-  State
-> {
-  static defaultProps = {
-    onCategorySelected: () => {},
-    dynamicCategories: [],
-  };
+const CategorySelector = (props: Props) => {
+  const {
+    disableCategories,
+    dynamicCategories,
+    activeCategoryId,
+    onCategorySelected,
+  } = props;
+  const [categories, setCategories] = useState<CategoryId[]>(
+    addNewCategories(defaultCategories, dynamicCategories),
+  );
+  const [currentFocus, setCurrentFocus] = useState(0);
+  const categoryRef = useRef<HTMLDivElement>(null);
+  const prevDynamicCategories = usePrevious(dynamicCategories);
+  const { formatMessage } = useIntl();
 
-  constructor(props: Props & WrappedComponentProps) {
-    super(props);
-    const { dynamicCategories } = props;
+  const updateCategories = useCallback(() => {
+    const newCategories = addNewCategories(
+      defaultCategories,
+      dynamicCategories,
+    );
+    setCategories(newCategories);
+  }, [dynamicCategories]);
 
-    let categories = defaultCategories;
-    if (dynamicCategories) {
-      categories = addNewCategories(categories, dynamicCategories);
+  useEffect(() => {
+    if (prevDynamicCategories !== dynamicCategories) {
+      updateCategories();
     }
-    this.state = {
-      categories,
-    };
-  }
+  }, [prevDynamicCategories, dynamicCategories, updateCategories]);
 
-  onClick = (event: React.SyntheticEvent) => {
-    const { onCategorySelected, disableCategories } = this.props;
+  const focusCategory = useCallback(
+    (index: number) => {
+      const categoryToFocus: HTMLButtonElement | undefined | null =
+        categoryRef.current?.querySelector(`[data-focus-index="${index}"]`);
+      categoryToFocus && categoryToFocus.focus();
+      setCurrentFocus(index);
+    },
+    [categoryRef, setCurrentFocus],
+  );
 
-    if (disableCategories) {
-      event.preventDefault();
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
+    if (!CATEGORYSELECTOR_KEYBOARD_KEYS_SUPPORTED.includes(e.key)) {
       return;
     }
+    e.preventDefault();
 
-    const categoryId = event.currentTarget.getAttribute(
-      'data-category-id',
-    ) as CategoryId;
-
-    if (onCategorySelected) {
-      onCategorySelected(categoryId);
+    const lastCategoryIndex = categories.length - 1;
+    switch (e.key) {
+      // navigate to the right category
+      case KeyboardKeys.ArrowRight:
+        focusCategory(
+          currentFocus === lastCategoryIndex ? 0 : currentFocus + 1,
+        );
+        break;
+      // navigate to the left category
+      case KeyboardKeys.ArrowLeft:
+        focusCategory(
+          currentFocus === 0 ? lastCategoryIndex : currentFocus - 1,
+        );
+        break;
+      // navigate to the first category
+      case KeyboardKeys.Home:
+        focusCategory(0);
+        break;
+      // navigate to the last category
+      case KeyboardKeys.End:
+        focusCategory(lastCategoryIndex);
+        break;
     }
   };
 
-  UNSAFE_componentWillUpdate(nextProps: Props) {
-    if (this.props.dynamicCategories !== nextProps.dynamicCategories) {
-      this.setState({
-        categories: addNewCategories(
-          defaultCategories,
-          nextProps.dynamicCategories,
-        ),
-      });
-    }
+  const handleClick =
+    (categoryId: CategoryId, index: number) =>
+    (event: React.SyntheticEvent) => {
+      if (disableCategories) {
+        event.preventDefault();
+        return;
+      }
+      if (onCategorySelected) {
+        onCategorySelected(categoryId);
+      }
+      setCurrentFocus(index);
+    };
+
+  let categoriesSection;
+  if (categories) {
+    categoriesSection = (
+      <div
+        role="tablist"
+        aria-label={formatMessage(messages.categoriesSelectorLabel)}
+        data-testid={categorySelectorComponentTestId}
+        ref={categoryRef}
+        css={categorySelectorTablist}
+      >
+        {categories.map((categoryId: CategoryId, index: number) => {
+          const category = CategoryDescriptionMap[categoryId];
+          const categoryClasses = [categoryStyles];
+
+          if (categoryId === activeCategoryId) {
+            categoryClasses.push(active);
+          }
+
+          if (disableCategories) {
+            categoryClasses.push(disable);
+          }
+
+          const Icon = category.icon;
+          const categoryName = formatMessage(messages[category.name]);
+          return (
+            <Tooltip content={categoryName} position="bottom" key={category.id}>
+              <button
+                type="button"
+                id={`category-selector-${category.id}`}
+                data-focus-index={index}
+                aria-label={categoryName}
+                aria-controls={
+                  currentFocus === index
+                    ? RENDER_EMOJI_PICKER_LIST_TESTID
+                    : undefined
+                }
+                aria-selected={currentFocus === index ? true : false}
+                css={categoryClasses}
+                disabled={disableCategories}
+                onClick={handleClick(categoryId, index)}
+                data-testid={categorySelectorCategoryTestId(categoryId)}
+                tabIndex={currentFocus === index ? 0 : -1}
+                onKeyDown={handleKeyDown}
+                role="tab"
+              >
+                <Icon label={categoryName} />
+              </button>
+            </Tooltip>
+          );
+        })}
+      </div>
+    );
   }
+  return <div css={categorySelector}>{categoriesSection}</div>;
+};
 
-  render() {
-    const { disableCategories, intl } = this.props;
-    const { categories } = this.state;
-    let categoriesSection;
-    if (categories) {
-      const { formatMessage } = intl;
-
-      categoriesSection = (
-        <ul data-testid={categorySelectorComponentTestId}>
-          {categories.map((categoryId: CategoryId) => {
-            const category = CategoryDescriptionMap[categoryId];
-            const categoryClasses = [categoryStyles];
-
-            if (categoryId === this.props.activeCategoryId) {
-              categoryClasses.push(active);
-            }
-
-            if (disableCategories) {
-              categoryClasses.push(disable);
-            }
-
-            const Icon = category.icon;
-            const categoryName = formatMessage(messages[category.name]);
-            return (
-              <li key={category.id}>
-                <button
-                  aria-label={categoryName}
-                  data-category-id={category.id}
-                  disabled={disableCategories}
-                  css={categoryClasses}
-                  onClick={this.onClick}
-                  title={categoryName}
-                  type="button"
-                  data-testid={categorySelectorCategoryTestId(categoryId)}
-                >
-                  <Icon label={categoryName} />
-                </button>
-              </li>
-            );
-          })}
-        </ul>
-      );
-    }
-    return <div css={categorySelector}>{categoriesSection}</div>;
-  }
-}
-
-export default injectIntl(CategorySelector);
+export default CategorySelector;

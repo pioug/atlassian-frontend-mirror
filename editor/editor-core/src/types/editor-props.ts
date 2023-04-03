@@ -1,6 +1,6 @@
-import { ReactElement, RefObject } from 'react';
 import { Node, Schema } from 'prosemirror-model';
 import { EditorView } from 'prosemirror-view';
+import { ReactElement, RefObject } from 'react';
 import EditorActions from '../actions';
 
 import type {
@@ -9,39 +9,43 @@ import type {
 } from '@atlaskit/editor-common/extensions';
 import type {
   ContextIdentifierProvider,
-  SearchProvider,
   Providers,
+  SearchProvider,
 } from '@atlaskit/editor-common/provider-factory';
-import { Transformer } from '@atlaskit/editor-common/types';
+import type {
+  Transformer,
+  AllEditorPresetPluginTypes,
+} from '@atlaskit/editor-common/types';
 import type { ErrorReportingHandler } from '@atlaskit/editor-common/utils';
 
 import { ActivityProvider } from '@atlaskit/activity-provider';
 import { MentionProvider } from '@atlaskit/mention/resource';
 import { TaskDecisionProvider } from '@atlaskit/task-decision';
 
-import { PluginConfig as TablesPluginConfig } from '@atlaskit/editor-plugin-table/types';
-import { TextColorPluginConfig } from '../plugins/text-color/pm-plugins/main';
-import { MediaOptions, MediaState } from '../plugins/media/types';
-import { CollabEditOptions } from '../plugins/collab-edit/types';
 import { CardOptions } from '@atlaskit/editor-common/card';
-import { QuickInsertOptions } from '../plugins/quick-insert/types';
+import { PluginConfig as TablesPluginConfig } from '@atlaskit/editor-plugin-table/types';
 import { AnnotationProviders } from '../plugins/annotation/types';
-import { TextFormattingOptions } from '../plugins/text-formatting/types';
-import { PlaceholderTextOptions } from '../plugins/placeholder-text/types';
 import { BlockTypePluginOptions } from '../plugins/block-type/types';
 import { CodeBlockOptions } from '../plugins/code-block/types';
-import { LayoutPluginOptions } from '../plugins/layout/types';
+import { CollabEditOptions } from '../plugins/collab-edit/types';
 import { FindReplaceOptions } from '../plugins/find-replace/types';
-import { ExtensionConfig } from './extension-config';
-import { EditorAppearance } from './editor-appearance';
-import { MenuItem } from '../ui/DropdownMenu/types';
-import { EditorOnChangeHandler } from './editor-onchange';
-import { PerformanceTracking } from './performance-tracking';
-import { PanelPluginConfig } from './../plugins/panel/types';
-import { EditorPlugin } from './editor-plugin';
-import { MentionPluginConfig } from './../plugins/mentions/types';
-import { EmptyStateHandler } from './empty-state-handler';
 import { LinkingOptions } from '../plugins/hyperlink/types';
+import { LayoutPluginOptions } from '../plugins/layout/types';
+import { MediaOptions, MediaState } from '../plugins/media/types';
+import { PlaceholderTextOptions } from '../plugins/placeholder-text/types';
+import { QuickInsertOptions } from '../plugins/quick-insert/types';
+import { TextColorPluginConfig } from '../plugins/text-color/pm-plugins/main';
+import { TextFormattingOptions } from '../plugins/text-formatting/types';
+import { MenuItem } from '../ui/DropdownMenu/types';
+import { MentionPluginConfig } from './../plugins/mentions/types';
+import { PanelPluginConfig } from './../plugins/panel/types';
+import { EditorAppearance } from './editor-appearance';
+import { EditorOnChangeHandler } from './editor-onchange';
+import { EditorPlugin } from './editor-plugin';
+import { EmptyStateHandler } from './empty-state-handler';
+import { ExtensionConfig } from './extension-config';
+import { PerformanceTracking } from './performance-tracking';
+import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 
 export type ReactComponents = ReactElement<any> | ReactElement<any>[];
 
@@ -75,7 +79,12 @@ export type PrimaryToolbarComponents =
   | BeforeAndAfterToolbarComponents
   | ReactComponents;
 
-export interface EditorProps
+export type UseStickyToolbarType =
+  | boolean
+  | RefObject<HTMLElement>
+  | { offsetTop: number };
+
+export interface EditorBaseProps
   extends EditorPluginFeatureProps,
     EditorProviderProps {
   // Note: this comment is replicated in packages/editor/renderer/src/ui/Renderer/types.ts
@@ -193,8 +202,10 @@ export interface EditorProps
    * Enables the sticky toolbar in the comment/standard editor.
    * If a boolean is specified and it's `true`, the sticky toolbar will be enabled, sticking to the top of the scroll parent.
    * Instead a reference can be specified to an existing sticky toolbar on the page that the editor toolbar should stay below (experimental).
+   * if {offsetTop: number} is passed in, the toolbar is sticky and the toolbar's 'top' will be set to the offsetTop
+   * so the toolbar will sticks to `{offsetTop}` below the scroll parent.
    */
-  useStickyToolbar?: boolean | RefObject<HTMLElement>;
+  useStickyToolbar?: UseStickyToolbarType;
 
   /**
    * @default undefined
@@ -225,7 +236,62 @@ export interface EditorProps
    * ```
    */
   featureFlags?: { [featureFlag: string]: string | boolean };
+}
 
+// TODO: We should refactor this to ensure these are not shared
+export interface EditorSharedPropsWithPlugins {
+  // Set for an on save callback.
+  onSave?: (editorView: EditorView) => void;
+
+  /**
+   * @description Control performance metric measurements and tracking
+   */
+  performanceTracking?: PerformanceTracking;
+
+  // Flag to remove private content such as mention names
+  sanitizePrivateContent?: boolean;
+
+  allowAnalyticsGASV3?: boolean;
+
+  // Set to configure media features. Media single refers to the embedded version of media,
+  // which is probably what you want. Media group refers to a filmstrip, thumbnail view of media files which was used in Stride.
+  media?: MediaOptions;
+  collabEdit?: CollabEditOptions;
+
+  // Set to add custom menu items to the insert (plus) menu dropdown.
+  insertMenuItems?: MenuItem[];
+
+  primaryToolbarComponents?: PrimaryToolbarComponents;
+
+  // Enable undo/redo buttons within the editor.
+  allowUndoRedoButtons?: boolean;
+
+  // Enables text colour. Ew are you sure you want to enable this?
+  allowTextColor?: boolean | TextColorPluginConfig;
+
+  // Enables tables. You can enable individual table features like table header rows and cell background colour.
+  // You will most likely need backend ADF storage for the advanced table features.
+  allowTables?: boolean | TablesPluginConfig;
+
+  /** @deprecated Use smartLinks instead. */
+  UNSAFE_cards?: CardOptions;
+
+  /** @deprecated Use linking instead. */
+  smartLinks?: CardOptions;
+
+  /**
+   *  Configure and extend editor linking behaviour
+   */
+  linking?: LinkingOptions;
+
+  contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
+}
+
+export interface EditorProps
+  extends EditorBaseProps,
+    EditorPluginFeatureProps,
+    EditorSharedPropsWithPlugins,
+    EditorProviderProps {
   /**
    * @deprecated Do not use outside of Editor team.
    * This has subtle side effects - you __WILL__ break functionality without implementer knowledge of editor-core internals
@@ -238,6 +304,13 @@ export interface EditorProps
   };
 }
 
+export interface EditorNextProps
+  extends EditorBaseProps,
+    EditorSharedPropsWithPlugins,
+    EditorProviderProps {
+  preset: EditorPresetBuilder<string[], AllEditorPresetPluginTypes[]>;
+}
+
 export interface EditorProviderProps {
   activityProvider?: Promise<ActivityProvider>;
   searchProvider?: Promise<SearchProvider>;
@@ -248,7 +321,6 @@ export interface EditorProviderProps {
   presenceProvider?: Promise<any>;
   emojiProvider?: Providers['emojiProvider'];
   taskDecisionProvider?: Promise<TaskDecisionProvider>;
-  contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
 
   legacyImageUploadProvider?: Providers['imageUploadProvider'];
   mentionProvider?: Promise<MentionProvider>;
@@ -267,7 +339,6 @@ export interface EditorPluginFeatureProps {
 
   allowNestedTasks?: boolean;
 
-  allowAnalyticsGASV3?: boolean;
   // Configure allowed blocks in the editor, currently only supports `heading`, `blockquote`, `hardBreak` and `codeBlock`.
   allowBlockType?: BlockTypePluginOptions['allowBlockType'];
 
@@ -281,13 +352,6 @@ export interface EditorPluginFeatureProps {
 
   // Enables horizontal rules.
   allowRule?: boolean;
-
-  // Enables text colour. Ew are you sure you want to enable this?
-  allowTextColor?: boolean | TextColorPluginConfig;
-
-  // Enables tables. You can enable individual table features like table header rows and cell background colour.
-  // You will most likely need backend ADF storage for the advanced table features.
-  allowTables?: boolean | TablesPluginConfig;
 
   // Enable the editor help dialog.
   allowHelpDialog?: boolean;
@@ -337,9 +401,6 @@ export interface EditorPluginFeatureProps {
    **/
   allowNewInsertionBehaviour?: boolean;
 
-  // Enable undo/redo buttons within the editor.
-  allowUndoRedoButtons?: boolean;
-
   // Enable find/replace functionality within the editor.
   // You can use the object form to enable additional individual features e.g. case-matching toggle.
   allowFindReplace?: boolean | FindReplaceOptions;
@@ -374,27 +435,6 @@ export interface EditorPluginFeatureProps {
   // This is also required to enable quick insert plugin for feedback modal.
   feedbackInfo?: FeedbackInfo;
 
-  // Set to configure media features. Media single refers to the embedded version of media,
-  // which is probably what you want. Media group refers to a filmstrip, thumbnail view of media files which was used in Stride.
-  media?: MediaOptions;
-  collabEdit?: CollabEditOptions;
-
-  primaryToolbarComponents?: PrimaryToolbarComponents;
-
-  /** @deprecated Use smartLinks instead. */
-  UNSAFE_cards?: CardOptions;
-
-  /** @deprecated Use linking instead. */
-  smartLinks?: CardOptions;
-
-  /**
-   *  Configure and extend editor linking behaviour
-   */
-  linking?: LinkingOptions;
-
-  // Flag to remove private content such as mention names
-  sanitizePrivateContent?: boolean;
-
   mention?: MentionPluginConfig;
   /**
    * flag to indicate display name instead of nick name should be inserted for mentions
@@ -403,21 +443,10 @@ export interface EditorPluginFeatureProps {
    */
   mentionInsertDisplayName?: boolean;
 
-  /**
-   * @description Control performance metric measurements and tracking
-   */
-  performanceTracking?: PerformanceTracking;
-
   uploadErrorHandler?: (state: MediaState) => void;
-
-  // Set for an on save callback.
-  onSave?: (editorView: EditorView) => void;
 
   // Set if you want to wait for media file uploads before save.
   waitForMediaUpload?: boolean;
-
-  // Set to add custom menu items to the insert (plus) menu dropdown.
-  insertMenuItems?: MenuItem[];
 
   // Set to provide your extensions handlers.
   extensionHandlers?: ExtensionHandlers;

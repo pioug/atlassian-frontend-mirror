@@ -1,5 +1,15 @@
 # @atlaskit/adf-utils
 
+## 18.0.4
+
+### Patch Changes
+
+- [`6b52583b688`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6b52583b688) - ED-15974 Currently nodes are validated against single spec.
+  When a node has multiple specs, like mediaSingle, the first spec is used to validate the node.
+  Therefore, the validation fails with an error `INVALID_CONTENT_LENGTH` when the correct spec is not selected for validation.
+
+  This fix is to re-arrange the specs so that the less restrictive spec is at the top.
+
 ## 18.0.3
 
 ### Patch Changes

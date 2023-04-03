@@ -1,5 +1,4 @@
 import React from 'react';
-import { render } from '@testing-library/react';
 import { screen } from '@testing-library/dom';
 import userEvent from '@testing-library/user-event';
 import ToneSelector from '../../../../components/common/ToneSelector';
@@ -13,6 +12,7 @@ import {
   toneSelectedEvent,
   toneSelectorOpenedEvent,
 } from '../../../../util/analytics';
+import { renderWithIntl } from '../../_testing-library';
 
 const baseHandEmoji: EmojiDescription = {
   ...imageEmoji,
@@ -37,18 +37,21 @@ describe('<ToneSelector />', () => {
     user = userEvent.setup();
   });
   it('should display one emoji per skin variations + default', async () => {
-    await render(<ToneSelector emoji={handEmoji} onToneSelected={() => {}} />);
+    await renderWithIntl(
+      <ToneSelector emoji={handEmoji} onToneSelected={() => {}} isVisible />,
+    );
 
-    expect((await screen.findAllByRole('button')).length).toEqual(6);
+    expect((await screen.findAllByRole('radio')).length).toEqual(6);
   });
 
   it('should call onToneSelected on click', async () => {
     const handleToneSelectedMock = jest.fn();
 
-    await render(
+    await renderWithIntl(
       <ToneSelector
         emoji={handEmoji}
         onToneSelected={handleToneSelectedMock}
+        isVisible
       />,
     );
 
@@ -63,11 +66,12 @@ describe('<ToneSelector />', () => {
     const handleOnEventMock = jest.fn();
     const handleToneSelectedMock = jest.fn();
 
-    const component = await render(
+    const component = await renderWithIntl(
       <AnalyticsListener channel="fabric-elements" onEvent={handleOnEventMock}>
         <ToneSelector
           emoji={handEmoji}
           onToneSelected={handleToneSelectedMock}
+          isVisible
         />
       </AnalyticsListener>,
     );

@@ -23,7 +23,7 @@ export {
   areEqualFeatureFlags,
   useMemoizeFeatureFlags,
   filterFeatureFlagNames,
-  filterFeatureFlagKeysAllProducts,
+  getFeatureFlagKeysAllProducts,
 } from './mediaFeatureFlags';
 export type {
   MediaFeatureFlags,

@@ -1,5 +1,48 @@
 # @atlaskit/editor-core
 
+## 181.0.0
+
+### Major Changes
+
+- [`6c543971074`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c543971074) - [ux] PTC-6520 remove team mention highlight
+
+### Minor Changes
+
+- [`a697f9eb7ca`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a697f9eb7ca) - [ED-16746] Introduce the shareable actions concept into the NextEditorPlugin
+- [`a7e36157e01`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a7e36157e01) - [ED-15941] Refactor Preset into EditorPresetBuilder
+- [`406c29f8cf1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/406c29f8cf1) - ED-15802:Added stickyOffsetTop prop inside useStickyToolbar to support customise top for main toolbar when it is sticky.
+- [`0078ddc7e2e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0078ddc7e2e) - New smartLinks prop to allow renderer and editor to determine whether smart link should show actions that can change the link resource.
+- [`0ad977ead6d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ad977ead6d) - EDM-2674: remove last reference to plainTextPasteLinkification feature flag in cleanup process."
+- [`4292f200ec9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4292f200ec9) - [ED-16560] Add preset prop to EditorNext
+- [`592e3761622`](https://bitbucket.org/atlassian/atlassian-frontend/commits/592e3761622) - [ED-15941] NextEditorPlugins will receive an api with the plugins dependencies on runtime
+
+### Patch Changes
+
+- [`b38ca291f7b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b38ca291f7b) - Fixed inlineCode issue cause by apostrophe replacements reported in DTR-987
+- [`1a2ba1a53a9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1a2ba1a53a9) - ED-17113: Fixed assistive text in mentions not including user name due to async look up.
+- [`deeb5ebee1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/deeb5ebee1f) - Fix self mention highlighting
+- [`f07824eeccc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f07824eeccc) - ED-15647 fix undo when pasting table with resized column in expand
+- [`f81e7ba7c07`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f81e7ba7c07) - [ux] ED-16556 Fixed - Table floating toolbar "Table Options" and "Cell Options" are not accessible
+- [`dae1c82956b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dae1c82956b) - [ux] ED-17122 - Toolbar extension icons use tooltip as aria label
+- [`9d3fb04c725`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d3fb04c725) - [ED-16948] Fix crash in template editor when image is the first node.
+- [`568b7d96689`](https://bitbucket.org/atlassian/atlassian-frontend/commits/568b7d96689) - [ux] [ED-16819] Prevent up/down arrow from a media selection from creating new paragraphs. Should move to gap cursor instead if it cannot move into node before.
+- [`9dde8374c54`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9dde8374c54) - Update import of EditorCardProvider from `@atlaskit/link-provider` to `@atlaskit/editor-card-provider` for scheduled release packages.
+- [`f7fc96b3738`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f7fc96b3738) - ED-17086 - Added feature flag for expandedChartColors
+- [`a6b3a866e9d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a6b3a866e9d) - [ux] ED-16941: we now ignore screenshots when pasting text from Microsoft Office when using the image-upload plugin (legacyImageUploadProvider)
+- [`a57e2849f71`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a57e2849f71) - Remove unused code in editor-core that is not imported anywhere
+- [`eb7ef06e38c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eb7ef06e38c) - Contextual toolbar focus will now be regained when exiting via ArrowLeft / ArrowRight keys, and will progress to the next toolbar item. onBlur will now also be called correctly when dropdown menu items lose focus.
+- [`2661a586431`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2661a586431) - ED-15843 Applied fix for bodiedExtensions animation as per DTR-807
+- [`023b96ba3da`](https://bitbucket.org/atlassian/atlassian-frontend/commits/023b96ba3da) - emoji picker vertical alignment refinement
+- [`db34131a1e4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db34131a1e4) - [ED-16579] Add methods to Preset object including `setProvider`, `getProvider` and `getAllProviders`.
+
+  These are used internally to set providers (objects which can return functionality such as `emojiProvider`).
+
+- [`8ef5e96b6c4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8ef5e96b6c4) - Fix that removes remaining layout attribute from inlineCard type during updating from embedCard type to inlineCard type when embed is not allowed.
+- [`7f26be97caf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7f26be97caf) - [ux] ED-14957: add border color for dark mode for layout
+- [`68f4ce6955d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/68f4ce6955d) - Fix logic to reconfigure state in ReactEditorView to fix a breakage on NCS pages.
+- [`1720ddc8076`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1720ddc8076) - [ux] ED-16725 Added support for semantic tooltip names for background color palette.
+- Updated dependencies
+
 ## 180.1.0
 
 ### Minor Changes

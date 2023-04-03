@@ -1,5 +1,16 @@
 # @atlaskit/smart-card
 
+## 25.1.0
+
+### Minor Changes
+
+- [`b811f263575`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b811f263575) - Add new "showServerActions" prop to SmartCard to show available server actions on inline and block Smart Links. This will be used in conjunction with feature flags on the duration of the experiment.
+
+### Patch Changes
+
+- [`32b4bcce640`](https://bitbucket.org/atlassian/atlassian-frontend/commits/32b4bcce640) - Replace box-shadow based focus to instead apply outline.
+- Updated dependencies
+
 ## 25.0.7
 
 ### Patch Changes

@@ -122,9 +122,10 @@ describe('resolveWithProvider()', () => {
         const url = 'https://atlassian.slack.com/archives/CR54/p123456';
 
         const testCardProvider = new TestCardProvider();
-        const spy = jest
-          .spyOn(testCardProvider, 'resolve')
-          .mockResolvedValue({ type, attrs: { url } });
+        const spy = jest.spyOn(testCardProvider, 'resolve').mockResolvedValue({
+          type,
+          attrs: { url, ...(type === 'embedCard' && { layout: 'wide' }) },
+        });
 
         const request: Request = {
           appearance: appearance as CardAppearance,
@@ -147,8 +148,11 @@ describe('resolveWithProvider()', () => {
         )) as CardAdf;
 
         expect(testCardProvider.resolve).toBeCalledWith(url, appearance, false);
-
         expect(cardAdf.type).toEqual('inlineCard');
+
+        if (type === 'embedCard' && !allowEmbeds) {
+          expect(cardAdf.attrs).not.toHaveProperty('layout');
+        }
 
         spy.mockRestore();
       },

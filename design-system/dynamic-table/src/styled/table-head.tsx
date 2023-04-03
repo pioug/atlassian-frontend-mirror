@@ -170,8 +170,17 @@ export const HeadCell = forwardRef<HTMLTableCellElement, HeadCellProps>(
     const isASC = sortOrder === ASC;
     const isDESC = sortOrder === DESC;
 
+    const getFormattedSortOrder = () => {
+      if (isASC) {
+        return 'ascending';
+      } else if (isDESC) {
+        return 'descending';
+      }
+    };
+
     return (
       <th
+        aria-sort={getFormattedSortOrder()}
         style={mergedStyles}
         css={[
           headCellStyles,

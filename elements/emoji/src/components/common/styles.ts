@@ -1,9 +1,9 @@
 import { css, keyframes } from '@emotion/react';
-import { borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 import { defaultEmojiHeight } from '../../util/constants';
 import { akEmojiSelectedBackgroundColor } from '../../util/shared-styles';
 import {
+  B100,
   N20,
   N200,
   N20A,
@@ -43,7 +43,7 @@ export const emojiToneSelectorContainer = css({
 });
 
 export const emojiStyles = css({
-  borderRadius: `${borderRadius()}px`,
+  borderRadius: token('border.radius.100', '3px'),
   backgroundColor: 'transparent',
   display: 'inline-block',
   verticalAlign: 'middle',
@@ -51,9 +51,11 @@ export const emojiStyles = css({
   // headings. Smaller headings get a slight increase in height, cannot add more negative margin
   // as a "selected" emoji (e.g. in the editor) will not look good.
   margin: '-1px 0',
+
   [`&.${commonSelectedStyles},&.${selectOnHoverStyles}:hover`]: {
     backgroundColor: akEmojiSelectedBackgroundColor,
   },
+
   [`&.${commonSelectedStyles},&.${selectOnHoverStyles}:hover .${emojiDeleteButton}`]:
     {
       // show delete button on hover
@@ -61,6 +63,12 @@ export const emojiStyles = css({
     },
   img: {
     display: 'block',
+  },
+
+  '&:focus': {
+    boxShadow: `0 0 0 2px ${token('color.border.focused', B100)}`,
+    transitionDuration: '0s, 0.2s',
+    outline: 'none',
   },
 });
 
@@ -80,6 +88,12 @@ export const emojiContainer = css({
     minWidth: `${defaultEmojiHeight}px`,
     verticalAlign: 'middle',
   },
+
+  '&:focus': {
+    boxShadow: `0 0 0 2px ${token('color.border.focused', B100)}`,
+    transitionDuration: '0s, 0.2s',
+    outline: 'none',
+  },
 });
 
 export const placeholder = 'emoji-common-placeholder';
@@ -89,7 +103,7 @@ export const placeholderContainer = css({
   margin: '-1px 0',
   display: 'inline-block',
   background: token('color.border', '#f7f7f7'),
-  borderRadius: `${borderRadius()}px`,
+  borderRadius: token('border.radius.100', '3px'),
   overflow: 'hidden',
   verticalAlign: 'middle',
   whiteSpace: 'nowrap',
@@ -117,11 +131,20 @@ export const placeholderContainerAnimated = css({
   },
 });
 
+export const hidden = css({
+  opacity: 0,
+  visibility: 'hidden',
+  display: 'none',
+});
+
 export const emojiButton = css({
   backgroundColor: 'transparent',
   border: '0',
+  borderRadius: token('border.radius.100', '3px'),
   cursor: 'pointer',
   padding: 0,
+  position: 'relative',
+  display: 'inline-block',
 
   /* Firefox */
   ['&::-moz-focus-inner']: {
@@ -130,7 +153,6 @@ export const emojiButton = css({
   },
 
   '&>span': {
-    borderRadius: `${borderRadius()}px`,
     padding: '6px',
 
     // Scale sprite to fit regardless of default emoji size
@@ -144,11 +166,29 @@ export const emojiButton = css({
       width: '24px',
     },
   },
+
+  '&:focus': {
+    boxShadow: `0 0 0 2px ${token('color.border.focused', B100)}`,
+    transitionDuration: '0s, 0.2s',
+    outline: 'none',
+  },
 });
 
-export const hiddenToneButton = css({
-  // Hide currently selected tone that rendered in the ToneSelector to avoid duplication
-  display: 'none',
+export const emojiRadio = css({
+  opacity: 0,
+  position: 'absolute',
+  top: '-10px',
+  left: '-10px',
+
+  '+span': {
+    borderRadius: token('border.radius.100', '3px'),
+  },
+
+  '&:focus + span': {
+    boxShadow: `0 0 0 2px ${token('color.border.focused', B100)}`,
+    transitionDuration: '0s, 0.2s',
+    outline: 'none',
+  },
 });
 
 // Emoji Preview
@@ -229,7 +269,7 @@ export const previewImg = css({
 
 export const emojiScrollable = css({
   border: `1px solid ${token('color.border', '#fff')}`,
-  borderRadius: `${borderRadius()}px`,
+  borderRadius: token('border.radius.100', '3px'),
   display: 'block',
   margin: '0',
   overflowX: 'hidden',
@@ -306,7 +346,7 @@ export const uploadPreview = css({
   justifyContent: 'space-between',
   alignItems: 'center',
   background: token('color.background.neutral', N20),
-  borderRadius: `${borderRadius()}px`,
+  borderRadius: token('border.radius.100', '3px'),
   padding: '10px',
 });
 

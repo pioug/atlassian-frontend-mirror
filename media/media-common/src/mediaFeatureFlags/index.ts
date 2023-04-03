@@ -4,7 +4,7 @@ export {
   defaultMediaFeatureFlags,
   areEqualFeatureFlags,
   filterFeatureFlagNames,
-  filterFeatureFlagKeysAllProducts,
+  getFeatureFlagKeysAllProducts,
 } from './mediaFeatureFlags';
 
 export type {

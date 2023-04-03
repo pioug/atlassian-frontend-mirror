@@ -1,5 +1,11 @@
 # @atlaskit/inline-dialog
 
+## 13.5.0
+
+### Minor Changes
+
+- [`c0dd48dfb67`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c0dd48dfb67) - [ux] Adds keyboard support of using escape to close inline dialog.
+
 ## 13.4.9
 
 ### Patch Changes

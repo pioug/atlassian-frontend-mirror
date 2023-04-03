@@ -11,8 +11,6 @@ type InteractionMap = {
 };
 
 const stateToSelectorMap: Partial<InteractionMap> = {
-  focus: '&:focus',
-  focusSelected: '&:focus',
   hover: '&:hover',
   active: '&:active',
   disabled: '&[disabled]',
@@ -22,11 +20,9 @@ const stateToSelectorMap: Partial<InteractionMap> = {
 
 const interactions: InteractionState[] = [
   'disabled',
-  'focusSelected',
   'selected',
   'active',
   'hover',
-  'focus',
   'default',
 ];
 

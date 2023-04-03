@@ -1,13 +1,12 @@
 import { useRef } from 'react';
-import { getLocalMediaFeatureFlag } from '../mediaFeatureFlag-local';
 import {
   RequiredMediaFeatureFlags,
   MediaFeatureFlags,
-  SupportedProduct,
   supportedProducts,
 } from './types';
 
 import { getProductKeys } from './productKeys';
+import { getGenericFeatureFlag } from './genericFeatureFlag';
 
 export const areEqualFeatureFlags = (
   ffA?: MediaFeatureFlags,
@@ -43,33 +42,20 @@ export const filterFeatureFlagNames = (
   return pairs.filter(([_key, value]) => !!value).map(([key]) => key);
 };
 
-/**
- * Takes a record of {Media Feature Flag Names → boolean} and a supported product name.
- * Returns the corresponding product’s Launch Darkly Keys for each of the flags set as true in the input record.
- * */
-export const mapAndFilterFeatureFlagNames = (
-  flags: RequiredMediaFeatureFlags,
-  product: SupportedProduct,
-): Array<string> => {
-  const mediaFeatureFlags = filterFeatureFlagNames(flags);
-  return mediaFeatureFlags.map((key) => getProductKeys()[product][key]);
-};
-
 // TODO(MEX-1547): This is temporary solution to just return the launch darkly feature flags for all products.
 /**
  * Takes a record of {Media Feature Flag Names → boolean}.
  * Returns the Launch Darkly Keys from all products for each of the flags set as true in the input record.
  * */
-export const filterFeatureFlagKeysAllProducts = (
-  flags: RequiredMediaFeatureFlags,
-): Array<string> => {
-  const filteredFlags = filterFeatureFlagNames(flags);
-  const ldFeatureFlags: Array<string> = [];
-  filteredFlags.forEach((flag) =>
-    supportedProducts.forEach((product) =>
-      ldFeatureFlags.push(getProductKeys()[product][flag]),
-    ),
-  );
+export const getFeatureFlagKeysAllProducts = (): Array<string> => {
+  const productKeys = getProductKeys();
+  let ldFeatureFlags: Array<string> = [];
+  supportedProducts.forEach((product) => {
+    ldFeatureFlags = [
+      ...ldFeatureFlags,
+      ...Object.values(productKeys[product]),
+    ];
+  });
   return ldFeatureFlags.filter((flag) => flag !== '');
 };
 
@@ -111,18 +97,11 @@ export function getMediaFeatureFlag<T = boolean>(
   flagName: keyof MediaFeatureFlags,
   featureFlags?: MediaFeatureFlags,
 ): T {
-  const devOverride = getLocalMediaFeatureFlag(flagName);
-  if (devOverride !== null) {
-    try {
-      return JSON.parse(devOverride) as T;
-    } catch (e) {}
-  }
-  if (featureFlags) {
-    return (flagName in featureFlags
-      ? featureFlags[flagName]
-      : defaultMediaFeatureFlags[flagName]) as unknown as T;
-  }
-  return defaultMediaFeatureFlags[flagName] as unknown as T;
+  return getGenericFeatureFlag<
+    T,
+    keyof MediaFeatureFlags,
+    Required<MediaFeatureFlags>
+  >(flagName, defaultMediaFeatureFlags, featureFlags);
 }
 
 export const useMemoizeFeatureFlags = (featureFlags?: MediaFeatureFlags) => {

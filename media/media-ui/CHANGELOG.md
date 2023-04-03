@@ -1,5 +1,12 @@
 # @atlaskit/media-ui
 
+## 22.3.4
+
+### Patch Changes
+
+- [`b37723f2cfa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b37723f2cfa) - Custom Media Player now logs all passed feature flags
+- Updated dependencies
+
 ## 22.3.3
 
 ### Patch Changes

@@ -416,12 +416,18 @@ class EmojiResource_2
   // (undocumented)
   protected initEmojiRepository(emojiResponses: EmojiResponse[]): void;
   // (undocumented)
+  protected initialLoaders: number;
+  // (undocumented)
   protected initSiteEmojiResource(
     emojiResponse: EmojiResponse,
     provider: ServiceConfig,
   ): Promise<void>;
   // (undocumented)
   protected isInitialised: boolean;
+  // (undocumented)
+  protected isRepositoryAvailable: <T>(
+    repository?: T | undefined,
+  ) => repository is T;
   // (undocumented)
   protected lastQuery?: LastQuery;
   // (undocumented)
@@ -739,6 +745,11 @@ const messages: {
     defaultMessage: string;
     description: string;
   };
+  emojiSelectSkinToneListAriaLabelText: {
+    id: string;
+    defaultMessage: string;
+    description: string;
+  };
   emojiImageRequirements: {
     id: string;
     defaultMessage: string;
@@ -775,6 +786,21 @@ const messages: {
     description: string;
   };
   searchLabel: {
+    id: string;
+    defaultMessage: string;
+    description: string;
+  };
+  searchResultsStatus: {
+    id: string;
+    defaultMessage: string;
+    description: string;
+  };
+  searchResultsStatusSeeAll: {
+    id: string;
+    defaultMessage: string;
+    description: string;
+  };
+  categoriesSelectorLabel: {
     id: string;
     defaultMessage: string;
     description: string;
@@ -864,6 +890,26 @@ const messages: {
     defaultMessage: string;
     description: string;
   };
+  emojiPickerTitle: {
+    id: string;
+    defaultMessage: string;
+    description: string;
+  };
+  emojiPickerListPanel: {
+    id: string;
+    defaultMessage: string;
+    description: string;
+  };
+  emojiPickerGrid: {
+    id: string;
+    defaultMessage: string;
+    description: string;
+  };
+  emojiButtonRoleDescription: {
+    id: string;
+    defaultMessage: string;
+    description: string;
+  };
 };
 
 // @public (undocumented)
@@ -927,13 +973,18 @@ interface PickerRefHandler {
 export type PickerSize = 'large' | 'medium' | 'small';
 
 // @public (undocumented)
-interface Props {
+interface Props
+  extends Omit<
+    React_2.HTMLAttributes<HTMLSpanElement>,
+    'onFocus' | 'onMouseMove'
+  > {
   autoWidth?: boolean;
   className?: string;
   disableLazyLoad?: boolean;
   emoji: EmojiDescription;
   fitToHeight?: number;
   onDelete?: OnEmojiEvent;
+  onFocus?: OnEmojiEvent;
   onLoadError?: OnEmojiEvent<HTMLImageElement>;
   onLoadSuccess?: (emoji: EmojiDescription) => void;
   onMouseMove?: OnEmojiEvent;

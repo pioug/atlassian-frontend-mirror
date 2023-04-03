@@ -2,10 +2,14 @@
 import { createRef, PureComponent } from 'react';
 import { jsx } from '@emotion/react';
 import { VirtualItem as VirtualItemContext } from '@tanstack/react-virtual';
+import VisuallyHidden from '@atlaskit/visually-hidden';
 import {
   customCategory,
   defaultEmojiPickerSize,
+  frequentCategory,
+  searchCategory,
   userCustomTitle,
+  yourUploadsCategory,
 } from '../../util/constants';
 import {
   EmojiDescription,
@@ -43,6 +47,9 @@ import { emojiPickerHeightOffset } from './utils';
 import { Props as CategoryHeadingProps } from './EmojiPickerCategoryHeading';
 import { Props as EmojiRowProps } from './EmojiPickerEmojiRow';
 import { ListRef, VirtualList } from './VirtualList';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
+import { messages } from '../i18n';
+import { EmojiPickerListContextProvider } from '../../context/EmojiPickerListContext';
 
 /**
  * Test id for wrapper Emoji Picker List div
@@ -105,7 +112,45 @@ type Orderable = {
 const byOrder = (orderableA: Orderable, orderableB: Orderable) =>
   (orderableA.order || 0) - (orderableB.order || 0);
 
-export default class EmojiPickerVirtualList extends PureComponent<
+/**
+ * TODO: have to use class component here as unit test is relying on ref.root. Will refactor this whole file to functional component in future
+ * ticket: COLLAB-2317
+ */
+interface EmojiPickerTabPanelProps extends WrappedComponentProps {
+  /**
+   * Indicate whether the panel shows search results or full emojis list
+   */
+  showSearchResults: boolean;
+}
+
+class EmojiPickerTabPanelInternal extends PureComponent<EmojiPickerTabPanelProps> {
+  render() {
+    const {
+      intl: { formatMessage },
+      children,
+      showSearchResults,
+    } = this.props;
+    return (
+      <div
+        ref="root"
+        css={emojiPickerList}
+        data-testid={RENDER_EMOJI_PICKER_LIST_TESTID}
+        id={RENDER_EMOJI_PICKER_LIST_TESTID}
+        role="tabpanel"
+        aria-label={formatMessage(messages.emojiPickerListPanel)}
+      >
+        <VisuallyHidden id="emoji-picker-table-description">
+          {formatMessage(messages.emojiPickerGrid, { showSearchResults })}
+        </VisuallyHidden>
+        {children}
+      </div>
+    );
+  }
+}
+
+const EmojiPickerTabPanel = injectIntl(EmojiPickerTabPanelInternal);
+
+export default class EmojiPickerVirtualListInternal extends PureComponent<
   Props,
   State
 > {
@@ -123,11 +168,13 @@ export default class EmojiPickerVirtualList extends PureComponent<
     CategoryHeadingProps | EmojiRowProps | {}
   >[] = [];
   private categoryTracker: CategoryTracker = new CategoryTracker();
+  private lastYourUploadsRow: number;
 
   private listRef = createRef<ListRef>();
 
   constructor(props: Props) {
     super(props);
+    this.lastYourUploadsRow = 0;
 
     this.buildEmojiGroupedByCategory(props.emojis, props.currentUser);
     this.buildVirtualItems(props, this.state);
@@ -151,7 +198,7 @@ export default class EmojiPickerVirtualList extends PureComponent<
     }
   }
 
-  private onEmojiMouseEnter = (emojiId: EmojiId, emoji?: EmojiDescription) => {
+  private onEmojiActive = (emojiId: EmojiId, emoji?: EmojiDescription) => {
     if (this.props.onEmojiActive) {
       this.props.onEmojiActive(emojiId, emoji);
     }
@@ -183,6 +230,15 @@ export default class EmojiPickerVirtualList extends PureComponent<
     this.listRef.current?.scrollToRow(index);
   }
 
+  scrollToRecentlyUploaded() {
+    const row = this.lastYourUploadsRow;
+    if (row > 0) {
+      this.listRef.current?.scrollToRowAndFocusLastEmoji(
+        this.lastYourUploadsRow,
+      );
+    }
+  }
+
   private buildVirtualItemFromGroup = (
     group: EmojiGroup,
   ): VirtualItem<CategoryHeadingProps | EmojiRowProps | {}>[] => {
@@ -204,12 +260,14 @@ export default class EmojiPickerVirtualList extends PureComponent<
 
       items.push(
         new EmojisRowItem({
+          category: group.category,
           emojis: rowEmojis,
           title: group.title,
           showDelete: group.title === userCustomTitle,
           onSelected: onEmojiSelected,
           onDelete: onEmojiDelete,
-          onMouseMove: this.onEmojiMouseEnter,
+          onMouseMove: this.onEmojiActive,
+          onFocus: this.onEmojiActive,
         }),
       );
     }
@@ -234,7 +292,7 @@ export default class EmojiPickerVirtualList extends PureComponent<
         items = [
           ...items,
           ...this.buildVirtualItemFromGroup({
-            category: 'SEARCH',
+            category: searchCategory,
             title: search.name,
             emojis,
             order: search.order,
@@ -253,7 +311,12 @@ export default class EmojiPickerVirtualList extends PureComponent<
           );
 
           items = [...items, ...this.buildVirtualItemFromGroup(group)];
+
+          if (group.category === yourUploadsCategory) {
+            this.lastYourUploadsRow = items.length - 1;
+          }
         });
+        this.onRowsRendered({ startIndex: 0 });
       }
     }
 
@@ -295,7 +358,7 @@ export default class EmojiPickerVirtualList extends PureComponent<
         currentUser &&
         emoji.creatorUserId === currentUser.id
       ) {
-        this.addToCategoryMap(categoryToGroupMap, emoji, 'USER_CUSTOM');
+        this.addToCategoryMap(categoryToGroupMap, emoji, yourUploadsCategory);
       }
       return categoryToGroupMap;
     };
@@ -314,7 +377,7 @@ export default class EmojiPickerVirtualList extends PureComponent<
     )
       .map((key: CategoryGroupKey) => categoryToGroupMap[key])
       .map((group) => {
-        if (group.category !== 'FREQUENT') {
+        if (group.category !== frequentCategory) {
           group.emojis.sort(byOrder);
         }
         return group;
@@ -322,22 +385,52 @@ export default class EmojiPickerVirtualList extends PureComponent<
       .sort(byOrder);
   };
 
+  private findCategoryToActivate = (
+    row: VirtualItem<CategoryHeadingProps | EmojiRowProps | {}>,
+  ) => {
+    let category = null;
+    if (row instanceof CategoryHeadingItem) {
+      category = row.props.id;
+    } else if (row instanceof EmojisRowItem) {
+      category = row.props.category;
+    }
+    // your uploads is rendered, take it as upload category, so could be highlighted in category selector
+    if (category === yourUploadsCategory) {
+      return customCategory;
+      // search results is rendered, return null so won't be highlighted for category selector
+    } else if (category === searchCategory) {
+      return null;
+    }
+    return category;
+  };
+
   /**
-   * Checks if list is showing a new CategoryId
-   * to inform selector to change active category
+   * onRowsRendered callback function
+   *
+   * Check the category of top of rendered row and inform category selector to change active category
+   * Rove index of emoji picker list
    */
-  private checkCategoryIdChange = (indexes: { startIndex: number }) => {
+  private onRowsRendered = (indexes: { startIndex: number }) => {
     const { startIndex } = indexes;
+    const rowItem = this.virtualItems[startIndex];
+    const list = this.listRef.current;
+
+    // update tabIndex manually, startIndex is not 0 based here
+    if (rowItem instanceof CategoryHeadingItem) {
+      // if top of row rendered is category heading, update tabIndex for the next emoji row
+      list?.updateFocusIndex(startIndex + 1);
+    } else if (rowItem instanceof EmojisRowItem) {
+      // if top of row rendered is emoji row, update it's tabIndex.
+      list?.updateFocusIndex(startIndex);
+    }
 
     if (!this.props.query) {
       // Calculate category in view - only relevant if categories shown, i.e. no query
-      const list = this.listRef.current;
-      const currentCategory = this.categoryTracker.findNearestCategoryAbove(
-        startIndex,
-        list,
-      );
-
-      if (currentCategory && this.props.activeCategoryId !== currentCategory) {
+      const currentCategory = this.findCategoryToActivate(rowItem);
+      if (
+        currentCategory !== null &&
+        this.props.activeCategoryId !== currentCategory
+      ) {
         if (this.props.onCategoryActivated) {
           this.props.onCategoryActivated(currentCategory);
         }
@@ -371,16 +464,13 @@ export default class EmojiPickerVirtualList extends PureComponent<
       onFileChooserClicked,
       onOpenUpload,
       size = defaultEmojiPickerSize,
+      emojis,
     } = this.props;
 
     const virtualListHeight = sizes.listHeight + emojiPickerHeightOffset(size);
 
     return (
-      <div
-        ref="root"
-        css={emojiPickerList}
-        data-testid={RENDER_EMOJI_PICKER_LIST_TESTID}
-      >
+      <EmojiPickerTabPanel showSearchResults={!!query}>
         <EmojiActions
           selectedTone={selectedTone}
           onToneSelected={onToneSelected}
@@ -399,19 +489,24 @@ export default class EmojiPickerVirtualList extends PureComponent<
           onOpenUpload={onOpenUpload}
           query={query}
           onChange={this.onSearch}
+          resultsCount={emojis.length}
         />
-        <VirtualList
-          ref={this.listRef}
-          height={virtualListHeight}
-          overscanRowCount={10}
-          rowCount={this.virtualItems.length}
-          rowHeight={this.rowSize}
-          rowRenderer={this.renderRow}
-          scrollToAlignment="start"
-          width={sizes.listWidth}
-          onRowsRendered={this.checkCategoryIdChange}
-        />
-      </div>
+        <EmojiPickerListContextProvider
+          initialEmojisFocus={{ rowIndex: 1, columnIndex: 0 }}
+        >
+          <VirtualList
+            ref={this.listRef}
+            height={virtualListHeight}
+            overscanRowCount={10}
+            rowCount={this.virtualItems.length}
+            rowHeight={this.rowSize}
+            rowRenderer={this.renderRow}
+            scrollToAlignment="start"
+            width={sizes.listWidth}
+            onRowsRendered={this.onRowsRendered}
+          />
+        </EmojiPickerListContextProvider>
+      </EmojiPickerTabPanel>
     );
   }
 }

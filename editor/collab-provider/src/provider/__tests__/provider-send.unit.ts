@@ -94,6 +94,7 @@ describe('#sendData', () => {
         },
         packageName: '@atlaskit/fabric',
         packageVersion: '0.0.0',
+        errorName: 'TypeError',
         errorMessage: 'Error while processing steps',
       },
       nonPrivacySafeAttributes: {
@@ -203,7 +204,7 @@ describe('#sendData', () => {
               type: AcknowledgementResponseTypes.ERROR,
               error: { data: { code: 'HEAD_VERSION_UPDATE_FAILED' } },
             });
-            // @ts-ignore
+            // @ts-ignore just spying on a private method, nothing to see here
             expect(provider.emit).not.toHaveBeenCalled();
             expect(
               fakeAnalyticsWebClient.sendOperationalEvent,
@@ -261,7 +262,7 @@ describe('#sendData', () => {
               type: AcknowledgementResponseTypes.ERROR,
               error: { data: { code: 'VERSION_NUMBER_ALREADY_EXISTS' } },
             });
-            // @ts-ignore
+            // @ts-ignore just spying on a private method, nothing to see here
             expect(provider.emit).not.toHaveBeenCalled();
             expect(
               fakeAnalyticsWebClient.sendOperationalEvent,
@@ -399,7 +400,7 @@ describe('#sendData', () => {
 
         it('should call emit analytics event on invalid acknowledgement', () => {
           ackCallback({ wat: true });
-          // @ts-ignore
+          // @ts-ignore just spying on a private method, nothing to see here
           expect(provider.emit).not.toHaveBeenCalled();
           expect(
             fakeAnalyticsWebClient.sendOperationalEvent,
@@ -417,6 +418,7 @@ describe('#sendData', () => {
                 status: 'ONLINE',
               },
               documentAri: 'ari:cloud:confluence:ABC:page/testpage',
+              errorName: 'Error',
               errorMessage:
                 'Error while adding steps - Invalid Acknowledgement',
             },

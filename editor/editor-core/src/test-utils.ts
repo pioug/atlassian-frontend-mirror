@@ -7,19 +7,18 @@ import {
   LightPMPluginFactoryParams,
   OnEditorViewStateUpdated,
 } from './create-editor/get-plugins';
-import { Preset } from './labs/next/presets/preset';
 import { Schema } from 'prosemirror-model';
 import { createSchema } from './create-editor/create-schema';
 import { MarkConfig, NodeConfig } from './types/pm-config';
 import basePlugin from './plugins/base';
 import { analyticsPluginKey } from './plugins/analytics/plugin-key';
-import { AllBuilderPlugins } from '@atlaskit/editor-common/types';
 
 export { createTypeAheadTools } from './plugins/type-ahead/api';
-export { Preset } from './labs/next/presets/preset';
 export type { LightEditorPlugin } from './create-editor/get-plugins';
 export type { DispatchAnalyticsEvent } from './plugins/analytics/types';
 export type { FeatureFlags } from './types/feature-flags';
+import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
+import type { AllEditorPresetPluginTypes } from '@atlaskit/editor-common/types';
 
 export interface LightEditorConfig {
   nodes: NodeConfig[];
@@ -92,19 +91,20 @@ type PluginData = {
 };
 export const createPMSchemaAndPlugins =
   (
-    preset: Preset<
-      LightEditorPlugin,
-      AllBuilderPlugins[]
-    > = new Preset<LightEditorPlugin>(),
+    inputPreset: EditorPresetBuilder<
+      string[],
+      AllEditorPresetPluginTypes[]
+    > = new EditorPresetBuilder(),
   ) =>
   (
     pluginFactoryParams: Omit<LightPMPluginFactoryParams, 'schema'>,
   ): PluginData => {
     let editorPlugins: LightEditorPlugin[] = [];
-    if (!preset.has(basePlugin)) {
-      preset.add(basePlugin);
-    }
-    editorPlugins = preset.getEditorPlugins();
+
+    const preset = inputPreset.has(basePlugin)
+      ? inputPreset
+      : inputPreset.add(basePlugin);
+    editorPlugins = preset.build();
 
     const editorConfig: LightEditorConfig =
       lightProcessPluginsList(editorPlugins);

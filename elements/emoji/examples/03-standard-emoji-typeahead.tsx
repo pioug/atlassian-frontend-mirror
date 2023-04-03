@@ -8,6 +8,7 @@ import { TypeaheadProps } from '../example-helpers/typeahead-props';
 import { EmojiTypeAhead } from '../src/typeahead';
 import { EmojiId, OptionalEmojiDescription } from '../src/types';
 import debug from '../src/util/logger';
+import { IntlProvider } from 'react-intl-next';
 
 const loremContent = (
   <div>
@@ -118,11 +119,13 @@ export const EmojiTypeAheadTextInput: FC<TypeaheadProps> = (props) => {
 
 export default function Example() {
   return (
-    <EmojiTypeAheadTextInput
-      label="Emoji search"
-      onSelection={onSelection}
-      emojiProvider={getEmojiResource()}
-      position="below"
-    />
+    <IntlProvider locale="en">
+      <EmojiTypeAheadTextInput
+        label="Emoji search"
+        onSelection={onSelection}
+        emojiProvider={getEmojiResource()}
+        position="below"
+      />
+    </IntlProvider>
   );
 }

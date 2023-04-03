@@ -1,5 +1,15 @@
 # @atlaskit/reactions
 
+## 22.2.6
+
+### Patch Changes
+
+- [`6b5bf5505b6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6b5bf5505b6) - revert atlaskit popup refactor in reaction picker
+- [`db658265a45`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db658265a45) - add sampling for reaction view analytics
+- [`c84afc8fbd8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c84afc8fbd8) - [ux] add focus trap to reaction picker
+- [`ed219dee1bd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ed219dee1bd) - refactor reactions picker with @atlaskit/popup
+- Updated dependencies
+
 ## 22.2.5
 
 ### Patch Changes

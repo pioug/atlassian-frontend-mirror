@@ -6,10 +6,6 @@ import addYears from 'date-fns/addYears';
 
 import { DateSegment } from '../types';
 
-export function padToTwo(number: number) {
-  return number <= 99 ? `0${number}`.slice(-2) : `${number}`;
-}
-
 function isDigit(c: string): boolean {
   if (c === undefined) {
     return false;

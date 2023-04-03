@@ -472,7 +472,7 @@ describe('TableRowNodeView', () => {
         triggerElementIntersect({
           target: sentinelTop,
           isIntersecting: false,
-          rootBounds: { bottom: 0, top: 0 },
+          rootBounds: { bottom: 0, top: 56 },
           boundingClientRect: { bottom: 0, top: 0 },
         });
 
@@ -507,7 +507,7 @@ describe('TableRowNodeView', () => {
         triggerElementIntersect({
           target: sentinelBottom,
           isIntersecting: true,
-          rootBounds: { bottom: 0, top: 0 },
+          rootBounds: { bottom: 0, top: 56 },
           boundingClientRect: { bottom: 0, top: -100 },
         });
 

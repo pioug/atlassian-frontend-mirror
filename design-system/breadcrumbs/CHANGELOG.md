@@ -1,5 +1,15 @@
 # @atlaskit/breadcrumbs
 
+## 11.8.0
+
+### Minor Changes
+
+- [`239f09ffdbf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/239f09ffdbf) - Adds `isNavigation` prop.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.7.12
 
 ### Patch Changes

@@ -5,7 +5,6 @@ import {
 
 import {
   ANALYTICS_MEDIA_CHANNEL,
-  MediaFeatureFlags,
   UIAttributes,
   UIEventPayload,
 } from '@atlaskit/media-common';
@@ -46,8 +45,6 @@ export type CustomMediaPlayerAnalyticsEventPayload =
   | CustomMediaPlayerUIEventPayload
   | FirstPlayedTrackEventPayload
   | PlayedTrackEventPayload;
-
-export const relevantFeatureFlagNames: Array<keyof MediaFeatureFlags> = [];
 
 // can be called in a component whose props extend WithAnalyticsEventsProps
 export function fireAnalyticsEvent(

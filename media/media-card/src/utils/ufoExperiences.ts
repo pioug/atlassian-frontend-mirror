@@ -4,11 +4,13 @@ import {
   ExperienceTypes,
 } from '@atlaskit/ufo';
 import { CardStatus } from '../types';
-import { FileAttributes } from '@atlaskit/media-common';
+import {
+  FileAttributes,
+  getFeatureFlagKeysAllProducts,
+} from '@atlaskit/media-common';
 import {
   extractErrorInfo,
   getRenderErrorRequestMetadata,
-  LOGGED_FEATURE_FLAG_KEYS,
   MediaCardErrorInfo,
   SSRStatus,
 } from './analytics';
@@ -53,7 +55,7 @@ const getExperience = (id: string) => {
       platform: { component: 'media-card' },
       type: ExperienceTypes.Experience,
       performanceType: ExperiencePerformanceTypes.InlineResult,
-      featureFlags: LOGGED_FEATURE_FLAG_KEYS,
+      featureFlags: getFeatureFlagKeysAllProducts(),
     };
     concurrentExperience = new ConcurrentExperience(
       'media-card-render',

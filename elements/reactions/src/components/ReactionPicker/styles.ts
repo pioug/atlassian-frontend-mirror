@@ -15,6 +15,12 @@ export const contentStyle = css({
   display: 'flex',
 });
 
+export const popupWrapperStyle = css({
+  ':focus': {
+    outline: 'none',
+  },
+});
+
 export const popupStyle = css({
   background: token('elevation.surface.overlay', N0),
   borderRadius: `${borderRadius()}px`,

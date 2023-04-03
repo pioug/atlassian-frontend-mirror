@@ -32,11 +32,8 @@ const defaultTheme: { mode: Mode } = {
       },
       focus: {
         color: token('color.text.inverse', N0),
-        backgroundColor: token('color.background.brand.bold', B400),
-        boxShadow: `0 0 0 2px ${token(
-          'color.border.focused',
-          'rgb(128,169,230)',
-        )}`,
+        backgroundColor: '',
+        boxShadow: '',
       },
       hover: {
         color: token('color.text.inverse', N0),
@@ -64,11 +61,8 @@ const defaultTheme: { mode: Mode } = {
       },
       focus: {
         color: token('color.text.subtle', N600),
-        backgroundColor: token(
-          'color.background.selected.hovered',
-          hexToRGBA(B50, 0.5),
-        ),
-        boxShadow: `0 0 0 2px ${token('color.border.focused', B200)}`,
+        backgroundColor: '',
+        boxShadow: '',
       },
       hover: {
         color: token('color.text.subtle', B400),
@@ -128,7 +122,7 @@ const defaultTheme: { mode: Mode } = {
       focus: {
         color: token('color.text.subtle', N600),
         backgroundColor: '',
-        boxShadow: `0 0 0 2px ${token('color.border.focused', B200)}`,
+        boxShadow: '',
       },
       hover: {
         color: token('color.text.subtle', B400),

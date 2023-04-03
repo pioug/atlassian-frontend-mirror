@@ -8,14 +8,10 @@ import { createTypeAheadTools } from '../../../type-ahead/api';
 import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 import { messages } from '../../messages';
 
-export interface Props {
+interface Props {
   editorView?: EditorView;
   isDisabled?: boolean;
   testId?: string;
-}
-
-export interface State {
-  disabled: boolean;
 }
 
 class ToolbarMention extends PureComponent<Props & WrappedComponentProps> {

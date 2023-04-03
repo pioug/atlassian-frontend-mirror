@@ -259,9 +259,13 @@ export const tooltipErrorMessageMatches = async (
       component.update() &&
       component.find(EmojiErrorMessage).find(FormattedMessage).length > 0,
   );
-  expect(
-    component.find(EmojiErrorMessage).find(FormattedMessage).props(),
-  ).toMatchObject(message);
+
+  // Expect to have 2 identical error messages
+  // as we have one for tooltip (visual display) and one for accessibility message (visually hidden)
+  component
+    .find(EmojiErrorMessage)
+    .find(FormattedMessage)
+    .forEach((node) => expect(node.props()).toMatchObject(message));
 };
 
 export const chooseFile = (component: ReactWrapper, file: any) => {
@@ -278,4 +282,18 @@ export const chooseFile = (component: ReactWrapper, file: any) => {
     },
   } as React.ChangeEvent<any>);
   return fileChooser;
+};
+
+// focusIndex of list should expect tabIndex = 0, and siblings with tabIndex = -1
+export const expectTabIndexFromList = (
+  list: HTMLElement[],
+  focusIndex: number,
+) => {
+  list.map((listItem, index) => {
+    if (index === focusIndex) {
+      expect(listItem.tabIndex).toEqual(0);
+    } else {
+      expect(listItem.tabIndex).toEqual(-1);
+    }
+  });
 };

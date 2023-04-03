@@ -19,11 +19,13 @@ const initRenderer = async (
   page: PuppeteerPage,
   adf: any,
   viewport?: { width?: number; height?: number },
+  options?: { darkMode?: boolean },
 ) => {
   await initRendererWithADF(page, {
     appearance: 'full-page',
     viewport: { width: 1040, height: 700, ...viewport },
     adf,
+    themeMode: options?.darkMode ? 'dark' : 'light',
   });
 };
 
@@ -71,6 +73,18 @@ describe('Snapshot Test: Layouts', () => {
           '@Verdie Carrales',
         );
       });
+    });
+  });
+
+  describe('Dark layout', () => {
+    it(`should correctly render 2 column layout`, async () => {
+      const layout = layouts[0];
+      // Wait for action list (within ADF) to render
+      await initRenderer(page, layout.adf, undefined, { darkMode: true });
+      await page.waitForSelector('div[data-task-list-local-id] > div');
+      const taskItemSelector =
+        'div[data-task-list-local-id] div[data-renderer-start-pos]';
+      await waitForText(page, taskItemSelector, 'item one');
     });
   });
 

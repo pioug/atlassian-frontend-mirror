@@ -8,8 +8,8 @@ import {
   ResolvingMentionProvider,
   MentionNameDetails,
   MentionNameStatus,
-  TeamMentionProvider,
   SLI_EVENT_TYPE,
+  MentionProvider,
 } from '@atlaskit/mention/resource';
 import {
   InviteExperimentCohort,
@@ -24,7 +24,6 @@ export interface MockMentionConfig {
   minWait?: number;
   maxWait?: number;
   mentionNameResolver?: MentionNameResolver;
-  enableTeamMentionHighlight?: boolean;
   inviteExperimentCohort?: InviteExperimentCohort;
   productName?: string;
   shouldEnableInvite?: boolean;
@@ -34,7 +33,7 @@ export interface MockMentionConfig {
 
 export class MockMentionResource
   extends AbstractMentionResource
-  implements ResolvingMentionProvider, TeamMentionProvider
+  implements ResolvingMentionProvider, MentionProvider
 {
   private config: MockMentionConfig;
   private lastReturnedSearch: number;
@@ -153,9 +152,4 @@ export class MockMentionResource
   shouldHighlightMention(mention: MentionDescription): boolean {
     return mention.id === 'oscar';
   }
-
-  mentionTypeaheadHighlightEnabled = () =>
-    this.config.enableTeamMentionHighlight || false;
-
-  mentionTypeaheadCreateTeamPath = () => '/people/search#createTeam';
 }

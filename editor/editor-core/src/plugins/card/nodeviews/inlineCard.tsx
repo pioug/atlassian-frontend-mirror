@@ -50,7 +50,9 @@ export class InlineCardComponent extends React.PureComponent<SmartCardProps> {
   };
 
   render() {
-    const { node, cardContext, useAlternativePreloader } = this.props;
+    const { node, cardContext, showServerActions, useAlternativePreloader } =
+      this.props;
+
     const { url, data } = node.attrs;
     const card = (
       <span className="card">
@@ -66,6 +68,7 @@ export class InlineCardComponent extends React.PureComponent<SmartCardProps> {
           inlinePreloaderStyle={
             useAlternativePreloader ? 'on-right-without-skeleton' : undefined
           }
+          showServerActions={showServerActions}
         />
       </span>
     );
@@ -85,19 +88,21 @@ const WrappedInlineCard = Card(InlineCardComponent, UnsupportedInline);
 
 export type InlineCardNodeViewProps = Pick<
   SmartCardProps,
-  'useAlternativePreloader'
+  'useAlternativePreloader' | 'showServerActions'
 >;
 
 export function InlineCardNodeView(
   props: InlineNodeViewComponentProps & InlineCardNodeViewProps,
 ) {
-  const { useAlternativePreloader, node, view, getPos } = props;
+  const { useAlternativePreloader, node, view, getPos, showServerActions } =
+    props;
 
   return (
     <WrappedInlineCard
       node={node}
       view={view}
       getPos={getPos}
+      showServerActions={showServerActions}
       useAlternativePreloader={useAlternativePreloader}
     />
   );

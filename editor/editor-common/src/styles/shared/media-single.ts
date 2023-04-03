@@ -35,6 +35,15 @@ const mediaSingleSharedStyle = css`
     margin-top: 12px;
     margin-bottom: 12px;
     clear: both;
+
+    &.image-wrap-left,
+    &.image-wrap-right {
+      clear: none;
+
+      &:first-child {
+        margin-top: 12px;
+      }
+    }
   }
 
   .${richMediaClassName}.image-wrap-right

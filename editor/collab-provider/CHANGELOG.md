@@ -1,5 +1,21 @@
 # @atlaskit/collab-provider
 
+## 8.4.0
+
+### Minor Changes
+
+- [`eae755e434a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eae755e434a) - [ESS-3269] Don't return an empty document if something goes wrong when returning the final acknowledge state from the collab provider
+- [`ca548613b49`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ca548613b49) - ESS-3218 Add new configuration option throwOnNotConnected, which will throw not connected errors when attempting to save data whilst client is offline.
+- [`329d3bb4e05`](https://bitbucket.org/atlassian/atlassian-frontend/commits/329d3bb4e05) - ESS-2962: added canCache flag in Config for Collab-provider. Channel now stores token locally if canCache flag is passed. Uses local token for reconnections if connection is lost for errors other that 401 and 403.
+- [`1b9c38c7f48`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1b9c38c7f48) - [ESS-3269] Added error handling and metrics for retrieving the current state
+
+### Patch Changes
+
+- [`2a076027203`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2a076027203) - NO-ISSUE fix the permission error on permissionTokenRefresh
+- [`bde10feab09`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bde10feab09) - Avoid using callbacks when initialising socket connection
+- [`f9a6a671d14`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f9a6a671d14) - add comment to indicate that disconnect handler will be called when Firefox reload
+- Updated dependencies
+
 ## 8.3.0
 
 ### Minor Changes

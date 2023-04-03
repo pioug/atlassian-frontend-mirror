@@ -1,9 +1,10 @@
 /** @jsx jsx */
-import { FC } from 'react';
+import { FC, Fragment } from 'react';
 import { jsx, SerializedStyles } from '@emotion/react';
 import Tooltip from '@atlaskit/tooltip';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
 import { Message } from '../../types';
+import VisuallyHidden from '@atlaskit/visually-hidden';
 
 export interface Props {
   message: Message;
@@ -18,7 +19,7 @@ export const emojiErrorIconTestId = 'emoji-error-icon';
 const EmojiErrorMessage: FC<Props> = (props) => {
   const { messageStyles, message, tooltip } = props;
 
-  return tooltip ? (
+  const visualContent = tooltip ? (
     <div css={messageStyles} data-testid={emojiErrorMessageTestId}>
       <Tooltip
         content={message}
@@ -30,8 +31,16 @@ const EmojiErrorMessage: FC<Props> = (props) => {
     </div>
   ) : (
     <div css={messageStyles} data-testid={emojiErrorMessageTestId}>
-      <ErrorIcon label="Error" size="small" /> {message}
+      <ErrorIcon label="Error" size="small" />
+      {message}
     </div>
+  );
+
+  return (
+    <Fragment>
+      <VisuallyHidden role="alert">{message}</VisuallyHidden>
+      {visualContent}
+    </Fragment>
   );
 };
 

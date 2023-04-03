@@ -3,16 +3,7 @@ import {
   UNSAFE_BoxProps as BoxProps,
   UNSAFE_TextProps as TextProps,
 } from '@atlaskit/ds-explorations';
-import {
-  B100,
-  B400,
-  N0,
-  N200,
-  N30A,
-  N40,
-  N500,
-  N700,
-} from '@atlaskit/theme/colors';
+import { B400, N0, N30A, N500, N700 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { AppearanceTypes } from './types';
@@ -51,14 +42,6 @@ export const flagTextColorToken = {
   normal: token('color.text.subtle', N500),
   success: token('color.text.inverse', N0),
   warning: token('color.text.warning.inverse', N700),
-};
-
-export const flagFocusRingColor: Record<AppearanceTypes, string> = {
-  error: token('color.border.focused', N40),
-  info: token('color.border.focused', N40),
-  normal: token('color.border.focused', B100),
-  success: token('color.border.focused', N40),
-  warning: token('color.border.focused', N200),
 };
 
 type ActionBackgroundColor = Record<

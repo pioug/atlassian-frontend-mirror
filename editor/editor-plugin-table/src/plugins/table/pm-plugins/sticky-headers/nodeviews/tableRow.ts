@@ -170,7 +170,7 @@ export class TableRowNodeView implements NodeView {
       this.topPosEditorElement = getTop(this.editorScrollableElement);
     }
 
-    this.eventDispatcher.on('widthPlugin', this.onWidthPluginState);
+    this.eventDispatcher.on('widthPlugin', this.updateStickyHeaderWidth);
 
     this.eventDispatcher.on(
       (tablePluginKey as any).key,
@@ -209,7 +209,7 @@ export class TableRowNodeView implements NodeView {
       this.editorScrollableElement.removeEventListener('scroll', this.onScroll);
     }
 
-    this.eventDispatcher.off('widthPlugin', this.onWidthPluginState);
+    this.eventDispatcher.off('widthPlugin', this.updateStickyHeaderWidth);
     this.eventDispatcher.off(
       (tablePluginKey as any).key,
       this.onTablePluginState,
@@ -235,6 +235,9 @@ export class TableRowNodeView implements NodeView {
     }
 
     this.resizeObserver.observe(this.dom);
+    if (this.editorScrollableElement) {
+      this.resizeObserver.observe(this.editorScrollableElement as HTMLElement);
+    }
 
     window.requestAnimationFrame(() => {
       // we expect tree to be defined after animation frame
@@ -268,22 +271,31 @@ export class TableRowNodeView implements NodeView {
       }
       const { table } = this.tree;
       entries.forEach((entry) => {
-        const newHeight = entry.contentRect
-          ? entry.contentRect.height
-          : (entry.target as HTMLElement).offsetHeight;
-
+        // On resize of the parent scroll element we need to adjust the width
+        // of the sticky header
         if (
-          this.sentinels.bottom &&
-          // When the table header is sticky, it would be taller by a 1px (border-bottom),
-          // So we adding this check to allow a 1px difference.
-          Math.abs(newHeight - (this.stickyRowHeight || 0)) >
-            stickyHeaderBorderBottomWidth
+          entry.target.className ===
+          (this.editorScrollableElement as HTMLElement)?.className
         ) {
-          this.stickyRowHeight = newHeight;
-          this.sentinels.bottom.style.bottom = `${
-            tableScrollbarOffset + stickyRowOffsetTop + newHeight
-          }px`;
-          updateTableMargin(table);
+          this.updateStickyHeaderWidth();
+        } else {
+          const newHeight = entry.contentRect
+            ? entry.contentRect.height
+            : (entry.target as HTMLElement).offsetHeight;
+
+          if (
+            this.sentinels.bottom &&
+            // When the table header is sticky, it would be taller by a 1px (border-bottom),
+            // So we adding this check to allow a 1px difference.
+            Math.abs(newHeight - (this.stickyRowHeight || 0)) >
+              stickyHeaderBorderBottomWidth
+          ) {
+            this.stickyRowHeight = newHeight;
+            this.sentinels.bottom.style.bottom = `${
+              tableScrollbarOffset + stickyRowOffsetTop + newHeight
+            }px`;
+            updateTableMargin(table);
+          }
         }
       });
     });
@@ -309,7 +321,8 @@ export class TableRowNodeView implements NodeView {
               (entry.rootBounds?.bottom || 0) < entry.boundingClientRect.bottom;
 
             if (!entry.isIntersecting && !sentinelIsBelowScrollArea) {
-              this.tree && this.makeHeaderRowSticky(this.tree);
+              this.tree &&
+                this.makeHeaderRowSticky(this.tree, entry.rootBounds?.top);
             } else {
               table && this.makeRowHeaderNotSticky(table);
             }
@@ -325,7 +338,8 @@ export class TableRowNodeView implements NodeView {
             if (table && !entry.isIntersecting && sentinelIsAboveScrollArea) {
               this.makeRowHeaderNotSticky(table);
             } else if (entry.isIntersecting && sentinelIsAboveScrollArea) {
-              this.tree && this.makeHeaderRowSticky(this.tree);
+              this.tree &&
+                this.makeHeaderRowSticky(this.tree, entry?.rootBounds?.top);
             }
           }
         });
@@ -549,7 +563,7 @@ export class TableRowNodeView implements NodeView {
     }, 0);
   };
 
-  onWidthPluginState = () => {
+  updateStickyHeaderWidth = () => {
     // table width might have changed, sync that back to sticky row
     const tree = this.tree;
     if (!tree) {
@@ -591,7 +605,7 @@ export class TableRowNodeView implements NodeView {
     return false;
   };
 
-  makeHeaderRowSticky = (tree: TableDOMElements) => {
+  makeHeaderRowSticky = (tree: TableDOMElements, scrollTop?: number) => {
     // If header row height is more than 50% of viewport height don't do this
     if (this.stickyRowHeight && this.stickyRowHeight > window.innerHeight / 2) {
       return;
@@ -607,10 +621,13 @@ export class TableRowNodeView implements NodeView {
     }
 
     const currentTableTop = this.getCurrentTableTop(tree);
+
+    if (!scrollTop) {
+      scrollTop = getTop(this.editorScrollableElement);
+    }
+
     const domTop =
-      currentTableTop > 0
-        ? this.topPosEditorElement
-        : this.topPosEditorElement + currentTableTop;
+      currentTableTop > 0 ? scrollTop : scrollTop + currentTableTop;
 
     if (!this.isSticky) {
       syncStickyRowToTable(table);

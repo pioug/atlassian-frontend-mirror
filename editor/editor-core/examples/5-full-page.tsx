@@ -11,7 +11,7 @@ import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
 import Flag from '@atlaskit/flag';
 import Warning from '@atlaskit/icon/glyph/warning';
 
-import { mentionResourceProviderWithTeamMentionHighlight } from '@atlaskit/util-data-test/mention-story-data';
+import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import { autoformattingProvider } from '@atlaskit/editor-test-helpers/autoformatting-provider';
 import { cardProviderStaging } from '@atlaskit/editor-test-helpers/card-provider';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
@@ -219,9 +219,7 @@ export const providers: Partial<Providers> = {
     uploadSupported: true,
     currentUser,
   }) as Promise<EmojiProvider>,
-  mentionProvider: Promise.resolve(
-    mentionResourceProviderWithTeamMentionHighlight,
-  ),
+  mentionProvider: Promise.resolve(mentionResourceProvider),
   taskDecisionProvider: Promise.resolve(getMockTaskDecisionResource()),
   contextIdentifierProvider: storyContextIdentifierProviderFactory(),
   activityProvider: Promise.resolve(new MockActivityResource()),
@@ -260,6 +258,12 @@ export class ExampleEditorComponent extends React.Component<
   }
 
   componentDidMount() {
+    // This is to simulate a scenario where the consumer may try to call `focus` on mount
+    // We would prefer to notice any issues with this in development rather than in product.
+    if (this.editorActions) {
+      this.editorActions.focus();
+    }
+
     // eslint-disable-next-line no-console
     console.log(`To try the macro paste handler, paste one of the following links:
 
@@ -537,6 +541,7 @@ export class ExampleEditorComponent extends React.Component<
                   ...editorProps.featureFlags,
                   // Enabling to catch during dev by default
                   'safer-dispatched-transactions': true,
+                  'use-editor-next': true,
                 }}
                 appearance={this.state.appearance}
                 onEditorReady={this.onEditorReady}
@@ -622,9 +627,7 @@ export const ExampleEditor = ExampleEditorComponent;
 
 const MockProfileClient: any = simpleMockProfilecardClient();
 
-const mentionProvider = Promise.resolve(
-  mentionResourceProviderWithTeamMentionHighlight,
-);
+const mentionProvider = Promise.resolve(mentionResourceProvider);
 
 const emojiProvider = getEmojiProvider();
 

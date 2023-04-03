@@ -14,7 +14,6 @@ import {
 } from '../../../event-dispatcher';
 import EditorActions from '../../../actions';
 import EditorContext from '../../../ui/EditorContext';
-import { analyticsPluginKey } from '../../../plugins/analytics';
 
 describe(name, () => {
   const createEditor = createEditorFactory();
@@ -35,31 +34,6 @@ describe(name, () => {
             plugin: () =>
               new SafePlugin({
                 key,
-                state: {
-                  init() {
-                    return state;
-                  },
-                  apply() {
-                    return state;
-                  },
-                },
-              }),
-          },
-        ];
-      },
-    };
-  };
-
-  const createAnalyticsPlugin = (state: any): EditorPlugin => {
-    return {
-      name: 'analytics',
-      pmPlugins() {
-        return [
-          {
-            name: 'analyticsPlugin',
-            plugin: () =>
-              new SafePlugin({
-                key: analyticsPluginKey,
                 state: {
                   init() {
                     return state;
@@ -266,21 +240,19 @@ describe(name, () => {
     const key = (pluginKey as any).key;
     const mark = performance.mark as jest.Mock;
 
-    const analyticsPlugin = createAnalyticsPlugin({
-      performanceTracking: {
-        uiTracking: {
-          enabled: false,
-          samplingRate: 1,
-          slowThreshold: 0,
-        },
-      },
-    });
-
     const { editorView } = createEditor({
       doc: doc(p()),
-      editorPlugins: [plugin, analyticsPlugin],
+      editorPlugins: [plugin],
       editorProps: {
         allowAnalyticsGASV3: true,
+
+        performanceTracking: {
+          uiTracking: {
+            enabled: false,
+            samplingRate: 1,
+            slowThreshold: 0,
+          },
+        },
       },
     });
 
@@ -314,21 +286,19 @@ describe(name, () => {
     const key = (pluginKey as any).key;
     const mark = performance.mark as jest.Mock;
 
-    const analyticsPlugin = createAnalyticsPlugin({
-      performanceTracking: {
-        uiTracking: {
-          enabled: true,
-          samplingRate: 1,
-          slowThreshold: 0,
-        },
-      },
-    });
-
     const { editorView } = createEditor({
       doc: doc(p()),
-      editorPlugins: [plugin, analyticsPlugin],
+      editorPlugins: [plugin],
       editorProps: {
         allowAnalyticsGASV3: true,
+
+        performanceTracking: {
+          uiTracking: {
+            enabled: true,
+            samplingRate: 1,
+            slowThreshold: 0,
+          },
+        },
       },
     });
 

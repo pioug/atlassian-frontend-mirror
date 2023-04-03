@@ -20,31 +20,143 @@ type EditorBackgroundPalette = typeof editorBackgroundPalette;
 
 // @public (undocumented)
 const editorBackgroundPalette: {
-  '#DEEBFF': 'var(--ds-background-accent-blue-subtlest, #DEEBFF)';
-  '#B3D4FF': 'var(--ds-background-accent-blue-subtler, #B3D4FF)';
-  '#4C9AFF': 'var(--ds-background-accent-blue-subtle, #4C9AFF)';
-  '#E6FCFF': 'var(--ds-background-accent-teal-subtlest, #E6FCFF)';
-  '#B3F5FF': 'var(--ds-background-accent-teal-subtler, #B3F5FF)';
-  '#79E2F2': 'var(--ds-background-accent-teal-subtle, #79E2F2)';
-  '#E3FCEF': 'var(--ds-background-accent-green-subtlest, #E3FCEF)';
-  '#ABF5D1': 'var(--ds-background-accent-green-subtler, #ABF5D1)';
-  '#57D9A3': 'var(--ds-background-accent-green-subtle, #57D9A3)';
-  '#FFFAE6': 'var(--ds-background-accent-yellow-subtlest, #FFFAE6)';
-  '#FFF0B3': 'var(--ds-background-accent-yellow-subtler, #FFF0B3)';
-  '#FFC400': 'var(--ds-background-accent-orange-subtle, #FFC400)';
-  '#FFEBE6': 'var(--ds-background-accent-red-subtlest, #FFEBE6)';
-  '#FFBDAD': 'var(--ds-background-accent-red-subtler, #FFBDAD)';
-  '#FF8F73': 'var(--ds-background-accent-red-subtle, #FF8F73)';
-  '#EAE6FF': 'var(--ds-background-accent-purple-subtlest, #EAE6FF)';
-  '#C0B6F2': 'var(--ds-background-accent-purple-subtler, #C0B6F2)';
-  '#998DD9': 'var(--ds-background-accent-purple-subtle, #998DD9)';
-  '#FFFFFF': 'var(--ds-surface, #FFFFFF)';
-  '#F4F5F7': 'var(--ds-background-accent-gray-subtlest, #F4F5F7)';
-  '#B3BAC5': 'var(--ds-background-accent-gray-subtle, #B3BAC5)';
+  '#DEEBFF': {
+    tokenName: 'color.background.accent.blue.subtlest';
+    token: 'var(--ds-background-accent-blue-subtlest, #DEEBFF)';
+  };
+  '#B3D4FF': {
+    tokenName: 'color.background.accent.blue.subtler';
+    token: 'var(--ds-background-accent-blue-subtler, #B3D4FF)';
+  };
+  '#4C9AFF': {
+    tokenName: 'color.background.accent.blue.subtle';
+    token: 'var(--ds-background-accent-blue-subtle, #4C9AFF)';
+  };
+  '#E6FCFF': {
+    tokenName: 'color.background.accent.teal.subtlest';
+    token: 'var(--ds-background-accent-teal-subtlest, #E6FCFF)';
+  };
+  '#B3F5FF': {
+    tokenName: 'color.background.accent.teal.subtler';
+    token: 'var(--ds-background-accent-teal-subtler, #B3F5FF)';
+  };
+  '#79E2F2': {
+    tokenName: 'color.background.accent.teal.subtle';
+    token: 'var(--ds-background-accent-teal-subtle, #79E2F2)';
+  };
+  '#E3FCEF': {
+    tokenName: 'color.background.accent.green.subtlest';
+    token: 'var(--ds-background-accent-green-subtlest, #E3FCEF)';
+  };
+  '#ABF5D1': {
+    tokenName: 'color.background.accent.green.subtler';
+    token: 'var(--ds-background-accent-green-subtler, #ABF5D1)';
+  };
+  '#57D9A3': {
+    tokenName: 'color.background.accent.green.subtle';
+    token: 'var(--ds-background-accent-green-subtle, #57D9A3)';
+  };
+  '#FFFAE6': {
+    tokenName: 'color.background.accent.yellow.subtlest';
+    token: 'var(--ds-background-accent-yellow-subtlest, #FFFAE6)';
+  };
+  '#FFF0B3': {
+    tokenName: 'color.background.accent.yellow.subtler';
+    token: 'var(--ds-background-accent-yellow-subtler, #FFF0B3)';
+  };
+  '#FFC400': {
+    tokenName: 'color.background.accent.orange.subtle';
+    token: 'var(--ds-background-accent-orange-subtle, #FFC400)';
+  };
+  '#FFEBE6': {
+    tokenName: 'color.background.accent.red.subtlest';
+    token: 'var(--ds-background-accent-red-subtlest, #FFEBE6)';
+  };
+  '#FFBDAD': {
+    tokenName: 'color.background.accent.red.subtler';
+    token: 'var(--ds-background-accent-red-subtler, #FFBDAD)';
+  };
+  '#FF8F73': {
+    tokenName: 'color.background.accent.red.subtle';
+    token: 'var(--ds-background-accent-red-subtle, #FF8F73)';
+  };
+  '#EAE6FF': {
+    tokenName: 'color.background.accent.purple.subtlest';
+    token: 'var(--ds-background-accent-purple-subtlest, #EAE6FF)';
+  };
+  '#C0B6F2': {
+    tokenName: 'color.background.accent.purple.subtler';
+    token: 'var(--ds-background-accent-purple-subtler, #C0B6F2)';
+  };
+  '#998DD9': {
+    tokenName: 'color.background.accent.purple.subtle';
+    token: 'var(--ds-background-accent-purple-subtle, #998DD9)';
+  };
+  '#FFFFFF': {
+    tokenName: 'elevation.surface';
+    token: 'var(--ds-surface, #FFFFFF)';
+  };
+  '#F4F5F7': {
+    tokenName: 'color.background.accent.gray.subtlest';
+    token: 'var(--ds-background-accent-gray-subtlest, #F4F5F7)';
+  };
+  '#B3BAC5': {
+    tokenName: 'color.background.accent.gray.subtle';
+    token: 'var(--ds-background-accent-gray-subtle, #B3BAC5)';
+  };
 };
 
 // @public (undocumented)
 type EditorBackgroundPaletteKey = keyof EditorBackgroundPalette;
+
+// @public (undocumented)
+type EditorBackgroundPaletteTokenNames = typeof tokenNames[number];
+
+// @public (undocumented)
+type EditorTableChartsPalette = typeof editorTableChartsPalette;
+
+// @public
+const editorTableChartsPalette: {
+  '#7AB2FF': 'var(--ds-background-accent-blue-subtle, #7AB2FF)';
+  '#60C6D2': 'var(--ds-background-accent-teal-subtle, #60C6D2)';
+  '#6BE1B0': 'var(--ds-background-accent-green-subtle, #6BE1B0)';
+  '#FFDB57': 'var(--ds-background-accent-yellow-subtle, #FFDB57)';
+  '#FAA53D': 'var(--ds-background-accent-orange-subtle, #FAA53D)';
+  '#FF8F73': 'var(--ds-background-accent-red-subtle, #FF8F73)';
+  '#E774BB': 'var(--ds-background-accent-magenta-subtle, #E774BB)';
+  '#B5A7FB': 'var(--ds-background-accent-purple-subtle, #B5A7FB)';
+  '#8993A5': 'var(--ds-background-accent-gray-subtler, #8993A5)';
+  '#247FFF': 'var(--ds-chart-blue-bold, #247FFF)';
+  '#1D9AAA': 'var(--ds-chart-teal-bold, #1D9AAA)';
+  '#23A971': 'var(--ds-chart-green-bold, #23A971)';
+  '#FFBE33': 'var(--ds-chart-yellow-bold, #FFBE33)';
+  '#D97008': 'var(--ds-chart-orange-bold, #D97008)';
+  '#FC552C': 'var(--ds-chart-red-bold, #FC552C)';
+  '#DA62AC': 'var(--ds-chart-magenta-bold, #DA62AC)';
+  '#8B77EE': 'var(--ds-chart-purple-bold, #8B77EE)';
+  '#8590A2': 'var(--ds-chart-gray-bold, #8590A2)';
+  '#0055CC': 'var(--ds-chart-blue-bolder, #0055CC)';
+  '#1D7F8C': 'var(--ds-chart-teal-bolder, #1D7F8C)';
+  '#177D52': 'var(--ds-chart-green-bolder, #177D52)';
+  '#FF9D00': 'var(--ds-chart-yellow-bolder, #FF9D00)';
+  '#B65C02': 'var(--ds-chart-orange-bolder, #B65C02)';
+  '#D32D03': 'var(--ds-chart-red-bolder, #D32D03)';
+  '#CD519D': 'var(--ds-chart-magenta-bolder, #CD519D)';
+  '#5A43D0': 'var(--ds-chart-purple-bolder, #5A43D0)';
+  '#758195': 'var(--ds-chart-gray-bolder, #758195)';
+  '#003884': 'var(--ds-chart-blue-boldest, #003884)';
+  '#206B74': 'var(--ds-chart-teal-boldest, #206B74)';
+  '#055C3F': 'var(--ds-chart-green-boldest, #055C3F)';
+  '#946104': 'var(--ds-chart-yellow-boldest, #946104)';
+  '#974F0C': 'var(--ds-chart-orange-boldest, #974F0C)';
+  '#A32000': 'var(--ds-chart-red-boldest, #A32000)';
+  '#943D73': 'var(--ds-chart-magenta-boldest, #943D73)';
+  '#44368B': 'var(--ds-chart-purple-boldest, #44368B)';
+  '#44546F': 'var(--ds-chart-gray-boldest, #44546F)';
+};
+
+// @public (undocumented)
+type EditorTableChartsPaletteKey = keyof EditorTableChartsPalette;
 
 // @public (undocumented)
 type EditorTextPalette = typeof editorTextPalette;
@@ -81,7 +193,23 @@ type EditorTextPaletteKey = keyof EditorTextPalette;
 export function hexToEditorBackgroundPaletteColor<HexColor extends string>(
   hexColor: HexColor,
 ): HexColor extends EditorBackgroundPaletteKey
-  ? EditorBackgroundPalette[HexColor]
+  ? EditorBackgroundPalette[HexColor]['token']
+  : string | undefined;
+
+// @public (undocumented)
+export function hexToEditorBackgroundPaletteColorTokenName<
+  HexColor extends string,
+>(
+  hexColor: HexColor,
+): HexColor extends EditorBackgroundPaletteKey
+  ? EditorBackgroundPalette[HexColor]['tokenName']
+  : EditorBackgroundPaletteTokenNames | undefined;
+
+// @public
+export function hexToEditorTableChartsPaletteColor<HexColor extends string>(
+  hexColor: HexColor,
+): HexColor extends EditorTableChartsPaletteKey
+  ? EditorTableChartsPalette[HexColor]
   : string | undefined;
 
 // @public
@@ -90,6 +218,31 @@ export function hexToEditorTextPaletteColor<HexColor extends string>(
 ): HexColor extends EditorTextPaletteKey
   ? EditorTextPalette[HexColor]
   : string | undefined;
+
+// @public (undocumented)
+const tokenNames: (
+  | 'color.background.accent.blue.subtle'
+  | 'color.background.accent.blue.subtler'
+  | 'color.background.accent.blue.subtlest'
+  | 'color.background.accent.gray.subtle'
+  | 'color.background.accent.gray.subtlest'
+  | 'color.background.accent.green.subtle'
+  | 'color.background.accent.green.subtler'
+  | 'color.background.accent.green.subtlest'
+  | 'color.background.accent.orange.subtle'
+  | 'color.background.accent.purple.subtle'
+  | 'color.background.accent.purple.subtler'
+  | 'color.background.accent.purple.subtlest'
+  | 'color.background.accent.red.subtle'
+  | 'color.background.accent.red.subtler'
+  | 'color.background.accent.red.subtlest'
+  | 'color.background.accent.teal.subtle'
+  | 'color.background.accent.teal.subtler'
+  | 'color.background.accent.teal.subtlest'
+  | 'color.background.accent.yellow.subtler'
+  | 'color.background.accent.yellow.subtlest'
+  | 'elevation.surface'
+)[];
 
 // (No @packageDocumentation comment for this package)
 ```

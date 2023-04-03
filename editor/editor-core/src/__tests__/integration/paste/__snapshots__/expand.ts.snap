@@ -85,6 +85,29 @@ Object {
 }
 `;
 
+exports[`expand.ts: paste table with custom column width in expand and undo 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "__expanded": true,
+        "title": "",
+      },
+      "content": Array [
+        Object {
+          "type": "paragraph",
+        },
+      ],
+      "type": "expand",
+    },
+    Object {
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
 exports[`expand.ts: expand pasted inside a panel inside a table should paste below 1`] = `
 Object {
   "content": Array [

@@ -2,14 +2,8 @@ import React from 'react';
 import { ReactEditorView, EditorViewProps } from './ReactEditorViewInternal';
 import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 
-type AddRequiredProp<Type, Key extends keyof Type> = Type &
-  Required<Pick<Type, Key>>;
-
 export function ReactEditorViewEditor<T = {}>(
-  props: AddRequiredProp<
-    EditorViewProps & WrappedComponentProps & T,
-    'getEditorPlugins'
-  >,
+  props: EditorViewProps & WrappedComponentProps & T,
 ) {
   return <ReactEditorView {...props} />;
 }

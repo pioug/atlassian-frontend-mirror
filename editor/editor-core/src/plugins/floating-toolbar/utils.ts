@@ -69,22 +69,3 @@ export function findNode(
   });
   return matchedNode;
 }
-
-export function getFocusableElements(
-  rootNode: HTMLElement | null,
-): HTMLElement[] {
-  if (!rootNode) {
-    return [];
-  }
-  const focusableModalElements =
-    (rootNode.querySelectorAll(
-      'a[href], button:not([disabled]), textarea, input, select',
-    ) as NodeListOf<HTMLElement>) || [];
-  return Array.from(focusableModalElements) || [];
-}
-
-export function getFirstFocusableElement(
-  rootNode: HTMLElement | null,
-): HTMLElement {
-  return getFocusableElements(rootNode)[0];
-}

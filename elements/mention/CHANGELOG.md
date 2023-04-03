@@ -1,5 +1,11 @@
 # @atlaskit/mention
 
+## 22.0.0
+
+### Major Changes
+
+- [`6c543971074`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c543971074) - [ux] PTC-6520 remove team mention highlight
+
 ## 21.0.19
 
 ### Patch Changes

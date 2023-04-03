@@ -113,7 +113,9 @@ const DROPDOWNS: Array<FloatingToolbarItem<Function>> = [
     options: {
       render: ({ hide }) => (
         <ColorPalette
-          palette={cellBackgroundColorPalette}
+          paletteOptions={{
+            palette: cellBackgroundColorPalette,
+          }}
           selectedColor={null}
           onClick={() => {
             SAVE_ACTION();

@@ -1,5 +1,15 @@
 # @atlaskit/onboarding
 
+## 10.7.0
+
+### Minor Changes
+
+- [`e3fa4437cf5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e3fa4437cf5) - [ux] Updates focus appearance of components using buttons and custom buttons. These states now use an offset outline which is consistent with other applications of focus in Atlassian components.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.6.12
 
 ### Patch Changes

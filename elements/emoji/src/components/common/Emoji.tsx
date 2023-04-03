@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React, { useEffect, useCallback } from 'react';
 import { jsx } from '@emotion/react';
-import { MouseEvent, SyntheticEvent } from 'react';
+import { FocusEvent, MouseEvent, SyntheticEvent } from 'react';
 import { shouldUseAltRepresentation } from '../../api/EmojiUtils';
 import {
   deleteEmojiLabel,
@@ -40,7 +40,11 @@ import { isIntersectionObserverSupported } from '../../util/browser-support';
 import { useInView } from '../../util/useInView';
 import { hasUfoMarked } from '../../util/analytics/ufoExperiences';
 
-export interface Props {
+export interface Props
+  extends Omit<
+    React.HTMLAttributes<HTMLSpanElement>,
+    'onMouseMove' | 'onFocus'
+  > {
   /**
    * The emoji to render
    */
@@ -67,6 +71,11 @@ export interface Props {
    * Called when the mouse moves over the emoji.
    */
   onMouseMove?: OnEmojiEvent;
+
+  /**
+   * Called when the mouse moves over the emoji.
+   */
+  onFocus?: OnEmojiEvent;
 
   /**
    * Called when an emoji is deleted
@@ -164,6 +173,13 @@ const handleMouseMove = (props: Props, event: MouseEvent<any>) => {
   }
 };
 
+const handleFocus = (props: Props, event: FocusEvent<any>) => {
+  const { emoji, onFocus } = props;
+  if (onFocus) {
+    onFocus(toEmojiId(emoji), emoji, event);
+  }
+};
+
 const handleDelete = (props: Props, event: SyntheticEvent) => {
   const { emoji, onDelete } = props;
   if (onDelete) {
@@ -198,8 +214,20 @@ export const SpriteEmoji = (props: Props) => {
     selectOnHover,
     className,
     showTooltip,
-    shouldBeInteractive,
+    shouldBeInteractive = false,
+    tabIndex,
+    onSelected,
+    onMouseMove,
+    onFocus,
+    onDelete,
+    onLoadError,
+    onLoadSuccess,
+    showDelete,
+    disableLazyLoad,
+    autoWidth,
+    ...other
   } = props;
+
   const representation = emoji.representation as SpriteRepresentation;
   const sprite = representation.sprite;
 
@@ -232,8 +260,8 @@ export const SpriteEmoji = (props: Props) => {
     <span
       data-testid={`sprite-emoji-${emoji.shortName}`}
       data-emoji-type="sprite"
-      tabIndex={shouldBeInteractive ? 0 : undefined}
-      role={shouldBeInteractive ? 'button' : undefined}
+      tabIndex={shouldBeInteractive ? tabIndex || 0 : undefined}
+      role={shouldBeInteractive ? 'button' : 'img'}
       css={emojiContainer}
       className={classes}
       onKeyPress={(event) => handleKeyPress(props, event)}
@@ -243,8 +271,12 @@ export const SpriteEmoji = (props: Props) => {
       onMouseEnter={(event) => {
         handleMouseMove(props, event);
       }}
+      onFocus={(event) => {
+        handleFocus(props, event);
+      }}
       aria-label={emoji.shortName}
       title={showTooltip ? emoji.shortName : ''}
+      {...other}
     >
       <span className={emojiSprite} style={style}>
         &nbsp;
@@ -263,10 +295,17 @@ export const ImageEmoji = (props: Props) => {
     className,
     showTooltip,
     showDelete,
-    shouldBeInteractive,
+    shouldBeInteractive = false,
+    tabIndex,
+    onSelected,
+    onMouseMove,
+    onFocus,
+    onDelete,
+    onLoadError,
     onLoadSuccess,
     disableLazyLoad,
     autoWidth,
+    ...other
   } = props;
 
   const [ref, inView] = useInView({
@@ -387,8 +426,8 @@ export const ImageEmoji = (props: Props) => {
       data-testid={`image-emoji-${emoji.shortName}`}
       data-emoji-type="image"
       css={emojiStyles}
-      tabIndex={shouldBeInteractive ? 0 : undefined}
-      role={shouldBeInteractive ? 'button' : undefined}
+      tabIndex={shouldBeInteractive ? tabIndex || 0 : undefined}
+      role={shouldBeInteractive ? 'button' : 'img'}
       className={classes}
       onKeyPress={(event) => handleKeyPress(props, event)}
       onMouseDown={(event) => {
@@ -397,9 +436,13 @@ export const ImageEmoji = (props: Props) => {
       onMouseEnter={(event) => {
         handleMouseMove(props, event);
       }}
+      onFocus={(event) => {
+        handleFocus(props, event);
+      }}
       aria-label={emoji.shortName}
       title={showTooltip ? emoji.shortName : ''}
       ref={ref}
+      {...other}
     >
       {deleteButton}
       {emojiNode}

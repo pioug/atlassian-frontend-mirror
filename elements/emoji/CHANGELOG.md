@@ -1,5 +1,28 @@
 # @atlaskit/emoji
 
+## 67.2.0
+
+### Minor Changes
+
+- [`2b2aa109521`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2b2aa109521) - [ux] improve keyboard navigation in emoji picker list, improve category highlight logic in emoji picker
+- [`7e3c38a86ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7e3c38a86ef) - [ux] [COLLAB-2264] add arrow keys support for navigating categories selctor in emoji picker, used tabs structure for emoji picker with category selctor for better accessibility, added more aria-labels for category selector and picker list panel for accessibility, highlight first category in emoji picker at start
+
+### Patch Changes
+
+- [`d06e5f9c381`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d06e5f9c381) - Fixed accessibility issues in upload emoji journey flagged by axe and added accessibility tests
+- [`2c650251e9a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2c650251e9a) - Improve uploading custom emoji experience for screen reader user
+- [`ef218ded5ca`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ef218ded5ca) - ResourcedEmoji component will fallback when provider fails to fetch
+- [`37192cbc921`](https://bitbucket.org/atlassian/atlassian-frontend/commits/37192cbc921) - Scroll and focus on newly uploaded emoji in the picker list after uploading
+- [`36f471471e3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/36f471471e3) - fix scroll to category when click category in category toolbar
+- [`ed20cc3d0d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ed20cc3d0d9) - Changed 'Choose File' button in Emoji Picker to a standard button
+- [`47c411e6564`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47c411e6564) - [ux] [COLLAB-2281] Improve keyboard experience with tone selector, changes include allow arrow key nagivation, allow Tab key to close tone selector, focus on the selected/default tone when tone selector is expanded, focus on tone selector trigger button after closing tone selector
+- [`2896c02e6cb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2896c02e6cb) - update aria attributes across emoji components to improve accessibility
+- [`d4234822fb6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d4234822fb6) - [ux] Updated focus styling to align with Atlassian Design System styling
+- [`221f0101322`](https://bitbucket.org/atlassian/atlassian-frontend/commits/221f0101322) - Fixes a bug where get token could be called multiple times while in flight
+- [`1537683bd72`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1537683bd72) - clean up css of emoji picker
+- [`73b9fda49ad`](https://bitbucket.org/atlassian/atlassian-frontend/commits/73b9fda49ad) - Fixed accessibility issues in emoji picker flagged by axe
+- Updated dependencies
+
 ## 67.1.0
 
 ### Minor Changes

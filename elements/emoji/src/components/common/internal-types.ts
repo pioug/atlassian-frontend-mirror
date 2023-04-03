@@ -6,6 +6,16 @@ export interface EmojiContext {
   };
 }
 
+interface FocusIndexes {
+  rowIndex: number;
+  columnIndex: number;
+}
+
+export interface EmojiPickerListContextType {
+  currentEmojisFocus: FocusIndexes;
+  setEmojisFocus: (indexes: FocusIndexes) => void;
+}
+
 export enum UploadStatus {
   Waiting,
   Uploading,

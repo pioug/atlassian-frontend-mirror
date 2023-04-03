@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import WebBridgeImpl from '../../../src/editor/native-to-web';
 import { MentionProvider, MentionDescription } from '@atlaskit/mention';
-import { mentionResourceProviderWithTeamMentionHighlight } from '@atlaskit/util-data-test/mention-story-data';
+import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import Button from '../Toolbar/Button';
 
 interface Props {
@@ -9,9 +9,7 @@ interface Props {
   query: string;
 }
 
-const mentionProvider = Promise.resolve(
-  mentionResourceProviderWithTeamMentionHighlight,
-);
+const mentionProvider = Promise.resolve(mentionResourceProvider);
 
 const Mention = ({ bridge, query }: Props) => {
   const [provider, setProvider] = useState<MentionProvider | null>(null);

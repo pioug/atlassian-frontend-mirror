@@ -1,2 +1,2 @@
-export type { PaletteColor } from './type';
+export type { PaletteColor, PaletteTooltipMessages } from './type';
 export { DEFAULT_BORDER_COLOR } from './common';

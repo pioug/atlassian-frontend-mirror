@@ -3,7 +3,6 @@ import { createPlugin } from './pm-plugins/main';
 import { CardOptions } from '@atlaskit/editor-common/card';
 
 export type PastePluginOptions = {
-  plainTextPasteLinkification?: boolean;
   cardOptions?: CardOptions;
   sanitizePrivateContent?: boolean;
 };
@@ -13,7 +12,7 @@ const pastePlugin: NextEditorPlugin<
   {
     pluginConfiguration: PastePluginOptions;
   }
-> = ({ cardOptions, sanitizePrivateContent, plainTextPasteLinkification }) => ({
+> = ({ cardOptions, sanitizePrivateContent }) => ({
   name: 'paste',
 
   pmPlugins() {

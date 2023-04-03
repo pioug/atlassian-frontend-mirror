@@ -15,7 +15,7 @@ describe('createUniversalPreset', () => {
 
   it('should be default have all the plugins', () => {
     const preset = createUniversalPreset('full-page', { paste: {} }, {});
-    const plugins = preset.getEditorPlugins();
+    const plugins = preset.build();
 
     // TODO: We need to uncomment the modules here in https://product-fabric.atlassian.net/browse/ED-16575
     // This is because we should allow these modules by default in this ticket for this preset.
@@ -93,7 +93,7 @@ describe('createUniversalPreset', () => {
         {},
       );
       expect(tablesPlugin).toHaveBeenCalledTimes(0);
-      preset.getEditorPlugins();
+      preset.build();
       expect(tablesPlugin).toHaveBeenCalledTimes(1);
       expect(tablesPlugin).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -114,7 +114,7 @@ describe('createUniversalPreset', () => {
         'full-width',
       );
       expect(tablesPlugin).toHaveBeenCalledTimes(0);
-      preset.getEditorPlugins();
+      preset.build();
       expect(tablesPlugin).toHaveBeenCalledTimes(1);
       expect(tablesPlugin).toHaveBeenCalledWith(
         expect.objectContaining({

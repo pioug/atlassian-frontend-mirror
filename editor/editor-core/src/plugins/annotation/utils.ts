@@ -51,7 +51,7 @@ export const surroundingMarks = ($pos: ResolvedPos) => {
  * Finds annotation marks, and returns their IDs.
  * @param marks Array of marks to search in
  */
-export const filterAnnotationIds = (marks: Array<Mark>): Array<string> => {
+const filterAnnotationIds = (marks: Array<Mark>): Array<string> => {
   if (!marks.length) {
     return [];
   }
@@ -72,7 +72,7 @@ export const filterAnnotationIds = (marks: Array<Mark>): Array<string> => {
  * @param annotations annotation metadata
  * @param $from location to look around (usually the selection)
  */
-export const reorderAnnotations = (
+const reorderAnnotations = (
   annotations: Array<AnnotationInfo>,
   $from: ResolvedPos,
 ) => {
@@ -123,41 +123,6 @@ const validateAnnotationMark = (annotationMark: Mark): boolean => {
     const allowedTypes = Object.values(AnnotationTypes);
     return allowedTypes.includes(type);
   }
-};
-
-// helper function: return the first selection range for the window
-const getSelectionRange = function (): Range | null {
-  const selection = window.getSelection();
-
-  // no selection made in browser
-  if (!selection || selection.isCollapsed) {
-    return null;
-  }
-
-  const selectionRange = selection.getRangeAt(0);
-
-  return selectionRange;
-};
-
-// helper function: find the bounds of first part within selected content
-export const getSelectionStartRect = (): ClientRect | null => {
-  const range = getSelectionRange();
-
-  if (!range) {
-    return null;
-  }
-
-  const rects = range.getClientRects();
-  if (!rects.length) {
-    return null;
-  }
-  // Find first selection area that width is not 0
-  // Sometimes there is a chance that user is selecting an empty DOM node.
-  const firstRect = Array.from(rects).find(
-    (rect) => rect.width !== 0 && rect.height !== 0,
-  );
-
-  return firstRect || null;
 };
 
 /*

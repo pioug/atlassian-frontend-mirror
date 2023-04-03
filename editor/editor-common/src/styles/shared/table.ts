@@ -31,6 +31,7 @@ import { token } from '@atlaskit/tokens';
 import browser from '../../utils/browser';
 
 import { CodeBlockSharedCssClassName } from './code-block';
+import { tableCellBackgroundStyleOverride } from './tableCell';
 
 export const tableMarginTop = 24;
 export const tableMarginBottom = 16;
@@ -59,6 +60,7 @@ export const TableSharedCssClassName = {
 };
 
 const tableSharedStyle = (props: ThemeProps) => css`
+  ${tableCellBackgroundStyleOverride()}
   .${TableSharedCssClassName.TABLE_CONTAINER} {
     position: relative;
     margin: 0 auto ${tableMarginBottom}px;

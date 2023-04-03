@@ -6,8 +6,10 @@ export const mockIo = {
     // Mocking auth callback invocation
     // WARNING this is a very vague implementation of how the actual socket.io-client does this
     const auth = opt.auth;
-    const authCb = jest.fn();
-    auth(authCb);
+    if (typeof auth === 'function') {
+      const authCb = jest.fn();
+      auth(authCb);
+    }
 
     return {
       id: 'mock-socket.io-client',

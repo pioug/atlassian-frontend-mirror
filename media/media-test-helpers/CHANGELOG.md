@@ -1,5 +1,15 @@
 # @atlaskit/media-test-helpers
 
+## 31.0.0
+
+### Major Changes
+
+- [`b37723f2cfa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b37723f2cfa) - FeatureFlagsWrapper no longer filters feature flags. All Media flags will be listed.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 30.1.3
 
 ### Patch Changes

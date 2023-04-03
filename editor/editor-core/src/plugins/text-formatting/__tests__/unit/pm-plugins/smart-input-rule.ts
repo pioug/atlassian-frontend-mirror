@@ -393,5 +393,22 @@ describe('text-formatting input rules', () => {
         doc(p(`   ${startSmartQuote}some content${endSmartQuote}`)),
       );
     });
+    it('should not remove inlineCode mark when adding apostrophe and text afterwards', () => {
+      const stringToEqual = '' + '’' + 'te';
+      const { editorView, refs } = editor(
+        doc(p('some content', code('code'), `${quote}`)),
+      );
+      moveCursorToNextPos(editorView, refs, quote);
+      typeText(editorView, 'te');
+      expect(editorView.state.doc).toEqualDocument(
+        doc(p('some content', code('code'), stringToEqual)),
+      );
+    });
+    it('should convert singleQuote to apostrophe when typed in letters', () => {
+      const stringToType = '' + "'" + 'm';
+      const { editorView } = editor(doc(p('hello i{<>}')));
+      typeText(editorView, stringToType);
+      expect(editorView.state.doc).toEqualDocument(doc(p('hello i’m')));
+    });
   });
 });

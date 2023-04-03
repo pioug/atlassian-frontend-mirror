@@ -53,7 +53,7 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/button": "^16.5.0",
+    "@atlaskit/button": "^16.6.0",
     "@atlaskit/calendar": "^13.0.0",
     "@atlaskit/checkbox": "^12.4.0",
     "@atlaskit/datetime-picker": "^12.3.0",

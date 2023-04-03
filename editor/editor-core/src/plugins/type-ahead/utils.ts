@@ -1,5 +1,5 @@
-import { TextSelection, EditorState } from 'prosemirror-state';
-import { DecorationSet, Decoration, EditorView } from 'prosemirror-view';
+import { EditorState } from 'prosemirror-state';
+import { EditorView } from 'prosemirror-view';
 import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
 import { pluginKey as typeAheadPluginKey } from './pm-plugins/key';
 import { updateSelectedIndex } from './commands/update-selected-index';
@@ -11,36 +11,6 @@ import type {
 } from './types';
 import { typeAheadListMessages } from './messages';
 import { IntlShape } from 'react-intl-next';
-
-export const findTypeAheadDecorations = (
-  state: EditorState,
-): Decoration | null => {
-  const { selection } = state;
-  const { decorationSet } = typeAheadPluginKey.getState(state);
-
-  if (
-    !decorationSet ||
-    decorationSet === DecorationSet.empty ||
-    !(selection instanceof TextSelection) ||
-    !selection.$cursor
-  ) {
-    return null;
-  }
-  const {
-    $cursor: { pos },
-  } = selection;
-  const decoration = decorationSet.find(
-    pos,
-    pos,
-    (spec: Record<string, any>) => spec?.isTypeAheadDecoration,
-  );
-
-  if (!decoration || decoration.length !== 1) {
-    return null;
-  }
-
-  return decoration[0];
-};
 
 export const isTypeAheadHandler = (
   handler: any,

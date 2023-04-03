@@ -17,5 +17,12 @@ export {
   darkModeStatusColorPalette,
 } from './ColorPalette/Palettes/statusColorPalette';
 export { textColorPalette } from './ColorPalette/Palettes/textColorPalette';
+export {
+  backgroundPaletteTooltipMessages,
+  textPaletteTooltipMessages,
+} from './ColorPalette/Palettes';
 export { DEFAULT_BORDER_COLOR } from './ColorPalette/Palettes/common';
-export type { PaletteColor } from './ColorPalette/Palettes/type';
+export type {
+  PaletteColor,
+  PaletteTooltipMessages,
+} from './ColorPalette/Palettes/type';

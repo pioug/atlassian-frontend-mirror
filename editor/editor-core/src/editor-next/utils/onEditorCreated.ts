@@ -7,7 +7,7 @@ import { EditorView } from 'prosemirror-view';
 import EditorActions from '../../actions';
 import { EventDispatcher } from '../../event-dispatcher';
 import { ACTION } from '@atlaskit/editor-common/analytics';
-import { EditorProps } from '../../types/editor-props';
+import { EditorProps, EditorNextProps } from '../../types/editor-props';
 import measurements from '../../utils/performance/measure-enum';
 import sendDurationAnalytics from './sendDurationAnalytics';
 
@@ -17,7 +17,7 @@ export default function onEditorCreated(
     eventDispatcher: EventDispatcher;
     transformer?: Transformer<string>;
   },
-  props: EditorProps,
+  props: EditorProps | EditorNextProps,
   setExperienceStore: (experienceStore: ExperienceStore) => void,
   getExperienceStore: () => ExperienceStore | undefined,
   getCreateAnalyticsEvent: () => CreateUIAnalyticsEvent | undefined,

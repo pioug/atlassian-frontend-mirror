@@ -19,6 +19,8 @@ import {
   StepsPayload,
   ProductInformation,
   NamespaceStatus,
+  InitAndAuthData,
+  AuthCallback,
 } from '../../types';
 import * as Performance from '../../analytics/performance';
 import type { CollabSendableSelection } from '@atlaskit/editor-common/collab';
@@ -28,6 +30,10 @@ import AnalyticsHelper from '../../analytics';
 import { getProduct, getSubProduct } from '../../helpers/utils';
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import Network from '../../connectivity/network';
+import {
+  NotConnectedError,
+  NotInitializedError,
+} from '../../errors/error-types';
 
 const expectValidChannel = (channel: Channel): void => {
   expect(channel).toBeDefined();
@@ -68,6 +74,7 @@ const testChannelConfig: Config = {
   analyticsClient: fakeAnalyticsWebClient,
 };
 
+const GET_CHANNEL_ASSERTION_COUNT = 4;
 const getChannel = (config: Config = testChannelConfig): Channel => {
   const analyticsHelper = new AnalyticsHelper(
     config.documentAri,
@@ -117,7 +124,7 @@ describe('Channel unit tests', () => {
   });
 
   it('should return analytics upon successful initial document load', (done) => {
-    expect.assertions(6);
+    expect.assertions(2 + GET_CHANNEL_ASSERTION_COUNT);
     const channel = getChannel();
 
     const sendActionEventSpy = jest.spyOn(
@@ -169,23 +176,21 @@ describe('Channel unit tests', () => {
   });
 
   it('should create connected channel with "need404" flag', (done) => {
-    let cbSpy: jest.SpyInstance;
+    let authData: any;
 
     // Overriding createSocket to properly spy on auth callback's callback
     const customCreateSocket = (
       url: string,
-      auth?: (cb: (data: object) => void) => void,
+      auth?: AuthCallback | InitAndAuthData,
       productInfo?: ProductInformation,
     ): Socket => {
+      authData = auth;
       const { pathname } = new URL(url);
       return io(url, {
         withCredentials: true,
         transports: ['polling', 'websocket'],
         path: `/${pathname.split('/')[1]}/socket.io`,
-        auth: (cb) => {
-          cbSpy = jest.fn(cb);
-          auth!(cbSpy as any);
-        },
+        auth,
         extraHeaders: {
           'x-product': getProduct(productInfo),
           'x-subproduct': getSubProduct(productInfo),
@@ -206,8 +211,7 @@ describe('Channel unit tests', () => {
           initialized: false,
         });
         expect(channel.getConnected()).toBe(true);
-        expect(cbSpy).toHaveBeenCalledTimes(1);
-        expect(cbSpy).toHaveBeenCalledWith({
+        expect(authData).toEqual({
           initialized: false,
           need404: true,
         });
@@ -222,8 +226,8 @@ describe('Channel unit tests', () => {
   });
 
   it('should handle connect_error when no data in error', () => {
-    // There is 5 assertions in the test, plus 4 from `getChannel` calling `expectValidChannel`
-    expect.assertions(7 + 4);
+    // There is 7 assertions in the test, plus GET_CHANNEL_ASSERTION_COUNT from `getChannel` calling `expectValidChannel`
+    expect.assertions(7 + GET_CHANNEL_ASSERTION_COUNT);
     const measureStopSpy = jest
       .spyOn(Performance, 'stopMeasure')
       .mockImplementation(() => ({ duration: 69, startTime: 420 }));
@@ -238,7 +242,10 @@ describe('Channel unit tests', () => {
 
     const error: Error = { name: 'kerfuffle', message: 'oh gosh oh bother' };
 
-    const channel = getChannel();
+    const channel = getChannel({
+      ...testChannelConfig,
+      permissionTokenRefresh: jest.fn().mockResolvedValue('token'),
+    });
     channel.on('error', (data: any) => {
       expect(data).toEqual({
         message: error.message,
@@ -255,6 +262,7 @@ describe('Channel unit tests', () => {
     expect(sendActionEventSpy).toHaveBeenCalledTimes(1);
     expect(sendActionEventSpy).toHaveBeenCalledWith('connection', 'FAILURE', {
       latency: 69,
+      usedCachedToken: false,
     });
     expect(sendErrorEventSpy).toHaveBeenCalledTimes(1);
     expect(sendErrorEventSpy).toHaveBeenCalledWith(
@@ -298,7 +306,7 @@ describe('Channel unit tests', () => {
   });
 
   it('should connect and disconnect', (done) => {
-    expect.assertions(9);
+    expect.assertions(5 + GET_CHANNEL_ASSERTION_COUNT);
     const channel = getChannel();
 
     channel.on('connected', (data: any) => {
@@ -325,7 +333,7 @@ describe('Channel unit tests', () => {
   });
 
   it('should emit an error if we catch an error during reconnecting', (done) => {
-    expect.assertions(7);
+    expect.assertions(3 + GET_CHANNEL_ASSERTION_COUNT);
     const channel = getChannel();
     const sendErrorEventSpy = jest.spyOn(
       AnalyticsHelper.prototype,
@@ -458,24 +466,45 @@ describe('Channel unit tests', () => {
     });
   });
 
-  it('should handle step-rejected errors', (done) => {
-    const channel = getChannel();
-    channel.on('error', (error: ErrorPayload | string) => {
-      try {
-        expect(error).toEqual(<ErrorPayload>{
+  describe('should emit errors to the provider', () => {
+    describe('step rejection', () => {
+      it('when a more recent change was already stored when the step arrived at NCS', (done) => {
+        const channel = getChannel();
+
+        channel.on('error', (error: ErrorPayload) => {
+          expect(error).toEqual({
+            code: 'HEAD_VERSION_UPDATE_FAILED',
+            meta: 'The version number does not match the current head version.',
+            message: 'Version number does not match current head version.',
+          });
+          done();
+        });
+
+        channel.getSocket()?.emit('error', {
           code: 'HEAD_VERSION_UPDATE_FAILED',
           meta: 'The version number does not match the current head version.',
           message: 'Version number does not match current head version.',
         });
-        done();
-      } catch (err) {
-        done(err);
-      }
-    });
-    channel.getSocket()!.emit('error', <ErrorPayload>{
-      code: 'HEAD_VERSION_UPDATE_FAILED',
-      meta: 'The version number does not match the current head version.',
-      message: 'Version number does not match current head version.',
+      });
+
+      it('when a conflict happened when storing a step in the store', (done) => {
+        const channel = getChannel();
+
+        channel.on('error', (error: ErrorPayload) => {
+          expect(error).toEqual({
+            code: 'VERSION_NUMBER_ALREADY_EXISTS',
+            meta: 'Incoming version number already exists. Therefore, new Prosmirror steps will be rejected.',
+            message: 'Version already exists',
+          });
+          done();
+        });
+
+        channel.getSocket()?.emit('error', {
+          code: 'VERSION_NUMBER_ALREADY_EXISTS',
+          meta: 'Incoming version number already exists. Therefore, new Prosmirror steps will be rejected.',
+          message: 'Version already exists',
+        });
+      });
     });
   });
 
@@ -650,6 +679,274 @@ describe('Channel unit tests', () => {
     });
   });
 
+  describe('Token validity handling', () => {
+    let permissionTokenRefresh: any;
+    let configuration: Config;
+    let channel: Channel;
+    const BEFORE_EACH_ASSERERTION_COUNT = 2 + GET_CHANNEL_ASSERTION_COUNT;
+    beforeEach(async () => {
+      permissionTokenRefresh = jest.fn().mockResolvedValue('token');
+      configuration = {
+        ...testChannelConfig,
+        permissionTokenRefresh,
+        cacheToken: true,
+      };
+      channel = getChannel(configuration);
+      // Before connected
+      expect(permissionTokenRefresh).toBeCalledTimes(1);
+      //wait for permissionTokenRefresh promise to resolve to set the token in channel
+      await new Promise(process.nextTick);
+      //making sure channel cached token sucessfully after connecting
+      expect(channel.getToken()).toEqual('token');
+    });
+
+    it('Token exists in channel and starts off as undefined', () => {
+      const analyticsHelper = new AnalyticsHelper(
+        testChannelConfig.documentAri,
+        testChannelConfig.analyticsClient,
+      );
+      //reinitialise channel as before each initialises token, this will not
+      channel = new Channel(testChannelConfig, analyticsHelper);
+      expect(channel).toBeDefined();
+      expect(channel.getToken()).toBeUndefined();
+    });
+
+    it('Token is cached after successfully connecting', () => {
+      // Already being checked in the beforeEach hook. redundent?
+      expect(channel.getToken()).toBeDefined();
+    });
+
+    it('Expires token on permission:invalidateToken event', () => {
+      // After successful connection, invalidate token with the permission:invalidateToken
+      channel
+        .getSocket()!
+        .emit('permission:invalidateToken', { reason: 'test' });
+      expect(channel.getToken()).toBeUndefined();
+    });
+
+    it('Expires token on 401 errors when connect fails', () => {
+      expect.assertions(2 + BEFORE_EACH_ASSERERTION_COUNT);
+
+      channel.on('error', (err) => {
+        expect(err).toEqual({
+          message: 'Auth denied message',
+          data: {
+            status: 401,
+          },
+        });
+      });
+      // Trigger error
+      channel.getSocket()!.emit('connect_error', {
+        message: 'Auth denied message',
+        data: {
+          status: 401,
+        },
+      });
+      expect(channel.getToken()).toBeUndefined();
+    });
+
+    it('Expires token on 403 errors when connect fails', () => {
+      expect.assertions(2 + BEFORE_EACH_ASSERERTION_COUNT);
+
+      channel.on('error', (err) => {
+        expect(err).toEqual({
+          message: 'Auth denied message',
+          data: {
+            status: 403,
+          },
+        });
+      });
+      // Trigger error
+      channel.getSocket()!.emit('connect_error', {
+        message: 'Auth denied message',
+        data: {
+          status: 403,
+        },
+      });
+      expect(channel.getToken()).toBeUndefined();
+    });
+
+    it('Does not expire token on non-401 or 403 errors when connect fails, e.g. connection error', () => {
+      expect.assertions(2 + BEFORE_EACH_ASSERERTION_COUNT);
+
+      channel.on('error', (err) => {
+        expect(err).toEqual({
+          message: 'Internal Server error',
+          data: {
+            status: 500,
+          },
+        });
+      });
+      // Trigger connect
+      channel.getSocket()!.emit('connect_error', {
+        message: 'Internal Server error',
+        data: {
+          status: 500,
+        },
+      });
+      expect(channel.getToken()).not.toBeUndefined();
+    });
+
+    it('It expires token after the socket disconnects', () => {
+      channel.disconnect();
+      expect(channel.getToken()).toBeUndefined();
+    });
+
+    it('Uses cached token on fetchup call', async () => {
+      const spy = jest.spyOn(utils, 'requestService').mockResolvedValue({
+        doc: 'doc',
+        version: 1,
+        stepMaps: 'step-map',
+        metadata: 'meta',
+      });
+
+      await channel.fetchCatchup(1);
+      //making sure permissionTokenRefresh is not called a second time after it being called when setting up channel
+      expect(permissionTokenRefresh).toBeCalledTimes(1);
+      expect(spy).toBeCalledWith(
+        expect.anything(),
+        expect.objectContaining({
+          requestInit: {
+            headers: {
+              'x-token': 'token',
+              'x-product': 'unknown',
+              'x-subproduct': 'unknown',
+            },
+          },
+        }),
+      );
+    });
+
+    it('Gets new token on fetchCatchup and passes it as x-token header if token not cached', async () => {
+      const spy = jest.spyOn(utils, 'requestService').mockResolvedValue({
+        doc: 'doc',
+        version: 1,
+        stepMaps: 'step-map',
+        metadata: 'meta',
+      });
+
+      //force token to be unset
+      channel
+        .getSocket()!
+        .emit('permission:invalidateToken', { reason: 'test' });
+      expect(channel.getToken()).toBeUndefined();
+
+      //using differet return to identify new token
+      permissionTokenRefresh.mockResolvedValue('brand-new-token');
+
+      await channel.fetchCatchup(1);
+      //making sure permissionTokenRefresh is called a second time in fetchCatchup
+      expect(permissionTokenRefresh).toBeCalledTimes(2);
+      expect(spy).toBeCalledWith(
+        expect.anything(),
+        expect.objectContaining({
+          requestInit: {
+            headers: {
+              'x-token': 'brand-new-token',
+              'x-product': 'unknown',
+              'x-subproduct': 'unknown',
+            },
+          },
+        }),
+      );
+    });
+
+    it('Unset token on failed catchup call', async () => {
+      jest.spyOn(utils, 'requestService').mockRejectedValue({
+        status: 401,
+        code: 'err',
+      });
+
+      await expect(channel.fetchCatchup(1)).rejects.toThrow();
+      //using cached token
+      expect(permissionTokenRefresh).toBeCalledTimes(1);
+      expect(channel.getToken()).toBeUndefined();
+    });
+
+    it('Use cached token to connect after non 401, 403 errors', async () => {
+      channel.on('error', (err) => {
+        expect(err).toEqual({
+          message: 'Internal server error',
+          data: {
+            status: 500,
+          },
+        });
+      });
+
+      // trigger disconnect
+      channel.getSocket()!.emit('connect_error', {
+        message: 'Internal server error',
+        data: {
+          status: 500,
+        },
+      });
+      // Initially not expired, should stay that way
+      expect(channel.getToken()).toBeDefined();
+
+      //reconnect channel
+      channel.connect();
+      // wait for auth callback to finish on socket creation
+      await new Promise(process.nextTick);
+      // should not call permissionTokenRefresh as we have a valid token (already called in beforeEach)
+      expect(permissionTokenRefresh).toBeCalledTimes(1);
+    });
+
+    it('should send analytic events when invalidating tokens', () => {
+      const sendActionEventSpy = jest.spyOn(
+        AnalyticsHelper.prototype,
+        'sendActionEvent',
+      );
+
+      // trigger invalidating token
+      channel
+        .getSocket()!
+        .emit('permission:invalidateToken', { reason: 'test' });
+      expect(channel.getToken()).toBeUndefined();
+
+      expect(sendActionEventSpy).toBeCalledTimes(1);
+      expect(sendActionEventSpy).toHaveBeenCalledWith(
+        'invalidateToken',
+        'SUCCESS',
+        {
+          reason: 'test',
+          usedCachedToken: true,
+        },
+      );
+    });
+
+    it('Should send tokens usage flags to analytics in onConnect', async (done) => {
+      const sendActionEventSpy = jest.spyOn(
+        AnalyticsHelper.prototype,
+        'sendActionEvent',
+      );
+      const measureStopSpy = jest
+        .spyOn(Performance, 'stopMeasure')
+        .mockImplementation(() => ({ duration: 69, startTime: 420 }));
+
+      channel.on('connected', () => {
+        expect(measureStopSpy).toHaveBeenCalledTimes(1);
+        expect(measureStopSpy).toHaveBeenCalledWith(
+          'socketConnect',
+          expect.any(AnalyticsHelper),
+        );
+
+        expect(sendActionEventSpy).toBeCalledTimes(1);
+        expect(sendActionEventSpy).toHaveBeenCalledWith(
+          'connection',
+          'SUCCESS',
+          {
+            latency: 69,
+            usedCachedToken: true,
+          },
+        );
+        done();
+      });
+
+      // forcing onConnect to run which emits 'connected'
+      channel.getSocket()!.emit('connect');
+    });
+  });
+
   it('should handle receiving namespace lock status event from server', (done) => {
     const channel = getChannel();
 
@@ -723,7 +1020,7 @@ describe('Channel unit tests', () => {
       expect(createSocketMock).toHaveBeenCalledTimes(1);
       expect(createSocketMock).toHaveBeenCalledWith(
         'https://localhost/ccollab/session/ari:cloud:confluence:a436116f-02ce-4520-8fbb-7301462a1674:page/1731046230',
-        expect.any(Function),
+        { initialized: false, need404: undefined },
         { product: 'confluence' },
       );
     });
@@ -776,7 +1073,95 @@ describe('Channel unit tests', () => {
     channel.fetchCatchup(1).then((data) => expect(data).toEqual({}));
   });
 
+  it('Should emit metadata events', () => {
+    const channel = getChannel();
+    // @ts-ignore
+    const emitSpy = (channel.socket.emit = jest.fn());
+    channel.sendMetadata({ test: 'test' });
+    expect(emitSpy).toBeCalledWith('metadata', { test: 'test' });
+  });
+
+  it('Should throw an error when trying to emit metedata without having the channel.socket initialised', () => {
+    const analyticsHelper = new AnalyticsHelper(
+      testChannelConfig.documentAri,
+      testChannelConfig.analyticsClient,
+    );
+    // getChannel() calls channel.connect(), which initialises channel.socket, therefore creating Channel directly.
+    const channel = new Channel(testChannelConfig, analyticsHelper);
+    expect(() => channel.sendMetadata({ test: 'test' })).toThrowError(
+      expect.any(NotInitializedError),
+    );
+  });
+
+  it('Should emit broadcast events', () => {
+    expect.assertions(1 + GET_CHANNEL_ASSERTION_COUNT);
+    const channel = getChannel();
+    // @ts-ignore
+    const emitSpy = jest.spyOn(channel.socket, 'emit');
+    // @ts-ignore
+    channel.on('connected', () => {
+      channel.broadcast('participant:left', {
+        sessionId: 'sessionId',
+        clientId: 'clientId',
+        userId: 'userId',
+      });
+      // Just check the last emit
+      expect(emitSpy).toHaveBeenNthCalledWith(
+        emitSpy.mock.calls.length,
+        'broadcast',
+        {
+          clientId: 'clientId',
+          sessionId: 'sessionId',
+          type: 'participant:left',
+          userId: 'userId',
+        },
+        undefined,
+      );
+    });
+    channel.getSocket()!.emit('connect');
+  });
+
+  it('Should throw an error when trying to broadcast events without having the channel.socket initialised', () => {
+    const analyticsHelper = new AnalyticsHelper(
+      testChannelConfig.documentAri,
+      testChannelConfig.analyticsClient,
+    );
+    // getChannel() calls channel.connect(), which initialises channel.socket, therefore creating Channel directly.
+    const channel = new Channel(testChannelConfig, analyticsHelper);
+    expect(() =>
+      channel.broadcast('participant:left', {
+        sessionId: 'sessionId',
+        clientId: 'clientId',
+        userId: 'userId',
+      }),
+    ).toThrowError(expect.any(NotInitializedError));
+  });
+
   describe('Network', () => {
+    it('Should throw an error when not connected only if throwOnNotConnected is set for sendMetadata', () => {
+      const channel = getChannel({
+        ...testChannelConfig,
+        throwOnNotConnected: true,
+      });
+      // @ts-ignore
+      channel.connected = false;
+      expect(() => channel.sendMetadata({ test: 'test' })).toThrowError(
+        expect.any(NotConnectedError),
+      );
+    });
+
+    it('Should throw an error when not connected only if throwOnNotConnected is set for broadcast', () => {
+      const channel = getChannel({
+        ...testChannelConfig,
+        throwOnNotConnected: true,
+      });
+      // @ts-ignore
+      channel.connected = false;
+      expect(() =>
+        channel.broadcast('status', { waitTimeInMs: 2, isLocked: true }),
+      ).toThrowError(expect.any(NotConnectedError));
+    });
+
     it('should emit an error if reconnection issues are detected due to network issues', (done) => {
       const sendErrorEventSpy = jest.spyOn(
         AnalyticsHelper.prototype,

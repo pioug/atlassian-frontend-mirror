@@ -397,12 +397,15 @@ export type FeatureFlags = {
 
   /**
    * @description
-   * Show semantic text color names in tooltips when hovering over colors in the text color picker.
+   * This feature flag is used to turn on or off somewhat semantic
+   *  tooltip names in text, background and table charts color palette.
+   * Show semantic color names in tooltips when hovering over colors in the text,
+   * background and table charts color picker.
    * Note that this flag is called 'somewhat semantic' as the text color names for white/dark gray
-   * colors are not semantic.
-   *
+   * colors are not semantic. As well as white color name in background color palette.
    * @see https://product-fabric.atlassian.net/wiki/spaces/EUXQ/pages/3365994869/EXTERNAL+MAKE+PP+COMMIT-5058+Enable+dark+mode+usage+of+text+colors+in+UGC+and+non+custom+panels+in+Jira
    * @see https://product-fabric.atlassian.net/browse/ED-16176
+   * @see https://product-fabric.atlassian.net/browse/ED-16725
    * @default false
    */
   useSomewhatSemanticTextColorNames?: boolean;
@@ -428,6 +431,19 @@ export type FeatureFlags = {
    * @default false
    */
   useEditorNext?: boolean;
+
+  /**
+   * @description
+   * Expanded chart color options from 20 to 36, uses design tokens to enable light/dark mode colors.
+   *
+   * @see https://product-fabric.atlassian.net/wiki/spaces/EUXQ/pages/3472785427/EXTERNAL+MAKE+PP+COMMIT-5233+Enable+Themed+rendering+of+remaining+UGC+Editor+content+tables+custom+panels+and+extension+color+palettes
+   * @see https://product-fabric.atlassian.net/browse/ED-17086
+   * @see https://product-fabric.atlassian.net/browse/ED-17132
+   * DUE DATE: June 2023
+   *
+   * @default false
+   */
+  expandedChartColors?: boolean | undefined;
 };
 
 export type FeatureFlagKey = keyof FeatureFlags;

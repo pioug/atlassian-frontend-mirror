@@ -151,6 +151,7 @@ export const ProviderCard = ({
           ) : null}
         </span>
         <Button
+          spacing="compact"
           iconBefore={
             expanded ? (
               <CollapseIcon size="small" label="collapse" />
@@ -159,7 +160,7 @@ export const ProviderCard = ({
             )
           }
           onClick={handleClick}
-        ></Button>
+        />
       </div>
       {expanded ? (
         <ProviderCardExampleList examples={examples} config={config} />

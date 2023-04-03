@@ -1,5 +1,4 @@
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { EditorPlugin } from '../../../types';
 import {
   breakoutPlugin,
   collabEditPlugin,
@@ -50,10 +49,7 @@ import {
   copyButtonPlugin,
 } from '../../../plugins';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
-import type {
-  EditorAppearance,
-  GetEditorContainerWidth,
-} from '@atlaskit/editor-common/types';
+import type { EditorAppearance } from '@atlaskit/editor-common/types';
 
 import { isFullPage as fullPageCheck } from '../../../utils/is-full-page';
 import { PrivateCollabEditOptions } from '../../../plugins/collab-edit/types';
@@ -63,21 +59,20 @@ import { EditorPresetProps } from './types';
 import { shouldForceTracking } from '@atlaskit/editor-common/utils';
 import {
   BeforeAndAfterToolbarComponents,
+  EditorSharedPropsWithPlugins,
   PrimaryToolbarComponents,
 } from '../../../types/editor-props';
-import type { InsertNodeAPI } from '../../../insert-api/types';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import type { EditorSelectionAPI } from '@atlaskit/editor-common/selection';
-import { Preset } from './preset';
 import { FeatureFlags } from '../../../types/feature-flags';
 import {
   EditorPluginFeatureProps,
   EditorProviderProps,
 } from '../../../types/editor-props';
 import { createStubInternalApis } from './create-stub-internal-apis';
+import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 
 type UniversalPresetProps = EditorPresetProps &
   DefaultPresetPluginOptions &
+  EditorSharedPropsWithPlugins &
   EditorPluginFeatureProps &
   EditorProviderProps;
 
@@ -90,11 +85,6 @@ type UniversalPresetProps = EditorPresetProps &
  * @param props A subset of full EditorProps for the full feature preset
  * @param featureFlags
  * @param prevAppearance The appearance of the editor in the previous render
- * @param createAnalyticsEvent
- * @param insertNodeAPI
- * @param editorAnalyticsAPI
- * @param editorSelectionAPI
- * @param getEditorContainerWidth
  * @returns a full featured preset configured according to the provided props - basis for create-plugins-list
  */
 export default function createUniversalPreset(
@@ -103,15 +93,12 @@ export default function createUniversalPreset(
   featureFlags: FeatureFlags,
   prevAppearance?: EditorAppearance,
   maybeCreateAnalyticsEvent?: CreateUIAnalyticsEvent,
-  _insertNodeAPI?: InsertNodeAPI,
-  _editorAnalyticsAPI?: EditorAnalyticsAPI,
-  _editorSelectionAPI?: EditorSelectionAPI,
-  _getEditorContainerWidth?: GetEditorContainerWidth,
-): Preset<EditorPlugin, []> {
+): EditorPresetBuilder<any, any> {
   const isMobile = appearance === 'mobile';
   const isComment = appearance === 'comment';
   const isFullPage = fullPageCheck(appearance);
-  const preset = createDefaultPreset(props);
+  const defaultPreset = createDefaultPreset(props);
+
   const getEditorFeatureFlags = () => featureFlags;
   const stubs = createStubInternalApis();
   const {
@@ -124,360 +111,11 @@ export default function createUniversalPreset(
     ? maybeCreateAnalyticsEvent
     : stubs.createAnalyticsEvent;
 
-  preset.add(stubInternalApisPlugin);
-
-  if (props.allowAnalyticsGASV3) {
-    const { performanceTracking } = props;
-
-    preset.add([
-      analyticsPlugin,
-      {
-        createAnalyticsEvent,
-        performanceTracking,
-      },
-    ]);
-  }
-
-  if (props.allowBreakout && isFullPage) {
-    preset.add([
-      breakoutPlugin,
-      { allowBreakoutButton: appearance === 'full-page' },
-    ]);
-  }
-
-  if (props.allowTextAlignment) {
-    preset.add(alignmentPlugin);
-  }
-
-  preset.add(dataConsumerMarkPlugin);
-
-  if (props.allowTextColor) {
-    preset.add([textColorPlugin, props.allowTextColor]);
-  }
-
-  // Needs to be after allowTextColor as order of buttons in toolbar depends on it
-  preset.add([
-    listPlugin,
-    {
-      restartNumberedLists: featureFlags?.restartNumberedLists,
-      restartNumberedListsToolbar: featureFlags?.restartNumberedListsToolbar,
-      listNumberContinuity: featureFlags?.listNumberContinuity,
-    },
-  ]);
-
-  if (props.allowRule) {
-    preset.add(rulePlugin);
-  }
-
-  if (props.allowExpand) {
-    preset.add([
-      expandPlugin,
-      {
-        allowInsertion: isExpandInsertionEnabled(props),
-        useLongPressSelection: false,
-        appearance: appearance,
-      },
-    ]);
-  }
-
-  if (props.media) {
-    preset.add([gridPlugin, { shouldCalcBreakoutGridLines: isFullPage }]);
-    const alignLeftOnInsert =
-      typeof props.media.alignLeftOnInsert !== 'undefined'
-        ? props.media.alignLeftOnInsert
-        : isComment;
-
-    const showMediaLayoutOptions =
-      typeof props.media.allowAdvancedToolBarOptions !== 'undefined'
-        ? props.media.allowAdvancedToolBarOptions
-        : isFullPage || isComment;
-
-    preset.add([
-      mediaPlugin,
-      {
-        ...props.media,
-        allowLazyLoading: !isMobile,
-        allowBreakoutSnapPoints: isFullPage,
-        allowAdvancedToolBarOptions: showMediaLayoutOptions,
-        allowDropzoneDropLine: isFullPage,
-        allowMediaSingleEditable: !isMobile,
-        allowRemoteDimensionsFetch: !isMobile,
-        editorSelectionAPI,
-        // This is a wild one. I didnt quite understand what the code was doing
-        // so a bit of guess for now.
-        allowMarkingUploadsAsIncomplete: isMobile,
-        fullWidthEnabled: appearance === 'full-width',
-        uploadErrorHandler: props.uploadErrorHandler,
-        waitForMediaUpload: props.waitForMediaUpload,
-        isCopyPasteEnabled: !isMobile,
-        alignLeftOnInsert,
-      },
-    ]);
-
-    // EDM-799: inside caption plugin we do the feature flag in enabling the plugin
-    if (getMediaFeatureFlag('captions', props.media.featureFlags)) {
-      preset.add(captionPlugin);
-    }
-  }
-
-  if (props.mentionProvider) {
-    preset.add([
-      mentionsPlugin,
-      {
-        createAnalyticsEvent,
-        sanitizePrivateContent: props.sanitizePrivateContent,
-        insertDisplayName:
-          props.mention?.insertDisplayName ?? props.mentionInsertDisplayName,
-        allowZeroWidthSpaceAfter: !isMobile,
-        HighlightComponent: props.mention?.HighlightComponent,
-      },
-    ]);
-  }
-
-  if (props.emojiProvider) {
-    preset.add([
-      emojiPlugin,
-      {
-        createAnalyticsEvent,
-      },
-    ]);
-  }
-
-  if (props.allowTables) {
-    const tableOptions =
-      !props.allowTables || typeof props.allowTables === 'boolean'
-        ? {}
-        : props.allowTables;
-    preset.add([
-      tablesPlugin,
-      {
-        tableOptions,
-        breakoutEnabled: appearance === 'full-page',
-        allowContextualMenu: !isMobile,
-        fullWidthEnabled: appearance === 'full-width',
-        wasFullWidthEnabled: prevAppearance && prevAppearance === 'full-width',
-        editorAnalyticsAPI,
-        editorSelectionAPI,
-        getEditorFeatureFlags,
-      },
-    ]);
-  }
-
-  if (props.allowTasksAndDecisions || props.taskDecisionProvider) {
-    preset.add([
-      tasksAndDecisionsPlugin,
-      {
-        allowNestedTasks: props.allowNestedTasks,
-        consumeTabs: isFullPage,
-        useLongPressSelection: false,
-      },
-    ]);
-  }
-
-  if (props.feedbackInfo) {
-    preset.add([feedbackDialogPlugin, props.feedbackInfo]);
-  }
-
-  if (props.allowHelpDialog) {
-    preset.add([helpDialogPlugin, !!props.legacyImageUploadProvider]);
-  }
-
-  if (props.saveOnEnter && props.onSave) {
-    preset.add([saveOnEnterPlugin, props.onSave]);
-  }
-
-  if (props.legacyImageUploadProvider) {
-    preset.add(imageUploadPlugin);
-
-    if (!props.media) {
-      preset.add([
-        mediaPlugin,
-        {
-          allowMediaSingle: { disableLayout: true },
-          allowMediaGroup: false,
-          isCopyPasteEnabled: true,
-          editorSelectionAPI,
-        },
-      ]);
-    }
-  }
-
-  if (props.collabEdit || props.collabEditProvider) {
-    let collabEditOptions: PrivateCollabEditOptions = {
-      sanitizePrivateContent: props.sanitizePrivateContent,
-      createAnalyticsEvent,
-    };
-
-    if (props.collabEdit) {
-      collabEditOptions = {
-        ...props.collabEdit,
-        ...collabEditOptions,
-      };
-    }
-
-    preset.add([
-      collabEditPlugin,
-      {
-        ...collabEditOptions,
-        EXPERIMENTAL_allowInternalErrorAnalytics:
-          collabEditOptions.EXPERIMENTAL_allowInternalErrorAnalytics ??
-          shouldForceTracking(),
-      },
-    ]);
-  }
-
-  if (props.maxContentSize) {
-    preset.add([maxContentSizePlugin, props.maxContentSize]);
-  }
-
-  if (props.allowJiraIssue) {
-    preset.add(jiraIssuePlugin);
-  }
-
-  if (props.allowPanel) {
-    const allowPanel =
-      typeof props.allowPanel === 'object' ? props.allowPanel : {};
-    preset.add([
-      panelPlugin,
-      {
-        useLongPressSelection: false,
-        allowCustomPanel: allowPanel.allowCustomPanel,
-        allowCustomPanelEdit: allowPanel.allowCustomPanelEdit,
-      },
-    ]);
-  }
-
-  if (props.allowExtension) {
-    const extensionConfig =
-      typeof props.allowExtension === 'object' ? props.allowExtension : {};
-    preset.add([
-      extensionPlugin,
-      {
-        breakoutEnabled:
-          appearance === 'full-page' && extensionConfig.allowBreakout !== false,
-        allowAutoSave: extensionConfig.allowAutoSave,
-        extensionHandlers: props.extensionHandlers,
-        useLongPressSelection: false,
-        appearance,
-      },
-    ]);
-  }
-
-  if (props.macroProvider) {
-    preset.add(macroPlugin);
-  }
-
-  // See default list for when adding annotations with a provider
-  if (!props.annotationProviders && props.allowConfluenceInlineComment) {
-    preset.add([annotationPlugin, undefined as any]);
-  }
-
-  if (props.allowDate) {
-    preset.add(datePlugin);
-  }
-
-  if (props.allowTemplatePlaceholders) {
-    const options =
-      props.allowTemplatePlaceholders !== true
-        ? props.allowTemplatePlaceholders
-        : {};
-    preset.add([placeholderTextPlugin, options]);
-  }
-
-  if (props.allowLayouts) {
-    const layoutOptions =
-      typeof props.allowLayouts === 'object' ? props.allowLayouts : {};
-    preset.add([
-      layoutPlugin,
-      {
-        ...layoutOptions,
-        useLongPressSelection: false,
-        UNSAFE_allowSingleColumnLayout:
-          layoutOptions.UNSAFE_allowSingleColumnLayout,
-      },
-    ]);
-  }
-
-  if (props.linking?.smartLinks || props.smartLinks || props.UNSAFE_cards) {
-    const fullWidthMode = appearance === 'full-width';
-    preset.add([
-      cardPlugin,
-      {
-        ...props.UNSAFE_cards,
-        ...props.smartLinks,
-        ...props.linking?.smartLinks,
-        platform: isMobile ? 'mobile' : 'web',
-        fullWidthMode,
-        createAnalyticsEvent,
-        linkPicker: props.linking?.linkPicker,
-        editorAppearance: appearance,
-      },
-    ]);
-  }
-
-  if (props.autoformattingProvider) {
-    preset.add(customAutoformatPlugin);
-  }
-
-  let statusMenuDisabled = true;
-  if (props.allowStatus) {
-    statusMenuDisabled =
-      typeof props.allowStatus === 'object'
-        ? props.allowStatus.menuDisabled
-        : false;
-    preset.add([
-      statusPlugin,
-      {
-        menuDisabled: statusMenuDisabled,
-        allowZeroWidthSpaceAfter: !isMobile,
-      },
-    ]);
-  }
-
-  if (props.allowIndentation) {
-    preset.add(indentationPlugin);
-  }
-
-  if (isFullPage) {
-    preset.add(contextPanelPlugin);
-  }
-
-  if (props.autoScrollIntoView !== false) {
-    preset.add(scrollIntoViewPlugin);
-  }
-
-  if (isMobile || props.allowUndoRedoButtons) {
-    preset.add(historyPlugin);
-  }
-
-  if (isMobile) {
-    preset.add(mobileDimensionsPlugin);
-    preset.add(mobileSelectionPlugin);
-  }
-
-  // UI only plugins
-  preset.add([
-    toolbarListsIndentationPlugin,
-    {
-      showIndentationButtons: !!featureFlags.indentationButtonsInTheToolbar,
-      allowHeadingAndParagraphIndentation: !!props.allowIndentation,
-    },
-  ]);
-  preset.add([
-    insertBlockPlugin,
-    {
-      allowTables: !!props.allowTables,
-      allowExpand: isExpandInsertionEnabled(props),
-      insertMenuItems: props.insertMenuItems,
-      horizontalRuleEnabled: props.allowRule,
-      nativeStatusSupported: !statusMenuDisabled,
-      showElementBrowserLink:
-        (props.elementBrowser && props.elementBrowser.showModal) || false,
-      replacePlusMenuWithElementBrowser:
-        (props.elementBrowser && props.elementBrowser.replacePlusMenu) || false,
-      insertNodeAPI,
-    },
-  ]);
+  const statusMenuDisabled = !props.allowStatus
+    ? true
+    : typeof props.allowStatus === 'object'
+    ? Boolean(props.allowStatus.menuDisabled)
+    : false;
 
   const hasBeforePrimaryToolbar = (
     components?: PrimaryToolbarComponents,
@@ -488,61 +126,549 @@ export default function createUniversalPreset(
     return false;
   };
 
-  if (
-    hasBeforePrimaryToolbar(props.primaryToolbarComponents) &&
-    !featureFlags.twoLineEditorToolbar
-  ) {
-    preset.add([
-      beforePrimaryToolbarPlugin,
+  const finalPreset = defaultPreset
+    .add(stubInternalApisPlugin)
+    .add(dataConsumerMarkPlugin)
+    .maybeAdd(analyticsPlugin, (plugin, builder) => {
+      if (props.allowAnalyticsGASV3) {
+        const { performanceTracking } = props;
+
+        return builder.add([
+          plugin,
+          {
+            createAnalyticsEvent,
+            performanceTracking,
+          },
+        ]);
+      }
+
+      return builder;
+    })
+    .maybeAdd(breakoutPlugin, (plugin, builder) => {
+      if (props.allowBreakout && isFullPage) {
+        return builder.add([
+          plugin,
+          { allowBreakoutButton: appearance === 'full-page' },
+        ]);
+      }
+
+      return builder;
+    })
+
+    .maybeAdd(alignmentPlugin, (plugin, builder) => {
+      if (props.allowTextAlignment) {
+        return builder.add(plugin);
+      }
+
+      return builder;
+    })
+
+    .maybeAdd(textColorPlugin, (plugin, builder) => {
+      if (props.allowTextColor) {
+        return builder.add([plugin, props.allowTextColor]);
+      }
+
+      return builder;
+    })
+    .add([
+      listPlugin,
       {
-        beforePrimaryToolbarComponents: props.primaryToolbarComponents.before,
+        restartNumberedLists: featureFlags?.restartNumberedLists,
+        restartNumberedListsToolbar: featureFlags?.restartNumberedListsToolbar,
+        listNumberContinuity: featureFlags?.listNumberContinuity,
       },
-    ]);
-  }
+    ])
+    .maybeAdd(rulePlugin, (plugin, builder) => {
+      if (props.allowRule) {
+        return builder.add(plugin);
+      }
 
-  if (
-    featureFlags.showAvatarGroupAsPlugin === true &&
-    !featureFlags.twoLineEditorToolbar
-  ) {
-    preset.add([
-      avatarGroupPlugin,
+      return builder;
+    })
+    .maybeAdd(expandPlugin, (plugin, builder) => {
+      if (props.allowExpand) {
+        return builder.add([
+          plugin,
+          {
+            allowInsertion: isExpandInsertionEnabled(props),
+            useLongPressSelection: false,
+            appearance: appearance,
+          },
+        ]);
+      }
+
+      return builder;
+    })
+    .maybeAdd(gridPlugin, (plugin, builder) => {
+      if (props.media) {
+        return builder.add([
+          plugin,
+          { shouldCalcBreakoutGridLines: isFullPage },
+        ]);
+      }
+      return builder;
+    })
+    .maybeAdd(mediaPlugin, (plugin, builder) => {
+      if (props.media) {
+        const alignLeftOnInsert =
+          typeof props.media.alignLeftOnInsert !== 'undefined'
+            ? props.media.alignLeftOnInsert
+            : isComment;
+
+        const showMediaLayoutOptions =
+          typeof props.media.allowAdvancedToolBarOptions !== 'undefined'
+            ? props.media.allowAdvancedToolBarOptions
+            : isFullPage || isComment;
+
+        return builder.add([
+          plugin,
+          {
+            ...props.media,
+            allowLazyLoading: !isMobile,
+            allowBreakoutSnapPoints: isFullPage,
+            allowAdvancedToolBarOptions: showMediaLayoutOptions,
+            allowDropzoneDropLine: isFullPage,
+            allowMediaSingleEditable: !isMobile,
+            allowRemoteDimensionsFetch: !isMobile,
+            editorSelectionAPI,
+            // This is a wild one. I didnt quite understand what the code was doing
+            // so a bit of guess for now.
+            allowMarkingUploadsAsIncomplete: isMobile,
+            fullWidthEnabled: appearance === 'full-width',
+            uploadErrorHandler: props.uploadErrorHandler,
+            waitForMediaUpload: props.waitForMediaUpload,
+            isCopyPasteEnabled: !isMobile,
+            alignLeftOnInsert,
+          },
+        ]);
+      }
+      return builder;
+    })
+    .maybeAdd(captionPlugin, (plugin, builder) => {
+      // EDM-799: inside caption plugin we do the feature flag in enabling the plugin
+      if (
+        props.media &&
+        getMediaFeatureFlag('captions', props.media.featureFlags)
+      ) {
+        return builder.add(plugin);
+      }
+      return builder;
+    })
+    .maybeAdd(mentionsPlugin, (plugin, builder) => {
+      if (props.mentionProvider) {
+        return builder.add([
+          plugin,
+          {
+            createAnalyticsEvent,
+            sanitizePrivateContent: props.sanitizePrivateContent,
+            insertDisplayName:
+              props.mention?.insertDisplayName ??
+              props.mentionInsertDisplayName,
+            allowZeroWidthSpaceAfter: !isMobile,
+            HighlightComponent: props.mention?.HighlightComponent,
+          },
+        ]);
+      }
+
+      return builder;
+    })
+    .maybeAdd(emojiPlugin, (plugin, builder) => {
+      if (props.emojiProvider) {
+        return builder.add([
+          plugin,
+          {
+            createAnalyticsEvent,
+          },
+        ]);
+      }
+
+      return builder;
+    })
+    .maybeAdd(tablesPlugin, (plugin, builder) => {
+      if (props.allowTables) {
+        const tableOptions =
+          !props.allowTables || typeof props.allowTables === 'boolean'
+            ? {}
+            : props.allowTables;
+        return builder.add([
+          plugin,
+          {
+            tableOptions,
+            breakoutEnabled: appearance === 'full-page',
+            allowContextualMenu: !isMobile,
+            fullWidthEnabled: appearance === 'full-width',
+            wasFullWidthEnabled:
+              prevAppearance && prevAppearance === 'full-width',
+            editorAnalyticsAPI,
+            editorSelectionAPI,
+            getEditorFeatureFlags,
+          },
+        ]);
+      }
+
+      return builder;
+    })
+    .maybeAdd(tasksAndDecisionsPlugin, (plugin, builder) => {
+      if (props.allowTasksAndDecisions || props.taskDecisionProvider) {
+        return builder.add([
+          plugin,
+          {
+            allowNestedTasks: props.allowNestedTasks,
+            consumeTabs: isFullPage,
+            useLongPressSelection: false,
+          },
+        ]);
+      }
+
+      return builder;
+    })
+    .maybeAdd(feedbackDialogPlugin, (plugin, builder) => {
+      if (props.feedbackInfo) {
+        return builder.add([plugin, props.feedbackInfo]);
+      }
+
+      return builder;
+    })
+    .maybeAdd(helpDialogPlugin, (plugin, builder) => {
+      if (props.allowHelpDialog) {
+        return builder.add([plugin, !!props.legacyImageUploadProvider]);
+      }
+
+      return builder;
+    })
+    .maybeAdd(saveOnEnterPlugin, (plugin, builder) => {
+      if (props.saveOnEnter && props.onSave) {
+        return builder.add([plugin, props.onSave]);
+      }
+
+      return builder;
+    })
+    .maybeAdd(imageUploadPlugin, (plugin, builder) => {
+      if (props.legacyImageUploadProvider) {
+        return builder.add(plugin);
+      }
+      return builder;
+    })
+    .maybeAdd(mediaPlugin, (plugin, builder) => {
+      if (props.legacyImageUploadProvider && !props.media) {
+        return builder.add([
+          plugin,
+          {
+            allowMediaSingle: { disableLayout: true },
+            allowMediaGroup: false,
+            isCopyPasteEnabled: true,
+            editorSelectionAPI,
+          },
+        ]);
+      }
+
+      return builder;
+    })
+    .maybeAdd(collabEditPlugin, (plugin, builder) => {
+      if (props.collabEdit || props.collabEditProvider) {
+        let collabEditOptions: PrivateCollabEditOptions = {
+          sanitizePrivateContent: props.sanitizePrivateContent,
+          createAnalyticsEvent,
+        };
+
+        if (props.collabEdit) {
+          collabEditOptions = {
+            ...props.collabEdit,
+            ...collabEditOptions,
+          };
+        }
+
+        return builder.add([
+          plugin,
+          {
+            ...collabEditOptions,
+            EXPERIMENTAL_allowInternalErrorAnalytics:
+              collabEditOptions.EXPERIMENTAL_allowInternalErrorAnalytics ??
+              shouldForceTracking(),
+          },
+        ]);
+      }
+
+      return builder;
+    })
+    .maybeAdd(maxContentSizePlugin, (plugin, builder) => {
+      if (props.maxContentSize) {
+        return builder.add([plugin, props.maxContentSize]);
+      }
+
+      return builder;
+    })
+    .maybeAdd(jiraIssuePlugin, (plugin, builder) => {
+      if (props.allowJiraIssue) {
+        return builder.add(plugin);
+      }
+
+      return builder;
+    })
+    .maybeAdd(panelPlugin, (plugin, builder) => {
+      if (props.allowPanel) {
+        const allowPanel =
+          typeof props.allowPanel === 'object' ? props.allowPanel : {};
+        return builder.add([
+          plugin,
+          {
+            useLongPressSelection: false,
+            allowCustomPanel: allowPanel.allowCustomPanel,
+            allowCustomPanelEdit: allowPanel.allowCustomPanelEdit,
+          },
+        ]);
+      }
+
+      return builder;
+    })
+    .maybeAdd(extensionPlugin, (plugin, builder) => {
+      if (props.allowExtension) {
+        const extensionConfig =
+          typeof props.allowExtension === 'object' ? props.allowExtension : {};
+        return builder.add([
+          plugin,
+          {
+            breakoutEnabled:
+              appearance === 'full-page' &&
+              extensionConfig.allowBreakout !== false,
+            allowAutoSave: extensionConfig.allowAutoSave,
+            extensionHandlers: props.extensionHandlers,
+            useLongPressSelection: false,
+            appearance,
+          },
+        ]);
+      }
+      return builder;
+    })
+    .maybeAdd(macroPlugin, (plugin, builder) => {
+      if (props.macroProvider) {
+        return builder.add(plugin);
+      }
+
+      return builder;
+    })
+    .maybeAdd(annotationPlugin, (plugin, builder) => {
+      // See default list for when adding annotations with a provider
+      if (!props.annotationProviders && props.allowConfluenceInlineComment) {
+        return builder.add([plugin, undefined as any]);
+      }
+
+      return builder;
+    })
+    .maybeAdd(datePlugin, (plugin, builder) => {
+      if (props.allowDate) {
+        return builder.add(plugin);
+      }
+
+      return builder;
+    })
+    .maybeAdd(placeholderTextPlugin, (plugin, builder) => {
+      if (props.allowTemplatePlaceholders) {
+        const options =
+          props.allowTemplatePlaceholders !== true
+            ? props.allowTemplatePlaceholders
+            : {};
+        return builder.add([plugin, options]);
+      }
+
+      return builder;
+    })
+    .maybeAdd(layoutPlugin, (plugin, builder) => {
+      if (props.allowLayouts) {
+        const layoutOptions =
+          typeof props.allowLayouts === 'object' ? props.allowLayouts : {};
+        return builder.add([
+          plugin,
+          {
+            ...layoutOptions,
+            useLongPressSelection: false,
+            UNSAFE_allowSingleColumnLayout:
+              layoutOptions.UNSAFE_allowSingleColumnLayout,
+          },
+        ]);
+      }
+
+      return builder;
+    })
+    .maybeAdd(cardPlugin, (plugin, builder) => {
+      if (props.linking?.smartLinks || props.smartLinks || props.UNSAFE_cards) {
+        const fullWidthMode = appearance === 'full-width';
+        return builder.add([
+          plugin,
+          {
+            ...props.UNSAFE_cards,
+            ...props.smartLinks,
+            ...props.linking?.smartLinks,
+            platform: isMobile ? 'mobile' : 'web',
+            fullWidthMode,
+            createAnalyticsEvent,
+            linkPicker: props.linking?.linkPicker,
+            editorAppearance: appearance,
+          },
+        ]);
+      }
+
+      return builder;
+    })
+    .maybeAdd(customAutoformatPlugin, (plugin, builder) => {
+      if (props.autoformattingProvider) {
+        return builder.add(plugin);
+      }
+
+      return builder;
+    })
+    .maybeAdd(statusPlugin, (plugin, builder) => {
+      if (props.allowStatus) {
+        return builder.add([
+          plugin,
+          {
+            menuDisabled: statusMenuDisabled,
+            allowZeroWidthSpaceAfter: !isMobile,
+          },
+        ]);
+      }
+
+      return builder;
+    })
+    .maybeAdd(indentationPlugin, (plugin, builder) => {
+      if (props.allowIndentation) {
+        return builder.add(plugin);
+      }
+
+      return builder;
+    })
+    .maybeAdd(contextPanelPlugin, (plugin, builder) => {
+      if (isFullPage) {
+        return builder.add(contextPanelPlugin);
+      }
+
+      return builder;
+    })
+    .maybeAdd(scrollIntoViewPlugin, (plugin, builder) => {
+      if (props.autoScrollIntoView !== false) {
+        return builder.add(scrollIntoViewPlugin);
+      }
+
+      return builder;
+    })
+    .maybeAdd(historyPlugin, (plugin, builder) => {
+      if (isMobile || props.allowUndoRedoButtons) {
+        return builder.add(historyPlugin);
+      }
+      return builder;
+    })
+    .maybeAdd(mobileDimensionsPlugin, (plugin, builder) => {
+      if (isMobile) {
+        return builder.add(plugin);
+      }
+
+      return builder;
+    })
+    .maybeAdd(mobileSelectionPlugin, (plugin, builder) => {
+      if (isMobile) {
+        return builder.add(plugin);
+      }
+
+      return builder;
+    })
+    .add([
+      toolbarListsIndentationPlugin,
       {
-        collabEdit: props.collabEdit,
-        takeFullWidth: !hasBeforePrimaryToolbar(props.primaryToolbarComponents),
+        showIndentationButtons: !!featureFlags.indentationButtonsInTheToolbar,
+        allowHeadingAndParagraphIndentation: !!props.allowIndentation,
       },
-    ]);
-  }
-
-  if (props.allowFindReplace) {
-    preset.add([
-      findReplacePlugin,
+    ])
+    .add([
+      insertBlockPlugin,
       {
-        takeFullWidth:
-          !!featureFlags.showAvatarGroupAsPlugin === false &&
-          !hasBeforePrimaryToolbar(props.primaryToolbarComponents),
-        twoLineEditorToolbar: !!featureFlags.twoLineEditorToolbar,
+        allowTables: !!props.allowTables,
+        allowExpand: isExpandInsertionEnabled(props),
+        insertMenuItems: props.insertMenuItems,
+        horizontalRuleEnabled: props.allowRule,
+        nativeStatusSupported: !statusMenuDisabled,
+        showElementBrowserLink:
+          (props.elementBrowser && props.elementBrowser.showModal) || false,
+        replacePlusMenuWithElementBrowser:
+          (props.elementBrowser && props.elementBrowser.replacePlusMenu) ||
+          false,
+        insertNodeAPI,
       },
-    ]);
-  }
+    ])
+    .maybeAdd(beforePrimaryToolbarPlugin, (plugin, builder) => {
+      if (
+        hasBeforePrimaryToolbar(props.primaryToolbarComponents) &&
+        !featureFlags.twoLineEditorToolbar
+      ) {
+        return builder.add([
+          plugin,
+          {
+            beforePrimaryToolbarComponents:
+              props.primaryToolbarComponents.before,
+          },
+        ]);
+      }
 
-  if (props.allowFragmentMark) {
-    preset.add(fragmentMarkPlugin);
-  }
+      return builder;
+    })
+    .maybeAdd(avatarGroupPlugin, (plugin, builder) => {
+      if (
+        featureFlags.showAvatarGroupAsPlugin === true &&
+        !featureFlags.twoLineEditorToolbar
+      ) {
+        return builder.add([
+          plugin,
+          {
+            collabEdit: props.collabEdit,
+            takeFullWidth: !hasBeforePrimaryToolbar(
+              props.primaryToolbarComponents,
+            ),
+          },
+        ]);
+      }
 
-  if (featureFlags.enableViewUpdateSubscription) {
-    preset.add(viewUpdateSubscriptionPlugin);
-  }
+      return builder;
+    })
+    .maybeAdd(findReplacePlugin, (plugin, builder) => {
+      if (props.allowFindReplace) {
+        return builder.add([
+          plugin,
+          {
+            takeFullWidth:
+              !!featureFlags.showAvatarGroupAsPlugin === false &&
+              !hasBeforePrimaryToolbar(props.primaryToolbarComponents),
+            twoLineEditorToolbar: !!featureFlags.twoLineEditorToolbar,
+          },
+        ]);
+      }
+      return builder;
+    })
+    .maybeAdd(fragmentMarkPlugin, (plugin, builder) => {
+      if (props.allowFragmentMark) {
+        return builder.add(plugin);
+      }
 
-  preset.add([
-    codeBidiWarningPlugin,
-    {
-      appearance,
-    },
-  ]);
+      return builder;
+    })
+    .maybeAdd(viewUpdateSubscriptionPlugin, (plugin, builder) => {
+      if (featureFlags.enableViewUpdateSubscription) {
+        return builder.add(plugin);
+      }
 
-  if (featureFlags.floatingToolbarCopyButton) {
-    preset.add(copyButtonPlugin);
-  }
+      return builder;
+    })
+    .add([
+      codeBidiWarningPlugin,
+      {
+        appearance,
+      },
+    ])
+    .maybeAdd(copyButtonPlugin, (plugin, builder) => {
+      if (featureFlags.floatingToolbarCopyButton) {
+        return builder.add(plugin);
+      }
 
-  return preset;
+      return builder;
+    });
+
+  return finalPreset;
 }

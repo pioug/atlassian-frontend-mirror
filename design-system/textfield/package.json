@@ -37,7 +37,7 @@
   },
   "devDependencies": {
     "@atlaskit/avatar": "^21.2.0",
-    "@atlaskit/button": "^16.5.0",
+    "@atlaskit/button": "^16.6.0",
     "@atlaskit/docs": "*",
     "@atlaskit/ds-lib": "^2.0.1",
     "@atlaskit/form": "^8.8.0",

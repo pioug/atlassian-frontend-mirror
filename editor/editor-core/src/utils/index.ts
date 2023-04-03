@@ -1,24 +1,19 @@
 import { toggleMark } from 'prosemirror-commands';
 import {
-  Fragment,
   Mark as PMMark,
   MarkType,
   Node,
-  NodeRange,
   NodeType,
   ResolvedPos,
   Schema,
   Slice,
 } from 'prosemirror-model';
-import { EditorView } from 'prosemirror-view';
 import {
   EditorState,
   NodeSelection,
   Selection,
   TextSelection,
-  Transaction,
 } from 'prosemirror-state';
-import { findWrapping, liftTarget } from 'prosemirror-transform';
 import {
   JSONDocNode,
   JSONNode,
@@ -28,6 +23,7 @@ import { FakeTextCursorSelection } from '../plugins/fake-text-cursor/cursor';
 import { hasParentNodeOfType } from 'prosemirror-utils';
 import { isNodeEmpty } from './document';
 import { atTheBeginningOfDoc, atTheEndOfDoc } from './prosemirror/position';
+import { isMediaNode } from '@atlaskit/editor-common/utils';
 
 export { insideTable } from '@atlaskit/editor-common/core-utils';
 
@@ -44,34 +40,18 @@ export {
   getNodesCount,
 } from './document';
 
-export { cascadeCommands, getEditorValueWithMedia } from './action';
-export {
-  isMarkAllowedInRange,
-  isMarkExcluded,
-  removeBlockMarks,
-  sanitiseSelectionMarksForWrapping,
-  sanitiseMarksInSelection,
-} from './mark';
-export { isParagraph, isText, isLinkMark, validateNodes } from './nodes';
+export { sanitiseMarksInSelection } from './mark';
+export { isParagraph, isText, isLinkMark } from './nodes';
 export {
   normaliseNestedLayout,
   setNodeSelection,
-  setAllSelection,
   setGapCursorSelection,
-  setCellSelection,
   setTextSelection,
-  isValidPosition,
 } from './selection';
 
-export type { JSONDocNode, JSONNode };
-
-export { containsClassName } from './dom';
+export type { JSONDocNode };
 
 export { default as measurements } from './performance/measure-enum';
-
-function validateNode(_node: Node): boolean {
-  return false;
-}
 
 function isMarkTypeCompatibleWithMark(
   markType: MarkType,
@@ -88,27 +68,12 @@ function isMarkTypeAllowedInNode(
 }
 
 export function canMoveUp(state: EditorState): boolean {
-  const { selection, doc } = state;
-
+  const { selection } = state;
   /**
-   * If there's a media element on the selection,
-   * add text blocks with arrow navigation.
-   * Also, the selection could be media | mediaGroup.
+   * If there's a media element on the selection it will use a gap cursor to move
    */
-  if (selection instanceof NodeSelection) {
-    if (selection.node.type.name === 'media') {
-      /** Weird way of checking if the previous element is a paragraph */
-      const mediaAncestorNode = doc.nodeAt(selection.anchor - 3);
-      return !!(
-        mediaAncestorNode && mediaAncestorNode.type.name === 'paragraph'
-      );
-    } else if (selection.node.type.name === 'mediaGroup') {
-      const mediaGroupAncestorNode = selection.$anchor.nodeBefore;
-      return !!(
-        mediaGroupAncestorNode &&
-        mediaGroupAncestorNode.type.name === 'paragraph'
-      );
-    }
+  if (selection instanceof NodeSelection && isMediaNode(selection.node)) {
+    return true;
   }
 
   if (selection instanceof TextSelection) {
@@ -121,22 +86,13 @@ export function canMoveUp(state: EditorState): boolean {
 }
 
 export function canMoveDown(state: EditorState): boolean {
-  const { selection, doc } = state;
+  const { selection } = state;
 
   /**
-   * If there's a media element on the selection,
-   * add text blocks with arrow navigation.
-   * Also, the selection could be media | mediaGroup.
+   * If there's a media element on the selection it will use a gap cursor to move
    */
-  if (selection instanceof NodeSelection) {
-    if (selection.node.type.name === 'media') {
-      const nodeAfter = doc.nodeAt(selection.$head.after());
-      return !!(nodeAfter && nodeAfter.type.name === 'paragraph');
-    } else if (selection.node.type.name === 'mediaGroup') {
-      return !(
-        selection.$head.parentOffset === selection.$anchor.parent.content.size
-      );
-    }
+  if (selection instanceof NodeSelection && isMediaNode(selection.node)) {
+    return true;
   }
   if (selection instanceof TextSelection) {
     if (!selection.empty) {
@@ -212,22 +168,6 @@ export function isMarkTypeAllowedInCurrentSelection(
   });
 }
 
-export function createSliceWithContent(content: string, state: EditorState) {
-  return new Slice(Fragment.from(state.schema.text(content)), 0, 0);
-}
-
-/**
- * Determines if content inside a selection can be joined with the next block.
- * We need this check since the built-in method for "joinDown" will join a orderedList with bulletList.
- */
-export function canJoinDown(
-  selection: Selection,
-  doc: any,
-  nodeType: NodeType,
-): boolean {
-  return checkNodeDown(selection, doc, (node) => node.type === nodeType);
-}
-
 export function checkNodeDown(
   selection: Selection,
   doc: Node,
@@ -245,87 +185,9 @@ export function checkNodeDown(
 }
 
 /**
- * Determines if content inside a selection can be joined with the previous block.
- * We need this check since the built-in method for "joinUp" will join a orderedList with bulletList.
- */
-export function canJoinUp(
-  selection: Selection,
-  doc: any,
-  nodeType: NodeType,
-): boolean {
-  const res = doc.resolve(
-    selection.$from.before(findAncestorPosition(doc, selection.$from).depth),
-  );
-  return res.nodeBefore && res.nodeBefore.type === nodeType;
-}
-
-/**
- * Finds all "selection-groups" within a range. A selection group is based on ancestors.
- *
- * Example:
- * Given the following document and selection ({<} = start of selection and {>} = end)
- *  doc
- *    blockquote
- *      ul
- *        li
- *        li{<}
- *        li
- *     p
- *     p{>}
- *
- * The output will be two selection-groups. One within the ul and one with the two paragraphs.
- */
-export function getGroupsInRange(
-  doc: Node,
-  $from: ResolvedPos,
-  $to: ResolvedPos,
-  isNodeValid: (node: Node) => boolean = validateNode,
-): Array<{ $from: ResolvedPos; $to: ResolvedPos }> {
-  const groups = Array<{ $from: ResolvedPos; $to: ResolvedPos }>();
-  const commonAncestor = hasCommonAncestor(doc, $from, $to);
-  const fromAncestor = findAncestorPosition(doc, $from);
-
-  if (
-    commonAncestor ||
-    (fromAncestor.depth === 1 && isNodeValid($from.node(1)!))
-  ) {
-    groups.push({ $from, $to });
-  } else {
-    let current = $from;
-
-    while (current.pos < $to.pos) {
-      let ancestorPos = findAncestorPosition(doc, current);
-      while (ancestorPos.depth > 1) {
-        ancestorPos = findAncestorPosition(doc, ancestorPos);
-      }
-
-      const endPos = doc.resolve(
-        Math.min(
-          // should not be smaller then start position in case of an empty paragraph for example.
-          Math.max(
-            ancestorPos.start(ancestorPos.depth),
-            ancestorPos.end(ancestorPos.depth) - 3,
-          ),
-          $to.pos,
-        ),
-      );
-
-      groups.push({
-        $from: current,
-        $to: endPos,
-      });
-
-      current = doc.resolve(Math.min(endPos.after(1) + 1, doc.nodeSize - 2));
-    }
-  }
-
-  return groups;
-}
-
-/**
  * Traverse the document until an "ancestor" is found. Any nestable block can be an ancestor.
  */
-export function findAncestorPosition(doc: Node, pos: ResolvedPos): any {
+function findAncestorPosition(doc: Node, pos: ResolvedPos): any {
   const nestableBlocks = ['blockquote', 'bulletList', 'orderedList'];
 
   if (pos.depth === 1) {
@@ -344,116 +206,6 @@ export function findAncestorPosition(doc: Node, pos: ResolvedPos): any {
   }
 
   return newPos;
-}
-
-/**
- * Determine if two positions have a common ancestor.
- */
-export function hasCommonAncestor(
-  doc: Node,
-  $from: ResolvedPos,
-  $to: ResolvedPos,
-): boolean {
-  let current;
-  let target;
-
-  if ($from.depth > $to.depth) {
-    current = findAncestorPosition(doc, $from);
-    target = findAncestorPosition(doc, $to);
-  } else {
-    current = findAncestorPosition(doc, $to);
-    target = findAncestorPosition(doc, $from);
-  }
-
-  while (current.depth > target.depth && current.depth > 1) {
-    current = findAncestorPosition(doc, current);
-  }
-
-  return current.node(current.depth) === target.node(target.depth);
-}
-
-/**
- * Takes a selection $from and $to and lift all text nodes from their parents to document-level
- */
-export function liftSelection(
-  tr: Transaction,
-  doc: Node,
-  $from: ResolvedPos,
-  $to: ResolvedPos,
-) {
-  let startPos = $from.start($from.depth);
-  let endPos = $to.end($to.depth);
-  const target = Math.max(0, findAncestorPosition(doc, $from).depth - 1);
-
-  tr.doc.nodesBetween(startPos, endPos, (node, pos) => {
-    if (
-      node.isText || // Text node
-      (node.isTextblock && !node.textContent) // Empty paragraph
-    ) {
-      const res = tr.doc.resolve(tr.mapping.map(pos));
-      const sel = new NodeSelection(res);
-      const range = sel.$from.blockRange(sel.$to)!;
-
-      if (liftTarget(range as NodeRange) !== undefined) {
-        tr.lift(range, target);
-      }
-    }
-  });
-
-  startPos = tr.mapping.map(startPos);
-  endPos = tr.mapping.map(endPos);
-  endPos = tr.doc.resolve(endPos).end(tr.doc.resolve(endPos).depth); // We want to select the entire node
-
-  tr.setSelection(
-    new TextSelection(tr.doc.resolve(startPos), tr.doc.resolve(endPos)),
-  );
-
-  return {
-    tr: tr,
-    $from: tr.doc.resolve(startPos),
-    $to: tr.doc.resolve(endPos),
-  };
-}
-
-/**
- * Lift nodes in block to one level above.
- */
-export function liftSiblingNodes(view: EditorView) {
-  const { tr } = view.state;
-  const { $from, $to } = view.state.selection;
-  const blockStart = tr.doc.resolve($from.start($from.depth - 1));
-  const blockEnd = tr.doc.resolve($to.end($to.depth - 1));
-  const range = blockStart.blockRange(blockEnd)!;
-  view.dispatch(tr.lift(range as NodeRange, blockStart.depth - 1));
-}
-
-/**
- * Lift sibling nodes to document-level and select them.
- */
-export function liftAndSelectSiblingNodes(view: EditorView): Transaction {
-  const { tr } = view.state;
-  const { $from, $to } = view.state.selection;
-  const blockStart = tr.doc.resolve($from.start($from.depth - 1));
-  const blockEnd = tr.doc.resolve($to.end($to.depth - 1));
-  // TODO: [ts30] handle void and null properly
-  const range = blockStart.blockRange(blockEnd) as NodeRange;
-  tr.setSelection(new TextSelection(blockStart, blockEnd));
-  tr.lift(range as NodeRange, blockStart.depth - 1);
-  return tr;
-}
-
-export function wrapIn(
-  nodeType: NodeType,
-  tr: Transaction,
-  $from: ResolvedPos,
-  $to: ResolvedPos,
-): Transaction {
-  const range = $from.blockRange($to) as any;
-  const wrapping = range && (findWrapping(range, nodeType) as any);
-  if (wrapping) {
-    tr = tr.wrap(range, wrapping).scrollIntoView();
-  }
-  return tr;
 }
 
 const transformer = new JSONTransformer();

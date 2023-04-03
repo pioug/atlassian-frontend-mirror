@@ -58,14 +58,6 @@ exports[`BackButton Should match snapshot 1`] = `
   transition-duration: 0s,0.15s;
 }
 
-.emotion-3:focus {
-  background: var(--ds-background-neutral-subtle, none);
-  color: var(--ds-text, #42526E)!important;
-  box-shadow: 0 0 0 2px var(--ds-border-focused, #4C9AFF);
-  transition-duration: 0s,0.2s;
-  outline: none;
-}
-
 .emotion-3:active {
   background: var(--ds-background-neutral-subtle-pressed, rgba(179, 212, 255, 0.6));
   color: var(--ds-text, #0052CC)!important;
@@ -102,6 +94,24 @@ exports[`BackButton Should match snapshot 1`] = `
   border: 0;
   margin: 0;
   padding: 0;
+}
+
+.emotion-3:focus-visible {
+  outline: 2px solid var(--ds-border-focused, #4C9AFF);
+  outline-offset: 2px;
+}
+
+@supports not selector(*:focus-visible) {
+  .emotion-3:focus {
+    outline: 2px solid var(--ds-border-focused, #4C9AFF);
+    outline-offset: 2px;
+  }
+}
+
+@media screen and (forced-colors: active),screen and (-ms-high-contrast: active) {
+  .emotion-3:focus-visible {
+    outline: 1px solid;
+  }
 }
 
 .emotion-1 {

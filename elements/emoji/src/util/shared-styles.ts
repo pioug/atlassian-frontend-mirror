@@ -1,5 +1,4 @@
 import { token } from '@atlaskit/tokens';
-import { borderRadius } from '@atlaskit/theme/constants';
 import { N40, N30 } from '@atlaskit/theme/colors';
 
 import { emojiPickerWidth } from './constants';
@@ -13,7 +12,7 @@ export const emojiPickerBoxShadow = token(
   '0 3px 6px rgba(0, 0, 0, 0.2)',
 );
 export const noDialogContainerBorderColor = token('color.border', N40);
-export const noDialogContainerBorderRadius = `${borderRadius()}px`;
+export const noDialogContainerBorderRadius = token('border.radius.100', '3px');
 export const noDialogContainerBoxShadow = token(
   'elevation.shadow.overlay',
   '0 3px 6px rgba(0, 0, 0, 0.2)',

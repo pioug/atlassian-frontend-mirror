@@ -42,9 +42,6 @@ export interface Props {
   zIndex?: number | string;
   offsetX?: number;
   offsetY?: number;
-
-  showTeamMentionsHighlight?: boolean;
-  createTeamPath?: string;
 }
 
 export interface State {
@@ -231,7 +228,6 @@ export class MentionPicker extends React.PureComponent<
 
   render() {
     const {
-      createTeamPath,
       resourceProvider,
       presenceProvider,
       onSelection,
@@ -241,7 +237,6 @@ export class MentionPicker extends React.PureComponent<
       zIndex,
       offsetX,
       offsetY,
-      showTeamMentionsHighlight,
       intl,
     } = this.props;
     const { visible, info } = this.state;
@@ -253,8 +248,6 @@ export class MentionPicker extends React.PureComponent<
         onSelection={onSelection}
         query={query}
         ref={this.handleMentionListRef}
-        isTeamMentionHighlightEnabled={!!showTeamMentionsHighlight}
-        createTeamPath={createTeamPath}
       />
     );
 

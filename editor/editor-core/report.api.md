@@ -23,6 +23,7 @@ import { ACTION } from '@atlaskit/editor-common/analytics';
 import { ACTION_SUBJECT } from '@atlaskit/editor-common/analytics';
 import { ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
 import { ActivityProvider } from '@atlaskit/activity-provider';
+import { AllEditorPresetPluginTypes } from '@atlaskit/editor-common/types';
 import { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
 import { AnalyticsEventPayload as AnalyticsEventPayload_2 } from '@atlaskit/analytics-next/AnalyticsEvent';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
@@ -45,10 +46,10 @@ import { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { DropdownOptionT } from '@atlaskit/editor-common/types';
 import { EditorActionsOptions } from '@atlaskit/editor-common/types';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { EditorAppearance } from '@atlaskit/editor-common/types';
 import { FeatureFlags as EditorFeatureFlags } from '@atlaskit/editor-common/types';
 import { EditorPlugin } from '@atlaskit/editor-common/types';
+import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 import { EditorReactContext } from '@atlaskit/editor-common/types';
 import { EditorSelectionAPI } from '@atlaskit/editor-common/selection';
 import { EditorState } from 'prosemirror-state';
@@ -133,7 +134,6 @@ import type { SelectOption } from '@atlaskit/editor-common/types';
 import { setTextSelection } from '@atlaskit/editor-common/utils';
 import { SEVERITY } from '@atlaskit/editor-common/utils';
 import { TaskDecisionProvider } from '@atlaskit/task-decision';
-import { TeamMentionProvider } from '@atlaskit/mention/resource';
 import { TeamMentionResource } from '@atlaskit/mention/team-resource';
 import type { ThemeModes } from '@atlaskit/theme/types';
 import { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types';
@@ -255,12 +255,7 @@ type BasePortalProviderProps = {
 } & WrappedComponentProps;
 
 // @public (undocumented)
-export class BaseReactEditorView<T = {}> extends ReactEditorView_2<T> {
-  // (undocumented)
-  static defaultProps: {
-    getEditorPlugins: GetEditorPlugins;
-  };
-}
+export class BaseReactEditorView<T = {}> extends ReactEditorView_2<T> {}
 
 // @public (undocumented)
 type BeforeAndAfterToolbarComponents = {
@@ -613,7 +608,7 @@ type EditInsertedState = {
 // @public (undocumented)
 export class Editor extends React_2.Component<
   EditorProps,
-  ProviderFactoryState
+  ProviderFactoryState & PresetState
 > {
   constructor(props: EditorProps, context: Context);
   componentDidMount(): void;
@@ -650,7 +645,10 @@ export class Editor extends React_2.Component<
   ) => Promise<QuickInsertProvider> | undefined;
   // (undocumented)
   static propTypes: {
-    minHeight: ({ appearance, minHeight }: EditorProps) => Error | null;
+    minHeight: ({
+      appearance,
+      minHeight,
+    }: Pick<EditorProps, 'appearance' | 'minHeight'>) => Error | null;
   };
   // @deprecated (undocumented)
   registerEditorForActions(
@@ -747,6 +745,79 @@ export class EditorActions<T = any> implements EditorActionsOptions<T> {
 }
 
 // @public (undocumented)
+interface EditorBaseProps
+  extends EditorPluginFeatureProps,
+    EditorProviderProps {
+  // (undocumented)
+  appearance?: EditorAppearance;
+  // (undocumented)
+  codeBlock?: CodeBlockOptions;
+  // (undocumented)
+  contentComponents?: ReactComponents;
+  // (undocumented)
+  contentTransformerProvider?: (schema: Schema) => Transformer_2<string>;
+  // (undocumented)
+  contextPanel?: ReactComponents;
+  // (undocumented)
+  defaultValue?: Node_2 | Object | string;
+  // (undocumented)
+  disabled?: boolean;
+  // (undocumented)
+  editorActions?: EditorActions;
+  // (undocumented)
+  errorReporterHandler?: ErrorReportingHandler;
+  // (undocumented)
+  extensionProviders?: ExtensionProvidersProp;
+  featureFlags?: {
+    [featureFlag: string]: boolean | string;
+  };
+  // @deprecated
+  inputSamplingLimit?: number;
+  // (undocumented)
+  maxHeight?: number;
+  // (undocumented)
+  minHeight?: number;
+  // (undocumented)
+  onCancel?: (editorView: EditorView) => void;
+  // (undocumented)
+  onChange?: EditorOnChangeHandler;
+  // (undocumented)
+  onDestroy?: () => void;
+  // (undocumented)
+  onEditorReady?: (editorActions: EditorActions) => void;
+  // (undocumented)
+  persistScrollGutter?: boolean;
+  // (undocumented)
+  placeholder?: string;
+  // (undocumented)
+  placeholderBracketHint?: string;
+  // (undocumented)
+  popupsBoundariesElement?: HTMLElement;
+  // (undocumented)
+  popupsMountPoint?: HTMLElement;
+  // (undocumented)
+  popupsScrollableElement?: HTMLElement;
+  // (undocumented)
+  primaryToolbarIconBefore?: ReactElement;
+  // (undocumented)
+  quickInsert?: QuickInsertOptions;
+  // (undocumented)
+  secondaryToolbarComponents?: ReactComponents;
+  // (undocumented)
+  shouldFocus?: boolean;
+  // (undocumented)
+  textFormatting?: TextFormattingOptions;
+  trackValidTransactions?:
+    | boolean
+    | {
+        samplingRate: number;
+      };
+  // (undocumented)
+  UNSAFE_useAnalyticsContext?: boolean;
+  useStickyToolbar?: UseStickyToolbarType;
+}
+
+// @public (undocumented)
 interface EditorConfig {
   // (undocumented)
   contentComponents: UIComponentFactory[];
@@ -819,8 +890,8 @@ export class EditorMigrationComponent extends React_2.Component<EditorProps> {
 }
 
 // @public (undocumented)
-class EditorNext extends React_2.Component<EditorProps> {
-  constructor(props: EditorProps, context: Context);
+class EditorNext extends React_2.Component<EditorNextProps> {
+  constructor(props: EditorNextProps, context: Context);
   // (undocumented)
   static contextTypes: {
     editorActions: PropTypes.Requireable<object>;
@@ -828,10 +899,23 @@ class EditorNext extends React_2.Component<EditorProps> {
   static defaultProps: EditorProps;
   // (undocumented)
   static propTypes: {
-    minHeight: ({ appearance, minHeight }: EditorProps) => Error | null;
+    preset: ({ preset }: Pick<EditorNextProps, 'preset'>) => Error | null;
+    minHeight: ({
+      appearance,
+      minHeight,
+    }: Pick<EditorProps, 'appearance' | 'minHeight'>) => Error | null;
   };
   // (undocumented)
   render(): jsx.JSX.Element;
+}
+
+// @public (undocumented)
+interface EditorNextProps
+  extends EditorBaseProps,
+    EditorSharedPropsWithPlugins,
+    EditorProviderProps {
+  // (undocumented)
+  preset: EditorPresetBuilder<string[], AllEditorPresetPluginTypes[]>;
 }
 
 // @public (undocumented)
@@ -846,8 +930,6 @@ export { EditorPlugin };
 
 // @public (undocumented)
 interface EditorPluginFeatureProps {
-  // (undocumented)
-  allowAnalyticsGASV3?: boolean;
   // (undocumented)
   allowBlockType?: BlockTypePluginOptions['allowBlockType'];
   // (undocumented)
@@ -890,20 +972,12 @@ interface EditorPluginFeatureProps {
         menuDisabled: boolean;
       };
   // (undocumented)
-  allowTables?: PluginConfig | boolean;
-  // (undocumented)
   allowTasksAndDecisions?: boolean;
   // (undocumented)
   allowTemplatePlaceholders?: PlaceholderTextOptions | boolean;
   // (undocumented)
   allowTextAlignment?: boolean;
-  // (undocumented)
-  allowTextColor?: TextColorPluginConfig | boolean;
-  // (undocumented)
-  allowUndoRedoButtons?: boolean;
   autoScrollIntoView?: boolean;
-  // (undocumented)
-  collabEdit?: CollabEditOptions;
   // (undocumented)
   elementBrowser?: {
     showModal?: boolean;
@@ -916,29 +990,13 @@ interface EditorPluginFeatureProps {
   // (undocumented)
   feedbackInfo?: FeedbackInfo;
   // (undocumented)
-  insertMenuItems?: MenuItem[];
-  linking?: LinkingOptions;
-  // (undocumented)
   maxContentSize?: number;
-  // (undocumented)
-  media?: MediaOptions;
   // (undocumented)
   mention?: MentionPluginConfig;
   // @deprecated
   mentionInsertDisplayName?: boolean;
   // (undocumented)
-  onSave?: (editorView: EditorView) => void;
-  performanceTracking?: PerformanceTracking;
-  // (undocumented)
-  primaryToolbarComponents?: PrimaryToolbarComponents;
-  // (undocumented)
-  sanitizePrivateContent?: boolean;
-  // (undocumented)
   saveOnEnter?: boolean;
-  // @deprecated (undocumented)
-  smartLinks?: CardOptions;
-  // @deprecated (undocumented)
-  UNSAFE_cards?: CardOptions;
   // (undocumented)
   uploadErrorHandler?: (state: MediaState) => void;
   // (undocumented)
@@ -960,79 +1018,14 @@ type EditorProduct = 'bitbucket' | 'confluence' | 'jira' | 'stride' | undefined;
 
 // @public (undocumented)
 export interface EditorProps
-  extends EditorPluginFeatureProps,
+  extends EditorBaseProps,
+    EditorPluginFeatureProps,
+    EditorSharedPropsWithPlugins,
     EditorProviderProps {
-  // (undocumented)
-  appearance?: EditorAppearance;
-  // (undocumented)
-  codeBlock?: CodeBlockOptions;
-  // (undocumented)
-  contentComponents?: ReactComponents;
-  // (undocumented)
-  contentTransformerProvider?: (schema: Schema) => Transformer_2<string>;
-  // (undocumented)
-  contextPanel?: ReactComponents;
   // @deprecated (undocumented)
   dangerouslyAppendPlugins?: {
     __plugins: EditorPlugin[];
   };
-  // (undocumented)
-  defaultValue?: Node_2 | Object | string;
-  // (undocumented)
-  disabled?: boolean;
-  // (undocumented)
-  editorActions?: EditorActions;
-  // (undocumented)
-  errorReporterHandler?: ErrorReportingHandler;
-  // (undocumented)
-  extensionProviders?: ExtensionProvidersProp;
-  featureFlags?: {
-    [featureFlag: string]: boolean | string;
-  };
-  // @deprecated
-  inputSamplingLimit?: number;
-  // (undocumented)
-  maxHeight?: number;
-  // (undocumented)
-  minHeight?: number;
-  // (undocumented)
-  onCancel?: (editorView: EditorView) => void;
-  // (undocumented)
-  onChange?: EditorOnChangeHandler;
-  // (undocumented)
-  onDestroy?: () => void;
-  // (undocumented)
-  onEditorReady?: (editorActions: EditorActions) => void;
-  // (undocumented)
-  persistScrollGutter?: boolean;
-  // (undocumented)
-  placeholder?: string;
-  // (undocumented)
-  placeholderBracketHint?: string;
-  // (undocumented)
-  popupsBoundariesElement?: HTMLElement;
-  // (undocumented)
-  popupsMountPoint?: HTMLElement;
-  // (undocumented)
-  popupsScrollableElement?: HTMLElement;
-  // (undocumented)
-  primaryToolbarIconBefore?: ReactElement;
-  // (undocumented)
-  quickInsert?: QuickInsertOptions;
-  // (undocumented)
-  secondaryToolbarComponents?: ReactComponents;
-  // (undocumented)
-  shouldFocus?: boolean;
-  // (undocumented)
-  textFormatting?: TextFormattingOptions;
-  trackValidTransactions?:
-    | boolean
-    | {
-        samplingRate: number;
-      };
-  // (undocumented)
-  UNSAFE_useAnalyticsContext?: boolean;
-  useStickyToolbar?: RefObject<HTMLElement> | boolean;
 }
 
 // @public (undocumented)
@@ -1070,8 +1063,6 @@ interface EditorProviderProps {
   // (undocumented)
   collabEditProvider?: Providers['collabEditProvider'];
   // (undocumented)
-  contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
-  // (undocumented)
   emojiProvider?: Providers['emojiProvider'];
   // (undocumented)
   legacyImageUploadProvider?: Providers['imageUploadProvider'];
@@ -1088,6 +1079,38 @@ interface EditorProviderProps {
 }
 
 // @public (undocumented)
+interface EditorSharedPropsWithPlugins {
+  // (undocumented)
+  allowAnalyticsGASV3?: boolean;
+  // (undocumented)
+  allowTables?: PluginConfig | boolean;
+  // (undocumented)
+  allowTextColor?: TextColorPluginConfig | boolean;
+  // (undocumented)
+  allowUndoRedoButtons?: boolean;
+  // (undocumented)
+  collabEdit?: CollabEditOptions;
+  // (undocumented)
+  contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
+  // (undocumented)
+  insertMenuItems?: MenuItem[];
+  linking?: LinkingOptions;
+  // (undocumented)
+  media?: MediaOptions;
+  // (undocumented)
+  onSave?: (editorView: EditorView) => void;
+  performanceTracking?: PerformanceTracking;
+  // (undocumented)
+  primaryToolbarComponents?: PrimaryToolbarComponents;
+  // (undocumented)
+  sanitizePrivateContent?: boolean;
+  // @deprecated (undocumented)
+  smartLinks?: CardOptions;
+  // @deprecated (undocumented)
+  UNSAFE_cards?: CardOptions;
+}
+
+// @public (undocumented)
 interface EditorViewProps {
   // (undocumented)
   allowAnalyticsGASV3?: boolean;
@@ -1096,11 +1119,9 @@ interface EditorViewProps {
   // (undocumented)
   disabled?: boolean;
   // (undocumented)
-  editorProps: EditorProps;
+  editorProps: EditorNextProps | EditorProps;
   // (undocumented)
   experienceStore?: ExperienceStore;
-  // (undocumented)
-  getEditorPlugins?: GetEditorPlugins;
   // (undocumented)
   onEditorCreated: (instance: {
     view: EditorView;
@@ -1117,6 +1138,8 @@ interface EditorViewProps {
   }) => void;
   // (undocumented)
   portalProviderAPI: PortalProviderAPI;
+  // (undocumented)
+  preset: EditorPresetBuilder<string[], AllEditorPresetPluginTypes[]>;
   // (undocumented)
   providerFactory: ProviderFactory;
   // (undocumented)
@@ -1242,18 +1265,6 @@ export function getDefaultPresetOptionsFromEditorProps(
   props: EditorProps,
   createAnalyticsEvent?: CreateUIAnalyticsEvent,
 ): EditorPresetProps & DefaultPresetPluginOptions & EditorPluginFeatureProps;
-
-// @public (undocumented)
-type GetEditorPlugins = (props: GetEditorPluginsProps) => EditorPlugin[];
-
-// @public (undocumented)
-type GetEditorPluginsProps = {
-  props: EditorProps;
-  prevAppearance?: EditorAppearance;
-  createAnalyticsEvent?: CreateUIAnalyticsEvent;
-  insertNodeAPI?: InsertNodeAPI;
-  editorAnalyticsAPI?: EditorAnalyticsAPI;
-};
 
 // @public (undocumented)
 export const getListCommands: () => {
@@ -1468,20 +1479,6 @@ export const insertMediaSingleNode: (
   collection?: string | undefined,
   alignLeftOnInsert?: boolean | undefined,
 ) => boolean;
-
-// @public (undocumented)
-type InsertNodeAPI = {
-  insert: (props: InsertNodeConfig) => boolean;
-};
-
-// @public (undocumented)
-type InsertNodeConfig = {
-  node: 'table';
-  options: {
-    selectNodeInserted: boolean;
-    analyticsPayload?: AnalyticsEventPayload;
-  };
-};
 
 // @public (undocumented)
 type InsertState = {
@@ -1883,7 +1880,7 @@ export const mentionPluginKey: PluginKey<MentionPluginState, any>;
 
 // @public (undocumented)
 export type MentionPluginState = {
-  mentionProvider?: MentionProvider_2 | TeamMentionProvider;
+  mentionProvider?: MentionProvider_2;
   contextIdentifierProvider?: ContextIdentifierProvider;
   mentions?: Array<MentionDescription>;
 };
@@ -1984,7 +1981,6 @@ interface PanelPluginConfig {
 
 // @public (undocumented)
 type PastePluginOptions = {
-  plainTextPasteLinkification?: boolean;
   cardOptions?: CardOptions;
   sanitizePrivateContent?: boolean;
 };
@@ -2149,6 +2145,11 @@ type Predicate = (state: EditorState, view?: EditorView) => boolean;
 export { PresenceProvider };
 
 export { PresenceResource };
+
+// @public (undocumented)
+type PresetState = {
+  preset: EditorPresetBuilder<string[], AllEditorPresetPluginTypes[]>;
+};
 
 // @public (undocumented)
 type PrimaryToolbarComponents =
@@ -2342,10 +2343,10 @@ class ReactEditorView_2<T = {}> extends React_2.Component<
     state?: EditorState<any> | undefined,
   ) => DirectEditorProps;
   // (undocumented)
+  getEditorState: () => EditorState<any> | undefined;
+  // (undocumented)
   getPlugins(
-    editorProps: EditorProps,
-    prevEditorProps?: EditorProps,
-    createAnalyticsEvent?: CreateUIAnalyticsEvent,
+    preset: EditorPresetBuilder<string[], AllEditorPresetPluginTypes[]>,
   ): EditorPlugin[];
   // (undocumented)
   handleAnalyticsEvent: FireAnalyticsCallback;
@@ -2354,7 +2355,7 @@ class ReactEditorView_2<T = {}> extends React_2.Component<
   // (undocumented)
   proseMirrorRenderedSeverity?: SEVERITY;
   // (undocumented)
-  reconfigureState: (props: EditorViewProps) => void;
+  reconfigureState(props: EditorViewProps): void;
   // (undocumented)
   render(): JSX.Element;
   // (undocumented)
@@ -2871,6 +2872,14 @@ export const updateStatusWithAnalytics: (
 ) => Command;
 
 // @public (undocumented)
+type UseStickyToolbarType =
+  | RefObject<HTMLElement>
+  | boolean
+  | {
+      offsetTop: number;
+    };
+
+// @public (undocumented)
 export const version: string;
 
 // @public (undocumented)
@@ -2936,8 +2945,8 @@ export { WithPluginState };
 
 ```json
 {
-  "@atlaskit/link-provider": "^1.4.0",
-  "@atlaskit/media-core": "^34.0.1",
+  "@atlaskit/link-provider": "^1.5.0",
+  "@atlaskit/media-core": "^34.0.2",
   "react": "^16.8.0",
   "react-dom": "^16.8.0",
   "react-intl-next": "npm:react-intl@^5.18.1"

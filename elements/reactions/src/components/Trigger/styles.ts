@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { css } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
-import { N70, N20, N40 } from '@atlaskit/theme/colors';
+import { N70, N20, N40, B100 } from '@atlaskit/theme/colors';
 import { borderRadius } from '@atlaskit/theme/constants';
 
 export const DISABLED_BUTTON_COLOR = `${token(
@@ -32,5 +32,10 @@ export const triggerStyle = ({ miniMode = false, disabled = false }) =>
     }),
     '&:hover': {
       background: `${token('color.background.neutral.subtle.hovered', N20)}`,
+    },
+    '&:focus': {
+      boxShadow: `0 0 0 2px ${token('color.border.focused', B100)}`,
+      transitionDuration: '0s, 0.2s',
+      outline: 'none',
     },
   });

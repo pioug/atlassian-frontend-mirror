@@ -27,8 +27,7 @@ export const getFindReplacePreset = (
   if (createAnalyticsEvent) {
     preset = preset.add([analyticsPlugin, { createAnalyticsEvent }]);
   }
-  preset.add(textFormattingPlugin);
-  return preset;
+  return preset.add(textFormattingPlugin);
 };
 
 export const editor = (

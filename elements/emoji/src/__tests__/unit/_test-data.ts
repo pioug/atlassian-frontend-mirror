@@ -212,14 +212,6 @@ export const pngFileUploadData = {
   dataURL: pngDataURL,
 };
 
-export const onRowsRenderedArgs = (
-  overscanStartIndex = 0,
-  startIndex = 0,
-  stopIndex = 0,
-  overscanStopIndex = 0,
-) => ({
-  overscanStartIndex,
+export const onRowsRenderedArgs = (startIndex = 0) => ({
   startIndex,
-  stopIndex,
-  overscanStopIndex,
 });

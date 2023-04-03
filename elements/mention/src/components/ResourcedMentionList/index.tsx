@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import {
   withAnalyticsEvents,
   WithAnalyticsEventsProps,
@@ -9,8 +9,6 @@ import { MentionDescription, OnMentionEvent } from '../../types';
 import uniqueId from '../../util/id';
 import debug from '../../util/logger';
 import MentionList from '../MentionList';
-import { LazyTeamMentionHighlight } from '../TeamMentionHighlight/lazy';
-import TeamMentionHighlightController from '../TeamMentionHighlight/TeamMentionHighlightController';
 import { fireSliAnalyticsEvent, SLI_EVENT_TYPE } from '../../util/analytics';
 
 function applyPresence(mentions: MentionDescription[], presences: PresenceMap) {
@@ -46,8 +44,6 @@ export interface Props {
   query?: string;
   onSelection?: OnMentionEvent;
   resourceError?: Error;
-  isTeamMentionHighlightEnabled?: boolean;
-  createTeamPath?: string; // link to create a team, with context for in-product directories
 }
 
 export interface State {
@@ -241,41 +237,11 @@ export class ResourcedMentionListWithoutAnalytics extends React.PureComponent<
     this.mentionListRef = ref;
   };
 
-  private closeHighlight = () => {
-    TeamMentionHighlightController.registerClosed();
-  };
-
-  private mentionsHighlight = () => {
-    const { mentions } = this.state;
-    const { isTeamMentionHighlightEnabled, createTeamPath } = this.props;
-    const enabledViaLocalStorage =
-      TeamMentionHighlightController.isHighlightEnabled();
-
-    const shouldShow =
-      enabledViaLocalStorage &&
-      isTeamMentionHighlightEnabled &&
-      mentions &&
-      mentions.length > 0;
-    if (!shouldShow) {
-      return null;
-    }
-
-    return (
-      <Suspense fallback={null}>
-        <LazyTeamMentionHighlight
-          createTeamLink={createTeamPath}
-          onClose={this.closeHighlight}
-        />
-      </Suspense>
-    );
-  };
-
   render() {
     const { mentions, resourceError } = this.state;
 
     return (
       <MentionList
-        initialHighlightElement={this.mentionsHighlight()}
         mentions={mentions}
         resourceError={resourceError}
         onSelection={this.notifySelection}

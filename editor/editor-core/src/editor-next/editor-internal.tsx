@@ -1,5 +1,8 @@
 /** @jsx jsx */
-import { Transformer } from '@atlaskit/editor-common/types';
+import type {
+  Transformer,
+  AllEditorPresetPluginTypes,
+} from '@atlaskit/editor-common/types';
 import { BaseTheme, WidthProvider } from '@atlaskit/editor-common/ui';
 import { jsx, css } from '@emotion/react';
 import { EditorView } from 'prosemirror-view';
@@ -20,7 +23,7 @@ import {
   ACTION_SUBJECT,
   FireAnalyticsCallback,
 } from '@atlaskit/editor-common/analytics';
-import { EditorProps } from '../types/editor-props';
+import { EditorProps, EditorNextProps } from '../types/editor-props';
 import EditorContext from '../ui/EditorContext';
 import {
   PortalProviderWithThemeProviders,
@@ -31,10 +34,10 @@ import { getBaseFontSize } from './utils/getBaseFontSize';
 import useMeasureEditorMountTime from './hooks/useMeasureEditorMountTime';
 import useProviderFactory from './hooks/useProviderFactory';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { GetEditorPlugins } from '../types/get-editor-props';
+import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 
-interface Props {
-  props: EditorProps;
+interface Props<PropsType> {
+  props: PropsType;
   handleAnalyticsEvent: FireAnalyticsCallback;
   createAnalyticsEvent: CreateUIAnalyticsEvent;
   handleSave: (view: EditorView) => void;
@@ -49,10 +52,11 @@ interface Props {
     view: EditorView;
     transformer?: Transformer<string>;
   }) => void;
-  getEditorPlugins: GetEditorPlugins;
+  preset: EditorPresetBuilder<string[], AllEditorPresetPluginTypes[]>;
 }
 
-interface InternalProps extends Omit<Props, 'getExperienceStore'> {
+interface InternalProps
+  extends Omit<Props<EditorNextProps | EditorProps>, 'getExperienceStore'> {
   providerFactory: ProviderFactory;
 }
 
@@ -60,7 +64,7 @@ interface InternalProps extends Omit<Props, 'getExperienceStore'> {
  * EditorInternal is used for the internal editor react component
  * with the lifecycle methods extracted into hooks.
  */
-export default function EditorInternal(props: Props) {
+export default function EditorInternal(props: Props<EditorNextProps>) {
   const {
     props: editorProps,
     getExperienceStore,
@@ -97,7 +101,7 @@ export function EditorInternalWithoutHooks({
   providerFactory,
   onEditorCreated,
   onEditorDestroyed,
-  getEditorPlugins,
+  preset,
 }: InternalProps) {
   const Component = getUiComponent(props.appearance!);
 
@@ -146,7 +150,7 @@ export function EditorInternalWithoutHooks({
                       onEditorDestroyed={onEditorDestroyed}
                       allowAnalyticsGASV3={props.allowAnalyticsGASV3}
                       disabled={props.disabled}
-                      getEditorPlugins={getEditorPlugins}
+                      preset={preset}
                       render={({
                         editor,
                         view,

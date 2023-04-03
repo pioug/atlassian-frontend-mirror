@@ -91,7 +91,11 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
     'without-frame': removeBorder,
   });
 
-  let customContainerStyles: CSSProperties = {};
+  let customContainerStyles: CSSProperties = {
+    width: '100%',
+  };
+
+  let newContentStyles = {};
 
   if (shouldBreakout) {
     const { type, ...breakoutStyles } = calculateBreakoutStyles({
@@ -100,8 +104,16 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
       widthStateLineLength: widthState.lineLength,
     });
 
+    newContentStyles = { ...breakoutStyles };
+
     customContainerStyles = breakoutStyles;
   }
+
+  newContentStyles = {
+    ...newContentStyles,
+    ...contentWrapper,
+  };
+
   return (
     <div
       ref={handleRef}
@@ -119,7 +131,7 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
           {children}
         </div>
         {hasBody && (
-          <div css={contentWrapper}>
+          <div css={newContentStyles}>
             <div
               css={content}
               ref={handleContentDOMRef}

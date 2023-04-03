@@ -826,7 +826,6 @@ describe('Media plugin', () => {
               collection: testCollectionName,
             })(),
           ),
-          p(),
         ),
       );
 

@@ -15,6 +15,44 @@ import {
 } from '@atlaskit/editor-common/provider-factory';
 import { stateKey } from './plugin-key';
 
+/**
+ * Microsoft Office includes a screenshot image when copying text content.
+ *
+ * This function determines whether or not we can ignore the image if it
+ * came from MS Office. We do this by checking for
+ *
+ * - plain text
+ * - HTML text which includes the MS Office namespace
+ * - the number of files and the file name/type
+ *
+ * It is easy to manually verify this using by using Office on Mac
+ * (or Excel if on Windows) and pasting into
+ * https://evercoder.github.io/clipboard-inspector/
+ *
+ * Note: image content in Word is stored in the `text/html` portion
+ * of the clipboard, not under `files` attachment like the screenshot.
+ *
+ * @returns boolean True if the paste event contains a screenshot from MS Office
+ */
+const hasScreenshotImageFromMSOffice = (ev?: Event): boolean => {
+  const { clipboardData } = ev as ClipboardEvent;
+
+  if (!clipboardData || clipboardData.files.length !== 1) {
+    return false;
+  }
+
+  const textPlain = !!clipboardData.getData('text/plain');
+  const textHtml = clipboardData.getData('text/html');
+  const isOfficeXMLNamespace = textHtml.includes(
+    'urn:schemas-microsoft-com:office:office',
+  );
+
+  const file = clipboardData.files[0];
+  const isImagePNG = file.type === 'image/png' && file.name === 'image.png';
+
+  return isImagePNG && textPlain && isOfficeXMLNamespace;
+};
+
 type DOMHandlerPredicate = (e: Event) => boolean;
 const createDOMHandler =
   (pred: DOMHandlerPredicate, eventName: string) =>
@@ -23,12 +61,16 @@ const createDOMHandler =
       return false;
     }
 
-    event.preventDefault();
-    event.stopPropagation();
+    const shouldUpload = !hasScreenshotImageFromMSOffice(event);
 
-    startImageUpload(event)(view.state, view.dispatch);
+    if (shouldUpload) {
+      event.preventDefault();
+      event.stopPropagation();
 
-    return true;
+      startImageUpload(event)(view.state, view.dispatch);
+    }
+
+    return shouldUpload;
   };
 
 const getNewActiveUpload = (
@@ -112,14 +154,19 @@ export const createPlugin = ({
           // if we've add a new upload to the state, execute the uploadHandler
           const oldState: ImageUploadPluginState =
             stateKey.getState(prevState)!;
+
           if (
             currentState.activeUpload !== oldState.activeUpload &&
             currentState.activeUpload &&
             uploadHandler
           ) {
-            uploadHandler(currentState.activeUpload.event, (options) =>
-              insertExternalImage(options)(view.state, view.dispatch),
-            );
+            const { event } = currentState.activeUpload;
+
+            if (!event || !hasScreenshotImageFromMSOffice(event)) {
+              uploadHandler(event, (options) =>
+                insertExternalImage(options)(view.state, view.dispatch),
+              );
+            }
           }
         },
 

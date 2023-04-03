@@ -17,7 +17,6 @@
 ```ts
 import { IntlShape } from 'react-intl-next';
 import { default as React_2 } from 'react';
-import { RefObject } from 'react';
 import { ServiceConfig } from '@atlaskit/util-service-support/types';
 import { SyntheticEvent } from 'react';
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
@@ -629,17 +628,6 @@ type OwnProps = {
 };
 
 // @public (undocumented)
-interface OwnProps_2 {
-  // (undocumented)
-  createTeamLink?: string;
-  onClose: () => void;
-  // (undocumented)
-  onCreateTeamLinkClick?: () => void;
-  // (undocumented)
-  onViewed?: () => void;
-}
-
-// @public (undocumented)
 type Position = 'above' | 'auto' | 'below';
 
 // @public (undocumented)
@@ -758,10 +746,6 @@ interface Props_2 {
 // @public (undocumented)
 interface Props_3 {
   // (undocumented)
-  createTeamPath?: string;
-  // (undocumented)
-  isTeamMentionHighlightEnabled?: boolean;
-  // (undocumented)
   onSelection?: OnMentionEvent;
   // (undocumented)
   presenceProvider?: PresenceProvider;
@@ -775,8 +759,6 @@ interface Props_3 {
 
 // @public (undocumented)
 interface Props_4 {
-  // (undocumented)
-  createTeamPath?: string;
   // (undocumented)
   offsetX?: number;
   // (undocumented)
@@ -795,8 +777,6 @@ interface Props_4 {
   query?: string;
   // (undocumented)
   resourceProvider: MentionProvider;
-  // (undocumented)
-  showTeamMentionsHighlight?: boolean;
   // (undocumented)
   target?: string;
   // (undocumented)
@@ -823,9 +803,6 @@ interface Props_6 {
   // (undocumented)
   text: string;
 }
-
-// @public (undocumented)
-type Props_7 = OwnProps_2 & WithAnalyticsEventsProps_2;
 
 // @public
 export interface ResolvingMentionProvider extends MentionProvider {
@@ -943,12 +920,6 @@ interface State_4 {
 }
 
 // @public (undocumented)
-interface State_5 {
-  // (undocumented)
-  isHighlightHidden: boolean;
-}
-
-// @public (undocumented)
 export interface TeamMember {
   // (undocumented)
   id: string;
@@ -956,82 +927,10 @@ export interface TeamMember {
   name: string;
 }
 
-// @public (undocumented)
-export const TeamMentionHighlight: React_2.ForwardRefExoticComponent<
-  Pick<
-    Omit<Props_7, keyof WithAnalyticsEventsProps_2>,
-    'onClose' | 'onCreateTeamLinkClick' | 'onViewed'
-  > &
-    Partial<
-      Pick<Omit<Props_7, keyof WithAnalyticsEventsProps_2>, 'createTeamLink'>
-    > &
-    Partial<
-      Pick<
-        {
-          createTeamLink: string;
-        },
-        never
-      >
-    > &
-    React_2.RefAttributes<any>
->;
-
-// @public (undocumented)
-export type TeamMentionHighlight = TeamMentionHighlightInternal;
-
-// @public (undocumented)
-export class TeamMentionHighlightController {
-  // (undocumented)
-  static getSeenCount: () => number;
-  // (undocumented)
-  static isHighlightEnabled: () => boolean;
-  // (undocumented)
-  static registerClosed: () => void;
-  // (undocumented)
-  static registerCreateLinkClick: () => void;
-  // (undocumented)
-  static registerRender: () => TeamMentionState;
-  // (undocumented)
-  static registerTeamMention: () => void;
-}
-
-// @public (undocumented)
-class TeamMentionHighlightInternal extends React_2.Component<Props_7, State_5> {
-  constructor(props: Props_7);
-  // (undocumented)
-  componentDidMount(): void;
-  // (undocumented)
-  componentWillUnmount(): void;
-  // (undocumented)
-  static defaultProps: {
-    createTeamLink: string;
-  };
-  // (undocumented)
-  elCloseWrapper: RefObject<HTMLDivElement>;
-  // (undocumented)
-  elCreateTeamWrapper: RefObject<HTMLDivElement>;
-  // (undocumented)
-  elWrapper: RefObject<HTMLDivElement>;
-  // (undocumented)
-  onCloseClick: () => void;
-  // (undocumented)
-  onCreateTeamLinkClick: () => void;
-  // (undocumented)
-  render(): JSX.Element | null;
-}
-
-// @public (undocumented)
-interface TeamMentionProvider extends MentionProvider {
-  // (undocumented)
-  mentionTypeaheadCreateTeamPath: () => string | undefined;
-  // (undocumented)
-  mentionTypeaheadHighlightEnabled: () => boolean;
-}
-
 // @public
 export class TeamMentionResource
   extends MentionResource
-  implements TeamMentionProvider
+  implements MentionProvider
 {
   constructor(
     userMentionConfig: MentionResourceConfig,
@@ -1043,10 +942,6 @@ export class TeamMentionResource
     contextIdentifier?: MentionContextIdentifier,
   ): Promise<void>;
   // (undocumented)
-  mentionTypeaheadCreateTeamPath: () => string | undefined;
-  // (undocumented)
-  mentionTypeaheadHighlightEnabled: () => boolean;
-  // (undocumented)
   notify(
     searchTime: number,
     mentionResult: MentionsResult,
@@ -1057,19 +952,7 @@ export class TeamMentionResource
 // @public (undocumented)
 export interface TeamMentionResourceConfig extends MentionResourceConfig {
   // (undocumented)
-  createTeamPath?: string;
-  // (undocumented)
-  teamHighlightEnabled?: boolean;
-  // (undocumented)
   teamLinkResolver?: (teamId: string) => string;
-}
-
-// @public (undocumented)
-interface TeamMentionState {
-  // (undocumented)
-  dontShow: boolean;
-  // (undocumented)
-  seenCount: number;
 }
 
 // @public (undocumented)

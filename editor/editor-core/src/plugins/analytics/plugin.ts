@@ -41,6 +41,14 @@ function createPlugin(options: AnalyticsPluginOptions) {
         };
       },
       apply: (tr, pluginState, _, state) => {
+        if (pluginState.createAnalyticsEvent !== options.createAnalyticsEvent) {
+          // When the plugin state is reconfigured, the init function isn't called again
+          return {
+            ...pluginState,
+            createAnalyticsEvent: options.createAnalyticsEvent,
+          };
+        }
+
         if (getFeatureFlags(state)?.catchAllTracking) {
           const analyticsEventWithChannel =
             getAnalyticsEventsFromTransaction(tr);

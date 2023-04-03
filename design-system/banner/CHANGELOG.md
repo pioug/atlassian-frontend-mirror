@@ -1,5 +1,11 @@
 # @atlaskit/banner
 
+## 12.0.15
+
+### Patch Changes
+
+- [`699a5048af2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/699a5048af2) - [ux] Removes inaccurate role, tabindex, and aria-label from announcement banners.
+
 ## 12.0.14
 
 ### Patch Changes

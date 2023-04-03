@@ -45,13 +45,6 @@ import debounce from 'lodash/debounce';
 
 export interface TeamMentionResourceConfig extends MentionResourceConfig {
   teamLinkResolver?: (teamId: string) => string;
-  teamHighlightEnabled?: boolean;
-  createTeamPath?: string;
-}
-
-export interface TeamMentionProvider extends MentionProvider {
-  mentionTypeaheadHighlightEnabled: () => boolean;
-  mentionTypeaheadCreateTeamPath: () => string | undefined;
 }
 
 /**

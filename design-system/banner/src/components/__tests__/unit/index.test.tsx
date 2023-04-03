@@ -44,28 +44,8 @@ describe('banner', () => {
     });
 
     it('should have role=alert by default', () => {
-      const { getByTestId } = render(<Banner testId="banner" />);
-      const banner = getByTestId('banner');
-      expect(banner).toHaveAttribute('role', 'alert');
-    });
-
-    it('should have role=alert when appearance is "error"', () => {
-      const { getByTestId } = render(
-        <Banner testId="banner" appearance="error" />,
-      );
-      const banner = getByTestId('banner');
-      expect(banner).toHaveAttribute('role', 'alert');
-    });
-
-    it('should have correct a11y props when appearance is "announcement"', () => {
-      const { getByTestId } = render(
-        <Banner testId="banner" appearance="announcement" />,
-      );
-      const banner = getByTestId('banner');
-
-      expect(banner).toHaveAttribute('role', 'region');
-      expect(banner).toHaveAttribute('tabindex', '0');
-      expect(banner).toHaveAttribute('aria-label', 'announcement');
+      const { getByRole } = render(<Banner />);
+      expect(getByRole('alert')).toBeInTheDocument();
     });
   });
 });

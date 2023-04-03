@@ -15,6 +15,7 @@ import {
 import { EmojiTypeAhead } from '../src/typeahead';
 import { emojiTypeAheadMaxHeight } from '../src/util/shared-styles';
 import { EmojiId, OptionalEmojiDescription } from '../src/types';
+import { IntlProvider } from 'react-intl-next';
 
 class EmojiTypeAheadTextInput extends Component<
   TypeaheadProps,
@@ -143,11 +144,13 @@ const getTypeAhead = () => (
 
 export default function Example() {
   return (
-    <ResourcedEmojiControl
-      emojiConfig={getEmojiConfig()}
-      customEmojiProvider={emojiProvider}
-      children={getTypeAhead()}
-      customPadding={emojiTypeAheadMaxHeight}
-    />
+    <IntlProvider locale="en">
+      <ResourcedEmojiControl
+        emojiConfig={getEmojiConfig()}
+        customEmojiProvider={emojiProvider}
+        children={getTypeAhead()}
+        customPadding={emojiTypeAheadMaxHeight}
+      />
+    </IntlProvider>
   );
 }

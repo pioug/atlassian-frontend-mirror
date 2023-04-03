@@ -11,8 +11,6 @@ export const snapTo = (target: number, points: number[]): number => {
 
 export const handleSides: Array<'left' | 'right'> = ['left', 'right'];
 
-export const alignmentLayouts = ['align-start', 'align-end'];
-
 export const imageAlignmentMap = {
   left: 'start',
   right: 'end',

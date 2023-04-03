@@ -281,6 +281,7 @@ export type CellDomAttrs = {
   style?: string;
   colorname?: string;
   'data-colwidth'?: string;
+  'data-cell-background'?: string;
   class?: string;
 };
 

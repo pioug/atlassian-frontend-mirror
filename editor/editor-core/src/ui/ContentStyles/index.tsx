@@ -97,7 +97,7 @@ const contentStyles = (props: ContentStylesProps) => css`
   ${listsStyles}
   ${ruleStyles(props)}
   ${mediaStyles}
-  ${layoutStyles}
+  ${layoutStyles(props)}
   ${telepointerStyle}
   ${gapCursorStyles};
   ${tableStyles(props)}

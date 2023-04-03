@@ -15,7 +15,6 @@ export type {
 export {
   createAndFireMediaCustomMediaPlayerEvent,
   fireAnalyticsEvent,
-  relevantFeatureFlagNames,
 } from './utils/analytics';
 
 export type {

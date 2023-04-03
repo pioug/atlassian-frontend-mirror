@@ -3,6 +3,8 @@ import { Fragment, MouseEvent } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
+import { token } from '@atlaskit/tokens';
+
 import { gridSize, PRODUCT_HOME_BREAKPOINT } from '../../common/constants';
 import { useTheme } from '../../theme';
 
@@ -71,11 +73,10 @@ const productHomeButtonStyles = css({
     boxShadow: `var(${VAR_PRODUCT_HOME_BOX_SHADOW_ACTIVE})`,
     color: `var(${VAR_PRODUCT_HOME_COLOR_ACTIVE})`,
   },
-  '&:focus': {
+  '&:focus-visible': {
     backgroundColor: `var(${VAR_PRODUCT_HOME_BACKGROUND_COLOR_FOCUS})`,
-    boxShadow: `var(${VAR_PRODUCT_HOME_BOX_SHADOW_FOCUS})`,
     color: `var(${VAR_PRODUCT_HOME_COLOR_FOCUS})`,
-    outline: 0,
+    outline: `2px solid ${token('color.border.focused', '#4C9AFF')}`,
   },
 
   // eslint-disable-next-line @repo/internal/styles/no-nested-styles

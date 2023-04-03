@@ -46,7 +46,6 @@ import {
   CustomMediaPlayerUIEvent,
   CustomMediaPlayerAnalyticsEventPayload,
   fireAnalyticsEvent,
-  relevantFeatureFlagNames,
   createCustomMediaPlayerScreenEvent,
   createMediaButtonClickedEvent,
   createMediaShortcutPressedEvent,
@@ -835,15 +834,9 @@ export class CustomMediaPlayerBase extends Component<
 
 export const CustomMediaPlayer: React.ComponentType<
   CustomMediaPlayerProps & WithAnalyticsEventsProps
-> = withMediaAnalyticsContext(
-  {
-    packageVersion,
-    packageName,
-    componentName: 'customMediaPlayer',
-    component: 'customMediaPlayer',
-  },
-
-  {
-    filterFeatureFlags: relevantFeatureFlagNames,
-  },
-)(withAnalyticsEvents()(injectIntl(CustomMediaPlayerBase)));
+> = withMediaAnalyticsContext({
+  packageVersion,
+  packageName,
+  componentName: 'customMediaPlayer',
+  component: 'customMediaPlayer',
+})(withAnalyticsEvents()(injectIntl(CustomMediaPlayerBase)));

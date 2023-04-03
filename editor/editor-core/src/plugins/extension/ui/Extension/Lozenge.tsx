@@ -57,7 +57,7 @@ export default class ExtensionLozenge extends Component<Props, any> {
       extensionKey;
     const isBlockExtension = name === 'extension';
     return (
-      <div css={placeholderFallback}>
+      <div data-testid="lozenge-fallback" css={placeholderFallback}>
         {lozengeData && !isBlockExtension ? (
           this.renderImage({
             height: ICON_SIZE,

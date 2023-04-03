@@ -256,31 +256,43 @@ export default function baseStyles<Option, IsMulti extends boolean>(
       paddingTop: token('space.100', '8px'),
       paddingBottom: token('space.100', '8px'),
     }),
-    multiValue: (css, { isFocused }) => ({
-      ...css,
-      borderRadius: token('border.radius.050', '2px'),
-      backgroundColor: isFocused
-        ? token('color.background.selected', N40)
-        : token('color.background.neutral', N40),
-      boxShadow: isFocused
-        ? `0 0 0 2px ${token(
-            'elevation.surface',
-            'transparent',
-          )}, 0 0 0 4px ${token('color.border.focused', 'transparent')}`
-        : 'none',
-      maxWidth: '100%',
-      '@media screen and (-ms-high-contrast: active)': {
-        border: isFocused ? '1px solid transparent' : 'none',
-      },
+    multiValue: (css, { isDisabled, isFocused }) => {
+      let backgroundColor;
+      let color;
+      if (isDisabled) {
+        // Use the basic neutral background so it is slightly separate from the
+        // field's background
+        backgroundColor = token('color.background.neutral', N40);
+        color = token('color.text.disabled', N70);
+      } else if (isFocused) {
+        backgroundColor = token('color.background.selected', N40);
+        color = token('color.text.selected', 'hsl(0, 0%, 20%)');
+      } else {
+        backgroundColor = token('color.background.neutral', N40);
+        color = token('color.text', 'hsl(0, 0%, 20%)');
+      }
 
-      color: isFocused
-        ? token('color.text.selected', 'hsl(0, 0%, 20%)')
-        : token('color.text', 'hsl(0, 0%, 20%)'),
-    }),
-    multiValueLabel: (css) => ({
+      return {
+        ...css,
+        borderRadius: token('border.radius.050', '2px'),
+        backgroundColor,
+        boxShadow: isFocused
+          ? `0 0 0 2px ${token(
+              'elevation.surface',
+              'transparent',
+            )}, 0 0 0 4px ${token('color.border.focused', 'transparent')}`
+          : 'none',
+        maxWidth: '100%',
+        '@media screen and (-ms-high-contrast: active)': {
+          border: isFocused ? '1px solid transparent' : 'none',
+        },
+        color,
+      };
+    },
+    multiValueLabel: (css, { isDisabled }) => ({
       ...css,
       padding: token('space.025', '2px'),
-      color: 'inherit',
+      color: isDisabled ? token('color.text.disabled', N70) : 'inherit',
       paddingRight: token('space.025', '2px'),
     }),
     multiValueRemove: (css, { isFocused }) => ({

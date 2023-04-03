@@ -32,7 +32,10 @@ export default class ProviderFactory {
     return !this.providers.size && !this.subscribers.size;
   }
 
-  setProvider<T extends string>(name: T, provider?: ProviderType<T>): void {
+  setProvider<T extends ProviderName>(
+    name: T,
+    provider?: ProviderType<T>,
+  ): void {
     // Do not trigger notifyUpdate if provider is the same.
     if (this.providers.get(name) === provider) {
       return;

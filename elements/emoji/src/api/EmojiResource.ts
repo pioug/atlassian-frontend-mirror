@@ -148,6 +148,7 @@ export class EmojiResource
   protected emojiRepository?: EmojiRepository;
   protected lastQuery?: LastQuery;
   protected activeLoaders: number = 0;
+  protected initialLoaders: number = 0;
   protected retries: Map<Retry<any>, ResolveReject<any>> = new Map();
   protected siteEmojiResource?: SiteEmojiResource;
   protected selectedTone: ToneSelection;
@@ -170,6 +171,7 @@ export class EmojiResource
       throw new Error('No providers specified');
     }
 
+    this.initialLoaders = this.emojiProviderConfig.providers.length;
     this.activeLoaders = this.emojiProviderConfig.providers.length;
     this.emojiResponses = [];
   }
@@ -236,7 +238,11 @@ export class EmojiResource
     // happen if no emojiRepository exists
     // in case this method is called and emojiRepository has already been populated
     // the method will just return the existing emojiRepository
-    if (force || (!this.emojiRepository && !this.isInitialised)) {
+    if (
+      force ||
+      (!this.isRepositoryAvailable<EmojiRepository>(this.emojiRepository) &&
+        !this.isInitialised)
+    ) {
       this.isInitialised = true;
       this.emojiResponses = [];
       // fetch emoji providers
@@ -254,7 +260,10 @@ export class EmojiResource
     optimistic: boolean,
   ): Promise<OptionalEmojiDescriptionWithVariations> {
     // Check if repository exists and emoji is defined.
-    if (this.emojiRepository && this.isLoaded()) {
+    if (
+      this.isLoaded() &&
+      this.isRepositoryAvailable<EmojiRepository>(this.emojiRepository)
+    ) {
       const emoji = await this.findByEmojiId(emojiId);
       if (emoji) {
         return await this.getMediaEmojiDescriptionURLWithInlineToken(emoji);
@@ -275,7 +284,9 @@ export class EmojiResource
         if (!loadEmoji.emojis[0]) {
           return;
         }
-        if (!this.siteEmojiResource) {
+        if (
+          !this.isRepositoryAvailable<SiteEmojiResource>(this.siteEmojiResource)
+        ) {
           await this.initSiteEmojiResource(loadEmoji, provider);
         }
         return this.getMediaEmojiDescriptionURLWithInlineToken(
@@ -320,7 +331,10 @@ export class EmojiResource
     emojiResponse: EmojiResponse,
     provider: ServiceConfig,
   ): Promise<void> {
-    if (!this.siteEmojiResource && emojiResponse.mediaApiToken) {
+    if (
+      !this.isRepositoryAvailable<SiteEmojiResource>(this.siteEmojiResource) &&
+      emojiResponse.mediaApiToken
+    ) {
       this.siteEmojiResource = new SiteEmojiResource(
         provider,
         emojiResponse.mediaApiToken,
@@ -375,7 +389,12 @@ export class EmojiResource
     return;
   };
 
-  private isLoaded = () => this.activeLoaders === 0 && !!this.emojiRepository;
+  protected isRepositoryAvailable = <T>(repository?: T): repository is T => {
+    return !!repository;
+  };
+
+  private isLoaded = () =>
+    this.initialLoaders !== 0 && this.activeLoaders === 0;
 
   private loadStoredTone(): ToneSelection {
     if (typeof window === 'undefined') {
@@ -420,7 +439,10 @@ export class EmojiResource
   async getMediaEmojiDescriptionURLWithInlineToken(
     emoji: EmojiDescription,
   ): Promise<EmojiDescription> {
-    if (this.siteEmojiResource && isMediaRepresentation(emoji.representation)) {
+    if (
+      this.isRepositoryAvailable<SiteEmojiResource>(this.siteEmojiResource) &&
+      isMediaRepresentation(emoji.representation)
+    ) {
       const tokenisedMediaPath =
         await this.siteEmojiResource.generateTokenisedMediaURL(emoji);
       return {
@@ -439,7 +461,10 @@ export class EmojiResource
     emoji: EmojiDescription,
     useAlt?: boolean,
   ): OptionalEmojiDescription | Promise<OptionalEmojiDescription> {
-    if (!this.siteEmojiResource || !isMediaEmoji(emoji)) {
+    if (
+      !this.isRepositoryAvailable<SiteEmojiResource>(this.siteEmojiResource) ||
+      !isMediaEmoji(emoji)
+    ) {
       return emoji;
     }
     return this.siteEmojiResource.loadMediaEmoji(emoji, useAlt);
@@ -449,7 +474,9 @@ export class EmojiResource
     if (!isMediaEmoji(emoji)) {
       return true;
     }
-    if (!this.siteEmojiResource) {
+    if (
+      !this.isRepositoryAvailable<SiteEmojiResource>(this.siteEmojiResource)
+    ) {
       // Shouldn't have a media emoji without a siteEmojiResouce, but anyway ;)
       return false;
     }
@@ -475,7 +502,7 @@ export class EmojiResource
       query,
       options,
     };
-    if (this.emojiRepository) {
+    if (this.isRepositoryAvailable<EmojiRepository>(this.emojiRepository)) {
       const searchResults = this.emojiRepository.search(query, options);
       this.notifyResult(searchResults);
       ufoExperiences['emoji-searched'].success({
@@ -493,9 +520,12 @@ export class EmojiResource
   findByShortName(
     shortName: string,
   ): OptionalEmojiDescription | Promise<OptionalEmojiDescription> {
-    if (this.isLoaded()) {
+    if (
+      this.isLoaded() &&
+      this.isRepositoryAvailable<EmojiRepository>(this.emojiRepository)
+    ) {
       // Wait for all emoji to load before looking by shortName (to ensure correct priority)
-      return this.emojiRepository!.findByShortName(shortName);
+      return this.emojiRepository.findByShortName(shortName);
     }
     return this.retryIfLoading<any>(
       () => this.findByShortName(shortName),
@@ -507,16 +537,20 @@ export class EmojiResource
     emojiId: EmojiId,
   ): OptionalEmojiDescription | Promise<OptionalEmojiDescription> {
     const { id, shortName } = emojiId;
-    if (this.emojiRepository) {
+    if (this.isRepositoryAvailable<EmojiRepository>(this.emojiRepository)) {
       if (id) {
-        const emoji = this.emojiRepository.findById(id);
+        const emoji = this.emojiRepository!.findById(id);
         if (emoji) {
           return emoji;
         }
         if (this.isLoaded()) {
           // all loaded but not found by id, try server to see if
           // this is a newly uploaded emoji
-          if (this.siteEmojiResource) {
+          if (
+            this.isRepositoryAvailable<SiteEmojiResource>(
+              this.siteEmojiResource,
+            )
+          ) {
             return this.siteEmojiResource.findEmoji(emojiId).then((emoji) => {
               if (!emoji) {
                 // if not, fallback to searching by shortName to
@@ -543,30 +577,42 @@ export class EmojiResource
   findById(
     id: string,
   ): OptionalEmojiDescription | Promise<OptionalEmojiDescription> {
-    if (this.isLoaded()) {
-      return this.emojiRepository!.findById(id);
+    if (
+      this.isLoaded() &&
+      this.isRepositoryAvailable<EmojiRepository>(this.emojiRepository)
+    ) {
+      return this.emojiRepository.findById(id);
     }
 
     return this.retryIfLoading(() => this.findById(id), undefined);
   }
 
   findInCategory(categoryId: CategoryId): Promise<EmojiDescription[]> {
-    if (this.isLoaded()) {
-      return Promise.resolve(this.emojiRepository!.findInCategory(categoryId));
+    if (
+      this.isLoaded() &&
+      this.isRepositoryAvailable<EmojiRepository>(this.emojiRepository)
+    ) {
+      return Promise.resolve(this.emojiRepository.findInCategory(categoryId));
     }
     return this.retryIfLoading(() => this.findInCategory(categoryId), []);
   }
 
   getAsciiMap(): Promise<Map<string, EmojiDescription>> {
-    if (this.isLoaded()) {
-      return Promise.resolve(this.emojiRepository!.getAsciiMap());
+    if (
+      this.isLoaded() &&
+      this.isRepositoryAvailable<EmojiRepository>(this.emojiRepository)
+    ) {
+      return Promise.resolve(this.emojiRepository.getAsciiMap());
     }
     return this.retryIfLoading(() => this.getAsciiMap(), new Map());
   }
 
   getFrequentlyUsed(options?: SearchOptions): Promise<EmojiDescription[]> {
-    if (this.isLoaded()) {
-      return Promise.resolve(this.emojiRepository!.getFrequentlyUsed(options));
+    if (
+      this.isLoaded() &&
+      this.isRepositoryAvailable<EmojiRepository>(this.emojiRepository)
+    ) {
+      return Promise.resolve(this.emojiRepository.getFrequentlyUsed(options));
     }
 
     return this.retryIfLoading(() => this.getFrequentlyUsed(options), []);
@@ -581,7 +627,7 @@ export class EmojiResource
    */
   recordSelection(emoji: EmojiDescription): Promise<any> {
     const { recordConfig } = this;
-    if (this.emojiRepository) {
+    if (this.isRepositoryAvailable<EmojiRepository>(this.emojiRepository)) {
       this.emojiRepository.used(emoji);
     }
 
@@ -602,11 +648,17 @@ export class EmojiResource
   }
 
   deleteSiteEmoji(emoji: EmojiDescription): Promise<boolean> {
-    if (this.siteEmojiResource && emoji.id) {
+    if (
+      this.isRepositoryAvailable<SiteEmojiResource>(this.siteEmojiResource) &&
+      emoji.id
+    ) {
       return this.siteEmojiResource
         .deleteEmoji(emoji)
         .then((success) => {
-          if (success && this.emojiRepository) {
+          if (
+            success &&
+            this.isRepositoryAvailable<EmojiRepository>(this.emojiRepository)
+          ) {
             this.emojiRepository.delete(emoji);
             return true;
           }
@@ -644,8 +696,11 @@ export class EmojiResource
   }
 
   calculateDynamicCategories(): Promise<CategoryId[]> {
-    if (this.isLoaded()) {
-      return Promise.resolve(this.emojiRepository!.getDynamicCategoryList());
+    if (
+      this.isLoaded() &&
+      this.isRepositoryAvailable<EmojiRepository>(this.emojiRepository)
+    ) {
+      return Promise.resolve(this.emojiRepository.getDynamicCategoryList());
     }
 
     return this.retryIfLoading(() => this.calculateDynamicCategories(), []);
@@ -656,7 +711,7 @@ export class EmojiResource
   }
 
   protected addUnknownEmoji(emoji: EmojiDescription) {
-    if (this.emojiRepository) {
+    if (this.isRepositoryAvailable<EmojiRepository>(this.emojiRepository)) {
       this.emojiRepository.addUnknownEmoji(emoji);
     }
   }
@@ -677,7 +732,7 @@ export default class UploadingEmojiResource
     if (!this.allowUpload) {
       return Promise.resolve(false);
     }
-    if (this.siteEmojiResource) {
+    if (this.isRepositoryAvailable<SiteEmojiResource>(this.siteEmojiResource)) {
       return this.siteEmojiResource.hasUploadToken();
     }
     return this.retryIfLoading(() => this.isUploadSupported(), false);
@@ -688,7 +743,10 @@ export default class UploadingEmojiResource
     retry = false,
   ): Promise<EmojiDescription> {
     return this.isUploadSupported().then((supported) => {
-      if (!supported || !this.siteEmojiResource) {
+      if (
+        !supported ||
+        !this.isRepositoryAvailable<SiteEmojiResource>(this.siteEmojiResource)
+      ) {
         return Promise.reject('No media api support is configured');
       }
       return this.siteEmojiResource.uploadEmoji(upload, retry).then((emoji) => {
@@ -700,7 +758,7 @@ export default class UploadingEmojiResource
   }
 
   prepareForUpload(): Promise<void> {
-    if (this.siteEmojiResource) {
+    if (this.isRepositoryAvailable<SiteEmojiResource>(this.siteEmojiResource)) {
       this.siteEmojiResource.prepareForUpload();
     }
     return this.retryIfLoading(() => this.prepareForUpload(), undefined);

@@ -12,12 +12,6 @@ import {
 import { scrollbarStyles } from '../styles';
 import WithFlash from '../WithFlash';
 
-export interface ChromelessEditorProps {
-  isMaxContentSizeReached?: boolean;
-  maxHeight?: number;
-  minHeight?: number;
-}
-
 const chromelessEditor = css`
   line-height: 20px;
   height: auto;

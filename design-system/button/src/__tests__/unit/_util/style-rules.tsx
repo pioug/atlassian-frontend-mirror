@@ -25,8 +25,10 @@ export function hasStyleRule(selector: string, expected: CSSObject): boolean {
       [...(sheet as StyleSheet & CSSGroupingRule).cssRules],
     ),
   );
-  const matchSelector: CSSStyleRule[] = allRules.filter((rule) =>
-    rule.selectorText.trim().split(',').includes(selector),
+  const matchSelector: CSSStyleRule[] = allRules.filter(
+    (rule) =>
+      rule.selectorText &&
+      rule.selectorText.trim().split(',').includes(selector),
   );
 
   if (!matchSelector.length) {

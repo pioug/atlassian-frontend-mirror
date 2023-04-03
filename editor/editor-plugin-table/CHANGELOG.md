@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-table
 
+## 1.2.1
+
+### Patch Changes
+
+- [`f07824eeccc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f07824eeccc) - ED-15647 fix undo when pasting table with resized column in expand
+- [`924e8493f96`](https://bitbucket.org/atlassian/atlassian-frontend/commits/924e8493f96) - [ux] [ED-16418] Fixed issue where on resize the topPosEditorElement top position which determines the height of the sticky header would not update on window resize or other actions that may affect its height
+- [`2f7fff7239d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2f7fff7239d) - [ux] [ED-17271] Sticky headers now listen for width changes in the parent scroll container
+- [`2367ba14aa0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2367ba14aa0) - [ux] ED-16758 Added support for theme tokens in table cell background color.
+- [`1f10173bdad`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1f10173bdad) - [ux] [ED-15686] Added sticky to floating contextual menu dropdown
+- [`a5d7c8d0f1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a5d7c8d0f1e) - [ux] Fix of the regression caused due to https://product-fabric.atlassian.net/browse/DTR-1313
+- [`deef98920f4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/deef98920f4) - [ux] ED-16718 Table scroll troll - refactor nested expand logic back into editor-common
+- [`1720ddc8076`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1720ddc8076) - [ux] ED-16725 Added support for semantic tooltip names for background color palette.
+- [`454e652b2ed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/454e652b2ed) - [ux] This change (TSLA-488) addresses a bug that occurs when changing the browser window size causes the
+  table margin to not be immediately updated for tables with active sticky headers. This change adds an
+  event listener for window resizing that updates the table margins.
+- Updated dependencies
+
 ## 1.2.0
 
 ### Minor Changes

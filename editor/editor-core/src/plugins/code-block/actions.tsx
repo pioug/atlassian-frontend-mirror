@@ -15,7 +15,6 @@ import { copyToClipboard } from '../../utils/clipboard';
 import { addAnalytics } from '../analytics/utils';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../analytics/types';
 
-export type DomAtPos = (pos: number) => { node: HTMLElement; offset: number };
 export const removeCodeBlock: Command = (state, dispatch) => {
   const {
     schema: { nodes },

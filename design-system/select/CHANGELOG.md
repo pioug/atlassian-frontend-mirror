@@ -1,5 +1,11 @@
 # @atlaskit/select
 
+## 16.1.8
+
+### Patch Changes
+
+- [`8a8aac2b848`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8a8aac2b848) - [ux] Adds proper disabled styling to the isMulti component.
+
 ## 16.1.7
 
 ### Patch Changes

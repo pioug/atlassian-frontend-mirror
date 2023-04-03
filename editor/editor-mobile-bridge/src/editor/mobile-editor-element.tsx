@@ -15,9 +15,9 @@ import { toNativeBridge } from './web-to-native';
 import WebBridgeImpl from './native-to-web';
 import {
   SmartCardProvider,
-  EditorCardProvider,
   CardClient as EditorCardClient,
 } from '@atlaskit/link-provider';
+import { EditorCardProvider } from '@atlaskit/editor-card-provider';
 import { EmojiResource } from '@atlaskit/emoji/resource';
 import { useCollabEdit } from './hooks/use-collab-edit';
 import { useQuickInsert } from './hooks/use-quickinsert';

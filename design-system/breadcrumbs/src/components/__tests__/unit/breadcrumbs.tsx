@@ -18,6 +18,26 @@ describe('Breadcrumbs container', () => {
     expect(links.length).toEqual(1);
   });
 
+  it('should render a navigation role', () => {
+    const { queryAllByRole } = render(
+      <Breadcrumbs>
+        <BreadcrumbsItem text="item" />
+      </Breadcrumbs>,
+    );
+
+    expect(queryAllByRole('navigation')).toHaveLength(1);
+  });
+
+  it('should not render a navigation role if `isNavigation` is false', () => {
+    const { queryAllByRole } = render(
+      <Breadcrumbs testId="bcs" isNavigation={false}>
+        <BreadcrumbsItem text="item" />
+      </Breadcrumbs>,
+    );
+
+    expect(queryAllByRole('navigation')).toHaveLength(0);
+  });
+
   it('should render multiple children', () => {
     const { getByTestId } = render(
       <Breadcrumbs testId="breadcrumbs-container">

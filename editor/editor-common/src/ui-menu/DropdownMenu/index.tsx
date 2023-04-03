@@ -140,8 +140,8 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
   };
 
   private handleCloseAndFocus = () => {
-    this.handleClose();
     this.state.target?.querySelector('button')?.focus();
+    this.handleClose();
   };
 
   private handleClose = () => {

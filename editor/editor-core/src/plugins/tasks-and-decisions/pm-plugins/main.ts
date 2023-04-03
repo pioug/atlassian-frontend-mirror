@@ -1,4 +1,3 @@
-import { Node as PMNode } from 'prosemirror-model';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { NodeSelection } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
@@ -19,11 +18,6 @@ import { stateKey } from './plugin-key';
 
 enum ACTIONS {
   SET_CONTEXT_PROVIDER,
-}
-
-export interface TaskDecisionPluginState {
-  currentTaskDecisionItem: PMNode | undefined;
-  contextIdentifierProvider?: ContextIdentifierProvider;
 }
 
 const setContextIdentifierProvider =

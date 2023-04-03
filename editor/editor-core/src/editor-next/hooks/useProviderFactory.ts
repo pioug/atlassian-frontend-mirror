@@ -2,7 +2,10 @@ import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { useEffect, useRef, useState } from 'react';
 
 import { usePreviousState } from '@atlaskit/editor-common/hooks';
-import { EditorProps, ExtensionProvidersProp } from '../../types/editor-props';
+import {
+  EditorNextProps,
+  ExtensionProvidersProp,
+} from '../../types/editor-props';
 import prepareQuickInsertProvider from '../../utils/prepare-quick-insert-provider';
 import prepareExtensionProvider from '../../utils/prepare-extension-provider';
 import handleProviders from '../utils/handleProviders';
@@ -13,6 +16,7 @@ import {
   QuickInsertOptions,
 } from '../../plugins/quick-insert/types';
 import type { ExtensionProvider } from '@atlaskit/editor-common/extensions';
+import getProvidersFromEditorProps from '../utils/getProvidersFromEditorProps';
 
 export type ProviderFactoryState = {
   extensionProvider?: ExtensionProvider;
@@ -51,7 +55,7 @@ function createNewState(
  * @returns ProviderFactory for Editor
  */
 export default function useProviderFactory(
-  props: EditorProps,
+  props: EditorNextProps,
   editorActions: EditorActions,
   createAnalyticsEvent: CreateUIAnalyticsEvent,
 ): ProviderFactory {
@@ -87,7 +91,7 @@ export default function useProviderFactory(
 
       handleProviders(
         providerFactory.current,
-        props,
+        getProvidersFromEditorProps(props),
         newState.extensionProvider,
         newState.quickInsertProvider,
       );
@@ -95,13 +99,14 @@ export default function useProviderFactory(
     }
     handleProviders(
       providerFactory.current,
-      props,
+      getProvidersFromEditorProps(props),
       providerState.extensionProvider,
       providerState.quickInsertProvider,
     );
   }, [
     props,
-    prevProps,
+    prevProps?.quickInsert,
+    prevProps?.extensionProviders,
     createAnalyticsEvent,
     editorActions,
     providerState.extensionProvider,

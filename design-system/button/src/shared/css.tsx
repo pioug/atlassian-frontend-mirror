@@ -177,19 +177,6 @@ export function getCss({
       transitionDuration: '0s, 0.15s',
     },
 
-    '&:focus': {
-      ...getColors({
-        appearance,
-        key: isSelected ? 'focusSelected' : 'focus',
-        mode,
-      }),
-      boxShadow: `0 0 0 2px ${colors.boxShadowColor[appearance].focus[mode]}`,
-      // background, box-shadow
-      transitionDuration: '0s, 0.2s',
-      // disabling browser focus outline
-      outline: 'none',
-    },
-
     // giving active styles preference by listing them after focus
     '&:active': {
       ...getColors({
@@ -250,10 +237,9 @@ export function getCss({
 export function getIconStyle({ spacing }: { spacing: Spacing }) {
   return css({
     display: 'flex',
+    // icon size cannot grow and shrink
     // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
     margin: spacing === 'none' ? 0 : innerMargin.icon,
-
-    // icon size cannot grow and shrink
     flexGrow: 0,
     flexShrink: 0,
     alignSelf: 'center',

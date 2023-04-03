@@ -22,17 +22,14 @@ import {
   mentionItemStyle,
   nameSectionStyle,
   rowStyle,
-  ROW_SIDE_PADDING,
-  AVATAR_HEIGHT,
   mentionItemSelectedStyle,
 } from './styles';
 import { messages } from '../../messages';
 
-export interface OnMentionEvent {
+interface OnMentionEvent {
   (mention: MentionDescription, event?: SyntheticEvent<any>): void;
 }
 
-export const INVITE_ITEM_MIN_HEIGHT = AVATAR_HEIGHT + ROW_SIDE_PADDING * 2;
 export const INVITE_ITEM_DESCRIPTION = { id: 'invite-teammate' };
 
 const leftClick = (event: MouseEvent<any>): boolean => {
@@ -45,7 +42,7 @@ const leftClick = (event: MouseEvent<any>): boolean => {
   );
 };
 
-export interface Props {
+interface Props {
   productName?: string;
   onMount?: () => void;
   onMouseEnter?: OnMentionEvent;

@@ -1,8 +1,7 @@
 import { defineMessages } from 'react-intl-next';
 
-// These messages are only to be used when useSomewhatSemanticTextColorNames feature flag is true.
-// They are used only in Jira and are part of work for https://product-fabric.atlassian.net/wiki/spaces/EUXQ/pages/3365994869/EXTERNAL+MAKE+PP+COMMIT-5058+Enable+dark+mode+usage+of+text+colors+in+UGC+and+non+custom+panels+in+Jira
-export const newLightPalette = defineMessages({
+// These messages are only to be used when showSomewhatSemanticTooltips is true.
+export const lightTextPaletteTooltipMessages = defineMessages({
   '#FFFFFF': {
     id: 'fabric.theme.white',
     defaultMessage: 'White',
@@ -110,7 +109,7 @@ export const newLightPalette = defineMessages({
   },
 });
 
-const darkModeWhite = defineMessages({
+const darkModeTextPaletteOverrides = defineMessages({
   '#FFFFFF': {
     id: 'fabric.theme.dark-gray',
     defaultMessage: 'Dark gray',
@@ -118,4 +117,143 @@ const darkModeWhite = defineMessages({
   },
 });
 
-export const newDarkPalette = { ...newLightPalette, ...darkModeWhite };
+export const darkTextPaletteTooltipMessages = {
+  ...lightTextPaletteTooltipMessages,
+  ...darkModeTextPaletteOverrides,
+};
+
+export const textPaletteTooltipMessages = {
+  light: lightTextPaletteTooltipMessages,
+  dark: darkTextPaletteTooltipMessages,
+};
+
+export const lightBackgroundPaletteTooltipMessages = defineMessages({
+  '#DEEBFF': {
+    id: 'fabric.theme.subtle-blue',
+    defaultMessage: 'Subtle blue',
+    description: 'Name of a color',
+  },
+  '#B3D4FF': {
+    id: 'fabric.theme.blue',
+    defaultMessage: 'Blue',
+    description: 'Name of a color',
+  },
+  '#4C9AFF': {
+    id: 'fabric.theme.bold-blue',
+    defaultMessage: 'Bold blue',
+    description: 'Name of a color',
+  },
+  '#E6FCFF': {
+    id: 'fabric.theme.subtle-teal',
+    defaultMessage: 'Subtle teal',
+    description: 'Name of a color',
+  },
+  '#B3F5FF': {
+    id: 'fabric.theme.teal',
+    defaultMessage: 'Teal',
+    description: 'Name of a color',
+  },
+  '#79E2F2': {
+    id: 'fabric.theme.bold-teal',
+    defaultMessage: 'Bold teal',
+    description: 'Name of a color',
+  },
+  '#E3FCEF': {
+    id: 'fabric.theme.subtle-green',
+    defaultMessage: 'Subtle green',
+    description: 'Name of a color',
+  },
+  '#ABF5D1': {
+    id: 'fabric.theme.green',
+    defaultMessage: 'Green',
+    description: 'Name of a color',
+  },
+  '#57D9A3': {
+    id: 'fabric.theme.bold-green',
+    defaultMessage: 'Bold green',
+    description: 'Name of a color',
+  },
+  '#FFFAE6': {
+    id: 'fabric.theme.subtle-yellow',
+    defaultMessage: 'Subtle yellow',
+    description: 'Name of a color',
+  },
+  '#FFF0B3': {
+    id: 'fabric.theme.yellow',
+    defaultMessage: 'Yellow',
+    description: 'Name of a color',
+  },
+  '#FFC400': {
+    id: 'fabric.theme.bold-yellow',
+    defaultMessage: 'Bold yellow',
+    description: 'Name of a color',
+  },
+  '#FFEBE6': {
+    id: 'fabric.theme.subtle-red',
+    defaultMessage: 'Subtle red',
+    description: 'Name of a color',
+  },
+  '#FFBDAD': {
+    id: 'fabric.theme.red',
+    defaultMessage: 'Red',
+    description: 'Name of a color.',
+  },
+  '#FF8F73': {
+    id: 'fabric.theme.bold-red',
+    defaultMessage: 'Bold red',
+    description: 'Name of a color',
+  },
+  '#EAE6FF': {
+    id: 'fabric.theme.subtle-purple',
+    defaultMessage: 'Subtle purple',
+    description: 'Name of a color',
+  },
+  '#C0B6F2': {
+    id: 'fabric.theme.purple',
+    defaultMessage: 'Purple',
+    description: 'Name of a color',
+  },
+  '#998DD9': {
+    id: 'fabric.theme.bold-purple',
+    defaultMessage: 'Bold purple',
+    description: 'Name of a color',
+  },
+  '#FFFFFF': {
+    id: 'fabric.theme.white',
+    defaultMessage: 'White',
+    description: 'Name of a color',
+  },
+  '#F4F5F7': {
+    id: 'fabric.theme.gray',
+    defaultMessage: 'Gray',
+    description: 'Name of a color',
+  },
+  '#B3BAC5': {
+    id: 'fabric.theme.bold-gray',
+    defaultMessage: 'Bold gray',
+    description: 'Name of a color',
+  },
+});
+
+const darkModeBackgroundPaletteOverrides = defineMessages({
+  '#FFFFFF': {
+    id: 'fabric.theme.subtle-gray',
+    defaultMessage: 'Subtle gray',
+    description: 'Name of a color',
+  },
+  '#B3BAC5': {
+    id: 'fabric.theme.bold-gray',
+    defaultMessage: 'Bold gray',
+    description: 'Name of a color',
+  },
+});
+
+export const darkBackgroundPaletteTooltipMessages = {
+  ...lightBackgroundPaletteTooltipMessages,
+  ...darkModeBackgroundPaletteOverrides,
+};
+
+export const backgroundPaletteTooltipMessages = {
+  light: lightBackgroundPaletteTooltipMessages,
+  dark: darkBackgroundPaletteTooltipMessages,
+};

@@ -3,6 +3,8 @@ import { CategoryId } from '../components/picker/categories';
 export const customCategory = 'CUSTOM';
 export const frequentCategory = 'FREQUENT';
 export const customType = 'SITE';
+export const searchCategory = 'SEARCH';
+export const yourUploadsCategory = 'USER_CUSTOM';
 
 export const customTitle = 'allUploadsCustomCategory';
 export const userCustomTitle = 'userUploadsCustomCategory';
@@ -45,11 +47,63 @@ export const defaultCategories: CategoryId[] = [
   'FLAGS',
 ];
 
+export enum KeyboardKeys {
+  ArrowLeft = 'ArrowLeft',
+  ArrowRight = 'ArrowRight',
+  ArrowUp = 'ArrowUp',
+  ArrowDown = 'ArrowDown',
+  PageUp = 'PageUp',
+  PageDown = 'PageDown',
+  Home = 'Home',
+  End = 'End',
+  Enter = 'Enter',
+  Tab = 'Tab',
+  Space = ' ',
+}
+
+// Used to search available emoji in the picker list to focus
+export enum KeyboardNavigationDirection {
+  Down = 'Down',
+  Up = 'Up',
+  Left = 'Left',
+  Right = 'Right',
+}
+
+export const CATEGORYSELECTOR_KEYBOARD_KEYS_SUPPORTED: string[] = [
+  KeyboardKeys.ArrowRight,
+  KeyboardKeys.ArrowLeft,
+  KeyboardKeys.Home,
+  KeyboardKeys.End,
+];
+
+export const TONESELECTOR_KEYBOARD_KEYS_SUPPORTED: string[] = [
+  KeyboardKeys.Enter,
+  KeyboardKeys.Tab,
+  KeyboardKeys.Space,
+];
+
+export const EMOJIPICKERLIST_KEYBOARD_KEYS_SUPPORTED: string[] = [
+  KeyboardKeys.ArrowRight,
+  KeyboardKeys.ArrowLeft,
+  KeyboardKeys.Home,
+  KeyboardKeys.End,
+  KeyboardKeys.ArrowUp,
+  KeyboardKeys.ArrowDown,
+  KeyboardKeys.PageUp,
+  KeyboardKeys.PageDown,
+];
+
+export const DEFAULT_TONE = 0;
+
 export const defaultListLimit = 50;
 
 export const migrationUserId = 'hipchat_migration_emoticons';
 
 export const analyticsEmojiPrefix = 'atlassian.fabric.emoji.picker';
+
+export const EMOJI_LIST_COLUMNS = 8;
+
+export const EMOJI_LIST_PAGE_COUNT = 5;
 
 export const EMOJI_SEARCH_DEBOUNCE = 150;
 

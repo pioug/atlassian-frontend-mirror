@@ -15,6 +15,8 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
+/// <reference types="lodash" />
+
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import type { CollabEditProvider } from '@atlaskit/editor-common/collab';
 import type { CollabEventConnectingData } from '@atlaskit/editor-common/collab';
@@ -30,6 +32,9 @@ import type { ResolvedEditorState } from '@atlaskit/editor-common/collab';
 import type { Step } from 'prosemirror-transform';
 import type { SyncUpErrorFunction } from '@atlaskit/editor-common/types';
 import type { Transaction } from 'prosemirror-state';
+
+// @public (undocumented)
+type AuthCallback = (cb: (data: InitAndAuthData) => void) => void;
 
 // @public (undocumented)
 type BaseEvents = Pick<
@@ -132,9 +137,11 @@ interface Config {
   // (undocumented)
   analyticsClient?: AnalyticsWebClient;
   // (undocumented)
+  cacheToken?: boolean;
+  // (undocumented)
   createSocket: (
     path: string,
-    auth?: (cb: (data: object) => void) => void,
+    auth?: AuthCallback | InitAndAuthData,
     productInfo?: ProductInformation,
   ) => Socket;
   // (undocumented)
@@ -153,12 +160,12 @@ interface Config {
   lifecycle?: Lifecycle;
   // (undocumented)
   need404?: boolean;
-  // (undocumented)
   permissionTokenRefresh?: () => Promise<null | string>;
   // (undocumented)
   productInfo?: ProductInformation;
   // (undocumented)
   storage?: Storage_2;
+  throwOnNotConnected?: boolean;
   // (undocumented)
   url: string;
 }
@@ -189,6 +196,16 @@ class Emitter<T = any> {
 
 // @public (undocumented)
 type EventHandler = () => void;
+
+// @public (undocumented)
+interface InitAndAuthData {
+  // (undocumented)
+  initialized: boolean;
+  // (undocumented)
+  need404?: boolean;
+  // (undocumented)
+  token?: string;
+}
 
 // @public (undocumented)
 interface Lifecycle {
@@ -294,14 +311,14 @@ export interface Socket extends SimpleEventEmitter {
 
 // @public (undocumented)
 type StepJson = {
+  stepType?: string;
   from?: number;
   to?: number;
-  stepType?: string;
+  slice?: SliceJson;
   clientId: number | string;
   userId: string;
   createdAt?: number;
   structure?: boolean;
-  slice?: SliceJson;
 };
 
 // @public (undocumented)

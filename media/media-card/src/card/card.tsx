@@ -67,7 +67,6 @@ import {
   extractErrorInfo,
   SSRStatus,
   SSRStatusFail,
-  LOGGED_FEATURE_FLAGS,
 } from '../utils/analytics';
 import {
   isLocalPreviewError,
@@ -1142,17 +1141,12 @@ export class CardBase extends Component<CardBaseProps, CardState> {
 }
 
 export const Card: React.ComponentType<CardBaseProps> =
-  withMediaAnalyticsContext(
-    {
-      packageVersion,
-      packageName,
-      componentName: 'mediaCard',
-      component: 'mediaCard',
-    },
-    {
-      filterFeatureFlags: LOGGED_FEATURE_FLAGS,
-    },
-  )(
+  withMediaAnalyticsContext({
+    packageVersion,
+    packageName,
+    componentName: 'mediaCard',
+    component: 'mediaCard',
+  })(
     withAnalyticsEvents()(
       injectIntl(
         CardBase as React.ComponentType<CardBaseProps & WrappedComponentProps>,

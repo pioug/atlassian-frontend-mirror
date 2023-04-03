@@ -25,7 +25,7 @@ import {
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
 
-export const setSelectionAndPickerAt =
+const setSelectionAndPickerAt =
   (pos: number) =>
   (editorView: EditorView): EditorState => {
     setStatusPickerAt(pos)(editorView.state, editorView.dispatch);
@@ -33,18 +33,7 @@ export const setSelectionAndPickerAt =
     return editorView.state;
   };
 
-export const validateSelection = (pos: number) => (state: EditorState) => {
-  let statusState = pluginKey.getState(state);
-
-  expect(state.tr.selection).toBeInstanceOf(NodeSelection);
-  expect(state.tr.selection.to).toBe(pos + 1);
-  expect(statusState).toMatchObject({
-    isNew: false,
-    showStatusPickerAt: pos, // status node start position
-  });
-};
-
-export const getStatusesInDocument = (
+const getStatusesInDocument = (
   state: EditorState,
   expectedLength: number,
 ): NodeWithPos[] => {

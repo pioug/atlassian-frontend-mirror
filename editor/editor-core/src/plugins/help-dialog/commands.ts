@@ -16,4 +16,3 @@ export const closeHelpCommand = (tr: Transaction, dispatch: Function): void => {
   tr = tr.setMeta(pluginKey, false);
   dispatch(tr);
 };
-export const stopPropagationCommand = (e: Event): void => e.stopPropagation();

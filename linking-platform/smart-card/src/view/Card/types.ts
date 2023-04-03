@@ -36,7 +36,17 @@ export interface CardProps extends WithAnalyticsEventsProps {
   data?: any;
   url?: string;
   testId?: string;
+  /**
+   * Show client actions, e.g. preview, download, etc.
+   * These actions do not change the link resource.
+   */
   showActions?: boolean;
+  /**
+   * @todo This is an experiment prop and the development is in-progress.
+   * @see ATLAS-13099
+   * Show server actions that change the link resource, e.g. update status.
+   */
+  showServerActions?: boolean;
   onResolve?: OnResolveCallback;
   onError?: OnErrorCallback;
   /** This props determines if dimensions of an embed card are to be inherited from the parent.

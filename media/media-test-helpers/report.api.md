@@ -26,7 +26,6 @@ import { Component } from 'react';
 import { CustomData } from '@atlaskit/ufo';
 import { DetailedHTMLProps } from 'react';
 import { ExternalImageIdentifier } from '@atlaskit/media-client';
-import { FC } from 'react';
 import { FileDetails } from '@atlaskit/media-client';
 import { FileIdentifier } from '@atlaskit/media-client';
 import { FileState } from '@atlaskit/media-client';
@@ -337,12 +336,11 @@ export const fakeIntl: any;
 export const fakeMediaClient: (config?: MediaClientConfig) => MediaClient;
 
 // @public (undocumented)
-export const FeatureFlagsWrapper: FC<FeatureFlagsWrapperProps>;
-
-// @public (undocumented)
-type FeatureFlagsWrapperProps = {
-  filterFlags?: Array<keyof MediaFeatureFlags>;
-};
+export const FeatureFlagsWrapper: ({
+  children,
+}: {
+  children: React_2.ReactNode;
+}) => JSX.Element;
 
 // @public (undocumented)
 export const fileCollectionName: string;

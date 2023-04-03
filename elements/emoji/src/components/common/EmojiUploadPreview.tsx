@@ -23,6 +23,7 @@ import {
   uploadPreviewFooter,
   uploadPreviewText,
 } from './styles';
+import VisuallyHidden from '@atlaskit/visually-hidden';
 
 export interface EmojiUploadPreviewProps {
   name: string;
@@ -35,6 +36,8 @@ export interface EmojiUploadPreviewProps {
 
 export const uploadPreviewTestId = 'upload-preview';
 export const cancelUploadButtonTestId = 'cancel-upload-button';
+const addEmojiButtonDescriptionId =
+  'add.emoji.button.screen.reader.description.id';
 
 class EmojiUploadPreview extends PureComponent<
   EmojiUploadPreviewProps & WrappedComponentProps,
@@ -94,12 +97,21 @@ class EmojiUploadPreview extends PureComponent<
               tooltip
             />
           ) : null}
+          {!errorMessage && (
+            <VisuallyHidden id={addEmojiButtonDescriptionId}>
+              <FormattedMessage
+                {...messages.emojiPreview}
+                values={{ emoji: name }}
+              />
+            </VisuallyHidden>
+          )}
           <RetryableButton
             label={formatMessage(messages.addEmojiLabel)}
             onSubmit={onAddEmoji}
             appearance="primary"
             loading={uploading}
             error={!!errorMessage}
+            ariaDescribedby={addEmojiButtonDescriptionId}
           />
           <AkButton
             onClick={onUploadCancelled}

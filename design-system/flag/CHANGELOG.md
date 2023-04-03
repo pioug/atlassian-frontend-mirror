@@ -1,5 +1,15 @@
 # @atlaskit/flag
 
+## 15.1.0
+
+### Minor Changes
+
+- [`be1170b4b1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/be1170b4b1f) - Removes custom appearance styles for focus. Now uses `color.border.focused` token consistenly across all appearances..
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.0.12
 
 ### Patch Changes

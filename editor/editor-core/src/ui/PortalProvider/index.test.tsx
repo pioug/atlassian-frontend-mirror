@@ -5,14 +5,14 @@ jest.mock('react-dom', () => ({
 
 import React from 'react';
 import { unmountComponentAtNode } from 'react-dom';
-import { mount } from 'enzyme';
+import { render } from '@testing-library/react';
 import {
   AnalyticsListener,
   useAnalyticsEvents,
 } from '@atlaskit/analytics-next';
 import { PortalProvider, PortalRenderer, PortalProviderAPI } from './';
 import { ContextAdapter } from '../../nodeviews/context-adapter';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 const Component = () => <div className="component">My component</div>;
 const Component2 = () => {
   const { createAnalyticsEvent } = useAnalyticsEvents();
@@ -33,7 +33,7 @@ describe('PortalProvider', () => {
   const initPortalProvider = () => {
     handleAnalyticsEvent = jest.fn();
     handleAnalyticsEventFromContext = jest.fn();
-    wrapper = mountWithIntl(
+    wrapper = renderWithIntl(
       <AnalyticsListener
         channel="portalprovidertest"
         onEvent={handleAnalyticsEventFromContext}
@@ -52,7 +52,6 @@ describe('PortalProvider', () => {
     );
 
     portalProviderAPI!.render(Component, place);
-    wrapper.update();
   };
 
   beforeEach(() => {
@@ -70,20 +69,20 @@ describe('PortalProvider', () => {
   });
 
   it('should render a component successfully', () => {
-    expect(mount(<Component />).html()).toEqual(place.innerHTML);
+    const { container } = render(<Component />);
+    expect(container.innerHTML).toEqual(place.innerHTML);
   });
 
   it('should render several components successfully', () => {
     portalProviderAPI!.render(Component, place2);
-    wrapper.update();
-    const component = mount(<Component />);
-    expect(component.html()).toEqual(place.innerHTML);
-    expect(component.html()).toEqual(place2.innerHTML);
+    const { container } = render(<Component />);
+    expect(container.innerHTML).toEqual(place.innerHTML);
+    expect(container.innerHTML).toEqual(place2.innerHTML);
   });
 
   it('should destroy a component successfully', () => {
     portalProviderAPI!.remove(place);
-    wrapper.update();
+    wrapper.rerender();
 
     expect(unmountComponentAtNode).toBeCalledWith(place);
   });
@@ -121,7 +120,6 @@ describe('PortalProvider', () => {
 
   it('should propogate events up from child component', () => {
     portalProviderAPI.render(ComponentWithAnalytics, place);
-    wrapper.update();
     expect(handleAnalyticsEventFromContext).toBeCalledTimes(1);
   });
 });

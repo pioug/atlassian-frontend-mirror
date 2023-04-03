@@ -1,12 +1,17 @@
 import { Provider } from './provider';
 import { io, Socket } from 'socket.io-client';
-import { Config, ProductInformation } from './types';
+import {
+  Config,
+  ProductInformation,
+  InitAndAuthData,
+  AuthCallback,
+} from './types';
 import { getProduct, getSubProduct } from './helpers/utils';
 import { SOCKET_IO_OPTIONS } from './config';
 
 export function createSocketIOSocket(
   url: string,
-  auth?: (cb: (data: object) => void) => void,
+  auth?: AuthCallback | InitAndAuthData,
   productInfo?: ProductInformation,
 ): Socket {
   const { pathname } = new URL(url);

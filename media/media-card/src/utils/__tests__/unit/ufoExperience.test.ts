@@ -1,3 +1,12 @@
+jest.mock('@atlaskit/media-common/mediaFeatureFlags', () => {
+  const actualUfo = jest.requireActual(
+    '@atlaskit/media-common/mediaFeatureFlags',
+  );
+  return {
+    ...actualUfo,
+    getFeatureFlagKeysAllProducts: () => ['feature-flag-1', 'feature-flag-2'],
+  };
+});
 const mockMediaEnvironment = 'test-local';
 const mockMediaRegion = 'test-local-region';
 
@@ -32,7 +41,6 @@ jest.mock('../../../utils/analytics', () => {
         errorDetail: 'some-description',
       };
     }),
-    LOGGED_FEATURE_FLAG_KEYS: ['feature-flag-1', 'feature-flag-2'],
   };
 });
 

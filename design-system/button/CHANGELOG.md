@@ -1,5 +1,13 @@
 # @atlaskit/button
 
+## 16.6.0
+
+### Minor Changes
+
+- [`3367210dce8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3367210dce8) - [ux] Internal change to the way focus is rendered for buttons.
+  Focus states now apply a 2px offset to the focus ring to aid the contrast of the focus state when applied on the 'primary' and 'selected' buttons.
+  As part of this change, and to settle on a more systemic approach to focus, button also no longer applies a different colored shadow per appearance.
+
 ## 16.5.7
 
 ### Patch Changes

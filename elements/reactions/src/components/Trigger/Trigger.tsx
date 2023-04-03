@@ -11,6 +11,7 @@ import * as styles from './styles';
  * Test id for the tooltip
  */
 export const RENDER_TOOLTIP_TRIGGER_TESTID = 'render-tooltip-trigger';
+export const RENDER_TRIGGER_BUTTON_TESTID = 'render-trigger-button';
 
 export interface TriggerProps {
   /**
@@ -65,6 +66,7 @@ export const Trigger = React.forwardRef(
     return (
       <Tooltip testId={RENDER_TOOLTIP_TRIGGER_TESTID} content={tooltipContent}>
         <Button
+          testId={RENDER_TRIGGER_BUTTON_TESTID}
           css={styles.triggerStyle({ miniMode, disabled })}
           appearance="subtle"
           onClick={handleMouseDown}

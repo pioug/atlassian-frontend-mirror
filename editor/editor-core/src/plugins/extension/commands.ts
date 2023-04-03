@@ -65,14 +65,6 @@ export const forceAutoSave = (
     applyChange,
   );
 
-export const showContextPanel = createCommand(
-  {
-    type: 'UPDATE_STATE',
-    data: { showContextPanel: true },
-  },
-  applyChange,
-);
-
 export const updateExtensionLayout = (layout: ExtensionLayout) =>
   createCommand({ type: 'UPDATE_STATE', data: { layout } }, (tr, state) => {
     const selectedExtension = getSelectedExtension(state, true);

@@ -3,8 +3,6 @@ import React from 'react';
 
 import mentionsPlugin from '../../../../../plugins/mentions';
 import { PluginKey } from 'prosemirror-state';
-import { TeamMentionHighlight } from '@atlaskit/mention/spotlight';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 
 const CustomHighlightComponent = () => <div>HighlightComponent</div>;
 
@@ -25,22 +23,5 @@ describe('Highlight component', () => {
     const getHighlight = pluginsOptions?.typeAhead?.getHighlight;
 
     expect(getHighlight!({} as EditorState)).toEqual(null);
-  });
-
-  it('should render TeamMentionHighlight', () => {
-    jest.spyOn(PluginKey.prototype, 'getState').mockImplementation(() => ({
-      mentionProvider: {
-        mentionTypeaheadHighlightEnabled: () => true,
-        mentionTypeaheadCreateTeamPath: () => 'link',
-      },
-    }));
-    const { pluginsOptions } = mentionsPlugin();
-    const getHighlight = pluginsOptions?.typeAhead?.getHighlight;
-
-    const TeamHighlight = mountWithIntl(
-      getHighlight!({} as EditorState) as JSX.Element,
-    );
-
-    expect(TeamHighlight.find(TeamMentionHighlight)).toHaveLength(1);
   });
 });

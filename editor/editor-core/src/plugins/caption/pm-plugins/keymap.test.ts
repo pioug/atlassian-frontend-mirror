@@ -114,7 +114,7 @@ describe('caption keymap', () => {
     expect(editorView.state.selection.from).toBe(0);
   });
 
-  it('should create paragraph below caption on arrow down', () => {
+  it('should create paragraph below caption on arrow down if its the last node in the document', () => {
     const { editorView } = editor(
       doc(
         mediaSingle({
@@ -131,7 +131,7 @@ describe('caption keymap', () => {
     );
 
     sendKeyToPm(editorView, 'ArrowDown');
-    expect(editorView.state.doc).toEqualDocument(
+    expect(editorView.state).toEqualDocumentAndSelection(
       doc(
         mediaSingle()(
           media({
@@ -141,7 +141,40 @@ describe('caption keymap', () => {
           })(),
           caption('hello'),
         ),
-        p(),
+        p('{<>}'),
+      ),
+    );
+  });
+
+  it('should NOT create paragraph below caption on arrow down if its followed by another node', () => {
+    const { editorView } = editor(
+      doc(
+        mediaSingle({
+          layout: 'center',
+        })(
+          media({
+            id: 'a559980d-cd47-43e2-8377-27359fcb905f',
+            type: 'file',
+            collection: 'MediaServicesSample',
+          })(),
+          caption('hello{<>}'),
+        ),
+        p('world'),
+      ),
+    );
+
+    sendKeyToPm(editorView, 'ArrowDown');
+    expect(editorView.state).toEqualDocumentAndSelection(
+      doc(
+        mediaSingle()(
+          media({
+            id: 'a559980d-cd47-43e2-8377-27359fcb905f',
+            type: 'file',
+            collection: 'MediaServicesSample',
+          })(),
+          caption('hello'),
+        ),
+        p('{<>}world'),
       ),
     );
   });

@@ -83,9 +83,8 @@ const TextFieldItem: React.FC<{
 
 const FeatureFlagItems: React.FC<{
   onUpdate: () => void;
-  filterFlags?: Array<keyof MediaFeatureFlags>;
-}> = ({ onUpdate, filterFlags }) => {
-  const flagItems = Object.entries(getMediaFeatureFlags(filterFlags));
+}> = ({ onUpdate }) => {
+  const flagItems = Object.entries(getMediaFeatureFlags());
 
   return (
     <div style={{ maxHeight: '200px', padding: '10px 0' }}>
@@ -126,12 +125,10 @@ const FeatureFlagItems: React.FC<{
 
 export type MediaFeatureFlagsDropdownProps = {
   onFlagChanged: () => void;
-  filterFlags?: Array<keyof MediaFeatureFlags>;
 };
 
 const MediaFeatureFlagsDropdown = ({
   onFlagChanged,
-  filterFlags,
 }: MediaFeatureFlagsDropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
@@ -140,20 +137,13 @@ const MediaFeatureFlagsDropdown = ({
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
         placement="bottom-start"
-        content={() => (
-          <FeatureFlagItems
-            onUpdate={onFlagChanged}
-            filterFlags={filterFlags}
-          />
-        )}
+        content={() => <FeatureFlagItems onUpdate={onFlagChanged} />}
         trigger={(triggerProps) => (
           <Button
             {...triggerProps}
             isSelected={isOpen}
             onClick={() => setIsOpen(!isOpen)}
-            iconAfter={
-              <HipchatChevronDownIcon label="Star icon" size="small" />
-            }
+            iconAfter={<HipchatChevronDownIcon label="" size="small" />}
           >
             Media Feature Flags
           </Button>

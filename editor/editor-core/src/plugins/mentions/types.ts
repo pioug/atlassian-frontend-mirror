@@ -1,6 +1,5 @@
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { MentionDescription, MentionProvider } from '@atlaskit/mention';
-import { TeamMentionProvider } from '@atlaskit/mention/resource';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 import { AnalyticsEventPayload } from '@atlaskit/analytics-next';
 
@@ -24,7 +23,7 @@ export interface MentionPluginOptions extends MentionPluginConfig {
 }
 
 export type MentionPluginState = {
-  mentionProvider?: MentionProvider | TeamMentionProvider;
+  mentionProvider?: MentionProvider;
   contextIdentifierProvider?: ContextIdentifierProvider;
   mentions?: Array<MentionDescription>;
 };

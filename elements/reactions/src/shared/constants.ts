@@ -57,3 +57,6 @@ export const TOOLTIP_USERS_LIMIT = 5;
  * reactions dialog
  */
 export const NUMBER_OF_REACTIONS_TO_DISPLAY = 9;
+
+// This rate is used in fetching emoji resource
+export const SAMPLING_RATE_REACTIONS_RENDERED_EXP = 50;

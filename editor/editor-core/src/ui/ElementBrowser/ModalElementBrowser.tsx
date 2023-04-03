@@ -18,9 +18,6 @@ import { MODAL_WRAPPER_PADDING } from './constants';
 import { messages } from './messages';
 import { EmptyStateHandler } from '../../types/empty-state-handler';
 import { token } from '@atlaskit/tokens';
-export interface State {
-  isOpen: boolean;
-}
 
 export interface Props {
   getItems: (query?: string, category?: string) => QuickInsertItem[];
@@ -196,7 +193,7 @@ const Footer = ({
 
 const HelpLink = (url: string, helpText: string) => (
   <Button
-    iconBefore={<QuestionCircleIcon label="help" size="medium" />}
+    iconBefore={<QuestionCircleIcon label="" size="medium" />}
     appearance="subtle-link"
     href={url}
     target="_blank"

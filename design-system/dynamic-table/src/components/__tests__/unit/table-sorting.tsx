@@ -31,44 +31,100 @@ const head = {
   ],
 };
 
-describe('TableBody', () => {
+describe('Sorting', () => {
   const data = [1, 3, 2, 4];
 
-  it('Using uuid as key to avoid re-rendering', () => {
-    const onMount = jest.fn();
-    const onUnmount = jest.fn();
-
-    const Cell = createStatefulCell({ onMount, onUnmount });
+  describe('HeadCell', () => {
     const rows = data.map((number: number) => ({
-      // eslint-disable-next-line @repo/internal/react/disallow-unstable-values
-      key: uuid(),
+      key: number.toString(),
       cells: [
         {
           key: number,
-          content: <Cell>{number}</Cell>,
+          content: <div>{number}</div>,
         },
       ],
     }));
 
-    const { getByTestId } = render(
-      <DynamicTable
-        caption={caption}
-        head={head}
-        rows={rows}
-        rowsPerPage={10}
-        defaultPage={1}
-        loadingSpinnerSize="large"
-        isLoading={false}
-        isFixedSize
-        defaultSortKey="number"
-        defaultSortOrder="ASC"
-        testId="dynamic-table"
-      />,
-    );
+    it('should cycle between aria-sort values when sorting by a column if isRankable is false', () => {
+      const { getByRole } = render(
+        <DynamicTable caption={caption} head={head} rows={rows} />,
+      );
 
-    fireEvent.click(getByTestId('dynamic-table--head--cell'));
+      const header = getByRole('columnheader');
 
-    expect(onMount.mock.calls.length).toBe(data.length);
-    expect(onUnmount.mock.calls.length).toBe(0);
+      expect(header).not.toHaveAttribute('aria-sort');
+
+      fireEvent.click(header);
+      expect(header).toHaveAttribute('aria-sort', 'ascending');
+
+      fireEvent.click(header);
+      expect(header).toHaveAttribute('aria-sort', 'descending');
+
+      fireEvent.click(header);
+      // Because not `isRankable`, cycles back to ascending sort
+      expect(header).toHaveAttribute('aria-sort', 'ascending');
+    });
+
+    it('should cycle back to no aria-sort attribute after "descending" sort order if isRankable is true', () => {
+      const { getByRole } = render(
+        <DynamicTable caption={caption} head={head} rows={rows} isRankable />,
+      );
+
+      // I have to get the header repeatedly because they are being recreated
+      // when the sorting changes
+      const headerNoSort = getByRole('columnheader');
+      expect(headerNoSort).not.toHaveAttribute('aria-sort');
+
+      fireEvent.click(headerNoSort);
+      const headerSortAsc = getByRole('columnheader');
+      expect(headerSortAsc).toHaveAttribute('aria-sort', 'ascending');
+
+      fireEvent.click(headerSortAsc);
+      const headerSortDesc = getByRole('columnheader');
+      expect(headerSortDesc).toHaveAttribute('aria-sort', 'descending');
+
+      fireEvent.click(headerSortDesc);
+      // Because `isRankable` is true, cycles back to no aria-sort value
+      expect(getByRole('columnheader')).not.toHaveAttribute('aria-sort');
+    });
+  });
+
+  describe('TableBody', () => {
+    it('Using uuid as key to avoid re-rendering', () => {
+      const onMount = jest.fn();
+      const onUnmount = jest.fn();
+
+      const Cell = createStatefulCell({ onMount, onUnmount });
+      const rows = data.map((number: number) => ({
+        // eslint-disable-next-line @repo/internal/react/disallow-unstable-values
+        key: uuid(),
+        cells: [
+          {
+            key: number,
+            content: <Cell>{number}</Cell>,
+          },
+        ],
+      }));
+
+      const { getByRole } = render(
+        <DynamicTable
+          caption={caption}
+          head={head}
+          rows={rows}
+          rowsPerPage={10}
+          defaultPage={1}
+          loadingSpinnerSize="large"
+          isLoading={false}
+          isFixedSize
+          defaultSortKey="number"
+          defaultSortOrder="ASC"
+        />,
+      );
+
+      fireEvent.click(getByRole('columnheader'));
+
+      expect(onMount.mock.calls.length).toBe(data.length);
+      expect(onUnmount.mock.calls.length).toBe(0);
+    });
   });
 });

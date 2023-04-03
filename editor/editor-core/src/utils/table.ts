@@ -1,7 +1,5 @@
 import { ResolvedPos, Schema } from 'prosemirror-model';
 
-export type Direction = 'before' | 'after';
-
 /*
   isPositionNearTableRow()
   Returns true when a sibling node, or any  of the parent's sibling

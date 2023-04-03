@@ -2,18 +2,16 @@ import type { CollabErrorPayload } from '../types';
 
 export enum EVENT_ACTION {
   CONNECTION = 'connection',
-  RECONNECTION = 'reconnection',
   CATCHUP = 'catchup',
   DOCUMENT_INIT = 'documentInit',
   ADD_STEPS = 'addSteps',
   UPDATE_PARTICIPANTS = 'updateParticipants',
   COMMIT_UNCONFIRMED_STEPS = 'commitUnconfirmedSteps',
   REINITIALISE_DOCUMENT = 'reinitialiseDocument',
-  INIT_PROVIDER = 'initProvider',
   ERROR = 'error',
-  MEASURE_PERFORMANCE = 'measurePerformance',
-  INIT_UFO_EXPERIENCE = 'initUFOExperience',
   PUBLISH_PAGE = 'publishPage',
+  GET_CURRENT_STATE = 'getCurrentState',
+  INVALIDATE_TOKEN = 'invalidateToken',
 }
 export enum EVENT_STATUS {
   SUCCESS = 'SUCCESS',
@@ -29,11 +27,22 @@ export type ErrorAnalyticsEvent = {
   eventAction: EVENT_ACTION.ERROR;
   attributes: {
     errorMessage: string;
+    errorName?: string;
     documentAri?: string;
     mappedError?: CollabErrorPayload;
   };
   nonPrivacySafeAttributes: {
     error: unknown;
+  };
+};
+
+type InvalidateTokenAnalyticsEvent = {
+  eventAction: EVENT_ACTION.INVALIDATE_TOKEN;
+  attributes: {
+    eventStatus: EVENT_STATUS.SUCCESS;
+    reason?: string;
+    usedCachedToken?: boolean;
+    // TODO: what other attributes can we add?
   };
 };
 
@@ -172,6 +181,24 @@ type PublishPageFailureAnalyticsEvent = {
   };
 };
 
+type GetCurrentStateSuccessAnalyticsEvent = {
+  eventAction: EVENT_ACTION.GET_CURRENT_STATE;
+  attributes: {
+    documentAri: string;
+    eventStatus: EVENT_STATUS.SUCCESS;
+    latency?: number;
+  };
+};
+
+type GetCurrentStateFailureAnalyticsEvent = {
+  eventAction: EVENT_ACTION.GET_CURRENT_STATE;
+  attributes: {
+    documentAri: string;
+    eventStatus: EVENT_STATUS.FAILURE;
+    latency?: number;
+  };
+};
+
 export type ActionAnalyticsEvent =
   | AddStepsSuccessAnalyticsEvent
   | AddStepsFailureAnalyticsEvent
@@ -186,7 +213,10 @@ export type ActionAnalyticsEvent =
   | CommitUnconfirmedStepsSuccessAnalyticsEvent
   | CommitUnconfirmedStepsFailureAnalyticsEvent
   | PublishPageSuccessAnalyticsEvent
-  | PublishPageFailureAnalyticsEvent;
+  | PublishPageFailureAnalyticsEvent
+  | GetCurrentStateSuccessAnalyticsEvent
+  | GetCurrentStateFailureAnalyticsEvent
+  | InvalidateTokenAnalyticsEvent;
 
 export const ACK_MAX_TRY = 30;
 

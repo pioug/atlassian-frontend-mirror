@@ -1,10 +1,10 @@
 export default [
   'blockCard',
   'paragraph_with_no_marks',
-  'bulletList',
-  'mediaSingle_full',
   'mediaSingle_caption',
+  'mediaSingle_full',
   'codeBlock_with_no_marks',
+  'bulletList',
   'orderedList',
   'heading_with_no_marks',
   'panel',

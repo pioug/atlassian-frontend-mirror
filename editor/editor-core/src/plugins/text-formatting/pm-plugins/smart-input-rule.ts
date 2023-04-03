@@ -29,13 +29,21 @@ import {
 function replaceTextUsingCaptureGroup(text: string): InputRuleHandler {
   return (state, match, start, end): Transaction => {
     const [, prefix, , suffix] = match;
-    const replacement = (prefix || '') + text + (suffix || '');
+    const replacement = text + (suffix || '');
 
     let {
       tr,
       selection: { $to },
     } = state;
-    tr.replaceWith(start, end, state.schema.text(replacement, $to.marks()));
+
+    const startPos = start + (prefix || '').length;
+    const safePos = Math.min(
+      // I know it is almost impossible to have a negative value at this point.
+      // But, this is JS #trustnoone
+      Math.max(startPos, 0),
+      end,
+    );
+    tr.replaceWith(safePos, end, state.schema.text(replacement, $to.marks()));
     tr.setSelection(Selection.near(tr.doc.resolve(tr.selection.to)));
     return tr;
   };
@@ -103,6 +111,7 @@ function createSingleQuotesRules(): Array<InputRuleWrapper> {
     createReplacementRule('’', /(\w+)(')(\w+)$/),
   ];
 }
+
 /**
  * Get replacement rules related to product
  */

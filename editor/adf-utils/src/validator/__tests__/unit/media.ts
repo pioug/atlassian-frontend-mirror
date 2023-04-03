@@ -218,4 +218,60 @@ describe('media', () => {
     };
     expect(run).toReturn();
   });
+
+  it('should not invoke INVALID_CONTENT_LENGTH error when media with caption is within list item', () => {
+    const validateLength = validator([
+      'caption',
+      'doc',
+      'text',
+      'bulletList',
+      'listItem',
+      'mediaSingle',
+      'media',
+    ]);
+
+    const errorCallbackFn = jest.fn();
+    validateLength(
+      {
+        version: 1,
+        type: 'doc',
+        content: [
+          {
+            type: 'bulletList',
+            content: [
+              {
+                type: 'listItem',
+                content: [
+                  {
+                    type: 'mediaSingle',
+                    content: [
+                      {
+                        type: 'media',
+                        attrs: {
+                          type: 'file',
+                          id: '1234',
+                          collection: 'SampleCollection',
+                        },
+                      },
+                      {
+                        type: 'caption',
+                        content: [
+                          {
+                            type: 'text',
+                            text: 'Hello World!',
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      errorCallbackFn,
+    );
+    expect(errorCallbackFn).not.toHaveBeenCalled();
+  });
 });

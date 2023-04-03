@@ -1,6 +1,5 @@
 import { css } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
-import { borderRadius } from '@atlaskit/theme/constants';
 
 import {
   emojiPickerBorderColor,
@@ -17,10 +16,10 @@ import {
   emojiPickerWidth,
 } from '../../util/constants';
 import {
+  B100,
   B200,
   B300,
   N100A,
-  N200,
   N30,
   N30A,
   N50,
@@ -41,7 +40,7 @@ export const emojiPicker = (
     justifyContent: 'space-between',
     background: token('elevation.surface.overlay', 'white'),
     border: `${emojiPickerBorderColor} 1px solid`,
-    borderRadius: `${borderRadius()}px`,
+    borderRadius: token('border.radius.100', '3px'),
     boxShadow: emojiPickerBoxShadow,
     height: `${
       hasPreview
@@ -49,7 +48,6 @@ export const emojiPicker = (
         : emojiPickerHeight + heightOffset
     }px`,
     width: `${emojiPickerWidth}px`,
-    marginBottom: '8px',
     minWidth: `${emojiPickerWidth}px`,
     minHeight: `${emojiPickerMinHeight + heightOffset}px`,
     maxHeight: 'calc(80vh - 86px)', // ensure showing full picker in small device: mobile header is 40px (Jira) - 56px(Confluence and Atlas), reaction picker height is 24px with margin 6px,
@@ -59,35 +57,21 @@ export const emojiPicker = (
 // Level 2
 
 /// Category Selector
-
-export const addButton = 'emoji-picker-add-button';
-
 export const categorySelector = css({
   flex: '0 0 auto',
   backgroundColor: token('elevation.surface.sunken', N30),
-  ul: {
-    listStyle: 'none',
-    margin: '0 4px',
-    padding: '3px 0',
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-  },
 
-  li: {
-    display: 'inline-block',
-    margin: 0,
-    padding: 0,
-    button: {
-      verticalAlign: 'middle',
-    },
+  button: {
+    display: 'flex', // this will ensure the button height is concise per design
   },
+});
 
-  [`.${addButton}`]: {
-    color: token('color.text.subtlest', N200),
-    margin: '0 0 0 5px',
-    verticalAlign: 'middle',
-  },
+export const categorySelectorTablist = css({
+  padding: '6px 8px',
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-around',
+  alignItems: 'center',
 });
 
 export const active = css({
@@ -108,9 +92,9 @@ export const disable = css({
 export const categoryStyles = css({
   backgroundColor: 'transparent',
   border: 0,
+  borderRadius: token('border.radius.100', '3px'),
   color: token('color.text.subtlest', N100A),
   cursor: 'pointer',
-  margin: '2px 0',
   padding: 0,
   transition: 'color 0.2s ease',
 
@@ -122,6 +106,12 @@ export const categoryStyles = css({
 
   ['&:hover']: {
     color: token('color.text.selected', B200),
+  },
+
+  '&:focus': {
+    boxShadow: `0 0 0 2px ${token('color.border.focused', B100)}`,
+    transitionDuration: '0s, 0.2s',
+    outline: 'none',
   },
 });
 
@@ -142,6 +132,7 @@ export const virtualList = css({
   '&:focus': {
     outline: 'none',
   },
+  paddingBottom: '8px',
 });
 
 //// Search
@@ -149,6 +140,7 @@ export const virtualList = css({
 export const searchIcon = css({
   opacity: 0.5,
 });
+
 export const input = css({
   boxSizing: 'border-box',
   color: 'inherit',

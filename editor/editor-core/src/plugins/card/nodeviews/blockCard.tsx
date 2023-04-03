@@ -1,23 +1,14 @@
 import React from 'react';
-import { Node as PMNode } from 'prosemirror-model';
 import { Card as SmartCard } from '@atlaskit/smart-card';
 import { UnsupportedBlock } from '@atlaskit/editor-common/ui';
 import { browser } from '@atlaskit/editor-common/utils';
 import PropTypes from 'prop-types';
-import { EditorView } from 'prosemirror-view';
 import rafSchedule from 'raf-schd';
 
 import { SmartCardProps, Card } from './genericCard';
-import { ReactNodeView, getPosHandler } from '../../../nodeviews/';
+import { ReactNodeView } from '../../../nodeviews/';
 import { registerCard } from '../pm-plugins/actions';
 import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
-
-export interface Props {
-  children?: React.ReactNode;
-  node: PMNode;
-  view: EditorView;
-  getPos: getPosHandler;
-}
 
 export class BlockCardComponent extends React.PureComponent<SmartCardProps> {
   private scrollContainer?: HTMLElement;
@@ -67,7 +58,7 @@ export class BlockCardComponent extends React.PureComponent<SmartCardProps> {
   };
 
   render() {
-    const { node, cardContext, platform } = this.props;
+    const { node, cardContext, platform, showServerActions } = this.props;
     const { url, data } = node.attrs;
 
     const cardInner = (
@@ -82,6 +73,7 @@ export class BlockCardComponent extends React.PureComponent<SmartCardProps> {
           onResolve={this.onResolve}
           showActions={platform === 'web'}
           platform={platform}
+          showServerActions={showServerActions}
         />
         {this.gapCursorSpan()}
       </>
@@ -104,7 +96,10 @@ export class BlockCardComponent extends React.PureComponent<SmartCardProps> {
 
 const WrappedBlockCard = Card(BlockCardComponent, UnsupportedBlock);
 
-export type BlockCardNodeViewProps = Pick<SmartCardProps, 'platform'>;
+export type BlockCardNodeViewProps = Pick<
+  SmartCardProps,
+  'platform' | 'showServerActions'
+>;
 
 export class BlockCard extends ReactNodeView<BlockCardNodeViewProps> {
   createDomRef(): HTMLElement {
@@ -119,7 +114,7 @@ export class BlockCard extends ReactNodeView<BlockCardNodeViewProps> {
   }
 
   render() {
-    const { platform } = this.reactComponentProps;
+    const { platform, showServerActions } = this.reactComponentProps;
 
     return (
       <WrappedBlockCard
@@ -127,6 +122,7 @@ export class BlockCard extends ReactNodeView<BlockCardNodeViewProps> {
         view={this.view}
         getPos={this.getPos}
         platform={platform}
+        showServerActions={showServerActions}
       />
     );
   }

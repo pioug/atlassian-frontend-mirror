@@ -1,5 +1,11 @@
 # @atlaskit/focus-ring
 
+## 1.2.6
+
+### Patch Changes
+
+- [`c23cf0b085d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c23cf0b085d) - Adds display name to component for React devtools debugging.
+
 ## 1.2.5
 
 ### Patch Changes

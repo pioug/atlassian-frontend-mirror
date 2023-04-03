@@ -13,6 +13,7 @@ export interface Props {
   error: boolean;
   onSubmit: () => void;
   loading: boolean;
+  ariaDescribedby?: string;
 }
 
 export const retryUploadButtonTestId = 'retry-upload-button';
@@ -37,6 +38,7 @@ const RetryButton: FC<Props> = (props) => {
           appearance="warning"
           onClick={onSubmit}
           testId={retryUploadButtonTestId}
+          autoFocus
         >
           {retryLabel}
         </AkButton>
@@ -46,13 +48,16 @@ const RetryButton: FC<Props> = (props) => {
 };
 
 const UploadButton: FC<Props> = (props) => {
-  const { appearance, onSubmit, label } = props;
+  const { appearance, onSubmit, label, ariaDescribedby } = props;
+
   return (
     <AkButton
       css={uploadEmojiButton}
       appearance={appearance as any}
       onClick={onSubmit}
       testId={uploadEmojiButtonTestId}
+      aria-describedby={ariaDescribedby}
+      autoFocus
     >
       {label}
     </AkButton>

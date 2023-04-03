@@ -38,61 +38,68 @@ export const commitStep = ({
   })) as StepJson[];
 
   const start = new Date().getTime();
-  channel.broadcast(
-    'steps:commit',
-    {
-      steps: stepsWithClientAndUserId,
-      version,
-      userId,
-    },
-    (response: AddStepAcknowledgementPayload) => {
-      const latency = new Date().getTime() - start;
+  try {
+    channel.broadcast(
+      'steps:commit',
+      {
+        steps: stepsWithClientAndUserId,
+        version,
+        userId,
+      },
+      (response: AddStepAcknowledgementPayload) => {
+        const latency = new Date().getTime() - start;
 
-      if (response.type === AcknowledgementResponseTypes.SUCCESS) {
-        onStepsAdded({
-          steps: stepsWithClientAndUserId,
-          version: response.version,
-        });
-        analyticsHelper?.sendActionEvent(
-          EVENT_ACTION.ADD_STEPS,
-          EVENT_STATUS.SUCCESS,
-          {
-            type: ADD_STEPS_TYPE.ACCEPTED,
-            latency,
-            stepType: countBy(
-              stepsWithClientAndUserId,
-              (stepWithClientAndUserId) => stepWithClientAndUserId.stepType!,
-            ),
-          },
-        );
-      } else if (response.type === AcknowledgementResponseTypes.ERROR) {
-        onErrorHandled(response.error);
-        analyticsHelper?.sendActionEvent(
-          EVENT_ACTION.ADD_STEPS,
-          EVENT_STATUS.FAILURE,
-          {
-            // User tried committing steps but they were rejected because:
-            // - HEAD_VERSION_UPDATE_FAILED: the collab service's latest stored step tail version didn't correspond to the head version of the first step submitted
-            // - VERSION_NUMBER_ALREADY_EXISTS: while storing the steps there was a conflict meaning someone else wrote steps into the database more quickly
-            type:
-              response.error?.data?.code === 'HEAD_VERSION_UPDATE_FAILED' ||
-              response.error?.data?.code === 'VERSION_NUMBER_ALREADY_EXISTS'
-                ? ADD_STEPS_TYPE.REJECTED
-                : ADD_STEPS_TYPE.ERROR,
-            latency,
-          },
-        );
-        analyticsHelper?.sendErrorEvent(
-          response.error,
-          'Error while adding steps - Acknowledgement Error',
-        );
-      } else {
-        analyticsHelper?.sendErrorEvent(
-          // @ts-expect-error We didn't type the invalid type case
-          new Error(`Response type: ${response?.type || 'No response type'}`),
-          'Error while adding steps - Invalid Acknowledgement',
-        );
-      }
-    },
-  );
+        if (response.type === AcknowledgementResponseTypes.SUCCESS) {
+          onStepsAdded({
+            steps: stepsWithClientAndUserId,
+            version: response.version,
+          });
+          analyticsHelper?.sendActionEvent(
+            EVENT_ACTION.ADD_STEPS,
+            EVENT_STATUS.SUCCESS,
+            {
+              type: ADD_STEPS_TYPE.ACCEPTED,
+              latency,
+              stepType: countBy(
+                stepsWithClientAndUserId,
+                (stepWithClientAndUserId) => stepWithClientAndUserId.stepType!,
+              ),
+            },
+          );
+        } else if (response.type === AcknowledgementResponseTypes.ERROR) {
+          onErrorHandled(response.error);
+          analyticsHelper?.sendActionEvent(
+            EVENT_ACTION.ADD_STEPS,
+            EVENT_STATUS.FAILURE,
+            {
+              // User tried committing steps but they were rejected because:
+              // - HEAD_VERSION_UPDATE_FAILED: the collab service's latest stored step tail version didn't correspond to the head version of the first step submitted
+              // - VERSION_NUMBER_ALREADY_EXISTS: while storing the steps there was a conflict meaning someone else wrote steps into the database more quickly
+              type:
+                response.error?.data?.code === 'HEAD_VERSION_UPDATE_FAILED' ||
+                response.error?.data?.code === 'VERSION_NUMBER_ALREADY_EXISTS'
+                  ? ADD_STEPS_TYPE.REJECTED
+                  : ADD_STEPS_TYPE.ERROR,
+              latency,
+            },
+          );
+          analyticsHelper?.sendErrorEvent(
+            response.error,
+            'Error while adding steps - Acknowledgement Error',
+          );
+        } else {
+          analyticsHelper?.sendErrorEvent(
+            // @ts-expect-error We didn't type the invalid type case
+            new Error(`Response type: ${response?.type || 'No response type'}`),
+            'Error while adding steps - Invalid Acknowledgement',
+          );
+        }
+      },
+    );
+  } catch (error) {
+    analyticsHelper?.sendErrorEvent(
+      error,
+      'Error while adding steps - Broadcast threw exception',
+    );
+  }
 };

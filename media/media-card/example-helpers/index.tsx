@@ -20,7 +20,6 @@ import { SelectableCard } from './selectableCard';
 import { Card, CardAppearance, CardEvent, CardAction } from '../src';
 import { MediaCardError } from '../src/errors';
 import DevelopmentUseMessage from './developmentUseMessage';
-import { LOGGED_FEATURE_FLAGS } from '../src/utils/analytics';
 
 const mediaClientConfig = createStorybookMediaClientConfig();
 
@@ -141,9 +140,7 @@ export const MainWrapper: React.FC<MainWrapperProps> = ({
     <>
       {developmentOnly && <DevelopmentUseMessage />}
       {!disableFeatureFlagWrapper ? (
-        <FeatureFlagsWrapper filterFlags={LOGGED_FEATURE_FLAGS}>
-          {children}
-        </FeatureFlagsWrapper>
+        <FeatureFlagsWrapper>{children}</FeatureFlagsWrapper>
       ) : (
         <>{children}</>
       )}

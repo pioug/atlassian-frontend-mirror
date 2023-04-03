@@ -1,10 +1,7 @@
 import { caption } from '@atlaskit/adf-schema';
 import { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { default as createCaptionPlugin } from './pm-plugins/main';
-import { pluginKey } from './pm-plugins/plugin-key';
 import { captionKeymap } from './pm-plugins/keymap';
-
-export { pluginKey };
 
 const captionPlugin: NextEditorPlugin<'caption'> = () => {
   return {

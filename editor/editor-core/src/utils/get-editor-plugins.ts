@@ -1,4 +1,3 @@
-import { createEditorSelectionAPI } from '../selection-api/api';
 import { GetEditorPlugins } from '../types/get-editor-props';
 import createPluginsList from '../create-editor/create-plugins-list';
 
@@ -18,15 +17,11 @@ const getEditorPlugins: GetEditorPlugins = ({
 }) => {
   const dangerouslyAppendedPlugins =
     props.dangerouslyAppendPlugins?.__plugins ?? [];
-  const selectionAPI = createEditorSelectionAPI();
   return [
     ...createPluginsList(
       props,
       { appearance: prevAppearance },
       createAnalyticsEvent,
-      insertNodeAPI,
-      editorAnalyticsAPI,
-      selectionAPI,
     ),
     ...dangerouslyAppendedPlugins,
   ];

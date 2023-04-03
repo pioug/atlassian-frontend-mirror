@@ -10,10 +10,10 @@ import {
   getMediaRegion,
   RequestMetadata,
 } from '@atlaskit/media-client';
+import { getFeatureFlagKeysAllProducts } from '@atlaskit/media-common';
 
 import { PrimaryErrorReason } from '../errors';
 import { FileStateFlags } from '../components/types';
-import { LOGGED_FEATURE_FLAG_KEYS } from '.';
 
 export type UFOFailedEventPayload = {
   failReason?: PrimaryErrorReason;
@@ -40,7 +40,7 @@ const getExperience = () => {
       platform: { component: 'media-viewer' },
       type: ExperienceTypes.Experience,
       performanceType: ExperiencePerformanceTypes.InlineResult,
-      featureFlags: LOGGED_FEATURE_FLAG_KEYS,
+      featureFlags: getFeatureFlagKeysAllProducts(),
     };
     ufoExperience = new UFOExperience('media-file', inlineExperience);
   }

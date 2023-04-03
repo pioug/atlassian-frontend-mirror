@@ -1,25 +1,13 @@
 import React, { forwardRef, useMemo } from 'react';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context/MediaAnalyticsContext';
-import { MediaFeatureFlags, getMediaFeatureFlag } from '../mediaFeatureFlags';
+
 import {
   ContextPublicAttributes,
   ContextPrivateAttributes,
   ContextStaticProps,
   ContextData,
 } from './types';
-
-const getFilteredFeatureFlags = (
-  keys: Array<keyof MediaFeatureFlags>,
-  featureFlags: MediaFeatureFlags,
-): MediaFeatureFlags =>
-  keys.reduce(
-    (result, key) => ({
-      ...result,
-      [key]: getMediaFeatureFlag(key, featureFlags),
-    }),
-    {} as MediaFeatureFlags,
-  );
 
 /**
  * HOC for attaching MediaAnalyticsContext to a top-level React Component.
@@ -34,10 +22,7 @@ const getFilteredFeatureFlags = (
  * @see packages/analytics/analytics-next/src/hocs/withAnalyticsContext.tsx
  */
 export const withMediaAnalyticsContext =
-  (
-    contextPublicAttributes: ContextPublicAttributes,
-    options: { filterFeatureFlags?: Array<keyof MediaFeatureFlags> } = {},
-  ) =>
+  (contextPublicAttributes: ContextPublicAttributes) =>
   <
     Props extends ContextStaticProps,
     Component extends React.ComponentType<Props>,
@@ -53,16 +38,10 @@ export const withMediaAnalyticsContext =
     const WithMediaAnalyticsContext = forwardRef<any, WrappedProps>(
       (props, ref) => {
         const { featureFlags } = props;
-        const { filterFeatureFlags } = options;
 
         const contextData = useMemo<ContextData>(() => {
-          const filteredFlags =
-            filterFeatureFlags && featureFlags
-              ? getFilteredFeatureFlags(filterFeatureFlags, featureFlags)
-              : featureFlags;
-
           const contextPrivateAttributes: ContextPrivateAttributes = {
-            featureFlags: filteredFlags,
+            featureFlags,
           };
 
           return {
@@ -71,7 +50,7 @@ export const withMediaAnalyticsContext =
               ...contextPrivateAttributes,
             },
           };
-        }, [filterFeatureFlags, featureFlags]);
+        }, [featureFlags]);
 
         return (
           <AnalyticsContext data={contextData}>

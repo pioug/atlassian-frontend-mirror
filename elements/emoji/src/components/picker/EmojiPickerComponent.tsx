@@ -11,7 +11,7 @@ import {
 } from 'react';
 import { jsx } from '@emotion/react';
 import { unstable_batchedUpdates as batchedUpdates } from 'react-dom';
-import { FormattedMessage, MessageDescriptor } from 'react-intl-next';
+import { FormattedMessage, MessageDescriptor, useIntl } from 'react-intl-next';
 import { getEmojiVariation } from '../../api/EmojiRepository';
 import {
   OnEmojiProviderChange,
@@ -71,7 +71,8 @@ import {
 } from '../../util/analytics';
 import { emojiPicker } from './styles';
 import { useEmoji } from '../../hooks/useEmoji';
-import { useIsMounted } from '../hooks';
+import { useIsMounted } from '../../hooks/useIsMounted';
+import { messages } from '../i18n';
 
 const FREQUENTLY_USED_MAX = 16;
 
@@ -103,6 +104,7 @@ const EmojiPickerComponent = ({
   createAnalyticsEvent,
   size = defaultEmojiPickerSize,
 }: Props) => {
+  const { formatMessage } = useIntl();
   const { emojiProvider, isUploadSupported } = useEmoji();
   const [filteredEmojis, setFilteredEmojis] = useState<EmojiDescription[]>([]);
   const [searchEmojis, setSearchEmojis] = useState<EmojiDescription[]>([]);
@@ -464,11 +466,11 @@ const EmojiPickerComponent = ({
     fireAnalytics(uploadBeginButton());
   }, [emojiProvider, fireAnalytics]);
 
-  const scrollToEndOfList = useCallback(() => {
+  const scrollToUploadedEmoji = useCallback(() => {
     if (emojiPickerList.current) {
       // Wait a tick to ensure repaint and updated height for picker list
       window.setTimeout(() => {
-        emojiPickerList.current?.scrollToBottom();
+        emojiPickerList.current?.scrollToRecentlyUploaded();
       }, 0);
     }
   }, [emojiPickerList]);
@@ -485,7 +487,7 @@ const EmojiPickerComponent = ({
           setSelectedEmoji(emojiDescription);
           setUploading(false);
         });
-        scrollToEndOfList();
+        scrollToUploadedEmoji();
       };
       uploadEmoji(
         upload,
@@ -496,7 +498,7 @@ const EmojiPickerComponent = ({
         retry,
       );
     },
-    [emojiProvider, fireAnalytics, scrollToEndOfList],
+    [emojiProvider, fireAnalytics, scrollToUploadedEmoji],
   );
 
   const onTriggerDelete = useCallback(
@@ -622,6 +624,9 @@ const EmojiPickerComponent = ({
       css={emojiPicker(showPreview, size)}
       ref={onPickerRef}
       data-emoji-picker-container
+      role="dialog"
+      aria-label={formatMessage(messages.emojiPickerTitle)}
+      aria-modal={true}
     >
       <CategorySelector
         activeCategoryId={activeCategory}

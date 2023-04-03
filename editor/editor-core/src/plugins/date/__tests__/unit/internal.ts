@@ -23,7 +23,10 @@ Intl.DateTimeFormat('sr-Cyrl-BA').format(dateObj)
 for each locale.
 */
 jest.mock('../../../../plugins/date/utils/formatParse', () => {
-  const { padToTwo } = require('../../utils/internal');
+  function padToTwo(number: number) {
+    return number <= 99 ? `0${number}`.slice(-2) : `${number}`;
+  }
+
   return {
     formatDateType: jest.fn((dateType: DateType, locale: string) => {
       const day = dateType.day ? dateType.day : 1;

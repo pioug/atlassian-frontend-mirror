@@ -15,7 +15,9 @@ import { hexToEditorTextPaletteColor } from '@atlaskit/editor-palette';
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 
-import ColorPalette from '../../../../ui/ColorPalette';
+import ColorPalette, {
+  textPaletteTooltipMessages,
+} from '../../../../ui/ColorPalette';
 import Dropdown from '../../../../ui/Dropdown';
 import {
   expandIconWrapperStyle,
@@ -189,16 +191,16 @@ export class ToolbarTextColor extends React.Component<
         >
           <div data-testid="text-color-palette">
             <ColorPalette
-              palette={palette}
               onClick={(color) =>
                 this.changeTextColor(color, pluginState.disabled)
               }
               selectedColor={pluginState.color}
-              textPalette={true}
-              hexToPaletteColor={hexToEditorTextPaletteColor}
-              useSomewhatSemanticTextColorNames={
-                useSomewhatSemanticTextColorNames
-              }
+              paletteOptions={{
+                palette,
+                hexToPaletteColor: hexToEditorTextPaletteColor,
+                paletteColorTooltipMessages: textPaletteTooltipMessages,
+                showSomewhatSemanticTooltips: useSomewhatSemanticTextColorNames,
+              }}
             />
           </div>
         </Dropdown>

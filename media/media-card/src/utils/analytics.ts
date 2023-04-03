@@ -18,8 +18,6 @@ import {
   FailureAttributes,
   ScreenEventPayload,
   ScreenAttributes,
-  filterFeatureFlagNames,
-  filterFeatureFlagKeysAllProducts,
   MediaTraceContext,
   WithTraceContext,
 } from '@atlaskit/media-common';
@@ -34,17 +32,6 @@ import {
 } from '../errors';
 import { CardPreviewSource, CardDimensions, CardStatus } from '../types';
 
-const relevantFlags = {
-  newCardExperience: true,
-  captions: true,
-  timestampOnVideo: true,
-  observedWidth: true,
-  mediaInline: false,
-  folderUploads: false,
-  memoryCacheLogging: true,
-  fetchFileStateAfterUpload: true,
-};
-
 export type CardPreviewAttributes = {
   fileId: string;
   prevDimensions: CardDimensions | undefined;
@@ -56,11 +43,6 @@ export type CardPreviewAttributes = {
 type WithCardPreviewCacheAttributes = {
   cardPreviewAttributes: CardPreviewAttributes;
 };
-
-export const LOGGED_FEATURE_FLAGS = filterFeatureFlagNames(relevantFlags);
-
-export const LOGGED_FEATURE_FLAG_KEYS =
-  filterFeatureFlagKeysAllProducts(relevantFlags);
 
 export type FileUriFailReason = 'local-uri' | 'remote-uri' | `unknown-uri`;
 export type FailedErrorFailReason = MediaCardErrorPrimaryReason | 'nativeError';

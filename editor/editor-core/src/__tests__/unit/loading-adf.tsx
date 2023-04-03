@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -27,7 +27,7 @@ function mountEditorWithAdfDoc({ adfDoc }: { adfDoc: any }) {
 
   // This prop set is the minimum required in order to parse the reference "valid" documents
   // we have.
-  const wrapper = mount(
+  const wrapper = render(
     <IntlProvider locale="en">
       <Editor
         defaultValue={adfDoc}

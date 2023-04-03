@@ -12,11 +12,10 @@ import {
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
 
-// FIXME: This test was automatically skipped due to failure on 05/02/2023: https://product-fabric.atlassian.net/browse/ED-16781
 BrowserTestCase(
   `card: should switch to inline mode with proper cursor position`,
   {
-    skip: ['*'],
+    skip: [],
   },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);

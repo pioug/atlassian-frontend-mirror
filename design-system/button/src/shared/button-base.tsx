@@ -9,6 +9,7 @@ import {
 } from '@atlaskit/analytics-next';
 import noop from '@atlaskit/ds-lib/noop';
 import useAutoFocus from '@atlaskit/ds-lib/use-auto-focus';
+import FocusRing from '@atlaskit/focus-ring';
 import type { InteractionContextType } from '@atlaskit/interaction-context';
 // eslint-disable-next-line no-duplicate-imports
 import InteractionContext from '@atlaskit/interaction-context';
@@ -154,38 +155,42 @@ export default React.forwardRef<HTMLElement, ButtonBaseProps>(
     }
 
     return (
-      <Component
-        {...rest}
-        css={[buttonCss, isInteractive ? null : noPointerEventsOnChildrenCss]}
-        className={className}
-        ref={setRef}
-        onClick={onClick}
-        onMouseDown={onMouseDown}
-        disabled={isDisabled}
-        href={isInteractive ? href : undefined}
-        // using undefined so that the property doesn't exist when false
-        data-has-overlay={hasOverlay ? true : undefined}
-        data-testid={testId}
-        type={type}
-        // Adding a tab index so element is always focusable, even when not a <button> or <a>
-        // Disabling focus via keyboard navigation when disabled
-        // as this is standard button behaviour
-        tabIndex={isDisabled ? -1 : tabIndex}
-        {...blockEvents({ isInteractive })}
-      >
-        {iconBefore ? (
-          <span css={[fadeCss, getIconStyle({ spacing })]}>{iconBefore}</span>
-        ) : null}
-        {children ? (
-          <span css={[fadeCss, getContentStyle({ spacing })]}>{children}</span>
-        ) : null}
-        {iconAfter ? (
-          <span css={[fadeCss, getIconStyle({ spacing })]}>{iconAfter}</span>
-        ) : null}
-        {overlay ? (
-          <span css={[overlayCss, spinnerHackCss]}>{overlay}</span>
-        ) : null}
-      </Component>
+      <FocusRing>
+        <Component
+          {...rest}
+          css={[buttonCss, isInteractive ? null : noPointerEventsOnChildrenCss]}
+          className={className}
+          ref={setRef}
+          onClick={onClick}
+          onMouseDown={onMouseDown}
+          disabled={isDisabled}
+          href={isInteractive ? href : undefined}
+          // using undefined so that the property doesn't exist when false
+          data-has-overlay={hasOverlay ? true : undefined}
+          data-testid={testId}
+          type={type}
+          // Adding a tab index so element is always focusable, even when not a <button> or <a>
+          // Disabling focus via keyboard navigation when disabled
+          // as this is standard button behaviour
+          tabIndex={isDisabled ? -1 : tabIndex}
+          {...blockEvents({ isInteractive })}
+        >
+          {iconBefore ? (
+            <span css={[fadeCss, getIconStyle({ spacing })]}>{iconBefore}</span>
+          ) : null}
+          {children ? (
+            <span css={[fadeCss, getContentStyle({ spacing })]}>
+              {children}
+            </span>
+          ) : null}
+          {iconAfter ? (
+            <span css={[fadeCss, getIconStyle({ spacing })]}>{iconAfter}</span>
+          ) : null}
+          {overlay ? (
+            <span css={[overlayCss, spinnerHackCss]}>{overlay}</span>
+          ) : null}
+        </Component>
+      </FocusRing>
     );
   },
 );

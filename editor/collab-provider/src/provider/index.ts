@@ -28,7 +28,7 @@ import { createLogger, getParticipant, sleep } from '../helpers/utils';
 import { ACK_MAX_TRY, EVENT_ACTION, EVENT_STATUS } from '../helpers/const';
 import AnalyticsHelper from '../analytics';
 import { catchup } from './catchup';
-import { ErrorCodeMapper, errorCodeMapper } from '../error-code-mapper';
+import { ErrorCodeMapper, errorCodeMapper } from '../errors/error-code-mapper';
 
 import { disconnectedReasonMapper } from '../disconnected-reason-mapper';
 
@@ -52,7 +52,7 @@ const OUT_OF_SYNC_PERIOD = 3 * 1000; // 3 seconds
 const noop = () => {};
 export const MAX_STEP_REJECTED_ERROR = 15;
 
-const throttledCommitStep = throttle(commitStep, SEND_STEPS_THROTTLE, {
+export const throttledCommitStep = throttle(commitStep, SEND_STEPS_THROTTLE, {
   leading: false,
   trailing: true,
 });
@@ -384,7 +384,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
     return getVersion(state);
   };
 
-  private getUnconfirmedSteps = () => {
+  private getUnconfirmedSteps = (): readonly ProseMirrorStep[] | undefined => {
     const state = this.getState?.();
     if (!state) {
       this.analyticsHelper?.sendErrorEvent(
@@ -847,6 +847,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
     }
   }
 
+  // Note: this gets triggered on page reload for Firefox (not other browsers) because of closeOnBeforeunload: false
   private onDisconnected = ({ reason }: { reason: string }) => {
     this.disconnectedAt = Date.now();
     const left = Array.from(this.participants.values());
@@ -889,101 +890,141 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 
   getCurrentState = async (): Promise<ResolvedEditorState> => {
     try {
+      startMeasure(MEASURE_NAME.GET_CURRENT_STATE, this.analyticsHelper);
+
       // Convert ProseMirror document in Editor state to ADF document
       const state = this.getState!();
       const adfDocument = new JSONTransformer().encode(state.doc);
 
-      return {
+      const currentState = {
         content: adfDocument,
         title: this.metadata.title?.toString(),
         stepVersion: getVersion(state),
       };
+
+      const measure = stopMeasure(
+        MEASURE_NAME.GET_CURRENT_STATE,
+        this.analyticsHelper,
+      );
+      this.analyticsHelper?.sendActionEvent(
+        EVENT_ACTION.GET_CURRENT_STATE,
+        EVENT_STATUS.SUCCESS,
+        {
+          latency: measure?.duration,
+        },
+      );
+      return currentState;
     } catch (error) {
+      const measure = stopMeasure(
+        MEASURE_NAME.GET_CURRENT_STATE,
+        this.analyticsHelper,
+      );
+      this.analyticsHelper?.sendActionEvent(
+        EVENT_ACTION.GET_CURRENT_STATE,
+        EVENT_STATUS.FAILURE,
+        {
+          latency: measure?.duration,
+        },
+      );
       this.analyticsHelper?.sendErrorEvent(
         error,
         'Error while returning ADF version of current draft document',
       );
-      throw error;
+      throw error; // Reject the promise so the consumer can react to it failing
     }
   };
 
   private commitUnconfirmedSteps = async () => {
-    let count = 0;
     const unconfirmedSteps = this.getUnconfirmedSteps();
+    try {
+      if (unconfirmedSteps?.length) {
+        startMeasure(
+          MEASURE_NAME.COMMIT_UNCONFIRMED_STEPS,
+          this.analyticsHelper,
+        );
 
-    if (unconfirmedSteps?.length) {
-      startMeasure(MEASURE_NAME.COMMIT_UNCONFIRMED_STEPS, this.analyticsHelper);
-      // We use origins here as steps can be rebased. When steps are rebased a new step is created.
-      // This means that we can not track if it has been removed from the unconfirmed array or not.
-      // Origins points to the original transaction that the step was created in. This is never changed
-      // and gets passed down when a step is rebased.
-      const unconfirmedTrs = this.getUnconfirmedStepsOrigins();
-      const lastTr = unconfirmedTrs?.[unconfirmedTrs.length - 1];
-      let isLastTrConfirmed = false;
+        let count = 0;
+        // We use origins here as steps can be rebased. When steps are rebased a new step is created.
+        // This means that we can not track if it has been removed from the unconfirmed array or not.
+        // Origins points to the original transaction that the step was created in. This is never changed
+        // and gets passed down when a step is rebased.
+        const unconfirmedTrs = this.getUnconfirmedStepsOrigins();
+        const lastTr = unconfirmedTrs?.[unconfirmedTrs.length - 1];
+        let isLastTrConfirmed = false;
 
-      while (!isLastTrConfirmed) {
-        this.sendStepsFromCurrentState();
+        while (!isLastTrConfirmed) {
+          this.sendStepsFromCurrentState();
 
-        await sleep(1000);
+          await sleep(1000);
 
-        const nextUnconfirmedSteps = this.getUnconfirmedSteps();
-        if (nextUnconfirmedSteps?.length) {
-          const nextUnconfirmedTrs = this.getUnconfirmedStepsOrigins();
-          isLastTrConfirmed = !nextUnconfirmedTrs?.some((tr) => tr === lastTr);
-        } else {
-          isLastTrConfirmed = true;
-        }
-
-        if (!isLastTrConfirmed && count++ >= ACK_MAX_TRY) {
-          if (this.onSyncUpError) {
-            const state = this.getState!();
-
-            this.onSyncUpError({
-              lengthOfUnconfirmedSteps: nextUnconfirmedSteps?.length,
-              tries: count,
-              maxRetries: ACK_MAX_TRY,
-              clientId: this.clientId,
-              version: getVersion(state),
-            });
+          const nextUnconfirmedSteps = this.getUnconfirmedSteps();
+          if (nextUnconfirmedSteps?.length) {
+            const nextUnconfirmedTrs = this.getUnconfirmedStepsOrigins();
+            isLastTrConfirmed = !nextUnconfirmedTrs?.some(
+              (tr) => tr === lastTr,
+            );
+          } else {
+            isLastTrConfirmed = true;
           }
-          const measure = stopMeasure(
-            MEASURE_NAME.COMMIT_UNCONFIRMED_STEPS,
-            this.analyticsHelper,
-          );
-          this.analyticsHelper?.sendActionEvent(
-            EVENT_ACTION.COMMIT_UNCONFIRMED_STEPS,
-            EVENT_STATUS.FAILURE,
-            {
-              latency: measure?.duration,
-              // upon failure, emit the number of unconfirmed steps we attempted to sync
-              numUnconfirmedSteps: nextUnconfirmedSteps?.length,
-            },
-          );
-          throw new Error("Can't sync up with Collab Service");
-        }
-      }
 
+          if (!isLastTrConfirmed && count++ >= ACK_MAX_TRY) {
+            if (this.onSyncUpError) {
+              const state = this.getState!();
+
+              this.onSyncUpError({
+                lengthOfUnconfirmedSteps: nextUnconfirmedSteps?.length,
+                tries: count,
+                maxRetries: ACK_MAX_TRY,
+                clientId: this.clientId,
+                version: getVersion(state),
+              });
+            }
+
+            throw new Error("Can't sync up with Collab Service");
+          }
+        }
+
+        const measure = stopMeasure(
+          MEASURE_NAME.COMMIT_UNCONFIRMED_STEPS,
+          this.analyticsHelper,
+        );
+        this.analyticsHelper?.sendActionEvent(
+          EVENT_ACTION.COMMIT_UNCONFIRMED_STEPS,
+          EVENT_STATUS.SUCCESS,
+          {
+            latency: measure?.duration,
+            // upon success, emit the total number of unconfirmed steps we synced
+            numUnconfirmedSteps: unconfirmedSteps?.length,
+          },
+        );
+      }
+    } catch (error) {
       const measure = stopMeasure(
         MEASURE_NAME.COMMIT_UNCONFIRMED_STEPS,
         this.analyticsHelper,
       );
       this.analyticsHelper?.sendActionEvent(
         EVENT_ACTION.COMMIT_UNCONFIRMED_STEPS,
-        EVENT_STATUS.SUCCESS,
+        EVENT_STATUS.FAILURE,
         {
           latency: measure?.duration,
-          // upon success, emit the total number of unconfirmed steps we synced
           numUnconfirmedSteps: unconfirmedSteps?.length,
         },
       );
+      this.analyticsHelper?.sendErrorEvent(
+        error,
+        'Error while committing unconfirmed steps',
+      );
+      throw error;
     }
   };
 
   getFinalAcknowledgedState = async (): Promise<ResolvedEditorState> => {
-    // Moved these out of the try catch to maintain the current logic for throwing / not throwing errors
-    startMeasure(MEASURE_NAME.PUBLISH_PAGE, this.analyticsHelper);
-    await this.commitUnconfirmedSteps();
     try {
+      startMeasure(MEASURE_NAME.PUBLISH_PAGE, this.analyticsHelper);
+
+      await this.commitUnconfirmedSteps();
+
       const currentState = await this.getCurrentState();
 
       const measure = stopMeasure(
@@ -1001,7 +1042,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
       return currentState;
     } catch (error) {
       const measure = stopMeasure(
-        MEASURE_NAME.COMMIT_UNCONFIRMED_STEPS,
+        MEASURE_NAME.PUBLISH_PAGE,
         this.analyticsHelper,
       );
       this.analyticsHelper?.sendActionEvent(
@@ -1016,12 +1057,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
         error,
         'Error while returning ADF version of the final draft document',
       );
-      // TODO: We should likely throw here after we stop using this for draft sync, there is no way of knowing what happened otherwise, but this is what it was doing before
-      return {
-        content: undefined,
-        title: this.metadata.title?.toString(),
-        stepVersion: getVersion(this.getState!()),
-      };
+      throw error; // Reject the promise so the consumer can react to it failing
     }
   };
 

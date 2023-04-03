@@ -2,14 +2,6 @@ import { css } from '@emotion/react';
 import { N30, N300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-export interface MentionItemStyleProps {
-  selected?: boolean;
-}
-
-export interface NameSectionStyleProps {
-  restricted?: boolean;
-}
-
 export const ROW_SIDE_PADDING = 14;
 export const rowStyle = css`
   align-items: center;

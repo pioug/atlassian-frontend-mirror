@@ -5,6 +5,7 @@ export enum MEASURE_NAME {
   DOCUMENT_INIT = 'documentInit',
   COMMIT_UNCONFIRMED_STEPS = 'commitUnconfirmedSteps',
   PUBLISH_PAGE = 'publishPage',
+  GET_CURRENT_STATE = 'getCurrentState',
 }
 
 const isPerformanceAPIAvailable = (): boolean => {

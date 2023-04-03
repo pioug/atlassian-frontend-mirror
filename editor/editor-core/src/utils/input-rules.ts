@@ -49,29 +49,6 @@ export const ruleWithAnalytics = (getPayload: GetPayload) => {
   };
 };
 
-export const ruleWithTransform = (
-  transform: (state: EditorState, tr: Transaction) => void,
-) => {
-  return (originalRule: InputRuleWrapper): InputRuleWrapper => {
-    const onHandlerApply = (
-      state: EditorState,
-      tr: Transaction,
-      matchResult: RegExpExecArray,
-    ) => {
-      transform(state, tr);
-
-      if (originalRule.onHandlerApply) {
-        originalRule.onHandlerApply(state, tr, matchResult);
-      }
-    };
-
-    return {
-      ...originalRule,
-      onHandlerApply,
-    };
-  };
-};
-
 export const createRule = (
   match: RegExp,
   handler: InputRuleHandler,

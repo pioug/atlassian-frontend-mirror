@@ -85,7 +85,8 @@ export function getCustomCss({
 // To do this we are overwriting all pseudo selectors
 export function getSpecifiers(styles: CSSObject): CSSObject {
   return {
-    '&, &:hover, &:active, &:focus, &:visited, &:disabled, &[disabled]': styles,
+    '&, &:hover, &:active, &:focus, &:focus-visible, &:visited, &:disabled, &[disabled]':
+      styles,
   };
 }
 

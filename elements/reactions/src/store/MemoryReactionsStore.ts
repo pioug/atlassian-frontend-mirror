@@ -4,7 +4,7 @@ import * as Types from '../types';
 import { batch, batchByKey } from './batched';
 import * as utils from './utils';
 import { isRealErrorFromService } from './utils';
-import { SAMPLING_RATE_REACTIONS_RENDERED_EXP } from '../analytics/constants';
+import { SAMPLING_RATE_REACTIONS_RENDERED_EXP } from '../shared/constants';
 import { sampledReactionsRendered } from '../analytics/ufo';
 import { extractErrorInfo } from '../analytics/analytics';
 

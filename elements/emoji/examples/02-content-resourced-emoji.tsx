@@ -6,6 +6,7 @@ import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 import { EmojiProvider } from '../src/resource';
 import { ResourcedEmoji } from '../src/element';
 import { lorem } from '../example-helpers';
+import { IntlProvider } from 'react-intl-next';
 
 interface SampleEmojiProps {
   emojiProvider?: Promise<EmojiProvider>;
@@ -17,7 +18,7 @@ const lineStyle = (height: number = 24) => ({
 });
 
 const SampleEmojis = (props: SampleEmojiProps) => (
-  <span>
+  <IntlProvider locale="en">
     <ResourcedEmoji
       emojiId={{ shortName: ':grimacing:', id: '1f62c' }}
       emojiProvider={
@@ -80,7 +81,7 @@ const SampleEmojis = (props: SampleEmojiProps) => (
       showTooltip={true}
       fitToHeight={props.fitToHeight}
     />
-  </span>
+  </IntlProvider>
 );
 
 export default function Example() {

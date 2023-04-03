@@ -111,7 +111,7 @@ describe.each(featureFlagOptions)(packageName, (flags) => {
     return <EditorNext {...mergedProps} />;
   };
 
-  describe('Editor', () => {
+  describe(`Editor useEditorNext: ${flags.useEditorNext})`, () => {
     describe('errors', () => {
       it('should not have any unknown console errors on mount', () => {
         const knownErrors = ['The pseudo class ":first-child" is potentially'];

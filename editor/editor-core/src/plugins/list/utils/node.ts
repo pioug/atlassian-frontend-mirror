@@ -1,10 +1,6 @@
 import { Node as PMNode, NodeType, Fragment } from 'prosemirror-model';
 import { Transaction } from 'prosemirror-state';
 
-export function isDocumentNode(node: PMNode | null | undefined) {
-  return Boolean(node && node.type && node.type.name === 'doc');
-}
-
 export function isListNode(node: PMNode | null | undefined) {
   return Boolean(
     node && node.type && ['orderedList', 'bulletList'].includes(node.type.name),
@@ -23,7 +19,7 @@ export function isBulletList(node: PMNode | null | undefined) {
   return Boolean(node && node.type && 'bulletList' === node.type.name);
 }
 
-export function isListNodeValidContent(node: PMNode) {
+function isListNodeValidContent(node: PMNode) {
   const { bulletList } = node.type.schema.nodes;
   if (!bulletList) {
     return false;

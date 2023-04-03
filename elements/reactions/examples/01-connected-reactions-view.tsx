@@ -31,18 +31,6 @@ export default () => {
 
           <hr />
 
-          <strong
-            style={{
-              fontSize: '14px',
-              marginLeft: '10px',
-              textDecoration: 'underline',
-            }}
-          >
-            "allowAllEmojis" prop - Show the "more emoji" selector icon for
-            choosing emoji icons beyond the default list of emojis (defaults to
-            constants.DEFAULT_REACTION_EMOJI_IDS)
-          </strong>
-
           {/* Example 2 */}
           <Example
             title={
@@ -54,6 +42,7 @@ export default () => {
                 containerAri={`${ExampleConstants.ContainerAriPrefix}1`}
                 ari={`${ExampleConstants.AriPrefix}1`}
                 emojiProvider={getEmojiResource() as Promise<EmojiProvider>}
+                allowAllEmojis
                 miniMode
               />
             }
@@ -68,7 +57,9 @@ export default () => {
               textDecoration: 'underline',
             }}
           >
-            "miniMode" prop - make the emoji picker button show as mini mode
+            "allowAllEmojis" prop - Show the "more emoji" selector icon for
+            choosing emoji icons beyond the default list of emojis (defaults to
+            constants.DEFAULT_REACTION_EMOJI_IDS)
           </strong>
 
           {/* Example 3 */}

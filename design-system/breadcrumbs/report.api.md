@@ -34,6 +34,7 @@ const Breadcrumbs: React_2.MemoExoticComponent<
       | 'defaultExpanded'
       | 'ellipsisLabel'
       | 'isExpanded'
+      | 'isNavigation'
       | 'itemsAfterCollapse'
       | 'itemsBeforeCollapse'
       | 'label'
@@ -75,6 +76,7 @@ interface BreadcrumbsProps extends WithAnalyticsEventsProps {
   defaultExpanded?: boolean;
   ellipsisLabel?: string;
   isExpanded?: boolean;
+  isNavigation?: boolean;
   itemsAfterCollapse?: number;
   itemsBeforeCollapse?: number;
   label?: string;

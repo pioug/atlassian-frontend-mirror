@@ -4,9 +4,6 @@ import {
   FieldDefinition,
   Parameters,
 } from '@atlaskit/editor-common/extensions';
-export type FormResult = {
-  [key: string]: string | number | string[] | number[] | undefined;
-};
 
 export enum ValidationError {
   Required = 'required',

@@ -1,5 +1,12 @@
 # @atlaskit/media-card
 
+## 74.7.1
+
+### Patch Changes
+
+- [`b37723f2cfa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b37723f2cfa) - The component now logs the full provided feature flags object
+- Updated dependencies
+
 ## 74.7.0
 
 ### Minor Changes

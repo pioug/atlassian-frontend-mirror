@@ -2,15 +2,14 @@
 
 import styled from 'styled-components';
 import * as colors from '@atlaskit/theme/colors';
-import { gridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 export const HelpContentButtonContainer = styled.a`
   display: block;
   cursor: pointer;
-  width: calc(100% - ${gridSize() * 2}px);
+  width: calc(100% - ${token('space.200', '16px')});
   color: ${token('color.text.subtle', colors.N600)};
-  padding: ${gridSize}px;
+  padding: ${token('space.100', '8px')};
   border-radius: 3px;
 
   &:hover,
@@ -62,19 +61,19 @@ export const HelpContentButtonText = styled.div`
   width: calc(100% - 20px);
   display: inline-block;
   vertical-align: middle;
-  padding: 0 ${gridSize}px;
+  padding: 0 ${token('space.100', '8px')};
   box-sizing: border-box;
 `;
 
 export const HelpContentButtonExternalLinkIcon = styled.div`
   display: inline-block;
   vertical-align: middle;
-  padding-left: ${gridSize() / 2}px;
+  padding-left: ${token('space.050', '4px')};
 `;
 
 export const HelpContentButtonExternalNotificationIcon = styled.div`
   display: inline-block;
   vertical-align: middle;
-  margin-top: -${gridSize() / 2}px;
-  padding-left: ${gridSize() / 2}px;
+  margin-top: calc(-1 * ${token('space.050', '4px')});
+  padding-left: ${token('space.050', '4px')};
 `;

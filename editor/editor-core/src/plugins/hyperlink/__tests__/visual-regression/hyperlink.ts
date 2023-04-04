@@ -39,6 +39,7 @@ const click = async (page: any, selector: string) => {
     hyperlinkSelectors.floatingToolbar,
     1000,
   );
+  await animationFrame(page);
 };
 
 describe('Hyperlink', () => {
@@ -76,8 +77,7 @@ describe('Hyperlink', () => {
     });
 
     describe('action item', () => {
-      // FIXME: This test was automatically skipped due to failure on 27/02/2023: https://product-fabric.atlassian.net/browse/ED-17005
-      it.skip('should display the link toolbar', async () => {
+      it('should display the link toolbar', async () => {
         await click(page, `${selectors.editor} .taskItemView-content-wrap a`);
       });
     });
@@ -104,8 +104,7 @@ describe('Hyperlink', () => {
         await page.click(hyperlinkSelectors.editLinkBtn);
       });
 
-      // FIXME: This test was automatically skipped due to failure on 24/02/2023: https://product-fabric.atlassian.net/browse/ED-16990
-      it.skip('displays correctly when link is different to display text', async () => {
+      it('displays correctly when link is different to display text', async () => {
         await initEditorWithAdf(page, {
           appearance: Appearance.fullPage,
           adf: hyperlinkWithTextAdf,

@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 25.1.1
+
+### Patch Changes
+
+- [`a3b9ef40d09`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a3b9ef40d09) - [ux] Adds white-space style to FlexUI text element
+
 ## 25.1.0
 
 ### Minor Changes

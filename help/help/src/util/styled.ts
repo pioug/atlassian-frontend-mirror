@@ -11,8 +11,8 @@ export const DividerLine = styled.div`
   background-color: ${token('color.border', colors.N30A)};
   height: 2px;
   width: 100%;
-  padding: 0 ${2 * gridSize()}px;
-  margin-top: ${gridSize() * 2}px;
+  padding: 0 ${token('space.200', '16px')};
+  margin-top: ${token('space.200', '16px')};
   box-sizing: border-box;
 `;
 
@@ -101,8 +101,8 @@ export const WhatsNewTypeIcon = styled.div<WhatsNewTypeIconProps>`
   display: inline-block;
   vertical-align: middle;
   position: relative;
-  height: ${gridSize() * 2}px;
-  width: ${gridSize() * 2}px;
+  height: ${token('space.200', '16px')};
+  width: ${token('space.200', '16px')};
   border-radius: 2px;
   background-color: ${({ type }) => {
     switch (type) {

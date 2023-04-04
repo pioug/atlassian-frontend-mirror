@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import styled from '@emotion/styled';
-import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 /**
  * Loading styled-components
@@ -10,13 +10,13 @@ export const LoadignWhatsNewResultsList = styled.ul`
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  margin-top: ${gridSize() * 2}px;
+  margin-top: ${token('space.200', '16px')};
 `;
 
 export const LoadignWhatsNewResultsListItem = styled.li`
   display: block;
   width: 100%;
-  padding: ${gridSize()}px;
+  padding: ${token('space.100', '8px')};
   margin: 0;
   box-sizing: border-box;
 `;

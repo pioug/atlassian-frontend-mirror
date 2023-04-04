@@ -3,8 +3,8 @@
 exports[`BackButton Should match snapshot 1`] = `
 .emotion-4 {
   position: absolute;
-  top: 12px;
-  left: 8px;
+  top: var(--ds-space-150,12px);
+  left: var(--ds-space-100,8px);
 }
 
 .emotion-3 {

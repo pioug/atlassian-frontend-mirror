@@ -17,14 +17,14 @@ export const HeaderContainer = styled.div`
 
 export const CloseButtonContainer = styled.div`
   position: absolute;
-  right: ${gridSize()}px;
-  top: ${gridSize() * 1.5}px;
+  right: ${token('space.100', '8px')};
+  top: ${token('space.150', '12px')};
 `;
 
 export const BackButtonContainer = styled.div`
   position: absolute;
-  top: ${gridSize() * 1.5}px;
-  left: ${gridSize()}px;
+  top: ${token('space.150', '12px')};
+  left: ${token('space.100', '8px')};
 `;
 
 export const HeaderTitle = styled.div`
@@ -42,5 +42,6 @@ export const HeaderTitle = styled.div`
 `;
 
 export const HeaderContent = styled.div`
-  padding: 0 ${gridSize() * 2}px ${gridSize() * 2}px ${gridSize() * 2}px;
+  padding: 0 ${token('space.200', '16px')} ${token('space.200', '16px')}
+    ${token('space.200', '16px')};
 `;

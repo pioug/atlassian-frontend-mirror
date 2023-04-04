@@ -1,12 +1,12 @@
 /** @jsx jsx */
 import styled from '@emotion/styled';
-import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 export const ButtonsWrapper = styled.div`
-  padding: ${gridSize() * 2}px;
+  padding: ${token('space.200', '16px')};
 `;
 
 export const TextWrapper = styled.div`
-  padding: ${gridSize() * 2}px;
+  padding: ${token('space.200', '16px')};
   text-align: center;
 `;

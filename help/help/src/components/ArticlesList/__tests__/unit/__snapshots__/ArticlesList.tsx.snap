@@ -4,7 +4,7 @@ exports[`ArticleContent Should match snapshot 1`] = `
 .emotion-3 {
   position: relative;
   box-sizing: border-box;
-  padding: 8px;
+  padding: var(--ds-space-100,8px);
   display: block;
   -webkit-text-decoration: none;
   text-decoration: none;
@@ -51,15 +51,15 @@ exports[`ArticleContent Should match snapshot 1`] = `
   font-size: 14px;
   font-weight: 600;
   display: inline-block;
-  line-height: 20px;
+  line-height: var(--ds-font-lineHeight-200,20px);
   white-space: normal;
   overflow-x: hidden;
-  margin-bottom: 8px;
+  margin-bottom: var(--ds-space-100,8px);
 }
 
 .emotion-2 {
   display: block;
-  line-height: 20px;
+  line-height: var(--ds-font-lineHeight-200,20px);
   color: var(--ds-text-subtle,#505F79);
   margin: 0;
 }

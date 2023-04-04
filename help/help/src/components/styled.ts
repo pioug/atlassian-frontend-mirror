@@ -1,7 +1,7 @@
 /** @jsx jsx */
 
 import styled from '@emotion/styled';
-import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 type HelpBodyProps = {
   isOverlayVisible?: boolean;
@@ -41,6 +41,6 @@ export const Home = styled.div<HomeProps>`
   display: ${(props) => (props.isOverlayFullyVisible ? 'none' : 'block')};
   height: 100%;
   overflow: ${(props) => (props.isOverlayVisible ? 'hidden' : 'auto')};
-  padding: ${gridSize() * 2}px;
+  padding: ${token('space.200', '16px')};
   box-sizing: border-box;
 `;

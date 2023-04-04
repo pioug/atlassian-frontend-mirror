@@ -1170,9 +1170,12 @@ describe('SmartUserPicker', () => {
         });
 
         it('should send a UFO failure when the list of users cannot be shown after focus', async () => {
-          getUserRecommendationsMock.mockImplementationOnce(() => {
-            throw new Error('Cannot call getUserRecommendations');
-          });
+          getUserRecommendationsMock.mockImplementation(() =>
+            Promise.reject({
+              message: `Cannot call getUserRecommendations`,
+              statusCode: 500,
+            }),
+          );
           const wrapper = smartUserPickerWrapper({ prefetch: isPrefetch });
 
           // Focus in the user picker so the user list is shown
@@ -1189,6 +1192,33 @@ describe('SmartUserPicker', () => {
             // Initial focus
             'STARTED',
             'FAILED',
+          ]);
+        });
+
+        it('should not send a UFO failure when the list of users cannot be shown after focus but the error is not a 5xx', async () => {
+          getUserRecommendationsMock.mockImplementation(() =>
+            Promise.reject({
+              message: `Cannot call getUserRecommendations`,
+              statusCode: 400,
+            }),
+          );
+          const wrapper = smartUserPickerWrapper({ prefetch: isPrefetch });
+
+          // Focus in the user picker so the user list is shown
+          // @ts-ignore in this case UserPicker.onFocus is not undefined
+          wrapper.find(Select).props().onFocus();
+          await waitForUpdate(wrapper);
+
+          expect(mockOptionsShown.startSpy).toHaveBeenCalled();
+          expect(mockOptionsShown.failureSpy).not.toHaveBeenCalled();
+          expect(mockOptionsShown.successSpy).not.toHaveBeenCalled();
+          expect(mockOptionsShown.abortSpy).toHaveBeenCalled();
+
+          expect(mockOptionsShown.transitions).toStrictEqual([
+            'NOT_STARTED',
+            // Initial focus
+            'STARTED',
+            'ABORTED',
           ]);
         });
 
@@ -1219,9 +1249,12 @@ describe('SmartUserPicker', () => {
         });
 
         it('should send a UFO failure when both the URS and fallback onError requests fail, so the list of users cannot be shown after focus', async () => {
-          getUserRecommendationsMock.mockImplementationOnce(() => {
-            throw new Error('Cannot call getUserRecommendations');
-          });
+          getUserRecommendationsMock.mockImplementation(() =>
+            Promise.reject({
+              message: `Cannot call getUserRecommendations`,
+              statusCode: 500,
+            }),
+          );
           const wrapper = smartUserPickerWrapper({
             prefetch: isPrefetch,
             onError: async () => {
@@ -1243,6 +1276,37 @@ describe('SmartUserPicker', () => {
             // Initial focus
             'STARTED',
             'FAILED',
+          ]);
+        });
+        it('should not send a UFO failure when both the URS and fallback onError requests fail, so the list of users cannot be shown after focus but the error is not a 5xx', async () => {
+          getUserRecommendationsMock.mockImplementation(() =>
+            Promise.reject({
+              message: `Cannot call getUserRecommendations`,
+              statusCode: 400,
+            }),
+          );
+          const wrapper = smartUserPickerWrapper({
+            prefetch: isPrefetch,
+            onError: async () => {
+              throw new Error('Fallback lookup failed');
+            },
+          });
+
+          // Focus in the user picker so the user list is shown
+          // @ts-ignore in this case UserPicker.onFocus is not undefined
+          wrapper.find(Select).props().onFocus();
+          await waitForUpdate(wrapper);
+
+          expect(mockOptionsShown.startSpy).toHaveBeenCalledTimes(1);
+          expect(mockOptionsShown.failureSpy).not.toHaveBeenCalled();
+          expect(mockOptionsShown.successSpy).not.toHaveBeenCalled();
+          expect(mockOptionsShown.abortSpy).toHaveBeenCalledTimes(1);
+
+          expect(mockOptionsShown.transitions).toStrictEqual([
+            'NOT_STARTED',
+            // Initial focus
+            'STARTED',
+            'ABORTED',
           ]);
         });
       });
@@ -1284,9 +1348,12 @@ describe('SmartUserPicker', () => {
       });
 
       it('should send a UFO failure when the list of users cannot be shown after typing', async () => {
-        getUserRecommendationsMock.mockImplementation(() => {
-          throw new Error('Cannot call getUserRecommendations');
-        });
+        getUserRecommendationsMock.mockImplementation(() =>
+          Promise.reject({
+            message: `Cannot call getUserRecommendations`,
+            statusCode: 500,
+          }),
+        );
         const wrapper = smartUserPickerWrapper({ prefetch: true });
 
         // Focus in the user picker so the user list is shown
@@ -1317,10 +1384,52 @@ describe('SmartUserPicker', () => {
         ]);
       });
 
+      it('should not send a UFO failure when the list of users cannot be shown after typing but the error is not a 5xx', async () => {
+        getUserRecommendationsMock.mockImplementation(() =>
+          Promise.reject({
+            message: `Cannot call getUserRecommendations`,
+            statusCode: 400,
+          }),
+        );
+        const wrapper = smartUserPickerWrapper({ prefetch: true });
+
+        // Focus in the user picker so the user list is shown
+        // @ts-ignore in this case UserPicker.onFocus is not undefined
+        wrapper.find(Select).props().onFocus();
+        await waitForUpdate(wrapper);
+
+        expect(mockOptionsShown.startSpy).toHaveBeenCalledTimes(1);
+        expect(mockOptionsShown.failureSpy).toHaveBeenCalledTimes(0);
+        expect(mockOptionsShown.successSpy).toHaveBeenCalledTimes(0);
+        expect(mockOptionsShown.abortSpy).toHaveBeenCalledTimes(1);
+
+        // Now that the options list is shown, type "user" to filter:
+        wrapper.find(UserPicker).props().onInputChange('user');
+        await waitForUpdate(wrapper);
+
+        expect(mockOptionsShown.startSpy).toHaveBeenCalledTimes(2);
+        expect(mockOptionsShown.failureSpy).toHaveBeenCalledTimes(0);
+        expect(mockOptionsShown.successSpy).toHaveBeenCalledTimes(0);
+        expect(mockOptionsShown.abortSpy).toHaveBeenCalledTimes(2);
+
+        expect(mockOptionsShown.transitions).toStrictEqual([
+          'NOT_STARTED',
+          // Initial focus which fails user lookup
+          'STARTED',
+          'ABORTED',
+          // First onInputChange which also fails user lookup
+          'STARTED',
+          'ABORTED',
+        ]);
+      });
+
       it('should send a UFO success when URS returns an error but the onError prop is used to show fallback users', async () => {
-        getUserRecommendationsMock.mockImplementation(() => {
-          throw new Error('Cannot call getUserRecommendations');
-        });
+        getUserRecommendationsMock.mockImplementation(() =>
+          Promise.reject({
+            message: `Cannot call getUserRecommendations`,
+            statusCode: 500,
+          }),
+        );
         const wrapper = smartUserPickerWrapper({
           prefetch: true,
           onError: async (error, request) => {
@@ -1364,9 +1473,12 @@ describe('SmartUserPicker', () => {
       });
 
       it('should send a UFO failure when URS returns an error and the onError prop used for fallback users also returns an error', async () => {
-        getUserRecommendationsMock.mockImplementation(() => {
-          throw new Error('Cannot call getUserRecommendations');
-        });
+        getUserRecommendationsMock.mockImplementation(() =>
+          Promise.reject({
+            message: `Cannot call getUserRecommendations`,
+            statusCode: 500,
+          }),
+        );
         const wrapper = smartUserPickerWrapper({
           prefetch: true,
           onError: async () => {
@@ -1399,6 +1511,50 @@ describe('SmartUserPicker', () => {
           // First onInputChange which fails URS lookup and also fails fallback lookup from onError
           'STARTED',
           'FAILED',
+        ]);
+      });
+
+      it('should not send a UFO failure when URS returns an error and the onError prop used for fallback users also returns an error but the error is not a 5xx', async () => {
+        getUserRecommendationsMock.mockImplementation(() =>
+          Promise.reject({
+            message: `Cannot call getUserRecommendations`,
+            statusCode: 400,
+          }),
+        );
+        const wrapper = smartUserPickerWrapper({
+          prefetch: true,
+          onError: async () => {
+            throw new Error('Fallback lookup failed');
+          },
+        });
+
+        // Focus in the user picker so the user list is shown
+        // @ts-ignore in this case UserPicker.onFocus is not undefined
+        wrapper.find(Select).props().onFocus();
+        await waitForUpdate(wrapper);
+
+        expect(mockOptionsShown.startSpy).toHaveBeenCalledTimes(1);
+        expect(mockOptionsShown.failureSpy).toHaveBeenCalledTimes(0);
+        expect(mockOptionsShown.successSpy).toHaveBeenCalledTimes(0);
+        expect(mockOptionsShown.abortSpy).toHaveBeenCalledTimes(1);
+
+        // Now that the options list is shown, type "user" to filter:
+        wrapper.find(UserPicker).props().onInputChange('user');
+        await waitForUpdate(wrapper);
+
+        expect(mockOptionsShown.startSpy).toHaveBeenCalledTimes(2);
+        expect(mockOptionsShown.failureSpy).toHaveBeenCalledTimes(0);
+        expect(mockOptionsShown.successSpy).toHaveBeenCalledTimes(0);
+        expect(mockOptionsShown.abortSpy).toHaveBeenCalledTimes(2);
+
+        expect(mockOptionsShown.transitions).toStrictEqual([
+          'NOT_STARTED',
+          // Initial focus which fails URS lookup and also fails fallback lookup from onError
+          'STARTED',
+          'ABORTED',
+          // First onInputChange which fails URS lookup and also fails fallback lookup from onError
+          'STARTED',
+          'ABORTED',
         ]);
       });
 

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { gridSize } from '@atlaskit/theme/constants';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
 import { NotificationLogClient } from '@atlaskit/notification-log-client';
@@ -382,7 +381,10 @@ const Example: React.FC = () => {
             <h2
               style={{
                 width: 'Calc(100% - 400px)',
-                padding: `0 0 ${gridSize()}px ${gridSize() * 2}px`,
+                padding: `0 0 ${token('space.100', '8px')} ${token(
+                  'space.200',
+                  '16px',
+                )}`,
               }}
             >
               Help articles
@@ -426,7 +428,10 @@ const Example: React.FC = () => {
             <h3
               style={{
                 width: 'Calc(100% - 400px)',
-                padding: `${gridSize() * 2}px 0 0 ${gridSize() * 2}px`,
+                padding: `${token('space.200', '16px')} 0 0 ${token(
+                  'space.200',
+                  '16px',
+                )}`,
                 margin: '0',
               }}
             >
@@ -536,7 +541,10 @@ const Example: React.FC = () => {
             <h2
               style={{
                 width: 'Calc(100% - 400px)',
-                padding: `${gridSize() * 2}px 0 0 ${gridSize() * 2}px`,
+                padding: `${token('space.200', '16px')} 0 0 ${token(
+                  'space.200',
+                  '16px',
+                )}`,
                 margin: '0px',
               }}
             >
@@ -563,7 +571,10 @@ const Example: React.FC = () => {
             <h3
               style={{
                 width: 'Calc(100% - 400px)',
-                padding: `${gridSize() * 2}px 0 0 ${gridSize() * 2}px`,
+                padding: `${token('space.200', '16px')} 0 0 ${token(
+                  'space.200',
+                  '16px',
+                )}`,
                 margin: '0',
               }}
             >

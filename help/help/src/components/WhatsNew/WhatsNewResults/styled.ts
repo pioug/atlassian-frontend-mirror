@@ -15,7 +15,7 @@ export const WhatsNewResultsContainer = styled.div`
   overflow-x: hidden;
   overflow-y: auto;
   z-index: 1;
-  padding: ${2 * gridSize()}px;
+  padding: ${token('space.200', '16px')};
 `;
 
 export const SelectContainer = styled.div`
@@ -23,9 +23,9 @@ export const SelectContainer = styled.div`
 `;
 
 export const WhatsNewResultsListContainer = styled.div`
-  padding-top: ${gridSize()}px;
+  padding-top: ${token('space.100', '8px')};
 `;
 
 export const WhatsNewResultsListTitleContainer = styled.div`
-  padding: 0 ${gridSize()}px;
+  padding: 0 ${token('space.100', '8px')};
 `;

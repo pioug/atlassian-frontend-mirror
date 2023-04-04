@@ -41,8 +41,8 @@ exports[`RelatedArticlesLoading Should match snapshot 1`] = `
 .emotion-5 {
   display: block;
   width: 100%;
-  padding: 8px;
-  margin-bottom: 16px;
+  padding: var(--ds-space-100,8px);
+  margin-bottom: var(--ds-space-200,16px);
   box-sizing: border-box;
 }
 
@@ -119,8 +119,8 @@ exports[`RelatedArticlesLoading Should match snapshot 1`] = `
   background-color: var(--ds-border,rgba(9,30,66,0.08));
   height: 2px;
   width: 100%;
-  padding: 0 16px;
-  margin-top: 16px;
+  padding: 0 var(--ds-space-200,16px);
+  margin-top: var(--ds-space-200,16px);
   box-sizing: border-box;
 }
 

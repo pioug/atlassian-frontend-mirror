@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import styled from '@emotion/styled';
-import { fontSize, fontSizeSmall, gridSize } from '@atlaskit/theme/constants';
+import { fontSize, fontSizeSmall } from '@atlaskit/theme/constants';
 import * as colors from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -9,15 +9,15 @@ export const WhatsNewTypeTitle = styled.span`
   color: ${token('color.text.subtlest', colors.N300)};
   font-size: ${fontSize()}px;
   vertical-align: middle;
-  padding-left: ${gridSize() / 2}px;
-  line-height: ${gridSize() * 2.5}px;
+  padding-left: ${token('space.050', '4px')};
+  line-height: ${token('font.lineHeight.200', '20px')};
   white-space: normal;
   overflow-x: hidden;
 `;
 
 export const WhatsNewIconContainer = styled.div`
   display: block;
-  padding-bottom: ${gridSize()}px;
+  padding-bottom: ${token('space.100', '8px')};
 `;
 
 export const WhatsNewTitleText = styled.span`
@@ -27,7 +27,7 @@ export const WhatsNewTitleText = styled.span`
   font-weight: 600;
   white-space: normal;
   overflow-x: hidden;
-  padding-bottom: ${gridSize()}px;
+  padding-bottom: ${token('space.100', '8px')};
   display: block;
 `;
 
@@ -38,16 +38,16 @@ export const WhatsNewRelatedLinksTitleText = styled.span`
   font-weight: 600;
   white-space: normal;
   overflow-x: hidden;
-  padding-bottom: ${gridSize()}px;
+  padding-bottom: ${token('space.100', '8px')};
   display: block;
 `;
 
 export const RelatedLinkContainer = styled.div`
-  margin-bottom: ${gridSize()}px;
+  margin-bottom: ${token('space.100', '8px')};
 `;
 
 export const ExternalLinkIconContainer = styled.div`
   display: inline-block;
   vertical-align: middle;
-  padding-left: ${gridSize() / 2}px;
+  padding-left: ${token('space.050', '4px')};
 `;

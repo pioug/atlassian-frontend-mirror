@@ -5,6 +5,11 @@ import { config } from '../config';
 import { ConfluenceAttributes, RecommendationRequest } from '../types';
 import { IntlShape } from 'react-intl-next';
 
+export interface SUPError extends Error {
+  message: string;
+  statusCode: number;
+}
+
 const getUserRecommendations = (
   request: RecommendationRequest,
   intl: IntlShape,
@@ -51,6 +56,7 @@ const getUserRecommendations = (
       }
       return Promise.reject({
         message: `error calling smart service, statusCode=${response.status}, statusText=${response.statusText}`,
+        statusCode: response.status,
       });
     })
     .then((response) => transformUsers(response, intl));

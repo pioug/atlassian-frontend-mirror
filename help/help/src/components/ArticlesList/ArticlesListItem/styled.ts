@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import styled from '@emotion/styled';
-import { fontSize, gridSize } from '@atlaskit/theme/constants';
+import { fontSize } from '@atlaskit/theme/constants';
 import * as colors from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -12,7 +12,7 @@ export const ArticlesListItemWrapper = styled.a<ArticlesListItemWrapperProps>(
   {
     position: `relative`,
     boxSizing: `border-box`,
-    padding: `${gridSize()}px`,
+    padding: token('space.100', '8px'),
     display: `block`,
     textDecoration: `none`,
     cursor: `pointer`,
@@ -61,9 +61,9 @@ export const ArticlesListItemContainer = styled.div`
 export const ArticlesListItemTypeTitle = styled.div`
   font-weight: bold;
   font-size: 11px;
-  line-height: ${gridSize() * 2}px;
+  line-height: ${token('font.lineHeight.100', '16px')};
   color: ${token('color.text.subtlest', colors.N200)};
-  padding-bottom: ${gridSize() / 2}px;
+  padding-bottom: ${token('space.050', '4px')};
 `;
 
 export const ArticlesListItemLinkIcon = styled.span`
@@ -78,15 +78,15 @@ export const ArticlesListItemTitleText = styled.span`
   font-size: ${fontSize()}px;
   font-weight: 600;
   display: inline-block;
-  line-height: ${gridSize() * 2.5}px;
+  line-height: ${token('font.lineHeight.200', '20px')};
   white-space: normal;
   overflow-x: hidden;
-  margin-bottom: ${gridSize()}px;
+  margin-bottom: ${token('space.100', '8px')};
 `;
 
 export const ArticlesListItemDescription = styled.p`
   display: block;
-  line-height: ${gridSize() * 2.5}px;
+  line-height: ${token('font.lineHeight.200', '20px')};
   color: ${token('color.text.subtle', colors.N400)};
   margin: 0;
 `;

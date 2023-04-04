@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { gridSize } from '@atlaskit/theme/constants';
 import * as colors from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import toDate from 'date-fns/toDate';
@@ -83,10 +82,15 @@ const WhatsNewResultsList: React.FC<
                           : 0,
                       padding:
                         style === 'secondary'
-                          ? `${gridSize()}px ${gridSize() * 2}px`
-                          : `${gridSize()}px`,
+                          ? `${token('space.100', '8px')} ${token(
+                              'space.200',
+                              '16px',
+                            )}`
+                          : `${token('space.100', '8px')}`,
                       marginBottom:
-                        style === 'secondary' ? `${gridSize() * 1.5}px` : 0,
+                        style === 'secondary'
+                          ? `${token('space.150', '12px')}`
+                          : 0,
                     }}
                     id={whatsNewArticle.id}
                     onClick={(

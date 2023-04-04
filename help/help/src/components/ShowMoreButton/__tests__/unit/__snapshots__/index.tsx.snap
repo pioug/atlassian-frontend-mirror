@@ -2,7 +2,7 @@
 
 exports[`ShowMoreButton Should match snapshot 1`] = `
 .emotion-2 {
-  padding: 8px 0;
+  padding: var(--ds-space-100,8px) 0;
 }
 
 .emotion-2 span {

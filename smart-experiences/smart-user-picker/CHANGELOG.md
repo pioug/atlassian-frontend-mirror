@@ -1,5 +1,11 @@
 # @atlassian/smart-user-picker
 
+## 6.0.7
+
+### Patch Changes
+
+- [`365dc58e26b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/365dc58e26b) - UFO failures for options shown will now only be recorded when the status code is a 5xx
+
 ## 6.0.6
 
 ### Patch Changes

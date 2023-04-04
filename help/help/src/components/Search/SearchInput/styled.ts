@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import styled from '@emotion/styled';
-import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 export const SearchInputContainer = styled.div`
   order: 0;
@@ -11,26 +11,26 @@ export const SearchInputContainer = styled.div`
 `;
 
 export const SearchIconContainer = styled.div`
-  width: ${gridSize() * 3}px;
-  height: ${gridSize() * 3}px;
-  padding-left: ${gridSize() / 2}px;
+  width: ${token('space.300', '24px')};
+  height: ${token('space.300', '24px')};
+  padding-left: ${token('space.050', '4px')};
 
   & > span {
-    padding-left: ${gridSize() / 2}px;
-    height: ${gridSize() * 3}px;
-    width: ${gridSize() * 3}px;
+    padding-left: ${token('space.050', '4px')};
+    height: ${token('space.300', '24px')};
+    width: ${token('space.300', '24px')};
     box-sizing: border-box;
   }
 `;
 
 export const CloseButtonAndSpinnerContainer = styled.div`
   font-size: 0;
-  padding-right: ${gridSize()}px;
+  padding-right: ${token('space.100', '8px')};
   position: relative;
   white-space: nowrap;
 
   & > span {
-    padding-right: ${gridSize() / 2}px;
+    padding-right: ${token('space.050', '4px')};
   }
 
   & > button,

@@ -2,7 +2,7 @@
 
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
-import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 export const truncate = (width: string = '100%') => css`
   overflow-x: hidden;
@@ -16,7 +16,7 @@ export const ArticlesListContainer = styled.div`
 `;
 
 export const ToggleShowMoreArticlesContainer = styled.div`
-  padding: ${gridSize()}px 0;
+  padding: ${token('space.100', '8px')} 0;
   span {
     margin: 0;
   }

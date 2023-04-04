@@ -6,6 +6,7 @@ import Button from '@atlaskit/button/standard-button';
 import { MockActivityResource } from '../example-helpers/activity-provider';
 import { createSearchProvider, Scope } from '@atlassian/search-provider';
 import ExamplesErrorBoundary from '../example-helpers/ExamplesErrorBoundary';
+import { IntlProvider } from 'react-intl-next';
 
 import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
 import Flag from '@atlaskit/flag';
@@ -701,28 +702,30 @@ const Renderer = (props: ExampleRendererProps) => {
         Edit
       </Button>
       <SmartCardProvider client={smartCardClient}>
-        <ReactRenderer
-          allowHeadingAnchorLinks
-          allowAltTextOnImages
-          allowColumnSorting
-          adfStage="stage0"
-          dataProviders={providerFactory}
-          extensionHandlers={extensionHandlers}
-          document={document}
-          appearance={getAppearance()}
-          media={{
-            featureFlags: mediaFeatureFlags,
-          }}
-          allowCustomPanels={props.allowCustomPanel}
-          eventHandlers={{
-            onUnhandledClick: props.clickToEdit
-              ? (e) => {
-                  console.log('onUnhandledClick called');
-                  props.setMode(true);
-                }
-              : undefined,
-          }}
-        />
+        <IntlProvider locale="en">
+          <ReactRenderer
+            allowHeadingAnchorLinks
+            allowAltTextOnImages
+            allowColumnSorting
+            adfStage="stage0"
+            dataProviders={providerFactory}
+            extensionHandlers={extensionHandlers}
+            document={document}
+            appearance={getAppearance()}
+            media={{
+              featureFlags: mediaFeatureFlags,
+            }}
+            allowCustomPanels={props.allowCustomPanel}
+            eventHandlers={{
+              onUnhandledClick: props.clickToEdit
+                ? (e) => {
+                    console.log('onUnhandledClick called');
+                    props.setMode(true);
+                  }
+                : undefined,
+            }}
+          />
+        </IntlProvider>
       </SmartCardProvider>
     </div>
   );

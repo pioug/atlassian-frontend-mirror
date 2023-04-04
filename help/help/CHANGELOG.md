@@ -1,5 +1,11 @@
 # @atlaskit/help
 
+## 7.1.27
+
+### Patch Changes
+
+- [`ad5cbfa5a71`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ad5cbfa5a71) - Migrated use of `gridSize` to space tokens where possible. There is no expected visual or behaviour change.
+
 ## 7.1.26
 
 ### Patch Changes

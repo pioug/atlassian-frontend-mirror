@@ -12,7 +12,7 @@ export const ExampleWrapper = styled.div`
 `;
 
 export const ExampleDefaultContent = styled.div`
-  padding: ${gridSize() * 2}px;
+  padding: ${token('space.200', '16px')};
 `;
 
 export const FooterContent = styled.div`
@@ -22,7 +22,7 @@ export const FooterContent = styled.div`
 `;
 
 export const ControlsWrapper = styled.div`
-  padding: ${gridSize() * 2}px;
+  padding: ${token('space.200', '16px')};
 `;
 
 export const HelpWrapper = styled.div`

@@ -12,7 +12,7 @@ export const ExampleWrapper = styled.div`
 `;
 
 export const ExampleDefaultContent = styled.div`
-  padding: ${gridSize() * 2}px;
+  padding: ${token('space.200', '16px')};
 `;
 
 export const FooterContent = styled.div`
@@ -22,14 +22,14 @@ export const FooterContent = styled.div`
 `;
 
 export const ButtonsWrapper = styled.div`
-  padding: ${gridSize() * 2}px;
+  padding: ${token('space.200', '16px')};
   box-sizing: border-box;
   display: inline-block;
   width: 100%;
 `;
 
 export const ControlsWrapper = styled.div`
-  padding: ${gridSize() * 2}px;
+  padding: ${token('space.200', '16px')};
   box-sizing: border-box;
   display: inline-block;
   width: 50%;
@@ -47,7 +47,7 @@ export const HelpContainer = styled.div`
   display: inline-block;
   height: 100%;
   vertical-align: top;
-  padding: ${gridSize() * 2}px;
+  padding: ${token('space.200', '16px')};
   box-sizing: border-box;
   background-color: ${token('color.background.neutral.bold', colors.N200)};
 `;

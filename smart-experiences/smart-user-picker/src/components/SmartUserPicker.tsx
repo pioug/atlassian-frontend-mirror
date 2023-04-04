@@ -21,6 +21,7 @@ import MessagesIntlProvider from './MessagesIntlProvider';
 import { SmartProps, Props, State, FilterOptions } from '../types';
 import { getUserRecommendations, hydrateDefaultValues } from '../service';
 import { smartUserPickerOptionsShownUfoExperience } from '../ufoExperiences';
+import { SUPError } from '../service/recommendation-client';
 
 const DEFAULT_DEBOUNCE_TIME_MS = 150;
 
@@ -66,6 +67,9 @@ const getUsersForAnalytics = (users: OptionData[]) =>
     id,
     type,
   }));
+
+const checkIf500Event = (statusCode: number) =>
+  500 <= statusCode && statusCode < 600;
 
 export class SmartUserPickerWithoutAnalytics extends React.Component<
   Props & WrappedComponentProps,
@@ -151,6 +155,7 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
         ![
           UFOExperienceState.FAILED.id,
           UFOExperienceState.SUCCEEDED.id,
+          UFOExperienceState.ABORTED.id,
         ].includes(this.optionsShownUfoExperienceInstance.state.id)
       ) {
         this.optionsShownUfoExperienceInstance.success(
@@ -269,7 +274,8 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
         return { users, loading };
       });
     } catch (e) {
-      if (!closed && !onError) {
+      const is5xxEvent = checkIf500Event((e as SUPError).statusCode);
+      if (!closed && !onError && is5xxEvent) {
         // If the user lookup fails while the menu is open, and the consumer is not providing a
         // fallback data source via the onError prop, then send UFO failure
         this.optionsShownUfoExperienceInstance.failure(
@@ -287,12 +293,14 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
       } catch (error) {
         onErrorProducedError = true;
       }
-
-      if (onErrorProducedError) {
+      if (onErrorProducedError && is5xxEvent) {
         // Log error from fallback data source `onError` to UFO
         this.optionsShownUfoExperienceInstance.failure(
           ufoEndStateConfig(this.props.fieldId),
         );
+      }
+      if (!is5xxEvent && ((!onError && !closed) || onErrorProducedError)) {
+        this.abortOptionsShownUfoExperience();
       }
 
       this.setState({ users: defaultUsers, loading: false });

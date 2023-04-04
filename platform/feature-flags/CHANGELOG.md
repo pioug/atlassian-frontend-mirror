@@ -1,5 +1,11 @@
 # @atlaskit/platform-feature-flags
 
+## 0.1.2
+
+### Patch Changes
+
+- [`49c6941535b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/49c6941535b) - This package is now declared as a singleton within its package.json file. Consumers should provide tooling to assist in deduplication and enforcement of the singleton pattern.
+
 ## 0.1.1
 
 ### Patch Changes

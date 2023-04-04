@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import styled from '@emotion/styled';
-import { gridSize } from '@atlaskit/theme/constants';
 import { fontSize, fontSizeSmall } from '@atlaskit/theme/constants';
 import * as colors from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -14,7 +13,7 @@ export const WhatsNewResultListItemWrapper =
     {
       position: `relative`,
       boxSizing: `border-box`,
-      padding: `${gridSize()}px`,
+      padding: token('space.100', '8px'),
       display: `block`,
       textDecoration: `none`,
       cursor: `pointer`,
@@ -55,7 +54,7 @@ export const WhatsNewResultListItemWrapper =
 export const WhatsNewResultListItemTitleContainer = styled.div`
   width: 100%;
   white-space: nowrap;
-  margin-bottom: ${gridSize() / 2}px;
+  margin-bottom: ${token('space.050', '4px')};
 `;
 
 export const WhatsNewResultListItemTitleText = styled.span`
@@ -64,14 +63,14 @@ export const WhatsNewResultListItemTitleText = styled.span`
   display: inline-block;
   vertical-align: middle;
   margin: 0;
-  padding-left: ${gridSize() / 2}px;
+  padding-left: ${token('space.050', '4px')};
   white-space: normal;
   overflow-x: hidden;
 `;
 
 export const WhatsNewResultListItemDescription = styled.p`
   display: block;
-  line-height: ${gridSize() * 2.5}px;
+  line-height: ${token('font.lineHeight.200', '20px')};
   color: ${token('color.text', colors.N800)};
   margin: 0;
 `;

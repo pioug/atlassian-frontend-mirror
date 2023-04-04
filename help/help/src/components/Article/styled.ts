@@ -1,11 +1,10 @@
 /** @jsx jsx */
 
 import styled from '@emotion/styled';
-import { gridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 export const ArticleContainer = styled.div`
-  padding: ${gridSize() * 2}px ${gridSize() * 3}px;
+  padding: ${token('space.200', '16px')} ${token('space.300', '24px')};
   position: absolute;
   height: 100%;
   width: 100%;

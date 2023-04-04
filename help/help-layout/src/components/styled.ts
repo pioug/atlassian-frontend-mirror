@@ -2,7 +2,6 @@
 
 import styled from '@emotion/styled';
 import { keyframes } from '@emotion/core';
-import { gridSize } from '@atlaskit/theme/constants';
 import * as colors from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -28,14 +27,14 @@ export const DividerLine = styled.div`
   background-color: ${token('color.border', colors.N30A)};
   height: 2px;
   width: 100%;
-  padding: 0 ${2 * gridSize()}px;
-  margin-top: ${gridSize() * 2}px;
+  padding: 0 ${token('space.200', '16px')};
+  margin-top: ${token('space.200', '16px')};
   box-sizing: border-box;
 `;
 
 const FOOTER_BORDER_TOP = 2;
 export const HelpFooter = styled.div`
-  padding: ${gridSize()}px 0;
+  padding: ${token('space.100', '8px')} 0;
   box-sizing: border-box;
   background-color: ${token('color.background.neutral', colors.N10)};
   border-top: ${FOOTER_BORDER_TOP}px solid ${token('color.border', colors.N30)};
@@ -47,7 +46,7 @@ export const HelpFooter = styled.div`
  */
 
 export const LoadingContainer = styled.div`
-  padding: ${2 * gridSize()}px;
+  padding: ${token('space.200', '16px')};
   height: 100%;
 `;
 
@@ -70,7 +69,7 @@ export const LoadingRectangle = styled.div<LoadingRectangleProps>`
   position: relative;
   height: ${(props) => (props.contentHeight ? props.contentHeight : '1rem')};
   margin-top: ${(props) =>
-    props.marginTop ? props.marginTop : gridSize() + 'px'};
+    props.marginTop ? props.marginTop : token('space.100', '8px')};
   width: ${(props) => (props.contentWidth ? props.contentWidth : '100%')};
   border-radius: 2px;
   animation-duration: 1.2s;

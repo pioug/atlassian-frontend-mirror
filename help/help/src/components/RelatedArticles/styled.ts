@@ -3,7 +3,7 @@
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import * as colors from '@atlaskit/theme/colors';
-import { gridSize, fontSize } from '@atlaskit/theme/constants';
+import { fontSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 const baseHeading = (size: number, lineHeight: number) => `
@@ -24,14 +24,14 @@ export const RelatedArticlesTitle = styled.div`
   color: ${token('color.text', colors.N800)};
   font-weight: 600;
   letter-spacing: -0.006em;
-  padding: ${gridSize() * 2}px 0;
+  padding: ${token('space.200', '16px')} 0;
 `;
 
 /**
  * Loading styled-components
  */
 export const LoadignRelatedArticleSection = styled.div`
-  margin-top: ${gridSize()}px;
+  margin-top: ${token('space.100', '8px')};
 `;
 
 export const LoadignRelatedArticleList = styled.ul`
@@ -44,7 +44,7 @@ export const LoadignRelatedArticleList = styled.ul`
 export const LoadignRelatedArticleListItem = styled.li`
   display: block;
   width: 100%;
-  padding: ${gridSize()}px;
-  margin-bottom: ${gridSize() * 2}px;
+  padding: ${token('space.100', '8px')};
+  margin-bottom: ${token('space.200', '16px')};
   box-sizing: border-box;
 `;

@@ -10,6 +10,7 @@ const getStyles = (maxLines: number) => css`
   color: ${tokens.text};
   font-size: 0.75rem;
   line-height: 1rem;
+  white-space: normal;
   ${getTruncateStyles(maxLines)}
 `;
 

@@ -6,7 +6,6 @@ import {
   getEmojiConfig,
   getRealEmojiProvider,
 } from '../example-helpers/demo-resource-control';
-import { EmojiUploader } from '../src';
 import { onSelection } from '../example-helpers';
 import { SAMPLING_RATE_EMOJI_RENDERED_EXP } from '../src/util/constants';
 import { RenderRealResourcedEmojis } from './22-resourced-emoji-real-resource-backend';
@@ -62,11 +61,6 @@ export default () => (
               emojiProvider={provider}
               position="below"
             />
-            <hr />
-            <h4>Emoji Uploader:</h4>
-            <div style={{ padding: '1rem 0' }}>
-              <EmojiUploader emojiProvider={provider} />
-            </div>
           </>
         }
       />

@@ -29,6 +29,7 @@ import { buildEditLinkPayload } from '../../../utils/linking-utils';
 import { forceFocusSelector } from '../../floating-toolbar/pm-plugins/force-focus';
 import { withOuterListeners } from '@atlaskit/editor-common/ui';
 import { linkToolbarMessages } from '../../../messages';
+import { FeatureFlags } from '@atlaskit/editor-common/types';
 
 export type EditLinkToolbarProps = {
   view: EditorView;
@@ -38,6 +39,7 @@ export type EditLinkToolbarProps = {
   node: Node;
   onSubmit?: (href: string, text?: string) => void;
   linkPickerOptions?: LinkPickerOptions;
+  featureFlags: FeatureFlags;
 };
 const HyperLinkToolbarWithListeners = withOuterListeners(HyperlinkToolbar);
 
@@ -67,8 +69,15 @@ export class EditLinkToolbar extends React.Component<EditLinkToolbarProps> {
     view.dispatch(hideLinkToolbar(view.state.tr));
   }
   render() {
-    const { linkPickerOptions, providerFactory, url, text, view, onSubmit } =
-      this.props;
+    const {
+      linkPickerOptions,
+      providerFactory,
+      url,
+      text,
+      view,
+      featureFlags,
+      onSubmit,
+    } = this.props;
 
     return (
       <HyperLinkToolbarWithListeners
@@ -81,6 +90,7 @@ export class EditLinkToolbar extends React.Component<EditLinkToolbarProps> {
         // Assumes that the smart card link picker can only ever be invoked by clicking "edit"
         // via the floating toolbar
         invokeMethod={INPUT_METHOD.FLOATING_TB}
+        featureFlags={featureFlags}
         onSubmit={(href, title, displayText) => {
           this.hideLinkToolbar();
           if (onSubmit) {
@@ -120,10 +130,12 @@ export const buildEditLinkToolbar = ({
   providerFactory,
   node,
   linkPicker,
+  featureFlags,
 }: {
   providerFactory: ProviderFactory;
   node: Node;
   linkPicker?: LinkPickerOptions;
+  featureFlags: FeatureFlags;
 }): FloatingToolbarItem<Command> => {
   return {
     type: 'custom',
@@ -145,6 +157,7 @@ export const buildEditLinkToolbar = ({
           url={displayInfo.url}
           text={displayInfo.title || ''}
           node={node}
+          featureFlags={featureFlags}
           onSubmit={(newHref: string, newText?: string) => {
             const urlChanged = newHref !== displayInfo.url;
             const titleChanged = newText !== displayInfo.title;
@@ -170,11 +183,11 @@ export const buildEditLinkToolbar = ({
 
 export const editLinkToolbarConfig = (
   showLinkingToolbar: boolean,
-  linkPickerOptions: boolean,
+  lpLinkPicker: boolean,
 ): Partial<FloatingToolbarConfig> => {
   return showLinkingToolbar
     ? {
-        height: linkPickerOptions
+        height: lpLinkPicker
           ? LINKPICKER_HEIGHT_IN_PX
           : RECENT_SEARCH_HEIGHT_IN_PX,
         width: RECENT_SEARCH_WIDTH_IN_PX,

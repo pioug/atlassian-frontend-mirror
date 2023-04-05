@@ -9,7 +9,7 @@ import Heading from '@atlaskit/heading';
 import ArrowleftIcon from '@atlaskit/icon/glyph/chevron-left-large';
 import ArrowrightIcon from '@atlaskit/icon/glyph/chevron-right-large';
 import Inline from '@atlaskit/primitives/inline';
-import { N70 } from '@atlaskit/theme/colors';
+import { N700 } from '@atlaskit/theme/colors';
 import { ThemeModes } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
 
@@ -46,7 +46,7 @@ const Header = memo<HeaderProps>(function Header({
             <ArrowleftIcon
               label={previousMonthLabel}
               size="medium"
-              primaryColor={token('color.text.subtlest', N70)}
+              primaryColor={token('color.icon', N700)}
               testId={testId && `${testId}--previous-month-icon`}
             />
           }
@@ -68,7 +68,7 @@ const Header = memo<HeaderProps>(function Header({
             <ArrowrightIcon
               label={nextMonthLabel}
               size="medium"
-              primaryColor={token('color.text.subtlest', N70)}
+              primaryColor={token('color.icon', N700)}
               testId={testId && `${testId}--next-month-icon`}
             />
           }

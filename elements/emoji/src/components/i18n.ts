@@ -1,6 +1,18 @@
 import { defineMessages } from 'react-intl-next';
 
 export const messages = defineMessages({
+  deleteEmojiTooltip: {
+    id: 'fabric.emoji.delete.tooltip',
+    defaultMessage: 'Delete',
+    description:
+      'Tooltip content for delete emoji when focus on deletable emoji',
+  },
+  deleteEmojiTooltipForScreenreader: {
+    id: 'fabric.emoji.delete.screenreader.tooltip',
+    defaultMessage: 'To delete {shortName} emoji, press Backspace',
+    description:
+      'Tooltip content for delete emoji when focus on deletable emoji',
+  },
   deleteEmojiTitle: {
     id: 'fabric.emoji.delete.title',
     defaultMessage: 'Remove emoji',
@@ -110,7 +122,7 @@ export const messages = defineMessages({
   },
   categoriesSelectorLabel: {
     id: 'fabric.emoji.categories.label',
-    defaultMessage: 'Choose a emoji category',
+    defaultMessage: 'Choose an emoji category',
     description:
       'Aria label for Emoji categories selector at the top of emoji picker',
   },
@@ -213,12 +225,17 @@ export const messages = defineMessages({
   emojiPickerGrid: {
     id: 'fabric.emoji.pickerlist.grid',
     defaultMessage:
-      '{showSearchResults, select, true{Search results} other{Emojis}}',
+      '{showSearchResults, select, true{Search results} other{Emojis}}.',
     description: `Aria label for emoji picker grid, showSearchResults is a boolean variable, message will be "Entering Emojis table", or "Leaving Emojis"`,
   },
   emojiButtonRoleDescription: {
     id: 'fabric.emoji.emojipicker.emoi.roledescription',
     defaultMessage: 'emoji button',
     description: `Aria roledescription for emoji button, used in emoji picker.`,
+  },
+  error: {
+    id: 'fabric.emoji.emojipicker.error',
+    defaultMessage: 'Error!',
+    description: `Aria label for error icon, apperaed in emoji uploader screens and delete emoji screens of emoji picker`,
   },
 });

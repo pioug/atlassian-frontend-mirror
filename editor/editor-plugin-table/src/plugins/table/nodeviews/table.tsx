@@ -225,6 +225,18 @@ export default class TableView extends ReactNodeView<Props> {
       return false;
     }
 
+    // ED-16668
+    // Do not remove this fixes an issue with windows firefox that relates to
+    // the addition of the shadow sentinels
+    if (
+      type === 'selection' &&
+      nodeName?.toUpperCase() === 'TABLE' &&
+      (firstChild?.nodeName.toUpperCase() === 'COLGROUP' ||
+        firstChild?.nodeName.toUpperCase() === 'SPAN')
+    ) {
+      return false;
+    }
+
     return true;
   }
 

@@ -5,12 +5,12 @@ import { layers, borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 import { ellipsis, hideControlsClassName } from '@atlaskit/media-ui';
 import { ArchiveSideBarWidth } from './viewers/archiveSidebar/styles';
+import { headerAndSidebarBackgroundColor } from './viewers/modalSpinner';
 
 const overlayZindex = layers.modal() + 10;
 const sidebarWidth = 416;
 
 export const blanketColor = '#22272B';
-export const headerAndSidebarBackgroundColor = '#101214';
 
 export const blanketStyles = css`
   position: fixed;

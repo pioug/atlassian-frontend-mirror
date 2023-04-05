@@ -160,7 +160,6 @@ export async function runInlineNodeViewTestSuite({
         },
       );
 
-      // TODO: Restore skipped test https://product-fabric.atlassian.net/browse/ED-16703
       testCaseName =
         'Can click and drag to extend a selection to the start of the current line from the current position';
       BrowserTestCase(
@@ -199,17 +198,27 @@ export async function runInlineNodeViewTestSuite({
             selection: { anchor: 7, head: 7 },
             adf: JSON.stringify(buildAdfTrailingSpaces({ node })),
           });
-          const expectedSelections: SelectionMatch[] = [
-            { type: 'text', anchor: 6 },
-            { type: 'node', anchor: 5 },
-            { type: 'text', anchor: 5 },
-            { type: 'text', anchor: 4 },
-            { type: 'node', anchor: 3 },
-            { type: 'text', anchor: 3 },
-            { type: 'text', anchor: 2 },
-            { type: 'node', anchor: 1 },
-            { type: 'text', anchor: 1 },
-          ];
+          const expectedSelections: SelectionMatch[] =
+            nodeName === 'placeholder'
+              ? [
+                  { type: 'text', anchor: 6 },
+                  { type: 'text', anchor: 5 },
+                  { type: 'text', anchor: 4 },
+                  { type: 'text', anchor: 3 },
+                  { type: 'text', anchor: 2 },
+                  { type: 'text', anchor: 1 },
+                ]
+              : [
+                  { type: 'text', anchor: 6 },
+                  { type: 'node', anchor: 5 },
+                  { type: 'text', anchor: 5 },
+                  { type: 'text', anchor: 4 },
+                  { type: 'node', anchor: 3 },
+                  { type: 'text', anchor: 3 },
+                  { type: 'text', anchor: 2 },
+                  { type: 'node', anchor: 1 },
+                  { type: 'text', anchor: 1 },
+                ];
           for (const selection of expectedSelections) {
             await page.keys(['ArrowLeft']);
             await expectToMatchSelection(page, selection);
@@ -230,16 +239,25 @@ export async function runInlineNodeViewTestSuite({
             selection: { anchor: 1, head: 1 },
             adf: JSON.stringify(buildAdfTrailingSpaces({ node })),
           });
-          const expectedSelections: SelectionMatch[] = [
-            { type: 'node', anchor: 1 },
-            { type: 'text', anchor: 2 },
-            { type: 'text', anchor: 3 },
-            { type: 'node', anchor: 3 },
-            { type: 'text', anchor: 4 },
-            { type: 'text', anchor: 5 },
-            { type: 'node', anchor: 5 },
-            { type: 'text', anchor: 6 },
-          ];
+          const expectedSelections: SelectionMatch[] =
+            nodeName === 'placeholder'
+              ? [
+                  { type: 'text', anchor: 2 },
+                  { type: 'text', anchor: 3 },
+                  { type: 'text', anchor: 4 },
+                  { type: 'text', anchor: 5 },
+                  { type: 'text', anchor: 6 },
+                ]
+              : [
+                  { type: 'node', anchor: 1 },
+                  { type: 'text', anchor: 2 },
+                  { type: 'text', anchor: 3 },
+                  { type: 'node', anchor: 3 },
+                  { type: 'text', anchor: 4 },
+                  { type: 'text', anchor: 5 },
+                  { type: 'node', anchor: 5 },
+                  { type: 'text', anchor: 6 },
+                ];
           for (const selection of expectedSelections) {
             await page.keys(['ArrowRight']);
             await expectToMatchSelection(page, selection);
@@ -341,14 +359,21 @@ export async function runInlineNodeViewTestSuite({
             adf: JSON.stringify(buildAdfNoTrailingSpaces({ node })),
           });
 
-          const expectedSelections: SelectionMatch[] = [
-            { type: 'node', anchor: 3 },
-            { type: 'text', anchor: 3 },
-            { type: 'node', anchor: 2 },
-            { type: 'text', anchor: 2 },
-            { type: 'node', anchor: 1 },
-            { type: 'text', anchor: 1 },
-          ];
+          const expectedSelections: SelectionMatch[] =
+            nodeName === 'placeholder'
+              ? [
+                  { type: 'text', anchor: 3 },
+                  { type: 'text', anchor: 2 },
+                  { type: 'text', anchor: 1 },
+                ]
+              : [
+                  { type: 'node', anchor: 3 },
+                  { type: 'text', anchor: 3 },
+                  { type: 'node', anchor: 2 },
+                  { type: 'text', anchor: 2 },
+                  { type: 'node', anchor: 1 },
+                  { type: 'text', anchor: 1 },
+                ];
 
           for (const selection of expectedSelections) {
             await page.keys(['ArrowLeft']);
@@ -371,14 +396,21 @@ export async function runInlineNodeViewTestSuite({
             adf: JSON.stringify(buildAdfNoTrailingSpaces({ node })),
           });
 
-          const expectedSelections: SelectionMatch[] = [
-            { type: 'node', anchor: 1 },
-            { type: 'text', anchor: 2 },
-            { type: 'node', anchor: 2 },
-            { type: 'text', anchor: 3 },
-            { type: 'node', anchor: 3 },
-            { type: 'text', anchor: 4 },
-          ];
+          const expectedSelections: SelectionMatch[] =
+            nodeName === 'placeholder'
+              ? [
+                  { type: 'text', anchor: 2 },
+                  { type: 'text', anchor: 3 },
+                  { type: 'text', anchor: 4 },
+                ]
+              : [
+                  { type: 'node', anchor: 1 },
+                  { type: 'text', anchor: 2 },
+                  { type: 'node', anchor: 2 },
+                  { type: 'text', anchor: 3 },
+                  { type: 'node', anchor: 3 },
+                  { type: 'text', anchor: 4 },
+                ];
 
           for (const selection of expectedSelections) {
             await page.keys(['ArrowRight']);

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-ui",
-  "version": "22.3.4",
+  "version": "22.3.5",
   "description": "Includes common components and utilities used by other media packages",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

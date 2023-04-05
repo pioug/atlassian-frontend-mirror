@@ -65,7 +65,7 @@ exports[`<CategorySelector /> active category highlighted 1`] = `
 
 <button
   aria-label="Activity"
-  aria-selected="false"
+  aria-selected="true"
   class="emotion-1"
   data-focus-index="3"
   data-testid="category-selector-ACTIVITY"

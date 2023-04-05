@@ -165,6 +165,8 @@ export {
   uuid,
   buildAnnotationMarkDataAttributes,
   AnnotationMarkStates,
+  border,
+  borderColorPalette,
 } from './src';
 export type {
   AlignmentAttributes,
@@ -267,4 +269,6 @@ export type {
   UnderlineDefinition,
   UrlType,
   AnnotationId,
+  BorderMarkAttributes,
+  BorderMarkDefinition,
 } from './src';

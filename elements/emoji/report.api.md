@@ -696,10 +696,20 @@ export interface MediaApiToken {
 }
 
 // @public (undocumented)
-export type Message = React.ReactNode;
+export type Message = React.ReactNode | string;
 
 // @public (undocumented)
 const messages: {
+  deleteEmojiTooltip: {
+    id: string;
+    defaultMessage: string;
+    description: string;
+  };
+  deleteEmojiTooltipForScreenreader: {
+    id: string;
+    defaultMessage: string;
+    description: string;
+  };
   deleteEmojiTitle: {
     id: string;
     defaultMessage: string;
@@ -906,6 +916,11 @@ const messages: {
     description: string;
   };
   emojiButtonRoleDescription: {
+    id: string;
+    defaultMessage: string;
+    description: string;
+  };
+  error: {
     id: string;
     defaultMessage: string;
     description: string;

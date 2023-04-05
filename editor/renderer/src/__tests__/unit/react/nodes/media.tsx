@@ -138,6 +138,7 @@ describe('Media', () => {
         id={mediaNode.attrs.id}
         marks={[]}
         isLinkMark={() => false}
+        isBorderMark={() => false}
         collection={mediaNode.attrs.collection}
       />,
     );
@@ -155,6 +156,7 @@ describe('Media', () => {
         alt="test"
         marks={[]}
         isLinkMark={() => false}
+        isBorderMark={() => false}
         allowAltTextOnImages={true}
       />,
     );
@@ -175,6 +177,7 @@ describe('Media', () => {
         alt="test"
         marks={[{ attrs: { href: 'http://atlassian.com' } } as any]}
         isLinkMark={() => true}
+        isBorderMark={() => false}
         allowAltTextOnImages={true}
         eventHandlers={{ media: { onClick: mediaOnClick } }}
       />,
@@ -195,6 +198,7 @@ describe('Media', () => {
         alt="test"
         marks={[{ attrs: { href: 'http://atlassian.com' } } as any]}
         isLinkMark={() => true}
+        isBorderMark={() => false}
         allowAltTextOnImages={true}
         eventHandlers={{ link: { onClick: linkOnClick } }}
       />,
@@ -213,6 +217,7 @@ describe('Media', () => {
         alt="test"
         marks={[]}
         isLinkMark={() => false}
+        isBorderMark={() => false}
         allowAltTextOnImages={true}
         eventHandlers={{ media: { onClick: mediaOnClick } }}
       />,
@@ -236,6 +241,7 @@ describe('Media', () => {
         fireAnalyticsEvent={fireAnalyticsEvent}
         marks={[{ attrs: { href: 'http://atlassian.com' } } as any]}
         isLinkMark={() => true}
+        isBorderMark={() => false}
         allowAltTextOnImages={true}
         eventHandlers={{ media: { onClick: mediaOnClick } }}
       />,
@@ -263,6 +269,7 @@ describe('Media', () => {
         alt="test"
         marks={[]}
         isLinkMark={() => false}
+        isBorderMark={() => false}
         allowAltTextOnImages={false}
       />,
     );
@@ -280,6 +287,7 @@ describe('Media', () => {
         url="http://image.jpg"
         marks={[]}
         isLinkMark={() => false}
+        isBorderMark={() => false}
       />,
     );
 
@@ -306,6 +314,7 @@ describe('Media', () => {
           id={mediaNode.attrs.id}
           marks={[]}
           isLinkMark={() => false}
+          isBorderMark={() => false}
           collection={mediaNode.attrs.collection}
           ssr={ssr}
         />,
@@ -332,6 +341,7 @@ describe('Media', () => {
           id={mediaNode.attrs.id}
           marks={[]}
           isLinkMark={() => false}
+          isBorderMark={() => false}
           collection={mediaNode.attrs.collection}
           ssr={ssr}
         />,
@@ -1011,6 +1021,37 @@ describe('Media', () => {
           ],
         }),
       ).toEqual([file0, external1]);
+    });
+  });
+
+  describe('Media Border Mark', () => {
+    it('should render border mark with right color and size', () => {
+      const mediaComponent = mount(
+        <Media
+          type={mediaNode.attrs.type as MediaType}
+          id={mediaNode.attrs.id}
+          collection={mediaNode.attrs.collection}
+          alt="test"
+          marks={[
+            {
+              type: 'border',
+              attrs: {
+                // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+                color: '#091E4224',
+                size: 3,
+              },
+            },
+          ]}
+          isLinkMark={() => false}
+          isBorderMark={() => true}
+          allowAltTextOnImages={false}
+        />,
+      );
+
+      const border = mediaComponent.find('div[data-mark-type="border"]');
+      expect(border).toHaveLength(1);
+      expect(border.prop('style')).toHaveProperty('borderWidth', '3px');
+      expect(border.prop('style')).toHaveProperty('borderRadius', '6px');
     });
   });
 });

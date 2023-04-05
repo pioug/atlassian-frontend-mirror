@@ -113,6 +113,22 @@ const sentinelStyles = `.${ClassName.TABLE_CONTAINER} {
   }
 }`;
 
+const shadowSentinelStyles = `
+  .${ClassName.TABLE_SHADOW_SENTINEL_LEFT},
+  .${ClassName.TABLE_SHADOW_SENTINEL_RIGHT} {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 1px;
+    visibility: hidden;
+  }
+  .${ClassName.TABLE_SHADOW_SENTINEL_LEFT} {
+    left: 0;
+  }
+  .${ClassName.TABLE_SHADOW_SENTINEL_RIGHT} {
+    right: 0;
+  }
+`;
 // previous styles to add spacing to numbered lists with
 // large item markers (e.g. 101, 102, ...) when nested inside tables
 const listLargeNumericMarkersOldStyles = `
@@ -624,6 +640,8 @@ export const tableStyles = (
       border-top: none;
       // 1px border width offset added here to prevent unwanted overflow and scolling - ED-16212
       margin-right: -1px;
+      // Allows better positioning for the shadow sentinels - ED-16668
+      position: relative;
 
       > tbody > tr {
         white-space: pre-wrap;
@@ -741,6 +759,8 @@ export const tableStyles = (
   ${props?.featureFlags?.restartNumberedLists
     ? ``
     : listLargeNumericMarkersOldStyles}
+
+  ${shadowSentinelStyles}
 `;
 
 export const tableFullPageEditorStyles = css`

@@ -259,3 +259,135 @@ test('scenario: [B, A] -> cancel', () => {
 
   cleanup();
 });
+
+test('scenario: [B, A] -> cancel (dragleave + dragend)', () => {
+  const [draggableEl, B, A] = getBubbleOrderedTree();
+  const ordered: string[] = [];
+  const cleanup = combine(
+    appendToBody(A),
+    monitorForElements({
+      onDragStart: () => ordered.push('monitor:start'),
+      onDrop: () => ordered.push('monitor:drop'),
+      onDropTargetChange: () => ordered.push('monitor:update'),
+    }),
+    dropTargetForElements({
+      element: B,
+      onDragStart: () => ordered.push('b:start'),
+      onDrop: () => ordered.push('b:drop'),
+      onDropTargetChange: () => ordered.push('b:update'),
+      onDragEnter: () => ordered.push('b:enter'),
+      onDragLeave: () => ordered.push('b:leave'),
+    }),
+    dropTargetForElements({
+      element: A,
+      onDragStart: () => ordered.push('a:start'),
+      onDrop: () => ordered.push('a:drop'),
+      onDropTargetChange: () => ordered.push('a:update'),
+      onDragEnter: () => ordered.push('a:enter'),
+      onDragLeave: () => ordered.push('a:leave'),
+    }),
+    draggable({
+      element: draggableEl,
+      onDragStart: () => ordered.push('draggable:start'),
+      onDrop: () => ordered.push('draggable:drop'),
+      onDropTargetChange: () => ordered.push('draggable:update'),
+    }),
+  );
+
+  // lift
+  fireEvent.dragStart(draggableEl);
+  // @ts-ignore
+  requestAnimationFrame.step();
+  expect(ordered).toEqual([
+    'draggable:start',
+    'b:start',
+    'a:start',
+    'monitor:start',
+  ]);
+  ordered.length = 0;
+
+  // canceling an event while over drop targets
+  // this will cause the browser to do a "dragleave" with `relatedTarget` set to null
+  fireEvent.dragLeave(B, { relatedTarget: null });
+
+  expect(ordered).toEqual([
+    'draggable:update',
+    'b:update',
+    'b:leave',
+    'a:update',
+    'a:leave',
+    'monitor:update',
+  ]);
+  ordered.length = 0;
+
+  fireEvent.dragEnd(B);
+  expect(ordered).toEqual(['draggable:drop', 'monitor:drop']);
+
+  cleanup();
+});
+
+// this test is just checking that just a "dragend" behaves in the same way as "dragleave" + "dragend"
+// this is nice to validate as often tests will just to a "dragend"
+test('scenario: [B, A] -> cancel (dragend only)', () => {
+  const [draggableEl, B, A] = getBubbleOrderedTree();
+  const ordered: string[] = [];
+  const cleanup = combine(
+    appendToBody(A),
+    monitorForElements({
+      onDragStart: () => ordered.push('monitor:start'),
+      onDrop: () => ordered.push('monitor:drop'),
+      onDropTargetChange: () => ordered.push('monitor:update'),
+    }),
+    dropTargetForElements({
+      element: B,
+      onDragStart: () => ordered.push('b:start'),
+      onDrop: () => ordered.push('b:drop'),
+      onDropTargetChange: () => ordered.push('b:update'),
+      onDragEnter: () => ordered.push('b:enter'),
+      onDragLeave: () => ordered.push('b:leave'),
+    }),
+    dropTargetForElements({
+      element: A,
+      onDragStart: () => ordered.push('a:start'),
+      onDrop: () => ordered.push('a:drop'),
+      onDropTargetChange: () => ordered.push('a:update'),
+      onDragEnter: () => ordered.push('a:enter'),
+      onDragLeave: () => ordered.push('a:leave'),
+    }),
+    draggable({
+      element: draggableEl,
+      onDragStart: () => ordered.push('draggable:start'),
+      onDrop: () => ordered.push('draggable:drop'),
+      onDropTargetChange: () => ordered.push('draggable:update'),
+    }),
+  );
+
+  // lift
+  fireEvent.dragStart(draggableEl);
+  // @ts-ignore
+  requestAnimationFrame.step();
+  expect(ordered).toEqual([
+    'draggable:start',
+    'b:start',
+    'a:start',
+    'monitor:start',
+  ]);
+  ordered.length = 0;
+
+  // note: no 'dragleave' being fired
+  fireEvent.dragEnd(B);
+
+  expect(ordered).toEqual([
+    'draggable:update',
+    'b:update',
+    'b:leave',
+    'a:update',
+    'a:leave',
+    'monitor:update',
+    // we get another update for the drop event
+    'draggable:drop',
+    'monitor:drop',
+  ]);
+
+  cleanup();
+});

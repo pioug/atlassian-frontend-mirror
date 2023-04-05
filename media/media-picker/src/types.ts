@@ -14,6 +14,7 @@ import { PluginItemPayload } from './domain/plugin';
 
 export interface UploadParams {
   collection?: string;
+  expireAfter?: number;
 }
 
 export type MediaFile = {

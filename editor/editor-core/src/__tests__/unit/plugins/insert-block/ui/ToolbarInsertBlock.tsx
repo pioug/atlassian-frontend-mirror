@@ -27,7 +27,6 @@ import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decis
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { uuid } from '@atlaskit/adf-schema';
 import layoutPlugin from '../../../../../plugins/layout';
-import featureFlagsPlugin from '../../../../../plugins/feature-flags-context';
 import blockTypePlugin from '../../../../../plugins/block-type';
 import panelPlugin from '../../../../../plugins/panel';
 import rulePlugin from '../../../../../plugins/rule';
@@ -72,6 +71,8 @@ import InsertMenu from '../../../../../ui/ElementBrowser/InsertMenu';
 
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { createInsertNodeAPI } from '../../../../../insert-api/api';
+import featureFlagsContextPlugin from '../../../../../plugins/feature-flags-context';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 jest.mock('../../../../../plugins/quick-insert/commands', () => ({
   openElementBrowserModal: jest.fn(() => jest.fn()),
@@ -165,8 +166,9 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
       doc,
       pluginKey: blockTypePluginKey,
       preset: new Preset<LightEditorPlugin>()
-        .add(blockTypePlugin)
+        .add([featureFlagsContextPlugin, { newInsertionBehaviour: true }])
         .add([featureFlagsPlugin, { newInsertionBehaviour: true }])
+        .add(blockTypePlugin)
         .add([analyticsPlugin, { createAnalyticsEvent }])
         .add(layoutPlugin)
         .add(panelPlugin)

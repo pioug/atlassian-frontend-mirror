@@ -113,6 +113,19 @@ type EditorBackgroundPaletteKey = keyof EditorBackgroundPalette;
 type EditorBackgroundPaletteTokenNames = typeof tokenNames[number];
 
 // @public (undocumented)
+type EditorBorderPalette = typeof editorBorderPalette;
+
+// @public (undocumented)
+const editorBorderPalette: {
+  '#091E4224': 'var(--ds-border, #091E4224)';
+  '#758195': 'var(--ds-border-bold, #758195)';
+  '#172B4D': 'var(--ds-text, #172B4D)';
+};
+
+// @public (undocumented)
+type EditorBorderPaletteKey = keyof EditorBorderPalette;
+
+// @public (undocumented)
 type EditorTableChartsPalette = typeof editorTableChartsPalette;
 
 // @public
@@ -204,6 +217,13 @@ export function hexToEditorBackgroundPaletteColorTokenName<
 ): HexColor extends EditorBackgroundPaletteKey
   ? EditorBackgroundPalette[HexColor]['tokenName']
   : EditorBackgroundPaletteTokenNames | undefined;
+
+// @public
+export function hexToEditorBorderPaletteColor<HexColor extends string>(
+  hexColor: HexColor,
+): HexColor extends EditorBorderPaletteKey
+  ? EditorBorderPalette[HexColor]
+  : string | undefined;
 
 // @public
 export function hexToEditorTableChartsPaletteColor<HexColor extends string>(

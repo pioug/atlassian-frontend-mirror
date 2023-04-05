@@ -45,6 +45,7 @@ describe('MediaGroup', () => {
           type={genericFileId.mediaItemType}
           marks={[]}
           isLinkMark={() => false}
+          isBorderMark={() => false}
           collection={genericFileId.collectionName}
         />
       </MediaGroup>,
@@ -62,6 +63,7 @@ describe('MediaGroup', () => {
           type={imageFileId.mediaItemType}
           marks={[]}
           isLinkMark={() => false}
+          isBorderMark={() => false}
           collection={imageFileId.collectionName}
         />
       </MediaGroup>,
@@ -77,12 +79,14 @@ describe('MediaGroup', () => {
           type={imageFileId.mediaItemType}
           marks={[]}
           isLinkMark={() => false}
+          isBorderMark={() => false}
           collection={imageFileId.collectionName}
         />
         <Media
           id={imageFileId.id}
           marks={[]}
           isLinkMark={() => false}
+          isBorderMark={() => false}
           type={imageFileId.mediaItemType}
           collection={imageFileId.collectionName}
         />
@@ -104,6 +108,7 @@ describe('MediaGroup', () => {
           occurrenceKey="001"
           marks={[]}
           isLinkMark={() => false}
+          isBorderMark={() => false}
           collection={imageFileId.collectionName}
           providers={providerFactory}
         />
@@ -113,6 +118,7 @@ describe('MediaGroup', () => {
           occurrenceKey="001"
           marks={[]}
           isLinkMark={() => false}
+          isBorderMark={() => false}
           collection={imageFileId.collectionName}
           providers={providerFactory}
         />
@@ -150,6 +156,7 @@ describe('MediaGroup', () => {
           id={imageFileId.id}
           marks={[]}
           isLinkMark={() => false}
+          isBorderMark={() => false}
           type={imageFileId.mediaItemType}
           collection={imageFileId.collectionName}
         />
@@ -165,6 +172,7 @@ describe('MediaGroup', () => {
           id={imageFileId.id}
           marks={[]}
           isLinkMark={() => false}
+          isBorderMark={() => false}
           type={imageFileId.mediaItemType}
           collection={imageFileId.collectionName}
         />
@@ -172,6 +180,7 @@ describe('MediaGroup', () => {
           id={imageFileId.id}
           marks={[]}
           isLinkMark={() => false}
+          isBorderMark={() => false}
           type={imageFileId.mediaItemType}
           collection={imageFileId.collectionName}
         />
@@ -184,6 +193,7 @@ describe('MediaGroup', () => {
           type={imageFileId.mediaItemType}
           marks={[]}
           isLinkMark={() => false}
+          isBorderMark={() => false}
           collection={imageFileId.collectionName}
         />
         <Media
@@ -191,6 +201,7 @@ describe('MediaGroup', () => {
           type={imageFileId.mediaItemType}
           marks={[]}
           isLinkMark={() => false}
+          isBorderMark={() => false}
           collection={imageFileId.collectionName}
         />
       </MediaGroup>,
@@ -214,6 +225,7 @@ describe('MediaGroup', () => {
           id={imageFileId.id}
           marks={[]}
           isLinkMark={() => false}
+          isBorderMark={() => false}
           type={imageFileId.mediaItemType}
           collection={imageFileId.collectionName}
         />
@@ -241,6 +253,7 @@ describe('MediaGroup', () => {
             id={imageFileId.id}
             marks={[]}
             isLinkMark={() => false}
+            isBorderMark={() => false}
             type={imageFileId.mediaItemType}
             collection={imageFileId.collectionName}
           />

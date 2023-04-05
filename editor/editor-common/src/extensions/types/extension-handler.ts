@@ -46,8 +46,8 @@ export type ExtensionAPI<T extends Parameters = Parameters> = {
     update: (
       localId: string,
       mutationCallback: (
-        currentValue: Pick<ADFEntity, 'attrs' | 'marks'>,
-      ) => Pick<ADFEntity, 'attrs' | 'marks'>,
+        currentValue: Pick<ADFEntity, 'content' | 'attrs' | 'marks'>,
+      ) => Pick<ADFEntity, 'content' | 'attrs' | 'marks'>,
     ) => void;
   };
 };

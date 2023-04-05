@@ -11,13 +11,9 @@ import { ufoExperiences } from '../../../../util/analytics';
 import * as constants from '../../../../util/constants';
 import * as samplingUfo from '../../../../util/analytics/samplingUfo';
 import { mockAllIsIntersecting } from 'react-intersection-observer/test-utils';
-import * as browserSupport from '../../../../util/browser-support';
+import browserSupport from '../../../../util/browser-support';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { renderWithIntl } from '../../_testing-library';
-
-const mockedBrowserSupport = browserSupport as {
-  isIntersectionObserverSupported: boolean;
-};
 
 jest.mock('../../../../util/constants', () => {
   const originalModule = jest.requireActual('../../../../util/constants');
@@ -33,7 +29,7 @@ const mockConstants = constants as {
 
 describe('<CachingEmoji />', () => {
   beforeAll(() => {
-    mockedBrowserSupport.isIntersectionObserverSupported = true;
+    browserSupport.supportsIntersectionObserver = true;
   });
 
   describe('Non-media emoji', () => {
@@ -115,7 +111,7 @@ describe('<CachingEmoji />', () => {
           mediaEmoji,
         );
 
-        const image = result.container.firstChild?.firstChild;
+        const image = result.queryByAltText(':media:');
 
         expect(image).toHaveAttribute(
           'src',
@@ -150,8 +146,7 @@ describe('<CachingEmoji />', () => {
           emojiContextValue,
           mediaEmoji,
         );
-
-        const image = result.container.firstChild?.firstChild;
+        const image = result.queryByAltText(':media:');
         expect(image).not.toBeNull();
         if (image) {
           fireEvent(image as Element, new Event('load'));
@@ -189,7 +184,8 @@ describe('<CachingEmoji />', () => {
           mediaEmoji,
         );
 
-        const image = result.container.firstChild?.firstChild;
+        const image = result.queryByAltText(':media:');
+
         expect(image).not.toBeNull();
         if (image) {
           fireEvent(image as Element, new Event('error'));

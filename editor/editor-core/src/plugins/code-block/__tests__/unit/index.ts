@@ -34,6 +34,7 @@ import typeAheadPlugin from '../../../type-ahead';
 import quickInsertPlugin from '../../../quick-insert';
 import analyticsPlugin from '../../../analytics';
 import { getToolbarConfig } from '../../toolbar';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 jest.mock('../../../../utils/clipboard');
 
@@ -47,6 +48,7 @@ describe('code-block', () => {
     return createEditor<CodeBlockState, PluginKey>({
       doc,
       preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
         .add([codeBlockPlugin, { appearance: 'full-page' }])
         .add(tablesPlugin)
         .add(basePlugin)

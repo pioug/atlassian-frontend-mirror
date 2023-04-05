@@ -1,6 +1,6 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { PluginKey, EditorState } from 'prosemirror-state';
-import { getFeatureFlags } from '../../feature-flags-context';
+import type { FeatureFlags } from '@atlaskit/editor-common/types';
 import { browser as browserEnv } from '@atlaskit/editor-common/utils';
 import { DisableSpellcheckByBrowser, Browsers } from '../../../types/browser';
 
@@ -23,12 +23,11 @@ function getCurrentBrowserAndVersion():
   return undefined;
 }
 
-export default () =>
+export default (featureFlags: FeatureFlags) =>
   new SafePlugin({
     key: new PluginKey('disableSpellchecking'),
     props: {
       attributes: (editorState: EditorState) => {
-        const featureFlags = getFeatureFlags(editorState) || undefined;
         if (!featureFlags) {
           return;
         }

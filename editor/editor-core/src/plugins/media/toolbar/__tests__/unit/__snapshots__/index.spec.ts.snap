@@ -144,3 +144,176 @@ Array [
   },
 ]
 `;
+
+exports[`floatingToolbar() mediaSingle should return media single items 1`] = `
+Array [
+  Object {
+    "icon": [Function],
+    "id": "editor.media.alignLeft",
+    "onClick": [Function],
+    "selected": false,
+    "title": "Align left",
+    "type": "button",
+  },
+  Object {
+    "icon": [Function],
+    "id": "editor.media.alignCenter",
+    "onClick": [Function],
+    "selected": true,
+    "title": "Align center",
+    "type": "button",
+  },
+  Object {
+    "icon": [Function],
+    "id": "editor.media.alignRight",
+    "onClick": [Function],
+    "selected": false,
+    "title": "Align right",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "icon": [Function],
+    "id": "editor.media.wrapLeft",
+    "onClick": [Function],
+    "selected": false,
+    "title": "Wrap left",
+    "type": "button",
+  },
+  Object {
+    "icon": [Function],
+    "id": "editor.media.wrapRight",
+    "onClick": [Function],
+    "selected": false,
+    "title": "Wrap right",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "icon": [Function],
+    "id": undefined,
+    "onClick": [Function],
+    "selected": false,
+    "title": "Go wide",
+    "type": "button",
+  },
+  Object {
+    "icon": [Function],
+    "id": undefined,
+    "onClick": [Function],
+    "selected": false,
+    "title": "Go full width",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "appearance": "danger",
+    "focusEditoronEnter": true,
+    "icon": [Function],
+    "id": "editor.media.delete",
+    "onBlur": [Function],
+    "onClick": [Function],
+    "onFocus": [Function],
+    "onMouseEnter": [Function],
+    "onMouseLeave": [Function],
+    "testId": "media-toolbar-remove-button",
+    "title": "Remove",
+    "type": "button",
+  },
+]
+`;
+
+exports[`floatingToolbar() mediaSingle should return media single items with border option 1`] = `
+Array [
+  Object {
+    "fallback": Array [],
+    "render": [Function],
+    "type": "custom",
+  },
+  Object {
+    "icon": [Function],
+    "id": "editor.media.alignLeft",
+    "onClick": [Function],
+    "selected": false,
+    "title": "Align left",
+    "type": "button",
+  },
+  Object {
+    "icon": [Function],
+    "id": "editor.media.alignCenter",
+    "onClick": [Function],
+    "selected": true,
+    "title": "Align center",
+    "type": "button",
+  },
+  Object {
+    "icon": [Function],
+    "id": "editor.media.alignRight",
+    "onClick": [Function],
+    "selected": false,
+    "title": "Align right",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "icon": [Function],
+    "id": "editor.media.wrapLeft",
+    "onClick": [Function],
+    "selected": false,
+    "title": "Wrap left",
+    "type": "button",
+  },
+  Object {
+    "icon": [Function],
+    "id": "editor.media.wrapRight",
+    "onClick": [Function],
+    "selected": false,
+    "title": "Wrap right",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "icon": [Function],
+    "id": undefined,
+    "onClick": [Function],
+    "selected": false,
+    "title": "Go wide",
+    "type": "button",
+  },
+  Object {
+    "icon": [Function],
+    "id": undefined,
+    "onClick": [Function],
+    "selected": false,
+    "title": "Go full width",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "appearance": "danger",
+    "focusEditoronEnter": true,
+    "icon": [Function],
+    "id": "editor.media.delete",
+    "onBlur": [Function],
+    "onClick": [Function],
+    "onFocus": [Function],
+    "onMouseEnter": [Function],
+    "onMouseLeave": [Function],
+    "testId": "media-toolbar-remove-button",
+    "title": "Remove",
+    "type": "button",
+  },
+]
+`;

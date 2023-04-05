@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 25.2.0
+
+### Minor Changes
+
+- [`aeaf58d2384`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aeaf58d2384) - Change adds a new prop on Smart Card `embedIframeUrlType` which allows a user of a Smart Card with the `embed` appearance to specify whether the Smart Card embed should use `href` or `interactiveHref` in the JSON-LD response.
+
 ## 25.1.1
 
 ### Patch Changes

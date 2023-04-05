@@ -11,11 +11,13 @@ import {
   pastePlugin,
 } from '../../../plugins';
 import { doesSelectionWhichStartsOrEndsInListContainEntireList } from '../../lists';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 describe('doesSelectionWhichStartsOrEndsInListContainEntireList', () => {
   const createEditor = createProsemirrorEditorFactory();
   const editor = (doc: any) => {
     const preset = new Preset<LightEditorPlugin>()
+      .add([featureFlagsPlugin, {}])
       .add([pastePlugin, {}])
       .add(listPlugin)
       .add(panelPlugin)

@@ -5,9 +5,11 @@ import { onItemActivated } from './onItemActivated';
 
 import { ToolbarDropdown } from './ToolbarDropdown';
 import { Toolbar } from './Toolbar';
+import type { FeatureFlags } from '@atlaskit/editor-common/types';
 
 export interface Props {
   editorView: EditorView;
+  featureFlags: FeatureFlags;
   bulletListActive?: boolean;
   bulletListDisabled?: boolean;
   orderedListActive?: boolean;
@@ -38,6 +40,7 @@ export default function ToolbarListsIndentation(props: Props) {
     popupsScrollableElement,
     indentDisabled,
     outdentDisabled,
+    featureFlags,
   } = props;
 
   if (isSmall) {
@@ -57,6 +60,7 @@ export default function ToolbarListsIndentation(props: Props) {
         outdentDisabled={outdentDisabled}
         disabled={disabled}
         onItemActivated={onItemActivated}
+        featureFlags={featureFlags}
       />
     );
   }
@@ -74,6 +78,7 @@ export default function ToolbarListsIndentation(props: Props) {
       outdentDisabled={outdentDisabled}
       disabled={disabled}
       onItemActivated={onItemActivated}
+      featureFlags={featureFlags}
     />
   );
 }

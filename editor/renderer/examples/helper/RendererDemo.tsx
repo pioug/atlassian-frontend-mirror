@@ -5,7 +5,7 @@ import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 import { simpleMockProfilecardClient } from '@atlaskit/util-data-test/get-mock-profilecard-client';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
-import { CardEvent } from '@atlaskit/media-card';
+import { CardEvent, InlineCardEvent } from '@atlaskit/media-card';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
@@ -109,7 +109,7 @@ const eventHandlers: EventHandlers = {
   },
   media: {
     onClick: (
-      result: CardEvent,
+      result: CardEvent | InlineCardEvent,
       surroundings?: CardSurroundings,
       analyticsEvent?: any,
     ) => {
@@ -142,6 +142,7 @@ export interface DemoRendererProps {
   allowColumnSorting?: boolean;
   allowAnnotations?: boolean;
   allowCopyToClipboard?: boolean;
+  allowWrapCodeBlock?: boolean;
   allowPlaceholderText?: boolean;
   allowCustomPanels?: boolean;
   copies?: number;
@@ -348,6 +349,7 @@ export default class RendererDemo extends React.Component<
       props.allowHeadingAnchorLinks = this.props.allowHeadingAnchorLinks;
       props.useSpecBasedValidator = this.props.useSpecBasedValidator;
       props.allowCopyToClipboard = this.props.allowCopyToClipboard;
+      props.allowWrapCodeBlock = this.props.allowWrapCodeBlock;
       props.allowPlaceholderText = this.props.allowPlaceholderText;
       props.allowCustomPanels = this.props.allowCustomPanels;
       props.analyticsEventSeverityTracking =

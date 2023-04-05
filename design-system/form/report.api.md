@@ -215,6 +215,8 @@ export const Label: FC<LabelProps>;
 // @public (undocumented)
 export interface LabelProps {
   // (undocumented)
+  children: ReactNode;
+  // (undocumented)
   htmlFor: string;
   // (undocumented)
   id?: string;

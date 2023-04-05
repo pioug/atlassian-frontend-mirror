@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-table
 
+## 1.2.2
+
+### Patch Changes
+
+- [`ef830fdabfa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ef830fdabfa) - [ED-17294] Enable type checking for Preset plugins on unit tests
+- [`b7f9b82ecd8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b7f9b82ecd8) - [ED-16109] Fix deleting rows with row above and below having merged cells
+- [`7946da1848a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7946da1848a) - [ux] [ED-16668] Update table shadow intersection table to observe new shadow sentinels instead of first and last cell
+- Updated dependencies
+
 ## 1.2.1
 
 ### Patch Changes

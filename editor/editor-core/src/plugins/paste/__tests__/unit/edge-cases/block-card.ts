@@ -20,6 +20,7 @@ import hyperlinkPlugin from '../../../../hyperlink';
 import layoutPlugin from '../../../../layout';
 import panelPlugin from '../../../../panel';
 import cardPlugin from '../../../../card';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 describe('paste paragraph edge cases', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -29,6 +30,7 @@ describe('paste paragraph edge cases', () => {
     createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
         .add(hyperlinkPlugin)
         .add(blockTypePlugin)
         .add(layoutPlugin)

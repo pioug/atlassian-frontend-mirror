@@ -24,6 +24,7 @@ import {
   addSynchronyErrorAnalytics,
 } from '../analytics';
 import { PrivateCollabEditOptions } from '../types';
+import { FeatureFlags } from '@atlaskit/editor-common/types';
 
 export type SynchronyEntity = {
   on: (evt: 'disconnected' | 'error', handler: (...args: any) => void) => void;
@@ -60,9 +61,15 @@ const effect = <TArgs extends any[]>(fn: Setup<TArgs>, eq: Eq<TArgs>) => {
 };
 
 export const subscribe = effect<
-  [EditorView, CollabEditProvider, PrivateCollabEditOptions, ProviderFactory?]
+  [
+    EditorView,
+    CollabEditProvider,
+    PrivateCollabEditOptions,
+    FeatureFlags,
+    ProviderFactory?,
+  ]
 >(
-  (view, provider, options, _providerFactory) => {
+  (view, provider, options, featureFlags, _providerFactory) => {
     let entityRef: SynchronyEntity;
     const entityHandlers = {
       disconnectedHandler: () => {
@@ -97,7 +104,11 @@ export const subscribe = effect<
         view.dispatch(tr);
       },
       errorHandler: (error) => {
-        addSynchronyErrorAnalytics(view.state, view.state.tr)(error);
+        addSynchronyErrorAnalytics(
+          view.state,
+          view.state.tr,
+          featureFlags,
+        )(error);
       },
       entityHandler: ({ entity }) => {
         unsubscribeSynchronyEntity();

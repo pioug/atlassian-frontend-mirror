@@ -1,5 +1,10 @@
 import { EventHandler, MouseEvent, KeyboardEvent } from 'react';
-import { CardAppearance, CardPlatform, OnResolveCallback } from '../Card/types';
+import {
+  CardAppearance,
+  CardPlatform,
+  EmbedIframeUrlType,
+  OnResolveCallback,
+} from '../Card/types';
 import { AnalyticsHandler } from '../../utils/types';
 import { FlexibleUiOptions } from '../FlexibleCard/types';
 import { InlinePreloaderStyle, OnErrorCallback } from '../types';
@@ -23,6 +28,7 @@ export type CardWithUrlContentProps = {
   showActions?: boolean;
   inheritDimensions?: boolean;
   embedIframeRef?: React.Ref<HTMLIFrameElement>;
+  embedIframeUrlType?: EmbedIframeUrlType;
   inlinePreloaderStyle?: InlinePreloaderStyle;
   ui?: FlexibleUiOptions;
   children?: React.ReactNode;

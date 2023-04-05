@@ -1,4 +1,4 @@
-import AnalyticsHelper from '.';
+import AnalyticsHelper from './analytics-helper';
 
 export enum MEASURE_NAME {
   SOCKET_CONNECT = 'socketConnect',
@@ -8,7 +8,7 @@ export enum MEASURE_NAME {
   GET_CURRENT_STATE = 'getCurrentState',
 }
 
-const isPerformanceAPIAvailable = (): boolean => {
+export const isPerformanceAPIAvailable = (): boolean => {
   return (
     typeof window !== 'undefined' &&
     'performance' in window &&
@@ -21,16 +21,15 @@ const isPerformanceAPIAvailable = (): boolean => {
     ].every((api) => !!(performance as any)[api])
   );
 };
-const hasPerformanceAPIAvailable = isPerformanceAPIAvailable();
 
-const measureMap = new Map<string, number>();
+export const measureMap = new Map<string, number>();
 
 export function startMeasure(
   measureName: MEASURE_NAME,
   analyticsHelper: AnalyticsHelper | undefined,
 ) {
   try {
-    if (!hasPerformanceAPIAvailable) {
+    if (!isPerformanceAPIAvailable()) {
       return;
     }
 
@@ -51,7 +50,7 @@ export function stopMeasure(
 ): { duration: number; startTime: number } | undefined {
   let start: number | undefined;
   try {
-    if (!hasPerformanceAPIAvailable) {
+    if (!isPerformanceAPIAvailable()) {
       return;
     }
 
@@ -98,7 +97,7 @@ export function stopMeasure(
 }
 
 function clearMeasure(measureName: string) {
-  if (!hasPerformanceAPIAvailable) {
+  if (!isPerformanceAPIAvailable()) {
     return;
   }
 

@@ -48,7 +48,7 @@ import {
 } from '../../utils/linking-utils';
 import { HyperlinkPluginOptions } from './types';
 import { IntlShape } from 'react-intl-next';
-import { getFeatureFlags } from '../feature-flags-context';
+import { FeatureFlags } from '@atlaskit/editor-common/types';
 
 /* type guard for edit links */
 function isEditLink(
@@ -106,8 +106,9 @@ function getLinkText(
 const getSettingsButtonGroup = (
   state: EditorState<any>,
   intl: IntlShape,
+  featureFlags: FeatureFlags,
 ): FloatingToolbarItem<Command>[] => {
-  const { floatingToolbarLinkSettingsButton } = getFeatureFlags(state);
+  const { floatingToolbarLinkSettingsButton } = featureFlags;
   return floatingToolbarLinkSettingsButton === 'true'
     ? [
         { type: 'separator' },
@@ -125,7 +126,10 @@ const getSettingsButtonGroup = (
 };
 
 export const getToolbarConfig =
-  (options?: HyperlinkPluginOptions): FloatingToolbarHandler =>
+  (
+    options: HyperlinkPluginOptions,
+    featureFlags: FeatureFlags,
+  ): FloatingToolbarHandler =>
   (state, intl, providerFactory) => {
     const { formatMessage } = intl;
     const linkState: HyperlinkState | undefined = stateKey.getState(state);
@@ -134,7 +138,7 @@ export const getToolbarConfig =
      * Enable focus trap only if feature flag is enabled AND for the new version of the picker
      */
     const { lpLinkPicker, lpLinkPickerFocusTrap, preventPopupOverflow } =
-      getFeatureFlags(state);
+      featureFlags;
     const shouldEnableFocusTrap = lpLinkPicker && lpLinkPickerFocusTrap;
 
     if (linkState && linkState.activeLinkMark) {
@@ -252,7 +256,7 @@ export const getToolbarConfig =
                   },
                 ],
               },
-              ...getSettingsButtonGroup(state, intl),
+              ...getSettingsButtonGroup(state, intl, featureFlags),
             ],
             scrollable: true,
           };
@@ -272,10 +276,9 @@ export const getToolbarConfig =
             ? getLinkText(activeLinkMark, state)
             : linkState.activeText;
 
-          const popupHeight =
-            lpLinkPicker && Boolean(options?.linkPicker?.plugins?.length)
-              ? LINKPICKER_HEIGHT_IN_PX
-              : RECENT_SEARCH_HEIGHT_IN_PX;
+          const popupHeight = lpLinkPicker
+            ? LINKPICKER_HEIGHT_IN_PX
+            : RECENT_SEARCH_HEIGHT_IN_PX;
 
           return {
             ...hyperLinkToolbar,
@@ -300,6 +303,7 @@ export const getToolbarConfig =
                       view={view}
                       key={idx}
                       linkPickerOptions={options?.linkPicker}
+                      featureFlags={featureFlags}
                       displayUrl={link}
                       displayText={displayText || ''}
                       providerFactory={providerFactory}

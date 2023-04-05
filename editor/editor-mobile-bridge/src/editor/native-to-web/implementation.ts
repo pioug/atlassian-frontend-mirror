@@ -93,6 +93,7 @@ import {
   MobileUploadErrorEvent,
 } from '@atlaskit/media-client';
 import { UploadPreviewUpdateEventPayload } from '@atlaskit/media-picker/types';
+import type { FeatureFlags } from '@atlaskit/editor-common/types';
 
 export const defaultSetList: QuickInsertItemId[] = [
   'blockquote',
@@ -179,11 +180,16 @@ export default class WebBridgeImpl
   private onEditorConfigChanged: EditorConfigChange | null;
   private editorConfiguration: MobileEditorConfiguration;
   private resetProviders: () => void = () => {};
+  private featureFlags: FeatureFlags = {};
 
   constructor(config?: MobileEditorConfiguration) {
     super();
     this.editorConfiguration = config || new MobileEditorConfiguration();
     this.onEditorConfigChanged = null;
+  }
+
+  setFeatureFlags(featureFlags: FeatureFlags) {
+    this.featureFlags = featureFlags;
   }
 
   getEditorConfiguration() {
@@ -494,7 +500,7 @@ export default class WebBridgeImpl
 
   onOutdentList(inputMethod: ListInputMethod = INPUT_METHOD.TOOLBAR) {
     if (this.listBridgeState && this.editorView) {
-      getListCommands().outdentList(inputMethod)(
+      getListCommands().outdentList(inputMethod, this.featureFlags)(
         this.editorView.state,
         this.editorView.dispatch,
       );

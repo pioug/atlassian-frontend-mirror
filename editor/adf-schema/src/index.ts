@@ -104,6 +104,8 @@ export {
   AnnotationMarkStates,
   unsupportedMark,
   unsupportedNodeAttribute,
+  border,
+  borderColorPalette,
 } from './schema';
 export type {
   AlignmentAttributes,
@@ -218,6 +220,8 @@ export type {
   RichMediaLayout,
   AnnotationDataAttributes,
   CellDomAttrs,
+  BorderMarkAttributes,
+  BorderMarkDefinition,
 } from './schema';
 export {
   B100,

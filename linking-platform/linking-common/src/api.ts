@@ -13,6 +13,7 @@ export async function request<T = JsonLd.Response>(
   url: string,
   data?: any,
   headers?: HeadersInit,
+  statuses: number[] = ALLOWED_RESPONSE_STATUS_CODES,
 ): Promise<T> {
   const requestConfig: RequestInit = {
     method,
@@ -27,11 +28,12 @@ export async function request<T = JsonLd.Response>(
   };
   try {
     const response = await fetch(url, requestConfig);
-    if (
-      response.ok ||
-      ALLOWED_RESPONSE_STATUS_CODES.includes(response.status)
-    ) {
-      return await response.json();
+    if (response.ok || statuses?.includes(response.status)) {
+      if (statuses.includes(204)) {
+        return response.body ? await response.json() : undefined;
+      } else {
+        return await response.json();
+      }
     }
 
     throw response;

@@ -25,6 +25,7 @@ import analyticsPlugin from '../../../analytics';
 import quickInsert from '../../../quick-insert';
 import mentionsPlugin from '../../../mentions';
 import emojiPlugin from '../../../emoji';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 let _queueMicrotask: any;
 beforeAll(() => {
@@ -51,6 +52,7 @@ describe('type-ahead: multiple plugins', () => {
     });
 
     const preset = new Preset<LightEditorPlugin>()
+      .add([featureFlagsPlugin, {}])
       .add([analyticsPlugin, { createAnalyticsEvent }])
       .add(mentionsPlugin)
       .add(emojiPlugin)

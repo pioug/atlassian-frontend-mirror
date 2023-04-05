@@ -20,6 +20,7 @@ import textFormattingPlugin from '../../../text-formatting';
 
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
 import hyperlinkPlugin from '../../../hyperlink/index';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 const emojiProvider = getTestEmojiResource();
 const providerFactory = ProviderFactory.create({ emojiProvider });
@@ -33,6 +34,7 @@ describe('#createPasteAnalyticsPayload()', () => {
     return createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
         .add(hyperlinkPlugin)
         .add([analyticsPlugin, { createAnalyticsEvent }])
         .add([pastePlugin, {}])

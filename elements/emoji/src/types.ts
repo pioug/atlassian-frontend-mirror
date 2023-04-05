@@ -420,7 +420,7 @@ export interface User {
 
 export type OptionalUser = User | undefined;
 
-export type Message = React.ReactNode;
+export type Message = React.ReactNode | string;
 
 export enum ProviderTypes {
   SITE = 'SITE',

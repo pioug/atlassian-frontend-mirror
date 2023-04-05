@@ -13,6 +13,7 @@ export type { CollabEditProvider } from './provider';
 import { sendTransaction } from './events/send-transaction';
 import { addSynchronyErrorAnalytics } from './analytics';
 import { nativeCollabProviderPlugin } from './native-collab-provider-plugin';
+import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 export { pluginKey };
 export type { CollabEditOptions };
 
@@ -38,8 +39,12 @@ const collabEditPlugin: NextEditorPlugin<
   'collabEdit',
   {
     pluginConfiguration: PrivateCollabEditOptions;
+    dependencies: [typeof featureFlagsPlugin];
   }
-> = (options) => {
+> = (options, api) => {
+  const featureFlags =
+    api?.dependencies?.featureFlags?.sharedState.currentState() || {};
+
   let providerResolver: (value: CollabEditProvider) => void = () => {};
   const collabEditProviderPromise: Promise<CollabEditProvider> = new Promise(
     (_providerResolver) => {
@@ -95,6 +100,7 @@ const collabEditPlugin: NextEditorPlugin<
               providerFactory,
               executeProviderCode,
               options,
+              featureFlags,
             );
           },
         },
@@ -105,6 +111,7 @@ const collabEditPlugin: NextEditorPlugin<
       const addErrorAnalytics = addSynchronyErrorAnalytics(
         props.newEditorState,
         props.newEditorState.tr,
+        featureFlags,
       );
 
       executeProviderCode(

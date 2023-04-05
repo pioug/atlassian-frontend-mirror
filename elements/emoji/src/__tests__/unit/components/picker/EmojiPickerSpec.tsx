@@ -1,5 +1,7 @@
 import React from 'react';
 import { waitUntil } from '@atlaskit/elements-test-helpers';
+import { B300 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 import { act, screen, waitFor, within } from '@testing-library/react';
 import { matchers } from '@emotion/jest';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
@@ -232,6 +234,19 @@ describe('<EmojiPicker />', () => {
       }
     });
 
+    it('should hightlight first category (no frequent category)', async () => {
+      const component = await helper.setupPicker();
+      const buttons = component.find(CategorySelector).find('button');
+
+      expect(buttons.at(0).prop('aria-label')).toEqual(
+        messages['peopleCategory'].defaultMessage,
+      );
+      expect(buttons.at(0)).toHaveStyleRule(
+        'color',
+        token('color.text.selected', B300),
+      );
+    });
+
     it('should tone selector in preview by default', async () => {
       renderEmojiPicker();
 
@@ -421,7 +436,7 @@ describe('<EmojiPicker />', () => {
       ).not.toBeInTheDocument();
     });
 
-    it('should display frequent category when there are frequently used emoji', async () => {
+    it('should display and highlight frequent category when there are frequently used emoji', async () => {
       const frequent: EmojiDescription = {
         ...standardEmojis[0],
         category: frequentCategory,
@@ -439,6 +454,10 @@ describe('<EmojiPicker />', () => {
       const buttons = categorySelector.find('button');
       expect(buttons).toHaveLength(defaultCategories.length + 1);
       expect(helper.categoryVisible(frequentCategory, component)).toBe(true);
+      expect(buttons.at(0)).toHaveStyleRule(
+        'color',
+        token('color.text.selected', B300),
+      );
     });
 
     it('should show frequent emoji first', async () => {

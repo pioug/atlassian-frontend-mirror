@@ -8,7 +8,7 @@ import {
   goToEditorTestingWDExample,
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
-import tableAdf from './__fixtures__/table-and-paragraph-adf.json';
+import tableAdf from './__fixtures__/table-and-paragraph-adf';
 
 BrowserTestCase(
   'meta-arrowup-cursor-in-first-row.ts: pressing command/ctrl + arrow up should move cursor into first row',
@@ -20,7 +20,9 @@ BrowserTestCase(
     );
     await mountEditor(page, {
       appearance: fullpage.appearance,
-      allowTables: {},
+      allowTables: {
+        advanced: true,
+      },
       defaultValue: tableAdf,
     });
 

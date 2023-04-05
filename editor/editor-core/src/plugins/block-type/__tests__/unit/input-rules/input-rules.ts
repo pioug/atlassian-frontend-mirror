@@ -39,6 +39,7 @@ import codeBlockPlugin from '../../../../code-block';
 import hyperlinkPlugin from '../../../../hyperlink';
 import textFormattingPlugin from '../../../../text-formatting';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 describe('inputrules', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -51,6 +52,7 @@ describe('inputrules', () => {
     return createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
         // TODO: Maybe it's worth to split this file to test each input rule for each different plugins
         .add(blockTypePlugin)
         .add([analyticsPlugin, { createAnalyticsEvent }])

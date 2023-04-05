@@ -68,6 +68,7 @@ export interface RendererProps {
   innerRef?: React.RefObject<HTMLDivElement>;
   useSpecBasedValidator?: boolean;
   allowCopyToClipboard?: boolean;
+  allowWrapCodeBlock?: boolean;
   allowCustomPanels?: boolean;
   analyticsEventSeverityTracking?: {
     enabled: boolean;

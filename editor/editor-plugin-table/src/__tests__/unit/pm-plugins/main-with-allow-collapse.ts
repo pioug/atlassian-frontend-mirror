@@ -21,6 +21,7 @@ import { TablePluginState } from '../../../plugins/table/types';
 import { handleDocOrSelectionChanged } from '../../../plugins/table/handlers';
 import expandPlugin from '@atlaskit/editor-core/src/plugins/expand';
 import extensionPlugin from '@atlaskit/editor-core/src/plugins/extension';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 describe('tables: main plugin with allowCollapse: true', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -28,6 +29,7 @@ describe('tables: main plugin with allowCollapse: true', () => {
     createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
         .add(tablePlugin)
         .add(expandPlugin)
         .add(extensionPlugin),

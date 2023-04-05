@@ -1,10 +1,20 @@
 /** @jsx jsx */
-import React, { useEffect, useCallback } from 'react';
+import React, {
+  useEffect,
+  useCallback,
+  FocusEvent,
+  MouseEvent,
+  SyntheticEvent,
+  forwardRef,
+  PropsWithChildren,
+} from 'react';
 import { jsx } from '@emotion/react';
-import { FocusEvent, MouseEvent, SyntheticEvent } from 'react';
+import Tooltip from '@atlaskit/tooltip';
 import { shouldUseAltRepresentation } from '../../api/EmojiUtils';
 import {
   deleteEmojiLabel,
+  EMOJI_KEYBOARD_KEYS_SUPPORTED,
+  KeyboardKeys,
   SAMPLING_RATE_EMOJI_RENDERED_EXP,
 } from '../../util/constants';
 import {
@@ -22,23 +32,28 @@ import {
 import { leftClick } from '../../util/mouse';
 import DeleteButton from './DeleteButton';
 import {
-  emojiContainer,
+  emojiSpriteContainer,
   emojiNodeStyles,
   commonSelectedStyles,
   selectOnHoverStyles,
   emojiSprite,
   emojiMainStyle,
-  emojiStyles,
+  emojiImageContainer,
   emojiImage,
+  deletableEmoji,
 } from './styles';
 import {
   sampledUfoRenderedEmoji,
   ufoExperiences,
   useSampledUFOComponentExperience,
 } from '../../util/analytics';
-import { isIntersectionObserverSupported } from '../../util/browser-support';
-import { useInView } from '../../util/useInView';
+import browserSupport from '../../util/browser-support';
+import { useInView } from '../../hooks/useInView';
 import { hasUfoMarked } from '../../util/analytics/ufoExperiences';
+import {
+  DeletableEmojiTooltipContent,
+  DeletableEmojiTooltipContentForScreenReader,
+} from './DeletableEmojiTooltipContent';
 
 export interface Props
   extends Omit<
@@ -148,21 +163,24 @@ const handleMouseDown = (props: Props, event: MouseEvent<any>) => {
   }
 };
 
-const handleKeyPress = (
+const handleKeyDown = (
   props: Props,
   event: React.KeyboardEvent<HTMLElement>,
 ) => {
-  // Clicked emoji delete button
-  if (
-    event.target instanceof Element &&
-    event.target.getAttribute('aria-label') === deleteEmojiLabel
-  ) {
+  if (!EMOJI_KEYBOARD_KEYS_SUPPORTED.includes(event.key)) {
     return;
   }
-  const { emoji, onSelected } = props;
   event.preventDefault();
-  if (onSelected && (event.key === 'Enter' || event.key === ' ')) {
+  event.stopPropagation();
+  const { emoji, onSelected, showDelete } = props;
+  if (
+    onSelected &&
+    (event.key === KeyboardKeys.Enter || event.key === KeyboardKeys.Space)
+  ) {
     onSelected(toEmojiId(emoji), emoji, event);
+  }
+  if (showDelete && event.key === KeyboardKeys.Backspace) {
+    handleDelete(props, event);
   }
 };
 
@@ -207,26 +225,7 @@ const handleImageError = (
 // When rendering 1500+ emoji using class based components had a significant impact.
 // TODO: add UFO tracking for sprite emoji
 export const SpriteEmoji = (props: Props) => {
-  const {
-    emoji,
-    fitToHeight,
-    selected,
-    selectOnHover,
-    className,
-    showTooltip,
-    shouldBeInteractive = false,
-    tabIndex,
-    onSelected,
-    onMouseMove,
-    onFocus,
-    onDelete,
-    onLoadError,
-    onLoadSuccess,
-    showDelete,
-    disableLazyLoad,
-    autoWidth,
-    ...other
-  } = props;
+  const { emoji, fitToHeight, selected, selectOnHover, className } = props;
 
   const representation = emoji.representation as SpriteRepresentation;
   const sprite = representation.sprite;
@@ -257,31 +256,11 @@ export const SpriteEmoji = (props: Props) => {
   };
 
   return (
-    <span
-      data-testid={`sprite-emoji-${emoji.shortName}`}
-      data-emoji-type="sprite"
-      tabIndex={shouldBeInteractive ? tabIndex || 0 : undefined}
-      role={shouldBeInteractive ? 'button' : 'img'}
-      css={emojiContainer}
-      className={classes}
-      onKeyPress={(event) => handleKeyPress(props, event)}
-      onMouseDown={(event) => {
-        handleMouseDown(props, event);
-      }}
-      onMouseEnter={(event) => {
-        handleMouseMove(props, event);
-      }}
-      onFocus={(event) => {
-        handleFocus(props, event);
-      }}
-      aria-label={emoji.shortName}
-      title={showTooltip ? emoji.shortName : ''}
-      {...other}
-    >
+    <EmojiNodeWrapper {...props} type="sprite" className={classes}>
       <span className={emojiSprite} style={style}>
         &nbsp;
       </span>
-    </span>
+    </EmojiNodeWrapper>
   );
 };
 
@@ -293,19 +272,10 @@ export const ImageEmoji = (props: Props) => {
     selected,
     selectOnHover,
     className,
-    showTooltip,
     showDelete,
-    shouldBeInteractive = false,
-    tabIndex,
-    onSelected,
-    onMouseMove,
-    onFocus,
-    onDelete,
-    onLoadError,
     onLoadSuccess,
     disableLazyLoad,
     autoWidth,
-    ...other
   } = props;
 
   const [ref, inView] = useInView({
@@ -318,7 +288,7 @@ export const ImageEmoji = (props: Props) => {
     selected ? commonSelectedStyles : ''
   } ${selectOnHover ? selectOnHoverStyles : ''} ${emojiImage} ${
     className ? className : ''
-  }`;
+  } ${showDelete ? deletableEmoji : ''}`;
 
   let width;
   let height;
@@ -335,15 +305,6 @@ export const ImageEmoji = (props: Props) => {
     src = representation.mediaPath;
     width = representation.width;
     height = representation.height;
-  }
-
-  let deleteButton;
-  if (showDelete) {
-    deleteButton = (
-      <DeleteButton
-        onClick={(event: SyntheticEvent) => handleDelete(props, event)}
-      />
-    );
   }
 
   let sizing = {};
@@ -381,7 +342,7 @@ export const ImageEmoji = (props: Props) => {
     }
     ufoExp.success({
       metadata: {
-        IBSupported: isIntersectionObserverSupported,
+        IBSupported: browserSupport.supportsIntersectionObserver,
       },
     });
 
@@ -421,15 +382,86 @@ export const ImageEmoji = (props: Props) => {
     />
   );
 
+  // show a tooltip for deletable emoji only on focus
+  if (showDelete) {
+    return (
+      <Tooltip
+        content={<DeletableEmojiTooltipContent />}
+        position="right-start"
+        tag="span"
+      >
+        <EmojiNodeWrapper
+          {...props}
+          aria-labelledby={`screenreader-emoji-${emoji.id}`}
+          type="image"
+          className={classes}
+          ref={ref}
+          showTooltip={false} // avoid showing both tooltip and title
+          onMouseOver={(e) => {
+            // only disable tooltip when not on focus
+            if (!document.activeElement?.contains(e.target as Node)) {
+              e.stopPropagation();
+            }
+          }}
+        >
+          {emojiNode}
+          <DeleteButton
+            onClick={(event: SyntheticEvent) => handleDelete(props, event)}
+          />
+          <DeletableEmojiTooltipContentForScreenReader emoji={emoji} />
+        </EmojiNodeWrapper>
+      </Tooltip>
+    );
+  }
+
+  return (
+    <EmojiNodeWrapper {...props} type="image" className={classes} ref={ref}>
+      {emojiNode}
+    </EmojiNodeWrapper>
+  );
+};
+
+interface EmojiNodeWrapperProps extends Props {
+  type: 'sprite' | 'image';
+}
+
+export const EmojiNodeWrapper = forwardRef<
+  HTMLSpanElement,
+  PropsWithChildren<EmojiNodeWrapperProps>
+>((props, ref) => {
+  const {
+    emoji,
+    fitToHeight,
+    selected,
+    selectOnHover,
+    className,
+    showTooltip,
+    showDelete,
+    shouldBeInteractive = false,
+    tabIndex,
+    onSelected,
+    onMouseMove,
+    onFocus,
+    onDelete,
+    onLoadError,
+    onLoadSuccess,
+    disableLazyLoad,
+    autoWidth,
+    children,
+    type,
+    ...other
+  } = props;
+
   return (
     <span
-      data-testid={`image-emoji-${emoji.shortName}`}
-      data-emoji-type="image"
-      css={emojiStyles}
+      ref={ref}
+      data-testid={`${type}-emoji-${emoji.shortName}`}
+      data-emoji-type={type}
       tabIndex={shouldBeInteractive ? tabIndex || 0 : undefined}
       role={shouldBeInteractive ? 'button' : 'img'}
-      className={classes}
-      onKeyPress={(event) => handleKeyPress(props, event)}
+      css={type === 'sprite' ? emojiSpriteContainer : emojiImageContainer}
+      className={className}
+      onKeyDown={(event) => handleKeyDown(props, event)}
       onMouseDown={(event) => {
         handleMouseDown(props, event);
       }}
@@ -440,15 +472,13 @@ export const ImageEmoji = (props: Props) => {
         handleFocus(props, event);
       }}
       aria-label={emoji.shortName}
-      title={showTooltip ? emoji.shortName : ''}
-      ref={ref}
+      title={showTooltip ? emoji.shortName : undefined} // TODO: COLLAB-2351 - use @atlaskit/Tooltip in future for non-deletable emoji if enabled showTooltip
       {...other}
     >
-      {deleteButton}
-      {emojiNode}
+      {children}
     </span>
   );
-};
+});
 
 export const Emoji = (props: Props) => {
   const { emoji } = props;

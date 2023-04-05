@@ -1,5 +1,12 @@
 # @atlaskit/datetime-picker
 
+## 12.3.11
+
+### Patch Changes
+
+- [`b50c6475079`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b50c6475079) - Make clear button in datetime picker a button element that is out of the tab order. This mimics the native input element's clear behavior in Safari/Edge.
+- [`c0fb88b3af6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c0fb88b3af6) - [ux] style(calendar): update icon color token from text.subtlest to color.icon
+
 ## 12.3.10
 
 ### Patch Changes

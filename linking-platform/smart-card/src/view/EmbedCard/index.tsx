@@ -37,6 +37,7 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
       inheritDimensions,
       onIframeDwell,
       onIframeFocus,
+      iframeUrlType,
     },
     iframeRef,
   ) => {
@@ -56,7 +57,12 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
           />
         );
       case 'resolved':
-        const resolvedViewProps = extractEmbedProps(data, meta, platform);
+        const resolvedViewProps = extractEmbedProps(
+          data,
+          meta,
+          platform,
+          iframeUrlType,
+        );
         if (onResolve) {
           onResolve({
             title: resolvedViewProps.title,

@@ -48,7 +48,7 @@
     "@atlaskit/heading": "^1.2.0",
     "@atlaskit/lozenge": "11.3.8",
     "@atlaskit/modal-dialog": "^12.4.0",
-    "@atlaskit/primitives": "^0.4.0",
+    "@atlaskit/primitives": "^0.6.0",
     "@atlaskit/section-message": "^6.3.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/tooltip": "^17.7.0",

@@ -25,9 +25,29 @@ type Props = {
 };
 
 export type ListRef = {
+  /**
+   * Scroll to the row by row index
+   * @param index row index of virtual list
+   */
   scrollToRow: (index?: number) => void;
+  /**
+   * Scroll to the row by row index, and focus on last emoji in that row
+   * @param index row index of virtual list
+   * @returns
+   */
   scrollToRowAndFocusLastEmoji: (index?: number) => void;
-  updateFocusIndex: (index: number) => void;
+  /**
+   * Scroll to a emoji in virtual list and focus on it
+   * @param rIndex row index of virtual list
+   * @param cIndex column index of virtual list
+   */
+  scrollToEmojiAndFocus: (rIndex: number, cIndex: number) => void;
+  /**
+   * Update the focus index of virtual list, which will manage tabIndex via EmojiPickerListContext
+   * @param rIndex row index of virtual list
+   * @param cIndex column index of virtual list
+   */
+  updateFocusIndex: (rIndex: number, cIndex?: number) => void;
 };
 
 type EmojiFocusInfo = {
@@ -249,6 +269,7 @@ export const VirtualList = React.forwardRef<ListRef, Props>((props, ref) => {
       return;
     }
     e.preventDefault();
+    e.stopPropagation();
 
     const lastRowIndex = rowCount - 1;
     const lastColumnIndex = EMOJI_LIST_COLUMNS - 1;
@@ -370,10 +391,18 @@ export const VirtualList = React.forwardRef<ListRef, Props>((props, ref) => {
             );
           }
         },
-        updateFocusIndex(index: number) {
+        scrollToEmojiAndFocus(rowIndex: number, columnIndex: number) {
+          focusEmoji(
+            rowIndex,
+            columnIndex,
+            KeyboardNavigationDirection.Left,
+            true,
+          );
+        },
+        updateFocusIndex(rowIndex: number, columnIndex = 0) {
           // row could be removed from virtual list after scrolling, we'll update emoji cell tabIndex after losing focus
           if (!virtualistItemsRef.current?.contains(document.activeElement)) {
-            setEmojisFocus({ rowIndex: index, columnIndex: 0 });
+            setEmojisFocus({ rowIndex, columnIndex });
           }
         },
       };

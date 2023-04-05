@@ -27,6 +27,7 @@ import listPlugin from '../../../../list';
 import { pluginKey as undoPluginKey } from '../../../pm-plugins/plugin-key';
 import { attachInputMeta } from '../../../attach-input-meta';
 import { InputSource } from '../../../enums';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 describe('change input method from undo/redo events', () => {
   let fireMock: jest.Mock;
@@ -36,6 +37,7 @@ describe('change input method from undo/redo events', () => {
     createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
         .add(listPlugin)
         .add(panelPlugin)
         .add([analyticsPlugin, { createAnalyticsEvent }])

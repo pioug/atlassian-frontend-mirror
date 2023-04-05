@@ -14,6 +14,7 @@ import {
   ACTION_SUBJECT_ID,
   DispatchAnalyticsEvent,
 } from '../../analytics';
+import { FeatureFlags } from '@atlaskit/editor-common/types';
 
 const toolbarButtonWrapper = css`
   display: flex;
@@ -36,8 +37,9 @@ const AvatarGroupPluginWrapper = (props: {
   eventDispatcher: EventDispatcher<any>;
   dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
   takeFullWidth: boolean;
+  featureFlags: FeatureFlags;
 }) => {
-  const { dispatchAnalyticsEvent } = props;
+  const { dispatchAnalyticsEvent, featureFlags } = props;
   const intl = useIntl();
 
   useEffect(() => {
@@ -75,6 +77,7 @@ const AvatarGroupPluginWrapper = (props: {
         isInviteToEditButtonSelected={
           props.collabEdit && props.collabEdit.isInviteToEditButtonSelected
         }
+        featureFlags={featureFlags}
       />
     </div>
   );

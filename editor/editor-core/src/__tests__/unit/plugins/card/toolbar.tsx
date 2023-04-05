@@ -34,7 +34,6 @@ import {
 import { Command } from '../../../../types';
 import { getToolbarItems } from '../../../../plugins/floating-toolbar/__tests__/_helpers';
 import * as CardUtils from '../../../../plugins/card/utils';
-import * as featureFlags from '../../../../plugins/feature-flags-context';
 import { EditorView } from 'prosemirror-view';
 import { LinkToolbarAppearance } from '../../../../plugins/card/ui/LinkToolbarAppearance';
 import {
@@ -48,6 +47,7 @@ describe('card', () => {
   const createEditor = createEditorFactory();
   const providerFactory = new ProviderFactory();
   let createAnalyticsEvent = createAnalyticsEventMock();
+  let featureFlagsMock = {};
   const editor = (doc: DocBuilder, smartLinksOptions?: CardOptions) => {
     return createEditor({
       doc,
@@ -83,8 +83,6 @@ describe('card', () => {
     describe.each(['true', 'false', undefined])(
       'with settings button flag returning %s',
       (isLinkSettingsButtonEnabled) => {
-        const featureFlagSpy = jest.spyOn(featureFlags, 'getFeatureFlags');
-
         const getSettingsButton = (
           toolbar: FloatingToolbarConfig,
           editorView: EditorView<any>,
@@ -113,18 +111,18 @@ describe('card', () => {
         };
 
         beforeEach(() => {
-          featureFlagSpy.mockReturnValue({
+          featureFlagsMock = {
             floatingToolbarLinkSettingsButton: isLinkSettingsButtonEnabled,
-          });
+          };
           global.open = jest.fn();
         });
         afterEach(() => {
-          featureFlagSpy.mockReset();
+          featureFlagsMock = {};
           (global.open as jest.Mock).mockReset();
         });
 
         afterAll(() => {
-          featureFlagSpy.mockRestore();
+          featureFlagsMock = {};
           (global.open as jest.Mock).mockRestore();
         });
 
@@ -140,11 +138,14 @@ describe('card', () => {
             ),
           );
 
-          const toolbar = floatingToolbar({
-            allowBlockCards: true,
-            allowEmbeds: true,
-            allowResizing: true,
-          })(editorView.state, intl, providerFactory);
+          const toolbar = floatingToolbar(
+            {
+              allowBlockCards: true,
+              allowEmbeds: true,
+              allowResizing: true,
+            },
+            featureFlagsMock,
+          )(editorView.state, intl, providerFactory);
           const toolbarItems = getToolbarItems(toolbar!, editorView);
           expect(toolbar).toBeDefined();
           expect(toolbarItems).toHaveLength(
@@ -174,6 +175,7 @@ describe('card', () => {
               allowEmbeds: true,
               allowResizing: true,
             },
+            featureFlagsMock,
             'mobile',
           )(editorView.state, intl, providerFactory);
           const toolbarItems = getToolbarItems(toolbar!, editorView);
@@ -198,11 +200,14 @@ describe('card', () => {
             ),
           );
 
-          const toolbar = floatingToolbar({
-            allowBlockCards: true,
-            allowEmbeds: true,
-            allowResizing: true,
-          })(editorView.state, intl, providerFactory);
+          const toolbar = floatingToolbar(
+            {
+              allowBlockCards: true,
+              allowEmbeds: true,
+              allowResizing: true,
+            },
+            featureFlagsMock,
+          )(editorView.state, intl, providerFactory);
           const toolbarItems = getToolbarItems(toolbar!, editorView);
           expect(toolbar).toBeDefined();
           expect(toolbarItems).toHaveLength(
@@ -225,11 +230,14 @@ describe('card', () => {
             ),
           );
 
-          const toolbar = floatingToolbar({
-            allowBlockCards: true,
-            allowEmbeds: true,
-            allowResizing: true,
-          })(editorView.state, intl, providerFactory);
+          const toolbar = floatingToolbar(
+            {
+              allowBlockCards: true,
+              allowEmbeds: true,
+              allowResizing: true,
+            },
+            featureFlagsMock,
+          )(editorView.state, intl, providerFactory);
           const toolbarItems = getToolbarItems(toolbar!, editorView);
           expect(toolbar).toBeDefined();
           expect(toolbarItems).toHaveLength(
@@ -254,11 +262,14 @@ describe('card', () => {
             ),
           );
 
-          const toolbar = floatingToolbar({
-            allowBlockCards: true,
-            allowEmbeds: true,
-            allowResizing: true,
-          })(editorView.state, intl, providerFactory);
+          const toolbar = floatingToolbar(
+            {
+              allowBlockCards: true,
+              allowEmbeds: true,
+              allowResizing: true,
+            },
+            featureFlagsMock,
+          )(editorView.state, intl, providerFactory);
           const toolbarItems = getToolbarItems(toolbar!, editorView);
           expect(toolbar).toBeDefined();
           expect(toolbarItems).toMatchSnapshot();
@@ -306,11 +317,11 @@ describe('card', () => {
             toolbarConfig,
           );
 
-          const toolbar = floatingToolbar(toolbarConfig, 'web')(
-            editorView.state,
-            intl,
-            providerFactory,
-          );
+          const toolbar = floatingToolbar(
+            toolbarConfig,
+            featureFlagsMock,
+            'web',
+          )(editorView.state, intl, providerFactory);
           const toolbarItems = getToolbarItems(toolbar!, editorView);
           expect(toolbar).toBeDefined();
           expect(toolbarItems).toHaveLength(9);
@@ -376,7 +387,7 @@ describe('card', () => {
         ),
       );
 
-      const toolbar = floatingToolbar({})(
+      const toolbar = floatingToolbar({}, featureFlagsMock)(
         editorView.state,
         intl,
         providerFactory,
@@ -396,13 +407,50 @@ describe('card', () => {
         ),
       );
 
-      const toolbar = floatingToolbar({})(
+      const toolbar = floatingToolbar({}, featureFlagsMock)(
         editorView.state,
         intl,
         providerFactory,
       );
       expect(getToolbarItems(toolbar!, editorView).length).toEqual(0);
     });
+
+    it.each([
+      [true, 570],
+      [false, 360],
+    ])(
+      'when feature flag `lpLinkPicker` is %p, should provide height of %d to link picker toolbar',
+      (lpLinkPicker, height) => {
+        const featureFlags = { lpLinkPicker };
+        const { editorView } = editor(
+          doc(
+            p(
+              '{<node>}',
+              inlineCard({
+                url: 'http://www.atlassian.com/',
+              })(),
+            ),
+          ),
+        );
+
+        const toolbar = floatingToolbar({}, featureFlags)(
+          editorView.state,
+          intl,
+          providerFactory,
+        );
+        const items = getToolbarItems(toolbar!, editorView);
+        const editButton = items.find(
+          (item) => 'id' in item && item.id === 'editor.link.edit',
+        ) as FloatingToolbarButton<Command>;
+        editButton.onClick(editorView.state, editorView.dispatch);
+        const editToolbar = floatingToolbar({}, featureFlags)(
+          editorView.state,
+          intl,
+          providerFactory,
+        );
+        expect(editToolbar?.height).toBe(height);
+      },
+    );
 
     it('metadata correctly resolves url and title from plugin state', () => {
       const { editorView } = editor(
@@ -423,11 +471,14 @@ describe('card', () => {
         };
       });
 
-      const toolbar = floatingToolbar({
-        allowBlockCards: true,
-        allowEmbeds: true,
-        allowResizing: true,
-      })(editorView.state, intl, providerFactory);
+      const toolbar = floatingToolbar(
+        {
+          allowBlockCards: true,
+          allowEmbeds: true,
+          allowResizing: true,
+        },
+        featureFlagsMock,
+      )(editorView.state, intl, providerFactory);
       const toolbarItems = getToolbarItems(toolbar!, editorView);
       expect(toolbar).toBeDefined();
       expect(
@@ -447,7 +498,7 @@ describe('card', () => {
         ),
       );
 
-      const toolbar = floatingToolbar({})(
+      const toolbar = floatingToolbar({}, featureFlagsMock)(
         editorView.state,
         intl,
         providerFactory,
@@ -474,7 +525,7 @@ describe('card', () => {
         ),
       );
 
-      const toolbar = floatingToolbar({})(
+      const toolbar = floatingToolbar({}, featureFlagsMock)(
         editorView.state,
         intl,
         providerFactory,
@@ -503,7 +554,7 @@ describe('card', () => {
         ),
       );
 
-      const toolbar = floatingToolbar({})(
+      const toolbar = floatingToolbar({}, featureFlagsMock)(
         editorView.state,
         intl,
         providerFactory,
@@ -533,7 +584,7 @@ describe('card', () => {
         ),
       );
 
-      const toolbar = floatingToolbar({})(
+      const toolbar = floatingToolbar({}, featureFlagsMock)(
         editorView.state,
         intl,
         providerFactory,
@@ -565,7 +616,7 @@ describe('card', () => {
         ),
       );
 
-      const toolbar = floatingToolbar({})(
+      const toolbar = floatingToolbar({}, featureFlagsMock)(
         editorView.state,
         intl,
         providerFactory,
@@ -605,7 +656,7 @@ describe('card', () => {
         ),
       );
 
-      const toolbar = floatingToolbar({})(
+      const toolbar = floatingToolbar({}, featureFlagsMock)(
         editorView.state,
         intl,
         providerFactory,
@@ -630,7 +681,7 @@ describe('card', () => {
         ),
       );
 
-      const toolbar = floatingToolbar({})(
+      const toolbar = floatingToolbar({}, featureFlagsMock)(
         editorView.state,
         intl,
         providerFactory,
@@ -660,7 +711,7 @@ describe('card', () => {
         ),
       );
 
-      const toolbar = floatingToolbar({})(
+      const toolbar = floatingToolbar({}, featureFlagsMock)(
         editorView.state,
         intl,
         providerFactory,
@@ -697,7 +748,7 @@ describe('card', () => {
         ),
       );
 
-      const toolbar = floatingToolbar({})(
+      const toolbar = floatingToolbar({}, featureFlagsMock)(
         editorView.state,
         intl,
         providerFactory,

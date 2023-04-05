@@ -1,8 +1,9 @@
 import {
   isNodeSelection,
   canInsert,
-  hasParentNodeOfType,
   safeInsert as pmSafeInsert,
+  hasParentNodeOfType,
+  findParentNodeOfType,
 } from 'prosemirror-utils';
 import {
   Node,
@@ -16,6 +17,7 @@ import {
   EditorState,
   NodeSelection,
   Selection,
+  TextSelection,
 } from 'prosemirror-state';
 import { ReplaceStep, ReplaceAroundStep } from 'prosemirror-transform';
 
@@ -26,6 +28,7 @@ import {
 } from '../plugins/selection/gap-cursor-selection';
 
 import { normaliseNestedLayout } from './selection';
+import { isListItemNode } from '../plugins/list/utils/node';
 
 export type InsertableContent = Node | Fragment;
 export enum LookDirection {
@@ -46,6 +49,25 @@ const nodeIsInsideAList = (tr: Transaction<any>) => {
   );
 };
 
+const selectionIsInsideAPanel = (tr: Transaction<any>) => {
+  const { nodes } = tr.doc.type.schema;
+  return hasParentNodeOfType(nodes.panel)(tr.selection);
+};
+
+const selectionIsInNestedList = (tr: Transaction) => {
+  const { nodes } = tr.doc.type.schema;
+
+  const parentListNode = findParentNodeOfType([
+    nodes.orderedList,
+    nodes.bulletList,
+  ])(tr.selection);
+
+  if (!parentListNode) {
+    return false;
+  }
+
+  return isListItemNode(tr.doc.resolve(parentListNode.pos).parent);
+};
 const insertBeforeOrAfter = (
   tr: Transaction,
   lookDirection: LookDirection,
@@ -90,12 +112,7 @@ export const safeInsert =
     const { nodes } = tr.doc.type.schema;
     const whitelist = [nodes.rule, nodes.mediaSingle];
 
-    // fallback if the node to insert is not in the whitelist, or if the insertion should happen within a list.
-    if (
-      content instanceof Fragment ||
-      !whitelist.includes(content.type) ||
-      nodeIsInsideAList(tr)
-    ) {
+    if (content instanceof Fragment || !whitelist.includes(content.type)) {
       return null;
     }
 
@@ -134,16 +151,41 @@ export const safeInsert =
 
     const grandParentNodeType = tr.selection.$from.node(-1)?.type;
     const parentNodeType = tr.selection.$from.parent.type;
-    if (
+
+    // if there is no direction, and cannot split for this particular node
+    const noDirectionAndShouldNotSplit =
       !lookDirection &&
       !shouldSplitSelectedNodeOnNodeInsertion({
         parentNodeType,
         grandParentNodeType,
         content,
-      })
+      });
+
+    const ruleNodeInANestedListNode =
+      content.type === nodes.rule && selectionIsInNestedList(tr);
+
+    const nonRuleNodeInListNode =
+      !(content.type === nodes.rule) && nodeIsInsideAList(tr);
+
+    if (
+      ruleNodeInANestedListNode ||
+      (noDirectionAndShouldNotSplit && nonRuleNodeInListNode) ||
+      (noDirectionAndShouldNotSplit && !nodeIsInsideAList(tr))
     ) {
       // node to be inserted is an invalid child of selection so insert below selected node
       return pmSafeInsert(content, tr.selection.from)(tr);
+    }
+
+    // if node is a rule and that is a flat list splitting and not at the end of a list
+    const { from, to } = tr.selection;
+    const ruleTypeInAList =
+      content.type === nodes.rule && nodeIsInsideAList(tr);
+    if (ruleTypeInAList && !($insertPos.pos === insertPosEnd)) {
+      return tr.replaceRange(
+        from,
+        to,
+        new Slice(Fragment.from(nodes.rule.createChecked()), 0, 0),
+      );
     }
 
     if (!lookDirection) {
@@ -177,7 +219,7 @@ export const safeInsert =
 
       // If we can't insert, and we think we should split, we fallback to consumer for now
       if (shouldSplit(parentNode.type, tr.doc.type.schema.nodes)) {
-        return finaliseInsert(
+        const nextTr = finaliseInsert(
           insertBeforeOrAfter(
             tr,
             lookDirection,
@@ -187,6 +229,21 @@ export const safeInsert =
           ),
           content.nodeSize,
         );
+
+        // Move selection to the closest text node, otherwise it defaults to the whatever the lookDirection is set to above
+        if (
+          [nodes.orderedList, nodes.bulletList].includes(parentNode.type) &&
+          nextTr
+        ) {
+          return nextTr.setSelection(
+            TextSelection.between(
+              nextTr.selection.$from,
+              nextTr.selection.$from,
+            ),
+          );
+        } else {
+          return nextTr;
+        }
       }
 
       // Can not insert into current parent, step up one parent
@@ -266,11 +323,25 @@ export const insertSelectedItem =
        *
        */
     } else if (node.isBlock) {
-      tr = pmSafeInsert(
-        normaliseNestedLayout(state, node),
-        undefined,
-        true,
-      )(tr);
+      /**
+       *
+       * Rule has unique insertion behaviour
+       * so using this safeInsert function in order to handle specific cases in flat list vs nested list
+       * instead of a generic pmSafeInsert (i.e appending at the end)
+       *
+       */
+
+      const selectionInsideAPanel = selectionIsInsideAPanel(tr);
+
+      if (node.type.name === 'rule' && !selectionInsideAPanel) {
+        tr = safeInsert(node, tr.selection.from)(tr) ?? tr;
+      } else {
+        tr = pmSafeInsert(
+          normaliseNestedLayout(state, node),
+          undefined,
+          true,
+        )(tr);
+      }
 
       /**
        *

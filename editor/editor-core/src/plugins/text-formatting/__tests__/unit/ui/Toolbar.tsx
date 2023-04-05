@@ -27,6 +27,7 @@ import analyticsPlugin, {
 import Toolbar from '../../../ui/Toolbar';
 import { EditorView } from 'prosemirror-view';
 import { ToolbarSize } from '@atlaskit/editor-common/types';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 describe('@atlaskit/editor-core/ui/Toolbar', () => {
   describe('when pluginStateTextFormatting is undefined', () => {
@@ -122,6 +123,7 @@ describe('@atlaskit/editor-core/ui/Toolbar', () => {
       createEditor({
         doc,
         preset: new Preset<LightEditorPlugin>()
+          .add([featureFlagsPlugin, {}])
           .add(textFormattingPlugin)
           .add([codeBlockPlugin, { appearance: 'full-page' }])
           .add([analyticsPlugin, { createAnalyticsEvent }]),
@@ -417,7 +419,9 @@ describe('@atlaskit/editor-core/ui/Toolbar', () => {
       fireEvent.click(moreButton);
 
       const group = getByRole('group');
-      const commandButton = within(group).getByLabelText('Clear formatting');
+      const commandButton = within(group).getByTestId(
+        'dropdown-item__Clear formatting',
+      );
       fireEvent.click(commandButton);
 
       expect(editorView.state.doc).toEqualDocument(doc(p('text')));

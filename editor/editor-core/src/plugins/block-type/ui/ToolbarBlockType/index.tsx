@@ -7,7 +7,7 @@ import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
 import DropdownMenu from '../../../../ui/DropdownMenu';
 import { separatorStyles, wrapperStyle } from '../../../../ui/styles';
 import { BlockTypeState } from '../../pm-plugins/main';
-import { BlockType, NORMAL_TEXT } from '../../types';
+import { BlockType } from '../../types';
 import {
   blockTypeMenuItemStyle,
   keyboardShortcut,
@@ -85,14 +85,6 @@ class ToolbarBlockType extends React.PureComponent<
       .filter((blockType) => blockType.name === currentBlockType.name)
       .map((blockType) => blockType.title);
 
-    const longestDropdownMenuItem = [
-      NORMAL_TEXT,
-      ...availableBlockTypes,
-    ].reduce((longest, item) => {
-      const itemTitle = formatMessage(item.title);
-      return itemTitle.length >= longest.length ? itemTitle : longest;
-    }, '');
-
     if (!this.props.isDisabled && !blockTypesDisabled) {
       const items = this.createItems();
       return (
@@ -126,9 +118,7 @@ class ToolbarBlockType extends React.PureComponent<
               onKeyDown={this.handleTriggerByKeyboard}
               formatMessage={formatMessage}
               aria-expanded={active}
-            >
-              {longestDropdownMenuItem}
-            </BlockTypeButton>
+            />
           </DropdownMenu>
           <span css={separatorStyles} />
         </span>
@@ -147,9 +137,7 @@ class ToolbarBlockType extends React.PureComponent<
           onKeyDown={this.handleTriggerByKeyboard}
           formatMessage={formatMessage}
           aria-expanded={active}
-        >
-          {longestDropdownMenuItem}
-        </BlockTypeButton>
+        />
         <span css={separatorStyles} />
       </span>
     );

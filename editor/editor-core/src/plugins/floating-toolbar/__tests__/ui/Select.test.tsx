@@ -31,6 +31,7 @@ const getSelectHarness = (): {
       items={[select]}
       dispatchAnalyticsEvent={jest.fn()}
       dispatchCommand={jest.fn()}
+      featureFlags={{}}
     />,
   );
 

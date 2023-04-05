@@ -243,6 +243,8 @@ const iconContainerStyles = css({
   paddingLeft: `${ICON_PADDING * 2}px`,
   alignItems: 'center',
   flexBasis: 'inherit',
+  backgroundColor: 'inherit',
+  border: 'none',
   color: token('color.text.subtlest', N70),
   transition: `color 150ms`,
   '&:hover': {
@@ -497,17 +499,19 @@ class DateTimePicker extends React.Component<DateTimePickerProps, State> {
         </div>
         {isClearable && !isDisabled ? (
           // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
-          <div
+          <button
             css={iconContainerStyles}
             onClick={this.onClear}
             data-testid={testId && `${testId}--icon--container`}
+            tabIndex={-1}
+            type="button"
           >
             <SelectClearIcon
               size="small"
               primaryColor="inherit"
               label="clear"
             />
-          </div>
+          </button>
         ) : null}
       </div>
     );

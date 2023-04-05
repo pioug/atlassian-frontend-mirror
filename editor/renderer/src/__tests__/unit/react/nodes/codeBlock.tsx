@@ -9,6 +9,7 @@ const render = (overrides = {}) => {
     <CodeBlock
       language="javascript"
       allowCopyToClipboard={false}
+      allowWrapCodeBlock={false}
       text={textSample}
       codeBidiWarningTooltipEnabled={true}
       {...overrides}
@@ -33,6 +34,18 @@ describe('Renderer - React/Nodes/CodeBlock', () => {
   it('should not render CopyButton component if allowCopyToClipboard is disabled', () => {
     const node = render();
     expect(node.find('CopyButton').exists()).toBe(false);
+    node.unmount();
+  });
+
+  it('should render wrap button if allowWrapCodeBlock is enabled', () => {
+    const node = render({ allowWrapCodeBlock: true });
+    expect(node.find('CodeBlockWrapButton')).toHaveLength(1);
+    node.unmount();
+  });
+
+  it('should not render wrap button if allowWrapCodeBlock is disabled', () => {
+    const node = render();
+    expect(node.find('CodeBlockWrapButton').exists()).toBe(false);
     node.unmount();
   });
 });

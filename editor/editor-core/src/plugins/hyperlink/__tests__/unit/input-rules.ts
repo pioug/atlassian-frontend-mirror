@@ -29,6 +29,7 @@ import textFormattingPlugin from '../../../text-formatting';
 import blockTypePlugin from '../../../block-type';
 import panelPlugin from '../../../panel';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 
@@ -41,6 +42,7 @@ describe('hyperlink', () => {
     return createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
         .add([analyticsPlugin, { createAnalyticsEvent }])
         .add(hyperlinkPlugin)
         .add(blockTypePlugin)

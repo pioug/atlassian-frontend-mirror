@@ -210,6 +210,25 @@ export default class EmojiPickerVirtualListInternal extends PureComponent<
     }
   };
 
+  private findEmojiRowAndColumnById = (emojiId: string) => {
+    let columnIndex = -1;
+    // for most of cases, it'd be in first emoji row, so should be quite fast to find in real world
+    let rowIndex = this.virtualItems.findIndex((rowItem) => {
+      if (rowItem instanceof EmojisRowItem) {
+        // find uploaded emoji in each emoji row
+        columnIndex = rowItem.props.emojis.findIndex(
+          (emoji) => emoji.id === emojiId,
+        );
+        return columnIndex !== -1;
+      }
+      return false;
+    });
+    return {
+      rowIndex,
+      columnIndex,
+    };
+  };
+
   /**
    * Scrolls to a category in the list view
    */
@@ -230,12 +249,23 @@ export default class EmojiPickerVirtualListInternal extends PureComponent<
     this.listRef.current?.scrollToRow(index);
   }
 
-  scrollToRecentlyUploaded() {
-    const row = this.lastYourUploadsRow;
-    if (row > 0) {
-      this.listRef.current?.scrollToRowAndFocusLastEmoji(
-        this.lastYourUploadsRow,
+  scrollToRecentlyUploaded(uploadedEmoji: EmojiDescription) {
+    // when search results is shown
+    if (this.props.query) {
+      const { rowIndex, columnIndex } = this.findEmojiRowAndColumnById(
+        uploadedEmoji.id!,
       );
+      if (rowIndex !== -1) {
+        this.listRef.current?.scrollToEmojiAndFocus(rowIndex, columnIndex);
+      }
+    } else {
+      // when seeing all emojis
+      const row = this.lastYourUploadsRow;
+      if (row > 0) {
+        this.listRef.current?.scrollToRowAndFocusLastEmoji(
+          this.lastYourUploadsRow,
+        );
+      }
     }
   }
 
@@ -281,6 +311,8 @@ export default class EmojiPickerVirtualListInternal extends PureComponent<
     let items: Items.VirtualItem<CategoryHeadingProps | EmojiRowProps | {}>[] =
       [];
 
+    const prevFirstCategory = this.categoryTracker.getFirstCategory();
+
     this.categoryTracker.reset();
 
     if (loading) {
@@ -316,11 +348,16 @@ export default class EmojiPickerVirtualListInternal extends PureComponent<
             this.lastYourUploadsRow = items.length - 1;
           }
         });
-        this.onRowsRendered({ startIndex: 0 });
       }
     }
 
+    // make sure virtualItems is up-to-date before calling onRowsRendered
     this.virtualItems = items;
+    if (!loading && !query) {
+      if (this.categoryTracker.getFirstCategory() !== prevFirstCategory) {
+        this.onRowsRendered({ startIndex: 0 });
+      }
+    }
   };
 
   private addToCategoryMap = (
@@ -445,6 +482,17 @@ export default class EmojiPickerVirtualListInternal extends PureComponent<
     return virtualItemRenderer(this.virtualItems, context);
   };
 
+  /**
+   * After deleting emoji, we'll update the focus index to the first emoji of last row of your uploads, so when user navigate back focus will still work
+   * if last emoji in your uploads is deleted, the updated focus index will be outdated, as there will be no your uploads section
+   * however, it'll trigger onChange from VirtualList, which will update focus index automatically for us
+   */
+  private handleOnCloseDelete = () => {
+    const list = this.listRef.current;
+    list?.updateFocusIndex(this.lastYourUploadsRow);
+    this.props.onCloseDelete();
+  };
+
   render() {
     const {
       query,
@@ -459,7 +507,6 @@ export default class EmojiPickerVirtualListInternal extends PureComponent<
       uploadErrorMessage,
       onUploadCancelled,
       onUploadEmoji,
-      onCloseDelete,
       onDeleteEmoji,
       onFileChooserClicked,
       onOpenUpload,
@@ -483,7 +530,7 @@ export default class EmojiPickerVirtualListInternal extends PureComponent<
           uploadErrorMessage={uploadErrorMessage}
           onUploadCancelled={onUploadCancelled}
           onUploadEmoji={onUploadEmoji}
-          onCloseDelete={onCloseDelete}
+          onCloseDelete={this.handleOnCloseDelete}
           onDeleteEmoji={onDeleteEmoji}
           onFileChooserClicked={onFileChooserClicked}
           onOpenUpload={onOpenUpload}

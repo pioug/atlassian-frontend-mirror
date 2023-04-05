@@ -51,6 +51,7 @@ import {
 } from '../../pm-plugins/frozen-editor';
 import * as utils from '../../utils/frozen-editor';
 import { getTimeSince } from '../../../../utils/performance/get-performance-timing';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 describe('frozen editor', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -61,19 +62,22 @@ describe('frozen editor', () => {
   ) => {
     return createEditor({
       doc,
-      preset: new Preset<LightEditorPlugin>().add([
-        basePlugin,
-        {
-          inputTracking: { enabled: true },
-          browserFreezeTracking: {
-            trackInteractionType: true,
-            trackSeverity: true,
-            severityNormalThreshold: NORMAL_SEVERITY_THRESHOLD,
-            severityDegradedThreshold: DEGRADED_SEVERITY_THRESHOLD,
+      preset: new Preset<LightEditorPlugin>()
+
+        .add([featureFlagsPlugin, {}])
+        .add([
+          basePlugin,
+          {
+            inputTracking: { enabled: true },
+            browserFreezeTracking: {
+              trackInteractionType: true,
+              trackSeverity: true,
+              severityNormalThreshold: NORMAL_SEVERITY_THRESHOLD,
+              severityDegradedThreshold: DEGRADED_SEVERITY_THRESHOLD,
+            },
+            ...options,
           },
-          ...options,
-        },
-      ]),
+        ]),
       pluginKey: frozenEditorPluginKey,
     });
   };

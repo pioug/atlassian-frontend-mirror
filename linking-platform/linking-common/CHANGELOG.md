@@ -1,5 +1,17 @@
 # @atlaskit/linking-common
 
+## 2.3.1
+
+### Patch Changes
+
+- [`aeaf58d2384`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aeaf58d2384) - Change adds a new prop on Smart Card `embedIframeUrlType` which allows a user of a Smart Card with the `embed` appearance to specify whether the Smart Card embed should use `href` or `interactiveHref` in the JSON-LD response.
+
+## 2.3.0
+
+### Minor Changes
+
+- [`86f9123aa19`](https://bitbucket.org/atlassian/atlassian-frontend/commits/86f9123aa19) - Add allow response statuses option on request
+
 ## 2.2.2
 
 ### Patch Changes

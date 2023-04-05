@@ -1,9 +1,9 @@
 import { EditorView } from 'prosemirror-view';
+import { EditorState } from 'prosemirror-state';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import {
   ExtensionHandlers,
   ExtensionProvider,
-  getExtensionModuleNode,
   UpdateExtension,
   Extension,
   ExtensionHandler,
@@ -25,58 +25,7 @@ import {
   createCommand,
 } from '../plugin-factory';
 import { pluginKey } from '../plugin-key';
-
-const maybeGetUpdateMethodFromExtensionProvider = async (
-  view: EditorView,
-  extensionProvider: ExtensionProvider,
-) => {
-  const nodeWithPos = getSelectedExtension(view.state, true);
-  if (!nodeWithPos) {
-    throw new Error('There is no selection');
-  }
-
-  const { extensionType, extensionKey } = nodeWithPos.node.attrs;
-
-  const extensionModuleNode = await getExtensionModuleNode(
-    extensionProvider,
-    extensionType,
-    extensionKey,
-  );
-
-  const newNodeWithPos = getSelectedExtension(view.state, true);
-
-  if (
-    newNodeWithPos &&
-    newNodeWithPos.node.attrs.extensionType === extensionType &&
-    newNodeWithPos.node.attrs.extensionKey === extensionKey &&
-    newNodeWithPos.pos === nodeWithPos.pos &&
-    extensionModuleNode
-  ) {
-    return extensionModuleNode.update;
-  }
-};
-
-export const updateEditButton = async (
-  view: EditorView,
-  extensionProvider: ExtensionProvider,
-) => {
-  try {
-    const updateMethod = await maybeGetUpdateMethodFromExtensionProvider(
-      view,
-      extensionProvider,
-    );
-
-    updateState({
-      showEditButton: !!updateMethod,
-      updateExtension:
-        (updateMethod && Promise.resolve(updateMethod)) || undefined,
-    })(view.state, view.dispatch);
-
-    return updateMethod;
-  } catch {
-    // this exception is not important for this case, fail silently
-  }
-};
+import { updateEditButton } from './utils';
 
 const shouldShowEditButton = (
   extensionHandler?: Extension | ExtensionHandler,
@@ -149,6 +98,97 @@ export const createContextIdentifierProviderHandler =
     }
   };
 
+export const handleUpdate = ({
+  view,
+  prevState,
+  domAtPos,
+  extensionHandlers,
+}: {
+  view: EditorView;
+  prevState: EditorState;
+  domAtPos: EditorView['domAtPos'];
+  extensionHandlers: ExtensionHandlers;
+}) => {
+  const { state, dispatch } = view;
+  const {
+    element,
+    localId,
+    extensionProvider,
+    showContextPanel,
+    showEditButton,
+  } = getPluginState(state);
+
+  // This fetches the selected extension node, either by keyboard selection or click for all types of extensions
+  const selectedExtension = getSelectedExtension(state, true);
+
+  if (!selectedExtension) {
+    if (showContextPanel) {
+      clearEditingContext(state, dispatch);
+    }
+    return;
+  }
+
+  const { node } = selectedExtension;
+
+  const newElement = getSelectedDomElement(
+    state.schema,
+    domAtPos,
+    selectedExtension,
+  );
+
+  // In some cases, showEditButton can be stale and the edit button doesn't show - @see ED-15285
+  // To be safe, we update the showEditButton state here
+  const shouldUpdateEditButton =
+    !showEditButton &&
+    extensionProvider &&
+    element === newElement &&
+    !getSelectedExtension(prevState, true);
+
+  const isNewNodeSelected = node.attrs.localId
+    ? localId !== node.attrs.localId
+    : // This is the current assumption and it's wrong but we are keeping it
+      // as fallback in case we need to turn off `allowLocalIdGeneration`
+      element !== newElement;
+
+  if (isNewNodeSelected || shouldUpdateEditButton) {
+    if (showContextPanel) {
+      clearEditingContext(state, dispatch);
+      return;
+    }
+
+    const { extensionType } = node.attrs;
+    const extensionHandler = extensionHandlers[extensionType];
+
+    // showEditButton might change async based on results from extension providers
+    const showEditButton = shouldShowEditButton(
+      extensionHandler,
+      extensionProvider,
+    );
+
+    const updateExtension = getUpdateExtensionPromise(
+      view,
+      extensionHandler,
+      extensionProvider,
+    ).catch(() => {
+      // do nothing;
+    });
+
+    updateState({
+      localId: node.attrs.localId,
+      showContextPanel: false,
+      element: newElement,
+      showEditButton,
+      updateExtension,
+    })(state, dispatch);
+  }
+  // New DOM element doesn't necessarily mean it's a new Node
+  else if (element !== newElement) {
+    updateState({ element: newElement })(state, dispatch);
+  }
+
+  return true;
+};
+
 const createPlugin = (
   dispatch: Dispatch,
   providerFactory: ProviderFactory,
@@ -185,81 +225,8 @@ const createPlugin = (
       );
 
       return {
-        update: (view) => {
-          const { state, dispatch } = view;
-          const { element, localId, extensionProvider, showContextPanel } =
-            getPluginState(state);
-
-          // This fetches the selected extension node, either by keyboard selection or click for all types of extensions
-          const selectedExtension = getSelectedExtension(state, true);
-
-          if (!selectedExtension) {
-            if (showContextPanel) {
-              clearEditingContext(state, dispatch);
-            }
-
-            // if an extension is no longer selected, but the plugin has cached the previous selected extension id/ref
-            // then this should clear those values so that if an exention is selected again, then this sees it as a change
-            // and updates the state correctly.
-            if (!!localId || !!element) {
-              updateState({
-                localId: undefined,
-                element: undefined,
-              })(state, dispatch);
-            }
-            return;
-          }
-
-          const { node } = selectedExtension;
-          const newElement = getSelectedDomElement(
-            state.schema,
-            domAtPos,
-            selectedExtension,
-          );
-
-          // New node is selection
-          if (
-            node.attrs.localId
-              ? localId !== node.attrs.localId
-              : // This is the current assumption and it's wrong but we are keeping it
-                // as fallback in case we need to turn off `allowLocalIdGeneration`
-                element !== newElement
-          ) {
-            if (showContextPanel) {
-              clearEditingContext(state, dispatch);
-            }
-
-            const { extensionType } = node.attrs;
-            const extensionHandler = extensionHandlers[extensionType];
-
-            // showEditButton might change async based on results from extension providers
-            const showEditButton = shouldShowEditButton(
-              extensionHandler,
-              extensionProvider,
-            );
-
-            const updateExtension = getUpdateExtensionPromise(
-              view,
-              extensionHandler,
-              extensionProvider,
-            ).catch(() => {
-              // do nothing;
-            });
-
-            updateState({
-              localId: node.attrs.localId,
-              showContextPanel: false,
-              element: newElement,
-              showEditButton,
-              updateExtension,
-            })(state, dispatch);
-          }
-          // New DOM element doesn't necessarily mean it's a new Node
-          else if (element !== newElement) {
-            updateState({ element: newElement })(state, dispatch);
-          }
-
-          return true;
+        update: (view, prevState) => {
+          handleUpdate({ view, prevState, domAtPos, extensionHandlers });
         },
         destroy: () => {
           providerFactory.unsubscribe(

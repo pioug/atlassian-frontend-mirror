@@ -4,6 +4,7 @@ jest.mock('../../../../commands', () => ({
 
 import { ExtensionProvider } from '@atlaskit/editor-common/extensions';
 import * as main from '../../../../pm-plugins/main';
+import * as utils from '../../../../pm-plugins/utils';
 import { updateState } from '../../../../commands';
 
 const { createExtensionProviderHandler: createProviderHandler } = main;
@@ -41,7 +42,7 @@ describe('createProviderHandler', () => {
   it('should unset extensionProvider on error - updateEditButton', async () => {
     const providerHandler = createProviderHandler(fakeView);
     const provider = Promise.resolve(fakeExtensionProvider);
-    jest.spyOn(main, 'updateEditButton').mockRejectedValueOnce('Error!!!');
+    jest.spyOn(utils, 'updateEditButton').mockRejectedValueOnce('Error!!!');
     await providerHandler('extensionProvider', provider);
 
     expect(updateState).toHaveBeenCalledWith({

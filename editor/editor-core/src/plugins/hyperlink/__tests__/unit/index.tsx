@@ -23,6 +23,8 @@ import typeAheadPlugin from '../../../type-ahead';
 import quickInsertPlugin from '../../../quick-insert';
 import * as featureFlags from '../../../../plugins/feature-flags-context';
 import { stateKey as hyperlinkStateKey } from '../../pm-plugins/main';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 
 describe('hyperlink', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -46,12 +48,13 @@ describe('hyperlink', () => {
 
   const editor = (
     doc: DocBuilder,
-    preset: Preset<any> = new Preset<LightEditorPlugin>(),
+    preset: EditorPresetBuilder<any, any> = new Preset<LightEditorPlugin>(),
   ) => {
     createAnalyticsEvent = jest.fn().mockReturnValue({ fire() {} });
     return createEditor({
       doc,
       preset: preset
+        .add([featureFlagsPlugin, {}])
         .add([analyticsPlugin, { createAnalyticsEvent }])
         .add(floatingToolbarPlugin)
         .add(blockTypePlugin)
@@ -114,7 +117,7 @@ describe('hyperlink', () => {
     it('should include task and decision items from node type, if they exist in schema', () => {
       const { editorView } = editor(
         doc(p(a({ href: 'google.com' })('web{<>}site'))),
-        new Preset<LightEditorPlugin>().add(tasksAndDecisionsPlugin),
+        new EditorPresetBuilder().add(tasksAndDecisionsPlugin),
       );
 
       const { state } = editorView;

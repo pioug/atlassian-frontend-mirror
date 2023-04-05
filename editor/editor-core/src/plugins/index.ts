@@ -67,3 +67,4 @@ export { default as viewUpdateSubscriptionPlugin } from './view-update-subscript
 export { default as beforePrimaryToolbarPlugin } from './before-primaryToolbar';
 export { default as codeBidiWarningPlugin } from './code-bidi-warning';
 export { default as copyButtonPlugin } from './copy-button';
+export { default as borderPlugin } from './border';

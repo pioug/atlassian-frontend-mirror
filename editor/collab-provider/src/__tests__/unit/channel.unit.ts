@@ -12,7 +12,6 @@ import { utils } from '@atlaskit/util-service-support';
 import { Channel } from '../../channel';
 import {
   Config,
-  ErrorPayload,
   InitPayload,
   Metadata,
   PresencePayload,
@@ -26,11 +25,12 @@ import * as Performance from '../../analytics/performance';
 import type { CollabSendableSelection } from '@atlaskit/editor-common/collab';
 import { createSocketIOSocket } from '../../socket-io-provider';
 import { io, Socket } from 'socket.io-client';
-import AnalyticsHelper from '../../analytics';
+import AnalyticsHelper from '../../analytics/analytics-helper';
 import { getProduct, getSubProduct } from '../../helpers/utils';
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import Network from '../../connectivity/network';
 import {
+  InternalError,
   NotConnectedError,
   NotInitializedError,
 } from '../../errors/error-types';
@@ -249,6 +249,9 @@ describe('Channel unit tests', () => {
     channel.on('error', (data: any) => {
       expect(data).toEqual({
         message: error.message,
+        data: {
+          code: 'CONNECTION_ERROR',
+        },
       });
     });
     // @ts-ignore private method for test
@@ -356,7 +359,7 @@ describe('Channel unit tests', () => {
           code: 'RECONNECTION_ERROR',
           status: 500,
         },
-        message: 'Caught error during reconnection.',
+        message: 'Caught error during reconnection',
       });
       expect(sendErrorEventSpy).toHaveBeenCalledTimes(1);
       expect(sendErrorEventSpy).toHaveBeenCalledWith(
@@ -471,7 +474,7 @@ describe('Channel unit tests', () => {
       it('when a more recent change was already stored when the step arrived at NCS', (done) => {
         const channel = getChannel();
 
-        channel.on('error', (error: ErrorPayload) => {
+        channel.on('error', (error: InternalError) => {
           expect(error).toEqual({
             code: 'HEAD_VERSION_UPDATE_FAILED',
             meta: 'The version number does not match the current head version.',
@@ -490,7 +493,7 @@ describe('Channel unit tests', () => {
       it('when a conflict happened when storing a step in the store', (done) => {
         const channel = getChannel();
 
-        channel.on('error', (error: ErrorPayload) => {
+        channel.on('error', (error: InternalError) => {
           expect(error).toEqual({
             code: 'VERSION_NUMBER_ALREADY_EXISTS',
             meta: 'Incoming version number already exists. Therefore, new Prosmirror steps will be rejected.',
@@ -683,7 +686,7 @@ describe('Channel unit tests', () => {
     let permissionTokenRefresh: any;
     let configuration: Config;
     let channel: Channel;
-    const BEFORE_EACH_ASSERERTION_COUNT = 2 + GET_CHANNEL_ASSERTION_COUNT;
+    const BEFORE_EACH_ASSERTION_COUNT = 2 + GET_CHANNEL_ASSERTION_COUNT;
     beforeEach(async () => {
       permissionTokenRefresh = jest.fn().mockResolvedValue('token');
       configuration = {
@@ -725,33 +728,43 @@ describe('Channel unit tests', () => {
     });
 
     it('Expires token on 401 errors when connect fails', () => {
-      expect.assertions(2 + BEFORE_EACH_ASSERERTION_COUNT);
+      expect.assertions(2 + BEFORE_EACH_ASSERTION_COUNT);
 
       channel.on('error', (err) => {
         expect(err).toEqual({
-          message: 'Auth denied message',
+          message: 'Connection error without message',
           data: {
+            code: 'INSUFFICIENT_EDITING_PERMISSION',
+            meta: {
+              description:
+                'The user does not have permission for collaborative editing of this resource or the resource was deleted',
+            },
             status: 401,
           },
         });
       });
       // Trigger error
       channel.getSocket()!.emit('connect_error', {
-        message: 'Auth denied message',
         data: {
           status: 401,
+          code: 'INSUFFICIENT_EDITING_PERMISSION',
+          meta: {
+            description:
+              'The user does not have permission for collaborative editing of this resource or the resource was deleted',
+          },
         },
       });
       expect(channel.getToken()).toBeUndefined();
     });
 
     it('Expires token on 403 errors when connect fails', () => {
-      expect.assertions(2 + BEFORE_EACH_ASSERERTION_COUNT);
+      expect.assertions(2 + BEFORE_EACH_ASSERTION_COUNT);
 
       channel.on('error', (err) => {
         expect(err).toEqual({
           message: 'Auth denied message',
           data: {
+            code: 'CONNECTION_ERROR',
             status: 403,
           },
         });
@@ -767,12 +780,13 @@ describe('Channel unit tests', () => {
     });
 
     it('Does not expire token on non-401 or 403 errors when connect fails, e.g. connection error', () => {
-      expect.assertions(2 + BEFORE_EACH_ASSERERTION_COUNT);
+      expect.assertions(2 + BEFORE_EACH_ASSERTION_COUNT);
 
       channel.on('error', (err) => {
         expect(err).toEqual({
           message: 'Internal Server error',
           data: {
+            code: 'CONNECTION_ERROR',
             status: 500,
           },
         });
@@ -866,19 +880,16 @@ describe('Channel unit tests', () => {
     it('Use cached token to connect after non 401, 403 errors', async () => {
       channel.on('error', (err) => {
         expect(err).toEqual({
-          message: 'Internal server error',
+          message: 'xhr poll error',
           data: {
-            status: 500,
+            code: 'CONNECTION_ERROR',
           },
         });
       });
 
       // trigger disconnect
       channel.getSocket()!.emit('connect_error', {
-        message: 'Internal server error',
-        data: {
-          status: 500,
-        },
+        message: 'xhr poll error',
       });
       // Initially not expired, should stay that way
       expect(channel.getToken()).toBeDefined();
@@ -1172,11 +1183,10 @@ describe('Channel unit tests', () => {
       channel.on('error', (error) => {
         expect(error).toEqual({
           data: {
-            status: 400,
             code: 'RECONNECTION_NETWORK_ISSUE',
           },
           message:
-            'Reconnection failed 8 times when browser was offline, likely there was a network issue.',
+            'Reconnection failed 8 times when browser was offline, likely there was a network issue',
         });
         expect(sendErrorEventSpy).toHaveBeenCalledTimes(1);
         expect(sendErrorEventSpy).toHaveBeenCalledWith(

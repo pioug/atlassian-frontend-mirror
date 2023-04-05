@@ -21,12 +21,14 @@ import panelPlugin from '../../../../panel';
 import cardPlugin from '../../../../card';
 import { deleteBlockContent } from '../../../commands';
 import { isNodeAWrappingBlockNode } from '../../../utils';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 describe('delete block content', () => {
   const createEditor = createProsemirrorEditorFactory();
 
   const editor = (doc: DocBuilder) => {
     const preset = new Preset<LightEditorPlugin>()
+      .add([featureFlagsPlugin, {}])
       .add(listPlugin)
       .add([codeBlockPlugin, { appearance: 'full-page' }])
       .add(layoutPlugin)

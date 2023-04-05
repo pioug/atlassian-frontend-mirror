@@ -33,7 +33,7 @@ describe('lists', () => {
       ),
       );
 
-      const decorations = getDecorations(state.doc, state).find();
+      const decorations = getDecorations(state.doc, state, {}).find();
       expect(decorations).toHaveLength(4); // one for each level of indentation
 
       const decorationAttrs = decorations.map(
@@ -76,9 +76,11 @@ describe('lists', () => {
       );
 
       const firstOuterListNode = state.doc.nodeAt(0)!;
-      const secondOuterListDecoration = getDecorations(state.doc, state).find(
-        firstOuterListNode.nodeSize + 1,
-      );
+      const secondOuterListDecoration = getDecorations(
+        state.doc,
+        state,
+        {},
+      ).find(firstOuterListNode.nodeSize + 1);
       expect(secondOuterListDecoration).toHaveLength(1);
 
       const lastDecoration = secondOuterListDecoration[0];
@@ -102,7 +104,7 @@ describe('lists', () => {
       ),
       );
 
-      const decorations = getDecorations(state.doc, state).find();
+      const decorations = getDecorations(state.doc, state, {}).find();
       expect(decorations).toHaveLength(3);
 
       decorations.forEach((decoration) => {
@@ -130,9 +132,11 @@ describe('lists', () => {
       );
 
       const firstOuterListNode = state.doc.nodeAt(0)!;
-      const secondOuterListDecoration = getDecorations(state.doc, state).find(
-        firstOuterListNode.nodeSize + 1,
-      );
+      const secondOuterListDecoration = getDecorations(
+        state.doc,
+        state,
+        {},
+      ).find(firstOuterListNode.nodeSize + 1);
       expect(secondOuterListDecoration).toHaveLength(1);
 
       const lastDecoration = secondOuterListDecoration[0];

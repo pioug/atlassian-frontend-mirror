@@ -21,11 +21,12 @@ import {
 } from '../utils/analytics';
 import { outdentListItemsSelected as outdentListAction } from '../actions/outdent-list-items-selected';
 import { closeHistory } from 'prosemirror-history';
-import { getFeatureFlags } from '../../feature-flags-context';
+import type { FeatureFlags } from '@atlaskit/editor-common/types';
 
 type InputMethod = INPUT_METHOD.KEYBOARD | INPUT_METHOD.TOOLBAR;
 export function outdentList(
   inputMethod: InputMethod = INPUT_METHOD.KEYBOARD,
+  featureFlags: FeatureFlags,
 ): Command {
   return function (state, dispatch) {
     if (!isInsideListItem(state)) {
@@ -46,14 +47,13 @@ export function outdentList(
       : ACTION_SUBJECT_ID.FORMAT_LIST_NUMBER;
 
     let customTr: Transaction = state.tr;
-    outdentListAction(customTr, state);
+    outdentListAction(customTr, state, featureFlags);
     if (!customTr || !customTr.docChanged) {
       // Even though this is a non-operation, we don't want to send this event to the browser. Because if we return false, the browser will move the focus to another place
       // If inside table cell and can't outdent list, then let it handle by table keymap
       return !isInsideTableCell(state);
     }
 
-    const featureFlags = getFeatureFlags(state);
     const restartListsAttributes: RestartListAttributes = {};
     if (featureFlags?.restartNumberedLists) {
       const { outdentScenario, splitListStartNumber } =

@@ -1,5 +1,22 @@
 # @atlaskit/drag-and-drop
 
+## 0.15.0
+
+### Minor Changes
+
+- [`ed028658f13`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ed028658f13) - Minor internal refactor and adding additional tests
+
+## 0.14.0
+
+### Minor Changes
+
+- [`eab6d26451d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eab6d26451d) - Improving the resilience of our workaround for a [Browser bug](https://bugs.chromium.org/p/chromium/issues/detail?id=410328) where after a drag finishes, an unrelated element can be entered into.
+- [`ba7ea570aee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ba7ea570aee) - > Both of these changes should not impact most consumers as they are targeted at edge cases.
+
+  - **Fix**: We no longer extract user input (eg `clientX`) from native `"dragleave"` events due to a [Bug with Chrome we discovered](https://bugs.chromium.org/p/chromium/issues/detail?id=1429937). Due to this bug, it was possible for `location.current.input` to be incorrectly set in `onDropTargetChange` and `onDrop` when a user was cancelling a drag or dropping or no drop targets.
+
+  - **Fix**: `location.previous.dropTargets` _should_ always point to the `location.current.dropTargets` value from the previous event (exception: `onGenerateDragPreview` and `onDragStart` have the same `location.previous` and `location.current` values). Previously, the `location.previous.dropTargets` value did not match the last events `location.current.dropTargets` value in `onDrop`. `onDrop()` would incorrectly use the `location.current` and `location.previous` values from the last event rather than creating a new `location.current` entry. Now, `onDrop()`, `location.previous.dropTargets` points to the `location.current.dropTargets` from the last event (same as all other events) and `location.current.dropTargets` points to what the previous drop target was as well (no change)
+
 ## 0.13.0
 
 ### Minor Changes

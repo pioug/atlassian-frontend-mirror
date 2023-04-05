@@ -32,6 +32,7 @@ import {
   ACTION_SUBJECT_ID,
   AnalyticsEventPayload,
 } from '../analytics';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { EditorView } from 'prosemirror-view';
 import { emojiPluginKey } from '../emoji';
 import { G75 } from '@atlaskit/theme/colors';
@@ -348,7 +349,9 @@ describe('getToolbarItems', () => {
             panelType: 'info',
           })(p('{<>}')),
         ),
-        preset: panelPreset.add([analyticsPlugin, { createAnalyticsEvent }]),
+        preset: panelPreset
+          .add([featureFlagsPlugin, {}])
+          .add([analyticsPlugin, { createAnalyticsEvent }]),
         providerFactory,
         pluginKey: emojiPluginKey,
       }));

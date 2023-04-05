@@ -13,7 +13,9 @@ export interface BreadcrumbsProps extends WithAnalyticsEventsProps {
    */
   isExpanded?: boolean;
   /**
-   * Uses the `nav` element if true and `div` if false. Defaults to true.
+   * Uses the `nav` element if true and `div` if false. Defaults to true. Use
+   * to reduce noise for assistive technologies, like screen readers, on pages
+   * where multiple breadcrumbs exist.
    */
   isNavigation?: boolean;
   /**

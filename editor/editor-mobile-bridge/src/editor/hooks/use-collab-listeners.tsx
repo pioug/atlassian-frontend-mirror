@@ -3,7 +3,7 @@ import WebBridgeImpl from '../native-to-web';
 import {
   Provider as CollabProvider,
   CollabMetadataPayload,
-  CollabErrorPayload,
+  ProviderError,
 } from '@atlaskit/collab-provider';
 import { toNativeBridge } from '../web-to-native';
 
@@ -23,9 +23,10 @@ export function useCollabListeners(
       }
     };
 
-    const onError = (payload: CollabErrorPayload) => {
+    const onError = (payload: ProviderError) => {
       toNativeBridge.onCollabError(
         payload.message,
+        // @ts-expect-error expected type error until collab provider gets rid of the status for good
         payload.status,
         payload.code,
       );

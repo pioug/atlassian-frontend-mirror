@@ -40,61 +40,89 @@ function hasActions(
   return typeof (plugin as any).actions === 'object';
 }
 
-type NotifyListernersThrottledThrottledProps = EditorStateDiff & {
+type FilterPluginsWithListenersProps = {
   plugins: Map<string, NextEditorPluginInitializedType>;
   listeners: Map<string, Set<Callback>>;
 };
+const filterPluginsWithListeners = ({
+  listeners,
+  plugins,
+}: FilterPluginsWithListenersProps): NextEditorPluginInitializedType[] =>
+  Array.from(listeners.keys())
+    .map((pluginName) => plugins.get(pluginName))
+    .filter(
+      (plugin): plugin is NextEditorPluginInitializedType =>
+        plugin !== undefined && hasGetSharedState(plugin),
+    );
 
-const DREAM_TARGET_60_FPS = 16;
-/*
- *
- * After some investigations, we discovered this is the best ratio for our current Editor: 80ms. That means is five times bigger than the 60fps dream target.
- *
- * In the future, once we remove the entire WithPluginState, We may decide to reduce this value.
- *
- */
-const THROTTLE_CALLS_FOR_MILLISECONDS = DREAM_TARGET_60_FPS * 5;
+type SharedStateDiff = {
+  nextSharedState: unknown;
+  prevSharedState: unknown;
+};
+type SharedStateByPluginName = Map<string, SharedStateDiff>;
+type ExtractSharedStateFromPluginsProps = EditorStateDiff & {
+  plugins: Array<NextEditorPluginInitializedType>;
+};
+const extractSharedStateFromPlugins = ({
+  oldEditorState,
+  newEditorState,
+  plugins,
+}: ExtractSharedStateFromPluginsProps): SharedStateByPluginName => {
+  const isInitialization = !oldEditorState && newEditorState;
+  const result = new Map();
+
+  for (let plugin of plugins) {
+    if (!plugin || !hasGetSharedState(plugin)) {
+      continue;
+    }
+
+    const nextSharedState = plugin.getSharedState(newEditorState);
+
+    const prevSharedState =
+      !isInitialization && oldEditorState
+        ? plugin.getSharedState(oldEditorState)
+        : undefined;
+
+    const isSamePluginState = isEqual(prevSharedState, nextSharedState);
+    if (isInitialization || !isSamePluginState) {
+      result.set(plugin.name, { nextSharedState, prevSharedState });
+    }
+  }
+
+  return result;
+};
+
+const THROTTLE_CALLS_FOR_MILLISECONDS = 0;
+
+type PluginUpdatesToNotify = Map<string, SharedStateDiff[]>;
+type NotifyListenersThrottledThrottledProps = {
+  listeners: Map<string, Set<Callback>>;
+  updatesToNotifyQueue: PluginUpdatesToNotify;
+};
 const notifyListenersThrottled = throttle(
   ({
-    newEditorState,
-    oldEditorState,
     listeners,
-    plugins,
-  }: NotifyListernersThrottledThrottledProps) => {
-    const isInitialization = !oldEditorState && newEditorState;
+    updatesToNotifyQueue,
+  }: NotifyListenersThrottledThrottledProps) => {
     const callbacks: Function[] = [];
 
-    for (let pluginName of listeners.keys()) {
-      const plugin = plugins.get(pluginName);
+    for (let [pluginName, diffs] of updatesToNotifyQueue.entries()) {
+      const pluginListeners = listeners.get(pluginName) || [];
 
-      if (!plugin || !hasGetSharedState(plugin)) {
-        continue;
-      }
-
-      const nextSharedState = plugin.getSharedState(newEditorState);
-
-      const prevSharedState =
-        !isInitialization && oldEditorState
-          ? plugin.getSharedState(oldEditorState)
-          : undefined;
-
-      const isSamePluginState = isEqual(prevSharedState, nextSharedState);
-      if (isInitialization || !isSamePluginState) {
-        (listeners.get(pluginName) || new Set<Callback>()).forEach(
-          (callback) => {
-            callbacks.push(
-              callback.bind(callback, { nextSharedState, prevSharedState }),
-            );
-          },
-        );
-      }
+      pluginListeners.forEach((callback) => {
+        diffs.forEach((diff) => {
+          callbacks.push(callback.bind(callback, diff));
+        });
+      });
     }
+
+    updatesToNotifyQueue.clear();
 
     if (callbacks.length === 0) {
       return;
     }
 
-    callbacks.forEach((cb) => {
+    callbacks.reverse().forEach((cb) => {
       cb();
     });
   },
@@ -144,11 +172,11 @@ export class SharedStateAPI {
     const pluginName = plugin.name;
     return {
       currentState: () => {
-        const state = this.getEditorState();
-        if (!state || !hasGetSharedState(plugin)) {
+        if (!hasGetSharedState(plugin)) {
           return undefined;
         }
 
+        const state = this.getEditorState();
         return plugin.getSharedState(state);
       },
       onChange: (sub: Callback) => {
@@ -158,30 +186,50 @@ export class SharedStateAPI {
 
         this.listeners.set(pluginName, pluginListeners);
 
-        return () => {
-          (this.listeners.get(pluginName) || new Set()).delete(sub);
-        };
+        return () => this.cleanupSubscription(pluginName, sub);
       },
     };
   }
 
+  private cleanupSubscription(pluginName: string, sub: Callback) {
+    (this.listeners.get(pluginName) || new Set()).delete(sub);
+  }
+
+  private updatesToNotifyQueue: PluginUpdatesToNotify = new Map();
   notifyListeners({
     newEditorState,
     oldEditorState,
     plugins,
   }: EditorStateDiff &
     Record<'plugins', Map<string, NextEditorPluginInitializedType>>) {
-    const { listeners } = this;
-    notifyListenersThrottled({
-      newEditorState,
+    const { listeners, updatesToNotifyQueue } = this;
+    const pluginsFiltered = filterPluginsWithListeners({ plugins, listeners });
+
+    const sharedStateDiffs = extractSharedStateFromPlugins({
       oldEditorState,
+      newEditorState,
+      plugins: pluginsFiltered,
+    });
+
+    if (sharedStateDiffs.size === 0) {
+      return;
+    }
+
+    for (let [pluginName, nextDiff] of sharedStateDiffs) {
+      const currentDiffQueue = updatesToNotifyQueue.get(pluginName) || [];
+
+      updatesToNotifyQueue.set(pluginName, [...currentDiffQueue, nextDiff]);
+    }
+
+    notifyListenersThrottled({
+      updatesToNotifyQueue,
       listeners,
-      plugins,
     });
   }
 
   destroy() {
     this.listeners.clear();
+    this.updatesToNotifyQueue.clear();
   }
 }
 
@@ -212,13 +260,19 @@ export class EditorPluginInjectionAPI implements PluginInjectionAPIDefinition {
 
   api<T extends NextEditorPlugin<any, any>>() {
     const { sharedStateAPI, actionsAPI, getPluginByName } = this;
-    type ExternalPluginsGenericType = PluginInjectionAPI<
+    type DependenciesGenericType = PluginInjectionAPI<
       T extends NextEditorPlugin<infer Name, any> ? Name : never,
       T extends NextEditorPlugin<any, infer Metadata> ? Metadata : never
-    >['externalPlugins'];
+    >['dependencies'];
 
-    const externalPlugins = new Proxy<ExternalPluginsGenericType>({} as any, {
+    const dependencies = new Proxy<DependenciesGenericType>({} as any, {
       get: function (target, prop: string, receiver) {
+        // If we pass this as a prop React hates us
+        // Let's just reflect the result and ignore these
+        if (prop === 'toJSON') {
+          return Reflect.get(target, prop);
+        }
+
         const plugin = getPluginByName(prop);
         if (!plugin) {
           // eslint-disable-next-line
@@ -239,7 +293,7 @@ export class EditorPluginInjectionAPI implements PluginInjectionAPIDefinition {
     });
 
     return {
-      externalPlugins,
+      dependencies,
     };
   }
 

@@ -48,8 +48,10 @@ export const EmojiPickerButton: React.FunctionComponent<{
 
   const updateEmoji = (emoji: EmojiId) => {
     setIsPopupOpen(false);
-    props.editorView && props.editorView.focus();
     props.onChange && props.onChange(emoji);
+    requestAnimationFrame(() => {
+      props.editorView?.focus();
+    });
   };
 
   const isDetachedElement = (el: HTMLElement) => !document.body.contains(el);
@@ -64,6 +66,11 @@ export const EmojiPickerButton: React.FunctionComponent<{
     }
   };
 
+  const handleEmojiPressEscape = () => {
+    setIsPopupOpen(false);
+    buttonRef.current?.focus();
+  };
+
   const renderPicker = (providers: Providers) => {
     if (!providers.emojiProvider) {
       return null;
@@ -75,6 +82,7 @@ export const EmojiPickerButton: React.FunctionComponent<{
         onSelection={updateEmoji}
         onPickerRef={() => {}}
         handleClickOutside={handleEmojiClickOutside}
+        handleEscapeKeydown={handleEmojiPressEscape}
       />
     );
   };
@@ -99,6 +107,7 @@ export const EmojiPickerButton: React.FunctionComponent<{
         // if the toolbar is scrollable, this will be mounted in the root editor
         // we need an index of > 500 to display over it
         zIndex={props.setDisableParentScroll ? 600 : undefined}
+        focusTrap
       >
         <WithProviders
           providers={['emojiProvider']}

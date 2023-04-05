@@ -52,6 +52,8 @@ export const TableSharedCssClassName = {
   TABLE_STICKY_WRAPPER: `${tablePrefixSelector}-sticky-wrapper`,
   TABLE_STICKY_SENTINEL_TOP: `${tablePrefixSelector}-sticky-sentinel-top`,
   TABLE_STICKY_SENTINEL_BOTTOM: `${tablePrefixSelector}-sticky-sentinel-bottom`,
+  TABLE_SHADOW_SENTINEL_LEFT: `${tablePrefixSelector}-shadow-sentinel-left`,
+  TABLE_SHADOW_SENTINEL_RIGHT: `${tablePrefixSelector}-shadow-sentinel-right`,
   TABLE_CELL_NODEVIEW_CONTENT_DOM: tableCellContentDomSelector,
   TABLE_CELL_WRAPPER: tableCellSelector,
   TABLE_HEADER_CELL_WRAPPER: tableHeaderSelector,

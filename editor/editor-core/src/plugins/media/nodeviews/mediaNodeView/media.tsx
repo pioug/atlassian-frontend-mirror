@@ -159,6 +159,8 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
       mediaOptions,
     } = this.props;
 
+    const borderMark = node.marks.find((m) => m.type.name === 'border');
+
     const { viewMediaClientConfig, contextIdentifierProvider } = this.state;
     const { id, type, collection, url, alt } = node.attrs;
 
@@ -196,6 +198,8 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
       <MediaCardWrapper
         dimensions={originalDimensions}
         onContextMenu={this.selectMediaSingle}
+        borderWidth={borderMark?.attrs.size}
+        selected={selected}
       >
         <Card
           mediaClientConfig={mediaClientConfig}

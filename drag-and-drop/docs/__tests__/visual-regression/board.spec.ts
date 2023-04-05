@@ -29,8 +29,14 @@ async function hideImagesToAvoidFlakiness(page: Page) {
   });
 }
 
-// TODO: unskip this - original context: https://atlassian.slack.com/archives/CFJ9DU39U/p1680052647889709
-describe.skip('board', () => {
+/**
+ * These were being flakey for unclear reasons.
+ * original context: https://atlassian.slack.com/archives/CFJ9DU39U/p1680052647889709
+ *
+ * They've been regenerated and seem to be okay now, but if they start
+ * failing again then skip them and we can investigate further.
+ */
+describe('board', () => {
   const url = getExampleUrl(
     'drag-and-drop',
     'docs',

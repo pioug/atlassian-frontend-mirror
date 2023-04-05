@@ -59,6 +59,7 @@ export enum KeyboardKeys {
   Enter = 'Enter',
   Tab = 'Tab',
   Space = ' ',
+  Backspace = 'Backspace',
 }
 
 // Used to search available emoji in the picker list to focus
@@ -74,6 +75,12 @@ export const CATEGORYSELECTOR_KEYBOARD_KEYS_SUPPORTED: string[] = [
   KeyboardKeys.ArrowLeft,
   KeyboardKeys.Home,
   KeyboardKeys.End,
+];
+
+export const EMOJI_KEYBOARD_KEYS_SUPPORTED: string[] = [
+  KeyboardKeys.Enter,
+  KeyboardKeys.Backspace,
+  KeyboardKeys.Space,
 ];
 
 export const TONESELECTOR_KEYBOARD_KEYS_SUPPORTED: string[] = [

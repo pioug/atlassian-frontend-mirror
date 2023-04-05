@@ -1,5 +1,11 @@
 # @atlaskit/link-create
 
+## 0.1.1
+
+### Patch Changes
+
+- [`63acd1bc789`](https://bitbucket.org/atlassian/atlassian-frontend/commits/63acd1bc789) - Update examples with presets
+
 ## 0.1.0
 
 ### Minor Changes

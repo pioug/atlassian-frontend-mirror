@@ -26,6 +26,7 @@ import {
   mediaInline,
   doc,
   p,
+  mediaSingle,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { MediaAttributes } from '@atlaskit/adf-schema';
 import { createIntl } from 'react-intl-next';
@@ -49,7 +50,11 @@ describe('floatingToolbar()', () => {
   const intl = createIntl({ locale: 'en' });
   const createEditor = createEditorFactory<MediaPluginState>();
 
-  const editor = (doc: DocBuilder, mediaPropsOverride: MediaOptions = {}) => {
+  const editor = (
+    doc: DocBuilder,
+    mediaPropsOverride: MediaOptions = {},
+    allowBorder: boolean = false,
+  ) => {
     const contextIdentifierProvider = storyContextIdentifierProviderFactory();
     const mediaProvider = getFreshMediaProvider();
     const providerFactory = ProviderFactory.create({
@@ -59,6 +64,7 @@ describe('floatingToolbar()', () => {
     const wrapper = createEditor({
       doc,
       editorProps: {
+        UNSAFE_allowBorderMark: allowBorder,
         media: {
           provider: mediaProvider,
           allowMediaSingle: true,
@@ -218,6 +224,53 @@ describe('floatingToolbar()', () => {
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
       expect(spy).toBeCalledTimes(1);
+    });
+  });
+
+  describe('mediaSingle', () => {
+    const setup = async (allowBorder: boolean = false) => {
+      const attrs: MediaAttributes = {
+        id: temporaryFileId,
+        type: 'file',
+        collection: testCollectionName,
+        __fileMimeType: 'image/png',
+        __contextId: 'DUMMY-OBJECT-ID',
+        width: 100,
+        height: 100,
+      };
+
+      const document = doc(
+        mediaSingle({ layout: 'center' })(media({ ...attrs })()),
+      );
+      const { editorView, pluginState } = editor(document, {}, allowBorder);
+      await pluginState.setMediaProvider(getFreshMediaProvider());
+
+      const toolbar = floatingToolbar(editorView.state, intl, {
+        allowLinking: true,
+        allowAdvancedToolBarOptions: true,
+      });
+      const items = getToolbarItems(toolbar!, editorView);
+      const mediaPluginState: MediaPluginState | undefined = stateKey.getState(
+        editorView.state,
+      );
+
+      return {
+        editorView,
+        items,
+        mediaPluginState,
+      };
+    };
+
+    it('should return media single items', async () => {
+      const { items } = await setup();
+
+      expect(items).toMatchSnapshot();
+    });
+
+    it('should return media single items with border option', async () => {
+      const { items } = await setup(true);
+
+      expect(items).toMatchSnapshot();
     });
   });
 });

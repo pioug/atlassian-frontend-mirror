@@ -24,8 +24,6 @@ type TextColorDefaultColor = {
 
 export interface TextColorPluginConfig {
   defaultColor?: TextColorDefaultColor;
-  /** @deprecated [ED-15849] Color selection palette now shows more colors by default. */
-  allowMoreTextColors?: boolean;
 }
 
 function createInitialPluginState(

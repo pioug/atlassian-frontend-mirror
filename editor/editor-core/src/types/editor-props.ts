@@ -406,6 +406,12 @@ export interface EditorPluginFeatureProps {
   allowFindReplace?: boolean | FindReplaceOptions;
 
   /**
+   * Enable experimental support for the "border" mark.
+   * Refer to ADF Change proposal #65 for more details.
+   */
+  UNSAFE_allowBorderMark?: boolean;
+
+  /**
    * Enable support for the "fragment" mark.
    * Refer to ADF Change proposal #60 for more details.
    */

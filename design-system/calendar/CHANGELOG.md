@@ -1,5 +1,24 @@
 # @atlaskit/calendar
 
+## 13.0.11
+
+### Patch Changes
+
+- [`70922a6fcea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/70922a6fcea) - [ux] style(calendar): update icon fallback color from N70 to N700 to match tokens and fix color contrast issue
+- [`c0fb88b3af6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c0fb88b3af6) - [ux] style(calendar): update icon color token from text.subtlest to color.icon
+
+## 13.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.0.8
 
 ### Patch Changes

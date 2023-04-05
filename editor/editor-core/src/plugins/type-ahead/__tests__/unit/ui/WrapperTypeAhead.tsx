@@ -79,6 +79,7 @@ const renderWrapperTypeAhead = ({
         anchorElement={anchorElement!}
         getDecorationPosition={jest.fn()}
         shouldFocusCursorInsideQuery={true!}
+        useBetterTypeaheadNavigation={true}
       />
     </IntlProvider>,
   );
@@ -156,6 +157,27 @@ describe('WrapperTypeAhead', () => {
     expect(inputQuery).not.toBeNull();
   });
 
+  it('Tab should close the popup and insert item into the document', async () => {
+    const { triggerHandler, resolvedItems } =
+      await createTriggerHandlerFromItems(items);
+
+    const { getByRole, queryByRole } = renderWrapperTypeAhead({
+      triggerHandler,
+      editorView,
+      anchorElement: container!,
+    });
+
+    await resolvedItems;
+    const inputQuery = getByRole('combobox');
+
+    fireKeyDown(inputQuery, ['Tab']);
+
+    expect(queryByRole('combobox')).toBeNull();
+    expect(editorView.state).toEqualDocumentAndSelection(
+      doc(p('Hello Earth{<>}')),
+    );
+  });
+
   it('Enter should close the popup and insert item into the document', async () => {
     const { triggerHandler, resolvedItems } =
       await createTriggerHandlerFromItems(items);
@@ -169,7 +191,7 @@ describe('WrapperTypeAhead', () => {
     await resolvedItems;
     const inputQuery = getByRole('combobox');
 
-    fireKeyDown(inputQuery, ['ArrowDown', 'Enter']);
+    fireKeyDown(inputQuery, ['Enter']);
 
     expect(queryByRole('combobox')).toBeNull();
     expect(editorView.state).toEqualDocumentAndSelection(
@@ -193,7 +215,7 @@ describe('WrapperTypeAhead', () => {
     fireKeyDown(inputQuery, ['ArrowDown', 'ArrowDown', 'ArrowUp', 'Enter']);
 
     expect(editorView.state).toEqualDocumentAndSelection(
-      doc(p('Hello Earth{<>}')),
+      doc(p('Hello Mars{<>}')),
     );
   });
 
@@ -296,7 +318,7 @@ describe('WrapperTypeAhead', () => {
       });
 
       act(() => {
-        fireKeyDown(inputQuery, ['ArrowDown', 'Enter']);
+        fireKeyDown(inputQuery, ['Enter']);
       });
     });
 
@@ -395,6 +417,9 @@ describe('WrapperTypeAhead', () => {
 
     describe('when arrow down is pressed at the last item', () => {
       it('should set the selectedIndex to the first item', async () => {
+        const originalPluginState = getPluginState(editorView.state);
+        expect(originalPluginState.selectedIndex).toBe(-1);
+
         fireKeyDown(inputQuery, ['ArrowDown', 'ArrowDown', 'ArrowDown']);
 
         const pluginState = getPluginState(editorView.state);
@@ -404,10 +429,13 @@ describe('WrapperTypeAhead', () => {
 
     describe('when multiple keys happens', () => {
       it('Up and Down should change the selected index in the plugin state', async () => {
+        const originalPluginState = getPluginState(editorView.state);
+        expect(originalPluginState.selectedIndex).toBe(-1);
+
         fireKeyDown(inputQuery, ['ArrowDown', 'ArrowDown', 'ArrowUp']);
 
         const pluginState = getPluginState(editorView.state);
-        expect(pluginState.selectedIndex).toBe(0);
+        expect(pluginState.selectedIndex).toBe(1);
       });
     });
   });

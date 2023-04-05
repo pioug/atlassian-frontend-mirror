@@ -149,6 +149,8 @@ export class DropzoneBase extends LocalUploadComponentReact<
     dragEvent.stopPropagation();
 
     const { featureFlags } = this.props;
+    // refreshes uploadParams as only set once in parent constructor
+    this.setUploadParams(this.props.config.uploadParams);
     /*
      * Only enable support for folders if (1) the browser is supported (2) feature flag is enabled
      * The file flattening library used to add support for Folders uses a function called webkitEntry.

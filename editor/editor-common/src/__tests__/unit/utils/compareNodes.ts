@@ -4,9 +4,11 @@ import { CardAttributes, UrlType } from '@atlaskit/adf-schema';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import cardPlugin from '@atlaskit/editor-core/src/plugins/card';
 import datePlugin from '@atlaskit/editor-core/src/plugins/date';
+import editorDisabledPlugin from '@atlaskit/editor-core/src/plugins/editor-disabled';
 import hyperlinkPlugin from '@atlaskit/editor-core/src/plugins/hyperlink';
 import mentionsPlugin from '@atlaskit/editor-core/src/plugins/mentions';
 import statusPlugin from '@atlaskit/editor-core/src/plugins/status';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 import {
@@ -53,6 +55,8 @@ describe('Compare Nodes', () => {
 
   beforeAll(() => {
     const preset = new Preset<LightEditorPlugin>()
+      .add([featureFlagsPlugin, {}])
+      .add(editorDisabledPlugin)
       .add(mentionsPlugin)
       .add(hyperlinkPlugin)
       .add(datePlugin)

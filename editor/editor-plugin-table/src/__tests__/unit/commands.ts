@@ -60,6 +60,7 @@ import expandPlugin from '@atlaskit/editor-core/src/plugins/expand';
 import extensionPlugin from '@atlaskit/editor-core/src/plugins/extension';
 import mediaPlugin from '@atlaskit/editor-core/src/plugins/media';
 import textFormattingPlugin from '@atlaskit/editor-core/src/plugins/text-formatting';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 
@@ -78,6 +79,7 @@ describe('table plugin: actions', () => {
       doc,
       attachTo: document.body,
       preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
         .add(tablePlugin)
         .add(panelPlugin)
         .add(textFormattingPlugin)

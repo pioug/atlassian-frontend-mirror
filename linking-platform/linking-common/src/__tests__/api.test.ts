@@ -55,6 +55,90 @@ describe('Smart Card: request()', () => {
     });
   });
 
+  describe('successful response', () => {
+    it('returns successful response', async () => {
+      const expectedResponse = { foo: 'bar' };
+      mockFetch.mockResolvedValueOnce({
+        json: async () => expectedResponse,
+        ok: true,
+      });
+
+      const response = await request('get', 'some-url');
+
+      expect(response).toBe(expectedResponse);
+    });
+
+    it('parses body to json on successful response', async () => {
+      const mockJson = jest.fn();
+      mockFetch.mockResolvedValueOnce({
+        json: mockJson,
+        ok: true,
+      });
+
+      await request('get', 'some-url');
+
+      expect(mockJson).toHaveBeenCalledTimes(1);
+    });
+
+    it('returns unsuccessful response', async () => {
+      const expectedResponse = {
+        ok: false,
+        status: 500,
+      };
+      mockFetch.mockResolvedValueOnce(expectedResponse);
+
+      await expect(request('get', 'some-url')).rejects.toBe(expectedResponse);
+    });
+
+    it.each([[200], [401], [404]])(
+      'returns %s as successful response by default',
+      async (status: number) => {
+        const expectedResponse = {
+          json: async () => expectedResponse,
+          ok: false,
+          status,
+        };
+        mockFetch.mockResolvedValueOnce(expectedResponse);
+
+        const response = await request('get', 'some-url');
+
+        expect(response).toBe(expectedResponse);
+      },
+    );
+
+    it('returns a provided status as successful response', async () => {
+      const status = 409;
+      const expectedResponse = {
+        json: async () => expectedResponse,
+        ok: false,
+        status,
+      };
+      mockFetch.mockResolvedValueOnce(expectedResponse);
+
+      const response = await request('get', 'some-url', undefined, undefined, [
+        status,
+      ]);
+
+      await expect(response).toBe(expectedResponse);
+    });
+
+    it('return an empty successful response on with no content if 204 is allowed', async () => {
+      const mockJson = jest.fn();
+      mockFetch.mockResolvedValueOnce({
+        json: mockJson,
+        ok: true,
+        status: 204,
+      });
+
+      const response = await request('get', 'some-url', undefined, undefined, [
+        204,
+      ]);
+
+      expect(response).not.toBeDefined();
+      expect(mockJson).not.toHaveBeenCalled();
+    });
+  });
+
   it('should return NetworkError when fetch rejects', async () => {
     expect.assertions(2);
     mockFetch.mockImplementationOnce(() => {

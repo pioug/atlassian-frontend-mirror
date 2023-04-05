@@ -12,6 +12,7 @@ import collabEditPlugin from '../../';
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../../../analytics';
 import { EditorView } from 'prosemirror-view';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 describe('collab-edit: plugin', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -20,13 +21,15 @@ describe('collab-edit: plugin', () => {
     fireMock = createAnalyticsEventMock();
     return createEditor({
       doc,
-      preset: new Preset<LightEditorPlugin>().add([
-        collabEditPlugin,
-        {
-          useNativePlugin: true,
-          createAnalyticsEvent: fireMock,
-        },
-      ]),
+      preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
+        .add([
+          collabEditPlugin,
+          {
+            useNativePlugin: true,
+            createAnalyticsEvent: fireMock,
+          },
+        ]),
       providerFactory,
     });
   };

@@ -30,6 +30,7 @@ import {
   pluginKey as undoRedoPluginKey,
   default as createPMPlugin,
 } from '../../pm-plugins/better-type-history';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 describe('close history', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -37,6 +38,7 @@ describe('close history', () => {
     createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
         .add(blockTypePlugin)
         .add([pastePlugin, {}])
         .add(hyperlinkPlugin)

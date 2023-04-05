@@ -1,15 +1,11 @@
 jest.autoMockOff();
-
 import { createTransformer } from '../utils';
 import { removeAllowMoreColorsProp } from '../migrates/next-remove-allow-more-text-colors-prop';
-
 // This stays as require() since changing to import will trigger a linter error
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
-
 const transformer = createTransformer('@atlaskit/editor-core', [
   removeAllowMoreColorsProp,
 ]);
-
 describe('remove `allowMoreTextColors` field from `allowTextColor` Editor prop.', () => {
   defineInlineTest(
     { default: transformer, parser: 'tsx' },
@@ -17,7 +13,6 @@ describe('remove `allowMoreTextColors` field from `allowTextColor` Editor prop.'
     `
     import React from 'react';
     import { Editor } from '@atlaskit/editor-core';
-
     export default () => <Editor
       allowTextColor = {
         {
@@ -31,7 +26,6 @@ describe('remove `allowMoreTextColors` field from `allowTextColor` Editor prop.'
     `
     import React from 'react';
     import { Editor } from '@atlaskit/editor-core';
-
     export default () => <Editor
       allowTextColor = {
         {
@@ -43,14 +37,12 @@ describe('remove `allowMoreTextColors` field from `allowTextColor` Editor prop.'
     `, // -----
     'remove allowMoreTextColors field if it exists',
   );
-
   defineInlineTest(
     { default: transformer, parser: 'tsx' },
     {},
     `
     import React from 'react';
     import { Editor } from '@atlaskit/editor-core';
-
     export default () => <Editor
       appearance="full-page"
       allowTextColor = {
@@ -63,7 +55,6 @@ describe('remove `allowMoreTextColors` field from `allowTextColor` Editor prop.'
     `
     import React from 'react';
     import { Editor } from '@atlaskit/editor-core';
-
     export default () => <Editor
       appearance="full-page"
       allowTextColor={true}
@@ -71,14 +62,12 @@ describe('remove `allowMoreTextColors` field from `allowTextColor` Editor prop.'
     `, // -----
     'set allowTextColor prop value to `true` if allowMoreTextColors is its only field',
   );
-
   defineInlineTest(
     { default: transformer, parser: 'tsx' },
     {},
     `
     import React from 'react';
     import { Editor as MyEditor } from '@atlaskit/editor-core';
-
     export default () => <Editor
       appearance="full-page"
       allowTextColor = {
@@ -92,7 +81,6 @@ describe('remove `allowMoreTextColors` field from `allowTextColor` Editor prop.'
     `
     import React from 'react';
     import { Editor as MyEditor } from '@atlaskit/editor-core';
-
     export default () => <Editor
       appearance="full-page"
       allowTextColor = {
@@ -104,17 +92,14 @@ describe('remove `allowMoreTextColors` field from `allowTextColor` Editor prop.'
     `, // -----
     'remove allowMoreTextColors prop prop when Editor is renamed',
   );
-
   defineInlineTest(
     { default: transformer, parser: 'tsx' },
     {},
     `
     import React from 'react';
-
     const Editor = (props) => {
       <div>{props.children}</div>
     };
-
     export default () => <Editor
       appearance="full-page"
       allowTextColor = {
@@ -127,11 +112,9 @@ describe('remove `allowMoreTextColors` field from `allowTextColor` Editor prop.'
     `, // -----
     `
     import React from 'react';
-
     const Editor = (props) => {
       <div>{props.children}</div>
     };
-
     export default () => <Editor
       appearance="full-page"
       allowTextColor = {

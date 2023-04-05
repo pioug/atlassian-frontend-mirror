@@ -25,6 +25,7 @@ import expandPlugin from '../../index';
 import analyticsPlugin from '../../../analytics';
 import typeAheadPlugin from '../../../type-ahead';
 import quickInsertPlugin from '../../../quick-insert';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 
 describe('expand actions', () => {
@@ -36,6 +37,7 @@ describe('expand actions', () => {
     return createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
         .add([expandPlugin, { allowInsertion: true }])
         .add([analyticsPlugin, { createAnalyticsEvent }])
         .add(typeAheadPlugin)
@@ -138,6 +140,7 @@ describe('expand actions', () => {
           jest.fn(),
           jest.fn(),
           isMobile,
+          {},
         );
       };
 

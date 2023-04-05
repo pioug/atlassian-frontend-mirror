@@ -1063,7 +1063,7 @@ describe('outdent-list-items-selected', () => {
       const myState = createEditorState(previousDocument);
       const { tr } = myState;
 
-      outdentListItemsSelected(tr, myState);
+      outdentListItemsSelected(tr, myState, {});
 
       expect(tr).toEqualDocumentAndSelection(expectedDocument(sampleSchema));
     });

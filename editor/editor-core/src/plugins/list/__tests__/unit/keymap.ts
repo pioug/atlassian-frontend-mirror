@@ -28,7 +28,7 @@ import emojiPlugin, { emojiPluginKey } from '../../../emoji';
 import panelPlugin from '../../../panel';
 import analyticsPlugin from '../../../analytics';
 import mediaPlugin from '../../../media';
-import featureFlagsPlugin from '../../../feature-flags-context';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import simulatePlatform, {
@@ -56,14 +56,14 @@ describe('lists plugin -> keymap', () => {
   const editor = (doc: DocBuilder) => {
     createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
     const preset = new Preset<LightEditorPlugin>()
+      .add([featureFlagsPlugin, { restartNumberedLists: true }])
       .add([listPlugin, { restartNumberedLists: true }])
       .add(blockTypePlugin)
       .add(emojiPlugin)
       .add([codeBlockTypePlugin, { appearance: 'full-page' }])
       .add(panelPlugin)
       .add([analyticsPlugin, { createAnalyticsEvent }])
-      .add([mediaPlugin, { allowMediaSingle: true }])
-      .add([featureFlagsPlugin, { restartNumberedLists: true }]);
+      .add([mediaPlugin, { allowMediaSingle: true }]);
 
     return createEditor({
       doc,

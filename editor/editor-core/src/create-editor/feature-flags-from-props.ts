@@ -43,6 +43,12 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
     props.featureFlags?.tableCellOptionsInFloatingToolbar ||
     undefined;
 
+  // duplicated logic from `feature-flags-from-props.ts` due to presets not being finalised
+  const pseudoNormalisedUseBetterTypeaheadNavigation =
+    props.featureFlags?.['use-better-typeahead-navigation'] ??
+    props.featureFlags?.useBetterTypeaheadNavigation ??
+    null;
+
   return {
     ...normalizedFeatureFlags,
 
@@ -258,5 +264,12 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
     useEditorNext:
       normalizedFeatureFlags.useEditorNext === true ||
       props.featureFlags?.useEditorNext === true,
+
+    // duplicated logic from `create-plugins-list.ts` due to presets not being finalised
+    useBetterTypeaheadNavigation: Boolean(
+      typeof pseudoNormalisedUseBetterTypeaheadNavigation === 'boolean'
+        ? !!pseudoNormalisedUseBetterTypeaheadNavigation
+        : true,
+    ),
   };
 }

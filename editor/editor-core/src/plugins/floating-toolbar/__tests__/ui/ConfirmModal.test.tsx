@@ -16,6 +16,7 @@ import Toolbar from '../../ui/Toolbar';
 import { FloatingToolbarItem } from '../../types';
 import floatingToolbarMessages from '../../ui/messages';
 import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 const emptyDoc = doc(p(''));
 
@@ -24,7 +25,9 @@ describe('toolbar-data', () => {
   const createEditor = (doc: DocBuilder) => {
     return createEditorFactory({
       doc,
-      preset: new EditorPresetBuilder().add(floatingToolbarPlugin),
+      preset: new EditorPresetBuilder()
+        .add([featureFlagsPlugin, {}])
+        .add(floatingToolbarPlugin),
     });
   };
 
@@ -64,7 +67,9 @@ describe('<Toolbar />', () => {
   const createEditor = (doc: DocBuilder) => {
     return createEditorFactory({
       doc,
-      preset: new EditorPresetBuilder().add(floatingToolbarPlugin),
+      preset: new EditorPresetBuilder()
+        .add([featureFlagsPlugin, {}])
+        .add(floatingToolbarPlugin),
     });
   };
   const { editorView } = createEditor(emptyDoc);
@@ -98,6 +103,7 @@ describe('<Toolbar />', () => {
           node={node!}
           items={items}
           dispatchCommand={dispatchCommand}
+          featureFlags={{}}
         />,
       );
 
@@ -139,6 +145,7 @@ describe('<Toolbar />', () => {
           node={node!}
           items={items}
           dispatchCommand={dispatchCommand}
+          featureFlags={{}}
         />,
       );
 
@@ -274,7 +281,7 @@ describe('<ConfirmationModal />', () => {
       .find(`button[data-testid="${testId}-confirm-button"]`)
       .simulate('click');
     expect(onConfirm).toBeCalledTimes(1);
-    expect(onClose).toBeCalledTimes(0);
+    expect(onClose).toBeCalledTimes(1); // onClose is called on modal close (after onConfirm)
   });
 
   it('should trigger onClose when cancel button clicked', () => {

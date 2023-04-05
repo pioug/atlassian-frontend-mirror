@@ -11,6 +11,7 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { toggleExpandExpanded } from '../../commands';
 import expandPlugin from '../../index';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 describe('Expand Commands', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -18,7 +19,9 @@ describe('Expand Commands', () => {
   const editor = (doc: DocBuilder) => {
     return createEditor({
       doc,
-      preset: new Preset<LightEditorPlugin>().add(expandPlugin),
+      preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
+        .add(expandPlugin),
     });
   };
 

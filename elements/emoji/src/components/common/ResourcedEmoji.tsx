@@ -16,7 +16,7 @@ const ResourcedEmojiComponent = Loadable({
 });
 
 const ResourcedEmoji: FC<Props> = (props) => {
-  const { emojiId } = props;
+  const { emojiId, optimisticImageURL } = props;
 
   useEffect(() => {
     if (!emojiId) {
@@ -31,6 +31,7 @@ const ResourcedEmoji: FC<Props> = (props) => {
       .addMetadata({
         source: 'ResourcedEmoji',
         emojiId: emojiId.id,
+        isOptimisticImageURL: !!optimisticImageURL,
       });
     return () => {
       sampledUfoRenderedEmoji(emojiId).abort({
@@ -40,7 +41,7 @@ const ResourcedEmoji: FC<Props> = (props) => {
         },
       });
     };
-  }, [emojiId]);
+  }, [emojiId, optimisticImageURL]);
 
   return (
     <UfoErrorBoundary

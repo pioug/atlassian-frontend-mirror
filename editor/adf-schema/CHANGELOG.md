@@ -1,5 +1,16 @@
 # @atlaskit/adf-schema
 
+## 25.4.0
+
+### Minor Changes
+
+- [`bf04c417bfd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bf04c417bfd) - Add "border" mark to stage0 ADF schema
+- [`af9a85063e5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/af9a85063e5) - add image border toolbar
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 25.3.2
 
 ### Patch Changes

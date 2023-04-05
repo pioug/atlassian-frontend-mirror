@@ -26,6 +26,7 @@ import analyticsPlugin, {
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import basePlugin from '../../../base';
 import codeBlockPlugin from '../../';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 const createIndentationAttributes = (
   previousIndentationLevel: number,
@@ -47,6 +48,7 @@ describe('IDE UX plugin', () => {
     return createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
         .add(basePlugin)
         .add([codeBlockPlugin, { appearance: 'full-page' }])
         .add([analyticsPlugin, { createAnalyticsEvent }]),

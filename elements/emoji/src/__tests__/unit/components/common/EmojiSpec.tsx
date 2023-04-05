@@ -5,7 +5,7 @@ import { axe, toHaveNoViolations } from 'jest-axe';
 import Emoji from '../../../../components/common/Emoji';
 import { spriteEmoji, imageEmoji } from '../../_test-data';
 import { commonSelectedStyles } from '../../../../components/common/styles';
-import * as browserSupport from '../../../../util/browser-support';
+import browserSupport from '../../../../util/browser-support';
 import { RENDER_EMOJI_DELETE_BUTTON_TESTID } from '../../../../components/common/DeleteButton';
 
 import '@testing-library/jest-dom/extend-expect';
@@ -14,13 +14,9 @@ import { renderWithIntl } from '../../_testing-library';
 // Add matcher provided by 'jest-axe'
 expect.extend(toHaveNoViolations);
 
-const mockedBrowserSupport = browserSupport as {
-  isIntersectionObserverSupported: boolean;
-};
-
 describe('<Emoji />', () => {
   beforeAll(() => {
-    mockedBrowserSupport.isIntersectionObserverSupported = true;
+    browserSupport.supportsIntersectionObserver = true;
   });
 
   describe('as sprite', () => {
@@ -72,7 +68,7 @@ describe('<Emoji />', () => {
       const component = result.getByTestId(
         `sprite-emoji-${spriteEmoji.shortName}`,
       );
-      expect(component.getAttribute('title')).toBe('');
+      expect(component).not.toHaveAttribute('title');
     });
   });
 
@@ -133,7 +129,7 @@ describe('<Emoji />', () => {
       const imageWrapper = result.getByTestId(
         `image-emoji-${imageEmoji.shortName}`,
       );
-      expect(imageWrapper).toHaveAttribute('title', '');
+      expect(imageWrapper).not.toHaveAttribute('title');
     });
 
     it('should show delete button is showDelete is passed in', async () => {

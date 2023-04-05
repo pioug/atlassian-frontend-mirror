@@ -15,7 +15,6 @@ import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { getToolbarConfig } from '../../Toolbar';
 import hyperlinkPlugin from '../../';
 import { HyperlinkToolbarAppearance } from '../../HyperlinkToolbarAppearance';
-import * as featureFlags from '../../../../plugins/feature-flags-context';
 import {
   FloatingToolbarButton,
   FloatingToolbarItem,
@@ -23,6 +22,7 @@ import {
 import { Command } from '../../../../types';
 import analyticsPlugin from '../../../../plugins/analytics';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 describe('linking', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -33,28 +33,29 @@ describe('linking', () => {
     return createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
         .add([analyticsPlugin, { createAnalyticsEvent }])
         .add(hyperlinkPlugin),
     });
   };
 
   describe('#getToolbarConfig', () => {
-    const featureFlagSpy = jest.spyOn(featureFlags, 'getFeatureFlags');
+    let featureFlagsMock = {};
     let providerFactory: ProviderFactory;
 
     beforeEach(() => {
       providerFactory = new ProviderFactory();
-      featureFlagSpy.mockReturnValue({
+      featureFlagsMock = {
         floatingToolbarLinkSettingsButton: undefined,
-      });
+      };
     });
 
     afterEach(() => {
-      featureFlagSpy.mockReset();
+      featureFlagsMock = {};
     });
 
     afterAll(() => {
-      featureFlagSpy.mockRestore();
+      featureFlagsMock = {};
     });
 
     const intl = createIntl({
@@ -72,7 +73,7 @@ describe('linking', () => {
         ),
       );
 
-      const toolbarConfig = getToolbarConfig()(
+      const toolbarConfig = getToolbarConfig({}, {})(
         editorView.state,
         intl,
         providerFactory,
@@ -100,7 +101,7 @@ describe('linking', () => {
         ),
       );
 
-      const toolbarConfig = getToolbarConfig()(
+      const toolbarConfig = getToolbarConfig({}, featureFlagsMock)(
         editorView.state,
         intl,
         providerFactory,
@@ -118,9 +119,9 @@ describe('linking', () => {
     });
 
     it('should show the settings button when feature flag is enabled', () => {
-      featureFlagSpy.mockReturnValue({
+      featureFlagsMock = {
         floatingToolbarLinkSettingsButton: 'true',
-      });
+      };
       const { editorView } = editor(
         doc(
           p(
@@ -131,7 +132,7 @@ describe('linking', () => {
         ),
       );
 
-      const toolbarConfig = getToolbarConfig()(
+      const toolbarConfig = getToolbarConfig({}, featureFlagsMock)(
         editorView.state,
         intl,
         providerFactory,
@@ -165,9 +166,9 @@ describe('linking', () => {
     });
 
     it('should fire the correct analytics event when settings button is clicked', () => {
-      featureFlagSpy.mockReturnValue({
+      featureFlagsMock = {
         floatingToolbarLinkSettingsButton: 'true',
-      });
+      };
       const { editorView } = editor(
         doc(
           p(
@@ -178,7 +179,7 @@ describe('linking', () => {
         ),
       );
 
-      const toolbarConfig = getToolbarConfig()(
+      const toolbarConfig = getToolbarConfig({}, featureFlagsMock)(
         editorView.state,
         intl,
         providerFactory,
@@ -204,9 +205,9 @@ describe('linking', () => {
     });
 
     it('should not show the settings button when feature flag is explicitly disabled', () => {
-      featureFlagSpy.mockReturnValue({
+      featureFlagsMock = {
         floatingToolbarLinkSettingsButton: 'false',
-      });
+      };
 
       const { editorView } = editor(
         doc(
@@ -218,7 +219,7 @@ describe('linking', () => {
         ),
       );
 
-      const toolbarConfig = getToolbarConfig()(
+      const toolbarConfig = getToolbarConfig({}, featureFlagsMock)(
         editorView.state,
         intl,
         providerFactory,
@@ -234,9 +235,9 @@ describe('linking', () => {
     });
 
     it('should not show the settings button when feature flag is undefined', () => {
-      featureFlagSpy.mockReturnValue({
+      featureFlagsMock = {
         floatingToolbarLinkSettingsButton: undefined,
-      });
+      };
 
       const { editorView } = editor(
         doc(
@@ -248,7 +249,7 @@ describe('linking', () => {
         ),
       );
 
-      const toolbarConfig = getToolbarConfig()(
+      const toolbarConfig = getToolbarConfig({}, featureFlagsMock)(
         editorView.state,
         intl,
         providerFactory,
@@ -274,12 +275,15 @@ describe('linking', () => {
         ),
       );
 
-      const toolbarConfig = getToolbarConfig({
-        cardOptions: {
-          allowEmbeds: true,
+      const toolbarConfig = getToolbarConfig(
+        {
+          cardOptions: {
+            allowEmbeds: true,
+          },
+          platform: 'web',
         },
-        platform: 'web',
-      })(editorView.state, intl, providerFactory);
+        featureFlagsMock,
+      )(editorView.state, intl, providerFactory);
 
       const items = (toolbarConfig && toolbarConfig.items) || [];
       const toolbarAppearanceItem: any = (items as []).find(
@@ -300,5 +304,45 @@ describe('linking', () => {
         }),
       );
     });
+
+    it.each([
+      [true, 570],
+      [false, 360],
+    ])(
+      'when feature flag `lpLinkPicker` is %p, should provide height of %d to link picker toolbar',
+      (lpLinkPicker, height) => {
+        featureFlagsMock = {
+          lpLinkPicker,
+        };
+
+        const { editorView } = editor(
+          doc(
+            p(
+              link({ href: 'https://www.atlassian.com' })(
+                'www.{<}atlassian{>}.com',
+              ),
+            ),
+          ),
+        );
+
+        const toolbarConfig = getToolbarConfig({}, featureFlagsMock)(
+          editorView.state,
+          intl,
+          providerFactory,
+        )!;
+        const items = toolbarConfig.items;
+
+        const editButton = (items as FloatingToolbarButton<Command>[]).find(
+          (item) => 'id' in item && item.id === 'editor.link.edit',
+        )!;
+        editButton.onClick(editorView.state, editorView.dispatch);
+        const editToolbar = getToolbarConfig({}, featureFlagsMock)(
+          editorView.state,
+          intl,
+          providerFactory,
+        )!;
+        expect(editToolbar?.height).toBe(height);
+      },
+    );
   });
 });

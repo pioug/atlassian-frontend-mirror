@@ -21,6 +21,7 @@ import {
 import { tooltip, toggleBulletList, toggleOrderedList } from '../../keymaps';
 import { IconList, IconListNumber } from '../quick-insert/assets';
 import type { ListPluginOptions } from './types';
+import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 /*
   Toolbar buttons to bullet and ordered list can be found in
@@ -30,102 +31,108 @@ const listPlugin: NextEditorPlugin<
   'list',
   {
     pluginConfiguration: ListPluginOptions | undefined;
+    dependencies: [typeof featureFlagsPlugin];
   }
-> = (options?) => ({
-  name: 'list',
+> = (options, api) => {
+  const featureFlags =
+    api?.dependencies.featureFlags.sharedState.currentState() || {};
 
-  nodes() {
-    return [
-      { name: 'bulletList', node: bulletList },
-      {
-        name: 'orderedList',
-        node: options?.restartNumberedLists
-          ? orderedListWithOrder
-          : orderedList,
-      },
-      { name: 'listItem', node: listItem },
-    ];
-  },
+  return {
+    name: 'list',
 
-  pmPlugins() {
-    return [
-      {
-        name: 'list',
-        plugin: ({ dispatch }) => createPlugin(dispatch),
-      },
-      {
-        name: 'listInputRule',
-        plugin: ({ schema, featureFlags }) =>
-          inputRulePlugin(schema, featureFlags),
-      },
-      { name: 'listKeymap', plugin: () => keymapPlugin() },
-    ];
-  },
-
-  pluginsOptions: {
-    quickInsert: ({ formatMessage }) => [
-      {
-        id: 'unorderedList',
-        title: formatMessage(messages.unorderedList),
-        description: formatMessage(messages.unorderedListDescription),
-        keywords: ['ul', 'unordered'],
-        priority: 1100,
-        keyshortcut: tooltip(toggleBulletList),
-        icon: () => <IconList />,
-        action(insert, state) {
-          const tr = insert(
-            state.schema.nodes.bulletList.createChecked(
-              {},
-              state.schema.nodes.listItem.createChecked(
-                {},
-                state.schema.nodes.paragraph.createChecked(),
-              ),
-            ),
-          );
-
-          return addAnalytics(state, tr, {
-            action: ACTION.INSERTED,
-            actionSubject: ACTION_SUBJECT.LIST,
-            actionSubjectId: ACTION_SUBJECT_ID.FORMAT_LIST_BULLET,
-            eventType: EVENT_TYPE.TRACK,
-            attributes: {
-              inputMethod: INPUT_METHOD.QUICK_INSERT,
-            },
-          });
+    nodes() {
+      return [
+        { name: 'bulletList', node: bulletList },
+        {
+          name: 'orderedList',
+          node: options?.restartNumberedLists
+            ? orderedListWithOrder
+            : orderedList,
         },
-      },
-      {
-        id: 'orderedList',
-        title: formatMessage(messages.orderedList),
-        description: formatMessage(messages.orderedListDescription),
-        keywords: ['ol', 'ordered'],
-        priority: 1200,
-        keyshortcut: tooltip(toggleOrderedList),
-        icon: () => <IconListNumber />,
-        action(insert, state) {
-          const tr = insert(
-            state.schema.nodes.orderedList.createChecked(
-              {},
-              state.schema.nodes.listItem.createChecked(
-                {},
-                state.schema.nodes.paragraph.createChecked(),
-              ),
-            ),
-          );
+        { name: 'listItem', node: listItem },
+      ];
+    },
 
-          return addAnalytics(state, tr, {
-            action: ACTION.INSERTED,
-            actionSubject: ACTION_SUBJECT.LIST,
-            actionSubjectId: ACTION_SUBJECT_ID.FORMAT_LIST_NUMBER,
-            eventType: EVENT_TYPE.TRACK,
-            attributes: {
-              inputMethod: INPUT_METHOD.QUICK_INSERT,
-            },
-          });
+    pmPlugins() {
+      return [
+        {
+          name: 'list',
+          plugin: ({ dispatch }) => createPlugin(dispatch, featureFlags),
         },
-      },
-    ],
-  },
-});
+        {
+          name: 'listInputRule',
+          plugin: ({ schema, featureFlags }) =>
+            inputRulePlugin(schema, featureFlags),
+        },
+        { name: 'listKeymap', plugin: () => keymapPlugin(featureFlags) },
+      ];
+    },
+
+    pluginsOptions: {
+      quickInsert: ({ formatMessage }) => [
+        {
+          id: 'unorderedList',
+          title: formatMessage(messages.unorderedList),
+          description: formatMessage(messages.unorderedListDescription),
+          keywords: ['ul', 'unordered'],
+          priority: 1100,
+          keyshortcut: tooltip(toggleBulletList),
+          icon: () => <IconList />,
+          action(insert, state) {
+            const tr = insert(
+              state.schema.nodes.bulletList.createChecked(
+                {},
+                state.schema.nodes.listItem.createChecked(
+                  {},
+                  state.schema.nodes.paragraph.createChecked(),
+                ),
+              ),
+            );
+
+            return addAnalytics(state, tr, {
+              action: ACTION.INSERTED,
+              actionSubject: ACTION_SUBJECT.LIST,
+              actionSubjectId: ACTION_SUBJECT_ID.FORMAT_LIST_BULLET,
+              eventType: EVENT_TYPE.TRACK,
+              attributes: {
+                inputMethod: INPUT_METHOD.QUICK_INSERT,
+              },
+            });
+          },
+        },
+        {
+          id: 'orderedList',
+          title: formatMessage(messages.orderedList),
+          description: formatMessage(messages.orderedListDescription),
+          keywords: ['ol', 'ordered'],
+          priority: 1200,
+          keyshortcut: tooltip(toggleOrderedList),
+          icon: () => <IconListNumber />,
+          action(insert, state) {
+            const tr = insert(
+              state.schema.nodes.orderedList.createChecked(
+                {},
+                state.schema.nodes.listItem.createChecked(
+                  {},
+                  state.schema.nodes.paragraph.createChecked(),
+                ),
+              ),
+            );
+
+            return addAnalytics(state, tr, {
+              action: ACTION.INSERTED,
+              actionSubject: ACTION_SUBJECT.LIST,
+              actionSubjectId: ACTION_SUBJECT_ID.FORMAT_LIST_NUMBER,
+              eventType: EVENT_TYPE.TRACK,
+              attributes: {
+                inputMethod: INPUT_METHOD.QUICK_INSERT,
+              },
+            });
+          },
+        },
+      ],
+    },
+  };
+};
 
 export default listPlugin;

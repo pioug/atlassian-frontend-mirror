@@ -5,6 +5,9 @@ import Tooltip from '@atlaskit/tooltip';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
 import { Message } from '../../types';
 import VisuallyHidden from '@atlaskit/visually-hidden';
+import { FormattedMessage, useIntl } from 'react-intl-next';
+
+import { messages } from '../i18n';
 
 export interface Props {
   message: Message;
@@ -12,12 +15,15 @@ export interface Props {
   messageStyles: SerializedStyles;
 }
 
+export const emojiErrorScreenreaderTestId = 'emoji-error-screenreader-message';
 export const emojiErrorMessageTestId = 'emoji-error-message';
 export const emojiErrorMessageTooltipTestId = 'emoji-error-message-tooltip';
 export const emojiErrorIconTestId = 'emoji-error-icon';
 
 const EmojiErrorMessage: FC<Props> = (props) => {
   const { messageStyles, message, tooltip } = props;
+
+  const { formatMessage } = useIntl();
 
   const visualContent = tooltip ? (
     <div css={messageStyles} data-testid={emojiErrorMessageTestId}>
@@ -26,19 +32,31 @@ const EmojiErrorMessage: FC<Props> = (props) => {
         position="top"
         testId={emojiErrorMessageTooltipTestId}
       >
-        <ErrorIcon label="Error" size="medium" testId={emojiErrorIconTestId} />
+        <ErrorIcon
+          label={formatMessage(messages.error)}
+          size="medium"
+          testId={emojiErrorIconTestId}
+        />
       </Tooltip>
     </div>
   ) : (
     <div css={messageStyles} data-testid={emojiErrorMessageTestId}>
-      <ErrorIcon label="Error" size="small" />
+      <ErrorIcon label={formatMessage(messages.error)} size="small" />
       {message}
     </div>
   );
 
   return (
     <Fragment>
-      <VisuallyHidden role="alert">{message}</VisuallyHidden>
+      <VisuallyHidden id={emojiErrorScreenreaderTestId}>
+        <FormattedMessage {...messages.error}>
+          {(errMsg) => (
+            <span>
+              {errMsg} {message}.
+            </span>
+          )}
+        </FormattedMessage>
+      </VisuallyHidden>
       {visualContent}
     </Fragment>
   );

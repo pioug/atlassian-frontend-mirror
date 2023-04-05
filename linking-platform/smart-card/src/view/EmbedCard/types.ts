@@ -1,6 +1,10 @@
 import { CardState } from '../../state/types';
 import { InvokeHandler } from '../../model/invoke-handler';
-import { CardPlatform, OnResolveCallback } from '../Card/types';
+import {
+  CardPlatform,
+  EmbedIframeUrlType,
+  OnResolveCallback,
+} from '../Card/types';
 import { ReactNode } from 'react';
 import { ActionProps } from '../BlockCard/components/Action';
 import { RequestAccessMessageKey } from '../../messages';
@@ -27,6 +31,7 @@ export type EmbedCardProps = {
   showActions?: boolean;
   onIframeDwell?: (dwellTime: number, dwellPercentVisible: number) => void;
   onIframeFocus?: () => void;
+  iframeUrlType?: EmbedIframeUrlType;
 };
 export interface WithShowControlMethodProp {
   showControls?: () => void;

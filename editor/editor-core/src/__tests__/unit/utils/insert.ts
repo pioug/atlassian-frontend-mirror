@@ -84,7 +84,7 @@ describe('@atlaskit/editor-core/utils insert', () => {
         editorView.state.selection.from,
       )(editorView.state.tr);
 
-      expect(tr).toBeNull();
+      expect(tr).not.toBeNull();
     });
   });
 
@@ -347,7 +347,7 @@ describe('@atlaskit/editor-core/utils insert', () => {
                     doc(
                       ul(li(p('one '))),
                       hr(),
-                      ul(li(p('{<>}')), li(p('two')), li(p('three'))),
+                      ul(li(p('{<>}two')), li(p('three'))),
                     ),
                   );
                 });

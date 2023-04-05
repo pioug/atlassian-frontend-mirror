@@ -18,6 +18,7 @@ import {
 import { indentList } from '../../../commands/indent-list';
 import analyticsPlugin, { INPUT_METHOD } from '../../../../analytics';
 import listPlugin from '../../..';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 describe('lists plugin -> commands -> outdentList', () => {
   const createProseMirrorEditor = createProsemirrorEditorFactory();
@@ -29,6 +30,7 @@ describe('lists plugin -> commands -> outdentList', () => {
 
   const editor = (doc: DocBuilder) => {
     const preset = new Preset<LightEditorPlugin>()
+      .add([featureFlagsPlugin, {}])
       .add(listPlugin)
       .add([analyticsPlugin, { createAnalyticsEvent }]);
 

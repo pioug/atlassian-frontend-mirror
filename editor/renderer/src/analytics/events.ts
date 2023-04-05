@@ -157,6 +157,13 @@ type AnchorLinkAEP = UIAEP<
   { platform: PLATFORM.WEB; mode: MODE.RENDERER }
 >;
 
+type CodeBlockCopyAEP = ButtonAEP<ACTION_SUBJECT_ID.CODEBLOCK_COPY, undefined>;
+
+type CodeBlockWrapAEP = ButtonAEP<
+  ACTION_SUBJECT_ID.CODEBLOCK_WRAP,
+  { wrapped: boolean }
+>;
+
 type HeadingAnchorLinkButtonAEP = ButtonAEP<
   ACTION_SUBJECT_ID.HEADING_ANCHOR_LINK,
   undefined
@@ -294,6 +301,8 @@ export type AnalyticsEventPayload<T = void> =
   | RendererUnsupportedContentLevelsTrackingErrored
   | RendererSelectAllCaughtAEP
   | RendererSelectAllEscapedAEP
+  | CodeBlockCopyAEP
+  | CodeBlockWrapAEP
   | HeadingAnchorLinkButtonAEP
   | AnchorLinkAEP
   | TableSortColumnNotAllowedAEP

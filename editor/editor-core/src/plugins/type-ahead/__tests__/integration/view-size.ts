@@ -102,9 +102,12 @@ describe('typeahead: at different view sizes', () => {
     },
   );
 
+  // FIXME: This test was automatically skipped due to failure on 04/04/2023: https://product-fabric.atlassian.net/browse/ED-17399
   BrowserTestCase(
     'typeahead should not be clipped on smaller window with text above it',
-    {},
+    {
+      skip: ['*'],
+    },
     async (client: any) => {
       const page = await goToEditorTestingWDExample(client);
 

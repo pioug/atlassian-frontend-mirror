@@ -10,6 +10,7 @@ import { expandClassNames } from '../ui/class-names';
 import { getPluginState, createPluginState, pluginKey } from './plugin-factory';
 import { EditorProps } from '../../../types';
 import { IntlShape } from 'react-intl-next';
+import { FeatureFlags } from '@atlaskit/editor-common/types';
 
 export function containsClass(
   element: Element | null,
@@ -23,6 +24,7 @@ export const createPlugin = (
   getIntl: () => IntlShape,
   appearance: EditorProps['appearance'] = 'full-page',
   useLongPressSelection: boolean = false,
+  featureFlags: FeatureFlags,
 ) => {
   const state = createPluginState(dispatch, {});
   const isMobile = appearance === 'mobile';
@@ -32,8 +34,8 @@ export const createPlugin = (
     key: pluginKey,
     props: {
       nodeViews: {
-        expand: ExpandNodeView({ getIntl, isMobile }),
-        nestedExpand: ExpandNodeView({ getIntl, isMobile }),
+        expand: ExpandNodeView({ getIntl, isMobile, featureFlags }),
+        nestedExpand: ExpandNodeView({ getIntl, isMobile, featureFlags }),
       },
       handleKeyDown(_view, event) {
         return containsClass(

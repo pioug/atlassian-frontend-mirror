@@ -29,4 +29,8 @@ export default class CategoryTracker {
   getRow(category: CategoryId): number | undefined {
     return this.categoryToRow.get(category);
   }
+
+  getFirstCategory() {
+    return this.rowToCategory.get(0);
+  }
 }

@@ -7,12 +7,9 @@ import ToolbarButton from '../../../../ui/ToolbarButton';
 import Dropdown, { OpenChangedEvent } from '../../../../ui/Dropdown';
 import Alignment from '../../../../ui/Alignment';
 import { AlignmentPluginState, AlignmentState } from '../../pm-plugins/types';
-import {
-  expandIconWrapper,
-  separator,
-  triggerWrapper,
-  wrapper,
-} from './styles';
+import { expandIconWrapper, triggerWrapper, wrapper } from './styles';
+import { separatorStyles } from '../../../../ui/styles';
+
 import { IconMap } from './icon-map';
 import { messages } from './messages';
 
@@ -111,7 +108,7 @@ export class AlignmentToolbar extends React.Component<
             selectedAlignment={pluginState.align}
           />
         </Dropdown>
-        <span css={separator} />
+        <span css={separatorStyles} />
       </span>
     );
   }

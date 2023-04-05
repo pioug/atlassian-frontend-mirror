@@ -12,6 +12,11 @@ export default function plugin() {
           path: NodePath<t.Program>,
           state: { opts: { shouldUseAutoFallback?: boolean } },
         ) {
+          const sourceFile = path.hub.file.opts.filename;
+          if (sourceFile && sourceFile.includes('node_modules')) {
+            return;
+          }
+
           path.traverse({
             CallExpression(path: NodePath<t.CallExpression>) {
               const tokenImportScope = getTokenImportScope(path);

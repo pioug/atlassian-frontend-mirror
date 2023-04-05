@@ -1,17 +1,21 @@
-import type { Step as ProseMirrorStep } from 'prosemirror-transform';
-import type { Transaction as ProseMirrorTransaction } from 'prosemirror-state';
+import type { Step } from 'prosemirror-transform';
+import type { EditorState, Transaction } from 'prosemirror-state';
 import type {
   CollabParticipant,
-  CollabEventTelepointerData,
   CollabEventConnectionData,
   CollabEventInitData,
   CollabEventRemoteData,
   CollabEventPresenceData,
   CollabEventConnectingData,
+  ResolvedEditorState,
 } from '@atlaskit/editor-common/collab';
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import type { Manager } from 'socket.io-client';
 import type { DisconnectReason } from './disconnected-reason-mapper';
+import type { InternalError } from './errors/error-types';
+import type { ProviderError } from './errors/error-types';
+import type { SyncUpErrorFunction } from '@atlaskit/editor-common/types';
+
 export interface Storage {
   get(key: string): Promise<string>;
   set(key: string, value: string): Promise<void>;
@@ -30,7 +34,11 @@ export interface Config {
     auth?: AuthCallback | InitAndAuthData,
     productInfo?: ProductInformation,
   ) => Socket;
+  /**
+   * @deprecated: Use promise based getAnalyticsWebClient instead
+   */
   analyticsClient?: AnalyticsWebClient;
+  getAnalyticsWebClient?: Promise<AnalyticsWebClient>;
   featureFlags?: { [key: string]: boolean };
   getUser?(
     userId: string,
@@ -81,20 +89,20 @@ export interface Lifecycle {
 
 export type CollabConnectedPayload = CollabEventConnectionData;
 export type CollabConnectingPayload = CollabEventConnectingData;
+
 export interface CollabDisconnectedPayload {
   reason: DisconnectReason;
   sid: string;
 }
-export interface CollabErrorPayload {
-  status: number;
-  code: string;
-  message: string;
-  reason?: string;
-}
+
+/**
+ * @deprecated Use ProviderError type instead
+ */
+export type CollabErrorPayload = ProviderError;
+
 export interface CollabInitPayload extends CollabEventInitData {
   doc: any;
   version: number;
-  userId?: string;
   metadata?: Metadata;
   reserveCursor?: boolean;
 }
@@ -109,7 +117,7 @@ export type CollabTelepointerPayload = CollabEventTelepointerData;
 export type CollabPresencePayload = CollabEventPresenceData;
 export type CollabMetadataPayload = Metadata;
 export type CollabLocalStepsPayload = {
-  steps: readonly ProseMirrorStep[];
+  steps: readonly Step[];
 };
 
 export interface CollabEvents {
@@ -140,7 +148,7 @@ export type InitPayload = {
 
 export type PresencePayload = {
   sessionId: string;
-  userId: string;
+  userId: string | undefined;
   clientId: number | string;
   timestamp: number;
 };
@@ -148,8 +156,10 @@ export type PresencePayload = {
 export type TelepointerPayload = PresencePayload & {
   selection: {
     type: 'textSelection' | 'nodeSelection';
-    anchor: number;
-    head: number;
+    // JWM does some weird serialisation stuff:
+    // eg. {"type":"nodeSelection","head":"{\"nodeId\":\"project:10002:view/list/node/summary-10000\"}"}
+    anchor?: number | string;
+    head?: number | string;
   };
 };
 
@@ -203,7 +213,7 @@ export type AddStepAcknowledgementSuccessPayload = {
 
 export type AcknowledgementErrorPayload = {
   type: AcknowledgementResponseTypes.ERROR;
-  error: ErrorPayload;
+  error: InternalError;
 };
 
 export type AddStepAcknowledgementPayload =
@@ -213,15 +223,6 @@ export type AddStepAcknowledgementPayload =
 export type StepsPayload = {
   version: number;
   steps: StepJson[];
-};
-
-export type ErrorPayload = {
-  message: string;
-  data?: {
-    status: number;
-    code?: string;
-    meta?: string | { description: string; reason?: string };
-  };
 };
 
 // ESS-2916 Type def for namespace status - lock/unlock
@@ -248,7 +249,7 @@ export type ChannelEvent = {
   'steps:commit': StepsPayload & { userId: string };
   'steps:added': StepsPayload;
   'metadata:changed': Metadata;
-  error: ErrorPayload;
+  error: InternalError;
   disconnect: { reason: string };
   status: NamespaceStatus;
 };
@@ -265,20 +266,54 @@ export interface CatchupOptions {
   getCurrentPmVersion: () => number;
   fetchCatchup: (fromVersion: number) => Promise<CatchupResponse>;
   filterQueue: (condition: (stepsPayload: StepsPayload) => boolean) => void;
-  getUnconfirmedSteps: () => readonly ProseMirrorStep[] | undefined;
-  getUnconfirmedStepsOrigins: () =>
-    | readonly ProseMirrorTransaction[]
-    | undefined;
+  getUnconfirmedSteps: () => readonly Step[] | undefined;
   updateDocumentWithMetadata: ({
     doc,
     version,
     metadata,
     reserveCursor,
   }: CollabInitPayload) => void;
-  applyLocalSteps: (steps: ProseMirrorStep[]) => void;
+  applyLocalSteps: (steps: Step[]) => void;
 }
 
 export type ProductInformation = {
   product: string;
   subProduct?: string;
 };
+
+export interface CollabEventTelepointerData {
+  type: 'telepointer';
+  selection: CollabSendableSelection;
+  sessionId: string;
+}
+
+export interface CollabSendableSelection {
+  type: 'textSelection' | 'nodeSelection';
+  // JWM does some weird serialisation stuff:
+  // eg. {"type":"nodeSelection","head":"{\"nodeId\":\"project:10002:view/list/node/summary-10000\"}"}
+  anchor?: number | string;
+  head?: number | string;
+}
+
+export interface CollabEditProvider<
+  Events extends CollabEvents = CollabEvents,
+> {
+  initialize(getState: () => any, createStep: (json: object) => Step): this; // TO-DO: depecrate this
+
+  setup(props: {
+    getState: () => EditorState;
+    onSyncUpError?: SyncUpErrorFunction;
+  }): this;
+
+  send(tr: Transaction, oldState: EditorState, newState: EditorState): void;
+
+  on(evt: keyof Events, handler: (...args: any) => void): this;
+
+  off(evt: keyof Events, handler: (...args: any) => void): this;
+
+  unsubscribeAll(evt: keyof Events): this;
+
+  sendMessage<K extends keyof Events>(data: { type: K } & Events[K]): void;
+
+  getFinalAcknowledgedState(): Promise<ResolvedEditorState>;
+}

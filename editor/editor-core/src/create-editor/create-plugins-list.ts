@@ -61,12 +61,24 @@ export function getDefaultPresetOptionsFromEditorProps(
   const cardOptions =
     props.linking?.smartLinks || props.smartLinks || props.UNSAFE_cards;
 
+  // duplicated logic from `feature-flags-from-props.ts` due to presets not being finalised
+  const pseudoNormalisedUseBetterTypeaheadNavigation =
+    props.featureFlags?.['use-better-typeahead-navigation'] ??
+    props.featureFlags?.useBetterTypeaheadNavigation ??
+    null;
+  const useBetterTypeaheadNavigation = Boolean(
+    typeof pseudoNormalisedUseBetterTypeaheadNavigation === 'boolean'
+      ? !!pseudoNormalisedUseBetterTypeaheadNavigation
+      : true,
+  );
+
   return {
     ...props,
     createAnalyticsEvent,
     typeAhead: {
       createAnalyticsEvent,
       isMobile,
+      useBetterTypeaheadNavigation: useBetterTypeaheadNavigation,
     },
     featureFlags: createFeatureFlagsFromProps(props),
     paste: {

@@ -22,7 +22,7 @@ type WithSharedState<Metadata extends NextEditorPluginMetadata> = {
     Metadata,
     'sharedState'
   > as PickSharedStatePropertyName<Metadata>]: (
-    editorState: EditorState,
+    editorState: EditorState | undefined,
   ) => ExtractSharedStateFromMetadata<Metadata>;
 };
 
@@ -63,7 +63,7 @@ export type PluginInjectionAPI<
   Name extends string,
   Metadata extends NextEditorPluginMetadata,
 > = {
-  externalPlugins: CreatePluginDependenciesAPI<
+  dependencies: CreatePluginDependenciesAPI<
     [
       NextEditorPlugin<Name, Metadata>,
       ...ExtractPluginDependenciesFromMetadata<Metadata>,
@@ -181,7 +181,7 @@ type ExtractPluginConfiguration<Plugin> = Plugin extends NextEditorPlugin<
     : never
   : never;
 
-type ExtractPluginSharedState<Plugin> = Plugin extends NextEditorPlugin<
+export type ExtractPluginSharedState<Plugin> = Plugin extends NextEditorPlugin<
   any,
   any
 >
@@ -225,7 +225,7 @@ export type PluginDependenciesAPI<Plugin extends NextEditorPlugin<any, any>> = {
 export type CreatePluginDependenciesAPI<
   PluginList extends NextEditorPlugin<any, any>[],
 > = {
-  [Plugin in PluginList[number] as ExtractPluginName<Plugin>]: Plugin extends OptionalPlugin<
+  [Plugin in PluginList[number] as `${ExtractPluginName<Plugin>}`]: Plugin extends OptionalPlugin<
     NextEditorPlugin<any, any>
   >
     ? PluginDependenciesAPI<Plugin> | undefined
@@ -315,4 +315,11 @@ export type ExtractPluginNameFromAllBuilderPlugins<
     : never
   : Plugin extends NextEditorPlugin<any, any>
   ? ExtractPluginName<Plugin>
+  : never;
+
+export type ExtractInjectionAPI<Plugin> = Plugin extends NextEditorPlugin<
+  infer Name,
+  infer Metadata
+>
+  ? PluginInjectionAPI<Name, Metadata>
   : never;

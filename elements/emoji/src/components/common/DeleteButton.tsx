@@ -33,6 +33,7 @@ const DeleteButton: FC<CustomThemeButtonProps> = (props) => (
       appearance="subtle-link"
       spacing="none"
       testId="emoji-delete-button"
+      tabIndex={-1}
     />
   </span>
 );

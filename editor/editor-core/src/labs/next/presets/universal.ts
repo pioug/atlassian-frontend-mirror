@@ -47,6 +47,7 @@ import {
   beforePrimaryToolbarPlugin,
   codeBidiWarningPlugin,
   copyButtonPlugin,
+  borderPlugin,
 } from '../../../plugins';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import type { EditorAppearance } from '@atlaskit/editor-common/types';
@@ -239,6 +240,7 @@ export default function createUniversalPreset(
             waitForMediaUpload: props.waitForMediaUpload,
             isCopyPasteEnabled: !isMobile,
             alignLeftOnInsert,
+            getEditorFeatureFlags,
           },
         ]);
       }
@@ -640,6 +642,13 @@ export default function createUniversalPreset(
           },
         ]);
       }
+      return builder;
+    })
+    .maybeAdd(borderPlugin, (plugin, builder) => {
+      if (props.UNSAFE_allowBorderMark) {
+        return builder.add(plugin);
+      }
+
       return builder;
     })
     .maybeAdd(fragmentMarkPlugin, (plugin, builder) => {

@@ -1,5 +1,15 @@
 # @atlaskit/adf-utils
 
+## 18.1.0
+
+### Minor Changes
+
+- [`bf04c417bfd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bf04c417bfd) - Add "border" mark to stage0 ADF schema
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 18.0.4
 
 ### Patch Changes

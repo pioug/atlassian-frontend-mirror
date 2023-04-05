@@ -241,6 +241,20 @@ type ImageLoadPrimaryReason =
   | 'unknown-uri';
 
 // @public (undocumented)
+export interface InlineCardEvent {
+  // (undocumented)
+  event: MouseEvent_2<HTMLElement> | React.KeyboardEvent;
+  // (undocumented)
+  mediaItemDetails?: FileDetails;
+}
+
+// @public (undocumented)
+export interface InlineCardOnClickCallback {
+  // (undocumented)
+  (result: InlineCardEvent, analyticsEvent?: UIAnalyticsEvent): void;
+}
+
+// @public (undocumented)
 export const inlinePlayerClassName = 'media-card-inline-player';
 
 // @public (undocumented)
@@ -319,7 +333,9 @@ interface MediaInlineCardProps {
   // (undocumented)
   mediaViewerItems?: Identifier[];
   // (undocumented)
-  onClick?: React_2.EventHandler<React_2.KeyboardEvent | React_2.MouseEvent>;
+  onClick?: InlineCardOnClickCallback;
+  // (undocumented)
+  shouldDisplayToolTip?: boolean;
   // (undocumented)
   shouldOpenMediaViewer?: boolean;
 }

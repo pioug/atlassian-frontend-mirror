@@ -2,6 +2,7 @@ import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { waitUntil } from '@atlaskit/elements-test-helpers';
 import { ReactWrapper } from 'enzyme';
 import React from 'react';
+import VisuallyHidden from '@atlaskit/visually-hidden';
 import Emoji from '../../../../components/common/Emoji';
 import EmojiDeletePreview from '../../../../components/common/EmojiDeletePreview';
 import EmojiErrorMessage from '../../../../components/common/EmojiErrorMessage';
@@ -260,12 +261,15 @@ export const tooltipErrorMessageMatches = async (
       component.find(EmojiErrorMessage).find(FormattedMessage).length > 0,
   );
 
-  // Expect to have 2 identical error messages
-  // as we have one for tooltip (visual display) and one for accessibility message (visually hidden)
-  component
-    .find(EmojiErrorMessage)
-    .find(FormattedMessage)
-    .forEach((node) => expect(node.props()).toMatchObject(message));
+  // screenreader message
+  expect(
+    component.find(EmojiErrorMessage).find(VisuallyHidden).text(),
+  ).toContain(message.defaultMessage);
+
+  // tooltip message
+  expect(
+    component.find(EmojiErrorMessage).find(FormattedMessage).at(0).text(),
+  ).toContain(message.defaultMessage);
 };
 
 export const chooseFile = (component: ReactWrapper, file: any) => {

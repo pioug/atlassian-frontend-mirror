@@ -137,10 +137,16 @@ export type DragLocationHistory = {
   current: DragLocation;
   /**
    * Where the user was previously.
+   * `previous` points to what `current` was in the last dispatched event
    *
    * `previous` is particularly useful for `onDropTargetChange`
    * (and the derived `onDragEnter` and `onDragLeave`)
    * as you can know what the delta of the change
+   *
+   * Exception: `onGenerateDragPreview` and `onDragStart` will have the
+   * same `current` and `previous` values. This is done so that the data
+   * received in `onDragStart` feels logical
+   * (`location.previous` should be `[]` in `onDragStart`)
    */
   previous: Pick<DragLocation, 'dropTargets'>;
 };

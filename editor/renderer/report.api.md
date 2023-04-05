@@ -69,6 +69,8 @@ type AnalyticsEventPayload<T = void> =
   | AnchorLinkAEP
   | AnnotationAEP
   | AnnotationDeleteAEP
+  | CodeBlockCopyAEP
+  | CodeBlockWrapAEP
   | ComponentCrashErrorAEP
   | ExpandAEP
   | HeadingAnchorLinkButtonAEP
@@ -150,6 +152,17 @@ type ButtonAEP<ActionSubjectID, Attributes> = UIAEP<
   ACTION_SUBJECT.BUTTON,
   ActionSubjectID,
   Attributes
+>;
+
+// @public (undocumented)
+type CodeBlockCopyAEP = ButtonAEP<ACTION_SUBJECT_ID.CODEBLOCK_COPY, undefined>;
+
+// @public (undocumented)
+type CodeBlockWrapAEP = ButtonAEP<
+  ACTION_SUBJECT_ID.CODEBLOCK_WRAP,
+  {
+    wrapped: boolean;
+  }
 >;
 
 // @public (undocumented)
@@ -325,6 +338,8 @@ interface ReactSerializerInit {
   // (undocumented)
   allowWindowedCodeBlock?: boolean;
   // (undocumented)
+  allowWrapCodeBlock?: boolean;
+  // (undocumented)
   appearance?: RendererAppearance;
   // (undocumented)
   disableActions?: boolean;
@@ -415,6 +430,8 @@ export interface RendererProps {
   allowSelectAllTrap?: boolean;
   // (undocumented)
   allowUgcScrubber?: boolean;
+  // (undocumented)
+  allowWrapCodeBlock?: boolean;
   // (undocumented)
   analyticsEventSeverityTracking?: {
     enabled: boolean;
@@ -742,8 +759,8 @@ type VisitMediaLinkAEP = AEP<
 
 ```json
 {
-  "@atlaskit/link-provider": "^1.5.0",
-  "@atlaskit/media-core": "^34.0.1",
+  "@atlaskit/link-provider": "^1.5.1",
+  "@atlaskit/media-core": "^34.0.2",
   "react": "^16.8.0",
   "react-dom": "^16.8.0"
 }

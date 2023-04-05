@@ -257,3 +257,30 @@ export const backgroundPaletteTooltipMessages = {
   light: lightBackgroundPaletteTooltipMessages,
   dark: darkBackgroundPaletteTooltipMessages,
 };
+
+const lightBorderPaletteTooltipMessages = defineMessages({
+  '#091E4224': {
+    id: 'fabric.theme.subtle-gray',
+    defaultMessage: 'Subtle gray',
+    description: 'Name of a color',
+  },
+  '#758195': {
+    id: 'fabric.theme.gray',
+    defaultMessage: 'Gray',
+    description: 'Name of a color',
+  },
+  '#172B4D': {
+    id: 'fabric.theme.bold-gray',
+    defaultMessage: 'Bold gray',
+    description: 'Name of a color',
+  },
+});
+
+const darkBorderPaletteTooltipMessages = {
+  ...lightBorderPaletteTooltipMessages,
+};
+
+export const borderPaletteTooltipMessages = {
+  light: lightBorderPaletteTooltipMessages,
+  dark: darkBorderPaletteTooltipMessages,
+};

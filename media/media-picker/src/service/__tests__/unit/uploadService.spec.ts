@@ -57,7 +57,7 @@ describe('UploadService', () => {
   } as LocalFileWithSource;
   const setup = (
     mediaClient: MediaClient = getMediaClient(),
-    tenantUploadParams: UploadParams = { collection: '' },
+    tenantUploadParams: UploadParams = { collection: '', expireAfter: 2 },
     shouldCopyFileToRecents: boolean = true,
   ) => {
     const touchedFiles: TouchedFiles = {
@@ -117,19 +117,17 @@ describe('UploadService', () => {
   });
 
   describe('setUploadParams', () => {
-    const setup = () => ({
-      uploadService: new UploadServiceImpl(getMediaClient(), {}, false),
-    });
-
     it('should set new uploadParams', () => {
-      const { uploadService } = setup();
+      const uploadService = new UploadServiceImpl(getMediaClient(), {}, false);
 
       uploadService.setUploadParams({
         collection: 'new-collection',
+        expireAfter: 1,
       });
 
       expect(uploadService['tenantUploadParams']).toEqual({
         collection: 'new-collection',
+        expireAfter: 1,
       });
     });
   });
@@ -414,6 +412,14 @@ describe('UploadService', () => {
       uploadService.addFilesWithSource([localFileWithSource]);
 
       expect(mediaClient.file.touchFiles).toHaveBeenCalledTimes(1);
+      expect(asMock(mediaClient.file.touchFiles).mock.calls[0][0]).toEqual([
+        {
+          collection: '',
+          expireAfter: 2,
+          fileId: 'uuid1',
+          occurrenceKey: 'uuid2',
+        },
+      ]);
       expect(asMock(mediaClient.file.touchFiles).mock.calls[0][2]).toEqual({
         traceId: expect.any(String),
       });

@@ -1,6 +1,16 @@
 import type { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID } from './enums';
 import type { TrackAEP, UIAEP } from './utils';
 
+type MediaBorderActionType = ACTION.UPDATED | ACTION.ADDED | ACTION.DELETED;
+
+export type MediaBorderTrackAction = TrackAEP<
+  MediaBorderActionType,
+  ACTION_SUBJECT.MEDIA,
+  ACTION_SUBJECT_ID.BORDER,
+  any,
+  undefined
+>;
+
 type MediaLinkActionType =
   | ACTION.ADDED
   | ACTION.EDITED
@@ -65,5 +75,6 @@ export type MediaEventPayload =
   | MediaLinkAEP
   | MediaAltTextAction
   | MediaUIAction
+  | MediaBorderTrackAction
   | CaptionTrackAction
   | ChangeMediaAEP;

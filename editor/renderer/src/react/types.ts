@@ -31,6 +31,7 @@ export interface NodeMeta {
   } | null;
   allowHeadingAnchorLinks?: HeadingAnchorLinksProps;
   allowCopyToClipboard?: boolean;
+  allowWrapCodeBlock?: boolean;
   allowPlaceholderText?: boolean;
   allowCustomPanels?: boolean;
   rendererAppearance?: RendererAppearance;

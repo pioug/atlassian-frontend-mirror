@@ -15,6 +15,8 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
+/// <reference types="react" />
+
 import { ComponentPropsWithoutRef } from 'react';
 import { ComponentPropsWithRef } from 'react';
 import type { CSSProperties } from 'react';
@@ -23,11 +25,13 @@ import { CSSPseudos } from '@emotion/serialize';
 import { ElementType } from 'react';
 import { FC } from 'react';
 import { ForwardRefExoticComponent } from 'react';
+import { JSXElementConstructor } from 'react';
 import { MemoExoticComponent } from 'react';
 import { ReactElement } from 'react';
 import { ReactNode } from 'react';
 import { RefAttributes } from 'react';
 import { SerializedStyles } from '@emotion/react';
+import { SerializedStyles as SerializedStyles_2 } from '@emotion/serialize';
 
 // @public (undocumented)
 type AlignBlock = 'baseline' | 'center' | 'end' | 'start';
@@ -52,6 +56,12 @@ const alignSelfMap: {
   readonly end: SerializedStyles;
   readonly baseline: SerializedStyles;
 };
+
+// @public (undocumented)
+type AllowedBoxStyles = keyof SafeCSSObject;
+
+// @public (undocumented)
+type AllowedInlineStyles = 'backgroundColor' | 'padding';
 
 // @public (undocumented)
 type BackgroundColor = keyof typeof backgroundColorMap;
@@ -172,7 +182,7 @@ type BaseBoxPropsFoundation<T extends ElementType> = {
   backgroundColor?: BackgroundColor;
   shadow?: Shadow;
   borderStyle?: BorderStyle;
-  borderWidth?: BorderWidth | ResponsiveObject<BorderWidth>;
+  borderWidth?: BorderWidth;
   borderColor?: BorderColor;
   borderRadius?: BorderRadius;
   layer?: Layer;
@@ -183,18 +193,16 @@ type BaseBoxPropsFoundation<T extends ElementType> = {
   overflow?: Overflow;
   overflowInline?: OverflowInline;
   overflowBlock?: OverflowBlock;
-  padding?: Padding | ResponsiveObject<Padding>;
-  paddingBlock?: PaddingBlock | ResponsiveObject<PaddingBlock>;
-  paddingBlockStart?: PaddingBlockStart | ResponsiveObject<PaddingBlockStart>;
-  paddingBlockEnd?: PaddingBlockEnd | ResponsiveObject<PaddingBlockEnd>;
-  paddingInline?: PaddingInline | ResponsiveObject<PaddingInline>;
-  paddingInlineStart?:
-    | PaddingInlineStart
-    | ResponsiveObject<PaddingInlineStart>;
-  paddingInlineEnd?: PaddingInlineEnd | ResponsiveObject<PaddingInlineEnd>;
+  padding?: Padding;
+  paddingBlock?: PaddingBlock;
+  paddingBlockStart?: PaddingBlockStart;
+  paddingBlockEnd?: PaddingBlockEnd;
+  paddingInline?: PaddingInline;
+  paddingInlineStart?: PaddingInlineStart;
+  paddingInlineEnd?: PaddingInlineEnd;
   width?: Width;
   height?: Height;
-  display?: Display | ResponsiveObject<Display>;
+  display?: Display;
   position?: Position;
   ref?: ComponentPropsWithRef<T>['ref'];
 };
@@ -283,9 +291,9 @@ type BorderWidth_2 = keyof typeof borderWidthMap_2;
 
 // @public (undocumented)
 const borderWidthMap: {
-  readonly 'size.0': 'var(--ds-width-0)';
-  readonly 'size.050': 'var(--ds-width-050)';
-  readonly 'size.100': 'var(--ds-width-100)';
+  readonly 'size.0': SerializedStyles;
+  readonly 'size.050': SerializedStyles;
+  readonly 'size.100': SerializedStyles;
 };
 
 // @public (undocumented)
@@ -299,19 +307,6 @@ const borderWidthMap_2: {
 export const Box: BoxComponent;
 
 // @public (undocumented)
-const BOX_RESPONSIVE_PROPS: readonly [
-  'borderWidth',
-  'display',
-  'padding',
-  'paddingBlock',
-  'paddingBlockStart',
-  'paddingBlockEnd',
-  'paddingInline',
-  'paddingInlineStart',
-  'paddingInlineEnd',
-];
-
-// @public (undocumented)
 type BoxComponent<T extends ElementType = 'div'> = (<
   T extends ElementType = 'div',
 >(
@@ -322,15 +317,23 @@ type BoxComponent<T extends ElementType = 'div'> = (<
 // @public (undocumented)
 export type BoxProps<T extends ElementType = 'div'> = Omit<
   BaseBoxProps<T>,
-  'className' | BoxResponsiveProp
+  'className'
 > &
   PublicBoxPropsBase;
 
 // @public (undocumented)
-type BoxResponsiveProp = typeof BOX_RESPONSIVE_PROPS[number];
+type BoxStyles = SerializedStyles_2 & {
+  [boxTag]: true;
+};
 
-// @public
-type Breakpoint = 'lg' | 'md' | 'sm' | 'xl' | 'xs' | 'xxl' | 'xxs';
+// @public (undocumented)
+const boxTag: unique symbol;
+
+// @public (undocumented)
+type BoxXCSS = {
+  readonly symbol: typeof uniqueSymbol;
+  readonly styles: BoxStyles;
+};
 
 // @public (undocumented)
 const dimensionMap: {
@@ -349,11 +352,11 @@ type Display = keyof typeof displayMap;
 
 // @public (undocumented)
 const displayMap: {
-  readonly block: 'block';
-  readonly inline: 'inline';
-  readonly flex: 'flex';
-  readonly 'inline-flex': 'inline-flex';
-  readonly 'inline-block': 'inline-block';
+  readonly block: SerializedStyles;
+  readonly inline: SerializedStyles;
+  readonly flex: SerializedStyles;
+  readonly 'inline-flex': SerializedStyles;
+  readonly 'inline-block': SerializedStyles;
 };
 
 // @public (undocumented)
@@ -381,6 +384,12 @@ const flexShrinkMap: {
   readonly '0': SerializedStyles;
   readonly '1': SerializedStyles;
 };
+
+// @public (undocumented)
+type Gap = keyof typeof inlineSpaceMap.gap;
+
+// @public (undocumented)
+type Gap_2 = keyof typeof stackSpaceMap.gap;
 
 // @public (undocumented)
 type Grow = 'fill' | 'hug';
@@ -434,15 +443,42 @@ export interface InlineProps<T extends ElementType = 'div'> {
   as?: 'div' | 'ol' | 'span' | 'ul';
   children: ReactNode;
   grow?: Grow;
-  // (undocumented)
   ref?: ComponentPropsWithRef<T>['ref'];
-  rowSpace?: RowSpace;
+  rowSpace?: RowGap;
   separator?: string;
   shouldWrap?: boolean;
-  space?: Space;
+  space?: Gap;
   spread?: Spread;
   testId?: string;
 }
+
+// @public
+const inlineSpaceMap: {
+  [k: string]: {
+    readonly '0': SerializedStyles;
+    readonly '025': SerializedStyles;
+    readonly '050': SerializedStyles;
+    readonly '075': SerializedStyles;
+    readonly '100': SerializedStyles;
+    readonly '150': SerializedStyles;
+    readonly '200': SerializedStyles;
+    readonly '250': SerializedStyles;
+    readonly '300': SerializedStyles;
+    readonly '400': SerializedStyles;
+    readonly '500': SerializedStyles;
+    readonly '600': SerializedStyles;
+    readonly '800': SerializedStyles;
+    readonly '1000': SerializedStyles;
+  };
+};
+
+// @public (undocumented)
+type InlineStyles = SerializedStyles_2 & {
+  [inlineTag]: true;
+};
+
+// @public (undocumented)
+const inlineTag: unique symbol;
 
 // @public (undocumented)
 type Layer = keyof typeof LAYERS;
@@ -500,45 +536,47 @@ const overflowMap: {
 };
 
 // @public (undocumented)
-type Padding = keyof typeof paddingMap;
+type Padding = keyof typeof paddingMap.padding;
 
 // @public (undocumented)
 type Padding_2 = keyof typeof paddingMap_2;
 
 // @public (undocumented)
-type PaddingBlock = keyof typeof paddingMap;
+type PaddingBlock = keyof typeof paddingMap.paddingBlock;
 
 // @public (undocumented)
-type PaddingBlockEnd = keyof typeof paddingMap;
+type PaddingBlockEnd = keyof typeof paddingMap.paddingBlockEnd;
 
 // @public (undocumented)
-type PaddingBlockStart = keyof typeof paddingMap;
+type PaddingBlockStart = keyof typeof paddingMap.paddingBlockStart;
 
 // @public (undocumented)
-type PaddingInline = keyof typeof paddingMap;
+type PaddingInline = keyof typeof paddingMap.paddingInline;
 
 // @public (undocumented)
-type PaddingInlineEnd = keyof typeof paddingMap;
+type PaddingInlineEnd = keyof typeof paddingMap.paddingInlineEnd;
 
 // @public (undocumented)
-type PaddingInlineStart = keyof typeof paddingMap;
+type PaddingInlineStart = keyof typeof paddingMap.paddingInlineStart;
 
 // @public
 const paddingMap: {
-  readonly 'space.0': 'var(--ds-space-0)';
-  readonly 'space.025': 'var(--ds-space-025)';
-  readonly 'space.050': 'var(--ds-space-050)';
-  readonly 'space.075': 'var(--ds-space-075)';
-  readonly 'space.100': 'var(--ds-space-100)';
-  readonly 'space.150': 'var(--ds-space-150)';
-  readonly 'space.200': 'var(--ds-space-200)';
-  readonly 'space.250': 'var(--ds-space-250)';
-  readonly 'space.300': 'var(--ds-space-300)';
-  readonly 'space.400': 'var(--ds-space-400)';
-  readonly 'space.500': 'var(--ds-space-500)';
-  readonly 'space.600': 'var(--ds-space-600)';
-  readonly 'space.800': 'var(--ds-space-800)';
-  readonly 'space.1000': 'var(--ds-space-1000)';
+  [k: string]: {
+    readonly 'space.0': SerializedStyles;
+    readonly 'space.025': SerializedStyles;
+    readonly 'space.050': SerializedStyles;
+    readonly 'space.075': SerializedStyles;
+    readonly 'space.100': SerializedStyles;
+    readonly 'space.150': SerializedStyles;
+    readonly 'space.200': SerializedStyles;
+    readonly 'space.250': SerializedStyles;
+    readonly 'space.300': SerializedStyles;
+    readonly 'space.400': SerializedStyles;
+    readonly 'space.500': SerializedStyles;
+    readonly 'space.600': SerializedStyles;
+    readonly 'space.800': SerializedStyles;
+    readonly 'space.1000': SerializedStyles;
+  };
 };
 
 // @public (undocumented)
@@ -572,49 +610,22 @@ const positionMap: {
 
 // @public (undocumented)
 type PublicBoxPropsBase = {
-  borderWidth?: BorderWidth;
-  display?: Display;
-  padding?: Padding;
-  paddingBlock?: PaddingBlock;
-  paddingBlockStart?: PaddingBlockStart;
-  paddingBlockEnd?: PaddingBlockEnd;
-  paddingInline?: PaddingInline;
-  paddingInlineStart?: PaddingInlineStart;
-  paddingInlineEnd?: PaddingInlineEnd;
-  xcss?: SafeCSS;
-};
-
-// @public
-type ResponsiveObject<T> = Partial<Record<Breakpoint, T>>;
-
-// @public (undocumented)
-type RowSpace = keyof typeof rowSpaceMap;
-
-// @public (undocumented)
-const rowSpaceMap: {
-  readonly '0': SerializedStyles;
-  readonly '025': SerializedStyles;
-  readonly '050': SerializedStyles;
-  readonly '075': SerializedStyles;
-  readonly '100': SerializedStyles;
-  readonly '150': SerializedStyles;
-  readonly '200': SerializedStyles;
-  readonly '250': SerializedStyles;
-  readonly '300': SerializedStyles;
-  readonly '400': SerializedStyles;
-  readonly '500': SerializedStyles;
-  readonly '600': SerializedStyles;
-  readonly '800': SerializedStyles;
-  readonly '1000': SerializedStyles;
+  xcss?: BoxXCSS;
 };
 
 // @public (undocumented)
-type SafeCSS = XCSS | XCSS[];
+type RowGap = keyof typeof inlineSpaceMap.rowGap;
 
 // @public (undocumented)
 type SafeCSSObject = CSSPseudos &
   TokenisedProps &
   Omit<CSSPropertiesWithMultiValues, keyof TokenisedProps>;
+
+// @public (undocumented)
+type ScopedSafeCSSObject<T extends keyof SafeCSSObject> = Pick<
+  SafeCSSObject,
+  T
+>;
 
 // @public (undocumented)
 type Shadow = keyof typeof shadowMap;
@@ -626,48 +637,6 @@ const shadowMap: {
   readonly 'overflow.spread': SerializedStyles;
   readonly overlay: SerializedStyles;
   readonly raised: SerializedStyles;
-};
-
-// @public (undocumented)
-type Space = keyof typeof spaceMap;
-
-// @public (undocumented)
-type Space_2 = keyof typeof spaceMap_2;
-
-// @public
-const spaceMap: {
-  readonly '0': SerializedStyles;
-  readonly '025': SerializedStyles;
-  readonly '050': SerializedStyles;
-  readonly '075': SerializedStyles;
-  readonly '100': SerializedStyles;
-  readonly '150': SerializedStyles;
-  readonly '200': SerializedStyles;
-  readonly '250': SerializedStyles;
-  readonly '300': SerializedStyles;
-  readonly '400': SerializedStyles;
-  readonly '500': SerializedStyles;
-  readonly '600': SerializedStyles;
-  readonly '800': SerializedStyles;
-  readonly '1000': SerializedStyles;
-};
-
-// @public
-const spaceMap_2: {
-  readonly '0': SerializedStyles;
-  readonly '025': SerializedStyles;
-  readonly '050': SerializedStyles;
-  readonly '075': SerializedStyles;
-  readonly '100': SerializedStyles;
-  readonly '150': SerializedStyles;
-  readonly '200': SerializedStyles;
-  readonly '250': SerializedStyles;
-  readonly '300': SerializedStyles;
-  readonly '400': SerializedStyles;
-  readonly '500': SerializedStyles;
-  readonly '600': SerializedStyles;
-  readonly '800': SerializedStyles;
-  readonly '1000': SerializedStyles;
 };
 
 // @public (undocumented)
@@ -701,12 +670,31 @@ export interface StackProps<T extends ElementType = 'div'> {
   as?: 'div' | 'ol' | 'span' | 'ul';
   children: ReactNode;
   grow?: Grow_2;
-  // (undocumented)
   ref?: ComponentPropsWithRef<T>['ref'];
-  space?: Space_2;
+  space?: Gap_2;
   spread?: Spread_2;
   testId?: string;
 }
+
+// @public
+const stackSpaceMap: {
+  [k: string]: {
+    readonly '0': SerializedStyles;
+    readonly '025': SerializedStyles;
+    readonly '050': SerializedStyles;
+    readonly '075': SerializedStyles;
+    readonly '100': SerializedStyles;
+    readonly '150': SerializedStyles;
+    readonly '200': SerializedStyles;
+    readonly '250': SerializedStyles;
+    readonly '300': SerializedStyles;
+    readonly '400': SerializedStyles;
+    readonly '500': SerializedStyles;
+    readonly '600': SerializedStyles;
+    readonly '800': SerializedStyles;
+    readonly '1000': SerializedStyles;
+  };
+};
 
 // @public (undocumented)
 type TextColor = keyof typeof textColorMap;
@@ -827,12 +815,40 @@ const widthMap: {
 };
 
 // @public (undocumented)
-type XCSS = ReturnType<typeof xcss>;
-
-// @public (undocumented)
-export const xcss: (style?: SafeCSSObject | SafeCSSObject[] | undefined) => {
+export function xcss<Primitive extends typeof Box | typeof Inline = typeof Box>(
+  style: Primitive extends typeof Box
+    ? ScopedSafeCSSObject<AllowedBoxStyles>
+    : Primitive extends typeof Inline
+    ? ScopedSafeCSSObject<AllowedInlineStyles>
+    : never,
+): {
   readonly symbol: typeof uniqueSymbol;
-  readonly styles: SerializedStyles;
+  readonly styles: Primitive extends (<T extends ElementType<any> = 'div'>(
+    props: BoxProps<T>,
+  ) => ReactElement<any, JSXElementConstructor<any> | string> | null) &
+    FC<BoxProps<'div'>>
+    ? BoxStyles
+    : Primitive extends MemoExoticComponent<
+        ForwardRefExoticComponent<
+          Pick<
+            InlineProps<ElementType<any>>,
+            | 'alignBlock'
+            | 'alignInline'
+            | 'as'
+            | 'children'
+            | 'grow'
+            | 'rowSpace'
+            | 'separator'
+            | 'shouldWrap'
+            | 'space'
+            | 'spread'
+            | 'testId'
+          > &
+            RefAttributes<any>
+        >
+      >
+    ? InlineStyles
+    : never;
 };
 
 // (No @packageDocumentation comment for this package)

@@ -1,6 +1,5 @@
 import { utils } from '@atlaskit/util-service-support';
 import { Emitter } from './emitter';
-import { ErrorCodeMapper } from './errors/error-code-mapper';
 import type {
   Config,
   ChannelEvent,
@@ -11,7 +10,6 @@ import type {
   CatchupResponse,
   PresencePayload,
   Metadata,
-  ErrorPayload,
   NamespaceStatus,
   AuthCallback,
 } from './types';
@@ -28,8 +26,21 @@ import { UFOExperience } from '@atlaskit/ufo';
 import { createDocInitExp } from './analytics/ufo';
 import { socketIOReasons } from './disconnected-reason-mapper';
 import Network from './connectivity/network';
-import AnalyticsHelper from './analytics';
-import { NotConnectedError, NotInitializedError } from './errors/error-types';
+import AnalyticsHelper from './analytics/analytics-helper';
+import type {
+  CatchUpFailedError,
+  ConnectionError,
+  DocumentNotFoundError,
+  ReconnectionError,
+  ReconnectionNetworkError,
+  TokenPermissionError,
+  InternalError,
+} from './errors/error-types';
+import {
+  NotConnectedError,
+  NotInitializedError,
+  INTERNAL_ERROR_CODE,
+} from './errors/error-types';
 
 const logger = createLogger('Channel', 'green');
 
@@ -103,25 +114,22 @@ export class Channel extends Emitter<ChannelEvent> {
             }
 
             cb(authData);
-          } catch (err: any) {
-            const newErr: ErrorPayload = {
-              message: err.message ? err.message : 'Content not found',
+          } catch (error: unknown) {
+            // Pass the error back to the consumers so they can deal with exceptional cases themselves (eg. no permissions because the page was deleted)
+            const authenticationError: TokenPermissionError = {
+              message: 'Insufficient editing permissions',
               data: {
                 status: 403,
-                code: err.data.code
-                  ? err.data.code
-                  : 'INSUFFICIENT_EDITING_PERMISSION',
+                code: INTERNAL_ERROR_CODE.TOKEN_PERMISSION_ERROR,
                 meta: {
-                  description: err.data.meta.description
-                    ? err.data.meta.description
-                    : 'RESOURCE_DELETED',
-                  reason: err.data.meta.reason
-                    ? err.data.meta.reason
-                    : 'RESOURCE_DELETED',
+                  originalError: error,
+                  // @ts-expect-error we know the error structure passed in this hack
+                  reason: err?.data?.meta?.reason, // Should always be 'RESOURCE_DELETED' Temporary, until Confluence Cloud removes their hack
+                  // https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/browse/next/packages/native-collab/src/fetchCollabPermissionToken.ts#37
                 },
               },
             };
-            this.emit('error', newErr);
+            this.emit('error', authenticationError);
           }
         }
       };
@@ -196,20 +204,21 @@ export class Channel extends Emitter<ChannelEvent> {
             error,
             'Error while reconnecting the channel',
           );
-          this.emit('error', {
-            message: 'Caught error during reconnection.',
+          const reconnectionError: ReconnectionError = {
+            message: 'Caught error during reconnection',
             data: {
               status: 500,
-              code: 'RECONNECTION_ERROR',
+              code: INTERNAL_ERROR_CODE.RECONNECTION_ERROR,
             },
-          });
+          };
+          this.emit('error', reconnectionError);
         }
       }
     });
 
     // Socket error, including errors from `packetMiddleware`, `controllers` and `onconnect` and more. Parameter is a plain JSON object.
-    this.socket.on('error', (error: ErrorPayload) => {
-      this.emit('error', error);
+    this.socket.on('error', (socketError: InternalError) => {
+      this.emit('error', socketError);
     });
 
     // `connect_error`'s parameter type is `Error`.
@@ -248,7 +257,7 @@ export class Channel extends Emitter<ChannelEvent> {
     this.unsetToken();
   };
 
-  private onConnectError = (error: Error) => {
+  private onConnectError = (error: unknown) => {
     const measure = stopMeasure(
       MEASURE_NAME.SOCKET_CONNECT,
       this.analyticsHelper,
@@ -272,19 +281,25 @@ export class Channel extends Emitter<ChannelEvent> {
     // by the server on purpose for example no permission, so no need to
     // keep the underneath connection, need to close. But some error like
     // `xhr polling error` needs to retry.
-    const errorData = (error as ErrorPayload).data;
+    const errorData = (error as InternalError).data;
     if (errorData) {
       // We only want to refresh the token if only its invalid
+      // @ts-expect-error we should be more explicit about which type of errors we expect here, so they always have a status
       if ([401, 403].includes(errorData.status)) {
         //nullify token so it is forced to generate new token on reconnect
         this.unsetToken();
       }
       this.socket?.close();
     }
-    this.emit('error', {
-      message: error.message,
-      data: errorData,
-    });
+    const connectionError: ConnectionError = {
+      message: (error as Error).message ?? 'Connection error without message',
+      data: {
+        // @ts-expect-error I bet we'll see some connection errors, for the Socket IO errors
+        code: errorData?.code ?? INTERNAL_ERROR_CODE.CONNECTION_ERROR,
+        ...errorData,
+      },
+    };
+    this.emit('error', connectionError);
   };
 
   private onReconnectError = (error: Error) => {
@@ -294,14 +309,14 @@ export class Channel extends Emitter<ChannelEvent> {
         error,
         'Likely network issue while reconnecting the channel',
       );
-      this.emit('error', {
+      const reconnectionError: ReconnectionNetworkError = {
         message:
-          'Reconnection failed 8 times when browser was offline, likely there was a network issue.',
+          'Reconnection failed 8 times when browser was offline, likely there was a network issue',
         data: {
-          status: 400,
-          code: 'RECONNECTION_NETWORK_ISSUE',
+          code: INTERNAL_ERROR_CODE.RECONNECTION_NETWORK_ISSUE,
         },
-      });
+      };
+      this.emit('error', reconnectionError);
     }
   };
 
@@ -375,7 +390,7 @@ export class Channel extends Emitter<ChannelEvent> {
     }
   };
 
-  async fetchCatchup(fromVersion: number): Promise<CatchupResponse> {
+  fetchCatchup = async (fromVersion: number): Promise<CatchupResponse> => {
     try {
       const { doc, version, stepMaps, metadata } =
         await utils.requestService<any>(this.config, {
@@ -415,11 +430,11 @@ export class Channel extends Emitter<ChannelEvent> {
       };
     } catch (error: any) {
       if (error.code === 404) {
-        const errorNotFound: ErrorPayload = {
-          message: ErrorCodeMapper.documentNotFound.message,
+        const errorNotFound: DocumentNotFoundError = {
+          message: 'The requested document is not found',
           data: {
             status: error.code,
-            code: ErrorCodeMapper.documentNotFound.code,
+            code: INTERNAL_ERROR_CODE.DOCUMENT_NOT_FOUND,
           },
         };
         this.emit('error', errorNotFound);
@@ -430,26 +445,28 @@ export class Channel extends Emitter<ChannelEvent> {
       this.unsetToken();
 
       logger("Can't fetch the catchup", error.message);
-      const errorCatchup: ErrorPayload = {
-        message: ErrorCodeMapper.catchupFail.message,
+      const errorCatchup: CatchUpFailedError = {
+        message: 'Cannot fetch catchup from collab service',
         data: {
           status: error.status,
-          code: ErrorCodeMapper.catchupFail.code,
+          code: INTERNAL_ERROR_CODE.CATCHUP_FAILED,
         },
       };
       this.emit('error', errorCatchup);
       throw error;
     }
-  }
+  };
 
   /**
-   * Send message to service. Timestamp will be added server side.
+   * Send message to the back-end service over the channel. Timestamp will be added server side.
+   * @throws {NotInitializedError} Channel not initialized
+   * @throws {NotConnectedError} Channel not connected
    */
-  broadcast<K extends keyof ChannelEvent>(
+  broadcast = <K extends keyof ChannelEvent>(
     type: K,
     data: Omit<ChannelEvent[K], 'timestamp'>,
     callback?: Function,
-  ) {
+  ) => {
     if (!this.socket) {
       throw new NotInitializedError('Cannot broadcast, not initialized yet');
     }
@@ -461,9 +478,14 @@ export class Channel extends Emitter<ChannelEvent> {
     }
 
     this.socket.emit('broadcast', { type, ...data }, callback);
-  }
+  };
 
-  sendMetadata(metadata: Metadata) {
+  /**
+   * Send metadata to to the back-end service over the channel
+   * @throws {NotInitializedError} Channel not initialized
+   * @throws {NotConnectedError} Channel not connected
+   */
+  sendMetadata = (metadata: Metadata) => {
     if (!this.socket) {
       throw new NotInitializedError(
         'Cannot send metadata, not initialized yet',
@@ -475,7 +497,7 @@ export class Channel extends Emitter<ChannelEvent> {
       }
     }
     this.socket.emit('metadata', metadata);
-  }
+  };
 
   sendPresenceJoined() {
     if (!this.connected || !this.socket) {

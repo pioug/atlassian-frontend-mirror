@@ -294,14 +294,9 @@ function useDebug() {
       'focusout',
       'drop',
       'dragend',
+      'drag',
+      'dragleave',
     ] as const;
-
-    function getLabel(node: EventTarget | null): String | EventTarget {
-      if (!(node instanceof HTMLElement)) {
-        return node ? node : '[none]';
-      }
-      return node.closest('[data-testid]')?.getAttribute('data-testid') ?? node;
-    }
 
     return bindAll(
       window,
@@ -309,8 +304,9 @@ function useDebug() {
         type: v,
         listener: (event: Event) => {
           console.log('event:', event.type, {
-            target: getLabel(event.target),
-            relatedTarget: getLabel((event as any).relatedTarget ?? null),
+            target: event.target,
+            relatedTarget: (event as MouseEvent).relatedTarget,
+            clientX: (event as MouseEvent).clientX,
           });
         },
         options: { capture: true },

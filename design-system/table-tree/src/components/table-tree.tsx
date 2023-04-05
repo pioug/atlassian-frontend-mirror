@@ -53,7 +53,13 @@ export default class TableTree extends Component<any, State> {
   }
 
   render() {
-    const { items, headers, columns, columnWidths = [] } = this.props;
+    const {
+      items,
+      shouldExpandOnClick,
+      headers,
+      columns,
+      columnWidths = [],
+    } = this.props;
     const heads = headers && (
       <Headers>
         {(headers as any[]).map((header, index) => (
@@ -70,7 +76,12 @@ export default class TableTree extends Component<any, State> {
         <Rows
           items={items}
           render={({ id, children, hasChildren, content }: any) => (
-            <Row itemId={id} items={children} hasChildren={hasChildren}>
+            <Row
+              itemId={id}
+              items={children}
+              hasChildren={hasChildren}
+              shouldExpandOnClick={shouldExpandOnClick}
+            >
               {(columns as any[]).map((CellContent, index) => (
                 <Cell
                   // eslint-disable-next-line react/no-array-index-key

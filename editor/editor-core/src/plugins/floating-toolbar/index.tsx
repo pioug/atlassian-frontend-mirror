@@ -43,9 +43,9 @@ import {
 import { findNode } from './utils';
 import { ErrorBoundary } from '../../ui/ErrorBoundary';
 import { IntlShape } from 'react-intl-next';
-import { getFeatureFlags } from '../feature-flags-context';
 import { processCopyButtonItems } from '../copy-button/toolbar';
 import forceFocusPlugin from './pm-plugins/force-focus';
+import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 export type FloatingToolbarPluginState = Record<
   'getConfigWithNodeInfo',
@@ -155,187 +155,205 @@ function filterUndefined<T>(x?: T): x is T {
   return !!x;
 }
 
-const floatingToolbarPlugin: NextEditorPlugin<'floatingToolbar'> = () => ({
-  name: 'floatingToolbar',
+const floatingToolbarPlugin: NextEditorPlugin<
+  'floatingToolbar',
+  {
+    dependencies: [typeof featureFlagsPlugin];
+  }
+> = (_, api) => {
+  const featureFlags =
+    api?.dependencies?.featureFlags?.sharedState.currentState() || {};
+  return {
+    name: 'floatingToolbar',
 
-  pmPlugins(floatingToolbarHandlers: Array<FloatingToolbarHandler> = []) {
-    return [
-      {
-        // Should be after all toolbar plugins
-        name: 'floatingToolbar',
-        plugin: ({ dispatch, providerFactory, getIntl }) =>
-          floatingToolbarPluginFactory({
-            floatingToolbarHandlers,
-            dispatch,
-            providerFactory,
-            getIntl,
-          }),
-      },
-      {
-        name: 'floatingToolbarData',
-        plugin: ({ dispatch }) => floatingToolbarDataPluginFactory(dispatch),
-      },
-      {
-        name: 'forceFocus',
-        plugin: () => forceFocusPlugin(),
-      },
-    ];
-  },
+    pmPlugins(floatingToolbarHandlers: Array<FloatingToolbarHandler> = []) {
+      return [
+        {
+          // Should be after all toolbar plugins
+          name: 'floatingToolbar',
+          plugin: ({ dispatch, providerFactory, getIntl }) =>
+            floatingToolbarPluginFactory({
+              floatingToolbarHandlers,
+              dispatch,
+              providerFactory,
+              getIntl,
+            }),
+        },
+        {
+          name: 'floatingToolbarData',
+          plugin: ({ dispatch }) => floatingToolbarDataPluginFactory(dispatch),
+        },
+        {
+          name: 'forceFocus',
+          plugin: () => forceFocusPlugin(),
+        },
+      ];
+    },
 
-  contentComponent({
-    popupsMountPoint,
-    popupsBoundariesElement,
-    popupsScrollableElement,
-    editorView,
-    providerFactory,
-    dispatchAnalyticsEvent,
-  }) {
-    return (
-      <WithPluginState
-        plugins={{
-          floatingToolbarState: pluginKey,
-          floatingToolbarData: dataPluginKey,
-          editorDisabledPlugin: editorDisabledPluginKey,
-          extensionsState: extensionsPluginKey,
-        }}
-        render={({
-          editorDisabledPlugin,
-          floatingToolbarState,
-          floatingToolbarData,
-          extensionsState,
-        }) => {
-          const configWithNodeInfo =
-            floatingToolbarState?.getConfigWithNodeInfo(editorView.state);
-          if (
-            !configWithNodeInfo ||
-            !configWithNodeInfo.config ||
-            (typeof configWithNodeInfo.config?.visible !== 'undefined' &&
-              !configWithNodeInfo.config?.visible)
-          ) {
-            return null;
-          }
+    contentComponent({
+      popupsMountPoint,
+      popupsBoundariesElement,
+      popupsScrollableElement,
+      editorView,
+      providerFactory,
+      dispatchAnalyticsEvent,
+    }) {
+      return (
+        <WithPluginState
+          plugins={{
+            floatingToolbarState: pluginKey,
+            floatingToolbarData: dataPluginKey,
+            editorDisabledPlugin: editorDisabledPluginKey,
+            extensionsState: extensionsPluginKey,
+          }}
+          render={({
+            editorDisabledPlugin,
+            floatingToolbarState,
+            floatingToolbarData,
+            extensionsState,
+          }) => {
+            const configWithNodeInfo =
+              floatingToolbarState?.getConfigWithNodeInfo(editorView.state);
+            if (
+              !configWithNodeInfo ||
+              !configWithNodeInfo.config ||
+              (typeof configWithNodeInfo.config?.visible !== 'undefined' &&
+                !configWithNodeInfo.config?.visible)
+            ) {
+              return null;
+            }
 
-          const { config, node } = configWithNodeInfo;
-          const {
-            title,
-            getDomRef = getDomRefFromSelection,
-            items,
-            align = 'center',
-            className = '',
-            height,
-            width,
-            zIndex,
-            offset = [0, 12],
-            forcePlacement,
-            preventPopupOverflow,
-            onPositionCalculated,
-            focusTrap,
-          } = config;
-          const targetRef = getDomRef(editorView, dispatchAnalyticsEvent);
+            const { config, node } = configWithNodeInfo;
+            const {
+              title,
+              getDomRef = getDomRefFromSelection,
+              items,
+              align = 'center',
+              className = '',
+              height,
+              width,
+              zIndex,
+              offset = [0, 12],
+              forcePlacement,
+              preventPopupOverflow,
+              onPositionCalculated,
+              focusTrap,
+            } = config;
+            const targetRef = getDomRef(editorView, dispatchAnalyticsEvent);
 
-          if (
-            !targetRef ||
-            (editorDisabledPlugin && editorDisabledPlugin.editorDisabled)
-          ) {
-            return null;
-          }
+            if (
+              !targetRef ||
+              (editorDisabledPlugin && editorDisabledPlugin.editorDisabled)
+            ) {
+              return null;
+            }
 
-          let customPositionCalculation;
-          const toolbarItems = processCopyButtonItems(editorView.state)(
-            Array.isArray(items) ? items : items(node),
-          );
+            let customPositionCalculation;
+            const toolbarItems = processCopyButtonItems(editorView.state)(
+              Array.isArray(items) ? items : items(node),
+            );
 
-          if (onPositionCalculated) {
-            customPositionCalculation = (nextPos: Position): Position => {
-              return onPositionCalculated(editorView, nextPos);
-            };
-          }
+            if (onPositionCalculated) {
+              customPositionCalculation = (nextPos: Position): Position => {
+                return onPositionCalculated(editorView, nextPos);
+              };
+            }
 
-          const dispatchCommand = (fn?: Function) =>
-            fn && fn(editorView.state, editorView.dispatch, editorView);
+            const dispatchCommand = (fn?: Function) =>
+              fn && fn(editorView.state, editorView.dispatch, editorView);
 
-          // Confirm dialog
-          const { confirmDialogForItem } = floatingToolbarData || {};
-          const confirmButtonItem = confirmDialogForItem
-            ? (toolbarItems[
-                confirmDialogForItem
-              ] as FloatingToolbarButton<Function>)
-            : undefined;
+            // Confirm dialog
+            const { confirmDialogForItem } = floatingToolbarData || {};
+            const confirmButtonItem = confirmDialogForItem
+              ? (toolbarItems[
+                  confirmDialogForItem
+                ] as FloatingToolbarButton<Function>)
+              : undefined;
 
-          const scrollable =
-            getFeatureFlags(editorView.state).floatingToolbarCopyButton &&
-            config.scrollable;
+            const scrollable =
+              featureFlags.floatingToolbarCopyButton && config.scrollable;
 
-          const confirmDialogOptions =
-            typeof confirmButtonItem?.confirmDialog === 'function'
-              ? confirmButtonItem?.confirmDialog()
-              : confirmButtonItem?.confirmDialog;
+            const confirmDialogOptions =
+              typeof confirmButtonItem?.confirmDialog === 'function'
+                ? confirmButtonItem?.confirmDialog()
+                : confirmButtonItem?.confirmDialog;
 
-          return (
-            <ErrorBoundary
-              component={ACTION_SUBJECT.FLOATING_TOOLBAR_PLUGIN}
-              componentId={camelCase(title) as FLOATING_CONTROLS_TITLE}
-              dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-              fallbackComponent={null}
-            >
-              <Popup
-                ariaLabel={title}
-                offset={offset}
-                target={targetRef}
-                alignY="bottom"
-                forcePlacement={forcePlacement}
-                fitHeight={height}
-                fitWidth={width}
-                alignX={align}
-                stick={true}
-                zIndex={zIndex}
-                mountTo={popupsMountPoint}
-                boundariesElement={popupsBoundariesElement}
-                scrollableElement={popupsScrollableElement}
-                onPositionCalculated={customPositionCalculation}
-                style={scrollable ? { maxWidth: '100%' } : {}}
-                focusTrap={focusTrap}
-                preventOverflow={preventPopupOverflow}
+            return (
+              <ErrorBoundary
+                component={ACTION_SUBJECT.FLOATING_TOOLBAR_PLUGIN}
+                componentId={camelCase(title) as FLOATING_CONTROLS_TITLE}
+                dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+                fallbackComponent={null}
               >
-                <ToolbarLoader
+                <Popup
+                  ariaLabel={title}
+                  offset={offset}
                   target={targetRef}
-                  items={toolbarItems}
-                  node={node}
-                  dispatchCommand={dispatchCommand}
-                  editorView={editorView}
-                  className={className}
-                  focusEditor={() => editorView.focus()}
-                  providerFactory={providerFactory}
-                  popupsMountPoint={popupsMountPoint}
-                  popupsBoundariesElement={popupsBoundariesElement}
-                  popupsScrollableElement={popupsScrollableElement}
-                  dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-                  extensionsProvider={extensionsState?.extensionProvider}
-                  scrollable={scrollable}
-                />
-              </Popup>
+                  alignY="bottom"
+                  forcePlacement={forcePlacement}
+                  fitHeight={height}
+                  fitWidth={width}
+                  alignX={align}
+                  stick={true}
+                  zIndex={zIndex}
+                  mountTo={popupsMountPoint}
+                  boundariesElement={popupsBoundariesElement}
+                  scrollableElement={popupsScrollableElement}
+                  onPositionCalculated={customPositionCalculation}
+                  style={scrollable ? { maxWidth: '100%' } : {}}
+                  focusTrap={focusTrap}
+                  preventOverflow={preventPopupOverflow}
+                >
+                  <ToolbarLoader
+                    target={targetRef}
+                    items={toolbarItems}
+                    node={node}
+                    dispatchCommand={dispatchCommand}
+                    editorView={editorView}
+                    className={className}
+                    focusEditor={() => editorView.focus()}
+                    providerFactory={providerFactory}
+                    popupsMountPoint={popupsMountPoint}
+                    popupsBoundariesElement={popupsBoundariesElement}
+                    popupsScrollableElement={popupsScrollableElement}
+                    dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+                    extensionsProvider={extensionsState?.extensionProvider}
+                    scrollable={scrollable}
+                    featureFlags={featureFlags}
+                  />
+                </Popup>
 
-              <ConfirmationModal
-                options={confirmDialogOptions}
-                onConfirm={(isChecked = false) => {
-                  if (!!confirmDialogOptions!.onConfirm) {
-                    dispatchCommand(confirmDialogOptions!.onConfirm(isChecked));
-                  } else {
-                    dispatchCommand(confirmButtonItem!.onClick);
-                  }
-                  dispatchCommand(hideConfirmDialog());
-                }} // When closed without clicking OK or cancel buttons
-                onClose={() => {
-                  dispatchCommand(hideConfirmDialog());
-                }}
-              />
-            </ErrorBoundary>
-          );
-        }}
-      />
-    );
-  },
-});
+                <ConfirmationModal
+                  testId="ak-floating-toolbar-confirmation-modal"
+                  options={confirmDialogOptions}
+                  onConfirm={(isChecked = false) => {
+                    if (!!confirmDialogOptions!.onConfirm) {
+                      dispatchCommand(
+                        confirmDialogOptions!.onConfirm(isChecked),
+                      );
+                    } else {
+                      dispatchCommand(confirmButtonItem!.onClick);
+                    }
+                  }}
+                  onClose={() => {
+                    dispatchCommand(hideConfirmDialog());
+                    // Need to set focus to Editor here,
+                    // As when the Confirmation dialog pop up, and user interacts with the dialog, Editor loses focus.
+                    // So when Confirmation dialog is closed, Editor does not have the focus, then cursor goes to the position 1 of the doc,
+                    // instead of the cursor position before the dialog pop up.
+                    if (!editorView.hasFocus()) {
+                      editorView.focus();
+                    }
+                  }}
+                />
+              </ErrorBoundary>
+            );
+          }}
+        />
+      );
+    },
+  };
+};
 
 export default floatingToolbarPlugin;
 

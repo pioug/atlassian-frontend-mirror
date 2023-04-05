@@ -1,4 +1,5 @@
 /** @jsx jsx */
+import { useState } from 'react';
 import { jsx } from '@emotion/react';
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 
@@ -13,6 +14,7 @@ export interface Props {
   text: string;
   language: SupportedLanguages;
   allowCopyToClipboard?: boolean;
+  allowWrapCodeBlock?: boolean;
   codeBidiWarningTooltipEnabled: boolean;
   className?: string;
 }
@@ -22,6 +24,7 @@ function CodeBlock(props: Props & WrappedComponentProps) {
     text,
     language,
     allowCopyToClipboard = false,
+    allowWrapCodeBlock = false,
     codeBidiWarningTooltipEnabled,
   } = props;
 
@@ -34,17 +37,23 @@ function CodeBlock(props: Props & WrappedComponentProps) {
     props.className,
   ].join(' ');
 
+  const [wrapLongLines, setWrapLongLines] = useState<boolean>(false);
+
   return (
     <CodeBlockContainer
-      text={text}
-      className={className}
       allowCopyToClipboard={allowCopyToClipboard}
+      allowWrapCodeBlock={allowWrapCodeBlock}
+      className={className}
+      setWrapLongLines={setWrapLongLines}
+      text={text}
+      wrapLongLines={wrapLongLines}
     >
       <AkCodeBlock
         language={language}
         text={text}
         codeBidiWarningLabel={codeBidiWarningLabel}
         codeBidiWarningTooltipEnabled={codeBidiWarningTooltipEnabled}
+        shouldWrapLongLines={allowWrapCodeBlock && wrapLongLines}
       />
     </CodeBlockContainer>
   );

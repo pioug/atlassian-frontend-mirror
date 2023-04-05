@@ -61,6 +61,7 @@ export interface ReactSerializerInit {
   emojiResourceConfig?: EmojiResourceConfig;
   smartLinks?: SmartLinksOptions;
   allowCopyToClipboard?: boolean;
+  allowWrapCodeBlock?: boolean;
   allowPlaceholderText?: boolean;
   allowCustomPanels?: boolean;
   allowAnnotations?: boolean;
@@ -143,6 +144,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
   private allowHeadingAnchorLinks?: HeadingAnchorLinksProps;
   private allowColumnSorting?: boolean;
   private allowCopyToClipboard?: boolean = false;
+  private allowWrapCodeBlock?: boolean = false;
   private allowPlaceholderText?: boolean = true;
   private allowCustomPanels?: boolean = false;
   private fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
@@ -171,6 +173,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
     this.disableActions = init.disableActions;
     this.allowHeadingAnchorLinks = init.allowHeadingAnchorLinks;
     this.allowCopyToClipboard = init.allowCopyToClipboard;
+    this.allowWrapCodeBlock = init.allowWrapCodeBlock;
     this.allowPlaceholderText = init.allowPlaceholderText;
     this.allowCustomPanels = init.allowCustomPanels;
     this.allowColumnSorting = init.allowColumnSorting;
@@ -486,10 +489,11 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 
   private getMediaProps(node: Node, path: Array<Node> = []) {
     const {
-      marks: { link },
+      marks: { link, border },
     } = node.type.schema;
 
     const isLinkMark = (mark: Mark) => mark.type === link;
+    const isBorderMark = (mark: Mark) => mark.type === border;
 
     return {
       ...this.getProps(node),
@@ -497,6 +501,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
         (m) => !isLinkMark(m) || this.allowMediaLinking === true,
       ),
       isLinkMark,
+      isBorderMark,
       allowAltTextOnImages: this.allowAltTextOnImages,
       featureFlags: this.media && this.media.featureFlags,
       shouldOpenMediaViewer: this.shouldOpenMediaViewer,
@@ -608,6 +613,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
       content: node.content ? node.content.toJSON() : undefined,
       allowHeadingAnchorLinks: this.allowHeadingAnchorLinks,
       allowCopyToClipboard: this.allowCopyToClipboard,
+      allowWrapCodeBlock: this.allowWrapCodeBlock,
       allowPlaceholderText: this.allowPlaceholderText,
       rendererAppearance: this.appearance,
       fireAnalyticsEvent: this.fireAnalyticsEvent,

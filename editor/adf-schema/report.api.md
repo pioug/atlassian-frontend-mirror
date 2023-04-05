@@ -207,6 +207,29 @@ export type BodiedExtensionDefinition = BodiedExtensionBaseDefinition &
   MarksObject<DataConsumerDefinition | FragmentDefinition>;
 
 // @public (undocumented)
+export const border: MarkSpec;
+
+// @public (undocumented)
+type BorderColorKey = 'Bold gray' | 'Gray' | 'Subtle gray';
+
+// @public (undocumented)
+export const borderColorPalette: Map<string, BorderColorKey>;
+
+// @public (undocumented)
+export type BorderMarkAttributes = {
+  size: number;
+  color: string;
+};
+
+// @public
+export interface BorderMarkDefinition {
+  // (undocumented)
+  attrs: BorderMarkAttributes;
+  // (undocumented)
+  type: 'border';
+}
+
+// @public (undocumented)
 export const breakout: MarkSpec;
 
 // @public (undocumented)
@@ -1027,7 +1050,7 @@ export interface MediaDefinition {
   // (undocumented)
   attrs: MediaADFAttrs;
   // (undocumented)
-  marks?: Array<LinkDefinition>;
+  marks?: Array<BorderMarkDefinition | LinkDefinition>;
   // (undocumented)
   type: 'media';
 }

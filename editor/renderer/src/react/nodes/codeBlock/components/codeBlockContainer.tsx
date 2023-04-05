@@ -1,6 +1,7 @@
 /** @jsx jsx */
-import type { ReactNode } from 'react';
 import { jsx, css } from '@emotion/react';
+import type { ReactNode } from 'react';
+import type { CodeBlockButtonContainerProps } from './codeBlockButtonContainer';
 
 import {
   overflowShadow,
@@ -12,9 +13,9 @@ import { fontSize, gridSize } from '@atlaskit/theme/constants';
 import type { ThemeProps } from '@atlaskit/theme/types';
 import { CodeBlockSharedCssClassName } from '@atlaskit/editor-common/styles';
 
-import CopyButton from '../../codeBlockCopyButton';
-import { Props as CodeBlockProps } from '../codeBlock';
 import { token } from '@atlaskit/tokens';
+
+import CodeBlockButtonContainer from './codeBlockButtonContainer';
 
 const codeBlockStyleOverrides = (props?: ThemeProps) =>
   css`
@@ -23,6 +24,17 @@ const codeBlockStyleOverrides = (props?: ThemeProps) =>
       light: token('elevation.surface.raised', N20),
       dark: token('elevation.surface.raised', DN50),
     })(props)};
+
+    &:hover {
+      button {
+        opacity: 1;
+      }
+    }
+
+    button {
+      opacity: 0;
+      transition: opacity 0.2s ease 0s;
+    }
 
     ${CodeBlockSharedCssClassName.DS_CODEBLOCK} {
       font-size: ${relativeFontSizeToBase16(fontSize())};
@@ -40,22 +52,29 @@ const codeBlockStyleOverrides = (props?: ThemeProps) =>
     }
   `;
 
-interface ContainerProps {
-  className?: string;
-  text: CodeBlockProps['text'];
+interface ContainerProps extends CodeBlockButtonContainerProps {
   children: ReactNode;
-  allowCopyToClipboard?: boolean;
+  className?: string;
 }
 
 const CodeBlockContainer = ({
-  text,
-  className,
   allowCopyToClipboard,
+  allowWrapCodeBlock,
   children,
+  className,
+  setWrapLongLines,
+  text,
+  wrapLongLines,
 }: ContainerProps) => {
   return (
     <div className={className} css={codeBlockStyleOverrides}>
-      {allowCopyToClipboard ? <CopyButton content={text} /> : null}
+      <CodeBlockButtonContainer
+        allowCopyToClipboard={allowCopyToClipboard}
+        allowWrapCodeBlock={allowWrapCodeBlock}
+        setWrapLongLines={setWrapLongLines}
+        text={text}
+        wrapLongLines={wrapLongLines}
+      />
       {children}
     </div>
   );

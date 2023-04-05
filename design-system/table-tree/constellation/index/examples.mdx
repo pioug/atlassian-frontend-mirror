@@ -11,6 +11,7 @@ import LoadingStateRootTableTreeExample from '../../examples/constellation/loadi
 import LoadingStateNestedTableTreeExample from '../../examples/constellation/loading-state-nested';
 import AsyncAppendTableTreeExample from '../../examples/constellation/async-append';
 import AsyncUpdateTableTreeExample from '../../examples/constellation/async-update';
+import ShouldExpandOnClickTableTreeExample from '../../examples/constellation/should-expand-on-click';
 
 ## Basic
 
@@ -88,3 +89,11 @@ The `appendItems` method will add to the existing items.
 The `updateItems` method will replace the existing items.
 
 <Example Component={AsyncUpdateTableTreeExample} packageName="@atlaskit/table-tree" />
+
+## Expanding/collapsing on click
+
+Use the `shouldExpandOnClick` prop to change whether a row with children expands when clicked anywhere on a row instead of only via the chevron.
+
+Note that **this should not be used when interactive elements like a button or dropdown menu exist within your row**. Clicking on those elements will trigger the row's expanding or collapsing along with the default behavior of the interactive element.
+
+<Example Component={ShouldExpandOnClickTableTreeExample} packageName="@atlaskit/table-tree" />

@@ -46,7 +46,7 @@ describe('EditorPluginInjectionAPI', () => {
           dependencies: [typeof plugin1];
         }
       > = (_, api) => {
-        api?.externalPlugins.one.actions.lol();
+        api?.dependencies.one.actions.lol();
         return {
           name: 'two',
         };
@@ -94,7 +94,7 @@ describe('EditorPluginInjectionAPI', () => {
           name: 'two',
 
           checkCurrentState: () => {
-            api?.externalPlugins.one.sharedState.currentState();
+            api?.dependencies.one.sharedState.currentState();
           },
         };
       };
@@ -144,7 +144,7 @@ describe('EditorPluginInjectionAPI', () => {
           dependencies: [typeof plugin1];
         }
       > = (_, api) => {
-        api?.externalPlugins.one.sharedState.onChange(fakeOnChange);
+        api?.dependencies.one.sharedState.onChange(fakeOnChange);
         return {
           name: 'two',
         };
@@ -208,7 +208,7 @@ describe('EditorPluginInjectionAPI', () => {
             dependencies: [typeof plugin1];
           }
         > = (_, api) => {
-          api?.externalPlugins.one.sharedState.onChange(fakeOnChange);
+          api?.dependencies.one.sharedState.onChange(fakeOnChange);
           return {
             name: 'two',
           };
@@ -284,6 +284,54 @@ describe('EditorPluginInjectionAPI', () => {
 
         // @ts-ignore
         expect(sharedStateAPI.listeners.get(pluginName).size).toEqual(1);
+      });
+    });
+  });
+
+  describe('notifyListeners', () => {
+    it('should call the onChange by order', () => {
+      const plugin1: NextEditorPlugin<'one', { sharedState: number }> = (
+        _,
+        api,
+      ) => {
+        return {
+          name: 'one',
+          getSharedState: (fakeEditorState) => {
+            return fakeEditorState as any;
+          },
+        };
+      };
+
+      const api = coreAPI.api();
+      coreAPI.onEditorPluginInitialized(plugin1(undefined, api));
+
+      const onChangeFn = jest.fn();
+      api?.dependencies?.one?.sharedState.onChange(onChangeFn);
+
+      const noUpdate: any = {
+        oldEditorState: 1,
+        newEditorState: 1,
+      };
+      coreAPI.onEditorViewUpdated(noUpdate);
+      const firstUpdate = {
+        oldEditorState: 3,
+        newEditorState: 4,
+      } as any;
+      coreAPI.onEditorViewUpdated(firstUpdate);
+      const secondUpdate = {
+        oldEditorState: 4,
+        newEditorState: 5,
+      } as any;
+      coreAPI.onEditorViewUpdated(secondUpdate);
+
+      expect(onChangeFn).toHaveBeenCalledTimes(2);
+      expect(onChangeFn).toHaveBeenNthCalledWith(1, {
+        prevSharedState: 3,
+        nextSharedState: 4,
+      });
+      expect(onChangeFn).toHaveBeenNthCalledWith(2, {
+        prevSharedState: 4,
+        nextSharedState: 5,
       });
     });
   });

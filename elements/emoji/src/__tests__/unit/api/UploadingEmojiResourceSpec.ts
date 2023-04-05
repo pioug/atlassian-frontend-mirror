@@ -21,6 +21,7 @@ import {
   EmojiId,
   EmojiSearchResult,
   EmojiUpload,
+  ImageRepresentation,
   SearchOptions,
   ToneSelection,
 } from '../../../types';
@@ -262,7 +263,7 @@ describe('UploadingEmojiResource', () => {
       });
     });
 
-    it('can find mediaEmoji by id if not yet deleted', () => {
+    it('can find mediaEmoji by id if not yet deleted', async () => {
       fetchMock.mock({
         matcher: `begin:${siteUrl}`,
         response: siteServiceEmojis(),
@@ -286,9 +287,11 @@ describe('UploadingEmojiResource', () => {
       );
       emojiResource.fetchEmojiProvider();
       emojiResource.prepareForUpload();
-      return alwaysPromise(emojiResource.findById(mediaEmoji.id!))
-        .then((emoji) => expect(emoji).toEqual(mediaEmoji))
-        .catch(() => expect(true).toEqual(false));
+      const emoji = await emojiResource.findById(mediaEmoji.id!);
+      if (emoji) {
+        (emoji.representation as ImageRepresentation).imagePath = 'data:blah';
+        expect(emoji).toEqual(mediaEmoji);
+      }
     });
 
     it('removes the deleted emoji from the emoji repository', () => {

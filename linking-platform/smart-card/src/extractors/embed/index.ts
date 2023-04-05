@@ -1,5 +1,5 @@
 import { JsonLd } from 'json-ld-types';
-import { CardPlatform } from '../../view/Card/types';
+import { CardPlatform, EmbedIframeUrlType } from '../../view/Card/types';
 import {
   extractLink,
   extractTitle,
@@ -13,8 +13,9 @@ import { EmbedCardResolvedViewProps } from '../../view/EmbedCard/views/ResolvedV
 const extractEmbedPreview = (
   jsonLd: JsonLd.Data.BaseData,
   platform?: CardPlatform,
+  iframeUrlType?: EmbedIframeUrlType,
 ): (LinkPreview & { src: string }) | undefined => {
-  const preview = extractPreview(jsonLd, platform);
+  const preview = extractPreview(jsonLd, platform, iframeUrlType);
   if (preview && preview.src) {
     return { ...preview, src: preview.src };
   }
@@ -24,10 +25,13 @@ export const extractEmbedProps = (
   jsonLd: JsonLd.Data.BaseData,
   meta?: JsonLd.Meta.BaseMeta,
   platform?: CardPlatform,
-): EmbedCardResolvedViewProps => ({
-  link: extractLink(jsonLd) || '',
-  title: extractTitle(jsonLd),
-  context: extractProvider(jsonLd),
-  preview: extractEmbedPreview(jsonLd, platform),
-  isTrusted: extractIsTrusted(meta),
-});
+  iframeUrlType?: EmbedIframeUrlType,
+): EmbedCardResolvedViewProps => {
+  return {
+    link: extractLink(jsonLd) || '',
+    title: extractTitle(jsonLd),
+    context: extractProvider(jsonLd),
+    preview: extractEmbedPreview(jsonLd, platform, iframeUrlType),
+    isTrusted: extractIsTrusted(meta),
+  };
+};

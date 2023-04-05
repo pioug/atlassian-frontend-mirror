@@ -80,6 +80,7 @@ import { FloatingToolbarSelect } from '@atlaskit/editor-common/types';
 import { FULL_WIDTH_MODE } from '@atlaskit/editor-common/analytics';
 import { GapCursorSelection } from '@atlaskit/editor-common/selection';
 import { Side as GapCursorSide } from '@atlaskit/editor-common/selection';
+import { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { InputMethodInsertMedia } from '@atlaskit/editor-common/analytics';
 import { IntlShape } from 'react-intl-next';
@@ -886,6 +887,8 @@ export interface EditorInstance {
 // @public (undocumented)
 export class EditorMigrationComponent extends React_2.Component<EditorProps> {
   // (undocumented)
+  static defaultProps: EditorProps;
+  // (undocumented)
   render(): JSX.Element;
 }
 
@@ -997,6 +1000,7 @@ interface EditorPluginFeatureProps {
   mentionInsertDisplayName?: boolean;
   // (undocumented)
   saveOnEnter?: boolean;
+  UNSAFE_allowBorderMark?: boolean;
   // (undocumented)
   uploadErrorHandler?: (state: MediaState) => void;
   // (undocumented)
@@ -1657,6 +1661,8 @@ export interface MediaOptions {
   // (undocumented)
   fullWidthEnabled?: boolean;
   // (undocumented)
+  getEditorFeatureFlags?: GetEditorFeatureFlags;
+  // (undocumented)
   isCopyPasteEnabled?: boolean;
   // (undocumented)
   provider?: Providers['mediaProvider'];
@@ -1967,7 +1973,10 @@ type OnEditorViewStateUpdated = (props: {
 export const openDatePicker: () => Command;
 
 // @public (undocumented)
-function outdentList(inputMethod?: InputMethod_2): Command;
+function outdentList(
+  inputMethod: InputMethod_2 | undefined,
+  featureFlags: EditorFeatureFlags,
+): Command;
 
 export { PaletteColor };
 
@@ -2566,8 +2575,6 @@ type TextColorDefaultColor = {
 
 // @public (undocumented)
 interface TextColorPluginConfig {
-  // @deprecated (undocumented)
-  allowMoreTextColors?: boolean;
   // (undocumented)
   defaultColor?: TextColorDefaultColor;
 }
@@ -2823,6 +2830,7 @@ export const typeAheadPluginKey: PluginKey<TypeAheadPluginState, any>;
 type TypeAheadPluginOptions = {
   isMobile?: boolean;
   createAnalyticsEvent?: CreateUIAnalyticsEvent_2;
+  useBetterTypeaheadNavigation?: boolean;
 };
 
 // @public (undocumented)
@@ -2945,7 +2953,7 @@ export { WithPluginState };
 
 ```json
 {
-  "@atlaskit/link-provider": "^1.5.0",
+  "@atlaskit/link-provider": "^1.5.1",
   "@atlaskit/media-core": "^34.0.2",
   "react": "^16.8.0",
   "react-dom": "^16.8.0",

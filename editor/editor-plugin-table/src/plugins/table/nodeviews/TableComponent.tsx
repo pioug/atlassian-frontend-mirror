@@ -225,9 +225,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
       }
 
       if (this.overflowShadowsObserver) {
-        this.overflowShadowsObserver.observeCells(
+        this.overflowShadowsObserver.observeShadowSentinels(
           this.state.stickyHeader?.sticky,
-          containsHeaderRow(getNode()),
         );
       }
     }
@@ -285,6 +284,17 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
       return this.setState({ [shadowKey]: value });
     }
     this.setState({ [shadowKey]: value });
+  };
+
+  private createShadowSentinels = (table: HTMLTableElement | null) => {
+    if (table) {
+      const shadowSentinelLeft = document.createElement('span');
+      shadowSentinelLeft.className = ClassName.TABLE_SHADOW_SENTINEL_LEFT;
+      const shadowSentinelRight = document.createElement('span');
+      shadowSentinelRight.className = ClassName.TABLE_SHADOW_SENTINEL_RIGHT;
+      table.prepend(shadowSentinelLeft);
+      table.prepend(shadowSentinelRight);
+    }
   };
 
   onStickyState = (state: StickyPluginState) => {
@@ -440,6 +450,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
               const tableElement = elem.querySelector('table');
               if (tableElement !== this.table) {
                 this.table = tableElement;
+                this.createShadowSentinels(this.table);
               }
             }
           }}
@@ -518,6 +529,12 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 
     if (!tableOverflowShadowsOptimization) {
       this.updateShadows();
+    }
+
+    if (this.wrapper.scrollLeft === 0) {
+      this.setState({ [ShadowEvent.SHOW_BEFORE_SHADOW]: false });
+    } else {
+      this.setState({ [ShadowEvent.SHOW_BEFORE_SHADOW]: true });
     }
   };
 

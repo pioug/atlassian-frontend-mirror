@@ -8,10 +8,12 @@ import messages from '../../../messages';
 import { CollabInviteToEditProps } from '../types';
 import { Avatars } from './avatars';
 import { InviteToEditButton } from './invite-to-edit';
+import { FeatureFlags } from '@atlaskit/editor-common/types';
 
 export type AvatarsWithPluginStateProps = {
   editorView?: EditorView;
   eventDispatcher?: EventDispatcher;
+  featureFlags: FeatureFlags;
 } & CollabInviteToEditProps;
 
 const AvatarsWithPluginState: React.StatelessComponent<
@@ -24,6 +26,7 @@ const AvatarsWithPluginState: React.StatelessComponent<
     inviteToEditHandler: onClick,
     inviteToEditComponent: Component,
     editorView,
+    featureFlags,
   } = props;
 
   const render = React.useCallback(
@@ -37,6 +40,7 @@ const AvatarsWithPluginState: React.StatelessComponent<
           sessionId={data.sessionId}
           participants={data.activeParticipants}
           editorView={editorView}
+          featureFlags={featureFlags}
         >
           <InviteToEditButton
             title={title}
@@ -47,7 +51,7 @@ const AvatarsWithPluginState: React.StatelessComponent<
         </Avatars>
       );
     },
-    [selected, onClick, Component, title, editorView],
+    [selected, onClick, Component, title, editorView, featureFlags],
   );
 
   return (

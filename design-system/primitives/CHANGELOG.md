@@ -1,5 +1,17 @@
 # @atlaskit/primitives
 
+## 0.6.0
+
+### Minor Changes
+
+- [`4d60ec345a5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4d60ec345a5) - Remove internal/exploratory responsive props available in BaseBox.
+
+## 0.5.0
+
+### Minor Changes
+
+- [`e379d04c74a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e379d04c74a) - Expose a new form of `xcss` that is parameterised so it can be statically bound to the intended usage context.
+
 ## 0.4.2
 
 ### Patch Changes

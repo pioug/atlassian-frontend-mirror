@@ -23,6 +23,7 @@ import {
   DocBuilder,
   BuilderContent,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 import { pluginKey as fragmentMarkPluginKey } from '../../plugin-key';
 import fragmentMarkPlugin from '../../index';
@@ -83,6 +84,7 @@ describe('fragment plugin', () => {
 
   const editor = (doc: DocBuilder) => {
     const preset = new Preset<LightEditorPlugin>()
+      .add([featureFlagsPlugin, {}])
       .add(fragmentMarkPlugin)
       .add([tablesPlugin, { tableOptions: {} }])
       .add(extensionPlugin)

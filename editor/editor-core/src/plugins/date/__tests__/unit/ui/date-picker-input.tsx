@@ -1,4 +1,4 @@
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import DatePickerInput from '../../../ui/DatePicker/date-picker-input';
 import React from 'react';
 import { DateType } from '../../../types';
@@ -19,7 +19,7 @@ describe('DatePickerInput', () => {
         month: 2,
         day: 20,
       };
-      const component = mountWithIntl(
+      const component = renderWithIntl(
         <DatePickerInput
           date={exampleDate}
           onNewDate={() => {}}
@@ -29,7 +29,7 @@ describe('DatePickerInput', () => {
         />,
       );
 
-      const input = component.find('input').getDOMNode() as HTMLInputElement;
+      const input = component.getByRole('textbox') as HTMLInputElement;
       const spyFocus = jest.spyOn(input, 'focus');
 
       jest.runAllTimers();
@@ -42,7 +42,7 @@ describe('DatePickerInput', () => {
         month: 2,
         day: 20,
       };
-      const component = mountWithIntl(
+      const component = renderWithIntl(
         <DatePickerInput
           date={exampleDate}
           onNewDate={() => {}}
@@ -53,7 +53,7 @@ describe('DatePickerInput', () => {
         />,
       );
 
-      const input = component.find('input').getDOMNode() as HTMLInputElement;
+      const input = component.getByRole('textbox') as HTMLInputElement;
       const spyFocus = jest.spyOn(input, 'focus');
 
       jest.runAllTimers();
@@ -66,7 +66,7 @@ describe('DatePickerInput', () => {
         month: 2,
         day: 20,
       };
-      const component = mountWithIntl(
+      const component = renderWithIntl(
         <DatePickerInput
           date={exampleDate}
           onNewDate={() => {}}
@@ -77,7 +77,7 @@ describe('DatePickerInput', () => {
         />,
       );
 
-      const input = component.find('input').getDOMNode() as HTMLInputElement;
+      const input = component.getByRole('textbox') as HTMLInputElement;
       const spyFocus = jest.spyOn(input, 'focus');
 
       jest.runAllTimers();
@@ -91,7 +91,7 @@ describe('DatePickerInput', () => {
         day: 20,
       };
 
-      const component = mountWithIntl(
+      const component = renderWithIntl(
         <DatePickerInput
           date={exampleDate}
           onNewDate={() => {}}
@@ -102,13 +102,22 @@ describe('DatePickerInput', () => {
         />,
       );
 
-      const input = component.find('input').getDOMNode() as HTMLInputElement;
+      const input = component.getByRole('textbox') as HTMLInputElement;
       const spyFocus = jest.spyOn(input, 'focus');
 
       jest.runAllTimers();
       expect(spyFocus).toHaveBeenCalledTimes(0);
 
-      component.setProps({ autoFocus: true });
+      component.rerender(
+        <DatePickerInput
+          date={exampleDate}
+          onNewDate={() => {}}
+          onSubmitDate={() => {}}
+          onEmptySubmit={() => {}}
+          locale={'en-AU'}
+          autoFocus={true}
+        />,
+      );
       jest.runAllTimers();
       expect(spyFocus).toHaveBeenCalledTimes(1);
     });
@@ -119,7 +128,7 @@ describe('DatePickerInput', () => {
         month: 2,
         day: 20,
       };
-      const component = mountWithIntl(
+      const component = renderWithIntl(
         <DatePickerInput
           date={exampleDate}
           onNewDate={() => {}}
@@ -131,7 +140,7 @@ describe('DatePickerInput', () => {
         />,
       );
 
-      const input = component.find('input').getDOMNode() as HTMLInputElement;
+      const input = component.getByRole('textbox') as HTMLInputElement;
       const spySelect = jest.spyOn(input, 'select');
       const spyFocus = jest.spyOn(input, 'focus');
 

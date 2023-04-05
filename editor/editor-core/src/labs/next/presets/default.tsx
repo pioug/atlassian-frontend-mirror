@@ -13,6 +13,7 @@ import typeAheadPlugin from '../../../plugins/type-ahead';
 import submitEditorPlugin from '../../../plugins/submit-editor';
 import fakeTextCursorPlugin from '../../../plugins/fake-text-cursor';
 import featureFlagsContextPlugin from '../../../plugins/feature-flags-context';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import floatingToolbarPlugin from '../../../plugins/floating-toolbar';
 import { EditorProps } from '../Editor';
 import { EditorPresetProps } from './types';
@@ -64,6 +65,7 @@ export function createDefaultPreset(
   options: EditorPresetProps & DefaultPresetPluginOptions,
 ) {
   const preset = new EditorPresetBuilder()
+    .add([featureFlagsPlugin, options.featureFlags || {}])
     .add([pastePlugin, options.paste])
     .add(clipboardPlugin)
     .add([basePlugin, options.base])

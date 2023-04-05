@@ -15,7 +15,7 @@ import {
 import { blur, toggleMatchCase } from './commands';
 import FindReplaceToolbarButton from './ui/FindReplaceToolbarButton';
 import { TRIGGER_METHOD, DispatchAnalyticsEvent } from '../analytics';
-import { getFeatureFlags } from '../feature-flags-context';
+import { FeatureFlags } from '@atlaskit/editor-common/types';
 
 export type FindReplaceToolbarButtonWithStateProps = {
   popupsBoundariesElement?: HTMLElement;
@@ -26,6 +26,7 @@ export type FindReplaceToolbarButtonWithStateProps = {
   containerElement: HTMLElement | null;
   dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
   takeFullWidth?: boolean;
+  featureFlags: FeatureFlags;
 };
 
 const FindReplaceToolbarButtonWithState: React.FunctionComponent<
@@ -39,6 +40,7 @@ const FindReplaceToolbarButtonWithState: React.FunctionComponent<
     editorView,
     containerElement,
     dispatchAnalyticsEvent,
+    featureFlags,
   } = props;
 
   if (!editorView) {
@@ -130,7 +132,7 @@ const FindReplaceToolbarButtonWithState: React.FunctionComponent<
     dispatchCommand(toggleMatchCase());
   };
 
-  const { findReplaceMatchCase } = getFeatureFlags(editorView.state);
+  const { findReplaceMatchCase } = featureFlags;
 
   return (
     <WithPluginState

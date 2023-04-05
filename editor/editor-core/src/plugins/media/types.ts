@@ -7,6 +7,7 @@ import { MediaClientConfig } from '@atlaskit/media-core';
 import { MediaFeatureFlags } from '@atlaskit/media-common';
 import { UploadParams, MediaFile } from '@atlaskit/media-picker/types';
 import { EditorSelectionAPI } from '@atlaskit/editor-common/selection';
+import { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 import { PlaceholderTextOptions } from '../../plugins/placeholder-text/types';
 
 export type MediaStateStatus =
@@ -47,6 +48,7 @@ export interface MediaOptions {
   alignLeftOnInsert?: boolean;
   editorSelectionAPI?: EditorSelectionAPI;
   featureFlags?: MediaFeatureFlags;
+  getEditorFeatureFlags?: GetEditorFeatureFlags;
 }
 
 export interface MediaSingleOptions {
@@ -114,4 +116,5 @@ export type MediaFloatingToolbarOptions = {
   allowResizingInTables?: boolean;
   allowAltTextOnImages?: boolean;
   altTextValidator?: (value: string) => string[];
+  getEditorFeatureFlags?: GetEditorFeatureFlags;
 };

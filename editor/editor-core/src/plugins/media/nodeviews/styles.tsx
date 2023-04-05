@@ -24,23 +24,39 @@ const forcedDimensions = css`
 type MediaCardWrapperProps = {
   dimensions: NumericalCardDimensions;
   children: React.ReactNode;
+  selected?: boolean;
+  borderWidth?: number;
   onContextMenu?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 };
 
 export const MediaCardWrapper = ({
   dimensions,
   children,
+  selected,
+  borderWidth = 0,
   onContextMenu,
 }: MediaCardWrapperProps) => {
+  const calculatedBorderWidth =
+    selected && borderWidth > 0 ? borderWidth + 1 : borderWidth;
   return (
     <div
-      css={forcedDimensions}
+      data-testid="media-card-wrapper"
       style={{
-        paddingBottom: `${(dimensions.height / dimensions.width) * 100}%`,
+        borderColor: `var(--custom-palette-color)`,
+        borderWidth: `${calculatedBorderWidth}px`,
+        borderStyle: 'solid',
+        borderRadius: `${calculatedBorderWidth * 2}px`,
       }}
-      onContextMenuCapture={onContextMenu}
     >
-      <div css={absoluteDiv}>{children}</div>
+      <div
+        css={forcedDimensions}
+        style={{
+          paddingBottom: `${(dimensions.height / dimensions.width) * 100}%`,
+        }}
+        onContextMenuCapture={onContextMenu}
+      >
+        <div css={absoluteDiv}>{children}</div>
+      </div>
     </div>
   );
 };

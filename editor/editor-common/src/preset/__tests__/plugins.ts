@@ -60,7 +60,7 @@ describe('NextEditorPlugin: types', () => {
           'something',
           { dependencies: [typeof PluginDog] }
         > = (_, api) => {
-          api?.externalPlugins.dog.actions.bark();
+          api?.dependencies.dog.actions.bark();
           return {
             name: 'something',
           };
@@ -81,7 +81,7 @@ describe('NextEditorPlugin: types', () => {
         > = (_, api) => {
           if (api) {
             // Should work
-            const result = api.externalPlugins.dog.actions.lol();
+            const result = api.dependencies.dog.actions.lol();
 
             result.trim();
           }
@@ -108,7 +108,7 @@ describe('NextEditorPlugin: types', () => {
         > = (_, api) => {
           if (api) {
             // Should work
-            const result = api.externalPlugins.dog.sharedState.currentState();
+            const result = api.dependencies.dog.sharedState.currentState();
             result?.trim();
           }
 

@@ -53,6 +53,7 @@ import panelPlugin from '../../../panel';
 import codeBlockPlugin from '../../../code-block';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import { CellSelection } from '@atlaskit/editor-tables';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 describe('block-type', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -68,6 +69,7 @@ describe('block-type', () => {
     return createEditor<BlockTypeState, PluginKey>({
       doc,
       preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
         .add(blockTypePlugin)
         .add(panelPlugin)
         .add([codeBlockPlugin, { appearance: 'full-page' }])

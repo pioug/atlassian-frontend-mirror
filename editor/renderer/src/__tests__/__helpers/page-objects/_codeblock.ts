@@ -3,7 +3,8 @@ import { LightWeightCodeBlockCssClassName } from '../../../react/nodes/codeBlock
 
 export const selectors = {
   codeBlock: `.${CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER}`,
-  copyToClipboardButton: `.copy-to-clipboard`,
+  copyToClipboardButton: '.copy-to-clipboard',
   lightWeightCodeBlock: `.${LightWeightCodeBlockCssClassName.CONTAINER}`,
   designSystemCodeBlock: CodeBlockSharedCssClassName.DS_CODEBLOCK,
+  wrapButton: '.wrap-code',
 };

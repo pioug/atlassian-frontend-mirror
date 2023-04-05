@@ -182,6 +182,9 @@ export const userEvent = {
     fireEvent.drop(target);
   },
   cancel(target: Element = document.body) {
+    // A "cancel" (drop on nothing, or pressing "Escape") will
+    // cause a "dragleave" and then a "dragend"
+    fireEvent.dragLeave(target);
     fireEvent.dragEnd(target);
   },
   leaveWindow() {
@@ -213,18 +216,6 @@ export const userEvent = {
       fireEvent.pointerMove(document.body);
     }
   },
-  // dragOver(target: Element) {
-  //   fireEvent.dragOver(target);
-  //   // we schedule "drag" updates in an animation frame
-  //   // @ts-ignore
-  //   requestAnimationFrame.step();
-  // },
-  // drag() {
-  //   fireEvent.dragLeave(target: Element);
-  //   // after an animation frame we fire `onDragStart`
-  //   // @ts-ignore
-  //   requestAnimationFrame.step();
-  // }
 };
 
 /** Cleanup function to unbind all event listeners */

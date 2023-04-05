@@ -12,14 +12,11 @@ import { jsx } from '@emotion/react';
 import { parseXcss } from '../internal/xcss';
 
 import { BaseBox, BaseBoxProps } from './internal/base-box.partial';
-import type { BoxResponsiveProp } from './internal/types';
 import type { PublicBoxPropsBase } from './types';
 
 export type BoxProps<T extends ElementType = 'div'> = Omit<
   BaseBoxProps<T>,
-  | 'className'
-  // Omit all responsive props until they are ready for prime time
-  | BoxResponsiveProp
+  'className'
 > &
   PublicBoxPropsBase;
 

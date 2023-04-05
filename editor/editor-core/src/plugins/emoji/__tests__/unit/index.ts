@@ -29,6 +29,7 @@ import typeAheadPlugin from '../../../type-ahead';
 import quickInsertPlugin from '../../../quick-insert';
 import blockTypePlugin from '../../../block-type';
 import listPlugin from '../../../list';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 const emojiProvider = getTestEmojiResource();
 
@@ -57,6 +58,7 @@ describe('emojis', () => {
     return createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
         .add(emojiPlugin)
         .add([analyticsPlugin, { createAnalyticsEvent }])
         .add(blockTypePlugin)

@@ -18,6 +18,7 @@ import basePlugin from '../../../plugins/base';
 import mediaPlugin from '../../../plugins/media';
 import hyperlinkPlugin from '../../../plugins/hyperlink';
 import alignmentPlugin from '../../../plugins/alignment';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 import { createWrappingJoinRule } from '../../input-rules';
 
@@ -27,6 +28,7 @@ describe('createWrappingJoinRule()', () => {
     const editorTemp = createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
         .add(basePlugin)
         .add(listPlugin)
         .add(hyperlinkPlugin)

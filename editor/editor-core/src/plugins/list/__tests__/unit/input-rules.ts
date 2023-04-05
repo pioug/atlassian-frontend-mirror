@@ -25,7 +25,7 @@ import basePlugins from '../../../base';
 import blockType from '../../../block-type';
 import codeBlockTypePlugin from '../../../code-block';
 import { FeatureFlags } from '@atlaskit/editor-common/types';
-import featureFlagsPlugin from '../../../feature-flags-context';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 describe('inputrules', () => {
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
@@ -38,12 +38,12 @@ describe('inputrules', () => {
     const fakeEditor = createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, featureFlags])
         .add([listTypePlugin, featureFlags])
         .add(basePlugins)
         .add(blockType)
         .add([codeBlockTypePlugin, { appearance: 'full-page' }])
-        .add([analyticsPlugin, { createAnalyticsEvent }])
-        .add([featureFlagsPlugin, featureFlags]),
+        .add([analyticsPlugin, { createAnalyticsEvent }]),
       featureFlags,
     });
 

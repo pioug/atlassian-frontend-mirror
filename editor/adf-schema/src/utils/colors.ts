@@ -43,8 +43,11 @@ export const N80 = '#97A0AF';
 export const N90 = '#8993A4';
 export const N200 = '#6B778C';
 export const N300 = '#5E6C84';
+export const N300A = '#091E4224';
 export const N500 = '#42526E';
+export const N600 = '#758195';
 export const N800 = '#172B4D';
+export const N1000 = '#172B4D';
 
 export const P50 = '#EAE6FF';
 export const P75 = '#C0B6F2';

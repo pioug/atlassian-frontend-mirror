@@ -20,6 +20,7 @@ import panelPlugin from '../../../../plugins/panel';
 import emojiPlugin from '../../../../plugins/emoji';
 import analyticsPlugin from '../../../../plugins/analytics';
 import { selectNode } from '../../../../utils/commands';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 describe('panel actions', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -32,6 +33,7 @@ describe('panel actions', () => {
   ) => {
     createAnalyticsEvent = jest.fn().mockReturnValue({ fire() {} });
     const preset = new Preset<LightEditorPlugin>()
+      .add([featureFlagsPlugin, {}])
       .add([panelPlugin, { allowCustomPanel, allowCustomPanelEdit }])
       .add(emojiPlugin)
       .add([analyticsPlugin, { createAnalyticsEvent }]);

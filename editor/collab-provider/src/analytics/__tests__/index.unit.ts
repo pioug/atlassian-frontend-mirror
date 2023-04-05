@@ -1,12 +1,13 @@
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
-import type { ErrorPayload } from '../../types';
-import AnalyticsHelper from '../index';
+import { nextTick } from '@atlaskit/editor-test-helpers/next-tick';
+import AnalyticsHelper from '../analytics-helper';
 import { EVENT_ACTION, EVENT_STATUS } from '../../helpers/const';
 
 import {
   name as packageName,
   version as packageVersion,
 } from '../../version-wrapper';
+import { InternalError, NCS_ERROR_CODE } from '../../errors/error-types';
 
 describe('Analytics helper function', () => {
   const fakeAnalyticsWebClient: AnalyticsWebClient = {
@@ -106,11 +107,14 @@ describe('Analytics helper function', () => {
   });
 
   it('should send an analytics event with error information', () => {
-    const stepRejectedError: ErrorPayload = {
+    const stepRejectedError: InternalError = {
       data: {
+        code: NCS_ERROR_CODE.HEAD_VERSION_UPDATE_FAILED,
+        meta: {
+          currentVersion: 3,
+          incomingVersion: 4,
+        },
         status: 409,
-        code: 'HEAD_VERSION_UPDATE_FAILED',
-        meta: 'The version number does not match the current head version.',
       },
       message: 'Version number does not match current head version.',
     };
@@ -119,6 +123,95 @@ describe('Analytics helper function', () => {
       stepRejectedError,
       'Meaningful Context-Aware Error Message',
     );
+
+    expect(fakeAnalyticsWebClient.sendOperationalEvent).toHaveBeenCalledTimes(
+      1,
+    );
+    expect(fakeAnalyticsWebClient.sendOperationalEvent).toBeCalledWith({
+      action: 'error',
+      actionSubject: 'collab',
+      attributes: {
+        packageName,
+        packageVersion,
+        collabService: 'ncs',
+        network: {
+          status: 'ONLINE',
+        },
+        documentAri: fakeDocumentAri,
+        errorMessage: 'Meaningful Context-Aware Error Message',
+      },
+      nonPrivacySafeAttributes: {
+        error: stepRejectedError,
+      },
+      tags: ['editor'],
+      source: 'unknown',
+    });
+  });
+
+  it('should send an analytics event when analytics client is get through getAnalyticsClient promise', async () => {
+    const fakeGetAnalyticsClient = Promise.resolve(fakeAnalyticsWebClient);
+
+    analyticsHelper = new AnalyticsHelper(
+      fakeDocumentAri,
+      undefined,
+      fakeGetAnalyticsClient,
+    );
+
+    analyticsHelper.sendActionEvent(
+      EVENT_ACTION.UPDATE_PARTICIPANTS,
+      EVENT_STATUS.SUCCESS,
+    );
+
+    await nextTick();
+
+    expect(fakeAnalyticsWebClient.sendOperationalEvent).toHaveBeenCalledTimes(
+      1,
+    );
+    expect(fakeAnalyticsWebClient.sendOperationalEvent).toBeCalledWith({
+      action: 'updateParticipants',
+      actionSubject: 'collab',
+      attributes: {
+        packageName,
+        packageVersion,
+        collabService: 'ncs',
+        network: {
+          status: 'ONLINE',
+        },
+        documentAri: fakeDocumentAri,
+        eventStatus: 'SUCCESS',
+      },
+      tags: ['editor'],
+      source: 'unknown',
+    });
+  });
+
+  it('should send an analytics event with error information when analytics client is get through getAnalyticsClient promise', async () => {
+    const fakeGetAnalyticsClient = Promise.resolve(fakeAnalyticsWebClient);
+
+    analyticsHelper = new AnalyticsHelper(
+      fakeDocumentAri,
+      undefined,
+      fakeGetAnalyticsClient,
+    );
+
+    const stepRejectedError: InternalError = {
+      data: {
+        status: 409,
+        code: NCS_ERROR_CODE.HEAD_VERSION_UPDATE_FAILED,
+        meta: {
+          currentVersion: 3,
+          incomingVersion: 4,
+        },
+      },
+      message: 'Version number does not match current head version.',
+    };
+
+    analyticsHelper.sendErrorEvent(
+      stepRejectedError,
+      'Meaningful Context-Aware Error Message',
+    );
+
+    await nextTick();
 
     expect(fakeAnalyticsWebClient.sendOperationalEvent).toHaveBeenCalledTimes(
       1,

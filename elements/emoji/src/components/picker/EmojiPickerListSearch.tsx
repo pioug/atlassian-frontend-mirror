@@ -10,10 +10,12 @@ import { messages } from '../i18n';
 import { input, pickerSearch, searchIcon } from './styles';
 import { EMOJI_SEARCH_DEBOUNCE } from '../../util/constants';
 import { useDebouncedCallback } from 'use-debounce';
+import { hidden } from '../common/styles';
 
 export interface Props {
   style?: Styles;
   query?: string;
+  isVisible?: boolean;
   onChange: (value: string) => void;
   resultsCount: number;
 }
@@ -21,7 +23,7 @@ export interface Props {
 export const emojiPickerSearchTestId = 'emoji-picker-serach';
 
 export const EmojiPickerListSearch = (props: Props) => {
-  const { style, query, resultsCount, onChange } = props;
+  const { style, query, isVisible = true, resultsCount, onChange } = props;
   const textRef = useRef<HTMLInputElement>(null);
   const [dirty, setDirty] = useState(false);
 
@@ -50,7 +52,7 @@ export const EmojiPickerListSearch = (props: Props) => {
   }, []);
 
   return (
-    <div css={pickerSearch} style={style}>
+    <div css={[pickerSearch, !isVisible && hidden]} style={style}>
       <VisuallyHidden id="emoji-search-results-status" role="status">
         {dirty &&
           query === '' &&

@@ -46,6 +46,8 @@ import { usePluginListeners } from './hooks/use-plugin-listeners';
 import EditorConfiguration from './editor-configuration';
 import { useToolbarSubscription } from './hooks/use-toolbar-subscription';
 import { useTypeAheadSubscription } from './hooks/use-type-ahead-subscription';
+import type { FeatureFlags } from '@atlaskit/editor-common/types';
+
 export interface MobileEditorProps extends EditorProps {
   createCollabProvider: (bridge: WebBridgeImpl) => Promise<CollabProvider>;
   cardProvider: Promise<EditorCardProvider>;
@@ -200,8 +202,7 @@ export function MobileEditor(props: MobileEditorProps) {
   };
 
   // Editor config overrides feature flags from props
-  type Flags = { [key: string]: string | boolean };
-  const extendedFeatureFlags: Flags = {
+  const extendedFeatureFlags: FeatureFlags = {
     ...featureFlags,
     tableCellOptionsInFloatingToolbar:
       editorConfiguration.isTableCellOptionsInFloatingToolbar(),
@@ -209,6 +210,8 @@ export function MobileEditor(props: MobileEditorProps) {
     listNumberContinuity: getListNumberContinuity(),
     enableViewUpdateSubscription: true,
   };
+
+  bridge.setFeatureFlags(extendedFeatureFlags);
 
   return (
     <FabricAnalyticsListeners client={analyticsClient}>
@@ -242,7 +245,9 @@ export function MobileEditor(props: MobileEditorProps) {
             collabEdit={collabEdit}
             performanceTracking={performanceTracking}
             {...props}
-            featureFlags={extendedFeatureFlags}
+            featureFlags={
+              extendedFeatureFlags as { [key: string]: string | boolean }
+            }
             mentionProvider={mentionProvider}
             emojiProvider={emojiProvider}
             placeholder={editorConfiguration.getPlaceholder()}

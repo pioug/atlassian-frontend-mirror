@@ -16,7 +16,7 @@ import {
   getOrderedListInlineStyles,
 } from '@atlaskit/editor-common/styles';
 import { getItemCounterDigitsSize } from '@atlaskit/editor-common/utils';
-import { getFeatureFlags } from '../../feature-flags-context';
+import type { FeatureFlags } from '@atlaskit/editor-common/types';
 
 const listPluginKey = new PluginKey<ListState>('listPlugin');
 export const pluginKey = listPluginKey;
@@ -32,9 +32,9 @@ const initialState: ListState = {
 export const getDecorations = (
   doc: Node,
   state: EditorState,
+  featureFlags: FeatureFlags,
 ): DecorationSet => {
   const decorations: Decoration[] = [];
-  const featureFlags = getFeatureFlags(state);
 
   // this stack keeps track of each (nested) list to calculate the indentation level
   const processedListsStack: { node: Node; startPos: number }[] = [];
@@ -96,18 +96,20 @@ export const getDecorations = (
   return DecorationSet.empty.add(doc, decorations);
 };
 
-const handleDocChanged = (
-  tr: ReadonlyTransaction,
-  pluginState: ListState,
-  editorState: EditorState,
-): ListState => {
-  const nextPluginState = handleSelectionChanged(tr, pluginState);
-  const decorationSet = getDecorations(tr.doc, editorState);
-  return {
-    ...nextPluginState,
-    decorationSet,
+const handleDocChanged =
+  (featureFlags: FeatureFlags) =>
+  (
+    tr: ReadonlyTransaction,
+    pluginState: ListState,
+    editorState: EditorState,
+  ): ListState => {
+    const nextPluginState = handleSelectionChanged(tr, pluginState);
+    const decorationSet = getDecorations(tr.doc, editorState, featureFlags);
+    return {
+      ...nextPluginState,
+      decorationSet,
+    };
   };
-};
 
 const handleSelectionChanged = (
   tr: ReadonlyTransaction,
@@ -157,25 +159,29 @@ const reducer =
     return state;
   };
 
-const { getPluginState, createPluginState } = pluginFactory(
-  listPluginKey,
-  reducer(),
-  {
-    onDocChanged: handleDocChanged,
-    onSelectionChanged: handleSelectionChanged,
-  },
-);
-
-const createInitialState = (state: EditorState) => {
-  return {
-    ...initialState,
-    decorationSet: getDecorations(state.doc, state),
+const createInitialState =
+  (featureFlags: FeatureFlags) => (state: EditorState) => {
+    return {
+      ...initialState,
+      decorationSet: getDecorations(state.doc, state, featureFlags),
+    };
   };
-};
 
-export const createPlugin = (eventDispatch: Dispatch): SafePlugin =>
-  new SafePlugin({
-    state: createPluginState(eventDispatch, createInitialState),
+export const createPlugin = (
+  eventDispatch: Dispatch,
+  featureFlags: FeatureFlags,
+): SafePlugin => {
+  const { getPluginState, createPluginState } = pluginFactory(
+    listPluginKey,
+    reducer(),
+    {
+      onDocChanged: handleDocChanged(featureFlags),
+      onSelectionChanged: handleSelectionChanged,
+    },
+  );
+
+  return new SafePlugin({
+    state: createPluginState(eventDispatch, createInitialState(featureFlags)),
     key: listPluginKey,
     props: {
       decorations(state) {
@@ -214,3 +220,4 @@ export const createPlugin = (eventDispatch: Dispatch): SafePlugin =>
       },
     },
   });
+};

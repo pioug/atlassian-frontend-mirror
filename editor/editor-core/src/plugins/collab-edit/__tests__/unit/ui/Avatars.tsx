@@ -10,6 +10,7 @@ import {
   LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 import { PluginState, pluginKey } from '../../../plugin';
 
@@ -32,6 +33,7 @@ describe('collab-edit | Avatars', () => {
     createEditor<PluginState, PluginKey>({
       doc,
       preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
         .add([collabEditPlugin, {}])
         .add(mentionsPlugin),
       pluginKey,
@@ -69,6 +71,7 @@ describe('collab-edit | Avatars', () => {
         <AvatarsWithPluginState
           editorView={editorView}
           inviteToEditComponent={CustomButton}
+          featureFlags={{}}
         />,
       );
 
@@ -82,7 +85,7 @@ describe('collab-edit | Avatars', () => {
       it('should not render inviteToEdit button', async () => {
         const { editorView } = editor(doc(p('text')));
         const node = mountWithIntl(
-          <AvatarsWithPluginState editorView={editorView} />,
+          <AvatarsWithPluginState editorView={editorView} featureFlags={{}} />,
         );
         expect(node.find(ToolbarButton).length).toEqual(0);
         node.unmount();
@@ -98,6 +101,7 @@ describe('collab-edit | Avatars', () => {
           <AvatarsWithPluginState
             editorView={editorView}
             inviteToEditHandler={() => {}}
+            featureFlags={{}}
           />,
         );
 
@@ -114,6 +118,7 @@ describe('collab-edit | Avatars', () => {
             <AvatarsWithPluginState
               editorView={editorView}
               inviteToEditHandler={inviteToEditHandler}
+              featureFlags={{}}
             />,
           );
           node.find(ToolbarButton).at(0).find('button').simulate('click');
@@ -132,6 +137,7 @@ describe('collab-edit | Avatars', () => {
               editorView={editorView}
               inviteToEditHandler={inviteToEditHandler}
               isInviteToEditButtonSelected={true}
+              featureFlags={{}}
             />,
           );
           expect(node.find(ToolbarButton).at(0).prop('selected')).toBe(true);

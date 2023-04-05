@@ -101,6 +101,7 @@ import hyperlinkPlugin from '../../../hyperlink';
 import listPlugin from '../../../list';
 import codeBlockPlugin from '../../../code-block';
 import textFormattingPlugin from '../../../text-formatting';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import layoutPlugin from '../../../layout';
 import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 import { setupProvider } from '../../../../__tests__/unit/plugins/card/_helpers';
@@ -209,6 +210,7 @@ describe('paste plugins', () => {
       providerFactory,
       attachTo,
       preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
         .add([pastePlugin, pasteOptions])
         .add([
           analyticsPlugin,

@@ -137,7 +137,7 @@ describe('Snapshot Test: sticky-headers', () => {
   it(`should have the header stick for a broken out table overflow`, async () => {
     await initEditor(page, stickyHeaderADF);
     await animationFrame(page);
-    const o = await scrollToPos(page, 9);
+    const o = await scrollToPos(page, 9, -210);
     await animationFrame(page);
     console.log('TOP:', o, 1750 - o!); // eslint-disable-line no-console
   });
@@ -145,7 +145,7 @@ describe('Snapshot Test: sticky-headers', () => {
   it(`should have the header stick for an table with overflow`, async () => {
     await initEditor(page, stickyHeaderADF);
     await animationFrame(page);
-    const o = await scrollToPos(page, 10);
+    const o = await scrollToPos(page, 10, -155);
     await animationFrame(page);
     console.log('TOP:', o, 2900 - o!); // eslint-disable-line no-console
   });
@@ -162,7 +162,7 @@ describe('Snapshot Test: sticky-headers', () => {
   it(`should have the header stick for an table within a layout`, async () => {
     await initEditor(page, stickyHeaderADF);
     await animationFrame(page);
-    const o = await scrollToPos(page, 12);
+    const o = await scrollToPos(page, 12, -120);
     await animationFrame(page);
     console.log('TOP:', o, 4500 - o!); // eslint-disable-line no-console
   });
@@ -177,7 +177,7 @@ describe('Snapshot Test: sticky-headers', () => {
   it(`should have both headers stick for an table with multiple headers`, async () => {
     await initEditor(page, stickyHeaderADF);
     await animationFrame(page);
-    const o = await scrollToPos(page, 14);
+    const o = await scrollToPos(page, 14, -130);
     await animationFrame(page);
     console.log('TOP:', o, 5170 - o!); // eslint-disable-line no-console
   });
@@ -185,7 +185,7 @@ describe('Snapshot Test: sticky-headers', () => {
   it(`should be able to scroll with mouse wheel even if mouse is hovering the stickied header row`, async () => {
     await initEditor(page, stickyHeaderADF);
     await animationFrame(page);
-    await scrollToPos(page, 9);
+    await scrollToPos(page, 9, -200);
     await animationFrame(page);
 
     // wait for header to become sticky

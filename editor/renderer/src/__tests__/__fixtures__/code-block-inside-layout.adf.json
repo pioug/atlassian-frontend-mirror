@@ -1,0 +1,52 @@
+{
+    "version": 1,
+    "type": "doc",
+    "content": [
+      {
+        "type": "layoutSection",
+        "content": [
+          {
+            "type": "layoutColumn",
+            "attrs": {
+              "width": 50
+            },
+            "content": [
+              {
+                "type": "codeBlock",
+                "attrs": {
+                  "language": "javascript"
+                },
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "// Create a map.\\nfinal IntIntOpenHashMap map = new IntIntOpenHashMap();\\nmap.put(1, 2);\\nmap.put(2, 5);\\nmap.put(3, 10);"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "layoutColumn",
+            "attrs": {
+              "width": 50
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "inside other section"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": []
+      }
+    ]
+  }

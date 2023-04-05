@@ -1,5 +1,6 @@
 import { NodeSpec, Node as PMNode, ParseRule } from 'prosemirror-model';
 import { N30 } from '../../utils/colors';
+import { BorderMarkDefinition } from '../marks/border';
 import { LinkDefinition } from '../marks/link';
 
 export type MediaType = 'file' | 'link' | 'external';
@@ -21,7 +22,7 @@ export interface MediaDefinition {
    */
   attrs: MediaADFAttrs;
 
-  marks?: Array<LinkDefinition>;
+  marks?: Array<LinkDefinition | BorderMarkDefinition>;
 }
 
 export interface MediaBaseAttributes {

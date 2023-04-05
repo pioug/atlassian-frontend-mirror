@@ -7,10 +7,13 @@ import {
   WrappedComponentProps,
 } from 'react-intl-next';
 import AkButton from '@atlaskit/button/custom-theme-button';
+import FocusLock from 'react-focus-lock';
 import { EmojiDescription } from '../../types';
 import { messages } from '../i18n';
 import CachingEmoji from './CachingEmoji';
-import EmojiErrorMessage from './EmojiErrorMessage';
+import EmojiErrorMessage, {
+  emojiErrorScreenreaderTestId,
+} from './EmojiErrorMessage';
 import RetryableButton from './RetryableButton';
 import {
   cancelButton,
@@ -18,14 +21,17 @@ import {
   deletePreview,
   deleteText,
   emojiDeleteErrorMessage,
+  headingH5,
   previewButtonGroup,
 } from './styles';
+import VisuallyHidden from '@atlaskit/visually-hidden';
 
 export interface OnDeleteEmoji {
   (emoji: EmojiDescription): Promise<boolean>;
 }
 
 export const emojiDeletePreviewTestId = 'emoji-delete-preview';
+const deleteEmojiLabelId = 'fabric.emoji.delete.label.id';
 
 export interface Props {
   emoji: EmojiDescription;
@@ -84,45 +90,51 @@ class EmojiDeletePreview extends Component<
     const { formatMessage } = intl;
 
     return (
-      <div css={deletePreview} data-testid={emojiDeletePreviewTestId}>
-        <div css={deleteText}>
-          <h5>
-            <FormattedMessage {...messages.deleteEmojiTitle} />
-          </h5>
-          <FormattedMessage
-            {...messages.deleteEmojiDescription}
-            values={{ emojiShortName: emoji.shortName }}
-          />
-        </div>
-        <div css={deleteFooter}>
-          <CachingEmoji emoji={emoji} />
-          <div css={previewButtonGroup}>
-            {error ? (
-              !loading ? (
-                <EmojiErrorMessage
-                  message={formatMessage(messages.deleteEmojiFailed)}
-                  messageStyles={emojiDeleteErrorMessage}
-                  tooltip
-                />
-              ) : null
-            ) : null}
-            <RetryableButton
-              label={formatMessage(messages.deleteEmojiLabel)}
-              onSubmit={this.onSubmit}
-              appearance="danger"
-              loading={loading}
-              error={error}
+      <FocusLock noFocusGuards>
+        <div css={deletePreview} data-testid={emojiDeletePreviewTestId}>
+          <div css={deleteText}>
+            <h2 css={headingH5}>
+              <FormattedMessage {...messages.deleteEmojiTitle} />
+            </h2>
+            <FormattedMessage
+              {...messages.deleteEmojiDescription}
+              values={{ emojiShortName: emoji.shortName }}
             />
-            <AkButton
-              appearance="subtle"
-              onClick={this.onCancel}
-              css={cancelButton}
-            >
-              <FormattedMessage {...messages.cancelLabel} />
-            </AkButton>
+          </div>
+          <div css={deleteFooter}>
+            <CachingEmoji emoji={emoji} />
+            <div css={previewButtonGroup}>
+              {error ? (
+                !loading ? (
+                  <EmojiErrorMessage
+                    message={formatMessage(messages.deleteEmojiFailed)}
+                    messageStyles={emojiDeleteErrorMessage}
+                    tooltip
+                  />
+                ) : null
+              ) : null}
+              <VisuallyHidden id={deleteEmojiLabelId}>
+                {formatMessage(messages.deleteEmojiLabel)}
+              </VisuallyHidden>
+              <RetryableButton
+                label={formatMessage(messages.deleteEmojiLabel)}
+                onSubmit={this.onSubmit}
+                appearance="danger"
+                loading={loading}
+                error={error}
+                ariaLabelledBy={`${emojiErrorScreenreaderTestId} ${deleteEmojiLabelId}`}
+              />
+              <AkButton
+                appearance="subtle"
+                onClick={this.onCancel}
+                css={cancelButton}
+              >
+                <FormattedMessage {...messages.cancelLabel} />
+              </AkButton>
+            </div>
           </div>
         </div>
-      </div>
+      </FocusLock>
     );
   }
 }

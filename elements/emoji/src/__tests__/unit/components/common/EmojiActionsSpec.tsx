@@ -96,19 +96,17 @@ describe('<EmojiActions />', () => {
       const toneSelector = await screen.findByTestId(toneSelectorTestId);
       expect(toneSelector).toBeVisible();
 
-      const toneSelectorToneOption1Emoji = await within(
-        toneSelector,
-      ).findByLabelText(':raised_back_of_hand:');
-      const toneSelectorToneOption2Emoji = await within(
-        toneSelector,
-      ).findByLabelText(':raised_back_of_hand-2:');
+      const toneSelectorToneOption1 = within(toneSelector)
+        .getByLabelText(':raised_back_of_hand:')
+        .closest('label');
+      const toneSelectorToneOption2 = within(toneSelector)
+        .getByLabelText(':raised_back_of_hand-2:')
+        .closest('label');
 
-      const toneSelectorToneOption1Input =
-        toneSelectorToneOption1Emoji.previousSibling; // radio input is on focus
-      // No tone selected, focus on default tone
-      expect(toneSelectorToneOption1Input).toHaveFocus();
+      // No tone selected, focus on default tone radop input
+      expect(within(toneSelectorToneOption1!).getByRole('radio')).toHaveFocus();
 
-      fireEvent.mouseDown(toneSelectorToneOption2Emoji);
+      fireEvent.mouseDown(toneSelectorToneOption2!);
 
       expect(screen.queryByTestId(toneSelectorTestId)).not.toBeVisible();
 
@@ -325,7 +323,7 @@ describe('<EmojiActions />', () => {
       expect(await screen.findByTestId(toneSelectorTestId)).toBeInTheDocument();
 
       // Validate search bar does not exist
-      expect(screen.queryByLabelText('Emoji name')).toBeNull();
+      expect(screen.getByLabelText('Emoji name')).not.toBeVisible();
     });
 
     it('should stop selecting tone and show EmojiPickerListSearch on mouse leave', async () => {

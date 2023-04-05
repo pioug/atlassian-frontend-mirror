@@ -34,11 +34,13 @@ import datePlugin from '../../index';
 import quickInsertPlugin from '../../../quick-insert';
 import typeAheadPlugin from '../../../type-ahead';
 import codeBlockPlugin from '../../../code-block';
+import editorDisabledPlugin from '../../../editor-disabled';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import { pluginKey } from '../../pm-plugins/plugin-key';
 import { parseDateType } from '../../utils/formatParse';
 import { DatePluginState } from '../../pm-plugins/types';
 import { DateType } from '../../types';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 describe('date plugin', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -49,6 +51,8 @@ describe('date plugin', () => {
     return createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
+        .add(editorDisabledPlugin)
         .add(datePlugin)
         .add([analyticsPlugin, { createAnalyticsEvent }])
         .add(typeAheadPlugin)

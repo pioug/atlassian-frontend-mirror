@@ -11,6 +11,7 @@ import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import basePlugin from '../../../plugins/base';
 import { EditorView } from 'prosemirror-view';
 import { replaceRaf } from 'raf-stub';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 const portalProviderAPI: any = {
   render() {},
@@ -63,7 +64,7 @@ describe('ReactEditorView: plugin injection API', () => {
                       editorView = _editorView;
                       return {
                         update() {
-                          api?.externalPlugins.one.sharedState.currentState();
+                          api?.dependencies.one.sharedState.currentState();
                         },
                       };
                     },
@@ -75,6 +76,7 @@ describe('ReactEditorView: plugin injection API', () => {
       };
 
       const preset = new EditorPresetBuilder()
+        .add([featureFlagsPlugin, {}])
         .add(basePlugin)
         .add(plugin1)
         .add(plugin2);
@@ -99,7 +101,7 @@ describe('ReactEditorView: plugin injection API', () => {
         return {
           name: 'one',
           getSharedState: (editorState) => {
-            if (editorState.doc.textContent === 'lol') {
+            if (editorState?.doc.textContent === 'lol') {
               return 12;
             }
             return 1;
@@ -110,7 +112,7 @@ describe('ReactEditorView: plugin injection API', () => {
         'two',
         { dependencies: [typeof plugin1] }
       > = (_, api) => {
-        api?.externalPlugins.one.sharedState.onChange(fakefn);
+        api?.dependencies.one.sharedState.onChange(fakefn);
         return {
           name: 'two',
           pmPlugins: () => {
@@ -131,6 +133,7 @@ describe('ReactEditorView: plugin injection API', () => {
       };
 
       const preset = new EditorPresetBuilder()
+        .add([featureFlagsPlugin, {}])
         .add(basePlugin)
         .add(plugin1)
         .add(plugin2);
@@ -165,13 +168,14 @@ describe('ReactEditorView: plugin injection API', () => {
       'two',
       { dependencies: [typeof plugin1] }
     > = (_, api) => {
-      api?.externalPlugins.one.sharedState.onChange(fakefn);
+      api?.dependencies.one.sharedState.onChange(fakefn);
       return {
         name: 'two',
       };
     };
 
     const preset = new EditorPresetBuilder()
+      .add([featureFlagsPlugin, {}])
       .add(basePlugin)
       .add(plugin1)
       .add(plugin2);

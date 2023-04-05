@@ -28,7 +28,7 @@ describe('typeahead: mouse navigation', () => {
 
   describe('typeahead: mouse navigation', () => {
     BrowserTestCase(
-      'initial render and then Arrow Down should always highlight first item',
+      'initial render and then Arrow Down should always highlight the second item',
       { skip: [] },
       async (client: any, testName: string) => {
         const page = await startEditor(client, spaceAtEnd);
@@ -38,7 +38,7 @@ describe('typeahead: mouse navigation', () => {
         await page.keys('ArrowDown');
         const selectedItem = await page.$(SELECTED_ITEM_SELECTOR);
         expect(await selectedItem.getAttribute('aria-label')).toEqual(
-          'Action item',
+          'Mention',
         );
       },
     );

@@ -1,8 +1,6 @@
 import { bindAll } from 'bind-event-listener';
 
-import { DragLocationHistory } from '../internal-types';
-
-import { combine } from './combine';
+import type { DragLocation } from '../internal-types';
 
 type CleanupFn = () => void;
 
@@ -10,65 +8,64 @@ type CleanupFn = () => void;
  *
  * @returns a `cleanup` function to restore the `style` property to it's original state
  */
-function setStyle<Property extends string & keyof CSSStyleDeclaration>(
+function setStyle(
   el: HTMLElement,
   {
     property,
     rule,
-  }: { property: Property; rule: CSSStyleDeclaration[Property] },
+    priority = '',
+  }: { property: string; rule: string; priority?: 'important' | '' },
 ): CleanupFn {
-  const original = el.style[property];
-  el.style[property] = rule;
+  const originalValue = el.style.getPropertyValue(property);
+  const originalPriority = el.style.getPropertyPriority(property);
+  el.style.setProperty(property, rule, priority);
   return function cleanup() {
-    el.style[property] = original;
+    el.style.setProperty(property, originalValue, originalPriority);
   };
 }
 
-function noop() {}
-
 /**
- * Allow the user to continue to interact with what their cursor is over at the end of the drag.
- *
- * @description
- *
- * 1. Allow pointer events on the element under the users pointer
- * 2. Block pointer events for all children
- *      This is done as the element under the users pointer might
- *      contain elements that will incorrectly get browser selection
+ * Allow the user to continue to interact with the element their pointer is over at the end of the drag.
+ * This is important to allow the user to be able to click, drag (etc) after they have finished a drag
  *
  * @returns a `cleanup` function to restore all elements under the users pointer to their original state
  */
-function fixUnderPointer(location: DragLocationHistory): CleanupFn {
+function allowPointerEventsOnElementUnderPointer({
+  current,
+}: {
+  current: DragLocation;
+}): CleanupFn | null {
   const underUsersPointer = document.elementFromPoint(
-    location.current.input.clientX,
-    location.current.input.clientY,
+    current.input.clientX,
+    current.input.clientY,
   );
   if (!(underUsersPointer instanceof HTMLElement)) {
-    return noop;
+    return null;
   }
 
-  // Disabling pointer events on all first level children
-  // Equivalent of '> * { pointer-events: none; }', except we don't need
-  // to insert / remove a style rule
-  const unsetChildren: CleanupFn[] = Array.from(underUsersPointer.children).map(
-    (child): CleanupFn => {
-      if (!(child instanceof HTMLElement)) {
-        return noop;
-      }
-      return setStyle(child, {
-        property: 'pointerEvents',
-        rule: 'none',
-      });
-    },
-  );
+  // Debug note: change from 'pointer-events: none' to 'background: green'
+  // to get a better sense of what is being achieved
+  return setStyle(underUsersPointer, {
+    property: 'pointer-events',
+    rule: 'auto',
+    priority: 'important',
+  });
+}
 
-  return combine(
-    setStyle(underUsersPointer, {
-      property: 'pointerEvents',
-      rule: 'auto',
-    }),
-    ...unsetChildren,
-  );
+function blockPointerEventsOnEverything(): CleanupFn {
+  const element = document.createElement('style');
+  // Adding a data attribute so to make it super clear to consumers
+  // (and to our tests) what this temporary style tag is for
+  element.setAttribute('pdnd-post-drag-fix', 'true');
+  document.head.appendChild(element);
+
+  // Debug note: change from 'pointer-events: none' to 'background: red'
+  // to get a better sense of what is being achieved
+  element.sheet?.insertRule('* { pointer-events: none !important; }');
+
+  return function cleanup() {
+    document.head.removeChild(element);
+  };
 }
 
 /** 🔥🤮 Fix (Chrome, Safari and Firefox) bug where the element under where the user started dragging
@@ -78,38 +75,28 @@ function fixUnderPointer(location: DragLocationHistory): CleanupFn {
  *
  * Block pointer events on all elements except for the specific element that pointer is currently over
  *
- * Conceptually this is what we are doing (but without adding any new style rules to the page)
- * ```css
- * body { pointer-events: none; }
- * elementUnderPointer { pointer-events: auto; }
- * elementUnderPointer > * { pointer-events: none; }
- * ```
- *
  * - [Visual explanation of bug](https://twitter.com/alexandereardon/status/1633614212873465856)
  * - [Chrome bug](https://bugs.chromium.org/p/chromium/issues/detail?id=410328)
  */
-export function fixPostDragPointerBug(location: DragLocationHistory) {
+export function fixPostDragPointerBug({ current }: { current: DragLocation }) {
   // Queuing a microtask to give any opportunity for frameworks to update their UI in a microtask
   // Note: react@18 does standard state updates in a microtask
   // We do this so our `atDestination` gets the _actual_ element that is under the users pointer
   // at the end of the drag.
   queueMicrotask(() => {
-    // we need to get `atDestination` before turning off pointer events on the body,
-    // or `document.elementFromPoint` will just return the `html` element (`document.documentElement`)
-
-    // We are allowing pointer events on the element under the users cursor,
-    // but _not_ on children of that element
-    const unsetUnderPointer = fixUnderPointer(location);
-
-    const unsetBodyStyles = setStyle(document.body, {
-      property: 'pointerEvents',
-      rule: 'none',
+    const undoUnderPointer = allowPointerEventsOnElementUnderPointer({
+      current,
     });
+
+    // This will also block pointer-events on the children of the element under the users pointer.
+    // This is what we want. If the user drops on a container element we don't want the children
+    // of the container to be incorrectly entered into
+    const undoGlobalBlock = blockPointerEventsOnEverything();
 
     function cleanup() {
       unbindEvents();
-      unsetBodyStyles();
-      unsetUnderPointer();
+      undoUnderPointer?.();
+      undoGlobalBlock();
     }
 
     const unbindEvents = bindAll(

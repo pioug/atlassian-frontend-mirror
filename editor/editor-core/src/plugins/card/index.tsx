@@ -6,13 +6,18 @@ import { floatingToolbar } from './toolbar';
 import { EditorSmartCardEvents } from './ui/EditorSmartCardEvents';
 import { cardKeymap } from './pm-plugins/keymap';
 import { CardPluginOptions } from './types';
+import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 const cardPlugin: NextEditorPlugin<
   'card',
   {
     pluginConfiguration: CardPluginOptions;
+    dependencies: [typeof featureFlagsPlugin];
   }
-> = (options) => {
+> = (options, api) => {
+  const featureFlags =
+    api?.dependencies?.featureFlags?.sharedState.currentState() || {};
+
   return {
     name: 'card',
 
@@ -66,6 +71,7 @@ const cardPlugin: NextEditorPlugin<
     pluginsOptions: {
       floatingToolbar: floatingToolbar(
         options,
+        featureFlags,
         options.platform,
         options.linkPicker,
       ),

@@ -1,4 +1,4 @@
-import { transformSync } from '@babel/core';
+import { TransformOptions, transformSync } from '@babel/core';
 
 import babelPlugin from '../plugin';
 
@@ -21,7 +21,11 @@ jest.mock('../../artifacts/token-default-values', () => ({
 }));
 
 const transform =
-  (shouldUseAutoFallback = false, transformTemplateLiterals = false) =>
+  (
+    shouldUseAutoFallback = false,
+    transformTemplateLiterals = false,
+    options: TransformOptions = {},
+  ) =>
   (code: TemplateStringsArray | string): string => {
     const plugins: any = [
       [
@@ -39,6 +43,8 @@ const transform =
       configFile: false,
       babelrc: false,
       plugins: plugins,
+      filename: 'foo.tsx',
+      ...options,
     });
 
     if (!result?.code) {
@@ -251,6 +257,34 @@ const getStyles = css => css\`
 
     expect(actual).toMatchInlineSnapshot(`
       "import { token } from 'foobar';
+      token('test-token');"
+    `);
+  });
+
+  it('Ignores token functions in node_modules directories', () => {
+    const actual = transform(false, false, {
+      filename: 'node_modules/foo/bar.tsx',
+    })`
+      import { token } from '@atlaskit/tokens';
+      token('test-token');
+    `;
+
+    expect(actual).toMatchInlineSnapshot(`
+      "import { token } from '@atlaskit/tokens';
+      token('test-token');"
+    `);
+  });
+
+  it('Ignores token functions in nested node_modules directories', () => {
+    const actual = transform(false, false, {
+      filename: 'packages/foo/node_modules/bar/bar.tsx',
+    })`
+      import { token } from '@atlaskit/tokens';
+      token('test-token');
+    `;
+
+    expect(actual).toMatchInlineSnapshot(`
+      "import { token } from '@atlaskit/tokens';
       token('test-token');"
     `);
   });

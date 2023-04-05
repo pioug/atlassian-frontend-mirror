@@ -1,5 +1,25 @@
 # @atlaskit/emoji
 
+## 67.3.0
+
+### Minor Changes
+
+- [`f31280da145`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f31280da145) - fix category reset when tone changed, update error message translations, improve error message for screen reader, improve auto focus on choose file screen
+
+### Patch Changes
+
+- [`e8ff53a79be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e8ff53a79be) - minor accessibility improvements in emoji picker
+- [`53c4778831c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/53c4778831c) - [ux] add keyboard support for delete emoji
+- [`3256c34030f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3256c34030f) - Fix picker so that it always highlights the first category when first opened
+- [`788a4d63c82`](https://bitbucket.org/atlassian/atlassian-frontend/commits/788a4d63c82) - fix focus issue with tone selector
+- [`10ae56adac7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/10ae56adac7) - fix: emoji is shown as grey box after successfully uploading
+
+## 67.2.1
+
+### Patch Changes
+
+- [`a73ef9ebecb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a73ef9ebecb) - Add ssr rendering metadata to resourced emoji loaded experience
+
 ## 67.2.0
 
 ### Minor Changes

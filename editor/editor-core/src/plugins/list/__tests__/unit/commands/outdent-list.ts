@@ -27,7 +27,7 @@ import listPlugin from '../../..';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import { setTextSelection } from '../../../../../utils';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
-import featureFlagsPlugin from '../../../../feature-flags-context';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 describe('lists plugin -> commands -> outdentList', () => {
   const createProseMirrorEditor = createProsemirrorEditorFactory();
@@ -39,10 +39,10 @@ describe('lists plugin -> commands -> outdentList', () => {
 
   const editor = (doc: DocBuilder, featureFlags: FeatureFlags = {}) => {
     const preset = new Preset<LightEditorPlugin>()
+      .add([featureFlagsPlugin, featureFlags])
       .add([listPlugin, featureFlags])
       .add(tablesPlugin)
-      .add([analyticsPlugin, { createAnalyticsEvent }])
-      .add([featureFlagsPlugin, featureFlags]);
+      .add([analyticsPlugin, { createAnalyticsEvent }]);
 
     return createProseMirrorEditor({
       doc,
@@ -77,7 +77,7 @@ describe('lists plugin -> commands -> outdentList', () => {
         );
         const { editorView } = editor(document);
 
-        outdentList(INPUT_METHOD.KEYBOARD)(
+        outdentList(INPUT_METHOD.KEYBOARD, {})(
           editorView.state,
           editorView.dispatch,
         );
@@ -111,7 +111,7 @@ describe('lists plugin -> commands -> outdentList', () => {
         );
         const { editorView } = editor(document);
 
-        outdentList(INPUT_METHOD.KEYBOARD)(
+        outdentList(INPUT_METHOD.KEYBOARD, {})(
           editorView.state,
           editorView.dispatch,
         );
@@ -143,7 +143,7 @@ describe('lists plugin -> commands -> outdentList', () => {
         );
         const { editorView } = editor(document);
 
-        outdentList(INPUT_METHOD.KEYBOARD)(
+        outdentList(INPUT_METHOD.KEYBOARD, {})(
           editorView.state,
           editorView.dispatch,
         );
@@ -175,7 +175,7 @@ describe('lists plugin -> commands -> outdentList', () => {
         );
         const { editorView } = editor(document);
 
-        outdentList(INPUT_METHOD.KEYBOARD)(
+        outdentList(INPUT_METHOD.KEYBOARD, {})(
           editorView.state,
           editorView.dispatch,
         );
@@ -217,7 +217,7 @@ describe('lists plugin -> commands -> outdentList', () => {
         );
         const { editorView } = editor(document);
 
-        outdentList(INPUT_METHOD.KEYBOARD)(
+        outdentList(INPUT_METHOD.KEYBOARD, {})(
           editorView.state,
           editorView.dispatch,
         );
@@ -259,7 +259,7 @@ describe('lists plugin -> commands -> outdentList', () => {
         );
         const { editorView } = editor(document);
 
-        outdentList(INPUT_METHOD.KEYBOARD)(
+        outdentList(INPUT_METHOD.KEYBOARD, {})(
           editorView.state,
           editorView.dispatch,
         );
@@ -309,7 +309,7 @@ describe('lists plugin -> commands -> outdentList', () => {
         const { selStart, selEnd } = refs;
         setTextSelection(editorView, selStart, selEnd);
 
-        const result = outdentList(INPUT_METHOD.KEYBOARD)(
+        const result = outdentList(INPUT_METHOD.KEYBOARD, {})(
           editorView.state,
           editorView.dispatch,
         );
@@ -362,7 +362,7 @@ describe('lists plugin -> commands -> outdentList', () => {
             )
           );
           const { editorView } = editor(document);
-          outdentList(INPUT_METHOD.KEYBOARD)(
+          outdentList(INPUT_METHOD.KEYBOARD, {})(
             editorView.state,
             editorView.dispatch,
           );
@@ -386,7 +386,7 @@ describe('lists plugin -> commands -> outdentList', () => {
             )
           );
           const { editorView } = editor(document);
-          outdentList(INPUT_METHOD.KEYBOARD)(
+          outdentList(INPUT_METHOD.KEYBOARD, {})(
             editorView.state,
             editorView.dispatch,
           );
@@ -413,7 +413,7 @@ describe('lists plugin -> commands -> outdentList', () => {
             )
           );
           const { editorView } = editor(document, featureFlags);
-          outdentList(INPUT_METHOD.KEYBOARD)(
+          outdentList(INPUT_METHOD.KEYBOARD, featureFlags)(
             editorView.state,
             editorView.dispatch,
           );
@@ -444,7 +444,7 @@ describe('lists plugin -> commands -> outdentList', () => {
             )
           );
           const { editorView } = editor(document, featureFlags);
-          outdentList(INPUT_METHOD.KEYBOARD)(
+          outdentList(INPUT_METHOD.KEYBOARD, featureFlags)(
             editorView.state,
             editorView.dispatch,
           );
@@ -471,7 +471,7 @@ describe('lists plugin -> commands -> outdentList', () => {
             )
           );
           const { editorView } = editor(document, featureFlags);
-          outdentList(INPUT_METHOD.KEYBOARD)(
+          outdentList(INPUT_METHOD.KEYBOARD, featureFlags)(
             editorView.state,
             editorView.dispatch,
           );
@@ -507,7 +507,7 @@ describe('lists plugin -> commands -> outdentList', () => {
             )
           );
           const { editorView } = editor(document, featureFlags);
-          outdentList(INPUT_METHOD.KEYBOARD)(
+          outdentList(INPUT_METHOD.KEYBOARD, featureFlags)(
             editorView.state,
             editorView.dispatch,
           );
@@ -540,7 +540,7 @@ describe('lists plugin -> commands -> outdentList', () => {
             )
           );
           const { editorView } = editor(document, featureFlags);
-          outdentList(INPUT_METHOD.KEYBOARD)(
+          outdentList(INPUT_METHOD.KEYBOARD, featureFlags)(
             editorView.state,
             editorView.dispatch,
           );
@@ -566,7 +566,7 @@ describe('lists plugin -> commands -> outdentList', () => {
             )
           );
           const { editorView } = editor(document, featureFlags);
-          outdentList(INPUT_METHOD.KEYBOARD)(
+          outdentList(INPUT_METHOD.KEYBOARD, featureFlags)(
             editorView.state,
             editorView.dispatch,
           );

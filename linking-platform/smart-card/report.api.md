@@ -240,6 +240,7 @@ export const Card: React_2.ForwardRefExoticComponent<
     | 'container'
     | 'data'
     | 'embedIframeRef'
+    | 'embedIframeUrlType'
     | 'forwardedRef'
     | 'frameStyle'
     | 'id'
@@ -294,6 +295,8 @@ export interface CardProps extends WithAnalyticsEventsProps {
   data?: any;
   // (undocumented)
   embedIframeRef?: React.Ref<HTMLIFrameElement>;
+  // (undocumented)
+  embedIframeUrlType?: EmbedIframeUrlType;
   frameStyle?: FrameStyle;
   // (undocumented)
   id?: string;
@@ -511,6 +514,9 @@ export { EmbedCardAdf };
 
 // @public (undocumented)
 export const embedHeaderHeight = 32;
+
+// @public (undocumented)
+type EmbedIframeUrlType = 'href' | 'interactiveHref';
 
 // @public (undocumented)
 export class EmbedResizeMessageListener extends React_2.Component<

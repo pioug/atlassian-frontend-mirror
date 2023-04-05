@@ -11,8 +11,8 @@ import { LinkInputType, LinkPickerOptions } from '../../types';
 import { INPUT_METHOD } from '../../../analytics/types';
 import { stateKey as pluginKey } from '../../pm-plugins/main';
 import WithPluginState from '../../../../ui/WithPluginState';
-import { getFeatureFlags } from '../../../feature-flags-context';
 import { EditorLinkPicker, EditorLinkPickerProps } from '../EditorLinkPicker';
+import { FeatureFlags } from '@atlaskit/editor-common/types';
 
 export interface Props
   extends Pick<EditorLinkPickerProps, 'onCancel' | 'invokeMethod'> {
@@ -24,6 +24,7 @@ export interface Props
     displayText: string | undefined,
     inputMethod: LinkInputType,
   ) => void;
+  featureFlags: FeatureFlags;
   linkPickerOptions?: LinkPickerOptions;
   displayText?: string;
   displayUrl?: string;
@@ -56,6 +57,7 @@ export default class HyperlinkAddToolbar extends React.PureComponent<Props> {
       view,
       onCancel,
       invokeMethod,
+      featureFlags,
     } = this.props;
 
     return (
@@ -69,7 +71,7 @@ export default class HyperlinkAddToolbar extends React.PureComponent<Props> {
               hyperlinkPluginState: pluginKey,
             }}
             render={({ hyperlinkPluginState }) => {
-              const { lpLinkPicker } = getFeatureFlags(view.state);
+              const { lpLinkPicker } = featureFlags;
 
               if (lpLinkPicker) {
                 return (

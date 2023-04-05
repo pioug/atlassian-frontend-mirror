@@ -11,7 +11,9 @@ import { customCategory } from '../../util/constants';
 import { EmojiDescription, Message } from '../../types';
 import { messages } from '../i18n';
 import Emoji from './Emoji';
-import EmojiErrorMessage from './EmojiErrorMessage';
+import EmojiErrorMessage, {
+  emojiErrorScreenreaderTestId,
+} from './EmojiErrorMessage';
 import { UploadStatus } from './internal-types';
 import RetryableButton from './RetryableButton';
 import {
@@ -36,8 +38,8 @@ export interface EmojiUploadPreviewProps {
 
 export const uploadPreviewTestId = 'upload-preview';
 export const cancelUploadButtonTestId = 'cancel-upload-button';
-const addEmojiButtonDescriptionId =
-  'add.emoji.button.screen.reader.description.id';
+const addEmojiPreviewDescriptionId = 'fabric.emoji.preview.description.id';
+const addEmojiButtonLabelId = 'fabric.emoji.add.label.id';
 
 class EmojiUploadPreview extends PureComponent<
   EmojiUploadPreviewProps & WrappedComponentProps,
@@ -98,20 +100,26 @@ class EmojiUploadPreview extends PureComponent<
             />
           ) : null}
           {!errorMessage && (
-            <VisuallyHidden id={addEmojiButtonDescriptionId}>
+            <VisuallyHidden id={addEmojiPreviewDescriptionId}>
               <FormattedMessage
                 {...messages.emojiPreview}
                 values={{ emoji: name }}
               />
             </VisuallyHidden>
           )}
+          <VisuallyHidden id={addEmojiButtonLabelId}>
+            {errorMessage
+              ? formatMessage(messages.retryLabel)
+              : formatMessage(messages.addEmojiLabel)}
+          </VisuallyHidden>
           <RetryableButton
             label={formatMessage(messages.addEmojiLabel)}
             onSubmit={onAddEmoji}
             appearance="primary"
             loading={uploading}
             error={!!errorMessage}
-            ariaDescribedby={addEmojiButtonDescriptionId}
+            ariaDescribedBy={addEmojiPreviewDescriptionId}
+            ariaLabelledBy={`${emojiErrorScreenreaderTestId} ${addEmojiButtonLabelId}`}
           />
           <AkButton
             onClick={onUploadCancelled}

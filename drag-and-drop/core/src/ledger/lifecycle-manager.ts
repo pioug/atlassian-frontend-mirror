@@ -4,7 +4,6 @@ import {
   AllDragTypes,
   DragInterface,
   DragLocation,
-  DragLocationHistory,
   DropTargetAPI,
   DropTargetRecord,
   EventPayloadMap,
@@ -75,45 +74,31 @@ function start<DragType extends AllDragTypes>({
     dragInterface,
     getDropTargetsOver,
   });
-  let state: DragLocationHistory = {
-    initial,
-    current: initial,
-    // no 'previous' when we first start dragging
-    previous: { dropTargets: [] },
-  };
-  function updateState({ next }: { next: DragLocation }): void {
-    const newState: Readonly<DragLocationHistory> = {
-      initial,
-      previous: {
-        dropTargets: state.current.dropTargets,
-      },
-      current: next,
-    };
-    state = newState;
-  }
-
-  setDropEffect({ event, current: state.initial.dropTargets });
+  let current: DragLocation = initial;
+  // Setting initial drop effect for the drag
+  setDropEffect({ event, current: initial.dropTargets });
 
   const dispatch = makeDispatch<DragType>({
     source: dragInterface.payload,
     dispatchEvent,
+    initial,
   });
 
   function updateDropTargets(next: DragLocation) {
     // only looking at whether hierarchy has changed to determine whether something as 'changed'
     const hasChanged = hasHierarchyChanged({
-      current: state.current.dropTargets,
+      current: current.dropTargets,
       next: next.dropTargets,
     });
 
     // Always updating the state to include latest data, dropEffect and stickiness
     // Only updating consumers if the hierarchy has changed in some way
     // Consumers can get the latest data by using `onDrag`
-    updateState({ next });
+    current = next;
 
     if (hasChanged) {
       dispatch.dragUpdate({
-        location: state,
+        current,
       });
     }
   }
@@ -125,7 +110,7 @@ function start<DragType extends AllDragTypes>({
       target: event.target,
       input,
       source: dragInterface.payload,
-      current: state.current.dropTargets,
+      current: current.dropTargets,
     });
 
     if (nextDropTargets.length) {
@@ -138,33 +123,30 @@ function start<DragType extends AllDragTypes>({
     updateDropTargets({ dropTargets: nextDropTargets, input });
   }
 
-  function cancel() {
-    // The spec behaviour is that when a drop is cancelled,
-    // a 'dragleave' event is fired on the active drop target
-    // before a `dragend` event.
-    // We are replicating that behaviour here
-
-    // If there are any active drop targets we will create
-    // and update event to leave them
-    if (state.current.dropTargets.length) {
-      updateState({
-        next: {
-          // clear the drop targets
-          dropTargets: [],
-          // keep the same input
-          input: state.current.input,
-        },
-      });
-
-      dispatch.dragUpdate({
-        location: state,
-      });
-    }
-
+  function onDrop({
+    updatedExternalPayload,
+  }: {
+    updatedExternalPayload: Record<string, unknown> | null;
+  }) {
     dispatch.drop({
-      location: state,
-      updatedExternalPayload: null,
+      current,
+      updatedExternalPayload,
     });
+  }
+
+  function cancel() {
+    // The spec behaviour is that when a drag is cancelled, or when dropping on no drop targets,
+    // a "dragleave" event is fired on the active drop target before a "dragend" event.
+    // We are replicating that behaviour in `cancel` if there are any active drop targets to
+    // ensure consistent behaviour.
+    //
+    // Note: When cancelling, or dropping on no drop targets, a "dragleave" event
+    // will have already cleared the dropTargets to `[]` (as that particular "dragleave" has a `relatedTarget` of `null`)
+
+    if (current.dropTargets.length) {
+      updateDropTargets({ dropTargets: [], input: current.input });
+    }
+    onDrop({ updatedExternalPayload: null });
 
     finish();
   }
@@ -197,8 +179,9 @@ function start<DragType extends AllDragTypes>({
           onUpdateEvent(event);
 
           // 2. let consumers know a move has occurred
+          // This will include the latest 'input' values
           dispatch.drag({
-            location: state,
+            current,
           });
         },
       },
@@ -206,18 +189,34 @@ function start<DragType extends AllDragTypes>({
         type: 'dragenter',
         listener: onUpdateEvent,
       },
+
       {
         // This was the only reliable cross browser way I found to detect
         // when the user is leaving the `window`.
-        // When we leave the `window` we want to clear any active drop targets,
+        // Internal drags: when we leave the `window` we want to clear any active drop targets,
         // but the drag is not yet over. The user could drag back into the window.
         // We only need to do this because of stickiness
+        // External drags: when we leave the `window` the drag operation is over,
+        // we will start another drag operation
         type: 'dragleave',
         listener(event: DragEvent) {
           if (!isLeavingWindow({ dragLeave: event })) {
             return;
           }
-          updateDropTargets({ input: getInput(event), dropTargets: [] });
+          // When a drag is ending without a drop target (or when the drag is cancelled),
+          // All browsers fire:
+          // 1. "drag"
+          // 2. "dragleave"
+          // These events have `event.relatedTarget == null` so this code path is also hit in those cases.
+          // This is all good! We would be clearing the dropTargets in `cancel()` after the "dragend"
+
+          // 🐛 Bug workaround: intentionally not updating `input` in "dragleave"
+          // In Chrome, this final "dragleave" has default input values (eg clientX == 0)
+          // rather than the users current input values
+          //
+          // - [Conversation](https://twitter.com/alexandereardon/status/1642697633864241152)
+          // - [Bug](https://bugs.chromium.org/p/chromium/issues/detail?id=1429937)
+          updateDropTargets({ input: current.input, dropTargets: [] });
           if (dragInterface.startedFrom === 'external') {
             cancel();
           }
@@ -226,20 +225,15 @@ function start<DragType extends AllDragTypes>({
       {
         type: 'drop',
         listener(event: DragEvent) {
-          // this can only happen if the browser allowed the drop
-
-          if (dragInterface.startedFrom === 'external') {
-            dragInterface.key;
-          }
+          // A "drop" can only happen if the browser allowed the drop
 
           // Opting out of standard browser drop behaviour for the drag
           event.preventDefault();
 
           // applying the latest drop effect to the event
-          setDropEffect({ event, current: state.current.dropTargets });
+          setDropEffect({ event, current: current.dropTargets });
 
-          dispatch.drop({
-            location: state,
+          onDrop({
             updatedExternalPayload:
               dragInterface.startedFrom === 'external'
                 ? dragInterface.getDropPayload?.(event) || null
@@ -251,7 +245,7 @@ function start<DragType extends AllDragTypes>({
           // Applying this fix after `dispatch.drop` so that frameworks have the opportunity
           // to update UI in response to a "onDrop".
           if (dragInterface.startedFrom === 'internal') {
-            fixPostDragPointerBug(state);
+            fixPostDragPointerBug({ current });
           }
         },
       },
@@ -268,7 +262,7 @@ function start<DragType extends AllDragTypes>({
           // Applying this fix after `dispatch.drop` so that frameworks have the opportunity
           // to update UI in response to a "onDrop".
           if (dragInterface.startedFrom === 'internal') {
-            fixPostDragPointerBug(state);
+            fixPostDragPointerBug({ current });
           }
         },
       },
@@ -325,7 +319,6 @@ function start<DragType extends AllDragTypes>({
   );
 
   dispatch.start({
-    location: state,
     nativeSetDragImage: getNativeSetDragImage(event),
   });
 }

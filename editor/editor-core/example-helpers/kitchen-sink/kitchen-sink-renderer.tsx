@@ -43,6 +43,7 @@ export const KitchenSinkRenderer: React.StatelessComponent<KitchenSinkRendererPr
               enableDownloadButton: true,
             }}
             allowCopyToClipboard={true}
+            allowWrapCodeBlock={true}
             useSpecBasedValidator={true}
             allowSelectAllTrap
             featureFlags={props.featureFlags}

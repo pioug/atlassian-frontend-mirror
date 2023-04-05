@@ -24,6 +24,7 @@ import {
   EmojiResponse,
   EmojiSearchResult,
   EmojiUpload,
+  ImageRepresentation,
   OptionalEmojiDescription,
   OptionalEmojiDescriptionWithVariations,
   OptionalUser,
@@ -750,6 +751,13 @@ export default class UploadingEmojiResource
         return Promise.reject('No media api support is configured');
       }
       return this.siteEmojiResource.uploadEmoji(upload, retry).then((emoji) => {
+        // Use file preview blob URL to temporarily fix the graybox issue after uploading,
+        // Because the media service takes time to process the image.
+        // Ideally should improve CachingMediaImage by using mediaClient or mediaImage,
+        // But that requires more efforts in FE & BE.
+        // TODO: revist this when pick up COLLAB-2294
+        (emoji.representation as ImageRepresentation).imagePath =
+          upload.dataURL;
         this.addUnknownEmoji(emoji);
         this.refreshLastFilter();
         return emoji;

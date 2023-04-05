@@ -93,8 +93,12 @@ export class UploadServiceImpl implements UploadService {
     const mediaClient = shouldCopyFileToRecents
       ? tenantMediaClient
       : userMediaClient;
+
+    const { collection: collectionTentant, expireAfter } =
+      this.tenantUploadParams;
+
     const collection = shouldCopyFileToRecents
-      ? this.tenantUploadParams.collection
+      ? collectionTentant
       : RECENTS_COLLECTION;
 
     if (!mediaClient) {
@@ -110,6 +114,7 @@ export class UploadServiceImpl implements UploadService {
         fileId: replaceFileId || uuidV4(),
         occurrenceKey: uuidV4(),
         collection,
+        expireAfter,
       });
     }
     const traceContext: MediaTraceContext = {

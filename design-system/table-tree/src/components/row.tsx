@@ -1,5 +1,8 @@
+/** @jsx jsx */
 /* eslint-disable @repo/internal/react/no-clone-element */
 import React, { Component, Fragment } from 'react';
+
+import { css, jsx } from '@emotion/react';
 
 import {
   createAndFireEvent,
@@ -11,6 +14,10 @@ import toItemId from '../utils/to-item-id';
 
 import Chevron from './internal/chevron';
 import { TreeRowContainer } from './internal/styled';
+
+const treeRowClickableStyles = css({
+  cursor: 'pointer',
+});
 
 const packageName = process.env._PACKAGE_NAME_;
 const packageVersion = process.env._PACKAGE_VERSION_;
@@ -41,6 +48,17 @@ class Row extends Component<any, any> {
       }
     }
   }
+
+  /**
+   * This ensures a user won't trigger a click event and expand the accordion
+   * when making a text selection.
+   */
+  onClickHandler = (e: React.MouseEvent) => {
+    const selection = window.getSelection()?.toString() || '';
+    if (selection?.length === 0) {
+      this.onExpandToggle();
+    }
+  };
 
   onExpandToggle = () => {
     const { isExpanded } = this.props;
@@ -90,7 +108,8 @@ class Row extends Component<any, any> {
   }
 
   render() {
-    const { hasChildren, depth, renderChildren } = this.props;
+    const { shouldExpandOnClick, hasChildren, depth, renderChildren } =
+      this.props;
     const isExpanded = this.isExpanded();
     const ariaAttrs = {} as any;
     if (hasChildren) {
@@ -101,7 +120,18 @@ class Row extends Component<any, any> {
     }
     return (
       <Fragment>
-        <TreeRowContainer role="row" {...ariaAttrs}>
+        <TreeRowContainer
+          role="row"
+          css={
+            hasChildren && shouldExpandOnClick
+              ? treeRowClickableStyles
+              : undefined
+          }
+          onClick={
+            hasChildren && shouldExpandOnClick ? this.onClickHandler : undefined
+          }
+          {...ariaAttrs}
+        >
           {React.Children.map(this.props.children, (cell, index) =>
             this.renderCell(cell, index),
           )}

@@ -41,6 +41,7 @@ import { default as textFormattingPlugin } from '../../../../text-formatting';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import layoutPlugin from '../../../../layout';
 import panelPlugin from '../../../../panel';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 describe('paste paragraph edge cases', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -50,6 +51,7 @@ describe('paste paragraph edge cases', () => {
     createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
         .add([pastePlugin, {}])
         .add(hyperlinkPlugin)
         .add(blockTypePlugin)

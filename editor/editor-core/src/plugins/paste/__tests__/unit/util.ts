@@ -265,6 +265,7 @@ describe('paste util', () => {
               {
                 type: 'text',
                 marks: [
+                  { type: 'em' },
                   {
                     type: 'annotation',
                     attrs: {
@@ -272,13 +273,13 @@ describe('paste util', () => {
                       annotationType: 'inlineComment',
                     },
                   },
-                  { type: 'em' },
                 ],
                 text: 'This is a ',
               },
               {
                 type: 'text',
                 marks: [
+                  { type: 'em' },
                   {
                     type: 'annotation',
                     attrs: {
@@ -286,13 +287,13 @@ describe('paste util', () => {
                       annotationType: 'inlineComment',
                     },
                   },
-                  { type: 'em' },
                 ],
                 text: 'formatted',
               },
               {
                 type: 'text',
                 marks: [
+                  { type: 'em' },
                   {
                     type: 'annotation',
                     attrs: {
@@ -300,7 +301,6 @@ describe('paste util', () => {
                       annotationType: 'inlineComment',
                     },
                   },
-                  { type: 'em' },
                 ],
                 text: ' annotation',
               },

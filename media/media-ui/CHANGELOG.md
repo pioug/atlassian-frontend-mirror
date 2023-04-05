@@ -1,5 +1,11 @@
 # @atlaskit/media-ui
 
+## 22.3.5
+
+### Patch Changes
+
+- [`b8341366c9a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b8341366c9a) - [ux] Add dark mode support for media inline card.
+
 ## 22.3.4
 
 ### Patch Changes

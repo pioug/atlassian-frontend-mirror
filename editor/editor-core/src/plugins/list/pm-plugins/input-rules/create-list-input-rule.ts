@@ -2,10 +2,8 @@ import { EditorState } from 'prosemirror-state';
 import { Node as PMNode, NodeType } from 'prosemirror-model';
 
 import { FeatureFlags } from '../../../../types/feature-flags';
-import {
-  ruleWithAnalytics,
-  createWrappingJoinRule,
-} from '../../../../utils/input-rules';
+import { ruleWithAnalytics } from '../../../../utils/input-rules';
+import { createWrappingJoinRule } from './wrapping-join-rule';
 
 import {
   ACTION,
@@ -21,7 +19,7 @@ import { JOIN_SCENARIOS_WHEN_TYPING_TO_INSERT_LIST } from '@atlaskit/editor-comm
 type Props = {
   listType: NodeType;
   expression: RegExp;
-  featureFlags?: FeatureFlags;
+  featureFlags: FeatureFlags;
 };
 
 const getOrder = (matchResult: RegExpExecArray) => Number(matchResult[1]);
@@ -89,6 +87,7 @@ export function createRuleForListType({
   }
 
   const inputRule = createWrappingJoinRule({
+    featureFlags,
     match: expression,
     nodeType: listType,
     getAttrs,

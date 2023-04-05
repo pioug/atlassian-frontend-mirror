@@ -1,5 +1,11 @@
 # @atlaskit/form
 
+## 8.8.7
+
+### Patch Changes
+
+- [`1c6c493447f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1c6c493447f) - [ux] Place label and message fields in correct aria attributes.
+
 ## 8.8.6
 
 ### Patch Changes

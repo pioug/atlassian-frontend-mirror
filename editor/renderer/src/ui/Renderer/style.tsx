@@ -707,17 +707,6 @@ export const rendererStyles =
         &:first-child {
           margin-top: 0;
         }
-
-        &:hover button.copy-to-clipboard,
-        .copy-to-clipboard:focus {
-          opacity: 1;
-          position: absolute;
-          height: 32px;
-          width: 32px;
-          right: 6px;
-          top: 4px;
-          padding: 2px;
-        }
       }
 
       ${getLightWeightCodeBlockStylesForRootRendererStyleSheet()}
@@ -732,6 +721,15 @@ export const rendererStyles =
         @media screen and (max-width: ${gridMediumMaxWidth}px) {
           & > div + div {
             margin-left: 0;
+          }
+        }
+
+        & .MediaGroup,
+        & .code-block {
+          margin-top: ${blockNodesVerticalMargin};
+
+          &:first-child {
+            margin-top: 0;
           }
         }
       }

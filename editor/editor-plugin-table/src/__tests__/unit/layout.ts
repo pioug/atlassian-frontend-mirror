@@ -35,6 +35,7 @@ import expandPlugin from '@atlaskit/editor-core/src/plugins/expand';
 import extensionPlugin from '@atlaskit/editor-core/src/plugins/extension';
 import layoutPlugin from '@atlaskit/editor-core/src/plugins/layout';
 import { PluginKey } from 'prosemirror-state';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 describe('table toolbar', () => {
   const tableOptions = {
@@ -46,6 +47,7 @@ describe('table toolbar', () => {
 
   const createEditor = createProsemirrorEditorFactory();
   const preset = new Preset<LightEditorPlugin>()
+    .add([featureFlagsPlugin, {}])
     .add([tablePlugin, { tableOptions }])
     .add(expandPlugin)
     .add(extensionPlugin)

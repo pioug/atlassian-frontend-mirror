@@ -2,6 +2,7 @@ import rafSchd from 'raf-schd';
 
 import {
   AllDragTypes,
+  DragLocation,
   DragLocationHistory,
   EventPayloadMap,
 } from '../internal-types';
@@ -34,23 +35,39 @@ const dragStart = (() => {
 
 export function makeDispatch<DragType extends AllDragTypes>({
   source,
+  initial,
   dispatchEvent,
 }: {
   source: DragType['payload'];
+  initial: DragLocation;
   dispatchEvent: <EventName extends keyof EventPayloadMap<DragType>>(args: {
     eventName: EventName;
     payload: EventPayloadMap<DragType>[EventName];
   }) => void;
 }) {
+  let previous: DragLocationHistory['previous'] = { dropTargets: [] };
+
+  function safeDispatch(args: Parameters<typeof dispatchEvent>[0]) {
+    dispatchEvent(args);
+    previous = { dropTargets: args.payload.location.current.dropTargets };
+  }
+
   const dispatch = {
     start({
-      location,
       nativeSetDragImage,
     }: {
-      location: DragLocationHistory;
       nativeSetDragImage: DataTransfer['setDragImage'] | null;
     }) {
-      dispatchEvent({
+      // Ensuring that both `onGenerateDragPreview` and `onDragStart` get the same location.
+      // We do this so that `previous` is`[]` in `onDragStart` (which is logical)
+      const location = {
+        current: initial,
+        previous,
+        initial,
+      };
+      // a `onGenerateDragPreview` does _not_ add another entry for `previous`
+      // onDragPreview
+      safeDispatch({
         eventName: 'onGenerateDragPreview',
         payload: {
           source,
@@ -59,7 +76,7 @@ export function makeDispatch<DragType extends AllDragTypes>({
         },
       });
       dragStart.schedule(() => {
-        dispatchEvent({
+        safeDispatch({
           eventName: 'onDragStart',
           payload: {
             source,
@@ -68,21 +85,30 @@ export function makeDispatch<DragType extends AllDragTypes>({
         });
       });
     },
-    dragUpdate({ location }: { location: DragLocationHistory }) {
+    dragUpdate({ current }: { current: DragLocation }) {
       dragStart.flush();
       scheduleOnDrag.cancel();
-      dispatchEvent({
+      safeDispatch({
         eventName: 'onDropTargetChange',
         payload: {
           source,
-          location,
+          location: {
+            initial,
+            previous,
+            current,
+          },
         },
       });
     },
-    drag({ location }: { location: DragLocationHistory }) {
+    drag({ current }: { current: DragLocation }) {
       scheduleOnDrag(() => {
         dragStart.flush();
-        dispatchEvent({
+        const location = {
+          initial,
+          previous,
+          current,
+        };
+        safeDispatch({
           eventName: 'onDrag',
           payload: {
             source,
@@ -92,10 +118,10 @@ export function makeDispatch<DragType extends AllDragTypes>({
       });
     },
     drop({
-      location,
+      current,
       updatedExternalPayload: updatedSourcePayload,
     }: {
-      location: DragLocationHistory;
+      current: DragLocation;
       /** When dragging from an external source, we need to collect the
           drag source information again as it is often only available during
           the "drop" event */
@@ -103,11 +129,15 @@ export function makeDispatch<DragType extends AllDragTypes>({
     }) {
       dragStart.flush();
       scheduleOnDrag.cancel();
-      dispatchEvent({
+      safeDispatch({
         eventName: 'onDrop',
         payload: {
           source: updatedSourcePayload ?? source,
-          location,
+          location: {
+            current,
+            previous,
+            initial,
+          },
         },
       });
     },

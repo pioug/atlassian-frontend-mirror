@@ -16,13 +16,14 @@ import codeBlockPlugin from '../../../code-block';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import { undo } from 'prosemirror-history';
-import { featureFlagsContextPlugin } from '../../..';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 describe('lists plugin -> indent and outdent', () => {
   const createEditor = createProsemirrorEditorFactory();
 
   const editor = (doc: DocBuilder) => {
     const preset = new Preset<LightEditorPlugin>()
+      .add([featureFlagsPlugin, {}])
       .add(listPlugin)
       .add([codeBlockPlugin, { appearance: 'full-page' }]);
 
@@ -267,8 +268,8 @@ describe('lists plugin -> indent and outdent with restartNumberedLists', () => {
 
   const editor = (doc: DocBuilder) => {
     const preset = new Preset<LightEditorPlugin>()
-      .add([listPlugin, { restartNumberedLists: true }])
-      .add([featureFlagsContextPlugin, { restartNumberedLists: true }]);
+      .add([featureFlagsPlugin, { restartNumberedLists: true }])
+      .add([listPlugin, { restartNumberedLists: true }]);
 
     return createEditor({
       doc,

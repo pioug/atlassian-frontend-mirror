@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { MediaInlineCard } from '@atlaskit/media-card';
+import { InlineCardEvent, MediaInlineCard } from '@atlaskit/media-card';
 import {
   MediaInlineCardErroredView,
   MediaInlineCardLoadingView,
@@ -13,6 +13,8 @@ import { FileIdentifier } from '@atlaskit/media-client';
 import { getClipboardAttrs, MediaProvider } from '../../ui/MediaCard';
 import { MediaClientConfig } from '@atlaskit/media-core/auth';
 import { createIntl, injectIntl, WrappedComponentProps } from 'react-intl-next';
+import type { EventHandlers } from '@atlaskit/editor-common/ui';
+import { RendererAppearance } from '../../ui/Renderer/types';
 
 type MediaInlineProviders = {
   mediaProvider?: Promise<MediaProvider>;
@@ -22,16 +24,20 @@ export type RenderMediaInlineProps = {
   identifier: FileIdentifier;
   mediaProvider: Promise<MediaProvider>;
   children?: React.ReactNode;
+  eventHandlers?: EventHandlers;
+  rendererAppearance?: RendererAppearance;
 };
 
 export type MediaInlineProps = {
   id: string;
   collection?: string;
   providers: ProviderFactory;
+  eventHandlers?: EventHandlers;
+  rendererAppearance?: RendererAppearance;
 };
 
 export const RenderMediaInline: React.FC<RenderMediaInlineProps> = (props) => {
-  const { mediaProvider } = props;
+  const { mediaProvider, rendererAppearance } = props;
   const [viewMediaClientConfigState, setViewMediaClientConfigState] = useState<
     MediaClientConfig | undefined
   >();
@@ -57,10 +63,20 @@ export const RenderMediaInline: React.FC<RenderMediaInlineProps> = (props) => {
     return <MediaInlineCardLoadingView message="" isSelected={false} />;
   }
 
+  const handleMediaInlineClick = (result: InlineCardEvent) => {
+    if (props.eventHandlers?.media?.onClick) {
+      props.eventHandlers?.media?.onClick(result);
+    }
+  };
+  const shouldOpenMediaViewer = rendererAppearance !== 'mobile';
+  const shouldDisplayToolTip = rendererAppearance !== 'mobile';
+
   return (
     <MediaInlineCard
       identifier={props.identifier}
-      shouldOpenMediaViewer={true}
+      onClick={handleMediaInlineClick}
+      shouldOpenMediaViewer={shouldOpenMediaViewer}
+      shouldDisplayToolTip={shouldDisplayToolTip}
       mediaClientConfig={viewMediaClientConfigState}
     />
   );
@@ -69,7 +85,7 @@ export const RenderMediaInline: React.FC<RenderMediaInlineProps> = (props) => {
 const MediaInline: React.FC<MediaInlineProps & WrappedComponentProps> = (
   props,
 ) => {
-  const { collection, id, providers, intl } = props;
+  const { collection, id, providers, intl, rendererAppearance } = props;
   const identifier: FileIdentifier = {
     id,
     mediaItemType: 'file',
@@ -100,6 +116,8 @@ const MediaInline: React.FC<MediaInlineProps & WrappedComponentProps> = (
             <RenderMediaInline
               identifier={identifier}
               mediaProvider={mediaProvider}
+              eventHandlers={props.eventHandlers}
+              rendererAppearance={rendererAppearance}
             />
           );
         }}

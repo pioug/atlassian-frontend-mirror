@@ -15,8 +15,6 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
-/// <reference types="react" />
-
 import { Component } from 'react';
 import { ComponentType } from 'react';
 import { CustomThemeButtonProps } from '@atlaskit/button/types';
@@ -50,6 +48,7 @@ type BaseProps = React.HTMLAttributes<HTMLDivElement> & {
   radius?: number;
   className?: string;
   testId?: string;
+  children?: ReactNode;
 };
 
 // @public @deprecated (undocumented)

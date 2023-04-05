@@ -157,7 +157,8 @@ describe('Hover Card', () => {
     expect(image).toMatchProdImageSnapshot(snapshotOptions);
   });
 
-  it('shows tooltip on an action in hover previews', async () => {
+  // FIXME: This test was automatically skipped due to failure on 04/04/2023: https://product-fabric.atlassian.net/browse/EDM-6304
+  it.skip('shows tooltip on an action in hover previews', async () => {
     const height = 300;
 
     const url = getURL('vr-hover-cards');

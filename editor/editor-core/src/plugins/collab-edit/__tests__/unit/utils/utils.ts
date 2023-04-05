@@ -21,6 +21,7 @@ import {
 import { CollabParticipant } from '../../../types';
 import { getValidPos } from '../../../plugin-state';
 import { Decoration, DecorationSet } from 'prosemirror-view';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 const initializeCollab = (view: EditorView) =>
   view.dispatch(view.state.tr.setMeta('collabInitialised', true));
@@ -38,6 +39,7 @@ describe('collab-edit: utils', () => {
       doc,
       // Preset doesnt support two arguments, we need to use old plugins configuration
       preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
         .add([collabEditPlugin, collabEditOptions as PrivateCollabEditOptions])
         .add([analyticsPlugin, { createAnalyticsEvent }]),
     });

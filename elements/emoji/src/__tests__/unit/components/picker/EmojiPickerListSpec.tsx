@@ -2,10 +2,7 @@ import React from 'react';
 import { screen, act, fireEvent } from '@testing-library/react';
 import { matchers } from '@emotion/jest';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
-import {
-  VirtualList,
-  virtualListScrollContainerTestId,
-} from '../../../../components/picker/VirtualList';
+import { VirtualList } from '../../../../components/picker/VirtualList';
 import { RENDER_EMOJI_DELETE_BUTTON_TESTID } from '../../../../components/common/DeleteButton';
 import { RENDER_EMOJI_PICKER_CATEGORY_HEADING_TESTID } from '../../../../components/picker/EmojiPickerCategoryHeading';
 import EmojiPickerList, {
@@ -544,6 +541,33 @@ describe('<EmojiPickerList />', () => {
       });
       expect(mockOnEmojiSelected).not.toHaveBeenCalled();
     });
+
+    /**
+     * x x x x x x x x
+     * x x x x x x
+     * Your uploads
+     * x               <- start
+     * All uploads
+     * x x
+     */
+    it('should be able to press backspace to delete', async () => {
+      const mockOnDelete = jest.fn();
+      renderEmojiPickerList({
+        emojis: [...atlassianEmojis, ...customEmojis],
+        currentUser: { id: 'hulk' },
+        onEmojiDelete: mockOnDelete,
+      });
+      const emojisList = await screen.queryAllByRole('button');
+      const firstCell = emojisList[atlassianEmojis.length];
+      firstCell.focus();
+      expect(firstCell.tabIndex).toEqual(0);
+      act(() => {
+        fireEvent.keyDown(firstCell, {
+          key: 'Backspace',
+        });
+      });
+      expect(mockOnDelete).toHaveBeenCalledTimes(1);
+    });
   });
 
   describe('arrow keys navigation', () => {
@@ -568,10 +592,8 @@ describe('<EmojiPickerList />', () => {
       });
       const emojisList = await screen.queryAllByRole('button');
       const emojiAtFirstCell = emojisList[0];
-      const wrapper = await screen.getByTestId(
-        virtualListScrollContainerTestId,
-      );
-      const virtualList = wrapper.firstChild!;
+      const virtualList = await helperTestingLibrary.getVirtualList()
+        .firstChild!;
       emojiAtFirstCell.focus();
       act(() => {
         fireEvent.keyDown(virtualList, {
@@ -607,10 +629,8 @@ describe('<EmojiPickerList />', () => {
       });
       const emojisList = await screen.queryAllByRole('button');
       const emojiAtLastCell = emojisList[emojisList.length - 1];
-      const wrapper = await screen.getByTestId(
-        virtualListScrollContainerTestId,
-      );
-      const virtualList = wrapper.firstChild!;
+      const virtualList = await helperTestingLibrary.getVirtualList()
+        .firstChild!;
       emojiAtLastCell.focus();
       act(() => {
         fireEvent.keyDown(virtualList, {
@@ -646,10 +666,8 @@ describe('<EmojiPickerList />', () => {
       const startCell = emojisList[lastColumnIndex];
       // target is next emoji which is shown at first cell of 2nd row
       const targetCell = emojisList[lastColumnIndex + 1];
-      const wrapper = await screen.getByTestId(
-        virtualListScrollContainerTestId,
-      );
-      const virtualList = wrapper.firstChild!;
+      const virtualList = await helperTestingLibrary.getVirtualList()
+        .firstChild!;
       startCell.focus();
       expect(startCell.tabIndex).toEqual(0);
       act(() => {
@@ -683,10 +701,8 @@ describe('<EmojiPickerList />', () => {
       const startCell = emojisList[atlassianEmojis.length - 1];
       // target is next emoji which is shown at first cell of 2nd row
       const nextCell = emojisList[atlassianEmojis.length];
-      const wrapper = await screen.getByTestId(
-        virtualListScrollContainerTestId,
-      );
-      const virtualList = wrapper.firstChild!;
+      const virtualList = await helperTestingLibrary.getVirtualList()
+        .firstChild!;
       startCell.focus();
       expect(startCell.tabIndex).toEqual(0);
       act(() => {
@@ -720,10 +736,8 @@ describe('<EmojiPickerList />', () => {
       const startCell = emojisList[lastColumnIndex + 2];
       // target is 2nd cell of 4th row, 3rd row is category heading "All uploads"
       const nextCell = emojisList[emojisList.length - 1];
-      const wrapper = await screen.getByTestId(
-        virtualListScrollContainerTestId,
-      );
-      const virtualList = wrapper.firstChild!;
+      const virtualList = await helperTestingLibrary.getVirtualList()
+        .firstChild!;
       startCell.focus();
       expect(startCell.tabIndex).toEqual(0);
       act(() => {
@@ -753,10 +767,8 @@ describe('<EmojiPickerList />', () => {
       const emojisList = await screen.queryAllByRole('button');
       const firstCell = emojisList[0];
       const secondCell = emojisList[1];
-      const wrapper = await screen.getByTestId(
-        virtualListScrollContainerTestId,
-      );
-      const virtualList = wrapper.firstChild!;
+      const virtualList = await helperTestingLibrary.getVirtualList()
+        .firstChild!;
       firstCell.focus();
       expect(firstCell.tabIndex).toEqual(0);
       act(() => {
@@ -786,10 +798,8 @@ describe('<EmojiPickerList />', () => {
       const emojisList = await screen.queryAllByRole('button');
       const firstCell = emojisList[0];
       const secondCell = emojisList[lastColumnIndex + 1];
-      const wrapper = await screen.getByTestId(
-        virtualListScrollContainerTestId,
-      );
-      const virtualList = wrapper.firstChild!;
+      const virtualList = await helperTestingLibrary.getVirtualList()
+        .firstChild!;
       firstCell.focus();
       expect(firstCell.tabIndex).toEqual(0);
       act(() => {
@@ -820,10 +830,8 @@ describe('<EmojiPickerList />', () => {
       const firstCell = emojisList[0];
       const midCell = emojisList[3];
       const lastCell = emojisList[lastColumnIndex];
-      const wrapper = await screen.getByTestId(
-        virtualListScrollContainerTestId,
-      );
-      const virtualList = wrapper.firstChild!;
+      const virtualList = await helperTestingLibrary.getVirtualList()
+        .firstChild!;
       midCell.focus();
       expect(midCell.tabIndex).toEqual(0);
       act(() => {
@@ -856,10 +864,8 @@ describe('<EmojiPickerList />', () => {
       const startCell = emojisList[lastColumnIndex + 1];
       const midCell = emojisList[lastColumnIndex + 3];
       const endCell = emojisList[atlassianEmojis.length - 1];
-      const wrapper = await screen.getByTestId(
-        virtualListScrollContainerTestId,
-      );
-      const virtualList = wrapper.firstChild!;
+      const virtualList = await helperTestingLibrary.getVirtualList()
+        .firstChild!;
       midCell.focus();
       expect(midCell.tabIndex).toEqual(0);
       act(() => {
@@ -896,10 +902,8 @@ describe('<EmojiPickerList />', () => {
       const midCell = emojisList[lastColumnIndex + 2];
       // last cell of last row
       const lastCell = emojisList[emojisList.length - 1];
-      const wrapper = await screen.getByTestId(
-        virtualListScrollContainerTestId,
-      );
-      const virtualList = wrapper.firstChild!;
+      const virtualList = await helperTestingLibrary.getVirtualList()
+        .firstChild!;
       midCell.focus();
       expect(midCell.tabIndex).toEqual(0);
       act(() => {
@@ -938,10 +942,8 @@ describe('<EmojiPickerList />', () => {
       });
       const emojisList = await screen.queryAllByRole('button');
       const firstCell = emojisList[lastColumnIndex + 1];
-      const wrapper = await screen.getByTestId(
-        virtualListScrollContainerTestId,
-      );
-      const virtualList = wrapper.firstChild!;
+      const virtualList = await helperTestingLibrary.getVirtualList()
+        .firstChild!;
       firstCell.focus();
       expect(firstCell.tabIndex).toEqual(0);
       act(() => {
@@ -977,10 +979,8 @@ describe('<EmojiPickerList />', () => {
       const emojisList = await screen.queryAllByRole('button');
       const firstCell = emojisList[0];
       const nextCell = emojisList[atlassianEmojis.length];
-      const wrapper = await screen.getByTestId(
-        virtualListScrollContainerTestId,
-      );
-      const virtualList = wrapper.firstChild!;
+      const virtualList = await helperTestingLibrary.getVirtualList()
+        .firstChild!;
       firstCell.focus();
       expect(firstCell.tabIndex).toEqual(0);
       act(() => {
@@ -1011,10 +1011,8 @@ describe('<EmojiPickerList />', () => {
       const emojisList = await screen.queryAllByRole('button');
       const firstCell = emojisList[emojisList.length - 2];
       const nextCell = emojisList[lastColumnIndex + 1];
-      const wrapper = await screen.getByTestId(
-        virtualListScrollContainerTestId,
-      );
-      const virtualList = wrapper.firstChild!;
+      const virtualList = await helperTestingLibrary.getVirtualList()
+        .firstChild!;
       firstCell.focus();
       expect(firstCell.tabIndex).toEqual(0);
       act(() => {
@@ -1042,10 +1040,8 @@ describe('<EmojiPickerList />', () => {
       const emojisList = await screen.queryAllByRole('button');
       const firstCell = emojisList[0];
       const nextCell = emojisList[atlassianEmojis.length];
-      const wrapper = await screen.getByTestId(
-        virtualListScrollContainerTestId,
-      );
-      const virtualList = wrapper.firstChild!;
+      const virtualList = await helperTestingLibrary.getVirtualList()
+        .firstChild!;
       firstCell.focus();
       expect(firstCell.tabIndex).toEqual(0);
       act(() => {

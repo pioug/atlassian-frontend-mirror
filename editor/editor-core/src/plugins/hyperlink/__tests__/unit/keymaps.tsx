@@ -21,6 +21,7 @@ import hyperlinkPlugin from '../../index';
 import textFormattingPlugin from '../../../text-formatting';
 import blockTypePlugin from '../../../block-type';
 import { HyperlinkPluginOptions } from '../../types';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 describe('hyperlink - keymap with no card provider', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -34,6 +35,7 @@ describe('hyperlink - keymap with no card provider', () => {
     return createEditor({
       doc,
       preset: preset
+        .add([featureFlagsPlugin, {}])
         .add([analyticsPlugin, { createAnalyticsEvent }])
         .add(hyperlinkPlugin)
         .add(blockTypePlugin)
@@ -363,6 +365,7 @@ describe('hyperlink - keymap with card provider', () => {
     return createEditor({
       doc,
       preset: preset
+        .add([featureFlagsPlugin, {}])
         .add([analyticsPlugin, { createAnalyticsEvent }])
         .add([hyperlinkPlugin, mockHyperlinkOptions])
         .add(blockTypePlugin)

@@ -32,6 +32,7 @@ type FactoryProps = {
   intl: IntlShape;
   popupMountRef: PopupMountPointReference;
   createAnalyticsEvent?: CreateUIAnalyticsEvent;
+  useBetterTypeaheadNavigation: boolean;
 };
 
 type FactoryReturn = {
@@ -43,6 +44,7 @@ export const factoryDecorations = ({
   intl,
   popupMountRef,
   createAnalyticsEvent,
+  useBetterTypeaheadNavigation,
 }: FactoryProps): FactoryReturn => {
   const createDecorations: CreateTypeAheadDecorations = (
     tr: ReadonlyTransaction,
@@ -140,6 +142,7 @@ export const factoryDecorations = ({
               }
               onUndoRedo={onUndoRedo}
               reopenQuery={reopenQuery}
+              useBetterTypeaheadNavigation={useBetterTypeaheadNavigation}
             />
           </IntlProvider>,
           typeaheadComponent,

@@ -241,6 +241,51 @@ describe('table plugin -> transforms -> delete rows', () => {
       });
     });
 
+    describe('when delete the row in between rows that have merged cells with an extra row underneath', () => {
+      it('should decrement colspan of these cells', () => {
+        const { editorView } = editor(
+          doc(
+            p('text'),
+            table()(
+              tr(td({ colspan: 5 })(p('a1')), td({})(p('a6'))),
+              tr(
+                td({})(p('b1{<cell}')),
+                td({})(p('b2')),
+                td({})(p('b3')),
+                td({})(p('b4')),
+                td({})(p('b5')),
+                td({})(p('b6{cell>}')),
+              ),
+              tr(td({})(p('c1')), td({ colspan: 5 })(p('c6'))),
+              tr(
+                td({ colspan: 3 })(p('d1')),
+                td({})(p('d4')),
+                td({})(p('d5')),
+                td({})(p('d6')),
+              ),
+            ),
+          ),
+        );
+        const { state, dispatch } = editorView;
+        dispatch(deleteRows(getSelectionRect(state.selection)!)(state.tr));
+        expect(editorView.state.doc).toEqualDocument(
+          doc(
+            p('text'),
+            table({ localId: TABLE_LOCAL_ID })(
+              tr(td({ colspan: 4 })(p('a1')), td({})(p('a6'))),
+              tr(td({})(p('c1')), td({ colspan: 4 })(p('c6'))),
+              tr(
+                td({ colspan: 2 })(p('d1')),
+                td({})(p('d4')),
+                td({})(p('d5')),
+                td({})(p('d6')),
+              ),
+            ),
+          ),
+        );
+      });
+    });
+
     describe('when after deleting the first row table has columns where all cells have colspan > 1', () => {
       it('should decrement colspan of these cells', () => {
         const { editorView } = editor(

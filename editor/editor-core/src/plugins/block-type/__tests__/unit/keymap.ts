@@ -42,6 +42,7 @@ import rulePlugin from '../../../rule';
 import codeBlockPlugin from '../../../code-block';
 import listPlugin from '../../../list';
 import panelPlugin from '../../../panel';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 const codeBlockGASV3Payload = {
   action: 'formatted',
@@ -67,6 +68,7 @@ describe('keymaps', () => {
     return createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
         .add(blockTypePlugin)
         .add([analyticsPlugin, { createAnalyticsEvent }])
         .add(tablesPlugin)

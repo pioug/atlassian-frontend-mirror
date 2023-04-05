@@ -24,12 +24,14 @@ import codeBlockPlugin from '../../../../code-block';
 import layoutPlugin from '../../../../layout';
 import mediaPlugin from '../../../../media';
 import panelPlugin from '../../../../panel';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 describe('delete behaviour - cursor position after delete', () => {
   const createEditor = createProsemirrorEditorFactory();
 
   const editor = (doc: DocBuilder) => {
     const preset = new Preset<LightEditorPlugin>()
+      .add([featureFlagsPlugin, {}])
       .add(listPlugin)
       .add([codeBlockPlugin, { appearance: 'full-page' }])
       .add(layoutPlugin)

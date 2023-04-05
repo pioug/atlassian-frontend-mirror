@@ -22,8 +22,9 @@ export interface RowParams {
 
 export const getRowHeights = (tableRef: HTMLTableElement): number[] => {
   const heights: number[] = [];
-  if (tableRef.lastChild) {
-    const rows = tableRef.lastChild.childNodes;
+  const tableBody = tableRef.querySelector('tbody');
+  if (tableBody) {
+    const rows = tableBody.childNodes;
     for (let i = 0, count = rows.length; i < count; i++) {
       const row = rows[i] as HTMLTableRowElement;
       heights[i] = row.getBoundingClientRect().height + 1;

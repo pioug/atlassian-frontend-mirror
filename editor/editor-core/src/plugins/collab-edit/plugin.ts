@@ -13,7 +13,10 @@ import {
   ACTION_SUBJECT,
   EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
-import { SyncUpErrorFunction } from '@atlaskit/editor-common/types';
+import {
+  FeatureFlags,
+  SyncUpErrorFunction,
+} from '@atlaskit/editor-common/types';
 
 export { PluginState, pluginKey };
 export type { CollabEditProvider };
@@ -23,6 +26,7 @@ export const createPlugin = (
   providerFactory: ProviderFactory,
   collabProviderCallback: ProviderCallback,
   options: PrivateCollabEditOptions,
+  featureFlags: FeatureFlags,
 ) => {
   const fireAnalyticsCallback = fireAnalyticsEvent(
     options?.createAnalyticsEvent,
@@ -69,6 +73,7 @@ export const createPlugin = (
       const addErrorAnalytics = addSynchronyErrorAnalytics(
         view.state,
         view.state.tr,
+        featureFlags,
       );
       const onSyncUpError: SyncUpErrorFunction = (attributes) => {
         fireAnalyticsCallback({
@@ -82,7 +87,7 @@ export const createPlugin = (
       };
       options.onSyncUpError = onSyncUpError;
       const cleanup = collabProviderCallback(
-        initialize({ view, options, providerFactory }),
+        initialize({ view, options, providerFactory, featureFlags }),
         addErrorAnalytics,
       );
 

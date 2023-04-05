@@ -193,6 +193,8 @@ export {
   AnnotationMarkStates,
   unsupportedMark,
   unsupportedNodeAttribute,
+  border,
+  borderColorPalette,
 } from './marks';
 export type {
   AlignmentAttributes,
@@ -220,6 +222,8 @@ export type {
   AnnotationDataAttributes,
   DataConsumerAttributes,
   DataConsumerDefinition,
+  BorderMarkAttributes,
+  BorderMarkDefinition,
 } from './marks';
 export { unsupportedNodeTypesForMediaCards } from './unsupported';
 export { inlineNodes } from './inline-nodes';

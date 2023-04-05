@@ -3,6 +3,7 @@ export type {
   CollabEventPresenceData,
   CollabEvent,
   CollabEventConnectionData,
+  CollabEventDisconnectedData,
   CollabEventData,
   CollabEventInitData,
   CollabEventRemoteData,

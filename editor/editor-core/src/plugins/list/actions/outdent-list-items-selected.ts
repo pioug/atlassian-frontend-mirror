@@ -27,7 +27,7 @@ import {
   createListNodeRange,
 } from '../utils/selection';
 import { GapCursorSelection } from '../../selection/gap-cursor-selection';
-import { getFeatureFlags } from '../../feature-flags-context';
+import type { FeatureFlags } from '@atlaskit/editor-common/types';
 import {
   storeRestartListsAttributes,
   getRestartListsAttributes,
@@ -37,6 +37,7 @@ import { OUTDENT_SCENARIOS } from '@atlaskit/editor-common/analytics';
 export const outdentListItemsSelected = (
   tr: Transaction,
   state: EditorState,
+  featureFlags: FeatureFlags,
 ) => {
   const originalSelection = tr.selection;
   const normalizedSelection = normalizeListItemsSelection({
@@ -71,7 +72,12 @@ export const outdentListItemsSelected = (
     if (isListItemNode($from.node(mappedRange.depth - 1))) {
       outdentRangeToParentList({ tr, range: mappedRange });
     } else {
-      extractListItemsRangeFromList({ tr, range: mappedRange, state });
+      extractListItemsRangeFromList({
+        tr,
+        range: mappedRange,
+        state,
+        featureFlags,
+      });
       hasNormalizedToPositionLiftedOut =
         hasNormalizedToPositionLiftedOut ||
         (oldTo >= range.from && oldTo < range.to);
@@ -260,7 +266,11 @@ const extractListItemsRangeFromList = ({
   tr,
   range,
   state,
-}: OutdentListRangeProps & { state: EditorState }) => {
+  featureFlags,
+}: OutdentListRangeProps & {
+  state: EditorState;
+  featureFlags: FeatureFlags;
+}) => {
   const list = range.parent;
   const $start = tr.doc.resolve(range.start);
 
@@ -289,7 +299,6 @@ const extractListItemsRangeFromList = ({
 
   let nextList = list.copy(Fragment.empty);
 
-  const featureFlags = getFeatureFlags(state);
   let nextListStartNumber: number;
   if (featureFlags?.restartNumberedLists) {
     // if splitting a numbered list, keep the splitted item

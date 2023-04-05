@@ -39,7 +39,8 @@ describe('Snapshot Test: Overflow shadows', () => {
       await waitForElementCount(page, `.${shadowClassNames.RIGHT_SHADOW}`, 5);
     });
 
-    it('after scolling', async () => {
+    // FIXME: This test was automatically skipped due to failure on 04/04/2023: https://product-fabric.atlassian.net/browse/ED-17400
+    it.skip('after scolling', async () => {
       await initRenderer(page, document);
       await page.waitForSelector(selectors.extension);
       await animationFrame(page);

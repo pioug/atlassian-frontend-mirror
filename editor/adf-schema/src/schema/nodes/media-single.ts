@@ -1,6 +1,7 @@
 import { NodeSpec, Node } from 'prosemirror-model';
 import { MediaDefinition as Media } from './media';
 import { LinkDefinition } from '../marks/link';
+
 import { RichMediaAttributes } from './types/rich-media-common';
 import { CaptionDefinition as Caption } from './caption';
 
@@ -65,7 +66,7 @@ export const mediaSingle: NodeSpec = {
   atom: true,
   content: 'media|unsupportedBlock+|media unsupportedBlock+',
   attrs: defaultAttrs,
-  marks: 'unsupportedMark unsupportedNodeAttribute link',
+  marks: 'unsupportedMark unsupportedNodeAttribute border link',
   parseDOM: [
     {
       tag: 'div[data-node-type="mediaSingle"]',

@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 1.2.8
+
+### Patch Changes
+
+- [`de4f079569a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/de4f079569a) - The tokens babel-plugin will no longer run on files in node_module directories. This is to avoid attempting to transform legacy tokens from older transitive dependencies.
+
 ## 1.2.7
 
 ### Patch Changes

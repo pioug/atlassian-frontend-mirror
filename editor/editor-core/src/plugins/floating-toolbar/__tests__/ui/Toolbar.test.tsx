@@ -37,6 +37,10 @@ describe('<Toolbar />', () => {
     },
   });
 
+  const featureFlags = {
+    extendFloatingToolbar: true,
+  };
+
   const action = jest
     .fn()
     .mockImplementation(() =>
@@ -60,6 +64,7 @@ describe('<Toolbar />', () => {
           ]}
           dispatchAnalyticsEvent={jest.fn()}
           dispatchCommand={jest.fn()}
+          featureFlags={featureFlags}
         />,
       );
 
@@ -96,6 +101,7 @@ describe('<Toolbar />', () => {
           ]}
           dispatchAnalyticsEvent={jest.fn()}
           dispatchCommand={jest.fn()}
+          featureFlags={featureFlags}
         />,
       );
     }
@@ -153,6 +159,7 @@ describe('<Toolbar />', () => {
           ]}
           dispatchAnalyticsEvent={jest.fn()}
           dispatchCommand={jest.fn()}
+          featureFlags={featureFlags}
         />,
       );
 

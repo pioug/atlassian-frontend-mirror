@@ -5,6 +5,7 @@ import { IntlShape } from 'react-intl-next';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import DownloadIcon from '@atlaskit/icon/glyph/download';
 import { mediaFilmstripItemDOMSelector } from '@atlaskit/media-filmstrip';
+import { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 import commonMessages from '../../../messages';
 import { Command } from '../../../types';
 import {
@@ -37,11 +38,16 @@ import {
   changeInlineToMediaCard,
   changeMediaCardToInline,
   removeInlineCard,
+  setBorderMark,
+  toggleBorderMark,
 } from './commands';
 import {
   MediaInlineNodeSelector,
   MediaSingleNodeSelector,
 } from '../nodeviews/styles';
+import ImageBorderItem from '../ui/ImageBorder';
+import { currentMediaNodeBorderMark } from '../utils/current-media-node';
+import { shouldShowImageBorder } from './imageBorder';
 
 const remove: Command = (state, dispatch) => {
   if (dispatch) {
@@ -244,6 +250,7 @@ const generateMediaSingleFloatingToolbar = (
   options: MediaFloatingToolbarOptions,
   pluginState: MediaPluginState,
   mediaLinkingState: MediaLinkingState,
+  getEditorFeatureFlags?: GetEditorFeatureFlags,
 ) => {
   const { mediaSingle } = state.schema.nodes;
   const {
@@ -255,14 +262,47 @@ const generateMediaSingleFloatingToolbar = (
   } = options;
 
   let toolbarButtons: FloatingToolbarItem<Command>[] = [];
+
+  if (shouldShowImageBorder(state)) {
+    toolbarButtons.push({
+      type: 'custom',
+      fallback: [],
+      render: (editorView) => {
+        if (!editorView) {
+          return null;
+        }
+        const { dispatch, state } = editorView;
+        const borderMark = currentMediaNodeBorderMark(state);
+        return (
+          <ImageBorderItem
+            toggleBorder={() => {
+              toggleBorderMark(state, dispatch);
+            }}
+            setBorder={(attrs) => {
+              setBorderMark(attrs)(state, dispatch);
+            }}
+            showSomewhatSemanticTooltips={
+              getEditorFeatureFlags?.().useSomewhatSemanticTextColorNames
+            }
+            borderMark={borderMark}
+            intl={intl}
+          />
+        );
+      },
+    });
+  }
+
   if (allowAdvancedToolBarOptions) {
-    toolbarButtons = buildLayoutButtons(
-      state,
-      intl,
-      state.schema.nodes.mediaSingle,
-      allowResizing,
-      allowResizingInTables,
-    );
+    toolbarButtons = [
+      ...toolbarButtons,
+      ...buildLayoutButtons(
+        state,
+        intl,
+        state.schema.nodes.mediaSingle,
+        allowResizing,
+        allowResizingInTables,
+      ),
+    ];
 
     if (toolbarButtons.length) {
       toolbarButtons.push({ type: 'separator' });
@@ -362,6 +402,7 @@ export const floatingToolbar = (
     allowAltTextOnImages,
     providerFactory,
     allowMediaInline,
+    getEditorFeatureFlags,
   } = options;
   const mediaPluginState: MediaPluginState | undefined =
     stateKey.getState(state);
@@ -446,6 +487,7 @@ export const floatingToolbar = (
       options,
       mediaPluginState,
       mediaLinkingState,
+      getEditorFeatureFlags,
     );
   }
 

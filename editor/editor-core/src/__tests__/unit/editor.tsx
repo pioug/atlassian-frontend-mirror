@@ -95,6 +95,7 @@ import { CardOptions } from '@atlaskit/editor-common/card';
 import { matchers } from '@emotion/jest';
 import * as utils from '@atlaskit/editor-common/utils';
 import measurements from '../../utils/performance/measure-enum';
+import * as featureFlagsFromProps from '../../create-editor/feature-flags-from-props';
 
 const measureTTI: any = mockMeasureTTI;
 
@@ -1152,6 +1153,30 @@ describe.each(featureFlagOptions)(packageName, (flags) => {
         expect(unregisterSpy).toHaveBeenCalledTimes(0);
         unregisterSpy.mockRestore();
       });
+    });
+  });
+
+  describe('setting default props as expected', () => {
+    it('should set default behaviour for ', () => {
+      const componentSpy = jest.spyOn(
+        featureFlagsFromProps,
+        'createFeatureFlagsFromProps',
+      );
+      render(<Editor />);
+
+      // If it's the default behaviour when we check the featureFlags
+      // in the EditorMigrationComponent this should be true.
+      expect(componentSpy).toHaveBeenNthCalledWith(
+        1,
+        expect.objectContaining({
+          appearance: 'comment',
+          allowNewInsertionBehaviour: true,
+          disabled: false,
+          extensionHandlers: {},
+          allowHelpDialog: true,
+          quickInsert: true,
+        }),
+      );
     });
   });
 });

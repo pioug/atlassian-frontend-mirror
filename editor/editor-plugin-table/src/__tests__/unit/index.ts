@@ -62,6 +62,7 @@ import { getPluginState } from '../../plugins/table/pm-plugins/plugin-factory';
 import { pluginKey } from '../../plugins/table/pm-plugins/plugin-key';
 import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
 import tablePlugin from '../../plugins/table-plugin';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 
@@ -91,6 +92,7 @@ describe('table plugin', () => {
     } as PluginConfig;
 
     const preset = new Preset<LightEditorPlugin>()
+      .add([featureFlagsPlugin, {}])
       .add([tablePlugin, { tableOptions }])
       .add([mediaPlugin, { allowMediaSingle: true }])
       .add([analyticsPlugin, {}])

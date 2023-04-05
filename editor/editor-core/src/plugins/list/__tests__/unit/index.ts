@@ -30,7 +30,7 @@ import widthPlugin from '../../../width';
 import layoutPlugin from '../../../layout';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import mediaPlugin from '../../../media';
-import featureFlagsPlugin from '../../../feature-flags-context';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { toggleOrderedList, toggleBulletList } from '../../commands';
@@ -42,6 +42,7 @@ describe('lists', () => {
 
   const editor = (doc: DocBuilder) => {
     const preset = new Preset<LightEditorPlugin>()
+      .add([featureFlagsPlugin, {}])
       .add(listPlugin)
       .add(blockTypePlugin)
       .add([breakoutPlugin, { allowBreakoutButton: true }])
@@ -541,8 +542,8 @@ describe('restart numbered lists', () => {
 
   const editor = (doc: DocBuilder) => {
     const preset = new Preset<LightEditorPlugin>()
-      .add([listPlugin, { restartNumberedLists: true }])
-      .add([featureFlagsPlugin, { restartNumberedLists: true }]);
+      .add([featureFlagsPlugin, { restartNumberedLists: true }])
+      .add([listPlugin, { restartNumberedLists: true }]);
 
     return createEditor({
       doc,

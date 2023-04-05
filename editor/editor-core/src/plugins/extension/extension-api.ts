@@ -14,15 +14,21 @@ import {
   Schema as PMSchema,
 } from 'prosemirror-model';
 import type { EditorView } from 'prosemirror-view';
-import { NodeSelection } from 'prosemirror-state';
+import { NodeSelection, Selection } from 'prosemirror-state';
 import {
   insertMacroFromMacroBrowser,
   MacroProvider,
   MacroState,
 } from '../macro';
 import { pluginKey as macroPluginKey } from '../macro/plugin-key';
+import { nodeToJSON } from '../../utils';
 import { setEditingContextToContextPanel } from './commands';
-import { findNodePosWithLocalId, getSelectedExtension } from './utils';
+import {
+  findNodePosWithLocalId,
+  getDataConsumerMark,
+  getNodeTypesReferenced,
+  getSelectedExtension,
+} from './utils';
 import {
   addAnalytics,
   ACTION,
@@ -32,7 +38,6 @@ import {
   INPUT_METHOD,
   AnalyticsEventPayload,
 } from '../analytics';
-import { getNodeTypesReferenced, getDataConsumerMark } from './utils';
 import { NodeWithPos, setTextSelection } from 'prosemirror-utils';
 
 interface EditInLegacyMacroBrowserArgs {
@@ -83,7 +88,14 @@ const extensionAPICallPayload = (
 export const createExtensionAPI = (
   options: CreateExtensionAPIOptions,
 ): ExtensionAPI => {
-  const validate = validator();
+  const {
+    editorView: {
+      state: { schema },
+    },
+  } = options;
+  const nodes = Object.keys(schema.nodes);
+  const marks = Object.keys(schema.marks);
+  const validate = validator(nodes, marks, { allowPrivateAttributes: true });
 
   /**
    * Finds the node and its position by `localId`. Throws if the node could not be found.
@@ -238,6 +250,7 @@ export const createExtensionAPI = (
       const { tr, schema } = state;
 
       const changedValues = mutationCallback({
+        content: nodeToJSON(node).content,
         attrs: node.attrs,
         marks: node.marks.map((pmMark) => ({
           type: pmMark.type.name,
@@ -245,12 +258,11 @@ export const createExtensionAPI = (
         })),
       });
 
-      const { parent } = state.doc.resolve(pos);
       const ensureValidMark = (mark: ADFEntityMark) => {
         if (typeof mark !== 'object' || Array.isArray(mark)) {
           throw new Error(`update(): Invalid mark given.`);
         }
-
+        const { parent } = state.doc.resolve(pos);
         // Ensure that the given mark is present in the schema
         const markType = (schema as PMSchema).marks[mark.type];
 
@@ -266,26 +278,35 @@ export const createExtensionAPI = (
         return { mark: markType, attrs: mark.attrs };
       };
 
-      const newMarks = changedValues.marks
-        ?.map(ensureValidMark)
-        .map(({ mark, attrs }) => mark.create(attrs));
+      const newMarks = changedValues.hasOwnProperty('marks')
+        ? changedValues.marks
+            ?.map(ensureValidMark)
+            .map(({ mark, attrs }) => mark.create(attrs))
+        : node.marks;
+      const newContent = changedValues.hasOwnProperty('content')
+        ? Fragment.fromJSON(schema, changedValues.content)
+        : node.content;
+      const newAttrs = changedValues.hasOwnProperty('attrs')
+        ? changedValues.attrs
+        : node.attrs;
 
-      // Validate if the new attributes and marks result in a valid node and adf.
+      // Validate if the new attributes, content and marks result in a valid node and adf.
       try {
-        const newNode = node.type.createChecked(
-          changedValues.attrs,
-          node.content,
-          newMarks,
-        );
+        const newNode = node.type.createChecked(newAttrs, newContent, newMarks);
         const newNodeAdf = new JSONTransformer().encodeNode(newNode);
         validate(newNodeAdf);
+
+        tr.replaceWith(pos, pos + node.nodeSize, newNode);
+
+        // Keep selection if content does not change
+        if (newContent === node.content) {
+          tr.setSelection(Selection.fromJSON(tr.doc, state.selection.toJSON()));
+        }
       } catch (err) {
         throw new Error(
           `update(): The given ADFEntity cannot be inserted in the current position.\n${err}`,
         );
       }
-
-      tr.setNodeMarkup(pos, undefined, changedValues.attrs, newMarks);
 
       // Analytics - tracking the api call
       const apiCallPayload: AnalyticsEventPayload =

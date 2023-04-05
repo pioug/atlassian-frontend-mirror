@@ -74,7 +74,6 @@ export const BlockTypeButton: React.StatelessComponent<BlockTypeButtonProps> = (
           ]}
         >
           <FormattedMessage {...(props.title || NORMAL_TEXT.title)} />
-          <div style={{ overflow: 'hidden', height: 0 }}>{props.children}</div>
         </span>
       )}
     </ToolbarButton>

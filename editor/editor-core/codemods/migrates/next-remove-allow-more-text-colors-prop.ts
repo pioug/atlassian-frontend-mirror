@@ -1,7 +1,6 @@
 import core from 'jscodeshift';
 import { Collection } from 'jscodeshift/src/Collection';
 import { findImportFromPackage } from '../utils';
-
 /**
  * Generate a codemod to remove `allowMoreTextColors` field
  * from `allowTextColor` Editor prop.
@@ -20,7 +19,6 @@ const createRemoveAllowMoreTextColorsPropTransform = (
       '@atlaskit/editor-core',
       'Editor',
     );
-
     // Make the change on all instances of named imports found
     importedNames.forEach((importedComponentName) => {
       // Find `allowTextColor` prop
@@ -33,7 +31,6 @@ const createRemoveAllowMoreTextColorsPropTransform = (
       allowTextColorCollection
         .find(j.ObjectProperty, { key: { name: 'allowMoreTextColors' } })
         .forEach((x) => j(x).remove());
-
       // If the remaining `allowTextColor` prop is an empty object, set `allowTextColor` to `true`.
       allowTextColorCollection.forEach((allowTextColorPath) => {
         j(allowTextColorPath).find(j.ObjectExpression, (objectExpression) => {
@@ -50,7 +47,6 @@ const createRemoveAllowMoreTextColorsPropTransform = (
     });
   };
 };
-
 export const removeAllowMoreColorsProp =
   createRemoveAllowMoreTextColorsPropTransform(
     '@atlaskit/editor-core',

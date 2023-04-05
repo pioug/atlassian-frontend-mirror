@@ -1,5 +1,17 @@
 # @atlaskit/renderer
 
+## 107.3.0
+
+### Minor Changes
+
+- [`4f75910f899`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4f75910f899) - [ux] Add code wrapping button to code block TSLA-266
+- [`bf04c417bfd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bf04c417bfd) - Add "border" mark to stage0 ADF schema
+
+### Patch Changes
+
+- [`31717a1fe63`](https://bitbucket.org/atlassian/atlassian-frontend/commits/31717a1fe63) - Fix the bug when clicking on media inline files in Hybrid Renderer, viewer is not opening.
+- Updated dependencies
+
 ## 107.2.0
 
 ### Minor Changes

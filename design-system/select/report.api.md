@@ -47,6 +47,7 @@ import { NoticeProps } from 'react-select';
 import { OnChangeValue } from 'react-select';
 import { OptionProps as OptionProps_2 } from 'react-select';
 import { Options } from 'react-select';
+import { PlaceholderProps as PlaceholderProps_2 } from 'react-select';
 import { PopperProps } from 'react-popper';
 import { PureComponent } from 'react';
 import { default as React_2 } from 'react';
@@ -695,6 +696,12 @@ export interface OptionType {
   // (undocumented)
   value: number | string;
 }
+
+// @public (undocumented)
+export type PlaceholderProps<
+  Option,
+  IsMulti extends boolean = false,
+> = PlaceholderProps_2<Option, IsMulti>;
 
 // @public (undocumented)
 type PopperPropsNoChildren<Modifiers> = Omit<

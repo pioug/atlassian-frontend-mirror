@@ -13,7 +13,6 @@ import { themed } from '@atlaskit/theme/components';
 import { borderRadius, gridSize } from '@atlaskit/theme/constants';
 import { DN70 } from '@atlaskit/theme/colors';
 
-import { getFeatureFlags } from '../../feature-flags-context';
 import { DispatchAnalyticsEvent } from '../../analytics';
 import { FloatingToolbarItem } from '../types';
 import { compareArrays, shallowEqual } from '../utils';
@@ -43,6 +42,7 @@ import {
   checkShouldForceFocusAndApply,
   forceFocusSelector,
 } from '../pm-plugins/force-focus';
+import { FeatureFlags } from '@atlaskit/editor-common/types';
 
 const akGridSize = gridSize();
 
@@ -63,6 +63,7 @@ export interface Props {
   node: Node;
   extensionsProvider?: ExtensionProvider;
   scrollable?: boolean;
+  featureFlags: FeatureFlags;
 }
 
 const ToolbarItems = React.memo(
@@ -80,6 +81,7 @@ const ToolbarItems = React.memo(
     node,
     setDisableScroll,
     mountRef,
+    featureFlags,
   }: Props & {
     setDisableScroll?: (disable: boolean) => void;
     mountRef: React.RefObject<HTMLDivElement>;
@@ -92,9 +94,9 @@ const ToolbarItems = React.memo(
         undefined
       : popupsMountPoint;
 
-    const { useSomewhatSemanticTextColorNames } = editorView
-      ? getFeatureFlags(editorView.state)
-      : { useSomewhatSemanticTextColorNames: false };
+    const { useSomewhatSemanticTextColorNames } = featureFlags || {
+      useSomewhatSemanticTextColorNames: false,
+    };
 
     return (
       <ButtonGroup>
@@ -278,8 +280,7 @@ const ToolbarItems = React.memo(
                 if (!editorView || !extensionsProvider) {
                   return null;
                 }
-                const { extendFloatingToolbar } =
-                  getFeatureFlags(editorView.state) || {};
+                const { extendFloatingToolbar } = featureFlags || {};
                 if (!extendFloatingToolbar) {
                   return null;
                 }
@@ -654,6 +655,7 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
                 setDisableScroll={this.setDisableScroll.bind(this)}
                 mountRef={this.mountRef}
                 mounted={this.state.mounted}
+                featureFlags={this.props.featureFlags}
               />
             </div>
             {scrollable && (

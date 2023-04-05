@@ -10,6 +10,7 @@ import {
 import basePlugin from '../../';
 import { GUTTER_SELECTOR } from '../../pm-plugins/scroll-gutter';
 import * as mobileDimensionsUtils from '../../../mobile-dimensions/utils';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 function createScrollContainer(height: number) {
   const scrollableContent = document.createElement('div');
@@ -58,10 +59,13 @@ describe('ScrollGutter Plugin', () => {
 
     const { editorView } = createEditor({
       attachTo: scrollableContent,
-      preset: new Preset<LightEditorPlugin>().add([
-        basePlugin,
-        { allowScrollGutter: { getScrollElement: () => scrollableContent } },
-      ]),
+      preset: new Preset<LightEditorPlugin>()
+
+        .add([featureFlagsPlugin, {}])
+        .add([
+          basePlugin,
+          { allowScrollGutter: { getScrollElement: () => scrollableContent } },
+        ]),
     });
 
     insertText(editorView, 'hi');
@@ -75,10 +79,13 @@ describe('ScrollGutter Plugin', () => {
 
     const { editorView } = createEditor({
       attachTo: scrollableContent,
-      preset: new Preset<LightEditorPlugin>().add([
-        basePlugin,
-        { allowScrollGutter: { getScrollElement: () => scrollableContent } },
-      ]),
+      preset: new Preset<LightEditorPlugin>()
+
+        .add([featureFlagsPlugin, {}])
+        .add([
+          basePlugin,
+          { allowScrollGutter: { getScrollElement: () => scrollableContent } },
+        ]),
     });
 
     insertText(editorView, 'hi');
@@ -91,15 +98,18 @@ describe('ScrollGutter Plugin', () => {
     const contentContainer = createScrollContainer(2000);
     const { editorView } = createEditor({
       attachTo: contentContainer,
-      preset: new Preset<LightEditorPlugin>().add([
-        basePlugin,
-        {
-          allowScrollGutter: {
-            getScrollElement: () => scrollableContent,
-            gutterSize: 50,
+      preset: new Preset<LightEditorPlugin>()
+
+        .add([featureFlagsPlugin, {}])
+        .add([
+          basePlugin,
+          {
+            allowScrollGutter: {
+              getScrollElement: () => scrollableContent,
+              gutterSize: 50,
+            },
           },
-        },
-      ]),
+        ]),
     });
 
     insertText(editorView, 'hi');
@@ -115,14 +125,17 @@ describe('ScrollGutter Plugin', () => {
     const contentContainer = createScrollContainer(2000);
     const { editorView } = createEditor({
       attachTo: contentContainer,
-      preset: new Preset<LightEditorPlugin>().add([
-        basePlugin,
-        {
-          allowScrollGutter: {
-            getScrollElement: () => scrollableContent,
+      preset: new Preset<LightEditorPlugin>()
+
+        .add([featureFlagsPlugin, {}])
+        .add([
+          basePlugin,
+          {
+            allowScrollGutter: {
+              getScrollElement: () => scrollableContent,
+            },
           },
-        },
-      ]),
+        ]),
     });
 
     insertText(editorView, 'hi');
@@ -150,15 +163,18 @@ describe('Mobile scenarios', () => {
     const contentContainer = createScrollContainer(400);
     createEditor({
       attachTo: contentContainer,
-      preset: new Preset<LightEditorPlugin>().add([
-        basePlugin,
-        {
-          allowScrollGutter: {
-            getScrollElement: () => scrollableContent,
-            gutterSize: 50,
+      preset: new Preset<LightEditorPlugin>()
+
+        .add([featureFlagsPlugin, {}])
+        .add([
+          basePlugin,
+          {
+            allowScrollGutter: {
+              getScrollElement: () => scrollableContent,
+              gutterSize: 50,
+            },
           },
-        },
-      ]),
+        ]),
     });
     expect(contentContainer.querySelector(GUTTER_SELECTOR)).toBe(null);
   });
@@ -176,15 +192,18 @@ describe('Mobile scenarios', () => {
     const contentContainer = createScrollContainer(400);
     const { editorView } = createEditor({
       attachTo: contentContainer,
-      preset: new Preset<LightEditorPlugin>().add([
-        basePlugin,
-        {
-          allowScrollGutter: {
-            getScrollElement: () => scrollableContent,
-            gutterSize: 50,
+      preset: new Preset<LightEditorPlugin>()
+
+        .add([featureFlagsPlugin, {}])
+        .add([
+          basePlugin,
+          {
+            allowScrollGutter: {
+              getScrollElement: () => scrollableContent,
+              gutterSize: 50,
+            },
           },
-        },
-      ]),
+        ]),
     });
     insertText(editorView, 'hello');
     expect(contentContainer.querySelector(GUTTER_SELECTOR)).not.toBe(null);
@@ -203,16 +222,18 @@ describe('Mobile scenarios', () => {
     const contentContainer = createScrollContainer(50);
     const { editorView } = createEditor({
       attachTo: contentContainer,
-      preset: new Preset<LightEditorPlugin>().add([
-        basePlugin,
-        {
-          allowScrollGutter: {
-            getScrollElement: () => scrollableContent,
-            gutterSize: 50,
-            persistScrollGutter: true,
+      preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
+        .add([
+          basePlugin,
+          {
+            allowScrollGutter: {
+              getScrollElement: () => scrollableContent,
+              gutterSize: 50,
+              persistScrollGutter: true,
+            },
           },
-        },
-      ]),
+        ]),
     });
     insertText(editorView, 'hello');
     expect(contentContainer.querySelector(GUTTER_SELECTOR)).not.toBe(null);
@@ -231,16 +252,18 @@ describe('Mobile scenarios', () => {
     const contentContainer = createScrollContainer(100);
     const { editorView } = createEditor({
       attachTo: contentContainer,
-      preset: new Preset<LightEditorPlugin>().add([
-        basePlugin,
-        {
-          allowScrollGutter: {
-            getScrollElement: () => scrollableContent,
-            gutterSize: 50,
-            persistScrollGutter: true,
+      preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
+        .add([
+          basePlugin,
+          {
+            allowScrollGutter: {
+              getScrollElement: () => scrollableContent,
+              gutterSize: 50,
+              persistScrollGutter: true,
+            },
           },
-        },
-      ]),
+        ]),
     });
 
     insertText(editorView, '');

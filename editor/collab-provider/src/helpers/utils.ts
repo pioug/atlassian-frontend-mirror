@@ -13,18 +13,6 @@ export const createLogger =
     }
   };
 
-const logger = createLogger('Helper:util', 'black');
-
-export const getParticipant = (userId: string) => {
-  logger('getParticipant: ', userId);
-  return {
-    userId: userId,
-    name: userId,
-    avatar: '',
-    email: `${userId.replace(/\s/g, '').toLocaleLowerCase()}@atlassian.com`,
-  };
-};
-
 export function sleep(ms: number) {
   return new Promise((resolve) => {
     setTimeout(resolve, ms);

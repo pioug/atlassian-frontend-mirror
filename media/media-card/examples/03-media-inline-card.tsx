@@ -22,13 +22,14 @@ import Toggle from '@atlaskit/toggle';
 import MediaInlineCard from '../src/inline/loader';
 import { MainWrapper } from '../example-helpers';
 import { IntlProvider } from 'react-intl-next';
-import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { ThemeModes } from '@atlaskit/theme';
 import {
   mediaInlineTableStyles,
   mediaInlineWrapperStyles,
 } from '../example-helpers/styles';
+import { ThemeProvider as StyledThemeProvider } from '@emotion/react';
+import DeprecatedThemeProvider from '@atlaskit/theme/deprecated-provider-please-do-not-use';
 
 const mediaClientConfig = createUploadMediaClientConfig();
 
@@ -75,7 +76,7 @@ export default () => {
   );
   return (
     <MainWrapper disableFeatureFlagWrapper={true}>
-      <AtlaskitThemeProvider mode={themeMode}>
+      <DeprecatedThemeProvider mode={themeMode} provider={StyledThemeProvider}>
         {toggleDarkMode}
         <IntlProvider locale={'en'}>
           <div css={mediaInlineWrapperStyles}>
@@ -176,7 +177,7 @@ export default () => {
             </table>
           </div>
         </IntlProvider>
-      </AtlaskitThemeProvider>
+      </DeprecatedThemeProvider>
     </MainWrapper>
   );
 };

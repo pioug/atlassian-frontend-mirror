@@ -1,5 +1,11 @@
 # @atlaskit/table-tree
 
+## 9.3.0
+
+### Minor Changes
+
+- [`6d99522bfa2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6d99522bfa2) - [ux] Adds `shouldExpandOnClick` prop for both TableTree and Row. This allows expansion of expandable rows when a user clicks anywhere on the row, along with the chevron at the head of the row.
+
 ## 9.2.11
 
 ### Patch Changes

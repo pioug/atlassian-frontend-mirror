@@ -56,3 +56,6 @@ export type {
 } from './fragment';
 
 export { fragment, toJSON as fragmentToJSON } from './fragment';
+
+export { border, borderColorPalette } from './border';
+export type { BorderMarkAttributes, BorderMarkDefinition } from './border';

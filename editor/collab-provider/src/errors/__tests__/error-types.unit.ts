@@ -1,15 +1,74 @@
-import { NotConnectedError, NotInitializedError } from '../error-types';
+import {
+  NotConnectedError,
+  NotInitializedError,
+  ProviderInitialisationError,
+  SendTransactionError,
+  DestroyError,
+  SetTitleError,
+  SetEditorWidthError,
+  SetMetadataError,
+  GetCurrentStateError,
+  GetFinalAcknowledgedStateError,
+} from '../error-types';
 
-describe('Error Types', () => {
-  it('Constructs NotConnectedError', () => {
-    const err = new NotConnectedError('Test Message');
-    expect(err.message).toEqual('Test Message');
-    expect(err.name).toEqual('NotConnectedError');
-  });
+describe('Custom errors', () => {
+  it.each([
+    [NotConnectedError, 'You are not connected yet', 'NotConnectedError'],
+    [NotInitializedError, 'You are not initialised yet', 'NotInitializedError'],
+    [
+      ProviderInitialisationError,
+      'Something went wrong while initialising the Provider',
+      'ProviderInitialisationError',
+    ],
+    [
+      SendTransactionError,
+      'Error while sending steps for a transaction',
+      'SendTransactionError',
+    ],
+    [
+      DestroyError,
+      'Error while shutting down the collab provider',
+      'DestroyError',
+    ],
+    [SetTitleError, 'Error while setting the title', 'SetTitleError'],
+    [
+      SetEditorWidthError,
+      'Error while setting the editor width',
+      'SetEditorWidthError',
+    ],
+    [SetMetadataError, 'Error while setting the metadata', 'SetMetadataError'],
+    [
+      GetCurrentStateError,
+      'Error while returning the current state of the draft document',
+      'GetCurrentStateError',
+    ],
+    [
+      GetFinalAcknowledgedStateError,
+      'Error while returning the final acknowledged state of the draft document',
+      'GetFinalAcknowledgedStateError',
+    ],
+  ])(
+    'should instantiate the error %p with error message "%s" and name %s',
+    (CustomError, errorMessage, errorName) => {
+      const err = new CustomError(errorMessage);
 
-  it('Constructs NotInitializedError', () => {
-    const err = new NotInitializedError('Test Message');
-    expect(err.message).toEqual('Test Message');
-    expect(err.name).toEqual('NotInitializedError');
-  });
+      expect(err.message).toEqual(errorMessage);
+      expect(err.name).toEqual(errorName);
+      expect(err.toJSON()).toEqual({
+        message: errorMessage,
+        name: errorName,
+      });
+
+      // With wrapped error
+      const error = new Error('Something wrapped went wrong');
+      const wrappedError = new CustomError(errorMessage, error);
+
+      expect(wrappedError.message).toEqual('Something wrapped went wrong');
+      expect(wrappedError.name).toEqual(errorName);
+      expect(wrappedError.toJSON()).toEqual({
+        message: 'Something wrapped went wrong',
+        name: errorName,
+      });
+    },
+  );
 });

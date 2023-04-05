@@ -177,6 +177,9 @@ export interface EmbedCardAdf {
 }
 
 // @public (undocumented)
+type EmbedIframeUrlType = 'href' | 'interactiveHref';
+
+// @public (undocumented)
 export type EnvironmentsKeys = keyof typeof BaseUrls;
 
 // @public (undocumented)
@@ -186,6 +189,7 @@ export type ErrorType = 'UnexpectedError' | ServerErrorType;
 export const extractPreview: (
   jsonLd: JsonLd.Data.BaseData,
   platform?: JsonLd.Primitives.Platforms | undefined,
+  iframeUrlType?: EmbedIframeUrlType | undefined,
 ) => LinkPreview_2 | undefined;
 
 // @public (undocumented)
@@ -313,6 +317,7 @@ export function request<T = JsonLd.Response>(
   url: string,
   data?: any,
   headers?: HeadersInit,
+  statuses?: number[],
 ): Promise<T>;
 
 // @public (undocumented)

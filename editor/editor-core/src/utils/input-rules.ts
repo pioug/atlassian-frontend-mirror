@@ -14,8 +14,6 @@ import { addAnalytics } from '../plugins/analytics';
 import { AnalyticsEventPayload } from '../plugins/analytics/types';
 import { JOIN_SCENARIOS_WHEN_TYPING_TO_INSERT_LIST } from '@atlaskit/editor-common/analytics';
 import { closeHistory } from 'prosemirror-history';
-import { findParentNodeOfTypeClosestToPos } from 'prosemirror-utils';
-import { getFeatureFlags } from '../plugins/feature-flags-context';
 
 type GetPayload =
   | AnalyticsEventPayload
@@ -200,36 +198,6 @@ export const createWrappingJoinRule = ({
     }
 
     tr.wrap(range, wrapping);
-
-    const featureFlags = getFeatureFlags(state);
-
-    if (
-      featureFlags?.restartNumberedLists &&
-      nodeType === state.schema.nodes.orderedList
-    ) {
-      // if an orderedList node would be inserted by the input rule match, and
-      // that orderedList node is being added directly before another orderedList
-      // node, then join those nodes
-      const $end = tr.doc.resolve(tr.mapping.map(end));
-      const node = findParentNodeOfTypeClosestToPos($end, nodeType);
-      if (node) {
-        const nodeEnd = node.pos + node.node.nodeSize;
-        const after = tr.doc.resolve(nodeEnd).nodeAfter;
-        if (
-          after &&
-          after.type === nodeType &&
-          canJoin(tr.doc, nodeEnd) &&
-          (!joinPredicate ||
-            joinPredicate(
-              match,
-              after,
-              JOIN_SCENARIOS_WHEN_TYPING_TO_INSERT_LIST.JOINED_TO_LIST_BELOW,
-            ))
-        ) {
-          tr.join(nodeEnd);
-        }
-      }
-    }
 
     const before = tr.doc.resolve(fixedStart - 1).nodeBefore;
 

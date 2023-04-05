@@ -3,6 +3,7 @@ import EmojiRepository from '../../../../api/EmojiRepository';
 import { messages } from '../../../../components/i18n';
 import * as ImageUtil from '../../../../util/image';
 import {
+  atlassianEmojis,
   createPngFile,
   getEmojiResourcePromise,
   getEmojiResourcePromiseFromRepository,
@@ -10,6 +11,7 @@ import {
   mediaEmoji,
   pngFileUploadData,
   siteEmojiFoo,
+  standardEmojis,
 } from '../../_test-data';
 import * as helperTestingLibrary from './_emoji-picker-helpers-testing-library';
 import {
@@ -86,6 +88,8 @@ describe('<UploadingEmojiPicker />', () => {
     });
 
     afterEach(() => {
+      jest.runOnlyPendingTimers();
+      jest.useRealTimers();
       consoleError.mockRestore();
       ufoStartSpy.mockClear();
       ufoSuccessSpy.mockClear();
@@ -134,6 +138,10 @@ describe('<UploadingEmojiPicker />', () => {
 
     it('Upload main flow interaction', async () => {
       onEvent = jest.fn();
+      const emojiProvider = getEmojiResourcePromise({
+        uploadSupported: true,
+        currentUser: { id: 'blackpanther' },
+      });
       helperTestingLibrary.renderPicker(
         {
           emojiProvider,
@@ -181,10 +189,11 @@ describe('<UploadingEmojiPicker />', () => {
       ).getAllByTestId('image-emoji-:cheese_burger:');
       expect(emojiInPreview.length).toBe(2);
 
+      jest.useFakeTimers();
+
       // trigger upload
       const uploadEmojiButton = helperTestingLibrary.getUploadEmojiButton();
       fireEvent.click(uploadEmojiButton);
-
       // wait for upload
       await waitFor(() => {
         expect(provider.getUploads().length).toEqual(1);
@@ -200,15 +209,23 @@ describe('<UploadingEmojiPicker />', () => {
         height: 30,
       });
 
+      helperTestingLibrary.scrollToIndex(
+        Math.round(standardEmojis.length) + Math.round(atlassianEmojis.length),
+      );
+
       await waitFor(() => {
         // upload preview should disappear
         expect(
           screen.queryByTestId(cancelUploadButtonTestId),
         ).not.toBeInTheDocument();
-        // list is scrolled to the bottom and new emoji is visible
+        // list is scrolled to the new emoji, with preview emoji shown as well
+
+        expect(helperTestingLibrary.getVirtualList()).toBeInTheDocument();
         expect(
-          screen.getAllByTestId('image-emoji-:cheese_burger:').length,
-        ).toBe(1);
+          within(helperTestingLibrary.getVirtualList()).getAllByTestId(
+            'image-emoji-:cheese_burger:',
+          ).length,
+        ).toBe(2);
         // picker footer is in the view
         expect(helperTestingLibrary.getEmojiPickerFooter()).toBeInTheDocument();
       });
@@ -253,6 +270,21 @@ describe('<UploadingEmojiPicker />', () => {
         }),
         'fabric-elements',
       );
+
+      const virtualList = helperTestingLibrary.getVirtualList();
+      await waitFor(() => {
+        expect(virtualList).toBeInTheDocument();
+      });
+
+      // let scroll finish after timeout
+      jest.runAllTimers();
+
+      expect(screen.getByText('Your uploads')).toBeInTheDocument();
+      // focus on the first uploaded emoji, which is under your uploads category.
+      expect(
+        within(virtualList).queryAllByTestId('image-emoji-:cheese_burger:')[0],
+      ).toHaveFocus();
+
       expect(ufoStartSpy).toHaveBeenCalled();
       expect(ufoSuccessSpy).toHaveBeenCalled();
       expect(ufoFailureSpy).not.toHaveBeenCalled();
@@ -415,6 +447,7 @@ describe('<UploadingEmojiPicker />', () => {
       ).getAllByTestId('image-emoji-:cheese_burger:');
       expect(emojiInPreview.length).toBe(2);
 
+      jest.useFakeTimers();
       // trigger upload
       const uploadEmojiButton = helperTestingLibrary.getUploadEmojiButton();
       fireEvent.click(uploadEmojiButton);
@@ -441,6 +474,17 @@ describe('<UploadingEmojiPicker />', () => {
       expect(
         helperTestingLibrary.getAddCustomEmojiButton(),
       ).toBeInTheDocument();
+
+      const virtualList = helperTestingLibrary.getVirtualList();
+      await waitFor(() => {
+        expect(virtualList).toBeInTheDocument();
+      });
+
+      // let scroll finish after timeout
+      jest.runAllTimers();
+      expect(
+        await within(virtualList).findByTestId('image-emoji-:cheese_burger:'),
+      ).toHaveFocus();
     });
 
     it('Upload cancel interaction', async () => {
@@ -573,7 +617,7 @@ describe('<UploadingEmojiPicker />', () => {
       });
 
       const addCustomEmojiButtonAfterCancel =
-        helperTestingLibrary.getAddCustomEmojiButton();
+        await helperTestingLibrary.getAddCustomEmojiButton();
 
       expect(addCustomEmojiButtonAfterCancel).toHaveFocus();
     });
@@ -647,7 +691,7 @@ describe('<UploadingEmojiPicker />', () => {
         ),
       ).toBeInTheDocument();
 
-      expect(screen.getByText('Retry')).toBeInTheDocument();
+      expect(screen.getByLabelText('Retry')).toBeInTheDocument();
 
       helperTestingLibrary.cancelUpload();
       await waitFor(() => {
@@ -772,7 +816,7 @@ describe('<UploadingEmojiPicker />', () => {
         ),
       ).toBeInTheDocument();
 
-      expect(screen.getByText('Retry')).toBeInTheDocument();
+      expect(screen.getByLabelText('Retry')).toBeInTheDocument();
 
       // remove mock to make upload successful
       // @ts-ignore: prevent TS from complaining about mockRestore function

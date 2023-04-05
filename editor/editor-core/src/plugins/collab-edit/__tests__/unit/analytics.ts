@@ -4,7 +4,6 @@ import {
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 
-import featureFlagsContextPlugin from '../../../feature-flags-context';
 import analyticsPlugin from '../../../analytics';
 import { addSynchronyErrorAnalytics } from '../../analytics';
 import {
@@ -13,13 +12,14 @@ import {
   getAnalyticsEventsFromTransaction,
 } from '../../../analytics';
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 describe('Collab Edit Analytics', () => {
   const createEditor = createProsemirrorEditorFactory();
   it('should add doc structured if FF is on', () => {
     const { editorView } = createEditor({
       preset: new Preset<LightEditorPlugin>()
-        .add([featureFlagsContextPlugin, { synchronyErrorDocStructure: true }])
+        .add([featureFlagsPlugin, {}])
         .add([
           analyticsPlugin,
           {
@@ -31,6 +31,7 @@ describe('Collab Edit Analytics', () => {
     const tr = addSynchronyErrorAnalytics(
       editorView.state,
       editorView.state.tr,
+      { synchronyErrorDocStructure: true },
     )(new Error('Triggered error boundary'));
 
     expect(getAnalyticsEventsFromTransaction(tr)[0].payload).toEqual(
@@ -47,7 +48,7 @@ describe('Collab Edit Analytics', () => {
   it('should not add doc structured if FF is off', () => {
     const { editorView } = createEditor({
       preset: new Preset<LightEditorPlugin>()
-        .add([featureFlagsContextPlugin, { synchronyErrorDocStructure: false }])
+        .add([featureFlagsPlugin, { synchronyErrorDocStructure: false }])
         .add([
           analyticsPlugin,
           {
@@ -59,6 +60,7 @@ describe('Collab Edit Analytics', () => {
     const tr = addSynchronyErrorAnalytics(
       editorView.state,
       editorView.state.tr,
+      { synchronyErrorDocStructure: false },
     )(new Error('Triggered error boundary'));
 
     expect(getAnalyticsEventsFromTransaction(tr)[0].payload).toEqual(

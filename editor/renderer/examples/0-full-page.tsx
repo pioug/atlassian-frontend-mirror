@@ -13,6 +13,7 @@ export default function Example() {
       allowHeadingAnchorLinks
       allowColumnSorting={true}
       allowCopyToClipboard
+      allowWrapCodeBlock
       analyticsEventSeverityTracking={{
         enabled: true,
         severityNormalThreshold: NORMAL_SEVERITY_THRESHOLD,

@@ -3,13 +3,12 @@ import parserTypeScript from 'prettier/parser-typescript';
 
 import { spacing as tokens } from '@atlaskit/tokens/tokens-raw';
 
-import { capitalize, tokenCall, tokenToStyle } from './utils';
+import { capitalize, tokenToStyle } from './utils';
 
 const spacingProperties: Record<
   string,
   {
     cssProperties: readonly string[];
-    responsiveOutput?: boolean;
     propNameFormatter?: (propName: string) => string;
   }
 > = {
@@ -23,14 +22,13 @@ const spacingProperties: Record<
       'paddingInlineStart',
       'paddingInlineEnd',
     ],
-    responsiveOutput: true,
   },
-  space: {
-    cssProperties: ['gap'],
+  inlineSpace: {
+    cssProperties: ['gap', 'rowGap'],
     propNameFormatter: tokenName => tokenName.replace(spacingTokenPrefix, ''),
   },
-  rowSpace: {
-    cssProperties: ['rowGap'],
+  stackSpace: {
+    cssProperties: ['gap'],
     propNameFormatter: tokenName => tokenName.replace(spacingTokenPrefix, ''),
   },
 } as const;
@@ -52,32 +50,34 @@ export const createSpacingStylesFromTemplate = (
     throw new Error(`[codegen] Unknown option found "${spacingProperty}"`);
   }
 
-  const { cssProperties, responsiveOutput, propNameFormatter } =
+  const { cssProperties, propNameFormatter } =
     spacingProperties[spacingProperty]!;
 
   return (
     prettier.format(
       `
-const ${spacingProperty}Map = {
-  ${activeTokens
-    .sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }))
-    .map(token => {
-      const propName = propNameFormatter
-        ? propNameFormatter(token.name)
-        : token.name;
-
-      // a responsive output simply prints out a mapping of tokens
-      if (responsiveOutput) {
-        return `'${token.name}': ${tokenCall(token.name, token.fallback)}`;
-      }
-
-      return `'${propName}': ${tokenToStyle(
-        [cssProperties] as any,
-        token.name,
-        token.fallback,
-      )}`;
-    })}
-  } as const;`,
+  const ${spacingProperty}Map = Object.fromEntries(
+    [
+      '${cssProperties.join("','")}',
+    ].map((property: string) => [
+      property,
+      {
+    ${activeTokens
+      .sort((a, b) =>
+        a.name.localeCompare(b.name, undefined, { numeric: true }),
+      )
+      .map(token => {
+        const propName = propNameFormatter
+          ? propNameFormatter(token.name)
+          : token.name;
+        return `'${propName}': ${tokenToStyle(
+          '[property]' as any,
+          token.name,
+          token.fallback,
+        )}`;
+      })}
+    } as const,
+  ]));`,
       {
         singleQuote: true,
         trailingComma: 'all',
@@ -89,8 +89,8 @@ const ${spacingProperty}Map = {
       .map(
         cssProperty =>
           `\nexport type ${capitalize(
-            cssProperties.length === 1 ? spacingProperty : cssProperty,
-          )} = keyof typeof ${spacingProperty}Map;`,
+            cssProperty,
+          )} = keyof typeof ${spacingProperty}Map.${cssProperty};`,
       )
       .join('') +
       '\n')

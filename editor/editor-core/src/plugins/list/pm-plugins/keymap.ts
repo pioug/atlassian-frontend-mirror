@@ -10,8 +10,11 @@ import {
 } from '../commands';
 import { outdentList } from '../commands/outdent-list';
 import { INPUT_METHOD } from '../../analytics';
+import type { FeatureFlags } from '@atlaskit/editor-common/types';
 
-export function keymapPlugin(): SafePlugin | undefined {
+export function keymapPlugin(
+  featureFlags: FeatureFlags,
+): SafePlugin | undefined {
   const list = {};
 
   keymaps.bindKeymapWithCommand(
@@ -31,13 +34,17 @@ export function keymapPlugin(): SafePlugin | undefined {
   );
   keymaps.bindKeymapWithCommand(
     keymaps.outdentList.common!,
-    outdentList(INPUT_METHOD.KEYBOARD),
+    outdentList(INPUT_METHOD.KEYBOARD, featureFlags),
     list,
   );
-  keymaps.bindKeymapWithCommand(keymaps.enter.common!, enterKeyCommand, list);
+  keymaps.bindKeymapWithCommand(
+    keymaps.enter.common!,
+    enterKeyCommand(featureFlags),
+    list,
+  );
   keymaps.bindKeymapWithCommand(
     keymaps.backspace.common!,
-    backspaceKeyCommand,
+    backspaceKeyCommand(featureFlags),
     list,
   );
 

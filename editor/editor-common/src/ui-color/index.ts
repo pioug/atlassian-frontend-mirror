@@ -19,6 +19,7 @@ export {
 export { textColorPalette } from './ColorPalette/Palettes/textColorPalette';
 export {
   backgroundPaletteTooltipMessages,
+  borderPaletteTooltipMessages,
   textPaletteTooltipMessages,
 } from './ColorPalette/Palettes';
 export { DEFAULT_BORDER_COLOR } from './ColorPalette/Palettes/common';
@@ -26,3 +27,5 @@ export type {
   PaletteColor,
   PaletteTooltipMessages,
 } from './ColorPalette/Palettes/type';
+
+export { default as borderColorPalette } from './ColorPalette/Palettes/borderColorPalette';

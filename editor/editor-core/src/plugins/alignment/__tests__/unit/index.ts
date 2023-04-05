@@ -31,8 +31,10 @@ import listPlugin from '../../../list';
 import codeBlockPlugin from '../../../code-block';
 import blockTypePlugin from '../../../block-type';
 import { AlignmentPluginState } from '../../pm-plugins/types';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 const alignmentPreset = new Preset<LightEditorPlugin>()
+  .add([featureFlagsPlugin, {}])
   .add(alignmentPlugin)
   .add(tablesPlugin)
   .add(listPlugin)

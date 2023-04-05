@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { Fragment, useState, FC, useRef, useEffect, memo } from 'react';
+import { Fragment, useState, FC, useRef, memo, useLayoutEffect } from 'react';
 import { jsx } from '@emotion/react';
 import {
   FormattedMessage,
@@ -113,26 +113,24 @@ const TonesWrapper: FC<TonesWrapperProps> = (props) => {
   const tonePreviewButtonRef = useRef<HTMLButtonElement>(null);
   const [focusTonePreviewButton, setFocusTonePreviewButton] = useState(false);
 
-  useEffect(() => {
-    if (focusTonePreviewButton && tonePreviewButtonRef.current) {
-      tonePreviewButtonRef.current.focus();
+  useLayoutEffect(() => {
+    if (focusTonePreviewButton && !showToneSelector) {
+      tonePreviewButtonRef.current?.focus();
     }
     return () => {
       setFocusTonePreviewButton(false);
     };
-  });
+  }, [focusTonePreviewButton, showToneSelector]);
 
   const onToneCloseHandler = () => {
     const { onToneClose } = props;
     onToneClose();
-
     setFocusTonePreviewButton(true);
   };
 
   const onToneSelectedHandler = (toneValue: ToneValueType) => {
     const { onToneSelected } = props;
     onToneSelected(toneValue);
-
     setFocusTonePreviewButton(true);
   };
 
@@ -250,13 +248,12 @@ export const EmojiActions: FC<EmojiActionsProps> = (props) => {
       onMouseLeave={onMouseLeaveHandler}
     >
       <div css={emojiActionsWrapper}>
-        {!showToneSelector && (
-          <EmojiPickerListSearch
-            onChange={onChange}
-            query={query}
-            resultsCount={resultsCount}
-          />
-        )}
+        <EmojiPickerListSearch
+          onChange={onChange}
+          query={query}
+          resultsCount={resultsCount}
+          isVisible={!showToneSelector}
+        />
         <TonesWrapper
           {...props}
           onToneOpen={onToneOpenHandler}

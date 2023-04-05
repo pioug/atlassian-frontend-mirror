@@ -51,7 +51,11 @@ export function Toolbar(props: ToolbarProps) {
   const handleOnItemActivated =
     (buttonName: ButtonName) =>
     (event: React.MouseEvent<HTMLElement, MouseEvent>) =>
-      onItemActivated({ editorView: props.editorView, buttonName });
+      onItemActivated({
+        editorView: props.editorView,
+        buttonName,
+        featureFlags: props.featureFlags,
+      });
 
   useEffect(() => {
     if (isIndentButtonFocused && indentDisabled && outdentButtonRef.current) {

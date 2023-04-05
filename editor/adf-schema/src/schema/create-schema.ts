@@ -20,6 +20,7 @@ import {
   unsupportedNodeAttribute,
   dataConsumer,
   fragment,
+  border,
 } from './marks';
 
 import {
@@ -204,6 +205,7 @@ const marksInOrder: SchemaBuiltInItem[] = [
   { name: 'dataConsumer', spec: dataConsumer },
   { name: 'fragment', spec: fragment },
   { name: 'indentation', spec: indentation },
+  { name: 'border', spec: border },
   { name: 'unsupportedMark', spec: unsupportedMark },
   { name: 'unsupportedNodeAttribute', spec: unsupportedNodeAttribute },
 ];

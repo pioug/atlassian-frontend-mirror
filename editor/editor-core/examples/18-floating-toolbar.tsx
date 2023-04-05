@@ -144,6 +144,7 @@ export default class Example extends Component {
               // these examples aren't prosemirror specific
               node={undefined as any}
               dispatchCommand={() => SAVE_ACTION}
+              featureFlags={{}}
             />
           </div>
           <div className="toolsDrawer">

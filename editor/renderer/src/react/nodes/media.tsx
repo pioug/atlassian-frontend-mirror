@@ -8,8 +8,10 @@ import { mediaLinkStyle } from '@atlaskit/editor-common/ui';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { MediaCard, MediaCardProps, MediaProvider } from '../../ui/MediaCard';
-import { LinkDefinition } from '@atlaskit/adf-schema';
+import { LinkDefinition, BorderMarkDefinition } from '@atlaskit/adf-schema';
 import type { MediaFeatureFlags } from '@atlaskit/media-common';
+import { hexToEditorBorderPaletteColor } from '@atlaskit/editor-palette';
+
 import { getEventHandler } from '../../utils';
 import {
   ACTION,
@@ -25,7 +27,8 @@ export type MediaProps = MediaCardProps & {
   allowAltTextOnImages?: boolean;
   children?: React.ReactNode;
   isInsideOfBlockNode?: boolean;
-  marks: Array<LinkDefinition>;
+  marks: Array<LinkDefinition | BorderMarkDefinition>;
+  isBorderMark: () => boolean;
   isLinkMark: () => boolean;
   fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
   featureFlags?: MediaFeatureFlags;
@@ -49,7 +52,15 @@ export default class Media extends PureComponent<MediaProps, {}> {
       ssr,
     } = this.props;
 
-    const linkMark = this.props.marks.find(this.props.isLinkMark);
+    const borderMark = this.props.marks.find(
+      this.props.isBorderMark,
+    ) as BorderMarkDefinition;
+    const borderColor = borderMark?.attrs.color ?? '';
+    const borderWidth = borderMark?.attrs.size ?? 0;
+
+    const linkMark = this.props.marks.find(
+      this.props.isLinkMark,
+    ) as LinkDefinition;
     const linkHref = linkMark?.attrs.href;
     const eventHandlers = linkHref ? undefined : this.props.eventHandlers;
     const shouldOpenMediaViewer = !linkHref && allowMediaViewer;
@@ -67,6 +78,27 @@ export default class Media extends PureComponent<MediaProps, {}> {
       />
     );
 
+    const paletteColorValue =
+      hexToEditorBorderPaletteColor(borderColor) || borderColor;
+
+    const mediaComponentWithBorder = borderMark ? (
+      <div
+        data-mark-type="border"
+        data-color={borderColor}
+        data-size={borderWidth}
+        style={{
+          borderColor: paletteColorValue,
+          borderWidth: `${borderWidth}px`,
+          borderStyle: 'solid',
+          borderRadius: `${borderWidth * 2}px`,
+        }}
+      >
+        {mediaComponent}
+      </div>
+    ) : (
+      mediaComponent
+    );
+
     return linkHref ? (
       <a
         href={linkHref}
@@ -75,10 +107,10 @@ export default class Media extends PureComponent<MediaProps, {}> {
         data-block-link={linkHref}
         css={mediaLinkStyle}
       >
-        {mediaComponent}
+        {mediaComponentWithBorder}
       </a>
     ) : (
-      mediaComponent
+      mediaComponentWithBorder
     );
   };
 
@@ -98,7 +130,9 @@ export default class Media extends PureComponent<MediaProps, {}> {
         },
       });
     }
-    const linkMark = this.props.marks.find(this.props.isLinkMark);
+    const linkMark = this.props.marks.find(
+      this.props.isLinkMark,
+    ) as LinkDefinition;
     const linkHref = linkMark?.attrs.href;
 
     const handler = getEventHandler(this.props.eventHandlers, 'link');

@@ -13,6 +13,7 @@ import emojiPlugin, { emojiToTypeaheadItem, memoize } from '../../../';
 import typeAheadPlugin from '../../../../type-ahead';
 import analyticsPlugin from '../../../../analytics';
 import { EmojiPluginOptions } from '../../../types';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 describe('EmojiTypeAhead', () => {
   describe('Analytics', () => {
@@ -54,6 +55,7 @@ describe('EmojiTypeAhead', () => {
       return createEditor({
         doc: doc(p('{<>}')),
         preset: new Preset<LightEditorPlugin>()
+          .add([featureFlagsPlugin, {}])
           .add([
             emojiPluginMonkeyPatched,
             { createAnalyticsEvent: dispatchAnalyticsEvent },

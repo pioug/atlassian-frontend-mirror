@@ -27,6 +27,7 @@ import textFormattingPlugin from '../../../../text-formatting';
 import blockTypePlugin from '../../../../block-type';
 import listPlugin from '../../../../list';
 import tasksAndDecisionsPlugin from '../../../../tasks-and-decisions';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 describe('Indentation buttons', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -34,6 +35,7 @@ describe('Indentation buttons', () => {
     createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
         .add(basePlugin)
         .add(textFormattingPlugin)
         .add(listPlugin)
@@ -71,6 +73,7 @@ describe('Indentation buttons', () => {
           indentDisabled={indentDisabled}
           outdentDisabled={outdentDisabled}
           showIndentationButtons={true}
+          featureFlags={{}}
         />
       </IntlProvider>,
     );

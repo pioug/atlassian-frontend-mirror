@@ -13,12 +13,15 @@ import {
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import listPlugin from '../..';
 import { toggleOrderedList, toggleBulletList } from '../../commands';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 describe('lists plugin -> joining lists', () => {
   const createEditor = createProsemirrorEditorFactory();
 
   const editor = (doc: DocBuilder) => {
-    const preset = new Preset<LightEditorPlugin>().add(listPlugin);
+    const preset = new Preset<LightEditorPlugin>()
+      .add([featureFlagsPlugin, {}])
+      .add(listPlugin);
 
     return createEditor({
       doc,

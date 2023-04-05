@@ -1,5 +1,11 @@
 # @atlaskit/media-viewer
 
+## 47.5.2
+
+### Patch Changes
+
+- [`ae5a7de77c8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ae5a7de77c8) - Fixed exported component prop types
+
 ## 47.5.1
 
 ### Patch Changes

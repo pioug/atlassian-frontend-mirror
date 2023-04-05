@@ -131,7 +131,8 @@ export function mergeCells(tr: Transaction): Transaction {
     rows,
     table.node.marks,
   );
-  const fixedTable = removeEmptyColumns(newTable);
+
+  const fixedTable = mergeEmptyColumns(newTable);
   if (fixedTable === null) {
     return setMeta({ type: 'MERGE_CELLS', problem: 'REMOVE_EMPTY_COLUMNS' })(
       tr,
@@ -227,77 +228,74 @@ function cellsOverlapRectangle({ width, height, map }: TableMap, rect: Rect) {
 }
 
 // returns an array of numbers, each number indicates the minimum colSpan in each column
-function getMinColSpans(table: PMNode): number[] {
+function getEmptyColumnIndexes(table: PMNode): Set<number> {
   const map = TableMap.get(table);
-  const minColspans: number[] = [];
-  for (let colIndex = map.width - 1; colIndex >= 0; colIndex--) {
-    const cellsPositions = map.cellsInRect({
+  const emptyColumnIndexes = new Set<number>();
+
+  // Loop throuh each column
+  for (let colIndex = 0; colIndex < map.width; colIndex++) {
+    // Get the cells in each row for this column
+    const cellPositions = map.cellsInRect({
       left: colIndex,
       right: colIndex + 1,
       top: 0,
       bottom: map.height,
     });
-    if (cellsPositions.length) {
-      const colspans = cellsPositions.map((cellPos) => {
-        const cell = table.nodeAt(cellPos);
-        if (cell) {
-          return cell.attrs.colspan;
-        }
-      });
-      const minColspan = Math.min(...colspans);
-      // only care about the case when the next column is invisible
-      if (!minColspans[colIndex + 1]) {
-        minColspans[colIndex] = minColspan;
-      } else {
-        minColspans[colIndex] = 1;
-      }
+
+    // If no cells exist in that column it is empty
+    if (!cellPositions.length) {
+      emptyColumnIndexes.add(colIndex);
     }
   }
 
-  return minColspans;
+  return emptyColumnIndexes;
 }
 
-export function removeEmptyColumns(table: PMNode): PMNode | null {
+export function mergeEmptyColumns(table: PMNode): PMNode | null {
+  const rows: PMNode[] = [];
   const map = TableMap.get(table);
-  const minColSpans = getMinColSpans(table);
-  if (!minColSpans.some((colspan) => colspan > 1)) {
+  const emptyColumnIndexes = getEmptyColumnIndexes(table);
+
+  // We don't need to remove any so return early.
+  if (emptyColumnIndexes.size === 0) {
     return table;
   }
-  const rows: PMNode[] = [];
+
   for (let rowIndex = 0; rowIndex < map.height; rowIndex++) {
     const cellsByCols: Record<string, PMNode> = {};
-    const cols = Object.keys(minColSpans).map(Number);
-    for (let idx in cols) {
-      const colIndex = cols[idx];
+
+    // Work backwards so that calculating colwidths is easier with Array.slice
+    for (let colIndex = map.width - 1; colIndex >= 0; colIndex--) {
       const cellPos = map.map[colIndex + rowIndex * map.width];
       const rect = map.findCell(cellPos);
-      const cell = cellsByCols[rect.left] || table.nodeAt(cellPos);
-      if (cell && rect.top === rowIndex) {
-        if (minColSpans[colIndex] > 1) {
-          const colspan = cell.attrs.colspan - minColSpans[colIndex] + 1;
-          if (colspan < 1) {
-            return null;
-          }
-          const { colwidth } = cell.attrs;
-          const newCell = cell.type.createChecked(
+      let cell = cellsByCols[rect.left] || table.nodeAt(cellPos);
+
+      if (rect.top !== rowIndex) {
+        continue;
+      }
+
+      // If this column is empty, we want to decrement the colspan of its corresponding
+      // cell as this column is being "merged"
+      if (emptyColumnIndexes.has(colIndex)) {
+        const { colspan, colwidth } = cell.attrs;
+
+        if (colspan > 1) {
+          cell = cell.type.createChecked(
             {
               ...cell.attrs,
-              colspan,
+              colspan: colspan - 1,
               colwidth: colwidth ? colwidth.slice(0, colspan) : null,
             },
             cell.content,
             cell.marks,
           );
-          cellsByCols[rect.left] = newCell;
-        } else {
-          cellsByCols[rect.left] = cell;
         }
       }
+
+      cellsByCols[rect.left] = cell;
     }
 
-    const rowCells: PMNode[] = Object.keys(cellsByCols).map(
-      (col) => cellsByCols[col],
-    );
+    const rowCells = Object.values(cellsByCols);
     const row = table.child(rowIndex);
     if (row) {
       rows.push(row.type.createChecked(row.attrs, rowCells, row.marks));

@@ -17,6 +17,7 @@ import feedbackDialogPlugin, { openFeedbackDialog } from '../../index';
 import analyticsPlugin from '../../../analytics';
 import typeAheadPlugin from '../../../type-ahead';
 import quickInsertPlugin from '../../../quick-insert';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 const coreVersion = process.env._PACKAGE_VERSION_;
 
@@ -37,6 +38,7 @@ describe('feedbackDialogPlugin', () => {
     return createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
         .add([
           feedbackDialogPlugin,
           {

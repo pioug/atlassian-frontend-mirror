@@ -14,6 +14,7 @@ import {
 } from '../../pm-plugins/frozen-editor';
 import basePlugin from '../../';
 import * as timingUtils from '../../../../utils/performance/get-performance-timing';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 jest.mock('@atlaskit/editor-common/utils', () => ({
   ...jest.requireActual<Object>('@atlaskit/editor-common/utils'),
@@ -53,20 +54,22 @@ describe('Input performance latency', () => {
   ) => {
     return editorFactory({
       doc,
-      preset: new Preset<LightEditorPlugin>().add([
-        basePlugin,
-        {
-          inputTracking: {
-            enabled: true,
-            samplingRate,
-            trackSeverity,
-            severityNormalThreshold,
-            severityDegradedThreshold,
-            trackSingleKeypress,
-            trackRenderingTime,
+      preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
+        .add([
+          basePlugin,
+          {
+            inputTracking: {
+              enabled: true,
+              samplingRate,
+              trackSeverity,
+              severityNormalThreshold,
+              severityDegradedThreshold,
+              trackSingleKeypress,
+              trackRenderingTime,
+            },
           },
-        },
-      ]),
+        ]),
     });
   };
 

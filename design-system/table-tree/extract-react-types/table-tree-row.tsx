@@ -61,6 +61,13 @@ type RowProps = {
    * Normally set by parent Item component and does not need to be configured.
    */
   renderChildren?: () => React.ReactNode;
+  // eslint-disable-next-line jsdoc/require-asterisk-prefix, jsdoc/check-alignment
+  /**
+    Whether a row with children should expand when clicked anywhere within the row. If false or unset, a row with children will only expand when the chevron is clicked.
+
+    If your cells contain interactive elements, this can cause unexpected expanding or collapsing.
+   */
+  shouldExpandOnClick?: boolean;
   /**
    * Data to render. Passed down by Item and passed into onExpand and onCollapse callbacks.
    * Normally set by parent Item component and does not need to be configured.

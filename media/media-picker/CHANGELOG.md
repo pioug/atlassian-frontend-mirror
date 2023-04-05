@@ -1,5 +1,11 @@
 # @atlaskit/media-picker
 
+## 64.3.0
+
+### Minor Changes
+
+- [`c213d7f6cfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c213d7f6cfb) - Expose Expiry After parameter for Media Backend
+
 ## 64.2.4
 
 ### Patch Changes

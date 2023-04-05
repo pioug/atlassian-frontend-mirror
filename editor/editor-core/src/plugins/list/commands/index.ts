@@ -43,58 +43,66 @@ import { wrapInListAndJoin } from '../actions/wrap-and-join-lists';
 import { outdentList } from './outdent-list';
 import { indentList } from './indent-list';
 import { moveTargetIntoList } from '../utils/replace-content';
+import type { FeatureFlags } from '@atlaskit/editor-common/types';
 
 export { outdentList, indentList };
 
 export type InputMethod = INPUT_METHOD.KEYBOARD | INPUT_METHOD.TOOLBAR;
 
-export const enterKeyCommand: Command = (state, dispatch): boolean => {
-  const { selection } = state;
-  if (selection.empty) {
-    const { $from } = selection;
-    const { listItem, codeBlock } = state.schema.nodes;
-    const wrapper = $from.node($from.depth - 1);
+export const enterKeyCommand =
+  (featureFlags: FeatureFlags): Command =>
+  (state, dispatch): boolean => {
+    const { selection } = state;
+    if (selection.empty) {
+      const { $from } = selection;
+      const { listItem, codeBlock } = state.schema.nodes;
+      const wrapper = $from.node($from.depth - 1);
 
-    if (wrapper && wrapper.type === listItem) {
-      /** Check if the wrapper has any visible content */
-      const wrapperHasContent = hasVisibleContent(wrapper);
-      if (!wrapperHasContent) {
-        return outdentList(INPUT_METHOD.KEYBOARD)(state, dispatch);
-      } else if (!hasParentNodeOfType(codeBlock)(selection)) {
-        return splitListItem(listItem)(state, dispatch);
+      if (wrapper && wrapper.type === listItem) {
+        /** Check if the wrapper has any visible content */
+        const wrapperHasContent = hasVisibleContent(wrapper);
+        if (!wrapperHasContent) {
+          return outdentList(INPUT_METHOD.KEYBOARD, featureFlags)(
+            state,
+            dispatch,
+          );
+        } else if (!hasParentNodeOfType(codeBlock)(selection)) {
+          return splitListItem(listItem)(state, dispatch);
+        }
       }
     }
-  }
-  return false;
-};
+    return false;
+  };
 
-export const backspaceKeyCommand: Command = (state, dispatch) => {
-  return baseCommand.chainCommands(
-    listBackspace,
-    // if we're at the start of a list item, we need to either backspace
-    // directly to an empty list item above, or outdent this node
-    filter(
-      [
-        isEmptySelectionAtStart,
+export const backspaceKeyCommand =
+  (featureFlags: FeatureFlags): Command =>
+  (state, dispatch) => {
+    return baseCommand.chainCommands(
+      listBackspace,
+      // if we're at the start of a list item, we need to either backspace
+      // directly to an empty list item above, or outdent this node
+      filter(
+        [
+          isEmptySelectionAtStart,
 
-        // list items might have multiple paragraphs; only do this at the first one
-        isFirstChildOfParent,
-        isInsideListItem,
-      ],
-      baseCommand.chainCommands(
-        deletePreviousEmptyListItem,
-        outdentList(INPUT_METHOD.KEYBOARD),
+          // list items might have multiple paragraphs; only do this at the first one
+          isFirstChildOfParent,
+          isInsideListItem,
+        ],
+        baseCommand.chainCommands(
+          deletePreviousEmptyListItem,
+          outdentList(INPUT_METHOD.KEYBOARD, featureFlags),
+        ),
       ),
-    ),
 
-    // if we're just inside a paragraph node (or gapcursor is shown) and backspace, then try to join
-    // the text to the previous list item, if one exists
-    filter(
-      [isEmptySelectionAtStart, canJoinToPreviousListItem],
-      joinToPreviousListItem,
-    ),
-  )(state, dispatch);
-};
+      // if we're just inside a paragraph node (or gapcursor is shown) and backspace, then try to join
+      // the text to the previous list item, if one exists
+      filter(
+        [isEmptySelectionAtStart, canJoinToPreviousListItem],
+        joinToPreviousListItem,
+      ),
+    )(state, dispatch);
+  };
 
 export const deleteKeyCommand: Command = joinListItemForward;
 

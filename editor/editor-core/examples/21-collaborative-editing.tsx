@@ -177,7 +177,6 @@ export default class Example extends React.Component<Props, State> {
       console.error('error from collabProvider:', {
         message: err.message,
         code: err.code,
-        status: err.status,
       });
     });
     collabProvider.on('metadata:changed', (data: any) => {

@@ -5,7 +5,7 @@ import { findTable } from '@atlaskit/editor-tables/utils';
 
 import { CellAttributes } from '@atlaskit/adf-schema';
 
-import { removeEmptyColumns } from './merge';
+import { mergeEmptyColumns } from './merge';
 import { setMeta } from './metadata';
 
 export const deleteRows =
@@ -125,7 +125,7 @@ export const deleteRows =
       rows,
       table.node.marks,
     );
-    const fixedTable = removeEmptyColumns(newTable);
+    const fixedTable = mergeEmptyColumns(newTable);
     if (fixedTable === null) {
       return setMeta({ type: 'DELETE_ROWS', problem: 'REMOVE_EMPTY_COLUMNS' })(
         tr,

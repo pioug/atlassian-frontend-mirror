@@ -241,7 +241,7 @@ export interface SizeEvent {
 
 ```json
 {
-  "@atlaskit/media-core": "^34.0.1",
+  "@atlaskit/media-core": "^34.0.2",
   "@emotion/react": "^11.7.1",
   "react": "^16.8.0"
 }

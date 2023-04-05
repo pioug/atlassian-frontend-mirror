@@ -14,7 +14,7 @@ import { DecorationSet } from 'prosemirror-view';
 
 describe('outdent-list-items-selected', () => {
   const eventDispatch = jest.fn();
-  const listsPlugin = createPlugin(eventDispatch);
+  const listsPlugin = createPlugin(eventDispatch, {});
   const case0: [string, DocBuilder, ListState] = [
     'should enable the orderedList options when ordered list is selected',
     // Scenario

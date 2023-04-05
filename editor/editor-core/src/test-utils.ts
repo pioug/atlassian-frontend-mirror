@@ -17,7 +17,10 @@ export { createTypeAheadTools } from './plugins/type-ahead/api';
 export type { LightEditorPlugin } from './create-editor/get-plugins';
 export type { DispatchAnalyticsEvent } from './plugins/analytics/types';
 export type { FeatureFlags } from './types/feature-flags';
-import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
+import {
+  EditorPresetBuilder,
+  type EditorPluginInjectionAPI,
+} from '@atlaskit/editor-common/preset';
 import type { AllEditorPresetPluginTypes } from '@atlaskit/editor-common/types';
 
 export interface LightEditorConfig {
@@ -97,14 +100,18 @@ export const createPMSchemaAndPlugins =
     > = new EditorPresetBuilder(),
   ) =>
   (
-    pluginFactoryParams: Omit<LightPMPluginFactoryParams, 'schema'>,
+    pluginFactoryParams: Omit<LightPMPluginFactoryParams, 'schema'> & {
+      pluginInjectionAPI: EditorPluginInjectionAPI;
+    },
   ): PluginData => {
     let editorPlugins: LightEditorPlugin[] = [];
 
     const preset = inputPreset.has(basePlugin)
       ? inputPreset
       : inputPreset.add(basePlugin);
-    editorPlugins = preset.build();
+    editorPlugins = preset.build({
+      pluginInjectionAPI: pluginFactoryParams.pluginInjectionAPI,
+    });
 
     const editorConfig: LightEditorConfig =
       lightProcessPluginsList(editorPlugins);

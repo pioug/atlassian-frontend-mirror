@@ -66,6 +66,7 @@ import mediaPlugin from '../../../media';
 import listPlugin from '../../../list';
 import extensionPlugin from '../../../extension';
 import rulePlugin from '../../../rule';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 describe('handleParagraphBlockMarks', () => {
   let slice: Slice;
@@ -240,6 +241,7 @@ describe('handleRichText', () => {
     const createEditor = createProsemirrorEditorFactory();
     const editor = (doc: any) => {
       const preset = new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
         .add([pastePlugin, {}])
         .add(panelPlugin)
         .add(blockTypePlugin)
@@ -717,6 +719,7 @@ describe('handleRichText', () => {
       const createEditor = createProsemirrorEditorFactory();
       const editor = (doc: any) => {
         const preset = new Preset<LightEditorPlugin>()
+          .add([featureFlagsPlugin, {}])
           .add([pastePlugin, {}])
           .add(panelPlugin)
           .add(listPlugin)
@@ -747,6 +750,7 @@ describe('handleRichText', () => {
 
     const editor = (doc: any) => {
       const preset = new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
         .add([pastePlugin, {}])
         .add(tablesPlugin)
         .add(listPlugin)
@@ -927,6 +931,7 @@ describe('handlePasteLinkOnSelectedText', () => {
     const editor = createEditor({
       doc: stateDocument,
       preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
         .add([pastePlugin, pasteOptions])
         .add(hyperlinkPlugin)
         .add(textFormattingPlugin),
@@ -1224,6 +1229,7 @@ describe('handlePasteIntoTaskOrDecisionOrPanel', () => {
 
         const editor = (doc: any) => {
           const preset = new Preset<LightEditorPlugin>()
+            .add([featureFlagsPlugin, {}])
             .add([pastePlugin, {}])
             .add(hyperlinkPlugin)
             .add(tasksAndDecisionsPlugin)
@@ -1271,6 +1277,7 @@ describe('handlePastePanelOrDecisionContentIntoList', () => {
   const createEditor = createProsemirrorEditorFactory();
   const editor = (doc: any) => {
     const preset = new Preset<LightEditorPlugin>()
+      .add([featureFlagsPlugin, {}])
       .add([pastePlugin, {}])
       .add(listPlugin)
       .add(panelPlugin)
@@ -1544,6 +1551,7 @@ describe('handleExpand', () => {
 
         const editor = (doc: any) => {
           const preset = new Preset<LightEditorPlugin>()
+            .add([featureFlagsPlugin, {}])
             .add([pastePlugin, {}])
             .add(tablesPlugin)
             .add(expandPlugin)
@@ -1596,6 +1604,7 @@ describe('handlePasteIntoCaption', () => {
     const createEditor = createProsemirrorEditorFactory();
     const editor = (doc: any) => {
       const preset = new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
         .add([pastePlugin, {}])
         .add(panelPlugin)
         .add(blockTypePlugin)
@@ -1630,6 +1639,7 @@ describe('handlePasteIntoTaskOrDecisionOrPanel', () => {
 
   const editor = (doc: any) => {
     const preset = new Preset<LightEditorPlugin>()
+      .add([featureFlagsPlugin, {}])
       .add([pastePlugin, {}])
       .add(hyperlinkPlugin)
       .add(tasksAndDecisionsPlugin)
@@ -2318,6 +2328,7 @@ describe('handleMarkdown', () => {
       const createEditor = createProsemirrorEditorFactory();
       const editor = (doc: any) => {
         const preset = new Preset<LightEditorPlugin>()
+          .add([featureFlagsPlugin, {}])
           .add([pastePlugin, {}])
           .add(tablesPlugin)
           .add(listPlugin);

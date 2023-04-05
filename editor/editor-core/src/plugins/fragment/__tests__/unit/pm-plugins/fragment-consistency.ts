@@ -39,6 +39,7 @@ import extensionPlugin from '../../../../extension';
 import layoutPlugin from '../../../../layout';
 import expandPlugin from '../../../../expand';
 import panelPlugin from '../../../../panel';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 replaceRaf();
 
@@ -57,6 +58,7 @@ describe('fragment mark consistency plugin', () => {
 
   const editor = (doc: DocBuilder) => {
     const preset = new Preset<LightEditorPlugin>()
+      .add([featureFlagsPlugin, {}])
       .add(fragmentMarkPlugin)
       .add([tablesPlugin, { tableOptions: {} }])
       .add(extensionPlugin)

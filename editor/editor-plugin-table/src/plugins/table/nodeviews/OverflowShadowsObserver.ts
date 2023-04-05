@@ -8,25 +8,9 @@ export class OverflowShadowsObserver {
   private table: HTMLElement;
   private wrapper: HTMLDivElement;
 
-  private firstCell: HTMLElement | null = null;
-  private lastCell: HTMLElement | null = null;
-
-  private getFirstCell: (
-    isSticky?: boolean,
-    hasHeaderRow?: boolean,
-  ) => HTMLElement | null = (isSticky, hasHeaderRow) =>
-    this.table?.querySelector(
-      isSticky || !hasHeaderRow ? 'table tbody tr td' : 'table tbody tr th',
-    );
-  private getLastCell: (
-    isSticky?: boolean,
-    hasHeaderRow?: boolean,
-  ) => HTMLElement | null = (isSticky, hasHeaderRow) =>
-    this.table?.querySelector(
-      isSticky || !hasHeaderRow
-        ? 'table tbody tr td:last-child'
-        : 'table tbody tr th:last-child',
-    );
+  private leftShadowSentinel: HTMLElement | null = null;
+  private rightShadowSentinel: HTMLElement | null = null;
+  private shadowsObserved: boolean = false;
 
   private isSticky = false;
   private stickyRowHeight = 0;
@@ -58,13 +42,16 @@ export class OverflowShadowsObserver {
         if (!entry.rootBounds?.height && !entry.rootBounds?.width) {
           return;
         }
-        if (entry.target !== this.firstCell && entry.target !== this.lastCell) {
+        if (
+          entry.target !== this.leftShadowSentinel &&
+          entry.target !== this.rightShadowSentinel
+        ) {
           return;
         }
         this.updateStickyShadowsHeightIfChanged();
         this.checkIntersectionEvent(
           entry,
-          this.firstCell === entry.target
+          this.leftShadowSentinel === entry.target
             ? ShadowEvent.SHOW_BEFORE_SHADOW
             : ShadowEvent.SHOW_AFTER_SHADOW,
         );
@@ -123,32 +110,29 @@ export class OverflowShadowsObserver {
     return stickyCell;
   }
 
-  observeCells = (isSticky?: boolean, hasHeaderRow?: boolean) => {
-    const stickyChanged = !!isSticky !== this.isSticky;
+  observeShadowSentinels = (isSticky?: boolean) => {
     this.isSticky = !!isSticky;
 
     // update sticky shadows
     this.updateStickyShadowsHeightIfChanged();
 
-    if (!stickyChanged) {
-      const firstCell = this.getFirstCell(isSticky, hasHeaderRow);
-      const lastCell = this.getLastCell(isSticky, hasHeaderRow);
-      if (
-        !firstCell ||
-        !lastCell ||
-        (firstCell === this.firstCell && lastCell === this.lastCell)
-      ) {
-        return;
-      }
-    }
+    this.leftShadowSentinel = this.table?.querySelector(
+      `.${ClassName.TABLE_SHADOW_SENTINEL_LEFT}`,
+    );
+    this.rightShadowSentinel = this.table?.querySelector(
+      `.${ClassName.TABLE_SHADOW_SENTINEL_RIGHT}`,
+    );
 
-    this.firstCell = this.getFirstCell(isSticky, hasHeaderRow);
-    this.lastCell = this.getLastCell(isSticky, hasHeaderRow);
-
-    if (this.tableIntersectionObserver && this.firstCell && this.lastCell) {
+    if (
+      this.tableIntersectionObserver &&
+      this.leftShadowSentinel &&
+      this.rightShadowSentinel &&
+      !this.shadowsObserved
+    ) {
       this.tableIntersectionObserver.disconnect();
-      this.tableIntersectionObserver.observe(this.firstCell);
-      this.tableIntersectionObserver.observe(this.lastCell);
+      this.tableIntersectionObserver.observe(this.leftShadowSentinel);
+      this.tableIntersectionObserver.observe(this.rightShadowSentinel);
+      this.shadowsObserved = true;
     }
   };
 

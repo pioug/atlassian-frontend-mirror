@@ -263,6 +263,7 @@ export class Renderer extends PureComponent<RendererProps> {
       emojiResourceConfig: props.emojiResourceConfig,
       smartLinks: props.smartLinks,
       allowCopyToClipboard: props.allowCopyToClipboard,
+      allowWrapCodeBlock: props.allowWrapCodeBlock,
       allowCustomPanels: props.allowCustomPanels,
       allowAnnotations: props.allowAnnotations,
       allowSelectAllTrap: props.allowSelectAllTrap,
@@ -376,6 +377,7 @@ export class Renderer extends PureComponent<RendererProps> {
       allowPlaceholderText,
       allowColumnSorting,
       allowCopyToClipboard,
+      allowWrapCodeBlock,
       allowCustomPanels,
     } = this.props;
 
@@ -475,6 +477,7 @@ export class Renderer extends PureComponent<RendererProps> {
                   allowNestedHeaderLinks={allowNestedHeaderLinks}
                   allowColumnSorting={allowColumnSorting}
                   allowCopyToClipboard={allowCopyToClipboard}
+                  allowWrapCodeBlock={allowWrapCodeBlock}
                   allowCustomPanels={allowCustomPanels}
                   allowPlaceholderText={allowPlaceholderText}
                   innerRef={this.editorRef}
@@ -531,6 +534,7 @@ export class Renderer extends PureComponent<RendererProps> {
         <RendererWrapper
           appearance={appearance}
           allowCopyToClipboard={allowCopyToClipboard}
+          allowWrapCodeBlock={allowWrapCodeBlock}
           allowPlaceholderText={allowPlaceholderText}
           allowColumnSorting={allowColumnSorting}
           allowNestedHeaderLinks={allowNestedHeaderLinks}
@@ -595,6 +599,7 @@ type RendererWrapperProps = {
   innerRef?: React.RefObject<HTMLDivElement>;
   allowColumnSorting?: boolean;
   allowCopyToClipboard?: boolean;
+  allowWrapCodeBlock?: boolean;
   allowPlaceholderText?: boolean;
   allowCustomPanels?: boolean;
   allowNestedHeaderLinks: boolean;

@@ -35,6 +35,7 @@ describe('MediaSingle', () => {
           <Media
             id={imageFileId.id}
             isLinkMark={() => false}
+            isBorderMark={() => false}
             marks={[]}
             type={imageFileId.mediaItemType}
             collection={imageFileId.collectionName}
@@ -252,6 +253,47 @@ describe('MediaSingle', () => {
       );
       expect(mediaSingle.find(UnsupportedBlock)).toHaveLength(1);
       expect(mediaSingle.find(Caption)).toHaveLength(0);
+    });
+  });
+
+  describe('with border mark', () => {
+    let mediaSingle: ReactWrapper<WrappedComponentProps, any>;
+    const fireAnalyticsEvent = jest.fn();
+    const mediaOnClick = jest.fn();
+
+    beforeAll(() => {
+      mediaSingle = mountMediaSingle(
+        {
+          fireAnalyticsEvent,
+        },
+        {
+          marks: [
+            {
+              type: 'border',
+              attrs: {
+                // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+                color: '#091E4224',
+                size: 3,
+              },
+            },
+          ],
+          isBorderMark: () => true,
+          eventHandlers: { media: { onClick: mediaOnClick } },
+        },
+      );
+    });
+
+    afterAll(() => {
+      if (mediaSingle) {
+        mediaSingle.unmount();
+      }
+    });
+
+    it('renders media with border correctly', () => {
+      const border = mediaSingle.find('div[data-mark-type="border"]');
+      expect(border).toHaveLength(1);
+      expect(border.prop('style')).toHaveProperty('borderWidth', '3px');
+      expect(border.prop('style')).toHaveProperty('borderRadius', '6px');
     });
   });
 });

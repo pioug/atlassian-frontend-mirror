@@ -16,6 +16,7 @@ import { DecorationSet, Decoration } from 'prosemirror-view';
 import { PluginSpec, EditorState } from 'prosemirror-state';
 import { showLinkToolbar } from '../../../commands';
 import hyperlinkPlugin from '../../../index';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 const init = (fakeCursorForToolbarPlugin.spec as PluginSpec).state!.init;
 const getDecorations = (state: EditorState) =>
@@ -29,7 +30,10 @@ describe('hyperlink', () => {
   const editor = (doc: DocBuilder) => {
     return createEditor({
       doc,
-      preset: new Preset<LightEditorPlugin>().add(hyperlinkPlugin),
+      preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
+
+        .add(hyperlinkPlugin),
     });
   };
 

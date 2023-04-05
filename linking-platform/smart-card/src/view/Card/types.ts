@@ -12,6 +12,8 @@ export type CardInnerAppearance =
   | 'flexible'
   | 'hoverCardPreview';
 
+export type EmbedIframeUrlType = 'href' | 'interactiveHref';
+
 export type OnResolveCallback = (data: {
   url?: string;
   title?: string;
@@ -54,6 +56,7 @@ export interface CardProps extends WithAnalyticsEventsProps {
    */
   inheritDimensions?: boolean;
   embedIframeRef?: React.Ref<HTMLIFrameElement>;
+  embedIframeUrlType?: EmbedIframeUrlType;
   inlinePreloaderStyle?: InlinePreloaderStyle;
   ui?: FlexibleUiOptions;
   children?: React.ReactNode;

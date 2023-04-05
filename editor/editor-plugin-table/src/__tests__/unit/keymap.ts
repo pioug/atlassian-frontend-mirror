@@ -56,8 +56,9 @@ import statusPlugin from '@atlaskit/editor-core/src/plugins/status';
 import tablePlugin from '../../plugins/table';
 import { TablePluginState } from '../../plugins/table/types';
 import { pluginKey } from '../../plugins/table/pm-plugins/plugin-key';
-import featureFlagsPlugin from '@atlaskit/editor-core/src/plugins/feature-flags-context';
 import widthPlugin from '@atlaskit/editor-core/src/plugins/width';
+import editorDisabledPlugin from '@atlaskit/editor-core/src/plugins/editor-disabled';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 
@@ -81,6 +82,7 @@ describe('table keymap', () => {
 
   const createEditor = createProsemirrorEditorFactory();
   const preset = new Preset<LightEditorPlugin>()
+    .add([featureFlagsPlugin, {}])
     .add(selectionPlugin)
     .add([
       tablePlugin,
@@ -97,12 +99,12 @@ describe('table keymap', () => {
     .add(emojiPlugin)
     .add(jiraIssuePlugin)
     .add(extensionPlugin)
+    .add(editorDisabledPlugin)
     .add(datePlugin)
     .add(layoutPlugin)
     .add([statusPlugin, { menuDisabled: false }])
     .add([mediaPlugin, { allowMediaSingle: true }])
     .add([analyticsPlugin, { createAnalyticsEvent }])
-    .add([featureFlagsPlugin, {}])
     .add(widthPlugin);
 
   const editor = (doc: DocBuilder) =>

@@ -1,5 +1,39 @@
 # @atlaskit/collab-provider
 
+## 8.5.0
+
+### Minor Changes
+
+- [`2192c9417d7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2192c9417d7) - [ESS-3335] Review Collab Provider API error handling & types
+- [`c75fcb75c4e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c75fcb75c4e) - ESS-3241 Added unit tests for document restore.  
+  ESS-3238 Internal refactor of collab provider, split document code from provider to document service.
+  Remove unused userId field from CollabInitPayload, it is never sent as part of the CollabInitPayload.
+- [`27b106a736b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/27b106a736b) - ESS-3274 Refactor participant logic our of Provider class
+- [`bdd8d88cad0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bdd8d88cad0) - [ESS-3332] Improved error mapping
+- [`1d52016f25d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1d52016f25d) - Refactor collab-provider to accept a getAnalyticsClient Promise. And resolve when sending event.
+  Ticket: https://product-fabric.atlassian.net/browse/CCP-2863
+- [`dfd96d6b48a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dfd96d6b48a) - [ESS-3333] Update to the structure of errors emitted on the collab provider
+
+  Upgrade instructions:
+
+  - Change the type of the errors emitted on the provider from `CollabEventError` to `ProviderError`
+  - Remove the reliance on the `status` field of the emitted errors, switch to using either the error code (exported as enum `PROVIDER_ERROR_CODE`) or the error flag `recoverable` indicating whether the provider can recover from the emitted error or not
+
+  The mapping from the old status codes to the error codes is:
+
+  - Status 403: PROVIDER_ERROR_CODE.NO_PERMISSION_ERROR, PROVIDER_ERROR_CODE.INVALID_USER_TOKEN
+  - Status 404: PROVIDER_ERROR_CODE.DOCUMENT_NOT_FOUND
+  - Status 423: PROVIDER_ERROR_CODE.LOCKED
+  - Status 500: PROVIDER_ERROR_CODE.FAIL_TO_SAVE, PROVIDER_ERROR_CODE.DOCUMENT_RESTORE_ERROR, PROVIDER_ERROR_CODE.INTERNAL_SERVICE_ERROR
+
+- [`078a6d029f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/078a6d029f0) - ESS-3333 temporarily re-add error status to fix product fabric from breaking changes
+
+### Patch Changes
+
+- [`8217befcee0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8217befcee0) - logs the ignoring of steps for data versions older than current version in DocumentService.onStepsAdded()
+- [`66f07c721c4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/66f07c721c4) - Add JSDoc to provider errors that are emitted to editor
+- Updated dependencies
+
 ## 8.4.0
 
 ### Minor Changes

@@ -94,6 +94,7 @@ const getDropdownSetup = (): {
       items={[dropdown]}
       dispatchAnalyticsEvent={jest.fn()}
       dispatchCommand={jest.fn()}
+      featureFlags={{}}
     />,
   );
 

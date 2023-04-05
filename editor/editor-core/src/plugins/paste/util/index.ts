@@ -21,6 +21,7 @@ import {
   getSelectedTableInfo,
   isTableSelected,
 } from '@atlaskit/editor-tables/utils';
+import { sortByOrderWithTypeName } from '../../../create-editor/sort-by-order';
 
 export function isPastedFromWord(html?: string): boolean {
   return !!html && html.indexOf('urn:schemas-microsoft-com:office:word') >= 0;
@@ -145,6 +146,7 @@ export function applyTextMarksToSlice(
             .allowedMarks(marks)
             .filter((mark) => mark.type !== linkMark),
         ];
+        node.marks.sort(sortByOrderWithTypeName('marks'));
         return false;
       }
 

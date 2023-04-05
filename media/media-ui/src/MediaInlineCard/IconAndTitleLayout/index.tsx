@@ -10,8 +10,6 @@ import {
   EmojiWrapper,
 } from './styled';
 import LinkIcon from '@atlaskit/icon/glyph/link';
-import { token } from '@atlaskit/tokens';
-import { N900 } from '@atlaskit/theme/colors';
 
 export interface IconAndTitleLayoutProps {
   emoji?: React.ReactNode;
@@ -102,7 +100,7 @@ export class IconAndTitleLayout extends React.Component<IconAndTitleLayoutProps>
     return (
       <>
         <IconTitleWrapper
-          style={{ color: titleColor || token('color.text', N900) }}
+          style={titleColor ? { color: titleColor } : undefined}
         >
           <IconPositionWrapper>
             {children || (

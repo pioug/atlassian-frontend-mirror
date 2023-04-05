@@ -7,6 +7,9 @@ import {
   bodiedExtension,
   panel,
   DocBuilder,
+  ul,
+  li,
+  ol,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import {
@@ -69,6 +72,111 @@ describe('rule', () => {
         });
       });
     });
+
+    describe('when hits Shift-Ctrl-- in a list', () => {
+      it('should safe inserts if one empty item in a list', () => {
+        const { editorView } = editor(doc(ul(li(p('{<>}')))));
+        sendKeyToPm(editorView, 'Shift-Ctrl--');
+        expect(editorView.state.doc).toEqualDocument(doc(ul(li(p())), hr()));
+      });
+
+      it('should safe inserts if one item in a list', () => {
+        const { editorView } = editor(doc(ul(li(p('aaa {<>}')))));
+        sendKeyToPm(editorView, 'Shift-Ctrl--');
+        expect(editorView.state.doc).toEqualDocument(
+          doc(ul(li(p('aaa '))), hr()),
+        );
+      });
+
+      it('should split in a flat list', () => {
+        const { editorView } = editor(
+          doc(ul(li(p('aaa')), li(p('bbb {<>}')), li(p('ccc')))),
+        );
+        sendKeyToPm(editorView, 'Shift-Ctrl--');
+        expect(editorView.state.doc).toEqualDocument(
+          doc(ul(li(p('aaa')), li(p('bbb '))), hr(), ul(li(p('ccc')))),
+        );
+      });
+
+      it('should safe insert in a nested list', () => {
+        const { editorView } = editor(
+          doc(
+            ul(
+              li(p('aa'), ul(li(p('aaa')), li(p('bbb {<>}')), li(p('ccc')))),
+              li(p('bb')),
+            ),
+          ),
+        );
+        sendKeyToPm(editorView, 'Shift-Ctrl--');
+        expect(editorView.state.doc).toEqualDocument(
+          doc(
+            ul(
+              li(p('aa'), ul(li(p('aaa')), li(p('bbb ')), li(p('ccc')))),
+              li(p('bb')),
+            ),
+            hr(),
+          ),
+        );
+      });
+    });
+  });
+
+  describe('insert via quick insert', () => {
+    describe('unlisted', () => {
+      it('should split list when rule inserts in the end of an item', async () => {
+        const { editorView, typeAheadTool } = editor(
+          doc(ul(li(p('aa')), li(p('bb {<>}')), li(p('cc')))),
+        );
+
+        await typeAheadTool.searchQuickInsert('divider')?.insert({ index: 0 });
+
+        expect(editorView.state.doc).toEqualDocument(
+          doc(ul(li(p('aa')), li(p('bb '))), hr(), ul(li(p('cc')))),
+        );
+      });
+
+      it('should split list when rule inserts in the middle of an item', async () => {
+        const { editorView, typeAheadTool } = editor(
+          doc(ul(li(p('aa')), li(p('b{<>}b')), li(p('cc')))),
+        );
+
+        await typeAheadTool.searchQuickInsert('divider')?.insert({ index: 0 });
+
+        expect(editorView.state.doc).toEqualDocument(
+          doc(ul(li(p('aa')), li(p('b'))), hr(), ul(li(p('b')), li(p('cc')))),
+        );
+      });
+    });
+
+    describe('orderlist', () => {
+      it('should split list when rule inserts in the end of an item', async () => {
+        const { editorView, typeAheadTool } = editor(
+          doc(ol()(li(p('aa')), li(p('bb {<>}')), li(p('cc')))),
+        );
+
+        await typeAheadTool.searchQuickInsert('divider')?.insert({ index: 0 });
+
+        expect(editorView.state.doc).toEqualDocument(
+          doc(ol()(li(p('aa')), li(p('bb '))), hr(), ol()(li(p('cc')))),
+        );
+      });
+
+      it('should split list when rule inserts in the middle of an item', async () => {
+        const { editorView, typeAheadTool } = editor(
+          doc(ol()(li(p('aa')), li(p('b{<>}b')), li(p('cc')))),
+        );
+
+        await typeAheadTool.searchQuickInsert('divider')?.insert({ index: 0 });
+
+        expect(editorView.state.doc).toEqualDocument(
+          doc(
+            ol()(li(p('aa')), li(p('b'))),
+            hr(),
+            ol()(li(p('b')), li(p('cc'))),
+          ),
+        );
+      });
+    });
   });
 
   describe('insert via toolbar', () => {
@@ -117,6 +225,196 @@ describe('rule', () => {
           ),
           hr(),
           p(),
+        ),
+      );
+    });
+
+    it('should safe insert the rule when in a nested list with space in the first child', () => {
+      const { editorView } = editor(
+        doc(
+          ul(
+            li(p('aa'), ul(li(p('aaa {<>}')), li(p('bbb')), li(p('ccc')))),
+            li(p('bb')),
+          ),
+        ),
+      );
+      insertHorizontalRule(INPUT_METHOD.TOOLBAR)(
+        editorView.state,
+        editorView.dispatch,
+      );
+      expect(editorView.state.doc).toEqualDocument(
+        doc(
+          ul(
+            li(p('aa'), ul(li(p('aaa ')), li(p('bbb')), li(p('ccc')))),
+            li(p('bb')),
+          ),
+          hr(),
+        ),
+      );
+    });
+
+    it('should safe insert the rule when in a nested list without space in the front child', () => {
+      const { editorView } = editor(
+        doc(
+          ul(
+            li(p('aa'), ul(li(p('aaa{<>}')), li(p('bbb')), li(p('ccc')))),
+            li(p('bb')),
+          ),
+        ),
+      );
+      insertHorizontalRule(INPUT_METHOD.TOOLBAR)(
+        editorView.state,
+        editorView.dispatch,
+      );
+      expect(editorView.state.doc).toEqualDocument(
+        doc(
+          ul(
+            li(p('aa'), ul(li(p('aaa')), li(p('bbb')), li(p('ccc')))),
+            li(p('bb')),
+          ),
+          hr(),
+        ),
+      );
+    });
+
+    it('should safe insert the rule when in a nested list with space in the middle child', () => {
+      const { editorView } = editor(
+        doc(
+          ul(
+            li(p('aa'), ul(li(p('aaa')), li(p('bbb {<>}')), li(p('ccc')))),
+            li(p('bb')),
+          ),
+        ),
+      );
+      insertHorizontalRule(INPUT_METHOD.TOOLBAR)(
+        editorView.state,
+        editorView.dispatch,
+      );
+      expect(editorView.state.doc).toEqualDocument(
+        doc(
+          ul(
+            li(p('aa'), ul(li(p('aaa')), li(p('bbb ')), li(p('ccc')))),
+            li(p('bb')),
+          ),
+          hr(),
+        ),
+      );
+    });
+
+    it('should safe insert the rule when in a nested list without space in the middle child', () => {
+      const { editorView } = editor(
+        doc(
+          ul(
+            li(p('aa'), ul(li(p('aaa')), li(p('bbb{<>}')), li(p('ccc')))),
+            li(p('bb')),
+          ),
+        ),
+      );
+      insertHorizontalRule(INPUT_METHOD.TOOLBAR)(
+        editorView.state,
+        editorView.dispatch,
+      );
+      expect(editorView.state.doc).toEqualDocument(
+        doc(
+          ul(
+            li(p('aa'), ul(li(p('aaa')), li(p('bbb')), li(p('ccc')))),
+            li(p('bb')),
+          ),
+          hr(),
+        ),
+      );
+    });
+
+    it('should safe insert the rule when in a nested list with space in the last child', () => {
+      const { editorView } = editor(
+        doc(
+          ul(
+            li(p('aa'), ul(li(p('aaa')), li(p('bbb')), li(p('ccc {<>}')))),
+            li(p('bb')),
+          ),
+        ),
+      );
+      insertHorizontalRule(INPUT_METHOD.TOOLBAR)(
+        editorView.state,
+        editorView.dispatch,
+      );
+      expect(editorView.state.doc).toEqualDocument(
+        doc(
+          ul(
+            li(p('aa'), ul(li(p('aaa')), li(p('bbb')), li(p('ccc ')))),
+            li(p('bb')),
+          ),
+          hr(),
+        ),
+      );
+    });
+
+    it('should safe insert the rule when in a nested list without space in the last child', () => {
+      const { editorView } = editor(
+        doc(
+          ul(
+            li(p('aa'), ul(li(p('aaa')), li(p('bbb')), li(p('ccc{<>}')))),
+            li(p('bb')),
+          ),
+        ),
+      );
+      insertHorizontalRule(INPUT_METHOD.TOOLBAR)(
+        editorView.state,
+        editorView.dispatch,
+      );
+      expect(editorView.state.doc).toEqualDocument(
+        doc(
+          ul(
+            li(p('aa'), ul(li(p('aaa')), li(p('bbb')), li(p('ccc')))),
+            li(p('bb')),
+          ),
+          hr(),
+        ),
+      );
+    });
+
+    it('should split rule for first child at the root indentation of a nested list', () => {
+      const { editorView } = editor(
+        doc(
+          ul(
+            li(p('aa{<>}')),
+            li(p('bb'), ul(li(p('aaa')), li(p('bbb')))),
+            li(p('cc')),
+          ),
+        ),
+      );
+      insertHorizontalRule(INPUT_METHOD.TOOLBAR)(
+        editorView.state,
+        editorView.dispatch,
+      );
+      expect(editorView.state.doc).toEqualDocument(
+        doc(
+          ul(li(p('aa'))),
+          hr(),
+          ul(li(p('bb'), ul(li(p('aaa')), li(p('bbb')))), li(p('cc'))),
+        ),
+      );
+    });
+
+    it('should split rule for the middle child at the root indentation of a nested list', () => {
+      const { editorView } = editor(
+        doc(
+          ul(
+            li(p('aa')),
+            li(p('bb{<>}'), ul(li(p('aaa')), li(p('bbb')))),
+            li(p('cc')),
+          ),
+        ),
+      );
+      insertHorizontalRule(INPUT_METHOD.TOOLBAR)(
+        editorView.state,
+        editorView.dispatch,
+      );
+      expect(editorView.state.doc).toEqualDocument(
+        doc(
+          ul(li(p('aa')), li(p('bb'), ul(li(p('aaa')), li(p('bbb'))))),
+          hr(),
+          ul(li(p('cc'))),
         ),
       );
     });

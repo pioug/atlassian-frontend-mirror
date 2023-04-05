@@ -101,7 +101,7 @@ const CategorySelector = (props: Props) => {
       return;
     }
     e.preventDefault();
-
+    e.stopPropagation();
     const lastCategoryIndex = categories.length - 1;
     switch (e.key) {
       // navigate to the right category
@@ -176,7 +176,7 @@ const CategorySelector = (props: Props) => {
                     ? RENDER_EMOJI_PICKER_LIST_TESTID
                     : undefined
                 }
-                aria-selected={currentFocus === index ? true : false}
+                aria-selected={categoryId === activeCategoryId}
                 css={categoryClasses}
                 disabled={disableCategories}
                 onClick={handleClick(categoryId, index)}

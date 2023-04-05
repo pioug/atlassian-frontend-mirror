@@ -24,6 +24,7 @@ import analyticsPlugin, {
 } from '../../../../analytics';
 import { toggleOrderedList, toggleBulletList } from '../../../commands/index';
 import listPlugin from '../../..';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 describe('list-conversion', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -35,6 +36,7 @@ describe('list-conversion', () => {
 
   const editor = (doc: DocBuilder) => {
     const preset = new Preset<LightEditorPlugin>()
+      .add([featureFlagsPlugin, {}])
       .add(listPlugin)
       .add([analyticsPlugin, { createAnalyticsEvent }]);
 

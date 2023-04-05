@@ -12,6 +12,7 @@ import { applyRemoteData } from '../../../actions';
 import { PrivateCollabEditOptions } from '../../../types';
 import { MockCollabEditProvider } from '@atlaskit/synchrony-test-helpers/mock-collab-provider';
 import { EventEmitter } from 'events';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 const mockSynchronyEntityAnalyticsMock = jest.fn();
 jest.mock('../../../analytics', () => ({
@@ -24,12 +25,15 @@ jest.mock('../../../actions');
 const collabProvider = createMockCollabEditProvider();
 
 describe('collab-edit: handlers.ts', () => {
-  const collabPreset = new Preset<LightEditorPlugin>().add([
-    collabEditPlugin,
-    {
-      provider: collabProvider,
-    },
-  ]);
+  const collabPreset = new Preset<LightEditorPlugin>()
+
+    .add([featureFlagsPlugin, {}])
+    .add([
+      collabEditPlugin,
+      {
+        provider: collabProvider,
+      },
+    ]);
 
   const createEditor = createProsemirrorEditorFactory();
   const editor = (doc: DocBuilder) =>
@@ -62,9 +66,14 @@ describe('collab-edit: handlers.ts', () => {
       const onSpy = jest.spyOn(entity, 'on');
       const offSpy = jest.spyOn(entity, 'off');
       const { editorView } = editor(p('Hello'));
-      const cleanup = subscribe(editorView, provider, {
-        ...collabOptions,
-      });
+      const cleanup = subscribe(
+        editorView,
+        provider,
+        {
+          ...collabOptions,
+        },
+        {},
+      );
 
       provider.sendMessage({
         type: 'entity',
@@ -134,7 +143,7 @@ describe('collab-edit: handlers.ts', () => {
       provider = await collabProvider;
       spy = jest.spyOn(provider, 'off');
 
-      const cleanup = subscribe(editorView, provider, {});
+      const cleanup = subscribe(editorView, provider, {}, {});
 
       // Additional handlers for same events
       provider.on('connected', externalSpies.connected);
@@ -171,7 +180,7 @@ describe('collab-edit: handlers.ts', () => {
     };
     const data = {};
 
-    subscribe(editorView, provider, options);
+    subscribe(editorView, provider, options, {});
 
     (provider as MockCollabEditProvider).emit('data', data);
     expect(applyRemoteData).toHaveBeenCalledWith(data, editorView, options);

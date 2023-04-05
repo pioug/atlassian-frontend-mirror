@@ -39,6 +39,7 @@ describe('HyperlinkAddToolbar (with ProviderFactory prop)', () => {
         displayText={'some-display-text'}
         displayUrl={'some-display-url'}
         onSubmit={onSubmit}
+        featureFlags={{}}
       />,
     );
 
@@ -60,16 +61,13 @@ describe('HyperlinkAddToolbar (with ProviderFactory prop)', () => {
   });
 
   describe('when `lpLinkPicker` ff is `true`', () => {
-    const createEditorWithNewLinkPicker = () =>
-      createEditor({
-        editorProps: {
-          featureFlags: { 'lp-link-picker': true },
-        },
-      });
+    const featureFlags = {
+      lpLinkPicker: true,
+    };
 
     it('renders `EditorLinkPicker` and correctly passes all `linkPickerOptions`', () => {
       const onSubmit = jest.fn();
-      const { editorView } = createEditorWithNewLinkPicker();
+      const { editorView } = createEditor({});
       const providerFactory = ProviderFactory.create({});
       const plugins = [new MockLinkPickerPlugin()];
 
@@ -81,6 +79,7 @@ describe('HyperlinkAddToolbar (with ProviderFactory prop)', () => {
           displayText={'some-display-text'}
           displayUrl={'some-display-url'}
           onSubmit={onSubmit}
+          featureFlags={featureFlags}
         />,
       );
 
@@ -99,7 +98,7 @@ describe('HyperlinkAddToolbar (with ProviderFactory prop)', () => {
 
     it('renders `EditorLinkPicker` with `onSubmit` that correctly maps arguments from link picker onSubmit payload', () => {
       const onSubmit = jest.fn();
-      const { editorView } = createEditorWithNewLinkPicker();
+      const { editorView } = createEditor({});
       const providerFactory = ProviderFactory.create({
         activityProvider: activityProviderMock,
         searchProvider: searchProviderMock,
@@ -114,6 +113,7 @@ describe('HyperlinkAddToolbar (with ProviderFactory prop)', () => {
           displayText={'some-display-text'}
           displayUrl={'some-display-url'}
           onSubmit={onSubmit}
+          featureFlags={featureFlags}
         />,
       );
 

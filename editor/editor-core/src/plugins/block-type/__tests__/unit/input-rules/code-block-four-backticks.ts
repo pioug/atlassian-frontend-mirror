@@ -27,6 +27,7 @@ import textFormattingPlugin from '../../../../text-formatting';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import listPlugin from '../../../../list';
 import panelPlugin from '../../../../panel';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 interface InputOutput {
   initial: DocBuilder;
@@ -163,6 +164,7 @@ describe('inputrules', () => {
       featureFlags: {},
       doc,
       preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
         .add(blockTypePlugin)
         .add(indentationPlugin)
         .add(quickInsertPlugin)

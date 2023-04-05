@@ -231,6 +231,7 @@ export class ToolbarInsertBlock extends React.PureComponent<
         mountTo={popupsMountPoint}
         boundariesElement={popupsBoundariesElement}
         scrollableElement={popupsScrollableElement}
+        focusTrap
       >
         <EmojiPickerWithListeners
           emojiProvider={emojiProvider}

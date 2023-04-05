@@ -3,7 +3,7 @@ import { defineMessages } from 'react-intl-next';
 export { codeBidiWarningMessages } from './codeBidiWarning';
 export { linkMessages } from './link';
 export { unsupportedContentMessages } from './unsupportedContent';
-export { codeBlockCopyButtonMessages } from './codeBlockCopyButton';
+export { codeBlockButtonMessages } from './codeBlockButton';
 export { toolbarInsertBlockMessages } from './insert-block';
 
 export default defineMessages({

@@ -68,7 +68,7 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^9.0.0",
-    "@atlaskit/emoji": "^67.2.0",
+    "@atlaskit/emoji": "^67.3.0",
     "@atlaskit/icon": "^21.11.0",
     "@atlaskit/mention": "^22.0.0",
     "@atlaskit/profilecard": "^19.2.0",

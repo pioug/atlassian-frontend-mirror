@@ -16,7 +16,7 @@ import { EditorView } from 'prosemirror-view';
 import pastePlugin from '../../../paste';
 import hyperlinkPlugin from '../../../hyperlink';
 import listPlugin from '../..';
-import featureFlagsContextPlugin from '../../../feature-flags-context';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import blockTypePlugin from '../../../block-type';
 import basePlugin from '../../../base';
 import { microsoftWordDesktopPasteOutput } from './__fixtures__/paste-word-desktop';
@@ -39,7 +39,7 @@ describe('paste of lists with restartNumberedLists enabled', () => {
     createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>()
-        .add([featureFlagsContextPlugin, { restartNumberedLists: true }])
+        .add([featureFlagsPlugin, { restartNumberedLists: true }])
         .add([pastePlugin, {}])
         .add(hyperlinkPlugin)
         .add([listPlugin, { restartNumberedLists: true }])

@@ -17,13 +17,16 @@ import {
 import { INPUT_METHOD } from '../../analytics';
 
 import { pluginKey as indentationButtonsPluginKey } from '../pm-plugins/indentation-buttons';
+import type { FeatureFlags } from '@atlaskit/editor-common/types';
 
 import { ButtonName } from '../types';
 
 export function onItemActivated({
   buttonName,
   editorView,
+  featureFlags,
 }: {
+  featureFlags: FeatureFlags;
   buttonName: ButtonName;
   editorView: EditorView;
 }) {
@@ -66,7 +69,7 @@ export function onItemActivated({
         );
       }
       if (node === 'list') {
-        outdentList(INPUT_METHOD.TOOLBAR)(
+        outdentList(INPUT_METHOD.TOOLBAR, featureFlags)(
           editorView.state,
           editorView.dispatch,
         );

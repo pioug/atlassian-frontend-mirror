@@ -1,5 +1,11 @@
 # @atlaskit/media-card
 
+## 74.7.2
+
+### Patch Changes
+
+- [`31717a1fe63`](https://bitbucket.org/atlassian/atlassian-frontend/commits/31717a1fe63) - Fix the bug when clicking on media inline files in Hybrid Renderer, viewer is not opening.
+
 ## 74.7.1
 
 ### Patch Changes

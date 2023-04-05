@@ -53,6 +53,9 @@ export interface CollabEventPresenceData {
   left?: { sessionId: string }[];
 }
 
+/**
+ * @deprecated use CollabTelepointerPayload from "@atlaskit/collab-provider"
+ */
 export interface CollabEventTelepointerData {
   type: 'telepointer';
   selection: CollabSendableSelection;
@@ -63,14 +66,23 @@ export interface CollabEventLocalStepData {
   steps: Array<Step>;
 }
 
+/**
+ * @deprecated use CollabSendableSelection from "@atlaskit/collab-provider"
+ */
 export interface CollabSendableSelection {
   type: 'textSelection' | 'nodeSelection';
   anchor: number;
   head: number;
 }
 
+/**
+ * @deprecated use keyof CollabEvents from "@atlaskit/collab-provider"
+ */
 export type CollabEvent = keyof CollabEventData;
 
+/**
+ * @deprecated use CollabEvents from "@atlaskit/collab-provider"
+ */
 export interface CollabEventData {
   init: CollabEventInitData;
   connected: CollabEventConnectionData;
@@ -89,6 +101,10 @@ export type ResolvedEditorState<T = any> = {
   title: string | null;
   stepVersion: number;
 };
+
+/**
+ * @deprecated use CollabEditProvider from "@atlaskit/collab-provider"
+ */
 export interface CollabEditProvider<
   Events extends CollabEventData = CollabEventData,
 > {

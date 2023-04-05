@@ -27,6 +27,7 @@ import widthPlugin from '../../../width';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import breakoutPlugin from '../../../breakout';
 import listPlugin from '../../../list';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 describe('codeBlock - keymaps', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -35,6 +36,7 @@ describe('codeBlock - keymaps', () => {
     createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
         .add([codeBlockPlugin, { appearance: 'full-page' }])
         .add(layoutPlugin)
         .add(blockTypePlugin)

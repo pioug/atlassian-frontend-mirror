@@ -302,6 +302,7 @@ export interface FileFetcher {
     controller?: UploadController,
     uploadableFileUpfrontIds?: UploadableFileUpfrontIds,
     traceContext?: MediaTraceContext,
+    featureFlags?: MediaFeatureFlags,
   ): MediaSubscribable<FileState>;
   // (undocumented)
   uploadExternal(
@@ -405,6 +406,7 @@ export class FileFetcherImpl implements FileFetcher {
     controller?: UploadController,
     uploadableFileUpfrontIds?: UploadableFileUpfrontIds,
     traceContext?: MediaTraceContext,
+    featureFlags?: MediaFeatureFlags,
   ): MediaSubscribable<FileState>;
   // (undocumented)
   uploadExternal(
@@ -1719,7 +1721,7 @@ export type WithMediaClientFunction = <P extends WithMediaClient>(
 
 ```json
 {
-  "@atlaskit/media-core": "^34.0.1",
+  "@atlaskit/media-core": "^34.0.2",
   "@emotion/react": "^11.7.1",
   "react": "^16.8.0"
 }

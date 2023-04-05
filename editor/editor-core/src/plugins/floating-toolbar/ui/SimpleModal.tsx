@@ -49,7 +49,10 @@ export const SimpleModal = (
         </Button>
         <Button
           appearance="warning"
-          onClick={() => onConfirm()}
+          onClick={() => {
+            onConfirm();
+            onClose();
+          }}
           testId={testId ? `${testId}-confirm-button` : undefined}
         >
           {okButtonLabel}

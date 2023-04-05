@@ -341,9 +341,7 @@ export class ExampleEditorComponent extends React.Component<
                 allowUndoRedoButtons={true}
                 allowAnalyticsGASV3={true}
                 quickInsert={{ provider: Promise.resolve(quickInsertProvider) }}
-                allowTextColor={{
-                  allowMoreTextColors: true,
-                }}
+                allowTextColor={true}
                 allowTables={{
                   advanced: true,
                   allowColumnSorting: true,

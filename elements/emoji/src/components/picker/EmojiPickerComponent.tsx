@@ -226,8 +226,6 @@ const EmojiPickerComponent = ({
       if (emojiToRender && !containsEmojiId(emojiToRender, selectedEmoji)) {
         batchedUpdates(() => {
           setSelectedEmoji(undefined);
-          // Only enable categories for full emoji list (non-search)
-          setActiveCategory(null);
         });
       }
       batchedUpdates(() => {
@@ -466,14 +464,17 @@ const EmojiPickerComponent = ({
     fireAnalytics(uploadBeginButton());
   }, [emojiProvider, fireAnalytics]);
 
-  const scrollToUploadedEmoji = useCallback(() => {
-    if (emojiPickerList.current) {
-      // Wait a tick to ensure repaint and updated height for picker list
-      window.setTimeout(() => {
-        emojiPickerList.current?.scrollToRecentlyUploaded();
-      }, 0);
-    }
-  }, [emojiPickerList]);
+  const scrollToUploadedEmoji = useCallback(
+    (emojiDescription) => {
+      if (emojiPickerList.current) {
+        // Wait a tick to ensure repaint and updated height for picker list
+        window.setTimeout(() => {
+          emojiPickerList.current?.scrollToRecentlyUploaded(emojiDescription);
+        }, 0);
+      }
+    },
+    [emojiPickerList],
+  );
 
   const onUploadEmoji = useCallback(
     (upload: EmojiUpload, retry: boolean) => {
@@ -487,7 +488,7 @@ const EmojiPickerComponent = ({
           setSelectedEmoji(emojiDescription);
           setUploading(false);
         });
-        scrollToUploadedEmoji();
+        scrollToUploadedEmoji(emojiDescription);
       };
       uploadEmoji(
         upload,
@@ -565,6 +566,11 @@ const EmojiPickerComponent = ({
     isMounting.current = false;
   }
 
+  // stop all key propagation to other event listeners
+  const suppressKeyPress = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+  };
+
   useEffect(() => {
     // componentDidMount logic
     if (!isMounted) {
@@ -627,6 +633,9 @@ const EmojiPickerComponent = ({
       role="dialog"
       aria-label={formatMessage(messages.emojiPickerTitle)}
       aria-modal={true}
+      onKeyPress={suppressKeyPress}
+      onKeyUp={suppressKeyPress}
+      onKeyDown={suppressKeyPress}
     >
       <CategorySelector
         activeCategoryId={activeCategory}

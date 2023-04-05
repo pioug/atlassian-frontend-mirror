@@ -46,6 +46,8 @@ import mediaPlugin from '../../../media';
 import captionPlugin from '../../../caption';
 import listPlugin from '../../../list';
 import extensionPlugin from '../../../extension';
+import editorDisabledPlugin from '../../../editor-disabled';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 const pasteAndCompare = (
   { editorView }: { editorView: EditorView },
@@ -70,6 +72,8 @@ describe('action paste handler', () => {
     createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
+        .add(editorDisabledPlugin)
         .add([pastePlugin, {}])
         .add([tasksAndDecisionsPlugin, {}])
         .add(blockTypePlugin)

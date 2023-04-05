@@ -169,6 +169,10 @@ export class ClipboardBase extends LocalUploadComponentReact<ClipboardProps> {
     if (prevProps.featureFlags !== this.props.featureFlags) {
       this.clipboard.featureFlags = this.props.featureFlags;
     }
+    // refreshes uploadParams as only set once in parent constructor
+    if (prevProps.config.uploadParams !== this.props.config.uploadParams) {
+      this.setUploadParams(this.props.config.uploadParams);
+    }
   }
 
   componentWillUnmount() {

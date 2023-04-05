@@ -3,6 +3,8 @@ import {
   doc,
   hr,
   p,
+  ol,
+  li,
   code_block,
   hardBreak,
   blockquote,
@@ -158,6 +160,106 @@ describe('inputrules', () => {
         attributes: expect.objectContaining({ inputMethod: 'autoformatting' }),
         eventType: 'track',
       });
+    });
+
+    it('should not convert "---" in an empty list', () => {
+      const { editorView, sel } = editor(doc(ol()(li(p('{<>}')))));
+      insertText(editorView, '---', sel);
+      expect(editorView.state.doc).toEqualDocument(doc(ol()(li(p('---')))));
+    });
+
+    it('should not convert "---" in a flat list', () => {
+      const { editorView, sel } = editor(
+        doc(ol()(li(p('aaa{<>}')), li(p('bbb')))),
+      );
+      insertText(editorView, '---', sel);
+      expect(editorView.state.doc).toEqualDocument(
+        doc(ol()(li(p('aaa---')), li(p('bbb')))),
+      );
+    });
+
+    it('should not convert "---" in a flat list where item is empty', () => {
+      const { editorView, sel } = editor(
+        doc(ol()(li(p('{<>}')), li(p('bbb')))),
+      );
+      insertText(editorView, '---', sel);
+      expect(editorView.state.doc).toEqualDocument(
+        doc(ol()(li(p('---')), li(p('bbb')))),
+      );
+    });
+
+    it('should not convert "---" in a nested list', () => {
+      const { editorView, sel } = editor(
+        doc(
+          ol()(li(p('aaa'), ol()(li(p('aa{<>}')), li(p('bb')))), li(p('bbb'))),
+        ),
+      );
+      insertText(editorView, '---', sel);
+      expect(editorView.state.doc).toEqualDocument(
+        doc(
+          ol()(li(p('aaa'), ol()(li(p('aa---')), li(p('bb')))), li(p('bbb'))),
+        ),
+      );
+    });
+
+    it('should not convert "---" in a nested list where nested item is empty', () => {
+      const { editorView, sel } = editor(
+        doc(ol()(li(p('aaa'), ol()(li(p('{<>}')), li(p('bb')))), li(p('bbb')))),
+      );
+      insertText(editorView, '---', sel);
+      expect(editorView.state.doc).toEqualDocument(
+        doc(ol()(li(p('aaa'), ol()(li(p('---')), li(p('bb')))), li(p('bbb')))),
+      );
+    });
+
+    it('should not convert "***" in an empty list', () => {
+      const { editorView, sel } = editor(doc(ol()(li(p('{<>}')))));
+      insertText(editorView, '***', sel);
+      expect(editorView.state.doc).toEqualDocument(doc(ol()(li(p('***')))));
+    });
+
+    it('should not convert "***" in a flat list', () => {
+      const { editorView, sel } = editor(
+        doc(ol()(li(p('aaa{<>}')), li(p('bbb')))),
+      );
+      insertText(editorView, '***', sel);
+      expect(editorView.state.doc).toEqualDocument(
+        doc(ol()(li(p('aaa***')), li(p('bbb')))),
+      );
+    });
+
+    it('should not convert "***" in a flat list where item is empty', () => {
+      const { editorView, sel } = editor(
+        doc(ol()(li(p('{<>}')), li(p('bbb')))),
+      );
+      insertText(editorView, '***', sel);
+      expect(editorView.state.doc).toEqualDocument(
+        doc(ol()(li(p('***')), li(p('bbb')))),
+      );
+    });
+
+    it('should not convert "***" in a nested list', () => {
+      const { editorView, sel } = editor(
+        doc(
+          ol()(li(p('aaa'), ol()(li(p('aa{<>}')), li(p('bb')))), li(p('bbb'))),
+        ),
+      );
+      insertText(editorView, '***', sel);
+      expect(editorView.state.doc).toEqualDocument(
+        doc(
+          ol()(li(p('aaa'), ol()(li(p('aa***')), li(p('bb')))), li(p('bbb'))),
+        ),
+      );
+    });
+
+    it('should not convert "***" in a nested list where nested item is empty', () => {
+      const { editorView, sel } = editor(
+        doc(ol()(li(p('aaa'), ol()(li(p('{<>}')), li(p('bb')))), li(p('bbb')))),
+      );
+      insertText(editorView, '***', sel);
+      expect(editorView.state.doc).toEqualDocument(
+        doc(ol()(li(p('aaa'), ol()(li(p('***')), li(p('bb')))), li(p('bbb')))),
+      );
     });
   });
 });

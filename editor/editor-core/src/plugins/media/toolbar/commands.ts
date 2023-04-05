@@ -5,6 +5,8 @@ import {
   removeSelectedNode,
   safeInsert,
 } from 'prosemirror-utils';
+import { BorderMarkAttributes } from '@atlaskit/adf-schema';
+
 import { Command } from '../../../types';
 import {
   ACTION,
@@ -14,6 +16,10 @@ import {
   EVENT_TYPE,
 } from '../../analytics';
 import { removeMediaGroupNode } from './utils';
+import { currentMediaNodeWithPos } from '../utils/current-media-node';
+
+export const DEFAULT_BORDER_COLOR = '#091e4224';
+export const DEFAULT_BORDER_SIZE = 2;
 
 export const changeInlineToMediaCard: Command = (state, dispatch) => {
   const { media, mediaInline, mediaGroup } = state.schema.nodes;
@@ -104,3 +110,107 @@ export const removeInlineCard: Command = (state, dispatch) => {
   }
   return false;
 };
+
+export const toggleBorderMark: Command = (state, dispatch) => {
+  const nodeWithPos = currentMediaNodeWithPos(state);
+  if (!nodeWithPos) {
+    return false;
+  }
+
+  const { node, pos } = nodeWithPos;
+
+  const borderMark = node.marks.find((m) => m.type.name === 'border');
+  const marks = node.marks
+    .filter((m) => m.type.name !== 'border')
+    .concat(
+      borderMark
+        ? []
+        : state.schema.marks.border.create({
+            color: DEFAULT_BORDER_COLOR,
+            size: DEFAULT_BORDER_SIZE,
+          }),
+    );
+
+  const tr = state.tr.setNodeMarkup(pos, node.type, node.attrs, marks);
+  tr.setMeta('scrollIntoView', false);
+  if (state.selection instanceof NodeSelection) {
+    if (state.selection.$anchor.pos === state.selection.from) {
+      tr.setSelection(NodeSelection.create(tr.doc, state.selection.from));
+    }
+  }
+
+  if (dispatch) {
+    if (borderMark?.attrs) {
+      addAnalytics(state, tr, {
+        action: ACTION.DELETED,
+        actionSubject: ACTION_SUBJECT.MEDIA,
+        actionSubjectId: ACTION_SUBJECT_ID.BORDER,
+        eventType: EVENT_TYPE.TRACK,
+        attributes: {
+          previousColor: borderMark.attrs.color,
+          previousSize: borderMark.attrs.size,
+        },
+      });
+    } else {
+      addAnalytics(state, tr, {
+        action: ACTION.ADDED,
+        actionSubject: ACTION_SUBJECT.MEDIA,
+        actionSubjectId: ACTION_SUBJECT_ID.BORDER,
+        eventType: EVENT_TYPE.TRACK,
+        attributes: {
+          color: DEFAULT_BORDER_COLOR,
+          size: DEFAULT_BORDER_SIZE,
+        },
+      });
+    }
+
+    dispatch(tr);
+  }
+
+  return true;
+};
+
+export const setBorderMark =
+  (attrs: Partial<BorderMarkAttributes>): Command =>
+  (state, dispatch) => {
+    const nodeWithPos = currentMediaNodeWithPos(state);
+    if (!nodeWithPos) {
+      return false;
+    }
+
+    const { node, pos } = nodeWithPos;
+
+    const borderMark = node.marks.find((m) => m.type.name === 'border')
+      ?.attrs as BorderMarkAttributes;
+    const color = attrs.color ?? borderMark?.color ?? DEFAULT_BORDER_COLOR;
+    const size = attrs.size ?? borderMark?.size ?? DEFAULT_BORDER_SIZE;
+    const marks = node.marks
+      .filter((m) => m.type.name !== 'border')
+      .concat(state.schema.marks.border.create({ color, size }));
+
+    const tr = state.tr.setNodeMarkup(pos, node.type, node.attrs, marks);
+    tr.setMeta('scrollIntoView', false);
+    if (state.selection instanceof NodeSelection) {
+      if (state.selection.$anchor.pos === state.selection.from) {
+        tr.setSelection(NodeSelection.create(tr.doc, state.selection.from));
+      }
+    }
+
+    if (dispatch) {
+      addAnalytics(state, tr, {
+        action: ACTION.UPDATED,
+        actionSubject: ACTION_SUBJECT.MEDIA,
+        actionSubjectId: ACTION_SUBJECT_ID.BORDER,
+        eventType: EVENT_TYPE.TRACK,
+        attributes: {
+          previousColor: borderMark?.color,
+          previousSize: borderMark?.size,
+          newColor: color,
+          newSize: size,
+        },
+      });
+      dispatch(tr);
+    }
+
+    return true;
+  };

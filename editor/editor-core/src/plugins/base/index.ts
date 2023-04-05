@@ -24,6 +24,7 @@ import {
   BrowserFreezetracking,
 } from '../../types/performance-tracking';
 import compositionPlugin from './pm-plugins/composition';
+import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 export interface BasePluginOptions {
   allowScrollGutter?: ScrollGutterPluginOptions;
@@ -41,114 +42,120 @@ const basePlugin: NextEditorPlugin<
   'base',
   {
     pluginConfiguration: BasePluginOptions | undefined;
+    dependencies: [typeof featureFlagsPlugin];
   }
-> = (options?) => ({
-  name: 'base',
+> = (options, api) => {
+  const featureFlags =
+    api?.dependencies?.featureFlags?.sharedState.currentState() || {};
 
-  pmPlugins() {
-    const plugins: { name: string; plugin: PMPluginFactory }[] = [
-      {
-        name: 'filterStepsPlugin',
-        plugin: ({ dispatchAnalyticsEvent }) =>
-          filterStepsPlugin(dispatchAnalyticsEvent),
-      },
-    ];
+  return {
+    name: 'base',
 
-    // In Chrome, when the selection is placed between adjacent nodes which are not contenteditatble
-    // the cursor appears at the right most point of the parent container.
-    // In Firefox, when the selection is placed between adjacent nodes which are not contenteditatble
-    // no cursor is presented to users.
-    // In Safari, when the selection is placed between adjacent nodes which are not contenteditatble
-    // it is not possible to navigate with arrow keys.
-    // This plugin works around the issues by inserting decorations between
-    // inline nodes which are set as contenteditable, and have a zero width space.
-    plugins.push({
-      name: 'inlineCursorTargetPlugin',
-      plugin: () =>
-        options && options.allowInlineCursorTarget
-          ? inlineCursorTargetPlugin()
-          : undefined,
-    });
-
-    plugins.push(
-      {
-        name: 'focusHandlerPlugin',
-        plugin: ({ dispatch }) => focusHandlerPlugin(dispatch),
-      },
-      {
-        name: 'newlinePreserveMarksPlugin',
-        plugin: newlinePreserveMarksPlugin,
-      },
-      { name: 'reactNodeView', plugin: () => reactNodeView },
-      {
-        name: 'frozenEditor',
-        plugin: ({ dispatchAnalyticsEvent }) => {
-          return options?.inputTracking?.enabled || options?.ufo
-            ? frozenEditor(
-                dispatchAnalyticsEvent,
-                options.inputTracking,
-                options.browserFreezeTracking,
-                options.ufo,
-              )
-            : undefined;
+    pmPlugins() {
+      const plugins: { name: string; plugin: PMPluginFactory }[] = [
+        {
+          name: 'filterStepsPlugin',
+          plugin: ({ dispatchAnalyticsEvent }) =>
+            filterStepsPlugin(dispatchAnalyticsEvent),
         },
-      },
-      { name: 'decorationPlugin', plugin: () => decorationPlugin() },
-      { name: 'history', plugin: () => history() as SafePlugin },
-      // should be last :(
-      {
-        name: 'codeBlockIndent',
+      ];
+
+      // In Chrome, when the selection is placed between adjacent nodes which are not contenteditatble
+      // the cursor appears at the right most point of the parent container.
+      // In Firefox, when the selection is placed between adjacent nodes which are not contenteditatble
+      // no cursor is presented to users.
+      // In Safari, when the selection is placed between adjacent nodes which are not contenteditatble
+      // it is not possible to navigate with arrow keys.
+      // This plugin works around the issues by inserting decorations between
+      // inline nodes which are set as contenteditable, and have a zero width space.
+      plugins.push({
+        name: 'inlineCursorTargetPlugin',
         plugin: () =>
-          keymap({
-            ...baseKeymap,
-            'Mod-[': () => true,
-            'Mod-]': () => true,
-          }),
-      },
-      {
-        name: 'contextIdentifier',
-        plugin: ({ dispatch, providerFactory }) =>
-          contextIdentifierPlugin(dispatch, providerFactory),
-      },
-      {
-        name: 'betterTypeHistory',
-        plugin: ({ dispatch, providerFactory }) => betterTypeHistoryPlugin(),
-      },
-    );
-
-    if (options && options.allowScrollGutter) {
-      plugins.push({
-        name: 'scrollGutterPlugin',
-        plugin: () => scrollGutter(options.allowScrollGutter),
+          options && options.allowInlineCursorTarget
+            ? inlineCursorTargetPlugin()
+            : undefined,
       });
-    }
 
-    if (isChromeWithSelectionBug) {
+      plugins.push(
+        {
+          name: 'focusHandlerPlugin',
+          plugin: ({ dispatch }) => focusHandlerPlugin(dispatch),
+        },
+        {
+          name: 'newlinePreserveMarksPlugin',
+          plugin: newlinePreserveMarksPlugin,
+        },
+        { name: 'reactNodeView', plugin: () => reactNodeView },
+        {
+          name: 'frozenEditor',
+          plugin: ({ dispatchAnalyticsEvent }) => {
+            return options?.inputTracking?.enabled || options?.ufo
+              ? frozenEditor(
+                  dispatchAnalyticsEvent,
+                  options.inputTracking,
+                  options.browserFreezeTracking,
+                  options.ufo,
+                )
+              : undefined;
+          },
+        },
+        { name: 'decorationPlugin', plugin: () => decorationPlugin() },
+        { name: 'history', plugin: () => history() as SafePlugin },
+        // should be last :(
+        {
+          name: 'codeBlockIndent',
+          plugin: () =>
+            keymap({
+              ...baseKeymap,
+              'Mod-[': () => true,
+              'Mod-]': () => true,
+            }),
+        },
+        {
+          name: 'contextIdentifier',
+          plugin: ({ dispatch, providerFactory }) =>
+            contextIdentifierPlugin(dispatch, providerFactory),
+        },
+        {
+          name: 'betterTypeHistory',
+          plugin: ({ dispatch, providerFactory }) => betterTypeHistoryPlugin(),
+        },
+      );
+
+      if (options && options.allowScrollGutter) {
+        plugins.push({
+          name: 'scrollGutterPlugin',
+          plugin: () => scrollGutter(options.allowScrollGutter),
+        });
+      }
+
+      if (isChromeWithSelectionBug) {
+        plugins.push({
+          name: 'fixChrome88SelectionPlugin',
+          plugin: () => fixChrome88SelectionPlugin(),
+        });
+      }
+
       plugins.push({
-        name: 'fixChrome88SelectionPlugin',
-        plugin: () => fixChrome88SelectionPlugin(),
+        name: 'disableSpellcheckingPlugin',
+        plugin: () => disableSpellcheckingPlugin(featureFlags),
       });
-    }
 
-    plugins.push({
-      name: 'disableSpellcheckingPlugin',
-      plugin: () => disableSpellcheckingPlugin(),
-    });
+      plugins.push({
+        name: 'compositionPlugin',
+        plugin: () => compositionPlugin(),
+      });
 
-    plugins.push({
-      name: 'compositionPlugin',
-      plugin: () => compositionPlugin(),
-    });
-
-    return plugins;
-  },
-  nodes() {
-    return [
-      { name: 'doc', node: doc },
-      { name: 'paragraph', node: paragraph },
-      { name: 'text', node: text },
-    ];
-  },
-});
+      return plugins;
+    },
+    nodes() {
+      return [
+        { name: 'doc', node: doc },
+        { name: 'paragraph', node: paragraph },
+        { name: 'text', node: text },
+      ];
+    },
+  };
+};
 
 export default basePlugin;

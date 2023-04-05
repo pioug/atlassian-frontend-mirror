@@ -1,5 +1,52 @@
 # @atlaskit/editor-core
 
+## 182.0.0
+
+### Major Changes
+
+- [`d066f461786`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d066f461786) - [ED-16946] Remove deprecated feature flag allowMoreTextColors
+
+### Minor Changes
+
+- [`bf04c417bfd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bf04c417bfd) - Add "border" mark to stage0 ADF schema
+- [`ef830fdabfa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ef830fdabfa) - [ED-17294] Enable type checking for Preset plugins on unit tests
+- [`af9a85063e5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/af9a85063e5) - add image border toolbar
+- [`0419ca96512`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0419ca96512) - [ED-17209] `Renamed externalPlugins` API to `dependencies`
+- [`c138d6d000f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c138d6d000f) - CCECO-283 Extended Extension API update function with ability to update the content of the node
+
+### Patch Changes
+
+- [`4f75910f899`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4f75910f899) - [ux] Add code wrapping button to code block TSLA-266
+- [`1b4642c6b8c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1b4642c6b8c) - [ED-17287] Update feature flag usage for base plugin
+- [`aa2bb8e9af3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aa2bb8e9af3) - [ED-17292] Update feature flag usage for hyperlink plugin
+- [`240b33ea31e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/240b33ea31e) - [ux] ED-17200 Restore typeahead initial-navigation behaviour
+- [`5bb30bba83f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5bb30bba83f) - [ED-17289] Update feature flag usage for collab-edit plugin
+- [`a12242d5600`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a12242d5600) - ED-16683 fixed inability to paste content with inline comment into italic text
+- [`ed91763381c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ed91763381c) - [ux] enable focus trap for emoji picker popup, and add press escape key to close emoji picker popup
+- [`7c08fc37676`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7c08fc37676) - [17293] Update feature flag usage for hyperlink plugin
+- [`9e49aa408ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9e49aa408ec) - [ED-17291] Update feature flag usage for base plugin
+- [`5843631fc43`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5843631fc43) - [ux] ED-17135: Added missing aria-label to the Clear Formatting menu item.
+- [`04edc92c8f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/04edc92c8f0) - ED-16974: Set focus to Editor after Confirmation dialog is closed.
+- [`7946da1848a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7946da1848a) - [ux] [ED-16668] Update table shadow intersection table to observe new shadow sentinels instead of first and last cell
+- [`bad1fae839b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bad1fae839b) - Adds `useSharedPluginState` hook which can be used to replace instances of `WithPluginState`. It will take the dependency injection API (provided by a `NextEditorPlugin` and return the shared state for the specified plugins rather than using plugin keys in `WithPluginState`.
+- [`a9d6c74f7cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a9d6c74f7cd) - Update typeahead changes to be behind a feature flag named `use-better-typeahead-navigation`/`useBetterTypeaheadNavigation`. This is an opt-out feature flag! To disable, please supply the feature flag as false.
+- [`da8e67aa763`](https://bitbucket.org/atlassian/atlassian-frontend/commits/da8e67aa763) - [ED-17288] Update feature flag usage for card plugin
+- [`7d13224adfc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d13224adfc) - [ED-16731] Initial migration for Feature Flags plugin
+- [`4766fa2e12b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4766fa2e12b) - Prevent Voiceover Cursor from navigating over decorative elements in the Editor Toolbar such as separators and unused hidden text.
+- [`a87ef158b49`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a87ef158b49) - [ED-17290] Update feature flag usage for expand plugin
+- [`22594b22f8b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/22594b22f8b) - fix missing Extension edit button bug by updating potentially stale Extension state
+- [`7f54728ea5f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7f54728ea5f) - [ux] ED-15271 Update divider node insertion logic to prevent replacement of empty list nodes when inserted via markdown shortcut. Additionally, ensure consistency between other insertion modes like quick insert, hot key shortcuts and toolbar.
+- [`fcda6a668eb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fcda6a668eb) - Fix default prop behaviour on EditorMigrationComponent.
+- [`8537da6fa71`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8537da6fa71) - Fixes a bug where the height of the link picker popup is incorrectly assigned if link picker plugins are not provided to the editor.
+- Updated dependencies
+
+## 181.0.1
+
+### Patch Changes
+
+- [`40c9132b8cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/40c9132b8cd) - [ux] ED-17200 Restore typeahead initial-navigation behaviour
+- [`b737494c727`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b737494c727) - Update typeahead changes to be behind a feature flag named `use-better-typeahead-navigation`/`useBetterTypeaheadNavigation`. This is an opt-out feature flag! To disable, please supply the feature flag as false.
+
 ## 181.0.0
 
 ### Major Changes

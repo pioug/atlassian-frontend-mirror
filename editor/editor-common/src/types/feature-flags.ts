@@ -434,6 +434,17 @@ export type FeatureFlags = {
 
   /**
    * @description
+   * Alter the default navigation behaviour of the typeahead insertion
+   *
+   * @see https://hello.atlassian.net/wiki/spaces/~970827943/blog/2023/03/29/2499685575
+   * @see https://product-fabric.atlassian.net/browse/ED-17200
+   * DUE DATE: July 2023
+   * @default true
+   */
+  useBetterTypeaheadNavigation?: boolean;
+
+  /**
+   * @description
    * Expanded chart color options from 20 to 36, uses design tokens to enable light/dark mode colors.
    *
    * @see https://product-fabric.atlassian.net/wiki/spaces/EUXQ/pages/3472785427/EXTERNAL+MAKE+PP+COMMIT-5233+Enable+Themed+rendering+of+remaining+UGC+Editor+content+tables+custom+panels+and+extension+color+palettes

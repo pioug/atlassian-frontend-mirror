@@ -10,6 +10,7 @@ import { CollabSendableSelection } from '../../types';
 import collabEditPlugin, { pluginKey } from '../../index';
 import { createMockCollabEditProvider } from '@atlaskit/synchrony-test-helpers';
 import { TextSelection } from 'prosemirror-state';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 const findTelepointerBySessionId = (
   editorView: EditorView,
@@ -77,12 +78,14 @@ describe('collab-edit: plugin-state', () => {
   const collabProvider = createMockCollabEditProvider();
   const createEditor = createProsemirrorEditorFactory();
 
-  const collabPreset = new Preset<LightEditorPlugin>().add([
-    collabEditPlugin,
-    {
-      provider: collabProvider,
-    },
-  ]);
+  const collabPreset = new Preset<LightEditorPlugin>()
+    .add([featureFlagsPlugin, {}])
+    .add([
+      collabEditPlugin,
+      {
+        provider: collabProvider,
+      },
+    ]);
 
   it('decorationSet should be updated correctly', () => {
     const document = doc(p('th{<>}is is a document'));

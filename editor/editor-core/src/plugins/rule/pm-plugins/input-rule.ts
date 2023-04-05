@@ -7,6 +7,8 @@ import { FeatureFlags } from '../../../types/feature-flags';
 import { createRule, createPlugin } from '../../../utils/input-rules';
 import { leafNodeReplacementCharacter } from '@atlaskit/prosemirror-input-rules';
 import { safeInsert } from '../../../utils/insert';
+import { hasParentNodeOfType } from 'prosemirror-utils';
+
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -68,6 +70,12 @@ const createHorizontalRuleAutoformat = (
   start: number,
   end: number,
 ) => {
+  const { listItem } = state.schema.nodes;
+
+  if (hasParentNodeOfType(listItem)(state.selection)) {
+    return null;
+  }
+
   return createHorizontalRule(state, start, end, INPUT_METHOD.FORMATTING);
 };
 

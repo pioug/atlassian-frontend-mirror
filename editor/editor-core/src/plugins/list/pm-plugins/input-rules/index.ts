@@ -22,6 +22,7 @@ export default function inputRulePlugin(
         // character into an escaped version.
         expression: /^\s*([\*\-\u2022]) $/,
         listType: bulletList,
+        featureFlags,
       }),
     );
   }

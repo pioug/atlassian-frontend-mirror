@@ -1,10 +1,14 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import { css as cssEmotion } from '@emotion/react';
 import {
   CSSInterpolation,
   CSSObject,
   CSSPropertiesWithMultiValues,
   CSSPseudos,
+  SerializedStyles,
 } from '@emotion/serialize';
+
+import { Box, Inline } from '../index';
 
 import {
   backgroundColorMap,
@@ -99,19 +103,12 @@ export const transformStyles = (
   return styleObj;
 };
 
-type XCSS = ReturnType<typeof xcss>;
-export type SafeCSS = XCSS | XCSS[];
-
-export type SafeCSSObject = CSSPseudos &
-  TokenisedProps &
-  Omit<CSSPropertiesWithMultiValues, keyof TokenisedProps>;
-
-export const xcss = (style?: SafeCSSObject | SafeCSSObject[]) => {
+const baseXcss = <T,>(style?: SafeCSSObject | SafeCSSObject[]) => {
   const transformedStyles = transformStyles(style);
 
   return {
     symbol: uniqueSymbol,
-    styles: cssEmotion(transformedStyles as CSSInterpolation),
+    styles: cssEmotion(transformedStyles as CSSInterpolation) as unknown as T,
   } as const;
 };
 
@@ -137,5 +134,58 @@ export const parseXcss = (args: SafeCSS): ReturnType<typeof cssEmotion> => {
     );
   }
 
-  return styles;
+  return styles as SerializedStyles;
+};
+
+type SafeCSSObject = CSSPseudos &
+  TokenisedProps &
+  Omit<CSSPropertiesWithMultiValues, keyof TokenisedProps>;
+
+type ScopedSafeCSSObject<T extends keyof SafeCSSObject> = Pick<
+  SafeCSSObject,
+  T
+>;
+
+// unused private functions only so we can extract the return type from a generic function
+const boxWrapper = (style: any) => xcss<typeof Box>(style);
+const inlineWrapper = (style: any) => xcss<typeof Inline>(style);
+
+type XCSS = ReturnType<typeof boxWrapper> | ReturnType<typeof inlineWrapper>;
+type SafeCSS = XCSS | XCSS[];
+
+type AllowedBoxStyles = keyof SafeCSSObject;
+type AllowedInlineStyles = 'backgroundColor' | 'padding';
+
+export function xcss<Primitive extends typeof Box | typeof Inline = typeof Box>(
+  style: Primitive extends typeof Box
+    ? ScopedSafeCSSObject<AllowedBoxStyles>
+    : Primitive extends typeof Inline
+    ? ScopedSafeCSSObject<AllowedInlineStyles>
+    : never,
+) {
+  return baseXcss<
+    Primitive extends typeof Box
+      ? BoxStyles
+      : Primitive extends typeof Inline
+      ? InlineStyles
+      : never
+  >(style);
+}
+
+declare const boxTag: unique symbol;
+export type BoxStyles = SerializedStyles & {
+  [boxTag]: true;
+};
+export type BoxXCSS = {
+  readonly symbol: typeof uniqueSymbol;
+  readonly styles: BoxStyles;
+};
+
+declare const inlineTag: unique symbol;
+export type InlineStyles = SerializedStyles & {
+  [inlineTag]: true;
+};
+export type InlineXCSS = {
+  readonly symbol: typeof uniqueSymbol;
+  readonly styles: InlineStyles;
 };

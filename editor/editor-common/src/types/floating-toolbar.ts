@@ -88,6 +88,11 @@ export interface ConfirmDialogOptions {
 
 export type ConfirmationDialogProps = {
   onConfirm: (isCheck?: boolean) => void;
+  /**
+   * onClose is called every time when the dialog is closed.
+   * Either clicking on 'Confirm' button or 'Cancel' button,
+   * which means it is being called after onConfirm, or by itself when clicking 'Cancel' button.
+   */
   onClose: () => void;
   options?: ConfirmDialogOptions;
   testId?: string;

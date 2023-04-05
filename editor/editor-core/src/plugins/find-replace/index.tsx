@@ -3,6 +3,7 @@ import { createPlugin } from './plugin';
 import keymapPlugin from './keymap';
 import { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import FindReplaceToolbarButtonWithState from './FindReplaceToolbarButtonWithState';
+import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 type Config = {
   takeFullWidth: boolean;
@@ -12,8 +13,12 @@ export const findReplacePlugin: NextEditorPlugin<
   'findReplace',
   {
     pluginConfiguration: Config;
+    dependencies: [typeof featureFlagsPlugin];
   }
-> = (props) => {
+> = (props, api) => {
+  const featureFlags =
+    api?.dependencies?.featureFlags?.sharedState.currentState() || {};
+
   return {
     name: 'findReplace',
 
@@ -52,6 +57,7 @@ export const findReplacePlugin: NextEditorPlugin<
             containerElement={containerElement}
             dispatchAnalyticsEvent={dispatchAnalyticsEvent}
             takeFullWidth={props.takeFullWidth}
+            featureFlags={featureFlags}
           />
         );
       }

@@ -104,6 +104,7 @@ export const EditorToolbar: React.FunctionComponent<
           isInviteToEditButtonSelected={
             props.collabEdit?.isInviteToEditButtonSelected
           }
+          featureFlags={props.featureFlags || {}}
         />
       )}
       {props.featureFlags?.findReplace &&
@@ -115,6 +116,7 @@ export const EditorToolbar: React.FunctionComponent<
           editorView={props.editorView}
           containerElement={props.containerElement}
           dispatchAnalyticsEvent={props.dispatchAnalyticsEvent}
+          featureFlags={props.featureFlags}
         />
       ) : null}
       {!!props.customPrimaryToolbarComponents &&

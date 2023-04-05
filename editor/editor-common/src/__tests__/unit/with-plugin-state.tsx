@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { mount } from 'enzyme';
+import { render as mount } from '@testing-library/react';
 import PropTypes from 'prop-types';
 import { PluginKey } from 'prosemirror-state';
 
@@ -161,6 +161,8 @@ describe('with-plugin-state', () => {
 
   it('should clean all listeners after unmount', () => {
     const pluginState = {};
+    // @ts-ignore
+    const unsubscribeSpy = jest.spyOn(WithPluginState.prototype, 'unsubscribe');
     const plugin = createPlugin(pluginState, pluginKey);
     const plugin2 = createPlugin(pluginState, pluginKey2);
     const { editorView } = createEditor({
@@ -175,13 +177,11 @@ describe('with-plugin-state', () => {
         render={() => null}
       />,
     );
-    const wpsInstance = (wrapper.find(WithPluginState) as any)
-      .first()
-      .instance();
+    expect(unsubscribeSpy).toHaveBeenCalledTimes(0);
 
     wrapper.unmount();
     editorView.destroy();
-    expect(wpsInstance.listeners).toEqual([]);
+    expect(unsubscribeSpy).toHaveBeenCalledTimes(1);
   });
 
   it('should support old plugins with subscribe/unsubscribe methods', () => {

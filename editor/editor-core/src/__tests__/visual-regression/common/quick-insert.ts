@@ -136,7 +136,7 @@ describe('should render the quick insert menu and visible focus style should app
     await waitForTypeAheadMenu(page);
     await waitForMenuIconsToLoad(page, 6, '.emoji-common-emoji-sprite');
     await page.waitForSelector(selectors.typeaheadPopup, { visible: true });
-    await pressKey(page, ['ArrowDown', 'ArrowDown']);
+    await pressKey(page, ['ArrowDown']);
     // the focus ring uses css box shadow so we check if it exists
     expect(await page.evaluate(secondItemBoxShadow)).not.toBe('none');
   });
@@ -150,7 +150,7 @@ describe('should render the quick insert menu and visible focus style should app
     await waitForTypeAheadMenu(page);
     await waitForMenuIconsToLoad(page, 6, 'img');
     await page.waitForSelector(selectors.typeaheadPopup, { visible: true });
-    await pressKey(page, ['ArrowDown', 'ArrowDown']);
+    await pressKey(page, ['ArrowDown']);
     expect(await page.evaluate(secondItemBoxShadow)).not.toBe('none');
   });
 
@@ -163,7 +163,7 @@ describe('should render the quick insert menu and visible focus style should app
     await waitForTypeAheadMenu(page);
     await waitForMenuIconsToLoad(page, 6, 'svg');
     await page.waitForSelector(selectors.typeaheadPopup, { visible: true });
-    await pressKey(page, ['ArrowDown', 'ArrowDown']);
+    await pressKey(page, ['ArrowDown']);
     expect(await page.evaluate(secondItemBoxShadow)).not.toBe('none');
   });
 });

@@ -1,5 +1,35 @@
 # @atlaskit/editor-common
 
+## 72.7.0
+
+### Minor Changes
+
+- [`2192c9417d7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2192c9417d7) - [ESS-3335] Review Collab Provider API error handling & types
+- [`bf04c417bfd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bf04c417bfd) - Add "border" mark to stage0 ADF schema
+- [`27b106a736b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/27b106a736b) - ESS-3274 Refactor participant logic our of Provider class
+- [`af9a85063e5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/af9a85063e5) - add image border toolbar
+- [`0419ca96512`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0419ca96512) - [ED-17209] `Renamed externalPlugins` API to `dependencies`
+- [`bad1fae839b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bad1fae839b) - Adds `useSharedPluginState` hook which can be used to replace instances of `WithPluginState`. It will take the dependency injection API (provided by a `NextEditorPlugin` and return the shared state for the specified plugins rather than using plugin keys in `WithPluginState`.
+- [`c138d6d000f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c138d6d000f) - CCECO-283 Extended Extension API update function with ability to update the content of the node
+
+### Patch Changes
+
+- [`4f75910f899`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4f75910f899) - [ux] Add code wrapping button to code block TSLA-266
+- [`1b4642c6b8c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1b4642c6b8c) - [ED-17287] Update feature flag usage for base plugin
+- [`ef830fdabfa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ef830fdabfa) - [ED-17294] Enable type checking for Preset plugins on unit tests
+- [`04edc92c8f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/04edc92c8f0) - ED-16974: Set focus to Editor after Confirmation dialog is closed.
+- [`7946da1848a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7946da1848a) - [ux] [ED-16668] Update table shadow intersection table to observe new shadow sentinels instead of first and last cell
+- [`a9d6c74f7cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a9d6c74f7cd) - Update optional feature flag type
+- [`7d13224adfc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d13224adfc) - [ED-16731] Initial migration for Feature Flags plugin
+- [`31717a1fe63`](https://bitbucket.org/atlassian/atlassian-frontend/commits/31717a1fe63) - Fix the bug when clicking on media inline files in Hybrid Renderer, viewer is not opening.
+- Updated dependencies
+
+## 72.6.1
+
+### Patch Changes
+
+- [`b737494c727`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b737494c727) - Update optional feature flag type
+
 ## 72.6.0
 
 ### Minor Changes

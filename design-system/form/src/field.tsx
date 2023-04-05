@@ -427,6 +427,17 @@ export default function Field<
     [props.id, props.name],
   );
 
+  const getDescribedBy = () => {
+    let value = '';
+    if (state.error) {
+      value += `${fieldId}-error `;
+    }
+    if (state.valid) {
+      value += `${fieldId}-valid `;
+    }
+    return `${value}${fieldId}-helper`;
+  };
+
   const extendedFieldProps = {
     ...state.fieldProps,
     name: props.name,
@@ -434,7 +445,8 @@ export default function Field<
     isInvalid: Boolean(state.error),
     isRequired: Boolean(props.isRequired),
     'aria-invalid': (state.error ? 'true' : 'false') as 'true' | 'false',
-    'aria-labelledby': `${fieldId}-label ${fieldId}-helper ${fieldId}-valid ${fieldId}-error`,
+    'aria-describedby': getDescribedBy(),
+    'aria-labelledby': `${fieldId}-label`,
     id: fieldId,
   };
 

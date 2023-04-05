@@ -18,10 +18,43 @@
 import { Identifier } from '@atlaskit/media-client';
 import { MediaClient } from '@atlaskit/media-client';
 import { MediaFeatureFlags } from '@atlaskit/media-common';
+import { default as React_2 } from 'react';
 import { ReactNode } from 'react';
+import type { WithMediaClientConfigProps } from '@atlaskit/media-client';
 
 // @public (undocumented)
-export const MediaViewer: (props: any) => JSX.Element;
+interface AsyncMediaViewerState {
+  // (undocumented)
+  MediaViewer?: MediaViewerWithMediaClientConfigComponent;
+  // (undocumented)
+  MediaViewerErrorBoundary?: MediaViewerErrorBoundaryComponent;
+}
+
+// @public (undocumented)
+export class MediaViewer extends React_2.PureComponent<
+  MediaViewerWithMediaClientConfigProps,
+  AsyncMediaViewerState
+> {
+  // (undocumented)
+  static displayName: string;
+  // (undocumented)
+  static MediaViewer?: MediaViewerWithMediaClientConfigComponent;
+  // (undocumented)
+  static MediaViewerErrorBoundary?: MediaViewerErrorBoundaryComponent;
+  // (undocumented)
+  render(): JSX.Element;
+  // (undocumented)
+  state: AsyncMediaViewerState;
+  // (undocumented)
+  UNSAFE_componentWillMount(): Promise<void>;
+}
+
+// @public (undocumented)
+type MediaViewerAnalyticsErrorBoundaryProps = {
+  data?: {
+    [k: string]: any;
+  };
+};
 
 // @public (undocumented)
 export interface MediaViewerDataSource {
@@ -30,6 +63,10 @@ export interface MediaViewerDataSource {
   // (undocumented)
   list?: Array<Identifier>;
 }
+
+// @public (undocumented)
+type MediaViewerErrorBoundaryComponent =
+  React_2.ComponentType<MediaViewerAnalyticsErrorBoundaryProps>;
 
 // @public (undocumented)
 export interface MediaViewerExtensions {
@@ -72,6 +109,14 @@ export interface MediaViewerProps {
   // (undocumented)
   readonly selectedItem: Identifier;
 }
+
+// @public (undocumented)
+type MediaViewerWithMediaClientConfigComponent =
+  React_2.ComponentType<MediaViewerWithMediaClientConfigProps>;
+
+// @public (undocumented)
+type MediaViewerWithMediaClientConfigProps =
+  WithMediaClientConfigProps<MediaViewerProps>;
 
 // (No @packageDocumentation comment for this package)
 ```

@@ -32,6 +32,7 @@ const handleKeyPress = (
     const { onSelected } = props;
 
     event.preventDefault();
+    event.stopPropagation();
     if (onSelected) {
       onSelected();
     }

@@ -110,7 +110,7 @@ test('stopping events in the bubble phase during a drag should not impact us [ca
 
   // dragend
   userEvent.cancel();
-  expect(ordered).toEqual(['dragend:stopped']);
+  expect(ordered).toEqual(['dragleave:stopped', 'dragend:stopped']);
 
   cleanup();
   cleanupEvents();
@@ -215,6 +215,8 @@ test('stopping events in the bubble phase during a drag should not impact us [ca
     'draggable:change',
     'A:change',
     'A:leave',
+    'dragleave:stopped',
+    // the draggable will get 'drop' in response to 'dragend'
     'draggable:drop',
     'dragend:stopped',
   ]);

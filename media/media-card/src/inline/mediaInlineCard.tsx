@@ -22,13 +22,15 @@ import { MimeTypeIcon } from '@atlaskit/media-ui/mime-type-icon';
 import { MediaViewer, MediaViewerDataSource } from '@atlaskit/media-viewer';
 import Tooltip from '@atlaskit/tooltip';
 import { formatDate } from '@atlaskit/media-ui/formatDate';
+import { InlineCardEvent, InlineCardOnClickCallback } from '../types';
 
 export interface MediaInlineCardProps {
   identifier: FileIdentifier;
   mediaClient: MediaClient;
   shouldOpenMediaViewer?: boolean;
+  shouldDisplayToolTip?: boolean; // undefined is default to true
   isSelected?: boolean;
-  onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
+  onClick?: InlineCardOnClickCallback;
   /**
    * Includes data source like collection name,
    * media file list.
@@ -46,6 +48,7 @@ export const MediaInlineCardInternal: FC<
   mediaClient,
   identifier,
   shouldOpenMediaViewer,
+  shouldDisplayToolTip,
   isSelected,
   onClick,
   mediaViewerDataSource,
@@ -56,16 +59,21 @@ export const MediaInlineCardInternal: FC<
   const [isErrored, setIsErrored] = useState(false);
   const [isMediaViewerVisible, setMediaViewerVisible] = useState(false);
   const onMediaInlineCardClick = (
-    event: React.MouseEvent | React.KeyboardEvent,
+    event: React.MouseEvent<HTMLElement> | React.KeyboardEvent,
   ) => {
+    if (onClick) {
+      const inlineCardEvent: InlineCardEvent = {
+        event,
+        mediaItemDetails: identifier,
+      };
+      onClick(inlineCardEvent);
+    }
+
     if (shouldOpenMediaViewer) {
       setMediaViewerVisible(true);
     }
-
-    if (onClick) {
-      onClick(event);
-    }
   };
+
   const onMediaViewerClose = () => setMediaViewerVisible(false);
   const renderMediaViewer = () => {
     if (isMediaViewerVisible) {
@@ -180,19 +188,33 @@ export const MediaInlineCardInternal: FC<
     formattedDate = formatDate(fileState.createdAt, locale);
   }
 
-  return renderContent(
-    <>
-      <Tooltip position="bottom" content={formattedDate} tag="span">
+  if (shouldDisplayToolTip === undefined || shouldDisplayToolTip === true) {
+    return renderContent(
+      <>
+        <Tooltip position="bottom" content={formattedDate} tag="span">
+          <MediaInlineCardLoadedView
+            icon={linkIcon}
+            title={name}
+            onClick={onMediaInlineCardClick}
+            isSelected={isSelected}
+          />
+        </Tooltip>
+        {mediaViewer}
+      </>,
+    );
+  } else {
+    return renderContent(
+      <>
         <MediaInlineCardLoadedView
           icon={linkIcon}
           title={name}
           onClick={onMediaInlineCardClick}
           isSelected={isSelected}
         />
-      </Tooltip>
-      {mediaViewer}
-    </>,
-  );
+        {mediaViewer}
+      </>,
+    );
+  }
 };
 
 export const MediaInlineCard: React.FC<MediaInlineCardProps> = injectIntl(

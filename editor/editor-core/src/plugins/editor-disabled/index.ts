@@ -48,8 +48,21 @@ export function createPlugin(
   });
 }
 
-const editorDisabledPlugin: NextEditorPlugin<'editorDisabled'> = () => ({
+const editorDisabledPlugin: NextEditorPlugin<
+  'editorDisabled',
+  { sharedState: EditorDisabledPluginState }
+> = () => ({
   name: 'editorDisabled',
+
+  getSharedState(editorState) {
+    if (!editorState) {
+      return {
+        editorDisabled: false,
+      };
+    }
+
+    return pluginKey.getState(editorState);
+  },
 
   pmPlugins: () => [
     {

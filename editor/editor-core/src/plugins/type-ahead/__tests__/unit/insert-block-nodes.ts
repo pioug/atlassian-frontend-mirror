@@ -48,6 +48,7 @@ import type {
   TypeAheadInsert,
 } from '../../types';
 import { insertTypeAheadItem } from '../../commands/insert-type-ahead-item';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 let _queueMicrotask: any;
 beforeAll(() => {
@@ -152,6 +153,7 @@ describe('type-ahead', () => {
     });
 
     const preset = new Preset<LightEditorPlugin>()
+      .add([featureFlagsPlugin, {}])
       .add([analyticsPlugin, { createAnalyticsEvent }])
       .add([typeAheadPlugin, { createAnalyticsEvent }])
       .add(fakeQuickInsertPlugin)

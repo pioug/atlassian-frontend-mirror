@@ -4,19 +4,18 @@ import {
   Fragment,
   KeyboardEventHandler,
   useEffect,
+  useLayoutEffect,
   useState,
   ChangeEvent,
   ChangeEventHandler,
   useRef,
   memo,
   useCallback,
-  useMemo,
 } from 'react';
 import { jsx } from '@emotion/react';
 import {
   FormattedMessage,
   injectIntl,
-  MessageDescriptor,
   WrappedComponentProps,
 } from 'react-intl-next';
 import TextField from '@atlaskit/textfield';
@@ -28,7 +27,9 @@ import { EmojiUpload, Message } from '../../types';
 import * as ImageUtil from '../../util/image';
 import debug from '../../util/logger';
 import { messages } from '../i18n';
-import EmojiErrorMessage from './EmojiErrorMessage';
+import EmojiErrorMessage, {
+  emojiErrorScreenreaderTestId,
+} from './EmojiErrorMessage';
 import EmojiUploadPreview from './EmojiUploadPreview';
 import FileChooser from './FileChooser';
 import { UploadStatus } from './internal-types';
@@ -38,6 +39,8 @@ import {
   emojiUpload,
   emojiUploadBottom,
   emojiUploadTop,
+  headingH5,
+  requiredSymbol,
   uploadChooseFileBrowse,
   uploadChooseFileEmojiName,
   uploadChooseFileMessage,
@@ -59,6 +62,9 @@ export interface Props {
   errorMessage?: Message;
   initialUploadName?: string;
 }
+
+const addCustomEmojiChooseFileScreenreaderId =
+  'fabric.emoji.choose.file.label.id';
 
 const disallowedReplacementsMap = new Map([
   [':', ''],
@@ -124,17 +130,11 @@ const ChooseEmojiFile: FC<ChooseEmojiFilePropsType> = memo((props) => {
     [onUploadCancelled],
   );
 
-  const setInputFocus = useCallback(() => {
-    inputRef.current?.focus();
-    if (document.activeElement?.id !== inputRef.current?.id) {
-      setInputFocus();
-    }
+  useLayoutEffect(() => {
+    requestAnimationFrame(() => {
+      inputRef.current?.focus();
+    });
   }, []);
-
-  // make sure input has focus after update
-  useEffect(() => {
-    window.requestAnimationFrame(setInputFocus);
-  }, [setInputFocus]);
 
   const cancelLabel = formatMessage(messages.cancelLabel);
   const emojiPlaceholder = formatMessage(messages.emojiPlaceholder);
@@ -144,11 +144,12 @@ const ChooseEmojiFile: FC<ChooseEmojiFilePropsType> = memo((props) => {
   return (
     <div css={emojiUpload} data-testid={uploadEmojiComponentTestId}>
       <div css={emojiUploadTop}>
-        <span css={uploadChooseFileMessage}>
-          <FormattedMessage {...messages.addCustomEmojiLabel}>
-            {(message) => <h5>{message}</h5>}
-          </FormattedMessage>
-        </span>
+        <h2 css={[uploadChooseFileMessage, headingH5]}>
+          <FormattedMessage {...messages.addCustomEmojiLabel} />
+          <span aria-hidden="true" css={requiredSymbol}>
+            *
+          </span>
+        </h2>
         <div css={closeEmojiUploadButton}>
           <AkButton
             onClick={onUploadCancelled}
@@ -176,6 +177,7 @@ const ChooseEmojiFile: FC<ChooseEmojiFilePropsType> = memo((props) => {
             testId={uploadEmojiNameInputTestId}
             ref={inputRef}
             id="new-emoji-name-input"
+            aria-required={true}
           />
         </span>
         <span css={uploadChooseFileBrowse}>
@@ -187,12 +189,16 @@ const ChooseEmojiFile: FC<ChooseEmojiFilePropsType> = memo((props) => {
                 <span hidden id={fileChooserButtonDescriptionId}>
                   {screenReaderDescription}
                 </span>
+                <span hidden id={addCustomEmojiChooseFileScreenreaderId}>
+                  {emojiChooseFileTitle}
+                </span>
                 <FileChooser
                   label={emojiChooseFileTitle}
                   onChange={onChooseFile}
                   onClick={onClick}
                   accept="image/png,image/jpeg,image/gif"
                   ariaDescribedBy={fileChooserButtonDescriptionId}
+                  ariaLabelledBy={`${emojiErrorScreenreaderTestId} ${addCustomEmojiChooseFileScreenreaderId}`}
                   isDisabled={disableChooser}
                 />
               </Fragment>
@@ -229,7 +235,7 @@ const EmojiUploadPicker: FC<Props & WrappedComponentProps> = (props) => {
     errorMessage ? UploadStatus.Error : UploadStatus.Waiting,
   );
   const [chooseEmojiErrorMessage, setChooseEmojiErrorMessage] =
-    useState<MessageDescriptor>();
+    useState<Message>();
   const [name, setName] = useState(
     initialUploadName && sanitizeName(initialUploadName),
   );
@@ -326,7 +332,9 @@ const EmojiUploadPicker: FC<Props & WrappedComponentProps> = (props) => {
   const errorOnUpload = useCallback(
     (event: any): void => {
       debug('File load error: ', event);
-      setChooseEmojiErrorMessage(messages.emojiUploadFailed);
+      setChooseEmojiErrorMessage(
+        <FormattedMessage {...messages.emojiUploadFailed} />,
+      );
       cancelChooseFile();
     },
     [cancelChooseFile],
@@ -340,7 +348,9 @@ const EmojiUploadPicker: FC<Props & WrappedComponentProps> = (props) => {
           await ImageUtil.parseImage(f.target.result);
           setPreviewImage(f.target.result);
         } catch {
-          setChooseEmojiErrorMessage(messages.emojiInvalidImage);
+          setChooseEmojiErrorMessage(
+            <FormattedMessage {...messages.emojiInvalidImage} />,
+          );
           cancelChooseFile();
         }
       },
@@ -350,13 +360,14 @@ const EmojiUploadPicker: FC<Props & WrappedComponentProps> = (props) => {
   const onChooseFile = useCallback(
     (event: ChangeEvent<any>): void => {
       const files = event.target.files;
-
       if (files.length) {
         const reader = new FileReader();
         const file: File = files[0];
 
         if (ImageUtil.hasFileExceededSize(file)) {
-          setChooseEmojiErrorMessage(messages.emojiImageTooBig);
+          setChooseEmojiErrorMessage(
+            <FormattedMessage {...messages.emojiImageTooBig} />,
+          );
           cancelChooseFile();
           return;
         }
@@ -388,13 +399,9 @@ const EmojiUploadPicker: FC<Props & WrappedComponentProps> = (props) => {
     );
   }, [clearUploadPicker, onUploadCancelled]);
 
-  const chooseErrorMessage = useMemo(
-    () =>
-      chooseEmojiErrorMessage ? (
-        <FormattedMessage {...chooseEmojiErrorMessage} />
-      ) : undefined,
-    [chooseEmojiErrorMessage],
-  );
+  const onChooseFileClicked = () => {
+    onFileChooserClicked && onFileChooserClicked();
+  };
 
   return (
     <FocusLock noFocusGuards>
@@ -411,10 +418,10 @@ const EmojiUploadPicker: FC<Props & WrappedComponentProps> = (props) => {
         <ChooseEmojiFile
           name={name}
           onChooseFile={onChooseFile}
-          onClick={onFileChooserClicked}
+          onClick={onChooseFileClicked}
           onNameChange={onNameChange}
           onUploadCancelled={cancelUpload}
-          errorMessage={chooseErrorMessage}
+          errorMessage={chooseEmojiErrorMessage}
           intl={intl}
         />
       )}

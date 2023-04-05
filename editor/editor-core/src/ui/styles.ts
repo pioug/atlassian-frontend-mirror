@@ -20,6 +20,7 @@ export const separatorStyles = css`
   height: 24px;
   display: inline-block;
   margin: 0 8px;
+  user-select: none;
 `;
 
 export const wrapperStyle = css`

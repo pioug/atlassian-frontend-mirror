@@ -3,6 +3,7 @@ import EditorNext from '../../index';
 import createUniversalPreset from '../../../labs/next/presets/universal';
 import { render } from '@testing-library/react';
 import { basePlugin } from '../../../plugins';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 
 describe('EditorNext', () => {
@@ -27,7 +28,9 @@ describe('EditorNext', () => {
 
     it('should not throw if passing a Preset that contains the base plugin', () => {
       const consoleErrorSpy = jest.spyOn(console, 'error');
-      const preset = new EditorPresetBuilder().add(basePlugin);
+      const preset = new EditorPresetBuilder()
+        .add([featureFlagsPlugin, {}])
+        .add(basePlugin);
 
       expect(() => {
         render(<EditorNext preset={preset} />);

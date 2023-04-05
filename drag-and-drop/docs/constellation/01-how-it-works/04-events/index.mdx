@@ -3,7 +3,7 @@ title: Events
 description: Events allow you to respond to a drag and drop operation.
 ---
 
-Events fire based on specific user actions and the part of Atlassian drag and drop involved in the interaction (such as a `draggable` and drop target). 
+Events fire based on specific user actions and the part of Atlassian drag and drop involved in the interaction (such as a `draggable` and drop target).
 
 To listen for all events for a specific type of draggable item (element or file), you can use a [monitor](/components/drag-and-drop/how-it-works/monitors).
 
@@ -97,8 +97,27 @@ export type DragLocation = {
 };
 
 export type DragLocationHistory = {
+  /**
+   * Where the drag operation started
+   */
   initial: DragLocation;
+  /**
+   * Where the user currently is
+   */
   current: DragLocation;
+  /**
+   * Where the user was previously.
+   * `previous` points to what `current` was in the last dispatched event
+   *
+   * `previous` is particularly useful for `onDropTargetChange`
+   * (and the derived `onDragEnter` and `onDragLeave`)
+   * as you can know what the delta of the change
+   *
+   * Exception: `onGenerateDragPreview` and `onDragStart` will have the
+   * same `current` and `previous` values. This is done so that the data
+   * received in `onDragStart` feels logical
+   * (`location.previous` should be `[]` in `onDragStart`)
+   */
   previous: Pick<DragLocation, 'dropTargets'>;
 };
 
@@ -119,7 +138,7 @@ import { ElementBaseEventPayload } from '@atlaskit/drag-and-drop/adapter/element
 
 ## Convenience data for `dropTarget`s (of all types)
 
-All _drop targets_ add a `self` property (type: `DropTargetRecord`) that contains a convenience object with information about the drop target that the event is firing on. 
+All _drop targets_ add a `self` property (type: `DropTargetRecord`) that contains a convenience object with information about the drop target that the event is firing on.
 
 You could get all this information from the outer scope (or from `location.current.dropTargets`), but having it available inline is convenient.
 
@@ -229,7 +248,7 @@ Flow (high level)
 
 ### Derived events: `onDragEnter` and `onDragLeave`
 
-The `onDropTargetChange` event allows you to know a lot of information about drop target hierarchy changes. One of the most common use cases for a `dropTarget` is to know when it starts being dragged over, and when it is no longer being dragged over. To support this common use case, the `onDragEnter` and `onDragLeave` callbacks are executed on a `dropTarget` as required when the `dropTarget` receives a `onDropTargetChange` event. 
+The `onDropTargetChange` event allows you to know a lot of information about drop target hierarchy changes. One of the most common use cases for a `dropTarget` is to know when it starts being dragged over, and when it is no longer being dragged over. To support this common use case, the `onDragEnter` and `onDragLeave` callbacks are executed on a `dropTarget` as required when the `dropTarget` receives a `onDropTargetChange` event.
 
 The `onDragEnter` and `onDragLeave` events are not _strictly_ their own events, but travel along side the bubbling of `onDropTargetChange`.
 
@@ -259,7 +278,7 @@ The `onDragEnter` and `onDragLeave` events are not _strictly_ their own events, 
 
 ## Event: `onDrop`
 
-The `onDrop` event occurs when a user has finished a drag and drop operation. The `onDrop` event will fire when the drag operation finishes, regardless of how the drag operation finished (e.g. due to an explicit drop, the drag being canceled, recovering from an error and so on). 
+The `onDrop` event occurs when a user has finished a drag and drop operation. The `onDrop` event will fire when the drag operation finishes, regardless of how the drag operation finished (e.g. due to an explicit drop, the drag being canceled, recovering from an error and so on).
 
 On the web platform we cannot distinguish between dropping on no drop targets and an explicit cancel, so we do not publish any information about _how_ the drag ended, only that it ended. The `location.current` property will accurately contain the final drop targets.
 

@@ -1,4 +1,5 @@
 import { layoutSectionWithSingleColumn } from './nodes';
+import { border } from './marks';
 import { createSchema, SchemaConfig } from './create-schema';
 
 type DefaultSchemaNodes =
@@ -161,6 +162,10 @@ export const getSchemaBasedOnStage = (stage = 'final') => {
   if (stage === 'stage0') {
     defaultSchemaConfig.customNodeSpecs = {
       layoutSection: layoutSectionWithSingleColumn,
+    };
+
+    defaultSchemaConfig.customMarkSpecs = {
+      border,
     };
   }
 

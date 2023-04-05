@@ -18,13 +18,11 @@
 /// <reference types="lodash" />
 
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
-import type { CollabEditProvider } from '@atlaskit/editor-common/collab';
 import type { CollabEventConnectingData } from '@atlaskit/editor-common/collab';
 import type { CollabEventConnectionData } from '@atlaskit/editor-common/collab';
 import type { CollabEventInitData } from '@atlaskit/editor-common/collab';
 import type { CollabEventPresenceData } from '@atlaskit/editor-common/collab';
 import type { CollabEventRemoteData } from '@atlaskit/editor-common/collab';
-import type { CollabEventTelepointerData } from '@atlaskit/editor-common/collab';
 import type { CollabParticipant } from '@atlaskit/editor-common/collab';
 import type { EditorState } from 'prosemirror-state';
 import type { Manager } from 'socket.io-client';
@@ -67,16 +65,36 @@ export interface CollabDisconnectedPayload {
 }
 
 // @public (undocumented)
-export interface CollabErrorPayload {
+export interface CollabEditProvider<
+  Events extends CollabEvents = CollabEvents,
+> {
   // (undocumented)
-  code: string;
+  getFinalAcknowledgedState(): Promise<ResolvedEditorState>;
   // (undocumented)
-  message: string;
+  initialize(getState: () => any, createStep: (json: object) => Step): this;
   // (undocumented)
-  reason?: string;
+  off(evt: keyof Events, handler: (...args: any) => void): this;
   // (undocumented)
-  status: number;
+  on(evt: keyof Events, handler: (...args: any) => void): this;
+  // (undocumented)
+  send(tr: Transaction, oldState: EditorState, newState: EditorState): void;
+  // (undocumented)
+  sendMessage<K extends keyof Events>(
+    data: {
+      type: K;
+    } & Events[K],
+  ): void;
+  // (undocumented)
+  setup(props: {
+    getState: () => EditorState;
+    onSyncUpError?: SyncUpErrorFunction;
+  }): this;
+  // (undocumented)
+  unsubscribeAll(evt: keyof Events): this;
 }
+
+// @public @deprecated (undocumented)
+export type CollabErrorPayload = ProviderError;
 
 // @public (undocumented)
 export interface CollabEvents {
@@ -105,6 +123,16 @@ export interface CollabEvents {
 }
 
 // @public (undocumented)
+interface CollabEventTelepointerData {
+  // (undocumented)
+  selection: CollabSendableSelection;
+  // (undocumented)
+  sessionId: string;
+  // (undocumented)
+  type: 'telepointer';
+}
+
+// @public (undocumented)
 export interface CollabInitPayload extends CollabEventInitData {
   // (undocumented)
   doc: any;
@@ -112,8 +140,6 @@ export interface CollabInitPayload extends CollabEventInitData {
   metadata?: Metadata_2;
   // (undocumented)
   reserveCursor?: boolean;
-  // (undocumented)
-  userId?: string;
   // (undocumented)
   version: number;
 }
@@ -130,11 +156,20 @@ export type CollabMetadataPayload = Metadata_2;
 export type CollabPresencePayload = CollabEventPresenceData;
 
 // @public (undocumented)
+export interface CollabSendableSelection {
+  // (undocumented)
+  anchor?: number | string;
+  // (undocumented)
+  head?: number | string;
+  // (undocumented)
+  type: 'nodeSelection' | 'textSelection';
+}
+
+// @public (undocumented)
 export type CollabTelepointerPayload = CollabEventTelepointerData;
 
 // @public (undocumented)
 interface Config {
-  // (undocumented)
   analyticsClient?: AnalyticsWebClient;
   // (undocumented)
   cacheToken?: boolean;
@@ -150,6 +185,8 @@ interface Config {
   featureFlags?: {
     [key: string]: boolean;
   };
+  // (undocumented)
+  getAnalyticsWebClient?: Promise<AnalyticsWebClient>;
   // (undocumented)
   getUser?(userId: string): Promise<
     Pick<CollabParticipant, 'avatar' | 'email' | 'name'> & {
@@ -186,6 +223,22 @@ enum DisconnectReason {
   UNKNOWN_DISCONNECT = 'UNKNOWN_DISCONNECT',
 }
 
+// @public
+type DocumentNotFound = {
+  code: PROVIDER_ERROR_CODE.DOCUMENT_NOT_FOUND;
+  message: string;
+  recoverable: boolean;
+  status?: number;
+};
+
+// @public
+type DocumentNotRestore = {
+  code: PROVIDER_ERROR_CODE.DOCUMENT_RESTORE_ERROR;
+  message: string;
+  recoverable: boolean;
+  status?: number;
+};
+
 // @public (undocumented)
 class Emitter<T = any> {
   protected emit<K extends keyof T>(evt: K, data: T[K]): this;
@@ -197,6 +250,14 @@ class Emitter<T = any> {
 // @public (undocumented)
 type EventHandler = () => void;
 
+// @public
+type FailToSave = {
+  code: PROVIDER_ERROR_CODE.FAIL_TO_SAVE;
+  message: string;
+  recoverable: boolean;
+  status?: number;
+};
+
 // @public (undocumented)
 interface InitAndAuthData {
   // (undocumented)
@@ -207,6 +268,49 @@ interface InitAndAuthData {
   token?: string;
 }
 
+// @public
+type InitialisationError = {
+  code: PROVIDER_ERROR_CODE.INITIALISATION_ERROR;
+  message: string;
+  recoverable: boolean;
+  status?: number;
+};
+
+// @public
+type InsufficientEditingPermission = {
+  code: PROVIDER_ERROR_CODE.NO_PERMISSION_ERROR;
+  message: string;
+  recoverable: boolean;
+  reason?: string;
+  status?: number;
+};
+
+// @public
+type InternalServiceError = {
+  code: PROVIDER_ERROR_CODE.INTERNAL_SERVICE_ERROR;
+  message: string;
+  recoverable: boolean;
+  reason: string;
+  status?: number;
+};
+
+// @public
+type InvalidProviderConfiguration = {
+  code: PROVIDER_ERROR_CODE.INVALID_PROVIDER_CONFIGURATION;
+  message: string;
+  recoverable: boolean;
+  reason: string;
+  status?: number;
+};
+
+// @public
+type InvalidUserToken = {
+  code: PROVIDER_ERROR_CODE.INVALID_USER_TOKEN;
+  message: string;
+  recoverable: boolean;
+  status?: number;
+};
+
 // @public (undocumented)
 interface Lifecycle {
   // (undocumented)
@@ -215,6 +319,14 @@ interface Lifecycle {
 
 // @public (undocumented)
 type LifecycleEvents = 'restore' | 'save';
+
+// @public
+type Locked = {
+  code: PROVIDER_ERROR_CODE.LOCKED;
+  message: string;
+  recoverable: boolean;
+  status?: number;
+};
 
 // @public (undocumented)
 type MarkJson = {
@@ -229,6 +341,14 @@ interface Metadata_2 {
   // (undocumented)
   [key: string]: boolean | number | string;
 }
+
+// @public
+type NetworkIssue = {
+  code: PROVIDER_ERROR_CODE.NETWORK_ISSUE;
+  message: string;
+  recoverable: boolean;
+  status?: number;
+};
 
 // @public (undocumented)
 type NodeJson = {
@@ -250,28 +370,23 @@ type ProductInformation = {
 // @public (undocumented)
 export class Provider extends Emitter<CollabEvents> implements BaseEvents {
   constructor(config: Config);
-  // (undocumented)
   destroy(): this;
-  // (undocumented)
+  // @deprecated
   disconnect(): this;
-  // (undocumented)
   getCurrentState: () => Promise<ResolvedEditorState>;
-  // (undocumented)
   getFinalAcknowledgedState: () => Promise<ResolvedEditorState>;
+  // @deprecated
   initialize(getState: () => EditorState): this;
   send(
     _tr: Transaction | null,
     _oldState: EditorState | null,
     newState: EditorState,
   ): void;
-  sendMessage(data: any): void;
-  // (undocumented)
+  sendMessage(data: CollabEventTelepointerData): void;
+  // @deprecated
   setEditorWidth(editorWidth: string, broadcast?: boolean): void;
-  // (undocumented)
   setMetadata(metadata: Metadata_2): void;
-  // (undocumented)
   setTitle(title: string, broadcast?: boolean): void;
-  // (undocumented)
   setup({
     getState,
     onSyncUpError,
@@ -279,8 +394,46 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
     getState: () => EditorState;
     onSyncUpError?: SyncUpErrorFunction;
   }): this;
+  // @deprecated
   unsubscribeAll(): this;
 }
+
+// @public (undocumented)
+export enum PROVIDER_ERROR_CODE {
+  // (undocumented)
+  DOCUMENT_NOT_FOUND = 'DOCUMENT_NOT_FOUND',
+  // (undocumented)
+  DOCUMENT_RESTORE_ERROR = 'DOCUMENT_RESTORE_ERROR',
+  // (undocumented)
+  FAIL_TO_SAVE = 'FAIL_TO_SAVE',
+  // (undocumented)
+  INITIALISATION_ERROR = 'INITIALISATION_ERROR',
+  // (undocumented)
+  INTERNAL_SERVICE_ERROR = 'INTERNAL_SERVICE_ERROR',
+  // (undocumented)
+  INVALID_PROVIDER_CONFIGURATION = 'INVALID_PROVIDER_CONFIGURATION',
+  // (undocumented)
+  INVALID_USER_TOKEN = 'INVALID_USER_TOKEN',
+  // (undocumented)
+  LOCKED = 'LOCKED',
+  // (undocumented)
+  NETWORK_ISSUE = 'NETWORK_ISSUE',
+  // (undocumented)
+  NO_PERMISSION_ERROR = 'NO_PERMISSION_ERROR',
+}
+
+// @public
+export type ProviderError =
+  | DocumentNotFound
+  | DocumentNotRestore
+  | FailToSave
+  | InitialisationError
+  | InsufficientEditingPermission
+  | InternalServiceError
+  | InvalidProviderConfiguration
+  | InvalidUserToken
+  | Locked
+  | NetworkIssue;
 
 // @public (undocumented)
 interface SimpleEventEmitter {

@@ -300,6 +300,8 @@ export type UploadErrorEventPayload = {
 export interface UploadParams {
   // (undocumented)
   collection?: string;
+  // (undocumented)
+  expireAfter?: number;
 }
 
 // @public (undocumented)
@@ -327,7 +329,7 @@ export type UploadsStartEventPayload = {
 
 ```json
 {
-  "@atlaskit/media-core": "^34.0.1",
+  "@atlaskit/media-core": "^34.0.2",
   "react": "^16.8.0",
   "react-dom": "^16.8.0",
   "react-intl-next": "npm:react-intl@^5.18.1"

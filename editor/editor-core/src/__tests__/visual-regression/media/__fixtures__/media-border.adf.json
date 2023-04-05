@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "width": 100,
+        "layout": "center"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "a559980d-cd47-43e2-8377-27359fcb905f",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 500,
+            "height": 381
+          },
+          "marks": [
+            {
+              "type": "border",
+              "attrs": {
+                "color": "#BF2600",
+                "size": 3
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": []
+    }
+  ]
+}

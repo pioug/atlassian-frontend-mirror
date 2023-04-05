@@ -1,10 +1,17 @@
 import { JsonLd } from 'json-ld-types';
 export const TEST_URL = 'https://my.url.com';
+export const TEST_INTERACTIVE_HREF_URL = 'https://my.url.com/embed';
 export const TEST_NAME = 'my name';
 export const TEST_STRING = 'foo';
 export const TEST_LINK: JsonLd.Primitives.Link = {
   '@type': 'Link',
   href: TEST_URL,
+  name: TEST_NAME,
+};
+export const TEST_INTERACTIVE_HREF_LINK = {
+  '@type': 'Link',
+  href: TEST_URL,
+  interactiveHref: TEST_INTERACTIVE_HREF_URL,
   name: TEST_NAME,
 };
 export const TEST_ARRAY: JsonLd.Primitives.Link[] = [TEST_LINK];

@@ -274,19 +274,26 @@ describe('DateTimePicker', () => {
   it('should fire onClear event when cleared', () => {
     const onChange = jest.fn();
     const dateTimeValue = '2018-05-02T08:00:00.000+0800';
-    const testId = 'clear--test';
-    render(
-      <DateTimePicker
-        value={dateTimeValue}
-        onChange={onChange}
-        testId={testId}
-      />,
+
+    const { getByRole } = render(
+      <DateTimePicker value={dateTimeValue} onChange={onChange} />,
     );
 
-    const clearButton = screen.getByTestId(`${testId}--icon--container`);
+    const clearButton = getByRole('button');
     fireEvent.click(clearButton);
 
     expect(onChange).toHaveBeenCalledWith('');
     expect(onChange).toHaveBeenCalledTimes(1);
+  });
+
+  it('should have a clear button with a tabindex of -1', () => {
+    const dateTimeValue = '2018-05-02T08:00:00.000+0800';
+
+    const { getByRole } = render(<DateTimePicker value={dateTimeValue} />);
+
+    const button = getByRole('button');
+
+    expect(button).toHaveProperty('tagName', 'BUTTON');
+    expect(button).toHaveAttribute('tabindex', '-1');
   });
 });

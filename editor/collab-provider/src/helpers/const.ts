@@ -1,4 +1,4 @@
-import type { CollabErrorPayload } from '../types';
+import type { ProviderError } from '../errors/error-types';
 
 export enum EVENT_ACTION {
   CONNECTION = 'connection',
@@ -29,7 +29,7 @@ export type ErrorAnalyticsEvent = {
     errorMessage: string;
     errorName?: string;
     documentAri?: string;
-    mappedError?: CollabErrorPayload;
+    mappedError?: ProviderError;
   };
   nonPrivacySafeAttributes: {
     error: unknown;
@@ -42,7 +42,6 @@ type InvalidateTokenAnalyticsEvent = {
     eventStatus: EVENT_STATUS.SUCCESS;
     reason?: string;
     usedCachedToken?: boolean;
-    // TODO: what other attributes can we add?
   };
 };
 

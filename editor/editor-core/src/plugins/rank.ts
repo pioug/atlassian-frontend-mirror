@@ -181,6 +181,8 @@ export default {
     'annotation',
     'dataConsumer',
 
+    'border',
+
     // Unsupported mark
     'unsupportedMark',
     'unsupportedNodeAttribute',

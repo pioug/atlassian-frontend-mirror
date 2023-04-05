@@ -117,7 +117,7 @@ describe('cleanup in `onDragStart`', () => {
   });
 });
 
-test('placement: {type: "center" } should position the center of the drag preview user the users pointer', () => {
+test('placement: { type: "center" } should position the center of the drag preview user the users pointer', () => {
   const [A] = getElements();
   const ordered: string[] = [];
   let pointerToContainer: HTMLElement | null = null;
@@ -171,7 +171,7 @@ test('placement: {type: "center" } should position the center of the drag previe
   cleanup();
 });
 
-test('placement: {type: "offset-from-pointer" } should position shift the drag preview off the users pointer', () => {
+test('placement: { type: "offset-from-pointer" } should position shift the drag preview off the users pointer', () => {
   const [A] = getElements();
   const ordered: string[] = [];
   let pointerToContainer: HTMLElement | null = null;

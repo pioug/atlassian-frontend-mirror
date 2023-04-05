@@ -10,8 +10,6 @@ import { createSocketIOCollabProvider } from '../../socket-io-provider';
 import type { Provider } from '../';
 import { AcknowledgementResponseTypes, Metadata } from '../../types';
 
-jest.useFakeTimers();
-
 jest.mock('lodash/throttle', () => jest.fn((fn) => fn));
 jest.mock('@atlaskit/prosemirror-collab', () => {
   const originPC = jest.requireActual('@atlaskit/prosemirror-collab');
@@ -26,12 +24,14 @@ describe('#sendData', () => {
   let fakeStep: Step;
   let anyEditorState: EditorState;
   let provider: Provider;
-  let channelBroadCastSpy: jest.SpyInstance;
-  let channelSendMetaSpy: jest.SpyInstance;
+  let documentServiceBroadcastSpy: jest.SpyInstance;
+  let documentServiceSendMetaSpy: jest.SpyInstance;
   let fakeAnalyticsWebClient: AnalyticsWebClient;
   const documentAri = 'ari:cloud:confluence:ABC:page/testpage';
 
   beforeEach(() => {
+    jest.useFakeTimers();
+
     fakeAnalyticsWebClient = {
       sendOperationalEvent: jest.fn(),
       sendScreenEvent: jest.fn(),
@@ -45,8 +45,16 @@ describe('#sendData', () => {
     };
     provider = createSocketIOCollabProvider(testProviderConfigWithAnalytics);
 
-    channelBroadCastSpy = jest.spyOn((provider as any).channel, 'broadcast');
-    channelSendMetaSpy = jest.spyOn((provider as any).channel, 'sendMetadata');
+    documentServiceBroadcastSpy = jest.spyOn(
+      // @ts-ignore
+      provider.documentService as any,
+      'broadcast',
+    );
+    documentServiceSendMetaSpy = jest.spyOn(
+      // @ts-ignore
+      provider.documentService as any,
+      'broadcastMetadata',
+    );
 
     fakeStep = new ReplaceStep(1, 1, Slice.empty);
 
@@ -71,10 +79,11 @@ describe('#sendData', () => {
   afterEach(jest.clearAllMocks);
 
   it('should trigger a catchup on processSteps failure', () => {
-    const catchupSpy = jest.spyOn(provider as any, 'catchup');
+    // @ts-ignore
+    const catchupSpy = jest.spyOn(provider.documentService as any, 'catchup');
 
     //@ts-expect-error private method call but it's okay we're testing
-    provider.processSteps({
+    provider.documentService.processSteps({
       version: 1625,
       //@ts-expect-error breaking on purpose
       steps: 'hot garbarge', // even the spelling is garbage, nice
@@ -119,7 +128,7 @@ describe('#sendData', () => {
       });
 
       it('should broadcast message to steps:commit', () => {
-        expect(channelBroadCastSpy).toHaveBeenCalledWith(
+        expect(documentServiceBroadcastSpy).toHaveBeenCalledWith(
           'steps:commit',
           expect.anything(),
           expect.any(Function),
@@ -127,7 +136,7 @@ describe('#sendData', () => {
       });
 
       it('should serialize the steps with clientId and userId to steps:commit', () => {
-        expect(channelBroadCastSpy).toHaveBeenCalledWith(
+        expect(documentServiceBroadcastSpy).toHaveBeenCalledWith(
           'steps:commit',
           expect.objectContaining({
             steps: [
@@ -143,7 +152,7 @@ describe('#sendData', () => {
       describe('when ack callback is called', () => {
         let ackCallback: (resp: any) => void;
         beforeEach(() => {
-          ackCallback = channelBroadCastSpy.mock.calls[0][2];
+          ackCallback = documentServiceBroadcastSpy.mock.calls[0][2];
           // @ts-ignore emit is a protected function
           jest.spyOn(provider, 'emit').mockImplementation(() => {});
         });
@@ -316,22 +325,32 @@ describe('#sendData', () => {
           });
 
           it('should automatically trigger a step commit again after a while', async () => {
-            jest.spyOn(provider as any, 'sendStepsFromCurrentState');
+            jest.spyOn(
+              // @ts-ignore
+              provider.documentService as any,
+              'sendStepsFromCurrentState',
+            );
             ackCallback({
               type: AcknowledgementResponseTypes.ERROR,
               error: { data: { code: 'VERSION_NUMBER_ALREADY_EXISTS' } },
             });
-            // @ts-ignore just spying on a private method, nothing to see here
-            expect(provider.sendStepsFromCurrentState).not.toHaveBeenCalled();
+            expect(
+              // @ts-ignore just spying on a private method, nothing to see here
+              provider.documentService.sendStepsFromCurrentState,
+            ).not.toHaveBeenCalled();
 
             // Fast forward and exhaust only currently pending timers
             // (but not any new timers that get created during that process)
             jest.runOnlyPendingTimers();
 
-            // @ts-ignore just spying on a private method, nothing to see here
-            expect(provider.sendStepsFromCurrentState).toHaveBeenCalledTimes(1);
-            // @ts-ignore just spying on a private method, nothing to see here
-            expect(provider.sendStepsFromCurrentState).toHaveBeenCalledWith();
+            expect(
+              // @ts-ignore just spying on a private method, nothing to see here
+              provider.documentService.sendStepsFromCurrentState,
+            ).toHaveBeenCalledTimes(1);
+            expect(
+              // @ts-ignore just spying on a private method, nothing to see here
+              provider.documentService.sendStepsFromCurrentState,
+            ).toHaveBeenCalledWith();
           });
         });
 
@@ -350,10 +369,36 @@ describe('#sendData', () => {
           // });
           expect(
             fakeAnalyticsWebClient.sendOperationalEvent,
-          ).toHaveBeenCalledTimes(2);
+          ).toHaveBeenCalledTimes(3);
           expect(
             fakeAnalyticsWebClient.sendOperationalEvent,
           ).toHaveBeenNthCalledWith(1, {
+            action: 'error',
+            actionSubject: 'collab',
+            attributes: {
+              packageName: '@atlaskit/fabric',
+              packageVersion: '0.0.0',
+              collabService: 'ncs',
+              network: {
+                status: 'ONLINE',
+              },
+              documentAri: 'ari:cloud:confluence:ABC:page/testpage',
+              errorMessage: 'Error handled',
+              errorName: undefined,
+            },
+            nonPrivacySafeAttributes: {
+              error: {
+                data: {
+                  code: 'SOME_TECHNICAL_ERROR',
+                },
+              },
+            },
+            tags: ['editor'],
+            source: 'unknown',
+          });
+          expect(
+            fakeAnalyticsWebClient.sendOperationalEvent,
+          ).toHaveBeenNthCalledWith(2, {
             action: 'addSteps',
             actionSubject: 'collab',
             attributes: {
@@ -373,7 +418,7 @@ describe('#sendData', () => {
           });
           expect(
             fakeAnalyticsWebClient.sendOperationalEvent,
-          ).toHaveBeenNthCalledWith(2, {
+          ).toHaveBeenNthCalledWith(3, {
             action: 'error',
             actionSubject: 'collab',
             attributes: {
@@ -438,7 +483,7 @@ describe('#sendData', () => {
 
         provider.send(null, null, anyEditorState);
 
-        expect(channelBroadCastSpy).not.toHaveBeenCalled();
+        expect(documentServiceBroadcastSpy).not.toHaveBeenCalled();
       });
     });
 
@@ -450,7 +495,7 @@ describe('#sendData', () => {
 
         provider.send(null, null, anyEditorState);
 
-        expect(channelBroadCastSpy).not.toHaveBeenCalled();
+        expect(documentServiceBroadcastSpy).not.toHaveBeenCalled();
       });
     });
   });
@@ -461,7 +506,7 @@ describe('#sendData', () => {
         title: 'abc',
       };
       provider.setMetadata(metadata);
-      expect(channelSendMetaSpy).toHaveBeenCalledWith(metadata);
+      expect(documentServiceSendMetaSpy).toHaveBeenCalledWith(metadata);
     });
   });
 });

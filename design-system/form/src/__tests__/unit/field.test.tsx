@@ -445,35 +445,87 @@ test('select reset should work', async () => {
   expect(wrapper.queryAllByText('a default value')).toHaveLength(0);
 });
 
-test('should associate messages with field', () => {
-  const wrapper = mount(
-    <Form onSubmit={jest.fn()}>
-      {() => (
-        <Field name="username" id="username" defaultValue="">
-          {({ fieldProps }) => (
-            <>
-              <TextField {...fieldProps} />
-              <HelperMessage>Helper text</HelperMessage>
-              <ErrorMessage>Error message</ErrorMessage>
-              <ValidMessage>Valid message</ValidMessage>
-            </>
-          )}
-        </Field>
+it('should add `aria-describedby` pointing to different message components', () => {
+  const errorValue = 'test';
+  const validValue = 'Bob Ross';
+
+  const { getByRole, getByTestId } = render(
+    <Form
+      onSubmit={({ username }: { username: string }) => {
+        return {
+          username: username === errorValue ? 'TAKEN_USERNAME' : undefined,
+        };
+      }}
+    >
+      {({ formProps: { onSubmit } }) => (
+        <>
+          <Field
+            name="username"
+            validate={(value: string = '') => {
+              if (value.length === 0) {
+                return 'TOO_SHORT';
+              }
+            }}
+          >
+            {({ fieldProps, error, valid }) => (
+              <>
+                <TextField {...fieldProps} testId="username" />
+                {!error && !valid && (
+                  <HelperMessage testId="helper">Helper</HelperMessage>
+                )}
+                {valid && <ValidMessage testId="valid">Valid</ValidMessage>}
+                {error && <ErrorMessage testId="error">Error</ErrorMessage>}
+              </>
+            )}
+          </Field>
+          <Button onClick={onSubmit}>Submit</Button>
+        </>
       )}
     </Form>,
   );
-  const labelledBy = wrapper.find(TextField).prop('aria-labelledby').split(' ');
 
-  expect(labelledBy).toContain(
-    wrapper.find(HelperMessage).find('div').prop('id'),
+  const input = getByRole('textbox');
+  const submitButton = getByRole('button');
+
+  expect(input).toHaveValue('');
+  expect(input).toHaveAttribute(
+    'aria-describedby',
+    expect.stringContaining(getByTestId('helper').id),
   );
-  expect(labelledBy).toContain(
-    wrapper.find(ErrorMessage).find('div').prop('id'),
+
+  act(() => {
+    fireEvent.click(submitButton);
+  });
+
+  expect(input).toHaveValue('');
+  expect(input).toHaveAttribute(
+    'aria-describedby',
+    expect.stringContaining(getByTestId('error').id),
   );
-  expect(labelledBy).toContain(
-    wrapper.find(ValidMessage).find('div').prop('id'),
+
+  act(() => {
+    fireEvent.change(input, { target: { value: validValue } });
+    fireEvent.click(submitButton);
+  });
+
+  expect(input).toHaveValue(validValue);
+  expect(input).toHaveAttribute(
+    'aria-describedby',
+    expect.stringContaining(getByTestId('valid').id),
+  );
+
+  act(() => {
+    fireEvent.change(input, { target: { value: errorValue } });
+    fireEvent.click(submitButton);
+  });
+
+  expect(input).toHaveValue(errorValue);
+  expect(input).toHaveAttribute(
+    'aria-describedby',
+    expect.stringContaining(getByTestId('error').id),
   );
 });
+
 test('should associate label with field', () => {
   const wrapper = mount<typeof Form>(
     <Form onSubmit={jest.fn()}>

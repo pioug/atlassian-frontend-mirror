@@ -21,14 +21,10 @@ import {
 import { ufoExperiences } from '../../../../util/analytics';
 import * as constants from '../../../../util/constants';
 import * as samplingUfo from '../../../../util/analytics/samplingUfo';
-import * as browserSupport from '../../../../util/browser-support';
+import browserSupport from '../../../../util/browser-support';
 import { EmojiId } from '../../../..';
 import { renderWithIntl } from '../../_testing-library';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
-
-const mockedBrowserSupport = browserSupport as {
-  isIntersectionObserverSupported: boolean;
-};
 
 const findEmoji = (component: ReactWrapper) =>
   component.update() && component.find(Emoji);
@@ -55,7 +51,7 @@ Loadable.preloadAll();
 
 describe('<ResourcedEmoji />', () => {
   beforeAll(() => {
-    mockedBrowserSupport.isIntersectionObserverSupported = true;
+    browserSupport.supportsIntersectionObserver = true;
   });
 
   beforeEach(() => {
@@ -213,7 +209,7 @@ describe('<ResourcedEmoji />', () => {
     const component = await result.findByTestId(
       `sprite-emoji-${grinEmoji.shortName}`,
     );
-    expect(component).toHaveAttribute('title', '');
+    expect(component).not.toHaveAttribute('title');
   });
 
   it('should wrap with tooltip if showTooltip is set to true', async () => {

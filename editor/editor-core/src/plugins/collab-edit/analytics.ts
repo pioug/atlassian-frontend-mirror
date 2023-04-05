@@ -6,13 +6,14 @@ import {
   ErrorEventPayload,
 } from '../analytics';
 import { EditorState, Transaction } from 'prosemirror-state';
-import { getFeatureFlags } from '../feature-flags-context';
 import { getDocStructure } from '../../utils/document-logger';
 import { sniffUserBrowserExtensions } from '@atlaskit/editor-common/utils';
+import { FeatureFlags } from '@atlaskit/editor-common/types';
 
 export const addSynchronyErrorAnalytics = (
   state: EditorState,
   tr: Transaction,
+  featureFlags: FeatureFlags,
 ) => {
   return (error: Error) => {
     const browserExtensions = sniffUserBrowserExtensions({
@@ -26,7 +27,7 @@ export const addSynchronyErrorAnalytics = (
       attributes: { error, browserExtensions },
     };
 
-    if (getFeatureFlags(state).synchronyErrorDocStructure) {
+    if (featureFlags.synchronyErrorDocStructure) {
       payload.attributes!.docStructure = getDocStructure(state.doc, {
         compact: true,
       });

@@ -25,11 +25,11 @@ import {
   GapCursorSelection,
   Side,
 } from '../../../plugins/selection/gap-cursor-selection';
-import { getFeatureFlags } from '../../feature-flags-context';
 import { closestElement } from '../../../utils/dom';
 import { RelativeSelectionPos } from '../../selection/types';
 import { setSelectionRelativeToNode } from '../../selection/commands';
 import { getPluginState as getSelectionPluginState } from '../../selection/plugin-factory';
+import { FeatureFlags } from '@atlaskit/editor-common/types';
 
 function buildExpandClassName(type: string, expanded: boolean) {
   return `${expandClassNames.prefix} ${expandClassNames.type(type)} ${
@@ -97,6 +97,7 @@ export class ExpandNodeView implements NodeView {
   intl: IntlShape;
   allowInteractiveExpand: boolean = true;
   isMobile: boolean = false;
+  featureFlags: FeatureFlags;
 
   constructor(
     node: PmNode,
@@ -104,6 +105,7 @@ export class ExpandNodeView implements NodeView {
     getPos: getPosHandlerNode,
     getIntl: () => IntlShape,
     isMobile: boolean,
+    featureFlags: FeatureFlags,
   ) {
     this.intl = getIntl();
     const { dom, contentDOM } = DOMSerializer.renderSpec(
@@ -117,6 +119,7 @@ export class ExpandNodeView implements NodeView {
     this.dom = dom as HTMLElement;
     this.contentDOM = contentDOM as HTMLElement;
     this.isMobile = isMobile;
+    this.featureFlags = featureFlags;
     this.icon = this.dom.querySelector<HTMLElement>(
       `.${expandClassNames.icon}`,
     );
@@ -193,9 +196,7 @@ export class ExpandNodeView implements NodeView {
   }
 
   private isAllowInteractiveExpandEnabled = () => {
-    const { state } = this.view;
-    const featureFlags = getFeatureFlags(state);
-    return featureFlags && !!featureFlags.interactiveExpand;
+    return this.featureFlags && !!this.featureFlags.interactiveExpand;
   };
 
   private handleClick = (event: Event) => {
@@ -499,9 +500,11 @@ export class ExpandNodeView implements NodeView {
 export default function ({
   getIntl,
   isMobile,
+  featureFlags,
 }: {
   getIntl: () => IntlShape;
   isMobile: boolean;
+  featureFlags: FeatureFlags;
 }) {
   return (node: PmNode, view: EditorView, getPos: getPosHandler): NodeView =>
     new ExpandNodeView(
@@ -510,5 +513,6 @@ export default function ({
       getPos as getPosHandlerNode,
       getIntl,
       isMobile,
+      featureFlags,
     );
 }

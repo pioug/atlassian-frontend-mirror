@@ -81,6 +81,11 @@ export interface CardEvent {
   mediaItemDetails?: FileDetails;
 }
 
+export interface InlineCardEvent {
+  event: MouseEvent<HTMLElement> | React.KeyboardEvent;
+  mediaItemDetails?: FileDetails;
+}
+
 export interface SharedCardProps {
   // Overlay the media file.
   readonly disableOverlay?: boolean;
@@ -112,6 +117,10 @@ export interface SharedCardProps {
 
 export interface CardOnClickCallback {
   (result: CardEvent, analyticsEvent?: UIAnalyticsEvent): void;
+}
+
+export interface InlineCardOnClickCallback {
+  (result: InlineCardEvent, analyticsEvent?: UIAnalyticsEvent): void;
 }
 
 export interface CardEventProps {

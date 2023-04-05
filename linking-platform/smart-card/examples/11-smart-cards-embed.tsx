@@ -20,6 +20,13 @@ export default () => (
         url="https://www.youtube.com/watch?v=jmvngQzy_3M"
         platform="web"
       />
+      <h2> Resolved Embed Card view with interactiveHref</h2>
+      <Card
+        appearance="embed"
+        url="https://docs.google.com/document/d/1qZ74vupNf8bxMJqONtgrqtpqeJAe9OJ1d1Jo2CTpS_4/edit"
+        platform="web"
+        embedIframeUrlType="interactiveHref"
+      />
       <h2>
         {' '}
         Resolved Embed Card view with "inheritDimensions" = 'true' prop & height

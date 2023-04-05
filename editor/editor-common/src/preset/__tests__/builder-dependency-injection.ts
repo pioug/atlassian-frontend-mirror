@@ -120,7 +120,7 @@ describe('Editor EditorPresetBuilder - build', () => {
         'two',
         { dependencies: [typeof plugin1] }
       > = (_, api) => {
-        api?.externalPlugins.one.sharedState.currentState();
+        api?.dependencies.one.sharedState.currentState();
         return {
           name: 'two',
         };

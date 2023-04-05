@@ -94,7 +94,10 @@ export const CheckboxModal = (
         </Button>
         <Button
           appearance="warning"
-          onClick={() => onConfirm(isChecked)}
+          onClick={() => {
+            onConfirm(isChecked);
+            onClose();
+          }}
           testId={testId ? `${testId}-confirm-button` : undefined}
         >
           {okButtonLabel}

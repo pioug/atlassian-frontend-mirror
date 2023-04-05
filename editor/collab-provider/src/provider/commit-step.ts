@@ -3,17 +3,17 @@ import { ADD_STEPS_TYPE, EVENT_ACTION, EVENT_STATUS } from '../helpers/const';
 import {
   AcknowledgementResponseTypes,
   AddStepAcknowledgementPayload,
-  ErrorPayload,
+  ChannelEvent,
   StepJson,
   StepsPayload,
 } from '../types';
-
 import type { Step as ProseMirrorStep } from 'prosemirror-transform';
-import type { Channel } from '../channel';
-import AnalyticsHelper from '../analytics';
+import { NCS_ERROR_CODE } from '../errors/error-types';
+import AnalyticsHelper from '../analytics/analytics-helper';
+import type { InternalError } from '../errors/error-types';
 
 export const commitStep = ({
-  channel,
+  broadcast,
   steps,
   version,
   userId,
@@ -22,13 +22,17 @@ export const commitStep = ({
   onErrorHandled,
   analyticsHelper,
 }: {
-  channel: Channel;
+  broadcast: <K extends keyof ChannelEvent>(
+    type: K,
+    data: Omit<ChannelEvent[K], 'timestamp'>,
+    callback?: Function,
+  ) => void;
   steps: readonly ProseMirrorStep[];
   version: number;
   userId: string;
   clientId: number | string;
   onStepsAdded: (data: StepsPayload) => void;
-  onErrorHandled: (error: ErrorPayload) => void;
+  onErrorHandled: (error: InternalError) => void;
   analyticsHelper?: AnalyticsHelper;
 }) => {
   const stepsWithClientAndUserId = steps.map((step) => ({
@@ -39,7 +43,7 @@ export const commitStep = ({
 
   const start = new Date().getTime();
   try {
-    channel.broadcast(
+    broadcast(
       'steps:commit',
       {
         steps: stepsWithClientAndUserId,
@@ -76,8 +80,10 @@ export const commitStep = ({
               // - HEAD_VERSION_UPDATE_FAILED: the collab service's latest stored step tail version didn't correspond to the head version of the first step submitted
               // - VERSION_NUMBER_ALREADY_EXISTS: while storing the steps there was a conflict meaning someone else wrote steps into the database more quickly
               type:
-                response.error?.data?.code === 'HEAD_VERSION_UPDATE_FAILED' ||
-                response.error?.data?.code === 'VERSION_NUMBER_ALREADY_EXISTS'
+                response.error.data.code ===
+                  NCS_ERROR_CODE.HEAD_VERSION_UPDATE_FAILED ||
+                response.error.data.code ===
+                  NCS_ERROR_CODE.VERSION_NUMBER_ALREADY_EXISTS
                   ? ADD_STEPS_TYPE.REJECTED
                   : ADD_STEPS_TYPE.ERROR,
               latency,

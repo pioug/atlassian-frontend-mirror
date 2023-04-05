@@ -166,7 +166,7 @@ describe('typeahead: undo redo', () => {
 
           await page.waitForSelector(TYPE_AHEAD_MENU_LIST);
 
-          await page.keys(['ArrowDown', 'Enter']);
+          await page.keys('Enter');
           await page.waitForInvisible(TYPE_AHEAD_MENU_LIST);
 
           await page.undo();
@@ -195,7 +195,7 @@ describe('typeahead: undo redo', () => {
 
           await page.waitForSelector(TYPE_AHEAD_MENU_LIST);
 
-          await page.keys(['ArrowDown', 'Enter']);
+          await page.keys('Enter');
           await page.waitForInvisible(TYPE_AHEAD_MENU_LIST);
 
           await page.undo();
@@ -320,7 +320,7 @@ describe('typeahead: undo redo', () => {
 
             await page.waitForSelector(TYPE_AHEAD_MENU_LIST);
 
-            await page.keys(['ArrowDown', 'Enter']);
+            await page.keys('Enter');
             await page.waitForInvisible(TYPE_AHEAD_MENU_LIST);
 
             await page.undo();

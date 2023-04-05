@@ -55,7 +55,7 @@ import {
 } from '../../utils/linking-utils';
 import { LinkPickerOptions } from '../hyperlink/types';
 import { FLOATING_TOOLBAR_LINKPICKER_CLASSNAME } from './styles';
-import { getFeatureFlags } from '../feature-flags-context';
+import type { FeatureFlags } from '@atlaskit/editor-common/types';
 
 export const removeCard: Command = (state, dispatch) => {
   if (!(state.selection instanceof NodeSelection)) {
@@ -137,6 +137,7 @@ export const openLinkSettings: Command = (state, dispatch) => {
 
 export const floatingToolbar = (
   cardOptions: CardOptions,
+  featureFlags: FeatureFlags,
   platform?: CardPlatform,
   linkPickerOptions?: LinkPickerOptions,
 ): FloatingToolbarHandler => {
@@ -171,10 +172,10 @@ export const floatingToolbar = (
      * Enable focus trap only if feature flag is enabled AND for the new version of the picker
      */
     const { lpLinkPicker, lpLinkPickerFocusTrap, preventPopupOverflow } =
-      getFeatureFlags(state);
+      featureFlags;
+
     const shouldEnableFocusTrap = lpLinkPicker && lpLinkPickerFocusTrap;
-    const isLinkPickerEnabled =
-      !!lpLinkPicker && !!linkPickerOptions?.plugins?.length;
+    const isLinkPickerEnabled = !!lpLinkPicker;
 
     return {
       title: intl.formatMessage(messages.card),
@@ -198,6 +199,7 @@ export const floatingToolbar = (
 
       items: generateToolbarItems(
         state,
+        featureFlags,
         intl,
         providerFactory,
         cardOptions,
@@ -240,6 +242,7 @@ const buildAlignmentOptions = (
 const generateToolbarItems =
   (
     state: EditorState,
+    featureFlags: FeatureFlags,
     intl: IntlShape,
     providerFactory: ProviderFactory,
     cardOptions: CardOptions,
@@ -270,6 +273,7 @@ const generateToolbarItems =
           providerFactory,
           linkPicker,
           node,
+          featureFlags,
         }),
       ];
     } else {
@@ -308,7 +312,7 @@ const generateToolbarItems =
             { type: 'separator' },
           ],
         },
-        ...getSettingsButtonGroup(state, intl),
+        ...getSettingsButtonGroup(state, featureFlags, intl),
         {
           id: 'editor.link.delete',
           focusEditoronEnter: true,
@@ -389,9 +393,10 @@ const getUnlinkButtonGroup = (
 
 const getSettingsButtonGroup = (
   state: EditorState<any>,
+  featureFlags: FeatureFlags,
   intl: IntlShape,
 ): FloatingToolbarItem<Command>[] => {
-  const { floatingToolbarLinkSettingsButton } = getFeatureFlags(state);
+  const { floatingToolbarLinkSettingsButton } = featureFlags;
   return floatingToolbarLinkSettingsButton === 'true'
     ? [
         {

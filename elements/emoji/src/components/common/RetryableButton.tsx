@@ -13,7 +13,8 @@ export interface Props {
   error: boolean;
   onSubmit: () => void;
   loading: boolean;
-  ariaDescribedby?: string;
+  ariaDescribedBy?: string;
+  ariaLabelledBy?: string;
 }
 
 export const retryUploadButtonTestId = 'retry-upload-button';
@@ -28,7 +29,7 @@ const LoadingSpinner: FC = () => {
 };
 
 const RetryButton: FC<Props> = (props) => {
-  const { onSubmit } = props;
+  const { onSubmit, ariaLabelledBy, ariaDescribedBy } = props;
 
   return (
     <FormattedMessage {...messages.retryLabel}>
@@ -38,6 +39,8 @@ const RetryButton: FC<Props> = (props) => {
           appearance="warning"
           onClick={onSubmit}
           testId={retryUploadButtonTestId}
+          aria-describedby={ariaDescribedBy}
+          aria-labelledby={ariaLabelledBy}
           autoFocus
         >
           {retryLabel}
@@ -48,7 +51,8 @@ const RetryButton: FC<Props> = (props) => {
 };
 
 const UploadButton: FC<Props> = (props) => {
-  const { appearance, onSubmit, label, ariaDescribedby } = props;
+  const { appearance, onSubmit, label, ariaLabelledBy, ariaDescribedBy } =
+    props;
 
   return (
     <AkButton
@@ -56,7 +60,8 @@ const UploadButton: FC<Props> = (props) => {
       appearance={appearance as any}
       onClick={onSubmit}
       testId={uploadEmojiButtonTestId}
-      aria-describedby={ariaDescribedby}
+      aria-describedby={ariaDescribedBy}
+      aria-labelledby={ariaLabelledBy}
       autoFocus
     >
       {label}

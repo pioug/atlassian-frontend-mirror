@@ -38,6 +38,15 @@ type TableTreeProps = {
   headers?: string[];
   // eslint-disable-next-line jsdoc/require-asterisk-prefix, jsdoc/check-alignment
   /**
+    Whether a row with children should expand when clicked anywhere within the row. If false or unset, a row with children will only expand when the chevron is clicked.
+
+    If your cells contain interactive elements, this can cause unexpected expanding or collapsing.
+
+    If not using the `items` prop, `shouldExpandOnClick` should be used on the row component instead.
+   */
+  shouldExpandOnClick?: boolean;
+  // eslint-disable-next-line jsdoc/require-asterisk-prefix, jsdoc/check-alignment
+  /**
     The data used to render the table.
 
     In addition to these props, any other data can be added, and it will

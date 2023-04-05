@@ -1,6 +1,5 @@
 /** @jsx jsx */
-import { Fragment, memo } from 'react';
-import { lazy, Suspense } from 'react';
+import { Fragment, lazy, memo, Suspense, useState } from 'react';
 import { jsx } from '@emotion/react';
 
 import { CodeBlockSharedCssClassName } from '@atlaskit/editor-common/styles';
@@ -28,6 +27,7 @@ const WindowedCodeBlock = ({
   text,
   language,
   allowCopyToClipboard,
+  allowWrapCodeBlock = false,
   codeBidiWarningTooltipEnabled,
   className: rootClassName,
 }: CodeBlockProps) => {
@@ -49,19 +49,25 @@ const WindowedCodeBlock = ({
     />
   );
 
+  const [wrapLongLines, setWrapLongLines] = useState<boolean>(false);
+
   return isInViewport ? (
     <Fragment>
       <Suspense fallback={memoizedLightWeightCodeBlock}>
         <CodeBlockContainer
-          className={className}
-          text={text}
           allowCopyToClipboard={allowCopyToClipboard}
+          allowWrapCodeBlock={allowWrapCodeBlock}
+          className={className}
+          setWrapLongLines={setWrapLongLines}
+          text={text}
+          wrapLongLines={wrapLongLines}
         >
           <LazyAkCodeBlock
             language={language}
             text={text}
             codeBidiWarningLabel={warningLabel}
             codeBidiWarningTooltipEnabled={codeBidiWarningTooltipEnabled}
+            shouldWrapLongLines={allowWrapCodeBlock && wrapLongLines}
           />
         </CodeBlockContainer>
       </Suspense>

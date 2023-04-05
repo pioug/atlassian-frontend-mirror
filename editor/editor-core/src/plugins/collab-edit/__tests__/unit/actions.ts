@@ -16,6 +16,7 @@ import mentionsPlugin from '../../../mentions';
 import unsupportedContentPlugin from '../../../unsupported-content';
 import textFormattingPlugin from '../../../text-formatting';
 import { toggleStrong } from '../../../text-formatting/commands/text-formatting';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 const initializeCollab = (view: EditorView) =>
   view.dispatch(view.state.tr.setMeta('collabInitialised', true));
@@ -35,6 +36,7 @@ describe('collab-edit: actions', () => {
       doc,
       // Preset doesnt support two arguments, we need to use old plugins configuration
       preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
         .add([collabEditPlugin, collabEditOptions as PrivateCollabEditOptions])
         .add(unsupportedContentPlugin)
         .add(mentionsPlugin)

@@ -11,11 +11,12 @@ import {
   fireAnalyticsEvent,
   getAnalyticsEventsFromTransaction,
 } from '@atlaskit/editor-common/analytics';
-import { getFeatureFlags } from '../feature-flags-context';
 import {
   AnalyticsStep,
   AnalyticsWithChannel,
 } from '@atlaskit/adf-schema/steps';
+import type { FeatureFlags } from '@atlaskit/editor-common/types';
+import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { generateUndoRedoInputSoucePayload } from '../undo-redo/undo-redo-input-source';
 import { PerformanceTracking } from '../../types/performance-tracking';
 
@@ -24,7 +25,10 @@ interface AnalyticsPluginOptions {
   performanceTracking?: PerformanceTracking;
 }
 
-function createPlugin(options: AnalyticsPluginOptions) {
+function createPlugin(
+  options: AnalyticsPluginOptions,
+  featureFlags: FeatureFlags,
+) {
   if (!options || !options.createAnalyticsEvent) {
     return;
   }
@@ -49,7 +53,7 @@ function createPlugin(options: AnalyticsPluginOptions) {
           };
         }
 
-        if (getFeatureFlags(state)?.catchAllTracking) {
+        if (featureFlags.catchAllTracking) {
           const analyticsEventWithChannel =
             getAnalyticsEventsFromTransaction(tr);
           if (analyticsEventWithChannel.length > 0) {
@@ -93,63 +97,70 @@ const analyticsPlugin: NextEditorPlugin<
   'analytics',
   {
     pluginConfiguration: AnalyticsPluginOptions;
+    dependencies: [typeof featureFlagsPlugin];
   }
-> = (options) => ({
-  name: 'analytics',
+> = (options, api) => {
+  const featureFlags =
+    api?.dependencies.featureFlags?.sharedState.currentState() || {};
 
-  pmPlugins() {
-    return [
-      {
-        name: 'analyticsPlugin',
-        plugin: () => createPlugin(options),
-      },
-    ];
-  },
+  return {
+    name: 'analytics',
 
-  onEditorViewStateUpdated({
-    originalTransaction,
-    transactions,
-    newEditorState,
-  }) {
-    const pluginState = analyticsPluginKey.getState(newEditorState);
+    pmPlugins() {
+      return [
+        {
+          name: 'analyticsPlugin',
+          plugin: () => createPlugin(options, featureFlags),
+        },
+      ];
+    },
 
-    if (!pluginState || !pluginState.createAnalyticsEvent) {
-      return;
-    }
+    onEditorViewStateUpdated({
+      originalTransaction,
+      transactions,
+      newEditorState,
+    }) {
+      const pluginState = analyticsPluginKey.getState(newEditorState);
 
-    const steps = transactions.reduce<AnalyticsWithChannel<any>[]>(
-      (acc, tr) => {
-        const payloads: AnalyticsWithChannel<any>[] = tr.steps
-          .filter(
-            (step): step is AnalyticsStep<any> => step instanceof AnalyticsStep,
-          )
-          .map((x) => x.analyticsEvents)
-          .reduce((acc, val) => acc.concat(val), []);
+      if (!pluginState || !pluginState.createAnalyticsEvent) {
+        return;
+      }
 
-        acc.push(...payloads);
+      const steps = transactions.reduce<AnalyticsWithChannel<any>[]>(
+        (acc, tr) => {
+          const payloads: AnalyticsWithChannel<any>[] = tr.steps
+            .filter(
+              (step): step is AnalyticsStep<any> =>
+                step instanceof AnalyticsStep,
+            )
+            .map((x) => x.analyticsEvents)
+            .reduce((acc, val) => acc.concat(val), []);
 
-        return acc;
-      },
-      [],
-    );
+          acc.push(...payloads);
 
-    if (steps.length === 0) {
-      return;
-    }
+          return acc;
+        },
+        [],
+      );
 
-    const { createAnalyticsEvent } = pluginState;
-    const undoAnaltyicsEventTransformer =
-      generateUndoRedoInputSoucePayload(originalTransaction);
-    steps.forEach(({ payload, channel }) => {
-      const nextPayload = undoAnaltyicsEventTransformer(payload);
+      if (steps.length === 0) {
+        return;
+      }
 
-      fireAnalyticsEvent(createAnalyticsEvent)({
-        payload: nextPayload,
-        channel,
+      const { createAnalyticsEvent } = pluginState;
+      const undoAnaltyicsEventTransformer =
+        generateUndoRedoInputSoucePayload(originalTransaction);
+      steps.forEach(({ payload, channel }) => {
+        const nextPayload = undoAnaltyicsEventTransformer(payload);
+
+        fireAnalyticsEvent(createAnalyticsEvent)({
+          payload: nextPayload,
+          channel,
+        });
       });
-    });
-  },
-});
+    },
+  };
+};
 
 export function extendPayload({
   payload,

@@ -25,6 +25,7 @@ import * as linking from './linking';
 import { INPUT_METHOD } from '../../analytics/types';
 import * as analyticUtils from '../../analytics/utils';
 import * as commands from '../../../commands';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 const { setUrlToMedia, showLinkingToolbarWithMediaTypeCheck, unlink } = linking;
 
@@ -46,6 +47,7 @@ describe('image linking', () => {
     return createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
         .add([mediaPlugin, { allowMediaSingle: true, allowLinking: true }])
         .add(hyperlinkPlugin),
       providerFactory,

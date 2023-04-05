@@ -30,6 +30,7 @@ import statusInlineBlockTypePlugin from '../../../status';
 import { toggleOrderedList, toggleBulletList } from '../../commands';
 import { setGapCursorSelection, setNodeSelection } from '../../../../utils';
 import { Side } from '../../../selection/gap-cursor-selection';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 
@@ -46,6 +47,7 @@ describe('lists plugin -> converting lists', () => {
 
   const editor = (doc: DocBuilder) => {
     const preset = new Preset<LightEditorPlugin>()
+      .add([featureFlagsPlugin, {}])
       .add(listPlugin)
       .add(textFormattingPlugin)
       .add(panelPlugin)

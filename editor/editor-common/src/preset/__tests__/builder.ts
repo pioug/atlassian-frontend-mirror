@@ -28,11 +28,11 @@ const PluginBark: NextEditorPlugin<
     dependencies: [typeof PluginDog];
   }
 > = (_, api) => {
-  const dogState = api?.externalPlugins.dog.sharedState.currentState();
+  const dogState = api?.dependencies.dog.sharedState.currentState();
   // eslint-disable-next-line no-console
   console.log(dogState?.goodDog);
 
-  api?.externalPlugins.dog.sharedState.onChange(({ nextSharedState }) => {
+  api?.dependencies.dog.sharedState.onChange(({ nextSharedState }) => {
     // eslint-disable-next-line no-console
     console.log(nextSharedState.goodDog);
   });
@@ -73,11 +73,8 @@ const PluginBarkLoud: NextEditorPlugin<
     dependencies: [typeof PluginBark, typeof PluginDog];
   }
 > = (_, api) => {
-  //externalPlugins.dog.sharedState.currentState().coisa;
-  //externalPlugins.bark.sharedState.currentState().coisa;
-  //externalPlugins.
-  api?.externalPlugins.dog.sharedState.currentState()?.goodDog;
-  api?.externalPlugins.bark.sharedState.currentState()?.coisa;
+  api?.dependencies.dog.sharedState.currentState()?.goodDog;
+  api?.dependencies.bark.sharedState.currentState()?.coisa;
 
   return {
     name: 'bark-loud',
@@ -405,7 +402,7 @@ describe('building a builder', () => {
   > = (_, api) => {
     // eslint-disable-next-line no-console
     console.log('two', api);
-    api?.externalPlugins.one.sharedState.currentState();
+    api?.dependencies.one.sharedState.currentState();
     return {
       name: 'two',
     };
@@ -419,7 +416,7 @@ describe('building a builder', () => {
   > = (_, api) => {
     // eslint-disable-next-line no-console
     console.log('three', api);
-    api?.externalPlugins.two.sharedState.currentState();
+    api?.dependencies.two.sharedState.currentState();
     return {
       name: 'three',
     };
@@ -569,20 +566,20 @@ describe('building a builder', () => {
         ];
       }
     > = (_, api) => {
-      api?.externalPlugins.one.sharedState.currentState();
+      api?.dependencies.one.sharedState.currentState();
 
       // @ts-expect-error Two is optional so should be unwrapped to access
-      api?.externalPlugins.two.sharedState.currentState();
+      api?.dependencies.two.sharedState.currentState();
 
-      api?.externalPlugins.two?.sharedState.currentState();
+      api?.dependencies.two?.sharedState.currentState();
 
-      api?.externalPlugins.withoutDependencies.sharedState.currentState();
+      api?.dependencies.withoutDependencies.sharedState.currentState();
 
       // @ts-expect-error We shouldn't be able to access anything that doesn't exist as a dependency
-      api?.externalPlugins.five.sharedState.currentState();
+      api?.dependencies.five.sharedState.currentState();
 
       // @ts-expect-error Should still fail if optional
-      api?.externalPlugins.five?.sharedState.currentState();
+      api?.dependencies.five?.sharedState.currentState();
       return {
         name: 'withOptionalDeps',
       };
@@ -599,12 +596,12 @@ describe('building a builder', () => {
         ];
       }
     > = (_, api) => {
-      api?.externalPlugins.one.sharedState.currentState();
+      api?.dependencies.one.sharedState.currentState();
 
       // @ts-expect-error Three is optional so should be unwrapped to access
-      api?.externalPlugins.three.sharedState.currentState();
+      api?.dependencies.three.sharedState.currentState();
 
-      api?.externalPlugins.three?.sharedState.currentState();
+      api?.dependencies.three?.sharedState.currentState();
       return {
         name: 'withOptionalDepsComplex',
       };
@@ -619,12 +616,12 @@ describe('building a builder', () => {
         ];
       }
     > = (_, api) => {
-      api?.externalPlugins.one.sharedState.currentState();
+      api?.dependencies.one.sharedState.currentState();
 
       // @ts-expect-error Three is optional so should be unwrapped to access
-      api?.externalPlugins.withOptionalDepsComplex.sharedState.currentState();
+      api?.dependencies.withOptionalDepsComplex.sharedState.currentState();
 
-      api?.externalPlugins.withOptionalDepsComplex?.sharedState.currentState();
+      api?.dependencies.withOptionalDepsComplex?.sharedState.currentState();
       return {
         name: 'dependingOnOptional',
       };

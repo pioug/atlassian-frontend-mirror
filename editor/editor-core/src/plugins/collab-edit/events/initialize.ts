@@ -7,7 +7,10 @@ import { CollabEditProvider } from '../provider';
 import { PrivateCollabEditOptions } from '../types';
 import { subscribe, Cleanup } from './handlers';
 import { pluginKey } from '../plugin-key';
-import { SyncUpErrorFunction } from '@atlaskit/editor-common/types';
+import {
+  FeatureFlags,
+  SyncUpErrorFunction,
+} from '@atlaskit/editor-common/types';
 
 const initCollab = (
   collabEditProvider: CollabEditProvider,
@@ -35,10 +38,11 @@ type Props = {
   view: EditorView;
   options: PrivateCollabEditOptions;
   providerFactory: ProviderFactory;
+  featureFlags: FeatureFlags;
 };
 
 export const initialize =
-  ({ options, providerFactory, view }: Props) =>
+  ({ options, providerFactory, view, featureFlags }: Props) =>
   (provider: CollabEditProvider) => {
     let cleanup: Cleanup | undefined;
     const pluginState = pluginKey.getState(view.state);
@@ -47,7 +51,7 @@ export const initialize =
       cleanup();
     }
 
-    cleanup = subscribe(view, provider, options, providerFactory);
+    cleanup = subscribe(view, provider, options, featureFlags, providerFactory);
 
     // Initialize provider
     if (options.useNativePlugin) {

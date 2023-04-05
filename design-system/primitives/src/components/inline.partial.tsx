@@ -48,13 +48,13 @@ export interface InlineProps<T extends ElementType = 'div'> {
   /**
    * Represents the space between each child.
    */
-  space?: Space;
+  space?: Gap;
 
   /**
    * Represents the space between rows when content wraps.
    * Used to override the `space` value in between rows.
    */
-  rowSpace?: RowSpace;
+  rowSpace?: RowGap;
 
   /**
    * Renders a separator string between each child.
@@ -67,9 +67,13 @@ export interface InlineProps<T extends ElementType = 'div'> {
   testId?: string;
 
   /**
-   * Elements to be rendered inside the Stack.
+   * Elements to be rendered inside the Inline.
    */
   children: ReactNode;
+
+  /**
+   * Forwarded ref element
+   */
   ref?: ComponentPropsWithRef<T>['ref'];
 }
 
@@ -104,105 +108,64 @@ const flexWrapStyles = css({ flexWrap: 'wrap' });
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::44cacef18982a4b0e43102900c42bdcf>>
+ * @codegen <<SignedSource::fb7587b114753ed19425e2b07b5deb0d>>
  * @codegenId spacing
  * @codegenCommand yarn codegen-styles
- * @codegenParams ["space", "rowSpace"]
+ * @codegenParams ["inlineSpace"]
  * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-spacing.tsx <<SignedSource::167d3b69b159ae33e74d4ea5ab7eade6>>
  */
-const spaceMap = {
-  '0': css({
-    gap: token('space.0', '0px'),
-  }),
-  '025': css({
-    gap: token('space.025', '2px'),
-  }),
-  '050': css({
-    gap: token('space.050', '4px'),
-  }),
-  '075': css({
-    gap: token('space.075', '6px'),
-  }),
-  '100': css({
-    gap: token('space.100', '8px'),
-  }),
-  '150': css({
-    gap: token('space.150', '12px'),
-  }),
-  '200': css({
-    gap: token('space.200', '16px'),
-  }),
-  '250': css({
-    gap: token('space.250', '20px'),
-  }),
-  '300': css({
-    gap: token('space.300', '24px'),
-  }),
-  '400': css({
-    gap: token('space.400', '32px'),
-  }),
-  '500': css({
-    gap: token('space.500', '40px'),
-  }),
-  '600': css({
-    gap: token('space.600', '48px'),
-  }),
-  '800': css({
-    gap: token('space.800', '64px'),
-  }),
-  '1000': css({
-    gap: token('space.1000', '80px'),
-  }),
-} as const;
+const inlineSpaceMap = Object.fromEntries(
+  ['gap', 'rowGap'].map((property: string) => [
+    property,
+    {
+      '0': css({
+        [property]: token('space.0', '0px'),
+      }),
+      '025': css({
+        [property]: token('space.025', '2px'),
+      }),
+      '050': css({
+        [property]: token('space.050', '4px'),
+      }),
+      '075': css({
+        [property]: token('space.075', '6px'),
+      }),
+      '100': css({
+        [property]: token('space.100', '8px'),
+      }),
+      '150': css({
+        [property]: token('space.150', '12px'),
+      }),
+      '200': css({
+        [property]: token('space.200', '16px'),
+      }),
+      '250': css({
+        [property]: token('space.250', '20px'),
+      }),
+      '300': css({
+        [property]: token('space.300', '24px'),
+      }),
+      '400': css({
+        [property]: token('space.400', '32px'),
+      }),
+      '500': css({
+        [property]: token('space.500', '40px'),
+      }),
+      '600': css({
+        [property]: token('space.600', '48px'),
+      }),
+      '800': css({
+        [property]: token('space.800', '64px'),
+      }),
+      '1000': css({
+        [property]: token('space.1000', '80px'),
+      }),
+    } as const,
+  ]),
+);
 
-export type Space = keyof typeof spaceMap;
-
-const rowSpaceMap = {
-  '0': css({
-    rowGap: token('space.0', '0px'),
-  }),
-  '025': css({
-    rowGap: token('space.025', '2px'),
-  }),
-  '050': css({
-    rowGap: token('space.050', '4px'),
-  }),
-  '075': css({
-    rowGap: token('space.075', '6px'),
-  }),
-  '100': css({
-    rowGap: token('space.100', '8px'),
-  }),
-  '150': css({
-    rowGap: token('space.150', '12px'),
-  }),
-  '200': css({
-    rowGap: token('space.200', '16px'),
-  }),
-  '250': css({
-    rowGap: token('space.250', '20px'),
-  }),
-  '300': css({
-    rowGap: token('space.300', '24px'),
-  }),
-  '400': css({
-    rowGap: token('space.400', '32px'),
-  }),
-  '500': css({
-    rowGap: token('space.500', '40px'),
-  }),
-  '600': css({
-    rowGap: token('space.600', '48px'),
-  }),
-  '800': css({
-    rowGap: token('space.800', '64px'),
-  }),
-  '1000': css({
-    rowGap: token('space.1000', '80px'),
-  }),
-} as const;
-
-export type RowSpace = keyof typeof rowSpaceMap;
+export type Gap = keyof typeof inlineSpaceMap.gap;
+export type RowGap = keyof typeof inlineSpaceMap.rowGap;
 
 /**
  * @codegenEnd
@@ -286,12 +249,12 @@ const Inline = memo(
         <Component
           css={[
             baseStyles,
-            space && spaceMap[space],
+            space && inlineSpaceMap.gap[space],
             justifyContent && justifyContentMap[justifyContent],
             grow && flexGrowMap[grow],
             alignItems && alignItemsMap[alignItems],
             shouldWrap && flexWrapStyles,
-            rowSpace && rowSpaceMap[rowSpace],
+            rowSpace && inlineSpaceMap.rowGap[rowSpace],
           ]}
           data-testid={testId}
           ref={ref}

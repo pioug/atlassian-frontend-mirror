@@ -22,8 +22,10 @@ import { TableSortOrder as SortOrder } from '@atlaskit/adf-schema/steps';
 import tablePlugin from '../../../plugins/table-plugin';
 import statusPlugin from '@atlaskit/editor-core/src/plugins/status';
 import mentionsPlugin from '@atlaskit/editor-core/src/plugins/mentions';
+import editorDisabledPlugin from '@atlaskit/editor-core/src/plugins/editor-disabled';
 import hyperlinkPlugin from '@atlaskit/editor-core/src/plugins/hyperlink';
 import datePlugin from '@atlaskit/editor-core/src/plugins/date';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 
@@ -118,6 +120,8 @@ describe('Sort Table', () => {
     beforeEach(() => {
       ({ editorView } = createEditor({
         preset: new Preset<LightEditorPlugin>()
+          .add([featureFlagsPlugin, {}])
+          .add(editorDisabledPlugin)
           .add([tablePlugin, { tableOptions: { allowHeaderRow: true } }])
           .add([statusPlugin, { menuDisabled: false }])
           .add(mentionsPlugin)

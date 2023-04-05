@@ -3,4 +3,5 @@ export { DEFAULT_BORDER_COLOR } from './common';
 export {
   textPaletteTooltipMessages,
   backgroundPaletteTooltipMessages,
+  borderPaletteTooltipMessages,
 } from './paletteMessagesTokenModeNames';

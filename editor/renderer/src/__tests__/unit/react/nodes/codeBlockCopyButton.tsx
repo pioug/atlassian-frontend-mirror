@@ -10,7 +10,7 @@ jest.mock('../../../../react/utils/clipboard', () => {
   };
 });
 
-import CopyButton from '../../../../react/nodes/codeBlockCopyButton';
+import CopyButton from '../../../../react/nodes/codeBlock/components/codeBlockCopyButton';
 
 const render = () => {
   return mountWithIntl(<CopyButton content={'Some code'} />);

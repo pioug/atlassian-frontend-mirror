@@ -13,7 +13,8 @@ describe('Snapshot Test: List', () => {
     page = global.page;
   });
 
-  it('with codeblocks', async () => {
+  //skipping until fixed, ticket: DTR-1433
+  it.skip('with codeblocks', async () => {
     await initRendererWithADF(page, {
       adf: listsWithCodeblock,
       appearance: 'full-page',

@@ -204,6 +204,7 @@ function FullPage(props: FullPageProps) {
                     isInviteToEditButtonSelected={
                       collabEdit?.isInviteToEditButtonSelected
                     }
+                    featureFlags={{}}
                   />
                 )}
 

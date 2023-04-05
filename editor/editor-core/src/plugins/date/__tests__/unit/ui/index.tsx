@@ -1,6 +1,6 @@
 import React from 'react';
-import { ReactWrapper } from 'enzyme';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { fireEvent, RenderResult } from '@testing-library/react';
+import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import DatePicker from '../../../ui/DatePicker';
 
 describe('DatePicker', () => {
@@ -11,13 +11,13 @@ describe('DatePicker', () => {
   const closeDatePickerWithAnalytics = jest.fn();
   const dispatchAnalyticsEvent = jest.fn();
   const element = document.createElement('span');
-  let wrapper: ReactWrapper<any, unknown, any>;
-  let input: ReactWrapper;
+  let wrapper: RenderResult;
+  let input: HTMLElement;
 
   const mountDatePicker = () => {
     element.setAttribute('timestamp', '1585094400000');
     document.body.appendChild(element);
-    return mountWithIntl(
+    return renderWithIntl(
       // This is the actual date picker, not the lozenge
       <DatePicker
         isNew={true}
@@ -34,7 +34,7 @@ describe('DatePicker', () => {
 
   beforeEach(() => {
     wrapper = mountDatePicker();
-    input = wrapper.find('input');
+    input = wrapper.getByRole('textbox');
   });
 
   afterEach(() => {
@@ -44,9 +44,18 @@ describe('DatePicker', () => {
 
   describe('analytics', () => {
     it('should fire analytics event when typing into input field', () => {
-      input.simulate('keypress', { key: 'Backspace' });
+      fireEvent.keyPress(input, {
+        key: 'Backspace',
+        charCode: 8,
+      });
+
       expect(dispatchAnalyticsEvent).not.toBeCalled();
-      input.simulate('keypress', { key: '1' });
+      fireEvent.keyPress(input, { key: '1', code: '1', keyCode: 49 });
+
+      fireEvent.keyPress(input, {
+        key: '1',
+        charCode: 58,
+      });
 
       expect(dispatchAnalyticsEvent).toBeCalledWith({
         eventType: 'track',
@@ -56,9 +65,7 @@ describe('DatePicker', () => {
     });
 
     it('should fire analytics event when a valid date is inserted', () => {
-      input.simulate('change', {
-        target: { name: 'input', value: '1/1/2021' },
-      });
+      fireEvent.change(input, { target: { value: '1/1/2021' } });
 
       expect(dispatchAnalyticsEvent).toBeCalledWith({
         eventType: 'track',
@@ -74,24 +81,30 @@ describe('DatePicker', () => {
         action: 'incremented',
         actionSubject: 'dateSegment',
       };
-      (input.getDOMNode() as HTMLInputElement).selectionStart = 0;
-      input.simulate('keydown', { key: 'ArrowUp' });
+      (input as HTMLInputElement).selectionStart = 0;
+      fireEvent.keyDown(input, {
+        key: 'ArrowUp',
+      });
       expect(dispatchAnalyticsEvent).toBeCalledWith({
         ...incrementPayloadProperties,
         attributes: expect.objectContaining({
           dateSegment: 'month',
         }),
       });
-      (input.getDOMNode() as HTMLInputElement).selectionStart = 3;
-      input.simulate('keydown', { key: 'ArrowUp' });
+      (input as HTMLInputElement).selectionStart = 3;
+      fireEvent.keyDown(input, {
+        key: 'ArrowUp',
+      });
       expect(dispatchAnalyticsEvent).toBeCalledWith({
         ...incrementPayloadProperties,
         attributes: expect.objectContaining({
           dateSegment: 'day',
         }),
       });
-      (input.getDOMNode() as HTMLInputElement).selectionStart = 7;
-      input.simulate('keydown', { key: 'ArrowUp' });
+      (input as HTMLInputElement).selectionStart = 7;
+      fireEvent.keyDown(input, {
+        key: 'ArrowUp',
+      });
       expect(dispatchAnalyticsEvent).toBeCalledWith({
         ...incrementPayloadProperties,
         attributes: expect.objectContaining({
@@ -107,24 +120,30 @@ describe('DatePicker', () => {
         action: 'decremented',
         actionSubject: 'dateSegment',
       };
-      (input.getDOMNode() as HTMLInputElement).selectionStart = 0;
-      input.simulate('keydown', { key: 'ArrowDown' });
+      (input as HTMLInputElement).selectionStart = 0;
+      fireEvent.keyDown(input, {
+        key: 'ArrowDown',
+      });
       expect(dispatchAnalyticsEvent).toBeCalledWith({
         ...decrementPayloadProperties,
         attributes: expect.objectContaining({
           dateSegment: 'month',
         }),
       });
-      (input.getDOMNode() as HTMLInputElement).selectionStart = 3;
-      input.simulate('keydown', { key: 'ArrowDown' });
+      (input as HTMLInputElement).selectionStart = 3;
+      fireEvent.keyDown(input, {
+        key: 'ArrowDown',
+      });
       expect(dispatchAnalyticsEvent).toBeCalledWith({
         ...decrementPayloadProperties,
         attributes: expect.objectContaining({
           dateSegment: 'day',
         }),
       });
-      (input.getDOMNode() as HTMLInputElement).selectionStart = 7;
-      input.simulate('keydown', { key: 'ArrowDown' });
+      (input as HTMLInputElement).selectionStart = 7;
+      fireEvent.keyDown(input, {
+        key: 'ArrowDown',
+      });
       expect(dispatchAnalyticsEvent).toBeCalledWith({
         ...decrementPayloadProperties,
         attributes: expect.objectContaining({
@@ -136,16 +155,16 @@ describe('DatePicker', () => {
 
   describe('callbacks', () => {
     it('should fire props.onSelect callback when Enter is pressed in the input field', () => {
-      input.simulate('keypress', { which: 'enter', key: 'Enter', keyCode: 13 });
+      fireEvent.keyPress(input, { key: 'Enter', code: 'Enter', charCode: 13 });
       expect(onSelect).toHaveBeenCalled();
       expect(onDelete).toHaveBeenCalledTimes(0);
     });
     it('should fire onDelete when Enter pressed in empty input field', () => {
       // Set the text field to be empty
-      (input.getDOMNode() as HTMLInputElement).value = '';
+      fireEvent.change(input, { target: { value: '' } });
 
       // Press enter
-      input.simulate('keypress', { which: 'enter', key: 'Enter', keyCode: 13 });
+      fireEvent.keyPress(input, { key: 'Enter', code: 'Enter', charCode: 13 });
 
       // Date is removed
       expect(onDelete).toHaveBeenCalled();

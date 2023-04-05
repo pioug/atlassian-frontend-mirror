@@ -52,6 +52,8 @@ import widthPlugin from '../../../../width';
 import expandPlugin from '../../../../expand';
 import layoutPlugin from '../../../../layout';
 import textFormattingPlugin from '../../../../text-formatting';
+import editorDisabledPlugin from '../../../../editor-disabled';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 describe('lists plugin -> commands', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -59,9 +61,11 @@ describe('lists plugin -> commands', () => {
 
   const editor = (doc: DocBuilder) => {
     const preset = new Preset<LightEditorPlugin>()
+      .add([featureFlagsPlugin, {}])
       .add(listPlugin)
       .add([analyticsPlugin, { createAnalyticsEvent }])
       .add(blockTypePlugin)
+      .add(editorDisabledPlugin)
       .add(datePlugin)
       .add([codeBlockPlugin, { appearance: 'full-page' }])
       .add(panelPlugin)
@@ -87,7 +91,7 @@ describe('lists plugin -> commands', () => {
           ol()(li(p('text')), li(p('{<>}', hardBreak(), date({ timestamp })))),
         ),
       );
-      enterKeyCommand(editorView.state, editorView.dispatch);
+      enterKeyCommand({})(editorView.state, editorView.dispatch);
       expect(editorView.state.doc).toEqualDocument(
         doc(
           ol()(
@@ -101,7 +105,7 @@ describe('lists plugin -> commands', () => {
 
     it("should outdent a list when list item doesn't have visible content", () => {
       const { editorView } = editor(doc(ol()(li(p('text')), li(p('{<>} ')))));
-      enterKeyCommand(editorView.state, editorView.dispatch);
+      enterKeyCommand({})(editorView.state, editorView.dispatch);
       expect(editorView.state.doc).toEqualDocument(
         doc(ol()(li(p('text'))), p(' ')),
       );
@@ -113,7 +117,7 @@ describe('lists plugin -> commands', () => {
       it('should not outdent a list', () => {
         const { editorView } = editor(doc(ol()(li(code_block()('{<>}text')))));
 
-        backspaceKeyCommand(editorView.state, editorView.dispatch);
+        backspaceKeyCommand({})(editorView.state, editorView.dispatch);
 
         expect(editorView.state.doc).toEqualDocument(
           doc(ol()(li(code_block()('text')))),
@@ -127,7 +131,7 @@ describe('lists plugin -> commands', () => {
           doc(ol()(li('{<gap|>}', code_block()('text')))),
         );
 
-        backspaceKeyCommand(editorView.state, editorView.dispatch);
+        backspaceKeyCommand({})(editorView.state, editorView.dispatch);
         expect(editorView.state.doc).toEqualDocument(doc(code_block()('text')));
       });
     });
@@ -138,7 +142,7 @@ describe('lists plugin -> commands', () => {
           doc(ol()(li(p('text'))), '{<gap|>}', code_block()('code')),
         );
 
-        backspaceKeyCommand(editorView.state, editorView.dispatch);
+        backspaceKeyCommand({})(editorView.state, editorView.dispatch);
         expect(editorView.state.doc).toEqualDocument(
           doc(ol()(li(p('text')), li(code_block()('code')))),
         );

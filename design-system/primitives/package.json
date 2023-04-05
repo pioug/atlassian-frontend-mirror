@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/primitives",
-  "version": "0.4.2",
+  "version": "0.6.0",
   "description": "Primitives are token-backed low-level building blocks.",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -41,8 +41,7 @@
     "@atlaskit/tokens": "^1.2.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
-    "@emotion/serialize": "^1.1.0",
-    "tiny-invariant": "^1.2.0"
+    "@emotion/serialize": "^1.1.0"
   },
   "peerDependencies": {
     "react": "^16.8.0 || ^17.0.0 || ^18.0.0"

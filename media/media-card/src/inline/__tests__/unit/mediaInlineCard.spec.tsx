@@ -101,6 +101,9 @@ describe('<MediaInlineCard />', () => {
     loadedView.click();
 
     expect(onClick).toBeCalledTimes(1);
+    expect(onClick).toBeCalledWith(
+      expect.objectContaining({ mediaItemDetails: identifier }),
+    );
   });
 
   it('should render right media file type icon', async () => {

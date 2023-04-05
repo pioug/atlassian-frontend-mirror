@@ -56,7 +56,7 @@ describe('typeahead: up & down arrow navigation', () => {
         const title = 'heading';
         await page.keys(['X', 'Space']);
         await quickInsert(page, title, false);
-        await sendArrowDownKey(page, { numTimes: 3 });
+        await sendArrowDownKey(page, { numTimes: 2 });
         await page.keys('Enter');
         await page.keys('X');
 
@@ -80,7 +80,7 @@ describe('typeahead: up & down arrow navigation', () => {
         const title = 'heading';
         await page.keys(['X', 'Space']);
         await quickInsert(page, title, false);
-        await sendArrowDownKey(page, { numTimes: 3 });
+        await sendArrowDownKey(page, { numTimes: 2 });
         await page.click(
           `[aria-label="Popup"] [role="listbox"] [role="option"][aria-selected="true"]`,
         );

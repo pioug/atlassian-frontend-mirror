@@ -38,7 +38,7 @@ jest.mock('../../channel', () => {
   };
 });
 
-jest.mock('../catchup', () => {
+jest.mock('../../document/catchup', () => {
   return {
     catchup: jest.fn().mockImplementation(() => Promise.resolve()),
   };
@@ -46,24 +46,25 @@ jest.mock('../catchup', () => {
 
 jest.mock('lodash/throttle', () => jest.fn((fn) => fn));
 
-import { CollabParticipant } from '@atlaskit/editor-common/collab';
 import { nextTick } from '@atlaskit/editor-test-helpers/next-tick';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { createSocketIOCollabProvider } from '../../socket-io-provider';
 import * as Utilities from '../../helpers/utils';
-import * as Telepointer from '../telepointers';
-import { catchup } from '../catchup';
-import AnalyticsHelper from '../../analytics';
+import * as Telepointer from '../../participants/telepointers-helper';
+import { catchup } from '../../document/catchup';
+import AnalyticsHelper from '../../analytics/analytics-helper';
 import { Channel } from '../../channel';
-import { ErrorPayload } from '../../types';
+import { StepJson } from '../../types';
 import { MAX_STEP_REJECTED_ERROR, throttledCommitStep } from '../';
 import { ACK_MAX_TRY } from '../../helpers/const';
 import { Node } from 'prosemirror-model';
-import { ErrorCodeMapper } from '../../errors/error-code-mapper';
 import type { Provider } from '../';
 // @ts-ignore only used for mock
 import ProseMirrorCollab from '@atlaskit/prosemirror-collab';
+import { ProviderParticipant } from '../../participants/participants-helper';
+import { InternalError, NCS_ERROR_CODE } from '../../errors/error-types';
+import { INTERNAL_ERROR_CODE } from '../../errors/error-types';
 
 const testProviderConfig = {
   url: `http://provider-url:66661`,
@@ -138,6 +139,21 @@ describe('Provider', () => {
       expect(initializeChannelSpy).toHaveBeenCalledTimes(1);
     });
 
+    it('It should start the participant inactive remover when the channel is connect', () => {
+      const provider = createSocketIOCollabProvider(testProviderConfig);
+      // @ts-ignore - Spy on private member for test
+      const participantsService = provider.participantsService;
+      jest.spyOn(participantsService, 'removeInactiveParticipants');
+
+      provider.initialize(() => editorState);
+      channel.emit('connected', { sid: 'sid-123' });
+      expect(participantsService.removeInactiveParticipants).toBeCalledWith(
+        'sid-123',
+        // @ts-ignore
+        provider.emitCallback,
+      );
+    });
+
     describe('should emit an event on the provider emitter', () => {
       it("'connecting' when the connection is being established to the provider", (done) => {
         const provider = createSocketIOCollabProvider(testProviderConfig);
@@ -208,7 +224,8 @@ describe('Provider', () => {
       );
       const provider = createSocketIOCollabProvider(testProviderConfig);
       jest
-        .spyOn(provider as any, 'getUnconfirmedSteps')
+        // @ts-ignore
+        .spyOn(provider.documentService as any, 'getUnconfirmedSteps')
         .mockImplementation(() => mockedSteps);
       provider.initialize(() => editorState);
       provider.on('init', (data) => {
@@ -225,23 +242,23 @@ describe('Provider', () => {
 
       provider.on('local-steps', ({ steps }) => {
         expect(steps).toEqual(mockedSteps);
-        // Event emit is a sync operation, so put done here is enough.
-        expect(sendActionEventSpy).toHaveBeenCalledTimes(1);
-        expect(sendActionEventSpy).toBeCalledWith(
-          'reinitialiseDocument',
-          'SUCCESS',
-          {
-            numUnconfirmedSteps: 2,
-          },
-        );
-        done();
       });
-
+      // Event emit is a sync operation, so put done here is enough.
       channel.emit('restore', mockRestoreData);
+
+      expect(sendActionEventSpy).toHaveBeenCalledTimes(1);
+      expect(sendActionEventSpy).toBeCalledWith(
+        'reinitialiseDocument',
+        'SUCCESS',
+        {
+          numUnconfirmedSteps: 2,
+        },
+      );
+      done();
     });
 
     it('should fire analytics on document restore failure', (done) => {
-      expect.assertions(5);
+      expect.assertions(7);
       const sendActionEventSpy = jest.spyOn(
         AnalyticsHelper.prototype,
         'sendActionEvent',
@@ -256,19 +273,22 @@ describe('Provider', () => {
         message: 'Someone has fallen in the river in LEGO city!',
       };
       jest
-        .spyOn(provider as any, 'getUnconfirmedSteps')
+        // @ts-ignore
+        .spyOn(provider.documentService as any, 'getUnconfirmedSteps')
         .mockImplementationOnce(() => mockedSteps);
       jest
-        .spyOn(provider as any, 'updateDocumentWithMetadata')
+        // @ts-ignore
+        .spyOn(provider.documentService as any, 'updateDocumentWithMetadata')
         .mockImplementationOnce(() => {
           throw restoreError;
         });
       provider.initialize(() => editorState);
       provider.on('error', (error) => {
         expect(error).toEqual({
+          code: 'DOCUMENT_RESTORE_ERROR',
+          message: 'Collab service unable to restore document',
+          recoverable: false,
           status: 500,
-          code: ErrorCodeMapper.restoreError.code,
-          message: ErrorCodeMapper.restoreError.message,
         });
         expect(sendActionEventSpy).toHaveBeenCalledTimes(1);
         expect(sendActionEventSpy).toHaveBeenCalledWith(
@@ -278,10 +298,32 @@ describe('Provider', () => {
             numUnconfirmedSteps: 2,
           },
         );
-        expect(sendErrorEventSpy).toHaveBeenCalledTimes(1);
-        expect(sendErrorEventSpy).toHaveBeenCalledWith(
+        expect(sendErrorEventSpy).toHaveBeenCalledTimes(3);
+        expect(sendErrorEventSpy).toHaveBeenNthCalledWith(
+          1,
           restoreError,
           'Error while reinitialising document',
+        );
+        expect(sendErrorEventSpy).toHaveBeenNthCalledWith(
+          2,
+          {
+            data: {
+              code: 'DOCUMENT_RESTORE_ERROR',
+              status: 500,
+            },
+            message: 'Caught error while trying to recover the document',
+          },
+          'Error handled',
+        );
+        expect(sendErrorEventSpy).toHaveBeenNthCalledWith(
+          3,
+          {
+            code: 'DOCUMENT_RESTORE_ERROR',
+            message: 'Collab service unable to restore document',
+            recoverable: false,
+            status: 500,
+          },
+          'Error emitted',
         );
         done();
       });
@@ -504,34 +546,6 @@ describe('Provider', () => {
   });
 
   describe('Emit errors to consumers', () => {
-    it('should emit failed_to_save S3 errors to consumer', (done) => {
-      const testProviderConfigWithAnalytics = {
-        url: `http://provider-url:66661`,
-        documentAri: 'ari:cloud:confluence:ABC:page/testpage',
-      };
-      const provider = createSocketIOCollabProvider(
-        testProviderConfigWithAnalytics,
-      );
-      provider.on('error', (error) => {
-        expect(error).toEqual({
-          status: 500,
-          code: 'FAIL_TO_SAVE',
-          message: 'Collab service is not able to save changes',
-        });
-        done();
-      });
-      const failedOnS3Error: ErrorPayload = {
-        data: {
-          status: 500,
-          code: 'FAILED_ON_S3',
-          meta: 'Request to S3 failed',
-        },
-        message: 'Unable to save into S3',
-      };
-      provider.initialize(() => editorState);
-      channel.emit('error', failedOnS3Error);
-    });
-
     it('should emit failed_to_save dynamo errors to consumer', (done) => {
       const testProviderConfigWithAnalytics = {
         url: `http://provider-url:66661`,
@@ -542,18 +556,20 @@ describe('Provider', () => {
       );
       provider.on('error', (error) => {
         expect(error).toEqual({
-          status: 500,
           code: 'FAIL_TO_SAVE',
           message: 'Collab service is not able to save changes',
+          recoverable: false,
+          status: 500,
         });
         done();
       });
-      const failedOnDynamo: ErrorPayload = {
+      const failedOnDynamo: InternalError = {
         data: {
           status: 500,
-          code: 'DYNAMO_ERROR',
+          meta: 'No value returned from metadata while updating',
+          code: NCS_ERROR_CODE.DYNAMO_ERROR,
         },
-        message: 'failedOnDynamo',
+        message: 'Error while updating metadata',
       };
       provider.initialize(() => editorState);
       channel.emit('error', failedOnDynamo);
@@ -569,18 +585,22 @@ describe('Provider', () => {
       );
       provider.on('error', (error) => {
         expect(error).toEqual({
-          status: 403,
           code: 'NO_PERMISSION_ERROR',
           message:
             'User does not have permissions to access this document or document is not found',
+          recoverable: true,
+          status: 403,
         });
         done();
       });
-      const noPermissionError: ErrorPayload = {
+      const noPermissionError: InternalError = {
         data: {
           status: 403,
-          code: 'INSUFFICIENT_EDITING_PERMISSION',
-          meta: 'The user does not have sufficient permission to collab editing the resource',
+          code: NCS_ERROR_CODE.INSUFFICIENT_EDITING_PERMISSION,
+          meta: {
+            description:
+              'The user does not have permission for collaborative editing of this resource or the resource was deleted',
+          },
         },
         message: 'No permission!',
       };
@@ -598,16 +618,18 @@ describe('Provider', () => {
       );
       provider.on('error', (error) => {
         expect(error).toEqual({
-          status: 500,
           code: 'INTERNAL_SERVICE_ERROR',
-          message: 'Collab service has experienced an internal server error',
+          message: 'Collab Provider experienced an unrecoverable error',
+          reason: 'CATCHUP_FAILED',
+          recoverable: false,
+          status: 500,
         });
         done();
       });
-      const catchupError: ErrorPayload = {
+      const catchupError: InternalError = {
         data: {
           status: 500,
-          code: 'CATCHUP_FAILED',
+          code: INTERNAL_ERROR_CODE.CATCHUP_FAILED,
         },
         message: 'Cannot fetch catchup from collab service',
       };
@@ -625,9 +647,10 @@ describe('Provider', () => {
       );
       provider.on('error', (error) => {
         expect(error).toEqual({
-          status: 404,
           code: 'DOCUMENT_NOT_FOUND',
           message: 'The requested document is not found',
+          recoverable: true,
+          status: 404,
         });
         done();
       });
@@ -642,11 +665,14 @@ describe('Provider', () => {
 
   describe('catch-up', () => {
     let sendActionEventSpy: jest.SpyInstance;
-    const stepRejectedError: ErrorPayload = {
+    const stepRejectedError: InternalError = {
       data: {
+        code: NCS_ERROR_CODE.HEAD_VERSION_UPDATE_FAILED,
+        meta: {
+          currentVersion: 3,
+          incomingVersion: 4,
+        },
         status: 409,
-        code: 'HEAD_VERSION_UPDATE_FAILED',
-        meta: 'The version number does not match the current head version.',
       },
       message: 'Version number does not match current head version.',
     };
@@ -661,7 +687,8 @@ describe('Provider', () => {
     it('should be triggered when reconnecting after being disconnected for more than 3s', async () => {
       const provider = createSocketIOCollabProvider(testProviderConfig);
       const throttledCatchupSpy = jest.spyOn(
-        provider as any,
+        // @ts-ignore
+        provider.documentService as any,
         'throttledCatchup',
       );
       provider.initialize(() => editorState);
@@ -684,7 +711,8 @@ describe('Provider', () => {
     it('should be triggered when confirmed steps from other participants were received from NCS that are further in the future than the local steps (aka some changes got lost before reaching us)', async () => {
       const provider = createSocketIOCollabProvider(testProviderConfig);
       const throttledCatchupSpy = jest.spyOn(
-        provider as any,
+        // @ts-ignore
+        provider.documentService as any,
         'throttledCatchup',
       );
       provider.initialize(() => editorState);
@@ -711,7 +739,8 @@ describe('Provider', () => {
     it('should be triggered after 15 rejected steps and reset the rejected steps counter', async () => {
       const provider = createSocketIOCollabProvider(testProviderConfig);
       const throttledCatchupSpy = jest.spyOn(
-        provider as any,
+        // @ts-ignore
+        provider.documentService as any,
         'throttledCatchup',
       );
 
@@ -728,7 +757,6 @@ describe('Provider', () => {
         filterQueue: expect.any(Function),
         getCurrentPmVersion: expect.any(Function),
         getUnconfirmedSteps: expect.any(Function),
-        getUnconfirmedStepsOrigins: expect.any(Function),
         updateDocumentWithMetadata: expect.any(Function),
       });
 
@@ -746,7 +774,6 @@ describe('Provider', () => {
         filterQueue: expect.any(Function),
         getCurrentPmVersion: expect.any(Function),
         getUnconfirmedSteps: expect.any(Function),
-        getUnconfirmedStepsOrigins: expect.any(Function),
         updateDocumentWithMetadata: expect.any(Function),
       });
     });
@@ -759,7 +786,8 @@ describe('Provider', () => {
       const provider = createSocketIOCollabProvider(testProviderConfig);
 
       const throttledCatchupSpy = jest.spyOn(
-        provider as any,
+        // @ts-ignore
+        provider.documentService as any,
         'throttledCatchup',
       );
 
@@ -811,23 +839,54 @@ describe('Provider', () => {
     });
 
     it('when emitting telepointers from steps', () => {
-      const fakeSteps = [
+      const fakeSteps: StepJson[] = [
         {
           stepType: 'replace',
           from: 123,
           to: 123,
-          slice: { content: [{ type: 'text', text: 'J' }] },
+          slice: {
+            content: [
+              {
+                type: 'text',
+                text: 'J',
+                attrs: { something: 'something' },
+                content: [],
+                marks: [],
+              },
+            ],
+            openStart: 123,
+            openEnd: 123,
+          },
           clientId: 2827051402,
           userId: '70121:8fce2c13-5f60-40be-a9f2-956c6f041fbe',
         },
       ];
-      jest
-        .spyOn(Telepointer, 'telepointersFromStep')
-        .mockImplementationOnce(() => {
-          throw fakeError;
-        });
+      const fakeEmit = jest.fn().mockImplementationOnce(() => {
+        throw fakeError;
+      });
+
+      const participant = {
+        name: 'Joni Vanderheijden',
+        email: '',
+        avatar:
+          'https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/70121:8fce2c13-5f60-40be-a9f2-956c6f041fbe/5955acd3-cc59-4220-b886-e9d4c33ed8e6/128',
+        sessionId: 'kxPWnuWui2kx-qUDB5LU',
+        lastActive: 1676954400001,
+        userId: '70121:8fce2c13-5f60-40be-a9f2-956c6f041fbe',
+        clientId: 2827051402,
+      } as ProviderParticipant; // TODO: Review CollabParticipant type, it's deviating from the real data
+
       // @ts-ignore You're not my mom, I call private methods in a negative test
-      provider.emitTelepointersFromSteps(fakeSteps);
+      provider.participantsService.participantsState.setBySessionId(
+        participant.sessionId,
+        participant,
+      );
+
+      // @ts-ignore You're not my mom, I call private methods in a negative test
+      provider.participantsService.emitTelepointersFromSteps(
+        fakeSteps,
+        fakeEmit,
+      );
 
       expect(sendErrorEventSpy).toHaveBeenCalledTimes(1);
       expect(sendErrorEventSpy).toHaveBeenCalledWith(
@@ -845,6 +904,7 @@ describe('Provider', () => {
       provider.sendMessage({
         type: 'telepointer',
         selection: { type: 'textSelection', anchor: 693, head: 693 },
+        sessionId: 'cAA0xTLkAZj-r79VBzG0',
       });
 
       expect(sendErrorEventSpy).toHaveBeenCalledTimes(1);
@@ -917,13 +977,13 @@ describe('Provider', () => {
       );
     });
 
-    it('when handling participant updated event', () => {
+    it('when handling participant updated event', async () => {
       // @ts-ignore don't care about type issues for a mock
-      jest.spyOn(provider, 'updateParticipant').mockImplementationOnce(() => {
+      jest.spyOn(provider, 'emit').mockImplementationOnce(() => {
         throw fakeError;
       });
       // @ts-ignore You're not my mom, I call private methods in a negative test
-      provider.onParticipantUpdated({
+      await provider.onParticipantUpdated({
         timestamp: Date.now(),
         sessionId: 'vXrOwZ7OIyXq17jdB2jh',
         userId: '70121:8fce2c13-5f60-40be-a9f2-956c6f041fbe',
@@ -937,9 +997,9 @@ describe('Provider', () => {
       );
     });
 
-    it('when handling participant updated event', () => {
+    it('when handling participant telepointer updated event', () => {
       // @ts-ignore don't care about type issues for a mock
-      jest.spyOn(provider, 'updateParticipant').mockImplementationOnce(() => {
+      jest.spyOn(provider, 'emit').mockImplementationOnce(() => {
         throw fakeError;
       });
       // @ts-ignore You're not my mom, I call private methods in a negative test
@@ -957,13 +1017,13 @@ describe('Provider', () => {
       );
     });
 
-    it('when updating participant', async () => {
+    it('when updating participant and emit doesnt work', async () => {
       // @ts-ignore don't care about type issues for a mock
-      jest.spyOn(provider, 'updateParticipants').mockImplementationOnce(() => {
+      jest.spyOn(provider, 'emit').mockImplementationOnce(() => {
         throw fakeError;
       });
       // @ts-ignore You're not my mom, I call private methods in a negative test
-      await provider.updateParticipant({
+      await provider.onParticipantUpdated({
         sessionId: 'vXrOwZ7OIyXq17jdB2jh',
         timestamp: Date.now(),
         userId: '70121:8fce2c13-5f60-40be-a9f2-956c6f041fbe',
@@ -973,36 +1033,7 @@ describe('Provider', () => {
       expect(sendErrorEventSpy).toHaveBeenCalledTimes(1);
       expect(sendErrorEventSpy).toHaveBeenCalledWith(
         fakeError,
-        'Error while updating participant',
-      );
-    });
-
-    it('when updating participants', () => {
-      // @ts-ignore don't care about type issues for a mock
-      jest.spyOn(window, 'setTimeout').mockImplementationOnce(() => {
-        throw fakeError;
-      });
-      // @ts-ignore You're not my mom, I call private methods in a negative test
-      provider.updateParticipants(
-        [
-          {
-            name: 'Joni Vanderheijden',
-            email: '',
-            avatar:
-              'https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/70121:8fce2c13-5f60-40be-a9f2-956c6f041fbe/5955acd3-cc59-4220-b886-e9d4c33ed8e6/128',
-            sessionId: 'kxPWnuWui2kx-qUDB5LU',
-            lastActive: 1676954400001,
-            userId: '70121:8fce2c13-5f60-40be-a9f2-956c6f041fbe',
-            clientId: 433693308,
-          } as CollabParticipant, // TODO: Review CollabParticipant type, it's deviating from the real data
-        ],
-        [],
-      );
-
-      expect(sendErrorEventSpy).toHaveBeenCalledTimes(1);
-      expect(sendErrorEventSpy).toHaveBeenCalledWith(
-        fakeError,
-        'Error while updating participants',
+        'Error while handling participant updated event',
       );
     });
   });
@@ -1285,7 +1316,8 @@ describe('Provider', () => {
 
         beforeEach(() => {
           sendSpy = jest
-            .spyOn(provider as any, 'sendStepsFromCurrentState')
+            // @ts-ignore
+            .spyOn(provider.documentService as any, 'sendStepsFromCurrentState')
             .mockImplementation(() => {});
 
           jest.spyOn(Utilities, 'sleep').mockResolvedValue(() => undefined);
@@ -1294,11 +1326,16 @@ describe('Provider', () => {
         it('should return if it can sync up', async () => {
           const mockedSteps = [{ type: 'fakeStep' }];
           jest
-            .spyOn(provider as any, 'getUnconfirmedSteps')
+            // @ts-ignore
+            .spyOn(provider.documentService as any, 'getUnconfirmedSteps')
             .mockImplementationOnce(() => mockedSteps)
             .mockImplementationOnce(() => []);
           jest
-            .spyOn(provider as any, 'getUnconfirmedStepsOrigins')
+            .spyOn(
+              // @ts-ignore
+              provider.documentService as any,
+              'getUnconfirmedStepsOrigins',
+            )
             .mockImplementationOnce(() => [1])
             .mockImplementationOnce(() => undefined);
           provider.initialize(() => editorState);

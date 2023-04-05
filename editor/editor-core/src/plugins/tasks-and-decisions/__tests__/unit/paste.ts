@@ -6,6 +6,7 @@ import {
   LightEditorPlugin,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { pluginKey } from '../../../../plugins/card/pm-plugins/main';
 import hyperlinkPlugin from '../../../hyperlink';
 import tasksAndDecisionsPlugin from '../..';
@@ -103,6 +104,7 @@ describe('Tasks and decisions', () => {
       doc,
       pluginKey,
       preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
         .add(tasksAndDecisionsPlugin)
         .add(hyperlinkPlugin),
     });

@@ -37,6 +37,7 @@ import * as pluginFactory from '../../pm-plugins/plugin-factory';
 import { inlineCommentProvider } from '../_utils';
 import annotationPlugin, { AnnotationInfo } from '../..';
 import { ACTIONS } from '../../pm-plugins/types';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 describe('commands', () => {
   let createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
@@ -46,6 +47,7 @@ describe('commands', () => {
 
   const createEditor = createProsemirrorEditorFactory();
   const annotationPreset = new Preset<LightEditorPlugin>()
+    .add([featureFlagsPlugin, {}])
     .add([analyticsPlugin, { createAnalyticsEvent: createAnalyticsEvent }])
     .add(textFormatting)
     .add([annotationPlugin, { inlineComment: { ...inlineCommentProvider } }]);

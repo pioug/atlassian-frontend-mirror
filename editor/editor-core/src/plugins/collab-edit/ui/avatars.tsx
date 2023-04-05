@@ -10,16 +10,17 @@ import toAvatar from './to-avatar';
 import { CollabParticipant } from '../types';
 import { scrollToCollabCursor } from '../utils';
 import { AnalyticsEvent } from '@atlaskit/analytics-next';
-import { getFeatureFlags } from '../../feature-flags-context';
+import { FeatureFlags } from '@atlaskit/editor-common/types';
 
 export interface AvatarsProps {
   sessionId?: string;
   participants: ReadOnlyParticipants;
   editorView?: EditorView;
+  featureFlags: FeatureFlags;
 }
 
 export const Avatars: React.FC<AvatarsProps> = React.memo((props) => {
-  const { sessionId, editorView } = props;
+  const { sessionId, editorView, featureFlags } = props;
   const participants = props.participants.toArray() as CollabParticipant[];
   const avatars = participants
     .sort((p) => (p.sessionId === sessionId ? -1 : 1))
@@ -45,7 +46,6 @@ export const Avatars: React.FC<AvatarsProps> = React.memo((props) => {
             return;
           }
 
-          const featureFlags = getFeatureFlags(editorView.state);
           const allowCollabAvatarScroll = featureFlags?.collabAvatarScroll;
 
           // user does not need to scroll to their own position (index 0)

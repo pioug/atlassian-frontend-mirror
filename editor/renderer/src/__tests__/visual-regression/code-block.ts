@@ -4,6 +4,7 @@ import { snapshot, initRendererWithADF } from './_utils';
 import * as adf from '../__fixtures__/code-block.adf.json';
 import * as adfCodeBlockOutsideViewport from '../__fixtures__/code-block-outside-viewport.adf.json';
 import * as adfTrailingNewline from '../__fixtures__/code-block-trailing-newline.adf.json';
+import * as adfCodeBlockInsideLayout from '../__fixtures__/code-block-inside-layout.adf.json';
 import { selectors } from '../__helpers/page-objects/_codeblock';
 
 const scrollToBottom = (page: PuppeteerPage) =>
@@ -22,7 +23,7 @@ describe('Snapshot Test: CodeBlock', () => {
       await snapshot(page, undefined, selectors.codeBlock);
     });
 
-    it('should render copy-to-clipboard button correctly on hover', async () => {
+    test('should render copy-to-clipboard button correctly on hover when enabled', async () => {
       await initRendererWithADF(page, {
         appearance: 'full-page',
         rendererProps: { allowCopyToClipboard: true },
@@ -46,6 +47,40 @@ describe('Snapshot Test: CodeBlock', () => {
           .Tooltip { display: none; }
         `,
       });
+    });
+
+    test('should render wrap button correctly on hover when enabled', async () => {
+      await initRendererWithADF(page, {
+        appearance: 'full-page',
+        rendererProps: { allowWrapCodeBlock: true },
+        adf,
+      });
+      await page.waitForSelector(selectors.codeBlock);
+      await page.hover(selectors.codeBlock);
+      await page.waitForSelector(
+        `${selectors.codeBlock} ${selectors.wrapButton}`,
+      );
+      await page.hover(`${selectors.codeBlock} ${selectors.wrapButton}`);
+    });
+
+    test('should render wrap and copy-to-clipboard buttons correctly on hover when both are enabled', async () => {
+      await initRendererWithADF(page, {
+        appearance: 'full-page',
+        rendererProps: { allowWrapCodeBlock: true, allowCopyToClipboard: true },
+        adf,
+      });
+      await page.waitForSelector(selectors.codeBlock);
+      await page.hover(selectors.codeBlock);
+    });
+
+    test('should render wrap and copy-to-clipboard buttons correctly inside a layout', async () => {
+      await initRendererWithADF(page, {
+        appearance: 'full-page',
+        rendererProps: { allowWrapCodeBlock: true, allowCopyToClipboard: true },
+        adf: adfCodeBlockInsideLayout,
+      });
+      await page.waitForSelector(selectors.codeBlock);
+      await page.hover(selectors.codeBlock);
     });
 
     test('should render trailing newline', async () => {

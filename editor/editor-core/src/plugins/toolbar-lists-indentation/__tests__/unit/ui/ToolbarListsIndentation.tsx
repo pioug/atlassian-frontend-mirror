@@ -33,6 +33,7 @@ import { ReactWrapper } from 'enzyme';
 import { render } from '@testing-library/react';
 import { Toolbar } from '../../../ui/Toolbar';
 import { IntlProvider } from 'react-intl-next';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 function clickToolbarOption(toolbarOption: ReactWrapper, title: string) {
   toolbarOption
@@ -63,6 +64,7 @@ describe('ToolbarListsIndentation', () => {
     return createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
         .add(basePlugin)
         .add([analyticsPlugin, { createAnalyticsEvent }])
         .add(textFormattingPlugin)
@@ -88,6 +90,7 @@ describe('ToolbarListsIndentation', () => {
     const ToolbarListsIndentationWrapper = mountWithIntl(
       <ToolbarListsIndentation
         editorView={editorWrapper.editorView}
+        featureFlags={{}}
         {...toolbarProps}
       />,
     );
@@ -225,6 +228,7 @@ describe('ToolbarListsIndentation', () => {
           <Toolbar
             editorView={editorView}
             showIndentationButtons={true}
+            featureFlags={{}}
             onItemActivated={({ buttonName, editorView }) => ({
               buttonName,
               editorView,

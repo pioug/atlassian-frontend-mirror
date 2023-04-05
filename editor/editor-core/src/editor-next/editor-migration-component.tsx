@@ -3,7 +3,7 @@ import { createFeatureFlagsFromProps } from '../create-editor/feature-flags-from
 import Editor from '../editor';
 import { EditorProps } from '../types/editor-props';
 import EditorNext from './index';
-
+import { defaultProps } from './utils/editorPropTypes';
 import useUniversalPreset from '../labs/next/presets/useUniversalPreset';
 interface WrapperProps {
   props: EditorProps;
@@ -15,6 +15,8 @@ const EditorNextWrapper = ({ props }: WrapperProps) => {
 };
 
 export default class EditorMigrationComponent extends React.Component<EditorProps> {
+  static defaultProps = defaultProps;
+
   render() {
     const featureFlags = createFeatureFlagsFromProps(this.props);
 

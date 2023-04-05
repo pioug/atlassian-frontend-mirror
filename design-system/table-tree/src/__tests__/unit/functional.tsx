@@ -11,6 +11,8 @@ import {
 
 import TableTree, { Cell, Header, Headers, Row, Rows } from '../../index';
 
+const c = (title: any, children?: any) => ({ title, children });
+
 test('flat tree', async () => {
   const flatItems = [
     { title: 'Chapter One', page: 10 },
@@ -91,15 +93,13 @@ test('chevron next to items with children', async () => {
   expect(secondRowExpandChevron).toBeInTheDocument();
 });
 
-test('expanding and collapsing', async () => {
-  const c = (title: any, children?: any) => ({ title, children });
+describe('expanding and collapsing', () => {
   const nestedData = [
     c('Chapter 1'),
     c('Chapter 2', [c('Chapter 2.1', [c('Chapter 2.1.1')])]),
     c('Chapter 3'),
   ];
-
-  render(
+  const jsx = (
     <TableTree>
       <Rows
         items={nestedData}
@@ -109,55 +109,193 @@ test('expanding and collapsing', async () => {
           </Row>
         )}
       />
-    </TableTree>,
+    </TableTree>
   );
 
-  let rows = screen.getAllByRole('row');
-  let rowContent = rows.map((row) => getByRole(row, 'gridcell'));
-  expect(rowContent[0]).toHaveTextContent('Chapter 1');
-  expect(rowContent[1]).toHaveTextContent('Chapter 2');
-  expect(rowContent[2]).toHaveTextContent('Chapter 3');
+  // This is a little ganky but this is used for the click handler and Jest
+  // doesn't really have a version of getSelection that operates according to
+  // the spec.
+  const originalSelection = window.getSelection;
 
-  let secondRowExpandButton = getByRole(rowContent[1], 'button', {
-    name: /expand/i,
+  beforeEach(() => {
+    window.getSelection = jest.fn(() => '' as unknown as Selection);
   });
-  fireEvent.click(secondRowExpandButton);
 
-  rows = screen.getAllByRole('row');
-  rowContent = rows.map((row) => getByRole(row, 'gridcell'));
-
-  expect(rowContent[0]).toHaveTextContent('Chapter 1');
-  expect(rowContent[1]).toHaveTextContent('Chapter 2');
-  expect(rowContent[2]).toHaveTextContent('Chapter 2.1');
-  expect(rowContent[3]).toHaveTextContent('Chapter 3');
-
-  let secondFistChildRowExpandButton = getByRole(rowContent[2], 'button', {
-    name: /expand/i,
+  afterAll(() => {
+    // Clean up
+    window.getSelection = originalSelection;
   });
-  fireEvent.click(secondFistChildRowExpandButton);
 
-  rows = screen.getAllByRole('row');
-  rowContent = rows.map((row) => getByRole(row, 'gridcell'));
-  expect(rowContent[0]).toHaveTextContent('Chapter 1');
-  expect(rowContent[1]).toHaveTextContent('Chapter 2');
-  expect(rowContent[2]).toHaveTextContent('Chapter 2.1');
-  expect(rowContent[3]).toHaveTextContent('Chapter 2.1.1');
-  expect(rowContent[4]).toHaveTextContent('Chapter 3');
+  it('should expand and collapse when using the buttons at the row header', () => {
+    const { getAllByRole, getByRole } = render(jsx);
 
-  secondRowExpandButton = getByRole(rowContent[1], 'button', {
-    name: /collapse/i,
+    let rowContent = getAllByRole('gridcell');
+    expect(rowContent[0]).toHaveTextContent('Chapter 1');
+    expect(rowContent[1]).toHaveTextContent('Chapter 2');
+    expect(rowContent[2]).toHaveTextContent('Chapter 3');
+
+    const secondRowExpandButton = getByRole('button', {
+      name: /expand/i,
+    });
+    fireEvent.click(secondRowExpandButton);
+
+    rowContent = getAllByRole('gridcell');
+
+    expect(rowContent[0]).toHaveTextContent('Chapter 1');
+    expect(rowContent[1]).toHaveTextContent('Chapter 2');
+    expect(rowContent[2]).toHaveTextContent('Chapter 2.1');
+    expect(rowContent[3]).toHaveTextContent('Chapter 3');
+
+    const secondFirstChildRowExpandButton = getByRole('button', {
+      name: /expand/i,
+    });
+    fireEvent.click(secondFirstChildRowExpandButton);
+
+    rowContent = getAllByRole('gridcell');
+    expect(rowContent[0]).toHaveTextContent('Chapter 1');
+    expect(rowContent[1]).toHaveTextContent('Chapter 2');
+    expect(rowContent[2]).toHaveTextContent('Chapter 2.1');
+    expect(rowContent[3]).toHaveTextContent('Chapter 2.1.1');
+    expect(rowContent[4]).toHaveTextContent('Chapter 3');
+
+    const collapseButtons = getAllByRole('button', {
+      name: /collapse/i,
+    });
+    fireEvent.click(collapseButtons[0]);
+
+    rowContent = getAllByRole('gridcell');
+    expect(rowContent[0]).toHaveTextContent('Chapter 1');
+    expect(rowContent[1]).toHaveTextContent('Chapter 2');
+    expect(rowContent[2]).toHaveTextContent('Chapter 3');
   });
-  fireEvent.click(secondRowExpandButton);
 
-  rows = screen.getAllByRole('row');
-  rowContent = rows.map((row) => getByRole(row, 'gridcell'));
-  expect(rowContent[0]).toHaveTextContent('Chapter 1');
-  expect(rowContent[1]).toHaveTextContent('Chapter 2');
-  expect(rowContent[2]).toHaveTextContent('Chapter 3');
+  it('should not expand and collapse when clicking anywhere on the row itself when not using shouldExpandOnClick', () => {
+    const jsxRow = (
+      <TableTree>
+        <Rows
+          items={nestedData}
+          render={({ title, children }: any) => (
+            <Row itemId={title} items={children} hasChildren={children?.length}>
+              <Cell>{title}</Cell>
+            </Row>
+          )}
+        />
+      </TableTree>
+    );
+
+    const jsxTableTree = <TableTree items={nestedData} />;
+
+    [jsxRow, jsxTableTree].forEach((jsx) => {
+      const { getAllByRole } = render(jsx);
+
+      const rows = getAllByRole('row');
+
+      let rowContent = getAllByRole('gridcell');
+      expect(rowContent[0]).toHaveTextContent('Chapter 1');
+      expect(rowContent[1]).toHaveTextContent('Chapter 2');
+      expect(rowContent[2]).toHaveTextContent('Chapter 3');
+
+      fireEvent.click(rows[1]);
+      rowContent = getAllByRole('gridcell');
+      expect(rowContent[0]).toHaveTextContent('Chapter 1');
+      expect(rowContent[1]).toHaveTextContent('Chapter 2');
+      expect(rowContent[2]).toHaveTextContent('Chapter 3');
+    });
+  });
+
+  it('should expand and collapse when clicking anywhere on the row itself when using shouldExpandOnClick', () => {
+    const jsxRow = (
+      <TableTree>
+        <Rows
+          items={nestedData}
+          render={({ title, children }: any) => (
+            <Row
+              itemId={title}
+              items={children}
+              hasChildren={children?.length}
+              shouldExpandOnClick
+            >
+              <Cell>{title}</Cell>
+            </Row>
+          )}
+        />
+      </TableTree>
+    );
+
+    const jsxTableTree = <TableTree items={nestedData} shouldExpandOnClick />;
+
+    [jsxRow, jsxTableTree].forEach((jsx) => {
+      const { getAllByRole } = render(jsx);
+
+      const rows = getAllByRole('row');
+
+      let rowContent = getAllByRole('gridcell');
+      expect(rowContent[0]).toHaveTextContent('Chapter 1');
+      expect(rowContent[1]).toHaveTextContent('Chapter 2');
+      expect(rowContent[2]).toHaveTextContent('Chapter 3');
+
+      fireEvent.click(rows[1]);
+      rowContent = getAllByRole('gridcell');
+      expect(rowContent[0]).toHaveTextContent('Chapter 1');
+      expect(rowContent[1]).toHaveTextContent('Chapter 2');
+      expect(rowContent[2]).toHaveTextContent('Chapter 2.1');
+      expect(rowContent[3]).toHaveTextContent('Chapter 3');
+
+      fireEvent.click(rows[1]);
+      rowContent = getAllByRole('gridcell');
+      expect(rowContent[0]).toHaveTextContent('Chapter 1');
+      expect(rowContent[1]).toHaveTextContent('Chapter 2');
+      expect(rowContent[2]).toHaveTextContent('Chapter 3');
+    });
+  });
+
+  it('should not expand when selecting text anywhere on the row', () => {
+    // Unfortunately, because Jest's getSelection implementation is lacking, we
+    // can't test the selection using RTL, but this will do the trick
+    // considering our use of getSelection is only for the `toString` output.
+    window.getSelection = jest.fn(() => 'selection' as unknown as Selection);
+
+    const jsxRow = (
+      <TableTree>
+        <Rows
+          items={nestedData}
+          render={({ title, children }: any) => (
+            <Row
+              itemId={title}
+              items={children}
+              hasChildren={children?.length}
+              shouldExpandOnClick
+            >
+              <Cell>{title}</Cell>
+            </Row>
+          )}
+        />
+      </TableTree>
+    );
+
+    const jsxTableTree = <TableTree items={nestedData} shouldExpandOnClick />;
+
+    [jsxRow, jsxTableTree].forEach((jsx) => {
+      const { getAllByRole } = render(jsx);
+
+      const rows = getAllByRole('row');
+
+      let rowContent = getAllByRole('gridcell');
+      expect(rowContent[0]).toHaveTextContent('Chapter 1');
+      expect(rowContent[1]).toHaveTextContent('Chapter 2');
+      expect(rowContent[2]).toHaveTextContent('Chapter 3');
+
+      // Should not expand because text is selected
+      fireEvent.click(rows[1]);
+      rowContent = getAllByRole('gridcell');
+      expect(rowContent[0]).toHaveTextContent('Chapter 1');
+      expect(rowContent[1]).toHaveTextContent('Chapter 2');
+      expect(rowContent[2]).toHaveTextContent('Chapter 3');
+    });
+  });
 });
 
 test('with isDefaultExpanded property', async () => {
-  const c = (title: string, children?: any) => ({ title, children });
   const nestedData = [
     c('Chapter 1'),
     c('Chapter 2', [c('Chapter 2.1', [c('Chapter 2.1.1')])]),
@@ -193,7 +331,6 @@ test('with isDefaultExpanded property', async () => {
 });
 
 test('with isExpanded=true property', async () => {
-  const c = (title: string, children?: any) => ({ title, children });
   const nestedData = [
     c('Chapter 1'),
     c('Chapter 2', [c('Chapter 2.1', [c('Chapter 2.1.1')])]),
@@ -253,7 +390,6 @@ test('with isExpanded=true property', async () => {
 });
 
 test('with isExpanded=false property', async () => {
-  const c = (title: string, children?: any) => ({ title, children });
   const nestedData = [
     c('Chapter 1'),
     c('Chapter 2', [c('Chapter 2.1', [c('Chapter 2.1.1')])]),

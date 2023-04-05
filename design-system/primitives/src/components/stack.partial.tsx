@@ -40,7 +40,7 @@ export interface StackProps<T extends ElementType = 'div'> {
   /**
    * Represents the space between each child.
    */
-  space?: Space;
+  space?: Gap;
 
   /**
    * A unique string that appears as data attribute data-testid in the rendered code, serving as a hook for automated tests.
@@ -51,6 +51,10 @@ export interface StackProps<T extends ElementType = 'div'> {
    * Elements to be rendered inside the Stack.
    */
   children: ReactNode;
+
+  /**
+   * Forwarded ref element
+   */
   ref?: ComponentPropsWithRef<T>['ref'];
 }
 
@@ -82,58 +86,63 @@ const flexGrowMap = {
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::41d7002b7f69aa44d0d8598e07a1afc6>>
+ * @codegen <<SignedSource::4eb2c996d6ce5791acad51e2b226635f>>
  * @codegenId spacing
  * @codegenCommand yarn codegen-styles
- * @codegenParams ["space"]
+ * @codegenParams ["stackSpace"]
  * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-spacing.tsx <<SignedSource::167d3b69b159ae33e74d4ea5ab7eade6>>
  */
-const spaceMap = {
-  '0': css({
-    gap: token('space.0', '0px'),
-  }),
-  '025': css({
-    gap: token('space.025', '2px'),
-  }),
-  '050': css({
-    gap: token('space.050', '4px'),
-  }),
-  '075': css({
-    gap: token('space.075', '6px'),
-  }),
-  '100': css({
-    gap: token('space.100', '8px'),
-  }),
-  '150': css({
-    gap: token('space.150', '12px'),
-  }),
-  '200': css({
-    gap: token('space.200', '16px'),
-  }),
-  '250': css({
-    gap: token('space.250', '20px'),
-  }),
-  '300': css({
-    gap: token('space.300', '24px'),
-  }),
-  '400': css({
-    gap: token('space.400', '32px'),
-  }),
-  '500': css({
-    gap: token('space.500', '40px'),
-  }),
-  '600': css({
-    gap: token('space.600', '48px'),
-  }),
-  '800': css({
-    gap: token('space.800', '64px'),
-  }),
-  '1000': css({
-    gap: token('space.1000', '80px'),
-  }),
-} as const;
+const stackSpaceMap = Object.fromEntries(
+  ['gap'].map((property: string) => [
+    property,
+    {
+      '0': css({
+        [property]: token('space.0', '0px'),
+      }),
+      '025': css({
+        [property]: token('space.025', '2px'),
+      }),
+      '050': css({
+        [property]: token('space.050', '4px'),
+      }),
+      '075': css({
+        [property]: token('space.075', '6px'),
+      }),
+      '100': css({
+        [property]: token('space.100', '8px'),
+      }),
+      '150': css({
+        [property]: token('space.150', '12px'),
+      }),
+      '200': css({
+        [property]: token('space.200', '16px'),
+      }),
+      '250': css({
+        [property]: token('space.250', '20px'),
+      }),
+      '300': css({
+        [property]: token('space.300', '24px'),
+      }),
+      '400': css({
+        [property]: token('space.400', '32px'),
+      }),
+      '500': css({
+        [property]: token('space.500', '40px'),
+      }),
+      '600': css({
+        [property]: token('space.600', '48px'),
+      }),
+      '800': css({
+        [property]: token('space.800', '64px'),
+      }),
+      '1000': css({
+        [property]: token('space.1000', '80px'),
+      }),
+    } as const,
+  ]),
+);
 
-export type Space = keyof typeof spaceMap;
+export type Gap = keyof typeof stackSpaceMap.gap;
 
 /**
  * @codegenEnd
@@ -181,7 +190,7 @@ const Stack = memo(
         <Component
           css={[
             baseStyles,
-            space && spaceMap[space],
+            space && stackSpaceMap.gap[space],
             alignItems && alignItemsMap[alignItems],
             grow && flexGrowMap[grow],
             justifyContent && justifyContentMap[justifyContent],

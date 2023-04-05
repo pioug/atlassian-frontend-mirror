@@ -76,6 +76,7 @@ export function ToolbarDropdown(props: DropdownProps) {
     return onItemActivated({
       editorView: props.editorView,
       buttonName: item.value.name as ButtonName,
+      featureFlags: props.featureFlags,
     });
   };
 

@@ -18,12 +18,15 @@ import {
   isTableCollapsible,
   collapseSelectedTable,
 } from '../../../plugins/table/utils/collapse';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 describe('collapse', () => {
   const createEditor = createProsemirrorEditorFactory();
 
   const editor = (doc: DocBuilder, expandInPlugins?: boolean) => {
-    const preset = new Preset<LightEditorPlugin>().add(tablePlugin);
+    const preset = new Preset<LightEditorPlugin>()
+      .add([featureFlagsPlugin, {}])
+      .add(tablePlugin);
 
     const finalPreset = expandInPlugins ? preset.add(expandPlugin) : preset;
 

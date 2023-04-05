@@ -13,11 +13,15 @@ import panelPlugin from '../../../panel';
 import layoutPlugin from '../../../layout';
 import datePlugin from '../../../date';
 import tasksDecisionsPlugin from '../../../tasks-and-decisions';
+import editorDisabledPlugin from '../../../editor-disabled';
 import selectionPlugin from '../../index';
 import { selectionPluginKey, SelectionPluginState } from '../../types';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 const createEditor = createProsemirrorEditorFactory();
 const preset = new Preset<LightEditorPlugin>()
+  .add([featureFlagsPlugin, {}])
+  .add(editorDisabledPlugin)
   .add(selectionPlugin)
   .add(layoutPlugin)
   .add(datePlugin)

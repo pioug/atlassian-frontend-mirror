@@ -57,6 +57,9 @@ export const useClearIcon = ({
       },
       isActive: false,
       isDisabled: !formattingIsPresent,
+      'aria-label': clearFormattingKeymap
+        ? tooltip(clearFormattingKeymap, String(clearFormattingLabel))
+        : String(clearFormattingLabel),
     };
   }, [clearFormattingLabel, isPluginAvailable, formattingIsPresent]);
 };

@@ -42,6 +42,7 @@ export function CardWithUrlContent({
   showActions,
   inheritDimensions,
   embedIframeRef,
+  embedIframeUrlType,
   inlinePreloaderStyle,
   ui,
   children,
@@ -330,6 +331,7 @@ export function CardWithUrlContent({
           id={id}
           url={url}
           cardState={state}
+          iframeUrlType={embedIframeUrlType}
           handleAuthorize={(services.length && handleAuthorize) || undefined}
           handleErrorRetry={handleRetry}
           handleFrameClick={handleClickWrapper}

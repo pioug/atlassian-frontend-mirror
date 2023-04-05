@@ -1,5 +1,31 @@
 # @atlaskit/editor-mobile-bridge
 
+## 36.3.5
+
+### Patch Changes
+
+- [`ef830fdabfa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ef830fdabfa) - [ED-17294] Enable type checking for Preset plugins on unit tests
+- [`31717a1fe63`](https://bitbucket.org/atlassian/atlassian-frontend/commits/31717a1fe63) - Fix the bug when clicking on media inline files in Hybrid Renderer, viewer is not opening.
+- Updated dependencies
+
+## 36.3.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.3.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 36.3.1
 
 ### Patch Changes

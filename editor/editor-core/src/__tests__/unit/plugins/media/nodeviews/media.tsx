@@ -2,8 +2,11 @@ import React from 'react';
 import { mount, ReactWrapper, shallow } from 'enzyme';
 import { NumericalCardDimensions } from '@atlaskit/media-card';
 import { EditorView } from 'prosemirror-view';
-import { media } from '@atlaskit/editor-test-helpers/doc-builder';
-import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
+import { media, border } from '@atlaskit/editor-test-helpers/doc-builder';
+import {
+  defaultSchema,
+  getSchemaBasedOnStage,
+} from '@atlaskit/adf-schema/schema-default';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { browser } from '@atlaskit/editor-common/utils';
 import { MediaFeatureFlags } from '@atlaskit/media-common';
@@ -22,6 +25,7 @@ import { stateKey as SelectionChangePluginKey } from '../../../../../plugins/bas
 import { PortalProviderAPI } from '../../../../../ui/PortalProvider';
 import { MediaOptions } from '../../../../../plugins/media/types';
 import { EventDispatcher } from '../../../../../event-dispatcher';
+import { MediaCardWrapper } from '../../../../../plugins/media/nodeviews/styles';
 
 describe('nodeviews/media', () => {
   let providerFactory = {} as ProviderFactory;
@@ -50,7 +54,15 @@ describe('nodeviews/media', () => {
     url: 'blob:http://example.com/dd8bd6d8-cd55-0f42-a159-a3d04bd63ac4#media-blob-url=true&id=d4df0829-1215-41ec-a83f-412543d30025&collection=MediaServicesSample&contextId=DUMMY-OBJECT-ID&mimeType=image%2Fpng&name=image-20200623-053610.png&size=422247&width=680&height=382',
   });
 
-  beforeEach(() => {
+  const mediaNodeWithBorder = border({ color: '#091E4224', size: 3 })(
+    media({
+      id: 'a559980d-cd47-43e2-8377-27359fcb905f',
+      type: 'file',
+      collection: 'MediaServicesSample',
+    })(),
+  )(getSchemaBasedOnStage('stage0'));
+
+  beforeEach(async () => {
     providerFactory = ProviderFactory.create({ mediaProvider });
     pluginState = {} as MediaPluginState;
     mediaProvider = fakeMediaProvider();
@@ -130,6 +142,38 @@ describe('nodeviews/media', () => {
     ) as unknown as ReactWrapper<MediaNodeProps>;
 
     expect(wrapper.find(Card).props().featureFlags).toEqual(featureFlags);
+  });
+
+  describe('border marks', () => {
+    it('Media node should render border marks with right size', (done) => {
+      wrapper = mount(
+        <Media
+          node={mediaNodeWithBorder[0]}
+          getPos={getPos}
+          view={view}
+          originalDimensions={cardDimensions}
+          maxDimensions={cardDimensions}
+          selected={false}
+          mediaProvider={mediaProvider}
+          onExternalImageLoaded={jest.fn()}
+        />,
+      );
+
+      setImmediate(() => {
+        wrapper.update();
+
+        let mediaCardWrapper = wrapper.find(MediaCardWrapper);
+        expect(mediaCardWrapper).toHaveLength(1);
+
+        let containerStyle = mediaCardWrapper
+          .find('[data-testid="media-card-wrapper"]')
+          .prop('style');
+        expect(containerStyle).toHaveProperty('borderWidth', '3px');
+        expect(containerStyle).toHaveProperty('borderRadius', '6px');
+
+        done();
+      });
+    });
   });
 
   describe('media node view', () => {

@@ -8,10 +8,15 @@ import {
   N200,
   N20A,
   N300,
+  N400,
   N900,
   R300,
   R400,
 } from '@atlaskit/theme/colors';
+import {
+  fontFamily as getFontFamily,
+  gridSize as getGridSize,
+} from '@atlaskit/theme/constants';
 
 export const commonSelectedStyles = 'emoji-common-selected';
 export const selectOnHoverStyles = 'emoji-common-select-on-hover';
@@ -20,19 +25,16 @@ export const emojiNodeStyles = 'emoji-common-node';
 export const emojiImage = 'emoji-common-emoji-image';
 export const emojiDeleteButton = 'emoji-common-deleteButton';
 export const emojiMainStyle = 'emoji-common-main-styles';
+export const deletableEmoji = 'emoji-common-deletable';
 
 export const deleteButton = css({
   // hide by default
   visibility: 'hidden',
   display: 'flex',
-  height: '0px',
-  // 40px emoji width with 2px left offset
-  width: '38px',
-  alignItems: 'flex-end',
-  justifyContent: 'flex-end',
-  // vertically align button and prevent emoji offset
-  paddingTop: '4px',
-  marginBottom: '-4px',
+  position: 'absolute',
+  top: '-8px',
+  right: '-8px',
+  zIndex: 1,
 });
 
 export const emojiToneSelectorContainer = css({
@@ -42,7 +44,7 @@ export const emojiToneSelectorContainer = css({
   padding: '10px 10px 11px 0',
 });
 
-export const emojiStyles = css({
+export const emojiImageContainer = css({
   borderRadius: token('border.radius.100', '3px'),
   backgroundColor: 'transparent',
   display: 'inline-block',
@@ -51,6 +53,10 @@ export const emojiStyles = css({
   // headings. Smaller headings get a slight increase in height, cannot add more negative margin
   // as a "selected" emoji (e.g. in the editor) will not look good.
   margin: '-1px 0',
+
+  img: {
+    display: 'block',
+  },
 
   [`&.${commonSelectedStyles},&.${selectOnHoverStyles}:hover`]: {
     backgroundColor: akEmojiSelectedBackgroundColor,
@@ -61,8 +67,14 @@ export const emojiStyles = css({
       // show delete button on hover
       visibility: 'visible',
     },
-  img: {
-    display: 'block',
+
+  [`&.${deletableEmoji}`]: {
+    position: 'relative',
+  },
+
+  // show delete button on focus
+  [`&.${deletableEmoji}:focus-within .${emojiDeleteButton}`]: {
+    visibility: 'visible',
   },
 
   '&:focus': {
@@ -72,7 +84,7 @@ export const emojiStyles = css({
   },
 });
 
-export const emojiContainer = css({
+export const emojiSpriteContainer = css({
   display: 'inline-block',
   // Ensure along with vertical align middle, we don't increase the line height for h1..h6, and p
   margin: '-1px 0',
@@ -247,13 +259,13 @@ export const previewImg = css({
   display: 'inline-block',
   flex: 'initial',
   width: '32px',
-  [`& .${emojiSprite}, > span`]: {
+  [`& .${emojiSprite}, span[role="img"]`]: {
     width: '32px',
     height: '32px',
     padding: 0,
     maxHeight: 'inherit',
   },
-  [`& > span > img`]: {
+  [`& span[role="img"] > img`]: {
     position: 'relative',
     left: '50%',
     top: '50%',
@@ -405,6 +417,19 @@ export const deleteText = css({
   },
 });
 
+export const headingH5 = css({
+  fontSize: token('font.size.075', '12px'),
+  fontWeight: token('font.weight.semibold', '600'),
+  letterSpacing: '-0.003em',
+  lineHeight: token('font.lineHeight.100', '16px'),
+});
+
+export const requiredSymbol = css({
+  paddingLeft: `${getGridSize() / 4}px`,
+  color: token('color.text.danger', R400),
+  fontFamily: getFontFamily(),
+});
+
 export const previewButtonGroup = css({
   display: 'flex',
 });
@@ -488,4 +513,13 @@ export const emojiActionsWrapper = css({
   display: 'flex',
   justifyContent: 'flex-end',
   alignItems: 'center',
+});
+
+export const tooltipShortcutStyle = css({
+  borderRadius: '3px',
+  backgroundColor: token('color.background.inverse.subtle', N400),
+  padding: '0 2px',
+  /* TODO: fix in develop: https://atlassian.slack.com/archives/CFG3PSQ9E/p1647395052443259?thread_ts=1647394572.556029&cid=CFG3PSQ9E */
+  /* stylelint-disable-next-line */
+  label: 'tooltip-shortcut',
 });

@@ -1,6 +1,6 @@
 import { SyntheticEvent } from 'react';
 
-import type { CardEvent } from '@atlaskit/media-card';
+import type { CardEvent, InlineCardEvent } from '@atlaskit/media-card';
 import type { Identifier } from '@atlaskit/media-client';
 
 export interface CardSurroundings {
@@ -14,7 +14,7 @@ export type MentionEventHandler = (
   event?: SyntheticEvent<HTMLSpanElement>,
 ) => void;
 export type CardEventClickHandler = (
-  result: CardEvent,
+  result: CardEvent | InlineCardEvent,
   surroundings?: CardSurroundings,
   analyticsEvent?: any,
 ) => void;

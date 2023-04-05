@@ -23,6 +23,7 @@ import { pluginKey } from '../../utils';
 import customAutoformatPlugin from '../../index';
 import basePlugin from '../../../base';
 import listPlugin from '../../../list';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 describe('custom-autoformat', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -50,6 +51,7 @@ describe('custom-autoformat', () => {
     return createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
         .add(customAutoformatPlugin)
         .add(basePlugin)
         .add(listPlugin),

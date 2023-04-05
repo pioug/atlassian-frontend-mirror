@@ -1,6 +1,8 @@
 import {
+  bodiedExtension,
   doc,
   DocBuilder,
+  fragmentMark,
   p,
   table,
   tr,
@@ -540,7 +542,7 @@ describe('ExtensionAPI', () => {
   });
 
   describe('doc.update()', () => {
-    it('should update ADF content with the given localId', () => {
+    it('should update marks of the element with the given localId', () => {
       const localId = 'local-id';
       const initDoc = doc(
         extension({
@@ -590,6 +592,185 @@ describe('ExtensionAPI', () => {
       });
     });
 
+    it('should update attrs of the element with the given localId', () => {
+      const initDoc = doc(
+        fragmentMark({ localId: 'localId-1' })(
+          bodiedExtension({
+            localId: 'localId-2',
+            extensionKey: 'fake.extension',
+            extensionType: 'atlassian.com.editor',
+            parameters: {
+              macroParams: {
+                param: { value: 'value' },
+              },
+            },
+          })(p('old text')),
+        ),
+      );
+      const editorView = createEditor(initDoc, true);
+      const api = createAPI(editorView);
+
+      api.doc.update('localId-2', () => ({
+        attrs: {
+          localId: 'localId-2',
+          extensionKey: 'fake.extension',
+          extensionType: 'atlassian.com.editor',
+          parameters: {
+            macroParams: {
+              param: { value: 'value' },
+              newParam: { value: 'value2' },
+            },
+          },
+        },
+      }));
+
+      expect(editorView.state.doc).toEqualDocument(
+        doc(
+          fragmentMark({ localId: 'localId-1' })(
+            bodiedExtension({
+              localId: 'localId-2',
+              extensionKey: 'fake.extension',
+              extensionType: 'atlassian.com.editor',
+              parameters: {
+                macroParams: {
+                  param: { value: 'value' },
+                  newParam: { value: 'value2' },
+                },
+              },
+            })(p('old text')),
+          ),
+        ),
+      );
+    });
+
+    it('should update the content of the element with the given localId', () => {
+      const initDoc = doc(
+        fragmentMark({ localId: 'localId-1' })(
+          bodiedExtension({
+            localId: 'localId-2',
+            extensionKey: 'fake.extension',
+            extensionType: 'atlassian.com.editor',
+          })(p('old text')),
+        ),
+      );
+      const editorView = createEditor(initDoc, true);
+      const api = createAPI(editorView);
+
+      api.doc.update('localId-2', () => ({
+        content: [
+          {
+            type: 'paragraph',
+            content: [{ type: 'text', text: 'hello API!' }],
+          },
+        ],
+      }));
+
+      expect(editorView.state.doc).toEqualDocument(
+        doc(
+          fragmentMark({ localId: 'localId-1' })(
+            bodiedExtension({
+              localId: 'localId-2',
+              extensionKey: 'fake.extension',
+              extensionType: 'atlassian.com.editor',
+            })(p('hello API!')),
+          ),
+        ),
+      );
+    });
+
+    it('Should update the table with new attrs, content and marks', () => {
+      const initDoc = doc(
+        table({ localId: 'localId-1' })(
+          tr(td({})(p()), td({})(p()), td({})(p())),
+        ),
+      );
+
+      const editorView = createEditor(initDoc, true);
+      const api = createAPI(editorView);
+
+      api.doc.update('localId-1', () => ({
+        content: [
+          {
+            type: 'tableRow',
+            content: [
+              {
+                type: 'tableCell',
+                attrs: {},
+                content: [
+                  { type: 'paragraph', content: [{ type: 'text', text: '1' }] },
+                ],
+              },
+              {
+                type: 'tableCell',
+                attrs: {},
+                content: [
+                  { type: 'paragraph', content: [{ type: 'text', text: '2' }] },
+                ],
+              },
+              {
+                type: 'tableCell',
+                attrs: {},
+                content: [
+                  { type: 'paragraph', content: [{ type: 'text', text: '3' }] },
+                ],
+              },
+            ],
+          },
+        ],
+        attrs: {
+          isNumberColumnEnabled: false,
+          localId: 'localId-2',
+        },
+        marks: [
+          {
+            type: 'fragment',
+            attrs: { localId: 'localId-3' },
+          },
+        ],
+      }));
+
+      expect(editorView.state.doc).toEqualDocument(
+        doc(
+          fragmentMark({ localId: 'localId-3' })(
+            table({
+              isNumberColumnEnabled: false,
+              localId: 'localId-2',
+            })(tr(td({})(p('1')), td({})(p('2')), td({})(p('3')))),
+          ),
+        ),
+      );
+    });
+
+    it('Should throw error when localId id empty string', () => {
+      const initDoc = doc(
+        bodiedExtension({
+          localId: '1',
+          extensionKey: 'fake.extension',
+          extensionType: 'atlassian.com.editor',
+        })(p('')),
+      );
+      const editorView = createEditor(initDoc, true);
+      const api = createAPI(editorView);
+      expect(() => {
+        api.doc.update('', (params) => params);
+      }).toThrowError("update(): Invalid localId ''.");
+    });
+
+    it('Should throw error when invalid localId is given', () => {
+      const initDoc = doc(
+        bodiedExtension({
+          localId: '1',
+          extensionKey: 'fake.extension',
+          extensionType: 'atlassian.com.editor',
+        })(p('')),
+      );
+      const editorView = createEditor(initDoc, true);
+      const api = createAPI(editorView);
+      expect(() => {
+        api.doc.update('2', (params) => params);
+      }).toThrowError("update(): Could not find node with ID '2'.");
+    });
+
     it('should throw error when invalid marks given', () => {
       const localId = 'local-id';
       const initDoc = doc(
@@ -637,6 +818,53 @@ describe('ExtensionAPI', () => {
       }).toThrowError(
         "update(): Parent of type 'doc' does not allow marks of type 'code'.",
       );
+    });
+
+    it('Should throw error when invalid content is given', () => {
+      const initDoc = doc(
+        bodiedExtension({
+          localId: 'localId-1',
+          extensionKey: 'fake.extension',
+          extensionType: 'atlassian.com.editor',
+        })(p('')),
+      );
+
+      const editorView = createEditor(initDoc);
+      const api = createAPI(editorView);
+
+      expect(() => {
+        api.doc.update('localId-1', ({ attrs, marks }) => ({
+          content: {
+            type: '😑',
+            content: [{ type: 'text', text: 'hello API!' }],
+          } as any,
+          attrs,
+          marks,
+        }));
+      }).toThrowError('Invalid input for Fragment.fromJSON');
+    });
+
+    it('Should throw error when invalid content is given 2', () => {
+      const initDoc = doc(
+        bodiedExtension({
+          localId: 'localId-1',
+          extensionKey: 'fake.extension',
+          extensionType: 'atlassian.com.editor',
+        })(p('')),
+      );
+      const editorView = createEditor(initDoc);
+      const api = createAPI(editorView);
+
+      expect(() => {
+        api.doc.update('localId-1', ({ attrs, marks }) => ({
+          content: {
+            type: 'paragraph',
+            content: [{ type: 'text', donut: 'hello API!' }],
+          } as any,
+          attrs,
+          marks,
+        }));
+      }).toThrowError('Invalid input for Fragment.fromJSON');
     });
   });
 });

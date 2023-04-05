@@ -1,5 +1,12 @@
 # @atlaskit/reactions
 
+## 22.2.7
+
+### Patch Changes
+
+- [`419eaff2c03`](https://bitbucket.org/atlassian/atlassian-frontend/commits/419eaff2c03) - fix focus trap not deactivated issue in reaction picker
+- Updated dependencies
+
 ## 22.2.6
 
 ### Patch Changes

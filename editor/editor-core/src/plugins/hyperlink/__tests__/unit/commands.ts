@@ -43,6 +43,7 @@ import emojiPlugin from '../../../emoji';
 import hyperlinkPlugin from '../../index';
 import textFormattingPlugin from '../../../text-formatting';
 import codeBlockPlugin from '../../../code-block';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 const googleUrl = 'https://google.com';
 const confluenceUrl =
@@ -67,6 +68,7 @@ describe('hyperlink commands', () => {
       doc,
       providerFactory,
       preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
         .add([analyticsPlugin, { createAnalyticsEvent }])
         .add(hyperlinkPlugin)
         .add(textFormattingPlugin)

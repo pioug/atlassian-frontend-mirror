@@ -8,6 +8,7 @@ import { ExpandedFrame } from '../components/ExpandedFrame';
 import { ImageIcon } from '../components/ImageIcon';
 import { ContextViewModel, FrameStyle } from '../types';
 import { Frame } from '../components/Frame';
+import { useThemeObserver } from '@atlaskit/tokens';
 
 export interface EmbedCardResolvedViewProps {
   /** The title of the link */
@@ -30,7 +31,8 @@ export interface EmbedCardResolvedViewProps {
   onClick?: (evt: React.MouseEvent) => void;
   /** For testing purposes only. */
   testId?: string;
-
+  /* It determines whether a link source supports different design theme modes */
+  isSupportTheming?: boolean;
   inheritDimensions?: boolean;
   /** Optional callback for when user dwells cursor over iframe - for analytics **/
   onIframeDwell?: (dwellTime: number, dwellPercentVisible: number) => void;
@@ -57,6 +59,7 @@ export const EmbedCardResolvedView = React.forwardRef<
       inheritDimensions,
       onIframeDwell,
       onIframeFocus,
+      isSupportTheming,
     },
     embedIframeRef,
   ) => {
@@ -81,6 +84,15 @@ export const EmbedCardResolvedView = React.forwardRef<
       return <ImageIcon src={src} default={linkGlyph} />;
     }, [src, linkGlyph, iconFromContext]);
 
+    const { colorMode } = useThemeObserver();
+    let previewUrl = preview?.src;
+
+    if (previewUrl && isSupportTheming && colorMode) {
+      previewUrl = `${previewUrl}${
+        previewUrl.includes('?') ? '&' : '?'
+      }themeMode=${colorMode}`;
+    }
+
     return (
       <ExpandedFrame
         isSelected={isSelected}
@@ -94,7 +106,7 @@ export const EmbedCardResolvedView = React.forwardRef<
         inheritDimensions={inheritDimensions}
       >
         <Frame
-          url={preview?.src}
+          url={previewUrl}
           isTrusted={isTrusted}
           testId={testId}
           ref={embedIframeRef}

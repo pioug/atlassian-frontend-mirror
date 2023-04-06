@@ -18,6 +18,8 @@ export type FlexibleEmbedProps = {
   /* If you are not providing src, you should still provide a url, allowing people to access the page where the document is. */
   /* Also used for analytics. */
   url: string;
+  /* It determines whether a link source supports different design theme modes */
+  isSupportTheming?: boolean;
 };
 
 export interface PreviewFunctionProps extends EmbedModalProps {

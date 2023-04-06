@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-table
 
+## 1.2.3
+
+### Patch Changes
+
+- [`9f9b4b1cf60`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9f9b4b1cf60) - [ux] [HOT-103036] Fix table width styling when broken out with fragment mark
+
 ## 1.2.2
 
 ### Patch Changes

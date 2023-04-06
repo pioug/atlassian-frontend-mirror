@@ -15,8 +15,11 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
+/// <reference types="react" />
+
 import { AnyAction } from 'redux';
 import { JsonLd } from 'json-ld-types';
+import { default as React_2 } from 'react';
 import { Store } from 'redux';
 
 // @public (undocumented)
@@ -351,6 +354,35 @@ export type ServerErrorType =
   | 'SearchRateLimitError'
   | 'SearchTimeoutError'
   | 'SearchUnsupportedError';
+
+// @public (undocumented)
+export const Skeleton: ({
+  width,
+  appearance,
+  height,
+  borderRadius,
+  isShimmering,
+  testId,
+  style,
+}: SkeletonProps) => JSX.Element;
+
+// @public (undocumented)
+interface SkeletonProps {
+  // (undocumented)
+  appearance?: 'blue' | 'gray';
+  // (undocumented)
+  borderRadius?: number | string;
+  // (undocumented)
+  height?: number | string;
+  // (undocumented)
+  isShimmering?: boolean;
+  // (undocumented)
+  style?: React_2.CSSProperties;
+  // (undocumented)
+  testId?: string;
+  // (undocumented)
+  width?: number | string;
+}
 
 // (No @packageDocumentation comment for this package)
 ```

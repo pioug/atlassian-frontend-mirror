@@ -21,6 +21,8 @@ export type EmbedModalProps = {
   iframeName: string;
   /* A flag that determines whether link source can be trusted in iframe */
   isTrusted?: boolean;
+  // /* It determines whether a link source supports different design theme modes */
+  isSupportTheming?: boolean;
   /* Add responses to the modal being closed */
   onClose: (context: EmbedModalContext) => void;
   /* Hook for when primary action is clicked */

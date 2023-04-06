@@ -137,6 +137,36 @@ const listLargeNumericMarkersOldStyles = `
   }
 `;
 
+const breakoutWidthStyling = (
+  useFragmentMarkBreakoutWidthStylingFix: boolean,
+) => {
+  if (useFragmentMarkBreakoutWidthStylingFix) {
+    return css`
+      > *:not([data-mark-type='fragment'])
+        .${ClassName.NODEVIEW_WRAPPER}
+        .${ClassName.TABLE_CONTAINER} {
+        margin-left: unset !important;
+        width: 100% !important;
+      }
+
+      > [data-mark-type='fragment']
+        *
+        .${ClassName.NODEVIEW_WRAPPER}
+        .${ClassName.TABLE_CONTAINER} {
+        margin-left: unset !important;
+        width: 100% !important;
+      }
+    `;
+  }
+
+  return css`
+    > * .${ClassName.NODEVIEW_WRAPPER} .${ClassName.TABLE_CONTAINER} {
+      margin-left: unset !important;
+      width: 100% !important;
+    }
+  `;
+};
+
 // TODO: https://product-fabric.atlassian.net/browse/DSP-4139
 export const tableStyles = (
   props: ThemeProps & { featureFlags?: FeatureFlags },
@@ -410,11 +440,10 @@ export const tableStyles = (
        */
     }
 
-    /* Breakout only works on top level */
-    > * .${ClassName.NODEVIEW_WRAPPER} .${ClassName.TABLE_CONTAINER} {
-      margin-left: unset !important;
-      width: 100% !important;
-    }
+    /* Breakout only works on top level unless wrapped in fragment mark */
+    ${breakoutWidthStyling(
+      props.featureFlags?.useFragmentMarkBreakoutWidthStylingFix ?? true,
+    )}
 
     ${columnControlsDecoration(props)};
 

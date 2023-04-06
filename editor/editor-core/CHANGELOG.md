@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 182.0.1
+
+### Patch Changes
+
+- [`190cca54c10`](https://bitbucket.org/atlassian/atlassian-frontend/commits/190cca54c10) - [ux] Update the image border icon
+
 ## 182.0.0
 
 ### Major Changes

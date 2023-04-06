@@ -111,4 +111,14 @@ export default defineMessages({
     defaultMessage: 'Dark purple',
     description: 'Name of a color',
   },
+  'subtle-gray': {
+    id: 'fabric.theme.subtle-gray',
+    defaultMessage: 'Subtle gray',
+    description: 'Name of a color',
+  },
+  'bold-gray': {
+    id: 'fabric.theme.bold-gray',
+    defaultMessage: 'Bold gray',
+    description: 'Name of a color',
+  },
 });

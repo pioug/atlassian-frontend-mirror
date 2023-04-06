@@ -27,6 +27,7 @@ export const configs: {
       '@atlaskit/platform/ensure-test-runner-arguments': string;
       '@atlaskit/platform/ensure-test-runner-nested-count': string;
       '@atlaskit/platform/no-invalid-feature-flag-usage': string;
+      '@atlaskit/platform/no-invalid-storybook-decorator-usage': string;
     };
   };
 };
@@ -43,6 +44,7 @@ export const rules: {
   'ensure-test-runner-nested-count': Rule.RuleModule;
   'no-invalid-feature-flag-usage': Rule.RuleModule;
   'no-pre-post-install-scripts': Rule.RuleModule;
+  'no-invalid-storybook-decorator-usage': Rule.RuleModule;
 };
 
 // (No @packageDocumentation comment for this package)

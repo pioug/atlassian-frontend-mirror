@@ -3,7 +3,7 @@ import { jsx } from '@emotion/react';
 import { IntlShape } from 'react-intl-next';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 import { DropdownMenuSharedCssClassName } from '@atlaskit/editor-common/styles';
-import ImageBorderIcon from '@atlaskit/icon/glyph/image-border';
+import { BorderIcon } from '@atlaskit/editor-common/icons';
 import { useRef, useState } from 'react';
 import {
   ColorPalette,
@@ -168,7 +168,7 @@ const ImageBorder = ({
               ? formatMessage(messages.removeBorder)
               : formatMessage(messages.addBorder)
           }
-          iconBefore={<ImageBorderIcon label="" />}
+          iconBefore={<BorderIcon label="" />}
           title={
             enabled
               ? formatMessage(messages.removeBorder)

@@ -6,7 +6,11 @@ import {
   COLOR_MODE_ATTRIBUTE,
   THEME_DATA_ATTRIBUTE,
 } from '../../../src/constants';
-import themeConfig, { Themes } from '../../../src/theme-config';
+import themeConfig, {
+  themeOverrideConfig,
+  ThemeOverrides,
+  Themes,
+} from '../../../src/theme-config';
 import { getCSSCustomProperty } from '../../../src/utils/token-ids';
 import sortTokens from '../sort-tokens';
 
@@ -18,7 +22,9 @@ export const cssVariableFormatter: Format['formatter'] = ({
     throw new Error('options.themeName required');
   }
 
-  const theme = themeConfig[options.themeName as Themes];
+  const theme =
+    themeOverrideConfig[options.themeName as ThemeOverrides] ||
+    themeConfig[options.themeName as Themes];
   const tokens: DesignToken[] = [];
   const colorModes = ['light', 'dark'] as const;
 
@@ -42,15 +48,16 @@ export const cssVariableFormatter: Format['formatter'] = ({
   });
 
   let output = '';
+  const themeId = theme.overrideTheme || theme.id;
 
   if (theme.attributes.type === 'color') {
     const selectors = colorModes.map(
       (mode) =>
-        `html[${COLOR_MODE_ATTRIBUTE}="${mode}"][${THEME_DATA_ATTRIBUTE}~="${mode}:${theme.id}"]`,
+        `html[${COLOR_MODE_ATTRIBUTE}="${mode}"][${THEME_DATA_ATTRIBUTE}~="${mode}:${themeId}"]`,
     );
     output += `${selectors.join(',\n')} {\n`;
   } else {
-    output += `html[${THEME_DATA_ATTRIBUTE}~="${theme.attributes.type}:${theme.id}"] {\n`;
+    output += `html[${THEME_DATA_ATTRIBUTE}~="${theme.attributes.type}:${themeId}"] {\n`;
   }
 
   tokens.forEach((token) => {

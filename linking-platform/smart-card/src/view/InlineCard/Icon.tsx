@@ -1,16 +1,7 @@
 import styled from '@emotion/styled';
-import { keyframes } from '@emotion/react';
-import { token } from '@atlaskit/tokens';
 
-const placeholderShimmer = keyframes`
-  0% {
-    background-position: -20px 0;
-  }
-
-  100% {
-    background-position: 20px 0;
-  }
-`;
+import { Skeleton } from '@atlaskit/linking-common';
+import React from 'react';
 
 // TODO: Figure out a more scalable/responsive solution
 // for vertical alignment.
@@ -36,31 +27,22 @@ export const AKIconWrapper = styled.span`
   margin-right: -2px;
 `;
 
-export const Shimmer = styled.span`
-  height: 14px;
-  width: 14px;
-  margin-right: 4px;
-  border-radius: 2px;
-  user-select: none;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: ${token('color.skeleton.subtle', '#f6f7f8')};
-  background-image: linear-gradient(
-    to right,
-    transparent 0%,
-    ${token('color.skeleton', '#edeef1')} 20%,
-    transparent 40%,
-    transparent 100%
-  );
-  background-repeat: no-repeat;
-  background-size: 40px 14px;
-  display: inline-block;
+export const Shimmer = ({ testId }: { testId: string }) => {
+  const skeletonCustomStyles: React.CSSProperties = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    marginRight: 4,
+  };
 
-  animation-duration: 1s;
-  animation-fill-mode: forwards;
-  animation-iteration-count: infinite;
-  animation-name: ${placeholderShimmer};
-  animation-timing-function: linear;
-`;
+  return (
+    <Skeleton
+      width={14}
+      height={14}
+      borderRadius={2}
+      testId={testId}
+      style={skeletonCustomStyles}
+    />
+  );
+};

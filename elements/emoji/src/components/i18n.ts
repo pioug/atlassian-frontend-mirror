@@ -53,7 +53,7 @@ export const messages = defineMessages({
   emojiChooseFileScreenReaderDescription: {
     id: 'fabric.emoji.choose.file.screenReaderDescription',
     defaultMessage:
-      'Choose a file for the emoji. JPG, PNG or GIF. Max size 1 MB.',
+      'Choose a file for the emoji. JPG, PNG or GIF. Max size 1 MB',
     description:
       'Message indicating the purpose of choosing the file and requirements for the file',
   },
@@ -225,7 +225,7 @@ export const messages = defineMessages({
   emojiPickerGrid: {
     id: 'fabric.emoji.pickerlist.grid',
     defaultMessage:
-      '{showSearchResults, select, true{Search results} other{Emojis}}.',
+      '{showSearchResults, select, true{Search results} other{Emojis}}',
     description: `Aria label for emoji picker grid, showSearchResults is a boolean variable, message will be "Entering Emojis table", or "Leaving Emojis"`,
   },
   emojiButtonRoleDescription: {

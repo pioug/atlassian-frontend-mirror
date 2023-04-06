@@ -43,6 +43,7 @@ describe('extractors.previewAction', () => {
       }),
     ).toEqual({
       downloadUrl: undefined,
+      isSupportTheming: false,
       linkIcon: { icon: undefined, render: undefined },
       providerName: undefined,
       src: 'https://my.url.com',
@@ -61,6 +62,7 @@ describe('extractors.previewAction', () => {
       }),
     ).toEqual({
       downloadUrl: 'https://my.url.com',
+      isSupportTheming: false,
       linkIcon: { icon: undefined, render: undefined },
       providerName: undefined,
       src: 'https://my.url.com',

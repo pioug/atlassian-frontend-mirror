@@ -4,6 +4,7 @@ import noPreAndPostInstallScripts from './rules/no-pre-post-installs';
 import ensureTestRunnerArguments from './rules/ensure-test-runner-arguments';
 import ensureTestRunnerNestedCount from './rules/ensure-test-runner-nested-count';
 import noInvalidFeatureFlagUsage from './rules/no-invalid-feature-flag-usage';
+import noInvalidStorybookDecoratorUsage from './rules/no-invalid-storybook-decorator-usage';
 
 export const rules = {
   'ensure-feature-flag-registration': ensureFeatureFlagRegistration,
@@ -11,6 +12,7 @@ export const rules = {
   'ensure-test-runner-nested-count': ensureTestRunnerNestedCount,
   'no-invalid-feature-flag-usage': noInvalidFeatureFlagUsage,
   'no-pre-post-install-scripts': noPreAndPostInstallScripts,
+  'no-invalid-storybook-decorator-usage': noInvalidStorybookDecoratorUsage,
 };
 
 export const configs = {
@@ -21,6 +23,7 @@ export const configs = {
       '@atlaskit/platform/ensure-test-runner-arguments': 'error',
       '@atlaskit/platform/ensure-test-runner-nested-count': 'warn',
       '@atlaskit/platform/no-invalid-feature-flag-usage': 'error',
+      '@atlaskit/platform/no-invalid-storybook-decorator-usage': 'error',
     },
   },
 };

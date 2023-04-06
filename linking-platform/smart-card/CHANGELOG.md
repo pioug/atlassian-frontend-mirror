@@ -1,5 +1,18 @@
 # @atlaskit/smart-card
 
+## 25.3.0
+
+### Minor Changes
+
+- [`4a1604ce132`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4a1604ce132) - Adds a new themeMode query param to preview links url from 1P integrators that support different theme modes.
+
+## 25.2.1
+
+### Patch Changes
+
+- [`03394282a26`](https://bitbucket.org/atlassian/atlassian-frontend/commits/03394282a26) - The change migrates `Shimmer` component to use the `Skeleton` component from the common package
+- Updated dependencies
+
 ## 25.2.0
 
 ### Minor Changes

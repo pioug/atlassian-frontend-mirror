@@ -8,6 +8,7 @@ import {
   LinkPreview,
 } from '@atlaskit/linking-common/extractors';
 import { extractIsTrusted } from '../common/meta/extractIsTrusted';
+import { extractIsSupportTheming } from '../common/meta/extractIsSupportTheming';
 import { EmbedCardResolvedViewProps } from '../../view/EmbedCard/views/ResolvedView';
 
 const extractEmbedPreview = (
@@ -26,12 +27,11 @@ export const extractEmbedProps = (
   meta?: JsonLd.Meta.BaseMeta,
   platform?: CardPlatform,
   iframeUrlType?: EmbedIframeUrlType,
-): EmbedCardResolvedViewProps => {
-  return {
-    link: extractLink(jsonLd) || '',
-    title: extractTitle(jsonLd),
-    context: extractProvider(jsonLd),
-    preview: extractEmbedPreview(jsonLd, platform, iframeUrlType),
-    isTrusted: extractIsTrusted(meta),
-  };
-};
+): EmbedCardResolvedViewProps => ({
+  link: extractLink(jsonLd) || '',
+  title: extractTitle(jsonLd),
+  context: extractProvider(jsonLd),
+  preview: extractEmbedPreview(jsonLd, platform, iframeUrlType),
+  isTrusted: extractIsTrusted(meta),
+  isSupportTheming: extractIsSupportTheming(meta),
+});

@@ -66,7 +66,7 @@ export class IconAndTitleLayout extends React.Component<IconAndTitleLayoutProps>
           />
         }
         errored={errored}
-        loading={<Shimmer data-testid={`${testId}-loading`} />}
+        loading={<Shimmer testId={`${testId}-loading`} />}
       />
     );
   }

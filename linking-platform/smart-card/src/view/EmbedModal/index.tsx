@@ -9,6 +9,7 @@ import EmbedContent from './components/embed-content';
 import { EmbedModalProps, EmbedModalSize } from './types';
 import withErrorBoundary from './components/error-boundary';
 import withAnalytics from './components/analytics';
+import { useThemeObserver } from '@atlaskit/tokens';
 
 const toSize = (width: string) =>
   width === MAX_MODAL_SIZE ? EmbedModalSize.Large : EmbedModalSize.Small;
@@ -33,6 +34,7 @@ const EmbedModal: React.FC<EmbedModalProps> = ({
   testId = 'smart-embed-preview-modal',
   title,
   url,
+  isSupportTheming,
 }) => {
   const defaultWidth = toWidth(size);
   const [isOpen, setIsOpen] = useState(showModal);
@@ -64,6 +66,15 @@ const EmbedModal: React.FC<EmbedModalProps> = ({
     }
   }, [onResize, width]);
 
+  const { colorMode } = useThemeObserver();
+  let previewUrl = src;
+
+  if (previewUrl && isSupportTheming && colorMode) {
+    previewUrl = `${previewUrl}${
+      previewUrl.includes('?') ? '&' : '?'
+    }themeMode=${colorMode}`;
+  }
+
   return (
     <ModalTransition>
       {isOpen && (
@@ -91,7 +102,7 @@ const EmbedModal: React.FC<EmbedModalProps> = ({
             <EmbedContent
               isTrusted={isTrusted}
               name={iframeName}
-              src={src}
+              src={previewUrl}
               testId={testId}
             />
           </ModalBody>

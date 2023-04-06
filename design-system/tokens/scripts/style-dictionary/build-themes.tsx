@@ -9,7 +9,12 @@ import defaultPalette from '../../src/palettes/palette';
 import shapePalette from '../../src/palettes/shape-palette';
 import spacingScale from '../../src/palettes/spacing-scale';
 import typographyPalette from '../../src/palettes/typography-palette';
-import themeConfig, { Palettes, ThemeFileNames } from '../../src/theme-config';
+import themeConfig, {
+  Palettes,
+  ThemeFileNames,
+  themeOverrideConfig,
+  ThemeOverrides,
+} from '../../src/theme-config';
 
 import {
   ARTIFACT_OUTPUT_DIR,
@@ -58,12 +63,11 @@ const getBaseThemes = (themeName: ThemeFileNames): string[] => {
   return baseTheme ? [baseTheme, ...furtherExtensions] : [];
 };
 
-const createThemeConfig = (themeName: ThemeFileNames): Config => {
-  // Get all base themes that this theme extends.
-  const baseThemes = getBaseThemes(themeName);
-  // Palette to be applied to the theme.
-  const palette = getPalette(themeConfig[themeName].palette);
-
+const createThemeConfig = (
+  themeName: ThemeFileNames,
+  baseThemes: string[],
+  palette: ReturnType<typeof getPalette>,
+): Config => {
   return {
     parsers: [
       {
@@ -149,7 +153,20 @@ export default function build(styleDictionary: Core) {
   fs.readdirSync(tokensInputDir, { withFileTypes: true })
     .filter((result) => result.isDirectory() && result.name !== 'default')
     .forEach((theme) => {
-      const config = createThemeConfig(theme.name as ThemeFileNames);
+      if (themeOverrideConfig[theme.name as ThemeOverrides]) {
+        const config = createThemeConfig(
+          theme.name as ThemeFileNames,
+          [],
+          getPalette('defaultPalette'),
+        );
+        styleDictionary.extend(config).buildPlatform('cssAsModule');
+        return;
+      }
+
+      const themeName = theme.name as ThemeFileNames;
+      const baseThemes = getBaseThemes(themeName);
+      const palette = getPalette(themeConfig[themeName].palette);
+      const config = createThemeConfig(themeName, baseThemes, palette);
       styleDictionary.extend(config).buildAllPlatforms();
     });
 }

@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 1.2.9
+
+### Patch Changes
+
+- [`aef90f8953b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aef90f8953b) - Tweaks to a subset of dark theme tokens behind a feature flag.
+
 ## 1.2.8
 
 ### Patch Changes

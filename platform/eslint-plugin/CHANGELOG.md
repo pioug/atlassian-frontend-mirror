@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-platform
 
+## 0.1.5
+
+### Patch Changes
+
+- [`b47e48ad163`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b47e48ad163) - Adds an eslint rule to confirm that storybooks only get passed an object - to ensure that codemods work correctly.
+
 ## 0.1.4
 
 ### Patch Changes

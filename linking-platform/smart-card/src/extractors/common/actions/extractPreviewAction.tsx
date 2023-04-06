@@ -13,6 +13,7 @@ import {
 } from '../../../view/BlockCard';
 import { ExtractBlockOpts } from '../../block/types';
 import { CardDisplay } from '../../../constants';
+import { extractIsSupportTheming } from '../../common/meta/extractIsSupportTheming';
 
 const getMetadataFromJsonLd = (
   jsonLd: JsonLd.Data.BaseData,
@@ -68,10 +69,12 @@ export const extractPreviewAction = ({
   origin,
   source = 'block',
   analytics,
+  meta,
 }: ExtractBlockOpts & {
   viewProps: BlockCardResolvedViewProps;
   jsonLd: JsonLd.Data.BaseData;
   platform?: CardPlatform;
+  meta?: JsonLd.Meta.BaseMeta;
 }) => {
   // Extract metadata from view props & raw JSON-LD.
   const metadataFromJsonLd = getMetadataFromJsonLd(jsonLd, platform);
@@ -95,6 +98,7 @@ export const extractPreviewAction = ({
       onViewActionClick: () => {
         handleInvoke(getInvokeOpts(key, 'ViewAction'));
       },
+      isSupportTheming: extractIsSupportTheming(meta),
     });
     // Setup props to go through proper Redux 'invocation' flow
     // for analytics, further state management if required in future.

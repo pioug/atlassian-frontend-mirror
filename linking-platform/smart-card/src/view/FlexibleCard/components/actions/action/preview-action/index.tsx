@@ -21,6 +21,7 @@ const PreviewAction: React.FC<PreviewActionProps> = (
     title,
     providerName,
     downloadUrl,
+    isSupportTheming,
   } = props;
 
   const defaultAnalytics = useSmartLinkAnalytics(url, () => {});
@@ -43,6 +44,7 @@ const PreviewAction: React.FC<PreviewActionProps> = (
         url,
         analytics,
         origin: 'smartLinkCard',
+        isSupportTheming,
       });
 
     const action = {

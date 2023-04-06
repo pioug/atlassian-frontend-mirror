@@ -44,7 +44,7 @@
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@atlassian/ufo": "^0.1.0",
-    "@atlassiansox/analytics-web-client": "^4.9.0",
+    "@atlassiansox/analytics-web-client": "^4.11.0",
     "@storybook/addon-knobs": "^5.3.18",
     "@testing-library/react": "^12.1.5",
     "@testing-library/react-hooks": "^8.0.1",

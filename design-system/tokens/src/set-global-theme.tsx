@@ -1,6 +1,7 @@
 import { bind, UnbindFn } from 'bind-event-listener';
 
 import noop from '@atlaskit/ds-lib/noop';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { COLOR_MODE_ATTRIBUTE, THEME_DATA_ATTRIBUTE } from './constants';
 import { DataColorModes, ThemeColorModes, ThemeIds } from './theme-config';
@@ -70,6 +71,13 @@ const setGlobalTheme = async ({
   // Dedupe list of themes to avoid race condition
   const themePreferences = new Set([dark, light, spacing, typography]);
 
+  if (
+    getBooleanFF('design-system-team.dark-theme-iteration_dk1ln') &&
+    themePreferences.has('dark')
+  ) {
+    themePreferences.add('dark-iteration' as ThemeIds);
+  }
+
   await Promise.all(
     [...themePreferences]
       .filter((themeId): themeId is ThemeIds => themeId !== undefined)
@@ -137,6 +145,13 @@ export const getThemeStyles = async ({
       themePreferences.push(themeId);
     }
   });
+
+  if (
+    getBooleanFF('design-system-team.dark-theme-iteration_dk1ln') &&
+    themePreferences.includes('dark')
+  ) {
+    themePreferences.push('dark-iteration' as ThemeIds);
+  }
 
   const results = await Promise.all(
     themePreferences.map(async (themeId): Promise<ThemeStyles | undefined> => {

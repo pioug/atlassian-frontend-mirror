@@ -1,5 +1,11 @@
 # @atlaskit/emoji
 
+## 67.3.1
+
+### Patch Changes
+
+- [`0a30e729c1d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0a30e729c1d) - fix styling issue of headings in uploader screen and delete emoji screen of emoji picker
+
 ## 67.3.0
 
 ### Minor Changes

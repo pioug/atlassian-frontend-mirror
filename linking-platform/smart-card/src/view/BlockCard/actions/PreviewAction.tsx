@@ -81,6 +81,7 @@ type PreviewInfo = {
   onOpenFailed?: (error: Error, errorInfo: ErrorInfo) => void;
   analytics: AnalyticsFacade;
   origin?: AnalyticsOrigin;
+  isSupportTheming?: boolean;
 };
 
 export default ({ details, ...rest }: PreviewInfo): ActionProps => ({

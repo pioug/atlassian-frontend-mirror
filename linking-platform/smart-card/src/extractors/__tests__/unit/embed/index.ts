@@ -15,6 +15,7 @@ describe('extractEmbedProps', () => {
       isTrusted: true,
       link: 'https://some.url',
       title: 'I love cheese',
+      isSupportTheming: false,
     });
   });
 
@@ -43,6 +44,7 @@ describe('extractEmbedProps', () => {
         text: 'provider-name',
       },
       isTrusted: true,
+      isSupportTheming: false,
       link: 'https://some.url',
       title: 'I love cheese',
     });

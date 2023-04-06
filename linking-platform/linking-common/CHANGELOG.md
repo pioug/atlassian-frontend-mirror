@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 2.4.0
+
+### Minor Changes
+
+- [`2ce1ea6f723`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2ce1ea6f723) - The change here adds the new `Skeleton` component which can be used with or without a shimmering effect
+
 ## 2.3.1
 
 ### Patch Changes

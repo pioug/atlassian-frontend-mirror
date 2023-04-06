@@ -1,5 +1,18 @@
 # @atlaskit/editor-common
 
+## 72.7.2
+
+### Patch Changes
+
+- [`190cca54c10`](https://bitbucket.org/atlassian/atlassian-frontend/commits/190cca54c10) - [ux] Update the image border icon
+
+## 72.7.1
+
+### Patch Changes
+
+- [`9f9b4b1cf60`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9f9b4b1cf60) - [ux] [HOT-103036] Fix table width styling when broken out with fragment mark
+- Updated dependencies
+
 ## 72.7.0
 
 ### Minor Changes

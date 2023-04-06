@@ -50,6 +50,8 @@ import {
 import * as HoverCardComponent from '../components/HoverCardComponent';
 import { HoverCard } from '../../../hoverCard';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
+import { PROVIDER_KEYS_WITH_THEMING } from '../../../extractors/constants';
+import { setGlobalTheme } from '@atlaskit/tokens';
 
 describe('HoverCard', () => {
   let mockClient: CardClient;
@@ -75,6 +77,7 @@ describe('HoverCard', () => {
     mockClient = new (fakeFactory(mockFetch))();
     mockUrl = 'https://some.url';
     const analyticsSpy = jest.fn();
+    setGlobalTheme({ colorMode: 'dark' });
 
     const { queryByTestId, findByTestId } = render(
       <AnalyticsListener
@@ -378,6 +381,40 @@ describe('HoverCard', () => {
       const hoverCard = queryByTestId('hover-card');
       expect(hoverCard).toBeNull();
     });
+
+    it.each([...PROVIDER_KEYS_WITH_THEMING, 'not-supported-provider'])(
+      'should add themMode query param if theming is supported',
+      async (providerKey) => {
+        const expectedPreviewUrl = 'http://some-preview-url.com';
+
+        const { findByTestId } = await setup({
+          mock: {
+            ...mockConfluenceResponse,
+            meta: { ...mockConfluenceResponse.meta, key: providerKey },
+            data: {
+              ...mockConfluenceResponse.data,
+              preview: {
+                '@type': 'Link',
+                href: expectedPreviewUrl,
+              },
+            },
+          },
+        });
+        jest.runAllTimers();
+        const previewButton = await findByTestId('preview-content');
+        fireEvent.click(previewButton);
+        const iframeEl = await findByTestId(`smart-embed-preview-modal-embed`);
+        expect(iframeEl).toBeTruthy();
+
+        if (providerKey !== 'not-supported-provider') {
+          expect(iframeEl.getAttribute('src')).toEqual(
+            `${expectedPreviewUrl}?themeMode=dark`,
+          );
+        } else {
+          expect(iframeEl.getAttribute('src')).toEqual(expectedPreviewUrl);
+        }
+      },
+    );
 
     it('should render open action', async () => {
       const { findByTestId } = await setup();

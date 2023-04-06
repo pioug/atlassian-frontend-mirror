@@ -17,6 +17,8 @@ export type Themes =
   | 'atlassian-typography';
 export type ThemeFileNames = Themes;
 
+export type ThemeOverrides = 'atlassian-dark-iteration';
+
 /**
  * Theme kinds: The type of theme.
  * Some themes are entirely focused on Color, whilst others are purely focused on spacing.
@@ -50,6 +52,8 @@ export const themeIds = [
   'shape',
 ] as const;
 export type ThemeIds = typeof themeIds[number];
+
+export type ThemeOverrideIds = 'dark-iteration';
 
 /**
  * Theme to use a base. This will create the theme as
@@ -150,6 +154,19 @@ const themeConfig: Record<Themes, ThemeConfig> = {
     palette: 'shapePalette',
     attributes: {
       type: 'shape',
+    },
+  },
+};
+
+export const themeOverrideConfig = {
+  'atlassian-dark-iteration': {
+    id: 'dark-iteration',
+    displayName: 'Dark Theme Iteration',
+    palette: 'defaultPalette',
+    overrideTheme: 'dark',
+    attributes: {
+      type: 'color',
+      mode: 'dark',
     },
   },
 };

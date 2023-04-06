@@ -381,6 +381,8 @@ export class Renderer extends PureComponent<RendererProps> {
       allowCustomPanels,
     } = this.props;
 
+    const featureFlags = this.featureFlags(this.props.featureFlags);
+
     const allowNestedHeaderLinks = isNestedHeaderLinksEnabled(
       allowHeadingAnchorLinks,
     );
@@ -480,6 +482,10 @@ export class Renderer extends PureComponent<RendererProps> {
                   allowWrapCodeBlock={allowWrapCodeBlock}
                   allowCustomPanels={allowCustomPanels}
                   allowPlaceholderText={allowPlaceholderText}
+                  useFragmentMarkBreakoutWidthStylingFix={
+                    featureFlags.featureFlags
+                      .useFragmentMarkBreakoutWidthStylingFix ?? true
+                  }
                   innerRef={this.editorRef}
                   onClick={handleWrapperOnClick}
                   onMouseDown={this.onMouseDownEditView}
@@ -538,6 +544,10 @@ export class Renderer extends PureComponent<RendererProps> {
           allowPlaceholderText={allowPlaceholderText}
           allowColumnSorting={allowColumnSorting}
           allowNestedHeaderLinks={allowNestedHeaderLinks}
+          useFragmentMarkBreakoutWidthStylingFix={
+            featureFlags.featureFlags.useFragmentMarkBreakoutWidthStylingFix ??
+            true
+          }
           onClick={handleWrapperOnClick}
         >
           <UnsupportedBlock />
@@ -603,6 +613,7 @@ type RendererWrapperProps = {
   allowPlaceholderText?: boolean;
   allowCustomPanels?: boolean;
   allowNestedHeaderLinks: boolean;
+  useFragmentMarkBreakoutWidthStylingFix: boolean;
   onClick?: (event: React.MouseEvent) => void;
   onMouseDown?: (event: React.MouseEvent) => void;
 } & { children?: React.ReactNode };
@@ -616,6 +627,7 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
     children,
     onClick,
     onMouseDown,
+    useFragmentMarkBreakoutWidthStylingFix,
   } = props;
 
   return (
@@ -635,6 +647,7 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
             appearance,
             allowNestedHeaderLinks,
             allowColumnSorting: !!allowColumnSorting,
+            useFragmentMarkBreakoutWidthStylingFix,
           })}
         >
           {children}

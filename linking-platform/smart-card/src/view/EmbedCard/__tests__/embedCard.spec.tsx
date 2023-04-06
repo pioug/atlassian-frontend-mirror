@@ -13,6 +13,9 @@ import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
 import { UnauthorisedImage } from '../constants';
 import { CONTENT_URL_SECURITY_AND_PERMISSIONS } from '../../../constants';
 
+import { PROVIDER_KEYS_WITH_THEMING } from '../../../extractors/constants';
+import { setGlobalTheme } from '@atlaskit/tokens';
+
 const baseData: JsonLd.Response['data'] = {
   '@type': 'Object',
   '@context': {
@@ -27,6 +30,8 @@ const setup = (cardState: CardState, url: string) => {
   const onResolveMock: JestFunction<Required<EmbedCardProps>['onResolve']> =
     jest.fn();
   const ref = React.createRef<HTMLIFrameElement>();
+
+  setGlobalTheme({ colorMode: 'dark' });
 
   const { getByTestId, getByText, queryByTestId } = renderWithIntl(
     <EmbedCard
@@ -70,6 +75,7 @@ describe('EmbedCard view component', () => {
   describe('resolved embed with preview', () => {
     const expectedUrl = 'http://some-url.com';
     const expectedName = 'some-name';
+    const expectedPreviewUrl = 'http://some-preview-url.com';
 
     const cardStateOverride: CardState = {
       status: 'resolved',
@@ -84,7 +90,7 @@ describe('EmbedCard view component', () => {
           name: expectedName,
           preview: {
             '@type': 'Link',
-            href: 'http://some-preview-url.com',
+            href: expectedPreviewUrl,
             'atlassian:aspectRatio': 0.72,
           },
         },
@@ -106,6 +112,31 @@ describe('EmbedCard view component', () => {
         window.getComputedStyle(resolveView).getPropertyValue('height'),
       ).toEqual('100%');
     });
+
+    it.each([...PROVIDER_KEYS_WITH_THEMING, 'not-supported-provider'])(
+      'should add themMode query param if theming is supported',
+      (providerKey) => {
+        const cardStateOverrideWithThemeSupport: any = {
+          ...cardStateOverride,
+          details: {
+            ...cardStateOverride.details,
+            meta: { key: providerKey, access: 'granted', visibility: 'public' },
+          },
+        };
+        const { iframeEl } = setup(
+          cardStateOverrideWithThemeSupport,
+          expectedUrl,
+        );
+
+        if (providerKey !== 'not-supported-provider') {
+          expect(iframeEl.getAttribute('src')).toEqual(
+            `${expectedPreviewUrl}?themeMode=dark`,
+          );
+        } else {
+          expect(iframeEl.getAttribute('src')).toEqual(expectedPreviewUrl);
+        }
+      },
+    );
 
     it('should call handleFrameClick when title is clicked', () => {
       const { getByText, handleFrameClickMock } = setup(

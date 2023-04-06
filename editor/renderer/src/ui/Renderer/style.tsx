@@ -65,6 +65,7 @@ export type RendererWrapperProps = {
   appearance?: RendererAppearance;
   allowNestedHeaderLinks: boolean;
   allowColumnSorting: boolean;
+  useFragmentMarkBreakoutWidthStylingFix: boolean;
 };
 
 type HeadingSizes = keyof typeof headingSizesImport;
@@ -340,6 +341,34 @@ const fullWidthStyles = ({ appearance }: RendererWrapperProps) => {
   `;
 };
 
+const breakoutWidthStyle = (
+  useFragmentMarkBreakoutWidthStylingFix: boolean,
+) => {
+  if (useFragmentMarkBreakoutWidthStylingFix) {
+    return css`
+      *:not([data-mark-type='fragment'])
+        .${TableSharedCssClassName.TABLE_CONTAINER} {
+        width: 100% !important;
+        left: 0 !important;
+      }
+
+      [data-mark-type='fragment']
+        *
+        .${TableSharedCssClassName.TABLE_CONTAINER} {
+        width: 100% !important;
+        left: 0 !important;
+      }
+    `;
+  }
+
+  return css`
+    * .${TableSharedCssClassName.TABLE_CONTAINER} {
+      width: 100% !important;
+      left: 0 !important;
+    }
+  `;
+};
+
 export const rendererStyles =
   (wrapperProps: RendererWrapperProps) => (theme: Theme) => {
     // This is required to be compatible with styled-components prop structure.
@@ -502,10 +531,9 @@ export const rendererStyles =
 
       /* Breakout for tables and extensions */
       .${RendererCssClassName.DOCUMENT} > {
-        * .${TableSharedCssClassName.TABLE_CONTAINER} {
-          width: 100% !important;
-          left: 0 !important;
-        }
+        ${breakoutWidthStyle(
+          wrapperProps.useFragmentMarkBreakoutWidthStylingFix,
+        )}
 
         * .${RendererCssClassName.EXTENSION_OVERFLOW_CONTAINER} {
           overflow-x: auto;

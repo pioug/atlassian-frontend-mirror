@@ -361,8 +361,79 @@ test('pointer-events should be blocked on children + parents of the element unde
   cleanups.forEach(cleanup => cleanup());
 });
 
-// Note: I could not add a test to ensure that `* { pointer-events: none }` overrides inline style values on an element
-// as jsdom is not computing `window.getComputedStyles(el)` for that case (but I have validated in browser)
+test('pointer-events should be blocked on elements that enable pointer-events as an inline style', async () => {
+  const [X] = getElements();
+  const [child, dropTarget, parent] = getBubbleOrderedTree();
+  const ordered: string[] = [];
+  const cleanups: (() => void)[] = [];
+  cleanups.push(
+    combine(
+      appendToBody(dropTarget),
+      appendToBody(X),
+      draggable({
+        element: X,
+        onDragStart: () => ordered.push('X:start'),
+        onDrop: () => ordered.push('X:drop'),
+      }),
+      dropTargetForElements({
+        element: dropTarget,
+        onDragStart: () => ordered.push('dropTarget:start'),
+        onDragEnter: () => ordered.push('dropTarget:enter'),
+        onDrop: () => ordered.push('dropTarget:drop'),
+      }),
+    ),
+  );
+
+  child.style.pointerEvents = 'auto';
+  parent.style.pointerEvents = 'auto';
+  expect(window.getComputedStyle(child).pointerEvents).toBe('auto');
+  expect(window.getComputedStyle(parent).pointerEvents).toBe('auto');
+
+  userEvent.lift(X);
+  expect(ordered).toEqual(['X:start']);
+  ordered.length = 0;
+
+  fireEvent.dragEnter(dropTarget);
+  expect(ordered).toEqual(['dropTarget:enter']);
+  ordered.length = 0;
+
+  cleanups.push(setElementFromPoint(dropTarget));
+  userEvent.drop(dropTarget);
+  expect(ordered).toEqual(['X:drop', 'dropTarget:drop']);
+
+  // fix not yet applied
+  expect(findStyleElement()).toBe(null);
+
+  // after a microtask the fix will be applied
+  await 'microtask';
+
+  // checking fix is applied
+  expect(findStyleElement()).toBeTruthy();
+
+  // computing the `child` and `parent` styles
+  // pointer-events now blocked on the child + parent
+  // 👋 These assertions are currently not working as window.getComputedStyles()
+  // is not being computed correctly in jsdom
+  // expect(window.getComputedStyle(child).pointerEvents).toBe('none');
+  // expect(window.getComputedStyle(parent).pointerEvents).toBe('none');
+
+  // re-enable test if jsdom improves
+  if (window.getComputedStyle(child).pointerEvents === 'none') {
+    // eslint-disable-next-line no-console
+    console.warn(
+      'jsdom bug fixed: can re-enable getComputedStyle() checks in this test',
+    );
+  }
+
+  // releasing fix
+  fireEvent.pointerMove(document.body);
+
+  // original value restored
+  expect(window.getComputedStyle(child).pointerEvents).toBe('auto');
+  expect(window.getComputedStyle(parent).pointerEvents).toBe('auto');
+
+  cleanups.forEach(cleanup => cleanup());
+});
 
 ['pointerdown', 'pointermove', 'focusin', 'focusout', 'dragstart'].forEach(
   eventName => {

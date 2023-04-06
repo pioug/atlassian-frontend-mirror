@@ -62,6 +62,8 @@ export interface ResolvedViewProps {
   titlePrefix?: React.ReactNode;
   /* A flag that determines whether link source can be trusted in iframe */
   isTrusted?: boolean;
+  /** It determines whether a link source supports different design theme modes */
+  isSupportTheming?: boolean;
 }
 
 export const blockCardResolvedViewClassName = 'block-card-resolved-view';
@@ -86,6 +88,7 @@ export const ResolvedView = ({
   details = [],
   testId = 'block-card-resolved-view',
   showActions = true,
+  isSupportTheming,
 }: ResolvedViewProps) => {
   const resolvedMetadata =
     details.length > 0 ? (

@@ -2,10 +2,10 @@ import type { Format } from 'style-dictionary';
 
 import { createSignedArtifact } from '@af/codegen';
 
-import themeConfig from '../../../src/theme-config';
+import themeConfig, { themeOverrideConfig } from '../../../src/theme-config';
 
 const formatter: Format['formatter'] = () => {
-  const imports = Object.entries(themeConfig)
+  const imports = Object.entries({ ...themeConfig, ...themeOverrideConfig })
     .map(
       ([key, value]) => `  '${value.id}': () =>
     import(
@@ -16,9 +16,9 @@ const formatter: Format['formatter'] = () => {
     .join('\n');
 
   const source = `
-import { ThemeIds } from '../theme-config';
+import { ThemeIds, ThemeOverrideIds } from '../theme-config';
 
-const themeImportsMap: Record<ThemeIds, () => Promise<{ default: string }>> = {
+const themeImportsMap: Record<ThemeIds | ThemeOverrideIds, () => Promise<{ default: string }>> = {
 ${imports}
 };
 

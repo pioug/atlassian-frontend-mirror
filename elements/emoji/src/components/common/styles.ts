@@ -308,7 +308,9 @@ export const emojiUploadTop = css({
 });
 
 export const uploadChooseFileMessage = css({
-  color: token('color.text.subtle', N300),
+  '&&': {
+    color: token('color.text.subtle', N300),
+  },
 });
 
 export const closeEmojiUploadButton = css({
@@ -418,10 +420,12 @@ export const deleteText = css({
 });
 
 export const headingH5 = css({
-  fontSize: token('font.size.075', '12px'),
-  fontWeight: token('font.weight.semibold', '600'),
-  letterSpacing: '-0.003em',
-  lineHeight: token('font.lineHeight.100', '16px'),
+  '&&': {
+    fontSize: token('font.size.075', '12px'),
+    fontWeight: token('font.weight.semibold', '600'),
+    letterSpacing: '-0.003em',
+    lineHeight: token('font.lineHeight.100', '16px'),
+  },
 });
 
 export const requiredSymbol = css({

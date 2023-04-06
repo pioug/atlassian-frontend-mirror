@@ -9,11 +9,14 @@ import {
   extractTitle,
 } from '@atlaskit/linking-common/extractors';
 import { extractLinkIcon } from '../icon';
+import { extractIsSupportTheming } from '../../common/meta/extractIsSupportTheming';
 
 export const extractPreviewAction = (
   response: JsonLd.Response,
 ): PreviewActionData | undefined => {
   const data = response.data as JsonLd.Data.BaseData;
+  const meta = response.meta as JsonLd.Meta.BaseMeta;
+
   const src = extractPreviewData(data, 'web')?.src;
   if (src) {
     return {
@@ -23,6 +26,7 @@ export const extractPreviewAction = (
       title: extractTitle(data),
       linkIcon: extractLinkIcon(response),
       url: extractLink(data),
+      isSupportTheming: extractIsSupportTheming(meta),
     };
   }
 };

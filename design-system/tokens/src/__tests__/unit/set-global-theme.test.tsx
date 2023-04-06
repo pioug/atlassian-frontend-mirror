@@ -1,5 +1,7 @@
 import { waitFor } from '@testing-library/dom';
 
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+
 import { COLOR_MODE_ATTRIBUTE, THEME_DATA_ATTRIBUTE } from '../../constants';
 // This import is just to get types
 import * as setGlobalThemeTypes from '../../set-global-theme';
@@ -20,6 +22,14 @@ Object.defineProperty(window, 'matchMedia', {
   value: jest.fn().mockImplementation((_) => {
     return matchMediaObject;
   }),
+});
+
+jest.mock('@atlaskit/platform-feature-flags', () => ({
+  getBooleanFF: jest.fn().mockImplementation(() => false),
+}));
+
+afterEach(() => {
+  (getBooleanFF as jest.Mock).mockReset();
 });
 
 // Import these using `require` to allow them to
@@ -159,6 +169,39 @@ describe('setGlobalTheme', () => {
 
     expect(dataThemes.sort()).toEqual(['dark', 'spacing', 'typography']);
   });
+
+  it('should load the dark theme override CSS on the page when the feature flag is enabled and dark theme is specified', async () => {
+    (getBooleanFF as jest.Mock).mockImplementation(() => true);
+
+    await setGlobalTheme({
+      dark: 'dark',
+      light: 'light',
+      spacing: 'spacing',
+      typography: 'typography',
+    });
+
+    // Wait for styles to be added to the page
+    await waitFor(() => {
+      const styleElements = document.querySelectorAll(
+        `style[${THEME_DATA_ATTRIBUTE}]`,
+      );
+      expect(styleElements).toHaveLength(5);
+    });
+
+    // Validate that the data-theme attributes match the expected values
+    const styleElements = document.querySelectorAll('style');
+    const dataThemes = Array.from(styleElements).map((el) =>
+      el.getAttribute('data-theme'),
+    );
+
+    expect(dataThemes.sort()).toEqual([
+      'dark',
+      'dark-iteration',
+      'light',
+      'spacing',
+      'typography',
+    ]);
+  });
 });
 
 describe('getThemeStyles', () => {
@@ -188,6 +231,36 @@ describe('getThemeStyles', () => {
 
     expect(loadedThemeData).toEqual([
       { id: 'dark', attrs: { 'data-theme': 'dark' } },
+      { id: 'light', attrs: { 'data-theme': 'light' } },
+      { id: 'spacing', attrs: { 'data-theme': 'spacing' } },
+      { id: 'typography', attrs: { 'data-theme': 'typography' } },
+    ]);
+  });
+
+  it('returns an array of ThemeStyles that includes `dark-iteration` when the feature flag is enabled and the `dark` theme is included', async () => {
+    (getBooleanFF as jest.Mock).mockImplementation(() => true);
+
+    let results = await getThemeStyles({
+      colorMode: 'auto',
+      dark: 'dark',
+      light: 'light',
+      spacing: 'spacing',
+      typography: 'typography',
+    });
+
+    // Sort and validate the IDs and attributes
+    results.sort((a, b) => a.id.localeCompare(b.id));
+    const loadedThemeData = results.reduce(
+      (acc: Omit<ThemeStyles, 'css'>[], { css, ...rest }) => {
+        acc.push({ ...rest });
+        return acc;
+      },
+      [],
+    );
+
+    expect(loadedThemeData).toEqual([
+      { id: 'dark', attrs: { 'data-theme': 'dark' } },
+      { id: 'dark-iteration', attrs: { 'data-theme': 'dark-iteration' } },
       { id: 'light', attrs: { 'data-theme': 'light' } },
       { id: 'spacing', attrs: { 'data-theme': 'spacing' } },
       { id: 'typography', attrs: { 'data-theme': 'typography' } },

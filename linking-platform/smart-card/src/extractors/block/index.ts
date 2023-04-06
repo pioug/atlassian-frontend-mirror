@@ -31,7 +31,6 @@ import { extractTitlePrefix } from '../common/title-prefix/extractTitlePrefix';
 import { extractActions } from '../common/actions/extractActions';
 import { ExtractBlockOpts } from './types';
 import { extractPreviewAction } from '../common/actions/extractPreviewAction';
-
 import { extractIsTrusted } from '../common/meta/extractIsTrusted';
 import { CardPlatform } from '../../view/Card';
 import { BlockCardResolvedViewProps } from '../../view/BlockCard';
@@ -61,6 +60,7 @@ export const extractBlockActions = (
   jsonLd: JsonLd.Data.BaseData,
   opts?: ExtractBlockOpts,
   platform?: CardPlatform,
+  meta?: JsonLd.Meta.BaseMeta,
 ): ActionProps[] => {
   if (opts) {
     const { handleInvoke } = opts;
@@ -70,6 +70,7 @@ export const extractBlockActions = (
       viewProps: props,
       jsonLd,
       platform,
+      meta,
     });
 
     // The previewAction should always be the last action
@@ -128,6 +129,6 @@ export const extractBlockProps = (
   };
   return {
     ...props,
-    actions: extractBlockActions(props, jsonLd, opts, platform),
+    actions: extractBlockActions(props, jsonLd, opts, platform, meta),
   };
 };

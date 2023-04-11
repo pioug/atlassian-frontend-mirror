@@ -5,6 +5,10 @@ export {
 } from './atlassian-logo';
 export { AtlassianStartLogo } from './atlassian-start-logo';
 export {
+  AtlassianAnalyticsIcon,
+  AtlassianAnalyticsLogo,
+} from './atlassian-analytics-logo';
+export {
   BitbucketIcon,
   BitbucketLogo,
   BitbucketWordmark,

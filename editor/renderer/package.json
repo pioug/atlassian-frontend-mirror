@@ -74,7 +74,7 @@
     "@atlaskit/editor-core": "^182.0.0",
     "@atlaskit/editor-test-helpers": "^18.2.0",
     "@atlaskit/link-provider": "^1.5.0",
-    "@atlaskit/logo": "^13.11.0",
+    "@atlaskit/logo": "^13.12.0",
     "@atlaskit/media-core": "^34.0.0",
     "@atlaskit/media-integration-test-helpers": "^2.6.0",
     "@atlaskit/media-test-helpers": "^31.0.0",

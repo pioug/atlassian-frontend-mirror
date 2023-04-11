@@ -5,6 +5,8 @@ import { Code } from '@atlaskit/code';
 import { B200 } from '@atlaskit/theme/colors';
 
 import {
+  AtlassianAnalyticsIcon,
+  AtlassianAnalyticsLogo,
   AtlassianIcon,
   AtlassianLogo,
   AtlassianStartLogo,
@@ -51,18 +53,25 @@ import {
 
 const appearances = ['brand', 'neutral', 'inverse'];
 
-const buildRows = (Logo?: any, Wordmark?: any, Icon?: any) => {
+const buildRows = (
+  Logo?: any,
+  Wordmark?: any,
+  Icon?: any,
+  inheritSupported: boolean = true,
+) => {
   return (
     <>
       <tr>
         <td>
           <span>
-            Default (inherit behaviour - deprecated, not brand-friendly)
+            {inheritSupported
+              ? 'Default (inherit behaviour - deprecated, not brand-friendly)'
+              : 'New logo - inherit behaviour not supported. Appearance prop enforced'}
           </span>
         </td>
-        <td>{Logo && <Logo />}</td>
-        <td>{Wordmark && <Wordmark />}</td>
-        <td>{Icon && <Icon />}</td>
+        <td>{inheritSupported && Logo && <Logo />}</td>
+        <td>{inheritSupported && Wordmark && <Wordmark />}</td>
+        <td>{inheritSupported && Icon && <Icon />}</td>
       </tr>
       {appearances.map((appearance) => {
         return (
@@ -99,19 +108,14 @@ export default () => (
       <tbody>
         {buildRows(AtlassianLogo, AtlassianWordmark, AtlassianIcon)}
         {buildRows(AtlassianStartLogo)}
+        {buildRows(AtlassianAnalyticsLogo, null, AtlassianAnalyticsIcon, false)}
         {buildRows(BitbucketLogo, BitbucketWordmark, BitbucketIcon)}
         {buildRows(CompassLogo, CompassWordmark, CompassIcon)}
         {buildRows(ConfluenceLogo, ConfluenceWordmark, ConfluenceIcon)}
         {buildRows(HalpLogo, HalpWordmark, HalpIcon)}
         {buildRows(JiraAlignLogo, JiraAlignWordmark, JiraAlignIcon)}
         {buildRows(JiraLogo, JiraWordmark, JiraIcon)}
-        {buildRows(
-          JiraProductDiscoveryLogo,
-          () => (
-            <div />
-          ),
-          JiraProductDiscoveryIcon,
-        )}
+        {buildRows(JiraProductDiscoveryLogo, null, JiraProductDiscoveryIcon)}
         {buildRows(
           JiraServiceManagementLogo,
           JiraServiceManagementWordmark,

@@ -18,13 +18,12 @@ export type {
 } from './datasource-types';
 
 export type {
-  Action,
-  GetStatusTransitionsActionResponse,
-  GetStatusTransitionsRequest,
-  InvokeActionErrorResponse,
-  InvokeActionRequest,
-  InvokeActionResponse,
-  StatusUpdateActionRequest,
+  InvokeRequest,
+  InvokeRequestAction,
+  StatusUpdateActionPayload,
+  InvokeResponse,
+  InvokeErrorResponse,
+  GetStatusTransitionsInvokeResponse,
 } from './smart-link-action-types';
 
 export { SmartLinkActionType } from './smart-link-action-types';

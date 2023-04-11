@@ -3,8 +3,9 @@ import { renderHook } from '@testing-library/react-hooks';
 import { CardClient } from '@atlaskit/link-provider';
 import { NetworkError } from '@atlaskit/linking-common';
 import {
-  InvokeActionRequest,
+  InvokeRequest,
   SmartLinkActionType,
+  StatusUpdateActionPayload,
 } from '@atlaskit/linking-types';
 
 import { useSmartLinkClientExtension } from './index';
@@ -30,7 +31,7 @@ describe('useSmartLinkClientExtension', () => {
   });
 
   describe('invoke', () => {
-    const commonTests = (data: InvokeActionRequest) => {
+    const commonTests = (data: InvokeRequest) => {
       it('makes request to /invoke', async () => {
         mockFetch.mockResolvedValueOnce({
           json: async () => undefined,
@@ -121,10 +122,12 @@ describe('useSmartLinkClientExtension', () => {
     };
 
     describe(SmartLinkActionType.GetStatusTransitionsAction, () => {
-      const data = {
-        resourceUrl: 'https://test-url',
-        actionType: SmartLinkActionType.GetStatusTransitionsAction,
-        extensionKeyProvider: 'jira-object-provider',
+      const data: InvokeRequest = {
+        action: {
+          actionType: SmartLinkActionType.GetStatusTransitionsAction,
+          resourceIdentifiers: {},
+        },
+        providerKey: 'jira-object-provider',
       };
 
       commonTests(data);
@@ -153,13 +156,15 @@ describe('useSmartLinkClientExtension', () => {
     });
 
     describe(SmartLinkActionType.StatusUpdateAction, () => {
-      const data = {
-        resourceUrl: 'https://test-url',
-        actionType: SmartLinkActionType.StatusUpdateAction,
-        extensionKeyProvider: 'jira-object-provider',
-        payload: {
-          newStatusId: '1',
+      const data: InvokeRequest<StatusUpdateActionPayload> = {
+        action: {
+          actionType: SmartLinkActionType.StatusUpdateAction,
+          resourceIdentifiers: {},
+          payload: {
+            newStatusId: '1',
+          },
         },
+        providerKey: 'jira-object-provider',
       };
 
       commonTests(data);

@@ -30,7 +30,6 @@ const svg = ({
 
   if (appearance) {
     colors = getColorsFromAppearance(appearance);
-    id = `atlassianLogo-${appearance}`;
   }
 
   return `

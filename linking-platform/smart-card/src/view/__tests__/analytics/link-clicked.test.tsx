@@ -247,17 +247,6 @@ describe('`link clicked`', () => {
           altKey: true,
         });
 
-        const getTestCaseClickOutcome = () => {
-          if (testCase === 'block(flexible)') {
-            /**
-             * Currently the event won't have e.preventDefault() called if it is
-             * the new flexible block card
-             */
-            return 'alt';
-          }
-          return 'prevented';
-        };
-
         expect(spy).toBeFiredWithAnalyticEventOnce(
           {
             payload: {
@@ -266,7 +255,7 @@ describe('`link clicked`', () => {
               eventType: 'ui',
               attributes: {
                 clickType: 'left',
-                clickOutcome: getTestCaseClickOutcome(),
+                clickOutcome: 'prevented',
                 keysHeld: ['alt'],
               },
             },
@@ -311,18 +300,6 @@ describe('`link clicked`', () => {
           shiftKey: true,
         });
 
-        const getTestCaseClickOutcome = () => {
-          if (testCase === 'block(flexible)') {
-            /**
-             * Currently the event won't have e.preventDefault() called if it is
-             * the new flexible block card, and the link is rendered with target=_blank
-             * so it opens in a new tab
-             */
-            return 'clickThroughNewTabOrWindow';
-          }
-          return 'prevented';
-        };
-
         expect(spy).toBeFiredWithAnalyticEventOnce(
           {
             payload: {
@@ -331,7 +308,7 @@ describe('`link clicked`', () => {
               eventType: 'ui',
               attributes: {
                 clickType: 'left',
-                clickOutcome: getTestCaseClickOutcome(),
+                clickOutcome: 'prevented',
                 keysHeld: ['shift'],
               },
             },
@@ -347,18 +324,6 @@ describe('`link clicked`', () => {
           shiftKey: true,
         });
 
-        const getTestCaseClickOutcome = () => {
-          if (testCase === 'block(flexible)') {
-            /**
-             * Currently the event won't have e.preventDefault() called if it is
-             * the new flexible block card, and the link is rendered with target=_blank
-             * so it opens in a new tab
-             */
-            return 'clickThroughNewTabOrWindow';
-          }
-          return 'prevented';
-        };
-
         expect(spy).toBeFiredWithAnalyticEventOnce(
           {
             payload: {
@@ -367,7 +332,7 @@ describe('`link clicked`', () => {
               eventType: 'ui',
               attributes: {
                 clickType: 'left',
-                clickOutcome: getTestCaseClickOutcome(),
+                clickOutcome: 'prevented',
                 keysHeld: ['shift'],
               },
             },
@@ -383,18 +348,6 @@ describe('`link clicked`', () => {
           metaKey: true,
         });
 
-        const getTestCaseClickOutcome = () => {
-          if (testCase === 'block(flexible)') {
-            /**
-             * Currently the event won't have e.preventDefault() called if it is
-             * the new flexible block card, and the link is rendered with target=_blank
-             * so it opens in a new tab
-             */
-            return 'clickThroughNewTabOrWindow';
-          }
-          return 'prevented';
-        };
-
         expect(spy).toBeFiredWithAnalyticEventOnce(
           {
             payload: {
@@ -403,7 +356,7 @@ describe('`link clicked`', () => {
               eventType: 'ui',
               attributes: {
                 clickType: 'left',
-                clickOutcome: getTestCaseClickOutcome(),
+                clickOutcome: 'prevented',
                 keysHeld: ['meta'],
               },
             },
@@ -419,17 +372,6 @@ describe('`link clicked`', () => {
           ctrlKey: true,
         });
 
-        const getTestCaseClickOutcome = () => {
-          /**
-           * Block card with flexible content does not call e.preventDefault()
-           */
-          if (testCase === 'block(flexible)') {
-            return 'clickThrough';
-          }
-
-          return 'prevented';
-        };
-
         expect(spy).toBeFiredWithAnalyticEventOnce(
           {
             payload: {
@@ -438,7 +380,7 @@ describe('`link clicked`', () => {
               eventType: 'ui',
               attributes: {
                 clickType: 'left',
-                clickOutcome: getTestCaseClickOutcome(),
+                clickOutcome: 'prevented',
                 keysHeld: ['ctrl'],
               },
             },
@@ -447,7 +389,7 @@ describe('`link clicked`', () => {
         );
       });
 
-      it('should fire with `clickOutcome` = `clickThrough` if the ctrl key is held (NOT macOS) and no `onClick` is provided', async () => {
+      it('should fire with `clickOutcome` = `clickThroughNewTabOrWindow` if the ctrl key is held (NOT macOS) and no `onClick` is provided', async () => {
         jest.spyOn(userAgent, 'browser').mockReturnValue({ mac: false } as any);
 
         const { spy, fireOnClick } = await setup();
@@ -455,18 +397,6 @@ describe('`link clicked`', () => {
         fireOnClick({
           ctrlKey: true,
         });
-
-        const getTestCaseClickOutcome = () => {
-          if (testCase === 'block(flexible)') {
-            /**
-             * Currently the event won't have e.preventDefault() called
-             * and the behaviour is hi-jacked. Because the default behaviour is not cancelled
-             * the fallback hi-jack behaviour of window.open('_self') is activated, thus clickThrough
-             */
-            return 'clickThrough';
-          }
-          return 'clickThroughNewTabOrWindow';
-        };
 
         expect(spy).toBeFiredWithAnalyticEventOnce(
           {
@@ -476,7 +406,7 @@ describe('`link clicked`', () => {
               eventType: 'ui',
               attributes: {
                 clickType: 'left',
-                clickOutcome: getTestCaseClickOutcome(),
+                clickOutcome: 'clickThroughNewTabOrWindow',
                 keysHeld: ['ctrl'],
               },
             },
@@ -494,18 +424,6 @@ describe('`link clicked`', () => {
           ctrlKey: true,
         });
 
-        const getTestCaseClickOutcome = () => {
-          if (testCase === 'block(flexible)') {
-            /**
-             * Currently the event won't have e.preventDefault() called for flexible block card
-             * and the behaviour is hi-jacked. Because the default behaviour is not cancelled
-             * the fallback hi-jack behaviour of window.open('_self') is activated, thus clickThrough
-             */
-            return 'clickThrough';
-          }
-          return 'clickThroughNewTabOrWindow';
-        };
-
         expect(spy).toBeFiredWithAnalyticEventOnce(
           {
             payload: {
@@ -514,7 +432,7 @@ describe('`link clicked`', () => {
               eventType: 'ui',
               attributes: {
                 clickType: 'left',
-                clickOutcome: getTestCaseClickOutcome(),
+                clickOutcome: 'clickThroughNewTabOrWindow',
                 keysHeld: ['ctrl'],
               },
             },
@@ -539,17 +457,6 @@ describe('`link clicked`', () => {
           ctrlKey: true,
         });
 
-        const getTestCaseClickOutcome = () => {
-          if (testCase === 'block(flexible)') {
-            /**
-             * Currently the event won't have e.preventDefault() called
-             * but clickthrough behaviour is still hi-jacked so window.open('_self') will be still be called
-             */
-            return 'clickThrough';
-          }
-          return 'prevented';
-        };
-
         expect(spy).toBeFiredWithAnalyticEventOnce(
           {
             payload: {
@@ -558,7 +465,7 @@ describe('`link clicked`', () => {
               eventType: 'ui',
               attributes: {
                 clickType: 'left',
-                clickOutcome: getTestCaseClickOutcome(),
+                clickOutcome: 'prevented',
                 keysHeld: ['ctrl'],
               },
             },

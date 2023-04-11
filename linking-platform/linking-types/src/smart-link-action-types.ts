@@ -9,48 +9,54 @@ export enum SmartLinkActionType {
 /**
  * Default type for an invoke request. Parametrized with the type of payload
  */
-export type InvokeActionRequest = {
+export type InvokeRequest<TPayload extends object = {}> = {
   /**
-   * Url of the actual link resource on which we are trying to perform an action
+   * Contains specific details of the action to be performed.
    */
-  resourceUrl: string;
-
-  /**
-   * Action type that a user is trying to perform
-   * @see SmartLinkActionType
-   */
-  actionType: SmartLinkActionType;
-
+  action: InvokeRequestAction<TPayload>;
   /**
    * An identifier of the provider which will be executing the action.
    * Example: 'jira-object-provider'
    */
-  extensionKeyProvider?: string;
+  providerKey: string;
 };
 
-export type GetStatusTransitionsRequest = InvokeActionRequest;
+/**
+ * Captures information about an action
+ */
+export type InvokeRequestAction<TPayload extends object = {}> = {
+  /**
+   * Type of action to be performed.
+   */
+  actionType: SmartLinkActionType;
+  /**
+   * object to identify the resource upon which the action will be performed.
+   * This information is provided from the backend and is supplied back to the backend as is
+   * FE does not need to know the strucutre of this property
+   */
+  resourceIdentifiers: Record<string, any>;
+  /**
+   * Payload needed by the action to perform this action. Needs to be constructed by the FE
+   */
+  payload?: TPayload;
+};
 
 /**
- * A payload type required for a Status Update Action
+ * payload needed by {@link SmartLinkActionType.StatusUpdateAction} action type
  */
-export type StatusUpdateActionRequest = InvokeActionRequest & {
-  payload: {
-    /**
-     * The id of a status to which a user is trying to update the status field
-     */
-    newStatusId: string;
-  };
+export type StatusUpdateActionPayload = {
+  newStatusId: string;
 };
 
 /**
  * Default type for an Action Response
  */
-export type InvokeActionResponse = {};
+export type InvokeResponse = {};
 
 /**
  * Type that signifies an error response from the product
  */
-export type InvokeActionErrorResponse = InvokeActionResponse & {
+export type InvokeErrorResponse = InvokeResponse & {
   /**
    * Error message returned from the product API
    */
@@ -65,24 +71,10 @@ export type InvokeActionErrorResponse = InvokeActionResponse & {
 /**
  * Payload from GetStatusTransitions action that contains a list of available statuses
  */
-export type GetStatusTransitionsActionResponse = InvokeActionResponse & {
+export type GetStatusTransitionsInvokeResponse = InvokeResponse & {
   transitions: {
     id: string;
     name: string;
     appearance?: string;
   }[];
 };
-
-/**
- * Interface that represents an Action that can be executed in a provider
- */
-export interface Action<
-  Request extends InvokeActionRequest = InvokeActionRequest,
-  Response extends InvokeActionResponse = InvokeActionResponse,
-> {
-  /**
-   * A method that executes the action and returns the resulting payload
-   * @param actionPayload is the data necessary to execute the action
-   */
-  executeAction: (actionPayload: Request) => Response | void;
-}

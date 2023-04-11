@@ -16,13 +16,13 @@
 
 ```ts
 import type { CardClient } from '@atlaskit/link-provider';
-import type { InvokeActionRequest } from '@atlaskit/linking-types/smart-link-actions';
-import type { InvokeActionResponse } from '@atlaskit/linking-types/smart-link-actions';
+import type { InvokeRequest } from '@atlaskit/linking-types/smart-link-actions';
+import type { InvokeResponse } from '@atlaskit/linking-types/smart-link-actions';
 
 // @public
 export const useSmartLinkClientExtension: (cardClient: CardClient) => {
-  invoke: <T>(data: InvokeActionRequest) => Promise<
-    | InvokeActionResponse
+  invoke: (data: InvokeRequest) => Promise<
+    | InvokeResponse
     | {
         message?: string | undefined;
         errorCode?: string | undefined;

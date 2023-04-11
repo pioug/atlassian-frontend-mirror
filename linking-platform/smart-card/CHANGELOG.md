@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 25.3.1
+
+### Patch Changes
+
+- [`fa2fb550e4b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa2fb550e4b) - [ux] This makes Flexible Block Cards have the same onClick behaviour as the older block card, where the passed in onClick behaviour will cause the Smart Card to use `e.preventDefault()`.
+
 ## 25.3.0
 
 ### Minor Changes

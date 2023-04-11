@@ -3,9 +3,9 @@ import { useCallback, useMemo } from 'react';
 import type { CardClient } from '@atlaskit/link-provider';
 import { request } from '@atlaskit/linking-common';
 import type {
-  InvokeActionErrorResponse,
-  InvokeActionRequest,
-  InvokeActionResponse,
+  InvokeErrorResponse,
+  InvokeRequest,
+  InvokeResponse,
 } from '@atlaskit/linking-types/smart-link-actions';
 
 import { useResolverUrl } from '../use-resolver-url';
@@ -22,10 +22,14 @@ export const useSmartLinkClientExtension = (cardClient: CardClient) => {
   const resolvedUrl = useResolverUrl(cardClient);
 
   const invoke = useCallback(
-    async <T>(data: InvokeActionRequest) => {
-      const response = await request<
-        InvokeActionResponse | InvokeActionErrorResponse
-      >('post', `${resolvedUrl}/invoke`, data, undefined, [200, 204]);
+    async (data: InvokeRequest) => {
+      const response = await request<InvokeResponse | InvokeErrorResponse>(
+        'post',
+        `${resolvedUrl}/invoke`,
+        data,
+        undefined,
+        [200, 204],
+      );
 
       return response;
     },

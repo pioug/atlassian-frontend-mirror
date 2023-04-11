@@ -24,6 +24,7 @@ import FlexibleErroredView from './views/flexible/FlexibleErroredView';
 import FlexibleForbiddenView from './views/flexible/FlexibleForbiddenView';
 import { tokens } from '../../utils/token';
 import { css, jsx } from '@emotion/react';
+import { handleClickCommon } from './utils/handlers';
 
 export { default as PreviewAction } from './actions/PreviewAction';
 export type { ResolvedViewProps as BlockCardResolvedViewProps } from './views/ResolvedView';
@@ -83,7 +84,8 @@ export const BlockCard: FC<BlockCardProps> = ({
       cardState,
       url,
       testId,
-      onClick: handleFrameClick,
+      onClick: (event: React.MouseEvent) =>
+        handleClickCommon(event, handleFrameClick),
       onError,
       onResolve,
       renderers,

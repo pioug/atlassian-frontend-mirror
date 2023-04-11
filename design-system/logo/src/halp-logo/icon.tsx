@@ -26,7 +26,6 @@ const svg = ({
 
   if (appearance) {
     colors = getColorsFromAppearance(appearance);
-    id = `halpIcon-${appearance}`;
   }
 
   return `

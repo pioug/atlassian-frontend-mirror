@@ -27,7 +27,6 @@ const svg = ({
 
   if (appearance) {
     colors = getColorsFromAppearance(appearance);
-    id = `jiraIcon-${appearance}`;
   }
 
   return `

@@ -46,7 +46,7 @@
     "@atlaskit/docs": "*",
     "@atlaskit/drawer": "^7.4.0",
     "@atlaskit/icon": "*",
-    "@atlaskit/logo": "^13.11.0",
+    "@atlaskit/logo": "^13.12.0",
     "@atlaskit/menu": "^1.5.0",
     "@atlaskit/notification-indicator": "^9.0.0",
     "@atlaskit/notification-log-client": "^6.0.0",

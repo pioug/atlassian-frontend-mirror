@@ -24,7 +24,6 @@ const svg = ({
 
   if (appearance) {
     colors = getColorsFromAppearance(appearance);
-    id = `trelloIcon-${appearance}`;
   }
 
   return `

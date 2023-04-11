@@ -5,14 +5,15 @@ import styled, { css } from 'styled-components';
 
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
-import { borderRadius, colors, gridSize } from '@atlaskit/theme';
+import { colors, gridSize } from '@atlaskit/theme';
+import { token } from '@atlaskit/tokens';
 
 const transition = css`
   transition: all 200ms ease-in-out;
 `;
 
 export const PanelWrapper = styled.div`
-  margin: 0 auto ${gridSize() * 2}px;
+  margin: 0 auto ${token('space.200', '16px')};
 `;
 
 export const ButtonWrapper = styled.div<{ isHidden: boolean }>`
@@ -38,12 +39,13 @@ export const PanelHeader: FC<
 > = withFocusWithin(styled.div`
   align-items: center;
   background-color: ${(props) => props.isFocused && colors.N20};
-  border-radius: ${borderRadius}px;
+  border-radius: ${token('border.radius.100', '3px')};
   display: flex;
   left: -${gridSize() * 3}px;
-  margin-bottom: ${gridSize()}px;
-  margin-top: ${gridSize() * 2}px;
-  padding: 2px 0 2px ${gridSize() * 3}px;
+  margin-bottom: ${token('space.100', '8px')};
+  margin-top: ${token('space.200', '16px')};
+  padding: ${token('space.025', '2px')} ${token('space.0', '0px')}
+    ${token('space.025', '2px')} ${token('space.300', '24px')};
   position: relative;
   ${transition};
   width: 100%;

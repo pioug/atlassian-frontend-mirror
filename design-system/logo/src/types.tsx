@@ -38,3 +38,16 @@ export type LogoProps = {
    */
   testId?: string;
 };
+
+/**
+ * Utility type to make an optional property required.
+ * We use this to force new logos to use the appearance prop while older ones go through the deprecation process.
+ */
+type WithRequiredProperty<Type, Key extends keyof Type> = Type & {
+  [Property in Key]-?: Type[Property];
+};
+
+export type LogoPropsAppearanceRequired = WithRequiredProperty<
+  LogoProps,
+  'appearance'
+>;

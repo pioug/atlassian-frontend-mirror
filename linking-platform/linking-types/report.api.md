@@ -15,14 +15,6 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
-// @public
-export interface Action<
-  Request extends InvokeActionRequest = InvokeActionRequest,
-  Response extends InvokeActionResponse = InvokeActionResponse,
-> {
-  executeAction: (actionPayload: Request) => Response | void;
-}
-
 // @public (undocumented)
 export interface BooleanType {
   // (undocumented)
@@ -73,16 +65,13 @@ export interface DateType {
 }
 
 // @public
-export type GetStatusTransitionsActionResponse = InvokeActionResponse & {
+export type GetStatusTransitionsInvokeResponse = InvokeResponse & {
   transitions: {
     id: string;
     name: string;
     appearance?: string;
   }[];
 };
-
-// @public (undocumented)
-export type GetStatusTransitionsRequest = InvokeActionRequest;
 
 // @public (undocumented)
 export interface Icon {
@@ -103,20 +92,26 @@ export interface IconType {
 }
 
 // @public
-export type InvokeActionErrorResponse = InvokeActionResponse & {
+export type InvokeErrorResponse = InvokeResponse & {
   message?: string;
   errorCode?: string;
 };
 
 // @public
-export type InvokeActionRequest = {
-  resourceUrl: string;
-  actionType: SmartLinkActionType;
-  extensionKeyProvider?: string;
+export type InvokeRequest<TPayload extends object = {}> = {
+  action: InvokeRequestAction<TPayload>;
+  providerKey: string;
 };
 
 // @public
-export type InvokeActionResponse = {};
+export type InvokeRequestAction<TPayload extends object = {}> = {
+  actionType: SmartLinkActionType;
+  resourceIdentifiers: Record<string, any>;
+  payload?: TPayload;
+};
+
+// @public
+export type InvokeResponse = {};
 
 // @public (undocumented)
 export interface Link {
@@ -174,10 +169,8 @@ export interface StatusType {
 }
 
 // @public
-export type StatusUpdateActionRequest = InvokeActionRequest & {
-  payload: {
-    newStatusId: string;
-  };
+export type StatusUpdateActionPayload = {
+  newStatusId: string;
 };
 
 // @public (undocumented)

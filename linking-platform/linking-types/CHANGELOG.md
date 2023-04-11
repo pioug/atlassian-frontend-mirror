@@ -1,5 +1,11 @@
 # @atlaskit/linking-types
 
+## 0.3.0
+
+### Minor Changes
+
+- [`278539e88cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/278539e88cd) - Update smart link action types
+
 ## 0.2.0
 
 ### Minor Changes

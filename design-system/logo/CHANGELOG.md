@@ -1,5 +1,11 @@
 # @atlaskit/logo
 
+## 13.12.0
+
+### Minor Changes
+
+- [`4d2e52e86d3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4d2e52e86d3) - [ux] Add Atlassian Analytics logo and icon. Also fixes a bug with non-unique linear-gradient ids where subsequent logos on a page could be impacted by display/vvisibility styles applied to the first logo on a page.
+
 ## 13.11.2
 
 ### Patch Changes

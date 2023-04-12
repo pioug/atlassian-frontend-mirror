@@ -21,31 +21,25 @@ const THead: FC<THeadProps> = ({ actions, children }) => {
   const { isSelectable } = useTable();
   const [state, { setAll, removeAll }] = useSelection();
 
-  if (!isSelectable) {
-    return (
-      <Primitives.THead>
-        <Primitives.TR isBodyRow={false}>{children}</Primitives.TR>
-      </Primitives.THead>
-    );
-  }
-
   const isChecked = state.allChecked || state.anyChecked;
 
   return (
     <Primitives.THead>
       <Primitives.TR isBodyRow={false}>
-        <Primitives.SelectableCell as="th">
-          <Checkbox
-            label={
-              <VisuallyHidden id="select-all">Select all rows</VisuallyHidden>
-            }
-            onChange={isChecked ? removeAll : setAll}
-            isChecked={isChecked}
-            isIndeterminate={state.anyChecked && !state.allChecked}
-          />
-        </Primitives.SelectableCell>
+        {isSelectable && (
+          <Primitives.SelectableCell as="th">
+            <Checkbox
+              label={
+                <VisuallyHidden id="select-all">Select all rows</VisuallyHidden>
+              }
+              onChange={isChecked ? removeAll : setAll}
+              isChecked={isChecked}
+              isIndeterminate={state.anyChecked && !state.allChecked}
+            />
+          </Primitives.SelectableCell>
+        )}
         {children}
-        {isChecked && (
+        {isSelectable && isChecked && (
           <Primitives.BulkActionOverlay>
             <Text color="color.text" fontWeight="medium">
               {state.checked.length} selected

@@ -3,7 +3,7 @@ import { md } from '@atlaskit/docs';
 export default md`
   ## Introduction
 
-  This package provides components (ViewPage and EditPage) to any 3rd party product who needs to embed a Confluence page into their products.
+  This package provides components (ViewPage, EditPage, and Page) to any 3rd party product who needs to embed a Confluence page into their products.
 
   ## Quick Links
 

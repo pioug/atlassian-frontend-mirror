@@ -22,11 +22,7 @@ The cookie can be obtained upon logging in to [Confluence](https://www.atlassian
 
   - _Certain 3rd party cookie restrictions may need to be disabled in order to function properly. \*_
 
-- The 3rd party will need to reach out to Atlassian/an Atlassian representative and provide the domain(s) used by the 3rd party application for Atlassian to allowlist.\
-   For example: _**“acmeexample.com”**_ , _**" \*.acme-testing.com"**_. \
-   (_**NOTE: We currently only support "https://" domains.**_)
-  - _If applicable, please also provide the Confluence tenant resource(s) for the Confluence pages that the 3rd party application is trying to load via Embedded Pages. For example, **\*.atlassian.net** or **\*.services.atlassian.com**_
-  - _The embedding product should use an agreed upon key to set the required property,_ \`parentProduct\` _for EP components. This key is used to check for the whitelisted domains and tenants for the parent product. For example: **JSM** has to set_ \`parentProduct={'JSM'}\` _as a property for_ \`ViewPage\` _and_ \`EditPage\` _components._
+- The 3rd party will need to reach out to Atlassian/an Atlassian representative via this [service desk request form](https://fy22august.atlassian.net/servicedesk/customer/portal/6/group/19/create/63) and provide the domain(s) used by the 3rd party application for Atlassian to allowlist.
 
 ## Temporary Prerequisite \*
 

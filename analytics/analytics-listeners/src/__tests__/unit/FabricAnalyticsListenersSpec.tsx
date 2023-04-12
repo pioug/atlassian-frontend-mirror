@@ -8,6 +8,7 @@ import {
   DummyNavigationComponent,
   DummyNotificationsComponent,
   DummyPeopleTeamsComponent,
+  DummyCrossFlowComponent,
   IncorrectEventType,
 } from '../../../examples/helpers';
 import AtlaskitListener from '../../atlaskit/AtlaskitListener';
@@ -18,6 +19,7 @@ import NavigationListener from '../../navigation/NavigationListener';
 import PeopleTeamsAnalyticsListener from '../../peopleTeams/PeopleTeamsAnalyticsListener';
 import { AnalyticsWebClient, FabricChannel } from '../../types';
 import NotificationsAnalyticsListener from '../../notifications/NotificationsAnalyticsListener';
+import CrossFlowAnalyticsListener from '../../cross-flow/CrossFlowAnalyticsListener';
 
 declare const global: any;
 
@@ -38,6 +40,9 @@ const DummyPeopleTeamsCompWithAnalytics = createComponentWithAnalytics(
 );
 const DummyNotificationsCompWithAnalytics = createComponentWithAnalytics(
   FabricChannel.notifications,
+);
+const DummyCrossFlowCompWithAnalytics = createComponentWithAnalytics(
+  FabricChannel.crossFlow,
 );
 const AtlaskitIncorrectEventType = IncorrectEventType(FabricChannel.atlaskit);
 
@@ -603,6 +608,58 @@ describe('<FabricAnalyticsListeners />', () => {
       );
 
       const analyticsListener = component.find(NotificationsAnalyticsListener);
+      expect(analyticsListener.props()).toHaveProperty(
+        'client',
+        Promise.resolve(analyticsWebClientMock),
+      );
+
+      const dummyComponent = analyticsListener.find(
+        DummyNotificationsComponent,
+      );
+      expect(dummyComponent).toHaveLength(1);
+
+      dummyComponent.simulate('click');
+    });
+  });
+
+  describe('<CrossFlowAnalyticsListener />', () => {
+    it('should listen and fire a UI event with analyticsWebClient', () => {
+      const compOnClick = jest.fn();
+      const component = mount(
+        <FabricAnalyticsListeners client={analyticsWebClientMock}>
+          <DummyCrossFlowCompWithAnalytics onClick={compOnClick} />
+        </FabricAnalyticsListeners>,
+      );
+
+      const analyticsListener = component.find(CrossFlowAnalyticsListener);
+      expect(analyticsListener.props()).toHaveProperty(
+        'client',
+        analyticsWebClientMock,
+      );
+
+      const dummyComponent = analyticsListener.find(DummyCrossFlowComponent);
+      expect(dummyComponent).toHaveLength(1);
+
+      dummyComponent.simulate('click');
+
+      expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+    });
+
+    it('should listen and fire a UI event with analyticsWebClient as Promise', (done) => {
+      analyticsWebClientMock.sendUIEvent = jest.fn(() => {
+        done();
+      });
+
+      const compOnClick = jest.fn();
+      const component = mount(
+        <FabricAnalyticsListeners
+          client={Promise.resolve(analyticsWebClientMock)}
+        >
+          <DummyNotificationsCompWithAnalytics onClick={compOnClick} />
+        </FabricAnalyticsListeners>,
+      );
+
+      const analyticsListener = component.find(CrossFlowAnalyticsListener);
       expect(analyticsListener.props()).toHaveProperty(
         'client',
         Promise.resolve(analyticsWebClientMock),

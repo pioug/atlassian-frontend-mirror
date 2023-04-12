@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /** @jsx jsx */
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import { jsx } from '@emotion/react';
 
@@ -13,7 +13,7 @@ import { TH, THProps } from './ui/th';
  *
  * HeadCell element
  */
-const Column: FC<THProps> = ({
+const HeadCell: FC<THProps> = ({
   children,
   align,
   testId,
@@ -27,11 +27,13 @@ const Column: FC<THProps> = ({
       testId={testId}
       backgroundColor={backgroundColor}
     >
-      <Text color="color.text" fontWeight="medium">
-        {children}
-      </Text>
+      {children && (
+        <Text color="color.text" fontWeight="medium">
+          {children}
+        </Text>
+      )}
     </TH>
   );
 };
 
-export default Column;
+export default HeadCell;

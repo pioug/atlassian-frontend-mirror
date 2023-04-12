@@ -18,6 +18,7 @@
 import type { EditPageProps } from '@atlassian/embedded-confluence-common';
 import { ExperienceTracker } from '@atlassian/experience-tracker';
 import { ExperienceTrackerContext } from '@atlassian/experience-tracker';
+import { Page as Page_2 } from '@atlassian/embedded-confluence-common';
 import { default as React_2 } from 'react';
 import type { ViewPageProps } from '@atlassian/embedded-confluence-common';
 
@@ -27,6 +28,14 @@ export const EditPage: React_2.FC<EditPageProps>;
 export { ExperienceTracker };
 
 export { ExperienceTrackerContext };
+
+// @public (undocumented)
+export const Page: (
+  props: Omit<
+    React_2.ComponentProps<typeof Page_2>,
+    'editComponent' | 'viewComponent'
+  >,
+) => JSX.Element;
 
 // @public (undocumented)
 export const ViewPage: React_2.FC<ViewPageProps>;

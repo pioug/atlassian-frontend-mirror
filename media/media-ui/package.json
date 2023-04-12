@@ -68,7 +68,7 @@
     "react-intl-next": "npm:react-intl@^5.18.1"
   },
   "devDependencies": {
-    "@atlaskit/analytics-listeners": "^8.5.0",
+    "@atlaskit/analytics-listeners": "^8.6.0",
     "@atlaskit/button": "^16.6.0",
     "@atlaskit/checkbox": "^12.4.0",
     "@atlaskit/docs": "*",

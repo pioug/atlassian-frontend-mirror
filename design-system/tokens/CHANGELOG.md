@@ -1,5 +1,17 @@
 # @atlaskit/tokens
 
+## 1.2.11
+
+### Patch Changes
+
+- [`8ec4434b4c2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8ec4434b4c2) - The return type for `useThemeObserver` now omits `auto` as a possible option for `colorMode`. From the perspective of observers `auto` does not exist because `colorMode` is precalculated at runtime.
+
+## 1.2.10
+
+### Patch Changes
+
+- [`80a0a472d01`](https://bitbucket.org/atlassian/atlassian-frontend/commits/80a0a472d01) - Onboard `@atlaskit/tokens` on push model consumption
+
 ## 1.2.9
 
 ### Patch Changes

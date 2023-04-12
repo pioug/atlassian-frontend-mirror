@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/tokens",
-  "version": "1.2.9",
+  "version": "1.2.11",
   "author": "Atlassian Pty Ltd",
   "description": "Design tokens are the single source of truth to name and store design decisions.",
   "license": "Apache-2.0",
@@ -10,6 +10,9 @@
   "atlassian": {
     "team": "Design System Team",
     "releaseModel": "continuous",
+    "productPushConsumption": [
+      "jira"
+    ],
     "website": {
       "name": "Design tokens",
       "category": "Libraries"

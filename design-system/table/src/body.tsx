@@ -29,11 +29,9 @@ function TBody<ObjectType extends object>({
 }: BodyProps<ObjectType>) {
   const { sortFn } = useTable<ObjectType>();
   const [_state, { removeAll, setMax }] = useSelection();
-
   // TODO: this seems like something the user should control or opt into.
   useEffect(() => {
     removeAll?.();
-
     // eslint-disable-next-line react-hooks/exhaustive-deps -- When the rows change, we [currently] want to call removeAll.
   }, [rows]);
 

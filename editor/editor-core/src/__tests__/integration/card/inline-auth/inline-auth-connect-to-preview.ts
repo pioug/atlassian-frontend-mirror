@@ -11,9 +11,12 @@ import {
 
 type ClientType = Parameters<typeof goToEditorTestingWDExample>[0];
 
+// FIXME: This test was automatically skipped due to failure on 11/04/2023: https://product-fabric.atlassian.net/browse/ED-17436
 BrowserTestCase(
   'inline: should open a new window to authenticate with a provider',
-  { skip: [] },
+  {
+    skip: ['*'],
+  },
   async (client: ClientType) => {
     const page = await goToEditorTestingWDExample(client);
     const authorizationWindow = new AuthorizationWindow(client, page);

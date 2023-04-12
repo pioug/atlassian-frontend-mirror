@@ -11,7 +11,7 @@ import PeopleTeamsAnalyticsListener from './peopleTeams/PeopleTeamsAnalyticsList
 import NotificationsAnalyticsListener from './notifications/NotificationsAnalyticsListener';
 import RecentWorkAnalyticsListener from './recentWork/RecentWorkAnalyticsListener';
 import AtlasAnalyticsListener from './atlas/AtlasAnalyticsListener';
-import CrossFlowAnalyticsListener from './discovery/CrossFlowAnalyticsListener';
+import CrossFlowAnalyticsListener from './cross-flow/CrossFlowAnalyticsListener';
 import LinkingPlatformAnalyticsListener from './linkingPlatform/LinkingPlatformAnalyticsListener';
 
 export type Props = {

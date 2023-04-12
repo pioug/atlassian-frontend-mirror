@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
-import { gridSize, borderRadius, colors } from '@atlaskit/theme';
+import { gridSize, colors } from '@atlaskit/theme';
 import { getWidth } from '../utils';
 import { Mode } from '../types';
 import { token } from '@atlaskit/tokens';
@@ -17,7 +17,7 @@ type ColorPaletteMenuProps = {
 
 export const ColorCardWrapper = styled.div`
   display: flex;
-  margin: ${gridSize() / 4}px;
+  margin: ${token('space.025', '2px')};
 `;
 
 export const ColorPaletteContainer = styled.div<
@@ -26,7 +26,7 @@ export const ColorPaletteContainer = styled.div<
   display: flex;
   flex-wrap: wrap;
   padding: ${(props) =>
-    props.mode === Mode.Compact ? `0` : `${gridSize() / 2}px`};
+    props.mode === Mode.Compact ? `0` : `${token('space.050', '4px')}`};
 `;
 
 export const ColorPaletteMenu = styled.div<
@@ -40,7 +40,7 @@ export const ColorPaletteMenu = styled.div<
     props.mode &&
     props.mode === Mode.Standard &&
     `
-    box-radius: ${borderRadius}px;
+    box-radius: ${token('border.radius.100', '3px')};
     box-shadow: ${token(
       'elevation.shadow.overlay',
       `0 0 0 1px ${colors.N40}, 0 0 8px ${colors.N40}`,

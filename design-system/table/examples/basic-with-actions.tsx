@@ -26,8 +26,7 @@ export default function Basic() {
   const [data, setData] = useState(presidents);
 
   const deleteId = (ids: number[]) => {
-    console.log(ids);
-    const updated = data.filter((president, index) => !ids.includes(index));
+    const updated = data.filter((_, index) => !ids.includes(index));
     setData(updated);
   };
 

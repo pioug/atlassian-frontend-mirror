@@ -61,7 +61,7 @@
     "@atlaskit/activity-provider": "^2.3.0",
     "@atlaskit/adf-schema": "^25.4.0",
     "@atlaskit/adf-utils": "^18.1.0",
-    "@atlaskit/analytics-listeners": "^8.5.0",
+    "@atlaskit/analytics-listeners": "^8.6.0",
     "@atlaskit/analytics-namespaced-context": "^6.6.0",
     "@atlaskit/analytics-next": "^9.0.0",
     "@atlaskit/analytics-next-stable-react-context": "1.0.1",

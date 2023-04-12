@@ -16,6 +16,11 @@ export interface ThemeState {
   typography?: ThemeIds;
 }
 
+// Represents theme state once mounted to the page (auto is hidden from observers)
+export interface ActiveThemeState extends ThemeState {
+  colorMode: Exclude<ThemeColorModes, 'auto'>;
+}
+
 const defaultColorMode: DataColorModes = 'light';
 
 const isMatchMediaAvailable =

@@ -1,5 +1,11 @@
 # @atlaskit/link-create
 
+## 0.1.2
+
+### Patch Changes
+
+- [`5da1c8f4422`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5da1c8f4422) - Integrate with link-create-presets
+
 ## 0.1.1
 
 ### Patch Changes

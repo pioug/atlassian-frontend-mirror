@@ -43,7 +43,7 @@ export const CardHeader = styled.div<{ image?: string; isLoading?: boolean }>`
 export const CardContent = styled.div`
   display: flex;
   flex-direction: column;
-  padding: ${gridSize() * 3}px;
+  padding: ${token('space.300', '24px')};
   min-height: ${gridSize() * 13}px;
 `;
 
@@ -59,16 +59,16 @@ export const TeamName = styled.h6`
 
 export const MemberCount = styled.div`
   color: ${token('color.text.subtlest', N200)};
-  margin-top: ${gridSize() * 0.5}px;
+  margin-top: ${token('space.050', '4px')};
 `;
 
 export const AvatarSection = styled.div`
-  margin-top: ${gridSize() * 2}px;
+  margin-top: ${token('space.200', '16px')};
   margin-left: -2px;
 `;
 
 export const DescriptionWrapper = styled.div`
-  margin-top: ${gridSize() * 2}px;
+  margin-top: ${token('space.200', '16px')};
   align-items: center;
   display: flex;
 `;
@@ -85,7 +85,8 @@ export const ActionButtons = styled.div`
   width: calc(100% + 8px);
   display: flex;
   justify-content: space-between;
-  margin: ${gridSize() * 3}px -${gridSize() * 3}px 0 -${gridSize()}px;
+  margin: ${token('space.300', '24px')} calc(-1 * ${token('space.300', '24px')})
+    0 calc(-1 * ${token('space.100', '8px')});
   background-color: ${token(
     'elevation.surface.overlay',
     'hsla(0, 100%, 100%, 0.2)',
@@ -104,11 +105,11 @@ export const MoreButton = styled.div`
 
 export const LoadingWrapper = styled.div`
   text-align: center;
-  margin-top: ${gridSize() * 5}px;
+  margin-top: ${token('space.500', '40px')};
 `;
 
 export const AccessLockSVGWrapper = styled.div`
-  margin-bottom: ${gridSize() * 3}px;
+  margin-bottom: ${token('space.300', '24px')};
 `;
 
 // export const LoadingTeamName = styled.div`

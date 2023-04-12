@@ -1,6 +1,6 @@
 import { COLOR_MODE_ATTRIBUTE, THEME_DATA_ATTRIBUTE } from './constants';
 import { getGlobalTheme } from './get-global-theme';
-import { ThemeState } from './set-global-theme';
+import { ActiveThemeState } from './set-global-theme';
 
 /**
  * A MutationObserver which watches the `<html>` element for changes to the theme.
@@ -19,7 +19,9 @@ export class ThemeMutationObserver {
   observer: MutationObserver | null = null;
   mediaObserver: any = null;
 
-  constructor(private callback: (theme: Partial<ThemeState>) => unknown) {}
+  constructor(
+    private callback: (theme: Partial<ActiveThemeState>) => unknown,
+  ) {}
 
   observe() {
     if (!this.observer) {

@@ -5,7 +5,6 @@ import { forwardRef, ReactNode } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import Box, { BoxProps } from '@atlaskit/ds-explorations/box';
-import Inline from '@atlaskit/primitives/inline';
 import { token } from '@atlaskit/tokens';
 
 export type BaseCellProps = {
@@ -36,6 +35,10 @@ export type BaseCellProps = {
    * Content of the cell.
    */
   children?: ReactNode;
+  /**
+   * Number of columns to span.
+   */
+  colSpan?: number;
 } & Pick<
   BoxProps,
   'paddingBlock' | 'paddingInline' | 'backgroundColor' | 'className'
@@ -48,12 +51,6 @@ export type SortDirection = 'ascending' | 'descending' | 'none' | 'other';
 
 type InternalBaseCellProps = BaseCellProps & { sortDirection?: SortDirection };
 
-const alignMap = {
-  text: 'start',
-  number: 'end',
-  icon: 'center',
-} as const;
-
 const baseResetStyles = css({
   display: 'table-cell',
   verticalAlign: 'middle',
@@ -64,6 +61,22 @@ const baseResetStyles = css({
     paddingRight: token('space.100', '8px'),
   },
 });
+
+const alignLeftStyles = css({
+  textAlign: 'left',
+});
+const alignCenterStyles = css({
+  textAlign: 'center',
+});
+const alignRightStyles = css({
+  textAlign: 'right',
+});
+
+const alignMap = {
+  text: alignLeftStyles,
+  number: alignRightStyles,
+  icon: alignCenterStyles,
+} as const;
 
 /**
  * __BaseCell__
@@ -80,17 +93,18 @@ export const BaseCell = forwardRef<HTMLTableCellElement, InternalBaseCellProps>(
       children,
       align = 'text',
       paddingBlock = 'space.100',
-      paddingInline = 'space.200',
+      paddingInline = 'space.100',
       backgroundColor,
       scope,
       width,
       className,
       sortDirection,
+      colSpan,
     },
     ref,
   ) => (
     <Box
-      css={baseResetStyles}
+      css={[baseResetStyles, alignMap[align]]}
       ref={ref}
       scope={scope}
       backgroundColor={backgroundColor}
@@ -101,10 +115,9 @@ export const BaseCell = forwardRef<HTMLTableCellElement, InternalBaseCellProps>(
       className={className}
       UNSAFE_style={width ? { width } : undefined}
       aria-sort={sortDirection}
+      colSpan={colSpan}
     >
-      <Inline alignInline={alignMap[align]} space="0">
-        {children}
-      </Inline>
+      {children}
     </Box>
   ),
 );

@@ -9,6 +9,10 @@ const hasMessage = (err: unknown): err is { message: unknown } => {
   return !!(typeof err === 'object' && err && 'message' in err);
 };
 
+const hasType = (err: unknown): err is { type: unknown } => {
+  return !!(typeof err === 'object' && err && 'type' in err);
+};
+
 const getLinkData = async (
   { url, displayCategory }: LinkDetails,
   client: CardClient,
@@ -25,6 +29,13 @@ const getLinkData = async (
       const data = await client.fetchData(url);
       return [data];
     } catch (err: unknown) {
+      if (
+        hasType(err) &&
+        typeof err.type === 'string' &&
+        err.type === 'ResolveUnsupportedError'
+      ) {
+        return [, 'not_found'];
+      }
       if (
         hasMessage(err) &&
         typeof err.message === 'string' &&

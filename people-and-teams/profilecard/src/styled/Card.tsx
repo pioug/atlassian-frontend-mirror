@@ -43,8 +43,8 @@ export const CardWrapper = styled.div`
 
 export const ProfileImage = styled.div`
   position: absolute;
-  top: ${gridSize() * 3}px;
-  left: ${gridSize() * 3}px;
+  top: ${token('space.300', '24px')};
+  left: ${token('space.300', '24px')};
 `;
 
 export const ActionsFlexSpacer = styled.div`
@@ -96,7 +96,7 @@ export const AnimatedKudosButton = styled.div`
 
 export const ActionButtonGroup = styled.div`
   user-select: none;
-  margin: ${2 * gridSize()}px 0 0 0;
+  margin: ${token('space.200', '16px')} 0 0 0;
   text-align: right;
   display: flex;
   justify-content: flex-end;
@@ -135,8 +135,8 @@ export const DetailsGroup = styled.div`
 export const DisabledInfo = styled.div`
   font-size: ${fontSizeSmall}px;
   color: ${labelTextColor};
-  margin: ${gridSize() * 1.5}px 0 0 0;
-  line-height: ${gridSize() * 2}px;
+  margin: ${token('space.150', '12px')} 0 0 0;
+  line-height: ${token('font.lineHeight.100', '16px')};
 `;
 
 export const FullNameLabel = styled.span`
@@ -152,7 +152,7 @@ export const FullNameLabel = styled.span`
 `;
 
 export const LozengeWrapper = styled.div`
-  margin-top: ${gridSize() * 2}px;
+  margin-top: ${token('space.200', '16px')};
   text-transform: uppercase;
   display: block;
 `;
@@ -162,11 +162,11 @@ export const CustomLozengeContainer = styled(LozengeWrapper)`
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
-  margin-top: ${gridSize() * 1.5}px;
+  margin-top: ${token('space.150', '12px')};
   > * {
-    margin-top: ${gridSize() / 2}px;
+    margin-top: ${token('space.050', '4px')};
     &:not(:last-child) {
-      margin-right: ${gridSize() / 2}px;
+      margin-right: ${token('space.050', '4px')};
     }
   }
 `;
@@ -178,7 +178,7 @@ export const JobTitleLabel = styled.span`
 
   font-size: 14px;
   color: ${headerTextColor};
-  margin: 0 0 ${gridSize() * 1.5}px 0;
+  margin: 0 0 ${token('space.150', '12px')} 0;
   line-height: ${24 / 14}em;
 `;
 
@@ -192,7 +192,7 @@ export const AppTitleLabel = styled.span`
   text-transform: uppercase;
 
   font-size: 12px;
-  margin: 4px 0 ${gridSize() * 1.5}px 0;
+  margin: 4px 0 ${token('space.150', '12px')} 0;
   line-height: ${24 / 14}em;
 `;
 
@@ -225,7 +225,7 @@ export const CardContainer = styled.div`
   background-repeat: no-repeat;
   background-size: 100% ${gridSize() * 12}px;
   box-sizing: content-box;
-  padding: ${gridSize() * 3}px;
+  padding: ${token('space.300', '24px')};
   box-shadow: ${(props: CardContainerProps) =>
     props.withoutElevation
       ? ''
@@ -242,13 +242,13 @@ export const CardContainer = styled.div`
 export const DetailsLabel = styled.div`
   display: flex;
   align-items: center;
-  line-height: ${gridSize() * 3}px;
+  line-height: ${token('font.lineHeight.300', '24px')};
   font-size: ${gridSize() * 1.5}px;
-  margin: ${gridSize() * 2}px 0 0 0;
+  margin: ${token('space.200', '16px')} 0 0 0;
   white-space: nowrap;
 
   & + & {
-    margin-top: ${gridSize() / 4}px;
+    margin-top: ${token('space.025', '2px')};
   }
 `;
 
@@ -256,9 +256,9 @@ export const DetailsLabelIcon = styled.div`
   display: flex;
   flex-shrink: 0;
   color: ${labelIconColor};
-  width: ${gridSize() * 2}px;
-  height: ${gridSize() * 2}px;
-  padding: ${gridSize() / 2}px;
+  width: ${token('space.200', '16px')};
+  height: ${token('space.200', '16px')};
+  padding: ${token('space.050', '4px')};
   vertical-align: top;
 
   svg {
@@ -271,5 +271,5 @@ export const DetailsLabelText = styled.span`
   overflow: hidden;
   text-overflow: ellipsis;
   color: ${labelTextColor};
-  padding-left: ${gridSize() / 2}px;
+  padding-left: ${token('space.050', '4px')};
 `;

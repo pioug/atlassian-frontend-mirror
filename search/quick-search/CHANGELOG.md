@@ -1,5 +1,11 @@
 # @atlaskit/quick-search
 
+## 8.0.14
+
+### Patch Changes
+
+- [`1378b2a7308`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1378b2a7308) - Migrated use of `gridSize` to space tokens where possible. There is no expected visual or behaviour change.
+
 ## 8.0.13
 
 ### Patch Changes

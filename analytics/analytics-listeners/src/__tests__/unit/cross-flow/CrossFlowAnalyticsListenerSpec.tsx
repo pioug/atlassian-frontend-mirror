@@ -1,0 +1,121 @@
+import React from 'react';
+import CrossFlowAnalyticsListener from '../../../cross-flow/CrossFlowAnalyticsListener';
+import { AnalyticsWebClient, FabricChannel } from '../../../types';
+import Logger from '../../../helpers/logger';
+import { mount } from 'enzyme';
+import { createAnalyticsContexts, createLoggerMock } from '../../_testUtils';
+import { createButtonWithAnalytics } from '../../../../examples/helpers';
+import { UI_EVENT_TYPE } from '@atlaskit/analytics-gas-types';
+
+describe('CrossFlowAnalyticsListener', () => {
+  let analyticsWebClientMock: AnalyticsWebClient;
+  let loggerMock: Logger;
+
+  beforeEach(() => {
+    analyticsWebClientMock = {
+      sendUIEvent: jest.fn(),
+      sendOperationalEvent: jest.fn(),
+      sendTrackEvent: jest.fn(),
+      sendScreenEvent: jest.fn(),
+    };
+    loggerMock = createLoggerMock();
+  });
+
+  const buttonClickedEvent = {
+    action: 'clicked',
+    actionSubject: 'someComponent',
+    actionSubjectId: 'someComponentId',
+  };
+  [
+    {
+      description:
+        'Should set namespaces to join all sources, and source is the last one from context, ' +
+        'when source from original payload is undefined',
+      eventPayload: {
+        ...buttonClickedEvent,
+        eventType: UI_EVENT_TYPE,
+        attributes: {
+          recommendedProductIds: ['d8a847a4-cde4-4c50-8ea1-dc3d4193214f'],
+        },
+      },
+      context: [{ source: 'navigation' }, { source: 'discoverSection' }],
+      expectedEvent: {
+        ...buttonClickedEvent,
+        source: 'discoverSection',
+        tags: ['crossFlow'],
+        attributes: {
+          recommendedProductIds: ['d8a847a4-cde4-4c50-8ea1-dc3d4193214f'],
+          namespaces: 'navigation.discoverSection',
+        },
+      },
+    },
+    {
+      description:
+        'Should set namespaces to join all sources, ' +
+        'when source from original payload is same as the last source from context',
+      eventPayload: {
+        ...buttonClickedEvent,
+        eventType: UI_EVENT_TYPE,
+        source: 'discoverSection',
+        attributes: {
+          recommendedProductIds: ['d8a847a4-cde4-4c50-8ea1-dc3d4193214f'],
+        },
+      },
+      context: [{ source: 'navigation' }, { source: 'discoverSection' }],
+      expectedEvent: {
+        ...buttonClickedEvent,
+        source: 'discoverSection',
+        tags: ['crossFlow'],
+        attributes: {
+          recommendedProductIds: ['d8a847a4-cde4-4c50-8ea1-dc3d4193214f'],
+          namespaces: 'navigation.discoverSection',
+        },
+      },
+    },
+    {
+      description:
+        'Should set namespaces to join all sources, ' +
+        'when source from original payload is different from the last source from context',
+      eventPayload: {
+        ...buttonClickedEvent,
+        eventType: UI_EVENT_TYPE,
+        source: 'appRecSection',
+        attributes: {
+          recommendedProductIds: ['d8a847a4-cde4-4c50-8ea1-dc3d4193214f'],
+        },
+      },
+      context: [{ source: 'navigation' }, { source: 'discoverSection' }],
+      expectedEvent: {
+        ...buttonClickedEvent,
+        source: 'appRecSection',
+        tags: ['crossFlow'],
+        attributes: {
+          recommendedProductIds: ['d8a847a4-cde4-4c50-8ea1-dc3d4193214f'],
+          namespaces: 'navigation.discoverSection.appRecSection',
+        },
+      },
+    },
+  ].map((testCase) => {
+    const { description, context, eventPayload, expectedEvent } = testCase;
+    it(description, () => {
+      const AnalyticsContexts = createAnalyticsContexts(context);
+      const spy = jest.fn();
+      const ButtonWithAnalytics = createButtonWithAnalytics(
+        eventPayload,
+        FabricChannel.crossFlow,
+      );
+      const component = mount(
+        <CrossFlowAnalyticsListener
+          client={analyticsWebClientMock}
+          logger={loggerMock}
+        >
+          <AnalyticsContexts>
+            <ButtonWithAnalytics onClick={spy} />
+          </AnalyticsContexts>
+        </CrossFlowAnalyticsListener>,
+      );
+      component.find(ButtonWithAnalytics).simulate('click');
+      expect(analyticsWebClientMock.sendUIEvent).toBeCalledWith(expectedEvent);
+    });
+  });
+});

@@ -1,8 +1,8 @@
 import styled, { css } from 'styled-components';
-import { gridSize } from '@atlaskit/theme/constants';
 import { N0, N500, B200, placeholderText, N50 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
-const inputRightPadding = gridSize() * 2;
+const inputRightPadding = token('space.200', '16px');
 
 export const SearchBox = styled.div`
   position: sticky;
@@ -25,13 +25,13 @@ export const SearchFieldBaseOuter = styled.div`
 export const SearchFieldBaseInner = styled.div`
   position: relative;
   align-items: center;
-  padding-right: ${inputRightPadding}px; /* pad search text from FieldBase's isLoading spinner */
+  padding-right: ${inputRightPadding}; /* pad search text from FieldBase's isLoading spinner */
   display: flex;
   flex-grow: 1;
 `;
 
 export const SearchInner = styled.div`
-  padding-right: ${gridSize() * 3}px;
+  padding-right: ${token('space.300', '24px')};
 `;
 
 export const getPlaceholderStyle = (style: any) => css`
@@ -75,11 +75,11 @@ export const SearchInput = styled.input`
 export const SearchInputTypeAhead = styled(SearchInput)`
   color: ${N50};
   position: absolute;
-  width: calc(100% - ${inputRightPadding}px);
+  width: calc(100% - ${inputRightPadding});
   z-index: -1;
 `;
 
 export const SearchInputControlsContainer = styled.span`
-  padding-left: ${gridSize() * 3}px;
+  padding-left: ${token('space.300', '24px')};
 `;
 SearchInputControlsContainer.displayName = 'SearchInputControlsContainer'; // required for testing

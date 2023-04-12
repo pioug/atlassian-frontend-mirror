@@ -11,7 +11,7 @@ const withErrorBoundary =
       () => (
         <Lozenge
           appearance={props?.appearance}
-          testId={`${props?.testId}-fallback`}
+          testId={`${props?.testId ?? 'smart-element-lozenge-action'}-fallback`}
         >
           {props?.text}
         </Lozenge>

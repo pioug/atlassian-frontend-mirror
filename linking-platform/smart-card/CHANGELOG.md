@@ -1,5 +1,12 @@
 # @atlaskit/smart-card
 
+## 25.3.2
+
+### Patch Changes
+
+- [`fab186f135b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fab186f135b) - Add load and update functionality to lozenge action
+- Updated dependencies
+
 ## 25.3.1
 
 ### Patch Changes

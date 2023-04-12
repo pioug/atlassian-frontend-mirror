@@ -1,35 +1,36 @@
 import styled from '@emotion/styled';
 
 import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import { appLabelTextColor } from './constants';
 
 export const ReportingLinesSection = styled.div`
   // Minor left margin to align better with existing icon fields
-  margin-left: ${gridSize() / 2}px;
-  margin-top: ${gridSize()}px;
+  margin-left: ${token('space.050', '4px')};
+  margin-top: ${token('space.100', '8px')};
 `;
 
 export const ReportingLinesHeading = styled.h5`
   color: ${appLabelTextColor};
   font-size: ${gridSize() * 1.5}px;
   font-weight: 600;
-  margin-bottom: ${gridSize()}px;
+  margin-bottom: ${token('space.100', '8px')};
 `;
 
 export const ManagerSection = styled.div`
   display: flex;
   align-items: center;
-  margin: ${gridSize() / 2}px ${gridSize() / 2}px;
+  margin: ${token('space.050', '4px')} ${token('space.050', '4px')};
 `;
 
 export const ManagerName = styled.span`
   font-size: ${gridSize() * 1.5}px;
-  margin-left: ${gridSize()}px;
+  margin-left: ${token('space.100', '8px')};
 `;
 
 export const OffsetWrapper = styled.div`
-  margin-top: ${gridSize() / 2}px;
+  margin-top: ${token('space.050', '4px')};
   // Offset left margin so the avatar aligns with the heading
-  margin-left: -${gridSize() / 2}px;
+  margin-left: calc(-1 * ${token('space.050', '4px')});
 `;

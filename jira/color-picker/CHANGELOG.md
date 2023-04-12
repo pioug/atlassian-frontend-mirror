@@ -1,5 +1,11 @@
 # @atlaskit/color-picker
 
+## 3.0.10
+
+### Patch Changes
+
+- [`4ce590325b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ce590325b4) - Migrated use of `gridSize` to space tokens where possible. There is no expected visual or behaviour change.
+
 ## 3.0.9
 
 ### Patch Changes

@@ -4,7 +4,6 @@ import styled from '@emotion/styled';
 
 import InlineEdit from '@atlaskit/inline-edit';
 import Select, { ValueType } from '@atlaskit/select';
-import { gridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import ProfileCardClient from '../src/client/ProfileCardClient';
@@ -134,7 +133,7 @@ function MiniEditor(props: {
         readView={() => (
           <div
             style={{
-              padding: `${gridSize()}px`,
+              padding: token('space.100', '8px'),
               width: '300px',
               display: 'inline-block',
             }}
@@ -169,7 +168,10 @@ export default function InlineEditExample() {
   return (
     <div
       style={{
-        padding: `${gridSize()}px ${gridSize()}px ${gridSize() * 6}px`,
+        padding: `${token('space.100', '8px')} ${token(
+          'space.100',
+          '8px',
+        )} ${token('space.600', '48px')}`,
       }}
     >
       <input value="Sample" type="text" />

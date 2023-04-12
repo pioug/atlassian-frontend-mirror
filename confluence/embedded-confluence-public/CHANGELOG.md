@@ -1,5 +1,11 @@
 # @atlaskit/embedded-confluence
 
+## 1.9.0
+
+### Minor Changes
+
+- [`51d55d1c0d8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/51d55d1c0d8) - [ux] Add Page component to allow simple implementation of in place switching between ViewPage and EditPage components.
+
 ## 1.8.0
 
 ### Minor Changes

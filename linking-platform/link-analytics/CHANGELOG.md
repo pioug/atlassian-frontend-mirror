@@ -1,5 +1,11 @@
 # @atlaskit/link-analytics
 
+## 7.0.1
+
+### Patch Changes
+
+- [`8aa0ed775f3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8aa0ed775f3) - Updates resolve attributes to return displayCategory as link instead of smartLink when handling ResolveUnsupportedError.
+
 ## 7.0.0
 
 ### Major Changes

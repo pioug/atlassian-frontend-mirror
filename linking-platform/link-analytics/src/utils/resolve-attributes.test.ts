@@ -32,6 +32,37 @@ describe('resolveAttributes', () => {
     );
   });
 
+  it('handles ResolveUnsupportedError error, returns displayCategory as `link` and status as `not_found`', async () => {
+    const mockFetch = jest.fn(async () => {
+      throw new APIError(
+        'auth',
+        new URL('https://example.com').hostname,
+        'we dont support this link',
+        'ResolveUnsupportedError',
+      );
+    });
+    const mockClient = new (fakeFactory(mockFetch))();
+    const resolvedAttributes = await resolveAttributes(
+      linkDetails,
+      mockClient,
+      mockStore,
+    );
+
+    expect(resolvedAttributes).toEqual({
+      destinationCategory: null,
+      destinationContainerId: null,
+      destinationObjectId: null,
+      destinationObjectType: null,
+      destinationProduct: null,
+      destinationSubproduct: null,
+      destinationTenantId: null,
+      extensionKey: null,
+      status: 'not_found',
+      displayCategory: 'link',
+      urlHash: 'f28318b204791d282d65cc09bba5389e8b9c7406',
+    });
+  });
+
   it('handles unknown error, returns displayCategory as `smartLink`', async () => {
     const mockFetch = jest.fn(async () => {
       throw new APIError(

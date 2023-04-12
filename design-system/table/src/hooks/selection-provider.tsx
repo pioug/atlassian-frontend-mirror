@@ -23,10 +23,6 @@ const SelectionContext = createContext<SelectionContext>([
  * __Selection provider__
  *
  * A selection provider injects selection specific state into the table.
- *
- * - [Examples](https://atlassian.design/components/{packageName}/examples)
- * - [Code](https://atlassian.design/components/{packageName}/code)
- * - [Usage](https://atlassian.design/components/{packageName}/usage)
  */
 const SelectionProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const reducer = useSelectionReducer();

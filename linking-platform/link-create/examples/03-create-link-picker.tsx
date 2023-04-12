@@ -7,15 +7,19 @@ import LinkCreate from '@atlaskit/link-create';
 import { LinkPicker } from '@atlaskit/link-picker';
 import Popup from '@atlaskit/popup';
 import { confluencePageLinkCreatePlugin } from '@atlassian/link-create-confluence';
+import { defaultPluginPresets as createPluginPresets } from '@atlassian/link-create-presets';
 import {
   LinkPickerCreateOnSubmitHandler,
   useLinkPickerCreate,
 } from '@atlassian/link-picker-plugins';
 
 const LinkPickerCreate = () => {
+  const [link, setLink] = useState<string | null>(null);
   const [showPicker, setShowPicker] = useState(true);
 
   // Plugin configuration
+  // We can take especific create plugins, presets or both
+  // Especific plugin config will take priority over presets
   const linkPickerCreateconfigs = useMemo(
     () => [
       {
@@ -29,18 +33,28 @@ const LinkPickerCreate = () => {
 
   // Event handlers
   const onCancel = () => setShowPicker(false);
-  const onSubmit: LinkPickerCreateOnSubmitHandler = payload =>
+  const onSubmit: LinkPickerCreateOnSubmitHandler = payload => {
+    setLink(payload.url);
     console.log(payload);
+  };
 
   // Hook
   const { createProps, pickerProps } = useLinkPickerCreate(
     onSubmit,
     onCancel,
     linkPickerCreateconfigs,
+    createPluginPresets,
   );
 
   return (
-    <>
+    <div style={{ padding: '20px' }}>
+      {link && (
+        <div style={{ marginBottom: '1rem' }}>
+          <a href={link} target="_blank" rel="noopener noreferrer nofollow">
+            {link}
+          </a>
+        </div>
+      )}
       <Popup
         isOpen={showPicker}
         autoFocus={false}
@@ -57,7 +71,7 @@ const LinkPickerCreate = () => {
         )}
       />
       <LinkCreate {...createProps} />
-    </>
+    </div>
   );
 };
 

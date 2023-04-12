@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/table",
-  "version": "0.2.8",
+  "version": "0.3.0",
   "description": "A table is used to display data.",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -57,6 +57,7 @@
     "@atlaskit/ds-lib": "*",
     "@atlaskit/dynamic-table": "*",
     "@atlaskit/lozenge": "*",
+    "@atlaskit/section-message": "^6.3.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",

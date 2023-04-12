@@ -21,13 +21,7 @@ import type { InvokeResponse } from '@atlaskit/linking-types/smart-link-actions'
 
 // @public
 export const useSmartLinkClientExtension: (cardClient: CardClient) => {
-  invoke: (data: InvokeRequest) => Promise<
-    | InvokeResponse
-    | {
-        message?: string | undefined;
-        errorCode?: string | undefined;
-      }
-  >;
+  invoke: (data: InvokeRequest) => Promise<InvokeResponse>;
 };
 
 // (No @packageDocumentation comment for this package)

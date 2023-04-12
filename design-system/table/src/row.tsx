@@ -4,6 +4,8 @@ import { FC, memo, ReactNode, useMemo } from 'react';
 import { jsx } from '@emotion/react';
 
 import { useSelection } from './hooks/selection-provider';
+import useExpand from './hooks/use-expand';
+import useExpandContent from './hooks/use-expand-content';
 import { useRowId } from './hooks/use-row-id';
 import { useTable } from './hooks/use-table';
 import { useTableBody } from './hooks/use-table-body';
@@ -35,19 +37,34 @@ const Row: FC<RowProps> = memo(({ children, testId }) => {
   // to access table state
   const { isSelectable } = useTable();
   const [{ allChecked, checked }] = useSelection();
+  const { isExpanded } = useExpand();
+  const { isExpandableContent } = useExpandContent();
   const rowId = useRowId();
 
   const isSelected = useMemo(() => {
-    if (!isSelectable) {
+    if (!isSelectable || rowId === undefined) {
       return undefined;
     }
 
-    return allChecked || checked.includes(rowId!);
+    return allChecked || checked.includes(rowId);
   }, [allChecked, checked, isSelectable, rowId]);
 
+  if (isExpanded === false && isExpandableContent) {
+    return null;
+  }
+
+  let selectableCell = isSelectable && <SelectableCell />;
+  if (isSelectable && isExpandableContent) {
+    selectableCell = <Primitives.SelectableCell as="td" />;
+  }
+
   return (
-    <Primitives.TR isSelected={isSelected} testId={testId}>
-      {isSelectable && <SelectableCell />}
+    <Primitives.TR
+      isSelected={isSelected}
+      testId={testId}
+      isSubitem={isExpandableContent}
+    >
+      {selectableCell}
       {children}
     </Primitives.TR>
   );

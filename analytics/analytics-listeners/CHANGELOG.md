@@ -1,5 +1,11 @@
 # @atlaskit/analytics-listeners
 
+## 8.6.0
+
+### Minor Changes
+
+- [`adde244c8b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/adde244c8b4) - CUI-24: set namespaces based on the context for crossFlow channel
+
 ## 8.5.1
 
 ### Patch Changes

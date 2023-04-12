@@ -2,17 +2,26 @@
 import { jsx } from '@emotion/react';
 import { useCallback, useMemo, useState } from 'react';
 import DropdownMenu, { DropdownItemGroup } from '@atlaskit/dropdown-menu';
+import type { FC } from 'react';
+import type { CustomTriggerProps } from '@atlaskit/dropdown-menu';
+
 import LozengeActionItem from './lozenge-action-item';
 import LozengeActionTrigger from './lozenge-action-trigger';
 import LozengeActionError from './lozenge-action-error';
 import withErrorBoundary from './error-boundary';
+import { dropdownItemGroupStyles } from './styled';
 import useInvoke from '../../../../../state/hooks/use-invoke';
 import { InvokeActionError } from '../../../../../state/hooks/use-invoke/types';
-import { dropdownItemGroupStyles } from './styled';
-
-import type { FC } from 'react';
-import type { CustomTriggerProps } from '@atlaskit/dropdown-menu';
+import extractLozengeActionItems from '../../../../../extractors/action/extract-lozenge-action-items';
 import type { LozengeActionProps, LozengeItem } from './types';
+import createStatusUpdateRequest from '../../../../../utils/actions/create-status-update-request';
+
+const validateItems = (
+  items: LozengeItem[] = [],
+  text?: string,
+): LozengeItem[] => {
+  return items.filter((item) => item.text !== text);
+};
 
 const LozengeAction: FC<LozengeActionProps> = ({
   action,
@@ -22,32 +31,44 @@ const LozengeAction: FC<LozengeActionProps> = ({
 }) => {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const [items, setItems] = useState<LozengeItem[]>();
   const [errorCode, setErrorCode] = useState<InvokeActionError>();
 
   const invoke = useInvoke();
 
-  const onOpenChange = useCallback(
+  const handleOpenChange = useCallback(
     async (args) => {
-      if (args.isOpen && !isLoaded && action) {
+      setIsOpen(args.isOpen);
+
+      if (args.isOpen && !isLoaded && action?.read) {
         try {
           setIsLoading(true);
-          const lozengeItems = (await invoke<LozengeItem[]>(action)) || [];
-          setItems(lozengeItems);
+          const responseItems = await invoke(
+            action.read,
+            extractLozengeActionItems,
+          );
+          const validItems = validateItems(responseItems, text);
+
+          setItems(validItems);
           setIsLoaded(true);
 
-          if (lozengeItems.length === 0) {
+          if (validItems?.length === 0) {
             setErrorCode(InvokeActionError.NoData);
           }
         } catch (err) {
-          // TODO: EDM-5746 and EDM-5782
+          // TODO: EDM-6261: Error state
           setErrorCode(InvokeActionError.Unknown);
         } finally {
           setIsLoading(false);
         }
       }
+
+      if (!args.isOpen) {
+        setErrorCode(undefined);
+      }
     },
-    [action, invoke, isLoaded],
+    [action?.read, invoke, isLoaded, text],
   );
 
   const trigger = useCallback(
@@ -62,33 +83,58 @@ const LozengeAction: FC<LozengeActionProps> = ({
     [appearance, testId, text],
   );
 
+  const handleItemClick = useCallback(
+    async (id: string) => {
+      try {
+        if (action?.update && id) {
+          setIsLoading(true);
+
+          const request = createStatusUpdateRequest(action.update, id);
+          await invoke(request);
+
+          setIsLoading(false);
+          setIsOpen(false);
+        }
+      } catch (err) {
+        // TODO: EDM-6261: Error state
+        setIsLoading(false);
+        setErrorCode(InvokeActionError.Unknown);
+      }
+    },
+    [action?.update, invoke],
+  );
+
   const dropdownItemGroup = useMemo(() => {
+    if (errorCode) {
+      return <LozengeActionError errorCode={errorCode} testId={testId} />;
+    }
+
     if (items && items.length > 0) {
       return (
-        <span css={dropdownItemGroupStyles}>
+        <span
+          css={dropdownItemGroupStyles}
+          data-testid={`${testId}-item-group`}
+        >
           <DropdownItemGroup>
-            {items.map(({ appearance, text }, idx) => (
+            {items.map((item, idx) => (
               <LozengeActionItem
-                appearance={appearance}
+                {...item}
                 key={idx}
+                onClick={handleItemClick}
                 testId={`${testId}-item-${idx}`}
-                text={text}
               />
             ))}
           </DropdownItemGroup>
         </span>
       );
     }
-
-    if (errorCode) {
-      return <LozengeActionError errorCode={errorCode} testId={testId} />;
-    }
-  }, [errorCode, items, testId]);
+  }, [errorCode, handleItemClick, items, testId]);
 
   return (
     <DropdownMenu
       isLoading={isLoading}
-      onOpenChange={onOpenChange}
+      isOpen={isOpen}
+      onOpenChange={handleOpenChange}
       testId={testId}
       trigger={trigger}
     >

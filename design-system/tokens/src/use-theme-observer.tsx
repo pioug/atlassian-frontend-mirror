@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { getGlobalTheme } from './get-global-theme';
-import { ThemeState } from './set-global-theme';
+import { ActiveThemeState } from './set-global-theme';
 import { ThemeMutationObserver } from './theme-mutation-observer';
 
 /**
@@ -17,8 +17,8 @@ import { ThemeMutationObserver } from './theme-mutation-observer';
  * }, [theme.colorMode]);
  * ```
  */
-export const useThemeObserver: () => Partial<ThemeState> = () => {
-  const [theme, setTheme] = useState<Partial<ThemeState>>(getGlobalTheme());
+export const useThemeObserver: () => Partial<ActiveThemeState> = () => {
+  const [theme, setTheme] = useState(getGlobalTheme());
 
   useEffect(() => {
     const observer = new ThemeMutationObserver((theme) => setTheme(theme));

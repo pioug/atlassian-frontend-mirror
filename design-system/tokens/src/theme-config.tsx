@@ -34,7 +34,7 @@ export type ThemeKinds = 'color' | 'spacing' | 'typography' | 'shape';
  */
 export const themeColorModes = ['light', 'dark', 'auto'] as const;
 export type ThemeColorModes = typeof themeColorModes[number];
-export type DataColorModes = Omit<ThemeColorModes, 'auto'>;
+export type DataColorModes = Exclude<ThemeColorModes, 'auto'>;
 
 /**
  * Theme ids: The value that will be mounted to the DOM as a data attr

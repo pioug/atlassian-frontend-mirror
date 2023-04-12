@@ -17,6 +17,12 @@
 ```ts
 import { UnbindFn } from 'bind-event-listener';
 
+// @public (undocumented)
+interface ActiveThemeState extends ThemeState {
+  // (undocumented)
+  colorMode: Exclude<ThemeColorModes, 'auto'>;
+}
+
 // @public
 export type ActiveTokens =
   | 'color.background.accent.blue.bolder'
@@ -825,7 +831,7 @@ type ExperimentalTokenState = 'experimental';
 type ExtensionThemeId = ThemeIds;
 
 // @public (undocumented)
-export const getGlobalTheme: () => Partial<ThemeState>;
+export const getGlobalTheme: () => Partial<ActiveThemeState>;
 
 // @public
 export const getSSRAutoScript: (
@@ -1295,7 +1301,7 @@ type ThemeKinds = 'color' | 'shape' | 'spacing' | 'typography';
 
 // @public
 export class ThemeMutationObserver {
-  constructor(callback: (theme: Partial<ThemeState>) => unknown);
+  constructor(callback: (theme: Partial<ActiveThemeState>) => unknown);
   // (undocumented)
   disconnect(): void;
   // (undocumented)
@@ -1712,7 +1718,7 @@ type TokenState =
   | ExperimentalTokenState;
 
 // @public
-export const useThemeObserver: () => Partial<ThemeState>;
+export const useThemeObserver: () => Partial<ActiveThemeState>;
 
 // (No @packageDocumentation comment for this package)
 ```

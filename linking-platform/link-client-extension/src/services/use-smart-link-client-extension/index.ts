@@ -3,7 +3,6 @@ import { useCallback, useMemo } from 'react';
 import type { CardClient } from '@atlaskit/link-provider';
 import { request } from '@atlaskit/linking-common';
 import type {
-  InvokeErrorResponse,
   InvokeRequest,
   InvokeResponse,
 } from '@atlaskit/linking-types/smart-link-actions';
@@ -23,12 +22,12 @@ export const useSmartLinkClientExtension = (cardClient: CardClient) => {
 
   const invoke = useCallback(
     async (data: InvokeRequest) => {
-      const response = await request<InvokeResponse | InvokeErrorResponse>(
+      const response = await request<InvokeResponse>(
         'post',
         `${resolvedUrl}/invoke`,
         data,
         undefined,
-        [200, 204],
+        [200, 201, 202, 203, 204],
       );
 
       return response;

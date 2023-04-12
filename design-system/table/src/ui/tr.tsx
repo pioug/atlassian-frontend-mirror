@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { FC, ReactNode } from 'react';
+import type { FC, ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -19,6 +19,10 @@ const selectedStyles = css({
   '&:hover': {
     backgroundColor: token('color.background.selected.hovered', '#DEEBFF'), // B50
   },
+});
+
+const subitemStyles = css({
+  backgroundColor: token('color.background.neutral', '#091E420F'),
 });
 
 const bodyRowStyles = css({
@@ -52,6 +56,10 @@ interface TRProps {
    * Content of the row.
    */
   children?: ReactNode;
+  /**
+   * If the row is a subitem (an expandable row nested under a parent).
+   */
+  isSubitem?: boolean;
 }
 
 /**
@@ -66,6 +74,7 @@ export const TR: FC<TRProps> = ({
   testId,
   isSelected,
   isBodyRow = true,
+  isSubitem,
 }) => {
   return (
     <FocusRing isInset>
@@ -77,6 +86,7 @@ export const TR: FC<TRProps> = ({
           baseStyles,
           isBodyRow && bodyRowStyles,
           isSelected && selectedStyles,
+          isSubitem && subitemStyles,
         ]}
       >
         {children}

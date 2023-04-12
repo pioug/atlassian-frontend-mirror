@@ -22,7 +22,6 @@ export const TH: FC<InternalTHProps> = ({
   width,
   sortDirection,
 }) => (
-  // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
   <BaseCell
     as="th"
     testId={testId}

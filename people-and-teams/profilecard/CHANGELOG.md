@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 19.2.2
+
+### Patch Changes
+
+- [`c3d16d3164f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c3d16d3164f) - Migrated use of `gridSize` to space tokens where possible. There is no expected visual or behaviour change.
+
 ## 19.2.1
 
 ### Patch Changes

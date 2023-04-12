@@ -1,5 +1,13 @@
 # @atlaskit/drag-and-drop-hitbox
 
+## 0.7.0
+
+### Minor Changes
+
+- [`00434d087d7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/00434d087d7) - Tree item hitbox data is now memoized. This is helpful to reduce work for consumers who may take actions based on object reference changes.
+
+  If you are using `react` and putting tree item hitbox instructions into state, react will now only re-render when the content of the instruction changes.
+
 ## 0.6.3
 
 ### Patch Changes

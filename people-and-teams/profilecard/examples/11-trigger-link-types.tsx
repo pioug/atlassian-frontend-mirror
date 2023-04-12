@@ -4,7 +4,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 
 import { G400, G75, R75, Y75 } from '@atlaskit/theme/colors';
-import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import ProfileCardClient from '../src/client/ProfileCardClient';
 import TeamProfileCardClient from '../src/client/TeamProfileCardClient';
@@ -84,7 +84,10 @@ const TriggerTypeTable = () => (
   <ExampleWrapper>
     <div
       style={{
-        padding: `${gridSize()}px ${gridSize()}px ${gridSize() * 6}px`,
+        padding: `${token('space.100', '8px')} ${token(
+          'space.100',
+          '8px',
+        )} ${token('space.600', '48px')}`,
       }}
     >
       <p>

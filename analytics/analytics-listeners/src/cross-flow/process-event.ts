@@ -10,9 +10,10 @@ import {
   GasPayload,
   GasScreenEventPayload,
 } from '@atlaskit/analytics-gas-types';
-
+import last from 'lodash/last';
 import Logger from '../helpers/logger';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { getSources } from '../atlaskit/extract-data-from-event';
 
 const CROSS_FLOW_TAG = 'crossFlow';
 
@@ -25,11 +26,20 @@ export default (
     action,
     actionSubject,
     actionSubjectId,
-    attributes,
     name,
-    source,
-    containers,
   } = event.payload;
+  let sources = getSources(event);
+  const lastSourceFromContext = last(sources);
+
+  const source = event.payload.source ?? lastSourceFromContext;
+  if (lastSourceFromContext !== source) {
+    sources.push(source);
+  }
+
+  const attributes = {
+    ...event.payload.attributes,
+    namespaces: sources.join('.'),
+  };
 
   // Ensure navigation tag is not duplicated by using Set
   const tags: Set<string> = new Set(event.payload.tags || []);
@@ -41,7 +51,6 @@ export default (
       case OPERATIONAL_EVENT_TYPE:
       case TRACK_EVENT_TYPE:
         return {
-          containers,
           eventType,
           source,
           actionSubject,
@@ -52,10 +61,8 @@ export default (
         } as any;
       case SCREEN_EVENT_TYPE:
         return {
-          containers,
           eventType,
           name,
-          source,
           attributes,
           tags: Array.from(tags),
         };

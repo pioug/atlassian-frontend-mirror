@@ -1,13 +1,14 @@
 import type { ThemeAppearance } from '@atlaskit/lozenge';
-import type { InvokeAction } from '../../../../../state/hooks/use-invoke/types';
+import type { InvokeActions } from '../../../../../state/hooks/use-invoke/types';
 
 export type LozengeItem = {
   appearance?: ThemeAppearance;
+  id: string;
   text: string;
 };
 
 export type LozengeActionProps = {
-  action?: InvokeAction;
+  action?: InvokeActions;
   appearance?: ThemeAppearance;
   testId?: string;
   text: string;

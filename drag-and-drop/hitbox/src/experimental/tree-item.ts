@@ -1,3 +1,5 @@
+import memoizeOne from 'memoize-one';
+
 import type { Input, Position } from '@atlaskit/drag-and-drop/types';
 
 export type ItemMode = 'standard' | 'expanded' | 'last-in-group';
@@ -131,6 +133,34 @@ function getInstruction({
   };
 }
 
+function isShallowEqual(
+  a: Record<string, unknown>,
+  b: Record<string, unknown>,
+): boolean {
+  const aKeys = Object.keys(a).sort();
+  const bKeys = Object.keys(b).sort();
+  if (aKeys.length !== bKeys.length) {
+    return false;
+  }
+  return aKeys.every(key => a[key] === b[key]);
+}
+
+function areInstructionsEqual(a: Instruction, b: Instruction): boolean {
+  // Shortcut
+  if (a.type !== b.type) {
+    return false;
+  }
+  if (a.type === 'instruction-blocked' && b.type === 'instruction-blocked') {
+    return areInstructionsEqual(a.desired, b.desired);
+  }
+  return isShallowEqual(a, b);
+}
+
+const memoizeInstruction = memoizeOne(
+  (instruction: Instruction): Instruction => instruction,
+  ([incoming], [existing]) => areInstructionsEqual(incoming, existing),
+);
+
 function applyInstructionBlock({
   desired,
   block,
@@ -159,14 +189,15 @@ export function attachInstruction(
   },
 ): Record<string | symbol, unknown> {
   const desired: Instruction = getInstruction(rest);
-  const instruction: Instruction = applyInstructionBlock({
+  const withBlock: Instruction = applyInstructionBlock({
     desired,
     block,
   });
+  const memoized: Instruction = memoizeInstruction(withBlock);
 
   return {
     ...userData,
-    [uniqueKey]: instruction,
+    [uniqueKey]: memoized,
   };
 }
 

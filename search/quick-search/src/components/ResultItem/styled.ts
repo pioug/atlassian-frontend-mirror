@@ -1,16 +1,16 @@
 import styled from 'styled-components';
-import { gridSize } from '@atlaskit/theme/constants';
 import { N200 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 export const ResultItemGroupHeader = styled.div`
   display: flex;
-  margin-left: -${gridSize() * 1.5}px;
-  margin-top: ${gridSize() * 1.5}px;
+  margin-left: calc(-1 * ${token('space.150', '12px')});
+  margin-top: ${token('space.150', '12px')};
 `;
 
 export const ResultItemGroupTitle = styled.div`
   font-size: 11px;
-  line-height: ${gridSize() * 2}px;
+  line-height: ${token('font.lineHeight.100', '16px')};
   font-weight: 600;
 `;
 
@@ -25,7 +25,7 @@ export const ResultItemAfterWrapper = styled.div`
 export const ResultItemCaption = styled.span`
   color: ${N200};
   font-size: 12px;
-  margin-left: ${gridSize()}px;
+  margin-left: ${token('space.100', '8px')};
 `;
 
 export const ResultItemSubText = styled.span`
@@ -49,8 +49,8 @@ export const ResultItemIcon = styled.div`
     currently assume that the image passed in is the correct dimensions, or has
     width / height 100% */
   > img {
-    height: ${gridSize() * 3}px;
-    width: ${gridSize() * 3}px;
+    height: ${token('space.300', '24px')};
+    width: ${token('space.300', '24px')};
   }
 `;
 

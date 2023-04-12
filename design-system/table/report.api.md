@@ -15,17 +15,22 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
+/// <reference types="react" />
+
 import { BoxProps } from '@atlaskit/ds-explorations/box';
 import { FC } from 'react';
 import { jsx } from '@emotion/react';
+import { MemoExoticComponent } from 'react';
+import { default as React_2 } from 'react';
 import { ReactElement } from 'react';
 import { ReactNode } from 'react';
+import { SerializedStyles } from '@emotion/react';
 
 // @public (undocumented)
 const alignMap: {
-  readonly text: 'start';
-  readonly number: 'end';
-  readonly icon: 'center';
+  readonly text: SerializedStyles;
+  readonly number: SerializedStyles;
+  readonly icon: SerializedStyles;
 };
 
 // @public (undocumented)
@@ -36,6 +41,7 @@ type BaseCellProps = {
   scope?: 'col' | 'row';
   testId?: string;
   children?: ReactNode;
+  colSpan?: number;
 } & Pick<
   BoxProps,
   'backgroundColor' | 'className' | 'paddingBlock' | 'paddingInline'
@@ -64,6 +70,33 @@ interface CellProps {
   onClick?: React.MouseEventHandler;
   testId?: string;
 }
+
+// @public
+export const ExpandableCell: MemoExoticComponent<() => jsx.JSX.Element>;
+
+// @public
+export const ExpandableRow: ({
+  children,
+  isExpanded,
+  isDefaultExpanded,
+}: ExpandableRowProps) => JSX.Element;
+
+// @public
+export const ExpandableRowContent: ({
+  children,
+}: ExpandableRowContentProps) => JSX.Element;
+
+// @public (undocumented)
+type ExpandableRowContentProps = {
+  children?: React_2.ReactNode;
+};
+
+// @public (undocumented)
+type ExpandableRowProps = {
+  children: React_2.ReactNode;
+  isExpanded?: boolean;
+  isDefaultExpanded?: boolean;
+};
 
 // @public
 export const HeadCell: FC<THProps>;

@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-navigation
 
+## 2.4.1
+
+### Patch Changes
+
+- [`f7f852b0a4f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f7f852b0a4f) - Migrated use of `gridSize` to space tokens where possible. There is no expected visual or behaviour change.
+
 ## 2.4.0
 
 ### Minor Changes

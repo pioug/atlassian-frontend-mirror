@@ -4,7 +4,7 @@ import { css, jsx } from '@emotion/react';
 import { N30A, N40A, N900 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import { gridSize, HORIZONTAL_GLOBAL_NAV_HEIGHT } from '../../common/constants';
+import { HORIZONTAL_GLOBAL_NAV_HEIGHT } from '../../common/constants';
 import { defaultTheme, hexToRGBA, ThemeProvider } from '../../theme';
 import { IconButtonSkeleton } from '../IconButton/skeleton';
 import { PrimaryItemsContainerSkeleton } from '../PrimaryItemsContainer/skeleton';
@@ -18,8 +18,8 @@ const containerStyles = css({
   display: 'flex',
   boxSizing: 'border-box',
   height: HORIZONTAL_GLOBAL_NAV_HEIGHT,
-  paddingRight: gridSize * 1.5,
-  paddingLeft: gridSize * 1.5,
+  paddingRight: token('space.150', '12px'),
+  paddingLeft: token('space.150', '12px'),
   position: 'relative',
   alignItems: 'center',
   justifyContent: 'space-between',
@@ -36,7 +36,7 @@ const containerStyles = css({
   },
   // TODO: (DSP-2087) Remove the below once tokens have launched
   '&::after': {
-    height: gridSize / 2,
+    height: token('space.050', '4px'),
     position: 'absolute',
     top: '100%',
     right: 0,
@@ -69,7 +69,7 @@ const rightStyles = css({
   flexShrink: 0,
   // eslint-disable-next-line @repo/internal/styles/no-nested-styles
   '& > *': {
-    marginRight: gridSize / 2,
+    marginRight: token('space.050', '4px'),
     flexShrink: 0,
   },
 });
@@ -103,11 +103,7 @@ export const NavigationSkeleton = ({
         data-testid={testId}
       >
         <div css={leftStyles}>
-          <IconButtonSkeleton
-            marginLeft={0}
-            marginRight={5}
-            size={gridSize * 3.25}
-          />
+          <IconButtonSkeleton marginLeft={0} marginRight={5} size={26} />
           <ProductHomeSkeleton showSiteName={showSiteName} />
           <PrimaryItemsContainerSkeleton count={primaryItemsCount} />
         </div>
@@ -117,8 +113,8 @@ export const NavigationSkeleton = ({
             <IconButtonSkeleton
               key={index}
               marginLeft={0}
-              marginRight={gridSize / 2}
-              size={gridSize * 3.25}
+              marginRight={4}
+              size={26}
             />
           ))}
           <ProfileSkeleton />

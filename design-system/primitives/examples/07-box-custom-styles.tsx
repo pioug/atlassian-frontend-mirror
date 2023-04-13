@@ -2,14 +2,16 @@ import React from 'react';
 
 import Heading from '@atlaskit/heading';
 
-import { Box, Stack } from '../src';
+import { Box, Stack, xcss } from '../src';
+
+const solidBorderStyles = xcss({ borderStyle: 'solid' });
 
 export default () => {
   return (
     <Stack space="400" alignInline="start">
       <Heading level="h600">Custom width</Heading>
       <Stack space="200" testId="box-custom-width">
-        <Box borderStyle="solid" style={{ width: '600px' }}>
+        <Box xcss={solidBorderStyles} style={{ width: '600px' }}>
           custom width
         </Box>
       </Stack>

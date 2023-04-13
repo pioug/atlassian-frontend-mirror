@@ -37,7 +37,7 @@ export const sliderContainerStyles = css`
   justify-content: center;
   display: flex;
   flex-direction: row;
-  margin-top: ${gridSize()}px;
+  margin-top: ${token('space.100', '8px')};
 
   input {
     box-sizing: content-box;

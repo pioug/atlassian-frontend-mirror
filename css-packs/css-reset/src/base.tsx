@@ -5,7 +5,6 @@ import {
   colors,
   fontFamily,
   fontSize,
-  gridSize,
   typography,
 } from '@atlaskit/theme';
 import { token } from '@atlaskit/tokens';
@@ -46,7 +45,7 @@ export default evaluateInner`
   pre,
   form,
   table {
-    margin: ${gridSize() * 1.5}px 0 0 0;
+    margin: ${token('space.150', '12px')} 0 0 0;
   }
 
   /* Links */
@@ -95,19 +94,19 @@ export default evaluateInner`
   ul,
   ol,
   dl {
-    padding-left: ${gridSize() * 5}px;
+    padding-left: ${token('space.500', '40px')};
   }
 
   dd,
   dd + dt,
   li + li {
-    margin-top: ${gridSize() / 2}px;
+    margin-top: ${token('space.050', '4px')};
   }
   ul ul:not(:first-child),
   ol ul:not(:first-child),
   ul ol:not(:first-child),
   ol ol:not(:first-child) {
-    margin-top: ${gridSize() / 2}px;
+    margin-top: ${token('space.050', '4px')};
   }
 
   /* remove top margin for first element */
@@ -135,11 +134,11 @@ export default evaluateInner`
   }
   blockquote {
     border: none;
-    padding-left: ${gridSize() * 5}px;
+    padding-left: ${token('space.500', '40px')};
   }
   [dir='rtl'] blockquote {
     padding-left: 0;
-    padding-right: ${gridSize() * 5}px;
+    padding-right: ${token('space.500', '40px')};
   }
 
   blockquote::before,

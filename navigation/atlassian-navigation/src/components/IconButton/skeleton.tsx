@@ -1,12 +1,13 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 
-import { gridSize } from '../../common/constants';
+import { token } from '@atlaskit/tokens';
+
 import { useTheme } from '../../theme';
 
 import { IconButtonSkeletonProps } from './types';
 
-const buttonHeight = gridSize * 4;
+const buttonHeight = token('space.400', '32px');
 
 const skeletonStyles = css({
   borderRadius: '50%',
@@ -24,7 +25,8 @@ export const IconButtonSkeleton = ({
   const theme = useTheme();
 
   const dynamicStyles = {
-    marginLeft: typeof marginLeft === 'number' ? marginLeft : gridSize / 2,
+    marginLeft:
+      typeof marginLeft === 'number' ? marginLeft : token('space.050', '4px'),
     marginRight: typeof marginRight === 'number' ? marginRight : 0,
     width: typeof size === 'number' ? size : buttonHeight,
     height: typeof size === 'number' ? size : buttonHeight,

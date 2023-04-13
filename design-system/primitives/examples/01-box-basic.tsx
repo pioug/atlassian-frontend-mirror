@@ -1,15 +1,19 @@
 import React from 'react';
 
-import { Box } from '../src';
+import { Box, xcss } from '../src';
+
+const boxStyles = xcss({
+  width: 'size.500',
+  height: 'size.500',
+});
 
 export default function Basic() {
   return (
     <Box
-      width="size.500"
-      height="size.500"
       backgroundColor="brand.bold"
       testId="box-basic"
       padding="space.100"
+      xcss={boxStyles}
     />
   );
 }

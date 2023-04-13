@@ -22,7 +22,7 @@ import { scrollJustEnoughIntoView } from '@atlaskit/drag-and-drop/util/scroll-ju
 import Heading from '@atlaskit/heading';
 import MoreIcon from '@atlaskit/icon/glyph/more';
 // eslint-disable-next-line no-restricted-imports
-import { Box, Inline, Stack } from '@atlaskit/primitives';
+import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 
 import { Item } from '../data/people';
 import { cardGap } from '../util/constants';
@@ -31,6 +31,15 @@ type DraggableState = 'idle' | 'generate-preview' | 'dragging';
 
 const noMarginStyles = css({ margin: 0 });
 const noPointerEventsStyles = css({ pointerEvents: 'none' });
+const containerStyles = xcss({
+  width: '100%',
+  borderRadius: 'radius.200',
+  boxShadow: 'raised',
+  position: 'relative',
+});
+const draggingStyles = xcss({
+  opacity: 0.6,
+});
 
 export const Card = memo(function Card({ item }: { item: Item }) {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -93,14 +102,9 @@ export const Card = memo(function Card({ item }: { item: Item }) {
     <Box
       ref={ref}
       testId={`item-${itemId}`}
-      width="100%"
       backgroundColor="elevation.surface"
-      borderRadius="radius.200"
       padding="space.100"
-      shadow="raised"
-      position="relative"
-      // @ts-expect-error
-      UNSAFE_style={state === 'dragging' ? { opacity: 0.6 } : undefined}
+      xcss={[containerStyles, state === 'dragging' && draggingStyles]}
     >
       <Inline space="100" alignBlock="center" grow="fill">
         <Avatar size="large" src={avatarUrl}>

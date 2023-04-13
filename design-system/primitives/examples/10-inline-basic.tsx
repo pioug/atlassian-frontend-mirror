@@ -1,19 +1,20 @@
-/* eslint-disable @repo/internal/react/consistent-css-prop-usage */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 
-import { Box, Inline } from '../src';
+import { Box, Inline, xcss } from '../src';
+
+const blockStyles = xcss({ borderRadius: 'radius.050' });
 
 export default () => (
   <Box testId="inline-example" padding="space.100">
     <Inline>
       <Box
-        borderRadius="radius.200"
+        xcss={blockStyles}
         backgroundColor="discovery.bold"
         padding="space.200"
       />
       <Box
-        borderRadius="radius.200"
+        xcss={blockStyles}
         backgroundColor="discovery.bold"
         padding="space.200"
       />

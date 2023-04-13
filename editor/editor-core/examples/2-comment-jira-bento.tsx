@@ -82,6 +82,7 @@ export class CommentEditorJiraBento extends React.Component<Props, State> {
                   primaryToolbarComponents={[
                     <ToolbarHelp titlePosition="top" title="Help" key="help" />,
                   ]}
+                  useStickyToolbar={true}
                 />
               </CollapsedEditor>
             )}

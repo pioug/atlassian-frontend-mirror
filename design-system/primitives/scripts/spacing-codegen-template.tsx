@@ -3,7 +3,7 @@ import parserTypeScript from 'prettier/parser-typescript';
 
 import { spacing as tokens } from '@atlaskit/tokens/tokens-raw';
 
-import { capitalize, tokenToStyle } from './utils';
+import { capitalize, constructTokenFunctionCall } from './utils';
 
 const spacingProperties: Record<
   string,
@@ -56,12 +56,7 @@ export const createSpacingStylesFromTemplate = (
   return (
     prettier.format(
       `
-  const ${spacingProperty}Map = Object.fromEntries(
-    [
-      '${cssProperties.join("','")}',
-    ].map((property: string) => [
-      property,
-      {
+  export const ${spacingProperty}Map = {
     ${activeTokens
       .sort((a, b) =>
         a.name.localeCompare(b.name, undefined, { numeric: true }),
@@ -70,14 +65,12 @@ export const createSpacingStylesFromTemplate = (
         const propName = propNameFormatter
           ? propNameFormatter(token.name)
           : token.name;
-        return `'${propName}': ${tokenToStyle(
-          '[property]' as any,
+        return `'${propName}': ${constructTokenFunctionCall(
           token.name,
           token.fallback,
         )}`;
       })}
-    } as const,
-  ]));`,
+    } as const;`,
       {
         singleQuote: true,
         trailingComma: 'all',
@@ -90,7 +83,7 @@ export const createSpacingStylesFromTemplate = (
         cssProperty =>
           `\nexport type ${capitalize(
             cssProperty,
-          )} = keyof typeof ${spacingProperty}Map.${cssProperty};`,
+          )} = keyof typeof ${spacingProperty}Map;`,
       )
       .join('') +
       '\n')

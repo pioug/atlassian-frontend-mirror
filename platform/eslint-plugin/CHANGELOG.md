@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-platform
 
+## 0.1.6
+
+### Patch Changes
+
+- [`e8a8808f299`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e8a8808f299) - Add a new eslint rule that enforces prefixes on platform feature flags. Ignore existing usages.
+
 ## 0.1.5
 
 ### Patch Changes

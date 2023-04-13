@@ -19,5 +19,5 @@ export type PublicBoxPropsBase = {
   /**
    * Safe subset of styles that can be applied as a classname.
    */
-  xcss?: BoxXCSS;
+  xcss?: BoxXCSS | Array<BoxXCSS | false | undefined>;
 };

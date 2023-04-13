@@ -1,10 +1,4 @@
-import {
-  fontSize as getFontSize,
-  gridSize as getGridSize,
-} from '@atlaskit/theme/constants';
-
-export const gridSize = getGridSize();
-export const buttonHeight = gridSize * 4;
+import { fontSize as getFontSize } from '@atlaskit/theme/constants';
 
 export const fontSize = getFontSize();
 

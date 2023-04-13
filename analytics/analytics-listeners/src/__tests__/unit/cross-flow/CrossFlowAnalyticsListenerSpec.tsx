@@ -95,6 +95,88 @@ describe('CrossFlowAnalyticsListener', () => {
         },
       },
     },
+    {
+      description: 'Should use attributes from context',
+      eventPayload: {
+        ...buttonClickedEvent,
+        eventType: UI_EVENT_TYPE,
+        source: 'appRecSection',
+        attributes: {
+          recommendedProductIds: ['d8a847a4-cde4-4c50-8ea1-dc3d4193214f'],
+        },
+      },
+      context: [
+        {
+          source: 'navigation',
+          attributes: {
+            packageVersion: '1.0.0',
+            packageName: 'AtlassianSwitcher',
+          },
+        },
+        {
+          source: 'discoverSection',
+          attributes: {
+            isSPA: true,
+            projectId: 1,
+          },
+        },
+      ],
+      expectedEvent: {
+        ...buttonClickedEvent,
+        source: 'appRecSection',
+        tags: ['crossFlow'],
+        attributes: {
+          recommendedProductIds: ['d8a847a4-cde4-4c50-8ea1-dc3d4193214f'],
+          namespaces: 'navigation.discoverSection.appRecSection',
+          packageVersion: '1.0.0',
+          packageName: 'AtlassianSwitcher',
+          isSPA: true,
+          projectId: 1,
+        },
+      },
+    },
+    {
+      description: 'Should use attributes from navigation context',
+      eventPayload: {
+        ...buttonClickedEvent,
+        eventType: UI_EVENT_TYPE,
+        source: 'appRecSection',
+        attributes: {
+          recommendedProductIds: ['d8a847a4-cde4-4c50-8ea1-dc3d4193214f'],
+        },
+      },
+      context: [
+        {
+          source: 'navigation',
+          navigationCtx: {
+            attributes: {
+              packageVersion: '1.0.0',
+              packageName: 'AtlassianSwitcher',
+            },
+          },
+        },
+        {
+          source: 'discoverSection',
+          attributes: {
+            isSPA: true,
+            projectId: 1,
+          },
+        },
+      ],
+      expectedEvent: {
+        ...buttonClickedEvent,
+        source: 'appRecSection',
+        tags: ['crossFlow'],
+        attributes: {
+          recommendedProductIds: ['d8a847a4-cde4-4c50-8ea1-dc3d4193214f'],
+          namespaces: 'navigation.discoverSection.appRecSection',
+          packageVersion: '1.0.0',
+          packageName: 'AtlassianSwitcher',
+          isSPA: true,
+          projectId: 1,
+        },
+      },
+    },
   ].map((testCase) => {
     const { description, context, eventPayload, expectedEvent } = testCase;
     it(description, () => {

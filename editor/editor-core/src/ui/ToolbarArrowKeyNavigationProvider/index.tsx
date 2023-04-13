@@ -1,6 +1,11 @@
+/** @jsx jsx */
 /* eslint-disable no-console */
+import { jsx } from '@emotion/react';
+import { centeredToolbarContainer } from '../styles';
+import { EditorAppearance } from '../../types';
 import { EditorView } from 'prosemirror-view';
 import React, { ReactNode, useCallback, useLayoutEffect, useRef } from 'react';
+import { UseStickyToolbarType } from '../../types/editor-props';
 
 export interface KeyDownHandlerContext {
   handleArrowLeft: () => void;
@@ -34,6 +39,8 @@ export const ToolbarArrowKeyNavigationProvider = ({
   handleEscape,
   disableArrowKeyNavigation,
   isShortcutToFocusToolbar,
+  editorAppearance,
+  useStickyToolbar,
 }: {
   children: ReactNode;
   editorView?: EditorView;
@@ -42,6 +49,8 @@ export const ToolbarArrowKeyNavigationProvider = ({
   handleEscape?: (event: KeyboardEvent) => void;
   disableArrowKeyNavigation?: boolean;
   isShortcutToFocusToolbar?: (event: KeyboardEvent) => boolean;
+  editorAppearance?: EditorAppearance;
+  useStickyToolbar?: UseStickyToolbarType;
 }) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const selectedItemIndex = useRef(0);
@@ -89,12 +98,17 @@ export const ToolbarArrowKeyNavigationProvider = ({
     filteredFocusableElements[selectedItemIndex.current]?.focus();
   };
 
-  const focusAndScrollToElement = (element: HTMLElement): void => {
-    element?.scrollIntoView({
-      behavior: 'smooth',
-      block: 'center',
-      inline: 'nearest',
-    });
+  const focusAndScrollToElement = (
+    element: HTMLElement,
+    scrollToElement = true,
+  ): void => {
+    if (scrollToElement) {
+      element?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+        inline: 'nearest',
+      });
+    }
     element.focus();
   };
 
@@ -166,11 +180,17 @@ export const ToolbarArrowKeyNavigationProvider = ({
             : selectedItemIndex.current;
       }
 
+      //do not scroll to focused element for sticky toolbar when navigating with arrows to avoid unnesessary scroll jump
+      const allowScrollToElement = !(
+        editorAppearance === 'comment' && !!useStickyToolbar
+      );
+
       switch (event.key) {
         case 'ArrowRight':
           incrementIndex(filteredFocusableElements);
           focusAndScrollToElement(
             filteredFocusableElements[selectedItemIndex.current],
+            allowScrollToElement,
           );
           event.preventDefault();
           break;
@@ -178,6 +198,7 @@ export const ToolbarArrowKeyNavigationProvider = ({
           decrementIndex(filteredFocusableElements);
           focusAndScrollToElement(
             filteredFocusableElements[selectedItemIndex.current],
+            allowScrollToElement,
           );
           event.preventDefault();
           break;
@@ -204,13 +225,14 @@ export const ToolbarArrowKeyNavigationProvider = ({
     };
 
     element?.addEventListener('keydown', handleKeyDown);
+    const editorViewDom = editorView?.dom as HTMLElement | undefined;
     if (isShortcutToFocusToolbar) {
-      document.addEventListener('keydown', globalKeyDownHandler);
+      editorViewDom?.addEventListener('keydown', globalKeyDownHandler);
     }
     return () => {
       element?.removeEventListener('keydown', handleKeyDown);
       if (isShortcutToFocusToolbar) {
-        document.removeEventListener('keydown', globalKeyDownHandler);
+        editorViewDom?.removeEventListener('keydown', globalKeyDownHandler);
       }
     };
   }, [
@@ -223,10 +245,16 @@ export const ToolbarArrowKeyNavigationProvider = ({
     incrementIndex,
     decrementIndex,
     isShortcutToFocusToolbar,
+    editorAppearance,
+    useStickyToolbar,
   ]);
 
   return (
-    <div className="custom-key-handler-wrapper" ref={wrapperRef}>
+    <div
+      css={editorAppearance === 'comment' && centeredToolbarContainer}
+      className="custom-key-handler-wrapper"
+      ref={wrapperRef}
+    >
       <KeyDownHandlerContext.Provider value={submenuKeydownHandleContext}>
         {children}
       </KeyDownHandlerContext.Provider>

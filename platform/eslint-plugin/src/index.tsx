@@ -4,10 +4,12 @@ import noPreAndPostInstallScripts from './rules/no-pre-post-installs';
 import ensureTestRunnerArguments from './rules/ensure-test-runner-arguments';
 import ensureTestRunnerNestedCount from './rules/ensure-test-runner-nested-count';
 import noInvalidFeatureFlagUsage from './rules/no-invalid-feature-flag-usage';
+import ensureFeatureFlagPrefix from './rules/ensure-feature-flag-prefix';
 import noInvalidStorybookDecoratorUsage from './rules/no-invalid-storybook-decorator-usage';
 
 export const rules = {
   'ensure-feature-flag-registration': ensureFeatureFlagRegistration,
+  'ensure-feature-flag-prefix': ensureFeatureFlagPrefix,
   'ensure-test-runner-arguments': ensureTestRunnerArguments,
   'ensure-test-runner-nested-count': ensureTestRunnerNestedCount,
   'no-invalid-feature-flag-usage': noInvalidFeatureFlagUsage,
@@ -20,6 +22,10 @@ export const configs = {
     plugins: ['@atlaskit/platform'],
     rules: {
       '@atlaskit/platform/ensure-feature-flag-registration': 'error',
+      '@atlaskit/platform/ensure-feature-flag-prefix': [
+        'error',
+        { allowedPrefixes: ['platform.'] },
+      ],
       '@atlaskit/platform/ensure-test-runner-arguments': 'error',
       '@atlaskit/platform/ensure-test-runner-nested-count': 'warn',
       '@atlaskit/platform/no-invalid-feature-flag-usage': 'error',

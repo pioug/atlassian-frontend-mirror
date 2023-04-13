@@ -2,18 +2,20 @@
 
 import { css, jsx } from '@emotion/react';
 
-import { buttonHeight, gridSize } from '../../common/constants';
+import { token } from '@atlaskit/tokens';
+
 import { useTheme } from '../../theme';
 
 import { PrimaryButtonSkeletonProps } from './types';
 
-const paddingAll = gridSize / 2;
+const paddingAll = 4;
+const buttonHeight = 32;
 
 const skeletonStyles = css({
   display: 'inline-flex',
   width: '68px',
   height: `${buttonHeight - paddingAll * 2.5}px`,
-  borderRadius: `${gridSize / 2}px`,
+  borderRadius: token('border.radius.100', '4px'),
   opacity: 0.15,
 });
 

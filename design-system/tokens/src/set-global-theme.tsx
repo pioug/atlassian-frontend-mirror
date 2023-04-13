@@ -77,6 +77,7 @@ const setGlobalTheme = async ({
   const themePreferences = new Set([dark, light, spacing, typography]);
 
   if (
+    // eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
     getBooleanFF('design-system-team.dark-theme-iteration_dk1ln') &&
     themePreferences.has('dark')
   ) {
@@ -152,6 +153,7 @@ export const getThemeStyles = async ({
   });
 
   if (
+    // eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
     getBooleanFF('design-system-team.dark-theme-iteration_dk1ln') &&
     themePreferences.includes('dark')
   ) {

@@ -1,5 +1,4 @@
 import { N10, N30 } from '@atlaskit/theme/colors';
-import { gridSize } from '@atlaskit/theme/constants';
 import { headingSizes } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
@@ -12,7 +11,7 @@ const scrollIndicatorMaskZIndex = 2;
 const scrollIndicatorZIndex = 1;
 const scrollIndicatorHeight = 2;
 const scrollIndicatorBorderRadius = 1;
-const containerPadding = gridSize();
+const containerPadding = 8;
 
 const itemHeadingContentHeight = headingSizes.h100.lineHeight;
 const skeletonHeadingHeight = containerPadding;

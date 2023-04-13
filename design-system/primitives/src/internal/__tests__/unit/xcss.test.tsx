@@ -1,70 +1,52 @@
-import { transformStyles } from '../../xcss';
+/* eslint-disable @repo/internal/react/consistent-css-prop-usage */
+import * as emotion from '@emotion/react';
 
-describe('transformStyles()', () => {
+import { xcss } from '../../xcss';
+
+describe('xcss()', () => {
+  beforeEach(() => {
+    // @ts-expect-error
+    jest.spyOn(emotion, 'css').mockImplementation(styles => styles);
+  });
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
+
   it('does not transform non-token styles', () => {
-    const result = transformStyles({
+    const { styles } = xcss({
       margin: '8px',
     });
     const expected = {
       margin: '8px',
     };
 
-    expect(result).toEqual(expected);
-  });
-
-  it('gracefully handles invalid values', () => {
-    [undefined, null, '', 'padding: 8px'].forEach(value => {
-      // @ts-ignore
-      const result = transformStyles(value);
-
-      expect(result).toEqual(value);
-    });
-  });
-
-  it('gracefully handles invalid nested values', () => {
-    // @ts-ignore
-    const result = transformStyles({
-      ':hover': 'display: flex;',
-    });
-    const expected = {
-      ':hover': 'display: flex;',
-    };
-
-    expect(result).toEqual(expected);
+    expect(styles).toEqual(expected);
   });
 
   it('transforms token styles', () => {
-    const result = transformStyles({
+    const { styles } = xcss({
       padding: 'space.100',
     });
     const expected = {
       padding: 'var(--ds-space-100, 8px)',
     };
 
-    expect(result).toEqual(expected);
-  });
-
-  it("throws on valid properties that don't have a token value", () => {
-    const styles = {
-      padding: '8px',
-    };
-
-    expect(() => transformStyles(styles)).toThrow();
+    expect(styles).toEqual(expected);
   });
 
   it('does not transform non-transformable properties', () => {
-    const result = transformStyles({
+    const { styles } = xcss({
       margin: '8px',
     });
     const expected = {
       margin: '8px',
     };
 
-    expect(result).toEqual(expected);
+    expect(styles).toEqual(expected);
   });
 
   it('handles CSSObjects with both token styles and non-token styles', () => {
-    const result = transformStyles({
+    const { styles } = xcss({
       borderColor: 'color.border',
       justifyContent: 'center',
     });
@@ -73,56 +55,45 @@ describe('transformStyles()', () => {
       justifyContent: 'center',
     };
 
-    expect(result).toEqual(expected);
+    expect(styles).toEqual(expected);
   });
 
   it('transforms pseudo classes', () => {
-    const result = transformStyles({
+    const { styles } = xcss({
       ':hover': {
         display: 'flex',
-        borderWidth: 'size.100',
+        borderWidth: 'width.100',
       },
       ':visited': {
-        borderWidth: 'size.050',
+        borderWidth: 'width.050',
       },
     });
     const expected = {
       ':hover': {
         display: 'flex',
-        borderWidth: 'var(--ds-width-100, 2px)',
+        borderWidth: 'var(--ds-width-100, 0.125rem)',
       },
       ':visited': {
-        borderWidth: 'var(--ds-width-050, 1px)',
+        borderWidth: 'var(--ds-width-050, 0.0625rem)',
       },
     };
 
-    expect(result).toEqual(expected);
+    expect(styles).toEqual(expected);
   });
 
   it('allows CSS transitions', () => {
-    const result = transformStyles({
+    const { styles } = xcss({
       transition: 'all 0.3s',
     });
     const expected = {
       transition: 'all 0.3s',
     };
 
-    expect(result).toEqual(expected);
-  });
-
-  it('gracefully handles invalid pseudo classes', () => {
-    const result = transformStyles({
-      ':hodor': {},
-    });
-    const expected = {
-      ':hodor': {},
-    };
-
-    expect(result).toEqual(expected);
+    expect(styles).toEqual(expected);
   });
 
   it('allows pseudo elements', () => {
-    const result = transformStyles({
+    const { styles } = xcss({
       '::before': {
         content: '>',
       },
@@ -133,13 +104,14 @@ describe('transformStyles()', () => {
       },
     };
 
-    expect(result).toEqual(expected);
+    expect(styles).toEqual(expected);
   });
 
-  it('allows interpolated keys', () => {
+  it('allows valid interpolated keys', () => {
     const keyVariable = ':hover';
 
-    const result = transformStyles({
+    const { styles } = xcss({
+      // eslint-disable-next-line @repo/internal/styles/no-nested-styles
       [keyVariable]: {
         gap: 'space.200',
       },
@@ -150,7 +122,7 @@ describe('transformStyles()', () => {
       },
     };
 
-    expect(result).toEqual(expected);
+    expect(styles).toEqual(expected);
   });
 
   it('throws on unsupported selectors', () => {
@@ -164,7 +136,8 @@ describe('transformStyles()', () => {
       { '&': { gap: 'space.200' } },
       { '&&': { gap: 'space.200' } },
     ].forEach(style => {
-      expect(() => transformStyles(style)).toThrow();
+      // @ts-expect-error
+      expect(() => xcss(style)).toThrow();
     });
   });
 
@@ -172,13 +145,13 @@ describe('transformStyles()', () => {
     const colorStyles = {
       backgroundColor: 'brand.bold',
       color: 'color.text',
-    };
+    } as const;
     const spacingStyles = {
       paddingBlock: 'space.100',
       paddingInline: 'space.200',
-    };
+    } as const;
 
-    const result = transformStyles([colorStyles, spacingStyles]);
+    const { styles } = xcss([colorStyles, spacingStyles]);
     const expected = [
       {
         backgroundColor: 'var(--ds-background-brand-bold, #0052CC)',
@@ -190,12 +163,12 @@ describe('transformStyles()', () => {
       },
     ];
 
-    expect(result).toEqual(expected);
+    expect(styles).toEqual(expected);
   });
 
   // TODO: Uncomment these when dealing with responsiveness
   // it('allows ', () => {
-  //   const result = transformStyles({
+  //   const result = xcss({
   //     padding: 'space.100',
   //     ':hover': {
   //       // Are we allowing nested selectors like this?

@@ -1,43 +1,23 @@
-import prettier from 'prettier';
-import parserTypeScript from 'prettier/parser-typescript';
+import { readFileSync } from 'fs';
+import { join } from 'path';
 
-import { Layer } from '../src/constants';
-
-const styleProperties: Record<'layer', Record<Layer, number>> = {
-  layer: {
-    card: 100,
-    navigation: 200,
-    dialog: 300,
-    layer: 400,
-    blanket: 500,
-    modal: 510,
-    flag: 600,
-    spotlight: 700,
-    tooltip: 800,
-  },
-};
-
-export const createStylesFromTemplate = (
-  property: keyof typeof styleProperties,
+export const createStylesFromFileTemplate = (
+  property:
+    | 'align-self'
+    | 'border-color'
+    | 'border-radius'
+    | 'border-style'
+    | 'border-width'
+    | 'dimensions'
+    | 'display'
+    | 'flex-grow'
+    | 'flex-shrink'
+    | 'flex'
+    | 'layer'
+    | 'overflow'
+    | 'position',
 ) => {
-  if (!styleProperties[property]) {
-    throw new Error(`[codegen] Unknown option found "${property}"`);
-  }
-
-  return prettier.format(
-    `
-const ${property}Map = {
-  ${Object.keys(styleProperties[property])
-    .map(key => {
-      return `'${key}': css({ zIndex: LAYERS['${key}'] })`;
-    })
-    .join(',\n\t')}
-} as const;`,
-    {
-      singleQuote: true,
-      trailingComma: 'all',
-      parser: 'typescript',
-      plugins: [parserTypeScript],
-    },
-  );
+  const path = join(__dirname, './codegen-file-templates', `${property}.tsx`);
+  const source = readFileSync(path);
+  return source;
 };

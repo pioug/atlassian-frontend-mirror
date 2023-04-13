@@ -3,14 +3,15 @@ import { Fragment } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import { gridSize } from '../../common/constants';
+import { token } from '@atlaskit/tokens';
+
 import { PrimaryButtonSkeleton } from '../PrimaryButton/skeleton';
 
 import { PrimaryItemsContainerSkeletonProps } from './types';
 
 const primaryButtonSkeletonStyles = css({
-  marginRight: gridSize * 1.5,
-  marginLeft: gridSize * 1.5,
+  marginRight: token('space.150', '12px'),
+  marginLeft: token('space.150', '12px'),
 });
 
 // Internal only

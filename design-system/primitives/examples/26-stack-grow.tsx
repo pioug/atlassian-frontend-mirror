@@ -1,9 +1,16 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 
-import { Box, Inline, Stack } from '../src';
+import { Box, Inline, Stack, xcss } from '../src';
 
 const growItems = ['hug', 'fill'] as const;
+
+const containerStyles = xcss({
+  display: 'flex',
+  borderRadius: 'radius.050',
+});
+
+const blockStyles = xcss({ borderRadius: 'radius.050' });
 
 export default () => (
   <Box testId="stack-example" padding="space.100">
@@ -12,9 +19,8 @@ export default () => (
         <Stack alignInline="center">
           {grow}
           <Box
-            display="flex"
+            xcss={containerStyles}
             backgroundColor="neutral"
-            borderRadius="radius.200"
             style={{
               height: '200px',
             }}
@@ -22,17 +28,17 @@ export default () => (
             <Stack grow={grow}>
               <Inline space="100" grow={grow}>
                 <Box
-                  borderRadius="radius.200"
+                  xcss={blockStyles}
                   backgroundColor="discovery.bold"
                   padding="space.200"
                 />
                 <Box
-                  borderRadius="radius.200"
+                  xcss={blockStyles}
                   backgroundColor="discovery.bold"
                   padding="space.200"
                 />
                 <Box
-                  borderRadius="radius.200"
+                  xcss={blockStyles}
                   backgroundColor="discovery.bold"
                   padding="space.200"
                 />

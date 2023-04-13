@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 
-import { Box, Inline, Stack } from '../src';
+import { Box, Inline, Stack, xcss } from '../src';
 
 const growItems = ['hug', 'fill'] as const;
 
@@ -10,6 +10,8 @@ const truncateStyles = css({
   textOverflow: 'ellipsis',
   whiteSpace: 'nowrap',
 });
+
+const blockStyles = xcss({ borderRadius: 'radius.050' });
 
 export default () => (
   <Stack testId="inline-example" space="100" alignInline="start">
@@ -26,17 +28,17 @@ export default () => (
             <Inline grow={grow}>
               <Stack space="100" grow={grow}>
                 <Box
-                  borderRadius="radius.200"
+                  xcss={blockStyles}
                   backgroundColor="discovery.bold"
                   padding="space.200"
                 />
                 <Box
-                  borderRadius="radius.200"
+                  xcss={blockStyles}
                   backgroundColor="discovery.bold"
                   padding="space.200"
                 />
                 <Box
-                  borderRadius="radius.200"
+                  xcss={blockStyles}
                   backgroundColor="discovery.bold"
                   padding="space.200"
                 />

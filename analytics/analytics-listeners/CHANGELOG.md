@@ -1,5 +1,11 @@
 # @atlaskit/analytics-listeners
 
+## 8.6.1
+
+### Patch Changes
+
+- [`0593ff2722e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0593ff2722e) - CUI-26: inherit attributes from contexts in crossFlow channel
+
 ## 8.6.0
 
 ### Minor Changes

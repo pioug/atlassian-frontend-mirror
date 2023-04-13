@@ -5,7 +5,7 @@ import { css, jsx } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
-import { gridSize, PRODUCT_HOME_BREAKPOINT } from '../../common/constants';
+import { PRODUCT_HOME_BREAKPOINT } from '../../common/constants';
 import { useTheme } from '../../theme';
 
 import { CustomProductHomeProps } from './types';
@@ -50,7 +50,7 @@ const productIconStyles = css({
 
 const productHomeButtonStyles = css({
   display: 'flex',
-  padding: gridSize / 2,
+  padding: token('space.050', '4px'),
   alignItems: 'center',
   background: 'none',
   border: 0,
@@ -85,19 +85,19 @@ const productHomeButtonStyles = css({
   },
   // eslint-disable-next-line @repo/internal/styles/no-nested-styles
   [`@media (max-width: ${PRODUCT_HOME_BREAKPOINT - 0.1}px)`]: {
-    margin: `0 ${gridSize}px`,
+    margin: `0 ${token('space.100', '8px')}`,
   },
   // eslint-disable-next-line @repo/internal/styles/no-nested-styles
   [`@media (min-width: ${PRODUCT_HOME_BREAKPOINT}px)`]: {
-    margin: `0 ${gridSize * 2}px`,
+    margin: `0 ${token('space.200', '16px')}`,
   },
 });
 
 const siteTitleStyles = css({
   display: 'flex',
-  marginRight: gridSize / 2,
-  marginLeft: gridSize * 0.5,
-  paddingRight: gridSize * 2,
+  marginRight: token('space.050', '4px'),
+  marginLeft: token('space.050', '4px'),
+  paddingRight: token('space.200', '16px'),
   alignItems: 'center',
 });
 

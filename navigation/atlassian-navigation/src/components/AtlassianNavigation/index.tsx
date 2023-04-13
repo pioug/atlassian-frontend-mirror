@@ -5,7 +5,7 @@ import { NavigationAnalyticsContext } from '@atlaskit/analytics-namespaced-conte
 import { N30A, N40A, N900 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import { gridSize, HORIZONTAL_GLOBAL_NAV_HEIGHT } from '../../common/constants';
+import { HORIZONTAL_GLOBAL_NAV_HEIGHT } from '../../common/constants';
 import { defaultTheme, hexToRGBA, ThemeProvider } from '../../theme';
 import { PrimaryItemsContainer } from '../PrimaryItemsContainer';
 
@@ -15,8 +15,8 @@ const containerStyles = css({
   display: 'flex',
   boxSizing: 'border-box',
   height: HORIZONTAL_GLOBAL_NAV_HEIGHT,
-  paddingRight: gridSize * 1.5,
-  paddingLeft: gridSize * 1.5,
+  paddingRight: token('space.150', '12px'),
+  paddingLeft: token('space.150', '12px'),
   position: 'relative',
   alignItems: 'center',
   justifyContent: 'space-between',
@@ -33,7 +33,7 @@ const containerStyles = css({
   },
   // TODO: (DSP-2087) Remove the below once tokens have launched
   '&::after': {
-    height: gridSize / 2,
+    height: token('space.050', '4px'),
     position: 'absolute',
     top: '100%',
     right: 0,
@@ -66,7 +66,7 @@ const rightStyles = css({
   flexShrink: 0,
   // eslint-disable-next-line @repo/internal/styles/no-nested-styles
   '& > *': {
-    marginRight: gridSize / 2,
+    marginRight: token('space.050', '4px'),
     flexShrink: 0,
   },
 });

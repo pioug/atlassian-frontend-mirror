@@ -1,6 +1,6 @@
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
-import { colors, gridSize, typography } from '@atlaskit/theme';
+import { colors, typography } from '@atlaskit/theme';
 import { token } from '@atlaskit/tokens';
 
 import evaluateInner from './utils/evaluate-inner';
@@ -20,7 +20,7 @@ export default evaluateInner`
   td,
   th {
     border: none;
-    padding: ${gridSize() / 2}px ${gridSize()}px;
+    padding: ${token('space.050', '4px')} ${token('space.100', '8px')};
     text-align: left;
   }
 
@@ -40,7 +40,7 @@ export default evaluateInner`
 
   caption {
     ${typography.h600()}
-    margin-bottom: ${gridSize()}px;
+    margin-bottom: ${token('space.100', '8px')};
     text-align: left;
   }
 `;

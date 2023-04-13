@@ -1,4 +1,5 @@
 import { borderRadius, gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 import { css } from '@emotion/react';
 
 const avatarImageStyles = () => css`
@@ -14,8 +15,8 @@ export const largeAvatarImageStyles = () => css`
 
 export const smallAvatarImageStyles = () => css`
   ${avatarImageStyles()}
-  width: ${gridSize() * 5}px;
-  height: ${gridSize() * 5}px;
+  width: ${token('space.500', '40px')};
+  height: ${token('space.500', '40px')};
 `;
 
 export const predefinedAvatarViewWrapperStyles = css`

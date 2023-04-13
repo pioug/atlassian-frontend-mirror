@@ -1,5 +1,13 @@
 # @atlaskit/primitives
 
+## 0.7.0
+
+### Minor Changes
+
+- [`7e17a8b8934`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7e17a8b8934) - Box:
+
+  - Add xcss prop to enable token powered styling.
+
 ## 0.6.0
 
 ### Minor Changes

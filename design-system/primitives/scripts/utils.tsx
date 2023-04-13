@@ -1,12 +1,12 @@
 import type { CSSProperties } from 'react';
 
-export const tokenCall = (token: string, fallback: string | ShadowDefintion) =>
+export const tokenCall = (token: string, fallback: string | ShadowDefinition) =>
   `token('${token}', '${fallback}')`;
 
 export const tokenToStyle = (
   prop: keyof CSSProperties,
   token: string,
-  fallback: string | ShadowDefintion,
+  fallback: string | ShadowDefinition,
 ) => {
   if (Array.isArray(fallback)) {
     fallback = constructShadow(fallback);
@@ -14,7 +14,18 @@ export const tokenToStyle = (
   return `css({\n\t${prop}: ${tokenCall(token, fallback)}\n})`;
 };
 
-export type ShadowDefintion = Array<{
+export const constructTokenFunctionCall = (
+  token: string,
+  fallback: string | ShadowDefinition,
+) => {
+  if (Array.isArray(fallback)) {
+    fallback = constructShadow(fallback);
+  }
+
+  return `token('${token}', '${fallback}')`;
+};
+
+export type ShadowDefinition = Array<{
   radius: number;
   offset: {
     x: number;
@@ -24,7 +35,7 @@ export type ShadowDefintion = Array<{
   opacity: number;
 }>;
 
-const constructShadow = (shadowObject: ShadowDefintion) => {
+const constructShadow = (shadowObject: ShadowDefinition) => {
   return shadowObject
     .map(
       shadow =>

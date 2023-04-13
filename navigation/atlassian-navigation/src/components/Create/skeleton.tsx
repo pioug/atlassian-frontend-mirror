@@ -3,11 +3,13 @@ import { Fragment } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import { CREATE_BREAKPOINT, gridSize } from '../../common/constants';
+import { token } from '@atlaskit/tokens';
+
+import { CREATE_BREAKPOINT } from '../../common/constants';
 import { useTheme } from '../../theme';
 import { IconButtonSkeleton } from '../IconButton/skeleton';
 
-const buttonHeight = gridSize * 4;
+const buttonHeight = token('space.400', '32px');
 
 const skeletonStyles = css({
   width: 68,
@@ -34,7 +36,7 @@ export const CreateSkeleton = () => {
         style={theme.mode.skeleton as React.CSSProperties}
         css={[skeletonStyles, mobileStyles]}
       />
-      <IconButtonSkeleton css={mobileStyles} size={gridSize * 3.25} />
+      <IconButtonSkeleton css={mobileStyles} size={26} />
     </Fragment>
   );
 };

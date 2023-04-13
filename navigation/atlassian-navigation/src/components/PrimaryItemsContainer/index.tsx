@@ -5,9 +5,9 @@ import { css, jsx } from '@emotion/react';
 
 import Popup from '@atlaskit/popup';
 import { TriggerProps } from '@atlaskit/popup/types';
+import { token } from '@atlaskit/tokens';
 import { WidthObserver } from '@atlaskit/width-detector';
 
-import { gridSize } from '../../common/constants';
 import {
   OverflowProvider,
   useOverflowController,
@@ -27,7 +27,7 @@ const containerStyles = css({
   flexShrink: 0,
   // eslint-disable-next-line @repo/internal/styles/no-nested-styles
   '& > *': {
-    margin: `0 ${gridSize / 2}px`,
+    margin: `0 ${token('space.050', '4px')}`,
     flexShrink: 0,
   },
 });

@@ -3,12 +3,14 @@ import { Fragment } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import { CREATE_BREAKPOINT, gridSize } from '../../common/constants';
+import { token } from '@atlaskit/tokens';
+
+import { CREATE_BREAKPOINT } from '../../common/constants';
 import { useTheme } from '../../theme';
 import { IconButtonSkeleton } from '../IconButton/skeleton';
 
 const searchInputContainerStyles = css({
-  marginRight: gridSize,
+  marginRight: token('space.100', '8px'),
   marginLeft: 20,
   position: 'relative',
   // eslint-disable-next-line @repo/internal/styles/no-nested-styles
@@ -20,8 +22,8 @@ const searchInputContainerStyles = css({
 const searchInputSkeletonStyles = css({
   boxSizing: 'border-box',
   width: '220px',
-  height: `${gridSize * 4}px`,
-  padding: `0 ${gridSize}px 0 40px`,
+  height: token('space.400', '32px'),
+  padding: `0 ${token('space.100', '8px')} 0 ${token('space.500', '40px')}`,
   borderRadius: 6,
   opacity: 0.15,
 });
@@ -46,11 +48,7 @@ export const SearchSkeleton = () => {
           css={searchInputSkeletonStyles}
         />
       </div>
-      <IconButtonSkeleton
-        css={searchIconStyles}
-        marginRight={5}
-        size={gridSize * 3.25}
-      />
+      <IconButtonSkeleton css={searchIconStyles} marginRight={5} size={26} />
     </Fragment>
   );
 };

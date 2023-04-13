@@ -8,6 +8,8 @@ import {
   SerializedStyles,
 } from '@emotion/serialize';
 
+import warnOnce from '@atlaskit/ds-lib/warn-once';
+
 import { Box, Inline } from '../index';
 
 import {
@@ -17,9 +19,10 @@ import {
   borderWidthMap,
   dimensionMap,
   paddingMap,
+  shadowMap,
   textColorMap,
   TokenisedProps,
-} from './style-maps';
+} from './style-maps.partial';
 
 const tokensMap = {
   backgroundColor: backgroundColorMap,
@@ -39,6 +42,7 @@ const tokensMap = {
   paddingInline: paddingMap,
   paddingInlineEnd: paddingMap,
   paddingInlineStart: paddingMap,
+  boxShadow: shadowMap,
   width: dimensionMap,
 } as const;
 
@@ -48,6 +52,11 @@ type TokensMapKey = keyof typeof tokensMap[StyleMapKey];
 const uniqueSymbol = Symbol(
   'Internal symbol to verify xcss function is called safely',
 );
+
+const isSafeEnvToThrow = () =>
+  typeof process === 'object' &&
+  typeof process.env === 'object' &&
+  process.env.NODE_ENV !== 'production';
 
 /**
  * Only exposed for testing.
@@ -68,7 +77,7 @@ export const transformStyles = (
   // Modifies styleObj in place. Be careful.
   Object.entries(styleObj).forEach(
     ([key, value]: [string, CSSInterpolation]) => {
-      if (process?.env?.NODE_ENV === 'development') {
+      if (isSafeEnvToThrow()) {
         // We don't support `.class`, `[data-testid]`, `> *`, `#some-id`
         if (/(\.|\s|&+|\*\>|#|\[.*\])/.test(key)) {
           throw new Error(`Styles not supported for key '${key}'.`);
@@ -93,7 +102,11 @@ export const transformStyles = (
 
       const tokenValue = tokensMap[key as StyleMapKey][value as TokensMapKey];
       if (!tokenValue) {
-        throw new Error('Invalid Token');
+        const message = `Invalid token alias: ${value}`;
+        warnOnce(message);
+        if (isSafeEnvToThrow()) {
+          throw new Error(message);
+        }
       }
 
       styleObj[key] = tokenValue;
@@ -114,12 +127,16 @@ const baseXcss = <T,>(style?: SafeCSSObject | SafeCSSObject[]) => {
 
 /**
  * @internal used in primitives
- * @returns
+ * @returns a collection of styles that can be applied to the respective primitive
  */
-export const parseXcss = (args: SafeCSS): ReturnType<typeof cssEmotion> => {
+type ParsedXcss =
+  | ReturnType<typeof cssEmotion>
+  | ReturnType<typeof cssEmotion>[];
+export const parseXcss = (
+  args: XCSS | Array<XCSS | false | undefined>,
+): ParsedXcss => {
   if (Array.isArray(args)) {
-    // @ts-expect-error FIXME
-    return args.map(parseXcss);
+    return args.map(x => x && parseXcss(x)).filter(Boolean) as ParsedXcss;
   }
 
   const { symbol, styles } = args;
@@ -134,7 +151,7 @@ export const parseXcss = (args: SafeCSS): ReturnType<typeof cssEmotion> => {
     );
   }
 
-  return styles as SerializedStyles;
+  return styles;
 };
 
 type SafeCSSObject = CSSPseudos &
@@ -151,16 +168,19 @@ const boxWrapper = (style: any) => xcss<typeof Box>(style);
 const inlineWrapper = (style: any) => xcss<typeof Inline>(style);
 
 type XCSS = ReturnType<typeof boxWrapper> | ReturnType<typeof inlineWrapper>;
-type SafeCSS = XCSS | XCSS[];
 
 type AllowedBoxStyles = keyof SafeCSSObject;
 type AllowedInlineStyles = 'backgroundColor' | 'padding';
 
 export function xcss<Primitive extends typeof Box | typeof Inline = typeof Box>(
   style: Primitive extends typeof Box
-    ? ScopedSafeCSSObject<AllowedBoxStyles>
+    ?
+        | ScopedSafeCSSObject<AllowedBoxStyles>
+        | ScopedSafeCSSObject<AllowedBoxStyles>[]
     : Primitive extends typeof Inline
-    ? ScopedSafeCSSObject<AllowedInlineStyles>
+    ?
+        | ScopedSafeCSSObject<AllowedInlineStyles>
+        | ScopedSafeCSSObject<AllowedInlineStyles>[]
     : never,
 ) {
   return baseXcss<

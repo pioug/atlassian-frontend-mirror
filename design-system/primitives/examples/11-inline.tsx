@@ -4,7 +4,7 @@ import { css, jsx } from '@emotion/react';
 import Heading from '@atlaskit/heading';
 import { token } from '@atlaskit/tokens';
 
-import { Box, Inline, Stack } from '../src';
+import { Box, Inline, Stack, xcss } from '../src';
 
 const alignInlineItems = ['start', 'center', 'end'] as const;
 const alignBlockItems = ['start', 'center', 'end', 'baseline'] as const;
@@ -28,6 +28,11 @@ const spaceItems = [
 
 const pageContainerStyles = css({ maxWidth: '900px' });
 const spaceNameStyles = css({ minWidth: token('space.1000', '80px') });
+const blockStyles = xcss({ borderRadius: 'radius.050' });
+const containerStyles = xcss({
+  display: 'flex',
+  borderRadius: 'radius.050',
+});
 
 export default () => (
   <Box padding="space.200">
@@ -41,8 +46,7 @@ export default () => (
             <Stack key={alignInline}>
               {alignInline}
               <Box
-                display="block"
-                borderRadius="radius.200"
+                xcss={blockStyles}
                 backgroundColor="neutral"
                 padding="space.050"
                 style={{
@@ -51,17 +55,17 @@ export default () => (
               >
                 <Inline alignInline={alignInline} space="050">
                   <Box
-                    borderRadius="radius.200"
+                    xcss={blockStyles}
                     padding="space.200"
                     backgroundColor="discovery.bold"
                   />
                   <Box
-                    borderRadius="radius.200"
+                    xcss={blockStyles}
                     padding="space.200"
                     backgroundColor="discovery.bold"
                   />
                   <Box
-                    borderRadius="radius.200"
+                    xcss={blockStyles}
                     padding="space.200"
                     backgroundColor="discovery.bold"
                   />
@@ -77,8 +81,7 @@ export default () => (
             <Stack key={spread}>
               {spread}
               <Box
-                display="block"
-                borderRadius="radius.200"
+                xcss={blockStyles}
                 backgroundColor="neutral"
                 padding="space.050"
                 style={{
@@ -87,17 +90,17 @@ export default () => (
               >
                 <Inline spread={spread} space="050">
                   <Box
-                    borderRadius="radius.200"
+                    xcss={blockStyles}
                     padding="space.200"
                     backgroundColor="discovery.bold"
                   />
                   <Box
-                    borderRadius="radius.200"
+                    xcss={blockStyles}
                     padding="space.200"
                     backgroundColor="discovery.bold"
                   />
                   <Box
-                    borderRadius="radius.200"
+                    xcss={blockStyles}
                     padding="space.200"
                     backgroundColor="discovery.bold"
                   />
@@ -115,28 +118,24 @@ export default () => (
                 <Box
                   backgroundColor="neutral"
                   padding="space.050"
-                  borderRadius="radius.200"
+                  xcss={containerStyles}
                   style={{
                     height: '200px',
                   }}
-                  display="flex"
                 >
                   <Inline space="050" alignBlock={alignBlock}>
                     <Box
-                      display="inline"
-                      borderRadius="radius.200"
+                      xcss={blockStyles}
                       padding="space.300"
                       backgroundColor="discovery.bold"
                     ></Box>
                     <Box
-                      display="inline"
-                      borderRadius="radius.200"
+                      xcss={blockStyles}
                       padding="space.200"
                       backgroundColor="discovery.bold"
                     />
                     <Box
-                      display="inline"
-                      borderRadius="radius.200"
+                      xcss={blockStyles}
                       padding="space.200"
                       backgroundColor="discovery.bold"
                     />
@@ -154,18 +153,18 @@ export default () => (
               <Inline key={space} alignBlock="center">
                 <div css={spaceNameStyles}>{space}</div>
                 <Box
-                  borderRadius="radius.200"
+                  xcss={blockStyles}
                   padding="space.050"
                   backgroundColor="neutral"
                 >
                   <Inline space={space}>
                     <Box
-                      borderRadius="radius.200"
+                      xcss={blockStyles}
                       padding="space.200"
                       backgroundColor="discovery.bold"
                     />
                     <Box
-                      borderRadius="radius.200"
+                      xcss={blockStyles}
                       padding="space.200"
                       backgroundColor="discovery.bold"
                     />
@@ -178,16 +177,12 @@ export default () => (
 
         <section>
           <Heading level="h500">shouldWrap</Heading>
-          <Box
-            borderRadius="radius.200"
-            padding="space.050"
-            backgroundColor="neutral"
-          >
+          <Box xcss={blockStyles} padding="space.050" backgroundColor="neutral">
             <Inline space="200" shouldWrap={true}>
               {[...Array(25)].map((_, index) => (
                 <Box
                   key={index}
-                  borderRadius="radius.200"
+                  xcss={blockStyles}
                   padding="space.200"
                   backgroundColor="discovery.bold"
                 />
@@ -198,11 +193,7 @@ export default () => (
 
         <section>
           <Heading level="h500">Separator</Heading>
-          <Box
-            borderRadius="radius.200"
-            padding="space.050"
-            backgroundColor="neutral"
-          >
+          <Box xcss={blockStyles} padding="space.050" backgroundColor="neutral">
             <Inline
               space="100"
               shouldWrap={true}
@@ -212,7 +203,7 @@ export default () => (
               {[...Array(20)].map((_, index) => (
                 <Box
                   key={index}
-                  borderRadius="radius.200"
+                  xcss={blockStyles}
                   padding="space.200"
                   backgroundColor="discovery.bold"
                 />

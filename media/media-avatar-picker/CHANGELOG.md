@@ -1,5 +1,11 @@
 # @atlaskit/media-avatar-picker
 
+## 24.2.5
+
+### Patch Changes
+
+- [`daefffa7e1a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/daefffa7e1a) - Migrated use of `gridSize` to space tokens where possible. There is no expected visual or behaviour change.
+
 ## 24.2.4
 
 ### Patch Changes

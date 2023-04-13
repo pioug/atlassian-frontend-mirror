@@ -1,9 +1,11 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 
-import { Box, Inline, Stack } from '../src';
+import { Box, Inline, Stack, xcss } from '../src';
 
 const alignInlineItems = ['start', 'center', 'end'] as const;
+
+const blockStyles = xcss({ borderRadius: 'radius.050' });
 
 export default () => (
   <Box testId="inline-example" padding="space.100">
@@ -12,8 +14,7 @@ export default () => (
         <Stack key={alignInline} alignInline="center">
           {alignInline}
           <Box
-            display="block"
-            borderRadius="radius.200"
+            xcss={blockStyles}
             backgroundColor="neutral"
             padding="space.050"
             style={{
@@ -22,17 +23,17 @@ export default () => (
           >
             <Inline alignInline={alignInline} space="050">
               <Box
-                borderRadius="radius.200"
+                xcss={blockStyles}
                 padding="space.200"
                 backgroundColor="discovery.bold"
               />
               <Box
-                borderRadius="radius.200"
+                xcss={blockStyles}
                 padding="space.200"
                 backgroundColor="discovery.bold"
               />
               <Box
-                borderRadius="radius.200"
+                xcss={blockStyles}
                 padding="space.200"
                 backgroundColor="discovery.bold"
               />

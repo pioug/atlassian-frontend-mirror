@@ -1,5 +1,11 @@
 # @atlaskit/drag-and-drop-hitbox
 
+## 0.8.0
+
+### Minor Changes
+
+- [`a7dc73c0a57`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a7dc73c0a57) - Internal refactor: implemented a cheaper mechanism to enable memoization of tree item data
+
 ## 0.7.0
 
 ### Minor Changes

@@ -4,9 +4,7 @@ import { css, jsx } from '@emotion/react';
 import Heading from '@atlaskit/heading';
 import { token } from '@atlaskit/tokens';
 
-import { Box, Inline, Stack } from '../src';
-
-const spaceValueStyles = css({ minWidth: token('space.1000', '80px') });
+import { Box, Inline, Stack, xcss } from '../src';
 
 const spaceItems = [
   '0',
@@ -25,6 +23,10 @@ const spaceItems = [
   '1000',
 ] as const;
 
+const spaceValueStyles = css({ minWidth: token('space.1000', '80px') });
+const blockStyles = xcss({ borderRadius: 'radius.050' });
+const containerStyles = xcss({ width: 'size.300' });
+
 export default () => (
   <Box testId="inline-example" padding="space.100">
     <Inline space="1000">
@@ -35,12 +37,12 @@ export default () => (
             <span css={spaceValueStyles}>{space}</span>
             <Inline space={space}>
               <Box
-                borderRadius="radius.200"
+                xcss={blockStyles}
                 padding="space.200"
                 backgroundColor="discovery.bold"
               />
               <Box
-                borderRadius="radius.200"
+                xcss={blockStyles}
                 padding="space.200"
                 backgroundColor="discovery.bold"
               />
@@ -52,17 +54,17 @@ export default () => (
       <Stack space="100" testId="inline-rowSpace">
         <Heading level="h700">rowSpace</Heading>
         {spaceItems.map(space => (
-          <Box width="size.300">
+          <Box xcss={containerStyles}>
             <Inline>
               <span css={spaceValueStyles}>{space}</span>
               <Inline rowSpace={space} shouldWrap>
                 <Box
-                  borderRadius="radius.200"
+                  xcss={blockStyles}
                   padding="space.200"
                   backgroundColor="discovery.bold"
                 />
                 <Box
-                  borderRadius="radius.200"
+                  xcss={blockStyles}
                   padding="space.200"
                   backgroundColor="discovery.bold"
                 />

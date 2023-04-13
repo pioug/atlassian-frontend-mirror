@@ -81,7 +81,7 @@
     "@atlaskit/icon": "^21.11.0",
     "@atlaskit/lozenge": "^11.3.0",
     "@atlaskit/modal-dialog": "^12.4.0",
-    "@atlaskit/primitives": "^0.6.0",
+    "@atlaskit/primitives": "^0.7.0",
     "@atlaskit/section-message": "^6.3.0",
     "@atlaskit/tabs": "^13.3.0",
     "@atlaskit/tag": "^11.4.0",

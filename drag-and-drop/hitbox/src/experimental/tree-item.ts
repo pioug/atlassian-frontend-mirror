@@ -1,5 +1,3 @@
-import memoizeOne from 'memoize-one';
-
 import type { Input, Position } from '@atlaskit/drag-and-drop/types';
 
 export type ItemMode = 'standard' | 'expanded' | 'last-in-group';
@@ -156,10 +154,19 @@ function areInstructionsEqual(a: Instruction, b: Instruction): boolean {
   return isShallowEqual(a, b);
 }
 
-const memoizeInstruction = memoizeOne(
-  (instruction: Instruction): Instruction => instruction,
-  ([incoming], [existing]) => areInstructionsEqual(incoming, existing),
-);
+// Note: not using `memoize-one` as all we need is a cached value.
+// We do not need to avoid executing an expensive function.
+const memoizeInstruction = (() => {
+  let last: Instruction | null = null;
+
+  return (instruction: Instruction): Instruction => {
+    if (last && areInstructionsEqual(last, instruction)) {
+      return last;
+    }
+    last = instruction;
+    return instruction;
+  };
+})();
 
 function applyInstructionBlock({
   desired,

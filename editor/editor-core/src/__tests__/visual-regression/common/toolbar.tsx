@@ -23,6 +23,7 @@ import {
 import { pressKey } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
 import {
   animationFrame,
+  clickEditableContent,
   scrollToBottom,
 } from '@atlaskit/editor-test-helpers/page-objects/editor';
 import { pressKeyCombo } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
@@ -75,32 +76,30 @@ describe.skip('Toolbar', () => {
   });
 });
 
-// FIXME: Skipped because of flakiness
-// https://product-fabric.atlassian.net/browse/ED-16626
-describe.skip('Toolbar keyboard shortcut', () => {
-  let page: PuppeteerPage;
-
-  beforeEach(async () => {
-    page = global.page;
-    await initEditorWithAdf(page, {
-      appearance: Appearance.fullPage,
-      viewport: { width: 1000, height: 350 },
-    });
-  });
-
-  it('should focus main toolbar first element and return on "ESC" ', async () => {
-    await focusToolbar(page);
-    await snapshot(page, undefined, editorSelector);
-    await page.keyboard.down('Escape');
-    await page.keyboard.type('Test'); //To confirm that focus is back to editor
-    await retryUntilStablePosition(
-      page,
-      async () => {
-        await snapshot(page, undefined, editorSelector);
-      },
-      editorSelector,
-    );
-  });
+describe('Toolbar keyboard shortcut', () => {
+  it.each([Appearance.fullPage, Appearance.comment])(
+    'in %s, should focus main toolbar and return on "ESC" ',
+    async (appearance) => {
+      let page = global.page;
+      await initEditorWithAdf(page, {
+        appearance,
+        viewport: { width: 1000, height: 350 },
+      });
+      await clickEditableContent(page);
+      await page.keyboard.type('Before focus. ');
+      await focusToolbar(page);
+      await snapshot(page, undefined, editorSelector);
+      await page.keyboard.down('Escape');
+      await page.keyboard.type('After ESC.'); //To confirm that focus is back to editor
+      await retryUntilStablePosition(
+        page,
+        async () => {
+          await snapshot(page, undefined, editorSelector);
+        },
+        editorSelector,
+      );
+    },
+  );
 });
 
 // FIXME: Skipped because of flakiness

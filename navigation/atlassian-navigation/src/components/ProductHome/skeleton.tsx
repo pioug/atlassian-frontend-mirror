@@ -4,7 +4,9 @@ import { Fragment } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import { gridSize, PRODUCT_HOME_BREAKPOINT } from '../../common/constants';
+import { token } from '@atlaskit/tokens';
+
+import { PRODUCT_HOME_BREAKPOINT } from '../../common/constants';
 import { useTheme } from '../../theme';
 
 const VAR_PRODUCT_HOME_COLOR_ACTIVE = '--product-home-color-active';
@@ -24,7 +26,7 @@ const VAR_SITE_TITLE_BG_COLOR_AFTER = '--site-title-bg-color-after';
 
 const productHomeButtonStyles = css({
   display: 'flex',
-  padding: gridSize / 2,
+  padding: token('space.050', '4px'),
   alignItems: 'center',
   background: 'none',
   border: 0,
@@ -59,11 +61,11 @@ const productHomeButtonStyles = css({
   },
   // eslint-disable-next-line @repo/internal/styles/no-nested-styles
   [`@media (max-width: ${PRODUCT_HOME_BREAKPOINT - 0.1}px)`]: {
-    margin: `0 ${gridSize}px`,
+    margin: `0 ${token('space.100', '8px')}`,
   },
   // eslint-disable-next-line @repo/internal/styles/no-nested-styles
   [`@media (min-width: ${PRODUCT_HOME_BREAKPOINT}px)`]: {
-    margin: `0 ${gridSize * 2}px`,
+    margin: `0 ${token('space.200', '16px')}`,
   },
 });
 
@@ -102,10 +104,10 @@ const productIconStyles = css({
 
 const siteTitleStyles = css({
   display: 'flex',
-  width: gridSize * 5,
-  marginRight: gridSize / 2,
-  marginLeft: gridSize * 0.5,
-  paddingRight: gridSize * 2,
+  width: token('space.500', '40px'),
+  marginRight: token('space.050', '4px'),
+  marginLeft: token('space.050', '4px'),
+  paddingRight: token('space.200', '16px'),
   alignItems: 'center',
   backgroundColor: 'transparent',
   '&:after': {

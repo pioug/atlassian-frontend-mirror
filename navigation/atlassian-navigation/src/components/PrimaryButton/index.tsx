@@ -4,9 +4,9 @@ import { forwardRef, Ref } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/custom-theme-button';
+import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
-import { gridSize } from '../../common/constants';
 import { useTheme } from '../../theme';
 
 import { getPrimaryButtonTheme } from './styles';
@@ -33,9 +33,9 @@ const buttonHighlightedStyles = css({
   '&:after': {
     height: 3,
     position: 'absolute',
-    right: gridSize / 2,
+    right: token('space.050', '4px'),
     bottom: 0,
-    left: gridSize / 2,
+    left: token('space.050', '4px'),
     backgroundColor: `var(${VAR_BUTTON_SELECTED_BORDER_COLOR})`,
     borderTopLeftRadius: 1,
     borderTopRightRadius: 1,

@@ -1,3 +1,4 @@
+/* eslint-disable @repo/internal/styles/no-exported-styles */
 /** @jsx jsx */
 import {
   ComponentPropsWithRef,

@@ -1,5 +1,11 @@
 # @atlaskit/icon-file-type
 
+## 6.3.8
+
+### Patch Changes
+
+- [`daefffa7e1a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/daefffa7e1a) - Migrated use of `gridSize` to space tokens where possible. There is no expected visual or behaviour change.
+
 ## 6.3.7
 
 ### Patch Changes

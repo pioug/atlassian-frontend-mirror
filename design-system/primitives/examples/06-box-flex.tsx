@@ -2,7 +2,12 @@ import React from 'react';
 
 import Heading from '@atlaskit/heading';
 
-import { Box, Inline, Stack } from '../src';
+import { Box, Inline, Stack, xcss } from '../src';
+
+const flexContainerStyles = xcss({ display: 'flex' });
+const flex1Styles = xcss({ borderStyle: 'solid', flex: '1' });
+const flexGrow0Styles = xcss({ borderStyle: 'solid', flexGrow: '0' });
+const flexGrow1Styles = xcss({ borderStyle: 'solid', flexGrow: '1' });
 
 export default () => {
   return (
@@ -10,13 +15,9 @@ export default () => {
       <Stack space="200" testId="box-with-flex">
         <Heading level="h600">flex</Heading>
         <Inline space="200" alignBlock="center">
-          <Box display="flex" padding="space.400">
-            <Box borderStyle="solid" flex="1">
-              flex=1
-            </Box>
-            <Box borderStyle="solid" flex="1">
-              flex=1
-            </Box>
+          <Box padding="space.400" xcss={flexContainerStyles}>
+            <Box xcss={flex1Styles}>flex=1</Box>
+            <Box xcss={flex1Styles}>flex=1</Box>
           </Box>
         </Inline>
       </Stack>
@@ -24,13 +25,13 @@ export default () => {
       <Stack space="200" testId="box-with-flex">
         <Heading level="h600">flexGrow</Heading>
         <Inline space="200" alignBlock="center">
-          <Box display="flex" padding="space.400" style={{ width: '300px' }}>
-            <Box borderStyle="solid" flexGrow="0">
-              flexGrow=0
-            </Box>
-            <Box borderStyle="solid" flexGrow="1">
-              flexGrow=1
-            </Box>
+          <Box
+            xcss={flexContainerStyles}
+            padding="space.400"
+            style={{ width: '300px' }}
+          >
+            <Box xcss={flexGrow0Styles}>flexGrow=0</Box>
+            <Box xcss={flexGrow1Styles}>flexGrow=1</Box>
           </Box>
         </Inline>
       </Stack>

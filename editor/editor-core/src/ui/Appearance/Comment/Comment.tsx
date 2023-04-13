@@ -38,6 +38,7 @@ import {
   mainToolbarCustomComponentsSlotStyle,
 } from './Toolbar';
 import { createEditorContentStyle } from '../../ContentStyles';
+import { ToolbarArrowKeyNavigationProvider } from '../../ToolbarArrowKeyNavigationProvider';
 
 const CommentEditorMargin = 14;
 const CommentEditorSmallerMargin = 8;
@@ -164,6 +165,18 @@ class Editor extends React.Component<
     );
     const showSecondaryToolbar =
       !!onSave || !!onCancel || !!customSecondaryToolbarComponents;
+
+    const isShortcutToFocusToolbar = (event: KeyboardEvent) => {
+      //Alt + F9 to reach first element in this main toolbar
+      return event.altKey && (event.key === 'F9' || event.keyCode === 120);
+    };
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (!editorView?.hasFocus()) {
+        editorView?.focus();
+      }
+    };
+
     return (
       <WithFlash animate={maxContentSizeReached}>
         <div
@@ -177,23 +190,32 @@ class Editor extends React.Component<
           ref={this.wrapperElementRef}
         >
           <MainToolbar useStickyToolbar={useStickyToolbar}>
-            <Toolbar
-              editorView={editorView!}
-              editorActions={editorActions}
-              eventDispatcher={eventDispatcher!}
-              providerFactory={providerFactory!}
-              appearance={this.appearance}
-              items={primaryToolbarComponents}
-              popupsMountPoint={popupsMountPoint}
-              popupsBoundariesElement={popupsBoundariesElement}
-              popupsScrollableElement={popupsScrollableElement}
-              disabled={!!disabled}
-              dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-              containerElement={this.containerElement}
-            />
-            <div css={mainToolbarCustomComponentsSlotStyle}>
-              {customPrimaryToolbarComponents}
-            </div>
+            <ToolbarArrowKeyNavigationProvider
+              editorView={editorView}
+              childComponentSelector={"[data-testid='ak-editor-main-toolbar']"}
+              isShortcutToFocusToolbar={isShortcutToFocusToolbar}
+              handleEscape={handleEscape}
+              editorAppearance={this.appearance}
+              useStickyToolbar={useStickyToolbar}
+            >
+              <Toolbar
+                editorView={editorView!}
+                editorActions={editorActions}
+                eventDispatcher={eventDispatcher!}
+                providerFactory={providerFactory!}
+                appearance={this.appearance}
+                items={primaryToolbarComponents}
+                popupsMountPoint={popupsMountPoint}
+                popupsBoundariesElement={popupsBoundariesElement}
+                popupsScrollableElement={popupsScrollableElement}
+                disabled={!!disabled}
+                dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+                containerElement={this.containerElement}
+              />
+              <div css={mainToolbarCustomComponentsSlotStyle}>
+                {customPrimaryToolbarComponents}
+              </div>
+            </ToolbarArrowKeyNavigationProvider>
           </MainToolbar>
           <ClickAreaBlock editorView={editorView} editorDisabled={disabled}>
             <WidthConsumer>

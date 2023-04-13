@@ -1,32 +1,38 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 
-import { Box, Stack } from '../src';
+import { Box, Stack, xcss } from '../src';
+
+const blockStyles = xcss({ borderRadius: 'radius.050' });
+const flexStyles = xcss({ display: 'flex' });
+const containerStyles = xcss({
+  display: 'flex',
+  borderRadius: 'radius.050',
+});
 
 export default () => (
-  <Box testId="stack-example" padding="space.100" display="flex">
+  <Box testId="stack-example" padding="space.100" xcss={flexStyles}>
     <Stack alignInline="center">
       space-between
       <Box
-        display="flex"
-        borderRadius="radius.200"
+        xcss={containerStyles}
         padding="space.050"
         backgroundColor="neutral"
         style={{ height: '200px' }}
       >
         <Stack space="200" spread="space-between">
           <Box
-            borderRadius="radius.200"
+            xcss={blockStyles}
             padding="space.200"
             backgroundColor="discovery.bold"
           />
           <Box
-            borderRadius="radius.200"
+            xcss={blockStyles}
             padding="space.200"
             backgroundColor="discovery.bold"
           />
           <Box
-            borderRadius="radius.200"
+            xcss={blockStyles}
             padding="space.200"
             backgroundColor="discovery.bold"
           />

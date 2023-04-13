@@ -2,7 +2,7 @@ import React from 'react';
 
 import Heading from '@atlaskit/heading';
 
-import { Box, Inline, Stack } from '../src';
+import { Box, Inline, Stack, xcss } from '../src';
 
 const backgroundColors = [
   'disabled',
@@ -70,8 +70,11 @@ export default () => {
             <Box
               key={color}
               backgroundColor="neutral"
-              color={color}
               padding="space.400"
+              // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
+              xcss={xcss({
+                color,
+              })}
             >
               <Box>{color}</Box>
             </Box>

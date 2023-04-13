@@ -4,11 +4,11 @@ import { Fragment } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import SearchIcon from '@atlaskit/icon/glyph/search';
+import { token } from '@atlaskit/tokens';
 
 import {
   CREATE_BREAKPOINT,
   fontSize,
-  gridSize,
   varSearchBackgroundColor,
   varSearchBorderColor,
   varSearchColor,
@@ -21,7 +21,7 @@ import { IconButton } from '../IconButton';
 import { SearchProps } from './types';
 
 const searchInputContainerStyles = css({
-  marginRight: gridSize,
+  marginRight: token('space.100', '8px'),
   marginLeft: 20,
   position: 'relative',
   // eslint-disable-next-line @repo/internal/styles/no-nested-styles
@@ -42,8 +42,8 @@ const searchInputIconStyles = css({
 const searchInputStyles = css({
   boxSizing: 'border-box',
   width: '220px',
-  height: `${gridSize * 4}px`,
-  padding: `0 ${gridSize}px 0 40px`,
+  height: token('space.400', '32px'),
+  padding: `0 ${token('space.100', '8px')} 0 ${token('space.500', '40px')}`,
   backgroundColor: `var(${varSearchBackgroundColor})`,
   border: '2px solid',
   borderColor: `var(${varSearchBorderColor})`,

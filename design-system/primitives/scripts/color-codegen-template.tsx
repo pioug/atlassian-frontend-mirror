@@ -8,18 +8,13 @@ import tokens from '@atlaskit/tokens/src/artifacts/tokens-raw/atlassian-light';
 
 import {
   capitalize,
-  compose,
-  isHovered,
-  isPressed,
-  not,
-  pick,
-  ShadowDefintion,
-  tokenToStyle,
+  constructTokenFunctionCall,
+  ShadowDefinition,
 } from './utils';
 
 type Token = {
   token: string;
-  fallback: string | ShadowDefintion;
+  fallback: string | ShadowDefinition;
   isDeprecated: boolean;
 };
 
@@ -61,18 +56,14 @@ const bothTokens = tokens.map((t, i) => [t, legacyTokens[i]]);
 
 const activeTokens = bothTokens
   .filter(([t]) => t.attributes.state !== 'deleted')
-  .map(t => {
-    return t;
-  })
+  .map(t => t)
   .map(
     ([t, legacy]): Token => ({
       token: t.name,
-      fallback: legacy.value as string | ShadowDefintion,
+      fallback: legacy.value as string | ShadowDefinition,
       isDeprecated: t.attributes.state === 'deprecated',
     }),
-  )
-  .filter(compose(pick('token'), not(isPressed)))
-  .filter(compose(pick('token'), not(isHovered)));
+  );
 
 export const createColorStylesFromTemplate = (
   colorProperty: keyof typeof tokenStyles,
@@ -81,13 +72,12 @@ export const createColorStylesFromTemplate = (
     throw new Error(`[codegen] Unknown option found "${colorProperty}"`);
   }
 
-  const { prefix, cssProperty, filterFn, objectName } =
-    tokenStyles[colorProperty];
+  const { prefix, filterFn, objectName } = tokenStyles[colorProperty];
 
   return (
     prettier.format(
       `
-const ${objectName}Map = {
+export const ${objectName}Map = {
   ${activeTokens
     .filter(filterFn)
     // @ts-ignore
@@ -97,7 +87,7 @@ const ${objectName}Map = {
       const propName = t.token.replace(prefix, '');
       return `
         ${t.isDeprecated ? '// @deprecated' : ''}
-        '${propName}': ${tokenToStyle(cssProperty, t.token, t.fallback)}
+        '${propName}': ${constructTokenFunctionCall(t.token, t.fallback)}
       `.trim();
     })
     .join(',\n\t')}

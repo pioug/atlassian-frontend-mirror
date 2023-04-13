@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import { BaseBox } from '../../internal/base-box.partial';
+import { BaseBox } from '../../internal/base-box';
 
 const testId = 'test-BaseBox';
 

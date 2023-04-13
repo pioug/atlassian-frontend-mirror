@@ -30,8 +30,8 @@ import { MemoExoticComponent } from 'react';
 import { ReactElement } from 'react';
 import { ReactNode } from 'react';
 import { RefAttributes } from 'react';
-import { SerializedStyles } from '@emotion/react';
-import { SerializedStyles as SerializedStyles_2 } from '@emotion/serialize';
+import { SerializedStyles } from '@emotion/serialize';
+import { SerializedStyles as SerializedStyles_2 } from '@emotion/react';
 
 // @public (undocumented)
 type AlignBlock = 'baseline' | 'center' | 'end' | 'start';
@@ -48,13 +48,13 @@ type AlignInline_2 = 'center' | 'end' | 'start';
 // @public (undocumented)
 type AlignSelf = keyof typeof alignSelfMap;
 
-// @public (undocumented)
+// @public
 const alignSelfMap: {
-  readonly center: SerializedStyles;
-  readonly start: SerializedStyles;
-  readonly stretch: SerializedStyles;
-  readonly end: SerializedStyles;
-  readonly baseline: SerializedStyles;
+  readonly center: 'center';
+  readonly start: 'start';
+  readonly stretch: 'stretch';
+  readonly end: 'end';
+  readonly baseline: 'baseline';
 };
 
 // @public (undocumented)
@@ -67,101 +67,110 @@ type AllowedInlineStyles = 'backgroundColor' | 'padding';
 type BackgroundColor = keyof typeof backgroundColorMap;
 
 // @public (undocumented)
-type BackgroundColor_2 = keyof typeof backgroundColorMap_2;
-
-// @public (undocumented)
 const backgroundColorMap: {
-  readonly 'accent.red.subtlest': SerializedStyles;
-  readonly 'accent.red.subtler': SerializedStyles;
-  readonly 'accent.red.subtle': SerializedStyles;
-  readonly 'accent.red.bolder': SerializedStyles;
-  readonly 'accent.orange.subtlest': SerializedStyles;
-  readonly 'accent.orange.subtler': SerializedStyles;
-  readonly 'accent.orange.subtle': SerializedStyles;
-  readonly 'accent.orange.bolder': SerializedStyles;
-  readonly 'accent.yellow.subtlest': SerializedStyles;
-  readonly 'accent.yellow.subtler': SerializedStyles;
-  readonly 'accent.yellow.subtle': SerializedStyles;
-  readonly 'accent.yellow.bolder': SerializedStyles;
-  readonly 'accent.green.subtlest': SerializedStyles;
-  readonly 'accent.green.subtler': SerializedStyles;
-  readonly 'accent.green.subtle': SerializedStyles;
-  readonly 'accent.green.bolder': SerializedStyles;
-  readonly 'accent.teal.subtlest': SerializedStyles;
-  readonly 'accent.teal.subtler': SerializedStyles;
-  readonly 'accent.teal.subtle': SerializedStyles;
-  readonly 'accent.teal.bolder': SerializedStyles;
-  readonly 'accent.blue.subtlest': SerializedStyles;
-  readonly 'accent.blue.subtler': SerializedStyles;
-  readonly 'accent.blue.subtle': SerializedStyles;
-  readonly 'accent.blue.bolder': SerializedStyles;
-  readonly 'accent.purple.subtlest': SerializedStyles;
-  readonly 'accent.purple.subtler': SerializedStyles;
-  readonly 'accent.purple.subtle': SerializedStyles;
-  readonly 'accent.purple.bolder': SerializedStyles;
-  readonly 'accent.magenta.subtlest': SerializedStyles;
-  readonly 'accent.magenta.subtler': SerializedStyles;
-  readonly 'accent.magenta.subtle': SerializedStyles;
-  readonly 'accent.magenta.bolder': SerializedStyles;
-  readonly 'accent.gray.subtlest': SerializedStyles;
-  readonly 'accent.gray.subtler': SerializedStyles;
-  readonly 'accent.gray.subtle': SerializedStyles;
-  readonly 'accent.gray.bolder': SerializedStyles;
-  readonly disabled: SerializedStyles;
-  readonly input: SerializedStyles;
-  readonly 'inverse.subtle': SerializedStyles;
-  readonly neutral: SerializedStyles;
-  readonly 'neutral.subtle': SerializedStyles;
-  readonly 'neutral.bold': SerializedStyles;
-  readonly selected: SerializedStyles;
-  readonly 'selected.bold': SerializedStyles;
-  readonly 'brand.bold': SerializedStyles;
-  readonly danger: SerializedStyles;
-  readonly 'danger.bold': SerializedStyles;
-  readonly warning: SerializedStyles;
-  readonly 'warning.bold': SerializedStyles;
-  readonly success: SerializedStyles;
-  readonly 'success.bold': SerializedStyles;
-  readonly discovery: SerializedStyles;
-  readonly 'discovery.bold': SerializedStyles;
-  readonly information: SerializedStyles;
-  readonly 'information.bold': SerializedStyles;
-  readonly 'color.blanket': SerializedStyles;
-  readonly 'color.blanket.selected': SerializedStyles;
-  readonly 'color.blanket.danger': SerializedStyles;
-  readonly 'elevation.surface': SerializedStyles;
-  readonly 'elevation.surface.overlay': SerializedStyles;
-  readonly 'elevation.surface.raised': SerializedStyles;
-  readonly 'elevation.surface.sunken': SerializedStyles;
-};
-
-// @public (undocumented)
-const backgroundColorMap_2: {
+  readonly 'accent.red.subtlest': 'var(--ds-background-accent-red-subtlest)';
+  readonly 'accent.red.subtler': 'var(--ds-background-accent-red-subtler)';
+  readonly 'accent.red.subtle': 'var(--ds-background-accent-red-subtle)';
+  readonly 'accent.red.bolder': 'var(--ds-background-accent-red-bolder)';
+  readonly 'accent.orange.subtlest': 'var(--ds-background-accent-orange-subtlest)';
+  readonly 'accent.orange.subtler': 'var(--ds-background-accent-orange-subtler)';
+  readonly 'accent.orange.subtle': 'var(--ds-background-accent-orange-subtle)';
+  readonly 'accent.orange.bolder': 'var(--ds-background-accent-orange-bolder)';
+  readonly 'accent.yellow.subtlest': 'var(--ds-background-accent-yellow-subtlest)';
+  readonly 'accent.yellow.subtler': 'var(--ds-background-accent-yellow-subtler)';
+  readonly 'accent.yellow.subtle': 'var(--ds-background-accent-yellow-subtle)';
+  readonly 'accent.yellow.bolder': 'var(--ds-background-accent-yellow-bolder)';
+  readonly 'accent.green.subtlest': 'var(--ds-background-accent-green-subtlest)';
+  readonly 'accent.green.subtler': 'var(--ds-background-accent-green-subtler)';
+  readonly 'accent.green.subtle': 'var(--ds-background-accent-green-subtle)';
+  readonly 'accent.green.bolder': 'var(--ds-background-accent-green-bolder)';
+  readonly 'accent.teal.subtlest': 'var(--ds-background-accent-teal-subtlest)';
+  readonly 'accent.teal.subtler': 'var(--ds-background-accent-teal-subtler)';
+  readonly 'accent.teal.subtle': 'var(--ds-background-accent-teal-subtle)';
+  readonly 'accent.teal.bolder': 'var(--ds-background-accent-teal-bolder)';
+  readonly 'accent.blue.subtlest': 'var(--ds-background-accent-blue-subtlest)';
+  readonly 'accent.blue.subtler': 'var(--ds-background-accent-blue-subtler)';
+  readonly 'accent.blue.subtle': 'var(--ds-background-accent-blue-subtle)';
+  readonly 'accent.blue.bolder': 'var(--ds-background-accent-blue-bolder)';
+  readonly 'accent.purple.subtlest': 'var(--ds-background-accent-purple-subtlest)';
+  readonly 'accent.purple.subtler': 'var(--ds-background-accent-purple-subtler)';
+  readonly 'accent.purple.subtle': 'var(--ds-background-accent-purple-subtle)';
+  readonly 'accent.purple.bolder': 'var(--ds-background-accent-purple-bolder)';
+  readonly 'accent.magenta.subtlest': 'var(--ds-background-accent-magenta-subtlest)';
+  readonly 'accent.magenta.subtler': 'var(--ds-background-accent-magenta-subtler)';
+  readonly 'accent.magenta.subtle': 'var(--ds-background-accent-magenta-subtle)';
+  readonly 'accent.magenta.bolder': 'var(--ds-background-accent-magenta-bolder)';
+  readonly 'accent.gray.subtlest': 'var(--ds-background-accent-gray-subtlest)';
+  readonly 'accent.gray.subtler': 'var(--ds-background-accent-gray-subtler)';
+  readonly 'accent.gray.subtle': 'var(--ds-background-accent-gray-subtle)';
+  readonly 'accent.gray.bolder': 'var(--ds-background-accent-gray-bolder)';
   readonly disabled: 'var(--ds-background-disabled)';
   readonly input: 'var(--ds-background-input)';
+  readonly 'input.hovered': 'var(--ds-background-input-hovered)';
+  readonly 'input.pressed': 'var(--ds-background-input-pressed)';
   readonly 'inverse.subtle': 'var(--ds-background-inverse-subtle)';
+  readonly 'inverse.subtle.hovered': 'var(--ds-background-inverse-subtle-hovered)';
+  readonly 'inverse.subtle.pressed': 'var(--ds-background-inverse-subtle-pressed)';
   readonly neutral: 'var(--ds-background-neutral)';
+  readonly 'neutral.hovered': 'var(--ds-background-neutral-hovered)';
+  readonly 'neutral.pressed': 'var(--ds-background-neutral-pressed)';
   readonly 'neutral.subtle': 'var(--ds-background-neutral-subtle)';
+  readonly 'neutral.subtle.hovered': 'var(--ds-background-neutral-subtle-hovered)';
+  readonly 'neutral.subtle.pressed': 'var(--ds-background-neutral-subtle-pressed)';
   readonly 'neutral.bold': 'var(--ds-background-neutral-bold)';
+  readonly 'neutral.bold.hovered': 'var(--ds-background-neutral-bold-hovered)';
+  readonly 'neutral.bold.pressed': 'var(--ds-background-neutral-bold-pressed)';
   readonly selected: 'var(--ds-background-selected)';
+  readonly 'selected.hovered': 'var(--ds-background-selected-hovered)';
+  readonly 'selected.pressed': 'var(--ds-background-selected-pressed)';
   readonly 'selected.bold': 'var(--ds-background-selected-bold)';
+  readonly 'selected.bold.hovered': 'var(--ds-background-selected-bold-hovered)';
+  readonly 'selected.bold.pressed': 'var(--ds-background-selected-bold-pressed)';
   readonly 'brand.bold': 'var(--ds-background-brand-bold)';
+  readonly 'brand.bold.hovered': 'var(--ds-background-brand-bold-hovered)';
+  readonly 'brand.bold.pressed': 'var(--ds-background-brand-bold-pressed)';
   readonly danger: 'var(--ds-background-danger)';
+  readonly 'danger.hovered': 'var(--ds-background-danger-hovered)';
+  readonly 'danger.pressed': 'var(--ds-background-danger-pressed)';
   readonly 'danger.bold': 'var(--ds-background-danger-bold)';
+  readonly 'danger.bold.hovered': 'var(--ds-background-danger-bold-hovered)';
+  readonly 'danger.bold.pressed': 'var(--ds-background-danger-bold-pressed)';
   readonly warning: 'var(--ds-background-warning)';
+  readonly 'warning.hovered': 'var(--ds-background-warning-hovered)';
+  readonly 'warning.pressed': 'var(--ds-background-warning-pressed)';
   readonly 'warning.bold': 'var(--ds-background-warning-bold)';
+  readonly 'warning.bold.hovered': 'var(--ds-background-warning-bold-hovered)';
+  readonly 'warning.bold.pressed': 'var(--ds-background-warning-bold-pressed)';
   readonly success: 'var(--ds-background-success)';
+  readonly 'success.hovered': 'var(--ds-background-success-hovered)';
+  readonly 'success.pressed': 'var(--ds-background-success-pressed)';
   readonly 'success.bold': 'var(--ds-background-success-bold)';
+  readonly 'success.bold.hovered': 'var(--ds-background-success-bold-hovered)';
+  readonly 'success.bold.pressed': 'var(--ds-background-success-bold-pressed)';
   readonly discovery: 'var(--ds-background-discovery)';
+  readonly 'discovery.hovered': 'var(--ds-background-discovery-hovered)';
+  readonly 'discovery.pressed': 'var(--ds-background-discovery-pressed)';
   readonly 'discovery.bold': 'var(--ds-background-discovery-bold)';
+  readonly 'discovery.bold.hovered': 'var(--ds-background-discovery-bold-hovered)';
+  readonly 'discovery.bold.pressed': 'var(--ds-background-discovery-bold-pressed)';
   readonly information: 'var(--ds-background-information)';
+  readonly 'information.hovered': 'var(--ds-background-information-hovered)';
+  readonly 'information.pressed': 'var(--ds-background-information-pressed)';
   readonly 'information.bold': 'var(--ds-background-information-bold)';
+  readonly 'information.bold.hovered': 'var(--ds-background-information-bold-hovered)';
+  readonly 'information.bold.pressed': 'var(--ds-background-information-bold-pressed)';
   readonly 'color.blanket': 'var(--ds-blanket)';
   readonly 'color.blanket.selected': 'var(--ds-blanket-selected)';
   readonly 'color.blanket.danger': 'var(--ds-blanket-danger)';
   readonly 'elevation.surface': 'var(--ds-surface)';
+  readonly 'elevation.surface.hovered': 'var(--ds-surface-hovered)';
+  readonly 'elevation.surface.pressed': 'var(--ds-surface-pressed)';
   readonly 'elevation.surface.overlay': 'var(--ds-surface-overlay)';
+  readonly 'elevation.surface.overlay.hovered': 'var(--ds-surface-overlay-hovered)';
+  readonly 'elevation.surface.overlay.pressed': 'var(--ds-surface-overlay-pressed)';
   readonly 'elevation.surface.raised': 'var(--ds-surface-raised)';
+  readonly 'elevation.surface.raised.hovered': 'var(--ds-surface-raised-hovered)';
+  readonly 'elevation.surface.raised.pressed': 'var(--ds-surface-raised-pressed)';
   readonly 'elevation.surface.sunken': 'var(--ds-surface-sunken)';
 };
 
@@ -178,21 +187,7 @@ type BaseBoxPropsFoundation<T extends ElementType> = {
   as?: 'div' | 'li' | 'span';
   className?: string;
   children?: ReactNode;
-  color?: TextColor;
   backgroundColor?: BackgroundColor;
-  shadow?: Shadow;
-  borderStyle?: BorderStyle;
-  borderWidth?: BorderWidth;
-  borderColor?: BorderColor;
-  borderRadius?: BorderRadius;
-  layer?: Layer;
-  flex?: Flex;
-  flexGrow?: FlexGrow;
-  flexShrink?: FlexShrink;
-  alignSelf?: AlignSelf;
-  overflow?: Overflow;
-  overflowInline?: OverflowInline;
-  overflowBlock?: OverflowBlock;
   padding?: Padding;
   paddingBlock?: PaddingBlock;
   paddingBlockStart?: PaddingBlockStart;
@@ -200,10 +195,6 @@ type BaseBoxPropsFoundation<T extends ElementType> = {
   paddingInline?: PaddingInline;
   paddingInlineStart?: PaddingInlineStart;
   paddingInlineEnd?: PaddingInlineEnd;
-  width?: Width;
-  height?: Height;
-  display?: Display;
-  position?: Position;
   ref?: ComponentPropsWithRef<T>['ref'];
 };
 
@@ -216,38 +207,18 @@ type BasePrimitiveProps = {
 // @public (undocumented)
 type BorderColor = keyof typeof borderColorMap;
 
-// @public (undocumented)
-type BorderColor_2 = keyof typeof borderColorMap_2;
-
 // @public
 const borderColorMap: {
-  readonly 'color.border': SerializedStyles;
-  readonly 'accent.red': SerializedStyles;
-  readonly 'accent.orange': SerializedStyles;
-  readonly 'accent.yellow': SerializedStyles;
-  readonly 'accent.green': SerializedStyles;
-  readonly 'accent.teal': SerializedStyles;
-  readonly 'accent.blue': SerializedStyles;
-  readonly 'accent.purple': SerializedStyles;
-  readonly 'accent.magenta': SerializedStyles;
-  readonly 'accent.gray': SerializedStyles;
-  readonly disabled: SerializedStyles;
-  readonly focused: SerializedStyles;
-  readonly input: SerializedStyles;
-  readonly inverse: SerializedStyles;
-  readonly selected: SerializedStyles;
-  readonly brand: SerializedStyles;
-  readonly danger: SerializedStyles;
-  readonly warning: SerializedStyles;
-  readonly success: SerializedStyles;
-  readonly discovery: SerializedStyles;
-  readonly information: SerializedStyles;
-  readonly bold: SerializedStyles;
-};
-
-// @public (undocumented)
-const borderColorMap_2: {
   readonly 'color.border': 'var(--ds-border)';
+  readonly 'accent.red': 'var(--ds-border-accent-red)';
+  readonly 'accent.orange': 'var(--ds-border-accent-orange)';
+  readonly 'accent.yellow': 'var(--ds-border-accent-yellow)';
+  readonly 'accent.green': 'var(--ds-border-accent-green)';
+  readonly 'accent.teal': 'var(--ds-border-accent-teal)';
+  readonly 'accent.blue': 'var(--ds-border-accent-blue)';
+  readonly 'accent.purple': 'var(--ds-border-accent-purple)';
+  readonly 'accent.magenta': 'var(--ds-border-accent-magenta)';
+  readonly 'accent.gray': 'var(--ds-border-accent-gray)';
   readonly disabled: 'var(--ds-border-disabled)';
   readonly focused: 'var(--ds-border-focused)';
   readonly input: 'var(--ds-border-input)';
@@ -267,11 +238,12 @@ type BorderRadius = keyof typeof borderRadiusMap;
 
 // @public (undocumented)
 const borderRadiusMap: {
-  'radius.100': SerializedStyles;
-  'radius.200': SerializedStyles;
-  'radius.round': SerializedStyles;
-  'radius.300': SerializedStyles;
-  'radius.400': SerializedStyles;
+  readonly 'radius.050': 'var(--ds-radius-050)';
+  readonly 'radius.100': 'var(--ds-radius-100)';
+  readonly 'radius.200': 'var(--ds-radius-200)';
+  readonly 'radius.300': 'var(--ds-radius-300)';
+  readonly 'radius.400': 'var(--ds-radius-400)';
+  readonly 'radius.round': 'var(--ds-radius-round)';
 };
 
 // @public (undocumented)
@@ -279,28 +251,18 @@ type BorderStyle = keyof typeof borderStyleMap;
 
 // @public (undocumented)
 const borderStyleMap: {
-  readonly none: SerializedStyles;
-  readonly solid: SerializedStyles;
+  readonly none: 'none';
+  readonly solid: 'solid';
 };
 
 // @public (undocumented)
 type BorderWidth = keyof typeof borderWidthMap;
 
-// @public (undocumented)
-type BorderWidth_2 = keyof typeof borderWidthMap_2;
-
-// @public (undocumented)
+// @public
 const borderWidthMap: {
-  readonly 'size.0': SerializedStyles;
-  readonly 'size.050': SerializedStyles;
-  readonly 'size.100': SerializedStyles;
-};
-
-// @public (undocumented)
-const borderWidthMap_2: {
-  readonly 'size.0': 'var(--ds-width-0)';
-  readonly 'size.050': 'var(--ds-width-050)';
-  readonly 'size.100': 'var(--ds-width-100)';
+  readonly 'width.0': 'var(--ds-width-0)';
+  readonly 'width.050': 'var(--ds-width-050)';
+  readonly 'width.100': 'var(--ds-width-100)';
 };
 
 // @public
@@ -322,7 +284,7 @@ export type BoxProps<T extends ElementType = 'div'> = Omit<
   PublicBoxPropsBase;
 
 // @public (undocumented)
-type BoxStyles = SerializedStyles_2 & {
+type BoxStyles = SerializedStyles & {
   [boxTag]: true;
 };
 
@@ -335,7 +297,7 @@ type BoxXCSS = {
   readonly styles: BoxStyles;
 };
 
-// @public (undocumented)
+// @public
 const dimensionMap: {
   readonly '100%': '100%';
   readonly 'size.100': '16px';
@@ -348,16 +310,7 @@ const dimensionMap: {
 };
 
 // @public (undocumented)
-type Display = keyof typeof displayMap;
-
-// @public (undocumented)
-const displayMap: {
-  readonly block: SerializedStyles;
-  readonly inline: SerializedStyles;
-  readonly flex: SerializedStyles;
-  readonly 'inline-flex': SerializedStyles;
-  readonly 'inline-block': SerializedStyles;
-};
+type Display = 'block' | 'flex' | 'inline' | 'inline-block' | 'inline-flex';
 
 // @public (undocumented)
 type Flex = keyof typeof flexMap;
@@ -367,13 +320,13 @@ type FlexGrow = keyof typeof flexGrowMap;
 
 // @public (undocumented)
 const flexGrowMap: {
-  readonly '0': SerializedStyles;
-  readonly '1': SerializedStyles;
+  readonly '0': 0;
+  readonly '1': 1;
 };
 
 // @public (undocumented)
 const flexMap: {
-  readonly '1': SerializedStyles;
+  readonly '1': 1;
 };
 
 // @public (undocumented)
@@ -381,8 +334,8 @@ type FlexShrink = keyof typeof flexShrinkMap;
 
 // @public (undocumented)
 const flexShrinkMap: {
-  readonly '0': SerializedStyles;
-  readonly '1': SerializedStyles;
+  readonly '0': 0;
+  readonly '1': 1;
 };
 
 // @public (undocumented)
@@ -398,22 +351,7 @@ type Grow = 'fill' | 'hug';
 type Grow_2 = 'fill' | 'hug';
 
 // @public (undocumented)
-type Height = keyof typeof heightMap;
-
-// @public (undocumented)
-type Height_2 = keyof typeof dimensionMap;
-
-// @public (undocumented)
-const heightMap: {
-  readonly '100%': SerializedStyles;
-  readonly 'size.100': SerializedStyles;
-  readonly 'size.200': SerializedStyles;
-  readonly 'size.300': SerializedStyles;
-  readonly 'size.400': SerializedStyles;
-  readonly 'size.500': SerializedStyles;
-  readonly 'size.600': SerializedStyles;
-  readonly 'size.1000': SerializedStyles;
-};
+type Height = keyof typeof dimensionMap;
 
 // @public
 export const Inline: MemoExoticComponent<
@@ -455,25 +393,25 @@ export interface InlineProps<T extends ElementType = 'div'> {
 // @public
 const inlineSpaceMap: {
   [k: string]: {
-    readonly '0': SerializedStyles;
-    readonly '025': SerializedStyles;
-    readonly '050': SerializedStyles;
-    readonly '075': SerializedStyles;
-    readonly '100': SerializedStyles;
-    readonly '150': SerializedStyles;
-    readonly '200': SerializedStyles;
-    readonly '250': SerializedStyles;
-    readonly '300': SerializedStyles;
-    readonly '400': SerializedStyles;
-    readonly '500': SerializedStyles;
-    readonly '600': SerializedStyles;
-    readonly '800': SerializedStyles;
-    readonly '1000': SerializedStyles;
+    readonly '0': SerializedStyles_2;
+    readonly '025': SerializedStyles_2;
+    readonly '050': SerializedStyles_2;
+    readonly '075': SerializedStyles_2;
+    readonly '100': SerializedStyles_2;
+    readonly '150': SerializedStyles_2;
+    readonly '200': SerializedStyles_2;
+    readonly '250': SerializedStyles_2;
+    readonly '300': SerializedStyles_2;
+    readonly '400': SerializedStyles_2;
+    readonly '500': SerializedStyles_2;
+    readonly '600': SerializedStyles_2;
+    readonly '800': SerializedStyles_2;
+    readonly '1000': SerializedStyles_2;
   };
 };
 
 // @public (undocumented)
-type InlineStyles = SerializedStyles_2 & {
+type InlineStyles = SerializedStyles & {
   [inlineTag]: true;
 };
 
@@ -481,10 +419,10 @@ type InlineStyles = SerializedStyles_2 & {
 const inlineTag: unique symbol;
 
 // @public (undocumented)
-type Layer = keyof typeof LAYERS;
+type Layer = keyof typeof layerMap;
 
 // @public (undocumented)
-const LAYERS: {
+const layerMap: {
   readonly card: 100;
   readonly navigation: 200;
   readonly dialog: 300;
@@ -516,8 +454,8 @@ type OverflowBlock = keyof typeof overflowBlockMap;
 
 // @public (undocumented)
 const overflowBlockMap: {
-  readonly auto: SerializedStyles;
-  readonly hidden: SerializedStyles;
+  readonly auto: 'auto';
+  readonly hidden: 'hidden';
 };
 
 // @public (undocumented)
@@ -525,62 +463,39 @@ type OverflowInline = keyof typeof overflowInlineMap;
 
 // @public (undocumented)
 const overflowInlineMap: {
-  readonly auto: SerializedStyles;
-  readonly hidden: SerializedStyles;
+  readonly auto: 'auto';
+  readonly hidden: 'hidden';
 };
 
 // @public (undocumented)
 const overflowMap: {
-  readonly auto: SerializedStyles;
-  readonly hidden: SerializedStyles;
+  readonly auto: 'auto';
+  readonly hidden: 'hidden';
 };
 
 // @public (undocumented)
-type Padding = keyof typeof paddingMap.padding;
+type Padding = keyof typeof paddingMap;
 
 // @public (undocumented)
-type Padding_2 = keyof typeof paddingMap_2;
+type PaddingBlock = keyof typeof paddingMap;
 
 // @public (undocumented)
-type PaddingBlock = keyof typeof paddingMap.paddingBlock;
+type PaddingBlockEnd = keyof typeof paddingMap;
 
 // @public (undocumented)
-type PaddingBlockEnd = keyof typeof paddingMap.paddingBlockEnd;
+type PaddingBlockStart = keyof typeof paddingMap;
 
 // @public (undocumented)
-type PaddingBlockStart = keyof typeof paddingMap.paddingBlockStart;
+type PaddingInline = keyof typeof paddingMap;
 
 // @public (undocumented)
-type PaddingInline = keyof typeof paddingMap.paddingInline;
+type PaddingInlineEnd = keyof typeof paddingMap;
 
 // @public (undocumented)
-type PaddingInlineEnd = keyof typeof paddingMap.paddingInlineEnd;
-
-// @public (undocumented)
-type PaddingInlineStart = keyof typeof paddingMap.paddingInlineStart;
+type PaddingInlineStart = keyof typeof paddingMap;
 
 // @public
 const paddingMap: {
-  [k: string]: {
-    readonly 'space.0': SerializedStyles;
-    readonly 'space.025': SerializedStyles;
-    readonly 'space.050': SerializedStyles;
-    readonly 'space.075': SerializedStyles;
-    readonly 'space.100': SerializedStyles;
-    readonly 'space.150': SerializedStyles;
-    readonly 'space.200': SerializedStyles;
-    readonly 'space.250': SerializedStyles;
-    readonly 'space.300': SerializedStyles;
-    readonly 'space.400': SerializedStyles;
-    readonly 'space.500': SerializedStyles;
-    readonly 'space.600': SerializedStyles;
-    readonly 'space.800': SerializedStyles;
-    readonly 'space.1000': SerializedStyles;
-  };
-};
-
-// @public (undocumented)
-const paddingMap_2: {
   readonly 'space.0': 'var(--ds-space-0)';
   readonly 'space.025': 'var(--ds-space-025)';
   readonly 'space.050': 'var(--ds-space-050)';
@@ -602,15 +517,15 @@ type Position = keyof typeof positionMap;
 
 // @public (undocumented)
 const positionMap: {
-  readonly absolute: SerializedStyles;
-  readonly fixed: SerializedStyles;
-  readonly relative: SerializedStyles;
-  readonly static: SerializedStyles;
+  readonly absolute: 'absolute';
+  readonly fixed: 'fixed';
+  readonly relative: 'relative';
+  readonly static: 'static';
 };
 
 // @public (undocumented)
 type PublicBoxPropsBase = {
-  xcss?: BoxXCSS;
+  xcss?: Array<BoxXCSS | false | undefined> | BoxXCSS;
 };
 
 // @public (undocumented)
@@ -632,11 +547,11 @@ type Shadow = keyof typeof shadowMap;
 
 // @public (undocumented)
 const shadowMap: {
-  readonly overflow: SerializedStyles;
-  readonly 'overflow.perimeter': SerializedStyles;
-  readonly 'overflow.spread': SerializedStyles;
-  readonly overlay: SerializedStyles;
-  readonly raised: SerializedStyles;
+  readonly overflow: 'var(--ds-shadow-overflow)';
+  readonly 'overflow.perimeter': 'var(--ds-shadow-overflow-perimeter)';
+  readonly 'overflow.spread': 'var(--ds-shadow-overflow-spread)';
+  readonly overlay: 'var(--ds-shadow-overlay)';
+  readonly raised: 'var(--ds-shadow-raised)';
 };
 
 // @public (undocumented)
@@ -679,20 +594,20 @@ export interface StackProps<T extends ElementType = 'div'> {
 // @public
 const stackSpaceMap: {
   [k: string]: {
-    readonly '0': SerializedStyles;
-    readonly '025': SerializedStyles;
-    readonly '050': SerializedStyles;
-    readonly '075': SerializedStyles;
-    readonly '100': SerializedStyles;
-    readonly '150': SerializedStyles;
-    readonly '200': SerializedStyles;
-    readonly '250': SerializedStyles;
-    readonly '300': SerializedStyles;
-    readonly '400': SerializedStyles;
-    readonly '500': SerializedStyles;
-    readonly '600': SerializedStyles;
-    readonly '800': SerializedStyles;
-    readonly '1000': SerializedStyles;
+    readonly '0': SerializedStyles_2;
+    readonly '025': SerializedStyles_2;
+    readonly '050': SerializedStyles_2;
+    readonly '075': SerializedStyles_2;
+    readonly '100': SerializedStyles_2;
+    readonly '150': SerializedStyles_2;
+    readonly '200': SerializedStyles_2;
+    readonly '250': SerializedStyles_2;
+    readonly '300': SerializedStyles_2;
+    readonly '400': SerializedStyles_2;
+    readonly '500': SerializedStyles_2;
+    readonly '600': SerializedStyles_2;
+    readonly '800': SerializedStyles_2;
+    readonly '1000': SerializedStyles_2;
   };
 };
 
@@ -700,45 +615,7 @@ const stackSpaceMap: {
 type TextColor = keyof typeof textColorMap;
 
 // @public (undocumented)
-type TextColor_2 = keyof typeof textColorMap_2;
-
-// @public (undocumented)
 const textColorMap: {
-  readonly 'color.text': SerializedStyles;
-  readonly 'accent.red': SerializedStyles;
-  readonly 'accent.red.bolder': SerializedStyles;
-  readonly 'accent.orange': SerializedStyles;
-  readonly 'accent.orange.bolder': SerializedStyles;
-  readonly 'accent.yellow': SerializedStyles;
-  readonly 'accent.yellow.bolder': SerializedStyles;
-  readonly 'accent.green': SerializedStyles;
-  readonly 'accent.green.bolder': SerializedStyles;
-  readonly 'accent.teal': SerializedStyles;
-  readonly 'accent.teal.bolder': SerializedStyles;
-  readonly 'accent.blue': SerializedStyles;
-  readonly 'accent.blue.bolder': SerializedStyles;
-  readonly 'accent.purple': SerializedStyles;
-  readonly 'accent.purple.bolder': SerializedStyles;
-  readonly 'accent.magenta': SerializedStyles;
-  readonly 'accent.magenta.bolder': SerializedStyles;
-  readonly 'accent.gray': SerializedStyles;
-  readonly 'accent.gray.bolder': SerializedStyles;
-  readonly disabled: SerializedStyles;
-  readonly inverse: SerializedStyles;
-  readonly selected: SerializedStyles;
-  readonly brand: SerializedStyles;
-  readonly danger: SerializedStyles;
-  readonly warning: SerializedStyles;
-  readonly 'warning.inverse': SerializedStyles;
-  readonly success: SerializedStyles;
-  readonly discovery: SerializedStyles;
-  readonly information: SerializedStyles;
-  readonly subtlest: SerializedStyles;
-  readonly subtle: SerializedStyles;
-};
-
-// @public (undocumented)
-const textColorMap_2: {
   readonly 'color.text': 'var(--ds-text)';
   readonly 'accent.red': 'var(--ds-text-accent-red)';
   readonly 'accent.red.bolder': 'var(--ds-text-accent-red-bolder)';
@@ -774,52 +651,54 @@ const textColorMap_2: {
 
 // @public (undocumented)
 type TokenisedProps = {
-  backgroundColor?: BackgroundColor_2;
-  borderColor?: BorderColor_2;
-  borderWidth?: BorderWidth_2;
-  color?: TextColor_2;
-  height?: Height_2;
-  minHeight?: MinHeight;
-  minWidth?: MinWidth;
-  maxHeight?: MaxHeight;
+  alignSelf?: AlignSelf;
+  backgroundColor?: BackgroundColor;
+  borderColor?: BorderColor;
+  borderStyle?: BorderStyle;
+  borderRadius?: BorderRadius;
+  borderWidth?: BorderWidth;
+  display?: Display;
+  flex?: Flex;
+  flexGrow?: FlexGrow;
+  flexShrink?: FlexShrink;
+  height?: Height;
+  layer?: Layer;
   maxWidth?: MaxWidth;
-  padding?: Padding_2;
-  paddingBlock?: Padding_2;
-  paddingInline?: Padding_2;
-  paddingBlockStart?: Padding_2;
-  paddingBlockEnd?: Padding_2;
-  paddingInlineStart?: Padding_2;
-  paddingInlineEnd?: Padding_2;
-  width?: Width_2;
+  maxHeight?: MaxHeight;
+  minWidth?: MinWidth;
+  minHeight?: MinHeight;
+  overflow?: Overflow;
+  overflowInline?: OverflowInline;
+  overflowBlock?: OverflowBlock;
+  padding?: Padding;
+  paddingBlock?: PaddingBlock;
+  paddingBlockStart?: PaddingBlockStart;
+  paddingBlockEnd?: PaddingBlockEnd;
+  paddingInline?: PaddingInline;
+  paddingInlineStart?: PaddingInlineStart;
+  paddingInlineEnd?: PaddingInlineEnd;
+  position?: Position;
+  shadow?: Shadow;
+  textColor?: TextColor;
+  width?: Width;
 };
 
 // @public (undocumented)
 const uniqueSymbol: unique symbol;
 
 // @public (undocumented)
-type Width = keyof typeof widthMap;
-
-// @public (undocumented)
-type Width_2 = keyof typeof dimensionMap;
-
-// @public
-const widthMap: {
-  readonly '100%': SerializedStyles;
-  readonly 'size.100': SerializedStyles;
-  readonly 'size.200': SerializedStyles;
-  readonly 'size.300': SerializedStyles;
-  readonly 'size.400': SerializedStyles;
-  readonly 'size.500': SerializedStyles;
-  readonly 'size.600': SerializedStyles;
-  readonly 'size.1000': SerializedStyles;
-};
+type Width = keyof typeof dimensionMap;
 
 // @public (undocumented)
 export function xcss<Primitive extends typeof Box | typeof Inline = typeof Box>(
   style: Primitive extends typeof Box
-    ? ScopedSafeCSSObject<AllowedBoxStyles>
+    ?
+        | ScopedSafeCSSObject<AllowedBoxStyles>
+        | ScopedSafeCSSObject<AllowedBoxStyles>[]
     : Primitive extends typeof Inline
-    ? ScopedSafeCSSObject<AllowedInlineStyles>
+    ?
+        | ScopedSafeCSSObject<AllowedInlineStyles>
+        | ScopedSafeCSSObject<AllowedInlineStyles>[]
     : never,
 ): {
   readonly symbol: typeof uniqueSymbol;

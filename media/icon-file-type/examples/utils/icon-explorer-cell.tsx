@@ -9,7 +9,6 @@ import Modal, {
   ModalFooter,
 } from '@atlaskit/modal-dialog';
 import Tooltip from '@atlaskit/tooltip';
-import { gridSize } from '@atlaskit/theme/constants';
 import { N30A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -20,7 +19,7 @@ const IconExplorerLink = styled.a`
   &:focus {
     display: block;
     padding: 10px;
-    border-radius: ${gridSize() / 2}px;
+    border-radius: ${token('border.radius.100', '4px')};
     color: inherit;
     cursor: pointer;
     line-height: 0;

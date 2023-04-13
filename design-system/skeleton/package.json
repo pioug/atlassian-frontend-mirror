@@ -41,7 +41,7 @@
   "devDependencies": {
     "@atlaskit/docs": "*",
     "@atlaskit/ds-explorations": "^2.0.5",
-    "@atlaskit/primitives": "^0.6.0",
+    "@atlaskit/primitives": "^0.7.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",

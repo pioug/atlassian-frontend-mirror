@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 182.0.2
+
+### Patch Changes
+
+- [`1fa59166180`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1fa59166180) - [ux] ED-17355 added shortcut to focus main toolbar in comment editor
+
 ## 182.0.1
 
 ### Patch Changes

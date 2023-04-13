@@ -3,7 +3,7 @@ import { jsx } from '@emotion/react';
 
 import Heading from '@atlaskit/heading';
 
-import { Box, Inline, Stack } from '../src';
+import { Box, Inline, Stack, xcss } from '../src';
 
 const alignInlineItems = ['start', 'center', 'end'] as const;
 const alignBlockItems = ['start', 'center', 'end'] as const;
@@ -25,6 +25,12 @@ const spaceItems = [
   '1000',
 ] as const;
 
+const containerStyles = xcss({
+  display: 'flex',
+  borderRadius: 'radius.050',
+});
+const blockStyles = xcss({ borderRadius: 'radius.050' });
+
 /**
  * Stack permutations
  */
@@ -42,8 +48,7 @@ export default () => (
                   {alignBlock}
 
                   <Box
-                    display="flex"
-                    borderRadius="radius.200"
+                    xcss={containerStyles}
                     padding="space.050"
                     backgroundColor="neutral"
                     style={{
@@ -52,17 +57,17 @@ export default () => (
                   >
                     <Stack space="050" alignBlock={alignBlock}>
                       <Box
-                        borderRadius="radius.200"
+                        xcss={blockStyles}
                         padding="space.200"
                         backgroundColor="discovery.bold"
                       />
                       <Box
-                        borderRadius="radius.200"
+                        xcss={blockStyles}
                         padding="space.200"
                         backgroundColor="discovery.bold"
                       />
                       <Box
-                        borderRadius="radius.200"
+                        xcss={blockStyles}
                         padding="space.200"
                         backgroundColor="discovery.bold"
                       />
@@ -83,8 +88,7 @@ export default () => (
                   {spread}
 
                   <Box
-                    display="flex"
-                    borderRadius="radius.200"
+                    xcss={containerStyles}
                     padding="space.050"
                     backgroundColor="neutral"
                     style={{
@@ -93,17 +97,17 @@ export default () => (
                   >
                     <Stack space="050" spread={spread}>
                       <Box
-                        borderRadius="radius.200"
+                        xcss={blockStyles}
                         padding="space.200"
                         backgroundColor="discovery.bold"
                       />
                       <Box
-                        borderRadius="radius.200"
+                        xcss={blockStyles}
                         padding="space.200"
                         backgroundColor="discovery.bold"
                       />
                       <Box
-                        borderRadius="radius.200"
+                        xcss={blockStyles}
                         padding="space.200"
                         backgroundColor="discovery.bold"
                       />
@@ -122,7 +126,7 @@ export default () => (
               <Stack key={alignInline} alignInline="center">
                 {alignInline}
                 <Box
-                  borderRadius="radius.200"
+                  xcss={blockStyles}
                   padding="space.050"
                   backgroundColor="neutral"
                   style={{
@@ -131,17 +135,17 @@ export default () => (
                 >
                   <Stack grow="fill" alignInline={alignInline} space="050">
                     <Box
-                      borderRadius="radius.200"
+                      xcss={blockStyles}
                       padding="space.200"
                       backgroundColor="discovery.bold"
                     />
                     <Box
-                      borderRadius="radius.200"
+                      xcss={blockStyles}
                       padding="space.200"
                       backgroundColor="discovery.bold"
                     />
                     <Box
-                      borderRadius="radius.200"
+                      xcss={blockStyles}
                       padding="space.200"
                       backgroundColor="discovery.bold"
                     />
@@ -160,18 +164,18 @@ export default () => (
                 <Stack key={space} space="100" alignInline="center">
                   {space}
                   <Box
-                    borderRadius="radius.200"
+                    xcss={blockStyles}
                     padding="space.050"
                     backgroundColor="neutral"
                   >
                     <Stack space={space}>
                       <Box
-                        borderRadius="radius.200"
+                        xcss={blockStyles}
                         padding="space.200"
                         backgroundColor="discovery.bold"
                       />
                       <Box
-                        borderRadius="radius.200"
+                        xcss={blockStyles}
                         padding="space.200"
                         backgroundColor="discovery.bold"
                       />

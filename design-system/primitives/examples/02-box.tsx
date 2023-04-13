@@ -2,7 +2,7 @@ import React from 'react';
 
 import Heading from '@atlaskit/heading';
 
-import { Box, Inline, Stack } from '../src';
+import { Box, Inline, Stack, xcss } from '../src';
 
 const spacingValues = [
   'space.0',
@@ -20,6 +20,9 @@ const spacingValues = [
   'space.800',
   'space.1000',
 ] as const;
+
+const layerContainerStyles = xcss({ position: 'relative' });
+const colorStyles = xcss({ color: 'inverse' });
 
 /**
  * Box permutations
@@ -84,8 +87,8 @@ export default () => {
             <Box
               key={bgColor}
               backgroundColor={bgColor}
-              color="inverse"
               padding="space.400"
+              xcss={colorStyles}
             >
               <Box>{bgColor}</Box>
             </Box>
@@ -109,10 +112,13 @@ export default () => {
             <Box
               key={borderColor}
               backgroundColor="neutral"
-              borderColor={borderColor}
-              borderStyle="solid"
-              borderWidth="size.100"
               padding="space.400"
+              // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
+              xcss={xcss({
+                borderColor: borderColor,
+                borderStyle: 'solid',
+                borderWidth: 'width.100',
+              })}
             >
               <Box>{borderColor}</Box>
             </Box>
@@ -127,8 +133,11 @@ export default () => {
             <Box
               key={shadow}
               backgroundColor="elevation.surface"
-              shadow={shadow}
               padding="space.400"
+              // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
+              xcss={xcss({
+                boxShadow: shadow,
+              })}
             >
               <Box>{shadow}</Box>
             </Box>
@@ -138,7 +147,7 @@ export default () => {
 
       <Stack space="200" testId="box-with-layer">
         <Heading level="h600">layer</Heading>
-        <Box style={{ width: 800, height: 650 }} position="relative">
+        <Box xcss={layerContainerStyles} style={{ width: 800, height: 650 }}>
           {(
             [
               'card',
@@ -155,10 +164,13 @@ export default () => {
             <Box
               key={layer}
               backgroundColor="elevation.surface"
-              layer={layer}
-              shadow="overlay"
               padding="space.400"
-              position="absolute"
+              // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
+              xcss={xcss({
+                layer,
+                boxShadow: 'overlay',
+                position: 'absolute',
+              })}
               style={{
                 insetBlockStart: index * 64,
                 insetInlineStart: index * 64,

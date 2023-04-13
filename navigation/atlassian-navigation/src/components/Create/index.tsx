@@ -5,9 +5,10 @@ import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/custom-theme-button';
 import AddIcon from '@atlaskit/icon/glyph/editor/add';
+import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
-import { CREATE_BREAKPOINT, gridSize } from '../../common/constants';
+import { CREATE_BREAKPOINT } from '../../common/constants';
 import { useTheme } from '../../theme';
 import { IconButton } from '../IconButton';
 
@@ -33,7 +34,7 @@ const wrapperStyles = css({
   },
   // eslint-disable-next-line @repo/internal/styles/no-nested-styles
   '&&': {
-    marginLeft: gridSize * 1.5,
+    marginLeft: token('space.150', '12px'),
   },
 });
 

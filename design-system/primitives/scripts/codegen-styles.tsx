@@ -1,139 +1,99 @@
 /* eslint-disable no-console */
-import { writeFile } from 'fs/promises';
+import { readdirSync, writeFileSync } from 'fs';
 import { join } from 'path';
 
-import { createPartialSignedArtifact, createSignedArtifact } from '@af/codegen';
+import { createPartialSignedArtifact } from '@af/codegen';
 
+import { createBorderStylesFromTemplate } from './border-codegen-template';
 import { createColorStylesFromTemplate } from './color-codegen-template';
-import { createColorMapTemplate } from './color-map-template';
-import { createDimensionStylesFromTemplate } from './dimension-codegen-template';
-import { createStylesFromTemplate } from './misc-codegen-template';
+import { createStylesFromFileTemplate } from './misc-codegen-template';
 import { createSpacingStylesFromTemplate } from './spacing-codegen-template';
 
-const colorMapOutputFolder = join(__dirname, '../', 'src', 'internal');
 const colorTokensDependencyPath = require.resolve(
   '../../tokens/src/artifacts/tokens-raw/atlassian-light',
 );
 const spacingTokensDependencyPath = require.resolve(
   '../../tokens/src/artifacts/tokens-raw/atlassian-spacing',
 );
+const shapeTokensDependencyPath = require.resolve(
+  '../../tokens/src/artifacts/tokens-raw/atlassian-shape',
+);
+const templateFiles = readdirSync(join(__dirname, 'codegen-file-templates'), {
+  withFileTypes: true,
+})
+  .filter(item => !item.isDirectory())
+  .map(item => join(__dirname, 'codegen-file-templates', item.name));
 
-const primitivesFileNames = {
-  'internal-box': 'base-box.partial.tsx',
-  box: 'box.tsx',
-  inline: 'inline.partial.tsx',
-  stack: 'stack.partial.tsx',
-};
+new Promise(() => {
+  const targetPath = join(
+    __dirname,
+    '../',
+    'src',
+    'internal',
+    'style-maps.partial.tsx',
+  );
 
-writeFile(
-  join(colorMapOutputFolder, 'color-map.tsx'),
-  createSignedArtifact(createColorMapTemplate(), 'yarn codegen-styles', {
-    description:
-      'The color map is used to map a background color token to a matching text color that will meet contrast.',
-    dependencies: [colorTokensDependencyPath],
-    outputFolder: colorMapOutputFolder,
-  }),
-).then(() => console.log(join(colorMapOutputFolder, 'color-map.tsx')));
-
-// generate colors
-Promise.all(
-  [{ target: primitivesFileNames['internal-box'] }].map(({ target }) => {
-    const targetPath = join(
-      __dirname,
-      '../',
-      'src',
-      'components',
-      'internal',
-      target,
-    );
-
-    const source = createPartialSignedArtifact(
-      options => options.map(createColorStylesFromTemplate).join('\n'),
-      'yarn codegen-styles',
-      {
-        id: 'colors',
-        absoluteFilePath: targetPath,
-        dependencies: [colorTokensDependencyPath],
-      },
-    );
-
-    return writeFile(targetPath, source).then(() =>
-      console.log(`${targetPath} written!`),
-    );
-  }),
-)
-  .then(() => {
-    // generate spacing values
-    return Promise.all(
-      [
-        { path: ['internal', primitivesFileNames['internal-box']] },
-        { path: [primitivesFileNames.inline] },
-        { path: [primitivesFileNames.stack] },
-      ].map(({ path }) => {
-        const targetPath = join(__dirname, '../', 'src', 'components', ...path);
-
-        const source = createPartialSignedArtifact(
-          options => options.map(createSpacingStylesFromTemplate).join('\n'),
-          'yarn codegen-styles',
-          {
-            id: 'spacing',
-            absoluteFilePath: targetPath,
-            dependencies: [spacingTokensDependencyPath],
-          },
-        );
-
-        return writeFile(targetPath, source).then(() =>
-          console.log(`${targetPath} written!`),
-        );
-      }),
-    );
-  })
-  .then(() => {
-    // generate other values
-    return Promise.all(
-      [{ path: ['internal', primitivesFileNames['internal-box']] }].map(
-        ({ path }) => {
-          const targetPath = join(
-            __dirname,
-            '../',
-            'src',
-            'components',
-            ...path,
-          );
-
-          const source = createPartialSignedArtifact(
-            options => options.map(createStylesFromTemplate).join('\n'),
-            'yarn codegen-styles',
-            { id: 'misc', absoluteFilePath: targetPath },
-          );
-
-          return writeFile(targetPath, source).then(() =>
-            console.log(`${targetPath} written!`),
-          );
+  const sourceFns = [
+    // width, height, minWidth, maxWidth, minHeight, maxHeight
+    () =>
+      createPartialSignedArtifact(
+        options => options.map(createStylesFromFileTemplate).join('\n'),
+        'yarn codegen-styles',
+        {
+          id: 'dimensions',
+          absoluteFilePath: targetPath,
+          dependencies: templateFiles.filter(v => v.includes('dimensions')),
         },
       ),
-    );
-  })
-  .then(() => {
-    const targetPath = join(
-      __dirname,
-      '../',
-      'src',
-      'components',
-      'internal',
-      primitivesFileNames['internal-box'],
-    );
+    // padding, paddingBlock, paddingBlockStart, paddingBlockEnd, paddingInline, paddingInlineStart, paddingInlineEnd, gap, rowGap
+    () =>
+      createPartialSignedArtifact(
+        options => options.map(createSpacingStylesFromTemplate).join('\n'),
+        'yarn codegen-styles',
+        {
+          id: 'spacing',
+          absoluteFilePath: targetPath,
+          dependencies: [spacingTokensDependencyPath],
+        },
+      ),
+    // text color, background-color, border-color, shadow
+    () =>
+      createPartialSignedArtifact(
+        options => options.map(createColorStylesFromTemplate).join('\n'),
+        'yarn codegen-styles',
+        {
+          id: 'colors',
+          absoluteFilePath: targetPath,
+          dependencies: [colorTokensDependencyPath],
+        },
+      ),
+    // border-width, border-radius
+    () =>
+      createPartialSignedArtifact(
+        options => options.map(createBorderStylesFromTemplate).join('\n'),
+        'yarn codegen-styles',
+        {
+          id: 'border',
+          absoluteFilePath: targetPath,
+          dependencies: [shapeTokensDependencyPath],
+        },
+      ),
+    // align-self, border-color, border-radius, border-style, border-width, display, flex-grow, flex-shrink, flex, layer, overflow, position',
+    () =>
+      createPartialSignedArtifact(
+        options => options.map(createStylesFromFileTemplate).join('\n'),
+        'yarn codegen-styles',
+        {
+          id: 'misc',
+          absoluteFilePath: targetPath,
+          dependencies: templateFiles,
+        },
+      ),
+  ];
 
-    const source = createPartialSignedArtifact(
-      options => options.map(createDimensionStylesFromTemplate).join('\n'),
-      'yarn codegen-styles',
-      {
-        id: 'dimensions',
-        absoluteFilePath: targetPath,
-      },
-    );
-
-    return writeFile(targetPath, source).then(() =>
-      console.log(`${targetPath} written!`),
-    );
+  sourceFns.forEach(sourceFn => {
+    writeFileSync(targetPath, sourceFn());
   });
+
+  console.log(`${targetPath} written!`);
+});

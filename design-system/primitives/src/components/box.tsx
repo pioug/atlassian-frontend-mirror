@@ -11,7 +11,7 @@ import { jsx } from '@emotion/react';
 
 import { parseXcss } from '../internal/xcss';
 
-import { BaseBox, BaseBoxProps } from './internal/base-box.partial';
+import { BaseBox, BaseBoxProps } from './internal/base-box';
 import type { PublicBoxPropsBase } from './types';
 
 export type BoxProps<T extends ElementType = 'div'> = Omit<
@@ -42,21 +42,7 @@ const Box: BoxComponent = forwardRef(
     {
       as,
       children,
-      color,
       backgroundColor,
-      shadow,
-      borderStyle,
-      borderWidth,
-      borderRadius,
-      borderColor,
-      layer,
-      flex,
-      flexGrow,
-      flexShrink,
-      alignSelf,
-      overflow,
-      overflowInline,
-      overflowBlock,
       padding,
       paddingBlock,
       paddingBlockStart,
@@ -64,10 +50,6 @@ const Box: BoxComponent = forwardRef(
       paddingInline,
       paddingInlineStart,
       paddingInlineEnd,
-      height,
-      width,
-      display = 'block',
-      position = 'static',
       style,
       testId,
       xcss,
@@ -80,21 +62,7 @@ const Box: BoxComponent = forwardRef(
     return (
       <BaseBox
         as={as}
-        color={color}
         backgroundColor={backgroundColor}
-        shadow={shadow}
-        borderStyle={borderStyle}
-        borderWidth={borderWidth}
-        borderRadius={borderRadius}
-        borderColor={borderColor}
-        layer={layer}
-        flex={flex}
-        flexGrow={flexGrow}
-        flexShrink={flexShrink}
-        alignSelf={alignSelf}
-        overflow={overflow}
-        overflowInline={overflowInline}
-        overflowBlock={overflowBlock}
         padding={padding}
         paddingBlock={paddingBlock}
         paddingBlockStart={paddingBlockStart}
@@ -102,10 +70,6 @@ const Box: BoxComponent = forwardRef(
         paddingInline={paddingInline}
         paddingInlineStart={paddingInlineStart}
         paddingInlineEnd={paddingInlineEnd}
-        height={height}
-        width={width}
-        display={display}
-        position={position}
         style={style}
         testId={testId}
         ref={ref}

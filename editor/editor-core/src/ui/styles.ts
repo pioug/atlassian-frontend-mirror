@@ -70,3 +70,9 @@ export const buttonContentReducedSpacingStyle = css`
 export const clickSelectWrapperStyle = css`
   user-select: all;
 `;
+
+export const centeredToolbarContainer = css`
+  display: flex;
+  width: 100%;
+  align-items: center;
+`;

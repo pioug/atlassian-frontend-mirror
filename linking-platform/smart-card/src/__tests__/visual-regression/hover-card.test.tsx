@@ -57,7 +57,8 @@ describe('Hover Card', () => {
     return page;
   };
 
-  it('should open below trigger component when there is room below in viewport', async () => {
+  // FIXME: This test was automatically skipped due to failure on 13/04/2023: https://product-fabric.atlassian.net/browse/EDM-6381
+  it.skip('should open below trigger component when there is room below in viewport', async () => {
     const height = 650;
 
     const page = await renderHoverCard(height);

@@ -13,7 +13,7 @@
   },
   "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "scripts": {
-    "ak-postbuild": "cd ../../../ && yarn build @af/codegen && yarn build @atlaskit/tokens && cd packages/design-system/ds-explorations && yarn codegen-styles",
+    "ak-postbuild": "cd ../../../ && yarn build @af/codegen -d cjs,esm,es2019 && yarn build @atlaskit/tokens && cd packages/design-system/ds-explorations && yarn codegen-styles",
     "codegen-styles": "ts-node --project ../../../tsconfig.node.json ./scripts/codegen-styles",
     "prepare": "yarn ak-postbuild"
   },

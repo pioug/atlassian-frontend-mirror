@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 182.0.3
+
+### Patch Changes
+
+- [`bcdf4f2913f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bcdf4f2913f) - add missing border mark data to the media analytic context
+
 ## 182.0.2
 
 ### Patch Changes

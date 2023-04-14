@@ -21,8 +21,14 @@ const color: ExtendedValueSchema<BackgroundColorTokenSchema<BaseToken>> = {
       },
       selected: {
         '[default]': {
-          '[default]': { value: 'Blue1000' },
-          pressed: { value: 'Blue800' },
+          '[default]': {
+            // @ts-ignore Blue950 not currently available
+            value: '#092957',
+          },
+          pressed: {
+            // @ts-ignore Blue850 not currently available
+            value: '#073A83',
+          },
         },
       },
       danger: {

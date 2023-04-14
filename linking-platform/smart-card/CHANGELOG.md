@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 25.3.3
+
+### Patch Changes
+
+- [`b57c925587f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b57c925587f) - Migrated use of `gridSize` to space tokens where possible. There is no expected visual or behaviour change.
+
 ## 25.3.2
 
 ### Patch Changes

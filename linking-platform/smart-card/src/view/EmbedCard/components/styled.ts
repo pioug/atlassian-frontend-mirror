@@ -123,9 +123,9 @@ const wrapperStyles = (props: WrapperProps) => `
     background: transparent;
     transition: background 0.3s, box-shadow 0.3s;
     position: absolute;
-    width: calc(100% + ${gridSize(2)});
-    height: calc(100% + ${gridSize(1)});
-    left: -${gridSize(1)};
+    width: calc(100% + ${token('space.200', '16px')});
+    height: calc(100% + ${token('space.100', '8px')});
+    left: calc(-1 * ${token('space.100', '8px')});
     ${borderRadius}
   }
 `;
@@ -255,8 +255,8 @@ export const Content = styled.div`
     frameStyle === 'hide'
       ? 'height: 100%;'
       : `
-        height: calc(100% - ${gridSize(4)});
-        top: ${gridSize(4)};
+        height: calc(100% - ${token('space.400', '32px')});
+        top: ${token('space.400', '32px')};
       `}
 `;
 

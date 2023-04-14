@@ -5,7 +5,7 @@ import { css, jsx } from '@emotion/core';
 
 import Button from '@atlaskit/button/standard-button';
 import { Checkbox } from '@atlaskit/checkbox';
-import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import { ContextualSurvey, OnDismissArgs, SurveyMarshal } from '../src';
 
@@ -31,7 +31,7 @@ export default function BasicUsage() {
       </Button>
       <div
         css={css`
-          padding-top: ${gridSize()}px;
+          padding-top: ${token('space.100', '8px')};
           font-size: 16px;
         `}
       >

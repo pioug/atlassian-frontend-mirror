@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 1.2.12
+
+### Patch Changes
+
+- [`ec8f1ac379a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ec8f1ac379a) - Tweaks to dark theme tokens (`background.selected` and `background.selected.pressed`) behind a feature flag.
+
 ## 1.2.11
 
 ### Patch Changes

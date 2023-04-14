@@ -1,5 +1,17 @@
 # @atlaskit/rating
 
+## 0.2.82
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.2.81
+
+### Patch Changes
+
+- [`ecda00122c7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ecda00122c7) - Migrated use of `gridSize` to space tokens where possible. There is no expected visual or behaviour change.
+
 ## 0.2.80
 
 ### Patch Changes

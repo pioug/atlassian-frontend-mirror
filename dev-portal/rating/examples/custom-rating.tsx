@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import { Rating, RatingGroup } from '../src';
 
@@ -15,7 +15,7 @@ const Emoji = ({
     style={{
       // Setting font size is important here as it's set to ZERO in the parent Rating to work around inline-block spacing issues.
       fontSize: 30,
-      margin: gridSize() / 2,
+      margin: token('space.050', '4px'),
       opacity: isChecked ? 1 : 0.7,
     }}
   >
@@ -27,7 +27,7 @@ export default () => {
   return (
     <div
       style={{
-        margin: `${gridSize() * 2}px 0 ${gridSize()}px`,
+        margin: `${token('space.200', '16px')} 0 ${token('space.100', '8px')}`,
         textAlign: 'center',
       }}
     >

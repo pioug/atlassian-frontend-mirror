@@ -4,7 +4,8 @@ import { useCallback, useState } from 'react';
 import { css, jsx } from '@emotion/core';
 
 import Button from '@atlaskit/button/custom-theme-button';
-import { fontSize, gridSize } from '@atlaskit/theme/constants';
+import { fontSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import SuccessContainer from './SuccessContainer';
 
@@ -35,7 +36,7 @@ export default ({ onAnswer }: Props) => {
           font-size: ${fontSize()}px;
           font-weight: 600;
           margin: 0;
-          line-height: ${gridSize() * 3}px;
+          line-height: ${token('font.lineHeight.300', '24px')};
         `}
       >
         Thanks for your feedback
@@ -51,12 +52,12 @@ export default ({ onAnswer }: Props) => {
 
       <div
         css={css`
-          margin-top: ${gridSize() * 4}px;
+          margin-top: ${token('space.400', '32px')};
           display: flex;
           justify-content: flex-end;
 
           & > * + * {
-            margin-left: ${gridSize()}px;
+            margin-left: ${token('space.100', '8px')};
           }
         `}
       >

@@ -3,6 +3,8 @@ import type {
   MediaProvider,
 } from '@atlaskit/editor-common/provider-factory';
 import { withImageLoader } from '@atlaskit/editor-common/utils';
+import { AnalyticsContext } from '@atlaskit/analytics-next';
+import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context';
 import type { ImageLoaderProps } from '@atlaskit/editor-common/utils';
 import {
   Card,
@@ -201,23 +203,31 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
         borderWidth={borderMark?.attrs.size}
         selected={selected}
       >
-        <Card
-          mediaClientConfig={mediaClientConfig}
-          resizeMode="stretchy-fit"
-          dimensions={maxDimensions}
-          originalDimensions={originalDimensions}
-          identifier={identifier}
-          selectable={true}
-          selected={selected}
-          disableOverlay={true}
-          onFullscreenChange={this.onFullscreenChange}
-          onClick={this.selectMediaSingleFromCard}
-          useInlinePlayer={mediaOptions && mediaOptions.allowLazyLoading}
-          isLazy={mediaOptions && mediaOptions.allowLazyLoading}
-          featureFlags={mediaOptions && mediaOptions.featureFlags}
-          contextId={contextId}
-          alt={alt}
-        />
+        <AnalyticsContext
+          data={{
+            [MEDIA_CONTEXT]: {
+              border: !!borderMark,
+            },
+          }}
+        >
+          <Card
+            mediaClientConfig={mediaClientConfig}
+            resizeMode="stretchy-fit"
+            dimensions={maxDimensions}
+            originalDimensions={originalDimensions}
+            identifier={identifier}
+            selectable={true}
+            selected={selected}
+            disableOverlay={true}
+            onFullscreenChange={this.onFullscreenChange}
+            onClick={this.selectMediaSingleFromCard}
+            useInlinePlayer={mediaOptions && mediaOptions.allowLazyLoading}
+            isLazy={mediaOptions && mediaOptions.allowLazyLoading}
+            featureFlags={mediaOptions && mediaOptions.featureFlags}
+            contextId={contextId}
+            alt={alt}
+          />
+        </AnalyticsContext>
       </MediaCardWrapper>
     );
   }

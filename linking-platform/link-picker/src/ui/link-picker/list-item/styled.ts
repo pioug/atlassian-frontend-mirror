@@ -1,7 +1,6 @@
 import { token } from '@atlaskit/tokens';
 import { css } from '@emotion/react';
 import { B50, N300, N800, N20, B400 } from '@atlaskit/theme/colors';
-import { gridSize } from '@atlaskit/theme/constants';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { fontSizeSmall, fontSize } from '@atlaskit/theme';
@@ -18,8 +17,8 @@ export const relativeFontSizeToBase16 = (px: number | string) => {
 
 const listItemBaseStyles = css`
   display: flex;
-  padding: ${gridSize()}px ${gridSize() * 2}px;
-  margin: 0 -${gridSize() * 2}px;
+  padding: ${token('space.100', '8px')} ${token('space.200', '16px')};
+  margin: 0 calc(-1 * ${token('space.200', '16px')});
   cursor: pointer;
 `;
 
@@ -75,11 +74,11 @@ export const listItemContainerInnerStyles = css`
 `;
 
 export const itemIconStyles = css`
-  min-width: ${gridSize() * 2}px;
+  min-width: ${token('space.200', '16px')};
   margin-top: 3px;
-  margin-right: 12px;
+  margin-right: ${token('space.150', '12px')};
 `;
 
 export const imgStyles = css`
-  max-width: ${gridSize() * 2}px;
+  max-width: ${token('space.200', '16px')};
 `;

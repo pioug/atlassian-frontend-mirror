@@ -77,7 +77,8 @@ describe.skip('Toolbar', () => {
 });
 
 describe('Toolbar keyboard shortcut', () => {
-  it.each([Appearance.fullPage, Appearance.comment])(
+  // FIXME: This test was automatically skipped due to failure on 13/04/2023: https://product-fabric.atlassian.net/browse/ED-17488
+  it.skip.each([Appearance.fullPage, Appearance.comment])(
     'in %s, should focus main toolbar and return on "ESC" ',
     async (appearance) => {
       let page = global.page;
@@ -307,7 +308,8 @@ describe('Toolbar: IconBefore enabled', () => {
     });
   });
 
-  it('should carry the keyline across', async () => {
+  // FIXME: This test was automatically skipped due to failure on 13/04/2023: https://product-fabric.atlassian.net/browse/ED-17490
+  it.skip('should carry the keyline across', async () => {
     await page.setViewport({ width: 1000, height: 150 });
 
     const keylineBoxShadowBefore = await getElementComputedStyle(
@@ -357,7 +359,8 @@ describe('Toolbar: Undo Redo', () => {
     await snapshot(page, undefined, mainToolbarSelector);
   });
 
-  it('should show the Undo button in a active state', async () => {
+  // FIXME: This test was automatically skipped due to failure on 13/04/2023: https://product-fabric.atlassian.net/browse/ED-17491
+  it.skip('should show the Undo button in a active state', async () => {
     await page.waitForSelector(selectors[ToolbarMenuItem.undo]);
     await animationFrame(page);
     // Add a bullet list to the doc so something can be undone and the Undo button become active

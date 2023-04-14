@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 1.18.1
+
+### Patch Changes
+
+- [`b57c925587f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b57c925587f) - Migrated use of `gridSize` to space tokens where possible. There is no expected visual or behaviour change.
+
 ## 1.18.0
 
 ### Minor Changes

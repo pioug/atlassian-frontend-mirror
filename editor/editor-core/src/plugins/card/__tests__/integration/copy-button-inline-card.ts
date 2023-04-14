@@ -13,7 +13,5 @@ _getCopyButtonTestSuite({
   customBeforeEach: async (page: WebDriverPage): Promise<void> => {
     await waitForInlineCardSelection(page);
   },
-  // TODO: Fix safari producing different snapshot to chrome/firefox
-  // skip: ['safari'], Manually skipped in ED-17195
-  skip: ['*'],
+  skip: ['safari'], // need to remove safari because different browsers generate different snapshot will cause error in pipeline
 });

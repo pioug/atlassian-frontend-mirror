@@ -1,5 +1,11 @@
 # @atlaskit/renderer
 
+## 107.3.2
+
+### Patch Changes
+
+- [`bcdf4f2913f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bcdf4f2913f) - add missing border mark data to the media analytic context
+
 ## 107.3.1
 
 ### Patch Changes

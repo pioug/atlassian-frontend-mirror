@@ -1,5 +1,11 @@
 # @atlaskit/contextual-survey
 
+## 2.1.11
+
+### Patch Changes
+
+- [`edf6745b956`](https://bitbucket.org/atlassian/atlassian-frontend/commits/edf6745b956) - Migrated use of `gridSize` to space tokens where possible. There is no expected visual or behaviour change.
+
 ## 2.1.10
 
 ### Patch Changes

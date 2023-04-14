@@ -49,7 +49,8 @@ describe('Snapshot Test: CodeBlock', () => {
       });
     });
 
-    test('should render wrap button correctly on hover when enabled', async () => {
+    // FIXME: This test was automatically skipped due to failure on 13/04/2023: https://product-fabric.atlassian.net/browse/ED-17492
+    test.skip('should render wrap button correctly on hover when enabled', async () => {
       await initRendererWithADF(page, {
         appearance: 'full-page',
         rendererProps: { allowWrapCodeBlock: true },

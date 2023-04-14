@@ -2,6 +2,8 @@
 import React, { SyntheticEvent } from 'react';
 import { PureComponent } from 'react';
 import { jsx } from '@emotion/react';
+import { AnalyticsContext } from '@atlaskit/analytics-next';
+import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 import { mediaLinkStyle } from '@atlaskit/editor-common/ui';
@@ -65,17 +67,25 @@ export default class Media extends PureComponent<MediaProps, {}> {
     const eventHandlers = linkHref ? undefined : this.props.eventHandlers;
     const shouldOpenMediaViewer = !linkHref && allowMediaViewer;
     const mediaComponent = (
-      <MediaCard
-        mediaProvider={mediaProvider}
-        contextIdentifierProvider={contextIdentifierProvider}
-        {...this.props}
-        shouldOpenMediaViewer={shouldOpenMediaViewer}
-        eventHandlers={eventHandlers}
-        alt={allowAltTextOnImages ? alt : undefined}
-        featureFlags={featureFlags}
-        shouldEnableDownloadButton={enableDownloadButton}
-        ssr={ssr}
-      />
+      <AnalyticsContext
+        data={{
+          [MEDIA_CONTEXT]: {
+            border: !!borderMark,
+          },
+        }}
+      >
+        <MediaCard
+          mediaProvider={mediaProvider}
+          contextIdentifierProvider={contextIdentifierProvider}
+          {...this.props}
+          shouldOpenMediaViewer={shouldOpenMediaViewer}
+          eventHandlers={eventHandlers}
+          alt={allowAltTextOnImages ? alt : undefined}
+          featureFlags={featureFlags}
+          shouldEnableDownloadButton={enableDownloadButton}
+          ssr={ssr}
+        />
+      </AnalyticsContext>
     );
 
     const paletteColorValue =

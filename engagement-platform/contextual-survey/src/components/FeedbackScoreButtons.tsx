@@ -3,7 +3,6 @@ import { css, jsx } from '@emotion/core';
 
 import Button from '@atlaskit/button/custom-theme-button';
 import { N200 } from '@atlaskit/theme/colors';
-import { gridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -30,7 +29,7 @@ export default ({ onChange, value }: Props) => (
         justify-content: space-between;
 
         & > * + * {
-          margin-left: ${gridSize()}px;
+          margin-left: ${token('space.100', '8px')};
         }
 
         & > * {
@@ -68,11 +67,11 @@ export default ({ onChange, value }: Props) => (
         font-weight: 600;
         color: ${token('color.text.subtlest', N200)};
         display: flex;
-        margin-top: ${gridSize()}px;
-        margin-bottom: ${gridSize() * 3}px;
+        margin-top: ${token('space.100', '8px')};
+        margin-bottom: ${token('space.300', '24px')};
 
         & > span {
-          width: ${gridSize() * 10}px;
+          width: ${token('space.1000', '80px')};
         }
       `}
       aria-hidden
@@ -82,7 +81,7 @@ export default ({ onChange, value }: Props) => (
         css={css`
           text-align: center;
           margin: 0 auto;
-          padding: 0 ${gridSize() * 6}px;
+          padding: 0 ${token('space.600', '48px')};
         `}
       >
         Neutral

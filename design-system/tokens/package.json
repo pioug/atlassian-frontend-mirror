@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/tokens",
-  "version": "1.2.11",
+  "version": "1.2.12",
   "author": "Atlassian Pty Ltd",
   "description": "Design tokens are the single source of truth to name and store design decisions.",
   "license": "Apache-2.0",
@@ -47,7 +47,7 @@
     "./babel-plugin": "./src/entry-points/babel-plugin.tsx"
   },
   "scripts": {
-    "ak-postbuild": "(cd $(npx repo-root) && yarn build @af/codegen) && yarn workspace @atlaskit/tokens codegen-tokens && yarn workspace @atlaskit/tokens check-clean-git",
+    "ak-postbuild": "(cd $(npx repo-root) && yarn build @af/codegen -d cjs,esm,es2019) && yarn workspace @atlaskit/tokens codegen-tokens && yarn workspace @atlaskit/tokens check-clean-git",
     "check-clean-git": "git diff --exit-code -- packages/design-system/tokens/ || (echo 'tokens are out of date, run yarn build tokens' && false)",
     "codegen-tokens": "ts-node --project $(npx repo-root)/tsconfig.node.json ./scripts/style-dictionary/build"
   },

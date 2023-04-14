@@ -3,7 +3,6 @@ import { css, jsx } from '@emotion/core';
 
 import CheckCircleIcon from '@atlaskit/icon/glyph/check-circle';
 import { G300 } from '@atlaskit/theme/colors';
-import { gridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 interface Props {
@@ -13,14 +12,14 @@ interface Props {
 export default ({ children }: Props) => (
   <section
     css={css`
-      margin-left: ${gridSize() * 5}px;
+      margin-left: ${token('space.500', '40px')};
     `}
   >
     <div
       css={css`
         position: absolute;
-        top: ${gridSize() * 3}px;
-        left: ${gridSize() * 3}px;
+        top: ${token('space.300', '24px')};
+        left: ${token('space.300', '24px')};
       `}
     >
       <CheckCircleIcon

@@ -117,14 +117,14 @@ In case of the unpublished draft page, `Page` component can't display a `ViewPag
 // https://acmeexample.atlassian.net/wiki/spaces/ABC/pages/1234
 // and given parentProduct value = "PRODUCT"
 
-import { Page } from '@atlassian/embedded-confluence';
+import { Page } from '@atlaskit/embedded-confluence';
 
 const MyComponent = props => {
   return (
     <ArticleWrapper>
       <Page
         url={
-          'https://hello.atlassian.net/wiki/spaces/ABC/pages/123?parentProduct=PRODUCT'
+          'https://acmeexample.atlassian.net/wiki/spaces/ABC/pages/123?parentProduct=PRODUCT'
         }
       />
     </ArticleWrapper>

@@ -1,8 +1,8 @@
 # General Prerequisites
 
-In order to properly view an Embedded Page, 3rd party products should make sure the Confluence cookie is properly set while integrating with any of the components. The cookie should contain 2 tokens: \`'atl.xsrf.token'\`, and \`'cloud.session.token'\`.\
+In order to properly view an Embedded Page, 3rd party products should make sure the Confluence cookie is properly set while integrating with any of the components. The cookie should contain 2 tokens: `'atl.xsrf.token'`, and `'cloud.session.token'`.\
 \
-The cookie can be obtained upon logging in to [Confluence](https://www.atlassian.com/software/confluence).
+The cookie can be obtained upon logging in to [Confluence](https://www.atlassian.com/software/confluence). Starting v2.0.0, the Login/Authentication flow on Embedded Pages allows a user to login to Confluence and allow access to cookies without having to open Confluence cloud in a new browser tab or manually changing the browser settings.
 
 ## List of Prerequisites specific to Embedded Pages (EP) integration
 
@@ -20,13 +20,9 @@ The cookie can be obtained upon logging in to [Confluence](https://www.atlassian
 
 - Needs to be integrated into applications that support browser environments. This can include most browsers and desktop applications.
 
-  - _Certain 3rd party cookie restrictions may need to be disabled in order to function properly. \*_
+  - _Embedded Confluence requires access to 3rd party cookies and for a user to be logged into Confluence beforehand. As of **v2.0.0**, there is a Login/Authentication flow supported for Embedded Pages which asks the user to allow Storage Access and login to Confluence using the Atlassian Identity Platform. (More details on this can be found in the Login/Authentication Flow section)._
 
 - The 3rd party will need to reach out to Atlassian/an Atlassian representative via this [service desk request form](https://fy22august.atlassian.net/servicedesk/customer/portal/6/group/19/create/63) and provide the domain(s) used by the 3rd party application for Atlassian to allowlist.
-
-## Temporary Prerequisite \*
-
-- On top of successfully logging in to Confluence, an end user may need to enable all cookies, including 3rd party cookies, on their browsers while loading Embedded Pages.
 
 # Installation guide
 

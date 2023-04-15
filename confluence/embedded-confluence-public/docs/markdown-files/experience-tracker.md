@@ -15,6 +15,8 @@ These components provide the below listed experiences events:
 
 1. `VIEW_PAGE = 'embedded-confluence/view-page'`
 2. `EDIT_PAGE_EMBED = 'embedded-confluence/edit-page'`
+3. `LOGIN_PAGE = 'embedded-confluence/login-page'`,
+4. `STORAGE_ACCESS_PAGE = 'embedded-confluence/storage-access-page'`,
 
 Experience events trigger the experience tracker to `start`, `succeed`, `abort`, and `fail`. Those events are expected to have `name`, `id`, `action`, and other properties related to errors, timeouts, start/stop and additional attributes.
 

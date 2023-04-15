@@ -9,6 +9,7 @@ export default md`
 
   - [Prerequisites and Installation Guide](/packages/confluence/embedded-confluence-public/docs/Prerequisites-and-installation)
   - [Components of Embedded Pages](/packages/confluence/embedded-confluence-public/docs/components-of-Embedded-Pages)
+  - [Login/Authentication Flow](/packages/confluence/embedded-confluence-public/docs/Login-Flow)
   - [Experience Tracker](/packages/confluence/embedded-confluence-public/docs/Experience-Tracker)
   - [API References](/packages/confluence/embedded-confluence-public/docs/API-References)
 

@@ -140,7 +140,7 @@ export type ClickOutcome =
   | 'contextMenu'
   | 'alt'
   | 'contentEditable'
-  | '_unknown';
+  | 'unknown';
 
 export type UiLinkClickedEventProps = {
   /**
@@ -149,10 +149,16 @@ export type UiLinkClickedEventProps = {
   clickType: ClickType;
   /**
    * The user outcome for clicking the link as far as can be reasonably be determined
+   * This ignores any programmatic cancellation of the outcome (ie e.preventDefault()) and
+   * thus this represents the user intent, not necessarily the actual outcome
    */
   clickOutcome: ClickOutcome;
   /**
    * The keys held by the user at the time of clicking the link (which influence `clickOutcome`)
    */
   keysHeld: ('alt' | 'ctrl' | 'meta' | 'shift')[];
+  /**
+   * Whether the browser's default behaviour was prevented programmatically
+   */
+  defaultPrevented: boolean;
 };

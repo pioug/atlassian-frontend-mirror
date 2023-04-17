@@ -133,7 +133,8 @@ export class EditorPresetBuilder<
 
     const seen = new Set();
 
-    const plugins = this.data
+    const pluginsDataCopy = this.data.slice();
+    const plugins = pluginsDataCopy
       .reverse()
       .map((entry) => {
         const [fn, config] = this.safeEntry(entry);

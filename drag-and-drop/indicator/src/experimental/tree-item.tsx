@@ -92,7 +92,8 @@ const outlineStyles = css({
 
   border: `${line.thickness}px solid var(--indicator-color)`,
   // TODO: make this a prop?
-  borderRadius: '2px',
+  // For now: matching the Confluence tree item border radius
+  borderRadius: '3px',
 });
 
 export type DropIndicatorProps = {

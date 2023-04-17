@@ -283,7 +283,7 @@ export { CardPlatform };
 
 // @public (undocumented)
 export interface CardProps extends WithAnalyticsEventsProps {
-  // (undocumented)
+  // @deprecated (undocumented)
   analyticsEvents?: AnalyticsFacade;
   // (undocumented)
   appearance: CardAppearance;
@@ -952,7 +952,7 @@ type UiRenderSuccessEventProps = CommonEventProps & {
   status: CardType;
 };
 
-// @public
+// @public @deprecated
 export const useSmartLinkAnalytics: (
   url: string,
   dispatchAnalytics: AnalyticsHandler,

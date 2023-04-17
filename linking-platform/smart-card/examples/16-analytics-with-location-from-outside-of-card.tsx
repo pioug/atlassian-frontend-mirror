@@ -2,15 +2,12 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
 
+import { AnalyticsContext } from '@atlaskit/analytics-next';
 import styled from '@emotion/styled';
 
-import { Provider, Client, Card, useSmartLinkAnalytics } from '../src';
-import { AnalyticsPayload } from '../src/utils/types';
+import { Provider, Client, Card } from '../src';
 
 const url = 'https://www.google.com';
-const analyticsHandler = (event: AnalyticsPayload) => {
-  console.log(event);
-};
 
 const ExampleWrapper = styled.div`
   width: 80%;
@@ -28,34 +25,11 @@ const ExampleWrapper = styled.div`
 const CardWithLocationAnalytics = () => {
   const id = 'test-id';
   const location = 'this-is-a-test-product';
-  const analytics = useSmartLinkAnalytics(
-    url,
-    analyticsHandler,
-    undefined,
-    location,
-  );
-
-  // Changing the rendered event!
-  analytics.ui.renderSuccessEvent = () => {
-    console.log('spaghetti rendered!');
-  };
 
   return (
-    <Card
-      onClick={() => {
-        analytics.ui.cardClickedEvent({
-          id,
-          display: 'block',
-          status: 'resolved',
-          definitionId: 'this-is-a-test-definition-id',
-          extensionKey: 'this-is-a-test-extension-key',
-        });
-      }}
-      id={id}
-      url={url}
-      appearance="block"
-      analyticsEvents={analytics}
-    />
+    <AnalyticsContext data={{ attributes: { location } }}>
+      <Card id={id} url={url} appearance="block" />
+    </AnalyticsContext>
   );
 };
 

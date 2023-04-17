@@ -35,9 +35,6 @@ export function getLinkClickOutcome(
 ): ClickOutcome {
   const { mac, safari } = browser();
 
-  if (e.defaultPrevented) {
-    return 'prevented';
-  }
   /**
    * If the link/parent is content editable then left click won't have typical effect
    */
@@ -95,13 +92,14 @@ export function getLinkClickOutcome(
     }
   }
 
-  return '_unknown';
+  return 'unknown';
 }
 
 const linkClickedEvent = ({
   clickType,
   clickOutcome,
   keysHeld,
+  defaultPrevented,
 }: UiLinkClickedEventProps): AnalyticsPayload => ({
   action: 'clicked',
   actionSubject: 'link',
@@ -110,6 +108,7 @@ const linkClickedEvent = ({
     clickType,
     clickOutcome,
     keysHeld,
+    defaultPrevented,
   },
 });
 
@@ -121,11 +120,13 @@ export const createLinkClickedPayload = (event: React.MouseEvent) => {
   }
   const clickOutcome = getLinkClickOutcome(event, clickType);
   const keysHeld = getKeys(event);
+  const defaultPrevented = event.defaultPrevented;
 
   return linkClickedEvent({
     clickType,
     clickOutcome,
     keysHeld,
+    defaultPrevented,
   });
 };
 

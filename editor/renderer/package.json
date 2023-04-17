@@ -43,7 +43,7 @@
     "@atlaskit/media-filmstrip": "^46.1.0",
     "@atlaskit/media-ui": "^22.3.0",
     "@atlaskit/media-viewer": "^47.5.0",
-    "@atlaskit/smart-card": "^25.3.0",
+    "@atlaskit/smart-card": "^25.4.0",
     "@atlaskit/status": "^1.2.0",
     "@atlaskit/task-decision": "^17.5.0",
     "@atlaskit/theme": "^12.3.0",

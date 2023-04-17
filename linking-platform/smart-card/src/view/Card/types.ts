@@ -62,6 +62,11 @@ export interface CardProps extends WithAnalyticsEventsProps {
   children?: React.ReactNode;
   showHoverPreview?: boolean;
   showAuthTooltip?: boolean;
+  /**
+   * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-2681 Internal documentation for deprecation (no external access)}
+   * The use of `useSmartLinkAnalytics` external use in conjunction with `analyticsEvents` prop is deprecated and may be removed in future releases.
+   * Please avoid using this prop.
+   */
   analyticsEvents?: AnalyticsFacade;
   placeholder?: string;
 }

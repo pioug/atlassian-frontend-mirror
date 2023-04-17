@@ -1,5 +1,11 @@
 # @atlaskit/drag-and-drop-indicator
 
+## 0.11.0
+
+### Minor Changes
+
+- [`e2a4f1aeab0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e2a4f1aeab0) - Changing experimental tree item border radius (`2px`) to match border radius of Confluence tree items (`3px`)
+
 ## 0.10.6
 
 ### Patch Changes

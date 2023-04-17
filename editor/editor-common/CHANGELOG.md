@@ -1,5 +1,11 @@
 # @atlaskit/editor-common
 
+## 72.7.3
+
+### Patch Changes
+
+- [`68f2cf54b1b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/68f2cf54b1b) - [ED-17484] Fix plugins race condition when pluginInjectionAPI uses .reverse().map()
+
 ## 72.7.2
 
 ### Patch Changes

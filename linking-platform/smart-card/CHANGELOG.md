@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 25.4.1
+
+### Patch Changes
+
+- [`ae2cba07a9a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ae2cba07a9a) - Removes prevented as a clickOutcome analytics attribute value and adds defaultPrevented as a replacement attribute.
+
+## 25.4.0
+
+### Minor Changes
+
+- [`65b0490a5dc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/65b0490a5dc) - Deprecates the export of useSmartLinkAnalytics hook and analyticsEvents prop.
+
 ## 25.3.3
 
 ### Patch Changes

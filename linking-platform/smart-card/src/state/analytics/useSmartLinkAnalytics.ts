@@ -87,6 +87,11 @@ const applyCommonAttributes = (
 /**
  * This hook provides usage of Smart Link analytics outside of the Card component.
  * Can be provided to Card via the analyticsEvents prop to change the analytics events.
+ *
+ * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-2681 Internal documentation for deprecation (no external access)}
+ * This hook's external use is deprecated and may no longer be exported from this package in future releases.
+ * Please avoid using it in conjunction with the `analyticsEvents` prop.
+ *
  * @param url URL of the link
  * @param dispatchAnalytics dispatchAnalytics function
  * @param id fallback id of the events sent if no id is available

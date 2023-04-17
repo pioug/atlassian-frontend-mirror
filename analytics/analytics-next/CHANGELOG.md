@@ -1,5 +1,11 @@
 # @atlaskit/analytics-next
 
+## 9.0.1
+
+### Patch Changes
+
+- [`fbff320b423`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fbff320b423) - Move package to continuous model and to push model consumption
+
 ## 9.0.0
 
 ### Major Changes

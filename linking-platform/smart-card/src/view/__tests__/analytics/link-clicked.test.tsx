@@ -187,7 +187,7 @@ describe('`link clicked`', () => {
         );
       });
 
-      it('should fire with `clickOutcome` = `prevented` if the event default behaviour is prevented', async () => {
+      it('should fire with `clickOutcome` = `clickThrough` if the event default behaviour is prevented', async () => {
         const { spy, fireOnClick } = await setup({
           onClick: (e) => {
             e.preventDefault();
@@ -195,6 +195,17 @@ describe('`link clicked`', () => {
         });
 
         fireOnClick();
+
+        /**
+         * Block cards render links with target blank, causing the link to open in new tab
+         * This is not the case for inline + embed appearances
+         */
+        const getTestCaseClickOutcome = () => {
+          if (testCase === 'block' || testCase === 'block(flexible)') {
+            return 'clickThroughNewTabOrWindow';
+          }
+          return 'clickThrough';
+        };
 
         expect(spy).toBeFiredWithAnalyticEventOnce(
           {
@@ -204,7 +215,8 @@ describe('`link clicked`', () => {
               eventType: 'ui',
               attributes: {
                 clickType: 'left',
-                clickOutcome: 'prevented',
+                clickOutcome: getTestCaseClickOutcome(),
+                defaultPrevented: true,
                 keysHeld: [],
               },
             },
@@ -240,7 +252,7 @@ describe('`link clicked`', () => {
         );
       });
 
-      it('should fire with `clickOutcome` = `prevented` if the alt key is held but an `onClick` is supplied', async () => {
+      it('should fire with `clickOutcome` = `alt` if the alt key is held and an `onClick` is supplied', async () => {
         const { spy, fireOnClick } = await setup({ onClick: jest.fn() });
 
         fireOnClick({
@@ -255,7 +267,8 @@ describe('`link clicked`', () => {
               eventType: 'ui',
               attributes: {
                 clickType: 'left',
-                clickOutcome: 'prevented',
+                clickOutcome: 'alt',
+                defaultPrevented: true,
                 keysHeld: ['alt'],
               },
             },
@@ -283,6 +296,7 @@ describe('`link clicked`', () => {
               attributes: {
                 clickType: 'left',
                 clickOutcome: 'clickThrough',
+                defaultPrevented: true,
                 keysHeld: ['shift'],
               },
             },
@@ -291,7 +305,7 @@ describe('`link clicked`', () => {
         );
       });
 
-      it('should fire with `clickOutcome` = `prevented` if the shift key is held and `onClick` is provided', async () => {
+      it('should fire with `clickOutcome` = `clickThroughNewTabOrWindow` if the shift key is held and `onClick` is provided', async () => {
         const { spy, fireOnClick } = await setup({
           onClick: jest.fn(),
         });
@@ -308,7 +322,8 @@ describe('`link clicked`', () => {
               eventType: 'ui',
               attributes: {
                 clickType: 'left',
-                clickOutcome: 'prevented',
+                clickOutcome: 'clickThroughNewTabOrWindow',
+                defaultPrevented: true,
                 keysHeld: ['shift'],
               },
             },
@@ -317,7 +332,7 @@ describe('`link clicked`', () => {
         );
       });
 
-      it('should fire with `clickOutcome` = `prevented` if the shift key is held but an `onClick` is supplied', async () => {
+      it('should fire with `clickOutcome` = `clickThroughNewTabOrWindow` if the shift key is held and an `onClick` is supplied', async () => {
         const { spy, fireOnClick } = await setup({ onClick: jest.fn() });
 
         fireOnClick({
@@ -332,7 +347,8 @@ describe('`link clicked`', () => {
               eventType: 'ui',
               attributes: {
                 clickType: 'left',
-                clickOutcome: 'prevented',
+                clickOutcome: 'clickThroughNewTabOrWindow',
+                defaultPrevented: true,
                 keysHeld: ['shift'],
               },
             },
@@ -341,7 +357,8 @@ describe('`link clicked`', () => {
         );
       });
 
-      it('should fire with `clickOutcome` = `prevented` if the meta key is held but an `onClick` is supplied', async () => {
+      it('should fire with `clickOutcome` = `clickThrough` if the meta key is held (NOT macOS) and an `onClick` is supplied', async () => {
+        jest.spyOn(userAgent, 'browser').mockReturnValue({ mac: false } as any);
         const { spy, fireOnClick } = await setup({ onClick: jest.fn() });
 
         fireOnClick({
@@ -356,7 +373,8 @@ describe('`link clicked`', () => {
               eventType: 'ui',
               attributes: {
                 clickType: 'left',
-                clickOutcome: 'prevented',
+                clickOutcome: 'clickThrough',
+                defaultPrevented: true,
                 keysHeld: ['meta'],
               },
             },
@@ -365,7 +383,35 @@ describe('`link clicked`', () => {
         );
       });
 
-      it('should fire with `clickOutcome` = `prevented` if the ctrl key is held but an `onClick` is supplied', async () => {
+      it('should fire with `clickOutcome` = `clickThroughNewTabOrWindow` if the meta key (IS macOS) is held and an `onClick` is supplied', async () => {
+        jest.spyOn(userAgent, 'browser').mockReturnValue({ mac: true } as any);
+        const { spy, fireOnClick } = await setup({ onClick: jest.fn() });
+
+        fireOnClick({
+          metaKey: true,
+        });
+
+        expect(spy).toBeFiredWithAnalyticEventOnce(
+          {
+            payload: {
+              action: 'clicked',
+              actionSubject: 'link',
+              eventType: 'ui',
+              attributes: {
+                clickType: 'left',
+                clickOutcome: 'clickThroughNewTabOrWindow',
+                defaultPrevented: true,
+                keysHeld: ['meta'],
+              },
+            },
+          },
+          ANALYTICS_CHANNEL,
+        );
+      });
+
+      it('should fire with `clickOutcome` = `clickThrough` if the ctrl key is held (NOT macOS) but an `onClick` is supplied', async () => {
+        jest.spyOn(userAgent, 'browser').mockReturnValue({ mac: false } as any);
+
         const { spy, fireOnClick } = await setup({ onClick: jest.fn() });
 
         fireOnClick({
@@ -380,7 +426,8 @@ describe('`link clicked`', () => {
               eventType: 'ui',
               attributes: {
                 clickType: 'left',
-                clickOutcome: 'prevented',
+                clickOutcome: 'clickThroughNewTabOrWindow',
+                defaultPrevented: true,
                 keysHeld: ['ctrl'],
               },
             },
@@ -389,7 +436,7 @@ describe('`link clicked`', () => {
         );
       });
 
-      it('should fire with `clickOutcome` = `clickThroughNewTabOrWindow` if the ctrl key is held (NOT macOS) and no `onClick` is provided', async () => {
+      it('should fire with `clickOutcome` = `clickThroughNewTabOrWindow` if the ctrl key is held (NOT macOS) and `onClick` is NOT supplied', async () => {
         jest.spyOn(userAgent, 'browser').mockReturnValue({ mac: false } as any);
 
         const { spy, fireOnClick } = await setup();
@@ -407,6 +454,7 @@ describe('`link clicked`', () => {
               attributes: {
                 clickType: 'left',
                 clickOutcome: 'clickThroughNewTabOrWindow',
+                defaultPrevented: true,
                 keysHeld: ['ctrl'],
               },
             },
@@ -433,6 +481,7 @@ describe('`link clicked`', () => {
               attributes: {
                 clickType: 'left',
                 clickOutcome: 'clickThroughNewTabOrWindow',
+                defaultPrevented: true,
                 keysHeld: ['ctrl'],
               },
             },
@@ -448,7 +497,7 @@ describe('`link clicked`', () => {
        *
        * Outcome here is prevented because of the hi-jack logic which prevents click through if there is an `onClick` provided
        */
-      it('should fire with `clickOutcome` = `prevented` if the ctrl key is held on macOS (if onClick is triggered and `onClick` is provided)', async () => {
+      it('should fire with `clickOutcome` = `clickThrough` if the ctrl key is held on macOS (if onClick is triggered and `onClick` is provided)', async () => {
         jest.spyOn(userAgent, 'browser').mockReturnValue({ mac: true } as any);
 
         const { spy, fireOnClick } = await setup({ onClick: jest.fn() });
@@ -465,7 +514,8 @@ describe('`link clicked`', () => {
               eventType: 'ui',
               attributes: {
                 clickType: 'left',
-                clickOutcome: 'prevented',
+                clickOutcome: 'clickThrough',
+                defaultPrevented: true,
                 keysHeld: ['ctrl'],
               },
             },
@@ -492,6 +542,7 @@ describe('`link clicked`', () => {
               attributes: {
                 clickType: 'middle',
                 clickOutcome: 'clickThroughNewTabOrWindow',
+                defaultPrevented: false,
                 keysHeld: [],
               },
             },
@@ -518,6 +569,7 @@ describe('`link clicked`', () => {
               attributes: {
                 clickType: 'right',
                 clickOutcome: 'contextMenu',
+                defaultPrevented: false,
                 keysHeld: [],
               },
             },
@@ -643,7 +695,7 @@ describe('`link clicked`', () => {
         );
       });
 
-      it('should fire with `clickOutcome` = `prevented` if the event default behaviour is prevented', async () => {
+      it('should fire with `defaultPrevented` = `true` if the event default behaviour is prevented', async () => {
         const { spy, fireOnClick } = await setup({
           onClick: (e) => {
             e.preventDefault();
@@ -656,17 +708,15 @@ describe('`link clicked`', () => {
          * In the case of flex UI the onClick handler is passed to the title
          * preventing clickthrough
          *
-         * In the case of hoverCard the onClick handler is not provided to the title block
-         *
-         * In the case of the new flexible block card
-         * the event there is no behaviour hi-jacking
+         * In the case of hoverCard the onClick handler is not provided to the title block and there is no
+         * preventing of default behaviour
          */
-        const getTestCaseClickOutcome = () => {
+        const getTestCaseDefaultPrevented = () => {
           switch (testCase) {
             case 'hoverCard':
-              return 'clickThroughNewTabOrWindow';
+              return false;
             case 'flexible':
-              return 'prevented';
+              return true;
           }
         };
 
@@ -679,8 +729,9 @@ describe('`link clicked`', () => {
               eventType: 'ui',
               attributes: {
                 clickType: 'left',
-                clickOutcome: getTestCaseClickOutcome(),
+                clickOutcome: 'clickThroughNewTabOrWindow',
                 keysHeld: [],
+                defaultPrevented: getTestCaseDefaultPrevented(),
               },
             },
           },
@@ -898,7 +949,12 @@ describe('`link clicked`', () => {
         );
       });
 
-      it('should fire with `clickOutcome` = `clickThroughNewTab` if the ctrl key is held on macOS (if onClick is triggered and `onClick` is NOT provided)', async () => {
+      /**
+       * This test case is not realistic
+       * A ctrl+left click on mac doesn't typically produce a left click, it actually produces a right click
+       * So this test case doesn't occur in the wild as far as I know
+       */
+      it('should fire with `clickOutcome` = `clickThrough` if the ctrl key is held on macOS (if onClick is triggered and `onClick` is NOT provided)', async () => {
         jest.spyOn(userAgent, 'browser').mockReturnValue({ mac: true } as any);
 
         const { spy, fireOnClick } = await setup();

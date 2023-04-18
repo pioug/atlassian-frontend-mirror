@@ -2,7 +2,10 @@
 import { writeFile } from 'fs/promises';
 import { join } from 'path';
 
-import { createPartialSignedArtifact, createSignedArtifact } from '@af/codegen';
+import {
+  createPartialSignedArtifact,
+  createSignedArtifact,
+} from '@atlassian/codegen';
 
 import { createColorStylesFromTemplate } from './color-codegen-template';
 import { createColorMapTemplate } from './color-map-template';

@@ -9,11 +9,11 @@ const blockStyles = xcss({ borderRadius: 'radius.050' });
 export default () => (
   <Box testId="inline-example" padding="space.100">
     <div css={fixedSizeContainerStyles}>
-      <Stack space="200">
+      <Stack space="space.200">
         <div>
           true
           <Box xcss={blockStyles} padding="space.050" backgroundColor="neutral">
-            <Inline space="200" shouldWrap={true}>
+            <Inline space="space.200" shouldWrap={true}>
               {[...Array(25)].map((_, index) => (
                 <Box
                   key={index}
@@ -28,7 +28,7 @@ export default () => (
         <div>
           false
           <Box xcss={blockStyles} padding="space.050" backgroundColor="neutral">
-            <Inline space="200" shouldWrap={false}>
+            <Inline space="space.200" shouldWrap={false}>
               {[...Array(25)].map((_, index) => (
                 <Box
                   key={index}

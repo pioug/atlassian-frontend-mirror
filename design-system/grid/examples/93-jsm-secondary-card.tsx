@@ -15,14 +15,14 @@ import Card from './94-card';
 const SecondaryCard: FC = () => {
   return (
     <Card>
-      <Inline space="200">
+      <Inline space="space.200">
         <Box
           UNSAFE_style={{ flexShrink: 0, marginBlock: 2 }}
           width="size.100"
           height="size.100"
           backgroundColor="neutral"
         />
-        <Stack space="050">
+        <Stack space="space.050">
           <Text lineHeight="lineHeight.100">
             <a href="#id">Kudos in Kudos</a>
           </Text>

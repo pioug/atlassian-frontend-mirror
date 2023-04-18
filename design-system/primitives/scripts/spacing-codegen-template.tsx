@@ -23,13 +23,8 @@ const spacingProperties: Record<
       'paddingInlineEnd',
     ],
   },
-  inlineSpace: {
+  space: {
     cssProperties: ['gap', 'rowGap'],
-    propNameFormatter: tokenName => tokenName.replace(spacingTokenPrefix, ''),
-  },
-  stackSpace: {
-    cssProperties: ['gap'],
-    propNameFormatter: tokenName => tokenName.replace(spacingTokenPrefix, ''),
   },
 } as const;
 

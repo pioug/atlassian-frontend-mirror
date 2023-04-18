@@ -9,7 +9,7 @@ describe('Inline', () => {
 
   it('should render inline', () => {
     const { getByText } = render(
-      <Inline space="050">
+      <Inline space="space.050">
         <Box>1</Box>
         <Box>2</Box>
       </Inline>,
@@ -20,7 +20,7 @@ describe('Inline', () => {
 
   it('should render inline with separators', () => {
     const { getByText } = render(
-      <Inline space="050" separator="/">
+      <Inline space="space.050" separator="/">
         <Box>1</Box>
         <Box>2</Box>
       </Inline>,
@@ -32,7 +32,7 @@ describe('Inline', () => {
 
   it('should render with a given test id', () => {
     const { getByTestId } = render(
-      <Inline space="050" testId={testId}>
+      <Inline space="space.050" testId={testId}>
         <Box>1</Box>
         <Box>2</Box>
       </Inline>,

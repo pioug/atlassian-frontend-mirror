@@ -1,7 +1,7 @@
 /** @jsx jsx */
-import { Fragment } from 'react';
+import { forwardRef, Fragment, KeyboardEvent } from 'react';
 import { jsx } from '@emotion/react';
-import { injectIntl, IntlShape, WrappedComponentProps } from 'react-intl-next';
+import { IntlShape } from 'react-intl-next';
 
 import { LinkSearchListItemData, ListItemTimeStamp } from '../../types';
 import { transformTimeStamp } from '../transformTimeStamp';
@@ -16,82 +16,90 @@ import {
   listItemContainerInnerStyles,
 } from './styled';
 import { testIds } from '..';
+import { useIntl } from 'react-intl-next';
 
 export interface Props {
   item: LinkSearchListItemData;
   selected: boolean;
   active: boolean;
+  tabIndex?: number;
   onSelect: (objectId: string) => void;
-  onMouseEnter: (objectId: string) => void;
-  onMouseLeave: (objectId: string) => void;
+  onKeyDown: (e: KeyboardEvent<HTMLDivElement>) => void;
+  onFocus: () => void;
   id?: string;
   role?: string;
 }
 
-type LinkSearchListItemProps = WrappedComponentProps & Props;
+type LinkSearchListItemProps = Props;
 
-const LinkSearchListItem = ({
-  item,
-  selected,
-  active,
-  id,
-  role,
-  intl,
-  onSelect,
-  onMouseEnter,
-  onMouseLeave,
-}: LinkSearchListItemProps) => {
-  const handleSelect = () => onSelect(item.objectId);
-  const handleMouseEnter = () => onMouseEnter(item.objectId);
-  const handleMouseLeave = () => onMouseLeave(item.objectId);
-  const container = item.container || null;
-  const date = transformTimeStamp(
-    intl,
-    item.lastViewedDate,
-    item.lastUpdatedDate,
-  );
+const LinkSearchListItem = forwardRef<HTMLDivElement, LinkSearchListItemProps>(
+  (
+    {
+      item,
+      selected,
+      active,
+      id,
+      role,
+      onSelect,
+      tabIndex,
+      onKeyDown,
+      onFocus,
+    },
+    ref,
+  ) => {
+    const intl = useIntl();
+    const handleSelect = () => onSelect(item.objectId);
+    const container = item.container || null;
+    const date = transformTimeStamp(
+      intl,
+      item.lastViewedDate,
+      item.lastUpdatedDate,
+    );
 
-  return (
-    <div
-      css={composeListItemStyles(active, selected)}
-      role={role}
-      id={id}
-      aria-selected={selected}
-      data-testid={testIds.searchResultItem}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      onClick={handleSelect}
-    >
-      <ListItemIcon item={item} intl={intl} />
-      <div css={itemNameStyles}>
-        <div
-          data-testid={`${testIds.searchResultItem}-title`}
-          css={listItemNameStyles}
-        >
-          {item.name}
-        </div>
-        <div
-          data-testid={`${testIds.searchResultItem}-subtitle`}
-          css={listItemContextStyles}
-        >
-          {container && (
-            <div css={listItemContainerStyles}>
-              <span css={listItemContainerInnerStyles}>{container}</span>
-            </div>
-          )}
-          {date && (
-            <div css={listItemContainerInnerStyles}>
-              {container && <Fragment>&nbsp; •&nbsp; </Fragment>}
-              <Fragment>{formatDate(date)}</Fragment>
-            </div>
-          )}
+    return (
+      <div
+        css={composeListItemStyles(selected)}
+        role={role}
+        id={id}
+        aria-selected={selected}
+        data-testid={testIds.searchResultItem}
+        onKeyDown={onKeyDown}
+        onClick={handleSelect}
+        onFocus={onFocus}
+        tabIndex={tabIndex}
+        ref={ref}
+      >
+        <ListItemIcon item={item} intl={intl} />
+        <div css={itemNameStyles}>
+          <div
+            data-testid={`${testIds.searchResultItem}-title`}
+            css={listItemNameStyles}
+          >
+            {item.name}
+          </div>
+          <div
+            data-testid={`${testIds.searchResultItem}-subtitle`}
+            css={listItemContextStyles}
+          >
+            {container && (
+              <div css={listItemContainerStyles}>
+                <span css={listItemContainerInnerStyles}>{container}</span>
+              </div>
+            )}
+            {date && (
+              <div css={listItemContainerInnerStyles}>
+                {container && <Fragment>&nbsp; •&nbsp; </Fragment>}
+                <Fragment>{formatDate(date)}</Fragment>
+              </div>
+            )}
+          </div>
         </div>
       </div>
-    </div>
-  );
-};
+    );
+  },
+);
 
-export default injectIntl(LinkSearchListItem);
+export default LinkSearchListItem;
 
 const formatDate = (date: ListItemTimeStamp) => {
   return [date.pageAction, date.dateString, date.timeSince]

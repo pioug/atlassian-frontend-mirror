@@ -40,7 +40,7 @@ const Footer: FC<FooterProps> = ({
       alignBlock="center"
       shouldWrap
       testId={testId}
-      space="100"
+      space="space.100"
       separator="·"
     >
       {isError && (

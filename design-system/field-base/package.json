@@ -27,7 +27,7 @@
     "@atlaskit/icon": "^21.11.0",
     "@atlaskit/inline-dialog": "^13.5.0",
     "@atlaskit/spinner": "^15.4.0",
-    "@atlaskit/theme": "^12.3.0",
+    "@atlaskit/theme": "^12.4.0",
     "@babel/runtime": "^7.0.0"
   },
   "peerDependencies": {

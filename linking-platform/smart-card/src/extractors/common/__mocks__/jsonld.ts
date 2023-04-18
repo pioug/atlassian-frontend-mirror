@@ -146,18 +146,18 @@ export const TEST_VIEW_ACTION: JsonLd.Data.BaseData['schema:potentialAction'] =
     name: 'view',
   };
 
-export const TEST_DOCUMENT_WITH_ACTIONS = {
+export const TEST_DOCUMENT_WITH_ACTIONS: JsonLd.Data.BaseData = {
   ...TEST_DOCUMENT,
   'schema:potentialAction': [TEST_DOWNLOAD_ACTION, TEST_ASSIGN_ACTION as any],
 };
 
-export const TEST_DOCUMENT_WITH_DOWNLOAD_ACTION = {
+export const TEST_DOCUMENT_WITH_DOWNLOAD_ACTION: JsonLd.Data.BaseData = {
   ...TEST_DOCUMENT,
   'atlassian:downloadUrl': 'https://my.url.com',
   'schema:potentialAction': [TEST_DOWNLOAD_ACTION],
 };
 
-export const TEST_DOCUMENT_WITH_VIEW_ACTION = {
+export const TEST_DOCUMENT_WITH_VIEW_ACTION: JsonLd.Data.BaseData = {
   ...TEST_DOCUMENT,
   'schema:potentialAction': [TEST_VIEW_ACTION],
 };
@@ -168,7 +168,7 @@ export const PREVIEW: JsonLd.Data.BaseData['preview'] = {
   'atlassian:supportedPlatforms': ['web'],
 };
 
-export const TEST_DOCUMENT_WITH_PREVIEW = {
+export const TEST_DOCUMENT_WITH_PREVIEW: JsonLd.Data.BaseData = {
   ...TEST_DOCUMENT,
   preview: PREVIEW,
 };

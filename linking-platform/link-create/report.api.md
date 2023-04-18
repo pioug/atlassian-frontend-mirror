@@ -15,8 +15,58 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
+import { AsyncSelectProps as AsyncSelectProps_2 } from '@atlaskit/select';
 import { jsx } from '@emotion/react';
+import { OptionType } from '@atlaskit/select';
+import { default as React_2 } from 'react';
 import { ReactNode } from 'react';
+
+// @public
+export function AsyncSelect<T = OptionType>({
+  label,
+  name,
+  validationHelpText,
+  isRequired,
+  testId,
+  validators,
+  ...rest
+}: AsyncSelectProps<T>): jsx.JSX.Element;
+
+// @public (undocumented)
+type AsyncSelectProps<T = OptionType> = AsyncSelectProps_2<T> & {
+  name: string;
+  label: string;
+  validationHelpText?: string;
+  testId?: string;
+  isRequired?: boolean;
+  validators?: Validator[];
+};
+
+// @public (undocumented)
+export const CreateForm: (props: any) => JSX.Element;
+
+// @public (undocumented)
+export interface CreateFormProps {
+  // (undocumented)
+  children: ReactNode;
+  // (undocumented)
+  onCancel?: () => void;
+  // (undocumented)
+  onSubmit: (data: Record<string, unknown>) => void;
+  // (undocumented)
+  testId?: string;
+}
+
+// @public (undocumented)
+export const FormContextProvider: React_2.FC<{}>;
+
+// @public (undocumented)
+interface FormContextType {
+  // (undocumented)
+  assignValidator: (name: string, validators: Validator[]) => void;
+  // (undocumented)
+  getValidators: () => ValidatorMap;
+}
 
 // @public (undocumented)
 interface Group {
@@ -37,6 +87,9 @@ function LinkCreate({
   active,
 }: LinkCreateProps): jsx.JSX.Element;
 export default LinkCreate;
+
+// @public (undocumented)
+export const LinkCreateCallbackProvider: React_2.FC<LinkCreateCallbackProviderProps>;
 
 // @public (undocumented)
 interface LinkCreateCallbackProviderProps {
@@ -72,43 +125,43 @@ interface Option_2 {
   label: string;
   value: string;
 }
-
-// @public (undocumented)
-export function Select({
-  name,
-  title,
-  options,
-  defaultOption,
-  placeholder,
-}: SelectProps): jsx.JSX.Element;
-
-// @public (undocumented)
-interface SelectProps {
-  defaultOption?: Option_2;
-  // (undocumented)
-  name: string;
-  options: Option_2[];
-  placeholder?: string;
-  // (undocumented)
-  title: string;
-}
+export { Option_2 as Option };
 
 // @public
 export function TextField({
   label,
   name,
   validationHelpText,
+  isRequired,
+  testId,
+  validators,
 }: TextFieldProps): jsx.JSX.Element;
 
 // @public (undocumented)
 interface TextFieldProps {
+  isRequired?: boolean;
   label: string;
   name: string;
+  // (undocumented)
+  testId?: string;
   validationHelpText?: string;
+  validators?: Validator[];
 }
 
 // @public (undocumented)
+export const useFormContext: () => FormContextType;
+
+// @public (undocumented)
 export const useLinkCreateCallback: () => LinkCreateCallbackProviderProps;
+
+// @public (undocumented)
+export type Validator = {
+  isValid: (val: unknown) => boolean;
+  errorMessage: string;
+};
+
+// @public
+export type ValidatorMap = Record<string, Validator[]>;
 
 // (No @packageDocumentation comment for this package)
 ```

@@ -32,7 +32,7 @@ const iconMap = (key?: string, color?: string) => {
     info: (
       <Info
         label="Info"
-        primaryColor={color || token('color.icon.discovery', P300)}
+        primaryColor={color || token('color.icon.information', P300)}
       />
     ),
     success: (

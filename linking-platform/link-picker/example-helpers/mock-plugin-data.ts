@@ -15,6 +15,120 @@ const MOCK_DATA = {
       },
     ],
   },
+  MOCKED_SEARCH: {
+    status: 200,
+    body: {
+      scopes: [
+        {
+          id: 'confluence.page,blogpost',
+          results: [
+            {
+              content: {
+                id: '12345601',
+                type: 'page',
+              },
+              container: {
+                title: 'Pets',
+                displayUrl: '/spaces/PET',
+              },
+              title: 'Page about dogs',
+              url: '/spaces/EM/pages/12345601/dogs',
+              baseUrl: 'https://example.com/wiki',
+              iconCssClass: 'aui-icon aui-icon-small aui-iconfont-page-default',
+              entityType: 'content',
+              lastModified: '2020-07-07T03:24:39+00:00',
+              excerpt: '',
+            },
+            {
+              content: {
+                id: '2345678',
+                type: 'page',
+              },
+              container: {
+                title: 'Platform Team',
+                displayUrl: '/spaces/FIL',
+              },
+              title: 'Weekly Triad Meeting',
+              url: '/spaces/FIL/pages/2345678/Weekly+Triad+Meeting',
+              baseUrl: 'https://example.com/wiki',
+              iconCssClass: 'aui-icon aui-icon-small aui-iconfont-page-default',
+              entityType: 'content',
+              lastModified: '2020-07-05T23:30:42+00:00',
+              excerpt: '',
+            },
+            {
+              content: {
+                id: '123123123',
+                type: 'page',
+              },
+              container: {
+                title: 'Test Team',
+                displayUrl: '/spaces/EM',
+              },
+              title: 'Test Page',
+              url: '/spaces/EM/pages/123123123/Test+Page',
+              baseUrl: 'https://example.com/wiki',
+              iconCssClass: 'aui-icon aui-icon-small aui-iconfont-page-default',
+              entityType: 'content',
+              lastModified: '2020-05-05T06:06:28+00:00',
+              excerpt: '',
+            },
+            {
+              content: {
+                id: '45612378',
+                type: 'page',
+              },
+              container: {
+                title: 'Team',
+                displayUrl: '/spaces/TEAM',
+              },
+              title: 'Team OKRs',
+              url: '/spaces/TEAM/pages/45612378/Team+OKRs',
+              baseUrl: 'https://example.com/wiki',
+              iconCssClass: 'aui-icon aui-icon-small aui-iconfont-page-default',
+              entityType: 'content',
+              lastModified: '2020-06-09T02:21:27+00:00',
+              excerpt: '',
+            },
+            {
+              content: {
+                id: '998082697',
+                type: 'superpage',
+              },
+              container: {
+                title: 'Organisation',
+                displayUrl: '/spaces/SUPER',
+              },
+              title: 'Super Page',
+              url: '/spaces/E/pages/998082697/Super+Page',
+              baseUrl: 'https://example.com/wiki',
+              iconCssClass: 'aui-icon aui-icon-small aui-iconfont-page-default',
+              entityType: 'content',
+              lastModified: '2020-04-15T03:00:05+00:00',
+              excerpt: '',
+            },
+            {
+              content: {
+                id: '12312412515',
+                type: 'blogpost',
+              },
+              container: {
+                title: 'Discover',
+                displayUrl: '/spaces/E',
+              },
+              title: 'WOW. AH-HA.',
+              url: '/spaces/E/pages/12312412515/discovery',
+              baseUrl: 'https://example.com/wiki',
+              iconCssClass: 'aui-icon aui-icon-small aui-iconfont-page-default',
+              entityType: 'content',
+              lastModified: '2020-04-15T03:00:05+00:00',
+              excerpt: '',
+            },
+          ],
+        },
+      ],
+    },
+  },
   MOCKED_DATA: {
     status: 200,
     body: {

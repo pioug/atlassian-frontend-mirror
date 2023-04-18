@@ -11,7 +11,7 @@ import { token } from '@atlaskit/tokens';
 import Lozenge from '../src';
 
 export default () => (
-  <Stack space="100" testId="test-container">
+  <Stack space="space.100" testId="test-container">
     <Text>
       <Lozenge appearance="success" testId="lozenge-truncated-default-short">
         short text
@@ -38,7 +38,7 @@ export default () => (
         border: `solid 1px ${token('color.border', N30A)}`,
       }}
     >
-      <Stack space="100" testId="test-container">
+      <Stack space="space.100" testId="test-container">
         <Text>
           <Text fontWeight="medium" as="p">
             In a 400px wide container

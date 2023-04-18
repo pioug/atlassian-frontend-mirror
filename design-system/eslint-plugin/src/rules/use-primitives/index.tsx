@@ -19,8 +19,8 @@ const rule: Rule.RuleModule = {
     type: 'suggestion',
     fixable: 'code',
     docs: {
-      description: 'UI components should use primitives where possible.',
-      recommended: true,
+      description: 'Encourage the usage of primitives components.',
+      recommended: false,
     },
     messages: {
       preferPrimitivesBox: `This "{{element}}" may be able to be replaced with a "Box". See ${boxDocsUrl} for guidance.`,

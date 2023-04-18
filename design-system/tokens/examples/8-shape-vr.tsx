@@ -25,7 +25,7 @@ export default () => {
   return (
     <div data-testid="shape">
       <h1>Shape scale</h1>
-      <Inline space="100" alignBlock="end">
+      <Inline space="space.100" alignBlock="end">
         <RadiusBox radius={token('border.radius.050', '2px')} />
         <RadiusBox radius={token('border.radius.100', '4px')} />
         <RadiusBox radius={token('border.radius.200', '8px')} />

@@ -146,7 +146,7 @@ const Flag: FC<FlagProps> = (props) => {
         testId={testId}
         {...autoDismissProps}
       >
-        <Inline space="200">
+        <Inline space="space.200">
           <Box
             alignItems="start"
             UNSAFE_style={{ color: iconColor, flexShrink: 0 }}
@@ -155,9 +155,9 @@ const Flag: FC<FlagProps> = (props) => {
           </Box>
           <span css={transitionStyles}>
             <Stack
-              space={shouldRenderGap ? '100' : '0'} // Gap exists even when not expanded due to Expander internals always being in the DOM
+              space={shouldRenderGap ? 'space.100' : 'space.0'} // Gap exists even when not expanded due to Expander internals always being in the DOM
             >
-              <Inline space="100" spread="space-between">
+              <Inline space="space.100" spread="space-between">
                 <Box display="block" UNSAFE_style={{ paddingTop: 2 }}>
                   <Text
                     color={textColor}

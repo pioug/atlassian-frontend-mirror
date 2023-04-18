@@ -10,7 +10,7 @@ import SectionMessage, { SectionMessageAction } from '../src';
 
 const Example = () => (
   <Box display="block" padding="space.100">
-    <Stack space="200">
+    <Stack space="space.200">
       <SectionMessage
         appearance="information"
         title="Atlassian"
@@ -24,7 +24,7 @@ const Example = () => (
           </SectionMessageAction>,
         ]}
       >
-        <Stack space="100">
+        <Stack space="space.100">
           <Text>
             Atlassian provides the tools to help every team unleash their full
             potential.
@@ -50,7 +50,7 @@ const Example = () => (
           </SectionMessageAction>
         }
       >
-        <Stack space="100">
+        <Stack space="space.100">
           <Text fontWeight="bold">Google:</Text>
           <Text>
             Our mission is to organise the world’s information and make it

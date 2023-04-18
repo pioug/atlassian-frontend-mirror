@@ -1,7 +1,7 @@
 import prettier from 'prettier';
 import type { Format } from 'style-dictionary';
 
-import { createSignedArtifact } from '@af/codegen';
+import { createSignedArtifact } from '@atlassian/codegen';
 
 import { DEFAULT_THEME } from '../../../src/constants';
 import { getTokenId } from '../../../src/utils/token-ids';

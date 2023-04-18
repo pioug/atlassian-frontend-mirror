@@ -60,7 +60,7 @@ import LinkSearchError, {
   testIds as searchErrorTestIds,
 } from './link-search-error';
 import FormFooter, { testIds as formFooterTestIds } from './form-footer';
-import { getDataSource, getScreenReaderText } from './utils';
+import { getDataSource, getScreenReaderText, handleNavKeyDown } from './utils';
 
 import TrackTabViewed from './track-tab-viewed';
 import TrackMount from './track-mount';
@@ -267,55 +267,11 @@ function LinkPicker({
     [dispatch],
   );
 
-  const handleKeyDown = useCallback(
-    (event: KeyboardEvent<HTMLInputElement>) => {
-      const { key } = event;
-      const KEY_ARROW_DOWN = 'ArrowDown';
-      const KEY_ARROW_UP = 'ArrowUp';
-
-      if (!items || !items.length) {
-        return;
-      }
-
-      let updatedIndex = activeIndex;
-      switch (key) {
-        case KEY_ARROW_DOWN: // down
-          event.preventDefault();
-          updatedIndex = (activeIndex + 1) % items.length;
-          break;
-
-        case KEY_ARROW_UP: // up
-          event.preventDefault();
-          updatedIndex = activeIndex > 0 ? activeIndex - 1 : items.length - 1;
-          break;
-      }
-
-      const item = items[updatedIndex];
-
-      if ([KEY_ARROW_DOWN, KEY_ARROW_UP].includes(key) && item) {
-        /**
-         * Manually track that the url has been updated using searchResult method
-         */
-        trackAttribute('linkFieldContent', getLinkFieldContent(item.url));
-        trackAttribute('linkFieldContentInputMethod', 'searchResult');
-        trackAttribute(
-          'linkFieldContentInputSource',
-          getDataSource(item, activePlugin),
-        );
-        dispatch({
-          activeIndex: updatedIndex,
-          selectedIndex: updatedIndex,
-          url: item.url,
-          invalidUrl: false,
-        });
-      }
-    },
-    [dispatch, activeIndex, items, trackAttribute, activePlugin],
-  );
-
   const handleClear = useCallback(
     (field: string) => {
       dispatch({
+        activeIndex: -1,
+        selectedIndex: -1,
         [field]: '',
       });
     },
@@ -326,29 +282,6 @@ function LinkPicker({
     trackAttribute('linkFieldContentInputSource', null);
     handleClear('url');
   }, [trackAttribute, handleClear]);
-
-  const handleMouseEnterResultItem = useCallback(
-    (objectId: string) => {
-      const index = items?.findIndex(item => item.objectId === objectId);
-      dispatch({
-        activeIndex: index ?? -1,
-      });
-    },
-    [dispatch, items],
-  );
-
-  const handleMouseLeaveResultItem = useCallback(
-    (objectId: string) => {
-      const index = items?.findIndex(item => item.objectId === objectId);
-      // This is to avoid updating index that was set by other mouseenter event
-      if (activeIndex === index) {
-        dispatch({
-          activeIndex: -1,
-        });
-      }
-    },
-    [dispatch, activeIndex, items],
-  );
 
   const handleInsert = useCallback(
     (url: string, title: string | null, inputType: LinkInputType) => {
@@ -402,8 +335,8 @@ function LinkPicker({
   );
 
   const handleSubmit = useCallback(
-    (event: FormEvent<HTMLFormElement>) => {
-      event.preventDefault();
+    (event?: FormEvent<HTMLFormElement>) => {
+      event?.preventDefault();
       if (isSelectedItem && selectedItem) {
         return handleInsert(selectedItem.url, selectedItem.name, 'typeAhead');
       }
@@ -436,6 +369,83 @@ function LinkPicker({
       trackAttribute('tab', plugins?.[activeTab]?.tabKey ?? null);
     },
     [dispatch, plugins, trackAttribute],
+  );
+
+  const handleSearchListOnChange = (id: string) => {
+    const index = items?.findIndex(item => item.objectId === id);
+    if (typeof index === 'number') {
+      const item = items?.[index];
+      if (item) {
+        /**
+         * Manually track that the url has been updated using searchResult method
+         */
+        trackAttribute('linkFieldContent', getLinkFieldContent(item.url));
+        trackAttribute('linkFieldContentInputMethod', 'searchResult');
+        trackAttribute(
+          'linkFieldContentInputSource',
+          getDataSource(item, activePlugin),
+        );
+        dispatch({
+          activeIndex: index,
+          selectedIndex: index,
+          url: item.url,
+          invalidUrl: false,
+        });
+      }
+    }
+  };
+
+  const handleKeyDown = useCallback(
+    (event: KeyboardEvent<HTMLElement>) => {
+      if (!items?.length) {
+        return;
+      }
+
+      let updatedIndex = activeIndex;
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        if (selectedItem) {
+          handleSelected(selectedItem.objectId);
+        } else {
+          // triggers validation error message
+          handleSubmit();
+        }
+      } else {
+        updatedIndex = handleNavKeyDown(event, items.length, activeIndex);
+      }
+
+      const item = items[updatedIndex];
+
+      if (
+        ['Enter', 'ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key) &&
+        item
+      ) {
+        /**
+         * Manually track that the url has been updated using searchResult method
+         */
+        trackAttribute('linkFieldContent', getLinkFieldContent(item.url));
+        trackAttribute('linkFieldContentInputMethod', 'searchResult');
+        trackAttribute(
+          'linkFieldContentInputSource',
+          getDataSource(item, activePlugin),
+        );
+        dispatch({
+          activeIndex: updatedIndex,
+          selectedIndex: updatedIndex,
+          url: item.url,
+          invalidUrl: false,
+        });
+      }
+    },
+    [
+      items,
+      activeIndex,
+      selectedItem,
+      handleSelected,
+      handleSubmit,
+      trackAttribute,
+      activePlugin,
+    ],
   );
 
   const messages = isActivePlugin ? searchMessages : linkMessages;
@@ -517,7 +527,6 @@ function LinkPicker({
           clearLabel={intl.formatMessage(linkTextMessages.clearLinkText)}
           aria-label={intl.formatMessage(linkTextMessages.linkTextAriaLabel)}
           onClear={handleClear}
-          onKeyDown={handleKeyDown}
           onChange={handleChangeText}
         />
       )}
@@ -550,8 +559,8 @@ function LinkPicker({
                 selectedIndex={selectedIndex}
                 activeIndex={activeIndex}
                 onSelect={handleSelected}
-                onMouseEnter={handleMouseEnterResultItem}
-                onMouseLeave={handleMouseLeaveResultItem}
+                onChange={handleSearchListOnChange}
+                onKeyDown={handleKeyDown}
                 hasSearchTerm={!!queryState?.query.length}
               />
             )}

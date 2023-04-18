@@ -28,7 +28,7 @@ export const BulkActionOverlay: FC<{ children: ReactNode }> = ({
     backgroundColor="elevation.surface"
     css={overlayStyles}
   >
-    <Inline space="300" alignBlock="center">
+    <Inline space="space.300" alignBlock="center">
       {children}
     </Inline>
   </Box>

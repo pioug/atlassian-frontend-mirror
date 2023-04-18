@@ -59,8 +59,7 @@ const rule = createRule<
   meta: {
     type: 'suggestion',
     docs: {
-      description:
-        'Disallow specified APIs that have been marked as deprecated and/or discouraged.',
+      description: 'Disallow using deprecated APIs.',
       recommended: 'warn',
     },
     messages: {

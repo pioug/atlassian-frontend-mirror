@@ -1,6 +1,6 @@
 import type { Format } from 'style-dictionary';
 
-import { createSignedArtifact } from '@af/codegen';
+import { createSignedArtifact } from '@atlassian/codegen';
 
 import themeConfig, { themeOverrideConfig } from '../../../src/theme-config';
 

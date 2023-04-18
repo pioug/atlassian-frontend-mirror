@@ -104,7 +104,7 @@ const Layout: FC<CommentLayoutProps> = ({
     {content && <ContentSlot>{content}</ContentSlot>}
     {children && (
       <span css={stackOverrideStyles}>
-        <Stack space="400">{children}</Stack>
+        <Stack space="space.400">{children}</Stack>
       </span>
     )}
     {highlighted && (

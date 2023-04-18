@@ -18,6 +18,11 @@ export const THEME_MODES = ['light', 'dark'];
  * @deprecated Use `token('border.radius.100', '3px')` instead.
  */
 export const borderRadius = () => 3;
+/**
+ * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-386 Internal documentation for deprecation (no external access)}
+ * @deprecated Use `token('space.100', '8px')` instead with any of the space tokens.
+ * Available space tokens can be found on {@link https://atlassian.design/foundations/spacing/#scale}
+ */
 export const gridSize = () => 8;
 export const fontSize = () => 14;
 export const fontSizeSmall = () => 11;

@@ -23,7 +23,7 @@ export default () => {
   return (
     <div data-testid="spacing">
       <h1>Spacing scale</h1>
-      <Inline space="100" alignBlock="end">
+      <Inline space="space.100" alignBlock="end">
         {/* fallbacks specifically chosen to validate tokens are applied correctly when present and not applied when not */}
         <ExampleSizeBox scaleToken={token('space.025', '12px')} />
         <ExampleSizeBox scaleToken={token('space.050', '6px')} />

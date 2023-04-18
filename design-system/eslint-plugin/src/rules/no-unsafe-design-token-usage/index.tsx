@@ -30,7 +30,9 @@ const defaultConfig: PluginConfig = {
 const rule: Rule.RuleModule = {
   meta: {
     docs: {
-      recommended: true,
+      description:
+        'Enforces design token usage is statically and locally analyzable.',
+      recommended: false,
     },
     fixable: 'code',
     type: 'problem',

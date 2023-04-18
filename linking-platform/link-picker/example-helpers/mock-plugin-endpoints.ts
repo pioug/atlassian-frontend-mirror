@@ -2,11 +2,12 @@ import fetchMock from 'fetch-mock/cjs/client';
 
 import mockPluginData from './mock-plugin-data';
 
-const OBJECT_RESOLVER_SERVICE_ENDPOINT = 'glob:*/gateway/api/object-resolver/*';
+const XP_SEARCH_ENDPOINT = /\/gateway\/api\/xpsearch-aggregator/;
+const OBJECT_RESOLVER_SERVICE_ENDPOINT = /\/gateway\/api\/object-resolver/;
 const PROVIDERS = 'providers';
 
 export const mockPluginEndpoints = () => {
-  const { MOCKED_DATA, MOCKED_PROVIDERS } = mockPluginData;
+  const { MOCKED_DATA, MOCKED_PROVIDERS, MOCKED_SEARCH } = mockPluginData;
 
   fetchMock.post(
     OBJECT_RESOLVER_SERVICE_ENDPOINT,
@@ -15,6 +16,14 @@ export const mockPluginEndpoints = () => {
         return MOCKED_PROVIDERS;
       }
       return MOCKED_DATA;
+    },
+    { method: 'POST', overwriteRoutes: true, delay: 200 },
+  );
+
+  fetchMock.post(
+    XP_SEARCH_ENDPOINT,
+    () => {
+      return MOCKED_SEARCH;
     },
     { method: 'POST', overwriteRoutes: true, delay: 200 },
   );

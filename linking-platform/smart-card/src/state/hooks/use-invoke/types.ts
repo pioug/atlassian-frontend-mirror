@@ -8,6 +8,8 @@ export enum InvokeActionError {
 export type InvokeActions = {
   create?: InvokeRequest;
   read?: InvokeRequest;
-  update?: InvokeRequest;
+  update?: InvokeRequest & {
+    details?: Record<string, any>;
+  };
   delete?: InvokeRequest;
 };

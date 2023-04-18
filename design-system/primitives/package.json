@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/primitives",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "Primitives are token-backed low-level building blocks.",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -14,11 +14,37 @@
     "inPublicMirror": false,
     "releaseModel": "continuous",
     "website": {
-      "category": "Components",
+      "category": "Primitives",
       "name": "Primitives",
-      "status": {
-        "type": "alpha"
-      }
+      "pages": [
+        {
+          "title": "Overview",
+          "id": "@atlaskit/primitives",
+          "folder": "overview",
+          "slug": "primitives/overview",
+          "status": {
+            "type": "alpha"
+          }
+        },
+        {
+          "title": "Accessibility",
+          "id": "@atlaskit/primitives",
+          "folder": "accessibility",
+          "slug": "primitives/accessibility",
+          "status": {
+            "type": "alpha"
+          }
+        },
+        {
+          "title": "Box",
+          "folder": "box",
+          "slug": "primitives/box",
+          "id": "@atlaskit/primitives/box",
+          "status": {
+            "type": "alpha"
+          }
+        }
+      ]
     }
   },
   "scripts": {
@@ -33,8 +59,8 @@
   "af:exports": {
     ".": "./src/index.tsx",
     "./box": "./src/components/box.tsx",
-    "./stack": "./src/components/stack.partial.tsx",
-    "./inline": "./src/components/inline.partial.tsx",
+    "./stack": "./src/components/stack.tsx",
+    "./inline": "./src/components/inline.tsx",
     "./responsive": "./src/helpers/responsive/index.tsx"
   },
   "dependencies": {
@@ -48,7 +74,6 @@
     "react": "^16.8.0 || ^17.0.0 || ^18.0.0"
   },
   "devDependencies": {
-    "@af/codegen": "*",
     "@atlaskit/docs": "*",
     "@atlaskit/ds-lib": "*",
     "@atlaskit/heading": "*",
@@ -56,6 +81,7 @@
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
+    "@atlassian/codegen": "^0.0.1",
     "@testing-library/react": "^12.1.5",
     "prettier": "^2.7.0",
     "react-dom": "^16.8.0",

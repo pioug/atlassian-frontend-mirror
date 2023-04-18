@@ -7,7 +7,7 @@ import Text from '../src/components/text.partial';
 
 export default () => {
   return (
-    <Inline space="100">
+    <Inline space="space.100">
       <Box
         paddingBlock="space.400"
         paddingInline="space.400"

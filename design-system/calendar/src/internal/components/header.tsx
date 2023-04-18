@@ -35,7 +35,7 @@ const Header = memo<HeaderProps>(function Header({
 }) {
   return (
     <Box display="block" paddingInline="space.100" aria-hidden="true">
-      <Inline space="0" alignBlock="center" spread="space-between">
+      <Inline space="space.0" alignBlock="center" spread="space-between">
         <Button
           appearance="subtle"
           spacing="none"

@@ -58,7 +58,7 @@ const SpreadInlineLayout: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   return (
-    <Inline space="100" spread="space-between" alignBlock="center">
+    <Inline space="space.100" spread="space-between" alignBlock="center">
       {children}
     </Inline>
   );
@@ -106,9 +106,9 @@ const ProgressIndicatorDots: FC<{}> = () => {
   return (
     <Box display="block" css={pageStyles}>
       <Box display="block" paddingBlock="space.400">
-        <Stack space="400">
+        <Stack space="space.400">
           <SpreadInlineLayout>
-            <Stack space="150">
+            <Stack space="space.150">
               <Box css={headingStyles} display="block">
                 Appearance
               </Box>
@@ -125,7 +125,7 @@ const ProgressIndicatorDots: FC<{}> = () => {
                 ))}
               </ButtonGroup>
             </Stack>
-            <Stack space="150">
+            <Stack space="space.150">
               <Box css={headingStyles} display="block">
                 Spacing
               </Box>
@@ -142,7 +142,7 @@ const ProgressIndicatorDots: FC<{}> = () => {
                 ))}
               </ButtonGroup>
             </Stack>
-            <Stack space="150">
+            <Stack space="space.150">
               <Box css={headingStyles} display="block">
                 Size
               </Box>
@@ -162,7 +162,7 @@ const ProgressIndicatorDots: FC<{}> = () => {
           </SpreadInlineLayout>
           <SpreadInlineLayout>
             <Box as="label" htmlFor="input">
-              <Inline space="100" alignBlock="center">
+              <Inline space="space.100" alignBlock="center">
                 <input
                   checked={isInteractive}
                   id="input"
@@ -190,7 +190,7 @@ const ProgressIndicatorDots: FC<{}> = () => {
                   role="tabpanel"
                   UNSAFE_style={{ display: selected ? 'block' : 'none' }}
                 >
-                  <Stack space="100">
+                  <Stack space="space.100">
                     <Text as="strong" fontSize="size.100" fontWeight="bold">
                       Panel {i + 1}
                     </Text>

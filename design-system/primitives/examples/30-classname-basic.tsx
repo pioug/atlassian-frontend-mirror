@@ -4,7 +4,7 @@ import { jsx } from '@emotion/react';
 
 import { Box, Inline, xcss } from '../src';
 
-const containerStyles = xcss({ display: 'flex' });
+const containerStyles = xcss({ display: 'flex', flexDirection: 'row' });
 
 const boxStyles = xcss<typeof Box>({
   backgroundColor: 'danger',
@@ -29,7 +29,7 @@ const defaultStyles = xcss({
 
 export default () => (
   <Box xcss={containerStyles} padding="space.100">
-    <Inline space="100" testId="classname-examples">
+    <Inline space="space.100" testId="classname-examples">
       <Box
         backgroundColor="discovery.bold"
         padding="space.200"

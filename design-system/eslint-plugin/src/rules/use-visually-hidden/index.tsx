@@ -24,8 +24,7 @@ const rule: Rule.RuleModule = {
     type: 'suggestion',
     fixable: 'code',
     docs: {
-      description:
-        'Suggest usage of the `@atlaskit/visually-hidden` component instead of either the `@atlaskit/theme` mixins or just something the user has rolled themselves.',
+      description: 'Enforce usage of the visually hidden component.',
       recommended: true,
     },
     messages: {

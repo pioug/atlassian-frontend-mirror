@@ -18,7 +18,7 @@ export default () => (
           width: '200px',
         }}
       >
-        <Inline space="200" spread="space-between">
+        <Inline space="space.200" spread="space-between">
           <Box
             xcss={blockStyles}
             padding="space.200"

@@ -1,5 +1,15 @@
 # @atlaskit/link-create
 
+## 0.2.0
+
+### Minor Changes
+
+- [`a765caedf71`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a765caedf71) - EDM-5666 Implement Create Confluence Plugin
+
+### Patch Changes
+
+- [`430f0f27c63`](https://bitbucket.org/atlassian/atlassian-frontend/commits/430f0f27c63) - Use FormSection instead of ModalSection
+
 ## 0.1.2
 
 ### Patch Changes

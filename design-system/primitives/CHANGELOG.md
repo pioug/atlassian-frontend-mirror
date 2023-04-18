@@ -1,5 +1,25 @@
 # @atlaskit/primitives
 
+## 0.8.0
+
+### Minor Changes
+
+- [`ac4c8695d3f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ac4c8695d3f) - Constrain CSS values of flex-direction to account for accessibility considerations.
+- [`4d19bdd2218`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4d19bdd2218) - **Inline**:
+
+  - `space` prop now accepts values in the form `space.XXX`. For example: `space="space.100"`.
+  - `rowSpace` prop now accepts values in the form `space.XXX`. For example: `rowSpace="space.100"`.
+
+  **Stack**:
+
+  - `space` prop now accepts values in the form `space.XXX`. For example: `space="space.100"`.
+
+## 0.7.1
+
+### Patch Changes
+
+- [`a02eed2974e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a02eed2974e) - Move codegen into @atlassian scope to publish it to private registry
+
 ## 0.7.0
 
 ### Minor Changes

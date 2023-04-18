@@ -10,20 +10,20 @@ const alignInlineItems = ['start', 'center', 'end'] as const;
 const alignBlockItems = ['start', 'center', 'end', 'baseline'] as const;
 const spreadItems = ['space-between'] as const;
 const spaceItems = [
-  '0',
-  '025',
-  '050',
-  '075',
-  '100',
-  '150',
-  '200',
-  '250',
-  '300',
-  '400',
-  '500',
-  '600',
-  '800',
-  '1000',
+  'space.0',
+  'space.025',
+  'space.050',
+  'space.075',
+  'space.100',
+  'space.150',
+  'space.200',
+  'space.250',
+  'space.300',
+  'space.400',
+  'space.500',
+  'space.600',
+  'space.800',
+  'space.1000',
 ] as const;
 
 const pageContainerStyles = css({ maxWidth: '900px' });
@@ -37,7 +37,7 @@ const containerStyles = xcss({
 export default () => (
   <Box padding="space.200">
     <div css={pageContainerStyles}>
-      <Stack space="400">
+      <Stack space="space.400">
         <Heading level="h700">Inline</Heading>
 
         <section>
@@ -53,7 +53,7 @@ export default () => (
                   width: '200px',
                 }}
               >
-                <Inline alignInline={alignInline} space="050">
+                <Inline alignInline={alignInline} space="space.050">
                   <Box
                     xcss={blockStyles}
                     padding="space.200"
@@ -88,7 +88,7 @@ export default () => (
                   width: '200px',
                 }}
               >
-                <Inline spread={spread} space="050">
+                <Inline spread={spread} space="space.050">
                   <Box
                     xcss={blockStyles}
                     padding="space.200"
@@ -111,7 +111,7 @@ export default () => (
         </section>
         <section>
           <Heading level="h500">Align Block</Heading>
-          <Inline space="200">
+          <Inline space="space.200">
             {alignBlockItems.map(alignBlock => (
               <Stack key={alignBlock} alignInline="center">
                 {alignBlock}
@@ -123,7 +123,7 @@ export default () => (
                     height: '200px',
                   }}
                 >
-                  <Inline space="050" alignBlock={alignBlock}>
+                  <Inline space="space.050" alignBlock={alignBlock}>
                     <Box
                       xcss={blockStyles}
                       padding="space.300"
@@ -148,7 +148,7 @@ export default () => (
 
         <section>
           <Heading level="h500">Space</Heading>
-          <Stack space="050">
+          <Stack space="space.050">
             {spaceItems.map(space => (
               <Inline key={space} alignBlock="center">
                 <div css={spaceNameStyles}>{space}</div>
@@ -178,7 +178,7 @@ export default () => (
         <section>
           <Heading level="h500">shouldWrap</Heading>
           <Box xcss={blockStyles} padding="space.050" backgroundColor="neutral">
-            <Inline space="200" shouldWrap={true}>
+            <Inline space="space.200" shouldWrap={true}>
               {[...Array(25)].map((_, index) => (
                 <Box
                   key={index}
@@ -195,7 +195,7 @@ export default () => (
           <Heading level="h500">Separator</Heading>
           <Box xcss={blockStyles} padding="space.050" backgroundColor="neutral">
             <Inline
-              space="100"
+              space="space.100"
               shouldWrap={true}
               alignBlock="center"
               separator="/"

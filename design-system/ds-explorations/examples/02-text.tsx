@@ -8,14 +8,14 @@ import { UNSAFE_Box as Box, UNSAFE_Text as Text } from '../src';
 
 export default () => {
   return (
-    <Stack space="300">
+    <Stack space="space.300">
       <Heading level="h400" as="h3">
         Text examples
       </Heading>
-      <Stack space="200">
+      <Stack space="space.200">
         <Box display="block">
           <Heading level="h300">Font size</Heading>
-          <Inline space="200" testId="font-sizes">
+          <Inline space="space.200" testId="font-sizes">
             {(
               [
                 'size.050',
@@ -38,7 +38,7 @@ export default () => {
           <Heading level="h300" as="h4">
             Font weight
           </Heading>
-          <Inline space="200" testId="font-weights">
+          <Inline space="space.200" testId="font-weights">
             {(['regular', 'medium', 'semibold', 'bold'] as const).map(
               (fontWeight) => (
                 <Text key={fontWeight} fontWeight={fontWeight}>
@@ -52,7 +52,7 @@ export default () => {
           <Heading level="h300" as="h4">
             Line height
           </Heading>
-          <Inline space="200" testId="line-heights" alignBlock="center">
+          <Inline space="space.200" testId="line-heights" alignBlock="center">
             {(
               [
                 'lineHeight.100',
@@ -77,7 +77,7 @@ export default () => {
           <Heading level="h300" as="h4">
             Testing
           </Heading>
-          <Stack space="050" testId="testing">
+          <Stack space="space.050" testId="testing">
             <Text as="p">Paragraph</Text>
             <Text as="div">A div</Text>
             <Text>

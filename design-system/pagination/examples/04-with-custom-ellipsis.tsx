@@ -13,7 +13,7 @@ export default function CustomEllipsisExample() {
   const handleEllipsisCLick = () => setMaxPageSize(10);
 
   return (
-    <Stack space="150">
+    <Stack space="space.150">
       <SectionMessage title="Using the example">
         <Text as="p">
           Please click on the ellipsis to expand the Pagination

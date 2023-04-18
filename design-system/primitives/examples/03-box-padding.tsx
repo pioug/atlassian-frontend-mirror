@@ -26,10 +26,10 @@ const spacingValues = [
  */
 export default () => {
   return (
-    <Stack space="400" alignInline="start" testId="box-padding">
-      <Stack space="200" testId="box-with-background-and-padding">
+    <Stack space="space.400" alignInline="start" testId="box-padding">
+      <Stack space="space.200" testId="box-with-background-and-padding">
         <Heading level="h600">padding</Heading>
-        <Inline space="200" alignBlock="center">
+        <Inline space="space.200" alignBlock="center">
           {spacingValues.map(space => (
             <Box key={space} backgroundColor="discovery.bold" padding={space}>
               <Box backgroundColor="elevation.surface">{space}</Box>
@@ -38,9 +38,9 @@ export default () => {
         </Inline>
       </Stack>
 
-      <Stack space="200" testId="box-with-background-and-paddingBlock">
+      <Stack space="space.200" testId="box-with-background-and-paddingBlock">
         <Heading level="h600">paddingBlock</Heading>
-        <Inline space="200" alignBlock="center">
+        <Inline space="space.200" alignBlock="center">
           {spacingValues.map(space => (
             <Box
               key={space}
@@ -53,9 +53,12 @@ export default () => {
         </Inline>
       </Stack>
 
-      <Stack space="200" testId="box-with-background-and-paddingBlockStart">
+      <Stack
+        space="space.200"
+        testId="box-with-background-and-paddingBlockStart"
+      >
         <Heading level="h600">paddingBlockStart</Heading>
-        <Inline space="200" alignBlock="center">
+        <Inline space="space.200" alignBlock="center">
           {spacingValues.map(space => (
             <Box
               key={space}
@@ -68,9 +71,9 @@ export default () => {
         </Inline>
       </Stack>
 
-      <Stack space="200" testId="box-with-background-and-paddingBlockEnd">
+      <Stack space="space.200" testId="box-with-background-and-paddingBlockEnd">
         <Heading level="h600">paddingBlockEnd</Heading>
-        <Inline space="200" alignBlock="center">
+        <Inline space="space.200" alignBlock="center">
           {spacingValues.map(space => (
             <Box
               key={space}
@@ -83,10 +86,10 @@ export default () => {
         </Inline>
       </Stack>
 
-      <Inline space="600">
-        <Stack space="200" testId="box-with-background-and-paddingInline">
+      <Inline space="space.600">
+        <Stack space="space.200" testId="box-with-background-and-paddingInline">
           <Heading level="h600">paddingInline</Heading>
-          <Stack space="200" alignInline="center">
+          <Stack space="space.200" alignInline="center">
             {spacingValues.map(space => (
               <Box
                 key={space}
@@ -99,9 +102,12 @@ export default () => {
           </Stack>
         </Stack>
 
-        <Stack space="200" testId="box-with-background-and-paddingInlineStart">
+        <Stack
+          space="space.200"
+          testId="box-with-background-and-paddingInlineStart"
+        >
           <Heading level="h600">paddingInlineStart</Heading>
-          <Stack space="200" alignInline="center">
+          <Stack space="space.200" alignInline="center">
             {spacingValues.map(space => (
               <Box
                 key={space}
@@ -114,9 +120,12 @@ export default () => {
           </Stack>
         </Stack>
 
-        <Stack space="200" testId="box-with-background-and-paddingInlineEnd">
+        <Stack
+          space="space.200"
+          testId="box-with-background-and-paddingInlineEnd"
+        >
           <Heading level="h600">paddingInlineEnd</Heading>
-          <Stack space="200" alignInline="center">
+          <Stack space="space.200" alignInline="center">
             {spacingValues.map(space => (
               <Box
                 key={space}

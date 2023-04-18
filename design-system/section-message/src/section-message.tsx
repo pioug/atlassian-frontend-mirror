@@ -50,7 +50,7 @@ const SectionMessage = forwardRef<HTMLElement, SectionMessageProps>(
           wordBreak: 'break-word',
         }}
       >
-        <Inline space="200">
+        <Inline space="space.200">
           <Box
             UNSAFE_style={{
               margin: '-2px 0',
@@ -62,7 +62,7 @@ const SectionMessage = forwardRef<HTMLElement, SectionMessageProps>(
               secondaryColor={secondaryColor}
             />
           </Box>
-          <Stack space="100" testId={testId && `${testId}--content`}>
+          <Stack space="space.100" testId={testId && `${testId}--content`}>
             {!!title && (
               <Heading as="h2" level="h500">
                 {title}
@@ -74,8 +74,8 @@ const SectionMessage = forwardRef<HTMLElement, SectionMessageProps>(
                 shouldWrap
                 testId={testId && `${testId}--actions`}
                 separator="·"
-                space="100"
-                rowSpace="0"
+                space="space.100"
+                rowSpace="space.0"
               >
                 {actionsArray}
               </Inline>

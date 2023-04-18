@@ -23,7 +23,7 @@ export default function ComplexDataExample() {
   const getLabel = ({ label }: any) => label;
 
   return (
-    <Stack space="150">
+    <Stack space="space.150">
       <Pagination
         testId="pagination"
         pages={PAGES}

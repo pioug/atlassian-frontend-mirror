@@ -9,7 +9,7 @@ import DropdownMenu, {
 } from '../src';
 
 export default () => (
-  <Inline space="600">
+  <Inline space="space.600">
     <DropdownMenu
       isOpen
       trigger="Page actions"

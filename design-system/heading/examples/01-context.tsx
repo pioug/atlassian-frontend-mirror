@@ -11,7 +11,7 @@ import Heading, { HeadingContextProvider } from '../src';
 const Section = ({ level, children }: any) => (
   <HeadingContextProvider>
     <Box UNSAFE_style={{ paddingLeft: token('space.100', '8px') }}>
-      <Stack space="100">
+      <Stack space="space.100">
         <Heading level={level}>{level}</Heading>
         <Text>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic adipisci,
@@ -29,7 +29,7 @@ export default () => {
   return (
     <HeadingContextProvider>
       <Box UNSAFE_style={{ maxWidth: 850, margin: 'auto' }}>
-        <Stack testId="headings" space="100">
+        <Stack testId="headings" space="space.100">
           <Heading level="h900">h900 and H1</Heading>
           <Section level="h800">
             <Section level="h700">

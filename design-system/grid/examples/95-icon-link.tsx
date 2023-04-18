@@ -8,7 +8,7 @@ import Inline from '@atlaskit/primitives/inline';
 
 const IconLink: FC<{ children: ReactNode }> = ({ children }) => {
   return (
-    <Inline space="100" alignBlock="center">
+    <Inline space="space.100" alignBlock="center">
       <Box
         display="block"
         borderRadius="normal"

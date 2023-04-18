@@ -1,6 +1,6 @@
 import { token } from '@atlaskit/tokens';
 import { css } from '@emotion/react';
-import { B50, N300, N800, N20, B400 } from '@atlaskit/theme/colors';
+import { B50, N300, N800, N20, B400, B100 } from '@atlaskit/theme/colors';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { fontSizeSmall, fontSize } from '@atlaskit/theme';
@@ -22,26 +22,36 @@ const listItemBaseStyles = css`
   cursor: pointer;
 `;
 
+const listItemFocusStyles = css`
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px ${token('color.border.focused', B100)} inset;
+    text-decoration: none;
+  }
+`;
+
 const listItemBoxShadow = css`
   box-shadow: inset 2px 0px 0px ${token('color.border.selected', B400)};
 `;
 
 const listItemActive = css`
-  background-color: ${token('color.background.neutral.subtle.hovered', N20)};
+  &:hover {
+    background-color: ${token('color.background.neutral.subtle.hovered', N20)};
+    ${listItemBoxShadow};
+  }
 `;
 
 const listItemSelected = css`
   background-color: ${token('color.background.selected', B50)};
+  ${listItemBoxShadow};
 `;
 
-export const composeListItemStyles = (active = false, selected = false) => {
-  const hasShadow = active || selected;
-
+export const composeListItemStyles = (selected = false) => {
   return css`
     ${listItemBaseStyles};
-    ${active && listItemActive};
+    ${!selected && listItemActive};
     ${selected && listItemSelected};
-    ${hasShadow && listItemBoxShadow};
+    ${listItemFocusStyles};
   `;
 };
 

@@ -6,7 +6,8 @@ import { getTokenId } from '@atlaskit/tokens/token-ids';
 const rule: Rule.RuleModule = {
   meta: {
     docs: {
-      recommended: true,
+      description: 'Disallow using deprecated design tokens.',
+      recommended: false,
     },
     fixable: 'code',
     type: 'problem',

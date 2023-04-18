@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/link-picker",
-  "version": "1.18.1",
+  "version": "1.18.3",
   "description": "Standalone link picker",
   "author": "Atlassian Pty Ltd",
   "publishConfig": {
@@ -40,7 +40,7 @@
     "@atlaskit/spinner": "^15.4.0",
     "@atlaskit/tabs": "^13.3.0",
     "@atlaskit/textfield": "^5.3.0",
-    "@atlaskit/theme": "^12.3.0",
+    "@atlaskit/theme": "^12.4.0",
     "@atlaskit/tokens": "^1.2.0",
     "@atlaskit/tooltip": "^17.7.0",
     "@atlaskit/ufo": "^0.1.0",
@@ -58,8 +58,7 @@
     "react-intl-next": "npm:react-intl@^5.18.1"
   },
   "devDependencies": {
-    "@af/analytics-codegen": "^0.0.2",
-    "@af/codegen": "*",
+    "@af/analytics-codegen": "^0.0.3",
     "@atlaskit/activity-provider": "^2.3.2",
     "@atlaskit/docs": "*",
     "@atlaskit/link-analytics": "^7.0.0",
@@ -71,6 +70,7 @@
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
+    "@atlassian/codegen": "^0.0.1",
     "@atlassian/link-picker-atlassian-plugin": "^28.0.0",
     "@atlassian/link-picker-plugins": "^18.1.0",
     "@atlassian/recent-work-client": "^1.7.0",

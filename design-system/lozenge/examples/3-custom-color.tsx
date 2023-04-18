@@ -7,7 +7,7 @@ import Lozenge from '../src';
 
 export default function Example() {
   return (
-    <Stack space="100" testId="test-container">
+    <Stack space="space.100" testId="test-container">
       <Text>
         default: <Lozenge>default</Lozenge>
       </Text>

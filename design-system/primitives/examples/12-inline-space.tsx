@@ -7,20 +7,20 @@ import { token } from '@atlaskit/tokens';
 import { Box, Inline, Stack, xcss } from '../src';
 
 const spaceItems = [
-  '0',
-  '025',
-  '050',
-  '075',
-  '100',
-  '150',
-  '200',
-  '250',
-  '300',
-  '400',
-  '500',
-  '600',
-  '800',
-  '1000',
+  'space.0',
+  'space.025',
+  'space.050',
+  'space.075',
+  'space.100',
+  'space.150',
+  'space.200',
+  'space.250',
+  'space.300',
+  'space.400',
+  'space.500',
+  'space.600',
+  'space.800',
+  'space.1000',
 ] as const;
 
 const spaceValueStyles = css({ minWidth: token('space.1000', '80px') });
@@ -29,8 +29,8 @@ const containerStyles = xcss({ width: 'size.300' });
 
 export default () => (
   <Box testId="inline-example" padding="space.100">
-    <Inline space="1000">
-      <Stack space="100" testId="inline-space">
+    <Inline space="space.1000">
+      <Stack space="space.100" testId="inline-space">
         <Heading level="h700">space</Heading>
         {spaceItems.map(space => (
           <Inline>
@@ -51,7 +51,7 @@ export default () => (
         ))}
       </Stack>
 
-      <Stack space="100" testId="inline-rowSpace">
+      <Stack space="space.100" testId="inline-rowSpace">
         <Heading level="h700">rowSpace</Heading>
         {spaceItems.map(space => (
           <Box xcss={containerStyles}>

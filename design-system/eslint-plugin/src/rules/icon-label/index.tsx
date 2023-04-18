@@ -24,8 +24,10 @@ const rule: Rule.RuleModule = {
     docs: {
       url: 'http://go/adsc/icon/usage#accessibility-guidelines',
       description:
-        'Enforces accessible usage of icon labels when composed with other Design System components.',
-      recommended: true,
+        'Enforces accessible usage of icon labels when composed with Atlassian Design System components.',
+      // TODO: Move to createRule() api
+      // @ts-expect-error
+      recommended: 'warn',
     },
     messages: {
       unneededLabelPropContents:

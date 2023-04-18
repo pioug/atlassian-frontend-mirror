@@ -12,7 +12,7 @@ const SpreadInlineLayout: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   return (
-    <Inline space="100" spread="space-between" alignBlock="center">
+    <Inline space="space.100" spread="space-between" alignBlock="center">
       {children}
     </Inline>
   );
@@ -45,12 +45,12 @@ const Example: FC<ExampleProps> = ({ values = ['one', 'two', 'three'] }) => {
         <Button isDisabled={selectedIndex === 0} onClick={handlePrev}>
           Prev
         </Button>
-        <Inline space="300" testId="vr-hook">
+        <Inline space="space.300" testId="vr-hook">
           {sizes.map((size) => (
-            <Stack key={size} space="200">
+            <Stack key={size} space="space.200">
               <Text fontWeight="bold">{size}</Text>
               {spacings.map((space) => (
-                <Stack key={space} space="100">
+                <Stack key={space} space="space.100">
                   <Text>{space}</Text>
                   <ProgressIndicator
                     selectedIndex={selectedIndex}

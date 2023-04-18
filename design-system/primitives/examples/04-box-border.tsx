@@ -28,10 +28,10 @@ const borderRadii = [
  */
 export default () => {
   return (
-    <Stack space="400" alignInline="start">
-      <Stack space="200" testId="box-with-borderWidth">
+    <Stack space="space.400" alignInline="start">
+      <Stack space="space.200" testId="box-with-borderWidth">
         <Heading level="h600">borderWidth</Heading>
-        <Inline space="200" alignBlock="center">
+        <Inline space="space.200" alignBlock="center">
           {borderWidths.map(borderWidth => (
             <Box
               key={borderWidth}
@@ -50,9 +50,9 @@ export default () => {
         </Inline>
       </Stack>
 
-      <Stack space="200" testId="box-with-borderStyle">
+      <Stack space="space.200" testId="box-with-borderStyle">
         <Heading level="h600">borderStyle</Heading>
-        <Inline space="200" alignBlock="center">
+        <Inline space="space.200" alignBlock="center">
           {borderStyles.map(borderStyle => (
             <Box
               key={borderStyle}
@@ -69,9 +69,9 @@ export default () => {
         </Inline>
       </Stack>
 
-      <Stack space="200" testId="box-with-borderColor">
+      <Stack space="space.200" testId="box-with-borderColor">
         <Heading level="h600">borderColor</Heading>
-        <Inline space="200" alignBlock="center">
+        <Inline space="space.200" alignBlock="center">
           {borderColors.map(borderColor => (
             <Box
               key={borderColor}
@@ -89,9 +89,9 @@ export default () => {
         </Inline>
       </Stack>
 
-      <Stack space="200" testId="box-with-borderColor">
+      <Stack space="space.200" testId="box-with-borderColor">
         <Heading level="h600">borderRadius</Heading>
-        <Inline space="800" alignBlock="center">
+        <Inline space="space.800" alignBlock="center">
           {borderRadii.map(borderRadius => (
             <Box
               key={borderRadius}

@@ -175,7 +175,7 @@ const CalendarWithMode = forwardRef<HTMLDivElement, CalendarProps>(
           role="grid"
           tabIndex={tabIndex}
         >
-          <Stack space="150">
+          <Stack space="space.150">
             <Header
               // The month number needs to be translated to index in the month
               // name array e.g. 1 (January) -> 0

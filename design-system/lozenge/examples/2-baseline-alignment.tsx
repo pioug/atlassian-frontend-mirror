@@ -9,7 +9,7 @@ import Stack from '@atlaskit/primitives/stack';
 import Lozenge from '../src';
 
 export default () => (
-  <Stack space="200" testId="test-container">
+  <Stack space="space.200" testId="test-container">
     <Box display="block">
       <Text UNSAFE_style={{ fontSize: '30px' }}>Heading</Text>
       <Text> </Text>

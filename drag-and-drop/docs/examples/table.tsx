@@ -56,7 +56,7 @@ function CellData({
 }) {
   if (column === 'name') {
     return (
-      <Inline alignBlock="center" space="100">
+      <Inline alignBlock="center" space="space.100">
         <Avatar />
         <span css={textOverflowStyles}>{row[column]}</span>
       </Inline>

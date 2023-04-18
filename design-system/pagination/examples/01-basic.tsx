@@ -14,7 +14,7 @@ export default function BasicExample() {
     setOnChangeEvent(newPage);
 
   return (
-    <Stack space="150">
+    <Stack space="space.150">
       <Pagination testId="pagination" pages={Pages} onChange={handleChange} />
       <Text testId="description" as="p">
         selected page from onChange hook: {onChangeEvent}

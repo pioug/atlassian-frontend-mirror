@@ -6,12 +6,15 @@ import Button from '@atlaskit/button/standard-button';
 import LinkCreate from '@atlaskit/link-create';
 import { LinkPicker } from '@atlaskit/link-picker';
 import Popup from '@atlaskit/popup';
-import { confluencePageLinkCreatePlugin } from '@atlassian/link-create-confluence';
-import { defaultPluginPresets as createPluginPresets } from '@atlassian/link-create-presets';
+import { createConfluencePageLinkCreatePlugin } from '@atlassian/link-create-confluence';
+import { createDefaultPluginPresets } from '@atlassian/link-create-presets';
 import {
   LinkPickerCreateOnSubmitHandler,
   useLinkPickerCreate,
 } from '@atlassian/link-picker-plugins';
+
+// This is the cloud id for pug.jira-dev.com
+const CLOUD_ID = 'DUMMY-a5a01d21-1cc3-4f29-9565-f2bb8cd969f5';
 
 const LinkPickerCreate = () => {
   const [link, setLink] = useState<string | null>(null);
@@ -24,8 +27,8 @@ const LinkPickerCreate = () => {
     () => [
       {
         product: 'confluence',
-        cloudId: 'DUMMY-a5a01d21-1cc3-4f29-9565-f2bb8cd969f5',
-        create: confluencePageLinkCreatePlugin,
+        cloudId: CLOUD_ID,
+        create: createConfluencePageLinkCreatePlugin(CLOUD_ID),
       },
     ],
     [],
@@ -43,7 +46,7 @@ const LinkPickerCreate = () => {
     onSubmit,
     onCancel,
     linkPickerCreateconfigs,
-    createPluginPresets,
+    createDefaultPluginPresets(CLOUD_ID),
   );
 
   return (

@@ -59,7 +59,7 @@ const JSMGrid = () => {
         >
           <Grid maxWidth="wide">
             <GridItem start={{ md: 3 }} span={{ md: 8 }}>
-              <Stack space="200" alignInline="center">
+              <Stack space="space.200" alignInline="center">
                 <Heading
                   level="h700"
                   color={theme === 'light' ? 'inverse' : 'default'}
@@ -77,10 +77,10 @@ const JSMGrid = () => {
         </Box>
       </Box>
       <Box css={dynamicSizedVerticalPaddingStyles} justifyContent="center">
-        <Stack space="800">
+        <Stack space="space.800">
           <Grid maxWidth="wide">
             <GridItem span={{ sm: 6, md: 4 }}>
-              <Stack space="300">
+              <Stack space="space.300">
                 <JSMConfigCard title="Design Collection">
                   <IconLink>Join Figma support slack channel</IconLink>
                   <IconLink>Join Figma support slack channel</IconLink>
@@ -89,7 +89,7 @@ const JSMGrid = () => {
               </Stack>
             </GridItem>
             <GridItem span={{ sm: 6, md: 4 }}>
-              <Stack space="300">
+              <Stack space="space.300">
                 <JSMConfigCard title="New hire basics" />
                 <JSMConfigCard title="Payroll">
                   <IconLink>Join Figma support slack channel</IconLink>
@@ -103,7 +103,7 @@ const JSMGrid = () => {
           </Grid>
           <Grid maxWidth="wide">
             <GridItem>
-              <Inline spread="space-between" space="0">
+              <Inline spread="space-between" space="space.0">
                 <Heading level="h800" as="h2">
                   Featured service desks
                 </Heading>
@@ -139,7 +139,7 @@ const JSMGrid = () => {
           </Grid>
           <Grid maxWidth="wide">
             <GridItem>
-              <Inline spread="space-between" space="0">
+              <Inline spread="space-between" space="space.0">
                 <Heading level="h800" as="h2">
                   Recently used forms
                 </Heading>

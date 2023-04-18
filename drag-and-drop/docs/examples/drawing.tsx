@@ -258,7 +258,7 @@ export default function DrawingExample() {
   return (
     <div css={containerStyles}>
       <div css={sidebarStyles}>
-        <Inline space="100">
+        <Inline space="space.100">
           {(Object.keys(swatchColorMap) as SwatchColor[]).map(color => (
             <Swatch
               key={color}

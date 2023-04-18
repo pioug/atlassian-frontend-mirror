@@ -106,7 +106,7 @@ export const Card = memo(function Card({ item }: { item: Item }) {
       padding="space.100"
       xcss={[containerStyles, state === 'dragging' && draggingStyles]}
     >
-      <Inline space="100" alignBlock="center" grow="fill">
+      <Inline space="space.100" alignBlock="center" grow="fill">
         <Avatar size="large" src={avatarUrl}>
           {props => (
             <div
@@ -116,7 +116,7 @@ export const Card = memo(function Card({ item }: { item: Item }) {
             />
           )}
         </Avatar>
-        <Stack space="050" grow="fill">
+        <Stack space="space.050" grow="fill">
           <Heading level="h400" as="span">
             {name}
           </Heading>

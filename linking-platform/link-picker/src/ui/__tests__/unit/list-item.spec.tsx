@@ -19,9 +19,9 @@ describe('<LinkSearchListItem />', () => {
   const defaultProps = {
     selected: false,
     active: false,
+    onFocus: jest.fn(),
+    onKeyDown: jest.fn(),
     onSelect: jest.fn(),
-    onMouseEnter: jest.fn(),
-    onMouseLeave: jest.fn(),
   };
 
   const defaultItem = {

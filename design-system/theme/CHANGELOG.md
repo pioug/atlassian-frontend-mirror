@@ -1,5 +1,11 @@
 # @atlaskit/theme
 
+## 12.4.0
+
+### Minor Changes
+
+- [`5e26db5a6a1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5e26db5a6a1) - Deprecate `gridSize` in favor of space tokens. More information about the new spacing scale and tokens can be found at https://atlassian.design/foundations/spacing/#scale
+
 ## 12.3.0
 
 ### Minor Changes

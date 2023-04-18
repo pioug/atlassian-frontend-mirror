@@ -9,20 +9,20 @@ const alignInlineItems = ['start', 'center', 'end'] as const;
 const alignBlockItems = ['start', 'center', 'end'] as const;
 const spreadItems = ['space-between'] as const;
 const spaceItems = [
-  '0',
-  '025',
-  '050',
-  '075',
-  '100',
-  '150',
-  '200',
-  '250',
-  '300',
-  '400',
-  '500',
-  '600',
-  '800',
-  '1000',
+  'space.0',
+  'space.025',
+  'space.050',
+  'space.075',
+  'space.100',
+  'space.150',
+  'space.200',
+  'space.250',
+  'space.300',
+  'space.400',
+  'space.500',
+  'space.600',
+  'space.800',
+  'space.1000',
 ] as const;
 
 const containerStyles = xcss({
@@ -36,15 +36,15 @@ const blockStyles = xcss({ borderRadius: 'radius.050' });
  */
 export default () => (
   <Box padding="space.200">
-    <Stack space="400">
-      <Stack space="300" alignInline="start">
+    <Stack space="space.400">
+      <Stack space="space.300" alignInline="start">
         <Heading level="h700">Stack</Heading>
         <section>
-          <Stack space="100">
+          <Stack space="space.100">
             <Heading level="h500">Align Block</Heading>
-            <Inline spread="space-between" space="400">
+            <Inline spread="space-between" space="space.400">
               {alignBlockItems.map(alignBlock => (
-                <Stack key={alignBlock} space="050" alignInline="center">
+                <Stack key={alignBlock} space="space.050" alignInline="center">
                   {alignBlock}
 
                   <Box
@@ -55,7 +55,7 @@ export default () => (
                       height: '200px',
                     }}
                   >
-                    <Stack space="050" alignBlock={alignBlock}>
+                    <Stack space="space.050" alignBlock={alignBlock}>
                       <Box
                         xcss={blockStyles}
                         padding="space.200"
@@ -80,11 +80,11 @@ export default () => (
         </section>
 
         <section>
-          <Stack space="100">
+          <Stack space="space.100">
             <Heading level="h500">Spread</Heading>
-            <Inline spread="space-between" space="400">
+            <Inline spread="space-between" space="space.400">
               {spreadItems.map(spread => (
-                <Stack key={spread} space="050" alignInline="start">
+                <Stack key={spread} space="space.050" alignInline="start">
                   {spread}
 
                   <Box
@@ -95,7 +95,7 @@ export default () => (
                       height: '200px',
                     }}
                   >
-                    <Stack space="050" spread={spread}>
+                    <Stack space="space.050" spread={spread}>
                       <Box
                         xcss={blockStyles}
                         padding="space.200"
@@ -121,7 +121,7 @@ export default () => (
 
         <section>
           <Heading level="h500">Align Inline</Heading>
-          <Inline space="100">
+          <Inline space="space.100">
             {alignInlineItems.map(alignInline => (
               <Stack key={alignInline} alignInline="center">
                 {alignInline}
@@ -133,7 +133,11 @@ export default () => (
                     width: '200px',
                   }}
                 >
-                  <Stack grow="fill" alignInline={alignInline} space="050">
+                  <Stack
+                    grow="fill"
+                    alignInline={alignInline}
+                    space="space.050"
+                  >
                     <Box
                       xcss={blockStyles}
                       padding="space.200"
@@ -157,11 +161,11 @@ export default () => (
         </section>
 
         <section>
-          <Stack space="100">
+          <Stack space="space.100">
             <Heading level="h500">Space</Heading>
-            <Inline space="200" spread="space-between">
+            <Inline space="space.200" spread="space-between">
               {spaceItems.map(space => (
-                <Stack key={space} space="100" alignInline="center">
+                <Stack key={space} space="space.100" alignInline="center">
                   {space}
                   <Box
                     xcss={blockStyles}

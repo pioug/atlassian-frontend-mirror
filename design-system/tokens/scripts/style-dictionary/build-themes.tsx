@@ -100,7 +100,7 @@ const createThemeConfig = (
         transforms: ['name/dot', 'color/palette'],
         /**
          * Figma artifacts are output to a separate folder, because the
-         * `@af/codegen` ESLint rule `@repo/internal/codegen/signed-source-integrity`
+         * `@atlassian/codegen` ESLint rule `@repo/internal/codegen/signed-source-integrity`
          * scans all directories called `artifacts` for signed source headers.
          */
         buildPath: FIGMA_ARTIFACT_OUTPUT_DIR,

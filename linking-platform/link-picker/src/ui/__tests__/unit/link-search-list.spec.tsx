@@ -13,9 +13,9 @@ describe('<LinkSearchList />', () => {
     const defaultOptions = {
       items: getDefaultItems(),
       isLoading: false,
-      onMouseEnter: jest.fn(),
-      onMouseLeave: jest.fn(),
+      onChange: jest.fn(),
       onSelect: jest.fn(),
+      onKeyDown: jest.fn(),
       selectedIndex: -1,
       activeIndex: -1,
       ariaControls: '',
@@ -33,8 +33,6 @@ describe('<LinkSearchList />', () => {
     return {
       component,
       items: options.items,
-      onMouseEnter: options.onMouseEnter,
-      onMouseLeave: options.onMouseLeave,
       onSelect: options.onSelect,
     };
   };
@@ -85,7 +83,7 @@ describe('<LinkSearchList />', () => {
     expect(() => component.getByTestId('link-search-list')).toThrow();
   });
 
-  it('should select the item on selectedIndex', () => {
+  it('should pre-select the item on selectedIndex', () => {
     const { component } = setup({
       selectedIndex: 1,
     });

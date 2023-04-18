@@ -1,5 +1,12 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 4.19.0
+
+### Minor Changes
+
+- [`ecbb3354125`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ecbb3354125) - This package now uses codegen to generate the rules index and presets. There is no change to the public api with this release.
+- [`e00ab4b87d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e00ab4b87d9) - The README and website documentation now contain a generated table with all available rules in the plugin.
+
 ## 4.18.0
 
 ### Minor Changes

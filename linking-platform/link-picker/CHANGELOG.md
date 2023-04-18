@@ -1,5 +1,18 @@
 # @atlaskit/link-picker
 
+## 1.18.3
+
+### Patch Changes
+
+- [`ee4573b4721`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ee4573b4721) - [ux] Handle keyboard navigation as a listbox
+  Updates focus style of link picker listbox
+
+## 1.18.2
+
+### Patch Changes
+
+- [`a02eed2974e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a02eed2974e) - Move codegen into @atlassian scope to publish it to private registry
+
 ## 1.18.1
 
 ### Patch Changes

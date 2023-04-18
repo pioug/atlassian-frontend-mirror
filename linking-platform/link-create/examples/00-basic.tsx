@@ -1,15 +1,20 @@
 import React, { useCallback, useState } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
-import { confluencePageLinkCreatePlugin } from '@atlassian/link-create-confluence';
+import { createConfluencePageLinkCreatePlugin } from '@atlassian/link-create-confluence';
 
 import LinkCreate from '../src';
+
+// This is the cloud id for pug.jira-dev.com
+const CLOUD_ID = 'DUMMY-a5a01d21-1cc3-4f29-9565-f2bb8cd969f5';
 
 export default function Basic() {
   const [link, setLink] = useState<string | null>();
   const [active, setActive] = useState(false);
 
-  const plugins = [confluencePageLinkCreatePlugin];
+  const plugins = [
+    createConfluencePageLinkCreatePlugin(CLOUD_ID, 'https://pug.jira-dev.com'),
+  ];
 
   const handleCreate = useCallback((url: string) => {
     setLink(url);

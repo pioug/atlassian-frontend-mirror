@@ -24,19 +24,19 @@ type SpacingPropsToTokensMap = {
 
 export const progressIndicatorGapMap: SpacingPropsToTokensMap = {
   comfortable: {
-    small: ['075', token('space.075', '6px')],
-    default: ['100', token('space.100', '8px')],
-    large: ['150', token('space.150', '12px')],
+    small: ['space.075', token('space.075', '6px')],
+    default: ['space.100', token('space.100', '8px')],
+    large: ['space.150', token('space.150', '12px')],
   },
   cozy: {
-    small: ['050', token('space.050', '4px')],
-    default: ['075', token('space.075', '6px')],
-    large: ['100', token('space.100', '8px')],
+    small: ['space.050', token('space.050', '4px')],
+    default: ['space.075', token('space.075', '6px')],
+    large: ['space.100', token('space.100', '8px')],
   },
   compact: {
-    small: ['025', token('space.025', '2px')],
-    default: ['050', token('space.050', '4px')],
-    large: ['075', token('space.075', '6px')],
+    small: ['space.025', token('space.025', '2px')],
+    default: ['space.050', token('space.050', '4px')],
+    large: ['space.075', token('space.075', '6px')],
   },
 };
 

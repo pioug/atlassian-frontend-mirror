@@ -34,10 +34,10 @@ export type MaxHeight = keyof typeof dimensionMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c9769f86fc43a4afcc45953fc5f06926>>
+ * @codegen <<SignedSource::b8ac4fd29ba83e2ab1c2713c35915067>>
  * @codegenId spacing
  * @codegenCommand yarn codegen-styles
- * @codegenParams ["padding"]
+ * @codegenParams ["padding", "space"]
  * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-spacing.tsx <<SignedSource::167d3b69b159ae33e74d4ea5ab7eade6>>
  */
 export const paddingMap = {
@@ -64,6 +64,26 @@ export type PaddingBlockEnd = keyof typeof paddingMap;
 export type PaddingInline = keyof typeof paddingMap;
 export type PaddingInlineStart = keyof typeof paddingMap;
 export type PaddingInlineEnd = keyof typeof paddingMap;
+
+export const spaceMap = {
+  'space.0': token('space.0', '0px'),
+  'space.025': token('space.025', '2px'),
+  'space.050': token('space.050', '4px'),
+  'space.075': token('space.075', '6px'),
+  'space.100': token('space.100', '8px'),
+  'space.150': token('space.150', '12px'),
+  'space.200': token('space.200', '16px'),
+  'space.250': token('space.250', '20px'),
+  'space.300': token('space.300', '24px'),
+  'space.400': token('space.400', '32px'),
+  'space.500': token('space.500', '40px'),
+  'space.600': token('space.600', '48px'),
+  'space.800': token('space.800', '64px'),
+  'space.1000': token('space.1000', '80px'),
+} as const;
+
+export type Gap = keyof typeof spaceMap;
+export type RowGap = keyof typeof spaceMap;
 
 /**
  * @codegenEnd
@@ -430,14 +450,15 @@ export type TextColor = keyof typeof textColorMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::dd62140c127dcca8e478ad22341d4626>>
+ * @codegen <<SignedSource::8ab54fc337c6a02f403dad852dd626a0>>
  * @codegenId misc
  * @codegenCommand yarn codegen-styles
- * @codegenParams ["align-self", "border-style", "display", "flex-grow", "flex-shrink", "flex", "layer", "overflow", "position"]
+ * @codegenParams ["align-self", "border-style", "display", "flex-direction", "flex-grow", "flex-shrink", "flex", "layer", "overflow", "position"]
  * @codegenDependency ../../scripts/codegen-file-templates/align-self.tsx <<SignedSource::074079802534462de54bf882bb2073e5>>
  * @codegenDependency ../../scripts/codegen-file-templates/border-style.tsx <<SignedSource::87e7e289ffeaac901997c4af98084a5f>>
  * @codegenDependency ../../scripts/codegen-file-templates/dimensions.tsx <<SignedSource::89d19ca3937408eb7de5d72f4476a0f9>>
  * @codegenDependency ../../scripts/codegen-file-templates/display.tsx <<SignedSource::e6e390f80609060bfd12a55a489d5f54>>
+ * @codegenDependency ../../scripts/codegen-file-templates/flex-direction.tsx <<SignedSource::19809ba11675679c188b0d98fb651dc1>>
  * @codegenDependency ../../scripts/codegen-file-templates/flex-grow.tsx <<SignedSource::b8a06b122cb609170f1f42778a6c270e>>
  * @codegenDependency ../../scripts/codegen-file-templates/flex-shrink.tsx <<SignedSource::bf6626972898bf22d2eeee2130693d47>>
  * @codegenDependency ../../scripts/codegen-file-templates/flex.tsx <<SignedSource::ffa0189d14f1f00a16ec1e9f43a17ce9>>
@@ -468,6 +489,13 @@ export type Display =
   | 'inline'
   | 'inline-block'
   | 'inline-flex';
+
+export const flexDirectionMap = {
+  row: 'row',
+  column: 'column',
+} as const;
+
+export type FlexDirection = keyof typeof flexDirectionMap;
 
 export const flexGrowMap = {
   '0': 0,
@@ -577,6 +605,7 @@ export type TokenisedProps = {
   borderWidth?: BorderWidth;
   display?: Display;
   flex?: Flex;
+  flexDirection?: FlexDirection;
   flexGrow?: FlexGrow;
   flexShrink?: FlexShrink;
   height?: Height;
@@ -609,6 +638,8 @@ const spacingProperties = [
   'paddingInline',
   'paddingInlineStart',
   'paddingInlineEnd',
+  'gap',
+  'rowGap',
 ] as const;
 type SpacingProperty = typeof spacingProperties[number];
 
@@ -642,6 +673,18 @@ export const paddingStylesMap: SpacingStyleMap = spacingProperties.reduce(
     styleMap[spacingProperty] = getSerializedStylesMap(
       spacingProperty,
       paddingMap,
+    );
+
+    return styleMap;
+  },
+  {} as SpacingStyleMap,
+);
+
+export const spaceStylesMap: SpacingStyleMap = spacingProperties.reduce(
+  (styleMap, spacingProperty: SpacingProperty) => {
+    styleMap[spacingProperty] = getSerializedStylesMap(
+      spacingProperty,
+      spaceMap,
     );
 
     return styleMap;

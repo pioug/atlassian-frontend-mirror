@@ -11,7 +11,7 @@ import Stack from '@atlaskit/primitives/stack';
 
 export default md`
   ${(
-    <Stack space="200">
+    <Stack space="space.200">
       <AtlassianInternalWarning />
       <DevPreviewWarning />
     </Stack>

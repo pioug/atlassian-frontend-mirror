@@ -6,7 +6,7 @@ import Stack from '@atlaskit/primitives/stack';
 import Lozenge from '../src';
 
 export default () => (
-  <Stack space="100">
+  <Stack space="space.100">
     <Text>
       <Lozenge appearance="success">
         very very very wide text which truncates

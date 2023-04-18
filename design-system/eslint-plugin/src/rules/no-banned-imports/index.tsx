@@ -7,7 +7,7 @@ const rule: Rule.RuleModule = {
   meta: {
     type: 'problem',
     docs: {
-      description: 'Disallow specified modules when loaded by `import`',
+      description: 'Disallow importing banned modules.',
       recommended: true,
     },
     messages: {

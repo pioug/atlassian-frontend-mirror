@@ -5,7 +5,7 @@ const rule: Rule.RuleModule = {
   meta: {
     type: 'problem',
     docs: {
-      description: 'No usage of `margin` CSS property',
+      description: 'Disallow using the margin CSS property.',
     },
     messages: {
       noMargin:

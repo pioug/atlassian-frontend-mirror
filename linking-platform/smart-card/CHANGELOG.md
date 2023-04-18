@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 25.4.2
+
+### Patch Changes
+
+- [`1d38688106e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1d38688106e) - [ux] Moved out the implementation of the resolve function from useSmartCardActions into a separate internal hook useResolve. Added reload functionality for LozengeAction on a successful update
+- [`0ee9370595a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ee9370595a) - Update json-ld-types
+- Updated dependencies
+
 ## 25.4.1
 
 ### Patch Changes

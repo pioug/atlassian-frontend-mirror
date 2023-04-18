@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@atlaskit/codemod-utils": "^4.1.0",
-    "@atlaskit/theme": "^12.3.0",
+    "@atlaskit/theme": "^12.4.0",
     "@atlaskit/tokens": "^1.2.0",
     "@atlaskit/tooltip": "^17.7.0",
     "@babel/runtime": "^7.0.0",
@@ -44,7 +44,7 @@
     "@atlaskit/ds-explorations": "^2.0.1",
     "@atlaskit/ds-lib": "^2.1.0",
     "@atlaskit/form": "^8.8.0",
-    "@atlaskit/primitives": "^0.7.0",
+    "@atlaskit/primitives": "^0.8.0",
     "@atlaskit/section-message": "^6.3.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/toggle": "^12.5.0",

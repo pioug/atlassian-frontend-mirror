@@ -26,7 +26,7 @@ const getFlagData = (
     actions,
     description: description,
     icon: (
-      <Info label="Info" primaryColor={token('color.icon.discovery', P300)} />
+      <Info label="Info" primaryColor={token('color.icon.information', P300)} />
     ),
     title: `${index + 1}: Whoa a new flag!`,
     isAutoDismiss: isAutoDismiss,

@@ -1,9 +1,12 @@
 import React, { useCallback, useState } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
-import { defaultPluginPresets } from '@atlassian/link-create-presets';
+import { createDefaultPluginPresets } from '@atlassian/link-create-presets';
 
 import LinkCreate from '../src';
+
+// This is the cloud id for pug.jira-dev.com
+const CLOUD_ID = 'DUMMY-a5a01d21-1cc3-4f29-9565-f2bb8cd969f5';
 
 export default function Basic() {
   const [link, setLink] = useState<string | null>();
@@ -36,7 +39,7 @@ export default function Basic() {
         Create
       </Button>
       <LinkCreate
-        plugins={defaultPluginPresets}
+        plugins={createDefaultPluginPresets(CLOUD_ID)}
         entityKey="confluence-page"
         onCreate={handleCreate}
         onFailure={handleFailure}

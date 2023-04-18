@@ -65,7 +65,7 @@ const LanguageSettings = () => {
 const BasicExample = () => {
   return (
     <SpotlightManager>
-      <Inline space="100">
+      <Inline space="space.100">
         <AppFrame shouldHideAppBar>
           <SideNavigation label="project" testId="side-navigation">
             <NavigationHeader>

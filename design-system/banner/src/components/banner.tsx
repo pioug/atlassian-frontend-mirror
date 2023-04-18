@@ -96,7 +96,7 @@ const Banner = forwardRef<HTMLDivElement, BannerProps>(
         }}
         css={nestedLinkStyles}
       >
-        <Inline space="050" alignBlock="center" alignInline="start">
+        <Inline space="space.050" alignBlock="center" alignInline="start">
           {icon ? (
             <Box
               as="span"

@@ -23,7 +23,7 @@ const JSMConfigCard: FC<{
   title = 'Title',
 }) => {
   return (
-    <Stack space="150">
+    <Stack space="space.150">
       <Heading as="h3" level="h600">
         {title}
       </Heading>

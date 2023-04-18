@@ -14,8 +14,8 @@ const truncateStyles = css({
 const blockStyles = xcss({ borderRadius: 'radius.050' });
 
 export default () => (
-  <Stack testId="inline-example" space="100" alignInline="start">
-    <Stack space="100">
+  <Stack testId="inline-example" space="space.100" alignInline="start">
+    <Stack space="space.100">
       {growItems.map(grow => (
         <Stack alignInline="center">
           {grow}
@@ -26,7 +26,7 @@ export default () => (
             }}
           >
             <Inline grow={grow}>
-              <Stack space="100" grow={grow}>
+              <Stack space="space.100" grow={grow}>
                 <Box
                   xcss={blockStyles}
                   backgroundColor="discovery.bold"
@@ -49,11 +49,11 @@ export default () => (
       ))}
     </Stack>
 
-    <Stack space="100">
+    <Stack space="space.100">
       width=100% enables truncation
       <Box backgroundColor="neutral" style={{ maxWidth: 200 }}>
         <Inline grow="fill">
-          <Stack space="100" grow="fill">
+          <Stack space="space.100" grow="fill">
             <span css={truncateStyles}>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut

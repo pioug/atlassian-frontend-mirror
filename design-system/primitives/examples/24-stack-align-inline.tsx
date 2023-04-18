@@ -9,7 +9,7 @@ const borderRadiusStyles = xcss({ borderRadius: 'radius.050' });
 
 export default () => (
   <Box testId="stack-example" padding="space.100">
-    <Inline space="100">
+    <Inline space="space.100">
       {alignInlineItems.map(alignInline => (
         <Stack key={alignInline} alignInline="center">
           {alignInline}
@@ -21,7 +21,7 @@ export default () => (
               width: '200px',
             }}
           >
-            <Stack alignInline={alignInline} space="050">
+            <Stack alignInline={alignInline} space="space.050">
               <Box
                 xcss={borderRadiusStyles}
                 padding="space.200"

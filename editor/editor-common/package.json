@@ -83,7 +83,7 @@
     "@atlaskit/smart-card": "^25.4.0",
     "@atlaskit/smart-user-picker": "^6.0.0",
     "@atlaskit/task-decision": "^17.5.0",
-    "@atlaskit/theme": "^12.3.0",
+    "@atlaskit/theme": "^12.4.0",
     "@atlaskit/tokens": "^1.2.0",
     "@atlaskit/tooltip": "^17.7.0",
     "@atlaskit/ufo": "^0.1.0",

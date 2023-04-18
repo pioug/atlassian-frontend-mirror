@@ -94,6 +94,75 @@ describe('link-picker', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
+  it('should select the search list via keyboard tab', async () => {
+    const url = getURL('vr-basic');
+    const page = await setup(url);
+    await page.keyboard.press('Tab');
+    await page.keyboard.press('Tab');
+
+    const image = await takeElementScreenShot(page, testSelector);
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('should select the search list via keyboard tab and use arrows up/down to navigate', async () => {
+    const url = getURL('vr-basic');
+    const page = await setup(url);
+
+    // Tab twice to reach the search results list
+    await page.keyboard.press('Tab');
+    await page.keyboard.press('Tab');
+
+    // Press arrow down twice to select first and second items respectively
+    await page.keyboard.press('ArrowDown');
+    await page.keyboard.press('ArrowDown');
+
+    // Press arrow up to get back to the first item
+    await page.keyboard.press('ArrowUp');
+
+    // Finally, expects selected item to be the first one on the list
+    const image = await takeElementScreenShot(page, testSelector);
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('should select the search list via keyboard tab and use Home key to select first item', async () => {
+    const url = getURL('vr-basic');
+    const page = await setup(url);
+
+    // Tab twice to reach the search results list
+    await page.keyboard.press('Tab');
+    await page.keyboard.press('Tab');
+
+    // Press arrow down twice to select first and second items respectively
+    await page.keyboard.press('ArrowDown');
+    await page.keyboard.press('ArrowDown');
+
+    // Press arrow up to get back to the first item
+    await page.keyboard.press('Home');
+
+    // Finally, expects selected item to be the first one on the list
+    const image = await takeElementScreenShot(page, testSelector);
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('should select the search list via keyboard tab and use End key to select last item', async () => {
+    const url = getURL('vr-basic');
+    const page = await setup(url);
+
+    // Tab twice to reach the search results list
+    await page.keyboard.press('Tab');
+    await page.keyboard.press('Tab');
+
+    // Press arrow down once to select first item
+    await page.keyboard.press('ArrowDown');
+
+    // Press arrow up to get back to the last item
+    await page.keyboard.press('End');
+
+    // Finally, expects selected item to be the last one on the list
+    const image = await takeElementScreenShot(page, testSelector);
+    expect(image).toMatchProdImageSnapshot();
+  });
+
   it('Should not change the background of selected list-item on hover', async () => {
     const url = getURL('vr-basic');
     const page = await setup(url);

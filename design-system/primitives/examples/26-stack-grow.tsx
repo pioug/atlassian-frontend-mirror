@@ -14,7 +14,7 @@ const blockStyles = xcss({ borderRadius: 'radius.050' });
 
 export default () => (
   <Box testId="stack-example" padding="space.100">
-    <Inline space="100">
+    <Inline space="space.100">
       {growItems.map(grow => (
         <Stack alignInline="center">
           {grow}
@@ -26,7 +26,7 @@ export default () => (
             }}
           >
             <Stack grow={grow}>
-              <Inline space="100" grow={grow}>
+              <Inline space="space.100" grow={grow}>
                 <Box
                   xcss={blockStyles}
                   backgroundColor="discovery.bold"

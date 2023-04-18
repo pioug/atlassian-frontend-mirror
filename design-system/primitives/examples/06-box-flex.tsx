@@ -11,10 +11,10 @@ const flexGrow1Styles = xcss({ borderStyle: 'solid', flexGrow: '1' });
 
 export default () => {
   return (
-    <Stack space="400" alignInline="start">
-      <Stack space="200" testId="box-with-flex">
+    <Stack space="space.400" alignInline="start">
+      <Stack space="space.200" testId="box-with-flex">
         <Heading level="h600">flex</Heading>
-        <Inline space="200" alignBlock="center">
+        <Inline space="space.200" alignBlock="center">
           <Box padding="space.400" xcss={flexContainerStyles}>
             <Box xcss={flex1Styles}>flex=1</Box>
             <Box xcss={flex1Styles}>flex=1</Box>
@@ -22,9 +22,9 @@ export default () => {
         </Inline>
       </Stack>
 
-      <Stack space="200" testId="box-with-flex">
+      <Stack space="space.200" testId="box-with-flex">
         <Heading level="h600">flexGrow</Heading>
-        <Inline space="200" alignBlock="center">
+        <Inline space="space.200" alignBlock="center">
           <Box
             xcss={flexContainerStyles}
             padding="space.400"

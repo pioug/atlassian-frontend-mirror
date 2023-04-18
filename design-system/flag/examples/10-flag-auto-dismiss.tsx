@@ -18,7 +18,7 @@ const appearances: AppearanceTypes[] = [
 ];
 const color = {
   error: token('color.icon.danger', R400),
-  info: token('color.icon.discovery', N500),
+  info: token('color.icon.information', N500),
   normal: token('color.icon.brand', N0),
   success: token('color.icon.success', G400),
   warning: token('color.icon.warning', Y200),

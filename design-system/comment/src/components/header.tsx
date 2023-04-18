@@ -53,7 +53,7 @@ const Header: FC<HeaderProps> = ({
     edited ||
     type;
   return shouldRender ? (
-    <Inline alignBlock="center" testId={testId} space="100">
+    <Inline alignBlock="center" testId={testId} space="space.100">
       {author && headingProps ? (
         <span {...headingProps}>{author}</span>
       ) : (
@@ -65,7 +65,7 @@ const Header: FC<HeaderProps> = ({
       {isSaving ? savingText : null}
       {restrictedTo && (
         <Text as="span" color="subtlest">
-          <Inline alignBlock="center" space="050">
+          <Inline alignBlock="center" space="space.050">
             &bull;
             <LockFilledIcon label="" size="small" />
             {restrictedTo}

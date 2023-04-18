@@ -4,21 +4,28 @@ order: 0
 
 import SectionMessage from '@atlaskit/section-message';
 
-<SectionMessage
-  title="A new color system, design tokens, and themes are coming soon"
-  appearance="warning"
->
-  <p>
-    This ESLint plugin includes rules to help you use <a href="/foundations/design-tokens">design tokens</a>, which will soon be the new way to apply color and spacing values.
-    <br/><br/>Do not use the design token-related rules until design tokens are available for you to adopt.
-  </p>
-</SectionMessage>
+This plugin contains rules that should be used when working with the [Atlassian Design System](https://atlassian.design).
 
-Design tokens are supported by linting rules, which warn you if a token is deprecated, missing, or has no fallback style. Design token lint rules are provided by the Design System ESLint and <a href="/components/stylelint-design-system/usage">Stylelint plugins</a>.
+## Rules
 
-If you are an Atlassian employee, you must configure the lint rule in your repository and keep it up-to-date. If you are a partner developer, we strongly recommend you to use it as well.
+<!-- START_RULE_CODEGEN -->
+<!-- @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen -->
 
-Follow the <a href="/get-started/develop/using-tokens-in-code#eslint-plugin">Get started</a> guide to get started with Design Tokens, and set up the ESLint plugin.
+| Rule                                                                               | Description                                                                                     | Recommended | Fixable | Suggestions |
+| ---------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------- | ------- | ----------- |
+| <a href="#ensure-design-token-usage">ensure-design-token-usage</a>                 | Enforces usage of design tokens.                                                                |             | Yes     | Yes         |
+| <a href="#ensure-design-token-usage-spacing">ensure-design-token-usage-spacing</a> | Enforces usage of spacing design tokens rather than hard-coded values.                          |             | Yes     |             |
+| <a href="#icon-label">icon-label</a>                                               | Enforces accessible usage of icon labels when composed with Atlassian Design System components. | Yes         | Yes     |             |
+| <a href="#no-banned-imports">no-banned-imports</a>                                 | Disallow importing banned modules.                                                              | Yes         |         |             |
+| <a href="#no-deprecated-apis">no-deprecated-apis</a>                               | Disallow using deprecated APIs.                                                                 | Yes         |         |             |
+| <a href="#no-deprecated-design-token-usage">no-deprecated-design-token-usage</a>   | Disallow using deprecated design tokens.                                                        |             | Yes     |             |
+| <a href="#no-deprecated-imports">no-deprecated-imports</a>                         | Disallow importing deprecated modules.                                                          | Yes         |         |             |
+| <a href="#no-margin">no-margin</a>                                                 | Disallow using the margin CSS property.                                                         |             |         |             |
+| <a href="#no-unsafe-design-token-usage">no-unsafe-design-token-usage</a>           | Enforces design token usage is statically and locally analyzable.                               |             | Yes     |             |
+| <a href="#use-primitives">use-primitives</a>                                       | Encourage the usage of primitives components.                                                   |             | Yes     |             |
+| <a href="#use-visually-hidden">use-visually-hidden</a>                             | Enforce usage of the visually hidden component.                                                 | Yes         | Yes     |             |
+
+<!-- END_CODEGEN -->
 
 ## ensure-design-token-usage
 
@@ -136,7 +143,6 @@ Run `eslint --fix` to automatically apply replacement tokens.
 
 Don't use deprecated tokens.
 
-
 ```jsx
 import { token } from '@atlaskit/tokens';
 
@@ -144,7 +150,6 @@ css({
   color: token('i.am.deprecated'), // will warn on deprecated tokens
 });
 ```
-
 
 ## no-unsafe-design-token-usage
 
@@ -174,7 +179,6 @@ css`
 
 Don’t use outdated token names, or use tokens without the `token` function.
 
-
 ```jsx
 const textColor = 'red';
 
@@ -199,7 +203,6 @@ Enforces accessible usage of icon labels when composed with other Design System 
 
 Use the icon label prop to ensure accessibility of Design System icons.
 
-
 ```jsx
 import ActivityIcon from '@atlaskit/icon/glyph/activity'
 
@@ -223,7 +226,6 @@ import ActivityIcon from '@atlaskit/icon/glyph/activity'
 <h3 id="icon-label-dont">Don't</h3>
 
 Don't ignore labels for icons.
-
 
 ```jsx
 import ActivityIcon from '@atlaskit/icon/glyph/activity'
@@ -310,7 +312,6 @@ const Element = () => (
 );
 ```
 
-
 ## no-deprecated-imports
 
 Ensures usage of current Atlassian Design System dependencies.
@@ -387,4 +388,3 @@ import { visuallyHidden } from '@atlaskit/theme/constants';
 const VisuallyHidden = styled.span`${visuallyHidden()}`;
                                      ^^^^^^^^^^^^^^
 ```
-

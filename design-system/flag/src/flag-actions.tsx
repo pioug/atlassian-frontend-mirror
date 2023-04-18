@@ -74,7 +74,7 @@ const FlagActions: FC<FlagActionsProps> = (props) => {
   return (
     <span css={!isBold && appearanceNormalActionsContainerStyles}>
       <Inline
-        space="100"
+        space="space.100"
         shouldWrap
         alignBlock="center"
         separator={isBold ? undefined : '·'}

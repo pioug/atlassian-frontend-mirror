@@ -9,7 +9,7 @@ export default () => {
   const [isLoading, setLoading] = useState(true);
 
   return (
-    <Inline space="200">
+    <Inline space="space.200">
       <Button
         testId="toggle"
         onClick={() => setLoading((loadingState) => !loadingState)}

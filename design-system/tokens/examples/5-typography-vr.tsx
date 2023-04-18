@@ -104,7 +104,7 @@ export default () => {
   return (
     <div data-testid="typography">
       <h1>Font size</h1>
-      <Stack space="100">
+      <Stack space="space.100">
         {fontSizes.map((fontSize) => (
           <Text UNSAFE_style={{ fontSize: fontSize.token }} key={fontSize.name}>
             {fontSize.name}
@@ -114,7 +114,7 @@ export default () => {
       </Stack>
 
       <h1>Font weight</h1>
-      <Stack space="100">
+      <Stack space="space.100">
         {fontWeights.map((fontWeight) => (
           <Text
             UNSAFE_style={{ fontWeight: fontWeight.token as any }}
@@ -127,7 +127,7 @@ export default () => {
       </Stack>
 
       <h1>Font family</h1>
-      <Stack space="100">
+      <Stack space="space.100">
         {fontFamilies.map((fontFamily) => (
           <Text
             UNSAFE_style={{ fontFamily: fontFamily.token as any }}
@@ -140,7 +140,7 @@ export default () => {
       </Stack>
 
       <h1>Line height</h1>
-      <Stack space="100">
+      <Stack space="space.100">
         {lineHeights.map((lineHeight) => (
           <Text
             UNSAFE_style={{ lineHeight: lineHeight.token }}

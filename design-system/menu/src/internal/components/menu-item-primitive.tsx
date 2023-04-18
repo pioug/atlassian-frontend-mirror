@@ -139,8 +139,8 @@ const selectedStyles = css({
 });
 
 const gapMap: Record<SpacingMode, InlineProps['space']> = {
-  compact: '100',
-  cozy: '150',
+  compact: 'space.100',
+  cozy: 'space.150',
 };
 
 /**

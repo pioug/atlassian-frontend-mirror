@@ -7,12 +7,12 @@ import Skeleton from '../src';
 
 export default function All() {
   return (
-    <Stack space="300" testId="skeleton-group">
-      <Stack space="050">
+    <Stack space="space.300" testId="skeleton-group">
+      <Stack space="space.050">
         <Text>Default</Text>
         <Skeleton width="200px" height="16px" testId="skeleton" />
       </Stack>
-      <Stack space="050">
+      <Stack space="space.050">
         <Text>With animation</Text>
         <Skeleton
           width="200px"
@@ -21,7 +21,7 @@ export default function All() {
           testId="skeleton-shimmering"
         />
       </Stack>
-      <Stack space="050">
+      <Stack space="space.050">
         <Text>Custom borderRadius</Text>
         <Skeleton
           width="200px"
@@ -30,7 +30,7 @@ export default function All() {
           testId="skeleton-border"
         />
       </Stack>
-      <Stack space="050">
+      <Stack space="space.050">
         <Text>Custom dimensions</Text>
         <Skeleton
           width="20px"

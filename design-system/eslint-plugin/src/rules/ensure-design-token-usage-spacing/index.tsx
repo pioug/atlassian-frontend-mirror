@@ -68,8 +68,8 @@ const rule = createRule<
     fixable: 'code',
     docs: {
       description:
-        'Rule ensures all spacing CSS properties apply a matching spacing token',
-      recommended: 'error',
+        'Enforces usage of spacing design tokens rather than hard-coded values.',
+      recommended: false,
     },
     messages: {
       noRawSpacingValues:

@@ -892,36 +892,6 @@ describe('<LinkPicker />', () => {
       );
     });
 
-    it('should insert the right item after a few interaction with both mouse and keyboard', async () => {
-      const initialResultPromise = Promise.resolve({
-        value: { data: mockedPluginData.slice(0, 5) },
-        done: true,
-      });
-      const plugin = new MockLinkPickerGeneratorPlugin([initialResultPromise]);
-      const { testIds } = setupWithGenericPlugin({
-        url: '',
-        plugins: [plugin],
-      });
-
-      await asyncAct(() => initialResultPromise);
-
-      act(() => {
-        // Hover over the first item on the list
-        fireEvent.mouseOver(screen.getAllByTestId(testIds.searchResultItem)[0]);
-      });
-      act(() => {
-        // This should move to the second item in the list
-        fireEvent.keyDown(screen.getByTestId(testIds.urlInputField), {
-          keyCode: 40,
-        });
-      });
-
-      const secondItem = mockedPluginData[1];
-      expect(screen.getByTestId(testIds.urlInputField)).toHaveValue(
-        secondItem.url,
-      );
-    });
-
     it('should not submit when URL is invalid and there is no result', async () => {
       const resultPromise = Promise.resolve({
         value: { data: [] },
@@ -1170,6 +1140,76 @@ describe('<LinkPicker />', () => {
       expect(
         screen.queryByTestId(testIds.searchResultLoadingIndicator),
       ).toBeNull();
+    });
+
+    it('should select an item using the keyboard combination of arrow up/down in the search list and pressing enter', async () => {
+      const initialResultPromise = Promise.resolve({
+        value: { data: mockedPluginData.slice(0, 3) },
+        done: false,
+      });
+      const plugin = new MockLinkPickerGeneratorPlugin([initialResultPromise]);
+      const { testIds, onSubmitMock } = setupWithGenericPlugin({
+        url: '',
+        plugins: [plugin],
+      });
+
+      await asyncAct(() => initialResultPromise);
+
+      const items = screen.getAllByTestId(testIds.searchResultItem);
+      const list = screen.getByTestId(testIds.searchResultList);
+
+      // Press arrow down on first item
+      fireEvent.keyDown(items[0], {
+        keyCode: 40,
+      });
+
+      // First item should be selected
+      expect(list.children[0].getAttribute('aria-selected')).toBe('true');
+
+      // Press arrow down on first item
+      fireEvent.keyDown(items[0], {
+        keyCode: 40,
+      });
+
+      // Second item should now be selected
+      expect(list.children[1].getAttribute('aria-selected')).toBe('true');
+
+      // Press arrow up on second item
+      fireEvent.keyDown(items[1], {
+        keyCode: 36,
+      });
+
+      // First item should now be selected
+      expect(list.children[0].getAttribute('aria-selected')).toBe('true');
+
+      // Press end key
+      fireEvent.keyDown(items[0], {
+        keyCode: 35,
+      });
+
+      // Last item should now be selected
+      expect(
+        list.children[list.children.length - 1].getAttribute('aria-selected'),
+      ).toBe('true');
+
+      // Press enter key
+      fireEvent.keyDown(items[list.children.length - 1], {
+        keyCode: 13,
+      });
+
+      expect(onSubmitMock).toHaveBeenCalledTimes(1);
+      expect(onSubmitMock).toHaveBeenCalledWith(
+        {
+          displayText: null,
+          meta: {
+            inputMethod: 'typeAhead',
+          },
+          title:
+            'FAB-983 P2 Integration plugin: do not cache Cloud ID in Vertigo world',
+          url: 'https://product-fabric.atlassian.net/browse/FAB-983',
+        },
+        expect.any(UIAnalyticsEvent),
+      );
     });
 
     describe('Tab UI', () => {

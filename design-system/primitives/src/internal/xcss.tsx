@@ -58,11 +58,9 @@ const isSafeEnvToThrow = () =>
   typeof process.env === 'object' &&
   process.env.NODE_ENV !== 'production';
 
-/**
- * Only exposed for testing.
- * @internal
- */
-export const transformStyles = (
+const reNestedSelectors = /(\.|\s|&+|\*\>|#|\[.*\])/;
+const rePseudos = /^::?.*$/;
+const transformStyles = (
   styleObj?: CSSObject | CSSObject[],
 ): CSSObject | CSSObject[] | undefined => {
   if (!styleObj || typeof styleObj !== 'object') {
@@ -79,14 +77,14 @@ export const transformStyles = (
     ([key, value]: [string, CSSInterpolation]) => {
       if (isSafeEnvToThrow()) {
         // We don't support `.class`, `[data-testid]`, `> *`, `#some-id`
-        if (/(\.|\s|&+|\*\>|#|\[.*\])/.test(key)) {
+        if (reNestedSelectors.test(key)) {
           throw new Error(`Styles not supported for key '${key}'.`);
         }
       }
 
       // If key is a pseudo class or a pseudo element, then value should be an object.
       // So, call transformStyles on the value
-      if (/^::?.*$/.test(key)) {
+      if (rePseudos.test(key)) {
         styleObj[key] = transformStyles(value as CSSObject);
         return;
       }

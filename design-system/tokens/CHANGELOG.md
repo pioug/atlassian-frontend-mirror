@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 1.2.13
+
+### Patch Changes
+
+- [`a02eed2974e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a02eed2974e) - Move codegen into @atlassian scope to publish it to private registry
+
 ## 1.2.12
 
 ### Patch Changes
@@ -855,7 +861,7 @@
 
 ### Patch Changes
 
-- [`1dad88929cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1dad88929cd) - Adds the `@af/codegen` package that is designed to be used in concert with packages that utilise built assets in their source. Initial release adds an integrity header to assets from `@atlaskit/tokens`.
+- [`1dad88929cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1dad88929cd) - Adds the `@atlassian/codegen` package that is designed to be used in concert with packages that utilise built assets in their source. Initial release adds an integrity header to assets from `@atlaskit/tokens`.
 
 ## 0.9.3
 

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/tokens",
-  "version": "1.2.12",
+  "version": "1.2.13",
   "author": "Atlassian Pty Ltd",
   "description": "Design tokens are the single source of truth to name and store design decisions.",
   "license": "Apache-2.0",
@@ -47,7 +47,7 @@
     "./babel-plugin": "./src/entry-points/babel-plugin.tsx"
   },
   "scripts": {
-    "ak-postbuild": "(cd $(npx repo-root) && yarn build @af/codegen -d cjs,esm,es2019) && yarn workspace @atlaskit/tokens codegen-tokens && yarn workspace @atlaskit/tokens check-clean-git",
+    "ak-postbuild": "(cd $(npx repo-root) && yarn build @atlassian/codegen -d cjs,esm,es2019) && yarn workspace @atlaskit/tokens codegen-tokens && yarn workspace @atlaskit/tokens check-clean-git",
     "check-clean-git": "git diff --exit-code -- packages/design-system/tokens/ || (echo 'tokens are out of date, run yarn build tokens' && false)",
     "codegen-tokens": "ts-node --project $(npx repo-root)/tsconfig.node.json ./scripts/style-dictionary/build"
   },
@@ -64,7 +64,6 @@
   },
   "devDependencies": {
     "@af/accessibility-testing": "*",
-    "@af/codegen": "*",
     "@atlaskit/avatar": "^21.2.0",
     "@atlaskit/badge": "^15.0.11",
     "@atlaskit/button": "^16.6.0",
@@ -81,15 +80,16 @@
     "@atlaskit/icon": "^21.11.0",
     "@atlaskit/lozenge": "^11.3.0",
     "@atlaskit/modal-dialog": "^12.4.0",
-    "@atlaskit/primitives": "^0.7.0",
+    "@atlaskit/primitives": "^0.8.0",
     "@atlaskit/section-message": "^6.3.0",
     "@atlaskit/tabs": "^13.3.0",
     "@atlaskit/tag": "^11.4.0",
     "@atlaskit/textfield": "^5.3.0",
-    "@atlaskit/theme": "^12.3.0",
+    "@atlaskit/theme": "^12.4.0",
     "@atlaskit/toggle": "^12.5.0",
     "@atlaskit/tooltip": "^17.7.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
+    "@atlassian/codegen": "^0.0.1",
     "@babel/core": "^7.12.3",
     "@emotion/core": "^10.0.9",
     "@emotion/react": "^11.7.1",

@@ -31,7 +31,6 @@ import { ReactElement } from 'react';
 import { ReactNode } from 'react';
 import { RefAttributes } from 'react';
 import { SerializedStyles } from '@emotion/serialize';
-import { SerializedStyles as SerializedStyles_2 } from '@emotion/react';
 
 // @public (undocumented)
 type AlignBlock = 'baseline' | 'center' | 'end' | 'start';
@@ -316,6 +315,15 @@ type Display = 'block' | 'flex' | 'inline' | 'inline-block' | 'inline-flex';
 type Flex = keyof typeof flexMap;
 
 // @public (undocumented)
+type FlexDirection = keyof typeof flexDirectionMap;
+
+// @public (undocumented)
+const flexDirectionMap: {
+  readonly row: 'row';
+  readonly column: 'column';
+};
+
+// @public (undocumented)
 type FlexGrow = keyof typeof flexGrowMap;
 
 // @public (undocumented)
@@ -339,10 +347,7 @@ const flexShrinkMap: {
 };
 
 // @public (undocumented)
-type Gap = keyof typeof inlineSpaceMap.gap;
-
-// @public (undocumented)
-type Gap_2 = keyof typeof stackSpaceMap.gap;
+type Gap = keyof typeof spaceMap;
 
 // @public (undocumented)
 type Grow = 'fill' | 'hug';
@@ -389,26 +394,6 @@ export interface InlineProps<T extends ElementType = 'div'> {
   spread?: Spread;
   testId?: string;
 }
-
-// @public
-const inlineSpaceMap: {
-  [k: string]: {
-    readonly '0': SerializedStyles_2;
-    readonly '025': SerializedStyles_2;
-    readonly '050': SerializedStyles_2;
-    readonly '075': SerializedStyles_2;
-    readonly '100': SerializedStyles_2;
-    readonly '150': SerializedStyles_2;
-    readonly '200': SerializedStyles_2;
-    readonly '250': SerializedStyles_2;
-    readonly '300': SerializedStyles_2;
-    readonly '400': SerializedStyles_2;
-    readonly '500': SerializedStyles_2;
-    readonly '600': SerializedStyles_2;
-    readonly '800': SerializedStyles_2;
-    readonly '1000': SerializedStyles_2;
-  };
-};
 
 // @public (undocumented)
 type InlineStyles = SerializedStyles & {
@@ -529,7 +514,7 @@ type PublicBoxPropsBase = {
 };
 
 // @public (undocumented)
-type RowGap = keyof typeof inlineSpaceMap.rowGap;
+type RowGap = keyof typeof spaceMap;
 
 // @public (undocumented)
 type SafeCSSObject = CSSPseudos &
@@ -552,6 +537,24 @@ const shadowMap: {
   readonly 'overflow.spread': 'var(--ds-shadow-overflow-spread)';
   readonly overlay: 'var(--ds-shadow-overlay)';
   readonly raised: 'var(--ds-shadow-raised)';
+};
+
+// @public (undocumented)
+const spaceMap: {
+  readonly 'space.0': 'var(--ds-space-0)';
+  readonly 'space.025': 'var(--ds-space-025)';
+  readonly 'space.050': 'var(--ds-space-050)';
+  readonly 'space.075': 'var(--ds-space-075)';
+  readonly 'space.100': 'var(--ds-space-100)';
+  readonly 'space.150': 'var(--ds-space-150)';
+  readonly 'space.200': 'var(--ds-space-200)';
+  readonly 'space.250': 'var(--ds-space-250)';
+  readonly 'space.300': 'var(--ds-space-300)';
+  readonly 'space.400': 'var(--ds-space-400)';
+  readonly 'space.500': 'var(--ds-space-500)';
+  readonly 'space.600': 'var(--ds-space-600)';
+  readonly 'space.800': 'var(--ds-space-800)';
+  readonly 'space.1000': 'var(--ds-space-1000)';
 };
 
 // @public (undocumented)
@@ -586,30 +589,10 @@ export interface StackProps<T extends ElementType = 'div'> {
   children: ReactNode;
   grow?: Grow_2;
   ref?: ComponentPropsWithRef<T>['ref'];
-  space?: Gap_2;
+  space?: Gap;
   spread?: Spread_2;
   testId?: string;
 }
-
-// @public
-const stackSpaceMap: {
-  [k: string]: {
-    readonly '0': SerializedStyles_2;
-    readonly '025': SerializedStyles_2;
-    readonly '050': SerializedStyles_2;
-    readonly '075': SerializedStyles_2;
-    readonly '100': SerializedStyles_2;
-    readonly '150': SerializedStyles_2;
-    readonly '200': SerializedStyles_2;
-    readonly '250': SerializedStyles_2;
-    readonly '300': SerializedStyles_2;
-    readonly '400': SerializedStyles_2;
-    readonly '500': SerializedStyles_2;
-    readonly '600': SerializedStyles_2;
-    readonly '800': SerializedStyles_2;
-    readonly '1000': SerializedStyles_2;
-  };
-};
 
 // @public (undocumented)
 type TextColor = keyof typeof textColorMap;
@@ -659,6 +642,7 @@ type TokenisedProps = {
   borderWidth?: BorderWidth;
   display?: Display;
   flex?: Flex;
+  flexDirection?: FlexDirection;
   flexGrow?: FlexGrow;
   flexShrink?: FlexShrink;
   height?: Height;

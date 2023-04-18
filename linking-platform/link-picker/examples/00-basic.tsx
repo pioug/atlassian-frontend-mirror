@@ -10,10 +10,12 @@ import { mockEndpoints } from '@atlassian/recent-work-client/mocks';
 
 import { LinkPicker, LinkPickerProps } from '../src';
 import mockRecentData from '../example-helpers/mock-recents-data';
+import { mockPluginEndpoints } from '../example-helpers/mock-plugin-endpoints';
 import { PageWrapper } from '../example-helpers/common';
 
 type OnSubmitPayload = Parameters<LinkPickerProps['onSubmit']>[0];
 
+mockPluginEndpoints();
 mockEndpoints(undefined, undefined, mockRecentData);
 
 function Basic() {

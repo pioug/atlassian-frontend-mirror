@@ -11,7 +11,7 @@ import {
 
 import { css, jsx } from '@emotion/react';
 
-import { token } from '@atlaskit/tokens';
+import { type Gap, spaceStylesMap } from '../internal/style-maps.partial';
 
 export interface StackProps<T extends ElementType = 'div'> {
   /**
@@ -85,70 +85,6 @@ const flexGrowMap = {
   }),
 };
 
-/**
- * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::4eb2c996d6ce5791acad51e2b226635f>>
- * @codegenId spacing
- * @codegenCommand yarn codegen-styles
- * @codegenParams ["stackSpace"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-spacing.tsx <<SignedSource::167d3b69b159ae33e74d4ea5ab7eade6>>
- */
-const stackSpaceMap = Object.fromEntries(
-  ['gap'].map((property: string) => [
-    property,
-    {
-      '0': css({
-        [property]: token('space.0', '0px'),
-      }),
-      '025': css({
-        [property]: token('space.025', '2px'),
-      }),
-      '050': css({
-        [property]: token('space.050', '4px'),
-      }),
-      '075': css({
-        [property]: token('space.075', '6px'),
-      }),
-      '100': css({
-        [property]: token('space.100', '8px'),
-      }),
-      '150': css({
-        [property]: token('space.150', '12px'),
-      }),
-      '200': css({
-        [property]: token('space.200', '16px'),
-      }),
-      '250': css({
-        [property]: token('space.250', '20px'),
-      }),
-      '300': css({
-        [property]: token('space.300', '24px'),
-      }),
-      '400': css({
-        [property]: token('space.400', '32px'),
-      }),
-      '500': css({
-        [property]: token('space.500', '40px'),
-      }),
-      '600': css({
-        [property]: token('space.600', '48px'),
-      }),
-      '800': css({
-        [property]: token('space.800', '64px'),
-      }),
-      '1000': css({
-        [property]: token('space.1000', '80px'),
-      }),
-    } as const,
-  ]),
-);
-
-export type Gap = keyof typeof stackSpaceMap.gap;
-
-/**
- * @codegenEnd
- */
-
 const baseStyles = css({
   display: 'flex',
   boxSizing: 'border-box',
@@ -191,7 +127,7 @@ const Stack = memo(
         <Component
           css={[
             baseStyles,
-            space && stackSpaceMap.gap[space],
+            space && spaceStylesMap.gap[space],
             alignItems && alignItemsMap[alignItems],
             grow && flexGrowMap[grow],
             justifyContent && justifyContentMap[justifyContent],

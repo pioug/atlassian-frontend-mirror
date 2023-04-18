@@ -52,7 +52,7 @@ const Example = () => (
       developing section message. It is not a suggested implementation.
     </Text>
     <Box display="block" padding="space.100">
-      <Stack space="200">
+      <Stack space="space.200">
         <SomeParts body title actions />
         <SomeParts body title />
         <SomeParts body actions />

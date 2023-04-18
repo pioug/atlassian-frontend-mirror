@@ -1,5 +1,11 @@
 /** @jsx jsx */
-import { forwardRef, Fragment } from 'react';
+import {
+  forwardRef,
+  Fragment,
+  KeyboardEvent,
+  useCallback,
+  useRef,
+} from 'react';
 import { jsx } from '@emotion/react';
 import { defineMessages, FormattedMessage } from 'react-intl-next';
 
@@ -20,6 +26,7 @@ import LinkSearchNoResults, {
   testIds as noResultsTestIds,
 } from './link-search-no-results';
 import { useTrackResultsShown } from './use-track-results-shown';
+import { handleNavKeyDown } from '../utils';
 
 export const messages = defineMessages({
   titleRecentlyViewed: {
@@ -50,18 +57,19 @@ export const testIds = {
   searchResultLoadingIndicator: 'link-picker.results-loading-indicator',
 };
 
+type LinkSearchListElement = HTMLElement;
 export interface LinkSearchListProps
   extends Omit<
-    React.HTMLAttributes<HTMLDivElement>,
-    'onSelect' | 'onMouseEnter' | 'onMouseLeave'
+    React.HTMLAttributes<LinkSearchListElement>,
+    'onSelect' | 'onChange'
   > {
   items?: LinkSearchListItemData[] | null;
   isLoading: boolean;
   selectedIndex: number;
   activeIndex: number;
+  onChange: (objectId: string) => void;
   onSelect: (objectId: string) => void;
-  onMouseEnter: (objectId: string) => void;
-  onMouseLeave: (objectId: string) => void;
+  onKeyDown?: (e: KeyboardEvent<LinkSearchListElement>) => void;
   ariaControls?: string;
   ariaLabelledBy?: string;
   role?: string;
@@ -72,9 +80,9 @@ export interface LinkSearchListProps
 const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
   (
     {
+      onChange,
       onSelect,
-      onMouseEnter,
-      onMouseLeave,
+      onKeyDown,
       items,
       activeIndex,
       selectedIndex,
@@ -96,6 +104,65 @@ const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
       : messages.titleRecentlyViewed;
 
     useTrackResultsShown(isLoading, items, hasSearchTerm);
+
+    const itemRefs = useRef<Record<string, HTMLElement>>({});
+    const itemRefCallback = useCallback(
+      (el: HTMLElement | null, id: string) => {
+        if (el === null) {
+          delete itemRefs.current[id];
+        } else {
+          itemRefs.current[id] = el;
+        }
+      },
+      [],
+    );
+
+    const getTabIndex = useCallback(
+      (index: number) => {
+        if (selectedIndex > -1) {
+          return selectedIndex === index ? 0 : -1;
+        }
+        if (index === 0) {
+          return 0;
+        }
+        return -1;
+      },
+      [selectedIndex],
+    );
+
+    const handleOnFocus = () => {
+      if (items && items.length > 0 && selectedIndex === -1) {
+        const item = items[0];
+        onChange(item.objectId);
+      }
+    };
+
+    const handleKeyDown = useCallback(
+      (event: KeyboardEvent<HTMLElement>) => {
+        let updatedIndex = activeIndex;
+        if (onKeyDown) {
+          onKeyDown(event);
+        }
+
+        if (!items?.length) {
+          return;
+        }
+        updatedIndex = handleNavKeyDown(event, items.length, activeIndex);
+
+        const item = items?.[updatedIndex];
+
+        if (
+          ['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key) &&
+          item
+        ) {
+          onChange(item.objectId);
+          if (itemRefs.current) {
+            itemRefs.current[item.objectId]?.focus();
+          }
+        }
+      },
+      [activeIndex, items, onChange, onKeyDown],
+    );
 
     if (items?.length === 0) {
       return <LinkSearchNoResults />;
@@ -136,10 +203,12 @@ const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
                 item={item}
                 selected={selectedIndex === index}
                 active={activeIndex === index}
-                onMouseEnter={onMouseEnter}
-                onMouseLeave={onMouseLeave}
+                onFocus={handleOnFocus}
+                onKeyDown={handleKeyDown}
                 onSelect={onSelect}
                 key={item.objectId}
+                tabIndex={getTabIndex(index)}
+                ref={el => itemRefCallback(el, item.objectId)}
               />
             ))}
           </ul>

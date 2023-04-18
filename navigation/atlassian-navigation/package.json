@@ -30,7 +30,7 @@
     "@atlaskit/icon": "^21.11.0",
     "@atlaskit/logo": "*",
     "@atlaskit/popup": "^1.5.0",
-    "@atlaskit/theme": "^12.3.0",
+    "@atlaskit/theme": "^12.4.0",
     "@atlaskit/tokens": "^1.2.0",
     "@atlaskit/tooltip": "^17.7.0",
     "@atlaskit/width-detector": "^4.0.0",

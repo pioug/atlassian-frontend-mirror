@@ -17,7 +17,7 @@ export default () => {
   const [isModalOpen, setModalOpen] = useState(false);
 
   return (
-    <Stack space="250">
+    <Stack space="space.250">
       <Heading level="h700">
         Click dropdown button and try to open the modal using your keyboard.
       </Heading>

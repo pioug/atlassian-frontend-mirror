@@ -12,10 +12,10 @@ import { spacingScale } from '../src/internal/spacing-scale';
  */
 export default () => {
   return (
-    <Stack space="400" alignInline="start">
-      <Stack space="200" testId="box-with-background-and-paddingBlock">
+    <Stack space="space.400" alignInline="start">
+      <Stack space="space.200" testId="box-with-background-and-paddingBlock">
         <Heading level="h600">paddingBlock</Heading>
-        <Inline space="200" alignBlock="center">
+        <Inline space="space.200" alignBlock="center">
           {spacingScale.map((space) => (
             <Box
               key={space}
@@ -30,9 +30,9 @@ export default () => {
         </Inline>
       </Stack>
 
-      <Stack space="200" testId="box-with-background-and-paddingInline">
+      <Stack space="space.200" testId="box-with-background-and-paddingInline">
         <Heading level="h600">paddingInline</Heading>
-        <Stack space="200" alignInline="center">
+        <Stack space="space.200" alignInline="center">
           {spacingScale.map((space) => (
             <Box
               key={space}
@@ -47,9 +47,9 @@ export default () => {
         </Stack>
       </Stack>
 
-      <Stack space="200" testId="box-with-background-and-padding">
+      <Stack space="space.200" testId="box-with-background-and-padding">
         <Heading level="h600">padding</Heading>
-        <Inline space="200" alignBlock="center">
+        <Inline space="space.200" alignBlock="center">
           {spacingScale.map((space) => (
             <Box key={space} backgroundColor="discovery.bold" padding={space}>
               <Box backgroundColor="elevation.surface" justifyContent="center">
@@ -60,9 +60,9 @@ export default () => {
         </Inline>
       </Stack>
 
-      <Stack space="200" testId="box-with-backgroundColor">
+      <Stack space="space.200" testId="box-with-backgroundColor">
         <Heading level="h600">backgroundColor</Heading>
-        <Inline space="200" alignBlock="center">
+        <Inline space="space.200" alignBlock="center">
           {(
             [
               'discovery.bold',
@@ -82,9 +82,9 @@ export default () => {
         </Inline>
       </Stack>
 
-      <Stack space="200" testId="box-with-borderColor">
+      <Stack space="space.200" testId="box-with-borderColor">
         <Heading level="h600">borderColor</Heading>
-        <Inline space="200" alignBlock="center">
+        <Inline space="space.200" alignBlock="center">
           {(
             [
               'discovery',
@@ -111,9 +111,9 @@ export default () => {
         </Inline>
       </Stack>
 
-      <Stack space="200" testId="box-with-shadow">
+      <Stack space="space.200" testId="box-with-shadow">
         <Heading level="h600">shadow</Heading>
-        <Inline space="200" alignBlock="center">
+        <Inline space="space.200" alignBlock="center">
           {(['raised', 'overflow', 'overlay'] as const).map((shadow) => (
             <Box
               key={shadow}
@@ -129,7 +129,7 @@ export default () => {
         </Inline>
       </Stack>
 
-      <Stack space="200" testId="box-with-layer">
+      <Stack space="space.200" testId="box-with-layer">
         <Heading level="h600">layer</Heading>
         <Box alignItems="center" UNSAFE_style={{ width: 800, height: 650 }}>
           {(

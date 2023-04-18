@@ -500,7 +500,7 @@ export interface GlobalThemeTokens extends Theme {}
 // @public (undocumented)
 const green: ThemedValue<string>;
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 export const gridSize: () => number;
 
 // @public (undocumented)

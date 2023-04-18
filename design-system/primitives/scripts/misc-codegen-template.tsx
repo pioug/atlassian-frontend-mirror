@@ -10,6 +10,7 @@ export const createStylesFromFileTemplate = (
     | 'border-width'
     | 'dimensions'
     | 'display'
+    | 'flex-direction'
     | 'flex-grow'
     | 'flex-shrink'
     | 'flex'

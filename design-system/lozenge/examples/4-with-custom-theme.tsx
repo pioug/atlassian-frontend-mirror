@@ -73,7 +73,7 @@ export default function Example() {
 
   return (
     <AtlaskitThemeProvider mode={themeMode}>
-      <Stack space="100" testId="test-container">
+      <Stack space="space.100" testId="test-container">
         <Text>
           Default:
           <CustomLozenge testId="custom-lozenge-default">default</CustomLozenge>

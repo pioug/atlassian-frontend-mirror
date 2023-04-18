@@ -13,7 +13,7 @@ const containerStyles = xcss({
 
 export default () => (
   <Box testId="inline-example" padding="space.100">
-    <Inline space="200">
+    <Inline space="space.200">
       {alignBlockItems.map(alignBlock => (
         <Stack key={alignBlock} alignInline="center">
           {alignBlock}
@@ -25,7 +25,7 @@ export default () => (
               height: '200px',
             }}
           >
-            <Inline space="050" alignBlock={alignBlock}>
+            <Inline space="space.050" alignBlock={alignBlock}>
               <Box
                 xcss={blockStyles}
                 padding="space.300"

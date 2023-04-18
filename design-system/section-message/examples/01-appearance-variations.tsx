@@ -10,9 +10,9 @@ import SectionMessage, { SectionMessageAction } from '../src';
 
 const Example = () => (
   <Box testId="appearance-example" display="block" padding="space.100">
-    <Stack space="200">
+    <Stack space="space.200">
       <SectionMessage appearance="information" title="More">
-        <Stack space="100">
+        <Stack space="space.100">
           <Text as="p">
             I count the steps from one end of my island to the other
           </Text>
@@ -30,7 +30,7 @@ const Example = () => (
           </SectionMessageAction>
         }
       >
-        <Stack space="100">
+        <Stack space="space.100">
           <Text as="p">
             And when I say I{"'"}ve learned all there is to know
           </Text>
@@ -51,7 +51,7 @@ const Example = () => (
           <SectionMessageAction>Moana</SectionMessageAction>,
         ]}
       >
-        <Stack space="100">
+        <Stack space="space.100">
           <Text as="p">I know where I am from the scent of the breeze</Text>
           <Text as="p">The ascent of the climb</Text>
           <Text as="p">From the tangle of the trees</Text>
@@ -59,7 +59,7 @@ const Example = () => (
       </SectionMessage>
 
       <SectionMessage appearance="success">
-        <Stack space="100">
+        <Stack space="space.100">
           <Text as="p">From the angle of the mountain</Text>
           <Text as="p">To the sand on our island shore</Text>
           <Text as="p">I{"'"}ve been here before</Text>
@@ -67,7 +67,7 @@ const Example = () => (
       </SectionMessage>
 
       <SectionMessage appearance="discovery">
-        <Stack space="100">
+        <Stack space="space.100">
           <Text as="p">From the angle of the mountain</Text>
           <Text as="p">To the sand on our island shore</Text>
           <Text as="p">I{"'"}ve been here before</Text>

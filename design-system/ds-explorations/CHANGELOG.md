@@ -1,5 +1,11 @@
 # @atlaskit/ds-explorations
 
+## 2.0.11
+
+### Patch Changes
+
+- [`a02eed2974e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a02eed2974e) - Move codegen into @atlassian scope to publish it to private registry
+
 ## 2.0.10
 
 ### Patch Changes

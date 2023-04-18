@@ -35,7 +35,7 @@ const Expander: React.FC<ExpanderProps> = ({
           <FadeIn>
             {(props) => (
               <Box display="block" UNSAFE_style={{ width: '100%' }} {...props}>
-                <Stack space="100">{children}</Stack>
+                <Stack space="space.100">{children}</Stack>
               </Box>
             )}
           </FadeIn>

@@ -1,5 +1,11 @@
 # @atlaskit/link-provider
 
+## 1.5.2
+
+### Patch Changes
+
+- [`0ee9370595a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ee9370595a) - Update json-ld-types
+
 ## 1.5.1
 
 ### Patch Changes

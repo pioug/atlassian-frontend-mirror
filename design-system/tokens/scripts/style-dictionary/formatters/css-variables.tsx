@@ -1,6 +1,6 @@
 import type { DesignToken, Format } from 'style-dictionary';
 
-import { createSignedArtifact } from '@af/codegen';
+import { createSignedArtifact } from '@atlassian/codegen';
 
 import {
   COLOR_MODE_ATTRIBUTE,

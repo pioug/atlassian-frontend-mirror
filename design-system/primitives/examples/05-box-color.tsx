@@ -51,10 +51,10 @@ const foregroundColors = [
 
 export default () => {
   return (
-    <Stack space="400" alignInline="start">
-      <Stack space="200" testId="box-with-backgroundColor">
+    <Stack space="space.400" alignInline="start">
+      <Stack space="space.200" testId="box-with-backgroundColor">
         <Heading level="h600">backgroundColor</Heading>
-        <Inline space="200" alignBlock="center" shouldWrap={true}>
+        <Inline space="space.200" alignBlock="center" shouldWrap={true}>
           {backgroundColors.map(color => (
             <Box key={color} backgroundColor={color} padding="space.400">
               <Box>{color}</Box>
@@ -63,9 +63,9 @@ export default () => {
         </Inline>
       </Stack>
 
-      <Stack space="200" testId="box-with-color">
+      <Stack space="space.200" testId="box-with-color">
         <Heading level="h600">color</Heading>
-        <Inline space="200" alignBlock="center">
+        <Inline space="space.200" alignBlock="center">
           {foregroundColors.map(color => (
             <Box
               key={color}

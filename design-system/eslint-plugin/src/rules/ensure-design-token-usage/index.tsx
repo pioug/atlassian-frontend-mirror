@@ -74,7 +74,8 @@ const rule: Rule.RuleModule = {
     // We need to upgrade the version of ESLint.
     hasSuggestions: true,
     docs: {
-      recommended: true,
+      description: 'Enforces usage of design tokens.',
+      recommended: false,
     },
     fixable: 'code',
     type: 'problem',

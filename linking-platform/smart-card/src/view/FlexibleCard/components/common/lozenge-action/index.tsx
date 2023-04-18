@@ -15,6 +15,7 @@ import { InvokeActionError } from '../../../../../state/hooks/use-invoke/types';
 import extractLozengeActionItems from '../../../../../extractors/action/extract-lozenge-action-items';
 import type { LozengeActionProps, LozengeItem } from './types';
 import createStatusUpdateRequest from '../../../../../utils/actions/create-status-update-request';
+import useResolve from '../../../../../state/hooks/use-resolve';
 
 const validateItems = (
   items: LozengeItem[] = [],
@@ -36,6 +37,7 @@ const LozengeAction: FC<LozengeActionProps> = ({
   const [errorCode, setErrorCode] = useState<InvokeActionError>();
 
   const invoke = useInvoke();
+  const reload = useResolve();
 
   const handleOpenChange = useCallback(
     async (args) => {
@@ -86,14 +88,20 @@ const LozengeAction: FC<LozengeActionProps> = ({
   const handleItemClick = useCallback(
     async (id: string) => {
       try {
-        if (action?.update && id) {
+        const updateAction = action?.update;
+        if (updateAction && id) {
           setIsLoading(true);
 
-          const request = createStatusUpdateRequest(action.update, id);
+          const request = createStatusUpdateRequest(updateAction, id);
           await invoke(request);
 
           setIsLoading(false);
           setIsOpen(false);
+
+          const { url, id: linkId } = updateAction.details || {};
+          if (url) {
+            await reload(url, true, undefined, linkId);
+          }
         }
       } catch (err) {
         // TODO: EDM-6261: Error state
@@ -101,7 +109,7 @@ const LozengeAction: FC<LozengeActionProps> = ({
         setErrorCode(InvokeActionError.Unknown);
       }
     },
-    [action?.update, invoke],
+    [action?.update, invoke, reload],
   );
 
   const dropdownItemGroup = useMemo(() => {

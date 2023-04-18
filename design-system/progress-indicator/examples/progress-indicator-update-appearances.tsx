@@ -11,7 +11,7 @@ const SpreadInlineLayout: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   return (
-    <Inline space="100" spread="space-between" alignBlock="center">
+    <Inline space="space.100" spread="space-between" alignBlock="center">
       {children}
     </Inline>
   );

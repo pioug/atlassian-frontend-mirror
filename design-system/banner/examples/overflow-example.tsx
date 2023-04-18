@@ -15,7 +15,7 @@ const Padded = ({ children }: { children: React.ReactNode }) => (
 
 export default () => (
   <Box as="span" UNSAFE_style={{ width: 400 }}>
-    <Stack space="200">
+    <Stack space="space.200">
       <Banner icon={<WarningIcon label="" secondaryColor="inherit" />}>
         JIRA Service Desk pricing has been updated. Please migrate within 3
         months.

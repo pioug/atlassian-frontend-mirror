@@ -74,48 +74,9 @@ export interface LinkCreateProps {
   active?: boolean;
 }
 
-export type Validator<FieldName extends string> = {
-  /** The field of the form that should be validated (eg. referencing name of TextFieldProps) */
-  fieldName: FieldName;
-  /** Return true when the given input is invalid */
-  isInvalid: (val: string) => Promise<boolean>;
-  /** An error message is used to tell a user that the field input is invalid. For example, an error message could be 'Invalid username, needs to be more than 4 characters'. */
-  errorMessage: string;
-};
-
-export interface TextFieldProps {
-  /** Name passed to the <Field>.*/
-  name: string;
-  /** This should be properly internationalization-ed */
-  label: string;
-  /**
-   * Optional text below the textfield explaining any requirements for a valid value.
-   * eg. "Must be 4 or more letters"
-   */
-  validationHelpText?: string;
-}
 export interface Option {
   /** html `value` attribute to differentiate options */
   value: string;
   /** This should be properly internationalization-ed */
   label: string;
-}
-
-export interface SelectProps {
-  name: string;
-  /* Title of the select. Displayed in a label above it. */
-  title: string;
-  /** Placeholder to go in the select */
-  placeholder?: string;
-  /** Options available in the select */
-  options: Option[];
-  /** Default select option */
-  defaultOption?: Option;
-}
-export interface FormProps<Fields extends string> {
-  /**
-   * Each validator will run on form submit. If multiple validators for a given field, the
-   * last validator's error will be shown
-   */
-  validators: Validator<Fields>[];
 }

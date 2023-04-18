@@ -121,11 +121,11 @@ const Footer = ({
 }: NewFooterProps) => {
   return (
     <Box display="block" padding="space.100" testId={testId}>
-      <Stack space="100" alignInline="center">
+      <Stack space="space.100" alignInline="center">
         <Box display="inlineBlock" width="size.200" height="size.200">
           {iconBefore}
         </Box>
-        <Stack space="075">
+        <Stack space="space.075">
           <Text
             fontSize="size.075"
             textAlign="center"

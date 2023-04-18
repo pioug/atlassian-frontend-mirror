@@ -1,7 +1,5 @@
 import React, { FC } from 'react';
 
-import { v4 as uuid } from 'uuid';
-
 import DynamicTable from '../src';
 
 const caption = 'Example issue with DynamicTable';
@@ -27,7 +25,7 @@ const rows = [
   [3, 'a'],
   [4, 'b'],
 ].map(([number, letter]) => ({
-  key: uuid(),
+  key: number.toString(),
   cells: [
     {
       key: number,

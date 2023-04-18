@@ -9,7 +9,7 @@ describe('Stack', () => {
 
   it('should render stack', () => {
     const { getByText } = render(
-      <Stack space="050">
+      <Stack space="space.050">
         <Box>1</Box>
         <Box>2</Box>
       </Stack>,
@@ -20,7 +20,7 @@ describe('Stack', () => {
 
   it('should render with a given test id', () => {
     const { getByTestId } = render(
-      <Stack space="050" testId={testId}>
+      <Stack space="space.050" testId={testId}>
         <Box>1</Box>
         <Box>2</Box>
       </Stack>,

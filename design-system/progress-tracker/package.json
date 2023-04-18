@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@atlaskit/ds-explorations": "^2.0.0",
-    "@atlaskit/theme": "^12.3.0",
+    "@atlaskit/theme": "^12.4.0",
     "@atlaskit/tokens": "^1.2.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
@@ -38,7 +38,7 @@
     "@atlaskit/docs": "*",
     "@atlaskit/ds-lib": "^2.0.1",
     "@atlaskit/icon": "^21.11.0",
-    "@atlaskit/primitives": "^0.7.0",
+    "@atlaskit/primitives": "^0.8.0",
     "@atlaskit/section-message": "^6.3.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",

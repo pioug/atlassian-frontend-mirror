@@ -36,9 +36,9 @@ const fieldsetStyles = css({
 export default () => {
   return (
     <Box width="size.500" padding="space.100" testId="all">
-      <Stack space="200">
+      <Stack space="space.200">
         <Heading level="h400">Current ADS Buttons</Heading>
-        <Inline space="200">
+        <Inline space="space.200">
           <Button appearance="primary">brand.bold</Button>
           <Button appearance="default">neutral</Button>
           <Button appearance="warning">warning.bold</Button>
@@ -46,7 +46,7 @@ export default () => {
         <Heading level="h400">
           Buttons with <Code>InteractionSurface</Code>
         </Heading>
-        <Inline space="200" testId="buttons">
+        <Inline space="space.200" testId="buttons">
           {(['brand.bold', 'neutral', 'warning.bold'] as const).map((app) => (
             <FocusRing key={app}>
               <Box
@@ -74,7 +74,7 @@ export default () => {
         <Heading level="h400">
           Icon Buttons with <Code>InteractionSurface</Code>
         </Heading>
-        <Inline space="200" testId="icon-buttons">
+        <Inline space="space.200" testId="icon-buttons">
           <FocusRing>
             <Box
               as="button"
@@ -129,7 +129,7 @@ export default () => {
         <Heading level="h400">
           Progress Indicator with <Code>InteractionSurface</Code>
         </Heading>
-        <Inline space="200" testId="progress-indicators">
+        <Inline space="space.200" testId="progress-indicators">
           {(['brand.bold', 'neutral', 'warning.bold'] as const).map((app) => (
             <FocusRing>
               <Box
@@ -149,7 +149,7 @@ export default () => {
           ))}
         </Inline>
         <Heading level="h400">Textfield / input spikes</Heading>
-        <Inline space="200">
+        <Inline space="space.200">
           <Textfield />
           <Box
             as="fieldset"

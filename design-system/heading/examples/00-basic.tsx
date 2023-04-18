@@ -7,7 +7,7 @@ import Heading from '../src';
 
 export default () => {
   return (
-    <Stack testId="headings" space="0">
+    <Stack testId="headings" space="space.0">
       <Heading level="h100">h100</Heading>
       <Heading level="h200">h200</Heading>
       <Heading level="h300">h300</Heading>

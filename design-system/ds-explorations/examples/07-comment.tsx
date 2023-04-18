@@ -27,8 +27,8 @@ const CommentAction = ({ children }: any) => {
 export default () => {
   return (
     <Box>
-      <Stack space="050">
-        <Inline space="100" alignBlock="center">
+      <Stack space="space.050">
+        <Inline space="space.100" alignBlock="center">
           <Author>Jane Citizen</Author>
           <Lozenge>Author</Lozenge>
           <Date>Jun 15, 2022</Date>
@@ -41,7 +41,7 @@ export default () => {
           aliquip ex ea commodo consequat.
         </Text>
         <Box color="subtle">
-          <Inline space="100" separator="·">
+          <Inline space="space.100" separator="·">
             <CommentAction>Reply</CommentAction>
             <CommentAction>Edit</CommentAction>
             <CommentAction>Like</CommentAction>

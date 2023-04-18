@@ -47,7 +47,7 @@ const rule = createRule<
     type: 'suggestion',
 
     docs: {
-      description: 'disallow specified modules when loaded by `import`',
+      description: 'Disallow importing deprecated modules.',
       recommended: 'warn',
     },
 

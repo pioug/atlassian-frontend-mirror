@@ -1,8 +1,10 @@
 import React from 'react';
 import { act, fireEvent, render } from '@testing-library/react';
+import { flushPromises } from '@atlaskit/link-test-helpers';
 import LozengeAction from '../index';
 import { InvokeActionError } from '../../../../../../state/hooks/use-invoke/types';
 import * as useInvoke from '../../../../../../state/hooks/use-invoke';
+import * as useResolve from '../../../../../../state/hooks/use-resolve';
 import { SmartLinkActionType } from '@atlaskit/linking-types/smart-link-actions';
 import { LozengeActionProps } from '../types';
 import extractLozengeActionItems from '../../../../../../extractors/action/extract-lozenge-action-items';
@@ -12,6 +14,9 @@ describe('LozengeAction', () => {
   const triggerTestId = `${testId}--trigger`;
   const text = 'In Progress';
   const appearance = 'inprogress';
+  const url = 'https://jdog.jira-dev.com/browse/LP-2';
+  const id = 'link-id';
+
   const action = {
     read: {
       action: {
@@ -32,14 +37,20 @@ describe('LozengeAction', () => {
         },
       },
       providerKey: 'object-provider',
+      details: {
+        url: url,
+        id: id,
+      },
     },
   };
 
   const renderComponent = (
     props?: Partial<LozengeActionProps>,
     mockInvoke = jest.fn(),
+    mockResolve = jest.fn(),
   ) => {
     jest.spyOn(useInvoke, 'default').mockReturnValue(mockInvoke);
+    jest.spyOn(useResolve, 'default').mockReturnValue(mockResolve);
 
     return render(
       <LozengeAction
@@ -62,6 +73,22 @@ describe('LozengeAction', () => {
 
     expect(element).toBeTruthy();
     expect(element.textContent?.trim()).toBe(text);
+  });
+
+  it('does not call reload action on render', async () => {
+    const mockResolve = jest.fn();
+    const { findByTestId } = renderComponent(
+      { action },
+      jest.fn(),
+      mockResolve,
+    );
+
+    const element = await findByTestId(triggerTestId);
+
+    expect(element).toBeTruthy();
+
+    await flushPromises();
+    expect(mockResolve).toHaveBeenCalledTimes(0);
   });
 
   it('renders loading indicator on click', async () => {
@@ -260,6 +287,10 @@ describe('LozengeAction', () => {
         payload: expect.any(Object),
       }),
       providerKey: expect.any(String),
+      details: expect.objectContaining({
+        url: url,
+        id: id,
+      }),
     });
   });
 
@@ -305,6 +336,37 @@ describe('LozengeAction', () => {
     expect(item).not.toBeInTheDocument();
   });
 
+  it('reloads the url when update is successfully completed', async () => {
+    const mockInvoke = jest
+      .fn()
+      .mockResolvedValueOnce([{ id: '1', text: 'Done' }])
+      .mockResolvedValueOnce(undefined);
+
+    const mockResolve = jest.fn();
+
+    const { findByTestId } = renderComponent(
+      { action },
+      mockInvoke,
+      mockResolve,
+    );
+
+    const itemTestId = `${testId}-item-0`;
+    const element = await findByTestId(triggerTestId);
+    fireEvent.click(element);
+
+    const item = await findByTestId(itemTestId);
+    fireEvent.click(item);
+
+    // making sure the dropdown is not visible
+    expect(item).not.toBeInTheDocument();
+
+    await flushPromises();
+
+    // making sure the reload was called with correct parameters
+    expect(mockResolve).toHaveBeenCalledTimes(1);
+    expect(mockResolve).toHaveBeenCalledWith(url, true, undefined, id);
+  });
+
   it('renders error view when update fails', async () => {
     const mockInvoke = jest
       .fn()
@@ -327,6 +389,35 @@ describe('LozengeAction', () => {
     const error = await findByTestId(`${testId}-error`);
     expect(error).toBeTruthy();
     expect(error.textContent).toBe(InvokeActionError.Unknown);
+  });
+
+  it('does not reload the url when an update fails', async () => {
+    const mockInvoke = jest
+      .fn()
+      .mockResolvedValueOnce([{ id: '1', text: 'Done' }])
+      .mockImplementationOnce(() => {
+        throw new Error();
+      });
+
+    const mockResolve = jest.fn();
+
+    const { findByTestId } = renderComponent(
+      { action },
+      mockInvoke,
+      mockResolve,
+    );
+
+    const element = await findByTestId(triggerTestId);
+    fireEvent.click(element);
+
+    const item = await findByTestId(`${testId}-item-0`);
+    fireEvent.click(item);
+
+    const error = await findByTestId(`${testId}-error`);
+    expect(error).toBeTruthy();
+
+    await flushPromises();
+    expect(mockResolve).toHaveBeenCalledTimes(0);
   });
 
   it('render action items after update fails and use open dropdown again', async () => {

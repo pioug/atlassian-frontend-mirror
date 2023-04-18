@@ -1,0 +1,31 @@
+Use the recommended config to get reasonable defaults recommended by the Atlassian Design System:
+
+```diff
+module.exports = {
+  extends: [
++    'plugin:@atlaskit/design-system/recommended',
+  ],
+};
+```
+
+We don't recommended maintaining your own configuration.
+If you do not use our config you will need to specify individual rules and configuration.
+Add the plugin to your `.eslintrc.js` file.
+
+```diff
+module.exports = {
+  plugins: [
++    '@atlaskit/design-system',
+  ],
+};
+```
+
+Enable the rules that you would like to use.
+
+```diff
+module.exports = {
+  rules: [
++    '@atlaskit/design-system/no-deprecated-apis': 'error',
+  ],
+};
+```

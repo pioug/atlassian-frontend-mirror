@@ -436,9 +436,10 @@ export class ToolbarInsertBlock extends React.PureComponent<
   private insertHorizontalRule = (inputMethod: TOOLBAR_MENU_TYPE): boolean => {
     const {
       editorView: { state, dispatch },
+      featureFlags,
     } = this.props;
 
-    return insertHorizontalRule(inputMethod)(state, dispatch);
+    return insertHorizontalRule(inputMethod, featureFlags)(state, dispatch);
   };
 
   private insertExpand = (): boolean => {

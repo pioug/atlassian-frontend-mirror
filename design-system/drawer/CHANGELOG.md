@@ -1,5 +1,11 @@
 # @atlaskit/drawer
 
+## 7.4.13
+
+### Patch Changes
+
+- [`e0460d5d989`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e0460d5d989) - Usages of `process` are now guarded by a `typeof` check.
+
 ## 7.4.12
 
 ### Patch Changes

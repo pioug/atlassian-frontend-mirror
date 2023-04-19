@@ -56,7 +56,8 @@ import { catchup } from '../../document/catchup';
 import AnalyticsHelper from '../../analytics/analytics-helper';
 import { Channel } from '../../channel';
 import { StepJson } from '../../types';
-import { MAX_STEP_REJECTED_ERROR, throttledCommitStep } from '../';
+import { MAX_STEP_REJECTED_ERROR } from '../';
+import { throttledCommitStep } from '../commit-step';
 import { ACK_MAX_TRY } from '../../helpers/const';
 import { Node } from 'prosemirror-model';
 import type { Provider } from '../';
@@ -204,6 +205,31 @@ describe('Provider', () => {
         });
       });
     });
+
+    it("'init' with the initial draft data from the provider config", async (done) => {
+      const testProviderConfigWithDraft = {
+        initialDraft: {
+          document: 'test-document' as any,
+          version: 1,
+          metadata: { title: 'random-title' },
+        },
+        ...testProviderConfig,
+      };
+      const sid = 'expected-sid-123';
+      const provider = createSocketIOCollabProvider(
+        testProviderConfigWithDraft,
+      );
+      provider.on('init', (data) => {
+        expect(data).toEqual({
+          doc: 'test-document',
+          version: 1,
+          metadata: { title: 'random-title' },
+        });
+        done();
+      });
+      provider.initialize(() => editorState);
+      channel.emit('connected', { sid, initialized: true });
+    });
   });
 
   describe('document restore', () => {
@@ -278,7 +304,7 @@ describe('Provider', () => {
         .mockImplementationOnce(() => mockedSteps);
       jest
         // @ts-ignore
-        .spyOn(provider.documentService as any, 'updateDocumentWithMetadata')
+        .spyOn(provider.documentService as any, 'updateDocument')
         .mockImplementationOnce(() => {
           throw restoreError;
         });
@@ -708,6 +734,52 @@ describe('Provider', () => {
       expect(throttledCatchupSpy).toHaveBeenCalledWith();
     });
 
+    it('should be triggered when initial draft is present and is reconnecting after being disconnected for more than 3s', async () => {
+      // ensure that if initial draft exists, any reconnections do not attempt to re-update document/metadata with initial draft
+      const testProviderConfigWithDraft = {
+        initialDraft: {
+          document: 'test-document' as any,
+          version: 1,
+          metadata: { title: 'random-title' },
+        },
+        ...testProviderConfig,
+      };
+      const provider = createSocketIOCollabProvider(
+        testProviderConfigWithDraft,
+      );
+      const throttledCatchupSpy = jest.spyOn(
+        // @ts-ignore
+        provider.documentService as any,
+        'throttledCatchup',
+      );
+      const updateDocumentSpy = jest.spyOn(
+        //@ts-ignore
+        provider.documentService as any,
+        'updateDocument',
+      );
+      provider.initialize(() => editorState);
+
+      jest.spyOn(Date, 'now').mockReturnValueOnce(Date.now() - 3 * 1000); // Time travel 3s to the past
+      channel.emit('disconnect', {
+        reason:
+          'Testing - Faking that we got disconnected 3s ago, HAHAHA, take that code',
+      });
+
+      channel.emit('connected', {
+        sid: 'pweq3Q7NOPY4y88QAGyr',
+        initialized: true,
+      });
+
+      expect(updateDocumentSpy).toHaveBeenCalledTimes(1);
+      expect(updateDocumentSpy).toHaveBeenCalledWith({
+        doc: 'test-document',
+        metadata: { title: 'random-title' },
+        version: 1,
+      });
+      expect(throttledCatchupSpy).toHaveBeenCalledTimes(1);
+      expect(throttledCatchupSpy).toHaveBeenCalledWith();
+    });
+
     it('should be triggered when confirmed steps from other participants were received from NCS that are further in the future than the local steps (aka some changes got lost before reaching us)', async () => {
       const provider = createSocketIOCollabProvider(testProviderConfig);
       const throttledCatchupSpy = jest.spyOn(
@@ -757,7 +829,8 @@ describe('Provider', () => {
         filterQueue: expect.any(Function),
         getCurrentPmVersion: expect.any(Function),
         getUnconfirmedSteps: expect.any(Function),
-        updateDocumentWithMetadata: expect.any(Function),
+        updateDocument: expect.any(Function),
+        updateMetadata: expect.any(Function),
       });
 
       await new Promise(process.nextTick);
@@ -774,7 +847,8 @@ describe('Provider', () => {
         filterQueue: expect.any(Function),
         getCurrentPmVersion: expect.any(Function),
         getUnconfirmedSteps: expect.any(Function),
-        updateDocumentWithMetadata: expect.any(Function),
+        updateDocument: expect.any(Function),
+        updateMetadata: expect.any(Function),
       });
     });
 
@@ -1161,7 +1235,6 @@ describe('Provider', () => {
         });
 
         const currentState = await provider.getCurrentState();
-
         expect(currentState.title).toEqual("What's in a better title?");
         expect(sendActionEventSpy).toHaveBeenCalledTimes(1);
         expect(sendActionEventSpy).toHaveBeenCalledWith(
@@ -1445,6 +1518,18 @@ describe('Provider', () => {
             });
           });
         });
+      });
+    });
+
+    describe('Get the unconfirmed steps', () => {
+      it('returns current unconfirmed steps', () => {
+        provider.initialize(() => editorState);
+        let documentServiceGetUnconfirmedStepsSpy = jest.spyOn(
+          (provider as any).documentService,
+          'getUnconfirmedSteps',
+        );
+        expect(provider.getUnconfirmedSteps()).toEqual([]);
+        expect(documentServiceGetUnconfirmedStepsSpy).toBeCalledTimes(1);
       });
     });
   });

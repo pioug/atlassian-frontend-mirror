@@ -1,5 +1,18 @@
 # @atlaskit/tokens
 
+## 1.2.15
+
+### Patch Changes
+
+- [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
+
+## 1.2.14
+
+### Patch Changes
+
+- [`e0460d5d989`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e0460d5d989) - Usages of `process` are now guarded by a `typeof` check.
+- [`2efaed356e0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2efaed356e0) - Modified `color.text.accent.gray.bolder` token value for the dark theme.
+
 ## 1.2.13
 
 ### Patch Changes

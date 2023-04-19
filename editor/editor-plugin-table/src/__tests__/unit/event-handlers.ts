@@ -35,6 +35,7 @@ import { pluginKey } from '../../plugins/table/pm-plugins/plugin-key';
 import { TableCssClassName as ClassName } from '../../plugins/table/types';
 import tablePlugin from '../../plugins/table-plugin';
 import mediaPlugin from '@atlaskit/editor-core/src/plugins/media';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 describe('table plugin: decorations', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -153,13 +154,16 @@ describe('table event handlers', () => {
     createEditor({
       doc,
       attachTo: document.body,
-      preset: new Preset<LightEditorPlugin>().add(tablePlugin).add([
-        mediaPlugin,
-        {
-          allowMediaSingle: true,
-          allowMediaGroup: true,
-        },
-      ]),
+      preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
+        .add(tablePlugin)
+        .add([
+          mediaPlugin,
+          {
+            allowMediaSingle: true,
+            allowMediaGroup: true,
+          },
+        ]),
       pluginKey,
     });
 

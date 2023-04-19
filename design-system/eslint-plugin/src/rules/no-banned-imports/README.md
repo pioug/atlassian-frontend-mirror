@@ -1,17 +1,15 @@
-# @atlaskit/eslint-plugin-design-system/no-banned-imports
-
-Prevents usage of private or experimental Atlassian Design System packages.
+Using private or experimental packages is dangerous as they are not supported across major versions meaning you will not be able to migrate easily causing friction for yourself and the Atlassian Design System team.
 
 ## Examples
 
-👎 Example of **incorrect** code for this rule:
+Anything that is considered private or experimental will be marked as violations.
+
+### Incorrect
 
 ```ts
 import noop from '@atlaskit/ds-lib/noop';
                   ^^^^^^^^^^^^^^^^^^^^^
-```
 
-```ts
 import { Text } from '@atlaskit/ds-explorations';
-                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
 ```

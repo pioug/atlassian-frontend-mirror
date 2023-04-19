@@ -17,10 +17,10 @@ import {
   EVENT_TYPE,
   INPUT_METHOD,
 } from '../../analytics';
-import { getFeatureFlags } from '../../feature-flags-context';
 
 export const createHorizontalRule = (
   state: EditorState,
+  featureFlags: FeatureFlags,
   start: number,
   end: number,
   inputMethod:
@@ -36,7 +36,7 @@ export const createHorizontalRule = (
 
   let tr: Transaction<any> | null = null;
   const { rule } = state.schema.nodes;
-  const { newInsertionBehaviour } = getFeatureFlags(state);
+  const { newInsertionBehaviour } = featureFlags;
   if (newInsertionBehaviour) {
     /**
      * This is a workaround to get rid of the typeahead text when using quick insert
@@ -67,6 +67,7 @@ export const createHorizontalRule = (
 
 const createHorizontalRuleAutoformat = (
   state: EditorState,
+  featureFlags: FeatureFlags,
   start: number,
   end: number,
 ) => {
@@ -76,7 +77,13 @@ const createHorizontalRuleAutoformat = (
     return null;
   }
 
-  return createHorizontalRule(state, start, end, INPUT_METHOD.FORMATTING);
+  return createHorizontalRule(
+    state,
+    featureFlags,
+    start,
+    end,
+    INPUT_METHOD.FORMATTING,
+  );
 };
 
 export function inputRulePlugin(
@@ -89,7 +96,7 @@ export function inputRulePlugin(
     // '---' and '***' for hr
     rules.push(
       createRule(/^(\-\-\-|\*\*\*)$/, (state, _match, start, end) =>
-        createHorizontalRuleAutoformat(state, start, end),
+        createHorizontalRuleAutoformat(state, featureFlags, start, end),
       ),
     );
 
@@ -102,7 +109,12 @@ export function inputRulePlugin(
           if (state.doc.resolve(start).nodeAfter!.type !== hardBreak) {
             return null;
           }
-          return createHorizontalRuleAutoformat(state, start, end);
+          return createHorizontalRuleAutoformat(
+            state,
+            featureFlags,
+            start,
+            end,
+          );
         },
       ),
     );

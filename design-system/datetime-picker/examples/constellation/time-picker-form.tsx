@@ -14,7 +14,10 @@ const TimePickerFormExample = () => (
         <Field name="time-picker" label="Scheduled run time" isRequired={false}>
           {({ fieldProps }) => (
             <>
-              <TimePicker {...fieldProps} />
+              <TimePicker
+                {...fieldProps}
+                selectProps={{ inputId: fieldProps.id }}
+              />
               <HelperMessage>Help or instruction text goes here</HelperMessage>
             </>
           )}

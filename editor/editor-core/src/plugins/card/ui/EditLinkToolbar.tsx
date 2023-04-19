@@ -4,6 +4,9 @@ import { EditorView } from 'prosemirror-view';
 import { Node } from 'prosemirror-model';
 
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { withOuterListeners } from '@atlaskit/editor-common/ui';
+import { commandWithMetadata } from '@atlaskit/editor-common/card';
+import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 import { LinkPickerOptions } from '../../hyperlink/types';
 import HyperlinkToolbar from '../../hyperlink/ui/HyperlinkAddToolbar';
@@ -14,7 +17,12 @@ import {
   FloatingToolbarItem,
   FloatingToolbarConfig,
 } from '../../floating-toolbar/types';
-import { addAnalytics, ACTION_SUBJECT_ID, INPUT_METHOD } from '../../analytics';
+import {
+  addAnalytics,
+  ACTION_SUBJECT_ID,
+  INPUT_METHOD,
+  ACTION,
+} from '../../analytics';
 
 import {
   LINKPICKER_HEIGHT_IN_PX,
@@ -27,7 +35,6 @@ import { findCardInfo, displayInfoForCard } from '../utils';
 import { NodeSelection } from 'prosemirror-state';
 import { buildEditLinkPayload } from '../../../utils/linking-utils';
 import { forceFocusSelector } from '../../floating-toolbar/pm-plugins/force-focus';
-import { withOuterListeners } from '@atlaskit/editor-common/ui';
 import { linkToolbarMessages } from '../../../messages';
 import { FeatureFlags } from '@atlaskit/editor-common/types';
 
@@ -37,7 +44,11 @@ export type EditLinkToolbarProps = {
   url: string | undefined;
   text: string;
   node: Node;
-  onSubmit?: (href: string, text?: string) => void;
+  onSubmit?: (
+    href: string,
+    text?: string,
+    analytic?: UIAnalyticsEvent | null | undefined,
+  ) => void;
   linkPickerOptions?: LinkPickerOptions;
   featureFlags: FeatureFlags;
 };
@@ -91,10 +102,10 @@ export class EditLinkToolbar extends React.Component<EditLinkToolbarProps> {
         // via the floating toolbar
         invokeMethod={INPUT_METHOD.FLOATING_TB}
         featureFlags={featureFlags}
-        onSubmit={(href, title, displayText) => {
+        onSubmit={(href, title, displayText, _, analytic) => {
           this.hideLinkToolbar();
           if (onSubmit) {
-            onSubmit(href, displayText || title);
+            onSubmit(href, displayText || title, analytic);
           }
         }}
       />
@@ -158,22 +169,26 @@ export const buildEditLinkToolbar = ({
           text={displayInfo.title || ''}
           node={node}
           featureFlags={featureFlags}
-          onSubmit={(newHref: string, newText?: string) => {
+          onSubmit={(newHref, newText, analytic) => {
             const urlChanged = newHref !== displayInfo.url;
             const titleChanged = newText !== displayInfo.title;
 
             // If the title is changed in a smartlink, convert to standard blue hyperlink
             // (even if the url was also changed) - we don't want to lose the custom title.
             if (titleChanged) {
-              return changeSelectedCardToLink(newText, newHref)(
-                view.state,
-                view.dispatch,
-              );
-            } else if (urlChanged) {
-              // If *only* the url is changed in a smart link, reresolve
-              return updateCard(newHref)(view.state, view.dispatch);
+              return commandWithMetadata(
+                changeSelectedCardToLink(newText, newHref),
+                {
+                  action: ACTION.UPDATED,
+                  sourceEvent: analytic,
+                },
+              )(view.state, view.dispatch);
             }
-            return;
+
+            if (urlChanged) {
+              // If *only* the url is changed in a smart link, reresolve
+              return updateCard(newHref, analytic)(view.state, view.dispatch);
+            }
           }}
         />
       );

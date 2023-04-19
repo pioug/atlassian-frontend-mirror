@@ -33,6 +33,7 @@ import {
 import { __serializeForClipboard } from 'prosemirror-view';
 import { selectRow } from '@atlaskit/editor-tables/src/utils';
 import { TableAttributes } from '@atlaskit/adf-schema';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 
@@ -40,6 +41,7 @@ describe('clipboard plugin', () => {
   const createEditor = createProsemirrorEditorFactory();
   const preset = new Preset<LightEditorPlugin>()
     .add(clipboardPlugin)
+    .add([featureFlagsPlugin, {}])
     .add(rulePlugin)
     .add(layoutPlugin)
     .add([

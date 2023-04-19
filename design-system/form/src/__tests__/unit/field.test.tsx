@@ -884,6 +884,52 @@ test('should correctly update form state with array of usernames', () => {
   );
 });
 
+describe('isRequired', () => {
+  const labelText = 'Password';
+  const jsx = (addedProps?: { [key: string]: string }) => (
+    <Form onSubmit={__noop}>
+      {({ formProps }) => (
+        <form {...formProps}>
+          <Field name="password" label={labelText} isRequired {...addedProps}>
+            {({ fieldProps, error, valid, meta }) => (
+              <TextField type="password" {...fieldProps} />
+            )}
+          </Field>
+        </form>
+      )}
+    </Form>
+  );
+
+  it('should hide required asterisk from assistive technologies', async () => {
+    const { getByText } = render(jsx());
+
+    const asterisk = getByText('*');
+
+    expect(asterisk).toHaveAttribute('aria-hidden', 'true');
+  });
+
+  it('should have title for required asterisk', async () => {
+    const { getByText } = render(jsx());
+
+    const asterisk = getByText('*');
+
+    expect(asterisk).toHaveAttribute('title', 'required');
+  });
+
+  it('should set elementAfterLabel with field when field is required', () => {
+    const afterLabelText = 'After label';
+    const { getByLabelText } = render(
+      jsx({
+        elementAfterLabel: afterLabelText,
+      }),
+    );
+
+    const label = getByLabelText(`${labelText}*${afterLabelText}`);
+
+    expect(label).toBeInTheDocument();
+  });
+});
+
 test('should indicate validating status for async validation', async () => {
   const onSubmitMock = __noop;
 
@@ -1075,27 +1121,6 @@ test('should always show most recent validation result', (done) => {
     expect(queryByText('Too short')).toBeTruthy();
     done();
   });
-});
-
-test('should set elementAfterLabel with field when field is required', () => {
-  const wrapper = mount<typeof Form>(
-    <Form onSubmit={jest.fn()}>
-      {() => (
-        <Field
-          name="username"
-          id="username"
-          label="User name"
-          isRequired
-          elementAfterLabel="After label"
-          defaultValue=""
-        >
-          {({ fieldProps }) => <TextField {...fieldProps} />}
-        </Field>
-      )}
-    </Form>,
-  );
-
-  expect(wrapper.find(Field).text()).toEqual('User name*After label');
 });
 
 test('changed key should re-validate the form', () => {

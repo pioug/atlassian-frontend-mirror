@@ -41,29 +41,7 @@ export type MediaFile = {
   readonly metadataTraceContext?: MediaTraceContext;
 };
 
-export type MediaCollection = {
-  readonly name: string;
-  readonly createdAt: number;
-};
-
-export type MediaCollectionItems = {
-  readonly contents: MediaCollectionItem[];
-  readonly nextInclusiveStartKey?: string;
-};
-
-export type MediaCollectionItem = {
-  readonly id: string;
-  readonly insertedAt: number;
-  readonly occurrenceKey: string;
-  readonly details: MediaCollectionItemDetails;
-};
-
-export type MediaCollectionItemMinimalDetails = {
-  readonly name: string;
-  readonly size: number;
-};
-
-export type MediaCollectionItemFullDetails = {
+export type MediaItemDetails = {
   readonly mediaType: MediaType;
   readonly mimeType: string;
   readonly name: string;
@@ -78,17 +56,6 @@ export type MediaCollectionItemFullDetails = {
 export type MediaRepresentations = {
   image?: Object;
 };
-
-export type MediaCollectionItemDetails =
-  | MediaCollectionItemMinimalDetails
-  | MediaCollectionItemFullDetails;
-
-export const isMediaCollectionItemFullDetails = (
-  mediaCollectionItem: MediaCollectionItemDetails,
-): mediaCollectionItem is MediaCollectionItemFullDetails =>
-  !!(mediaCollectionItem as any)['mediaType'] &&
-  !!(mediaCollectionItem as any)['mimeType'] &&
-  !!(mediaCollectionItem as any)['processingStatus'];
 
 export type MediaUpload = {
   readonly id: string;

@@ -20,6 +20,7 @@ export { textColorPalette } from './ColorPalette/Palettes/textColorPalette';
 export {
   backgroundPaletteTooltipMessages,
   borderPaletteTooltipMessages,
+  chartsColorPaletteTooltipMessages,
   textPaletteTooltipMessages,
 } from './ColorPalette/Palettes';
 export { DEFAULT_BORDER_COLOR } from './ColorPalette/Palettes/common';

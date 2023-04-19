@@ -1,7 +1,15 @@
 import { MessageDescriptor } from 'react-intl-next';
-import { CardState } from '@atlaskit/linking-common';
+import type { JsonLd } from 'json-ld-types';
+import {
+  CardState,
+  LinkingPlatformFeatureFlags,
+} from '@atlaskit/linking-common';
 import { CardProviderRenderers } from '@atlaskit/link-provider';
-import { SmartLinkSize, SmartLinkTheme } from '../../constants';
+import {
+  SmartLinkSize,
+  SmartLinkStatus,
+  SmartLinkTheme,
+} from '../../constants';
 import { CardAppearance } from '../../view/Card';
 import { OnResolveCallback } from '../Card/types';
 import { OnErrorCallback } from '../types';
@@ -65,6 +73,11 @@ export type FlexibleCardProps = {
    * to render Emoji.
    */
   renderers?: CardProviderRenderers;
+
+  /**
+   * Determines whether to show available server actions.
+   */
+  showServerActions?: boolean;
 
   /**
    * A `testId` prop is provided for specified elements, which is a unique
@@ -149,4 +162,13 @@ export type RetryOptions = {
    * A list of optional value pairs for string interpolation in the message.
    */
   values?: Record<string, string>;
+};
+
+export type ExtractFlexibleUiDataContextParams = Pick<
+  FlexibleCardProps,
+  'id' | 'showServerActions' | 'renderers' | 'url'
+> & {
+  status?: SmartLinkStatus;
+  response?: JsonLd.Response;
+  featureFlags?: Partial<LinkingPlatformFeatureFlags>;
 };

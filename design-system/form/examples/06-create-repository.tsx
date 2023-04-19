@@ -8,7 +8,13 @@ import { RadioGroup } from '@atlaskit/radio';
 import Select, { OptionType, ValueType } from '@atlaskit/select';
 import Textfield from '@atlaskit/textfield';
 
-import Form, { Field, FormFooter, FormHeader, FormSection } from '../src';
+import Form, {
+  Field,
+  FormFooter,
+  FormHeader,
+  FormSection,
+  RequiredAsterisk,
+} from '../src';
 
 interface State {
   eventResult: string;
@@ -72,7 +78,12 @@ export default class LayoutExample extends PureComponent<void, State> {
               target="submitFrame"
               name="create-repo"
             >
-              <FormHeader title="Create a new repository" />
+              <FormHeader title="Create a new repository">
+                <p aria-hidden="true">
+                  Required fields are marked with an asterisk{' '}
+                  <RequiredAsterisk />
+                </p>
+              </FormHeader>
 
               <FormSection>
                 <Field<ValueType<OptionType>>

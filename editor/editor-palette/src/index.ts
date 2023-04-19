@@ -4,4 +4,7 @@ export {
 } from './background';
 export { hexToEditorBorderPaletteColor } from './border';
 export { hexToEditorTextPaletteColor } from './text';
-export { hexToEditorTableChartsPaletteColor } from './table-charts';
+export {
+  hexToEditorTableChartsPaletteColor,
+  hexToEditorTableChartsPaletteColorTokenName,
+} from './table-charts';

@@ -1,5 +1,24 @@
 # @atlaskit/collab-provider
 
+## 8.6.0
+
+### Minor Changes
+
+- [`1547aa8e377`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1547aa8e377) - skipping document update with initial draft on reconnection
+- [`76eded42866`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76eded42866) - [ESS-3441] Added Confluence integration tests for collab provider, don't emit empty participants left events
+- [`33cab158f01`](https://bitbucket.org/atlassian/atlassian-frontend/commits/33cab158f01) - ESS-3478 Fix public interface `getUnconfirmedSteps` from being removed
+- [`02520373358`](https://bitbucket.org/atlassian/atlassian-frontend/commits/02520373358) - passing initial draft to NCS collab provider and adding flag to bypass BE draft fetch.
+- [`56779259eab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56779259eab) - ESS-2900: add confluence integration tests + add error handling to provider init
+- [`f9257ff1a63`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f9257ff1a63) - NO-ISSUE Changed the type export to a normal export for PROVIDER_ERROR_CODE
+
+### Patch Changes
+
+- [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
+- [`945162380e3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/945162380e3) - Functional changes to document service.
+- [`937ff19a47d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/937ff19a47d) - ESS-3240: moved throttledCommitStep function from index to commit-step file in collab-provider & add unit tests for commitStep
+- [`0693d8fcab1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0693d8fcab1) - ESS-3446: clear all continuous timers when the provider disconnects or is destroyed
+- Updated dependencies
+
 ## 8.5.0
 
 ### Minor Changes

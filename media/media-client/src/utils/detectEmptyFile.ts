@@ -1,4 +1,4 @@
-import { MediaCollectionItemFullDetails } from '../models/media';
+import { MediaItemDetails } from '../models/media';
 
 /**
  * EMPTY_FILE_HOURS_ELAPSED_TOLERANCE - how many hours since this file was
@@ -17,7 +17,7 @@ export const EMPTY_FILE_HOURS_ELAPSED_TOLERANCE_MS =
   12 * 1000 * 60 * 60; /* 12 hours */
 
 export function isEmptyFile(
-  fileDetails: MediaCollectionItemFullDetails,
+  fileDetails: MediaItemDetails,
   now: number = Date.now(),
 ): Boolean {
   const {

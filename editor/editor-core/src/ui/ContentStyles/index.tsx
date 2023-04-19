@@ -46,7 +46,6 @@ import { smartCardStyles } from '../../plugins/card/styles';
 import { dateStyles } from '../../plugins/date/styles';
 import { embedCardStyles } from '../../plugins/card/ui/styled';
 import type { FeatureFlags } from '../../types/feature-flags';
-import { useFeatureFlags } from '../../plugins/feature-flags-context';
 import { InlineNodeViewSharedStyles } from '../../nodeviews/getInlineNodeViewProducer.styles';
 
 type ContentStylesProps = {
@@ -185,7 +184,6 @@ type Props = Omit<
 
 export const createEditorContentStyle = (styles?: SerializedStyles) => {
   return React.forwardRef<HTMLDivElement, Props>((props, ref) => {
-    const featureFlags = useFeatureFlags();
     const { className, children } = props;
     const theme = useTheme();
 
@@ -193,9 +191,8 @@ export const createEditorContentStyle = (styles?: SerializedStyles) => {
       () =>
         contentStyles({
           theme,
-          featureFlags,
         }),
-      [theme, featureFlags],
+      [theme],
     );
 
     return (

@@ -22,7 +22,8 @@ describe('Catchup ', () => {
         version: 2,
       }),
       filterQueue: jest.fn(),
-      updateDocumentWithMetadata: jest.fn(),
+      updateDocument: jest.fn(),
+      updateMetadata: jest.fn(),
       applyLocalSteps: jest.fn(),
     };
     await catchup(options);
@@ -45,14 +46,16 @@ describe('Catchup ', () => {
         version: 2,
       }),
       filterQueue: jest.fn(),
-      updateDocumentWithMetadata: jest.fn(),
       applyLocalSteps: jest.fn(),
+      updateDocument: jest.fn(),
+      updateMetadata: jest.fn(),
     };
 
     await catchup(options);
     expect(options.filterQueue).toHaveBeenCalledTimes(1);
     expect(options.filterQueue).toHaveBeenCalledWith(expect.any(Function));
-    expect(options.updateDocumentWithMetadata).toBeCalledWith({
+    expect(options.updateDocument).toHaveBeenCalledTimes(1);
+    expect(options.updateDocument).toBeCalledWith({
       doc: JSON.parse(exampleDoc),
       version: 2,
       metadata: undefined,
@@ -76,12 +79,14 @@ describe('Catchup ', () => {
         version: 2,
       }),
       filterQueue: jest.fn(),
-      updateDocumentWithMetadata: jest.fn(),
+      updateDocument: jest.fn(),
+      updateMetadata: jest.fn(),
       applyLocalSteps: jest.fn(),
     };
 
     await catchup(options);
-    expect(options.updateDocumentWithMetadata).toBeCalledWith({
+    expect(options.updateDocument).toHaveBeenCalledTimes(1);
+    expect(options.updateDocument).toBeCalledWith({
       doc: JSON.parse(exampleDoc),
       version: 2,
       metadata: undefined,
@@ -110,7 +115,8 @@ describe('Catchup ', () => {
         version: 2,
       }),
       filterQueue: jest.fn(),
-      updateDocumentWithMetadata: jest.fn(),
+      updateDocument: jest.fn(),
+      updateMetadata: jest.fn(),
       applyLocalSteps: jest.fn(),
     };
 
@@ -126,7 +132,8 @@ describe('Catchup ', () => {
     // Make sure document is still updated when we have unconfirmed steps
     expect(options.filterQueue).toHaveBeenCalledTimes(1);
     expect(options.filterQueue).toHaveBeenCalledWith(expect.any(Function));
-    expect(options.updateDocumentWithMetadata).toBeCalledWith({
+    expect(options.updateDocument).toHaveBeenCalledTimes(1);
+    expect(options.updateDocument).toBeCalledWith({
       doc: JSON.parse(exampleDoc),
       version: 2,
       metadata: undefined,

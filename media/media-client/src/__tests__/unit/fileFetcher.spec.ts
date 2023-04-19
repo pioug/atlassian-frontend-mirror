@@ -17,7 +17,6 @@ import {
   isErrorFileState,
   isFileFetcherError,
   FileFetcherError,
-  FileState,
 } from '../..';
 import { getFileStreamsCache } from '../../file-streams-cache';
 import uuid from 'uuid';
@@ -854,7 +853,7 @@ describe('FileFetcher', () => {
       }
 
       const copiedFileState = await toPromise(
-        fromObservable<FileState>(copiedFileObservable),
+        fromObservable(copiedFileObservable),
       );
       if (!isPreviewableFileState(copiedFileState)) {
         return expect(isPreviewableFileState(copiedFileState)).toBeTruthy();
@@ -905,7 +904,7 @@ describe('FileFetcher', () => {
       }
 
       const copiedFileState = await toPromise(
-        fromObservable<FileState>(copiedFileObservable),
+        fromObservable(copiedFileObservable),
       );
       if (!isPreviewableFileState(copiedFileState)) {
         return expect(isPreviewableFileState(copiedFileState)).toBeTruthy();
@@ -955,7 +954,7 @@ describe('FileFetcher', () => {
       }
 
       const copiedFileState = await toPromise(
-        fromObservable<FileState>(copiedFileObservable),
+        fromObservable(copiedFileObservable),
       );
       if (!isPreviewableFileState(copiedFileState)) {
         return expect(isPreviewableFileState(copiedFileState)).toBeTruthy();
@@ -1093,9 +1092,7 @@ describe('FileFetcher', () => {
         return expect(fileObservable).toBeDefined();
       }
 
-      const fileState = await toPromise(
-        fromObservable<FileState>(fileObservable),
-      );
+      const fileState = await toPromise(fromObservable(fileObservable));
       expect(fileState).toEqual(
         expect.objectContaining({
           status: 'processing',
@@ -1128,9 +1125,7 @@ describe('FileFetcher', () => {
         return expect(fileObservable).toBeDefined();
       }
 
-      const fileState = await toPromise(
-        fromObservable<FileState>(fileObservable),
-      );
+      const fileState = await toPromise(fromObservable(fileObservable));
       if (isErrorFileState(fileState)) {
         return expect(fileState.status).not.toBe('error');
       }
@@ -1188,9 +1183,7 @@ describe('FileFetcher', () => {
         return expect(fileObservable).toBeDefined();
       }
 
-      const fileState = await toPromise(
-        fromObservable<FileState>(fileObservable),
-      );
+      const fileState = await toPromise(fromObservable(fileObservable));
       expect(fileState).toEqual(
         expect.objectContaining({
           name: 'file_name.mov',
@@ -1217,9 +1210,7 @@ describe('FileFetcher', () => {
         return expect(fileObservable).toBeDefined();
       }
 
-      const fileState = await toPromise(
-        fromObservable<FileState>(fileObservable),
-      );
+      const fileState = await toPromise(fromObservable(fileObservable));
       expect(fileState).toEqual(
         expect.objectContaining({
           mediaType: 'image',
@@ -1245,9 +1236,7 @@ describe('FileFetcher', () => {
         return expect(fileObservable).toBeDefined();
       }
 
-      const fileState = await toPromise(
-        fromObservable<FileState>(fileObservable),
-      );
+      const fileState = await toPromise(fromObservable(fileObservable));
       expect(fileState).toEqual(
         expect.objectContaining({
           status: 'uploading',
@@ -1303,9 +1292,7 @@ describe('FileFetcher', () => {
         return expect(fileObservable).toBeDefined();
       }
 
-      const fileState = await toPromise(
-        fromObservable<FileState>(fileObservable),
-      );
+      const fileState = await toPromise(fromObservable(fileObservable));
       expect(fileState).toEqual(
         expect.objectContaining({
           status: 'uploading',
@@ -1336,9 +1323,7 @@ describe('FileFetcher', () => {
         return expect(fileObservable).toBeDefined();
       }
 
-      const fileState = await toPromise(
-        fromObservable<FileState>(fileObservable),
-      );
+      const fileState = await toPromise(fromObservable(fileObservable));
       if (isErrorFileState(fileState)) {
         return expect(fileState.status).not.toBe('error');
       }
@@ -1367,9 +1352,7 @@ describe('FileFetcher', () => {
         return expect(fileObservable).toBeDefined();
       }
 
-      const fileState = await toPromise(
-        fromObservable<FileState>(fileObservable),
-      );
+      const fileState = await toPromise(fromObservable(fileObservable));
       expect(fileState).toEqual(
         expect.objectContaining({
           mediaType: 'image',
@@ -1413,7 +1396,7 @@ describe('FileFetcher', () => {
       }
 
       try {
-        await toPromise(fromObservable<FileState>(fileObservable));
+        await toPromise(fromObservable(fileObservable));
       } catch (err) {
         expect(err).toEqual(error);
       }

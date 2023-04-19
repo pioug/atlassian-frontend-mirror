@@ -8,7 +8,7 @@ This plugin contains rules that should be used when working with the [Atlassian 
 
 ## Rules
 
-<!-- START_RULE_CODEGEN -->
+<!-- START_RULE_TABLE_CODEGEN -->
 <!-- @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen -->
 
 | Rule                                                                               | Description                                                                                     | Recommended | Fixable | Suggestions |
@@ -25,224 +25,98 @@ This plugin contains rules that should be used when working with the [Atlassian 
 | <a href="#use-primitives">use-primitives</a>                                       | Encourage the usage of primitives components.                                                   |             | Yes     |             |
 | <a href="#use-visually-hidden">use-visually-hidden</a>                             | Enforce usage of the visually hidden component.                                                 | Yes         | Yes     |             |
 
-<!-- END_CODEGEN -->
+<!-- END_RULE_TABLE_CODEGEN -->
+
+<!-- START_RULE_CONTENT_CODEGEN -->
+<!-- @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen -->
 
 ## ensure-design-token-usage
 
-Ensures that the codebase uses the global `token` function for colors, rather than hard-coded values. This ruleset is great for codebases that are starting to adopt color tokens and those that have already adopted color tokens. This ruleset also prevents new contributors from accidentally adding hard-coded color values.
+Using color design tokens enables our experiences to be themed and harmonious.
+All experiences must use these design tokens otherwise when switching between themes unexpected incidents can occur where not all of the UI is themed.
 
-<h3 id="ensure-design-token-usage-do">Do</h3>
+<h3>Examples</h3>
 
-Use the global `token` function, and design tokens.
+Using anything other than design tokens such as hardcoded values or legacy theme colors will be considered violations.
 
-```jsx
-import { token } from '@atlaskit/tokens';
+#### Incorrect
 
-css({
-  boxShadow: token('elevation.shadow.card'),
-});
-```
-
-```jsx
-import { token } from '@atlaskit/tokens';
-
-css`
-  color: ${token('color.text.highemphasis')};
-`;
-```
-
-<h3 id="ensure-design-token-usage-dont">Don't</h3>
-
-Don't use hard-coded values, such as hexadecimal, CSS colors, or base color values.
-
-```jsx
-css({
-  color: 'red',
-          ^^^
-});
-```
-
-```jsx
-css({
-  boxShadow: '0px 1px 1px #161A1D32',
-                          ^^^^^^^^^
-})
-```
-
-```jsx
+```js
 import { e100 } from '@atlaskit/theme/elevation';
-
-css`
-  ${e100};
-    ^^^^
-`;
-```
-
-```jsx
 import { B100 } from '@atlaskit/theme/colors';
 
-css({
-  color: B100,
-         ^^^^
-});
+css({ color: 'red' });
+              ^^^
+css({ boxShadow: '0px 1px 1px #161A1D32' });
+                          ^^^^^^^^^
+css`${e100};`;
+      ^^^^
+css({ color: B100 });
+             ^^^^
+```
+
+#### Correct
+
+```js
+import { token } from '@atlaskit/tokens';
+
+css({ boxShadow: token('elevation.shadow.card') });
 ```
 
 ## ensure-design-token-usage-spacing
 
-Ensures that the codebase uses the global `token` function for spacing, rather than hard-coded values. This ruleset is great for codebases that are starting to adopt space tokens and those that have already adopted space tokens. This ruleset also prevents new contributors from accidentally adding hard-coded space values.
+Using spacing,
+typography,
+and shape design tokens results in a harmonious experience for end users.
 
-<h3 id="ensure-design-token-usage-spacing-do">Do</h3>
+<h3>Examples</h3>
 
-Use the global `token` function, and design tokens.
+Using anything other than design tokens such as hardcoded values or legacy theme colors will be considered violations.
 
-```jsx
+#### Incorrect
+
+```js
+css({  padding: 'red' });
+                 ^^^
+css({ margin: gridSize() });
+              ^^^^^^^^^^
+```
+
+#### Correct
+
+```js
 import { token } from '@atlaskit/tokens';
 
-css({
-  padding: token('space.200'),
-});
+css({ padding: token('space.100') });
 ```
 
-```jsx
-import { token } from '@atlaskit/tokens';
+<h3>Options</h3>
 
-css`
-  gap: ${token('space.100')};
-`;
-```
+This rule comes with options to aid in migrating to design tokens.
 
-<h3 id="ensure-design-token-usage-spacing-dont">Don't</h3>
+#### shouldEnforceFallbacks
 
-Don't use hard-coded values, such as pixel values, relative units, or legacy `gridSize` functions.
-
-```jsx
-css({
-  padding: '8px',
-            ^^^
-});
-```
-
-```jsx
-css({
-  paddingLeft: gridSize(),
-               ^^^^^^^^^^
-})
-```
-
-## no-deprecated-design-token-usage
-
-Will catch deprecated token usage and autofix a replacement.
-
-It's recommended to set this rule to "warn" on error to allow for new and old tokens to exist side-by-side for the duration of the deprecation period and avoid big-bang migrations.
-
-Once the deprecation period is over for a token, it will be moved into a `deleted` state, at which point the counterpart of this rule `eslint-plugin-design-system/no-unsafe-design-token-usage` will begin to throw errors.
-
-Run `eslint --fix` to automatically apply replacement tokens.
-
-<h3 id="no-deprecated-design-token-usage-dont">Don't</h3>
-
-Don't use deprecated tokens.
-
-```jsx
-import { token } from '@atlaskit/tokens';
-
-css({
-  color: token('i.am.deprecated'), // will warn on deprecated tokens
-});
-```
-
-## no-unsafe-design-token-usage
-
-Ensures usages of the `token` function are done correctly, so that current token names are being used, and the resulting `var(--some-token)` statements aren't being used. This ruleset is great for codebases that have already adopted tokens.
-
-<h3 id="no-unsafe-design-token-usage-do">Do</h3>
-
-Use the `token` function and token naming functions correctly.
-
-```jsx
-import { token } from '@atlaskit/tokens';
-
-css({
-  boxShadow: token('elevation.shadow.card'),
-});
-```
-
-```jsx
-import { token } from '@atlaskit/tokens';
-
-css`
-  color: ${(token('color.text.highemphasis'), N20)};
-`;
-```
-
-<h3 id="no-unsafe-design-token-usage-dont">Don't</h3>
-
-Don’t use outdated token names, or use tokens without the `token` function.
-
-```jsx
-const textColor = 'red';
-
-css({
-  color: textColor,
-         ^^^^^^^^^
-});
-```
-
-```jsx
-css({
-  boxShadow: '0px 1px 1px var(--ds-accent-subtleBlue)',
-                          ^^^^^^^^^^^^^^^^^^^^^^^^^^
-})
-```
+When `true` the rule will add in stub fallbacks when choosing a suggestion in your IDE.
 
 ## icon-label
 
-Enforces accessible usage of icon labels when composed with other Design System components.
+Icon labels are used to describe what the icon is so the visually impaired can be described what the UI element is.
+There are cases where icons should have labels as well as cases where they shouldn't be labelled.
 
-<h3 id="icon-label-do">Do</h3>
+<h3>Examples</h3>
 
-Use the icon label prop to ensure accessibility of Design System icons.
+This rule will find violations for when an icon label is or isn't needed when composed with other Design System components.
 
-```jsx
-import ActivityIcon from '@atlaskit/icon/glyph/activity'
+#### Incorrect
 
-<ActivityIcon label="Activity">
-```
-
-```jsx
-import ActivityIcon from '@atlaskit/icon/glyph/activity'
-
-<Button iconLeft={<ActivityIcon label="Activity">} />
-```
-
-```jsx
-import ActivityIcon from '@atlaskit/icon/glyph/activity'
-
-<ButtonItem iconBefore={<ActivityIcon label="">}>
-  My activity
-</ButtonItem>
-```
-
-<h3 id="icon-label-dont">Don't</h3>
-
-Don't ignore labels for icons.
-
-```jsx
+```js
 import ActivityIcon from '@atlaskit/icon/glyph/activity'
 
 <ActivityIcon>
 ^^^^^^^^^^^^^^ missing `label` prop
-```
-
-```jsx
-import ActivityIcon from '@atlaskit/icon/glyph/activity'
 
 <Button iconLeft={<ActivityIcon label="">} />
                                 ^^^^^ label should be defined
-```
-
-```jsx
-import ActivityIcon from '@atlaskit/icon/glyph/activity'
 
 <ButtonItem iconBefore={<ActivityIcon label="">}>
                                       ^^^^^ label should not be defined
@@ -250,108 +124,316 @@ import ActivityIcon from '@atlaskit/icon/glyph/activity'
 </ButtonItem>
 ```
 
+#### Correct
+
+```js
+import ActivityIcon from '@atlaskit/icon/glyph/activity'
+
+<ActivityIcon label="Activity">
+
+<Button iconLeft={<ActivityIcon label="Activity">} />
+
+<ButtonItem iconBefore={<ActivityIcon label="">}>
+  My activity
+</ButtonItem>
+```
+
 ## no-banned-imports
 
-Prevents usage of private or experimental Atlassian Design System packages.
+Using private or experimental packages is dangerous as they are not supported across major versions meaning you will not be able to migrate easily causing friction for yourself and the Atlassian Design System team.
 
-<h3 id="no-banned-imports-dont">Don't</h3>
+<h3>Examples</h3>
 
-Don't import or use private or experimental ADS packages.
+Anything that is considered private or experimental will be marked as violations.
+
+#### Incorrect
 
 ```ts
 import noop from '@atlaskit/ds-lib/noop';
                   ^^^^^^^^^^^^^^^^^^^^^
-```
 
-```ts
 import { Text } from '@atlaskit/ds-explorations';
                       ^^^^^^^^^^^^^^^^^^^^^^^^^
 ```
 
-## no-deprecated-api-usage
+## no-deprecated-apis
 
-Ensures usage of current Atlassian Design System APIs.
+Props across the Atlassian Design System can be deprecated when they are deemed no-longer fit for purporse or dangerous and risk effective use at scale.
 
-<h3 id="no-deprecated-api-usage-do">Do</h3>
+<h3>Examples</h3>
 
-```jsx
-import { SomeElement } from 'some-other-library';
+Anything that can be used as props from Atlassian Design System components can be violations when marked as deprecated.
 
-const Element = () => <SomeElement cssFn={cssFn()} />;
+#### Incorrect
+
+```tsx
+<ButtonItem cssFn={cssFn()} />
+            ^^^^
+
+<Drawer overrides={overrides} />
+        ^^^^^^^^^
 ```
 
-```jsx
-import { ButtonItem } from '@atlaskit/menu';
+<h3>Options</h3>
 
-const Element = () => <ButtonItem />;
+The rule can take one option: `deprecatedConfig`,
+if not provided the rule will use an internal config.
+If provided the rule will use the passed in config instead.
+
+#### deprecatedConfig
+
+The following fields can be defined in the config:
+
+- `deprecatedProp`, which is the deprecated props. Each prop has the following fields:
+  - `moduleSpecifier`, which is the module specifier of the package in which the prop was deprecated. For example: `@atlaskit/button`.
+  - `namedSpecifier` **(optional)**, which is an array of named specifiers of the package in which the prop was deprecated. For example: `Button`.
+  - `actionableVersion` **(optional)**, which is the version of the package in which the prop can be actioned on. For example: `1.0.0`.
+
+```json
+{
+  "cssFn": [
+    {
+      "moduleSpecifier": "@atlaskit/menu"
+    }
+  ]
+}
 ```
 
-```jsx
-import Drawer from '@atlaskit/drawer';
+```js
+import { configs } from '@atlaskit/eslint-plugin-design-system';
 
-const Element = () => <Drawer />;
+module.exports = {
+  rules: {
+    '@atlaskit/design-system/no-deprecated-api': [
+      'error',
+      {
+        deprecatedConfig: {
+          cssFn: [
+            {
+              moduleSpecifier: '@atlaskit/menu',
+            },
+          ],
+        },
+      },
+    ],
+  },
+};
 ```
 
-<h3 id="no-deprecated-api-usage-dont">Don't</h3>
+The plugin also provides a `filterActionableDeprecations` util function that accepts the `deprecated APIs config` and your root `package.json` as params and will filter the default deprecated APIs config based on the package versions installed.
 
-```jsx
-import { ButtonItem } from '@atlaskit/menu';
+```js
+import { configs, filterActionableDeprecations } from '@atlaskit/eslint-plugin-design-system';
+import packageJson from './package.json';
 
-const Element = () => (
-  <ButtonItem cssFn={cssFn()} />
-              ^^^^
-);
+rules: {
+  '@atlaskit/design-system/no-deprecated-api': ['error', {
+    'deprecatedConfig': filterActionableDeprecations(configs.deprecatedConfig, packageJson),
+  }]
+}
 ```
 
-```jsx
-import Drawer from '@atlaskit/drawer';
+## no-deprecated-design-token-usage
 
-const Element = () => (
-  <Drawer overrides={overrides} />
-          ^^^^^^^^^
-);
+Using deprecated design tokens is dangerous as they will eventually be deleted after the sunset period.
+This rule helps you move to non-deprecated design tokens.
+
+<h3>Examples</h3>
+
+This rule will mark usage of deprecated design tokens as violations.
+
+<h3>Incorrect</h3>
+
+```js
+import { token } from '@atlaskit/tokens';
+
+css({ color: token('i.am.deprecated') });
+                    ^^^^^^^^^^^^^^^
+css({ color: token('i.am.a.token') });
+                    ^^^^^^^^^^^^^
 ```
+
+<h3>Options</h3>
+
+It's recommended to set this rule to "warn" to allow for new and old tokens to exist side-by-side for the duration of the deprecation period and avoid big-bang migrations.
+
+Once the deprecation period is over for a design token it will be moved into `deleted` state at which point the counterpart of this rule `no-unsafe-design-token-usage` will mark violations as errors.
+
+Running `eslint --fix` will automatically apply replacement tokens if present.
 
 ## no-deprecated-imports
 
-Ensures usage of current Atlassian Design System dependencies.
+Packages across the Atlassian Design System can be deprecated when they are deemed no-longer fit for purporse or dangerous and risk effective use at scale.
 
-<h3 id="no-deprecated-imports-do">Do</h3>
+<h3>Examples</h3>
 
-```ts
-import Modal from '@atlaskit/modal-dialog';
-```
+This rule will mark usage of deprecated modules as violations.
 
-```ts
-import { ButtonItem } from '@atlaskit/menu';
-```
-
-<h3 id="no-deprecated-imports-dont">Don't</h3>
+#### Incorrect
 
 ```ts
 import Item from '@atlaskit/item';
                   ^^^^^^^^^^^^^^
-```
-
-```ts
 import GlobalNav from '@atlaskit/global-navigation';
                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ```
 
-## use-visually-hidden
+<h3>Options</h3>
 
-This rule makes Design System consumers aware of existing solutions.
+The rule can take one option: `deprecatedConfig`,
+if not provided the rule will use an internal config.
+If provided the rule will use the passed in config instead.
 
-<h3 id="use-visually-hidden-do">Do</h3>
+#### deprecatedConfig
 
-```jsx
-import VisuallyHidden from '@atlaskit/visually-hidden';
+The following fields can be defined in the config:
+
+- `packagePath`, which is the name of the package. For example: `@atlaskit/navigation-next` and `@atlaskit/navigation`.
+  With the package path as the key, you can either provide the values as:
+  - `message` **(optional)**, the message to display when the deprecated packages path is used. For example: `multi-select is deprecated. Please use '@atlaskit/select' instead.`
+    Or as:
+  - `imports`, which is an array of named imports to be deprecated. Each named import has the following fields:
+    - `importName`, which is the name of the import to be deprecated. For example: `assistive` and `visuallyHidden`.
+    - `message` **(optional)**, which is the message to display when the deprecated import is used. For example: `The assistive mixin is deprecated. Please use `@atlaskit/visually-hidden` instead.`.
+
+```json
+{
+  "@atlaskit/navigation-next": {
+    "message": "navigation-next is deprecated. Please use '@atlaskit/atlassian-navigation' instead."
+  }
+}
 ```
 
-<h3 id="use-visually-hidden-dont">Don't</h3>
+```js
+import packageJson from './package.json';
 
-```jsx
+module.exports = {
+  rules: {
+    '@atlaskit/design-system/no-deprecated-imports': [
+      'error',
+      {
+        deprecatedConfig: {
+          '@atlaskit/navigation-next': {
+            message:
+              "navigation-next is deprecated. Please use '@atlaskit/atlassian-navigation' instead.",
+          },
+        },
+      },
+    ],
+  },
+};
+```
+
+## no-margin
+
+Using margins to define spacing results in components that can't be readily reused in other contexts breaking the composition model.
+Instead defining spacing in parents with flex and grid using the `gap` property will result in more resilient experiences.
+
+<h3>Examples</h3>
+
+This rule will mark all margin use as violations.
+
+#### Incorrect
+
+```tsx
+css({ margin: '10px' });
+```
+
+#### Correct
+
+```tsx
+css({ gap: token('spacing.100') });
+```
+
+## no-unsafe-design-token-usage
+
+Using design tokens in an unsafe way risks the health of the system and will effect how fast your codebase can migrate between versions.
+
+<h3>Examples</h3>
+
+This rule will mark design token usage that is not statically and locally analyzable,
+as well as design tokens that are considered deleted.
+
+<h3>Incorrect</h3>
+
+```js
+const textColor = 'red';
+
+css({ color: textColor });
+             ^^^^^^^^^ must be a string literal
+```
+
+```js
+css({ boxShadow: '0px 1px 1px var(--ds-accent-subtleBlue)' });
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^ must use the token() function
+```
+
+<h3>Correct</h3>
+
+```js
+import { token } from '@atlaskit/tokens';
+
+css({ boxShadow: token('elevation.shadow.card') });
+
+css`
+  color: ${(token('color.text.highemphasis'), N20)};
+`;
+```
+
+<h3>Options</h3>
+
+This rule comes with options to aid in migrating to design tokens.
+
+#### shouldEnforceFallbacks
+
+When `true` the rule will mark token function usage as violations when fallbacks aren't defined.
+When `false` the rule will mark token function usage as violations when fallbacks are defined.
+
+## use-primitives
+
+Using primitives allows you to delete bespoke component code and replace it with ready made solutions made by the Atlassian Design System Team.
+
+<h3>Examples</h3>
+
+This rule marks code as violations when it can be replaced 1:1 with a primitive component.
+
+#### Incorrect
+
+```js
+<div />
+^^^^^^^
+
+<Component>
+  <div css={someStyles}></div>
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+</Component>
+```
+
+#### Correct
+
+```js
+<Box />
+```
+
+```js
+<Component>
+  <Box css={someStyles}></Box>
+</Component>
+```
+
+## use-visually-hidden
+
+Using the visually hidden component allows you to delete bespoke or legacy theme code and replace it with a ready made solution by the Atlassian Design System Team.
+
+<h3>Examples</h3>
+
+This rule marks code as violations when it can be replaced 1:1 with the visually hidden component.
+
+#### Incorrect
+
+```js
 import { css } from '@emotion/core';
+import { visuallyHidden } from '@atlaskit/theme/constants';
 
 const visuallyHiddenStyles = css({
   width: '1px',
@@ -363,28 +445,15 @@ const visuallyHiddenStyles = css({
   overflow: 'hidden',
   whiteSpace: 'nowrap',
 });
-^^^^
-```
-
-```jsx
-import styled from '@emotion/styled';
-
-const VisuallyHidden = styled.span`
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  position: absolute;
-  border: 0;
-  clip: rect(1px, 1px, 1px, 1px);
-  overflow: hidden;
-  whiteSpace: nowrap;
-`;
-^^^^
-```
-
-```jsx
-import { visuallyHidden } from '@atlaskit/theme/constants';
 
 const VisuallyHidden = styled.span`${visuallyHidden()}`;
                                      ^^^^^^^^^^^^^^
 ```
+
+#### Correct
+
+```js
+import VisuallyHidden from '@atlaskit/visually-hidden';
+```
+
+<!-- END_RULE_CONTENT_CODEGEN -->

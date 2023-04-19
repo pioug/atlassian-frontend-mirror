@@ -8,7 +8,7 @@ import {
 
 import { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
 import { ResolvedEditorState } from '@atlaskit/editor-common/collab';
-import { Transformer } from '@atlaskit/editor-common/types';
+import type { FeatureFlags, Transformer } from '@atlaskit/editor-common/types';
 import { analyticsEventKey } from '@atlaskit/editor-common/utils';
 import { NodeSelection, TextSelection } from 'prosemirror-state';
 import { findParentNode, safeInsert } from 'prosemirror-utils';
@@ -16,7 +16,6 @@ import { EditorView } from 'prosemirror-view';
 import { createDispatch, EventDispatcher } from '../event-dispatcher';
 import { getCollabProvider } from '../plugins/collab-edit/native-collab-provider-plugin';
 import { findNodePosWithLocalId } from '../plugins/extension/utils';
-import { getFeatureFlags } from '../plugins/feature-flags-context/get-feature-flags';
 import { toJSON } from '../utils';
 import {
   getEditorValueWithMedia,
@@ -57,14 +56,20 @@ export default class EditorActions<T = any> implements EditorActionsOptions<T> {
     return this.eventDispatcher;
   }
 
+  private getFeatureFlags(): FeatureFlags {
+    return {};
+  }
+
   // This method needs to be public for EditorContext component.
   _privateRegisterEditor(
     editorView: EditorView,
     eventDispatcher: EventDispatcher,
     contentTransformer?: Transformer<T>,
+    getFeatureFlags: () => FeatureFlags = () => ({}),
   ): void {
     this.contentTransformer = contentTransformer;
     this.eventDispatcher = eventDispatcher;
+    this.getFeatureFlags = getFeatureFlags;
 
     if (!this.editorView && editorView) {
       this.editorView = editorView;
@@ -88,6 +93,7 @@ export default class EditorActions<T = any> implements EditorActionsOptions<T> {
     this.contentTransformer = undefined;
     this.contentEncode = undefined;
     this.eventDispatcher = undefined;
+    this.getFeatureFlags = () => ({});
   }
 
   _privateSubscribe(cb: ContextUpdateHandler): void {
@@ -327,14 +333,15 @@ export default class EditorActions<T = any> implements EditorActionsOptions<T> {
   getResolvedEditorState = async (): Promise<
     ResolvedEditorState | undefined
   > => {
+    const { useNativeCollabPlugin } = this.getFeatureFlags();
+
     if (!this.editorView) {
       throw new Error(
         'Called getResolvedEditorState before editorView is ready',
       );
     }
 
-    const featureFlags = getFeatureFlags(this.editorView.state);
-    if (!featureFlags.useNativeCollabPlugin) {
+    if (!useNativeCollabPlugin) {
       const editorValue = await this.getValue();
       if (!editorValue) {
         throw new Error('editorValue is undefined');

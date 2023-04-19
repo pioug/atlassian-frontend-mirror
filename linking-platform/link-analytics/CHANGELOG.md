@@ -1,5 +1,18 @@
 # @atlaskit/link-analytics
 
+## 7.0.4
+
+### Patch Changes
+
+- [`3c287cb61c4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3c287cb61c4) - Updates callbacks to source creationMethod and updateMethod attribute from link picker form submission event when provided as sourceEvent.
+
+## 7.0.3
+
+### Patch Changes
+
+- [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
+- Updated dependencies
+
 ## 7.0.2
 
 ### Patch Changes

@@ -2,7 +2,12 @@ import { Transaction } from 'prosemirror-state';
 import { CardProvider } from '@atlaskit/editor-common/provider-factory';
 
 import { pluginKey } from './plugin-key';
-import { CardPluginAction, Request, CardInfo } from '../types';
+import {
+  CardPluginAction,
+  Request,
+  CardInfo,
+  SmartLinkEventsNext,
+} from '../types';
 import { SmartLinkEvents } from '@atlaskit/smart-card';
 
 export const cardAction = (
@@ -34,6 +39,13 @@ export const registerSmartCardEvents =
   (smartLinkEvents: SmartLinkEvents) => (tr: Transaction) =>
     cardAction(tr, {
       type: 'REGISTER_EVENTS',
+      smartLinkEvents,
+    });
+
+export const registerSmartCardEventsNext =
+  (smartLinkEvents: SmartLinkEventsNext) => (tr: Transaction) =>
+    cardAction(tr, {
+      type: 'REGISTER_EVENTS_NEXT',
       smartLinkEvents,
     });
 

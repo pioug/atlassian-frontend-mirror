@@ -21,28 +21,12 @@ import hyperlinkPlugin from '../../index';
 import blockTypePlugin from '../../../block-type';
 import typeAheadPlugin from '../../../type-ahead';
 import quickInsertPlugin from '../../../quick-insert';
-import * as featureFlags from '../../../../plugins/feature-flags-context';
 import { stateKey as hyperlinkStateKey } from '../../pm-plugins/main';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 
 describe('hyperlink', () => {
   const createEditor = createProsemirrorEditorFactory();
-  const featureFlagSpy = jest.spyOn(featureFlags, 'getFeatureFlags');
-
-  beforeEach(() => {
-    featureFlagSpy.mockReturnValue({
-      floatingToolbarLinkSettingsButton: 'false',
-    });
-  });
-
-  afterEach(() => {
-    featureFlagSpy.mockReset();
-  });
-
-  afterAll(() => {
-    featureFlagSpy.mockRestore();
-  });
 
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
 
@@ -54,7 +38,10 @@ describe('hyperlink', () => {
     return createEditor({
       doc,
       preset: preset
-        .add([featureFlagsPlugin, {}])
+        .add([
+          featureFlagsPlugin,
+          { floatingToolbarLinkSettingsButton: 'false' },
+        ])
         .add([analyticsPlugin, { createAnalyticsEvent }])
         .add(floatingToolbarPlugin)
         .add(blockTypePlugin)

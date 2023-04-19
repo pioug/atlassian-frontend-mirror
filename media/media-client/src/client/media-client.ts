@@ -6,7 +6,6 @@ import {
   MediaStoreGetFileImageParams,
   ImageMetadata,
 } from './media-store';
-import { CollectionFetcher } from './collection-fetcher';
 import { FileFetcherImpl, FileFetcher } from './file-fetcher';
 import { UploadEventPayloadMap, EventPayloadListener } from './events';
 import { StargateClient } from './stargate-client';
@@ -14,7 +13,6 @@ import { MobileUpload } from '../models/mobile-upload';
 
 export class MediaClient {
   public readonly mediaStore: MediaStore;
-  public readonly collection: CollectionFetcher;
   public readonly file: FileFetcher;
   public readonly stargate: StargateClient;
   private readonly eventEmitter: EventEmitter2;
@@ -35,7 +33,6 @@ export class MediaClient {
       featureFlags,
     );
     this.config = mediaClientConfig;
-    this.collection = new CollectionFetcher(this.mediaStore);
     this.file = new FileFetcherImpl(this.mediaStore, featureFlags);
     this.eventEmitter = new EventEmitter2();
     this.stargate = new StargateClient(mediaClientConfig.stargateBaseUrl);
@@ -89,6 +86,20 @@ export class MediaClient {
 
     this.mobileUpload = new module.MobileUploadImpl(this.mediaStore);
     return this.mobileUpload;
+  }
+
+  public async removeFileFromCollection(
+    id: string,
+    collectionName: string,
+    occurrenceKey?: string,
+    traceContext?: MediaTraceContext,
+  ) {
+    await this.mediaStore.removeCollectionFile(
+      id,
+      collectionName,
+      occurrenceKey,
+      traceContext,
+    );
   }
 
   on<E extends keyof UploadEventPayloadMap>(

@@ -19,6 +19,7 @@ import {
   mediaSingle,
   media,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 /**
  * TS 3.9+ defines non-configurable property for exports, that's why it's not possible to mock them like this anymore:
  *
@@ -74,6 +75,7 @@ describe('<ResizableMediaSingle />', () => {
     const createEditor = createProsemirrorEditorFactory();
 
     const preset = new Preset<LightEditorPlugin>()
+      .add([featureFlagsPlugin, {}])
       .add([mediaPlugin, { allowMediaSingle: true }])
       .add(layoutPlugin);
 

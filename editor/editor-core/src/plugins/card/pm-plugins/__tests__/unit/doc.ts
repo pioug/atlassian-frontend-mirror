@@ -60,7 +60,7 @@ import {
   setSelectedCardAppearance,
   convertHyperlinkToSmartCard,
 } from '../../doc';
-import { INPUT_METHOD } from '../../../../analytics';
+import { ACTION, INPUT_METHOD } from '../../../../analytics';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import {
   createCardRequest,
@@ -68,7 +68,6 @@ import {
   setupProvider,
 } from '../../../../../__tests__/unit/plugins/card/_helpers';
 import { CardProvider } from '@atlaskit/editor-common/provider-factory';
-import { NodeSelection } from 'prosemirror-state';
 import { asMock } from '@atlaskit/media-test-helpers';
 
 const atlassianUrl = 'http://www.atlassian.com/';
@@ -177,7 +176,12 @@ describe('card', () => {
         );
 
         editorView.dispatch(
-          queueCardsFromChangedTr(editorView.state, tr, INPUT_METHOD.CLIPBOARD),
+          queueCardsFromChangedTr(
+            editorView.state,
+            tr,
+            INPUT_METHOD.CLIPBOARD,
+            ACTION.PASTED,
+          ),
         );
 
         expect(pluginKey.getState(editorView.state)).toEqual({
@@ -189,6 +193,7 @@ describe('card', () => {
               appearance: 'inline',
               compareLinkText: true,
               source: 'clipboard',
+              analyticsAction: 'pasted',
             },
           ],
           provider: null,
@@ -619,7 +624,9 @@ describe('card', () => {
               pos: 6,
               appearance: 'inline',
               compareLinkText: true,
+              previousAppearance: 'inline',
               source: 'manual',
+              analyticsAction: 'updated',
             },
           ],
           provider: null,
@@ -760,46 +767,18 @@ describe('card', () => {
         );
       });
 
-      it('should call setNodeMarkup with right values', () => {
+      it('should correctly replace an inline card with a block card', () => {
         const { editorView } = editor(
           doc(p('hello ', '{<node>}', inlineCard(getCardAdfAttrs())())),
         );
-        const setNodeMarkup = jest.fn().mockReturnValue({
-          scrollIntoView: jest.fn(),
-          storedMarks: jest.fn(),
-          step: jest.fn(),
-          setStoredMarks: jest.fn(),
-          setSelection: jest.fn(),
-          delete: jest.fn(),
-          doc: {
-            resolve: jest
-              .fn()
-              .mockReturnValue({ min: jest.fn(), max: jest.fn() }),
-            nodeAt: jest.fn(),
-            childAfter: jest.fn(),
-          },
-          selection: {
-            $from: {
-              pos: 1,
-            },
-          },
-        });
-        const dispatch = jest.fn();
 
-        // we can't just override "tr" since it's a getter
-        Object.defineProperty(editorView.state, 'tr', {
-          value: {
-            storedMarks: jest.fn(),
-            setNodeMarkup,
-          },
-        });
+        setSelectedCardAppearance('block')(
+          editorView.state,
+          editorView.dispatch,
+        );
 
-        setSelectedCardAppearance('block')(editorView.state, dispatch);
-        expect(setNodeMarkup).toBeCalledWith(
-          7,
-          editorView.state.schema.nodes.blockCard,
-          (editorView.state.selection as NodeSelection).node.attrs,
-          (editorView.state.selection as NodeSelection).node.marks,
+        expect(editorView.state.doc).toEqualDocument(
+          doc(p('hello '), blockCard(getCardAdfAttrs())()),
         );
       });
 
@@ -884,6 +863,7 @@ describe('card', () => {
             analyticsAction: 'changedType',
             url: 'some-href',
             pos: undefined,
+            previousAppearance: 'url',
             shouldReplaceLink: true,
             appearance: 'block',
             compareLinkText: true,
@@ -1192,10 +1172,13 @@ describe('card', () => {
         );
 
         const { state, dispatch } = editorView;
-        handleFallbackWithAnalytics(atlassianUrl, INPUT_METHOD.MANUAL)(
-          state,
-          dispatch,
-        );
+        handleFallbackWithAnalytics({
+          pos: 0,
+          url: atlassianUrl,
+          compareLinkText: true,
+          appearance: 'inline',
+          source: INPUT_METHOD.MANUAL,
+        })(state, dispatch);
         expect(createAnalyticsEvent).toBeCalled();
         expect(createAnalyticsEvent).toBeCalledWith({
           action: 'inserted',

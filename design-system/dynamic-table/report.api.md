@@ -35,16 +35,16 @@ class DynamicTable extends React_2.Component<StatefulProps, State> {
     rowsPerPage: number;
   };
   // (undocumented)
-  onRankEnd: (params: RankEnd) => void;
+  onRankEndHandler: (params: RankEnd) => void;
   // (undocumented)
-  onRankEndIfExists: (params: RankEnd) => void;
+  onRankEndIfExistsHandler: (params: RankEnd) => void;
   // (undocumented)
-  onSetPage: (
+  onSetPageHandler: (
     page: number,
     analyticsEvent?: UIAnalyticsEvent | undefined,
   ) => void;
   // (undocumented)
-  onSort: (
+  onSortHandler: (
     { key, item, sortOrder }: any,
     analyticsEvent?: UIAnalyticsEvent | undefined,
   ) => void;

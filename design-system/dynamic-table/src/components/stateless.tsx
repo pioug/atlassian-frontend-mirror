@@ -94,7 +94,7 @@ class DynamicTable extends React.Component<Props, State> {
     }
   }
 
-  onSort = (item: RowCellType) => () => {
+  onSortHandler = (item: RowCellType) => () => {
     const { sortKey, sortOrder, onSort, isRankable } = this.props;
     const { key } = item;
     if (!key) {
@@ -113,14 +113,14 @@ class DynamicTable extends React.Component<Props, State> {
     }
   };
 
-  onSetPage = (page: number, event?: UIAnalyticsEvent) => {
+  onSetPageHandler = (page: number, event?: UIAnalyticsEvent) => {
     const { onSetPage } = this.props;
     if (onSetPage) {
       onSetPage(page, event);
     }
   };
 
-  onRankStart = (params: RankStart) => {
+  onRankStartHandler = (params: RankStart) => {
     this.setState({
       isRanking: true,
     });
@@ -130,7 +130,7 @@ class DynamicTable extends React.Component<Props, State> {
     }
   };
 
-  onRankEnd = (params: RankEnd) => {
+  onRankEndHandler = (params: RankEnd) => {
     this.setState({
       isRanking: false,
     });
@@ -246,15 +246,15 @@ class DynamicTable extends React.Component<Props, State> {
         >
           <Table
             isFixedSize={isFixedSize}
-            data-testid={testId && `${testId}--table`}
             aria-label={label}
             hasDataRow={rowsExist}
+            testId={testId}
           >
             {!!caption && <Caption>{caption}</Caption>}
             {head && (
               <TableHead
                 head={head}
-                onSort={this.onSort}
+                onSort={this.onSortHandler}
                 sortKey={sortKey}
                 sortOrder={sortOrder}
                 isRanking={this.state.isRanking}
@@ -267,8 +267,8 @@ class DynamicTable extends React.Component<Props, State> {
                 <RankableTableBody
                   {...bodyProps}
                   isRanking={this.state.isRanking}
-                  onRankStart={this.onRankStart}
-                  onRankEnd={this.onRankEnd}
+                  onRankStart={this.onRankStartHandler}
+                  onRankEnd={this.onRankEndHandler}
                   isRankingDisabled={isRankingDisabled || isLoading || false}
                 />
               ) : (
@@ -280,7 +280,7 @@ class DynamicTable extends React.Component<Props, State> {
           <PaginationWrapper>
             <ManagedPagination
               value={getPageNumber}
-              onChange={this.onSetPage}
+              onChange={this.onSetPageHandler}
               total={totalPages}
               i18n={paginationi18n}
               testId={testId}

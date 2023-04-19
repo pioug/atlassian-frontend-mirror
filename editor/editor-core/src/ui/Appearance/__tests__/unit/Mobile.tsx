@@ -35,6 +35,7 @@ const MobileWithExternalWidth: React.FC<ExternalWidthUpdateProps> = ({
         editorView={editorView}
         editorDOMElement={<span>Editor Slot</span>}
         providerFactory={{} as ProviderFactory}
+        featureFlags={{}}
       />
     </WidthContext.Provider>
   );

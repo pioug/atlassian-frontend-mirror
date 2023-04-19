@@ -39,7 +39,7 @@ const color: ValueSchema<AccentColorTokenSchema<BaseToken>> = {
         },
         gray: {
           '[default]': { value: 'DarkNeutral800' },
-          bolder: { value: 'DarkNeutral1000' },
+          bolder: { value: 'DarkNeutral1100' },
         },
       },
     },

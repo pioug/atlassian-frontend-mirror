@@ -29,7 +29,7 @@ import { Node } from 'prosemirror-model';
 import { hoverDecoration } from '../base/pm-plugins/decoration';
 import { changeSelectedCardToText } from './pm-plugins/doc';
 import { CardPluginState } from './types';
-import { CardOptions } from '@atlaskit/editor-common/card';
+import { CardOptions, commandWithMetadata } from '@atlaskit/editor-common/card';
 import { pluginKey } from './pm-plugins/main';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { richMediaClassName } from '@atlaskit/editor-common/styles';
@@ -57,31 +57,34 @@ import { LinkPickerOptions } from '../hyperlink/types';
 import { FLOATING_TOOLBAR_LINKPICKER_CLASSNAME } from './styles';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
 
-export const removeCard: Command = (state, dispatch) => {
-  if (!(state.selection instanceof NodeSelection)) {
-    return false;
-  }
+export const removeCard: Command = commandWithMetadata(
+  (state, dispatch) => {
+    if (!(state.selection instanceof NodeSelection)) {
+      return false;
+    }
 
-  const type = state.selection.node.type.name;
-  const payload: AnalyticsEventPayload = {
-    action: ACTION.DELETED,
-    actionSubject: ACTION_SUBJECT.SMART_LINK,
-    actionSubjectId: type as
-      | ACTION_SUBJECT_ID.CARD_INLINE
-      | ACTION_SUBJECT_ID.CARD_BLOCK,
-    attributes: {
-      inputMethod: INPUT_METHOD.TOOLBAR,
-      displayMode: type as
+    const type = state.selection.node.type.name;
+    const payload: AnalyticsEventPayload = {
+      action: ACTION.DELETED,
+      actionSubject: ACTION_SUBJECT.SMART_LINK,
+      actionSubjectId: type as
         | ACTION_SUBJECT_ID.CARD_INLINE
         | ACTION_SUBJECT_ID.CARD_BLOCK,
-    },
-    eventType: EVENT_TYPE.TRACK,
-  };
-  if (dispatch) {
-    dispatch(addAnalytics(state, removeSelectedNode(state.tr), payload));
-  }
-  return true;
-};
+      attributes: {
+        inputMethod: INPUT_METHOD.TOOLBAR,
+        displayMode: type as
+          | ACTION_SUBJECT_ID.CARD_INLINE
+          | ACTION_SUBJECT_ID.CARD_BLOCK,
+      },
+      eventType: EVENT_TYPE.TRACK,
+    };
+    if (dispatch) {
+      dispatch(addAnalytics(state, removeSelectedNode(state.tr), payload));
+    }
+    return true;
+  },
+  { action: ACTION.DELETED },
+);
 
 export const visitCardLink: Command = (state, dispatch) => {
   if (!(state.selection instanceof NodeSelection)) {
@@ -220,7 +223,9 @@ const unlinkCard = (node: Node, state: EditorState): Command => {
   const displayInfo = displayInfoForCard(node, findCardInfo(state));
   const text = displayInfo.title || displayInfo.url;
   if (text) {
-    return changeSelectedCardToText(text);
+    return commandWithMetadata(changeSelectedCardToText(text), {
+      action: ACTION.UNLINK,
+    });
   }
 
   return () => false;
@@ -229,6 +234,7 @@ const unlinkCard = (node: Node, state: EditorState): Command => {
 const buildAlignmentOptions = (
   state: EditorState,
   intl: IntlShape,
+  cardOptions?: CardOptions,
 ): FloatingToolbarItem<Command>[] => {
   return buildLayoutButtons(
     state,
@@ -236,8 +242,15 @@ const buildAlignmentOptions = (
     state.schema.nodes.embedCard,
     true,
     true,
+    cardOptions?.allowWrapping,
+    cardOptions?.allowAlignment,
   );
 };
+
+const withToolbarMetadata = (command: Command) =>
+  commandWithMetadata(command, {
+    inputMethod: INPUT_METHOD.FLOATING_TB,
+  });
 
 const generateToolbarItems =
   (
@@ -324,12 +337,16 @@ const generateToolbarItems =
           onFocus: hoverDecoration(node.type, true),
           onBlur: hoverDecoration(node.type, false),
           title: intl.formatMessage(commonMessages.remove),
-          onClick: removeCard,
+          onClick: withToolbarMetadata(removeCard),
         },
       ];
 
       if (currentAppearance === 'embed') {
-        const alignmentOptions = buildAlignmentOptions(state, intl);
+        const alignmentOptions = buildAlignmentOptions(
+          state,
+          intl,
+          cardOptions,
+        );
         if (alignmentOptions.length) {
           alignmentOptions.push({
             type: 'separator',
@@ -384,7 +401,7 @@ const getUnlinkButtonGroup = (
           type: 'button',
           title: intl.formatMessage(linkToolbarMessages.unlink),
           icon: UnlinkIcon,
-          onClick: unlinkCard(node, state),
+          onClick: withToolbarMetadata(unlinkCard(node, state)),
         },
         { type: 'separator' },
       ] as Array<FloatingToolbarItem<Command>>)

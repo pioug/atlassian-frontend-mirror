@@ -153,6 +153,7 @@ export default function CommentWithJiraCardsExample() {
                       <h5>Description</h5>
                       <Editor
                         appearance="comment"
+                        assistiveLabel="Description field: Main content area, start typing to enter text."
                         placeholder="What do you want to say?"
                         shouldFocus={true}
                         quickInsert={true}

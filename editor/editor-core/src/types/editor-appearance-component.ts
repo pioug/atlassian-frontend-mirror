@@ -58,7 +58,7 @@ export interface EditorAppearanceComponentProps {
 
   enableToolbarMinWidth?: boolean;
 
-  featureFlags?: FeatureFlags;
+  featureFlags: FeatureFlags;
   useStickyToolbar?: UseStickyToolbarType;
 
   innerRef?: RefObject<HTMLDivElement>;

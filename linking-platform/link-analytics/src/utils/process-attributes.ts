@@ -1,7 +1,12 @@
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { normalizeUrl } from '@atlaskit/linking-common/url';
 
-import { LinkDetails } from '../types';
+import {
+  LinkCreatedAttributesType,
+  LinkUpdatedAttributesType,
+  LinkDeletedAttributesType,
+} from '../analytics.codegen';
+import { LifecycleAction, LinkDetails } from '../types';
 
 const getSourceEvent = (payload: Record<string, unknown>): string | null => {
   const base = (
@@ -25,37 +30,123 @@ const getSourceEvent = (payload: Record<string, unknown>): string | null => {
   return null;
 };
 
-/**
- * Given an event, derive a set of attributes
- */
-export const processAttributesFromBaseEvent = (event: UIAnalyticsEvent) => {
-  const contextAttributes = event.context.reduce((acc, cur) => {
-    if (!cur.attributes) {
-      return acc;
-    }
+const extractFromEventContext = (
+  propertyNames: string[],
+  event: UIAnalyticsEvent,
+): unknown[] => {
+  return event.context.reduce<unknown[]>((acc, contextItem) => {
+    propertyNames.forEach(propertyName => {
+      const value: unknown = contextItem[propertyName];
 
-    return {
-      ...acc.attributes,
-      ...cur.attributes,
-    };
+      if (value) {
+        acc.push(value);
+      }
+    });
+    return acc;
+  }, []);
+};
+
+const extractAttributesFromEvent = (
+  event: UIAnalyticsEvent,
+): Record<string, unknown> => {
+  const contextAttributes = extractFromEventContext(
+    ['attributes'],
+    event,
+  ).reduce<Record<string, unknown>>((result, extraAttributes) => {
+    if (typeof extraAttributes === 'object' && extraAttributes !== null) {
+      return { ...result, ...extraAttributes };
+    }
+    return result;
   }, {});
 
   return {
-    sourceEvent: getSourceEvent(event.payload),
     ...contextAttributes,
-    ...event.payload.attributes,
-    ...event.payload.data?.attributes,
+    ...(event.payload.attributes ?? {}),
+  };
+};
+
+type InputMethodAttributeKey =
+  | 'creationMethod'
+  | 'updateMethod'
+  | 'deleteMethod';
+
+const ACTION_INPUT_METHOD_NAME_MAP: Record<
+  LifecycleAction,
+  InputMethodAttributeKey
+> = {
+  created: 'creationMethod',
+  updated: 'updateMethod',
+  deleted: 'deleteMethod',
+};
+
+const DEFAULT_ATTRIBUTES_MAP: {
+  created: LinkCreatedAttributesType;
+  updated: LinkUpdatedAttributesType;
+  deleted: LinkDeletedAttributesType;
+} = {
+  created: {
+    sourceEvent: null,
+    creationMethod: 'unknown',
+  },
+  updated: {
+    sourceEvent: null,
+    updateMethod: 'unknown',
+  },
+  deleted: {
+    sourceEvent: null,
+    deleteMethod: 'unknown',
+  },
+};
+
+/**
+ * Given an event, derive a set of attributes
+ */
+export const processAttributesFromBaseEvent = (
+  action: LifecycleAction,
+  event: UIAnalyticsEvent,
+) => {
+  const sourceEvent = getSourceEvent(event.payload);
+  const [component] = extractFromEventContext(
+    ['component', 'componentName'],
+    event,
+  );
+
+  if (
+    typeof component === 'string' &&
+    component.toLowerCase() === 'linkpicker'
+  ) {
+    const attribute = ACTION_INPUT_METHOD_NAME_MAP[action];
+    const { linkFieldContentInputMethod: inputMethod } =
+      extractAttributesFromEvent(event);
+
+    if (inputMethod) {
+      return {
+        sourceEvent,
+        [attribute]: `linkpicker_${inputMethod}`,
+      };
+    }
+  }
+
+  return {
+    sourceEvent,
   };
 };
 
 export const mergeAttributes = (
+  action: LifecycleAction,
   details: LinkDetails,
-  sourceEvent?: UIAnalyticsEvent | null,
-  attributes?: Record<string, any>,
-): Record<string, unknown> => {
+  event?: UIAnalyticsEvent | null,
+  attributes?: Record<string, unknown>,
+) => {
+  const defaultAttributes = DEFAULT_ATTRIBUTES_MAP[action];
+  const derivedAttributes = event
+    ? processAttributesFromBaseEvent(action, event)
+    : {};
+
   return {
-    ...(sourceEvent ? processAttributesFromBaseEvent(sourceEvent) : {}),
+    ...defaultAttributes,
     ...attributes,
+    ...derivedAttributes,
     smartLinkId: details.smartLinkId,
   };
 };

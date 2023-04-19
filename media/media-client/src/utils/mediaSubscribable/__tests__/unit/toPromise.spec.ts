@@ -1,4 +1,4 @@
-import { MediaSubscribableItem } from '../../../../models/media-subscribable';
+import { FileState } from '../../../../models/file-state';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 import { Subscription } from 'rxjs/Subscription';
@@ -6,7 +6,7 @@ import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { from } from 'rxjs/observable/from';
 import { toPromise } from '../../toPromise';
 
-const fS1: MediaSubscribableItem = {
+const fS1: FileState = {
   id: '1',
   mediaType: 'image',
   status: 'processed',
@@ -15,7 +15,7 @@ const fS1: MediaSubscribableItem = {
   size: 10,
   artifacts: {},
 };
-const fS2: MediaSubscribableItem = {
+const fS2: FileState = {
   id: '2',
   mediaType: 'image',
   status: 'processed',
@@ -24,7 +24,7 @@ const fS2: MediaSubscribableItem = {
   size: 10,
   artifacts: {},
 };
-const fS3: MediaSubscribableItem = {
+const fS3: FileState = {
   id: '3',
   mediaType: 'image',
   status: 'processed',
@@ -37,7 +37,7 @@ const fS3: MediaSubscribableItem = {
 describe('toPromise()', () => {
   describe('With Observable', () => {
     it('should resolve first emitted value when no error', async () => {
-      const o$ = from([fS1, fS2, fS3]);
+      const o$ = from<FileState>([fS1, fS2, fS3]);
       expect(await toPromise(o$)).toEqual(fS1);
     });
 
@@ -68,7 +68,7 @@ describe('toPromise()', () => {
 
     it('should unsubscribe after resolving', async () => {
       const testSubscription = new Subscription();
-      const o$ = from([fS1, fS2, fS3]);
+      const o$ = from<FileState>([fS1, fS2, fS3]);
 
       await toPromise(o$, testSubscription);
       expect(testSubscription.closed).toBeTruthy();

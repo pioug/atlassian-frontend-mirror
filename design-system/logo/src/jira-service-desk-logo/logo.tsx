@@ -44,7 +44,7 @@ export const JiraServiceDeskLogo = ({
   testId,
   textColor = defaultLogoParams.textColor,
 }: LogoProps) => {
-  if (process.env.NODE_ENV !== 'production') {
+  if (typeof process !== 'undefined' && process.env.NODE_ENV !== 'production') {
     warnOnce(
       'JiraServiceDeskLogo has been deprecated and will be removed from @atlaskit/logo in the next major release. Please use JiraServiceManagementLogo instead.',
     );

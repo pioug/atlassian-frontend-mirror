@@ -1,24 +1,22 @@
-# @atlaskit/eslint-plugin-design-system/use-primitives
-
-This rule provides a suggestion to Design System consumers to be made aware of ready-made solutions.
+Using primitives allows you to delete bespoke component code and replace it with ready made solutions made by the Atlassian Design System Team.
 
 ## Examples
 
-👎 Example of **incorrect** code for this rule:
+This rule marks code as violations when it can be replaced 1:1 with a primitive component.
+
+### Incorrect
 
 ```js
 <div />
 ^^^^^^^
-```
 
-```js
 <Component>
   <div css={someStyles}></div>
   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 </Component>
 ```
 
-👍 Example of **correct** code for this rule:
+### Correct
 
 ```js
 <Box />

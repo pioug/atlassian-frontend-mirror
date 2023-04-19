@@ -1,4 +1,5 @@
 import { ElementProps } from '../types';
+import { InvokeActions } from '../../../../../state/hooks/use-invoke/types';
 
 export type LozengeAppearance =
   | 'default'
@@ -9,6 +10,11 @@ export type LozengeAppearance =
   | 'success';
 
 export type LozengeProps = ElementProps & {
+  /**
+   * Action that can be performed on the element
+   */
+  action?: InvokeActions;
+
   /**
    * Determines the appearance of the Atlaskit lozenge.
    */

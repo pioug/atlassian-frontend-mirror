@@ -5,7 +5,7 @@ import { CardInfo } from './types';
 import { CardPluginState } from './types';
 import { pluginKey } from './pm-plugins/plugin-key';
 import { mapChildren } from '../../utils/slice';
-import { isSupportedInParent } from '../..//utils/nodes';
+import { isSupportedInParent } from '../../utils/nodes';
 import { CardOptions } from '@atlaskit/editor-common/card';
 
 export const appearanceForNodeType = (
@@ -21,9 +21,11 @@ export const appearanceForNodeType = (
   return;
 };
 
-export const selectedCardAppearance = (state: EditorState) =>
-  state.selection instanceof NodeSelection &&
-  appearanceForNodeType(state.selection.node.type);
+export const selectedCardAppearance = (state: EditorState) => {
+  if (state.selection instanceof NodeSelection) {
+    return appearanceForNodeType(state.selection.node.type);
+  }
+};
 
 export type TitleUrlPair = { title?: string; url?: string };
 

@@ -44,7 +44,7 @@ export const JiraCoreLogo = ({
   testId,
   textColor = defaultLogoParams.textColor,
 }: LogoProps) => {
-  if (process.env.NODE_ENV !== 'production') {
+  if (typeof process !== 'undefined' && process.env.NODE_ENV !== 'production') {
     warnOnce(
       'JiraCoreLogo has been deprecated and will be removed from @atlaskit/logo in the next major release. Please use JiraWorkManagementLogo instead.',
     );

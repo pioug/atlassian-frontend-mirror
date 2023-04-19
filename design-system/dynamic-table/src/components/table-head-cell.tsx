@@ -4,6 +4,7 @@ import { HeadCell } from '../styled/table-head';
 import { SortOrderType } from '../types';
 
 export interface TableHeadCellProps {
+  colSpan?: number;
   sortKey?: string;
   isSortable?: boolean;
   sortOrder?: SortOrderType;
@@ -13,7 +14,9 @@ export interface TableHeadCellProps {
   content?: React.ReactNode;
   onClick?: () => void;
   onKeyDown?: (e: KeyboardEvent) => void;
+  shouldTruncate?: boolean;
   testId?: string;
+  width?: number;
   isRanking?: boolean;
 }
 
@@ -29,7 +32,7 @@ const TableHeadCell: FC<TableHeadCellProps> = ({
   return (
     <HeadCell
       style={inlineStyles}
-      data-testid={testId && `${testId}--head--cell`}
+      testId={testId && `${testId}--head--cell`}
       ref={typeof innerRef !== 'string' ? innerRef : null} // string refs must be discarded as LegacyRefs are not compatible with FC forwardRefs
       // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
       {...rest}

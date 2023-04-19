@@ -8,6 +8,7 @@
 ### Table of contents
 
 - [Main Entry Types](#main-entry-types)
+- [Peer Dependencies](#peer-dependencies)
 
 ### Main Entry Types
 
@@ -79,9 +80,9 @@ type Spacing = keyof typeof spacing;
 
 // @public
 const spacing: {
-  readonly comfortable: number;
-  readonly cosy: number;
-  readonly compact: number;
+  readonly comfortable: 'var(--ds-space-500)';
+  readonly cosy: 'var(--ds-space-200)';
+  readonly compact: 'var(--ds-space-050)';
 };
 
 // @public (undocumented)
@@ -118,3 +119,15 @@ type Status = 'current' | 'disabled' | 'unvisited' | 'visited';
 ```
 
 <!--SECTION END: Main Entry Types-->
+
+### Peer Dependencies
+
+<!--SECTION START: Peer Dependencies-->
+
+```json
+{
+  "react": "^16.8.0"
+}
+```
+
+<!--SECTION END: Peer Dependencies-->

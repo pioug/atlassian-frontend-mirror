@@ -49,6 +49,9 @@ const fixedTableDivStaticStyles = (
     > table {
     margin-top: 0;
     margin-bottom: 0;
+    tr {
+      background: ${token('elevation.surface', 'white')};
+    }
   }
 
   border-top: ${tableStickyPadding}px solid

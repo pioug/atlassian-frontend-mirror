@@ -22,6 +22,7 @@ import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import { changeColor } from '../commands/change-color';
 import { toggleColor } from '../commands/toggle-color';
 import textColorPlugin from '../index';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import {
   pluginKey as textColorPluginKey,
   TextColorPluginState,
@@ -36,6 +37,7 @@ describe('text color commands', () => {
     createEditor<TextColorPluginState, PluginKey>({
       doc,
       preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
         .add(textColorPlugin)
         .add(tablesPlugin)
         .add(blockTypePlugin)

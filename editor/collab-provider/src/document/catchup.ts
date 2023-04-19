@@ -41,12 +41,13 @@ export const catchup = async (opt: CatchupOptions) => {
       logger(`Replacing document: ${doc}`);
       logger(`getting metadata: ${metadata}`);
       // Replace local document and version number
-      opt.updateDocumentWithMetadata({
+      opt.updateDocument({
         doc: JSON.parse(doc),
         version: serverVersion,
         metadata,
         reserveCursor: true,
       });
+      opt.updateMetadata(metadata);
       if (unconfirmedSteps?.length) {
         opt.applyLocalSteps(unconfirmedSteps as Step<any>[]);
       }
@@ -71,12 +72,13 @@ export const catchup = async (opt: CatchupOptions) => {
       logger(`getting metadata: ${metadata}`);
 
       // Replace local document and version number
-      opt.updateDocumentWithMetadata({
+      opt.updateDocument({
         doc: JSON.parse(doc),
         version: serverVersion,
         metadata,
         reserveCursor: true,
       });
+      opt.updateMetadata(metadata);
 
       // After replacing the whole document in the editor, we need to reapply the unconfirmed
       // steps back into the editor, so we don't lose any data. But before that, we need to rebase

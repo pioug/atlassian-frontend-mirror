@@ -46,7 +46,11 @@ const EditView = styled.input`
   }
 `;
 
-if (process.env.NODE_ENV !== 'production' && !process.env.CI) {
+if (
+  typeof process !== 'undefined' &&
+  process.env.NODE_ENV !== 'production' &&
+  !process.env.CI
+) {
   // eslint-disable-next-line no-console
   console.warn(
     '@atlaskit/input has been deprecated. It is an internal component and should not be used directly.',

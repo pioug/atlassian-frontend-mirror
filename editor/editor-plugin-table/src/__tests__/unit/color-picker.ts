@@ -23,6 +23,7 @@ import extensionPlugin from '@atlaskit/editor-core/src/plugins/extension';
 import tablePlugin from '../../plugins/table';
 import { setEditorFocus, setTableRef } from '../../plugins/table/commands';
 import { getToolbarConfig } from '../../plugins/table/toolbar';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 const formatMessage: (t: { id: string }) => string = (message) =>
   `${message.id}`;
@@ -40,6 +41,7 @@ describe('color picker', () => {
 
       attachTo: document.body,
       preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
         .add(dataConsumerPlugin)
         .add(extensionPlugin)
         .add(tablePlugin),

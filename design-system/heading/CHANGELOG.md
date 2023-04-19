@@ -1,5 +1,11 @@
 # @atlaskit/heading
 
+## 1.2.1
+
+### Patch Changes
+
+- [`e0460d5d989`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e0460d5d989) - Usages of `process` are now guarded by a `typeof` check.
+
 ## 1.2.0
 
 ### Minor Changes

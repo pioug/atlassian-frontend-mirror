@@ -69,6 +69,7 @@ import {
   uiIframeDwelledEvent,
   uiIframeFocusedEvent,
 } from '../../utils/analytics/analytics';
+import { useDispatchAnalytics } from './useDispatchAnalytics';
 
 const applyCommonAttributes = (
   event: AnalyticsPayload,
@@ -100,10 +101,24 @@ const applyCommonAttributes = (
  */
 export const useSmartLinkAnalytics = (
   url: string,
-  dispatchAnalytics: AnalyticsHandler,
+  /**
+   * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-2681 Internal documentation for deprecation (no external access)}
+   * Overriding the analytics dispatch method is deprecated. Please omit this argument.
+   */
+  _dispatchAnalytics?: AnalyticsHandler,
+  /**
+   * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-2681 Internal documentation for deprecation (no external access)}
+   * Provide this via the id prop on the `<Card />` component.
+   */
   id?: string,
+  /**
+   * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-2681 Internal documentation for deprecation (no external access)}
+   * Provide this attribute via analytics context.
+   */
   defaultLocation?: string,
 ) => {
+  const { dispatchAnalytics } = useDispatchAnalytics(_dispatchAnalytics);
+
   const defaultId = id || 'NULL';
   // We don't want to trigger a re-render by using useSmartCardState
   const { store } = useSmartLinkContext();

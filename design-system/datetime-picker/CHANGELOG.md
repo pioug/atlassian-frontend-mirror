@@ -1,5 +1,12 @@
 # @atlaskit/datetime-picker
 
+## 12.3.12
+
+### Patch Changes
+
+- [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
+- [`e754545d460`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e754545d460) - [ux] Ensure no duplicate ID's when using `selectProps` on any of the DateTime Picker components.
+
 ## 12.3.11
 
 ### Patch Changes

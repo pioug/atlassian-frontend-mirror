@@ -1,5 +1,21 @@
 # @atlaskit/form
 
+## 8.9.0
+
+### Minor Changes
+
+- [`824851f3580`](https://bitbucket.org/atlassian/atlassian-frontend/commits/824851f3580) - [ux] Gives added affordance to sighted users to get information on meaning of asterisk symbol on required fields.
+
+### Patch Changes
+
+- [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
+
+## 8.8.8
+
+### Patch Changes
+
+- [`e0460d5d989`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e0460d5d989) - Usages of `process` are now guarded by a `typeof` check.
+
 ## 8.8.7
 
 ### Patch Changes

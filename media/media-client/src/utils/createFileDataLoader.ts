@@ -4,7 +4,7 @@ import 'setimmediate';
 import Dataloader from 'dataloader';
 
 import { MediaStore, ResponseFileItem } from '../client/media-store';
-import { MediaCollectionItemFullDetails } from '../models/media';
+import { MediaItemDetails } from '../models/media';
 import { getRandomHex, MediaTraceContext } from '@atlaskit/media-common';
 
 export const MAX_BATCH_SIZE = 100;
@@ -14,7 +14,7 @@ export type DataloaderKey = {
   readonly collectionName?: string;
 };
 
-export type DataloaderResult = MediaCollectionItemFullDetails | null;
+export type DataloaderResult = MediaItemDetails | null;
 
 export type BatchLoadingErrorResult = {
   readonly id: string;

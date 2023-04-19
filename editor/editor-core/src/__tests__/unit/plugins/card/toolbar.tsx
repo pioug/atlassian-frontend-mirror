@@ -280,6 +280,94 @@ describe('card', () => {
       },
     );
 
+    describe('tests `allowWrapping`, `allowAlignment` and `allowResizing` props in toolbar', () => {
+      beforeEach(() => {
+        mockPreview('some-preview');
+        mockCardContextState();
+      });
+      it.each([
+        {
+          allowEmbeds: true,
+          allowBlockCards: true,
+          allowWrapping: false,
+          allowAlignment: false,
+          allowResizing: false,
+        },
+        {
+          allowEmbeds: true,
+          allowBlockCards: true,
+          allowWrapping: false,
+          allowAlignment: false,
+          allowResizing: true,
+        },
+        {
+          allowEmbeds: true,
+          allowBlockCards: true,
+          allowWrapping: false,
+          allowAlignment: true,
+          allowResizing: true,
+        },
+        {
+          allowEmbeds: true,
+          allowBlockCards: true,
+          allowWrapping: false,
+          allowAlignment: true,
+          allowResizing: false,
+        },
+        {
+          allowEmbeds: true,
+          allowBlockCards: true,
+          allowWrapping: true,
+          allowAlignment: true,
+          allowResizing: false,
+        },
+        {
+          allowEmbeds: true,
+          allowBlockCards: true,
+          allowWrapping: true,
+          allowAlignment: false,
+          allowResizing: false,
+        },
+        {
+          allowEmbeds: true,
+          allowBlockCards: true,
+          allowWrapping: true,
+          allowAlignment: false,
+          allowResizing: true,
+        },
+        {
+          allowEmbeds: true,
+          allowBlockCards: true,
+          allowWrapping: true,
+          allowAlignment: true,
+          allowResizing: true,
+        },
+      ])(
+        'should generate correct toolbar layout with the following toolbar config: %s',
+
+        (toolbarConfig: CardOptions) => {
+          const { editorView } = editor(
+            doc(
+              '{<node>}',
+              embedCard({
+                url: 'http://www.atlassian.com/',
+                layout: 'center',
+              })(),
+            ),
+          );
+
+          const toolbar = floatingToolbar(
+            toolbarConfig,
+            featureFlagsMock,
+            'web',
+          )(editorView.state, intl, providerFactory);
+
+          const toolbarItems = getToolbarItems(toolbar!, editorView);
+          expect(toolbar).toBeDefined();
+          expect(toolbarItems).toMatchSnapshot();
+        },
+      );
+    });
     describe('tests `allowBlockCards` & `allowEmbeds` props in toolbar', () => {
       beforeEach(() => {
         mockPreview('some-preview');

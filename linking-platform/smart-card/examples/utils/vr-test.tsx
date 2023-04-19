@@ -5,6 +5,7 @@ import { css, Global, jsx } from '@emotion/react';
 
 import Page from '@atlaskit/page';
 import SectionMessage from '@atlaskit/section-message';
+import { SmartLinkActionType } from '@atlaskit/linking-types';
 import { exampleTokens } from './flexible-ui';
 
 const horizontalWrapperStyles = css`
@@ -65,3 +66,26 @@ export const VRTestWrapper = ({ title, children }: VRTestWrapperOptions) => (
 export const HorizontalWrapper: React.FC = ({ children }) => (
   <div css={horizontalWrapperStyles}>{children}</div>
 );
+
+export const LozengeActionExample = {
+  read: {
+    action: {
+      actionType: SmartLinkActionType.GetStatusTransitionsAction,
+      resourceIdentifiers: {
+        issueKey: 'some-id',
+        hostname: 'some-hostname',
+      },
+    },
+    providerKey: 'object-provider',
+  },
+  update: {
+    action: {
+      actionType: SmartLinkActionType.StatusUpdateAction,
+      resourceIdentifiers: {
+        issueKey: 'some-id',
+        hostname: 'some-hostname',
+      },
+    },
+    providerKey: 'object-provider',
+  },
+};

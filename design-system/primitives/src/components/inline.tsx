@@ -48,7 +48,7 @@ export interface InlineProps<T extends ElementType = 'div'> {
   spread?: Spread;
 
   /**
-   * Used to set whether the content should grow to fill the available space.
+   * Used to set whether the container should grow to fill the available space.
    */
   grow?: Grow;
 

@@ -15,8 +15,11 @@ export interface UseSmartLinkReloadOpts {
   /**
    * Callback for sending analytics events.
    * @description Accepts an analytics payload and fires it to a system.
+   *
+   * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-2681 Internal documentation for deprecation (no external access)}
+   * Overriding the analytics dispatch method is deprecated. Please omit this property.
    */
-  analyticsHandler: AnalyticsHandler;
+  analyticsHandler?: AnalyticsHandler;
 }
 
 /**

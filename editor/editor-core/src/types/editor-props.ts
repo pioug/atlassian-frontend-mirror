@@ -146,6 +146,11 @@ export interface EditorBaseProps
   // Set the default editor content.
   defaultValue?: Node | string | Object;
 
+  // Editor assitive label. Assistive label is hard coded to "Main content area, start typing to enter text.",
+  //  defined in "packages/editor/editor-core/src/create-editor/messages.ts"
+  // When this prop is set, it will override default one.
+  assistiveLabel?: string;
+
   // Set the DOM element for attaching popup menus
   popupsMountPoint?: HTMLElement;
   // DOM element used to help calculate correct positioning of popup menus to make sure they dont go offscreen.

@@ -35,49 +35,6 @@ describe('panel plugin -> keymap', () => {
       },
     });
   };
-
-  it('should not merge two panels, when entering backspace in an empty panel', () => {
-    const { editorView } = editor(
-      doc(panel({ panelType: 'info' })(p()), panel({ panelType: 'info' })(p())),
-    );
-
-    sendKeyToPm(editorView, 'Backspace');
-
-    expect(editorView.state.doc).toEqualDocument(
-      doc(panel({ panelType: 'info' })(p())),
-    );
-  });
-
-  it('should not merge two quotes, when entering backspace in an empty panel', () => {
-    const { editorView } = editor(doc(blockquote(p()), blockquote(p())));
-
-    sendKeyToPm(editorView, 'Backspace');
-
-    expect(editorView.state.doc).toEqualDocument(doc(blockquote(p())));
-  });
-
-  it('should not merge blockquote and panel, when entering backspace in an empty panel', () => {
-    const { editorView } = editor(
-      doc(blockquote(p()), panel({ panelType: 'info' })(p())),
-    );
-
-    sendKeyToPm(editorView, 'Backspace');
-
-    expect(editorView.state.doc).toEqualDocument(doc(blockquote(p())));
-  });
-
-  it('should not merge panel and blockquote, when entering backspace in an empty blockquote', () => {
-    const { editorView } = editor(
-      doc(panel({ panelType: 'info' })(p()), blockquote(p())),
-    );
-
-    sendKeyToPm(editorView, 'Backspace');
-
-    expect(editorView.state.doc).toEqualDocument(
-      doc(panel({ panelType: 'info' })(p())),
-    );
-  });
-
   describe('when delete panel', () => {
     it('should allow delete panel in first line', () => {
       const { editorView } = editor(
@@ -110,36 +67,70 @@ describe('panel plugin -> keymap', () => {
         ),
       );
     });
-  });
 
-  describe('when delete blockquote', () => {
-    it('should allow delete blockquote in first line', () => {
-      const { editorView } = editor(doc(blockquote(p('{<>}'))));
-
-      sendKeyToPm(editorView, 'Backspace');
-
-      expect(editorView.state.doc).toEqualDocument(doc(p('{<>}')));
-    });
-
-    it('should allow delete deep nested blockquote', () => {
+    it('should not merge two panels, when entering backspace in an empty panel', () => {
       const { editorView } = editor(
         doc(
-          table({ localId: TABLE_LOCAL_ID })(
-            tr(thEmpty, thEmpty),
-            tr(td()(blockquote(p('{<>}'))), tdEmpty),
-          ),
+          panel({ panelType: 'info' })(p()),
+          panel({ panelType: 'info' })(p()),
         ),
       );
 
       sendKeyToPm(editorView, 'Backspace');
 
       expect(editorView.state.doc).toEqualDocument(
+        doc(panel({ panelType: 'info' })(p())),
+      );
+    });
+  });
+
+  describe('when delete blockquote', () => {
+    it('should not merge blockquote and panel, when entering backspace in an empty panel', () => {
+      const { editorView } = editor(
+        doc(blockquote(p()), panel({ panelType: 'info' })(p())),
+      );
+
+      sendKeyToPm(editorView, 'Backspace');
+
+      expect(editorView.state.doc).toEqualDocument(doc(blockquote(p())));
+    });
+
+    it('should not merge panel and blockquote, when entering backspace in an empty blockquote', () => {
+      const { editorView } = editor(
+        doc(panel({ panelType: 'info' })(p()), blockquote(p())),
+      );
+
+      sendKeyToPm(editorView, 'Backspace');
+
+      expect(editorView.state.doc).toEqualDocument(
+        doc(panel({ panelType: 'info' })(p())),
+      );
+    });
+
+    it('should not merge panel and blockquote, when entering backspace in a non-empty blockquote', () => {
+      const { editorView } = editor(
+        doc(panel({ panelType: 'info' })(p()), blockquote(p('{<>}text'))),
+      );
+
+      sendKeyToPm(editorView, 'Backspace');
+
+      expect(editorView.state.doc).toEqualDocument(
+        doc(panel({ panelType: 'info' })(p()), p('text')),
+      );
+    });
+
+    it('should not merge panel and blockquote, when entering backspace in a blockquote with empty first paragraph', () => {
+      const { editorView } = editor(
         doc(
-          table({ localId: TABLE_LOCAL_ID })(
-            tr(thEmpty, thEmpty),
-            tr(tdCursor, tdEmpty),
-          ),
+          panel({ panelType: 'info' })(p()),
+          blockquote(p('{<>}'), p('text')),
         ),
+      );
+
+      sendKeyToPm(editorView, 'Backspace');
+
+      expect(editorView.state.doc).toEqualDocument(
+        doc(panel({ panelType: 'info' })(p()), blockquote(p('text'))),
       );
     });
   });

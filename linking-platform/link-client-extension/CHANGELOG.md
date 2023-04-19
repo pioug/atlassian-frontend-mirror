@@ -1,5 +1,22 @@
 # @atlaskit/link-client-extension
 
+## 0.4.1
+
+### Patch Changes
+
+- [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
+- Updated dependencies
+
+## 0.4.0
+
+### Minor Changes
+
+- [`d19a6e77d60`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d19a6e77d60) - Adds new hook useDatasourceClientExtension to fetch data for link datasources
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.3.0
 
 ### Minor Changes

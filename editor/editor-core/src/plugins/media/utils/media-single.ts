@@ -30,7 +30,6 @@ import {
   safeInsert,
   shouldSplitSelectedNodeOnNodeInsertion,
 } from '../../../utils/insert';
-import { getFeatureFlags } from '../../feature-flags-context';
 import { isImage } from './is-image';
 import { atTheBeginningOfBlock } from '../../../utils/prosemirror/position';
 import { getRandomHex } from '@atlaskit/media-common';
@@ -138,6 +137,7 @@ export const insertMediaSingleNode = (
   inputMethod?: InputMethodInsertMedia,
   collection?: string,
   alignLeftOnInsert?: boolean,
+  newInsertionBehaviour?: boolean,
 ): boolean => {
   if (collection === undefined) {
     return false;
@@ -174,7 +174,6 @@ export const insertMediaSingleNode = (
       dispatch,
     );
   } else {
-    const { newInsertionBehaviour } = getFeatureFlags(view.state);
     let tr: Transaction<any> | null = null;
     if (newInsertionBehaviour) {
       tr = safeInsert(node, state.selection.from)(state.tr);

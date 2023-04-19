@@ -28,8 +28,11 @@ import {
 } from '@atlaskit/link-test-helpers';
 
 import React, { ReactElement } from 'react';
-import { fireEvent, render, cleanup, waitFor } from '@testing-library/react';
-import { withAnalyticsContext } from '@atlaskit/analytics-next';
+import { cleanup, fireEvent, render, waitFor } from '@testing-library/react';
+import {
+  AnalyticsListener,
+  withAnalyticsContext,
+} from '@atlaskit/analytics-next';
 import { fakeFactory } from '../../../utils/mocks';
 import { CardClient } from '@atlaskit/link-provider';
 import { CardProps, Provider, ProviderProps, TitleBlock } from '../../..';
@@ -37,19 +40,17 @@ import * as analytics from '../../../utils/analytics/analytics';
 import { Card } from '../../Card';
 import { IntlProvider } from 'react-intl-next';
 import {
-  mockConfluenceResponse,
-  mockJiraResponse,
-  mockIframelyResponse,
-  mockBaseResponseWithPreview,
-  mockBaseResponseWithErrorPreview,
   mockBaseResponseWithDownload,
+  mockBaseResponseWithErrorPreview,
+  mockBaseResponseWithPreview,
+  mockConfluenceResponse,
+  mockIframelyResponse,
+  mockJiraResponse,
   mockSSRResponse,
-  mockActionableElementResponse,
   mockUnauthorisedResponse,
 } from './__mocks__/mocks';
 import * as HoverCardComponent from '../components/HoverCardComponent';
 import { HoverCard } from '../../../hoverCard';
-import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { PROVIDER_KEYS_WITH_THEMING } from '../../../extractors/constants';
 import { setGlobalTheme } from '@atlaskit/tokens';
 
@@ -1054,66 +1055,6 @@ describe('HoverCard', () => {
         expect(titleBlock.textContent?.trim()).toBe('I am a fan of cheese');
         expect(snippetBlock.textContent).toBe('');
         expect(footerBlock.textContent?.trim()).toBe('');
-      });
-    });
-
-    describe('Actionable element experiment', () => {
-      it('shows actionable element', async () => {
-        const { findByTestId, queryByTestId } = await setup({
-          mock: mockActionableElementResponse,
-          featureFlags: {
-            enableActionableElement: true,
-          },
-        });
-        jest.runAllTimers();
-        await findByTestId('smart-block-title-resolved-view');
-        await findByTestId('smart-block-metadata-resolved-view');
-
-        expect(queryByTestId('state-metadata-element-lozenge')).not.toBeNull();
-        expect(queryByTestId('state-metadata-element-action')).not.toBeNull();
-      });
-
-      it('does not show actionable element when feature flag is false', async () => {
-        const { findByTestId, queryByTestId } = await setup({
-          mock: mockActionableElementResponse,
-          featureFlags: {
-            enableActionableElement: false,
-          },
-        });
-        jest.runAllTimers();
-        await findByTestId('smart-block-title-resolved-view');
-        await findByTestId('smart-block-metadata-resolved-view');
-
-        expect(queryByTestId('state-metadata-element-lozenge')).not.toBeNull();
-        expect(queryByTestId('state-metadata-element-action')).toBeNull();
-      });
-
-      it('does not show actionable element when feature flag is not defined', async () => {
-        const { findByTestId, queryByTestId } = await setup({
-          mock: mockActionableElementResponse,
-        });
-        jest.runAllTimers();
-        await findByTestId('smart-block-title-resolved-view');
-        await findByTestId('smart-block-metadata-resolved-view');
-
-        expect(queryByTestId('state-metadata-element-lozenge')).not.toBeNull();
-        expect(queryByTestId('state-metadata-element-action')).toBeNull();
-      });
-
-      it('successfully copies the url to clipboard', async () => {
-        const { findByTestId } = await setup({
-          mock: mockActionableElementResponse,
-        });
-
-        jest.runAllTimers();
-
-        jest.spyOn(navigator.clipboard, 'writeText');
-
-        const copyButtonElem = await findByTestId('hover-card-copy-button');
-        fireEvent.click(copyButtonElem);
-        expect(navigator.clipboard.writeText).toHaveBeenCalledWith(
-          'https://some.url',
-        );
       });
     });
 

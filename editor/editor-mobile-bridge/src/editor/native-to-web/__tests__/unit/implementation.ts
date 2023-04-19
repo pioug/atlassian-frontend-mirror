@@ -85,6 +85,10 @@ class MockMobileUpload {
   notifyUploadError = jest.fn();
 }
 
+class MockNativeBridge {
+  updateTextWithADFStatus = jest.fn();
+}
+
 class MockCustomMediaPicker {
   emit = jest.fn();
   on = jest.fn();
@@ -762,8 +766,16 @@ describe('insert node', () => {
 });
 
 describe('media bridge', () => {
+  let webBridge: WebBridgeImpl;
+  let nativeBridge: any;
+
+  beforeEach(async () => {
+    webBridge = new WebBridgeImpl();
+    nativeBridge = new MockNativeBridge();
+  });
+
   it('😊 onUploadStart should call uploader.notifyUploadStart and mediaPicker.emit with the expected parameters', async () => {
-    let bridge: MediaBridge = new MediaBridge();
+    let bridge: MediaBridge = new MediaBridge(webBridge, nativeBridge);
     let uploader = new MockMobileUpload();
     bridge.mediaPicker = new MockCustomMediaPicker();
     bridge.mediaUpload = new Promise((resolve) => {
@@ -801,7 +813,7 @@ describe('media bridge', () => {
   });
 
   it('😊 onUploadStart should call uploader.notifyUploadStart and mediaPicker.emit with the expected parameters (wrong scheme)', async () => {
-    let bridge: MediaBridge = new MediaBridge();
+    let bridge: MediaBridge = new MediaBridge(webBridge, nativeBridge);
     let uploader = new MockMobileUpload();
     bridge.mediaPicker = new MockCustomMediaPicker();
     bridge.mediaUpload = new Promise((resolve) => {
@@ -840,7 +852,7 @@ describe('media bridge', () => {
   });
 
   it('😊 onUploadStart should call uploader.notifyUploadStart and mediaPicker.emit with expected parameters (no preview value, retained dimensions)', async () => {
-    let bridge: MediaBridge = new MediaBridge();
+    let bridge: MediaBridge = new MediaBridge(webBridge, nativeBridge);
     let uploader = new MockMobileUpload();
     bridge.mediaPicker = new MockCustomMediaPicker();
     bridge.mediaUpload = new Promise((resolve) => {
@@ -879,7 +891,7 @@ describe('media bridge', () => {
   });
 
   it('🥺 onUploadStart shortcut if mediaPicker is undefined', async () => {
-    let bridge: MediaBridge = new MediaBridge();
+    let bridge: MediaBridge = new MediaBridge(webBridge, nativeBridge);
     let uploader = new MockMobileUpload();
     bridge.mediaPicker = undefined;
     bridge.mediaUpload = new Promise((resolve) => {
@@ -893,7 +905,7 @@ describe('media bridge', () => {
   });
 
   it('🥺 onUploadStart shortcut if mediaUpload is undefined', async () => {
-    let bridge: MediaBridge = new MediaBridge();
+    let bridge: MediaBridge = new MediaBridge(webBridge, nativeBridge);
     bridge.mediaPicker = new MockCustomMediaPicker();
     bridge.mediaUpload = undefined;
 
@@ -904,7 +916,7 @@ describe('media bridge', () => {
   });
 
   it('🥺 onUploadStart shortcut if uploader is resolved as undefined', async () => {
-    let bridge: MediaBridge = new MediaBridge();
+    let bridge: MediaBridge = new MediaBridge(webBridge, nativeBridge);
     bridge.mediaPicker = new MockCustomMediaPicker();
     bridge.mediaUpload = new Promise((resolve) => {
       resolve(undefined);
@@ -917,7 +929,7 @@ describe('media bridge', () => {
   });
 
   it('😊 onUploadProgress should call uploader.notifyUploadProgress with the expected parameters', async () => {
-    let bridge: MediaBridge = new MediaBridge();
+    let bridge: MediaBridge = new MediaBridge(webBridge, nativeBridge);
     let uploader = new MockMobileUpload();
     bridge.mediaUpload = new Promise((resolve) => {
       resolve(uploader);
@@ -932,7 +944,7 @@ describe('media bridge', () => {
   });
 
   it('🥺 onUploadProgress shortcut if mediaUpload is undefined', async () => {
-    let bridge: MediaBridge = new MediaBridge();
+    let bridge: MediaBridge = new MediaBridge(webBridge, nativeBridge);
     let uploader = new MockMobileUpload();
     bridge.mediaUpload = undefined;
 
@@ -943,7 +955,7 @@ describe('media bridge', () => {
   });
 
   it('🥺 onUploadProgress shortcut if uploader is resolved as undefined', async () => {
-    let bridge: MediaBridge = new MediaBridge();
+    let bridge: MediaBridge = new MediaBridge(webBridge, nativeBridge);
     let uploader = new MockMobileUpload();
     bridge.mediaUpload = new Promise((resolve) => {
       resolve(undefined);
@@ -956,7 +968,7 @@ describe('media bridge', () => {
   });
 
   it('😊 onUploadEnd should call uploader.notifyUploadEnd with the expected parameters', async () => {
-    let bridge: MediaBridge = new MediaBridge();
+    let bridge: MediaBridge = new MediaBridge(webBridge, nativeBridge);
     let uploader = new MockMobileUpload();
     bridge.mediaUpload = new Promise((resolve) => {
       resolve(uploader);
@@ -968,10 +980,11 @@ describe('media bridge', () => {
     const progressEvent = JSON.parse(mockParameter);
 
     expect(uploader.notifyUploadEnd).toBeCalledWith(progressEvent);
+    expect(nativeBridge.updateTextWithADFStatus).toBeCalledTimes(1);
   });
 
   it('🥺 onUploadEnd shortcut if mediaUpload is undefined', async () => {
-    let bridge: MediaBridge = new MediaBridge();
+    let bridge: MediaBridge = new MediaBridge(webBridge, nativeBridge);
     let uploader = new MockMobileUpload();
     bridge.mediaUpload = undefined;
 
@@ -979,10 +992,11 @@ describe('media bridge', () => {
     await bridge.onUploadEnd(mockParameter);
 
     expect(uploader.notifyUploadEnd).toBeCalledTimes(0);
+    expect(nativeBridge.updateTextWithADFStatus).toBeCalledTimes(0);
   });
 
   it('🥺 onUploadEnd shortcut if uploader is resolved as undefined', async () => {
-    let bridge: MediaBridge = new MediaBridge();
+    let bridge: MediaBridge = new MediaBridge(webBridge, nativeBridge);
     let uploader = new MockMobileUpload();
     bridge.mediaUpload = new Promise((resolve) => {
       resolve(undefined);
@@ -992,10 +1006,11 @@ describe('media bridge', () => {
     await bridge.onUploadEnd(mockParameter);
 
     expect(uploader.notifyUploadEnd).toBeCalledTimes(0);
+    expect(nativeBridge.updateTextWithADFStatus).toBeCalledTimes(0);
   });
 
   it('😊 onUploadFail should call uploader.notifyUploadError with the expected parameters', async () => {
-    let bridge: MediaBridge = new MediaBridge();
+    let bridge: MediaBridge = new MediaBridge(webBridge, nativeBridge);
     let uploader = new MockMobileUpload();
     bridge.mediaUpload = new Promise((resolve) => {
       resolve(uploader);
@@ -1007,10 +1022,11 @@ describe('media bridge', () => {
     const progressEvent = JSON.parse(mockParameter);
 
     expect(uploader.notifyUploadError).toBeCalledWith(progressEvent);
+    expect(nativeBridge.updateTextWithADFStatus).toBeCalledTimes(1);
   });
 
   it('🥺 onUploadFail shortcut if mediaUpload is undefined', async () => {
-    let bridge: MediaBridge = new MediaBridge();
+    let bridge: MediaBridge = new MediaBridge(webBridge, nativeBridge);
     let uploader = new MockMobileUpload();
     bridge.mediaUpload = undefined;
 
@@ -1018,10 +1034,11 @@ describe('media bridge', () => {
     await bridge.onUploadFail(mockParameter);
 
     expect(uploader.notifyUploadError).toBeCalledTimes(0);
+    expect(nativeBridge.updateTextWithADFStatus).toBeCalledTimes(0);
   });
 
   it('🥺 onUploadFail shortcut if uploader is resolved as undefined', async () => {
-    let bridge: MediaBridge = new MediaBridge();
+    let bridge: MediaBridge = new MediaBridge(webBridge, nativeBridge);
     let uploader = new MockMobileUpload();
     bridge.mediaUpload = new Promise((resolve) => {
       resolve(undefined);
@@ -1031,5 +1048,6 @@ describe('media bridge', () => {
     await bridge.onUploadFail(mockParameter);
 
     expect(uploader.notifyUploadError).toBeCalledTimes(0);
+    expect(nativeBridge.updateTextWithADFStatus).toBeCalledTimes(0);
   });
 });

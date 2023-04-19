@@ -1,11 +1,17 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
+import { SmartCardProvider } from '@atlaskit/link-provider';
 
-import { HorizontalWrapper, VRTestWrapper } from './utils/vr-test';
+import {
+  HorizontalWrapper,
+  LozengeActionExample,
+  VRTestWrapper,
+} from './utils/vr-test';
 import { FlexibleUiContext } from '../src/state/flexible-ui-context';
 import { getContext } from './utils/flexible-ui';
 import { DueOn, State } from '../src/view/FlexibleCard/components/elements';
 import { LozengeAppearance } from '../src/view/FlexibleCard/components/elements/lozenge/types';
+import './utils/fetch-mock-invoke';
 
 const context = getContext({
   dueOn: '2020-02-04T12:40:12.353+0800',
@@ -26,42 +32,43 @@ const overrideCss = css`
 
 export default () => (
   <VRTestWrapper title="Flexible UI: Element: Lozenge">
-    <FlexibleUiContext.Provider value={context}>
-      <HorizontalWrapper>
-        {appearances.map((appearance: LozengeAppearance, idx: number) => (
+    <SmartCardProvider>
+      <FlexibleUiContext.Provider value={context}>
+        <HorizontalWrapper>
+          {appearances.map((appearance: LozengeAppearance, idx: number) => (
+            <State
+              key={idx}
+              text={appearance as string}
+              appearance={appearance}
+              testId="vr-test-lozenge"
+            />
+          ))}
+        </HorizontalWrapper>
+        <HorizontalWrapper>
+          {content.map((text: string, idx: number) => (
+            <State
+              key={idx}
+              text={text}
+              appearance="default"
+              testId="vr-test-lozenge"
+            />
+          ))}
+        </HorizontalWrapper>
+        <HorizontalWrapper>
+          <DueOn />
+        </HorizontalWrapper>
+        <h5>Override CSS</h5>
+        <State appearance="moved" overrideCss={overrideCss} text="override" />
+        <h5>Action</h5>
+        <div>
           <State
-            key={idx}
-            text={appearance as string}
-            appearance={appearance}
-            testId="vr-test-lozenge"
+            action={LozengeActionExample}
+            text="To Do"
+            testId="vr-test-lozenge-action"
           />
-        ))}
-      </HorizontalWrapper>
-      <HorizontalWrapper>
-        {content.map((text: string, idx: number) => (
-          <State
-            key={idx}
-            text={text}
-            appearance="default"
-            testId="vr-test-lozenge"
-          />
-        ))}
-      </HorizontalWrapper>
-      <HorizontalWrapper>
-        <DueOn />
-      </HorizontalWrapper>
-      <h5>Override CSS</h5>
-      <State appearance="moved" overrideCss={overrideCss} text="override" />
-      <h5>Experiment (DO NOT USE)</h5>
-      <div>
-        <State text="medium" onClick={() => {}} />{' '}
-        <State
-          text="medium"
-          onClick={() => {}}
-          testId="vr-test-lozenge-action-experiment"
-        />
-      </div>
-      <br />
-    </FlexibleUiContext.Provider>
+        </div>
+        <br />
+      </FlexibleUiContext.Provider>
+    </SmartCardProvider>
   </VRTestWrapper>
 );

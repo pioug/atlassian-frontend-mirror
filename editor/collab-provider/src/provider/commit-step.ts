@@ -1,4 +1,5 @@
 import countBy from 'lodash/countBy';
+import throttle from 'lodash/throttle';
 import { ADD_STEPS_TYPE, EVENT_ACTION, EVENT_STATUS } from '../helpers/const';
 import {
   AcknowledgementResponseTypes,
@@ -11,6 +12,8 @@ import type { Step as ProseMirrorStep } from 'prosemirror-transform';
 import { NCS_ERROR_CODE } from '../errors/error-types';
 import AnalyticsHelper from '../analytics/analytics-helper';
 import type { InternalError } from '../errors/error-types';
+
+const SEND_STEPS_THROTTLE = 500; // 0.5 second
 
 export const commitStep = ({
   broadcast,
@@ -109,3 +112,12 @@ export const commitStep = ({
     );
   }
 };
+
+export const throttledCommitStep = throttle<typeof commitStep>(
+  commitStep,
+  SEND_STEPS_THROTTLE,
+  {
+    leading: false,
+    trailing: true,
+  },
+);

@@ -8,6 +8,9 @@ jest.mock('lodash/throttle', () => ({
   default: jest.fn((fn) => fn),
   __esModule: true,
 }));
+
+jest.mock('../../provider/commit-step');
+
 jest.mock('../../provider');
 jest.mock('@atlaskit/prosemirror-collab', () => {
   return {
@@ -27,90 +30,14 @@ import {
 } from '@atlaskit/collab-provider/types';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
-import { MAX_STEP_REJECTED_ERROR, throttledCommitStep } from '../../provider';
+import { MAX_STEP_REJECTED_ERROR } from '../../provider';
+import { throttledCommitStep } from '../../provider/commit-step';
 import { createMockService } from './document-service.mock';
 
 describe('document-service', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
   afterEach(() => jest.clearAllMocks());
   afterAll(() => {
     jest.resetAllMocks();
-  });
-
-  describe('metadata', () => {
-    it('Initializes metadata to an empty object', () => {
-      const { service } = createMockService();
-      expect(service.getMetaData()).toEqual({});
-    });
-
-    it('Does not emit metadata changed to provider when there is no difference in metadata ', () => {
-      const { service, providerEmitCallbackMock } = createMockService();
-      service.onMetadataChanged({ test: 'value' });
-      expect(providerEmitCallbackMock).toBeCalledTimes(1);
-      providerEmitCallbackMock.mockClear();
-      service.onMetadataChanged({ test: 'value' });
-      expect(providerEmitCallbackMock).not.toBeCalled();
-    });
-
-    it('updates and emits metadata when metadata differs to existing value', () => {
-      const { service, providerEmitCallbackMock } = createMockService();
-      service.onMetadataChanged({ aNew: 'value' });
-      expect(providerEmitCallbackMock).toBeCalledWith('metadata:changed', {
-        aNew: 'value',
-      });
-      expect(service.getMetaData()).toEqual({ aNew: 'value' });
-    });
-
-    it('Sets the metadata when initialising a document', () => {
-      const { service, providerEmitCallbackMock } = createMockService();
-      service.updateDocumentWithMetadata({
-        doc: 'doc',
-        version: 100,
-        metadata: { isMeta: true },
-        reserveCursor: false,
-      });
-      expect(service.getMetaData()).toEqual({ isMeta: true });
-      expect(providerEmitCallbackMock).toBeCalledWith('metadata:changed', {
-        isMeta: true,
-      });
-    });
-
-    it('Updates metadata when calling setTitle', () => {
-      const { service, sendMetadataMock } = createMockService();
-      service.setTitle('newTitle');
-      expect(service.getMetaData()).toEqual({ title: 'newTitle' });
-      expect(sendMetadataMock).not.toBeCalled();
-    });
-
-    it('Updates and broadcasts metadata and when calling setTitle', () => {
-      const { service, sendMetadataMock } = createMockService();
-      service.setTitle('newTitle', true);
-      expect(service.getMetaData()).toEqual({ title: 'newTitle' });
-      expect(sendMetadataMock).toBeCalledWith({ title: 'newTitle' });
-    });
-
-    it('Updates metadata when calling setEditorWidth', () => {
-      const { service, sendMetadataMock } = createMockService();
-      service.setEditorWidth('newTitle');
-      expect(service.getMetaData()).toEqual({ editorWidth: 'newTitle' });
-      expect(sendMetadataMock).not.toBeCalled();
-    });
-
-    it('Updates and broadcasts metadata and when calling setEditorWidth', () => {
-      const { service, sendMetadataMock } = createMockService();
-      service.setEditorWidth('newTitle', true);
-      expect(service.getMetaData()).toEqual({ editorWidth: 'newTitle' });
-      expect(sendMetadataMock).toBeCalledWith({ editorWidth: 'newTitle' });
-    });
-
-    it('Updates and broadcasts metadata and when calling setMetadata', () => {
-      const { service, sendMetadataMock } = createMockService();
-      service.setMetadata({ isMeta: true });
-      expect(service.getMetaData()).toEqual({ isMeta: true });
-      expect(sendMetadataMock).toBeCalledWith({ isMeta: true });
-    });
   });
 
   describe('catchup', () => {
@@ -134,7 +61,9 @@ describe('document-service', () => {
         fetchCatchup: fetchCatchupMock,
         getUnconfirmedSteps: service.getUnconfirmedSteps,
         filterQueue: stepQueue.filterQueue,
-        updateDocumentWithMetadata: service.updateDocumentWithMetadata,
+        updateDocument: service.updateDocument,
+        // @ts-ignore
+        updateMetadata: service.metadataService.updateMetadata,
         // @ts-expect-error - checking if private method is passed
         applyLocalSteps: service.applyLocalSteps,
       });
@@ -422,61 +351,6 @@ describe('document-service', () => {
       });
     });
 
-    describe('updateDocumentWithMetadata', () => {
-      const updateDocumentWithMetadataData = {
-        doc: 'mocDoc',
-        metadata: undefined,
-        version: 1,
-        reserveCursor: true,
-      } as unknown as CollabInitPayload;
-
-      it('Calls provider emit callback', () => {
-        const { service, providerEmitCallbackMock } = createMockService();
-        service.updateDocumentWithMetadata(updateDocumentWithMetadataData);
-        expect(providerEmitCallbackMock).toBeCalledTimes(1);
-        expect(providerEmitCallbackMock).toBeCalledWith(
-          'init',
-          updateDocumentWithMetadataData,
-        );
-      });
-
-      it('does not emit reserveCursor when it is false', () => {
-        const { service, providerEmitCallbackMock } = createMockService();
-
-        service.updateDocumentWithMetadata({
-          ...updateDocumentWithMetadataData,
-          reserveCursor: false,
-        });
-        expect(providerEmitCallbackMock).toBeCalledTimes(1);
-        expect(providerEmitCallbackMock.mock.calls[0][1]).not.toEqual(
-          expect.objectContaining({ reserveCursor: expect.anything() }),
-        );
-      });
-
-      it('Emits metadata:changed when metadata is included', () => {
-        const { service, providerEmitCallbackMock } = createMockService();
-        service.updateDocumentWithMetadata({
-          ...updateDocumentWithMetadataData,
-          metadata: { key: 'val' },
-        });
-        expect(providerEmitCallbackMock).toBeCalledTimes(2);
-        expect(providerEmitCallbackMock).toHaveBeenNthCalledWith(
-          2,
-          'metadata:changed',
-          { key: 'val' },
-        );
-      });
-
-      it('Does not emits metadata:changed when metadata is an empty object', () => {
-        const { service, providerEmitCallbackMock } = createMockService();
-        service.updateDocumentWithMetadata({
-          ...updateDocumentWithMetadataData,
-          metadata: {},
-        });
-        expect(providerEmitCallbackMock).toBeCalledTimes(1);
-      });
-    });
-
     it('applyLocalSteps calls the provider emit callback', () => {
       const { service, providerEmitCallbackMock } = createMockService();
       // @ts-ignore - Testing private function
@@ -722,11 +596,11 @@ describe('document-service', () => {
         jest.spyOn(service, 'getUnconfirmedSteps');
       });
       describe('reinitialise the document', () => {
-        it('calls updateDocumentWithMetadata with correct parameters', () => {
-          jest.spyOn(service, 'updateDocumentWithMetadata');
+        it('calls updateDocument with correct parameters', () => {
+          jest.spyOn(service, 'updateDocument');
           // @ts-ignore
           service.onRestore(dummyRestorePayload);
-          expect(service.updateDocumentWithMetadata).toBeCalledWith({
+          expect(service.updateDocument).toBeCalledWith({
             ...dummyRestorePayload,
             reserveCursor: true,
           });
@@ -794,12 +668,10 @@ describe('document-service', () => {
           );
         });
 
-        it('when updateDocumentWithMetadata throws', () => {
-          jest
-            .spyOn(service, 'updateDocumentWithMetadata')
-            .mockImplementation(() => {
-              throw testError;
-            });
+        it('when updateDocument throws', () => {
+          jest.spyOn(service, 'updateDocument').mockImplementation(() => {
+            throw testError;
+          });
 
           service.onRestore(dummyRestorePayload);
           expect(onErrorHandledMock).toBeCalledTimes(1);
@@ -1035,6 +907,38 @@ describe('document-service', () => {
           service.onStepRejectedError();
         }
         expect(service.throttledCatchup).toBeCalledTimes(1);
+      });
+    });
+
+    describe('updateDocument', () => {
+      const updateDocumentData = {
+        doc: 'mocDoc',
+        metadata: undefined,
+        version: 1,
+        reserveCursor: true,
+      } as unknown as CollabInitPayload;
+
+      it('Calls provider emit callback', () => {
+        const { service, providerEmitCallbackMock } = createMockService();
+        service.updateDocument(updateDocumentData);
+        expect(providerEmitCallbackMock).toBeCalledTimes(1);
+        expect(providerEmitCallbackMock).toBeCalledWith(
+          'init',
+          updateDocumentData,
+        );
+      });
+
+      it('does not emit reserveCursor when it is false', () => {
+        const { service, providerEmitCallbackMock } = createMockService();
+
+        service.updateDocument({
+          ...updateDocumentData,
+          reserveCursor: false,
+        });
+        expect(providerEmitCallbackMock).toBeCalledTimes(1);
+        expect(providerEmitCallbackMock.mock.calls[0][1]).not.toEqual(
+          expect.objectContaining({ reserveCursor: expect.anything() }),
+        );
       });
     });
   });

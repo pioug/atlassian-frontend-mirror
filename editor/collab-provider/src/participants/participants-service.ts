@@ -124,6 +124,7 @@ export class ParticipantsService {
       // We don't want to throw errors for Presence features as they tend to self-restore
       this.analyticsHelper?.sendErrorEvent(error, 'emitting disconnected data');
     }
+
     if (left.length) {
       this.emitPresence(
         { left },
@@ -248,7 +249,8 @@ export class ParticipantsService {
 
     left.forEach((p) => this.participantsState.removeBySessionId(p.sessionId));
 
-    this.emitPresence({ left }, emit, 'filtering inactive participants');
+    left.length &&
+      this.emitPresence({ left }, emit, 'filtering inactive participants');
   };
 
   /**
@@ -296,5 +298,12 @@ export class ParticipantsService {
         `Error while ${errorMessage}`,
       );
     }
+  };
+
+  /**
+   * Used when the provider is disconnected or destroyed to prevent perpetual timers from continuously running
+   */
+  clearTimers = () => {
+    clearTimeout(this.participantUpdateTimeout);
   };
 }

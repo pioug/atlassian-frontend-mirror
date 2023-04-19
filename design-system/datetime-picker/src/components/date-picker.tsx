@@ -680,7 +680,6 @@ class DatePicker extends Component<DatePickerProps, State> {
         data-testid={testId && `${testId}--container`}
       >
         <input
-          id={selectProps.inputId}
           name={name}
           type="hidden"
           value={value}

@@ -25,7 +25,6 @@ describe('create-plugins-list without mock tests', () => {
       'submitEditor',
       'fakeTextCursor',
       'floatingToolbar',
-      'featureFlagsContext',
       'selection',
       'codeBlock',
       'dataConsumerPlugin',

@@ -10,11 +10,7 @@ import { PMPluginFactoryParams } from '../../../types';
 import { BlockCard, BlockCardNodeViewProps } from '../nodeviews/blockCard';
 import { EmbedCard, EmbedCardNodeViewProps } from '../nodeviews/embedCard';
 import { InlineCardNodeView } from '../nodeviews/inlineCard';
-import {
-  CardPluginOptions,
-  CardPluginState,
-  OutstandingRequests,
-} from '../types';
+import { CardPluginOptions, CardPluginState } from '../types';
 import { pluginKey } from './plugin-key';
 import reducer from './reducers';
 import { handleProvider, resolveWithProvider } from './util/resolve';
@@ -23,12 +19,18 @@ import {
   getPluginState,
   getPluginStateWithUpdatedPos,
 } from './util/state';
+import { createAnalyticsQueue, eventsFromTransaction } from './analytics';
 
 export { pluginKey } from './plugin-key';
 
 export const createPlugin =
   (options: CardPluginOptions) =>
-  (pmPluginFactoryParams: PMPluginFactoryParams) => {
+  (
+    pmPluginFactoryParams: PMPluginFactoryParams,
+  ): SafePlugin<CardPluginState> => {
+    const { lpAnalyticsEventsNext } = pmPluginFactoryParams.featureFlags;
+    const analyticsQueue = createAnalyticsQueue(!!lpAnalyticsEventsNext);
+
     const {
       editorAppearance,
       platform,
@@ -47,23 +49,37 @@ export const createPlugin =
             cards: [],
             showLinkingToolbar: false,
             smartLinkEvents: undefined,
+            smartLinkEventsNext: undefined,
             createAnalyticsEvent,
             editorAppearance,
           };
         },
 
-        apply(tr, pluginState: CardPluginState) {
+        apply(tr, pluginState: CardPluginState, prevEditorState: EditorState) {
           // Update all the positions of outstanding requests and
           // cards in the plugin state.
           const pluginStateWithUpdatedPos = getPluginStateWithUpdatedPos(
             pluginState,
             tr,
           );
+
           // apply any actions
           const meta = tr.getMeta(pluginKey);
+
+          const events = eventsFromTransaction(tr, prevEditorState);
+          analyticsQueue.push(...events);
+
           if (meta) {
-            const nextPluginState = reducer(pluginStateWithUpdatedPos, meta);
-            return nextPluginState;
+            const nextState = reducer(pluginStateWithUpdatedPos, meta);
+
+            if (
+              !pluginState.smartLinkEventsNext &&
+              nextState.smartLinkEventsNext
+            ) {
+              analyticsQueue.setCallbacks(nextState.smartLinkEventsNext);
+            }
+
+            return nextState;
           }
 
           return pluginStateWithUpdatedPos;
@@ -71,7 +87,6 @@ export const createPlugin =
       },
 
       view(view: EditorView) {
-        const outstandingRequests: OutstandingRequests = {};
         const subscriptionHandler: ProviderHandler<'cardProvider'> = (
           name,
           provider,
@@ -104,26 +119,17 @@ export const createPlugin =
                  * other tasks as per common implementations of the JavaScript event loop in browsers.
                  */
                 const invoke = rafSchedule(() =>
-                  resolveWithProvider(
-                    view,
-                    outstandingRequests,
-                    provider,
-                    request,
-                    options,
-                  ),
+                  resolveWithProvider(view, provider, request, options),
                 );
                 rafCancellationCallbacks.push(invoke.cancel);
                 invoke();
               });
             }
+
+            analyticsQueue.flush();
           },
 
           destroy() {
-            // Cancel all outstanding requests
-            Object.keys(outstandingRequests).forEach((url) =>
-              Promise.reject(outstandingRequests[url]),
-            );
-
             // Cancel any outstanding raf callbacks.
             rafCancellationCallbacks.forEach((cancellationCallback) =>
               cancellationCallback(),

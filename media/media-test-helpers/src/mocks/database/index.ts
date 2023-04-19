@@ -2,9 +2,8 @@ import { Database } from 'kakapo';
 import uuidV4 from 'uuid/v4';
 
 import { ClientBasedAuth } from '@atlaskit/media-core';
-import { MediaCollection } from '@atlaskit/media-client';
 
-import { createCollection } from './collection';
+import { createCollection, MediaCollection } from './collection';
 import { CollectionItem, createCollectionItem } from './collection-item';
 import { createUpload, Upload } from './upload';
 import { Chunk, createChunk } from './chunk';
@@ -17,6 +16,7 @@ export { createCollection } from './collection';
 export {
   createCollectionItem,
   createEmptyCollectionItem,
+  isMediaItemDetails,
 } from './collection-item';
 export type {
   CollectionItem,

@@ -118,6 +118,7 @@ describe('ToolbarTextColor', () => {
           pluginState={pluginState}
           editorView={editorView}
           dispatchAnalyticsEvent={mockDispatchAnalytics}
+          featureFlags={{}}
         />,
       );
     });
@@ -252,6 +253,7 @@ describe('ToolbarTextColor', () => {
           pluginState={pluginState}
           editorView={editorView}
           dispatchAnalyticsEvent={mockDispatchAnalytics}
+          featureFlags={{}}
         />,
       );
     });

@@ -41,10 +41,7 @@ describe('DocumentService onRestore', () => {
     it('sends correct initial metadata and reserveCursor to provider', (done) => {
       expect.assertions(4);
       getUnconfirmedStepsSpy.mockReturnValue([]);
-      const updateDocMetaSpy = jest.spyOn(
-        provider.documentService,
-        'updateDocumentWithMetadata',
-      );
+      const updateDoc = jest.spyOn(provider.documentService, 'updateDocument');
       provider.on('init', (data: any) => {
         expect(data).toEqual({
           ...dummyPayload,
@@ -57,8 +54,8 @@ describe('DocumentService onRestore', () => {
       });
       // @ts-ignore
       provider.documentService.onRestore(dummyPayload);
-      expect(updateDocMetaSpy).toBeCalledTimes(1);
-      expect(updateDocMetaSpy).toBeCalledWith({
+      expect(updateDoc).toBeCalledTimes(1);
+      expect(updateDoc).toBeCalledWith({
         ...dummyPayload,
         reserveCursor: true,
       });
@@ -119,10 +116,10 @@ describe('DocumentService onRestore', () => {
       getUnconfirmedStepsSpy.mockReturnValue(['test', 'test']);
     });
 
-    it('when updateDocumentWithMetadata throws', (done) => {
+    it('when updateDocument throws', (done) => {
       expect.assertions(7);
       jest
-        .spyOn(provider.documentService, 'updateDocumentWithMetadata')
+        .spyOn(provider.documentService, 'updateDocument')
         .mockImplementation(() => {
           throw testError;
         });

@@ -28,6 +28,7 @@ import type {
   FloatingToolbarButton,
   GetEditorFeatureFlags,
 } from '@atlaskit/editor-common/types';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 const formatMessage: (t: { id: string }) => string = (message) =>
   `${message.id}`;
@@ -73,6 +74,7 @@ describe('getToolbarConfig', () => {
 
       attachTo: document.body,
       preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
         .add(dataConsumerPlugin)
         .add(extensionPlugin)
         .add(tablePlugin),

@@ -258,4 +258,25 @@ describe('TimePicker', () => {
     expect(onChangeSpy).toBeCalledWith('');
     expect(screen.queryByTestId('test--popper--container')).toBeInTheDocument();
   });
+
+  it('should never apply an ID to the hidden input', () => {
+    const id = 'test';
+    const testId = 'testId';
+    const allImplementations = [
+      <TimePicker testId={testId} />,
+      <TimePicker testId={testId} id={id} />,
+      <TimePicker testId={testId} selectProps={{ inputId: id }} />,
+    ];
+
+    allImplementations.forEach((jsx) => {
+      const { getByTestId, unmount } = render(jsx);
+
+      const hiddenInput = getByTestId(`${testId}--input`);
+
+      expect(hiddenInput).toHaveAttribute('type', 'hidden');
+      expect(hiddenInput).not.toHaveAttribute('id');
+
+      unmount();
+    });
+  });
 });

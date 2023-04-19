@@ -132,6 +132,7 @@ export function EditorInternalWithoutHooks({
       <ErrorBoundary
         createAnalyticsEvent={createAnalyticsEvent}
         contextIdentifierProvider={props.contextIdentifierProvider}
+        featureFlags={featureFlags}
       >
         <WidthProvider css={css({ height: '100%' })}>
           <EditorContext editorActions={editorActions}>

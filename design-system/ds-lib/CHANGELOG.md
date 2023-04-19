@@ -1,5 +1,11 @@
 # @atlaskit/ds-lib
 
+## 2.1.3
+
+### Patch Changes
+
+- [`e0460d5d989`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e0460d5d989) - Usages of `process` are now guarded by a `typeof` check.
+
 ## 2.1.2
 
 ### Patch Changes

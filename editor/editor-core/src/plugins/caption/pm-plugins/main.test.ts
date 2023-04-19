@@ -16,6 +16,7 @@ import {
 import { pluginKey } from './plugin-key';
 import { setTextSelection } from '../../../utils/selection';
 import * as analyticsUtils from '../../analytics/utils';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 describe('Caption plugin', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -24,6 +25,7 @@ describe('Caption plugin', () => {
       doc,
       pluginKey: pluginKey,
       preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
         .add([
           mediaPlugin,
           { allowMediaSingle: true, featureFlags: { captions: true } },

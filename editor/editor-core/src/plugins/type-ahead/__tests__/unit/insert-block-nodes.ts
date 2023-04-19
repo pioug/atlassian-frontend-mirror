@@ -190,7 +190,9 @@ describe('type-ahead', () => {
         expectedResult: doc(
           // prettier-ignore
           p('text before '),
-          taskList({ localId: '' })(taskItem({ localId: '' })('{<>}')),
+          taskList({ localId: 'local-uuid' })(
+            taskItem({ localId: 'local-uuid' })('{<>}'),
+          ),
         ),
       },
     ];
@@ -207,7 +209,9 @@ describe('type-ahead', () => {
         expectedResult: doc(
           // prettier-ignore
           p('text before'),
-          taskList({ localId: '' })(taskItem({ localId: '' })('{<>}')),
+          taskList({ localId: 'local-uuid' })(
+            taskItem({ localId: 'local-uuid' })('{<>}'),
+          ),
         ),
       },
     ];
@@ -229,7 +233,9 @@ describe('type-ahead', () => {
             p('text before'),
             p(''),
           ),
-          taskList({ localId: '' })(taskItem({ localId: '' })('{<>}')),
+          taskList({ localId: 'local-uuid' })(
+            taskItem({ localId: 'local-uuid' })('{<>}'),
+          ),
         ),
       },
     ];
@@ -251,7 +257,9 @@ describe('type-ahead', () => {
             p(''),
             p('text before'),
           ),
-          taskList({ localId: '' })(taskItem({ localId: '' })('{<>}')),
+          taskList({ localId: 'local-uuid' })(
+            taskItem({ localId: 'local-uuid' })('{<>}'),
+          ),
         ),
       },
     ];
@@ -287,7 +295,9 @@ describe('type-ahead', () => {
         expectedResult: doc(
           taskList({ localId: 'existing-task-list' })(
             taskItem({ localId: 'existing-task-item' })(),
-            taskList({ localId: '' })(taskItem({ localId: '' })('{<>}')),
+            taskList({ localId: 'local-uuid' })(
+              taskItem({ localId: 'local-uuid' })('{<>}'),
+            ),
           ),
         ),
       },
@@ -307,7 +317,9 @@ describe('type-ahead', () => {
           taskList({ localId: 'existing-task-list' })(
             taskItem({ localId: 'existing-task-item' })(),
           ),
-          taskList({ localId: '' })(taskItem({ localId: '' })('{<>}')),
+          taskList({ localId: 'local-uuid' })(
+            taskItem({ localId: 'local-uuid' })('{<>}'),
+          ),
         ),
       },
     ];
@@ -403,7 +415,9 @@ describe('type-ahead', () => {
           layoutSection(
             layoutColumn({ width: 50 })(p()),
             layoutColumn({ width: 50 })(
-              taskList({ localId: '' })(taskItem({ localId: '' })('{<>}')),
+              taskList({ localId: 'local-uuid' })(
+                taskItem({ localId: 'local-uuid' })('{<>}'),
+              ),
             ),
           ),
         ),
@@ -435,7 +449,9 @@ describe('type-ahead', () => {
         scenario: doc(p('text before'), p('{<>}')),
         expectedResult: doc(
           p('text before'),
-          decisionList({ localId: '' })(decisionItem({ localId: '' })('{<>}')),
+          decisionList({ localId: 'local-uuid' })(
+            decisionItem({ localId: 'local-uuid' })('{<>}'),
+          ),
         ),
       },
     ];

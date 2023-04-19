@@ -28,11 +28,10 @@ Common form components include [text fields](/components/textfield/examples), [s
 1. **Title:** Use a concise form title. This helps the user understand the form’s context.
 2. **Labels:** Standard label alignment is left-aligned with the field underneath. Use a combination of a concise label and supportive helper text for clarification of field input.
 3. **Placeholder text:** Avoid placeholders when possible. Never use placeholder text to communicate critical information — this is not accessible. Instead, use field labels or helper text to describe the purpose of the field and how to use it. Placeholders can, however, be used for search fields or some short example entries.
-4. **Required field**: Clearly communicate fields that are required. Don’t rely on asterisks alone to communicate which fields are required. 
+4. **Required field**: Clearly communicate fields that are required. Don’t rely on asterisks alone to communicate which fields are required.
 5. **Form section:** Group information logically into form sections.
 6. **Disabled fields:** Show disabled fields if users need to know what controls might not be available to them.
 7. **Form footer:** Always use a submit button and distinguish primary and secondary buttons.
-
 
 ## Best practices
 
@@ -198,6 +197,7 @@ Exceptions to this are single-page forms, flags, and section messages where butt
 
 ## Accessibility
 
+- Ensure sighted users are given a legend to know that `*` indicates a required field.
 - Autofocus the first field by default. This allows users to tab through elements in the form in a logical way.
 - Never disable a submit button, even if all of the required fields aren't filled in. Instead, describe what needs to be done using [validation and error messages](/content/writing-guidelines).
 - Match keyboard to input on mobile.

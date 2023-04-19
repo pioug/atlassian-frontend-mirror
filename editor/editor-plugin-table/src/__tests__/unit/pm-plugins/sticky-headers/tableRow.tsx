@@ -18,7 +18,7 @@ import tablePlugin from '../../../../plugins/table';
 import { pluginKey } from '../../../../plugins/table/pm-plugins/plugin-key';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import createStub, { Stub } from 'raf-stub';
-import featureFlagsPlugin from '@atlaskit/editor-core/src/plugins/feature-flags-context';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 jest.mock(
   '../../../../plugins/table/pm-plugins/sticky-headers/commands',
   () => ({

@@ -14,8 +14,7 @@ import { FILE_CACHE_MAX_AGE, MAX_RESOLUTION } from '../../constants';
 import { getArtifactUrl, MediaFileArtifacts } from '../../models/artifacts';
 import {
   MediaChunksProbe,
-  MediaCollectionItemFullDetails,
-  MediaCollectionItems,
+  MediaItemDetails,
   MediaFile,
   MediaUpload,
 } from '../../models/media';
@@ -34,7 +33,6 @@ import {
   CreateUrlOptions,
 } from '../../utils/request/types';
 import { resolveAuth, resolveInitialAuth } from './resolveAuth';
-import { DeprecatedError } from '../../utils/deprecatedEndpointError';
 
 export type { MediaStoreErrorReason, MediaStoreErrorAttributes } from './error';
 export { MediaStoreError, isMediaStoreError } from './error';
@@ -69,18 +67,6 @@ export class MediaStore {
     private readonly config: MediaApiConfig,
     readonly featureFlags?: MediaFeatureFlags,
   ) {}
-
-  /**
-   * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-170 Internal documentation for deprecation (no external access)}
-   * This method is no longer working. Will be removed in the next release
-   */
-  async getCollectionItems(
-    collectionName: string,
-    params?: MediaStoreGetCollectionItemsParams,
-    traceContext?: MediaTraceContext,
-  ): Promise<MediaStoreResponse<MediaCollectionItems>> {
-    throw new DeprecatedError('collection/:name/items');
-  }
 
   async removeCollectionFile(
     id: string,
@@ -550,7 +536,7 @@ export const getMediaRegion = (): string | undefined => {
 export interface ResponseFileItem {
   id: string;
   type: 'file';
-  details: MediaCollectionItemFullDetails;
+  details: MediaItemDetails;
   collection?: string;
   metadataTraceContext?: MediaTraceContext;
 }
@@ -651,13 +637,6 @@ export type MediaStoreGetFileImageParams = {
   readonly mode?: 'fit' | 'full-fit' | 'crop';
   readonly upscale?: boolean;
   readonly 'max-age'?: number;
-};
-
-export type MediaStoreGetCollectionItemsParams = {
-  readonly limit?: number;
-  readonly inclusiveStartKey?: string;
-  readonly sortDirection?: 'asc' | 'desc';
-  readonly details?: 'minimal' | 'full';
 };
 
 export interface SourceFile {

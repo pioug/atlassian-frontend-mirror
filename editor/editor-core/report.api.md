@@ -66,6 +66,7 @@ import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import type { ExtensionProvider } from '@atlaskit/editor-common/extensions';
 import { ExtensionType } from '@atlaskit/editor-common/provider-factory';
 import { FC } from 'react';
+import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { FireAnalyticsCallback } from '@atlaskit/editor-common/analytics';
 import { FloatingToolbarButton } from '@atlaskit/editor-common/types';
 import { FloatingToolbarColorPicker } from '@atlaskit/editor-common/types';
@@ -144,6 +145,7 @@ import type { TypeAheadHandler } from '@atlaskit/editor-common/types';
 import type { TypeAheadItem } from '@atlaskit/editor-common/types';
 import type { TypeAheadItem as TypeAheadItem_2 } from '@atlaskit/editor-common/provider-factory';
 import type { TypeAheadStats } from '@atlaskit/editor-common/types';
+import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { UIComponentFactory } from '@atlaskit/editor-common/types';
 import { UploadEndEventPayload } from '@atlaskit/media-picker/types';
 import { UploadErrorEventPayload } from '@atlaskit/media-picker/types';
@@ -725,6 +727,7 @@ export class EditorActions<T = any> implements EditorActionsOptions<T> {
     editorView: EditorView,
     eventDispatcher: EventDispatcher,
     contentTransformer?: Transformer_2<T>,
+    getFeatureFlags?: () => EditorFeatureFlags,
   ): void;
   // (undocumented)
   _privateSubscribe(cb: ContextUpdateHandler): void;
@@ -751,6 +754,8 @@ interface EditorBaseProps
     EditorProviderProps {
   // (undocumented)
   appearance?: EditorAppearance;
+  // (undocumented)
+  assistiveLabel?: string;
   // (undocumented)
   codeBlock?: CodeBlockOptions;
   // (undocumented)
@@ -1435,6 +1440,7 @@ export const insertHorizontalRule: (
     | INPUT_METHOD.QUICK_INSERT
     | INPUT_METHOD.SHORTCUT
     | INPUT_METHOD.TOOLBAR,
+  featureFlags: EditorFeatureFlags,
 ) => Command;
 
 // @public (undocumented)
@@ -1452,6 +1458,7 @@ export function insertLink(
   incomingTitle?: string,
   displayText?: string,
   source?: LinkInputMethod,
+  sourceEvent?: UIAnalyticsEvent | null | undefined,
 ): Command;
 
 // @public (undocumented)
@@ -1463,6 +1470,7 @@ export const insertLinkWithAnalytics: (
   title?: string | undefined,
   displayText?: string | undefined,
   cardsAvailable?: boolean,
+  sourceEvent?: UIAnalyticsEvent | null | undefined,
 ) => Command;
 
 // @public (undocumented)
@@ -1482,6 +1490,7 @@ export const insertMediaSingleNode: (
   inputMethod?: InputMethodInsertMedia | undefined,
   collection?: string | undefined,
   alignLeftOnInsert?: boolean | undefined,
+  newInsertionBehaviour?: boolean | undefined,
 ) => boolean;
 
 // @public (undocumented)
@@ -1679,6 +1688,7 @@ export const mediaPlugin: NextEditorPlugin<
   'media',
   {
     pluginConfiguration: MediaOptions | undefined;
+    dependencies: [typeof featureFlagsPlugin];
   }
 >;
 

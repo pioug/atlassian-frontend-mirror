@@ -25,7 +25,6 @@ import { Card } from '../src';
 import {
   UploadController,
   FileIdentifier,
-  FileState,
   MediaClient,
   MediaSubscribable,
 } from '@atlaskit/media-client';
@@ -118,7 +117,7 @@ class Example extends Component<ComponentProps, ComponentState> {
     this.addStream(stream);
   };
 
-  addStream = (stream: MediaSubscribable<FileState>) => {
+  addStream = (stream: MediaSubscribable) => {
     let isIdSaved = false;
 
     const subscription = stream.subscribe({

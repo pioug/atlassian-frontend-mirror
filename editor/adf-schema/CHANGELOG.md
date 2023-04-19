@@ -1,5 +1,16 @@
 # @atlaskit/adf-schema
 
+## 25.5.0
+
+### Minor Changes
+
+- [`0237059f136`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0237059f136) - Adds `LinkMetaStep` prosemirror step to be used to annotate a transaction with metadata about how (action, input method etc) for how a transaction has been performed.
+
+### Patch Changes
+
+- [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
+- Updated dependencies
+
 ## 25.4.0
 
 ### Minor Changes

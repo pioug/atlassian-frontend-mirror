@@ -682,6 +682,7 @@ describe('handleRichText', () => {
       const createEditor = createProsemirrorEditorFactory();
       const editor = (doc: any) => {
         const preset = new Preset<LightEditorPlugin>()
+          .add([featureFlagsPlugin, {}])
           .add([pastePlugin, {}])
           .add(panelPlugin)
           .add(blockTypePlugin);

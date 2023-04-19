@@ -10,3 +10,5 @@ export type {
   AnalyticsWithChannel,
   AnalyticsPayload,
 } from './steps/analytics';
+export { LinkMetaStep } from './steps/link-meta-step';
+export type { LinkStepMetadata } from './steps/link-meta-step';

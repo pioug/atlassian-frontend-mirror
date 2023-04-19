@@ -1,5 +1,40 @@
 # @atlaskit/editor-mobile-bridge
 
+## 36.3.25
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.3.24
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.3.23
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.3.22
+
+### Patch Changes
+
+- [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
+- [`00a63a62af2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/00a63a62af2) - ME-3069 Reverted removal of styled components theme provider in mobile bridge. https://product-fabric.atlassian.net/browse/ME-3069
+- [`21b20f571fa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/21b20f571fa) - [ED-17382] Update feature flag usage for rule plugin
+- [`8bf267b25b8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8bf267b25b8) - [ED-17384] Send feature flags to the \_privateRegisterEditor EditorAction function
+- [`2aafffa28db`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2aafffa28db) - Fix the submit button not enabled after upload completes
+- Updated dependencies
+
+## 36.3.21
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 36.3.20
 
 ### Patch Changes

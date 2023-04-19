@@ -28,4 +28,11 @@ export interface LinkingPlatformFeatureFlags {
    * Enables resolved metadata to be surfaced for link analytics
    */
   enableResolveMetadataForLinkAnalytics?: boolean;
+  /**
+   * This flag determines whether smart link should show lozenge action
+   * component.
+   * The allowed values are: 'not-enrolled', 'control', 'experiment'.
+   * See https://team.atlassian.com/project/ATLAS-13099
+   */
+  useLozengeAction?: string;
 }

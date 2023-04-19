@@ -5,6 +5,7 @@ import {
   WithProviders,
 } from '@atlaskit/editor-common/provider-factory';
 import { LinkPickerProps } from '@atlaskit/link-picker';
+import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 import HyperlinkAddToolbarComp from './HyperlinkAddToolbar';
 import { LinkInputType, LinkPickerOptions } from '../../types';
@@ -23,6 +24,7 @@ export interface Props
     title: string | undefined,
     displayText: string | undefined,
     inputMethod: LinkInputType,
+    analytic?: UIAnalyticsEvent | null | undefined,
   ) => void;
   featureFlags: FeatureFlags;
   linkPickerOptions?: LinkPickerOptions;
@@ -35,7 +37,7 @@ export interface Props
  */
 const onSubmitInterface =
   (onSubmit: Props['onSubmit']): LinkPickerProps['onSubmit'] =>
-  ({ url, title, displayText, rawUrl, meta }) => {
+  ({ url, title, displayText, rawUrl, meta }, analytic) => {
     onSubmit(
       url,
       title ?? rawUrl,
@@ -43,6 +45,7 @@ const onSubmitInterface =
       meta.inputMethod === 'manual'
         ? INPUT_METHOD.MANUAL
         : INPUT_METHOD.TYPEAHEAD,
+      analytic,
     );
   };
 

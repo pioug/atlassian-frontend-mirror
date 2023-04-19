@@ -12,7 +12,6 @@ import editorDisabledPlugin from '../../../plugins/editor-disabled';
 import typeAheadPlugin from '../../../plugins/type-ahead';
 import submitEditorPlugin from '../../../plugins/submit-editor';
 import fakeTextCursorPlugin from '../../../plugins/fake-text-cursor';
-import featureFlagsContextPlugin from '../../../plugins/feature-flags-context';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import floatingToolbarPlugin from '../../../plugins/floating-toolbar';
 import { EditorProps } from '../Editor';
@@ -101,7 +100,6 @@ export function createDefaultPreset(
     .add([submitEditorPlugin, options.submitEditor])
     .add(fakeTextCursorPlugin)
     .add(floatingToolbarPlugin)
-    .add([featureFlagsContextPlugin, options.featureFlags || {}])
     .add([selectionPlugin, options.selection])
     .add([codeBlockPlugin, options.codeBlock || { appearance: 'full-page' }]);
 

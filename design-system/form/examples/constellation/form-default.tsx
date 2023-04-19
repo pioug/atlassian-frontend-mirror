@@ -14,6 +14,7 @@ import Form, {
   FormHeader,
   FormSection,
   HelperMessage,
+  RequiredAsterisk,
   ValidMessage,
 } from '../../src';
 
@@ -37,10 +38,11 @@ const FormDefaultExample = () => (
     >
       {({ formProps, submitting }) => (
         <form {...formProps}>
-          <FormHeader
-            title="Sign in"
-            description="* indicates a required field"
-          />
+          <FormHeader title="Sign in">
+            <p aria-hidden="true">
+              Required fields are marked with an asterisk <RequiredAsterisk />
+            </p>
+          </FormHeader>
           <FormSection>
             <Field
               aria-required={true}

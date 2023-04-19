@@ -59,6 +59,7 @@ jest.mock('@atlaskit/editor-common/analytics', () => ({
 
 import React from 'react';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import { EditorView } from 'prosemirror-view';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
@@ -66,6 +67,7 @@ import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { measureRender, SEVERITY } from '@atlaskit/editor-common/utils';
 import { toJSON } from '../../../utils';
 import { ReactEditorView } from '../../ReactEditorView';
+import { editorMessages } from '../../messages';
 import { EditorConfig } from '../../../types/editor-config';
 import { mount, ReactWrapper } from 'enzyme';
 import { TextSelection } from 'prosemirror-state';
@@ -280,6 +282,38 @@ describe('@atlaskit/editor-core', () => {
 
       wrapper.unmount();
       jest.useRealTimers();
+    });
+
+    it('should prefix assistive label with assistiveLabel and set it in aria-label of render editor ProseMirror div', () => {
+      const label =
+        'Description field: Main content area, start typing to enter text.';
+      const { getByRole } = renderWithIntl(
+        <ReactEditorView
+          {...requiredProps()}
+          {...analyticsProps()}
+          editorProps={{
+            assistiveLabel: label,
+          }}
+        />,
+      );
+
+      expect(
+        getByRole('textbox', {
+          name: label,
+        }),
+      ).toBeInTheDocument();
+    });
+
+    it('should render editor ProseMirror div with default aria-label.', () => {
+      const { getByRole } = renderWithIntl(
+        <ReactEditorView {...requiredProps()} {...analyticsProps()} />,
+      );
+
+      expect(
+        getByRole('textbox', {
+          name: editorMessages.editorAssistiveLabel.defaultMessage,
+        }),
+      ).toBeInTheDocument();
     });
 
     describe('when a transaction is dispatched', () => {

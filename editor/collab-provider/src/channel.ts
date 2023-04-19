@@ -79,8 +79,13 @@ export class Channel extends Emitter<ChannelEvent> {
   /**
    * Connect to collab service using websockets
    */
-  connect() {
+  connect(shouldInitialize: boolean = false) {
     startMeasure(MEASURE_NAME.SOCKET_CONNECT, this.analyticsHelper);
+    // If provider already has access to the initial draft, explicitly set channel as initialized
+    // to bypass BE doc retrieval
+    if (shouldInitialize) {
+      this.initialized = true;
+    }
     if (!this.initialized) {
       startMeasure(MEASURE_NAME.DOCUMENT_INIT, this.analyticsHelper);
       this.initExperience?.start();

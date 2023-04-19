@@ -27,6 +27,7 @@ const gridSize = getGridSize();
 interface HeadProps {
   isRanking?: boolean;
   children: ReactNode;
+  testId?: string;
 }
 
 const CSS_VAR_TEXT_COLOR = '--local-dynamic-table-text-color';
@@ -39,10 +40,11 @@ const headStyles = css({
   borderBottom: `none`,
 });
 
-export const Head: FC<HeadProps> = ({ isRanking, ...props }) => {
+export const Head: FC<HeadProps> = ({ isRanking, testId, ...props }) => {
   return (
     <thead
       css={[headStyles, isRanking && rankingStyles]}
+      data-testid={testId}
       // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
       {...props}
     />
@@ -54,6 +56,7 @@ type HeadCellProps = TruncateStyleProps &
     onClick?: () => void;
     isSortable?: boolean;
     sortOrder?: SortOrderType;
+    testId?: string;
   };
 
 const headCellStyles = css([
@@ -158,6 +161,7 @@ export const HeadCell = forwardRef<HTMLTableCellElement, HeadCellProps>(
       shouldTruncate,
       onClick,
       style,
+      testId,
       ...rest
     },
     ref,
@@ -194,6 +198,7 @@ export const HeadCell = forwardRef<HTMLTableCellElement, HeadCellProps>(
         ]}
         onClick={onClick}
         ref={ref}
+        data-testid={testId}
         {...rest}
       >
         {children}

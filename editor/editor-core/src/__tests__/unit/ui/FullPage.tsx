@@ -42,6 +42,7 @@ describe('full page editor', () => {
         editorView={editorView}
         providerFactory={{} as any}
         editorDOMElement={<div />}
+        featureFlags={{}}
       />,
     );
     fireEvent.mouseDown(screen.getByTestId(clickWrapperId), { clientY: 200 });
@@ -66,6 +67,7 @@ describe('full page editor', () => {
         editorView={editorView}
         providerFactory={{} as any}
         editorDOMElement={<div />}
+        featureFlags={{}}
       />,
     );
     fireEvent.mouseDown(screen.getByTestId(clickWrapperId), { clientY: 200 });
@@ -89,6 +91,7 @@ describe('full page editor', () => {
         editorView={editorView}
         providerFactory={{} as any}
         editorDOMElement={<div />}
+        featureFlags={{}}
       />,
     );
     const clickWrapper = screen.getByTestId(clickWrapperId);
@@ -104,6 +107,7 @@ describe('full page editor', () => {
         editorView={editorView}
         providerFactory={{} as any}
         editorDOMElement={<div />}
+        featureFlags={{}}
       />,
     );
     (editorView.dom as HTMLElement).click();
@@ -117,6 +121,7 @@ describe('full page editor', () => {
         editorView={editorView}
         providerFactory={{} as any}
         editorDOMElement={<div />}
+        featureFlags={{}}
       />,
     );
     fireEvent.mouseDown(screen.getByTestId(clickWrapperId), { clientY: 300 });
@@ -132,6 +137,7 @@ describe('full page editor', () => {
         editorView={editorView}
         providerFactory={{} as any}
         editorDOMElement={<div />}
+        featureFlags={{}}
       />,
     );
     fireEvent.mouseDown(screen.getByTestId(clickWrapperId), { clientY: 300 });
@@ -147,6 +153,7 @@ describe('full page editor', () => {
         editorView={editorView}
         providerFactory={{} as any}
         editorDOMElement={<div />}
+        featureFlags={{}}
       />,
     );
     fireEvent.mouseDown(screen.getByTestId(clickWrapperId), { clientY: 200 });

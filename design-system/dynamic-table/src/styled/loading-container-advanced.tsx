@@ -14,10 +14,12 @@ const containerStyles = css({
 type ContainerProps = HTMLProps<HTMLDivElement> & { testId?: string };
 
 export const Container = (props: ContainerProps) => {
-  const { testId, ...rest } = props;
+  const { children, testId, ...rest } = props;
   return (
     // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-    <div css={containerStyles} {...rest} data-testid={testId} />
+    <div css={containerStyles} {...rest} data-testid={testId}>
+      {children}
+    </div>
   );
 };
 

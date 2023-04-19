@@ -93,6 +93,21 @@ export interface Format {
   imageEnabled?: boolean;
 }
 
+const navigationKeymaps: (intl: IntlShape) => Format[] = ({
+  formatMessage,
+}) => [
+  {
+    name: formatMessage(toolbarMessages.navigateToEditorToolbar),
+    type: 'navigation',
+    keymap: () => keymaps.navToEditorToolbar,
+  },
+  {
+    name: formatMessage(toolbarMessages.navigateToFloatingToolbar),
+    type: 'navigation',
+    keymap: () => keymaps.navToFloatingToolbar,
+  },
+];
+
 export const formatting: (intl: IntlShape) => Format[] = ({
   formatMessage,
 }) => [
@@ -414,6 +429,7 @@ export const getSupportedFormatting = (
     (format) => schema.nodes[format.type] || schema.marks[format.type],
   );
   return [
+    ...navigationKeymaps(intl),
     ...supportedBySchema,
     ...(imageEnabled ? [imageAutoFormat] : []),
     ...(quickInsertEnabled ? [quickInsertAutoFormat(intl)] : []),
@@ -439,6 +455,12 @@ export const getComponentFromKeymap = (keymap: keymaps.Keymap) => {
         ) {
           return (
             <span css={codeMd} key={`${keyParts}-${index}`}>
+              {part}
+            </span>
+          );
+        } else if (['f9', 'f10'].indexOf(part.toLowerCase()) >= 0) {
+          return (
+            <span css={codeLg} key={`${keyParts}-${index}`}>
               {part}
             </span>
           );

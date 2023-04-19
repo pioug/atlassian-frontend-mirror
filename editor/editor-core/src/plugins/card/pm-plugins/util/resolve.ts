@@ -4,7 +4,7 @@ import {
 } from '@atlaskit/editor-common/provider-factory';
 import { EditorView } from 'prosemirror-view';
 
-import { OutstandingRequests, Request } from '../../types';
+import { Request } from '../../types';
 import { setProvider } from '../actions';
 import { replaceQueuedUrlWithCard, handleFallbackWithAnalytics } from '../doc';
 import { CardOptions } from '@atlaskit/editor-common/card';
@@ -16,7 +16,6 @@ import { CardOptions } from '@atlaskit/editor-common/card';
 // ============================================================================ //
 export const resolveWithProvider = (
   view: EditorView,
-  outstandingRequests: OutstandingRequests,
   provider: CardProvider,
   request: Request,
   options: CardOptions,
@@ -29,15 +28,11 @@ export const resolveWithProvider = (
     !!request.shouldReplaceLink;
   const handleResolve = provider
     .resolve(request.url, request.appearance, shouldForceAppearance)
-    .then((resolvedCard) => {
-      delete outstandingRequests[request.url];
-      return resolvedCard;
-    })
     .then(
       handleResolved(view, request, options),
       handleRejected(view, request),
     );
-  outstandingRequests[request.url] = handleResolve;
+
   return handleResolve;
 };
 
@@ -67,10 +62,7 @@ const handleResolved =
   };
 
 const handleRejected = (view: EditorView, request: Request) => () => {
-  handleFallbackWithAnalytics(request.url, request.source)(
-    view.state,
-    view.dispatch,
-  );
+  handleFallbackWithAnalytics(request)(view.state, view.dispatch);
 };
 
 // listen for card provider changes

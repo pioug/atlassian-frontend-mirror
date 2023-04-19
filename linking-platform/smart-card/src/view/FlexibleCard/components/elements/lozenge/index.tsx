@@ -2,8 +2,8 @@
 import React, { useCallback, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 import AtlaskitLozenge from '@atlaskit/lozenge';
-import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
-import { LozengeProps } from './types';
+import LozengeAction from '../../common/lozenge-action';
+import type { LozengeProps } from './types';
 
 const styles = css`
   display: inline-flex;
@@ -11,21 +11,7 @@ const styles = css`
 `;
 
 const actionStyles = css`
-  > span > span {
-    display: inline-flex;
-    align-items: center;
-    margin-right: -2px;
-  }
-
-  svg {
-    width: unset;
-    height: unset;
-    margin: -4px 0;
-  }
-
-  :hover {
-    cursor: pointer;
-  }
+  overflow: visible;
 `;
 
 /**
@@ -35,6 +21,7 @@ const actionStyles = css`
  * @see State
  */
 const Lozenge: React.FC<LozengeProps> = ({
+  action,
   appearance = 'default',
   name,
   onClick,
@@ -58,6 +45,23 @@ const Lozenge: React.FC<LozengeProps> = ({
     return null;
   }
 
+  const lozenge = action ? (
+    <LozengeAction
+      action={action}
+      appearance={appearance}
+      testId={testId}
+      text={text}
+    />
+  ) : (
+    <AtlaskitLozenge
+      appearance={appearance}
+      isBold={isBold}
+      testId={`${testId}-lozenge`}
+    >
+      {text}
+    </AtlaskitLozenge>
+  );
+
   return (
     <span
       css={[styles, onClick ? actionStyles : undefined, overrideCss]}
@@ -70,16 +74,7 @@ const Lozenge: React.FC<LozengeProps> = ({
       onMouseLeave={onMouseLeave}
       tabIndex={onClick ? 0 : -1}
     >
-      <AtlaskitLozenge
-        appearance={appearance}
-        isBold={isBold}
-        testId={`${testId}-lozenge`}
-      >
-        {text}
-        {onClick && (
-          <ChevronDownIcon label="action" testId={`${testId}-action`} />
-        )}
-      </AtlaskitLozenge>
+      {lozenge}
     </span>
   );
 };

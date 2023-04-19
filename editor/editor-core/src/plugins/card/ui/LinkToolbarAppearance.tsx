@@ -1,4 +1,5 @@
 import { CardAppearance } from '@atlaskit/editor-common/provider-factory';
+import { ACTION, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { CardContext } from '@atlaskit/link-provider';
 import { CardPlatform } from '@atlaskit/smart-card';
 import PropTypes from 'prop-types';
@@ -10,6 +11,7 @@ import { IntlShape } from 'react-intl-next';
 import nodeNames from '../../../messages';
 import { isSupportedInParent } from '../../../utils/nodes';
 import { messages } from '../messages';
+import { commandWithMetadata } from '@atlaskit/editor-common/card';
 import {
   changeSelectedCardToLink,
   setSelectedCardAppearance,
@@ -104,8 +106,9 @@ export class LinkToolbarAppearance extends React.Component<
     const options: OptionConfig[] = [
       {
         title: intl.formatMessage(messages.url),
-        onClick: () =>
-          changeSelectedCardToLink(url, url, true)(editorState, view?.dispatch),
+        onClick: commandWithMetadata(changeSelectedCardToLink(url, url, true), {
+          action: ACTION.CHANGED_TYPE,
+        }),
         selected: !currentAppearance,
         testId: 'url-appearance',
       },
@@ -138,7 +141,12 @@ export class LinkToolbarAppearance extends React.Component<
       <LinkToolbarButtonGroup
         key="link-toolbar-button-group"
         options={options.map((option) =>
-          getButtonGroupOption(intl, dispatchCommand, option),
+          getButtonGroupOption(intl, dispatchCommand, {
+            ...option,
+            onClick: commandWithMetadata(option.onClick, {
+              inputMethod: INPUT_METHOD.FLOATING_TB,
+            }),
+          }),
         )}
       />
     );

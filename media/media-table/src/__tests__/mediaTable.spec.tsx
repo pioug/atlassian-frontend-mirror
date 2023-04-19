@@ -9,7 +9,6 @@ import { DynamicTableStateless } from '@atlaskit/dynamic-table';
 import { HeadType, RowType } from '@atlaskit/dynamic-table/types';
 import ImageIcon from '@atlaskit/icon-file-type/glyph/image/24';
 import {
-  FileState,
   MediaClient,
   MediaType,
   MediaSubscribable,
@@ -63,7 +62,7 @@ describe('MediaTable', () => {
   });
 
   const getDefaultMediaClient = (
-    fileStateSubscribable: MediaSubscribable<FileState> = defaultFileState,
+    fileStateSubscribable: MediaSubscribable = defaultFileState,
   ): MediaClient => {
     const mediaClient = fakeMediaClient();
     mockMediaClient = mediaClient;

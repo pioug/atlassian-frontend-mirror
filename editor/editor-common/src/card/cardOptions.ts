@@ -8,4 +8,6 @@ export interface CardOptions {
   allowResizing?: boolean;
   showServerActions?: boolean;
   useAlternativePreloader?: boolean;
+  allowAlignment?: boolean;
+  allowWrapping?: boolean;
 }

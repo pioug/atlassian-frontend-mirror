@@ -1,32 +1,32 @@
-# @atlaskit/eslint-plugin-design-system/ensure-design-token-usage-spacing
-
-Complement to the `ensure-design-token-usage` rule - but for spacing. Ensures a codebase uses the global `token` function rather than using hard-coded values.
-This ruleset is great for codebases that are both starting to adopt tokens, and ones that already have adopted them. It helps new contributors from accidentally adding hard-coded spacing values.
+Using spacing,
+typography,
+and shape design tokens results in a harmonious experience for end users.
 
 ## Examples
 
-👎 Example of **incorrect** code for this rule:
+Using anything other than design tokens such as hardcoded values or legacy theme colors will be considered violations.
+
+### Incorrect
 
 ```js
-css({
-  padding: 'red',
-            ^^^
-});
+css({  padding: 'red' });
+                 ^^^
+css({ margin: gridSize() });
+              ^^^^^^^^^^
 ```
 
-```js
-css({
-  margin: gridSize(),
-          ^^^^^^^^^
-})
-```
-
-👍 Example of **correct** code for this rule:
+### Correct
 
 ```js
 import { token } from '@atlaskit/tokens';
 
-css({
-  padding: token('space.100'),
-});
+css({ padding: token('space.100') });
 ```
+
+## Options
+
+This rule comes with options to aid in migrating to design tokens.
+
+### shouldEnforceFallbacks
+
+When `true` the rule will add in stub fallbacks when choosing a suggestion in your IDE.

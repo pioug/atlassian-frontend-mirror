@@ -53,7 +53,7 @@ describe('analytics', () => {
       tr = editorView.state.tr.insertText('hello ');
     });
 
-    it('should add current selection position to analytics step ', () => {
+    it('should add current selection position to analytics step', () => {
       tr = addAnalytics(state, tr, payload);
 
       const pos = state.selection.$from.pos;
@@ -62,6 +62,17 @@ describe('analytics', () => {
       ] as AnalyticsStep<AnalyticsEventPayload>;
 
       expect(pos).toEqual(analyticsStep.pos);
+    });
+
+    it('should map position through tr steps', () => {
+      tr.deleteRange(0, tr.doc.content.size);
+      tr = addAnalytics(state, tr, payload);
+
+      const analyticsStep = tr.steps[
+        tr.steps.length - 1
+      ] as AnalyticsStep<AnalyticsEventPayload>;
+
+      expect(analyticsStep.pos).toEqual(0);
     });
 
     it('create analytics event with payload', () => {

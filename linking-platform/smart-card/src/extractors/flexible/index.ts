@@ -1,8 +1,6 @@
 import { JsonLd } from 'json-ld-types';
-import { CardProviderRenderers } from '@atlaskit/link-provider';
 import { FlexibleUiDataContext } from '../../state/flexible-ui-context/types';
 import { extractSummary } from '../common/primitives';
-import { extractLozenge } from '../common/lozenge';
 import { extractLinkIcon } from './icon';
 import {
   extractAttachmentCount,
@@ -31,20 +29,30 @@ import {
 import extractPriority from './extract-priority';
 import extractProviderIcon from './icon/extract-provider-icon';
 import extractPreview from './extract-preview';
+import extractState from './extract-state';
 import { extractLatestCommit } from './latest-commit';
 import { extractPreviewAction } from './actions/extract-preview-action';
 import { extractDownloadAction } from './actions/extract-download-action';
 import { extractViewAction } from './actions/extract-view-action';
+import { ExtractFlexibleUiDataContextParams } from '../../view/FlexibleCard/types';
 
-const extractFlexibleUiContext = (
-  response?: JsonLd.Response,
-  renderers?: CardProviderRenderers,
-): FlexibleUiDataContext | undefined => {
+const extractFlexibleUiContext = ({
+  featureFlags,
+  id,
+  renderers,
+  showServerActions,
+  response,
+}: Partial<ExtractFlexibleUiDataContextParams> = {}):
+  | FlexibleUiDataContext
+  | undefined => {
   if (!response) {
     return undefined;
   }
   const data = response.data as JsonLd.Data.BaseData;
   const url = extractLink(data);
+
+  const showLozengeAction = featureFlags?.useLozengeAction === 'experiment';
+
   return {
     attachmentCount: extractAttachmentCount(data),
     authorGroup: extractPersonCreatedBy(data),
@@ -72,7 +80,7 @@ const extractFlexibleUiContext = (
     sourceBranch: extractSourceBranch(
       data as JsonLd.Data.SourceCodePullRequest,
     ),
-    state: extractLozenge(data),
+    state: extractState(response, showLozengeAction && showServerActions, id),
     subscriberCount: extractSubscriberCount(data),
     targetBranch: extractTargetBranch(
       data as JsonLd.Data.SourceCodePullRequest,

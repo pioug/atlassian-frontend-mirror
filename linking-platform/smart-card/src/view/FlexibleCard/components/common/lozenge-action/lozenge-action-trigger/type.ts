@@ -4,5 +4,5 @@ import type { CustomTriggerProps } from '@atlaskit/dropdown-menu';
 export type LozengeActionTriggerProps = {
   appearance?: ThemeAppearance;
   testId?: string;
-  text: string;
+  text: string | React.ReactNode;
 } & CustomTriggerProps<HTMLButtonElement>;

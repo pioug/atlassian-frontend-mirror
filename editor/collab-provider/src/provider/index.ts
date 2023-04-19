@@ -1,5 +1,5 @@
 import type { EditorState, Transaction } from 'prosemirror-state';
-import throttle from 'lodash/throttle';
+import type { Step as ProseMirrorStep } from 'prosemirror-transform';
 import { Emitter } from '../emitter';
 import { Channel } from '../channel';
 import type { ResolvedEditorState } from '@atlaskit/editor-common/collab';
@@ -12,6 +12,7 @@ import type {
   NamespaceStatus,
   PresencePayload,
   TelepointerPayload,
+  InitialDraft,
 } from '../types';
 
 import { createLogger } from '../helpers/utils';
@@ -19,7 +20,6 @@ import AnalyticsHelper from '../analytics/analytics-helper';
 
 import type { SyncUpErrorFunction } from '@atlaskit/editor-common/types';
 
-import { commitStep } from './commit-step';
 import { telepointerCallback } from '../participants/telepointers-helper';
 import { ParticipantsService } from '../participants/participants-service';
 import {
@@ -33,6 +33,7 @@ import {
   SetTitleError,
   NCS_ERROR_CODE,
 } from '../errors/error-types';
+import { MetadataService } from '../metadata/metadata-service';
 import { DocumentService } from '../document/document-service';
 import { errorCodeMapper } from '../errors/error-code-mapper';
 import type { InternalError } from '../errors/error-types';
@@ -40,20 +41,10 @@ import type { InternalError } from '../errors/error-types';
 const logger = createLogger('Provider', 'black');
 
 const SEND_PRESENCE_INTERVAL = 150 * 1000; // 150 seconds
-const SEND_STEPS_THROTTLE = 500; // 0.5 second
 
 const OUT_OF_SYNC_PERIOD = 3 * 1000; // 3 seconds
 
 export const MAX_STEP_REJECTED_ERROR = 15;
-
-export const throttledCommitStep = throttle<typeof commitStep>(
-  commitStep,
-  SEND_STEPS_THROTTLE,
-  {
-    leading: false,
-    trailing: true,
-  },
-);
 
 type BaseEvents = Pick<
   CollabEditProvider<CollabEvents>,
@@ -65,6 +56,8 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
   private config: Config;
   private analyticsHelper?: AnalyticsHelper;
   private isChannelInitialized: boolean = false;
+  private initialDraft?: InitialDraft;
+  private isProviderInitialized: boolean = false;
 
   // To keep track of the namespace event changes from the server.
   private isNamespaceLocked: boolean = false;
@@ -83,6 +76,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
   private disconnectedAt?: number;
 
   private readonly participantsService: ParticipantsService;
+  private readonly metadataService: MetadataService;
   private readonly documentService: DocumentService;
 
   private readonly emitCallback: (evt: keyof CollabEvents, data: any) => void =
@@ -98,25 +92,47 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
     );
     this.channel = new Channel(config, this.analyticsHelper);
     this.isChannelInitialized = false;
+    this.initialDraft = this.config.initialDraft;
+    this.isProviderInitialized = false;
     this.participantsService = new ParticipantsService(this.analyticsHelper);
+    this.metadataService = new MetadataService(
+      this.emitCallback,
+      this.channel.sendMetadata,
+    );
     this.documentService = new DocumentService(
       this.participantsService,
       this.analyticsHelper,
       this.channel.fetchCatchup,
       this.emitCallback,
-      this.channel.sendMetadata,
       this.channel.broadcast,
       () => this.userId,
       this.onErrorHandled,
+      this.metadataService,
     );
   }
 
   private initializeChannel = () => {
     this.emit('connecting', { initial: true });
+    const shouldInitialize =
+      Boolean(this.initialDraft) && !this.isProviderInitialized;
     this.channel
       .on('connected', ({ sid, initialized }) => {
         this.sessionId = sid;
         this.emit('connected', { sid, initial: !initialized });
+        // If initial draft is already present and the channel is initialized,
+        // fire the provider's init event with initial draft document and version
+        if (this.initialDraft && initialized && !this.isProviderInitialized) {
+          const { document, version, metadata }: InitialDraft =
+            this.initialDraft;
+          // Initial document, version, metadata from initial draft
+          this.documentService.updateDocument({
+            doc: document,
+            version,
+            metadata,
+          });
+          this.metadataService.updateMetadata(metadata);
+          this.isProviderInitialized = true;
+        }
         // If already initialized, `connected` means reconnected
         if (
           initialized &&
@@ -131,15 +147,16 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
       })
       .on('init', ({ doc, version, metadata }) => {
         // Initial document and version
-        this.documentService.updateDocumentWithMetadata({
+        this.documentService.updateDocument({
           doc,
           version,
           metadata,
         });
+        this.metadataService.updateMetadata(metadata);
       })
       .on('restore', this.documentService.onRestore)
       .on('steps:added', this.documentService.onStepsAdded)
-      .on('metadata:changed', this.documentService.onMetadataChanged)
+      .on('metadata:changed', this.metadataService.onMetadataChanged)
       .on('participant:telepointer', this.onParticipantTelepointer.bind(this))
       .on('presence:joined', this.onPresenceJoined.bind(this))
       .on('presence', this.onPresence.bind(this))
@@ -148,7 +165,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
       .on('disconnect', this.onDisconnected.bind(this))
       .on('error', this.onErrorHandled)
       .on('status', this.onNamespaceStatusChanged.bind(this))
-      .connect();
+      .connect(shouldInitialize);
   };
 
   /**
@@ -178,9 +195,15 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
     onSyncUpError?: SyncUpErrorFunction;
   }): this {
     try {
-      this.clientId = (
-        getState().plugins.find((p: any) => p.key === 'collab$')!.spec as any
-      ).config.clientID;
+      const collabPlugin = getState().plugins.find(
+        (p: any) => p.key === 'collab$',
+      );
+      if (collabPlugin === undefined) {
+        throw new ProviderInitialisationError(
+          'Collab provider attempted to initialise, but Editor state is missing collab plugin',
+        );
+      }
+      this.clientId = (collabPlugin.spec as any).config.clientID;
 
       this.documentService.setup({
         getState,
@@ -434,6 +457,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
         error,
       );
     }
+    this.clearTimers();
     return this;
   }
 
@@ -445,7 +469,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
    */
   setTitle(title: string, broadcast?: boolean) {
     try {
-      this.documentService.setTitle(title, broadcast);
+      this.metadataService.setTitle(title, broadcast);
     } catch (error) {
       this.analyticsHelper?.sendErrorEvent(error, 'Error while setting title');
       throw new SetTitleError('Error while setting title', error);
@@ -461,7 +485,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
    */
   setEditorWidth(editorWidth: string, broadcast?: boolean) {
     try {
-      this.documentService.setEditorWidth(editorWidth, broadcast);
+      this.metadataService.setEditorWidth(editorWidth, broadcast);
     } catch (error) {
       this.analyticsHelper?.sendErrorEvent(
         error,
@@ -478,7 +502,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
    */
   setMetadata(metadata: Metadata) {
     try {
-      this.documentService.setMetadata(metadata);
+      this.metadataService.setMetadata(metadata);
     } catch (error) {
       this.analyticsHelper?.sendErrorEvent(
         error,
@@ -528,6 +552,10 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
     }
   };
 
+  getUnconfirmedSteps = (): readonly ProseMirrorStep[] | undefined => {
+    return this.documentService.getUnconfirmedSteps();
+  };
+
   /**
    * ESS-2916 namespace status event- lock/unlock
    */
@@ -553,5 +581,13 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
     }
     this.isNamespaceLocked = false;
     logger(`The page lock has expired`);
+  };
+
+  /**
+   * Used when the provider is disconnected or destroyed to prevent perpetual timers from continuously running
+   */
+  private clearTimers = () => {
+    clearTimeout(this.presenceUpdateTimeout);
+    this.participantsService.clearTimers();
   };
 }

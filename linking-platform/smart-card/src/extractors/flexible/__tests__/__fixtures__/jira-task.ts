@@ -1,3 +1,5 @@
+import { SmartLinkActionType } from '@atlaskit/linking-types';
+
 export default {
   meta: {
     auth: [],
@@ -52,5 +54,24 @@ export default {
         url: 'https://priority-icon-url',
       },
     },
+    'atlassian:serverAction': [
+      {
+        '@type': 'UpdateAction',
+        name: 'UpdateAction',
+        dataRetrievalAction: {
+          '@type': 'ReadAction',
+          name: SmartLinkActionType.GetStatusTransitionsAction,
+        },
+        dataUpdateAction: {
+          '@type': 'UpdateAction',
+          name: SmartLinkActionType.StatusUpdateAction,
+        },
+        refField: 'tag',
+        resourceIdentifiers: {
+          issueKey: 'some-id',
+          hostname: 'some-hostname',
+        },
+      },
+    ],
   },
 };

@@ -71,7 +71,6 @@ import InsertMenu from '../../../../../ui/ElementBrowser/InsertMenu';
 
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { createInsertNodeAPI } from '../../../../../insert-api/api';
-import featureFlagsContextPlugin from '../../../../../plugins/feature-flags-context';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 jest.mock('../../../../../plugins/quick-insert/commands', () => ({
@@ -166,7 +165,6 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
       doc,
       pluginKey: blockTypePluginKey,
       preset: new Preset<LightEditorPlugin>()
-        .add([featureFlagsContextPlugin, { newInsertionBehaviour: true }])
         .add([featureFlagsPlugin, { newInsertionBehaviour: true }])
         .add(blockTypePlugin)
         .add([analyticsPlugin, { createAnalyticsEvent }])
@@ -197,7 +195,11 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
       insertNodeAPI,
     };
     toolbarOption = mountWithIntl(
-      <ToolbarInsertBlock {...defaultProps} {...props} />,
+      <ToolbarInsertBlock
+        {...defaultProps}
+        {...props}
+        featureFlags={props.featureFlags || {}}
+      />,
     );
     baseToolbarOption = toolbarOption.find(BaseToolbarInsertBlock);
   };

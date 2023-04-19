@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/primitives",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "Primitives are token-backed low-level building blocks.",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -27,19 +27,28 @@
           }
         },
         {
-          "title": "Accessibility",
-          "id": "@atlaskit/primitives",
-          "folder": "accessibility",
-          "slug": "primitives/accessibility",
+          "title": "Box",
+          "folder": "box",
+          "slug": "primitives/box",
+          "id": "@atlaskit/primitives/box",
           "status": {
             "type": "alpha"
           }
         },
         {
-          "title": "Box",
-          "folder": "box",
-          "slug": "primitives/box",
-          "id": "@atlaskit/primitives/box",
+          "title": "Inline",
+          "folder": "inline",
+          "slug": "primitives/inline",
+          "id": "@atlaskit/primitives/inline",
+          "status": {
+            "type": "alpha"
+          }
+        },
+        {
+          "title": "Stack",
+          "folder": "stack",
+          "slug": "primitives/stack",
+          "id": "@atlaskit/primitives/stack",
           "status": {
             "type": "alpha"
           }
@@ -74,10 +83,20 @@
     "react": "^16.8.0 || ^17.0.0 || ^18.0.0"
   },
   "devDependencies": {
+    "@atlaskit/avatar": "*",
+    "@atlaskit/badge": "*",
+    "@atlaskit/button": "*",
+    "@atlaskit/code": "*",
     "@atlaskit/docs": "*",
+    "@atlaskit/dropdown-menu": "*",
     "@atlaskit/ds-lib": "*",
     "@atlaskit/heading": "*",
+    "@atlaskit/icon": "*",
+    "@atlaskit/icon-object": "*",
+    "@atlaskit/lozenge": "*",
     "@atlaskit/ssr": "*",
+    "@atlaskit/tag": "*",
+    "@atlaskit/theme": "*",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",

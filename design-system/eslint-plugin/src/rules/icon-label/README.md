@@ -1,27 +1,20 @@
-# @atlaskit/eslint-plugin-design-system/icon-label
-
-Enforces accessible usage of icon labels when composed with other Design System components.
+Icon labels are used to describe what the icon is so the visually impaired can be described what the UI element is.
+There are cases where icons should have labels as well as cases where they shouldn't be labelled.
 
 ## Examples
 
-👎 Example of **incorrect** code for this rule:
+This rule will find violations for when an icon label is or isn't needed when composed with other Design System components.
+
+### Incorrect
 
 ```js
 import ActivityIcon from '@atlaskit/icon/glyph/activity'
 
 <ActivityIcon>
 ^^^^^^^^^^^^^^ missing `label` prop
-```
-
-```js
-import ActivityIcon from '@atlaskit/icon/glyph/activity'
 
 <Button iconLeft={<ActivityIcon label="">} />
                                 ^^^^^ label should be defined
-```
-
-```js
-import ActivityIcon from '@atlaskit/icon/glyph/activity'
 
 <ButtonItem iconBefore={<ActivityIcon label="">}>
                                       ^^^^^ label should not be defined
@@ -29,22 +22,14 @@ import ActivityIcon from '@atlaskit/icon/glyph/activity'
 </ButtonItem>
 ```
 
-👍 Example of **correct** code for this rule:
+### Correct
 
 ```js
 import ActivityIcon from '@atlaskit/icon/glyph/activity'
 
 <ActivityIcon label="Activity">
-```
-
-```js
-import ActivityIcon from '@atlaskit/icon/glyph/activity'
 
 <Button iconLeft={<ActivityIcon label="Activity">} />
-```
-
-```js
-import ActivityIcon from '@atlaskit/icon/glyph/activity'
 
 <ButtonItem iconBefore={<ActivityIcon label="">}>
   My activity

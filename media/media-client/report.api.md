@@ -80,34 +80,8 @@ export type ClientOptions = {
 };
 
 // @public (undocumented)
-export class CollectionFetcher {
-  constructor(mediaStore: MediaStore);
-  // @deprecated (undocumented)
-  getItems(
-    collectionName: string,
-    params?: MediaStoreGetCollectionItemsParams,
-    traceContext?: MediaTraceContext,
-  ): MediaSubscribable<MediaCollectionItem[]>;
-  // @deprecated (undocumented)
-  loadNextPage(
-    collectionName: string,
-    params?: MediaStoreGetCollectionItemsParams,
-    traceContext?: MediaTraceContext,
-  ): Promise<void>;
-  // (undocumented)
-  readonly mediaStore: MediaStore;
-  // (undocumented)
-  removeFile(
-    id: string,
-    collectionName: string,
-    occurrenceKey?: string,
-    traceContext?: MediaTraceContext,
-  ): Promise<void>;
-}
-
-// @public (undocumented)
-type CompletionObserver<T> = PartialObserver<T> &
-  Required<Pick<PartialObserver<T>, 'complete'>>;
+type CompletionObserver = PartialObserver &
+  Required<Pick<PartialObserver, 'complete'>>;
 
 // @public (undocumented)
 export interface CopyDestination extends MediaStoreCopyFileWithTokenParams {
@@ -144,14 +118,14 @@ export interface CreatedTouchedFile {
 }
 
 // @public (undocumented)
-export function createMediaSubject<T extends MediaSubscribableItem>(
+export function createMediaSubject<T extends FileState>(
   initialState?: Error | T,
 ): ReplaySubject<T>;
 
 // @public (undocumented)
-export function createMediaSubscribable<T extends MediaSubscribableItem>(
-  mediaSubscribableItem?: Error | T,
-): MediaSubscribable<T>;
+export function createMediaSubscribable(
+  item?: Error | FileState,
+): MediaSubscribable;
 
 // @public (undocumented)
 export function createUrl(
@@ -204,8 +178,7 @@ export interface ErrorFileState extends BaseFileState {
 }
 
 // @public (undocumented)
-type ErrorObserver<T> = PartialObserver<T> &
-  Required<Pick<PartialObserver<T>, 'error'>>;
+type ErrorObserver = PartialObserver & Required<Pick<PartialObserver, 'error'>>;
 
 // @public (undocumented)
 export type EventPayloadListener<
@@ -286,10 +259,7 @@ export interface FileFetcher {
   // (undocumented)
   getFileBinaryURL(id: string, collectionName?: string): Promise<string>;
   // (undocumented)
-  getFileState(
-    id: string,
-    options?: GetFileOptions,
-  ): MediaSubscribable<FileState>;
+  getFileState(id: string, options?: GetFileOptions): MediaSubscribable;
   // (undocumented)
   touchFiles(
     descriptors: TouchFileDescriptor[],
@@ -303,7 +273,7 @@ export interface FileFetcher {
     uploadableFileUpfrontIds?: UploadableFileUpfrontIds,
     traceContext?: MediaTraceContext,
     featureFlags?: MediaFeatureFlags,
-  ): MediaSubscribable<FileState>;
+  ): MediaSubscribable;
   // (undocumented)
   uploadExternal(
     url: string,
@@ -390,10 +360,7 @@ export class FileFetcherImpl implements FileFetcher {
   // (undocumented)
   getFileBinaryURL(id: string, collectionName?: string): Promise<string>;
   // (undocumented)
-  getFileState(
-    id: string,
-    options?: GetFileOptions,
-  ): MediaSubscribable<FileState>;
+  getFileState(id: string, options?: GetFileOptions): MediaSubscribable;
   // (undocumented)
   touchFiles(
     descriptors: TouchFileDescriptor[],
@@ -407,7 +374,7 @@ export class FileFetcherImpl implements FileFetcher {
     uploadableFileUpfrontIds?: UploadableFileUpfrontIds,
     traceContext?: MediaTraceContext,
     featureFlags?: MediaFeatureFlags,
-  ): MediaSubscribable<FileState>;
+  ): MediaSubscribable;
   // (undocumented)
   uploadExternal(
     url: string,
@@ -623,11 +590,6 @@ export function isMediaClientError(error: any): error is MediaClientError<{
 }>;
 
 // @public (undocumented)
-export const isMediaCollectionItemFullDetails: (
-  mediaCollectionItem: MediaCollectionItemDetails,
-) => mediaCollectionItem is MediaCollectionItemFullDetails;
-
-// @public (undocumented)
 export function isMediaStoreError(err: Error): err is MediaStoreError;
 
 // @public @deprecated (undocumented)
@@ -697,7 +659,7 @@ export const mapMediaFileToFileState: (
 // @public (undocumented)
 export const mapMediaItemToFileState: (
   id: string,
-  item: MediaCollectionItemFullDetails,
+  item: MediaItemDetails,
 ) => FileState;
 
 // @public @deprecated (undocumented)
@@ -758,8 +720,6 @@ export class MediaClient {
     featureFlags?: MediaFeatureFlags | undefined,
   );
   // (undocumented)
-  readonly collection: CollectionFetcher;
-  // (undocumented)
   readonly config: MediaClientConfig;
   // (undocumented)
   emit<E extends keyof UploadEventPayloadMap>(
@@ -807,6 +767,13 @@ export class MediaClient {
     listener: EventPayloadListener<UploadEventPayloadMap, E>,
   ): void;
   // (undocumented)
+  removeFileFromCollection(
+    id: string,
+    collectionName: string,
+    occurrenceKey?: string,
+    traceContext?: MediaTraceContext,
+  ): Promise<void>;
+  // (undocumented)
   readonly stargate: StargateClient;
 }
 
@@ -850,50 +817,6 @@ export type MediaClientErrorReason =
   | 'zeroVersionFile';
 
 // @public (undocumented)
-export type MediaCollection = {
-  readonly name: string;
-  readonly createdAt: number;
-};
-
-// @public (undocumented)
-export type MediaCollectionItem = {
-  readonly id: string;
-  readonly insertedAt: number;
-  readonly occurrenceKey: string;
-  readonly details: MediaCollectionItemDetails;
-};
-
-// @public (undocumented)
-export type MediaCollectionItemDetails =
-  | MediaCollectionItemFullDetails
-  | MediaCollectionItemMinimalDetails;
-
-// @public (undocumented)
-export type MediaCollectionItemFullDetails = {
-  readonly mediaType: MediaType;
-  readonly mimeType: string;
-  readonly name: string;
-  readonly processingStatus: MediaFileProcessingStatus;
-  readonly size: number;
-  readonly artifacts: MediaFileArtifacts;
-  readonly representations: MediaRepresentations;
-  readonly createdAt?: number;
-  readonly metadataTraceContext?: MediaTraceContext;
-};
-
-// @public (undocumented)
-export type MediaCollectionItemMinimalDetails = {
-  readonly name: string;
-  readonly size: number;
-};
-
-// @public (undocumented)
-export type MediaCollectionItems = {
-  readonly contents: MediaCollectionItem[];
-  readonly nextInclusiveStartKey?: string;
-};
-
-// @public (undocumented)
 export type MediaFile = {
   readonly id: string;
   readonly mediaType: MediaType;
@@ -929,14 +852,27 @@ export interface MediaFileArtifacts {
 export type MediaFileProcessingStatus = 'failed' | 'pending' | 'succeeded';
 
 // @public (undocumented)
+export type MediaItemDetails = {
+  readonly mediaType: MediaType;
+  readonly mimeType: string;
+  readonly name: string;
+  readonly processingStatus: MediaFileProcessingStatus;
+  readonly size: number;
+  readonly artifacts: MediaFileArtifacts;
+  readonly representations: MediaRepresentations;
+  readonly createdAt?: number;
+  readonly metadataTraceContext?: MediaTraceContext;
+};
+
+// @public (undocumented)
 export type MediaItemType = 'external-image' | 'file';
 
 // @public (undocumented)
-export type MediaObserver<T> =
-  | ((value: T) => void)
-  | CompletionObserver<T>
-  | ErrorObserver<T>
-  | NextObserver<T>;
+export type MediaObserver =
+  | ((value: FileState) => void)
+  | CompletionObserver
+  | ErrorObserver
+  | NextObserver;
 
 // @public (undocumented)
 export type MediaRepresentations = {
@@ -982,12 +918,6 @@ export class MediaStore {
     artifactName: keyof MediaFileArtifacts,
     collectionName?: string,
   ): Promise<string>;
-  // @deprecated (undocumented)
-  getCollectionItems(
-    collectionName: string,
-    params?: MediaStoreGetCollectionItemsParams,
-    traceContext?: MediaTraceContext,
-  ): Promise<MediaStoreResponse<MediaCollectionItems>>;
   // (undocumented)
   getFile(
     fileId: string,
@@ -1149,14 +1079,6 @@ export type MediaStoreErrorReason =
   | 'tokenExpired';
 
 // @public (undocumented)
-export type MediaStoreGetCollectionItemsParams = {
-  readonly limit?: number;
-  readonly inclusiveStartKey?: string;
-  readonly sortDirection?: 'asc' | 'desc';
-  readonly details?: 'full' | 'minimal';
-};
-
-// @public (undocumented)
 export type MediaStoreGetFileImageParams = {
   readonly allowAnimated?: boolean;
   readonly version?: number;
@@ -1204,12 +1126,9 @@ export interface MediaStoreTouchFileParams {
 }
 
 // @public (undocumented)
-export type MediaSubscribable<T> = {
-  subscribe(observer?: MediaObserver<T>): MediaSubscription;
+export type MediaSubscribable = {
+  subscribe(observer?: MediaObserver): MediaSubscription;
 };
-
-// @public (undocumented)
-export type MediaSubscribableItem = FileState | MediaCollectionItem[];
 
 // @public (undocumented)
 export type MediaSubscription = {
@@ -1277,8 +1196,7 @@ export type MobileUploadStartEvent = {
 };
 
 // @public (undocumented)
-type NextObserver<T> = PartialObserver<T> &
-  Required<Pick<PartialObserver<T>, 'next'>>;
+type NextObserver = PartialObserver & Required<Pick<PartialObserver, 'next'>>;
 
 // @public (undocumented)
 export type NonErrorFileState = Exclude<FileState, ErrorFileState>;
@@ -1289,8 +1207,8 @@ export const objectToQueryString: (json: {
 }) => string;
 
 // @public (undocumented)
-type PartialObserver<T> = {
-  next?: (value: T) => void;
+type PartialObserver = {
+  next?: (value: FileState) => void;
   error?: (err: any) => void;
   complete?: () => void;
 };
@@ -1544,7 +1462,7 @@ export interface ResponseFileItem {
   // (undocumented)
   collection?: string;
   // (undocumented)
-  details: MediaCollectionItemFullDetails;
+  details: MediaItemDetails;
   // (undocumented)
   id: string;
   // (undocumented)

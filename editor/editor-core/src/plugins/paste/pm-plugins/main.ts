@@ -9,7 +9,7 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { Transaction } from 'prosemirror-state';
 import uuid from 'uuid';
 import { MarkdownTransformer } from '@atlaskit/editor-markdown-transformer';
-import { CardOptions } from '@atlaskit/editor-common/card';
+import { addLinkMetadata, CardOptions } from '@atlaskit/editor-common/card';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { mapChildren } from '../../../utils/slice';
 import {
@@ -17,7 +17,6 @@ import {
   getExtensionAutoConvertersFromProvider,
   ExtensionAutoConvertHandler,
 } from '@atlaskit/editor-common/extensions';
-sendPasteAnalyticsEvent;
 
 import * as clipboard from '../../../utils/clipboard';
 import { transformSliceForMedia } from '../../media/utils/media-single';
@@ -60,8 +59,10 @@ import {
   handlePasteNonNestableBlockNodesIntoListWithAnalytics,
 } from './analytics';
 import {
+  ACTION,
   analyticsPluginKey,
   DispatchAnalyticsEvent,
+  INPUT_METHOD,
   PasteTypes,
 } from '../../analytics';
 import { isInsideBlockQuote, insideTable, measurements } from '../../../utils';
@@ -92,12 +93,13 @@ import { pluginKey as stateKey, createPluginState } from './plugin-factory';
 export { pluginKey as stateKey } from './plugin-factory';
 export { md } from '../md';
 import type { Dispatch } from '../../../event-dispatcher';
-import { getFeatureFlags } from '../../feature-flags-context';
+import { FeatureFlags } from '@atlaskit/editor-common/types';
 
 export function createPlugin(
   schema: Schema,
   dispatchAnalyticsEvent: DispatchAnalyticsEvent,
   dispatch: Dispatch,
+  featureFlags: FeatureFlags,
   cardOptions?: CardOptions,
   sanitizePrivateContent?: boolean,
   providerFactory?: ProviderFactory,
@@ -273,6 +275,11 @@ export function createPlugin(
           if (!isPastingTextInsidePlaceholderText && !isPastingTable) {
             tr.setMeta(betterTypePluginKey, true);
           }
+
+          addLinkMetadata(view.state.selection, tr, {
+            action: isPlainText ? ACTION.PASTED_AS_PLAIN : ACTION.PASTED,
+            inputMethod: INPUT_METHOD.CLIPBOARD,
+          });
 
           view.dispatch(tr);
         };
@@ -553,7 +560,6 @@ export function createPlugin(
           ) {
             return true;
           }
-          const featureFlags = getFeatureFlags(state);
 
           if (
             handlePastePanelOrDecisionIntoListWithAnalytics(

@@ -103,10 +103,7 @@ export type ExternalUploadPayload = {
 };
 
 export interface FileFetcher {
-  getFileState(
-    id: string,
-    options?: GetFileOptions,
-  ): MediaSubscribable<FileState>;
+  getFileState(id: string, options?: GetFileOptions): MediaSubscribable;
   getArtifactURL(
     artifacts: MediaFileArtifacts,
     artifactName: keyof MediaFileArtifacts,
@@ -123,7 +120,7 @@ export interface FileFetcher {
     uploadableFileUpfrontIds?: UploadableFileUpfrontIds,
     traceContext?: MediaTraceContext,
     featureFlags?: MediaFeatureFlags,
-  ): MediaSubscribable<FileState>;
+  ): MediaSubscribable;
   uploadExternal(
     url: string,
     collection?: string,
@@ -157,7 +154,7 @@ export class FileFetcherImpl implements FileFetcher {
   public getFileState(
     id: string,
     options: GetFileOptions = {},
-  ): MediaSubscribable<FileState> {
+  ): MediaSubscribable {
     const { collectionName, occurrenceKey } = options;
 
     if (!isValidId(id)) {
@@ -404,7 +401,7 @@ export class FileFetcherImpl implements FileFetcher {
     controller?: UploadController,
     uploadableFileUpfrontIds?: UploadableFileUpfrontIds,
     traceContext?: MediaTraceContext,
-  ): MediaSubscribable<FileState> {
+  ): MediaSubscribable {
     const { collection } = file;
 
     const upfrontId =
@@ -478,7 +475,7 @@ export class FileFetcherImpl implements FileFetcher {
     controller?: UploadController,
     uploadableFileUpfrontIds?: UploadableFileUpfrontIds,
     traceContext?: MediaTraceContext,
-  ): MediaSubscribable<FileState> {
+  ): MediaSubscribable {
     if (typeof file.content === 'string') {
       file.content = convertBase64ToBlob(file.content);
     }
@@ -607,7 +604,7 @@ export class FileFetcherImpl implements FileFetcher {
     uploadableFileUpfrontIds?: UploadableFileUpfrontIds,
     traceContext?: MediaTraceContext,
     featureFlags?: MediaFeatureFlags,
-  ): MediaSubscribable<FileState> {
+  ): MediaSubscribable {
     const shouldAlwaysFetchFileState = getMediaFeatureFlag(
       'fetchFileStateAfterUpload',
       featureFlags || this.featureFlags,

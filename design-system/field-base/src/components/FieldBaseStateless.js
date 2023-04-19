@@ -6,7 +6,11 @@ import { Content, ContentWrapper, ChildWrapper } from '../styled/Content';
 // eslint-disable-next-line import/no-named-as-default
 import ValidationElement from './ValidationElement';
 
-if (process.env.NODE_ENV !== 'production' && !process.env.CI) {
+if (
+  typeof process !== 'undefined' &&
+  process.env.NODE_ENV !== 'production' &&
+  !process.env.CI
+) {
   // eslint-disable-next-line no-console
   console.warn(
     'The @atlaskit/field-base package has been deprecated. Please use the Form/Textfield/Textarea/etc packages instead.',

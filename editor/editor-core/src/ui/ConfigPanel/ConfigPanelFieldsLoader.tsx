@@ -8,6 +8,7 @@ import {
   ExtensionKey,
   Parameters,
 } from '@atlaskit/editor-common/extensions';
+import { FeatureFlags } from '@atlaskit/editor-common/types';
 
 import { useStateFromPromise } from '../../utils/react-hooks/use-state-from-promise';
 import ConfigPanel from './ConfigPanel';
@@ -24,6 +25,7 @@ export type PublicProps = {
   autoSaveReject?: (reason?: any) => void;
   closeOnEsc?: boolean;
   showHeader?: boolean;
+  featureFlags?: FeatureFlags;
   onChange: (data: Parameters) => void;
   onCancel: () => void;
 };
@@ -122,6 +124,7 @@ export default function FieldsLoader({
   autoSaveReject,
   closeOnEsc,
   showHeader,
+  featureFlags,
   onChange,
   onCancel,
 }: PublicProps) {
@@ -155,6 +158,7 @@ export default function FieldsLoader({
           onChange={onChange}
           onCancel={onCancel}
           errorMessage={errorMessage}
+          featureFlags={featureFlags}
         />
       )}
     </FieldDefinitionsPromiseResolver>

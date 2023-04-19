@@ -63,7 +63,7 @@ export const OpsGenieIcon = ({
   testId,
   textColor = defaultLogoParams.textColor,
 }: LogoProps) => {
-  if (process.env.NODE_ENV !== 'production') {
+  if (typeof process !== 'undefined' && process.env.NODE_ENV !== 'production') {
     warnOnce(
       'OpsGenieIcon will be renamed to OpsgenieIcon in the next major release. Please use OpsgenieIcon instead.',
     );

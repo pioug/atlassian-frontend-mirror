@@ -35,7 +35,11 @@ function getTokenValue<T extends keyof Tokens>(
   let token: Tokens[keyof Tokens] | '' = tokens[tokenId];
   let tokenValue = fallback;
 
-  if (process.env.NODE_ENV !== 'production' && !token) {
+  if (
+    typeof process !== 'undefined' &&
+    process.env.NODE_ENV !== 'production' &&
+    !token
+  ) {
     warnOnce(`Unknown token id at path: ${tokenId} for ${name}@${version}`);
   }
 

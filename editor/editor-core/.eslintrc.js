@@ -19,12 +19,14 @@ module.exports = {
         ],
       },
     ],
+    'react/no-danger': 'error',
   },
   overrides: [
     {
       files: ['**/__tests__/**/*.{js,ts,tsx}', 'examples/**/*.{js,ts,tsx}'],
       rules: {
         'import/no-restricted-paths': ['off'],
+        'react/no-danger': 'off',
       },
     },
   ],

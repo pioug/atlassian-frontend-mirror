@@ -1,5 +1,11 @@
 # @atlaskit/pubsub
 
+## 6.2.1
+
+### Patch Changes
+
+- [`de0273d83ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/de0273d83ea) - Bumped version of vm2 due to a vulnerability
+
 ## 6.2.0
 
 ### Minor Changes

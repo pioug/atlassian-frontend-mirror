@@ -51,7 +51,7 @@ import {
   getAnalyticsEventsFromTransaction,
 } from '@atlaskit/editor-common/analytics';
 import { createFeatureFlagsFromProps } from './feature-flags-from-props';
-import { getEnabledFeatureFlagKeys } from '../plugins/feature-flags-context/get-enabled-feature-flag-keys';
+import { getEnabledFeatureFlagKeys } from '@atlaskit/editor-common/normalize-feature-flags';
 import {
   EditorAppearance,
   EditorConfig,
@@ -957,9 +957,11 @@ export class ReactEditorView<T = {}> extends React.Component<
       className={getUAPrefix()}
       key="ProseMirror"
       ref={this.handleEditorViewRef}
-      aria-label={this.props.intl.formatMessage(
-        editorMessages.editorAssistiveLabel,
-      )}
+      aria-label={
+        this.props.editorProps.assistiveLabel
+          ? this.props.editorProps.assistiveLabel
+          : this.props.intl.formatMessage(editorMessages.editorAssistiveLabel)
+      }
       role="textbox"
     />
   );

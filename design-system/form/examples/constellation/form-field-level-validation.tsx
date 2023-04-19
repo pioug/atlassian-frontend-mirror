@@ -9,7 +9,9 @@ import Form, {
   ErrorMessage,
   Field,
   FormFooter,
+  FormHeader,
   HelperMessage,
+  RequiredAsterisk,
   ValidMessage,
 } from '../../src';
 
@@ -68,6 +70,12 @@ export default class extends Component<{}> {
         <Form onSubmit={this.handleSubmit}>
           {({ formProps }) => (
             <form {...formProps}>
+              <FormHeader title="Log In">
+                <p aria-hidden="true">
+                  Required fields are marked with an asterisk{' '}
+                  <RequiredAsterisk />
+                </p>
+              </FormHeader>
               <Field
                 aria-required={true}
                 name="username"

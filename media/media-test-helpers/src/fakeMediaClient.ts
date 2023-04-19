@@ -1,5 +1,3 @@
-import { of } from 'rxjs/observable/of';
-
 import { MediaApiConfig, MediaClientConfig } from '@atlaskit/media-core';
 import { MediaClient } from '@atlaskit/media-client';
 
@@ -26,20 +24,17 @@ export const fakeMediaClient = (
     const {
       MediaClient: MockMediaClient,
       FileFetcherImpl,
-      CollectionFetcher,
       MediaStore: MockMediaStore,
       StargateClient,
     } = jest.genMockFromModule('@atlaskit/media-client');
     const mediaClient = new MockMediaClient();
 
     const fileFetcher = new FileFetcherImpl();
-    const collectionFetcher = new CollectionFetcher();
     const mockMediaStore = new MockMediaStore({
       authProvider: config.authProvider,
     } as MediaApiConfig);
     const stargateClient = new StargateClient();
     mediaClient.file = fileFetcher;
-    mediaClient.collection = collectionFetcher;
     mediaClient.stargate = stargateClient;
     mediaClient.config = config; // <- deprecated
     mediaClient.mediaClientConfig = config;
@@ -50,7 +45,6 @@ export const fakeMediaClient = (
     asMock(mediaClient.getImageUrl).mockResolvedValue('some-image-url');
     asMock(mediaClient.getImageUrlSync).mockReturnValue('some-image-url');
     asMock(mediaClient.getImage).mockImplementation(mockMediaStore.getImage);
-    asMock(mediaClient.collection.getItems).mockReturnValue(of([]));
     asMock(mediaClient.file.copyFile).mockReturnValue({ id: 'copied-file-id' });
     asMock(mediaClient.file.getCurrentState).mockReturnValue(
       Promise.resolve({

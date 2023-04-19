@@ -15,11 +15,19 @@ import type { DisconnectReason } from './disconnected-reason-mapper';
 import type { InternalError } from './errors/error-types';
 import type { ProviderError } from './errors/error-types';
 import type { SyncUpErrorFunction } from '@atlaskit/editor-common/types';
+import { JSONDocNode } from '@atlaskit/editor-json-transformer';
 
 export interface Storage {
   get(key: string): Promise<string>;
   set(key: string, value: string): Promise<void>;
   delete(key: string): Promise<void>;
+}
+
+// Initial draft
+export interface InitialDraft {
+  document: JSONDocNode;
+  version: number;
+  metadata?: Metadata;
 }
 
 export interface Config {
@@ -57,6 +65,8 @@ export interface Config {
    * This can lead to potential dataloss and retrying should be considered. Without this flag the provider silently drops the requests.
    */
   throwOnNotConnected?: boolean;
+  // initial draft passed on provider creation
+  initialDraft?: InitialDraft;
 }
 
 export interface InitAndAuthData {
@@ -267,13 +277,14 @@ export interface CatchupOptions {
   fetchCatchup: (fromVersion: number) => Promise<CatchupResponse>;
   filterQueue: (condition: (stepsPayload: StepsPayload) => boolean) => void;
   getUnconfirmedSteps: () => readonly Step[] | undefined;
-  updateDocumentWithMetadata: ({
+  applyLocalSteps: (steps: Step[]) => void;
+  updateDocument: ({
     doc,
     version,
     metadata,
     reserveCursor,
   }: CollabInitPayload) => void;
-  applyLocalSteps: (steps: Step[]) => void;
+  updateMetadata: (metadata: Metadata | undefined) => void;
 }
 
 export type ProductInformation = {

@@ -124,7 +124,9 @@ export const setupConfigPanel = async (
     editorView.dispatch,
   );
 
-  const contextPanel = getContextPanel(autoSave)(editorView.state);
+  const contextPanel = getContextPanel(autoSave, {
+    expandedChartColors: true,
+  })(editorView.state);
 
   expect(contextPanel).toBeTruthy();
   const editorActions = new EditorActions();

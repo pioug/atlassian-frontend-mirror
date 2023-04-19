@@ -40,7 +40,7 @@ import {
   isInListItem,
 } from '../../utils';
 import { mapSlice } from '../../utils/slice';
-import { InputMethodInsertMedia, INPUT_METHOD } from '../analytics';
+import { ACTION, InputMethodInsertMedia, INPUT_METHOD } from '../analytics';
 import { queueCardsFromChangedTr } from '../card/pm-plugins/doc';
 import { CardOptions } from '@atlaskit/editor-common/card';
 import { GapCursorSelection, Side } from '../selection/gap-cursor-selection';
@@ -199,7 +199,7 @@ export function handlePasteIntoTaskOrDecisionOrPanel(slice: Slice): Command {
       safeInsert(transformedSlice.content)(tr).scrollIntoView();
     }
 
-    queueCardsFromChangedTr(state, tr, INPUT_METHOD.CLIPBOARD);
+    queueCardsFromChangedTr(state, tr, INPUT_METHOD.CLIPBOARD, ACTION.PASTED);
     if (dispatch) {
       dispatch(tr);
     }
@@ -561,7 +561,7 @@ export function handlePastePreservingMarks(slice: Slice): Command {
         .setStoredMarks(selectionMarks)
         .scrollIntoView();
 
-      queueCardsFromChangedTr(state, tr, INPUT_METHOD.CLIPBOARD);
+      queueCardsFromChangedTr(state, tr, INPUT_METHOD.CLIPBOARD, ACTION.PASTED);
       if (dispatch) {
         dispatch(tr);
       }
@@ -593,7 +593,7 @@ export function handlePastePreservingMarks(slice: Slice): Command {
         .setStoredMarks(selectionMarks)
         .scrollIntoView();
 
-      queueCardsFromChangedTr(state, tr, INPUT_METHOD.CLIPBOARD);
+      queueCardsFromChangedTr(state, tr, INPUT_METHOD.CLIPBOARD, ACTION.PASTED);
       if (dispatch) {
         dispatch(tr);
       }
@@ -878,7 +878,7 @@ export function handleMarkdown(
       TextSelection.near(tr.doc.resolve(pastesFrom + markdownSlice.size), -1),
     );
 
-    queueCardsFromChangedTr(state, tr, INPUT_METHOD.CLIPBOARD);
+    queueCardsFromChangedTr(state, tr, INPUT_METHOD.CLIPBOARD, ACTION.PASTED);
     if (dispatch) {
       dispatch(tr.scrollIntoView());
     }
@@ -1136,7 +1136,14 @@ export function handleRichText(slice: Slice): Command {
 
     // queue link cards, ignoring any errors
     if (dispatch) {
-      dispatch(queueCardsFromChangedTr(state, tr, INPUT_METHOD.CLIPBOARD));
+      dispatch(
+        queueCardsFromChangedTr(
+          state,
+          tr,
+          INPUT_METHOD.CLIPBOARD,
+          ACTION.PASTED,
+        ),
+      );
     }
     return true;
   };

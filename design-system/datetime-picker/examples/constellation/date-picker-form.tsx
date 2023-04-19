@@ -19,7 +19,10 @@ const DatePickerFormExample = () => (
         >
           {({ fieldProps }) => (
             <>
-              <DatePicker {...fieldProps} />
+              <DatePicker
+                {...fieldProps}
+                selectProps={{ inputId: fieldProps.id }}
+              />
               <HelperMessage>Help or instruction text goes here</HelperMessage>
             </>
           )}

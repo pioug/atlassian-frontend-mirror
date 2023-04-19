@@ -11,8 +11,7 @@ import uuid from 'uuid/v4';
 
 import {
   getMediaTypeFromMimeType,
-  MediaCollectionItemFullDetails,
-  isMediaCollectionItemFullDetails,
+  MediaItemDetails,
   TouchFileDescriptor,
   ItemsPayload,
   ResponseFileItem,
@@ -24,6 +23,7 @@ import {
   createCollectionItem,
   createEmptyCollectionItem,
   CollectionItem,
+  isMediaItemDetails,
 } from '../database';
 import { vrVideoDetails } from '../../exampleMediaItems';
 import { defaultBaseUrl } from '../../mediaClientProvider';
@@ -355,7 +355,7 @@ export function createApiRouter(
     );
 
     const mediaType = getMediaTypeFromMimeType(mimeType);
-    const newDetails: MediaCollectionItemFullDetails = {
+    const newDetails: MediaItemDetails = {
       ...(fileRecord.data.details || {}),
       name,
       mimeType,
@@ -509,7 +509,7 @@ export function createApiRouter(
         },
         representations = { image: {} },
         createdAt = -1,
-      } = isMediaCollectionItemFullDetails(details) ? details : {};
+      } = isMediaItemDetails(details) ? details : {};
 
       database.update('collectionItem', existingRecord.id, {
         id: replaceFileId,

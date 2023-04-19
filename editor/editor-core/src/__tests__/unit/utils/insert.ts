@@ -61,6 +61,8 @@ describe('@atlaskit/editor-core/utils insert', () => {
       },
       INPUT_METHOD.PICKER_CLOUD,
       testCollectionName,
+      undefined,
+      true,
     );
 
   describe('whitelist', () => {
@@ -178,7 +180,9 @@ describe('@atlaskit/editor-core/utils insert', () => {
           editorView: EditorView;
         }) => {
           const { state, dispatch } = editorView;
-          insertHorizontalRule(INPUT_METHOD.TOOLBAR)(state, dispatch);
+          insertHorizontalRule(INPUT_METHOD.TOOLBAR, {
+            newInsertionBehaviour: true,
+          })(state, dispatch);
         };
         const insertFromQuickInsert = async ({
           typeAheadTool,

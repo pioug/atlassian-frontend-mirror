@@ -27,12 +27,15 @@ describe('useHandleEditorLifecycle', () => {
   test('should invoke on mount', () => {
     const onMount = jest.fn();
     mountUseEffect(() => {
-      useHandleEditorLifecycle({
-        editorView: mockEditorView,
-        editorActions: mockEditorActions,
-        dispatch: () => {},
-        onMount,
-      } as unknown as any);
+      useHandleEditorLifecycle(
+        {
+          editorView: mockEditorView,
+          editorActions: mockEditorActions,
+          dispatch: () => {},
+          onMount,
+        } as unknown as any,
+        {},
+      );
     });
     expect(onMount).toBeCalledTimes(1);
   });
@@ -40,11 +43,14 @@ describe('useHandleEditorLifecycle', () => {
   test('should fire ACTION.STARTED analytics event', () => {
     const dispatch = jest.fn();
     mountUseEffect(() => {
-      useHandleEditorLifecycle({
-        editorView: mockEditorView,
-        editorActions: mockEditorActions,
-        dispatch,
-      } as unknown as any);
+      useHandleEditorLifecycle(
+        {
+          editorView: mockEditorView,
+          editorActions: mockEditorActions,
+          dispatch,
+        } as unknown as any,
+        {},
+      );
     });
 
     expect(dispatch).toHaveBeenCalledWith(analyticsEventKey, {
@@ -63,12 +69,15 @@ describe('useHandleEditorLifecycle', () => {
   test('should invoke on destroy', () => {
     const onDestroy = jest.fn();
     const testRenderer = mountUseEffect(() => {
-      useHandleEditorLifecycle({
-        editorView: mockEditorView,
-        editorActions: mockEditorActions,
-        dispatch: () => {},
-        onDestroy,
-      } as unknown as any);
+      useHandleEditorLifecycle(
+        {
+          editorView: mockEditorView,
+          editorActions: mockEditorActions,
+          dispatch: () => {},
+          onDestroy,
+        } as unknown as any,
+        {},
+      );
     });
     testRenderer!.unmount();
     expect(onDestroy).toBeCalledTimes(1);

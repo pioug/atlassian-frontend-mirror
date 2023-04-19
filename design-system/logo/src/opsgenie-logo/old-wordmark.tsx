@@ -25,7 +25,7 @@ export const OpsGenieWordmark = ({
   testId,
   textColor = defaultLogoParams.textColor,
 }: LogoProps) => {
-  if (process.env.NODE_ENV !== 'production') {
+  if (typeof process !== 'undefined' && process.env.NODE_ENV !== 'production') {
     warnOnce(
       'OpsGenieWordmark will be renamed to OpsgenieWordmark in the next major release. Please use OpsgenieWordmark instead.',
     );

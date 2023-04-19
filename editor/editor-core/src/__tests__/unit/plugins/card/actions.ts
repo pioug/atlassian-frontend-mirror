@@ -1,3 +1,5 @@
+import { replaceRaf, Stub } from 'raf-stub';
+
 import { pluginKey } from '../../../../plugins/card/pm-plugins/main';
 import {
   setProvider,
@@ -102,6 +104,23 @@ describe('card', () => {
     });
 
     describe('resolve', () => {
+      let raf: Stub;
+
+      beforeAll(() => {
+        replaceRaf();
+        const asStub = (raf: typeof requestAnimationFrame) =>
+          raf as unknown as Stub;
+        raf = asStub(requestAnimationFrame);
+      });
+
+      beforeEach(() => {
+        raf.reset();
+      });
+
+      afterEach(() => {
+        raf.flush();
+      });
+
       it('eventually resolves the url from the queue', async () => {
         const { editorView } = editor(doc(p()));
         const atlassianCardRequest = createCardRequest(atlassianUrl, 1);
@@ -115,6 +134,38 @@ describe('card', () => {
           cards: [],
           requests: [],
           provider: null,
+          showLinkingToolbar: false,
+          events: undefined,
+          createAnalyticsEvent,
+        });
+      });
+
+      it('should handle unmounting', () => {
+        const { editorView } = editor(doc(p()));
+        const atlassianCardRequest = createCardRequest(atlassianUrl, 1);
+
+        const provider = new EditorTestCardProvider();
+
+        editorView.dispatch(setProvider(provider)(editorView.state.tr));
+
+        editorView.dispatch(
+          queueCards([atlassianCardRequest])(editorView.state.tr),
+        );
+
+        raf.flush();
+
+        expect(pluginKey.getState(editorView.state)).toEqual({
+          cards: [],
+          requests: [
+            {
+              appearance: 'inline',
+              compareLinkText: true,
+              pos: 1,
+              source: 'clipboard',
+              url: 'http://www.atlassian.com/',
+            },
+          ],
+          provider: expect.any(EditorTestCardProvider),
           showLinkingToolbar: false,
           events: undefined,
           createAnalyticsEvent,

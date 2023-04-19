@@ -8,6 +8,7 @@
 ### Table of contents
 
 - [Main Entry Types](#main-entry-types)
+- [Peer Dependencies](#peer-dependencies)
 
 ### Main Entry Types
 
@@ -17,6 +18,7 @@
 /// <reference types="react" />
 
 import { ForwardRefExoticComponent } from 'react';
+import { jsx } from '@emotion/react';
 import { default as React_2 } from 'react';
 import { RefAttributes } from 'react';
 
@@ -38,7 +40,7 @@ export function RatingGroup({
   value,
   testId,
   children,
-}: RatingGroupProps): JSX.Element;
+}: RatingGroupProps): jsx.JSX.Element;
 
 // @public (undocumented)
 export interface RatingGroupProps {
@@ -79,3 +81,16 @@ export interface StarProps extends RatingProps {
 ```
 
 <!--SECTION END: Main Entry Types-->
+
+### Peer Dependencies
+
+<!--SECTION START: Peer Dependencies-->
+
+```json
+{
+  "react": "^16.8.0",
+  "react-dom": "^16.8.0"
+}
+```
+
+<!--SECTION END: Peer Dependencies-->

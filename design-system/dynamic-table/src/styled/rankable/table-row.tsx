@@ -12,6 +12,7 @@ export type RankableTableBodyRowProps = HTMLAttributes<HTMLTableRowElement> &
   ITableRowProps & {
     isRanking?: boolean;
     isRankingItem?: boolean;
+    testId?: string;
   };
 
 const rankingStyles = css({
@@ -39,7 +40,7 @@ const draggableStyles = css({
 export const RankableTableBodyRow = forwardRef<
   HTMLTableRowElement,
   RankableTableBodyRowProps
->(({ isRanking, isRankingItem, ...props }, ref) => {
+>(({ isRanking, isRankingItem, testId, ...props }, ref) => {
   return (
     <TableBodyRow
       css={[
@@ -48,6 +49,7 @@ export const RankableTableBodyRow = forwardRef<
         draggableStyles,
       ]}
       ref={ref}
+      testId={testId}
       {...props}
     />
   );

@@ -10,7 +10,7 @@ import {
 
 import {
   ItemsPayload,
-  MediaCollectionItemFullDetails,
+  MediaItemDetails,
   MediaStore,
   MediaStoreResponse,
   ResponseFileItem,
@@ -44,7 +44,7 @@ describe('createFileDataLoader', () => {
 
     const dataLoader = createFileDataloader(mediaStore);
 
-    const defaultDetails: Omit<MediaCollectionItemFullDetails, 'name'> = {
+    const defaultDetails: Omit<MediaItemDetails, 'name'> = {
       mediaType: 'image',
       mimeType: 'image/jpeg',
       processingStatus: 'pending',
@@ -233,7 +233,7 @@ describe('createFileDataLoader', () => {
         { id: 'item-4', collectionName },
       ];
 
-      const mockedDetails: MediaCollectionItemFullDetails[] = [
+      const mockedDetails: MediaItemDetails[] = [
         {
           ...defaultDetails,
           name: 'filename-1',
@@ -300,7 +300,7 @@ describe('createFileDataLoader', () => {
         { id: 'item-4', collectionName: collection2 },
       ];
 
-      const mockedDetails: MediaCollectionItemFullDetails[] = [
+      const mockedDetails: MediaItemDetails[] = [
         {
           ...defaultDetails,
           name: 'filename-1',
@@ -374,7 +374,7 @@ describe('createFileDataLoader', () => {
         { id: 'item-4', collectionName: collection2 },
       ];
 
-      const mockedDetails: MediaCollectionItemFullDetails[] = [
+      const mockedDetails: MediaItemDetails[] = [
         {
           ...defaultDetails,
           name: 'filename-1',
@@ -440,7 +440,7 @@ describe('createFileDataLoader', () => {
       const { dataLoader, defaultDetails, mediaStore } = setup();
       const collectionName = 'collection';
 
-      const mockedDetails: MediaCollectionItemFullDetails[] = [
+      const mockedDetails: MediaItemDetails[] = [
         {
           ...defaultDetails,
           name: 'filename-1',
@@ -502,7 +502,7 @@ describe('createFileDataLoader', () => {
       const { dataLoader, defaultDetails, defaultError, mediaStore } = setup();
       const collectionName = 'collection';
 
-      const mockedDetails: MediaCollectionItemFullDetails[] = [
+      const mockedDetails: MediaItemDetails[] = [
         {
           ...defaultDetails,
           name: 'filename-1',
@@ -546,7 +546,7 @@ describe('createFileDataLoader', () => {
       const { dataLoader, defaultDetails, mediaStore } = setup();
       const collectionName = 'collection';
 
-      const mockedDetails: MediaCollectionItemFullDetails[] = [
+      const mockedDetails: MediaItemDetails[] = [
         {
           ...defaultDetails,
           name: 'filename-1',

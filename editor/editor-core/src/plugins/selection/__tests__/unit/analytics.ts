@@ -31,11 +31,13 @@ import {
   setAllSelection,
   setCellSelection,
 } from '../../../../utils/selection';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 describe('selection analytics', () => {
   const createEditor = createProsemirrorEditorFactory();
   const preset = new Preset<LightEditorPlugin>()
     .add(selectionPlugin)
+    .add([featureFlagsPlugin, {}])
     .add(rulePlugin)
     .add(layoutPlugin)
     .add(tablesPlugin);

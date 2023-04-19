@@ -32,6 +32,7 @@ export function FieldComponent({
   extensionManifest,
   firstVisibleFieldName,
   onFieldChange,
+  featureFlags,
 }: FieldComponentProps) {
   const { name, type } = field;
   const autoFocus = name === firstVisibleFieldName;
@@ -82,6 +83,7 @@ export function FieldComponent({
           name={parentedName}
           field={field}
           onFieldChange={onFieldChange}
+          featureFlags={featureFlags}
         />
       );
 
@@ -172,6 +174,7 @@ export function FieldComponent({
             parameters={resolvedParameters}
             onFieldChange={onFieldChange}
             extensionManifest={extensionManifest}
+            featureFlags={featureFlags}
           />
         </Expand>
       );
@@ -202,6 +205,7 @@ export function FieldComponent({
             parameters={tabParameters}
             onFieldChange={onFieldChange}
             extensionManifest={extensionManifest}
+            featureFlags={featureFlags}
           />
         );
       };
@@ -232,6 +236,7 @@ export default function FormContent({
   onFieldChange,
   firstVisibleFieldName,
   contextIdentifierProvider,
+  featureFlags,
 }: FormContentProps) {
   return (
     <FormErrorBoundary
@@ -248,6 +253,7 @@ export default function FormContent({
             extensionManifest={extensionManifest}
             firstVisibleFieldName={firstVisibleFieldName}
             onFieldChange={onFieldChange}
+            featureFlags={featureFlags}
           />
         );
 

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/grid",
-  "version": "0.8.9",
+  "version": "0.8.10",
   "description": "A grid is a responsive layout component designed to manage the content of a page.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

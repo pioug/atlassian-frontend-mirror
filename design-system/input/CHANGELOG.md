@@ -1,5 +1,11 @@
 # @atlaskit/input
 
+## 8.0.8
+
+### Patch Changes
+
+- [`e0460d5d989`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e0460d5d989) - Usages of `process` are now guarded by a `typeof` check.
+
 ## 8.0.7
 
 ### Patch Changes

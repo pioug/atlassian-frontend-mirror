@@ -15,13 +15,13 @@ import {
   EVENT_TYPE,
   PLATFORMS,
 } from '../../../../../plugins/analytics';
-import { getEnabledFeatureFlagKeys } from '../../../../../plugins/feature-flags-context/get-enabled-feature-flag-keys';
-import { getFeatureFlags } from '../../../../../plugins/feature-flags-context/';
+import { getEnabledFeatureFlagKeys } from '@atlaskit/editor-common/normalize-feature-flags';
 import { EditorSharedConfig } from '../../context/shared-config';
 import { useAnalyticsHandler } from '../use-analytics';
 import { createDispatchTransaction } from './create-dispatch-transaction';
 import { createEditor, CreateEditorParams } from './create-editor';
 import { analyticsEventKey } from '../../../../../plugins/analytics/consts';
+import { FeatureFlags } from '@atlaskit/editor-common/types';
 
 export function useEditor(
   config: CreateEditorParams & { editorActions?: EditorActions },
@@ -31,7 +31,7 @@ export function useEditor(
   const [editorSharedConfig, mountEditor] = useCreateEditor(config);
 
   useApplyEditorViewProps(editorSharedConfig, config.disabled);
-  useHandleEditorLifecycle(editorSharedConfig);
+  useHandleEditorLifecycle(editorSharedConfig, config.featureFlags);
   useAnalyticsHandler(editorSharedConfig);
 
   return [editorSharedConfig, mountEditor];
@@ -142,6 +142,7 @@ function useApplyEditorViewProps(
  */
 export function useHandleEditorLifecycle(
   editorSharedConfig: EditorSharedConfig | null,
+  featureFlags: FeatureFlags,
 ) {
   React.useEffect(() => {
     //#region Did mount
@@ -155,7 +156,6 @@ export function useHandleEditorLifecycle(
         onMount(editorActions);
       }
 
-      const featureFlags = getFeatureFlags(editorSharedConfig.editorView.state);
       const featureFlagsEnabled = featureFlags
         ? getEnabledFeatureFlagKeys(featureFlags)
         : [];
@@ -212,5 +212,5 @@ export function useHandleEditorLifecycle(
         editorView.destroy();
       }
     };
-  }, [editorSharedConfig]);
+  }, [editorSharedConfig, featureFlags]);
 }

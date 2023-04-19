@@ -275,6 +275,7 @@ export interface LinkingPlatformFeatureFlags {
   useLinkPickerAtlassianTabs?: boolean;
   // (undocumented)
   useLinkPickerScrollingTabs?: boolean;
+  useLozengeAction?: string;
 }
 
 // @public @deprecated (undocumented)

@@ -7,7 +7,8 @@ import {
 import { closeHistory } from 'prosemirror-history';
 import { Node, NodeType, Schema } from 'prosemirror-model';
 import { isSafeUrl } from '@atlaskit/adf-schema';
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { addLinkMetadata } from '@atlaskit/editor-common/card';
+import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import {
   CardAdf,
   CardAppearance,
@@ -19,7 +20,6 @@ import {
   addAnalytics,
   AnalyticsEventPayload,
   EVENT_TYPE,
-  InputMethodInsertLink,
   INPUT_METHOD,
 } from '../../../plugins/analytics';
 import { UnlinkToolbarAEP } from '../../../plugins/analytics/types/link-tool-bar-events';
@@ -31,7 +31,7 @@ import { unlinkPayload } from '../../../utils/linking-utils';
 import { SmartLinkNodeContext } from '../../analytics/types/smart-links';
 import { isFromCurrentDomain } from '../../hyperlink/utils';
 import { CardPluginState, CardReplacementInputMethod, Request } from '../types';
-import { appearanceForNodeType } from '../utils';
+import { appearanceForNodeType, selectedCardAppearance } from '../utils';
 import { queueCards, resolveCard } from './actions';
 import { pluginKey } from './plugin-key';
 import { shouldReplaceLink } from './shouldReplaceLink';
@@ -80,12 +80,7 @@ function replaceLinksToCards(
 }
 
 export const replaceQueuedUrlWithCard =
-  (
-    url: string,
-    cardData: CardAdf,
-    analyticsAction?: ACTION,
-    createAnalyticsEvent?: CreateUIAnalyticsEvent,
-  ): Command =>
+  (url: string, cardData: CardAdf, analyticsAction?: ACTION): Command =>
   (editorState, dispatch) => {
     const state = pluginKey.getState(editorState) as
       | CardPluginState
@@ -128,18 +123,23 @@ export const replaceQueuedUrlWithCard =
             state.createAnalyticsEvent,
           );
         }
+
+        /**
+         * TODO:
+         * What if each request has a different source?
+         * Unlikely, but need to define behaviour.
+         * Ignore analytics event? take first? provide 'mixed' as well?
+         */
+        const inputMethod = requests[0].source;
+        const sourceEvent = requests[0].sourceEvent;
+
         addAnalytics(editorState, tr, {
           action: (analyticsAction as any) || ACTION.INSERTED,
           actionSubject: ACTION_SUBJECT.DOCUMENT,
           actionSubjectId: ACTION_SUBJECT_ID.SMART_LINK,
           eventType: EVENT_TYPE.TRACK,
           attributes: {
-            inputMethod:
-              requests[0]
-                .source /* TODO: what if each request has a different source?
-                         unlikely, but need to define behaviour.
-
-                         ignore analytics event? take first? provide 'mixed' as well?*/,
+            inputMethod,
             nodeType,
             nodeContext: nodeContext as SmartLinkNodeContext,
             fromCurrentDomain: isFromCurrentDomain(url),
@@ -147,6 +147,13 @@ export const replaceQueuedUrlWithCard =
           nonPrivacySafeAttributes: {
             domainName,
           },
+        });
+
+        addLinkMetadata(editorState.selection, tr, {
+          action: analyticsAction,
+          inputMethod,
+          cardAction: 'RESOLVE',
+          sourceEvent,
         });
       }
     }
@@ -158,18 +165,31 @@ export const replaceQueuedUrlWithCard =
   };
 
 export const handleFallbackWithAnalytics =
-  (url: string, source: InputMethodInsertLink): Command =>
-  (editorState, dispatch) => {
-    const state = pluginKey.getState(editorState) as
-      | CardPluginState
-      | undefined;
-    if (!state) {
+  (request: Request): Command =>
+  (state, dispatch) => {
+    const cardState = pluginKey.getState(state) as CardPluginState | undefined;
+
+    if (!cardState) {
       return false;
     }
-    const tr = editorState.tr;
-    addAnalytics(editorState, tr, getLinkCreationAnalyticsEvent(source, url));
+
+    const tr = state.tr;
+
+    if (request.source !== INPUT_METHOD.FLOATING_TB) {
+      addAnalytics(
+        state,
+        tr,
+        getLinkCreationAnalyticsEvent(request.source, request.url),
+      );
+    }
+
+    addLinkMetadata(state.selection, tr, {
+      action: request.analyticsAction,
+      inputMethod: request.source,
+    });
+
     if (dispatch) {
-      dispatch(resolveCard(url)(tr));
+      dispatch(resolveCard(request.url)(tr));
     }
     return true;
   };
@@ -178,12 +198,15 @@ export const queueCardsFromChangedTr = (
   state: EditorState,
   tr: Transaction,
   source: CardReplacementInputMethod,
+  analyticsAction: ACTION,
   normalizeLinkText: boolean = true,
+  sourceEvent: UIAnalyticsEvent | null | undefined = undefined,
 ): Transaction => {
   const { schema } = state;
   const { link } = schema.marks;
 
   const requests: Request[] = [];
+
   nodesBetweenChanged(tr, (node, pos) => {
     if (!node.isText) {
       return true;
@@ -202,10 +225,64 @@ export const queueCardsFromChangedTr = (
         appearance: 'inline',
         compareLinkText: normalizeLinkText,
         source,
-      } as Request);
+        analyticsAction,
+        sourceEvent,
+      });
     }
 
     return false;
+  });
+
+  addLinkMetadata(state.selection, tr, {
+    action: analyticsAction,
+  });
+
+  return queueCards(requests)(tr);
+};
+
+export const queueCardFromChangedTr = (
+  state: EditorState,
+  tr: Transaction,
+  source: CardReplacementInputMethod,
+  analyticsAction: ACTION,
+  normalizeLinkText: boolean = true,
+  sourceEvent: UIAnalyticsEvent | null | undefined = undefined,
+  previousAppearance?: CardAppearance | 'url',
+): Transaction => {
+  const { schema } = state;
+  const { link } = schema.marks;
+
+  let requests: Request[] = [];
+
+  nodesBetweenChanged(tr, (node, pos) => {
+    if (!node.isText) {
+      return true;
+    }
+
+    const linkMark = node.marks.find((mark) => mark.type === link);
+
+    if (linkMark) {
+      if (!shouldReplaceLink(node, normalizeLinkText)) {
+        return false;
+      }
+
+      requests.push({
+        url: linkMark.attrs.href,
+        pos,
+        appearance: 'inline',
+        previousAppearance: previousAppearance,
+        compareLinkText: normalizeLinkText,
+        source,
+        analyticsAction,
+        sourceEvent,
+      });
+    }
+
+    return false;
+  });
+
+  addLinkMetadata(state.selection, tr, {
+    action: analyticsAction,
   });
 
   return queueCards(requests)(tr);
@@ -227,19 +304,23 @@ export const convertHyperlinkToSmartCard = (
     (node, pos) => {
       const linkMark = node.marks.find((mark) => mark.type === link);
       if (linkMark) {
-        const request: Request = {
+        requests.push({
           url: linkMark.attrs.href,
           pos,
           appearance,
+          previousAppearance: 'url',
           compareLinkText: normalizeLinkText,
           source,
           analyticsAction: ACTION.CHANGED_TYPE,
           shouldReplaceLink: true,
-        };
-        requests.push(request);
+        });
       }
     },
   );
+
+  addLinkMetadata(state.selection, state.tr, {
+    action: ACTION.CHANGED_TYPE,
+  });
 
   return queueCards(requests)(state.tr);
 };
@@ -317,7 +398,7 @@ export const changeSelectedCardToLinkFallback =
   };
 
 export const updateCard =
-  (href: string): Command =>
+  (href: string, sourceEvent?: UIAnalyticsEvent | null | undefined): Command =>
   (state, dispatch) => {
     const selectedNode =
       state.selection instanceof NodeSelection && state.selection.node;
@@ -325,9 +406,19 @@ export const updateCard =
       return false;
     }
 
+    const cardAppearance = selectedCardAppearance(state);
+
     const tr = cardToLinkWithTransaction(state, href, href);
 
-    queueCardsFromChangedTr(state, tr, INPUT_METHOD.MANUAL);
+    queueCardFromChangedTr(
+      state,
+      tr,
+      INPUT_METHOD.MANUAL,
+      ACTION.UPDATED,
+      undefined,
+      sourceEvent,
+      cardAppearance,
+    );
 
     if (dispatch) {
       dispatch(tr.scrollIntoView());
@@ -383,13 +474,15 @@ export const changeSelectedCardToText =
     const tr = state.tr.replaceSelectionWith(state.schema.text(text), false);
 
     if (dispatch) {
-      dispatch(
-        addAnalytics(
-          state,
-          tr.scrollIntoView(),
-          unlinkPayload(ACTION_SUBJECT_ID.CARD_INLINE) as UnlinkToolbarAEP,
-        ),
+      addLinkMetadata(state.selection, tr, {
+        action: ACTION.UNLINK,
+      });
+      addAnalytics(
+        state,
+        tr.scrollIntoView(),
+        unlinkPayload(ACTION_SUBJECT_ID.CARD_INLINE) as UnlinkToolbarAEP,
       );
+      dispatch(tr);
     }
 
     return true;
@@ -406,10 +499,13 @@ export const setSelectedCardAppearance: (
     // and replace the existing blue link
     const tr = convertHyperlinkToSmartCard(
       state,
-      INPUT_METHOD.MANUAL,
+      INPUT_METHOD.FLOATING_TB,
       appearance,
     );
     if (dispatch) {
+      addLinkMetadata(state.selection, tr, {
+        action: ACTION.CHANGED_TYPE,
+      });
       dispatch(tr.scrollIntoView());
     }
 
@@ -451,6 +547,10 @@ export const setSelectedCardAppearance: (
       previousType: appearanceForNodeType(selectedNode.type),
     },
   } as AnalyticsEventPayload);
+
+  addLinkMetadata(state.selection, tr, {
+    action: ACTION.CHANGED_TYPE,
+  });
 
   if (dispatch) {
     dispatch(tr.scrollIntoView());

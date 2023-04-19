@@ -11,5 +11,5 @@ export type LozengeActionProps = {
   action?: InvokeActions;
   appearance?: ThemeAppearance;
   testId?: string;
-  text: string;
+  text: string | React.ReactNode;
 };

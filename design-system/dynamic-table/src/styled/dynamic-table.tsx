@@ -15,6 +15,7 @@ const gridSize = getGridSize();
 export type TableProps = HTMLProps<HTMLTableElement> & {
   isFixedSize?: boolean;
   hasDataRow: boolean;
+  testId?: string;
 };
 
 // CSS vars for table row
@@ -42,7 +43,7 @@ const bodyBorder = css({
 });
 
 export const Table = forwardRef<HTMLTableElement, TableProps>(
-  ({ isFixedSize, hasDataRow, children, ...rest }, ref) => {
+  ({ isFixedSize, hasDataRow, children, testId, ...rest }, ref) => {
     return (
       <table
         style={
@@ -62,6 +63,7 @@ export const Table = forwardRef<HTMLTableElement, TableProps>(
         ]}
         ref={ref}
         {...rest}
+        data-testid={testId && `${testId}--table`}
       >
         {children}
       </table>

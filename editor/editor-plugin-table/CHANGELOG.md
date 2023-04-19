@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-table
 
+## 1.2.4
+
+### Patch Changes
+
+- [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
+- [`d9a8fe191f2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d9a8fe191f2) - [ED-17295] Update feature flag usage for media plugin
+- Updated dependencies
+
 ## 1.2.3
 
 ### Patch Changes

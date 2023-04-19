@@ -955,7 +955,7 @@ type UiRenderSuccessEventProps = CommonEventProps & {
 // @public @deprecated
 export const useSmartLinkAnalytics: (
   url: string,
-  dispatchAnalytics: AnalyticsHandler,
+  _dispatchAnalytics?: AnalyticsHandler | undefined,
   id?: string | undefined,
   defaultLocation?: string | undefined,
 ) => {
@@ -1228,7 +1228,7 @@ type VoteCount = {
 
 ```json
 {
-  "@atlaskit/link-provider": "^1.5.2",
+  "@atlaskit/link-provider": "^1.5.3",
   "react": "^16.8.0",
   "react-dom": "^16.8.0",
   "react-intl-next": "npm:react-intl@^5.18.1"

@@ -37,7 +37,6 @@ describe('createUniversalPreset', () => {
       'submitEditor',
       'fakeTextCursor',
       'floatingToolbar',
-      'featureFlagsContext',
       'selection',
       'codeBlock',
       'dataConsumerPlugin',

@@ -96,6 +96,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
   mediaNodes: MediaNodeWithPosHandler[] = [];
   options: MediaPluginOptions;
   mediaProvider?: MediaProvider;
+  newInsertionBehaviour?: boolean;
 
   private view!: EditorView;
   private destroyed = false;
@@ -123,10 +124,12 @@ export class MediaPluginStateImplementation implements MediaPluginState {
     state: EditorState,
     options: MediaPluginOptions,
     mediaOptions?: MediaOptions,
+    newInsertionBehaviour?: boolean,
     dispatch?: Dispatch,
   ) {
     this.options = options;
     this.mediaOptions = mediaOptions;
+    this.newInsertionBehaviour = newInsertionBehaviour;
     this.dispatch = dispatch;
     this.waitForMediaUpload =
       options.waitForMediaUpload === undefined
@@ -328,6 +331,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
         this.getInputMethod(pickerType),
         collection,
         this.mediaOptions && this.mediaOptions.alignLeftOnInsert,
+        this.newInsertionBehaviour,
       );
     } else if (
       getMediaFeatureFlag('mediaInline', this.mediaOptions?.featureFlags) &&
@@ -670,6 +674,7 @@ export const createPlugin = (
   getIntl: () => IntlShape,
   dispatch?: Dispatch,
   mediaOptions?: MediaOptions,
+  newInsertionBehaviour?: boolean,
 ) => {
   const intl = getIntl();
 
@@ -685,6 +690,7 @@ export const createPlugin = (
           state,
           options,
           mediaOptions,
+          newInsertionBehaviour,
           dispatch,
         );
       },

@@ -4,6 +4,7 @@ import {
   FieldDefinition,
   Parameters,
 } from '@atlaskit/editor-common/extensions';
+import { FeatureFlags } from '@atlaskit/editor-common/types';
 
 export enum ValidationError {
   Required = 'required',
@@ -28,6 +29,7 @@ export interface FieldComponentProps {
   extensionManifest: ExtensionManifest;
   firstVisibleFieldName?: string;
   onFieldChange: OnFieldChange;
+  featureFlags?: FeatureFlags;
 }
 
 export interface FormContentProps {
@@ -40,4 +42,5 @@ export interface FormContentProps {
   onFieldChange: OnFieldChange;
   firstVisibleFieldName?: string;
   contextIdentifierProvider?: ContextIdentifierProvider;
+  featureFlags?: FeatureFlags;
 }

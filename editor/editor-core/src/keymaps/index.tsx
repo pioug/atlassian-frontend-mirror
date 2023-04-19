@@ -1,5 +1,7 @@
 export {
   addAltText,
+  navToEditorToolbar,
+  navToFloatingToolbar,
   toggleBold,
   toggleItalic,
   toggleUnderline,

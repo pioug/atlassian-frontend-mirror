@@ -55,8 +55,10 @@ import {
 } from '../../pm-plugins/types';
 import { EditorState } from 'prosemirror-state';
 import { Slice, Fragment, Schema } from 'prosemirror-model';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 const annotationPreset = new Preset<LightEditorPlugin>()
+  .add([featureFlagsPlugin, {}])
   .add([
     annotationPlugin,
     { inlineComment: { ...inlineCommentProvider, disallowOnWhitespace: true } },

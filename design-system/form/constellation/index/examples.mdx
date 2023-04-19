@@ -76,7 +76,6 @@ Fieldset groups related fields under the same name or heading. Use `legend` to a
 
 <Example Component={FormFieldset} packageName="@atlaskit/form" />
 
-
 ### Range field
 
 This form field lets users choose and submit a value on a range slider. This is a [range](/components/range/examples) that supports validation and required fields through the `isInvalid` and `isRequired` props respectively.
@@ -87,7 +86,7 @@ This form field lets users choose and submit a value on a range slider. This is 
 
 ### Form header
 
-Use a form header to describe the contents of the form. This is the title of the form.
+Use a form header to describe the contents of the form. This is the title and description of the form. If your form contains required fields, the form header is also where you should include a legend for sighted users to know that `*` indicates a required field.
 
 ### Form section
 
@@ -98,7 +97,6 @@ Use a form section to group related information together. This helps users under
 Use a Form footer to set the content at the end of the form. This is used for a [button](/components/button/examples) that submits the form. Contents should be left-aligned in single-page forms, flags, cards, and section messages with the primary button on the left. See the [button positioning](/components/form/usage#button-positioning) for more details.
 
 This is positioned after the last field in the body of the form. It can also be fixed to the bottom of viewport for longer forms.
-
 
 <Example Component={FormLayout} packageName="@atlaskit/form" />
 

@@ -16,8 +16,24 @@
 
 ```ts
 import type { CardClient } from '@atlaskit/link-provider';
+import type { DatasourceDataRequest } from '@atlaskit/linking-types';
+import type { DatasourceDataResponse } from '@atlaskit/linking-types';
+import type { DatasourceParameters } from '@atlaskit/linking-types';
+import type { DatasourceResponse } from '@atlaskit/linking-types';
 import type { InvokeRequest } from '@atlaskit/linking-types/smart-link-actions';
 import type { InvokeResponse } from '@atlaskit/linking-types/smart-link-actions';
+
+// @public (undocumented)
+export const useDatasourceClientExtension: (cardClient: CardClient) => {
+  getDatasourceDetails: (
+    datasourceId: string,
+    data: DatasourceParameters,
+  ) => Promise<DatasourceResponse>;
+  getDatasourceData: (
+    datasourceId: string,
+    data: DatasourceDataRequest,
+  ) => Promise<DatasourceDataResponse>;
+};
 
 // @public
 export const useSmartLinkClientExtension: (cardClient: CardClient) => {
@@ -35,7 +51,7 @@ export const useSmartLinkClientExtension: (cardClient: CardClient) => {
 
 ```json
 {
-  "@atlaskit/link-provider": "^1.5.0",
+  "@atlaskit/link-provider": "^1.5.3",
   "react": "^16.8.0"
 }
 ```

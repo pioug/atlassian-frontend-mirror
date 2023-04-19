@@ -53,20 +53,37 @@ class TableHead extends React.Component<TableHeadProps, {}> {
 
     const HeadCellComponent = isRankable ? RankableHeadCell : HeadCell;
 
+    // TODO: Remove `rest` props and use only what is explicitly in the API.
+    // Some tests use this to pass in onClick and other stuff within the `head`
+    // variable here, but considering it's not in the API, it should probably
+    // be removed.
     const { cells, ...rest } = head;
 
     return (
       <Head
         {...rest}
         isRanking={isRanking}
-        data-testid={testId && `${testId}--head`}
+        testId={testId && `${testId}--head`}
       >
         <tr>
           {cells.map((cell, index) => {
-            const { isSortable, key, ...restCellProps } = cell;
+            const {
+              colSpan,
+              content,
+              isSortable,
+              key,
+              shouldTruncate,
+              testId: cellTestId,
+              width,
+              // TODO: Remove `rest` props and use only what is explicitly in
+              // the API.
+              ...restCellProps
+            } = cell;
 
             return (
               <HeadCellComponent
+                colSpan={colSpan}
+                content={content}
                 isFixedSize={isFixedSize}
                 isSortable={!!isSortable}
                 isRanking={isRanking}
@@ -77,8 +94,10 @@ class TableHead extends React.Component<TableHeadProps, {}> {
                     ? onSort(cell)()
                     : undefined
                 }
-                testId={testId}
+                testId={cellTestId || testId}
+                shouldTruncate={shouldTruncate}
                 sortOrder={key === sortKey ? sortOrder : undefined}
+                width={width}
                 {...restCellProps}
               />
             );

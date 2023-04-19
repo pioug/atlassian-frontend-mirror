@@ -8,7 +8,6 @@ import {
 } from '@atlaskit/media-test-helpers';
 import {
   ErrorFileState,
-  FileState,
   ProcessedFileState,
   UploadingFileState,
   createMediaSubscribable,
@@ -72,7 +71,7 @@ describe('<MediaImage />', () => {
   };
 
   const setup = (
-    fileStateResult: MediaSubscribable<FileState> = createMediaSubscribable(
+    fileStateResult: MediaSubscribable = createMediaSubscribable(
       defaultFileState,
     ),
   ) => {

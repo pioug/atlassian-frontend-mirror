@@ -44,7 +44,7 @@ module.exports = {
 
 ## Rules
 
-<!-- START_RULE_CODEGEN -->
+<!-- START_RULE_TABLE_CODEGEN -->
 <!-- @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen -->
 
 | Rule                                                                                                    | Description                                                                                     | Recommended | Fixable | Suggestions |
@@ -61,4 +61,4 @@ module.exports = {
 | <a href="./src/rules/use-primitives/README.md">use-primitives</a>                                       | Encourage the usage of primitives components.                                                   |             | Yes     |             |
 | <a href="./src/rules/use-visually-hidden/README.md">use-visually-hidden</a>                             | Enforce usage of the visually hidden component.                                                 | Yes         | Yes     |             |
 
-<!-- END_CODEGEN -->
+<!-- END_RULE_TABLE_CODEGEN -->

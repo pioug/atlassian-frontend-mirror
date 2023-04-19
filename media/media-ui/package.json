@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-ui",
-  "version": "22.3.5",
+  "version": "22.3.6",
   "description": "Includes common components and utilities used by other media packages",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -73,7 +73,7 @@
     "@atlaskit/checkbox": "^12.4.0",
     "@atlaskit/docs": "*",
     "@atlaskit/lozenge": "^11.3.0",
-    "@atlaskit/media-test-helpers": "^31.0.0",
+    "@atlaskit/media-test-helpers": "^32.0.0",
     "@atlaskit/page": "^12.2.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",

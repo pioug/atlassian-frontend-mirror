@@ -1,7 +1,7 @@
 import * as uuid from 'uuid';
 import {
   MediaType,
-  MediaCollectionItem,
+  MediaItemDetails,
   MediaFileProcessingStatus,
 } from '@atlaskit/media-client';
 import {
@@ -13,6 +13,25 @@ import {
 } from '../../utils/mockData';
 
 import { mapDataUriToBlob } from '../../utils';
+
+export type MediaItemMinimalDetails = {
+  readonly name: string;
+  readonly size: number;
+};
+
+type MediaCollectionItem = {
+  readonly id: string;
+  readonly insertedAt: number;
+  readonly occurrenceKey: string;
+  readonly details: MediaItemDetails | MediaItemMinimalDetails;
+};
+
+export const isMediaItemDetails = (
+  mediaCollectionItem: MediaItemDetails | MediaItemMinimalDetails,
+): mediaCollectionItem is MediaItemDetails =>
+  !!(mediaCollectionItem as any)['mediaType'] &&
+  !!(mediaCollectionItem as any)['mimeType'] &&
+  !!(mediaCollectionItem as any)['processingStatus'];
 
 export type CollectionItem = MediaCollectionItem & {
   readonly collectionName?: string;

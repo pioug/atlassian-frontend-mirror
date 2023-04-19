@@ -26,7 +26,7 @@ export const JiraCoreWordmark = ({
   testId,
   textColor = defaultLogoParams.textColor,
 }: LogoProps) => {
-  if (process.env.NODE_ENV !== 'production') {
+  if (typeof process !== 'undefined' && process.env.NODE_ENV !== 'production') {
     warnOnce(
       'JiraCoreWordmark has been deprecated and will be removed from @atlaskit/logo in the next major release. Please use JiraWorkManagementWordmark instead.',
     );

@@ -446,9 +446,6 @@ class DateTimePicker extends React.Component<DateTimePickerProps, State> {
     const isClearable = Boolean(dateValue || timeValue);
     const notFocusedOrIsDisabled = !(isFocused || isDisabled);
 
-    const labelId =
-      datePickerSelectProps?.inputId || timePickerSelectProps?.inputId || '';
-
     return (
       <div
         css={[
@@ -466,7 +463,12 @@ class DateTimePicker extends React.Component<DateTimePickerProps, State> {
         {...innerProps}
         data-testid={testId}
       >
-        <input id={labelId} name={name} type="hidden" value={value} />
+        <input
+          name={name}
+          type="hidden"
+          value={value}
+          data-testid={testId && `${testId}--input`}
+        />
         <div css={datePickerContainerStyles}>
           <DatePicker
             {...bothProps}

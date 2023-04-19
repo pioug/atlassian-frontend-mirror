@@ -15,7 +15,11 @@ export default class FocusLock extends Component<FocusLockProps> {
   componentDidMount() {
     const { isFocusLockEnabled, autoFocusFirstElem } = this.props;
 
-    if (process.env.NODE_ENV !== 'production' && !process.env.CI) {
+    if (
+      typeof process !== 'undefined' &&
+      process.env.NODE_ENV !== 'production' &&
+      !process.env.CI
+    ) {
       invariant(
         typeof autoFocusFirstElem === 'boolean',
         '@atlaskit/drawer: Passing a function as autoFocus is deprecated. Instead call focus on the element ref or use the autofocus property.',

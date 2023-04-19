@@ -45,6 +45,7 @@ import {
 import mediaPlugin from '../../../media';
 import selectionPlugin from '../../../selection';
 import { hideCaretModifier } from '../../gap-cursor/styles';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 describe('gap-cursor', () => {
   const createEditor = createEditorFactory();
@@ -505,6 +506,7 @@ describe('gap-cursor', () => {
         doc,
         pluginKey: gapCursorPluginKey,
         preset: new Preset<LightEditorPlugin>()
+          .add([featureFlagsPlugin, {}])
           .add([mediaPlugin, { allowMediaSingle: true }])
           .add(selectionPlugin),
       });

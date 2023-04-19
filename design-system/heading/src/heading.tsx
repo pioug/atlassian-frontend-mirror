@@ -123,7 +123,12 @@ const Heading: FC<HeadingProps> = ({
   as,
   color = 'default',
 }) => {
-  if (process.env.NODE_ENV !== 'production' && as && typeof as !== 'string') {
+  if (
+    typeof process !== 'undefined' &&
+    process.env.NODE_ENV !== 'production' &&
+    as &&
+    typeof as !== 'string'
+  ) {
     throw new Error('`as` prop should be a string.');
   }
 

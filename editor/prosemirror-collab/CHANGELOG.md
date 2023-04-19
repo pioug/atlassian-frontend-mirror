@@ -1,5 +1,11 @@
 ## 1.3.0 (2022-05-30)
 
+## 0.1.3
+
+### Patch Changes
+
+- [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
+
 ## 0.1.2
 
 ### Patch Changes

@@ -9,6 +9,7 @@ import {
   ShowLinkToolbar,
   HideLinkToolbar,
   RegisterSmartCardEvents,
+  RegisterSmartCardEventsNext,
 } from '../types';
 
 const queue = (state: CardPluginState, action: Queue) => {
@@ -53,6 +54,13 @@ const registerEvents = (
   return { ...state, smartLinkEvents: action.smartLinkEvents };
 };
 
+const registerEventsNext = (
+  state: CardPluginState,
+  action: RegisterSmartCardEventsNext,
+) => {
+  return { ...state, smartLinkEventsNext: action.smartLinkEvents };
+};
+
 const setLinkToolbar = (
   state: CardPluginState,
   action: ShowLinkToolbar | HideLinkToolbar,
@@ -78,6 +86,8 @@ export default (
       return register(state, action);
     case 'REGISTER_EVENTS':
       return registerEvents(state, action);
+    case 'REGISTER_EVENTS_NEXT':
+      return registerEventsNext(state, action);
     case 'SHOW_LINK_TOOLBAR':
     case 'HIDE_LINK_TOOLBAR':
       return setLinkToolbar(state, action);

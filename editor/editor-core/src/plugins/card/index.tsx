@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { inlineCard, blockCard, embedCard } from '@atlaskit/adf-schema';
 import { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { createPlugin } from './pm-plugins/main';
@@ -7,6 +7,7 @@ import { EditorSmartCardEvents } from './ui/EditorSmartCardEvents';
 import { cardKeymap } from './pm-plugins/keymap';
 import { CardPluginOptions } from './types';
 import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { EditorSmartCardEventsNext } from './ui/EditorSmartCardEventsNext';
 
 const cardPlugin: NextEditorPlugin<
   'card',
@@ -41,6 +42,8 @@ const cardPlugin: NextEditorPlugin<
       const allowBlockCards = options.allowBlockCards ?? true;
       const allowResizing = options.allowResizing ?? true;
       const useAlternativePreloader = options.useAlternativePreloader ?? true;
+      const allowWrapping = options.allowWrapping ?? true;
+      const allowAlignment = options.allowAlignment ?? true;
 
       const plugins = [
         {
@@ -50,6 +53,8 @@ const cardPlugin: NextEditorPlugin<
             allowBlockCards,
             allowResizing,
             useAlternativePreloader,
+            allowWrapping,
+            allowAlignment,
           }),
         },
       ];
@@ -65,7 +70,15 @@ const cardPlugin: NextEditorPlugin<
     },
 
     contentComponent({ editorView }) {
-      return <EditorSmartCardEvents editorView={editorView} />;
+      const { lpAnalyticsEventsNext } = featureFlags;
+      return (
+        <Fragment>
+          <EditorSmartCardEvents editorView={editorView} />
+          {lpAnalyticsEventsNext && (
+            <EditorSmartCardEventsNext editorView={editorView} />
+          )}
+        </Fragment>
+      );
     },
 
     pluginsOptions: {

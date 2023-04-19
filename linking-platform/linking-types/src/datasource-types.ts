@@ -88,7 +88,8 @@ export type DatasourceType =
   | IconType
   | UserType
   | StatusType
-  | LinkType;
+  | LinkType
+  | DateType;
 
 export interface DatasourceResponseSchemaProperty {
   key: string;
@@ -105,24 +106,34 @@ export interface DatasourceDataResponseItem {
 }
 
 // TODO Uncomment and refine these when EDM-5980 or EDM-5885 being worked on.
-// export interface DatasourceResponseParameter {
-//   key: string;
-//   type: string; // ex. "String" or "JQLQuery"
-//   description: 'string';
-// }
-//
-// export interface DatasourceResponse {
-//   id: string; // ARI
-//   name: string;
-//   description: string;
-//   parameters: DatasourceResponseParameter[];
-//   schema: {
-//     properties: DatasourceResponseSchemaProperty[];
-//   };
-// }
-// export interface DatasourceDataResponse {
-//   data: DatasourceDataResponseItem[];
-//   nextPage: {
-//     cursor: string;
-//   };
-// }
+
+export interface DatasourceParameters {
+  [key: string]: any;
+}
+export interface DatasourceDataRequest {
+  fields: string[];
+  parameters: DatasourceParameters;
+  pageSize: number;
+  pageCursor: string;
+}
+export interface DatasourceResponseParameter {
+  key: string;
+  type: DatasourceType['type'];
+  description: string;
+}
+
+export interface DatasourceResponse {
+  ari: string;
+  id: string;
+  name: string;
+  description: string;
+  parameters: DatasourceResponseParameter[];
+  schema: {
+    properties: DatasourceResponseSchemaProperty[];
+    defaultProperties: string[];
+  };
+}
+export interface DatasourceDataResponse {
+  data: DatasourceDataResponseItem[];
+  nextPageCursor: string;
+}

@@ -1,5 +1,11 @@
 # @atlaskit/ds-explorations
 
+## 2.0.12
+
+### Patch Changes
+
+- [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
+
 ## 2.0.11
 
 ### Patch Changes

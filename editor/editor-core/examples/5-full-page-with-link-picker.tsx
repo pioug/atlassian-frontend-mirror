@@ -22,6 +22,7 @@ const FullPageWithLinkPicker = () => {
         featureFlags: {
           'lp-link-picker': true,
           'lp-link-picker-focus-trap': true,
+          'lp-analytics-events-next': true,
           'prevent-popup-overflow': true,
         },
       }}
@@ -33,6 +34,7 @@ export default () => {
   const featureFlags = useMemo(() => {
     return {
       useLinkPickerAtlassianTabs: true,
+      enableResolveMetadataForLinkAnalytics: true,
     } as const;
   }, []);
 
@@ -42,4 +44,3 @@ export default () => {
     </SmartCardProvider>
   );
 };
-``;

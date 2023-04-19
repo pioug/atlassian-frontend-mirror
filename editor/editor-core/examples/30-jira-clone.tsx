@@ -105,6 +105,7 @@ export default function CommentWithJiraCardsExample() {
               <h3>Description</h3>
               <Editor
                 appearance="comment"
+                assistiveLabel="Environment field"
                 placeholder="What do you want to say?"
                 shouldFocus={true}
                 quickInsert={true}

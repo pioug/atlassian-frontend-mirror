@@ -3,7 +3,11 @@ import React, { Component } from 'react';
 
 import { LabelWrapper, RequiredIndicator, LabelInner } from '../styled/Label';
 
-if (process.env.NODE_ENV !== 'production' && !process.env.CI) {
+if (
+  typeof process !== 'undefined' &&
+  process.env.NODE_ENV !== 'production' &&
+  !process.env.CI
+) {
   // eslint-disable-next-line no-console
   console.warn(
     'The @atlaskit/field-base package has been deprecated. Please use the Form/Textfield/Textarea/etc packages instead.',

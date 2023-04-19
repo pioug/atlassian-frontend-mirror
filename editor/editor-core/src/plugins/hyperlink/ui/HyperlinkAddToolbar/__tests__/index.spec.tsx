@@ -136,6 +136,7 @@ describe('HyperlinkAddToolbar (with ProviderFactory prop)', () => {
         'Atlassian',
         'The Atlassian Website',
         INPUT_METHOD.MANUAL,
+        undefined,
       );
     });
   });

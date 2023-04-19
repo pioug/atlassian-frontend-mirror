@@ -12,6 +12,7 @@ export type ITableRowProps = {
   children?: ReactNode;
   style?: CSSProperties;
   className?: string;
+  testId?: string;
 };
 
 const rowStyles = css({
@@ -48,7 +49,7 @@ const rowHighlightedBackgroundStyles = css({
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const TableBodyRow = forwardRef<HTMLTableRowElement, ITableRowProps>(
-  ({ isHighlighted, children, style, ...rest }, ref) => {
+  ({ isHighlighted, children, style, testId, ...rest }, ref) => {
     return (
       <tr
         style={style}
@@ -58,6 +59,7 @@ export const TableBodyRow = forwardRef<HTMLTableRowElement, ITableRowProps>(
         ]}
         {...rest}
         ref={ref}
+        data-testid={testId}
       >
         {children}
       </tr>

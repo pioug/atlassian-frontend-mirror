@@ -60,7 +60,7 @@ export const OpsGenieLogo = ({
   testId,
   textColor = defaultLogoParams.textColor,
 }: LogoProps) => {
-  if (process.env.NODE_ENV !== 'production') {
+  if (typeof process !== 'undefined' && process.env.NODE_ENV !== 'production') {
     warnOnce(
       'OpsGenieLogo will be renamed to OpsgenieLogo in the next major release. Please use OpsgenieLogo instead.',
     );

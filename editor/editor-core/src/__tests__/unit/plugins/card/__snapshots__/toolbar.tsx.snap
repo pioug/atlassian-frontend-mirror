@@ -1114,3 +1114,683 @@ Array [
   },
 ]
 `;
+exports[`card toolbar tests \`allowWrapping\`, \`allowAlignment\` and \`allowResizing\` props in toolbar should generate correct toolbar layout with the following toolbar config: {
+  allowEmbeds: true,
+  allowBlockCards: true,
+  allowWrapping: false,
+  allowAlignment: false,
+  allowResizing: false
+} 1`] = `
+Array [
+  Object {
+    "fallback": Array [],
+    "render": [Function],
+    "type": "custom",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "id": "editor.link.edit",
+    "metadata": Object {
+      "title": undefined,
+      "url": "http://www.atlassian.com/",
+    },
+    "onClick": [Function],
+    "selected": false,
+    "showTitle": true,
+    "testId": "link-toolbar-edit-link-button",
+    "title": "Edit link",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "className": "hyperlink-open-link",
+    "icon": [Function],
+    "id": "editor.link.openLink",
+    "metadata": Object {
+      "title": undefined,
+      "url": "http://www.atlassian.com/",
+    },
+    "onClick": [Function],
+    "title": "Open link in a new tab",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "appearance": "danger",
+    "focusEditoronEnter": true,
+    "icon": [Function],
+    "id": "editor.link.delete",
+    "onBlur": [Function],
+    "onClick": [Function],
+    "onFocus": [Function],
+    "onMouseEnter": [Function],
+    "onMouseLeave": [Function],
+    "title": "Remove",
+    "type": "button",
+  },
+]
+`;
+exports[`card toolbar tests \`allowWrapping\`, \`allowAlignment\` and \`allowResizing\` props in toolbar should generate correct toolbar layout with the following toolbar config: {
+  allowEmbeds: true,
+  allowBlockCards: true,
+  allowWrapping: false,
+  allowAlignment: false,
+  allowResizing: true
+} 1`] = `
+Array [
+  Object {
+    "fallback": Array [],
+    "render": [Function],
+    "type": "custom",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "id": "editor.link.edit",
+    "metadata": Object {
+      "title": undefined,
+      "url": "http://www.atlassian.com/",
+    },
+    "onClick": [Function],
+    "selected": false,
+    "showTitle": true,
+    "testId": "link-toolbar-edit-link-button",
+    "title": "Edit link",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "className": "hyperlink-open-link",
+    "icon": [Function],
+    "id": "editor.link.openLink",
+    "metadata": Object {
+      "title": undefined,
+      "url": "http://www.atlassian.com/",
+    },
+    "onClick": [Function],
+    "title": "Open link in a new tab",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "appearance": "danger",
+    "focusEditoronEnter": true,
+    "icon": [Function],
+    "id": "editor.link.delete",
+    "onBlur": [Function],
+    "onClick": [Function],
+    "onFocus": [Function],
+    "onMouseEnter": [Function],
+    "onMouseLeave": [Function],
+    "title": "Remove",
+    "type": "button",
+  },
+]
+`;
+exports[`card toolbar tests \`allowWrapping\`, \`allowAlignment\` and \`allowResizing\` props in toolbar should generate correct toolbar layout with the following toolbar config: {
+  allowEmbeds: true,
+  allowBlockCards: true,
+  allowWrapping: false,
+  allowAlignment: true,
+  allowResizing: false
+} 1`] = `
+Array [
+  Object {
+    "fallback": Array [],
+    "render": [Function],
+    "type": "custom",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "icon": [Function],
+    "id": "editor.media.alignLeft",
+    "onClick": [Function],
+    "selected": false,
+    "title": "Align left",
+    "type": "button",
+  },
+  Object {
+    "icon": [Function],
+    "id": "editor.media.alignCenter",
+    "onClick": [Function],
+    "selected": true,
+    "title": "Align center",
+    "type": "button",
+  },
+  Object {
+    "icon": [Function],
+    "id": "editor.media.alignRight",
+    "onClick": [Function],
+    "selected": false,
+    "title": "Align right",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "id": "editor.link.edit",
+    "metadata": Object {
+      "title": undefined,
+      "url": "http://www.atlassian.com/",
+    },
+    "onClick": [Function],
+    "selected": false,
+    "showTitle": true,
+    "testId": "link-toolbar-edit-link-button",
+    "title": "Edit link",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "className": "hyperlink-open-link",
+    "icon": [Function],
+    "id": "editor.link.openLink",
+    "metadata": Object {
+      "title": undefined,
+      "url": "http://www.atlassian.com/",
+    },
+    "onClick": [Function],
+    "title": "Open link in a new tab",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "appearance": "danger",
+    "focusEditoronEnter": true,
+    "icon": [Function],
+    "id": "editor.link.delete",
+    "onBlur": [Function],
+    "onClick": [Function],
+    "onFocus": [Function],
+    "onMouseEnter": [Function],
+    "onMouseLeave": [Function],
+    "title": "Remove",
+    "type": "button",
+  },
+]
+`;
+exports[`card toolbar tests \`allowWrapping\`, \`allowAlignment\` and \`allowResizing\` props in toolbar should generate correct toolbar layout with the following toolbar config: {
+  allowEmbeds: true,
+  allowBlockCards: true,
+  allowWrapping: false,
+  allowAlignment: true,
+  allowResizing: true
+} 1`] = `
+Array [
+  Object {
+    "fallback": Array [],
+    "render": [Function],
+    "type": "custom",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "icon": [Function],
+    "id": "editor.media.alignLeft",
+    "onClick": [Function],
+    "selected": false,
+    "title": "Align left",
+    "type": "button",
+  },
+  Object {
+    "icon": [Function],
+    "id": "editor.media.alignCenter",
+    "onClick": [Function],
+    "selected": true,
+    "title": "Align center",
+    "type": "button",
+  },
+  Object {
+    "icon": [Function],
+    "id": "editor.media.alignRight",
+    "onClick": [Function],
+    "selected": false,
+    "title": "Align right",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "id": "editor.link.edit",
+    "metadata": Object {
+      "title": undefined,
+      "url": "http://www.atlassian.com/",
+    },
+    "onClick": [Function],
+    "selected": false,
+    "showTitle": true,
+    "testId": "link-toolbar-edit-link-button",
+    "title": "Edit link",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "className": "hyperlink-open-link",
+    "icon": [Function],
+    "id": "editor.link.openLink",
+    "metadata": Object {
+      "title": undefined,
+      "url": "http://www.atlassian.com/",
+    },
+    "onClick": [Function],
+    "title": "Open link in a new tab",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "appearance": "danger",
+    "focusEditoronEnter": true,
+    "icon": [Function],
+    "id": "editor.link.delete",
+    "onBlur": [Function],
+    "onClick": [Function],
+    "onFocus": [Function],
+    "onMouseEnter": [Function],
+    "onMouseLeave": [Function],
+    "title": "Remove",
+    "type": "button",
+  },
+]
+`;
+exports[`card toolbar tests \`allowWrapping\`, \`allowAlignment\` and \`allowResizing\` props in toolbar should generate correct toolbar layout with the following toolbar config: {
+  allowEmbeds: true,
+  allowBlockCards: true,
+  allowWrapping: true,
+  allowAlignment: false,
+  allowResizing: false
+} 1`] = `
+Array [
+  Object {
+    "fallback": Array [],
+    "render": [Function],
+    "type": "custom",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "icon": [Function],
+    "id": "editor.media.wrapLeft",
+    "onClick": [Function],
+    "selected": false,
+    "title": "Wrap left",
+    "type": "button",
+  },
+  Object {
+    "icon": [Function],
+    "id": "editor.media.wrapRight",
+    "onClick": [Function],
+    "selected": false,
+    "title": "Wrap right",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "id": "editor.link.edit",
+    "metadata": Object {
+      "title": undefined,
+      "url": "http://www.atlassian.com/",
+    },
+    "onClick": [Function],
+    "selected": false,
+    "showTitle": true,
+    "testId": "link-toolbar-edit-link-button",
+    "title": "Edit link",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "className": "hyperlink-open-link",
+    "icon": [Function],
+    "id": "editor.link.openLink",
+    "metadata": Object {
+      "title": undefined,
+      "url": "http://www.atlassian.com/",
+    },
+    "onClick": [Function],
+    "title": "Open link in a new tab",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "appearance": "danger",
+    "focusEditoronEnter": true,
+    "icon": [Function],
+    "id": "editor.link.delete",
+    "onBlur": [Function],
+    "onClick": [Function],
+    "onFocus": [Function],
+    "onMouseEnter": [Function],
+    "onMouseLeave": [Function],
+    "title": "Remove",
+    "type": "button",
+  },
+]
+`;
+exports[`card toolbar tests \`allowWrapping\`, \`allowAlignment\` and \`allowResizing\` props in toolbar should generate correct toolbar layout with the following toolbar config: {
+  allowEmbeds: true,
+  allowBlockCards: true,
+  allowWrapping: true,
+  allowAlignment: false,
+  allowResizing: true
+} 1`] = `
+Array [
+  Object {
+    "fallback": Array [],
+    "render": [Function],
+    "type": "custom",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "icon": [Function],
+    "id": "editor.media.wrapLeft",
+    "onClick": [Function],
+    "selected": false,
+    "title": "Wrap left",
+    "type": "button",
+  },
+  Object {
+    "icon": [Function],
+    "id": "editor.media.wrapRight",
+    "onClick": [Function],
+    "selected": false,
+    "title": "Wrap right",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "id": "editor.link.edit",
+    "metadata": Object {
+      "title": undefined,
+      "url": "http://www.atlassian.com/",
+    },
+    "onClick": [Function],
+    "selected": false,
+    "showTitle": true,
+    "testId": "link-toolbar-edit-link-button",
+    "title": "Edit link",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "className": "hyperlink-open-link",
+    "icon": [Function],
+    "id": "editor.link.openLink",
+    "metadata": Object {
+      "title": undefined,
+      "url": "http://www.atlassian.com/",
+    },
+    "onClick": [Function],
+    "title": "Open link in a new tab",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "appearance": "danger",
+    "focusEditoronEnter": true,
+    "icon": [Function],
+    "id": "editor.link.delete",
+    "onBlur": [Function],
+    "onClick": [Function],
+    "onFocus": [Function],
+    "onMouseEnter": [Function],
+    "onMouseLeave": [Function],
+    "title": "Remove",
+    "type": "button",
+  },
+]
+`;
+exports[`card toolbar tests \`allowWrapping\`, \`allowAlignment\` and \`allowResizing\` props in toolbar should generate correct toolbar layout with the following toolbar config: {
+  allowEmbeds: true,
+  allowBlockCards: true,
+  allowWrapping: true,
+  allowAlignment: true,
+  allowResizing: false
+} 1`] = `
+Array [
+  Object {
+    "fallback": Array [],
+    "render": [Function],
+    "type": "custom",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "icon": [Function],
+    "id": "editor.media.alignLeft",
+    "onClick": [Function],
+    "selected": false,
+    "title": "Align left",
+    "type": "button",
+  },
+  Object {
+    "icon": [Function],
+    "id": "editor.media.alignCenter",
+    "onClick": [Function],
+    "selected": true,
+    "title": "Align center",
+    "type": "button",
+  },
+  Object {
+    "icon": [Function],
+    "id": "editor.media.alignRight",
+    "onClick": [Function],
+    "selected": false,
+    "title": "Align right",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "icon": [Function],
+    "id": "editor.media.wrapLeft",
+    "onClick": [Function],
+    "selected": false,
+    "title": "Wrap left",
+    "type": "button",
+  },
+  Object {
+    "icon": [Function],
+    "id": "editor.media.wrapRight",
+    "onClick": [Function],
+    "selected": false,
+    "title": "Wrap right",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "id": "editor.link.edit",
+    "metadata": Object {
+      "title": undefined,
+      "url": "http://www.atlassian.com/",
+    },
+    "onClick": [Function],
+    "selected": false,
+    "showTitle": true,
+    "testId": "link-toolbar-edit-link-button",
+    "title": "Edit link",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "className": "hyperlink-open-link",
+    "icon": [Function],
+    "id": "editor.link.openLink",
+    "metadata": Object {
+      "title": undefined,
+      "url": "http://www.atlassian.com/",
+    },
+    "onClick": [Function],
+    "title": "Open link in a new tab",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "appearance": "danger",
+    "focusEditoronEnter": true,
+    "icon": [Function],
+    "id": "editor.link.delete",
+    "onBlur": [Function],
+    "onClick": [Function],
+    "onFocus": [Function],
+    "onMouseEnter": [Function],
+    "onMouseLeave": [Function],
+    "title": "Remove",
+    "type": "button",
+  },
+]
+`;
+exports[`card toolbar tests \`allowWrapping\`, \`allowAlignment\` and \`allowResizing\` props in toolbar should generate correct toolbar layout with the following toolbar config: {
+  allowEmbeds: true,
+  allowBlockCards: true,
+  allowWrapping: true,
+  allowAlignment: true,
+  allowResizing: true
+} 1`] = `
+Array [
+  Object {
+    "fallback": Array [],
+    "render": [Function],
+    "type": "custom",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "icon": [Function],
+    "id": "editor.media.alignLeft",
+    "onClick": [Function],
+    "selected": false,
+    "title": "Align left",
+    "type": "button",
+  },
+  Object {
+    "icon": [Function],
+    "id": "editor.media.alignCenter",
+    "onClick": [Function],
+    "selected": true,
+    "title": "Align center",
+    "type": "button",
+  },
+  Object {
+    "icon": [Function],
+    "id": "editor.media.alignRight",
+    "onClick": [Function],
+    "selected": false,
+    "title": "Align right",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "icon": [Function],
+    "id": "editor.media.wrapLeft",
+    "onClick": [Function],
+    "selected": false,
+    "title": "Wrap left",
+    "type": "button",
+  },
+  Object {
+    "icon": [Function],
+    "id": "editor.media.wrapRight",
+    "onClick": [Function],
+    "selected": false,
+    "title": "Wrap right",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "id": "editor.link.edit",
+    "metadata": Object {
+      "title": undefined,
+      "url": "http://www.atlassian.com/",
+    },
+    "onClick": [Function],
+    "selected": false,
+    "showTitle": true,
+    "testId": "link-toolbar-edit-link-button",
+    "title": "Edit link",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "className": "hyperlink-open-link",
+    "icon": [Function],
+    "id": "editor.link.openLink",
+    "metadata": Object {
+      "title": undefined,
+      "url": "http://www.atlassian.com/",
+    },
+    "onClick": [Function],
+    "title": "Open link in a new tab",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "appearance": "danger",
+    "focusEditoronEnter": true,
+    "icon": [Function],
+    "id": "editor.link.delete",
+    "onBlur": [Function],
+    "onClick": [Function],
+    "onFocus": [Function],
+    "onMouseEnter": [Function],
+    "onMouseLeave": [Function],
+    "title": "Remove",
+    "type": "button",
+  },
+]
+`;

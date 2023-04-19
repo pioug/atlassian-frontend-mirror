@@ -24,9 +24,64 @@ export interface BooleanType {
 }
 
 // @public (undocumented)
+export interface DatasourceDataRequest {
+  // (undocumented)
+  fields: string[];
+  // (undocumented)
+  pageCursor: string;
+  // (undocumented)
+  pageSize: number;
+  // (undocumented)
+  parameters: DatasourceParameters;
+}
+
+// @public (undocumented)
+export interface DatasourceDataResponse {
+  // (undocumented)
+  data: DatasourceDataResponseItem[];
+  // (undocumented)
+  nextPageCursor: string;
+}
+
+// @public (undocumented)
 export interface DatasourceDataResponseItem {
   // (undocumented)
   [key: string]: DatasourceType['value'] | DatasourceType['value'][];
+}
+
+// @public (undocumented)
+export interface DatasourceParameters {
+  // (undocumented)
+  [key: string]: any;
+}
+
+// @public (undocumented)
+export interface DatasourceResponse {
+  // (undocumented)
+  ari: string;
+  // (undocumented)
+  description: string;
+  // (undocumented)
+  id: string;
+  // (undocumented)
+  name: string;
+  // (undocumented)
+  parameters: DatasourceResponseParameter[];
+  // (undocumented)
+  schema: {
+    properties: DatasourceResponseSchemaProperty[];
+    defaultProperties: string[];
+  };
+}
+
+// @public (undocumented)
+export interface DatasourceResponseParameter {
+  // (undocumented)
+  description: string;
+  // (undocumented)
+  key: string;
+  // (undocumented)
+  type: DatasourceType['type'];
 }
 
 // @public (undocumented)
@@ -48,6 +103,7 @@ export interface DatasourceResponseSchemaProperty {
 // @public (undocumented)
 export type DatasourceType =
   | BooleanType
+  | DateType
   | IconType
   | LinkType
   | NumberType

@@ -1,27 +1,29 @@
+import { FileState } from '../../models/file-state';
+
 export type MediaSubscription = {
   unsubscribe: () => void;
 };
 
-type PartialObserver<T> = {
-  next?: (value: T) => void;
+type PartialObserver = {
+  next?: (value: FileState) => void;
   error?: (err: any) => void;
   complete?: () => void;
 };
 
 // Each of these makes one of the PartialObserver attrs required:
-export type NextObserver<T> = PartialObserver<T> &
-  Required<Pick<PartialObserver<T>, 'next'>>;
-export type ErrorObserver<T> = PartialObserver<T> &
-  Required<Pick<PartialObserver<T>, 'error'>>;
-export type CompletionObserver<T> = PartialObserver<T> &
-  Required<Pick<PartialObserver<T>, 'complete'>>;
+export type NextObserver = PartialObserver &
+  Required<Pick<PartialObserver, 'next'>>;
+export type ErrorObserver = PartialObserver &
+  Required<Pick<PartialObserver, 'error'>>;
+export type CompletionObserver = PartialObserver &
+  Required<Pick<PartialObserver, 'complete'>>;
 
-export type MediaObserver<T> =
-  | NextObserver<T>
-  | ErrorObserver<T>
-  | CompletionObserver<T>
-  | ((value: T) => void);
+export type MediaObserver =
+  | NextObserver
+  | ErrorObserver
+  | CompletionObserver
+  | ((value: FileState) => void);
 
-export type MediaSubscribable<T> = {
-  subscribe(observer?: MediaObserver<T>): MediaSubscription;
+export type MediaSubscribable = {
+  subscribe(observer?: MediaObserver): MediaSubscription;
 };

@@ -34,7 +34,8 @@ export type InsertSmartLinkAEP = InsertAEP<
       | INPUT_METHOD.AUTO_DETECT
       | INPUT_METHOD.TYPEAHEAD
       | INPUT_METHOD.MANUAL
-      | INPUT_METHOD.FORMATTING;
+      | INPUT_METHOD.FORMATTING
+      | INPUT_METHOD.FLOATING_TB;
     nodeType: 'inlineCard' | 'blockCard' | 'embedCard';
     nodeContext: SmartLinkNodeContext;
     fromCurrentDomain: boolean;

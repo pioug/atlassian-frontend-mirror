@@ -19,6 +19,7 @@ import {
 import HyperlinkAddToolbar from './ui/HyperlinkAddToolbar';
 import { EditorView } from 'prosemirror-view';
 import { Mark } from 'prosemirror-model';
+import { commandWithMetadata } from '@atlaskit/editor-common/card';
 import UnlinkIcon from '@atlaskit/icon/glyph/editor/unlink';
 import CogIcon from '@atlaskit/icon/glyph/editor/settings';
 import OpenIcon from '@atlaskit/icon/glyph/shortcut';
@@ -40,6 +41,8 @@ import {
   addAnalytics,
   ACTION_SUBJECT_ID,
   AnalyticsEventPayload,
+  ACTION,
+  INPUT_METHOD,
 } from '../analytics';
 import {
   buildVisitedLinkPayload,
@@ -239,7 +242,9 @@ export const getToolbarConfig =
               {
                 id: 'editor.link.unlink',
                 type: 'button',
-                onClick: removeLink(pos),
+                onClick: commandWithMetadata(removeLink(pos), {
+                  inputMethod: INPUT_METHOD.FLOATING_TB,
+                }),
                 selected: false,
                 title: labelUnlink,
                 icon: UnlinkIcon,
@@ -313,13 +318,25 @@ export const getToolbarConfig =
                         title = '',
                         displayText,
                         inputMethod,
+                        analytic,
                       ) => {
-                        isEditLink(activeLinkMark)
-                          ? updateLink(
-                              href,
-                              displayText || title,
-                              activeLinkMark.pos,
-                            )(view.state, view.dispatch)
+                        const isEdit = isEditLink(activeLinkMark);
+                        const action = isEdit
+                          ? ACTION.UPDATED
+                          : ACTION.INSERTED;
+
+                        const command = isEdit
+                          ? commandWithMetadata(
+                              updateLink(
+                                href,
+                                displayText || title,
+                                activeLinkMark.pos,
+                              ),
+                              {
+                                action,
+                                sourceEvent: analytic,
+                              },
+                            )
                           : insertLinkWithAnalytics(
                               inputMethod,
                               activeLinkMark.from,
@@ -328,7 +345,11 @@ export const getToolbarConfig =
                               title,
                               displayText,
                               !!options?.cardOptions?.provider,
-                            )(view.state, view.dispatch);
+                              analytic,
+                            );
+
+                        command(view.state, view.dispatch, view);
+
                         view.focus();
                       }}
                     />

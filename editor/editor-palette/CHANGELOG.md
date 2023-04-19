@@ -1,5 +1,15 @@
 # @atlaskit/editor-palette
 
+## 1.3.0
+
+### Minor Changes
+
+- [`c2385dcb8f7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c2385dcb8f7) - [ux] ED-17043 Expanded table chart colors from 20 to 36 colors.
+
+### Patch Changes
+
+- [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
+
 ## 1.2.0
 
 ### Minor Changes

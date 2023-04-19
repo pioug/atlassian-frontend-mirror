@@ -22,7 +22,6 @@ export type {
   MediaStoreCreateFileFromUploadBody,
   MediaStoreGetFileParams,
   MediaStoreGetFileImageParams,
-  MediaStoreGetCollectionItemsParams,
   SourceFile,
   MediaStoreCopyFileWithTokenBody,
   MediaStoreCopyFileWithTokenParams,
@@ -46,26 +45,16 @@ export type {
   FileDetails,
 } from './models/item';
 
-export {
-  isPreviewableType,
-  isMediaCollectionItemFullDetails,
-} from './models/media';
+export { isPreviewableType } from './models/media';
 export type {
   MediaFileProcessingStatus,
   MediaType,
   MediaFile,
-  MediaCollection,
-  MediaCollectionItems,
-  MediaCollectionItem,
-  MediaCollectionItemMinimalDetails,
-  MediaCollectionItemFullDetails,
   MediaRepresentations,
-  MediaCollectionItemDetails,
+  MediaItemDetails,
   MediaUpload,
   MediaChunksProbe,
 } from './models/media';
-
-export type { MediaSubscribableItem } from './models/media-subscribable';
 
 export { getArtifactUrl } from './models/artifacts';
 export type { MediaFileArtifact, MediaFileArtifacts } from './models/artifacts';
@@ -176,7 +165,6 @@ export type {
   FileFetcherErrorReason,
 } from './client/file-fetcher';
 
-export { CollectionFetcher } from './client/collection-fetcher';
 export { MediaClient } from './client/media-client';
 export { StargateClient } from './client/stargate-client';
 export type { EdgeData } from './client/stargate-client';

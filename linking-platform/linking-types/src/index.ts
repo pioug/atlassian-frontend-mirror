@@ -15,6 +15,11 @@ export type {
   DatasourceResponseSchemaProperty,
   DatasourceDataResponseItem,
   DatasourceType,
+  DatasourceResponseParameter,
+  DatasourceResponse,
+  DatasourceDataResponse,
+  DatasourceDataRequest,
+  DatasourceParameters,
 } from './datasource-types';
 
 export type {

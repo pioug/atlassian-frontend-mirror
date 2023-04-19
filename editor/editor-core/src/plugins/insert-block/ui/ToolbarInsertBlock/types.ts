@@ -1,6 +1,9 @@
 import { INPUT_METHOD } from '../../../analytics/types';
 import { EditorView } from 'prosemirror-view';
-import { EditorActionsOptions as EditorActions } from '@atlaskit/editor-common/types';
+import {
+  EditorActionsOptions as EditorActions,
+  FeatureFlags,
+} from '@atlaskit/editor-common/types';
 import { Command } from '../../../../types/command';
 import { EmojiProvider } from '@atlaskit/emoji';
 import { BlockType } from '../../../block-type/types';
@@ -55,6 +58,7 @@ export interface Props {
   ) => (view: EditorView) => void;
   dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
   insertNodeAPI?: InsertNodeAPI | undefined | null;
+  featureFlags: FeatureFlags;
 }
 
 export interface State {

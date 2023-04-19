@@ -12,8 +12,10 @@ import {
   li,
   table,
   tr,
+  td,
   tdEmpty,
   tdCursor,
+  thEmpty,
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
@@ -53,6 +55,8 @@ const codeBlockGASV3Payload = {
     inputMethod: 'keyboard',
   }),
 };
+
+const TABLE_LOCAL_ID = 'test-table-local-id';
 
 describe('keymaps', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -457,6 +461,44 @@ describe('keymaps', () => {
       const { editorView } = editor(doc(h1('{<>}Content')));
       sendKeyToPm(editorView, 'Backspace');
       expect(editorView.state.doc).toEqualDocument(doc(h1('{<>}Content')));
+    });
+
+    it('should allow delete blockquote in first line', () => {
+      const { editorView } = editor(doc(blockquote(p('{<>}'))));
+
+      sendKeyToPm(editorView, 'Backspace');
+
+      expect(editorView.state.doc).toEqualDocument(doc(p('{<>}')));
+    });
+
+    it('should allow delete deep nested blockquote', () => {
+      const { editorView } = editor(
+        doc(
+          table({ localId: TABLE_LOCAL_ID })(
+            tr(thEmpty, thEmpty),
+            tr(td()(blockquote(p('{<>}'))), tdEmpty),
+          ),
+        ),
+      );
+
+      sendKeyToPm(editorView, 'Backspace');
+
+      expect(editorView.state.doc).toEqualDocument(
+        doc(
+          table({ localId: TABLE_LOCAL_ID })(
+            tr(thEmpty, thEmpty),
+            tr(tdCursor, tdEmpty),
+          ),
+        ),
+      );
+    });
+
+    it('should not merge two blockquotes, when entering backspace in an empty blockquote', () => {
+      const { editorView } = editor(doc(blockquote(p()), blockquote(p())));
+
+      sendKeyToPm(editorView, 'Backspace');
+
+      expect(editorView.state.doc).toEqualDocument(doc(blockquote(p())));
     });
   });
 

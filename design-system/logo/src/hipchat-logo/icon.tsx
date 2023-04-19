@@ -42,7 +42,7 @@ export const HipchatIcon = ({
   iconGradientStop = defaultLogoParams.iconGradientStop,
   textColor = defaultLogoParams.textColor,
 }: LogoProps) => {
-  if (process.env.NODE_ENV !== 'production') {
+  if (typeof process !== 'undefined' && process.env.NODE_ENV !== 'production') {
     warnOnce(
       'HipchatIcon has been deprecated and will be removed from @atlaskit/logo after June 30 2021.',
     );

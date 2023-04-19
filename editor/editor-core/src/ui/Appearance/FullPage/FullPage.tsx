@@ -10,7 +10,7 @@ import { fullPageEditorWrapper } from './StyledComponents';
 import { ContextPanelWidthProvider } from '../../ContextPanel/context';
 import { FullPageContentArea } from './FullPageContentArea';
 import { FullPageToolbar } from './FullPageToolbar';
-import { getFeatureFlags } from '../../../plugins/feature-flags-context';
+import { FeatureFlags } from '@atlaskit/editor-common/types';
 
 interface FullPageEditorState {
   showKeyline: boolean;
@@ -24,6 +24,8 @@ export class FullPageEditor extends React.Component<
     showKeyline: false,
   };
 
+  featureFlags: FeatureFlags;
+
   static displayName = 'FullPageEditor';
   private scrollContainer: HTMLElement | null = null;
   private contentArea: HTMLElement | undefined;
@@ -33,6 +35,9 @@ export class FullPageEditor extends React.Component<
 
   constructor(props: any) {
     super(props);
+
+    this.featureFlags = props.featureFlags;
+
     if (props.innerRef) {
       this.wrapperElementRef = props.innerRef;
     }
@@ -95,9 +100,6 @@ export class FullPageEditor extends React.Component<
   public render() {
     const { props } = this;
     const { showKeyline } = this.state;
-    const featureFlags = props.editorView?.state
-      ? getFeatureFlags(props.editorView.state)
-      : undefined;
 
     return (
       <ContextPanelWidthProvider>
@@ -127,7 +129,7 @@ export class FullPageEditor extends React.Component<
             primaryToolbarComponents={props.primaryToolbarComponents}
             providerFactory={props.providerFactory}
             showKeyline={showKeyline}
-            featureFlags={featureFlags}
+            featureFlags={this.featureFlags}
           />
           <FullPageContentArea
             appearance={props.appearance}

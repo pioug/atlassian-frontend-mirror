@@ -1,16 +1,23 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 
 import '@atlaskit/link-test-helpers/jest';
-import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
-import { SmartCardProvider, useFeatureFlag } from '@atlaskit/link-provider';
+import { IntlProvider } from 'react-intl-next';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { fireEvent, waitFor } from '@testing-library/dom';
 import { act, renderHook } from '@testing-library/react-hooks';
-import { waitFor } from '@testing-library/dom';
+
+import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { SmartCardProvider, useFeatureFlag } from '@atlaskit/link-provider';
+import { LinkPicker, LinkPickerProps } from '@atlaskit/link-picker';
+import { MockLinkPickerPlugin } from '@atlaskit/link-test-helpers/link-picker';
 
 import { ANALYTICS_CHANNEL } from './consts';
 import { useSmartLinkLifecycleAnalytics } from './lifecycle';
 import { runWhenIdle } from './utils';
 import { fakeFactory, mocks } from './__fixtures__/mocks';
+import { LifecycleAction } from './types';
 
 jest.mock('@atlaskit/link-provider', () => {
   const originalModule = jest.requireActual('@atlaskit/link-provider');
@@ -64,22 +71,22 @@ describe('useSmartLinkLifecycleAnalytics', () => {
   };
 
   const cases: [
-    string,
+    LifecycleAction,
     'linkCreated' | 'linkDeleted' | 'linkUpdated',
     { action: string; actionSubject: string; eventType: string },
   ][] = [
     [
-      'link created',
+      'created',
       'linkCreated',
       { action: 'created', actionSubject: 'link', eventType: 'track' },
     ],
     [
-      'link deleted',
+      'deleted',
       'linkDeleted',
       { action: 'deleted', actionSubject: 'link', eventType: 'track' },
     ],
     [
-      'link updated',
+      'updated',
       'linkUpdated',
       { action: 'updated', actionSubject: 'link', eventType: 'track' },
     ],
@@ -91,8 +98,21 @@ describe('useSmartLinkLifecycleAnalytics', () => {
     status: 'resolved',
   };
 
-  describe.each(cases)('%s', (name, method, payload) => {
-    it(`fires a ${name} event with custom attributes`, async () => {
+  const getInputMethodName = (action: LifecycleAction) => {
+    switch (action) {
+      case 'created':
+        return 'creationMethod';
+      case 'updated':
+        return 'updateMethod';
+      case 'deleted':
+        return 'deleteMethod';
+    }
+  };
+
+  describe.each(cases)('%s', (action, method, payload) => {
+    const inputMethodAttribute = getInputMethodName(action);
+
+    it(`fires a link ${action} event with custom attributes`, async () => {
       const { onEvent, result } = setup();
       act(() => {
         result.current[method]({ url: 'test.com', smartLinkId: 'xyz' }, null, {
@@ -117,7 +137,7 @@ describe('useSmartLinkLifecycleAnalytics', () => {
       });
     });
 
-    it(`${name} supports deriving attributes from a source event`, async () => {
+    it(`link ${action} supports deriving attributes from a source event`, async () => {
       const sourceEvent = new UIAnalyticsEvent({
         context: [
           {
@@ -125,6 +145,7 @@ describe('useSmartLinkLifecycleAnalytics', () => {
           },
           {
             attributes: {
+              linkFieldContentInputMethod: 'paste',
               linkState: 'newLink',
               submitMethod: 'paste',
             },
@@ -155,8 +176,7 @@ describe('useSmartLinkLifecycleAnalytics', () => {
               attributes: {
                 sourceEvent: 'form submitted',
                 smartLinkId: 'xyz',
-                linkState: 'newLink',
-                submitMethod: 'paste',
+                [inputMethodAttribute]: 'linkpicker_paste',
               },
             },
           },
@@ -165,7 +185,7 @@ describe('useSmartLinkLifecycleAnalytics', () => {
       });
     });
 
-    it(`${name} supports custom attributes + attributes from a source event`, async () => {
+    it(`link ${action} supports custom attributes + attributes from a source event`, async () => {
       const sourceEvent = new UIAnalyticsEvent({
         context: [
           {
@@ -173,6 +193,7 @@ describe('useSmartLinkLifecycleAnalytics', () => {
           },
           {
             attributes: {
+              linkFieldContentInputMethod: 'paste',
               linkState: 'newLink',
               submitMethod: 'paste',
             },
@@ -203,8 +224,7 @@ describe('useSmartLinkLifecycleAnalytics', () => {
               attributes: {
                 sourceEvent: 'form submitted (linkPicker)',
                 smartLinkId: 'xyz',
-                linkState: 'newLink',
-                submitMethod: 'paste',
+                [inputMethodAttribute]: 'linkpicker_paste',
               },
             },
           },
@@ -213,7 +233,7 @@ describe('useSmartLinkLifecycleAnalytics', () => {
       });
     });
 
-    it(`${name} derives the URL domain and includes in nonPrivacySafeAttributes`, async () => {
+    it(`link ${action} derives the URL domain and includes in nonPrivacySafeAttributes`, async () => {
       const { onEvent, result } = setup();
       act(() => {
         result.current[method]({
@@ -261,6 +281,182 @@ describe('useSmartLinkLifecycleAnalytics', () => {
             },
             ANALYTICS_CHANNEL,
           );
+        });
+      });
+    });
+  });
+
+  describe('with link picker source event', () => {
+    const testIds = {
+      urlInputField: 'link-url',
+      submit: 'link-picker-insert-button',
+    };
+
+    const setup = () => {
+      const mockFetch = jest.fn(async () => mocks.success);
+      const mockClient = new (fakeFactory(mockFetch))();
+      const onEvent = jest.fn();
+
+      const Component = () => {
+        const [link, setLink] = useState<{
+          url?: string;
+          displayText?: string | null;
+        }>({});
+
+        const callbacks = useSmartLinkLifecycleAnalytics();
+        const onSubmit: LinkPickerProps['onSubmit'] = useCallback(
+          (details, sourceEvent) => {
+            setLink(details);
+            callbacks[link.url ? 'linkUpdated' : 'linkCreated'](
+              details,
+              sourceEvent,
+            );
+          },
+          [callbacks, link],
+        );
+        const plugins = [new MockLinkPickerPlugin()];
+        return (
+          <LinkPicker
+            plugins={plugins}
+            url={link.url}
+            onSubmit={onSubmit}
+            onCancel={jest.fn()}
+          />
+        );
+      };
+
+      const renderResult = render(<Component />, {
+        wrapper: ({ children }: React.PropsWithChildren<{}>) => (
+          <IntlProvider locale="en">
+            <SmartCardProvider client={mockClient}>
+              <AnalyticsListener channel={ANALYTICS_CHANNEL} onEvent={onEvent}>
+                {children}
+              </AnalyticsListener>
+            </SmartCardProvider>
+          </IntlProvider>
+        ),
+      });
+      return { onEvent, ...renderResult };
+    };
+
+    it('should support deriving `creationMethod` and `updateMethod` as `linkpicker_manual` when typing', async () => {
+      const { onEvent } = setup();
+
+      const urlInput = await screen.findByTestId(testIds.urlInputField);
+      await userEvent.type(urlInput, 'www.atlassian.com');
+
+      jest.clearAllMocks();
+      fireEvent.submit(urlInput);
+
+      await waitFor(() => {
+        expect(onEvent).toBeFiredWithAnalyticEventOnce({
+          payload: {
+            action: 'created',
+            actionSubject: 'link',
+            attributes: {
+              creationMethod: 'linkpicker_manual',
+            },
+          },
+        });
+      });
+
+      await userEvent.clear(urlInput);
+      await userEvent.type(urlInput, 'www.google.com');
+      jest.clearAllMocks();
+      fireEvent.submit(urlInput);
+
+      await waitFor(() => {
+        expect(onEvent).toBeFiredWithAnalyticEventOnce({
+          payload: {
+            action: 'updated',
+            actionSubject: 'link',
+            attributes: {
+              updateMethod: 'linkpicker_manual',
+            },
+          },
+        });
+      });
+    });
+
+    it('should support deriving `creationMethod` and `updateMethod` as `linkpicker_paste` when pasting', async () => {
+      const { onEvent } = setup();
+
+      const urlInput = await screen.findByTestId(testIds.urlInputField);
+      fireEvent.input(urlInput, {
+        inputType: 'insertFromPaste',
+        target: { value: 'www.atlassian.com' },
+      });
+
+      jest.clearAllMocks();
+      fireEvent.submit(urlInput);
+
+      await waitFor(() => {
+        expect(onEvent).toBeFiredWithAnalyticEventOnce({
+          payload: {
+            action: 'created',
+            actionSubject: 'link',
+            attributes: {
+              creationMethod: 'linkpicker_paste',
+            },
+          },
+        });
+      });
+
+      await userEvent.clear(urlInput);
+      fireEvent.input(urlInput, {
+        inputType: 'insertFromPaste',
+        target: { value: 'www.google.com' },
+      });
+      jest.clearAllMocks();
+      fireEvent.submit(urlInput);
+
+      await waitFor(() => {
+        expect(onEvent).toBeFiredWithAnalyticEventOnce({
+          payload: {
+            action: 'updated',
+            actionSubject: 'link',
+            attributes: {
+              updateMethod: 'linkpicker_paste',
+            },
+          },
+        });
+      });
+    });
+
+    it('should support deriving `creationMethod` and `updateMethod` as `linkpicker_searchResult` when selecting search result', async () => {
+      const { onEvent } = setup();
+
+      const urlInput = await screen.findByTestId(testIds.urlInputField);
+      await userEvent.keyboard('{arrowdown}');
+      jest.clearAllMocks();
+      await userEvent.keyboard('{enter}');
+
+      await waitFor(() => {
+        expect(onEvent).toBeFiredWithAnalyticEventOnce({
+          payload: {
+            action: 'created',
+            actionSubject: 'link',
+            attributes: {
+              creationMethod: 'linkpicker_searchResult',
+            },
+          },
+        });
+      });
+
+      await userEvent.clear(urlInput);
+      await userEvent.keyboard('{arrowdown}');
+      jest.clearAllMocks();
+      await userEvent.keyboard('{enter}');
+
+      await waitFor(() => {
+        expect(onEvent).toBeFiredWithAnalyticEventOnce({
+          payload: {
+            action: 'updated',
+            actionSubject: 'link',
+            attributes: {
+              updateMethod: 'linkpicker_searchResult',
+            },
+          },
         });
       });
     });

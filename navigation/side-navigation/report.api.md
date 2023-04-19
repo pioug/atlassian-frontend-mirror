@@ -59,7 +59,31 @@ interface CustomItemPropsHack {
 }
 
 // @public
-export const Footer: (props: HeaderProps) => JSX.Element;
+export const Footer: ({
+  useDeprecatedApi,
+  description,
+  iconBefore,
+  testId,
+  children,
+  component,
+  cssFn,
+  onClick,
+}: FooterFacadeProps) => JSX.Element;
+
+// @public (undocumented)
+type FooterFacadeProps =
+  | (HeaderProps & {
+      useDeprecatedApi?: true;
+    })
+  | (NewFooterProps & {
+      useDeprecatedApi?: false;
+      cssFn?: never;
+      component?: never;
+      onClick?: never;
+    });
+
+// @public (undocumented)
+export type FooterProps = HeaderProps | NewFooterProps;
 
 // @public
 export const GoBackItem: React_2.ForwardRefExoticComponent<
@@ -72,18 +96,15 @@ export const Header: React_2.ForwardRefExoticComponent<
 >;
 
 // @public (undocumented)
-interface HeaderProps {
-  children?: React_2.ReactNode;
-  component?: React_2.ComponentType<CustomItemComponentProps>;
-  // @deprecated
+export type HeaderProps = {
   cssFn?: CSSFn;
-  description?: JSX.Element | string;
   iconBefore?: React_2.ReactNode;
   onClick?: (event: React_2.KeyboardEvent | React_2.MouseEvent) => void;
+  description?: JSX.Element | string;
+  children?: React_2.ReactNode;
   testId?: string;
-}
-export { HeaderProps as FooterProps };
-export { HeaderProps };
+  component?: React_2.ComponentType<CustomItemComponentProps>;
+};
 
 // @public
 export const HeadingItem: (props: HeadingItemProps) => JSX.Element | null;
@@ -210,6 +231,9 @@ export interface NestingItemProps<
   testId?: string;
   title: React_2.ReactNode;
 }
+
+// @public (undocumented)
+type NewFooterProps = Omit<HeaderProps, 'component' | 'cssFn' | 'onClick'>;
 
 // @public
 export const Section: React_2.ForwardRefExoticComponent<

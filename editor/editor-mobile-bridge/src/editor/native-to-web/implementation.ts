@@ -44,6 +44,7 @@ import {
   insertHorizontalRule,
   createTypeAheadTools,
   createQuickInsertTools,
+  hasVisibleContent,
 } from '@atlaskit/editor-core';
 import type { TypeAheadItem } from '@atlaskit/editor-common/provider-factory';
 import { EditorViewWithComposition } from '../../types';
@@ -94,6 +95,7 @@ import {
 } from '@atlaskit/media-client';
 import { UploadPreviewUpdateEventPayload } from '@atlaskit/media-picker/types';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
+import NativeBridge from '../web-to-native/bridge';
 
 export const defaultSetList: QuickInsertItemId[] = [
   'blockquote',
@@ -173,7 +175,7 @@ export default class WebBridgeImpl
   eventEmitter: BridgeEventEmitter = new BridgeEventEmitter();
   allowList: allowListPayloadType = new Set(defaultSetList);
   mobileEditingToolbarActions = new MobileEditorToolbarActions();
-  media: MediaBridge = new MediaBridge();
+  media: MediaBridge = new MediaBridge(this, toNativeBridge);
 
   private collabProviderPromise: Promise<CollabProvider> | undefined;
 
@@ -593,10 +595,10 @@ export default class WebBridgeImpl
         )(state, dispatch);
         return;
       case 'divider':
-        insertHorizontalRule(inputMethod as InsertBlockInputMethodToolbar)(
-          state,
-          dispatch,
-        );
+        insertHorizontalRule(
+          inputMethod as InsertBlockInputMethodToolbar,
+          this.featureFlags,
+        )(state, dispatch);
         return;
       case 'expand':
         insertExpand(state, dispatch);
@@ -966,8 +968,17 @@ export default class WebBridgeImpl
       );
     }
     this.editorView = editorView as EditorView & EditorViewWithComposition;
-    this.editorActions._privateRegisterEditor(editorView, eventDispatcher);
+    this.editorActions._privateRegisterEditor(
+      editorView,
+      eventDispatcher,
+      undefined,
+      this.getFeatureFlags,
+    );
   }
+
+  private getFeatureFlags = () => {
+    return this.featureFlags;
+  };
 
   unregisterEditor() {
     delete this.editorView;
@@ -1082,11 +1093,24 @@ export default class WebBridgeImpl
         .scrollIntoView(),
     );
   }
+
+  hasVisibleContent(): Boolean {
+    return this.editorView?.state?.doc
+      ? hasVisibleContent(this.editorView.state.doc)
+      : false;
+  }
 }
 
 export class MediaBridge {
   mediaPicker: CustomMediaPicker | undefined;
   mediaUpload: Promise<MobileUpload | undefined> | undefined;
+  webBridge: NativeToWebBridge | undefined;
+  nativeBridge: NativeBridge | undefined;
+
+  constructor(webBridge: NativeToWebBridge, nativeBridge: NativeBridge) {
+    this.webBridge = webBridge;
+    this.nativeBridge = nativeBridge;
+  }
 
   async onUploadStart(payload: string) {
     try {
@@ -1165,9 +1189,10 @@ export class MediaBridge {
 
   async onUploadEnd(payload: string) {
     try {
-      if (!this.mediaUpload) {
+      if (!this.mediaUpload || !this.webBridge || !this.nativeBridge) {
         throw new Error(
-          'mediaUpload is null in ' + ModuleNameInExceptionMessage,
+          'Required instance variable (mediaUpload || webBridge || nativeBridge) is null in ' +
+            ModuleNameInExceptionMessage,
         );
       }
       const endEvent: MobileUploadEndEvent = JSON.parse(payload);
@@ -1176,6 +1201,13 @@ export class MediaBridge {
         throw new Error('uploader is null in ' + ModuleNameInExceptionMessage);
       }
       uploader.notifyUploadEnd(endEvent);
+
+      // In `onUploadStart` we call `updateTextWithADFStatus` as a side-effect of `mediaPicker.emit()`
+      // Manually call it here to fix Publish / Submit button issue in https://product-fabric.atlassian.net/browse/MEX-2352
+      this.nativeBridge.updateTextWithADFStatus(
+        this.webBridge.getContent(),
+        !this.webBridge.hasVisibleContent(),
+      );
     } catch (e) {
       // TODO exception in top level interface, error reporting
     }
@@ -1184,9 +1216,10 @@ export class MediaBridge {
   async onUploadFail(payload: string) {
     try {
       // TODO exception in top level interface, error reporting
-      if (!this.mediaUpload) {
+      if (!this.mediaUpload || !this.webBridge || !this.nativeBridge) {
         throw new Error(
-          'mediaUpload is null in ' + ModuleNameInExceptionMessage,
+          'Required instance variable (mediaUpload || webBridge || nativeBridge) is null in ' +
+            ModuleNameInExceptionMessage,
         );
       }
       const failEvent: MobileUploadErrorEvent = JSON.parse(payload);
@@ -1195,6 +1228,13 @@ export class MediaBridge {
         throw new Error('uploader is null in ' + ModuleNameInExceptionMessage);
       }
       uploader.notifyUploadError(failEvent);
+
+      // In `onUploadStart` we call `updateTextWithADFStatus` as a side-effect of `mediaPicker.emit()`
+      // Manually call it here to fix Publish / Submit button issue in https://product-fabric.atlassian.net/browse/MEX-2352
+      this.nativeBridge.updateTextWithADFStatus(
+        this.webBridge.getContent(),
+        !this.webBridge.hasVisibleContent(),
+      );
     } catch (e) {
       // TODO exception in top level interface, error reporting
     }

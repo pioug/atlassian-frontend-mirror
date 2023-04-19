@@ -24,9 +24,9 @@ describe('extractFlexibleUiContext', () => {
   };
 
   it('returns flexible ui context for bitbucket pull request', () => {
-    const data = extractFlexibleUiContext(
-      BitbucketPullRequest as JsonLd.Response,
-    );
+    const data = extractFlexibleUiContext({
+      response: BitbucketPullRequest as JsonLd.Response,
+    });
 
     expect(data).toEqual({
       authorGroup: [{ name: 'Angie Mccarthy', src: 'https://person-url' }],
@@ -53,7 +53,9 @@ describe('extractFlexibleUiContext', () => {
   });
 
   it('returns flexible ui context for confluence page', () => {
-    const data = extractFlexibleUiContext(ConfluencePage as JsonLd.Response);
+    const data = extractFlexibleUiContext({
+      response: ConfluencePage as JsonLd.Response,
+    });
 
     expect(data).toEqual({
       linkIcon: {
@@ -81,7 +83,9 @@ describe('extractFlexibleUiContext', () => {
   });
 
   it('returns flexible ui context for confluence blog', () => {
-    const data = extractFlexibleUiContext(ConfluenceBlog as JsonLd.Response);
+    const data = extractFlexibleUiContext({
+      response: ConfluenceBlog as JsonLd.Response,
+    });
 
     expect(data).toEqual({
       linkIcon: {
@@ -111,7 +115,9 @@ describe('extractFlexibleUiContext', () => {
   });
 
   it('returns flexible ui context confluence space', () => {
-    const data = extractFlexibleUiContext(ConfluenceSpace as JsonLd.Response);
+    const data = extractFlexibleUiContext({
+      response: ConfluenceSpace as JsonLd.Response,
+    });
 
     expect(data).toEqual({
       linkIcon: { label: 'ShipIt', url: 'https://icon-url' },
@@ -122,9 +128,9 @@ describe('extractFlexibleUiContext', () => {
   });
 
   it('returns flexible ui context for confluence template', () => {
-    const data = extractFlexibleUiContext(
-      ConfluenceTemplate as JsonLd.Response,
-    );
+    const data = extractFlexibleUiContext({
+      response: ConfluenceTemplate as JsonLd.Response,
+    });
 
     expect(data).toEqual({
       linkIcon: {
@@ -139,7 +145,9 @@ describe('extractFlexibleUiContext', () => {
   });
 
   it('returns flexible ui context for jira task', () => {
-    const data = extractFlexibleUiContext(JiraTask as JsonLd.Response);
+    const data = extractFlexibleUiContext({
+      response: JiraTask as JsonLd.Response,
+    });
 
     expect(data).toEqual({
       authorGroup: [
@@ -165,7 +173,9 @@ describe('extractFlexibleUiContext', () => {
   });
 
   it('returns flexible ui context for jira roadmap', () => {
-    const data = extractFlexibleUiContext(JiraRoadMap as JsonLd.Response);
+    const data = extractFlexibleUiContext({
+      response: JiraRoadMap as JsonLd.Response,
+    });
 
     expect(data).toEqual({
       linkIcon: { label: 'Linking Platform', url: 'https://icon-url' },
@@ -188,7 +198,9 @@ describe('extractFlexibleUiContext', () => {
   });
 
   it('returns flexible ui context for figma', () => {
-    const data = extractFlexibleUiContext(Figma as JsonLd.Response);
+    const data = extractFlexibleUiContext({
+      response: Figma as JsonLd.Response,
+    });
 
     expect(data).toEqual({
       linkIcon: {
@@ -221,7 +233,9 @@ describe('extractFlexibleUiContext', () => {
   });
 
   it('returns flexible ui context for youtube video', () => {
-    const data = extractFlexibleUiContext(YouTubeVideo as JsonLd.Response);
+    const data = extractFlexibleUiContext({
+      response: YouTubeVideo as JsonLd.Response,
+    });
 
     expect(data).toEqual({
       linkIcon: {
@@ -271,8 +285,50 @@ describe('extractFlexibleUiContext', () => {
         url,
       },
     } as JsonLd.Response;
-    const data = extractFlexibleUiContext(response);
+    const data = extractFlexibleUiContext({ response });
 
     expect(data?.title).toEqual(url);
+  });
+
+  describe('feature flags', () => {
+    describe('useLozengeAction', () => {
+      it('does not show lozenge action when lozenge action experiment feature flag is not provided', () => {
+        const data = extractFlexibleUiContext({
+          response: JiraTask as JsonLd.Response,
+          showServerActions: true,
+        });
+
+        expect(data?.state?.action).toBeUndefined();
+      });
+      it('does not show lozenge action when lozenge action experiment is disabled', () => {
+        const data = extractFlexibleUiContext({
+          response: JiraTask as JsonLd.Response,
+          showServerActions: true,
+          featureFlags: { useLozengeAction: 'not-enrolled' },
+        });
+
+        expect(data?.state?.action).toBeUndefined();
+      });
+
+      it('show default lozenge when lozenge action experiment is enable for control group', () => {
+        const data = extractFlexibleUiContext({
+          response: JiraTask as JsonLd.Response,
+          showServerActions: true,
+          featureFlags: { useLozengeAction: 'control' },
+        });
+
+        expect(data?.state?.action).toBeUndefined();
+      });
+
+      it('show lozenge action when lozenge action experiment is enable for experiment group', () => {
+        const data = extractFlexibleUiContext({
+          response: JiraTask as JsonLd.Response,
+          showServerActions: true,
+          featureFlags: { useLozengeAction: 'experiment' },
+        });
+
+        expect(data?.state?.action).toBeDefined();
+      });
+    });
   });
 });

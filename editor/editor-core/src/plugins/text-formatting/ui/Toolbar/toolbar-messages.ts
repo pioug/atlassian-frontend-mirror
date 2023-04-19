@@ -82,4 +82,15 @@ export const toolbarMessages = defineMessages({
     defaultMessage: 'Text formatting Off',
     description: 'Reports that text formatting has been turned off',
   },
+  navigateToEditorToolbar: {
+    id: 'fabric.editor.navigate.toolbar.editor',
+    defaultMessage: 'Navigate to editor toolbar',
+    description: 'Navigate to the main editor toolbar.',
+  },
+  navigateToFloatingToolbar: {
+    id: 'fabric.editor.navigate.toolbar.floating',
+    defaultMessage: 'Navigate to floating toolbar',
+    description:
+      'Navigate to a floating toolbar for relevant nodes (e.g. tables or panels).',
+  },
 });

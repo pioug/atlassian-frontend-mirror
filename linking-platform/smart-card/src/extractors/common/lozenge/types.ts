@@ -1,3 +1,5 @@
+import { InvokeActions } from '../../../state/hooks/use-invoke/types';
+
 export type LinkLozengeColor =
   | 'default'
   | 'success'
@@ -7,6 +9,7 @@ export type LinkLozengeColor =
   | 'moved';
 
 export interface LinkLozenge {
+  action?: InvokeActions;
   text: string;
   appearance?: LinkLozengeColor;
 }

@@ -1,5 +1,34 @@
 # @atlaskit/media-client
 
+## 21.0.0
+
+### Major Changes
+
+- [`0f99ed9df35`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0f99ed9df35) - BREAKING CHANGES:
+
+  - Media Store class no longer exposes getCollectionItems method
+
+  - `MediaClient.collection.removeFile` method is now accessible through the replacement method `MediaClient.removeFileFromCollection`
+
+  - `MediaClient.collection` has been fully removed. The following classes, types and utils have been also removed:
+
+    - MediaCollection
+    - MediaCollectionItem
+    - MediaCollectionItems
+    - MediaCollectionItemDetails
+    - MediaCollectionItemMinimalDetails
+    - isMediaCollectionItemFullDetails
+
+  - Renamed type `MediaCollectionItemFullDetails` to `MediaItemDetails`
+
+  - `MediaSubscribable` is no longer be a generic type. It now only works with `FileState`.
+
+  - Removed `MediaSubscribableItem` type
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 20.2.1
 
 ### Patch Changes

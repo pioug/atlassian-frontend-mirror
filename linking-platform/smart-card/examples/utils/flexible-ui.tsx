@@ -4,7 +4,7 @@ import { css } from '@emotion/react';
 import LikeIcon from '@atlaskit/icon/glyph/like';
 import { token } from '@atlaskit/tokens';
 import { CardType, CardState } from '@atlaskit/linking-common';
-import extractFlexibleLinkContext from '../../src/extractors/flexible';
+import extractFlexibleUiContext from '../../src/extractors/flexible';
 import { FlexibleUiDataContext } from '../../src/state/flexible-ui-context/types';
 import { ActionName, ElementName } from '../../src';
 import { ElementDisplaySchema } from '../../src/view/FlexibleCard/components/blocks/utils';
@@ -60,7 +60,7 @@ export const getContext = (
   override: Partial<FlexibleUiDataContext> = {},
 ): FlexibleUiDataContext => {
   const cardState = getCardState();
-  const context = extractFlexibleLinkContext(cardState.details);
+  const context = extractFlexibleUiContext({ response: cardState.details });
   return {
     ...context,
     ...override,

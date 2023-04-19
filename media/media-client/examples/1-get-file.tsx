@@ -22,7 +22,7 @@ const mediaClientConfig: MediaClientConfig = {
 const mediaClient = new MediaClient(mediaClientConfig);
 
 class Example extends Component<ComponentProps, ComponentState> {
-  fileStreams: MediaSubscribable<FileState>[];
+  fileStreams: MediaSubscribable[];
 
   constructor(props: ComponentProps) {
     super(props);
@@ -78,7 +78,7 @@ class Example extends Component<ComponentProps, ComponentState> {
     this.addStream(stream);
   };
 
-  addStream = (stream: MediaSubscribable<FileState>) => {
+  addStream = (stream: MediaSubscribable) => {
     const streamId = new Date().getTime();
 
     stream.subscribe({

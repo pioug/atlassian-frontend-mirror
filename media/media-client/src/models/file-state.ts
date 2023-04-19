@@ -5,7 +5,7 @@ import {
 import { MediaStoreResponse } from '../client/media-store';
 import { MediaFileArtifacts } from './artifacts';
 import {
-  MediaCollectionItemFullDetails,
+  MediaItemDetails,
   MediaFile,
   MediaRepresentations,
   MediaType,
@@ -189,7 +189,7 @@ export const mapMediaFileToFileState = (
 
 export const mapMediaItemToFileState = (
   id: string,
-  item: MediaCollectionItemFullDetails,
+  item: MediaItemDetails,
 ): FileState => {
   return mapMediaFileToFileState({
     data: {

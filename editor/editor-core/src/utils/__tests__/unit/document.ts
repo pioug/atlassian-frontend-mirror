@@ -1,10 +1,16 @@
+import { Fragment, Slice } from 'prosemirror-model';
+import { EditorState } from 'prosemirror-state';
+
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
+import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
+import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
+
 import {
   ACTION,
   ACTION_SUBJECT,
   EVENT_TYPE,
 } from '../../../plugins/analytics/types/enums';
-import { processRawValue } from '../../document';
+import { processRawValue, getStepRange } from '../../document';
 
 describe('document: processRawValue', () => {
   describe('invalid prosemirror model', () => {
@@ -522,6 +528,86 @@ describe('document: processRawValue', () => {
 
         expect(dispatchAnalyticsEvent).not.toHaveBeenCalledWith();
       });
+    });
+  });
+});
+
+describe('document: getStepRange', () => {
+  const helloSlice = (state: EditorState) =>
+    new Slice(Fragment.from(p('Hello')(state.schema)), 1, 1);
+  const xSlice = (state: EditorState) =>
+    new Slice(Fragment.from(p('x')(state.schema)), 1, 1);
+
+  it.each([
+    [helloSlice, 7],
+    [xSlice, 3],
+  ])(
+    'should return the from and to that describes the range of the changed document for a single change',
+    (slice, expected) => {
+      const state = createEditorState(doc(p('')));
+
+      expect(getStepRange(state.tr)).toStrictEqual(null);
+
+      const tr = state.tr.replaceRange(0, 0, slice(state));
+
+      expect(getStepRange(tr)).toStrictEqual({
+        from: 0,
+        to: expected,
+      });
+    },
+  );
+
+  it('should return the from and to that describes the range of the changed document for a multiple additive steps', () => {
+    const state = createEditorState(doc(p('')));
+
+    expect(getStepRange(state.tr)).toStrictEqual(null);
+
+    const tr = state.tr
+      // insert "x" at the start of the doc
+      .replaceRange(0, 0, xSlice(state))
+      // add to the end of the doc "hello"
+      .replaceRange(3, 3, helloSlice(state));
+
+    expect(getStepRange(tr)).toStrictEqual({
+      from: 0,
+      to: 10,
+    });
+  });
+
+  it('should return the from and to that describes the range of the changed document for a multiple overlapping/conflicting steps', () => {
+    const state = createEditorState(doc(p('')));
+
+    expect(getStepRange(state.tr)).toStrictEqual(null);
+
+    const tr = state.tr
+      // insert "x" at the start of the doc
+      .replaceRange(0, 0, xSlice(state))
+      // add to the end of the doc "hello"
+      .replaceRange(3, 3, helloSlice(state))
+      // replace the entire sequence of inserted ranges with "x"
+      .replaceRange(0, 10, xSlice(state));
+
+    expect(getStepRange(tr)).toStrictEqual({
+      from: 0,
+      to: 3,
+    });
+  });
+
+  it('should return the from and to that describes the range of the changed document for a multiple steps where subsequent steps shrink the total step range', () => {
+    const state = createEditorState(doc(p('')));
+
+    expect(getStepRange(state.tr)).toStrictEqual(null);
+
+    const tr = state.tr
+      // insert "hello" at the start of the doc
+      .replaceRange(0, 0, helloSlice(state))
+      // replace part of the inserted range with a smaller range "x"
+      // this should "shrink" the final step range
+      .replaceRange(2, 5, xSlice(state));
+
+    expect(getStepRange(tr)).toStrictEqual({
+      from: 0,
+      to: 5,
     });
   });
 });

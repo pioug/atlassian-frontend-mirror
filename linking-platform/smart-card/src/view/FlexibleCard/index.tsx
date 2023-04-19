@@ -16,24 +16,35 @@ import { getContextByStatus, getRetryOptions } from './utils';
  * @see Container
  */
 const FlexibleCard: React.FC<FlexibleCardProps> = ({
+  analytics,
   cardState,
   children,
+  id,
   onAuthorize,
+  onClick,
   onError,
   onResolve,
   renderers,
+  showHoverPreview,
+  showServerActions,
+  testId,
   ui,
   url,
-  onClick,
-  testId,
-  analytics,
-  showHoverPreview,
 }: React.PropsWithChildren<FlexibleCardProps>) => {
   const { status: cardType, details } = cardState;
   const status = cardType as SmartLinkStatus;
+
   const context = useMemo(
-    () => getContextByStatus(url, status, details, renderers),
-    [details, renderers, status, url],
+    () =>
+      getContextByStatus({
+        response: details,
+        id,
+        renderers,
+        showServerActions,
+        status,
+        url,
+      }),
+    [details, id, renderers, showServerActions, status, url],
   );
   const retry = getRetryOptions(url, status, details, onAuthorize);
   const { title } = context || {};

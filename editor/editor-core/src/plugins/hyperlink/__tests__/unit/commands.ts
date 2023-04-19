@@ -281,6 +281,7 @@ describe('hyperlink commands', () => {
             appearance: 'inline',
             compareLinkText: false,
             source: 'manual',
+            analyticsAction: 'inserted',
           },
         ],
         provider: null, // cardProvider would have been set yet
@@ -308,6 +309,7 @@ describe('hyperlink commands', () => {
             appearance: 'inline',
             compareLinkText: false,
             source: 'manual',
+            analyticsAction: 'inserted',
           },
         ],
         provider: null, // cardProvider would have been set yet
@@ -378,16 +380,14 @@ describe('hyperlink commands', () => {
   describe('#insertLinkWithAnalytics', () => {
     it('should fire analytics event when it is a normal link and smart links are not available', async () => {
       const { editorView: view, sel } = editor(doc(p('{<>}')));
-      (
-        await insertLinkWithAnalytics(
-          INPUT_METHOD.MANUAL,
-          sel,
-          sel,
-          googleUrl,
-          undefined,
-          undefined,
-          false,
-        )
+      insertLinkWithAnalytics(
+        INPUT_METHOD.MANUAL,
+        sel,
+        sel,
+        googleUrl,
+        undefined,
+        undefined,
+        false,
       )(view.state, view.dispatch);
       expect(createAnalyticsEvent).toBeCalledWith({
         action: 'inserted',
@@ -405,15 +405,13 @@ describe('hyperlink commands', () => {
   describe('#insertLinkWithAnalyticsMobileNative', () => {
     it('should fire analytics event', async () => {
       const { editorView: view, sel } = editor(doc(p('{<>}')));
-      (
-        await insertLinkWithAnalyticsMobileNative(
-          INPUT_METHOD.MANUAL,
-          sel,
-          sel,
-          googleUrl,
-          undefined,
-          'Google',
-        )
+      insertLinkWithAnalyticsMobileNative(
+        INPUT_METHOD.MANUAL,
+        sel,
+        sel,
+        googleUrl,
+        undefined,
+        'Google',
       )(view.state, view.dispatch);
       expect(createAnalyticsEvent).toBeCalledWith({
         action: 'inserted',
@@ -431,16 +429,14 @@ describe('hyperlink commands', () => {
   describe('#insertLinkWithAnalytics', () => {
     it('should fire analytics event if smart links are available and it is not a smart link', async () => {
       const { editorView: view, sel } = editor(doc(p('{<>}')));
-      (
-        await insertLinkWithAnalytics(
-          INPUT_METHOD.MANUAL,
-          sel,
-          sel,
-          googleUrl,
-          undefined,
-          'hey',
-          !!(cardOptions && cardOptions.provider),
-        )
+      insertLinkWithAnalytics(
+        INPUT_METHOD.MANUAL,
+        sel,
+        sel,
+        googleUrl,
+        undefined,
+        'hey',
+        !!(cardOptions && cardOptions.provider),
       )(view.state, view.dispatch);
       expect(createAnalyticsEvent).toBeCalledWith({
         action: 'inserted',
@@ -458,16 +454,14 @@ describe('hyperlink commands', () => {
   describe('#insertLinkWithAnalytics', () => {
     it('should fire analytics event when it is not a smart link and smart links are available', async () => {
       const { editorView: view, sel } = editor(doc(p('{<>}')));
-      (
-        await insertLinkWithAnalytics(
-          INPUT_METHOD.TYPEAHEAD,
-          sel,
-          sel,
-          googleUrl,
-          undefined,
-          'hello this is the link text',
-          !!(cardOptions && cardOptions.provider),
-        )
+      insertLinkWithAnalytics(
+        INPUT_METHOD.TYPEAHEAD,
+        sel,
+        sel,
+        googleUrl,
+        undefined,
+        'hello this is the link text',
+        !!(cardOptions && cardOptions.provider),
       )(view.state, view.dispatch);
       expect(createAnalyticsEvent).toBeCalledWith({
         action: 'inserted',
@@ -485,16 +479,14 @@ describe('hyperlink commands', () => {
   describe('#insertLinkWithAnalytics', () => {
     it('should not fire analytics event when it is a smart link', async () => {
       const { editorView: view, sel } = editor(doc(p('{<>}')));
-      (
-        await insertLinkWithAnalytics(
-          INPUT_METHOD.MANUAL,
-          sel,
-          sel,
-          confluenceUrl,
-          undefined,
-          undefined,
-          !!(cardOptions && cardOptions.provider),
-        )
+      insertLinkWithAnalytics(
+        INPUT_METHOD.MANUAL,
+        sel,
+        sel,
+        confluenceUrl,
+        undefined,
+        undefined,
+        !!(cardOptions && cardOptions.provider),
       )(view.state, view.dispatch);
       expect(createAnalyticsEvent).not.toBeCalled();
     });

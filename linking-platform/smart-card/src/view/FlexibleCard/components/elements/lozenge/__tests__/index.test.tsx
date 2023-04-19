@@ -4,6 +4,9 @@ import '@testing-library/jest-dom/extend-expect';
 import { css } from '@emotion/react';
 import Lozenge from '../index';
 import { LozengeProps } from '../types';
+import { SmartLinkActionType } from '@atlaskit/linking-types';
+import * as useInvoke from '../../../../../../state/hooks/use-invoke';
+import * as useResolve from '../../../../../../state/hooks/use-resolve';
 
 describe('Element: Lozenge', () => {
   const testId = 'smart-element-lozenge';
@@ -71,5 +74,53 @@ describe('Element: Lozenge', () => {
     const element = await findByTestId(testId);
 
     expect(element).toHaveStyleDeclaration('font-style', 'italic');
+  });
+
+  describe('action', () => {
+    const triggerTestId = `${testId}--trigger`;
+    const action = {
+      read: {
+        action: {
+          actionType: SmartLinkActionType.GetStatusTransitionsAction,
+          resourceIdentifiers: {
+            issueKey: 'issue-id',
+            hostname: 'some-hostname',
+          },
+        },
+        providerKey: 'object-provider',
+      },
+      update: {
+        action: {
+          actionType: SmartLinkActionType.StatusUpdateAction,
+          resourceIdentifiers: {
+            issueKey: 'issue-id',
+            hostname: 'some-hostname',
+          },
+        },
+        providerKey: 'object-provider',
+      },
+    };
+
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
+
+    it('renders with action', async () => {
+      jest.spyOn(useInvoke, 'default').mockReturnValue(jest.fn());
+      jest.spyOn(useResolve, 'default').mockReturnValue(jest.fn());
+
+      const { findByTestId } = render(
+        <Lozenge
+          action={action}
+          appearance={appearance}
+          testId={testId}
+          text={text}
+        />,
+      );
+
+      const element = await findByTestId(triggerTestId);
+
+      expect(element).toBeTruthy();
+    });
   });
 });

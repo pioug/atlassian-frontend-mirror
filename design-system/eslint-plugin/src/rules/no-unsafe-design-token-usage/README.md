@@ -1,41 +1,41 @@
-# @atlaskit/eslint-plugin-design-system/no-unsafe-design-token-usage
-
-Ensures usages of the `token` function are done correctly, that up-to-date token names are being used, and that the resulting `var(--some-token)` statements aren't being used. This ruleset is great for codebases that have already adopted tokens.
+Using design tokens in an unsafe way risks the health of the system and will effect how fast your codebase can migrate between versions.
 
 ## Examples
 
-👎 Example of **incorrect** code for this rule:
+This rule will mark design token usage that is not statically and locally analyzable,
+as well as design tokens that are considered deleted.
+
+## Incorrect
 
 ```js
 const textColor = 'red';
 
-css({
-  color: textColor,
-         ^^^^^^^^^
-});
+css({ color: textColor });
+             ^^^^^^^^^ must be a string literal
 ```
 
 ```js
-css({
-  boxShadow: '0px 1px 1px var(--ds-accent-subtleBlue)',
-                          ^^^^^^^^^^^^^^^^^^^^^^^^^^
-})
+css({ boxShadow: '0px 1px 1px var(--ds-accent-subtleBlue)' });
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^ must use the token() function
 ```
 
-👍 Example of **correct** code for this rule:
+## Correct
 
 ```js
 import { token } from '@atlaskit/tokens';
 
-css({
-  boxShadow: token('elevation.shadow.card'),
-});
-```
-
-```js
-import { token } from '@atlaskit/tokens';
+css({ boxShadow: token('elevation.shadow.card') });
 
 css`
   color: ${(token('color.text.highemphasis'), N20)};
 `;
 ```
+
+## Options
+
+This rule comes with options to aid in migrating to design tokens.
+
+### shouldEnforceFallbacks
+
+When `true` the rule will mark token function usage as violations when fallbacks aren't defined.
+When `false` the rule will mark token function usage as violations when fallbacks are defined.

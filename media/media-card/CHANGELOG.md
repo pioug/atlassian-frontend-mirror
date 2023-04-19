@@ -1,5 +1,13 @@
 # @atlaskit/media-card
 
+## 74.7.3
+
+### Patch Changes
+
+- [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
+- [`0f99ed9df35`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0f99ed9df35) - Updated example
+- Updated dependencies
+
 ## 74.7.2
 
 ### Patch Changes

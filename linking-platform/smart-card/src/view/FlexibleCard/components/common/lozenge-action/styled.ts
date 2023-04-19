@@ -16,7 +16,7 @@ export const triggerButtonStyles = css`
   text-transform: unset;
 
   border: 2px solid transparent;
-  margin: -2px;
+  margin: 2px;
 
   &:focus-visible,
   &:focus-within,

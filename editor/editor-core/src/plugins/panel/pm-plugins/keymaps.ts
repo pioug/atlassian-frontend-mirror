@@ -7,7 +7,11 @@ import {
 } from 'prosemirror-model';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { Selection, Transaction } from 'prosemirror-state';
-import { setTextSelection, findParentNodeOfType } from 'prosemirror-utils';
+import {
+  setTextSelection,
+  findParentNodeOfType,
+  hasParentNodeOfType,
+} from 'prosemirror-utils';
 import { Command } from '../../../types';
 import { isEmptyNode } from '../../../utils';
 
@@ -70,10 +74,11 @@ export function keymapPlugin(): SafePlugin | undefined {
       const isParentNodeAPanel = parentNodeType === panel;
 
       // Stops merging panels when deleting empty paragraph in between
+      // Stops merging blockquotes with panels when deleting from start of blockquote
       if (
         (isPreviousNodeAPanel && !isParentNodeAPanel) ||
         isInsideAnEmptyNode(selection, panel, state.schema) ||
-        isInsideAnEmptyNode(selection, blockquote, state.schema)
+        hasParentNodeOfType(blockquote)(selection)
       ) {
         const content = $from.node($from.depth).content;
         const insertPos = previousPos.pos;

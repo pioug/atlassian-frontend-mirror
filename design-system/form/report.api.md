@@ -279,6 +279,9 @@ export interface RangeFieldProps {
 type RangeProps = Omit<FieldProps<number>, 'isInvalid' | 'isRequired'>;
 
 // @public (undocumented)
+export function RequiredAsterisk(): jsx.JSX.Element;
+
+// @public (undocumented)
 type SupportedElements =
   | HTMLInputElement
   | HTMLSelectElement

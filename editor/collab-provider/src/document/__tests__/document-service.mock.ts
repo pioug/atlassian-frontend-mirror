@@ -1,6 +1,7 @@
 import { ParticipantsService } from '../../participants/participants-service';
 import { DocumentService } from '../document-service';
 import AnalyticsHelper from '../../analytics/analytics-helper';
+import { MetadataService } from '../../metadata/metadata-service';
 
 jest.mock('../../analytics/analytics-helper');
 
@@ -16,16 +17,20 @@ export const createMockService = () => {
   const broadcastMock = jest.fn();
   const getUserIdMock = jest.fn();
   const onErrorHandledMock = jest.fn();
+  const metadataService = new MetadataService(
+    providerEmitCallbackMock,
+    sendMetadataMock,
+  );
   const service = new DocumentService(
     participantsServiceMock,
     // @ts-expect-error - mock class
     new AnalyticsHelper(),
     fetchCatchupMock,
     providerEmitCallbackMock,
-    sendMetadataMock,
     broadcastMock,
     getUserIdMock,
     onErrorHandledMock,
+    metadataService,
   );
 
   // @ts-expect-error - jest mock class

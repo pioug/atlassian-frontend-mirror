@@ -1,5 +1,11 @@
 # @atlaskit/dynamic-table
 
+## 14.8.15
+
+### Patch Changes
+
+- [`e2f0271eaf9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e2f0271eaf9) - This changeset exists because a PR touches these packages in a way that doesn't require a release
+
 ## 14.8.14
 
 ### Patch Changes

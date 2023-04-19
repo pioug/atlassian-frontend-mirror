@@ -1,7 +1,8 @@
 import { ReplaySubject } from 'rxjs/ReplaySubject';
-import { MediaSubscribableItem } from '../models/media-subscribable';
 
-export function createMediaSubject<T extends MediaSubscribableItem>(
+import { FileState } from '../models/file-state';
+
+export function createMediaSubject<T extends FileState>(
   initialState?: T | Error,
 ): ReplaySubject<T> {
   const subject = new ReplaySubject<T>(1);

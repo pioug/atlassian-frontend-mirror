@@ -1,5 +1,43 @@
 # @atlaskit/editor-common
 
+## 72.8.0
+
+### Minor Changes
+
+- [`c2385dcb8f7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c2385dcb8f7) - [ux] ED-17043 Expanded table chart colors from 20 to 36 colors.
+- [`0237059f136`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0237059f136) - Adds utilities to @atlaskit/editor-common/card for assisting adding `LinkMetaStep` to a transaction and reading metadata from a transaction.
+
+  ```ts
+  import { addLinkMetadata } from '@atlaskit/editor-common/card';
+
+  // Adds a LinkMetaStep to a transaction
+  addLinkMetadata(selection, tr, metadata);
+  ```
+
+  ```ts
+  import { getLinkMetadataFromTransaction } from '@atlaskit/editor-common/card';
+
+  // Retrieves and reduces LinkMetaData from a transaction into a single object
+  getLinkMetadataFromTransaction(tr);
+  ```
+
+  ```ts
+  import { commandWithMetadata } from '@atlaskit/editor-common/card';
+
+  // Wraps a command such that if there is a dispatch method will annotate the dispatched transaction with a LinkMetaStep with metadata
+  commandWithMetadata(command, metadata);
+  ```
+
+- [`e88e54a14e3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e88e54a14e3) - [ux] [ux] Added 'allowAlignment' and 'allowWrapping' as options in 'cardOptions' to let Trello to disable the features
+
+### Patch Changes
+
+- [`0df91686d92`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0df91686d92) - [ux] ED-17047 fixed an issue where full width images appears narrower than full paragraph width images
+- [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
+- [`b289da93d3c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b289da93d3c) - [ED-17384] Remove feature flags context plugin
+- [`2cfb05a2cf8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2cfb05a2cf8) - [ux] ED-17278 - Added shortcuts to Editor Help dialog
+- Updated dependencies
+
 ## 72.7.3
 
 ### Patch Changes

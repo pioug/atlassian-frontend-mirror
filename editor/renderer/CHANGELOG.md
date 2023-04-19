@@ -1,5 +1,13 @@
 # @atlaskit/renderer
 
+## 107.3.3
+
+### Patch Changes
+
+- [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
+- [`11fd2f313a3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/11fd2f313a3) - ED-16760 Fixed sticky header transparency issue in renderer when themeing is on.
+- Updated dependencies
+
 ## 107.3.2
 
 ### Patch Changes

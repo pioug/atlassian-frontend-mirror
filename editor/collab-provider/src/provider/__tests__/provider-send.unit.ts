@@ -8,7 +8,7 @@ import { EditorState } from 'prosemirror-state';
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { createSocketIOCollabProvider } from '../../socket-io-provider';
 import type { Provider } from '../';
-import { AcknowledgementResponseTypes, Metadata } from '../../types';
+import { AcknowledgementResponseTypes } from '../../types';
 
 jest.mock('lodash/throttle', () => jest.fn((fn) => fn));
 jest.mock('@atlaskit/prosemirror-collab', () => {
@@ -25,7 +25,6 @@ describe('#sendData', () => {
   let anyEditorState: EditorState;
   let provider: Provider;
   let documentServiceBroadcastSpy: jest.SpyInstance;
-  let documentServiceSendMetaSpy: jest.SpyInstance;
   let fakeAnalyticsWebClient: AnalyticsWebClient;
   const documentAri = 'ari:cloud:confluence:ABC:page/testpage';
 
@@ -49,11 +48,6 @@ describe('#sendData', () => {
       // @ts-ignore
       provider.documentService as any,
       'broadcast',
-    );
-    documentServiceSendMetaSpy = jest.spyOn(
-      // @ts-ignore
-      provider.documentService as any,
-      'broadcastMetadata',
     );
 
     fakeStep = new ReplaceStep(1, 1, Slice.empty);
@@ -497,16 +491,6 @@ describe('#sendData', () => {
 
         expect(documentServiceBroadcastSpy).not.toHaveBeenCalled();
       });
-    });
-  });
-
-  describe('when sendMetadata is called', () => {
-    it('should broadcast metadata', () => {
-      const metadata: Metadata = {
-        title: 'abc',
-      };
-      provider.setMetadata(metadata);
-      expect(documentServiceSendMetaSpy).toHaveBeenCalledWith(metadata);
     });
   });
 });

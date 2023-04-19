@@ -1,38 +1,35 @@
 import { JsonLd } from 'json-ld-types';
-import { CardProviderRenderers } from '@atlaskit/link-provider';
-import { RetryOptions } from './types';
+import { ExtractFlexibleUiDataContextParams, RetryOptions } from './types';
 import { SmartLinkStatus } from '../../constants';
 import { getEmptyJsonLd, getForbiddenJsonLd } from '../../utils/jsonld';
 import { extractRequestAccessContext } from '../../extractors/common/context';
 import { MessageKey, messages } from '../../messages';
 import { FlexibleUiDataContext } from '../../state/flexible-ui-context/types';
-import extractFlexibleLinkContext from '../../extractors/flexible';
+import extractFlexibleUiContext from '../../extractors/flexible';
 import { extractErrorIcon } from '../../extractors/flexible/icon';
 import { handleOnClick } from '../../utils';
 import { extractProvider } from '@atlaskit/linking-common/extractors';
 import extractProviderIcon from '../../extractors/flexible/icon/extract-provider-icon';
 
 export const getContextByStatus = (
-  url: string,
-  status?: SmartLinkStatus,
-  details?: JsonLd.Response,
-  renderers?: CardProviderRenderers,
+  params: ExtractFlexibleUiDataContextParams,
 ): FlexibleUiDataContext | undefined => {
+  const { response, status, url } = params ?? {};
   switch (status) {
     case SmartLinkStatus.Pending:
     case SmartLinkStatus.Resolving:
       return { title: url, url };
     case SmartLinkStatus.Resolved:
-      return extractFlexibleLinkContext(details, renderers);
+      return extractFlexibleUiContext(params);
     case SmartLinkStatus.Unauthorized:
     case SmartLinkStatus.Forbidden:
     case SmartLinkStatus.NotFound:
     case SmartLinkStatus.Errored:
     case SmartLinkStatus.Fallback:
     default:
-      const linkIcon = extractErrorIcon(details, status);
+      const linkIcon = extractErrorIcon(response, status);
       const provider = extractProviderIcon(
-        details?.data as JsonLd.Data.BaseData,
+        response?.data as JsonLd.Data.BaseData,
       );
       return { linkIcon, title: url, url, provider };
   }
@@ -59,16 +56,16 @@ const getForbiddenMessageKey = (meta: JsonLd.Meta.BaseMeta): MessageKey => {
 export const getRetryOptions = (
   url: string,
   status?: SmartLinkStatus,
-  details?: JsonLd.Response,
+  response?: JsonLd.Response,
   onAuthorize?: (() => void) | undefined,
 ): RetryOptions | undefined => {
-  const data = (details && details.data) || getEmptyJsonLd();
+  const data = (response && response.data) || getEmptyJsonLd();
   const provider = extractProvider(data as JsonLd.Data.BaseData);
   const context = provider?.text;
   const values = context ? { context } : undefined;
   switch (status) {
     case SmartLinkStatus.Forbidden:
-      const meta = details?.meta ?? getForbiddenJsonLd().meta;
+      const meta = response?.meta ?? getForbiddenJsonLd().meta;
       const access = extractRequestAccessContext({
         jsonLd: meta,
         url,

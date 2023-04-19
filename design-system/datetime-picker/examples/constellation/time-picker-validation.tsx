@@ -28,7 +28,10 @@ const TimePickerValidationExample = () => (
         >
           {({ fieldProps, error, meta: { valid } }) => (
             <>
-              <TimePicker {...fieldProps} />
+              <TimePicker
+                {...fieldProps}
+                selectProps={{ inputId: fieldProps.id }}
+              />
               {valid && (
                 <ValidMessage>You have entered a valid datetime</ValidMessage>
               )}

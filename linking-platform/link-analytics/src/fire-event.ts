@@ -32,18 +32,23 @@ const fireEvent = (
         ? await resolveAttributes(details, client, store)
         : {};
 
+    const mergedAttributes = mergeAttributes(action, details, sourceEvent, {
+      ...attributes,
+      ...resolvedAttributes,
+    });
+
+    const payload = createEventPayload(
+      `track.link.${action}`,
+      mergedAttributes,
+    );
+
     const event = createAnalyticsEvent({
+      ...payload,
       nonPrivacySafeAttributes: {
         domainName: getDomainFromUrl(details.url),
       },
-      ...createEventPayload(
-        `track.link.${action}`,
-        mergeAttributes(details, sourceEvent, {
-          ...attributes,
-          ...resolvedAttributes,
-        }),
-      ),
     });
+
     event.context.push(PACKAGE_DATA);
     event.fire(ANALYTICS_CHANNEL);
   };

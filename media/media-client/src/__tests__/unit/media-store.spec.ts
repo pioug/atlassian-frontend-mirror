@@ -6,7 +6,6 @@ import {
   MediaUpload,
   MediaChunksProbe,
   MediaFile,
-  MediaCollectionItems,
   MediaStoreGetFileParams,
   ItemsPayload,
   ImageMetadata,
@@ -61,22 +60,6 @@ describe('MediaStore', () => {
   });
 
   describe('given auth provider resolves', () => {
-    const setup = async (headers: any) => {
-      const collectionName = 'some-collection-name';
-      const data: MediaCollectionItems = {
-        nextInclusiveStartKey: '121',
-        contents: [],
-      };
-
-      fetchMock.once(JSON.stringify({ data }), {
-        status: 201,
-        statusText: 'Created',
-        headers,
-      });
-
-      await mediaStore.getItems(['some-id'], collectionName);
-    };
-
     const data: MediaFile = {
       id: 'faee2a3a-f37d-11e4-aae2-3c15c2c70ce6',
       mediaType: 'doc',
@@ -93,7 +76,20 @@ describe('MediaStore', () => {
       mediaStore = new MediaStore({ authProvider });
     });
 
-    describe('fetch media environment', () => {
+    describe('fetch media region & environment', () => {
+      const setup = async (headers: any) => {
+        const collectionName = 'some-collection-name';
+        const data: ItemsPayload[] = [];
+
+        fetchMock.once(JSON.stringify({ data }), {
+          status: 201,
+          statusText: 'Created',
+          headers,
+        });
+
+        await mediaStore.getItems(['some-id'], collectionName);
+      };
+
       it('should give media environment as undefined if not received', async () => {
         await setup({});
 
@@ -109,9 +105,7 @@ describe('MediaStore', () => {
 
         expect(receivedMediaEnv).toEqual('mediaRegion');
       });
-    });
 
-    describe('fetch media region', () => {
       it('should return media region as undefined if not set', () => {
         const receivedMediaRegion = getMediaRegion();
 

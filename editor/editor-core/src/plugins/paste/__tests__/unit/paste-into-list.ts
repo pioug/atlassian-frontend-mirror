@@ -40,7 +40,6 @@ import listPlugin from '../../../list';
 import extensionPlugin from '../../../extension';
 import codeBlockPlugin from '../../../code-block';
 import rulePlugin from '../../../rule';
-import featureFlagsContextPlugin from '../../../feature-flags-context';
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
 import { uuid } from '@atlaskit/adf-schema';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
@@ -1489,10 +1488,9 @@ describe('pasting into an ordered list when restartNumberedLists FF is true', ()
   const createEditor = createProsemirrorEditorFactory();
   const editor = (doc: any) => {
     const preset = new Preset<LightEditorPlugin>()
-      .add([featureFlagsPlugin, {}])
+      .add([featureFlagsPlugin, { restartNumberedLists: true }])
       .add([pastePlugin, {}])
       .add([listPlugin, { restartNumberedLists: true }])
-      .add([featureFlagsContextPlugin, { restartNumberedLists: true }])
       .add(panelPlugin)
       .add(hyperlinkPlugin)
       .add(blockTypePlugin)

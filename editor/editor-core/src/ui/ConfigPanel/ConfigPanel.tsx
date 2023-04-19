@@ -31,6 +31,7 @@ import {
   ACTION_SUBJECT,
   ACTION,
 } from '@atlaskit/editor-common/analytics';
+import { FeatureFlags } from '@atlaskit/editor-common/types';
 
 import LoadingState from './LoadingState';
 import Header from './Header';
@@ -63,6 +64,7 @@ function ConfigForm({
   parameters,
   submitting,
   contextIdentifierProvider,
+  featureFlags,
 }: {
   canSave: boolean;
   errorMessage: string | null;
@@ -76,6 +78,7 @@ function ConfigForm({
   parameters: Parameters;
   submitting: boolean;
   contextIdentifierProvider?: ContextIdentifierProvider | undefined;
+  featureFlags?: FeatureFlags;
 } & WrappedComponentProps) {
   useEffect(() => {
     if (fields) {
@@ -105,6 +108,7 @@ function ConfigForm({
         onFieldChange={onFieldChange}
         firstVisibleFieldName={firstVisibleFieldName}
         contextIdentifierProvider={contextIdentifierProvider}
+        featureFlags={featureFlags}
       />
       <div style={canSave ? {} : { display: 'none' }}>
         <FormFooter align="start">
@@ -184,6 +188,7 @@ type Props = {
   onCancel: () => void;
   errorMessage: string | null;
   isLoading?: boolean;
+  featureFlags?: FeatureFlags;
 } & WithAnalyticsEventsProps;
 
 type State = {
@@ -471,7 +476,7 @@ class ConfigPanel extends React.Component<Props, State> {
   };
 
   render() {
-    const { extensionManifest } = this.props;
+    const { extensionManifest, featureFlags } = this.props;
     if (!extensionManifest) {
       return <LoadingState />;
     }
@@ -525,6 +530,7 @@ class ConfigPanel extends React.Component<Props, State> {
                             contextIdentifierProvider={
                               extension?.contextIdentifierProvider
                             }
+                            featureFlags={featureFlags}
                           />
                         </FormErrorBoundary>
                       )}

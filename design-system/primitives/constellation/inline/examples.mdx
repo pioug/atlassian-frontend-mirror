@@ -1,0 +1,83 @@
+---
+title: Inline
+description: Inline is an abstraction to lay-out a group of elements horizontally.
+order: 0
+---
+
+import InlineBasic from '../../examples/constellation/inline/basic';
+import InlineSpaceBasic from '../../examples/constellation/inline/space-basic';
+import InlineSpaceWrap from '../../examples/constellation/inline/space-wrap';
+import InlineAlignBlock from '../../examples/constellation/inline/align-block';
+import InlineAlignInline from '../../examples/constellation/inline/align-inline';
+import InlineSpread from '../../examples/constellation/inline/spread';
+import InlineWrap from '../../examples/constellation/inline/wrap';
+import InlineSeparator from '../../examples/constellation/inline/separator';
+import InlineGrow from '../../examples/constellation/inline/grow';
+import InlineAs from '../../examples/constellation/inline/as';
+
+## Basic
+
+Inline is an abstraction to efficiently lay-out a group of elements horizontally.  
+Use the given props to configure display behaviour using scalable recommendations of the Atlassian Design System.
+
+<Example Component={InlineBasic} packageName="@atlaskit/primitives/inline" />
+
+## Space
+
+Spacing between items can be controlled with the `space` prop:
+
+<Example Component={InlineSpaceBasic} packageName="@atlaskit/primitives/inline" />
+
+When content is set to wrap the `space` prop applies equal spacing between rows as well:
+
+<Example Component={InlineSpaceWrap} packageName="@atlaskit/primitives/inline" />
+
+For a different space value between rows use the `rowSpace` prop, as shown in the dynamic example above.
+
+## Alignment
+
+To control the alignment of items you can use the `alignBlock` and `alignInline` props which, respectively, control
+aligment in the block and inline directions.
+
+### Block alignment
+
+<Example Component={InlineAlignBlock} packageName="@atlaskit/primitives/inline" />
+
+### Inline alignment
+
+<Example Component={InlineAlignInline} packageName="@atlaskit/primitives/inline" />
+
+## Spread
+
+Elements can be set to stay together next to each other (default behaviour) or spread equally in the space available.
+
+<Example Component={InlineSpread} packageName="@atlaskit/primitives/inline" />
+
+## Wrap
+
+When the number of items goes beyond the available space `shouldWrap` can be used to create new rows of content.
+
+<Example Component={InlineWrap} packageName="@atlaskit/primitives/inline" />
+
+## Separator
+
+For logically related elements it's possible to specify an arbitrary `separator` value.
+
+<Example Component={InlineSeparator} packageName="@atlaskit/primitives/inline" />
+
+## Width control
+
+By default an `Inline` will have its width influenced by the context where it appears.  
+
+To control that the `grow` prop can be used with the values:
+
+* `hug` (default) to use space only as required by its children, or
+* `fill` to take all space provided by the parent element.
+
+<Example Component={InlineGrow} packageName="@atlaskit/primitives/inline" />
+
+## Output element
+
+It's possible to control the rendered HTML element with the `as` prop.
+
+<Example Component={InlineAs} packageName="@atlaskit/primitives/inline" />

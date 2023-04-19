@@ -1,5 +1,16 @@
 # @atlaskit/media-test-helpers
 
+## 32.0.0
+
+### Major Changes
+
+- [`b85816dc2e3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b85816dc2e3) - MEX-2307 Change media-core dependencies in media-test-helpers
+
+### Patch Changes
+
+- [`0f99ed9df35`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0f99ed9df35) - Updated Media Client mock util and Media Database Mock
+- Updated dependencies
+
 ## 31.0.0
 
 ### Major Changes

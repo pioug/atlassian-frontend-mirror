@@ -296,4 +296,29 @@ describe('DateTimePicker', () => {
     expect(button).toHaveProperty('tagName', 'BUTTON');
     expect(button).toHaveAttribute('tabindex', '-1');
   });
+
+  it('should never apply an ID to the hidden input', () => {
+    const id = 'test';
+    const testId = 'testId';
+    const allImplementations = [
+      <DateTimePicker testId={testId} />,
+      <DateTimePicker testId={testId} id={id} />,
+      <DateTimePicker
+        testId={testId}
+        datePickerSelectProps={{ inputId: id }}
+        timePickerSelectProps={{ inputId: id }}
+      />,
+    ];
+
+    allImplementations.forEach((jsx) => {
+      const { getByTestId, unmount } = render(jsx);
+
+      const hiddenInput = getByTestId(`${testId}--input`);
+
+      expect(hiddenInput).toHaveAttribute('type', 'hidden');
+      expect(hiddenInput).not.toHaveAttribute('id');
+
+      unmount();
+    });
+  });
 });

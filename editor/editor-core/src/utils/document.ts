@@ -439,10 +439,13 @@ export const getStepRange = (
   let from = -1;
   let to = -1;
 
-  transaction.steps.forEach((step) => {
-    step.getMap().forEach((_oldStart, _oldEnd, newStart, newEnd) => {
+  transaction.mapping.maps.forEach((stepMap, index) => {
+    stepMap.forEach((oldStart, oldEnd) => {
+      const newStart = transaction.mapping.slice(index).map(oldStart, -1);
+      const newEnd = transaction.mapping.slice(index).map(oldEnd);
+
       from = newStart < from || from === -1 ? newStart : from;
-      to = newEnd < to || to === -1 ? newEnd : to;
+      to = newEnd > to || to === -1 ? newEnd : to;
     });
   });
 

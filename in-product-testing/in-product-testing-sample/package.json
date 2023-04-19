@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/in-product-testing-sample",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
@@ -25,7 +25,7 @@
   },
   "devDependencies": {
     "@atlaskit/docs": "*",
-    "@atlaskit/editor-common": "^72.7.0",
+    "@atlaskit/editor-common": "^72.8.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",

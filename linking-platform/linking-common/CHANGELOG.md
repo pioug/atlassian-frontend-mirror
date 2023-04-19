@@ -1,5 +1,17 @@
 # @atlaskit/linking-common
 
+## 2.5.0
+
+### Minor Changes
+
+- [`bcc645691c5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bcc645691c5) - Add lozenge action feature flag and extract server action for state lozenge from JSON-LD response
+
+## 2.4.2
+
+### Patch Changes
+
+- [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
+
 ## 2.4.1
 
 ### Patch Changes

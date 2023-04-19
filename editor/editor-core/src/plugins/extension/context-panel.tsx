@@ -1,6 +1,7 @@
 import React from 'react';
 import { EditorState } from 'prosemirror-state';
 import { getExtensionKeyAndNodeKey } from '@atlaskit/editor-common/extensions';
+import { FeatureFlags } from '@atlaskit/editor-common/types';
 import { getPluginState } from './pm-plugins/main';
 import { getSelectedExtension } from './utils';
 import WithEditorActions from '../../ui/WithEditorActions';
@@ -35,7 +36,8 @@ const areParametersEqual = (
 };
 
 export const getContextPanel =
-  (allowAutoSave?: boolean) => (state: EditorState) => {
+  (allowAutoSave?: boolean, featureFlags?: FeatureFlags) =>
+  (state: EditorState) => {
     const nodeWithPos = getSelectedExtension(state, true);
 
     // Adding checks to bail out early
@@ -136,6 +138,7 @@ export const getContextPanel =
                           editorView.dispatch,
                         );
                       }}
+                      featureFlags={featureFlags}
                     />
                   );
                 }}

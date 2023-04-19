@@ -15,8 +15,6 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
-/// <reference types="lodash" />
-
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import type { CollabEventConnectingData } from '@atlaskit/editor-common/collab';
 import type { CollabEventConnectionData } from '@atlaskit/editor-common/collab';
@@ -25,6 +23,7 @@ import type { CollabEventPresenceData } from '@atlaskit/editor-common/collab';
 import type { CollabEventRemoteData } from '@atlaskit/editor-common/collab';
 import type { CollabParticipant } from '@atlaskit/editor-common/collab';
 import type { EditorState } from 'prosemirror-state';
+import { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import type { Manager } from 'socket.io-client';
 import type { ResolvedEditorState } from '@atlaskit/editor-common/collab';
 import type { Step } from 'prosemirror-transform';
@@ -194,6 +193,8 @@ interface Config {
     }
   >;
   // (undocumented)
+  initialDraft?: InitialDraft;
+  // (undocumented)
   lifecycle?: Lifecycle;
   // (undocumented)
   need404?: boolean;
@@ -266,6 +267,16 @@ interface InitAndAuthData {
   need404?: boolean;
   // (undocumented)
   token?: string;
+}
+
+// @public (undocumented)
+interface InitialDraft {
+  // (undocumented)
+  document: JSONDocNode;
+  // (undocumented)
+  metadata?: Metadata_2;
+  // (undocumented)
+  version: number;
 }
 
 // @public
@@ -375,6 +386,8 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
   disconnect(): this;
   getCurrentState: () => Promise<ResolvedEditorState>;
   getFinalAcknowledgedState: () => Promise<ResolvedEditorState>;
+  // (undocumented)
+  getUnconfirmedSteps: () => readonly Step[] | undefined;
   // @deprecated
   initialize(getState: () => EditorState): this;
   send(

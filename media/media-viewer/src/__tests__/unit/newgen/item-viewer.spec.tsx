@@ -55,7 +55,7 @@ const externalImageIdentifier: Identifier = {
   name: 'some-name',
 };
 
-const makeFakeMediaClient = (observable: MediaSubscribable<any>) => {
+const makeFakeMediaClient = (observable: MediaSubscribable) => {
   const mediaClient = fakeMediaClient();
 
   asMock(mediaClient.file.getFileState).mockReturnValue(observable);

@@ -8,42 +8,52 @@ describe('getContextByStatus', () => {
   const url = 'some-url';
 
   it('return context for Pending status', () => {
-    const context = getContextByStatus(url, SmartLinkStatus.Pending);
+    const context = getContextByStatus({
+      url,
+      status: SmartLinkStatus.Pending,
+    });
 
     expect(context).toEqual({ title: url, url });
   });
 
   it('return context for Resolving status', () => {
-    const context = getContextByStatus(url, SmartLinkStatus.Resolving);
+    const context = getContextByStatus({
+      url,
+      status: SmartLinkStatus.Resolving,
+    });
 
     expect(context).toEqual({ title: url, url });
   });
 
   it('return context for Resolved status', () => {
-    const context = getContextByStatus(url, SmartLinkStatus.Resolved, {
-      meta: {
-        auth: [],
-        definitionId: 'confluence-object-provider',
-        visibility: 'restricted',
-        access: 'granted',
-        resourceType: 'page',
-        key: 'confluence-object-provider',
-      },
-      data: {
-        '@context': {
-          '@vocab': 'https://www.w3.org/ns/activitystreams#',
-          atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
-          schema: 'http://schema.org/',
+    const context = getContextByStatus({
+      url,
+      status: SmartLinkStatus.Resolved,
+      response: {
+        meta: {
+          auth: [],
+          definitionId: 'confluence-object-provider',
+          visibility: 'restricted',
+          access: 'granted',
+          resourceType: 'page',
+          key: 'confluence-object-provider',
         },
-        generator: {
-          '@type': 'Application',
-          '@id': 'https://www.atlassian.com/#Confluence',
-          name: 'Confluence',
+        data: {
+          '@context': {
+            '@vocab': 'https://www.w3.org/ns/activitystreams#',
+            atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+            schema: 'http://schema.org/',
+          },
+          generator: {
+            '@type': 'Application',
+            '@id': 'https://www.atlassian.com/#Confluence',
+            name: 'Confluence',
+          },
+          '@type': ['Document', 'schema:TextDigitalDocument'],
+          url: 'https://confluence-url/wiki/spaces/space-id/pages/page-id',
+          name: 'Everything you need to know about ShipIt53!',
+          summary: 'ShipIt 53 is on 9 Dec 2021 and 10 Dec 2021!',
         },
-        '@type': ['Document', 'schema:TextDigitalDocument'],
-        url: 'https://confluence-url/wiki/spaces/space-id/pages/page-id',
-        name: 'Everything you need to know about ShipIt53!',
-        summary: 'ShipIt 53 is on 9 Dec 2021 and 10 Dec 2021!',
       },
     });
 
@@ -63,7 +73,10 @@ describe('getContextByStatus', () => {
   });
 
   it('return context for Unauthorized status', () => {
-    const context = getContextByStatus(url, SmartLinkStatus.Unauthorized);
+    const context = getContextByStatus({
+      url,
+      status: SmartLinkStatus.Unauthorized,
+    });
 
     expect(context).toEqual({
       linkIcon: { icon: IconType.Forbidden },
@@ -73,7 +86,10 @@ describe('getContextByStatus', () => {
   });
 
   it('return context for Forbidden status', () => {
-    const context = getContextByStatus(url, SmartLinkStatus.Forbidden);
+    const context = getContextByStatus({
+      url,
+      status: SmartLinkStatus.Forbidden,
+    });
 
     expect(context).toEqual({
       linkIcon: { icon: IconType.Forbidden },
@@ -83,7 +99,10 @@ describe('getContextByStatus', () => {
   });
 
   it('return context for NotFound status', () => {
-    const context = getContextByStatus(url, SmartLinkStatus.NotFound);
+    const context = getContextByStatus({
+      url,
+      status: SmartLinkStatus.NotFound,
+    });
 
     expect(context).toEqual({
       linkIcon: { icon: IconType.Error },
@@ -93,7 +112,10 @@ describe('getContextByStatus', () => {
   });
 
   it('return context for Errored status', () => {
-    const context = getContextByStatus(url, SmartLinkStatus.Errored);
+    const context = getContextByStatus({
+      url,
+      status: SmartLinkStatus.Errored,
+    });
 
     expect(context).toEqual({
       linkIcon: { icon: IconType.Default },
@@ -103,7 +125,10 @@ describe('getContextByStatus', () => {
   });
 
   it('return context for Fallback status', () => {
-    const context = getContextByStatus(url, SmartLinkStatus.Fallback);
+    const context = getContextByStatus({
+      url,
+      status: SmartLinkStatus.Fallback,
+    });
 
     expect(context).toEqual({
       linkIcon: { icon: IconType.Default },

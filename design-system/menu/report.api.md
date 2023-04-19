@@ -18,6 +18,7 @@
 /// <reference types="react" />
 
 import { ComponentType } from 'react';
+import { Context } from 'react';
 import { CSSObject } from '@emotion/react';
 import { ForwardRefExoticComponent } from 'react';
 import { jsx } from '@emotion/react';
@@ -146,6 +147,7 @@ export const MenuGroup: ({
   maxHeight,
   testId,
   role,
+  spacing,
   ...rest
 }: MenuGroupProps) => jsx.JSX.Element;
 
@@ -154,6 +156,7 @@ export interface MenuGroupProps extends MenuGroupSizing {
   children: React.ReactNode;
   onClick?: (event: React.KeyboardEvent | React.MouseEvent) => void;
   role?: string;
+  spacing?: SpacingMode;
   testId?: string;
 }
 
@@ -243,6 +246,12 @@ export interface SkeletonItemProps {
   testId?: string;
   width?: Dimension;
 }
+
+// @internal
+export const SpacingContext: Context<SpacingMode>;
+
+// @public (undocumented)
+type SpacingMode = 'compact' | 'cozy';
 
 // @public @deprecated (undocumented)
 export type StatelessCSSFn = CSSFn<void>;

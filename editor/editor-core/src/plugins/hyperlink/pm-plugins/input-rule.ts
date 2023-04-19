@@ -1,6 +1,7 @@
 import { Match } from '@atlaskit/adf-schema';
 import { InputRuleWrapper } from '@atlaskit/prosemirror-input-rules';
 import { Schema } from 'prosemirror-model';
+import { addLinkMetadata } from '@atlaskit/editor-common/card';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { EditorState } from 'prosemirror-state';
 import { createRule, createPlugin } from '../../../utils/input-rules';
@@ -54,6 +55,10 @@ export function createLinkInputRule(
       if (to === end) {
         tr.insertText(' ');
       }
+
+      addLinkMetadata(state.selection, tr, {
+        inputMethod: INPUT_METHOD.AUTO_DETECT,
+      });
 
       if (skipAnalytics) {
         return tr;

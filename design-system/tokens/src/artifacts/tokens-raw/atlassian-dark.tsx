@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7035fda6ff81573ba2ff4efedfc8d89c>>
+ * @codegen <<SignedSource::84c07c984048a8e983012138da0a45d4>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -531,7 +531,7 @@ const tokens = [
       "introduced": "0.10.5",
       "description": "Use for text and icons on gray subtle accent backgrounds."
     },
-    "value": "#C7D1DB",
+    "value": "#DEE4EA",
     "filePath": "src/tokens/atlassian-dark/color/accent.tsx",
     "isSource": true,
     "original": {
@@ -541,7 +541,7 @@ const tokens = [
         "introduced": "0.10.5",
         "description": "Use for text and icons on gray subtle accent backgrounds."
       },
-      "value": "DarkNeutral1000"
+      "value": "DarkNeutral1100"
     },
     "name": "color.text.accent.gray.bolder",
     "path": [

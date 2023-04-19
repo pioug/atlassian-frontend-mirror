@@ -37,7 +37,11 @@ function token<T extends keyof Tokens>(
   let token: Tokens[keyof Tokens] | typeof TOKEN_NOT_FOUND_CSS_VAR =
     tokens[path];
 
-  if (process.env.NODE_ENV !== 'production' && !token) {
+  if (
+    typeof process !== 'undefined' &&
+    process.env.NODE_ENV !== 'production' &&
+    !token
+  ) {
     warnOnce(`Unknown token id at path: ${path} for ${name}@${version}`);
   }
 

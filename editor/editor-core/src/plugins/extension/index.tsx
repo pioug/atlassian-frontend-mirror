@@ -4,6 +4,7 @@ import {
   inlineExtension,
 } from '@atlaskit/adf-schema';
 import { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
+import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { NextEditorPlugin, EditorAppearance } from '../../types';
 import { LongPressSelectionPluginOptions } from '../selection/types';
 import { createPlugin } from './pm-plugins/main';
@@ -23,67 +24,73 @@ const extensionPlugin: NextEditorPlugin<
   'extension',
   {
     pluginConfiguration: ExtensionPluginOptions | undefined;
+    dependencies: [typeof featureFlagsPlugin];
   }
-> = (options = {}) => ({
-  name: 'extension',
+> = (options = {}, api) => {
+  const featureFlags =
+    api?.dependencies?.featureFlags?.sharedState.currentState() || {};
 
-  nodes() {
-    return [
-      {
-        name: 'extension',
-        node: extension,
-      },
-      {
-        name: 'bodiedExtension',
-        node: bodiedExtension,
-      },
-      {
-        name: 'inlineExtension',
-        node: inlineExtension,
-      },
-    ];
-  },
+  return {
+    name: 'extension',
 
-  pmPlugins() {
-    return [
-      {
-        name: 'extension',
-        plugin: ({
-          dispatch,
-          providerFactory,
-          portalProviderAPI,
-          eventDispatcher,
-        }) => {
-          const extensionHandlers = options.extensionHandlers || {};
+    nodes() {
+      return [
+        {
+          name: 'extension',
+          node: extension,
+        },
+        {
+          name: 'bodiedExtension',
+          node: bodiedExtension,
+        },
+        {
+          name: 'inlineExtension',
+          node: inlineExtension,
+        },
+      ];
+    },
 
-          return createPlugin(
+    pmPlugins() {
+      return [
+        {
+          name: 'extension',
+          plugin: ({
             dispatch,
             providerFactory,
-            extensionHandlers,
             portalProviderAPI,
             eventDispatcher,
-            options.useLongPressSelection,
-            {
-              appearance: options.appearance,
-            },
-          );
-        },
-      },
-      {
-        name: 'extensionKeymap',
-        plugin: keymapPlugin,
-      },
-      {
-        name: 'extensionUniqueId',
-        plugin: () => createUniqueIdPlugin(),
-      },
-    ];
-  },
+          }) => {
+            const extensionHandlers = options.extensionHandlers || {};
 
-  pluginsOptions: {
-    floatingToolbar: getToolbarConfig(options.breakoutEnabled),
-    contextPanel: getContextPanel(options.allowAutoSave),
-  },
-});
+            return createPlugin(
+              dispatch,
+              providerFactory,
+              extensionHandlers,
+              portalProviderAPI,
+              eventDispatcher,
+              options.useLongPressSelection,
+              {
+                appearance: options.appearance,
+              },
+            );
+          },
+        },
+        {
+          name: 'extensionKeymap',
+          plugin: keymapPlugin,
+        },
+        {
+          name: 'extensionUniqueId',
+          plugin: () => createUniqueIdPlugin(),
+        },
+      ];
+    },
+
+    pluginsOptions: {
+      floatingToolbar: getToolbarConfig(options.breakoutEnabled),
+      contextPanel: getContextPanel(options.allowAutoSave, featureFlags),
+    },
+  };
+};
 
 export default extensionPlugin;

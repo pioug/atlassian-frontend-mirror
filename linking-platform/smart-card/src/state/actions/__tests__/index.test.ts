@@ -4,6 +4,7 @@ import { useSmartCardActions } from '..';
 import { mocks } from '../../../utils/mocks';
 import { APIError, APIErrorKind } from '@atlaskit/linking-common';
 import { useSmartLinkContext, CardContext } from '@atlaskit/link-provider';
+import { renderHook } from '@testing-library/react-hooks';
 import { CardState } from '../../types';
 import { JsonLd } from 'json-ld-types';
 import { useSmartLinkAnalytics } from '../../../state';
@@ -52,9 +53,11 @@ describe('Smart Card: Actions', () => {
   describe('register()', () => {
     it('dispatches pending action if card not in store', async () => {
       mockFetchData(Promise.resolve(mocks.success));
-      const analytics = useSmartLinkAnalytics(url, dispatchAnalytics, id);
-      const actions = useSmartCardActions(id, url, analytics);
-      await actions.register();
+      const { result } = renderHook(() => {
+        const analytics = useSmartLinkAnalytics(url, dispatchAnalytics, id);
+        return useSmartCardActions(id, url, analytics);
+      });
+      await result.current.register();
 
       expect(mockContext.connections.client.fetchData).toBeCalledWith(
         url,
@@ -72,9 +75,11 @@ describe('Smart Card: Actions', () => {
         details: undefined,
       });
 
-      const analytics = useSmartLinkAnalytics(url, dispatchAnalytics, id);
-      const actions = useSmartCardActions(id, url, analytics);
-      const promise = actions.register();
+      const { result } = renderHook(() => {
+        const analytics = useSmartLinkAnalytics(url, dispatchAnalytics, id);
+        return useSmartCardActions(id, url, analytics);
+      });
+      const promise = result.current.register();
       await expect(promise).rejects.toThrow(Error);
       await expect(promise).rejects.toHaveProperty('kind', 'fatal');
 
@@ -104,9 +109,11 @@ describe('Smart Card: Actions', () => {
         details: undefined,
       });
 
-      const analytics = useSmartLinkAnalytics(url, dispatchAnalytics, id);
-      const actions = useSmartCardActions(id, url, analytics);
-      await actions.register();
+      const { result } = renderHook(() => {
+        const analytics = useSmartLinkAnalytics(url, dispatchAnalytics, id);
+        return useSmartCardActions(id, url, analytics);
+      });
+      await result.current.register();
 
       expect(mockContext.store.dispatch).toHaveBeenCalledTimes(4);
       expect(mockContext.store.dispatch).toHaveBeenCalledWith(
@@ -125,10 +132,12 @@ describe('Smart Card: Actions', () => {
         details: mocks.success,
       });
 
-      const analytics = useSmartLinkAnalytics(url, dispatchAnalytics, id);
-      const actions = useSmartCardActions(id, url, analytics);
+      const { result } = renderHook(() => {
+        const analytics = useSmartLinkAnalytics(url, dispatchAnalytics, id);
+        return useSmartCardActions(id, url, analytics);
+      });
 
-      actions.reload();
+      result.current.reload();
       await deferrable.promise;
       await deferrable.flush();
 
@@ -145,10 +154,13 @@ describe('Smart Card: Actions', () => {
         details: mocks.success,
       });
 
-      const analytics = useSmartLinkAnalytics(url, dispatchAnalytics, id);
-      const actions = useSmartCardActions(id, url, analytics);
+      const { result } = renderHook(() => {
+        const analytics = useSmartLinkAnalytics(url, dispatchAnalytics, id);
+        return useSmartCardActions(id, url, analytics);
+      });
 
-      actions.reload();
+      result.current.reload();
+
       await deferrable.promise;
       await deferrable.flush();
 
@@ -174,9 +186,11 @@ describe('Smart Card: Actions', () => {
         details: undefined,
       });
 
-      const analytics = useSmartLinkAnalytics(url, dispatchAnalytics, id);
-      const actions = useSmartCardActions(id, url, analytics);
-      const promise = actions.register();
+      const { result } = renderHook(() => {
+        const analytics = useSmartLinkAnalytics(url, dispatchAnalytics, id);
+        return useSmartCardActions(id, url, analytics);
+      });
+      const promise = result.current.register();
       await expect(promise).resolves.toBeUndefined();
 
       expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
@@ -220,9 +234,12 @@ describe('Smart Card: Actions', () => {
         details: undefined,
       });
 
-      const analytics = useSmartLinkAnalytics(url, dispatchAnalytics, id);
-      const actions = useSmartCardActions(id, url, analytics);
-      const promise = actions.register();
+      const { result } = renderHook(() => {
+        const analytics = useSmartLinkAnalytics(url, dispatchAnalytics, id);
+        return useSmartCardActions(id, url, analytics);
+      });
+
+      const promise = result.current.register();
       await expect(promise).resolves.toBeUndefined();
 
       expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
@@ -256,9 +273,12 @@ describe('Smart Card: Actions', () => {
         details: undefined,
       });
 
-      const analytics = useSmartLinkAnalytics(url, dispatchAnalytics, id);
-      const actions = useSmartCardActions(id, url, analytics);
-      const promise = actions.register();
+      const { result } = renderHook(() => {
+        const analytics = useSmartLinkAnalytics(url, dispatchAnalytics, id);
+        return useSmartCardActions(id, url, analytics);
+      });
+
+      const promise = result.current.register();
       await expect(promise).resolves.toBeUndefined();
 
       expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
@@ -285,9 +305,12 @@ describe('Smart Card: Actions', () => {
         details: undefined,
       });
 
-      const analytics = useSmartLinkAnalytics(url, dispatchAnalytics, id);
-      const actions = useSmartCardActions(id, url, analytics);
-      const promise = actions.register();
+      const { result } = renderHook(() => {
+        const analytics = useSmartLinkAnalytics(url, dispatchAnalytics, id);
+        return useSmartCardActions(id, url, analytics);
+      });
+
+      const promise = result.current.register();
       expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
         url,
         false,
@@ -319,10 +342,12 @@ describe('Smart Card: Actions', () => {
     it('dispatches resolved metadata state for a success response', async () => {
       mockFetchData(Promise.resolve(mocks.success));
 
-      const analytics = useSmartLinkAnalytics(url, dispatchAnalytics, id);
-      const actions = useSmartCardActions(id, url, analytics);
+      const { result } = renderHook(() => {
+        const analytics = useSmartLinkAnalytics(url, dispatchAnalytics, id);
+        return useSmartCardActions(id, url, analytics);
+      });
 
-      const promise = actions.loadMetadata();
+      const promise = result.current.loadMetadata();
       await expect(promise).resolves.toBeUndefined();
 
       expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
@@ -361,9 +386,12 @@ describe('Smart Card: Actions', () => {
         const mockError = new APIError(errorKind, url, 'error-message');
         mockFetchData(Promise.reject(mockError));
 
-        const analytics = useSmartLinkAnalytics(url, dispatchAnalytics, id);
-        const actions = useSmartCardActions(id, url, analytics);
-        const promise = actions.loadMetadata();
+        const { result } = renderHook(() => {
+          const analytics = useSmartLinkAnalytics(url, dispatchAnalytics, id);
+          return useSmartCardActions(id, url, analytics);
+        });
+
+        const promise = result.current.loadMetadata();
 
         await expect(promise).resolves.toBeUndefined();
         expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
@@ -398,9 +426,12 @@ describe('Smart Card: Actions', () => {
       async (name, responseKind) => {
         mockFetchData(Promise.resolve(responseKind));
 
-        const analytics = useSmartLinkAnalytics(url, dispatchAnalytics, id);
-        const actions = useSmartCardActions(id, url, analytics);
-        const promise = actions.loadMetadata();
+        const { result } = renderHook(() => {
+          const analytics = useSmartLinkAnalytics(url, dispatchAnalytics, id);
+          return useSmartCardActions(id, url, analytics);
+        });
+
+        const promise = result.current.loadMetadata();
 
         await expect(promise).resolves.toBeUndefined();
         expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
@@ -428,9 +459,12 @@ describe('Smart Card: Actions', () => {
     it('dispatches error metadata status if response is undefined', async () => {
       mockFetchData(Promise.resolve(undefined));
 
-      const analytics = useSmartLinkAnalytics(url, dispatchAnalytics, id);
-      const actions = useSmartCardActions(id, url, analytics);
-      const promise = actions.loadMetadata();
+      const { result } = renderHook(() => {
+        const analytics = useSmartLinkAnalytics(url, dispatchAnalytics, id);
+        return useSmartCardActions(id, url, analytics);
+      });
+
+      const promise = result.current.loadMetadata();
 
       await expect(promise).resolves.toBeUndefined();
       expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(

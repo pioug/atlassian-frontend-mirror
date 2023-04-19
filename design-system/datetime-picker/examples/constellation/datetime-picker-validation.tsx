@@ -30,7 +30,11 @@ const DateTimePickerFormExample = () => (
         >
           {({ fieldProps, error, meta: { valid } }) => (
             <>
-              <DateTimePicker {...fieldProps} />
+              <DateTimePicker
+                {...fieldProps}
+                datePickerSelectProps={{ inputId: fieldProps.id }}
+                timePickerSelectProps={{ inputId: fieldProps.id }}
+              />
               {valid && (
                 <ValidMessage>You have entered a valid datetime</ValidMessage>
               )}

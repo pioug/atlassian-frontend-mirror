@@ -32,6 +32,7 @@ import trackEditorActions from './editor-next/utils/trackEditorActions';
 import onEditorCreated from './editor-next/utils/onEditorCreated';
 import deprecationWarnings from './editor-next/utils/deprecationWarnings';
 
+import { createFeatureFlagsFromProps } from './create-editor/feature-flags-from-props';
 import { EventDispatcher } from './event-dispatcher';
 import {
   FireAnalyticsCallback,
@@ -393,8 +394,13 @@ export default class Editor extends React.Component<
       editorView,
       eventDispatcher,
       contentTransformer,
+      this.getFeatureFlags,
     );
   }
+
+  private getFeatureFlags = () => {
+    return createFeatureFlagsFromProps(this.props);
+  };
 
   /**
    * @private

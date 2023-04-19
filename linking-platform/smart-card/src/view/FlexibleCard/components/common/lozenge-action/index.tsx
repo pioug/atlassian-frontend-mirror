@@ -1,9 +1,9 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import { useCallback, useMemo, useState } from 'react';
-import DropdownMenu, { DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import type { FC } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import type { CustomTriggerProps } from '@atlaskit/dropdown-menu';
+import DropdownMenu, { DropdownItemGroup } from '@atlaskit/dropdown-menu';
 
 import LozengeActionItem from './lozenge-action-item';
 import LozengeActionTrigger from './lozenge-action-trigger';
@@ -50,7 +50,10 @@ const LozengeAction: FC<LozengeActionProps> = ({
             action.read,
             extractLozengeActionItems,
           );
-          const validItems = validateItems(responseItems, text);
+          const validItems =
+            typeof text === 'string'
+              ? validateItems(responseItems, text)
+              : responseItems;
 
           setItems(validItems);
           setIsLoaded(true);

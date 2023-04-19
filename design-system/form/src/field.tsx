@@ -16,27 +16,16 @@ import { FieldState } from 'final-form';
 import { uid } from 'react-uid';
 import invariant from 'tiny-invariant';
 
-import { R400 } from '@atlaskit/theme/colors';
-import {
-  fontFamily as getFontFamily,
-  gridSize as getGridSize,
-} from '@atlaskit/theme/constants';
-import { token } from '@atlaskit/tokens';
+import { gridSize as getGridSize } from '@atlaskit/theme/constants';
 
 import { FormContext, IsDisabledContext } from './form';
 import Label from './label';
+import RequiredAsterisk from './required-asterisk';
 
 const gridSize = getGridSize();
-const fontFamily = getFontFamily();
 
 const fieldWrapperStyles = css({
   marginTop: gridSize,
-});
-
-const requiredIndicatorStyles = css({
-  paddingLeft: `${gridSize / 4}px`,
-  color: token('color.text.danger', R400),
-  fontFamily,
 });
 
 function isEvent(event: any): event is FormEvent<SupportedElements> {
@@ -263,7 +252,11 @@ export default function Field<
   const latestStateRef = usePreviousRef(state);
 
   useEffect(() => {
-    if (process.env.NODE_ENV !== 'production' && !process.env.CI) {
+    if (
+      typeof process !== 'undefined' &&
+      process.env.NODE_ENV !== 'production' &&
+      !process.env.CI
+    ) {
       invariant(
         latestPropsRef.current.name,
         '@atlaskit/form: Field components have a required name prop',
@@ -455,11 +448,7 @@ export default function Field<
       {props.label && (
         <Label htmlFor={fieldId} id={`${fieldId}-label`}>
           {props.label}
-          {props.isRequired && (
-            <span css={requiredIndicatorStyles} aria-hidden="true">
-              *
-            </span>
-          )}
+          {props.isRequired && <RequiredAsterisk />}
           {props.elementAfterLabel}
         </Label>
       )}

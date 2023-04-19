@@ -1,5 +1,11 @@
 # @atlaskit/field-base
 
+## 15.0.7
+
+### Patch Changes
+
+- [`e0460d5d989`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e0460d5d989) - Usages of `process` are now guarded by a `typeof` check.
+
 ## 15.0.6
 
 ### Patch Changes

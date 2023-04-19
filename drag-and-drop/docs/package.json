@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/drag-and-drop-docs",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "This package holds the documentation for all @atlaskit/drag-and-drop-* packages in one place. It is not intended to be consumed in production applications",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

@@ -24,6 +24,8 @@ import TokenDangerExample from '../../examples/constellation/token-card-danger';
 import TokenDiscoveryExample from '../../examples/constellation/token-card-discovery';
 import TokenSelectedExample from '../../examples/constellation/token-card-selected';
 
+import TokensNegativeSpaceExample from '../../examples/constellation/token-negative-space';
+
 <SectionMessage title="Design tokens are in beta." appearance="discovery">
   <p>
     Expect some changes as we iterate over the coming months.
@@ -107,3 +109,15 @@ There are four available elevations: default, raised, overlay and sunken.
 Raised and overlay elevations require a combination of a surface color, and a matching shadow.
 
 <TokenElevationExample/>
+
+## Spacing examples
+
+### Negative values
+Occasionally you may need a negative space value, for example a negative margin breaking content out of its container.
+In this situation, use the CSS `calc` function to multiply a space token by `-1`.
+
+**Note:**
+Avoid performing any other calculations on space tokens, such as adding, subtracting, or dividing.
+Avoid multiplying space tokens by values other than `-1`. The new [spacing scale](/components/tokens/all-tokens) provides a range of space values to suit many use cases.
+
+<TokensNegativeSpaceExample/>

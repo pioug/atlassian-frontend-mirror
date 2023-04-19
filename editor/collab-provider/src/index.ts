@@ -14,4 +14,5 @@ export type {
   CollabEditProvider,
   Socket,
 } from './types';
-export type { PROVIDER_ERROR_CODE, ProviderError } from './errors/error-types';
+export type { ProviderError } from './errors/error-types';
+export { PROVIDER_ERROR_CODE } from './errors/error-types';

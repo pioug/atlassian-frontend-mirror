@@ -25,6 +25,7 @@ import { Context, defaultProps, propTypes } from './utils/editorPropTypes';
 import trackEditorActions from './utils/trackEditorActions';
 import onEditorCreated from './utils/onEditorCreated';
 import deprecationWarnings from './utils/deprecationWarnings';
+import { createFeatureFlagsFromProps } from '../create-editor/feature-flags-from-props';
 import { basePlugin } from '../plugins';
 
 export default class EditorNext extends React.Component<EditorNextProps> {
@@ -113,8 +114,13 @@ export default class EditorNext extends React.Component<EditorNextProps> {
       editorView,
       eventDispatcher,
       contentTransformer,
+      this.getFeatureFlags,
     );
   }
+
+  private getFeatureFlags = () => {
+    return createFeatureFlagsFromProps(this.props);
+  };
 
   private unregisterEditorFromActions() {
     this.editorActions._privateUnregisterEditor();

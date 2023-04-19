@@ -5,17 +5,18 @@ import {
   ChannelEvent,
   CollabEvents,
   CollabInitPayload,
-  Metadata,
   StepJson,
   StepsPayload,
 } from '../types';
 import type { Step as ProseMirrorStep } from 'prosemirror-transform';
+import type { MetadataService } from '../metadata/metadata-service';
 
 import { getVersion, sendableSteps } from '@atlaskit/prosemirror-collab';
 import { SyncUpErrorFunction } from '@atlaskit/editor-common/types';
 import type { EditorState, Transaction } from 'prosemirror-state';
 import { createLogger, sleep } from '../helpers/utils';
 import throttle from 'lodash/throttle';
+import { throttledCommitStep } from '../provider/commit-step';
 import { ResolvedEditorState } from '@atlaskit/editor-common/collab';
 import {
   MEASURE_NAME,
@@ -23,10 +24,9 @@ import {
   stopMeasure,
 } from '../analytics/performance';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
-import { MAX_STEP_REJECTED_ERROR, throttledCommitStep } from '../provider';
+import { MAX_STEP_REJECTED_ERROR } from '../provider';
 import { catchup } from './catchup';
 import { ParticipantsService } from '../participants/participants-service';
-import isEqual from 'lodash/isEqual';
 import { StepQueueState } from './step-queue-state';
 import type { InternalError } from '../errors/error-types';
 
@@ -44,7 +44,6 @@ export class DocumentService {
   private onSyncUpError?: SyncUpErrorFunction;
   private stepQueue: StepQueueState;
   private stepRejectCounter: number = 0;
-  private metadata: Metadata = {};
 
   // ClientID is the unique ID for a prosemirror client. Used for step-rebasing.
   private clientId?: number | string;
@@ -66,7 +65,6 @@ export class DocumentService {
     private analyticsHelper: AnalyticsHelper | undefined,
     private fetchCatchup: (fromVersion: number) => Promise<CatchupResponse>,
     private providerEmitCallback: (evt: keyof CollabEvents, data: any) => void,
-    private broadcastMetadata: (metadata: Metadata) => void,
     private broadcast: <K extends keyof ChannelEvent>(
       type: K,
       data: Omit<ChannelEvent[K], 'timestamp'>,
@@ -74,43 +72,9 @@ export class DocumentService {
     ) => void,
     private getUserId: () => string | undefined,
     private onErrorHandled: (error: InternalError) => void,
+    private metadataService: MetadataService,
   ) {
     this.stepQueue = new StepQueueState();
-  }
-
-  /**
-   * Called when a metadata is changed externally from other clients/backend.
-   */
-  onMetadataChanged = (metadata: Metadata) => {
-    if (metadata !== undefined && !isEqual(this.metadata, metadata)) {
-      this.metadata = metadata;
-      this.providerEmitCallback('metadata:changed', metadata);
-    }
-  };
-
-  getMetaData = () => this.metadata;
-
-  setTitle(title: string, broadcast?: boolean) {
-    if (broadcast) {
-      this.broadcastMetadata({ title });
-    }
-    Object.assign(this.metadata, { title });
-  }
-
-  setEditorWidth(editorWidth: string, broadcast?: boolean) {
-    if (broadcast) {
-      this.broadcastMetadata({ editorWidth });
-    }
-    Object.assign(this.metadata, { editorWidth });
-  }
-
-  /**
-   * Updates the local metadata and broadcasts the metadata to other clients/backend.
-   * @param metadata
-   */
-  setMetadata(metadata: Metadata) {
-    this.broadcastMetadata(metadata);
-    Object.assign(this.metadata, metadata);
   }
 
   /**
@@ -140,8 +104,9 @@ export class DocumentService {
         fetchCatchup: this.fetchCatchup,
         getUnconfirmedSteps: this.getUnconfirmedSteps,
         filterQueue: this.stepQueue.filterQueue,
-        updateDocumentWithMetadata: this.updateDocumentWithMetadata,
         applyLocalSteps: this.applyLocalSteps,
+        updateDocument: this.updateDocument,
+        updateMetadata: this.metadataService.updateMetadata,
       });
       const latency = new Date().getTime() - start;
       this.analyticsHelper?.sendActionEvent(
@@ -213,7 +178,7 @@ export class DocumentService {
 
       const currentState = {
         content: adfDocument,
-        title: this.metadata.title?.toString(),
+        title: this.metadataService.getTitle(),
         stepVersion: getVersion(state),
       };
 
@@ -298,6 +263,7 @@ export class DocumentService {
     }
     return sendableSteps(state)?.origins;
   };
+
   getUnconfirmedSteps = (): readonly ProseMirrorStep[] | undefined => {
     const state = this.getState?.();
     if (!state) {
@@ -313,31 +279,6 @@ export class DocumentService {
   private applyLocalSteps = (steps: readonly ProseMirrorStep[]) => {
     // Re-apply local steps
     this.providerEmitCallback('local-steps', { steps });
-  };
-
-  /**
-   * Emits the initialisation data for a document
-   * @param doc
-   * @param version
-   * @param metadata
-   * @param reserveCursor
-   */
-  updateDocumentWithMetadata = ({
-    doc,
-    version,
-    metadata,
-    reserveCursor,
-  }: CollabInitPayload) => {
-    this.providerEmitCallback('init', {
-      doc,
-      version,
-      metadata,
-      ...(reserveCursor ? { reserveCursor } : {}),
-    });
-    if (metadata && Object.keys(metadata).length > 0) {
-      this.metadata = metadata;
-      this.providerEmitCallback('metadata:changed', metadata);
-    }
   };
 
   /**
@@ -394,12 +335,14 @@ export class DocumentService {
       //  - Replace the version number, so editor is in sync with NCS server and can commit new changes.
       //  - Replace the metadata
       //  - Reserve the cursor position, in case a cursor jump.
-      this.updateDocumentWithMetadata({
+
+      this.updateDocument({
         doc,
         version,
         metadata,
         reserveCursor: true,
       });
+      this.metadataService.updateMetadata(metadata);
 
       // Re-apply the unconfirmed steps, not 100% of them can be applied, if document is changed significantly.
       if (unconfirmedSteps?.length) {
@@ -464,13 +407,26 @@ export class DocumentService {
           latency: measure?.duration,
         },
       );
-
       this.analyticsHelper?.sendErrorEvent(
         error,
         'Error while returning ADF version of the final draft document',
       );
       throw error; // Reject the promise so the consumer can react to it failing
     }
+  };
+
+  updateDocument = ({
+    doc,
+    version,
+    metadata,
+    reserveCursor,
+  }: CollabInitPayload) => {
+    this.providerEmitCallback('init', {
+      doc,
+      version,
+      metadata,
+      ...(reserveCursor ? { reserveCursor } : {}),
+    });
   };
 
   /**

@@ -182,19 +182,17 @@ describe('rule', () => {
   describe('insert via toolbar', () => {
     it('should insert rule when selection is empty paragraph', () => {
       const { editorView } = editor(doc(p('{<>}')));
-      insertHorizontalRule(INPUT_METHOD.TOOLBAR)(
-        editorView.state,
-        editorView.dispatch,
-      );
+      insertHorizontalRule(INPUT_METHOD.TOOLBAR, {
+        newInsertionBehaviour: true,
+      })(editorView.state, editorView.dispatch);
       expect(editorView.state.doc).toEqualDocument(doc(hr()));
     });
 
     it('should split the paragraph and insert rule when selection is in the middle of a paragraph', () => {
       const { editorView } = editor(doc(p('this is a{<>} paragraph')));
-      insertHorizontalRule(INPUT_METHOD.TOOLBAR)(
-        editorView.state,
-        editorView.dispatch,
-      );
+      insertHorizontalRule(INPUT_METHOD.TOOLBAR, {
+        newInsertionBehaviour: true,
+      })(editorView.state, editorView.dispatch);
       expect(editorView.state.doc).toEqualDocument(
         // prettier-ignore
         doc(
@@ -213,10 +211,9 @@ describe('rule', () => {
           p()
         ),
       );
-      insertHorizontalRule(INPUT_METHOD.TOOLBAR)(
-        editorView.state,
-        editorView.dispatch,
-      );
+      insertHorizontalRule(INPUT_METHOD.TOOLBAR, {
+        newInsertionBehaviour: true,
+      })(editorView.state, editorView.dispatch);
       expect(editorView.state.doc).toEqualDocument(
         // prettier-ignore
         doc(
@@ -238,10 +235,9 @@ describe('rule', () => {
           ),
         ),
       );
-      insertHorizontalRule(INPUT_METHOD.TOOLBAR)(
-        editorView.state,
-        editorView.dispatch,
-      );
+      insertHorizontalRule(INPUT_METHOD.TOOLBAR, {
+        newInsertionBehaviour: true,
+      })(editorView.state, editorView.dispatch);
       expect(editorView.state.doc).toEqualDocument(
         doc(
           ul(
@@ -262,10 +258,9 @@ describe('rule', () => {
           ),
         ),
       );
-      insertHorizontalRule(INPUT_METHOD.TOOLBAR)(
-        editorView.state,
-        editorView.dispatch,
-      );
+      insertHorizontalRule(INPUT_METHOD.TOOLBAR, {
+        newInsertionBehaviour: true,
+      })(editorView.state, editorView.dispatch);
       expect(editorView.state.doc).toEqualDocument(
         doc(
           ul(
@@ -286,10 +281,9 @@ describe('rule', () => {
           ),
         ),
       );
-      insertHorizontalRule(INPUT_METHOD.TOOLBAR)(
-        editorView.state,
-        editorView.dispatch,
-      );
+      insertHorizontalRule(INPUT_METHOD.TOOLBAR, {
+        newInsertionBehaviour: true,
+      })(editorView.state, editorView.dispatch);
       expect(editorView.state.doc).toEqualDocument(
         doc(
           ul(
@@ -310,10 +304,9 @@ describe('rule', () => {
           ),
         ),
       );
-      insertHorizontalRule(INPUT_METHOD.TOOLBAR)(
-        editorView.state,
-        editorView.dispatch,
-      );
+      insertHorizontalRule(INPUT_METHOD.TOOLBAR, {
+        newInsertionBehaviour: true,
+      })(editorView.state, editorView.dispatch);
       expect(editorView.state.doc).toEqualDocument(
         doc(
           ul(
@@ -334,10 +327,9 @@ describe('rule', () => {
           ),
         ),
       );
-      insertHorizontalRule(INPUT_METHOD.TOOLBAR)(
-        editorView.state,
-        editorView.dispatch,
-      );
+      insertHorizontalRule(INPUT_METHOD.TOOLBAR, {
+        newInsertionBehaviour: true,
+      })(editorView.state, editorView.dispatch);
       expect(editorView.state.doc).toEqualDocument(
         doc(
           ul(
@@ -358,10 +350,9 @@ describe('rule', () => {
           ),
         ),
       );
-      insertHorizontalRule(INPUT_METHOD.TOOLBAR)(
-        editorView.state,
-        editorView.dispatch,
-      );
+      insertHorizontalRule(INPUT_METHOD.TOOLBAR, {
+        newInsertionBehaviour: true,
+      })(editorView.state, editorView.dispatch);
       expect(editorView.state.doc).toEqualDocument(
         doc(
           ul(
@@ -383,10 +374,9 @@ describe('rule', () => {
           ),
         ),
       );
-      insertHorizontalRule(INPUT_METHOD.TOOLBAR)(
-        editorView.state,
-        editorView.dispatch,
-      );
+      insertHorizontalRule(INPUT_METHOD.TOOLBAR, {
+        newInsertionBehaviour: true,
+      })(editorView.state, editorView.dispatch);
       expect(editorView.state.doc).toEqualDocument(
         doc(
           ul(li(p('aa'))),
@@ -406,10 +396,9 @@ describe('rule', () => {
           ),
         ),
       );
-      insertHorizontalRule(INPUT_METHOD.TOOLBAR)(
-        editorView.state,
-        editorView.dispatch,
-      );
+      insertHorizontalRule(INPUT_METHOD.TOOLBAR, {
+        newInsertionBehaviour: true,
+      })(editorView.state, editorView.dispatch);
       expect(editorView.state.doc).toEqualDocument(
         doc(
           ul(li(p('aa')), li(p('bb'), ul(li(p('aaa')), li(p('bbb'))))),

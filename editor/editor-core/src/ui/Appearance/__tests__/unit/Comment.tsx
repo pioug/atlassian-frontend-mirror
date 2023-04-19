@@ -27,6 +27,7 @@ describe('comment editor', () => {
         editorView={editorView}
         providerFactory={{} as any}
         editorDOMElement={<div />}
+        featureFlags={{}}
       />,
     );
 
@@ -45,6 +46,7 @@ describe('comment editor', () => {
         editorView={editorView}
         providerFactory={{} as any}
         editorDOMElement={<div />}
+        featureFlags={{}}
       />,
     );
     fullPage
@@ -61,6 +63,7 @@ describe('comment editor', () => {
         editorView={editorView}
         providerFactory={{} as any}
         editorDOMElement={<div />}
+        featureFlags={{}}
       />,
     );
 
@@ -101,6 +104,7 @@ describe('comment editor', () => {
             editorView={editorView}
             providerFactory={providerFactory}
             editorDOMElement={<div />}
+            featureFlags={{}}
           />
         </EditorContext>,
       );
@@ -149,6 +153,7 @@ describe('comment editor', () => {
           onSave={true as any}
           providerFactory={{} as any}
           editorDOMElement={<div />}
+          featureFlags={{}}
         />,
       );
       fullPage.find('div.ak-editor-content-area').simulate('click');
@@ -166,6 +171,7 @@ describe('comment editor', () => {
           onCancel={true as any}
           providerFactory={{} as any}
           editorDOMElement={<div />}
+          featureFlags={{}}
         />,
       );
       fullPage.find('div.ak-editor-content-area').simulate('click');
@@ -184,6 +190,7 @@ describe('comment editor', () => {
           customSecondaryToolbarComponents={true as any}
           providerFactory={{} as any}
           editorDOMElement={<div />}
+          featureFlags={{}}
         />,
       );
       fullPage.find('div.ak-editor-content-area').simulate('click');
@@ -200,6 +207,7 @@ describe('comment editor', () => {
           editorView={editorView}
           providerFactory={{} as any}
           editorDOMElement={<div />}
+          featureFlags={{}}
         />,
       );
       fullPage.find('div.ak-editor-content-area').simulate('click');

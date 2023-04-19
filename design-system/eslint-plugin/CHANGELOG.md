@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 4.19.1
+
+### Patch Changes
+
+- [`0047d204889`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0047d204889) - Docs are now generated from source.
+
 ## 4.19.0
 
 ### Minor Changes

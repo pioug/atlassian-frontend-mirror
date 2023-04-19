@@ -39,7 +39,13 @@ export class RankableTableRow extends React.Component<RankableTableRowProps> {
       isHighlighted,
       testId,
     } = this.props;
-    const { cells, key, ...restRowProps } = row;
+    const {
+      cells,
+      key,
+      isHighlighted: isRowHighlighted,
+      // TODO: Remove `rest` props and use only what is explicitly in the API.
+      ...restRowProps
+    } = row;
     const inlineStyles = inlineStylesIfRanking(isRanking, refWidth);
 
     if (typeof key !== 'string' && !isRankingDisabled) {
@@ -61,10 +67,10 @@ export class RankableTableRow extends React.Component<RankableTableRowProps> {
             {...provided.draggableProps}
             ref={this.innerRef(provided.innerRef)}
             style={{ ...provided.draggableProps.style, ...inlineStyles }}
-            isHighlighted={isHighlighted}
+            isHighlighted={isHighlighted || isRowHighlighted}
             isRanking={isRanking}
             isRankingItem={snapshot.isDragging}
-            data-testid={testId && `${testId}--rankable--table--body--row`}
+            testId={testId && `${testId}--rankable--table--body--row`}
           >
             {cells.map((cell, cellIndex) => {
               const headCell = (head || { cells: [] }).cells[cellIndex];

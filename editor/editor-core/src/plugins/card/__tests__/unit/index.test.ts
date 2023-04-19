@@ -19,9 +19,11 @@ describe('cardPlugin', () => {
       const options = {
         provider: expect.any(Function),
         resolveBeforeMacros: ['jira'],
+        allowAlignment: true,
         allowBlockCards: false,
         allowEmbeds: true,
         allowResizing: false,
+        allowWrapping: true,
         useAlternativePreloader: true,
         platform: 'web' as 'mobile' | 'web',
         fullWidthMode: true,
@@ -43,6 +45,8 @@ describe('cardPlugin', () => {
         platform: 'web',
         allowBlockCards: true,
         allowResizing: true,
+        allowWrapping: true,
+        allowAlignment: true,
         useAlternativePreloader: true,
       });
     });

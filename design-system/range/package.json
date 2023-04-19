@@ -43,7 +43,7 @@
     "@atlaskit/button": "^16.6.0",
     "@atlaskit/checkbox": "^12.4.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/form": "^8.8.0",
+    "@atlaskit/form": "^8.9.0",
     "@atlaskit/section-message": "^6.3.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/tooltip": "^17.7.0",

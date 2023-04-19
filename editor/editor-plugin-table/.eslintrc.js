@@ -13,6 +13,7 @@ module.exports = {
         ],
       },
     ],
+    'react/no-danger': 'error',
   },
   // Disable restricted import for tests
   overrides: [
@@ -29,6 +30,7 @@ module.exports = {
             ],
           },
         ],
+        'react/no-danger': 'off',
       },
     },
   ],

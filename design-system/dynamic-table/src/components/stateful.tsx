@@ -74,7 +74,7 @@ export default class DynamicTable extends React.Component<
     });
   }
 
-  onSetPage = (page: number, analyticsEvent?: UIAnalyticsEvent) => {
+  onSetPageHandler = (page: number, analyticsEvent?: UIAnalyticsEvent) => {
     const { onSetPage } = this.props;
     if (onSetPage) {
       onSetPage(page, analyticsEvent);
@@ -82,7 +82,7 @@ export default class DynamicTable extends React.Component<
     }
   };
 
-  onSort = (
+  onSortHandler = (
     { key, item, sortOrder }: any,
     analyticsEvent?: UIAnalyticsEvent,
   ) => {
@@ -93,19 +93,19 @@ export default class DynamicTable extends React.Component<
     }
   };
 
-  onRankEndIfExists = (params: RankEnd) => {
+  onRankEndIfExistsHandler = (params: RankEnd) => {
     if (this.props.onRankEnd) {
       this.props.onRankEnd(params);
     }
   };
 
-  onRankEnd = (params: RankEnd) => {
+  onRankEndHandler = (params: RankEnd) => {
     const { destination } = params;
     const { rows, page } = this.state;
     const { rowsPerPage } = this.props;
 
     if (!destination || !rows) {
-      this.onRankEndIfExists(params);
+      this.onRankEndIfExistsHandler(params);
       return;
     }
 
@@ -115,7 +115,7 @@ export default class DynamicTable extends React.Component<
       rows: reordered,
     });
 
-    this.onRankEndIfExists(params);
+    this.onRankEndIfExistsHandler(params);
   };
 
   render() {
@@ -148,8 +148,8 @@ export default class DynamicTable extends React.Component<
         loadingSpinnerSize={loadingSpinnerSize}
         isLoading={isLoading}
         isFixedSize={isFixedSize}
-        onSetPage={this.onSetPage}
-        onSort={this.onSort}
+        onSetPage={this.onSetPageHandler}
+        onSort={this.onSortHandler}
         page={page}
         rows={rows}
         rowsPerPage={rowsPerPage}
@@ -157,7 +157,7 @@ export default class DynamicTable extends React.Component<
         sortOrder={sortOrder}
         isRankable={isRankable}
         isRankingDisabled={isRankingDisabled}
-        onRankEnd={this.onRankEnd}
+        onRankEnd={this.onRankEndHandler}
         onRankStart={onRankStart}
         onPageRowsUpdate={onPageRowsUpdate}
         testId={testId}

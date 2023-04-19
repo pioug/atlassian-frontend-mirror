@@ -1,3 +1,7 @@
+import { commandWithMetadata } from '@atlaskit/editor-common/card';
+import { LinkAttributes } from '@atlaskit/adf-schema';
+import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+
 import { Command } from '../../types';
 import { normalizeUrl } from './utils';
 import { stateKey, LinkAction } from './pm-plugins/main';
@@ -16,7 +20,6 @@ import {
 import { queueCardsFromChangedTr } from '../card/pm-plugins/doc';
 import { LinkInputType } from './types';
 import { getLinkCreationAnalyticsEvent } from './analytics';
-import { LinkAttributes } from '@atlaskit/adf-schema';
 import { buildEditLinkPayload, unlinkPayload } from '../../utils/linking-utils';
 import { UnlinkToolbarAEP } from '../analytics/types/link-tool-bar-events';
 
@@ -134,6 +137,7 @@ export function insertLink(
   incomingTitle?: string,
   displayText?: string,
   source?: LinkInputType,
+  sourceEvent?: UIAnalyticsEvent | null | undefined,
 ): Command {
   return (state, dispatch) => {
     const link = state.schema.marks.link;
@@ -159,7 +163,14 @@ export function insertLink(
       tr.setSelection(Selection.near(tr.doc.resolve(markEnd)));
 
       if (!displayText || displayText === incomingHref) {
-        queueCardsFromChangedTr(state, tr, source!, false);
+        queueCardsFromChangedTr(
+          state,
+          tr,
+          source!,
+          ACTION.INSERTED,
+          false,
+          sourceEvent,
+        );
       }
 
       tr.setMeta(stateKey, { type: LinkAction.HIDE_TOOLBAR });
@@ -184,13 +195,22 @@ export const insertLinkWithAnalytics = (
   title?: string,
   displayText?: string,
   cardsAvailable: boolean = false,
+  sourceEvent: UIAnalyticsEvent | null | undefined = undefined,
 ) => {
   // If smart cards are available, we send analytics for hyperlinks when a smart link is rejected.
   if (cardsAvailable && !title && !displayText) {
-    return insertLink(from, to, href, title, displayText, inputMethod);
+    return insertLink(
+      from,
+      to,
+      href,
+      title,
+      displayText,
+      inputMethod,
+      sourceEvent,
+    );
   }
   return withAnalytics(getLinkCreationAnalyticsEvent(inputMethod, href))(
-    insertLink(from, to, href, title, displayText, inputMethod),
+    insertLink(from, to, href, title, displayText, inputMethod, sourceEvent),
   );
 };
 
@@ -208,7 +228,9 @@ export const insertLinkWithAnalyticsMobileNative = (
 };
 
 export function removeLink(pos: number): Command {
-  return setLinkHref('', pos);
+  return commandWithMetadata(setLinkHref('', pos), {
+    action: ACTION.UNLINK,
+  });
 }
 
 export function editInsertedLink(): Command {

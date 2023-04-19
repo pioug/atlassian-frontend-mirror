@@ -43,7 +43,7 @@ export const JiraServiceDeskIcon = ({
   testId,
   textColor = defaultLogoParams.textColor,
 }: LogoProps) => {
-  if (process.env.NODE_ENV !== 'production') {
+  if (typeof process !== 'undefined' && process.env.NODE_ENV !== 'production') {
     warnOnce(
       'JiraServiceDeskIcon has been deprecated and will be removed from @atlaskit/logo in the next major release. Please use JiraServiceManagementIcon instead.',
     );

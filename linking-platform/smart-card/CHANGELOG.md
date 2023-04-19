@@ -1,5 +1,37 @@
 # @atlaskit/smart-card
 
+## 25.5.2
+
+### Patch Changes
+
+- [`c2aab8ee44b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c2aab8ee44b) - Add lozenge dropdown action to Flexible Smart Link based element lozenge
+
+## 25.5.1
+
+### Patch Changes
+
+- [`bcc645691c5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bcc645691c5) - Add lozenge action feature flag and extract server action for state lozenge from JSON-LD response
+- Updated dependencies
+
+## 25.5.0
+
+### Minor Changes
+
+- [`5329942b8aa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5329942b8aa) - Deprecates analyticsHandler argument of useSmartLinkActions and useSmartLinkReload hooks.
+
+## 25.4.4
+
+### Patch Changes
+
+- [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
+- Updated dependencies
+
+## 25.4.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 25.4.2
 
 ### Patch Changes

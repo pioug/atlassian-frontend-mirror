@@ -1,5 +1,45 @@
 # @atlaskit/editor-core
 
+## 182.1.0
+
+### Minor Changes
+
+- [`ba95f121a52`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ba95f121a52) - ED-17378 Added assistiveLabel prop to Editor.
+- [`c2385dcb8f7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c2385dcb8f7) - [ux] ED-17043 Expanded table chart colors from 20 to 36 colors.
+- [`e88e54a14e3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e88e54a14e3) - [ux] [ux] Added 'allowAlignment' and 'allowWrapping' as options in 'cardOptions' to let Trello to disable the features
+- [`d9a8fe191f2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d9a8fe191f2) - [ED-17295] Update feature flag usage for media plugin
+- [`0237059f136`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0237059f136) - Integrates @atlaskit/link-analytics for improved tracking of links
+  This can be enabled via the `lp-analytics-events-next` feature flag.
+  When enabled, tracks links changed in every transaction and fires `link created`, `link deleted` and `link updated` accordingly.
+
+  ```ts
+  <SmartCardProvider
+    featureFlags={{
+      enableResolveMetadataForLinkAnalytics: true,
+    }}
+  >
+    <Editor
+      featureFlags={{
+        'lp-analytics-events-next': true,
+      }}
+    />
+  </SmartCardProvider>
+  ```
+
+- [`21b20f571fa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/21b20f571fa) - [ED-17382] Update feature flag usage for rule plugin
+- [`b289da93d3c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b289da93d3c) - [ED-17384] Remove feature flags context plugin
+- [`f99b84adfab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f99b84adfab) - Fix backspace behaviour in block quotes to prevent merging into panels
+- [`2cfb05a2cf8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2cfb05a2cf8) - [ux] ED-17278 - Added shortcuts to Editor Help dialog
+
+### Patch Changes
+
+- [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
+- [`e9422d1b0c9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e9422d1b0c9) - [ED-17383] Update feature flag usage in text color plugin
+- [`b6ee3d64a94`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b6ee3d64a94) - Improves internal getStepRange utility accuracy
+- [`3e612ba32a6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3e612ba32a6) - [ED-17381] Update feature flag usage in paste plugin
+- [`1be4313d684`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1be4313d684) - Removes redundant code paths related to outstanding card requests from internal card plugin
+- Updated dependencies
+
 ## 182.0.3
 
 ### Patch Changes

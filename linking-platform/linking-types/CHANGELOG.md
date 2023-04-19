@@ -1,5 +1,17 @@
 # @atlaskit/linking-types
 
+## 0.4.1
+
+### Patch Changes
+
+- [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
+
+## 0.4.0
+
+### Minor Changes
+
+- [`5c993bce7c7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5c993bce7c7) - Updated types and interfaces to match current Datasource API design
+
 ## 0.3.0
 
 ### Minor Changes

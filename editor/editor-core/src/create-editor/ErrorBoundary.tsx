@@ -1,4 +1,3 @@
-import memoizeOne from 'memoize-one';
 import { EditorView } from 'prosemirror-view';
 import React from 'react';
 import uuid from 'uuid';
@@ -18,7 +17,6 @@ import {
   EVENT_TYPE,
 } from '../plugins/analytics';
 import { editorAnalyticsChannel } from '../plugins/analytics/consts';
-import { getFeatureFlags } from '../plugins/feature-flags-context';
 import { FeatureFlags } from '../types/feature-flags';
 import { getDocStructure } from '../utils/document-logger';
 import { WithEditorView } from './WithEditorView';
@@ -30,6 +28,7 @@ export type ErrorBoundaryProps = {
   editorView?: EditorView;
   rethrow?: boolean;
   children: React.ReactNode;
+  featureFlags: FeatureFlags;
 };
 
 export type ErrorBoundaryState = {
@@ -50,6 +49,7 @@ export class ErrorBoundaryWithEditorView extends React.Component<
   ErrorBoundaryProps,
   ErrorBoundaryState
 > {
+  featureFlags: FeatureFlags;
   browserExtensions?: UserBrowserExtensionResults = undefined;
   experienceStore?: ExperienceStore;
 
@@ -61,22 +61,10 @@ export class ErrorBoundaryWithEditorView extends React.Component<
     error: undefined,
   };
 
-  // Memoizing this as react alternative suggestion of https://reactjs.org/docs/react-component.html#unsafe_componentwillreceiveprops
-  private getFeatureFlags = memoizeOne(
-    (editorView: EditorView | undefined): FeatureFlags => {
-      if (!editorView) {
-        return {};
-      }
-      return getFeatureFlags(editorView.state);
-    },
-  );
-
-  get featureFlags() {
-    return this.getFeatureFlags(this.props.editorView);
-  }
-
   constructor(props: ErrorBoundaryProps) {
     super(props);
+
+    this.featureFlags = props.featureFlags;
 
     if (props.editorView) {
       this.experienceStore = ExperienceStore.getInstance(props.editorView);

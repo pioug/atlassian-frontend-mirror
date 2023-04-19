@@ -22,7 +22,7 @@ describe('LozengeAction', () => {
       action: {
         actionType: SmartLinkActionType.GetStatusTransitionsAction,
         resourceIdentifiers: {
-          issueId: 'issue-id',
+          issueKey: 'issue-id',
           hostname: 'some-hostname',
         },
       },
@@ -32,7 +32,7 @@ describe('LozengeAction', () => {
       action: {
         actionType: SmartLinkActionType.StatusUpdateAction,
         resourceIdentifiers: {
-          issueId: 'issue-id',
+          issueKey: 'issue-id',
           hostname: 'some-hostname',
         },
       },
@@ -68,6 +68,21 @@ describe('LozengeAction', () => {
 
   it('renders element', async () => {
     const { findByTestId } = renderComponent();
+
+    const element = await findByTestId(triggerTestId);
+
+    expect(element).toBeTruthy();
+    expect(element.textContent?.trim()).toBe(text);
+  });
+
+  it('renders element with non-string content', async () => {
+    const node = (
+      <span>
+        {text} <img src="random-image" />
+      </span>
+    );
+
+    const { findByTestId } = renderComponent({ text: node });
 
     const element = await findByTestId(triggerTestId);
 
@@ -158,6 +173,34 @@ describe('LozengeAction', () => {
 
     const item2 = queryByTestId(`${testId}-item-1`);
     expect(item2).not.toBeInTheDocument();
+  });
+
+  it('ignores non-comparable active item', async () => {
+    const mockInvoke = jest
+      .fn()
+      .mockResolvedValue([{ text: 'Done' }, { text }]);
+
+    const node = (
+      <span>
+        {text} <img src="random-image" />
+      </span>
+    );
+    const { findByTestId } = renderComponent(
+      { action, text: node },
+      mockInvoke,
+    );
+
+    const element = await findByTestId(triggerTestId);
+    act(() => {
+      fireEvent.click(element);
+    });
+    const item1 = await findByTestId(`${testId}-item-0`);
+    expect(item1).toBeTruthy();
+    expect(item1.textContent).toBe('Done');
+
+    const item2 = await findByTestId(`${testId}-item-1`);
+    expect(item2).toBeTruthy();
+    expect(item2.textContent).toBe(text);
   });
 
   it('invokes load action only once', async () => {

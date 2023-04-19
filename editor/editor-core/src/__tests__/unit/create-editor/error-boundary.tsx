@@ -27,7 +27,7 @@ import {
   ACTION_SUBJECT,
   EVENT_TYPE,
 } from '../../../plugins/analytics/types';
-import featureFlagsContextPlugin from '../../../plugins/feature-flags-context';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
 import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 
@@ -120,6 +120,7 @@ describe('create-editor/error-boundary', () => {
       <EditorErrorBoundary
         createAnalyticsEvent={createAnalyticsEvent as CreateUIAnalyticsEvent}
         contextIdentifierProvider={contextIdentifierProvider}
+        featureFlags={{}}
       >
         <Foo />
       </EditorErrorBoundary>,
@@ -135,6 +136,7 @@ describe('create-editor/error-boundary', () => {
         rethrow={false}
         createAnalyticsEvent={createAnalyticsEvent}
         contextIdentifierProvider={contextIdentifierProvider}
+        featureFlags={{}}
       >
         <Foo />
       </EditorErrorBoundary>,
@@ -149,6 +151,7 @@ describe('create-editor/error-boundary', () => {
         rethrow={false}
         createAnalyticsEvent={createAnalyticsEvent}
         contextIdentifierProvider={contextIdentifierProvider}
+        featureFlags={{}}
       >
         <Foo />
       </EditorErrorBoundary>,
@@ -200,16 +203,14 @@ describe('create-editor/error-boundary', () => {
 
   it('should fail all active UFO experiences when an error is caught and ufo is enabled', async () => {
     const { editorView } = createEditor({
-      preset: new Preset<LightEditorPlugin>().add([
-        featureFlagsContextPlugin,
-        { ufo: true },
-      ]),
+      preset: new Preset<LightEditorPlugin>().add([featureFlagsPlugin, {}]),
     });
     wrapper = shallow(
       <EditorErrorBoundary
         rethrow={false}
         contextIdentifierProvider={contextIdentifierProvider}
         editorView={editorView}
+        featureFlags={{ ufo: true }}
       >
         <Foo />
       </EditorErrorBoundary>,
@@ -231,16 +232,14 @@ describe('create-editor/error-boundary', () => {
 
   it('should not fail all active UFO experiences when an error is caught and ufo is not enabled', async () => {
     const { editorView } = createEditor({
-      preset: new Preset<LightEditorPlugin>().add([
-        featureFlagsContextPlugin,
-        {},
-      ]),
+      preset: new Preset<LightEditorPlugin>().add([featureFlagsPlugin, {}]),
     });
     wrapper = shallow(
       <EditorErrorBoundary
         rethrow={false}
         contextIdentifierProvider={contextIdentifierProvider}
         editorView={editorView}
+        featureFlags={{}}
       >
         <Foo />
       </EditorErrorBoundary>,
@@ -259,6 +258,7 @@ describe('create-editor/error-boundary', () => {
         rethrow={false}
         createAnalyticsEvent={createAnalyticsEvent}
         contextIdentifierProvider={contextIdentifierProvider}
+        featureFlags={{}}
       >
         <IntermittentProblem />
       </EditorErrorBoundary>,
@@ -283,6 +283,7 @@ describe('create-editor/error-boundary', () => {
           rethrow
           createAnalyticsEvent={createAnalyticsEvent}
           contextIdentifierProvider={contextIdentifierProvider}
+          featureFlags={{}}
         >
           <Bad />
         </EditorErrorBoundary>
@@ -297,12 +298,7 @@ describe('create-editor/error-boundary', () => {
   describe('DocStructure', () => {
     it('should dispatch an analytics event with doc structure when FF is on', async () => {
       const { editorView } = createEditor({
-        preset: new Preset<LightEditorPlugin>().add([
-          featureFlagsContextPlugin,
-          {
-            errorBoundaryDocStructure: true,
-          },
-        ]),
+        preset: new Preset<LightEditorPlugin>().add([featureFlagsPlugin, {}]),
       });
 
       wrapper = shallow(
@@ -311,6 +307,7 @@ describe('create-editor/error-boundary', () => {
           rethrow={false}
           createAnalyticsEvent={createAnalyticsEvent}
           contextIdentifierProvider={contextIdentifierProvider}
+          featureFlags={{ errorBoundaryDocStructure: true }}
         >
           <Foo />
         </EditorErrorBoundary>,
@@ -335,7 +332,7 @@ describe('create-editor/error-boundary', () => {
     it('should dispatch an analytics event without doc structure when FF is off', async () => {
       const { editorView } = createEditor({
         preset: new Preset<LightEditorPlugin>().add([
-          featureFlagsContextPlugin,
+          featureFlagsPlugin,
           {
             errorBoundaryDocStructure: false,
           },
@@ -348,6 +345,7 @@ describe('create-editor/error-boundary', () => {
           rethrow={false}
           createAnalyticsEvent={createAnalyticsEvent}
           contextIdentifierProvider={contextIdentifierProvider}
+          featureFlags={{ errorBoundaryDocStructure: false }}
         >
           <Foo />
         </EditorErrorBoundary>,
@@ -378,6 +376,7 @@ describe('create-editor/error-boundary', () => {
           rethrow={false}
           createAnalyticsEvent={createAnalyticsEvent}
           contextIdentifierProvider={contextIdentifierProvider}
+          featureFlags={{}}
         >
           <Foo />
         </EditorErrorBoundary>,

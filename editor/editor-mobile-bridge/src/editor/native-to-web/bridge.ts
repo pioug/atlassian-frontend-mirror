@@ -72,4 +72,5 @@ export default interface NativeToWebBridge {
     onUploadFail(payload: string): void;
   };
   shiftSelectionToNextPosition(): void;
+  hasVisibleContent(): Boolean;
 }

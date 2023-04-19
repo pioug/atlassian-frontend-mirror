@@ -52,7 +52,6 @@ export { default as customAutoformatPlugin } from './custom-autoformat';
 export { default as feedbackDialogPlugin } from './feedback-dialog';
 export { default as historyPlugin } from './history';
 export { default as captionPlugin } from './caption';
-export { default as featureFlagsContextPlugin } from './feature-flags-context';
 export { default as expandPlugin, isExpandInsertionEnabled } from './expand';
 export { default as scrollIntoViewPlugin } from './scroll-into-view';
 export { default as mobileDimensionsPlugin } from './mobile-dimensions';

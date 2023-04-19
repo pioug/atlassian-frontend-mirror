@@ -20,9 +20,9 @@ import {
   NamespaceStatus,
   InitAndAuthData,
   AuthCallback,
+  CollabSendableSelection,
 } from '../../types';
 import * as Performance from '../../analytics/performance';
-import type { CollabSendableSelection } from '@atlaskit/editor-common/collab';
 import { createSocketIOSocket } from '../../socket-io-provider';
 import { io, Socket } from 'socket.io-client';
 import AnalyticsHelper from '../../analytics/analytics-helper';
@@ -225,6 +225,52 @@ describe('Channel unit tests', () => {
     channel.getSocket()!.emit('connect');
   });
 
+  it('should connect and initialize channel when initialized flag is passed', (done) => {
+    let authData: any;
+    // Overriding createSocket to properly spy on auth callback's callback
+    const customCreateSocket = (
+      url: string,
+      auth?: AuthCallback | InitAndAuthData,
+      productInfo?: ProductInformation,
+    ): Socket => {
+      authData = auth;
+      const { pathname } = new URL(url);
+      return io(url, {
+        withCredentials: true,
+        transports: ['polling', 'websocket'],
+        path: `/${pathname.split('/')[1]}/socket.io`,
+        auth,
+        extraHeaders: {
+          'x-product': getProduct(productInfo),
+          'x-subproduct': getSubProduct(productInfo),
+        },
+      });
+    };
+    const channel = getChannel({
+      ...testChannelConfig,
+      need404: true,
+      createSocket: customCreateSocket,
+    });
+    channel.on('connected', async (data: any) => {
+      try {
+        expect(data).toEqual({
+          sid: channel.getSocket()!.id,
+          initialized: true,
+        });
+        expect(channel.getConnected()).toBe(true);
+        expect(authData).toEqual({
+          initialized: true,
+          need404: true,
+        });
+        done();
+      } catch (err) {
+        done(err);
+      }
+    });
+    channel.connect(true);
+    channel.getSocket()!.emit('connect');
+  });
+
   it('should handle connect_error when no data in error', () => {
     // There is 7 assertions in the test, plus GET_CHANNEL_ASSERTION_COUNT from `getChannel` calling `expectValidChannel`
     expect.assertions(7 + GET_CHANNEL_ASSERTION_COUNT);
@@ -274,58 +320,25 @@ describe('Channel unit tests', () => {
     );
   });
 
-  it('should connect, then disconnect channel as expected', (done) => {
-    const channel = getChannel();
-
-    channel.on('disconnect', (data: any) => {
-      try {
-        expect(data).toEqual({
-          reason: 'User disconnect for some reason',
-        });
-        expect(channel.getConnected()).toBe(false);
-        done();
-      } catch (err) {
-        done(err);
-      }
-    });
-
-    channel.on('connected', (data: any) => {
-      try {
-        expect(data).toEqual({
-          sid: channel.getSocket()!.id,
-          initialized: false,
-        });
-        expect(channel.getConnected()).toBe(true);
-        channel
-          .getSocket()!
-          .emit('disconnect', 'User disconnect for some reason');
-      } catch (err) {
-        done(err);
-      }
-    });
-
-    expect(channel.getConnected()).toBe(false);
-    channel.getSocket()!.emit('connect');
-  });
-
   it('should connect and disconnect', (done) => {
     expect.assertions(5 + GET_CHANNEL_ASSERTION_COUNT);
+
     const channel = getChannel();
 
     channel.on('connected', (data: any) => {
       expect(data).toEqual({
         sid: channel.getSocket()!.id,
-        initialized: false,
+        initialized: expect.any(Boolean),
       });
       expect(channel.getConnected()).toBe(true);
 
       // Now disconnect
-      channel.getSocket()!.emit('disconnect', 'io server disconnect');
+      channel.getSocket()!.emit('disconnect', 'transport error');
     });
 
     channel.on('disconnect', (data: any) => {
       expect(data).toEqual({
-        reason: 'io server disconnect',
+        reason: 'transport error',
       });
       expect(channel.getConnected()).toBe(false);
       done();
@@ -424,22 +437,6 @@ describe('Channel unit tests', () => {
     });
   });
 
-  it('should handle receiving metadata:changed from server', (done) => {
-    const channel = getChannel();
-
-    channel.on('metadata:changed', (data: Metadata) => {
-      try {
-        expect(data).toEqual({ title: 'a new title', editorWidht: 'abc' });
-        done();
-      } catch (err) {
-        done(err);
-      }
-    });
-    channel
-      .getSocket()!
-      .emit('metadata:changed', { title: 'a new title', editorWidht: 'abc' });
-  });
-
   it('should handle receiving participant:telepointer from server', (done) => {
     const channel = getChannel();
 
@@ -515,42 +512,29 @@ describe('Channel unit tests', () => {
     const channel = getChannel();
 
     channel.on('presence:joined', (data: PresencePayload) => {
-      try {
-        expect(data).toEqual(<PresencePayload>{
-          sessionId: 'abc',
-          userId: 'cbfb',
-          clientId: 'fbfbfb',
-          timestamp: 456734573473564,
-        });
-        done();
-      } catch (err) {
-        done(err);
-      }
+      expect(data).toEqual(<PresencePayload>{
+        sessionId: 'NX5-eFC6rmgE7Y3PAH1D',
+        timestamp: 1680759407925,
+      });
+      done();
     });
 
-    channel.getSocket()!.emit('presence:joined', <PresencePayload>{
-      sessionId: 'abc',
-      userId: 'cbfb',
-      clientId: 'fbfbfb',
-      timestamp: 456734573473564,
-    });
+    // Socket IO connects automatically but the mock doesn't
+    // @ts-expect-error mocking Socket IO client behaviour
+    channel.getSocket().connect();
   });
 
   it('should handle receiving participant:left from server', (done) => {
     const channel = getChannel();
 
     channel.on('participant:left', (data: any) => {
-      try {
-        expect(data).toEqual(<PresencePayload>{
-          sessionId: 'abc',
-          userId: 'cbfb',
-          clientId: 'fbfbfb',
-          timestamp: 234562345623653,
-        });
-        done();
-      } catch (err) {
-        done(err);
-      }
+      expect(data).toEqual(<PresencePayload>{
+        sessionId: 'abc',
+        userId: 'cbfb',
+        clientId: 'fbfbfb',
+        timestamp: 234562345623653,
+      });
+      done();
     });
 
     channel.getSocket()!.emit('participant:left', <PresencePayload>{
@@ -566,56 +550,40 @@ describe('Channel unit tests', () => {
 
     channel.on('participant:updated', (data) => {
       expect(data).toEqual({
-        timestamp: 1676945569495,
-        sessionId: 'cAA0xTLkAZj-r79VBzG0',
+        clientId: 3274991230,
+        sessionId: 'NX5-eFC6rmgE7Y3PAH1D',
+        timestamp: 1680759407071,
         userId: '70121:8fce2c13-5f60-40be-a9f2-956c6f041fbe',
-        clientId: 2778370292,
       });
       done();
     });
 
-    channel.getSocket()!.emit('participant:updated', {
-      sessionId: 'cAA0xTLkAZj-r79VBzG0',
-      timestamp: 1676945569495,
-      data: {
-        sessionId: 'cAA0xTLkAZj-r79VBzG0',
-        userId: '70121:8fce2c13-5f60-40be-a9f2-956c6f041fbe',
-        clientId: 2778370292,
-      },
-    });
+    // Socket IO connects automatically but the mock doesn't
+    // @ts-expect-error mocking Socket IO client behaviour
+    channel.getSocket().connect();
   });
 
   it('should handle receiving metadata:changed from server', (done) => {
     const channel = getChannel();
 
-    channel.on('metadata:changed', (data: any) => {
-      try {
-        expect(data).toEqual(<any>{
-          title: 'My tremendous page title!',
-        });
-        done();
-      } catch (err) {
-        done(err);
-      }
+    channel.on('metadata:changed', (data: Metadata) => {
+      expect(data).toEqual({ title: 'a new title', editorWidth: 'abc' });
+      done();
     });
 
-    channel.getSocket()!.emit('metadata:changed', <any>{
-      title: 'My tremendous page title!',
-    });
+    channel
+      .getSocket()!
+      .emit('metadata:changed', { title: 'a new title', editorWidth: 'abc' });
   });
 
   it('should handle receiving width:changed from server', (done) => {
     const channel = getChannel();
 
     channel.on('metadata:changed', (data: any) => {
-      try {
-        expect(data).toEqual(<any>{
-          editorWidth: 'My tremendous page width!',
-        });
-        done();
-      } catch (err) {
-        done(err);
-      }
+      expect(data).toEqual(<any>{
+        editorWidth: 'My tremendous page width!',
+      });
+      done();
     });
 
     channel.getSocket()!.emit('metadata:changed', <any>{
@@ -627,19 +595,28 @@ describe('Channel unit tests', () => {
     const channel = getChannel();
     (channel as any).initialized = true;
     const mockRestoreData = {
-      doc: {},
-      version: 1,
-      userId: 'abc',
-      metadata: { a: 1 },
+      doc: {
+        content: [
+          {
+            content: [
+              {
+                text: 'lol',
+                type: 'text',
+              },
+            ],
+            type: 'paragraph',
+          },
+        ],
+        type: 'doc',
+      },
+      version: 3,
+      userId: '70121:8fce2c13-5f60-40be-a9f2-956c6f041fbe',
+      metadata: { expire: 1680844522, title: 'Notes' },
     };
 
     channel.on('restore', (data: any) => {
-      try {
-        expect(data).toEqual(mockRestoreData);
-        done();
-      } catch (err) {
-        done(err);
-      }
+      expect(data).toEqual(mockRestoreData);
+      done();
     });
     channel.getSocket()!.emit('data', <any>{
       type: 'initial',

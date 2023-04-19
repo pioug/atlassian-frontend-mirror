@@ -23,11 +23,13 @@ import {
   setNodeSelection,
   setTextSelection,
 } from '../../../../utils/selection';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 describe('selection plugin', () => {
   const createEditor = createProsemirrorEditorFactory();
   const preset = new Preset<LightEditorPlugin>()
     .add(selectionPlugin)
+    .add([featureFlagsPlugin, {}])
     .add(rulePlugin);
 
   const editor = (doc: DocBuilder) =>

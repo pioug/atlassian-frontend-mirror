@@ -457,10 +457,10 @@ class TimePicker extends React.Component<TimePickerProps, State> {
         onKeyDown={this.onSelectKeyDown}
       >
         <input
-          id={selectProps.inputId}
           name={name}
           type="hidden"
           value={value}
+          data-testid={testId && `${testId}--input`}
         />
         <SelectComponent
           appearance={this.props.appearance}

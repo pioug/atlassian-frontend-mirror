@@ -155,6 +155,10 @@ export const MediaSingleDimensionHelper = ({
         fullWidthMode,
         isResized,
       )};
+  ${layout === 'full-width' &&
+  css`
+    min-width: 100%;
+  `}
   max-width: ${calcMaxWidth(layout, containerWidth)};
   float: ${float(layout)};
   margin: ${calcMargin(layout)};

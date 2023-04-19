@@ -27,6 +27,7 @@ export const attachPayloadIntoTransaction: AttachPayloadIntoTransaction = ({
   payload = mapActionSubjectIdToAttributes(payload);
 
   const { storedMarks } = tr;
+  const pos = tr.mapping.map(editorState.selection.$from.pos, -1);
   tr.step(
     new AnalyticsStep(
       [
@@ -36,7 +37,7 @@ export const attachPayloadIntoTransaction: AttachPayloadIntoTransaction = ({
         },
       ],
       actionsToIgnore,
-      editorState.selection.$from.pos, // We need to create the step based on a position, this prevent split history for relative changes.
+      pos, // We need to create the step based on a position, this prevent split history for relative changes.
     ),
   );
 

@@ -109,7 +109,6 @@ export default class AnalyticsHelper {
         ...attributes,
       },
     } as ActionAnalyticsEvent;
-
     this.sendEvent(analyticsEvent);
   }
 

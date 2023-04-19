@@ -49,7 +49,7 @@ import {
   textColorIconBar,
   textColorIconWrapper,
 } from './styles';
-import { getFeatureFlags } from '../../../feature-flags-context/get-feature-flags';
+import { FeatureFlags } from '@atlaskit/editor-common/types';
 
 const EXPERIMENT_NAME: string = 'editor.toolbarTextColor.moreColors';
 const EXPERIMENT_GROUP_CONTROL: string = 'control';
@@ -76,6 +76,7 @@ export interface Props {
   isReducedSpacing?: boolean;
   dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
   disabled?: boolean;
+  featureFlags: FeatureFlags;
 }
 
 interface HandleOpenChangeData {
@@ -110,15 +111,14 @@ export class ToolbarTextColor extends React.Component<
       pluginState,
       intl: { formatMessage },
       disabled,
+      featureFlags,
     } = this.props;
 
     const labelTextColor = formatMessage(messages.textColor);
 
     const palette = pluginState.palette;
 
-    const { useSomewhatSemanticTextColorNames } = getFeatureFlags(
-      this.props.editorView.state,
-    );
+    const { useSomewhatSemanticTextColorNames } = featureFlags;
 
     let fitWidth: number | undefined;
     if (document.body.clientWidth <= 740) {

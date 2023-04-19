@@ -21,7 +21,7 @@ describe('useInvoke', () => {
     action: {
       actionType: SmartLinkActionType.GetStatusTransitionsAction,
       resourceIdentifiers: {
-        issueId: 'issue-id',
+        issueKey: 'issue-id',
         hostname: 'some-hostname',
       },
     },

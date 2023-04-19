@@ -17,19 +17,19 @@ interface GeneratedConfig {
   path: string;
 }
 
-const ignore = ['index.codegen.tsx', '__tests__', 'utils'];
+const ignoreList = ['index.codegen.tsx', 'TEMPLATE.md', '__tests__', 'utils'];
 const srcDir = join(__dirname, '../src');
 const rulesDir = join(srcDir, 'rules');
 const presetsDir = join(srcDir, 'presets');
 const generatedConfigs: GeneratedConfig[] = [];
 
-async function ruleDocsPath(name: string): Promise<string> {
+async function ruleDocsPath(name: string) {
   const absolutePath = join(rulesDir, name, 'README.md');
   const relativePath = '.' + absolutePath.replace(process.cwd(), '');
 
   try {
-    await fs.readFile(absolutePath);
-    return relativePath;
+    const file = await fs.readFile(absolutePath, 'utf-8');
+    return { path: relativePath, file };
   } catch (_) {
     throw new Error(
       `invariant: rule ${name} should have docs at ${absolutePath}`,
@@ -130,6 +130,58 @@ const conditional = (cond: string, content?: boolean | string) =>
 const link = (content: string, url?: string) =>
   url ? `<a href="${url}">${content}</a>` : content;
 
+async function generateRulesPageContent(
+  destination: string,
+  rules: FoundRule[],
+) {
+  const file = await fs.readFile(destination, 'utf-8');
+  const ruleDocs: string[] = [];
+
+  for (const rule of rules) {
+    const { file } = await ruleDocsPath(rule.moduleName);
+
+    if (file.match(/^# /)) {
+      throw new Error(
+        `invariant: ${rule.moduleName} doc should not include a heading as it is injected later.`,
+      );
+    }
+
+    const ruleContent =
+      // Inject a second level heading for the rule
+      `## ${rule.moduleName}\n` +
+      // Increase all found headings by one
+      file
+        .replace(/(##+) /g, (match) => `#${match}`)
+        // Transform third level headings to a <h3> so it doesn't appear in the local nav
+        .replace(
+          /^### .+/gm,
+          (match) => `<h3>${match.replace('### ', '')}</h3>`,
+        );
+
+    ruleDocs.push(ruleContent);
+  }
+
+  const found =
+    /<!-- START_RULE_CONTENT_CODEGEN -->(.|\n)*<!-- END_RULE_CONTENT_CODEGEN -->/.exec(
+      file,
+    );
+
+  if (!found) {
+    throw new Error('invariant: could not find the partial codegen section');
+  }
+
+  const updatedFile = file.replace(
+    found[0],
+    '<!-- START_RULE_CONTENT_CODEGEN -->' +
+      '\n<!-- @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen -->' +
+      '\n' +
+      ruleDocs.join('\n\n') +
+      '\n<!-- END_RULE_CONTENT_CODEGEN -->',
+  );
+
+  await writeFile(destination, updatedFile);
+}
+
 async function generateRuleTable(
   filepath: string,
   linkTo: 'docs' | 'repo',
@@ -142,7 +194,8 @@ async function generateRuleTable(
     let docsPath = '';
 
     if (linkTo === 'repo') {
-      docsPath = await ruleDocsPath(rule.moduleName);
+      const result = await ruleDocsPath(rule.moduleName);
+      docsPath = result.path;
     } else {
       docsPath = `#${rule.moduleName}`;
     }
@@ -166,9 +219,10 @@ async function generateRuleTable(
 ${rows.join('\n')}
   `;
 
-  const found = /<!-- START_RULE_CODEGEN -->(.|\n)*<!-- END_CODEGEN -->/.exec(
-    file,
-  );
+  const found =
+    /<!-- START_RULE_TABLE_CODEGEN -->(.|\n)*<!-- END_RULE_TABLE_CODEGEN -->/.exec(
+      file,
+    );
 
   if (!found) {
     throw new Error('invariant: could not find the partial codegen section');
@@ -176,10 +230,10 @@ ${rows.join('\n')}
 
   const updatedFile = file.replace(
     found[0],
-    '<!-- START_RULE_CODEGEN -->' +
+    '<!-- START_RULE_TABLE_CODEGEN -->' +
       '\n<!-- @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen -->' +
       code +
-      '\n<!-- END_CODEGEN -->',
+      '\n<!-- END_RULE_TABLE_CODEGEN -->',
   );
 
   await writeFile(filepath, updatedFile);
@@ -191,7 +245,7 @@ async function generate() {
   const rules: FoundRule[] = [];
 
   for (const filename of rulePaths) {
-    if (ignore.includes(filename)) {
+    if (ignoreList.includes(filename)) {
       continue;
     }
 
@@ -222,6 +276,10 @@ async function generate() {
   await generateRuleTable(
     join(srcDir, '../constellation/index/usage.mdx'),
     'docs',
+    rules,
+  );
+  await generateRulesPageContent(
+    join(srcDir, '../constellation/index/usage.mdx'),
     rules,
   );
 }

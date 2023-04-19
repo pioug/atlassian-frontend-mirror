@@ -202,6 +202,8 @@ const buildLayoutButtons = (
   nodeType: NodeType,
   allowResizing?: boolean,
   allowResizingInTables?: boolean,
+  allowWrapping = true,
+  allowAlignment = true,
 ) => {
   const { selection } = state;
 
@@ -216,20 +218,46 @@ const buildLayoutButtons = (
 
   const { layout } = selection.node.attrs;
 
-  let toolbarItems = [
-    ...mapIconsToToolbarItem(alignmentIcons, layout, intl, nodeType),
-    { type: 'separator' } as FloatingToolbarSeparator,
-    ...mapIconsToToolbarItem(wrappingIcons, layout, intl, nodeType),
+  const alignmentToolbarItems = allowAlignment
+    ? mapIconsToToolbarItem(alignmentIcons, layout, intl, nodeType)
+    : [];
+  const wrappingToolbarItems = allowWrapping
+    ? mapIconsToToolbarItem(wrappingIcons, layout, intl, nodeType)
+    : [];
+  const breakOutToolbarItems = !allowResizing
+    ? mapIconsToToolbarItem(breakoutIcons, layout, intl, nodeType)
+    : [];
+
+  const items = [
+    ...alignmentToolbarItems,
+    ...getSeparatorBetweenAlignmentAndWrapping(allowAlignment, allowWrapping),
+    ...wrappingToolbarItems,
+    ...getSeparatorBeforeBreakoutItems(
+      allowAlignment,
+      allowWrapping,
+      allowResizing,
+    ),
+    ...breakOutToolbarItems,
   ];
 
-  if (!allowResizing) {
-    toolbarItems = toolbarItems.concat([
-      { type: 'separator' } as FloatingToolbarSeparator,
-      ...mapIconsToToolbarItem(breakoutIcons, layout, intl, nodeType),
-    ]);
-  }
-
-  return toolbarItems;
+  return items;
 };
+
+const getSeparatorBetweenAlignmentAndWrapping = (
+  allowAlignment: boolean,
+  allowWrapping: boolean,
+) =>
+  allowAlignment && allowWrapping
+    ? [{ type: 'separator' } as FloatingToolbarSeparator]
+    : [];
+
+const getSeparatorBeforeBreakoutItems = (
+  allowAlignment: boolean,
+  allowWrapping: boolean,
+  allowResizing?: boolean,
+) =>
+  !allowResizing && (allowAlignment || allowWrapping)
+    ? [{ type: 'separator' } as FloatingToolbarSeparator]
+    : [];
 
 export default buildLayoutButtons;

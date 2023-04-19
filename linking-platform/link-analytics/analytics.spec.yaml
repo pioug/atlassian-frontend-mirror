@@ -73,26 +73,44 @@ context:
       description: |
         The `tenantId` of the linked resource if relevant.
 
+shared:
+  LifecycleEventAttributes: &LifecycleEventAttributes
+    sourceEvent:
+      type: string
+      required: false
+      description: |
+        The event name of the "sourceEvent" provided to the callback.
 
 events:
   - link created:
       type: track
       description: fired when a link is created
       attributes:
-        <<: [*ExternalContext, *ResolvedAttributes, *URLAttributes]
-
+        creationMethod:
+          type: string
+          description: |
+            The inputMethod that caused the link to be created.
+        <<: [*ExternalContext, *ResolvedAttributes, *URLAttributes, *LifecycleEventAttributes]
 
   - link updated:
       type: track
       description: fired when a link is updated
       attributes:
-        <<: [*ExternalContext, *ResolvedAttributes, *URLAttributes]
+        updateMethod:
+          type: string
+          description: |
+            The inputMethod that caused the link to be updated.
+        <<: [*ExternalContext, *ResolvedAttributes, *URLAttributes, *LifecycleEventAttributes]
 
   - link deleted:
       type: track
       description: fired when a link is deleted
       attributes:
-        <<: [*ExternalContext, *ResolvedAttributes, *URLAttributes]
+        deleteMethod:
+          type: string
+          description: |
+            The inputMethod that caused the link to be deleted.
+        <<: [*ExternalContext, *ResolvedAttributes, *URLAttributes, *LifecycleEventAttributes]
 
   - fireAnalyticEvent commenced:
       type: operational

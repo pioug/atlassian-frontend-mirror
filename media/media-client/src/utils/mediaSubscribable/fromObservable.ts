@@ -1,11 +1,11 @@
 import { ReplaySubject } from 'rxjs/ReplaySubject';
-import { MediaSubscribableItem } from '../../models/media-subscribable';
+import { FileState } from '../../models/file-state';
 import { createMediaSubject } from '../createMediaSubject';
 import { MediaSubscribable, MediaSubscription } from './types';
 
-export function fromObservable<T>(
-  observable: ReplaySubject<T>,
-): MediaSubscribable<T> {
+export function fromObservable(
+  observable: ReplaySubject<FileState>,
+): MediaSubscribable {
   return {
     subscribe: (observer): MediaSubscription => {
       const subscription =
@@ -24,8 +24,8 @@ export function fromObservable<T>(
   };
 }
 
-export function createMediaSubscribable<T extends MediaSubscribableItem>(
-  mediaSubscribableItem?: T | Error,
-): MediaSubscribable<T> {
-  return fromObservable(createMediaSubject(mediaSubscribableItem));
+export function createMediaSubscribable(
+  item?: FileState | Error,
+): MediaSubscribable {
+  return fromObservable(createMediaSubject(item));
 }

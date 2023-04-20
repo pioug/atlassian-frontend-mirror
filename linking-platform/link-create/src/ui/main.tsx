@@ -1,4 +1,6 @@
 /** @jsx jsx */
+import { memo } from 'react';
+
 import { jsx } from '@emotion/react';
 
 import Modal, {
@@ -10,9 +12,10 @@ import Modal, {
 
 import { LinkCreateCallbackProvider } from '../controllers/callback-context';
 
+import { ErrorBoundary } from './error-boundary';
 import { LinkCreateProps } from './types';
 
-export default function LinkCreate({
+function ComposedLinkCreate({
   plugins,
   testId,
   groupKey,
@@ -29,23 +32,37 @@ export default function LinkCreate({
   }
 
   return (
+    <LinkCreateCallbackProvider
+      onCreate={onCreate}
+      onFailure={onFailure}
+      onCancel={onCancel}
+    >
+      {chosenOne.form}
+    </LinkCreateCallbackProvider>
+  );
+}
+
+const LinkCreate = memo((props: LinkCreateProps) => {
+  return (
     <ModalTransition>
-      {!!active && (
-        <Modal onClose={onCancel} testId={testId}>
+      {!!props.active && (
+        <Modal
+          onClose={props.onCancel}
+          testId={props.testId}
+          shouldScrollInViewport={true}
+        >
           <ModalHeader>
             <ModalTitle>Create New</ModalTitle>
           </ModalHeader>
           <ModalBody>
-            <LinkCreateCallbackProvider
-              onCreate={onCreate}
-              onFailure={onFailure}
-              onCancel={onCancel}
-            >
-              {chosenOne.form}
-            </LinkCreateCallbackProvider>
+            <ErrorBoundary>
+              <ComposedLinkCreate {...props} />
+            </ErrorBoundary>
           </ModalBody>
         </Modal>
       )}
     </ModalTransition>
   );
-}
+});
+
+export default LinkCreate;

@@ -90,6 +90,9 @@ runEscapeKeydownSuite({
   openMenu: async (page) => {
     await emojiSearch(page, 'smile');
   },
+  adf: undefined,
+  skip: [],
+  expectPropagationOnEsc: [false, true],
 });
 
 BrowserTestCase(

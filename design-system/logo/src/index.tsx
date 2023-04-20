@@ -68,3 +68,4 @@ export {
 } from './statuspage-logo';
 export { StrideIcon, StrideLogo, StrideWordmark } from './stride-logo';
 export { TrelloIcon, TrelloLogo, TrelloWordmark } from './trello-logo';
+export { AtlasIcon, AtlasLogo } from './atlas-logo';

@@ -5,6 +5,8 @@ import { Code } from '@atlaskit/code';
 import { B200 } from '@atlaskit/theme/colors';
 
 import {
+  AtlasIcon,
+  AtlasLogo,
   AtlassianAnalyticsIcon,
   AtlassianAnalyticsLogo,
   AtlassianIcon,
@@ -130,6 +132,7 @@ export default () => (
         {buildRows(OpsgenieLogo, OpsgenieWordmark, OpsgenieIcon)}
         {buildRows(StatuspageLogo, StatuspageWordmark, StatuspageIcon)}
         {buildRows(TrelloLogo, TrelloWordmark, TrelloIcon)}
+        {buildRows(AtlasLogo, null, AtlasIcon, false)}
       </tbody>
     </table>
   </div>

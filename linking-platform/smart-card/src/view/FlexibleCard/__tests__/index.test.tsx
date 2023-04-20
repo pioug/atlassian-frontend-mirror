@@ -9,6 +9,13 @@ import { SmartCardProvider } from '@atlaskit/link-provider';
 import { FlexibleUiContext } from '../../../state/flexible-ui-context';
 import context from '../../../__fixtures__/flexible-ui-data-context';
 
+jest.mock('@atlaskit/link-provider', () => {
+  return {
+    ...jest.requireActual<Object>('@atlaskit/link-provider'),
+    useFeatureFlag: jest.fn(),
+  };
+});
+
 describe('FlexibleCard', () => {
   const title = 'some-name';
   const url = 'http://some-url.com';

@@ -72,6 +72,15 @@ const CardBuilder: React.FC<{
         template={template}
       />
       <CheckboxOption
+        defaultValue={false}
+        exclude={!isFlexible}
+        label="[WIP] Show server actions (flexible)"
+        name="showServerActions"
+        onChange={onChange}
+        propName="showServerActions"
+        template={template}
+      />
+      <CheckboxOption
         exclude={isFlexible}
         label="Selected"
         name="isSelected"

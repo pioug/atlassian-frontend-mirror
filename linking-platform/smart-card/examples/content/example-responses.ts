@@ -1,4 +1,5 @@
 import { JsonLd } from 'json-ld-types';
+import { SmartLinkActionType } from '@atlaskit/linking-types';
 import avatar1 from '../images/avatar-1.svg';
 import avatar2 from '../images/avatar-2.svg';
 import avatar3 from '../images/avatar-3.svg';
@@ -95,6 +96,25 @@ export const unicornResponse = {
     'schema:potentialAction': [
       { '@type': 'DownloadAction', name: 'Download' },
       { '@type': 'ViewAction', name: 'View' },
+    ],
+    'atlassian:serverAction': [
+      {
+        '@type': 'UpdateAction',
+        name: 'UpdateAction',
+        dataRetrievalAction: {
+          '@type': 'ReadAction',
+          name: SmartLinkActionType.GetStatusTransitionsAction,
+        },
+        dataUpdateAction: {
+          '@type': 'UpdateAction',
+          name: SmartLinkActionType.StatusUpdateAction,
+        },
+        refField: 'tag',
+        resourceIdentifiers: {
+          issueKey: 'some-id',
+          hostname: 'some-hostname',
+        },
+      },
     ],
     summary:
       'This is a showcase of a link response that contains a vast amount of data. It is unlikely that a real link would have all these information. For example, a blog link would not have data for a pull request target branch.',

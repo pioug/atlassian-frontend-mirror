@@ -101,6 +101,14 @@ describe('Feedback Collector unit tests', () => {
               id: 'customfield_10045',
               value: 'name',
             },
+            {
+              id: 'customfield_10043',
+              value: [{ id: '10111' }],
+            },
+            {
+              id: 'customfield_10044',
+              value: [{ id: '10112' }],
+            },
           ],
         };
 
@@ -144,6 +152,14 @@ describe('Feedback Collector unit tests', () => {
             {
               id: 'customfield_10045',
               value: 'name',
+            },
+            {
+              id: 'customfield_10043',
+              value: [{ id: '10111' }],
+            },
+            {
+              id: 'customfield_10044',
+              value: [{ id: '10112' }],
             },
           ],
         };
@@ -191,11 +207,11 @@ describe('Feedback Collector unit tests', () => {
             },
             {
               id: 'customfield_10043',
-              value: [
-                {
-                  id: '10109',
-                },
-              ],
+              value: [{ id: '10109' }],
+            },
+            {
+              id: 'customfield_10044',
+              value: [{ id: '10112' }],
             },
           ],
         };

@@ -2,6 +2,8 @@
 import React from 'react';
 import { jsx } from '@emotion/react';
 
+import { SmartCardProvider } from '@atlaskit/link-provider';
+
 import { VRTestWrapper } from './utils/vr-test';
 import { FooterBlock } from '../src/view/FlexibleCard/components/blocks';
 import { SmartLinkSize } from '../src/constants';
@@ -44,34 +46,36 @@ const actions: ActionItem[] = [makeDeleteActionItem()];
 
 export default () => (
   <VRTestWrapper title="Flexible UI: FooterBlock">
-    <h5>Default</h5>
-    {renderFooter()}
-    <h5>With two actions</h5>
-    {renderFooter(SmartLinkSize.Medium, [
-      makeDeleteActionItem(),
-      makeEditActionItem(),
-    ])}
-    <h5>With 3+ Custom actions</h5>
-    {renderFooter(SmartLinkSize.Medium, [
-      makeCustomActionItem(),
-      makeDeleteActionItem(),
-      makeCustomActionItem({
-        icon: <PremiumIcon label="magic" />,
-        testId: 'third-action-item',
-        content: 'Magic!',
-      }),
-      makeDownloadActionItem(),
-      makeViewActionItem(),
-    ])}
-    {Object.values(SmartLinkSize).map((size) => (
-      <React.Fragment>
-        <h5>Size: {size}</h5>
-        {renderFooter(size, actions)}
-      </React.Fragment>
-    ))}
-    <h5>Override CSS</h5>
-    <FlexibleCard cardState={getCardState()} url="link-url">
-      <FooterBlock overrideCss={blockOverrideCss} />
-    </FlexibleCard>
+    <SmartCardProvider>
+      <h5>Default</h5>
+      {renderFooter()}
+      <h5>With two actions</h5>
+      {renderFooter(SmartLinkSize.Medium, [
+        makeDeleteActionItem(),
+        makeEditActionItem(),
+      ])}
+      <h5>With 3+ Custom actions</h5>
+      {renderFooter(SmartLinkSize.Medium, [
+        makeCustomActionItem(),
+        makeDeleteActionItem(),
+        makeCustomActionItem({
+          icon: <PremiumIcon label="magic" />,
+          testId: 'third-action-item',
+          content: 'Magic!',
+        }),
+        makeDownloadActionItem(),
+        makeViewActionItem(),
+      ])}
+      {Object.values(SmartLinkSize).map((size) => (
+        <React.Fragment>
+          <h5>Size: {size}</h5>
+          {renderFooter(size, actions)}
+        </React.Fragment>
+      ))}
+      <h5>Override CSS</h5>
+      <FlexibleCard cardState={getCardState()} url="link-url">
+        <FooterBlock overrideCss={blockOverrideCss} />
+      </FlexibleCard>
+    </SmartCardProvider>
   </VRTestWrapper>
 );

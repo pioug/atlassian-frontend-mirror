@@ -1,6 +1,8 @@
 /** @jsx jsx */
 import React from 'react';
 
+import { SmartCardProvider } from '@atlaskit/link-provider';
+
 import { VRTestWrapper } from './utils/vr-test';
 import { blockOverrideCss, getCardState } from './utils/flexible-ui';
 import FlexibleCard from '../src/view/FlexibleCard';
@@ -38,58 +40,60 @@ const configurations: () => Array<{
 
 export default () => (
   <VRTestWrapper title="Flexible UI: PreviewBlock">
-    {configurations().map(
-      (
-        {
-          size,
-          placement,
-          ignorePadding,
-        }: {
-          size: SmartLinkSize;
-          placement: MediaPlacement | undefined;
-          ignorePadding: boolean;
-        },
-        idx: React.Key | undefined,
-      ) => (
-        <React.Fragment key={idx}>
-          <div
-            css={css`
-              max-width: 400px;
-            `}
-          >
-            <h5>
-              Size: {size}, Placement: {placement || 'Default'},
-              IgnoreContainerPadding: {ignorePadding ? 'True' : 'False'}
-            </h5>
-            <FlexibleCard cardState={cardState} url="link-url" ui={{ size }}>
-              <TitleBlock />
-              <SnippetBlock />
-              <PreviewBlock
-                placement={placement}
-                ignoreContainerPadding={ignorePadding}
-              />
-            </FlexibleCard>
-          </div>
-        </React.Fragment>
-      ),
-    )}
+    <SmartCardProvider>
+      {configurations().map(
+        (
+          {
+            size,
+            placement,
+            ignorePadding,
+          }: {
+            size: SmartLinkSize;
+            placement: MediaPlacement | undefined;
+            ignorePadding: boolean;
+          },
+          idx: React.Key | undefined,
+        ) => (
+          <React.Fragment key={idx}>
+            <div
+              css={css`
+                max-width: 400px;
+              `}
+            >
+              <h5>
+                Size: {size}, Placement: {placement || 'Default'},
+                IgnoreContainerPadding: {ignorePadding ? 'True' : 'False'}
+              </h5>
+              <FlexibleCard cardState={cardState} url="link-url" ui={{ size }}>
+                <TitleBlock />
+                <SnippetBlock />
+                <PreviewBlock
+                  placement={placement}
+                  ignoreContainerPadding={ignorePadding}
+                />
+              </FlexibleCard>
+            </div>
+          </React.Fragment>
+        ),
+      )}
 
-    <h5>Multiple Previews with mixed padding</h5>
-    <FlexibleCard cardState={cardState} url="link-url">
-      <PreviewBlock />
-      <TitleBlock />
-      <SnippetBlock />
-      <PreviewBlock placement={MediaPlacement.Left} />
-      <PreviewBlock
-        placement={MediaPlacement.Right}
-        ignoreContainerPadding={true}
-      />
-      <PreviewBlock ignoreContainerPadding={true} />
-    </FlexibleCard>
+      <h5>Multiple Previews with mixed padding</h5>
+      <FlexibleCard cardState={cardState} url="link-url">
+        <PreviewBlock />
+        <TitleBlock />
+        <SnippetBlock />
+        <PreviewBlock placement={MediaPlacement.Left} />
+        <PreviewBlock
+          placement={MediaPlacement.Right}
+          ignoreContainerPadding={true}
+        />
+        <PreviewBlock ignoreContainerPadding={true} />
+      </FlexibleCard>
 
-    <h5>Override CSS</h5>
-    <FlexibleCard cardState={cardState} url="link-url">
-      <PreviewBlock overrideCss={blockOverrideCss} />
-    </FlexibleCard>
+      <h5>Override CSS</h5>
+      <FlexibleCard cardState={cardState} url="link-url">
+        <PreviewBlock overrideCss={blockOverrideCss} />
+      </FlexibleCard>
+    </SmartCardProvider>
   </VRTestWrapper>
 );

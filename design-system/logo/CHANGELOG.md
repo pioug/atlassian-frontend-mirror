@@ -1,5 +1,11 @@
 # @atlaskit/logo
 
+## 13.13.0
+
+### Minor Changes
+
+- [`5111380b383`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5111380b383) - Adds logo assets for Atlas
+
 ## 13.12.1
 
 ### Patch Changes

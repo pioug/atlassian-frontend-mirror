@@ -40,6 +40,7 @@ export function CardWithUrlContent({
   onError,
   testId,
   showActions,
+  showServerActions: showServerActionsProp,
   inheritDimensions,
   embedIframeRef,
   embedIframeUrlType,
@@ -80,6 +81,8 @@ export function CardWithUrlContent({
   const enableFlexibleBlockCardFlag = Boolean(
     useFeatureFlag('enableFlexibleBlockCard'),
   );
+
+  const showServerActions = showServerActionsProp && platform !== 'mobile';
 
   // Setup UI handlers.
   const handleClickWrapper = useCallback(
@@ -268,6 +271,7 @@ export function CardWithUrlContent({
         renderers={renderers}
         ui={ui}
         showHoverPreview={showHoverPreview}
+        showServerActions={showServerActions}
         url={url}
         testId={testId}
         onResolve={onResolve}

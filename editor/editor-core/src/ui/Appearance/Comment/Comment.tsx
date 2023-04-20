@@ -175,6 +175,8 @@ class Editor extends React.Component<
       if (!editorView?.hasFocus()) {
         editorView?.focus();
       }
+      event.preventDefault();
+      event.stopPropagation();
     };
 
     return (

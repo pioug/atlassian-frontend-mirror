@@ -155,6 +155,9 @@ describe('typeahead: editor focus', () => {
     openMenu: async (page) => {
       await quickInsert(page, '', false);
     },
+    adf: undefined,
+    skip: [],
+    expectPropagationOnEsc: [false, true],
   });
 
   describe('when access from Safari and using keyboard selection shortcuts', () => {

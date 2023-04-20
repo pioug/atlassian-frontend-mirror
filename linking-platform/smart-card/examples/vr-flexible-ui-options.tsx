@@ -2,6 +2,8 @@
 import React from 'react';
 import { css, jsx } from '@emotion/react';
 
+import { SmartCardProvider } from '@atlaskit/link-provider';
+
 import { VRTestWrapper } from './utils/vr-test';
 import { TitleBlock } from '../src/view/FlexibleCard/components/blocks';
 import { SmartLinkSize } from '../src/constants';
@@ -39,21 +41,23 @@ const render = (
 );
 export default () => (
   <VRTestWrapper title="Flexible UI: Options">
-    <h5>Hide background</h5>
-    {render(true, false, false)}
-    <h5>Hide elevation</h5>
-    {render(false, true, false)}
-    <h5>Hide padding</h5>
-    {render(false, false, true)}
-    {Object.values(SmartLinkSize).map((size, idx) => (
-      <React.Fragment key={idx}>
-        <h5>Size: {size}</h5>
-        {render(false, false, false, size)}
-      </React.Fragment>
-    ))}
-    <h5>Clickable container</h5>
-    <div css={clickableContainerStyles}>
-      {render(false, false, false, undefined, true)}
-    </div>
+    <SmartCardProvider>
+      <h5>Hide background</h5>
+      {render(true, false, false)}
+      <h5>Hide elevation</h5>
+      {render(false, true, false)}
+      <h5>Hide padding</h5>
+      {render(false, false, true)}
+      {Object.values(SmartLinkSize).map((size, idx) => (
+        <React.Fragment key={idx}>
+          <h5>Size: {size}</h5>
+          {render(false, false, false, size)}
+        </React.Fragment>
+      ))}
+      <h5>Clickable container</h5>
+      <div css={clickableContainerStyles}>
+        {render(false, false, false, undefined, true)}
+      </div>
+    </SmartCardProvider>
   </VRTestWrapper>
 );

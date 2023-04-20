@@ -11,6 +11,8 @@ import { LinkCreatePlugin } from './types';
 import LinkCreate from './index';
 
 describe('LinkCreate', () => {
+  const testId = 'link-create';
+
   const ConfluenceCreationForm = () => {
     const { onCreate, onFailure, onCancel } = useLinkCreateCallback();
 
@@ -47,8 +49,6 @@ describe('LinkCreate', () => {
   };
 
   it("should find LinkCreate by its testid when it's active", async () => {
-    const testId = 'link-create';
-
     const { getByTestId } = render(
       <LinkCreate
         testId={testId}
@@ -62,8 +62,6 @@ describe('LinkCreate', () => {
   });
 
   it("should NOT find LinkCreate by its testid when it's active", async () => {
-    const testId = 'link-create';
-
     const { queryByTestId } = render(
       <LinkCreate testId={testId} plugins={[plugin]} entityKey="entity-key" />,
     );
@@ -72,7 +70,6 @@ describe('LinkCreate', () => {
   });
 
   it('should trigger the callback onCreate when it submits the form', async () => {
-    const testId = 'link-create';
     const onCreate = jest.fn();
 
     const { getByTestId } = render(
@@ -90,7 +87,6 @@ describe('LinkCreate', () => {
   });
 
   it('should trigger the callback onFailure when the form fails', async () => {
-    const testId = 'link-create';
     const onFailure = jest.fn();
 
     const { getByTestId } = render(
@@ -108,7 +104,6 @@ describe('LinkCreate', () => {
   });
 
   it('should trigger the callback onCancel when it cancels the form', async () => {
-    const testId = 'link-create';
     const onCancel = jest.fn();
 
     const { getByTestId } = render(

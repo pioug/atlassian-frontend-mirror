@@ -66,7 +66,7 @@ describe('Tokens should pass color contrast checks', () => {
      * This will be removed once https://product-fabric.atlassian.net/browse/DSP-4893
      * is resolved.
      */
-    const knownFailingLightThemePairs = [
+    const knownFailingDarkThemePairs = [
       'color.text on color.background.inverse.subtle.pressed',
       'color.text.selected on color.background.selected.pressed',
       'color.text on color.background.danger.pressed',
@@ -78,7 +78,7 @@ describe('Tokens should pass color contrast checks', () => {
     ];
 
     const adjustedResults = results.violations[0].nodes.filter((node) => {
-      return !knownFailingLightThemePairs.some((pair) =>
+      return !knownFailingDarkThemePairs.some((pair) =>
         node.html.includes(pair),
       );
     });

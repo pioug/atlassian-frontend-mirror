@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-platform
 
+## 0.1.8
+
+### Patch Changes
+
+- [`cb0e94d2ce4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb0e94d2ce4) - Fix prefixes for all flags being checked at any callsite, only the current flag will be checked from now on
+
 ## 0.1.7
 
 ### Patch Changes

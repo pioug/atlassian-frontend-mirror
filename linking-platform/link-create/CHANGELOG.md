@@ -1,5 +1,11 @@
 # @atlaskit/link-create
 
+## 0.3.0
+
+### Minor Changes
+
+- [`29dfee4c540`](https://bitbucket.org/atlassian/atlassian-frontend/commits/29dfee4c540) - Adds global error boundary and fixes footer padding
+
 ## 0.2.1
 
 ### Patch Changes

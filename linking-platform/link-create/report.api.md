@@ -15,8 +15,11 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
+/// <reference types="react" />
+
 import { AsyncSelectProps as AsyncSelectProps_2 } from '@atlaskit/select';
 import { jsx } from '@emotion/react';
+import { MemoExoticComponent } from 'react';
 import { OptionType } from '@atlaskit/select';
 import { default as React_2 } from 'react';
 import { ReactNode } from 'react';
@@ -43,7 +46,7 @@ type AsyncSelectProps<T = OptionType> = AsyncSelectProps_2<T> & {
 };
 
 // @public (undocumented)
-export const CreateForm: (props: any) => JSX.Element;
+export const CreateForm: (props: any) => jsx.JSX.Element;
 
 // @public (undocumented)
 export interface CreateFormProps {
@@ -76,16 +79,9 @@ interface Group {
 }
 
 // @public (undocumented)
-function LinkCreate({
-  plugins,
-  testId,
-  groupKey,
-  entityKey,
-  onCreate,
-  onFailure,
-  onCancel,
-  active,
-}: LinkCreateProps): jsx.JSX.Element;
+const LinkCreate: MemoExoticComponent<
+  (props: LinkCreateProps) => jsx.JSX.Element
+>;
 export default LinkCreate;
 
 // @public (undocumented)

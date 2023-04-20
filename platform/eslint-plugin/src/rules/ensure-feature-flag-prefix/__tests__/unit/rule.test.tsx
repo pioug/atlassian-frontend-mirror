@@ -18,12 +18,15 @@ jest.mock('read-pkg-up', () => ({
   }),
 }));
 
-describe('with flag with invalid prefix', () => {
+describe('test prefix rule', () => {
   beforeEach(() => {
     mockPath = 'test/package.json';
 
     mockPackageJson = {
       'platform-feature-flags': {
+        'prefix-flag': {
+          type: 'boolean',
+        },
         'no-prefix-flag': {
           type: 'boolean',
         },
@@ -33,7 +36,16 @@ describe('with flag with invalid prefix', () => {
 
   // this isolates the invalid case so we can test the suggestion properly
   tester.run('ensure-feature-flag-registration', rule, {
-    valid: [],
+    valid: [
+      {
+        options: [{ allowedPrefixes: ['prefix'] }],
+        code: `ffTest('prefix-flag')`,
+      },
+      {
+        options: [{ allowedPrefixes: ['prefix'] }],
+        code: `getBooleanFF('prefix-flag')`,
+      },
+    ],
     invalid: [
       {
         options: [{ allowedPrefixes: ['prefix'] }],

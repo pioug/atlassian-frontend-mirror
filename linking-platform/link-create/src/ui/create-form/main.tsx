@@ -1,4 +1,7 @@
+/** @jsx jsx */
 import React, { ReactNode } from 'react';
+
+import { jsx } from '@emotion/react';
 
 import LoadingButton from '@atlaskit/button/loading-button';
 import Button from '@atlaskit/button/standard-button';
@@ -10,6 +13,7 @@ import {
   useFormContext,
 } from '../../controllers/form-context';
 
+import { formStyles } from './styled';
 import { validateFormData } from './utils';
 
 export interface CreateFormProps {
@@ -51,6 +55,8 @@ const CreateFormWithoutContext: React.FC<CreateFormProps> = ({
           {...formProps}
           name="confluence-creation-form"
           data-testid={testId}
+          // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
+          css={formStyles}
         >
           <FormSection>{children}</FormSection>
           <FormFooter>

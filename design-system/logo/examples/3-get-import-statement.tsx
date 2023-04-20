@@ -30,6 +30,7 @@ const products: Product[] = [
   { label: 'Opsgenie', value: 'Opsgenie' },
   { label: 'StatusPage', value: 'StatusPage' },
   { label: 'Trello', value: 'Trello' },
+  { label: 'Atlas', value: 'Atlas' },
 ];
 
 const files: File[] = [

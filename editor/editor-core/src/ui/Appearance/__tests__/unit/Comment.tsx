@@ -13,6 +13,10 @@ import EditorActions from '../../../../actions';
 import { MediaOptions } from '../../../../plugins/media/types';
 
 describe('comment editor', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   const createEditor = createEditorFactory();
 
   const editor = (doc: DocBuilder) =>
@@ -216,6 +220,68 @@ describe('comment editor', () => {
           .find('div[data-testid="ak-editor-secondary-toolbar"]')
           .exists(),
       ).toBe(false);
+    });
+
+    describe('comment toolbar shortcuts', () => {
+      beforeAll(() => {
+        // scrollIntoView is not available in jsdom so need to mock it https://github.com/jsdom/jsdom/issues/1695
+        window.HTMLElement.prototype.scrollIntoView = jest.fn();
+      });
+
+      it('focuses editor on ESC', () => {
+        const { editorView, commentComponent } =
+          mountCommentWithToolbarButton();
+        const editorFocusSpy = jest.spyOn(editorView, 'focus');
+
+        const toolbarClickWrapper = commentComponent
+          .find('.custom-key-handler-wrapper')
+          .last()
+          .getDOMNode();
+        toolbarClickWrapper.dispatchEvent(
+          new KeyboardEvent('keydown', {
+            key: 'Escape',
+          }),
+        );
+        expect(editorFocusSpy).toHaveBeenCalled();
+      });
+
+      it('focuses toolbar on alt + F9', () => {
+        const { editorView, commentComponent } =
+          mountCommentWithToolbarButton();
+        const buttonElement = commentComponent
+          .find('[data-testid="custom-button"]')
+          .last()
+          .getDOMNode() as HTMLElement;
+
+        const buttonFocusSpy = jest.spyOn(buttonElement, 'focus');
+        const buttonScrollSpy = jest.spyOn(buttonElement, 'scrollIntoView');
+
+        editorView.dom.dispatchEvent(
+          new KeyboardEvent('keydown', {
+            key: 'F9',
+            keyCode: 120,
+            altKey: true,
+          }),
+        );
+        expect(buttonFocusSpy).toHaveBeenCalled();
+        expect(buttonScrollSpy).toHaveBeenCalled();
+      });
+
+      function mountCommentWithToolbarButton() {
+        const { editorView } = editor(doc(p('Hello world')));
+        const commentComponent = mountWithIntl(
+          <Comment
+            editorView={editorView}
+            providerFactory={{} as any}
+            editorDOMElement={<div />}
+            primaryToolbarComponents={[
+              () => <button data-testid="custom-button">Test</button>,
+            ]}
+            featureFlags={{}}
+          />,
+        );
+        return { editorView, commentComponent };
+      }
     });
   });
 });

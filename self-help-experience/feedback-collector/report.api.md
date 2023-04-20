@@ -41,7 +41,10 @@ class FeedbackCollector extends Component<Props> {
     url: string;
     shouldGetEntitlementDetails: boolean;
     canBeContactedFieldId: string;
-    canBeContactedDefaultValue: {
+    canBeContactedAgreeValue: {
+      id: string;
+    }[];
+    canBeContactedDeclineValue: {
       id: string;
     }[];
     additionalFields: never[];
@@ -50,7 +53,10 @@ class FeedbackCollector extends Component<Props> {
     descriptionFieldId: string;
     descriptionDefaultValue: string;
     enrollInResearchFieldId: string;
-    enrollInResearchDefaultValue: {
+    enrollInResearchAgreeValue: {
+      id: string;
+    }[];
+    enrollInResearchDeclineValue: {
       id: string;
     }[];
     emailFieldId: string;
@@ -153,7 +159,8 @@ export interface FormFields {
 // @public (undocumented)
 interface Props {
   additionalFields: FieldType[];
-  canBeContactedDefaultValue: FieldValueType;
+  canBeContactedAgreeValue: FieldValueType;
+  canBeContactedDeclineValue: FieldValueType;
   canBeContactedFieldId: string;
   canBeContactedLabel?: React_2.ReactChild;
   cancelButtonLabel?: string;
@@ -168,7 +175,8 @@ interface Props {
   emailDefaultValue: FieldValueType;
   emailFieldId: string;
   enrolInResearchLabel?: React_2.ReactChild;
-  enrollInResearchDefaultValue: FieldValueType;
+  enrollInResearchAgreeValue: FieldValueType;
+  enrollInResearchDeclineValue: FieldValueType;
   enrollInResearchFieldId: string;
   entrypointId: string;
   feedbackGroupLabels?: Record<SelectValue, SelectOptionDetails>;

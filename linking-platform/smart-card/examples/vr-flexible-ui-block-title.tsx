@@ -3,6 +3,8 @@
 import React from 'react';
 import { css, jsx } from '@emotion/react';
 
+import { SmartCardProvider } from '@atlaskit/link-provider';
+
 import { VRTestWrapper } from './utils/vr-test';
 import { TitleBlock } from '../src/view/FlexibleCard/components/blocks';
 import {
@@ -100,182 +102,186 @@ const renderErroredView = (
 
 export default () => (
   <VRTestWrapper title="Flexible UI: TitleBlock">
-    <h5>Default</h5>
-    <FlexibleCard cardState={getCardState()} url="link-url">
-      <TitleBlock />
-    </FlexibleCard>
+    <SmartCardProvider>
+      <h5>Default</h5>
+      <FlexibleCard cardState={getCardState()} url="link-url">
+        <TitleBlock />
+      </FlexibleCard>
 
-    {Object.values(SmartLinkSize).map((size, idx) => (
-      <React.Fragment key={idx}>
-        <h5>Size: {size}</h5>
-        {renderResolvedView({ size })}
-      </React.Fragment>
-    ))}
-    <h5>With default action items:</h5>
-    {renderResolvedView({ actions: [makeDeleteActionItem()] })}
-    <h5>With content only action items:</h5>
-    {renderResolvedView({
-      actions: [makeDeleteActionItem({ hideIcon: true })],
-    })}
-    <h5>With icon only action items:</h5>
-    {renderResolvedView({
-      actions: [makeDeleteActionItem({ hideContent: true })],
-    })}
-    <h5>With custom action:</h5>
-    {renderResolvedView({ actions: [makeCustomActionItem()] })}
-    <h5>With on hove only actions:</h5>
-    {renderResolvedView({
-      showActionOnHover: true,
-      actions: [makeCustomActionItem(), makeDeleteActionItem()],
-      testId: 'actions-on-hover-title-block',
-    })}
-    {renderResolvedView({
-      showActionOnHover: true,
-      actions: [makeCustomActionItem()],
-    })}
-    <h5>Theme: {SmartLinkTheme.Black}</h5>
-    {renderResolvedView({ theme: SmartLinkTheme.Black })}
-    <h5>Max lines: 1</h5>
-    {renderResolvedView({
-      maxLines: 1,
-      size: SmartLinkSize.Medium,
-      theme: SmartLinkTheme.Link,
-    })}
-    <h5>Position: {SmartLinkPosition.Center}</h5>
-    {renderResolvedView({
-      position: SmartLinkPosition.Center,
-    })}
-    <h5>Title override </h5>
-    {renderResolvedView({ text: 'Test Title' })}
-    <div css={gridStyles}>
-      <div>
-        {renderResolvedView({
-          maxLines: 1,
-          text: 'https://product-fabric.atlassian.net/browse/EDM-3050',
-        })}
+      {Object.values(SmartLinkSize).map((size, idx) => (
+        <React.Fragment key={idx}>
+          <h5>Size: {size}</h5>
+          {renderResolvedView({ size })}
+        </React.Fragment>
+      ))}
+      <h5>With default action items:</h5>
+      {renderResolvedView({ actions: [makeDeleteActionItem()] })}
+      <h5>With content only action items:</h5>
+      {renderResolvedView({
+        actions: [makeDeleteActionItem({ hideIcon: true })],
+      })}
+      <h5>With icon only action items:</h5>
+      {renderResolvedView({
+        actions: [makeDeleteActionItem({ hideContent: true })],
+      })}
+      <h5>With custom action:</h5>
+      {renderResolvedView({ actions: [makeCustomActionItem()] })}
+      <h5>With on hove only actions:</h5>
+      {renderResolvedView({
+        showActionOnHover: true,
+        actions: [makeCustomActionItem(), makeDeleteActionItem()],
+        testId: 'actions-on-hover-title-block',
+      })}
+      {renderResolvedView({
+        showActionOnHover: true,
+        actions: [makeCustomActionItem()],
+      })}
+      <h5>Theme: {SmartLinkTheme.Black}</h5>
+      {renderResolvedView({ theme: SmartLinkTheme.Black })}
+      <h5>Max lines: 1</h5>
+      {renderResolvedView({
+        maxLines: 1,
+        size: SmartLinkSize.Medium,
+        theme: SmartLinkTheme.Link,
+      })}
+      <h5>Position: {SmartLinkPosition.Center}</h5>
+      {renderResolvedView({
+        position: SmartLinkPosition.Center,
+      })}
+      <h5>Title override </h5>
+      {renderResolvedView({ text: 'Test Title' })}
+      <div css={gridStyles}>
+        <div>
+          {renderResolvedView({
+            maxLines: 1,
+            text: 'https://product-fabric.atlassian.net/browse/EDM-3050',
+          })}
+        </div>
+        <div>
+          {renderResolvedView({
+            maxLines: 1,
+            text: 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/4QBgRXhpZgAASUkqAAgAAAACADEBAgAHAAAAJgAAAGmHBAABAAAALgAAAAAAAABHb29nbGUAAAMAAJAHAAQAAAAwM==',
+          })}
+        </div>
       </div>
-      <div>
-        {renderResolvedView({
-          maxLines: 1,
-          text: 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/4QBgRXhpZgAASUkqAAgAAAACADEBAgAHAAAAJgAAAGmHBAABAAAALgAAAAAAAABHb29nbGUAAAMAAJAHAAQAAAAwM==',
-        })}
-      </div>
-    </div>
-    <h5>CSS override</h5>
-    {renderResolvedView({ overrideCss: blockOverrideCss })}
-    <h4>Views</h4>
-    <h5>Errored view</h5>
-    {renderErroredView('errored', {}, [makeEditActionItem({ hideIcon: true })])}
-    {renderErroredView('errored', {}, [], true, SmartLinkSize.Small)}
-    <h5>Forbidden view</h5>
-    {renderErroredView(
-      'forbidden',
-      {
-        visibility: 'restricted',
-        access: 'forbidden',
-        auth: [
-          {
-            key: 'some-flow',
-            displayName: 'Flow',
-            url: 'https://outbound-auth/flow',
-          },
+      <h5>CSS override</h5>
+      {renderResolvedView({ overrideCss: blockOverrideCss })}
+      <h4>Views</h4>
+      <h5>Errored view</h5>
+      {renderErroredView('errored', {}, [
+        makeEditActionItem({ hideIcon: true }),
+      ])}
+      {renderErroredView('errored', {}, [], true, SmartLinkSize.Small)}
+      <h5>Forbidden view</h5>
+      {renderErroredView(
+        'forbidden',
+        {
+          visibility: 'restricted',
+          access: 'forbidden',
+          auth: [
+            {
+              key: 'some-flow',
+              displayName: 'Flow',
+              url: 'https://outbound-auth/flow',
+            },
+          ],
+        },
+        [
+          makeEditActionItem({ hideContent: true }),
+          makeDeleteActionItem({ hideContent: true }),
         ],
-      },
-      [
-        makeEditActionItem({ hideContent: true }),
-        makeDeleteActionItem({ hideContent: true }),
-      ],
-    )}
-    {renderErroredView(
-      'forbidden',
-      {
-        visibility: 'restricted',
-        access: 'forbidden',
-        auth: [
-          {
-            key: 'some-flow',
-            displayName: 'Flow',
-            url: 'https://outbound-auth/flow',
-          },
-        ],
-      },
-      [],
-      true,
-      SmartLinkSize.Small,
-    )}
-    <h5>Not found view</h5>
-    {renderErroredView(
-      'not_found',
-      {
-        visibility: 'not_found',
-        access: 'forbidden',
-      },
-      [makeDeleteActionItem()],
-    )}
-    {renderErroredView(
-      'not_found',
-      {
-        visibility: 'not_found',
-        access: 'forbidden',
-      },
-      [],
-      true,
-      SmartLinkSize.Small,
-    )}
-    <h5>Unauthorized view</h5>
-    {renderErroredView(
-      'unauthorized',
-      {
-        visibility: 'restricted',
-        access: 'unauthorized',
-        auth: [
-          {
-            key: 'some-flow',
-            displayName: 'Flow',
-            url: 'https://outbound-auth/flow',
-          },
-        ],
-      },
-      [],
-      undefined,
-      undefined,
-      {
-        generator: {
-          '@type': 'Object',
-          name: 'Google',
-          icon: {
-            '@type': 'Image',
-            url: 'http://www.google.com/favicon.ico',
+      )}
+      {renderErroredView(
+        'forbidden',
+        {
+          visibility: 'restricted',
+          access: 'forbidden',
+          auth: [
+            {
+              key: 'some-flow',
+              displayName: 'Flow',
+              url: 'https://outbound-auth/flow',
+            },
+          ],
+        },
+        [],
+        true,
+        SmartLinkSize.Small,
+      )}
+      <h5>Not found view</h5>
+      {renderErroredView(
+        'not_found',
+        {
+          visibility: 'not_found',
+          access: 'forbidden',
+        },
+        [makeDeleteActionItem()],
+      )}
+      {renderErroredView(
+        'not_found',
+        {
+          visibility: 'not_found',
+          access: 'forbidden',
+        },
+        [],
+        true,
+        SmartLinkSize.Small,
+      )}
+      <h5>Unauthorized view</h5>
+      {renderErroredView(
+        'unauthorized',
+        {
+          visibility: 'restricted',
+          access: 'unauthorized',
+          auth: [
+            {
+              key: 'some-flow',
+              displayName: 'Flow',
+              url: 'https://outbound-auth/flow',
+            },
+          ],
+        },
+        [],
+        undefined,
+        undefined,
+        {
+          generator: {
+            '@type': 'Object',
+            name: 'Google',
+            icon: {
+              '@type': 'Image',
+              url: 'http://www.google.com/favicon.ico',
+            },
           },
         },
-      },
-    )}
-    {renderErroredView(
-      'unauthorized',
-      {
-        visibility: 'restricted',
-        access: 'unauthorized',
-        auth: [
-          {
-            key: 'some-flow',
-            displayName: 'Flow',
-            url: 'https://outbound-auth/flow',
-          },
-        ],
-      },
-      [makeEditActionItem(), makeDeleteActionItem()],
-      true,
-      SmartLinkSize.Small,
-    )}
-    <h5>Resolving view</h5>
-    <FlexibleCard
-      cardState={{ status: 'resolving' }}
-      url="https://resolving-url?s=loading"
-    >
-      <TitleBlock
-        actions={[makeEditActionItem({ hideContent: true })]}
-        position={SmartLinkPosition.Center}
-      />
-    </FlexibleCard>
+      )}
+      {renderErroredView(
+        'unauthorized',
+        {
+          visibility: 'restricted',
+          access: 'unauthorized',
+          auth: [
+            {
+              key: 'some-flow',
+              displayName: 'Flow',
+              url: 'https://outbound-auth/flow',
+            },
+          ],
+        },
+        [makeEditActionItem(), makeDeleteActionItem()],
+        true,
+        SmartLinkSize.Small,
+      )}
+      <h5>Resolving view</h5>
+      <FlexibleCard
+        cardState={{ status: 'resolving' }}
+        url="https://resolving-url?s=loading"
+      >
+        <TitleBlock
+          actions={[makeEditActionItem({ hideContent: true })]}
+          position={SmartLinkPosition.Center}
+        />
+      </FlexibleCard>
+    </SmartCardProvider>
   </VRTestWrapper>
 );

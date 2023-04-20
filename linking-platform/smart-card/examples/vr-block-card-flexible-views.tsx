@@ -1,6 +1,8 @@
 import React from 'react';
-import { VRTestWrapper } from './utils/vr-test';
 
+import { SmartCardProvider } from '@atlaskit/link-provider';
+
+import { VRTestWrapper } from './utils/vr-test';
 import BlockCardViewTest, { renderCard } from './utils/vr-block-flexible-views';
 import FlexibleResolvedView from '../src/view/BlockCard/views/flexible/FlexibleResolvedView';
 import { CardClient } from '@atlaskit/link-provider';
@@ -38,11 +40,13 @@ export default () => {
       {renderCard(new MaximumResolvedCustomClient(), 'block')}
 
       <h4>Resolving</h4>
-      <FlexibleResolvedView
-        cardState={{ status: 'resolving' }}
-        url="some-url"
-        analytics={mockAnalytics}
-      />
+      <SmartCardProvider>
+        <FlexibleResolvedView
+          cardState={{ status: 'resolving' }}
+          url="some-url"
+          analytics={mockAnalytics}
+        />
+      </SmartCardProvider>
     </VRTestWrapper>
   );
 };

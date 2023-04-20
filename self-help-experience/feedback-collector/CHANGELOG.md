@@ -1,5 +1,20 @@
 # @atlaskit/feedback-collector
 
+## 12.0.0
+
+### Major Changes
+
+- [`278c2413bf4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/278c2413bf4) - Adding and renaming properties to the component. This was introduced to support teams defining and using their own values for the checkboxes.
+
+  If you overwrite the `canBeContactedDefaultValue` or `enrollInResearchDefaultValue`, you'll need to update the property name in use
+
+  A recap of the changes to properties:
+
+  `canBeContactedDefaultValue` -> `canBeContactedAgreeValue`
+  `enrollInResearchDefaultValue` -> `enrollInResearchAgreeValue`
+  (new) -> `canBeContactedDeclineValue`
+  (new) -> `enrollInResearchDeclineValue`
+
 ## 11.0.0
 
 ### Major Changes

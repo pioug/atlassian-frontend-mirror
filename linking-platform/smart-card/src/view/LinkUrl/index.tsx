@@ -2,11 +2,16 @@ import React from 'react';
 import { useLinkWarningModal } from './LinkWarningModal/hooks/use-link-warning-modal';
 import LinkWarningModal from './LinkWarningModal';
 import { LinkUrlProps, PackageDataType } from './types';
-import { withAnalyticsContext } from '@atlaskit/analytics-next';
+import {
+  useAnalyticsEvents,
+  withAnalyticsContext,
+} from '@atlaskit/analytics-next';
 import {
   name as packageName,
   version as packageVersion,
 } from '../../version.json';
+import { fireLinkClickedEvent } from '../../utils/analytics/click';
+import useMouseDownEvent from '../../state/analytics/useMouseDownEvent';
 
 const PACKAGE_DATA: PackageDataType = {
   packageName,
@@ -19,10 +24,14 @@ const LinkUrl: React.FC<LinkUrlProps> = ({
   children,
   checkSafety = true,
   onClick,
+  onMouseDown,
   testId = 'link-with-safety',
   ...props
 }) => {
   const { checkLinkSafety, ...linkWarningModalProps } = useLinkWarningModal();
+
+  const { createAnalyticsEvent } = useAnalyticsEvents();
+  const handleMouseDown = useMouseDownEvent();
 
   return (
     <>
@@ -32,6 +41,11 @@ const LinkUrl: React.FC<LinkUrlProps> = ({
         onClick={(e) => {
           checkSafety && checkLinkSafety(e, href);
           onClick && onClick(e);
+          fireLinkClickedEvent(createAnalyticsEvent)(e);
+        }}
+        onMouseDown={(e) => {
+          onMouseDown && onMouseDown(e);
+          handleMouseDown(e); // add analytics
         }}
         {...props}
       >

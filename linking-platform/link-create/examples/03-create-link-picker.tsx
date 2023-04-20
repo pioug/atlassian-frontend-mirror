@@ -7,11 +7,21 @@ import LinkCreate from '@atlaskit/link-create';
 import { LinkPicker } from '@atlaskit/link-picker';
 import Popup from '@atlaskit/popup';
 import { createConfluencePageLinkCreatePlugin } from '@atlassian/link-create-confluence';
+import {
+  mockCreatePage,
+  mockFetchPage,
+  mockFetchSpace,
+} from '@atlassian/link-create-confluence/mocks';
 import { createDefaultPluginPresets } from '@atlassian/link-create-presets';
 import {
   LinkPickerCreateOnSubmitHandler,
   useLinkPickerCreate,
 } from '@atlassian/link-picker-plugins';
+
+// Mocks
+mockFetchPage();
+mockFetchSpace();
+mockCreatePage();
 
 // This is the cloud id for pug.jira-dev.com
 const CLOUD_ID = 'DUMMY-a5a01d21-1cc3-4f29-9565-f2bb8cd969f5';
@@ -21,8 +31,8 @@ const LinkPickerCreate = () => {
   const [showPicker, setShowPicker] = useState(true);
 
   // Plugin configuration
-  // We can take especific create plugins, presets or both
-  // Especific plugin config will take priority over presets
+  // We can take specific create plugins, presets or both,
+  // specific plugin configs will take priority over presets
   const linkPickerCreateconfigs = useMemo(
     () => [
       {

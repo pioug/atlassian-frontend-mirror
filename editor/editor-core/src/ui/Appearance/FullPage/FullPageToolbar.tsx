@@ -148,6 +148,8 @@ export const EditorToolbar: React.FunctionComponent<
     if (!props.editorView?.hasFocus()) {
       props.editorView?.focus();
     }
+    event.preventDefault();
+    event.stopPropagation();
   };
 
   return (

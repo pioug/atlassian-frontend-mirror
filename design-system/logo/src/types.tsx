@@ -47,7 +47,7 @@ type WithRequiredProperty<Type, Key extends keyof Type> = Type & {
   [Property in Key]-?: Type[Property];
 };
 
-export type LogoPropsAppearanceRequired = WithRequiredProperty<
-  LogoProps,
-  'appearance'
+export type LogoPropsAppearanceRequired = Omit<
+  WithRequiredProperty<LogoProps, 'appearance'>,
+  'iconColor' | 'iconGradientStart' | 'iconGradientStop' | 'textColor'
 >;

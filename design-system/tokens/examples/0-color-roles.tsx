@@ -200,13 +200,19 @@ export default () => {
   return (
     <div css={containerStyles}>
       <h2>Semantic tokens</h2>
-      {Object.entries(variantStyles).map(([key, subVariantStyles]) => (
-        <div key={key} css={rowStyles}>
-          {Object.entries(subVariantStyles).map(([subKey, styles]) => (
-            <Box key={key + subKey} style={styles} text={`${key}.${subKey}`} />
-          ))}
-        </div>
-      ))}
+      <div data-testid="tokens">
+        {Object.entries(variantStyles).map(([key, subVariantStyles]) => (
+          <div key={key} css={rowStyles}>
+            {Object.entries(subVariantStyles).map(([subKey, styles]) => (
+              <Box
+                key={key + subKey}
+                style={styles}
+                text={`${key}.${subKey}`}
+              />
+            ))}
+          </div>
+        ))}
+      </div>
       <button
         type="button"
         onClick={() => setGlobalTheme({ colorMode: 'light' })}

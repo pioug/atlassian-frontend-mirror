@@ -15,6 +15,7 @@ import formatterTSTokenDefaults from './formatters/typescript-token-defaults';
 import formatterTSGeneratedTypes from './formatters/typescript-token-generated-types';
 import formatterTSGeneratedTypesInternal from './formatters/typescript-token-generated-types-internal';
 import formatterTSTokenNames from './formatters/typescript-token-names';
+import formatterTSGeneratedPairings from './formatters/typescript-token-pairings';
 import dotSyntax from './transformers/dot-syntax';
 import paletteTransform from './transformers/palette';
 
@@ -51,6 +52,8 @@ const createGlobalConfig = (schemaInputDir: string): Config => ({
     'typescript/token-default-values': formatterTSTokenDefaults as any,
     'typescript/token-types': formatterTSGeneratedTypes as any,
     'typescript/token-types-internal': formatterTSGeneratedTypesInternal as any,
+    'typescript/generate-recommended-pairs':
+      formatterTSGeneratedPairings as any,
     'css/dynamic-import-map': formatterDynamicImportMap as any,
   },
   platforms: {
@@ -96,6 +99,10 @@ const createGlobalConfig = (schemaInputDir: string): Config => ({
         {
           format: 'typescript/token-default-values',
           destination: 'token-default-values.tsx',
+        },
+        {
+          format: 'typescript/generate-recommended-pairs',
+          destination: 'generated-pairs.tsx',
         },
       ],
     },

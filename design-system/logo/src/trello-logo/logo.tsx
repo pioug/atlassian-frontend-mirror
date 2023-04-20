@@ -76,7 +76,7 @@ const svg = ({
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const TrelloLogo = ({
+export const AtlasLogo = ({
   appearance,
   label = 'Trello',
   size = defaultLogoParams.size,

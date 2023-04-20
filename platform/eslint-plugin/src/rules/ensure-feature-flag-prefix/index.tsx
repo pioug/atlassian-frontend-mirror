@@ -59,9 +59,12 @@ const rule: Rule.RuleModule = {
               return {};
             }
 
-            // check registration section for valid feature flag prefixes.
-            // this checks all flags at every call site to ensure that new flags show errors as soon as possible.
-            for (const featureFlag in platformFeatureFlags) {
+            if (
+              args.length === 1 &&
+              args[0].type === 'Literal' &&
+              args[0].raw
+            ) {
+              const featureFlag = args[0].value as string;
               if (
                 !allowedPrefixes.some((prefix) =>
                   featureFlag.startsWith(prefix),

@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 25.5.4
+
+### Patch Changes
+
+- [`19622f395b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19622f395b0) - Connect `showServerActions` prop to flexible smart links, surfacing the lozenge dropdown action behind feature flag.
+
+## 25.5.3
+
+### Patch Changes
+
+- [`da5d5b2dbef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/da5d5b2dbef) - Fire link clicked analytics event for LinkUrl component
+
 ## 25.5.2
 
 ### Patch Changes

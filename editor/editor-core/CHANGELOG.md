@@ -1,5 +1,12 @@
 # @atlaskit/editor-core
 
+## 182.1.1
+
+### Patch Changes
+
+- [`dc608155b35`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dc608155b35) - [ux] ED-17486 stopped event propagation on Esc key on the main toolbar so that it is only focuses editor.
+- Updated dependencies
+
 ## 182.1.0
 
 ### Minor Changes

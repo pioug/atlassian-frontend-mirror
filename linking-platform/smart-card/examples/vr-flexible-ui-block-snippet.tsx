@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { SmartCardProvider } from '@atlaskit/link-provider';
+
 import { VRTestWrapper } from './utils/vr-test';
 import { blockOverrideCss, getCardState } from './utils/flexible-ui';
 import FlexibleCard from '../src/view/FlexibleCard';
@@ -12,17 +14,19 @@ const cardState = getCardState({
 
 export default () => (
   <VRTestWrapper title="Flexible UI: SnippetBlock">
-    <h5>Default</h5>
-    <FlexibleCard cardState={cardState} url="link-url">
-      <SnippetBlock />
-    </FlexibleCard>
-    <h5>Single line</h5>
-    <FlexibleCard cardState={cardState} url="link-url">
-      <SnippetBlock maxLines={1} />
-    </FlexibleCard>
-    <h5>Override CSS</h5>
-    <FlexibleCard cardState={cardState} url="link-url">
-      <SnippetBlock overrideCss={blockOverrideCss} />
-    </FlexibleCard>
+    <SmartCardProvider>
+      <h5>Default</h5>
+      <FlexibleCard cardState={cardState} url="link-url">
+        <SnippetBlock />
+      </FlexibleCard>
+      <h5>Single line</h5>
+      <FlexibleCard cardState={cardState} url="link-url">
+        <SnippetBlock maxLines={1} />
+      </FlexibleCard>
+      <h5>Override CSS</h5>
+      <FlexibleCard cardState={cardState} url="link-url">
+        <SnippetBlock overrideCss={blockOverrideCss} />
+      </FlexibleCard>
+    </SmartCardProvider>
   </VRTestWrapper>
 );

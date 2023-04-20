@@ -13,3 +13,5 @@ dist/tokens-browser-extension
 tokens-browser-extension
 scripts/
 constellation/
+
+dist/**/artifacts/generated-pairs

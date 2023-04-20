@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 1.2.16
+
+### Patch Changes
+
+- [`1ddf6dd6387`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1ddf6dd6387) - Adds a beta contrast checking tool to token examples utilising a new "token pairing" algorithm to find recommended pairs of foreground and background tokens. There is no change to API or bundle size.
+
 ## 1.2.15
 
 ### Patch Changes

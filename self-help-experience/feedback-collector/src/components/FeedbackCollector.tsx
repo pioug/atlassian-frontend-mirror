@@ -38,8 +38,10 @@ export interface Props {
   additionalFields: FieldType[];
   /**  Override the default id for the "can be contacted" custom field in your widget service **/
   canBeContactedFieldId: string;
-  /**  Override the default value for the "can be contacted" custom field in your widget service */
-  canBeContactedDefaultValue: FieldValueType;
+  /**  Override the agree value for the "can be contacted" custom field in your widget service */
+  canBeContactedAgreeValue: FieldValueType;
+  /**  Override the decline value for the "can be contacted" custom field in your widget service */
+  canBeContactedDeclineValue: FieldValueType;
   /**  Override the default id for the "customer name" custom field in your widget service */
   customerNameFieldId: string;
   /**  Override the default value for the "customer name" custom field in your widget service */
@@ -50,8 +52,10 @@ export interface Props {
   descriptionDefaultValue: FieldValueType;
   /**  Override the default id for the "enroll in research" custom field in your widget service */
   enrollInResearchFieldId: string;
-  /**  Override the default value for the "enroll in research" custom field in your widget service */
-  enrollInResearchDefaultValue: FieldValueType;
+  /**  Override the agree value for the "enroll in research" custom field in your widget service */
+  enrollInResearchAgreeValue: FieldValueType;
+  /**  Override the decline value for the "enroll in research" custom field in your widget service */
+  enrollInResearchDeclineValue: FieldValueType;
   /**  Override the default id for the "email" custom field in your widget service */
   emailFieldId: string;
   /**  Override the default value for the "email" custom field in your widget service */
@@ -121,14 +125,16 @@ export default class FeedbackCollector extends Component<Props> {
     url: '/gateway/api',
     shouldGetEntitlementDetails: true,
     canBeContactedFieldId: 'customfield_10043',
-    canBeContactedDefaultValue: [{ id: '10109' }],
+    canBeContactedAgreeValue: [{ id: '10109' }],
+    canBeContactedDeclineValue: [{ id: '10111' }],
     additionalFields: [],
     customerNameFieldId: 'customfield_10045',
     customerNameDefaultValue: 'unknown',
     descriptionFieldId: 'description',
     descriptionDefaultValue: '',
     enrollInResearchFieldId: 'customfield_10044',
-    enrollInResearchDefaultValue: [{ id: '10110' }],
+    enrollInResearchAgreeValue: [{ id: '10110' }],
+    enrollInResearchDeclineValue: [{ id: '10112' }],
     emailFieldId: 'email',
     emailDefaultValue: 'do-not-reply@atlassian.com',
     summaryFieldId: 'summary',
@@ -375,15 +381,21 @@ export default class FeedbackCollector extends Component<Props> {
         formValues.canBeContacted
           ? {
               id: this.props.canBeContactedFieldId,
-              value: this.props.canBeContactedDefaultValue,
+              value: this.props.canBeContactedAgreeValue,
             }
-          : undefined,
+          : {
+              id: this.props.canBeContactedFieldId,
+              value: this.props.canBeContactedDeclineValue,
+            },
         formValues.enrollInResearchGroup
           ? {
               id: this.props.enrollInResearchFieldId,
-              value: this.props.enrollInResearchDefaultValue,
+              value: this.props.enrollInResearchAgreeValue,
             }
-          : undefined,
+          : {
+              id: this.props.enrollInResearchFieldId,
+              value: this.props.enrollInResearchDeclineValue,
+            },
         ...this.props.additionalFields,
       ].filter(Boolean),
     } as FeedbackType;

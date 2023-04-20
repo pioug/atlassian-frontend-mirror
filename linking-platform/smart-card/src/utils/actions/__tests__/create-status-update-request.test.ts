@@ -8,7 +8,7 @@ describe('createStatusUpdateRequest', () => {
       action: {
         actionType: SmartLinkActionType.StatusUpdateAction,
         resourceIdentifiers: {
-          issueId: 'issue-id',
+          issueKey: 'issue-id',
           hostname: 'some-hostname',
         },
       },
@@ -23,7 +23,7 @@ describe('createStatusUpdateRequest', () => {
           newStatusId: id,
         },
         resourceIdentifiers: {
-          issueId: 'issue-id',
+          issueKey: 'issue-id',
           hostname: 'some-hostname',
         },
       },

@@ -2,8 +2,7 @@ import React from 'react';
 
 import { Code } from '@atlaskit/code';
 import Heading from '@atlaskit/heading';
-
-import { Inline, Stack } from '../../../src';
+import { Inline, Stack } from '@atlaskit/primitives';
 
 export default function Example() {
   return (

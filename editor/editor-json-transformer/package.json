@@ -38,11 +38,11 @@
   "devDependencies": {
     "@atlaskit/docs": "*",
     "@atlaskit/editor-bitbucket-transformer": "^8.0.0",
-    "@atlaskit/editor-common": "^72.8.0",
+    "@atlaskit/editor-common": "^72.9.0",
     "@atlaskit/editor-confluence-transformer": "^8.1.0",
     "@atlaskit/editor-core": "^182.1.0",
     "@atlaskit/editor-jira-transformer": "^8.2.0",
-    "@atlaskit/editor-markdown-transformer": "^5.0.0",
+    "@atlaskit/editor-markdown-transformer": "^5.1.0",
     "@atlaskit/editor-test-helpers": "^18.2.0",
     "@atlaskit/editor-wikimarkup-transformer": "^11.1.0",
     "@atlaskit/util-data-test": "^17.7.0",

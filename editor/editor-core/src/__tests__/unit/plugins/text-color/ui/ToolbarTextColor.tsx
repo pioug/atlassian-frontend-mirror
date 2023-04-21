@@ -1,4 +1,7 @@
 import React from 'react';
+import { createIntl } from 'react-intl-next';
+import { ReactWrapper } from 'enzyme';
+
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
@@ -9,13 +12,11 @@ import {
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { ReactWrapper } from 'enzyme';
 
 import {
   TextColorPluginState,
   pluginKey,
 } from '../../../../../plugins/text-color/pm-plugins/main';
-// import Color from '../../../../../ui/ColorPalette/Color';
 import { Color } from '@atlaskit/editor-common/ui-color';
 
 import ToolbarButton from '../../../../../ui/ToolbarButton';
@@ -24,7 +25,7 @@ import {
   Props as ToolbarTextColorProps,
 } from '../../../../../plugins/text-color/ui/ToolbarTextColor';
 import { PaletteColor } from '../../../../../ui/ColorPalette/Palettes/type';
-import { createIntl } from 'react-intl-next';
+import ReactEditorViewContext from '../../../../../create-editor/ReactEditorViewContext';
 
 const mockDispatchAnalytics = jest.fn(() => () => {});
 
@@ -111,15 +112,24 @@ describe('ToolbarTextColor', () => {
       pluginState = pluginKey.getState(editorView.state);
       mockDispatchAnalytics.mockClear();
       const intl = createIntl({ locale: 'en' });
+      const editorRef = {
+        current: document.createElement('div'),
+      };
 
       toolbarTextColor = mountWithIntl(
-        <ToolbarTextColor
-          intl={intl}
-          pluginState={pluginState}
-          editorView={editorView}
-          dispatchAnalyticsEvent={mockDispatchAnalytics}
-          featureFlags={{}}
-        />,
+        <ReactEditorViewContext.Provider
+          value={{
+            editorRef,
+          }}
+        >
+          <ToolbarTextColor
+            intl={intl}
+            pluginState={pluginState}
+            editorView={editorView}
+            dispatchAnalyticsEvent={mockDispatchAnalytics}
+            featureFlags={{}}
+          />
+        </ReactEditorViewContext.Provider>,
       );
     });
 

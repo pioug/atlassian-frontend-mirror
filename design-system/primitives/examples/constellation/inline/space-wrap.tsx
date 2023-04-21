@@ -2,8 +2,7 @@ import React, { Fragment, useCallback, useState } from 'react';
 
 import Button from '@atlaskit/button';
 import Lozenge from '@atlaskit/lozenge';
-
-import { Inline, Stack } from '../../../src';
+import { Inline, Stack } from '@atlaskit/primitives';
 
 export default function Example() {
   const [rowSpace, setRowSpace] = useState<'space.100' | undefined>(undefined);

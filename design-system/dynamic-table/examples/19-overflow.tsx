@@ -21,7 +21,8 @@ const overflow = css({
     width: 8,
     height: '100%',
     position: 'absolute',
-    top: 0,
+    top: token('space.0', '0px'),
+    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
     left: 'calc(100% - 8px)',
     background: `linear-gradient(to right, ${token(
       'color.blanket',

@@ -17,7 +17,7 @@
     ".": "./src/index.ts"
   },
   "atlassian": {
-    "team": "Search & Smarts: Smart Experience",
+    "team": "Search Platform: Search Experience",
     "inPublicMirror": false,
     "releaseModel": "continuous"
   },

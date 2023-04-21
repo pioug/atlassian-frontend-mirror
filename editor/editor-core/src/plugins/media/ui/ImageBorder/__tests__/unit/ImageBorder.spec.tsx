@@ -4,6 +4,7 @@ import { IntlShape, IntlProvider } from 'react-intl-next';
 
 import ImageBorder, { ImageBorderProps } from '../../index';
 import { messages } from '../../messages';
+import ReactEditorViewContext from '../../../../../../create-editor/ReactEditorViewContext';
 
 const intlMock = {
   formatMessage: (messageDescriptor: any) =>
@@ -17,9 +18,18 @@ const setup = (propsOverrides?: Partial<ImageBorderProps>) => {
     setBorder: jest.fn(),
     ...propsOverrides,
   };
+  const editorRef = {
+    current: document.createElement('div'),
+  };
   const wrapper = render(
     <IntlProvider locale="en">
-      <ImageBorder {...props} />
+      <ReactEditorViewContext.Provider
+        value={{
+          editorRef: editorRef,
+        }}
+      >
+        <ImageBorder {...props} />
+      </ReactEditorViewContext.Provider>
     </IntlProvider>,
   );
   return {

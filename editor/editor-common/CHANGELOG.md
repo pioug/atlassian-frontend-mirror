@@ -1,5 +1,11 @@
 # @atlaskit/editor-common
 
+## 72.9.0
+
+### Minor Changes
+
+- [`135df1a1e78`](https://bitbucket.org/atlassian/atlassian-frontend/commits/135df1a1e78) - [ux] ED-17405 - Bugfix: Editor toolbar dropdown menus not receiving keyboard events for navigation
+
 ## 72.8.0
 
 ### Minor Changes

@@ -30,7 +30,7 @@
     "@atlaskit/analytics-next": "^9.0.0",
     "@atlaskit/avatar": "^21.2.0",
     "@atlaskit/comment": "^10.7.0",
-    "@atlaskit/editor-common": "^72.8.0",
+    "@atlaskit/editor-common": "^72.9.0",
     "@atlaskit/editor-core": "^182.1.0",
     "@atlaskit/reactions": "^22.2.0",
     "@atlaskit/renderer": "^107.3.0",

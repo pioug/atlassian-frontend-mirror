@@ -64,6 +64,7 @@ export const BlockCard: FC<BlockCardProps> = ({
   platform,
   analytics,
   enableFlexibleBlockCard,
+  showServerActions,
 }) => {
   const { status, details } = cardState;
   const data =
@@ -89,6 +90,7 @@ export const BlockCard: FC<BlockCardProps> = ({
       onError,
       onResolve,
       renderers,
+      showServerActions,
       ui,
       analytics,
       extensionKey,

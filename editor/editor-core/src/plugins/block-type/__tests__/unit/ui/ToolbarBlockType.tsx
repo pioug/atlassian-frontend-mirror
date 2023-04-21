@@ -36,6 +36,7 @@ import { messages } from '../../../messages';
 import blockTypePlugin from '../../../';
 import panelPlugin from '../../../../panel';
 import codeBlockPlugin from '../../../../code-block';
+import ReactEditorViewContext from '../../../../../create-editor/ReactEditorViewContext';
 
 describe('@atlaskit/editor-core/ui/ToolbarBlockType', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -157,12 +158,22 @@ describe('@atlaskit/editor-core/ui/ToolbarBlockType', () => {
     let toolbarOption: ReactWrapper;
     beforeEach(() => {
       const { editorView, pluginState } = editor(doc(p('text')));
+      const editorRef = {
+        current: document.createElement('div'),
+      };
       const { state, dispatch } = editorView;
       toolbarOption = mountWithIntl(
-        <ToolbarBlockType
-          pluginState={pluginState}
-          setBlockType={(name) => setBlockType(name)(state, dispatch)}
-        />,
+        <ReactEditorViewContext.Provider
+          value={{
+            editorRef,
+            editorView,
+          }}
+        >
+          <ToolbarBlockType
+            pluginState={pluginState}
+            setBlockType={(name) => setBlockType(name)(state, dispatch)}
+          />
+        </ReactEditorViewContext.Provider>,
       );
       toolbarOption.find('button').simulate('click');
     });

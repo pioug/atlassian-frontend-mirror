@@ -21,9 +21,13 @@ export const MenuArrowKeyNavigationProvider: React.FC<
   keyDownHandlerContext,
   closeOnTab,
   onSelection,
+  editorRef,
 }) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [currentSelectedItemIndex, setCurrentSelectedItemIndex] = useState(-1);
+  const [listenerTargetElement] = useState<HTMLElement | null>(
+    editorRef.current,
+  );
 
   const incrementIndex = useCallback(
     (list: HTMLElement[]) => {
@@ -164,9 +168,11 @@ export const MenuArrowKeyNavigationProvider: React.FC<
       }
     };
 
-    document.addEventListener('keydown', handleKeyDown);
+    listenerTargetElement &&
+      listenerTargetElement.addEventListener('keydown', handleKeyDown);
     return () => {
-      document.removeEventListener('keydown', handleKeyDown);
+      listenerTargetElement &&
+        listenerTargetElement.removeEventListener('keydown', handleKeyDown);
     };
   }, [
     currentSelectedItemIndex,
@@ -178,6 +184,7 @@ export const MenuArrowKeyNavigationProvider: React.FC<
     onSelection,
     incrementIndex,
     decrementIndex,
+    listenerTargetElement,
   ]);
 
   return (

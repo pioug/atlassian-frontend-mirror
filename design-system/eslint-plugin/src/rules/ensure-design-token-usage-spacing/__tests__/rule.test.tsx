@@ -1100,6 +1100,10 @@ export const StickyWrapper = styled.div\`
         },
         {
           message:
+            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<top:nullpx>>',
+        },
+        {
+          message:
             'Automated corrections available for spacing values. Apply autofix to replace values with appropriate tokens',
         },
       ],

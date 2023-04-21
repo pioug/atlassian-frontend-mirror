@@ -104,6 +104,13 @@ const mdToPmMapping = {
   th: { block: 'tableHeader' },
   td: { block: 'tableCell' },
   s: { mark: 'strike' },
+  task_list: { block: 'taskList' },
+  task_item: {
+    block: 'taskItem',
+    attrs: (tok: any) => ({
+      state: tok.meta,
+    }),
+  },
 };
 
 const md = MarkdownIt('zero', {

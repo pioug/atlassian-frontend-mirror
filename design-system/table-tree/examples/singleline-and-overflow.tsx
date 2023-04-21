@@ -22,7 +22,8 @@ const overflowingBoxStyles = css({
   // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   marginBottom: '-15px',
   position: 'absolute',
-  right: 0,
+  right: token('space.0', '0px'),
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   bottom: '100%',
   background: token('color.background.danger.bold', 'red'),
   border: `5px solid ${token('color.border', '#800')}`,

@@ -8,11 +8,11 @@ import { token } from '@atlaskit/tokens';
 const baseStyles = css({
   position: 'sticky',
   zIndex: 1,
+  inset: 0,
   backgroundColor: token('elevation.surface', 'white'),
   border: 'none',
   borderBottom: `2px solid ${token('color.border', '#eee')}`,
   borderTop: '2px solid transparent',
-  inset: 0,
 });
 
 /**

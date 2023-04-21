@@ -29,6 +29,7 @@ const commonChevronContainerStyles = css({
   // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   marginLeft: `calc(${indentBase} * -1)`,
   position: 'absolute',
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   top: 7,
   alignItems: 'center',
 });
@@ -49,6 +50,7 @@ export const ChevronContainer: FC<ChevronContainerProps> = (
 
 const chevronIconContainerStyles = css({
   position: 'relative',
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   top: 1,
 });
 

@@ -1,11 +1,12 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::812743f16787a9099533869051fbdd32>>
+ * @codegen <<SignedSource::9296736ba2282a50aeabfb68ff9d4628>>
  * @codegenCommand yarn build tokens
  */
 export default `
 html[data-color-mode="light"][data-theme~="light:light"],
 html[data-color-mode="dark"][data-theme~="dark:light"] {
+  color-scheme: light;
   --ds-text: #172B4D;
   --ds-text-accent-red: #AE2A19;
   --ds-text-accent-red-bolder: #601E16;

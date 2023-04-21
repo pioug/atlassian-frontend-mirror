@@ -39,8 +39,11 @@ export interface LoadingItemsProps {
 const baseMotionStyles = css({
   position: 'absolute',
   zIndex: 1,
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   top: 0,
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   right: 0,
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   left: 0,
 });
 

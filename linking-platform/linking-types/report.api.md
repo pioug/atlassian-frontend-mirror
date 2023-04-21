@@ -135,8 +135,6 @@ export interface Icon {
   label?: string;
   // (undocumented)
   source: string;
-  // (undocumented)
-  url?: string;
 }
 
 // @public (undocumented)
@@ -206,7 +204,7 @@ export enum SmartLinkActionType {
 // @public (undocumented)
 export interface Status {
   // (undocumented)
-  status: string;
+  status: 'default' | 'inprogress' | 'moved' | 'new' | 'removed' | 'success';
   // (undocumented)
   style?: {
     color: string;

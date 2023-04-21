@@ -1,5 +1,11 @@
 # @atlaskit/side-navigation
 
+## 1.6.8
+
+### Patch Changes
+
+- [`65e4baeea85`](https://bitbucket.org/atlassian/atlassian-frontend/commits/65e4baeea85) - Internal changes.
+
 ## 1.6.7
 
 ### Patch Changes

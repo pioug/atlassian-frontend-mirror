@@ -27,7 +27,9 @@ const buttonsContainerStyles = css({
   display: 'flex',
   marginTop: token('space.075', '6px'),
   position: 'absolute',
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   top: '100%',
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   right: 0,
   flexShrink: 0,
 });

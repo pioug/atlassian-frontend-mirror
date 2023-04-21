@@ -22,6 +22,10 @@ export const headingSizes = {
   h100: { size: 11, lineHeight: 16 },
 };
 
+/**
+ * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-386 Internal documentation for deprecation (no external access)}
+ * @deprecated {@link https://atlassian.design/components/heading Use `@atlaskit/heading` instead.}
+ */
 export const h900 = (props: ThemeProps = {}) => ({
   ...baseHeading(headingSizes.h900.size, headingSizes.h900.lineHeight),
   color: token('color.text', heading(props)),
@@ -30,6 +34,10 @@ export const h900 = (props: ThemeProps = {}) => ({
   marginTop: `${gridSize() * 6.5}px`,
 });
 
+/**
+ * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-386 Internal documentation for deprecation (no external access)}
+ * @deprecated {@link https://atlassian.design/components/heading Use `@atlaskit/heading` instead.}
+ */
 export const h800 = (props: ThemeProps = {}) => ({
   ...baseHeading(headingSizes.h800.size, headingSizes.h800.lineHeight),
   color: token('color.text', heading(props)),
@@ -38,6 +46,10 @@ export const h800 = (props: ThemeProps = {}) => ({
   marginTop: `${gridSize() * 5}px`,
 });
 
+/**
+ * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-386 Internal documentation for deprecation (no external access)}
+ * @deprecated {@link https://atlassian.design/components/heading Use `@atlaskit/heading` instead.}
+ */
 export const h700 = (props: ThemeProps = {}) => ({
   ...baseHeading(headingSizes.h700.size, headingSizes.h700.lineHeight),
   color: token('color.text', heading(props)),
@@ -46,6 +58,10 @@ export const h700 = (props: ThemeProps = {}) => ({
   marginTop: `${gridSize() * 5}px`,
 });
 
+/**
+ * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-386 Internal documentation for deprecation (no external access)}
+ * @deprecated {@link https://atlassian.design/components/heading Use `@atlaskit/heading` instead.}
+ */
 export const h600 = (props: ThemeProps = {}) => ({
   ...baseHeading(headingSizes.h600.size, headingSizes.h600.lineHeight),
   color: token('color.text', heading(props)),
@@ -54,6 +70,10 @@ export const h600 = (props: ThemeProps = {}) => ({
   marginTop: `${gridSize() * 3.5}px`,
 });
 
+/**
+ * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-386 Internal documentation for deprecation (no external access)}
+ * @deprecated {@link https://atlassian.design/components/heading Use `@atlaskit/heading` instead.}
+ */
 export const h500 = (props: ThemeProps = {}) => ({
   ...baseHeading(headingSizes.h500.size, headingSizes.h500.lineHeight),
   color: token('color.text', heading(props)),
@@ -62,6 +82,10 @@ export const h500 = (props: ThemeProps = {}) => ({
   marginTop: `${gridSize() * 3}px`,
 });
 
+/**
+ * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-386 Internal documentation for deprecation (no external access)}
+ * @deprecated {@link https://atlassian.design/components/heading Use `@atlaskit/heading` instead.}
+ */
 export const h400 = (props: ThemeProps = {}) => ({
   ...baseHeading(headingSizes.h400.size, headingSizes.h400.lineHeight),
   color: token('color.text', heading(props)),
@@ -70,6 +94,10 @@ export const h400 = (props: ThemeProps = {}) => ({
   marginTop: `${gridSize() * 2}px`,
 });
 
+/**
+ * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-386 Internal documentation for deprecation (no external access)}
+ * @deprecated {@link https://atlassian.design/components/heading Use `@atlaskit/heading` instead.}
+ */
 export const h300 = (props: ThemeProps = {}) => ({
   ...baseHeading(headingSizes.h300.size, headingSizes.h300.lineHeight),
   color: token('color.text', heading(props)),
@@ -78,6 +106,10 @@ export const h300 = (props: ThemeProps = {}) => ({
   textTransform: 'uppercase' as const,
 });
 
+/**
+ * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-386 Internal documentation for deprecation (no external access)}
+ * @deprecated {@link https://atlassian.design/components/heading Use `@atlaskit/heading` instead.}
+ */
 export const h200 = (props: ThemeProps = {}) => ({
   ...baseHeading(headingSizes.h200.size, headingSizes.h200.lineHeight),
   color: token('color.text.subtlest', subtleHeading(props)),
@@ -85,6 +117,10 @@ export const h200 = (props: ThemeProps = {}) => ({
   marginTop: `${gridSize() * 2}px`,
 });
 
+/**
+ * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-386 Internal documentation for deprecation (no external access)}
+ * @deprecated {@link https://atlassian.design/components/heading Use `@atlaskit/heading` instead.}
+ */
 export const h100 = (props: ThemeProps = {}) => ({
   ...baseHeading(headingSizes.h100.size, headingSizes.h100.lineHeight),
   color: token('color.text.subtlest', subtleHeading(props)),

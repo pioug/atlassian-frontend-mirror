@@ -10,9 +10,9 @@ import { BasePrimitiveProps } from './types';
 
 const baseStyles = css({
   position: 'absolute',
+  inset: 0,
   borderRadius: 'inherit',
   cursor: 'pointer',
-  inset: 0,
   // eslint-disable-next-line @repo/internal/styles/no-nested-styles
   '~ *': {
     position: 'relative',

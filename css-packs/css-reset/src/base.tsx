@@ -4,13 +4,13 @@ import {
   codeFontFamily,
   colors,
   fontFamily,
-  fontSize,
   typography,
 } from '@atlaskit/theme';
 import { token } from '@atlaskit/tokens';
 
 import evaluateInner from './utils/evaluate-inner';
 
+/* TODO body line height should be 1.25rem */
 export default evaluateInner`
   body,
   html {
@@ -22,10 +22,10 @@ export default evaluateInner`
     background-color: ${token('elevation.surface', '#fff')};
     color: ${token('color.text', colors.N800)};
     font-family: ${fontFamily};
-    font-size: ${fontSize()}px;
+    font-size: ${token('font.size.100', '14px')};
     font-style: normal;
     font-weight: 400;
-    line-height: 1.42857142857143;
+    line-height: ${token('font.lineHeight.200', '1.42857142857143')};
     -ms-overflow-style: -ms-autohiding-scrollbar;
     text-decoration-skip-ink: auto;
   }
@@ -61,13 +61,19 @@ export default evaluateInner`
     color: ${token('color.link.pressed', colors.B500)};
   }
   a:focus-visible {
-    outline: 2px solid ${token('color.border.focused', colors.B100)};
-    outline-offset: 2px;
+    outline: ${token('border.width.100', '2px')} solid ${token(
+  'color.border.focused',
+  colors.B100,
+)};
+    outline-offset: ${token('space.025', '2px')};
   }
   @supports not selector(*:focus-visible) {
     a:focus {
-      outline: 2px solid ${token('color.border.focused', colors.B100)};
-      outline-offset: 2px;
+      outline: ${token('border.width.100', '2px')} solid ${token(
+  'color.border.focused',
+  colors.B100,
+)};
+      outline-offset: ${token('space.025', '2px')};
     }
   }
   /* Headings */

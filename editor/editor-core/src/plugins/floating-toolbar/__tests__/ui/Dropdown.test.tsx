@@ -13,6 +13,7 @@ import React from 'react';
 import { Command, FloatingToolbarDropdown } from '../../types';
 import Toolbar from '../../ui/Toolbar';
 import { DropdownOptions } from '../../ui/types';
+import ReactEditorViewContext from '../../../../create-editor/ReactEditorViewContext';
 
 describe('Dropdown', () => {
   describe('Accessibility', () => {
@@ -63,6 +64,9 @@ const getDropdownSetup = (): {
       allowTables: true,
     },
   });
+  const editorRef = {
+    current: document.createElement('div'),
+  };
 
   const dropdownOptions: DropdownOptions<Command> = [
     {
@@ -88,14 +92,20 @@ const getDropdownSetup = (): {
   };
 
   const { container } = renderWithIntl(
-    <Toolbar
-      editorView={editorView}
-      node={editorView.state.doc.firstChild!}
-      items={[dropdown]}
-      dispatchAnalyticsEvent={jest.fn()}
-      dispatchCommand={jest.fn()}
-      featureFlags={{}}
-    />,
+    <ReactEditorViewContext.Provider
+      value={{
+        editorRef: editorRef,
+      }}
+    >
+      <Toolbar
+        editorView={editorView}
+        node={editorView.state.doc.firstChild!}
+        items={[dropdown]}
+        dispatchAnalyticsEvent={jest.fn()}
+        dispatchCommand={jest.fn()}
+        featureFlags={{}}
+      />
+    </ReactEditorViewContext.Provider>,
   );
 
   const button = container.querySelector('button') as HTMLButtonElement;

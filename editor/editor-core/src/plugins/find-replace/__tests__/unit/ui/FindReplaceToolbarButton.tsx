@@ -8,33 +8,45 @@ import FindReplaceToolbarButton, {
   FindReplaceToolbarButtonProps,
 } from '../../../ui/FindReplaceToolbarButton';
 import FindReplace from '../../../ui/FindReplace';
+import ReactEditorViewContext from '../../../../../create-editor/ReactEditorViewContext';
 
 describe('FindReplaceToolbarButton', () => {
   let findReplaceToolbarButton: ReactWrapper<
     FindReplaceToolbarButtonProps & WrappedComponentProps
   >;
+
+  const editorRef = {
+    current: document.createElement('div'),
+  };
+
   const mountComponent = (props: Partial<FindReplaceToolbarButtonProps> = {}) =>
     mountWithIntl<FindReplaceToolbarButtonProps & WrappedComponentProps, any>(
-      <FindReplaceToolbarButton
-        findText=""
-        index={0}
-        isActive
-        numMatches={0}
-        replaceText=""
-        shouldFocus
-        shouldMatchCase
-        onToggleMatchCase={jest.fn()}
-        onActivate={jest.fn()}
-        onCancel={jest.fn()}
-        onFind={jest.fn()}
-        onFindBlur={jest.fn()}
-        onFindNext={jest.fn()}
-        onFindPrev={jest.fn()}
-        onReplace={jest.fn()}
-        onReplaceAll={jest.fn()}
-        takeFullWidth={false}
-        {...props}
-      />,
+      <ReactEditorViewContext.Provider
+        value={{
+          editorRef,
+        }}
+      >
+        <FindReplaceToolbarButton
+          findText=""
+          index={0}
+          isActive
+          numMatches={0}
+          replaceText=""
+          shouldFocus
+          shouldMatchCase
+          onToggleMatchCase={jest.fn()}
+          onActivate={jest.fn()}
+          onCancel={jest.fn()}
+          onFind={jest.fn()}
+          onFindBlur={jest.fn()}
+          onFindNext={jest.fn()}
+          onFindPrev={jest.fn()}
+          onReplace={jest.fn()}
+          onReplaceAll={jest.fn()}
+          takeFullWidth={false}
+          {...props}
+        />
+      </ReactEditorViewContext.Provider>,
     );
 
   describe('when isActive=true', () => {
@@ -70,7 +82,9 @@ describe('FindReplaceToolbarButton', () => {
       });
 
       it('calls props.onCancel', () => {
-        const { trigger, spy } = mockAddEventListener();
+        const { trigger, spy } = mockAddEventListener({
+          element: editorRef.current,
+        });
         findReplaceToolbarButton = mountComponent({
           isActive: true,
           onCancel: onCancelSpy,

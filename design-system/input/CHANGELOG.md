@@ -1,5 +1,11 @@
 # @atlaskit/input
 
+## 8.0.9
+
+### Patch Changes
+
+- [`e3fe70630cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e3fe70630cd) - Updates component README before deleting to make sure npm has reference to a correct replacement component.
+
 ## 8.0.8
 
 ### Patch Changes

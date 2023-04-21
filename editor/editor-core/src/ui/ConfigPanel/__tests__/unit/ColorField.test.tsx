@@ -13,6 +13,7 @@ import ColorPickerField, {
 } from '../../Fields/ColorPicker';
 import ColorPickerButton from '../../../ColorPickerButton';
 import { FieldComponentProps } from '../../types';
+import ReactEditorViewContext from '../../../../create-editor/ReactEditorViewContext';
 
 describe('ColorField', () => {
   it('should render a color field when given the props with type: "color"', () => {
@@ -66,8 +67,13 @@ describe('ColorField', () => {
     const formCallback = () => {
       return <FieldComponent {...props} />;
     };
+    const editorRef = {
+      current: document.createElement('div'),
+    };
     const wrapper = mountWithIntl(
-      <Form onSubmit={formSubmit}>{formCallback}</Form>,
+      <ReactEditorViewContext.Provider value={{ editorRef }}>
+        <Form onSubmit={formSubmit}>{formCallback}</Form>
+      </ReactEditorViewContext.Provider>,
     );
 
     //   click the ColorPickerButton
@@ -132,8 +138,17 @@ describe('ColorField', () => {
         expandedChartColors: true,
       },
     };
+    const editorRef = {
+      current: document.createElement('div'),
+    };
     const { queryAllByRole, getByRole } = renderWithIntl(
-      <FieldComponent {...props} />,
+      <ReactEditorViewContext.Provider
+        value={{
+          editorRef,
+        }}
+      >
+        <FieldComponent {...props} />
+      </ReactEditorViewContext.Provider>,
     );
     await userEvent.click(getByRole('button'));
     expect(queryAllByRole('radio')).toHaveLength(extendedColorPalette.length);
@@ -152,8 +167,17 @@ describe('ColorField', () => {
         expandedChartColors: false,
       },
     };
+    const editorRef = {
+      current: document.createElement('div'),
+    };
     const { queryAllByRole, getByRole } = renderWithIntl(
-      <FieldComponent {...props} />,
+      <ReactEditorViewContext.Provider
+        value={{
+          editorRef,
+        }}
+      >
+        <FieldComponent {...props} />
+      </ReactEditorViewContext.Provider>,
     );
     await userEvent.click(getByRole('button'));
     expect(queryAllByRole('radio')).toHaveLength(originalColorPalette.length);

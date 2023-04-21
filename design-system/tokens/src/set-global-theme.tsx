@@ -49,6 +49,29 @@ const checkNativeListener = function (e: MediaQueryListEvent) {
   element.setAttribute(COLOR_MODE_ATTRIBUTE, e.matches ? 'dark' : 'light');
 };
 
+const getThemePreferences = (themeState: ThemeState): ThemeIds[] => {
+  const { colorMode, dark, light, spacing, typography } = themeState;
+
+  const themePreferences =
+    colorMode === 'auto' ? [light, dark] : [themeState[colorMode]];
+
+  [spacing, typography].forEach((themeId) => {
+    if (themeId) {
+      themePreferences.push(themeId);
+    }
+  });
+
+  if (
+    // eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+    getBooleanFF('design-system-team.dark-theme-iteration_dk1ln') &&
+    themePreferences.includes('dark')
+  ) {
+    themePreferences.push('dark-iteration' as ThemeIds);
+  }
+
+  return [...new Set(themePreferences)];
+};
+
 /**
  * Sets the theme globally at runtime. This updates the `data-theme` and `data-color-mode` attributes on your page's <html> tag.
  *
@@ -73,21 +96,18 @@ const setGlobalTheme = async ({
   spacing = themeStateDefaults['spacing'],
   typography = themeStateDefaults['typography'],
 }: Partial<ThemeState> = {}): Promise<UnbindFn> => {
-  // Dedupe list of themes to avoid race condition
-  const themePreferences = new Set([dark, light, spacing, typography]);
-
-  if (
-    // eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-    getBooleanFF('design-system-team.dark-theme-iteration_dk1ln') &&
-    themePreferences.has('dark')
-  ) {
-    themePreferences.add('dark-iteration' as ThemeIds);
-  }
+  const themePreferences = getThemePreferences({
+    colorMode,
+    dark,
+    light,
+    spacing,
+    typography,
+  });
 
   await Promise.all(
-    [...themePreferences]
-      .filter((themeId): themeId is ThemeIds => themeId !== undefined)
-      .map(async (themeId) => await loadAndAppendThemeCss(themeId)),
+    themePreferences.map(
+      async (themeId) => await loadAndAppendThemeCss(themeId),
+    ),
   );
 
   if (colorMode === 'auto' && darkModeMql) {
@@ -144,21 +164,13 @@ export const getThemeStyles = async ({
   spacing = themeStateDefaults['spacing'],
   typography = themeStateDefaults['typography'],
 }: Partial<ThemeState> = {}): Promise<ThemeStyles[]> => {
-  const themePreferences = colorMode === 'auto' ? [light, dark] : [colorMode];
-
-  [spacing, typography].forEach((themeId) => {
-    if (themeId) {
-      themePreferences.push(themeId);
-    }
+  const themePreferences = getThemePreferences({
+    colorMode,
+    dark,
+    light,
+    spacing,
+    typography,
   });
-
-  if (
-    // eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-    getBooleanFF('design-system-team.dark-theme-iteration_dk1ln') &&
-    themePreferences.includes('dark')
-  ) {
-    themePreferences.push('dark-iteration' as ThemeIds);
-  }
 
   const results = await Promise.all(
     themePreferences.map(async (themeId): Promise<ThemeStyles | undefined> => {

@@ -1,37 +1,76 @@
 import React from 'react';
 
-import Avatar from '@atlaskit/avatar';
-import Heading from '@atlaskit/heading';
+import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 
-import { Inline, Stack } from '../../../src';
+import Square from '../shared/square';
+
+const flexContainerStyles = xcss({
+  display: 'flex',
+  borderRadius: 'radius.050',
+  height: 'size.600',
+});
 
 export default function Example() {
   return (
-    <Inline spread="space-between">
-      <Stack space="space.100">
-        <Heading level="h400">Start aligment</Heading>
-        <Inline space="space.200" alignBlock="start">
-          <Avatar size="small" />
-          <Avatar size="medium" />
-          <Avatar size="large" />
-        </Inline>
-      </Stack>
-      <Stack space="space.100">
-        <Heading level="h400">Center aligment</Heading>
-        <Inline space="space.200" alignBlock="center">
-          <Avatar size="small" />
-          <Avatar size="medium" />
-          <Avatar size="large" />
-        </Inline>
-      </Stack>
-      <Stack space="space.100">
-        <Heading level="h400">End aligment</Heading>
-        <Inline space="space.200" alignBlock="end">
-          <Avatar size="small" />
-          <Avatar size="medium" />
-          <Avatar size="large" />
-        </Inline>
-      </Stack>
-    </Inline>
+    <Box padding="space.100">
+      <Inline space="space.200" spread="space-between">
+        <Stack alignInline="center">
+          Start alignment
+          <Box
+            backgroundColor="neutral"
+            padding="space.050"
+            xcss={flexContainerStyles}
+          >
+            <Inline space="space.050" alignBlock="start">
+              <Square />
+              <Square />
+              <Square padding="space.300" />
+            </Inline>
+          </Box>
+        </Stack>
+        <Stack alignInline="center">
+          Center alignment
+          <Box
+            backgroundColor="neutral"
+            padding="space.050"
+            xcss={flexContainerStyles}
+          >
+            <Inline space="space.050" alignBlock="center">
+              <Square />
+              <Square />
+              <Square padding="space.300" />
+            </Inline>
+          </Box>
+        </Stack>
+        <Stack alignInline="center">
+          End alignment
+          <Box
+            backgroundColor="neutral"
+            padding="space.050"
+            xcss={flexContainerStyles}
+          >
+            <Inline space="space.050" alignBlock="end">
+              <Square />
+              <Square />
+              <Square padding="space.300" />
+            </Inline>
+          </Box>
+        </Stack>
+        <Stack alignInline="center">
+          Baseline alignment
+          <Box
+            backgroundColor="neutral"
+            padding="space.050"
+            xcss={flexContainerStyles}
+          >
+            <Inline space="space.050" alignBlock="baseline">
+              <Square />
+              <Square />
+              <Square padding="space.300" />
+            </Inline>
+          </Box>
+        </Stack>
+      </Inline>
+    </Box>
   );
 }

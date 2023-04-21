@@ -1,26 +1,57 @@
 import React from 'react';
 
 import { Code } from '@atlaskit/code';
+import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
+import { Radio } from '@atlaskit/radio';
 
-import { Inline, Stack } from '../../../src';
+const listItemStyles = xcss({ listStyle: 'none' });
 
-const CustomInline = (tag: any) => (
-  <Inline space="space.200" key={tag} as={tag}>
-    <div>
-      <Code>Inline</Code> rendering as <Code>{tag}</Code>.
-    </div>
-  </Inline>
+const InlineLink = () => (
+  <Box as="li" xcss={listItemStyles}>
+    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+    <a href="#">Link</a>
+  </Box>
 );
 
 export default function Example() {
   return (
-    <Inline spread="space-between" alignBlock="center">
-      <Stack space="space.200">
-        {(['div', 'span'] as const).map(CustomInline)}
-      </Stack>
-      <Stack space="space.200">
-        {(['ul', 'ol'] as const).map(CustomInline)}
-      </Stack>
-    </Inline>
+    <Stack space="space.200">
+      <Box>
+        <Code>Inline</Code> rendering as <Code>div</Code>:
+        <Inline space="space.200">
+          <Radio label="Option 1" />
+          <Radio label="Option 2" />
+          <Radio label="Option 3" />
+          <Radio label="Option 4" />
+        </Inline>
+      </Box>
+      <Box>
+        <Code>Inline</Code> rendering as <Code>span</Code>:
+        <Inline as="span" space="space.200">
+          <Radio label="Option 1" />
+          <Radio label="Option 2" />
+          <Radio label="Option 3" />
+          <Radio label="Option 4" />
+        </Inline>
+      </Box>
+      <Box>
+        <Code>Inline</Code> rendering as <Code>ul</Code>:
+        <Inline as="ul" separator="·" space="space.100">
+          <InlineLink />
+          <InlineLink />
+          <InlineLink />
+          <InlineLink />
+        </Inline>
+      </Box>
+      <Box>
+        <Code>Inline</Code> rendering as <Code>ol</Code>:
+        <Inline as="ul" separator="·" space="space.100">
+          <InlineLink />
+          <InlineLink />
+          <InlineLink />
+          <InlineLink />
+        </Inline>
+      </Box>
+    </Stack>
   );
 }

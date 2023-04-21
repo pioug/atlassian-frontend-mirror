@@ -1,5 +1,11 @@
 # @atlaskit/reduced-ui-pack
 
+## 17.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.1.1
 
 ### Patch Changes

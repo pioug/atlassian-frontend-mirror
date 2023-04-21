@@ -1043,6 +1043,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
                   name: 'color-picker',
                 },
               ]),
+              hasEditorRefProvider: true,
             });
           });
 

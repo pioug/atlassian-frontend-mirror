@@ -21,8 +21,20 @@ export const useLinkWarningModal = () => {
   /**
    * It checks and warns if a link text is a URL and different from an actual link destination
    */
-  const checkLinkSafety = (event: MouseEvent, href: string | undefined) => {
-    const linkText = (event.currentTarget as HTMLAnchorElement).innerText;
+  const checkLinkSafety = (
+    event: MouseEvent<HTMLAnchorElement>,
+    href: string | undefined,
+  ) => {
+    if (!href) {
+      return;
+    }
+    const anchor = event.currentTarget;
+    const linkText = anchor.innerText;
+
+    const normalisedUrlFromLinkText = normalizeUrl(linkText);
+    if (!normalisedUrlFromLinkText) {
+      return;
+    }
 
     const anchorLinkRegex = new RegExp(/^#/im);
     const isAnchorLink = anchorLinkRegex.test(linkText);
@@ -31,9 +43,41 @@ export const useLinkWarningModal = () => {
       return;
     }
 
-    const normalisedUrlFromLinkText = normalizeUrl(linkText);
+    const relativeLinkRegex = new RegExp(/^\//im);
+    const isRelativeHrefLink = relativeLinkRegex.test(href);
+    if (isRelativeHrefLink) {
+      return;
+    }
 
-    if (!!normalisedUrlFromLinkText && normalisedUrlFromLinkText !== href) {
+    const hrefUrl = new URL(href, window.location.origin);
+    const linkTextUrl = new URL(normalisedUrlFromLinkText, hrefUrl.origin);
+
+    const httpProtocols = ['http:', 'https:'];
+
+    let areProtocolsEquivalent: boolean;
+    if (
+      httpProtocols.includes(linkTextUrl.protocol) &&
+      httpProtocols.includes(hrefUrl.protocol)
+    ) {
+      const noUserNameAndPassword =
+        !linkTextUrl.username &&
+        !linkTextUrl.password &&
+        !hrefUrl.username &&
+        !hrefUrl.password;
+      areProtocolsEquivalent = noUserNameAndPassword;
+    } else {
+      areProtocolsEquivalent = linkTextUrl.protocol === hrefUrl.protocol;
+    }
+
+    const areEquivalentLinks =
+      linkTextUrl.hostname === hrefUrl.hostname &&
+      linkTextUrl.pathname === hrefUrl.pathname &&
+      linkTextUrl.search === hrefUrl.search &&
+      linkTextUrl.username === hrefUrl.username &&
+      linkTextUrl.password === hrefUrl.password &&
+      areProtocolsEquivalent;
+
+    if (!areEquivalentLinks) {
       event.preventDefault();
       setUnsafeLinkText(linkText);
       href && setUrl(href);

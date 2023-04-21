@@ -33,9 +33,9 @@ const gridTemplateNoChildrenStyles = css({
 // if the background is appied on Box and tokens are not switched on it breaks.
 // This can be safely removed (and applied on Box) when tokens are on by default
 const highlightOverlayStyles = css({
+  inset: `calc(-1 * ${token('space.100', '8px')})`,
   backgroundColor: token('color.background.neutral', N20A),
   gridArea: '1 / 1 / 2 / 3',
-  inset: `calc(-1 * ${token('space.100', '8px')})`,
   pointerEvents: 'none',
 });
 

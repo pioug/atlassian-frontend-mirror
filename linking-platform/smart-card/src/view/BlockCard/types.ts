@@ -22,6 +22,7 @@ export type BlockCardProps = {
   onError?: OnErrorCallback;
   testId?: string;
   showActions?: boolean;
+  showServerActions?: boolean;
   renderers?: CardProviderRenderers;
   platform?: CardPlatform;
   analytics: AnalyticsFacade;

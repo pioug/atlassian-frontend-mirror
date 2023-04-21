@@ -1,5 +1,11 @@
 # @atlaskit/comment
 
+## 10.7.20
+
+### Patch Changes
+
+- [`ade6ab4a4cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ade6ab4a4cf) - Internal refactor.
+
 ## 10.7.19
 
 ### Patch Changes

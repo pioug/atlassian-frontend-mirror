@@ -50,8 +50,8 @@ const highlightStyles = css({
     width: '4px',
     height: '100%',
     position: 'absolute',
-    top: 0,
-    left: 0,
+    top: token('space.0', '0px'),
+    left: token('space.0', '0px'),
     backgroundColor: 'transparent',
     content: '""',
   },
@@ -79,10 +79,8 @@ export const Highlight = forwardRef<
 
 const codeStyles = css({
   display: 'inline-block',
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
-  paddingRight: '0.3em',
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
-  paddingLeft: '0.3em',
+  paddingRight: token('space.050', '4px'),
+  paddingLeft: token('space.050', '4px'),
   backgroundColor: token('color.background.discovery.hovered', colors.P50),
   border: `1px solid ${token('color.border.discovery', colors.P75)}`,
   borderRadius: '0.2em',

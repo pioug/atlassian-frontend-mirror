@@ -1,5 +1,11 @@
 # @atlaskit/table
 
+## 0.3.4
+
+### Patch Changes
+
+- [`4ba10567310`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ba10567310) - Internal changes.
+
 ## 0.3.3
 
 ### Patch Changes

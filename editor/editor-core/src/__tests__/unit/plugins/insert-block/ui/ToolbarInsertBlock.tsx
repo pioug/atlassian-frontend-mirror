@@ -73,6 +73,8 @@ import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { createInsertNodeAPI } from '../../../../../insert-api/api';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
+import ReactEditorViewContext from '../../../../../create-editor/ReactEditorViewContext';
+
 jest.mock('../../../../../plugins/quick-insert/commands', () => ({
   openElementBrowserModal: jest.fn(() => jest.fn()),
 }));
@@ -194,12 +196,17 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
       dispatchAnalyticsEvent: dispatchAnalyticsSpy as any,
       insertNodeAPI,
     };
+    const editorRef = {
+      current: document.createElement('div'),
+    };
     toolbarOption = mountWithIntl(
-      <ToolbarInsertBlock
-        {...defaultProps}
-        {...props}
-        featureFlags={props.featureFlags || {}}
-      />,
+      <ReactEditorViewContext.Provider value={{ editorRef }}>
+        <ToolbarInsertBlock
+          {...defaultProps}
+          {...props}
+          featureFlags={props.featureFlags || {}}
+        />
+      </ReactEditorViewContext.Provider>,
     );
     baseToolbarOption = toolbarOption.find(BaseToolbarInsertBlock);
   };

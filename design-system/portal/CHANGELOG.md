@@ -1,5 +1,11 @@
 # @atlaskit/portal
 
+## 4.2.13
+
+### Patch Changes
+
+- [`4ba10567310`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ba10567310) - Internal changes.
+
 ## 4.2.12
 
 ### Patch Changes

@@ -1,5 +1,15 @@
 # @atlaskit/css-reset
 
+## 6.4.0
+
+### Minor Changes
+
+- [`f91b48763da`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f91b48763da) - [ux] Updates the body font size to use a typography token. This is a no-op change as the typography theme is not active.
+
+### Patch Changes
+
+- [`2d3b7c04afb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2d3b7c04afb) - Enroll @atlaskit/css-reset to push model consumption
+
 ## 6.3.21
 
 ### Patch Changes

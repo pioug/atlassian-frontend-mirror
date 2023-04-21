@@ -2,9 +2,8 @@
 import { css, jsx } from '@emotion/react';
 
 import { Code } from '@atlaskit/code';
+import { Inline, Stack } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
-
-import { Inline, Stack } from '../../../src';
 
 const containerStyles = css({
   display: 'flex',

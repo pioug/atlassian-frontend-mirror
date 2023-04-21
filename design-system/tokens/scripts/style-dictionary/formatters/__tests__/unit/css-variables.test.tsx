@@ -21,6 +21,7 @@ describe('formatter', () => {
     expect(result).toMatchInlineSnapshot(`
       "html[data-color-mode=\\"light\\"][data-theme~=\\"light:dark\\"],
       html[data-color-mode=\\"dark\\"][data-theme~=\\"dark:dark\\"] {
+        color-scheme: dark;
         --ds-brand: #ffffff;
       }
       "
@@ -47,6 +48,7 @@ describe('formatter', () => {
     expect(result).toMatchInlineSnapshot(`
       "html[data-color-mode=\\"light\\"][data-theme~=\\"light:dark\\"],
       html[data-color-mode=\\"dark\\"][data-theme~=\\"dark:dark\\"] {
+        color-scheme: dark;
         --ds-colorAccent: #ffffff;
       }
       "
@@ -75,6 +77,7 @@ describe('formatter', () => {
     expect(result).toMatchInlineSnapshot(`
       "html[data-color-mode=\\"light\\"][data-theme~=\\"light:dark\\"],
       html[data-color-mode=\\"dark\\"][data-theme~=\\"dark:dark\\"] {
+        color-scheme: dark;
       }
       "
     `);
@@ -100,6 +103,7 @@ describe('formatter', () => {
     expect(result).toMatchInlineSnapshot(`
       "html[data-color-mode=\\"light\\"][data-theme~=\\"light:dark\\"],
       html[data-color-mode=\\"dark\\"][data-theme~=\\"dark:dark\\"] {
+        color-scheme: dark;
         --ds-accent: #ffffff;
       }
       "
@@ -126,6 +130,7 @@ describe('formatter', () => {
     expect(result).toMatchInlineSnapshot(`
       "html[data-color-mode=\\"light\\"][data-theme~=\\"light:dark\\"],
       html[data-color-mode=\\"dark\\"][data-theme~=\\"dark:dark\\"] {
+        color-scheme: dark;
         --ds-accent-brand: #ffffff;
       }
       "
@@ -154,6 +159,7 @@ describe('formatter', () => {
     expect(result).toMatchInlineSnapshot(`
       "html[data-color-mode=\\"light\\"][data-theme~=\\"light:dark\\"],
       html[data-color-mode=\\"dark\\"][data-theme~=\\"dark:dark\\"] {
+        color-scheme: dark;
         --ds-background-brand: #ffffff;
       }
       "
@@ -182,6 +188,7 @@ describe('formatter', () => {
     expect(result).toMatchInlineSnapshot(`
       "html[data-color-mode=\\"light\\"][data-theme~=\\"light:dark\\"],
       html[data-color-mode=\\"dark\\"][data-theme~=\\"dark:dark\\"] {
+        color-scheme: dark;
         --ds-background-brand: #ffffff;
       }
       "
@@ -217,6 +224,7 @@ describe('formatter', () => {
     expect(result).toMatchInlineSnapshot(`
       "html[data-color-mode=\\"light\\"][data-theme~=\\"light:light\\"],
       html[data-color-mode=\\"dark\\"][data-theme~=\\"dark:light\\"] {
+        color-scheme: light;
         --ds-background-brand-pressed: #ffffff;
       }
       "
@@ -254,6 +262,85 @@ describe('formatter', () => {
       "html[data-theme~=\\"spacing:spacing\\"] {
         --ds-FontSize050: 11px;
         --ds-space-Space0: 0;
+      }
+      "
+    `);
+  });
+
+  it('should inject color-scheme for color themes with a light mode', () => {
+    const result = formatter({
+      dictionary: {
+        allTokens: [
+          {
+            name: 'brand',
+            value: '#ffffff',
+            path: ['color', 'brand'],
+            attributes: { group: 'paint', mode: 'light' },
+          },
+        ],
+      },
+      options: {
+        themeName: 'atlassian-light',
+      },
+    } as any);
+
+    expect(result).toMatchInlineSnapshot(`
+      "html[data-color-mode=\\"light\\"][data-theme~=\\"light:light\\"],
+      html[data-color-mode=\\"dark\\"][data-theme~=\\"dark:light\\"] {
+        color-scheme: light;
+        --ds-brand: #ffffff;
+      }
+      "
+    `);
+  });
+
+  it('should inject color-scheme for color themes with a dark mode', () => {
+    const result = formatter({
+      dictionary: {
+        allTokens: [
+          {
+            name: 'brand',
+            value: '#ffffff',
+            path: ['color', 'brand'],
+            attributes: { group: 'paint', mode: 'dark' },
+          },
+        ],
+      },
+      options: {
+        themeName: 'atlassian-dark',
+      },
+    } as any);
+
+    expect(result).toMatchInlineSnapshot(`
+      "html[data-color-mode=\\"light\\"][data-theme~=\\"light:dark\\"],
+      html[data-color-mode=\\"dark\\"][data-theme~=\\"dark:dark\\"] {
+        color-scheme: dark;
+        --ds-brand: #ffffff;
+      }
+      "
+    `);
+  });
+
+  it('should not inject color-scheme for non-color themes with a dark mode', () => {
+    const result = formatter({
+      dictionary: {
+        allTokens: [
+          {
+            name: 'brand',
+            value: '16px',
+            path: ['typog', 'base'],
+            attributes: { group: 'typography', mode: 'dark' },
+          },
+        ],
+      },
+      options: {
+        themeName: 'atlassian-spacing',
+      },
+    } as any);
+
+    expect(result).toMatchInlineSnapshot(`
+      "html[data-theme~=\\"spacing:spacing\\"] {
+        --ds-base: 16px;
       }
       "
     `);

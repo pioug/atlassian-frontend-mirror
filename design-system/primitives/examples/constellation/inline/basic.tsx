@@ -8,10 +8,9 @@ import DropdownMenu, {
 import Heading from '@atlaskit/heading';
 import StoryIcon from '@atlaskit/icon-object/glyph/story/16';
 import StarFilledIcon from '@atlaskit/icon/glyph/star-filled';
+import { Inline } from '@atlaskit/primitives';
 import { Y400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-
-import { Inline } from '../../../src';
 
 const ActionsMenu = () => (
   <DropdownMenu trigger="Actions">

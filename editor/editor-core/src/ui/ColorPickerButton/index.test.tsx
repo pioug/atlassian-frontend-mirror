@@ -13,6 +13,8 @@ import {
 } from '@atlaskit/editor-test-helpers/mock-analytics-next';
 import ColorPickerButton from './index';
 import { ReactWrapper } from 'enzyme';
+import { act } from 'react-dom/test-utils';
+
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -20,17 +22,22 @@ import {
   EVENT_TYPE,
 } from '../../plugins/analytics/types';
 import { editorAnalyticsChannel } from '../../plugins/analytics/consts';
-import { act } from 'react-dom/test-utils';
+import ReactEditorViewContext from '../../create-editor/ReactEditorViewContext';
 
 describe('color-picker-button', () => {
   const onChangeMock = jest.fn();
+  const editorRef = {
+    current: document.createElement('div'),
+  };
   const getWrapper = (placement: string = ''): ReactWrapper =>
     mountWithIntl(
-      <ColorPickerButton
-        onChange={onChangeMock}
-        colorPalette={panelBackgroundPalette}
-        placement={placement}
-      />,
+      <ReactEditorViewContext.Provider value={{ editorRef }}>
+        <ColorPickerButton
+          onChange={onChangeMock}
+          colorPalette={panelBackgroundPalette}
+          placement={placement}
+        />
+      </ReactEditorViewContext.Provider>,
     );
 
   const selectColor = (wrapper: ReactWrapper, colorLabel: string) => {

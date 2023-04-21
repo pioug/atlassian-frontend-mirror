@@ -1,5 +1,11 @@
 # @atlaskit/primitives
 
+## 0.8.2
+
+### Patch Changes
+
+- [`983b1e61003`](https://bitbucket.org/atlassian/atlassian-frontend/commits/983b1e61003) - Fix Primitives pages being shown in prod despite being marked as alpha.
+
 ## 0.8.1
 
 ### Patch Changes

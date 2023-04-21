@@ -192,17 +192,14 @@ const getStyles = (
 
     &::after {
       background-color: transparent;
-      bottom: 0px;
+      inset: 0px;
 
       /* Added border-radius style to fix hover issue in safari */
       border-radius: ${appearance === 'circle' ? '50%' : `${radius}px`};
       content: ' ';
-      left: 0px;
       opacity: 0;
       pointer-events: none;
       position: absolute;
-      right: 0px;
-      top: 0px;
       transition: opacity 200ms;
       width: 100%;
     }

@@ -776,6 +776,9 @@ type CSSTokenMap = {
 };
 
 // @public (undocumented)
+type DataColorModes = Exclude<ThemeColorModes, 'auto'>;
+
+// @public (undocumented)
 type DeletedTokenState = 'deleted';
 
 // @public (undocumented)
@@ -1263,7 +1266,7 @@ interface ThemeConfig {
   attributes: (
     | {
         type: 'color';
-        mode: Exclude<ThemeColorModes, 'auto'>;
+        mode: DataColorModes;
       }
     | {
         type: Extract<ThemeKinds, 'shape' | 'spacing' | 'typography'>;

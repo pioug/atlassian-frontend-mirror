@@ -53,6 +53,15 @@ const properties = [
   'gridRowGap',
   'columnGap',
   'gridColumnGap',
+  'top',
+  'left',
+  'right',
+  'bottom',
+  'inlineStart',
+  'inlineEnd',
+  'blockStart',
+  'blockEnd',
+  'outline-offset',
 ];
 
 export type ProcessedCSSLines = [string, string][];

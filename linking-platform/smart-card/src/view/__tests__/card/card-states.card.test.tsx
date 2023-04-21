@@ -1,3 +1,5 @@
+import { SmartLinkActionType } from '@atlaskit/linking-types';
+
 jest.mock('react-lazily-render', () => (data: any) => data.content);
 jest.mock(
   'react-transition-group/Transition',
@@ -490,6 +492,88 @@ describe('smart-card: card states, block', () => {
         resolvedView = await waitFor(() => getByText('I love cheese'));
         expect(mockFetch).toBeCalled();
         expect(mockFetch).toBeCalledTimes(1);
+      });
+
+      describe('server actions', () => {
+        const resolvedLinkText = 'I love cheese';
+        const actionElementTestId = 'smart-element-lozenge--trigger';
+
+        const renderWithShowServerActions = (showServerActions?: boolean) =>
+          render(
+            <IntlProvider locale="en">
+              <Provider
+                client={mockClient}
+                featureFlags={{
+                  enableFlexibleBlockCard: true,
+                  useLozengeAction: 'experiment',
+                }}
+              >
+                <Card
+                  appearance="block"
+                  showServerActions={showServerActions}
+                  url={mockUrl}
+                />
+              </Provider>
+            </IntlProvider>,
+          );
+
+        beforeEach(() => {
+          mockFetch.mockImplementationOnce(async () => ({
+            ...mocks.success,
+            data: {
+              ...mocks.success.data,
+              '@type': 'atlassian:Task',
+              'atlassian:serverAction': [
+                {
+                  '@type': 'UpdateAction',
+                  name: 'UpdateAction',
+                  dataRetrievalAction: {
+                    '@type': 'ReadAction',
+                    name: SmartLinkActionType.GetStatusTransitionsAction,
+                  },
+                  dataUpdateAction: {
+                    '@type': 'UpdateAction',
+                    name: SmartLinkActionType.StatusUpdateAction,
+                  },
+                  refField: 'tag',
+                  resourceIdentifiers: {
+                    issueKey: 'some-id',
+                    hostname: 'some-hostname',
+                  },
+                },
+              ],
+              tag: 'status',
+            },
+          }));
+        });
+
+        it('block: renders with server actions when showServerActions is true', async () => {
+          const { findByText, getByTestId } = renderWithShowServerActions(true);
+
+          await findByText(resolvedLinkText);
+          const actionElement = await getByTestId(actionElementTestId);
+
+          expect(actionElement).toBeTruthy();
+        });
+
+        it('block: does not render with server actions when showServerActions is false', async () => {
+          const { findByText, queryByTestId } =
+            renderWithShowServerActions(false);
+
+          await findByText(resolvedLinkText);
+          const actionElement = queryByTestId(actionElementTestId);
+
+          expect(actionElement).not.toBeInTheDocument();
+        });
+
+        it('block: does not render with server actions when showServerActions is not provided', async () => {
+          const { findByText, queryByTestId } = renderWithShowServerActions();
+
+          await findByText(resolvedLinkText);
+          const actionElement = queryByTestId(actionElementTestId);
+
+          expect(actionElement).not.toBeInTheDocument();
+        });
       });
     });
 

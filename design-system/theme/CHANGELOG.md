@@ -1,5 +1,11 @@
 # @atlaskit/theme
 
+## 12.4.1
+
+### Patch Changes
+
+- [`3993abb044c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3993abb044c) - Adds deprecation jsdoc warnings to typography mixins. Please use `@atlaskit/heading` if these mixins are currently being relied upon.
+
 ## 12.4.0
 
 ### Minor Changes

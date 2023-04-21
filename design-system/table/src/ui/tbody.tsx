@@ -11,9 +11,9 @@ const bodyStyles = css({
   border: 'none',
   '&:after': {
     position: 'absolute',
+    inset: 0,
     boxShadow: `inset 0 -2px 0 0 ${token('color.border', '#eee')}`,
     content: "''",
-    inset: 0,
     pointerEvents: 'none',
   },
 });

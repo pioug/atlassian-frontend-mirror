@@ -5,12 +5,11 @@ import { css, jsx } from '@emotion/react';
 
 import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
 import Inline from '@atlaskit/primitives/inline';
+import { token } from '@atlaskit/tokens';
 
 const overlayStyles = css({
-  top: 0,
-  right: 0,
-  bottom: 0,
-  left: 32,
+  inset: 0,
+  left: token('space.400', '32px'),
 });
 
 /**

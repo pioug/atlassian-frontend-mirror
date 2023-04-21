@@ -1,5 +1,11 @@
 # @atlaskit/pubsub
 
+## 6.2.2
+
+### Patch Changes
+
+- [`fdcca15d9a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fdcca15d9a8) - Bump vm2 dependency because of VULN - again
+
 ## 6.2.1
 
 ### Patch Changes

@@ -49,6 +49,7 @@ const sectionHeaderStyles = css({
   // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   margin: '0 auto',
   position: 'relative',
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   top: '50%',
   color: N0,
   transform: 'translate(0, -50%)',

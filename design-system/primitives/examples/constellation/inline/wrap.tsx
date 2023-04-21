@@ -1,8 +1,7 @@
 import React from 'react';
 
 import Badge from '@atlaskit/badge';
-
-import { Inline } from '../../../src';
+import { Inline } from '@atlaskit/primitives';
 
 export default function Example() {
   return (

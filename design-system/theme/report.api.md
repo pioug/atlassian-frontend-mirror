@@ -503,7 +503,7 @@ const green: ThemedValue<string>;
 // @public @deprecated (undocumented)
 export const gridSize: () => number;
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 const h100: (props?: ThemeProps) => {
   color: 'var(--ds-text-subtlest)';
   fontWeight: 'var(--ds-font-weight-bold)';
@@ -513,7 +513,7 @@ const h100: (props?: ThemeProps) => {
   lineHeight: number;
 };
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 const h200: (props?: ThemeProps) => {
   color: 'var(--ds-text-subtlest)';
   fontWeight: 'var(--ds-font-weight-semibold)';
@@ -523,7 +523,7 @@ const h200: (props?: ThemeProps) => {
   lineHeight: number;
 };
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 const h300: (props?: ThemeProps) => {
   color: 'var(--ds-text)';
   fontWeight: 'var(--ds-font-weight-semibold)';
@@ -534,7 +534,7 @@ const h300: (props?: ThemeProps) => {
   lineHeight: number;
 };
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 const h400: (props?: ThemeProps) => {
   color: 'var(--ds-text)';
   fontWeight: 'var(--ds-font-weight-semibold)';
@@ -545,7 +545,7 @@ const h400: (props?: ThemeProps) => {
   lineHeight: number;
 };
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 const h500: (props?: ThemeProps) => {
   color: 'var(--ds-text)';
   fontWeight: 'var(--ds-font-weight-semibold)';
@@ -556,7 +556,7 @@ const h500: (props?: ThemeProps) => {
   lineHeight: number;
 };
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 const h600: (props?: ThemeProps) => {
   color: 'var(--ds-text)';
   fontWeight: 'var(--ds-font-weight-medium)';
@@ -567,7 +567,7 @@ const h600: (props?: ThemeProps) => {
   lineHeight: number;
 };
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 const h700: (props?: ThemeProps) => {
   color: 'var(--ds-text)';
   fontWeight: 'var(--ds-font-weight-medium)';
@@ -578,7 +578,7 @@ const h700: (props?: ThemeProps) => {
   lineHeight: number;
 };
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 const h800: (props?: ThemeProps) => {
   color: 'var(--ds-text)';
   fontWeight: 'var(--ds-font-weight-semibold)';
@@ -589,7 +589,7 @@ const h800: (props?: ThemeProps) => {
   lineHeight: number;
 };
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 const h900: (props?: ThemeProps) => {
   color: 'var(--ds-text)';
   fontWeight: 'var(--ds-font-weight-medium)';

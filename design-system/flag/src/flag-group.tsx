@@ -73,6 +73,7 @@ export function useFlagGroup() {
 // that causes a broken transition
 const baseStyles = css({
   width: flagWidth,
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   bottom: 0,
   transition: `transform ${flagAnimationTime}ms ease-in-out`,
   '@media (max-width: 560px)': {
@@ -109,10 +110,14 @@ const dismissAllowedStyles = css({
 
 const flagGroupContainerStyles = css({
   zIndex: layers.flag(),
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   bottom: flagBottom,
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   left: flagLeft,
   '@media (max-width: 560px)': {
+    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
     bottom: 0,
+    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
     left: 0,
   },
 });

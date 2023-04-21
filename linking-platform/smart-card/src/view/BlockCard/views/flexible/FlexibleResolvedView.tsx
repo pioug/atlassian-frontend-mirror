@@ -28,6 +28,7 @@ const FlexibleResolvedView = ({
   onClick,
   onError,
   onResolve,
+  showServerActions,
   testId = 'smart-block-resolved-view',
   ui,
   url,
@@ -49,6 +50,7 @@ const FlexibleResolvedView = ({
       onClick={onClick}
       onError={onError}
       onResolve={onResolve}
+      showServerActions={showServerActions}
       testId={testId}
       ui={ui}
       url={url}

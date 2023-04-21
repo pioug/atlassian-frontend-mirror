@@ -1,5 +1,11 @@
 # @atlaskit/editor-markdown-transformer
 
+## 5.1.0
+
+### Minor Changes
+
+- [`bed2b09bcae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bed2b09bcae) - ED-17502 Adds taskList and taskItem markdown support in editor-plugin-ai, including mapping for these nodes in editor-markdown-transformer.
+
 ## 5.0.1
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @atlaskit/flag
 
+## 15.1.6
+
+### Patch Changes
+
+- [`4ba10567310`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ba10567310) - Internal changes.
+
 ## 15.1.5
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 4.20.0
+
+### Minor Changes
+
+- [`fa50be73bfe`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa50be73bfe) - [ux] Spacing rule now also looks at and attempts to parse additional properties.
+
 ## 4.19.1
 
 ### Patch Changes

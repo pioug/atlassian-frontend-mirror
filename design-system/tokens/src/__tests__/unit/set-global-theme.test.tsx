@@ -143,6 +143,32 @@ describe('setGlobalTheme', () => {
     ]);
   });
 
+  it('should load a minimal set of themes when auto switching is disabled', async () => {
+    await setGlobalTheme({
+      colorMode: 'light',
+      dark: 'dark',
+      light: 'light',
+      spacing: 'spacing',
+      typography: 'typography',
+    });
+
+    // Wait for styles to be added to the page
+    await waitFor(() => {
+      const styleElements = document.querySelectorAll(
+        `style[${THEME_DATA_ATTRIBUTE}]`,
+      );
+      expect(styleElements).toHaveLength(3);
+    });
+
+    // Validate that the data-theme attributes match the expected values
+    const styleElements = document.querySelectorAll('style');
+    const dataThemes = Array.from(styleElements).map((el) =>
+      el.getAttribute('data-theme'),
+    );
+
+    expect(dataThemes.sort()).toEqual(['light', 'spacing', 'typography']);
+  });
+
   it('should load theme CSS on the page without duplicates', async () => {
     // prompt a duplication of
     await setGlobalTheme({
@@ -205,11 +231,20 @@ describe('setGlobalTheme', () => {
 });
 
 describe('getThemeStyles', () => {
-  it('returns an array of ThemeStyles when given valid theme state', async () => {
+  function getSortedThemeData(themes: ThemeStyles[]) {
+    themes.sort((a, b) => a.id.localeCompare(b.id));
+    return themes.reduce(
+      (acc: Omit<ThemeStyles, 'css'>[], { css, ...rest }) => {
+        acc.push({ ...rest });
+        return acc;
+      },
+      [],
+    );
+  }
+
+  it('returns an array of ThemeStyles when given non-default theme state', async () => {
     let results = await getThemeStyles({
-      colorMode: 'auto',
-      dark: 'dark',
-      light: 'light',
+      light: 'legacy-light',
       spacing: 'spacing',
       typography: 'typography',
     });
@@ -219,21 +254,25 @@ describe('getThemeStyles', () => {
       expect(result.css).toBeDefined();
     });
 
-    // Sort and validate the IDs and attributes
-    results.sort((a, b) => a.id.localeCompare(b.id));
-    const loadedThemeData = results.reduce(
-      (acc: Omit<ThemeStyles, 'css'>[], { css, ...rest }) => {
-        acc.push({ ...rest });
-        return acc;
-      },
-      [],
-    );
-
-    expect(loadedThemeData).toEqual([
+    expect(getSortedThemeData(results)).toEqual([
       { id: 'dark', attrs: { 'data-theme': 'dark' } },
-      { id: 'light', attrs: { 'data-theme': 'light' } },
+      { id: 'legacy-light', attrs: { 'data-theme': 'legacy-light' } },
       { id: 'spacing', attrs: { 'data-theme': 'spacing' } },
       { id: 'typography', attrs: { 'data-theme': 'typography' } },
+    ]);
+  });
+
+  it('returns an array of the default ThemeStyles when a theme state argument is not provided', async () => {
+    let results = await getThemeStyles();
+
+    // Check that CSS is defined for each result
+    results.forEach((result) => {
+      expect(result.css).toBeDefined();
+    });
+
+    expect(getSortedThemeData(results)).toEqual([
+      { id: 'dark', attrs: { 'data-theme': 'dark' } },
+      { id: 'light', attrs: { 'data-theme': 'light' } },
     ]);
   });
 
@@ -248,17 +287,7 @@ describe('getThemeStyles', () => {
       typography: 'typography',
     });
 
-    // Sort and validate the IDs and attributes
-    results.sort((a, b) => a.id.localeCompare(b.id));
-    const loadedThemeData = results.reduce(
-      (acc: Omit<ThemeStyles, 'css'>[], { css, ...rest }) => {
-        acc.push({ ...rest });
-        return acc;
-      },
-      [],
-    );
-
-    expect(loadedThemeData).toEqual([
+    expect(getSortedThemeData(results)).toEqual([
       { id: 'dark', attrs: { 'data-theme': 'dark' } },
       { id: 'dark-iteration', attrs: { 'data-theme': 'dark-iteration' } },
       { id: 'light', attrs: { 'data-theme': 'light' } },
@@ -267,7 +296,7 @@ describe('getThemeStyles', () => {
     ]);
   });
 
-  it('returns a minimal set of themes when auto switching is disabled', async () => {
+  it('returns a minimal set of ThemeStyles when auto switching is disabled', async () => {
     let results = await getThemeStyles({
       colorMode: 'light',
       dark: 'dark',
@@ -276,17 +305,24 @@ describe('getThemeStyles', () => {
       typography: 'typography',
     });
 
-    results.sort((a, b) => a.id.localeCompare(b.id));
-    const loadedThemeData = results.reduce(
-      (acc: Omit<ThemeStyles, 'css'>[], { css, ...rest }) => {
-        acc.push({ ...rest });
-        return acc;
-      },
-      [],
-    );
-
-    expect(loadedThemeData).toEqual([
+    expect(getSortedThemeData(results)).toEqual([
       { id: 'light', attrs: { 'data-theme': 'light' } },
+      { id: 'spacing', attrs: { 'data-theme': 'spacing' } },
+      { id: 'typography', attrs: { 'data-theme': 'typography' } },
+    ]);
+  });
+
+  it('returns an array of ThemeStyles without duplicates', async () => {
+    // prompt a duplication
+    const results = await getThemeStyles({
+      light: 'dark',
+      dark: 'dark',
+      spacing: 'spacing',
+      typography: 'typography',
+    });
+
+    expect(getSortedThemeData(results)).toEqual([
+      { id: 'dark', attrs: { 'data-theme': 'dark' } },
       { id: 'spacing', attrs: { 'data-theme': 'spacing' } },
       { id: 'typography', attrs: { 'data-theme': 'typography' } },
     ]);
@@ -298,16 +334,7 @@ describe('getThemeStyles', () => {
       dark: 'invalid',
     });
 
-    results.sort((a, b) => a.id.localeCompare(b.id));
-    const loadedThemeData = results.reduce(
-      (acc: Omit<ThemeStyles, 'css'>[], { css, ...rest }) => {
-        acc.push({ ...rest });
-        return acc;
-      },
-      [],
-    );
-
-    expect(loadedThemeData).toEqual([
+    expect(getSortedThemeData(results)).toEqual([
       { id: 'light', attrs: { 'data-theme': 'light' } },
     ]);
   });

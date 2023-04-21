@@ -1,5 +1,11 @@
 # @atlaskit/tooltip
 
+## 17.7.1
+
+### Patch Changes
+
+- [`4ba10567310`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ba10567310) - Internal changes.
+
 ## 17.7.0
 
 ### Minor Changes

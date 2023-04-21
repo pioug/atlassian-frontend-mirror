@@ -1,5 +1,11 @@
 # @atlaskit/progress-indicator
 
+## 9.4.18
+
+### Patch Changes
+
+- [`4ba10567310`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ba10567310) - Internal changes.
+
 ## 9.4.17
 
 ### Patch Changes

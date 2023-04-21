@@ -85,7 +85,8 @@ interface ThemeConfig {
   attributes: (
     | {
         type: 'color';
-        mode: Exclude<ThemeColorModes, 'auto'>;
+        // https://developer.mozilla.org/en-US/docs/Web/CSS/color-scheme
+        mode: DataColorModes;
       }
     | {
         type: Extract<ThemeKinds, 'spacing' | 'typography' | 'shape'>;

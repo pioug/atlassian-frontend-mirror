@@ -1,5 +1,7 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
+import { EditorView } from 'prosemirror-view';
+
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 import { render, fireEvent, within } from '@testing-library/react';
 import {
@@ -20,16 +22,29 @@ import {
 import textFormattingPlugin from '../../../';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { ToolbarSize } from '@atlaskit/editor-common/types';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+
 import codeBlockPlugin from '../../../../../plugins/code-block';
 import analyticsPlugin, {
   ACTION_SUBJECT_ID,
 } from '../../../../../plugins/analytics';
 import Toolbar from '../../../ui/Toolbar';
-import { EditorView } from 'prosemirror-view';
-import { ToolbarSize } from '@atlaskit/editor-common/types';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import ReactEditorViewContext from '../../../../../create-editor/ReactEditorViewContext';
 
 describe('@atlaskit/editor-core/ui/Toolbar', () => {
+  const editorRef = {
+    current: document.createElement('div'),
+  };
+
+  const ToolbarWrapper = ({ children }: { children: React.ReactNode }) => (
+    <IntlProvider locale="en">
+      <ReactEditorViewContext.Provider value={{ editorRef }}>
+        {children}
+      </ReactEditorViewContext.Provider>
+    </IntlProvider>
+  );
+
   describe('when pluginStateTextFormatting is undefined', () => {
     describe.each(['Bold', 'Italic'])('the %s toolbar button', (buttonName) => {
       it('should render disabled ToolbarButton', () => {
@@ -37,7 +52,7 @@ describe('@atlaskit/editor-core/ui/Toolbar', () => {
         const editorView = new EditorView(undefined, { state: editorState });
 
         const { getByTestId } = render(
-          <IntlProvider locale="en">
+          <ToolbarWrapper>
             <Toolbar
               isToolbarDisabled={false}
               toolbarSize={ToolbarSize.M}
@@ -46,7 +61,7 @@ describe('@atlaskit/editor-core/ui/Toolbar', () => {
               editorView={editorView}
               editorState={editorView.state}
             />
-          </IntlProvider>,
+          </ToolbarWrapper>,
         );
         expect(getByTestId(`editor-toolbar__${buttonName}`)).toBeDisabled();
       });
@@ -69,7 +84,7 @@ describe('@atlaskit/editor-core/ui/Toolbar', () => {
           (buttonName) => {
             const { editorView } = editor(doc(p('text')));
             const { queryByTestId } = render(
-              <IntlProvider locale="en">
+              <ToolbarWrapper>
                 <Toolbar
                   isToolbarDisabled={false}
                   toolbarSize={toolbarSize}
@@ -78,7 +93,7 @@ describe('@atlaskit/editor-core/ui/Toolbar', () => {
                   editorState={editorView.state}
                   editorView={editorView}
                 />
-              </IntlProvider>,
+              </ToolbarWrapper>,
             );
             expect(
               queryByTestId(`editor-toolbar__${buttonName}`),
@@ -96,7 +111,7 @@ describe('@atlaskit/editor-core/ui/Toolbar', () => {
           (buttonName) => {
             const { editorView } = editor(doc(p('text')));
             const { getByTestId } = render(
-              <IntlProvider locale="en">
+              <ToolbarWrapper>
                 <Toolbar
                   isToolbarDisabled={false}
                   toolbarSize={toolbarSize}
@@ -105,7 +120,7 @@ describe('@atlaskit/editor-core/ui/Toolbar', () => {
                   editorView={editorView}
                   editorState={editorView.state}
                 />
-              </IntlProvider>,
+              </ToolbarWrapper>,
             );
             expect(
               getByTestId(`editor-toolbar__${buttonName}`),
@@ -138,7 +153,7 @@ describe('@atlaskit/editor-core/ui/Toolbar', () => {
       (buttonName) => {
         const { editorView } = editor(doc(p('text')));
         const { getByTestId } = render(
-          <IntlProvider locale="en">
+          <ToolbarWrapper>
             <Toolbar
               isToolbarDisabled={false}
               toolbarSize={ToolbarSize.M}
@@ -147,7 +162,7 @@ describe('@atlaskit/editor-core/ui/Toolbar', () => {
               editorView={editorView}
               editorState={editorView.state}
             />
-          </IntlProvider>,
+          </ToolbarWrapper>,
         );
         expect(
           getByTestId(`editor-toolbar__${buttonName}`),
@@ -158,7 +173,7 @@ describe('@atlaskit/editor-core/ui/Toolbar', () => {
     it('should open the button group when more formatting is clicked', () => {
       const { editorView } = editor(doc(p('text')));
       const { getByLabelText, getByRole } = render(
-        <IntlProvider locale="en">
+        <ToolbarWrapper>
           <Toolbar
             isToolbarDisabled={false}
             toolbarSize={ToolbarSize.M}
@@ -167,7 +182,7 @@ describe('@atlaskit/editor-core/ui/Toolbar', () => {
             editorView={editorView}
             editorState={editorView.state}
           />
-        </IntlProvider>,
+        </ToolbarWrapper>,
       );
       const moreButton = getByLabelText('More formatting');
       fireEvent.click(moreButton);
@@ -177,7 +192,7 @@ describe('@atlaskit/editor-core/ui/Toolbar', () => {
     it('should show six buttons inside more button group', () => {
       const { editorView } = editor(doc(p('text')));
       const { getByLabelText, getByRole } = render(
-        <IntlProvider locale="en">
+        <ToolbarWrapper>
           <Toolbar
             isToolbarDisabled={false}
             toolbarSize={ToolbarSize.M}
@@ -186,7 +201,7 @@ describe('@atlaskit/editor-core/ui/Toolbar', () => {
             editorView={editorView}
             editorState={editorView.state}
           />
-        </IntlProvider>,
+        </ToolbarWrapper>,
       );
       const moreButton = getByLabelText('More formatting');
       fireEvent.click(moreButton);
@@ -202,7 +217,7 @@ describe('@atlaskit/editor-core/ui/Toolbar', () => {
             doc(codeBlock({ language: 'js' })('Hello {<>}world')),
           );
           const { getByTestId } = render(
-            <IntlProvider locale="en">
+            <ToolbarWrapper>
               <Toolbar
                 isToolbarDisabled={false}
                 toolbarSize={ToolbarSize.M}
@@ -211,7 +226,7 @@ describe('@atlaskit/editor-core/ui/Toolbar', () => {
                 editorView={editorView}
                 editorState={editorView.state}
               />
-            </IntlProvider>,
+            </ToolbarWrapper>,
           );
           const button = getByTestId(`editor-toolbar__${buttonName}`);
           expect(button).toBeDisabled();
@@ -231,7 +246,7 @@ describe('@atlaskit/editor-core/ui/Toolbar', () => {
             doc(codeBlock({ language: 'js' })('Hello {<>}world')),
           );
           const { getByLabelText, getByRole } = render(
-            <IntlProvider locale="en">
+            <ToolbarWrapper>
               <Toolbar
                 isToolbarDisabled={false}
                 toolbarSize={ToolbarSize.M}
@@ -240,7 +255,7 @@ describe('@atlaskit/editor-core/ui/Toolbar', () => {
                 editorView={editorView}
                 editorState={editorView.state}
               />
-            </IntlProvider>,
+            </ToolbarWrapper>,
           );
           const moreButton = getByLabelText('More formatting');
           fireEvent.click(moreButton);
@@ -264,7 +279,7 @@ describe('@atlaskit/editor-core/ui/Toolbar', () => {
     ])('should show %s button inside more button group', (buttonName) => {
       const { editorView } = editor(doc(p('text')));
       const { getByLabelText, getByRole } = render(
-        <IntlProvider locale="en">
+        <ToolbarWrapper>
           <Toolbar
             isToolbarDisabled={false}
             toolbarSize={ToolbarSize.M}
@@ -273,7 +288,7 @@ describe('@atlaskit/editor-core/ui/Toolbar', () => {
             editorView={editorView}
             editorState={editorView.state}
           />
-        </IntlProvider>,
+        </ToolbarWrapper>,
       );
       const moreButton = getByLabelText('More formatting');
       fireEvent.click(moreButton);
@@ -294,7 +309,7 @@ describe('@atlaskit/editor-core/ui/Toolbar', () => {
       (buttonName, expectedDocument) => {
         const { editorView } = editor(doc(p('{<}text{>}')));
         const { getByLabelText, getByRole } = render(
-          <IntlProvider locale="en">
+          <ToolbarWrapper>
             <Toolbar
               isToolbarDisabled={false}
               toolbarSize={ToolbarSize.M}
@@ -303,7 +318,7 @@ describe('@atlaskit/editor-core/ui/Toolbar', () => {
               editorView={editorView}
               editorState={editorView.state}
             />
-          </IntlProvider>,
+          </ToolbarWrapper>,
         );
 
         const moreButton = getByLabelText('More formatting');
@@ -327,7 +342,7 @@ describe('@atlaskit/editor-core/ui/Toolbar', () => {
       (buttonName, actionSubjectId) => {
         const { editorView } = editor(doc(p('text')));
         const { getByTestId } = render(
-          <IntlProvider locale="en">
+          <ToolbarWrapper>
             <Toolbar
               isToolbarDisabled={false}
               toolbarSize={ToolbarSize.M}
@@ -336,7 +351,7 @@ describe('@atlaskit/editor-core/ui/Toolbar', () => {
               editorView={editorView}
               editorState={editorView.state}
             />
-          </IntlProvider>,
+          </ToolbarWrapper>,
         );
         const button = getByTestId(`editor-toolbar__${buttonName}`);
         fireEvent.click(button);
@@ -365,7 +380,7 @@ describe('@atlaskit/editor-core/ui/Toolbar', () => {
       (buttonName, actionSubjectId) => {
         const { editorView } = editor(doc(p('{<}text{>}')));
         const { getByLabelText, getByRole } = render(
-          <IntlProvider locale="en">
+          <ToolbarWrapper>
             <Toolbar
               isToolbarDisabled={false}
               toolbarSize={ToolbarSize.M}
@@ -374,7 +389,7 @@ describe('@atlaskit/editor-core/ui/Toolbar', () => {
               editorView={editorView}
               editorState={editorView.state}
             />
-          </IntlProvider>,
+          </ToolbarWrapper>,
         );
 
         const moreButton = getByLabelText('More formatting');
@@ -403,7 +418,7 @@ describe('@atlaskit/editor-core/ui/Toolbar', () => {
     it('should remove formatting when Clear Formatting is clicked', () => {
       const { editorView } = editor(doc(p(underline('{<}text{>}'))));
       const { getByLabelText, getByRole } = render(
-        <IntlProvider locale="en">
+        <ToolbarWrapper>
           <Toolbar
             isToolbarDisabled={false}
             toolbarSize={ToolbarSize.M}
@@ -412,7 +427,7 @@ describe('@atlaskit/editor-core/ui/Toolbar', () => {
             editorView={editorView}
             editorState={editorView.state}
           />
-        </IntlProvider>,
+        </ToolbarWrapper>,
       );
 
       const moreButton = getByLabelText('More formatting');

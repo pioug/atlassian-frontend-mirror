@@ -11,7 +11,7 @@ const containerStyles = css({
 const figcaptionStyles = css({
   padding: token('space.100', '8px'),
   position: 'absolute',
-  bottom: 0,
+  bottom: token('space.0', '0px'),
   background: token('color.background.neutral', 'white'),
 });
 
@@ -34,7 +34,9 @@ const bottomSquareStyles = css({
 });
 
 const topSquarePositionStyles = css({
-  top: '0px',
+  // TODO Delete this comment after verifying spacing token -> previous value `'0px'`
+  top: token('space.0', '0px'),
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   left: '256px',
 });
 

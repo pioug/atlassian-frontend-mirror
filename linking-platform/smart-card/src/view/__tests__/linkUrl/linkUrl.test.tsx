@@ -2,7 +2,14 @@ import React, { ComponentProps } from 'react';
 
 import '@atlaskit/link-test-helpers/jest';
 
-import { render, screen, fireEvent } from '@testing-library/react';
+import {
+  render,
+  screen,
+  fireEvent,
+  createEvent,
+  act,
+  waitFor,
+} from '@testing-library/react';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 
 import { ANALYTICS_CHANNEL } from '../../../utils/analytics';
@@ -10,46 +17,194 @@ import LinkUrl from '../../LinkUrl';
 
 describe('LinkUrl', () => {
   let LinkUrlTestId: string = 'link-with-safety';
-  let mockLinkDestination: string = 'https://some.url';
 
-  it.each<{
-    mockLinkDescription: string;
-    checkSafety: boolean;
-    expected: boolean;
-  }>([
-    {
-      mockLinkDescription: 'link description',
-      expected: false,
-      checkSafety: true,
-    },
-    {
-      mockLinkDescription: 'https://another.url',
-      expected: true,
-      checkSafety: true,
-    },
-    {
-      mockLinkDescription: mockLinkDestination,
-      expected: false,
-      checkSafety: true,
-    },
-    {
-      mockLinkDescription: 'https://another.url',
-      expected: false,
-      checkSafety: false,
-    },
-  ])('correctly show safety warning message', (testData) => {
-    const { mockLinkDescription, expected, checkSafety } = testData;
+  const { location } = window;
 
+  beforeAll(() => {
+    delete (window as any).location;
+    (window as any).location = {
+      assign: jest.fn(),
+      origin: 'https://my-website.com',
+    };
+  });
+
+  afterAll(() => {
+    window.location = location;
+  });
+
+  const checkWarningPresence = (
+    linkUrl: string,
+    linkText: string,
+    checkSafety: boolean,
+    shouldShowModalDialog: boolean,
+  ) => {
     const { getByTestId } = render(
-      <LinkUrl href={mockLinkDestination} checkSafety={checkSafety}>
-        {mockLinkDescription}
+      <LinkUrl href={linkUrl} checkSafety={checkSafety}>
+        {linkText}
       </LinkUrl>,
     );
-    const LinkUrlView = getByTestId(LinkUrlTestId);
-    fireEvent.click(LinkUrlView);
+    const linkUrlView = getByTestId(LinkUrlTestId);
+    const event = createEvent.click(linkUrlView);
+    fireEvent(linkUrlView, event);
     const isLinkUnsafe = !!screen.queryByText('Check this link');
 
-    expect(isLinkUnsafe).toBe(expected);
+    expect(isLinkUnsafe).toBe(shouldShowModalDialog);
+    if (shouldShowModalDialog) {
+      expect(event.defaultPrevented).toBe(true);
+    } else {
+      expect(event.defaultPrevented).toBe(false);
+    }
+  };
+
+  describe.each<[string, string, string]>([
+    [
+      'link text is a url pointing to a different place',
+      'https://some.url',
+      'https://another.url',
+    ],
+    [
+      'link text is a different relative path',
+      'https://some.url/something',
+      '/somethingElse',
+    ],
+    [
+      'link text query part differs',
+      'https://some.url/path/my?query=10',
+      'https://some.url/path/my?query=20',
+    ],
+    [
+      'protocol differs between http and https with username and password present',
+      'http://sasha:password@some.url/path/my?query=10',
+      'https://sasha:password@some.url/path/my?query=10',
+    ],
+    [
+      'protocol differs between non http and https',
+      'ftp://some.url',
+      'http://some.url',
+    ],
+    [
+      'username and password differs',
+      'http://sasha:password@some.url/path/my?query=10',
+      'http://pasha:secret@some.url/path/my?query=10',
+    ],
+    [
+      "link url doesn't have explicit protocol",
+      'www.youtube.com',
+      'atlassian.com/smart-cards',
+    ],
+  ])('when %s', (_, linkUrl, linkText) => {
+    it('should show safety warning message', () => {
+      checkWarningPresence(linkUrl, linkText, true, true);
+    });
+  });
+
+  describe.each<[string, string, string, boolean]>([
+    ['link text is not url', 'https://some.url', 'link text', true],
+    [
+      'link text is a url pointing to the same place',
+      'https://some.url',
+      'https://some.url',
+      true,
+    ],
+    ['safety is off', 'https://some.url', 'https://another.url', false],
+    ['link text starts with hashtag', 'https://some.url', '#something', true],
+    [
+      'link text contains relative path of underlying url',
+      'https://some.url/something/there',
+      '/something/there',
+      true,
+    ],
+    [
+      "link text doesn't have hashtag while original url does",
+      'https://some.url/something/there#hastag',
+      'https://some.url/something/there',
+      true,
+    ],
+    [
+      "link actual url doesn't have hashtag while text url does",
+      'https://some.url/something/there',
+      'https://some.url/something/there#hashtag',
+      true,
+    ],
+    [
+      'relative path inside a link matched full link in title',
+      'relative-path',
+      'https://my-website.com/relative-path',
+      true,
+    ],
+    [
+      'relative path inside a link matched full link in title 2',
+      '/relative-path',
+      'https://my-website.com/relative-path',
+      true,
+    ],
+    [
+      'relative path inside a link matched not match full link in title',
+      '/relative-path',
+      'https://my-website.com/other-relative-path',
+      true,
+    ],
+    [
+      'protocol differs without username and password present',
+      'http://some.url/path/my?query=10',
+      'https://some.url/path/my?query=10',
+      true,
+    ],
+    [
+      'relative path inside a link matched full link in title 3',
+      '/relative-path',
+      'my-website.com/relative-path',
+      true,
+    ],
+  ])('when %s', (_, linkUrl, linkText, checkSafety) => {
+    it('should not show safety warning message', () => {
+      checkWarningPresence(linkUrl, linkText, checkSafety, false);
+    });
+  });
+
+  describe('when user open safety warning dialog', () => {
+    const setup = () => {
+      const renderResult = render(
+        <LinkUrl href={'https://some.url'} checkSafety={true}>
+          https://otherUrl.url
+        </LinkUrl>,
+      );
+      const linkUrlView = renderResult.getByRole('link');
+      fireEvent.click(linkUrlView);
+      return renderResult;
+    };
+
+    it('should warning message with correct text', () => {
+      const { getByTestId } = setup();
+      const body = getByTestId('link-with-safety-warning--body');
+      expect(body.textContent).toBe(
+        'The link https://otherUrl.url is taking you to a different site, https://some.url',
+      );
+    });
+
+    it('should proceed to original url when pressed continue', () => {
+      const { getByRole } = setup();
+
+      const continueButton = getByRole('button', { name: 'Continue' });
+      fireEvent.click(continueButton);
+
+      expect(window.location.assign).toHaveBeenCalledWith('https://some.url');
+    });
+
+    it('should close modal dialog when pressed continue', async () => {
+      const { getByRole, queryByTestId } = setup();
+
+      const continueButton = getByRole('button', { name: 'Continue' });
+      act(() => {
+        fireEvent.click(continueButton);
+      });
+
+      await waitFor(() => {
+        expect(
+          queryByTestId('link-with-safety-warning'),
+        ).not.toBeInTheDocument();
+      });
+    });
   });
 
   it('should fire analytics event when link safety warning message is appeared', () => {

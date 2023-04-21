@@ -2,8 +2,7 @@ import React from 'react';
 
 import Badge from '@atlaskit/badge';
 import Lozenge from '@atlaskit/lozenge';
-
-import { Inline, Stack } from '../../../src';
+import { Inline, Stack } from '@atlaskit/primitives';
 
 export default function Example() {
   return (

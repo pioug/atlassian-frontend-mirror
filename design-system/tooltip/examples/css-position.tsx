@@ -69,8 +69,8 @@ const Position = forwardRef<HTMLDivElement, PosTypes>(
 
 const positionExampleStyles = css({
   position: 'absolute',
-  top: 8,
-  right: 8,
+  top: token('space.100', '8px'),
+  right: token('space.100', '8px'),
 });
 
 const PositionExample: FC = () => {

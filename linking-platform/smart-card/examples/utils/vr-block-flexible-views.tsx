@@ -33,9 +33,16 @@ class UnAuthClient extends CardClient {
 export const renderCard = (client: CardClient, appearance: CardAppearance) => (
   <SmartCardProvider
     client={client}
-    featureFlags={{ enableFlexibleBlockCard: true }}
+    featureFlags={{
+      enableFlexibleBlockCard: true,
+      useLozengeAction: 'experiment',
+    }}
   >
-    <Card url="https://some.url" appearance={appearance} />
+    <Card
+      url="https://some.url"
+      appearance={appearance}
+      showServerActions={true}
+    />
   </SmartCardProvider>
 );
 

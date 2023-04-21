@@ -1,5 +1,11 @@
 # @atlaskit/linking-types
 
+## 1.0.0
+
+### Major Changes
+
+- [`c195b15017e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c195b15017e) - removed url property from `Icon` and updated status in `Status` as union type.
+
 ## 0.4.1
 
 ### Patch Changes

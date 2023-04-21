@@ -56,6 +56,7 @@ export const cssVariableFormatter: Format['formatter'] = ({
         `html[${COLOR_MODE_ATTRIBUTE}="${mode}"][${THEME_DATA_ATTRIBUTE}~="${mode}:${themeId}"]`,
     );
     output += `${selectors.join(',\n')} {\n`;
+    output += `  color-scheme: ${theme.attributes.mode};\n`;
   } else {
     output += `html[${THEME_DATA_ATTRIBUTE}~="${theme.attributes.type}:${themeId}"] {\n`;
   }

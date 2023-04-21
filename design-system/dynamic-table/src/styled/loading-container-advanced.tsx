@@ -26,10 +26,7 @@ export const Container = (props: ContainerProps) => {
 const spinnerBackdropStyles = css({
   display: 'flex',
   position: 'absolute',
-  top: 0,
-  right: 0,
-  bottom: 0,
-  left: 0,
+  inset: 0,
   alignItems: 'center',
   justifyContent: 'center',
   pointerEvents: 'none',
@@ -54,6 +51,7 @@ export const SpinnerBackdrop: FC<SpinnerBackdropProps> = ({
 
 const spinnerContainerStyles = css({
   position: 'relative',
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   top: 0,
 });
 

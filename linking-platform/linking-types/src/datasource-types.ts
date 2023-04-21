@@ -44,7 +44,8 @@ export interface UserType {
 
 export interface Status {
   text: string;
-  status: string;
+  // based on https://atlassian.design/components/lozenge/code#Lozenge-appearance to enable FE to map to the right UI configuration
+  status: 'default' | 'inprogress' | 'moved' | 'new' | 'removed' | 'success';
   style?: {
     color: string;
     backgroundColor: string;
@@ -72,7 +73,6 @@ export interface LinkType {
 export interface Icon {
   source: string;
   label?: string;
-  url?: string;
 }
 
 export interface IconType {

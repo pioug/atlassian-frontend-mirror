@@ -224,6 +224,26 @@ const MyComponent = props => {
 };
 ```
 
+The following example will provide all the features for the view mode and no features for the edit mode within the `Page` component:
+
+```jsx
+import { Page } from '@atlaskit/embedded-confluence';
+
+const MyComponent = props => {
+  return (
+    <ArticleWrapper>
+      <Page
+        contentId={props.contentId}
+        parentProductContentContainerId={props.parentProductContentContainerId}
+        parentProduct={props.parentProduct}
+        spaceKey={props.spaceKey}
+        allowedFeatures={{ view: 'all', edit: [] }}
+      />
+    </ArticleWrapper>
+  );
+};
+```
+
 ## `locale`
 
 `@atlaskit/embedded-confluence` package currently can accept `locale` from parent products in two options:

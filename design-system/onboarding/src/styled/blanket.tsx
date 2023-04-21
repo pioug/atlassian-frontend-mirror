@@ -16,10 +16,7 @@ const backgroundColor = themed({
 const blanketStyles = css({
   position: 'fixed',
   zIndex: layers.spotlight(),
-  top: 0,
-  right: 0,
-  bottom: 0,
-  left: 0,
+  inset: 0,
   transition: 'opacity 220ms',
 });
 

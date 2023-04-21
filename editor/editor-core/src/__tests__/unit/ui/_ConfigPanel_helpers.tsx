@@ -18,6 +18,7 @@ import {
   UpdateExtension,
 } from '@atlaskit/editor-common/extensions';
 import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
+import ReactEditorViewContext from '../../../create-editor/ReactEditorViewContext';
 
 export function asOption(label: string): Option {
   return { label, value: label };
@@ -235,14 +236,28 @@ export type MountResult<T> = {
 };
 
 export async function mountWithProviders(
-  props: Props,
+  props: Props & {
+    hasEditorRefProvider?: boolean;
+  },
 ): Promise<MountResult<Props>> {
-  const { onChange } = props;
-  const wrapper = mount(
-    <IntlProvider locale="en">
-      <ConfigPanel {...props} />
-    </IntlProvider>,
-  );
+  const { onChange, hasEditorRefProvider } = props;
+  const editorRef = {
+    current: document.createElement('div'),
+  };
+
+  const wrapper = hasEditorRefProvider
+    ? mount(
+        <IntlProvider locale="en">
+          <ReactEditorViewContext.Provider value={{ editorRef }}>
+            <ConfigPanel {...props} />
+          </ReactEditorViewContext.Provider>
+        </IntlProvider>,
+      )
+    : mount(
+        <IntlProvider locale="en">
+          <ConfigPanel {...props} />
+        </IntlProvider>,
+      );
 
   const form = await eventuallyFind(wrapper, 'form');
   wrapper.update();

@@ -23,8 +23,8 @@ const relativeDivStyles = css({
   marginTop: token('space.100', '8px'),
   marginLeft: token('space.100', '8px'),
   position: 'relative',
-  top: '40px',
-  left: '40px',
+  top: token('space.500', '40px'),
+  left: token('space.500', '40px'),
   // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   backgroundColor: 'PaleVioletRed',
   borderRadius: token('border.radius.100', '3px'),

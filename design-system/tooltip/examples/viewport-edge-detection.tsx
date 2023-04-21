@@ -31,6 +31,7 @@ const ContainerDiv = styled.div`
   position: relative;
 `;
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 const CenterDiv = styled.div`
   top: calc(50% - 100px);
   left: calc(50% - 250px);

@@ -1,7 +1,62 @@
 ---
 title: Stack
-description: Stack primitive...
+description: Stack is an abstraction to lay-out a group of elements vertically.
 order: 0
 ---
 
-*Coming soon*
+import StackBasic from '../../examples/constellation/stack/basic';
+import StackSpaceBasic from '../../examples/constellation/stack/space-basic';
+import StackAlignBlock from '../../examples/constellation/stack/align-block';
+import StackAlignInline from '../../examples/constellation/stack/align-inline';
+import StackSpread from '../../examples/constellation/stack/spread';
+import StackGrow from '../../examples/constellation/stack/grow';
+import StackAs from '../../examples/constellation/stack/as';
+
+## Basic
+
+Stack is an abstraction to lay-out a group of elements vertically.
+Use the given props to configure display behaviour using scalable recommendations from the Atlassian Design System.
+
+<Example Component={StackBasic} packageName="@atlaskit/primitives/stack" />
+
+## Space
+
+Spacing between items can be controlled with the `space` prop:
+
+<Example Component={StackSpaceBasic} packageName="@atlaskit/primitives/stack" />
+
+## Alignment
+
+To control the alignment of items you can use the `alignBlock` and `alignInline` props which control
+alignment in the block and inline directions respectively.
+
+### Block alignment
+
+<Example Component={StackAlignBlock} packageName="@atlaskit/primitives/stack" />
+
+### Inline alignment
+
+<Example Component={StackAlignInline} packageName="@atlaskit/primitives/stack" />
+
+## Spread
+
+Elements can be set to stay together next to each other (default behaviour) or spread equally in the space available.
+
+<Example Component={StackSpread} packageName="@atlaskit/primitives/stack" />
+
+## Width control
+
+By default a `Stack` will have its width influenced by the context where it appears.  
+
+To control that the `grow` prop can be used with the values:
+
+* `hug` (default) to use space only as required by its children, or
+* `fill` to take all space provided by the parent element.
+
+<Example Component={StackGrow} packageName="@atlaskit/primitives/stack" />
+
+## Output element
+
+It's possible to control the rendered HTML element with the `as` prop.
+
+<Example Component={StackAs} packageName="@atlaskit/primitives/stack" />

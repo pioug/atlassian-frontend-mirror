@@ -5,7 +5,6 @@ import { css, jsx } from '@emotion/react';
 
 import { DN0, DN600, N0, N800 } from '@atlaskit/theme/colors';
 import GlobalTheme from '@atlaskit/theme/components';
-import { borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import TooltipPrimitive, { TooltipPrimitiveProps } from './TooltipPrimitive';
@@ -16,9 +15,9 @@ const baseStyles = css({
   boxSizing: 'border-box',
   maxWidth: '240px',
   padding: `${token('space.025', '2px')} ${token('space.075', '6px')}`,
-  top: 0,
-  left: 0,
-  borderRadius: `${borderRadius()}px`,
+  top: token('space.0', '0px'),
+  left: token('space.0', '0px'),
+  borderRadius: token('border.radius.100', '3px'),
   fontSize: token('font.size.075', '12px'),
   lineHeight: 1.3,
   overflowWrap: 'break-word',

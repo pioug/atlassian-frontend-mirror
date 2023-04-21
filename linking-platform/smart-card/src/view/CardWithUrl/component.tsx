@@ -325,6 +325,7 @@ export function CardWithUrlContent({
           onError={onError}
           testId={testId}
           showActions={showActions}
+          showServerActions={showServerActions}
           platform={platform}
           enableFlexibleBlockCard={enableFlexibleBlockCardFlag}
         />

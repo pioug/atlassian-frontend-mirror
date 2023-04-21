@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 25.5.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 25.5.5
+
+### Patch Changes
+
+- [`4b396e5d7eb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4b396e5d7eb) - [ux] Add lozenge action to block card (wip, opt-in, feature flag)
+
 ## 25.5.4
 
 ### Patch Changes

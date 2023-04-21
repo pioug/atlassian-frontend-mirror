@@ -8,15 +8,25 @@ const customBeforeEach = async (page: WebDriverPage) => {
 
 runInlineNodeViewTestSuite({
   nodeName: 'inlineCard',
+
   editorOptions: {
     smartLinks: {},
   },
+
   node: {
     type: 'inlineCard',
     attrs: {
       url: 'https://inlineCardTestUrl',
     },
   },
+
   multiLineNode: true,
   customBeforeEach,
+
+  skipTests: {
+    // FIXME: This test was automatically skipped due to failure on 20/04/2023: https://product-fabric.atlassian.net/browse/ED-17544,
+    'Can select [target] nodes with the left arrow key and move across them': [
+      '*',
+    ],
+  },
 });

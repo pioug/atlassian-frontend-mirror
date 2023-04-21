@@ -2,9 +2,9 @@ import React, { useCallback, useState } from 'react';
 
 import Button from '@atlaskit/button';
 import Heading from '@atlaskit/heading';
-import Lozenge from '@atlaskit/lozenge';
+import { Inline, Stack } from '@atlaskit/primitives';
 
-import { Inline, Stack } from '../../../src';
+import Square from '../shared/square';
 
 const alignmentValues = ['start', 'center', 'end'] as const;
 
@@ -25,11 +25,11 @@ export default function Example() {
         </Button>
       </div>
       <Stack space="space.100">
-        <Heading level="h400">Inline aligment</Heading>
+        <Heading level="h400">Inline alignment</Heading>
         <Inline space="space.100" alignInline={alignmentValues[alignmentIndex]}>
-          <Lozenge isBold>Uno</Lozenge>
-          <Lozenge isBold>Dos</Lozenge>
-          <Lozenge isBold>Tres</Lozenge>
+          <Square />
+          <Square />
+          <Square />
         </Inline>
       </Stack>
     </Stack>

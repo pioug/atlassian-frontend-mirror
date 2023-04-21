@@ -24,6 +24,7 @@ interface StageBarProps {
 const progressBarStyles = css({
   height: PROGRESS_BAR_HEIGHT,
   position: 'absolute',
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   left: '50%',
   backgroundColor: token('color.background.brand.bold', B300),
   borderBottomRightRadius: PROGRESS_BAR_HEIGHT,

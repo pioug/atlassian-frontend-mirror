@@ -18,7 +18,9 @@ const commonStyles = css({
     width: `calc(var(${varDotsSize}) + var(${varDotsMargin}))`,
     height: `calc(var(${varDotsSize}) + var(${varDotsMargin}))`,
     position: 'absolute',
+    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
     top: `calc(-1 * var(${varDotsMargin}) / 2)`,
+    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
     left: `calc(-1 * var(${varDotsMargin}) / 2)`,
     content: '""',
   },

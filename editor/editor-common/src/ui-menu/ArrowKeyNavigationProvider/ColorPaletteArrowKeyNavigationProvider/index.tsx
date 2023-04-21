@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef } from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 
 import { ColorPaletteArrowKeyNavigationProps } from '../types';
 /**
@@ -15,6 +15,7 @@ export const ColorPaletteArrowKeyNavigationProvider: React.FC<
   isPopupPositioned,
   handleClose,
   closeOnTab,
+  editorRef,
 }) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const currentSelectedColumnIndex = useRef(
@@ -22,6 +23,9 @@ export const ColorPaletteArrowKeyNavigationProvider: React.FC<
   );
   const currentSelectedRowIndex = useRef(
     selectedRowIndex === -1 ? 0 : selectedRowIndex,
+  );
+  const [listenerTargetElement] = useState<HTMLElement | null>(
+    editorRef.current,
   );
 
   const incrementRowIndex = (
@@ -141,7 +145,8 @@ export const ColorPaletteArrowKeyNavigationProvider: React.FC<
       }
     };
 
-    document.addEventListener('keydown', handleKeyDown);
+    listenerTargetElement &&
+      listenerTargetElement.addEventListener('keydown', handleKeyDown);
     // set focus to current selected color swatch if only opened by keyboard
     if (isOpenedByKeyboard && isPopupPositioned) {
       // Using timeout because, we need to wait till color palette is rendered
@@ -152,7 +157,8 @@ export const ColorPaletteArrowKeyNavigationProvider: React.FC<
       });
     }
     return () => {
-      document.removeEventListener('keydown', handleKeyDown);
+      listenerTargetElement &&
+        listenerTargetElement.removeEventListener('keydown', handleKeyDown);
     };
   }, [
     currentSelectedColumnIndex,
@@ -161,6 +167,7 @@ export const ColorPaletteArrowKeyNavigationProvider: React.FC<
     wrapperRef,
     handleClose,
     closeOnTab,
+    listenerTargetElement,
   ]);
 
   return (

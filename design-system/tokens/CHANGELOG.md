@@ -1,5 +1,17 @@
 # @atlaskit/tokens
 
+## 1.2.18
+
+### Patch Changes
+
+- [`ea8c1af425d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ea8c1af425d) - Fixes a bug in `setGlobalTheme()` that caused both the light and dark themes to load when auto theme switching was disabled — only one of the themes should be loaded in this case. It also fixes a bug in `getThemeStyles()`, where the default color themes were loaded instead of the specified theme.
+
+## 1.2.17
+
+### Patch Changes
+
+- [`6cf7fc4647d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6cf7fc4647d) - Adds color-scheme css property to color themes to ensure the correct scheme is used at all times. Previously this was only part of the css-reset however in instances where that is not used this property will always be applied
+
 ## 1.2.16
 
 ### Patch Changes

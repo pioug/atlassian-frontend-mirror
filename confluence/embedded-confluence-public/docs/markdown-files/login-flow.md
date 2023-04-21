@@ -20,7 +20,7 @@ Most browsers block 3rd party cookies by default (Safari, Firefox, Edge, and soo
 NOTE:
 
 - When 3rd party cookies are enabled on any browser, and the user has not logged into Confluence, it should land the user directly on the Login page.
-- On Chrome , a user might see an error like below when 3rd party cookies are blocked (on normal browsing mode):
+- On Chrome, a user might see an error like below when 3rd party cookies are blocked (on normal browsing mode):
   ```
   "Failed to read the 'sessionStorage' property from 'Window': Access is denied for this document."
   ```
@@ -60,5 +60,5 @@ With this change, instead of displaying an error screen when the user is not log
 ### Using the experience tracker events
 
 - Partner products that have subscribed to `"Unable to display page content"` `taskAbort` event to display their own login page should also subscribe to the `embedded-confluence/login-page` `taskStart` experience tracker event.
-- No upgrade changes required for partner products that have not subscribe to `"Unable to display page content"` `taskAbort`.
+- No upgrade changes are required for partner products that have not subscribe to `"Unable to display page content"` `taskAbort`.
 - For partner products who wish to display their own authentication flow, please subscribe to `embedded-confluence/login-page` `taskStart` and `"Unable to display page content"` `taskAbort` event.

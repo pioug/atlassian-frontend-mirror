@@ -23,6 +23,7 @@ export type ColorPaletteArrowKeyNavigationProps =
   ColorPaletteArrowKeyNavigationOptions & {
     handleClose?: SimpleEventHandler<KeyboardEvent>;
     closeOnTab?: boolean;
+    editorRef: React.RefObject<HTMLDivElement>;
   };
 
 export type MenuArrowKeyNavigationOptions = {
@@ -36,6 +37,7 @@ export type MenuArrowKeyNavigationProviderProps =
     handleClose?: SimpleEventHandler<KeyboardEvent>;
     onSelection?: (index: number) => void;
     closeOnTab?: boolean;
+    editorRef: React.RefObject<HTMLDivElement>;
   };
 
 export type ArrowKeyNavigationProviderOptions =
@@ -43,5 +45,5 @@ export type ArrowKeyNavigationProviderOptions =
   | MenuArrowKeyNavigationOptions;
 
 export type ArrowKeyNavigationProviderProps =
-  | ColorPaletteArrowKeyNavigationProps
-  | MenuArrowKeyNavigationProviderProps;
+  | Omit<ColorPaletteArrowKeyNavigationProps, 'editorRef'>
+  | Omit<MenuArrowKeyNavigationProviderProps, 'editorRef'>;

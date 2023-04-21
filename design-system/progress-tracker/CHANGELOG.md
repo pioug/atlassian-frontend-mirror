@@ -1,5 +1,11 @@
 # @atlaskit/progress-tracker
 
+## 8.4.10
+
+### Patch Changes
+
+- [`65e4baeea85`](https://bitbucket.org/atlassian/atlassian-frontend/commits/65e4baeea85) - Internal changes.
+
 ## 8.4.9
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @atlaskit/drawer
 
+## 7.4.14
+
+### Patch Changes
+
+- [`4ba10567310`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ba10567310) - Internal changes.
+
 ## 7.4.13
 
 ### Patch Changes

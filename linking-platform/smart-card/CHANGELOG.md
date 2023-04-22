@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 25.5.7
+
+### Patch Changes
+
+- [`4c046475c1b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4c046475c1b) - Fix LinkUrl component: it should not show warning for many cases when it does right now (like relative path comparasion)
+
 ## 25.5.6
 
 ### Patch Changes

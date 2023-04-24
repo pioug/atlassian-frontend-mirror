@@ -30,7 +30,8 @@ export async function request<T = JsonLd.Response>(
     const response = await fetch(url, requestConfig);
     if (response.ok || statuses?.includes(response.status)) {
       if (statuses.includes(204)) {
-        return response.body ? await response.json() : undefined;
+        const text = await response.text();
+        return text ? JSON.parse(text) : undefined;
       } else {
         return await response.json();
       }

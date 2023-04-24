@@ -383,6 +383,220 @@ describe('Left sidebar', () => {
       completeAnimations();
     });
 
+    type Scenario = {
+      label: string;
+      dispatchEvent: (args: { handle: HTMLElement }) => void;
+    };
+
+    const scenarios: Scenario[] = [
+      {
+        label: 'mousedown',
+        dispatchEvent: ({ handle }) =>
+          fireEvent.mouseDown(handle, { clientX: 200 }),
+      },
+      {
+        label: 'mouseup [target: handle]',
+        dispatchEvent: ({ handle }) =>
+          fireEvent.mouseDown(handle, { clientX: 200 }),
+      },
+      {
+        label: 'mouseup [target: window]',
+        dispatchEvent: () => fireEvent.mouseDown(window, { clientX: 200 }),
+      },
+      {
+        label: 'click',
+        dispatchEvent: ({ handle }) => fireEvent.click(handle),
+      },
+      {
+        label: 'keydown (Escape)',
+        dispatchEvent: () => fireEvent.keyDown(window, { key: 'Escape' }),
+      },
+      {
+        label: 'visibilitychange',
+        dispatchEvent: () =>
+          window.dispatchEvent(
+            new Event('visibilitychange', { bubbles: true, cancelable: false }),
+          ),
+      },
+    ];
+    // Note: not using `it.each` as our current version is not working
+    // well with objects
+    // 'description $label' → `$label` not being populated
+    scenarios.forEach((scenario) => {
+      it(`should stop resizing on event: [${scenario.label}]`, () => {
+        const onResizeStart = jest.fn();
+        const onResizeEnd = jest.fn();
+        const { getByTestId } = render(
+          <PageLayout testId="grid">
+            <Content>
+              <LeftSidebar
+                testId="left-sidebar"
+                width={200}
+                onResizeStart={onResizeStart}
+                onResizeEnd={onResizeEnd}
+              >
+                LeftSidebar
+              </LeftSidebar>
+              <Main testId="content">Main</Main>
+            </Content>
+          </PageLayout>,
+        );
+        const handle: HTMLElement = getByTestId('left-sidebar-grab-area');
+
+        expect(onResizeStart).not.toHaveBeenCalled();
+
+        fireEvent.mouseDown(handle, { clientX: 200 });
+        fireEvent.mouseMove(document, {
+          clientX: 570,
+          clientY: 0,
+        });
+        completeAnimations();
+
+        expect(onResizeStart).toHaveBeenCalledTimes(1);
+        expect(onResizeEnd).not.toHaveBeenCalled();
+
+        onResizeStart.mockClear();
+
+        expect(getDimension('leftSidebarWidth')).toEqual('552px');
+
+        scenario.dispatchEvent({ handle });
+        completeAnimations();
+
+        expect(onResizeEnd).toHaveBeenCalledTimes(1);
+        // a new resize should not start
+        expect(onResizeStart).not.toHaveBeenCalled();
+
+        // checking that a new resize is not starting
+        fireEvent.mouseMove(document, {
+          clientX: 800,
+          clientY: 0,
+        });
+        completeAnimations();
+        expect(onResizeStart).not.toHaveBeenCalled();
+      });
+    });
+
+    it('should reset the sidebar to the previous width when cancelling a drag with "Escape"', () => {
+      const onResizeStart = jest.fn();
+      const onResizeEnd = jest.fn();
+      const { getByTestId } = render(
+        <PageLayout testId="grid">
+          <Content>
+            <LeftSidebar
+              testId="left-sidebar"
+              width={200}
+              onResizeStart={onResizeStart}
+              onResizeEnd={onResizeEnd}
+            >
+              LeftSidebar
+            </LeftSidebar>
+            <Main testId="content">Main</Main>
+          </Content>
+        </PageLayout>,
+      );
+      const handle: HTMLElement = getByTestId('left-sidebar-grab-area');
+
+      expect(onResizeStart).not.toHaveBeenCalled();
+      expect(getDimension('leftSidebarWidth')).toEqual('240px');
+
+      fireEvent.mouseDown(handle, { clientX: 200 });
+      fireEvent.mouseMove(document, {
+        clientX: 570,
+        clientY: 0,
+      });
+      completeAnimations();
+
+      expect(onResizeStart).toHaveBeenCalledTimes(1);
+      expect(onResizeEnd).not.toHaveBeenCalled();
+
+      expect(getDimension('leftSidebarWidth')).toEqual('552px');
+
+      window.dispatchEvent(
+        new KeyboardEvent('keydown', {
+          key: 'Escape',
+          bubbles: true,
+          cancelable: true,
+        }),
+      );
+      completeAnimations();
+
+      expect(onResizeEnd).toHaveBeenCalledTimes(1);
+
+      expect(getDimension('leftSidebarWidth')).toEqual('240px');
+    });
+
+    it('should reset the sidebar to the previous width when cancelling a drag with "Escape" (repeat drags)', () => {
+      const onResizeStart = jest.fn();
+      const onResizeEnd = jest.fn();
+      const { getByTestId } = render(
+        <PageLayout testId="grid">
+          <Content>
+            <LeftSidebar
+              testId="left-sidebar"
+              width={200}
+              onResizeStart={onResizeStart}
+              onResizeEnd={onResizeEnd}
+            >
+              LeftSidebar
+            </LeftSidebar>
+            <Main testId="content">Main</Main>
+          </Content>
+        </PageLayout>,
+      );
+      const handle: HTMLElement = getByTestId('left-sidebar-grab-area');
+
+      expect(onResizeStart).not.toHaveBeenCalled();
+      expect(getDimension('leftSidebarWidth')).toEqual('240px');
+
+      fireEvent.mouseDown(handle, { clientX: 200 });
+      fireEvent.mouseMove(document, {
+        clientX: 570,
+        clientY: 0,
+      });
+      completeAnimations();
+
+      expect(onResizeStart).toHaveBeenCalledTimes(1);
+      expect(onResizeEnd).not.toHaveBeenCalled();
+
+      expect(getDimension('leftSidebarWidth')).toEqual('552px');
+
+      fireEvent.mouseUp(handle);
+      completeAnimations();
+
+      expect(onResizeEnd).toHaveBeenCalled();
+      expect(getDimension('leftSidebarWidth')).toEqual('552px');
+
+      // A second resizing operation
+
+      onResizeStart.mockReset();
+      onResizeEnd.mockReset();
+
+      fireEvent.mouseDown(handle, { clientX: 550 });
+      fireEvent.mouseMove(document, {
+        clientX: 400,
+        clientY: 0,
+      });
+      completeAnimations();
+
+      expect(onResizeStart).toHaveBeenCalledTimes(1);
+      expect(onResizeEnd).not.toHaveBeenCalled();
+
+      expect(getDimension('leftSidebarWidth')).toEqual('402px');
+
+      window.dispatchEvent(
+        new KeyboardEvent('keydown', {
+          key: 'Escape',
+          bubbles: true,
+          cancelable: true,
+        }),
+      );
+      completeAnimations();
+
+      expect(onResizeEnd).toHaveBeenCalledTimes(1);
+      // back to the width at the end of the first drag
+      expect(getDimension('leftSidebarWidth')).toEqual('552px');
+    });
+
     it('should not allow you to expand more than half the width of the page after a mouse movement', () => {
       const { getByTestId } = render(
         <PageLayout testId="grid">

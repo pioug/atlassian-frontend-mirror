@@ -80,6 +80,7 @@ describe('useDatasourceClientExtension', () => {
       mockFetch.mockResolvedValueOnce({
         json: async () => undefined,
         ok: true,
+        text: async () => undefined,
       });
 
       await getDatasourceDetails(datasourceId, datasourceDetailsParams);
@@ -152,6 +153,7 @@ describe('useDatasourceClientExtension', () => {
         body: '{}',
         json: async () => expectedResponse,
         ok: true,
+        text: async () => JSON.stringify(expectedResponse),
       });
 
       const actualResponse = await getDatasourceDetails(
@@ -159,7 +161,7 @@ describe('useDatasourceClientExtension', () => {
         datasourceDetailsParams,
       );
 
-      expect(actualResponse).toBe(expectedResponse);
+      expect(actualResponse).toEqual(expectedResponse);
     });
   });
 
@@ -170,6 +172,7 @@ describe('useDatasourceClientExtension', () => {
       mockFetch.mockResolvedValueOnce({
         json: async () => undefined,
         ok: true,
+        text: async () => undefined,
       });
 
       await getDatasourceData(datasourceId, datasourceDataParams);
@@ -243,6 +246,7 @@ describe('useDatasourceClientExtension', () => {
         body: {},
         json: async () => expectedResponse,
         ok: true,
+        text: async () => JSON.stringify(expectedResponse),
       });
 
       const response = await getDatasourceData(
@@ -250,7 +254,7 @@ describe('useDatasourceClientExtension', () => {
         datasourceDataParams,
       );
 
-      expect(response).toBe(expectedResponse);
+      expect(response).toEqual(expectedResponse);
     });
   });
 });

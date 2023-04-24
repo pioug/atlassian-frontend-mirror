@@ -55,6 +55,11 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
   const { isLeftSidebarCollapsed } = leftSidebarState;
   const leftSidebarSelector = getPageLayoutSlotCSSSelector('left-sidebar');
 
+  /**
+   * Bug: this function will cause `onExpand` / `onCollapse` when any
+   * `width` transition occurs (eg when cancelling a resizing)
+   * This
+   */
   const transitionEventHandler = useCallback((event) => {
     if (
       (event as TransitionEvent).propertyName === 'width' &&
@@ -69,11 +74,20 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
         $leftSidebarResizeController.hasAttribute('disabled');
 
       handleDataAttributesAndCb(
+        /**
+         * Bug: `onCollapse` and `onExpand` are stale after the first render
+         */
         isCollapsed ? onCollapse : onExpand,
         isCollapsed,
+        /**
+         * Bug: `leftSidebarState` is stale after the first render
+         */
         leftSidebarState,
       );
 
+      /**
+       * TODO: this appears smelly. Let's do better
+       */
       // Make sure multiple event handlers do not get attached
       // eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
       document
@@ -86,6 +100,11 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
   useEffect(() => {
     const $leftSidebar = document.querySelector(leftSidebarSelector);
     if ($leftSidebar && !isReducedMotion()) {
+      /**
+       * Note: This pattern relies on `transitionEventHandler` keeping a stable
+       * reference to continually adding event listeners.
+       * I think there should be a better way
+       */
       // eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
       $leftSidebar.addEventListener('transitionend', transitionEventHandler);
     }

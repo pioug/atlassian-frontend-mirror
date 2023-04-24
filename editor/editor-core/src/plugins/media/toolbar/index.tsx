@@ -290,6 +290,7 @@ const generateMediaSingleFloatingToolbar = (
         );
       },
     });
+    toolbarButtons.push({ type: 'separator' });
   }
 
   if (allowAdvancedToolBarOptions) {

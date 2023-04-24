@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 182.1.2
+
+### Patch Changes
+
+- [`a6a3544d04d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a6a3544d04d) - [ux] Fix the image border split button so that both the toggle and the dropdown buttons share the same select state; and add a divider line between it and the align left icon group
+
 ## 182.1.1
 
 ### Patch Changes

@@ -4,6 +4,12 @@ exports[`ADF => WikiMarkup - Paragraph [ADFEXP-131] Should not escape exclamatio
 
 exports[`ADF => WikiMarkup - Paragraph [ADFEXP-131] Should not escape opening sqaure bracket not having mention or link 1`] = `"this is an [ordinary] text."`;
 
+exports[`ADF => WikiMarkup - Paragraph [ADFEXP-359] Should escape mediaGroup node 1`] = `"This is a mediaGroup \\\\[^filename.txt\\\\] node"`;
+
+exports[`ADF => WikiMarkup - Paragraph [ADFEXP-359] Should not escape content between square brackets 1`] = `"This is should be a paragraph [filename.txt] node"`;
+
+exports[`ADF => WikiMarkup - Paragraph [ADFEXP-359] Should not escape mediaGroup node - invalid syntax 1`] = `"This is invalid syntax for mediaGroup [^filename.txt! node"`;
+
 exports[`ADF => WikiMarkup - Paragraph [ADFS-725] should strip null chars 1`] = `"Hello  World"`;
 
 exports[`ADF => WikiMarkup - Paragraph [CS-206] should convert mixed text format 1`] = `"*Some* {color:#6554c0}*text with* {color}{color:#6554c0}+*bold and*+{color}{color:#6554c0} *underline and*{color} +*_color_*+"`;

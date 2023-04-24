@@ -141,6 +141,7 @@ export const toolbarButtonWrapper = ({
 
     .image-border-toolbar-dropdown {
       ${!isOpen &&
+      !enabled &&
       `background: ${token(
         'color.background.neutral.subtle.hovered',
         colors.N30A,

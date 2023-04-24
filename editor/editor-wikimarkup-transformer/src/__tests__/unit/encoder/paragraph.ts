@@ -180,4 +180,25 @@ describe('ADF => WikiMarkup - Paragraph', () => {
     const node = doc(p('this is simple sentence!'))(defaultSchema);
     expect(transformer.encode(node)).toMatchSnapshot();
   });
+
+  test('[ADFEXP-359] Should escape mediaGroup node', () => {
+    const node = doc(p('This is a mediaGroup [^filename.txt] node'))(
+      defaultSchema,
+    );
+    expect(transformer.encode(node)).toMatchSnapshot();
+  });
+
+  test('[ADFEXP-359] Should not escape mediaGroup node - invalid syntax', () => {
+    const node = doc(
+      p('This is invalid syntax for mediaGroup [^filename.txt! node'),
+    )(defaultSchema);
+    expect(transformer.encode(node)).toMatchSnapshot();
+  });
+
+  test('[ADFEXP-359] Should not escape content between square brackets', () => {
+    const node = doc(p('This is should be a paragraph [filename.txt] node'))(
+      defaultSchema,
+    );
+    expect(transformer.encode(node)).toMatchSnapshot();
+  });
 });

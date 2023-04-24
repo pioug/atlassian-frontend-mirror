@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 2.5.1
+
+### Patch Changes
+
+- [`f101fd45eea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f101fd45eea) - Fix json parse error from trying to converting response with no content to json
+
 ## 2.5.0
 
 ### Minor Changes

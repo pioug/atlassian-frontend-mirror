@@ -1,5 +1,11 @@
 # @atlaskit/editor-markdown-transformer
 
+## 5.1.1
+
+### Patch Changes
+
+- [`55d2b0c81ee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/55d2b0c81ee) - ED-17502 Updated serializer for taskLists to add line breaks between children and after taskList.
+
 ## 5.1.0
 
 ### Minor Changes

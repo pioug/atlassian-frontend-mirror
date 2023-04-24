@@ -17,6 +17,10 @@ type AttachPayloadIntoTransaction = (props: {
   channel: string;
 }) => void;
 
+// This utils was taken as reference in packages/editor/editor-plugin-ai/src/analytics/utils.ts
+//  to create new util attachPayloadIntoTransaction in above file.
+// If you make a change here, please review attachPayloadIntoTransaction in above
+//  file and update it as well if needed.
 export const attachPayloadIntoTransaction: AttachPayloadIntoTransaction = ({
   payload,
   editorState,

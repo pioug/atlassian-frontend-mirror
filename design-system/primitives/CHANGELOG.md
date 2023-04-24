@@ -1,5 +1,11 @@
 # @atlaskit/primitives
 
+## 0.8.3
+
+### Patch Changes
+
+- [`64e7c72773e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/64e7c72773e) - Update type to allow typehints for CSS color property.
+
 ## 0.8.2
 
 ### Patch Changes

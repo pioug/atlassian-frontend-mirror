@@ -61,8 +61,7 @@ describe('Card toolbar:', () => {
     await snapshot(page);
   });
 
-  // FIXME: This test was automatically skipped due to failure on 03/02/2023: https://product-fabric.atlassian.net/browse/ED-16775
-  it.skip('can exit edit link mode by pressing esc', async () => {
+  it('can exit edit link mode by pressing esc', async () => {
     await initFullPageEditorWithAdf(
       page,
       cardAppearanceAdf,

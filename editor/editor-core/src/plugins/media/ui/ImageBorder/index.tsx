@@ -178,7 +178,7 @@ const ImageBorder = ({
         <div ref={popupTarget}>
           <ToolbarButton
             className="image-border-toolbar-dropdown"
-            selected={isOpen}
+            selected={enabled || isOpen}
             aria-label={formatMessage(messages.borderOptions)}
             title={formatMessage(messages.borderOptions)}
             spacing="compact"

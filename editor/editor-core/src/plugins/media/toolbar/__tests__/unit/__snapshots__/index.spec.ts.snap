@@ -237,6 +237,9 @@ Array [
     "type": "custom",
   },
   Object {
+    "type": "separator",
+  },
+  Object {
     "icon": [Function],
     "id": "editor.media.alignLeft",
     "onClick": [Function],

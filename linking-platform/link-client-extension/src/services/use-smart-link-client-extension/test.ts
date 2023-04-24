@@ -36,6 +36,7 @@ describe('useSmartLinkClientExtension', () => {
         mockFetch.mockResolvedValueOnce({
           json: async () => undefined,
           ok: true,
+          text: async () => undefined,
         });
 
         const { result } = renderHook(() => {
@@ -143,6 +144,7 @@ describe('useSmartLinkClientExtension', () => {
           body: '{}',
           json: async () => expectedResponse,
           ok: true,
+          text: async () => JSON.stringify(expectedResponse),
         });
 
         const { result } = renderHook(() => {
@@ -151,7 +153,7 @@ describe('useSmartLinkClientExtension', () => {
         });
         const response = await result.current.invoke(data);
 
-        expect(response).toBe(expectedResponse);
+        expect(response).toEqual(expectedResponse);
       });
     });
 

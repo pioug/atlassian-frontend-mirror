@@ -35,6 +35,7 @@ const markEncoderMapping = new Map([
  */
 const MENTION_ESCAPE_PATTERN = '(\\[~)'; // Matches pattern like [~
 const MEDIA_ESCAPE_PATTERN = '(![^ !]+)(!)'; // Matches non space content between two consecutive "!" e.g. !filename.txt!
+const MEDIA_GROUP_ESCAPE_PATTERN = '(\\[\\^[^ ]+)(\\])'; // Matches non space content between two consecutive "[^" "]" e.g. [^filename.txt]
 
 /**
  * Checks if the node's content needs to be escaped before continuing processing.
@@ -64,7 +65,8 @@ function escapingWikiFormatter(text: string) {
   ].join('|');
   return text
     .replace(new RegExp(pattern, 'g'), '\\$&')
-    .replace(new RegExp(MEDIA_ESCAPE_PATTERN, 'g'), '\\$1\\$2'); // Extra step required for media as currently both ends need to be escaped e.q. !filename.txt!
+    .replace(new RegExp(MEDIA_ESCAPE_PATTERN, 'g'), '\\$1\\$2') // Extra step required for media as currently both ends need to be escaped e.q. !filename.txt!
+    .replace(new RegExp(MEDIA_GROUP_ESCAPE_PATTERN, 'g'), '\\$1\\$2');
 }
 
 export const text: NodeEncoder = (

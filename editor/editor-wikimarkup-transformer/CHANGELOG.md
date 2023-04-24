@@ -1,5 +1,11 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 11.1.15
+
+### Patch Changes
+
+- [`7c57f6550f7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7c57f6550f7) - Updated metacharacter escaping logic in encoder
+
 ## 11.1.14
 
 ### Patch Changes

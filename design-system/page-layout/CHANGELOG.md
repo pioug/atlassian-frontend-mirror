@@ -1,5 +1,13 @@
 # @atlaskit/page-layout
 
+## 1.4.0
+
+### Minor Changes
+
+- [`955ee3ea8fe`](https://bitbucket.org/atlassian/atlassian-frontend/commits/955ee3ea8fe) - [ux] **fix**: if a `"mousedown"`, `"click"`, `"resize"` or `"visibilitychange"` event occurs while the sidebar is being resized, then the resizing operation will end
+
+  [ux] **new**: if a user presses the `"Escape"` key while the sidebar is being resized, then the resizing operation will end
+
 ## 1.3.10
 
 ### Patch Changes

@@ -122,20 +122,61 @@ describe('Smart Card: request()', () => {
       await expect(response).toBe(expectedResponse);
     });
 
-    it('return an empty successful response on with no content if 204 is allowed', async () => {
-      const mockJson = jest.fn();
-      mockFetch.mockResolvedValueOnce({
-        json: mockJson,
-        ok: true,
-        status: 204,
+    describe('allowed statuses', () => {
+      describe('204: No Content', () => {
+        it('return an empty successful response on with no content', async () => {
+          const mockText = jest.fn().mockResolvedValueOnce('');
+          mockFetch.mockResolvedValueOnce({
+            text: mockText,
+            ok: true,
+            status: 204,
+          });
+
+          const response = await request(
+            'get',
+            'some-url',
+            undefined,
+            undefined,
+            [204],
+          );
+
+          expect(mockText).toHaveBeenCalled();
+          expect(response).not.toBeDefined();
+        });
+
+        it('return an successful response on with content', async () => {
+          const mockText = jest.fn().mockResolvedValueOnce('{"a":1}');
+          mockFetch.mockResolvedValueOnce({
+            text: mockText,
+            ok: true,
+            status: 200,
+          });
+
+          const response = await request(
+            'get',
+            'some-url',
+            undefined,
+            undefined,
+            [204],
+          );
+
+          expect(mockText).toHaveBeenCalled();
+          expect(response).toEqual({ a: 1 });
+        });
+
+        it('throws on response with content but has invalid json', async () => {
+          const mockText = jest.fn().mockResolvedValueOnce('{a:1}');
+          mockFetch.mockResolvedValueOnce({
+            text: mockText,
+            ok: true,
+            status: 200,
+          });
+
+          await expect(
+            request('get', 'some-url', undefined, undefined, [204]),
+          ).rejects.toThrow();
+        });
       });
-
-      const response = await request('get', 'some-url', undefined, undefined, [
-        204,
-      ]);
-
-      expect(response).not.toBeDefined();
-      expect(mockJson).not.toHaveBeenCalled();
     });
   });
 

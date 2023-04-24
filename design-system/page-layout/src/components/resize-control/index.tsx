@@ -67,7 +67,7 @@ const ResizeControl = ({
     setLeftSidebarState,
   } = useContext(SidebarResizeContext);
   const { isLeftSidebarCollapsed, isResizing } = leftSidebarState;
-  const x = useRef(leftSidebarState[VAR_LEFT_SIDEBAR_WIDTH]);
+  const sidebarWidth = useRef(leftSidebarState[VAR_LEFT_SIDEBAR_WIDTH]);
   // Distance of mouse from left sidebar onMouseDown
   const offset = useRef(0);
   const keyboardEventTimeout = useRef<number>();
@@ -102,14 +102,73 @@ const ResizeControl = ({
       return;
     }
 
+    // TODO: should only a primary pointer be able to start a resize?
+    // Keeping as is for now, but worth considering
+
+    // It is possible for a mousedown to fire during a resize
+    // Example: the user presses another pointer button while dragging
+    if (leftSidebarState.isResizing) {
+      // the resize will be cancelled by our global event listeners
+      return;
+    }
+
     offset.current =
       event.clientX -
       leftSidebarState[VAR_LEFT_SIDEBAR_WIDTH] -
       getLeftPanelWidth();
 
-    unbindEvents.current = bindAll(document, [
-      { type: 'mousemove', listener: onMouseMove },
-      { type: 'mouseup', listener: onMouseUp },
+    unbindEvents.current = bindAll(window, [
+      { type: 'mousemove', listener: onUpdateResize },
+      { type: 'mouseup', listener: onFinishResizing },
+      {
+        type: 'mousedown',
+        // this mousedown event listener is being added in the bubble phase
+        // on a higher event target than the resize handle.
+        // This means that the original mousedown event that triggers a resize
+        // can hit this mousedown handler. To get around that, we only call
+        // `onFinishResizing` after an animation frame so we don't pick up the original event
+        // Alternatives:
+        // 1. Add the window 'mousedown' event listener in the capture phase
+        // 👎 A 'mousedown' during a resize would trigger a new resize to start
+        // 2. Do 1. and call `event.preventDefault()`, then check for `event.defaultPrevented` inside
+        // the grab handle `onMouseDown`
+        // 👎 Not ideal to cancel events if we don't have to
+        listener: (() => {
+          let hasFramePassed = false;
+          requestAnimationFrame(() => {
+            hasFramePassed = true;
+          });
+
+          return function listener() {
+            if (hasFramePassed) {
+              onFinishResizing();
+            }
+          };
+        })(),
+      },
+      { type: 'visibilitychange', listener: onFinishResizing },
+      // A 'click' event should never be hit as the 'mouseup' will come first and cause
+      // these event listeners to be unbound. I just added 'click' for extreme safety (paranoia)
+      { type: 'click', listener: onFinishResizing },
+      {
+        type: 'keydown',
+        listener: (event: KeyboardEvent) => {
+          // Can cancel resizing by pressing "Escape"
+          // Will return sidebar to the same size it was before the resizing started
+          if (event.key === 'Escape') {
+            sidebarWidth.current = Math.max(
+              leftSidebarState.lastLeftSidebarWidth,
+              COLLAPSED_LEFT_SIDEBAR_WIDTH,
+            );
+
+            document.documentElement.style.setProperty(
+              `--${VAR_LEFT_SIDEBAR_WIDTH}`,
+              `${sidebarWidth.current}px`,
+            );
+            onFinishResizing();
+          }
+        },
+      },
     ]);
     document.documentElement.setAttribute(IS_SIDEBAR_DRAGGING, 'true');
 
@@ -122,8 +181,8 @@ const ResizeControl = ({
     onResizeStart && onResizeStart(newLeftbarState);
   };
 
-  const cancelDrag = (shouldCollapse?: boolean) => {
-    onMouseMove.cancel();
+  const onResizeOffLeftOfScreen = () => {
+    onUpdateResize.cancel();
     unbindEvents.current?.();
     unbindEvents.current = null;
     document.documentElement.removeAttribute(IS_SIDEBAR_DRAGGING);
@@ -132,15 +191,16 @@ const ResizeControl = ({
     collapseLeftSidebar(undefined, true);
   };
 
-  const onMouseMove = rafSchd((event: MouseEvent) => {
+  const onUpdateResize = rafSchd((event: MouseEvent) => {
     // Allow the sidebar to be 50% of the available page width
     const maxWidth = Math.round(window.innerWidth / 2);
     const leftPanelWidth = getLeftPanelWidth();
     const { leftSidebarWidth } = leftSidebarState;
-    const invalidDrag = event.clientX < 0;
+    const hasResizedOffLeftOfScreen = event.clientX < 0;
 
-    if (invalidDrag) {
-      cancelDrag();
+    if (hasResizedOffLeftOfScreen) {
+      onResizeOffLeftOfScreen();
+      return;
     }
 
     const delta = Math.max(
@@ -151,26 +211,26 @@ const ResizeControl = ({
       COLLAPSED_LEFT_SIDEBAR_WIDTH - leftSidebarWidth - leftPanelWidth,
     );
 
-    x.current = Math.max(
+    sidebarWidth.current = Math.max(
       leftSidebarWidth + delta - offset.current,
       COLLAPSED_LEFT_SIDEBAR_WIDTH,
     );
 
     document.documentElement.style.setProperty(
       `--${VAR_LEFT_SIDEBAR_WIDTH}`,
-      `${x.current}px`,
+      `${sidebarWidth.current}px`,
     );
   });
 
   const cleanupAfterResize = () => {
-    x.current = 0;
+    sidebarWidth.current = 0;
     offset.current = 0;
     unbindEvents.current?.();
     unbindEvents.current = null;
   };
   let updatedLeftSidebarState = {} as LeftSidebarState;
 
-  const onMouseUp = (event: MouseEvent) => {
+  const onFinishResizing = () => {
     if (isLeftSidebarCollapsed) {
       return;
     }
@@ -179,7 +239,7 @@ const ResizeControl = ({
 
     // If it is dragged to below the threshold,
     // collapse the navigation
-    if (x.current < MIN_LEFT_SIDEBAR_DRAG_THRESHOLD) {
+    if (sidebarWidth.current < MIN_LEFT_SIDEBAR_DRAG_THRESHOLD) {
       document.documentElement.style.setProperty(
         `--${VAR_LEFT_SIDEBAR_WIDTH}`,
         `${COLLAPSED_LEFT_SIDEBAR_WIDTH}px`,
@@ -190,8 +250,8 @@ const ResizeControl = ({
     // min threshold and default width
     // expand the nav to the default width
     else if (
-      x.current > MIN_LEFT_SIDEBAR_DRAG_THRESHOLD &&
-      x.current < DEFAULT_LEFT_SIDEBAR_WIDTH
+      sidebarWidth.current > MIN_LEFT_SIDEBAR_DRAG_THRESHOLD &&
+      sidebarWidth.current < DEFAULT_LEFT_SIDEBAR_WIDTH
     ) {
       document.documentElement.style.setProperty(
         `--${VAR_LEFT_SIDEBAR_WIDTH}`,
@@ -209,14 +269,14 @@ const ResizeControl = ({
       updatedLeftSidebarState = {
         ...leftSidebarState,
         isResizing: false,
-        [VAR_LEFT_SIDEBAR_WIDTH]: x.current,
-        lastLeftSidebarWidth: x.current,
+        [VAR_LEFT_SIDEBAR_WIDTH]: sidebarWidth.current,
+        lastLeftSidebarWidth: sidebarWidth.current,
       };
       setLeftSidebarState(updatedLeftSidebarState);
     }
 
     requestAnimationFrame(() => {
-      onMouseMove.cancel();
+      onUpdateResize.cancel();
       setIsGrabAreaFocused(false);
       onResizeEnd && onResizeEnd(updatedLeftSidebarState);
       cleanupAfterResize();

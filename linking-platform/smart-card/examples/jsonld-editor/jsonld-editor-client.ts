@@ -26,7 +26,7 @@ class JsonldEditorClient extends CardClient {
     this.ari = ari;
   }
 
-  async fetchData(url: string) {
+  async fetchData(url: string, force?: boolean) {
     // Return response from editor
     if (this.onFetch) {
       const response = this.onFetch();
@@ -58,7 +58,7 @@ class JsonldEditorClient extends CardClient {
 
     // Native fetch
     return super
-      .fetchData(url)
+      .fetchData(url, force)
       .then(this.handleFetchSuccess)
       .catch(this.handleFetchError);
   }

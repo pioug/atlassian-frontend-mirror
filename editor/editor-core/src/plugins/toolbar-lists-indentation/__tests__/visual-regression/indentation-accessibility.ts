@@ -107,8 +107,7 @@ describe('toolbar accessbility', () => {
       expect(await isElementFocused(page, buttonSelectors.outdent)).toBe(true);
     });
 
-    // FIXME: This test was automatically skipped due to failure on 26/03/2023: https://product-fabric.atlassian.net/browse/ED-17275
-    it.skip('should shift focus for bullet lists', async () => {
+    it('should shift focus for bullet lists', async () => {
       await clickQuerySelectorElement(page, 'li', 5);
 
       await selectToolbarMenuWithKeyboard(page, buttonSelectors.indent);

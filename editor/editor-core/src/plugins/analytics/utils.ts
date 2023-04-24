@@ -51,6 +51,8 @@ export type AnalyticsEventPayloadCallback = (
   state: EditorState,
 ) => AnalyticsEventPayload | undefined;
 
+// Below function has been copied to packages/editor/editor-plugin-ai/src/utils/analytics.ts
+// If changes are made to this function, please make the same update in the linked file.
 export function withAnalytics(
   payload: AnalyticsEventPayload | AnalyticsEventPayloadCallback,
   channel?: string,

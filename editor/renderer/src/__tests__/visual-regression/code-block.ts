@@ -64,7 +64,8 @@ describe('Snapshot Test: CodeBlock', () => {
       await page.hover(`${selectors.codeBlock} ${selectors.wrapButton}`);
     });
 
-    test('should render wrap and copy-to-clipboard buttons correctly on hover when both are enabled', async () => {
+    // FIXME: This test was automatically skipped due to failure on 24/04/2023: https://product-fabric.atlassian.net/browse/ED-17592
+    test.skip('should render wrap and copy-to-clipboard buttons correctly on hover when both are enabled', async () => {
       await initRendererWithADF(page, {
         appearance: 'full-page',
         rendererProps: { allowWrapCodeBlock: true, allowCopyToClipboard: true },

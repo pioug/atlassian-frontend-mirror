@@ -46,7 +46,7 @@
     "@atlaskit/docs": "*",
     "@atlaskit/ds-explorations": "^2.0.0",
     "@atlaskit/heading": "^1.2.0",
-    "@atlaskit/lozenge": "11.3.9",
+    "@atlaskit/lozenge": "11.3.10",
     "@atlaskit/modal-dialog": "^12.4.0",
     "@atlaskit/primitives": "^0.8.0",
     "@atlaskit/section-message": "^6.3.0",

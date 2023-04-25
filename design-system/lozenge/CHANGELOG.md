@@ -1,5 +1,11 @@
 # @atlaskit/lozenge
 
+## 11.3.10
+
+### Patch Changes
+
+- [`df9cefb35e1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/df9cefb35e1) - Enrol @atlaskit/lozenge on push model consumption in Jira
+
 ## 11.3.9
 
 ### Patch Changes

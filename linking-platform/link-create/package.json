@@ -53,7 +53,7 @@
     "@atlassian/link-create-presets": "^2.0.0",
     "@atlassian/link-picker-plugins": "^18.1.0",
     "@atlassian/recent-work-client": "^1.7.0",
-    "@atlassian/search-client": "^0.5.0",
+    "@atlassian/search-client": "^0.6.0",
     "@testing-library/react": "^12.1.5",
     "@testing-library/user-event": "^14.4.3",
     "react-dom": "^16.8.0",

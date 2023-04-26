@@ -7,13 +7,15 @@
  */
 //Hungarian
 export default {
-  "fabric.elements.user-picker.external.sourced.from": "Itt található:",
-  "fabric.elements.user-picker.github.provider": "GitHub",
-  "fabric.elements.user-picker.google.provider": "Google",
-  "fabric.elements.user-picker.guest.lozenge.text": "VENDÉG",
-  "fabric.elements.user-picker.guest.lozenge.tooltip.group": "A vendégcsoportok csak bizonyos munkaterekhez kapnak hozzáférést, és korlátozottan érik el a felhasználói adatokat.",
-  "fabric.elements.user-picker.guest.lozenge.tooltip.user": "A vendégek csak bizonyos munkaterekhez kapnak hozzáférést, és korlátozottan érik el a felhasználói adatokat.",
-  "fabric.elements.user-picker.member.lozenge.text": "TAG",
-  "fabric.elements.user-picker.microsoft.provider": "Microsoft",
-  "fabric.elements.user-picker.slack.provider": "Slack"
+  'fabric.elements.user-picker.external.sourced.from': 'Itt található:',
+  'fabric.elements.user-picker.github.provider': 'GitHub',
+  'fabric.elements.user-picker.google.provider': 'Google',
+  'fabric.elements.user-picker.guest.lozenge.text': 'VENDÉG',
+  'fabric.elements.user-picker.guest.lozenge.tooltip.group':
+    'A vendégcsoportok csak bizonyos munkaterekhez kapnak hozzáférést, és korlátozottan érik el a felhasználói adatokat.',
+  'fabric.elements.user-picker.guest.lozenge.tooltip.user':
+    'A vendégek csak bizonyos munkaterekhez kapnak hozzáférést, és korlátozottan érik el a felhasználói adatokat.',
+  'fabric.elements.user-picker.member.lozenge.text': 'TAG',
+  'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
+  'fabric.elements.user-picker.slack.provider': 'Slack',
 };

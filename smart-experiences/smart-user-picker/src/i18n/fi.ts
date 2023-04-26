@@ -7,13 +7,15 @@
  */
 //Finnish
 export default {
-  "fabric.elements.user-picker.external.sourced.from": "Löydetty kohteesta:",
-  "fabric.elements.user-picker.github.provider": "GitHub",
-  "fabric.elements.user-picker.google.provider": "Google",
-  "fabric.elements.user-picker.guest.lozenge.text": "VIERAS",
-  "fabric.elements.user-picker.guest.lozenge.tooltip.group": "Vierasryhmillä on pääsy vain tiettyihin työtiloihin ja rajoitettu pääsy käyttäjätietoihin.",
-  "fabric.elements.user-picker.guest.lozenge.tooltip.user": "Vierailla on pääsy vain tiettyihin työtiloihin ja rajoitettu pääsy käyttäjätietoihin.",
-  "fabric.elements.user-picker.member.lozenge.text": "Jäsen",
-  "fabric.elements.user-picker.microsoft.provider": "Microsoft",
-  "fabric.elements.user-picker.slack.provider": "Slack"
+  'fabric.elements.user-picker.external.sourced.from': 'Löydetty kohteesta:',
+  'fabric.elements.user-picker.github.provider': 'GitHub',
+  'fabric.elements.user-picker.google.provider': 'Google',
+  'fabric.elements.user-picker.guest.lozenge.text': 'VIERAS',
+  'fabric.elements.user-picker.guest.lozenge.tooltip.group':
+    'Vierasryhmillä on pääsy vain tiettyihin työtiloihin ja rajoitettu pääsy käyttäjätietoihin.',
+  'fabric.elements.user-picker.guest.lozenge.tooltip.user':
+    'Vierailla on pääsy vain tiettyihin työtiloihin ja rajoitettu pääsy käyttäjätietoihin.',
+  'fabric.elements.user-picker.member.lozenge.text': 'Jäsen',
+  'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
+  'fabric.elements.user-picker.slack.provider': 'Slack',
 };

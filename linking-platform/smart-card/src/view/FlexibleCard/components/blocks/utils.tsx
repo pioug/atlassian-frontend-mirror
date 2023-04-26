@@ -33,6 +33,7 @@ export const ElementDisplaySchema: Record<
   [ElementName.LinkIcon]: ['inline'],
   [ElementName.ModifiedBy]: ['inline'],
   [ElementName.ModifiedOn]: ['inline'],
+  [ElementName.OwnedBy]: ['inline'],
   [ElementName.Preview]: ['block'],
   [ElementName.Priority]: ['inline'],
   [ElementName.ProgrammingLanguage]: ['inline'],

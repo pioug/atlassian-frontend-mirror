@@ -66,6 +66,12 @@ export type FlexibleUiDataContext = {
    */
   createdBy?: string;
   /**
+   * Contains the name of the entity that owns the resource.
+   * @type string
+   * @see OwnedBy
+   */
+  ownedBy?: string;
+  /**
    * Contains the ISO timestamp of when the resource was created.
    * @type string - ISO Timestamp
    * @see CreatedOn

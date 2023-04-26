@@ -104,6 +104,7 @@ export enum ElementName {
   LinkIcon = 'LinkIcon',
   ModifiedBy = 'ModifiedBy',
   ModifiedOn = 'ModifiedOn',
+  OwnedBy = 'OwnedBy',
   Preview = 'Preview',
   Priority = 'Priority',
   ProgrammingLanguage = 'ProgrammingLanguage',

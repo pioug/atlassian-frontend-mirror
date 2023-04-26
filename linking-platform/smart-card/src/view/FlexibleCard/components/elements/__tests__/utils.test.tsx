@@ -136,6 +136,7 @@ describe('createElement', () => {
     it.each([
       [ElementName.CreatedBy, 'createdBy'],
       [ElementName.ModifiedBy, 'modifiedBy'],
+      [ElementName.OwnedBy, 'ownedBy'],
       [ElementName.SourceBranch, 'sourceBranch'],
       [ElementName.TargetBranch, 'targetBranch'],
     ])(
@@ -178,6 +179,7 @@ describe('createElement', () => {
       [ElementName.ViewCount, 'viewCount'],
       [ElementName.ReactCount, 'reactCount'],
       [ElementName.VoteCount, 'voteCount'],
+      [ElementName.OwnedBy, 'ownedBy'],
       [ElementName.CreatedBy, 'createdBy'],
       [ElementName.CreatedOn, 'createdOn'],
       [ElementName.LinkIcon, 'linkIcon'],

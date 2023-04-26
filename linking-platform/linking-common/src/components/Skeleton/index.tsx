@@ -13,7 +13,7 @@ const placeholderShimmer = keyframes`
   }
 
   100% {
-    background-position: 20px 0;
+    background-position: 60px 0;
   }
 `;
 

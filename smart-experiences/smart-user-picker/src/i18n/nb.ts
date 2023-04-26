@@ -7,13 +7,15 @@
  */
 //Norwegian (Bokmål)
 export default {
-  "fabric.elements.user-picker.external.sourced.from": "Funnet på:",
-  "fabric.elements.user-picker.github.provider": "GitHub",
-  "fabric.elements.user-picker.google.provider": "Google",
-  "fabric.elements.user-picker.guest.lozenge.text": "GJEST",
-  "fabric.elements.user-picker.guest.lozenge.tooltip.group": "Gjestegrupper har bare tilgang til enkelte områder, og har begrenset tilgang til brukeropplysninger.",
-  "fabric.elements.user-picker.guest.lozenge.tooltip.user": "Gjester har bare tilgang til enkelte områder, og har begrenset tilgang til brukeropplysninger.",
-  "fabric.elements.user-picker.member.lozenge.text": "Medlem",
-  "fabric.elements.user-picker.microsoft.provider": "Microsoft",
-  "fabric.elements.user-picker.slack.provider": "Slack"
+  'fabric.elements.user-picker.external.sourced.from': 'Funnet på:',
+  'fabric.elements.user-picker.github.provider': 'GitHub',
+  'fabric.elements.user-picker.google.provider': 'Google',
+  'fabric.elements.user-picker.guest.lozenge.text': 'GJEST',
+  'fabric.elements.user-picker.guest.lozenge.tooltip.group':
+    'Gjestegrupper har bare tilgang til enkelte områder, og har begrenset tilgang til brukeropplysninger.',
+  'fabric.elements.user-picker.guest.lozenge.tooltip.user':
+    'Gjester har bare tilgang til enkelte områder, og har begrenset tilgang til brukeropplysninger.',
+  'fabric.elements.user-picker.member.lozenge.text': 'Medlem',
+  'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
+  'fabric.elements.user-picker.slack.provider': 'Slack',
 };

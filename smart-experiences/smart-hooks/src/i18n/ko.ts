@@ -7,13 +7,15 @@
  */
 //Korean
 export default {
-  "smart-experiences.smart-hooks.external.sourced.from": "찾은 위치:",
-  "smart-experiences.smart-hooks.github.provider": "GitHub",
-  "smart-experiences.smart-hooks.google.provider": "Google",
-  "smart-experiences.smart-hooks.guest.lozenge.text": "게스트",
-  "smart-experiences.smart-hooks.guest.lozenge.tooltip.group": "게스트 그룹은 특정 스페이스에만 액세스할 수 있고 사용자 정보에 대한 액세스 권한이 제한적입니다.",
-  "smart-experiences.smart-hooks.guest.lozenge.tooltip.user": "게스트는 특정 스페이스에만 액세스할 수 있고 사용자 정보에 대한 액세스 권한이 제한적입니다.",
-  "smart-experiences.smart-hooks.member.lozenge.text": "구성원",
-  "smart-experiences.smart-hooks.microsoft.provider": "Microsoft",
-  "smart-experiences.smart-hooks.slack.provider": "Slack"
+  'smart-experiences.smart-hooks.external.sourced.from': '찾은 위치:',
+  'smart-experiences.smart-hooks.github.provider': 'GitHub',
+  'smart-experiences.smart-hooks.google.provider': 'Google',
+  'smart-experiences.smart-hooks.guest.lozenge.text': '게스트',
+  'smart-experiences.smart-hooks.guest.lozenge.tooltip.group':
+    '게스트 그룹은 특정 스페이스에만 액세스할 수 있고 사용자 정보에 대한 액세스 권한이 제한적입니다.',
+  'smart-experiences.smart-hooks.guest.lozenge.tooltip.user':
+    '게스트는 특정 스페이스에만 액세스할 수 있고 사용자 정보에 대한 액세스 권한이 제한적입니다.',
+  'smart-experiences.smart-hooks.member.lozenge.text': '구성원',
+  'smart-experiences.smart-hooks.microsoft.provider': 'Microsoft',
+  'smart-experiences.smart-hooks.slack.provider': 'Slack',
 };

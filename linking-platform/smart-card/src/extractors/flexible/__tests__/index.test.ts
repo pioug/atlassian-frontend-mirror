@@ -68,6 +68,7 @@ describe('extractFlexibleUiContext', () => {
       commentCount: 24,
       subscriberCount: 21,
       provider: expectedConfluenceProvider,
+      ownedBy: 'Angie Mccarthy',
       previewAction: {
         linkIcon: {
           icon: 'FileType:Document',
@@ -99,6 +100,7 @@ describe('extractFlexibleUiContext', () => {
       commentCount: 7,
       subscriberCount: 17,
       provider: expectedConfluenceProvider,
+      ownedBy: 'Angie Mccarthy',
       previewAction: {
         linkIcon: {
           icon: 'FileType:Blog',

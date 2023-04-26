@@ -7,13 +7,15 @@
  */
 //Thai (Thailand)
 export default {
-  "fabric.elements.user-picker.external.sourced.from": "พบใน:",
-  "fabric.elements.user-picker.github.provider": "GitHub",
-  "fabric.elements.user-picker.google.provider": "Google",
-  "fabric.elements.user-picker.guest.lozenge.text": "ผู้ใช้ทั่วไป",
-  "fabric.elements.user-picker.guest.lozenge.tooltip.group": "กลุ่มผู้ใช้ทั่วไปสามารถเข้าถึงได้เฉพาะบางพื้นที่เท่านั้นและมีสิทธิ์ในการเข้าถึงข้อมูลผู้ใช้ที่จำกัด",
-  "fabric.elements.user-picker.guest.lozenge.tooltip.user": "ผู้ใช้ทั่วไปสามารถเข้าถึงได้เฉพาะบางพื้นที่เท่านั้นและมีสิทธิ์ในการเข้าถึงข้อมูลผู้ใช้ที่จำกัด",
-  "fabric.elements.user-picker.member.lozenge.text": "สมาชิก",
-  "fabric.elements.user-picker.microsoft.provider": "Microsoft",
-  "fabric.elements.user-picker.slack.provider": "Slack"
+  'fabric.elements.user-picker.external.sourced.from': 'พบใน:',
+  'fabric.elements.user-picker.github.provider': 'GitHub',
+  'fabric.elements.user-picker.google.provider': 'Google',
+  'fabric.elements.user-picker.guest.lozenge.text': 'ผู้ใช้ทั่วไป',
+  'fabric.elements.user-picker.guest.lozenge.tooltip.group':
+    'กลุ่มผู้ใช้ทั่วไปสามารถเข้าถึงได้เฉพาะบางพื้นที่เท่านั้นและมีสิทธิ์ในการเข้าถึงข้อมูลผู้ใช้ที่จำกัด',
+  'fabric.elements.user-picker.guest.lozenge.tooltip.user':
+    'ผู้ใช้ทั่วไปสามารถเข้าถึงได้เฉพาะบางพื้นที่เท่านั้นและมีสิทธิ์ในการเข้าถึงข้อมูลผู้ใช้ที่จำกัด',
+  'fabric.elements.user-picker.member.lozenge.text': 'สมาชิก',
+  'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
+  'fabric.elements.user-picker.slack.provider': 'Slack',
 };

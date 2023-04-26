@@ -22,6 +22,16 @@ export interface DateType {
   value: string; // ISO Format like 2023-03-16T14:04:02.200+0000
 }
 
+export interface TimeType {
+  type: 'time';
+  value: string; // ISO Format like 2023-03-16T14:04:02.200+0000
+}
+
+export interface DateTimeType {
+  type: 'datetime';
+  value: string; // ISO Format like 2023-03-16T14:04:02.200+0000
+}
+
 export interface TagType {
   type: 'tag';
   value: string;
@@ -89,7 +99,9 @@ export type DatasourceType =
   | UserType
   | StatusType
   | LinkType
-  | DateType;
+  | DateType
+  | TimeType
+  | DateTimeType;
 
 export interface DatasourceResponseSchemaProperty {
   key: string;

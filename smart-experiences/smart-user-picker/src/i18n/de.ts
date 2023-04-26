@@ -7,13 +7,15 @@
  */
 //German (Germany)
 export default {
-  "fabric.elements.user-picker.external.sourced.from": "Gefunden in:",
-  "fabric.elements.user-picker.github.provider": "GitHub",
-  "fabric.elements.user-picker.google.provider": "Google",
-  "fabric.elements.user-picker.guest.lozenge.text": "GAST",
-  "fabric.elements.user-picker.guest.lozenge.tooltip.group": "Gästegruppen können ausschließlich auf ausgewählte Bereiche zugreifen und verfügen über eingeschränkten Zugriff auf Benutzerinformationen.",
-  "fabric.elements.user-picker.guest.lozenge.tooltip.user": "Gäste können ausschließlich auf ausgewählte Bereiche zugreifen und verfügen über eingeschränkten Zugriff auf Benutzerinformationen.",
-  "fabric.elements.user-picker.member.lozenge.text": "Mitglied",
-  "fabric.elements.user-picker.microsoft.provider": "Microsoft",
-  "fabric.elements.user-picker.slack.provider": "Slack"
+  'fabric.elements.user-picker.external.sourced.from': 'Gefunden in:',
+  'fabric.elements.user-picker.github.provider': 'GitHub',
+  'fabric.elements.user-picker.google.provider': 'Google',
+  'fabric.elements.user-picker.guest.lozenge.text': 'GAST',
+  'fabric.elements.user-picker.guest.lozenge.tooltip.group':
+    'Gästegruppen können ausschließlich auf ausgewählte Bereiche zugreifen und verfügen über eingeschränkten Zugriff auf Benutzerinformationen.',
+  'fabric.elements.user-picker.guest.lozenge.tooltip.user':
+    'Gäste können ausschließlich auf ausgewählte Bereiche zugreifen und verfügen über eingeschränkten Zugriff auf Benutzerinformationen.',
+  'fabric.elements.user-picker.member.lozenge.text': 'Mitglied',
+  'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
+  'fabric.elements.user-picker.slack.provider': 'Slack',
 };

@@ -6,6 +6,7 @@ import {
   LinkSubscriberType,
 } from '../common/detail';
 import {
+  extractPersonOwnedBy,
   extractPersonCreatedBy,
   extractPersonUpdatedBy,
   LinkTypeUpdatedBy,
@@ -52,6 +53,15 @@ type LinkVoteCountType =
   | JsonLd.Data.Task;
 export const extractVoteCount = (data: JsonLd.Data.BaseData) =>
   extractValue<LinkVoteCountType, number>(data, 'atlassian:voteCount');
+
+export const extractOwnedBy = (
+  data: JsonLd.Data.BaseData,
+): string | undefined => {
+  const persons = extractPersonOwnedBy(data);
+  if (persons && persons.length) {
+    return persons[0].name;
+  }
+};
 
 export const extractCreatedBy = (
   data: JsonLd.Data.BaseData,

@@ -7,13 +7,13 @@
  */
 //Chinese (Traditional)
 export default {
-  "fabric.elements.user-picker.external.sourced.from": "尋找位置：",
-  "fabric.elements.user-picker.github.provider": "GitHub",
-  "fabric.elements.user-picker.google.provider": "Google",
-  "fabric.elements.user-picker.guest.lozenge.text": "訪客",
-  "fabric.elements.user-picker.guest.lozenge.tooltip.group": "訪客群組只能存取特定空間，而且只能存取有限的使用者資訊。",
-  "fabric.elements.user-picker.guest.lozenge.tooltip.user": "訪客只能存取特定空間，而且只能存取有限的使用者資訊。",
-  "fabric.elements.user-picker.member.lozenge.text": "成員",
-  "fabric.elements.user-picker.microsoft.provider": "Microsoft",
-  "fabric.elements.user-picker.slack.provider": "Slack"
+  'fabric.elements.user-picker.external.sourced.from': '尋找位置：',
+  'fabric.elements.user-picker.github.provider': 'GitHub',
+  'fabric.elements.user-picker.google.provider': 'Google',
+  'fabric.elements.user-picker.guest.lozenge.text': '訪客',
+  'fabric.elements.user-picker.guest.lozenge.tooltip.group': '訪客群組只能存取特定空間，而且只能存取有限的使用者資訊。',
+  'fabric.elements.user-picker.guest.lozenge.tooltip.user': '訪客只能存取特定空間，而且只能存取有限的使用者資訊。',
+  'fabric.elements.user-picker.member.lozenge.text': '成員',
+  'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
+  'fabric.elements.user-picker.slack.provider': 'Slack',
 };

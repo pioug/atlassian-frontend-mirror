@@ -75,6 +75,11 @@ export const unicornResponse = {
       { '@type': 'Person', icon: avatar2, name: 'Steve' },
       { '@type': 'Person', icon: avatar3, name: 'Aliza' },
     ],
+    'atlassian:ownedBy': [
+      { '@type': 'Person', icon: avatar1, name: 'Angie' },
+      { '@type': 'Person', icon: avatar2, name: 'Steve' },
+      { '@type': 'Person', icon: avatar3, name: 'Aliza' },
+    ],
     generator: {
       '@type': 'Application',
       '@id': 'https://www.atlassian.com/#Confluence',

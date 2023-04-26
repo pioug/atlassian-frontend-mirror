@@ -7,13 +7,15 @@
  */
 //Hungarian
 export default {
-  "smart-experiences.smart-hooks.external.sourced.from": "Itt található:",
-  "smart-experiences.smart-hooks.github.provider": "GitHub",
-  "smart-experiences.smart-hooks.google.provider": "Google",
-  "smart-experiences.smart-hooks.guest.lozenge.text": "VENDÉG",
-  "smart-experiences.smart-hooks.guest.lozenge.tooltip.group": "A vendégcsoportok csak bizonyos munkaterekhez kapnak hozzáférést, és korlátozottan érik el a felhasználói adatokat.",
-  "smart-experiences.smart-hooks.guest.lozenge.tooltip.user": "A vendégek csak bizonyos munkaterekhez kapnak hozzáférést, és korlátozottan érik el a felhasználói adatokat.",
-  "smart-experiences.smart-hooks.member.lozenge.text": "TAG",
-  "smart-experiences.smart-hooks.microsoft.provider": "Microsoft",
-  "smart-experiences.smart-hooks.slack.provider": "Slack"
+  'smart-experiences.smart-hooks.external.sourced.from': 'Itt található:',
+  'smart-experiences.smart-hooks.github.provider': 'GitHub',
+  'smart-experiences.smart-hooks.google.provider': 'Google',
+  'smart-experiences.smart-hooks.guest.lozenge.text': 'VENDÉG',
+  'smart-experiences.smart-hooks.guest.lozenge.tooltip.group':
+    'A vendégcsoportok csak bizonyos munkaterekhez kapnak hozzáférést, és korlátozottan érik el a felhasználói adatokat.',
+  'smart-experiences.smart-hooks.guest.lozenge.tooltip.user':
+    'A vendégek csak bizonyos munkaterekhez kapnak hozzáférést, és korlátozottan érik el a felhasználói adatokat.',
+  'smart-experiences.smart-hooks.member.lozenge.text': 'TAG',
+  'smart-experiences.smart-hooks.microsoft.provider': 'Microsoft',
+  'smart-experiences.smart-hooks.slack.provider': 'Slack',
 };

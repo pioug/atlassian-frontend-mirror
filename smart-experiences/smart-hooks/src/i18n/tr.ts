@@ -7,13 +7,15 @@
  */
 //Turkish (Turkey)
 export default {
-  "smart-experiences.smart-hooks.external.sourced.from": "Bulunduğu yer:",
-  "smart-experiences.smart-hooks.github.provider": "GitHub",
-  "smart-experiences.smart-hooks.google.provider": "Google",
-  "smart-experiences.smart-hooks.guest.lozenge.text": "KONUK",
-  "smart-experiences.smart-hooks.guest.lozenge.tooltip.group": "Konuk gruplar yalnızca bazı alanlara erişebilir ve kullanıcı bilgilerine erişimleri de kısıtlıdır.",
-  "smart-experiences.smart-hooks.guest.lozenge.tooltip.user": "Konuklar yalnızca bazı alanlara erişebilir ve kullanıcı bilgilerine erişimleri de kısıtlıdır.",
-  "smart-experiences.smart-hooks.member.lozenge.text": "ÜYE",
-  "smart-experiences.smart-hooks.microsoft.provider": "Microsoft",
-  "smart-experiences.smart-hooks.slack.provider": "Slack"
+  'smart-experiences.smart-hooks.external.sourced.from': 'Bulunduğu yer:',
+  'smart-experiences.smart-hooks.github.provider': 'GitHub',
+  'smart-experiences.smart-hooks.google.provider': 'Google',
+  'smart-experiences.smart-hooks.guest.lozenge.text': 'KONUK',
+  'smart-experiences.smart-hooks.guest.lozenge.tooltip.group':
+    'Konuk gruplar yalnızca bazı alanlara erişebilir ve kullanıcı bilgilerine erişimleri de kısıtlıdır.',
+  'smart-experiences.smart-hooks.guest.lozenge.tooltip.user':
+    'Konuklar yalnızca bazı alanlara erişebilir ve kullanıcı bilgilerine erişimleri de kısıtlıdır.',
+  'smart-experiences.smart-hooks.member.lozenge.text': 'ÜYE',
+  'smart-experiences.smart-hooks.microsoft.provider': 'Microsoft',
+  'smart-experiences.smart-hooks.slack.provider': 'Slack',
 };

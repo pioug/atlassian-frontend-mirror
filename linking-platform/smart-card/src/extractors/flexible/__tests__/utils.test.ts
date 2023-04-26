@@ -15,6 +15,7 @@ import {
   extractCreatedBy,
   extractDueOn,
   extractModifiedBy,
+  extractOwnedBy,
   extractProgrammingLanguage,
   extractSourceBranch,
   extractSubscriberCount,
@@ -138,6 +139,20 @@ describe('extractModifiedBy', () => {
     const value = extractModifiedBy({
       ...TEST_BASE_DATA,
       'atlassian:updatedBy': TEST_PERSON,
+    } as JsonLd.Data.BaseData);
+    expect(value).toEqual(TEST_NAME);
+  });
+});
+
+describe('extractOwnedBy', () => {
+  it('returns undefined when there is no data on who updated the resource', () => {
+    expect(extractOwnedBy(TEST_BASE_DATA)).toBeUndefined();
+  });
+
+  it('returns name of the person/entity that updated the resource', () => {
+    const value = extractOwnedBy({
+      ...TEST_BASE_DATA,
+      'atlassian:ownedBy': TEST_PERSON,
     } as JsonLd.Data.BaseData);
     expect(value).toEqual(TEST_NAME);
   });

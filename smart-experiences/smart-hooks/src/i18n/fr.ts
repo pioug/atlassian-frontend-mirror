@@ -7,13 +7,15 @@
  */
 //French (France)
 export default {
-  "smart-experiences.smart-hooks.external.sourced.from": "Trouvé dans :",
-  "smart-experiences.smart-hooks.github.provider": "GitHub",
-  "smart-experiences.smart-hooks.google.provider": "Google",
-  "smart-experiences.smart-hooks.guest.lozenge.text": "INVITÉ",
-  "smart-experiences.smart-hooks.guest.lozenge.tooltip.group": "Les groupes d'invités peuvent uniquement accéder à certains espaces et ont un accès limité aux informations utilisateur.",
-  "smart-experiences.smart-hooks.guest.lozenge.tooltip.user": "Les invités peuvent uniquement accéder à certains espaces et ont un accès limité aux informations utilisateur.",
-  "smart-experiences.smart-hooks.member.lozenge.text": "MEMBRE",
-  "smart-experiences.smart-hooks.microsoft.provider": "Microsoft",
-  "smart-experiences.smart-hooks.slack.provider": "Slack"
+  'smart-experiences.smart-hooks.external.sourced.from': 'Trouvé dans :',
+  'smart-experiences.smart-hooks.github.provider': 'GitHub',
+  'smart-experiences.smart-hooks.google.provider': 'Google',
+  'smart-experiences.smart-hooks.guest.lozenge.text': 'INVITÉ',
+  'smart-experiences.smart-hooks.guest.lozenge.tooltip.group':
+    "Les groupes d'invités peuvent uniquement accéder à certains espaces et ont un accès limité aux informations utilisateur.",
+  'smart-experiences.smart-hooks.guest.lozenge.tooltip.user':
+    'Les invités peuvent uniquement accéder à certains espaces et ont un accès limité aux informations utilisateur.',
+  'smart-experiences.smart-hooks.member.lozenge.text': 'MEMBRE',
+  'smart-experiences.smart-hooks.microsoft.provider': 'Microsoft',
+  'smart-experiences.smart-hooks.slack.provider': 'Slack',
 };

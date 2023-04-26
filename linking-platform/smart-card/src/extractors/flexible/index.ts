@@ -16,6 +16,7 @@ import {
   extractSourceBranch,
   extractTargetBranch,
   extractDueOn,
+  extractOwnedBy,
 } from './utils';
 import { extractPersonsUpdatedBy } from './collaboratorGroup';
 import {
@@ -63,6 +64,7 @@ const extractFlexibleUiContext = ({
     voteCount: extractVoteCount(data),
     checklistProgress: extractChecklistProgress(data),
     createdBy: extractCreatedBy(data),
+    ownedBy: extractOwnedBy(data),
     createdOn: extractDateCreated(data as LinkTypeCreated),
     dueOn: extractDueOn(data),
     previewAction: extractPreviewAction(response),

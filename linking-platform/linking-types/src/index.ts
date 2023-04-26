@@ -3,6 +3,8 @@ export type {
   NumberType,
   StringType,
   DateType,
+  DateTimeType,
+  TimeType,
   TagType,
   User,
   UserType,

@@ -2,15 +2,19 @@ import { JsonLd } from 'json-ld-types';
 import { ElementName } from '../../constants';
 import { LinkAction } from '../../state/hooks-external/useSmartLinkActions';
 import { ElementItem } from '../FlexibleCard/components/blocks/types';
+import { extractType } from '@atlaskit/linking-common/extractors';
+import { extractOwnedBy } from '../../extractors/flexible/utils';
 
 export const getSimulatedMetadata = (
   extensionKey: string = '',
-  types: JsonLd.Primitives.ObjectType[] = [],
+  data: JsonLd.Data.BaseData,
 ): JsonLd.Primitives.Property<any> => {
+  const types = data ? extractType(data) : undefined;
+
   switch (extensionKey) {
     case 'bitbucket-object-provider':
     case 'native-bitbucket-object-provider':
-      if (types.includes('atlassian:SourceCodePullRequest')) {
+      if (types?.includes('atlassian:SourceCodePullRequest')) {
         return {
           metadata: {
             primary: [
@@ -32,9 +36,13 @@ export const getSimulatedMetadata = (
         },
       };
     case 'confluence-object-provider':
+      const primaryAttribution =
+        data && extractOwnedBy(data)
+          ? ElementName.OwnedBy
+          : ElementName.CreatedBy;
       return {
         metadata: {
-          primary: [ElementName.AuthorGroup, ElementName.CreatedBy],
+          primary: [ElementName.AuthorGroup, primaryAttribution],
           secondary: [ElementName.CommentCount, ElementName.ReactCount],
           subtitle: [],
         },
@@ -72,7 +80,7 @@ export const getSimulatedMetadata = (
       };
 
     case 'watermelon-object-provider':
-      if (types.includes('atlassian:Project')) {
+      if (types?.includes('atlassian:Project')) {
         return {
           metadata: {
             primary: [

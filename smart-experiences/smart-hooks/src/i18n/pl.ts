@@ -7,13 +7,15 @@
  */
 //Polish (Poland)
 export default {
-  "smart-experiences.smart-hooks.external.sourced.from": "Znaleziono w:",
-  "smart-experiences.smart-hooks.github.provider": "GitHub",
-  "smart-experiences.smart-hooks.google.provider": "Google",
-  "smart-experiences.smart-hooks.guest.lozenge.text": "GOŚĆ",
-  "smart-experiences.smart-hooks.guest.lozenge.tooltip.group": "Grupy gości mają dostęp wyłącznie do określonych przestrzeni i ograniczony dostęp do informacji o użytkownikach.",
-  "smart-experiences.smart-hooks.guest.lozenge.tooltip.user": "Goście mają dostęp wyłącznie do określonych przestrzeni i ograniczony dostęp do informacji o użytkownikach.",
-  "smart-experiences.smart-hooks.member.lozenge.text": "CZŁONEK",
-  "smart-experiences.smart-hooks.microsoft.provider": "Microsoft",
-  "smart-experiences.smart-hooks.slack.provider": "Slack"
+  'smart-experiences.smart-hooks.external.sourced.from': 'Znaleziono w:',
+  'smart-experiences.smart-hooks.github.provider': 'GitHub',
+  'smart-experiences.smart-hooks.google.provider': 'Google',
+  'smart-experiences.smart-hooks.guest.lozenge.text': 'GOŚĆ',
+  'smart-experiences.smart-hooks.guest.lozenge.tooltip.group':
+    'Grupy gości mają dostęp wyłącznie do określonych przestrzeni i ograniczony dostęp do informacji o użytkownikach.',
+  'smart-experiences.smart-hooks.guest.lozenge.tooltip.user':
+    'Goście mają dostęp wyłącznie do określonych przestrzeni i ograniczony dostęp do informacji o użytkownikach.',
+  'smart-experiences.smart-hooks.member.lozenge.text': 'CZŁONEK',
+  'smart-experiences.smart-hooks.microsoft.provider': 'Microsoft',
+  'smart-experiences.smart-hooks.slack.provider': 'Slack',
 };

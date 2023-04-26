@@ -80,6 +80,11 @@ export const ModifiedBy = createElement<TextProps>(ElementName.ModifiedBy);
  */
 export const ModifiedOn = createElement<DateTimeProps>(ElementName.ModifiedOn);
 /**
+ * Creates a OwnedBy text element using the data from OwnedBy in the Flexible UI Context.
+ * @see Text
+ */
+export const OwnedBy = createElement<TextProps>(ElementName.OwnedBy);
+/**
  * Creates a Preview element using the data from Preview in the Flexible UI Context.
  * @see Preview
  */

@@ -30,6 +30,16 @@ export default {
       text: '"1f3c6"',
       '@type': 'atlassian:Emoji',
     },
+    'atlassian:attributedTo': {
+      '@type': 'Person',
+      name: 'Angie Mccarthy',
+      icon: 'https://person-url',
+    },
+    'atlassian:ownedBy': {
+      '@type': 'Person',
+      name: 'Angie Mccarthy',
+      icon: 'https://person-url',
+    },
     preview: {
       '@type': 'Link',
       href: 'https://preview-url',

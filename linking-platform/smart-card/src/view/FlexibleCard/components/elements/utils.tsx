@@ -55,6 +55,7 @@ const elementMappings: Record<
     props: { icon: IconType.Vote },
   },
   [ElementName.CreatedBy]: { component: Text },
+  [ElementName.OwnedBy]: { component: Text },
   [ElementName.CreatedOn]: { component: DateTime },
   [ElementName.DueOn]: { component: Lozenge },
   [ElementName.LatestCommit]: {
@@ -124,6 +125,8 @@ const getData = (
       return toBadgeProps(data as string);
     case ElementName.CreatedBy:
       return toFormattedTextProps(messages.created_by, context.createdBy);
+    case ElementName.OwnedBy:
+      return toFormattedTextProps(messages.owned_by, context.ownedBy);
     case ElementName.CreatedOn:
       return toDateTimeProps('created', context.createdOn);
     case ElementName.DueOn:

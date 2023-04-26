@@ -7,13 +7,14 @@
  */
 //Chinese (Simplified)
 export default {
-  "fabric.elements.user-picker.external.sourced.from": "发现位置：",
-  "fabric.elements.user-picker.github.provider": "GitHub",
-  "fabric.elements.user-picker.google.provider": "Google",
-  "fabric.elements.user-picker.guest.lozenge.text": "访客",
-  "fabric.elements.user-picker.guest.lozenge.tooltip.group": "访客群组只能访问特定的空间，并对用户信息具有有限的访问权限。",
-  "fabric.elements.user-picker.guest.lozenge.tooltip.user": "访客只能访问特定的空间，并对用户信息具有有限的访问权限。",
-  "fabric.elements.user-picker.member.lozenge.text": "成员",
-  "fabric.elements.user-picker.microsoft.provider": "Microsoft",
-  "fabric.elements.user-picker.slack.provider": "Slack"
+  'fabric.elements.user-picker.external.sourced.from': '发现位置：',
+  'fabric.elements.user-picker.github.provider': 'GitHub',
+  'fabric.elements.user-picker.google.provider': 'Google',
+  'fabric.elements.user-picker.guest.lozenge.text': '访客',
+  'fabric.elements.user-picker.guest.lozenge.tooltip.group':
+    '访客群组只能访问特定的空间，并对用户信息具有有限的访问权限。',
+  'fabric.elements.user-picker.guest.lozenge.tooltip.user': '访客只能访问特定的空间，并对用户信息具有有限的访问权限。',
+  'fabric.elements.user-picker.member.lozenge.text': '成员',
+  'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
+  'fabric.elements.user-picker.slack.provider': 'Slack',
 };

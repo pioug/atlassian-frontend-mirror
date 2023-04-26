@@ -103,6 +103,7 @@ export interface DatasourceResponseSchemaProperty {
 // @public (undocumented)
 export type DatasourceType =
   | BooleanType
+  | DateTimeType
   | DateType
   | IconType
   | LinkType
@@ -110,7 +111,16 @@ export type DatasourceType =
   | StatusType
   | StringType
   | TagType
+  | TimeType
   | UserType;
+
+// @public (undocumented)
+export interface DateTimeType {
+  // (undocumented)
+  type: 'datetime';
+  // (undocumented)
+  value: string;
+}
 
 // @public (undocumented)
 export interface DateType {
@@ -239,6 +249,14 @@ export interface StringType {
 export interface TagType {
   // (undocumented)
   type: 'tag';
+  // (undocumented)
+  value: string;
+}
+
+// @public (undocumented)
+export interface TimeType {
+  // (undocumented)
+  type: 'time';
   // (undocumented)
   value: string;
 }

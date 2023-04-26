@@ -230,6 +230,7 @@ export type ElementItemProps =
   | LinkIcon
   | ModifiedBy
   | ModifiedOn
+  | OwnedBy
   | Preview
   | Priority
   | ProgrammingLanguage
@@ -285,6 +286,13 @@ export type CommentCount = {
  */
 export type CreatedBy = {
   name: ElementName.CreatedBy;
+};
+/**
+ * Represents the props available for an OwnedBy element.
+ * @see OwnedBy
+ */
+export type OwnedBy = {
+  name: ElementName.OwnedBy;
 };
 /**
  * Represents the props available for an CreatedOn element.

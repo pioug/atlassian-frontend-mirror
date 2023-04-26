@@ -7,13 +7,15 @@
  */
 //Ukrainian (Ukraine)
 export default {
-  "fabric.elements.user-picker.external.sourced.from": "Знайдено в:",
-  "fabric.elements.user-picker.github.provider": "GitHub",
-  "fabric.elements.user-picker.google.provider": "Google",
-  "fabric.elements.user-picker.guest.lozenge.text": "ГІСТЬ",
-  "fabric.elements.user-picker.guest.lozenge.tooltip.group": "Групи гостей мають доступ лише до певних розділів, а також обмежений доступ до інформації про користувачів.",
-  "fabric.elements.user-picker.guest.lozenge.tooltip.user": "Гості мають доступ лише до певних розділів, а також обмежений доступ до інформації про користувачів.",
-  "fabric.elements.user-picker.member.lozenge.text": "Учасник",
-  "fabric.elements.user-picker.microsoft.provider": "Microsoft",
-  "fabric.elements.user-picker.slack.provider": "Slack"
+  'fabric.elements.user-picker.external.sourced.from': 'Знайдено в:',
+  'fabric.elements.user-picker.github.provider': 'GitHub',
+  'fabric.elements.user-picker.google.provider': 'Google',
+  'fabric.elements.user-picker.guest.lozenge.text': 'ГІСТЬ',
+  'fabric.elements.user-picker.guest.lozenge.tooltip.group':
+    'Групи гостей мають доступ лише до певних розділів, а також обмежений доступ до інформації про користувачів.',
+  'fabric.elements.user-picker.guest.lozenge.tooltip.user':
+    'Гості мають доступ лише до певних розділів, а також обмежений доступ до інформації про користувачів.',
+  'fabric.elements.user-picker.member.lozenge.text': 'Учасник',
+  'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
+  'fabric.elements.user-picker.slack.provider': 'Slack',
 };

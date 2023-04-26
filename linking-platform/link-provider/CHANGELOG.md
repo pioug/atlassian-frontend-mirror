@@ -1,5 +1,12 @@
 # @atlaskit/link-provider
 
+## 1.5.4
+
+### Patch Changes
+
+- [`0624df1ffe1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0624df1ffe1) - Bump json-ld-types dependency
+- Updated dependencies
+
 ## 1.5.3
 
 ### Patch Changes

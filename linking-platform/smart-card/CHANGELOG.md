@@ -1,5 +1,15 @@
 # @atlaskit/smart-card
 
+## 25.6.0
+
+### Minor Changes
+
+- [`eceb32a564f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eceb32a564f) - [ux] This adds a new Flexible UI attribute, `OwnedBy`, which represents who owns a resource.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 25.5.7
 
 ### Patch Changes

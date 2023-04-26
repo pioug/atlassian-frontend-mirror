@@ -58,7 +58,7 @@ export const useSmartLinkLifecycleAnalytics: () => SmartLinkLifecycleMethods;
 
 ```json
 {
-  "@atlaskit/link-provider": "^1.5.3",
+  "@atlaskit/link-provider": "^1.5.4",
   "react": "^16.8.0"
 }
 ```

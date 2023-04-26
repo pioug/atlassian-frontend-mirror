@@ -7,13 +7,15 @@
  */
 //Norwegian (Bokmål)
 export default {
-  "smart-experiences.smart-hooks.external.sourced.from": "Funnet på:",
-  "smart-experiences.smart-hooks.github.provider": "GitHub",
-  "smart-experiences.smart-hooks.google.provider": "Google",
-  "smart-experiences.smart-hooks.guest.lozenge.text": "GJEST",
-  "smart-experiences.smart-hooks.guest.lozenge.tooltip.group": "Gjestegrupper har bare tilgang til enkelte områder, og har begrenset tilgang til brukeropplysninger.",
-  "smart-experiences.smart-hooks.guest.lozenge.tooltip.user": "Gjester har bare tilgang til enkelte områder, og har begrenset tilgang til brukeropplysninger.",
-  "smart-experiences.smart-hooks.member.lozenge.text": "Medlem",
-  "smart-experiences.smart-hooks.microsoft.provider": "Microsoft",
-  "smart-experiences.smart-hooks.slack.provider": "Slack"
+  'smart-experiences.smart-hooks.external.sourced.from': 'Funnet på:',
+  'smart-experiences.smart-hooks.github.provider': 'GitHub',
+  'smart-experiences.smart-hooks.google.provider': 'Google',
+  'smart-experiences.smart-hooks.guest.lozenge.text': 'GJEST',
+  'smart-experiences.smart-hooks.guest.lozenge.tooltip.group':
+    'Gjestegrupper har bare tilgang til enkelte områder, og har begrenset tilgang til brukeropplysninger.',
+  'smart-experiences.smart-hooks.guest.lozenge.tooltip.user':
+    'Gjester har bare tilgang til enkelte områder, og har begrenset tilgang til brukeropplysninger.',
+  'smart-experiences.smart-hooks.member.lozenge.text': 'Medlem',
+  'smart-experiences.smart-hooks.microsoft.provider': 'Microsoft',
+  'smart-experiences.smart-hooks.slack.provider': 'Slack',
 };

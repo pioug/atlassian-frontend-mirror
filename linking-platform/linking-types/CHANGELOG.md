@@ -1,5 +1,11 @@
 # @atlaskit/linking-types
 
+## 1.1.0
+
+### Minor Changes
+
+- [`d6266015d59`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6266015d59) - Added `Time` and `DateTime` types to `DatasourceType`
+
 ## 1.0.0
 
 ### Major Changes

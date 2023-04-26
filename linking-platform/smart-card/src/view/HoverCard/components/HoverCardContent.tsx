@@ -2,7 +2,6 @@
 import { jsx } from '@emotion/react';
 import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
 import CopyIcon from '@atlaskit/icon/glyph/copy';
-import { extractType } from '@atlaskit/linking-common/extractors';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 
 import { CardState } from '../../../state/types';
@@ -117,9 +116,8 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
   );
 
   const data = cardState.details?.data as JsonLd.Data.BaseData;
-  const types = data ? extractType(data) : undefined;
   const { subtitle } = extractMetadata(
-    getSimulatedMetadata(extensionKey, types),
+    getSimulatedMetadata(extensionKey, data),
   );
 
   const titleMaxLines = subtitle && subtitle.length > 0 ? 1 : 2;

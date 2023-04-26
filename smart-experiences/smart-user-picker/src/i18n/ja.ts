@@ -7,13 +7,15 @@
  */
 //Japanese
 export default {
-  "fabric.elements.user-picker.external.sourced.from": "ユーザーのソース元: ",
-  "fabric.elements.user-picker.github.provider": "GitHub",
-  "fabric.elements.user-picker.google.provider": "Google",
-  "fabric.elements.user-picker.guest.lozenge.text": "ゲスト",
-  "fabric.elements.user-picker.guest.lozenge.tooltip.group": "ゲスト グループは一部のスペースにのみアクセスでき、ユーザー情報へのアクセスが制限されます。",
-  "fabric.elements.user-picker.guest.lozenge.tooltip.user": "ゲストは一部のスペースにのみアクセスでき、ユーザー情報へのアクセスが制限されます。",
-  "fabric.elements.user-picker.member.lozenge.text": "メンバー",
-  "fabric.elements.user-picker.microsoft.provider": "Microsoft",
-  "fabric.elements.user-picker.slack.provider": "Slack"
+  'fabric.elements.user-picker.external.sourced.from': 'ユーザーのソース元: ',
+  'fabric.elements.user-picker.github.provider': 'GitHub',
+  'fabric.elements.user-picker.google.provider': 'Google',
+  'fabric.elements.user-picker.guest.lozenge.text': 'ゲスト',
+  'fabric.elements.user-picker.guest.lozenge.tooltip.group':
+    'ゲスト グループは一部のスペースにのみアクセスでき、ユーザー情報へのアクセスが制限されます。',
+  'fabric.elements.user-picker.guest.lozenge.tooltip.user':
+    'ゲストは一部のスペースにのみアクセスでき、ユーザー情報へのアクセスが制限されます。',
+  'fabric.elements.user-picker.member.lozenge.text': 'メンバー',
+  'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
+  'fabric.elements.user-picker.slack.provider': 'Slack',
 };

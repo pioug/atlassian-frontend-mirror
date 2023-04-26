@@ -7,13 +7,15 @@
  */
 //English (United Kingdom)
 export default {
-  "fabric.elements.user-picker.external.sourced.from": "Found in:",
-  "fabric.elements.user-picker.github.provider": "GitHub",
-  "fabric.elements.user-picker.google.provider": "Google",
-  "fabric.elements.user-picker.guest.lozenge.text": "GUEST",
-  "fabric.elements.user-picker.guest.lozenge.tooltip.group": "Guest groups can only access certain spaces and have limited access to user info.",
-  "fabric.elements.user-picker.guest.lozenge.tooltip.user": "Guests can only access certain spaces and have limited access to user info.",
-  "fabric.elements.user-picker.member.lozenge.text": "MEMBER",
-  "fabric.elements.user-picker.microsoft.provider": "Microsoft",
-  "fabric.elements.user-picker.slack.provider": "Slack"
+  'fabric.elements.user-picker.external.sourced.from': 'Found in:',
+  'fabric.elements.user-picker.github.provider': 'GitHub',
+  'fabric.elements.user-picker.google.provider': 'Google',
+  'fabric.elements.user-picker.guest.lozenge.text': 'GUEST',
+  'fabric.elements.user-picker.guest.lozenge.tooltip.group':
+    'Guest groups can only access certain spaces and have limited access to user info.',
+  'fabric.elements.user-picker.guest.lozenge.tooltip.user':
+    'Guests can only access certain spaces and have limited access to user info.',
+  'fabric.elements.user-picker.member.lozenge.text': 'MEMBER',
+  'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
+  'fabric.elements.user-picker.slack.provider': 'Slack',
 };

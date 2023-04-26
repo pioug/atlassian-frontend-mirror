@@ -1,5 +1,17 @@
 # @atlaskit/linking-common
 
+## 2.6.0
+
+### Minor Changes
+
+- [`eceb32a564f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eceb32a564f) - [ux] This adds a new Flexible UI attribute, `OwnedBy`, which represents who owns a resource.
+
+## 2.5.2
+
+### Patch Changes
+
+- [`dc6b9d43e66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dc6b9d43e66) - Increased `ShimmerSkeleton` animation width
+
 ## 2.5.1
 
 ### Patch Changes

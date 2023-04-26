@@ -9,6 +9,7 @@ export default () => (
       primary={[
         { name: ElementName.AuthorGroup },
         { name: ElementName.CreatedBy },
+        { name: ElementName.OwnedBy },
         { name: ElementName.CreatedOn },
         { name: ElementName.CollaboratorGroup },
         { name: ElementName.ModifiedBy },
@@ -23,6 +24,7 @@ export default () => (
         // Repeat
         { name: ElementName.AuthorGroup },
         { name: ElementName.CreatedBy },
+        { name: ElementName.OwnedBy },
         { name: ElementName.CreatedOn },
         { name: ElementName.CollaboratorGroup },
         { name: ElementName.ModifiedBy },

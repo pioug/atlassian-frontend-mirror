@@ -26,8 +26,8 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/linking-common": "^2.5.0",
-    "@atlaskit/linking-types": "^1.0.0",
+    "@atlaskit/linking-common": "^2.6.0",
+    "@atlaskit/linking-types": "^1.1.0",
     "@babel/runtime": "^7.0.0"
   },
   "peerDependencies": {

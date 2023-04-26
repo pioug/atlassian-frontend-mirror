@@ -1,5 +1,12 @@
 # @atlaskit/editor-card-provider
 
+## 2.0.4
+
+### Patch Changes
+
+- [`0624df1ffe1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0624df1ffe1) - Bump json-ld-types dependency
+- Updated dependencies
+
 ## 2.0.3
 
 ### Patch Changes

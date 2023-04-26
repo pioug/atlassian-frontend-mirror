@@ -26,6 +26,16 @@ export default {
     'schema:commentCount': 24,
     'atlassian:subscriberCount': 21,
     'atlassian:titlePrefix': { text: '', '@type': 'atlassian:Emoji' },
+    'atlassian:attributedTo': {
+      '@type': 'Person',
+      name: 'Angie Mccarthy',
+      icon: 'https://person-url',
+    },
+    'atlassian:ownedBy': {
+      '@type': 'Person',
+      name: 'Angie Mccarthy',
+      icon: 'https://person-url',
+    },
     preview: {
       '@type': 'Link',
       href: 'https://preview-url',

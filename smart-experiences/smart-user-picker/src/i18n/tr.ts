@@ -7,13 +7,15 @@
  */
 //Turkish (Turkey)
 export default {
-  "fabric.elements.user-picker.external.sourced.from": "Bulunduğu yer:",
-  "fabric.elements.user-picker.github.provider": "GitHub",
-  "fabric.elements.user-picker.google.provider": "Google",
-  "fabric.elements.user-picker.guest.lozenge.text": "KONUK",
-  "fabric.elements.user-picker.guest.lozenge.tooltip.group": "Konuk gruplar yalnızca bazı alanlara erişebilir ve kullanıcı bilgilerine erişimleri de kısıtlıdır.",
-  "fabric.elements.user-picker.guest.lozenge.tooltip.user": "Konuklar yalnızca bazı alanlara erişebilir ve kullanıcı bilgilerine erişimleri de kısıtlıdır.",
-  "fabric.elements.user-picker.member.lozenge.text": "ÜYE",
-  "fabric.elements.user-picker.microsoft.provider": "Microsoft",
-  "fabric.elements.user-picker.slack.provider": "Slack"
+  'fabric.elements.user-picker.external.sourced.from': 'Bulunduğu yer:',
+  'fabric.elements.user-picker.github.provider': 'GitHub',
+  'fabric.elements.user-picker.google.provider': 'Google',
+  'fabric.elements.user-picker.guest.lozenge.text': 'KONUK',
+  'fabric.elements.user-picker.guest.lozenge.tooltip.group':
+    'Konuk gruplar yalnızca bazı alanlara erişebilir ve kullanıcı bilgilerine erişimleri de kısıtlıdır.',
+  'fabric.elements.user-picker.guest.lozenge.tooltip.user':
+    'Konuklar yalnızca bazı alanlara erişebilir ve kullanıcı bilgilerine erişimleri de kısıtlıdır.',
+  'fabric.elements.user-picker.member.lozenge.text': 'ÜYE',
+  'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
+  'fabric.elements.user-picker.slack.provider': 'Slack',
 };

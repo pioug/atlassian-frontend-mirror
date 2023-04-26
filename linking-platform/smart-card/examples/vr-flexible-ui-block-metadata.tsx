@@ -15,6 +15,11 @@ const cardState = getCardState({
   'atlassian:state': 'open',
   'atlassian:subscriberCount': 999,
   'atlassian:updatedBy': { '@type': 'Person', name: 'Tweak' },
+  'atlassian:ownedBy': [
+    { '@type': 'Person', name: 'Fluffy' },
+    { '@type': 'Person', name: 'Kirara' },
+    { '@type': 'Person', name: 'Tweak' },
+  ],
   attributedTo: [
     { '@type': 'Person', name: 'Fluffy' },
     { '@type': 'Person', name: 'Kirara' },
@@ -40,6 +45,7 @@ const multiLineElements: ElementItem[] = [
   ...elements,
   { name: ElementName.SubscriberCount },
   { name: ElementName.CreatedBy },
+  { name: ElementName.OwnedBy },
   { name: ElementName.CreatedOn },
   { name: ElementName.ModifiedBy },
   { name: ElementName.ModifiedOn },

@@ -55,6 +55,23 @@ export const mockConfluenceResponse = {
   },
 };
 
+export const mockConfluenceResponseWithOwnedBy = {
+  meta: {
+    ...mockBaseResponse.meta,
+    key: 'confluence-object-provider',
+  },
+  data: {
+    ...mockBaseResponse.data,
+    'schema:commentCount': 4,
+    'atlassian:reactCount': 8,
+    generator: {
+      '@type': 'Application',
+      '@id': 'https://www.atlassian.com/#Confluence',
+      name: 'Confluence',
+    },
+  },
+};
+
 export const mockJiraResponse = {
   meta: {
     ...mockBaseResponse.meta,

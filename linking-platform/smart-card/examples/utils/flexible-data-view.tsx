@@ -4,6 +4,7 @@ import React from 'react';
 import { token } from '@atlaskit/tokens';
 import {
   Card,
+  ElementItem,
   ElementName,
   FooterBlock,
   MetadataBlock,
@@ -111,12 +112,14 @@ const FlexibleDataView: React.FC<{ url?: string }> = ({ url }) => (
           onClick: () => {},
         }))}
       />
-      <MetadataBlock primary={[{ name: 'ElementItem' as ElementName }]} />
+      <MetadataBlock
+        primary={[{ name: 'ElementItem' as ElementName } as ElementItem]}
+      />
       {metadataElements.map((name, idx) => (
         <MetadataBlock
           key={idx}
           maxLines={1}
-          primary={[{ name }]}
+          primary={[{ name } as ElementItem]}
           testId={name}
         />
       ))}

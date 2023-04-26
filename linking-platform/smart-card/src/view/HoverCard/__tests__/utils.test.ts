@@ -1,7 +1,7 @@
 import { JsonLd } from 'json-ld-types';
 
 import { toActionableMetadata } from '../utils';
-import { ElementName } from '@atlaskit/smart-card';
+import { ElementItem, ElementName } from '@atlaskit/smart-card';
 
 describe('toActionableMetadata', () => {
   const onActionClick = jest.fn();
@@ -18,7 +18,7 @@ describe('toActionableMetadata', () => {
       { name: ElementName.AuthorGroup },
       { name: ElementName.State },
       { name: ElementName.Priority },
-    ];
+    ] as ElementItem[];
     const jiraCardActions = [
       {
         id: 'preview-content',
@@ -109,7 +109,9 @@ describe('toActionableMetadata', () => {
   });
 
   it('returns element items', () => {
-    const expectedElementItems = [{ name: ElementName.CommentCount }];
+    const expectedElementItems = [
+      { name: ElementName.CommentCount },
+    ] as ElementItem[];
     const elementItems = toActionableMetadata(
       onActionClick,
       extensionKey,
@@ -125,7 +127,7 @@ describe('toActionableMetadata', () => {
     const expectedElementItems = [
       { name: ElementName.CommentCount },
       { name: ElementName.SubscriberCount },
-    ];
+    ] as ElementItem[];
     const elementItems = toActionableMetadata(
       onActionClick,
       extensionKey,

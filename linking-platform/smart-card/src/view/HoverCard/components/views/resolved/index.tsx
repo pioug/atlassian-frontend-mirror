@@ -79,7 +79,7 @@ const HoverCardResolvedView: React.FC<HoverCardResolvedProps> = ({
   const { primary, secondary } = useMemo(() => {
     const types = data ? extractType(data) : undefined;
     //TODO: EDM-3224 deleted simulated and use real JsonLd
-    const metadata = extractMetadata(getSimulatedMetadata(extensionKey, types));
+    const metadata = extractMetadata(getSimulatedMetadata(extensionKey, data));
 
     const primary = showActionableElement
       ? toActionableMetadata(

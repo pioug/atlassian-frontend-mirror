@@ -7,13 +7,14 @@
  */
 //Chinese (Traditional)
 export default {
-  "smart-experiences.smart-hooks.external.sourced.from": "尋找位置：",
-  "smart-experiences.smart-hooks.github.provider": "GitHub",
-  "smart-experiences.smart-hooks.google.provider": "Google",
-  "smart-experiences.smart-hooks.guest.lozenge.text": "訪客",
-  "smart-experiences.smart-hooks.guest.lozenge.tooltip.group": "訪客群組只能存取特定空間，而且只能存取有限的使用者資訊。",
-  "smart-experiences.smart-hooks.guest.lozenge.tooltip.user": "訪客只能存取特定空間，而且只能存取有限的使用者資訊。",
-  "smart-experiences.smart-hooks.member.lozenge.text": "成員",
-  "smart-experiences.smart-hooks.microsoft.provider": "Microsoft",
-  "smart-experiences.smart-hooks.slack.provider": "Slack"
+  'smart-experiences.smart-hooks.external.sourced.from': '尋找位置：',
+  'smart-experiences.smart-hooks.github.provider': 'GitHub',
+  'smart-experiences.smart-hooks.google.provider': 'Google',
+  'smart-experiences.smart-hooks.guest.lozenge.text': '訪客',
+  'smart-experiences.smart-hooks.guest.lozenge.tooltip.group':
+    '訪客群組只能存取特定空間，而且只能存取有限的使用者資訊。',
+  'smart-experiences.smart-hooks.guest.lozenge.tooltip.user': '訪客只能存取特定空間，而且只能存取有限的使用者資訊。',
+  'smart-experiences.smart-hooks.member.lozenge.text': '成員',
+  'smart-experiences.smart-hooks.microsoft.provider': 'Microsoft',
+  'smart-experiences.smart-hooks.slack.provider': 'Slack',
 };

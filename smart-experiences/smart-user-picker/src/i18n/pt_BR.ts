@@ -7,13 +7,15 @@
  */
 //Portuguese (Brazil)
 export default {
-  "fabric.elements.user-picker.external.sourced.from": "Encontrado em:",
-  "fabric.elements.user-picker.github.provider": "GitHub",
-  "fabric.elements.user-picker.google.provider": "Google",
-  "fabric.elements.user-picker.guest.lozenge.text": "CONVIDADO",
-  "fabric.elements.user-picker.guest.lozenge.tooltip.group": "Os grupos de convidados só podem acessar determinados espaços e têm acesso limitado às informações do usuário.",
-  "fabric.elements.user-picker.guest.lozenge.tooltip.user": "Os convidados só podem acessar determinados espaços e têm acesso limitado às informações do usuário.",
-  "fabric.elements.user-picker.member.lozenge.text": "Membro",
-  "fabric.elements.user-picker.microsoft.provider": "Microsoft",
-  "fabric.elements.user-picker.slack.provider": "Slack"
+  'fabric.elements.user-picker.external.sourced.from': 'Encontrado em:',
+  'fabric.elements.user-picker.github.provider': 'GitHub',
+  'fabric.elements.user-picker.google.provider': 'Google',
+  'fabric.elements.user-picker.guest.lozenge.text': 'CONVIDADO',
+  'fabric.elements.user-picker.guest.lozenge.tooltip.group':
+    'Os grupos de convidados só podem acessar determinados espaços e têm acesso limitado às informações do usuário.',
+  'fabric.elements.user-picker.guest.lozenge.tooltip.user':
+    'Os convidados só podem acessar determinados espaços e têm acesso limitado às informações do usuário.',
+  'fabric.elements.user-picker.member.lozenge.text': 'Membro',
+  'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
+  'fabric.elements.user-picker.slack.provider': 'Slack',
 };

@@ -18,6 +18,7 @@ const context: FlexibleUiDataContext = {
   ],
   collaboratorGroup: [{ name: 'James Bond' }, { name: 'Spiderman' }],
   createdBy: 'Doctor Stephen Vincent Strange',
+  ownedBy: 'Bruce Banner',
   createdOn: '2020-02-04T12:40:12.353+0800',
   dueOn: '2022-02-22T12:40:12.353+0800',
   latestCommit: '03e6a82',

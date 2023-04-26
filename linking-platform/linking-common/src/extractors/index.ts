@@ -51,6 +51,7 @@ export {
   extractDateViewed,
   extractMembers,
   extractPersonAssignedTo,
+  extractPersonOwnedBy,
   extractPersonCreatedBy,
   extractPersonUpdatedBy,
   extractPersonFromJsonLd,

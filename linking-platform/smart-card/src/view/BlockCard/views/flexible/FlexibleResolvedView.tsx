@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import FlexibleCard from '../../../FlexibleCard';
 import TitleBlock from '../../../FlexibleCard/components/blocks/title-block';
+import { ElementItem } from '../../../FlexibleCard/components/blocks/types';
 import {
   FooterBlock,
   MetadataBlock,
@@ -16,6 +17,8 @@ import {
 } from '../../../../constants';
 import { FlexibleBlockCardProps } from './types';
 import uuid from 'uuid';
+import { extractOwnedBy } from '../../../../extractors/flexible/utils';
+import { JsonLd } from 'json-ld-types';
 
 /**
  * This view represents a Block card that has an 'Resolved' status.
@@ -43,6 +46,23 @@ const FlexibleResolvedView = ({
 
   const [analyticsId] = useState(() => (id ? id : uuid()));
 
+  const baseMetadata: ElementItem[] = [
+    { name: ElementName.ModifiedOn },
+    { name: ElementName.AttachmentCount },
+    { name: ElementName.CommentCount },
+    { name: ElementName.ReactCount },
+    { name: ElementName.SubscriberCount },
+    { name: ElementName.ViewCount },
+    { name: ElementName.VoteCount },
+    { name: ElementName.ChecklistProgress },
+    { name: ElementName.DueOn },
+  ];
+  const metadata: ElementItem[] =
+    cardState?.details?.data &&
+    extractOwnedBy(cardState?.details?.data as JsonLd.Data.BaseData)
+      ? [{ name: ElementName.OwnedBy }, ...baseMetadata]
+      : [{ name: ElementName.ModifiedBy }, ...baseMetadata];
+
   return (
     <FlexibleCard
       appearance="block"
@@ -64,21 +84,8 @@ const FlexibleResolvedView = ({
         ]}
         hideRetry={true}
       />
-      <MetadataBlock
-        primary={[
-          { name: ElementName.ModifiedBy },
-          { name: ElementName.ModifiedOn },
-          { name: ElementName.AttachmentCount },
-          { name: ElementName.CommentCount },
-          { name: ElementName.ReactCount },
-          { name: ElementName.SubscriberCount },
-          { name: ElementName.ViewCount },
-          { name: ElementName.VoteCount },
-          { name: ElementName.ChecklistProgress },
-          { name: ElementName.DueOn },
-        ]}
-        maxLines={1}
-      />
+      <MetadataBlock primary={metadata} maxLines={1} />
+
       <SnippetBlock />
       {!isPreviewBlockErrored ? (
         <PreviewBlock

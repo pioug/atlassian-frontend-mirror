@@ -442,6 +442,7 @@ type ElementItemProps =
   | LinkIcon
   | ModifiedBy
   | ModifiedOn
+  | OwnedBy
   | Preview
   | Priority
   | ProgrammingLanguage
@@ -482,6 +483,8 @@ export enum ElementName {
   ModifiedBy = 'ModifiedBy',
   // (undocumented)
   ModifiedOn = 'ModifiedOn',
+  // (undocumented)
+  OwnedBy = 'OwnedBy',
   // (undocumented)
   Preview = 'Preview',
   // (undocumented)
@@ -669,6 +672,11 @@ type OnResolveCallback = (data: {
   title?: string;
   aspectRatio?: number;
 }) => void;
+
+// @public
+type OwnedBy = {
+  name: ElementName.OwnedBy;
+};
 
 // @public
 type Preview = {
@@ -1228,7 +1236,7 @@ type VoteCount = {
 
 ```json
 {
-  "@atlaskit/link-provider": "^1.5.3",
+  "@atlaskit/link-provider": "^1.5.4",
   "react": "^16.8.0",
   "react-dom": "^16.8.0",
   "react-intl-next": "npm:react-intl@^5.18.1"

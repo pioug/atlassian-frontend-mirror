@@ -7,13 +7,15 @@
  */
 //Swedish
 export default {
-  "smart-experiences.smart-hooks.external.sourced.from": "Hittades i:",
-  "smart-experiences.smart-hooks.github.provider": "GitHub",
-  "smart-experiences.smart-hooks.google.provider": "Google",
-  "smart-experiences.smart-hooks.guest.lozenge.text": "GÄST",
-  "smart-experiences.smart-hooks.guest.lozenge.tooltip.group": "Gästgrupper kan endast komma åt vissa utrymmen och har begränsad åtkomst till användarinformation.",
-  "smart-experiences.smart-hooks.guest.lozenge.tooltip.user": "Gästerna kan endast komma åt vissa utrymmen och har begränsad åtkomst till användarinformation.",
-  "smart-experiences.smart-hooks.member.lozenge.text": "medlem",
-  "smart-experiences.smart-hooks.microsoft.provider": "Microsoft",
-  "smart-experiences.smart-hooks.slack.provider": "Slack"
+  'smart-experiences.smart-hooks.external.sourced.from': 'Hittades i:',
+  'smart-experiences.smart-hooks.github.provider': 'GitHub',
+  'smart-experiences.smart-hooks.google.provider': 'Google',
+  'smart-experiences.smart-hooks.guest.lozenge.text': 'GÄST',
+  'smart-experiences.smart-hooks.guest.lozenge.tooltip.group':
+    'Gästgrupper kan endast komma åt vissa utrymmen och har begränsad åtkomst till användarinformation.',
+  'smart-experiences.smart-hooks.guest.lozenge.tooltip.user':
+    'Gästerna kan endast komma åt vissa utrymmen och har begränsad åtkomst till användarinformation.',
+  'smart-experiences.smart-hooks.member.lozenge.text': 'medlem',
+  'smart-experiences.smart-hooks.microsoft.provider': 'Microsoft',
+  'smart-experiences.smart-hooks.slack.provider': 'Slack',
 };

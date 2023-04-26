@@ -10,6 +10,7 @@ export {
 export {
   extractMembers,
   extractPersonAssignedTo,
+  extractPersonOwnedBy,
   extractPersonCreatedBy,
   extractPersonUpdatedBy,
   extractPersonFromJsonLd,

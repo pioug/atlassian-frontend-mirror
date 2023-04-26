@@ -1,5 +1,11 @@
 # @atlaskit/page-header
 
+## 10.3.6
+
+### Patch Changes
+
+- [`f8a61ff6218`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f8a61ff6218) - Enrol @atlaskit/page-header on push model consumption in Jira
+
 ## 10.3.5
 
 ### Patch Changes

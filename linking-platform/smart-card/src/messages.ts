@@ -43,6 +43,7 @@ export type MessageKey =
   | 'not_found_title'
   | 'not_found_description'
   | 'open_link_in_a_new_tab'
+  | 'owned_by'
   | 'preview'
   | 'preview_close'
   | 'preview_max_size'
@@ -313,6 +314,12 @@ export const messages: Messages = defineMessages({
     id: 'fabric.linking.open_link_in_a_new_tab',
     defaultMessage: 'Open link in a new tab',
     description: 'Click to open link in a new tab',
+  },
+  owned_by: {
+    id: 'fabric.linking.owned_by',
+    defaultMessage: 'Owned by {context}',
+    description:
+      'Indicates the person or entity that owns or maintains the resource.',
   },
   preview: {
     id: 'fabric.linking.preview',

@@ -58,7 +58,7 @@
     "react-intl-next": "npm:react-intl@^5.18.1"
   },
   "devDependencies": {
-    "@af/analytics-codegen": "^0.0.3",
+    "@af/analytics-codegen": "^0.0.4",
     "@atlaskit/activity-provider": "^2.3.2",
     "@atlaskit/docs": "*",
     "@atlaskit/link-analytics": "^7.0.0",

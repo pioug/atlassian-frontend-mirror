@@ -1,13 +1,15 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
-import InlineDialog from '@atlaskit/inline-dialog';
-import Spinner from '@atlaskit/spinner';
+
+import { render, fireEvent, waitFor, screen } from '@testing-library/react';
+
 import FieldBase, { FieldBaseStateless } from '../..';
-import { ChildWrapper, Content } from '../../styled/Content';
-import { WarningIcon } from '../../components/ValidationElement';
 
 const onFocus = () => {};
 const onBlur = () => {};
+
+const testId = 'field-base';
+const contentTestId = 'field-base-content';
+const dialogTestId = 'field-base-dialog';
 
 // Stub window.cancelAnimationFrame, so Popper (used in Layer) doesn't error when accessing it.
 const animStub = window.cancelAnimationFrame;
@@ -19,282 +21,441 @@ afterEach(() => {
   window.cancelAnimationFrame = animStub;
 });
 
-describe('properties by default', () => {
+describe('FieldBase', () => {
   it('should render a content', () => {
-    expect(
-      shallow(<FieldBaseStateless onFocus={onFocus} onBlur={onBlur} />).find(
-        Content,
-      ).length,
-    ).toBeGreaterThan(0);
+    render(
+      <FieldBaseStateless onFocus={onFocus} onBlur={onBlur} testId={testId} />,
+    );
+
+    expect(screen.getByTestId(contentTestId)).toBeInTheDocument();
   });
-});
 
-describe('isReadOnly prop = true', () => {
-  it('should render with the readOnly prop', () => {
-    expect(
-      shallow(
-        <FieldBaseStateless onFocus={onFocus} onBlur={onBlur} isReadOnly />,
-      )
-        .find(Content)
-        .prop('readOnly'),
-    ).toBe(true);
-  });
-});
-
-describe('isFocused prop = true', () => {
-  it('should render the content with the isFocused prop', () =>
-    expect(
-      shallow(
-        <FieldBaseStateless onFocus={onFocus} onBlur={onBlur} isFocused />,
-      )
-        .find(Content)
-        .prop('isFocused'),
-    ).toBe(true));
-});
-
-describe('is{p}addingDisabled prop = true', () => {
-  it('should render the content with the paddingDisabled prop', () =>
-    expect(
-      shallow(
+  describe('isReadOnly prop = true', () => {
+    it('should render with the readOnly prop', async () => {
+      render(
         <FieldBaseStateless
           onFocus={onFocus}
           onBlur={onBlur}
-          isPaddingDisabled
+          testId={testId}
+          isReadOnly
+          isFocused={false}
         />,
-      )
-        .find(Content)
-        .prop('paddingDisabled'),
-    ).toBe(true));
-});
+      );
 
-describe('isInvalid prop = true', () => {
-  it('should render with the isFocused styles and not the isInvalid styles', () => {
-    const Invalid = mount(
-      <FieldBaseStateless onFocus={onFocus} onBlur={onBlur} isInvalid />,
-    );
-    expect(Invalid.find(Content).prop('invalid')).toBe(true);
-    expect(Invalid.find(WarningIcon).length).toBeGreaterThan(0);
+      await waitFor(() =>
+        expect(screen.getByTestId(contentTestId)).toHaveAttribute('readonly'),
+      );
+    });
   });
 
-  it('should render the warning icon', () =>
-    expect(
-      mount(
-        <FieldBaseStateless onFocus={onFocus} onBlur={onBlur} isInvalid />,
-      ).find(WarningIcon).length,
-    ).toBeGreaterThan(0));
-});
+  describe('isFocused prop', () => {
+    it('should apply focused styles if set to true', () => {
+      render(
+        <FieldBaseStateless
+          onFocus={onFocus}
+          onBlur={onBlur}
+          testId={testId}
+          isFocused
+        />,
+      );
 
-describe('isDisabled prop = true AND isInvalid prop = true', () => {
-  it('should not render the warning icon', () => {
-    expect(
-      shallow(
+      expect(screen.getByTestId(contentTestId)).toHaveStyle(
+        'background-color: rgb(255, 255, 255)',
+      );
+    });
+
+    it('should not apply focused styles if set to false', () => {
+      render(
+        <FieldBaseStateless
+          onFocus={onFocus}
+          onBlur={onBlur}
+          testId={testId}
+          isFocused={false}
+        />,
+      );
+
+      expect(screen.getByTestId(contentTestId)).toHaveStyle(
+        'background-color: rgb(250, 251, 252)',
+      );
+    });
+  });
+
+  describe('isPaddingDisabled prop', () => {
+    it('should apply disabled padding styles if set to true', () => {
+      render(
+        <FieldBaseStateless
+          onFocus={onFocus}
+          onBlur={onBlur}
+          testId={testId}
+          isPaddingDisabled
+        />,
+      );
+
+      expect(screen.getByTestId(contentTestId)).toHaveStyle('padding: 0px');
+    });
+
+    it('should not apply disabled padding styles if set to false', () => {
+      render(
+        <FieldBaseStateless
+          onFocus={onFocus}
+          onBlur={onBlur}
+          testId={testId}
+          isPaddingDisabled={false}
+        />,
+      );
+
+      expect(screen.getByTestId(contentTestId)).toHaveStyle('padding: 6px 6px');
+    });
+  });
+
+  describe('isInvalid prop', () => {
+    it('should render with the isFocused styles and not the isInvalid styles', () => {
+      render(
+        <FieldBaseStateless
+          onFocus={onFocus}
+          onBlur={onBlur}
+          testId={testId}
+          isInvalid
+        />,
+      );
+
+      expect(screen.getByTestId(contentTestId)).toHaveStyle(
+        'background-color: rgb(250, 251, 252)',
+      );
+    });
+
+    it('should render the warning icon', () => {
+      render(
+        <FieldBaseStateless
+          onFocus={onFocus}
+          onBlur={onBlur}
+          testId={testId}
+          isInvalid
+        />,
+      );
+
+      expect(screen.getByLabelText('warning')).toBeInTheDocument();
+    });
+  });
+
+  describe('isDisabled prop', () => {
+    it('should apply disabled styles if set to true', () => {
+      render(
         <FieldBaseStateless
           onFocus={onFocus}
           onBlur={onBlur}
           isDisabled
           isInvalid
+          testId={testId}
         />,
-      ).find(WarningIcon).length,
-    ).toBe(0);
-  });
-});
+      );
 
-describe('invalidMessage prop', () => {
-  it('should be reflected to the inline dialog content', () => {
-    const stringContent = 'invalid msg content';
-    expect(
-      shallow(
+      expect(screen.getByTestId(contentTestId)).toHaveStyle(
+        'pointer-events: none',
+      );
+      expect(screen.getByTestId(contentTestId)).toHaveStyle(
+        'background-color: rgb(244, 245, 247)',
+      );
+    });
+  });
+
+  describe('isDisabled prop = true AND isInvalid prop = true', () => {
+    it('should not render the warning icon', () => {
+      render(
+        <FieldBaseStateless
+          onFocus={onFocus}
+          onBlur={onBlur}
+          isDisabled
+          isInvalid
+          testId={testId}
+        />,
+      );
+
+      expect(screen.queryByLabelText('warning')).not.toBeInTheDocument();
+    });
+  });
+
+  describe('invalidMessage prop', () => {
+    it('should be reflected in the inline dialog content', () => {
+      const stringContent = 'invalid msg content';
+      render(
         <FieldBaseStateless
           onFocus={onFocus}
           onBlur={onBlur}
           invalidMessage={stringContent}
-        />,
-      )
-        .find(InlineDialog)
-        .props().content,
-    ).toBe(stringContent);
-  });
-});
-
-describe('isFocused prop = true AND isInvalid prop = true', () => {
-  it('should render with the isFocused styles and not the isInvalid styles', () => {
-    const wrapper = shallow(
-      <FieldBaseStateless
-        onFocus={onFocus}
-        onBlur={onBlur}
-        isFocused
-        isInvalid
-      />,
-    );
-    expect(wrapper.find(Content).prop('isFocused')).toBe(true);
-    expect(wrapper.find(Content).prop('invalid')).toBe(false);
-  });
-});
-
-describe('isCompact prop = true', () => {
-  it('should render the content with the compact prop', () => {
-    const wrapper = shallow(
-      <FieldBaseStateless onFocus={onFocus} onBlur={onBlur} isCompact />,
-    );
-    expect(wrapper.find(ChildWrapper).props().compact).toBe(true);
-    expect(wrapper.find(Content).props().compact).toBe(true);
-  });
-});
-
-describe('isDialogOpen prop', () => {
-  it('reflects value to InlineDialog isOpen if invalidMessage prop is provided', () => {
-    const wrapper = shallow(
-      <FieldBaseStateless
-        onFocus={onFocus}
-        onBlur={onBlur}
-        isDialogOpen
-        invalidMessage="test"
-      />,
-    );
-    expect(wrapper.find(InlineDialog).props().isOpen).toBe(true);
-  });
-
-  it('reflects value to InlineDialog isOpen if invalidMessage prop is not provided', () => {
-    const wrapper = shallow(
-      <FieldBaseStateless onFocus={onFocus} onBlur={onBlur} isDialogOpen />,
-    );
-    expect(wrapper.find(InlineDialog).props().isOpen).toBe(false);
-  });
-});
-
-describe('appearance', () => {
-  it('should render the content with the subtle attribute', () =>
-    expect(
-      shallow(
-        <FieldBaseStateless
-          onFocus={onFocus}
-          onBlur={onBlur}
-          appearance="subtle"
-        />,
-      )
-        .find(Content)
-        .prop('subtle'),
-    ).toBe(true));
-});
-
-describe('shouldReset', () => {
-  it('should call onBlur when set', () => {
-    const spy = jest.fn();
-    const wrapper = mount(
-      <FieldBaseStateless onFocus={onFocus} onBlur={spy} />,
-    );
-    wrapper.setProps({ shouldReset: true });
-    expect(spy).toHaveBeenCalled();
-  });
-});
-
-describe('isLoading', () => {
-  it('should render Spinner', () => {
-    const wrapper = mount(
-      <FieldBaseStateless onFocus={onFocus} onBlur={onBlur} isLoading />,
-    );
-    expect(wrapper.find(Spinner).length).toBe(1);
-    wrapper.setProps({ isLoading: false });
-    expect(wrapper.find(Spinner).length).toBe(0);
-  });
-
-  describe('and isInvalid', () => {
-    it('should not render Spinner', () => {
-      const wrapper = mount(
-        <FieldBaseStateless
-          onFocus={onFocus}
-          onBlur={onBlur}
-          isLoading
-          isInvalid
+          isDialogOpen
+          testId={testId}
         />,
       );
-      expect(wrapper.find(Spinner).length).toBe(0);
+
+      expect(screen.getByTestId(dialogTestId)).toBeInTheDocument();
+      expect(screen.getByText(stringContent)).toBeInTheDocument();
     });
   });
-});
 
-describe('focus behaviour', () => {
-  let wrapper;
+  describe('isFocused prop = true AND isInvalid prop = true', () => {
+    it('should render with the isFocused styles and not the isInvalid styles', () => {
+      render(
+        <FieldBaseStateless
+          onFocus={onFocus}
+          onBlur={onBlur}
+          isFocused
+          isInvalid
+          testId={testId}
+        />,
+      );
 
-  beforeEach(() => {
-    wrapper = mount(<FieldBaseStateless onFocus={onFocus} onBlur={onBlur} />);
-    wrapper.find(Content).simulate('focus');
+      expect(screen.getByTestId(contentTestId)).toHaveStyle(
+        'background-color: rgb(255, 255, 255)',
+      );
+    });
   });
 
-  it('should call onFocus', () => {
-    const spy = jest.fn();
-    wrapper = mount(<FieldBaseStateless onBlur={onBlur} onFocus={spy} />);
-    wrapper.find(Content).simulate('focus');
-    expect(spy).toHaveBeenCalledTimes(1);
+  describe('isCompact prop', () => {
+    it('should apply compact styles if set to true', () => {
+      render(
+        <FieldBaseStateless
+          onFocus={onFocus}
+          onBlur={onBlur}
+          isCompact
+          testId={testId}
+        />,
+      );
+
+      expect(screen.getByTestId(contentTestId)).toHaveStyle(
+        `line-height: ${16 / 14}`,
+      );
+    });
+
+    it('should not apply compact styles if set to false', () => {
+      render(
+        <FieldBaseStateless
+          onFocus={onFocus}
+          onBlur={onBlur}
+          isCompact={false}
+          testId={testId}
+        />,
+      );
+
+      expect(screen.getByTestId(contentTestId)).toHaveStyle(
+        `line-height: ${20 / 14}`,
+      );
+    });
   });
 
-  it('should call onBlur', () => {
-    const spy = jest.fn();
-    wrapper = mount(<FieldBaseStateless onFocus={onFocus} onBlur={spy} />);
-    wrapper.find(Content).simulate('blur');
-    expect(spy).toHaveBeenCalledTimes(1);
-  });
-});
+  describe('isDialogOpen prop', () => {
+    it('should render dialog if invalidMessage prop is provided', () => {
+      render(
+        <FieldBaseStateless
+          onFocus={onFocus}
+          onBlur={onBlur}
+          isDialogOpen
+          invalidMessage="test"
+          testId={testId}
+        />,
+      );
 
-describe('smart component', () => {
-  beforeEach(() => {
-    jest.useFakeTimers();
-  });
+      expect(screen.getByTestId(dialogTestId)).toBeInTheDocument();
+    });
 
-  afterEach(() => {
-    jest.useRealTimers();
-  });
+    it('should not render dialog if invalidMessage prop is not provided', () => {
+      render(
+        <FieldBaseStateless
+          onFocus={onFocus}
+          onBlur={onBlur}
+          isDialogOpen
+          testId={testId}
+        />,
+      );
 
-  const isDialogOpened = (wrapper) => wrapper.find(InlineDialog).prop('isOpen');
+      expect(screen.queryByTestId(dialogTestId)).not.toBeInTheDocument();
+    });
 
-  const openDialog = (wrapper) => {
-    expect(isDialogOpened(wrapper)).toBe(false);
-    wrapper.find(Content).simulate('focus'); // open the dialog
-    expect(isDialogOpened(wrapper)).toBe(true);
-  };
+    it('should not render dialog if set to false', () => {
+      render(
+        <FieldBaseStateless
+          onFocus={onFocus}
+          onBlur={onBlur}
+          isDialogOpen={false}
+          testId={testId}
+          invalidMessage="test"
+        />,
+      );
 
-  it('should call onFocus handler', () => {
-    const spy = jest.fn();
-    const wrapper = mount(<FieldBase onFocus={spy} />);
-    wrapper.find(Content).simulate('focus');
-    expect(spy).toHaveBeenCalledTimes(1);
-  });
-
-  it('should call onBlur handler', () => {
-    const spy = jest.fn();
-    const wrapper = mount(<FieldBase onBlur={spy} />);
-    wrapper.find(Content).simulate('blur');
-    jest.runOnlyPendingTimers();
-    expect(spy).toHaveBeenCalledTimes(1);
-  });
-  it('should close the dialog when focus goes away from both the element and the dialog', () => {
-    const invalidMessage = <div className="errorMessage">foo</div>;
-    const wrapper = mount(
-      <FieldBase isInvalid invalidMessage={invalidMessage} />,
-    );
-
-    openDialog(wrapper);
-
-    wrapper.find('.errorMessage').simulate('focus');
-
-    wrapper.find('.errorMessage').simulate('blur');
-    wrapper.find(Content).simulate('blur');
-
-    jest.runTimersToTime(10);
-    wrapper.update();
-    expect(isDialogOpened(wrapper)).toBe(false);
+      expect(screen.queryByTestId(dialogTestId)).not.toBeInTheDocument();
+    });
   });
 
-  it('should retain focus when blur and focus happen one by one', () => {
-    const wrapper = mount(<FieldBase onFocus={onFocus} onBlur={onBlur} />);
-    const contentContainer = wrapper.find(Content);
-    contentContainer.simulate('blur'); // this should be robust enough to handle even two
-    // "blur" events, one by one (faced it in the browser)
-    contentContainer.simulate('blur');
-    contentContainer.simulate('focus');
+  describe('appearance', () => {
+    it('should render the content with the subtle attribute', () => {
+      render(
+        <FieldBaseStateless
+          onFocus={onFocus}
+          onBlur={onBlur}
+          testId={testId}
+          appearance="subtle"
+        />,
+      );
 
-    jest.runTimersToTime(10);
+      expect(screen.getByTestId(contentTestId)).toHaveStyle(
+        `background-color: transparent`,
+      );
+    });
+  });
 
-    expect(wrapper.state('isFocused')).toBe(true);
+  describe('shouldReset', () => {
+    it('should call onBlur when set', () => {
+      const onBlurSpy = jest.fn();
+      const { rerender } = render(
+        <FieldBaseStateless onFocus={onFocus} onBlur={onBlurSpy} />,
+      );
+
+      rerender(
+        <FieldBaseStateless onFocus={onFocus} onBlur={onBlurSpy} shouldReset />,
+      );
+
+      expect(onBlurSpy).toHaveBeenCalled();
+    });
+  });
+
+  describe('isLoading', () => {
+    it('should render Spinner', () => {
+      const { rerender } = render(
+        <FieldBaseStateless onFocus={onFocus} onBlur={onBlur} isLoading />,
+      );
+
+      expect(screen.queryByTestId('field-base-spinner')).toBeInTheDocument();
+
+      rerender(
+        <FieldBaseStateless
+          onFocus={onFocus}
+          onBlur={onBlur}
+          isLoading={false}
+        />,
+      );
+
+      expect(
+        screen.queryByTestId('field-base-spinner'),
+      ).not.toBeInTheDocument();
+    });
+
+    describe('and isInvalid', () => {
+      it('should not render Spinner', () => {
+        render(
+          <FieldBaseStateless
+            onFocus={onFocus}
+            onBlur={onBlur}
+            isLoading
+            isInvalid
+          />,
+        );
+
+        expect(
+          screen.queryByTestId('field-base-spinner'),
+        ).not.toBeInTheDocument();
+        expect(screen.getByLabelText('warning')).toBeInTheDocument();
+      });
+    });
+  });
+
+  describe('focus behaviour', () => {
+    it('should call onFocus', async () => {
+      const onFocusSpy = jest.fn();
+      render(
+        <FieldBaseStateless
+          onFocus={onFocusSpy}
+          onBlur={onBlur}
+          testId={testId}
+        />,
+      );
+
+      await fireEvent.focus(screen.getByTestId(contentTestId));
+
+      expect(onFocusSpy).toHaveBeenCalledTimes(1);
+    });
+
+    it('should call onBlur', async () => {
+      const onBlurSpy = jest.fn();
+      render(
+        <FieldBaseStateless
+          onFocus={onFocus}
+          onBlur={onBlurSpy}
+          testId={testId}
+        />,
+      );
+
+      await fireEvent.blur(screen.getByTestId(contentTestId));
+
+      expect(onBlurSpy).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('smart component', () => {
+    beforeEach(() => {
+      jest.useFakeTimers();
+    });
+
+    afterEach(() => {
+      jest.useRealTimers();
+    });
+
+    it('should call onFocus handler', async () => {
+      const onFocusSpy = jest.fn();
+      render(
+        <FieldBase onFocus={onFocusSpy} onBlur={onBlur} testId={testId} />,
+      );
+
+      await fireEvent.focus(screen.getByTestId(contentTestId));
+
+      expect(onFocusSpy).toHaveBeenCalledTimes(1);
+    });
+
+    it('should call onBlur handler', async () => {
+      const onBlurSpy = jest.fn();
+      render(
+        <FieldBase onFocus={onFocus} onBlur={onBlurSpy} testId={testId} />,
+      );
+
+      await fireEvent.blur(screen.getByTestId(contentTestId));
+
+      jest.runOnlyPendingTimers();
+      expect(onBlurSpy).toHaveBeenCalledTimes(1);
+    });
+
+    it('should close the dialog when focus goes away from both the element and the dialog', async () => {
+      const invalidMessage = <div className="errorMessage">foo</div>;
+      render(
+        <FieldBase isInvalid invalidMessage={invalidMessage} testId={testId} />,
+      );
+
+      expect(screen.queryByTestId(dialogTestId)).toBe(null);
+      await fireEvent.focus(screen.queryByTestId(contentTestId)); // open the dialog
+      expect(screen.queryByTestId(dialogTestId)).not.toBe(null);
+
+      await fireEvent.focus(screen.queryByText('foo'));
+      await fireEvent.blur(screen.queryByText('foo'));
+      await fireEvent.blur(screen.queryByTestId(contentTestId));
+
+      jest.runTimersToTime(10);
+
+      expect(screen.queryByTestId(dialogTestId)).toBe(null);
+    });
+
+    it('should retain focus when blur and focus happen one by one', async () => {
+      render(<FieldBase onFocus={onFocus} onBlur={onBlur} testId={testId} />);
+
+      const contentContainer = screen.getByTestId(contentTestId);
+
+      await fireEvent.blur(contentContainer); // this should be robust enough to handle even two
+      // "blur" events, one by one (faced it in the browser)
+      await fireEvent.blur(contentContainer);
+      await fireEvent.focus(contentContainer);
+
+      await jest.runTimersToTime(10);
+
+      expect(contentContainer).toHaveStyle(
+        'background-color: rgb(255, 255, 255)',
+      );
+    });
   });
 });

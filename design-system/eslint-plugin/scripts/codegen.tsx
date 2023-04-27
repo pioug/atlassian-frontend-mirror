@@ -1,14 +1,15 @@
 import fs from 'fs/promises';
 import { extname, join, relative } from 'path';
 
-import type { Rule } from 'eslint';
 import camelCase from 'lodash/camelCase';
 import { format, resolveConfig } from 'prettier';
 
 import { createSignedArtifact } from '@atlassian/codegen';
 
+import type { LintRule } from '../src/rules/utils/create-rule';
+
 interface FoundRule {
-  module: Rule.RuleModule;
+  module: LintRule;
   moduleName: string;
 }
 
@@ -17,6 +18,14 @@ interface GeneratedConfig {
   path: string;
 }
 
+/**
+ * After moving the rule to the new createLintRule API remove it from this list.
+ */
+const legacyRulesExclusionList = [
+  'ensure-design-token-usage-spacing',
+  'no-deprecated-apis',
+  'no-deprecated-imports',
+];
 const ignoreList = ['index.codegen.tsx', 'TEMPLATE.md', '__tests__', 'utils'];
 const srcDir = join(__dirname, '../src');
 const rulesDir = join(srcDir, 'rules');
@@ -254,13 +263,34 @@ async function generate() {
       ? filename + '.tsx'
       : filename;
 
-    const rule: Rule.RuleModule = (
-      await import(join(rulesDir, filenameWithExt))
-    ).default;
+    const rule: LintRule = (await import(join(rulesDir, filenameWithExt)))
+      .default;
+
     const foundRule = {
       module: rule,
       moduleName: dirname,
     };
+
+    const lintRuleName = foundRule.module.name || foundRule.module.meta.name;
+    if (typeof lintRuleName === 'string') {
+      if (foundRule.moduleName !== lintRuleName) {
+        throw new Error(
+          `invariant: module name ${foundRule.moduleName} does not match lint rule name ${lintRuleName}`,
+        );
+      }
+    } else {
+      if (legacyRulesExclusionList.includes(foundRule.moduleName)) {
+        // eslint-disable-next-line no-console
+        console.warn(
+          `  > The ${foundRule.moduleName} rule should move to the createLintRule() function.`,
+        );
+      } else {
+        throw new Error(
+          `  > invariant: The ${foundRule.moduleName} rule must use the createLintRule() function.`,
+        );
+      }
+    }
+
     rules.push(foundRule);
 
     if (rule.meta?.docs?.recommended) {

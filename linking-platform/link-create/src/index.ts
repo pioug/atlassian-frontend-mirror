@@ -1,5 +1,6 @@
-export type { LinkCreatePlugin, Option } from './ui/types';
+export type { Option } from './ui/types';
 export type { CreateFormProps } from './ui/index';
+export type { LinkCreateProps, LinkCreatePlugin } from './common/types';
 
 export { default, TextField, CreateForm, AsyncSelect } from './ui/index';
 
@@ -12,7 +13,5 @@ export {
   FormContextProvider,
   useFormContext,
 } from './controllers/form-context';
-
-export type { LinkCreateProps } from './ui/types';
 
 export type { Validator, ValidatorMap } from './common/types';

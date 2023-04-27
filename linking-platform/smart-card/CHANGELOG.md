@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 25.6.1
+
+### Patch Changes
+
+- [`72a99128d3e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/72a99128d3e) - Enables CardSSR component to send analytics events.
+
 ## 25.6.0
 
 ### Minor Changes

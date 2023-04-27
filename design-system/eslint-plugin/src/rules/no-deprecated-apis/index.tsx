@@ -60,7 +60,7 @@ const rule = createRule<
     type: 'suggestion',
     docs: {
       description: 'Disallow using deprecated APIs.',
-      recommended: 'warn',
+      recommended: 'error',
     },
     messages: {
       noDeprecatedJSXAttributes:

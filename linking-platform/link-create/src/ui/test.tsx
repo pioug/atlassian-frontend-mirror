@@ -4,9 +4,8 @@ import { render } from '@testing-library/react';
 
 import Button from '@atlaskit/button/standard-button';
 
+import { LinkCreatePlugin } from '../common/types';
 import { useLinkCreateCallback } from '../controllers/callback-context';
-
-import { LinkCreatePlugin } from './types';
 
 import LinkCreate from './index';
 
@@ -22,7 +21,14 @@ describe('LinkCreate', () => {
         <Button
           testId="submit-button"
           appearance="primary"
-          onClick={() => onCreate && onCreate('https://www.atlassian.com')}
+          onClick={() =>
+            onCreate &&
+            onCreate({
+              url: 'https://www.atlassian.com',
+              objectId: '123',
+              objectType: 'page',
+            })
+          }
         >
           Success
         </Button>

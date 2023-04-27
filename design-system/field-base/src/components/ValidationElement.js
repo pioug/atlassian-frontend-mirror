@@ -37,7 +37,7 @@ export default class ValidationElement extends Component {
     }
 
     return this.props.isLoading ? (
-      <SpinnerParent>
+      <SpinnerParent data-testid="field-base-spinner">
         <Spinner size="small" />
       </SpinnerParent>
     ) : null;

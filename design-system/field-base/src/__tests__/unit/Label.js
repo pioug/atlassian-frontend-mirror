@@ -1,127 +1,150 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import { Label } from '../..';
 
-import { RequiredIndicator, LabelInner } from '../../styled/Label';
+const user = userEvent.setup();
 
-const testLabel = 'test';
-const isLabelHidden = true;
+const testLabel = 'test label';
+const testId = 'label';
+const innerTestId = 'label-inner';
 
 describe('ak-field-base', () => {
   describe('Label', () => {
     describe('by default', () => {
       it('should render a label element', () => {
-        expect(
-          shallow(
-            <Label label={testLabel} isLabelHidden={isLabelHidden} />,
-          ).find(LabelInner).length,
-        ).toBeGreaterThan(0);
-      });
-    });
+        render(<Label label={testLabel} testId={testId} />);
 
-    describe('label prop', () => {
-      it('should be reflected in the label element', () => {
-        const label = 'This is a label';
-        const wrapper = mount(<Label label={label} />);
-        expect(wrapper.find(LabelInner).childAt(0).text()).toBe(label);
+        expect(screen.getByTestId(innerTestId)).toBeInTheDocument();
+        expect(screen.getByText(testLabel)).toBeInTheDocument();
       });
     });
 
     describe('hideLabel prop', () => {
-      it('should be reflected in the label element', () => {
-        const label = 'This is a label';
-        const wrapper = mount(<Label label={label} isLabelHidden />);
-        expect(wrapper.find(LabelInner).prop('isHidden')).toBe(true);
+      it('should hide label if set to true', () => {
+        render(<Label label={testLabel} isLabelHidden testId={testId} />);
+
+        expect(screen.getByTestId(innerTestId)).toHaveStyle('display: none');
+      });
+
+      it('should show label if set to false', () => {
+        render(
+          <Label label={testLabel} isLabelHidden={false} testId={testId} />,
+        );
+
+        expect(screen.getByTestId(innerTestId)).toBeVisible();
       });
     });
 
     describe('required prop', () => {
-      it('should append an asterisk to the content', () => {
-        expect(
-          shallow(
-            <Label
-              label={testLabel}
-              isLabelHidden={isLabelHidden}
-              isRequired
-            />,
-          ).find(RequiredIndicator).length,
-        ).toBeGreaterThan(0);
+      it('should append an asterisk to the content if set to true', () => {
+        render(<Label label={testLabel} isRequired />);
+
+        expect(screen.getByText('*')).toBeInTheDocument();
       });
 
-      it('should not append an asterisk to the content if required is not set', () => {
-        expect(
-          shallow(
-            <Label label={testLabel} isLabelHidden={isLabelHidden} />,
-          ).find(RequiredIndicator).length,
-        ).toBe(0);
-        expect(
-          shallow(<Label label={testLabel} isLabelHidden={isLabelHidden} />)
-            .find('span')
-            .text(),
-        ).toBe('test');
+      it('should not append an asterisk to the content if set to false', () => {
+        render(<Label label={testLabel} isRequired={false} />);
+
+        expect(screen.queryByText('*')).not.toBeInTheDocument();
       });
     });
 
     describe('appearance prop', () => {
       it('should be "default" appearance by default', () => {
-        expect(
-          mount(<Label label="required prop label" />).prop('appearance'),
-        ).toBe('default');
+        render(<Label label={testLabel} testId={testId} />);
+
+        expect(screen.getByTestId(innerTestId)).toHaveStyle(
+          'padding: 20px 0px 4px 0px',
+        );
       });
 
-      it('should set prop for it', () => {
-        expect(
-          mount(<Label label="required prop label" />)
-            .find(LabelInner)
-            .prop('inlineEdit'),
-        ).toBe(false);
-        expect(
-          mount(<Label label="required prop label" appearance="inline-edit" />)
-            .find(LabelInner)
-            .prop('inlineEdit'),
-        ).toBe(true);
+      it('should set specified appearance', () => {
+        render(
+          <Label label={testLabel} testId={testId} appearance="inline-edit" />,
+        );
+
+        expect(screen.getByTestId(innerTestId)).toHaveStyle(
+          'padding: 8px 0px 0px 8px',
+        );
       });
     });
 
     describe('isFirstChild prop', () => {
-      it('should set prop for it', () => {
-        expect(
-          mount(<Label label="required prop label" />)
-            .find(LabelInner)
-            .prop('firstChild'),
-        ).toBe(undefined);
-        expect(
-          mount(<Label label="required prop label" isFirstChild />)
-            .find(LabelInner)
-            .prop('firstChild'),
-        ).toBe(true);
+      it('should apply firstChild style if set to true', () => {
+        render(<Label label={testLabel} testId={testId} isFirstChild />);
+
+        expect(screen.getByTestId(innerTestId)).toHaveStyle(
+          'padding: 4px 0px 4px 0px',
+        );
+      });
+
+      it('should not apply firstChild style if set to false', () => {
+        render(
+          <Label label={testLabel} testId={testId} isFirstChild={false} />,
+        );
+
+        expect(screen.getByTestId(innerTestId)).toHaveStyle(
+          'padding: 20px 0px 4px 0px',
+        );
+      });
+    });
+
+    describe('isDisabled prop', () => {
+      it('should apply disabled style if set to true', () => {
+        render(<Label label={testLabel} testId={testId} isDisabled />);
+
+        expect(screen.getByTestId(innerTestId)).toHaveStyle(
+          'color: rgb(179, 186, 197)',
+        );
+      });
+
+      it('should not apply disabled style if set to false', () => {
+        render(<Label label={testLabel} testId={testId} isDisabled={false} />);
+
+        expect(screen.getByTestId(innerTestId)).toHaveStyle(
+          'color: rgb(107, 119, 140)',
+        );
+      });
+    });
+
+    describe('htmlFor prop', () => {
+      it('should apply htmlFor to the label wrapper', () => {
+        render(
+          <Label
+            label={testLabel}
+            testId={testId}
+            isDisabled
+            htmlFor="element-id"
+          />,
+        );
+
+        expect(screen.getByTestId(testId)).toHaveAttribute('for', 'element-id');
       });
     });
 
     describe('onClick prop', () => {
-      it('should fire handler when the span is clicked', () => {
+      it('should fire handler when the span is clicked', async () => {
         const handler = jest.fn();
-        const wrapper = shallow(
-          <Label
-            label={testLabel}
-            isLabelHidden={isLabelHidden}
-            onClick={handler}
-          />,
-        );
-        wrapper.find('span').simulate('click');
+        render(<Label label={testLabel} testId={testId} onClick={handler} />);
+
+        await user.click(screen.getByText(testLabel));
+
         expect(handler).toHaveBeenCalledTimes(1);
       });
     });
 
-    describe('.children', () => {
+    describe('children', () => {
       it('should render any children passed to it', () => {
-        const wrapper = shallow(
-          <Label label={testLabel} isLabelHidden={isLabelHidden}>
-            <div className="foo">Here is some child content!</div>
+        render(
+          <Label label={testLabel} isLabelHidden>
+            <div>child</div>
           </Label>,
         );
-        expect(wrapper.find('div.foo')).not.toBe(undefined);
+
+        expect(screen.getByText('child')).toBeInTheDocument();
       });
     });
   });

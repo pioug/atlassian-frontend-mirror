@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { act, fireEvent, render } from '@testing-library/react';
 
@@ -72,6 +72,159 @@ describe('Left sidebar', () => {
       triggerTransitionEnd(getByTestId('left-sidebar'));
 
       expect(fn).toHaveBeenCalledTimes(1);
+      expect(fn).toHaveBeenCalledWith(
+        expect.objectContaining({ isLeftSidebarCollapsed: true }),
+      );
+    });
+
+    it('should always call the latest onCollapse function', () => {
+      const ordered: string[] = [];
+      function App() {
+        const [onCollapse, setOnCollapse] = useState<() => void>(
+          function setInitialState() {
+            return () => ordered.push('first fn');
+          },
+        );
+
+        // immediately setting `onCollapse` to a new function in the first render
+        useEffect(() => {
+          setOnCollapse(function setState() {
+            return () => ordered.push('second fn');
+          });
+        }, [setOnCollapse]);
+
+        return (
+          <PageLayout testId="grid" onLeftSidebarCollapse={onCollapse}>
+            <Content>
+              <LeftSidebar testId="left-sidebar" width={200}>
+                LeftSidebar
+              </LeftSidebar>
+              <Main testId="content">Main</Main>
+            </Content>
+          </PageLayout>
+        );
+      }
+
+      const { getByTestId } = render(<App />);
+
+      fireEvent.click(getByTestId('left-sidebar-resize-button'));
+      triggerTransitionEnd(getByTestId('left-sidebar'));
+
+      expect(ordered).toEqual(['second fn']);
+    });
+
+    it('should still call onCollapse even if re-rendered during the transition', () => {
+      const ordered: string[] = [];
+      function App() {
+        ordered.push('render');
+        return (
+          <PageLayout
+            testId="grid"
+            onLeftSidebarCollapse={() => ordered.push('collapse')}
+          >
+            <Content>
+              <LeftSidebar testId="left-sidebar" width={200}>
+                LeftSidebar
+              </LeftSidebar>
+              <Main testId="content">Main</Main>
+            </Content>
+          </PageLayout>
+        );
+      }
+
+      const { getByTestId, rerender } = render(<App />);
+      expect(ordered).toEqual(['render']);
+
+      fireEvent.click(getByTestId('left-sidebar-resize-button'));
+
+      rerender(<App />);
+
+      triggerTransitionEnd(getByTestId('left-sidebar'));
+
+      expect(ordered).toEqual(['render', 'render', 'collapse']);
+    });
+
+    it('should abort onCollapse if unmounted during transition', () => {
+      const ordered: string[] = [];
+      function App() {
+        useEffect(() => {
+          ordered.push('mounted');
+          return () => {
+            ordered.push('unmounted');
+          };
+        }, []);
+        return (
+          <PageLayout
+            testId="grid"
+            onLeftSidebarCollapse={() => ordered.push('collapse')}
+          >
+            <Content>
+              <LeftSidebar
+                testId="left-sidebar"
+                width={200}
+                collapsedState="expanded"
+              >
+                LeftSidebar
+              </LeftSidebar>
+              <Main testId="content">Main</Main>
+            </Content>
+          </PageLayout>
+        );
+      }
+
+      const { getByTestId, unmount } = render(<App />);
+      const sidebar = getByTestId('left-sidebar');
+
+      expect(ordered).toEqual(['mounted']);
+
+      fireEvent.click(getByTestId('left-sidebar-resize-button'));
+
+      unmount();
+
+      triggerTransitionEnd(sidebar);
+
+      expect(ordered).toEqual(['mounted', 'unmounted']);
+    });
+
+    it('should flush onCollapse if expanded during transition', () => {
+      const ordered: string[] = [];
+      function App() {
+        return (
+          <PageLayout
+            testId="grid"
+            onLeftSidebarCollapse={() => ordered.push('collapse')}
+            onLeftSidebarExpand={() => ordered.push('expand')}
+          >
+            <Content>
+              <LeftSidebar
+                testId="left-sidebar"
+                width={200}
+                collapsedState="expanded"
+              >
+                LeftSidebar
+              </LeftSidebar>
+              <Main testId="content">Main</Main>
+            </Content>
+          </PageLayout>
+        );
+      }
+
+      const { getByTestId } = render(<App />);
+
+      expect(ordered).toEqual([]);
+
+      // collapse
+      fireEvent.click(getByTestId('left-sidebar-resize-button'));
+      expect(ordered).toEqual([]);
+
+      // flush collapse by triggering expand
+      fireEvent.click(getByTestId('left-sidebar-resize-button'));
+      expect(ordered).toEqual(['collapse']);
+
+      // finish expand
+      triggerTransitionEnd(getByTestId('left-sidebar'));
+
+      expect(ordered).toEqual(['collapse', 'expand']);
     });
 
     it('should expand the LeftSidebar when ResizeButton is clicked in collapsed state', () => {
@@ -108,7 +261,11 @@ describe('Left sidebar', () => {
       const { getByTestId } = render(
         <PageLayout testId="grid" onLeftSidebarExpand={fn}>
           <Content>
-            <LeftSidebar testId="left-sidebar" width={200}>
+            <LeftSidebar
+              testId="left-sidebar"
+              width={200}
+              collapsedState="collapsed"
+            >
               LeftSidebar
             </LeftSidebar>
             <ResizeControlledConsumer />
@@ -117,15 +274,172 @@ describe('Left sidebar', () => {
         </PageLayout>,
       );
 
-      act(() => {
-        fireEvent.click(getByTestId('collapse'));
-      });
-      completeAnimations();
-
       fireEvent.click(getByTestId('left-sidebar-resize-button'));
       triggerTransitionEnd(getByTestId('left-sidebar'));
 
       expect(fn).toHaveBeenCalledTimes(1);
+      expect(fn).toHaveBeenCalledWith(
+        expect.objectContaining({ isLeftSidebarCollapsed: false }),
+      );
+    });
+
+    it('should always call the latest onExpand function', () => {
+      const ordered: string[] = [];
+      function App() {
+        const [onExpand, setOnExpand] = useState<() => void>(
+          function setInitialState() {
+            return () => ordered.push('first fn');
+          },
+        );
+
+        // immediately setting `onCollapse` to a new function in the first render
+        useEffect(() => {
+          setOnExpand(function setState() {
+            return () => ordered.push('second fn');
+          });
+        }, [setOnExpand]);
+
+        return (
+          <PageLayout onLeftSidebarExpand={onExpand}>
+            <Content>
+              <LeftSidebar
+                testId="left-sidebar"
+                width={200}
+                collapsedState="collapsed"
+              >
+                LeftSidebar
+              </LeftSidebar>
+              <ResizeControlledConsumer />
+              <Main testId="content">Main</Main>
+            </Content>
+          </PageLayout>
+        );
+      }
+
+      const { getByTestId } = render(<App />);
+
+      fireEvent.click(getByTestId('left-sidebar-resize-button'));
+      triggerTransitionEnd(getByTestId('left-sidebar'));
+
+      expect(ordered).toEqual(['second fn']);
+    });
+
+    it('should still call onExpand even if re-rendered during the transition', () => {
+      const ordered: string[] = [];
+      function App() {
+        ordered.push('render');
+        return (
+          <PageLayout
+            testId="grid"
+            onLeftSidebarExpand={() => ordered.push('expand')}
+          >
+            <Content>
+              <LeftSidebar
+                testId="left-sidebar"
+                width={200}
+                collapsedState="collapsed"
+              >
+                LeftSidebar
+              </LeftSidebar>
+              <Main testId="content">Main</Main>
+            </Content>
+          </PageLayout>
+        );
+      }
+
+      const { getByTestId, rerender } = render(<App />);
+      expect(ordered).toEqual(['render']);
+
+      fireEvent.click(getByTestId('left-sidebar-resize-button'));
+
+      rerender(<App />);
+
+      triggerTransitionEnd(getByTestId('left-sidebar'));
+
+      expect(ordered).toEqual(['render', 'render', 'expand']);
+    });
+
+    it('should abort onExpand if unmounted during transition', () => {
+      const ordered: string[] = [];
+      function App() {
+        useEffect(() => {
+          ordered.push('mounted');
+          return () => {
+            ordered.push('unmounted');
+          };
+        }, []);
+        return (
+          <PageLayout
+            testId="grid"
+            onLeftSidebarExpand={() => ordered.push('expand')}
+          >
+            <Content>
+              <LeftSidebar
+                testId="left-sidebar"
+                width={200}
+                collapsedState="collapsed"
+              >
+                LeftSidebar
+              </LeftSidebar>
+              <Main testId="content">Main</Main>
+            </Content>
+          </PageLayout>
+        );
+      }
+
+      const { getByTestId, unmount } = render(<App />);
+      const sidebar = getByTestId('left-sidebar');
+
+      expect(ordered).toEqual(['mounted']);
+
+      fireEvent.click(getByTestId('left-sidebar-resize-button'));
+
+      unmount();
+
+      triggerTransitionEnd(sidebar);
+
+      expect(ordered).toEqual(['mounted', 'unmounted']);
+    });
+
+    it('should flush onExpand if collapsed during transition', () => {
+      const ordered: string[] = [];
+      function App() {
+        return (
+          <PageLayout
+            testId="grid"
+            onLeftSidebarCollapse={() => ordered.push('collapse')}
+            onLeftSidebarExpand={() => ordered.push('expand')}
+          >
+            <Content>
+              <LeftSidebar
+                testId="left-sidebar"
+                width={200}
+                collapsedState="collapsed"
+              >
+                LeftSidebar
+              </LeftSidebar>
+              <Main testId="content">Main</Main>
+            </Content>
+          </PageLayout>
+        );
+      }
+
+      const { getByTestId } = render(<App />);
+
+      expect(ordered).toEqual([]);
+
+      // expand
+      fireEvent.click(getByTestId('left-sidebar-resize-button'));
+      expect(ordered).toEqual([]);
+
+      // flush expand by triggering collapse
+      fireEvent.click(getByTestId('left-sidebar-resize-button'));
+      expect(ordered).toEqual(['expand']);
+
+      // finish collapse
+      triggerTransitionEnd(getByTestId('left-sidebar'));
+
+      expect(ordered).toEqual(['expand', 'collapse']);
     });
 
     it('should render the button within an override if given', () => {

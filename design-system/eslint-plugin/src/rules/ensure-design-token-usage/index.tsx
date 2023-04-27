@@ -1,6 +1,7 @@
 import type { Rule } from 'eslint';
 import { isNodeOfType } from 'eslint-codemod-utils';
 
+import { createLintRule } from '../utils/create-rule';
 import { getIsException } from '../utils/get-is-exception';
 import {
   includesHardCodedColor,
@@ -69,29 +70,19 @@ const getTokenSuggestion = (
 const filterSuggestion = ({ shouldReturnSuggestion }: Suggestion) =>
   shouldReturnSuggestion;
 
-const rule: Rule.RuleModule = {
+const rule = createLintRule({
   meta: {
-    // We need to upgrade the version of ESLint.
+    name: 'ensure-design-token-usage',
     hasSuggestions: true,
     docs: {
       description: 'Enforces usage of design tokens.',
-      recommended: false,
+      recommended: 'error',
     },
     fixable: 'code',
     type: 'problem',
     messages: {
-      legacyElevation: `Elevations can be sourced from the global theme using the token function made of both a background and shadow. Use "card" for card elevations, and "overlay" for anything else that should appear elevated.
-
-{{example}}
-`,
-      hardCodedColor: `Colors can be sourced from the global theme using the token function.
-
-\`\`\`
-import { token } from '@atlaskit/tokens';
-
-token('color.background.blanket');
-\`\`\`
-`,
+      legacyElevation: `Elevations can be sourced from the global theme using the token function made of both a background and shadow. Use "card" for card elevations, and "overlay" for anything else that should appear elevated.`,
+      hardCodedColor: `Colors can be sourced from the global theme using the token function.`,
     },
   },
   create(context) {
@@ -305,6 +296,6 @@ ${' '.repeat(getNodeColumn(node) - 2)}box-shadow: \${token('${
       },
     };
   },
-};
+});
 
 export default rule;

@@ -31,15 +31,17 @@ export default class Label extends Component {
       isRequired,
       label,
       onClick,
+      testId,
     } = this.props;
     /* eslint-disable jsx-a11y/click-events-have-key-events */
     return (
-      <LabelWrapper htmlFor={htmlFor}>
+      <LabelWrapper htmlFor={htmlFor} data-testid={testId}>
         <LabelInner
           isHidden={isLabelHidden}
           inlineEdit={appearance === 'inline-edit'}
           firstChild={isFirstChild}
           isDisabled={isDisabled}
+          data-testid={testId && `${testId}-inner`}
         >
           <span onClick={onClick}>{label}</span>
           {isRequired ? (

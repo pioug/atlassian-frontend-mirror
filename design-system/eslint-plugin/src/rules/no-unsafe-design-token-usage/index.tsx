@@ -5,6 +5,7 @@ import renameMapping from '@atlaskit/tokens/rename-mapping';
 import { getTokenId } from '@atlaskit/tokens/token-ids';
 import tokens from '@atlaskit/tokens/token-names';
 
+import { createLintRule } from '../utils/create-rule';
 import {
   isDecendantOfStyleBlock,
   isDecendantOfStyleJsxAttribute,
@@ -27,12 +28,13 @@ const defaultConfig: PluginConfig = {
   shouldEnforceFallbacks: false,
 };
 
-const rule: Rule.RuleModule = {
+const rule = createLintRule({
   meta: {
+    name: 'no-unsafe-design-token-usage',
     docs: {
       description:
         'Enforces design token usage is statically and locally analyzable.',
-      recommended: false,
+      recommended: 'error',
     },
     fixable: 'code',
     type: 'problem',
@@ -244,6 +246,6 @@ token('color.background.blanket');
         },
     };
   },
-};
+});
 
 export default rule;

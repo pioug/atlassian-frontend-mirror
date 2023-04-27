@@ -34,7 +34,7 @@ export type MaxHeight = keyof typeof dimensionMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b8ac4fd29ba83e2ab1c2713c35915067>>
+ * @codegen <<SignedSource::06b49ea9175072486628ad5a39dd0c4b>>
  * @codegenId spacing
  * @codegenCommand yarn codegen-styles
  * @codegenParams ["padding", "space"]
@@ -56,14 +56,111 @@ export const paddingMap = {
   'space.800': token('space.800', '64px'),
   'space.1000': token('space.1000', '80px'),
 } as const;
-
-export type Padding = keyof typeof paddingMap;
-export type PaddingBlock = keyof typeof paddingMap;
-export type PaddingBlockStart = keyof typeof paddingMap;
-export type PaddingBlockEnd = keyof typeof paddingMap;
-export type PaddingInline = keyof typeof paddingMap;
-export type PaddingInlineStart = keyof typeof paddingMap;
-export type PaddingInlineEnd = keyof typeof paddingMap;
+export type Padding =
+  | 'space.0'
+  | 'space.025'
+  | 'space.050'
+  | 'space.075'
+  | 'space.100'
+  | 'space.150'
+  | 'space.200'
+  | 'space.250'
+  | 'space.300'
+  | 'space.400'
+  | 'space.500'
+  | 'space.600'
+  | 'space.800'
+  | 'space.1000';
+export type PaddingBlock =
+  | 'space.0'
+  | 'space.025'
+  | 'space.050'
+  | 'space.075'
+  | 'space.100'
+  | 'space.150'
+  | 'space.200'
+  | 'space.250'
+  | 'space.300'
+  | 'space.400'
+  | 'space.500'
+  | 'space.600'
+  | 'space.800'
+  | 'space.1000';
+export type PaddingBlockStart =
+  | 'space.0'
+  | 'space.025'
+  | 'space.050'
+  | 'space.075'
+  | 'space.100'
+  | 'space.150'
+  | 'space.200'
+  | 'space.250'
+  | 'space.300'
+  | 'space.400'
+  | 'space.500'
+  | 'space.600'
+  | 'space.800'
+  | 'space.1000';
+export type PaddingBlockEnd =
+  | 'space.0'
+  | 'space.025'
+  | 'space.050'
+  | 'space.075'
+  | 'space.100'
+  | 'space.150'
+  | 'space.200'
+  | 'space.250'
+  | 'space.300'
+  | 'space.400'
+  | 'space.500'
+  | 'space.600'
+  | 'space.800'
+  | 'space.1000';
+export type PaddingInline =
+  | 'space.0'
+  | 'space.025'
+  | 'space.050'
+  | 'space.075'
+  | 'space.100'
+  | 'space.150'
+  | 'space.200'
+  | 'space.250'
+  | 'space.300'
+  | 'space.400'
+  | 'space.500'
+  | 'space.600'
+  | 'space.800'
+  | 'space.1000';
+export type PaddingInlineStart =
+  | 'space.0'
+  | 'space.025'
+  | 'space.050'
+  | 'space.075'
+  | 'space.100'
+  | 'space.150'
+  | 'space.200'
+  | 'space.250'
+  | 'space.300'
+  | 'space.400'
+  | 'space.500'
+  | 'space.600'
+  | 'space.800'
+  | 'space.1000';
+export type PaddingInlineEnd =
+  | 'space.0'
+  | 'space.025'
+  | 'space.050'
+  | 'space.075'
+  | 'space.100'
+  | 'space.150'
+  | 'space.200'
+  | 'space.250'
+  | 'space.300'
+  | 'space.400'
+  | 'space.500'
+  | 'space.600'
+  | 'space.800'
+  | 'space.1000';
 
 export const spaceMap = {
   'space.0': token('space.0', '0px'),
@@ -81,9 +178,36 @@ export const spaceMap = {
   'space.800': token('space.800', '64px'),
   'space.1000': token('space.1000', '80px'),
 } as const;
-
-export type Gap = keyof typeof spaceMap;
-export type RowGap = keyof typeof spaceMap;
+export type Gap =
+  | 'space.0'
+  | 'space.025'
+  | 'space.050'
+  | 'space.075'
+  | 'space.100'
+  | 'space.150'
+  | 'space.200'
+  | 'space.250'
+  | 'space.300'
+  | 'space.400'
+  | 'space.500'
+  | 'space.600'
+  | 'space.800'
+  | 'space.1000';
+export type RowGap =
+  | 'space.0'
+  | 'space.025'
+  | 'space.050'
+  | 'space.075'
+  | 'space.100'
+  | 'space.150'
+  | 'space.200'
+  | 'space.250'
+  | 'space.300'
+  | 'space.400'
+  | 'space.500'
+  | 'space.600'
+  | 'space.800'
+  | 'space.1000';
 
 /**
  * @codegenEnd

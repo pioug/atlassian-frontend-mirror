@@ -5,8 +5,11 @@ import React, {
   useCallback,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from 'react';
+
+import { bind } from 'bind-event-listener';
 
 import noop from '@atlaskit/ds-lib/noop';
 import { isReducedMotion } from '@atlaskit/motion';
@@ -14,7 +17,6 @@ import { isReducedMotion } from '@atlaskit/motion';
 import {
   COLLAPSED_LEFT_SIDEBAR_WIDTH,
   DEFAULT_LEFT_SIDEBAR_WIDTH,
-  GRAB_AREA_SELECTOR,
   IS_SIDEBAR_COLLAPSING,
 } from '../common/constants';
 import { SidebarResizeControllerProps } from '../common/types';
@@ -36,13 +38,21 @@ const handleDataAttributesAndCb = (
   callback(leftSidebarState);
 };
 
+const leftSidebarSelector = getPageLayoutSlotCSSSelector('left-sidebar');
+
+type Transition = {
+  action: 'collapse' | 'expand';
+  abort: () => void;
+  complete: () => void;
+};
+
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
   children,
   onLeftSidebarExpand: onExpand,
   onLeftSidebarCollapse: onCollapse,
 }) => {
-  const [leftSidebarState, setLeftSidebarState] = useState({
+  const [leftSidebarState, setLeftSidebarState] = useState<LeftSidebarState>({
     isFlyoutOpen: false,
     isResizing: false,
     isLeftSidebarCollapsed: false,
@@ -53,77 +63,42 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
   });
 
   const { isLeftSidebarCollapsed } = leftSidebarState;
-  const leftSidebarSelector = getPageLayoutSlotCSSSelector('left-sidebar');
 
-  /**
-   * Bug: this function will cause `onExpand` / `onCollapse` when any
-   * `width` transition occurs (eg when cancelling a resizing)
-   * This
-   */
-  const transitionEventHandler = useCallback((event) => {
-    if (
-      (event as TransitionEvent).propertyName === 'width' &&
-      event.target &&
-      (event.target as HTMLDivElement).matches(leftSidebarSelector)
-    ) {
-      const $leftSidebarResizeController = document.querySelector(
-        `[${GRAB_AREA_SELECTOR}]`,
-      );
-      const isCollapsed =
-        !!$leftSidebarResizeController &&
-        $leftSidebarResizeController.hasAttribute('disabled');
-
-      handleDataAttributesAndCb(
-        /**
-         * Bug: `onCollapse` and `onExpand` are stale after the first render
-         */
-        isCollapsed ? onCollapse : onExpand,
-        isCollapsed,
-        /**
-         * Bug: `leftSidebarState` is stale after the first render
-         */
-        leftSidebarState,
-      );
-
-      /**
-       * TODO: this appears smelly. Let's do better
-       */
-      // Make sure multiple event handlers do not get attached
-      // eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
-      document
-        .querySelector(leftSidebarSelector)!
-        .removeEventListener('transitionend', transitionEventHandler);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    const $leftSidebar = document.querySelector(leftSidebarSelector);
-    if ($leftSidebar && !isReducedMotion()) {
-      /**
-       * Note: This pattern relies on `transitionEventHandler` keeping a stable
-       * reference to continually adding event listeners.
-       * I think there should be a better way
-       */
-      // eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
-      $leftSidebar.addEventListener('transitionend', transitionEventHandler);
-    }
-  }, [
-    isLeftSidebarCollapsed,
-    leftSidebarSelector,
-    leftSidebarState,
-    onCollapse,
+  // We put the latest callbacks into a ref so we can always have the latest
+  // functions in our transitionend listeners
+  const stableRef = useRef({
     onExpand,
-    transitionEventHandler,
-  ]);
+    onCollapse,
+  });
+  useEffect(() => {
+    stableRef.current = {
+      onExpand,
+      onCollapse,
+    };
+  });
+
+  const transition = useRef<Transition | null>(null);
 
   const expandLeftSidebar = useCallback(() => {
-    const { lastLeftSidebarWidth, isResizing, flyoutLockCount, isFixed } =
-      leftSidebarState;
+    const {
+      lastLeftSidebarWidth,
+      isResizing,
+      flyoutLockCount,
+      isFixed,
+      isLeftSidebarCollapsed,
+    } = leftSidebarState;
 
-    if (isResizing) {
+    if (
+      isResizing ||
+      !isLeftSidebarCollapsed ||
+      // already expanding
+      transition.current?.action === 'expand'
+    ) {
       return;
     }
+
+    // flush existing transition
+    transition.current?.complete();
 
     const width = Math.max(lastLeftSidebarWidth, DEFAULT_LEFT_SIDEBAR_WIDTH);
 
@@ -138,11 +113,45 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
     };
     setLeftSidebarState(updatedLeftSidebarState);
 
-    // onTransitionEnd isn't triggered when a user prefers reduced motion
-    if (isReducedMotion()) {
-      handleDataAttributesAndCb(onExpand, false, updatedLeftSidebarState);
+    function finish() {
+      handleDataAttributesAndCb(
+        stableRef.current.onExpand,
+        false, // isCollapsed
+        updatedLeftSidebarState,
+      );
     }
-  }, [leftSidebarState, onExpand]);
+
+    const sidebar = document.querySelector(leftSidebarSelector);
+    // onTransitionEnd isn't triggered when a user prefers reduced motion
+    if (isReducedMotion() || !sidebar) {
+      finish();
+      return;
+    }
+
+    const unbindEvent = bind(sidebar, {
+      type: 'transitionend',
+      listener(event: Event) {
+        if (
+          event.target === sidebar &&
+          (event as TransitionEvent).propertyName === 'width'
+        ) {
+          transition.current?.complete();
+        }
+      },
+    });
+    const value: Transition = {
+      action: 'expand',
+      complete: () => {
+        value.abort();
+        finish();
+      },
+      abort: () => {
+        unbindEvent();
+        transition.current = null;
+      },
+    };
+    transition.current = value;
+  }, [leftSidebarState]);
 
   const collapseLeftSidebar = useCallback(
     (
@@ -157,9 +166,17 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
         isLeftSidebarCollapsed,
       } = leftSidebarState;
 
-      if (isResizing || isLeftSidebarCollapsed) {
+      if (
+        isResizing ||
+        isLeftSidebarCollapsed ||
+        // already collapsing
+        transition.current?.action === 'collapse'
+      ) {
         return;
       }
+
+      // flush existing transition
+      transition.current?.complete();
 
       // data-attribute is used as a CSS selector to sync the hiding/showing
       // of the nav contents with expand/collapse animation
@@ -175,13 +192,55 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
       };
       setLeftSidebarState(updatedLeftSidebarState);
 
-      // onTransitionEnd isn't triggered when a user prefers reduced motion
-      if (collapseWithoutTransition || isReducedMotion()) {
-        handleDataAttributesAndCb(onCollapse, true, updatedLeftSidebarState);
+      function finish() {
+        handleDataAttributesAndCb(
+          stableRef.current.onCollapse,
+          true,
+          updatedLeftSidebarState,
+        );
       }
+
+      const sidebar = document.querySelector(leftSidebarSelector);
+
+      // onTransitionEnd isn't triggered when a user prefers reduced motion
+      if (collapseWithoutTransition || isReducedMotion() || !sidebar) {
+        finish();
+        return;
+      }
+
+      const unbindEvent = bind(sidebar, {
+        type: 'transitionend',
+        listener(event: Event) {
+          if (
+            sidebar === event.target &&
+            (event as TransitionEvent).propertyName === 'width'
+          ) {
+            transition.current?.complete();
+          }
+        },
+      });
+      const value: Transition = {
+        action: 'collapse',
+        complete: () => {
+          value.abort();
+          finish();
+        },
+        abort: () => {
+          unbindEvent();
+          transition.current = null;
+        },
+      };
+      transition.current = value;
     },
-    [leftSidebarState, onCollapse],
+    [leftSidebarState],
   );
+
+  // Make sure we finish any lingering transitions when unmounting
+  useEffect(function mount() {
+    return function unmount() {
+      transition.current?.abort();
+    };
+  }, []);
 
   const context: SidebarResizeContextValue = useMemo(
     () => ({

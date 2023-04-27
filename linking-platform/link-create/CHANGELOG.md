@@ -1,5 +1,11 @@
 # @atlaskit/link-create
 
+## 0.3.1
+
+### Patch Changes
+
+- [`9e1c1e92771`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9e1c1e92771) - Fire analytics
+
 ## 0.3.0
 
 ### Minor Changes

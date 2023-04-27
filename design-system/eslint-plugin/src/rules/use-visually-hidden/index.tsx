@@ -1,4 +1,3 @@
-/* eslint-disable @atlaskit/design-system/use-visually-hidden */
 import type { Rule } from 'eslint';
 import {
   closestOfType,
@@ -7,6 +6,7 @@ import {
   isNodeOfType,
 } from 'eslint-codemod-utils';
 
+import { createLintRule } from '../utils/create-rule';
 import { isStyledObjectNode, isStyledTemplateNode } from '../utils/is-node';
 
 import fixJsx from './fix-jsx';
@@ -19,13 +19,14 @@ import {
 
 const THEME_IMPORT_NAMES = ['visuallyHidden', 'assistive'];
 
-const rule: Rule.RuleModule = {
+const rule = createLintRule({
   meta: {
+    name: 'use-visually-hidden',
     type: 'suggestion',
     fixable: 'code',
     docs: {
       description: 'Enforce usage of the visually hidden component.',
-      recommended: true,
+      recommended: 'error',
     },
     messages: {
       noDeprecatedUsage:
@@ -218,6 +219,6 @@ const rule: Rule.RuleModule = {
         },
     };
   },
-};
+});
 
 export default rule;

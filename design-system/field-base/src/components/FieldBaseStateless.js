@@ -64,6 +64,7 @@ export default class FieldBaseStateless extends Component {
       onDialogFocus,
       onFocus,
       isValidationHidden,
+      testId,
     } = this.props;
 
     function getAppearance(a) {
@@ -78,6 +79,7 @@ export default class FieldBaseStateless extends Component {
         disabled={isDisabled}
         maxWidth={maxWidth}
         grow={isFitContainerWidthEnabled}
+        data-testid={testId}
       >
         <InlineDialog
           content={invalidMessage}
@@ -86,6 +88,7 @@ export default class FieldBaseStateless extends Component {
           onContentClick={onDialogClick}
           onContentFocus={onDialogFocus}
           placement="right"
+          testId={testId && `${testId}-dialog`}
         >
           <ChildWrapper compact={isCompact}>
             <Content
@@ -100,6 +103,7 @@ export default class FieldBaseStateless extends Component {
               paddingDisabled={isPaddingDisabled}
               readOnly={isReadOnly}
               subtle={appearance === 'subtle'}
+              data-testid={testId && `${testId}-content`}
             >
               {children}
               {!isValidationHidden ? (

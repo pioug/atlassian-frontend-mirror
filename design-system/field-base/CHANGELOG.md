@@ -1,5 +1,11 @@
 # @atlaskit/field-base
 
+## 15.1.0
+
+### Minor Changes
+
+- [`6031edd91b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6031edd91b5) - Migrates unit tests from enzyme to RTL. Adds testId prop to component.
+
 ## 15.0.7
 
 ### Patch Changes

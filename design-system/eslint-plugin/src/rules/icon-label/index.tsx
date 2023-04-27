@@ -1,6 +1,6 @@
-import type { Rule } from 'eslint';
 import { isNodeOfType, JSXElement } from 'eslint-codemod-utils';
 
+import { createLintRule } from '../utils/create-rule';
 import { findProp } from '../utils/jsx';
 
 const elements = [
@@ -17,16 +17,14 @@ const elements = [
 
 const elementsIconProps = ['iconBefore', 'iconAfter', 'icon'];
 
-const rule: Rule.RuleModule = {
+const rule = createLintRule({
   meta: {
+    name: 'icon-label',
     fixable: 'code',
     type: 'suggestion',
     docs: {
-      url: 'http://go/adsc/icon/usage#accessibility-guidelines',
       description:
         'Enforces accessible usage of icon labels when composed with Atlassian Design System components.',
-      // TODO: Move to createRule() api
-      // @ts-expect-error
       recommended: 'warn',
     },
     messages: {
@@ -154,6 +152,6 @@ const rule: Rule.RuleModule = {
       },
     };
   },
-};
+});
 
 export default rule;

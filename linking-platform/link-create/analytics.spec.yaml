@@ -1,0 +1,85 @@
+common:
+  source: linkCreate
+  product: linkingPlatform
+
+context:
+  PackageMetaData: &PackageMetaDataContext
+    packageName:
+      type: ['@atlaskit/link-create']
+      description: name of the package the event was fired from
+    packageVersion:
+      type: string
+      description: version of the package the event was fired from
+    source:
+      type: ['linkCreate']
+      description: the name of the ui source the event originated from (linkCreate)
+    componentName:
+      type: ['linkCreate']
+      description: the name of the component the event originated from (linkCreate)
+  LinkCreateAnalyticsContext: &LinkCreateAnalyticContext
+    triggeredFrom:
+      type: string
+      description: where the link create form was triggered from
+    objectName:
+      type: string
+      description: the object that the creation form is for
+    appearance:
+      type: ['modal', 'popup']
+      description: how the link create form was presented
+
+events:
+  - linkCreateScreen viewed:
+      type: screen
+      description: fired when the link create is successfully submitted
+      attributes:
+        <<: *PackageMetaDataContext
+        <<: *LinkCreateAnalyticContext
+
+  - button clicked (create):
+      type: ui
+      description: fired when the create button is clicked
+      attributes:
+        <<: *PackageMetaDataContext
+        <<: *LinkCreateAnalyticContext
+
+  - button clicked (cancel):
+      type: ui
+      description: fired when the create button is clicked
+      attributes:
+        <<: *PackageMetaDataContext
+        <<: *LinkCreateAnalyticContext
+
+  - linkCreateScreen closed:
+      type: screen
+      description: fired when the link create component is unmounted/dismissed for any reason
+      attributes:
+        <<: *PackageMetaDataContext
+        <<: *LinkCreateAnalyticContext
+
+  - linkCreate unhandledErrorCaught:
+      type: operational
+      description: fired when the link create root error boundary catches an error
+      attributes:
+        <<: *PackageMetaDataContext
+        browserInfo:
+          type: string
+          description: the window navigator userAgent if it exists, else unknown
+        error:
+          type: string
+          description: the error that was caught by the error boundary
+        componentStack:
+          type: string
+          description: componentStack from componentDidCatch info
+          required: false
+
+  - object created (linkCreate):
+      type: track
+      description: fired when the object was successfully created
+      attributes:
+        <<: *PackageMetaDataContext
+        objectId:
+          type: string
+          description: the id of created content
+        objectType:
+          type: string
+          description: the type of created content

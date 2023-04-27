@@ -46,6 +46,12 @@ type AsyncSelectProps<T = OptionType> = AsyncSelectProps_2<T> & {
 };
 
 // @public (undocumented)
+const ComposedLinkCreate: MemoExoticComponent<
+  (props: LinkCreateProps) => jsx.JSX.Element
+>;
+export default ComposedLinkCreate;
+
+// @public (undocumented)
 export const CreateForm: (props: any) => jsx.JSX.Element;
 
 // @public (undocumented)
@@ -79,18 +85,16 @@ interface Group {
 }
 
 // @public (undocumented)
-const LinkCreate: MemoExoticComponent<
-  (props: LinkCreateProps) => jsx.JSX.Element
->;
-export default LinkCreate;
-
-// @public (undocumented)
 export const LinkCreateCallbackProvider: React_2.FC<LinkCreateCallbackProviderProps>;
 
 // @public (undocumented)
 interface LinkCreateCallbackProviderProps {
   onCancel?: () => void;
-  onCreate?: (url: string) => void;
+  onCreate?: (result: {
+    url: string;
+    objectId: string;
+    objectType: string;
+  }) => void;
   onFailure?: (error: unknown) => void;
 }
 
@@ -114,6 +118,7 @@ export interface LinkCreateProps {
   // (undocumented)
   plugins: LinkCreatePlugin[];
   testId?: string;
+  triggeredFrom?: string;
 }
 
 // @public (undocumented)

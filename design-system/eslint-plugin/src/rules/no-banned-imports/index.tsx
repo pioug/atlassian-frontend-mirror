@@ -1,14 +1,16 @@
-import type { Rule } from 'eslint';
 import { EslintNode, isNodeOfType } from 'eslint-codemod-utils';
+
+import { createLintRule } from '../utils/create-rule';
 
 import { restrictedPaths } from './paths';
 
-const rule: Rule.RuleModule = {
+const rule = createLintRule({
   meta: {
+    name: 'no-banned-imports',
     type: 'problem',
     docs: {
       description: 'Disallow importing banned modules.',
-      recommended: true,
+      recommended: 'error',
     },
     messages: {
       path: "The '{{importSource}}' import is restricted from being used. {{customMessage}}",
@@ -43,6 +45,6 @@ const rule: Rule.RuleModule = {
       ExportDefaultDeclaration: checkNode,
     };
   },
-};
+});
 
 export default rule;

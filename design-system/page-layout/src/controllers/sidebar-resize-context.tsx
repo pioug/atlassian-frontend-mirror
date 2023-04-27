@@ -33,7 +33,7 @@ export type SidebarResizeContextValue = {
   ) => void;
 };
 
-const leftSidebarState = {
+const leftSidebarState: LeftSidebarState = {
   isFlyoutOpen: false,
   isResizing: false,
   isLeftSidebarCollapsed: false,

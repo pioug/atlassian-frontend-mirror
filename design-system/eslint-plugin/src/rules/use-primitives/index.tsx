@@ -1,5 +1,6 @@
-import type { Rule } from 'eslint';
 import { EslintNode, isNodeOfType } from 'eslint-codemod-utils';
+
+import { createLintRule } from '../utils/create-rule';
 
 import {
   primitiveFixer,
@@ -14,8 +15,9 @@ const inlineDocsUrl =
 const stackDocsUrl =
   'https://atlassian.design/components/primitves/stack/examples';
 
-const rule: Rule.RuleModule = {
+const rule = createLintRule({
   meta: {
+    name: 'use-primitives',
     type: 'suggestion',
     fixable: 'code',
     docs: {
@@ -121,6 +123,6 @@ const rule: Rule.RuleModule = {
       },
     };
   },
-};
+});
 
 export default rule;

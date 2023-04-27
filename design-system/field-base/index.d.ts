@@ -22,6 +22,7 @@ declare module '@atlaskit/field-base' {
     shouldReset?: boolean;
     maxWidth?: number;
     isValidationHidden?: boolean;
+    testId?: string;
   }
 
   export interface FieldBaseStatelessProps extends FieldBaseCommonProps {

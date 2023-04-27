@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/field-base",
-  "version": "15.0.7",
+  "version": "15.1.0",
   "description": "Wraps fields and provides styles for focus/hover states",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -40,7 +40,8 @@
     "@atlaskit/section-message": "^6.3.0",
     "@atlaskit/ssr": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
-    "enzyme": "^3.10.0",
+    "@testing-library/react": "^12.1.5",
+    "@testing-library/user-event": "^14.4.3",
     "react-dom": "^16.8.0"
   },
   "keywords": [

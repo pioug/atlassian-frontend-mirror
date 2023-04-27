@@ -1,10 +1,14 @@
 import type { Rule } from 'eslint';
 import { EslintNode, isNodeOfType } from 'eslint-codemod-utils';
 
-const rule: Rule.RuleModule = {
+import { createLintRule } from '../utils/create-rule';
+
+const rule = createLintRule({
   meta: {
+    name: 'no-margin',
     type: 'problem',
     docs: {
+      recommended: false,
       description: 'Disallow using the margin CSS property.',
     },
     messages: {
@@ -90,6 +94,6 @@ const rule: Rule.RuleModule = {
         },
     };
   },
-};
+});
 
 export default rule;

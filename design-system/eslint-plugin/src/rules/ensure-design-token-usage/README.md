@@ -14,7 +14,7 @@ import { B100 } from '@atlaskit/theme/colors';
 css({ color: 'red' });
               ^^^
 css({ boxShadow: '0px 1px 1px #161A1D32' });
-                          ^^^^^^^^^
+                              ^^^^^^^^^
 css`${e100};`;
       ^^^^
 css({ color: B100 });
@@ -25,6 +25,8 @@ css({ color: B100 });
 
 ```js
 import { token } from '@atlaskit/tokens';
+
+css({ color: token('color.text.danger') });
 
 css({ boxShadow: token('elevation.shadow.card') });
 ```

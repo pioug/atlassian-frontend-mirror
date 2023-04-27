@@ -1,13 +1,6 @@
 /* eslint-disable @repo/internal/styles/no-exported-styles */
 /** @jsx jsx */
-import {
-  ComponentPropsWithRef,
-  ElementType,
-  forwardRef,
-  memo,
-  ReactNode,
-  Ref,
-} from 'react';
+import { ElementType, forwardRef, memo, ReactNode, Ref } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -56,7 +49,7 @@ export interface StackProps<T extends ElementType = 'div'> {
   /**
    * Forwarded ref element
    */
-  ref?: ComponentPropsWithRef<T>['ref'];
+  ref?: React.ComponentPropsWithRef<T>['ref'];
 }
 
 export type AlignInline = 'start' | 'center' | 'end';

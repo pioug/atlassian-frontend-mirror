@@ -48,9 +48,8 @@ export const createSpacingStylesFromTemplate = (
   const { cssProperties, propNameFormatter } =
     spacingProperties[spacingProperty]!;
 
-  return (
-    prettier.format(
-      `
+  return prettier.format(
+    `
   export const ${spacingProperty}Map = {
     ${activeTokens
       .sort((a, b) =>
@@ -65,22 +64,22 @@ export const createSpacingStylesFromTemplate = (
           token.fallback,
         )}`;
       })}
-    } as const;`,
-      {
-        singleQuote: true,
-        trailingComma: 'all',
-        parser: 'typescript',
-        plugins: [parserTypeScript],
-      },
-    ) +
-    (cssProperties
-      .map(
-        cssProperty =>
-          `\nexport type ${capitalize(
-            cssProperty,
-          )} = keyof typeof ${spacingProperty}Map;`,
-      )
-      .join('') +
-      '\n')
+    } as const;` +
+      (cssProperties
+        .map(
+          cssProperty =>
+            // TODO: Update to use `keyof` when ERT supports it: https://github.com/atlassian/extract-react-types/issues/149
+            `\nexport type ${capitalize(cssProperty)} = ${activeTokens
+              .map(token => `'${token.name}'`)
+              .join(' | ')}`,
+        )
+        .join('') +
+        '\n'),
+    {
+      singleQuote: true,
+      trailingComma: 'all',
+      parser: 'typescript',
+      plugins: [parserTypeScript],
+    },
   );
 };

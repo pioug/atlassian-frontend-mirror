@@ -2,11 +2,20 @@ import React, { useCallback, useState } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
 import { createConfluencePageLinkCreatePlugin } from '@atlassian/link-create-confluence';
+import {
+  mockCreatePage,
+  mockFetchPage,
+  mockFetchSpace,
+} from '@atlassian/link-create-confluence/mocks';
 
 import LinkCreate from '../src';
 
 // This is the cloud id for pug.jira-dev.com
 const CLOUD_ID = 'DUMMY-a5a01d21-1cc3-4f29-9565-f2bb8cd969f5';
+
+mockFetchPage();
+mockFetchSpace();
+mockCreatePage();
 
 export default function Basic() {
   const [link, setLink] = useState<string | null>();
@@ -50,6 +59,7 @@ export default function Basic() {
         onFailure={handleFailure}
         onCancel={handleCancel}
         active={active}
+        triggeredFrom="example"
       />
     </div>
   );

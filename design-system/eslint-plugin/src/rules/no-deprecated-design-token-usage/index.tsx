@@ -3,11 +3,14 @@ import type { Rule } from 'eslint';
 import renameMapping from '@atlaskit/tokens/rename-mapping';
 import { getTokenId } from '@atlaskit/tokens/token-ids';
 
-const rule: Rule.RuleModule = {
+import { createLintRule } from '../utils/create-rule';
+
+const rule = createLintRule({
   meta: {
+    name: 'no-deprecated-design-token-usage',
     docs: {
       description: 'Disallow using deprecated design tokens.',
-      recommended: false,
+      recommended: 'warn',
     },
     fixable: 'code',
     type: 'problem',
@@ -59,6 +62,6 @@ const rule: Rule.RuleModule = {
       },
     };
   },
-};
+});
 
 export default rule;

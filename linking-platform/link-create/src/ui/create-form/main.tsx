@@ -1,13 +1,16 @@
 /** @jsx jsx */
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useCallback } from 'react';
 
 import { jsx } from '@emotion/react';
 
+import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import LoadingButton from '@atlaskit/button/loading-button';
 import Button from '@atlaskit/button/standard-button';
 import Form, { FormFooter, FormSection } from '@atlaskit/form';
 
+import { ANALYTICS_CHANNEL } from '../../common/constants';
 import { ValidatorMap } from '../../common/types';
+import createEventPayload from '../../common/utils/analytics/analytics.codegen';
 import {
   FormContextProvider,
   useFormContext,
@@ -36,17 +39,32 @@ const CreateFormWithoutContext: React.FC<CreateFormProps> = ({
   onCancel,
   onSubmit,
 }: CreateFormProps) => {
+  const { createAnalyticsEvent } = useAnalyticsEvents();
   const { getValidators } = useFormContext();
 
-  const handleSubmit = async (data: Record<string, unknown>) => {
-    const validators: ValidatorMap = getValidators();
-    const errors = validateFormData({ data, validators });
+  const handleSubmit = useCallback(
+    async (data: Record<string, unknown>) => {
+      createAnalyticsEvent(
+        createEventPayload('ui.button.clicked.create', {}),
+      ).fire(ANALYTICS_CHANNEL);
 
-    if (Object.keys(errors).length !== 0) {
-      return errors;
-    }
-    onSubmit(data);
-  };
+      const validators: ValidatorMap = getValidators();
+      const errors = validateFormData({ data, validators });
+
+      if (Object.keys(errors).length !== 0) {
+        return errors;
+      }
+      onSubmit(data);
+    },
+    [createAnalyticsEvent, getValidators, onSubmit],
+  );
+
+  const handleCancel = useCallback(() => {
+    createAnalyticsEvent(
+      createEventPayload('ui.button.clicked.cancel', {}),
+    ).fire(ANALYTICS_CHANNEL);
+    onCancel && onCancel();
+  }, [createAnalyticsEvent, onCancel]);
 
   return (
     <Form<Record<string, unknown>> onSubmit={handleSubmit}>
@@ -62,7 +80,7 @@ const CreateFormWithoutContext: React.FC<CreateFormProps> = ({
           <FormFooter>
             <Button
               appearance="subtle"
-              onClick={onCancel}
+              onClick={handleCancel}
               testId={'cancel-button'}
             >
               Cancel

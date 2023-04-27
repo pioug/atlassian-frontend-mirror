@@ -1,10 +1,19 @@
 import React, { useContext, useMemo } from 'react';
 
+import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+
+import { ANALYTICS_CHANNEL } from '../../common/constants';
+import createEventPayload from '../../common/utils/analytics/analytics.codegen';
+
 interface LinkCreateCallbackProviderProps {
   /**
    * This callback for when the resource has been successfully created.
    */
-  onCreate?: (url: string) => void;
+  onCreate?: (result: {
+    url: string;
+    objectId: string;
+    objectType: string;
+  }) => void;
 
   /**
    * This callback for any errors
@@ -26,13 +35,28 @@ const LinkCreateCallbackProvider: React.FC<LinkCreateCallbackProviderProps> = ({
   onFailure,
   onCancel,
 }) => {
+  const { createAnalyticsEvent } = useAnalyticsEvents();
+
   const value = useMemo(
     () => ({
-      onCreate,
+      onCreate: (result: {
+        url: string;
+        objectId: string;
+        objectType: string;
+      }) => {
+        const { objectId, objectType } = result;
+        createAnalyticsEvent(
+          createEventPayload('track.object.created.linkCreate', {
+            objectId,
+            objectType,
+          }),
+        ).fire(ANALYTICS_CHANNEL);
+        onCreate && onCreate(result);
+      },
       onFailure,
       onCancel,
     }),
-    [onCreate, onFailure, onCancel],
+    [onFailure, onCancel, createAnalyticsEvent, onCreate],
   );
 
   return (

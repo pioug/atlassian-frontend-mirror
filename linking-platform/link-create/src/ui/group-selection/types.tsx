@@ -1,19 +1,4 @@
-export interface Group {
-  /**
-   * A label to display for the Group
-   */
-  label: string;
-
-  /**
-   * An icon to display for the Group
-   */
-  icon: string;
-
-  /**
-   * A unique key for the Group
-   */
-  key: string;
-}
+import { Group } from '../../common/types';
 
 export interface GroupSelectProps {
   /**

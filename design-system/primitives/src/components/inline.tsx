@@ -2,7 +2,6 @@
 /** @jsx jsx */
 import {
   Children,
-  ComponentPropsWithRef,
   ElementType,
   FC,
   forwardRef,
@@ -81,7 +80,7 @@ export interface InlineProps<T extends ElementType = 'div'> {
   /**
    * Forwarded ref element
    */
-  ref?: ComponentPropsWithRef<T>['ref'];
+  ref?: React.ComponentPropsWithRef<T>['ref'];
 }
 
 export type AlignInline = 'start' | 'center' | 'end';

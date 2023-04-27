@@ -1,5 +1,24 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 5.0.0
+
+### Major Changes
+
+- [`b910bbe6130`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b910bbe6130) - The following rules are now included in the recommended preset as errors:
+
+  - ensure-design-token-usage
+  - no-deprecated-apis
+  - no-deprecated-imports
+  - no-unsafe-design-token-usage
+
+  The following rules are now included in the recommended preset as warnings:
+
+  - no-deprecated-design-token-usage
+
+### Minor Changes
+
+- [`b689e24847d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b689e24847d) - All lint rule violations in IDEs now point to their corresponding documentation on https://atlassian.design.
+
 ## 4.20.0
 
 ### Minor Changes

@@ -10,7 +10,11 @@ import { useSmartLinkContext } from '@atlaskit/link-provider';
 export function useSmartLink(
   id: string,
   url: string,
-  dispatchAnalytics: AnalyticsHandler,
+  /**
+   * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-2681 Internal documentation for deprecation (no external access)}
+   * Avoid prop drilling analytics handlers. Continue passing a handler for now if there's already one in place.
+   */
+  dispatchAnalytics?: AnalyticsHandler,
 ) {
   const state = useSmartLinkState(url);
   const { store } = useSmartLinkContext();

@@ -48,7 +48,7 @@ const rule = createRule<
 
     docs: {
       description: 'Disallow importing deprecated modules.',
-      recommended: 'warn',
+      recommended: 'error',
     },
 
     messages: {

@@ -1,5 +1,25 @@
 # @atlaskit/page-layout
 
+## 1.5.0
+
+### Minor Changes
+
+- [`2a9f6f800ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2a9f6f800ef) - **Fixes**
+
+  - `onLeftSidebarExpand` is no longer called when the sidebar is already open. `onLeftSidebarExpand` oculd previously be incorrectly called if a user resized an expanded sidebar to slightly smaller than the default sidebar width, or when the user cancelled a sidebar resizing operation with the `"Escape"` key
+  - the latest provided `onLeftSidebarCollapse` and `onLeftSidebarExpand` functions are now called when collapsing / expanding respectively. Previously, only the initial `onLeftSidebarCollapse` and `onLeftSidebarExpand` were called (due to a stale closure)
+  - `onLeftSidebarCollapse` and `onLeftSidebarExpand` are now called with the latest state values. Previously there were only ever called with the initial left sidebar state value (due to a stale closure)
+
+  **Improvements**
+
+  - no longer possible to trigger the collapse of the sidebar when it is already collapsed
+  - no longer possible to trigger an expand of the sidebar when it is already expanded
+  - triggering an expand while the sidebar is collapsing will now flush the pending `onLeftSidebarExpand`
+  - triggering an collapse while the sidebar is expanding will now flush the pending `onLeftSidebarCollapse`
+  - only adding the event listener for `"transitionend"` when the sidebar is expanding or collapsing.
+  - removing `"transitionend"` event listener when `<LeftSidebar />` is unmounted
+  - explicitly aborting pending collapse / expand actions when `<LeftSidebar />` is unmounted while collapsing / expanding.
+
 ## 1.4.0
 
 ### Minor Changes

@@ -21,7 +21,11 @@ export type CardWithUrlContentProps = {
   isFrameVisible?: boolean;
   frameStyle?: FrameStyle;
   container?: HTMLElement;
-  dispatchAnalytics: AnalyticsHandler;
+  /**
+   * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-2681 Internal documentation for deprecation (no external access)}
+   * Avoid prop drilling analytics handlers
+   */
+  dispatchAnalytics?: AnalyticsHandler;
   testId?: string;
   onResolve?: OnResolveCallback;
   onError?: OnErrorCallback;

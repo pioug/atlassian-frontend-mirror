@@ -138,7 +138,7 @@ describe('SidebarResizeController', () => {
     ).toEqual(null);
   });
 
-  it('should call correct callback for collapse after initial render', () => {
+  it('should call `onLeftSidebarExpand` when expanding', () => {
     const collapseFn = jest.fn();
     const expandFn = jest.fn();
     const { getByTestId } = render(
@@ -148,7 +148,115 @@ describe('SidebarResizeController', () => {
         onLeftSidebarExpand={expandFn}
       >
         <Content>
-          <LeftSidebar testId="left-sidebar" width={200}>
+          <LeftSidebar
+            testId="left-sidebar"
+            width={200}
+            collapsedState="collapsed"
+          >
+            LeftSidebar
+            <ResizeControlledConsumer />
+          </LeftSidebar>
+          <Main testId="content">Main</Main>
+        </Content>
+      </PageLayout>,
+    );
+
+    expect(collapseFn).toBeCalledTimes(0);
+    expect(expandFn).toBeCalledTimes(0);
+
+    act(() => {
+      fireEvent.click(getByTestId('expand'));
+    });
+    triggerTransitionEnd(getByTestId('left-sidebar'));
+
+    expect(collapseFn).toBeCalledTimes(0);
+    expect(expandFn).toBeCalledTimes(1);
+  });
+
+  it('should not call `onLeftSidebarExpand` when trying to expand an already expanded sidebar', () => {
+    const collapseFn = jest.fn();
+    const expandFn = jest.fn();
+    const { getByTestId } = render(
+      <PageLayout
+        testId="grid"
+        onLeftSidebarCollapse={collapseFn}
+        onLeftSidebarExpand={expandFn}
+      >
+        <Content>
+          <LeftSidebar
+            testId="left-sidebar"
+            width={200}
+            collapsedState="expanded"
+          >
+            LeftSidebar
+            <ResizeControlledConsumer />
+          </LeftSidebar>
+          <Main testId="content">Main</Main>
+        </Content>
+      </PageLayout>,
+    );
+    expect(collapseFn).toBeCalledTimes(0);
+    expect(expandFn).toBeCalledTimes(0);
+
+    act(() => {
+      fireEvent.click(getByTestId('expand'));
+    });
+    triggerTransitionEnd(getByTestId('left-sidebar'));
+
+    expect(collapseFn).toBeCalledTimes(0);
+    expect(expandFn).toBeCalledTimes(0);
+  });
+
+  it('should call `onLeftSidebarCollapse` when collapsing', () => {
+    const collapseFn = jest.fn();
+    const expandFn = jest.fn();
+    const { getByTestId } = render(
+      <PageLayout
+        testId="grid"
+        onLeftSidebarCollapse={collapseFn}
+        onLeftSidebarExpand={expandFn}
+      >
+        <Content>
+          <LeftSidebar
+            testId="left-sidebar"
+            width={200}
+            collapsedState="expanded"
+          >
+            LeftSidebar
+            <ResizeControlledConsumer />
+          </LeftSidebar>
+          <Main testId="content">Main</Main>
+        </Content>
+      </PageLayout>,
+    );
+
+    expect(collapseFn).toBeCalledTimes(0);
+    expect(expandFn).toBeCalledTimes(0);
+
+    act(() => {
+      fireEvent.click(getByTestId('collapse'));
+    });
+    triggerTransitionEnd(getByTestId('left-sidebar'));
+
+    expect(collapseFn).toBeCalledTimes(1);
+    expect(expandFn).toBeCalledTimes(0);
+  });
+
+  it('should not call `onLeftSidebarCollapse` when trying to collapse an already collapsed sidebar', () => {
+    const collapseFn = jest.fn();
+    const expandFn = jest.fn();
+    const { getByTestId } = render(
+      <PageLayout
+        testId="grid"
+        onLeftSidebarCollapse={collapseFn}
+        onLeftSidebarExpand={expandFn}
+      >
+        <Content>
+          <LeftSidebar
+            testId="left-sidebar"
+            width={200}
+            collapsedState="collapsed"
+          >
             LeftSidebar
             <ResizeControlledConsumer />
           </LeftSidebar>
@@ -161,35 +269,9 @@ describe('SidebarResizeController', () => {
       fireEvent.click(getByTestId('collapse'));
     });
     triggerTransitionEnd(getByTestId('left-sidebar'));
-    expect(collapseFn).toBeCalledTimes(1);
-    expect(expandFn).toBeCalledTimes(0);
-  });
 
-  it('should call correct callback for expand after initial render', () => {
-    const collapseFn = jest.fn();
-    const expandFn = jest.fn();
-    const { getByTestId } = render(
-      <PageLayout
-        testId="grid"
-        onLeftSidebarCollapse={collapseFn}
-        onLeftSidebarExpand={expandFn}
-      >
-        <Content>
-          <LeftSidebar testId="left-sidebar" width={200}>
-            LeftSidebar
-            <ResizeControlledConsumer />
-          </LeftSidebar>
-          <Main testId="content">Main</Main>
-        </Content>
-      </PageLayout>,
-    );
-
-    act(() => {
-      fireEvent.click(getByTestId('expand'));
-    });
-    triggerTransitionEnd(getByTestId('left-sidebar'));
     expect(collapseFn).toBeCalledTimes(0);
-    expect(expandFn).toBeCalledTimes(1);
+    expect(expandFn).toBeCalledTimes(0);
   });
 
   it('should add the correct data attributes while expanding and collapsing', () => {

@@ -30,15 +30,6 @@
           }
         },
         {
-          "title": "Box",
-          "folder": "box",
-          "slug": "primitives/box",
-          "id": "@atlaskit/primitives/box",
-          "status": {
-            "type": "alpha"
-          }
-        },
-        {
           "title": "Inline",
           "folder": "inline",
           "slug": "primitives/inline",

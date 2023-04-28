@@ -1,5 +1,5 @@
 import type { JsonLd } from 'json-ld-types';
-import jiraTask from './__fixtures__/jira-task';
+import jiraTask from '../../../__fixtures__/jira-task';
 import extractState from '../extract-state';
 import { SmartLinkActionType } from '@atlaskit/linking-types';
 

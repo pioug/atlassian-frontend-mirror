@@ -4,9 +4,9 @@ import {
   CSSInterpolation,
   CSSObject,
   CSSPropertiesWithMultiValues,
-  CSSPseudos,
   SerializedStyles,
 } from '@emotion/serialize';
+import type * as CSS from 'csstype';
 
 import warnOnce from '@atlaskit/ds-lib/warn-once';
 
@@ -67,7 +67,7 @@ const transformStyles = (
     return styleObj;
   }
 
-  // If styles are defined as an CSSObject[], recursively call on each element until we reach CSSObject
+  // If styles are defined as a CSSObject[], recursively call on each element until we reach CSSObject
   if (Array.isArray(styleObj)) {
     return styleObj.map(transformStyles) as CSSObject[];
   }
@@ -152,6 +152,7 @@ export const parseXcss = (
   return styles;
 };
 
+type CSSPseudos = { [Pseudo in CSS.Pseudos]?: SafeCSSObject };
 type SafeCSSObject = CSSPseudos &
   TokenisedProps &
   Omit<CSSPropertiesWithMultiValues, keyof TokenisedProps>;

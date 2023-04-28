@@ -3,6 +3,9 @@ import { loadingPlaceholderClassName } from '../../index';
 import { SmartLinkSize, SmartLinkTheme } from '../../constants';
 import { FlexibleUiOptions } from '../FlexibleCard/types';
 
+// Temporary fix for Confluence inline comment on editor mod has z-index of 500, Jira issue view has z-index of 510
+export const HOVER_CARD_Z_INDEX = 511;
+
 export const flexibleUiOptions: FlexibleUiOptions = {
   hideBackground: true,
   hideElevation: true,
@@ -11,6 +14,7 @@ export const flexibleUiOptions: FlexibleUiOptions = {
   theme: SmartLinkTheme.Black,
   hidePadding: true,
   hideHoverCardPreviewButton: false,
+  zIndex: HOVER_CARD_Z_INDEX + 1,
 };
 
 export const CARD_WIDTH_REM = 24;

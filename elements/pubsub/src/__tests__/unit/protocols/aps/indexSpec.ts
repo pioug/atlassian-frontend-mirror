@@ -1,110 +1,119 @@
-import WebsocketClient from '../../../../protocols/aps/websocketClient';
 import APSProtocol from '../../../../protocols/aps';
+import WebsocketTransport from '../../../../protocols/aps/transports/ws';
+import HttpTransport from '../../../../protocols/aps/transports/http';
+import { APSTransportType } from '../../../../apiTypes';
 
-jest.mock('../../../../protocols/aps/websocketClient');
+jest.mock('../../../../protocols/aps/transports/ws');
+jest.mock('../../../../protocols/aps/transports/http');
 
-const mockWebsocketClient = {
-  send: jest.fn(),
+const mockWebsocketTransport = {
+  subscribe: jest.fn(),
   close: jest.fn(),
-  url: 'url-1',
+  transportType: () => 'Websocket',
 };
-(WebsocketClient as any).mockImplementation(() => mockWebsocketClient);
+(WebsocketTransport as any).mockImplementation(() => mockWebsocketTransport);
 
-function subscribeRequest({ channels = [''] } = {}) {
-  return {
-    type: 'aps',
-    channels: channels,
-  };
-}
-
+const mockHttpTransport = {
+  subscribe: jest.fn(),
+  close: jest.fn(),
+  transportType: () => 'Http',
+};
+(HttpTransport as any).mockImplementation(() => mockHttpTransport);
 describe('APS', () => {
-  let apsProtocol: APSProtocol;
-
-  beforeEach(() => {
-    apsProtocol = new APSProtocol();
-  });
-
   afterEach(() => {
     jest.clearAllMocks();
   });
 
-  describe('#url', () => {
-    beforeEach(() => {
-      Object.defineProperty(window, 'location', {
-        get() {
-          return {
-            protocol: 'https:',
-            host: 'jdog.jira-dev.com',
-          };
-        },
-      });
+  beforeEach(() => {
+    Object.defineProperty(window, 'location', {
+      get() {
+        return {
+          protocol: 'https:',
+          host: 'jdog.jira-dev.com',
+          origin: 'https://jdog.jira-dev.com',
+        };
+      },
+    });
+  });
+
+  describe('#subscribe', () => {
+    it('should use the websocket transport by default', () => {
+      const apsProtocol = new APSProtocol();
+
+      apsProtocol.subscribe({ type: 'aps', channels: ['channel-1'] });
+
+      expect(mockWebsocketTransport.subscribe).toHaveBeenCalledTimes(1);
+      expect(mockHttpTransport.subscribe).toHaveBeenCalledTimes(0);
+      expect(apsProtocol.activeTransport).toBe(mockWebsocketTransport);
     });
 
+    it('should use the http transport when it is passed in the params', () => {
+      const apsProtocol = new APSProtocol(undefined, APSTransportType.HTTP);
+
+      apsProtocol.subscribe({ type: 'aps', channels: ['channel-1'] });
+
+      expect(mockWebsocketTransport.subscribe).toHaveBeenCalledTimes(0);
+      expect(mockHttpTransport.subscribe).toHaveBeenCalledTimes(1);
+      expect(apsProtocol.activeTransport).toBe(mockHttpTransport);
+    });
+
+    it('should be able to fallback from websocket to http', () => {
+      const apsProtocol = new APSProtocol();
+
+      mockHttpTransport.subscribe.mockImplementation(() => {});
+      mockWebsocketTransport.subscribe.mockImplementation(() => {
+        throw Error('mock error');
+      });
+
+      apsProtocol.subscribe({ type: 'aps', channels: ['channel-1'] });
+
+      expect(mockWebsocketTransport.subscribe).toHaveBeenCalledTimes(1);
+      expect(mockHttpTransport.subscribe).toHaveBeenCalledTimes(1);
+      expect(apsProtocol.activeTransport).toBe(mockHttpTransport);
+    });
+
+    it('should be able to fallback from http to websocket', () => {
+      const apsProtocol = new APSProtocol(undefined, APSTransportType.HTTP);
+
+      mockWebsocketTransport.subscribe.mockImplementation(() => {});
+      mockHttpTransport.subscribe.mockImplementation(() => {
+        throw Error('mock error');
+      });
+
+      apsProtocol.subscribe({ type: 'aps', channels: ['channel-1'] });
+
+      expect(mockWebsocketTransport.subscribe).toHaveBeenCalledTimes(1);
+      expect(mockHttpTransport.subscribe).toHaveBeenCalledTimes(1);
+      expect(apsProtocol.activeTransport).toBe(mockWebsocketTransport);
+    });
+
+    it('should not try to fallback when skipFallback is used', () => {
+      const apsProtocol = new APSProtocol(undefined, undefined, true);
+
+      mockHttpTransport.subscribe.mockImplementation(() => {});
+      mockWebsocketTransport.subscribe.mockImplementation(() => {
+        throw Error('mock error');
+      });
+
+      apsProtocol.subscribe({ type: 'aps', channels: ['channel-1'] });
+
+      expect(mockWebsocketTransport.subscribe).toHaveBeenCalledTimes(1);
+      expect(mockHttpTransport.subscribe).toHaveBeenCalledTimes(0);
+      expect(apsProtocol.activeTransport).toBe(mockWebsocketTransport);
+    });
+  });
+
+  describe('#url', () => {
     it('should use default relative path when constructor param is not passed', () => {
       const apsProtocol = new APSProtocol();
       expect(apsProtocol.url.toString()).toBe(
-        'wss://jdog.jira-dev.com/gateway/wss/fps',
+        'https://jdog.jira-dev.com/gateway/wss/fps',
       );
     });
 
     it("should use constructor param when it's passed", () => {
       const apsProtocol = new APSProtocol(new URL('https://some-url.com/wss'));
       expect(apsProtocol.url.toString()).toBe('https://some-url.com/wss');
-    });
-  });
-
-  describe('#unsubscribeAll', () => {
-    it('should not send unsubscribe messages if not subscribed to any channels', () => {
-      apsProtocol.unsubscribeAll();
-
-      expect(mockWebsocketClient.send).toHaveBeenCalledTimes(0);
-    });
-
-    it('should send unsubscribe message containing current channels', () => {
-      apsProtocol.subscribe(subscribeRequest({ channels: ['channel-1'] }));
-      apsProtocol.subscribe(subscribeRequest({ channels: ['channel-2'] }));
-      apsProtocol.unsubscribeAll();
-
-      expect(mockWebsocketClient.send).toHaveBeenCalledTimes(3);
-      expect(mockWebsocketClient.send).toHaveBeenNthCalledWith(3, {
-        type: 'unsubscribe',
-        channels: ['channel-1', 'channel-2'],
-      });
-      expect(mockWebsocketClient.close).toHaveBeenCalledTimes(1);
-    });
-  });
-
-  describe('#subscribe', () => {
-    it('should create a new WebsocketClient', () => {
-      apsProtocol.subscribe(subscribeRequest());
-
-      expect(WebsocketClient).toHaveBeenCalled();
-    });
-
-    it('should send a message to WebsocketClient', () => {
-      apsProtocol.subscribe(subscribeRequest({ channels: ['channel-1'] }));
-
-      expect(mockWebsocketClient.send).toHaveBeenCalledWith({
-        type: 'subscribe',
-        channels: ['channel-1'],
-      });
-    });
-
-    it('can subscribe to multiple channels', () => {
-      apsProtocol.subscribe(subscribeRequest({ channels: ['channel-1'] }));
-      apsProtocol.subscribe(subscribeRequest({ channels: ['channel-2'] }));
-
-      expect(WebsocketClient).toHaveBeenCalledTimes(1);
-
-      expect(mockWebsocketClient.send).toHaveBeenCalledTimes(2);
-      expect(mockWebsocketClient.send).toHaveBeenNthCalledWith(1, {
-        type: 'subscribe',
-        channels: ['channel-1'],
-      });
-      expect(mockWebsocketClient.send).toHaveBeenNthCalledWith(2, {
-        type: 'subscribe',
-        channels: ['channel-2'],
-      });
     });
   });
 });

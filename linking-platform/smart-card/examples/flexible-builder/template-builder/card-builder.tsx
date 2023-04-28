@@ -74,7 +74,7 @@ const CardBuilder: React.FC<{
       <CheckboxOption
         defaultValue={false}
         exclude={!isFlexible}
-        label="[WIP] Show server actions (block, flexible)"
+        label="[FF] Show server actions (inline, block, flexible)"
         name="showServerActions"
         onChange={onChange}
         propName="showServerActions"

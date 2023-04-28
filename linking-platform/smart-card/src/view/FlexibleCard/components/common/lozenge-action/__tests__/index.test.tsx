@@ -1,13 +1,17 @@
 import React from 'react';
+import { IntlProvider } from 'react-intl-next';
 import { act, fireEvent, render } from '@testing-library/react';
 import { flushPromises } from '@atlaskit/link-test-helpers';
 import LozengeAction from '../index';
-import { InvokeActionError } from '../../../../../../state/hooks/use-invoke/types';
 import * as useInvoke from '../../../../../../state/hooks/use-invoke';
 import * as useResolve from '../../../../../../state/hooks/use-resolve';
-import { SmartLinkActionType } from '@atlaskit/linking-types/smart-link-actions';
+import {
+  SmartLinkActionType,
+  InvokeError,
+} from '@atlaskit/linking-types/smart-link-actions';
 import { LozengeActionProps } from '../types';
 import extractLozengeActionItems from '../../../../../../extractors/action/extract-lozenge-action-items';
+import { LozengeActionErrorMessages } from '../lozenge-action-error/types';
 
 describe('LozengeAction', () => {
   const testId = 'test-smart-element-lozenge-dropdown';
@@ -53,12 +57,15 @@ describe('LozengeAction', () => {
     jest.spyOn(useResolve, 'default').mockReturnValue(mockResolve);
 
     return render(
-      <LozengeAction
-        appearance={appearance}
-        testId={testId}
-        text={text}
-        {...props}
-      />,
+      <IntlProvider locale="en">
+        <LozengeAction
+          appearance={appearance}
+          testId={testId}
+          text={text}
+          {...props}
+        />
+        ,
+      </IntlProvider>,
     );
   };
 
@@ -236,9 +243,13 @@ describe('LozengeAction', () => {
     act(() => {
       fireEvent.click(element);
     });
-    const error = await findByTestId(`${testId}-error`);
+
+    // making sure error message is correct
+    const error = await findByTestId(`${testId}-error-message`);
     expect(error).toBeTruthy();
-    expect(error.textContent).toBe(InvokeActionError.NoData);
+    expect(error.textContent).toBe(
+      LozengeActionErrorMessages.noData.descriptor.defaultMessage,
+    );
   });
 
   it('renders error view when invoke return error', async () => {
@@ -252,9 +263,13 @@ describe('LozengeAction', () => {
     act(() => {
       fireEvent.click(element);
     });
-    const error = await findByTestId(`${testId}-error`);
+
+    // making sure error message is correct
+    const error = await findByTestId(`${testId}-error-message`);
     expect(error).toBeTruthy();
-    expect(error.textContent).toBe(InvokeActionError.Unknown);
+    expect(error.textContent).toBe(
+      LozengeActionErrorMessages.unknown.descriptor.defaultMessage,
+    );
   });
 
   it('renders fallback component on unexpected error', async () => {
@@ -410,7 +425,7 @@ describe('LozengeAction', () => {
     expect(mockResolve).toHaveBeenCalledWith(url, true, undefined, id);
   });
 
-  it('renders error view when update fails', async () => {
+  it('renders error with a default message when update fails for an unknown reason', async () => {
     const mockInvoke = jest
       .fn()
       .mockResolvedValueOnce([{ id: '1', text: 'Done' }])
@@ -429,9 +444,37 @@ describe('LozengeAction', () => {
       fireEvent.click(item);
     });
 
-    const error = await findByTestId(`${testId}-error`);
+    // making sure error message is correct
+    const error = await findByTestId(`${testId}-error-message`);
     expect(error).toBeTruthy();
-    expect(error.textContent).toBe(InvokeActionError.Unknown);
+    expect(error.textContent).toBe(
+      LozengeActionErrorMessages.updateFailed.descriptor.defaultMessage,
+    );
+  });
+
+  it('renders error with a custom user message when update fails for a validation reason', async () => {
+    const mockInvoke = jest
+      .fn()
+      .mockResolvedValueOnce([{ id: '1', text: 'Done' }])
+      .mockImplementationOnce(() => {
+        throw new InvokeError('Field Labels must be provided', 400);
+      });
+
+    const { findByTestId } = renderComponent({ action }, mockInvoke);
+
+    const element = await findByTestId(triggerTestId);
+    act(() => {
+      fireEvent.click(element);
+    });
+    const item = await findByTestId(`${testId}-item-0`);
+    act(() => {
+      fireEvent.click(item);
+    });
+
+    // making sure error message is correct
+    const error = await findByTestId(`${testId}-error-message`);
+    expect(error).toBeTruthy();
+    expect(error.textContent).toBe('Field Labels must be provided');
   });
 
   it('does not reload the url when an update fails', async () => {

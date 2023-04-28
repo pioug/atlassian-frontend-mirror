@@ -81,6 +81,7 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
   url,
   onMouseEnter,
   onMouseLeave,
+  showServerActions,
 }) => {
   const { createAnalyticsEvent } = useAnalyticsEvents();
 
@@ -136,6 +137,7 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
     onClick: onClick,
     onResolve: onResolve,
     renderers: renderers,
+    showServerActions,
     ui: flexibleUiOptions,
     url: url,
     children: {},

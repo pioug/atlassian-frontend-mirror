@@ -32,6 +32,8 @@ export interface InlineCardResolvedViewProps {
   titlePrefix?: React.ReactNode;
   /** Enables showing a custom preview on hover of link */
   showHoverPreview?: boolean;
+  /** Show server actions that change the link resource, e.g. update status. */
+  showServerActions?: boolean;
 }
 
 export class InlineCardResolvedView extends React.Component<InlineCardResolvedViewProps> {
@@ -67,6 +69,7 @@ export class InlineCardResolvedView extends React.Component<InlineCardResolvedVi
       titleTextColor,
       titlePrefix,
       showHoverPreview = false,
+      showServerActions = false,
     } = this.props;
 
     const inlineCardResolvedView = (
@@ -88,7 +91,7 @@ export class InlineCardResolvedView extends React.Component<InlineCardResolvedVi
 
     if (showHoverPreview && link) {
       return (
-        <HoverCard id={id} url={link}>
+        <HoverCard id={id} showServerActions={showServerActions} url={link}>
           {inlineCardResolvedView}
         </HoverCard>
       );

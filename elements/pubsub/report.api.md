@@ -26,6 +26,14 @@ export interface ActionablePubSubClient extends PubSubClient {
 }
 
 // @public (undocumented)
+enum APSTransportType {
+  // (undocumented)
+  HTTP = 'HTTP',
+  // (undocumented)
+  WEBSOCKET = 'WEBSOCKET',
+}
+
+// @public (undocumented)
 export type ARI = string;
 
 // @public (undocumented)
@@ -115,6 +123,8 @@ export interface PubSubClientConfig extends ServiceConfig {
   apsProtocol?: {
     enabled: boolean;
     url?: URL;
+    preferredTransport?: APSTransportType;
+    skipFallback?: boolean;
   };
   // (undocumented)
   featureFlags?: {

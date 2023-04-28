@@ -4,6 +4,7 @@ import { jsx } from '@emotion/react';
 import { VRTestWrapper } from './utils/vr-test';
 import { Card, Client, Provider, ResolveResponse } from '../src';
 import { JiraIssue } from '../examples-helpers/_jsonLDExamples/provider.jira';
+import './utils/fetch-mock-invoke';
 
 class CustomClient extends Client {
   fetchData(url: string) {
@@ -12,12 +13,17 @@ class CustomClient extends Client {
 }
 
 export default () => (
-  <VRTestWrapper title="Experiment: Actionable Element">
+  <VRTestWrapper title="Hover Card: Server Actions">
     <Provider
       client={new CustomClient('staging')}
-      featureFlags={{ showHoverPreview: true, enableActionableElement: true }}
+      featureFlags={{ useLozengeAction: 'experiment' }}
     >
-      <Card url="https://www.mockurl.com" appearance="inline" />
+      <Card
+        url="https://www.mockurl.com"
+        appearance="inline"
+        showHoverPreview={true}
+        showServerActions={true}
+      />
     </Provider>
   </VRTestWrapper>
 );

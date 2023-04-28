@@ -1,5 +1,11 @@
 # @atlaskit/form
 
+## 8.9.1
+
+### Patch Changes
+
+- [`eb179f0c089`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eb179f0c089) - Migrates unit tests from enzyme to RTL.
+
 ## 8.9.0
 
 ### Minor Changes

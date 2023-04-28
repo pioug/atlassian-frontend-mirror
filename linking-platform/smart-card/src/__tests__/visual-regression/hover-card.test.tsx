@@ -135,29 +135,6 @@ describe('Hover Card', () => {
     });
   });
 
-  // FIXME: This test was automatically skipped due to failure on 12/03/2023: https://product-fabric.atlassian.net/browse/EDM-6108
-  it.skip('shows actionable element experiment', async () => {
-    const height = 300;
-
-    const url = getURL('vr-hover-cards-element-action-experiment');
-    const page = await setup(url);
-
-    await page.setViewport({
-      width: 800,
-      height: height,
-    });
-
-    await page.waitForSelector('[data-testid="inline-card-resolved-view"]');
-    await page.hover('[data-testid="inline-card-resolved-view"]');
-    await page.waitForSelector('[data-testid="hover-card"]');
-    await page.waitForSelector(
-      '[data-testid="authorgroup-metadata-element--avatar-0--image"]',
-    );
-
-    const image = await takeSnapshot(page, height);
-    expect(image).toMatchProdImageSnapshot(snapshotOptions);
-  });
-
   // FIXME: This test was automatically skipped due to failure on 04/04/2023: https://product-fabric.atlassian.net/browse/EDM-6304
   it.skip('shows tooltip on an action in hover previews', async () => {
     const height = 300;
@@ -210,5 +187,24 @@ describe('Hover Card', () => {
 
     const image = await takeSnapshot(page, height);
     expect(image).toMatchProdImageSnapshot(snapshotOptions);
+  });
+
+  it('renders hover preview with server actions', async () => {
+    const url = getURL('vr-hover-card-action');
+    const page = await setup(url);
+
+    await page.waitForSelector('[data-testid="inline-card-resolved-view"]');
+    await page.hover('[data-testid="inline-card-resolved-view"]');
+    await page.waitForSelector('[data-testid="hover-card"]');
+
+    const testId = 'state-metadata-element';
+    await page.waitForSelector(`[data-testid="${testId}--trigger"]`);
+    await page.click(`[data-testid="${testId}--trigger"]`);
+    await page.waitForSelector(`[data-testid="${testId}-item-group"]`);
+    await page.hover(`[data-testid="${testId}-item-1"]`);
+
+    const image = await takeSnapshot(page, 300);
+
+    expect(image).toMatchProdImageSnapshot();
   });
 });

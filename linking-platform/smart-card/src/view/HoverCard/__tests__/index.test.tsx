@@ -119,6 +119,38 @@ describe('HoverCard', () => {
     return { findByTestId, queryByTestId, element, analyticsSpy };
   };
 
+  const serverActionsTest = (
+    fn: (showServerActions?: boolean) => ReturnType<typeof setup>,
+  ) => {
+    const elementId = 'state-metadata-element--trigger';
+
+    it('shows server actions when enabled', async () => {
+      const { findByTestId } = await fn(true);
+      jest.runAllTimers();
+
+      const actionElement = await findByTestId(elementId);
+      expect(actionElement).toBeInTheDocument();
+    });
+
+    it('does not show server actions when disable', async () => {
+      const { queryByTestId } = await fn(false);
+      jest.runAllTimers();
+
+      const actionElement = queryByTestId(elementId);
+
+      expect(actionElement).not.toBeInTheDocument();
+    });
+
+    it('does not show server action when option not provided', async () => {
+      const { queryByTestId } = await fn();
+      jest.runAllTimers();
+
+      const actionElement = queryByTestId(elementId);
+
+      expect(actionElement).not.toBeInTheDocument();
+    });
+  };
+
   beforeEach(() => {
     mockGetEntries = jest
       .fn()
@@ -1141,9 +1173,41 @@ describe('HoverCard', () => {
         });
       });
     });
+
+    describe('server actions', () => {
+      const featureFlags = { useLozengeAction: 'experiment' };
+      const mock = mockJiraResponse;
+
+      describe('inline smart link', () => {
+        const setupWithInline = (showServerActions?: boolean) =>
+          setup({
+            extraCardProps: { showServerActions },
+            featureFlags,
+            mock,
+          });
+
+        serverActionsTest(setupWithInline);
+      });
+
+      describe('flexible smart link', () => {
+        const setupWithFlexible = (showServerActions?: boolean) =>
+          setup({
+            extraCardProps: {
+              appearance: 'block',
+              showServerActions,
+              children: <TitleBlock />,
+            },
+            featureFlags,
+            mock,
+            testId: 'hover-card-trigger-wrapper',
+          });
+
+        serverActionsTest(setupWithFlexible);
+      });
+    });
   });
 
-  describe('Standalone hover card', () => {
+  describe('standalone hover card', () => {
     it('should render a hover card over a div', async () => {
       const testId = 'hover-test-div';
       const hoverCardComponent = (
@@ -1190,6 +1254,26 @@ describe('HoverCard', () => {
       expect(footerBlock).toBeTruthy();
       const fullscreenButton = queryByTestId('preview-content-button-wrapper');
       expect(fullscreenButton).toBeFalsy();
+    });
+
+    describe('server actions', () => {
+      const setupWithStandalone = (showServerActions?: boolean) => {
+        const testId = 'hover-test-div';
+        const component = (
+          <HoverCard showServerActions={showServerActions} url={mockUrl}>
+            <div data-testid={testId}>Hover on me</div>
+          </HoverCard>
+        );
+
+        return setup({
+          component,
+          featureFlags: { useLozengeAction: 'experiment' },
+          mock: mockJiraResponse,
+          testId,
+        });
+      };
+
+      serverActionsTest(setupWithStandalone);
     });
   });
 });

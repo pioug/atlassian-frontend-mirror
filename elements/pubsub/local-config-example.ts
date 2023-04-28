@@ -1,4 +1,6 @@
 // Copy this file to local-config.ts and customise.
+import { APSTransportType } from './src/apiTypes';
+
 export default {
   serviceConfig: {
     product: 'TEST',
@@ -14,6 +16,7 @@ export default {
   },
 };
 
-// The URL that should be used when establishing a Web Socket connection with Atlassian PubSub
-export const apsUrl =
-  'wss://atlassian-pubsub.us-east-1.staging.atl-paas.net/endpoints/$ENDPOINT_ID/connect';
+export const apsParams = {
+  url: 'wss://atlassian-pubsub.us-east-1.staging.atl-paas.net/endpoints/$ENDPOINT_ID/connect',
+  preferredTransport: APSTransportType.HTTP,
+};

@@ -1,4 +1,4 @@
-import { logDebug, logError } from '../../util/logger';
+import { logDebug, logError } from '../../../../util/logger';
 
 const noop: OnWebSocketEvent = () => {};
 

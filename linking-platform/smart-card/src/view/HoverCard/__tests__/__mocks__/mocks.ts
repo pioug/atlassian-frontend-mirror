@@ -1,4 +1,5 @@
 import { overrideEmbedContent } from '../../../../../examples/utils/common';
+import { SmartLinkActionType } from '@atlaskit/linking-types';
 
 export const mockBaseResponse = {
   meta: {
@@ -99,6 +100,25 @@ export const mockJiraResponse = {
       '@id': 'https://www.atlassian.com/#Jira',
       name: 'Jira',
     },
+    'atlassian:serverAction': [
+      {
+        '@type': 'UpdateAction',
+        name: 'UpdateAction',
+        dataRetrievalAction: {
+          '@type': 'ReadAction',
+          name: SmartLinkActionType.GetStatusTransitionsAction,
+        },
+        dataUpdateAction: {
+          '@type': 'UpdateAction',
+          name: SmartLinkActionType.StatusUpdateAction,
+        },
+        refField: 'tag',
+        resourceIdentifiers: {
+          issueKey: 'some-id',
+          hostname: 'some-hostname',
+        },
+      },
+    ],
   },
 };
 

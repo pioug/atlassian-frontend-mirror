@@ -18,5 +18,6 @@ export type InlineCardProps = {
   renderers?: CardProviderRenderers;
   showHoverPreview?: boolean;
   showAuthTooltip?: boolean;
+  showServerActions?: boolean;
   analytics: AnalyticsFacade;
 };

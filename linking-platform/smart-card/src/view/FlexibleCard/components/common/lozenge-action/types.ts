@@ -12,4 +12,5 @@ export type LozengeActionProps = {
   appearance?: ThemeAppearance;
   testId?: string;
   text: string | React.ReactNode;
+  zIndex?: number;
 };

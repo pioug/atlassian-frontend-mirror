@@ -1,31 +1,51 @@
 import { EventEmitter2 } from 'eventemitter2';
 import { APSProtocolConfig } from '../types';
-import { logDebug, logError } from '../../util/logger';
-import { OnEvent } from '../../apiTypes';
+import { logError, logInfo } from '../../util/logger';
+import { APSTransportType, OnEvent } from '../../apiTypes';
 import { EventType, Protocol } from '../../types';
-import WebsocketClient from './websocketClient';
-import { MessageData } from './types';
+import HttpTransport from './transports/http';
+import { APS_STARGATE_PATH } from './utils';
+import WebsocketTransport from './transports/ws';
+import { APSTransport } from './transports';
 
 export default class APSProtocol implements Protocol {
-  private channels = new Set<string>();
-  private eventEmitter = new EventEmitter2();
-  private websocketClient?: WebsocketClient;
   readonly url: URL;
+  private readonly eventEmitter: EventEmitter2;
+  activeTransport: APSTransport;
+  private readonly fallbackTransport: APSTransport;
+  private readonly skipFallback: boolean;
 
   /**
    * @param apsUrl the URL used to initiate a Web Socket connection with Atlassian PubSub.
    * Defaults to the path '/gateway/wss/fps', relative to the domain of the current window.location.
+   * @param preferredTransport indicates which type of transport the APS client should use. The default
+   * value is WEBSOCKET.
+   * @param skipFallback indicates that this class should not attempt to reconnected using the fallback transport
+   * in case the primary one fails. This value should, most of the time, be 'false' on a real client.
    *
    */
-  constructor(apsUrl: URL = APSProtocol.getDefaultUrl()) {
+  constructor(
+    apsUrl: URL = APSProtocol.getDefaultUrl(),
+    preferredTransport: APSTransportType = APSTransportType.WEBSOCKET,
+    skipFallback: boolean = false,
+  ) {
     this.url = apsUrl;
+    this.eventEmitter = new EventEmitter2();
+    this.skipFallback = skipFallback;
+
+    const transportParams = { url: this.url, eventEmitter: this.eventEmitter };
+
+    if (preferredTransport === APSTransportType.WEBSOCKET) {
+      this.activeTransport = new WebsocketTransport(transportParams);
+      this.fallbackTransport = new HttpTransport(transportParams);
+    } else {
+      this.activeTransport = new HttpTransport(transportParams);
+      this.fallbackTransport = new WebsocketTransport(transportParams);
+    }
   }
 
   private static getDefaultUrl = () => {
-    const defaultUrlPath = '/gateway/wss/fps';
-    const wsHost = 'wss://' + window.location.host;
-
-    return new URL(wsHost + defaultUrlPath);
+    return new URL(APS_STARGATE_PATH, window.location.origin);
   };
 
   getCapabilities(): string[] {
@@ -43,6 +63,7 @@ export default class APSProtocol implements Protocol {
   networkDown(): void {
     logError("the 'networkDown()' method is not supported by the APS protocol");
   }
+
   /**
    * The APS protocol does not implement 'networkDown' or 'networkUp'.
    * These functions are never called by our primary consumers.
@@ -60,55 +81,28 @@ export default class APSProtocol implements Protocol {
   }
 
   subscribe(config: APSProtocolConfig): void {
-    config.channels.forEach((channel) => this.channels.add(channel));
-
-    if (!this.websocketClient) {
-      this.websocketClient = new WebsocketClient({
-        url: this.url,
-        onOpen: () => {
-          this.eventEmitter.emit(EventType.NETWORK_UP, {});
-        },
-        onMessage: (event) => {
-          const data = JSON.parse(event.data) as MessageData;
-
-          if (data.type === 'CHANNEL_ACCESS_DENIED') {
-            this.eventEmitter.emit(EventType.ACCESS_DENIED, data.payload);
-            return;
-          }
-
-          this.eventEmitter.emit(EventType.MESSAGE, data.type, data.payload);
-        },
-        onClose: (event) => {
-          logDebug('Websocket connection closed', event);
-          this.eventEmitter.emit(EventType.NETWORK_DOWN, {});
-        },
-        onError: (event) => {
-          // TODO can we emit metrics and log Sentry errors from here?
-
-          logError('Websocket connection closed due to error', event);
-          throw new Error('Websocket connection closed due to error');
-        },
-      });
+    try {
+      this.activeTransport.subscribe(new Set(config.channels));
+    } catch (error) {
+      logError(
+        `Could not subscribe using primary transport: ${this.activeTransport.transportType()}. Will fallback? ${!this
+          .skipFallback}`,
+        error,
+      );
+      if (this.skipFallback) {
+        logInfo('Skipping subscription fallback');
+      } else {
+        this.activeTransport = this.fallbackTransport;
+        logInfo(
+          `Retrying with fallback transport: ${this.fallbackTransport.transportType()}`,
+        );
+        this.activeTransport.subscribe(new Set(config.channels));
+      }
     }
-
-    this.websocketClient.send({
-      type: 'subscribe',
-      channels: config.channels,
-    });
   }
 
   unsubscribeAll(): void {
-    if (this.channels.size > 0) {
-      this.websocketClient?.send({
-        type: 'unsubscribe',
-        channels: Array.from(this.channels),
-      });
-
-      this.channels.clear();
-    }
-
-    this.websocketClient?.close();
-    this.websocketClient = undefined;
     this.eventEmitter.removeAllListeners();
+    this.activeTransport.close();
   }
 }

@@ -546,11 +546,12 @@ type ErrorCardType =
 type FlexibleUiOptions = {
   clickableContainer?: boolean;
   hideElevation?: boolean;
+  hideHoverCardPreviewButton?: boolean;
   hidePadding?: boolean;
   hideBackground?: boolean;
   size?: SmartLinkSize;
   theme?: SmartLinkTheme;
-  hideHoverCardPreviewButton?: boolean;
+  zIndex?: number;
 };
 
 // @public

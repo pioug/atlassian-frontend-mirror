@@ -9,6 +9,7 @@ import Container from './components/container';
 import {
   FlexibleUiAnalyticsContext,
   FlexibleUiContext,
+  FlexibleUiOptionContext,
 } from '../../state/flexible-ui-context';
 import { getContextByStatus, getRetryOptions } from './utils';
 
@@ -79,18 +80,21 @@ const FlexibleCard: React.FC<FlexibleCardProps> = ({
   }, [onError, onResolve, status, title, url]);
   return (
     <FlexibleUiAnalyticsContext.Provider value={analytics}>
-      <FlexibleUiContext.Provider value={context}>
-        <Container
-          testId={testId}
-          {...ui}
-          showHoverPreview={showHoverPreview}
-          onClick={onClick}
-          retry={retry}
-          status={status}
-        >
-          {children}
-        </Container>
-      </FlexibleUiContext.Provider>
+      <FlexibleUiOptionContext.Provider value={ui}>
+        <FlexibleUiContext.Provider value={context}>
+          <Container
+            testId={testId}
+            {...ui}
+            onClick={onClick}
+            retry={retry}
+            showHoverPreview={showHoverPreview}
+            showServerActions={showServerActions}
+            status={status}
+          >
+            {children}
+          </Container>
+        </FlexibleUiContext.Provider>
+      </FlexibleUiOptionContext.Provider>
     </FlexibleUiAnalyticsContext.Provider>
   );
 };

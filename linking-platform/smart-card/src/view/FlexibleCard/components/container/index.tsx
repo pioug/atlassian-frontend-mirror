@@ -164,6 +164,7 @@ const renderChildren = (
   onActionMenuOpenChange?: (options: OnActionMenuOpenChangeOptions) => void,
 ): React.ReactNode =>
   React.Children.map(children, (child) => {
+    // TODO: EDM-6468: Use useFlexibleUiOptionContext for rendering options inside block/element instead
     if (React.isValidElement(child) && isFlexibleUiBlock(child)) {
       const { size: blockSize } = child.props;
       const size = blockSize || containerSize;
@@ -232,9 +233,10 @@ const Container: React.FC<ContainerProps> = ({
   hideElevation = false,
   hideHoverCardPreviewButton = false,
   hidePadding = false,
-  showHoverPreview = false,
   onClick,
   retry,
+  showHoverPreview = false,
+  showServerActions = false,
   size = SmartLinkSize.Medium,
   status,
   testId = 'smart-links-container',
@@ -285,6 +287,7 @@ const Container: React.FC<ContainerProps> = ({
         canOpen={hoverCardCanOpen}
         closeOnChildClick={true}
         hidePreviewButton={hideHoverCardPreviewButton}
+        showServerActions={showServerActions}
       >
         {containerContent}
       </HoverCard>

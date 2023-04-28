@@ -305,6 +305,7 @@ export function CardWithUrlContent({
           inlinePreloaderStyle={inlinePreloaderStyle}
           showHoverPreview={showHoverPreview}
           showAuthTooltip={showAuthTooltip}
+          showServerActions={showServerActions}
         />
       );
     case 'block':

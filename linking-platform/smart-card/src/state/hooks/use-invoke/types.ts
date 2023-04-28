@@ -1,10 +1,5 @@
 import type { InvokeRequest } from '@atlaskit/linking-types/smart-link-actions';
 
-export enum InvokeActionError {
-  NoData = 'NoData',
-  Unknown = 'Unknown',
-}
-
 /**
  * Additional details for invoke function that may be required for component
  */

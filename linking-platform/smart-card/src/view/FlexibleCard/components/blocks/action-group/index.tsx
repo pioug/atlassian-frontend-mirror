@@ -15,7 +15,10 @@ import MoreIcon from '@atlaskit/icon/glyph/more';
 import { sizeToButtonSpacing } from '../../utils';
 import { messages } from '../../../../../messages';
 import { ActionItem } from '../types';
-import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
+import {
+  useFlexibleUiContext,
+  useFlexibleUiOptionContext,
+} from '../../../../../state/flexible-ui-context';
 import { FlexibleUiDataContext } from '../../../../../state/flexible-ui-context/types';
 import ActionGroupItem from './action-group-item';
 
@@ -90,6 +93,8 @@ const ActionGroup: React.FC<ActionGroupProps> = ({
   testId,
 }) => {
   const context = useFlexibleUiContext();
+  const ui = useFlexibleUiOptionContext();
+
   const [isOpen, setIsOpen] = useState(false);
 
   const renderableActionItems = useMemo(
@@ -166,6 +171,7 @@ const ActionGroup: React.FC<ActionGroupProps> = ({
             </Tooltip>
           )}
           testId="action-group-dropdown"
+          zIndex={ui?.zIndex}
         >
           {renderActionItems(
             actionItems,
@@ -186,6 +192,7 @@ const ActionGroup: React.FC<ActionGroupProps> = ({
     onOpenChange,
     renderableActionItems,
     size,
+    ui?.zIndex,
     visibleButtonsNum,
   ]);
 

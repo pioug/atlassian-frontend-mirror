@@ -1,5 +1,11 @@
 # @atlaskit/pubsub
 
+## 6.3.0
+
+### Minor Changes
+
+- [`bf1b91e09e3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bf1b91e09e3) - Add support to Http long polling for the APS protocol
+
 ## 6.2.2
 
 ### Patch Changes

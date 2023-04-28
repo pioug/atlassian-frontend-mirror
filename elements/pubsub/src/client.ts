@@ -50,7 +50,7 @@ export class Client implements ActionablePubSubClient {
     },
   };
 
-  private featureFlags: FeatureFlags;
+  private readonly featureFlags: FeatureFlags;
 
   constructor(config: PubSubClientConfig, protocols?: Protocol[]) {
     this.config = config;
@@ -58,7 +58,13 @@ export class Client implements ActionablePubSubClient {
     if (!protocols) {
       protocols = [new PubNubProtocol(this.featureFlags)];
       if (config.apsProtocol?.enabled) {
-        protocols.push(new APSProtocol(config.apsProtocol?.url));
+        protocols.push(
+          new APSProtocol(
+            config.apsProtocol?.url,
+            config.apsProtocol?.preferredTransport,
+            config.apsProtocol?.skipFallback,
+          ),
+        );
       }
     }
 

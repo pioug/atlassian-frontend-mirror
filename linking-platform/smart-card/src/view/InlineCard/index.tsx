@@ -37,6 +37,7 @@ export const InlineCard: FC<InlineCardProps> = ({
   inlinePreloaderStyle,
   showHoverPreview,
   showAuthTooltip,
+  showServerActions,
 }) => {
   const { status, details } = cardState;
   const cardDetails = (details && details.data) || getEmptyJsonLd();
@@ -78,6 +79,7 @@ export const InlineCard: FC<InlineCardProps> = ({
           {...resolvedProps}
           id={id}
           showHoverPreview={showHoverPreview}
+          showServerActions={showServerActions}
           link={url}
           isSelected={isSelected}
           onClick={handleFrameClick}

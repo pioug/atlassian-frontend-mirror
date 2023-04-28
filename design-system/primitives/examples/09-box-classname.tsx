@@ -8,8 +8,10 @@ const safeStyles = xcss({
   width: 'size.500',
   height: 'size.500',
   transition: 'all 0.3s',
+  padding: 'space.100',
   ':hover': {
     transform: 'scale(2)',
+    padding: 'space.200',
   },
   // All of these will throw an error
   // '> *': {},

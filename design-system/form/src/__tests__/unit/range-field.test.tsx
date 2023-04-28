@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import Button from '@atlaskit/button/custom-theme-button';
 import __noop from '@atlaskit/ds-lib/noop';
@@ -9,7 +10,9 @@ import Range from '@atlaskit/range';
 import Form, { RangeField } from '../../index';
 
 describe('RangeField', () => {
-  test('renders without errors', () => {
+  const user = userEvent.setup();
+
+  it('renders without errors', () => {
     const error = jest.spyOn(console, 'error');
     const warn = jest.spyOn(console, 'warn');
 
@@ -45,9 +48,9 @@ describe('RangeField', () => {
     error.mockRestore();
   });
 
-  test('passes through defaultValue correctly', () => {
+  it('passes through defaultValue correctly', async () => {
     const spy = jest.fn();
-    const { getByTestId } = render(
+    render(
       <Form onSubmit={(data) => spy(data)}>
         {({ formProps }) => (
           <form {...formProps} data-testid="form">
@@ -64,17 +67,19 @@ describe('RangeField', () => {
       </Form>,
     );
 
-    const range = getByTestId('form--range');
+    const range = screen.getByTestId('form--range');
+
     expect(range).toHaveAttribute('value', '30');
 
-    const submit = getByTestId('form--submit');
-    fireEvent.click(submit);
+    const submit = screen.getByTestId('form--submit');
+    await user.click(submit);
+
     expect(spy).toHaveBeenCalledWith({ volume: 30 });
   });
 
-  test('updates value when range changes', () => {
+  it('updates value when range changes', () => {
     const spy = jest.fn();
-    const { getByTestId } = render(
+    render(
       <Form onSubmit={(data) => spy(data)}>
         {({ formProps }) => (
           <form {...formProps} data-testid="form">
@@ -91,11 +96,11 @@ describe('RangeField', () => {
       </Form>,
     );
 
-    const range = getByTestId('form--range');
+    const range = screen.getByTestId('form--range');
     fireEvent.change(range, { target: { value: 70 } });
     expect(range).toHaveAttribute('value', '70');
 
-    const submit = getByTestId('form--submit');
+    const submit = screen.getByTestId('form--submit');
     fireEvent.click(submit);
     expect(spy).toHaveBeenCalledWith({ volume: 70 });
   });

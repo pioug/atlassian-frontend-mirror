@@ -1,5 +1,11 @@
 # @atlaskit/link-create
 
+## 0.3.2
+
+### Patch Changes
+
+- [`1600a0d171f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1600a0d171f) - Adds various eslint-ignores for tokens-related warnings
+
 ## 0.3.1
 
 ### Patch Changes

@@ -19,9 +19,9 @@
 
 import { ComponentPropsWithoutRef } from 'react';
 import { ComponentPropsWithRef } from 'react';
+import type * as CSS_2 from 'csstype';
 import type { CSSProperties } from 'react';
 import { CSSPropertiesWithMultiValues } from '@emotion/serialize';
-import { CSSPseudos } from '@emotion/serialize';
 import { ElementType } from 'react';
 import { FC } from 'react';
 import { ForwardRefExoticComponent } from 'react';
@@ -296,6 +296,11 @@ type BoxXCSS = {
   readonly styles: BoxStyles;
 };
 
+// @public (undocumented)
+type CSSPseudos = {
+  [Pseudo in CSS_2.Pseudos]?: SafeCSSObject;
+};
+
 // @public
 const dimensionMap: {
   readonly '100%': '100%';
@@ -347,7 +352,21 @@ const flexShrinkMap: {
 };
 
 // @public (undocumented)
-type Gap = keyof typeof spaceMap;
+type Gap =
+  | 'space.0'
+  | 'space.025'
+  | 'space.050'
+  | 'space.075'
+  | 'space.100'
+  | 'space.1000'
+  | 'space.150'
+  | 'space.200'
+  | 'space.250'
+  | 'space.300'
+  | 'space.400'
+  | 'space.500'
+  | 'space.600'
+  | 'space.800';
 
 // @public (undocumented)
 type Grow = 'fill' | 'hug';
@@ -386,7 +405,7 @@ export interface InlineProps<T extends ElementType = 'div'> {
   as?: 'div' | 'ol' | 'span' | 'ul';
   children: ReactNode;
   grow?: Grow;
-  ref?: ComponentPropsWithRef<T>['ref'];
+  ref?: React.ComponentPropsWithRef<T>['ref'];
   rowSpace?: RowGap;
   separator?: string;
   shouldWrap?: boolean;
@@ -459,43 +478,123 @@ const overflowMap: {
 };
 
 // @public (undocumented)
-type Padding = keyof typeof paddingMap;
+type Padding =
+  | 'space.0'
+  | 'space.025'
+  | 'space.050'
+  | 'space.075'
+  | 'space.100'
+  | 'space.1000'
+  | 'space.150'
+  | 'space.200'
+  | 'space.250'
+  | 'space.300'
+  | 'space.400'
+  | 'space.500'
+  | 'space.600'
+  | 'space.800';
 
 // @public (undocumented)
-type PaddingBlock = keyof typeof paddingMap;
+type PaddingBlock =
+  | 'space.0'
+  | 'space.025'
+  | 'space.050'
+  | 'space.075'
+  | 'space.100'
+  | 'space.1000'
+  | 'space.150'
+  | 'space.200'
+  | 'space.250'
+  | 'space.300'
+  | 'space.400'
+  | 'space.500'
+  | 'space.600'
+  | 'space.800';
 
 // @public (undocumented)
-type PaddingBlockEnd = keyof typeof paddingMap;
+type PaddingBlockEnd =
+  | 'space.0'
+  | 'space.025'
+  | 'space.050'
+  | 'space.075'
+  | 'space.100'
+  | 'space.1000'
+  | 'space.150'
+  | 'space.200'
+  | 'space.250'
+  | 'space.300'
+  | 'space.400'
+  | 'space.500'
+  | 'space.600'
+  | 'space.800';
 
 // @public (undocumented)
-type PaddingBlockStart = keyof typeof paddingMap;
+type PaddingBlockStart =
+  | 'space.0'
+  | 'space.025'
+  | 'space.050'
+  | 'space.075'
+  | 'space.100'
+  | 'space.1000'
+  | 'space.150'
+  | 'space.200'
+  | 'space.250'
+  | 'space.300'
+  | 'space.400'
+  | 'space.500'
+  | 'space.600'
+  | 'space.800';
 
 // @public (undocumented)
-type PaddingInline = keyof typeof paddingMap;
+type PaddingInline =
+  | 'space.0'
+  | 'space.025'
+  | 'space.050'
+  | 'space.075'
+  | 'space.100'
+  | 'space.1000'
+  | 'space.150'
+  | 'space.200'
+  | 'space.250'
+  | 'space.300'
+  | 'space.400'
+  | 'space.500'
+  | 'space.600'
+  | 'space.800';
 
 // @public (undocumented)
-type PaddingInlineEnd = keyof typeof paddingMap;
+type PaddingInlineEnd =
+  | 'space.0'
+  | 'space.025'
+  | 'space.050'
+  | 'space.075'
+  | 'space.100'
+  | 'space.1000'
+  | 'space.150'
+  | 'space.200'
+  | 'space.250'
+  | 'space.300'
+  | 'space.400'
+  | 'space.500'
+  | 'space.600'
+  | 'space.800';
 
 // @public (undocumented)
-type PaddingInlineStart = keyof typeof paddingMap;
-
-// @public
-const paddingMap: {
-  readonly 'space.0': 'var(--ds-space-0)';
-  readonly 'space.025': 'var(--ds-space-025)';
-  readonly 'space.050': 'var(--ds-space-050)';
-  readonly 'space.075': 'var(--ds-space-075)';
-  readonly 'space.100': 'var(--ds-space-100)';
-  readonly 'space.150': 'var(--ds-space-150)';
-  readonly 'space.200': 'var(--ds-space-200)';
-  readonly 'space.250': 'var(--ds-space-250)';
-  readonly 'space.300': 'var(--ds-space-300)';
-  readonly 'space.400': 'var(--ds-space-400)';
-  readonly 'space.500': 'var(--ds-space-500)';
-  readonly 'space.600': 'var(--ds-space-600)';
-  readonly 'space.800': 'var(--ds-space-800)';
-  readonly 'space.1000': 'var(--ds-space-1000)';
-};
+type PaddingInlineStart =
+  | 'space.0'
+  | 'space.025'
+  | 'space.050'
+  | 'space.075'
+  | 'space.100'
+  | 'space.1000'
+  | 'space.150'
+  | 'space.200'
+  | 'space.250'
+  | 'space.300'
+  | 'space.400'
+  | 'space.500'
+  | 'space.600'
+  | 'space.800';
 
 // @public (undocumented)
 type Position = keyof typeof positionMap;
@@ -514,7 +613,21 @@ type PublicBoxPropsBase = {
 };
 
 // @public (undocumented)
-type RowGap = keyof typeof spaceMap;
+type RowGap =
+  | 'space.0'
+  | 'space.025'
+  | 'space.050'
+  | 'space.075'
+  | 'space.100'
+  | 'space.1000'
+  | 'space.150'
+  | 'space.200'
+  | 'space.250'
+  | 'space.300'
+  | 'space.400'
+  | 'space.500'
+  | 'space.600'
+  | 'space.800';
 
 // @public (undocumented)
 type SafeCSSObject = CSSPseudos &
@@ -537,24 +650,6 @@ const shadowMap: {
   readonly 'overflow.spread': 'var(--ds-shadow-overflow-spread)';
   readonly overlay: 'var(--ds-shadow-overlay)';
   readonly raised: 'var(--ds-shadow-raised)';
-};
-
-// @public (undocumented)
-const spaceMap: {
-  readonly 'space.0': 'var(--ds-space-0)';
-  readonly 'space.025': 'var(--ds-space-025)';
-  readonly 'space.050': 'var(--ds-space-050)';
-  readonly 'space.075': 'var(--ds-space-075)';
-  readonly 'space.100': 'var(--ds-space-100)';
-  readonly 'space.150': 'var(--ds-space-150)';
-  readonly 'space.200': 'var(--ds-space-200)';
-  readonly 'space.250': 'var(--ds-space-250)';
-  readonly 'space.300': 'var(--ds-space-300)';
-  readonly 'space.400': 'var(--ds-space-400)';
-  readonly 'space.500': 'var(--ds-space-500)';
-  readonly 'space.600': 'var(--ds-space-600)';
-  readonly 'space.800': 'var(--ds-space-800)';
-  readonly 'space.1000': 'var(--ds-space-1000)';
 };
 
 // @public (undocumented)
@@ -588,7 +683,7 @@ export interface StackProps<T extends ElementType = 'div'> {
   as?: 'div' | 'ol' | 'span' | 'ul';
   children: ReactNode;
   grow?: Grow_2;
-  ref?: ComponentPropsWithRef<T>['ref'];
+  ref?: React.ComponentPropsWithRef<T>['ref'];
   space?: Gap;
   spread?: Spread_2;
   testId?: string;

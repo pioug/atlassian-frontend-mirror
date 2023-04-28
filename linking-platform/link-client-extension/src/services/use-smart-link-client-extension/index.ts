@@ -2,7 +2,8 @@ import { useCallback, useMemo } from 'react';
 
 import type { CardClient } from '@atlaskit/link-provider';
 import { request } from '@atlaskit/linking-common';
-import type {
+import {
+  InvokeError,
   InvokeRequest,
   InvokeResponse,
 } from '@atlaskit/linking-types/smart-link-actions';
@@ -22,15 +23,31 @@ export const useSmartLinkClientExtension = (cardClient: CardClient) => {
 
   const invoke = useCallback(
     async (data: InvokeRequest) => {
-      const response = await request<InvokeResponse>(
-        'post',
-        `${resolvedUrl}/invoke`,
-        data,
-        undefined,
-        [200, 201, 202, 203, 204],
-      );
+      try {
+        return await request<InvokeResponse>(
+          'post',
+          `${resolvedUrl}/invoke`,
+          data,
+          undefined,
+          [200, 201, 202, 203, 204],
+        );
+      } catch (err: any) {
+        // checking if the error is a Response type
+        // since we already had a few HOTs caused by comparing with instanceOf',
+        // we're verifying the type by the contents
+        if (err && err.json && typeof err.json === 'function') {
+          const errorBody = await err.json();
 
-      return response;
+          if (errorBody) {
+            throw new InvokeError(
+              errorBody?.error.message,
+              errorBody?.error.status,
+            );
+          }
+        }
+
+        throw err;
+      }
     },
     [resolvedUrl],
   );

@@ -4,6 +4,7 @@ import { css, jsx } from '@emotion/react';
 import AtlaskitLozenge from '@atlaskit/lozenge';
 import LozengeAction from '../../common/lozenge-action';
 import type { LozengeProps } from './types';
+import { useFlexibleUiOptionContext } from '../../../../../state/flexible-ui-context';
 
 const styles = css`
   display: inline-flex;
@@ -29,6 +30,8 @@ const Lozenge: React.FC<LozengeProps> = ({
   text,
   testId = 'smart-element-lozenge',
 }) => {
+  const ui = useFlexibleUiOptionContext();
+
   const [isBold, setIsBold] = useState(false);
   const onHover = useCallback(
     (isHover: boolean) => {
@@ -51,6 +54,7 @@ const Lozenge: React.FC<LozengeProps> = ({
       appearance={appearance}
       testId={testId}
       text={text}
+      zIndex={ui?.zIndex}
     />
   ) : (
     <AtlaskitLozenge

@@ -29,6 +29,11 @@ export enum SpecialEventType {
   RECONNECT = 'RECONNECT',
 }
 
+export enum APSTransportType {
+  HTTP = 'HTTP',
+  WEBSOCKET = 'WEBSOCKET',
+}
+
 export interface PubSubClientConfig extends ServiceConfig {
   product: string;
   apsProtocol?: {
@@ -40,6 +45,15 @@ export interface PubSubClientConfig extends ServiceConfig {
      * In case the consumer needs to specify a custom URL. If this value is not passed the default URL will be used.
      */
     url?: URL;
+    /**
+     * The preferred transport mechanism to be used by the APS client. Default is 'WEBSOCKET'
+     */
+    preferredTransport?: APSTransportType;
+    /**
+     * Indicates whether the APS protocol should not retry subscriptions using the fallback transport when the primary
+     * one failsA. Default is 'false'
+     */
+    skipFallback?: boolean;
   };
   featureFlags?: {
     [key: string]: boolean;

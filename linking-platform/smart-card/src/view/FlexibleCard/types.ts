@@ -116,6 +116,12 @@ export type FlexibleUiOptions = {
   hideElevation?: boolean;
 
   /**
+   * Determines whether to hide hover preview's full screen view.
+   * Only applies if showHoverPreview from FlexibleCardProps is true
+   */
+  hideHoverCardPreviewButton?: boolean;
+
+  /**
    * Determines whether to hide css padding styling.
    */
   hidePadding?: boolean;
@@ -138,10 +144,10 @@ export type FlexibleUiOptions = {
   theme?: SmartLinkTheme;
 
   /**
-   * Determines whether to hide hover preview's full screen view.
-   * Only applies if showHoverPreview from FlexibleCardProps is true
+   * Z-index that Atlaskit portal component should be displayed in.
+   * This is passed to the portal component.
    */
-  hideHoverCardPreviewButton?: boolean;
+  zIndex?: number;
 };
 
 /**

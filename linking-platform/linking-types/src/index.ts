@@ -33,4 +33,4 @@ export type {
   GetStatusTransitionsInvokeResponse,
 } from './smart-link-action-types';
 
-export { SmartLinkActionType } from './smart-link-action-types';
+export { SmartLinkActionType, InvokeError } from './smart-link-action-types';

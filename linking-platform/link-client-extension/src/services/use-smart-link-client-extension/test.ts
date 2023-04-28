@@ -3,6 +3,7 @@ import { renderHook } from '@testing-library/react-hooks';
 import { CardClient } from '@atlaskit/link-provider';
 import { NetworkError } from '@atlaskit/linking-common';
 import {
+  InvokeError,
   InvokeRequest,
   SmartLinkActionType,
   StatusUpdateActionPayload,
@@ -118,6 +119,54 @@ describe('useSmartLinkClientExtension', () => {
 
         await expect(result.current.invoke(data)).rejects.toThrow(
           new NetworkError(error),
+        );
+      });
+
+      it('returns InvokeError for unexpected response statuses', async () => {
+        const errorResponse = {
+          error: {
+            message: 'Field Labels is required.',
+            status: 400,
+            title: 'JiraObjectProvider.JiraCustomError',
+          },
+        };
+
+        const error = new Response(
+          new Blob([JSON.stringify(errorResponse)], {
+            type: 'application/json',
+          }),
+          { status: 400 },
+        );
+        mockFetch.mockRejectedValueOnce(error);
+
+        const { result } = renderHook(() => {
+          const cardClient = new CardClient();
+          return useSmartLinkClientExtension(cardClient);
+        });
+
+        await expect(result.current.invoke(data)).rejects.toThrow(
+          new InvokeError('Field Labels is required.', 400),
+        );
+      });
+
+      it('throws error if provided with invalid json', async () => {
+        const invalidJson = '{';
+
+        const error = new Response(
+          new Blob([invalidJson], {
+            type: 'application/json',
+          }),
+          { status: 400 },
+        );
+        mockFetch.mockRejectedValueOnce(error);
+
+        const { result } = renderHook(() => {
+          const cardClient = new CardClient();
+          return useSmartLinkClientExtension(cardClient);
+        });
+
+        await expect(result.current.invoke(data)).rejects.toThrow(
+          new InvokeError('Unexpected end of JSON input', 400),
         );
       });
     };

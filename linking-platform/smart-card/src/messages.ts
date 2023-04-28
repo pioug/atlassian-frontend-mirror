@@ -42,6 +42,7 @@ export type MessageKey =
   | 'more_actions'
   | 'not_found_title'
   | 'not_found_description'
+  | 'open_issue_in_jira'
   | 'open_link_in_a_new_tab'
   | 'owned_by'
   | 'preview'
@@ -64,6 +65,9 @@ export type MessageKey =
   | 'restricted_link'
   | 'request_access_to_view'
   | 'request_denied'
+  | 'status_change_load_error'
+  | 'status_change_permission_error'
+  | 'status_change_update_error'
   | 'try_again'
   | 'try_another_account'
   | 'view'
@@ -310,6 +314,11 @@ export const messages: Messages = defineMessages({
     defaultMessage: "Uh oh. We can't find this link!",
     description: 'Error case for when a provided link is not found',
   },
+  open_issue_in_jira: {
+    id: 'fabric.linking.open_issue_in_jira',
+    defaultMessage: 'Open issue in Jira',
+    description: 'Click to open link in Jira',
+  },
   open_link_in_a_new_tab: {
     id: 'fabric.linking.open_link_in_a_new_tab',
     defaultMessage: 'Open link in a new tab',
@@ -466,6 +475,24 @@ export const messages: Messages = defineMessages({
     id: 'fabric.linking.save',
     defaultMessage: 'Save',
     description: 'Just the "save" word',
+  },
+  status_change_load_error: {
+    id: 'fabric.linking.status_change_load_error',
+    defaultMessage: 'We couldn’t load the statuses and transitions',
+    description:
+      'Informs the user that the loading of status transitions failed',
+  },
+  status_change_permission_error: {
+    id: 'fabric.linking.status_change_permission_error',
+    defaultMessage: 'You don’t have permission to transition this issue. ',
+    description:
+      'Informs the user that they do not have enough permissions to update a status',
+  },
+  status_change_update_error: {
+    id: 'fabric.linking.status_change_update_error',
+    defaultMessage: 'We couldn’t update the status',
+    description:
+      "Occurs when a user tries to update an issue's status but fails to do so",
   },
   try_again: {
     id: 'fabric.linking.try_again',

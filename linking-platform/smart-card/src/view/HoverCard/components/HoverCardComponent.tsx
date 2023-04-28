@@ -6,7 +6,7 @@ import { useSmartLinkActions } from '../../../state/hooks-external/useSmartLinkA
 import { useSmartLinkRenderers } from '../../../state/renderers';
 import { useSmartCardState as useLinkState } from '../../../state/store';
 import HoverCardContent from '../components/HoverCardContent';
-import { CARD_GAP_PX } from '../styled';
+import { CARD_GAP_PX, HOVER_CARD_Z_INDEX } from '../styled';
 import { HoverCardComponentProps } from '../types';
 import { CardDisplay } from '../../../constants';
 
@@ -18,6 +18,7 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
   canOpen = true,
   closeOnChildClick = false,
   hidePreviewButton = false,
+  showServerActions = false,
 }) => {
   const delay = 300;
   const [isOpen, setIsOpen] = React.useState(false);
@@ -141,6 +142,7 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
         onActionClick={onActionClick}
         onResolve={update}
         renderers={renderers}
+        showServerActions={showServerActions}
         url={url}
       />
     ),
@@ -152,6 +154,7 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
       linkState,
       onActionClick,
       renderers,
+      showServerActions,
       url,
     ],
   );
@@ -184,7 +187,7 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
       autoFocus={false}
       content={content}
       trigger={trigger}
-      zIndex={511} // Temporary fix for Confluence inline comment on editor mod has z-index of 500, Jira issue view has z-index of 510
+      zIndex={HOVER_CARD_Z_INDEX}
     />
   );
 };

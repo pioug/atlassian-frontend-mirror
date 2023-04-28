@@ -1,5 +1,17 @@
 # @atlaskit/primitives
 
+## 0.8.5
+
+### Patch Changes
+
+- [`0969a35c1b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0969a35c1b0) - Allow type hinting for nested styles inside pseudo-selectors.
+
+## 0.8.4
+
+### Patch Changes
+
+- [`7127e85932a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7127e85932a) - Update codegen to explicitly list spacing prop values as string unions for compatibility with extract-react-types.
+
 ## 0.8.3
 
 ### Patch Changes

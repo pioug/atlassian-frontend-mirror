@@ -1,5 +1,15 @@
 # @atlaskit/smart-card
 
+## 25.7.0
+
+### Minor Changes
+
+- [`9c49eef4c87`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9c49eef4c87) - [ux]
+
+  - Add lozenge action to hover preview (wip, opt-in, feature flag)
+  - Fix hover preview's action dropdown menu showing behind container
+  - Allow setting z-index for portal component inside flexible smart links
+
 ## 25.6.1
 
 ### Patch Changes

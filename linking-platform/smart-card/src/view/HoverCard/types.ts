@@ -45,6 +45,11 @@ export interface HoverCardProps extends WithAnalyticsEventsProps {
    * Determines if the hover card should display the "Full Screen View" button.
    */
   hidePreviewButton?: boolean;
+
+  /**
+   * Determines whether to show available server actions.
+   */
+  showServerActions?: boolean;
 }
 
 export interface HoverCardComponentProps extends HoverCardProps {
@@ -74,6 +79,7 @@ export type HoverCardContentProps = {
   url: string;
   onMouseEnter?: MouseEventHandler;
   onMouseLeave?: MouseEventHandler;
+  showServerActions?: boolean;
 };
 
 export type SnippetOrPreviewProps = {

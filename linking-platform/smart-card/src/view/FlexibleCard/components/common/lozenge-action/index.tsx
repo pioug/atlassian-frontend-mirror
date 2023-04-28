@@ -11,11 +11,13 @@ import LozengeActionError from './lozenge-action-error';
 import withErrorBoundary from './error-boundary';
 import { dropdownItemGroupStyles } from './styled';
 import useInvoke from '../../../../../state/hooks/use-invoke';
-import { InvokeActionError } from '../../../../../state/hooks/use-invoke/types';
 import extractLozengeActionItems from '../../../../../extractors/action/extract-lozenge-action-items';
 import type { LozengeActionProps, LozengeItem } from './types';
 import createStatusUpdateRequest from '../../../../../utils/actions/create-status-update-request';
 import useResolve from '../../../../../state/hooks/use-resolve';
+import { MessageProps } from '../../types';
+import { LozengeActionErrorMessages } from './lozenge-action-error/types';
+import { InvokeError } from '@atlaskit/linking-types/smart-link-actions';
 
 const validateItems = (
   items: LozengeItem[] = [],
@@ -24,17 +26,22 @@ const validateItems = (
   return items.filter((item) => item.text !== text);
 };
 
+const isInvokeCustomError = (err: InvokeError | Error): err is InvokeError =>
+  (err as InvokeError).message !== undefined &&
+  (err as InvokeError).errorCode !== undefined;
+
 const LozengeAction: FC<LozengeActionProps> = ({
   action,
   appearance,
   testId = 'smart-element-lozenge-action',
   text,
+  zIndex,
 }) => {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [items, setItems] = useState<LozengeItem[]>();
-  const [errorCode, setErrorCode] = useState<InvokeActionError>();
+  const [errorMessage, setErrorMessage] = useState<string | MessageProps>();
 
   const invoke = useInvoke();
   const reload = useResolve();
@@ -59,18 +66,19 @@ const LozengeAction: FC<LozengeActionProps> = ({
           setIsLoaded(true);
 
           if (validItems?.length === 0) {
-            setErrorCode(InvokeActionError.NoData);
+            setErrorMessage(LozengeActionErrorMessages.noData);
+            setIsLoaded(false);
           }
         } catch (err) {
-          // TODO: EDM-6261: Error state
-          setErrorCode(InvokeActionError.Unknown);
+          setErrorMessage(LozengeActionErrorMessages.unknown);
+          setIsLoaded(false);
         } finally {
           setIsLoading(false);
         }
       }
 
       if (!args.isOpen) {
-        setErrorCode(undefined);
+        setErrorMessage(undefined);
       }
     },
     [action?.read, invoke, isLoaded, text],
@@ -99,25 +107,31 @@ const LozengeAction: FC<LozengeActionProps> = ({
           await invoke(request);
 
           setIsLoading(false);
+          setIsLoaded(false);
           setIsOpen(false);
+          setItems([]);
 
           const { url, id: linkId } = updateAction.details || {};
           if (url) {
             await reload(url, true, undefined, linkId);
           }
         }
-      } catch (err) {
-        // TODO: EDM-6261: Error state
+      } catch (err: any) {
         setIsLoading(false);
-        setErrorCode(InvokeActionError.Unknown);
+
+        if (isInvokeCustomError(err)) {
+          setErrorMessage(err.message);
+        } else {
+          setErrorMessage(LozengeActionErrorMessages.updateFailed);
+        }
       }
     },
     [action?.update, invoke, reload],
   );
 
   const dropdownItemGroup = useMemo(() => {
-    if (errorCode) {
-      return <LozengeActionError errorCode={errorCode} testId={testId} />;
+    if (errorMessage) {
+      return <LozengeActionError errorMessage={errorMessage} testId={testId} />;
     }
 
     if (items && items.length > 0) {
@@ -139,7 +153,7 @@ const LozengeAction: FC<LozengeActionProps> = ({
         </span>
       );
     }
-  }, [errorCode, handleItemClick, items, testId]);
+  }, [errorMessage, handleItemClick, items, testId]);
 
   return (
     <DropdownMenu
@@ -148,6 +162,7 @@ const LozengeAction: FC<LozengeActionProps> = ({
       onOpenChange={handleOpenChange}
       testId={testId}
       trigger={trigger}
+      zIndex={zIndex}
     >
       {dropdownItemGroup}
     </DropdownMenu>

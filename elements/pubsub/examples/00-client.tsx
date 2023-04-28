@@ -8,19 +8,23 @@ import Client, { PubSubClientConfig, SpecialEventType } from '../src';
 import { FeatureFlags } from '../src/featureFlags';
 import PubNubProtocol from '../src/protocols/pubnub';
 import APSProtocol from '../src/protocols/aps';
+import { APSTransportType } from '../src/apiTypes';
 
 let clientConfig: { serviceConfig: PubSubClientConfig };
 let defaultApsUrl: string;
+let preferredApsTransport: APSTransportType;
 try {
   // eslint-disable-next-line import/no-unresolved
   const localConfig = require('../local-config');
   clientConfig = localConfig['default'];
-  defaultApsUrl = localConfig.apsUrl;
+  defaultApsUrl = localConfig.apsParams.url;
+  preferredApsTransport = localConfig.apsParams.preferredTransport;
 } catch (e) {
   // eslint-disable-next-line import/no-unresolved
   const localConfig = require('../local-config-example');
   clientConfig = localConfig['default'];
-  defaultApsUrl = localConfig.apsUrl;
+  defaultApsUrl = localConfig.apsParams.url;
+  preferredApsTransport = localConfig.apsParams.preferredTransport;
 }
 
 interface State {
@@ -143,7 +147,10 @@ class PubSubEventComponent extends Component<{}, State> {
       PUBNUB: new PubNubProtocol(
         new FeatureFlags(this.serviceConfig.featureFlags),
       ),
-      APS: new APSProtocol(apsUrl ? new URL(apsUrl) : undefined),
+      APS: new APSProtocol(
+        apsUrl ? new URL(apsUrl) : undefined,
+        preferredApsTransport,
+      ),
     };
 
     const usedProtocols = protocols.map((protocol) => protocolsMap[protocol]);

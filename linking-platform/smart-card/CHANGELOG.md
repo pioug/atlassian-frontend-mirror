@@ -1,5 +1,12 @@
 # @atlaskit/smart-card
 
+## 25.7.1
+
+### Patch Changes
+
+- [`7a58d99e333`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7a58d99e333) - [ux] Added error handling for smart link action
+- Updated dependencies
+
 ## 25.7.0
 
 ### Minor Changes

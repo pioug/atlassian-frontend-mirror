@@ -1,5 +1,12 @@
 # @atlaskit/link-client-extension
 
+## 0.4.3
+
+### Patch Changes
+
+- [`f1b712482b1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f1b712482b1) - Fixed error handling inside of invoke function
+- Updated dependencies
+
 ## 0.4.2
 
 ### Patch Changes

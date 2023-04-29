@@ -1,5 +1,11 @@
 # @atlaskit/linking-types
 
+## 1.2.0
+
+### Minor Changes
+
+- [`709e46de9d0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/709e46de9d0) - New error type was added to Smart card actions
+
 ## 1.1.0
 
 ### Minor Changes

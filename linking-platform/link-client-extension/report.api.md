@@ -20,8 +20,8 @@ import type { DatasourceDataRequest } from '@atlaskit/linking-types';
 import type { DatasourceDataResponse } from '@atlaskit/linking-types';
 import type { DatasourceParameters } from '@atlaskit/linking-types';
 import type { DatasourceResponse } from '@atlaskit/linking-types';
-import type { InvokeRequest } from '@atlaskit/linking-types/smart-link-actions';
-import type { InvokeResponse } from '@atlaskit/linking-types/smart-link-actions';
+import { InvokeRequest } from '@atlaskit/linking-types/smart-link-actions';
+import { InvokeResponse } from '@atlaskit/linking-types/smart-link-actions';
 
 // @public (undocumented)
 export const useDatasourceClientExtension: (cardClient: CardClient) => {

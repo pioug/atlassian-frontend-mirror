@@ -155,6 +155,13 @@ export interface IconType {
   value: Icon;
 }
 
+// @public (undocumented)
+export class InvokeError extends Error {
+  constructor(message: string, errorCode: number);
+  // (undocumented)
+  errorCode: number;
+}
+
 // @public
 export type InvokeErrorResponse = InvokeResponse & {
   message?: string;

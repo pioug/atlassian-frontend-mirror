@@ -1,6 +1,8 @@
-import { renderHook } from '@testing-library/react-hooks';
+import React from 'react';
 
-import { CardClient } from '@atlaskit/link-provider';
+import { renderHook, RenderHookOptions } from '@testing-library/react-hooks';
+
+import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 import { NetworkError } from '@atlaskit/linking-common';
 import type {
   DatasourceDataRequest,
@@ -21,6 +23,10 @@ const allErrorCodes = [
 
 const datasourceId: string = '12e74246-a3f1-46c1-9fd9-8d952aa9f12f';
 
+const wrapper: RenderHookOptions<{}>['wrapper'] = ({ children }) => (
+  <SmartCardProvider client={new CardClient()}>{children}</SmartCardProvider>
+);
+
 describe('useDatasourceClientExtension', () => {
   let mockFetch: jest.Mock;
 
@@ -40,9 +46,8 @@ describe('useDatasourceClientExtension', () => {
       pageCursor: 'c3RhcnRBdD01',
     };
 
-    const { result } = renderHook(() => {
-      const cardClient = new CardClient();
-      return useDatasourceClientExtension(cardClient);
+    const { result } = renderHook(() => useDatasourceClientExtension(), {
+      wrapper,
     });
 
     const { getDatasourceDetails, getDatasourceData } = result.current;
@@ -62,9 +67,8 @@ describe('useDatasourceClientExtension', () => {
   });
 
   it('returns datasource client extension methods', () => {
-    const { result } = renderHook(() => {
-      const cardClient = new CardClient();
-      return useDatasourceClientExtension(cardClient);
+    const { result } = renderHook(() => useDatasourceClientExtension(), {
+      wrapper,
     });
 
     expect(result.current).toEqual({

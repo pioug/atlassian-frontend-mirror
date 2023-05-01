@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/modal-dialog",
-  "version": "12.4.12",
+  "version": "12.4.13",
   "description": "A modal dialog displays content that requires user interaction, in a layer above the page.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -85,7 +85,7 @@
     "@testing-library/react-hooks": "^8.0.1",
     "@testing-library/user-event": "^14.4.3",
     "@types/raf-schd": "^4.0.1",
-    "@types/react-beautiful-dnd": "^11.0.1",
+    "@types/react-beautiful-dnd": "^12.2.1",
     "jscodeshift": "^0.13.0",
     "react-beautiful-dnd": "^12.1.1",
     "react-dom": "^16.8.0",

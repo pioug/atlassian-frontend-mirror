@@ -24,9 +24,12 @@ import {
   getValue,
   getValueFromShorthand,
   insertTokensImport,
+  isAuto,
+  isCalc,
   isTokenValueString,
   isTypographyProperty,
   isValidSpacingValue,
+  isZero,
   processCssNode,
   shouldAnalyzeProperty,
   spacingValueToToken,
@@ -175,6 +178,11 @@ const rule = createRule<
               return;
             }
 
+            // Don't report on CSS calc function
+            if (node.value.type === 'Literal' && isCalc(node.value.value)) {
+              return;
+            }
+
             const propertyName = (node.key as Identifier).name;
             const isFontFamily = /fontFamily/.test(propertyName);
 
@@ -197,6 +205,12 @@ const rule = createRule<
             // treat fontFamily as having one value
             if (values.length === 1 || isFontFamily) {
               const [value] = values;
+
+              // Do not report or suggest a token to replace 0 or auto
+              if (isZero(value) || isAuto(value)) {
+                return;
+              }
+
               const pixelValue = isFontFamily
                 ? value
                 : emToPixels(value, fontSize);
@@ -259,10 +273,15 @@ const rule = createRule<
              * estree node.
              *
              * @example
-             * { padding: '8px 0px' } // two values we don't try and apply the fixer
+             * { padding: '8px 0px' }
              */
             values.forEach((val, index) => {
               const pixelValue = emToPixels(val, fontSize);
+
+              // Do not report or suggest a token to replace 0 or auto
+              if (isZero(val) || isAuto(val)) {
+                return;
+              }
 
               context.report({
                 node,
@@ -270,74 +289,77 @@ const rule = createRule<
                 data: {
                   payload: `${propertyName}:${pixelValue}`,
                 },
-                fix:
-                  index === 0
-                    ? (fixer) => {
-                        const allResolvableValues = values.every(
-                          (value) => !Number.isNaN(emToPixels(value, fontSize)),
-                        );
-                        if (!allResolvableValues) {
-                          return null;
-                        }
+                fix: (fixer) => {
+                  const allResolvableValues = values.every(
+                    (value) => !Number.isNaN(emToPixels(value, fontSize)),
+                  );
+                  if (!allResolvableValues) {
+                    return null;
+                  }
 
-                        const valuesWithTokenReplacement = values.filter(
-                          (value) =>
-                            findTokenNameByPropertyValue(propertyName, value),
-                        );
-                        if (valuesWithTokenReplacement.length === 0) {
-                          // all values could be replaceable but that just means they're numeric
-                          // if none of the values have token replacement we bail
-                          return null;
-                        }
+                  const valuesWithTokenReplacement = values
+                    .filter((value) =>
+                      findTokenNameByPropertyValue(propertyName, value),
+                    )
+                    .filter((value) => value !== 0);
 
-                        const originalCssString = getRawExpression(
-                          node.value,
-                          context,
-                        );
-                        if (!originalCssString) {
-                          return null;
-                        }
-                        /**
-                         * at this stage none of the values are tokens or irreplaceable values
-                         * since we know this is shorthand, there will be multiple values
-                         * we'll need to remove all quote chars since `getRawExpression` will return those as part of the string
-                         * given they're part of the substring of the current node
-                         */
-                        const originalValues = splitShorthandValues(
-                          originalCssString.replace(/`|'|"/g, ''),
-                        );
-                        if (originalValues.length !== values.length) {
-                          // we bail just in case original values don't correspond to the replaced values
-                          return null;
-                        }
+                  if (valuesWithTokenReplacement.length === 0) {
+                    // all values could be replaceable but that just means they're numeric
+                    // if none of the values have token replacement we bail
+                    return null;
+                  }
 
-                        return (
-                          !tokenNode && ruleConfig.applyImport
-                            ? [insertTokensImport(fixer)]
-                            : []
-                        ).concat([
-                          fixer.replaceText(
-                            node.value,
-                            `\`${values
-                              .map((value, index) => {
-                                const pixelValue = emToPixels(value, fontSize);
-                                const pixelValueString = `${pixelValue}px`;
-                                // if there is a token we take it, otherwise we go with the original value
-                                return findTokenNameByPropertyValue(
-                                  propertyName,
-                                  value,
-                                )
-                                  ? `\${${getTokenNodeForValue(
-                                      propertyName,
-                                      pixelValueString,
-                                    )}}`
-                                  : originalValues[index];
-                              })
-                              .join(' ')}\``,
-                          ),
-                        ]);
-                      }
-                    : undefined,
+                  const originalCssString = getRawExpression(
+                    node.value,
+                    context,
+                  );
+                  if (!originalCssString) {
+                    return null;
+                  }
+                  /**
+                   * at this stage none of the values are tokens or irreplaceable values
+                   * since we know this is shorthand, there will be multiple values
+                   * we'll need to remove all quote chars since `getRawExpression` will return those as part of the string
+                   * given they're part of the substring of the current node
+                   */
+                  const originalValues = splitShorthandValues(
+                    originalCssString.replace(/`|'|"/g, ''),
+                  );
+                  if (originalValues.length !== values.length) {
+                    // we bail just in case original values don't correspond to the replaced values
+                    return null;
+                  }
+
+                  return (
+                    !tokenNode && ruleConfig.applyImport
+                      ? [insertTokensImport(fixer)]
+                      : []
+                  ).concat([
+                    fixer.replaceText(
+                      node.value,
+                      `\`${values
+                        .map((value, index) => {
+                          if (isZero(value)) {
+                            return originalValues[index];
+                          }
+                          const pixelValue = emToPixels(value, fontSize);
+                          const pixelValueString = `${pixelValue}px`;
+                          // if there is a token we take it, otherwise we go with the original value
+
+                          return findTokenNameByPropertyValue(
+                            propertyName,
+                            value,
+                          )
+                            ? `\${${getTokenNodeForValue(
+                                propertyName,
+                                pixelValueString,
+                              )}}`
+                            : originalValues[index];
+                        })
+                        .join(' ')}\``,
+                    ),
+                  ]);
+                },
               });
             });
           }
@@ -348,7 +370,7 @@ const rule = createRule<
       // CSSTemplateLiteral and StyledTemplateLiteral
       // const cssTemplateLiteral = css`color: red; padding: 12px`;
       // const styledTemplateLiteral = styled.p`color: red; padding: 8px`;
-      'TaggedTemplateExpression[tag.name="css"],TaggedTemplateExpression[tag.object.name="styled"]':
+      'TaggedTemplateExpression[tag.name="css"],TaggedTemplateExpression[tag.object.name="styled"],TaggedTemplateExpression[tag.callee.name="styled"]':
         (node: Rule.Node) => {
           if (node.type !== 'TaggedTemplateExpression') {
             return;
@@ -406,17 +428,14 @@ const rule = createRule<
                     // if the value is already valid, nothing to report or replace
                     return originalValue;
                   }
-                  if (isNaN(numericOrNanValue) && !isFontFamily) {
-                    // this can be either a weird expression or a fontsize declaration
 
-                    // we can't replace a NaN but we can alert what the offending value is
-                    context.report({
-                      node,
-                      messageId: 'noRawSpacingValues',
-                      data: {
-                        payload: `${propertyName}:${originalValue}`,
-                      },
-                    });
+                  // do not replace 0 or auto with tokens
+                  if (isZero(pxValue) || isAuto(pxValue)) {
+                    return originalValue;
+                  }
+
+                  if (isNaN(numericOrNanValue) && !isFontFamily) {
+                    // do not report if we have nothing to replace with
                     return originalValue;
                   }
 

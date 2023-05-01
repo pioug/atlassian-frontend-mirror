@@ -1,5 +1,23 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 5.0.3
+
+### Patch Changes
+
+- [`7c55a69a5ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7c55a69a5ec) - Fix issue where 'auto' may still be reported as an error in object styles.
+
+## 5.0.2
+
+### Patch Changes
+
+- [`a5f1c4fa284`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a5f1c4fa284) - Update links in the `use-primitives` rule to point to the right docs URL.
+
+## 5.0.1
+
+### Patch Changes
+
+- [`31ebca384fa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/31ebca384fa) - Improved behaviour of `ensure-design-token-usage-spacing` rule to not report on or replace 0, auto, and calc within spacing properties.
+
 ## 5.0.0
 
 ### Major Changes

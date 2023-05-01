@@ -1,5 +1,15 @@
 # @atlaskit/link-client-extension
 
+## 0.5.0
+
+### Minor Changes
+
+- [`5f0b51cb0e9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f0b51cb0e9) - Updated `useDatasourceClientExtension` hook to use `useSmartLinkContext` for creating smart-card client
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.4.3
 
 ### Patch Changes

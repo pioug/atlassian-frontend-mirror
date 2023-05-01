@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from 'react';
 
-import type { CardClient } from '@atlaskit/link-provider';
+import { useSmartLinkContext } from '@atlaskit/link-provider';
 import { request } from '@atlaskit/linking-common';
 import type {
   DatasourceDataRequest,
@@ -11,8 +11,11 @@ import type {
 
 import { useResolverUrl } from '../use-resolver-url';
 
-export const useDatasourceClientExtension = (cardClient: CardClient) => {
-  const resolverUrl = useResolverUrl(cardClient);
+export const useDatasourceClientExtension = () => {
+  const {
+    connections: { client },
+  } = useSmartLinkContext();
+  const resolverUrl = useResolverUrl(client);
 
   const getDatasourceDetails = useCallback(
     (datasourceId: string, data: DatasourceParameters) =>

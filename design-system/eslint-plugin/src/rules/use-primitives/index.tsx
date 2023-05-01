@@ -9,11 +9,11 @@ import {
   shouldSuggestStack,
 } from './utils';
 
-const boxDocsUrl = 'https://atlassian.design/components/primitves/box/examples';
+const boxDocsUrl = 'https://staging.atlassian.design/components/primitives/box';
 const inlineDocsUrl =
-  'https://atlassian.design/components/primitves/inline/examples';
+  'https://staging.atlassian.design/components/primitives/inline';
 const stackDocsUrl =
-  'https://atlassian.design/components/primitves/stack/examples';
+  'https://staging.atlassian.design/components/primitives/stack';
 
 const rule = createLintRule({
   meta: {

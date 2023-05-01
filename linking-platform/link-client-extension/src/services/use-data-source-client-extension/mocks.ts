@@ -12,7 +12,10 @@ export const mockDatasourceDataResponse: DatasourceDataResponse = {
       assigned: {
         displayName: 'Sasha',
       },
-      state: 'IN PROGRESS',
+      status: {
+        text: 'In Progress',
+        status: 'inprogress',
+      },
     },
     {
       id: 'EDM-14',
@@ -21,7 +24,10 @@ export const mockDatasourceDataResponse: DatasourceDataResponse = {
       assigned: {
         displayName: 'Hana',
       },
-      state: 'TO DO',
+      status: {
+        text: 'To Do',
+        status: 'new',
+      },
     },
     {
       id: 'EDM-15',
@@ -30,7 +36,10 @@ export const mockDatasourceDataResponse: DatasourceDataResponse = {
       assigned: {
         displayName: 'Princey',
       },
-      state: 'TO DO',
+      status: {
+        text: 'To Do',
+        status: 'default',
+      },
     },
     {
       id: 'EDM-16',
@@ -39,7 +48,10 @@ export const mockDatasourceDataResponse: DatasourceDataResponse = {
       assigned: {
         displayName: 'Nidhin',
       },
-      state: 'TO DO',
+      status: {
+        text: 'Done',
+        status: 'success',
+      },
     },
   ],
   nextPageCursor: 'c3RhcnRBdD01',
@@ -66,30 +78,66 @@ export const mockDatasourceResponse: DatasourceResponse = {
     properties: [
       {
         key: 'id',
+        title: '',
         type: 'string',
-        title: 'Id',
+        isIdentity: true,
       },
       {
-        key: 'description',
+        key: 'issue',
+        title: 'Key',
         type: 'link',
-        title: 'Description',
       },
       {
-        key: 'createdAt',
-        type: 'date',
-        title: 'Created At',
+        key: 'type',
+        type: 'icon',
+        title: 'Type',
       },
       {
-        key: 'assigned',
-        type: 'user',
+        key: 'summary',
+        title: 'Summary',
+        type: 'link',
+      },
+      {
+        key: 'assignee',
         title: 'Assignee',
+        type: 'user',
       },
       {
-        key: 'state',
-        type: 'status',
+        key: 'priority',
+        title: 'P',
+        type: 'icon',
+      },
+      {
+        key: 'labels',
+        title: 'Labels',
+        type: 'tag',
+        isList: true,
+      },
+      {
+        key: 'status',
         title: 'Status',
+        type: 'status',
+      },
+      {
+        key: 'created',
+        title: 'Created',
+        type: 'string',
+      },
+      {
+        key: 'due',
+        title: 'Due Date',
+        type: 'string',
       },
     ],
-    defaultProperties: ['id', 'description', 'assigned', 'state'],
+    defaultProperties: [
+      'type',
+      'issue',
+      'summary',
+      'assignee',
+      'priority',
+      'labels',
+      'status',
+      'created',
+    ],
   },
 };

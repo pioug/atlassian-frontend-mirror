@@ -24,7 +24,13 @@ import { InvokeRequest } from '@atlaskit/linking-types/smart-link-actions';
 import { InvokeResponse } from '@atlaskit/linking-types/smart-link-actions';
 
 // @public (undocumented)
-export const useDatasourceClientExtension: (cardClient: CardClient) => {
+export const mockDatasourceDataResponse: DatasourceDataResponse;
+
+// @public (undocumented)
+export const mockDatasourceResponse: DatasourceResponse;
+
+// @public (undocumented)
+export const useDatasourceClientExtension: () => {
   getDatasourceDetails: (
     datasourceId: string,
     data: DatasourceParameters,

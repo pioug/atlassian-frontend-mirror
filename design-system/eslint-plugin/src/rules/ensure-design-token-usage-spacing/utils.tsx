@@ -451,13 +451,12 @@ export const emToPixels = <T extends unknown>(
   return value;
 };
 
-const percentageOrEm = /(%$)|(\d+em$)/;
+const percentageOrEmOrAuto = /(%$)|(\d+em$)|(auto$)/;
 
 export const removePixelSuffix = (value: string | number) => {
   const isString = typeof value === 'string';
-
   // @ts-ignore This shouldn't be a type error but CI is complaining
-  if (isString && percentageOrEm.test(value)) {
+  if (isString && percentageOrEmOrAuto.test(value)) {
     return value;
   }
 
@@ -465,7 +464,7 @@ export const removePixelSuffix = (value: string | number) => {
   return Number(isString ? value.replace('px', '') : value);
 };
 
-const invalidSpacingUnitRegex = /(%$)|(\d+rem$)|(^calc)|(vw$)|(vh$)/;
+const invalidSpacingUnitRegex = /(%$)|(\d+rem$)|(vw$)|(vh$)/;
 
 export const isValidSpacingValue = (
   value: string | number | boolean | RegExp | null | undefined | any[] | bigint,
@@ -488,6 +487,46 @@ export const isValidSpacingValue = (
     return false;
   }
   return true;
+};
+
+const calcRegex = /(^calc)/;
+
+export const isCalc = (
+  value: string | number | boolean | RegExp | null | undefined | any[] | bigint,
+) => {
+  if (typeof value === 'string') {
+    if (calcRegex.test(value)) {
+      return true;
+    }
+  }
+  return false;
+};
+
+export const isZero = (
+  value: string | number | boolean | RegExp | null | undefined | any[] | bigint,
+) => {
+  if (typeof value === 'string') {
+    if (value === '0px' || value === '0') {
+      return true;
+    }
+  }
+  if (typeof value === 'number') {
+    if (value === 0) {
+      return true;
+    }
+  }
+  return false;
+};
+
+export const isAuto = (
+  value: string | number | boolean | RegExp | null | undefined | any[] | bigint,
+) => {
+  if (typeof value === 'string') {
+    if (value === 'auto') {
+      return true;
+    }
+  }
+  return false;
 };
 
 // convert line-height to lineHeight

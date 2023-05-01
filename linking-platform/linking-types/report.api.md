@@ -26,9 +26,9 @@ export interface BooleanType {
 // @public (undocumented)
 export interface DatasourceDataRequest {
   // (undocumented)
-  fields: string[];
+  fields?: string[];
   // (undocumented)
-  pageCursor: string;
+  pageCursor?: string;
   // (undocumented)
   pageSize: number;
   // (undocumented)
@@ -40,7 +40,9 @@ export interface DatasourceDataResponse {
   // (undocumented)
   data: DatasourceDataResponseItem[];
   // (undocumented)
-  nextPageCursor: string;
+  nextPageCursor?: string;
+  // (undocumented)
+  totalIssues?: number;
 }
 
 // @public (undocumented)
@@ -99,6 +101,13 @@ export interface DatasourceResponseSchemaProperty {
   // (undocumented)
   type: DatasourceType['type'];
 }
+
+// @public (undocumented)
+export type DatasourceTableStatusType =
+  | 'empty'
+  | 'loading'
+  | 'rejected'
+  | 'resolved';
 
 // @public (undocumented)
 export type DatasourceType =

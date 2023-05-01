@@ -22,6 +22,7 @@ export type {
   DatasourceDataResponse,
   DatasourceDataRequest,
   DatasourceParameters,
+  DatasourceTableStatusType,
 } from './datasource-types';
 
 export type {

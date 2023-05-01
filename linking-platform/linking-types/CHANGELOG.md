@@ -1,5 +1,11 @@
 # @atlaskit/linking-types
 
+## 1.3.0
+
+### Minor Changes
+
+- [`92798c68d27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/92798c68d27) - Add `DatasourceTableStatusType` type and updated DatasourceDataResponse with `totalIssues` field.
+
 ## 1.2.0
 
 ### Minor Changes

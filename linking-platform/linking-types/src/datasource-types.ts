@@ -123,10 +123,10 @@ export interface DatasourceParameters {
   [key: string]: any;
 }
 export interface DatasourceDataRequest {
-  fields: string[];
+  fields?: string[];
   parameters: DatasourceParameters;
   pageSize: number;
-  pageCursor: string;
+  pageCursor?: string;
 }
 export interface DatasourceResponseParameter {
   key: string;
@@ -147,5 +147,12 @@ export interface DatasourceResponse {
 }
 export interface DatasourceDataResponse {
   data: DatasourceDataResponseItem[];
-  nextPageCursor: string;
+  nextPageCursor?: string;
+  totalIssues?: number;
 }
+
+export type DatasourceTableStatusType =
+  | 'empty'
+  | 'loading'
+  | 'resolved'
+  | 'rejected';

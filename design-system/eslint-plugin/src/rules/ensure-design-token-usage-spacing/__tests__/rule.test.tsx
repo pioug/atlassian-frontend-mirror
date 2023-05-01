@@ -74,6 +74,76 @@ const tests: Tests = {
         marginBlockEnd: token('space.100', '8px'),
       })`,
     },
+    // object calc with token
+    {
+      options: [{ applyImport: false }],
+      code: `
+          const wrapperStyles = css({
+            padding: \`calc(100vh - \${token('space.300', '24px')})\`,
+          });`,
+    },
+    // object calc with hardcoded value
+    {
+      options: [{ applyImport: false }],
+      code: `
+          const wrapperStyles = css({
+            padding: 'calc(100vh - 200px)',
+          });`,
+    },
+    // object single value, 0
+    {
+      options: [{ applyImport: false }],
+      code: `const styles = css({
+            padding: 0,
+          })`,
+    },
+    // object compound value, 0 0
+    {
+      options: [{ applyImport: false }],
+      code: `const styles = css({
+        padding: '0 0',
+      });`,
+    },
+    // object single value, auto
+    {
+      options: [{ applyImport: false }],
+      code: `const styles = css({
+        margin: 'auto',
+      });`,
+    },
+    // template single value, 0
+    {
+      options: [{ applyImport: false }],
+      code: `const styles = css\`
+        margin: 0,
+      ;\`
+      `,
+    },
+    // template compound value, 0 auto
+    {
+      options: [{ applyImport: false }],
+      code: `
+        styled.div\`
+          margin: 0 auto 0 auto;
+          .subitem {
+            padding-left: \${token('space.200', '16px')};
+            margin: 0 auto;
+          }
+        \`
+      `,
+    },
+    {
+      options: [{ applyImport: false }],
+      code: `
+        styled(Button)\`
+          width: 50%;
+          margin-top: calc(-1 * \${token('space.150', '12px')}) \${token('space.100', '8px')} calc(-1 * \${token('space.200', '16px')});
+          height: 40px;
+          align-items: center;
+          text-align: left;
+        \`
+      `,
+    },
   ],
   invalid: [
     // just literals
@@ -296,25 +366,8 @@ const tests: Tests = {
     {
       options: [{ applyImport: false }],
       code: `const styles = css({
-        padding: 0,
-      })`,
-      output: `const styles = css({
-        // TODO Delete this comment after verifying spacing token -> previous value \`0\`
-        padding: token('space.0', '0px'),
-      })`,
-      errors: [
-        {
-          message:
-            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:0>>',
-        },
-      ],
-    },
-    // em with no fontSize
-    {
-      options: [{ applyImport: false }],
-      code: `const styles = css({
-        padding: '1em', // should be NaN
-      })`,
+            padding: '1em', // should be NaN
+          })`,
       errors: [
         {
           message:
@@ -360,15 +413,49 @@ const tests: Tests = {
         },
       ],
     },
+    // 'auto' and '0' values
+    {
+      options: [{ applyImport: false }],
+      code: `const styles = css({
+        padding: \`\${gridSize()} 0\`,
+        margin: '0 auto',
+      })`,
+      output: `const styles = css({
+        padding: \`\${token('space.100', '8px')} 0\`,
+        margin: '0 auto',
+      })`,
+      errors: [
+        {
+          message:
+            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:8>>',
+        },
+      ],
+    },
+    // gridSize and 0
+    {
+      options: [{ applyImport: false }],
+      code: `const styles = css({
+        padding: \`\${gridSize()} 0\`,
+      })`,
+      output: `const styles = css({
+        padding: \`\${token('space.100', '8px')} 0\`,
+      })`,
+      errors: [
+        {
+          message:
+            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:8>>',
+        },
+      ],
+    },
     // shorthand string literal
     {
       options: [{ applyImport: false }],
       code: `const styles = css({
-        padding: '8px 12px',
-      });`,
+            padding: '8px 12px',
+          });`,
       output: `const styles = css({
-        padding: \`\${token('space.100', '8px')} \${token('space.150', '12px')}\`,
-      });`,
+            padding: \`\${token('space.100', '8px')} \${token('space.150', '12px')}\`,
+          });`,
       errors: [
         {
           message:
@@ -384,11 +471,11 @@ const tests: Tests = {
     {
       options: [{ applyImport: false }],
       code: `const styles = css({
-        padding: \`8px 12px\`,
-      });`,
+            padding: \`8px 12px\`,
+          });`,
       output: `const styles = css({
-        padding: \`\${token('space.100', '8px')} \${token('space.150', '12px')}\`,
-      });`,
+            padding: \`\${token('space.100', '8px')} \${token('space.150', '12px')}\`,
+          });`,
       errors: [
         {
           message:
@@ -397,20 +484,6 @@ const tests: Tests = {
         {
           message:
             'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:12>>',
-        },
-      ],
-    },
-    // calc syntax - this works but spits out 3 not 1 error
-    {
-      options: [{ applyImport: false }],
-      code: `
-      const wrapperStyles = css({
-        padding: 'calc(100vh - 200px)',
-      });`,
-      errors: [
-        {
-          message:
-            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<NaN:calc(100vh - 200px)>>',
         },
       ],
     },
@@ -519,26 +592,6 @@ const tests: Tests = {
         {
           message:
             'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:-8>>',
-        },
-      ],
-    },
-    // literal with multiple 0s
-    {
-      options: [{ applyImport: false }],
-      code: `const styles = css({
-        padding: '0 0',
-      });`,
-      output: `const styles = css({
-        padding: \`\${token('space.0', '0px')} \${token('space.0', '0px')}\`,
-      });`,
-      errors: [
-        {
-          message:
-            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:0>>',
-        },
-        {
-          message:
-            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:0>>',
         },
       ],
     },
@@ -731,14 +784,10 @@ const styledTemplateLiteral = styled.p\`color: red; padding: \${token('space.150
         position: 'relative',
         ':before': {
           display: 'inline-flex',
-          padding: \`\${token('space.0', '0px')} \${token('space.050', '4px')}\`,
+          padding: \`0 \${token('space.050', '4px')}\`,
         },
       });`,
       errors: [
-        {
-          message:
-            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:0>>',
-        },
         {
           message:
             'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:4>>',
@@ -793,20 +842,15 @@ styled.div\`
 \`
       `,
       output: `
-// TODO Delete this comment after verifying spacing token -> previous value \`padding: 0px\`
 // TODO Delete this comment after verifying spacing token -> previous value \`padding-left: 16px\`
 styled.div\`
-  padding: \${token('space.0', '0px')};
+  padding: 0px;
   .subitem {
     padding-left: \${token('space.200', '16px')};
   }
 \`
       `,
       errors: [
-        {
-          message:
-            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:0>>',
-        },
         {
           message:
             'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<paddingLeft:16>>',
@@ -888,19 +932,15 @@ styled.div\`
 \`
       `,
       output: `
-// TODO Delete this comment after verifying spacing token -> previous value \`padding: 0 16px\`
+// TODO Delete this comment after verifying spacing token -> previous value \`padding: 16px\`
 styled.div\`
   padding: \${token('space.0', '0px')};
   .subitem {
-    padding: \${token('space.0', '0px')} \${token('space.200', '16px')};
+    padding: 0 \${token('space.200', '16px')};
   }
 \`
       `,
       errors: [
-        {
-          message:
-            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:0>>',
-        },
         {
           message:
             'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:16>>',
@@ -1034,6 +1074,31 @@ styled.div\`
         },
       ],
     },
+    // styled as a function
+    {
+      options: [{ applyImport: false }],
+      code: `
+styled(Flex)\`
+  font-size: 8;
+  padding: 1em;
+\``,
+      output: `
+// TODO Delete this comment after verifying spacing token -> previous value \`padding: 1em\`
+styled(Flex)\`
+  font-size: 8;
+  padding: \${token('space.100', '8px')};
+\``,
+      errors: [
+        {
+          message:
+            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:8>>',
+        },
+        {
+          message:
+            'Automated corrections available for spacing values. Apply autofix to replace values with appropriate tokens',
+        },
+      ],
+    },
     {
       // FROM JIRA
       code: `
@@ -1097,10 +1162,6 @@ export const StickyWrapper = styled.div\`
         {
           message:
             'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<paddingTop:1>>',
-        },
-        {
-          message:
-            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<top:nullpx>>',
         },
         {
           message:

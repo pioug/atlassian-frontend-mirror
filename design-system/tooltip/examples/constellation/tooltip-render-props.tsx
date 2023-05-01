@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 
 import Button from '@atlaskit/button';
 import AddIcon from '@atlaskit/icon/glyph/editor/add';
+import { token } from '@atlaskit/tokens';
 
 import Tooltip, { PositionType, TooltipPrimitive } from '../../src';
 
@@ -27,7 +28,7 @@ const InlineDialog = styled(TooltipPrimitive)`
   color: #333;
   max-height: 300px;
   max-width: 300px;
-  padding: 8px 12px;
+  padding: ${token('space.100', '8px')} ${token('space.150', '12px')};
 `;
 
 export default () => {

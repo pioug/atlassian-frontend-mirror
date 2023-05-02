@@ -7,5 +7,6 @@
  */
 //Russian
 export default {
-  "fabric.editor.confluence.legacyMobileMacros.chartPlaceholderText": "Здесь должна быть диаграмма, однако ее невозможно отобразить. Чтобы увидеть диаграмму, откройте эту страницу в браузере."
+  'fabric.editor.confluence.legacyMobileMacros.chartPlaceholderText':
+    'Здесь должна быть диаграмма, однако ее невозможно отобразить. Чтобы увидеть диаграмму, откройте эту страницу в браузере.',
 };

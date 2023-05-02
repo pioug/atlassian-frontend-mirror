@@ -7,5 +7,6 @@
  */
 //Finnish
 export default {
-  "fabric.editor.confluence.legacyMobileMacros.chartPlaceholderText": "Tässä pitäisi olla kaavio, mutta sitä ei voitu näyttää. Katso kaavio avaamalla tämä sivu selaimessa."
+  'fabric.editor.confluence.legacyMobileMacros.chartPlaceholderText':
+    'Tässä pitäisi olla kaavio, mutta sitä ei voitu näyttää. Katso kaavio avaamalla tämä sivu selaimessa.',
 };

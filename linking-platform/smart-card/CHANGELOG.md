@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 25.7.3
+
+### Patch Changes
+
+- [`878dc4e5239`](https://bitbucket.org/atlassian/atlassian-frontend/commits/878dc4e5239) - Enable lozenge action by using showServerActions opt-in OR using feature flag useLozengeAction for experiment
+
 ## 25.7.2
 
 ### Patch Changes

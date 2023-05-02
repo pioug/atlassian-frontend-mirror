@@ -7,5 +7,6 @@
  */
 //Italian (Italy)
 export default {
-  "fabric.editor.confluence.legacyMobileMacros.chartPlaceholderText": "Qui dovrebbe essere mostrato un grafico, ma non è possibile visualizzarlo. Apri questa pagina in un browser per vedere il grafico."
+  'fabric.editor.confluence.legacyMobileMacros.chartPlaceholderText':
+    'Qui dovrebbe essere mostrato un grafico, ma non è possibile visualizzarlo. Apri questa pagina in un browser per vedere il grafico.',
 };

@@ -7,5 +7,6 @@
  */
 //Czech
 export default {
-  "fabric.editor.confluence.legacyMobileMacros.chartPlaceholderText": "Tady by měl být graf, ale nepodařilo se jej zobrazit. Pokud jej chcete vidět, otevřete tuto stránku v prohlížeči."
+  'fabric.editor.confluence.legacyMobileMacros.chartPlaceholderText':
+    'Tady by měl být graf, ale nepodařilo se jej zobrazit. Pokud jej chcete vidět, otevřete tuto stránku v prohlížeči.',
 };

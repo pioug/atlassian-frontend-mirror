@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -11,8 +12,7 @@ export default {
   'fabric.media.add_account': '계정 추가',
   'fabric.media.annotate': '주석 달기',
   'fabric.media.annotate.confirmation.close.anyway': '그래도 닫기',
-  'fabric.media.annotate.confirmation.content':
-    '저장되지 않은 변경 사항이 있습니다. 나가시겠습니까?',
+  'fabric.media.annotate.confirmation.content': '저장되지 않은 변경 사항이 있습니다. 나가시겠습니까?',
   'fabric.media.annotate.confirmation.heading': '저장되지 않은 변경 사항',
   'fabric.media.annotate.tool.arrow': '화살표',
   'fabric.media.annotate.tool.blur': '흐리게',
@@ -30,12 +30,10 @@ export default {
   'fabric.media.change_view': '보기 변경',
   'fabric.media.check_your_network': '네트워크 연결을 확인합니다',
   'fabric.media.click_to_join': '{context}에 가입',
-  'fabric.media.click_to_join_description':
-    '승인되었으므로 바로 {context}에 가입할 수 있습니다.',
+  'fabric.media.click_to_join_description': '승인되었으므로 바로 {context}에 가입할 수 있습니다.',
   'fabric.media.close': '닫기',
   'fabric.media.close_and_reopen': '이 파일을 닫고 다시 열어 보세요.',
-  'fabric.media.connect_account_description':
-    '{name} 계정을 연결할 수 있도록 새로운 페이지를 열겠습니다.',
+  'fabric.media.connect_account_description': '{name} 계정을 연결할 수 있도록 새로운 페이지를 열겠습니다.',
   'fabric.media.connect_link_account': '미리 보기에 연결',
   'fabric.media.connect_link_account_card_view': '연결',
   'fabric.media.connect_link_account_card_view_description':
@@ -46,11 +44,9 @@ export default {
   'fabric.media.could_not_save_image': '이런! 이미지를 저장하지 못했습니다',
   'fabric.media.couldnt_generate_encrypted_entry_preview':
     '암호화되었거나 비밀번호로 보호되는 파일은 미리 볼 수 없습니다.',
-  'fabric.media.couldnt_generate_preview':
-    '이 파일에 대한 미리보기를 생성할 수 없습니다.',
+  'fabric.media.couldnt_generate_preview': '이 파일에 대한 미리보기를 생성할 수 없습니다.',
   'fabric.media.couldnt_load_file': '파일을 로드하지 못했습니다.',
-  'fabric.media.couldnt_load_link':
-    '알 수 없는 이유로 인해 이 링크를 로드할 수 없습니다.',
+  'fabric.media.couldnt_load_link': '알 수 없는 이유로 인해 이 링크를 로드할 수 없습니다.',
   'fabric.media.creating_preview': '미리 보기 만드는 중...',
   'fabric.media.default_avatars': '기본 아바타',
   'fabric.media.disable_fullscreen': '전체 화면 비활성화',
@@ -59,16 +55,14 @@ export default {
   'fabric.media.download': '다운로드',
   'fabric.media.drag_and_drop_images_here': '이미지를 여기에 끌어 놓습니다',
   'fabric.media.drag_and_drop_your_files': '파일을 끌어 놓거나',
-  'fabric.media.drag_and_drop_your_files_and_folders':
-    '파일 및 폴더를 끌어다 놓기 또는',
+  'fabric.media.drag_and_drop_your_files_and_folders': '파일 및 폴더를 끌어다 놓기 또는',
   'fabric.media.drop_your_files': '업로드할 파일 끌어 놓기',
   'fabric.media.drop_your_files_here': '파일을 여기에 끌어 놓습니다',
   'fabric.media.email': '이메일',
   'fabric.media.enable_fullscreen': '전체 화면 사용',
   'fabric.media.error_429': '오류 429',
   'fabric.media.error_generating_preview': '미리보기 생성 중 오류',
-  'fabric.media.error_hint_critical':
-    '문제가 계속 발생하면 지원팀에 문의하십시오.',
+  'fabric.media.error_hint_critical': '문제가 계속 발생하면 지원팀에 문의하십시오.',
   'fabric.media.error_hint_retry': '작업을 다시 시도하시기 바랍니다.',
   'fabric.media.error_loading_file': '파일 로드 중 오류',
   'fabric.media.failed_to_load': '로드하지 못했습니다',
@@ -77,29 +71,23 @@ export default {
     '이 미리 보기에 액세스할 수 없습니다. 액세스가 필요한 경우 사이트 관리자에게 문의하세요.',
   'fabric.media.give_feedback': '피드백 보내기',
   'fabric.media.image': '이미지',
-  'fabric.media.image_format_invalid_error':
-    '이미지를 로드할 수 없습니다. 형식이 유효하지 않습니다.',
-  'fabric.media.image_size_too_large_error':
-    '이미지가 너무 큽니다. {MAX_SIZE_MB}MB 이하여야 합니다.',
-  'fabric.media.image_url_invalid_error':
-    '이미지를 로드할 수 없습니다. URL이 유효하지 않습니다.',
+  'fabric.media.image_format_invalid_error': '이미지를 로드할 수 없습니다. 형식이 유효하지 않습니다.',
+  'fabric.media.image_size_too_large_error': '이미지가 너무 큽니다. {MAX_SIZE_MB}MB 이하여야 합니다.',
+  'fabric.media.image_url_invalid_error': '이미지를 로드할 수 없습니다. URL이 유효하지 않습니다.',
   'fabric.media.insert_files': '{0, plural, other {파일 {0}개 삽입}}',
   'fabric.media.invalid_permissions': '제한된 링크',
   'fabric.media.invalid_permissions_description':
     '이 미리 보기를 확인하려면 액세스를 요청하거나 다른 계정으로 시도해야 합니다.',
-  'fabric.media.item_not_found_in_list':
-    '선택된 항목을 목록에서 찾지 못했습니다.',
+  'fabric.media.item_not_found_in_list': '선택된 항목을 목록에서 찾지 못했습니다.',
   'fabric.media.learn_more': '자세히 알아보기',
   'fabric.media.load_more_gifs': '더 많은 GIF 로드',
   'fabric.media.loading': '로드 중...',
   'fabric.media.loading_file': '파일 로드 중…',
   'fabric.media.might_be_a_hiccup': '일시적인 문제일 수 있습니다.',
   'fabric.media.no_gifs_found': '안녕하세요. 저를 찾고 계셨나요?',
-  'fabric.media.no_gifs_found_suggestion':
-    '"{query}"에 대한 검색 결과가 없습니다.',
+  'fabric.media.no_gifs_found_suggestion': '"{query}"에 대한 검색 결과가 없습니다.',
   'fabric.media.no_pdf_artifacts': '이 파일에 대한 PDF 파일을 찾지 못했습니다.',
-  'fabric.media.not_found_description':
-    '링크를 찾을 수 없습니다. URL을 확인하고 편집하거나 다시 붙여넣으세요.',
+  'fabric.media.not_found_description': '링크를 찾을 수 없습니다. URL을 확인하고 편집하거나 다시 붙여넣으세요.',
   'fabric.media.not_found_title': '죄송합니다. 이 링크를 찾을 수 없습니다.',
   'fabric.media.or': '또는',
   'fabric.media.pause': '일시 중지',
@@ -107,17 +95,14 @@ export default {
   'fabric.media.playback_default_speed': '기본값',
   'fabric.media.playback_speed': '재생 속도',
   'fabric.media.preview': '미리 보기',
-  'fabric.media.preview_currently_unavailable':
-    '현재 미리 보기를 사용할 수 없음',
+  'fabric.media.preview_currently_unavailable': '현재 미리 보기를 사용할 수 없음',
   'fabric.media.preview_unavailable': '미리 보기를 사용할 수 없음',
   'fabric.media.recent_uploads': '최근 업로드',
   'fabric.media.remove_image': '이미지 제거',
   'fabric.media.request_access': '액세스 요청',
-  'fabric.media.request_access_description':
-    '이 미리 보기를 보려면 {context}에 액세스를 요청하세요.',
+  'fabric.media.request_access_description': '이 미리 보기를 보려면 {context}에 액세스를 요청하세요.',
   'fabric.media.request_access_pending': '액세스 보류 중',
-  'fabric.media.request_access_pending_description':
-    '액세스 요청이 보류 중입니다.',
+  'fabric.media.request_access_pending_description': '액세스 요청이 보류 중입니다.',
   'fabric.media.request_denied_description':
     '액세스 요청이 거부되었습니다. 계속해서 액세스가 필요한 경우 사이트 관리자에게 문의하세요.',
   'fabric.media.retry': '다시 시도',
@@ -148,8 +133,7 @@ export default {
   'fabric.media.viewer_rateLimited': '파일을 로드하는 데 문제가 발생했습니다.',
   'fabric.media.webgl_warning_description':
     '사용하시는 브라우저가 WebGL을 지원하지 않습니다. 이미지를 주석으로 달려면 WebGL을 사용할 수 있는 브라우저를 사용하십시오.',
-  'fabric.media.zip_entry_load_failed':
-    '미리 보려는 zip 파일 항목을 로드할 수 없습니다',
+  'fabric.media.zip_entry_load_failed': '미리 보려는 zip 파일 항목을 로드할 수 없습니다',
   'fabric.media.zoom_in': '확대',
   'fabric.media.zoom_out': '축소',
 };

@@ -505,7 +505,6 @@ describe('smart-card: card states, block', () => {
                 client={mockClient}
                 featureFlags={{
                   enableFlexibleBlockCard: true,
-                  useLozengeAction: 'experiment',
                 }}
               >
                 <Card

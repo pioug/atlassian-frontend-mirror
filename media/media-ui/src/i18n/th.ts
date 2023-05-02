@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -13,8 +14,7 @@ export default {
   'fabric.media.annotate.confirmation.close.anyway': 'ปิดเลย',
   'fabric.media.annotate.confirmation.content':
     'คุณมีการเปลี่ยนแปลงบางรายการที่ยังไม่ได้บันทึก คุณแน่ใจหรือไม่ว่าต้องการออกจากหน้านี้',
-  'fabric.media.annotate.confirmation.heading':
-    'การเปลี่ยนแปลงที่ยังไม่ได้บันทึก',
+  'fabric.media.annotate.confirmation.heading': 'การเปลี่ยนแปลงที่ยังไม่ได้บันทึก',
   'fabric.media.annotate.tool.arrow': 'ลูกศร',
   'fabric.media.annotate.tool.blur': 'ขุ่นมัว',
   'fabric.media.annotate.tool.brush': 'แปรง',
@@ -25,16 +25,13 @@ export default {
   'fabric.media.archive': 'เก็บ',
   'fabric.media.audio': 'เสียง',
   'fabric.media.cancel': 'ยกเลิก',
-  'fabric.media.cant_preview_file_type':
-    'เราไม่สามารถแสดงตัวอย่างประเภทไฟล์นี้ได้',
+  'fabric.media.cant_preview_file_type': 'เราไม่สามารถแสดงตัวอย่างประเภทไฟล์นี้ได้',
   'fabric.media.cant_retrieve_files': 'โอ๊ะ! เราไม่สามารถกู้ไฟล์ใด ๆ คืนมาได้',
-  'fabric.media.cant_retrieve_gifs':
-    'โอ๊ะ! เราไม่สามารถกู้ไฟล์ GIF ใด ๆ คืนมาได้',
+  'fabric.media.cant_retrieve_gifs': 'โอ๊ะ! เราไม่สามารถกู้ไฟล์ GIF ใด ๆ คืนมาได้',
   'fabric.media.change_view': 'เปลี่ยนมุมมอง',
   'fabric.media.check_your_network': 'ตรวจสอบการเชื่อมต่อเครือข่ายของคุณ',
   'fabric.media.click_to_join': 'เข้าร่วม {context}',
-  'fabric.media.click_to_join_description':
-    'คุณได้รับการอนุมัติแล้ว คุณจึงสามารถเข้าร่วม {context} ได้เลยทันที',
+  'fabric.media.click_to_join_description': 'คุณได้รับการอนุมัติแล้ว คุณจึงสามารถเข้าร่วม {context} ได้เลยทันที',
   'fabric.media.close': 'ปิด',
   'fabric.media.close_and_reopen': 'ลองปิดไฟล์นี้แล้วเปิดใหม่',
   'fabric.media.connect_account_description':
@@ -43,18 +40,15 @@ export default {
   'fabric.media.connect_link_account_card_view': 'เชื่อมต่อ',
   'fabric.media.connect_link_account_card_view_description':
     'เพื่อแสดงตัวอย่างของลิงก์นี้ โปรดติดต่อบัญชี {context} ของคุณ',
-  'fabric.media.connect_link_account_card_view_name':
-    'เชื่อมต่อบัญชี {context} ของคุณ',
+  'fabric.media.connect_link_account_card_view_name': 'เชื่อมต่อบัญชี {context} ของคุณ',
   'fabric.media.connect_to': 'เชื่อมต่อกับ {name}',
   'fabric.media.could_not_load_editor': 'โอ๊ะ! เราไม่สามารถโหลดโปรแกรมแก้ไขได้',
   'fabric.media.could_not_save_image': 'โอ๊ะ! เราไม่สามารถบันทึกรูปภาพได้',
   'fabric.media.couldnt_generate_encrypted_entry_preview':
     'เราไม่สามารถแสดงตัวอย่างไฟล์ที่เข้ารหัสหรือไฟล์ที่มีรหัสป้องกันไว้ได้',
-  'fabric.media.couldnt_generate_preview':
-    'เราไม่สามารถสร้างการแสดงตัวอย่างสำหรับไฟล์นี้ได้',
+  'fabric.media.couldnt_generate_preview': 'เราไม่สามารถสร้างการแสดงตัวอย่างสำหรับไฟล์นี้ได้',
   'fabric.media.couldnt_load_file': 'เราไม่สามารถโหลดไฟล์ได้',
-  'fabric.media.couldnt_load_link':
-    'เราไม่สามารถโหลดลิงก์นี้ได้ด้วยเหตุผลที่ไม่อาจทราบได้',
+  'fabric.media.couldnt_load_link': 'เราไม่สามารถโหลดลิงก์นี้ได้ด้วยเหตุผลที่ไม่อาจทราบได้',
   'fabric.media.creating_preview': 'กำลังสร้างตัวอย่าง...',
   'fabric.media.default_avatars': 'รูปแทนตัวเริ่มต้น',
   'fabric.media.disable_fullscreen': 'ปิดใช้งานการแสดงเต็มหน้าจอ',
@@ -62,19 +56,15 @@ export default {
   'fabric.media.document': 'เอกสาร',
   'fabric.media.download': 'ดาวน์โหลด',
   'fabric.media.drag_and_drop_images_here': 'ลากและวางรูปภาพของคุณที่นี่',
-  'fabric.media.drag_and_drop_your_files':
-    'ลากและวางไฟล์ของคุณไว้ที่ใดก็ได้หรือ',
-  'fabric.media.drag_and_drop_your_files_and_folders':
-    'ลากและวางไฟล์และโฟลเดอร์ของคุณที่ใดก็ได้หรือ',
+  'fabric.media.drag_and_drop_your_files': 'ลากและวางไฟล์ของคุณไว้ที่ใดก็ได้หรือ',
+  'fabric.media.drag_and_drop_your_files_and_folders': 'ลากและวางไฟล์และโฟลเดอร์ของคุณที่ใดก็ได้หรือ',
   'fabric.media.drop_your_files': 'วางไฟล์ของคุณเพื่ออัปโหลด',
   'fabric.media.drop_your_files_here': 'วางไฟล์ของคุณที่นี่',
   'fabric.media.email': 'อีเมล',
   'fabric.media.enable_fullscreen': 'เปิดใช้งานการแสดงเต็มหน้าจอ',
   'fabric.media.error_429': 'ข้อผิดพลาด 429',
-  'fabric.media.error_generating_preview':
-    'เกิดข้อผิดพลาดในการสร้างการแสดงตัวอย่าง',
-  'fabric.media.error_hint_critical':
-    'หากยังคงมีปัญหาเกิดขึ้นเรื่อย ๆ โปรดติดต่อฝ่ายสนับสนุน',
+  'fabric.media.error_generating_preview': 'เกิดข้อผิดพลาดในการสร้างการแสดงตัวอย่าง',
+  'fabric.media.error_hint_critical': 'หากยังคงมีปัญหาเกิดขึ้นเรื่อย ๆ โปรดติดต่อฝ่ายสนับสนุน',
   'fabric.media.error_hint_retry': 'ลองอีกครั้งและเราจะแสดงใหม่อีกครั้ง',
   'fabric.media.error_loading_file': 'เกิดข้อผิดพลาดในการโหลดไฟล์',
   'fabric.media.failed_to_load': 'ไม่สามารถโหลดได้สำเร็จ',
@@ -83,12 +73,9 @@ export default {
     'คุณไม่มีสิทธิ์เข้าถึงตัวอย่างนี้ โปรดติดต่อผู้ดูแลระบบเว็บไซต์หากคุณต้องการสิทธิ์การเข้าถึง',
   'fabric.media.give_feedback': 'ให้ข้อคิดเห็น',
   'fabric.media.image': 'รูปภาพ',
-  'fabric.media.image_format_invalid_error':
-    'ไม่สามารถโหลดรูปภาพได้ รูปแบบไฟล์ไม่ถูกต้อง',
-  'fabric.media.image_size_too_large_error':
-    'รูปภาพมีขนาดใหญ่เกินไป โดยรูปภาพต้องมีขนาดไม่เกิน {MAX_SIZE_MB}Mb',
-  'fabric.media.image_url_invalid_error':
-    'ไม่สามารถโหลดรูปภาพได้ URL ไม่ถูกต้อง',
+  'fabric.media.image_format_invalid_error': 'ไม่สามารถโหลดรูปภาพได้ รูปแบบไฟล์ไม่ถูกต้อง',
+  'fabric.media.image_size_too_large_error': 'รูปภาพมีขนาดใหญ่เกินไป โดยรูปภาพต้องมีขนาดไม่เกิน {MAX_SIZE_MB}Mb',
+  'fabric.media.image_url_invalid_error': 'ไม่สามารถโหลดรูปภาพได้ URL ไม่ถูกต้อง',
   'fabric.media.insert_files': '{0, plural, other {แทรกไฟล์ {0} ไฟล์}}',
   'fabric.media.invalid_permissions': 'ลิงก์ที่จำกัด',
   'fabric.media.invalid_permissions_description':
@@ -100,11 +87,9 @@ export default {
   'fabric.media.loading_file': 'กำลังโหลดไฟล์...',
   'fabric.media.might_be_a_hiccup': 'อาจจะมีอุปสรรคบางอย่าง',
   'fabric.media.no_gifs_found': 'สวัสดี คุณกำลังมองหาฉันอยู่หรือเปล่า',
-  'fabric.media.no_gifs_found_suggestion':
-    'เราไม่พบผลลัพธ์ใด ๆ สำหรับ "{query}"',
+  'fabric.media.no_gifs_found_suggestion': 'เราไม่พบผลลัพธ์ใด ๆ สำหรับ "{query}"',
   'fabric.media.no_pdf_artifacts': 'ไม่พบสิ่งที่สร้างขึ้นจาก PDF สำหรับไฟล์นี้',
-  'fabric.media.not_found_description':
-    'เราไม่พบลิงก์ ตรวจสอบ URL และลองแก้ไขหรือวางอีกครั้ง',
+  'fabric.media.not_found_description': 'เราไม่พบลิงก์ ตรวจสอบ URL และลองแก้ไขหรือวางอีกครั้ง',
   'fabric.media.not_found_title': 'โอ๊ะ โอ เราไม่พบลิงก์นี้!',
   'fabric.media.or': 'หรือ',
   'fabric.media.pause': 'หยุดชั่วคราว',
@@ -112,17 +97,14 @@ export default {
   'fabric.media.playback_default_speed': 'ค่าเริ่มต้น',
   'fabric.media.playback_speed': 'ความเร็วในการเปิดเล่น',
   'fabric.media.preview': 'แสดงตัวอย่าง',
-  'fabric.media.preview_currently_unavailable':
-    'ไม่สามารถดูตัวอย่างได้ในขณะนี้',
+  'fabric.media.preview_currently_unavailable': 'ไม่สามารถดูตัวอย่างได้ในขณะนี้',
   'fabric.media.preview_unavailable': 'ไม่สามารถดูตัวอย่างได้',
   'fabric.media.recent_uploads': 'รายการอัปโหลดล่าสุด',
   'fabric.media.remove_image': 'ลบรูปภาพออก',
   'fabric.media.request_access': 'ส่งคำขอเพื่อเข้าถึง',
-  'fabric.media.request_access_description':
-    'ส่งคำขอในการเข้าถึง {context} เพื่อดูตัวอย่างนี้',
+  'fabric.media.request_access_description': 'ส่งคำขอในการเข้าถึง {context} เพื่อดูตัวอย่างนี้',
   'fabric.media.request_access_pending': 'การเข้าถึงกำลังรอดำเนินการ',
-  'fabric.media.request_access_pending_description':
-    'คำขอการเข้าถึงของคุณกำลังรอดำเนินการ',
+  'fabric.media.request_access_pending_description': 'คำขอการเข้าถึงของคุณกำลังรอดำเนินการ',
   'fabric.media.request_denied_description':
     'คำขอการเข้าถึงของคุณถูกปฏิเสธ โปรดติดต่อผู้ดูแลระบบเว็บไซต์หากคุณยังต้องการสิทธิ์การเข้าถึง',
   'fabric.media.retry': 'ลองอีกครั้ง',
@@ -139,8 +121,7 @@ export default {
   'fabric.media.try_again': 'ลองอีกครั้ง',
   'fabric.media.try_another_account': 'ลองบัญชีอื่น',
   'fabric.media.try_downloading_file': 'ลองดาวน์โหลดไฟล์เพื่อดู',
-  'fabric.media.unable_to_annotate_image':
-    'คุณไม่สามารถทำหมายเหตุประกอบรูปภาพนี้ได้',
+  'fabric.media.unable_to_annotate_image': 'คุณไม่สามารถทำหมายเหตุประกอบรูปภาพนี้ได้',
   'fabric.media.unknown': 'ไม่รู้จัก',
   'fabric.media.unlink_account': 'ยกเลิกการเชื่อมโยงบัญชี',
   'fabric.media.upload': 'อัปโหลด',
@@ -154,8 +135,7 @@ export default {
   'fabric.media.viewer_rateLimited': 'เรากำลังประสบปัญหาในการโหลดไฟล์ของคุณ',
   'fabric.media.webgl_warning_description':
     'เบราว์เซอร์ของคุณไม่รองรับ WebGL ใช้เบราว์เซอร์ที่เปิดใช้งาน WebGL ในการทำหมายเหตุประกอบรูปภาพ',
-  'fabric.media.zip_entry_load_failed':
-    'เราไม่สามารถโหลดรายการไฟล์ซิปนั้นเพื่อดูตัวอย่างได้',
+  'fabric.media.zip_entry_load_failed': 'เราไม่สามารถโหลดรายการไฟล์ซิปนั้นเพื่อดูตัวอย่างได้',
   'fabric.media.zoom_in': 'ซูมเข้า',
   'fabric.media.zoom_out': 'ซูมออก',
 };

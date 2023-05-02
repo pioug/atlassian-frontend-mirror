@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -30,18 +31,15 @@ export default {
   'fabric.media.change_view': 'Skift visning',
   'fabric.media.check_your_network': 'Tjek din netværksforbindelse',
   'fabric.media.click_to_join': 'Tilmeld dig {context}',
-  'fabric.media.click_to_join_description':
-    'Du er blevet godkendt, så du kan deltage i {context} med det samme.',
+  'fabric.media.click_to_join_description': 'Du er blevet godkendt, så du kan deltage i {context} med det samme.',
   'fabric.media.close': 'Luk',
   'fabric.media.close_and_reopen': 'Prøv at lukke filen og åbne den igen.',
-  'fabric.media.connect_account_description':
-    'Vi åbner en ny side for at hjælpe dig til at forbinde din {name}-konto',
+  'fabric.media.connect_account_description': 'Vi åbner en ny side for at hjælpe dig til at forbinde din {name}-konto',
   'fabric.media.connect_link_account': 'Forbind til forhåndsvisning',
   'fabric.media.connect_link_account_card_view': 'Forbind',
   'fabric.media.connect_link_account_card_view_description':
     'Tilknyt din {context}-konto, hvis du vil se en forhåndsvisning af dette link',
-  'fabric.media.connect_link_account_card_view_name':
-    'Forbind din {context}-konto',
+  'fabric.media.connect_link_account_card_view_name': 'Forbind din {context}-konto',
   'fabric.media.connect_to': 'Forbind til {name}',
   'fabric.media.could_not_load_editor': 'Ups! Vi kunne ikke indlæse editoren',
   'fabric.media.could_not_save_image': 'Ups! Vi kunne ikke gemme billedet',
@@ -49,30 +47,24 @@ export default {
     'Vi kan ikke vise en forhåndsvisning af krypterede filer eller filer, der er beskyttet af en adgangskode.',
   'fabric.media.couldnt_generate_preview': 'Vi kunne ikke vise denne fil.',
   'fabric.media.couldnt_load_file': 'Vi kunne ikke indlæse filen.',
-  'fabric.media.couldnt_load_link':
-    'Af en ukendt årsag kunne vi ikke indlæse dette link.',
+  'fabric.media.couldnt_load_link': 'Af en ukendt årsag kunne vi ikke indlæse dette link.',
   'fabric.media.creating_preview': 'Opretter forhåndsvisning...',
   'fabric.media.default_avatars': 'Standard-avatarer',
   'fabric.media.disable_fullscreen': 'slå fuldskærmsvisning fra',
   'fabric.media.display_thumbnail': 'Vis miniaturebillede',
   'fabric.media.document': 'dokument',
   'fabric.media.download': 'Hent',
-  'fabric.media.drag_and_drop_images_here':
-    'Træk dine billeder herover, og slip dem',
-  'fabric.media.drag_and_drop_your_files':
-    'Træk, og slip dine filer hertil, eller',
-  'fabric.media.drag_and_drop_your_files_and_folders':
-    'Træk og slip dine filer og mapper hvor som helst eller',
+  'fabric.media.drag_and_drop_images_here': 'Træk dine billeder herover, og slip dem',
+  'fabric.media.drag_and_drop_your_files': 'Træk, og slip dine filer hertil, eller',
+  'fabric.media.drag_and_drop_your_files_and_folders': 'Træk og slip dine filer og mapper hvor som helst eller',
   'fabric.media.drop_your_files': 'Træk filer hertil for at uploade',
   'fabric.media.drop_your_files_here': 'Træk dine filer hertil',
   'fabric.media.email': 'E-mail',
   'fabric.media.enable_fullscreen': 'slå fuldskærmsvisning til',
   'fabric.media.error_429': 'Fejl 429',
   'fabric.media.error_generating_preview': 'Fejl ved forhåndsvisning',
-  'fabric.media.error_hint_critical':
-    'Hvis problemet fortsat opstår, skal du kontakte support.',
-  'fabric.media.error_hint_retry':
-    'Prøv igen, så giver vi det endnu et forsøg.',
+  'fabric.media.error_hint_critical': 'Hvis problemet fortsat opstår, skal du kontakte support.',
+  'fabric.media.error_hint_retry': 'Prøv igen, så giver vi det endnu et forsøg.',
   'fabric.media.error_loading_file': 'Fejl ved indlæsning af fil',
   'fabric.media.failed_to_load': 'Kunne ikke indlæses',
   'fabric.media.failed_to_upload': 'Upload mislykkedes',
@@ -80,27 +72,21 @@ export default {
     'Du har ikke adgang til denne forhåndsvisning. Kontakt webstedets administrator, hvis du har brug for adgang.',
   'fabric.media.give_feedback': 'Giv feedback',
   'fabric.media.image': 'billede',
-  'fabric.media.image_format_invalid_error':
-    'Billedet kunne ikke indlæses; ugyldigt format.',
-  'fabric.media.image_size_too_large_error':
-    'Billedet er for stort. Det må ikke være større end  {MAX_SIZE_MB}MB',
-  'fabric.media.image_url_invalid_error':
-    'Billedet kunne ikke indlæses; ugyldig URL.',
-  'fabric.media.insert_files':
-    '{0, plural, one {Indsæt {0} fil} other {Indsæt {0} filer}}',
+  'fabric.media.image_format_invalid_error': 'Billedet kunne ikke indlæses; ugyldigt format.',
+  'fabric.media.image_size_too_large_error': 'Billedet er for stort. Det må ikke være større end  {MAX_SIZE_MB}MB',
+  'fabric.media.image_url_invalid_error': 'Billedet kunne ikke indlæses; ugyldig URL.',
+  'fabric.media.insert_files': '{0, plural, one {Indsæt {0} fil} other {Indsæt {0} filer}}',
   'fabric.media.invalid_permissions': 'Begrænset link',
   'fabric.media.invalid_permissions_description':
     'Anmod om adgang, eller prøv med en anden konto for at se denne forhåndsvisning.',
-  'fabric.media.item_not_found_in_list':
-    'Det valgte element blev ikke fundet på listen.',
+  'fabric.media.item_not_found_in_list': 'Det valgte element blev ikke fundet på listen.',
   'fabric.media.learn_more': 'Få mere at vide',
   'fabric.media.load_more_gifs': "Indlæs flere GIF'er",
   'fabric.media.loading': 'Indlæser...',
   'fabric.media.loading_file': 'Indlæser fil …',
   'fabric.media.might_be_a_hiccup': 'Det må være et midlertidigt problem.',
   'fabric.media.no_gifs_found': 'Hallo? Var det mig, du ledte efter?',
-  'fabric.media.no_gifs_found_suggestion':
-    'Vi kunne ikke finde noget for "{query}"',
+  'fabric.media.no_gifs_found_suggestion': 'Vi kunne ikke finde noget for "{query}"',
   'fabric.media.no_pdf_artifacts': 'Ingen PDF-artefakter for denne fil fundet.',
   'fabric.media.not_found_description':
     'Vi kunne ikke finde linket. Kontrollér og rediger URL-adressen, eller indsæt den igen.',
@@ -111,17 +97,14 @@ export default {
   'fabric.media.playback_default_speed': 'Standard',
   'fabric.media.playback_speed': 'Afspilningshastighed',
   'fabric.media.preview': 'Vis',
-  'fabric.media.preview_currently_unavailable':
-    'Forhåndsvisning er ikke tilgængelig i øjeblikket',
+  'fabric.media.preview_currently_unavailable': 'Forhåndsvisning er ikke tilgængelig i øjeblikket',
   'fabric.media.preview_unavailable': 'Forhåndsvisning er ikke tilgængelig',
   'fabric.media.recent_uploads': 'Senest uploadet',
   'fabric.media.remove_image': 'Fjern billede',
   'fabric.media.request_access': 'Anmod om adgang',
-  'fabric.media.request_access_description':
-    'Anmod om adgang til {context} for at se denne forhåndsvisning.',
+  'fabric.media.request_access_description': 'Anmod om adgang til {context} for at se denne forhåndsvisning.',
   'fabric.media.request_access_pending': 'Afventer adgang',
-  'fabric.media.request_access_pending_description':
-    'Din anmodning om adgang afventer behandling.',
+  'fabric.media.request_access_pending_description': 'Din anmodning om adgang afventer behandling.',
   'fabric.media.request_denied_description':
     'Din anmodning om adgang blev afvist. Kontakt webstedets administrator, hvis du stadig har brug for adgang.',
   'fabric.media.retry': 'Prøv igen',
@@ -137,8 +120,7 @@ export default {
   'fabric.media.text': 'Tekst',
   'fabric.media.try_again': 'Prøv igen',
   'fabric.media.try_another_account': 'Prøv en anden konto',
-  'fabric.media.try_downloading_file':
-    'Prøv at downloade filen for at vise den.',
+  'fabric.media.try_downloading_file': 'Prøv at downloade filen for at vise den.',
   'fabric.media.unable_to_annotate_image': 'Du kan ikke annotere dette billede',
   'fabric.media.unknown': 'ukendt',
   'fabric.media.unlink_account': 'Fjern link til konto',
@@ -153,8 +135,7 @@ export default {
   'fabric.media.viewer_rateLimited': 'Vi har problemer med at indlæse din fil.',
   'fabric.media.webgl_warning_description':
     'Din browser understøtter ikke WebGL. Brug en WebGL-kompatibel browser for at annotere billeder.',
-  'fabric.media.zip_entry_load_failed':
-    'Vi kunne ikke indlæse zip-filelementet til forhåndsvisning',
+  'fabric.media.zip_entry_load_failed': 'Vi kunne ikke indlæse zip-filelementet til forhåndsvisning',
   'fabric.media.zoom_in': 'zoom ind',
   'fabric.media.zoom_out': 'zoom ud',
 };

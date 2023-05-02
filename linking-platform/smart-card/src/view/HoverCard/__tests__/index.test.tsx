@@ -1175,14 +1175,12 @@ describe('HoverCard', () => {
     });
 
     describe('server actions', () => {
-      const featureFlags = { useLozengeAction: 'experiment' };
       const mock = mockJiraResponse;
 
       describe('inline smart link', () => {
         const setupWithInline = (showServerActions?: boolean) =>
           setup({
             extraCardProps: { showServerActions },
-            featureFlags,
             mock,
           });
 
@@ -1197,7 +1195,6 @@ describe('HoverCard', () => {
               showServerActions,
               children: <TitleBlock />,
             },
-            featureFlags,
             mock,
             testId: 'hover-card-trigger-wrapper',
           });
@@ -1267,7 +1264,6 @@ describe('HoverCard', () => {
 
         return setup({
           component,
-          featureFlags: { useLozengeAction: 'experiment' },
           mock: mockJiraResponse,
           testId,
         });

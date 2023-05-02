@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -11,8 +12,7 @@ export default {
   'fabric.media.add_account': '新增帳戶',
   'fabric.media.annotate': '加上註解',
   'fabric.media.annotate.confirmation.close.anyway': '仍要關閉',
-  'fabric.media.annotate.confirmation.content':
-    '您有一些未儲存的變更，確定要離開嗎？',
+  'fabric.media.annotate.confirmation.content': '您有一些未儲存的變更，確定要離開嗎？',
   'fabric.media.annotate.confirmation.heading': '未儲存的變更',
   'fabric.media.annotate.tool.arrow': '箭頭',
   'fabric.media.annotate.tool.blur': '模糊',
@@ -30,22 +30,18 @@ export default {
   'fabric.media.change_view': '變更檢視畫面',
   'fabric.media.check_your_network': '請檢查您的網路連線',
   'fabric.media.click_to_join': '加入 {context}',
-  'fabric.media.click_to_join_description':
-    '您已獲得核准，因此可以立即加入 {context}。',
+  'fabric.media.click_to_join_description': '您已獲得核准，因此可以立即加入 {context}。',
   'fabric.media.close': '關閉',
   'fabric.media.close_and_reopen': '請試著關閉此檔案，然後再重新開啟。',
-  'fabric.media.connect_account_description':
-    '我們會開啟新的頁面來協助您連結 {name} 帳戶',
+  'fabric.media.connect_account_description': '我們會開啟新的頁面來協助您連結 {name} 帳戶',
   'fabric.media.connect_link_account': '連線以預覽',
   'fabric.media.connect_link_account_card_view': '連結',
-  'fabric.media.connect_link_account_card_view_description':
-    '若要顯示此連結的預覽，請連接您的 {context} 帳戶。',
+  'fabric.media.connect_link_account_card_view_description': '若要顯示此連結的預覽，請連接您的 {context} 帳戶。',
   'fabric.media.connect_link_account_card_view_name': '連結 {context} 帳戶',
   'fabric.media.connect_to': '連結至 {name}',
   'fabric.media.could_not_load_editor': '唉呦！我們無法載入編輯器',
   'fabric.media.could_not_save_image': '唉呦！我們無法儲存影像',
-  'fabric.media.couldnt_generate_encrypted_entry_preview':
-    '我們無法預覽加密或以密碼保護的檔案。',
+  'fabric.media.couldnt_generate_encrypted_entry_preview': '我們無法預覽加密或以密碼保護的檔案。',
   'fabric.media.couldnt_generate_preview': '我們無法為此檔案產生預覽。',
   'fabric.media.couldnt_load_file': '我們無法載入檔案。',
   'fabric.media.couldnt_load_link': '基於不明原因，我們無法載入此連結。',
@@ -57,8 +53,7 @@ export default {
   'fabric.media.download': '下載',
   'fabric.media.drag_and_drop_images_here': '將影像拖曳至此',
   'fabric.media.drag_and_drop_your_files': '將檔案拖曳至任何位置或',
-  'fabric.media.drag_and_drop_your_files_and_folders':
-    '將檔案和資料夾拖曳至任何位置或',
+  'fabric.media.drag_and_drop_your_files_and_folders': '將檔案和資料夾拖曳至任何位置或',
   'fabric.media.drop_your_files': '置放要上傳的檔案',
   'fabric.media.drop_your_files_here': '將檔案置放在此',
   'fabric.media.email': '電子郵件',
@@ -70,18 +65,15 @@ export default {
   'fabric.media.error_loading_file': '載入檔案時發生錯誤',
   'fabric.media.failed_to_load': '無法載入',
   'fabric.media.failed_to_upload': '無法上傳',
-  'fabric.media.forbidden_description':
-    '您沒有此預覽的存取權。如果您需要存取權，請連絡網站管理員。',
+  'fabric.media.forbidden_description': '您沒有此預覽的存取權。如果您需要存取權，請連絡網站管理員。',
   'fabric.media.give_feedback': '提供意見反應',
   'fabric.media.image': '影像',
   'fabric.media.image_format_invalid_error': '無法載入影像，格式無效。',
-  'fabric.media.image_size_too_large_error':
-    '影像太大，不得大於 {MAX_SIZE_MB}Mb',
+  'fabric.media.image_size_too_large_error': '影像太大，不得大於 {MAX_SIZE_MB}Mb',
   'fabric.media.image_url_invalid_error': '無法載入影像，URL 無效。',
   'fabric.media.insert_files': '{0, plural, other {插入 {0} 個檔案}}',
   'fabric.media.invalid_permissions': '限制連結',
-  'fabric.media.invalid_permissions_description':
-    '您需要請求存取或嘗試不同的帳戶，來檢視此預覽。',
+  'fabric.media.invalid_permissions_description': '您需要請求存取或嘗試不同的帳戶，來檢視此預覽。',
   'fabric.media.item_not_found_in_list': '在清單上找不到所選的項目。',
   'fabric.media.learn_more': '深入了解',
   'fabric.media.load_more_gifs': '載入更多 GIF',
@@ -91,8 +83,7 @@ export default {
   'fabric.media.no_gifs_found': '嗨！您找我嗎？',
   'fabric.media.no_gifs_found_suggestion': '我們找不到符合「{query}」的項目',
   'fabric.media.no_pdf_artifacts': '找不到符合此檔案的 PDF 成品。',
-  'fabric.media.not_found_description':
-    '我們找不到此連結。請檢查 URL，然後試著編輯或再次貼上。',
+  'fabric.media.not_found_description': '我們找不到此連結。請檢查 URL，然後試著編輯或再次貼上。',
   'fabric.media.not_found_title': '糟糕，我們找不到此連結！',
   'fabric.media.or': '或',
   'fabric.media.pause': '暫停',
@@ -105,12 +96,10 @@ export default {
   'fabric.media.recent_uploads': '最近上傳的項目',
   'fabric.media.remove_image': '移除影像',
   'fabric.media.request_access': '要求存取權',
-  'fabric.media.request_access_description':
-    '要求 {context} 的存取權以檢視此預覽。',
+  'fabric.media.request_access_description': '要求 {context} 的存取權以檢視此預覽。',
   'fabric.media.request_access_pending': '存取擱置',
   'fabric.media.request_access_pending_description': '您的存取要求擱置中。',
-  'fabric.media.request_denied_description':
-    '您的存取要求遭到拒絕。如果您仍需要存取權，請連絡網站管理員。',
+  'fabric.media.request_denied_description': '您的存取要求遭到拒絕。如果您仍需要存取權，請連絡網站管理員。',
   'fabric.media.retry': '重試',
   'fabric.media.save': '儲存',
   'fabric.media.search': '搜尋',
@@ -137,8 +126,7 @@ export default {
   'fabric.media.video': '影片',
   'fabric.media.view': '檢視',
   'fabric.media.viewer_rateLimited': '載入您的檔案時發生問題。',
-  'fabric.media.webgl_warning_description':
-    '您的瀏覽器不支援 WebGL。使用啟用 WebGL 的瀏覽器來為影像加上註解。',
+  'fabric.media.webgl_warning_description': '您的瀏覽器不支援 WebGL。使用啟用 WebGL 的瀏覽器來為影像加上註解。',
   'fabric.media.zip_entry_load_failed': '我們無法載入該 zip 檔案項目來進行預覽',
   'fabric.media.zoom_in': '縮小',
   'fabric.media.zoom_out': '放大',

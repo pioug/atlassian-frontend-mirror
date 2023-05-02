@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -24,17 +25,13 @@ export default {
   'fabric.media.archive': 'arşiv',
   'fabric.media.audio': 'ses',
   'fabric.media.cancel': 'İptal',
-  'fabric.media.cant_preview_file_type':
-    'Bu dosya türünün önizlemesi yapılamıyor.',
-  'fabric.media.cant_retrieve_files':
-    'Bir sorunla karşılaştık! Dosyalar alınamadı',
-  'fabric.media.cant_retrieve_gifs':
-    'Bir sorunla karşılaştık! GIF dosyaları alınamadı',
+  'fabric.media.cant_preview_file_type': 'Bu dosya türünün önizlemesi yapılamıyor.',
+  'fabric.media.cant_retrieve_files': 'Bir sorunla karşılaştık! Dosyalar alınamadı',
+  'fabric.media.cant_retrieve_gifs': 'Bir sorunla karşılaştık! GIF dosyaları alınamadı',
   'fabric.media.change_view': 'Görünümü değiştir',
   'fabric.media.check_your_network': 'Ağ bağlantınızı kontrol edin',
   'fabric.media.click_to_join': '{context} ürününe katılın',
-  'fabric.media.click_to_join_description':
-    'Onay aldınız, {context} ürününe hemen katılabilirsiniz.',
+  'fabric.media.click_to_join_description': 'Onay aldınız, {context} ürününe hemen katılabilirsiniz.',
   'fabric.media.close': 'Kapat',
   'fabric.media.close_and_reopen': 'Bu dosyayı kapatıp yeniden açmayı deneyin.',
   'fabric.media.connect_account_description':
@@ -43,30 +40,23 @@ export default {
   'fabric.media.connect_link_account_card_view': 'Bağla',
   'fabric.media.connect_link_account_card_view_description':
     'Bu bağlantının bir önizlemesini görmek için {context} hesabınızı bağlayın.',
-  'fabric.media.connect_link_account_card_view_name':
-    '{context} hesabınızı bağlayın',
+  'fabric.media.connect_link_account_card_view_name': '{context} hesabınızı bağlayın',
   'fabric.media.connect_to': '{name} hesabını bağlan',
-  'fabric.media.could_not_load_editor':
-    'Bir sorunla karşılaştık! Düzenleyiciyi yükleyemedik',
-  'fabric.media.could_not_save_image':
-    'Bir sorunla karşılaştık! Görseli kaydedemedik',
+  'fabric.media.could_not_load_editor': 'Bir sorunla karşılaştık! Düzenleyiciyi yükleyemedik',
+  'fabric.media.could_not_save_image': 'Bir sorunla karşılaştık! Görseli kaydedemedik',
   'fabric.media.couldnt_generate_encrypted_entry_preview':
     'Şifrelenmiş veya parola korumalı dosyaların önizlemesini gösteremiyoruz.',
-  'fabric.media.couldnt_generate_preview':
-    'Bu dosya için önizleme oluşturamadık.',
+  'fabric.media.couldnt_generate_preview': 'Bu dosya için önizleme oluşturamadık.',
   'fabric.media.couldnt_load_file': 'Dosya yüklenemedi.',
-  'fabric.media.couldnt_load_link':
-    'Bilinmeyen bir nedenden dolayı bu bağlantıyı yükleyemedik.',
+  'fabric.media.couldnt_load_link': 'Bilinmeyen bir nedenden dolayı bu bağlantıyı yükleyemedik.',
   'fabric.media.creating_preview': 'Önizleme oluşturuluyor...',
   'fabric.media.default_avatars': 'Varsayılan profil resimleri',
   'fabric.media.disable_fullscreen': 'tam ekrandan çıkın',
   'fabric.media.display_thumbnail': 'Küçük resmi göster',
   'fabric.media.document': 'belge',
   'fabric.media.download': 'İndir',
-  'fabric.media.drag_and_drop_images_here':
-    'Görsellerinizi buraya sürükleyip bırakın',
-  'fabric.media.drag_and_drop_your_files':
-    'Dosyalarınızı herhangi bir yere sürükleyip bırakın veya',
+  'fabric.media.drag_and_drop_images_here': 'Görsellerinizi buraya sürükleyip bırakın',
+  'fabric.media.drag_and_drop_your_files': 'Dosyalarınızı herhangi bir yere sürükleyip bırakın veya',
   'fabric.media.drag_and_drop_your_files_and_folders':
     'Dosya ve klasörlerinizi herhangi bir yere sürükleyip bırakın veya',
   'fabric.media.drop_your_files': 'Yüklemek için dosyalarınızı bırakın',
@@ -74,10 +64,8 @@ export default {
   'fabric.media.email': 'E-posta',
   'fabric.media.enable_fullscreen': 'tam ekranı etkinleştirin',
   'fabric.media.error_429': 'Hata 429',
-  'fabric.media.error_generating_preview':
-    'Önizleme oluşturulurken sorun yaşandı',
-  'fabric.media.error_hint_critical':
-    'Bu sorun devam ederse destek ekibiyle iletişime geçin.',
+  'fabric.media.error_generating_preview': 'Önizleme oluşturulurken sorun yaşandı',
+  'fabric.media.error_hint_critical': 'Bu sorun devam ederse destek ekibiyle iletişime geçin.',
   'fabric.media.error_hint_retry': 'Yeniden deneyin, işlemi tekrarlayalım.',
   'fabric.media.error_loading_file': 'Dosya yükleme hatası',
   'fabric.media.failed_to_load': 'Yüklenemedi',
@@ -86,13 +74,10 @@ export default {
     'Bu önizlemeye erişiminiz yok. Erişim gerekliyse site yöneticisiyle iletişime geçin.',
   'fabric.media.give_feedback': 'Geri bildirim verin',
   'fabric.media.image': 'görsel',
-  'fabric.media.image_format_invalid_error':
-    'Görsel yüklenemedi, görsel biçimi geçersiz.',
-  'fabric.media.image_size_too_large_error':
-    "Görselin boyutu çok büyük, boyut {MAX_SIZE_MB} MB'den büyük olmamalı",
+  'fabric.media.image_format_invalid_error': 'Görsel yüklenemedi, görsel biçimi geçersiz.',
+  'fabric.media.image_size_too_large_error': "Görselin boyutu çok büyük, boyut {MAX_SIZE_MB} MB'den büyük olmamalı",
   'fabric.media.image_url_invalid_error': 'Görsel yüklenemedi, URL geçersiz.',
-  'fabric.media.insert_files':
-    '{0, plural, one {{0} dosya girin} other {{0} dosya girin}}',
+  'fabric.media.insert_files': '{0, plural, one {{0} dosya girin} other {{0} dosya girin}}',
   'fabric.media.invalid_permissions': 'Kısıtlanmış bağlantı',
   'fabric.media.invalid_permissions_description':
     'Bu önizlemeyi görüntülemek için erişim izni talep etmeniz veya farklı bir hesap kullanmanız gerekir.',
@@ -103,10 +88,8 @@ export default {
   'fabric.media.loading_file': 'Dosya yükleniyor...',
   'fabric.media.might_be_a_hiccup': 'Kısa süreli bir sorun yaşanıyor olabilir.',
   'fabric.media.no_gifs_found': 'Aradığınız görseli bulamadınız mı?',
-  'fabric.media.no_gifs_found_suggestion':
-    '"{query}" araması için sonuç bulamadık',
-  'fabric.media.no_pdf_artifacts':
-    'Bu dosya için PDF grafik öğeleri bulunamadı.',
+  'fabric.media.no_gifs_found_suggestion': '"{query}" araması için sonuç bulamadık',
+  'fabric.media.no_pdf_artifacts': 'Bu dosya için PDF grafik öğeleri bulunamadı.',
   'fabric.media.not_found_description':
     "Bağlantıyı bulamadık. URL'yi kontrol edin ve düzenlemeyi veya yeniden yapıştırmayı deneyin.",
   'fabric.media.not_found_title': 'Hay aksi! Bu bağlantıyı bulamadık!',
@@ -116,17 +99,14 @@ export default {
   'fabric.media.playback_default_speed': 'Varsayılan',
   'fabric.media.playback_speed': 'Kayıttan yürütme hızı',
   'fabric.media.preview': 'Önizleme',
-  'fabric.media.preview_currently_unavailable':
-    'Önizleme şu anda kullanılamıyor',
+  'fabric.media.preview_currently_unavailable': 'Önizleme şu anda kullanılamıyor',
   'fabric.media.preview_unavailable': 'Önizleme kullanılamıyor',
   'fabric.media.recent_uploads': 'En son yüklemeler',
   'fabric.media.remove_image': 'Görseli kaldır',
   'fabric.media.request_access': 'Erişim talep edin',
-  'fabric.media.request_access_description':
-    'Bu önizlemeyi görüntülemek için {context} ürününe erişim talep edin.',
+  'fabric.media.request_access_description': 'Bu önizlemeyi görüntülemek için {context} ürününe erişim talep edin.',
   'fabric.media.request_access_pending': 'Erişim bekleniyor',
-  'fabric.media.request_access_pending_description':
-    'Erişim talebiniz beklemede.',
+  'fabric.media.request_access_pending_description': 'Erişim talebiniz beklemede.',
   'fabric.media.request_denied_description':
     'Erişim talebiniz reddedildi. Hâlâ erişim gerekliyse site yöneticisiyle iletişime geçin.',
   'fabric.media.retry': 'Yeniden Dene',
@@ -142,8 +122,7 @@ export default {
   'fabric.media.text': 'Metin',
   'fabric.media.try_again': 'Yeniden deneyin',
   'fabric.media.try_another_account': 'Başka bir hesapla deneyin',
-  'fabric.media.try_downloading_file':
-    'Görüntülemek için dosyayı indirmeyi deneyin.',
+  'fabric.media.try_downloading_file': 'Görüntülemek için dosyayı indirmeyi deneyin.',
   'fabric.media.unable_to_annotate_image': 'Bu görsele not ekleyemiyorsunuz',
   'fabric.media.unknown': 'Bilinmiyor',
   'fabric.media.unlink_account': 'Hesabın Bağlantısını Kaldır',
@@ -158,8 +137,7 @@ export default {
   'fabric.media.viewer_rateLimited': 'Dosyanız yüklenirken bir sorun yaşandı.',
   'fabric.media.webgl_warning_description':
     "Tarayıcınız WebGL'yi desteklemiyor. Görsellere not eklemek için WebGL etkinleştirilmiş bir tarayıcı kullanın.",
-  'fabric.media.zip_entry_load_failed':
-    'Önizlenecek zip dosyası öğesi yüklenemedi',
+  'fabric.media.zip_entry_load_failed': 'Önizlenecek zip dosyası öğesi yüklenemedi',
   'fabric.media.zoom_in': 'yaklaştır',
   'fabric.media.zoom_out': 'uzaklaştır',
 };

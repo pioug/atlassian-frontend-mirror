@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -11,8 +12,7 @@ export default {
   'fabric.media.add_account': 'Добавить аккаунт',
   'fabric.media.annotate': 'Добавить примечание',
   'fabric.media.annotate.confirmation.close.anyway': 'Все равно закрыть',
-  'fabric.media.annotate.confirmation.content':
-    'Некоторые изменения не сохранены. Вы действительно хотите выйти?',
+  'fabric.media.annotate.confirmation.content': 'Некоторые изменения не сохранены. Вы действительно хотите выйти?',
   'fabric.media.annotate.confirmation.heading': 'Несохраненные изменения',
   'fabric.media.annotate.tool.arrow': 'Стрелка',
   'fabric.media.annotate.tool.blur': 'Размытие',
@@ -24,8 +24,7 @@ export default {
   'fabric.media.archive': 'архивировать',
   'fabric.media.audio': 'аудио',
   'fabric.media.cancel': 'Отменить',
-  'fabric.media.cant_preview_file_type':
-    'Предварительный просмотр файлов такого типа невозможен.',
+  'fabric.media.cant_preview_file_type': 'Предварительный просмотр файлов такого типа невозможен.',
   'fabric.media.cant_retrieve_files': 'К сожалению, не удалось получить файлы',
   'fabric.media.cant_retrieve_gifs': 'Не найдено ни одного файла GIF',
   'fabric.media.change_view': 'Изменить представление',
@@ -34,26 +33,21 @@ export default {
   'fabric.media.click_to_join_description':
     'Вы получили одобрение и можете присоединиться к продукту {context} прямо сейчас.',
   'fabric.media.close': 'Закрыть',
-  'fabric.media.close_and_reopen':
-    'Попробуйте закрыть этот файл и открыть его повторно.',
-  'fabric.media.connect_account_description':
-    'Откроется новая страница, где вы сможете подключить свой аккаунт {name}',
+  'fabric.media.close_and_reopen': 'Попробуйте закрыть этот файл и открыть его повторно.',
+  'fabric.media.connect_account_description': 'Откроется новая страница, где вы сможете подключить свой аккаунт {name}',
   'fabric.media.connect_link_account': 'Подключить для просмотра',
   'fabric.media.connect_link_account_card_view': 'Подключить',
   'fabric.media.connect_link_account_card_view_description':
     'Для предварительного просмотра этой ссылки подключите аккаунт {context}.',
-  'fabric.media.connect_link_account_card_view_name':
-    'Подключите свой аккаунт {context}',
+  'fabric.media.connect_link_account_card_view_name': 'Подключите свой аккаунт {context}',
   'fabric.media.connect_to': 'Подключить к {name}',
   'fabric.media.could_not_load_editor': 'Не удалось загрузить редактор',
   'fabric.media.could_not_save_image': 'Не удалось сохранить изображение',
   'fabric.media.couldnt_generate_encrypted_entry_preview':
     'Предварительный просмотр файлов, которые зашифрованы или защищены паролем, невозможен.',
-  'fabric.media.couldnt_generate_preview':
-    'Не удалось выполнить предварительный просмотр файла.',
+  'fabric.media.couldnt_generate_preview': 'Не удалось выполнить предварительный просмотр файла.',
   'fabric.media.couldnt_load_file': 'Не удалось загрузить файл.',
-  'fabric.media.couldnt_load_link':
-    'По неизвестной причине не удалось загрузить ссылку.',
+  'fabric.media.couldnt_load_link': 'По неизвестной причине не удалось загрузить ссылку.',
   'fabric.media.creating_preview': 'Создание предварительного просмотра…',
   'fabric.media.default_avatars': 'Аватары по умолчанию',
   'fabric.media.disable_fullscreen': 'отключить полноэкранный режим',
@@ -62,17 +56,14 @@ export default {
   'fabric.media.download': 'Скачать',
   'fabric.media.drag_and_drop_images_here': 'Перетащите изображения сюда',
   'fabric.media.drag_and_drop_your_files': 'Перетащите файлы в любое место или',
-  'fabric.media.drag_and_drop_your_files_and_folders':
-    'Перетащите файлы и папки в любое место или',
+  'fabric.media.drag_and_drop_your_files_and_folders': 'Перетащите файлы и папки в любое место или',
   'fabric.media.drop_your_files': 'Перетащите файлы для загрузки',
   'fabric.media.drop_your_files_here': 'Перетащите файлы сюда',
   'fabric.media.email': 'Электронная почта',
   'fabric.media.enable_fullscreen': 'включить полноэкранный режим',
   'fabric.media.error_429': 'Ошибка 429',
-  'fabric.media.error_generating_preview':
-    'Не удалось создать предварительный просмотр для файла',
-  'fabric.media.error_hint_critical':
-    'Если проблема не исчезнет, обратитесь в службу поддержки.',
+  'fabric.media.error_generating_preview': 'Не удалось создать предварительный просмотр для файла',
+  'fabric.media.error_hint_critical': 'Если проблема не исчезнет, обратитесь в службу поддержки.',
   'fabric.media.error_hint_retry': 'Повторите попытку.',
   'fabric.media.error_loading_file': 'При загрузке файла произошла ошибка',
   'fabric.media.failed_to_load': 'Не удалось загрузить файл.',
@@ -81,12 +72,9 @@ export default {
     'У вас нет доступа к предварительному просмотру. Если вам требуется доступ, обратитесь к администратору сайта.',
   'fabric.media.give_feedback': 'Оставить отзыв',
   'fabric.media.image': 'изображение',
-  'fabric.media.image_format_invalid_error':
-    'Не удалось загрузить изображение (недействительный формат).',
-  'fabric.media.image_size_too_large_error':
-    'Изображение превышает максимально допустимый размер ({MAX_SIZE_MB} МБ).',
-  'fabric.media.image_url_invalid_error':
-    'Не удалось загрузить изображение (недействительный URL).',
+  'fabric.media.image_format_invalid_error': 'Не удалось загрузить изображение (недействительный формат).',
+  'fabric.media.image_size_too_large_error': 'Изображение превышает максимально допустимый размер ({MAX_SIZE_MB} МБ).',
+  'fabric.media.image_url_invalid_error': 'Не удалось загрузить изображение (недействительный URL).',
   'fabric.media.insert_files':
     '{0, plural, one {Вставить {0} файл} few {Вставить {0} файла} many {Вставить {0} файлов} other {Вставить {0} файла}}',
   'fabric.media.invalid_permissions': 'Ссылка с ограниченным доступом',
@@ -97,11 +85,9 @@ export default {
   'fabric.media.load_more_gifs': 'Другие файлы GIF',
   'fabric.media.loading': 'Загрузка…',
   'fabric.media.loading_file': 'Загрузка файла…',
-  'fabric.media.might_be_a_hiccup':
-    'Скорее всего, это была небольшая техническая неполадка.',
+  'fabric.media.might_be_a_hiccup': 'Скорее всего, это была небольшая техническая неполадка.',
   'fabric.media.no_gifs_found': 'Здравствуйте. Вы искали меня?',
-  'fabric.media.no_gifs_found_suggestion':
-    'По запросу «{query}» ничего не найдено',
+  'fabric.media.no_gifs_found_suggestion': 'По запросу «{query}» ничего не найдено',
   'fabric.media.no_pdf_artifacts': 'Нет PDF-артефактов для этого файла.',
   'fabric.media.not_found_description':
     'Не удалось найти ссылку. Проверьте URL-адрес и попробуйте изменить или вставить еще раз.',
@@ -112,17 +98,14 @@ export default {
   'fabric.media.playback_default_speed': 'По умолчанию',
   'fabric.media.playback_speed': 'Скорость воспроизведения',
   'fabric.media.preview': 'Предпросмотр',
-  'fabric.media.preview_currently_unavailable':
-    'Предварительный просмотр сейчас недоступен',
+  'fabric.media.preview_currently_unavailable': 'Предварительный просмотр сейчас недоступен',
   'fabric.media.preview_unavailable': 'Предварительный просмотр недоступен',
   'fabric.media.recent_uploads': 'Недавно загруженные файлы',
   'fabric.media.remove_image': 'Удалить изображение',
   'fabric.media.request_access': 'Запросить доступ',
-  'fabric.media.request_access_description':
-    'Запросите доступ к продукту {context} для предварительного просмотра.',
+  'fabric.media.request_access_description': 'Запросите доступ к продукту {context} для предварительного просмотра.',
   'fabric.media.request_access_pending': 'Ожидается предоставление доступа',
-  'fabric.media.request_access_pending_description':
-    'Ваш запрос на доступ ожидает рассмотрения.',
+  'fabric.media.request_access_pending_description': 'Ваш запрос на доступ ожидает рассмотрения.',
   'fabric.media.request_denied_description':
     'Ваш запрос на доступ отклонен. Если вам требуется доступ, обратитесь к администратору сайта.',
   'fabric.media.retry': 'Повторить',
@@ -153,8 +136,7 @@ export default {
   'fabric.media.viewer_rateLimited': 'Не удается загрузить файл.',
   'fabric.media.webgl_warning_description':
     'Эта функция недоступна. Чтобы добавлять примечания к изображениям, используйте браузер с поддержкой WebGL.',
-  'fabric.media.zip_entry_load_failed':
-    'Не удалось загрузить ZIP-файл для предварительного просмотра',
+  'fabric.media.zip_entry_load_failed': 'Не удалось загрузить ZIP-файл для предварительного просмотра',
   'fabric.media.zoom_in': 'увеличить',
   'fabric.media.zoom_out': 'уменьшить',
 };

@@ -297,7 +297,6 @@ describe('extractFlexibleUiContext', () => {
       it('does not show lozenge action when lozenge action experiment feature flag is not provided', () => {
         const data = extractFlexibleUiContext({
           response: JiraTask as JsonLd.Response,
-          showServerActions: true,
         });
 
         expect(data?.state?.action).toBeUndefined();
@@ -305,7 +304,6 @@ describe('extractFlexibleUiContext', () => {
       it('does not show lozenge action when lozenge action experiment is disabled', () => {
         const data = extractFlexibleUiContext({
           response: JiraTask as JsonLd.Response,
-          showServerActions: true,
           featureFlags: { useLozengeAction: 'not-enrolled' },
         });
 
@@ -315,7 +313,6 @@ describe('extractFlexibleUiContext', () => {
       it('show default lozenge when lozenge action experiment is enable for control group', () => {
         const data = extractFlexibleUiContext({
           response: JiraTask as JsonLd.Response,
-          showServerActions: true,
           featureFlags: { useLozengeAction: 'control' },
         });
 
@@ -325,7 +322,6 @@ describe('extractFlexibleUiContext', () => {
       it('show lozenge action when lozenge action experiment is enable for experiment group', () => {
         const data = extractFlexibleUiContext({
           response: JiraTask as JsonLd.Response,
-          showServerActions: true,
           featureFlags: { useLozengeAction: 'experiment' },
         });
 

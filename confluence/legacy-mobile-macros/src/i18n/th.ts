@@ -7,5 +7,6 @@
  */
 //Thai (Thailand)
 export default {
-  "fabric.editor.confluence.legacyMobileMacros.chartPlaceholderText": "แผนภูมิควรจะอยู่ที่นี่ แต่ไม่สามารถแสดงได้ เปิดหน้าข้อมูลนี้ในเบราว์เซอร์เพื่อดูแผนภูมิ"
+  'fabric.editor.confluence.legacyMobileMacros.chartPlaceholderText':
+    'แผนภูมิควรจะอยู่ที่นี่ แต่ไม่สามารถแสดงได้ เปิดหน้าข้อมูลนี้ในเบราว์เซอร์เพื่อดูแผนภูมิ',
 };

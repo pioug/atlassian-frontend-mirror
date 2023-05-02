@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -24,61 +25,46 @@ export default {
   'fabric.media.archive': 'archivar',
   'fabric.media.audio': 'audio',
   'fabric.media.cancel': 'Cancelar',
-  'fabric.media.cant_preview_file_type':
-    'No podemos previsualizar este tipo de archivo.',
-  'fabric.media.cant_retrieve_files':
-    '¡Ups! No hemos podido recuperar ningún archivo',
-  'fabric.media.cant_retrieve_gifs':
-    '¡Qué pena! No hemos recuperado ningún GIF',
+  'fabric.media.cant_preview_file_type': 'No podemos previsualizar este tipo de archivo.',
+  'fabric.media.cant_retrieve_files': '¡Ups! No hemos podido recuperar ningún archivo',
+  'fabric.media.cant_retrieve_gifs': '¡Qué pena! No hemos recuperado ningún GIF',
   'fabric.media.change_view': 'Cambiar vista',
   'fabric.media.check_your_network': 'Comprueba tu conexión de red',
   'fabric.media.click_to_join': 'Únete a {context}',
-  'fabric.media.click_to_join_description':
-    'Se te ha aprobado, por lo que puedes unirte a {context} de inmediato.',
+  'fabric.media.click_to_join_description': 'Se te ha aprobado, por lo que puedes unirte a {context} de inmediato.',
   'fabric.media.close': 'Cerrar',
   'fabric.media.close_and_reopen': 'Intenta cerrar este archivo y reabrirlo.',
-  'fabric.media.connect_account_description':
-    'Abriremos otra página para ayudarte a conectar tu cuenta de {name}',
+  'fabric.media.connect_account_description': 'Abriremos otra página para ayudarte a conectar tu cuenta de {name}',
   'fabric.media.connect_link_account': 'Conectar para obtener vista previa',
   'fabric.media.connect_link_account_card_view': 'Conectar',
   'fabric.media.connect_link_account_card_view_description':
     'Para mostrar una vista previa de este enlace, conecta tu cuenta de {context}.',
-  'fabric.media.connect_link_account_card_view_name':
-    'Conecta tu cuenta de {context}',
+  'fabric.media.connect_link_account_card_view_name': 'Conecta tu cuenta de {context}',
   'fabric.media.connect_to': 'Conectarse a {name}',
-  'fabric.media.could_not_load_editor':
-    '¡Qué pena! No hemos podido cargar el editor',
-  'fabric.media.could_not_save_image':
-    '¡Qué pena! No hemos podido guardar la imagen',
+  'fabric.media.could_not_load_editor': '¡Qué pena! No hemos podido cargar el editor',
+  'fabric.media.could_not_save_image': '¡Qué pena! No hemos podido guardar la imagen',
   'fabric.media.couldnt_generate_encrypted_entry_preview':
     'No podemos mostrar vistas previas de archivos cifrados o protegidos con contraseña.',
-  'fabric.media.couldnt_generate_preview':
-    'No hemos podido generar la previsualización de este archivo.',
+  'fabric.media.couldnt_generate_preview': 'No hemos podido generar la previsualización de este archivo.',
   'fabric.media.couldnt_load_file': 'No hemos podido cargar el archivo.',
-  'fabric.media.couldnt_load_link':
-    'Por algún motivo que desconocemos, no hemos podido cargar este enlace.',
+  'fabric.media.couldnt_load_link': 'Por algún motivo que desconocemos, no hemos podido cargar este enlace.',
   'fabric.media.creating_preview': 'Generando vista previa...',
   'fabric.media.default_avatars': 'Avatares predeterminados',
   'fabric.media.disable_fullscreen': 'desactivar pantalla completa',
   'fabric.media.display_thumbnail': 'Mostrar miniatura',
   'fabric.media.document': 'documento',
   'fabric.media.download': 'Descargar',
-  'fabric.media.drag_and_drop_images_here':
-    'Arrastra y suelta las imágenes aquí',
-  'fabric.media.drag_and_drop_your_files':
-    'Arrastra y suelta los archivos en cualquier lugar o',
-  'fabric.media.drag_and_drop_your_files_and_folders':
-    'Arrastra y suelta tus archivos y carpetas en cualquier lugar o',
+  'fabric.media.drag_and_drop_images_here': 'Arrastra y suelta las imágenes aquí',
+  'fabric.media.drag_and_drop_your_files': 'Arrastra y suelta los archivos en cualquier lugar o',
+  'fabric.media.drag_and_drop_your_files_and_folders': 'Arrastra y suelta tus archivos y carpetas en cualquier lugar o',
   'fabric.media.drop_your_files': 'Suelta los archivos para cargarlos',
   'fabric.media.drop_your_files_here': 'Arrastra tus archivos hasta aquí',
   'fabric.media.email': 'Correo electrónico',
   'fabric.media.enable_fullscreen': 'activar pantalla completa',
   'fabric.media.error_429': 'Error 429',
   'fabric.media.error_generating_preview': 'Error al generar la vista previa',
-  'fabric.media.error_hint_critical':
-    'Si el problema continúa, ponte en contacto con la asistencia.',
-  'fabric.media.error_hint_retry':
-    'Vuelve a probar y lo intentaremos otra vez.',
+  'fabric.media.error_hint_critical': 'Si el problema continúa, ponte en contacto con la asistencia.',
+  'fabric.media.error_hint_retry': 'Vuelve a probar y lo intentaremos otra vez.',
   'fabric.media.error_loading_file': 'Error al cargar el archivo',
   'fabric.media.failed_to_load': 'No se pudo cargar',
   'fabric.media.failed_to_upload': 'Error al cargar',
@@ -86,29 +72,22 @@ export default {
     'No puedes acceder a esta vista previa. Ponte en contacto con el administrador del sitio si tienes que acceder.',
   'fabric.media.give_feedback': 'Enviar comentarios',
   'fabric.media.image': 'imagen',
-  'fabric.media.image_format_invalid_error':
-    'No se pudo cargar la imagen porque el formato no es válido.',
-  'fabric.media.image_size_too_large_error':
-    'La imagen es demasiado grande; no puede superar los {MAX_SIZE_MB} MB',
-  'fabric.media.image_url_invalid_error':
-    'No se pudo cargar la imagen porque la URL no es válida.',
-  'fabric.media.insert_files':
-    '{0, plural, one {Insertar {0} archivo} other {Insertar {0} archivos}}',
+  'fabric.media.image_format_invalid_error': 'No se pudo cargar la imagen porque el formato no es válido.',
+  'fabric.media.image_size_too_large_error': 'La imagen es demasiado grande; no puede superar los {MAX_SIZE_MB} MB',
+  'fabric.media.image_url_invalid_error': 'No se pudo cargar la imagen porque la URL no es válida.',
+  'fabric.media.insert_files': '{0, plural, one {Insertar {0} archivo} other {Insertar {0} archivos}}',
   'fabric.media.invalid_permissions': 'Enlace restringido',
   'fabric.media.invalid_permissions_description':
     'Deberás solicitar el acceso o probar con otra cuenta para obtener esta vista previa.',
-  'fabric.media.item_not_found_in_list':
-    'No se ha encontrado el elemento seleccionado en la lista.',
+  'fabric.media.item_not_found_in_list': 'No se ha encontrado el elemento seleccionado en la lista.',
   'fabric.media.learn_more': 'Más información',
   'fabric.media.load_more_gifs': 'Cargar más GIF',
   'fabric.media.loading': 'Cargando…',
   'fabric.media.loading_file': 'Cargando archivo...',
   'fabric.media.might_be_a_hiccup': 'Tal vez sea solo un tropiezo.',
   'fabric.media.no_gifs_found': 'Hola, ¿me buscabas?',
-  'fabric.media.no_gifs_found_suggestion':
-    'No hemos encontrado nada para "{query}"',
-  'fabric.media.no_pdf_artifacts':
-    'No se han encontrado artefactos de PDF en este archivo.',
+  'fabric.media.no_gifs_found_suggestion': 'No hemos encontrado nada para "{query}"',
+  'fabric.media.no_pdf_artifacts': 'No se han encontrado artefactos de PDF en este archivo.',
   'fabric.media.not_found_description':
     'No hemos encontrado el enlace. Comprueba la URL y prueba a editarla, o pégala de nuevo.',
   'fabric.media.not_found_title': '¡Vaya! No encontramos este enlace',
@@ -118,17 +97,14 @@ export default {
   'fabric.media.playback_default_speed': 'Predeterminado',
   'fabric.media.playback_speed': 'Velocidad de reproducción',
   'fabric.media.preview': 'Vista previa',
-  'fabric.media.preview_currently_unavailable':
-    'La vista previa no se encuentra disponible en estos momentos',
+  'fabric.media.preview_currently_unavailable': 'La vista previa no se encuentra disponible en estos momentos',
   'fabric.media.preview_unavailable': 'Vista previa no disponible',
   'fabric.media.recent_uploads': 'Cargas recientes',
   'fabric.media.remove_image': 'Eliminar imagen',
   'fabric.media.request_access': 'Solicitar acceso',
-  'fabric.media.request_access_description':
-    'Solicita acceso a {context} para ver esta vista previa.',
+  'fabric.media.request_access_description': 'Solicita acceso a {context} para ver esta vista previa.',
   'fabric.media.request_access_pending': 'Acceso pendiente',
-  'fabric.media.request_access_pending_description':
-    'Tu solicitud de acceso está pendiente.',
+  'fabric.media.request_access_pending_description': 'Tu solicitud de acceso está pendiente.',
   'fabric.media.request_denied_description':
     'Se ha denegado tu solicitud de acceso. Ponte en contacto con el administrador del sitio si sigues teniendo que acceder.',
   'fabric.media.retry': 'Reintentar',
@@ -144,8 +120,7 @@ export default {
   'fabric.media.text': 'Texto',
   'fabric.media.try_again': 'Volver a intentarlo',
   'fabric.media.try_another_account': 'Probar otra cuenta',
-  'fabric.media.try_downloading_file':
-    'Prueba a descargar el archivo para verlo.',
+  'fabric.media.try_downloading_file': 'Prueba a descargar el archivo para verlo.',
   'fabric.media.unable_to_annotate_image': 'No puedes anotar esta imagen',
   'fabric.media.unknown': 'desconocido',
   'fabric.media.unlink_account': 'Desvincular cuenta',
@@ -157,12 +132,10 @@ export default {
   'fabric.media.upload_photo': 'Carga una foto',
   'fabric.media.video': 'vídeo',
   'fabric.media.view': 'Ver',
-  'fabric.media.viewer_rateLimited':
-    'Estamos teniendo dificultades para cargar el archivo.',
+  'fabric.media.viewer_rateLimited': 'Estamos teniendo dificultades para cargar el archivo.',
   'fabric.media.webgl_warning_description':
     'Tu navegador no admite WebGL. Usa un navegador compatible con WebGL para anotar imágenes.',
-  'fabric.media.zip_entry_load_failed':
-    'No se ha podido cargar el elemento de archivo comprimido para previsualizarlo',
+  'fabric.media.zip_entry_load_failed': 'No se ha podido cargar el elemento de archivo comprimido para previsualizarlo',
   'fabric.media.zoom_in': 'acercar',
   'fabric.media.zoom_out': 'alejar',
 };

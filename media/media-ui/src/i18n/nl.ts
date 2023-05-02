@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -24,59 +25,46 @@ export default {
   'fabric.media.archive': 'archiveren',
   'fabric.media.audio': 'audio',
   'fabric.media.cancel': 'Annuleren',
-  'fabric.media.cant_preview_file_type':
-    'Dit bestandstype kunnen we niet voorvertonen.',
+  'fabric.media.cant_preview_file_type': 'Dit bestandstype kunnen we niet voorvertonen.',
   'fabric.media.cant_retrieve_files': 'Oei! We konden geen bestanden ophalen',
   'fabric.media.cant_retrieve_gifs': "Oei! We konden geen GIF's vinden",
   'fabric.media.change_view': 'Weergave wijzigen',
   'fabric.media.check_your_network': 'Controleer je netwerkverbinding',
   'fabric.media.click_to_join': 'Neem deel aan {context}',
-  'fabric.media.click_to_join_description':
-    'Je bent goedgekeurd, dus je kunt onmiddellijk deelnemen aan {context}.',
+  'fabric.media.click_to_join_description': 'Je bent goedgekeurd, dus je kunt onmiddellijk deelnemen aan {context}.',
   'fabric.media.close': 'Sluiten',
-  'fabric.media.close_and_reopen':
-    'Probeer dit bestand te sluiten en opnieuw te openen.',
+  'fabric.media.close_and_reopen': 'Probeer dit bestand te sluiten en opnieuw te openen.',
   'fabric.media.connect_account_description':
     'We zullen een nieuwe pagina openen waarop je je {name}-account kunt verbinden',
   'fabric.media.connect_link_account': 'Maak verbinding voor voorbeeld',
   'fabric.media.connect_link_account_card_view': 'Koppelen',
   'fabric.media.connect_link_account_card_view_description':
     'Koppel je {context}-account om een voorbeeld van deze link weer te geven.',
-  'fabric.media.connect_link_account_card_view_name':
-    'Koppel je {context}-account',
+  'fabric.media.connect_link_account_card_view_name': 'Koppel je {context}-account',
   'fabric.media.connect_to': 'Met {name} verbinden',
-  'fabric.media.could_not_load_editor':
-    'Oei! De editor kon niet geladen worden',
-  'fabric.media.could_not_save_image':
-    'Oei! De afbeelding kon niet opgeslagen worden',
+  'fabric.media.could_not_load_editor': 'Oei! De editor kon niet geladen worden',
+  'fabric.media.could_not_save_image': 'Oei! De afbeelding kon niet opgeslagen worden',
   'fabric.media.couldnt_generate_encrypted_entry_preview':
     'We kunnen geen voorbeeld weergeven van gecodeerde bestanden of bestanden die beveiligd zijn met een wachtwoord.',
-  'fabric.media.couldnt_generate_preview':
-    'Dit bestandstype kunnen we niet voorvertonen.',
+  'fabric.media.couldnt_generate_preview': 'Dit bestandstype kunnen we niet voorvertonen.',
   'fabric.media.couldnt_load_file': 'We konden het bestand niet laden.',
-  'fabric.media.couldnt_load_link':
-    'Om een onbekende reden konden we deze link niet laden.',
+  'fabric.media.couldnt_load_link': 'Om een onbekende reden konden we deze link niet laden.',
   'fabric.media.creating_preview': 'Voorbeeld aanmaken...',
   'fabric.media.default_avatars': "Standaardavatar's",
   'fabric.media.disable_fullscreen': 'volledig scherm uitschakelen',
   'fabric.media.display_thumbnail': 'Thumbnail weergeven',
   'fabric.media.document': 'document',
   'fabric.media.download': 'Downloaden',
-  'fabric.media.drag_and_drop_images_here':
-    'Afbeelding hierheen slepen en neerzetten',
-  'fabric.media.drag_and_drop_your_files':
-    'Bestanden ergens naartoe slepen en neerzetten of',
-  'fabric.media.drag_and_drop_your_files_and_folders':
-    'Sleep de bestanden en mappen waar dan ook naartoe, of',
+  'fabric.media.drag_and_drop_images_here': 'Afbeelding hierheen slepen en neerzetten',
+  'fabric.media.drag_and_drop_your_files': 'Bestanden ergens naartoe slepen en neerzetten of',
+  'fabric.media.drag_and_drop_your_files_and_folders': 'Sleep de bestanden en mappen waar dan ook naartoe, of',
   'fabric.media.drop_your_files': 'Zet hier je te uploaden bestanden neer',
   'fabric.media.drop_your_files_here': 'Zet je bestanden hier neer.',
   'fabric.media.email': 'E-mail',
   'fabric.media.enable_fullscreen': 'volledig scherm inschakelen',
   'fabric.media.error_429': 'Fout 429',
-  'fabric.media.error_generating_preview':
-    'Fout bij aanmaken van voorvertoning',
-  'fabric.media.error_hint_critical':
-    'Neem contact op met support als dit probleem zich blijft voordoen.',
+  'fabric.media.error_generating_preview': 'Fout bij aanmaken van voorvertoning',
+  'fabric.media.error_hint_critical': 'Neem contact op met support als dit probleem zich blijft voordoen.',
   'fabric.media.error_hint_retry': 'Probeer het opnieuw dan doen wij het ook.',
   'fabric.media.error_loading_file': 'Fout bij laden van bestand',
   'fabric.media.failed_to_load': 'Fout bij het laden',
@@ -87,28 +75,21 @@ export default {
   'fabric.media.image': 'afbeelding',
   'fabric.media.image_format_invalid_error':
     'De afbeelding kon niet geladen worden omdat het bestandsformaat ongeldig is.',
-  'fabric.media.image_size_too_large_error':
-    'Afbeelding is te groot, mag niet groter zijn dan {MAX_SIZE_MB} MB.',
-  'fabric.media.image_url_invalid_error':
-    'De afbeelding kon niet geladen worden omdat de URL ongeldig is.',
-  'fabric.media.insert_files':
-    '{0, plural, one {Voer {0} bestanden in} other {Voer {0} bestanden in}}',
+  'fabric.media.image_size_too_large_error': 'Afbeelding is te groot, mag niet groter zijn dan {MAX_SIZE_MB} MB.',
+  'fabric.media.image_url_invalid_error': 'De afbeelding kon niet geladen worden omdat de URL ongeldig is.',
+  'fabric.media.insert_files': '{0, plural, one {Voer {0} bestanden in} other {Voer {0} bestanden in}}',
   'fabric.media.invalid_permissions': 'Afgeschermde link',
   'fabric.media.invalid_permissions_description':
     'Je moet om toegang vragen of een ander account proberen om deze voorvertoning te bekijken.',
-  'fabric.media.item_not_found_in_list':
-    'Het geselecteerde item is niet op de lijst gevonden.',
+  'fabric.media.item_not_found_in_list': 'Het geselecteerde item is niet op de lijst gevonden.',
   'fabric.media.learn_more': 'Meer informatie',
   'fabric.media.load_more_gifs': "Meer GIF's laden",
   'fabric.media.loading': 'Laden...',
   'fabric.media.loading_file': 'Bestand laden ...',
-  'fabric.media.might_be_a_hiccup':
-    'Het kan even een tijdelijke kink in de kabel zijn.',
+  'fabric.media.might_be_a_hiccup': 'Het kan even een tijdelijke kink in de kabel zijn.',
   'fabric.media.no_gifs_found': 'Hallo? Was je naar mij op zoek?',
-  'fabric.media.no_gifs_found_suggestion':
-    'We konden niks vinden voor "{query}"',
-  'fabric.media.no_pdf_artifacts':
-    'Geen PDF-artefacten gevonden voor dit bestand.',
+  'fabric.media.no_gifs_found_suggestion': 'We konden niks vinden voor "{query}"',
+  'fabric.media.no_pdf_artifacts': 'Geen PDF-artefacten gevonden voor dit bestand.',
   'fabric.media.not_found_description':
     'We konden de link niet vinden. Controleer de URL en probeer nogmaals te bewerken of plakken.',
   'fabric.media.not_found_title': 'Oh-oh. We kunnen deze link niet vinden.',
@@ -118,17 +99,14 @@ export default {
   'fabric.media.playback_default_speed': 'Standaard',
   'fabric.media.playback_speed': 'Afspeelsnelheid',
   'fabric.media.preview': 'Voorvertoning',
-  'fabric.media.preview_currently_unavailable':
-    'Voorvertoning is momenteel niet beschikbaar',
+  'fabric.media.preview_currently_unavailable': 'Voorvertoning is momenteel niet beschikbaar',
   'fabric.media.preview_unavailable': 'Voorbeeld niet beschikbaar',
   'fabric.media.recent_uploads': 'Recente uploads',
   'fabric.media.remove_image': 'Afbeelding verwijderen',
   'fabric.media.request_access': 'Toegang aanvragen',
-  'fabric.media.request_access_description':
-    'Vraag toegang aan tot {context} om deze voorvertoning te bekijken.',
+  'fabric.media.request_access_description': 'Vraag toegang aan tot {context} om deze voorvertoning te bekijken.',
   'fabric.media.request_access_pending': 'Toegang wordt behandeld',
-  'fabric.media.request_access_pending_description':
-    'Je toegangsaanvraag wordt behandeld.',
+  'fabric.media.request_access_pending_description': 'Je toegangsaanvraag wordt behandeld.',
   'fabric.media.request_denied_description':
     'Je toegangsaanvraag is afgewezen. Neem contact op met de sitebeheerder als je toegang nodig hebt.',
   'fabric.media.retry': 'Probeer opnieuw',
@@ -144,10 +122,8 @@ export default {
   'fabric.media.text': 'Tekst',
   'fabric.media.try_again': 'Opnieuw proberen',
   'fabric.media.try_another_account': 'Gebruik een ander account',
-  'fabric.media.try_downloading_file':
-    'Probeer het bestand te downloaden om het te bekijken.',
-  'fabric.media.unable_to_annotate_image':
-    'Je kunt bij deze afbeelding geen aantekeningen maken',
+  'fabric.media.try_downloading_file': 'Probeer het bestand te downloaden om het te bekijken.',
+  'fabric.media.unable_to_annotate_image': 'Je kunt bij deze afbeelding geen aantekeningen maken',
   'fabric.media.unknown': 'onbekend',
   'fabric.media.unlink_account': 'Verbinding met account verwijderen',
   'fabric.media.upload': 'Uploaden',
@@ -158,12 +134,10 @@ export default {
   'fabric.media.upload_photo': 'Een foto uploaden',
   'fabric.media.video': 'video',
   'fabric.media.view': 'Bekijken',
-  'fabric.media.viewer_rateLimited':
-    'We hebben problemen met het laden van je bestand.',
+  'fabric.media.viewer_rateLimited': 'We hebben problemen met het laden van je bestand.',
   'fabric.media.webgl_warning_description':
     'Je browser ondersteunt geen WebGL. Gebruik een browser met WebGL-functie om aantekeningen te maken bij afbeeldingen.',
-  'fabric.media.zip_entry_load_failed':
-    'We konden dat zip-bestandsitem niet laden om voor te vertonen',
+  'fabric.media.zip_entry_load_failed': 'We konden dat zip-bestandsitem niet laden om voor te vertonen',
   'fabric.media.zoom_in': 'inzoomen',
   'fabric.media.zoom_out': 'uitzoomen',
 };

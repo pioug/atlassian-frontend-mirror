@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -11,8 +12,7 @@ export default {
   'fabric.media.add_account': 'Fiók hozzáadása',
   'fabric.media.annotate': 'Jegyzet készítése',
   'fabric.media.annotate.confirmation.close.anyway': 'Bezárás mindenképpen',
-  'fabric.media.annotate.confirmation.content':
-    'Nem mentett módosításaid vannak. Biztosan elhagyod az oldalt?',
+  'fabric.media.annotate.confirmation.content': 'Nem mentett módosításaid vannak. Biztosan elhagyod az oldalt?',
   'fabric.media.annotate.confirmation.heading': 'Nem mentett módosítások',
   'fabric.media.annotate.tool.arrow': 'Nyíl',
   'fabric.media.annotate.tool.blur': 'Homályosítás',
@@ -24,12 +24,9 @@ export default {
   'fabric.media.archive': 'archiválás',
   'fabric.media.audio': 'hang',
   'fabric.media.cancel': 'Mégse',
-  'fabric.media.cant_preview_file_type':
-    'Ehhez a fájltípushoz nem tudunk előnézetet létrehozni.',
-  'fabric.media.cant_retrieve_files':
-    'Jaj! Nem sikerült lekérni egyetlen fájlt sem.',
-  'fabric.media.cant_retrieve_gifs':
-    'Jaj! Nem sikerült lekérni egyetlen GIF-et sem',
+  'fabric.media.cant_preview_file_type': 'Ehhez a fájltípushoz nem tudunk előnézetet létrehozni.',
+  'fabric.media.cant_retrieve_files': 'Jaj! Nem sikerült lekérni egyetlen fájlt sem.',
+  'fabric.media.cant_retrieve_gifs': 'Jaj! Nem sikerült lekérni egyetlen GIF-et sem',
   'fabric.media.change_view': 'Nézet módosítása',
   'fabric.media.check_your_network': 'Ellenőrizze a hálózati kapcsolatot',
   'fabric.media.click_to_join': 'Csatlakozz a(z) {context} rendszerhez',
@@ -43,18 +40,15 @@ export default {
   'fabric.media.connect_link_account_card_view': 'Csatlakoztatás',
   'fabric.media.connect_link_account_card_view_description':
     'A link előnézetének megtekintéséhez csatlakoztasd {context}-fiókodat.',
-  'fabric.media.connect_link_account_card_view_name':
-    'Kapcsold össze a fiókodat: {context}',
+  'fabric.media.connect_link_account_card_view_name': 'Kapcsold össze a fiókodat: {context}',
   'fabric.media.connect_to': 'Csatlakozás ehhez: {name}',
   'fabric.media.could_not_load_editor': 'Nem sikerült betölteni a szerkesztőt.',
   'fabric.media.could_not_save_image': 'Nem sikerült betölteni a képet.',
   'fabric.media.couldnt_generate_encrypted_entry_preview':
     'Nem lehet megtekinteni titkosított vagy jelszóval védett fájlok előnézetét.',
-  'fabric.media.couldnt_generate_preview':
-    'Ehhez a fájlhoz nem tudtunk előnézetet létrehozni.',
+  'fabric.media.couldnt_generate_preview': 'Ehhez a fájlhoz nem tudtunk előnézetet létrehozni.',
   'fabric.media.couldnt_load_file': 'Nem tudtuk betölteni a fájlt.',
-  'fabric.media.couldnt_load_link':
-    'Ismeretlen okból nem tudtuk betölteni ezt a linket.',
+  'fabric.media.couldnt_load_link': 'Ismeretlen okból nem tudtuk betölteni ezt a linket.',
   'fabric.media.creating_preview': 'Előnézet létrehozása…',
   'fabric.media.default_avatars': 'Alapértelmezett avatárok',
   'fabric.media.disable_fullscreen': 'teljes képernyős mód letiltása',
@@ -62,21 +56,16 @@ export default {
   'fabric.media.document': 'dokumentum',
   'fabric.media.download': 'Letöltés',
   'fabric.media.drag_and_drop_images_here': 'Húzza ide a képeket.',
-  'fabric.media.drag_and_drop_your_files':
-    'Húzza és ejtse ide egy fájlokat vagy',
-  'fabric.media.drag_and_drop_your_files_and_folders':
-    'Húzd bárhova a fájlokat és a mappákat, vagy',
+  'fabric.media.drag_and_drop_your_files': 'Húzza és ejtse ide egy fájlokat vagy',
+  'fabric.media.drag_and_drop_your_files_and_folders': 'Húzd bárhova a fájlokat és a mappákat, vagy',
   'fabric.media.drop_your_files': 'Ejtse ide a fájlokat a feltöltéshez',
   'fabric.media.drop_your_files_here': 'Húzza ide a fájlokat.',
   'fabric.media.email': 'E-mail',
   'fabric.media.enable_fullscreen': 'teljes képernyős mód engedélyezése',
   'fabric.media.error_429': '429-es hiba',
-  'fabric.media.error_generating_preview':
-    'Hiba történt az előnézet létrehozásakor.',
-  'fabric.media.error_hint_critical':
-    'Ha a probléma nem szűnik meg, lépjen kapcsolatba az ügyfélszolgálattal.',
-  'fabric.media.error_hint_retry':
-    'Próbálja meg újból, és teszünk még egy kísérletet.',
+  'fabric.media.error_generating_preview': 'Hiba történt az előnézet létrehozásakor.',
+  'fabric.media.error_hint_critical': 'Ha a probléma nem szűnik meg, lépjen kapcsolatba az ügyfélszolgálattal.',
+  'fabric.media.error_hint_retry': 'Próbálja meg újból, és teszünk még egy kísérletet.',
   'fabric.media.error_loading_file': 'Hiba történt a fájl betöltésekor.',
   'fabric.media.failed_to_load': 'A betöltés nem sikerült',
   'fabric.media.failed_to_upload': 'A feltöltés nem sikerült',
@@ -84,30 +73,22 @@ export default {
     'Nincs hozzáférésed ehhez az előnézethez. Lépj kapcsolatba a webhely adminisztrátorával, ha szükséged van hozzáférésre.',
   'fabric.media.give_feedback': 'Visszajelzés küldése',
   'fabric.media.image': 'kép',
-  'fabric.media.image_format_invalid_error':
-    'Nem sikerült feltölteni a képet, mert a formátum érvénytelen.',
-  'fabric.media.image_size_too_large_error':
-    'A kép túl nagy. Nem lehet {MAX_SIZE_MB}MB-nál nagyobb.',
-  'fabric.media.image_url_invalid_error':
-    'Nem sikerült feltölteni a képet, mert az URL-cím érvénytelen.',
-  'fabric.media.insert_files':
-    '{0, plural, one {{0} fájl beillesztése} other {{0} fájl beillesztése}}',
+  'fabric.media.image_format_invalid_error': 'Nem sikerült feltölteni a képet, mert a formátum érvénytelen.',
+  'fabric.media.image_size_too_large_error': 'A kép túl nagy. Nem lehet {MAX_SIZE_MB}MB-nál nagyobb.',
+  'fabric.media.image_url_invalid_error': 'Nem sikerült feltölteni a képet, mert az URL-cím érvénytelen.',
+  'fabric.media.insert_files': '{0, plural, one {{0} fájl beillesztése} other {{0} fájl beillesztése}}',
   'fabric.media.invalid_permissions': 'Korlátozott link',
   'fabric.media.invalid_permissions_description':
     'Az előnézet megtekintéséhez hozzáférést kell kérned, vagy másik fiókba kell belépned.',
-  'fabric.media.item_not_found_in_list':
-    'A kijelölt elem nem található a listán.',
+  'fabric.media.item_not_found_in_list': 'A kijelölt elem nem található a listán.',
   'fabric.media.learn_more': 'További információ',
   'fabric.media.load_more_gifs': 'További GIF-ek betöltése',
   'fabric.media.loading': 'Betöltés…',
   'fabric.media.loading_file': 'Fájl betöltése...',
-  'fabric.media.might_be_a_hiccup':
-    'Valószínűleg csak átmeneti hibáról van szó.',
+  'fabric.media.might_be_a_hiccup': 'Valószínűleg csak átmeneti hibáról van szó.',
   'fabric.media.no_gifs_found': 'Hello? Engem keresett?',
-  'fabric.media.no_gifs_found_suggestion':
-    'Nem találtunk semmit sem a következő kifejezésre: {query}',
-  'fabric.media.no_pdf_artifacts':
-    'Nem található PDF-műtermék ehhez a fájlhoz.',
+  'fabric.media.no_gifs_found_suggestion': 'Nem találtunk semmit sem a következő kifejezésre: {query}',
+  'fabric.media.no_pdf_artifacts': 'Nem található PDF-műtermék ehhez a fájlhoz.',
   'fabric.media.not_found_description':
     'Nem találtuk meg a linket. Ellenőrizd az URL-címet, és próbáld meg módosítani, vagy másold be újra.',
   'fabric.media.not_found_title': 'Hoppá. Nem találjuk ezt a linket!',
@@ -117,8 +98,7 @@ export default {
   'fabric.media.playback_default_speed': 'Alapértelmezett',
   'fabric.media.playback_speed': 'Lejátszási sebesség',
   'fabric.media.preview': 'Előnézet',
-  'fabric.media.preview_currently_unavailable':
-    'Az előnézet jelenleg nem elérhető',
+  'fabric.media.preview_currently_unavailable': 'Az előnézet jelenleg nem elérhető',
   'fabric.media.preview_unavailable': 'Az előnézet nem áll rendelkezésre',
   'fabric.media.recent_uploads': 'Legutóbb feltöltések',
   'fabric.media.remove_image': 'Kép eltávolítása',
@@ -126,8 +106,7 @@ export default {
   'fabric.media.request_access_description':
     'Kérj hozzáférést a következő termékhez az előnézet megtekintése érdekében: {context}.',
   'fabric.media.request_access_pending': 'Hozzáférés függőben',
-  'fabric.media.request_access_pending_description':
-    'A hozzáférési kérelmed függőben van.',
+  'fabric.media.request_access_pending_description': 'A hozzáférési kérelmed függőben van.',
   'fabric.media.request_denied_description':
     'A hozzáférési kérelmedet elutasították. Lépj kapcsolatba a webhely adminisztrátorával, ha továbbra is szükséged van hozzáférésre.',
   'fabric.media.retry': 'Újra',
@@ -143,10 +122,8 @@ export default {
   'fabric.media.text': 'Szöveg',
   'fabric.media.try_again': 'Próbálja újra',
   'fabric.media.try_another_account': 'Próbálkozz másik fiókkal',
-  'fabric.media.try_downloading_file':
-    'A megtekintéshez próbálja meg letölteni a fájlt.',
-  'fabric.media.unable_to_annotate_image':
-    'Nem sikerült jegyzetet fűznie a képhez.',
+  'fabric.media.try_downloading_file': 'A megtekintéshez próbálja meg letölteni a fájlt.',
+  'fabric.media.unable_to_annotate_image': 'Nem sikerült jegyzetet fűznie a képhez.',
   'fabric.media.unknown': 'ismeretlen',
   'fabric.media.unlink_account': 'Fiók leválasztása',
   'fabric.media.upload': 'Feltöltés',
@@ -157,12 +134,10 @@ export default {
   'fabric.media.upload_photo': 'Fénykép feltöltése',
   'fabric.media.video': 'videó',
   'fabric.media.view': 'Megtekintés',
-  'fabric.media.viewer_rateLimited':
-    'Probléma merült fel a fájl betöltése során.',
+  'fabric.media.viewer_rateLimited': 'Probléma merült fel a fájl betöltése során.',
   'fabric.media.webgl_warning_description':
     'A böngészője nem támogatja a WebGL funkciót. A képek jegyzetekkel való ellátásához használjon a WebGL funkcióval kompatibilis böngészőt.',
-  'fabric.media.zip_entry_load_failed':
-    'Nem tudtuk betölteni a ZIP-fájlt az előnézet megtekintése céljából',
+  'fabric.media.zip_entry_load_failed': 'Nem tudtuk betölteni a ZIP-fájlt az előnézet megtekintése céljából',
   'fabric.media.zoom_in': 'nagyítás',
   'fabric.media.zoom_out': 'kicsinyítés',
 };

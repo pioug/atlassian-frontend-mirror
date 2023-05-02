@@ -7,5 +7,6 @@
  */
 //Hungarian
 export default {
-  "fabric.editor.confluence.legacyMobileMacros.chartPlaceholderText": "Itt egy diagramnak kellene szerepelnie, de nem sikerült megjeleníteni. A diagram megtekintéséhez nyisd meg ezt az oldalt egy böngészőben."
+  'fabric.editor.confluence.legacyMobileMacros.chartPlaceholderText':
+    'Itt egy diagramnak kellene szerepelnie, de nem sikerült megjeleníteni. A diagram megtekintéséhez nyisd meg ezt az oldalt egy böngészőben.',
 };

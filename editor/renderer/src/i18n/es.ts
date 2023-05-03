@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -14,8 +15,7 @@ export default {
   'fabric.editor.headingLink.descOrderLabel': 'Borrar orden',
   'fabric.editor.headingLink.descSortingLabel': 'descendente',
   'fabric.editor.headingLink.failedToCopy': 'Copia fallida',
-  'fabric.editor.headingLink.invalidLabel':
-    '⚠️ No puedes ordenar una tabla con celdas combinadas',
+  'fabric.editor.headingLink.invalidLabel': '⚠️ No puedes ordenar una tabla con celdas combinadas',
   'fabric.editor.headingLink.noOrderLabel': 'Ordenar columna de la A a la Z',
   'fabric.editor.headingLink.noneSortingLabel': 'ninguno',
 };

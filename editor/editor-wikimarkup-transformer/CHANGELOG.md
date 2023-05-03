@@ -1,5 +1,11 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 11.1.16
+
+### Patch Changes
+
+- [`5ae242b554c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5ae242b554c) - updated logic to handle multiple linebreaks inside a macro within a list
+
 ## 11.1.15
 
 ### Patch Changes

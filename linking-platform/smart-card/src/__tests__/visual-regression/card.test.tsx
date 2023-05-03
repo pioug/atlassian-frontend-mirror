@@ -82,4 +82,12 @@ describe('Card', () => {
     ]);
     runTest('vr-card-bitbucket', testCases);
   });
+
+  describe('Trello', () => {
+    const testCases = generate([
+      ['card', 430],
+      ['board', 430],
+    ]);
+    runTest('vr-card-trello', testCases);
+  });
 });

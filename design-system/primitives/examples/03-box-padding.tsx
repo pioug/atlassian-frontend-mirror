@@ -138,6 +138,23 @@ export default () => {
           </Stack>
         </Stack>
       </Inline>
+
+      <Stack
+        space="space.200"
+        testId="box-with-background-and-overlapping-padding-props"
+      >
+        <Heading level="h600">overlapping padding props</Heading>
+        <Box
+          backgroundColor="discovery.bold"
+          padding="space.100"
+          paddingBlock="space.200"
+          paddingInlineStart="space.300"
+        >
+          <Box backgroundColor="elevation.surface" padding="space.050">
+            padding
+          </Box>
+        </Box>
+      </Stack>
     </Stack>
   );
 };

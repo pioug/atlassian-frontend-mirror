@@ -14,6 +14,7 @@ import {
   extractCommentCount,
   extractCreatedBy,
   extractDueOn,
+  extractLocation,
   extractModifiedBy,
   extractOwnedBy,
   extractProgrammingLanguage,
@@ -233,5 +234,62 @@ describe('extractTargetBranch', () => {
         'atlassian:mergeDestination': TEST_LINK,
       }),
     ).toEqual(TEST_NAME);
+  });
+});
+
+describe('extractLocation', () => {
+  it('returns undefined when link has no location', () => {
+    expect(
+      extractLocation(TEST_BASE_DATA as JsonLd.Data.SourceCodePullRequest),
+    ).toBeUndefined();
+  });
+
+  it('returns undefined when location is incomplete (missing name)', () => {
+    expect(
+      extractLocation({
+        ...TEST_BASE_DATA,
+        location: {
+          url: 'https://somelink.com/foo',
+        },
+      } as JsonLd.Data.Project),
+    ).toBeUndefined();
+  });
+
+  it('returns undefined when location is incomplete (missing url)', () => {
+    expect(
+      extractLocation({
+        ...TEST_BASE_DATA,
+        location: {
+          name: 'Location McLocationtion',
+        },
+      } as JsonLd.Data.Project),
+    ).toBeUndefined();
+  });
+
+  it('returns undefined when location url is not a string', () => {
+    expect(
+      extractLocation({
+        ...TEST_BASE_DATA,
+        location: {
+          name: 'Location McLocationtion',
+          url: {},
+        },
+      } as JsonLd.Data.Project),
+    ).toBeUndefined();
+  });
+
+  it('returns location text and url', () => {
+    expect(
+      extractLocation({
+        ...TEST_BASE_DATA,
+        location: {
+          url: 'https://somelink.com/foo',
+          name: 'Location McLocationtion',
+        },
+      } as JsonLd.Data.Project),
+    ).toEqual({
+      text: 'Location McLocationtion',
+      url: 'https://somelink.com/foo',
+    });
   });
 });

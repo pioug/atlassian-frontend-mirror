@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -14,8 +15,7 @@ export default {
   'fabric.editor.headingLink.descOrderLabel': 'Clear sorting',
   'fabric.editor.headingLink.descSortingLabel': 'descending',
   'fabric.editor.headingLink.failedToCopy': 'Copy failed',
-  'fabric.editor.headingLink.invalidLabel':
-    "⚠️ You can't sort a table with merged cells",
+  'fabric.editor.headingLink.invalidLabel': "⚠️ You can't sort a table with merged cells",
   'fabric.editor.headingLink.noOrderLabel': 'Sort column A to Z',
   'fabric.editor.headingLink.noneSortingLabel': 'none',
 };

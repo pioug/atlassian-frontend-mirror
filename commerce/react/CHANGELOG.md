@@ -1,5 +1,11 @@
 # @af/commerce-react
 
+## 0.0.5
+
+### Patch Changes
+
+- [`5806023831a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5806023831a) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
+
 ## 0.0.4
 
 ### Patch Changes

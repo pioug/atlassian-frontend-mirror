@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -14,8 +15,7 @@ export default {
   'fabric.editor.headingLink.descOrderLabel': 'Rendezés törlése',
   'fabric.editor.headingLink.descSortingLabel': 'csökkenő',
   'fabric.editor.headingLink.failedToCopy': 'A másolás nem sikerült',
-  'fabric.editor.headingLink.invalidLabel':
-    '⚠️ Nem rendezhetsz egyesített cellákat tartalmazó táblázatot',
+  'fabric.editor.headingLink.invalidLabel': '⚠️ Nem rendezhetsz egyesített cellákat tartalmazó táblázatot',
   'fabric.editor.headingLink.noOrderLabel': 'Oszlop rendezése: A → Z',
   'fabric.editor.headingLink.noneSortingLabel': 'Nincs',
 };

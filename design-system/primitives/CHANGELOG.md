@@ -1,5 +1,11 @@
 # @atlaskit/primitives
 
+## 0.8.6
+
+### Patch Changes
+
+- [`b5b26f3d947`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b5b26f3d947) - Bugfix: 'padding' prop no longer takes (incorrect) precedence over any other padding props.
+
 ## 0.8.5
 
 ### Patch Changes

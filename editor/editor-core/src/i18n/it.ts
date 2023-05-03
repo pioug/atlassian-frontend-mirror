@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -7,20 +8,18 @@
 //Italian (Italy)
 export default {
   'fabric.editor.addAltText': 'Testo alternativo',
+  'fabric.editor.addImageBorder': 'Aggiungi bordo',
   'fabric.editor.alignCenter': 'Allinea al centro',
   'fabric.editor.alignLeft': 'Allinea a sinistra',
   'fabric.editor.alignRight': 'Allinea a destra',
   'fabric.editor.alignment': 'Allineamento testo',
   'fabric.editor.altText': 'Testo alternativo',
-  'fabric.editor.alttext.validation':
-    'Rimuovi eventuali caratteri speciali dal testo alternativo.',
-  'fabric.editor.annotate': 'Annota',
+  'fabric.editor.alttext.validation': 'Rimuovi eventuali caratteri speciali dal testo alternativo.',
   'fabric.editor.annotationToolbar': 'Barra degli strumenti di annotazione',
   'fabric.editor.backLink': 'Torna indietro',
   'fabric.editor.blockCardUnavailable':
     "Il collegamento inline è all'interno di {node} e non è possibile modificare la relativa visualizzazione",
-  'fabric.editor.blockDescription':
-    'Visualizza ulteriori informazioni relative al link, come riepilogo e azioni',
+  'fabric.editor.blockDescription': 'Visualizza ulteriori informazioni relative al link, come riepilogo e azioni',
   'fabric.editor.blockTitle': 'Scheda',
   'fabric.editor.blockquote.description': 'Inserisci citazione',
   'fabric.editor.blockquote2': 'Citazione',
@@ -39,8 +38,7 @@ export default {
   'fabric.editor.code': 'Codice',
   'fabric.editor.code.on': '{textFormattingOff}, codice attivato',
   'fabric.editor.codeblock': 'Frammento di codice',
-  'fabric.editor.codeblock.description':
-    'Mostra codice con colorazione della sintassi',
+  'fabric.editor.codeblock.description': 'Mostra codice con colorazione della sintassi',
   'fabric.editor.configFailedToLoad': 'Caricamento non riuscito',
   'fabric.editor.configPanel.cancel': 'Annulla',
   'fabric.editor.configPanel.close': 'Chiudi',
@@ -52,21 +50,19 @@ export default {
   'fabric.editor.configPanel.dateRange.option.custom': 'Personalizzato',
   'fabric.editor.configPanel.documentation': 'Documentazione',
   'fabric.editor.configPanel.errorBoundary.title': 'Si è verificato un errore.',
-  'fabric.editor.configPanel.fieldTypeError.isMultipleAndRadio':
-    'Impossibile combinare isMultiple con style: radio',
+  'fabric.editor.configPanel.fieldTypeError.isMultipleAndRadio': 'Impossibile combinare isMultiple con style: radio',
   'fabric.editor.configPanel.formType.addField': 'Aggiungi campo',
   'fabric.editor.configPanel.formType.removeField': 'Rimuovi campo',
   'fabric.editor.configPanel.invalid': 'Campo non valido',
   'fabric.editor.configPanel.required': 'Campo obbligatorio',
   'fabric.editor.configPanel.submit': 'Invia',
   'fabric.editor.createComment': 'Commento',
-  'fabric.editor.createCommentInvalid':
-    'Puoi inserire commenti solo per il testo e le intestazioni',
+  'fabric.editor.createCommentInvalid': 'Puoi inserire commenti solo per il testo e le intestazioni',
   'fabric.editor.customPanel': 'Pannello personalizzato',
-  'fabric.editor.customPanel.description':
-    'Aggiungi una nota con un emoji e uno sfondo colorato',
+  'fabric.editor.customPanel.description': 'Aggiungi una nota con un emoji e uno sfondo colorato',
   'fabric.editor.decisionPlaceholder': 'Aggiungi una decisione…',
   'fabric.editor.defaultAltText': 'Voce di elenco',
+  'fabric.editor.description': 'Descrizione',
   'fabric.editor.displayBlock': 'Visualizza come scheda',
   'fabric.editor.displayEmbed': 'Visualizza come oggetto incorporato',
   'fabric.editor.displayInline': 'Visualizza inline',
@@ -75,8 +71,7 @@ export default {
     "Questa opzione di visualizzazione non è disponibile all'interno di {node}",
   'fabric.editor.displayText': 'Testo da mostrare',
   'fabric.editor.dropPlaceholderLabel': 'Documento',
-  'fabric.editor.ecombedDescription':
-    "Visualizza un'anteprima interattiva di un link",
+  'fabric.editor.ecombedDescription': "Visualizza un'anteprima interattiva di un link",
   'fabric.editor.edit': 'Modifica',
   'fabric.editor.editAltText': 'Modifica testo alternativo',
   'fabric.editor.editDateText': 'Modifica data',
@@ -84,66 +79,56 @@ export default {
   'fabric.editor.editStatusColor': 'Modifica colore stato',
   'fabric.editor.editStatusText': 'Modifica stato',
   'fabric.editor.editableContentLabel': 'Contenuto modificabile',
+  'fabric.editor.editorAssistiveLabel': 'Area del contenuto principale; inizia a digitare per inserire il testo.',
   'fabric.editor.editorHelp': "Guida dell'editor",
   'fabric.editor.editors': 'Editor',
   'fabric.editor.elementBrowser.help': 'Guida',
   'fabric.editor.elementbrowser.categorylist.category-admin': 'Amministrazione',
   'fabric.editor.elementbrowser.categorylist.category-all': 'Tutto',
-  'fabric.editor.elementbrowser.categorylist.category-communication':
-    'Comunicazione',
-  'fabric.editor.elementbrowser.categorylist.category-confluence-content':
-    'Contenuto di Confluence',
+  'fabric.editor.elementbrowser.categorylist.category-communication': 'Comunicazione',
+  'fabric.editor.elementbrowser.categorylist.category-confluence-content': 'Contenuto di Confluence',
   'fabric.editor.elementbrowser.categorylist.category-development': 'Sviluppo',
-  'fabric.editor.elementbrowser.categorylist.category-external-content':
-    'Contenuto esterno',
-  'fabric.editor.elementbrowser.categorylist.category-formatting':
-    'Formattazione',
-  'fabric.editor.elementbrowser.categorylist.category-media':
-    'Contenuti multimediali',
-  'fabric.editor.elementbrowser.categorylist.category-navigation':
-    'Navigazione',
-  'fabric.editor.elementbrowser.categorylist.category-reporting':
-    'Creazione di report',
-  'fabric.editor.elementbrowser.categorylist.category-visuals':
-    'Elementi visivi e immagini',
-  'fabric.editor.elementbrowser.search.empty-state.heading':
-    'Non ci sono risultati per la tua ricerca',
+  'fabric.editor.elementbrowser.categorylist.category-external-content': 'Contenuto esterno',
+  'fabric.editor.elementbrowser.categorylist.category-formatting': 'Formattazione',
+  'fabric.editor.elementbrowser.categorylist.category-media': 'Contenuti multimediali',
+  'fabric.editor.elementbrowser.categorylist.category-navigation': 'Navigazione',
+  'fabric.editor.elementbrowser.categorylist.category-reporting': 'Creazione di report',
+  'fabric.editor.elementbrowser.categorylist.category-visuals': 'Elementi visivi e immagini',
+  'fabric.editor.elementbrowser.search.empty-state.heading': 'Non ci sono risultati per la tua ricerca',
   'fabric.editor.elementbrowser.search.empty-state.sub-heading':
     'Prova a ripetere la ricerca con un termine diverso o scopri nuove app per i prodotti Atlassian.',
-  'fabric.editor.elementbrowser.search.empty-state.sub-heading.link':
-    "Esplora l'Atlassian Marketplace",
+  'fabric.editor.elementbrowser.search.empty-state.sub-heading.link': "Esplora l'Atlassian Marketplace",
   'fabric.editor.elementbrowser.sidebar.heading': 'Sfoglia',
   'fabric.editor.embedTitle': 'Incorpora',
   'fabric.editor.emptyLink': 'Inserisci un link.',
   'fabric.editor.epic': 'Epic',
   'fabric.editor.error': 'Errore',
   'fabric.editor.errorPanel': 'Pannello errori',
-  'fabric.editor.errorPanel.description':
-    'Segnala gli errori in un pannello colorato',
+  'fabric.editor.errorPanel.description': 'Segnala gli errori in un pannello colorato',
   'fabric.editor.extension.confirmDeleteLinkedModalMessage':
-    "La rimozione di questa estensione comporterà l'interruzione di tutti gli elementi ad essa collegati.",
-  'fabric.editor.extension.confirmDeleteLinkedModalOKButton':
-    "Rimuovi l'estensione",
-  'fabric.editor.extensions.config-panel.save-indicator':
-    'Le modifiche vengono sempre salvate automaticamente',
+    "L'eliminazione di {nodeName} comporterà l'interruzione di tutti i relativi collegamenti.",
+  'fabric.editor.extension.confirmDeleteLinkedModalOKButton': 'Elimina',
+  'fabric.editor.extension.deleteElementTitle': "Elimina l'elemento",
+  'fabric.editor.extensions.config-panel.save-indicator': 'Le modifiche vengono sempre salvate automaticamente',
   'fabric.editor.find': 'Trova',
   'fabric.editor.findNext': 'Trova successivo',
   'fabric.editor.findPrevious': 'Trova precedente',
   'fabric.editor.findReplaceToolbarButton': 'Trova e sostituisci',
   'fabric.editor.floatingToolbar.confirmModalCancel': 'Annulla',
+  'fabric.editor.floatingToolbar.confirmModalCheckboxLabel': 'Elimina anche gli elementi collegati',
   'fabric.editor.floatingToolbar.confirmModalHeading': 'Confermi?',
   'fabric.editor.floatingToolbar.confirmModalOK': 'OK',
   'fabric.editor.floatingToolbar.floatingToolbarAnnouncer':
     'Sono stati aperti i controlli della barra degli strumenti mobile',
-  'fabric.editor.floatingToolbar.floatingToolbarAriaLabel':
-    'Barra degli strumenti mobile',
+  'fabric.editor.floatingToolbar.floatingToolbarAriaLabel': 'Barra degli strumenti mobile',
+  'fabric.editor.floatingToolbar.scrollLeft': 'Scorri a sinistra',
+  'fabric.editor.floatingToolbar.scrollRight': 'Scorri a destra',
   'fabric.editor.heading1': 'Titolo 1',
   'fabric.editor.heading1Description': 'Per un titolo di primo livello',
   'fabric.editor.heading2': 'Titolo 2',
   'fabric.editor.heading2Description': 'Per le sezioni principali',
   'fabric.editor.heading3': 'Titolo 3',
-  'fabric.editor.heading3Description':
-    'Per i titoli delle sottosezioni e dei gruppi',
+  'fabric.editor.heading3Description': 'Per i titoli delle sottosezioni e dei gruppi',
   'fabric.editor.heading4': 'Titolo 4',
   'fabric.editor.heading4Description': 'Per i titoli interni',
   'fabric.editor.heading5': 'Titolo 5',
@@ -165,12 +150,17 @@ export default {
   'fabric.editor.hyperlink.searchLinkResults':
     '{count, plural, =0 {nessun risultato trovato} one {{count,number} risultato trovato} other {{count,number} risultati trovati}}',
   'fabric.editor.hyperlinkToolbarPlaceholder': 'Incolla o cerca il link',
+  'fabric.editor.imageBorderBold': 'Grande',
+  'fabric.editor.imageBorderColor': 'Colore',
+  'fabric.editor.imageBorderMedium': 'Media',
+  'fabric.editor.imageBorderOptions': 'Opzioni bordo',
+  'fabric.editor.imageBorderSize': 'Dimensione',
+  'fabric.editor.imageBorderSubtle': 'Piccola',
   'fabric.editor.improvement': 'Miglioramento',
   'fabric.editor.indent': 'Rientro',
   'fabric.editor.info': 'Info',
   'fabric.editor.infoPanel': 'Pannello informazioni',
-  'fabric.editor.infoPanel.description':
-    'Metti in evidenza l’informazione in un pannello colorato',
+  'fabric.editor.infoPanel.description': 'Metti in evidenza l’informazione in un pannello colorato',
   'fabric.editor.inlineDescription': 'Visualizza il link come testo in linea',
   'fabric.editor.inlineTitle': 'In linea',
   'fabric.editor.inputQueryAssistiveTxt':
@@ -178,7 +168,7 @@ export default {
   'fabric.editor.invalidDateError': 'Inserisci una data valida',
   'fabric.editor.invalidLink': 'Inserisci un link valido.',
   'fabric.editor.inviteItem.title':
-    '{userRole, select, admin {Invita un collega in {productName}} trusted {Invita un collega in {productName}} other {Aggiunti un collega a {productName}}}',
+    '{userRole, select, admin {Invita un collega in {productName}} trusted {Invita un collega in {productName}} other {Aggiungi un collega a {productName}}}',
   'fabric.editor.italic': 'Corsivo',
   'fabric.editor.keyboardShortcuts': 'Scelte rapide da tastiera',
   'fabric.editor.leftSidebar': 'Barra laterale sinistra',
@@ -189,16 +179,18 @@ export default {
   'fabric.editor.matchCase': 'Maiuscole/Minuscole',
   'fabric.editor.mediaAddLink': 'Aggiungi link',
   'fabric.editor.mediaGroupDeleteLabel': 'Elimina',
+  'fabric.editor.mentionNode.label': 'Utente taggato',
   'fabric.editor.mentionsAddLabel': 'icona aggiungi',
   'fabric.editor.mentionsIconLabel': 'Menziona',
   'fabric.editor.moreFormatting': 'Formattazione aggiuntiva',
+  'fabric.editor.navigate.toolbar.editor': "Passa alla barra degli strumenti dell'editor",
+  'fabric.editor.navigate.toolbar.floating': 'Passa alla barra degli strumenti mobile',
   'fabric.editor.noResultsFound': 'Nessun risultato',
   'fabric.editor.noSearchResults': 'Nessun risultato della ricerca',
   'fabric.editor.normal': 'Testo normale',
   'fabric.editor.note': 'Nota',
   'fabric.editor.notePanel': 'Pannello note',
-  'fabric.editor.notePanel.description':
-    'Aggiungi una nota in un pannello colorato',
+  'fabric.editor.notePanel.description': 'Aggiungi una nota in un pannello colorato',
   'fabric.editor.off': '{formattingType} disattiva',
   'fabric.editor.on': '{formattingType} attiva',
   'fabric.editor.orderedList': 'Elenco numerato',
@@ -209,50 +201,55 @@ export default {
   'fabric.editor.panel.backgroundColor': 'Colore di sfondo',
   'fabric.editor.panel.emoji': 'Aggiungi emoji',
   'fabric.editor.pastePlainText': 'Incolla testo non formattato',
-  'fabric.editor.placeholderAltText':
-    'Descrivi questa immagine con testo alternativo',
+  'fabric.editor.placeholderAltText': 'Descrivi questa immagine con testo alternativo',
   'fabric.editor.placeholderTextPlaceholder': 'Aggiungi testo segnaposto',
   'fabric.editor.quickInsert': 'Inserimento rapido',
   'fabric.editor.redo': 'Ripeti',
+  'fabric.editor.removeImageBorder': 'Rimuovi bordo',
   'fabric.editor.replace': 'Sostituisci',
   'fabric.editor.replaceAll': 'Sostituisci tutto',
   'fabric.editor.replaceWith': 'Sostituisci con',
-  'fabric.editor.resultsCount':
-    '{selectedMatchPosition} di {totalResultsCount}',
+  'fabric.editor.resultsCount': '{selectedMatchPosition} di {totalResultsCount}',
   'fabric.editor.rightSidebar': 'Barra laterale destra',
   'fabric.editor.searchResults':
     '{itemsLength, plural, one {{itemsLength,number} risultato della ricerca disponibile} other {{itemsLength,number} risultati della ricerca disponibili}}',
   'fabric.editor.selectLanguage': 'Seleziona linguaggio',
   'fabric.editor.settingsLinks': 'Vai alle Preferenze per i link',
+  'fabric.editor.shortcut': 'Scelta rapida di testo',
   'fabric.editor.single': 'Colonna singola',
   'fabric.editor.statusPlaceholder': 'Imposta uno stato',
   'fabric.editor.story': 'Story',
   'fabric.editor.strike': 'Barrato',
   'fabric.editor.subTask': 'Sottotask',
   'fabric.editor.subscript': 'Pedice',
-  'fabric.editor.subscript.off.superscript.on':
-    'Pedice disattivato, Apice attivato',
+  'fabric.editor.subscript.off.superscript.on': 'Pedice disattivato, Apice attivato',
   'fabric.editor.success': 'Operazione riuscita',
   'fabric.editor.successPanel': 'Pannello operazioni completate',
-  'fabric.editor.successPanel.description':
-    'Aggiungi consigli in un pannello colorato',
+  'fabric.editor.successPanel.description': 'Aggiungi consigli in un pannello colorato',
   'fabric.editor.superscript': 'Apice',
-  'fabric.editor.superscript.off.subscript.on':
-    'Apice disattivato, Pedice attivato',
+  'fabric.editor.superscript.off.subscript.on': 'Apice disattivato, Pedice attivato',
   'fabric.editor.supportAltText':
     'Il testo alternativo è utile agli utenti con problemi di vista che utilizzano utilità per la lettura dello schermo.',
   'fabric.editor.task': 'Task',
-  'fabric.editor.taskPlaceholder':
-    'Digita la tua azione e usa “@” per assegnarla a qualcuno.',
+  'fabric.editor.taskPlaceholder': 'Digita la tua azione e usa “@” per assegnarla a qualcuno.',
   'fabric.editor.text.formatting.off': 'Formattazione del test disattivata',
   'fabric.editor.textColor': 'Colore del testo',
   'fabric.editor.textStyles': 'Stili del testo',
   'fabric.editor.threeColumns': 'Tre colonne',
   'fabric.editor.threeColumnsWithSidebars': 'Tre colonne con barre laterali',
   'fabric.editor.toolbarLabel': "Barra degli strumenti dell'editor",
-  'fabric.editor.toolbarMediaTitle': 'File e immagini',
+  'fabric.editor.toolbarMediaTitle': "Aggiungi un'immagine, un video o un file",
   'fabric.editor.twoColumns': 'Due colonne',
-  'fabric.editor.typeAheadResultLabel': 'Risultati completamento automatico',
+  'fabric.editor.typeAhead.popupLabel': 'Risultati del completamento automatico',
+  'fabric.editor.typeAhead.quickInsertInputLabel':
+    'Inizia a digitare per cercare o filtrare le opzioni delle scelte rapide',
+  'fabric.editor.typeAhead.quickInsertPopupLabel': 'Scelte rapide per inserimenti e formattazione',
+  'fabric.editor.typeahead.emojiInputLabel': 'Inizia a digitare per cercare o filtrare le opzioni delle emoji',
+  'fabric.editor.typeahead.emojiListItemLabel': 'Emoji {name} Scelta rapida di testo {shortcut}',
+  'fabric.editor.typeahead.emojiPopupLabel': 'Scelte rapide per emoji',
+  'fabric.editor.typeahead.mentionInputLabel': 'Inizia a digitare per cercare gli utenti da taggare',
+  'fabric.editor.typeahead.mentionPopupLabel': 'Utenti che puoi taggare',
+  'fabric.editor.typeahead.metionListItemLabel': 'Utente {name} @{shortName}',
   'fabric.editor.unableToOpenLink': 'Impossibile aprire questo link',
   'fabric.editor.underline': 'Sottolineato',
   'fabric.editor.undo': 'Annulla',
@@ -264,8 +261,8 @@ export default {
   'fabric.editor.urlTitle': 'URL',
   'fabric.editor.warning': 'Attenzione',
   'fabric.editor.warningPanel': 'Pannello avvisi',
-  'fabric.editor.warningPanel.description':
-    'Aggiungi un avviso in un pannello colorato',
+  'fabric.editor.warningPanel.description': 'Aggiungi un avviso in un pannello colorato',
   'fabric.editor.wrapLeft': 'Ritorno a capo a sinistra',
   'fabric.editor.wrapRight': 'RItorno a capo a destra',
+  'fabric.emoji.label': 'Emoji',
 };

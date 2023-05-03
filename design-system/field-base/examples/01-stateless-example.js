@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import Input from '@atlaskit/input';
+import Textfield from '@atlaskit/textfield';
 import { FieldBaseStateless } from '../src';
 
 export default class StatelessExample extends PureComponent {
@@ -12,7 +12,7 @@ export default class StatelessExample extends PureComponent {
         isFitContainerWidthEnabled
         isRequired
       >
-        <Input isEditing />
+        <Textfield />
       </FieldBaseStateless>
     );
   }

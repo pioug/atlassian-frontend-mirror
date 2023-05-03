@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -14,8 +15,7 @@ export default {
   'fabric.editor.headingLink.descOrderLabel': 'Tyhjennä lajittelu',
   'fabric.editor.headingLink.descSortingLabel': 'laskevassa järjestyksessä',
   'fabric.editor.headingLink.failedToCopy': 'Kopiointi epäonnistui',
-  'fabric.editor.headingLink.invalidLabel':
-    '⚠️ Et voi lajitella yhdistettyjä soluja sisältävää taulukkoa',
+  'fabric.editor.headingLink.invalidLabel': '⚠️ Et voi lajitella yhdistettyjä soluja sisältävää taulukkoa',
   'fabric.editor.headingLink.noOrderLabel': 'Lajittele sarake A–Z',
   'fabric.editor.headingLink.noneSortingLabel': 'Ei mitään',
 };

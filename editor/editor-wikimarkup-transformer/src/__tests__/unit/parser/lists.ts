@@ -201,6 +201,61 @@ abc
       -- b
     `,
     ],
+    [
+      'ADFEXP-371 should have strikethrough mark along with textColor',
+      `# -{color:red}test{color}-`,
+    ],
+    [
+      'ADFEXP-371 should parse color and code macro with multiple line breaks successfully',
+      `# test {color:red}
+one
+
+
+{color} test {code:java}
+
+two
+
+
+
+
+
+{code}`,
+    ],
+    [
+      'ADFEXP-371 should parse image macro inside a color macro',
+      `# {color}!http://example.com/?insection!{color}`,
+    ],
+    [
+      'ADFEXP-371 should parse image macro inside a noformat',
+      `# {noformat}!http://example.com/?insection!{noformat}`,
+    ],
+    [
+      'ADFEXP-371 should parse invalid ADF macro inside a codeBlock',
+      '* {adf}{"invalid": "foobar"}{adf}',
+    ],
+    [
+      'ADFEXP-371 should parse codeblock inside a noformat',
+      '* {noformat}{code}code macro inside noformat{code}{noformat}',
+    ],
+    [
+      'ADFEXP-371 should parse codeblock inside a color',
+      '* {color:Red}{code}code macro inside noformat{code}{color}',
+    ],
+    [
+      'ADFEXP-371 should correctly parse color macro inside a code macro',
+      `* {code}
+test
+
+
+{color:red}
+
+
+
+code inside noformat
+
+
+{color:red}{code}`,
+    ],
   ];
 
   const context = {

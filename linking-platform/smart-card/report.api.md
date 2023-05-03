@@ -440,6 +440,7 @@ type ElementItemProps =
   | DueOn
   | LatestCommit
   | LinkIcon
+  | Location_2
   | ModifiedBy
   | ModifiedOn
   | OwnedBy
@@ -479,6 +480,8 @@ export enum ElementName {
   LatestCommit = 'LatestCommit',
   // (undocumented)
   LinkIcon = 'LinkIcon',
+  // (undocumented)
+  Location = 'Location',
   // (undocumented)
   ModifiedBy = 'ModifiedBy',
   // (undocumented)
@@ -610,6 +613,11 @@ type LinkIcon = {
 
 // @public (undocumented)
 export const loadingPlaceholderClassName = 'smart-link-loading-placeholder';
+
+// @public
+type Location_2 = {
+  name: ElementName.Location;
+};
 
 // @public (undocumented)
 export enum MediaPlacement {

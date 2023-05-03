@@ -9,10 +9,12 @@ import HoverCardContent from '../components/HoverCardContent';
 import { CARD_GAP_PX, HOVER_CARD_Z_INDEX } from '../styled';
 import { HoverCardComponentProps } from '../types';
 import { CardDisplay } from '../../../constants';
+import { SmartLinkAnalyticsContext } from '../../../utils/analytics/SmartLinkAnalyticsContext';
 
 export const HoverCardComponent: FC<HoverCardComponentProps> = ({
   children,
   url,
+  id,
   analyticsHandler,
   analytics,
   canOpen = true,
@@ -133,18 +135,25 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
 
   const content = useCallback(
     ({ update }) => (
-      <HoverCardContent
-        onMouseEnter={initShowCard}
-        onMouseLeave={initHideCard}
-        analytics={analytics}
-        cardActions={filteredActions}
-        cardState={linkState}
-        onActionClick={onActionClick}
-        onResolve={update}
-        renderers={renderers}
-        showServerActions={showServerActions}
+      <SmartLinkAnalyticsContext
         url={url}
-      />
+        appearance={CardDisplay.HoverCardPreview}
+        id={id}
+      >
+        <HoverCardContent
+          onMouseEnter={initShowCard}
+          onMouseLeave={initHideCard}
+          analytics={analytics}
+          cardActions={filteredActions}
+          cardState={linkState}
+          onActionClick={onActionClick}
+          onResolve={update}
+          renderers={renderers}
+          showServerActions={showServerActions}
+          url={url}
+          id={id}
+        />
+      </SmartLinkAnalyticsContext>
     ),
     [
       analytics,
@@ -156,6 +165,7 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
       renderers,
       showServerActions,
       url,
+      id,
     ],
   );
 

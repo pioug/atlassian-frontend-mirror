@@ -83,6 +83,7 @@ const FlexibleResolvedView = ({
           { name: ElementName.State },
         ]}
         hideRetry={true}
+        subtitle={[{ name: ElementName.Location }]}
       />
       <MetadataBlock primary={metadata} maxLines={1} />
 

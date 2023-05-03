@@ -75,7 +75,7 @@ export const getSimulatedMetadata = (
             ElementName.AttachmentCount,
             ElementName.ChecklistProgress,
           ],
-          subtitle: [],
+          subtitle: [ElementName.Location],
         },
       };
 

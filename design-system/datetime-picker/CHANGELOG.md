@@ -1,5 +1,11 @@
 # @atlaskit/datetime-picker
 
+## 12.3.13
+
+### Patch Changes
+
+- [`c71b0ac8222`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c71b0ac8222) - [ux] Add default label to time picker element of datetime picker. Update documentation for more accessible examples and guidelines.
+
 ## 12.3.12
 
 ### Patch Changes

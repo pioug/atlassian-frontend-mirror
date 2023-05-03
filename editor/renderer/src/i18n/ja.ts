@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -14,8 +15,7 @@ export default {
   'fabric.editor.headingLink.descOrderLabel': '並べ替えをクリア',
   'fabric.editor.headingLink.descSortingLabel': '降順',
   'fabric.editor.headingLink.failedToCopy': 'コピーできませんでした。',
-  'fabric.editor.headingLink.invalidLabel':
-    '⚠️ 統合したセルで表を並べ替えることはできません',
+  'fabric.editor.headingLink.invalidLabel': '⚠️ 統合したセルで表を並べ替えることはできません',
   'fabric.editor.headingLink.noOrderLabel': '列の並べ替え: A から Z',
   'fabric.editor.headingLink.noneSortingLabel': 'なし',
 };

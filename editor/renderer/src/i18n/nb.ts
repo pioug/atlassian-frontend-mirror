@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -14,8 +15,7 @@ export default {
   'fabric.editor.headingLink.descOrderLabel': 'Fjern sortering',
   'fabric.editor.headingLink.descSortingLabel': 'synkende',
   'fabric.editor.headingLink.failedToCopy': 'Kopiering mislyktes',
-  'fabric.editor.headingLink.invalidLabel':
-    '⚠️ Du kan ikke sortere en tabell med sammenslåtte celler',
+  'fabric.editor.headingLink.invalidLabel': '⚠️ Du kan ikke sortere en tabell med sammenslåtte celler',
   'fabric.editor.headingLink.noOrderLabel': 'Sorter kolonne A til Å',
   'fabric.editor.headingLink.noneSortingLabel': 'ingen',
 };

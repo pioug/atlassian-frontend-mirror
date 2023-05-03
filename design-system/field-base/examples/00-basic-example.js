@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import Input from '@atlaskit/input';
+import Textfield from '@atlaskit/textfield';
 
 import FieldBase, { Label } from '../src';
 
@@ -26,7 +26,7 @@ export default class BasicExample extends PureComponent {
       <div>
         <Label label="With onBlur & onFocus event handlers" />
         <FieldBase onBlur={this.onBlur} onFocus={this.onFocus}>
-          <Input isEditing />
+          <Textfield />
         </FieldBase>
         <div
           style={{
@@ -42,35 +42,35 @@ export default class BasicExample extends PureComponent {
         </div>
         <Label label="With isDisabled" />
         <FieldBase isDisabled>
-          <Input isEditing />
+          <Textfield />
         </FieldBase>
         <Label label="With isInvalid" />
         <FieldBase isInvalid invalidMessage="This is an invalid field message">
-          <Input isEditing />
+          <Textfield />
         </FieldBase>
         <Label label="With isCompact" />
         <FieldBase isCompact>
-          <Input isEditing />
+          <Textfield />
         </FieldBase>
         <Label label="With isLoading" />
         <FieldBase isLoading>
-          <Input isEditing />
+          <Textfield />
         </FieldBase>
         <Label label="With isRequired, maxWidth(100) & isPaddingDisabled" />
         <FieldBase isRequired maxWidth={100} isPaddingDisabled>
-          <Input isEditing />
+          <Textfield />
         </FieldBase>
         <Label label="With appearance none" />
         <FieldBase appearance="none">
-          <Input isEditing />
+          <Textfield />
         </FieldBase>
         <Label label="With appearance subtle" />
         <FieldBase appearance="subtle">
-          <Input isEditing />
+          <Textfield />
         </FieldBase>
         <Label label="With isFitContainerWidthEnabled" />
         <FieldBase isFitContainerWidthEnabled>
-          <Input isEditing />
+          <Textfield />
         </FieldBase>
       </div>
     );

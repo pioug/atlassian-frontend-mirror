@@ -89,7 +89,9 @@ describe('renderElementItems', () => {
 
   // If you are here because you've added a new element and these
   // tests fail, it could be that you haven't added the element
-  // into ElementDisplaySchema
+  // into ElementDisplaySchema. Another likely reason is that you
+  // need to add or modify the mock data being passed as the value
+  // to FlexibleUiContext.Provider
   describe.each([
     ['inline' as ElementDisplaySchemaType],
     ['block' as ElementDisplaySchemaType],

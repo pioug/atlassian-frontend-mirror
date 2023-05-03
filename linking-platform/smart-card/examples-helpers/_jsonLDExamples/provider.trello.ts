@@ -1,36 +1,54 @@
-import { avatar2, avatar3 } from '../../examples/images';
+import { avatar2, avatar3, iconTrello, image1 } from '../../examples/images';
 
 export const TrelloBoard = {
+  '@id': 'https://trellis.coffee/b/4XkW4AJC',
   '@context': {
     '@vocab': 'https://www.w3.org/ns/activitystreams#',
     atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
     schema: 'http://schema.org/',
   },
+  '@type': 'atlassian:Project',
   generator: {
     '@type': 'Application',
     name: 'Trello',
     icon: {
       '@type': 'Image',
-      url: 'https://fd-assets.prod.atl-paas.net/image/logos/contrib/trello/icons/blue.svg',
+      url: iconTrello,
     },
   },
-  '@type': 'atlassian:Project',
-  url: 'https://project-url',
   icon: {
     '@type': 'Image',
-    url: 'https://fd-assets.prod.atl-paas.net/image/logos/contrib/trello/icons/neutral.svg',
+    url: iconTrello,
   },
+  url: 'https://trellis.coffee/b/4XkW4AJC',
   'atlassian:isDeleted': false,
   'atlassian:member': {
-    totalItems: 1,
     items: [
-      { '@type': 'Person', icon: avatar3, name: 'Aliza' },
-      { '@type': 'Person', icon: avatar2, name: 'Steve' },
+      {
+        '@type': 'Person',
+        name: 'Adil Bhayani',
+        icon: avatar3,
+      },
     ],
+    totalItems: 1,
   },
-  name: 'Lorem ipsum dolor sit amet',
+  name: 'A test board in staging',
   summary:
-    'Cras ut nisi vitae lectus sagittis mattis. Curabitur a urna feugiat, laoreet enim ac, lobortis diam.',
+    'This is the description of the test board. Feel free to play around in this staging instance.',
+  image: {
+    '@type': 'Image',
+    url: image1,
+  },
+  location: {
+    '@context': {
+      '@vocab': 'https://www.w3.org/ns/activitystreams#',
+      atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+      schema: 'http://schema.org/',
+    },
+    '@type': 'atlassian:Project',
+    name: 'userworkspace73847528',
+    url: 'https://trellis.coffee/w/userworkspace73847528',
+  },
   preview: {
     '@type': 'Link',
     'atlassian:supportedPlatforms': ['web'],
@@ -39,6 +57,7 @@ export const TrelloBoard = {
 };
 
 export const TrelloCard = {
+  '@id': 'https://trellis.coffee/c/PPkz6M3s',
   '@context': {
     '@vocab': 'https://www.w3.org/ns/activitystreams#',
     atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
@@ -49,29 +68,68 @@ export const TrelloCard = {
     name: 'Trello',
     icon: {
       '@type': 'Image',
-      url: 'https://fd-assets.prod.atl-paas.net/image/logos/contrib/trello/icons/blue.svg',
+      url: iconTrello,
     },
   },
-  '@type': 'atlassian:Task',
-  url: 'https://project-url',
+  icon: {
+    '@type': 'Image',
+    url: iconTrello,
+  },
+  '@type': 'atlassian:Project',
+  url: 'https://trellis.coffee/c/PPkz6M3s',
+  'atlassian:attachmentCount': 3,
+  location: {
+    '@context': {
+      '@vocab': 'https://www.w3.org/ns/activitystreams#',
+      atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+      schema: 'http://schema.org/',
+    },
+    '@type': 'atlassian:Project',
+    name: 'Public Board',
+    url: 'https://trellis.coffee/b/lQazxNTe/public-board',
+  },
   'atlassian:isDeleted': false,
   'atlassian:member': {
-    totalItems: 1,
     items: [
-      { '@type': 'Person', icon: avatar3, name: 'Aliza' },
-      { '@type': 'Person', icon: avatar2, name: 'Steve' },
+      {
+        '@type': 'Person',
+        name: 'Luke Dahill',
+        icon: avatar2,
+      },
     ],
+    totalItems: 1,
   },
-  name: 'Trello Card Title',
+  endTime: '2025-11-10T20:13:00.000Z',
+  name: 'Example Card with due date, member, attachments, and cover',
   summary:
-    'Cras ut nisi vitae lectus sagittis mattis. Curabitur a urna feugiat, laoreet enim ac, lobortis diam.',
-  'atlassian:attachmentCount': 2,
-  'atlassian:checkItems': {
-    checkedItems: 2,
-    totalItems: 3,
+    'This is an example card to test the hover preview. Ideally this should show a due date, member set, and attachment count in a hover preview card.',
+  'atlassian:state': 'List 1',
+  image: {
+    '@type': 'Image',
+    url: image1,
   },
-  'atlassian:commentCount': 11,
-  'atlassian:reactCount': 3,
-  startTime: '2018-07-10T15:00:32Z',
-  endTime: '2018-08-10T00:00:00Z',
+  'schema:commentCount': 1,
+};
+
+const baseMetaData = {
+  visibility: 'restricted',
+  access: 'granted',
+  version: '2509',
+  key: 'trello-object-provider',
+};
+
+export const FullTrelloCard = {
+  meta: {
+    ...baseMetaData,
+    resourceType: 'card',
+  },
+  data: TrelloCard,
+};
+
+export const FullTrelloBoard = {
+  meta: {
+    ...baseMetaData,
+    resourceType: 'board',
+  },
+  data: TrelloBoard,
 };

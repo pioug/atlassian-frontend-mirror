@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -14,8 +15,7 @@ export default {
   'fabric.editor.headingLink.descOrderLabel': "Cancella l'ordinamento",
   'fabric.editor.headingLink.descSortingLabel': 'decrescente',
   'fabric.editor.headingLink.failedToCopy': 'Copia non riuscita',
-  'fabric.editor.headingLink.invalidLabel':
-    '⚠️ Non puoi ordinare una tabella con celle unite',
+  'fabric.editor.headingLink.invalidLabel': '⚠️ Non puoi ordinare una tabella con celle unite',
   'fabric.editor.headingLink.noOrderLabel': 'Ordina colonna da A a Z',
   'fabric.editor.headingLink.noneSortingLabel': 'nessuno',
 };

@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -14,8 +15,7 @@ export default {
   'fabric.editor.headingLink.descOrderLabel': 'Sortering wissen',
   'fabric.editor.headingLink.descSortingLabel': 'aflopend',
   'fabric.editor.headingLink.failedToCopy': 'Kopiëren mislukt',
-  'fabric.editor.headingLink.invalidLabel':
-    '⚠️ Je kan een tabel met samengevoegde cellen niet rangschikken',
+  'fabric.editor.headingLink.invalidLabel': '⚠️ Je kan een tabel met samengevoegde cellen niet rangschikken',
   'fabric.editor.headingLink.noOrderLabel': 'Rangschik kolom van A tot Z',
   'fabric.editor.headingLink.noneSortingLabel': 'Geen',
 };

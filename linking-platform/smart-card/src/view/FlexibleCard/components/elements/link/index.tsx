@@ -4,7 +4,11 @@ import { css, jsx, SerializedStyles } from '@emotion/react';
 
 import Tooltip from '@atlaskit/tooltip';
 
-import { SmartLinkSize, SmartLinkTheme } from '../../../../../constants';
+import {
+  SmartLinkInternalTheme,
+  SmartLinkSize,
+  SmartLinkTheme,
+} from '../../../../../constants';
 
 import { LinkProps } from './types';
 import {
@@ -15,6 +19,7 @@ import {
 } from '../../utils';
 import { tokens } from '../../../../../utils/token';
 import useMouseDownEvent from '../../../../../state/analytics/useMouseDownEvent';
+import { token } from '@atlaskit/tokens';
 
 const DEFAULT_MAX_LINES = 2;
 const MAXIMUM_MAX_LINES = 2;
@@ -24,8 +29,19 @@ const containerStyles = css`
   flex: 1 1 auto;
 `;
 
-const getThemeStyles = (theme: SmartLinkTheme): SerializedStyles => {
+const getThemeStyles = (
+  theme: SmartLinkTheme | SmartLinkInternalTheme,
+): SerializedStyles => {
   switch (theme) {
+    case SmartLinkInternalTheme.Grey:
+      return css`
+        color: ${token('color.text.subtlest', '#626F86')};
+        :hover {
+          color: ${token('color.text.subtlest', '#626F86')};
+          text-decoration: underline;
+        }
+        font-size: 12px;
+      `;
     // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
     case SmartLinkTheme.Black:
       return css`
@@ -55,7 +71,7 @@ const getThemeStyles = (theme: SmartLinkTheme): SerializedStyles => {
 
 const getAnchorStyles = (
   size: SmartLinkSize,
-  theme: SmartLinkTheme,
+  theme: SmartLinkTheme | SmartLinkInternalTheme,
   maxLines: number,
   hasSpace: boolean,
 ): SerializedStyles => {

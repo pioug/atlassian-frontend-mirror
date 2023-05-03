@@ -553,7 +553,8 @@ describe('Field', () => {
     expect(label).toHaveAttribute('id', 'username-label');
   });
 
-  it('should indicate whether form is submitting', async () => {
+  // TODO: Fix flaky test, example: https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/%7B840045bf-9955-4d65-8f42-d40d498b9811%7D/steps/%7B20298ecd-cd6b-4355-8491-b5c20777c58b%7D/test-report
+  it.skip('should indicate whether form is submitting', async () => {
     const promise = new Promise<void>((resolve) => setTimeout(resolve, 100));
     render(
       <Form onSubmit={() => promise}>

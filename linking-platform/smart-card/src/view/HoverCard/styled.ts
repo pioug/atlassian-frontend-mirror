@@ -51,7 +51,7 @@ export const titleBlockCss = css`
   [data-smart-element-group] {
     // gap between title and subtitle
     gap: 0.06rem;
-
+    display: flex;
     /* subtitle element group */
     > [data-smart-element-group] {
       > span {

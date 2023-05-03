@@ -228,6 +228,7 @@ export type ElementItemProps =
   | DueOn
   | LatestCommit
   | LinkIcon
+  | Location
   | ModifiedBy
   | ModifiedOn
   | OwnedBy
@@ -325,6 +326,12 @@ export type LatestCommit = {
  */
 export type LinkIcon = {
   name: ElementName.LinkIcon;
+};
+/**
+ * Represents the props for the Location element.
+ */
+export type Location = {
+  name: ElementName.Location;
 };
 /**
  * Represents the props available for an ModifiedBy element.

@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -14,8 +15,7 @@ export default {
   'fabric.editor.headingLink.descOrderLabel': 'Rensa sortering',
   'fabric.editor.headingLink.descSortingLabel': 'fallande',
   'fabric.editor.headingLink.failedToCopy': 'Kopiering misslyckades',
-  'fabric.editor.headingLink.invalidLabel':
-    '⚠️ Du kan inte sortera en panelvy med sammanslagna celler',
+  'fabric.editor.headingLink.invalidLabel': '⚠️ Du kan inte sortera en panelvy med sammanslagna celler',
   'fabric.editor.headingLink.noOrderLabel': 'Sortera kolumn A till Ö',
   'fabric.editor.headingLink.noneSortingLabel': 'Ingen',
 };

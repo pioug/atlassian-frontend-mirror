@@ -55,6 +55,16 @@ export interface DateTimePickerBaseProps extends WithAnalyticsEventsProps {
    */
   id?: string;
   /**
+   * The ID of the element that labels the datetime picker field. This will
+   * label the element that groups both the datepicker and the timepicker.
+   */
+  // This is the way it is because when used with the field component, the
+  // `fieldProps` spread into the props of this component. We don't want to
+  // disturb it's use with other components, so this was the easiest way to
+  // access it.
+  // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
+  'aria-labelledby'?: string;
+  /**
    * Props to apply to the container. *
    */
   innerProps?: React.AllHTMLAttributes<HTMLElement>;
@@ -290,6 +300,10 @@ const dateTimePickerDefaultProps = {
   // Not including a default prop for value as it will
   // Make the component a controlled component
 };
+
+export const datePickerDefaultAriaLabel = 'Date';
+export const timePickerDefaultAriaLabel = 'Time';
+
 class DateTimePicker extends React.Component<DateTimePickerProps, State> {
   static defaultProps = dateTimePickerDefaultProps;
 
@@ -417,6 +431,7 @@ class DateTimePicker extends React.Component<DateTimePickerProps, State> {
       timeFormat,
       locale,
       testId,
+      'aria-labelledby': ariaLabelledBy,
     } = this.props;
     const { isFocused, value, dateValue, timeValue } = this.getSafeState();
     const bothProps = {
@@ -433,11 +448,15 @@ class DateTimePicker extends React.Component<DateTimePickerProps, State> {
 
     const mergedDatePickerSelectProps = {
       ...datePickerSelectProps,
+      'aria-label':
+        datePickerSelectProps['aria-label'] || datePickerDefaultAriaLabel,
       styles: mergeStyles(styles, datePickerStyles),
     };
 
     const mergedTimePickerSelectProps = {
       ...timePickerSelectProps,
+      'aria-label':
+        timePickerSelectProps['aria-label'] || timePickerDefaultAriaLabel,
       styles: mergeStyles(styles, timePickerStyles),
     };
 
@@ -461,6 +480,8 @@ class DateTimePicker extends React.Component<DateTimePickerProps, State> {
           bothProps.appearance === 'none' && noBgStyles,
         ]}
         {...innerProps}
+        role="group"
+        aria-labelledby={ariaLabelledBy}
         data-testid={testId}
       >
         <input

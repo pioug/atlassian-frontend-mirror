@@ -16,6 +16,7 @@ import {
   extractSourceBranch,
   extractTargetBranch,
   extractDueOn,
+  extractLocation,
   extractOwnedBy,
 } from './utils';
 import { extractPersonsUpdatedBy } from './collaboratorGroup';
@@ -72,6 +73,7 @@ const extractFlexibleUiContext = ({
     downloadAction: extractDownloadAction(data),
     latestCommit: extractLatestCommit(data as JsonLd.Data.SourceCodeRepository),
     linkIcon: extractLinkIcon(response, renderers),
+    location: extractLocation(data),
     modifiedBy: extractModifiedBy(data),
     modifiedOn: extractDateUpdated(data),
     preview: extractPreview(data),

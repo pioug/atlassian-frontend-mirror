@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -7,14 +8,13 @@
 //Russian
 export default {
   'fabric.editor.addAltText': 'Альтернативный текст',
+  'fabric.editor.addImageBorder': 'Добавить рамку',
   'fabric.editor.alignCenter': 'Выровнено по центру',
   'fabric.editor.alignLeft': 'Выровнять по левому краю',
   'fabric.editor.alignRight': 'Выровнено по правому краю',
   'fabric.editor.alignment': 'Выравнивание текста',
   'fabric.editor.altText': 'Альтернативный текст',
-  'fabric.editor.alttext.validation':
-    'Удалите специальные символы в alt-тексте.',
-  'fabric.editor.annotate': 'Добавить примечания',
+  'fabric.editor.alttext.validation': 'Удалите специальные символы в alt-тексте.',
   'fabric.editor.annotationToolbar': 'Панель инструментов для примечаний',
   'fabric.editor.backLink': 'Назад',
   'fabric.editor.blockCardUnavailable':
@@ -59,23 +59,20 @@ export default {
   'fabric.editor.configPanel.required': 'Обязательное поле',
   'fabric.editor.configPanel.submit': 'Отправить',
   'fabric.editor.createComment': 'Комментировать',
-  'fabric.editor.createCommentInvalid':
-    'Можно комментировать только текст и заголовки',
+  'fabric.editor.createCommentInvalid': 'Можно комментировать только текст и заголовки',
   'fabric.editor.customPanel': 'Пользовательская панель',
-  'fabric.editor.customPanel.description':
-    'Добавьте примечание с эмодзи и цветным фоном',
+  'fabric.editor.customPanel.description': 'Добавьте примечание с эмодзи и цветным фоном',
   'fabric.editor.decisionPlaceholder': 'Добавить решение…',
   'fabric.editor.defaultAltText': 'Элемент списка',
+  'fabric.editor.description': 'Описание',
   'fabric.editor.displayBlock': 'Отобразить карточку',
   'fabric.editor.displayEmbed': 'Отобразить как встроенный объект',
   'fabric.editor.displayInline': 'Отобразить внутри строки',
   'fabric.editor.displayLink': 'Отобразить в виде текста',
-  'fabric.editor.displayOptionUnavailableInParentNode':
-    'Этот параметр отображения недоступен внутри узла {node}',
+  'fabric.editor.displayOptionUnavailableInParentNode': 'Этот параметр отображения недоступен внутри узла {node}',
   'fabric.editor.displayText': 'Текст для отображения',
   'fabric.editor.dropPlaceholderLabel': 'Документ',
-  'fabric.editor.ecombedDescription':
-    'Интерактивный предварительный просмотр ссылки',
+  'fabric.editor.ecombedDescription': 'Интерактивный предварительный просмотр ссылки',
   'fabric.editor.edit': 'Изменить',
   'fabric.editor.editAltText': 'Изменить альтернативный текст',
   'fabric.editor.editDateText': 'Редактировать дату',
@@ -83,33 +80,25 @@ export default {
   'fabric.editor.editStatusColor': 'Редактировать цвет статуса',
   'fabric.editor.editStatusText': 'Редактировать статус',
   'fabric.editor.editableContentLabel': 'Контент можно редактировать',
+  'fabric.editor.editorAssistiveLabel': 'Область основного содержимого. Начните печатать, чтобы ввести текст.',
   'fabric.editor.editorHelp': 'Справка по редактору',
   'fabric.editor.editors': 'Редакторы',
   'fabric.editor.elementBrowser.help': 'Справка',
-  'fabric.editor.elementbrowser.categorylist.category-admin':
-    'Администрирование',
+  'fabric.editor.elementbrowser.categorylist.category-admin': 'Администрирование',
   'fabric.editor.elementbrowser.categorylist.category-all': 'Все',
-  'fabric.editor.elementbrowser.categorylist.category-communication':
-    'Коммуникация',
-  'fabric.editor.elementbrowser.categorylist.category-confluence-content':
-    'Содержимое Confluence',
-  'fabric.editor.elementbrowser.categorylist.category-development':
-    'Разработка',
-  'fabric.editor.elementbrowser.categorylist.category-external-content':
-    'Внешнее содержимое',
-  'fabric.editor.elementbrowser.categorylist.category-formatting':
-    'Форматирование',
+  'fabric.editor.elementbrowser.categorylist.category-communication': 'Коммуникация',
+  'fabric.editor.elementbrowser.categorylist.category-confluence-content': 'Содержимое Confluence',
+  'fabric.editor.elementbrowser.categorylist.category-development': 'Разработка',
+  'fabric.editor.elementbrowser.categorylist.category-external-content': 'Внешнее содержимое',
+  'fabric.editor.elementbrowser.categorylist.category-formatting': 'Форматирование',
   'fabric.editor.elementbrowser.categorylist.category-media': 'Медиа',
   'fabric.editor.elementbrowser.categorylist.category-navigation': 'Навигация',
   'fabric.editor.elementbrowser.categorylist.category-reporting': 'Отчеты',
-  'fabric.editor.elementbrowser.categorylist.category-visuals':
-    'Схемы и изображения',
-  'fabric.editor.elementbrowser.search.empty-state.heading':
-    'По вашему запросу ничего не найдено',
+  'fabric.editor.elementbrowser.categorylist.category-visuals': 'Схемы и изображения',
+  'fabric.editor.elementbrowser.search.empty-state.heading': 'По вашему запросу ничего не найдено',
   'fabric.editor.elementbrowser.search.empty-state.sub-heading':
     'Попробуйте изменить запрос или узнайте о новых приложениях для продуктов Atlassian.',
-  'fabric.editor.elementbrowser.search.empty-state.sub-heading.link':
-    'Ознакомьтесь с Atlassian Marketplace',
+  'fabric.editor.elementbrowser.search.empty-state.sub-heading.link': 'Ознакомьтесь с Atlassian Marketplace',
   'fabric.editor.elementbrowser.sidebar.heading': 'Обзор',
   'fabric.editor.embedTitle': 'Внедренный объект',
   'fabric.editor.emptyLink': 'Введите ссылку.',
@@ -118,22 +107,23 @@ export default {
   'fabric.editor.errorPanel': 'Панель с ошибкой',
   'fabric.editor.errorPanel.description': 'Выделить ошибки цветом',
   'fabric.editor.extension.confirmDeleteLinkedModalMessage':
-    'При удалении этого расширения нарушится работа всего, что с ним связано.',
-  'fabric.editor.extension.confirmDeleteLinkedModalOKButton':
-    'Удалить расширение',
-  'fabric.editor.extensions.config-panel.save-indicator':
-    'Любые изменения всегда сохраняются автоматически',
+    'При удалении элемента {nodeName} нарушится работа всего, что с ним связано.',
+  'fabric.editor.extension.confirmDeleteLinkedModalOKButton': 'Удалить',
+  'fabric.editor.extension.deleteElementTitle': 'Удаление элемента',
+  'fabric.editor.extensions.config-panel.save-indicator': 'Любые изменения всегда сохраняются автоматически',
   'fabric.editor.find': 'Найти',
   'fabric.editor.findNext': 'Найти далее',
   'fabric.editor.findPrevious': 'Найти ранее',
   'fabric.editor.findReplaceToolbarButton': 'Найти и заменить',
   'fabric.editor.floatingToolbar.confirmModalCancel': 'Отмена',
+  'fabric.editor.floatingToolbar.confirmModalCheckboxLabel': 'Также удалить подключенные элементы',
   'fabric.editor.floatingToolbar.confirmModalHeading': 'Вы уверены?',
   'fabric.editor.floatingToolbar.confirmModalOK': 'ОК',
   'fabric.editor.floatingToolbar.floatingToolbarAnnouncer':
     'Открыты элементы управления на перемещаемой панели инструментов',
-  'fabric.editor.floatingToolbar.floatingToolbarAriaLabel':
-    'Перемещаемая панель инструментов',
+  'fabric.editor.floatingToolbar.floatingToolbarAriaLabel': 'Перемещаемая панель инструментов',
+  'fabric.editor.floatingToolbar.scrollLeft': 'Прокрутить влево',
+  'fabric.editor.floatingToolbar.scrollRight': 'Прокрутить вправо',
   'fabric.editor.heading1': 'Заголовок 1',
   'fabric.editor.heading1Description': 'Для заголовка верхнего уровня',
   'fabric.editor.heading2': 'Заголовок 2',
@@ -153,21 +143,24 @@ export default {
   'fabric.editor.headingLink.hyperlinkIconStoryLabel': 'История',
   'fabric.editor.headingLink.hyperlinkIconTaskLabel': 'Задание',
   'fabric.editor.headingLink.toolbarHelpTitle': 'Открыть справку',
-  'fabric.editor.helpDialogTips':
-    'Это окно можно быстро открыть в любое время нажатием {keyMap}',
+  'fabric.editor.helpDialogTips': 'Это окно можно быстро открыть в любое время нажатием {keyMap}',
   'fabric.editor.hyperlink.linkAriaLabel': 'Метка для ссылки',
-  'fabric.editor.hyperlink.searchLinkAriaDescription':
-    'Предложения будут появляться по мере ввода текста в поле',
+  'fabric.editor.hyperlink.searchLinkAriaDescription': 'Предложения будут появляться по мере ввода текста в поле',
   'fabric.editor.hyperlink.searchLinkResults':
-    '{count, plural, =0 {нет результатов} one {найден {count,number} результат} few {найдено {count,number} результата} many {найдено {count,number} результатов} other {найдено {count,number} результата}}',
+    '{count, plural, =0 {ничего не найдено} one {найден {count,number} результат} few {найдено {count,number} результата} many {найдено {count,number} результатов} other {найдено {count,number} результата}}',
   'fabric.editor.hyperlinkToolbarPlaceholder': 'Вставить или искать ссылку',
+  'fabric.editor.imageBorderBold': 'Широкая',
+  'fabric.editor.imageBorderColor': 'Цвет',
+  'fabric.editor.imageBorderMedium': 'Средняя',
+  'fabric.editor.imageBorderOptions': 'Параметры рамки',
+  'fabric.editor.imageBorderSize': 'Размер',
+  'fabric.editor.imageBorderSubtle': 'Узкая',
   'fabric.editor.improvement': 'Улучшение',
   'fabric.editor.indent': 'Сделать отступ',
   'fabric.editor.info': 'Информация',
   'fabric.editor.infoPanel': 'Информационная панель',
   'fabric.editor.infoPanel.description': 'Выделение информации цветом',
-  'fabric.editor.inlineDescription':
-    'Отображение ссылки в виде встроенного текста',
+  'fabric.editor.inlineDescription': 'Отображение ссылки в виде встроенного текста',
   'fabric.editor.inlineTitle': 'Встроенный текст',
   'fabric.editor.inputQueryAssistiveTxt':
     'Если доступны результаты автозаполнения, используйте клавиши со стрелками вверх и вниз для просмотра и клавишу Enter для выбора. Если у вас сенсорное устройство, используйте для просмотра касание и смахивание.',
@@ -185,9 +178,12 @@ export default {
   'fabric.editor.matchCase': 'С учетом регистра',
   'fabric.editor.mediaAddLink': 'Добавить ссылку',
   'fabric.editor.mediaGroupDeleteLabel': 'Удалить',
+  'fabric.editor.mentionNode.label': 'Упомянут пользователь',
   'fabric.editor.mentionsAddLabel': 'добавить-значок',
   'fabric.editor.mentionsIconLabel': 'Упоминание',
   'fabric.editor.moreFormatting': 'Расширенные параметры форматирования',
+  'fabric.editor.navigate.toolbar.editor': 'Перейти на панель инструментов редактора',
+  'fabric.editor.navigate.toolbar.floating': 'Перейти на перемещаемую панель инструментов',
   'fabric.editor.noResultsFound': 'Ничего не найдено',
   'fabric.editor.noSearchResults': 'Ничего не найдено',
   'fabric.editor.normal': 'Обычный текст',
@@ -204,49 +200,55 @@ export default {
   'fabric.editor.panel.backgroundColor': 'Цвет фона',
   'fabric.editor.panel.emoji': 'Добавить эмодзи',
   'fabric.editor.pastePlainText': 'Вставить обычный текст',
-  'fabric.editor.placeholderAltText':
-    'Альтернативный текст для описания изображения',
+  'fabric.editor.placeholderAltText': 'Альтернативный текст для описания изображения',
   'fabric.editor.placeholderTextPlaceholder': 'Добавить замещающий текст',
   'fabric.editor.quickInsert': 'Быстрая вставка',
   'fabric.editor.redo': 'Вернуть',
+  'fabric.editor.removeImageBorder': 'Удалить рамку',
   'fabric.editor.replace': 'Заменить',
   'fabric.editor.replaceAll': 'Заменить все',
   'fabric.editor.replaceWith': 'Заменить на',
-  'fabric.editor.resultsCount':
-    '{selectedMatchPosition} из {totalResultsCount}',
+  'fabric.editor.resultsCount': '{selectedMatchPosition} из {totalResultsCount}',
   'fabric.editor.rightSidebar': 'Правая боковая панель',
   'fabric.editor.searchResults':
     '{itemsLength, plural, one {Доступен {itemsLength,number} результат поиска} few {Доступно {itemsLength,number} результата поиска} many {Доступно {itemsLength,number} результатов поиска} other {Доступно {itemsLength,number} результата поиска}}',
   'fabric.editor.selectLanguage': 'Выберите язык',
   'fabric.editor.settingsLinks': 'Перейти к настройкам ссылок',
+  'fabric.editor.shortcut': 'Текстовый ярлык',
   'fabric.editor.single': 'Один столбец',
   'fabric.editor.statusPlaceholder': 'Задать статус',
   'fabric.editor.story': 'История',
   'fabric.editor.strike': 'Зачеркнутый',
   'fabric.editor.subTask': 'Подзадача',
   'fabric.editor.subscript': 'Подстрочный',
-  'fabric.editor.subscript.off.superscript.on':
-    'Нижний индекс выкл., верхний индекс вкл.',
+  'fabric.editor.subscript.off.superscript.on': 'Нижний индекс выкл., верхний индекс вкл.',
   'fabric.editor.success': 'Готово',
   'fabric.editor.successPanel': 'Панель «Готово»',
   'fabric.editor.successPanel.description': 'Добавить цветные подсказки',
   'fabric.editor.superscript': 'Надстрочный',
-  'fabric.editor.superscript.off.subscript.on':
-    'Верхний индекс выкл., нижний индекс вкл.',
+  'fabric.editor.superscript.off.subscript.on': 'Верхний индекс выкл., нижний индекс вкл.',
   'fabric.editor.supportAltText':
     'Альтернативный текст предназначен для слабовидящих и незрячих людей, которые пользуются функцией озвучивания текста на экране.',
   'fabric.editor.task': 'Задание',
-  'fabric.editor.taskPlaceholder':
-    'Укажите задание и назначьте исполнителя с помощью значка «@».',
+  'fabric.editor.taskPlaceholder': 'Укажите задание и назначьте исполнителя с помощью значка «@».',
   'fabric.editor.text.formatting.off': 'Форматирование текста выкл.',
   'fabric.editor.textColor': 'Цвет текста',
   'fabric.editor.textStyles': 'Стили текста',
   'fabric.editor.threeColumns': 'Три столбца',
   'fabric.editor.threeColumnsWithSidebars': 'Три столбца с боковыми панелями',
   'fabric.editor.toolbarLabel': 'Панель инструментов редактора',
-  'fabric.editor.toolbarMediaTitle': 'Файлы и изображения',
+  'fabric.editor.toolbarMediaTitle': 'Добавить изображение, видео или файл',
   'fabric.editor.twoColumns': 'Два столбца',
-  'fabric.editor.typeAheadResultLabel': 'Результаты опережающего ввода',
+  'fabric.editor.typeAhead.popupLabel': 'Результаты автозаполнения',
+  'fabric.editor.typeAhead.quickInsertInputLabel': 'Начните вводить текст для поиска или фильтрации сочетаний клавиш',
+  'fabric.editor.typeAhead.quickInsertPopupLabel': 'Сочетания клавиш для вставки и форматирования',
+  'fabric.editor.typeahead.emojiInputLabel': 'Начните вводить текст для поиска или фильтрации эмодзи',
+  'fabric.editor.typeahead.emojiListItemLabel': 'Сочетание клавиш для эмодзи {name}: {shortcut}',
+  'fabric.editor.typeahead.emojiPopupLabel': 'Сочетания клавиш для эмодзи',
+  'fabric.editor.typeahead.mentionInputLabel':
+    'Начните вводить текст для поиска пользователей, которых можно упомянуть',
+  'fabric.editor.typeahead.mentionPopupLabel': 'Пользователи, которых можно упомянуть',
+  'fabric.editor.typeahead.metionListItemLabel': 'Пользователь {name} @{shortName}',
   'fabric.editor.unableToOpenLink': 'Не удалось открыть ссылку',
   'fabric.editor.underline': 'Подчеркнутый',
   'fabric.editor.undo': 'Отменить',
@@ -261,4 +263,5 @@ export default {
   'fabric.editor.warningPanel.description': 'Добавить цветное предупреждение',
   'fabric.editor.wrapLeft': 'Заверстать влево',
   'fabric.editor.wrapRight': 'Заверстать вправо',
+  'fabric.emoji.label': 'Эмодзи',
 };

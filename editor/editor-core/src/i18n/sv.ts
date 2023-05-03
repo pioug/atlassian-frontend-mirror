@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -7,20 +8,17 @@
 //Swedish
 export default {
   'fabric.editor.addAltText': 'Alternativ text',
+  'fabric.editor.addImageBorder': 'Lägg till kant',
   'fabric.editor.alignCenter': 'Mittenjustera',
   'fabric.editor.alignLeft': 'Vänsterjustera',
   'fabric.editor.alignRight': 'Högerjustera',
   'fabric.editor.alignment': 'Textjustering',
   'fabric.editor.altText': 'Alt-text',
-  'fabric.editor.alttext.validation':
-    'Ta bort eventuella specialtecken i alternativ text.',
-  'fabric.editor.annotate': 'Kommentera',
+  'fabric.editor.alttext.validation': 'Ta bort eventuella specialtecken i alternativ text.',
   'fabric.editor.annotationToolbar': 'Verktygsfält för kommentarer',
   'fabric.editor.backLink': 'Gå tillbaka',
-  'fabric.editor.blockCardUnavailable':
-    'Inlinelänken är inuti {node} och det går inte att byta dess vy',
-  'fabric.editor.blockDescription':
-    'Visa mer information om en länk, inklusive en sammanfattning och åtgärder',
+  'fabric.editor.blockCardUnavailable': 'Inlinelänken är inuti {node} och det går inte att byta dess vy',
+  'fabric.editor.blockDescription': 'Visa mer information om en länk, inklusive en sammanfattning och åtgärder',
   'fabric.editor.blockTitle': 'Kort',
   'fabric.editor.blockquote.description': 'Infoga citat',
   'fabric.editor.blockquote2': 'Citat',
@@ -51,21 +49,19 @@ export default {
   'fabric.editor.configPanel.dateRange.option.custom': 'Anpassat',
   'fabric.editor.configPanel.documentation': 'Dokumentation',
   'fabric.editor.configPanel.errorBoundary.title': 'Något gick fel.',
-  'fabric.editor.configPanel.fieldTypeError.isMultipleAndRadio':
-    'Kan inte kombinera isMultiple med stilen radio',
+  'fabric.editor.configPanel.fieldTypeError.isMultipleAndRadio': 'Kan inte kombinera isMultiple med stilen radio',
   'fabric.editor.configPanel.formType.addField': 'Lägg till fält',
   'fabric.editor.configPanel.formType.removeField': 'Ta bort fält',
   'fabric.editor.configPanel.invalid': 'Ogiltigt fält',
   'fabric.editor.configPanel.required': 'Obligatoriskt fält',
   'fabric.editor.configPanel.submit': 'Skicka in',
   'fabric.editor.createComment': 'Kommentera',
-  'fabric.editor.createCommentInvalid':
-    'Du kan bara kommentera på text och rubriker',
+  'fabric.editor.createCommentInvalid': 'Du kan bara kommentera på text och rubriker',
   'fabric.editor.customPanel': 'Anpassad panel',
-  'fabric.editor.customPanel.description':
-    'Lägg till en anteckning med en emoji och en färgad bakgrund',
+  'fabric.editor.customPanel.description': 'Lägg till en anteckning med en emoji och en färgad bakgrund',
   'fabric.editor.decisionPlaceholder': 'Lägg till ett beslut ...',
   'fabric.editor.defaultAltText': 'Listobjekt',
+  'fabric.editor.description': 'Beskrivning',
   'fabric.editor.displayBlock': 'Visa kort',
   'fabric.editor.displayEmbed': 'Visa inbäddad',
   'fabric.editor.displayInline': 'Visa inline',
@@ -74,8 +70,7 @@ export default {
     'Det här visningsalternativet är inte tillgängligt inuti {node}',
   'fabric.editor.displayText': 'Text att visa',
   'fabric.editor.dropPlaceholderLabel': 'Dokument',
-  'fabric.editor.ecombedDescription':
-    'Visa en interaktiv förhandsvisning av en länk',
+  'fabric.editor.ecombedDescription': 'Visa en interaktiv förhandsvisning av en länk',
   'fabric.editor.edit': 'Redigera',
   'fabric.editor.editAltText': 'Redigera alternativ text',
   'fabric.editor.editDateText': 'Redigeringsdatum',
@@ -83,33 +78,25 @@ export default {
   'fabric.editor.editStatusColor': 'Redigera statusfärg',
   'fabric.editor.editStatusText': 'Redigera status',
   'fabric.editor.editableContentLabel': 'Innehåll som kan redigeras',
+  'fabric.editor.editorAssistiveLabel': 'Huvudsakligt innehållsområde, börja skriva för att ange text.',
   'fabric.editor.editorHelp': 'Editor-hjälp',
   'fabric.editor.editors': 'Redigerare',
   'fabric.editor.elementBrowser.help': 'Hjälp',
   'fabric.editor.elementbrowser.categorylist.category-admin': 'Administration',
   'fabric.editor.elementbrowser.categorylist.category-all': 'Alla',
-  'fabric.editor.elementbrowser.categorylist.category-communication':
-    'Kommunikation',
-  'fabric.editor.elementbrowser.categorylist.category-confluence-content':
-    'Confluence-innehåll',
-  'fabric.editor.elementbrowser.categorylist.category-development':
-    'Utveckling',
-  'fabric.editor.elementbrowser.categorylist.category-external-content':
-    'Externt innehåll',
-  'fabric.editor.elementbrowser.categorylist.category-formatting':
-    'Formatering',
+  'fabric.editor.elementbrowser.categorylist.category-communication': 'Kommunikation',
+  'fabric.editor.elementbrowser.categorylist.category-confluence-content': 'Confluence-innehåll',
+  'fabric.editor.elementbrowser.categorylist.category-development': 'Utveckling',
+  'fabric.editor.elementbrowser.categorylist.category-external-content': 'Externt innehåll',
+  'fabric.editor.elementbrowser.categorylist.category-formatting': 'Formatering',
   'fabric.editor.elementbrowser.categorylist.category-media': 'Media',
   'fabric.editor.elementbrowser.categorylist.category-navigation': 'Navigering',
-  'fabric.editor.elementbrowser.categorylist.category-reporting':
-    'Rapportering',
-  'fabric.editor.elementbrowser.categorylist.category-visuals':
-    'Grafik och bilder',
-  'fabric.editor.elementbrowser.search.empty-state.heading':
-    'Ingenting matchar din sökning',
+  'fabric.editor.elementbrowser.categorylist.category-reporting': 'Rapportering',
+  'fabric.editor.elementbrowser.categorylist.category-visuals': 'Grafik och bilder',
+  'fabric.editor.elementbrowser.search.empty-state.heading': 'Ingenting matchar din sökning',
   'fabric.editor.elementbrowser.search.empty-state.sub-heading':
     'Prova att söka med en annan term eller upptäck nya appar för Atlassian-produkter.',
-  'fabric.editor.elementbrowser.search.empty-state.sub-heading.link':
-    'Utforska Atlassian Marketplace',
+  'fabric.editor.elementbrowser.search.empty-state.sub-heading.link': 'Utforska Atlassian Marketplace',
   'fabric.editor.elementbrowser.sidebar.heading': 'Bläddra',
   'fabric.editor.embedTitle': 'Bädda in',
   'fabric.editor.emptyLink': 'Ange en länk.',
@@ -118,29 +105,28 @@ export default {
   'fabric.editor.errorPanel': 'Felpanel',
   'fabric.editor.errorPanel.description': 'Meddela om fel i en färgad panel',
   'fabric.editor.extension.confirmDeleteLinkedModalMessage':
-    'Om du tar bort det här tillägget bryts allt som är kopplat till det.',
-  'fabric.editor.extension.confirmDeleteLinkedModalOKButton':
-    'Ta bort tillägget',
-  'fabric.editor.extensions.config-panel.save-indicator':
-    'Alla ändringar sparas alltid automatiskt',
+    'Om du raderar {nodeName} bryts allt som är kopplat till den.',
+  'fabric.editor.extension.confirmDeleteLinkedModalOKButton': 'Radera',
+  'fabric.editor.extension.deleteElementTitle': 'Radera element',
+  'fabric.editor.extensions.config-panel.save-indicator': 'Alla ändringar sparas alltid automatiskt',
   'fabric.editor.find': 'Hitta',
   'fabric.editor.findNext': 'Hitta nästa',
   'fabric.editor.findPrevious': 'Hitta föregående',
   'fabric.editor.findReplaceToolbarButton': 'Sök och ersätt',
   'fabric.editor.floatingToolbar.confirmModalCancel': 'Avbryt',
+  'fabric.editor.floatingToolbar.confirmModalCheckboxLabel': 'Radera även anslutna element',
   'fabric.editor.floatingToolbar.confirmModalHeading': 'Är du säker?',
   'fabric.editor.floatingToolbar.confirmModalOK': 'OK',
-  'fabric.editor.floatingToolbar.floatingToolbarAnnouncer':
-    'Svävande verktygsfält har öppnats',
-  'fabric.editor.floatingToolbar.floatingToolbarAriaLabel':
-    'Svävande verktygsfält',
+  'fabric.editor.floatingToolbar.floatingToolbarAnnouncer': 'Svävande verktygsfält har öppnats',
+  'fabric.editor.floatingToolbar.floatingToolbarAriaLabel': 'Svävande verktygsfält',
+  'fabric.editor.floatingToolbar.scrollLeft': 'Bläddra åt vänster',
+  'fabric.editor.floatingToolbar.scrollRight': 'Bläddra åt höger',
   'fabric.editor.heading1': 'Rubrik 1',
   'fabric.editor.heading1Description': 'Använd för rubrik på översta nivån',
   'fabric.editor.heading2': 'Rubrik 2',
   'fabric.editor.heading2Description': 'Använd för viktiga avsnitt',
   'fabric.editor.heading3': 'Rubrik 3',
-  'fabric.editor.heading3Description':
-    'Använd för underavsnitt och grupprubriker',
+  'fabric.editor.heading3Description': 'Använd för underavsnitt och grupprubriker',
   'fabric.editor.heading4': 'Rubrik 4',
   'fabric.editor.heading4Description': 'Använd för rubriker längre ner',
   'fabric.editor.heading5': 'Rubrik 5',
@@ -154,21 +140,23 @@ export default {
   'fabric.editor.headingLink.hyperlinkIconStoryLabel': 'Story',
   'fabric.editor.headingLink.hyperlinkIconTaskLabel': 'Uppgift',
   'fabric.editor.headingLink.toolbarHelpTitle': 'Öppna hjälpdialogruta',
-  'fabric.editor.helpDialogTips':
-    'Tryck på {keyMap} för att när som helst öppna den här dialogrutan',
+  'fabric.editor.helpDialogTips': 'Tryck på {keyMap} för att när som helst öppna den här dialogrutan',
   'fabric.editor.hyperlink.linkAriaLabel': 'Länketikett',
-  'fabric.editor.hyperlink.searchLinkAriaDescription':
-    'Förslag visas nedan när du skriver i fältet',
+  'fabric.editor.hyperlink.searchLinkAriaDescription': 'Förslag visas nedan när du skriver i fältet',
   'fabric.editor.hyperlink.searchLinkResults':
     '{count, plural, =0 {inga resultat hittades} one {{count,number} resultat hittades} other {{count,number} resultat hittades}}',
-  'fabric.editor.hyperlinkToolbarPlaceholder':
-    'Klistra in eller sök efter en länk',
+  'fabric.editor.hyperlinkToolbarPlaceholder': 'Klistra in eller sök efter en länk',
+  'fabric.editor.imageBorderBold': 'Fetstil',
+  'fabric.editor.imageBorderColor': 'Färg',
+  'fabric.editor.imageBorderMedium': 'Medium',
+  'fabric.editor.imageBorderOptions': 'Kantalternativ',
+  'fabric.editor.imageBorderSize': 'Storlek',
+  'fabric.editor.imageBorderSubtle': 'Diskret',
   'fabric.editor.improvement': 'Förbättring',
   'fabric.editor.indent': 'Indrag',
   'fabric.editor.info': 'Info',
   'fabric.editor.infoPanel': 'Informationspanel',
-  'fabric.editor.infoPanel.description':
-    'Markera information med en färgad panel',
+  'fabric.editor.infoPanel.description': 'Markera information med en färgad panel',
   'fabric.editor.inlineDescription': 'Visa länk som infogad text',
   'fabric.editor.inlineTitle': 'Inline',
   'fabric.editor.inputQueryAssistiveTxt':
@@ -187,16 +175,18 @@ export default {
   'fabric.editor.matchCase': 'Matcha skiftläge',
   'fabric.editor.mediaAddLink': 'Lägg till länk',
   'fabric.editor.mediaGroupDeleteLabel': 'Radera',
+  'fabric.editor.mentionNode.label': 'Taggade användaren',
   'fabric.editor.mentionsAddLabel': 'lägg till-ikon',
   'fabric.editor.mentionsIconLabel': 'Omnämnande',
   'fabric.editor.moreFormatting': 'Mer formatering',
+  'fabric.editor.navigate.toolbar.editor': 'Gå till verktygsfältet för redigering',
+  'fabric.editor.navigate.toolbar.floating': 'Gå till det svävande verktygsfältet',
   'fabric.editor.noResultsFound': 'Inga resultat',
   'fabric.editor.noSearchResults': 'Inga sökresultat',
   'fabric.editor.normal': 'Normal text',
   'fabric.editor.note': 'Anteckning',
   'fabric.editor.notePanel': 'Anteckningspanel',
-  'fabric.editor.notePanel.description':
-    'Lägg till en anteckning i en färgad panel',
+  'fabric.editor.notePanel.description': 'Lägg till en anteckning i en färgad panel',
   'fabric.editor.off': '{formattingType} av',
   'fabric.editor.on': '{formattingType} på',
   'fabric.editor.orderedList': 'Numrerad lista',
@@ -207,50 +197,54 @@ export default {
   'fabric.editor.panel.backgroundColor': 'Bakgrundsfärg',
   'fabric.editor.panel.emoji': 'Lägg till emoji',
   'fabric.editor.pastePlainText': 'Klistra in oformaterad text',
-  'fabric.editor.placeholderAltText':
-    'Beskriv den här bilden med alternativ text',
+  'fabric.editor.placeholderAltText': 'Beskriv den här bilden med alternativ text',
   'fabric.editor.placeholderTextPlaceholder': 'Lägg till platshållartext',
   'fabric.editor.quickInsert': 'Snabbinfoga',
   'fabric.editor.redo': 'Gör om',
+  'fabric.editor.removeImageBorder': 'Ta bort kanten',
   'fabric.editor.replace': 'Ersätt',
   'fabric.editor.replaceAll': 'Ersätt alla',
   'fabric.editor.replaceWith': 'Ersätt med',
-  'fabric.editor.resultsCount':
-    '{selectedMatchPosition} av {totalResultsCount}',
+  'fabric.editor.resultsCount': '{selectedMatchPosition} av {totalResultsCount}',
   'fabric.editor.rightSidebar': 'Höger sidopanel',
   'fabric.editor.searchResults':
     '{itemsLength, plural, one {{itemsLength,number} tillgängligt sökresultat} other {{itemsLength,number} tillgängliga sökresultat}}',
   'fabric.editor.selectLanguage': 'Välj språk',
   'fabric.editor.settingsLinks': 'Gå till länkinställningar',
+  'fabric.editor.shortcut': 'Textgenväg',
   'fabric.editor.single': 'Enkel kolumn',
   'fabric.editor.statusPlaceholder': 'Ange status',
   'fabric.editor.story': 'Story',
   'fabric.editor.strike': 'Genomstrykning',
   'fabric.editor.subTask': 'Underordnad uppgift',
   'fabric.editor.subscript': 'Nedsänkt',
-  'fabric.editor.subscript.off.superscript.on':
-    'Nedsänkt text av, upphöjd text på',
+  'fabric.editor.subscript.off.superscript.on': 'Nedsänkt text av, upphöjd text på',
   'fabric.editor.success': 'Klart!',
   'fabric.editor.successPanel': 'Framgångspanel',
-  'fabric.editor.successPanel.description':
-    'Lägg till ett tips i en färgad panel',
+  'fabric.editor.successPanel.description': 'Lägg till ett tips i en färgad panel',
   'fabric.editor.superscript': 'Upphöjd',
-  'fabric.editor.superscript.off.subscript.on':
-    'Upphöjd text av, nedsänkt text på',
+  'fabric.editor.superscript.off.subscript.on': 'Upphöjd text av, nedsänkt text på',
   'fabric.editor.supportAltText':
     'Alternativ text är användbart för de som använder skärmläsare på grund av visuella begränsningar.',
   'fabric.editor.task': 'Uppgift',
-  'fabric.editor.taskPlaceholder':
-    'Skriv din åtgärd och använd @ för att tilldela någon.',
+  'fabric.editor.taskPlaceholder': 'Skriv din åtgärd och använd @ för att tilldela någon.',
   'fabric.editor.text.formatting.off': 'Textformatering av',
   'fabric.editor.textColor': 'Textfärg',
   'fabric.editor.textStyles': 'Textstilar',
   'fabric.editor.threeColumns': 'Tre kolumner',
   'fabric.editor.threeColumnsWithSidebars': 'Tre kolumner med sidopaneler',
   'fabric.editor.toolbarLabel': 'Verktygsfält för redigering',
-  'fabric.editor.toolbarMediaTitle': 'Filer och bilder',
+  'fabric.editor.toolbarMediaTitle': 'Lägg till en bild, video eller fil',
   'fabric.editor.twoColumns': 'Två kolumner',
-  'fabric.editor.typeAheadResultLabel': 'Autoförslagsresultat',
+  'fabric.editor.typeAhead.popupLabel': 'Autoförslagsresultat',
+  'fabric.editor.typeAhead.quickInsertInputLabel': 'Börja skriva för att söka eller filtrera genvägsalternativ',
+  'fabric.editor.typeAhead.quickInsertPopupLabel': 'Genvägar för infogningar och formatering',
+  'fabric.editor.typeahead.emojiInputLabel': 'Börja skriva för att söka eller filtrera emojialternativ',
+  'fabric.editor.typeahead.emojiListItemLabel': 'Emoji {name} Textgenväg {shortcut}',
+  'fabric.editor.typeahead.emojiPopupLabel': 'Emojigenvägar',
+  'fabric.editor.typeahead.mentionInputLabel': 'Börja skriva för att söka efter användare att tagga',
+  'fabric.editor.typeahead.mentionPopupLabel': 'Användare som du kan tagga',
+  'fabric.editor.typeahead.metionListItemLabel': 'Användare {name} @{shortName}',
   'fabric.editor.unableToOpenLink': 'Det gick inte att öppna länken',
   'fabric.editor.underline': 'Understruken',
   'fabric.editor.undo': 'Ångra',
@@ -262,8 +256,8 @@ export default {
   'fabric.editor.urlTitle': 'URL',
   'fabric.editor.warning': 'Varning',
   'fabric.editor.warningPanel': 'Varningspanel',
-  'fabric.editor.warningPanel.description':
-    'Lägg till en varning i en färgad panel',
+  'fabric.editor.warningPanel.description': 'Lägg till en varning i en färgad panel',
   'fabric.editor.wrapLeft': 'Radbyte vänster',
   'fabric.editor.wrapRight': 'Radbyte höger',
+  'fabric.emoji.label': 'Emoji',
 };

@@ -38,9 +38,17 @@ export const list: TokenParser = ({ input, position, schema, context }) => {
   let builder: ListBuilder | null = null;
   let contentBuffer: PMNode[] = [];
   const output: PMNode[] = [];
+  let isWithinMacro: Boolean = false;
+  let macroLength: Number = 0;
 
   while (index < input.length) {
     const char = input.charAt(index);
+
+    // Reset macro flags -> if we finished parsing the macro block. There can be multiple concecutive macros in a same listItem
+    if (isWithinMacro && index === macroLength) {
+      isWithinMacro = false;
+      macroLength = 0;
+    }
 
     switch (state) {
       case processState.NEW_LINE: {
@@ -113,7 +121,8 @@ export const list: TokenParser = ({ input, position, schema, context }) => {
 
         // If we encounter an empty line, we should end the list
         const emptyLineMatch = substring.match(EMPTY_LINE_REGEXP);
-        if (emptyLineMatch) {
+        // ADFEXP-371 -> We should not end the list if we are inside a macro and we encountered a new line
+        if (emptyLineMatch && !isWithinMacro) {
           state = processState.END;
           continue;
         }
@@ -154,27 +163,37 @@ export const list: TokenParser = ({ input, position, schema, context }) => {
             // Something is really wrong here
             return fallback(input, position);
           }
-          if (buffer.length > 0) {
-            /**
-             * Wrapup what is already in the string buffer and save it to
-             * contentBuffer
-             */
-            const content = parseString({
-              ignoreTokenTypes,
-              schema,
-              context,
-              input: buffer.join(''),
-              includeLeadingSpace: true,
-            });
-            contentBuffer.push(...sanitize(content, schema));
-            buffer = [];
-          }
+          //   if (buffer.length > 0) {
+          //     /**
+          //      * Wrapup what is already in the string buffer and save it to
+          //      * contentBuffer
+          //      */
+          //     const content = parseString({
+          //       ignoreTokenTypes,
+          //       schema,
+          //       context,
+          //       input: buffer.join(''),
+          //       includeLeadingSpace: true,
+          //     });
+          //     contentBuffer.push(...sanitize(content, schema));
+          //     buffer = [];
+          //   }
 
-          contentBuffer.push(...sanitize(token.nodes, schema));
+          //   contentBuffer.push(...sanitize(token.nodes, schema));
+          // }
+          // index += token.length;
+          // state = processState.BUFFER;
+          // continue;
+
+          // ADFEXP-371 -> check if we encountered a macro and also that we are not inside a macro block already.
+          if (token && !isWithinMacro) {
+            isWithinMacro = true;
+            // macroLength will help to reset the isWithinMacro flag once we have sucessfully parsed entire macro block
+            macroLength = index + token.length;
+          }
         }
-        index += token.length;
-        state = processState.BUFFER;
-        continue;
+        buffer.push(char);
+        break;
       }
       case processState.END: {
         if (!builder) {

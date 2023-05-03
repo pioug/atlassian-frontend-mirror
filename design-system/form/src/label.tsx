@@ -19,6 +19,7 @@ export interface LabelProps {
   id?: string;
   htmlFor: string;
   children: ReactNode;
+  testId?: string;
 }
 
 const labelStyles = css({
@@ -54,13 +55,14 @@ const darkH200Styles = getFieldsetLabelDynamicStyles('dark');
  * It's recommended that a label has a `4px` spacing above its associated
  * control element.
  */
-const Label: FC<LabelProps> = ({ children, htmlFor, id }) => {
+const Label: FC<LabelProps> = ({ children, htmlFor, id, testId }) => {
   const { mode } = useGlobalTheme();
   return (
     <label
       css={[mode === 'light' ? lightH200Styles : darkH200Styles, labelStyles]}
       id={id}
       htmlFor={htmlFor}
+      data-testid={testId}
     >
       {children}
     </label>

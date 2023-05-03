@@ -1,5 +1,11 @@
 # @atlaskit/form
 
+## 8.10.0
+
+### Minor Changes
+
+- [`c71b0ac8222`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c71b0ac8222) - Added testId prop to the Field component for better testing.
+
 ## 8.9.1
 
 ### Patch Changes

@@ -1,4 +1,5 @@
 import { useCallback } from 'react';
+import { unstable_batchedUpdates } from 'react-dom';
 import { JsonLd } from 'json-ld-types';
 import { addMetadataToExperience } from '../../analytics';
 import { getStatus } from '../../helpers';
@@ -142,23 +143,33 @@ const useResolve = () => {
         return;
       }
 
-      //if a link resolves normally, metadata will also always be resolved
-      setMetadataStatus(resourceUrl, 'resolved');
-      // Dispatch Analytics and resolved card action - including unauthorized states.
-      if (isReloading) {
-        dispatch(cardAction(ACTION_RELOADING, { url: resourceUrl }, response));
-      } else {
-        dispatch(
-          cardAction(
-            ACTION_RESOLVED,
-            { url: resourceUrl },
-            response,
-            undefined,
-            undefined,
-            isMetadataRequest,
-          ),
-        );
-      }
+      /**
+       * Using unstable_batchedUpdates because this store update happens async and trigers a rerender
+       * more info:
+       * https://github.com/facebook/react/blob/v18.2.0/packages/use-sync-external-store/src/useSyncExternalStoreShimClient.js#L113
+       * https://react-redux.js.org/api/batch
+       */
+      unstable_batchedUpdates(() => {
+        //if a link resolves normally, metadata will also always be resolved
+        setMetadataStatus(resourceUrl, 'resolved');
+        // Dispatch Analytics and resolved card action - including unauthorized states.
+        if (isReloading) {
+          dispatch(
+            cardAction(ACTION_RELOADING, { url: resourceUrl }, response),
+          );
+        } else {
+          dispatch(
+            cardAction(
+              ACTION_RESOLVED,
+              { url: resourceUrl },
+              response,
+              undefined,
+              undefined,
+              isMetadataRequest,
+            ),
+          );
+        }
+      });
     },
     [
       dispatch,

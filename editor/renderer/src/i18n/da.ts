@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -14,8 +15,7 @@ export default {
   'fabric.editor.headingLink.descOrderLabel': 'Ryd sortering',
   'fabric.editor.headingLink.descSortingLabel': 'faldende',
   'fabric.editor.headingLink.failedToCopy': 'Kopiering mislykkedes',
-  'fabric.editor.headingLink.invalidLabel':
-    '⚠️ En tabel med flettede celler kan ikke sorteres',
+  'fabric.editor.headingLink.invalidLabel': '⚠️ En tabel med flettede celler kan ikke sorteres',
   'fabric.editor.headingLink.noOrderLabel': 'Sortér kolonnen fra A til Å',
   'fabric.editor.headingLink.noneSortingLabel': 'ingen',
 };

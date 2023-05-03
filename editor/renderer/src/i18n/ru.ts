@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -14,8 +15,7 @@ export default {
   'fabric.editor.headingLink.descOrderLabel': 'Очистить сортировку',
   'fabric.editor.headingLink.descSortingLabel': 'по убыванию',
   'fabric.editor.headingLink.failedToCopy': 'Ошибка копирования',
-  'fabric.editor.headingLink.invalidLabel':
-    '⚠️ Невозможно отсортировать таблицу с объединением ячеек',
+  'fabric.editor.headingLink.invalidLabel': '⚠️ Невозможно отсортировать таблицу с объединением ячеек',
   'fabric.editor.headingLink.noOrderLabel': 'Сортировать столбцы (А–Я)',
   'fabric.editor.headingLink.noneSortingLabel': 'Нет',
 };

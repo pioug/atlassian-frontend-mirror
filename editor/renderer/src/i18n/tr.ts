@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -14,8 +15,7 @@ export default {
   'fabric.editor.headingLink.descOrderLabel': 'Sıralamayı temizle',
   'fabric.editor.headingLink.descSortingLabel': 'azalan',
   'fabric.editor.headingLink.failedToCopy': 'Kopyalama işlemi başarısız oldu',
-  'fabric.editor.headingLink.invalidLabel':
-    '⚠️ Birleştirilmiş hücre içeren bir tabloyu sıralayamazsınız',
+  'fabric.editor.headingLink.invalidLabel': '⚠️ Birleştirilmiş hücre içeren bir tabloyu sıralayamazsınız',
   'fabric.editor.headingLink.noOrderLabel': "Sütunu A'dan Z'ye sırala",
   'fabric.editor.headingLink.noneSortingLabel': 'yok',
 };

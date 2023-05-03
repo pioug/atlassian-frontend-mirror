@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { css } from '@emotion/react';
 import { LinkIcon } from '../../../elements';
 import { TitleBlockViewProps } from '../types';
 import Block from '../../block';
@@ -7,6 +7,7 @@ import ElementGroup from '../../element-group';
 import {
   SmartLinkAlignment,
   SmartLinkDirection,
+  SmartLinkPosition,
   SmartLinkWidth,
 } from '../../../../../../constants';
 import { renderElementItems } from '../../utils';
@@ -28,13 +29,15 @@ const TitleBlockResolvedView: React.FC<TitleBlockViewProps> = ({
 }) => {
   const metadataElements = renderElementItems(metadata);
   const subtitleElements = renderElementItems(subtitle);
-
   return (
     <Block {...blockProps} testId={`${testId}-resolved-view`}>
       <LinkIcon position={position} />
       <ElementGroup
         direction={SmartLinkDirection.Vertical}
         width={SmartLinkWidth.Flexible}
+        overrideCss={css`
+          gap: 0.25rem;
+        `}
       >
         {title}
         {subtitleElements && (
@@ -47,6 +50,7 @@ const TitleBlockResolvedView: React.FC<TitleBlockViewProps> = ({
         <ElementGroup
           direction={SmartLinkDirection.Horizontal}
           align={SmartLinkAlignment.Right}
+          position={SmartLinkPosition.Top}
         >
           {metadataElements}
         </ElementGroup>

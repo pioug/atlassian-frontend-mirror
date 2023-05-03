@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import Input from '@atlaskit/input';
+import Textfield from '@atlaskit/textfield';
 import FieldBase, { Label } from '../src';
 
 export default class LabelExample extends PureComponent {
@@ -13,7 +13,7 @@ export default class LabelExample extends PureComponent {
           isRequired
         >
           <FieldBase>
-            <Input isEditing id="input-id-example" />
+            <Textfield id="input-id-example" />
           </FieldBase>
         </Label>
         <Label label="Inline edit label" appearance="inline-edit" />

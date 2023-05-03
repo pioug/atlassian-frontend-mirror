@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -14,8 +15,7 @@ export default {
   'fabric.editor.headingLink.descOrderLabel': 'Effacer le tri',
   'fabric.editor.headingLink.descSortingLabel': 'ordre décroissant',
   'fabric.editor.headingLink.failedToCopy': 'Copie impossible',
-  'fabric.editor.headingLink.invalidLabel':
-    '⚠️ Impossible de trier un tableau comportant des cellules fusionnées',
+  'fabric.editor.headingLink.invalidLabel': '⚠️ Impossible de trier un tableau comportant des cellules fusionnées',
   'fabric.editor.headingLink.noOrderLabel': 'Trier la colonne de A à Z',
   'fabric.editor.headingLink.noneSortingLabel': 'Néant',
 };

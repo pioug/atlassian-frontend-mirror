@@ -7,6 +7,7 @@ import { ElementGroupProps } from './types';
 import {
   SmartLinkAlignment,
   SmartLinkDirection,
+  SmartLinkPosition,
   SmartLinkSize,
   SmartLinkWidth,
 } from '../../../../../constants';
@@ -89,6 +90,7 @@ export const getElementGroupStyles = (
   size: SmartLinkSize,
   align: SmartLinkAlignment,
   width: SmartLinkWidth,
+  position: SmartLinkPosition,
 ): SerializedStyles => css`
   ${getBaseStyles(direction, size)}
   ${getAlignmentStyles(align)}
@@ -97,6 +99,7 @@ export const getElementGroupStyles = (
   ${direction === SmartLinkDirection.Horizontal
     ? getHorizontalDirectionStyles(size, align)
     : ''}
+  ${position === SmartLinkPosition.Top ? 'align-self: flex-start;' : ''}
 `;
 
 /**
@@ -114,9 +117,13 @@ const ElementGroup: React.FC<ElementGroupProps> = ({
   size = SmartLinkSize.Medium,
   testId = 'smart-element-group',
   width = SmartLinkWidth.FitToContent,
+  position = SmartLinkPosition.Center,
 }) => (
   <div
-    css={[getElementGroupStyles(direction, size, align, width), overrideCss]}
+    css={[
+      getElementGroupStyles(direction, size, align, width, position),
+      overrideCss,
+    ]}
     data-smart-element-group
     data-testid={testId}
   >

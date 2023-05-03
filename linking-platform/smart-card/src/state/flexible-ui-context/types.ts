@@ -187,12 +187,23 @@ export type FlexibleUiDataContext = {
    * @see Title
    */
   url?: string;
+  /**
+   * Contains the name and url of the location that the resource is located in.
+   * @type LinkLocation
+   * @see Location
+   */
+  location?: LinkLocation;
 };
 
 export type Icon = {
   icon?: IconType;
   label?: string;
   url?: string;
+};
+
+export type LinkLocation = {
+  text: string;
+  url: string;
 };
 
 export type Media = {

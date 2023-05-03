@@ -23,6 +23,10 @@ const cardState = getCardState({
   'schema:dateCreated': '2020-02-04T12:40:12.353+0800',
   'schema:programmingLanguage': 'Javascript',
   updated: '2022-01-23T16:44:00.000+1000',
+  location: {
+    name: 'Location title',
+    url: 'https://www.locationMcLocationton.com/foo',
+  },
 });
 
 export default () => (
@@ -78,6 +82,10 @@ export default () => (
             { name: ElementName.SourceBranch },
           ]}
           text="Between target branch and source branch elements"
+        />
+        <TitleBlock
+          subtitle={[{ name: ElementName.Location }]}
+          text="With link in subtitle"
         />
         <TitleBlock
           subtitle={[

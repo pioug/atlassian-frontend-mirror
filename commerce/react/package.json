@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/commerce-react",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -56,7 +56,8 @@
         "analytics-next"
       ],
       "design-tokens": [
-        "color"
+        "color",
+        "spacing"
       ],
       "theming": [
         "react-context"

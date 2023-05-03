@@ -2,7 +2,11 @@ import React, { useContext } from 'react';
 import { FormattedDate, MessageDescriptor } from 'react-intl-next';
 import { css } from '@emotion/react';
 
-import { ElementName, IconType } from '../../../../constants';
+import {
+  ElementName,
+  IconType,
+  SmartLinkInternalTheme,
+} from '../../../../constants';
 import { FlexibleUiDataContext } from '../../../../state/flexible-ui-context/types';
 import Icon from './icon';
 import Link from './link';
@@ -89,6 +93,10 @@ const elementMappings: Record<
   },
   [ElementName.TargetBranch]: { component: Text },
   [ElementName.Title]: { component: Link },
+  [ElementName.Location]: {
+    component: Link,
+    props: { theme: SmartLinkInternalTheme.Grey },
+  },
 };
 
 const getContextKey = (name: ElementName) => {

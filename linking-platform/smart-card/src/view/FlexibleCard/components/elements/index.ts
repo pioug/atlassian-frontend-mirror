@@ -70,6 +70,12 @@ export const LatestCommit = createElement<BadgeProps>(ElementName.LatestCommit);
  */
 export const LinkIcon = createElement<IconProps>(ElementName.LinkIcon);
 /**
+ * Creates a Location Link element.
+ * This represents the location or container of the resource.
+ * @see Link
+ */
+export const Location = createElement<LinkProps>(ElementName.Location);
+/**
  * Creates a ModifiedBy Text element using the data from ModifiedBy in the Flexible UI Context.
  * @see Text
  */

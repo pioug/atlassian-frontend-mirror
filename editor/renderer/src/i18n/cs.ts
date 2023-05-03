@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -14,8 +15,7 @@ export default {
   'fabric.editor.headingLink.descOrderLabel': 'Zrušit řazení',
   'fabric.editor.headingLink.descSortingLabel': 'sestupně',
   'fabric.editor.headingLink.failedToCopy': 'Kopírování se nezdařilo',
-  'fabric.editor.headingLink.invalidLabel':
-    '⚠️ Tabulku se sloučenými buňkami nelze seřadit',
+  'fabric.editor.headingLink.invalidLabel': '⚠️ Tabulku se sloučenými buňkami nelze seřadit',
   'fabric.editor.headingLink.noOrderLabel': 'Seřadit sloupec od A do Z',
   'fabric.editor.headingLink.noneSortingLabel': 'Žádné',
 };

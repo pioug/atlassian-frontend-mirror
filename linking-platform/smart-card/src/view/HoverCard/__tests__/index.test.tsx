@@ -28,7 +28,7 @@ import {
 } from '@atlaskit/link-test-helpers';
 
 import React, { ReactElement } from 'react';
-import { cleanup, fireEvent, render, waitFor } from '@testing-library/react';
+import { fireEvent, render, waitFor } from '@testing-library/react';
 import {
   AnalyticsListener,
   withAnalyticsContext,
@@ -54,10 +54,12 @@ import { HoverCard } from '../../../hoverCard';
 import { PROVIDER_KEYS_WITH_THEMING } from '../../../extractors/constants';
 import { setGlobalTheme } from '@atlaskit/tokens';
 
+const mockUrl = 'https://some.url';
+const mockUrlHash = '4e2a79a1652f58e31c27f0ae8531050beb5d25ca';
+
 describe('HoverCard', () => {
   let mockClient: CardClient;
   let mockFetch: jest.Mock;
-  let mockUrl: string;
   let mockGetEntries: jest.Mock;
   let mockIntersectionObserverOpts: MockIntersectionObserverOpts;
 
@@ -76,7 +78,6 @@ describe('HoverCard', () => {
   } = {}) => {
     mockFetch = jest.fn(() => Promise.resolve(mock));
     mockClient = new (fakeFactory(mockFetch))();
-    mockUrl = 'https://some.url';
     const analyticsSpy = jest.fn();
     setGlobalTheme({ colorMode: 'dark' });
 
@@ -169,7 +170,6 @@ describe('HoverCard', () => {
   afterEach(() => {
     jest.useRealTimers();
     jest.restoreAllMocks();
-    cleanup();
   });
 
   describe('smart-card', () => {
@@ -666,6 +666,38 @@ describe('HoverCard', () => {
         );
       });
 
+      it('should fire link clicked event with attributes from SmartLinkAnalyticsContext if link is resolved', async () => {
+        const { findByTestId, analyticsSpy } = await setup({
+          extraCardProps: { id: 'some-id' },
+        });
+        jest.runAllTimers();
+
+        await findByTestId('smart-block-title-resolved-view');
+        const link = await findByTestId('smart-element-link');
+
+        fireEvent.click(link);
+
+        expect(analyticsSpy).toBeFiredWithAnalyticEventOnce(
+          {
+            payload: {
+              action: 'clicked',
+              actionSubject: 'link',
+            },
+            context: [
+              {
+                attributes: {
+                  status: 'resolved',
+                  urlHash: mockUrlHash,
+                  display: 'hoverCardPreview',
+                  id: 'some-id',
+                },
+              },
+            ],
+          },
+          analytics.ANALYTICS_CHANNEL,
+        );
+      });
+
       it('should fire clicked event when open button is clicked', async () => {
         const spy = jest.spyOn(analytics, 'uiHoverCardOpenLinkClickedEvent');
 
@@ -818,7 +850,6 @@ describe('HoverCard', () => {
       const setupWithFF = async (providerFF?: boolean, cardFF?: boolean) => {
         mockFetch = jest.fn(() => Promise.resolve(mockConfluenceResponse));
         mockClient = new (fakeFactory(mockFetch))();
-        mockUrl = 'https://some.url';
 
         const { queryByTestId, findByTestId } = render(
           <Provider
@@ -872,7 +903,6 @@ describe('HoverCard', () => {
       ) => {
         mockFetch = jest.fn(() => Promise.resolve(mockUnauthorisedResponse));
         mockClient = new (fakeFactory(mockFetch))();
-        mockUrl = 'https://some.url';
 
         const { queryByTestId, findByTestId } = render(
           <Provider
@@ -1009,7 +1039,6 @@ describe('HoverCard', () => {
         });
         mockFetch = jest.fn(() => mockPromise);
         mockClient = new (fakeFactory(mockFetch))();
-        mockUrl = 'https://some.url';
         const storeOptions: any = {
           initialState: {
             [mockUrl]: {
@@ -1251,6 +1280,62 @@ describe('HoverCard', () => {
       expect(footerBlock).toBeTruthy();
       const fullscreenButton = queryByTestId('preview-content-button-wrapper');
       expect(fullscreenButton).toBeFalsy();
+    });
+
+    it('should fire link clicked event when resolved hover card is clicked', async () => {
+      const spy = jest.spyOn(analytics, 'uiCardClickedEvent');
+      const testId = 'hover-test-div';
+      const hoverCardComponent = (
+        <HoverCard url={mockUrl} id="some-id">
+          <div data-testid={testId}>Hover on me</div>
+        </HoverCard>
+      );
+      const { findByTestId, analyticsSpy } = await setup({
+        testId,
+        component: hoverCardComponent,
+      });
+
+      await findByTestId('smart-block-metadata-resolved-view');
+
+      const link = await findByTestId('smart-element-link');
+      fireEvent.click(link);
+
+      expect(analytics.uiCardClickedEvent).toHaveBeenCalledTimes(1);
+      expect(spy.mock.results[0].value).toEqual({
+        action: 'clicked',
+        actionSubject: 'smartLink',
+        actionSubjectId: 'titleGoToLink',
+        attributes: {
+          componentName: 'smart-cards',
+          display: 'hoverCardPreview',
+          id: expect.any(String),
+          isModifierKeyPressed: false,
+          packageName: '@atlaskit/smart-card',
+          packageVersion: '999.9.9',
+          status: 'resolved',
+        },
+        eventType: 'ui',
+      });
+
+      expect(analyticsSpy).toBeFiredWithAnalyticEventOnce(
+        {
+          context: [
+            {
+              attributes: {
+                status: 'resolved',
+                urlHash: mockUrlHash,
+                display: 'hoverCardPreview',
+                id: 'some-id',
+              },
+            },
+          ],
+          payload: {
+            action: 'clicked',
+            actionSubject: 'link',
+          },
+        },
+        analytics.ANALYTICS_CHANNEL,
+      );
     });
 
     describe('server actions', () => {

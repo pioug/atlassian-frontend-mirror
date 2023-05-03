@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -14,8 +15,7 @@ export default {
   'fabric.editor.headingLink.descOrderLabel': 'Wyczyść sortowanie',
   'fabric.editor.headingLink.descSortingLabel': 'malejąco',
   'fabric.editor.headingLink.failedToCopy': 'Kopiowanie nie powiodło się',
-  'fabric.editor.headingLink.invalidLabel':
-    '⚠️ Nie można sortować tabeli ze scalonymi komórkami',
+  'fabric.editor.headingLink.invalidLabel': '⚠️ Nie można sortować tabeli ze scalonymi komórkami',
   'fabric.editor.headingLink.noOrderLabel': 'Sortuj kolumnę od A do Z',
   'fabric.editor.headingLink.noneSortingLabel': 'Brak',
 };

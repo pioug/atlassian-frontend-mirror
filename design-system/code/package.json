@@ -43,7 +43,7 @@
     "@atlaskit/docs": "^9.0.0",
     "@atlaskit/ds-explorations": "^2.0.1",
     "@atlaskit/ds-lib": "^2.1.0",
-    "@atlaskit/form": "^8.9.0",
+    "@atlaskit/form": "^8.10.0",
     "@atlaskit/primitives": "^0.8.0",
     "@atlaskit/section-message": "^6.3.0",
     "@atlaskit/ssr": "*",

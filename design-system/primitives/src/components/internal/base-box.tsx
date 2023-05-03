@@ -159,7 +159,6 @@ export const BaseBox: BaseBoxComponent = forwardRef(
             paddingStylesMap.paddingInlineStart[paddingInlineStart],
           paddingInlineEnd &&
             paddingStylesMap.paddingInlineEnd[paddingInlineEnd],
-          padding && paddingStylesMap.padding[padding],
         ]}
         data-testid={testId}
       >

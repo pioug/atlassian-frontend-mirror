@@ -64,6 +64,23 @@ describe('Box padding', () => {
       expect(image).toMatchProdImageSnapshot();
     });
   });
+
+  it(`example with multiple padding values should match snapshot`, async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'primitives',
+      'box-padding',
+      global.__BASEURL__,
+      'light',
+    );
+    const { page } = global;
+    await loadPage(page, url);
+    const image = await takeElementScreenShot(
+      page,
+      `[data-testid="box-with-background-and-overlapping-padding-props"]`,
+    );
+    expect(image).toMatchProdImageSnapshot();
+  });
 });
 
 describe('Box color', () => {

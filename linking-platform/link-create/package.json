@@ -29,7 +29,7 @@
     "@atlaskit/analytics-next": "^9.0.0",
     "@atlaskit/button": "^16.6.0",
     "@atlaskit/empty-state": "^7.4.0",
-    "@atlaskit/form": "^8.8.4",
+    "@atlaskit/form": "^8.10.0",
     "@atlaskit/modal-dialog": "^12.4.4",
     "@atlaskit/select": "^16.1.5",
     "@atlaskit/textfield": "^5.3.5",

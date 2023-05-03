@@ -11,6 +11,7 @@ import {
   extractPersonUpdatedBy,
   LinkTypeUpdatedBy,
 } from '@atlaskit/linking-common/extractors';
+import { LinkLocation } from '../../state/flexible-ui-context/types';
 
 const extractLinkName = (link?: JsonLd.Primitives.Link): string | undefined => {
   if (link && typeof link === 'object' && link['@type'] === 'Link') {
@@ -116,4 +117,21 @@ export const extractChecklistProgress = (data: JsonLd.Data.BaseData) => {
   return checkItemsObj
     ? `${checkItemsObj.checkedItems}/${checkItemsObj.totalItems}`
     : undefined;
+};
+
+export const extractLocation = (
+  data: JsonLd.Data.BaseData,
+): LinkLocation | undefined => {
+  const { url, name } =
+    (extractValue<JsonLd.Data.BaseData, JsonLd.Data.Project['location']>(
+      data,
+      'location',
+    ) as JsonLd.Data.Project) || {};
+
+  if (url && name && typeof url === 'string') {
+    return {
+      text: name,
+      url,
+    };
+  }
 };

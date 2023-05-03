@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -14,8 +15,7 @@ export default {
   'fabric.editor.headingLink.descOrderLabel': 'Sortierung löschen',
   'fabric.editor.headingLink.descSortingLabel': 'absteigend',
   'fabric.editor.headingLink.failedToCopy': 'Kopieren ist fehlgeschlagen',
-  'fabric.editor.headingLink.invalidLabel':
-    '⚠️ Tabellen mit zusammengeführten Zellen können nicht sortiert werden.',
+  'fabric.editor.headingLink.invalidLabel': '⚠️ Tabellen mit zusammengeführten Zellen können nicht sortiert werden.',
   'fabric.editor.headingLink.noOrderLabel': 'Spalte von A nach Z sortieren',
   'fabric.editor.headingLink.noneSortingLabel': 'Keine',
 };

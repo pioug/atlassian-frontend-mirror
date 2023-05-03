@@ -1,5 +1,19 @@
 # @atlaskit/smart-card
 
+## 25.9.0
+
+### Minor Changes
+
+- [`7f248766888`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7f248766888) - [ux] Add container names which mark the location in which the linked resource sits within. This funtionality will be used to show the container names for Trello links.
+
+  FlexUI: Reduced gap between title and subtitle in TitleBlock.
+
+## 25.8.0
+
+### Minor Changes
+
+- [`44b76af1d5f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/44b76af1d5f) - Include additional attributes (`urlHash`, `display`, `id`) and resolved attributes for `link clicked` analytics events
+
 ## 25.7.3
 
 ### Patch Changes

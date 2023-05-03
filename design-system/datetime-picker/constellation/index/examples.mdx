@@ -8,6 +8,7 @@ import DateTimePickerValidation from '../../examples/constellation/datetime-pick
 import DateTimePickerDisable from '../../examples/constellation/datetime-picker-disable';
 import DateTimePickerDisableRange from '../../examples/constellation/datetime-picker-disable-range';
 import DateTimePickerDisableComplex from '../../examples/constellation/datetime-picker-disable-complex';
+import DateTimePickerLabel from '../../examples/constellation/datetime-picker-label';
 import DateTimePickerLocale from '../../examples/constellation/datetime-picker-locale';
 import DateTimePickerWeekStartDay from '../../examples/constellation/datetime-picker-week-start-day';
 import DateTimePickerFormatting from '../../examples/constellation/datetime-picker-formatting';
@@ -23,19 +24,19 @@ The time field is used to select a time from the [select](/components/select) me
 
 ## Form
 
-Date time picker used with the [form](https://atlaskit.atlassian.com/packages/design-system/form) component includes a field label and helper text.
+Date time picker used with the [form](/components/form) component includes a field label and helper text.
 
 <Example Component={DateTimePickerForm} packageName="@atlaskit/datetime-picker" />
 
 ### Validation
 
-This is how date time picker behaves within [forms](https://atlaskit.atlassian.com/packages/design-system/form).
+This is how date time picker behaves within [forms](components/form/).
 
 Validation displays an error message related to the restrictions of the date time picker.
 
-When a user selects the date time picker area, the focus color changes to blue. When validating date time pickers in real-time, message icons switch based on the message type.
+When a user selects the date time picker area, the focus color changes to blue.
 
-For example, helper text becomes an error message when the input content doesn't meet the criteria. Error and warning messages disappear when the criteria is met.
+When validating date time pickers in real-time, message icons switch based on the message type. For example, helper text becomes an error message when the input content doesn't meet the criteria. Error and warning messages disappear when the criteria is met.
 
 Keep helper text as short as possible. For complex information, provide a link to more information in a new browser tab. Use the [messaging guidelines](/content/messaging-guidelines) for more help.
 
@@ -63,13 +64,13 @@ Use `disabledDateFilter` for more complicated situations.
 
 <Example Component={DateTimePickerDisableComplex} packageName="@atlaskit/datetime-picker" />
 
-
 ## Internationalization
 
-Date time picker supports internationalization through two props:
+Date time picker supports internationalization through three props:
 
 - `locale` affects language, format and, parsing.
 - `weekStartDay` determines the first day of the week shown on the calendar.
+- `aria-label` determines the label used for assistive technology for both the date picker field or the time picker field.
 
 ### Locale
 
@@ -82,6 +83,12 @@ Use `locale` to tailor UI copy to local audiences.
 Use `weekStartDay` to adjust which day of the week is shown first in the calendar. A value of `0` corresponds to Sunday (default), `1` to Monday, and so on.
 
 <Example Component={DateTimePickerWeekStartDay} packageName="@atlaskit/datetime-picker" />
+
+### Labels
+
+Use the field component to provide a proper group label. Use the date time picker's `aria-label` attribute to localize the labels that assistive technologies will use when selecting the date picker and the time picker.
+
+<Example Component={DateTimePickerLabel} packageName="@atlaskit/datetime-picker" />
 
 ## Date and time formats
 
@@ -96,8 +103,8 @@ Where possible use `locale` for date and time formatting, instead of a custom fo
 
 ## Accessibility
 
-Date time picker supports label attributes for users with assistive technologies.
+If using fields with labels other than "Date" and "Time" for the date picker and time picker respectively, use `datePickerSelectProps` and `timePickerSelectProps` to pass the `aria-label` prop. Assistive technologies will announce these along with the label from the field component when activated.
 
-Use `datePickerSelectProps` and `timePickerSelectProps` to pass the `aria-label` prop. This is what the screen reader will read for date and time picker components.
+Set the `inputId` for both the `datePickerSelectProps` and the `timePickerSelectProps` to the `id` from the `fieldProps` provided by the field component. This is required for proper association of the label.
 
 <Example Component={DateTimePickerFormAccessible} packageName="@atlaskit/datetime-picker" />

@@ -3,28 +3,40 @@ import { IconType, MediaType } from '../constants';
 
 const context: FlexibleUiDataContext = {
   attachmentCount: 3,
-  checklistProgress: '4/7',
-  commentCount: 10,
-  viewCount: 21,
-  reactCount: 31,
-  voteCount: 41,
-  linkIcon: {
-    label: 'Link icon',
-    icon: 'BitBucket:Project' as IconType,
-  },
   authorGroup: [
     { name: 'Alexander Hamilton' },
     { name: 'Spongebob Squarepants' },
   ],
+  checklistProgress: '4/7',
   collaboratorGroup: [{ name: 'James Bond' }, { name: 'Spiderman' }],
+  commentCount: 10,
   createdBy: 'Doctor Stephen Vincent Strange',
-  ownedBy: 'Bruce Banner',
   createdOn: '2020-02-04T12:40:12.353+0800',
+  downloadAction: {
+    downloadUrl: 'https://www.link-url.com',
+  },
   dueOn: '2022-02-22T12:40:12.353+0800',
   latestCommit: '03e6a82',
+  linkIcon: {
+    icon: 'BitBucket:Project' as IconType,
+    label: 'Link icon',
+  },
+  location: {
+    text: 'Location title',
+    url: 'https://www.locationMcLocationton.com/foo',
+  },
   modifiedBy: 'Tony Stark',
   modifiedOn: '2022-01-12T12:40:12.353+0800',
+  ownedBy: 'Bruce Banner',
   preview: { type: MediaType.Image, url: 'image-url' },
+  previewAction: {
+    downloadUrl: 'https://www.link-url.com',
+    linkIcon: { url: 'Provider:Confluence' },
+    providerName: 'dropbox-object-provider',
+    src: 'https://www.link-url.com',
+    title: 'embed title',
+    url: 'https://www.link-url.com',
+  },
   priority: {
     icon: 'Badge:PriorityMajor' as IconType,
     label: 'Major',
@@ -34,30 +46,22 @@ const context: FlexibleUiDataContext = {
     icon: 'Provider:Confluence' as IconType,
     label: 'Confluence',
   },
+  reactCount: 31,
   snippet: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
   sourceBranch: 'lp-flexible-smart-links',
-  subscriberCount: 20,
   state: {
-    text: 'Link state',
     appearance: 'success',
+    text: 'Link state',
   },
+  subscriberCount: 20,
   targetBranch: 'master',
   title: 'Link title',
   url: 'https://www.link-url.com',
-  downloadAction: {
-    downloadUrl: 'https://www.link-url.com',
-  },
-  previewAction: {
-    downloadUrl: 'https://www.link-url.com',
-    providerName: 'dropbox-object-provider',
-    src: 'https://www.link-url.com',
-    title: 'embed title',
-    linkIcon: { url: 'Provider:Confluence' },
-    url: 'https://www.link-url.com',
-  },
   viewAction: {
     viewUrl: 'https://www.link-url.com',
   },
+  viewCount: 21,
+  voteCount: 41,
 };
 
 export default context;

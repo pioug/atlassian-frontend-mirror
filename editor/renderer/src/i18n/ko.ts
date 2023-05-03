@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -14,8 +15,7 @@ export default {
   'fabric.editor.headingLink.descOrderLabel': '정렬 지우기',
   'fabric.editor.headingLink.descSortingLabel': '내림차순',
   'fabric.editor.headingLink.failedToCopy': '복사 실패',
-  'fabric.editor.headingLink.invalidLabel':
-    '⚠️ 병합된 셀이 있는 표를 정렬할 수 없습니다',
+  'fabric.editor.headingLink.invalidLabel': '⚠️ 병합된 셀이 있는 표를 정렬할 수 없습니다',
   'fabric.editor.headingLink.noOrderLabel': '오름차순으로 열 정렬',
   'fabric.editor.headingLink.noneSortingLabel': '없음',
 };

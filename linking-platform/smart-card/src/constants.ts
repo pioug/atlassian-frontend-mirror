@@ -66,6 +66,11 @@ export enum SmartLinkTheme {
   Link = 'link',
 }
 
+export enum SmartLinkInternalTheme {
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+  Grey = 'grey',
+}
+
 /**
  * Determines whether the container size will fit to the content
  * or expand to the available width or the parent component.
@@ -101,7 +106,9 @@ export enum ElementName {
   CreatedBy = 'CreatedBy',
   CreatedOn = 'CreatedOn',
   DueOn = 'DueOn',
+  LatestCommit = 'LatestCommit',
   LinkIcon = 'LinkIcon',
+  Location = 'Location',
   ModifiedBy = 'ModifiedBy',
   ModifiedOn = 'ModifiedOn',
   OwnedBy = 'OwnedBy',
@@ -118,7 +125,6 @@ export enum ElementName {
   Title = 'Title',
   ViewCount = 'ViewCount',
   VoteCount = 'VoteCount',
-  LatestCommit = 'LatestCommit',
 }
 
 /**

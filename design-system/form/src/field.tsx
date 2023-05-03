@@ -132,6 +132,10 @@ export interface FieldComponentProps<
     formState: Object,
     fieldState: Meta,
   ) => string | void | Promise<string | void>;
+  /**
+   * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests
+   */
+  testId?: string;
 }
 
 interface State<FieldValue, Element extends SupportedElements> {
@@ -444,9 +448,13 @@ export default function Field<
   };
 
   return (
-    <div css={fieldWrapperStyles}>
+    <div css={fieldWrapperStyles} data-testid={props.testId}>
       {props.label && (
-        <Label htmlFor={fieldId} id={`${fieldId}-label`}>
+        <Label
+          htmlFor={fieldId}
+          id={`${fieldId}-label`}
+          testId={props.testId && `${props.testId}--label`}
+        >
           {props.label}
           {props.isRequired && <RequiredAsterisk />}
           {props.elementAfterLabel}

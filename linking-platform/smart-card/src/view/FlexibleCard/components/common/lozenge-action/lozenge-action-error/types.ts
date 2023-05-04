@@ -1,10 +1,32 @@
 import { MessageProps } from '../../../types';
 import { messages } from '../../../../../../messages';
+import { PreviewActionData } from '../../../../../../state/flexible-ui-context/types';
 
 export type LozengeActionErrorProps = {
+  /**
+   * Error message to be displayed inside the dropdown
+   */
   errorMessage: string | MessageProps;
+
+  /**
+   * Data test id used for testing purposes
+   */
   testId?: string;
+
+  /**
+   * Maximum number of lines displayed inside of the dropdown
+   */
   maxLineNumber?: number;
+
+  /**
+   * The url of the link. Used in reload functionality
+   */
+  url?: string;
+
+  /**
+   * Preview Modal information. If present, will be used to render an embed modal on an error link click
+   */
+  previewData?: PreviewActionData | null;
 };
 
 export const LozengeActionErrorMessages = {

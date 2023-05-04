@@ -8,19 +8,13 @@ jest.mock(
 jest.doMock('../../../utils/analytics/analytics');
 
 import React from 'react';
-import { fireEvent, render, waitFor } from '@testing-library/react';
-import { AnalyticsListener } from '@atlaskit/analytics-next';
+import { render, cleanup, waitFor } from '@testing-library/react';
 import { CardClient, CardProviderStoreOpts } from '@atlaskit/link-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
-import '@atlaskit/link-test-helpers/jest';
 import { Card } from '../../Card';
 import { Provider } from '../../..';
-import { ANALYTICS_CHANNEL } from '../../../utils/analytics';
 import { fakeFactory, mocks } from '../../../utils/mocks';
 import { IntlProvider } from 'react-intl-next';
-
-const mockUrl = 'https://some.url';
-const mockUrlHash = '4e2a79a1652f58e31c27f0ae8531050beb5d25ca';
 
 mockSimpleIntersectionObserver();
 
@@ -29,14 +23,17 @@ describe('smart-card: card states, block', () => {
   const mockOnResolve = jest.fn();
   let mockClient: CardClient;
   let mockFetch: jest.Mock;
+  let mockUrl: string;
 
   beforeEach(() => {
     mockFetch = jest.fn(() => Promise.resolve(mocks.success));
     mockClient = new (fakeFactory(mockFetch))();
+    mockUrl = 'https://some.url';
   });
 
   afterEach(() => {
     jest.clearAllMocks();
+    cleanup();
   });
 
   describe('render method: withUrl', () => {
@@ -344,7 +341,7 @@ describe('smart-card: card states, block', () => {
     describe('> state: invalid', () => {
       it('block: does not throw error when state is invalid', async () => {
         const storeOptions = {
-          initialState: { [mockUrl as string]: {} },
+          initialState: { [mockUrl]: {} },
         } as CardProviderStoreOpts;
         const { findByTestId } = render(
           <Provider client={mockClient} storeOptions={storeOptions}>
@@ -354,46 +351,6 @@ describe('smart-card: card states, block', () => {
 
         const link = await findByTestId('block-card-resolved-view');
         expect(link).toBeTruthy();
-      });
-    });
-
-    describe('link clicked', () => {
-      it('fires `link clicked` analytics event when clicked', async () => {
-        window.open = jest.fn();
-        const onEvent = jest.fn();
-        const { getByRole, getByText } = render(
-          <AnalyticsListener channel={ANALYTICS_CHANNEL} onEvent={onEvent}>
-            <IntlProvider locale="en">
-              <Provider client={mockClient}>
-                <Card appearance="block" url={mockUrl} id="some-id" />
-              </Provider>
-            </IntlProvider>
-          </AnalyticsListener>,
-        );
-        await waitFor(() => getByText('I love cheese'));
-
-        const link = getByRole('link');
-        fireEvent.click(link);
-
-        expect(onEvent).toBeFiredWithAnalyticEventOnce(
-          {
-            context: [
-              {
-                attributes: {
-                  status: 'resolved',
-                  urlHash: mockUrlHash,
-                  display: 'block',
-                  id: 'some-id',
-                },
-              },
-            ],
-            payload: {
-              action: 'clicked',
-              actionSubject: 'link',
-            },
-          },
-          ANALYTICS_CHANNEL,
-        );
       });
     });
   });
@@ -823,7 +780,7 @@ describe('smart-card: card states, block', () => {
     describe('> state: invalid', () => {
       it('block: does not throw error when state is invalid', async () => {
         const storeOptions = {
-          initialState: { [mockUrl as string]: {} },
+          initialState: { [mockUrl]: {} },
         } as CardProviderStoreOpts;
         const { findByTestId } = render(
           <Provider client={mockClient} storeOptions={storeOptions}>

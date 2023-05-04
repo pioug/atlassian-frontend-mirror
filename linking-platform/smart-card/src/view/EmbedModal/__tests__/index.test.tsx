@@ -72,6 +72,21 @@ describe('EmbedModal', () => {
     expect(modal).toBeDefined();
   });
 
+  it('renders embed modal without analytics', async () => {
+    const { findByTestId } = render(
+      <IntlProvider locale="en">
+        <EmbedModal
+          iframeName="iframe-name"
+          onClose={() => {}}
+          showModal={true}
+          testId={testId}
+        />
+      </IntlProvider>,
+    );
+    const modal = await findByTestId(testId);
+    expect(modal).toBeDefined();
+  });
+
   it('renders a link info', async () => {
     const title = 'Link title';
     const { findByTestId } = renderEmbedModal({

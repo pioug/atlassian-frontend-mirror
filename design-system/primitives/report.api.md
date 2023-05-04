@@ -183,7 +183,20 @@ type BaseBoxProps<T extends ElementType = 'div'> = Omit<
 
 // @public (undocumented)
 type BaseBoxPropsFoundation<T extends ElementType> = {
-  as?: 'div' | 'li' | 'span';
+  as?:
+    | 'article'
+    | 'aside'
+    | 'dialog'
+    | 'div'
+    | 'footer'
+    | 'header'
+    | 'li'
+    | 'main'
+    | 'nav'
+    | 'ol'
+    | 'section'
+    | 'span'
+    | 'ul';
   className?: string;
   children?: ReactNode;
   backgroundColor?: BackgroundColor;
@@ -202,6 +215,9 @@ type BasePrimitiveProps = {
   testId?: string;
   style?: CSSProperties;
 };
+
+// @public (undocumented)
+type BlockSize = keyof typeof dimensionMap;
 
 // @public (undocumented)
 type BorderColor = keyof typeof borderColorMap;
@@ -264,6 +280,9 @@ const borderWidthMap: {
   readonly 'width.100': 'var(--ds-width-100)';
 };
 
+// @public (undocumented)
+type Bottom = keyof typeof dimensionMap;
+
 // @public
 export const Box: BoxComponent;
 
@@ -297,6 +316,23 @@ type BoxXCSS = {
 };
 
 // @public (undocumented)
+type ColumnGap =
+  | 'space.0'
+  | 'space.025'
+  | 'space.050'
+  | 'space.075'
+  | 'space.100'
+  | 'space.1000'
+  | 'space.150'
+  | 'space.200'
+  | 'space.250'
+  | 'space.300'
+  | 'space.400'
+  | 'space.500'
+  | 'space.600'
+  | 'space.800';
+
+// @public (undocumented)
 type CSSPseudos = {
   [Pseudo in CSS_2.Pseudos]?: SafeCSSObject;
 };
@@ -314,7 +350,16 @@ const dimensionMap: {
 };
 
 // @public (undocumented)
-type Display = 'block' | 'flex' | 'inline' | 'inline-block' | 'inline-flex';
+type Display = keyof typeof displayMap;
+
+// @public (undocumented)
+const displayMap: {
+  readonly flex: 'flex';
+  readonly block: 'block';
+  readonly inline: 'inline';
+  readonly inlineBlock: 'inline-block';
+  readonly inlineFlex: 'inline-flex';
+};
 
 // @public (undocumented)
 type Flex = keyof typeof flexMap;
@@ -415,12 +460,134 @@ export interface InlineProps<T extends ElementType = 'div'> {
 }
 
 // @public (undocumented)
+type InlineSize = keyof typeof dimensionMap;
+
+// @public (undocumented)
 type InlineStyles = SerializedStyles & {
   [inlineTag]: true;
 };
 
 // @public (undocumented)
 const inlineTag: unique symbol;
+
+// @public (undocumented)
+type Inset =
+  | 'space.0'
+  | 'space.025'
+  | 'space.050'
+  | 'space.075'
+  | 'space.100'
+  | 'space.1000'
+  | 'space.150'
+  | 'space.200'
+  | 'space.250'
+  | 'space.300'
+  | 'space.400'
+  | 'space.500'
+  | 'space.600'
+  | 'space.800';
+
+// @public (undocumented)
+type InsetBlock =
+  | 'space.0'
+  | 'space.025'
+  | 'space.050'
+  | 'space.075'
+  | 'space.100'
+  | 'space.1000'
+  | 'space.150'
+  | 'space.200'
+  | 'space.250'
+  | 'space.300'
+  | 'space.400'
+  | 'space.500'
+  | 'space.600'
+  | 'space.800';
+
+// @public (undocumented)
+type InsetBlockEnd =
+  | 'space.0'
+  | 'space.025'
+  | 'space.050'
+  | 'space.075'
+  | 'space.100'
+  | 'space.1000'
+  | 'space.150'
+  | 'space.200'
+  | 'space.250'
+  | 'space.300'
+  | 'space.400'
+  | 'space.500'
+  | 'space.600'
+  | 'space.800';
+
+// @public (undocumented)
+type InsetBlockStart =
+  | 'space.0'
+  | 'space.025'
+  | 'space.050'
+  | 'space.075'
+  | 'space.100'
+  | 'space.1000'
+  | 'space.150'
+  | 'space.200'
+  | 'space.250'
+  | 'space.300'
+  | 'space.400'
+  | 'space.500'
+  | 'space.600'
+  | 'space.800';
+
+// @public (undocumented)
+type InsetInline =
+  | 'space.0'
+  | 'space.025'
+  | 'space.050'
+  | 'space.075'
+  | 'space.100'
+  | 'space.1000'
+  | 'space.150'
+  | 'space.200'
+  | 'space.250'
+  | 'space.300'
+  | 'space.400'
+  | 'space.500'
+  | 'space.600'
+  | 'space.800';
+
+// @public (undocumented)
+type InsetInlineEnd =
+  | 'space.0'
+  | 'space.025'
+  | 'space.050'
+  | 'space.075'
+  | 'space.100'
+  | 'space.1000'
+  | 'space.150'
+  | 'space.200'
+  | 'space.250'
+  | 'space.300'
+  | 'space.400'
+  | 'space.500'
+  | 'space.600'
+  | 'space.800';
+
+// @public (undocumented)
+type InsetInlineStart =
+  | 'space.0'
+  | 'space.025'
+  | 'space.050'
+  | 'space.075'
+  | 'space.100'
+  | 'space.1000'
+  | 'space.150'
+  | 'space.200'
+  | 'space.250'
+  | 'space.300'
+  | 'space.400'
+  | 'space.500'
+  | 'space.600'
+  | 'space.800';
 
 // @public (undocumented)
 type Layer = keyof typeof layerMap;
@@ -439,13 +606,28 @@ const layerMap: {
 };
 
 // @public (undocumented)
+type Left = keyof typeof dimensionMap;
+
+// @public (undocumented)
+type MaxBlockSize = keyof typeof dimensionMap;
+
+// @public (undocumented)
 type MaxHeight = keyof typeof dimensionMap;
+
+// @public (undocumented)
+type MaxInlineSize = keyof typeof dimensionMap;
 
 // @public (undocumented)
 type MaxWidth = keyof typeof dimensionMap;
 
 // @public (undocumented)
+type MinBlockSize = keyof typeof dimensionMap;
+
+// @public (undocumented)
 type MinHeight = keyof typeof dimensionMap;
+
+// @public (undocumented)
+type MinInlineSize = keyof typeof dimensionMap;
 
 // @public (undocumented)
 type MinWidth = keyof typeof dimensionMap;
@@ -613,6 +795,9 @@ type PublicBoxPropsBase = {
 };
 
 // @public (undocumented)
+type Right = keyof typeof dimensionMap;
+
+// @public (undocumented)
 type RowGap =
   | 'space.0'
   | 'space.025'
@@ -731,21 +916,39 @@ const textColorMap: {
 type TokenisedProps = {
   alignSelf?: AlignSelf;
   backgroundColor?: BackgroundColor;
+  blockSize?: BlockSize;
   borderColor?: BorderColor;
   borderRadius?: BorderRadius;
   borderStyle?: BorderStyle;
   borderWidth?: BorderWidth;
+  bottom?: Bottom;
+  boxShadow?: Shadow;
   color?: TextColor;
+  columnGap?: ColumnGap;
   display?: Display;
   flex?: Flex;
   flexDirection?: FlexDirection;
   flexGrow?: FlexGrow;
   flexShrink?: FlexShrink;
+  gap?: Gap;
   height?: Height;
+  inlineSize?: InlineSize;
+  inset?: Inset;
+  insetBlock?: InsetBlock;
+  insetBlockEnd?: InsetBlockEnd;
+  insetBlockStart?: InsetBlockStart;
+  insetInline?: InsetInline;
+  insetInlineEnd?: InsetInlineEnd;
+  insetInlineStart?: InsetInlineStart;
   layer?: Layer;
+  left?: Left;
+  maxBlockSize?: MaxBlockSize;
   maxHeight?: MaxHeight;
+  maxInlineSize?: MaxInlineSize;
   maxWidth?: MaxWidth;
+  minBlockSize?: MinBlockSize;
   minHeight?: MinHeight;
+  minInlineSize?: MinInlineSize;
   minWidth?: MinWidth;
   overflow?: Overflow;
   overflowBlock?: OverflowBlock;
@@ -758,9 +961,14 @@ type TokenisedProps = {
   paddingInlineEnd?: PaddingInlineEnd;
   paddingInlineStart?: PaddingInlineStart;
   position?: Position;
-  shadow?: Shadow;
+  right?: Right;
+  rowGap?: RowGap;
+  top?: Top;
   width?: Width;
 };
+
+// @public (undocumented)
+type Top = keyof typeof dimensionMap;
 
 // @public (undocumented)
 const uniqueSymbol: unique symbol;

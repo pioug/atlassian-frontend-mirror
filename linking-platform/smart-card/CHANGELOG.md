@@ -1,5 +1,24 @@
 # @atlaskit/smart-card
 
+## 25.9.3
+
+### Patch Changes
+
+- [`607168dad64`](https://bitbucket.org/atlassian/atlassian-frontend/commits/607168dad64) - [ux] Update lozenge action with selected item on action success.
+
+## 25.9.2
+
+### Patch Changes
+
+- [`845816bac34`](https://bitbucket.org/atlassian/atlassian-frontend/commits/845816bac34) - [ux] Added a link to open preview modal on action error
+
+## 25.9.1
+
+### Patch Changes
+
+- [`b76602c1619`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b76602c1619) - Revert 25.8.0 changes "Include additional attributes (urlHash, display, id) and resolved attributes for link clicked analytics events" due to regression
+- [`1aedc244e41`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1aedc244e41) - [ux] Smart Links Internal Grey theme is now more specific to prevent Confluence override
+
 ## 25.9.0
 
 ### Minor Changes

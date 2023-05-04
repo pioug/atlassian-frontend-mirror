@@ -2,6 +2,7 @@
 import { memo, useCallback } from 'react';
 
 import { jsx } from '@emotion/react';
+import { useIntl } from 'react-intl-next';
 
 import { AnalyticsContext, useAnalyticsEvents } from '@atlaskit/analytics-next';
 import Modal, {
@@ -19,45 +20,69 @@ import createEventPayload, {
 } from '../common/utils/analytics/analytics.codegen';
 import { LinkCreateCallbackProvider } from '../controllers/callback-context';
 import {
+  FormContextProvider,
+  useFormContext,
+} from '../controllers/form-context';
+import {
   name as packageName,
   version as packageVersion,
 } from '../version.json';
 
 import { ErrorBoundary } from './error-boundary';
+import { messages } from './messages';
 
-const LinkCreate = ({
-  plugins,
-  entityKey,
-  onCreate,
-  onFailure,
-  onCancel,
-}: LinkCreateProps) => {
-  const chosenOne = plugins.find(plugin => plugin.key === entityKey);
+const withFormContext =
+  (Component: React.FC<LinkCreateProps>) => (props: LinkCreateProps) =>
+    (
+      <FormContextProvider>
+        <Component {...props} />
+      </FormContextProvider>
+    );
 
-  if (!chosenOne) {
-    throw new Error('Make sure you specified a valid entityKey');
-  }
+const LinkCreate = withFormContext(
+  ({ plugins, entityKey, onCreate, onFailure, onCancel }: LinkCreateProps) => {
+    const chosenOne = plugins.find(plugin => plugin.key === entityKey);
 
-  const handleCreate = useCallback(
-    result => {
-      onCreate && onCreate(result.url);
-    },
-    [onCreate],
-  );
+    const { setFormErrorMessage } = useFormContext();
 
-  return (
-    <LinkCreateCallbackProvider
-      onCreate={handleCreate}
-      onFailure={onFailure}
-      onCancel={onCancel}
-    >
-      {chosenOne.form}
-    </LinkCreateCallbackProvider>
-  );
-};
+    if (!chosenOne) {
+      throw new Error('Make sure you specified a valid entityKey');
+    }
+
+    const handleCreate = useCallback(
+      result => {
+        // Reset the form error message
+        setFormErrorMessage(undefined);
+        onCreate && onCreate(result.url);
+      },
+      [onCreate, setFormErrorMessage],
+    );
+
+    const handleFailure = useCallback(
+      (errorMessage: string) => {
+        // Set the form error message
+        setFormErrorMessage(errorMessage);
+        onFailure && onFailure(errorMessage);
+      },
+      [onFailure, setFormErrorMessage],
+    );
+
+    return (
+      <LinkCreateCallbackProvider
+        onCreate={handleCreate}
+        onFailure={handleFailure}
+        onCancel={onCancel}
+      >
+        {chosenOne.form}
+      </LinkCreateCallbackProvider>
+    );
+  },
+);
+
 const LinkCreateWithModal = (props: LinkCreateProps) => {
   const { testId, onCancel, active } = props;
   const { createAnalyticsEvent } = useAnalyticsEvents();
+  const intl = useIntl();
 
   const handleOpenComplete = useCallback(() => {
     createAnalyticsEvent(
@@ -82,11 +107,13 @@ const LinkCreateWithModal = (props: LinkCreateProps) => {
           onCloseComplete={handleCloseComplete}
         >
           <ModalHeader>
-            <ModalTitle>Create New</ModalTitle>
+            <ModalTitle>{intl.formatMessage(messages.heading)}</ModalTitle>
           </ModalHeader>
           <ModalBody>
             <ErrorBoundary>
-              <LinkCreate {...props} />
+              <FormContextProvider>
+                <LinkCreate {...props} />
+              </FormContextProvider>
             </ErrorBoundary>
           </ModalBody>
         </Modal>

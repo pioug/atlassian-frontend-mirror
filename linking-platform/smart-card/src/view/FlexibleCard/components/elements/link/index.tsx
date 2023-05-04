@@ -34,13 +34,20 @@ const getThemeStyles = (
 ): SerializedStyles => {
   switch (theme) {
     case SmartLinkInternalTheme.Grey:
+      // We are being specifc with the CSS selectors to ensure that Confluence overrides
+      // do not affect our internal Smart Card styles
       return css`
-        color: ${token('color.text.subtlest', '#626F86')};
-        :hover {
+        a& {
           color: ${token('color.text.subtlest', '#626F86')};
-          text-decoration: underline;
+          &:active,
+          &:visited,
+          &:focus,
+          &:hover {
+            color: ${token('color.text.subtlest', '#626F86')};
+            text-decoration: underline;
+          }
+          font-size: 12px;
         }
-        font-size: 12px;
       `;
     // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
     case SmartLinkTheme.Black:

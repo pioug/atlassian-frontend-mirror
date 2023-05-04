@@ -1,5 +1,5 @@
 import React from 'react';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import { url, cardState } from '@atlaskit/media-test-helpers/smart-card-state';
 import '@atlaskit/link-test-helpers/jest';
@@ -98,35 +98,6 @@ describe('<SSRCard />', () => {
         },
         context: [context],
       });
-    });
-
-    it('should fire link clicked event with attributes from SmartLinkAnalyticsContext', async () => {
-      const { spy } = setup({ id: 'some-id' });
-      const resolvedCard = await screen.findByTestId(
-        'inline-card-resolved-view',
-      );
-
-      fireEvent.click(resolvedCard);
-
-      expect(spy).toBeFiredWithAnalyticEventOnce(
-        {
-          payload: {
-            action: 'clicked',
-            actionSubject: 'link',
-          },
-          context: [
-            {
-              attributes: {
-                status: 'resolved',
-                urlHash: 'f9b6063741fa59d8303585718d18adf9a4b3a56c',
-                display: 'inline',
-                id: 'some-id',
-              },
-            },
-          ],
-        },
-        ANALYTICS_CHANNEL,
-      );
     });
   });
 });

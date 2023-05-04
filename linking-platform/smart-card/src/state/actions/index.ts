@@ -6,6 +6,7 @@ import {
   ACTION_UPDATE_METADATA_STATUS,
   cardAction,
   MetadataStatus,
+  CardState,
   ACTION_RESOLVING,
 } from '@atlaskit/linking-common';
 import {
@@ -30,13 +31,12 @@ export const useSmartCardActions = (
   const resolveUrl = useResolve();
   const { store, connections } = useSmartLinkContext();
   const { getState, dispatch } = store;
-
-  const getSmartLinkState = useCallback(() => {
-    const { details, status, metadataStatus } = getState()[url] ?? {
+  const { details, status, metadataStatus } =
+    getState()[url] ||
+    ({
       status: SmartLinkStatus.Pending,
-    };
-    return { details, status, metadataStatus };
-  }, [getState, url]);
+      details: undefined,
+    } as CardState);
 
   const setMetadataStatus = useCallback(
     (metadataStatus: MetadataStatus) => {
@@ -60,16 +60,14 @@ export const useSmartCardActions = (
   );
 
   const register = useCallback(() => {
-    const { details } = getSmartLinkState();
     if (!details) {
       dispatch(cardAction(ACTION_RESOLVING, { url }));
       setMetadataStatus('pending');
     }
     return resolve();
-  }, [getSmartLinkState, resolve, dispatch, url, setMetadataStatus]);
+  }, [details, resolve, dispatch, url, setMetadataStatus]);
 
   const reload = useCallback(() => {
-    const { details } = getSmartLinkState();
     const definitionId = getDefinitionId(details);
     if (definitionId) {
       getByDefinitionId(definitionId, getState()).map((url) =>
@@ -78,20 +76,18 @@ export const useSmartCardActions = (
     } else {
       resolve(url, true);
     }
-  }, [getSmartLinkState, url, getState, resolve]);
+  }, [details, url, getState, resolve]);
 
   const loadMetadata = useCallback(() => {
-    const { metadataStatus } = getSmartLinkState();
     //metadataStatus will be undefined for SSR links only
     if (metadataStatus === undefined) {
       setMetadataStatus('pending');
       return resolve(url, false, true);
     }
-  }, [getSmartLinkState, resolve, setMetadataStatus, url]);
+  }, [metadataStatus, resolve, setMetadataStatus, url]);
 
   const authorize = useCallback(
     (appearance: CardInnerAppearance) => {
-      const { details, status } = getSmartLinkState();
       const definitionId = getDefinitionId(details);
       const extensionKey = getExtensionKey(details);
       const services = getServices(details);
@@ -142,13 +138,14 @@ export const useSmartCardActions = (
       }
     },
     [
-      getSmartLinkState,
       analytics.ui,
       analytics.screen,
       analytics.track,
       analytics.operational,
       id,
       reload,
+      details,
+      status,
     ],
   );
 

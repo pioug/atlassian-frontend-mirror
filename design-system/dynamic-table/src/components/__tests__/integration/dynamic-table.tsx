@@ -10,22 +10,23 @@ const urlDynamicTable = getExampleUrl(
 );
 
 /* Css selectors used for the test */
-const table = "[data-testid='the-table--table']";
-const tableHead = "[data-testid='the-table--head']";
-const tableHeadCell = "[data-testid='the-table--head--cell']";
+const table = `[data-testid$='table']`;
+const tableHead = `[data-testid$='head']`;
+const tableHeadCell = `[data-testid$='head--cell']`;
 const tableHeadName = `${tableHeadCell}:nth-child(1)`;
+const tableHeadNameSortButton = `${tableHeadName} > button`;
 const tableHeadParty = `${tableHeadCell}:nth-child(2)`;
 const tableHeadTerm = `${tableHeadCell}:nth-child(3)`;
 const tableHeadComment = `${tableHeadCell}:nth-child(4)`;
-const tableRowG = "[data-testid='the-table--row-row-0-George Washington']";
-const tableRowJ = "[data-testid='the-table--row-row-1-John Adams']";
-const tableRowT = "[data-testid='the-table--row-row-2-Thomas Jefferson']";
-const tableRowJa = "[data-testid='the-table--row-row-3-James Madison']";
-const tableRowA = "[data-testid='the-table--row-row-15-Abraham Lincoln']";
-const tableCell0 = "[data-testid='the-table--cell-0']";
-const tableCell1 = "[data-testid='the-table--cell-1']";
-const tableCell2 = "[data-testid='the-table--cell-2']";
-const tableCell3 = "[data-testid='the-table--cell-3']";
+const tableRowG = `[data-testid$='George Washington']`;
+const tableRowJ = `[data-testid$='John Adams']`;
+const tableRowT = `[data-testid$='Thomas Jefferson']`;
+const tableRowJa = `[data-testid$='James Madison']`;
+const tableRowA = `[data-testid$='Abraham Lincoln']`;
+const tableCell0 = `[data-testid$='cell-0']`;
+const tableCell1 = `[data-testid$='cell-1']`;
+const tableCell2 = `[data-testid$='cell-2']`;
+const tableCell3 = `[data-testid$='cell-3']`;
 
 BrowserTestCase(
   'DynamicTable elements should be able to be identified, interacted and sorted by data-testid',
@@ -61,7 +62,7 @@ BrowserTestCase(
     ).toContain('3');
 
     // Sort by name.
-    await dynamicTableTest.click(tableHeadName);
+    await dynamicTableTest.click(tableHeadNameSortButton);
 
     // Check for visibility & content after sorting.
     expect(await dynamicTableTest.isVisible(tableRowA)).toBe(true);

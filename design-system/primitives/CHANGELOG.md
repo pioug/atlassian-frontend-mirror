@@ -1,5 +1,17 @@
 # @atlaskit/primitives
 
+## 0.8.8
+
+### Patch Changes
+
+- [`5a134a5128a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5a134a5128a) - Adds type hinting for boxShadow CSS property. Fixes bug with token to CSS custom property transformation for gap, rowGap, columnGap.
+
+## 0.8.7
+
+### Patch Changes
+
+- [`bad2da77917`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bad2da77917) - The Box primitive now accepts more elements for the 'as' prop
+
 ## 0.8.6
 
 ### Patch Changes

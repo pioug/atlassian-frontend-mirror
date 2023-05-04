@@ -118,7 +118,7 @@ describe('xcss()', () => {
     });
     const expected = {
       ':hover': {
-        gap: 'space.200',
+        gap: 'var(--ds-space-200, 16px)',
       },
     };
 

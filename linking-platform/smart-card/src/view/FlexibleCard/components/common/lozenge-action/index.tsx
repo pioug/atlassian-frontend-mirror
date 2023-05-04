@@ -1,9 +1,10 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import type { FC } from 'react';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import type { CustomTriggerProps } from '@atlaskit/dropdown-menu';
 import DropdownMenu, { DropdownItemGroup } from '@atlaskit/dropdown-menu';
+import type { ThemeAppearance } from '@atlaskit/lozenge';
 
 import LozengeActionItem from './lozenge-action-item';
 import LozengeActionTrigger from './lozenge-action-trigger';
@@ -18,6 +19,7 @@ import useResolve from '../../../../../state/hooks/use-resolve';
 import { MessageProps } from '../../types';
 import { LozengeActionErrorMessages } from './lozenge-action-error/types';
 import { InvokeError } from '@atlaskit/linking-types/smart-link-actions';
+import type { LozengeActionTriggerProps } from './lozenge-action-trigger/type';
 
 const validateItems = (
   items: LozengeItem[] = [],
@@ -37,14 +39,24 @@ const LozengeAction: FC<LozengeActionProps> = ({
   text,
   zIndex,
 }) => {
+  const [selected, setSelected] = useState<Partial<LozengeActionTriggerProps>>({
+    appearance,
+    text,
+  });
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [items, setItems] = useState<LozengeItem[]>();
   const [errorMessage, setErrorMessage] = useState<string | MessageProps>();
 
+  useEffect(() => {
+    setSelected({ text, appearance });
+  }, [text, appearance]);
+
   const invoke = useInvoke();
   const reload = useResolve();
+
+  const { url, id: linkId, previewData } = action?.update?.details || {};
 
   const handleOpenChange = useCallback(
     async (args) => {
@@ -88,16 +100,16 @@ const LozengeAction: FC<LozengeActionProps> = ({
     (props: CustomTriggerProps<HTMLButtonElement>) => (
       <LozengeActionTrigger
         {...props}
-        appearance={appearance}
+        appearance={selected.appearance}
         testId={testId}
-        text={text}
+        text={selected.text}
       />
     ),
-    [appearance, testId, text],
+    [testId, selected],
   );
 
   const handleItemClick = useCallback(
-    async (id: string) => {
+    async (id: string, text: string, appearance?: ThemeAppearance) => {
       try {
         const updateAction = action?.update;
         if (updateAction && id) {
@@ -106,12 +118,12 @@ const LozengeAction: FC<LozengeActionProps> = ({
           const request = createStatusUpdateRequest(updateAction, id);
           await invoke(request);
 
+          setSelected({ appearance, text });
           setIsLoading(false);
           setIsLoaded(false);
           setIsOpen(false);
           setItems([]);
 
-          const { url, id: linkId } = updateAction.details || {};
           if (url) {
             await reload(url, true, undefined, linkId);
           }
@@ -126,12 +138,19 @@ const LozengeAction: FC<LozengeActionProps> = ({
         }
       }
     },
-    [action?.update, invoke, reload],
+    [action?.update, invoke, linkId, reload, url],
   );
 
   const dropdownItemGroup = useMemo(() => {
     if (errorMessage) {
-      return <LozengeActionError errorMessage={errorMessage} testId={testId} />;
+      return (
+        <LozengeActionError
+          errorMessage={errorMessage}
+          testId={testId}
+          url={url}
+          previewData={previewData}
+        />
+      );
     }
 
     if (items && items.length > 0) {
@@ -153,7 +172,7 @@ const LozengeAction: FC<LozengeActionProps> = ({
         </span>
       );
     }
-  }, [errorMessage, handleItemClick, items, testId]);
+  }, [errorMessage, handleItemClick, items, previewData, testId, url]);
 
   return (
     <DropdownMenu

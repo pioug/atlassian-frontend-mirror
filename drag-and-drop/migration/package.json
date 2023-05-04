@@ -1,0 +1,94 @@
+{
+  "name": "@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration",
+  "version": "0.1.0",
+  "description": "Migration layer for quickly moving from react-beautiful-dnd to @atlaskit/drag-and-drop.",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "atlassian": {
+    "team": "Design System Team",
+    "inPublicMirror": false,
+    "releaseModel": "continuous"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+  "homepage": "https://atlassian.design/components/drag-and-drop/",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "module:es2019": "dist/es2019/index.js",
+  "types": "dist/types/index.d.ts",
+  "sideEffects": false,
+  "atlaskit:src": "src/index.ts",
+  "af:exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@atlaskit/drag-and-drop": "^0.15.0",
+    "@atlaskit/drag-and-drop-autoscroll": "^0.2.1",
+    "@atlaskit/drag-and-drop-hitbox": "^0.8.0",
+    "@atlaskit/drag-and-drop-live-region": "^0.2.1",
+    "@atlaskit/tokens": "^1.2.4",
+    "@babel/runtime": "^7.0.0",
+    "@emotion/react": "^11.7.1",
+    "bind-event-listener": "^2.1.1",
+    "react-dom": "^16.8.0",
+    "tiny-invariant": "^1.2.0"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0"
+  },
+  "devDependencies": {
+    "@atlaskit/codemod-utils": "^4.1.3",
+    "@atlaskit/docs": "*",
+    "@atlaskit/motion": "^1.3.0",
+    "@atlaskit/radio": "^5.4.2",
+    "@atlaskit/ssr": "*",
+    "@atlaskit/tokens": "^1.2.0",
+    "@atlaskit/visual-regression": "*",
+    "@atlaskit/webdriver-runner": "*",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
+    "@testing-library/dom": "^8.17.1",
+    "@testing-library/react": "^12.1.5",
+    "@testing-library/user-event": "^14.4.3",
+    "@types/react-beautiful-dnd": "^13.1.4",
+    "@types/react-window": "^1.8.5",
+    "jscodeshift": "^0.13.0",
+    "react-beautiful-dnd": "^12.1.1",
+    "react-virtualized": "^9.8.0",
+    "react-window": "^1.8.8",
+    "typescript": "4.5.5",
+    "wait-for-expect": "^1.2.0"
+  },
+  "techstack": {
+    "@atlassian/frontend": {
+      "import-structure": [
+        "atlassian-conventions"
+      ],
+      "circular-dependencies": [
+        "file-and-folder-level"
+      ]
+    },
+    "@repo/internal": {
+      "dom-events": "use-bind-event-listener",
+      "analytics": [
+        "analytics-next"
+      ],
+      "design-tokens": [
+        "color"
+      ],
+      "theming": [
+        "react-context"
+      ],
+      "ui-components": [
+        "lite-mode"
+      ],
+      "deprecation": [
+        "no-deprecated-imports"
+      ],
+      "styling": [
+        "static",
+        "emotion"
+      ]
+    }
+  },
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
+}

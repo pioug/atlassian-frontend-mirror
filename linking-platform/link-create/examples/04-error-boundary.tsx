@@ -10,7 +10,7 @@ import LinkCreate from '../src';
 // This is the cloud id for pug.jira-dev.com
 const CLOUD_ID = 'DUMMY-a5a01d21-1cc3-4f29-9565-f2bb8cd969f5';
 
-export default function Basic() {
+function CreateError() {
   const [link, setLink] = useState<string | null>();
   const [active, setActive] = useState(false);
 
@@ -32,33 +32,39 @@ export default function Basic() {
   }, []);
 
   return (
-    <IntlProvider locale="en">
-      <div style={{ padding: '20px' }}>
-        {link && (
-          <div style={{ marginBottom: '1rem' }}>
-            <a href={link} target="_blank" rel="noopener noreferrer nofollow">
-              {link}
-            </a>
-          </div>
-        )}
+    <div style={{ padding: '20px' }}>
+      {link && (
+        <div style={{ marginBottom: '1rem' }}>
+          <a href={link} target="_blank" rel="noopener noreferrer nofollow">
+            {link}
+          </a>
+        </div>
+      )}
 
-        <Button
-          testId="link-create-show"
-          appearance="primary"
-          onClick={() => setActive(true)}
-        >
-          Create
-        </Button>
-        <LinkCreate
-          testId="link-create"
-          plugins={plugins}
-          entityKey={'undefined' as any} // Rip
-          onCreate={handleCreate}
-          onCancel={handleCancel}
-          onFailure={handleFailure}
-          active={active}
-        />
-      </div>
+      <Button
+        testId="link-create-show"
+        appearance="primary"
+        onClick={() => setActive(true)}
+      >
+        Create
+      </Button>
+      <LinkCreate
+        testId="link-create"
+        plugins={plugins}
+        entityKey={'undefined' as any} // Rip: force an unexpected error
+        onCreate={handleCreate}
+        onCancel={handleCancel}
+        onFailure={handleFailure}
+        active={active}
+      />
+    </div>
+  );
+}
+
+export default function Create() {
+  return (
+    <IntlProvider locale="en">
+      <CreateError />
     </IntlProvider>
   );
 }

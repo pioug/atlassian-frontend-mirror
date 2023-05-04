@@ -4,6 +4,8 @@ export interface TextFieldProps {
   name: string;
   /** This should be properly internationalization-ed */
   label: string;
+  /** This should be properly internationalization-ed */
+  placeholder?: string;
   /**
    * Optional text below the textfield explaining any requirements for a valid value.
    * eg. "Must be 4 or more letters"

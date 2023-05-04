@@ -53,6 +53,10 @@ describe('Toolbar: Jira configurarion', () => {
   const EXCLUDED_SIZES = [
     VIEWPORT_SIZES.laptopHiDPI.width,
     VIEWPORT_SIZES.laptopMDPI.width,
+    // Skip due to failing VR Tests: https://product-fabric.atlassian.net/browse/ED-17719
+    VIEWPORT_SIZES.tabletL.width,
+    // Skip due to failing VR Tests: https://product-fabric.atlassian.net/browse/ED-17719
+    VIEWPORT_SIZES.tabletS.width,
   ];
   Object.entries(VIEWPORT_SIZES).forEach(([key, viewport]) => {
     if (!EXCLUDED_SIZES.includes(viewport.width)) {

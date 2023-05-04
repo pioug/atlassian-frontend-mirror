@@ -2,6 +2,7 @@
 import { Component } from 'react';
 import { jsx } from '@emotion/react';
 import { Rect } from '@atlaskit/editor-tables/table-map';
+import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette';
 import { splitCell } from '@atlaskit/editor-tables/utils';
 import { EditorView } from 'prosemirror-view';
 import {
@@ -252,6 +253,7 @@ export class ContextualMenu extends Component<
                     palette: cellBackgroundColorPalette,
                     paletteColorTooltipMessages:
                       backgroundPaletteTooltipMessages,
+                    hexToPaletteColor: hexToEditorBackgroundPaletteColor,
                     // We did not want to create new FF or update
                     //  useSomewhatSemanticTextColorNames name
                     //  because it is temporary and require extra work.

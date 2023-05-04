@@ -1,5 +1,11 @@
 # @af/frontend-utilities
 
+## 2.5.0
+
+### Minor Changes
+
+- [`ae81f78ccf5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ae81f78ccf5) - add storageRecord helper hook
+
 ## 2.4.1
 
 ### Patch Changes

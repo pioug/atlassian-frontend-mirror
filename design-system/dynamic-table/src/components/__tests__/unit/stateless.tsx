@@ -21,10 +21,12 @@ const createProps: () => StatelessProps = () => ({
 
 test('onSort should change to ASC from DESC if table is not rankable', () => {
   const props = createProps();
-  render(<StatelessDynamicTable {...props} sortOrder="DESC" />);
+  const { getAllByRole } = render(
+    <StatelessDynamicTable {...props} sortOrder="DESC" />,
+  );
 
-  const tableHeadCell = screen.getAllByTestId(`${testId}--head--cell`);
-  fireEvent.click(tableHeadCell[0]);
+  const sortButtons = getAllByRole('button');
+  fireEvent.click(sortButtons[0]);
 
   const item = { key: sortKey, content: 'First name', isSortable: true };
 
@@ -38,10 +40,12 @@ test('onSort should change to ASC from DESC if table is not rankable', () => {
 
 test('onSort should change to none if table is rankable and sort order was DESC', () => {
   const props = createProps();
-  render(<StatelessDynamicTable {...props} sortOrder="DESC" isRankable />);
+  const { getAllByRole } = render(
+    <StatelessDynamicTable {...props} sortOrder="DESC" isRankable />,
+  );
 
-  const tableHeadCell = screen.getAllByTestId(`${testId}--head--cell`);
-  fireEvent.click(tableHeadCell[0]);
+  const sortButtons = getAllByRole('button');
+  fireEvent.click(sortButtons[0]);
 
   const item = { key: sortKey, content: 'First name', isSortable: true };
 
@@ -55,10 +59,12 @@ test('onSort should change to none if table is rankable and sort order was DESC'
 
 test('onSort should change to DESC if table is rankable and sort order was ASC', () => {
   const props = createProps();
-  render(<StatelessDynamicTable {...props} sortOrder="ASC" isRankable />);
+  const { getAllByRole } = render(
+    <StatelessDynamicTable {...props} sortOrder="ASC" isRankable />,
+  );
 
-  const tableHeadCell = screen.getAllByTestId(`${testId}--head--cell`);
-  fireEvent.click(tableHeadCell[0]);
+  const sortButtons = getAllByRole('button');
+  fireEvent.click(sortButtons[0]);
 
   const item = { key: sortKey, content: 'First name', isSortable: true };
 
@@ -72,7 +78,7 @@ test('onSort should change to DESC if table is rankable and sort order was ASC',
 
 test('onSort should change to ASC if table is rankable and was sorted using on different row', () => {
   const props = createProps();
-  render(
+  const { getAllByRole } = render(
     <StatelessDynamicTable
       {...props}
       sortOrder="DESC"
@@ -81,8 +87,8 @@ test('onSort should change to ASC if table is rankable and was sorted using on d
     />,
   );
 
-  const tableHeadCell = screen.getAllByTestId(`${testId}--head--cell`);
-  fireEvent.click(tableHeadCell[0]);
+  const sortButtons = getAllByRole('button');
+  fireEvent.click(sortButtons[0]);
 
   const item = { key: sortKey, content: 'First name', isSortable: true };
 

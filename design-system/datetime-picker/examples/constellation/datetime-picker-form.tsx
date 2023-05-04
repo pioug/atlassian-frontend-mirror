@@ -21,7 +21,6 @@ const DateTimePickerFormExample = () => (
               <DateTimePicker
                 {...fieldProps}
                 datePickerSelectProps={{ inputId: fieldProps.id }}
-                timePickerSelectProps={{ inputId: fieldProps.id }}
               />
               <HelperMessage>Help or instruction text goes here</HelperMessage>
             </>

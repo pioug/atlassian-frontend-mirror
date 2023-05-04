@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import { Fragment, useMemo } from 'react';
+import { Fragment, useMemo, useCallback } from 'react';
+import { FormattedMessage } from 'react-intl-next';
 
 import { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 
@@ -9,8 +10,17 @@ import type { LozengeActionErrorProps } from './types';
 import { token } from '@atlaskit/tokens';
 import { R50, R500 } from '@atlaskit/theme/colors';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
-import { dropdownItemGroupStyles, contentStyles, textStyles } from './styled';
+import {
+  dropdownItemGroupStyles,
+  contentStyles,
+  linkStyles,
+  textStyles,
+} from './styled';
 import { getFormattedMessage } from '../../../utils';
+import { messages } from '../../../../../../messages';
+import { useFlexibleUiAnalyticsContext } from '../../../../../../state/flexible-ui-context';
+import { openPreviewModal } from '../../../../../EmbedModal/utils';
+import useResolve from '../../../../../../state/hooks/use-resolve';
 
 const MAX_LINE_NUMBER = 8;
 
@@ -18,7 +28,29 @@ const LozengeActionError: FC<LozengeActionErrorProps> = ({
   errorMessage,
   testId,
   maxLineNumber = MAX_LINE_NUMBER,
+  url,
+  previewData,
 }) => {
+  const reload = useResolve();
+  const analytics = useFlexibleUiAnalyticsContext();
+  const isPreviewAvailable = previewData && previewData.src !== undefined;
+
+  const handlePreviewClose = useCallback(() => {
+    if (url) {
+      reload(url, true);
+    }
+  }, [reload, url]);
+
+  const handlePreviewOpen = useCallback(() => {
+    if (isPreviewAvailable) {
+      return openPreviewModal({
+        ...previewData,
+        analytics,
+        onClose: handlePreviewClose,
+      });
+    }
+  }, [analytics, handlePreviewClose, isPreviewAvailable, previewData]);
+
   const content = useMemo(() => {
     return (
       <Fragment>
@@ -39,9 +71,26 @@ const LozengeActionError: FC<LozengeActionErrorProps> = ({
               : getFormattedMessage(errorMessage)}
           </span>
         </div>
+        {isPreviewAvailable ? (
+          <div css={linkStyles}>
+            <a
+              target="_blank"
+              data-testid={`${testId}-open-embed`}
+              onClick={handlePreviewOpen}
+            >
+              <FormattedMessage {...messages.open_issue_in_jira} />
+            </a>
+          </div>
+        ) : null}
       </Fragment>
     );
-  }, [errorMessage, maxLineNumber, testId]);
+  }, [
+    errorMessage,
+    handlePreviewOpen,
+    isPreviewAvailable,
+    maxLineNumber,
+    testId,
+  ]);
 
   return (
     <span

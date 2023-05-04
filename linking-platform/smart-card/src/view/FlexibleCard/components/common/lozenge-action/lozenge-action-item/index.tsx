@@ -20,10 +20,10 @@ const LozengeActionItem: FC<LozengeActionItemProps> = ({
       e.stopPropagation();
 
       if (onClick) {
-        onClick(id);
+        onClick(id, text, appearance);
       }
     },
-    [id, onClick],
+    [appearance, id, onClick, text],
   );
 
   const handleMouseEnter = useCallback((e) => {

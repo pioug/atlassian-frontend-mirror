@@ -44,8 +44,6 @@ export interface CardProps extends WithAnalyticsEventsProps {
    */
   showActions?: boolean;
   /**
-   * @todo This is an experiment prop and the development is in-progress.
-   * @see ATLAS-13099
    * Show server actions that change the link resource, e.g. update status.
    */
   showServerActions?: boolean;

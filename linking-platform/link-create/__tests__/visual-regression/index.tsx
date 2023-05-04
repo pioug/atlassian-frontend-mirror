@@ -38,6 +38,26 @@ export async function setup(url: string, options: LoadPageOptions = {}) {
 }
 
 describe('link-create', () => {
+  it('should display dropdowns correctly', async () => {
+    const url = getURL('basic');
+    const page = await setup(url);
+
+    // click Create button
+    await page.click('[data-testid="link-create-show"]');
+    // Wait for Modal
+    await page.waitForSelector('[data-testid="link-create"]');
+    // click on dropdown
+    await page.click('#space_or_page-uid2');
+    // wait for list
+    await page.waitForSelector('#react-select-2-group-0-heading');
+    //
+    const image = await page.screenshot({
+      clip: { x: 0, y: 0, width: 800, height: 600 },
+    });
+
+    expect(image).toMatchProdImageSnapshot();
+  });
+
   it('should display an error message when the component throws', async () => {
     const url = getURL('error-boundary');
     const page = await setup(url);
@@ -48,6 +68,27 @@ describe('link-create', () => {
     await page.waitForSelector('[data-testid="link-create"]');
     // remove auto focus
     await page.click('[data-testid="link-create-error-boundary-ui"]');
+
+    const image = await takeElementScreenShot(
+      page,
+      '[data-testid="link-create"]',
+    );
+
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('should display an error message when network request fails', async () => {
+    const url = getURL('vr-form-error');
+    const page = await setup(url);
+
+    // click Show Create button
+    await page.click('[data-testid="link-create-show"]');
+    // Wait for Modal
+    await page.waitForSelector('[data-testid="link-create"]');
+    // Wait for Modal
+    await page.waitForSelector(
+      '[data-testid="link-create-confluence-form-error"]',
+    );
 
     const image = await takeElementScreenShot(
       page,

@@ -73,7 +73,6 @@ const DateTimePickerWithInternationalizedLabels = () => {
               'aria-label': intl.formatMessage({ id: 'date' }),
             }}
             timePickerSelectProps={{
-              inputId: fieldProps.id,
               'aria-label': intl.formatMessage({ id: 'time' }),
             }}
           />

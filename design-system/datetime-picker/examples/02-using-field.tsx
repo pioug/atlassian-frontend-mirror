@@ -30,7 +30,6 @@ export default () => {
           <DateTimePicker
             {...fieldProps}
             datePickerSelectProps={{ inputId: fieldProps.id }}
-            timePickerSelectProps={{ inputId: fieldProps.id }}
           />
         )}
       </Field>

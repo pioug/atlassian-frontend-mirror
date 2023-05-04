@@ -7,6 +7,7 @@ import Page from '@atlaskit/page';
 import SectionMessage from '@atlaskit/section-message';
 import { SmartLinkActionType } from '@atlaskit/linking-types';
 import { exampleTokens } from './flexible-ui';
+import { overrideEmbedContent } from './common';
 
 const horizontalWrapperStyles = css`
   display: flex;
@@ -87,5 +88,26 @@ export const LozengeActionExample = {
       },
     },
     providerKey: 'object-provider',
+  },
+};
+
+export const LozengeActionWithPreviewExample = {
+  read: {
+    ...LozengeActionExample.read,
+  },
+  update: {
+    action: { ...LozengeActionExample.update.action },
+    providerKey: LozengeActionExample.update.providerKey,
+    details: {
+      id: 'some-link-id',
+      url: 'some-link-url',
+      previewData: {
+        download: 'https://download-url',
+        providerName: 'Jira',
+        title: 'This is a visual regression test for embed modal',
+        src: overrideEmbedContent,
+        url: 'link-url',
+      },
+    },
   },
 };

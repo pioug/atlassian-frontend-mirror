@@ -37,7 +37,20 @@ type BaseBoxPropsFoundation<T extends ElementType> = {
   /**
    * The DOM element to render as the Box. Defaults to `div`.
    */
-  as?: 'div' | 'span' | 'li';
+  as?:
+    | 'article'
+    | 'aside'
+    | 'dialog'
+    | 'div'
+    | 'footer'
+    | 'header'
+    | 'li'
+    | 'main'
+    | 'nav'
+    | 'ol'
+    | 'section'
+    | 'span'
+    | 'ul';
   /**
    * The HTML className attribute.
    *

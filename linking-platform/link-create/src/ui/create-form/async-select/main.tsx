@@ -26,6 +26,7 @@ export function AsyncSelect<T = OptionType>({
   ...rest
 }: AsyncSelectProps<T>) {
   const { assignValidator } = useFormContext();
+
   useEffect(() => {
     if (validators) {
       assignValidator(name, validators);

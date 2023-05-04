@@ -1,4 +1,4 @@
-import React, { FC, KeyboardEvent, LegacyRef } from 'react';
+import React, { FC, LegacyRef } from 'react';
 
 import { HeadCell } from '../styled/table-head';
 import { SortOrderType } from '../types';
@@ -13,7 +13,6 @@ export interface TableHeadCellProps {
   inlineStyles?: {};
   content?: React.ReactNode;
   onClick?: () => void;
-  onKeyDown?: (e: KeyboardEvent) => void;
   shouldTruncate?: boolean;
   testId?: string;
   width?: number;
@@ -27,6 +26,7 @@ const TableHeadCell: FC<TableHeadCellProps> = ({
   isRanking,
   innerRef,
   isSortable,
+  onClick,
   ...rest
 }) => {
   return (
@@ -36,10 +36,16 @@ const TableHeadCell: FC<TableHeadCellProps> = ({
       ref={typeof innerRef !== 'string' ? innerRef : null} // string refs must be discarded as LegacyRefs are not compatible with FC forwardRefs
       // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
       {...rest}
-      tabIndex={isSortable ? 0 : undefined}
+      onClick={onClick}
       isSortable={isSortable}
     >
-      <span>{content}</span>
+      {isSortable ? (
+        <button type="button" aria-roledescription="Sort button">
+          {content}
+        </button>
+      ) : (
+        <span>{content}</span>
+      )}
     </HeadCell>
   );
 };

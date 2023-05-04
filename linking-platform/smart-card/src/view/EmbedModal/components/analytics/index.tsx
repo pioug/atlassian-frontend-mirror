@@ -20,7 +20,7 @@ const withAnalytics =
 
     const handleOnOpen = useCallback(
       (context: EmbedModalContext) => {
-        analytics.screen.modalViewedEvent({
+        analytics?.screen.modalViewedEvent({
           name: 'embedPreviewModal',
           attributes: {
             origin,
@@ -28,7 +28,7 @@ const withAnalytics =
           },
         });
 
-        analytics.ui.renderSuccessEvent({
+        analytics?.ui.renderSuccessEvent({
           status: 'resolved',
           display: CardDisplay.EmbedPreview,
         });
@@ -37,12 +37,12 @@ const withAnalytics =
           onOpen(context);
         }
       },
-      [analytics.screen, analytics.ui, onOpen, origin],
+      [analytics?.screen, analytics?.ui, onOpen, origin],
     );
 
     const handleOnOpenFailed = useCallback(
       (error: Error, errorInfo: ErrorInfo) => {
-        analytics.ui.renderFailedEvent({
+        analytics?.ui.renderFailedEvent({
           display: CardDisplay.EmbedPreview,
           error,
           errorInfo,
@@ -52,12 +52,12 @@ const withAnalytics =
           onOpenFailed(error, errorInfo);
         }
       },
-      [analytics.ui, onOpenFailed],
+      [analytics?.ui, onOpenFailed],
     );
 
     const handleOnClose = useCallback(
       (context: EmbedModalContext) => {
-        analytics.ui.modalClosedEvent({
+        analytics?.ui.modalClosedEvent({
           actionSubjectId: 'embedPreview',
           attributes: {
             origin,
@@ -70,12 +70,12 @@ const withAnalytics =
           onClose(context);
         }
       },
-      [analytics.ui, onClose, origin],
+      [analytics?.ui, onClose, origin],
     );
 
     const handleOnResize = useCallback(
       (context: EmbedModalContext) => {
-        analytics.ui.buttonClickedEvent({
+        analytics?.ui.buttonClickedEvent({
           actionSubjectId: 'embedPreviewResize',
           attributes: {
             newSize: context.size,
@@ -88,7 +88,7 @@ const withAnalytics =
           onResize(context);
         }
       },
-      [analytics.ui, onResize, origin],
+      [analytics?.ui, onResize, origin],
     );
 
     return (

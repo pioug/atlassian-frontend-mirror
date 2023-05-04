@@ -25,9 +25,8 @@ import { isFlexibleUiCard } from '../../utils/flexible';
 import FlexibleCard from '../FlexibleCard';
 import { CardDisplay } from '../../constants';
 import { fireLinkClickedEvent } from '../../utils/analytics/click';
-import { SmartLinkAnalyticsContext } from '../../utils/analytics/SmartLinkAnalyticsContext';
 
-function Component({
+export function CardWithUrlContent({
   id,
   url,
   isSelected,
@@ -360,13 +359,3 @@ function Component({
       );
   }
 }
-
-export const CardWithUrlContent = (props: CardWithUrlContentProps) => (
-  <SmartLinkAnalyticsContext
-    url={props.url}
-    appearance={props.appearance}
-    id={props.id}
-  >
-    <Component {...props} />
-  </SmartLinkAnalyticsContext>
-);

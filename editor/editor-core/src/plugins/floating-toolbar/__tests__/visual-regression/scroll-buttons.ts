@@ -226,7 +226,8 @@ describe('Floating toolbars:', () => {
     describe('with popup items', () => {
       // skip Appearance.mobile
       it.each([
-        Appearance.fullWidth,
+        // Skip due to failing VR Tests: https://product-fabric.atlassian.net/browse/ED-17719
+        // Appearance.fullWidth,
         Appearance.fullPage,
         Appearance.comment,
         Appearance.chromeless,

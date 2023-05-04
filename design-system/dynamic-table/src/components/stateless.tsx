@@ -258,7 +258,7 @@ class DynamicTable extends React.Component<Props, State> {
                 sortKey={sortKey}
                 sortOrder={sortOrder}
                 isRanking={this.state.isRanking}
-                isRankable={canRank}
+                isRankable={isRankable}
                 testId={testId}
               />
             )}

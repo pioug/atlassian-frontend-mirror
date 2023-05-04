@@ -1,7 +1,38 @@
 ---
 title: Box
-description: Box primitive...
+description: Box is a primitive component that leverages the foundations of the Atlassian Design System.
 order: 0
 ---
 
-*Coming soon*
+import BoxBasic from '../../examples/constellation/box/basic';
+import BoxPadding from '../../examples/constellation/box/padding';
+import BoxBackgroundColor from '../../examples/constellation/box/background-color';
+import BoxXcss from '../../examples/constellation/box/xcss';
+
+## Basic
+
+Box is a general-purpose container with controlled use of design tokens. Use the given props to configure display behaviour using scalable recommendations from the Atlassian Design System.
+
+<Example Component={BoxBasic} packageName="@atlaskit/primitives/box" />
+
+## Padding
+
+Padding props can be used to access spacing design token and control internal layout. The following example demonstrates how each prop works individually:
+
+<Example Component={BoxPadding} packageName="@atlaskit/primitives/box" />
+
+*Note*: The nomenclature used by these props follows [logical properties](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Logical_Properties). It might be less intuitive at first but they are adequate to properly support different [writing modes](https://developer.mozilla.org/en-US/docs/Web/CSS/writing-mode) in our products.
+
+## Background color
+
+`Box` accepts a wide variety of background colors, referenced as semantic design tokens.
+
+<Example Component={BoxBackgroundColor} packageName="@atlaskit/primitives/box" />
+
+## xCSS
+
+Box also exposes an `xcss` prop. This prop can take `xcss` function calls that contain a subset of permitted styles. When used with `Box`, xCSS takes most CSS properties, and when a token exists, the rule accepts that token as a value. 
+
+<Example Component={BoxXcss} packageName="@atlaskit/primitives/box" />
+
+For more information on xCSS, see the dedicated [xCSS](/components/primitives/xcss) documentation.

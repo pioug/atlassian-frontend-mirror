@@ -1,5 +1,11 @@
 # @atlaskit/analytics-next
 
+## 9.0.2
+
+### Patch Changes
+
+- [`7caf968e4cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7caf968e4cf) - Move analytics-next to maintenance mode
+
 ## 9.0.1
 
 ### Patch Changes

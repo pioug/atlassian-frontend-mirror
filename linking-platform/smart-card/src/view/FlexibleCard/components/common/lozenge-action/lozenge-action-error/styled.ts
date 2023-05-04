@@ -27,7 +27,7 @@ const sharedBlockStyles = css`
 export const contentStyles = css`
   ${sharedBlockStyles};
 
-  margin-top: 2px;
+  margin-top: ${token('space.025', '2px')};
   align-items: flex-start;
 
   > span,
@@ -37,6 +37,15 @@ export const contentStyles = css`
       color: ${token('color.text', N800)};
     }
   }
+`;
+
+export const linkStyles = css`
+  ${sharedBlockStyles};
+
+  font-size: 0.875rem;
+  margin-top: 10px;
+  margin-left: ${token('space.400', '32px')};
+  margin-bottom: ${token('space.025', '2px')};
 `;
 
 export const textStyles = (maxLines: number) => css`

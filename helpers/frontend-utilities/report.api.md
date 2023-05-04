@@ -101,6 +101,25 @@ export class StorageClient {
 }
 
 // @public (undocumented)
+export const useLocalStorage: <T extends unknown>(
+  key: string,
+  defaultValue: T,
+) => [value: T, setValue: (value: T) => void];
+
+// @public (undocumented)
+export function useLocalStorageRecord<T>(
+  key: string,
+  initialValue?: T[],
+  maxLength?: number,
+): {
+  records: T[];
+  actions: {
+    putRecord: (record: T) => void;
+    removeRecord: (query: string) => void;
+  };
+};
+
+// @public (undocumented)
 export const usePrevious: <T = any>(value: T) => T | undefined;
 
 // (No @packageDocumentation comment for this package)

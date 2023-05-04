@@ -309,6 +309,14 @@ describe('DateTimePicker', () => {
       <DateTimePicker
         testId={testId}
         datePickerSelectProps={{ inputId: id }}
+      />,
+      <DateTimePicker
+        testId={testId}
+        timePickerSelectProps={{ inputId: id }}
+      />,
+      <DateTimePicker
+        testId={testId}
+        datePickerSelectProps={{ inputId: id }}
         timePickerSelectProps={{ inputId: id }}
       />,
     ];

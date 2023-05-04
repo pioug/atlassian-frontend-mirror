@@ -1,5 +1,7 @@
 import React, { useCallback, useState } from 'react';
 
+import { IntlProvider } from 'react-intl-next';
+
 import Button from '@atlaskit/button/standard-button';
 import { createDefaultPluginPresets } from '@atlassian/link-create-presets';
 
@@ -8,7 +10,7 @@ import LinkCreate from '../src';
 // This is the cloud id for pug.jira-dev.com
 const CLOUD_ID = 'DUMMY-a5a01d21-1cc3-4f29-9565-f2bb8cd969f5';
 
-export default function Basic() {
+function CreatePresets() {
   const [link, setLink] = useState<string | null>();
   const [active, setActive] = useState(false);
 
@@ -47,5 +49,13 @@ export default function Basic() {
         active={active}
       />
     </div>
+  );
+}
+
+export default function Create() {
+  return (
+    <IntlProvider locale="en">
+      <CreatePresets />
+    </IntlProvider>
   );
 }

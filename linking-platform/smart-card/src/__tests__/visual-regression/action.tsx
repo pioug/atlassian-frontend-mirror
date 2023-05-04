@@ -94,5 +94,40 @@ describe('server action', () => {
       const image = await takeSnapshot(page, height);
       expect(image).toMatchProdImageSnapshot();
     });
+
+    it('renders lozenge action update failure without preview modal availability', async () => {
+      const url = getURL('vr-action-lozenge-error-without-preview-data');
+      const page = await setup(url);
+      await page.waitForSelector(triggerSelector);
+
+      await page.click(triggerSelector);
+      await page.waitForSelector(`[data-testid="${testId}-item-group"]`);
+      await page.waitForSelector(`[data-testid="${testId}-item-0"]`);
+      await page.click(`[data-testid="${testId}-item-0"]`);
+      await page.waitForSelector(`[data-testid="${testId}-error-item-group"]`);
+
+      const image = await takeSnapshot(page, height);
+      expect(image).toMatchProdImageSnapshot();
+    });
+
+    it('renders preview modal when user clicks on error link', async () => {
+      const url = getURL('vr-action-lozenge-custom-update-error');
+      const page = await setup(url);
+      await page.waitForSelector(triggerSelector);
+
+      await page.click(triggerSelector);
+      await page.waitForSelector(`[data-testid="${testId}-item-group"]`);
+      await page.waitForSelector(`[data-testid="${testId}-item-0"]`);
+      await page.click(`[data-testid="${testId}-item-0"]`);
+      await page.waitForSelector(`[data-testid="${testId}-error-item-group"]`);
+
+      await page.click(`[data-testid="${testId}-open-embed"]`);
+      await page.waitForSelector(
+        '[data-testid="smart-embed-preview-modal-embed"]',
+      );
+
+      const image = await takeSnapshot(page, 550, 0);
+      expect(image).toMatchProdImageSnapshot();
+    });
   });
 });

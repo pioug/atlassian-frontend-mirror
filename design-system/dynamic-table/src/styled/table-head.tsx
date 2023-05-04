@@ -85,8 +85,16 @@ const onClickStyles = css({
 });
 
 const baseStyles = css({
-  '& > span': {
+  '& > button': {
+    padding: token('space.0', '0'),
     position: 'relative',
+    appearance: 'none',
+    background: 'none',
+    border: 'none',
+    color: 'inherit',
+    cursor: 'inherit',
+    fontSize: 'inherit',
+    fontWeight: 'inherit',
     '&::before, &::after': {
       display: 'block',
       width: 0,
@@ -109,7 +117,7 @@ const baseStyles = css({
     },
   },
   '@media (forced-colors: active)': {
-    '& > span': {
+    '& > button': {
       '&::before, &::after': {
         border: `3px solid ${MSThemeColors.Background}`,
       },
@@ -124,13 +132,13 @@ const baseStyles = css({
 });
 
 const ascendingStyles = css({
-  '& > span': {
+  '& > button': {
     '&::before': {
       borderBottom: `3px solid ${arrow.selectedColor}`,
     },
   },
   '@media (forced-colors: active)': {
-    '& > span': {
+    '& > button': {
       '&::before': {
         borderBottom: `3px solid ${MSThemeColors.SelectedBackground}`,
       },
@@ -139,13 +147,13 @@ const ascendingStyles = css({
 });
 
 const descendingStyles = css({
-  '& > span': {
+  '& > button': {
     '&::after': {
       borderTop: `3px solid ${arrow.selectedColor}`,
     },
   },
   '@media (forced-colors: active)': {
-    '& > span': {
+    '& > button': {
       '&::after': {
         borderTop: `3px solid ${MSThemeColors.SelectedBackground}`,
       },

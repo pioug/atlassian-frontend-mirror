@@ -1,5 +1,11 @@
 # @atlaskit/css-reset
 
+## 6.4.1
+
+### Patch Changes
+
+- [`35d89e93915`](https://bitbucket.org/atlassian/atlassian-frontend/commits/35d89e93915) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
+
 ## 6.4.0
 
 ### Minor Changes

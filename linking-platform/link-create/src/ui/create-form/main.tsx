@@ -1,49 +1,58 @@
 /** @jsx jsx */
-import React, { ReactNode, useCallback } from 'react';
+import { ReactNode, useCallback } from 'react';
 
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
+import { useIntl } from 'react-intl-next';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import LoadingButton from '@atlaskit/button/loading-button';
 import Button from '@atlaskit/button/standard-button';
 import Form, { FormFooter, FormSection } from '@atlaskit/form';
+import ErrorIcon from '@atlaskit/icon/glyph/error';
+import { token } from '@atlaskit/tokens';
 
-import { ANALYTICS_CHANNEL } from '../../common/constants';
+import {
+  ANALYTICS_CHANNEL,
+  CREATE_FORM_MAX_WIDTH_IN_PX,
+} from '../../common/constants';
 import { ValidatorMap } from '../../common/types';
 import createEventPayload from '../../common/utils/analytics/analytics.codegen';
-import {
-  FormContextProvider,
-  useFormContext,
-} from '../../controllers/form-context';
+import { useFormContext } from '../../controllers/form-context';
 
-import { formStyles } from './styled';
+import { messages } from './messages';
 import { validateFormData } from './utils';
 
-export interface CreateFormProps {
+const formStyles = css({
+  maxWidth: `${CREATE_FORM_MAX_WIDTH_IN_PX}px`,
+  padding: `0 0 ${token('space.300', '24px')} 0`,
+  margin: `${token('space.0', '0px')} auto`,
+});
+
+const errorStyles = css({
+  display: 'flex',
+  alignItems: 'center',
+  marginRight: 'auto',
+});
+
+export interface CreateFormProps<FormData> {
   children: ReactNode;
   testId?: string;
   onCancel?: () => void;
-  onSubmit: (data: Record<string, unknown>) => void;
+  onSubmit: (data: FormData) => void;
 }
 
-const withFormContext = (Component: React.FC<any>) => (props: any) =>
-  (
-    <FormContextProvider>
-      <Component {...props} />
-    </FormContextProvider>
-  );
-
-const CreateFormWithoutContext: React.FC<CreateFormProps> = ({
+export const CreateForm = <FormData extends Record<string, any> = {}>({
   children,
   testId,
   onCancel,
   onSubmit,
-}: CreateFormProps) => {
+}: CreateFormProps<FormData>) => {
   const { createAnalyticsEvent } = useAnalyticsEvents();
-  const { getValidators } = useFormContext();
+  const { getValidators, formErrorMessage } = useFormContext();
+  const intl = useIntl();
 
   const handleSubmit = useCallback(
-    async (data: Record<string, unknown>) => {
+    async (data: FormData) => {
       createAnalyticsEvent(
         createEventPayload('ui.button.clicked.create', {}),
       ).fire(ANALYTICS_CHANNEL);
@@ -67,23 +76,35 @@ const CreateFormWithoutContext: React.FC<CreateFormProps> = ({
   }, [createAnalyticsEvent, onCancel]);
 
   return (
-    <Form<Record<string, unknown>> onSubmit={handleSubmit}>
+    <Form<FormData> onSubmit={handleSubmit}>
       {({ submitting, formProps }) => (
         <form
           {...formProps}
           name="confluence-creation-form"
           data-testid={testId}
-          // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
           css={formStyles}
         >
           <FormSection>{children}</FormSection>
           <FormFooter>
+            {formErrorMessage && (
+              <div
+                css={errorStyles}
+                data-testid="link-create-confluence-form-error"
+              >
+                <ErrorIcon
+                  label={formErrorMessage}
+                  primaryColor={token('color.icon.danger', '#E34935')}
+                />
+                {formErrorMessage}
+              </div>
+            )}
+
             <Button
               appearance="subtle"
               onClick={handleCancel}
               testId={'cancel-button'}
             >
-              Cancel
+              {intl.formatMessage(messages.cancel)}
             </Button>
             <LoadingButton
               appearance="primary"
@@ -91,7 +112,7 @@ const CreateFormWithoutContext: React.FC<CreateFormProps> = ({
               isLoading={submitting}
               testId={'create-button'}
             >
-              Create
+              {intl.formatMessage(messages.create)}
             </LoadingButton>
           </FormFooter>
         </form>
@@ -99,5 +120,3 @@ const CreateFormWithoutContext: React.FC<CreateFormProps> = ({
     </Form>
   );
 };
-
-export const CreateForm = withFormContext(CreateFormWithoutContext);

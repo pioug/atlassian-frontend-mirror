@@ -24,7 +24,6 @@ const DateTimePickerFormAccessibleExample = () => (
                 'aria-label': 'Select date',
               }}
               timePickerSelectProps={{
-                inputId: fieldProps.id,
                 'aria-label': 'Select time',
               }}
             />

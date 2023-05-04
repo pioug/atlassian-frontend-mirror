@@ -1,5 +1,11 @@
 # @atlaskit/dynamic-table
 
+## 14.8.17
+
+### Patch Changes
+
+- [`cdb1910463d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cdb1910463d) - [ux] Adds buttons to sortable table head cells for better accessibility for keyboard and assistive technology users.
+
 ## 14.8.16
 
 ### Patch Changes

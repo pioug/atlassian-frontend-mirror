@@ -1,4 +1,4 @@
-import React, { KeyboardEvent } from 'react';
+import React from 'react';
 
 import { validateSortKey } from '../internal/helpers';
 import { Head } from '../styled/table-head';
@@ -31,9 +31,6 @@ class TableHead extends React.Component<TableHeadProps, {}> {
       validateSortKey(nextProps.sortKey, nextProps.head);
     }
   }
-
-  canSortOnEnterPressed = (e: KeyboardEvent, isSortable: Boolean | void) =>
-    isSortable && e.key === 'Enter';
 
   render() {
     const {
@@ -89,11 +86,6 @@ class TableHead extends React.Component<TableHeadProps, {}> {
                 isRanking={isRanking}
                 key={key || index}
                 onClick={isSortable ? onSort(cell) : undefined}
-                onKeyDown={(e: KeyboardEvent) =>
-                  this.canSortOnEnterPressed(e, isSortable)
-                    ? onSort(cell)()
-                    : undefined
-                }
                 testId={cellTestId || testId}
                 shouldTruncate={shouldTruncate}
                 sortOrder={key === sortKey ? sortOrder : undefined}

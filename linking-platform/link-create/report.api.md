@@ -52,16 +52,21 @@ const ComposedLinkCreate: MemoExoticComponent<
 export default ComposedLinkCreate;
 
 // @public (undocumented)
-export const CreateForm: (props: any) => jsx.JSX.Element;
+export const CreateForm: <FormData_1 extends Record<string, any> = {}>({
+  children,
+  testId,
+  onCancel,
+  onSubmit,
+}: CreateFormProps<FormData_1>) => jsx.JSX.Element;
 
 // @public (undocumented)
-export interface CreateFormProps {
+export interface CreateFormProps<FormData> {
   // (undocumented)
   children: ReactNode;
   // (undocumented)
   onCancel?: () => void;
   // (undocumented)
-  onSubmit: (data: Record<string, unknown>) => void;
+  onSubmit: (data: FormData) => void;
   // (undocumented)
   testId?: string;
 }
@@ -74,7 +79,11 @@ interface FormContextType {
   // (undocumented)
   assignValidator: (name: string, validators: Validator[]) => void;
   // (undocumented)
+  formErrorMessage?: string;
+  // (undocumented)
   getValidators: () => ValidatorMap;
+  // (undocumented)
+  setFormErrorMessage: (errorMessage?: string) => void;
 }
 
 // @public (undocumented)
@@ -95,7 +104,7 @@ interface LinkCreateCallbackProviderProps {
     objectId: string;
     objectType: string;
   }) => void;
-  onFailure?: (error: unknown) => void;
+  onFailure?: (errorMessage: string) => void;
 }
 
 // @public (undocumented)
@@ -136,6 +145,7 @@ export function TextField({
   isRequired,
   testId,
   validators,
+  placeholder,
 }: TextFieldProps): jsx.JSX.Element;
 
 // @public (undocumented)
@@ -143,6 +153,7 @@ interface TextFieldProps {
   isRequired?: boolean;
   label: string;
   name: string;
+  placeholder?: string;
   // (undocumented)
   testId?: string;
   validationHelpText?: string;

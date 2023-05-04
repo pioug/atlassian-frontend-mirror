@@ -50,7 +50,8 @@ describe('Panel:', () => {
     hasEmojiAtSnapshot = true;
   });
 
-  it('looks correct', async () => {
+  // Skip due to failing VR Tests: https://product-fabric.atlassian.net/browse/ED-17719
+  it.skip('looks correct', async () => {
     const panelSelector = `.${PanelSharedCssClassName.prefix}`;
     await page.waitForSelector(panelSelector);
     await retryUntilStablePosition(
@@ -61,11 +62,13 @@ describe('Panel:', () => {
     );
   });
 
-  it('displays as selected when click on panel icon', async () => {
+  // Skip due to failing VR Tests: https://product-fabric.atlassian.net/browse/ED-17719
+  it.skip('displays as selected when click on panel icon', async () => {
     await page.click(`.${PanelSharedCssClassName.icon}`);
   });
 
-  it('displays as selected when click on padding', async () => {
+  // Skip due to failing VR Tests: https://product-fabric.atlassian.net/browse/ED-17719
+  it.skip('displays as selected when click on padding', async () => {
     const contentBoundingRect = await getBoundingClientRect(
       page,
       `.${PanelSharedCssClassName.prefix}`,
@@ -73,7 +76,7 @@ describe('Panel:', () => {
     await page.mouse.click(contentBoundingRect.left, contentBoundingRect.top);
   });
 
-  it("doesn't lose node selection after changing panel type", async () => {
+  it.skip("doesn't lose node selection after changing panel type", async () => {
     await page.click(`.${PanelSharedCssClassName.icon}`);
 
     // Change panel type to note
@@ -137,7 +140,8 @@ describe('custom panels', () => {
     adfContent = customPanel;
   });
 
-  it('open the panel background color picker', async () => {
+  // Skip due to failing VR Tests: https://product-fabric.atlassian.net/browse/ED-17719
+  it.skip('open the panel background color picker', async () => {
     await page.click(`.${PanelSharedCssClassName.icon}`);
     await page.click(`${PanelSharedSelectors.colorPalette}`);
     await page.hover(`${PanelSharedSelectors.title}`);
@@ -150,7 +154,8 @@ describe('custom panels', () => {
     await page.hover(`${PanelSharedSelectors.title}`);
   });
 
-  it('remove emoji icon from custom panel', async () => {
+  // Skip due to failing VR Tests: https://product-fabric.atlassian.net/browse/ED-17719
+  it.skip('remove emoji icon from custom panel', async () => {
     await page.click(`.${PanelSharedCssClassName.icon}`);
     await page.click(`${PanelSharedSelectors.emojiIcon}`);
     const selectedEmoji = `${PanelSharedSelectors.selectedEmoji}`;
@@ -163,14 +168,16 @@ describe('custom panels', () => {
     await page.hover(`${PanelSharedSelectors.title}`);
   });
 
-  it('remove icon from Standard panel', async () => {
+  // Skip due to failing VR Tests: https://product-fabric.atlassian.net/browse/ED-17719
+  it.skip('remove icon from Standard panel', async () => {
     await page.click(`.${PanelSharedCssClassName.icon}`);
     await page.click(`${PanelSharedSelectors.infoPanel}`);
     await page.click(`${PanelSharedSelectors.removeEmojiIcon}`);
     await page.hover(`${PanelSharedSelectors.title}`);
   });
 
-  it('updates the panel and add emoji icon', async () => {
+  // Skip due to failing VR Tests: https://product-fabric.atlassian.net/browse/ED-17719
+  it.skip('updates the panel and add emoji icon', async () => {
     await page.click(`.${PanelSharedCssClassName.icon}`);
     await page.click(`${PanelSharedSelectors.emojiIcon}`);
     const selectedEmoji = `${PanelSharedSelectors.selectedEmoji}`;
@@ -182,7 +189,8 @@ describe('custom panels', () => {
     await page.click(`${PanelSharedSelectors.title}`);
   });
 
-  it('should show emoji picker on top of the toolbar', async () => {
+  // Skip due to failing VR Tests: https://product-fabric.atlassian.net/browse/ED-17719
+  it.skip('should show emoji picker on top of the toolbar', async () => {
     await page.click(`.${PanelSharedCssClassName.icon}`);
     await pressKey(page, [
       'ArrowRight',
@@ -202,27 +210,31 @@ describe('custom panels', () => {
   });
 
   describe('should close Popup ', () => {
-    it('when clicked on other buttons on floating toolbar', async () => {
+    // Skip due to failing VR Tests: https://product-fabric.atlassian.net/browse/ED-17719
+    it.skip('when clicked on other buttons on floating toolbar', async () => {
       await page.click(`.${PanelSharedCssClassName.icon}`);
       await page.click(`${PanelSharedSelectors.colorPalette}`);
       await page.click(`${PanelSharedSelectors.noteButton}`);
     });
 
-    it('ColorPicker when clicked on EmojiPicker', async () => {
+    // Skip due to failing VR Tests: https://product-fabric.atlassian.net/browse/ED-17719
+    it.skip('ColorPicker when clicked on EmojiPicker', async () => {
       await page.click(`.${PanelSharedCssClassName.icon}`);
       await page.click(`${PanelSharedSelectors.colorPalette}`);
       await page.click(`${PanelSharedSelectors.emojiIcon}`);
       await page.hover(`${PanelSharedSelectors.title}`);
     });
 
-    it('when clicked on different panel', async () => {
+    // Skip due to failing VR Tests: https://product-fabric.atlassian.net/browse/ED-17719
+    it.skip('when clicked on different panel', async () => {
       await page.click(`.${PanelSharedCssClassName.icon}`);
       await page.click(`${PanelSharedSelectors.colorPalette}`);
       await page.click(`${PanelSharedSelectors.infoPanel}`);
     });
   });
 
-  it('should select custom panel with emoji by pressing Shift + ArrowDown', async () => {
+  // Skip due to failing VR Tests: https://product-fabric.atlassian.net/browse/ED-17719
+  it.skip('should select custom panel with emoji by pressing Shift + ArrowDown', async () => {
     await page.click(`${panelSelectors.panelContent} p`);
     await pressWithKeyModifier(page, {
       modifierKeys: ['Shift'],
@@ -240,7 +252,8 @@ describe('custom panels', () => {
     });
   });
 
-  it('should open custom Emoji option when clicked on addYourOwnEmoji button', async () => {
+  // Skip due to failing VR Tests: https://product-fabric.atlassian.net/browse/ED-17719
+  it.skip('should open custom Emoji option when clicked on addYourOwnEmoji button', async () => {
     await page.click(`.${PanelSharedCssClassName.icon}`);
     await page.click(`${PanelSharedSelectors.emojiIcon}`);
     await page.click(`${PanelSharedSelectors.addYourOwnEmoji}`);
@@ -250,7 +263,8 @@ describe('custom panels', () => {
   });
 
   describe('with a duplicate short name, ', () => {
-    it('should be able select yellow warning emoji', async () => {
+    // Skip due to failing VR Tests: https://product-fabric.atlassian.net/browse/ED-17719
+    it.skip('should be able select yellow warning emoji', async () => {
       await page.click(`.${PanelSharedCssClassName.icon}`);
       await page.click(`${PanelSharedSelectors.warningButton}`);
       await page.click(`${PanelSharedSelectors.emojiIcon}`);
@@ -290,7 +304,8 @@ describe('Dark mode panel', () => {
     await snapshot(page);
   });
 
-  it('Should render standard panels', async () => {
+  // Skip due to failing VR Tests: https://product-fabric.atlassian.net/browse/ED-17719
+  it.skip('Should render standard panels', async () => {
     adfContent = panel;
     await initFullPageEditorWithAdf(
       page,

@@ -1,6 +1,11 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
-import { act, fireEvent, render } from '@testing-library/react';
+import {
+  act,
+  fireEvent,
+  render,
+  waitForElementToBeRemoved,
+} from '@testing-library/react';
 import { flushPromises } from '@atlaskit/link-test-helpers';
 import LozengeAction from '../index';
 import * as useInvoke from '../../../../../../state/hooks/use-invoke';
@@ -12,6 +17,7 @@ import {
 import { LozengeActionProps } from '../types';
 import extractLozengeActionItems from '../../../../../../extractors/action/extract-lozenge-action-items';
 import { LozengeActionErrorMessages } from '../lozenge-action-error/types';
+import { CardDetails } from '../../../../../../state/hooks/use-invoke/types';
 
 describe('LozengeAction', () => {
   const testId = 'test-smart-element-lozenge-dropdown';
@@ -21,31 +27,41 @@ describe('LozengeAction', () => {
   const url = 'https://jdog.jira-dev.com/browse/LP-2';
   const id = 'link-id';
 
-  const action = {
-    read: {
-      action: {
-        actionType: SmartLinkActionType.GetStatusTransitionsAction,
-        resourceIdentifiers: {
-          issueKey: 'issue-id',
-          hostname: 'some-hostname',
-        },
-      },
-      providerKey: 'object-provider',
+  const previewData = {
+    isSupportTheming: true,
+    linkIcon: {
+      url: 'https://linchen.jira-dev.com/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315',
     },
-    update: {
-      action: {
-        actionType: SmartLinkActionType.StatusUpdateAction,
-        resourceIdentifiers: {
-          issueKey: 'issue-id',
-          hostname: 'some-hostname',
+    providerName: 'Jira',
+    src: 'https://some-jira-instance/browse/AT-1/embed?parentProduct=smartlink',
+    title: 'AT-1: TESTTTTTT',
+    url,
+  };
+
+  const getAction = (details: CardDetails = { url, id }) => {
+    return {
+      read: {
+        action: {
+          actionType: SmartLinkActionType.GetStatusTransitionsAction,
+          resourceIdentifiers: {
+            issueKey: 'issue-id',
+            hostname: 'some-hostname',
+          },
         },
+        providerKey: 'object-provider',
       },
-      providerKey: 'object-provider',
-      details: {
-        url: url,
-        id: id,
+      update: {
+        action: {
+          actionType: SmartLinkActionType.StatusUpdateAction,
+          resourceIdentifiers: {
+            issueKey: 'issue-id',
+            hostname: 'some-hostname',
+          },
+        },
+        providerKey: 'object-provider',
+        details,
       },
-    },
+    };
   };
 
   const renderComponent = (
@@ -100,7 +116,7 @@ describe('LozengeAction', () => {
   it('does not call reload action on render', async () => {
     const mockResolve = jest.fn();
     const { findByTestId } = renderComponent(
-      { action },
+      { action: getAction() },
       jest.fn(),
       mockResolve,
     );
@@ -114,7 +130,9 @@ describe('LozengeAction', () => {
   });
 
   it('renders loading indicator on click', async () => {
-    const { findByTestId, findByRole } = renderComponent({ action });
+    const { findByTestId, findByRole } = renderComponent({
+      action: getAction(),
+    });
 
     const element = await findByTestId(triggerTestId);
     act(() => {
@@ -126,7 +144,10 @@ describe('LozengeAction', () => {
 
   it('invokes read action', async () => {
     const mockInvoke = jest.fn();
-    const { findByTestId } = renderComponent({ action }, mockInvoke);
+    const { findByTestId } = renderComponent(
+      { action: getAction() },
+      mockInvoke,
+    );
 
     const element = await findByTestId(triggerTestId);
     act(() => {
@@ -135,7 +156,7 @@ describe('LozengeAction', () => {
     expect(mockInvoke).toHaveBeenCalledTimes(1);
     expect(mockInvoke).toHaveBeenNthCalledWith(
       1,
-      action.read,
+      getAction().read,
       extractLozengeActionItems,
     );
   });
@@ -145,7 +166,10 @@ describe('LozengeAction', () => {
       .fn()
       .mockResolvedValue([{ text: 'Done' }, { text: 'Moved' }]);
 
-    const { findByTestId } = renderComponent({ action }, mockInvoke);
+    const { findByTestId } = renderComponent(
+      { action: getAction() },
+      mockInvoke,
+    );
 
     const element = await findByTestId(triggerTestId);
     act(() => {
@@ -166,7 +190,7 @@ describe('LozengeAction', () => {
       .mockResolvedValue([{ text: 'Done' }, { text }]);
 
     const { findByTestId, queryByTestId } = renderComponent(
-      { action },
+      { action: getAction() },
       mockInvoke,
     );
 
@@ -193,7 +217,7 @@ describe('LozengeAction', () => {
       </span>
     );
     const { findByTestId } = renderComponent(
-      { action, text: node },
+      { action: getAction(), text: node },
       mockInvoke,
     );
 
@@ -213,7 +237,10 @@ describe('LozengeAction', () => {
   it('invokes load action only once', async () => {
     const mockInvoke = jest.fn().mockResolvedValue([{ text: 'Done' }]);
 
-    const { findByTestId } = renderComponent({ action }, mockInvoke);
+    const { findByTestId } = renderComponent(
+      { action: getAction() },
+      mockInvoke,
+    );
 
     const element = await findByTestId(triggerTestId);
 
@@ -237,7 +264,10 @@ describe('LozengeAction', () => {
   it('renders error view when there is no action items', async () => {
     const mockInvoke = jest.fn().mockResolvedValue([]);
 
-    const { findByTestId } = renderComponent({ action }, mockInvoke);
+    const { findByTestId } = renderComponent(
+      { action: getAction() },
+      mockInvoke,
+    );
 
     const element = await findByTestId(triggerTestId);
     act(() => {
@@ -257,7 +287,10 @@ describe('LozengeAction', () => {
       throw new Error();
     });
 
-    const { findByTestId } = renderComponent({ action }, mockInvoke);
+    const { findByTestId } = renderComponent(
+      { action: getAction() },
+      mockInvoke,
+    );
 
     const element = await findByTestId(triggerTestId);
     act(() => {
@@ -279,7 +312,7 @@ describe('LozengeAction', () => {
 
     const { findByTestId } = render(
       <LozengeAction
-        action={action}
+        action={getAction()}
         appearance={appearance}
         testId={testId}
         text={text}
@@ -298,7 +331,10 @@ describe('LozengeAction', () => {
         throw new Error();
       })
       .mockResolvedValueOnce([{ text: 'Done' }]);
-    const { findByTestId } = renderComponent({ action }, mockInvoke);
+    const { findByTestId } = renderComponent(
+      { action: getAction() },
+      mockInvoke,
+    );
 
     const element = await findByTestId(triggerTestId);
     act(() => {
@@ -328,7 +364,10 @@ describe('LozengeAction', () => {
         { id: '2', text: 'Moved' },
       ])
       .mockResolvedValueOnce(undefined);
-    const { findByTestId } = renderComponent({ action }, mockInvoke);
+    const { findByTestId } = renderComponent(
+      { action: getAction() },
+      mockInvoke,
+    );
 
     const element = await findByTestId(triggerTestId);
     act(() => {
@@ -358,7 +397,7 @@ describe('LozengeAction', () => {
       .mockResolvedValueOnce([{ id: '1', text: 'Done' }])
       .mockResolvedValueOnce(undefined);
     const { findByRole, findByTestId } = renderComponent(
-      { action },
+      { action: getAction() },
       mockInvoke,
     );
 
@@ -379,10 +418,14 @@ describe('LozengeAction', () => {
       .fn()
       .mockResolvedValueOnce([{ id: '1', text: 'Done' }])
       .mockResolvedValueOnce(undefined);
-    const { findByTestId } = renderComponent({ action }, mockInvoke);
+    const { findByTestId } = renderComponent(
+      { action: getAction() },
+      mockInvoke,
+    );
 
     const itemTestId = `${testId}-item-0`;
-    const element = await findByTestId(triggerTestId);
+    let element = await findByTestId(triggerTestId);
+
     act(() => {
       fireEvent.click(element);
     });
@@ -390,8 +433,10 @@ describe('LozengeAction', () => {
     act(() => {
       fireEvent.click(item);
     });
+    element = await findByTestId(triggerTestId);
 
     expect(item).not.toBeInTheDocument();
+    expect(element.textContent).toEqual(item.textContent);
   });
 
   it('reloads the url when update is successfully completed', async () => {
@@ -403,7 +448,7 @@ describe('LozengeAction', () => {
     const mockResolve = jest.fn();
 
     const { findByTestId } = renderComponent(
-      { action },
+      { action: getAction() },
       mockInvoke,
       mockResolve,
     );
@@ -433,7 +478,10 @@ describe('LozengeAction', () => {
         throw new Error();
       });
 
-    const { findByTestId } = renderComponent({ action }, mockInvoke);
+    const { findByTestId } = renderComponent(
+      { action: getAction() },
+      mockInvoke,
+    );
 
     const element = await findByTestId(triggerTestId);
     act(() => {
@@ -460,7 +508,10 @@ describe('LozengeAction', () => {
         throw new InvokeError('Field Labels must be provided', 400);
       });
 
-    const { findByTestId } = renderComponent({ action }, mockInvoke);
+    const { findByTestId } = renderComponent(
+      { action: getAction() },
+      mockInvoke,
+    );
 
     const element = await findByTestId(triggerTestId);
     act(() => {
@@ -477,6 +528,162 @@ describe('LozengeAction', () => {
     expect(error.textContent).toBe('Field Labels must be provided');
   });
 
+  describe('error link', () => {
+    it('renders error with a link when preview data is available', async () => {
+      const mockInvoke = jest
+        .fn()
+        .mockResolvedValueOnce([{ id: '1', text: 'Done' }])
+        .mockImplementationOnce(() => {
+          throw new Error();
+        });
+
+      const { findByTestId } = renderComponent(
+        {
+          action: getAction({
+            url,
+            id,
+            previewData,
+          }),
+        },
+        mockInvoke,
+      );
+
+      const element = await findByTestId(triggerTestId);
+      act(() => {
+        fireEvent.click(element);
+      });
+      const item = await findByTestId(`${testId}-item-0`);
+      act(() => {
+        fireEvent.click(item);
+      });
+
+      // making sure error link is present
+      const link = await findByTestId(`${testId}-open-embed`);
+      expect(link).toBeDefined();
+      expect(link.textContent).toBe('Open issue in Jira');
+    });
+
+    it('does not render error with a link when preview data is not available', async () => {
+      const mockInvoke = jest
+        .fn()
+        .mockResolvedValueOnce([{ id: '1', text: 'Done' }])
+        .mockImplementationOnce(() => {
+          throw new Error();
+        });
+
+      const { queryByTestId, findByTestId } = renderComponent(
+        { action: getAction() },
+        mockInvoke,
+      );
+
+      const element = await findByTestId(triggerTestId);
+      act(() => {
+        fireEvent.click(element);
+      });
+      const item = await findByTestId(`${testId}-item-0`);
+      act(() => {
+        fireEvent.click(item);
+      });
+
+      // making sure error link is not present
+      const link = await queryByTestId(`${testId}-open-embed`);
+      expect(link).toBeNull();
+    });
+
+    it('opens preview modal when clicking on error link', async () => {
+      const mockInvoke = jest
+        .fn()
+        .mockResolvedValueOnce([{ id: '1', text: 'Done' }])
+        .mockImplementationOnce(() => {
+          throw new Error();
+        });
+
+      const { findByTestId } = renderComponent(
+        {
+          action: getAction({
+            url,
+            id,
+            previewData,
+          }),
+        },
+        mockInvoke,
+      );
+
+      const element = await findByTestId(triggerTestId);
+      act(() => {
+        fireEvent.click(element);
+      });
+      const item = await findByTestId(`${testId}-item-0`);
+      act(() => {
+        fireEvent.click(item);
+      });
+
+      // making sure error link is present
+      const link = await findByTestId(`${testId}-open-embed`);
+      expect(link).toBeDefined();
+
+      // making sure the preview opens on click
+      link.click();
+
+      const previewModal = await findByTestId('smart-embed-preview-modal');
+      expect(previewModal).toBeDefined();
+    });
+
+    it('reloads the link after the preview modal was closed', async () => {
+      const mockInvoke = jest
+        .fn()
+        .mockResolvedValueOnce([{ id: '1', text: 'Done' }])
+        .mockImplementationOnce(() => {
+          throw new Error();
+        });
+
+      const mockReload = jest.fn();
+
+      const { findByTestId, queryByTestId } = renderComponent(
+        {
+          action: getAction({
+            url,
+            id,
+            previewData,
+          }),
+        },
+        mockInvoke,
+        mockReload,
+      );
+
+      const element = await findByTestId(triggerTestId);
+      act(() => {
+        fireEvent.click(element);
+      });
+      const item = await findByTestId(`${testId}-item-0`);
+      act(() => {
+        fireEvent.click(item);
+      });
+
+      // making sure error link is present
+      const link = await findByTestId(`${testId}-open-embed`);
+      expect(link).toBeDefined();
+
+      // making sure the preview opens on click
+      link.click();
+
+      const previewModal = await findByTestId('smart-embed-preview-modal');
+      expect(previewModal).toBeDefined();
+
+      // making sure the preview modal closes on close button click
+      const closeButton = await findByTestId(
+        'smart-embed-preview-modal-close-button',
+      );
+      expect(closeButton).toBeDefined();
+      closeButton.click();
+
+      await waitForElementToBeRemoved(() =>
+        queryByTestId('smart-embed-preview-modal'),
+      );
+      expect(mockReload).toHaveBeenCalledWith(url, true);
+    });
+  });
+
   it('does not reload the url when an update fails', async () => {
     const mockInvoke = jest
       .fn()
@@ -488,7 +695,7 @@ describe('LozengeAction', () => {
     const mockResolve = jest.fn();
 
     const { findByTestId } = renderComponent(
-      { action },
+      { action: getAction() },
       mockInvoke,
       mockResolve,
     );
@@ -514,7 +721,10 @@ describe('LozengeAction', () => {
         throw new Error();
       });
 
-    const { findByTestId } = renderComponent({ action }, mockInvoke);
+    const { findByTestId } = renderComponent(
+      { action: getAction() },
+      mockInvoke,
+    );
 
     const element = await findByTestId(triggerTestId);
     act(() => {

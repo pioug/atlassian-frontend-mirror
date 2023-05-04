@@ -16,15 +16,30 @@ const spacingProperties: Record<
     cssProperties: [
       'padding',
       'paddingBlock',
-      'paddingBlockStart',
       'paddingBlockEnd',
+      'paddingBlockStart',
+      'paddingBottom',
       'paddingInline',
-      'paddingInlineStart',
       'paddingInlineEnd',
+      'paddingInlineStart',
+      'paddingLeft',
+      'paddingRight',
+      'paddingTop',
     ],
   },
   space: {
-    cssProperties: ['gap', 'rowGap'],
+    cssProperties: ['gap', 'rowGap', 'columnGap'],
+  },
+  inset: {
+    cssProperties: [
+      'inset',
+      'insetBlock',
+      'insetBlockEnd',
+      'insetBlockStart',
+      'insetInline',
+      'insetInlineEnd',
+      'insetInlineStart',
+    ],
   },
 } as const;
 

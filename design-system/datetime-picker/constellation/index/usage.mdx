@@ -33,7 +33,7 @@ Date time picker is commonly used in [forms](/patterns/forms).
 ## Accessibility
 
 - If using fields with labels other than "Date" and "Time" for the date picker and time picker respectively, use `datePickerSelectProps` and `timePickerSelectProps` to pass the `aria-label` prop. Assistive technologies will announce these along with the label from the field component when activated.
-- Set the `inputId` for both the `datePickerSelectProps` and the `timePickerSelectProps` to the `id` from the `fieldProps` provided by the field component. This is required for proper association of the label.
+- Set the `inputId` for the `datePickerSelectProps` to the `id` from the `fieldProps` provided by the field component. This is required for proper association of the label.
 
 Follow the [accessibility](/foundations/accessibility) foundations for more guidance on accessible design.
 

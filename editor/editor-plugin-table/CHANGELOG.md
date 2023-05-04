@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-table
 
+## 1.2.5
+
+### Patch Changes
+
+- [`115a119a42c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/115a119a42c) - [ux] ED-17710 Color palette in table context menu is tokenised.
+
 ## 1.2.4
 
 ### Patch Changes

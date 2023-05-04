@@ -45,7 +45,7 @@ const sourceFns = [
         dependencies: templateFiles.filter(v => v.includes('dimensions')),
       },
     ),
-  // padding, paddingBlock, paddingBlockStart, paddingBlockEnd, paddingInline, paddingInlineStart, paddingInlineEnd, gap, rowGap
+  // padding*, gap*, inset*
   () =>
     createPartialSignedArtifact(
       options => options.map(createSpacingStylesFromTemplate).join('\n'),

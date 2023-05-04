@@ -1,5 +1,11 @@
 # @atlaskit/link-create
 
+## 0.3.3
+
+### Patch Changes
+
+- [`5cbb3a0f20c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5cbb3a0f20c) - Fix tangerine lint warnings & fix SVG id not unique & add VR test for dropdowns in modal & handle plugin errors
+
 ## 0.3.2
 
 ### Patch Changes

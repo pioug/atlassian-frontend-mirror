@@ -14,6 +14,7 @@ import {
 import { getExtensionKey } from '../../state/helpers';
 import extractServerAction from './extract-server-action';
 import { extractLink } from '@atlaskit/linking-common/extractors';
+import { extractPreviewAction } from './actions/extract-preview-action';
 
 const toInvokeRequest = (
   extensionKey: string,
@@ -63,7 +64,10 @@ const extractAction = (
   );
 
   const url = extractLink(data);
-  const details = { id, url };
+
+  const previewData = response ? extractPreviewAction(response) : null;
+
+  const details = { id, url, previewData };
   const update = toInvokeRequest(
     extensionKey,
     action.resourceIdentifiers,

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { fireEvent, render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import Spinner from '@atlaskit/spinner';
@@ -180,8 +181,8 @@ describe('@atlaskit/dynamic-table', () => {
       it('should pass down extra props', () => {
         const theadOnClick = jest.fn();
         const theadOnKeyDown = jest.fn();
-        const thOnClick = jest.fn();
-        const thOnKeyDown = jest.fn();
+        const sortButtonOnClick = jest.fn();
+        const sortButtonOnKeyDown = jest.fn();
         const trOnClick = jest.fn();
         const tdOnClick = jest.fn();
 
@@ -190,8 +191,8 @@ describe('@atlaskit/dynamic-table', () => {
           onKeyDown: theadOnKeyDown,
           cells: head.cells.map((cell) => ({
             ...cell,
-            onClick: thOnClick,
-            onKeyDown: thOnKeyDown,
+            onClick: sortButtonOnClick,
+            onKeyDown: sortButtonOnKeyDown,
           })),
         };
         const newRows = rows.map((row: RowType) => ({
@@ -203,7 +204,7 @@ describe('@atlaskit/dynamic-table', () => {
           })),
         }));
 
-        render(
+        const { getByRole, getAllByTestId, getByTestId } = render(
           <DynamicTableStateless
             head={newHead}
             rows={newRows}
@@ -211,12 +212,12 @@ describe('@atlaskit/dynamic-table', () => {
           />,
         );
 
-        const thead = screen.getByTestId(`${testId}--head`);
-        const thList = screen.getAllByTestId(`${testId}--head--cell`);
+        const thead = getByTestId(`${testId}--head`);
+        const sortButton = getByRole('button');
         const trTestIdPattern = new RegExp(`${testId}--row`);
-        const trList = screen.getAllByTestId(trTestIdPattern);
+        const trList = getAllByTestId(trTestIdPattern);
         const tdTestIdPattern = new RegExp(`${testId}--cell`);
-        const tdList = screen.getAllByTestId(tdTestIdPattern);
+        const tdList = getAllByTestId(tdTestIdPattern);
 
         fireEvent.click(thead);
         expect(theadOnClick).toHaveBeenCalled();
@@ -224,8 +225,8 @@ describe('@atlaskit/dynamic-table', () => {
         fireEvent.keyDown(thead);
         expect(theadOnKeyDown).toHaveBeenCalled();
 
-        fireEvent.click(thList[0]);
-        expect(thOnClick).toHaveBeenCalledTimes(1);
+        fireEvent.click(sortButton);
+        expect(sortButtonOnClick).toHaveBeenCalledTimes(1);
 
         fireEvent.click(trList[0]);
         expect(trOnClick).toHaveBeenCalledTimes(1);
@@ -312,78 +313,70 @@ describe('@atlaskit/dynamic-table', () => {
     });
 
     describe('should invoke callbacks', () => {
-      let onSetPage: jest.Mock;
-      let onSort: jest.Mock;
+      const onSetPage = jest.fn();
+      const onSort = jest.fn();
+      const jsx = (
+        <DynamicTableStateless
+          rowsPerPage={2}
+          page={2}
+          head={head}
+          rows={rows}
+          onSetPage={onSetPage}
+          onSort={onSort}
+          testId={testId}
+        />
+      );
+      const onSortArg = {
+        key: 'first_name',
+        sortOrder: 'ASC',
+        item: {
+          key: 'first_name',
+          content: 'First name',
+          isSortable: true,
+        },
+      };
 
       beforeEach(() => {
-        onSetPage = jest.fn();
-        onSort = jest.fn();
-        render(
-          <DynamicTableStateless
-            rowsPerPage={2}
-            page={2}
-            head={head}
-            rows={rows}
-            onSetPage={onSetPage}
-            onSort={onSort}
-            testId={testId}
-          />,
-        );
+        onSetPage.mockReset();
+        onSort.mockReset();
       });
 
-      it('should not run onSort for a non-sortable column', () => {
-        const headCells = screen.getAllByTestId(`${testId}--head--cell`);
-        fireEvent.click(headCells[0]);
+      it('should run onSort when clicked', async () => {
+        const { getAllByRole } = render(jsx);
+        const sortButton = getAllByRole('button')[0];
+
+        await userEvent.click(sortButton);
         expect(onSort).toHaveBeenCalledTimes(1);
-        fireEvent.click(headCells[1]);
-        expect(onSort).toHaveBeenCalledTimes(1);
+        expect(onSort).toHaveBeenCalledWith(onSortArg, expect.anything());
       });
 
-      it('should run onSort', () => {
-        const headCells = screen.getAllByTestId(`${testId}--head--cell`);
-        fireEvent.click(headCells[0]);
-        expect(onSort).toHaveBeenCalledTimes(1);
-        expect(onSort).toHaveBeenCalledWith(
-          {
-            key: 'first_name',
-            sortOrder: 'ASC',
-            item: {
-              key: 'first_name',
-              content: 'First name',
-              isSortable: true,
-            },
-          },
-          expect.anything(),
-        );
-      });
+      it('should run onSort with space key pressed', async () => {
+        const { getAllByRole } = render(jsx);
+        const sortButton = getAllByRole('button')[0];
 
-      it('should run onSort with enter key pressed', () => {
-        const headCells = screen.getAllByTestId(`${testId}--head--cell`);
-        fireEvent.keyDown(headCells[0], { key: 'Enter' });
+        await userEvent.type(sortButton, '{space}');
 
         expect(onSort).toHaveBeenCalledTimes(1);
-        expect(onSort).toHaveBeenCalledWith(
-          {
-            key: 'first_name',
-            sortOrder: 'ASC',
-            item: {
-              key: 'first_name',
-              content: 'First name',
-              isSortable: true,
-            },
-          },
-          expect.anything(),
-        );
+        expect(onSort).toHaveBeenCalledWith(onSortArg, expect.anything());
       });
 
-      it('should not run onSort with enter key pressed when th is not sortable', () => {
-        const headCells = screen.getAllByTestId(`${testId}--head--cell`);
-        fireEvent.keyDown(headCells[1], { key: 'Enter' });
-        expect(onSort).toHaveBeenCalledTimes(0);
+      it('should run onSort with enter key pressed', async () => {
+        const { getAllByRole } = render(jsx);
+        const sortButton = getAllByRole('button')[0];
+
+        // Must be done this way because userEvent fires both a click event and
+        // a keyDown event. By focusing and using the keyboard, we bypass this
+        // unwanted behavior.
+        sortButton.focus();
+        await userEvent.keyboard('{enter}');
+
+        expect(onSort).toHaveBeenCalledTimes(1);
+        expect(onSort).toHaveBeenCalledWith(onSortArg, expect.anything());
       });
 
       it('onSetPage', () => {
-        const paginationFirstButton = screen.getByTestId(
+        const { getByTestId } = render(jsx);
+        const paginationFirstButton = getByTestId(
           `${testId}--pagination--page-0`,
         );
         fireEvent.click(paginationFirstButton);
@@ -419,12 +412,14 @@ describe('@atlaskit/dynamic-table', () => {
     });
 
     it('should sort data', () => {
-      render(<DynamicTable head={head} rows={rows} testId={testId} />);
-      const thList = screen.getAllByTestId(`${testId}--head--cell`);
-      fireEvent.click(thList[0]);
+      const { getAllByRole, getAllByTestId } = render(
+        <DynamicTable head={head} rows={rows} testId={testId} />,
+      );
+      const sortButton = getAllByRole('button')[0];
+      fireEvent.click(sortButton);
 
-      const firstNameColumn = screen.getAllByTestId(`${testId}--cell-0`);
-      const lastNameColumn = screen.getAllByTestId(`${testId}--cell-1`);
+      const firstNameColumn = getAllByTestId(`${testId}--cell-0`);
+      const lastNameColumn = getAllByTestId(`${testId}--cell-1`);
 
       expect(firstNameColumn[0]).toContainHTML('Barack');
       expect(lastNameColumn[0]).toContainHTML('Obama');
@@ -435,15 +430,15 @@ describe('@atlaskit/dynamic-table', () => {
     });
 
     it('should sort numeric data correctly, listed before strings or empty values', () => {
-      render(
+      const { getAllByRole, getAllByTestId } = render(
         <DynamicTable head={headNumeric} rows={rowsNumeric} testId={testId} />,
       );
 
-      const thList = screen.getAllByTestId(`${testId}--head--cell`);
-      fireEvent.click(thList[1]);
+      const sortNumberColumnButton = getAllByRole('button')[1];
+      fireEvent.click(sortNumberColumnButton);
 
-      const firstNameColumn = screen.getAllByTestId(`${testId}--cell-0`);
-      const arbitraryNumeric = screen.getAllByTestId(`${testId}--cell-1`);
+      const firstNameColumn = getAllByTestId(`${testId}--cell-0`);
+      const arbitraryNumeric = getAllByTestId(`${testId}--cell-1`);
 
       expect(firstNameColumn[0]).toContainHTML('Negative One');
       expect(arbitraryNumeric[0]).toContainHTML('-1');
@@ -456,13 +451,14 @@ describe('@atlaskit/dynamic-table', () => {
     });
 
     it('should sort grouped numbers in strings', () => {
-      render(
+      const { getAllByRole, getAllByTestId } = render(
         <DynamicTable head={headNumeric} rows={rowsNumeric} testId={testId} />,
       );
-      const thList = screen.getAllByTestId(`${testId}--head--cell`);
-      fireEvent.click(thList[1]);
 
-      const arbitraryNumeric = screen.getAllByTestId(`${testId}--cell-1`);
+      const sortNumberColumnButton = getAllByRole('button')[1];
+      fireEvent.click(sortNumberColumnButton);
+
+      const arbitraryNumeric = getAllByTestId(`${testId}--cell-1`);
 
       expect(arbitraryNumeric[5]).toContainHTML('1');
       expect(arbitraryNumeric[6]).toContainHTML('5');
@@ -470,15 +466,15 @@ describe('@atlaskit/dynamic-table', () => {
     });
 
     it('should preserve sorting, even after updating table dynamically', () => {
-      const { rerender } = render(
+      const { getAllByRole, getAllByTestId, rerender } = render(
         <DynamicTable head={head} rows={rows} testId={testId} />,
       );
 
-      const thList = screen.getAllByTestId(`${testId}--head--cell`);
-      fireEvent.click(thList[0]);
+      const sortButton = getAllByRole('button')[0];
+      fireEvent.click(sortButton);
 
-      const firstNameColumn = screen.getAllByTestId(`${testId}--cell-0`);
-      const lastNameColumn = screen.getAllByTestId(`${testId}--cell-1`);
+      const firstNameColumn = getAllByTestId(`${testId}--cell-0`);
+      const lastNameColumn = getAllByTestId(`${testId}--cell-1`);
       expect(firstNameColumn[0]).toContainHTML('Barack');
       expect(lastNameColumn[0]).toContainHTML('Obama');
 
@@ -497,8 +493,8 @@ describe('@atlaskit/dynamic-table', () => {
       const newRows = [...rows, newData];
       rerender(<DynamicTable head={head} rows={newRows} testId={testId} />);
 
-      const updatedFirstNameColumn = screen.getAllByTestId(`${testId}--cell-0`);
-      const updatedLastNameColumn = screen.getAllByTestId(`${testId}--cell-1`);
+      const updatedFirstNameColumn = getAllByTestId(`${testId}--cell-0`);
+      const updatedLastNameColumn = getAllByTestId(`${testId}--cell-1`);
 
       expect(updatedFirstNameColumn[0]).toContainHTML('Abraham');
       expect(updatedLastNameColumn[0]).toContainHTML('Lincon');

@@ -1,4 +1,5 @@
 import type { InvokeRequest } from '@atlaskit/linking-types/smart-link-actions';
+import { PreviewActionData } from '../../flexible-ui-context/types';
 
 /**
  * Additional details for invoke function that may be required for component
@@ -12,6 +13,11 @@ export type CardDetails = {
    * The URL of the Smart Link
    */
   url?: string;
+
+  /**
+   * Preview Modal information. If present, will be used to render an embed modal on an error link click
+   */
+  previewData?: PreviewActionData | null;
 };
 
 /**

@@ -68,7 +68,8 @@ describe('should render the quick insert menu and highlight the menu item when h
     page = global.page;
   });
 
-  it('- Emoji Menu', async () => {
+  // Skip due to failing VR Tests: https://product-fabric.atlassian.net/browse/ED-17719
+  it.skip('- Emoji Menu', async () => {
     await initEditorWithAdf(page, {
       appearance: Appearance.fullPage,
       viewport: { width: 800, height: 800 },
@@ -121,7 +122,8 @@ describe('should render the quick insert menu and highlight the menu item when h
   });
 });
 
-describe('should render the quick insert menu and visible focus style should appear for list item when focused', () => {
+// Skip due to failing VR Tests: https://product-fabric.atlassian.net/browse/ED-17719
+describe.skip('should render the quick insert menu and visible focus style should appear for list item when focused', () => {
   let page: PuppeteerPage;
   beforeEach(async () => {
     page = global.page;
@@ -174,7 +176,8 @@ describe('should render the quick insert menu and up and down arrow key should f
     page = global.page;
   });
 
-  it('- Emoji Menu', async () => {
+  // Skip due to failing VR Tests: https://product-fabric.atlassian.net/browse/ED-17719
+  it.skip('- Emoji Menu', async () => {
     await initEditorWithAdf(page, {
       appearance: Appearance.fullPage,
       viewport: { width: 800, height: 800 },

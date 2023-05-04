@@ -18,7 +18,7 @@ interface LinkCreateCallbackProviderProps {
   /**
    * This callback for any errors
    */
-  onFailure?: (error: unknown) => void;
+  onFailure?: (errorMessage: string) => void;
 
   /**
    * This callback for when the form was manually discarded by user

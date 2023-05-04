@@ -1,5 +1,7 @@
 import React, { useCallback, useState } from 'react';
 
+import { IntlProvider } from 'react-intl-next';
+
 import Button from '@atlaskit/button/standard-button';
 import { createConfluencePageLinkCreatePlugin } from '@atlassian/link-create-confluence';
 import {
@@ -17,7 +19,7 @@ mockFetchPage();
 mockFetchSpace();
 mockCreatePage();
 
-export default function Basic() {
+function CreateBasic() {
   const [link, setLink] = useState<string | null>();
   const [active, setActive] = useState(false);
 
@@ -48,7 +50,11 @@ export default function Basic() {
         </div>
       )}
 
-      <Button appearance="primary" onClick={() => setActive(true)}>
+      <Button
+        testId="link-create-show"
+        appearance="primary"
+        onClick={() => setActive(true)}
+      >
         Create
       </Button>
       <LinkCreate
@@ -62,5 +68,13 @@ export default function Basic() {
         triggeredFrom="example"
       />
     </div>
+  );
+}
+
+export default function Create() {
+  return (
+    <IntlProvider locale="en">
+      <CreateBasic />
+    </IntlProvider>
   );
 }

@@ -1,3 +1,6 @@
+// File has been copied to packages/editor/editor-plugin-ai/src/provider/prosemirror-transformer/utils/list.ts
+// If changes are made to this file, please make the same update in the linked file.
+
 import { Node } from 'prosemirror-model';
 
 export const DEFAULT_ORDER = 1;

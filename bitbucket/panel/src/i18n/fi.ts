@@ -7,6 +7,6 @@
  */
 //Finnish
 export default {
-  "bitbucket.panel-collapse.message": "pienennä",
-  "bitbucket.panel-expand.message": "laajenna"
+  'bitbucket.panel-collapse.message': 'pienennä',
+  'bitbucket.panel-expand.message': 'laajenna',
 };

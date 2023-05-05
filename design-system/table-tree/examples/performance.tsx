@@ -86,7 +86,7 @@ const childCountOptions = [
   },
 ];
 
-type ChildCount = typeof childCountOptions[number];
+type ChildCount = (typeof childCountOptions)[number];
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default class extends PureComponent {

@@ -250,4 +250,4 @@ const tokenNames = backgroundPaletteKeys.map(
   hexCode => editorBackgroundPalette[hexCode].tokenName,
 );
 
-export type EditorBackgroundPaletteTokenNames = typeof tokenNames[number];
+export type EditorBackgroundPaletteTokenNames = (typeof tokenNames)[number];

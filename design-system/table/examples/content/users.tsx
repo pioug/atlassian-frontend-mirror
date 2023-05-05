@@ -737,4 +737,4 @@ export const userData = {
   info: { seed: '752f4d99c99c0172', results: 20, page: 1, version: '1.4' },
 } as const;
 
-export type User = typeof userData['results'][number];
+export type User = (typeof userData)['results'][number];

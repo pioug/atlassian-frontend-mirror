@@ -44,7 +44,7 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'Bạn cần có quyền truy cập hoặc thử một tài khoản khác để xem bản xem trước này.',
   'fabric.linking.join_to_view': 'Tham gia {context} để xem vấn đề này',
-  'fabric.linking.learn_more_about_smart_links': 'Tìm hiểu thêm về Smart Link.',
+  'fabric.linking.learn_more_about_smart_links': 'Tìm hiểu thêm về Liên kết Thông minh.',
   'fabric.linking.link_safety_warning_message':
     'Liên kết {unsafeLinkText} sẽ đưa bạn đến một trang khác, <a>actual link here</a>',
   'fabric.linking.loading': 'Đang tải...',
@@ -55,6 +55,7 @@ export default {
     'Chúng tôi không thể tìm thấy đường liên kết này. Hãy kiểm tra url và thử chỉnh sửa hoặc dán lại.',
   'fabric.linking.not_found_title': 'Ôi! Chúng tôi không thể tìm thấy liên kết này!',
   'fabric.linking.open_link_in_a_new_tab': 'Mở liên kết trong tab mới',
+  'fabric.linking.owned_by': 'Sở hữu bởi {context}',
   'fabric.linking.pending_request': 'Đang chờ xử lý yêu cầu quyền truy cập của bạn',
   'fabric.linking.preview': 'Chế độ xem toàn màn hình',
   'fabric.linking.preview_close': 'Đóng bản xem trước',

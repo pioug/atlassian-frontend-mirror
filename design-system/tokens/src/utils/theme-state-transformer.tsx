@@ -2,7 +2,7 @@ import type { ThemeState } from '../set-global-theme';
 import { ThemeColorModes, ThemeIds, themeIds } from '../theme-config';
 
 const themeKinds = ['light', 'dark', 'spacing', 'typography'] as const;
-type ThemeKind = typeof themeKinds[number];
+type ThemeKind = (typeof themeKinds)[number];
 
 const isThemeKind = (themeKind: string): themeKind is ThemeKind => {
   return themeKinds.find((kind) => kind === themeKind) !== undefined;

@@ -1,5 +1,11 @@
 # @atlaskit/media-client
 
+## 21.1.0
+
+### Minor Changes
+
+- [`1df7534fc12`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1df7534fc12) - [ux] Introduce file size limits when uploading
+
 ## 21.0.0
 
 ### Major Changes

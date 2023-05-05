@@ -23,26 +23,23 @@ export type TelepointerEmit = (
   data: CollabEventTelepointerData,
 ) => void;
 
+export type GetUserType =
+  | ((
+      userId: string,
+    ) => Promise<Pick<ProviderParticipant, 'name' | 'avatar' | 'userId'>>)
+  | undefined;
+
 export const createParticipantFromPayload = async (
+  // userId must be defined, unlike in PresencePayload
   payload: PresencePayload & { userId: string },
-  getUser:
-    | ((userId: string) => Promise<
-        Pick<CollabParticipant, 'name' | 'email' | 'avatar'> & {
-          userId: string;
-        }
-      >)
-    | undefined,
+  getUser: GetUserType,
 ): Promise<ProviderParticipant> => {
   const { sessionId, timestamp, clientId, userId } = payload;
 
-  let user;
-  if (getUser) {
-    user = await getUser(userId);
-  }
+  const user = await getUser?.(userId);
 
   const participant: ProviderParticipant = {
     name: user?.name || '',
-    email: user?.email || '',
     avatar: user?.avatar || '',
     sessionId,
     lastActive: timestamp,

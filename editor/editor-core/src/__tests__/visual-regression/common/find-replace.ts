@@ -41,14 +41,12 @@ describe('Find/replace:', () => {
     await page.click(findReplaceSelectors.toolbarButton);
   };
 
-  // Skip due to failing VR Tests: https://product-fabric.atlassian.net/browse/ED-17719
-  it.skip('should render find/replace popup', async () => {
+  it('should render find/replace popup', async () => {
     await initEditor(findReplaceAdf);
     await snapshot(page, undefined, editorSelector);
   });
 
-  // Skip due to failing VR Tests: https://product-fabric.atlassian.net/browse/ED-17719
-  it.skip('should render text highlights only against matches when a find is active', async () => {
+  it('should render text highlights only against matches when a find is active', async () => {
     await initEditor(findReplaceAdf);
     await page.type(findReplaceSelectors.findInput, 'e');
     await page.waitForSelector(findReplaceSelectors.decorations);

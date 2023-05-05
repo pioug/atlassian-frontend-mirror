@@ -87,6 +87,22 @@ export interface EmbedCardAdf {
     layout: 'wide';
   };
 }
+export interface DatasourceAdf {
+  type: 'blockCard';
+  attrs: {
+    url?: string;
+    datasource: {
+      id: string;
+      parameters: object;
+      views: [
+        {
+          type: string;
+          properties?: object;
+        },
+      ];
+    };
+  };
+}
 export type CardAdf = InlineCardAdf | BlockCardAdf | EmbedCardAdf;
 
 export type EnvironmentsKeys = keyof typeof Environments;

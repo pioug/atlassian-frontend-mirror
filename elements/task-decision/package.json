@@ -45,7 +45,7 @@
     "@atlaskit/analytics-listeners": "^8.6.0",
     "@atlaskit/avatar": "^21.2.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/editor-common": "^72.9.0",
+    "@atlaskit/editor-common": "^73.0.0",
     "@atlaskit/elements-test-helpers": "^0.7.0",
     "@atlaskit/renderer": "^107.3.0",
     "@atlaskit/util-data-test": "^17.7.0",

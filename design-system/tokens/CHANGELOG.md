@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 1.2.19
+
+### Patch Changes
+
+- [`1a1dc6a0370`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1a1dc6a0370) - Upgrade `@babel` scoped packages to `^7.20.0`
+
 ## 1.2.18
 
 ### Patch Changes

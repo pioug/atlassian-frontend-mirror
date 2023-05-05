@@ -45,7 +45,7 @@
   "devDependencies": {
     "@atlaskit/docs": "*",
     "@atlaskit/media-core": "^34.0.0",
-    "@atlaskit/media-test-helpers": "^32.0.0",
+    "@atlaskit/media-test-helpers": "^32.1.0",
     "@atlaskit/page": "^12.2.0",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",

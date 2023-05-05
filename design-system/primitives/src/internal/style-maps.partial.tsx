@@ -957,7 +957,6 @@ export type TokenisedProps = {
   insetInline?: InsetInline;
   insetInlineEnd?: InsetInlineEnd;
   insetInlineStart?: InsetInlineStart;
-  layer?: Layer;
   left?: Left;
   maxBlockSize?: MaxBlockSize;
   maxHeight?: MaxHeight;
@@ -982,6 +981,7 @@ export type TokenisedProps = {
   rowGap?: RowGap;
   top?: Top;
   width?: Width;
+  zIndex?: Layer;
 };
 
 const spacingProperties = [
@@ -996,7 +996,7 @@ const spacingProperties = [
   'rowGap',
   'columnGap',
 ] as const;
-type SpacingProperty = typeof spacingProperties[number];
+type SpacingProperty = (typeof spacingProperties)[number];
 
 type TokenMappableProperty = SpacingProperty | 'backgroundColor';
 type PropsToken = SpacingToken | BackgroundColorToken;

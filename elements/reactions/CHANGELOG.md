@@ -1,5 +1,11 @@
 # @atlaskit/reactions
 
+## 22.2.9
+
+### Patch Changes
+
+- [`50e0e3c23bd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/50e0e3c23bd) - fix error handling for get reactions
+
 ## 22.2.8
 
 ### Patch Changes

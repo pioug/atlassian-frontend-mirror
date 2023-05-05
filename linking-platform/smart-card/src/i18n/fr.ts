@@ -45,7 +45,7 @@ export default {
   'fabric.linking.invalid_permissions_description':
     "Vous devrez demander l'accès ou essayer un autre compte pour afficher cet aperçu.",
   'fabric.linking.join_to_view': 'Rejoignez {context} pour consulter ce ticket',
-  'fabric.linking.learn_more_about_smart_links': 'En savoir plus sur les Smart Links.',
+  'fabric.linking.learn_more_about_smart_links': 'En savoir plus sur les liens intelligents.',
   'fabric.linking.link_safety_warning_message':
     'Le lien {unsafeLinkText} essaie de vous rediriger vers un autre site, <a>actual link here</a>',
   'fabric.linking.loading': 'Chargement en cours…',
@@ -56,6 +56,7 @@ export default {
     "Lien introuvable. Cliquez sur l'URL et essayez de la modifier, ou collez-la de nouveau.",
   'fabric.linking.not_found_title': 'Oups, ce lien est introuvable !',
   'fabric.linking.open_link_in_a_new_tab': 'Ouvrir le lien dans un nouvel onglet',
+  'fabric.linking.owned_by': 'Propriétaire : {context}',
   'fabric.linking.pending_request': "Votre demande d'accès est en attente",
   'fabric.linking.preview': 'Affichage plein écran',
   'fabric.linking.preview_close': "Fermer l'aperçu",

@@ -13,7 +13,7 @@ import TableTree, {
 
 let uuid = 0;
 
-type Item = typeof ROOTS[number];
+type Item = (typeof ROOTS)[number];
 
 const ROOTS = [
   {

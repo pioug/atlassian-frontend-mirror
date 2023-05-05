@@ -6,7 +6,7 @@ export const DEFAULT_LANGUAGES = [
   ...SUPPORTED_LANGUAGES,
 ];
 
-export type Language = typeof DEFAULT_LANGUAGES[number];
+export type Language = (typeof DEFAULT_LANGUAGES)[number];
 
 export function findMatchedLanguage(
   supportedLanguages: Language[],

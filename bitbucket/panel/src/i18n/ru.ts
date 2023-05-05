@@ -7,6 +7,6 @@
  */
 //Russian
 export default {
-  "bitbucket.panel-collapse.message": "свернуть",
-  "bitbucket.panel-expand.message": "развернуть"
+  'bitbucket.panel-collapse.message': 'свернуть',
+  'bitbucket.panel-expand.message': 'развернуть',
 };

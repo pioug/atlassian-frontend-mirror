@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { N0, N500, B200, placeholderText, N50 } from '@atlaskit/theme/colors';
+import { N0, N200, N500, B200, N50 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 const inputRightPadding = token('space.200', '16px');
@@ -57,7 +57,7 @@ export const getPlaceholderStyle = (style: any) => css`
 `;
 
 export const getPlaceholderColor = css`
-  color: ${placeholderText};
+  color: ${token('color.text.subtlest', N200)};
 `;
 
 export const SearchInput = styled.input`

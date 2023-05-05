@@ -1,5 +1,11 @@
 # @atlaskit/select
 
+## 16.1.9
+
+### Patch Changes
+
+- [`79ddcb13067`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79ddcb13067) - [ux] style(select): update fallback of select placeholder to N200'
+
 ## 16.1.8
 
 ### Patch Changes

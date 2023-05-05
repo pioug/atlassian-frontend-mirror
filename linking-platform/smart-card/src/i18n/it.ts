@@ -44,7 +44,7 @@ export default {
   'fabric.linking.invalid_permissions_description':
     "Per visualizzare quest'anteprima devi richiedere l'accesso o provare con un altro account.",
   'fabric.linking.join_to_view': 'Unisciti a {context} per visualizzare questo ticket',
-  'fabric.linking.learn_more_about_smart_links': 'Scopri di più sugli Smart Link.',
+  'fabric.linking.learn_more_about_smart_links': 'Scopri di più sui Link intelligenti.',
   'fabric.linking.link_safety_warning_message':
     'Il link {unsafeLinkText} porta a un altro sito, <a>actual link here</a>',
   'fabric.linking.loading': 'Caricamento in corso...',
@@ -55,6 +55,7 @@ export default {
     "Non è stato possibile trovare il link. Controlla l'URL e prova a modificarlo o a incollarlo di nuovo.",
   'fabric.linking.not_found_title': 'Errore. Impossibile trovare questo link.',
   'fabric.linking.open_link_in_a_new_tab': 'Apri link in una nuova scheda',
+  'fabric.linking.owned_by': 'Di proprietà di {context}',
   'fabric.linking.pending_request': 'La tua richiesta di accesso è in sospeso',
   'fabric.linking.preview': 'Visualizzazione a schermo intero',
   'fabric.linking.preview_close': "Chiudi l'anteprima",

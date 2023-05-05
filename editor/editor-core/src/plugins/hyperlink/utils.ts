@@ -1,3 +1,6 @@
+// File has been copied to packages/editor/editor-plugin-ai/src/provider/markdown-transformer/utils/hyperlink.ts
+// If changes are made to this file, please make the same update in the linked file.
+
 import { Slice, Node, Schema } from 'prosemirror-model';
 import { mapSlice } from '../../utils/slice';
 import {

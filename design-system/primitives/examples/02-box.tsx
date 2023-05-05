@@ -150,24 +150,24 @@ export default () => {
         <Box xcss={layerContainerStyles} style={{ width: 800, height: 650 }}>
           {(
             [
-              'card',
-              'navigation',
-              'dialog',
-              'layer',
-              'blanket',
-              'modal',
-              'flag',
-              'spotlight',
               'tooltip',
+              'spotlight',
+              'flag',
+              'modal',
+              'blanket',
+              'layer',
+              'dialog',
+              'navigation',
+              'card',
             ] as const
-          ).map((layer, index) => (
+          ).map((zIndex, index) => (
             <Box
-              key={layer}
+              key={zIndex}
               backgroundColor="elevation.surface"
               padding="space.400"
               // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
               xcss={xcss({
-                layer,
+                zIndex,
                 boxShadow: 'overlay',
                 position: 'absolute',
               })}
@@ -176,7 +176,7 @@ export default () => {
                 insetInlineStart: index * 64,
               }}
             >
-              {layer}
+              {zIndex}
             </Box>
           ))}
         </Box>

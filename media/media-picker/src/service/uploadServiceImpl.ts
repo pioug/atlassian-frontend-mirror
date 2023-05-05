@@ -1,6 +1,5 @@
 import uuidV4 from 'uuid/v4';
 import {
-  FileState,
   UploadController,
   TouchFileDescriptor,
   UploadableFileUpfrontIds,
@@ -11,15 +10,16 @@ import {
   MediaClient,
   globalMediaEventEmitter,
   RequestError,
+  TouchedFiles,
 } from '@atlaskit/media-client';
 import { RECENTS_COLLECTION } from '@atlaskit/media-client/constants';
 import { EventEmitter2 } from 'eventemitter2';
-import { Subscriber } from 'rxjs/Subscriber';
 import { MediaFile, UploadParams } from '../types';
 
 import { getPreviewFromImage } from '../util/getPreviewFromImage';
 import { MediaErrorName } from '../types';
 import {
+  RejectionData,
   UploadService,
   UploadServiceEventListener,
   UploadServiceEventPayloadTypes,
@@ -43,6 +43,7 @@ export class UploadServiceImpl implements UploadService {
   private readonly userMediaClient?: MediaClient;
   private readonly emitter: EventEmitter2;
   private cancellableFilesUploads: { [key: string]: CancellableFileUpload };
+  private fileRejectionHandler?: (rejectionData: RejectionData) => void;
 
   constructor(
     private readonly tenantMediaClient: MediaClient,
@@ -78,10 +79,10 @@ export class UploadServiceImpl implements UploadService {
     ]);
   }
 
-  addFilesWithSource(
+  async addFilesWithSource(
     files: LocalFileWithSource[],
     featureFlags?: MediaFeatureFlags,
-  ): void {
+  ): Promise<void> {
     if (files.length === 0) {
       return;
     }
@@ -109,11 +110,12 @@ export class UploadServiceImpl implements UploadService {
       occurrenceKey: string;
     })[] = [];
     for (let i = 0; i < files.length; i++) {
-      const { replaceFileId } = files[i];
+      const { replaceFileId, file } = files[i];
       touchFileDescriptors.push({
         fileId: replaceFileId || uuidV4(),
         occurrenceKey: uuidV4(),
         collection,
+        size: file.size,
         expireAfter,
       });
     }
@@ -121,47 +123,63 @@ export class UploadServiceImpl implements UploadService {
       traceId: getRandomHex(8),
     };
 
-    const promisedTouchFiles = mediaClient.file.touchFiles(
-      touchFileDescriptors,
-      collection,
-      traceContext,
-    );
+    let touchedFiles: TouchedFiles;
+    let caughtError: unknown;
+    try {
+      touchedFiles = await mediaClient.file.touchFiles(
+        touchFileDescriptors,
+        collection,
+        traceContext,
+      );
+    } catch (error) {
+      caughtError = error;
+    }
 
-    const cancellableFileUploads: CancellableFileUpload[] = files.map(
-      (fileWithSource, i) => {
-        const { file, source } = fileWithSource;
-
+    const cancellableFileUploads: (null | CancellableFileUpload)[] = files.map(
+      ({ file, source }, i) => {
         const { fileId: id, occurrenceKey } = touchFileDescriptors[i];
-        const deferredUploadId = promisedTouchFiles
-          .then((touchedFiles) => {
-            const touchedFile = touchedFiles.created.find(
-              (touchedFile) => touchedFile.fileId === id,
-            );
-            if (!touchedFile) {
-              // TODO No one seems to be caring about this error
-              throw new Error(
-                'Cant retrieve uploadId from result of touch endpoint call',
-              );
-            }
-            return touchedFile.uploadId;
-          })
-          .catch((error) => {
-            // note: any failures in this block will result in an error event being bubbled as required
-            if (error instanceof RequestError) {
-              const requestError = error as RequestError;
-              if (
-                requestError.metadata &&
-                requestError.metadata.statusCode === 409
-              ) {
-                return mediaClient.mediaStore
-                  .createUpload(1, collection, traceContext)
-                  .then((res) => {
-                    return res.data[0].id;
-                  });
-              }
-            }
-            throw error;
-          });
+
+        // exclude rejected files from being uploaded
+        const rejectedFile = touchedFiles?.rejected.find(
+          ({ fileId: rejectedFileId }) => rejectedFileId === id,
+        );
+        if (rejectedFile) {
+          if (this.fileRejectionHandler) {
+            this.fileRejectionHandler({
+              reason: 'fileSizeLimitExceeded',
+              file,
+              limit: rejectedFile.error.limit,
+            });
+          }
+          return null;
+        }
+
+        const touchedFile = touchedFiles?.created.find(
+          (touchedFile) => touchedFile.fileId === id,
+        );
+
+        let deferredUploadId: Promise<string>;
+        const isIdConflictError =
+          caughtError &&
+          caughtError instanceof RequestError &&
+          caughtError.metadata &&
+          caughtError.metadata.statusCode === 409;
+        if (touchedFile) {
+          deferredUploadId = Promise.resolve(touchedFile.uploadId);
+        } else if (isIdConflictError) {
+          // will occur when the backend receives a fileId that already exists in which case
+          // we will create a single upload session for that file and use that uploadId
+          deferredUploadId = mediaClient.mediaStore
+            .createUpload(1, collection, traceContext)
+            .then((res) => {
+              return res.data[0].id;
+            });
+        } else {
+          // in the case of unexpected errors, we want to defer the throwing of the error
+          // until after the files-added has been emitted,
+          // allows editor to show a broken media card for unexpected errors
+          deferredUploadId = Promise.reject(caughtError);
+        }
 
         const uploadableFile: UploadableFile = {
           collection,
@@ -193,6 +211,7 @@ export class UploadServiceImpl implements UploadService {
           type: file.type,
           occurrenceKey,
         };
+
         const cancellableFileUpload: CancellableFileUpload = {
           mediaFile,
           file,
@@ -203,16 +222,15 @@ export class UploadServiceImpl implements UploadService {
           },
         };
 
-        const onFileSuccess = this.onFileSuccess.bind(this);
-        sourceFileObservable.subscribe({
-          next(this: Subscriber<FileState>, state) {
+        const { unsubscribe } = sourceFileObservable.subscribe({
+          next: (state) => {
             if (state.status === 'processing') {
-              this.unsubscribe();
+              unsubscribe();
               if (shouldCopyFileToRecents) {
                 mediaClient.emit('file-added', state);
                 globalMediaEventEmitter.emit('file-added', state);
               }
-              onFileSuccess(cancellableFileUpload, id, traceContext);
+              this.onFileSuccess(cancellableFileUpload, id, traceContext);
             }
           },
           error: (error) => {
@@ -226,12 +244,22 @@ export class UploadServiceImpl implements UploadService {
       },
     );
 
-    const mediaFiles = cancellableFileUploads.map(
+    const filteredCancellableFileUploads = cancellableFileUploads.filter(
+      this.isCancellableFileUpload,
+    );
+
+    const mediaFiles = filteredCancellableFileUploads.map(
       (cancellableFileUpload) => cancellableFileUpload.mediaFile,
     );
 
     this.emit('files-added', { files: mediaFiles, traceContext });
-    this.emitPreviews(cancellableFileUploads);
+    this.emitPreviews(filteredCancellableFileUploads);
+  }
+
+  isCancellableFileUpload(
+    fileUpload: null | CancellableFileUpload,
+  ): fileUpload is CancellableFileUpload {
+    return fileUpload !== null;
   }
 
   cancel(id?: string): void {
@@ -370,4 +398,8 @@ export class UploadServiceImpl implements UploadService {
       traceContext,
     });
   };
+
+  onFileRejection(handler: (rejectionData: RejectionData) => void) {
+    this.fileRejectionHandler = handler;
+  }
 }

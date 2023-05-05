@@ -160,6 +160,7 @@ export const EditorToolbar: React.FunctionComponent<
           childComponentSelector={"[data-testid='ak-editor-main-toolbar']"}
           isShortcutToFocusToolbar={isShortcutToFocusToolbar}
           handleEscape={handleEscape}
+          intl={props.intl}
         >
           <div
             css={mainToolbarStyle(

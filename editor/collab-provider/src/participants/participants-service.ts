@@ -1,6 +1,5 @@
 import type {
   CollabEventPresenceData,
-  CollabParticipant,
   CollabEventDisconnectedData,
 } from '@atlaskit/editor-common/collab';
 import { disconnectedReasonMapper } from '../disconnected-reason-mapper';
@@ -15,6 +14,7 @@ import type {
 } from '../types';
 import {
   createParticipantFromPayload as enrichParticipant,
+  GetUserType,
   PARTICIPANT_UPDATE_INTERVAL,
   TelepointerEmit,
 } from './participants-helper';
@@ -43,13 +43,7 @@ export class ParticipantsService {
    */
   updateParticipant = async (
     payload: PresencePayload,
-    getUser:
-      | ((userId: string) => Promise<
-          Pick<CollabParticipant, 'name' | 'email' | 'avatar'> & {
-            userId: string;
-          }
-        >)
-      | undefined,
+    getUser: GetUserType,
     emit: PresenceEmit,
   ): Promise<void> => {
     const { userId } = payload;
@@ -165,13 +159,7 @@ export class ParticipantsService {
   participantTelepointer = (
     payload: TelepointerPayload,
     thisSessionId: string | undefined,
-    getUser:
-      | ((userId: string) => Promise<
-          Pick<CollabParticipant, 'name' | 'email' | 'avatar'> & {
-            userId: string;
-          }
-        >)
-      | undefined,
+    getUser: GetUserType,
     emit: (
       evt: 'telepointer' | 'presence',
       data: CollabEventTelepointerData | CollabEventPresenceData,

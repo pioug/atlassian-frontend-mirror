@@ -1,5 +1,11 @@
 # @atlaskit/adf-utils
 
+## 18.1.2
+
+### Patch Changes
+
+- [`ac684305b74`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ac684305b74) - [ED-17495] Avoid adding two unsupportedNodeAttribute marks as duplicate marks are invalid ADF
+
 ## 18.1.1
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @atlaskit/quick-search
 
+## 8.0.15
+
+### Patch Changes
+
+- [`be610dca836`](https://bitbucket.org/atlassian/atlassian-frontend/commits/be610dca836) - [ux] replace deprecated placeholder theme with tokens
+
 ## 8.0.14
 
 ### Patch Changes

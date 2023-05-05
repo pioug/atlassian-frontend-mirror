@@ -1,5 +1,11 @@
 # @atlaskit/breadcrumbs
 
+## 11.9.0
+
+### Minor Changes
+
+- [`80c5ca2be68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/80c5ca2be68) - [ux] Added a feature flag which controls whether Tooltip is lazy loaded with react-loosely-lazy or not. After the flag is cleaned up, react-loosely-lazy will be removed from the component.
+
 ## 11.8.0
 
 ### Minor Changes

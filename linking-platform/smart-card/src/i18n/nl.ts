@@ -55,6 +55,7 @@ export default {
     'We konden de link niet vinden. Controleer de URL en probeer nogmaals te bewerken of plakken.',
   'fabric.linking.not_found_title': 'Oh-oh. We kunnen deze link niet vinden.',
   'fabric.linking.open_link_in_a_new_tab': 'Open de link in een nieuw tabblad',
+  'fabric.linking.owned_by': 'Eigendom van {context}',
   'fabric.linking.pending_request': 'Je toegangsaanvraag wordt behandeld.',
   'fabric.linking.preview': 'Volledig schermweergave',
   'fabric.linking.preview_close': 'Voorbeeldweergave sluiten',

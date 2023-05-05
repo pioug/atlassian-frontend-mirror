@@ -45,7 +45,11 @@ const AtlaskitThemeProvider: FC<AKThemeProviderProps> =
       useThemeResetStyles(backgroundColor);
       return (
         <Theme.Provider value={themeFnMap[mode]}>
-          <div className={`${mode}-${SELECTOR}`} style={{ backgroundColor }}>
+          <div
+            className={`${mode}-${SELECTOR}`}
+            style={{ backgroundColor }}
+            data-testid="theme-provider"
+          >
             {children}
           </div>
         </Theme.Provider>

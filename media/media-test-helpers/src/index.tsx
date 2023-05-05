@@ -172,14 +172,34 @@ export {
 } from './mediaClientErrors';
 export { default as FeatureFlagsWrapper } from './featureFlagsWrapper';
 export {
+  // Simulation tools
   FileStateFactory,
   MediaClientMock,
   createIdentifier,
   createFileDetails,
   createFileState,
+  useRunSimulation,
+  // Predefined simulations
+  simulateProcessed,
+  simulateProcessing,
+  simulateImmediateFailProcessing,
+  simulateUpload,
+  simulateError,
+  simulateErrorState,
+  simulateManyProcessed,
+  simulateEmptyDetails,
+  simulateUpdateFileId,
+  simulateAlwaysLoading,
+  simulateAlwaysProcessing,
 } from './fileStateFactory';
 export type {
   FileStateFactoryOptions,
   MediaClientMockOptions,
+  Simulation,
+  SimulationUtils,
+  SimulationSettings,
+  SimulationFactory,
+  StandardSimulation,
 } from './fileStateFactory';
+
 export { DocsContentTabs } from './docs-content-tabs';

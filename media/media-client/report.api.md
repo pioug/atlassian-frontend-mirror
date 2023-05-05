@@ -435,6 +435,11 @@ export type FileState =
 export type FileStatus = FileStatus_2;
 
 // @public (undocumented)
+export function fromObservable(
+  observable: ReplaySubject<FileState>,
+): MediaSubscribable;
+
+// @public (undocumented)
 export const getArtifactUrl: (
   artifacts: MediaFileArtifacts,
   prop: keyof MediaFileArtifacts,
@@ -959,6 +964,11 @@ export class MediaStore {
     traceContext?: MediaTraceContext,
   ): Promise<MediaStoreResponse<ItemsPayload>>;
   // (undocumented)
+  getRejectedResponseFromDescriptor(
+    descriptor: TouchFileDescriptor,
+    limit: number,
+  ): RejectedTouchFile;
+  // (undocumented)
   probeChunks(
     chunks: string[],
     uploadId: string,
@@ -1105,6 +1115,7 @@ export type MediaStoreRequestOptions = RequestMetadata & {
   readonly body?: any;
   readonly clientOptions?: ClientOptions;
   readonly traceContext?: MediaTraceContext;
+  readonly resolvedAuth?: Auth;
 };
 
 // @public (undocumented)
@@ -1365,6 +1376,23 @@ export interface ProcessingFileState extends BaseFileState {
 export const RECENTS_COLLECTION = 'recents';
 
 // @public (undocumented)
+interface RejectedTouchFile {
+  // (undocumented)
+  error: RejectionError;
+  // (undocumented)
+  fileId: string;
+}
+
+// @public (undocumented)
+type RejectionError = {
+  code: 'ExceedMaxFileSizeLimit';
+  title: string;
+  href: string;
+  limit: number;
+  size: number;
+};
+
+// @public (undocumented)
 export function request(
   url: string,
   options?: RequestOptions,
@@ -1505,6 +1533,7 @@ export class StargateClient {
 // @public (undocumented)
 export type TouchedFiles = {
   created: CreatedTouchedFile[];
+  rejected: RejectedTouchFile[];
 };
 
 // @public (undocumented)
@@ -1519,6 +1548,8 @@ export interface TouchFileDescriptor {
   fileId: string;
   // (undocumented)
   occurrenceKey?: string;
+  // (undocumented)
+  size?: number;
 }
 
 // @public (undocumented)

@@ -43,7 +43,7 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'Musisz poprosić o dostęp lub spróbować innego konta, aby zobaczyć ten podgląd.',
   'fabric.linking.join_to_view': 'Dołącz do {context}, aby wyświetlić to zgłoszenie',
-  'fabric.linking.learn_more_about_smart_links': 'Dowiedz się więcej o łączach Smart Link.',
+  'fabric.linking.learn_more_about_smart_links': 'Dowiedz się więcej o inteligentnych łączach.',
   'fabric.linking.link_safety_warning_message':
     'Łącze {unsafeLinkText} przeniesie Cię do innej witryny, <a>actual link here</a>',
   'fabric.linking.loading': 'Ładowanie...',
@@ -54,6 +54,7 @@ export default {
     'Nie udało się znaleźć łącza. Sprawdź adres url i spróbuj go edytować lub wkleić ponownie.',
   'fabric.linking.not_found_title': 'Niestety. Nie można znaleźć tego łącza!',
   'fabric.linking.open_link_in_a_new_tab': 'Otwórz łącze na nowej karcie',
+  'fabric.linking.owned_by': 'Właściciel: {context}',
   'fabric.linking.pending_request': 'Twój wniosek o dostęp oczekuje na rozpatrzenie',
   'fabric.linking.preview': 'Widok pełnoekranowy',
   'fabric.linking.preview_close': 'Zamknij podgląd',

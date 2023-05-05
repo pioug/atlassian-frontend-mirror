@@ -1,4 +1,5 @@
-import { tallImage, dataURItoBlob } from '..';
+import { tallImage } from '../../images';
+import { dataURItoBlob } from '../../mockData';
 import {
   FileIdentifier,
   FileState,
@@ -15,12 +16,15 @@ import {
   FileStateStatus,
 } from './createFileState';
 import { createFileDetails } from './helpers';
-import { sleep } from '../nextTick';
+import { sleep } from '../../nextTick';
 
 export type MediaClientMockOptions = {
   getImageDelay?: number;
+  hasPreview?: boolean;
 };
 export class MediaClientMock extends MediaClient {
+  private hasPreview = false;
+
   constructor(
     private observable: ReplaySubject<FileState>,
     mediaClientConfig: MediaClientConfig,
@@ -29,14 +33,22 @@ export class MediaClientMock extends MediaClient {
   ) {
     super(mediaClientConfig, featureFlags);
     this.mockFileFetcher();
+    this.setHasPreview(!!options.hasPreview);
   }
 
   public updateObserbable = (newObservable: ReplaySubject<FileState>) => {
     this.observable = newObservable;
   };
 
+  public setHasPreview = (hasPreview: boolean) => {
+    this.hasPreview = hasPreview;
+  };
+
   public getImage = async () => {
     const { getImageDelay = 0 } = this.options;
+    if (!this.hasPreview) {
+      throw new Error('some error');
+    }
     await sleep(getImageDelay);
     return dataURItoBlob(tallImage);
   };
@@ -118,6 +130,7 @@ export class FileStateFactory {
     });
 
   public next = (status: FileStateStatus, options?: CreateFileStateOptions) => {
+    this.mediaClient.setHasPreview(!!options?.withRemotePreview);
     this.subscription.next(this.createFileState(status, options));
   };
 

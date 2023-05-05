@@ -32,7 +32,7 @@ import { SerializedStyles } from '@emotion/react';
 const asAllowlist: readonly ['span', 'div', 'p', 'strong'];
 
 // @public (undocumented)
-type AsElement = typeof asAllowlist[number];
+type AsElement = (typeof asAllowlist)[number];
 
 // @public (undocumented)
 type BackgroundColor = keyof typeof backgroundColorMap;

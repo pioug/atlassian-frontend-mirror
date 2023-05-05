@@ -44,7 +44,7 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'Du må be om tilgang eller prøve en annen konto for kunne se denne forhåndsvisningen.',
   'fabric.linking.join_to_view': 'Bli med {context} for å se denne saken',
-  'fabric.linking.learn_more_about_smart_links': 'Finn ut mer om Smart Links.',
+  'fabric.linking.learn_more_about_smart_links': 'Finn ut mer om smartkoblinger.',
   'fabric.linking.link_safety_warning_message':
     '{unsafeLinkText}-koblingen tar deg til et annet nettsted, <a>actual link here</a>',
   'fabric.linking.loading': 'Laster …',
@@ -55,6 +55,7 @@ export default {
     'Vi finner ikke koblingen. Sjekk URL-en og prøv å redigere den, eller lim inn på nytt.',
   'fabric.linking.not_found_title': 'Oi sann. VI finner ikke denne koblingen.',
   'fabric.linking.open_link_in_a_new_tab': 'Åpne kobling i en ny fane',
+  'fabric.linking.owned_by': 'Eid av {context}',
   'fabric.linking.pending_request': 'Avventer svar på forespørselen din om tilgang',
   'fabric.linking.preview': 'Fullskjermvisning',
   'fabric.linking.preview_close': 'Lukk forhåndsvisning',

@@ -1,4 +1,4 @@
-import { tallImage } from '../';
+import { tallImage } from '../..';
 import { FileState, FileDetails } from '@atlaskit/media-client';
 
 const localPreview = { value: tallImage };
@@ -47,31 +47,25 @@ export const createFileState = (
 
   const base = { ...fileDetails, ...extendState, id };
   switch (status) {
-    case 'uploading':
-      return {
-        status: 'uploading',
-        progress: 0,
-        ...base,
-      };
     case 'processing':
-      return {
-        status: 'processing',
-        ...base,
-      };
+    case 'failed-processing':
     case 'processed':
       return {
-        status: 'processed',
-        representations: remotePreview,
-        artifacts: {},
+        status,
         ...base,
       };
-    case 'failed-processing':
+    case 'uploading':
       return {
-        status: 'failed-processing',
+        status,
+        progress: 0,
         ...base,
       };
     case 'error':
     default:
-      return { id, status: 'error' };
+      return {
+        id,
+        status: 'error',
+        message: 'This is a terrible error with a super long trace',
+      };
   }
 };

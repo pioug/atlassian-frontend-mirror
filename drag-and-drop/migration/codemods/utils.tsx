@@ -18,7 +18,7 @@ const componentNameList = [
   'Draggable',
   'Droppable',
 ] as const;
-type ComponentName = typeof componentNameList[number];
+type ComponentName = (typeof componentNameList)[number];
 
 function isComponentName(str: string): str is ComponentName {
   return componentNameList.includes(str as any);

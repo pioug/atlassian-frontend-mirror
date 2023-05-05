@@ -151,6 +151,7 @@ describe('FileFetcher', () => {
               uploadId: '2',
             },
           ],
+          rejected: [],
         },
       },
     );

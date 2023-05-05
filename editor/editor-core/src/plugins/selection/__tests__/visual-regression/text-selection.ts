@@ -15,8 +15,7 @@ import selectionKitchenSink2Adf from './__fixtures__/kitchen-sink-2.adf.json';
 import selectionKitchenSink3Adf from './__fixtures__/kitchen-sink-3.adf.json';
 import { emojiSelectors } from '@atlaskit/editor-test-helpers/page-objects/emoji';
 
-// Skip due to failing VR Tests: https://product-fabric.atlassian.net/browse/ED-17719
-describe.skip('Selection:', () => {
+describe('Selection:', () => {
   let page: PuppeteerPage;
 
   describe.each([

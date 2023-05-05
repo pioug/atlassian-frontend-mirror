@@ -54,6 +54,7 @@ export default {
     'リンクが見つかりませんでした。URL を確認して編集するか、もう一度貼り付けてください。',
   'fabric.linking.not_found_title': '申し訳ありません。リンクが見つかりません。',
   'fabric.linking.open_link_in_a_new_tab': 'リンクを新しいタブで開く',
+  'fabric.linking.owned_by': '所有者: {context}',
   'fabric.linking.pending_request': 'アクセス リクエストは保留中です。',
   'fabric.linking.preview': '全画面表示',
   'fabric.linking.preview_close': 'プレビューを閉じる',

@@ -91,8 +91,7 @@ describe('ModalElementBrowser', () => {
 
 describe('InlineElementBrowser', () => {
   beforeEach(getElementBrowserPage);
-  // Skip due to failing VR Tests: https://product-fabric.atlassian.net/browse/ED-17719
-  it.skip('should match InlineElementBrowser snapshot', async () => {
+  it('should match InlineElementBrowser snapshot', async () => {
     await shouldMatchSnapshotFor(
       'InlineElementBrowser__example__open_button',
       undefined,

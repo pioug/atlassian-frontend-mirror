@@ -1,5 +1,22 @@
 # @atlaskit/editor-core
 
+## 182.2.0
+
+### Minor Changes
+
+- [`31302b3cec6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/31302b3cec6) - Add location attribute to editor smart card analytics
+- [`dbf2e414624`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dbf2e414624) - ED-15685: Adjust selection-based indent behaviour to match visual selection (as done in Editor lists)
+
+### Patch Changes
+
+- [`054186aa44f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/054186aa44f) - Remove email from CollabParticipant type and rely more on ProviderParticipant type.
+- [`0ffb55018c9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ffb55018c9) - Revert "[ED-17172] Bumped prosemirror-view from 1.23.2 to 1.23.7 and removed work-around for fixed issues"
+- [`87a1c6a8030`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87a1c6a8030) - [ux] ED-17019 fix hover style of ColorPickerButton with custom height (seen in table chart ConfigPanel)
+- [`6bd5d9824be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6bd5d9824be) - Updates link created analytics event to include creationMethod as editor_type when autoformatting input rule is triggered.
+- [`56198bcd29d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56198bcd29d) - [ux] JCA11Y-31 - Added tab support for web accessibility keyboard users according to Toolbar Pattern (see https://www.w3.org/WAI/ARIA/apg/patterns/toolbar/)
+- [`888cd482b98`](https://bitbucket.org/atlassian/atlassian-frontend/commits/888cd482b98) - Fix logic of generated new duplicated localIds when pasting a copied node above the copied node
+- Updated dependencies
+
 ## 182.1.2
 
 ### Patch Changes

@@ -43,7 +43,7 @@ export default {
   'fabric.linking.invalid_permissions_description':
     '이 미리 보기를 확인하려면 액세스를 요청하거나 다른 계정으로 시도해야 합니다.',
   'fabric.linking.join_to_view': '{context}에 참여하여 이 이슈 보기',
-  'fabric.linking.learn_more_about_smart_links': 'Smart Link에 대해 자세히 알아보세요.',
+  'fabric.linking.learn_more_about_smart_links': '스마트 링크에 대해 자세히 알아보세요.',
   'fabric.linking.link_safety_warning_message':
     '{unsafeLinkText} 링크를 클릭하면 다음과 같은 다른 사이트로 이동합니다: <a>actual link here</a>',
   'fabric.linking.loading': '로드 중...',
@@ -53,6 +53,7 @@ export default {
   'fabric.linking.not_found_description': '링크를 찾을 수 없습니다. URL을 확인하고 편집하거나 다시 붙여넣으세요.',
   'fabric.linking.not_found_title': '죄송합니다. 이 링크를 찾을 수 없습니다.',
   'fabric.linking.open_link_in_a_new_tab': '새 탭에서 링크 열기',
+  'fabric.linking.owned_by': '소유자: {context}',
   'fabric.linking.pending_request': '액세스 요청이 보류 중입니다',
   'fabric.linking.preview': '전체 화면 보기',
   'fabric.linking.preview_close': '미리 보기 닫기',

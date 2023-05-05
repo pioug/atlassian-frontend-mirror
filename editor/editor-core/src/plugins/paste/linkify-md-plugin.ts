@@ -1,3 +1,6 @@
+// File has been copied to packages/editor/editor-plugin-ai/src/provider/markdown-transformer/md/linkify-md-plugin.ts
+// If changes are made to this file, please make the same update in the linked file.
+
 import { Match, linkifyMatch } from '@atlaskit/adf-schema';
 import LinkifyIt from 'linkify-it';
 import { findFilepaths, isLinkInMatches } from '../hyperlink/utils';

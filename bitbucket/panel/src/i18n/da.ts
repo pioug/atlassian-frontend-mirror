@@ -7,6 +7,6 @@
  */
 //Danish (Denmark)
 export default {
-  "bitbucket.panel-collapse.message": "skjul",
-  "bitbucket.panel-expand.message": "udvid"
+  'bitbucket.panel-collapse.message': 'skjul',
+  'bitbucket.panel-expand.message': 'udvid',
 };

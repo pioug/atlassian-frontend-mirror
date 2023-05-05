@@ -1,3 +1,6 @@
+// File has been copied to packages/editor/editor-plugin-ai/src/provider/prosemirror-transformer/utils/utils.ts
+// If changes are made to this file, please make the same update in the linked file.
+
 /**
  * A replacement for `String.repeat` until it becomes widely available.
  */

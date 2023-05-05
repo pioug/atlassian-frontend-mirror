@@ -8,7 +8,6 @@ import {
   UFOExperience,
 } from '@atlaskit/ufo';
 import { AcknowledgementResponseTypes, StepJson } from '../../types';
-import type { CollabParticipant } from '@atlaskit/editor-common/collab';
 import type { ProviderParticipant } from '../participants-helper';
 import type { InternalError } from '../../errors/error-types';
 
@@ -95,16 +94,12 @@ describe('telepointerFromStep', () => {
   const sessionId = '666';
   const clientId = '420';
   const to = 69;
-  const yaBoi: CollabParticipant & {
-    userId: string;
-    clientId: number | string;
-  } = {
+  const yaBoi: ProviderParticipant = {
     userId: '69',
     clientId: clientId,
     sessionId: sessionId,
     lastActive: 1999,
     name: 'Ya Boi',
-    email: '@ksdjfnskdfn.',
     avatar: 'www.thelastairbender.com/image.png',
   };
   const participants: ProviderParticipant[] = [yaBoi];

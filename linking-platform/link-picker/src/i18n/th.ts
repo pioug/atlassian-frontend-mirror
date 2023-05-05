@@ -31,6 +31,9 @@ export default {
   'fabric.linkPicker.search.linkPlaceholder': 'ค้นหาลิงก์ล่าสุดหรือวางลิงก์ใหม่',
   'fabric.linkPicker.search.noResults.description': 'ลองอีกครั้งด้วยคำอื่น',
   'fabric.linkPicker.search.noResults.heading': 'เราไม่พบรายการใด ๆ ที่ตรงกับการค้นหาของคุณ',
+  'fabric.linkPicker.time.ago': 'ที่แล้ว',
+  'fabric.linkPicker.time.updated': 'อัปเดตแล้ว',
+  'fabric.linkPicker.time.viewed': 'ดูเมื่อ',
   'fabric.linkPicker.unhandledError.description': 'ลองโหลดหน้าข้อมูลใหม่อีกครั้ง',
   'fabric.linkPicker.unhandledError.heading': 'เกิดข้อผิดพลาดบางอย่าง!',
 };

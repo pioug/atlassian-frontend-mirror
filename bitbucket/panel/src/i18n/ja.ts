@@ -7,6 +7,6 @@
  */
 //Japanese
 export default {
-  "bitbucket.panel-collapse.message": "折りたたむ",
-  "bitbucket.panel-expand.message": "展開"
+  'bitbucket.panel-collapse.message': '折りたたむ',
+  'bitbucket.panel-expand.message': '展開',
 };

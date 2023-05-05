@@ -940,7 +940,6 @@ type TokenisedProps = {
   insetInline?: InsetInline;
   insetInlineEnd?: InsetInlineEnd;
   insetInlineStart?: InsetInlineStart;
-  layer?: Layer;
   left?: Left;
   maxBlockSize?: MaxBlockSize;
   maxHeight?: MaxHeight;
@@ -965,6 +964,7 @@ type TokenisedProps = {
   rowGap?: RowGap;
   top?: Top;
   width?: Width;
+  zIndex?: Layer;
 };
 
 // @public (undocumented)

@@ -4,7 +4,13 @@ import userEvent from '@testing-library/user-event';
 import { fireEvent, screen } from '@testing-library/react';
 import { replaceRaf, Stub } from 'raf-stub';
 
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import '@atlaskit/link-test-helpers/jest';
+
+import {
+  AnalyticsListener,
+  UIAnalyticsEvent,
+  useAnalyticsEvents,
+} from '@atlaskit/analytics-next';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { useSmartLinkLifecycleAnalytics } from '@atlaskit/link-analytics';
 import { cardClient } from '@atlaskit/media-integration-test-helpers/card-client';
@@ -51,14 +57,6 @@ const mockLinkCreated = jest.fn();
 const mockLinkUpdated = jest.fn();
 const mockLinkDeleted = jest.fn();
 
-jest.mock('@atlaskit/link-analytics', () => ({
-  useSmartLinkLifecycleAnalytics: jest.fn(() => ({
-    linkCreated: mockLinkCreated,
-    linkUpdated: mockLinkUpdated,
-    linkDeleted: mockLinkDeleted,
-  })),
-}));
-
 jest.mock('@atlaskit/smart-card', () => {
   const originalModule = jest.requireActual('@atlaskit/smart-card');
   return {
@@ -69,7 +67,18 @@ jest.mock('@atlaskit/smart-card', () => {
   };
 });
 
+jest.mock('@atlaskit/link-analytics', () => ({
+  useSmartLinkLifecycleAnalytics: jest.fn(),
+}));
+
 describe('Analytics key events', () => {
+  (useSmartLinkLifecycleAnalytics as jest.Mock).mockImplementation(() => {
+    return {
+      linkCreated: mockLinkCreated,
+      linkUpdated: mockLinkUpdated,
+      linkDeleted: mockLinkDeleted,
+    };
+  });
   const renderEditor = createEditorFactory();
 
   const flushPromises = () => new Promise((resolve) => setImmediate(resolve));
@@ -196,22 +205,24 @@ describe('Analytics key events', () => {
       ),
       renderOpts: {
         wrapper: ({ children }) => (
-          <SmartCardProvider
-            storeOptions={{
-              initialState: {
-                'https://atlassian.com': {
-                  status: 'resolved',
-                  details: {
-                    meta: { access: 'granted', visibility: 'restricted' },
-                    data: jsonLd('https://atlassian.com'),
+          <AnalyticsListener onEvent={spy} channel={'media'}>
+            <SmartCardProvider
+              storeOptions={{
+                initialState: {
+                  'https://atlassian.com': {
+                    status: 'resolved',
+                    details: {
+                      meta: { access: 'granted', visibility: 'restricted' },
+                      data: jsonLd('https://atlassian.com'),
+                    },
                   },
                 },
-              },
-            }}
-            client={cardClient}
-          >
-            <ContextAdapter>{children}</ContextAdapter>
-          </SmartCardProvider>
+              }}
+              client={cardClient}
+            >
+              <ContextAdapter>{children}</ContextAdapter>
+            </SmartCardProvider>
+          </AnalyticsListener>
         ),
       },
     });
@@ -319,7 +330,7 @@ describe('Analytics key events', () => {
     });
 
     it('should fire when typing in markdown [text](url)', async () => {
-      const { editorView, sel } = await setup({
+      const { editorView, sel, undo, redo } = await setup({
         doc: doc(p('{<>}')),
       });
       const url = 'https://atlassian.com';
@@ -335,7 +346,44 @@ describe('Analytics key events', () => {
         },
         null,
         {
-          creationMethod: 'unknown',
+          creationMethod: 'editor_type',
+          display: 'url',
+        },
+      );
+
+      jest.clearAllMocks();
+      undo();
+
+      expect(mockLinkCreated).toHaveBeenCalledTimes(0);
+      expect(mockLinkUpdated).toHaveBeenCalledTimes(0);
+      expect(mockLinkDeleted).toHaveBeenCalledTimes(1);
+      expect(mockLinkDeleted).toHaveBeenCalledWith(
+        {
+          url,
+          displayCategory: 'link',
+        },
+        null,
+        {
+          deleteType: 'undo',
+          deleteMethod: 'undo',
+          display: 'url',
+        },
+      );
+
+      jest.clearAllMocks();
+      redo();
+
+      expect(mockLinkCreated).toHaveBeenCalledTimes(1);
+      expect(mockLinkUpdated).toHaveBeenCalledTimes(0);
+      expect(mockLinkDeleted).toHaveBeenCalledTimes(0);
+      expect(mockLinkCreated).toHaveBeenCalledWith(
+        {
+          url,
+          displayCategory: 'link',
+        },
+        null,
+        {
+          creationMethod: 'redo',
           display: 'url',
         },
       );
@@ -1809,6 +1857,179 @@ describe('Analytics key events', () => {
       expect(mockLinkCreated).toHaveBeenCalledTimes(0);
       expect(mockLinkUpdated).toHaveBeenCalledTimes(0);
       expect(mockLinkDeleted).toHaveBeenCalledTimes(0);
+    });
+  });
+
+  describe('EditorSmartCardEventsNext: analytics attributes', () => {
+    beforeEach(() => {
+      const mockUseAnalyticsEvents = useAnalyticsEvents;
+      (useSmartLinkLifecycleAnalytics as jest.Mock).mockImplementation(() => {
+        const { createAnalyticsEvent } = mockUseAnalyticsEvents();
+
+        const createCallback = (
+          action: 'created' | 'updated' | 'deleted',
+          cb: (...args: any[]) => void,
+        ) => {
+          return (...args: any[]) => {
+            createAnalyticsEvent({ action, actionSubject: 'link' }).fire(
+              'media',
+            );
+            return cb(...args);
+          };
+        };
+
+        return {
+          linkCreated: createCallback('created', mockLinkCreated),
+          linkUpdated: createCallback('updated', mockLinkUpdated),
+          linkDeleted: createCallback('deleted', mockLinkDeleted),
+        };
+      });
+    });
+
+    it('should fire with location attribute', async () => {
+      const expectedContext = [
+        {
+          attributes: {
+            location: 'editor_fixedWidth',
+          },
+          location: 'editor_fixedWidth',
+        },
+      ];
+      const { editorView, undo, spy } = await setup({
+        doc: doc(p('{<>}')),
+        editorProps: (props, providerFactory) => {
+          const macroProvider = Promise.resolve(new MockMacroProvider({}));
+          providerFactory.setProvider('macroProvider', macroProvider);
+
+          const providerWithAutoConvertHandler = new DefaultExtensionProvider(
+            [
+              createFakeExtensionManifest({
+                title: 'Jira issue',
+                type: 'confluence.macro',
+                extensionKey: 'jira',
+              }),
+            ],
+            [
+              (text: string) => {
+                if (text && text.startsWith(`https://jdog`)) {
+                  return {
+                    type: 'inlineExtension',
+                    attrs: {
+                      extensionType: 'confluence.macro',
+                      extensionKey: 'jira',
+                      parameters: {
+                        macroParams: {
+                          url: text,
+                        },
+                      },
+                    },
+                  };
+                }
+              },
+            ],
+          );
+
+          const extensionProvider = Promise.resolve(
+            combineExtensionProviders([providerWithAutoConvertHandler]),
+          );
+
+          providerFactory.setProvider('extensionProvider', extensionProvider);
+
+          return {
+            ...props,
+            appearance: 'full-page',
+            allowExtension: true,
+            extensionHandlers,
+            extensionProviders: [extensionProvider],
+            linking: {
+              ...props.linking,
+              smartLinks: {
+                ...props.linking?.smartLinks,
+                resolveBeforeMacros: ['jira'],
+              },
+            },
+          };
+        },
+      });
+
+      const url = 'https://jdog.jira-dev.com/browse/BENTO-3677';
+
+      dispatchPasteEvent(editorView, {
+        html: `<meta charset="utf-8"><a href="${url}">${url}</a>`,
+        plain: url,
+      });
+
+      /**
+       * Should not have fired a created event as link is queued for upgrade
+       */
+      expect(mockLinkCreated).toHaveBeenCalledTimes(0);
+      expect(mockLinkUpdated).toHaveBeenCalledTimes(0);
+      expect(mockLinkDeleted).toHaveBeenCalledTimes(0);
+
+      raf.flush();
+      await flushPromises();
+
+      /**
+       * At this point we will have done a resolve check in the paste plugin
+       * We will have added a link to the page and queued it for upgrade
+       */
+      expect(mockLinkCreated).toHaveBeenCalledTimes(0);
+      expect(mockLinkUpdated).toHaveBeenCalledTimes(0);
+      expect(mockLinkDeleted).toHaveBeenCalledTimes(0);
+
+      raf.flush();
+      await flushPromises();
+
+      /**
+       * At this point we will have resolved and upgraded our link into an inline link
+       */
+      expect(mockLinkCreated).toHaveBeenCalledTimes(1);
+      expect(mockLinkUpdated).toHaveBeenCalledTimes(0);
+      expect(mockLinkDeleted).toHaveBeenCalledTimes(0);
+      expect(spy).toBeFiredWithAnalyticEventOnce({
+        payload: {
+          action: 'created',
+          actionSubject: 'link',
+        },
+        context: expectedContext,
+      });
+
+      jest.clearAllMocks();
+      undo();
+
+      /**
+       * Undo will revert the upgrade as an update
+       */
+      expect(mockLinkCreated).toHaveBeenCalledTimes(0);
+      expect(mockLinkUpdated).toHaveBeenCalledTimes(1);
+      expect(mockLinkDeleted).toHaveBeenCalledTimes(0);
+      expect(spy).toBeFiredWithAnalyticEventOnce({
+        payload: {
+          action: 'updated',
+          actionSubject: 'link',
+        },
+        context: expectedContext,
+      });
+
+      jest.clearAllMocks();
+      undo();
+      undo();
+
+      /**
+       * Further undo deletes the link
+       */
+      expect(mockLinkCreated).toHaveBeenCalledTimes(0);
+      expect(mockLinkUpdated).toHaveBeenCalledTimes(0);
+      expect(mockLinkDeleted).toHaveBeenCalledTimes(1);
+      expect(spy).toBeFiredWithAnalyticEventOnce({
+        payload: {
+          action: 'deleted',
+          actionSubject: 'link',
+        },
+        context: expectedContext,
+      });
+
+      jest.clearAllMocks();
     });
   });
 });

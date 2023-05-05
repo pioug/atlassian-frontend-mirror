@@ -323,7 +323,7 @@ export type ControlProps<
 > = ControlProps_2<Option, IsMulti>;
 
 // @public (undocumented)
-type Country = typeof groupedCountries[number]['options'][number];
+type Country = (typeof groupedCountries)[number]['options'][number];
 
 // @public (undocumented)
 interface Country_2 {

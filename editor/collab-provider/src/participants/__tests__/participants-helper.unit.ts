@@ -15,7 +15,6 @@ const activeUser: ProviderParticipant = {
   // 7.5 minutes from base
   lastActive: baseTime + PARTICIPANT_UPDATE_INTERVAL * 1.5,
   name: 'Mr Kafei',
-  email: 'active@43654376dgfdsdf.com',
   avatar: 'www.jamescameron.com/image.png',
 };
 
@@ -35,7 +34,6 @@ describe('participantForUpdate', () => {
         lastActive,
         // Blank when getUser unavailable
         name: '',
-        email: '',
         avatar: '',
       };
 
@@ -76,7 +74,6 @@ describe('participantForUpdate', () => {
   describe('when the user is new', () => {
     const getUser = jest.fn().mockReturnValue({
       name: 'bob',
-      email: '',
       avatar: undefined,
     });
     const payload = {
@@ -88,7 +85,6 @@ describe('participantForUpdate', () => {
     const { timestamp, ...rest } = payload;
     const expectedParticipant: ProviderParticipant = {
       name: 'bob',
-      email: '',
       avatar: '',
       lastActive: timestamp,
       ...rest,

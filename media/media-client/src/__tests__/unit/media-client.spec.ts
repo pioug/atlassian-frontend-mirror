@@ -332,7 +332,7 @@ describe('MediaClient', () => {
       } = setup();
 
       asMockFunctionResolvedValue(mediaClient.mediaStore.touchFiles, {
-        data: { created: [] },
+        data: { created: [], rejected: [] },
       });
 
       const file: UploadableFile = {} as any;
@@ -375,6 +375,7 @@ describe('MediaClient', () => {
               uploadId: 'some-upload-id',
             },
           ],
+          rejected: [],
         },
       });
 

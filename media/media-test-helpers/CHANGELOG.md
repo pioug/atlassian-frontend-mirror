@@ -1,5 +1,15 @@
 # @atlaskit/media-test-helpers
 
+## 32.1.0
+
+### Minor Changes
+
+- [`7b0b33845fe`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7b0b33845fe) - Added file state simulation helpers
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 32.0.0
 
 ### Major Changes

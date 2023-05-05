@@ -328,4 +328,4 @@ const tokenNames = tableChartsPaletteKeys.map(
   hexCode => editorTableChartsPalette[hexCode].tokenName,
 );
 
-export type EditorBackgroundPaletteTokenNames = typeof tokenNames[number];
+export type EditorBackgroundPaletteTokenNames = (typeof tokenNames)[number];

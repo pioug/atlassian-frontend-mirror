@@ -14,6 +14,7 @@ import {
   getUser,
 } from '../MockReactionsClient';
 import { MemoryReactionsStore, ufoExperiences } from './MemoryReactionsStore';
+import { waitFor } from '@testing-library/dom';
 
 const fakeCreateAndFireSafe = jest.fn();
 const spyCreateAndFireSafe = jest.spyOn(AnalyticsModule, 'createAndFireSafe');
@@ -181,7 +182,7 @@ describe('MemoryReactionsStore', () => {
       });
     });
 
-    it('should update error state if get reactions failed', () => {
+    it('should update error state if get reactions failed with response', () => {
       const error = { code: 503, reason: 'error' };
       const response = createSafeRejectedPromise(error);
 
@@ -201,6 +202,56 @@ describe('MemoryReactionsStore', () => {
           },
         },
         flash: {},
+      });
+    });
+
+    // errors thrown at requestService.fetch in serviceUtils
+    it('should update error state if get reactions failed with no response but error code available', async () => {
+      const error = { code: 404, reason: 'error' };
+
+      (fakeClient.getReactions as jest.Mock<any>).mockRejectedValueOnce(error);
+
+      store.getReactions(containerAri, ari);
+
+      jest.runAllTimers();
+
+      expect(fakeClient.getReactions).toHaveBeenCalledTimes(1);
+
+      await waitFor(() => {
+        expect(store.getState()).toMatchObject({
+          reactions: {
+            [`${containerAri}|${ari}`]: {
+              status: ReactionStatus.error,
+              reactions: [],
+            },
+          },
+          flash: {},
+        });
+      });
+    });
+
+    // errors thrown at requestService.fetch in serviceUtils
+    it('should update error state if get reactions failed with no error code', async () => {
+      const error = new Error(`I'm error`);
+
+      (fakeClient.getReactions as jest.Mock<any>).mockRejectedValueOnce(error);
+
+      store.getReactions(containerAri, ari);
+
+      jest.runAllTimers();
+
+      expect(fakeClient.getReactions).toHaveBeenCalledTimes(1);
+
+      await waitFor(() => {
+        expect(store.getState()).toMatchObject({
+          reactions: {
+            [`${containerAri}|${ari}`]: {
+              status: ReactionStatus.error,
+              reactions: [],
+            },
+          },
+          flash: {},
+        });
       });
     });
 

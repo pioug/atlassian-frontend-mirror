@@ -1,5 +1,11 @@
 # @atlaskit/textfield
 
+## 5.3.7
+
+### Patch Changes
+
+- [`e028bee17df`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e028bee17df) - [ux] fix(style): update fallback color of placeholder to meet contrast requirement
+
 ## 5.3.6
 
 ### Patch Changes

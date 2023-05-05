@@ -32,8 +32,7 @@ describe('Table with block looks correct for fullpage:', () => {
     await snapshot(page);
   });
 
-  // Skip due to failing VR Tests: https://product-fabric.atlassian.net/browse/ED-17719
-  it.skip('default layout ', async () => {
+  it('default layout ', async () => {
     await initFullPageEditorWithAdf(page, adf, Device.LaptopMDPI);
     const cellSelector = getSelectorForTableCell({ row: 4, cell: 1 });
     await page.waitForSelector(cellSelector);
@@ -45,8 +44,7 @@ describe('Table with block looks correct for fullpage:', () => {
     );
   });
 
-  // Skip due to failing VR Tests: https://product-fabric.atlassian.net/browse/ED-17719
-  it.skip('default layout with dark theme', async () => {
+  it('default layout with dark theme', async () => {
     await initFullPageEditorWithAdf(
       page,
       adf,
@@ -59,8 +57,7 @@ describe('Table with block looks correct for fullpage:', () => {
     await page.click(getSelectorForTableCell({ row: 4, cell: 1 }));
   });
 
-  // Skip due to failing VR Tests: https://product-fabric.atlassian.net/browse/ED-17719
-  it.skip('wide layout ', async () => {
+  it('wide layout ', async () => {
     await initFullPageEditorWithAdf(page, adf, Device.LaptopMDPI);
     await animationFrame(page);
     await page.click(getSelectorForTableCell({ row: 4, cell: 1 }));
@@ -70,8 +67,7 @@ describe('Table with block looks correct for fullpage:', () => {
     await page.click(getSelectorForTableCell({ row: 4, cell: 1 }));
   });
 
-  // Skip due to failing VR Tests: https://product-fabric.atlassian.net/browse/ED-17719
-  it.skip('full-width layout ', async () => {
+  it('full-width layout ', async () => {
     await initFullPageEditorWithAdf(page, adf, Device.LaptopHiDPI);
     await animationFrame(page);
     await page.click(getSelectorForTableCell({ row: 4, cell: 1 }));

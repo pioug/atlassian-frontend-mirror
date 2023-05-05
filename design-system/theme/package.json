@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/theme",
-  "version": "12.4.1",
+  "version": "12.4.2",
   "description": "Theme contains solutions for global theming, colors, typography and other useful mixins.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -49,7 +49,6 @@
     "@types/color": "^3.0.0",
     "color": "^3.0.0",
     "emotion-theming": "^10.0.7",
-    "enzyme": "^3.10.0",
     "jest-in-case": "^1.0.2",
     "jscodeshift": "^0.13.0",
     "react-dom": "^16.8.0",

@@ -31,13 +31,17 @@ describe('MediaInlineAnalyticsErrorBoundary', () => {
     expect(component.find(MockComponent).exists()).toBe(true);
   });
 
-  it(`should render empty placeholder when error thrown`, () => {
+  it(`should render error boundary component when error thrown with the correct message`, () => {
     const component = mount(
       <MediaInlineAnalyticsErrorBoundary>
         <MockComponent callFn={rejectWithError} />
       </MediaInlineAnalyticsErrorBoundary>,
     );
-    expect(component.isEmptyRender()).toBe(true);
+    const inlineCardErrorView = component.find('ErrorBoundaryComponent');
+    expect(inlineCardErrorView.exists()).toBe(true);
+    expect(inlineCardErrorView.prop('message')).toBe(
+      "We couldn't load this content",
+    );
   });
 
   it(`should fire operational event on rendering`, () => {

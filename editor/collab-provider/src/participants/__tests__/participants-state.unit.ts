@@ -10,7 +10,6 @@ const activeUser: ProviderParticipant = {
   sessionId: '69',
   lastActive: 999,
   name: 'Mr Kafei',
-  email: 'active@43654376dgfdsdf.com',
   avatar: 'www.jamescameron.com/image.png',
 };
 

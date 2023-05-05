@@ -6,7 +6,7 @@ import { groupedCountries } from './data/countries';
 import Select from './Select';
 import { FormatOptionLabelMeta, SelectProps } from './types';
 
-type Country = typeof groupedCountries[number]['options'][number];
+type Country = (typeof groupedCountries)[number]['options'][number];
 
 // custom option renderer
 const labelStyles = css({

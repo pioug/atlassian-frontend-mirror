@@ -58,7 +58,7 @@ export const defaultMessage = {
 
 type EventName = keyof typeof defaultMessage;
 type EventData<Event extends EventName> = Parameters<
-  typeof defaultMessage[Event]
+  (typeof defaultMessage)[Event]
 >[0];
 
 export function getDefaultMessage<Event extends EventName>(

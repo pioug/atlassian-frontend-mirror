@@ -15,7 +15,7 @@ import {
 
 import { Code, Highlight } from './styled';
 
-type Placement = typeof options[number];
+type Placement = (typeof options)[number];
 
 const options = [
   'top right',

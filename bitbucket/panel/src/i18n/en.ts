@@ -7,6 +7,6 @@
  */
 //
 export default {
-  "bitbucket.panel-collapse.message": "collapse",
-  "bitbucket.panel-expand.message": "expand"
+  'bitbucket.panel-collapse.message': 'collapse',
+  'bitbucket.panel-expand.message': 'expand',
 };

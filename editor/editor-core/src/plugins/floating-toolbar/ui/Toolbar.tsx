@@ -25,7 +25,7 @@ import Input from './Input';
 import { ExtensionsPlaceholder } from './ExtensionsPlaceholder';
 import ColorPickerButton from '../../../ui/ColorPickerButton';
 import { backgroundPaletteTooltipMessages } from '../../../ui/ColorPalette';
-import { PaletteColor } from '../../../ui/ColorPalette/Palettes';
+import { PaletteColor } from '@atlaskit/editor-common/ui-color';
 import { EmojiPickerButton } from './EmojiPickerButton';
 import Announcer from '../../../utils/announcer/announcer';
 import { WrappedComponentProps, injectIntl } from 'react-intl-next';
@@ -621,6 +621,7 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
           disableArrowKeyNavigation={!this.shouldHandleArrowKeys()}
           childComponentSelector={"[data-testid='editor-floating-toolbar']"}
           isShortcutToFocusToolbar={isShortcutToFocusToolbar}
+          intl={intl}
         >
           <div
             ref={this.toolbarContainerRef}

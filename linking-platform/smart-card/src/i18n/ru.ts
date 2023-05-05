@@ -45,7 +45,7 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'Для предварительного просмотра этого элемента запросите право доступа или попробуйте воспользоваться другим аккаунтом.',
   'fabric.linking.join_to_view': 'Для просмотра этой задачи выполните подключение к {context}',
-  'fabric.linking.learn_more_about_smart_links': 'Подробнее о ссылках Smart Link.',
+  'fabric.linking.learn_more_about_smart_links': 'Подробнее об интеллектуальных ссылках.',
   'fabric.linking.link_safety_warning_message':
     'При переходе по ссылке {unsafeLinkText} вы попадете на другой сайт, <a>actual link here</a>',
   'fabric.linking.loading': 'Загрузка…',
@@ -56,6 +56,7 @@ export default {
     'Не удалось найти ссылку. Проверьте URL-адрес и попробуйте изменить или вставить еще раз.',
   'fabric.linking.not_found_title': 'К сожалению, не удалось найти эту ссылку.',
   'fabric.linking.open_link_in_a_new_tab': 'Открыть ссылку в новой вкладке',
+  'fabric.linking.owned_by': 'Владелец: {context}',
   'fabric.linking.pending_request': 'Ваш запрос на доступ ожидает рассмотрения',
   'fabric.linking.preview': 'Полноэкранный режим',
   'fabric.linking.preview_close': 'Закрыть предварительный просмотр',

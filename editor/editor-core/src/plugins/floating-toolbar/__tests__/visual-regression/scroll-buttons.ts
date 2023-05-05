@@ -132,8 +132,7 @@ describe('Floating toolbars:', () => {
         await initPage();
       });
 
-      // FIXME: This test was automatically skipped due to failure on 26/03/2023: https://product-fabric.atlassian.net/browse/ED-17274
-      it.skip('should disable scroll buttons when colour picker open', async () => {
+      it('should disable scroll buttons when colour picker open', async () => {
         // Act
         // Have to scroll right to see button
         await page.waitForSelector(scrollRightButtonSelector);
@@ -226,9 +225,8 @@ describe('Floating toolbars:', () => {
     describe('with popup items', () => {
       // skip Appearance.mobile
       it.each([
-        // Skip due to failing VR Tests: https://product-fabric.atlassian.net/browse/ED-17719
-        // Appearance.fullWidth,
-        Appearance.fullPage,
+        Appearance.fullWidth,
+        // Appearance.fullPage, : https://product-fabric.atlassian.net/browse/ED-17737
         Appearance.comment,
         Appearance.chromeless,
       ])(

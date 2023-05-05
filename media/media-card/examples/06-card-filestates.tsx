@@ -1,122 +1,40 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { token } from '@atlaskit/tokens';
-import { MediaType, FileState, FileIdentifier } from '@atlaskit/media-client';
 import {
-  FileStateFactory,
-  MediaClientMockOptions,
-  createIdentifier,
-  createFileDetails,
-  sleep,
+  SimulationSettings,
+  useRunSimulation,
+  simulateProcessed,
+  simulateProcessing,
+  simulateImmediateFailProcessing,
+  simulateUpload,
+  simulateError,
+  simulateManyProcessed,
+  simulateEmptyDetails,
+  simulateUpdateFileId,
+  StandardSimulation,
+  simulateAlwaysLoading,
+  simulateAlwaysProcessing,
 } from '@atlaskit/media-test-helpers';
 import { MainWrapper } from '../example-helpers';
 import { Card } from '../src/card/card';
 import { CardProps } from '../src';
-import { CardDimensions } from '../src';
 import { R500 } from '@atlaskit/theme/colors';
 import Button from '@atlaskit/button/standard-button';
 import { Checkbox } from '@atlaskit/checkbox';
 
 const defaultDimensions = { width: 200, height: 150 };
 
-const speed = 1500;
-
-type UseSimulationSettingsOpts = {
-  mediaType?: MediaType;
-  initialDimensions?: CardDimensions;
-  mediaClientMockOptions?: MediaClientMockOptions;
-};
-const useSimulationSettings = ({
-  mediaType,
-  initialDimensions = defaultDimensions,
-  mediaClientMockOptions: { getImageDelay = speed } = {},
-}: UseSimulationSettingsOpts = {}) => {
-  const [identifier, setIdentifier] = useState(createIdentifier());
-  const [fileStateFactory] = useState(
-    new FileStateFactory(identifier, {
-      fileDetails: createFileDetails(identifier.id, mediaType),
-      mediaClientMockOptions: { getImageDelay },
-    }),
-  );
-
-  const [updateIdentifier] = useState(() => (newMediaType?: MediaType) => {
-    const newId = createIdentifier();
-    fileStateFactory.updateIdentifier(
-      newId,
-      createFileDetails(newId.id, newMediaType || mediaType),
-    );
-    setIdentifier(newId);
-  });
-
-  const [dimensions, resize] = useState(initialDimensions);
-  return { fileStateFactory, dimensions, resize, identifier, updateIdentifier };
-};
-
-type SimulationUtils = {
-  updateIdentifier: (newMediaType?: MediaType) => void;
-  resize: (newDimensions: CardDimensions) => void;
-};
-
-const useRunSimulation = (
-  simulation: (
-    fileStateFactory: FileStateFactory,
-    utils: SimulationUtils,
-  ) => void,
-  simulationSettings: UseSimulationSettingsOpts = {},
-) => {
-  const { identifier, fileStateFactory, dimensions, resize, updateIdentifier } =
-    useSimulationSettings(simulationSettings);
-
-  useEffect(() => {
-    simulation(fileStateFactory, { updateIdentifier, resize });
-  }, [fileStateFactory, updateIdentifier, resize, simulation]);
-
-  return {
-    identifier,
-    fileStateFactory,
-    dimensions,
-    resize,
-    updateIdentifier,
-  };
-};
-
-const useSubscribeToFileState = (
-  identifier: FileIdentifier,
-  fileStateFactory: FileStateFactory,
-) => {
-  const [fileState, setFileState] = useState<FileState | { status: string }>();
-  useEffect(() => {
-    const subscription = fileStateFactory.mediaClient.file
-      .getFileState(identifier.id, { ...identifier })
-      .subscribe({
-        next: (filestate) => setFileState(filestate),
-        error: () => setFileState({ status: 'subscription error' }),
-      });
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, [fileStateFactory, identifier]);
-  return fileState;
-};
-
-type CreateExampleOptions = {
-  simulationSettings?: UseSimulationSettingsOpts;
-  description?: string;
-};
 const createExample =
   (
     title: string,
-    simulation: (
-      fileStateFactory: FileStateFactory,
-      utils: SimulationUtils,
-    ) => void,
-    { simulationSettings = {}, description }: CreateExampleOptions = {},
+    { simulation, description }: StandardSimulation,
+    simulationSettings: SimulationSettings = {},
   ): React.FC<Partial<CardProps>> =>
   (props) => {
-    const { identifier, fileStateFactory, dimensions } = useRunSimulation(
+    const { identifier, fileStateFactory, fileState } = useRunSimulation(
       simulation,
       simulationSettings,
     );
-    const fileState = useSubscribeToFileState(identifier, fileStateFactory);
 
     return (
       <div
@@ -125,17 +43,17 @@ const createExample =
           width: defaultDimensions.width * 1.2,
         }}
       >
-        <h3>{title}</h3>
-        <h4 style={{ marginBottom: 5 }}>
+        <h4>{title}</h4>
+        <h5 style={{ marginBottom: 5 }}>
           File Status:{' '}
           <span style={{ color: token('color.text.danger', R500) }}>
             {fileState?.status || 'unknown'}
           </span>
-        </h4>
+        </h5>
         <Card
           identifier={identifier}
           mediaClient={fileStateFactory.mediaClient}
-          dimensions={dimensions}
+          dimensions={defaultDimensions}
           {...props}
         />
         {description && <p>{description}</p>}
@@ -143,175 +61,109 @@ const createExample =
     );
   };
 
-const simulateProcessing = async (
-  factory: FileStateFactory,
-  suceeded: boolean = true,
-) => {
-  await sleep(speed);
-  factory.next('processing');
-  await sleep(speed);
-  if (!suceeded) {
-    factory.next('failed-processing');
-  } else {
-    factory.next('processed');
-  }
-};
+const Processed = createExample(
+  'Processed With Preview',
+  simulateProcessed(true),
+  {
+    mediaType: 'image',
+  },
+);
 
-const simulateFailedProcessing = async (factory: FileStateFactory) => {
-  await sleep(speed);
-  factory.next('failed-processing');
-};
+const ProcessedNoPreview = createExample(
+  'Processed Without Preview',
+  simulateProcessed(),
+  {
+    mediaType: 'video',
+  },
+);
 
-const simulateError = async (factory: FileStateFactory) => {
-  await sleep(speed);
-  factory.next('error');
-};
-
-const simulateUpload = async (
-  factory: FileStateFactory,
-  withLocalPreview?: boolean,
-  suceeded: boolean = true,
-) => {
-  const chunks = 3;
-  const chunkUploadDelay = 500;
-  const processingTime = speed;
-  await sleep(speed);
-  factory.next('uploading', { withLocalPreview });
-
-  const uploadUpTo = !suceeded ? chunks / 2 : chunks;
-  for (let index = 0; index <= uploadUpTo; index++) {
-    factory.next('uploading', {
-      uploadProgress: index / chunks,
-      withLocalPreview,
-    });
-    await sleep(chunkUploadDelay);
-  }
-  if (!suceeded) {
-    factory.error(new Error('some-error'));
-  }
-  factory.next('processing', { withLocalPreview });
-  await sleep(processingTime);
-  factory.next('processed', { withLocalPreview });
-};
-
-const simulateManyCompleted = async (
-  factory: FileStateFactory,
-  withRemotePreview: boolean = false,
-) => {
-  await sleep(speed);
-  factory.next('processed', { withRemotePreview });
-  await sleep(speed);
-  factory.next('processed', { withRemotePreview });
-  await sleep(speed);
-  factory.next('processed', { withRemotePreview });
-};
+const ProcessingNoPreview = createExample(
+  'Processing Succeeded Without Preview',
+  simulateProcessing(true, false),
+  { mediaType: 'video' },
+);
 
 const SucceededUploadWithoutLocalPreview = createExample(
   'Upload without local preview',
-  (fileStateFactory: FileStateFactory) => {
-    simulateUpload(fileStateFactory);
-  },
-  { simulationSettings: { mediaType: 'audio' } },
+  simulateUpload(),
+  { mediaType: 'audio' },
 );
 
 const SucceededUploadWithLocalPreview = createExample(
   'Upload with local preview',
-  (fileStateFactory: FileStateFactory) => {
-    simulateUpload(fileStateFactory, true);
-  },
-  { simulationSettings: { mediaType: 'video' } },
+  simulateUpload(true),
+  { mediaType: 'video' },
 );
 
 const FailedUploadWithLocalPreview = createExample(
   'Failed upload with local preview',
-  (fileStateFactory: FileStateFactory) => {
-    simulateUpload(fileStateFactory, true, false);
-  },
-  { simulationSettings: { mediaType: 'image' } },
+  simulateUpload(true, false),
+  { mediaType: 'image' },
 );
 
 const FailedUploadWithoutLocalPreview = createExample(
   'Failed upload without local preview',
-  (fileStateFactory: FileStateFactory) => {
-    simulateUpload(fileStateFactory, false, false);
-  },
-  { simulationSettings: { mediaType: 'doc' } },
+  simulateUpload(false, false),
+  { mediaType: 'doc' },
 );
 
 const ManyProcessedWithPreview = createExample(
   'Processed with preview',
-  (fileStateFactory: FileStateFactory) => {
-    simulateManyCompleted(fileStateFactory, true);
+  simulateManyProcessed(),
+  {
+    mediaType: 'image',
+    // Media Client will immediately return the image, even before any file state
+    mediaClientMockOptions: { hasPreview: true },
   },
-  { simulationSettings: { mediaType: 'image' } },
 );
 
 const ManyProcessedWithoutPreview = createExample(
   'Processed without preview',
-  (fileStateFactory: FileStateFactory) => {
-    simulateManyCompleted(fileStateFactory);
-  },
-  { simulationSettings: { mediaType: 'archive' } },
+  simulateManyProcessed(false),
+  { mediaType: 'archive' },
 );
 
 const FaliedProcessing = createExample(
-  'Failed Processing',
-  simulateFailedProcessing,
-  { simulationSettings: { mediaType: 'doc' } },
+  'Processing Failed',
+  // Forcing a preview to ensure card displays the error and not the preview
+  simulateProcessing(false, true),
+
+  { mediaType: 'audio' },
 );
 
-const ErrorState = createExample('Error', simulateError, {
-  simulationSettings: { mediaType: 'video' },
+const ErrorState = createExample('Error', simulateError(), {
+  mediaType: 'video',
 });
 
 const Processing = createExample(
-  'Processing Succeeded',
-  (fileStateFactory: FileStateFactory) => {
-    simulateProcessing(fileStateFactory);
-  },
-  { simulationSettings: { mediaType: 'video' } },
+  'Processing Succeeded With Preview',
+  simulateProcessing(),
+  { mediaType: 'video' },
 );
 
-const ProcessingFailed = createExample(
-  'Processing Failed',
-  (fileStateFactory: FileStateFactory) => {
-    simulateProcessing(fileStateFactory, false);
-  },
-  { simulationSettings: { mediaType: 'audio' } },
+const InstantFaliedProcessing = createExample(
+  'Immediate Processing Failed',
+  simulateImmediateFailProcessing(),
+  { mediaType: 'doc' },
 );
 
-const EmptyDetails = createExample(
-  'Empty Details',
-  async (factory: FileStateFactory) => {
-    const emptyDetails = {
-      createdAt: 1630986510989,
-    };
-    await sleep(speed);
-    factory.next('processing', { fileDetails: emptyDetails });
-  },
+const EmptyDetails = createExample('Empty Details', simulateEmptyDetails(), {
+  mediaType: 'unknown',
+});
+
+const NewFileId = createExample('Update File Id', simulateUpdateFileId(), {
+  mediaType: 'video',
+});
+
+const NeverLoaded = createExample('Never Loaded', simulateAlwaysLoading(), {
+  mediaType: 'image',
+});
+
+const AlwaysProcessing = createExample(
+  'Always Processing',
+  simulateAlwaysProcessing(),
   {
-    description:
-      'Incomplete uploads return empty file details and a processing status pending',
-    simulationSettings: { mediaType: 'unknown' },
-  },
-);
-
-const NewFileId = createExample(
-  'Update File Id',
-  async (factory: FileStateFactory, { updateIdentifier }: SimulationUtils) => {
-    await sleep(speed);
-    factory.next('failed-processing');
-    await sleep(speed);
-    updateIdentifier('doc');
-    await sleep(speed);
-    factory.next('processing');
-    await sleep(speed);
-    factory.next('processed');
-  },
-  {
-    description:
-      'First File Id: video with processing issue. Next File Id: PDF sucessfully processed',
-    simulationSettings: { mediaType: 'video' },
+    mediaType: 'doc',
   },
 );
 
@@ -361,11 +213,11 @@ const createSection =
     const { key, SectionControls, cardProps } = useSectionControls();
     return (
       <>
-        <h2 style={{ marginBottom: 10 }}>{title}</h2>
+        <h3 style={{ marginBottom: 10 }}>{title}</h3>
         <SectionControls />
         <div key={key} style={{ display: 'flex', flexWrap: 'wrap' }}>
-          {simulations.map((Simulation) => (
-            <Simulation {...cardProps} />
+          {simulations.map((Simulation, index) => (
+            <Simulation key={`simulation-${index}`} {...cardProps} />
           ))}
         </div>
       </>
@@ -373,17 +225,22 @@ const createSection =
   };
 
 const FreshLoadSection = createSection('Fresh Load', [
-  ManyProcessedWithPreview,
-  ManyProcessedWithoutPreview,
-  FaliedProcessing,
-  ErrorState,
+  Processed,
+  ProcessedNoPreview,
   Processing,
-  ProcessingFailed,
+  ProcessingNoPreview,
+  FaliedProcessing,
+  InstantFaliedProcessing,
+  ErrorState,
 ]);
 
 const SpecialSection = createSection('Special Cases', [
+  ManyProcessedWithPreview,
+  ManyProcessedWithoutPreview,
   EmptyDetails,
   NewFileId,
+  NeverLoaded,
+  AlwaysProcessing,
 ]);
 
 const UploadSection = createSection('Upload', [

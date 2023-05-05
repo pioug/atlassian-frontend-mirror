@@ -45,7 +45,7 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'Az előnézet megtekintéséhez hozzáférést kell kérned, vagy másik fiókba kell belépned.',
   'fabric.linking.join_to_view': 'Az ügy megtekintése érdekében csatlakozz ehhez: {context}',
-  'fabric.linking.learn_more_about_smart_links': 'További információ a Smart Linksről.',
+  'fabric.linking.learn_more_about_smart_links': 'További információ az okoslinkekről.',
   'fabric.linking.link_safety_warning_message':
     'A(z) {unsafeLinkText} link egy másik webhelyre visz: <a>actual link here</a>',
   'fabric.linking.loading': 'Betöltés…',
@@ -56,6 +56,7 @@ export default {
     'Nem találtuk meg a linket. Ellenőrizd az URL-címet, és próbáld meg módosítani, vagy másold be újra.',
   'fabric.linking.not_found_title': 'Hoppá. Nem találjuk ezt a linket!',
   'fabric.linking.open_link_in_a_new_tab': 'Link megnyitása új lapon',
+  'fabric.linking.owned_by': 'Tulajdonos: {context}',
   'fabric.linking.pending_request': 'A hozzáférési kérelmed függőben van',
   'fabric.linking.preview': 'Teljes képernyős nézet',
   'fabric.linking.preview_close': 'Előnézet bezárása',

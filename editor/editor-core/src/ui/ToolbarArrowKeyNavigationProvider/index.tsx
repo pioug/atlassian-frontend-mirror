@@ -6,6 +6,9 @@ import { EditorAppearance } from '../../types';
 import { EditorView } from 'prosemirror-view';
 import React, { ReactNode, useCallback, useLayoutEffect, useRef } from 'react';
 import { UseStickyToolbarType } from '../../types/editor-props';
+import { EDIT_AREA_ID } from '../../create-editor/ReactEditorViewInternal';
+import { IntlShape } from 'react-intl-next/src/types';
+import messages from '../Appearance/FullPage/messages';
 
 export interface KeyDownHandlerContext {
   handleArrowLeft: () => void;
@@ -41,6 +44,7 @@ export const ToolbarArrowKeyNavigationProvider = ({
   isShortcutToFocusToolbar,
   editorAppearance,
   useStickyToolbar,
+  intl,
 }: {
   children: ReactNode;
   editorView?: EditorView;
@@ -51,6 +55,7 @@ export const ToolbarArrowKeyNavigationProvider = ({
   isShortcutToFocusToolbar?: (event: KeyboardEvent) => boolean;
   editorAppearance?: EditorAppearance;
   useStickyToolbar?: UseStickyToolbarType;
+  intl: IntlShape;
 }) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const selectedItemIndex = useRef(0);
@@ -96,6 +101,19 @@ export const ToolbarArrowKeyNavigationProvider = ({
       wrapperRef?.current,
     );
     filteredFocusableElements[selectedItemIndex.current]?.focus();
+  };
+
+  const handleTabLocal = (): void => {
+    const filteredFocusableElements = getFilteredFocusableElements(
+      wrapperRef?.current,
+    );
+    filteredFocusableElements.forEach((element) => {
+      element.setAttribute('tabindex', '-1');
+    });
+    filteredFocusableElements[selectedItemIndex.current].setAttribute(
+      'tabindex',
+      '0',
+    );
   };
 
   const focusAndScrollToElement = (
@@ -202,6 +220,9 @@ export const ToolbarArrowKeyNavigationProvider = ({
           );
           event.preventDefault();
           break;
+        case 'Tab':
+          handleTabLocal();
+          break;
         case 'Escape':
           handleEscape!(event);
           break;
@@ -254,6 +275,9 @@ export const ToolbarArrowKeyNavigationProvider = ({
       css={editorAppearance === 'comment' && centeredToolbarContainer}
       className="custom-key-handler-wrapper"
       ref={wrapperRef}
+      role="toolbar"
+      aria-label={intl.formatMessage(messages.toolbarLabel)}
+      aria-controls={EDIT_AREA_ID}
     >
       <KeyDownHandlerContext.Provider value={submenuKeydownHandleContext}>
         {children}

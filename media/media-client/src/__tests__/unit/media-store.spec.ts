@@ -1,5 +1,6 @@
 jest.mock('../../utils/checkWebpSupport');
 jest.mock('../../client/media-store/resolveAuth');
+jest.mock('../../utils/parseJwt');
 import {
   CreatedTouchedFile,
   MediaStore,
@@ -28,6 +29,7 @@ import {
 } from '../../client/media-store/resolveAuth';
 import { Auth } from '@atlaskit/media-core';
 import * as requestModule from '../../utils/request';
+import parseJwt from '../../utils/parseJwt';
 
 const requestModuleMock = jest.spyOn(requestModule, 'request');
 
@@ -49,6 +51,7 @@ const auth = {
 };
 (resolveAuth as jest.Mock).mockResolvedValue(auth);
 (resolveInitialAuth as jest.Mock).mockImplementation((auth: Auth) => auth);
+(parseJwt as jest.Mock).mockReturnValue({});
 const authProvider = jest.fn();
 let mediaStore: MediaStore;
 
@@ -801,10 +804,27 @@ describe('MediaStore', () => {
         deletable: false,
         expireAfter: 42,
       };
+      const descriptorUnderSize: TouchFileDescriptor = {
+        fileId: 'under-size-file-id',
+        occurrenceKey: 'some-occurrence-key',
+        collection: 'some-collection',
+        deletable: false,
+        expireAfter: 42,
+        size: 100,
+      };
+      const descriptorOverSize: TouchFileDescriptor = {
+        fileId: 'over-size-file-id',
+        occurrenceKey: 'some-occurrence-key',
+        collection: 'some-collection',
+        deletable: false,
+        expireAfter: 42,
+        size: 100_000,
+      };
 
       it('should POST to /upload/createWithFiles', async () => {
         const data: TouchedFiles = {
           created: [createdTouchedFile1, createdTouchedFile2],
+          rejected: [],
         };
 
         fetchMock.once(JSON.stringify({ data }), {
@@ -900,6 +920,7 @@ describe('MediaStore', () => {
       it('calls request with traceContext', async () => {
         const data: TouchedFiles = {
           created: [createdTouchedFile1, createdTouchedFile2],
+          rejected: [],
         };
 
         fetchMock.once(JSON.stringify({ data }), {
@@ -939,6 +960,157 @@ describe('MediaStore', () => {
           }),
           undefined,
         );
+      });
+
+      describe('token with file size limit', () => {
+        beforeEach(() => {
+          (parseJwt as jest.Mock).mockReturnValue({ fileSizeLimit: 10_000 });
+        });
+
+        it('should not POST to /upload/createWithFiles when all files are rejected', async () => {
+          const expectedResponse: TouchedFiles = {
+            created: [],
+            rejected: [
+              {
+                fileId: 'over-size-file-id',
+                error: {
+                  code: 'ExceedMaxFileSizeLimit',
+                  title:
+                    'The expected file size exceeded the maximum size limit.',
+                  href: 'https://dt-api-filestore--app.ap-southeast-2.dev.atl-paas.net/api.html#BadRequest',
+                  limit: 10_000,
+                  size: 100_000,
+                },
+              },
+            ],
+          };
+
+          const body: MediaStoreTouchFileBody = {
+            descriptors: [descriptorOverSize],
+          };
+
+          const response = await mediaStore.touchFiles(body, params);
+
+          expect(response).toEqual({ data: expectedResponse });
+          expect(fetchMock).not.toHaveBeenCalled();
+          expect(resolveAuth).toHaveBeenCalledWith(authProvider, {
+            collectionName: params.collection,
+          });
+        });
+
+        it('should POST to /upload/createWithFiles if it fails to parse the token', async () => {
+          (parseJwt as jest.Mock).mockImplementationOnce(() => {
+            throw new Error('some error');
+          });
+          const data: TouchedFiles = {
+            created: [createdTouchedFile1, createdTouchedFile2],
+            rejected: [],
+          };
+
+          fetchMock.once(JSON.stringify({ data }), {
+            status: 201,
+            statusText: 'Created',
+          });
+
+          const body: MediaStoreTouchFileBody = {
+            descriptors: [descriptor1, descriptor2],
+          };
+
+          const response = await mediaStore.touchFiles(body, params);
+
+          expect(parseJwt).toHaveBeenCalled();
+          expect(response).toEqual({ data });
+          expect(fetchMock).toHaveBeenCalledWith(
+            `${baseUrl}/upload/createWithFiles`,
+            {
+              method: 'POST',
+              headers: {
+                'X-Client-Id': clientId,
+                Authorization: `Bearer ${token}`,
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(body),
+            },
+          );
+          expect(resolveAuth).toHaveBeenCalledWith(authProvider, {
+            collectionName: params.collection,
+          });
+        });
+
+        it('should pass /upload/createWithFiles a body without size attributes', async () => {
+          const body: MediaStoreTouchFileBody = {
+            descriptors: [descriptorUnderSize],
+          };
+
+          fetchMock.once(JSON.stringify({ data: {} }), {
+            status: 201,
+            statusText: 'Created',
+          });
+
+          await mediaStore.touchFiles(body, params);
+
+          expect(fetchMock).toHaveBeenCalledWith(
+            `${baseUrl}/upload/createWithFiles`,
+            {
+              method: 'POST',
+              headers: {
+                'X-Client-Id': clientId,
+                Authorization: `Bearer ${token}`,
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                descriptors: [
+                  {
+                    fileId: 'under-size-file-id',
+                    occurrenceKey: 'some-occurrence-key',
+                    collection: 'some-collection',
+                    deletable: false,
+                    expireAfter: 42,
+                  },
+                ],
+              }),
+            },
+          );
+        });
+
+        it('should only call /upload/createWithFiles with files under the limit', async () => {
+          const body: MediaStoreTouchFileBody = {
+            descriptors: [descriptorUnderSize, descriptorOverSize],
+          };
+
+          fetchMock.once(JSON.stringify({ data: {} }), {
+            status: 201,
+            statusText: 'Created',
+          });
+
+          await mediaStore.touchFiles(body, params);
+
+          expect(fetchMock).toHaveBeenCalledWith(
+            `${baseUrl}/upload/createWithFiles`,
+            {
+              method: 'POST',
+              headers: {
+                'X-Client-Id': clientId,
+                Authorization: `Bearer ${token}`,
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                descriptors: [
+                  {
+                    fileId: 'under-size-file-id',
+                    occurrenceKey: 'some-occurrence-key',
+                    collection: 'some-collection',
+                    deletable: false,
+                    expireAfter: 42,
+                  },
+                ],
+              }),
+            },
+          );
+        });
       });
     });
 

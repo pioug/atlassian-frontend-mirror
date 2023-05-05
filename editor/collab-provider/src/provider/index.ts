@@ -194,6 +194,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
     getState: () => EditorState;
     onSyncUpError?: SyncUpErrorFunction;
   }): this {
+    this.checkForCookies();
     try {
       const collabPlugin = getState().plugins.find(
         (p: any) => p.key === 'collab$',
@@ -228,6 +229,22 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
     }
 
     return this;
+  }
+
+  private checkForCookies() {
+    if (!global.navigator.cookieEnabled) {
+      const initError = new ProviderInitialisationError(
+        'Cookies are not enabled. Please enable cookies to use collaborative editing.',
+      );
+      this.analyticsHelper?.sendErrorEvent(
+        initError,
+        'Error while initialising the provider - cookies disabled',
+      );
+      throw new ProviderInitialisationError(
+        'Provider initialisation error - cookies disabled',
+        initError,
+      );
+    }
   }
 
   /**
@@ -463,6 +480,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 
   /**
    * Update the title of the document in the collab provider and optionally broadcast it to other participants and NCS
+   * @deprecated use setMetadata instead, it does the same thing
    * @param {string} title Title you want to set on the document
    * @param {boolean} broadcast (Optional) Flag indicating whether you want to broadcast the title change to the other participants, always true for now (otherwise we would lose title changes)
    * @throws {SetTitleError} Something went wrong while setting the title
@@ -511,6 +529,13 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
       throw new SetMetadataError('Error while setting metadata', error);
     }
   }
+
+  /**
+   * Returns the documents metadata
+   */
+  getMetadata = () => {
+    return this.metadataService.getMetaData();
+  };
 
   /**
    * Return the ADF version of the current draft document, together with it's title and the current step version.

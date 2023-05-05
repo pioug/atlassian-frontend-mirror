@@ -10,8 +10,8 @@ import {
   DN90,
   N0,
   N10,
-  N100,
   N20,
+  N200,
   N30,
   N40,
   N70,
@@ -66,7 +66,7 @@ export const subtleBorderColorHover = {
 };
 
 export const placeholderTextColor = {
-  light: token('color.text.subtlest', N100),
+  light: token('color.text.subtlest', N200),
   dark: token('color.text.subtlest', DN200),
 };
 export const textColor = {

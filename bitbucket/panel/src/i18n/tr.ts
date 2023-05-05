@@ -7,6 +7,6 @@
  */
 //Turkish (Turkey)
 export default {
-  "bitbucket.panel-collapse.message": "daralt",
-  "bitbucket.panel-expand.message": "genişlet"
+  'bitbucket.panel-collapse.message': 'daralt',
+  'bitbucket.panel-expand.message': 'genişlet',
 };

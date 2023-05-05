@@ -32,7 +32,7 @@ export interface UploadService {
   addFilesWithSource(
     files: LocalFileWithSource[],
     featureFlags?: MediaFeatureFlags,
-  ): void;
+  ): Promise<void>;
   cancel(id?: string): void;
   on<E extends keyof UploadServiceEventPayloadTypes>(
     event: E,
@@ -42,7 +42,14 @@ export interface UploadService {
     event: E,
     listener: UploadServiceEventListener<E>,
   ): void;
+  onFileRejection(handler: (rejectionData: RejectionData) => void): void;
 }
+
+export type RejectionData = {
+  reason: 'fileSizeLimitExceeded';
+  file: File;
+  limit: number;
+};
 
 export enum LocalFileSource {
   PastedFile = 'pastedFile',

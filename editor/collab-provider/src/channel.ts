@@ -6,12 +6,12 @@ import type {
   StepsPayload,
   InitAndAuthData,
   InitPayload,
-  TelepointerPayload,
   CatchupResponse,
   PresencePayload,
   Metadata,
   NamespaceStatus,
   AuthCallback,
+  BroadcastIncomingPayload,
 } from './types';
 import { createLogger, getProduct, getSubProduct } from './helpers/utils';
 import {
@@ -158,8 +158,9 @@ export class Channel extends Emitter<ChannelEvent> {
     });
     this.socket.on(
       'participant:telepointer',
-      (payload: { data: TelepointerPayload }) => {
-        this.emit('participant:telepointer', payload.data);
+      ({ timestamp, data }: BroadcastIncomingPayload) => {
+        // data is TelepointerPayload without timestamp
+        this.emit('participant:telepointer', { timestamp, ...data });
       },
     );
     this.socket.on('presence:joined', (data: PresencePayload) => {
@@ -486,7 +487,7 @@ export class Channel extends Emitter<ChannelEvent> {
   };
 
   /**
-   * Send metadata to to the back-end service over the channel
+   * Send metadata to the back-end service over the channel
    * @throws {NotInitializedError} Channel not initialized
    * @throws {NotConnectedError} Channel not connected
    */

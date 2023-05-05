@@ -4,10 +4,12 @@ import PropTypes from 'prop-types';
 import { EditorView } from 'prosemirror-view';
 import { useSmartLinkLifecycleAnalytics } from '@atlaskit/link-analytics';
 import { INPUT_METHOD, ACTION } from '@atlaskit/editor-common/analytics';
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { AnalyticsContext, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 import { registerSmartCardEventsNext } from '../pm-plugins/actions';
 import { SmartLinkEventsNext } from '../types';
+import { getAnalyticsEditorAppearance } from '@atlaskit/editor-common/utils';
+import { getPluginState } from '../pm-plugins/util/state';
 
 type AnalyticsBindingsProps = { editorView: EditorView };
 
@@ -54,6 +56,7 @@ const getMethod = withHistoryMethod(
       case INPUT_METHOD.FLOATING_TB:
         return 'editor_floatingToolbar';
       case INPUT_METHOD.AUTO_DETECT:
+      case INPUT_METHOD.FORMATTING:
         return 'editor_type';
       default:
         return 'unknown';
@@ -182,9 +185,25 @@ export class EditorSmartCardEventsNext extends React.PureComponent<AnalyticsBind
       return null;
     }
 
+    const editorAppearance = getPluginState(
+      this.props.editorView.state,
+    )?.editorAppearance;
+    const analyticsEditorAppearance =
+      getAnalyticsEditorAppearance(editorAppearance);
+
+    const analyticsData = {
+      attributes: {
+        location: analyticsEditorAppearance,
+      },
+      // Below is added for the future implementation of Linking Platform namespaced analytic context
+      location: analyticsEditorAppearance,
+    };
+
     return (
       <cardContext.Provider value={cardContext.value}>
-        <EventsBinding {...this.props} />
+        <AnalyticsContext data={analyticsData}>
+          <EventsBinding {...this.props} />
+        </AnalyticsContext>
       </cardContext.Provider>
     );
   }

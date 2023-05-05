@@ -18,7 +18,6 @@ const activeUser: ProviderParticipant = {
   sessionId: sessionId,
   lastActive: baseTime,
   name: 'Mr Kafei',
-  email: 'active@43654376dgfdsdf.com',
   avatar: 'www.jamescameron.com/image.png',
 };
 
@@ -32,7 +31,6 @@ describe('updateParticipant', () => {
 
   const getUser = jest.fn().mockReturnValue({
     name: activeUser.name,
-    email: activeUser.email,
     avatar: activeUser.avatar,
   });
 

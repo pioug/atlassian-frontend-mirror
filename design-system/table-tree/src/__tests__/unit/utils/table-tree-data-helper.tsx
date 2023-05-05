@@ -8,7 +8,7 @@ describe('updateItems', () => {
       { title: 'Chapter Three', page: 30, key: 3 },
     ];
     const tableTreeDataHelper = new TableTreeDataHelper<
-      typeof rootData[number]
+      (typeof rootData)[number]
     >();
     const formatedData = tableTreeDataHelper.updateItems(rootData);
     expect(formatedData).toEqual([
@@ -24,7 +24,7 @@ describe('updateItems', () => {
       { title: 'Chapter Three', page: 30, id: 3 },
     ];
     const tableTreeDataHelper = new TableTreeDataHelper<
-      typeof rootData[number]
+      (typeof rootData)[number]
     >();
     expect(() => {
       tableTreeDataHelper.updateItems(rootData);
@@ -47,7 +47,7 @@ describe('updateItems', () => {
       { title: 'Chapter Three', page: 30, id: 3 },
     ];
     const tableTreeDataHelperInstance = new TableTreeDataHelper<
-      typeof rootData[number]
+      (typeof rootData)[number]
     >({
       key: 'title',
     });
@@ -117,7 +117,7 @@ describe('appendItems', () => {
       { title: 'Chapter Three', page: 30, id: 3 },
     ];
     const tableTreeDataHelper = new TableTreeDataHelper<
-      typeof rootData[number]
+      (typeof rootData)[number]
     >();
     expect(() => {
       tableTreeDataHelper.appendItems(rootData);

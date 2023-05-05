@@ -1,5 +1,11 @@
 # @atlaskit/primitives
 
+## 0.8.9
+
+### Patch Changes
+
+- [`da1727baf77`](https://bitbucket.org/atlassian/atlassian-frontend/commits/da1727baf77) - Allow non tokenised values to be passed through for tokenisable properties like `padding`. Adds type hinting for zIndex CSS property.
+
 ## 0.8.8
 
 ### Patch Changes

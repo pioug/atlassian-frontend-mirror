@@ -37,7 +37,7 @@
     "react-dom": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/breadcrumbs": "^11.8.0",
+    "@atlaskit/breadcrumbs": "^11.9.0",
     "@atlaskit/button": "^16.6.0",
     "@atlaskit/docs": "*",
     "@atlaskit/ds-lib": "^2.0.1",

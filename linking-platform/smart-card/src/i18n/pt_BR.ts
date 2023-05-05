@@ -44,7 +44,7 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'Você precisa solicitar o acesso ou tentar usar outra conta para poder visualizar.',
   'fabric.linking.join_to_view': 'Entre em {context} para ver esse item',
-  'fabric.linking.learn_more_about_smart_links': 'Saiba mais sobre os Smart Links.',
+  'fabric.linking.learn_more_about_smart_links': 'Saiba mais sobre os links inteligentes.',
   'fabric.linking.link_safety_warning_message':
     'O link {unsafeLinkText} acessa um site diferente, <a>link real está aqui</a>',
   'fabric.linking.loading': 'Carregando...',
@@ -55,6 +55,7 @@ export default {
     'Não foi possível encontrar o link. Verifique a URL e tente editar ou colar de novo.',
   'fabric.linking.not_found_title': 'Ah, não! Não foi possível encontrar o link.',
   'fabric.linking.open_link_in_a_new_tab': 'Abrir link em uma nova guia',
+  'fabric.linking.owned_by': 'Pertence a {context}',
   'fabric.linking.pending_request': 'A solicitação de acesso está pendente',
   'fabric.linking.preview': 'Visualização em tela cheia',
   'fabric.linking.preview_close': 'Fechar pré-visualização',

@@ -44,7 +44,7 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'Bu önizlemeyi görüntülemek için erişim izni talep etmeniz veya farklı bir hesap kullanmanız gerekir.',
   'fabric.linking.join_to_view': 'Bu konuyu görüntülemek için {context} ürününe katılın',
-  'fabric.linking.learn_more_about_smart_links': 'Smart Links hakkında daha fazla bilgi edinin.',
+  'fabric.linking.learn_more_about_smart_links': 'Akıllı Bağlantılar hakkında daha fazla bilgi edinin.',
   'fabric.linking.link_safety_warning_message':
     '{unsafeLinkText} bağlantısı sizi farklı bir siteye (<a>actual link here</a>) yönlendiriyor',
   'fabric.linking.loading': 'Yükleniyor...',
@@ -55,6 +55,7 @@ export default {
     "Bağlantıyı bulamadık. URL'yi kontrol edin ve düzenlemeyi veya yeniden yapıştırmayı deneyin.",
   'fabric.linking.not_found_title': 'Hay aksi! Bu bağlantıyı bulamadık!',
   'fabric.linking.open_link_in_a_new_tab': 'Bağlantıyı yeni sekmede aç',
+  'fabric.linking.owned_by': 'Sahibi: {context}',
   'fabric.linking.pending_request': 'Erişim talebiniz beklemede',
   'fabric.linking.preview': 'Tam ekran görünümü',
   'fabric.linking.preview_close': 'Önizlemeyi kapat',

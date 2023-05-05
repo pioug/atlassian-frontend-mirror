@@ -15,7 +15,7 @@ import exampleImage from './img/example-image.png';
 
 let uuid = 0;
 
-type Item = typeof ROOTS[number] & { component: ComponentType<any> };
+type Item = (typeof ROOTS)[number] & { component: ComponentType<any> };
 
 const ROOTS = [
   {

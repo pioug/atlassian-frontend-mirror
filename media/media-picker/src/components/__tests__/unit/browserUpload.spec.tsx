@@ -4,14 +4,24 @@ import { mount } from 'enzyme';
 import {
   expectFunctionToHaveBeenCalledWith,
   fakeMediaClient,
+  flushPromises,
 } from '@atlaskit/media-test-helpers';
 import { Browser } from '../../browser/browser';
-import { TouchFileDescriptor, FileState } from '@atlaskit/media-client';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
+import {
+  TouchFileDescriptor,
+  createMediaSubject,
+  fromObservable,
+} from '@atlaskit/media-client';
 import { LocalUploadConfig } from '../../types';
 import { BrowserConfig, UploadErrorEventPayload } from '../../../types';
 
 describe('Browser upload phases', () => {
+  const mediaClient = fakeMediaClient();
+  let fileStateObservable = createMediaSubject();
+  mediaClient.file.upload = jest.fn(() => {
+    return fromObservable(fileStateObservable);
+  });
+
   const browseConfig: BrowserConfig & LocalUploadConfig = {
     uploadParams: {},
   };
@@ -24,15 +34,14 @@ describe('Browser upload phases', () => {
   beforeEach(() => {
     oldDateNow = Date.now;
     Date.now = () => 111;
+    fileStateObservable = createMediaSubject();
   });
 
   afterEach(() => {
     Date.now = oldDateNow;
   });
 
-  it('should fire a commenced event on uploadsStart', () => {
-    const mediaClient = fakeMediaClient();
-    mediaClient.file.upload = jest.fn().mockReturnValue(new ReplaySubject(1));
+  it('should fire a commenced event on uploadsStart', async () => {
     mediaClient.file.touchFiles = jest.fn(
       (descriptors: TouchFileDescriptor[], collection?: string) =>
         Promise.resolve({
@@ -40,6 +49,7 @@ describe('Browser upload phases', () => {
             fileId,
             uploadId,
           })),
+          rejected: [],
         }),
     );
     const onUploadsStart = jest.fn();
@@ -54,6 +64,8 @@ describe('Browser upload phases', () => {
     const file = new Blob([fileContents], { type: 'text/plain' });
 
     browser.find('input').simulate('change', { target: { files: [file] } });
+
+    await flushPromises();
 
     expect(onUploadsStart).toHaveBeenCalledWith({
       files: [
@@ -70,25 +82,15 @@ describe('Browser upload phases', () => {
     });
   });
 
-  it('should fire an uploaded success event on end', () => {
-    const mediaClient = fakeMediaClient();
-    const fileStateObservable = new ReplaySubject<FileState>(1);
-    mediaClient.file.upload = jest.fn().mockReturnValue(fileStateObservable);
+  it('should fire an uploaded success event on end', async () => {
     mediaClient.file.touchFiles = jest.fn(
       (descriptors: TouchFileDescriptor[], collection?: string) => {
-        fileStateObservable.next({
-          id: descriptors[0].fileId,
-          mediaType: 'doc',
-          name: '',
-          mimeType: 'text/plain',
-          size: 13,
-          status: 'processing',
-        });
         return Promise.resolve({
           created: descriptors.map(({ fileId }) => ({
             fileId,
             uploadId,
           })),
+          rejected: [],
         });
       },
     );
@@ -100,6 +102,17 @@ describe('Browser upload phases', () => {
     const file = new Blob([fileContents], { type: 'text/plain' });
 
     browser.find('input').simulate('change', { target: { files: [file] } });
+
+    await flushPromises();
+
+    fileStateObservable.next({
+      id: 'file id',
+      mediaType: 'doc',
+      name: '',
+      mimeType: 'text/plain',
+      size: 13,
+      status: 'processing',
+    });
 
     expect(onEnd).toHaveBeenCalledWith({
       file: {
@@ -114,12 +127,8 @@ describe('Browser upload phases', () => {
     });
   });
 
-  it('should fire an uploaded fail event on end', () => {
-    const mediaClient = fakeMediaClient();
+  it('should fire an uploaded fail event on end', async () => {
     const error = new Error('oops');
-    const fileStateObservable = new ReplaySubject<FileState>(1);
-    fileStateObservable.error(error);
-    mediaClient.file.upload = jest.fn().mockReturnValue(fileStateObservable);
     mediaClient.file.touchFiles = jest.fn(
       (descriptors: TouchFileDescriptor[], collection?: string) =>
         Promise.resolve({
@@ -127,6 +136,7 @@ describe('Browser upload phases', () => {
             fileId,
             uploadId,
           })),
+          rejected: [],
         }),
     );
     const onError: jest.MockedFunction<
@@ -143,6 +153,10 @@ describe('Browser upload phases', () => {
     const file = new Blob([fileContents], { type: 'text/plain' });
 
     browser.find('input').simulate('change', { target: { files: [file] } });
+
+    await flushPromises();
+
+    fileStateObservable.error(error);
 
     expectFunctionToHaveBeenCalledWith(onError, [
       {

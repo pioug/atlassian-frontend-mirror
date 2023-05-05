@@ -216,6 +216,7 @@ type ErrorBoundaryComponent = React_2.ComponentType<{
   data?: {
     [k: string]: any;
   };
+  isSelected?: boolean;
 }>;
 
 // @public (undocumented)

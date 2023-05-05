@@ -41,8 +41,7 @@ describe('Custom panel looks correct for fullpage:', () => {
     await page.waitForSelector(panelSelectors.panel);
   });
 
-  // Skip due to failing VR Tests: https://product-fabric.atlassian.net/browse/ED-17719
-  it.skip('default custom panel dark mode', async () => {
+  it('default custom panel dark mode', async () => {
     await initFullPageEditorWithAdf(
       page,
       adf,

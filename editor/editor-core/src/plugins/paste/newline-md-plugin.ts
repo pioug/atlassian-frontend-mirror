@@ -1,3 +1,6 @@
+// File has been copied to packages/editor/editor-plugin-ai/src/provider/markdown-transformer/md/newline-md-plugin.ts
+// If changes are made to this file, please make the same update in the linked file.
+
 // ED-15363: modified version of the original newline plugin
 // https://github.com/markdown-it/markdown-it/blob/master/lib/rules_inline/newline.js
 const newline = (state: any, silent: boolean) => {

@@ -5,9 +5,10 @@ import { ComponentType, CSSProperties, memo, useRef } from 'react';
 import { css, jsx } from '@emotion/react';
 import { lazyForPaint, LazySuspense } from 'react-loosely-lazy';
 
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { fontSize, gridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
-import type { TooltipProps } from '@atlaskit/tooltip';
+import Tooltip, { type TooltipProps } from '@atlaskit/tooltip';
 
 import { BreadcrumbsItemProps } from '../types';
 
@@ -86,6 +87,25 @@ const BreadcrumbsItem = memo((props: BreadcrumbsItemProps) => {
       {text}
     </Step>
   );
+
+  if (
+    getBooleanFF(
+      'platform.design-system-team.remove-lazy-loading-of-tooltip-in-breadcrumbs_pki8p',
+    )
+  ) {
+    return (
+      <li css={itemWrapperStyles}>
+        {showTooltip ? (
+          <Tooltip content={text} position="bottom" onShow={onTooltipShown}>
+            {step}
+          </Tooltip>
+        ) : (
+          step
+        )}
+      </li>
+    );
+  }
+
   return (
     <li css={itemWrapperStyles}>
       {showTooltip ? (

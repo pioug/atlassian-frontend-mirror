@@ -145,19 +145,43 @@ describe('Collab Provider Integration Tests - Confluence', () => {
       provider.channel.getSocket().connect();
     });
 
-    it('should emit a metadata:changed event when the metadata changes', (done) => {
-      provider.on('metadata:changed', (payload) => {
-        expect(payload).toEqual({
-          expire: 1680844522, // TODO: Get rid of this in the back-end before sending to FE
-          title: 'Notes',
+    describe('metadata', () => {
+      it('should emit a metadata:changed event when the metadata changes', (done) => {
+        provider.on('metadata:changed', (payload) => {
+          expect(payload).toEqual({
+            expire: 1680844522, // TODO: Get rid of this in the back-end before sending to FE
+            title: 'Notes',
+          });
+          done();
         });
-        done();
+
+        provider.initialize(getStateMock);
+        // Socket IO connects automatically but the mock doesn't
+        // @ts-expect-error mocking Socket IO client behaviour
+        provider.channel.getSocket().connect();
       });
 
-      provider.initialize(getStateMock);
-      // Socket IO connects automatically but the mock doesn't
-      // @ts-expect-error mocking Socket IO client behaviour
-      provider.channel.getSocket().connect();
+      it('should be able to set and get metadata', () => {
+        provider.initialize(getStateMock);
+        const socketEmitSpy = jest.spyOn(
+          (provider as any).channel.getSocket(),
+          'emit',
+        );
+        // Socket IO connects automatically but the mock doesn't
+        // @ts-expect-error mocking Socket IO client behaviour
+        provider.channel.getSocket().connect();
+
+        // The backend responds with metadata:changed
+        socketEmitSpy.mockClear();
+        const mockMetaData = {
+          editorWidth: 300,
+          title: 'Notes',
+        };
+        provider.setMetadata(mockMetaData);
+        expect(provider.getMetadata()).toEqual(mockMetaData);
+        expect(socketEmitSpy).toBeCalledTimes(1);
+        expect(socketEmitSpy).toBeCalledWith('metadata', mockMetaData);
+      });
     });
 
     it('should emit a connected event when connection is established', (done) => {
@@ -200,7 +224,6 @@ describe('Collab Provider Integration Tests - Confluence', () => {
           joined: [
             {
               name: '',
-              email: '',
               avatar: '',
               sessionId: 'NX5-eFC6rmgE7Y3PAH1D',
               lastActive: 1680759407071,

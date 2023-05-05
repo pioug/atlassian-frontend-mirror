@@ -7,6 +7,6 @@
  */
 //Spanish (International)
 export default {
-  "bitbucket.panel-collapse.message": "contraer",
-  "bitbucket.panel-expand.message": "expandir"
+  'bitbucket.panel-collapse.message': 'contraer',
+  'bitbucket.panel-expand.message': 'expandir',
 };

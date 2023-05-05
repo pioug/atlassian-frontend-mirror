@@ -41,12 +41,12 @@ import {
   isInsideTask,
   isInsideTaskOrDecisionItem,
   liftBlock,
-  subtreeHeight,
   walkOut,
   getTaskItemIndex,
   isInsideDecision,
   isTable,
 } from './helpers';
+import { normalizeTaskItemsSelection } from '../utils';
 
 type IndentationInputMethod = INPUT_METHOD.KEYBOARD | INPUT_METHOD.TOOLBAR;
 const indentationAnalytics = (
@@ -150,11 +150,12 @@ export const getUnindentCommand = (
   inputMethod: IndentationInputMethod = INPUT_METHOD.KEYBOARD,
 ) =>
   filter(isInsideTask, (state, dispatch) => {
-    const curIndentLevel = getCurrentIndentLevel(state.selection);
+    const normalizedSelection = normalizeTaskItemsSelection(state.selection);
+
+    const curIndentLevel = getCurrentIndentLevel(normalizedSelection);
     if (!curIndentLevel || curIndentLevel === 1) {
       return false;
     }
-
     return withAnalytics(
       indentationAnalytics(
         curIndentLevel,
@@ -185,16 +186,9 @@ export const getIndentCommand = (
   inputMethod: IndentationInputMethod = INPUT_METHOD.KEYBOARD,
 ) =>
   filter(isInsideTask, (state, dispatch) => {
-    // limit ui indentation to 6 levels
-    const curIndentLevel = getCurrentIndentLevel(state.selection);
+    const normalizedSelection = normalizeTaskItemsSelection(state.selection);
+    const curIndentLevel = getCurrentIndentLevel(normalizedSelection);
     if (!curIndentLevel || curIndentLevel >= 6) {
-      return true;
-    }
-
-    const { taskList, taskItem } = state.schema.nodes;
-    const { $from, $to } = state.selection;
-    const maxDepth = subtreeHeight($from, $to, [taskList, taskItem]);
-    if (maxDepth >= 6) {
       return true;
     }
     return withAnalytics(

@@ -8,8 +8,7 @@ import {
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import { selectAtPosWithProseMirror } from '@atlaskit/editor-test-helpers/page-objects/editor';
 
-// Skip due to failing VR Tests: https://product-fabric.atlassian.net/browse/ED-17719
-// import selectionKitchenSink1Adf from './__fixtures__/kitchen-sink-1.adf.json';
+import selectionKitchenSink1Adf from './__fixtures__/kitchen-sink-1.adf.json';
 import selectionKitchenSink2Adf from './__fixtures__/kitchen-sink-2.adf.json';
 import selectionKitchenSink3Adf from './__fixtures__/kitchen-sink-3.adf.json';
 
@@ -17,13 +16,12 @@ describe('Selection:', () => {
   let page: PuppeteerPage;
 
   describe.each([
-    // Skip due to failing VR Tests: https://product-fabric.atlassian.net/browse/ED-17719
-    // [
-    //   'scenario-1: should display top-level selectable nodes as selected, and hide native browser text selection on content inside those nodes',
-    //   {
-    //     adf: selectionKitchenSink1Adf,
-    //   },
-    // ],
+    [
+      'scenario-1: should display top-level selectable nodes as selected, and hide native browser text selection on content inside those nodes',
+      {
+        adf: selectionKitchenSink1Adf,
+      },
+    ],
     [
       'scenario-2: should display top-level selectable nodes as selected, and hide native browser text selection on content inside those nodes',
       {

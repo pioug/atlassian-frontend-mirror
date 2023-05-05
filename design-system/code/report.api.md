@@ -434,13 +434,14 @@ export const getCodeStyles: (
 ) => CSSObject;
 
 // @public (undocumented)
-export type Language = typeof SUPPORTED_LANGUAGES[number];
+export type Language = (typeof SUPPORTED_LANGUAGES)[number];
 
 // @public (undocumented)
-export type LanguageAlias = typeof SUPPORTED_LANGUAGES[number]['alias'][number];
+export type LanguageAlias =
+  (typeof SUPPORTED_LANGUAGES)[number]['alias'][number];
 
 // @public (undocumented)
-type LanguageName = typeof SUPPORTED_LANGUAGES[number]['name'];
+type LanguageName = (typeof SUPPORTED_LANGUAGES)[number]['name'];
 
 // @public (undocumented)
 export const SUPPORTED_LANGUAGES: readonly [

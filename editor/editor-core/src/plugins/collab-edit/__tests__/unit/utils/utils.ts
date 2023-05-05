@@ -125,7 +125,6 @@ describe('collab-edit: utils', () => {
           name: 'Morty Smith',
           avatar: 'testData',
           lastActive: 0,
-          email: 'testData',
           cursorPos: 1,
         },
         {
@@ -133,7 +132,6 @@ describe('collab-edit: utils', () => {
           name: 'Rick Sanchez',
           avatar: 'testData',
           lastActive: 0,
-          email: 'testData',
           cursorPos: 20,
         },
       ];

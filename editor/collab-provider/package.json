@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/collab-provider",
-  "version": "8.6.0",
+  "version": "8.7.0",
   "description": "A provider for collaborative editing.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -16,17 +16,22 @@
   "atlaskit:src": "src/index.ts",
   "atlassian": {
     "team": "Editor Services",
-    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "scheduled"
+  },
+  "af:exports": {
+    ".": "./src/index.ts",
+    "./socket-io-provider": "./src/socket-io-provider.ts",
+    "./types": "./src/types.ts",
+    "./version-wrapper": "./src/version-wrapper.ts"
   },
   "dependencies": {
     "@atlaskit/analytics-gas-types": "^5.0.10",
     "@atlaskit/analytics-listeners": "^8.6.0",
-    "@atlaskit/editor-common": "^72.9.0",
+    "@atlaskit/editor-common": "^73.0.0",
     "@atlaskit/editor-json-transformer": "^8.8.0",
     "@atlaskit/prosemirror-collab": "^0.1.0",
-    "@atlaskit/ufo": "^0.1.4",
+    "@atlaskit/ufo": "^0.1.0",
     "@atlaskit/util-service-support": "^6.1.0",
     "@babel/runtime": "^7.0.0",
     "eventemitter2": "^4.1.0",

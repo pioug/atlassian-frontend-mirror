@@ -2963,7 +2963,7 @@ export { WithPluginState };
 
 ```json
 {
-  "@atlaskit/link-provider": "^1.5.1",
+  "@atlaskit/link-provider": "^1.5.3",
   "@atlaskit/media-core": "^34.0.2",
   "react": "^16.8.0",
   "react-dom": "^16.8.0",

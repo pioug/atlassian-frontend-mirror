@@ -100,9 +100,15 @@ export function createInputRulePlugin(
         end,
         schema.text((linkText || '').trim(), [markType]),
       );
+
+      addLinkMetadata(state.selection, tr, {
+        inputMethod: INPUT_METHOD.FORMATTING,
+      });
+
       if (skipAnalytics) {
         return tr;
       }
+
       return addAnalytics(
         state,
         tr,

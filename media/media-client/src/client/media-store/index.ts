@@ -33,6 +33,7 @@ import {
   CreateUrlOptions,
 } from '../../utils/request/types';
 import { resolveAuth, resolveInitialAuth } from './resolveAuth';
+import parseJwt from '../../utils/parseJwt';
 
 export type { MediaStoreErrorReason, MediaStoreErrorAttributes } from './error';
 export { MediaStoreError, isMediaStoreError } from './error';
@@ -208,7 +209,23 @@ export class MediaStore {
     );
   }
 
-  touchFiles(
+  getRejectedResponseFromDescriptor(
+    descriptor: TouchFileDescriptor,
+    limit: number,
+  ): RejectedTouchFile {
+    return {
+      fileId: descriptor.fileId,
+      error: {
+        code: 'ExceedMaxFileSizeLimit',
+        title: 'The expected file size exceeded the maximum size limit.',
+        href: 'https://dt-api-filestore--app.ap-southeast-2.dev.atl-paas.net/api.html#BadRequest',
+        limit,
+        size: descriptor.size!,
+      },
+    };
+  }
+
+  async touchFiles(
     body: MediaStoreTouchFileBody,
     params: MediaStoreTouchFileParams = {},
     traceContext?: MediaTraceContext,
@@ -218,17 +235,62 @@ export class MediaStore {
       endpoint: '/upload/createWithFiles',
     };
 
+    const auth = await this.resolveAuth({ collectionName: params.collection });
+    let maxFileSize: number;
+    try {
+      const decoded = parseJwt(auth.token) as any;
+      maxFileSize = decoded.fileSizeLimit;
+    } catch (error) {
+      // we're relying on the backend to throw an error when there's an invalid token
+    }
+
+    // TODO MEX-2318: backend eventually will allow `size` in the body of this request, then some of this logic will need to be altered
+    const [filteredDescriptors, rejectedResponse] = body.descriptors.reduce<
+      [TouchFileDescriptor[], RejectedTouchFile[]]
+    >(
+      ([filtered, rejected], curr) => {
+        const { size, ...descriptor } = curr;
+        if (maxFileSize && size && size > maxFileSize) {
+          return [
+            filtered,
+            [
+              ...rejected,
+              this.getRejectedResponseFromDescriptor(curr, maxFileSize),
+            ],
+          ];
+        }
+        return [[...filtered, descriptor], rejected];
+      },
+      [[], []],
+    );
+
     const options: MediaStoreRequestOptions = {
       ...metadata,
       authContext: { collectionName: params.collection },
       headers: jsonHeaders,
-      body: JSON.stringify(body),
+      body: JSON.stringify({
+        ...body,
+        descriptors: filteredDescriptors,
+      }),
       traceContext,
+      resolvedAuth: auth,
     };
 
-    return this.request('/upload/createWithFiles', options).then(
-      createMapResponseToJson(metadata),
-    );
+    if (filteredDescriptors.length === 0) {
+      return {
+        data: {
+          created: [],
+          rejected: rejectedResponse,
+        },
+      };
+    }
+    return this.request('/upload/createWithFiles', options)
+      .then(createMapResponseToJson(metadata))
+      .then((res) => {
+        // TODO MEX-2318: backend eventually will include `rejected`, then this logic will need to be removed
+        res.data.rejected = rejectedResponse;
+        return res;
+      });
   }
 
   getFile(
@@ -465,8 +527,9 @@ export class MediaStore {
       body,
       clientOptions,
       traceContext,
+      resolvedAuth,
     } = options;
-    const auth = await this.resolveAuth(authContext);
+    const auth = resolvedAuth ?? (await this.resolveAuth(authContext));
     const extendedTraceContext = traceContext
       ? {
           ...traceContext,
@@ -570,6 +633,7 @@ export type MediaStoreRequestOptions = RequestMetadata & {
   readonly body?: any;
   readonly clientOptions?: ClientOptions;
   readonly traceContext?: MediaTraceContext;
+  readonly resolvedAuth?: Auth;
 };
 
 export type MediaStoreCreateFileFromUploadParams = {
@@ -595,6 +659,7 @@ export interface TouchFileDescriptor {
   occurrenceKey?: string;
   expireAfter?: number;
   deletable?: boolean;
+  size?: number;
 }
 
 export interface MediaStoreTouchFileBody {
@@ -671,8 +736,22 @@ export interface CreatedTouchedFile {
   uploadId: string;
 }
 
+export interface RejectedTouchFile {
+  fileId: string;
+  error: RejectionError;
+}
+
+export type RejectionError = {
+  code: 'ExceedMaxFileSizeLimit';
+  title: string;
+  href: string;
+  limit: number;
+  size: number;
+};
+
 export type TouchedFiles = {
   created: CreatedTouchedFile[];
+  rejected: RejectedTouchFile[];
 };
 
 export interface EmptyFile {

@@ -15,6 +15,16 @@ import {
 
 const copyButtonSelector = 'button[aria-label="Copy"]';
 
+/**
+ * Tests using this function may fail locally when run yarn test:webdriver , when chrome is on version 111
+ * Please see why here: https://hello.atlassian.net/wiki/spaces/~584690366/pages/2508624906/ED-16975
+ *
+ * Tests using this function may also fail locally when run yarn test:webdriver:watch:chrome , when chrome is on version 111
+ * Because Copied URL failed to be resolved into smart link again.
+ * It was because we use ClipboardApi to write the copied smart link (html node), (code reference: packages/editor/editor-core/src/utils/clipboard.ts)
+ * and ClipboardApi in Chrome (version 111)converted the host name of the ‘href’ attribute of the html node into all lower case
+ * For example: from <a href="https://inlineCardTestUrl/longName">some text</a> to <a href="https://inlinecardtesturl/longName">some text</a>
+ */
 export async function _getCopyButtonTestSuite({
   nodeName,
   editorOptions,
@@ -54,9 +64,8 @@ export async function _getCopyButtonTestSuite({
         await animationFrame(page);
 
         // Click the Copy button
-        const copyButton = await page.$(copyButtonSelector);
-        await copyButton.waitForClickable();
-        await copyButton.click();
+        await page.isClickable(copyButtonSelector);
+        await page.click(copyButtonSelector);
 
         // Move to end of document
         await page.keys([
@@ -72,6 +81,9 @@ export async function _getCopyButtonTestSuite({
 
         // Paste
         await page.paste();
+        await page.waitUntil(
+          async () => !!(await page.$(`${nodeSelector}:nth-of-type(2)`)),
+        );
 
         const doc = await page.$eval(editable, getDocFromElement);
 

@@ -8,7 +8,7 @@ const getDepthOfNestedRunner = (
   node: SimpleCallExpression & Rule.NodeParentExtension,
 ): number => {
   // Calculate the depth of a binary tree, using a queue to track path
-  let queue: typeof node[] = [];
+  let queue: (typeof node)[] = [];
   queue.push(node);
   let depth = 0;
   while (queue.length > 0) {

@@ -12,7 +12,7 @@ export const getterIdentifierToFlagTypeMap = {
 export type PlatformFeatureFlagRegistrationSection = {
   [key: string]: {
     // get the values of the object above
-    type: typeof getterIdentifierToFlagTypeMap[keyof typeof getterIdentifierToFlagTypeMap];
+    type: (typeof getterIdentifierToFlagTypeMap)[keyof typeof getterIdentifierToFlagTypeMap];
   };
 };
 

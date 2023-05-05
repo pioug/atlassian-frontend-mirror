@@ -1,5 +1,13 @@
 # @atlaskit/renderer
 
+## 107.3.4
+
+### Patch Changes
+
+- [`0ffb55018c9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ffb55018c9) - Revert "[ED-17172] Bumped prosemirror-view from 1.23.2 to 1.23.7 and removed work-around for fixed issues"
+- [`be610dca836`](https://bitbucket.org/atlassian/atlassian-frontend/commits/be610dca836) - [ux] replace deprecated placeholder theme with tokens
+- Updated dependencies
+
 ## 107.3.3
 
 ### Patch Changes

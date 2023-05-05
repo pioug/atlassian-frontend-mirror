@@ -2,13 +2,14 @@ import {
   B100,
   B75,
   DN10,
+  DN200,
   DN30,
   DN40,
   DN600,
   DN90,
   N0,
   N10,
-  N100,
+  N200,
   N30,
   N40,
   N70,
@@ -64,6 +65,6 @@ export const disabledTextColor = {
 };
 
 export const placeholderTextColor = {
-  light: token('color.text.subtlest', N100),
-  dark: token('color.text.subtlest', DN90),
+  light: token('color.text.subtlest', N200),
+  dark: token('color.text.subtlest', DN200),
 };

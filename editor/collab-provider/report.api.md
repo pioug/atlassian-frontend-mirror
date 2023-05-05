@@ -187,11 +187,9 @@ interface Config {
   // (undocumented)
   getAnalyticsWebClient?: Promise<AnalyticsWebClient>;
   // (undocumented)
-  getUser?(userId: string): Promise<
-    Pick<CollabParticipant, 'avatar' | 'email' | 'name'> & {
-      userId: string;
-    }
-  >;
+  getUser?(
+    userId: string,
+  ): Promise<Pick<ProviderParticipant, 'avatar' | 'name' | 'userId'>>;
   // (undocumented)
   initialDraft?: InitialDraft;
   // (undocumented)
@@ -386,6 +384,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
   disconnect(): this;
   getCurrentState: () => Promise<ResolvedEditorState>;
   getFinalAcknowledgedState: () => Promise<ResolvedEditorState>;
+  getMetadata: () => Metadata_2;
   // (undocumented)
   getUnconfirmedSteps: () => readonly Step[] | undefined;
   // @deprecated
@@ -399,6 +398,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
   // @deprecated
   setEditorWidth(editorWidth: string, broadcast?: boolean): void;
   setMetadata(metadata: Metadata_2): void;
+  // @deprecated
   setTitle(title: string, broadcast?: boolean): void;
   setup({
     getState,
@@ -447,6 +447,12 @@ export type ProviderError =
   | InvalidUserToken
   | Locked
   | NetworkIssue;
+
+// @public (undocumented)
+type ProviderParticipant = CollabParticipant & {
+  userId: string;
+  clientId: number | string;
+};
 
 // @public (undocumented)
 interface SimpleEventEmitter {

@@ -19,6 +19,6 @@ export type NCSFeatureFlagsMap = Record<
 >;
 
 export const supportedProducts = ['confluence'] as const;
-export type SupportedProduct = typeof supportedProducts[number];
+export type SupportedProduct = (typeof supportedProducts)[number];
 
 export type ProductKeys = Record<SupportedProduct, NCSFeatureFlagsMap>;

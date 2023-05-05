@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 25.9.4
+
+### Patch Changes
+
+- [`025d2c69562`](https://bitbucket.org/atlassian/atlassian-frontend/commits/025d2c69562) - [ux] Restrict maximum height on lozenge action
+
 ## 25.9.3
 
 ### Patch Changes

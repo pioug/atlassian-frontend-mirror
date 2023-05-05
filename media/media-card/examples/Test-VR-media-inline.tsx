@@ -46,10 +46,6 @@ const mockErrorFile: MockFileInputParams = {
   mimeType: 'image/jpeg',
   processingStatus: 'failed',
 };
-const mockLoadingFile: MockFileInputParams = {
-  id: '26adc5af-3af4-42a8-9c24-62b6ce0f9367',
-  processingStatus: 'pending',
-};
 const files = generateFilesFromTestData([
   mockImageFile,
   mockDocFile,
@@ -135,20 +131,6 @@ export default () => {
                     identifier={{
                       mediaItemType: 'file',
                       id: mockErrorFile.id!,
-                      collectionName: defaultCollectionName,
-                    }}
-                    mediaClientConfig={mediaClientConfig}
-                    shouldOpenMediaViewer
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>Loading View</td>
-                <td>
-                  <MediaInlineCard
-                    identifier={{
-                      mediaItemType: 'file',
-                      id: mockLoadingFile.id!,
                       collectionName: defaultCollectionName,
                     }}
                     mediaClientConfig={mediaClientConfig}

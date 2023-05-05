@@ -41,6 +41,29 @@ describe('server action', () => {
       expect(image).toMatchProdImageSnapshot();
     });
 
+    it('renders scrollable lozenge action dropdown list', async () => {
+      const url = getURL('vr-action-lozenge');
+      const page = await setup(url + '&scroll=true');
+      await page.waitForSelector(triggerSelector);
+
+      await page.click(triggerSelector);
+      await page.waitForSelector(`[data-testid="${testId}-item-group"]`);
+      await page.hover(`[data-testid="${testId}-item-1"]`);
+      // The scrollbar does not show up on the vr snapshot due to
+      // --hide-scrollbars setup on the test. We do a scroll here to
+      // validate that we can scroll to the item that was not visible
+      // with in the dropdown item group height.
+      await page.evaluate((_) => {
+        const scrollableSection = document.querySelector(
+          '[data-testid="vr-test-lozenge-action-item-group"]',
+        );
+        scrollableSection?.scrollBy(0, 20);
+      });
+      const image = await takeSnapshot(page, 400);
+
+      expect(image).toMatchProdImageSnapshot();
+    });
+
     it('renders lozenge error when there are no status transitions', async () => {
       const url = getURL('vr-action-lozenge-load-no-data-error');
       const page = await setup(url + '&delay=800');

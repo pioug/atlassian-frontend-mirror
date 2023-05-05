@@ -829,8 +829,20 @@ export function validator(
     const finalEntity = { ...newEntity };
 
     if (finalEntity.marks) {
-      unsupportedNodeAttributeValues &&
+      if (!unsupportedNodeAttributeValues) {
+        return finalEntity.marks;
+      }
+
+      // If there is an existing unsupported node attribute mark, overwrite it to avoid duplicate marks
+      const existingMark = finalEntity.marks.find(
+        (mark) => mark.type === unsupportedNodeAttributeValues.type,
+      );
+      if (existingMark) {
+        existingMark.attrs = unsupportedNodeAttributeValues.attrs;
+      } else {
         finalEntity.marks.push(unsupportedNodeAttributeValues);
+      }
+
       return finalEntity.marks;
     } else {
       return [unsupportedNodeAttributeValues] as ADFEntityMark[];

@@ -199,6 +199,7 @@ class Editor extends React.Component<
               handleEscape={handleEscape}
               editorAppearance={this.appearance}
               useStickyToolbar={useStickyToolbar}
+              intl={intl}
             >
               <Toolbar
                 editorView={editorView!}

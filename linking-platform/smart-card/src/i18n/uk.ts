@@ -45,7 +45,7 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'Надішліть запит на доступ або ввійдіть в інший обліковий запис для попереднього перегляду.',
   'fabric.linking.join_to_view': 'Можна приєднатися до {context}, щоб переглянути цю проблему',
-  'fabric.linking.learn_more_about_smart_links': 'Докладніше про Smart Links.',
+  'fabric.linking.learn_more_about_smart_links': 'Докладніше про смарт-посилання.',
   'fabric.linking.link_safety_warning_message':
     'За посиланням {unsafeLinkText} ви перейдете на інший сайт: <a>actual link here</a>',
   'fabric.linking.loading': 'Завантаження...',
@@ -56,6 +56,7 @@ export default {
     'Не вдалося знайти посилання. Перевірте URL-адресу й спробуйте її відредагувати або вставити знову.',
   'fabric.linking.not_found_title': 'Ой! Не вдається знайти це посилання.',
   'fabric.linking.open_link_in_a_new_tab': 'Відкрити посилання в новій вкладці',
+  'fabric.linking.owned_by': 'Власник: {context}',
   'fabric.linking.pending_request': 'Запит на надання доступу в очікуванні',
   'fabric.linking.preview': 'Повноекранне подання',
   'fabric.linking.preview_close': 'Закрити вікно попереднього перегляду',

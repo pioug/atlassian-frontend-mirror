@@ -47,7 +47,7 @@ class TestSiteEmojiResource extends SiteEmojiResource {
 }
 
 let mockGetMediaClient: jest.SpyInstance<
-  typeof MediaClientModule['getMediaClient']
+  (typeof MediaClientModule)['getMediaClient']
 > = MediaClientModule.getMediaClient as any;
 
 describe('SiteEmojiResource', () => {

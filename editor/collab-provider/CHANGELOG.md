@@ -1,5 +1,21 @@
 # @atlaskit/collab-provider
 
+## 8.7.0
+
+### Minor Changes
+
+- [`054186aa44f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/054186aa44f) - Remove email from CollabParticipant type and rely more on ProviderParticipant type.
+- [`849e1a3b3e1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/849e1a3b3e1) - ESS-3486 Add getmetadata as an exposed method.
+
+### Patch Changes
+
+- [`b69b9375eec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b69b9375eec) - match version of @atlaskit/ufo to others places/packages so we only have one version
+- [`0ffb55018c9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ffb55018c9) - Revert "[ED-17172] Bumped prosemirror-view from 1.23.2 to 1.23.7 and removed work-around for fixed issues"
+- [`196773a471b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/196773a471b) - Add new type that reflects default broadcast payloads, telepoint events are now being passed the needed timestamp
+- [`66b94ce320c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/66b94ce320c) - Throw new error if cookies not enabled
+- [`60725af0609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/60725af0609) - Remove the auto exported modules and use explicit exports
+- Updated dependencies
+
 ## 8.6.0
 
 ### Minor Changes

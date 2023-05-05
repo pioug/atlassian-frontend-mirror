@@ -110,10 +110,10 @@ const editorBackgroundPalette: {
 type EditorBackgroundPaletteKey = keyof EditorBackgroundPalette;
 
 // @public (undocumented)
-type EditorBackgroundPaletteTokenNames = typeof tokenNames[number];
+type EditorBackgroundPaletteTokenNames = (typeof tokenNames)[number];
 
 // @public (undocumented)
-type EditorBackgroundPaletteTokenNames_2 = typeof tokenNames_2[number];
+type EditorBackgroundPaletteTokenNames_2 = (typeof tokenNames_2)[number];
 
 // @public (undocumented)
 type EditorBorderPalette = typeof editorBorderPalette;

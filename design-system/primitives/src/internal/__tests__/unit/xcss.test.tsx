@@ -26,9 +26,16 @@ describe('xcss()', () => {
   it('transforms token styles', () => {
     const { styles } = xcss({
       padding: 'space.100',
+      zIndex: 'blanket',
+      color: 'color.text',
+      boxShadow: 'overflow',
     });
     const expected = {
       padding: 'var(--ds-space-100, 8px)',
+      zIndex: 500,
+      color: 'var(--ds-text, #172B4D)',
+      boxShadow:
+        'var(--ds-shadow-overflow, 0px 0px 8px #091e423f, 0px 0px 1px #091e424f)',
     };
 
     expect(styles).toEqual(expected);
@@ -123,6 +130,22 @@ describe('xcss()', () => {
     };
 
     expect(styles).toEqual(expected);
+  });
+
+  it('allows non-token values to be passed through for tokenisable properties', () => {
+    const warn = jest.spyOn(console, 'warn').mockImplementation(jest.fn);
+
+    // @ts-expect-error
+    const { styles } = xcss({ padding: '10px', color: '#F0F0F0', top: 0 });
+    const expected = {
+      padding: '10px',
+      color: '#F0F0F0',
+      top: 0, // Falsy, but set
+    };
+
+    expect(warn).toBeCalledTimes(3);
+    expect(styles).toEqual(expected);
+    warn.mockReset();
   });
 
   it('throws on unsupported selectors', () => {

@@ -1255,7 +1255,7 @@ type SpacingPaletteToken = keyof typeof baseSpacingTokens;
 export type SpacingToken = DesignToken<SpacingPaletteToken, 'spacing'>;
 
 // @public (undocumented)
-export type ThemeColorModes = typeof themeColorModes[number];
+export type ThemeColorModes = (typeof themeColorModes)[number];
 
 // @public
 const themeColorModes: readonly ['light', 'dark', 'auto'];
@@ -1286,7 +1286,7 @@ interface ThemeConfig {
 export const themeConfig: Record<Themes, ThemeConfig>;
 
 // @public (undocumented)
-export type ThemeIds = typeof themeIds[number];
+export type ThemeIds = (typeof themeIds)[number];
 
 // @public
 const themeIds: readonly [

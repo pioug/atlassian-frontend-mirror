@@ -7,6 +7,6 @@
  */
 //Vietnamese (Vietnam)
 export default {
-  "bitbucket.panel-collapse.message": "thu gọn",
-  "bitbucket.panel-expand.message": "mở rộng"
+  'bitbucket.panel-collapse.message': 'thu gọn',
+  'bitbucket.panel-expand.message': 'mở rộng',
 };

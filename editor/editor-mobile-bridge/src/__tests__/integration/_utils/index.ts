@@ -46,7 +46,7 @@ export const selectionPluginHelper = {
 export const clipboardInput = 'textarea[data-id=clipboardInput]';
 export const copyButton = 'button[aria-label="copy"]';
 
-type WebBridgeMethods = keyof typeof WebBridgeImpl['prototype'];
+type WebBridgeMethods = keyof (typeof WebBridgeImpl)['prototype'];
 
 export const callNativeBridge = async (
   browser: any,
@@ -64,7 +64,7 @@ export const callNativeBridge = async (
   );
 };
 
-type RenderBridgeMethods = keyof typeof RendererBridgeImpl['prototype'];
+type RenderBridgeMethods = keyof (typeof RendererBridgeImpl)['prototype'];
 
 export const callRendererBridge = async (
   browser: any,

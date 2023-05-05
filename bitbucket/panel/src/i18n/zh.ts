@@ -7,6 +7,6 @@
  */
 //Chinese (Simplified)
 export default {
-  "bitbucket.panel-collapse.message": "收起",
-  "bitbucket.panel-expand.message": "展开"
+  'bitbucket.panel-collapse.message': '收起',
+  'bitbucket.panel-expand.message': '展开',
 };

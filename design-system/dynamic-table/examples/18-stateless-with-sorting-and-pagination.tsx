@@ -11,7 +11,7 @@ import { SortOrderType } from '../src/types';
 
 import { caption, head, rows } from './content/sample-data';
 
-type HeadCell = typeof head['cells'][number];
+type HeadCell = (typeof head)['cells'][number];
 
 const ControlledSorting = () => {
   const [pageNumber, setPageNumber] = useState<number>(2);

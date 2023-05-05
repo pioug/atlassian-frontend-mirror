@@ -425,7 +425,7 @@ const Element = () => (
         `
         import React from "react";
         import { FormattedMessage, IntlProvider } from "react-intl-next";
-        import { shallow } from "enzyme";
+        import { render, screen } from '@testing-library/react';
         import { AtlaskitThemeProvider } from "@atlaskit/theme";
         import { Link } from "@confluence/route-manager";
         import {
@@ -474,13 +474,13 @@ const Element = () => (
           const intlProvider = new IntlProvider({ locale: "en" }, {});
           const { intl } = intlProvider.getChildContext();
 
-          const wrapper = shallow(
+          render(
             <SuperAdminEntryPointComponent
               intl={intl}
               createAnalyticsEvent={jest.fn()}
             />
           );
-          expect(wrapper).toMatchSnapshot();
+          expect(screen).toMatchSnapshot();
         });
 
         describe("i18n", () => {
@@ -499,7 +499,7 @@ const Element = () => (
         `
         import React from "react";
         import { FormattedMessage, IntlProvider } from "react-intl-next";
-        import { shallow } from "enzyme";
+        import { render, screen } from '@testing-library/react';
         import { AtlaskitThemeProvider } from "@atlaskit/theme";
         import { Link } from "@confluence/route-manager";
         import {
@@ -548,13 +548,13 @@ const Element = () => (
           const intlProvider = new IntlProvider({ locale: "en" }, {});
           const { intl } = intlProvider.getChildContext();
 
-          const wrapper = shallow(
+          render(
             <SuperAdminEntryPointComponent
               intl={intl}
               createAnalyticsEvent={jest.fn()}
             />
           );
-          expect(wrapper).toMatchSnapshot();
+          expect(screen).toMatchSnapshot();
         });
 
         describe("i18n", () => {

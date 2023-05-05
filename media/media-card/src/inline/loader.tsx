@@ -11,6 +11,7 @@ type MediaInlineCardWithMediaClientConfigComponent =
 
 type ErrorBoundaryComponent = React.ComponentType<{
   data?: { [k: string]: any };
+  isSelected?: boolean;
 }>;
 
 export interface MediaInlineCardLoaderState {
@@ -77,7 +78,7 @@ export default class MediaInlineCardLoader extends React.PureComponent<
     }
 
     return (
-      <ErrorBoundary>
+      <ErrorBoundary isSelected={this.props.isSelected}>
         <MediaInlineCard {...this.props} />
       </ErrorBoundary>
     );

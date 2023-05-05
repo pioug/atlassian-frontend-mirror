@@ -234,7 +234,7 @@ export default function baseStyles<Option, IsMulti extends boolean>(
       ...css,
       color: isDisabled
         ? token('color.text.disabled', N300)
-        : token('color.text.subtlest', N300),
+        : token('color.text.subtlest', N200),
     }),
     singleValue: (css, { isDisabled }) => ({
       ...css,

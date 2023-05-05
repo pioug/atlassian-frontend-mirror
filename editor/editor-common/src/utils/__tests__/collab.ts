@@ -4,17 +4,12 @@ import { CollabParticipant } from '@atlaskit/editor-core/src/plugins/collab-edit
 
 import { getParticipantsCount } from '../collab';
 
-function randomInt(max: number) {
-  return Math.floor(Math.random() * max);
-}
-
 function makeParticipant(): CollabParticipant {
   const participant: CollabParticipant = {
     lastActive: 0,
     sessionId: uuid.generate(),
     avatar: uuid.generate(),
     name: 'Fred',
-    email: `fred${randomInt(10)}@gmail.com`,
   };
   return participant;
 }

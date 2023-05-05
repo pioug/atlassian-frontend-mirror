@@ -442,10 +442,11 @@ describe('Channel unit tests', () => {
 
     channel.on('participant:telepointer', (data: any) => {
       try {
-        expect(data).toEqual(<CollabSendableSelection>{
+        expect(data).toEqual(<CollabSendableSelection & { timestamp: number }>{
           type: 'textSelection',
           anchor: 3,
           head: 3,
+          timestamp: 456734573473564,
         });
         done();
       } catch (err) {

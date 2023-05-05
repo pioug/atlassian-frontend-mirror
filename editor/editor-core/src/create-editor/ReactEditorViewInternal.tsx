@@ -74,7 +74,7 @@ import { getNodesCount } from '../utils/document';
 import { analyticsEventKey, SEVERITY } from '@atlaskit/editor-common/utils';
 import { createSchema } from './create-schema';
 import { PluginPerformanceObserver } from '../utils/performance/plugin-performance-observer';
-import { PluginPerformanceReportData } from '../utils/performance/plugin-performance-report';
+import { PluginPerformanceReportData } from '@atlaskit/editor-common/analytics';
 import { getParticipantsCount } from '../plugins/collab-edit/get-participants-count';
 import { countNodes } from '../utils/count-nodes';
 import { TransactionTracker } from '../utils/performance/track-transactions';
@@ -92,7 +92,7 @@ import {
 } from './consts';
 import { getContextIdentifier } from '../plugins/base/pm-plugins/context-identifier';
 import type { FireAnalyticsCallback } from '@atlaskit/editor-common/analytics';
-import { UfoSessionCompletePayloadAEP } from '../plugins/analytics/types/general-events';
+import { UfoSessionCompletePayloadAEP } from '@atlaskit/editor-common/analytics';
 import ReactEditorViewContext from './ReactEditorViewContext';
 import {
   EditorPresetBuilder,
@@ -148,6 +148,8 @@ interface CreateEditorStateOptions {
   resetting?: boolean;
   selectionAtStart?: boolean;
 }
+
+export const EDIT_AREA_ID = 'ak-editor-textarea';
 
 export class ReactEditorView<T = {}> extends React.Component<
   EditorViewProps & WrappedComponentProps & T,
@@ -963,6 +965,7 @@ export class ReactEditorView<T = {}> extends React.Component<
           : this.props.intl.formatMessage(editorMessages.editorAssistiveLabel)
       }
       role="textbox"
+      id={EDIT_AREA_ID}
     />
   );
 

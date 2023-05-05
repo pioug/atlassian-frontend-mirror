@@ -13,7 +13,7 @@ import { token } from '@atlaskit/tokens';
 
 const shapes = ['square', 'circle', 'triangle'] as const;
 
-export type ShapeType = typeof shapes[number];
+export type ShapeType = (typeof shapes)[number];
 
 export const size = 48;
 const strokeWidth = 4;

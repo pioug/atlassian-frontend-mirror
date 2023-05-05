@@ -208,6 +208,10 @@ const ColorPickerButton = (props: Props) => {
   const buttonStyle = css`
     padding: 6px;
     background-color: ${token('color.background.neutral', 'transparent')};
+    ${
+      /* If custom props size height, override the button base height property */
+      !!props.size?.height && `height: inherit;`
+    }
     &:before {
       display: flex;
       justify-content: center;

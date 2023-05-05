@@ -9,10 +9,14 @@ import {
   isActionOrDecisionItem,
   isActionOrDecisionList,
   liftBlock,
+  subtreeHeight,
 } from './helpers';
+import { normalizeTaskItemsSelection } from '../utils';
 
 export const liftSelection: Command = (state, dispatch) => {
-  const { $from, $to } = state.selection;
+  const normalizedSelection = normalizeTaskItemsSelection(state.selection);
+  const { $from, $to } = normalizedSelection;
+
   const tr = liftBlock(state.tr, $from, $to);
 
   if (dispatch && tr) {
@@ -23,7 +27,15 @@ export const liftSelection: Command = (state, dispatch) => {
 };
 
 export const wrapSelectionInTaskList: Command = (state, dispatch) => {
-  const { $from, $to } = state.selection;
+  const { $from, $to } = normalizeTaskItemsSelection(state.selection);
+
+  // limit ui indentation to 6 levels
+  const { taskList, taskItem } = state.schema.nodes;
+  const maxDepth = subtreeHeight($from, $to, [taskList, taskItem]);
+  if (maxDepth >= 6) {
+    return true;
+  }
+
   const blockRange = getBlockRange($from, $to);
   if (!blockRange) {
     return true;

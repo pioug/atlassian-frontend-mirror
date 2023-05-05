@@ -41,7 +41,7 @@
     "@af/icon-build-process": "^0.3.0",
     "@atlaskit/button": "^16.6.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/media-test-helpers": "^32.0.0",
+    "@atlaskit/media-test-helpers": "^32.1.0",
     "@atlaskit/modal-dialog": "^12.4.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/textfield": "^5.3.0",

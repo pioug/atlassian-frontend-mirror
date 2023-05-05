@@ -33,7 +33,7 @@ export type ThemeKinds = 'color' | 'spacing' | 'typography' | 'shape';
  * The idea is there may exist many color themes, but every theme must either fit into light or dark.
  */
 export const themeColorModes = ['light', 'dark', 'auto'] as const;
-export type ThemeColorModes = typeof themeColorModes[number];
+export type ThemeColorModes = (typeof themeColorModes)[number];
 export type DataColorModes = Exclude<ThemeColorModes, 'auto'>;
 
 /**
@@ -51,7 +51,7 @@ export const themeIds = [
   'typography',
   'shape',
 ] as const;
-export type ThemeIds = typeof themeIds[number];
+export type ThemeIds = (typeof themeIds)[number];
 
 export type ThemeOverrideIds = 'dark-iteration';
 

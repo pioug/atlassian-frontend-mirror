@@ -8,7 +8,7 @@ import {
 export const ufoExperience = { mounted: 'component-mounted' } as const;
 
 type ExperienceType = keyof typeof ufoExperience;
-type ExperienceName = typeof ufoExperience[ExperienceType];
+type ExperienceName = (typeof ufoExperience)[ExperienceType];
 
 const ufoExperiences: Record<ExperienceName, ConcurrentExperience> = {
   [ufoExperience.mounted]: new ConcurrentExperience(ufoExperience.mounted, {

@@ -1,5 +1,30 @@
 # @atlaskit/editor-mobile-bridge
 
+## 182.2.0
+
+### Patch Changes
+
+- [`0ffb55018c9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ffb55018c9) - Revert "[ED-17172] Bumped prosemirror-view from 1.23.2 to 1.23.7 and removed work-around for fixed issues"
+- Updated dependencies
+
+## 182.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 182.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.3.45
+
+### Patch Changes
+
+- [`1a1dc6a0370`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1a1dc6a0370) - Upgrade `@babel` scoped packages to `^7.20.0`
+
 ## 36.3.44
 
 ### Patch Changes

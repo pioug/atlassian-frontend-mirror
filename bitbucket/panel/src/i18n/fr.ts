@@ -7,6 +7,6 @@
  */
 //French (France)
 export default {
-  "bitbucket.panel-collapse.message": "réduire",
-  "bitbucket.panel-expand.message": "développer"
+  'bitbucket.panel-collapse.message': 'réduire',
+  'bitbucket.panel-expand.message': 'développer',
 };

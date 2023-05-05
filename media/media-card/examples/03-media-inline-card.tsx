@@ -2,15 +2,14 @@
 import { jsx } from '@emotion/react';
 import React, { useState, ChangeEvent } from 'react';
 import {
-  imageFileId,
   docFileId,
   videoProcessingFailedId,
   codeFileId,
-  videoFileId,
   largePdfFileId,
   smallImage,
   createUploadMediaClientConfig,
   defaultCollectionName,
+  unknownFileId,
 } from '@atlaskit/media-test-helpers';
 import { v4 as uuidv4 } from 'uuid';
 import {
@@ -87,16 +86,6 @@ export default () => {
                   <th>Link</th>
                 </tr>
                 <tr>
-                  <td>Image</td>
-                  <td>
-                    <MediaInlineCard
-                      identifier={imageFileId}
-                      mediaClientConfig={mediaClientConfig}
-                      shouldOpenMediaViewer
-                    />
-                  </td>
-                </tr>
-                <tr>
                   <td>Doc</td>
                   <td>
                     <MediaInlineCard
@@ -116,16 +105,6 @@ export default () => {
                   </td>
                 </tr>
                 <tr>
-                  <td>Video</td>
-                  <td>
-                    <MediaInlineCard
-                      identifier={videoFileId}
-                      mediaClientConfig={mediaClientConfig}
-                      shouldOpenMediaViewer
-                    />
-                  </td>
-                </tr>
-                <tr>
                   <td>Code</td>
                   <td>
                     <MediaInlineCard
@@ -136,38 +115,20 @@ export default () => {
                   </td>
                 </tr>
                 <tr>
+                  <td>Unknown File</td>
+                  <td>
+                    <MediaInlineCard
+                      identifier={unknownFileId}
+                      mediaClientConfig={mediaClientConfig}
+                      shouldOpenMediaViewer
+                    />
+                  </td>
+                </tr>
+                <tr>
                   <td>Error processing</td>
                   <td>
                     <MediaInlineCard
                       identifier={videoProcessingFailedId}
-                      mediaClientConfig={mediaClientConfig}
-                      shouldOpenMediaViewer
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td>Loading View</td>
-                  <td>
-                    <MediaInlineCard
-                      identifier={{
-                        id: 'loading-file',
-                        mediaItemType: 'file',
-                        collectionName: 'no-collection',
-                      }}
-                      mediaClientConfig={mediaClientConfig}
-                      shouldOpenMediaViewer
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td>Uploading View</td>
-                  <td>
-                    <MediaInlineCard
-                      identifier={{
-                        id: uploadingFileId,
-                        collectionName: defaultCollectionName,
-                        mediaItemType: 'file',
-                      }}
                       mediaClientConfig={mediaClientConfig}
                       shouldOpenMediaViewer
                     />

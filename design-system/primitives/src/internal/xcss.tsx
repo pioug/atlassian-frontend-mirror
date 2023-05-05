@@ -65,7 +65,6 @@ const tokensMap = {
   insetInline: insetMap,
   insetInlineEnd: insetMap,
   insetInlineStart: insetMap,
-  layer: layerMap,
   left: dimensionMap,
   maxBlockSize: dimensionMap,
   maxHeight: dimensionMap,
@@ -94,10 +93,11 @@ const tokensMap = {
   rowGap: spaceMap,
   top: dimensionMap,
   width: dimensionMap,
+  zIndex: layerMap,
 } as const;
 
 type StyleMapKey = keyof typeof tokensMap;
-type TokensMapKey = keyof typeof tokensMap[StyleMapKey];
+type TokensMapKey = keyof (typeof tokensMap)[StyleMapKey];
 
 const uniqueSymbol = Symbol(
   'Internal symbol to verify xcss function is called safely',
@@ -152,12 +152,9 @@ const transformStyles = (
       if (!tokenValue) {
         const message = `Invalid token alias: ${value}`;
         warnOnce(message);
-        if (isSafeEnvToThrow()) {
-          throw new Error(message);
-        }
       }
 
-      styleObj[key] = tokenValue;
+      styleObj[key] = tokenValue ?? value;
     },
   );
 

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/linking-common",
-  "version": "2.6.0",
+  "version": "2.7.0",
   "description": "Contains utils and interfaces shared across different LP components",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -39,7 +39,7 @@
   "devDependencies": {
     "@atlaskit/docs": "*",
     "@atlaskit/link-test-helpers": "^2.2.0",
-    "@atlaskit/media-test-helpers": "^32.0.0",
+    "@atlaskit/media-test-helpers": "^32.1.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",

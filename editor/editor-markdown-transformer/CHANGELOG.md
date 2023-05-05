@@ -1,5 +1,12 @@
 # @atlaskit/editor-markdown-transformer
 
+## 5.1.2
+
+### Patch Changes
+
+- [`0ffb55018c9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ffb55018c9) - Revert "[ED-17172] Bumped prosemirror-view from 1.23.2 to 1.23.7 and removed work-around for fixed issues"
+- Updated dependencies
+
 ## 5.1.1
 
 ### Patch Changes

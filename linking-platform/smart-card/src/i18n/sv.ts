@@ -44,7 +44,7 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'Du måste begära åtkomst eller försöka med ett annat konto för att visa förhandsgranskningen.',
   'fabric.linking.join_to_view': 'Anslut till {context} för att visa ärendet',
-  'fabric.linking.learn_more_about_smart_links': 'Läs mer om Smart Links.',
+  'fabric.linking.learn_more_about_smart_links': 'Läs mer om smarta länkar.',
   'fabric.linking.link_safety_warning_message':
     'Länken {unsafeLinkText} tar dig till en annan webbplats, <a>actual link here</a>',
   'fabric.linking.loading': 'Läser in ...',
@@ -55,6 +55,7 @@ export default {
     'Vi kunde inte hitta länken. Kontrollera URL-adressen och försök att redigera eller klistra in igen.',
   'fabric.linking.not_found_title': 'Oj då. Vi kan inte hitta den här länken!',
   'fabric.linking.open_link_in_a_new_tab': 'Öppna länk i en ny flik',
+  'fabric.linking.owned_by': 'Ägs av {context}',
   'fabric.linking.pending_request': 'Din åtkomstförfrågan väntar på svar',
   'fabric.linking.preview': 'Helskärmsvy',
   'fabric.linking.preview_close': 'Stäng förhandsvisning',

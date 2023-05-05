@@ -43,7 +43,7 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'Deberás solicitar el acceso o probar con otra cuenta para obtener esta vista previa.',
   'fabric.linking.join_to_view': 'Únete a {context} para ver esta incidencia',
-  'fabric.linking.learn_more_about_smart_links': 'Más información sobre Smart Links.',
+  'fabric.linking.learn_more_about_smart_links': 'Más información sobre los enlaces inteligentes.',
   'fabric.linking.link_safety_warning_message':
     'El enlace {unsafeLinkText} te redirige a un sitio diferente, <a>actual link here</a>.',
   'fabric.linking.loading': 'Cargando…',
@@ -54,6 +54,7 @@ export default {
     'No hemos encontrado el enlace. Comprueba la URL y prueba a editarla, o pégala de nuevo.',
   'fabric.linking.not_found_title': '¡Vaya! No encontramos este enlace',
   'fabric.linking.open_link_in_a_new_tab': 'Abrir enlace en una nueva pestaña',
+  'fabric.linking.owned_by': 'Propiedad de {context}',
   'fabric.linking.pending_request': 'Tu solicitud de acceso está pendiente',
   'fabric.linking.preview': 'Vista de pantalla completa',
   'fabric.linking.preview_close': 'Cerrar vista previa',

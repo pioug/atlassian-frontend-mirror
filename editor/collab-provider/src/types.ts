@@ -1,7 +1,6 @@
 import type { Step } from 'prosemirror-transform';
 import type { EditorState, Transaction } from 'prosemirror-state';
 import type {
-  CollabParticipant,
   CollabEventConnectionData,
   CollabEventInitData,
   CollabEventRemoteData,
@@ -16,6 +15,7 @@ import type { InternalError } from './errors/error-types';
 import type { ProviderError } from './errors/error-types';
 import type { SyncUpErrorFunction } from '@atlaskit/editor-common/types';
 import { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import { ProviderParticipant } from './participants/participants-helper';
 
 export interface Storage {
   get(key: string): Promise<string>;
@@ -50,9 +50,7 @@ export interface Config {
   featureFlags?: { [key: string]: boolean };
   getUser?(
     userId: string,
-  ): Promise<
-    Pick<CollabParticipant, 'avatar' | 'email' | 'name'> & { userId: string }
-  >;
+  ): Promise<Pick<ProviderParticipant, 'avatar' | 'name' | 'userId'>>;
   /**
    * If provided, permissionTokenRefresh is called whenever a new JWT token is required.
    */
@@ -156,6 +154,18 @@ export type InitPayload = {
   metadata?: Metadata;
 };
 
+/**
+ * @description Incoming payload type from the `broadcast` route in NCS
+ * @param {number} timestamp added in NCS
+ * @param {string} sessionId socket.id from NCS
+ * @param data event specific data from NCS
+ */
+export type BroadcastIncomingPayload = {
+  sessionId?: string;
+  timestamp?: number;
+  data: PresencePayload | TelepointerPayload | StepsPayload | any; // broadcasted data from NCS, any added as a fallback
+};
+
 export type PresencePayload = {
   sessionId: string;
   userId: string | undefined;
@@ -164,13 +174,7 @@ export type PresencePayload = {
 };
 
 export type TelepointerPayload = PresencePayload & {
-  selection: {
-    type: 'textSelection' | 'nodeSelection';
-    // JWM does some weird serialisation stuff:
-    // eg. {"type":"nodeSelection","head":"{\"nodeId\":\"project:10002:view/list/node/summary-10000\"}"}
-    anchor?: number | string;
-    head?: number | string;
-  };
+  selection: CollabSendableSelection;
 };
 
 type MarkJson = {

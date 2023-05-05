@@ -1,5 +1,11 @@
 # @atlaskit/embedded-confluence
 
+## 2.1.0
+
+### Minor Changes
+
+- [`a1691c43c75`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a1691c43c75) - Add a new prop for navigationPolicy to include A list of domain names that should be replaced with the current base URL for EP before applying any URL shimming.
+
 ## 2.0.1
 
 ### Patch Changes
@@ -11,20 +17,23 @@
 ### Major Changes
 
 - [`2f6fdbc8560`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2f6fdbc8560) - Login Flow for cross-domain parent products
+
 ### Enabling the Login/Authentication flow for EP:
 
-  1. **What's changed:**
-     - Embedded Pages now allow users to authenticate within it and also request for its first-party storage.
-        - Embedded Pages is using `Document.hasStorageAccess()` to check if it has access to its first-party storage and it will prompt users to `“Allow”` access by calling `Document.requestStorageAccess()`. Depending on the user agent implementation, the user agent might show user prompts (More details can be found [here](https://developer.mozilla.org/en-US/docs/Web/API/Storage_Access_API)).
-        - Once the first-party storage access is granted, users can login or sign up. The Login/Sign Up page is opened in a new window which will take users through the Login/Sign up flow.
+1. **What's changed:**
 
-  2. **Why it's changed:**
-     - With the Login flow the end user is taken through an authentication process within EP which doesn't require them to navigate out of the parent products to Login to Confluence. This also mitigates the problem of having to enable 3rd party cookies in the browser settings before loading EP for a cross-domain context (3rd party parent products).
+   - Embedded Pages now allow users to authenticate within it and also request for its first-party storage.
+     - Embedded Pages is using `Document.hasStorageAccess()` to check if it has access to its first-party storage and it will prompt users to `“Allow”` access by calling `Document.requestStorageAccess()`. Depending on the user agent implementation, the user agent might show user prompts (More details can be found [here](https://developer.mozilla.org/en-US/docs/Web/API/Storage_Access_API)).
+     - Once the first-party storage access is granted, users can login or sign up. The Login/Sign Up page is opened in a new window which will take users through the Login/Sign up flow.
 
-  3. **Upgrade guide:**
-     - Partner products that have subscribed to `"Unable to display page content"` `taskAbort` event to display their own login page should also subscribe to the `embedded-confluence/login-page` `taskStart` experience tracker event.
-     - No upgrade changes required for partner products that have not subscribed to `"Unable to display page content"` `taskAbort`.
-     - For partner products who wish to display their own authentication flow, please subscribe to `embedded-confluence/login-page` `taskStart` and `"Unable to display page content"` `taskAbort` event (Refer the [Atlaskit documentation](https://atlaskit.atlassian.com/packages/confluence/embedded-confluence-public/docs/Experience-Tracker) for more information on these events).
+2. **Why it's changed:**
+
+   - With the Login flow the end user is taken through an authentication process within EP which doesn't require them to navigate out of the parent products to Login to Confluence. This also mitigates the problem of having to enable 3rd party cookies in the browser settings before loading EP for a cross-domain context (3rd party parent products).
+
+3. **Upgrade guide:**
+   - Partner products that have subscribed to `"Unable to display page content"` `taskAbort` event to display their own login page should also subscribe to the `embedded-confluence/login-page` `taskStart` experience tracker event.
+   - No upgrade changes required for partner products that have not subscribed to `"Unable to display page content"` `taskAbort`.
+   - For partner products who wish to display their own authentication flow, please subscribe to `embedded-confluence/login-page` `taskStart` and `"Unable to display page content"` `taskAbort` event (Refer the [Atlaskit documentation](https://atlaskit.atlassian.com/packages/confluence/embedded-confluence-public/docs/Experience-Tracker) for more information on these events).
 
 ## 1.9.0
 

@@ -47,7 +47,7 @@ const testNames = [
   'Multiline [target] no trailing spaces: Can insert text directly after the last node view in the same paragraph',
 ] as const;
 
-type TestName = typeof testNames[number];
+type TestName = (typeof testNames)[number];
 
 export async function runInlineNodeViewTestSuite({
   nodeName,

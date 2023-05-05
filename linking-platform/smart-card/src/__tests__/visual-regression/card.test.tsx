@@ -62,8 +62,7 @@ describe('Card', () => {
     );
   };
 
-  // Skip due to failing VR Tests: https://atlassian.slack.com/archives/CL6HC337Z/p1683155976238159
-  describe.skip('Atlas', () => {
+  describe('Atlas', () => {
     const height = 340;
     const testCases = generate([
       ['goal', height],
@@ -76,20 +75,15 @@ describe('Card', () => {
     const testCases = generate([
       ['branch', 430],
       ['commit', 260],
-      // Skip due to failing VR Tests: https://atlassian.slack.com/archives/CL6HC337Z/p1683155976238159
-      // ['file', 260],
-      // Skip due to failing VR Tests: https://atlassian.slack.com/archives/CL6HC337Z/p1683155976238159
-      // ['project', 430],
-      // Skip due to failing VR Tests: https://atlassian.slack.com/archives/CL6HC337Z/p1683155976238159
-      // ['pr', 320],
-      // Skip due to failing VR Tests: https://atlassian.slack.com/archives/CL6HC337Z/p1683155976238159
-      // ['repository', 260],
+      ['file', 260],
+      ['project', 430],
+      ['pr', 320],
+      ['repository', 260],
     ]);
     runTest('vr-card-bitbucket', testCases);
   });
 
-  // Skip due to failing VR Tests: https://atlassian.slack.com/archives/CL6HC337Z/p1683155976238159
-  describe.skip('Trello', () => {
+  describe('Trello', () => {
     const testCases = generate([
       ['card', 430],
       ['board', 430],

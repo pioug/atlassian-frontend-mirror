@@ -14,7 +14,7 @@ export const ADFStages = {
   STAGE_0: 'stage0',
 } as const;
 
-export type ADFStage = typeof ADFStages[keyof typeof ADFStages];
+export type ADFStage = (typeof ADFStages)[keyof typeof ADFStages];
 
 /*
  * An ADF Document JSON object. The document is the root node and documents are

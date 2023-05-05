@@ -37,6 +37,9 @@ export const triggerLozengeStyles = css`
 `;
 
 export const dropdownItemGroupStyles = css`
+  max-height: 300px;
+  overflow-y: auto;
+
   button {
     padding: 6px 12px;
     min-height: 28px;

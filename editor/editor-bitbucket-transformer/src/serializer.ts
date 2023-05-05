@@ -1,3 +1,6 @@
+// File has been copied to packages/editor/editor-plugin-ai/src/provider/prosemirror-transformer/serializer.ts
+// If changes are made to this file, please make the same update in the linked file.
+
 import {
   MarkdownSerializer as PMMarkdownSerializer,
   MarkdownSerializerState as PMMarkdownSerializerState,

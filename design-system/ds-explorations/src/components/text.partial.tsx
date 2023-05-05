@@ -12,7 +12,7 @@ import { useSurface } from './surface-provider';
 import type { BasePrimitiveProps } from './types';
 
 const asAllowlist = ['span', 'div', 'p', 'strong'] as const;
-type AsElement = typeof asAllowlist[number];
+type AsElement = (typeof asAllowlist)[number];
 export interface TextProps extends BasePrimitiveProps {
   /**
    * HTML tag to be rendered. Defaults to `span`.

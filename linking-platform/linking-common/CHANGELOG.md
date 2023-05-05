@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 2.7.0
+
+### Minor Changes
+
+- [`67cc7412f66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/67cc7412f66) - Added `DatasourceAdf`
+
 ## 2.6.0
 
 ### Minor Changes

@@ -381,19 +381,29 @@ describe('validate Attribute', () => {
       'taskItem',
       'blockquote',
     ]);
-
     let errorCallbackMock: jest.Mock;
 
     beforeEach(() => {
       errorCallbackMock = jest.fn();
     });
 
-    afterEach(() => errorCallbackMock.mockRestore());
+    afterEach(jest.clearAllMocks);
 
     it(`should invoke error callback with UNSUPPORTED_ATTRIBUTES error code when node
         does not support any attribute and an attribute property is passed`, () => {
+      const unsupportedNodeAttributeMark = {
+        type: 'unsupportedNodeAttribute',
+        attrs: {
+          type: { nodeType: 'blockquote' },
+          unsupported: { unsupported: 'attribute' },
+        },
+      };
+      errorCallbackMock = jest
+        .fn()
+        .mockReturnValueOnce(unsupportedNodeAttributeMark);
+
       const unsupportedNodeAttribute = {
-        some: 'value',
+        unsupported: 'attribute',
       };
 
       const initialEntity = {
@@ -407,14 +417,23 @@ describe('validate Attribute', () => {
         attrs: unsupportedNodeAttribute,
       };
 
-      validate(initialEntity, errorCallbackMock);
+      const validationResult = validate(initialEntity, errorCallbackMock);
+
+      expect(validationResult.valid).toBe(true);
+      expect(validationResult.entity).toEqual({
+        ...initialEntity,
+        attrs: {},
+        marks: [unsupportedNodeAttributeMark],
+      });
       expect(errorCallbackMock).toHaveBeenCalledTimes(1);
       expect(errorCallbackMock).toHaveBeenCalledWith(
         { type: 'blockquote' },
         expect.objectContaining({
           code: 'UNSUPPORTED_ATTRIBUTES',
           message: `blockquote: 'attrs' validation failed.`,
-          meta: { some: 'value' },
+          meta: {
+            unsupported: 'attribute',
+          },
         }),
         expect.objectContaining({
           allowUnsupportedBlock: false,
@@ -427,6 +446,17 @@ describe('validate Attribute', () => {
 
     it(`should invoke error callback with UNSUPPORTED_ATTRIBUTES error code
       when unknown attribute appears along with known attribute(s) and node type is Status`, () => {
+      const unsupportedNodeAttributeMark = {
+        type: 'unsupportedNodeAttribute',
+        attrs: {
+          type: { nodeType: 'paragraph' },
+          unsupported: { invalidAttribute: 'invalidAttributeValue' },
+        },
+      };
+      errorCallbackMock = jest
+        .fn()
+        .mockReturnValueOnce(unsupportedNodeAttributeMark);
+
       const unsupportedNodeAttribute = {
         text: 'Hello',
         color: 'neutral',
@@ -445,8 +475,22 @@ describe('validate Attribute', () => {
         ],
       };
 
-      validate(initialEntity, errorCallbackMock);
+      const validationResult = validate(initialEntity, errorCallbackMock);
 
+      expect(validationResult.valid).toBe(true);
+      expect(validationResult.entity).toEqual({
+        type: 'paragraph',
+        content: [
+          {
+            type: 'status',
+            attrs: {
+              ...unsupportedNodeAttribute,
+              invalidAttribute: undefined,
+            },
+            marks: [unsupportedNodeAttributeMark],
+          },
+        ],
+      });
       expect(errorCallbackMock).toHaveBeenCalledWith(
         { type: 'status' },
         expect.objectContaining({
@@ -790,6 +834,69 @@ describe('validate Attribute', () => {
           isMark: false,
           isNodeAttribute: true,
         }),
+      );
+    });
+
+    it('should not add duplicate unsupported attributes mark nodes', () => {
+      const unsupportedNodeAttributeMark = {
+        type: 'unsupportedNodeAttribute',
+        attrs: {
+          type: { nodeType: 'inlineCard' },
+          unsupported: { data: null },
+        },
+      };
+      errorCallbackMock = jest
+        .fn()
+        .mockReturnValueOnce(unsupportedNodeAttributeMark);
+
+      const initialEntity = {
+        type: 'inlineCard',
+        attrs: {
+          url: 'https://www.atlassian.com/',
+          data: null,
+        },
+        marks: [
+          {
+            type: 'unsupportedNodeAttribute',
+            attrs: {
+              type: { nodeType: 'inlineCard' },
+              unsupported: { existing: 'Blablabla' },
+            },
+          },
+        ],
+      };
+
+      const validationResult = validate(initialEntity, errorCallbackMock);
+
+      expect(validationResult.valid).toBe(true);
+      expect(validationResult.entity).toEqual({
+        type: 'inlineCard',
+        attrs: {
+          url: 'https://www.atlassian.com/',
+        },
+        marks: [
+          {
+            type: 'unsupportedNodeAttribute',
+            attrs: {
+              type: { nodeType: 'inlineCard' },
+              unsupported: { data: null },
+            },
+          },
+        ],
+      });
+      expect(errorCallbackMock).toHaveBeenCalledWith(
+        { type: 'inlineCard' },
+        {
+          code: 'UNSUPPORTED_ATTRIBUTES',
+          message: `inlineCard: 'attrs' validation failed.`,
+          meta: { data: null },
+        },
+        {
+          allowUnsupportedBlock: false,
+          allowUnsupportedInline: false,
+          isMark: false,
+          isNodeAttribute: true,
+        },
       );
     });
   });

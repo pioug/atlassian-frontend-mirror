@@ -1,5 +1,15 @@
 # @atlaskit/media-picker
 
+## 64.4.0
+
+### Minor Changes
+
+- [`1df7534fc12`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1df7534fc12) - [ux] Introduce file size limits when uploading
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 64.3.1
 
 ### Patch Changes

@@ -44,7 +44,7 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'Pokud si chcete zobrazit tento náhled, požádejte o přístup nebo vyzkoušejte jiný účet.',
   'fabric.linking.join_to_view': 'Chcete-li si zobrazit tento požadavek, připojte se ke službě {context}.',
-  'fabric.linking.learn_more_about_smart_links': 'Další informace o odkazech Smart Link',
+  'fabric.linking.learn_more_about_smart_links': 'Další informace o chytrých odkazech',
   'fabric.linking.link_safety_warning_message':
     'Odkaz {unsafeLinkText} vás přesměruje na jiný web (<a>actual link here</a>)',
   'fabric.linking.loading': 'Načítání…',
@@ -55,6 +55,7 @@ export default {
     'Odkaz se nepodařilo najít. Zkontrolujte adresu URL a zkuste ji upravit nebo vložit znovu.',
   'fabric.linking.not_found_title': 'Jejda. Tento odkaz se nepodařilo najít.',
   'fabric.linking.open_link_in_a_new_tab': 'Otevřít odkaz na nové kartě',
+  'fabric.linking.owned_by': 'Vlastník: {context}',
   'fabric.linking.pending_request': 'Vaše žádost o přístup čeká na vyřízení.',
   'fabric.linking.preview': 'Zobrazení na celou obrazovku',
   'fabric.linking.preview_close': 'Zavřít náhled',

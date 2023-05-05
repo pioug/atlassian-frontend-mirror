@@ -1,5 +1,14 @@
 # @atlaskit/media-card
 
+## 74.7.4
+
+### Patch Changes
+
+- [`5c6e8f7b846`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5c6e8f7b846) - - refactored card file states example
+  - added inline card file states example
+- [`e8bb5592bf8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e8bb5592bf8) - MEX-2140 Refactor error boundary of media inline card
+- Updated dependencies
+
 ## 74.7.3
 
 ### Patch Changes

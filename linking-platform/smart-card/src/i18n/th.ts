@@ -44,7 +44,7 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'คุณอาจจำเป็นต้องร้องขอสิทธิ์การเข้าถึงหรือลองบัญชีอื่นเพื่อดูการแสดงตัวอย่างนี้',
   'fabric.linking.join_to_view': 'เข้าร่วม {context} เพื่อดูปัญหานี้',
-  'fabric.linking.learn_more_about_smart_links': 'เรียนรู้เพิ่มเติมเกี่ยวกับ Smart Link',
+  'fabric.linking.learn_more_about_smart_links': 'เรียนรู้เพิ่มเติมเกี่ยวกับสมาร์ทลิงก์ (ลิงก์อัจฉริยะ)',
   'fabric.linking.link_safety_warning_message':
     'ลิงก์ {unsafeLinkText} จะนำคุณไปยังเว็บไซต์อื่น <a>ลิงก์จริงอยู่ที่นี่</a>',
   'fabric.linking.loading': 'กำลังโหลด...',
@@ -54,6 +54,7 @@ export default {
   'fabric.linking.not_found_description': 'เราไม่พบลิงก์ ตรวจสอบ URL และลองแก้ไขหรือวางอีกครั้ง',
   'fabric.linking.not_found_title': 'โอ๊ะ โอ เราไม่พบลิงก์นี้!',
   'fabric.linking.open_link_in_a_new_tab': 'เปิดลิงก์ในแถบใหม่',
+  'fabric.linking.owned_by': 'เจ้าของคือ {context}',
   'fabric.linking.pending_request': 'คำขอการเข้าถึงของคุณกำลังรอดำเนินการ',
   'fabric.linking.preview': 'มุมมองแบบเต็มหน้าจอ',
   'fabric.linking.preview_close': 'ปิดการแสดงตัวอย่าง',

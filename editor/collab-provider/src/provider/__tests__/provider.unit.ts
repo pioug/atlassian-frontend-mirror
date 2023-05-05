@@ -31,6 +31,7 @@ jest.mock('../../channel', () => {
       connect: jest.fn(),
       broadcast: () => jest.fn(),
       fetchCatchup: () => jest.fn(),
+      sendMetadata: () => jest.fn(),
     };
   }
   return {
@@ -64,7 +65,11 @@ import type { Provider } from '../';
 // @ts-ignore only used for mock
 import ProseMirrorCollab from '@atlaskit/prosemirror-collab';
 import { ProviderParticipant } from '../../participants/participants-helper';
-import { InternalError, NCS_ERROR_CODE } from '../../errors/error-types';
+import {
+  InternalError,
+  NCS_ERROR_CODE,
+  ProviderInitialisationError,
+} from '../../errors/error-types';
 import { INTERNAL_ERROR_CODE } from '../../errors/error-types';
 
 const testProviderConfig = {
@@ -124,6 +129,34 @@ describe('Provider', () => {
       ],
     }),
   };
+
+  describe('setup', () => {
+    it('should throw an error when cookies are not enabled', () => {
+      const sendErrorEventSpy = jest.spyOn(
+        AnalyticsHelper.prototype,
+        'sendErrorEvent',
+      );
+      Object.defineProperty(global.navigator, 'cookieEnabled', {
+        value: false,
+        writable: true,
+      });
+      const provider = createSocketIOCollabProvider(testProviderConfig);
+      expect(() => {
+        provider.setup({ getState: () => editorState });
+      }).toThrowErrorMatchingInlineSnapshot(
+        `"Cookies are not enabled. Please enable cookies to use collaborative editing."`,
+      );
+      expect(sendErrorEventSpy).toHaveBeenCalledWith(
+        new ProviderInitialisationError(
+          'Cookies are not enabled. Please enable cookies to use collaborative editing.',
+        ),
+        'Error while initialising the provider - cookies disabled',
+      );
+      Object.defineProperty(global.navigator, 'cookieEnabled', {
+        value: true,
+      });
+    });
+  });
 
   describe('initialisation', () => {
     it('should call initializeChannel once', () => {
@@ -941,14 +974,13 @@ describe('Provider', () => {
 
       const participant = {
         name: 'Joni Vanderheijden',
-        email: '',
         avatar:
           'https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/70121:8fce2c13-5f60-40be-a9f2-956c6f041fbe/5955acd3-cc59-4220-b886-e9d4c33ed8e6/128',
         sessionId: 'kxPWnuWui2kx-qUDB5LU',
         lastActive: 1676954400001,
         userId: '70121:8fce2c13-5f60-40be-a9f2-956c6f041fbe',
         clientId: 2827051402,
-      } as ProviderParticipant; // TODO: Review CollabParticipant type, it's deviating from the real data
+      } as ProviderParticipant;
 
       // @ts-ignore You're not my mom, I call private methods in a negative test
       provider.participantsService.participantsState.setBySessionId(
@@ -1530,6 +1562,19 @@ describe('Provider', () => {
         );
         expect(provider.getUnconfirmedSteps()).toEqual([]);
         expect(documentServiceGetUnconfirmedStepsSpy).toBeCalledTimes(1);
+      });
+    });
+
+    describe('metadata', () => {
+      it('Can set and get latest metadata', () => {
+        const setMetadataSpy = jest.spyOn(
+          (provider as any).metadataService,
+          'setMetadata',
+        );
+        const sampleMetadata = { title: 'hello', editorWidth: '300' };
+        provider.setMetadata(sampleMetadata);
+        expect(provider.getMetadata()).toEqual(sampleMetadata);
+        expect(setMetadataSpy).toBeCalledWith(sampleMetadata);
       });
     });
   });

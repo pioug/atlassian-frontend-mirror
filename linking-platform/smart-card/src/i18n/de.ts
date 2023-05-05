@@ -44,7 +44,7 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'Bitte senden Sie eine Zugriffsanfrage oder versuchen Sie, die Vorschau über ein anderes Konto anzusehen.',
   'fabric.linking.join_to_view': '{context} beitreten, um diesen Vorgang anzuzeigen',
-  'fabric.linking.learn_more_about_smart_links': 'Mehr über Smart Links erfahren',
+  'fabric.linking.learn_more_about_smart_links': 'Mehr über intelligente Links erfahren',
   'fabric.linking.link_safety_warning_message':
     'Über den Link {unsafeLinkText} gelangen Sie zu einer anderen Site, <a>actual link here</a>',
   'fabric.linking.loading': 'Lädt ...',
@@ -55,6 +55,7 @@ export default {
     'Der Link konnte nicht gefunden werden. Überprüfen Sie die URL und versuchen Sie die Bearbeitung oder das Einfügen erneut.',
   'fabric.linking.not_found_title': 'Oh! Diese Verknüpfung konnte nicht gefunden werden!',
   'fabric.linking.open_link_in_a_new_tab': 'Link in neuer Registerkarte öffnen',
+  'fabric.linking.owned_by': 'Besitzer: {context}',
   'fabric.linking.pending_request': 'Ihre Zugriffsanfrage ist ausstehend.',
   'fabric.linking.preview': 'Vollbildansicht',
   'fabric.linking.preview_close': 'Vorschau beenden',

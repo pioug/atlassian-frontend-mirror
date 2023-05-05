@@ -8,94 +8,19 @@
  * - packages/editor/editor-core/src/plugins/table/pm-plugins/table-local-id.ts
  */
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { PluginKey, Transaction } from 'prosemirror-state';
+import { PluginKey } from 'prosemirror-state';
 import { NodeType, Schema, Node as ProsemirrorNode } from 'prosemirror-model';
 
 import { uuid } from '@atlaskit/adf-schema';
 
-import { stepAddsOneOf } from '../../../utils/step';
 import { Dispatch } from '../../../event-dispatcher';
+import { getChangedNodes } from '../../../utils/document';
 
 const pluginKey = new PluginKey('fragmentMarkConsistencyPlugin');
-
-/**
- * Traverses a transaction's steps to see if we're inserting a node which supports a fragment mark
- */
-const checkIsAddingSupportedNode = (
-  schema: Schema,
-  transaction: Transaction,
-) => {
-  const nodesSupportingFragmentMark = getNodesSupportingFragmentMark(schema);
-  return transaction.steps.some((step) =>
-    nodesSupportingFragmentMark.some((nodeType) =>
-      stepAddsOneOf(step, new Set([nodeType])),
-    ),
-  );
-};
 
 const getNodesSupportingFragmentMark = (schema: Schema): NodeType[] => {
   const { table, extension, bodiedExtension, inlineExtension } = schema.nodes;
   return [table, extension, bodiedExtension, inlineExtension];
-};
-
-const regenerateFragmentIdIfNeeded = ({
-  transaction,
-  schema,
-  doc,
-  shouldRegenerateLocalId,
-}: {
-  transaction: Transaction<any>;
-  schema: Schema;
-  doc: ProsemirrorNode;
-  shouldRegenerateLocalId(localId: string): boolean;
-}): { transactionChanged: boolean } => {
-  const { fragment } = schema.marks;
-  const nodesSupportingFragmentMark = getNodesSupportingFragmentMark(schema);
-
-  let transactionChanged = false;
-
-  doc.descendants((node, pos) => {
-    const isSupportedNode = nodesSupportingFragmentMark.some(
-      (supportedNode) => node.type === supportedNode,
-    );
-    if (!isSupportedNode) {
-      // continue traversing
-      return true;
-    }
-
-    const existingFragmentMark = node.marks.find(
-      (mark) => mark.type === fragment,
-    );
-    if (!existingFragmentMark) {
-      // continue traversing
-      return true;
-    }
-
-    if (shouldRegenerateLocalId(existingFragmentMark.attrs.localId)) {
-      transactionChanged = true;
-
-      transaction.setNodeMarkup(
-        pos,
-        undefined,
-        node.attrs,
-        node.marks.map((mark) => {
-          if (mark.type === fragment) {
-            mark.attrs.localId = uuid.generate();
-            mark.attrs.name = null;
-          }
-
-          return mark;
-        }),
-      );
-    }
-
-    /**
-     * Continue traversing, as we can encounter inline extension nodes pretty much anywhere
-     */
-    return true;
-  });
-
-  return { transactionChanged };
 };
 
 /**
@@ -108,8 +33,16 @@ export const createPlugin = (dispatch: Dispatch) =>
       let modified = false;
       const tr = newState.tr;
 
+      const { fragment } = newState.schema.marks;
+      const supportedNodeTypes = getNodesSupportingFragmentMark(
+        newState.schema,
+      );
+
+      const addedSupportedNodes: Set<ProsemirrorNode> = new Set();
+      const addedSupportedNodesPos: Map<ProsemirrorNode, number> = new Map();
+      const localIds: Set<string> = new Set();
+
       transactions.forEach((transaction) => {
-        const fragmentLocalIdsObserved = new Set<string>();
         if (!transaction.docChanged) {
           return;
         }
@@ -121,37 +54,82 @@ export const createPlugin = (dispatch: Dispatch) =>
           return;
         }
 
-        /** Check if we're actually inserting a supported node, otherwise we can ignore this tr */
-        const isAddingSupportedNode = checkIsAddingSupportedNode(
-          newState.schema,
-          transaction,
-        );
-        if (!isAddingSupportedNode) {
-          return;
-        }
+        const changedNodes = getChangedNodes(transaction);
+        for (const { node } of changedNodes) {
+          if (!supportedNodeTypes.includes(node.type)) {
+            continue;
+          }
 
-        const { transactionChanged } = regenerateFragmentIdIfNeeded({
-          doc: newState.doc,
-          schema: newState.schema,
-          transaction: tr,
-          shouldRegenerateLocalId: (localId: string) => {
-            if (fragmentLocalIdsObserved.has(localId)) {
-              return true;
-            }
-
-            fragmentLocalIdsObserved.add(localId);
-            return false;
-          },
-        });
-
-        if (transactionChanged) {
-          modified = true;
+          addedSupportedNodes.add(node);
         }
       });
+
+      if (!addedSupportedNodes.size) {
+        return;
+      }
+
+      // Get existing fragment marks localIds on the page
+      newState.doc.descendants((node, pos) => {
+        if (addedSupportedNodes.has(node)) {
+          addedSupportedNodesPos.set(node, pos);
+          return true;
+        }
+
+        if (!supportedNodeTypes.includes(node.type)) {
+          return true;
+        }
+
+        const existingFragmentMark = node.marks.find(
+          (mark) => mark.type === fragment,
+        );
+        if (!existingFragmentMark) {
+          // continue traversing
+          return true;
+        }
+
+        localIds.add(existingFragmentMark.attrs.localId);
+
+        return true;
+      });
+
+      // If an added node has localId that collides with existing node, generate new localId
+      for (const node of addedSupportedNodes) {
+        const pos = addedSupportedNodesPos.get(node);
+
+        if (pos === undefined) {
+          continue;
+        }
+
+        const existingFragmentMark = node.marks.find(
+          (mark) => mark.type === fragment,
+        );
+        if (!existingFragmentMark) {
+          continue;
+        }
+
+        if (localIds.has(existingFragmentMark.attrs.localId)) {
+          tr.setNodeMarkup(
+            pos,
+            undefined,
+            node.attrs,
+            node.marks.map((mark) => {
+              if (mark.type === fragment) {
+                mark.attrs.localId = uuid.generate();
+                mark.attrs.name = null;
+              }
+
+              return mark;
+            }),
+          );
+
+          modified = true;
+        }
+      }
 
       if (modified) {
         return tr;
       }
+
       return;
     },
   });

@@ -1,6 +1,8 @@
 import React from 'react';
 
-import { mount } from 'enzyme';
+import { render, screen } from '@testing-library/react';
+
+import { token } from '@atlaskit/tokens';
 
 import { colorPalette } from '../../color-palettes';
 import { background } from '../../colors';
@@ -15,32 +17,58 @@ import {
 
 describe('AtlaskitThemeProvider', () => {
   it('should mount', () => {
-    expect(
-      mount(
-        <AtlaskitThemeProvider mode="light">
-          <div />
-        </AtlaskitThemeProvider>,
-      ).prop('mode'),
-    ).toBe('light');
+    render(
+      <AtlaskitThemeProvider mode="light">
+        <div />
+      </AtlaskitThemeProvider>,
+    );
+
+    expect(screen.getByTestId('theme-provider')).toBeInTheDocument();
   });
+
   it('uses the default background color', () => {
-    expect(
-      mount(
-        <AtlaskitThemeProvider mode="light" background={background}>
-          <div />
-        </AtlaskitThemeProvider>,
-      ).prop('background'),
-    ).toEqual(background);
+    render(
+      <AtlaskitThemeProvider mode="light" background={background}>
+        <div />
+      </AtlaskitThemeProvider>,
+    );
+
+    // CSS rules containing variables are not applied to the elements in tests
+    const themeStyleSheet = document.getElementById(
+      'ds--theme--ak-body-background',
+    );
+    expect(themeStyleSheet?.innerHTML).toContain(
+      token('elevation.surface', '#FFFFFF'),
+    );
   });
+
+  it('uses the default background color and respects provided mode value', () => {
+    render(
+      <AtlaskitThemeProvider mode="dark" background={background}>
+        <div />
+      </AtlaskitThemeProvider>,
+    );
+
+    // CSS rules containing variables are not applied to the elements in tests
+    const themeStyleSheet = document.getElementById(
+      'ds--theme--ak-body-background',
+    );
+    expect(themeStyleSheet?.innerHTML).toContain(
+      token('elevation.surface', '#1B2638'),
+    );
+  });
+
   it('uses a custom background color', () => {
     const customBackground = themed({ light: 'white', dark: 'custom-black' });
-    expect(
-      mount(
-        <AtlaskitThemeProvider mode="light" background={customBackground}>
-          <div />
-        </AtlaskitThemeProvider>,
-      ).prop('background'),
-    ).toEqual(customBackground);
+    render(
+      <AtlaskitThemeProvider mode="light" background={customBackground}>
+        <div />
+      </AtlaskitThemeProvider>,
+    );
+
+    expect(screen.getByTestId('theme-provider')).toHaveStyle(
+      'background: white',
+    );
   });
 });
 

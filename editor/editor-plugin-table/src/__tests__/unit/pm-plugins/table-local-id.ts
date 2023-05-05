@@ -347,23 +347,11 @@ describe('table local id plugin', () => {
         editorView.updateState(state3);
         dispatchPasteEvent(editorView, { html: dom.innerHTML, plain: text });
 
-        /**
-         * The end result order of IDs that we'll now observe is the following:
-         *  1. flooFirst
-         *  2. flooThird
-         *  3. flooSecond
-         *
-         * This is because we had `flooFirst` in our clipboard. We've now pasted
-         * it into the expand, so that becomes the first observed instance of
-         * the table. The "third" ID (second unique regeneration) then gets
-         * replaced in the first layout column.
-         *
-         */
         expect(editorView.state.doc).toEqualDocument(
           doc(
-            expand({ title: '' })(generateTableWithLocalId(flooFirst)),
+            expand({ title: '' })(generateTableWithLocalId(flooThird)),
             layoutSection(
-              layoutColumn({ width: 50 })(generateTableWithLocalId(flooThird)),
+              layoutColumn({ width: 50 })(generateTableWithLocalId(flooFirst)),
               layoutColumn({ width: 50 })(generateTableWithLocalId(flooSecond)),
             ),
             p(),

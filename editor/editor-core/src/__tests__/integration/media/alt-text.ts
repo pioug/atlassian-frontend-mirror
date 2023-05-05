@@ -39,12 +39,10 @@ async function setupEditorWithMedia(client: any): Promise<Page> {
   return page;
 }
 
-// FIXME: This test was automatically skipped due to failure on 09/02/2023: https://product-fabric.atlassian.net/browse/ED-16840
 BrowserTestCase(
   'Inserts a media single with alt text',
   {
-    // skip: ['safari'],
-    skip: ['*'],
+    skip: ['safari'],
   },
   async (client: any, testName: string) => {
     const page = await setupEditorWithMedia(client);

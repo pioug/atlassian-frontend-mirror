@@ -7,6 +7,6 @@
  */
 //Ukrainian (Ukraine)
 export default {
-  "bitbucket.panel-collapse.message": "згорнути",
-  "bitbucket.panel-expand.message": "розгорнути"
+  'bitbucket.panel-collapse.message': 'згорнути',
+  'bitbucket.panel-expand.message': 'розгорнути',
 };

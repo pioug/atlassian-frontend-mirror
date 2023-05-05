@@ -7,6 +7,6 @@
  */
 //Thai (Thailand)
 export default {
-  "bitbucket.panel-collapse.message": "ยุบรวม",
-  "bitbucket.panel-expand.message": "ขยาย"
+  'bitbucket.panel-collapse.message': 'ยุบรวม',
+  'bitbucket.panel-expand.message': 'ขยาย',
 };

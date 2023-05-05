@@ -285,28 +285,16 @@ describe('fragment mark consistency plugin', () => {
         editorView.updateState(state3);
         dispatchPasteEvent(editorView, { html: dom.innerHTML, plain: text });
 
-        /**
-         * The end result order of IDs that we'll now observe is the following:
-         *  1. flooFirst
-         *  2. flooThird
-         *  3. flooSecond
-         *
-         * This is because we had `flooFirst` in our clipboard. We've now pasted
-         * it into the expand, so that becomes the first observed instance of
-         * the table. The "third" ID (second unique regeneration) then gets
-         * replaced in the first layout column.
-         *
-         */
         expect(editorView.state.doc).toEqualDocument(
           doc(
             expand({ title: '' })(
-              fragmentMark({ localId: flooFirst })(
+              fragmentMark({ localId: flooThird })(
                 generateTableWithLocalId(mockUuidGenerated),
               ),
             ),
             layoutSection(
               layoutColumn({ width: 50 })(
-                fragmentMark({ localId: flooThird })(
+                fragmentMark({ localId: flooFirst })(
                   generateTableWithLocalId(mockUuidGenerated),
                 ),
               ),

@@ -7,6 +7,7 @@ const params =
     ? new URLSearchParams(location.search.slice(1))
     : null;
 const delay = params ? params.get('delay') : 0;
+const scroll = params ? params.get('scroll') : false;
 
 const mockActionTypes = [
   SmartLinkActionType.GetStatusTransitionsAction,
@@ -39,14 +40,18 @@ fetchMock.mock({
     const body = JSON.parse((options?.body as string) ?? '{}');
     switch (body.action.actionType) {
       case SmartLinkActionType.GetStatusTransitionsAction:
+        const transitions = [
+          { id: '1', name: 'In Progress', appearance: 'inprogress' },
+          { id: '2', name: 'Done', appearance: 'success' },
+          { id: '3', name: 'To Do', appearance: 'default' },
+          { id: '4', name: 'Explore' },
+          { id: '5', name: 'In Review', appearance: 'inprogress' },
+        ];
+
         return {
-          transitions: [
-            { id: '1', name: 'In Progress', appearance: 'inprogress' },
-            { id: '2', name: 'Done', appearance: 'success' },
-            { id: '3', name: 'To Do', appearance: 'default' },
-            { id: '4', name: 'Explore' },
-            { id: '5', name: 'In Review', appearance: 'inprogress' },
-          ],
+          transitions: scroll
+            ? [...transitions, ...transitions, ...transitions]
+            : transitions,
         };
       case SmartLinkActionType.StatusUpdateAction:
         return 204;

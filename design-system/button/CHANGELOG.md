@@ -1,5 +1,11 @@
 # @atlaskit/button
 
+## 16.6.1
+
+### Patch Changes
+
+- [`23a850fe471`](https://bitbucket.org/atlassian/atlassian-frontend/commits/23a850fe471) - DUMMY changeset to fix PI
+
 ## 16.6.0
 
 ### Minor Changes

@@ -39,7 +39,7 @@ const ColorBox = ({ color }: { color: string }) => (
   />
 );
 
-type ColorOption = typeof colors[number];
+type ColorOption = (typeof colors)[number];
 
 /**
  * NOTE this is not declared inline with the Select

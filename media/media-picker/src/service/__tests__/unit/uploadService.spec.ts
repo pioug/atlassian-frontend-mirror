@@ -6,11 +6,15 @@ jest.mock('uuid/v4', () => ({
   default: jest.fn().mockReturnValue('some-scope'),
 }));
 
-import { MediaClient, UploadableFile, FileState } from '@atlaskit/media-client';
+import {
+  MediaClient,
+  UploadableFile,
+  createMediaSubject,
+} from '@atlaskit/media-client';
 import {
   TouchedFiles,
   ProcessingFileState,
-  createMediaSubscribable,
+  fromObservable,
   RequestError,
 } from '@atlaskit/media-client';
 import uuidV4 from 'uuid/v4';
@@ -19,7 +23,6 @@ import {
   fakeMediaClient,
   flushPromises,
 } from '@atlaskit/media-test-helpers';
-import { Subscriber } from 'rxjs/Subscriber';
 import { UploadServiceImpl } from '../../uploadServiceImpl';
 import * as getPreviewModule from '../../../util/getPreviewFromBlob';
 import * as getPreviewFromImage from '../../../util/getPreviewFromImage';
@@ -36,8 +39,37 @@ describe('UploadService', () => {
   const usersClientId = 'some-users-collection-client-id';
   const usersToken = 'some-users-collection-client-id';
   const previewObject: Preview = { someImagePreview: true } as any;
-  const defaultUploadMock = {
-    subscribe() {},
+
+  const file = {
+    size: 100,
+    name: 'some-filename',
+    type: 'video/mp4',
+  } as File;
+  const localFileWithSource = {
+    file,
+    source: LocalFileSource.LocalUpload,
+  } as LocalFileWithSource;
+
+  const successfulTouchedFiles: TouchedFiles = {
+    created: [
+      {
+        fileId: 'uuid1',
+        uploadId: 'some-upload-id-uuid1',
+      },
+      {
+        fileId: 'uuid3',
+        uploadId: 'some-upload-id-uuid2',
+      },
+      {
+        fileId: 'uuid5',
+        uploadId: 'some-upload-id-uuid3',
+      },
+      {
+        fileId: 'uuid7',
+        uploadId: 'some-upload-id-uuid4',
+      },
+    ],
+    rejected: [],
   };
 
   const getMediaClient = (options = {}) =>
@@ -50,38 +82,19 @@ describe('UploadService', () => {
         }),
       ...options,
     });
-  const file = { size: 100, name: 'some-filename', type: 'video/mp4' } as File;
-  const localFileWithSource = {
-    file,
-    source: LocalFileSource.LocalUpload,
-  } as LocalFileWithSource;
+
   const setup = (
     mediaClient: MediaClient = getMediaClient(),
     tenantUploadParams: UploadParams = { collection: '', expireAfter: 2 },
     shouldCopyFileToRecents: boolean = true,
   ) => {
-    const touchedFiles: TouchedFiles = {
-      created: [
-        {
-          fileId: 'uuid1',
-          uploadId: 'some-upload-id-uuid1',
-        },
-        {
-          fileId: 'uuid2',
-          uploadId: 'some-upload-id-uuid2',
-        },
-        {
-          fileId: 'uuid3',
-          uploadId: 'some-upload-id-uuid3',
-        },
-        {
-          fileId: 'uuid4',
-          uploadId: 'some-upload-id-uuid4',
-        },
-      ],
-    };
-    asMock(mediaClient.file.touchFiles).mockResolvedValue(touchedFiles);
-    asMock(mediaClient.file.upload).mockReturnValue(defaultUploadMock);
+    asMock(mediaClient.file.touchFiles).mockResolvedValue(
+      successfulTouchedFiles,
+    );
+    const fileStateObservable = createMediaSubject();
+    asMock(mediaClient.file.upload).mockReturnValue(
+      fromObservable(fileStateObservable),
+    );
 
     (getPreviewFromImage.getPreviewFromImage as any).mockReturnValue(
       Promise.resolve(previewObject),
@@ -97,7 +110,12 @@ describe('UploadService', () => {
       uploadService.on('files-added', () => resolve()),
     );
 
-    return { uploadService, filesAddedPromise, mediaClient };
+    return {
+      uploadService,
+      filesAddedPromise,
+      mediaClient,
+      fileStateObservable,
+    };
   };
 
   beforeEach(() => {
@@ -109,7 +127,10 @@ describe('UploadService', () => {
       .mockReturnValueOnce('uuid1')
       .mockReturnValueOnce('uuid2')
       .mockReturnValueOnce('uuid3')
-      .mockReturnValueOnce('uuid4');
+      .mockReturnValueOnce('uuid4')
+      .mockReturnValueOnce('uuid5')
+      .mockReturnValueOnce('uuid6')
+      .mockReturnValueOnce('uuid7');
   });
 
   afterEach(() => {
@@ -145,11 +166,12 @@ describe('UploadService', () => {
       );
 
       uploadService.addFiles([file]);
+      await flushPromises();
       await filesAddedPromise;
       const expectedPayload: UploadPreviewUpdateEventPayload = {
         file: {
           creationDate: expect.any(Number),
-          id: expect.any(String),
+          id: 'uuid1',
           name: 'some-filename',
           size: 100,
           type: 'video/mp4',
@@ -168,11 +190,12 @@ describe('UploadService', () => {
       uploadService.on('file-preview-update', callback);
 
       uploadService.addFiles([file as File]);
+      await flushPromises();
       await filesAddedPromise;
       const expectedPayload: UploadPreviewUpdateEventPayload = {
         file: {
           creationDate: expect.any(Number),
-          id: expect.any(String),
+          id: 'uuid1',
           name: 'some-filename',
           size: 100,
           type: 'image/png',
@@ -261,7 +284,7 @@ describe('UploadService', () => {
       expect(filesAddedCallback).not.toHaveBeenCalled();
     });
 
-    it('should emit files-added event with correct payload when addFiles() is called with multiple files', () => {
+    it('should emit files-added event with correct payload when addFiles() is called with multiple files', async () => {
       const { uploadService } = setup();
       const currentTimestamp = Date.now();
       const file2: File = {
@@ -274,6 +297,7 @@ describe('UploadService', () => {
       uploadService.on('files-added', filesAddedCallback);
 
       uploadService.addFiles([file, file2]);
+      await flushPromises();
       const expectedPayload: UploadsStartEventPayload = {
         files: [
           {
@@ -307,16 +331,17 @@ describe('UploadService', () => {
       ).toBeGreaterThanOrEqual(currentTimestamp);
     });
 
-    it('should call upload for each given file', () => {
+    it('should call upload for each given file', async () => {
       const file2: File = {
         size: 10e7,
         name: 'some-other-filename',
         type: 'image/png',
-      } as any;
+      } as File;
       const { mediaClient, uploadService } = setup(undefined, {
         collection: 'some-collection',
       });
       uploadService.addFiles([file, file2]);
+      await flushPromises();
       expect(mediaClient.file.upload).toHaveBeenCalledTimes(2);
       const expectedUploadableFile2: UploadableFile = {
         collection: 'some-collection',
@@ -342,55 +367,46 @@ describe('UploadService', () => {
 
     it.skip('should emit file-converting when uploadFile resolves', async () => {
       const mediaClient = getMediaClient();
-      const { uploadService } = setup(mediaClient, {
+      const { uploadService, fileStateObservable } = setup(mediaClient, {
         collection: 'some-collection',
       });
       const fileConvertingCallback = jest.fn();
       uploadService.on('file-converting', fileConvertingCallback);
-      jest
-        .spyOn(mediaClient.file, 'upload')
-
-        .mockReturnValue(
-          createMediaSubscribable({
-            status: 'processing',
-            id: 'public-file-id',
-          } as ProcessingFileState),
-        );
       uploadService.addFiles([file]);
-      window.setTimeout(() => {
-        expect(fileConvertingCallback).toHaveBeenCalledTimes(1);
-        expect(fileConvertingCallback).toHaveBeenCalledWith({
-          file: {
-            publicId: 'public-file-id',
-            id: expect.any(String),
-            creationDate: expect.any(Number),
-            name: 'some-filename',
-            size: 100,
-            type: 'video/mp4',
-          },
-        });
+      await flushPromises();
+
+      fileStateObservable.next({
+        status: 'processing',
+        id: 'public-file-id',
+      } as ProcessingFileState);
+
+      expect(fileConvertingCallback).toHaveBeenCalledTimes(1);
+      expect(fileConvertingCallback).toHaveBeenCalledWith({
+        file: {
+          id: expect.any(String),
+          creationDate: expect.any(Number),
+          name: 'some-filename',
+          size: 100,
+          type: 'video/mp4',
+          occurrenceKey: expect.any(String),
+        },
+        traceContext: expect.any(Object),
       });
     });
 
-    it('should emit "file-upload-error" when uploadFile fail', () => {
+    it('should emit file-upload-error when uploadFile fail', async () => {
       const mediaClient = getMediaClient();
-      const { uploadService } = setup(mediaClient, {
+      const { uploadService, fileStateObservable } = setup(mediaClient, {
         collection: 'some-collection',
       });
       const error = new Error('Some reason');
       const fileUploadErrorCallback = jest.fn();
       uploadService.on('file-upload-error', fileUploadErrorCallback);
-      jest.spyOn(mediaClient.file, 'upload').mockReturnValue({
-        // @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
-        //See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff
-        subscribe(subscription: Subscriber<FileState>) {
-          // window.setTimeout(() => {
-          subscription.error(error);
-          // }, 10)
-        },
-      });
 
       uploadService.addFiles([file]);
+      await flushPromises();
+
+      fileStateObservable.error(error);
 
       expect(fileUploadErrorCallback).toHaveBeenCalledWith({
         fileId: 'uuid1',
@@ -403,13 +419,494 @@ describe('UploadService', () => {
         traceContext: expect.any(Object),
       });
     });
+
+    it('should not call the file rejection handler when all uploads are successful', async () => {
+      const { uploadService, filesAddedPromise } = setup();
+
+      const callback = jest.fn();
+      uploadService.onFileRejection(callback);
+
+      uploadService.addFiles([file]);
+      await flushPromises();
+      await filesAddedPromise;
+
+      expect(callback).not.toHaveBeenCalled();
+    });
+
+    it('should set deferredUploadId to correctly when a batch of upload sessions are successfully created', async () => {
+      const { mediaClient, uploadService, filesAddedPromise } = setup();
+
+      uploadService.addFiles([file]);
+      await flushPromises();
+      await filesAddedPromise;
+
+      const uploadId = await asMock(mediaClient.file.upload).mock.calls[0][2]
+        .deferredUploadId;
+      expect(uploadId).toEqual('some-upload-id-uuid1');
+    });
+
+    it('should set deferredUploadId to the ID of a manually created upload session when an conflict error occurrs', async () => {
+      const { mediaClient, uploadService, filesAddedPromise } = setup();
+
+      asMock(mediaClient.file.touchFiles).mockRejectedValueOnce(
+        new RequestError('serverUnexpectedError', { statusCode: 409 }),
+      );
+
+      asMock(mediaClient.mediaStore.createUpload).mockResolvedValueOnce({
+        data: [
+          {
+            id: 'manually-created-upload-id',
+          },
+        ],
+      } as any);
+
+      uploadService.addFiles([file]);
+      await flushPromises();
+      await filesAddedPromise;
+
+      const uploadId = await asMock(mediaClient.file.upload).mock.calls[0][2]
+        .deferredUploadId;
+      expect(uploadId).toEqual('manually-created-upload-id');
+    });
+
+    it('should set deferredUploadId to a an error when an unexpected error occurrs', async () => {
+      const { mediaClient, uploadService } = setup();
+
+      const error = new Error('some error');
+      mediaClient.file.touchFiles = jest.fn(() => Promise.reject(error));
+
+      const fileStateObservable = createMediaSubject();
+      mediaClient.file.upload = jest.fn(
+        (file: any, controller?: any, uploadableFileUpfrontIds?: any) => {
+          uploadableFileUpfrontIds?.deferredUploadId.catch(() => {});
+          return fromObservable(fileStateObservable);
+        },
+      );
+
+      uploadService.addFiles([file]);
+      await flushPromises();
+
+      await expect(
+        asMock(mediaClient.file.upload).mock.calls[0][2].deferredUploadId,
+      ).rejects.toThrow(error);
+    });
+  });
+
+  describe('FileSizeLimitExceeded in addFilesWithSource', () => {
+    it('should emit file-preview-update only for successfully created files', async () => {
+      const touchedFiles: TouchedFiles = {
+        created: [
+          {
+            fileId: 'uuid1',
+            uploadId: 'some-upload-id-uuid1',
+          },
+          {
+            fileId: 'uuid3',
+            uploadId: 'some-upload-id-uuid2',
+          },
+        ],
+        rejected: [
+          {
+            fileId: 'uuid5',
+            error: {
+              code: 'ExceedMaxFileSizeLimit',
+              title: 'The expected file size exceeded the maximum size limit.',
+              href: 'https://dt-api-filestore--app.ap-southeast-2.dev.atl-paas.net/api.html#BadRequest',
+              limit: 100000,
+              size: 100800,
+            },
+          },
+          {
+            fileId: 'uuid7',
+            error: {
+              code: 'ExceedMaxFileSizeLimit',
+              title: 'The expected file size exceeded the maximum size limit.',
+              href: 'https://dt-api-filestore--app.ap-southeast-2.dev.atl-paas.net/api.html#BadRequest',
+              limit: 100000,
+              size: 200000,
+            },
+          },
+        ],
+      };
+      const { mediaClient, uploadService, filesAddedPromise } = setup();
+      asMock(mediaClient.file.touchFiles).mockResolvedValue(touchedFiles);
+
+      const callback = jest.fn();
+      uploadService.on('file-preview-update', callback);
+
+      const previewObject: Preview = { someImagePreview: true } as any;
+      (getPreviewModule.getPreviewFromBlob as any).mockReturnValue(
+        Promise.resolve(previewObject),
+      );
+
+      const file2: File = {
+        size: 10e7,
+        name: 'file2-name',
+        type: 'image/png',
+      } as File;
+      const file3: File = {
+        size: 100800,
+        name: 'file3-name',
+        type: 'video/mp4',
+      } as File;
+      const file4: File = {
+        size: 200000,
+        name: 'file4-name',
+        type: 'video/mp4',
+      } as File;
+
+      uploadService.addFiles([file, file2, file3, file4]);
+      await flushPromises();
+      await filesAddedPromise;
+      const expectedPayload: UploadPreviewUpdateEventPayload = {
+        file: {
+          creationDate: expect.any(Number),
+          id: 'uuid1',
+          name: 'some-filename',
+          size: 100,
+          type: 'video/mp4',
+          occurrenceKey: expect.any(String),
+        },
+        preview: previewObject,
+      };
+      expect(callback).toHaveBeenCalledWith(expectedPayload);
+      expect(callback).toHaveBeenCalledWith({
+        file: {
+          creationDate: expect.any(Number),
+          id: 'uuid3',
+          name: 'file2-name',
+          size: 10e7,
+          type: 'image/png',
+          occurrenceKey: expect.any(String),
+        },
+        preview: previewObject,
+      });
+      expect(callback).not.toHaveBeenCalledWith({
+        file: {
+          creationDate: expect.any(Number),
+          id: 'uuid5',
+          name: 'file3-name',
+          size: 10e7,
+          type: 'video/mp4',
+          occurrenceKey: expect.any(String),
+        },
+        preview: previewObject,
+      });
+      expect(callback).not.toHaveBeenCalledWith({
+        file: {
+          creationDate: expect.any(Number),
+          id: 'uuid7',
+          name: 'file4-name',
+          size: 10e7,
+          type: 'video/mp4',
+          occurrenceKey: expect.any(String),
+        },
+        preview: previewObject,
+      });
+    });
+
+    it('should call file rejection handler when files are rejected', async () => {
+      const touchedFiles: TouchedFiles = {
+        created: [
+          {
+            fileId: 'uuid1',
+            uploadId: 'some-upload-id-uuid1',
+          },
+          {
+            fileId: 'uuid3',
+            uploadId: 'some-upload-id-uuid2',
+          },
+        ],
+        rejected: [
+          {
+            fileId: 'uuid5',
+            error: {
+              code: 'ExceedMaxFileSizeLimit',
+              title: 'The expected file size exceeded the maximum size limit.',
+              href: 'https://dt-api-filestore--app.ap-southeast-2.dev.atl-paas.net/api.html#BadRequest',
+              limit: 500,
+              size: 1000,
+            },
+          },
+          {
+            fileId: 'uuid7',
+            error: {
+              code: 'ExceedMaxFileSizeLimit',
+              title: 'The expected file size exceeded the maximum size limit.',
+              href: 'https://dt-api-filestore--app.ap-southeast-2.dev.atl-paas.net/api.html#BadRequest',
+              limit: 500,
+              size: 10e7,
+            },
+          },
+        ],
+      };
+      const { mediaClient, uploadService, filesAddedPromise } = setup();
+      asMock(mediaClient.file.touchFiles).mockResolvedValue(touchedFiles);
+
+      const callback = jest.fn();
+      const rejectionCallback = jest.fn();
+      uploadService.onFileRejection(rejectionCallback);
+      uploadService.on('file-preview-update', callback);
+
+      const previewObject: Preview = { someImagePreview: true } as any;
+      (getPreviewModule.getPreviewFromBlob as any).mockReturnValue(
+        Promise.resolve(previewObject),
+      );
+
+      uploadService.addFiles([file, file, file, file]);
+      await flushPromises();
+      await filesAddedPromise;
+      expect(rejectionCallback).toHaveBeenNthCalledWith(1, {
+        reason: 'fileSizeLimitExceeded',
+        file,
+        limit: 500,
+      });
+      expect(rejectionCallback).toHaveBeenNthCalledWith(2, {
+        reason: 'fileSizeLimitExceeded',
+        file,
+        limit: 500,
+      });
+    });
+
+    it('should not call file rejection handler when an unexpected error occurs', async () => {
+      const { mediaClient, uploadService } = setup();
+
+      const error = new Error('some error');
+      mediaClient.file.touchFiles = jest.fn(() => Promise.reject(error));
+
+      const fileStateObservable = createMediaSubject();
+      mediaClient.file.upload = jest.fn(
+        (file: any, controller?: any, uploadableFileUpfrontIds?: any) => {
+          uploadableFileUpfrontIds?.deferredUploadId.catch(() => {});
+          return fromObservable(fileStateObservable);
+        },
+      );
+
+      const rejectionCallback = jest.fn();
+      uploadService.onFileRejection(rejectionCallback);
+
+      uploadService.addFiles([file]);
+      await flushPromises();
+
+      expect(rejectionCallback).not.toHaveBeenCalled();
+    });
+
+    it('should not emit file-upload-error when files are rejected', async () => {
+      const touchedFiles: TouchedFiles = {
+        created: [
+          {
+            fileId: 'uuid1',
+            uploadId: 'some-upload-id-uuid1',
+          },
+          {
+            fileId: 'uuid3',
+            uploadId: 'some-upload-id-uuid2',
+          },
+        ],
+        rejected: [
+          {
+            fileId: 'uuid5',
+            error: {
+              code: 'ExceedMaxFileSizeLimit',
+              title: 'The expected file size exceeded the maximum size limit.',
+              href: 'https://dt-api-filestore--app.ap-southeast-2.dev.atl-paas.net/api.html#BadRequest',
+              limit: 500,
+              size: 10e7,
+            },
+          },
+          {
+            fileId: 'uuid7',
+            error: {
+              code: 'ExceedMaxFileSizeLimit',
+              title: 'The expected file size exceeded the maximum size limit.',
+              href: 'https://dt-api-filestore--app.ap-southeast-2.dev.atl-paas.net/api.html#BadRequest',
+              limit: 500,
+              size: 10e7,
+            },
+          },
+        ],
+      };
+      const { mediaClient, uploadService } = setup();
+      asMock(mediaClient.file.touchFiles).mockResolvedValue(touchedFiles);
+
+      const fileUploadErrorCallback = jest.fn();
+      uploadService.on('file-upload-error', fileUploadErrorCallback);
+
+      uploadService.addFiles([file]);
+      await flushPromises();
+
+      expect(fileUploadErrorCallback).not.toHaveBeenCalled();
+    });
+
+    it('should emit files-added only for successfully created files', async () => {
+      const file2: File = {
+        size: 200,
+        name: 'some-other-filename',
+        type: 'image/png',
+      } as any;
+      const fileOverSize: File = {
+        size: 1000,
+        name: 'over-size-filename',
+        type: 'image/png',
+      } as any;
+      const touchedFiles: TouchedFiles = {
+        created: [
+          {
+            fileId: 'uuid1',
+            uploadId: 'some-upload-id-uuid1',
+          },
+          {
+            fileId: 'uuid3',
+            uploadId: 'some-upload-id-uuid2',
+          },
+        ],
+        rejected: [
+          {
+            fileId: 'uuid5',
+            error: {
+              code: 'ExceedMaxFileSizeLimit',
+              title: 'The expected file size exceeded the maximum size limit.',
+              href: 'https://dt-api-filestore--app.ap-southeast-2.dev.atl-paas.net/api.html#BadRequest',
+              limit: 500,
+              size: 1000,
+            },
+          },
+        ],
+      };
+      const { mediaClient, uploadService } = setup();
+      const currentTimestamp = Date.now();
+
+      asMock(mediaClient.file.touchFiles).mockResolvedValue(touchedFiles);
+      const fileStateObservable = createMediaSubject();
+      mediaClient.file.upload = jest.fn(
+        (file: any, controller?: any, uploadableFileUpfrontIds?: any) => {
+          uploadableFileUpfrontIds?.deferredUploadId.catch(() => {});
+          return fromObservable(fileStateObservable);
+        },
+      );
+
+      const filesAddedCallback = jest.fn();
+      uploadService.on('files-added', filesAddedCallback);
+
+      uploadService.addFiles([file, file2, fileOverSize]);
+      await flushPromises();
+      const expectedPayload: UploadsStartEventPayload = {
+        files: [
+          {
+            id: expect.any(String),
+            creationDate: expect.any(Number),
+            name: 'some-filename',
+            size: 100,
+            type: 'video/mp4',
+            occurrenceKey: expect.any(String),
+          },
+          {
+            id: expect.any(String),
+            creationDate: expect.any(Number),
+            name: 'some-other-filename',
+            size: 200,
+            type: 'image/png',
+            occurrenceKey: expect.any(String),
+          },
+        ],
+        traceContext: expect.any(Object),
+      };
+      expect(filesAddedCallback).toHaveBeenCalledWith(expectedPayload);
+      expect(filesAddedCallback.mock.calls[0][0].files[0].id).not.toEqual(
+        filesAddedCallback.mock.calls[0][0].files[1].id,
+      );
+      expect(
+        filesAddedCallback.mock.calls[0][0].files[0].creationDate,
+      ).toBeGreaterThanOrEqual(currentTimestamp);
+      expect(
+        filesAddedCallback.mock.calls[0][0].files[1].creationDate,
+      ).toBeGreaterThanOrEqual(currentTimestamp);
+    });
+
+    it('should emit files-added for all files when an unexpected error occurs', async () => {
+      const file2: File = {
+        size: 200,
+        name: 'some-other-filename',
+        type: 'image/png',
+      } as any;
+      const fileOverSize: File = {
+        size: 1000,
+        name: 'over-size-filename',
+        type: 'image/png',
+      } as any;
+
+      const { mediaClient, uploadService } = setup();
+      const currentTimestamp = Date.now();
+
+      const error = new Error('some error');
+      mediaClient.file.touchFiles = jest.fn(() => Promise.reject(error));
+
+      const fileStateObservable = createMediaSubject();
+      mediaClient.file.upload = jest.fn(
+        (file: any, controller?: any, uploadableFileUpfrontIds?: any) => {
+          uploadableFileUpfrontIds?.deferredUploadId.catch(() => {});
+          return fromObservable(fileStateObservable);
+        },
+      );
+
+      const filesAddedCallback = jest.fn();
+      uploadService.on('files-added', filesAddedCallback);
+
+      uploadService.addFiles([file, file2, fileOverSize]);
+      try {
+        await flushPromises();
+      } catch (err) {}
+
+      const expectedPayload: UploadsStartEventPayload = {
+        files: [
+          {
+            id: expect.any(String),
+            creationDate: expect.any(Number),
+            name: 'some-filename',
+            size: 100,
+            type: 'video/mp4',
+            occurrenceKey: expect.any(String),
+          },
+          {
+            id: expect.any(String),
+            creationDate: expect.any(Number),
+            name: 'some-other-filename',
+            size: 200,
+            type: 'image/png',
+            occurrenceKey: expect.any(String),
+          },
+          {
+            id: expect.any(String),
+            creationDate: expect.any(Number),
+            name: 'over-size-filename',
+            size: 1000,
+            type: 'image/png',
+            occurrenceKey: expect.any(String),
+          },
+        ],
+        traceContext: expect.any(Object),
+      };
+      expect(filesAddedCallback).toHaveBeenCalledWith(expectedPayload);
+      expect(filesAddedCallback.mock.calls[0][0].files[0].id).not.toEqual(
+        filesAddedCallback.mock.calls[0][0].files[1].id,
+      );
+      expect(
+        filesAddedCallback.mock.calls[0][0].files[0].creationDate,
+      ).toBeGreaterThanOrEqual(currentTimestamp);
+      expect(
+        filesAddedCallback.mock.calls[0][0].files[1].creationDate,
+      ).toBeGreaterThanOrEqual(currentTimestamp);
+      expect(
+        filesAddedCallback.mock.calls[0][0].files[2].creationDate,
+      ).toBeGreaterThanOrEqual(currentTimestamp);
+    });
   });
 
   describe('TraceContext in addFilesWithSource', () => {
-    it('should pass traceContext to mediaClient filefetch', () => {
+    it('should pass traceContext to mediaClient filefetch', async () => {
       const { uploadService, mediaClient } = setup();
 
-      uploadService.addFilesWithSource([localFileWithSource]);
+      await uploadService.addFilesWithSource([localFileWithSource]);
 
       expect(mediaClient.file.touchFiles).toHaveBeenCalledTimes(1);
       expect(asMock(mediaClient.file.touchFiles).mock.calls[0][0]).toEqual([
@@ -417,6 +914,7 @@ describe('UploadService', () => {
           collection: '',
           expireAfter: 2,
           fileId: 'uuid1',
+          size: 100,
           occurrenceKey: 'uuid2',
         },
       ]);
@@ -438,7 +936,7 @@ describe('UploadService', () => {
         new RequestError('serverUnexpectedError', { statusCode: 409 }),
       );
 
-      uploadService.addFilesWithSource([localFileWithSource]);
+      await uploadService.addFilesWithSource([localFileWithSource]);
       await flushPromises();
 
       expect(mediaClient.mediaStore.createUpload).toHaveBeenCalledTimes(1);
@@ -447,12 +945,12 @@ describe('UploadService', () => {
       });
     });
 
-    it('should pass traceContext in files-added event', () => {
+    it('should pass traceContext in files-added event', async () => {
       const { uploadService } = setup();
       const filesAddedCallback = jest.fn();
       uploadService.on('files-added', filesAddedCallback);
 
-      uploadService.addFilesWithSource([localFileWithSource]);
+      await uploadService.addFilesWithSource([localFileWithSource]);
       expect(filesAddedCallback).toHaveBeenCalledTimes(1);
       expect(filesAddedCallback.mock.calls[0][0]).toEqual(
         expect.objectContaining({
@@ -461,19 +959,22 @@ describe('UploadService', () => {
       );
     });
 
-    it('should pass traceContext in file-converting event if upload succeeded', () => {
+    it('should pass traceContext in file-converting event if upload succeeded', async () => {
       const { uploadService, mediaClient } = setup();
       const fileConvertingCallback = jest.fn();
       uploadService.on('file-converting', fileConvertingCallback);
 
-      jest.spyOn(mediaClient.file, 'upload').mockReturnValue(
-        createMediaSubscribable({
-          status: 'processing',
-          id: 'public-file-id',
-        } as ProcessingFileState),
-      );
+      const fileStateObservable = createMediaSubject();
+      mediaClient.file.upload = jest.fn(() => {
+        return fromObservable(fileStateObservable);
+      });
 
-      uploadService.addFilesWithSource([localFileWithSource]);
+      await uploadService.addFilesWithSource([localFileWithSource]);
+
+      fileStateObservable.next({
+        status: 'processing',
+        id: 'public-file-id',
+      } as ProcessingFileState);
 
       expect(fileConvertingCallback).toHaveBeenCalledTimes(1);
       expect(fileConvertingCallback.mock.calls[0][0]).toEqual(
@@ -483,20 +984,15 @@ describe('UploadService', () => {
       );
     });
 
-    it('should pass traceContext in file-upload-error event if upload failed', () => {
-      const { uploadService, mediaClient } = setup();
+    it('should pass traceContext in file-upload-error event if upload failed', async () => {
+      const { uploadService, fileStateObservable } = setup();
       const error = new Error('Some reason');
       const fileUploadErrorCallback = jest.fn();
       uploadService.on('file-upload-error', fileUploadErrorCallback);
 
-      jest.spyOn(mediaClient.file, 'upload').mockReturnValue({
-        // @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
-        subscribe(subscription: Subscriber<FileState>) {
-          subscription.error(error);
-        },
-      });
+      await uploadService.addFilesWithSource([localFileWithSource]);
 
-      uploadService.addFilesWithSource([localFileWithSource]);
+      fileStateObservable.error(error);
 
       expect(fileUploadErrorCallback).toHaveBeenCalledTimes(1);
       expect(fileUploadErrorCallback.mock.calls[0][0]).toEqual(
@@ -508,7 +1004,7 @@ describe('UploadService', () => {
   });
 
   describe('#cancel()', () => {
-    it('should cancel specific upload', () => {
+    it('should cancel specific upload', async () => {
       const file: File = {
         size: 100,
         name: 'some-filename',
@@ -522,13 +1018,14 @@ describe('UploadService', () => {
       uploadService.on('files-added', filesAddedCallback);
 
       uploadService.addFiles([file]);
+      await flushPromises();
 
       const generatedId = filesAddedCallback.mock.calls[0][0].files[0].id;
       uploadService.cancel(generatedId);
       expect(abort).toHaveBeenCalled();
     });
 
-    it('should cancel all uploads when #cancel is not passed any arguments', () => {
+    it('should cancel all uploads when #cancel is not passed any arguments', async () => {
       const file1: File = {
         size: 100,
         name: 'some-filename',
@@ -547,11 +1044,12 @@ describe('UploadService', () => {
 
       uploadService.on('files-added', filesAddedCallback);
       uploadService.addFiles([file1, file2]);
+      await flushPromises();
       uploadService.cancel();
       expect(createUploadController).toHaveBeenCalledTimes(2);
     });
 
-    it.skip('should release cancellableFilesUpload after file failed to upload', () => {
+    it.skip('should release cancellableFilesUpload after file failed to upload', async () => {
       const file: File = {
         size: 100,
         name: 'some-filename',
@@ -559,29 +1057,24 @@ describe('UploadService', () => {
       } as any;
 
       const mediaClient = getMediaClient();
-      const { uploadService } = setup(mediaClient);
+      const { uploadService, fileStateObservable } = setup(mediaClient);
 
       const filesAddedCallback = jest.fn();
       uploadService.on('files-added', filesAddedCallback);
 
-      return new Promise<void>((resolve) => {
-        jest.spyOn(mediaClient.file, 'upload').mockReturnValue({
-          // @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
-          //See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff
-          subscribe(subscription: Subscriber<FileState>) {
-            subscription.error();
-            expect(
-              Object.keys((uploadService as any).cancellableFilesUploads),
-            ).toHaveLength(0);
-            resolve();
-          },
-        });
+      const error = new Error('Some reason');
+      uploadService.addFiles([file]);
+      await flushPromises();
 
-        uploadService.addFiles([file]);
-        expect(
-          Object.keys((uploadService as any).cancellableFilesUploads),
-        ).toHaveLength(1);
-      });
+      expect(
+        Object.keys((uploadService as any).cancellableFilesUploads),
+      ).toHaveLength(1);
+
+      fileStateObservable.error(error);
+
+      expect(
+        Object.keys((uploadService as any).cancellableFilesUploads),
+      ).toHaveLength(0);
     });
   });
 });

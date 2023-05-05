@@ -5,15 +5,3 @@ Array [
   Object {},
 ]
 `;
-
-exports[`renderer.ts: call onContentRendered() on native bridge. 2`] = `
-Array [
-  Object {},
-]
-`;
-
-exports[`renderer.ts: call onContentRendered() on native bridge. 3`] = `
-Array [
-  Object {},
-]
-`;

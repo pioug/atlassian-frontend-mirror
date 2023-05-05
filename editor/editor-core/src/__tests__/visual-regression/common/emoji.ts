@@ -33,13 +33,11 @@ describe('Emoji', () => {
       await snapshot(page, { useUnsafeThreshold: true, tolerance: 0.05 });
     });
 
-    // Skip due to failing VR Tests: https://product-fabric.atlassian.net/browse/ED-17719
-    it.skip('displays standard emoji as selected', async () => {
+    it('displays standard emoji as selected', async () => {
       await page.click(emojiSelectors.standard);
     });
 
-    // Skip due to failing VR Tests: https://product-fabric.atlassian.net/browse/ED-17719
-    it.skip('displays custom emoji as selected', async () => {
+    it('displays custom emoji as selected', async () => {
       await page.click(emojiSelectors.custom);
     });
   });

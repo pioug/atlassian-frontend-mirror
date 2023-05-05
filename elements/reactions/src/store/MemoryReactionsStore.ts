@@ -419,7 +419,6 @@ export class MemoryReactionsStore implements Types.Store {
             } as Types.State['reactions']),
           {},
         );
-
         this.setState({
           ...this.state,
           reactions: {
@@ -427,8 +426,6 @@ export class MemoryReactionsStore implements Types.Store {
             ...reactionsState,
           },
         });
-
-        return Promise.reject(error);
       });
   });
 

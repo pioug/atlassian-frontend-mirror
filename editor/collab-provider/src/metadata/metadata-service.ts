@@ -48,10 +48,10 @@ export class MetadataService {
    * Updates the local metadata and broadcasts the metadata to other clients/backend.
    * @param metadata
    */
-  setMetadata(metadata: Metadata) {
+  setMetadata = (metadata: Metadata) => {
     this.broadcastMetadata(metadata);
     this.metadata = metadata;
-  }
+  };
 
   /**
    * Emits a change in document's metadata

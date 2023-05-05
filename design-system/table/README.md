@@ -22,7 +22,7 @@ import Table, { Row, Cell, TBody, THead, HeadCell } from '@atlaskit/table';
 
 import { presidents } from './data';
 
-type President = typeof presidents[number];
+type President = (typeof presidents)[number];
 
 /**
  * Primary UI component for user interaction

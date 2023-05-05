@@ -356,6 +356,39 @@ describe('tasks and decisions - keymaps', () => {
           ['Tab'],
         );
       });
+
+      it('should only indent task items that are visually selected', () => {
+        testKeymap(
+          editorFactory,
+          doc(
+            taskList(listProps)(
+              taskItem(itemProps)("Say ya'll wanna roll in the scene"),
+              taskList(listProps)(
+                taskItem(itemProps)("Ya'll wanna live in the dream{<}"),
+                taskItem(itemProps)("Ay-ya, ya'll never been with the team{>}"),
+                taskItem(itemProps)('Ay-ya, ya-ya-ya, ya-ya-ya'),
+                taskItem(itemProps)("Say ya'll wanna roll in the scene"),
+              ),
+            ),
+          ),
+          doc(
+            taskList(listProps)(
+              taskItem(itemProps)("Say ya'll wanna roll in the scene"),
+              taskList(listProps)(
+                taskItem(itemProps)("Ya'll wanna live in the dream{<}"),
+                taskList(listProps)(
+                  taskItem(itemProps)(
+                    "Ay-ya, ya'll never been with the team{>}",
+                  ),
+                ),
+                taskItem(itemProps)('Ay-ya, ya-ya-ya, ya-ya-ya'),
+                taskItem(itemProps)("Say ya'll wanna roll in the scene"),
+              ),
+            ),
+          ),
+          ['Tab'],
+        );
+      });
     });
   });
 

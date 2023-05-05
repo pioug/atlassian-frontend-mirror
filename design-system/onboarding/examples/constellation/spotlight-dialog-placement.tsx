@@ -12,7 +12,7 @@ import {
   SpotlightTransition,
 } from '../../src';
 
-type Placement = typeof options[number];
+type Placement = (typeof options)[number];
 
 const options = [
   'top right',

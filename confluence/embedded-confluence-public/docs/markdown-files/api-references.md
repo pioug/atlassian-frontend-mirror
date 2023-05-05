@@ -8,12 +8,13 @@ Both `ViewPage` and `EditPage` components accept `navigationPolicy` prop. This i
 
 ### `navigationPolicy` definition
 
-The navigation policy includes an optional `shimUrl` and a `navigate` function.
+The navigation policy includes an optional `shimUrl`, `domainNamesToReplace` and a `navigate` function.
 
 ```ts
 {
   shimUrl?: string;
   navigate?: (url, modifiers, defaultNavigate) => void
+  domainNamesToReplace?: string[];
 }
 ```
 
@@ -48,6 +49,8 @@ The navigation policy includes an optional `shimUrl` and a `navigate` function.
     | `https://domain1.com`           | `https://domain1.com/a/b/c`                 |
     | `domain1.com/xyz`               | `https://domain1.com/domain1.com/xyz/a/b/c` |
     | `domain1.com`                   | `https://domain1.com/domain1.com/a/b/c`     |
+
+- `domainNamesToReplace`: (Optional) A list of domain names that should be replaced with the current base URL for EP before applying any URL shimming. <br>
 
 ### `navigationPolicy` examples
 

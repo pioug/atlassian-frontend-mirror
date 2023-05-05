@@ -1,11 +1,6 @@
 import { css, Theme } from '@emotion/react';
 import { themed } from '@atlaskit/theme/components';
-import {
-  gridSize,
-  fontFamily,
-  fontSize,
-  borderRadius,
-} from '@atlaskit/theme/constants';
+import { gridSize, fontFamily, fontSize } from '@atlaskit/theme/constants';
 import * as colors from '@atlaskit/theme/colors';
 import { headingSizes as headingSizesImport } from '@atlaskit/theme/typography';
 import { ThemeProps } from '@atlaskit/theme/types';
@@ -439,7 +434,10 @@ export const rendererStyles =
       }
 
       & span[data-placeholder] {
-        color: ${colors.placeholderText(themeProps)};
+        color: ${themed({
+          light: token('color.text.subtlest', colors.N200),
+          dark: token('color.text.subtlest', colors.DN200),
+        })(themeProps)};
       }
 
       ${whitespaceSharedStyles};
@@ -470,7 +468,7 @@ export const rendererStyles =
           light: token('color.background.neutral', colors.N30A),
           dark: token('color.background.neutral', colors.DN70),
         })(themeProps)};
-        border-radius: ${borderRadius()}px;
+        border-radius: ${token('border.radius.100', '3px')};
         color: ${themed({
           light: token('color.text', colors.N800),
           dark: token('color.text', colors.DN600),
@@ -711,7 +709,7 @@ export const rendererStyles =
 
         grid-template-columns: minmax(0, 1fr);
         position: relative;
-        border-radius: ${borderRadius()}px;
+        border-radius: ${token('border.radius.100', '3px')};
 
         /*
      * The overall renderer has word-wrap: break; which causes issues with

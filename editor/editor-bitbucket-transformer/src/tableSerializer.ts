@@ -1,3 +1,6 @@
+// File has been copied to packages/editor/editor-plugin-ai/src/provider/prosemirror-transformer/tableSerializer.ts
+// If changes are made to this file, please make the same update in the linked file.
+
 import { MarkdownSerializerState } from 'prosemirror-markdown';
 import { Node as PMNode } from 'prosemirror-model';
 

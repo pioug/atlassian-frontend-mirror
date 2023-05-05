@@ -28,6 +28,6 @@ export type MediaFeatureFlagsMap = Record<
 >;
 
 export const supportedProducts = ['confluence', 'jira'] as const;
-export type SupportedProduct = typeof supportedProducts[number];
+export type SupportedProduct = (typeof supportedProducts)[number];
 
 export type ProductKeys = Record<SupportedProduct, MediaFeatureFlagsMap>;

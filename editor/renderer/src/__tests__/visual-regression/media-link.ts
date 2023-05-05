@@ -131,8 +131,7 @@ describe('media link:', () => {
     await snapshot(page);
   });
 
-  // Skip due to failing VR Tests: https://product-fabric.atlassian.net/browse/ED-17719
-  it.skip(`should horizontally render multiple wrapped-left linked media images inside a table`, async () => {
+  it(`should horizontally render multiple wrapped-left linked media images inside a table`, async () => {
     await loadAdf(page, leftWrappedMultipleMediaInsideTable);
 
     await waitForAllMedia(page, 2);

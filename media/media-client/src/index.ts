@@ -213,7 +213,10 @@ export {
 } from './utils/url';
 export type { MediaBlobUrlAttrs } from './utils/url';
 
-export { createMediaSubscribable } from './utils/mediaSubscribable';
+export {
+  createMediaSubscribable,
+  fromObservable,
+} from './utils/mediaSubscribable';
 
 export type {
   MediaSubscribable,

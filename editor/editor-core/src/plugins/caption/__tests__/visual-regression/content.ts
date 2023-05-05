@@ -53,8 +53,7 @@ describe('Snapshot Test: Caption with media', () => {
         await initEditor(page, captionWithDate);
       });
 
-      // Skip due to failing VR Tests: https://product-fabric.atlassian.net/browse/ED-17719
-      it.skip('should show the caption with an emoji', async () => {
+      it('should show the caption with an emoji', async () => {
         await initEditor(page, captionWithEmoji);
         await waitForEmojisToLoad(page);
       });

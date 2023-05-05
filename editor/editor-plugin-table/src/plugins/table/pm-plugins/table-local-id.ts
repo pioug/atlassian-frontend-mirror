@@ -12,13 +12,13 @@
  */
 import { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { EditorState, PluginKey, Transaction } from 'prosemirror-state';
-import { NodeType } from 'prosemirror-model';
+import { EditorState, PluginKey } from 'prosemirror-state';
+import { Node as ProsemirrorNode } from 'prosemirror-model';
 import rafSchedule from 'raf-schd';
 
 import { uuid } from '@atlaskit/adf-schema';
 
-import { stepAddsOneOf } from '@atlaskit/editor-common/utils';
+import { stepHasSlice } from '@atlaskit/editor-common/utils';
 
 interface TableLocalIdPluginState {
   // One time parse for initial load with existing tables without localIds
@@ -30,15 +30,6 @@ const getPluginState = (
   state: EditorState,
 ): TableLocalIdPluginState | undefined | null =>
   state && pluginKey.getState(state);
-
-/**
- * Traverses a transaction's steps to see if we're inserting any tables
- */
-const checkIsAddingTable = (transaction: Transaction, nodeType: NodeType) => {
-  return transaction.steps.some((step) =>
-    stepAddsOneOf(step, new Set([nodeType])),
-  );
-};
 
 /**
  * Ensures uniqueness of `localId`s on tables being created or edited
@@ -143,7 +134,9 @@ const createPlugin = (dispatch: Dispatch) =>
       const tr = newState.tr;
       const { table } = newState.schema.nodes;
 
-      const idsObserved = new Set<string>();
+      const addedTableNodes: Set<ProsemirrorNode> = new Set();
+      const addedTableNodePos: Map<ProsemirrorNode, number> = new Map();
+      const localIds: Set<string> = new Set();
 
       transactions.forEach((transaction) => {
         if (!transaction.docChanged) {
@@ -157,43 +150,66 @@ const createPlugin = (dispatch: Dispatch) =>
           return;
         }
 
-        /** Check if we're actually inserting a table, otherwise we can ignore this tr */
-        const isAddingTable = checkIsAddingTable(transaction, table);
-        if (!isAddingTable) {
-          return;
-        }
-
-        // Can't simply look at changed nodes, as we could be adding a table
-        newState.doc.descendants((node, pos) => {
-          const isTable = node.type === table;
-          const localId = node.attrs.localId;
-
-          // Dealing with a table - make sure it's a unique ID
-          if (isTable) {
-            if (localId && !idsObserved.has(localId)) {
-              idsObserved.add(localId);
-              // Also add a localId if it happens to not have one,
-            } else if (!localId || idsObserved.has(localId)) {
-              modified = true;
-              tr.setNodeMarkup(pos, undefined, {
-                ...node.attrs,
-                localId: uuid.generate(),
-              });
-            }
-            return false;
+        /** Get the tables we are adding and their position */
+        for (const step of transaction.steps) {
+          if (!stepHasSlice(step)) {
+            continue;
           }
 
-          /**
-           * Otherwise continue traversing, we can encounter tables nested in
-           * expands/bodiedExtensions
-           */
-          return true;
-        });
+          step.slice.content.descendants((node, pos) => {
+            if (node.type === table) {
+              addedTableNodes.add(node);
+            }
+
+            return true;
+          });
+        }
       });
+
+      if (!addedTableNodes.size) {
+        return;
+      }
+
+      // Get the existing localIds on the page
+      newState.doc.descendants((node, pos) => {
+        // Skip if this is position of added table
+        if (addedTableNodes.has(node)) {
+          addedTableNodePos.set(node, pos);
+          return false;
+        }
+
+        if (node.type !== table) {
+          return true;
+        }
+
+        localIds.add(node.attrs.localId);
+
+        // can't have table within a table
+        return false;
+      });
+
+      // If the added nodes have duplicate id, generate a new one
+      for (const node of addedTableNodes) {
+        if (!node.attrs.localId || localIds.has(node.attrs.localId)) {
+          const pos = addedTableNodePos.get(node);
+
+          if (pos === undefined) {
+            continue;
+          }
+
+          tr.setNodeMarkup(pos, undefined, {
+            ...node.attrs,
+            localId: uuid.generate(),
+          });
+
+          modified = true;
+        }
+      }
 
       if (modified) {
         return tr;
       }
+
       return;
     },
   });

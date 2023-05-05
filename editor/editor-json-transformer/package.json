@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-json-transformer",
-  "version": "8.8.4",
+  "version": "8.8.5",
   "description": "JSON transformer",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -38,9 +38,9 @@
   "devDependencies": {
     "@atlaskit/docs": "*",
     "@atlaskit/editor-bitbucket-transformer": "^8.0.0",
-    "@atlaskit/editor-common": "^72.9.0",
+    "@atlaskit/editor-common": "^73.0.0",
     "@atlaskit/editor-confluence-transformer": "^8.1.0",
-    "@atlaskit/editor-core": "^182.1.0",
+    "@atlaskit/editor-core": "^182.2.0",
     "@atlaskit/editor-jira-transformer": "^8.2.0",
     "@atlaskit/editor-markdown-transformer": "^5.1.0",
     "@atlaskit/editor-test-helpers": "^18.2.0",

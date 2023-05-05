@@ -494,7 +494,7 @@ export function getChangedNodesIn({
   tr,
   doc,
 }: {
-  tr: ReadonlyTransaction;
+  tr: ReadonlyTransaction | Transaction;
   doc: Node;
 }): { node: Node; pos: number }[] {
   const nodes: { node: Node; pos: number }[] = [];
@@ -515,7 +515,7 @@ export function getChangedNodesIn({
 }
 
 export function getChangedNodes(
-  tr: ReadonlyTransaction,
+  tr: ReadonlyTransaction | Transaction,
 ): { node: Node; pos: number }[] {
   return getChangedNodesIn({
     tr: tr,

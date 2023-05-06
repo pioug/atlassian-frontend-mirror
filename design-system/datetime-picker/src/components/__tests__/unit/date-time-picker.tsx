@@ -2,7 +2,6 @@ import React from 'react';
 
 import { fireEvent, render, screen } from '@testing-library/react';
 
-import { Field } from '@atlaskit/form';
 import Select, { OptionsType } from '@atlaskit/select';
 
 import {
@@ -369,31 +368,6 @@ describe('DateTimePicker', () => {
 
       expect(datePicker).toHaveAttribute('aria-label', label);
       expect(timePicker).toHaveAttribute('aria-label', label);
-    });
-
-    it("should set the datetime picker's container to be labelled by the Field if field is used", () => {
-      const { getByRole, getByTestId } = render(
-        <Field name={label} label={label} testId={'field'}>
-          {({ fieldProps }) => (
-            <DateTimePicker testId={testId} {...fieldProps} />
-          )}
-        </Field>,
-      );
-
-      const labelElement = getByTestId('field--label');
-      const groupElement = getByRole('group');
-      const datePicker = getByTestId(datePickerTestId);
-      const timePicker = getByTestId(timePickerTestId);
-
-      expect(groupElement).toHaveAttribute('aria-labelledby', labelElement.id);
-      expect(datePicker).toHaveAttribute(
-        'aria-label',
-        datePickerDefaultAriaLabel,
-      );
-      expect(timePicker).toHaveAttribute(
-        'aria-label',
-        timePickerDefaultAriaLabel,
-      );
     });
   });
 });

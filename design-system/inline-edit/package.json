@@ -40,7 +40,7 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/datetime-picker": "^12.3.0",
+    "@atlaskit/datetime-picker": "^12.4.0",
     "@atlaskit/docs": "*",
     "@atlaskit/section-message": "^6.3.0",
     "@atlaskit/select": "^16.1.0",

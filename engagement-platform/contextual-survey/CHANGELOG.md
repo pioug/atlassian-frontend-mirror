@@ -1,5 +1,11 @@
 # @atlaskit/contextual-survey
 
+## 2.1.12
+
+### Patch Changes
+
+- [`f655e8ed2d2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f655e8ed2d2) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
+
 ## 2.1.11
 
 ### Patch Changes

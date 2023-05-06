@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/contextual-survey",
-  "version": "2.1.11",
+  "version": "2.1.12",
   "description": "A React component used to ask the user for feedback",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -56,7 +56,8 @@
     },
     "@repo/internal": {
       "design-tokens": [
-        "color"
+        "color",
+        "spacing"
       ]
     }
   },

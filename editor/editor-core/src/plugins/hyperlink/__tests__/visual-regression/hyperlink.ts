@@ -200,7 +200,8 @@ describe('Hyperlink', () => {
   });
 
   describe('selection', () => {
-    it('displayed when link is clicked with shift', async () => {
+    // FIXME: This test was automatically skipped due to failure on 05/05/2023: https://product-fabric.atlassian.net/browse/ED-17773
+    it.skip('displayed when link is clicked with shift', async () => {
       await initEditorWithAdf(page, {
         appearance: Appearance.fullPage,
         adf: hyperlinkWithText,

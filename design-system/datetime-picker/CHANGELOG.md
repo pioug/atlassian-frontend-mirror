@@ -1,5 +1,11 @@
 # @atlaskit/datetime-picker
 
+## 12.4.0
+
+### Minor Changes
+
+- [`e976f3cebd0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e976f3cebd0) - Remove excessive `aria-labelledby` prop, remove incorret documentation.
+
 ## 12.3.13
 
 ### Patch Changes

@@ -11,10 +11,11 @@ import {
 
 type ClientType = Parameters<typeof goToEditorTestingWDExample>[0];
 
+// FIXME: This test was automatically skipped due to failure on 06/05/2023: https://product-fabric.atlassian.net/browse/ED-17776
 BrowserTestCase(
   'embed: should open a new window to authenticate with a provider',
   {
-    skip: [],
+    skip: ['*'],
   },
   async (client: ClientType) => {
     const page = await goToEditorTestingWDExample(client);

@@ -3,10 +3,8 @@ import {
   loadPage,
   takeElementScreenShot,
 } from '@atlaskit/visual-regression/helper';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
-// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-ffTest('design-system-team.dark-theme-iteration_dk1ln', async () => {
+it('should honour the dark theme', async () => {
   const url = getExampleUrl(
     'design-system',
     'tokens',

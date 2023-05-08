@@ -7,19 +7,16 @@
  */
 //Swedish
 export default {
-  "fabric.elements.mentions.team.meantion.highlight.close.button.tooltip": "Stäng",
-  "fabric.elements.mentions.team.member.50plus": "Team • 50+ medlemmar",
-  "fabric.elements.mentions.team.member.50plus.including.you": "Team • 50+ medlemmar, inklusive dig",
-  "fabric.elements.mentions.team.member.count": "{0, plural, one {Team • 1 medlem} other {Team • {0} medlemmar}}",
-  "fabric.elements.mentions.team.member.count.including.you": "{0, plural, one {Team • 1 medlem, inklusive dig} other {Team • {0} medlemmar, inklusive dig}}",
-  "fabric.elements.mentions.team.mention.highlight.description": "Få alla till sidan med ett klick. Har ni inget team?",
-  "fabric.elements.mentions.team.mention.highlight.description.link": "Starta ett.",
-  "fabric.elements.mentions.team.mention.highlight.title": "Omnämn ditt team",
-  "fabric.mention.error.defaultAction": "Försök igen om några sekunder",
-  "fabric.mention.error.defaultHeadline": "Något gick fel",
-  "fabric.mention.error.differentText": "Prova att skriva en annan text",
-  "fabric.mention.error.loginAgain": "Prova att logga ut och sedan logga in igen",
-  "fabric.mention.noAccess.label": "Ingen åtkomst",
-  "fabric.mention.noAccess.warning": "{name} kommer inte att meddelas eftersom de saknar åtkomst",
-  "fabric.mention.unknow.user.error": "Okänd användare {userId}"
+  'fabric.elements.mentions.team.member.50plus': 'Team • 50+ medlemmar',
+  'fabric.elements.mentions.team.member.50plus.including.you': 'Team • 50+ medlemmar, inklusive dig',
+  'fabric.elements.mentions.team.member.count': '{0, plural, one {Team • 1 medlem} other {Team • {0} medlemmar}}',
+  'fabric.elements.mentions.team.member.count.including.you':
+    '{0, plural, one {Team • 1 medlem, inklusive dig} other {Team • {0} medlemmar, inklusive dig}}',
+  'fabric.mention.error.defaultAction': 'Försök igen om några sekunder',
+  'fabric.mention.error.defaultHeadline': 'Något gick fel',
+  'fabric.mention.error.differentText': 'Prova att skriva en annan text',
+  'fabric.mention.error.loginAgain': 'Prova att logga ut och sedan logga in igen',
+  'fabric.mention.noAccess.label': 'Ingen åtkomst',
+  'fabric.mention.noAccess.warning': '{name} kommer inte att meddelas eftersom de saknar åtkomst',
+  'fabric.mention.unknow.user.error': 'Okänd användare {userId}',
 };

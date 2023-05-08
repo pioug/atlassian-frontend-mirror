@@ -1,5 +1,11 @@
 # @atlaskit/editor-tables
 
+## 2.3.0
+
+### Minor Changes
+
+- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+
 ## 2.2.6
 
 ### Patch Changes

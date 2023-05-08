@@ -1,23 +1,29 @@
 export {
-  BitbucketRepository,
-  GithubRepository,
-} from './atlassian.sourceCodeRepository';
-export {
-  BitbucketPullRequest,
-  GithubPullRequest,
-} from './atlassian.sourceCodePullRequest';
-export {
+  BitbucketBranch,
+  BitbucketCommit,
+  BitbucketFile1,
+  BitbucketFile2,
+  BitbucketProject,
+  BitbucketPullRequest1,
+  BitbucketPullRequest2,
+  BitbucketRepository1,
+  BitbucketRepository2,
   BitbucketSourceCodeReference,
+} from './provider.bitbucket';
+export {
+  GithubFile,
+  GitHubIssue,
+  GithubPullRequest,
+  GithubRepository,
   GithubSourceCodeReference,
-} from './atlassian.sourceCodeReference';
-export { BitbucketFile, GithubFile } from './atlassian.digitalDocument';
-
-export { AsanaTask, GitHubIssue } from './atlassian.task';
-
-// All Confluence mocks - mapped to different objects in
-// the Atlassian Vocabulary.
-export { ConfluencePage } from './atlassian.textDigitalDocument';
-export { ConfluenceSpace } from './atlassian.project';
-export { ConfluenceTemplate } from './atlassian.template';
-export { ConfluenceBlogPost } from './schema.blogpost';
-export { TrelloCard, TrelloBoard } from './provider.trello';
+} from './provider.github';
+export { AsanaTask } from './provider.asana';
+export {
+  ConfluenceBlogPost,
+  ConfluencePage,
+  ConfluenceSpace,
+  ConfluenceTemplate,
+} from './provider.confluence';
+export { TrelloBoard, TrelloCard } from './provider.trello';
+export { AtlasGoal, AtlasProject } from './provider.atlas';
+export { JiraIssue, JiraTasks } from './provider.jira';

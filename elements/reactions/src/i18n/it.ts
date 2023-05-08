@@ -7,17 +7,18 @@
  */
 //Italian (Italy)
 export default {
-  "fabric.reactions.add": "Aggiungi una reazione",
-  "fabric.reactions.error.unexpected": "Le reazioni non sono temporaneamente disponibili",
-  "fabric.reactions.loading": "Caricamento in corso...",
-  "fabric.reactions.more.emojis": "Altre emoji",
-  "fabric.reactions.more.info": "Altre informazioni",
-  "fabric.reactions.other.reacted.users": "{count, plural, one {e un altro} other {e altri {count}}}",
-  "fabric.reactions.reactwithemoji": "Reagisci con l'emoji {emoji}",
-  "reactions.dialog.close": "Chiudi",
-  "reactions.dialog.left.navigate": "Navigazione a sinistra",
-  "reactions.dialog.reactions.count": "{count, plural, one {{count,number} reazione} other {{count,number} reazioni}}",
-  "reactions.dialog.right.navigate": "Navigazione a destra",
-  "reactions.dialog.viewall": "Guarda chi ha reagito",
-  "reactions.dialog.viewall.tooltip": "Visualizza tutte le reazioni degli utenti"
+  'fabric.reactions.add': 'Aggiungi una reazione',
+  'fabric.reactions.error.unexpected': 'Le reazioni non sono temporaneamente disponibili',
+  'fabric.reactions.loading': 'Caricamento in corso...',
+  'fabric.reactions.more.emojis': 'Altre emoji',
+  'fabric.reactions.more.info': 'Altre informazioni',
+  'fabric.reactions.other.reacted.users': '{count, plural, one {e un altro} other {e altri {count}}}',
+  'fabric.reactions.reactwithemoji': "Reagisci con l'emoji {emoji}",
+  'reactions.dialog.close': 'Chiudi',
+  'reactions.dialog.emoji.name': '{emojiName}',
+  'reactions.dialog.left.navigate': 'Navigazione a sinistra',
+  'reactions.dialog.reactions.count': '{count, plural, one {{count,number} reazione} other {{count,number} reazioni}}',
+  'reactions.dialog.right.navigate': 'Navigazione a destra',
+  'reactions.dialog.viewall': 'Guarda chi ha reagito',
+  'reactions.dialog.viewall.tooltip': 'Visualizza tutte le reazioni degli utenti',
 };

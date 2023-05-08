@@ -230,7 +230,9 @@ export class ContextualMenu extends Component<
         isOpen && targetCellPosition
           ? state.doc.nodeAt(targetCellPosition)
           : null;
-      const background = node?.attrs?.background || '#ffffff';
+      const background = hexToEditorBackgroundPaletteColor(
+        node?.attrs?.background || '#ffffff',
+      );
       items.push({
         content: formatMessage(messages.cellBackground),
         value: { name: 'background' },

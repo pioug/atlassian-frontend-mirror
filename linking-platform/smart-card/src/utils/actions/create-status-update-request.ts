@@ -5,7 +5,7 @@ const createStatusUpdateRequest = (
   request: InvokeRequest,
   id: string,
 ): InvokeRequest<StatusUpdateActionPayload> => ({
-  ...request,
+  providerKey: request.providerKey,
   action: {
     ...request.action,
     payload: { newStatusId: id },

@@ -46,7 +46,8 @@ export function getLinkClickOutcome(
   }
 
   switch (clickType) {
-    case 'left': {
+    case 'left':
+    case 'keyboard': {
       // Meta key = Cmd for macOS, Windows key sometimes for Windows (otherwise false)
       // https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/metaKey
       if (e.metaKey) {
@@ -113,7 +114,10 @@ const linkClickedEvent = ({
 });
 
 export const createLinkClickedPayload = (event: React.MouseEvent) => {
-  const clickType = buttonMap.get(event.button);
+  // Through the `detail` property, we're able to determine if the event is (most likely) triggered via keyboard
+  // https://developer.mozilla.org/en-US/docs/Web/API/UIEvent/detail
+  const isKeyboard = event.nativeEvent.detail === 0;
+  const clickType = isKeyboard ? 'keyboard' : buttonMap.get(event.button);
 
   if (!clickType) {
     return;

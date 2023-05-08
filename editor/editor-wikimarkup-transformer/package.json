@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-wikimarkup-transformer",
-  "version": "11.1.17",
+  "version": "11.2.0",
   "description": "Wiki markup transformer for JIRA and Confluence",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -24,22 +24,22 @@
     }
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^25.5.0",
-    "@atlaskit/editor-json-transformer": "^8.8.0",
-    "@atlaskit/theme": "^12.4.0",
+    "@atlaskit/adf-schema": "^25.6.0",
+    "@atlaskit/editor-json-transformer": "^8.9.0",
+    "@atlaskit/theme": "^12.5.0",
     "@babel/runtime": "^7.0.0",
     "prosemirror-model": "1.14.3"
   },
   "devDependencies": {
     "@atlaskit/activity": "^1.0.1",
     "@atlaskit/docs": "*",
-    "@atlaskit/editor-common": "^73.0.0",
-    "@atlaskit/editor-core": "^182.2.0",
+    "@atlaskit/editor-common": "^74.0.0",
+    "@atlaskit/editor-core": "^183.0.0",
     "@atlaskit/editor-test-helpers": "^18.2.0",
-    "@atlaskit/mention": "^22.0.0",
-    "@atlaskit/profilecard": "^19.2.0",
-    "@atlaskit/renderer": "^107.3.0",
-    "@atlaskit/util-data-test": "^17.7.0",
+    "@atlaskit/mention": "^22.1.0",
+    "@atlaskit/profilecard": "^19.3.0",
+    "@atlaskit/renderer": "^108.0.0",
+    "@atlaskit/util-data-test": "^17.8.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@emotion/react": "^11.7.1",
     "@types/prosemirror-model": "^1.11.0",

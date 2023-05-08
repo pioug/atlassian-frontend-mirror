@@ -7,11 +7,11 @@
  */
 //Czech
 export default {
-  "fabric.status.color.blue": "Modrá",
-  "fabric.status.color.green": "Zelená",
-  "fabric.status.color.grey": "Šedá",
-  "fabric.status.color.purple": "Fialová",
-  "fabric.status.color.red": "Červená",
-  "fabric.status.color.yellow": "Žlutá",
-  "fabric.status.input.label": "Nastavit stav"
+  'fabric.status.color.blue': 'Modrá',
+  'fabric.status.color.green': 'Zelená',
+  'fabric.status.color.grey': 'Šedá',
+  'fabric.status.color.purple': 'Fialová',
+  'fabric.status.color.red': 'Červená',
+  'fabric.status.color.yellow': 'Žlutá',
+  'fabric.status.input.label': 'Nastavit stav',
 };

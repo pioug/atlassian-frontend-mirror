@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/motion",
-  "version": "1.3.2",
+  "version": "1.4.0",
   "description": "A set of utilities to apply motion in your application.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -36,7 +36,7 @@
     }
   },
   "dependencies": {
-    "@atlaskit/ds-lib": "^2.1.0",
+    "@atlaskit/ds-lib": "^2.2.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "bind-event-listener": "^2.1.1"
@@ -45,14 +45,14 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/button": "^16.6.0",
+    "@atlaskit/button": "^16.7.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/focus-ring": "^1.2.0",
-    "@atlaskit/logo": "^13.13.0",
-    "@atlaskit/section-message": "^6.3.0",
+    "@atlaskit/focus-ring": "^1.3.0",
+    "@atlaskit/logo": "^13.14.0",
+    "@atlaskit/section-message": "^6.4.0",
     "@atlaskit/ssr": "*",
-    "@atlaskit/theme": "^12.4.0",
-    "@atlaskit/tokens": "^1.2.0",
+    "@atlaskit/theme": "^12.5.0",
+    "@atlaskit/tokens": "^1.3.0",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@testing-library/react": "^12.1.5",

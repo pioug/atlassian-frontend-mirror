@@ -7,17 +7,20 @@
  */
 //Ukrainian (Ukraine)
 export default {
-  "fabric.reactions.add": "Додати реакцію",
-  "fabric.reactions.error.unexpected": "Реакції тимчасово недоступні",
-  "fabric.reactions.loading": "Завантаження...",
-  "fabric.reactions.more.emojis": "Інші емодзі",
-  "fabric.reactions.more.info": "Докладніше",
-  "fabric.reactions.other.reacted.users": "{count, plural, one {і ще {count} особа} few {і ще {count} особи} many {і ще {count} осіб} other {і ще {count} особи}}",
-  "fabric.reactions.reactwithemoji": "Вставити емодзі {emoji}",
-  "reactions.dialog.close": "Закрити",
-  "reactions.dialog.left.navigate": "Перейти вліво",
-  "reactions.dialog.reactions.count": "{count, plural, one {{count,number} реакція} few {{count,number} реакції} many {{count,number} реакцій} other {{count,number} реакції}}",
-  "reactions.dialog.right.navigate": "Перейти вправо",
-  "reactions.dialog.viewall": "Переглянути, хто відреагував",
-  "reactions.dialog.viewall.tooltip": "Переглянути всі реакції користувачів"
+  'fabric.reactions.add': 'Додати реакцію',
+  'fabric.reactions.error.unexpected': 'Реакції тимчасово недоступні',
+  'fabric.reactions.loading': 'Завантаження...',
+  'fabric.reactions.more.emojis': 'Інші емодзі',
+  'fabric.reactions.more.info': 'Докладніше',
+  'fabric.reactions.other.reacted.users':
+    '{count, plural, one {і ще {count} особа} few {і ще {count} особи} many {і ще {count} осіб} other {і ще {count} особи}}',
+  'fabric.reactions.reactwithemoji': 'Вставити емодзі {emoji}',
+  'reactions.dialog.close': 'Закрити',
+  'reactions.dialog.emoji.name': '{emojiName}',
+  'reactions.dialog.left.navigate': 'Перейти вліво',
+  'reactions.dialog.reactions.count':
+    '{count, plural, one {{count,number} реакція} few {{count,number} реакції} many {{count,number} реакцій} other {{count,number} реакції}}',
+  'reactions.dialog.right.navigate': 'Перейти вправо',
+  'reactions.dialog.viewall': 'Переглянути, хто відреагував',
+  'reactions.dialog.viewall.tooltip': 'Переглянути всі реакції користувачів',
 };

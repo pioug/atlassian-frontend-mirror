@@ -4,7 +4,7 @@ import { jsx } from '@emotion/react';
 import { Card, Client, Provider } from '@atlaskit/smart-card';
 import { VRTestWrapper } from './utils/vr-test';
 import { JsonLd } from 'json-ld-types';
-import { BitbucketFile } from '../examples-helpers/_jsonLDExamples/provider.bitbucket';
+import { BitbucketFile1 } from '../examples-helpers/_jsonLDExamples';
 import { useCallback, useState } from 'react';
 import { CardStore } from '@atlaskit/linking-common';
 import Button from '@atlaskit/button';
@@ -12,7 +12,7 @@ import Button from '@atlaskit/button';
 class CustomClient extends Client {
   fetchData() {
     return Promise.resolve(
-      BitbucketFile as JsonLd.Response<JsonLd.Data.Document>,
+      BitbucketFile1 as JsonLd.Response<JsonLd.Data.Document>,
     );
   }
 }

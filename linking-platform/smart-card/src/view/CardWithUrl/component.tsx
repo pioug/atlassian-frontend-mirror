@@ -276,6 +276,7 @@ export function CardWithUrlContent({
         testId={testId}
         onResolve={onResolve}
         onError={onError}
+        analytics={analytics}
       >
         {children}
       </FlexibleCard>

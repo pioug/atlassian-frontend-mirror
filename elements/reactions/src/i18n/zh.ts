@@ -7,17 +7,18 @@
  */
 //Chinese (Simplified)
 export default {
-  "fabric.reactions.add": "添加反应",
-  "fabric.reactions.error.unexpected": "反应暂时不可用",
-  "fabric.reactions.loading": "正在加载...",
-  "fabric.reactions.more.emojis": "更多表情",
-  "fabric.reactions.more.info": "更多信息",
-  "fabric.reactions.other.reacted.users": "{count, plural, other {以及其他 {count} 个人}}",
-  "fabric.reactions.reactwithemoji": "使用 {emoji} 表情回应",
-  "reactions.dialog.close": "关闭",
-  "reactions.dialog.left.navigate": "向左导航",
-  "reactions.dialog.reactions.count": "{count, plural, other {{count,number} 条反应}}",
-  "reactions.dialog.right.navigate": "向右导航",
-  "reactions.dialog.viewall": "查看哪些人已反应",
-  "reactions.dialog.viewall.tooltip": "查看所有用户反应"
+  'fabric.reactions.add': '添加反应',
+  'fabric.reactions.error.unexpected': '反应暂时不可用',
+  'fabric.reactions.loading': '正在加载...',
+  'fabric.reactions.more.emojis': '更多表情',
+  'fabric.reactions.more.info': '更多信息',
+  'fabric.reactions.other.reacted.users': '{count, plural, other {以及其他 {count} 个人}}',
+  'fabric.reactions.reactwithemoji': '使用 {emoji} 表情回应',
+  'reactions.dialog.close': '关闭',
+  'reactions.dialog.emoji.name': '{emojiName}',
+  'reactions.dialog.left.navigate': '向左导航',
+  'reactions.dialog.reactions.count': '{count, plural, other {{count,number} 条反应}}',
+  'reactions.dialog.right.navigate': '向右导航',
+  'reactions.dialog.viewall': '查看哪些人已反应',
+  'reactions.dialog.viewall.tooltip': '查看所有用户反应',
 };

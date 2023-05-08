@@ -1,9 +1,29 @@
+import React from 'react';
+
 import { md } from '@atlaskit/docs';
+import SectionMessage from '@atlaskit/section-message';
 
 export default md`
-> **_Maintaince Mode:_** \
-> This package is officially in maintenance mode, which means only bugfixes or VULN fixes are currently being accepted and no breaking changes will be approved in the PR process. \
-> Please refer to this [DACI](https://hello.atlassian.net/wiki/spaces/APD/pages/2470435075/DACI+analytics-next+in+a+maintenance+mode) for more details.
+
+${(
+  <SectionMessage
+    appearance="warning"
+    title="Maintaince Mode: @atlaskit/analytics is in maintenance mode."
+  >
+    This package is officially in maintenance mode, which means only bugfixes or
+    VULN fixes are currently being accepted and no known breaking changes will
+    be approved in the PR process. <br />
+    Please refer to this
+    <a
+      href="https://hello.atlassian.net/wiki/spaces/APD/pages/2470435075/DACI+analytics-next+in+a+maintenance+mode"
+      target="_blank"
+    >
+      {' '}
+      DACI{' '}
+    </a>{' '}
+    for more details.
+  </SectionMessage>
+)}
 
 This package aims to help assist consumers track the way their React components are being used.
 

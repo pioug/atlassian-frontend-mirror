@@ -1,21 +1,13 @@
 import React from 'react';
 import Page, { Grid, GridColumn } from '@atlaskit/page';
-import { Provider, Card, Client, ResolveResponse } from '../src';
+import { Provider, Card, Client } from '../src';
 import urlsJSON from '../examples-helpers/example-urls.json';
 import { AsanaTask } from '../examples-helpers/_jsonLDExamples';
 import '../examples-helpers';
 
 class CustomClient extends Client {
-  fetchData(url: string) {
-    return Promise.resolve({
-      meta: {
-        visibility: 'public',
-        access: 'granted',
-        auth: [],
-        definitionId: 'def1',
-      },
-      data: AsanaTask,
-    } as ResolveResponse);
+  fetchData(_url: string) {
+    return Promise.resolve(AsanaTask);
   }
 }
 

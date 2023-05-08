@@ -3,41 +3,29 @@ import Page, { Grid, GridColumn } from '@atlaskit/page';
 import { Card, Client, Provider, ResolveResponse } from '../src';
 import {
   GithubRepository,
-  BitbucketRepository,
+  BitbucketRepository2,
   ConfluencePage,
   ConfluenceBlogPost,
   ConfluenceSpace,
   ConfluenceTemplate,
-  BitbucketPullRequest,
+  BitbucketPullRequest2,
   BitbucketSourceCodeReference,
-  BitbucketFile,
+  BitbucketFile2,
   GithubPullRequest,
   GithubSourceCodeReference,
   GithubFile,
-} from '../examples-helpers/_jsonLDExamples';
-import { IntlProvider } from 'react-intl-next';
-import {
   JiraTasks,
   GitHubIssue,
-} from '../examples-helpers/_jsonLDExamples/atlassian.task';
+} from '../examples-helpers/_jsonLDExamples';
+import { IntlProvider } from 'react-intl-next';
 import { EnvironmentsKeys } from '@atlaskit/link-provider';
-
-const metaMock = {
-  access: 'granted',
-  visibility: 'public',
-  definitionId: 'd1',
-  auth: [],
-};
 
 class BitbucketClient extends Client {
   constructor(config: EnvironmentsKeys) {
     super(config);
   }
   fetchData(): Promise<ResolveResponse> {
-    return Promise.resolve({
-      meta: metaMock,
-      data: BitbucketRepository,
-    } as ResolveResponse);
+    return Promise.resolve(BitbucketRepository2 as ResolveResponse);
   }
 }
 
@@ -46,10 +34,7 @@ class GithubClient extends Client {
     super(config);
   }
   fetchData(): Promise<ResolveResponse> {
-    return Promise.resolve({
-      meta: metaMock,
-      data: GithubRepository,
-    } as ResolveResponse);
+    return Promise.resolve(GithubRepository as ResolveResponse);
   }
 }
 
@@ -139,7 +124,7 @@ class Example extends React.Component {
                 <Card
                   url="https://bitbucket.org/some/repo"
                   appearance="inline"
-                  data={BitbucketRepository}
+                  data={BitbucketRepository2}
                 />
               </div>
               <div>
@@ -147,7 +132,7 @@ class Example extends React.Component {
                 <Card
                   url="https://bitbucket.org/some/pr"
                   appearance="inline"
-                  data={BitbucketPullRequest}
+                  data={BitbucketPullRequest2}
                 />
               </div>
               <div>
@@ -163,7 +148,7 @@ class Example extends React.Component {
                 <Card
                   url="https://bitbucket.org/some/file"
                   appearance="inline"
-                  data={BitbucketFile}
+                  data={BitbucketFile2}
                 />
               </div>
               <h3>Github Examples (inline)</h3>

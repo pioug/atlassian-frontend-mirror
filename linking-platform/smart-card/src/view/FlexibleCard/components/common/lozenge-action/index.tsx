@@ -19,6 +19,7 @@ import useResolve from '../../../../../state/hooks/use-resolve';
 import { MessageProps } from '../../types';
 import { LozengeActionErrorMessages } from './lozenge-action-error/types';
 import { InvokeError } from '@atlaskit/linking-types/smart-link-actions';
+import { useFlexibleUiAnalyticsContext } from '../../../../../state/flexible-ui-context';
 import type { LozengeActionTriggerProps } from './lozenge-action-trigger/type';
 
 const validateItems = (
@@ -49,43 +50,50 @@ const LozengeAction: FC<LozengeActionProps> = ({
   const [items, setItems] = useState<LozengeItem[]>();
   const [errorMessage, setErrorMessage] = useState<string | MessageProps>();
 
+  const reload = useResolve();
+  //TODO EDM-6583 Replace usage of useFlexibleUiAnalyticsContext with linking platform analytics context from find team.
+  const analytics = useFlexibleUiAnalyticsContext();
+  const invoke = useInvoke({
+    started: analytics?.track.smartLinkQuickActionStarted,
+    success: analytics?.track.smartLinkQuickActionSuccess,
+    failed: analytics?.track.smartLinkQuickActionFailed,
+  });
   useEffect(() => {
     setSelected({ text, appearance });
   }, [text, appearance]);
-
-  const invoke = useInvoke();
-  const reload = useResolve();
 
   const { url, id: linkId, previewData } = action?.update?.details || {};
 
   const handleOpenChange = useCallback(
     async (args) => {
       setIsOpen(args.isOpen);
+      if (args.isOpen) {
+        analytics?.ui.smartLinkLozengeActionClickedEvent();
+        if (!isLoaded && action?.read) {
+          try {
+            setIsLoading(true);
+            const responseItems = await invoke(
+              action.read,
+              extractLozengeActionItems,
+            );
+            const validItems =
+              typeof text === 'string'
+                ? validateItems(responseItems, text)
+                : responseItems;
 
-      if (args.isOpen && !isLoaded && action?.read) {
-        try {
-          setIsLoading(true);
-          const responseItems = await invoke(
-            action.read,
-            extractLozengeActionItems,
-          );
-          const validItems =
-            typeof text === 'string'
-              ? validateItems(responseItems, text)
-              : responseItems;
+            setItems(validItems);
+            setIsLoaded(true);
 
-          setItems(validItems);
-          setIsLoaded(true);
-
-          if (validItems?.length === 0) {
-            setErrorMessage(LozengeActionErrorMessages.noData);
+            if (validItems?.length === 0) {
+              setErrorMessage(LozengeActionErrorMessages.noData);
+              setIsLoaded(false);
+            }
+          } catch (err) {
+            setErrorMessage(LozengeActionErrorMessages.unknown);
             setIsLoaded(false);
+          } finally {
+            setIsLoading(false);
           }
-        } catch (err) {
-          setErrorMessage(LozengeActionErrorMessages.unknown);
-          setIsLoaded(false);
-        } finally {
-          setIsLoading(false);
         }
       }
 
@@ -93,7 +101,7 @@ const LozengeAction: FC<LozengeActionProps> = ({
         setErrorMessage(undefined);
       }
     },
-    [action?.read, invoke, isLoaded, text],
+    [action.read, analytics, invoke, isLoaded, text],
   );
 
   const trigger = useCallback(
@@ -111,6 +119,7 @@ const LozengeAction: FC<LozengeActionProps> = ({
   const handleItemClick = useCallback(
     async (id: string, text: string, appearance?: ThemeAppearance) => {
       try {
+        analytics?.ui.smartLinkLozengeActionListItemClickedEvent();
         const updateAction = action?.update;
         if (updateAction && id) {
           setIsLoading(true);
@@ -138,7 +147,7 @@ const LozengeAction: FC<LozengeActionProps> = ({
         }
       }
     },
-    [action?.update, invoke, linkId, reload, url],
+    [action?.update, analytics?.ui, invoke, linkId, reload, url],
   );
 
   const dropdownItemGroup = useMemo(() => {

@@ -63,8 +63,8 @@ describe('migrate 12 to 13', () => {
     import { Draggable } from 'react-beautiful-dnd';
 
     <Draggable>
-      ${getExpectedMessage({ indent: 6 })}
-      {provided => (
+      {${getExpectedMessage({ indent: 6 })}
+      }{provided => (
         <div
           ref={provided.innerRef}
           {...provided.draggableProps}
@@ -166,8 +166,8 @@ describe('migrate 12 to 13', () => {
             {...provided.droppableProps}
           >
             <RbdDraggable>
-              ${getExpectedMessage({ indent: 14 })}
-              {provided => (
+              {${getExpectedMessage({ indent: 14 })}
+              }{provided => (
                 <div
                   ref={provided.innerRef}
                   {...provided.draggableProps}

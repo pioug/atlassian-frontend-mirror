@@ -61,14 +61,6 @@ const getThemePreferences = (themeState: ThemeState): ThemeIds[] => {
     }
   });
 
-  if (
-    // eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-    getBooleanFF('design-system-team.dark-theme-iteration_dk1ln') &&
-    themePreferences.includes('dark')
-  ) {
-    themePreferences.push('dark-iteration' as ThemeIds);
-  }
-
   return [...new Set(themePreferences)];
 };
 
@@ -109,6 +101,14 @@ const setGlobalTheme = async ({
       async (themeId) => await loadAndAppendThemeCss(themeId),
     ),
   );
+
+  if (
+    // eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+    getBooleanFF('design-system-team.dark-theme-iteration_dk1ln') &&
+    themePreferences.includes('dark')
+  ) {
+    await loadAndAppendThemeCss('dark-iteration');
+  }
 
   if (colorMode === 'auto' && darkModeMql) {
     colorMode = darkModeMql.matches ? 'dark' : 'light';
@@ -171,6 +171,14 @@ export const getThemeStyles = async ({
     spacing,
     typography,
   });
+
+  if (
+    // eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+    getBooleanFF('design-system-team.dark-theme-iteration_dk1ln') &&
+    themePreferences.includes('dark')
+  ) {
+    themePreferences.push('dark-iteration' as ThemeIds);
+  }
 
   const results = await Promise.all(
     themePreferences.map(async (themeId): Promise<ThemeStyles | undefined> => {

@@ -5,10 +5,7 @@ import { JsonLd } from 'json-ld-types';
 import { VRTestWrapper } from './utils/vr-test';
 import { Provider, Client } from '../src';
 import { Card } from '../src';
-import {
-  AtlasGoal,
-  AtlasProject,
-} from '../examples-helpers/_jsonLDExamples/provider.atlas';
+import { AtlasGoal, AtlasProject } from '../examples-helpers/_jsonLDExamples';
 import { overrideEmbedContent } from './utils/common';
 
 const examples = {

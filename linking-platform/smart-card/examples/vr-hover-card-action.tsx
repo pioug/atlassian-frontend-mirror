@@ -3,7 +3,7 @@ import { jsx } from '@emotion/react';
 
 import { VRTestWrapper } from './utils/vr-test';
 import { Card, Client, Provider, ResolveResponse } from '../src';
-import { JiraIssue } from '../examples-helpers/_jsonLDExamples/provider.jira';
+import { JiraIssue } from '../examples-helpers/_jsonLDExamples';
 import './utils/fetch-mock-invoke';
 
 class CustomClient extends Client {
@@ -14,10 +14,7 @@ class CustomClient extends Client {
 
 export default () => (
   <VRTestWrapper title="Hover Card: Server Actions">
-    <Provider
-      client={new CustomClient('staging')}
-      featureFlags={{ useLozengeAction: 'experiment' }}
-    >
+    <Provider client={new CustomClient('staging')}>
       <Card
         url="https://www.mockurl.com"
         appearance="inline"

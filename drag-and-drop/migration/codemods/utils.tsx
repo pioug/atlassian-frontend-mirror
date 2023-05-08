@@ -1,15 +1,34 @@
 import type { ASTPath, Collection, JSCodeshift, JSXElement } from 'jscodeshift';
 
+function getImportDeclarationsForPackage(
+  j: JSCodeshift,
+  source: Collection<Node>,
+  packageName: string,
+) {
+  return source
+    .find(j.ImportDeclaration)
+    .filter(path => path.node.source.value === packageName);
+}
+
 export function getImportDeclarationsForRbd(
   j: JSCodeshift,
   source: Collection<Node>,
 ) {
-  return source
-    .find(j.ImportDeclaration)
-    .filter(path => path.node.source.value === 'react-beautiful-dnd');
+  return getImportDeclarationsForPackage(j, source, 'react-beautiful-dnd');
 }
 
-// TODO: update this when we finalise a name
+export function shouldRunCodemodOnFile(
+  j: JSCodeshift,
+  source: Collection<Node>,
+) {
+  const hasRbdImport = getImportDeclarationsForRbd(j, source).length > 0;
+  const hasRbdNextImport =
+    getImportDeclarationsForPackage(j, source, 'react-beautiful-dnd-next')
+      .length > 0;
+
+  return hasRbdImport || hasRbdNextImport;
+}
+
 export const migrationPackageName =
   '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration';
 

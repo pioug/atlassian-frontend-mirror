@@ -7,11 +7,11 @@
  */
 //Thai (Thailand)
 export default {
-  "fabric.status.color.blue": "น้ำเงิน",
-  "fabric.status.color.green": "เขียว",
-  "fabric.status.color.grey": "เทา",
-  "fabric.status.color.purple": "ม่วง",
-  "fabric.status.color.red": "แดง",
-  "fabric.status.color.yellow": "เหลือง",
-  "fabric.status.input.label": "ตั้งค่าสถานะ"
+  'fabric.status.color.blue': 'น้ำเงิน',
+  'fabric.status.color.green': 'เขียว',
+  'fabric.status.color.grey': 'เทา',
+  'fabric.status.color.purple': 'ม่วง',
+  'fabric.status.color.red': 'แดง',
+  'fabric.status.color.yellow': 'เหลือง',
+  'fabric.status.input.label': 'ตั้งค่าสถานะ',
 };

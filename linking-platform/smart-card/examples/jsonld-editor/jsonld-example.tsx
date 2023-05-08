@@ -1,10 +1,10 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 import React, { useCallback } from 'react';
-import { JsonLd } from 'json-ld-types';
 import * as examples from '../../examples-helpers/_jsonLDExamples';
 import Button from '@atlaskit/button';
 import { getJsonLdResponse } from '../utils/flexible-ui';
+import { ResolveResponse } from '../../src';
 
 const jsonldExampleStyles = css`
   display: flex;
@@ -14,12 +14,12 @@ const jsonldExampleStyles = css`
 `;
 
 const JsonldExample: React.FC<{
-  defaultValue: JsonLd.Data.BaseData;
-  onSelect: (response: JsonLd.Response) => void;
+  defaultValue: ResolveResponse;
+  onSelect: (response: ResolveResponse) => void;
 }> = ({ defaultValue, onSelect }) => {
   const handleOnClick = useCallback(
-    (data) => {
-      const response = getJsonLdResponse(data.url, undefined, data);
+    ({ data, meta }) => {
+      const response = getJsonLdResponse(data.url, meta, data);
       onSelect(response);
     },
     [onSelect],

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/prosemirror-collab",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "description": "Collaborative editing for ProseMirror - Atlassian Fork",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -27,7 +27,7 @@
     "prosemirror-state": "1.3.4"
   },
   "devDependencies": {
-    "@atlaskit/adf-schema": "^25.5.0",
+    "@atlaskit/adf-schema": "^25.6.0",
     "@atlaskit/editor-test-helpers": "^18.2.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@types/prosemirror-history": "^1.0.1",

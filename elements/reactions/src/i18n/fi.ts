@@ -7,17 +7,17 @@
  */
 //Finnish
 export default {
-  "fabric.reactions.add": "Lisää reaktio",
-  "fabric.reactions.error.unexpected": "Reaktiot ovat väliaikaisesti poissa käytöstä",
-  "fabric.reactions.loading": "Ladataan...",
-  "fabric.reactions.more.emojis": "Lisää emojeita",
-  "fabric.reactions.more.info": "Lisätietoja",
-  "fabric.reactions.other.reacted.users": "{count, plural, one {ja yksi muu} other {ja {count} muuta}}",
-  "fabric.reactions.reactwithemoji": "Reagoi emojilla {emoji}",
-  "reactions.dialog.close": "Sulje",
-  "reactions.dialog.left.navigate": "Navigointi vasemmalle",
-  "reactions.dialog.reactions.count": "{count, plural, one {{count,number} reaktio} other {{count,number} reaktiota}}",
-  "reactions.dialog.right.navigate": "Navigointi oikealle",
-  "reactions.dialog.viewall": "Katso, kuka on reagoinut",
-  "reactions.dialog.viewall.tooltip": "Näytä kaikki käyttäjäreaktiot"
+  'fabric.reactions.add': 'Lisää reaktio',
+  'fabric.reactions.error.unexpected': 'Reaktiot ovat väliaikaisesti poissa käytöstä',
+  'fabric.reactions.loading': 'Ladataan...',
+  'fabric.reactions.more.emojis': 'Lisää emojeita',
+  'fabric.reactions.more.info': 'Lisätietoja',
+  'fabric.reactions.other.reacted.users': '{count, plural, one {ja yksi muu} other {ja {count} muuta}}',
+  'fabric.reactions.reactwithemoji': 'Reagoi emojilla {emoji}',
+  'reactions.dialog.close': 'Sulje',
+  'reactions.dialog.left.navigate': 'Navigointi vasemmalle',
+  'reactions.dialog.reactions.count': '{count, plural, one {{count,number} reaktio} other {{count,number} reaktiota}}',
+  'reactions.dialog.right.navigate': 'Navigointi oikealle',
+  'reactions.dialog.viewall': 'Katso, kuka on reagoinut',
+  'reactions.dialog.viewall.tooltip': 'Näytä kaikki käyttäjäreaktiot',
 };

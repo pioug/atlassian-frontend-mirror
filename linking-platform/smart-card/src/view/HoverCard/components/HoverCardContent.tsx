@@ -141,6 +141,7 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
     ui: flexibleUiOptions,
     url: url,
     children: {},
+    analytics,
   };
 
   const onClickStopPropagation = useCallback((e) => e.stopPropagation(), []);

@@ -7,11 +7,11 @@
  */
 //Dutch (Netherlands)
 export default {
-  "fabric.status.color.blue": "Blauw",
-  "fabric.status.color.green": "Groen",
-  "fabric.status.color.grey": "Grijs",
-  "fabric.status.color.purple": "Paars",
-  "fabric.status.color.red": "Rood",
-  "fabric.status.color.yellow": "Geel",
-  "fabric.status.input.label": "Status instellen"
+  'fabric.status.color.blue': 'Blauw',
+  'fabric.status.color.green': 'Groen',
+  'fabric.status.color.grey': 'Grijs',
+  'fabric.status.color.purple': 'Paars',
+  'fabric.status.color.red': 'Rood',
+  'fabric.status.color.yellow': 'Geel',
+  'fabric.status.input.label': 'Status instellen',
 };

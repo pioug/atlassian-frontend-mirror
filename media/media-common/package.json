@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-common",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "description": "Includes common utilities used by other media packages",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -32,10 +32,10 @@
   },
   "scripts": {},
   "dependencies": {
-    "@atlaskit/analytics-gas-types": "^5.0.5",
-    "@atlaskit/analytics-namespaced-context": "^6.6.0",
-    "@atlaskit/analytics-next": "^9.0.0",
-    "@atlaskit/section-message": "^6.3.0",
+    "@atlaskit/analytics-gas-types": "^5.1.0",
+    "@atlaskit/analytics-namespaced-context": "^6.7.0",
+    "@atlaskit/analytics-next": "^9.1.0",
+    "@atlaskit/section-message": "^6.4.0",
     "@babel/runtime": "^7.0.0"
   },
   "peerDependencies": {
@@ -44,7 +44,7 @@
   },
   "devDependencies": {
     "@atlaskit/docs": "*",
-    "@atlaskit/media-test-helpers": "^32.1.0",
+    "@atlaskit/media-test-helpers": "^33.0.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "enzyme": "^3.10.0",
     "react": "^16.8.0",

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/icon-object",
-  "version": "6.2.9",
+  "version": "6.3.0",
   "description": "An object icon is used to represent an Atlassian-specific content type.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -32,7 +32,7 @@
     "build-glyphs": "ts-node --project ../../../tsconfig.node.json ./build/index.tsx"
   },
   "dependencies": {
-    "@atlaskit/icon": "^21.11.0",
+    "@atlaskit/icon": "^21.12.0",
     "@babel/runtime": "^7.0.0"
   },
   "peerDependencies": {
@@ -40,15 +40,15 @@
   },
   "devDependencies": {
     "@af/icon-build-process": "^0.3.0",
-    "@af/icon-explorer": "^0.0.22",
-    "@atlaskit/button": "^16.6.0",
+    "@af/icon-explorer": "^0.0.23",
+    "@atlaskit/button": "^16.7.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/modal-dialog": "^12.4.0",
-    "@atlaskit/section-message": "^6.3.0",
+    "@atlaskit/modal-dialog": "^12.5.0",
+    "@atlaskit/section-message": "^6.4.0",
     "@atlaskit/ssr": "*",
-    "@atlaskit/textfield": "^5.3.0",
-    "@atlaskit/theme": "^12.4.0",
-    "@atlaskit/tooltip": "^17.7.0",
+    "@atlaskit/textfield": "^5.4.0",
+    "@atlaskit/theme": "^12.5.0",
+    "@atlaskit/tooltip": "^17.8.0",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@emotion/styled": "^11.0.0",

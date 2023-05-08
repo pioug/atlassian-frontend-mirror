@@ -5,14 +5,11 @@ import { JsonLd } from 'json-ld-types';
 import { VRTestWrapper } from './utils/vr-test';
 import { Provider, Client } from '../src';
 import { Card } from '../src';
-import {
-  FullTrelloCard,
-  FullTrelloBoard,
-} from '../examples-helpers/_jsonLDExamples/provider.trello';
+import { TrelloCard, TrelloBoard } from '../examples-helpers/_jsonLDExamples';
 
 const examples = {
-  [FullTrelloCard.data.url]: FullTrelloCard,
-  [FullTrelloBoard.data.url]: FullTrelloBoard,
+  [TrelloCard.data.url]: TrelloCard,
+  [TrelloBoard.data.url]: TrelloBoard,
 };
 
 const cardStyles = css`
@@ -69,8 +66,8 @@ export default () => (
       client={new CustomClient('staging')}
       featureFlags={{ enableFlexibleBlockCard: true }}
     >
-      {renderLink('Card', FullTrelloCard.data.url, 'card', 430)}
-      {renderLink('Board', FullTrelloBoard.data.url, 'board', 430)}
+      {renderLink('Card', TrelloCard.data.url, 'card', 430)}
+      {renderLink('Board', TrelloBoard.data.url, 'board', 430)}
     </Provider>
   </VRTestWrapper>
 );

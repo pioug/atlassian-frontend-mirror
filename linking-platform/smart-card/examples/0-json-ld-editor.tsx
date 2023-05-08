@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import React from 'react';
-import { JsonLd } from 'json-ld-types';
 import { css, jsx } from '@emotion/react';
 import CardExample from './jsonld-editor/card-example';
 import JsonldExample from './jsonld-editor/jsonld-example';
@@ -51,10 +50,7 @@ const Example: React.FC = () => {
           <div>
             <h6>JSON-LD</h6>
             <LoadLinkForm onSubmit={onSubmitUrl} error={urlError} />
-            <JsonldExample
-              defaultValue={initialJson.data as JsonLd.Data.BaseData}
-              onSelect={onJsonChange}
-            />
+            <JsonldExample defaultValue={initialJson} onSelect={onJsonChange} />
             <JsonldEditorInput
               error={jsonError}
               onChange={onTextChange}

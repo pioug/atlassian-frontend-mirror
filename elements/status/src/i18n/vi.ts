@@ -7,11 +7,11 @@
  */
 //Vietnamese (Vietnam)
 export default {
-  "fabric.status.color.blue": "Xanh lam",
-  "fabric.status.color.green": "Xanh lục",
-  "fabric.status.color.grey": "Xám",
-  "fabric.status.color.purple": "Tím",
-  "fabric.status.color.red": "Đỏ",
-  "fabric.status.color.yellow": "Vàng",
-  "fabric.status.input.label": "Đặt trạng thái"
+  'fabric.status.color.blue': 'Xanh lam',
+  'fabric.status.color.green': 'Xanh lục',
+  'fabric.status.color.grey': 'Xám',
+  'fabric.status.color.purple': 'Tím',
+  'fabric.status.color.red': 'Đỏ',
+  'fabric.status.color.yellow': 'Vàng',
+  'fabric.status.input.label': 'Đặt trạng thái',
 };

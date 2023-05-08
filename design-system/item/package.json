@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/item",
-  "version": "12.0.9",
+  "version": "12.1.0",
   "description": "A generic item component to be used within other components",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -23,7 +23,7 @@
     }
   },
   "dependencies": {
-    "@atlaskit/theme": "^12.4.0",
+    "@atlaskit/theme": "^12.5.0",
     "@babel/runtime": "^7.0.0",
     "prop-types": "^15.5.10",
     "react-addons-text-content": "^0.0.4",
@@ -35,12 +35,12 @@
     "styled-components": "^3.2.6"
   },
   "devDependencies": {
-    "@atlaskit/avatar": "^21.2.0",
+    "@atlaskit/avatar": "^21.3.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/icon": "^21.11.0",
-    "@atlaskit/lozenge": "^11.3.0",
+    "@atlaskit/icon": "^21.12.0",
+    "@atlaskit/lozenge": "^11.4.0",
     "@atlaskit/ssr": "*",
-    "@atlaskit/tooltip": "^17.7.0",
+    "@atlaskit/tooltip": "^17.8.0",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@testing-library/react": "^12.1.5",

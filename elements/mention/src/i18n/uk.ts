@@ -7,19 +7,17 @@
  */
 //Ukrainian (Ukraine)
 export default {
-  "fabric.elements.mentions.team.meantion.highlight.close.button.tooltip": "Закрити",
-  "fabric.elements.mentions.team.member.50plus": "Команда • Понад 50 учасників",
-  "fabric.elements.mentions.team.member.50plus.including.you": "Команда • Понад 50 учасників включно з вами",
-  "fabric.elements.mentions.team.member.count": "{0, plural, one {Команда • 1 учасник} few {Команда • {0} учасники} many {Команда • {0} учасників} other {Команда • {0} учасників}}",
-  "fabric.elements.mentions.team.member.count.including.you": "{0, plural, one {Команда • 1 учасник включно з вами} few {Команда • {0} учасники включно з вами} many {Команда • {0} учасників включно з вами} other {Команда • {0} учасників включно з вами}}",
-  "fabric.elements.mentions.team.mention.highlight.description": "Одним рухом приверніть увагу всіх учасників до сторінки. Немає команди?",
-  "fabric.elements.mentions.team.mention.highlight.description.link": "Створіть її.",
-  "fabric.elements.mentions.team.mention.highlight.title": "Згадайте свою команду",
-  "fabric.mention.error.defaultAction": "Повторіть спробу за кілька секунд",
-  "fabric.mention.error.defaultHeadline": "Щось пішло не так",
-  "fabric.mention.error.differentText": "Спробуйте ввести інший текст",
-  "fabric.mention.error.loginAgain": "Спробуйте вийти й знову ввійти",
-  "fabric.mention.noAccess.label": "Немає доступу",
-  "fabric.mention.noAccess.warning": "{name} не має доступу, тому не отримає сповіщення",
-  "fabric.mention.unknow.user.error": "Невідомий користувач {userId}"
+  'fabric.elements.mentions.team.member.50plus': 'Команда • Понад 50 учасників',
+  'fabric.elements.mentions.team.member.50plus.including.you': 'Команда • Понад 50 учасників включно з вами',
+  'fabric.elements.mentions.team.member.count':
+    '{0, plural, one {Команда • 1 учасник} few {Команда • {0} учасники} many {Команда • {0} учасників} other {Команда • {0} учасників}}',
+  'fabric.elements.mentions.team.member.count.including.you':
+    '{0, plural, one {Команда • 1 учасник включно з вами} few {Команда • {0} учасники включно з вами} many {Команда • {0} учасників включно з вами} other {Команда • {0} учасників включно з вами}}',
+  'fabric.mention.error.defaultAction': 'Повторіть спробу за кілька секунд',
+  'fabric.mention.error.defaultHeadline': 'Щось пішло не так',
+  'fabric.mention.error.differentText': 'Спробуйте ввести інший текст',
+  'fabric.mention.error.loginAgain': 'Спробуйте вийти й знову ввійти',
+  'fabric.mention.noAccess.label': 'Немає доступу',
+  'fabric.mention.noAccess.warning': '{name} не має доступу, тому не отримає сповіщення',
+  'fabric.mention.unknow.user.error': 'Невідомий користувач {userId}',
 };

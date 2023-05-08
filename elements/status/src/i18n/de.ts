@@ -7,11 +7,11 @@
  */
 //German (Germany)
 export default {
-  "fabric.status.color.blue": "Blau",
-  "fabric.status.color.green": "Grün",
-  "fabric.status.color.grey": "Grau",
-  "fabric.status.color.purple": "Violett",
-  "fabric.status.color.red": "Rot",
-  "fabric.status.color.yellow": "Gelb",
-  "fabric.status.input.label": "Status festlegen"
+  'fabric.status.color.blue': 'Blau',
+  'fabric.status.color.green': 'Grün',
+  'fabric.status.color.grey': 'Grau',
+  'fabric.status.color.purple': 'Violett',
+  'fabric.status.color.red': 'Rot',
+  'fabric.status.color.yellow': 'Gelb',
+  'fabric.status.input.label': 'Status festlegen',
 };

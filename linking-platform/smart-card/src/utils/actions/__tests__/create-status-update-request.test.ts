@@ -12,6 +12,10 @@ describe('createStatusUpdateRequest', () => {
           hostname: 'some-hostname',
         },
       },
+      details: {
+        url: 'some-url',
+        id: 'some-id',
+      },
       providerKey: 'object-provider',
     };
     const request = createStatusUpdateRequest(partialRequest, id);

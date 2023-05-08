@@ -7,11 +7,11 @@
  */
 //Norwegian (Bokmål)
 export default {
-  "fabric.status.color.blue": "Blå",
-  "fabric.status.color.green": "Grønn",
-  "fabric.status.color.grey": "Grå",
-  "fabric.status.color.purple": "Lilla",
-  "fabric.status.color.red": "Rød",
-  "fabric.status.color.yellow": "Gul",
-  "fabric.status.input.label": "Angi en status"
+  'fabric.status.color.blue': 'Blå',
+  'fabric.status.color.green': 'Grønn',
+  'fabric.status.color.grey': 'Grå',
+  'fabric.status.color.purple': 'Lilla',
+  'fabric.status.color.red': 'Rød',
+  'fabric.status.color.yellow': 'Gul',
+  'fabric.status.input.label': 'Angi en status',
 };

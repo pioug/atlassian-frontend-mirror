@@ -220,6 +220,9 @@ describe('setGlobalTheme', () => {
       el.getAttribute('data-theme'),
     );
 
+    // Validate that dark-iteration is the last theme added to the page
+    expect(dataThemes[4]).toBe('dark-iteration');
+
     expect(dataThemes.sort()).toEqual([
       'dark',
       'dark-iteration',
@@ -231,8 +234,7 @@ describe('setGlobalTheme', () => {
 });
 
 describe('getThemeStyles', () => {
-  function getSortedThemeData(themes: ThemeStyles[]) {
-    themes.sort((a, b) => a.id.localeCompare(b.id));
+  function getThemeData(themes: ThemeStyles[]) {
     return themes.reduce(
       (acc: Omit<ThemeStyles, 'css'>[], { css, ...rest }) => {
         acc.push({ ...rest });
@@ -254,9 +256,9 @@ describe('getThemeStyles', () => {
       expect(result.css).toBeDefined();
     });
 
-    expect(getSortedThemeData(results)).toEqual([
-      { id: 'dark', attrs: { 'data-theme': 'dark' } },
+    expect(getThemeData(results)).toEqual([
       { id: 'legacy-light', attrs: { 'data-theme': 'legacy-light' } },
+      { id: 'dark', attrs: { 'data-theme': 'dark' } },
       { id: 'spacing', attrs: { 'data-theme': 'spacing' } },
       { id: 'typography', attrs: { 'data-theme': 'typography' } },
     ]);
@@ -270,9 +272,9 @@ describe('getThemeStyles', () => {
       expect(result.css).toBeDefined();
     });
 
-    expect(getSortedThemeData(results)).toEqual([
-      { id: 'dark', attrs: { 'data-theme': 'dark' } },
+    expect(getThemeData(results)).toEqual([
       { id: 'light', attrs: { 'data-theme': 'light' } },
+      { id: 'dark', attrs: { 'data-theme': 'dark' } },
     ]);
   });
 
@@ -287,12 +289,12 @@ describe('getThemeStyles', () => {
       typography: 'typography',
     });
 
-    expect(getSortedThemeData(results)).toEqual([
-      { id: 'dark', attrs: { 'data-theme': 'dark' } },
-      { id: 'dark-iteration', attrs: { 'data-theme': 'dark-iteration' } },
+    expect(getThemeData(results)).toEqual([
       { id: 'light', attrs: { 'data-theme': 'light' } },
+      { id: 'dark', attrs: { 'data-theme': 'dark' } },
       { id: 'spacing', attrs: { 'data-theme': 'spacing' } },
       { id: 'typography', attrs: { 'data-theme': 'typography' } },
+      { id: 'dark-iteration', attrs: { 'data-theme': 'dark-iteration' } },
     ]);
   });
 
@@ -305,7 +307,7 @@ describe('getThemeStyles', () => {
       typography: 'typography',
     });
 
-    expect(getSortedThemeData(results)).toEqual([
+    expect(getThemeData(results)).toEqual([
       { id: 'light', attrs: { 'data-theme': 'light' } },
       { id: 'spacing', attrs: { 'data-theme': 'spacing' } },
       { id: 'typography', attrs: { 'data-theme': 'typography' } },
@@ -321,7 +323,7 @@ describe('getThemeStyles', () => {
       typography: 'typography',
     });
 
-    expect(getSortedThemeData(results)).toEqual([
+    expect(getThemeData(results)).toEqual([
       { id: 'dark', attrs: { 'data-theme': 'dark' } },
       { id: 'spacing', attrs: { 'data-theme': 'spacing' } },
       { id: 'typography', attrs: { 'data-theme': 'typography' } },
@@ -334,7 +336,7 @@ describe('getThemeStyles', () => {
       dark: 'invalid',
     });
 
-    expect(getSortedThemeData(results)).toEqual([
+    expect(getThemeData(results)).toEqual([
       { id: 'light', attrs: { 'data-theme': 'light' } },
     ]);
   });

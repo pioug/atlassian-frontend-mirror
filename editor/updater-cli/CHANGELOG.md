@@ -1,5 +1,11 @@
 # @atlaskit/updater-cli
 
+## 2.1.0
+
+### Minor Changes
+
+- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+
 ## 2.0.21
 
 ### Patch Changes

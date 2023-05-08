@@ -7,11 +7,11 @@
  */
 //Italian (Italy)
 export default {
-  "fabric.status.color.blue": "Blu",
-  "fabric.status.color.green": "Verde",
-  "fabric.status.color.grey": "Grigio",
-  "fabric.status.color.purple": "Viola",
-  "fabric.status.color.red": "Rosso",
-  "fabric.status.color.yellow": "Giallo",
-  "fabric.status.input.label": "Imposta uno stato"
+  'fabric.status.color.blue': 'Blu',
+  'fabric.status.color.green': 'Verde',
+  'fabric.status.color.grey': 'Grigio',
+  'fabric.status.color.purple': 'Viola',
+  'fabric.status.color.red': 'Rosso',
+  'fabric.status.color.yellow': 'Giallo',
+  'fabric.status.input.label': 'Imposta uno stato',
 };

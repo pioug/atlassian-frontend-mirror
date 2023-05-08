@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/drag-and-drop",
-  "version": "0.15.1",
+  "version": "0.16.0",
   "description": "The core Atlassian drag and drop framework, optimized for performance.",
   "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "author": "Atlassian Pty Ltd",
@@ -46,7 +46,7 @@
     "raf-schd": "^4.0.3"
   },
   "devDependencies": {
-    "@atlaskit/tokens": "^1.2.0",
+    "@atlaskit/tokens": "^1.3.0",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@emotion/react": "^11.7.1",

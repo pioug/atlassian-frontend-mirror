@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/panel",
-  "version": "0.8.1",
+  "version": "0.9.0",
   "description": "A React component rendering a collapsible panel",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -22,10 +22,10 @@
     }
   },
   "dependencies": {
-    "@atlaskit/button": "^16.6.0",
-    "@atlaskit/icon": "^21.11.0",
-    "@atlaskit/theme": "^12.4.0",
-    "@atlaskit/tokens": "^1.2.6",
+    "@atlaskit/button": "^16.7.0",
+    "@atlaskit/icon": "^21.12.0",
+    "@atlaskit/theme": "^12.5.0",
+    "@atlaskit/tokens": "^1.3.0",
     "@babel/runtime": "^7.0.0",
     "react-animate-height": "^2.0.5",
     "react-focus-within": "^2.0.1",
@@ -37,7 +37,7 @@
   },
   "devDependencies": {
     "@atlaskit/docs": "*",
-    "@atlaskit/page": "^12.2.0",
+    "@atlaskit/page": "^12.3.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@testing-library/react": "^12.1.5",
     "@testing-library/user-event": "^14.4.3",

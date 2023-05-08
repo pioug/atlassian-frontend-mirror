@@ -28,7 +28,13 @@ import {
 } from '@atlaskit/link-test-helpers';
 
 import React, { ReactElement } from 'react';
-import { cleanup, fireEvent, render, waitFor } from '@testing-library/react';
+import {
+  act,
+  cleanup,
+  fireEvent,
+  render,
+  waitFor,
+} from '@testing-library/react';
 import {
   AnalyticsListener,
   withAnalyticsContext,
@@ -148,6 +154,27 @@ describe('HoverCard', () => {
       const actionElement = queryByTestId(elementId);
 
       expect(actionElement).not.toBeInTheDocument();
+    });
+
+    it('fires the buttonClicked event on a click of the status lozenge', async () => {
+      const { findByTestId, analyticsSpy } = await fn(true);
+      jest.runAllTimers();
+
+      const actionElement = await findByTestId(elementId);
+      expect(actionElement).toBeInTheDocument();
+      act(() => {
+        fireEvent.click(actionElement);
+      });
+      expect(analyticsSpy).toBeFiredWithAnalyticEventOnce(
+        {
+          payload: {
+            action: 'clicked',
+            actionSubject: 'button',
+            actionSubjectId: 'smartLinkStatusLozenge',
+          },
+        },
+        analytics.ANALYTICS_CHANNEL,
+      );
     });
   };
 
@@ -1132,6 +1159,7 @@ describe('HoverCard', () => {
             status: 'unauthorized',
             extensionKey: 'google-object-provider',
             resourceType: 'file',
+            destinationObjectType: 'file',
           },
           eventType: 'ui',
         });
@@ -1168,6 +1196,7 @@ describe('HoverCard', () => {
             previewInvokeMethod: 'mouse_hover',
             status: 'unauthorized',
             resourceType: 'file',
+            destinationObjectType: 'file',
           },
           eventType: 'ui',
         });

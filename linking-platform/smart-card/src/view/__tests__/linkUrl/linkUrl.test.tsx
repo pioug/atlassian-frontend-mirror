@@ -14,6 +14,7 @@ import { AnalyticsListener } from '@atlaskit/analytics-next';
 
 import { ANALYTICS_CHANNEL } from '../../../utils/analytics';
 import LinkUrl from '../../LinkUrl';
+import userEvent from '@testing-library/user-event';
 
 describe('LinkUrl', () => {
   let LinkUrlTestId: string = 'link-with-safety';
@@ -244,6 +245,7 @@ describe('LinkUrl', () => {
 
   describe('link clicked', () => {
     const setup = (props?: ComponentProps<typeof LinkUrl>) => {
+      const user = userEvent.setup();
       const onEvent = jest.fn();
 
       const { getByTestId, getByRole } = render(
@@ -257,16 +259,17 @@ describe('LinkUrl', () => {
       const component = getByRole('link');
 
       return {
+        user,
         onEvent,
         getByTestId,
         component,
       };
     };
 
-    it('should fire `link clicked` event when left clicked', () => {
-      const { component, onEvent } = setup();
+    it('should fire `link clicked` event when left clicked', async () => {
+      const { component, onEvent, user } = setup();
 
-      fireEvent.click(component);
+      await user.click(component);
 
       expect(onEvent).toBeFiredWithAnalyticEventOnce({
         payload: {
@@ -283,11 +286,11 @@ describe('LinkUrl', () => {
       });
     });
 
-    it('should call `onClick` when clicked and still fire `link clicked` event', () => {
+    it('should call `onClick` when clicked and still fire `link clicked` event', async () => {
       const onClick = jest.fn();
-      const { component, onEvent } = setup({ onClick });
+      const { component, onEvent, user } = setup({ onClick });
 
-      fireEvent.click(component);
+      await user.click(component);
 
       expect(onClick).toHaveBeenCalledTimes(1);
       expect(onClick).toHaveBeenCalledWith(expect.anything());
@@ -307,10 +310,10 @@ describe('LinkUrl', () => {
       });
     });
 
-    it('should fire `link clicked` event when right clicked', () => {
-      const { component, onEvent } = setup();
+    it('should fire `link clicked` event when right clicked', async () => {
+      const { component, onEvent, user } = setup();
 
-      fireEvent.mouseDown(component, { button: 2 });
+      await user.pointer({ target: component, keys: '[MouseRight]' });
 
       expect(onEvent).toBeFiredWithAnalyticEventOnce({
         payload: {
@@ -326,11 +329,11 @@ describe('LinkUrl', () => {
       });
     });
 
-    it('should call `onMouseDown` if provided and still fire `link clicked` event', () => {
+    it('should call `onMouseDown` if provided and still fire `link clicked` event', async () => {
       const onMouseDown = jest.fn();
-      const { component, onEvent } = setup({ onMouseDown });
+      const { component, onEvent, user } = setup({ onMouseDown });
 
-      fireEvent.mouseDown(component, { button: 2 });
+      await user.pointer({ target: component, keys: '[MouseRight]' });
 
       expect(onMouseDown).toHaveBeenCalledTimes(1);
       expect(onMouseDown).toHaveBeenCalledWith(expect.anything());
@@ -343,6 +346,26 @@ describe('LinkUrl', () => {
           attributes: {
             clickType: 'right',
             clickOutcome: 'contextMenu',
+            keysHeld: [],
+          },
+        },
+      });
+    });
+
+    it('should fire `link clicked` event when focused and enter key is pressed', async () => {
+      const { onEvent, user } = setup();
+
+      await user.keyboard('{Tab}{Enter}');
+
+      expect(onEvent).toBeFiredWithAnalyticEventOnce({
+        payload: {
+          action: 'clicked',
+          actionSubject: 'link',
+          eventType: 'ui',
+          attributes: {
+            clickType: 'keyboard',
+            clickOutcome: 'clickThrough',
+            defaultPrevented: true,
             keysHeld: [],
           },
         },

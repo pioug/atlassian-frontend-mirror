@@ -14,6 +14,7 @@ export interface CommonEventProps {
   definitionId?: string;
   extensionKey?: string;
   resourceType?: string;
+  destinatinoObjectType?: string;
   destinationSubproduct?: DestinationSubproduct | string;
   destinationProduct?: DestinationProduct | string;
   location?: string;
@@ -131,7 +132,7 @@ export type InstrumentEventProps = CommonEventProps & {
   id: string;
 };
 
-export type ClickType = 'left' | 'middle' | 'right' | 'none';
+export type ClickType = 'left' | 'middle' | 'right' | 'keyboard' | 'none';
 
 export type ClickOutcome =
   | 'prevented'

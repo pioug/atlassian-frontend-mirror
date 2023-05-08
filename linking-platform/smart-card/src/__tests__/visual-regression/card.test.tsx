@@ -38,7 +38,11 @@ const getViewport = (testCases: ProviderTestCase[]) => {
 };
 
 describe('Card', () => {
-  const runTest = (testName: string, testCases: ProviderTestCase[]) => {
+  const runTest = (
+    testName: string,
+    testCases: ProviderTestCase[],
+    isFlexUiBlockCard = false,
+  ) => {
     const viewport = getViewport(testCases);
 
     it.each(testCases)(
@@ -47,6 +51,11 @@ describe('Card', () => {
         const url = getURL(testName);
         const page = await setup(url);
         await page.setViewport(viewport);
+
+        const blockCardTestId = isFlexUiBlockCard
+          ? 'smart-block-resolved-view'
+          : 'block-card-resolved-view';
+        await page.waitForSelector(`[data-testid="${blockCardTestId}"]`);
 
         const selector = `[data-testid="inline-card-${testId}-resolved-view"]`;
         await page.waitForSelector(selector);
@@ -88,6 +97,6 @@ describe('Card', () => {
       ['card', 430],
       ['board', 430],
     ]);
-    runTest('vr-card-trello', testCases);
+    runTest('vr-card-trello', testCases, true);
   });
 });

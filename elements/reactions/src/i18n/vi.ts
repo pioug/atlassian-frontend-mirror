@@ -7,17 +7,18 @@
  */
 //Vietnamese (Vietnam)
 export default {
-  "fabric.reactions.add": "Thêm tương tác",
-  "fabric.reactions.error.unexpected": "Tính năng tương tác tạm thời không hỗ trợ",
-  "fabric.reactions.loading": "Đang tải...",
-  "fabric.reactions.more.emojis": "Biểu tượng cảm xúc khác",
-  "fabric.reactions.more.info": "Xem thêm thông tin",
-  "fabric.reactions.other.reacted.users": "{count, plural, other {và {count} người khác}}",
-  "fabric.reactions.reactwithemoji": "Bày tỏ biểu tượng cảm xúc {emoji}",
-  "reactions.dialog.close": "Đóng",
-  "reactions.dialog.left.navigate": "Sang trái",
-  "reactions.dialog.reactions.count": "{count, plural, other {{count,number} tương tác}}",
-  "reactions.dialog.right.navigate": "Sang phải",
-  "reactions.dialog.viewall": "Xem ai đã bày tỏ cảm xúc",
-  "reactions.dialog.viewall.tooltip": "Xem tất cả tương tác của người dùng"
+  'fabric.reactions.add': 'Thêm tương tác',
+  'fabric.reactions.error.unexpected': 'Tính năng tương tác tạm thời không hỗ trợ',
+  'fabric.reactions.loading': 'Đang tải...',
+  'fabric.reactions.more.emojis': 'Biểu tượng cảm xúc khác',
+  'fabric.reactions.more.info': 'Xem thêm thông tin',
+  'fabric.reactions.other.reacted.users': '{count, plural, other {và {count} người khác}}',
+  'fabric.reactions.reactwithemoji': 'Bày tỏ biểu tượng cảm xúc {emoji}',
+  'reactions.dialog.close': 'Đóng',
+  'reactions.dialog.emoji.name': '{emojiName}',
+  'reactions.dialog.left.navigate': 'Sang trái',
+  'reactions.dialog.reactions.count': '{count, plural, other {{count,number} tương tác}}',
+  'reactions.dialog.right.navigate': 'Sang phải',
+  'reactions.dialog.viewall': 'Xem ai đã bày tỏ cảm xúc',
+  'reactions.dialog.viewall.tooltip': 'Xem tất cả tương tác của người dùng',
 };

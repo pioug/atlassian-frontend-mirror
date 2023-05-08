@@ -1,5 +1,15 @@
 # @atlaskit/breadcrumbs
 
+## 11.10.0
+
+### Minor Changes
+
+- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.9.0
 
 ### Minor Changes

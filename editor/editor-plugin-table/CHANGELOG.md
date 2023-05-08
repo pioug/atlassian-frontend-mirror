@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-table
 
+## 1.3.0
+
+### Minor Changes
+
+- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.2.7
+
+### Patch Changes
+
+- [`55b4a026119`](https://bitbucket.org/atlassian/atlassian-frontend/commits/55b4a026119) - [ux] ED-17710 Cellbackground button in context menu is tokenised.
+
 ## 1.2.6
 
 ### Patch Changes

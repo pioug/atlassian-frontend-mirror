@@ -8,7 +8,7 @@ export type LozengeItem = {
 };
 
 export type LozengeActionProps = {
-  action?: InvokeActions;
+  action: InvokeActions;
   appearance?: ThemeAppearance;
   testId?: string;
   text: string | React.ReactNode;

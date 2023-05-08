@@ -90,7 +90,7 @@ export const BitbucketCommit = {
   },
 };
 
-export const BitbucketFile = {
+export const BitbucketFile1 = {
   meta: {
     visibility: 'restricted',
     access: 'granted',
@@ -116,6 +116,42 @@ export const BitbucketFile = {
     },
     'atlassian:isDeleted': false,
     name: 'README.md',
+  },
+};
+
+export const BitbucketFile2 = {
+  meta: {
+    visibility: 'restricted',
+    access: 'granted',
+    resourceType: 'file',
+    key: 'native-bitbucket-object-provider',
+  },
+  data: {
+    '@context': {
+      '@vocab': 'https://www.w3.org/ns/activitystreams#',
+      atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+      schema: 'http://schema.org/',
+    },
+    '@id':
+      'https://bitbucket.org/owner-name/repo-name/src/q1w2e3r4/server/package.json',
+    '@type': ['schema:DigitalDocument', 'Document'],
+    url: 'https://bitbucket.org/owner-name/repo-name/src/q1w2e3r4/server/package.json',
+    'atlassian:fileSize': 1483,
+    'atlassian:isDeleted': false,
+    context: {
+      '@type': 'Collection',
+      name: 'test-repo',
+    },
+    fileFormat: 'application/json',
+    generator: {
+      '@type': 'Application',
+      icon: {
+        '@type': 'Image',
+        url: 'https://git-scm.com/favicon.ico',
+      },
+      name: 'git',
+    },
+    name: 'package.json',
   },
 };
 
@@ -169,7 +205,7 @@ export const BitbucketProject = {
   },
 };
 
-export const BitbucketPullRequest = {
+export const BitbucketPullRequest1 = {
   meta: {
     visibility: 'restricted',
     access: 'granted',
@@ -232,7 +268,105 @@ export const BitbucketPullRequest = {
   },
 };
 
-export const BitbucketRepository = {
+export const BitbucketPullRequest2 = {
+  meta: {
+    visibility: 'restricted',
+    access: 'granted',
+    resourceType: 'pull',
+    key: 'native-bitbucket-object-provider',
+  },
+  data: {
+    '@context': {
+      '@vocab': 'https://www.w3.org/ns/activitystreams#',
+      atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+      schema: 'http://schema.org/',
+    },
+    '@id': 'https://bitbucket.org/tuser/test-repo/pull-requests/7',
+    '@type': ['Object', 'atlassian:SourceCodePullRequest'],
+    url: 'https://bitbucket.org/tuser/test-repo/pull-requests/7',
+    'atlassian:isMerged': true,
+    'atlassian:mergeCommit': {
+      '@type': 'Link',
+      href: 'https://bitbucket.org/tuser/test-repo/commits/5478f639c012',
+    },
+    'atlassian:mergeDestination': {
+      '@type': 'Link',
+      href: 'https://bitbucket.org/tuser/test-repo/branch/master',
+    },
+    'atlassian:mergeSource': {
+      '@type': 'Link',
+      href: 'https://bitbucket.org/tuser/test-repo/branch/rerun',
+    },
+    'atlassian:mergeable': undefined,
+    'atlassian:mergedBy': {
+      '@type': 'Person',
+      icon: 'https://bitbucket.org/account/tuser/avatar/',
+      name: 'tuser',
+    },
+    'atlassian:reviewedBy': [
+      {
+        '@type': 'Person',
+        icon: 'https://bitbucket.org/account/tuser/avatar/',
+        name: 'tuser',
+      },
+    ],
+    'atlassian:reviewer': [
+      {
+        '@type': 'Person',
+        icon: 'https://bitbucket.org/account/testuser/avatar/',
+        name: 'testuser',
+      },
+    ],
+    'atlassian:state': 'MERGED',
+    'atlassian:updatedBy': {
+      '@type': 'Person',
+      icon: 'https://bitbucket.org/account/tuser/avatar/',
+      name: 'tuser',
+    },
+    attributedTo: {
+      '@type': 'Person',
+      icon: 'https://bitbucket.org/account/tuser/avatar/',
+      name: 'tuser',
+    },
+    audience: [
+      {
+        '@type': 'Person',
+        icon: 'https://bitbucket.org/account/tuser/avatar/',
+        name: 'tuser',
+      },
+      {
+        '@type': 'Person',
+        icon: 'https://bitbucket.org/account/tuser/avatar/',
+        name: 'tuser',
+      },
+    ],
+    context: {
+      '@type': 'atlassian:SourceCodeRepository',
+      name: 'test-repo',
+      url: 'https://bitbucket.org/tuser/test-repo',
+    },
+    generator: {
+      '@type': 'Application',
+      icon: {
+        '@type': 'Image',
+        url: 'https://git-scm.com/favicon.ico',
+      },
+      name: 'git',
+    },
+    icon: {
+      '@type': 'Image',
+      url: 'https://git-scm.com/favicon.ico',
+    },
+    name: 'filecreate.txt created online with Bitbucket',
+    'schema:dateCreated': '2018-02-28T09:29:32.282Z',
+    'schema:potentialAction': undefined,
+    'schema:programmingLanguage': undefined,
+    summary: 'Pull request description',
+    updated: '2018-02-28T09:30:01.557Z',
+  },
+};
+
+export const BitbucketRepository1 = {
   meta: {
     visibility: 'restricted',
     access: 'granted',
@@ -290,5 +424,115 @@ export const BitbucketRepository = {
       'atlassian:committedBy': 'Steve Johnson',
       summary: 'EDM-3605: Nullam eu sem vehicula, consequat eros id.',
     },
+  },
+};
+
+export const BitbucketRepository2 = {
+  meta: {
+    visibility: 'restricted',
+    access: 'granted',
+    resourceType: 'repo',
+    key: 'native-bitbucket-object-provider',
+  },
+  data: {
+    '@context': {
+      '@vocab': 'https://www.w3.org/ns/activitystreams#',
+      atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+      schema: 'http://schema.org/',
+    },
+    '@id': 'https://bitbucket.org/tuser/angular-react',
+    '@type': ['atlassian:SourceCodeRepository'],
+    url: 'https://bitbucket.org/tuser/angular-react',
+    attributedTo: {
+      '@type': 'Person',
+      icon: 'https://bitbucket.org/account/atlassian/avatar/',
+      name: 'atlassian',
+    },
+    context: {
+      '@type': 'atlassian:Project',
+      name: 'Frontend Warriors',
+    },
+    generator: {
+      '@type': 'Application',
+      icon: {
+        '@type': 'Image',
+        url: 'https://d301sr5gafysq2.cloudfront.net/frontbucket/build-favicon-default.3b48bd21f29d.ico',
+      },
+      name: 'Bitbucket',
+    },
+    icon: {
+      '@type': 'Image',
+      url: 'https://d301sr5gafysq2.cloudfront.net/frontbucket/build-favicon-default.3b48bd21f29d.ico',
+    },
+    image: {
+      url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Arthur%2C_the_cat.jpg/1600px-Arthur%2C_the_cat.jpg',
+    },
+    name: 'angular-react',
+    'schema:dateCreated': '2018-01-23T15:08:40.834Z',
+    'schema:programmingLanguage': 'JavaScript',
+    summary:
+      'The solution to all your past, present and future front-end needs and woes. Why choose between two libraries when you can merge the two? 🧀',
+    updated: '2018-10-12T12:07:37.855Z',
+    'atlassian:subscribers': [],
+    'atlassian:subscriberCount': '2000000',
+  },
+};
+
+export const BitbucketSourceCodeReference = {
+  meta: {
+    visibility: 'restricted',
+    access: 'granted',
+    resourceType: 'branch',
+    key: 'native-bitbucket-object-provider',
+  },
+  data: {
+    '@context': {
+      '@vocab': 'https://www.w3.org/ns/activitystreams#',
+      atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+      schema: 'http://schema.org/',
+    },
+    '@id': 'https://bitbucket.org/tuser/test-repo/branch/branch-name',
+    '@type': 'atlassian:SourceCodeReference',
+    url: 'https://bitbucket.org/tuser/test-repo/branch/branch-name',
+    'atlassian:commit': {
+      '@id': '0304dd88274bcc4ccc737fff22481dbac3945874',
+      '@type': 'atlassian:SourceCodeCommit',
+      url: 'https://bitbucket.org/tuser/test-repo/commits/0304dd88274bcc4ccc737fff22481dbac3945874',
+    },
+    'atlassian:updatedBy': {
+      '@type': 'Person',
+      icon: 'https://bitbucket.org/account/abhayani2018/avatar/',
+      name: 'abhayani2018',
+    },
+    attributedTo: {
+      '@type': 'Person',
+      icon: 'https://bitbucket.org/account/abhayani2018/avatar/',
+      name: 'abhayani2018',
+    },
+    context: {
+      '@type': 'atlassian:SourceCodeRepository',
+      name: 'test-repo',
+      url: 'https://bitbucket.org/tuser/test-repo',
+    },
+    generator: {
+      '@type': 'Application',
+      icon: {
+        '@type': 'Image',
+        url: 'https://git-scm.com/favicon.ico',
+      },
+      name: 'git',
+    },
+    icon: {
+      '@type': 'Image',
+      url: 'https://git-scm.com/favicon.ico',
+    },
+    image: {
+      '@type': 'Image',
+      url: 'https://bytebucket.org/ravatar/{0ea250c7-008d-4f87-9ec2-dc7c928bfdf6}?ts=default',
+    },
+    name: 'branch-name',
+    'schema:dateCreated': undefined,
+    summary: 'Commit message here',
+    updated: '2018-10-08T12:51:56.000Z',
   },
 };

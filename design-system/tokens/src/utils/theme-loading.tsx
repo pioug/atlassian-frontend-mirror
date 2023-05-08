@@ -1,8 +1,10 @@
 import themeImportMap from '../artifacts/theme-import-map';
 import { THEME_DATA_ATTRIBUTE } from '../constants';
-import { ThemeIds } from '../theme-config';
+import { ThemeIds, ThemeOverrideIds } from '../theme-config';
 
-export const loadAndAppendThemeCss = async (themeId: ThemeIds) => {
+export const loadAndAppendThemeCss = async (
+  themeId: ThemeIds | ThemeOverrideIds,
+) => {
   if (
     document.head.querySelector(`style[${THEME_DATA_ATTRIBUTE}="${themeId}"]`)
   ) {
@@ -17,7 +19,7 @@ export const loadAndAppendThemeCss = async (themeId: ThemeIds) => {
   document.head.appendChild(style);
 };
 
-export const loadThemeCss = async (themeId: ThemeIds) => {
+export const loadThemeCss = async (themeId: ThemeIds | ThemeOverrideIds) => {
   const { default: themeCss } = await themeImportMap[themeId]();
   return themeCss;
 };

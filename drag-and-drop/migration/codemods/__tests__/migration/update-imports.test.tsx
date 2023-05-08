@@ -3,6 +3,7 @@ jest.autoMockOff();
 import { createTransformer } from '@atlaskit/codemod-utils';
 
 import { updateImports } from '../../migrations/update-imports';
+import { migrationPackageName } from '../../utils';
 
 const transformer = createTransformer([updateImports]);
 
@@ -19,7 +20,7 @@ describe('update imports', () => {
     import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
     `,
     `
-    import { DragDropContext, Draggable, Droppable } from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration';
+    import { DragDropContext, Draggable, Droppable } from '${migrationPackageName}';
     `,
     'should correctly handle basic usage',
   );
@@ -30,12 +31,12 @@ describe('update imports', () => {
     `
     import type { DraggableProps, DroppableProps } from 'react-beautiful-dnd';
 
-    import { DragDropContext, Draggable, Droppable } from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration';
+    import { DragDropContext, Draggable, Droppable } from '${migrationPackageName}';
     `,
     `
-    import type { DraggableProps, DroppableProps } from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration';
+    import type { DraggableProps, DroppableProps } from '${migrationPackageName}';
 
-    import { DragDropContext, Draggable, Droppable } from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration';
+    import { DragDropContext, Draggable, Droppable } from '${migrationPackageName}';
     `,
     'should not merge declarations',
   );

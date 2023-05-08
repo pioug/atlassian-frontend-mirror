@@ -2,6 +2,7 @@ jest.autoMockOff();
 
 import transformer from '../0.1.0-adoption-from-rbd-12';
 import { unsupportedPropMessages } from '../migrations/warn-about-unsupported-props';
+import { migrationPackageName } from '../utils';
 
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
@@ -83,8 +84,8 @@ describe('adoption transformer', () => {
       The migration layer will handle pointer and keyboard dragging for you.
       If you specifically want to disable one of these types of dragging, please reach out to us and we will see how we can help you. */
       useKeyboardSensor,
-    } from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration';
-    import type { DroppableProps } from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration';
+    } from '${migrationPackageName}';
+    import type { DroppableProps } from '${migrationPackageName}';
 
     // TODO: (from codemod) \`react-beautiful-dnd-next\` is not supported by the migration layer.
     import type { DraggableProps } from 'react-beautiful-dnd-next';
@@ -137,9 +138,9 @@ describe('adoption transformer', () => {
                   ${unsupportedPropMessages.Draggable.shouldRespectForcePress} */
                   shouldRespectForcePress
                 >
-                  /* TODO: (from codemod) The migration layer provides the \`react-beautiful-dnd\` v13 props for the drag handle.
+                  {/* TODO: (from codemod) The migration layer provides the \`react-beautiful-dnd\` v13 props for the drag handle.
                   Instead of providing \`aria-labelledby\` it will instead provide \`aria-describedby\` and a \`role\` attribute. */
-                  {provided => (
+                  }{provided => (
                     <div
                       ref={provided.innerRef}
                       {...provided.draggableProps}

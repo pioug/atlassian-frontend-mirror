@@ -65,6 +65,7 @@ const FlexibleResolvedView = ({
 
   return (
     <FlexibleCard
+      analytics={analytics}
       appearance="block"
       cardState={cardState}
       onClick={onClick}

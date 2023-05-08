@@ -22,7 +22,10 @@ export type AnalyticsAction =
   | 'updated'
   | 'chunkLoadFailed'
   | 'dwelled'
-  | 'focused';
+  | 'focused'
+  | 'started'
+  | 'success'
+  | 'failed';
 
 export type AnalyticsActionSubject =
   | 'smartLink'
@@ -34,7 +37,8 @@ export type AnalyticsActionSubject =
   | 'modal'
   | 'embedPreviewModal'
   | 'smartLinkIframe'
-  | 'link';
+  | 'link'
+  | 'smartLinkQuickAction';
 
 export type AnalyticsName = 'embedPreviewModal';
 

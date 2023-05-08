@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/ds-explorations",
-  "version": "2.0.13",
+  "version": "2.1.0",
   "description": "An experimental package for exploration and validation of spacing / typography foundations.",
   "license": "Apache-2.0",
   "atlassian": {
@@ -38,7 +38,7 @@
     "./inline": "./src/components/inline.partial.tsx"
   },
   "dependencies": {
-    "@atlaskit/tokens": "^1.2.0",
+    "@atlaskit/tokens": "^1.3.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "tiny-invariant": "^1.2.0"
@@ -56,14 +56,14 @@
     "@atlaskit/heading": "*",
     "@atlaskit/icon": "*",
     "@atlaskit/lozenge": "*",
-    "@atlaskit/primitives": "^0.8.0",
+    "@atlaskit/primitives": "^0.9.0",
     "@atlaskit/section-message": "*",
     "@atlaskit/ssr": "*",
     "@atlaskit/textfield": "*",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
-    "@atlassian/codegen": "^0.0.1",
+    "@atlassian/codegen": "^0.1.0",
     "@testing-library/react": "^12.1.5",
     "fs-extra": "^4.0.2",
     "prettier": "^2.8.0",

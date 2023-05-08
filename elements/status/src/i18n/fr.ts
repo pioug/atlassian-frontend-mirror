@@ -7,11 +7,11 @@
  */
 //French (France)
 export default {
-  "fabric.status.color.blue": "Bleu",
-  "fabric.status.color.green": "Vert",
-  "fabric.status.color.grey": "Gris",
-  "fabric.status.color.purple": "Violet",
-  "fabric.status.color.red": "Rouge",
-  "fabric.status.color.yellow": "Jaune",
-  "fabric.status.input.label": "Définir un état"
+  'fabric.status.color.blue': 'Bleu',
+  'fabric.status.color.green': 'Vert',
+  'fabric.status.color.grey': 'Gris',
+  'fabric.status.color.purple': 'Violet',
+  'fabric.status.color.red': 'Rouge',
+  'fabric.status.color.yellow': 'Jaune',
+  'fabric.status.input.label': 'Définir un état',
 };

@@ -1,5 +1,33 @@
 # @atlaskit/smart-card
 
+## 26.1.0
+
+### Minor Changes
+
+- [`68562365142`](https://bitbucket.org/atlassian/atlassian-frontend/commits/68562365142) - Add analytics for quick actions
+
+## 26.0.1
+
+### Patch Changes
+
+- [`6341b726715`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6341b726715) - Fix of the request body of the invoke update request
+
+## 26.0.0
+
+### Minor Changes
+
+- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+
+### Patch Changes
+
+- Updated dependencies
+
+## 25.9.5
+
+### Patch Changes
+
+- [`e241a5dda48`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e241a5dda48) - Add 'keyboard' clickType for link clicked analytics events when user interacts with links using keyboard
+
 ## 25.9.4
 
 ### Patch Changes

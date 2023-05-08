@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/embedded-confluence",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Public release version of Embeddedable Pages for Confluence",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -35,7 +35,7 @@
     "react-dom": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/analytics-next": "^9.0.0",
+    "@atlaskit/analytics-next": "^9.1.0",
     "@atlaskit/docs": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react": "^12.1.5",
@@ -46,8 +46,8 @@
     "wait-for-expect": "^1.2.0"
   },
   "optionalDependencies": {
-    "@atlassian/embedded-confluence-common": "^1.28.0",
-    "@atlassian/experience-tracker": "^2.1.2"
+    "@atlassian/embedded-confluence-common": "^1.29.0",
+    "@atlassian/experience-tracker": "^2.2.0"
   },
   "browser": "dist/embedded-confluence-bundle.js",
   "af:exports": {

@@ -1,5 +1,15 @@
 # @atlaskit/editor-common
 
+## 74.0.0
+
+### Minor Changes
+
+- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 73.0.0
 
 ### Major Changes

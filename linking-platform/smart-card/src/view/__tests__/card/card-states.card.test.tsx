@@ -1,14 +1,16 @@
+import './card-states.card.test.mock';
+
 import { SmartLinkActionType } from '@atlaskit/linking-types';
 
-jest.mock('react-lazily-render', () => (data: any) => data.content);
-jest.mock(
-  'react-transition-group/Transition',
-  () => (data: any) => data.children,
-);
-jest.doMock('../../../utils/analytics/analytics');
-
+import * as analytics from '../../../utils/analytics';
 import React from 'react';
-import { render, cleanup, waitFor } from '@testing-library/react';
+import {
+  render,
+  waitFor,
+  act,
+  fireEvent,
+  cleanup,
+} from '@testing-library/react';
 import { CardClient, CardProviderStoreOpts } from '@atlaskit/link-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { Card } from '../../Card';
@@ -572,6 +574,19 @@ describe('smart-card: card states, block', () => {
           const actionElement = queryByTestId(actionElementTestId);
 
           expect(actionElement).not.toBeInTheDocument();
+        });
+
+        it('block: renders with server actions and fires click event when showServerActions is true', async () => {
+          const { findByText, getByTestId } = renderWithShowServerActions(true);
+
+          await findByText(resolvedLinkText);
+          const actionElement = getByTestId(actionElementTestId);
+          act(() => {
+            fireEvent.click(actionElement);
+          });
+          expect(
+            analytics.uiSmartLinkStatusLozengeButtonClicked,
+          ).toHaveBeenCalledTimes(1);
         });
       });
     });

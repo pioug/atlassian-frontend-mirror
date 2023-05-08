@@ -3,8 +3,8 @@ import React from 'react';
 import '@atlaskit/link-test-helpers/jest';
 
 import { IntlProvider } from 'react-intl-next';
-import { screen } from '@testing-library/react';
-import { render, fireEvent, act } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { CardClient } from '@atlaskit/link-provider';
@@ -79,12 +79,10 @@ describe('`link clicked`', () => {
     mockPostData = jest.fn(async () => mocks.actionSuccess);
     mockClient = new (fakeFactory(mockFetch, mockPostData))();
     global.open = mockWindowOpen;
-    jest.useFakeTimers();
   });
 
   afterEach(() => {
     jest.restoreAllMocks();
-    jest.useRealTimers();
   });
 
   /**
@@ -110,6 +108,7 @@ describe('`link clicked`', () => {
     const setup = async (
       props: Partial<React.ComponentProps<typeof Card>> = {},
     ) => {
+      const user = userEvent.setup();
       const spy = jest.fn();
       const { selector, beforeClick, featureFlags } = options ?? {};
 
@@ -147,28 +146,18 @@ describe('`link clicked`', () => {
         ? await selector()
         : await screen.findByRole('link');
 
-      const fireOnClick = (options?: Parameters<typeof fireEvent.click>[1]) => {
-        fireEvent.click(link, options);
-      };
-
-      const fireOnMouseDown = (
-        options?: Parameters<typeof fireEvent.mouseDown>[1],
-      ) => {
-        fireEvent.mouseDown(link, options);
-      };
-
       return {
         spy,
-        fireOnClick,
-        fireOnMouseDown,
+        user,
+        link,
       };
     };
 
     describe('left click', () => {
       it('should fire with `clickOutcome` = `clickThrough` by default', async () => {
-        const { spy, fireOnClick } = await setup();
+        const { spy, user, link } = await setup();
 
-        fireOnClick();
+        await user.click(link);
 
         expect(spy).toBeFiredWithAnalyticEventOnce(
           {
@@ -188,13 +177,13 @@ describe('`link clicked`', () => {
       });
 
       it('should fire with `clickOutcome` = `clickThrough` if the event default behaviour is prevented', async () => {
-        const { spy, fireOnClick } = await setup({
+        const { spy, user, link } = await setup({
           onClick: (e) => {
             e.preventDefault();
           },
         });
 
-        fireOnClick();
+        await user.click(link);
 
         /**
          * Block cards render links with target blank, causing the link to open in new tab
@@ -229,11 +218,10 @@ describe('`link clicked`', () => {
        * This is not the default behaviour but hijacked behaviour
        */
       it('should fire with `clickOutcome` = `clickThrough` if the alt key is held', async () => {
-        const { spy, fireOnClick } = await setup();
+        const { spy, user, link } = await setup();
 
-        fireOnClick({
-          altKey: true,
-        });
+        await user.keyboard('{Alt>}');
+        await user.click(link);
 
         expect(spy).toBeFiredWithAnalyticEventOnce(
           {
@@ -253,11 +241,10 @@ describe('`link clicked`', () => {
       });
 
       it('should fire with `clickOutcome` = `alt` if the alt key is held and an `onClick` is supplied', async () => {
-        const { spy, fireOnClick } = await setup({ onClick: jest.fn() });
+        const { spy, user, link } = await setup({ onClick: jest.fn() });
 
-        fireOnClick({
-          altKey: true,
-        });
+        await user.keyboard('{Alt>}');
+        await user.click(link);
 
         expect(spy).toBeFiredWithAnalyticEventOnce(
           {
@@ -281,11 +268,10 @@ describe('`link clicked`', () => {
        * This is not the default behaviour but hijacked behaviour
        */
       it('should fire with `clickOutcome` = `clickThrough` if the shift key is held', async () => {
-        const { spy, fireOnClick } = await setup();
+        const { spy, user, link } = await setup();
 
-        fireOnClick({
-          shiftKey: true,
-        });
+        await user.keyboard('{Shift>}');
+        await user.click(link);
 
         expect(spy).toBeFiredWithAnalyticEventOnce(
           {
@@ -306,38 +292,12 @@ describe('`link clicked`', () => {
       });
 
       it('should fire with `clickOutcome` = `clickThroughNewTabOrWindow` if the shift key is held and `onClick` is provided', async () => {
-        const { spy, fireOnClick } = await setup({
+        const { spy, user, link } = await setup({
           onClick: jest.fn(),
         });
 
-        fireOnClick({
-          shiftKey: true,
-        });
-
-        expect(spy).toBeFiredWithAnalyticEventOnce(
-          {
-            payload: {
-              action: 'clicked',
-              actionSubject: 'link',
-              eventType: 'ui',
-              attributes: {
-                clickType: 'left',
-                clickOutcome: 'clickThroughNewTabOrWindow',
-                defaultPrevented: true,
-                keysHeld: ['shift'],
-              },
-            },
-          },
-          ANALYTICS_CHANNEL,
-        );
-      });
-
-      it('should fire with `clickOutcome` = `clickThroughNewTabOrWindow` if the shift key is held and an `onClick` is supplied', async () => {
-        const { spy, fireOnClick } = await setup({ onClick: jest.fn() });
-
-        fireOnClick({
-          shiftKey: true,
-        });
+        await user.keyboard('{Shift>}');
+        await user.click(link);
 
         expect(spy).toBeFiredWithAnalyticEventOnce(
           {
@@ -359,11 +319,10 @@ describe('`link clicked`', () => {
 
       it('should fire with `clickOutcome` = `clickThrough` if the meta key is held (NOT macOS) and an `onClick` is supplied', async () => {
         jest.spyOn(userAgent, 'browser').mockReturnValue({ mac: false } as any);
-        const { spy, fireOnClick } = await setup({ onClick: jest.fn() });
+        const { spy, user, link } = await setup({ onClick: jest.fn() });
 
-        fireOnClick({
-          metaKey: true,
-        });
+        await user.keyboard('{Meta>}');
+        await user.click(link);
 
         expect(spy).toBeFiredWithAnalyticEventOnce(
           {
@@ -385,11 +344,10 @@ describe('`link clicked`', () => {
 
       it('should fire with `clickOutcome` = `clickThroughNewTabOrWindow` if the meta key (IS macOS) is held and an `onClick` is supplied', async () => {
         jest.spyOn(userAgent, 'browser').mockReturnValue({ mac: true } as any);
-        const { spy, fireOnClick } = await setup({ onClick: jest.fn() });
+        const { spy, user, link } = await setup({ onClick: jest.fn() });
 
-        fireOnClick({
-          metaKey: true,
-        });
+        await user.keyboard('{Meta>}');
+        await user.click(link);
 
         expect(spy).toBeFiredWithAnalyticEventOnce(
           {
@@ -412,11 +370,10 @@ describe('`link clicked`', () => {
       it('should fire with `clickOutcome` = `clickThrough` if the ctrl key is held (NOT macOS) but an `onClick` is supplied', async () => {
         jest.spyOn(userAgent, 'browser').mockReturnValue({ mac: false } as any);
 
-        const { spy, fireOnClick } = await setup({ onClick: jest.fn() });
+        const { spy, user, link } = await setup({ onClick: jest.fn() });
 
-        fireOnClick({
-          ctrlKey: true,
-        });
+        await user.keyboard('{Control>}');
+        await user.click(link);
 
         expect(spy).toBeFiredWithAnalyticEventOnce(
           {
@@ -439,11 +396,10 @@ describe('`link clicked`', () => {
       it('should fire with `clickOutcome` = `clickThroughNewTabOrWindow` if the ctrl key is held (NOT macOS) and `onClick` is NOT supplied', async () => {
         jest.spyOn(userAgent, 'browser').mockReturnValue({ mac: false } as any);
 
-        const { spy, fireOnClick } = await setup();
+        const { spy, user, link } = await setup();
 
-        fireOnClick({
-          ctrlKey: true,
-        });
+        await user.keyboard('{Control>}');
+        await user.click(link);
 
         expect(spy).toBeFiredWithAnalyticEventOnce(
           {
@@ -466,11 +422,10 @@ describe('`link clicked`', () => {
       it('should fire with `clickOutcome` = `clickThroughNewTab` if the ctrl key is held on macOS (if onClick is triggered and `onClick` is NOT provided)', async () => {
         jest.spyOn(userAgent, 'browser').mockReturnValue({ mac: true } as any);
 
-        const { spy, fireOnClick } = await setup();
+        const { spy, user, link } = await setup();
 
-        fireOnClick({
-          ctrlKey: true,
-        });
+        await user.keyboard('{Control>}');
+        await user.click(link);
 
         expect(spy).toBeFiredWithAnalyticEventOnce(
           {
@@ -500,11 +455,10 @@ describe('`link clicked`', () => {
       it('should fire with `clickOutcome` = `clickThrough` if the ctrl key is held on macOS (if onClick is triggered and `onClick` is provided)', async () => {
         jest.spyOn(userAgent, 'browser').mockReturnValue({ mac: true } as any);
 
-        const { spy, fireOnClick } = await setup({ onClick: jest.fn() });
+        const { spy, user, link } = await setup({ onClick: jest.fn() });
 
-        fireOnClick({
-          ctrlKey: true,
-        });
+        await user.keyboard('{Control>}');
+        await user.click(link);
 
         expect(spy).toBeFiredWithAnalyticEventOnce(
           {
@@ -527,11 +481,9 @@ describe('`link clicked`', () => {
 
     describe('middle click', () => {
       it('should fire with `clickOutcome` = `clickThroughNewTab` when middle clicking', async () => {
-        const { spy, fireOnMouseDown } = await setup();
+        const { spy, user, link } = await setup();
 
-        fireOnMouseDown({
-          button: 1,
-        });
+        await user.pointer({ target: link, keys: '[MouseMiddle]' });
 
         expect(spy).toBeFiredWithAnalyticEventOnce(
           {
@@ -554,11 +506,9 @@ describe('`link clicked`', () => {
 
     describe('right click', () => {
       it('should fire with `clickOutcome` = `contextMenu` when right clicking', async () => {
-        const { spy, fireOnMouseDown } = await setup();
+        const { spy, user, link } = await setup();
 
-        fireOnMouseDown({
-          button: 2,
-        });
+        await user.pointer({ target: link, keys: '[MouseRight]' });
 
         expect(spy).toBeFiredWithAnalyticEventOnce(
           {
@@ -571,6 +521,88 @@ describe('`link clicked`', () => {
                 clickOutcome: 'contextMenu',
                 defaultPrevented: false,
                 keysHeld: [],
+              },
+            },
+          },
+          ANALYTICS_CHANNEL,
+        );
+      });
+    });
+
+    /**
+     * With the link in focus, pressing enter key should in theory fire similar events to left click,
+     * however some behaviour in tests doesn't seem to reflect what actually happens, so only verifying what we can here,
+     * and that clickType = keyboard.
+     * Notably holding alt or control key don't fire link clicked in tests
+     */
+    describe('keyboard', () => {
+      it('should fire with `clickOutcome` = `clickThrough` when triggered with keyboard', async () => {
+        const { spy, user, link } = await setup();
+
+        link.focus();
+        await user.keyboard('{Enter}');
+
+        expect(spy).toBeFiredWithAnalyticEventOnce(
+          {
+            payload: {
+              action: 'clicked',
+              actionSubject: 'link',
+              eventType: 'ui',
+              attributes: {
+                clickType: 'keyboard',
+                clickOutcome: 'clickThrough',
+                keysHeld: [],
+              },
+            },
+          },
+          ANALYTICS_CHANNEL,
+        );
+      });
+
+      /**
+       * This is not the default behaviour but hijacked behaviour
+       */
+      it('should fire with `clickOutcome` = `clickThrough` if the shift key is held when triggered with keyboard', async () => {
+        const { spy, user, link } = await setup();
+
+        link.focus();
+        await user.keyboard('{Shift>}{Enter}');
+
+        expect(spy).toBeFiredWithAnalyticEventOnce(
+          {
+            payload: {
+              action: 'clicked',
+              actionSubject: 'link',
+              eventType: 'ui',
+              attributes: {
+                clickType: 'keyboard',
+                clickOutcome: 'clickThrough',
+                defaultPrevented: true,
+                keysHeld: ['shift'],
+              },
+            },
+          },
+          ANALYTICS_CHANNEL,
+        );
+      });
+
+      it('should fire with `clickOutcome` = `clickThroughNewTabOrWindow` if the meta key is held when triggered with keyboard', async () => {
+        const { spy, user, link } = await setup();
+
+        link.focus();
+        await user.keyboard('{Meta>}{Enter}');
+
+        expect(spy).toBeFiredWithAnalyticEventOnce(
+          {
+            payload: {
+              action: 'clicked',
+              actionSubject: 'link',
+              eventType: 'ui',
+              attributes: {
+                clickType: 'keyboard',
+                clickOutcome: 'clickThroughNewTabOrWindow',
+                defaultPrevented: true,
+                keysHeld: ['meta'],
               },
             },
           },
@@ -591,10 +623,7 @@ describe('`link clicked`', () => {
         selector: () => screen.findByTestId('smart-element-link'),
         beforeClick: async () => {
           const card = await screen.findByTestId('card-resolved-view');
-          fireEvent.mouseEnter(card);
-          act(() => {
-            jest.advanceTimersByTime(300);
-          });
+          await userEvent.hover(card);
         },
         context: [PACKAGE_CONTEXT, HOVER_CARD_CONTEXT],
       },
@@ -613,6 +642,7 @@ describe('`link clicked`', () => {
     const setup = async (
       props: Partial<React.ComponentProps<typeof Card>> = {},
     ) => {
+      const user = userEvent.setup();
       const spy = jest.fn();
       const { selector, beforeClick, featureFlags } = options ?? {};
 
@@ -654,28 +684,18 @@ describe('`link clicked`', () => {
         ? await selector()
         : await screen.findByRole('link');
 
-      const fireOnClick = (options?: Parameters<typeof fireEvent.click>[1]) => {
-        fireEvent.click(link, options);
-      };
-
-      const fireOnMouseDown = (
-        options?: Parameters<typeof fireEvent.mouseDown>[1],
-      ) => {
-        fireEvent.mouseDown(link, options);
-      };
-
       return {
         spy,
-        fireOnClick,
-        fireOnMouseDown,
+        user,
+        link,
       };
     };
 
     describe('left click', () => {
       it('should fire with `clickOutcome` = `clickThroughNewTabOrWindow` by default (we render target="_blank")', async () => {
-        const { spy, fireOnClick } = await setup();
+        const { spy, user, link } = await setup();
 
-        fireOnClick();
+        await user.click(link);
 
         expect(spy).toBeFiredWithAnalyticEventOnce(
           {
@@ -696,13 +716,13 @@ describe('`link clicked`', () => {
       });
 
       it('should fire with `defaultPrevented` = `true` if the event default behaviour is prevented', async () => {
-        const { spy, fireOnClick } = await setup({
+        const { spy, user, link } = await setup({
           onClick: (e) => {
             e.preventDefault();
           },
         });
 
-        fireOnClick();
+        await user.click(link);
 
         /**
          * In the case of flex UI the onClick handler is passed to the title
@@ -740,11 +760,10 @@ describe('`link clicked`', () => {
       });
 
       it('should fire with `clickOutcome` = `alt` if the alt key is held', async () => {
-        const { spy, fireOnClick } = await setup();
+        const { spy, user, link } = await setup();
 
-        fireOnClick({
-          altKey: true,
-        });
+        await user.keyboard('{Alt>}');
+        await user.click(link);
 
         expect(spy).toBeFiredWithAnalyticEventOnce(
           {
@@ -765,11 +784,10 @@ describe('`link clicked`', () => {
       });
 
       it('should fire with `clickOutcome` = `alt` if the alt key is held but an `onClick` is supplied', async () => {
-        const { spy, fireOnClick } = await setup({ onClick: jest.fn() });
+        const { spy, user, link } = await setup({ onClick: jest.fn() });
 
-        fireOnClick({
-          altKey: true,
-        });
+        await user.keyboard('{Alt>}');
+        await user.click(link);
 
         expect(spy).toBeFiredWithAnalyticEventOnce(
           {
@@ -790,11 +808,10 @@ describe('`link clicked`', () => {
       });
 
       it('should fire with `clickOutcome` = `clickThroughNewTabOrWindow` if the shift key is held', async () => {
-        const { spy, fireOnClick } = await setup();
+        const { spy, user, link } = await setup();
 
-        fireOnClick({
-          shiftKey: true,
-        });
+        await user.keyboard('{Shift>}');
+        await user.click(link);
 
         expect(spy).toBeFiredWithAnalyticEventOnce(
           {
@@ -815,13 +832,12 @@ describe('`link clicked`', () => {
       });
 
       it('should fire with `clickOutcome` = `clickThroughNewTabOrWindow` if the shift key is held and `onClick` is provided', async () => {
-        const { spy, fireOnClick } = await setup({
+        const { spy, user, link } = await setup({
           onClick: jest.fn(),
         });
 
-        fireOnClick({
-          shiftKey: true,
-        });
+        await user.keyboard('{Shift>}');
+        await user.click(link);
 
         expect(spy).toBeFiredWithAnalyticEventOnce(
           {
@@ -844,11 +860,10 @@ describe('`link clicked`', () => {
       it('should fire with `clickOutcome` = `clickThroughNewTabOrWindow` if the shift key is held but an `onClick` is supplied (windows)', async () => {
         jest.spyOn(userAgent, 'browser').mockReturnValue({ mac: false } as any);
 
-        const { spy, fireOnClick } = await setup({ onClick: jest.fn() });
+        const { spy, user, link } = await setup({ onClick: jest.fn() });
 
-        fireOnClick({
-          shiftKey: true,
-        });
+        await user.keyboard('{Shift>}');
+        await user.click(link);
 
         expect(spy).toBeFiredWithAnalyticEventOnce(
           {
@@ -871,11 +886,10 @@ describe('`link clicked`', () => {
       it('should fire with `clickOutcome` = `clickThrough` if the meta key is held but an `onClick` is supplied (windows)', async () => {
         jest.spyOn(userAgent, 'browser').mockReturnValue({ mac: false } as any);
 
-        const { spy, fireOnClick } = await setup({ onClick: jest.fn() });
+        const { spy, user, link } = await setup({ onClick: jest.fn() });
 
-        fireOnClick({
-          metaKey: true,
-        });
+        await user.keyboard('{Meta>}');
+        await user.click(link);
 
         expect(spy).toBeFiredWithAnalyticEventOnce(
           {
@@ -898,11 +912,10 @@ describe('`link clicked`', () => {
       it('should fire with `clickOutcome` = `clickThroughNewTabOrWindow` if the ctrl key is held but an `onClick` is supplied (windows)', async () => {
         jest.spyOn(userAgent, 'browser').mockReturnValue({ mac: false } as any);
 
-        const { spy, fireOnClick } = await setup({ onClick: jest.fn() });
+        const { spy, user, link } = await setup({ onClick: jest.fn() });
 
-        fireOnClick({
-          ctrlKey: true,
-        });
+        await user.keyboard('{Control>}');
+        await user.click(link);
 
         expect(spy).toBeFiredWithAnalyticEventOnce(
           {
@@ -925,11 +938,10 @@ describe('`link clicked`', () => {
       it('should fire with `clickOutcome` = `clickThrough` if the ctrl key is held (NOT macOS) and no `onClick` is provided', async () => {
         jest.spyOn(userAgent, 'browser').mockReturnValue({ mac: false } as any);
 
-        const { spy, fireOnClick } = await setup();
+        const { spy, user, link } = await setup();
 
-        fireOnClick({
-          ctrlKey: true,
-        });
+        await user.keyboard('{Control>}');
+        await user.click(link);
 
         expect(spy).toBeFiredWithAnalyticEventOnce(
           {
@@ -957,11 +969,10 @@ describe('`link clicked`', () => {
       it('should fire with `clickOutcome` = `clickThrough` if the ctrl key is held on macOS (if onClick is triggered and `onClick` is NOT provided)', async () => {
         jest.spyOn(userAgent, 'browser').mockReturnValue({ mac: true } as any);
 
-        const { spy, fireOnClick } = await setup();
+        const { spy, user, link } = await setup();
 
-        fireOnClick({
-          ctrlKey: true,
-        });
+        await user.keyboard('{Control>}');
+        await user.click(link);
 
         expect(spy).toBeFiredWithAnalyticEventOnce(
           {
@@ -984,11 +995,10 @@ describe('`link clicked`', () => {
       it('should fire with `clickOutcome` = `clickThroughNewTab` if the ctrl key is held on macOS (if onClick is triggered and `onClick` is provided)', async () => {
         jest.spyOn(userAgent, 'browser').mockReturnValue({ mac: true } as any);
 
-        const { spy, fireOnClick } = await setup({ onClick: jest.fn() });
+        const { spy, user, link } = await setup({ onClick: jest.fn() });
 
-        fireOnClick({
-          ctrlKey: true,
-        });
+        await user.keyboard('{Control>}');
+        await user.click(link);
 
         expect(spy).toBeFiredWithAnalyticEventOnce(
           {
@@ -1011,11 +1021,9 @@ describe('`link clicked`', () => {
 
     describe('middle click', () => {
       it('should fire with `clickOutcome` = `clickThroughNewTabOrWindow` when middle clicking', async () => {
-        const { spy, fireOnMouseDown } = await setup();
+        const { spy, user, link } = await setup();
 
-        fireOnMouseDown({
-          button: 1,
-        });
+        await user.pointer({ target: link, keys: '[MouseMiddle]' });
 
         expect(spy).toBeFiredWithAnalyticEventOnce(
           {
@@ -1038,11 +1046,9 @@ describe('`link clicked`', () => {
 
     describe('right click', () => {
       it('should fire with `clickOutcome` = `contextMenu` when right clicking', async () => {
-        const { spy, fireOnMouseDown } = await setup();
+        const { spy, user, link } = await setup();
 
-        fireOnMouseDown({
-          button: 2,
-        });
+        await user.pointer({ target: link, keys: '[MouseRight]' });
 
         expect(spy).toBeFiredWithAnalyticEventOnce(
           {
@@ -1055,6 +1061,86 @@ describe('`link clicked`', () => {
                 clickType: 'right',
                 clickOutcome: 'contextMenu',
                 keysHeld: [],
+              },
+            },
+          },
+          ANALYTICS_CHANNEL,
+        );
+      });
+    });
+
+    /**
+     * With the link in focus, pressing enter key should in theory fire similar events to left click,
+     * however some behaviour in tests doesn't seem to reflect what actually happens, so only verifying what we can here,
+     * and that clickType = keyboard.
+     * Notably holding alt or control key don't fire link clicked in tests
+     */
+    describe('keyboard', () => {
+      it('should fire with `clickOutcome` = `clickThroughNewTabOrWindow` by default (we render target="_blank")', async () => {
+        const { spy, user, link } = await setup();
+
+        link.focus();
+        await user.keyboard('{Enter}');
+
+        expect(spy).toBeFiredWithAnalyticEventOnce(
+          {
+            context: options?.context,
+            payload: {
+              action: 'clicked',
+              actionSubject: 'link',
+              eventType: 'ui',
+              attributes: {
+                clickType: 'keyboard',
+                clickOutcome: 'clickThroughNewTabOrWindow',
+                keysHeld: [],
+              },
+            },
+          },
+          ANALYTICS_CHANNEL,
+        );
+      });
+
+      it('should fire with `clickOutcome` = `clickThrough` if the shift key is held', async () => {
+        const { spy, user, link } = await setup();
+
+        link.focus();
+        await user.keyboard('{Shift>}{Enter}');
+
+        expect(spy).toBeFiredWithAnalyticEventOnce(
+          {
+            context: options?.context,
+            payload: {
+              action: 'clicked',
+              actionSubject: 'link',
+              eventType: 'ui',
+              attributes: {
+                clickType: 'keyboard',
+                clickOutcome: 'clickThroughNewTabOrWindow',
+                keysHeld: ['shift'],
+              },
+            },
+          },
+          ANALYTICS_CHANNEL,
+        );
+      });
+
+      it('should fire with `clickOutcome` = `clickThroughNewTabOrWindow` if the meta key is held', async () => {
+        const { spy, user, link } = await setup();
+
+        link.focus();
+        await user.keyboard('{Meta>}{Enter}');
+
+        expect(spy).toBeFiredWithAnalyticEventOnce(
+          {
+            context: options?.context,
+            payload: {
+              action: 'clicked',
+              actionSubject: 'link',
+              eventType: 'ui',
+              attributes: {
+                clickType: 'keyboard',
+                clickOutcome: 'clickThroughNewTabOrWindow',
+                keysHeld: ['meta'],
               },
             },
           },

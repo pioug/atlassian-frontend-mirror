@@ -22,7 +22,12 @@ const CardExample: React.FC<{
         nipper brigantine Jolly Roger wench sloop Shiver me timbers rope's end
         chandler. Admiral of the Black cackle fruit deck{' '}
         <ErrorBoundary fallback={fallback} onError={onError}>
-          <Card appearance="inline" url={url} showHoverPreview={true} />
+          <Card
+            appearance="inline"
+            url={url}
+            showHoverPreview={true}
+            showServerActions={true}
+          />
         </ErrorBoundary>{' '}
         wench bounty rope's end bilge water scourge of the seven seas hardtack
         come about execution dock Nelsons folly handsomely rigging splice the
@@ -31,7 +36,12 @@ const CardExample: React.FC<{
       <h6>Block</h6>
       <br />
       <ErrorBoundary fallback={fallback} onError={onError}>
-        <Card appearance="block" platform="web" url={url} />
+        <Card
+          appearance="block"
+          platform="web"
+          url={url}
+          showServerActions={true}
+        />
       </ErrorBoundary>
       <h6>Embed</h6>
       <br />

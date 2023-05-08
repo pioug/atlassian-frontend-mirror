@@ -19,7 +19,7 @@ import FlexibleCard from '../src/view/FlexibleCard';
 
 class CustomClient extends Client {
   fetchData(url: string) {
-    const response = getJsonLdResponse(url, undefined, AsanaTask);
+    const response = getJsonLdResponse(url, AsanaTask.meta, AsanaTask.data);
     return Promise.resolve(response);
   }
 }

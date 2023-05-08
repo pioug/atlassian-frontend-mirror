@@ -7,19 +7,15 @@
  */
 //Thai (Thailand)
 export default {
-  "fabric.elements.mentions.team.meantion.highlight.close.button.tooltip": "ยกเลิก",
-  "fabric.elements.mentions.team.member.50plus": "ทีม • สมาชิกมากกว่า 50 คน",
-  "fabric.elements.mentions.team.member.50plus.including.you": "ทีม • สมาชิกมากกว่า 50 คน รวมคุณด้วย",
-  "fabric.elements.mentions.team.member.count": "{0, plural, other {ทีม • สมาชิก {0} คน}}",
-  "fabric.elements.mentions.team.member.count.including.you": "{0, plural, other {ทีม • สมาชิก {0} คน รวมคุณด้วย}}",
-  "fabric.elements.mentions.team.mention.highlight.description": "ให้ทุกคนดูหน้าเพจได้ในคลิกเดียว ไม่มีทีมใช่ไหม",
-  "fabric.elements.mentions.team.mention.highlight.description.link": "เริ่มสร้างทีมเลย",
-  "fabric.elements.mentions.team.mention.highlight.title": "กล่าวถึงทีมของคุณ",
-  "fabric.mention.error.defaultAction": "ลองอีกครั้งในอีกสักครู่",
-  "fabric.mention.error.defaultHeadline": "มีข้อผิดพลาดบางอย่างเกิดขึ้น",
-  "fabric.mention.error.differentText": "ลองป้อนข้อความอื่น",
-  "fabric.mention.error.loginAgain": "ลองออกจากระบบและเข้าสู่ระบบใหม่อีกครั้ง",
-  "fabric.mention.noAccess.label": "ไม่มีการเข้าถึง",
-  "fabric.mention.noAccess.warning": "{name} จะไม่ได้รับการแจ้งเตือนเนื่องจากพวกเขาไม่มีสิทธิ์การเข้าถึง",
-  "fabric.mention.unknow.user.error": "ผู้ใช้ที่ไม่รู้จัก {userId}"
+  'fabric.elements.mentions.team.member.50plus': 'ทีม • สมาชิกมากกว่า 50 คน',
+  'fabric.elements.mentions.team.member.50plus.including.you': 'ทีม • สมาชิกมากกว่า 50 คน รวมคุณด้วย',
+  'fabric.elements.mentions.team.member.count': '{0, plural, other {ทีม • สมาชิก {0} คน}}',
+  'fabric.elements.mentions.team.member.count.including.you': '{0, plural, other {ทีม • สมาชิก {0} คน รวมคุณด้วย}}',
+  'fabric.mention.error.defaultAction': 'ลองอีกครั้งในอีกสักครู่',
+  'fabric.mention.error.defaultHeadline': 'มีข้อผิดพลาดบางอย่างเกิดขึ้น',
+  'fabric.mention.error.differentText': 'ลองป้อนข้อความอื่น',
+  'fabric.mention.error.loginAgain': 'ลองออกจากระบบและเข้าสู่ระบบใหม่อีกครั้ง',
+  'fabric.mention.noAccess.label': 'ไม่มีการเข้าถึง',
+  'fabric.mention.noAccess.warning': '{name} จะไม่ได้รับการแจ้งเตือนเนื่องจากพวกเขาไม่มีสิทธิ์การเข้าถึง',
+  'fabric.mention.unknow.user.error': 'ผู้ใช้ที่ไม่รู้จัก {userId}',
 };

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/rating",
-  "version": "0.2.89",
+  "version": "0.3.1",
   "description": "An accessible rating component that can be heavily customized.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -23,11 +23,11 @@
     }
   },
   "dependencies": {
-    "@atlaskit/icon": "^21.11.0",
-    "@atlaskit/motion": "^1.3.0",
-    "@atlaskit/theme": "^12.4.0",
-    "@atlaskit/tokens": "1.2.19",
-    "@atlaskit/tooltip": "^17.7.0",
+    "@atlaskit/icon": "^21.12.0",
+    "@atlaskit/motion": "^1.4.0",
+    "@atlaskit/theme": "^12.5.0",
+    "@atlaskit/tokens": "1.3.1",
+    "@atlaskit/tooltip": "^17.8.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"
   },
@@ -36,7 +36,7 @@
     "react-dom": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/button": "^16.6.0",
+    "@atlaskit/button": "^16.7.0",
     "@atlaskit/docs": "*",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",

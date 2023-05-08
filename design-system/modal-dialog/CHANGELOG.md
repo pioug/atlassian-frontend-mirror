@@ -1,5 +1,15 @@
 # @atlaskit/modal-dialog
 
+## 12.5.0
+
+### Minor Changes
+
+- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.4.13
 
 ### Patch Changes

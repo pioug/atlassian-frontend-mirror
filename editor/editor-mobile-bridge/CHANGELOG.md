@@ -1,5 +1,33 @@
 # @atlaskit/editor-mobile-bridge
 
+## 183.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 183.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 183.0.0
+
+### Minor Changes
+
+- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+
+### Patch Changes
+
+- Updated dependencies
+
+## 182.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 182.2.0
 
 ### Patch Changes

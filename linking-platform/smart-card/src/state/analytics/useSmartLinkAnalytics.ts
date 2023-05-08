@@ -27,6 +27,9 @@ import {
   uiLearnMoreLinkClickedEvent,
   uiRenderFailedEvent,
   uiRenderSuccessEvent,
+  uiSmartLinkStatusLozengeButtonClicked,
+  uiSmartLinkStatusListItemButtonClicked,
+  uiSmartLinkStatusOpenPreviewButtonClicked,
 } from '../../utils/analytics';
 
 import {
@@ -66,10 +69,14 @@ import {
 import { useSmartLinkContext } from '@atlaskit/link-provider';
 import {
   trackLinkUpdated,
+  trackSmartLinkQuickActionFailed,
+  trackSmartLinkQuickActionStarted,
+  trackSmartLinkQuickActionSuccess,
   uiIframeDwelledEvent,
   uiIframeFocusedEvent,
 } from '../../utils/analytics/analytics';
 import { useDispatchAnalytics } from './useDispatchAnalytics';
+import { SmartLinkActionType } from '@atlaskit/linking-types';
 
 const applyCommonAttributes = (
   event: AnalyticsPayload,
@@ -137,6 +144,7 @@ export const useSmartLinkAnalytics = (
       definitionId: extractedDefinitionId,
       extensionKey: extractedExtensionKey,
       resourceType: extractedResourceType,
+      destinationObjectType: extractedResourceType,
       destinationSubproduct: extractedSubproduct,
       destinationProduct: extractedProduct,
       location: defaultLocation,
@@ -666,6 +674,39 @@ export const useSmartLinkAnalytics = (
             commonAttributes,
           ),
         ),
+
+      /**
+       * Fires an event that represent a click was performed on a Status Lozenge
+       */
+      smartLinkLozengeActionClickedEvent: () =>
+        dispatchAnalytics(
+          applyCommonAttributes(
+            uiSmartLinkStatusLozengeButtonClicked(),
+            commonAttributes,
+          ),
+        ),
+
+      /**
+       * Fires an event that represent a click was performed on a Status Lozenge's dropdown item
+       */
+      smartLinkLozengeActionListItemClickedEvent: () =>
+        dispatchAnalytics(
+          applyCommonAttributes(
+            uiSmartLinkStatusListItemButtonClicked(),
+            commonAttributes,
+          ),
+        ),
+
+      /**
+       * Fires an event that represent a click was performed on a Status Lozenge open preview button
+       */
+      smartLinkLozengeActionErrorOpenPreviewClickedEvent: () =>
+        dispatchAnalytics(
+          applyCommonAttributes(
+            uiSmartLinkStatusOpenPreviewButtonClicked(),
+            commonAttributes,
+          ),
+        ),
     }),
     [defaultId, commonAttributes, dispatchAnalytics],
   );
@@ -962,7 +1003,47 @@ export const useSmartLinkAnalytics = (
             commonAttributes,
           ),
         ),
+
+      /**
+       * This fires a tracking event before an action invoke api call is made
+       */
+      smartLinkQuickActionStarted: (props: {
+        smartLinkActionType: SmartLinkActionType;
+      }) =>
+        dispatchAnalytics(
+          applyCommonAttributes(
+            trackSmartLinkQuickActionStarted({ ...commonAttributes, ...props }),
+            commonAttributes,
+          ),
+        ),
+
+      /**
+       * This fires a tracking event after an action invoke api call is successful
+       */
+      smartLinkQuickActionSuccess: (props: {
+        smartLinkActionType: SmartLinkActionType;
+      }) =>
+        dispatchAnalytics(
+          applyCommonAttributes(
+            trackSmartLinkQuickActionSuccess({ ...commonAttributes, ...props }),
+            commonAttributes,
+          ),
+        ),
+
+      /**
+       * This fires a tracking event after an action invoke api call has failed
+       */
+      smartLinkQuickActionFailed: (props: {
+        smartLinkActionType: SmartLinkActionType;
+      }) =>
+        dispatchAnalytics(
+          applyCommonAttributes(
+            trackSmartLinkQuickActionFailed({ ...commonAttributes, ...props }),
+            commonAttributes,
+          ),
+        ),
     }),
+
     [commonAttributes, dispatchAnalytics],
   );
 

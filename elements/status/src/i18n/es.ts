@@ -7,11 +7,11 @@
  */
 //Spanish (International)
 export default {
-  "fabric.status.color.blue": "Azul",
-  "fabric.status.color.green": "Verde",
-  "fabric.status.color.grey": "Gris",
-  "fabric.status.color.purple": "Morado",
-  "fabric.status.color.red": "Rojo",
-  "fabric.status.color.yellow": "Amarillo",
-  "fabric.status.input.label": "Establecer un estado"
+  'fabric.status.color.blue': 'Azul',
+  'fabric.status.color.green': 'Verde',
+  'fabric.status.color.grey': 'Gris',
+  'fabric.status.color.purple': 'Morado',
+  'fabric.status.color.red': 'Rojo',
+  'fabric.status.color.yellow': 'Amarillo',
+  'fabric.status.input.label': 'Establecer un estado',
 };

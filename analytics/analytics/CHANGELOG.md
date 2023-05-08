@@ -1,5 +1,11 @@
 # @atlaskit/analytics
 
+## 8.1.0
+
+### Minor Changes
+
+- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+
 ## 8.0.3
 
 ### Patch Changes

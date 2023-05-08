@@ -1,5 +1,21 @@
 # @atlaskit/tokens
 
+## 1.3.1
+
+### Patch Changes
+
+- [`e55ef3fcfac`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e55ef3fcfac) - Fixes an issue where the dark theme tweaks (currently behind a feature flag) were not being displayed in some cases due to a race condition.
+
+## 1.3.0
+
+### Minor Changes
+
+- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.2.19
 
 ### Patch Changes

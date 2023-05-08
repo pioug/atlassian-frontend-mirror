@@ -7,19 +7,17 @@
  */
 //Czech
 export default {
-  "fabric.elements.mentions.team.meantion.highlight.close.button.tooltip": "Zavřít",
-  "fabric.elements.mentions.team.member.50plus": "Tým • 50 a více členů",
-  "fabric.elements.mentions.team.member.50plus.including.you": "Tým • 50 a více členů včetně vás",
-  "fabric.elements.mentions.team.member.count": "{0, plural, one {Tým • 1 člen} few {Tým • {0} členové} many {Tým • {0} člena} other {Tým • {0} členů}}",
-  "fabric.elements.mentions.team.member.count.including.you": "{0, plural, one {Tým • 1 člen včetně vás} few {Tým • {0} členové včetně vás} many {Tým • {0} člena včetně vás} other {Tým • {0} členů včetně vás}}",
-  "fabric.elements.mentions.team.mention.highlight.description": "Informujte všechny jedním kliknutím. Nemáte tým?",
-  "fabric.elements.mentions.team.mention.highlight.description.link": "Zadejte zmínku.",
-  "fabric.elements.mentions.team.mention.highlight.title": "Zmiňte svůj tým",
-  "fabric.mention.error.defaultAction": "Zkuste to znovu za pár sekund",
-  "fabric.mention.error.defaultHeadline": "Něco se pokazilo",
-  "fabric.mention.error.differentText": "Zkuste zadat jiný text",
-  "fabric.mention.error.loginAgain": "Zkuste se odhlásit a znovu přihlásit",
-  "fabric.mention.noAccess.label": "Žádný přístup",
-  "fabric.mention.noAccess.warning": "Uživatel {name} nebude informován, protože nemá přístup",
-  "fabric.mention.unknow.user.error": "Neznámý uživatel {userId}"
+  'fabric.elements.mentions.team.member.50plus': 'Tým • 50 a více členů',
+  'fabric.elements.mentions.team.member.50plus.including.you': 'Tým • 50 a více členů včetně vás',
+  'fabric.elements.mentions.team.member.count':
+    '{0, plural, one {Tým • 1 člen} few {Tým • {0} členové} many {Tým • {0} člena} other {Tým • {0} členů}}',
+  'fabric.elements.mentions.team.member.count.including.you':
+    '{0, plural, one {Tým • 1 člen včetně vás} few {Tým • {0} členové včetně vás} many {Tým • {0} člena včetně vás} other {Tým • {0} členů včetně vás}}',
+  'fabric.mention.error.defaultAction': 'Zkuste to znovu za pár sekund',
+  'fabric.mention.error.defaultHeadline': 'Něco se pokazilo',
+  'fabric.mention.error.differentText': 'Zkuste zadat jiný text',
+  'fabric.mention.error.loginAgain': 'Zkuste se odhlásit a znovu přihlásit',
+  'fabric.mention.noAccess.label': 'Žádný přístup',
+  'fabric.mention.noAccess.warning': 'Uživatel {name} nebude informován, protože nemá přístup',
+  'fabric.mention.unknow.user.error': 'Neznámý uživatel {userId}',
 };

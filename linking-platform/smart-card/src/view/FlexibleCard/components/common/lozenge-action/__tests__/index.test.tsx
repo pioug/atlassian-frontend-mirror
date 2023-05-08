@@ -19,6 +19,32 @@ import extractLozengeActionItems from '../../../../../../extractors/action/extra
 import { LozengeActionErrorMessages } from '../lozenge-action-error/types';
 import { CardDetails } from '../../../../../../state/hooks/use-invoke/types';
 
+const mockSmartLinkLozengeActionClickedEvent = jest.fn();
+const mockSmartLinkLozengeActionListItemClickedEvent = jest.fn();
+const mocksmartLinkQuickActionStarted = jest.fn();
+const mocksmartLinkQuickActionSuccess = jest.fn();
+const mocksmartLinkQuickActionFailed = jest.fn();
+
+jest.mock('../../../../../../state/flexible-ui-context', () => ({
+  useFlexibleUiAnalyticsContext: () => ({
+    ui: {
+      smartLinkLozengeActionClickedEvent:
+        mockSmartLinkLozengeActionClickedEvent,
+      smartLinkLozengeActionListItemClickedEvent:
+        mockSmartLinkLozengeActionListItemClickedEvent,
+      renderSuccessEvent: jest.fn(),
+      modalClosedEvent: jest.fn(),
+    },
+    track: {
+      smartLinkQuickActionStarted: mocksmartLinkQuickActionStarted,
+      smartLinkQuickActionSuccess: mocksmartLinkQuickActionSuccess,
+      smartLinkQuickActionFailed: mocksmartLinkQuickActionFailed,
+    },
+    screen: {
+      modalViewedEvent: jest.fn(),
+    },
+  }),
+}));
 describe('LozengeAction', () => {
   const testId = 'test-smart-element-lozenge-dropdown';
   const triggerTestId = `${testId}--trigger`;
@@ -75,6 +101,7 @@ describe('LozengeAction', () => {
     return render(
       <IntlProvider locale="en">
         <LozengeAction
+          action={props?.action || getAction()}
           appearance={appearance}
           testId={testId}
           text={text}
@@ -384,10 +411,6 @@ describe('LozengeAction', () => {
         payload: expect.any(Object),
       }),
       providerKey: expect.any(String),
-      details: expect.objectContaining({
-        url: url,
-        id: id,
-      }),
     });
   });
 
@@ -455,10 +478,14 @@ describe('LozengeAction', () => {
 
     const itemTestId = `${testId}-item-0`;
     const element = await findByTestId(triggerTestId);
-    fireEvent.click(element);
+    act(() => {
+      fireEvent.click(element);
+    });
 
     const item = await findByTestId(itemTestId);
-    fireEvent.click(item);
+    act(() => {
+      fireEvent.click(item);
+    });
 
     // making sure the dropdown is not visible
     expect(item).not.toBeInTheDocument();
@@ -701,10 +728,14 @@ describe('LozengeAction', () => {
     );
 
     const element = await findByTestId(triggerTestId);
-    fireEvent.click(element);
+    act(() => {
+      fireEvent.click(element);
+    });
 
     const item = await findByTestId(`${testId}-item-0`);
-    fireEvent.click(item);
+    act(() => {
+      fireEvent.click(item);
+    });
 
     const error = await findByTestId(`${testId}-error`);
     expect(error).toBeTruthy();
@@ -745,5 +776,40 @@ describe('LozengeAction', () => {
     });
 
     expect(await findByTestId(`${testId}-item-0`)).toBeInTheDocument();
+  });
+
+  describe('Analytics', () => {
+    it('fires button clicked event with smartLinkStatusLozenge subject id when element is clicked', async () => {
+      const { findByTestId } = renderComponent({ action: getAction() });
+
+      const element = await findByTestId(triggerTestId);
+      act(() => {
+        fireEvent.click(element);
+      });
+      expect(mockSmartLinkLozengeActionClickedEvent).toHaveBeenCalledTimes(1);
+    });
+
+    it('fires button clicked event with smartLinkStatusListItem subject id when an item is clicked', async () => {
+      const mockInvoke = jest.fn().mockResolvedValueOnce([
+        { id: '1', text: 'Done' },
+        { id: '2', text: 'Moved' },
+      ]);
+      const { findByTestId } = renderComponent(
+        { action: getAction() },
+        mockInvoke,
+      );
+
+      const element = await findByTestId(triggerTestId);
+      act(() => {
+        fireEvent.click(element);
+      });
+      const item = await findByTestId(`${testId}-item-0`);
+      act(() => {
+        fireEvent.click(item);
+      });
+      expect(
+        mockSmartLinkLozengeActionListItemClickedEvent,
+      ).toHaveBeenCalledTimes(1);
+    });
   });
 });

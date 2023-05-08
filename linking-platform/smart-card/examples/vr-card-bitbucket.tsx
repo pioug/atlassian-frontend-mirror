@@ -8,19 +8,19 @@ import { Card } from '../src';
 import {
   BitbucketBranch,
   BitbucketCommit,
-  BitbucketFile,
+  BitbucketFile1,
   BitbucketProject,
-  BitbucketPullRequest,
-  BitbucketRepository,
-} from '../examples-helpers/_jsonLDExamples/provider.bitbucket';
+  BitbucketPullRequest1,
+  BitbucketRepository1,
+} from '../examples-helpers/_jsonLDExamples';
 
 const examples = {
   [BitbucketBranch.data.url]: BitbucketBranch,
   [BitbucketCommit.data.url]: BitbucketCommit,
-  [BitbucketFile.data.url]: BitbucketFile,
+  [BitbucketFile1.data.url]: BitbucketFile1,
   [BitbucketProject.data.url]: BitbucketProject,
-  [BitbucketPullRequest.data.url]: BitbucketPullRequest,
-  [BitbucketRepository.data.url]: BitbucketRepository,
+  [BitbucketPullRequest1.data.url]: BitbucketPullRequest1,
+  [BitbucketRepository1.data.url]: BitbucketRepository1,
 };
 
 const cardStyles = css`
@@ -76,10 +76,10 @@ export default () => (
     <Provider client={new CustomClient('staging')}>
       {renderLink('Branch', BitbucketBranch.data.url, 'branch', 430)}
       {renderLink('Commit', BitbucketCommit.data.url, 'commit')}
-      {renderLink('File', BitbucketFile.data.url, 'file')}
+      {renderLink('File', BitbucketFile1.data.url, 'file')}
       {renderLink('Project', BitbucketProject.data.url, 'project', 430)}
-      {renderLink('Pull request', BitbucketPullRequest.data.url, 'pr', 320)}
-      {renderLink('Repository', BitbucketRepository.data.url, 'repository')}
+      {renderLink('Pull request', BitbucketPullRequest1.data.url, 'pr', 320)}
+      {renderLink('Repository', BitbucketRepository1.data.url, 'repository')}
     </Provider>
   </VRTestWrapper>
 );

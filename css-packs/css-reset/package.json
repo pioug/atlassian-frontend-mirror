@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/css-reset",
-  "version": "6.4.1",
+  "version": "6.5.0",
   "description": "A base stylesheet for the Atlassian Design System.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -37,8 +37,8 @@
     "ak-postbuild": "yarn build-css"
   },
   "dependencies": {
-    "@atlaskit/theme": "^12.4.0",
-    "@atlaskit/tokens": "^1.2.0",
+    "@atlaskit/theme": "^12.5.0",
+    "@atlaskit/tokens": "^1.3.0",
     "@babel/runtime": "^7.0.0",
     "fbjs": "^3.0.0"
   },
@@ -47,7 +47,7 @@
   },
   "devDependencies": {
     "@atlaskit/docs": "*",
-    "@atlaskit/section-message": "^6.3.5",
+    "@atlaskit/section-message": "^6.4.0",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "mkdirp": "^0.5.1",

@@ -1,5 +1,11 @@
 # @atlaskit/util-service-support
 
+## 6.2.0
+
+### Minor Changes
+
+- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+
 ## 6.1.3
 
 ### Patch Changes

@@ -42,6 +42,7 @@ import { ReactChild } from 'react';
 import { Ref } from 'react';
 import { SerializedStyles } from '@emotion/react';
 import { SmartCardContext } from '@atlaskit/link-provider';
+import { SmartLinkActionType } from '@atlaskit/linking-types';
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { WithContextProps } from '@atlaskit/analytics-next';
 import { WithIntlProps } from 'react-intl-next';
@@ -95,12 +96,15 @@ export type AnalyticsAction =
   | 'created'
   | 'dismissed'
   | 'dwelled'
+  | 'failed'
   | 'focused'
   | 'inserted'
   | 'renderFailed'
   | 'renderSuccess'
   | 'renderWithStatus'
   | 'resolved'
+  | 'started'
+  | 'success'
   | 'unresolved'
   | 'updated'
   | 'viewed';
@@ -116,7 +120,8 @@ export type AnalyticsActionSubject =
   | 'modal'
   | 'smartLink'
   | 'smartLinkAction'
-  | 'smartLinkIframe';
+  | 'smartLinkIframe'
+  | 'smartLinkQuickAction';
 
 // @public (undocumented)
 type AnalyticsFacade = ReturnType<typeof useSmartLinkAnalytics>;
@@ -356,6 +361,8 @@ type CommentCount = {
 interface CommonEventProps {
   // (undocumented)
   definitionId?: string;
+  // (undocumented)
+  destinatinoObjectType?: string;
   // (undocumented)
   destinationProduct?: DestinationProduct | string;
   // (undocumented)
@@ -1118,6 +1125,9 @@ export const useSmartLinkAnalytics: (
       status,
     }: UiHoverCardDismissedEventProps) => void;
     learnMoreClickedEvent: () => void;
+    smartLinkLozengeActionClickedEvent: () => void;
+    smartLinkLozengeActionListItemClickedEvent: () => void;
+    smartLinkLozengeActionErrorOpenPreviewClickedEvent: () => void;
   };
   operational: {
     invokeSucceededEvent: ({
@@ -1203,6 +1213,15 @@ export const useSmartLinkAnalytics: (
         [key: string]: any;
       },
     ) => void;
+    smartLinkQuickActionStarted: (props: {
+      smartLinkActionType: SmartLinkActionType;
+    }) => void;
+    smartLinkQuickActionSuccess: (props: {
+      smartLinkActionType: SmartLinkActionType;
+    }) => void;
+    smartLinkQuickActionFailed: (props: {
+      smartLinkActionType: SmartLinkActionType;
+    }) => void;
   };
   screen: {
     authPopupEvent: ({
@@ -1245,7 +1264,7 @@ type VoteCount = {
 
 ```json
 {
-  "@atlaskit/link-provider": "^1.5.4",
+  "@atlaskit/link-provider": "^1.6.0",
   "react": "^16.8.0",
   "react-dom": "^16.8.0",
   "react-intl-next": "npm:react-intl@^5.18.1"

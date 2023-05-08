@@ -27,17 +27,21 @@ const componentMigrations = {
 
   Draggable(j: JSCodeshift, path: ASTPath<JSXElement>) {
     const childrenPath: ASTPath<ASTNode> = path.get('children');
-    const node = j(childrenPath).find(j.JSXExpressionContainer).nodes()[0];
-    if (!node) {
+
+    const expressionPath = j(childrenPath)
+      .find(j.JSXExpressionContainer)
+      .paths()
+      .at(0);
+    if (!expressionPath) {
       return;
     }
-    /**
-     * Not using the `addCommentBefore` helper because of typing reasons.
-     */
-    node.comments = node.comments ?? [];
-    node.comments.push(
+
+    const jsxExpression = j.jsxEmptyExpression();
+    jsxExpression.comments = [
       j.commentBlock(` TODO: (from codemod) ${dragHandlePropMessage} `),
-    );
+    ];
+
+    expressionPath.insertBefore(j.jsxExpressionContainer(jsxExpression));
   },
 
   Droppable(j: JSCodeshift, path: ASTPath<JSXElement>) {

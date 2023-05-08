@@ -30,6 +30,7 @@ import {
   UiRenderSuccessEventProps,
   UnresolvedEventProps,
 } from './types';
+import { SmartLinkActionType } from '@atlaskit/linking-types';
 export const ANALYTICS_CHANNEL = 'media';
 
 export const context = {
@@ -271,6 +272,54 @@ export const trackLinkUpdated = ({
   attributes: {
     ...context,
     ...attributes,
+  },
+});
+
+export const trackSmartLinkQuickActionStarted = ({
+  smartLinkActionType,
+  ...attributes
+}: CommonEventProps & {
+  smartLinkActionType: SmartLinkActionType;
+}): AnalyticsPayload => ({
+  action: 'started',
+  actionSubject: 'smartLinkQuickAction',
+  eventType: 'track',
+  attributes: {
+    ...context,
+    ...attributes,
+    smartLinkActionType,
+  },
+});
+
+export const trackSmartLinkQuickActionSuccess = ({
+  smartLinkActionType,
+  ...attributes
+}: CommonEventProps & {
+  smartLinkActionType: SmartLinkActionType;
+}): AnalyticsPayload => ({
+  action: 'success',
+  actionSubject: 'smartLinkQuickAction',
+  eventType: 'track',
+  attributes: {
+    ...context,
+    ...attributes,
+    smartLinkActionType,
+  },
+});
+
+export const trackSmartLinkQuickActionFailed = ({
+  smartLinkActionType,
+  ...attributes
+}: CommonEventProps & {
+  smartLinkActionType: SmartLinkActionType;
+}): AnalyticsPayload => ({
+  action: 'failed',
+  actionSubject: 'smartLinkQuickAction',
+  eventType: 'track',
+  attributes: {
+    ...context,
+    ...attributes,
+    smartLinkActionType,
   },
 });
 
@@ -644,3 +693,34 @@ export const chunkloadFailedEvent = ({
     location,
   },
 });
+
+export const uiSmartLinkStatusLozengeButtonClicked = (): AnalyticsPayload => ({
+  action: 'clicked',
+  actionSubject: 'button',
+  actionSubjectId: 'smartLinkStatusLozenge',
+  eventType: 'ui',
+  attributes: {
+    ...context,
+  },
+});
+
+export const uiSmartLinkStatusListItemButtonClicked = (): AnalyticsPayload => ({
+  action: 'clicked',
+  actionSubject: 'button',
+  actionSubjectId: 'smartLinkStatusListItem',
+  eventType: 'ui',
+  attributes: {
+    ...context,
+  },
+});
+
+export const uiSmartLinkStatusOpenPreviewButtonClicked =
+  (): AnalyticsPayload => ({
+    action: 'clicked',
+    actionSubject: 'button',
+    actionSubjectId: 'smartLinkStatusOpenPreview',
+    eventType: 'ui',
+    attributes: {
+      ...context,
+    },
+  });

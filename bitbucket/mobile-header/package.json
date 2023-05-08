@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/mobile-header",
-  "version": "6.0.1",
+  "version": "6.1.0",
   "description": "A React component rendering a mobile header",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -22,9 +22,9 @@
     }
   },
   "dependencies": {
-    "@atlaskit/button": "^16.6.0",
-    "@atlaskit/icon": "^21.11.0",
-    "@atlaskit/theme": "^12.4.0",
+    "@atlaskit/button": "^16.7.0",
+    "@atlaskit/icon": "^21.12.0",
+    "@atlaskit/theme": "^12.5.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/styled": "^11.0.0"
   },
@@ -33,7 +33,7 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/banner": "^12.0.0",
+    "@atlaskit/banner": "^12.1.0",
     "@atlaskit/docs": "*",
     "@atlaskit/navigation": "^37.0.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",

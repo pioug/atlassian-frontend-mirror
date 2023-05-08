@@ -67,10 +67,7 @@ const EditLink: React.FC<{
       {showEditLink && (
         <React.Fragment>
           <LoadLinkForm onSubmit={onSubmitUrl} error={urlError} />
-          <JsonldExample
-            defaultValue={initialJson.data as JsonLd.Data.BaseData}
-            onSelect={onJsonChange}
-          />
+          <JsonldExample defaultValue={initialJson} onSelect={onJsonChange} />
         </React.Fragment>
       )}
       {showJsonld && (

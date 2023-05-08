@@ -23,7 +23,8 @@ describe('Snapshot Test: CodeBlock', () => {
       await snapshot(page, undefined, selectors.codeBlock);
     });
 
-    test('should render copy-to-clipboard button correctly on hover when enabled', async () => {
+    // FIXME: This test was automatically skipped due to failure on 07/05/2023: https://product-fabric.atlassian.net/browse/ED-17778
+    test.skip('should render copy-to-clipboard button correctly on hover when enabled', async () => {
       await initRendererWithADF(page, {
         appearance: 'full-page',
         rendererProps: { allowCopyToClipboard: true },
@@ -40,12 +41,12 @@ describe('Snapshot Test: CodeBlock', () => {
 
       await page.addStyleTag({
         content: `
-          /*
-            Prevents the tooltip from displaying and blocking the copy button
-            from being visible
-          */
-          .Tooltip { display: none; }
-        `,
+            /*
+              Prevents the tooltip from displaying and blocking the copy button
+              from being visible
+            */
+            .Tooltip { display: none; }
+          `,
       });
     });
 

@@ -1,10 +1,13 @@
+// @ts-expect-error
+import escodegen from 'escodegen-wallaby';
 import type { Rule } from 'eslint';
-import { isNodeOfType } from 'eslint-codemod-utils';
+import { isNodeOfType, Property } from 'eslint-codemod-utils';
 
 import { createLintRule } from '../utils/create-rule';
 import { getIsException } from '../utils/get-is-exception';
 import {
   includesHardCodedColor,
+  isColorCssPropertyName,
   isHardCodedColor,
   isLegacyColor,
   isLegacyNamedColor,
@@ -14,10 +17,7 @@ import {
   isChildOfType,
   isDecendantOfGlobalToken,
   isDecendantOfStyleBlock,
-  isDecendantOfStyleJsxAttribute,
   isDecendantOfType,
-  isPropertyKey,
-  isVariableName,
 } from '../utils/is-node';
 
 type PluginConfig = {
@@ -31,9 +31,6 @@ type PluginConfig = {
 const defaultConfig: PluginConfig = {
   shouldEnforceFallbacks: false,
 };
-
-const getNodeColumn = (node: Rule.Node) =>
-  node.loc ? node.loc.start.column : 0;
 
 type Suggestion = {
   shouldReturnSuggestion: boolean;
@@ -67,6 +64,9 @@ const getTokenSuggestion = (
     },
   ].filter(filterSuggestion);
 
+const getNodeColumn = (node: Rule.Node) =>
+  node.loc ? node.loc.start.column : 0;
+
 const filterSuggestion = ({ shouldReturnSuggestion }: Suggestion) =>
   shouldReturnSuggestion;
 
@@ -87,68 +87,15 @@ const rule = createLintRule({
   },
   create(context) {
     const config: PluginConfig = context.options[0] || defaultConfig;
-
     const isException = getIsException(config.exceptions);
 
     return {
       'TemplateLiteral > Identifier': (node: Rule.Node) => {
-        if (!isDecendantOfStyleBlock(node)) {
+        if (node.type !== 'Identifier') {
           return;
         }
 
-        if (
-          node.type === 'Identifier' &&
-          isLegacyNamedColor(node.name) &&
-          !isException(node)
-        ) {
-          context.report({
-            messageId: 'hardCodedColor',
-            node,
-            suggest: getTokenSuggestion(node, node.name, config),
-          });
-          return;
-        }
-      },
-
-      Identifier(node) {
-        if (
-          isException(node) ||
-          isDecendantOfGlobalToken(node) ||
-          isDecendantOfType(node, 'SwitchCase') ||
-          isDecendantOfType(node, 'ImportDeclaration') ||
-          isDecendantOfType(node, 'IfStatement') ||
-          isPropertyKey(node) ||
-          isVariableName(node)
-        ) {
-          return;
-        }
-
-        const isNodeLegacyColor = isLegacyColor(node.name);
-        if (isNodeLegacyColor || isHardCodedColor(node.name)) {
-          if (node.parent.type === 'MemberExpression') {
-            if (node.parent.object.type === 'Identifier') {
-              // Object members as named colors, like obj.ivory, should be valid,
-              // and hexes and color functions cannot be property names anyway.
-              if (isNodeLegacyColor) {
-                context.report({
-                  messageId: 'hardCodedColor',
-                  node,
-                  suggest: getTokenSuggestion(
-                    node.parent,
-                    `${node.parent.object.name}.${node.name}`,
-                    config,
-                  ),
-                });
-              }
-            }
-            return;
-          }
-
-          context.report({
-            messageId: 'hardCodedColor',
-            node,
-            suggest: getTokenSuggestion(node, node.name, config),
-          });
+        if (isDecendantOfGlobalToken(node) || !isDecendantOfStyleBlock(node)) {
           return;
         }
 
@@ -183,6 +130,18 @@ ${' '.repeat(getNodeColumn(node) - 2)}box-shadow: \${token('${
             },
           });
         }
+
+        if (
+          (isLegacyColor(node.name) || isLegacyNamedColor(node.name)) &&
+          !isException(node)
+        ) {
+          context.report({
+            messageId: 'hardCodedColor',
+            node,
+            suggest: getTokenSuggestion(node, node.name, config),
+          });
+          return;
+        }
       },
 
       'TaggedTemplateExpression[tag.name="css"],TaggedTemplateExpression[tag.object.name="styled"]':
@@ -211,50 +170,132 @@ ${' '.repeat(getNodeColumn(node) - 2)}box-shadow: \${token('${
           });
         },
 
+      'ObjectExpression > Property > Identifier, ObjectExpression > Property > MemberExpression':
+        (node: Rule.Node) => {
+          if (isDecendantOfGlobalToken(node)) {
+            return;
+          }
+
+          const property = node.parent as Property;
+          let propertyKey = '';
+
+          if (property.key.type === 'Identifier') {
+            propertyKey = property.key.name.toString();
+          }
+
+          if (property.key.type === 'Literal') {
+            propertyKey = property.key.value?.toString() || '';
+          }
+
+          if (!isColorCssPropertyName(propertyKey)) {
+            return;
+          }
+
+          if (
+            !isDecendantOfStyleBlock(node) &&
+            !isDecendantOfType(node, 'JSXExpressionContainer')
+          ) {
+            return;
+          }
+
+          let identifierNode: any;
+
+          if (node.type === 'Identifier') {
+            // identifier is the key and not the value
+            if (node.name === propertyKey) {
+              return;
+            }
+
+            identifierNode = node;
+          }
+
+          if (node.type === 'MemberExpression') {
+            if (node.property.type !== 'Identifier') {
+              context.report({
+                messageId: 'hardCodedColor',
+                node: node,
+                suggest: getTokenSuggestion(
+                  node,
+                  escodegen.generate(node),
+                  config,
+                ),
+              });
+
+              return;
+            }
+
+            identifierNode = node.property;
+          }
+
+          if (
+            (isHardCodedColor(identifierNode.name) ||
+              includesHardCodedColor(identifierNode.name) ||
+              isLegacyColor(identifierNode.name)) &&
+            !isException(identifierNode)
+          ) {
+            context.report({
+              messageId: 'hardCodedColor',
+              node: identifierNode,
+              suggest: getTokenSuggestion(
+                identifierNode,
+                identifierNode.name,
+                config,
+              ),
+            });
+
+            return;
+          }
+        },
+
       'ObjectExpression > Property > Literal': (node: Rule.Node) => {
-        if (node.type !== 'Literal' || typeof node.value !== 'string') {
+        if (node.type !== 'Literal') {
+          return;
+        }
+
+        if (isDecendantOfGlobalToken(node)) {
           return;
         }
 
         if (
           !isDecendantOfStyleBlock(node) &&
-          !isDecendantOfStyleJsxAttribute(node)
+          !isDecendantOfType(node, 'JSXExpressionContainer')
         ) {
           return;
         }
 
+        const nodeVal = node.value?.toString() || '';
+
         if (
-          (isHardCodedColor(node.value) ||
-            includesHardCodedColor(node.value)) &&
+          (isHardCodedColor(nodeVal) || includesHardCodedColor(nodeVal)) &&
           !isException(node)
         ) {
           context.report({
             messageId: 'hardCodedColor',
             node,
-            suggest: getTokenSuggestion(node, `'${node.value}'`, config),
+            suggest: getTokenSuggestion(node, `'${nodeVal}'`, config),
           });
-          return;
         }
       },
 
-      CallExpression(node) {
-        if (
-          node.type !== 'CallExpression' ||
-          node.callee.type !== 'Identifier'
-        ) {
+      'ObjectExpression > Property > CallExpression': (node: Rule.Node) => {
+        if (node.type !== 'CallExpression') {
+          return;
+        }
+
+        if (isDecendantOfGlobalToken(node)) {
           return;
         }
 
         if (
           !isDecendantOfStyleBlock(node) &&
-          !isDecendantOfStyleJsxAttribute(node)
+          !isDecendantOfType(node, 'JSXExpressionContainer')
         ) {
           return;
         }
 
         if (
+          // @ts-expect-error
           !isLegacyNamedColor(node.callee.name) ||
-          isDecendantOfGlobalToken(node) ||
           isException(node)
         ) {
           return;
@@ -262,36 +303,82 @@ ${' '.repeat(getNodeColumn(node) - 2)}box-shadow: \${token('${
 
         context.report({
           messageId: 'hardCodedColor',
-          node,
+          node: node,
+          // @ts-expect-error
           suggest: getTokenSuggestion(node, `${node.callee.name}()`, config),
         });
       },
 
-      JSXAttribute(node: any) {
-        if (!node.value) {
+      'JSXAttribute > Literal': (node: Rule.Node) => {
+        if (node.type !== 'Literal') {
           return;
         }
 
-        if (['alt', 'src', 'label'].includes(node.name.name)) {
+        // @ts-expect-error
+        if (['alt', 'src', 'label', 'key'].includes(node.parent.name.name)) {
           return;
         }
 
-        if (node.value.type === 'Literal') {
-          if (isException(node)) {
-            return;
-          }
-          const literalValue = node.value.value;
-          if (
-            isHardCodedColor(literalValue) ||
-            includesHardCodedColor(literalValue)
-          ) {
-            context.report({
-              messageId: 'hardCodedColor',
+        if (isException(node.parent)) {
+          return;
+        }
+
+        if (
+          // @ts-expect-error
+          isHardCodedColor(node.value) ||
+          // @ts-expect-error
+          includesHardCodedColor(node.value)
+        ) {
+          context.report({
+            messageId: 'hardCodedColor',
+            node,
+            // @ts-expect-error
+            suggest: getTokenSuggestion(node, node.value, config),
+          });
+          return;
+        }
+      },
+      'JSXExpressionContainer > MemberExpression': (node: Rule.Node) => {
+        if (node.type !== 'MemberExpression') {
+          return;
+        }
+
+        if (
+          // @ts-expect-error
+          isLegacyColor(node.property.name) ||
+          // @ts-expect-error
+          (node.object.name === 'colors' &&
+            // @ts-expect-error
+            isLegacyNamedColor(node.property.name))
+        ) {
+          context.report({
+            messageId: 'hardCodedColor',
+            node,
+            suggest: getTokenSuggestion(
               node,
-              suggest: getTokenSuggestion(node.value, literalValue, config),
-            });
-            return;
-          }
+              // @ts-expect-error
+              `${node.object.name}.${node.property.name}`,
+              config,
+            ),
+          });
+        }
+      },
+      'JSXExpressionContainer > Identifier': (node: any) => {
+        if (node.type !== 'Identifier') {
+          return;
+        }
+
+        if (isException(node)) {
+          return;
+        }
+
+        if (isLegacyColor(node.name) || includesHardCodedColor(node.name)) {
+          context.report({
+            messageId: 'hardCodedColor',
+            node,
+            suggest: getTokenSuggestion(node, node.name, config),
+          });
+          return;
         }
       },
     };

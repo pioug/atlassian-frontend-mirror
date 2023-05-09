@@ -16,14 +16,13 @@ import { TextFieldProps } from './types';
  * the handleSubmit function passed to the form <Form> that have a key matching the `name`
  * of this text field are shown above the field.
  */
+
 export function TextField({
   label,
   name,
   validationHelpText,
-  isRequired,
-  testId,
   validators,
-  placeholder,
+  ...restProps
 }: TextFieldProps) {
   const { assignValidator } = useFormContext();
   useEffect(() => {
@@ -33,14 +32,10 @@ export function TextField({
   }, [name, validators, assignValidator]);
 
   return (
-    <Field name={name} label={label} isRequired={isRequired} defaultValue={''}>
+    <Field name={name} label={label} defaultValue={''}>
       {({ fieldProps, error }) => (
         <Fragment>
-          <AkTextfield
-            {...fieldProps}
-            testId={testId}
-            placeholder={placeholder}
-          />
+          <AkTextfield {...fieldProps} {...restProps} />
           {!error && <HelperMessage>{validationHelpText}</HelperMessage>}
           {error && <ErrorMessage>{error}</ErrorMessage>}
         </Fragment>

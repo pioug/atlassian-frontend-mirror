@@ -4,6 +4,7 @@ import type {
 } from '@atlaskit/linking-types';
 
 export const mockDatasourceDataResponse: DatasourceDataResponse = {
+  totalIssues: 1234,
   data: [
     {
       id: 'EDM-12',

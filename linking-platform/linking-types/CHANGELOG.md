@@ -1,5 +1,11 @@
 # @atlaskit/linking-types
 
+## 1.5.0
+
+### Minor Changes
+
+- [`670454dc4a0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/670454dc4a0) - Add totalIssues to mock/types
+
 ## 1.4.0
 
 ### Minor Changes

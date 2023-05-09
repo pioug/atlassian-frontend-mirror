@@ -2,7 +2,6 @@
 /** @jsx jsx */
 import {
   ComponentPropsWithoutRef,
-  ComponentPropsWithRef,
   ElementType,
   FC,
   forwardRef,
@@ -23,7 +22,7 @@ import {
   PaddingInlineEnd,
   PaddingInlineStart,
   paddingStylesMap,
-} from '../../internal/style-maps.partial';
+} from '../../xcss/style-maps.partial';
 import type { BasePrimitiveProps } from '../types';
 
 export type BaseBoxProps<T extends ElementType = 'div'> = Omit<
@@ -33,24 +32,26 @@ export type BaseBoxProps<T extends ElementType = 'div'> = Omit<
   BasePrimitiveProps &
   BaseBoxPropsFoundation<T>;
 
-type BaseBoxPropsFoundation<T extends ElementType> = {
+export type As =
+  | 'article'
+  | 'aside'
+  | 'dialog'
+  | 'div'
+  | 'footer'
+  | 'header'
+  | 'li'
+  | 'main'
+  | 'nav'
+  | 'ol'
+  | 'section'
+  | 'span'
+  | 'ul';
+
+type BaseBoxPropsFoundation<T extends ElementType = 'div'> = {
   /**
    * The DOM element to render as the Box. Defaults to `div`.
    */
-  as?:
-    | 'article'
-    | 'aside'
-    | 'dialog'
-    | 'div'
-    | 'footer'
-    | 'header'
-    | 'li'
-    | 'main'
-    | 'nav'
-    | 'ol'
-    | 'section'
-    | 'span'
-    | 'ul';
+  as?: As;
   /**
    * The HTML className attribute.
    *
@@ -111,7 +112,7 @@ type BaseBoxPropsFoundation<T extends ElementType> = {
   /**
    * Forwarded ref element
    */
-  ref?: ComponentPropsWithRef<T>['ref'];
+  ref?: React.ComponentPropsWithRef<T>['ref'];
 };
 
 // Without this type annotation on Box we don't get autocomplete for props due to forwardRef types
@@ -148,7 +149,7 @@ export const BaseBox: BaseBoxComponent = forwardRef(
       testId,
       ...htmlAttributes
     }: BaseBoxProps<T>,
-    ref?: ComponentPropsWithRef<T>['ref'],
+    ref?: React.ComponentPropsWithRef<T>['ref'],
   ) => {
     const Component = as || 'div';
 

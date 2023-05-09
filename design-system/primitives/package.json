@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/primitives",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "Primitives are token-backed low-level building blocks.",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -52,6 +52,15 @@
           "folder": "stack",
           "slug": "primitives/stack",
           "id": "@atlaskit/primitives/stack",
+          "status": {
+            "type": "alpha"
+          }
+        },
+        {
+          "title": "xCSS",
+          "folder": "xcss",
+          "slug": "primitives/xcss",
+          "id": "@atlaskit/primitives/xcss",
           "status": {
             "type": "alpha"
           }

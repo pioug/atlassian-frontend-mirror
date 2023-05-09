@@ -4,7 +4,7 @@ import { ElementType, forwardRef, memo, ReactNode, Ref } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import { type Gap, spaceStylesMap } from '../internal/style-maps.partial';
+import { type Gap, spaceStylesMap } from '../xcss/style-maps.partial';
 
 export interface StackProps<T extends ElementType = 'div'> {
   /**

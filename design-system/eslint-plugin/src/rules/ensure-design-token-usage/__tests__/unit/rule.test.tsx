@@ -1,12 +1,6 @@
 import { tester } from '../../../__tests__/utils/_tester';
 import rule from '../../index';
 
-// Mock rename mapping in case it changes
-jest.mock('@atlaskit/tokens/rename-mapping', () => ({
-  __esModule: true,
-  default: { 'tokenName.old': 'tokenName.new' },
-}));
-
 tester.run('ensure-design-token-usage', rule, {
   valid: [
     // Using config -> shouldEnforceFallbacks: false
@@ -20,32 +14,26 @@ tester.run('ensure-design-token-usage', rule, {
       code: `import { e100 } from 'lib';`,
     },
     {
-      // Variable declarations with color names
+      // Variable declarations with color names should be ignored
       code: `var YELLOW = 'foo';`,
     },
     {
-      // Variable declarations with color names
       code: `var yellow = 'foo';`,
     },
     {
       code: `var NOT_YELLOW = 'foo';`,
     },
     {
-      code: `
-      css({background:'none'})
-      `,
+      code: `css({ background: 'none' })`,
     },
     {
-      code: `
-        import { B100 } from '@atlaskit/theme/colors';
-      `,
+      code: `css({ background })`,
     },
     {
-      code: `
-        css({
-          boxShadow: token('shadow.card'),
-        })
-      `,
+      code: `import { B100 } from '@atlaskit/theme/colors';`,
+    },
+    {
+      code: `css({ boxShadow: token('shadow.card') })`,
     },
     {
       code: `
@@ -71,6 +59,13 @@ tester.run('ensure-design-token-usage', rule, {
     `,
     },
     {
+      code: `
+      const containerShadowStyles = css({
+        boxShadow: token( 'elevation.shadow.raised', \`0 4px 8px -2px \${N50A}, 0 0 1px \${N60A}\`),
+      });
+    `,
+    },
+    {
       // Should not enforce types
       code: `
       type Colors =
@@ -84,11 +79,6 @@ tester.run('ensure-design-token-usage', rule, {
       const number = 123;
       const aString = number.toString();
     `,
-    },
-    {
-      code: `
-      wrapper.find('#eeeeee').exists()
-      `,
     },
     {
       code: `const green = token('color.background.accent.green');`,
@@ -118,15 +108,6 @@ tester.run('ensure-design-token-usage', rule, {
     {
       options: [{ shouldEnforceFallbacks: true }],
       code: `token('shadow.card', background())`,
-    },
-    {
-      code: `const background = 'hey';`,
-    },
-    {
-      code: `import { e100 } from 'lib';`,
-    },
-    {
-      code: `css({background:'none'})`,
     },
     {
       options: [{ shouldEnforceFallbacks: true }],
@@ -214,12 +195,6 @@ tester.run('ensure-design-token-usage', rule, {
     {
       options: [{ shouldEnforceFallbacks: true }],
       code: `
-    wrapper.find('#eeeeee').exists()
-    `,
-    },
-    {
-      options: [{ shouldEnforceFallbacks: true }],
-      code: `
     const state = {
       value: 'red',
       color: 'blue',
@@ -291,15 +266,40 @@ tester.run('ensure-design-token-usage', rule, {
       // Conditions
       code: `if (response.status === YELLOW_STATUS) {}`,
     },
+    {
+      // arbitrary objects
+      code: `
+const listInlineStyles = {
+  [varSpacing]: spacing[this.props.spacing],
+  maxWidth: 8 * 10 * items.length * 2,
+  '--icon-primary-color': 'CanvasText',
+  '--icon-secondary-color': canvas,
+  [icon.name]: { ...metadata[icon.name], component: icon.icon },
+};`,
+    },
+    {
+      // arbitrary jsx
+      code: `
+<SectionMessageAction key={action.text} href={action.href}>
+  {action.text}
+</SectionMessageAction>`,
+    },
+    {
+      // false positive named colors
+      code: `
+  <span
+    style={{
+      color: secondary,
+      backgroundColor: primary,
+    }}
+    data-testid="color-pill"
+    css={colorPillStyles}
+  >
+    {name}
+  </span>`,
+    },
   ],
   invalid: [
-    {
-      code: `const exampleColors = [N800, B500];`,
-      errors: [
-        { messageId: 'hardCodedColor' },
-        { messageId: 'hardCodedColor' },
-      ],
-    },
     {
       code: `
           css\`

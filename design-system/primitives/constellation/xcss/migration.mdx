@@ -1,0 +1,142 @@
+---
+title: Migrating your app to xCSS
+description: xCSS is a safer, tokens-first approach to CSS-in-JS.
+order: 2
+---
+
+## Summary of changes
+
+### Changes for developers
+
+There are two key changes to be mindful of when migrating to use `xcss`.
+The first is needing to update callsites to remove any nested styles and
+tokenised values.
+
+```diff
+- import { css } from '@emotion/react';
++ import { xcss } from '@atlaskit/primitives';
+
+- const someStyles = css({
++ const someStyles = xcss({
+  // token based properties will no longer need to be wrapped
+- padding: token('space.100'),
++ padding: 'space.100'
+  // no change is required for non-tokenised values
+  transform: 'scale(2)'
+});
+```
+
+The second is that for the `xcss` function to be applied correctly it must be applied on a
+component with an `xcss` JSXAttribute. By default this won't work with the `css` or `className`
+JSXAttributes - so be aware if you're not seeing your styles appear.
+
+```diff
+- <div css={someStyles} />
++ <Box xcss={someStyles} />
+```
+
+
+#### Changing the way you express styles
+
+Why are nested selectors a problem? A key philosophy of `xcss` is encouraging more deterministic style application. This restriction is designed to eliminate side-effects and
+encourage component encapsulation. Consider the below example:
+
+```tsx
+const myComponentStyles = css({
+  '> *': {
+    color: 'color.text.danger',
+  }
+});
+
+const MyComponent = () => (
+  <div css={myComponentStyles}>
+    <p>Text here</p>
+  </div>
+);
+```
+
+Here the component is applying styles that are implicity meant for the text wrapped in the `p` below.
+In this simple example, it may seem okay, desirable even, but cases like these often occur across module or component boundaries.
+
+This makes the visibility of these dependencies harder to capture or reason about.
+Styles that are inherited or indirectly apply make a UI brittle to change and hard to evolve.
+Instead, if the same styles are applied directly on the affected element we can minimize and in some cases completely eliminate this problem.
+
+```diff
+const myTextStyles = xcss({
+-  '> *': {
+   color: 'color.text.danger',
+-  }
+});
+
+const MyComponent = () => (
+-  <div xcss={myComponentStyles}>
++  <Box
++    <Text xcss={myTextStyles}>Text here</Text>
+   </Box>
+);
+```
+
+There are likely to be cases where nesting is the only option. While not desirable, this is fine as long as it's considered
+a last resort.
+
+### FAQ
+
+Overall migration to `xcss` is fairly simple for the majority of cases. Here are some common strategies for migrations.
+
+#### Non-tokenised values
+
+If you're yet to migrate to tokens, you have two options. You can migrate to tokens first and then on a second pass
+migrate to `xcss` or you can make the jump directly.
+
+```tsx
+const someStyles = css({
+  color: 'red',
+});
+
+// ->>> Optional middle step
+const someStyles = css({
+  color: token('color.text.danger'),
+});
+
+// ->>> The final state
+const someStyles = xcss({
+  color: 'color.text.danger',
+});
+```
+
+#### Moving from the `styled` API
+
+If you're currently using the `styled` API there are a few steps required to migration.
+The safest approach is to a step change to use object styles, migrate to tokens (optionally)
+and then migrate to `xcss`.
+
+```tsx
+const MyComponent = styled.div`
+  color: red;
+`;
+
+// ->>> move to object styles
+const MyComponent = styled.div({
+  color: 'red';
+});
+
+// ->>> move to tokens
+const MyComponent = styled.div({
+  color: token('color.text.danger'),
+});
+
+// ->>> move to Box
+const myComponentStyles = xcss({
+  color: 'color.text.danger',
+});
+
+const MyComponent = () => <Box xcss={myComponentStyles} />
+```
+
+
+## Get help
+
+* Atlassians can reach out in [Slack](slack://channel?team=TFCUTJ0G5&id=CFJ9DU39U) for help with `xcss` migration.
+* Other developers who need help with tokens or the `xcss` utility can post in the [public developer community](https://community.developer.atlassian.com/).
+* For general help with the Atlassian Design System, [contact us](/resources/contact-us).

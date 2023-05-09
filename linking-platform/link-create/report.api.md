@@ -23,6 +23,7 @@ import { MemoExoticComponent } from 'react';
 import { OptionType } from '@atlaskit/select';
 import { default as React_2 } from 'react';
 import { ReactNode } from 'react';
+import { TextFieldProps as TextFieldProps_2 } from '@atlaskit/textfield';
 
 // @public
 export function AsyncSelect<T = OptionType>({
@@ -142,23 +143,17 @@ export function TextField({
   label,
   name,
   validationHelpText,
-  isRequired,
-  testId,
   validators,
-  placeholder,
+  ...restProps
 }: TextFieldProps): jsx.JSX.Element;
 
 // @public (undocumented)
-interface TextFieldProps {
-  isRequired?: boolean;
-  label: string;
+type TextFieldProps = Omit<TextFieldProps_2, 'isRequired' | 'name'> & {
   name: string;
-  placeholder?: string;
-  // (undocumented)
-  testId?: string;
+  label?: string;
   validationHelpText?: string;
   validators?: Validator[];
-}
+};
 
 // @public (undocumented)
 export const useFormContext: () => FormContextType;

@@ -1,5 +1,11 @@
 # @atlaskit/link-create
 
+## 0.4.1
+
+### Patch Changes
+
+- [`3c5946b6cdf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3c5946b6cdf) - EDM-6524: remove isRequired prop from textfield in create component as browser validation will not be used, also spread AKTextfield props to stop exposure of testid and placeholder props.
+
 ## 0.4.0
 
 ### Minor Changes

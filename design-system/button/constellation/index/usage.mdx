@@ -31,7 +31,7 @@ Buttons:
 
 Each button variation (`Button`, `LoadingButton` and `CustomThemeButton`) will render out a `<button>` element, an `<a>` element if a `href` prop is supplied, or render any other element type by using the component prop (for example, `component="span"`). Each button element looks and behaves similarly, regardless of element tag, as it is guided by the native `<button>` behavior. 
 
- A `role` prop is inferred from the element type or you can pass in a role prop if you need to.
+A `role` prop is inferred from the element type or you can pass in a role prop if you need to.
 
 ### Focus behavior
 
@@ -50,13 +50,29 @@ When a native `<button>` is disabled, it loses browser focus and cannot be focus
 
 ## Alignment
 
-- **Right align** the primary button to visually support navigation when using buttons to prompt a user to move through a sequence of screens (e.g. getting started guides).
-- **Center align** buttons for [benefits modals](/patterns/benefits-modal) and other modals, with the primary button on the right.
-- **Left align** buttons for single-page forms and focused tasks, and sort by importance from left to right.
+### Modal dialogs and focussed tasks
+
+**Right align** buttons and place the primary button furthest right for a single focussed task or a [modal dialog](/components/modal-dialog). This is best for experiences with less copy, so users end scanning on the most important action (following a Z-pattern).
+
+![Button alignment. End with the primary or most important action for modals.](images/forms-variations-modalSimple.jpg)
+
+Also, right align buttons when a user is moving through a sequence of focussed screens (for example, going through an onboarding experience). The primary action should be furthest right.
+
+### Single page forms and full-page experiences
+
+**Left align** buttons for single-page forms and other full-page tasks where there is a lot of content in view, with the primary action furthest left. This aligns with how people scan full pages with more content (F-pattern), sorting by importance from left to right.
+
+![Button alignment starts with most important for full-page forms.](images/forms-variations-singlePage.jpg)
+
+Flags, cards, and section messages also left-align the primary action, as they're typically part of a larger page experience.
+
+### Exceptions
+
+**Center align** buttons for [benefits modals](/patterns/benefits-modal), with the primary button on the right. Login forms may also have center aligned buttons (full-width).
 
 ## Content guidelines
 
-Buttons labels should be concise and clear enough to indicate the next action to the user
+Buttons labels should be concise and clear enough to indicate the next action to the user.
 
 <DoDont
   type="do"
@@ -120,6 +136,8 @@ Buttons labels should be concise and clear enough to indicate the next action to
 
 ## Disabled buttons
 
+Use disabled buttons sparingly, and make sure to follow our [accessibility guidance](/components/button/usage#accessibility).
+
 A disabled `<button>` is a native HTML concept, but disabled is not a native concept for other element types such as `<a>` and `<span>`.
 
 The behavior of a disabled `<button>` is imitated as much as possible regardless of element type.
@@ -155,8 +173,8 @@ For elements that are parents of a button you need to bind on the bubble phase (
 ## Accessibility
 
 - Include alternative text using the aria-label prop when using icon buttons.
-- When using an icon alongside text, do not add a label to the icon. Doing so will confuse people using screen readers.
-- Avoid using disabled buttons, especially in forms. Disabled buttons provide no feedback, making it hard to know why the button isn't usable. Instead, use validation and errors to show what needs to be done.
+- When using an icon alongside text, do not add a label to the icon. Doing so will unnecessarily repeat labels for people using screen readers.
+- Avoid using disabled buttons, especially in forms. Disabled buttons don't explain why the button isn't usable, and they aren't focussable at all for people using keyboard navigation. Instead, keep the button pressable, and use validation and errors to explain what needs to be done to proceed.
 
 ## Server
 
@@ -164,8 +182,6 @@ Consult [AUI](https://docs.atlassian.com/aui/latest/docs/buttons.html) for imple
 
 ## Related
 
-A button is commonly used in:
-
-- [forms](/patterns/forms)
-- [modal dialogs](/components/modal-dialog)
-- [dropdown menus](/components/dropdown-menu)
+- [Forms](/patterns/forms)
+- [Modal dialogs](/components/modal-dialog)
+- [Dropdown menus](/components/dropdown-menu)

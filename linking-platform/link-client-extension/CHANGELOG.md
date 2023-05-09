@@ -1,5 +1,15 @@
 # @atlaskit/link-client-extension
 
+## 1.1.0
+
+### Minor Changes
+
+- [`670454dc4a0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/670454dc4a0) - Add totalIssues to mock/types
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.0.0
 
 ### Minor Changes

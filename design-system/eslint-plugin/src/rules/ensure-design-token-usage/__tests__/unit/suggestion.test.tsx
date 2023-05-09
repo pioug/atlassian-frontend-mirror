@@ -240,5 +240,27 @@ tester.run('ensure-design-token-usage', rule, {
         },
       ],
     },
+    {
+      options: [{ shouldEnforceFallbacks: true }],
+      code: `export const Highlight = (props) => (
+  <div style={{ borderLeftColor: highlights[props.color] }} />
+);`,
+      output: `export const Highlight = (props) => (
+  <div style={{ borderLeftColor: highlights[props.color] }} />
+);`,
+      errors: [
+        {
+          messageId: 'hardCodedColor',
+          suggestions: [
+            {
+              desc: `Convert to token with fallback`,
+              output: `export const Highlight = (props) => (
+  <div style={{ borderLeftColor: token('', highlights[props.color]) }} />
+);`,
+            },
+          ],
+        },
+      ],
+    },
   ],
 });

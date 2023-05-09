@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 5.2.0
+
+### Minor Changes
+
+- [`11e5168f1c2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/11e5168f1c2) - Internal refactor of ensure-design-token-usage which also addresses some false positives
+
 ## 5.1.0
 
 ### Minor Changes

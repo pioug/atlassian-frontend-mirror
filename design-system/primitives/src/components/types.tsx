@@ -1,6 +1,6 @@
 import type { CSSProperties } from 'react';
 
-import { type BoxXCSS } from '../internal/xcss';
+import { type BoxXCSS } from '../xcss/xcss';
 
 export type BasePrimitiveProps = {
   /**

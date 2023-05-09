@@ -2,9 +2,10 @@ import { css } from '@emotion/react';
 import { loadingPlaceholderClassName } from '../../index';
 import { SmartLinkSize, SmartLinkTheme } from '../../constants';
 import { FlexibleUiOptions } from '../FlexibleCard/types';
+import { layers } from '@atlaskit/theme/constants';
 
 // Temporary fix for Confluence inline comment on editor mod has z-index of 500, Jira issue view has z-index of 510
-export const HOVER_CARD_Z_INDEX = 511;
+export const HOVER_CARD_Z_INDEX = layers.modal();
 
 export const flexibleUiOptions: FlexibleUiOptions = {
   hideBackground: true,

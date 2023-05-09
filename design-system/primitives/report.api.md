@@ -18,7 +18,6 @@
 /// <reference types="react" />
 
 import { ComponentPropsWithoutRef } from 'react';
-import { ComponentPropsWithRef } from 'react';
 import type * as CSS_2 from 'csstype';
 import type { CSSProperties } from 'react';
 import { CSSPropertiesWithMultiValues } from '@emotion/serialize';
@@ -61,6 +60,22 @@ type AllowedBoxStyles = keyof SafeCSSObject;
 
 // @public (undocumented)
 type AllowedInlineStyles = 'backgroundColor' | 'padding';
+
+// @public (undocumented)
+type As =
+  | 'article'
+  | 'aside'
+  | 'dialog'
+  | 'div'
+  | 'footer'
+  | 'header'
+  | 'li'
+  | 'main'
+  | 'nav'
+  | 'ol'
+  | 'section'
+  | 'span'
+  | 'ul';
 
 // @public (undocumented)
 type BackgroundColor = keyof typeof backgroundColorMap;
@@ -182,21 +197,8 @@ type BaseBoxProps<T extends ElementType = 'div'> = Omit<
   BaseBoxPropsFoundation<T>;
 
 // @public (undocumented)
-type BaseBoxPropsFoundation<T extends ElementType> = {
-  as?:
-    | 'article'
-    | 'aside'
-    | 'dialog'
-    | 'div'
-    | 'footer'
-    | 'header'
-    | 'li'
-    | 'main'
-    | 'nav'
-    | 'ol'
-    | 'section'
-    | 'span'
-    | 'ul';
+type BaseBoxPropsFoundation<T extends ElementType = 'div'> = {
+  as?: As;
   className?: string;
   children?: ReactNode;
   backgroundColor?: BackgroundColor;
@@ -207,7 +209,7 @@ type BaseBoxPropsFoundation<T extends ElementType> = {
   paddingInline?: PaddingInline;
   paddingInlineStart?: PaddingInlineStart;
   paddingInlineEnd?: PaddingInlineEnd;
-  ref?: ComponentPropsWithRef<T>['ref'];
+  ref?: React.ComponentPropsWithRef<T>['ref'];
 };
 
 // @public (undocumented)
@@ -311,8 +313,7 @@ const boxTag: unique symbol;
 
 // @public (undocumented)
 type BoxXCSS = {
-  readonly symbol: typeof uniqueSymbol;
-  readonly styles: BoxStyles;
+  readonly [uniqueSymbol]: BoxStyles;
 };
 
 // @public (undocumented)
@@ -949,6 +950,9 @@ type TokenisedProps = {
   minHeight?: MinHeight;
   minInlineSize?: MinInlineSize;
   minWidth?: MinWidth;
+  outlineColor?: BorderColor;
+  outlineOffset?: Padding;
+  outlineWidth?: BorderWidth;
   overflow?: Overflow;
   overflowBlock?: OverflowBlock;
   overflowInline?: OverflowInline;
@@ -976,7 +980,7 @@ const uniqueSymbol: unique symbol;
 // @public (undocumented)
 type Width = keyof typeof dimensionMap;
 
-// @public (undocumented)
+// @public
 export function xcss<Primitive extends typeof Box | typeof Inline = typeof Box>(
   style: Primitive extends typeof Box
     ?
@@ -988,8 +992,9 @@ export function xcss<Primitive extends typeof Box | typeof Inline = typeof Box>(
         | ScopedSafeCSSObject<AllowedInlineStyles>[]
     : never,
 ): {
-  readonly symbol: typeof uniqueSymbol;
-  readonly styles: Primitive extends (<T extends ElementType<any> = 'div'>(
+  readonly [uniqueSymbol]: Primitive extends (<
+    T extends ElementType<any> = 'div',
+  >(
     props: BoxProps<T>,
   ) => ReactElement<any, JSXElementConstructor<any> | string> | null) &
     FC<BoxProps<'div'>>

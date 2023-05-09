@@ -102,12 +102,19 @@ const setGlobalTheme = async ({
     ),
   );
 
-  if (
-    // eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-    getBooleanFF('design-system-team.dark-theme-iteration_dk1ln') &&
-    themePreferences.includes('dark')
-  ) {
-    await loadAndAppendThemeCss('dark-iteration');
+  if (themePreferences.includes('dark')) {
+    if (
+      // eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+      getBooleanFF('design-system-team.dark-theme-iteration_dk1ln')
+    ) {
+      await loadAndAppendThemeCss('dark-iteration');
+    } else if (
+      getBooleanFF(
+        'platform.design-system-team.dark-iteration-confluence_e2t22',
+      )
+    ) {
+      await loadAndAppendThemeCss('dark-iteration');
+    }
   }
 
   if (colorMode === 'auto' && darkModeMql) {
@@ -172,12 +179,19 @@ export const getThemeStyles = async ({
     typography,
   });
 
-  if (
-    // eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-    getBooleanFF('design-system-team.dark-theme-iteration_dk1ln') &&
-    themePreferences.includes('dark')
-  ) {
-    themePreferences.push('dark-iteration' as ThemeIds);
+  if (themePreferences.includes('dark')) {
+    if (
+      // eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+      getBooleanFF('design-system-team.dark-theme-iteration_dk1ln')
+    ) {
+      themePreferences.push('dark-iteration' as ThemeIds);
+    } else if (
+      getBooleanFF(
+        'platform.design-system-team.dark-iteration-confluence_e2t22',
+      )
+    ) {
+      themePreferences.push('dark-iteration' as ThemeIds);
+    }
   }
 
   const results = await Promise.all(

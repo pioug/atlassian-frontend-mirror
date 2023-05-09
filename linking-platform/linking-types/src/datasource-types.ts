@@ -127,6 +127,7 @@ export interface DatasourceDataRequest {
   parameters: DatasourceParameters;
   pageSize: number;
   pageCursor?: string;
+  totalIssues?: number;
 }
 export interface DatasourceResponseParameter {
   key: string;

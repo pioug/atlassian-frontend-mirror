@@ -9,7 +9,7 @@ import {
 
 import { jsx } from '@emotion/react';
 
-import { parseXcss } from '../internal/xcss';
+import { parseXcss } from '../xcss/xcss';
 
 import { BaseBox, BaseBoxProps } from './internal/base-box';
 import type { PublicBoxPropsBase } from './types';

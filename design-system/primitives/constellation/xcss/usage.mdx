@@ -1,0 +1,115 @@
+---
+title: xCSS
+description: xCSS is a safer, tokens-first approach to CSS-in-JS.
+order: 0
+---
+
+![xcss Logo](logo.png "xcss Logo")
+
+`xcss` is an Atlassian Design System styling API designed to natively integrate with
+Atlassian's [design tokens](/tokens) and [primitives](/components/primitives) in a safer, more resilient and evolvable way.
+
+The `xcss` utility behaves similarly to the `css` utility in libraries
+like `styled-components`, `@compiled` or `@emotion` - so if you've used those libraries before
+it will feel very familiar, with a few additional features and some constraints.
+
+Features that will feel familiar:
+
+* `xcss` will generate a `className` to be applied on your components
+* `xcss` will provide key-value pairs of CSS properties in an object format
+* `xcss` supports style precedence and conditional styles
+
+But it also has a few key differences.
+
+* `xcss` has type-safety that uses token names for all CSS properties that are represented by design tokens.
+* `xcss` restricts nested selectors completely from usage.
+
+## Usage
+
+To get started, import the function from `@atlaskit/primitives` and create a style:
+
+```tsx
+import { xcss } from '@atlaskit/primitives';
+
+// Creates a basic style
+const someStyles = xcss({
+  display: 'block',
+});
+```
+
+Apply this style to a component through the `xcss` prop:
+
+```tsx
+import { Box, xcss } from '@atlaskit/primitives';
+
+// Creates a basic style
+const someStyles = xcss({
+  display: 'block',
+});
+
+const MyBox = () => {
+  return <Box xcss={someStyles} />
+}
+```
+
+The prop and the `xcss` function are direct complements and are meant
+to be used together. Note: styles generated from `xcss` cannot be applied directly
+to the `className` property or `css` as they are with other CSS-in-JS libraries.
+
+### Type safety
+
+`xcss` uses strongly-typed values generated from design token
+definitions to make it simpler to apply the right token for the right CSS property.
+This is intended to be more ergonomic and intuitive but also prevent the misapplication of tokens
+to the wrong properties.
+
+Any [valid token name](/components/tokens/all-tokens) is available to be applied against its
+matching CSS property. For example, the token name `space.200`
+is a valid value below for `padding` but will not appear
+as a color, or a font.
+
+```tsx
+import { xcss } from '@atlaskit/primitives';
+
+const someStyles = xcss({
+  padding: 'space.200', // <--- works
+  color: 'space.200',   // <--- invalid and will error
+  borderRadius: 'radius.100' // <--- also valid
+});
+```
+
+### Restricted nesting
+
+`xcss` is meant to be flexible enough for you to implement any design but it does
+restrict the application of styles in one key way. Selectors cannot be
+nested or target elements beyond the element on which styles are applied.
+This restriction is intended to encourage better component encapsulation, reduce side-effects and make
+your codebase more resilient to change.
+
+```tsx
+import { xcss } from '@atlaskit/primitives';
+
+const someStyles = xcss({
+  ':hover': {
+    transform: 'scale(1)' // this is okay
+  },
+  // This is not okay as this selector affects any nested div in
+  // the component tree.
+  'div:hover': {
+    transform: 'scale(1)'
+  },
+  // Neither is this
+  '> * > div:hover': {
+    transform: 'scale(1)'
+  },
+});
+```
+
+These unsafe selectors will throw a type error if applied.
+For richer examples of how to use `xcss` please see our [documentation here](/components/primitives/xcss/examples).
+
+## Get help
+
+* Atlassians can reach out in [Slack](slack://channel?team=TFCUTJ0G5&id=CFJ9DU39U) for help with `xcss` migration.
+* Other developers who need help with tokens or the `xcss` utility can post in the [public developer community](https://community.developer.atlassian.com/).
+* For general help with the Atlassian Design System, [contact us](/resources/contact-us).

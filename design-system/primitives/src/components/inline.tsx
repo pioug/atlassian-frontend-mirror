@@ -19,7 +19,7 @@ import {
   type Gap,
   type RowGap,
   spaceStylesMap,
-} from '../internal/style-maps.partial';
+} from '../xcss/style-maps.partial';
 
 export interface InlineProps<T extends ElementType = 'div'> {
   /**

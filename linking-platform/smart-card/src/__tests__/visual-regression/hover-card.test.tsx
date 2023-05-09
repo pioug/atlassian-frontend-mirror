@@ -207,4 +207,26 @@ describe('Hover Card', () => {
 
     expect(image).toMatchProdImageSnapshot();
   });
+
+  it('successfully renders error embed modal when action is failed', async () => {
+    const url = getURL('vr-hover-card-action-with-error-embed');
+    const page = await setup(url);
+
+    await page.waitForSelector('[data-testid="inline-card-resolved-view"]');
+    await page.hover('[data-testid="inline-card-resolved-view"]');
+    await page.waitForSelector('[data-testid="hover-card"]');
+
+    const testId = 'state-metadata-element';
+    await page.waitForSelector(`[data-testid="${testId}--trigger"]`);
+    await page.click(`[data-testid="${testId}--trigger"]`);
+    await page.waitForSelector(`[data-testid="${testId}-error-item-group"]`);
+
+    await page.click(`[data-testid="${testId}-open-embed"]`);
+    await page.waitForSelector(
+      '[data-testid="smart-embed-preview-modal-embed"]',
+    );
+
+    const image = await takeSnapshot(page, 600, 0);
+    expect(image).toMatchProdImageSnapshot();
+  });
 });

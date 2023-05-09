@@ -1,0 +1,52 @@
+---
+order: 1
+title: Indicator
+description: An addon to display drag hitbox information on drop targets.
+---
+
+import SectionMessage from '@atlaskit/section-message';
+import ClosestEdgeExample from '../../examples/constellation/closest-edge';
+import GapExample from '../../examples/constellation/gap';
+import ConditionalExample from '../../examples/constellation/conditional';
+
+<!-- Wondering if this whole section should be moved into the hitbox package section... -->
+
+This package provides a `<DropIndicator/>` component to draw drop indicators (lines) relative to box elements (eg `<Card/>`
+`)
+
+```ts
+import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-indicator/box';
+```
+
+When performing reordering operations a drop indicator is used to communicate the intended resting place of the `draggable` item. The orientation of the drop indicator should always match the direction of the content flow.
+
+<SectionMessage
+  title="Positioning"
+>
+
+
+Ensure that the parent element of the `<DropIndicator/>` has [non-static positioning](https://developer.mozilla.org/en-US/docs/Web/CSS/position). The drop indicator uses `position: absolute` so will be positioned relative
+to the closest ancestor with non-static positioning.
+
+Generally, you will want to add `position: relative` to the element you want to position the line against.
+
+</SectionMessage>
+
+
+## Edge
+
+Use `edge` to specify which edge of the drop target the drop indicator should be rendered on.
+
+<Example Component={ClosestEdgeExample} />
+
+In order to help people be successful with performance, we have made `edge` a *required* prop. This will force you to only render the indicator when it is relevant (minimising `react` and DOM nodes)
+
+<Example Component={ConditionalExample} />
+
+## Gap
+
+Use `gap` to specify the distance between each draggable item.
+
+The line will be drawn at an offset of half this value, resulting in the line being drawn between draggable items.
+
+<Example Component={GapExample} />

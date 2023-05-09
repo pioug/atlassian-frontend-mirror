@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 1.3.2
+
+### Patch Changes
+
+- [`bae41641c82`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bae41641c82) - Enable the dark theme tweaks for Confluence behind a feature flag.
+
 ## 1.3.1
 
 ### Patch Changes

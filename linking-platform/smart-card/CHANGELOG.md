@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 26.1.1
+
+### Patch Changes
+
+- [`04a2ca5dffb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/04a2ca5dffb) - [ux] Changed zIndex for hover card
+
 ## 26.1.0
 
 ### Minor Changes

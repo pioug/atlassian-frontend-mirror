@@ -14,6 +14,10 @@ const containerStyles = css({
   textAlign: 'center',
 });
 
+const imageStyles = css({
+  borderRadius: '3px 3px 0 0',
+});
+
 const headerStyles = css({
   marginBottom: token('space.100', '8px'),
   color: 'inherit',
@@ -45,6 +49,7 @@ export default function Example() {
             <img
               alt="Graphic showing users working on a project"
               src={welcomeImage}
+              css={imageStyles}
             />
             <div css={containerStyles}>
               <h4 css={headerStyles}>Experience your new Jira</h4>

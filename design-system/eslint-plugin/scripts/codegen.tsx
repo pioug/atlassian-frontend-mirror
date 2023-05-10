@@ -53,16 +53,17 @@ async function generateConfig(name: string, rules: FoundRule[]) {
       rules: {
         ${rules
           .map((rule) => {
-            let severity = 'error';
+            const { severity, recommended } = rule.module.meta?.docs || {};
 
-            if (
-              String(rule.module.meta?.docs?.recommended) === 'warn' &&
-              name !== 'all'
-            ) {
-              severity = 'warn';
-            }
+            // `recommended` is a snowflake at this stage ... it can be a string at runtime
+            // because of legacy `import { createRule } from 'utils/create-rule'` so we take
+            // into account this possibility (as a fallback) until everything is moved over
+            // to the new syntax
+            const calculatedSeverity =
+              severity ??
+              (typeof recommended === 'string' ? String(recommended) : 'error');
 
-            return `'@atlaskit/design-system/${rule.moduleName}': '${severity}'`;
+            return `'@atlaskit/design-system/${rule.moduleName}': '${calculatedSeverity}'`;
           })
           .join(',')}
       },

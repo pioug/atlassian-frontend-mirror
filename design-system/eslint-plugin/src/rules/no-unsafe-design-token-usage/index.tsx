@@ -34,7 +34,8 @@ const rule = createLintRule({
     docs: {
       description:
         'Enforces design token usage is statically and locally analyzable.',
-      recommended: 'error',
+      recommended: true,
+      severity: 'error',
     },
     fixable: 'code',
     type: 'problem',

@@ -1,6 +1,6 @@
 import { flushPromises, ManualPromise } from '@atlaskit/link-test-helpers';
 
-import { promiseDebounce } from '../promiseDebounce';
+import { promiseDebounce } from './promise-debounce';
 
 describe('promiseDebounce', () => {
   beforeAll(() => {

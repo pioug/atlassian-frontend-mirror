@@ -1,8 +1,14 @@
 import React from 'react';
 
-import { mount } from 'enzyme';
+import { VirtualElement } from '@popperjs/core';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
-import { Popper as PopperCompo } from '../../index';
+import __noop from '@atlaskit/ds-lib/noop';
+
+import { Popper } from '../../index';
+
+const user = userEvent.setup();
 
 jest.mock('popper.js', () => {
   const PopperJS = jest.requireActual('popper.js');
@@ -21,144 +27,232 @@ jest.mock('popper.js', () => {
   };
 });
 
-const staticDefaultModifiers = [
-  {
-    name: 'flip',
-    options: {
-      flipVariations: false,
-      boundary: 'clippingParents',
-      padding: 5,
-      rootBoundary: 'viewport',
-    },
-  },
-  {
-    name: 'preventOverflow',
-    options: {
-      padding: 5,
-      rootBoundary: 'document',
-    },
-  },
-];
+class VirtualReference implements VirtualElement {
+  getBoundingClientRect(): DOMRect {
+    return {
+      top: 10,
+      left: 10,
+      bottom: 20,
+      right: 100,
+      width: 90,
+      height: 10,
+      x: 0,
+      y: 0,
+      toJSON: __noop,
+    };
+  }
+}
 
-const Content = () => <div className="content">Hello</div>;
+const virtualReferenceElement = new VirtualReference();
+const referenceElement = document.createElement('button');
 
-const referenceElement = document.createElement('div');
+describe('Popper', () => {
+  it('should render Popper', async () => {
+    render(
+      <Popper>
+        {({ ref, style, placement, arrowProps }) => (
+          <div
+            ref={ref}
+            style={style}
+            data-placement={placement}
+            data-testid="popper"
+          >
+            <div {...arrowProps} />
+          </div>
+        )}
+      </Popper>,
+    );
 
-const mountPopper = (props: { referenceElement: HTMLDivElement }) =>
-  mount(
-    // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-    <PopperCompo {...props}>
-      {({ ref, style, placement, arrowProps }) => (
-        <div ref={ref} style={style} data-placement={placement}>
-          <div {...arrowProps} />
-        </div>
-      )}
-    </PopperCompo>,
-  );
+    expect(screen.getByTestId('popper')).toBeInTheDocument();
+  });
 
-test('Popper should be defined', () => {
-  const wrapper = mountPopper({ referenceElement });
-  expect(wrapper).not.toBeNull();
-});
+  it('should position popper relatively to refrence element', async () => {
+    render(
+      <>
+        <Popper
+          referenceElement={virtualReferenceElement}
+          placement="bottom-end"
+        >
+          {({ ref, style, placement, arrowProps }) => (
+            <div
+              ref={ref}
+              style={style}
+              data-placement={placement}
+              data-testid="popper"
+            >
+              <div {...arrowProps} />
+            </div>
+          )}
+        </Popper>
+      </>,
+    );
 
-test('Popper should pass its children', () => {
-  expect(mount(<PopperCompo />).children()).toHaveLength(1);
-});
+    const popper = screen.getByTestId('popper');
 
-test('should render content into popup', () => {
-  const wrapper = mount(
-    <PopperCompo referenceElement={referenceElement}>
-      {({ ref, style, placement }) => (
-        <div ref={ref} style={style} data-placement={placement}>
-          <Content />
-        </div>
-      )}
-    </PopperCompo>,
-  );
-  expect(wrapper.childAt(0).find(Content)).toHaveLength(1);
-});
+    await user.click(popper);
 
-describe('should generate modifiers prop correctly', () => {
-  const defaultModifiers = [
-    ...staticDefaultModifiers,
-    {
-      name: 'offset',
-      options: {
-        offset: [0, 8],
-      },
-    },
-  ];
-
-  test('with default props', () => {
-    var wrapperDefault = mount(<PopperCompo />);
-    expect(wrapperDefault.childAt(0).props().strategy).toBe('fixed');
-    expect(wrapperDefault.childAt(0).props().modifiers).toEqual(
-      defaultModifiers,
+    // 100px, 20px + 8px offset
+    expect(screen.getByTestId('popper')).toHaveStyle(
+      'transform: translate(100px, 28px)',
+    );
+    expect(screen.getByTestId('popper').childNodes[0]).toHaveStyle(
+      'transform: translate(0px, 0px)',
     );
   });
 
-  test('with offset props', () => {
-    const wrapper = mount(
-      <PopperCompo placement="top-start" offset={[16, 16]} />,
+  it('should render children with provided content', () => {
+    const Content = () => <div>Content</div>;
+
+    render(
+      <Popper>
+        {({ ref, style, placement }) => (
+          <div ref={ref} style={style} data-placement={placement}>
+            <Content />
+          </div>
+        )}
+      </Popper>,
     );
-    expect(wrapper.childAt(0).props().strategy).toBe('fixed');
-    expect(wrapper.childAt(0).props().modifiers).toEqual([
-      ...staticDefaultModifiers,
-      {
-        name: 'offset',
-        options: {
-          offset: [16, 16],
-        },
-      },
-    ]);
+
+    expect(screen.getByText('Content')).toBeInTheDocument();
   });
 
-  test('with custom modifiers props', () => {
-    const modifiers = [
-      {
-        name: 'offset',
-        enabled: true,
-        options: {
-          offset: [8, 8],
-        },
-      },
-      {
-        name: 'hide',
-        enabled: false,
-      },
-    ];
-    const wrapper = mount(<PopperCompo modifiers={modifiers} />);
-    const expected = [...defaultModifiers, ...modifiers];
-    expect(wrapper.childAt(0).props().modifiers).toEqual(expected);
-  });
+  describe('should apply correct modifiers', () => {
+    it('with default props', () => {
+      render(
+        <Popper referenceElement={referenceElement}>
+          {({ ref, style, placement, arrowProps }) => (
+            <div
+              ref={ref}
+              style={style}
+              data-placement={placement}
+              data-testid="popper"
+            >
+              <div {...arrowProps} />
+            </div>
+          )}
+        </Popper>,
+      );
 
-  test('with offset and modifiers props, modifiers props should be placed afterwards (and thus receive higher priority)', () => {
-    const modifiers = [
-      {
-        name: 'offset',
-        enabled: false,
-        options: {
-          offset: [16, 16],
+      expect(screen.getByTestId('popper')).toHaveStyle('position: fixed');
+    });
+
+    it('with offset props', async () => {
+      render(
+        <Popper
+          referenceElement={virtualReferenceElement}
+          offset={[16, 16]}
+          placement="bottom-end"
+        >
+          {({ ref, style, placement, arrowProps }) => (
+            <div
+              ref={ref}
+              style={style}
+              data-placement={placement}
+              data-testid="popper"
+            >
+              <div {...arrowProps} />
+            </div>
+          )}
+        </Popper>,
+      );
+
+      await user.click(screen.getByTestId('popper'));
+
+      const popper = screen.getByTestId('popper');
+
+      expect(popper).toHaveStyle('position: fixed');
+      // 100px + 16px, 20px + 16px
+      expect(popper).toHaveStyle('transform: translate(116px, 36px)');
+    });
+
+    it('with custom modifiers props', async () => {
+      const modifiers = [
+        {
+          name: 'offset',
+          enabled: true,
+          options: {
+            offset: [8, 8],
+          },
         },
-      },
-      {
-        name: 'hide',
-        enabled: false,
-      },
-    ];
-    const wrapper = mount(
-      <PopperCompo offset={[16, 16]} modifiers={modifiers} />,
-    );
-    const expected = [
-      ...staticDefaultModifiers,
-      {
-        name: 'offset',
-        options: {
-          offset: [16, 16],
+      ];
+
+      render(
+        <Popper referenceElement={referenceElement} modifiers={modifiers}>
+          {({ ref, style, placement, arrowProps }) => (
+            <div
+              ref={ref}
+              style={style}
+              data-placement={placement}
+              data-testid="popper"
+            >
+              <div {...arrowProps} />
+            </div>
+          )}
+        </Popper>,
+      );
+
+      await user.click(screen.getByTestId('popper'));
+
+      expect(screen.getByTestId('popper')).toHaveStyle('position: fixed');
+      expect(screen.getByTestId('popper')).toHaveStyle(
+        'transform: translate(8px, 8px)',
+      );
+    });
+
+    it('with offset and modifiers props, modifiers should have higher priority', async () => {
+      const modifiers = [
+        {
+          name: 'offset',
+          enabled: false,
         },
-      },
-      ...modifiers,
-    ];
-    expect(wrapper.childAt(0).props().modifiers).toEqual(expected);
+      ];
+
+      render(
+        <Popper
+          referenceElement={referenceElement}
+          offset={[10, 10]}
+          modifiers={modifiers}
+        >
+          {({ ref, style, placement, arrowProps }) => (
+            <div
+              ref={ref}
+              style={style}
+              data-placement={placement}
+              data-testid="popper"
+            >
+              <div {...arrowProps} />
+            </div>
+          )}
+        </Popper>,
+      );
+
+      await user.click(screen.getByTestId('popper'));
+
+      expect(screen.getByTestId('popper')).toHaveStyle('position: fixed');
+      expect(screen.getByTestId('popper')).toHaveStyle(
+        'transform: translate(0px, 0px)',
+      );
+    });
+
+    it('should be positioned absolutely if strategy is set to absolute', async () => {
+      render(
+        <Popper referenceElement={referenceElement} strategy="absolute">
+          {({ ref, style, placement, arrowProps }) => (
+            <div
+              ref={ref}
+              style={style}
+              data-placement={placement}
+              data-testid="popper"
+            >
+              <div {...arrowProps} />
+            </div>
+          )}
+        </Popper>,
+      );
+
+      await user.click(screen.getByTestId('popper'));
+
+      expect(screen.getByTestId('popper')).toHaveStyle('position: absolute');
+    });
   });
 });

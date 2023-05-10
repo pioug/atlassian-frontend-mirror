@@ -141,7 +141,6 @@ describe('Channel unit tests', () => {
       doc: 'ari:cloud:confluence:a436116f-02ce-4520-8fbb-7301462a1674:page/1731046230',
       version: 1234567,
       userId: '123',
-      ttlEnabled: false,
       requiredPageRecovery: true,
       metadata: {
         title: 'a-title',
@@ -151,7 +150,6 @@ describe('Channel unit tests', () => {
     expect(sendActionEventSpy).toHaveBeenCalledWith('documentInit', 'SUCCESS', {
       latency: undefined,
       resetReason: undefined,
-      ttlEnabled: false,
     });
   });
 

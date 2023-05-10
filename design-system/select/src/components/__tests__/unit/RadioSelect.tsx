@@ -1,8 +1,13 @@
 import React from 'react';
-import { mount } from 'enzyme';
 
-import Select from 'react-select';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
+import { token } from '@atlaskit/tokens';
+
 import AtlaskitRadioSelect from '../../../RadioSelect';
+
+const user = userEvent.setup();
 
 const OPTIONS = [
   { label: '0', value: 'zero' },
@@ -12,16 +17,68 @@ const OPTIONS = [
   { label: '4', value: 'four' },
 ];
 
-test('loads radio icon with option', () => {
-  const atlaskitRadioSelect = mount(
-    <AtlaskitRadioSelect menuIsOpen options={OPTIONS} />,
-  );
-  expect(atlaskitRadioSelect.find('RadioIcon').length).toBe(5);
-});
+describe('Radio Select', () => {
+  it('should load radio icons with options', () => {
+    render(<AtlaskitRadioSelect menuIsOpen options={OPTIONS} />);
 
-test('to be a single select', () => {
-  const atlaskitRadioSelect = mount(
-    <AtlaskitRadioSelect menuIsOpen options={OPTIONS} />,
-  );
-  expect(atlaskitRadioSelect.find(Select).props().isMulti).toBe(false);
+    expect(screen.getByText('1')).toBeInTheDocument();
+    expect(screen.getByText('2')).toBeInTheDocument();
+    expect(screen.getByText('3')).toBeInTheDocument();
+    expect(screen.getByText('4')).toBeInTheDocument();
+    // one icon represents select dropdown trigger
+    expect(screen.getAllByRole('presentation', { hidden: true })).toHaveLength(
+      6,
+    );
+  });
+
+  it('should not close menu after an option is selected', async () => {
+    render(<AtlaskitRadioSelect menuIsOpen={true} options={OPTIONS} />);
+
+    expect(screen.getByRole('combobox')).toHaveAttribute(
+      'aria-expanded',
+      'true',
+    );
+
+    await user.click(screen.getByText('1'));
+
+    expect(screen.getByRole('combobox')).toHaveAttribute(
+      'aria-expanded',
+      'true',
+    );
+  });
+
+  it('should mark option as selected on user click', async () => {
+    render(<AtlaskitRadioSelect menuIsOpen={true} options={OPTIONS} />);
+
+    const radioToBeSelected = screen.getAllByRole('presentation', {
+      hidden: true,
+    })[1];
+
+    expect(radioToBeSelected.parentElement).toHaveStyle(
+      `--icon-secondary-color: transparent`,
+    );
+
+    await user.click(screen.getByText('0'));
+
+    const selectedOption = screen.getAllByRole('presentation', {
+      hidden: true,
+    })[1];
+
+    expect(selectedOption.parentElement).toHaveStyle(
+      `--icon-secondary-color: ${token('elevation.surface', '#FFFFFF')}`,
+    );
+  });
+
+  it('should not allow to select multiple options', async () => {
+    render(<AtlaskitRadioSelect menuIsOpen options={OPTIONS} />);
+
+    expect(screen.getAllByText('1')).toHaveLength(1);
+    expect(screen.getAllByText('2')).toHaveLength(1);
+
+    await user.click(screen.getByText('1'));
+    await user.click(screen.getByText('2'));
+
+    expect(screen.getAllByText('1')).toHaveLength(1);
+    expect(screen.getAllByText('2')).toHaveLength(2);
+  });
 });

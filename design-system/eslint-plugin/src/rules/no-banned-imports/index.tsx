@@ -10,7 +10,8 @@ const rule = createLintRule({
     type: 'problem',
     docs: {
       description: 'Disallow importing banned modules.',
-      recommended: 'error',
+      recommended: true,
+      severity: 'error',
     },
     messages: {
       path: "The '{{importSource}}' import is restricted from being used. {{customMessage}}",

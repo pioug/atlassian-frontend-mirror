@@ -20,9 +20,11 @@ const rule = createLintRule({
     name: 'use-primitives',
     type: 'suggestion',
     fixable: 'code',
+    hasSuggestions: true,
     docs: {
       description: 'Encourage the usage of primitives components.',
       recommended: false,
+      severity: 'warn',
     },
     messages: {
       preferPrimitivesBox: `This "{{element}}" may be able to be replaced with a "Box". See ${boxDocsUrl} for guidance.`,

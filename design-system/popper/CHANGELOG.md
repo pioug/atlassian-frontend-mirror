@@ -1,5 +1,11 @@
 # @atlaskit/popper
 
+## 5.5.1
+
+### Patch Changes
+
+- [`f859e9ccda4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f859e9ccda4) - Migrates unit tests from enzyme to RTL.
+
 ## 5.5.0
 
 ### Minor Changes

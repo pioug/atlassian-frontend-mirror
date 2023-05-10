@@ -1,5 +1,11 @@
 # @atlaskit/tree
 
+## 8.8.1
+
+### Patch Changes
+
+- [`ea97cc58f54`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ea97cc58f54) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
+
 ## 8.8.0
 
 ### Minor Changes

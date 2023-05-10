@@ -1,5 +1,11 @@
 # @atlaskit/select
 
+## 16.2.1
+
+### Patch Changes
+
+- [`ffeeae59446`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ffeeae59446) - Migrates unit tests from enzyme to RTL.
+
 ## 16.2.0
 
 ### Minor Changes

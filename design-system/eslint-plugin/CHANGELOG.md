@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 5.3.0
+
+### Minor Changes
+
+- [`51a48a1bb1b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/51a48a1bb1b) - Update docs to accept a `severity` property so the purpose of `recommended` is no longer double. "all" preset now respects this preference - before it was always "error". This makes the presets more aligned with the underlying implementations."
+
 ## 5.2.0
 
 ### Minor Changes

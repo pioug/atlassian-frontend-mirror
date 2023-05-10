@@ -38,7 +38,6 @@ export const mockIo = {
             ],
           },
           version: 3,
-          ttlEnabled: true,
         });
 
         // Fake other participant joining

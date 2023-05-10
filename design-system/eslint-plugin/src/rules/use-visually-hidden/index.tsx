@@ -26,7 +26,8 @@ const rule = createLintRule({
     fixable: 'code',
     docs: {
       description: 'Enforce usage of the visually hidden component.',
-      recommended: 'error',
+      recommended: true,
+      severity: 'error',
     },
     messages: {
       noDeprecatedUsage:

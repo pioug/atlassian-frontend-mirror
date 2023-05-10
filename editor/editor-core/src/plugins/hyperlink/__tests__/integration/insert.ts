@@ -9,6 +9,7 @@ import {
   editable,
   getDocFromElement,
   quickInsert,
+  animationFrame,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
   clickToolbarMenu,
@@ -124,12 +125,9 @@ describe('with feature flag: lp-link-picker', () => {
     },
   );
 
-  // FIXME: This test was automatically skipped due to failure on 30/03/2023: https://product-fabric.atlassian.net/browse/ED-17345
   BrowserTestCase(
     'can insert hyperlink with URL and text using toolbar',
-    {
-      skip: ['*'],
-    },
+    {},
     async (client: any, testName: string) => {
       const page = await goToEditorTestingWDExample(client);
       await mountEditor(
@@ -147,11 +145,14 @@ describe('with feature flag: lp-link-picker', () => {
 
       await clickToolbarMenu(page, ToolbarMenuItem.link);
       await page.waitForSelector(linkPickerSelectors.linkInput);
+      await animationFrame(page);
       await page.type(linkPickerSelectors.linkInput, 'http://atlassian.com');
       await page.type(linkPickerSelectors.linkDisplayTextInput, 'Atlassian');
       await page.keys('Return');
+      await animationFrame(page);
 
       const doc = await page.$eval(editable, getDocFromElement);
+      await animationFrame(page);
       expect(doc).toMatchCustomDocSnapshot(testName);
 
       const editor = await page.$(selectors.editor);

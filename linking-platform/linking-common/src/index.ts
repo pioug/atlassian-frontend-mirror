@@ -41,7 +41,7 @@ export type { CardState, CardStore } from './store';
 export { getUrl } from './store';
 export type { LinkingPlatformFeatureFlags } from './ff';
 
-export { promiseDebounce } from './promiseDebounce';
+export { promiseDebounce } from './utils/promise-debounce';
 
 export { getBaseUrl, getResolverUrl, BaseUrls } from './environments';
 

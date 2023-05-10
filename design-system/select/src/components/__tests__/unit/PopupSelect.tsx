@@ -1,10 +1,10 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { mount } from 'enzyme';
-import waitForExpect from 'wait-for-expect';
 
+import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { PopupSelect, OptionsType } from '../../..';
+
+const user = userEvent.setup();
 
 const OPTIONS: OptionsType = [
   { label: '0', value: 'zero' },
@@ -45,7 +45,7 @@ describe('Popup Select', () => {
 
   it('should maintain focus in select element after tabbing when open', async () => {
     const onChangeMock = jest.fn();
-    const { getByText } = render(
+    render(
       <React.Fragment>
         <PopupSelect
           options={OPTIONS}
@@ -61,20 +61,20 @@ describe('Popup Select', () => {
       </React.Fragment>,
     );
 
-    const selectTrigger = getByText('Target');
+    const selectTrigger = screen.getByText('Target');
 
-    selectTrigger.click();
+    await user.click(selectTrigger);
 
-    await waitForExpect(() => {
+    await waitFor(() => {
       expect(selectTrigger).not.toHaveFocus();
       expect(
         document.body.querySelector('#react-select-2-input'),
       ).toHaveFocus();
     });
 
-    userEvent.tab();
+    await user.tab();
 
-    await waitForExpect(() => {
+    await waitFor(() => {
       expect(selectTrigger).not.toHaveFocus();
       expect(
         document.body.querySelector('#react-select-2-input'),
@@ -82,9 +82,9 @@ describe('Popup Select', () => {
     });
   });
 
-  it('should return focus to trigger element on close', () => {
+  it('should return focus to trigger element on close', async () => {
     const onChangeMock = jest.fn();
-    const { getByText } = render(
+    render(
       <React.Fragment>
         <PopupSelect
           options={OPTIONS}
@@ -100,19 +100,18 @@ describe('Popup Select', () => {
       </React.Fragment>,
     );
 
-    const selectTrigger = getByText('Target');
+    const selectTrigger = screen.getByText('Target');
 
-    selectTrigger.click();
-
-    getByText('1').click();
+    await user.click(selectTrigger);
+    await user.click(screen.getByText('1'));
 
     expect(onChangeMock).toHaveBeenCalledWith({ label: '1', value: 'one' });
     expect(selectTrigger).toHaveFocus();
   });
 
-  it('should return focus to trigger element on escape', () => {
+  it('should return focus to trigger element on escape', async () => {
     const onChangeMock = jest.fn();
-    const { getByText } = render(
+    render(
       <React.Fragment>
         <PopupSelect
           options={OPTIONS}
@@ -128,9 +127,9 @@ describe('Popup Select', () => {
       </React.Fragment>,
     );
 
-    const selectTrigger = getByText('Target');
+    const selectTrigger = screen.getByText('Target');
 
-    selectTrigger.click();
+    await user.click(selectTrigger);
 
     const escapeKeyDownEvent: KeyboardEvent = new KeyboardEvent('keydown', {
       key: 'Escape',
@@ -142,8 +141,8 @@ describe('Popup Select', () => {
     expect(selectTrigger).toHaveFocus();
   });
 
-  it('stays open when cleared', () => {
-    const atlaskitSelectWrapper = mount<PopupSelect>(
+  it('should stay open when cleared', async () => {
+    render(
       <PopupSelect
         options={OPTIONS}
         value={OPTIONS[0]}
@@ -152,17 +151,30 @@ describe('Popup Select', () => {
       />,
     );
 
-    atlaskitSelectWrapper.setState({ isOpen: true });
-    // Check ClearIndicator exists
-    expect(atlaskitSelectWrapper.find('ClearIndicator').exists()).toBeTruthy();
-    // @ts-ignore typescript is not able to infer props
-    atlaskitSelectWrapper.find('ClearIndicator').prop('clearValue')();
+    const selectTrigger = screen.getByText('Target');
+
+    await user.click(selectTrigger);
+
+    const clearIndicator = screen.getAllByRole('presentation')[0];
+
+    expect(clearIndicator).toBeInTheDocument();
+
+    // can't click indicator icon, cause it has `focusable="false"` attribute
+    if (clearIndicator.parentElement) {
+      await user.click(clearIndicator.parentElement);
+    } else {
+      fail('clear indicator should have focusable parent');
+    }
+
     // Menu should still be open
-    expect(atlaskitSelectWrapper.find('Menu').exists()).toBeTruthy();
+    expect(screen.getByRole('combobox')).toHaveAttribute(
+      'aria-expanded',
+      'true',
+    );
   });
 
-  it('cleans up event listeners', () => {
-    const atlaskitSelectWrapper = mount(
+  it('should clean up event listeners', () => {
+    const { unmount } = render(
       <PopupSelect
         options={OPTIONS}
         value={OPTIONS[0]}
@@ -172,12 +184,14 @@ describe('Popup Select', () => {
     );
 
     expect(addedListeners().length).toBe(1);
-    atlaskitSelectWrapper.unmount();
+
+    unmount();
+
     expect(removedListeners().length).toBe(1);
   });
 
-  it('cleans up event listeners added after being opened', () => {
-    const atlaskitSelectWrapper = mount(
+  it('should clean up event listeners added after being opened', async () => {
+    const { unmount } = render(
       <PopupSelect
         options={OPTIONS}
         value={OPTIONS[0]}
@@ -186,15 +200,20 @@ describe('Popup Select', () => {
       />,
     );
 
-    atlaskitSelectWrapper.setState({ isOpen: true });
-    expect(addedListeners().length).toBe(4);
-    atlaskitSelectWrapper.unmount();
-    expect(removedListeners().length).toBe(4);
+    const selectTrigger = screen.getByText('Target');
+
+    await user.click(selectTrigger);
+
+    expect(addedListeners().length).toBe(9);
+
+    unmount();
+
+    expect(removedListeners().length).toBe(9);
   });
 
-  test('triggers onMenuClose method when closed', async () => {
+  it('should trigger onMenuClose method when closed', async () => {
     const onMenuCloseMock = jest.fn();
-    const { getByText } = render(
+    render(
       <React.Fragment>
         <PopupSelect
           options={OPTIONS}
@@ -210,17 +229,20 @@ describe('Popup Select', () => {
         <button data-testid="focus-decoy">Focus decoy</button>
       </React.Fragment>,
     );
-    const selectTrigger = getByText('Target');
-    selectTrigger.click();
 
-    expect(getByText('Select...')).toBeTruthy();
+    const selectTrigger = screen.getByText('Target');
 
-    selectTrigger.click();
+    await user.click(selectTrigger);
+
+    expect(screen.getByText('Select...')).toBeInTheDocument();
+
+    await user.click(selectTrigger);
+
     expect(onMenuCloseMock).toHaveBeenCalled();
   });
 
-  test('event listeners continue to work when stopPropagation is called in parent', async () => {
-    const { getByText } = render(
+  it('event listeners should continue to work when stopPropagation is called in parent', async () => {
+    render(
       // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
       <div onClick={(e) => e.stopPropagation()}>
         <PopupSelect
@@ -230,8 +252,10 @@ describe('Popup Select', () => {
         />
       </div>,
     );
-    fireEvent.click(getByText('Target'));
-    expect(getByText('Select...')).toBeTruthy();
+
+    await user.click(screen.getByText('Target'));
+
+    expect(screen.getByText('Select...')).toBeInTheDocument();
   });
 
   const PopupSelectOpenTest = ({
@@ -302,15 +326,14 @@ describe('Popup Select', () => {
       ).toBe(1);
     });
 
-    it('should not allow the popup to open when set to false', () => {
-      const { container, getByTestId } = render(
-        <PopupSelectOpenTest isOpen={false} />,
-        { container: document.body },
-      );
+    it('should not allow the popup to open when set to false', async () => {
+      const { container } = render(<PopupSelectOpenTest isOpen={false} />, {
+        container: document.body,
+      });
 
       // Click target to trigger open
-      const target = getByTestId('target');
-      target.click();
+      const target = screen.getByTestId('target');
+      await user.click(target);
 
       // Popup should remain closed
       expect(
@@ -399,7 +422,7 @@ describe('Popup Select', () => {
         />,
       );
 
-      return { ...renderResult, trigger: renderResult.getByText('Target') };
+      return { ...renderResult, trigger: screen.getByText('Target') };
     };
 
     it('should have aria-haspopup attribute', () => {
@@ -407,20 +430,22 @@ describe('Popup Select', () => {
       expect(trigger.getAttribute('aria-haspopup')).toBe('true');
     });
 
-    it('should have aria-expanded attribute', () => {
+    it('should have aria-expanded attribute', async () => {
       const { trigger } = renderPopupSelect();
 
       expect(trigger.getAttribute('aria-expanded')).toBe('false');
-      fireEvent.click(trigger);
+
+      await user.click(trigger);
+
       expect(trigger.getAttribute('aria-expanded')).toBe('true');
     });
 
-    it('when open, should have aria-controls attribute which is equal to the popup container id', () => {
+    it('when open, should have aria-controls attribute which is equal to the popup container id', async () => {
       const { trigger, container } = renderPopupSelect();
 
       expect(trigger.getAttribute('aria-controls')).toBeNull();
       // opens popup
-      fireEvent.click(trigger);
+      await user.click(trigger);
 
       const controledId = trigger.getAttribute('aria-controls');
       expect(controledId).toBeDefined();

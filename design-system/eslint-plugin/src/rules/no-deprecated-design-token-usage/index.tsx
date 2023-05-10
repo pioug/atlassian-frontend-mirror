@@ -10,7 +10,8 @@ const rule = createLintRule({
     name: 'no-deprecated-design-token-usage',
     docs: {
       description: 'Disallow using deprecated design tokens.',
-      recommended: 'warn',
+      recommended: true,
+      severity: 'warn',
     },
     fixable: 'code',
     type: 'problem',

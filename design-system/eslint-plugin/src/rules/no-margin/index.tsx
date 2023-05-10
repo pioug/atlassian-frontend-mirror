@@ -9,6 +9,7 @@ const rule = createLintRule({
     type: 'problem',
     docs: {
       recommended: false,
+      severity: 'warn',
       description: 'Disallow using the margin CSS property.',
     },
     messages: {

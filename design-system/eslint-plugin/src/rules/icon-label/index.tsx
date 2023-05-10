@@ -25,7 +25,8 @@ const rule = createLintRule({
     docs: {
       description:
         'Enforces accessible usage of icon labels when composed with Atlassian Design System components.',
-      recommended: 'warn',
+      recommended: true,
+      severity: 'warn',
     },
     messages: {
       unneededLabelPropContents:

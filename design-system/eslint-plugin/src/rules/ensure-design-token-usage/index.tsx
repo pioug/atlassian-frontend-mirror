@@ -76,7 +76,8 @@ const rule = createLintRule({
     hasSuggestions: true,
     docs: {
       description: 'Enforces usage of design tokens.',
-      recommended: 'error',
+      recommended: true,
+      severity: 'error',
     },
     fixable: 'code',
     type: 'problem',

@@ -369,7 +369,6 @@ export class Channel extends Emitter<ChannelEvent> {
           {
             latency: measure?.duration,
             resetReason: data?.resetReason,
-            ttlEnabled: data?.ttlEnabled,
           },
         );
 

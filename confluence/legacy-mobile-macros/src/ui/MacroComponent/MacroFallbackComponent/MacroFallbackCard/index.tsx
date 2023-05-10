@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
 import * as colors from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
+import { token } from '@atlaskit/tokens';
 
 import { macroIcon } from './MacroIcon';
 import { MacroCardType } from './types';
@@ -22,11 +23,12 @@ const Content = styled.span`
 
 const ContentWrapper = styled.span`
   flex: 1;
-  padding-left: 8px;
+  padding-left: ${token('space.100', '8px')};
   display: flex;
   justify-content: space-between;
 `;
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 const Error = styled.span`
   flex-basis: 100%;
   padding-top: 10px;
@@ -36,31 +38,31 @@ const Error = styled.span`
 
 const ErrorMessage = styled.span`
   color: ${themed({ light: colors.N90, dark: colors.DN100 })};
-  padding-left: 4px;
-  margin-top: -4px;
+  padding-left: ${token('space.050', '4px')};
+  margin-top: calc(-1 * ${token('space.050', '4px')});
   word-break: break-word;
 `;
 
 const SecondaryAction = styled.span`
   flex-basis: 100%;
-  padding-left: 12px;
-  margin-top: -8px;
+  padding-left: ${token('space.150', '12px')};
+  margin-top: calc(-1 * ${token('space.100', '8px')});
 `;
 
 const Icon = styled.span`
   align-items: center;
   display: flex;
   > img {
-    padding-left: 4px;
-    padding-right: 4px;
+    padding-left: ${token('space.050', '4px')};
+    padding-right: ${token('space.050', '4px')};
   }
 `;
 
 const CardBody = styled.span`
   flex: 1;
   flex-wrap: wrap;
-  margin-top: 4px;
-  margin-bottom: 4px;
+  margin-top: ${token('space.050', '4px')};
+  margin-bottom: ${token('space.050', '4px')};
 `;
 
 const ErrorContent = styled.span`

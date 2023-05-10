@@ -36,11 +36,14 @@ export interface LintRuleMeta extends Omit<Rule.RuleMetaData, 'docs'> {
     description: string;
     /**
      * If this rule should be in the recommended preset or not.
-     * When setting to `"error"` it will mean releasing a breaking change.
-     *
      * Set to `false` to exclude it from the recommended preset.
      */
-    recommended: 'warn' | 'error' | false;
+    recommended: boolean;
+    /**
+     * The severity level to be applied to this rule.
+     * When setting to `"error"` it will mean releasing a breaking change.
+     */
+    severity: 'error' | 'warn';
   };
 }
 

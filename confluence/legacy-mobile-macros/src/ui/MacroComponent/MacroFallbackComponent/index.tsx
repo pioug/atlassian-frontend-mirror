@@ -7,6 +7,7 @@ import Button from '@atlaskit/button/standard-button';
 import Spinner from '@atlaskit/spinner';
 import * as colors from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
+import { token } from '@atlaskit/tokens';
 
 import { useMacroViewedAnalyticsEvent } from '../../../common/utils';
 import { legacyMobileMacrosMessages } from '../../../messages';
@@ -30,7 +31,7 @@ const Action = styled.span<ActionProps>`
   align-self: center;
   text-align: right;
   white-space: nowrap;
-  padding-left: 16px;
+  padding-left: ${token('space.200', '16px')};
   min-width: 50px;
 `;
 

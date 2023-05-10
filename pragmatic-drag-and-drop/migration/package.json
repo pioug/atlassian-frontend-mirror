@@ -8,7 +8,11 @@
   "atlassian": {
     "team": "Design System Team",
     "inPublicMirror": false,
-    "releaseModel": "continuous"
+    "releaseModel": "continuous",
+    "website": {
+      "name": "react-beautiful-dnd migration",
+      "category": "Libraries"
+    }
   },
   "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "homepage": "https://atlassian.design/components/pragmatic-drag-and-drop/",

@@ -5,6 +5,7 @@ import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
 import ChevronRightIcon from '@atlaskit/icon/glyph/chevron-right';
 import Spinner from '@atlaskit/spinner';
 import Button from '@atlaskit/button/standard-button';
+import { token } from '@atlaskit/tokens';
 import Tree, {
   mutateTree,
   RenderItemParams,
@@ -35,7 +36,7 @@ const SpinnerContainer = styled.span`
   justify-content: center;
   font-size: 12px;
   line-height: 32px;
-  padding-top: 8px;
+  padding-top: ${token('space.100', '8px')};
 `;
 
 type State = {

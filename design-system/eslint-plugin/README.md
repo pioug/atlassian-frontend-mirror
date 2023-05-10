@@ -58,7 +58,7 @@ module.exports = {
 | <a href="./src/rules/no-deprecated-imports/README.md">no-deprecated-imports</a>                         | Disallow importing deprecated modules.                                                          | Yes         |         |             |
 | <a href="./src/rules/no-margin/README.md">no-margin</a>                                                 | Disallow using the margin CSS property.                                                         |             |         |             |
 | <a href="./src/rules/no-unsafe-design-token-usage/README.md">no-unsafe-design-token-usage</a>           | Enforces design token usage is statically and locally analyzable.                               | Yes         | Yes     |             |
-| <a href="./src/rules/use-primitives/README.md">use-primitives</a>                                       | Encourage the usage of primitives components.                                                   |             | Yes     |             |
+| <a href="./src/rules/use-primitives/README.md">use-primitives</a>                                       | Encourage the usage of primitives components.                                                   |             | Yes     | Yes         |
 | <a href="./src/rules/use-visually-hidden/README.md">use-visually-hidden</a>                             | Enforce usage of the visually hidden component.                                                 | Yes         | Yes     |             |
 
 <!-- END_RULE_TABLE_CODEGEN -->

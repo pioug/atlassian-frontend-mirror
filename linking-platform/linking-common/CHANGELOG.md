@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 2.9.0
+
+### Minor Changes
+
+- [`f87ee2af752`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f87ee2af752) - Adds filterUniqueItems to linking common utils entry point
+
 ## 2.8.0
 
 ### Minor Changes

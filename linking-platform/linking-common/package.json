@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/linking-common",
-  "version": "2.8.0",
+  "version": "2.9.0",
   "description": "Contains utils and interfaces shared across different LP components",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -56,6 +56,7 @@
     "./extractors": "./src/extractors/index.ts",
     "./url": "./src/url.ts",
     "./user-agent": "./src/user-agent/index.ts",
+    "./utils": "./src/utils/index.ts",
     ".": "./src/index.ts"
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"

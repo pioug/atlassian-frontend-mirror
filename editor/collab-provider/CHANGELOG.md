@@ -1,5 +1,11 @@
 # @atlaskit/collab-provider
 
+## 8.8.1
+
+### Patch Changes
+
+- [`c0f3b955ee6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c0f3b955ee6) - remove the deprecated analytics field 'ttlEnabled'
+
 ## 8.8.0
 
 ### Minor Changes

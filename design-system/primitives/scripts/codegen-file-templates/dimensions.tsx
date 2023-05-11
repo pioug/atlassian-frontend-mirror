@@ -8,20 +8,21 @@ export const dimensionMap = {
   'size.600': '96px',
   'size.1000': '192px',
 } as const;
+type Dimension = keyof typeof dimensionMap;
 
-export type Width = keyof typeof dimensionMap;
-export type Height = keyof typeof dimensionMap;
-export type MinWidth = keyof typeof dimensionMap;
-export type MaxWidth = keyof typeof dimensionMap;
-export type MinHeight = keyof typeof dimensionMap;
-export type MaxHeight = keyof typeof dimensionMap;
-export type Top = keyof typeof dimensionMap;
-export type Left = keyof typeof dimensionMap;
-export type Bottom = keyof typeof dimensionMap;
-export type Right = keyof typeof dimensionMap;
-export type BlockSize = keyof typeof dimensionMap;
-export type InlineSize = keyof typeof dimensionMap;
-export type MaxBlockSize = keyof typeof dimensionMap;
-export type MaxInlineSize = keyof typeof dimensionMap;
-export type MinBlockSize = keyof typeof dimensionMap;
-export type MinInlineSize = keyof typeof dimensionMap;
+export type Width = Dimension;
+export type Height = Dimension;
+export type MinWidth = Dimension;
+export type MaxWidth = Dimension;
+export type MinHeight = Dimension;
+export type MaxHeight = Dimension;
+export type Top = Dimension;
+export type Left = Dimension;
+export type Bottom = Dimension;
+export type Right = Dimension;
+export type BlockSize = Dimension;
+export type InlineSize = Dimension;
+export type MaxBlockSize = Dimension;
+export type MaxInlineSize = Dimension;
+export type MinBlockSize = Dimension;
+export type MinInlineSize = Dimension;

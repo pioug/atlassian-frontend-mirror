@@ -80,7 +80,9 @@ const FormFooter = ({
             appearance="default"
             iconBefore={<EditorAddIcon label="" size="medium" />}
           >
-            {intl.formatMessage(action.label)}
+            {typeof action.label === 'string'
+              ? action.label
+              : intl.formatMessage(action.label)}
           </Button>
         </div>
       )}

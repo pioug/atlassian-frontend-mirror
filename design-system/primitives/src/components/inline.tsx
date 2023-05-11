@@ -15,11 +15,7 @@ import { css, jsx } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
-import {
-  type Gap,
-  type RowGap,
-  spaceStylesMap,
-} from '../xcss/style-maps.partial';
+import { type Space, spaceStylesMap } from '../xcss/style-maps.partial';
 
 export interface InlineProps<T extends ElementType = 'div'> {
   /**
@@ -54,13 +50,13 @@ export interface InlineProps<T extends ElementType = 'div'> {
   /**
    * Represents the space between each child.
    */
-  space?: Gap;
+  space?: Space;
 
   /**
    * Represents the space between rows when content wraps.
    * Used to override the `space` value in between rows.
    */
-  rowSpace?: RowGap;
+  rowSpace?: Space;
 
   /**
    * Renders a separator string between each child.

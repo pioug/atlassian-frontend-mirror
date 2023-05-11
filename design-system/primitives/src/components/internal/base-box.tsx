@@ -14,14 +14,8 @@ import { css, jsx } from '@emotion/react';
 import {
   BackgroundColor,
   backgroundColorStylesMap,
-  Padding,
-  PaddingBlock,
-  PaddingBlockEnd,
-  PaddingBlockStart,
-  PaddingInline,
-  PaddingInlineEnd,
-  PaddingInlineStart,
   paddingStylesMap,
+  type Space,
 } from '../../xcss/style-maps.partial';
 import type { BasePrimitiveProps } from '../types';
 
@@ -78,37 +72,37 @@ type BaseBoxPropsFoundation<T extends ElementType = 'div'> = {
    * @see paddingBlock
    * @see paddingInline
    */
-  padding?: Padding;
+  padding?: Space;
   /**
    * Tokens representing CSS shorthand `paddingBlock`.
    *
    * @see paddingBlockStart
    * @see paddingBlockEnd
    */
-  paddingBlock?: PaddingBlock;
+  paddingBlock?: Space;
   /**
    * Tokens representing CSS `paddingBlockStart`.
    */
-  paddingBlockStart?: PaddingBlockStart;
+  paddingBlockStart?: Space;
   /**
    * Tokens representing CSS `paddingBlockEnd`.
    */
-  paddingBlockEnd?: PaddingBlockEnd;
+  paddingBlockEnd?: Space;
   /**
    * Tokens representing CSS shorthand `paddingInline`.
    *
    * @see paddingInlineStart
    * @see paddingInlineEnd
    */
-  paddingInline?: PaddingInline;
+  paddingInline?: Space;
   /**
    * Tokens representing CSS `paddingInlineStart`.
    */
-  paddingInlineStart?: PaddingInlineStart;
+  paddingInlineStart?: Space;
   /**
    * Tokens representing CSS `paddingInlineEnd`.
    */
-  paddingInlineEnd?: PaddingInlineEnd;
+  paddingInlineEnd?: Space;
   /**
    * Forwarded ref element
    */

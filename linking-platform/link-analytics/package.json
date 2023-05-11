@@ -41,7 +41,7 @@
     "@af/analytics-codegen": "^0.0.5",
     "@atlaskit/button": "^16.7.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/link-picker": "^1.19.0",
+    "@atlaskit/link-picker": "^1.20.0",
     "@atlaskit/link-test-helpers": "^2.3.0",
     "@atlaskit/popup": "^1.6.0",
     "@atlaskit/smart-card": "^26.1.0",

@@ -1,9 +1,8 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 
 import { IntlProvider } from 'react-intl-next';
 
 import Button from '@atlaskit/button/standard-button';
-import LinkCreate from '@atlaskit/link-create';
 import { LinkPicker } from '@atlaskit/link-picker';
 import Popup from '@atlaskit/popup';
 import { createConfluencePageLinkCreatePlugin } from '@atlassian/link-create-confluence';
@@ -12,11 +11,12 @@ import {
   mockFetchPage,
   mockFetchSpace,
 } from '@atlassian/link-create-confluence/mocks';
-import { createDefaultPluginPresets } from '@atlassian/link-create-presets';
 import {
-  LinkPickerCreateOnSubmitHandler,
-  useLinkPickerCreate,
-} from '@atlassian/link-picker-plugins';
+  Scope,
+  useAtlassianPlugins,
+} from '@atlassian/link-picker-atlassian-plugin';
+
+import LinkCreate from '../src';
 
 // Mocks
 mockFetchPage();
@@ -29,35 +29,35 @@ const CLOUD_ID = 'DUMMY-a5a01d21-1cc3-4f29-9565-f2bb8cd969f5';
 const LinkPickerCreate = () => {
   const [link, setLink] = useState<string | null>(null);
   const [showPicker, setShowPicker] = useState(true);
+  const [showCreateModal, setShowCreateModal] = useState(false);
+  const [entityKey, setEntityKey] = useState('confluence-page');
 
-  // Plugin configuration
-  // We can take specific create plugins, presets or both,
-  // specific plugin configs will take priority over presets
-  const linkPickerCreateconfigs = useMemo(
-    () => [
-      {
-        product: 'confluence',
-        cloudId: CLOUD_ID,
-        create: createConfluencePageLinkCreatePlugin(CLOUD_ID),
+  const createPlugins = [createConfluencePageLinkCreatePlugin(CLOUD_ID)];
+  const pickerPlugins = useAtlassianPlugins([
+    {
+      cloudId: CLOUD_ID,
+      tabConfig: {
+        tabKey: 'confluence',
+        tabTitle: 'Confluence',
       },
-    ],
-    [],
-  );
+      products: ['confluence'],
+      scope: Scope.ConfluencePageBlog,
+      action: {
+        label: 'Create New',
+        callback: () => {
+          setEntityKey('confluence-page');
+          setShowCreateModal(true);
+        },
+      },
+    },
+  ]);
 
   // Event handlers
   const onCancel = () => setShowPicker(false);
-  const onSubmit: LinkPickerCreateOnSubmitHandler = payload => {
+  const onSubmit = (payload: { url: string }) => {
     setLink(payload.url);
     console.log(payload);
   };
-
-  // Hook
-  const { createProps, pickerProps } = useLinkPickerCreate(
-    onSubmit,
-    onCancel,
-    linkPickerCreateconfigs,
-    createDefaultPluginPresets(CLOUD_ID),
-  );
 
   return (
     <div style={{ padding: '20px' }}>
@@ -71,8 +71,13 @@ const LinkPickerCreate = () => {
       <Popup
         isOpen={showPicker}
         autoFocus={false}
-        onClose={onCancel}
-        content={() => <LinkPicker {...pickerProps} />}
+        content={() => (
+          <LinkPicker
+            plugins={pickerPlugins}
+            onSubmit={onSubmit}
+            onCancel={onCancel}
+          />
+        )}
         trigger={props => (
           <Button
             {...props}
@@ -83,7 +88,18 @@ const LinkPickerCreate = () => {
           </Button>
         )}
       />
-      <LinkCreate {...createProps} />
+      <LinkCreate
+        plugins={createPlugins}
+        onCancel={() => setShowCreateModal(false)}
+        onCreate={(url: string) => {
+          setLink(url);
+          console.log(url);
+          setShowCreateModal(false);
+          setShowPicker(false);
+        }}
+        entityKey={entityKey}
+        active={showCreateModal}
+      />
     </div>
   );
 };

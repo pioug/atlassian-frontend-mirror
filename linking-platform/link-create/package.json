@@ -44,7 +44,7 @@
   },
   "devDependencies": {
     "@atlaskit/docs": "*",
-    "@atlaskit/link-picker": "^1.19.0",
+    "@atlaskit/link-picker": "^1.20.0",
     "@atlaskit/link-provider": "^1.6.0",
     "@atlaskit/link-test-helpers": "^2.3.0",
     "@atlaskit/popup": "^1.6.0",
@@ -54,7 +54,8 @@
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@atlassian/link-create-confluence": "^5.0.0",
     "@atlassian/link-create-presets": "^3.0.0",
-    "@atlassian/link-picker-plugins": "^19.0.0",
+    "@atlassian/link-picker-atlassian-plugin": "^30.0.0",
+    "@atlassian/link-picker-plugins": "^20.0.0",
     "@atlassian/recent-work-client": "^1.8.0",
     "@atlassian/search-client": "^0.8.0",
     "@testing-library/react": "^12.1.5",

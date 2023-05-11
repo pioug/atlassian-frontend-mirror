@@ -1,5 +1,11 @@
 # @atlaskit/color-picker
 
+## 3.1.1
+
+### Patch Changes
+
+- [`4fd4b6307b7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4fd4b6307b7) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
+
 ## 3.1.0
 
 ### Minor Changes

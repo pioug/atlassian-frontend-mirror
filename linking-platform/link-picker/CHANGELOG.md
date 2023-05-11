@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 1.20.0
+
+### Minor Changes
+
+- [`4bf861f02cc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4bf861f02cc) - Callback label now supports a string
+
 ## 1.19.0
 
 ### Minor Changes

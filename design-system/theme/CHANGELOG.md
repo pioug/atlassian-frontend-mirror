@@ -1,5 +1,11 @@
 # @atlaskit/theme
 
+## 12.5.1
+
+### Patch Changes
+
+- [`5e717fd317d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5e717fd317d) - [ux] correct light mode fallback color of deprecated placeholder util
+
 ## 12.5.0
 
 ### Minor Changes

@@ -66,7 +66,7 @@ export interface LinkPickerPlugin {
 }
 
 export interface LinkPickerPluginAction {
-  label: MessageDescriptor;
+  label: MessageDescriptor | string;
   callback: () => void;
 }
 

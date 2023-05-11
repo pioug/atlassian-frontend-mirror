@@ -4,7 +4,7 @@ import { ElementType, forwardRef, memo, ReactNode, Ref } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import { type Gap, spaceStylesMap } from '../xcss/style-maps.partial';
+import { type Space, spaceStylesMap } from '../xcss/style-maps.partial';
 
 export interface StackProps<T extends ElementType = 'div'> {
   /**
@@ -34,7 +34,7 @@ export interface StackProps<T extends ElementType = 'div'> {
   /**
    * Represents the space between each child.
    */
-  space?: Gap;
+  space?: Space;
 
   /**
    * A unique string that appears as data attribute data-testid in the rendered code, serving as a hook for automated tests.

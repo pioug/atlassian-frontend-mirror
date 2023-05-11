@@ -25,7 +25,7 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/link-picker": "^1.19.0",
+    "@atlaskit/link-picker": "^1.20.0",
     "@babel/runtime": "^7.0.0",
     "@jest/globals": "^26.4.2",
     "@testing-library/react": "^12.1.5",

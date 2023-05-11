@@ -6,21 +6,28 @@ import {
   BasePrimitiveProps,
   PublicBoxPropsBase,
 } from '../src/components/types';
-import type {
-  Padding,
-  PaddingBlock,
-  PaddingBlockEnd,
-  PaddingBlockStart,
-  PaddingInline,
-  PaddingInlineEnd,
-  PaddingInlineStart,
-} from '../src/xcss/style-maps.partial';
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 namespace Token {
   // BoxProps['backgroundColor'] uses keyof, which ERT does not understand
   export type BackgroundColor = 'BackgroundColor';
 }
+
+type Space =
+  | 'space.0'
+  | 'space.025'
+  | 'space.050'
+  | 'space.075'
+  | 'space.100'
+  | 'space.150'
+  | 'space.200'
+  | 'space.250'
+  | 'space.300'
+  | 'space.400'
+  | 'space.500'
+  | 'space.600'
+  | 'space.800'
+  | 'space.1000';
 
 export default function Box(
   _: {
@@ -32,37 +39,37 @@ export default function Box(
     /**
      * Tokens representing CSS shorthand for `paddingBlock` and `paddingInline` together.
      */
-    padding?: Padding;
+    padding?: Space;
 
     /**
      * Tokens representing CSS shorthand `paddingBlock`.
      */
-    paddingBlock?: PaddingBlock;
+    paddingBlock?: Space;
 
     /**
      * Tokens representing CSS `paddingBlockStart`.
      */
-    paddingBlockStart?: PaddingBlockStart;
+    paddingBlockStart?: Space;
 
     /**
      * Tokens representing CSS `paddingBlockEnd`.
      */
-    paddingBlockEnd?: PaddingBlockEnd;
+    paddingBlockEnd?: Space;
 
     /**
      * Tokens representing CSS shorthand `paddingInline`.
      */
-    paddingInline?: PaddingInline;
+    paddingInline?: Space;
 
     /**
      * Tokens representing CSS `paddingInlineStart`.
      */
-    paddingInlineStart?: PaddingInlineStart;
+    paddingInlineStart?: Space;
 
     /**
      * Tokens representing CSS `paddingInlineEnd`.
      */
-    paddingInlineEnd?: PaddingInlineEnd;
+    paddingInlineEnd?: Space;
 
     /**
      * A token alias for background color. See:<br>

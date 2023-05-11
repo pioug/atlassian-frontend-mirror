@@ -51,7 +51,7 @@ export interface LinkPickerPluginAction {
   // (undocumented)
   callback: () => void;
   // (undocumented)
-  label: MessageDescriptor;
+  label: MessageDescriptor | string;
 }
 
 // @public (undocumented)

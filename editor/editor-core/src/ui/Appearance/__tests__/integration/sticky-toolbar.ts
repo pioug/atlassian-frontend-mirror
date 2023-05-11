@@ -2,7 +2,6 @@ import { WebDriverPage } from '@atlaskit/editor-test-helpers/page-objects/types'
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import { goToEditorExampleWDExample } from '@atlaskit/editor-test-helpers/testing-example-page';
 import { quickInsert } from '@atlaskit/editor-test-helpers/integration/helpers';
-import { toolbarMenuItemsSelectors } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 
 describe('Sticky Toolbar', () => {
   const startEditor = async (client: any): Promise<WebDriverPage> => {
@@ -28,7 +27,7 @@ describe('Sticky Toolbar', () => {
       await quickInsert(page, ' ', false);
 
       const isLinkButtonVisible = await page.isClickable(
-        toolbarMenuItemsSelectors[13], // Link Button
+        '[aria-label*="Link"]',
       );
 
       expect(isLinkButtonVisible).toBeFalsy();

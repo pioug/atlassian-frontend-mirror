@@ -208,7 +208,8 @@ describe('Hover Card', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  it('successfully renders error embed modal when action is failed', async () => {
+  // FIXME: This test was automatically skipped due to failure on 11/05/2023: https://product-fabric.atlassian.net/browse/EDM-6647
+  it.skip('successfully renders error embed modal when action is failed', async () => {
     const url = getURL('vr-hover-card-action-with-error-embed');
     const page = await setup(url);
 

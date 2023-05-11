@@ -4,11 +4,11 @@ import { token } from '@atlaskit/tokens';
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::fc517b480964965a9d7e6e5c8d921c19>>
+ * @codegen <<SignedSource::7d4a8604dc454e30c0fec5c1330ea7c5>>
  * @codegenId dimensions
  * @codegenCommand yarn codegen-styles
  * @codegenParams ["dimensions"]
- * @codegenDependency ../../scripts/codegen-file-templates/dimensions.tsx <<SignedSource::9e8ad113b10e9429c514c69bd362f479>>
+ * @codegenDependency ../../scripts/codegen-file-templates/dimensions.tsx <<SignedSource::dbad5eb9ef292d4ec59f90459a81e1d6>>
  */
 export const dimensionMap = {
   '100%': '100%',
@@ -20,23 +20,24 @@ export const dimensionMap = {
   'size.600': '96px',
   'size.1000': '192px',
 } as const;
+type Dimension = keyof typeof dimensionMap;
 
-export type Width = keyof typeof dimensionMap;
-export type Height = keyof typeof dimensionMap;
-export type MinWidth = keyof typeof dimensionMap;
-export type MaxWidth = keyof typeof dimensionMap;
-export type MinHeight = keyof typeof dimensionMap;
-export type MaxHeight = keyof typeof dimensionMap;
-export type Top = keyof typeof dimensionMap;
-export type Left = keyof typeof dimensionMap;
-export type Bottom = keyof typeof dimensionMap;
-export type Right = keyof typeof dimensionMap;
-export type BlockSize = keyof typeof dimensionMap;
-export type InlineSize = keyof typeof dimensionMap;
-export type MaxBlockSize = keyof typeof dimensionMap;
-export type MaxInlineSize = keyof typeof dimensionMap;
-export type MinBlockSize = keyof typeof dimensionMap;
-export type MinInlineSize = keyof typeof dimensionMap;
+export type Width = Dimension;
+export type Height = Dimension;
+export type MinWidth = Dimension;
+export type MaxWidth = Dimension;
+export type MinHeight = Dimension;
+export type MaxHeight = Dimension;
+export type Top = Dimension;
+export type Left = Dimension;
+export type Bottom = Dimension;
+export type Right = Dimension;
+export type BlockSize = Dimension;
+export type InlineSize = Dimension;
+export type MaxBlockSize = Dimension;
+export type MaxInlineSize = Dimension;
+export type MinBlockSize = Dimension;
+export type MinInlineSize = Dimension;
 
 /**
  * @codegenEnd
@@ -44,194 +45,11 @@ export type MinInlineSize = keyof typeof dimensionMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8ce817b8abf862e7945a9c9792a1255e>>
+ * @codegen <<SignedSource::9fbc4dfcd8f43f52bff6b3bb666397fe>>
  * @codegenId spacing
  * @codegenCommand yarn codegen-styles
- * @codegenParams ["padding", "space", "inset"]
  * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-spacing.tsx <<SignedSource::167d3b69b159ae33e74d4ea5ab7eade6>>
  */
-export const paddingMap = {
-  'space.0': token('space.0', '0px'),
-  'space.025': token('space.025', '2px'),
-  'space.050': token('space.050', '4px'),
-  'space.075': token('space.075', '6px'),
-  'space.100': token('space.100', '8px'),
-  'space.150': token('space.150', '12px'),
-  'space.200': token('space.200', '16px'),
-  'space.250': token('space.250', '20px'),
-  'space.300': token('space.300', '24px'),
-  'space.400': token('space.400', '32px'),
-  'space.500': token('space.500', '40px'),
-  'space.600': token('space.600', '48px'),
-  'space.800': token('space.800', '64px'),
-  'space.1000': token('space.1000', '80px'),
-} as const;
-export type Padding =
-  | 'space.0'
-  | 'space.025'
-  | 'space.050'
-  | 'space.075'
-  | 'space.100'
-  | 'space.150'
-  | 'space.200'
-  | 'space.250'
-  | 'space.300'
-  | 'space.400'
-  | 'space.500'
-  | 'space.600'
-  | 'space.800'
-  | 'space.1000';
-export type PaddingBlock =
-  | 'space.0'
-  | 'space.025'
-  | 'space.050'
-  | 'space.075'
-  | 'space.100'
-  | 'space.150'
-  | 'space.200'
-  | 'space.250'
-  | 'space.300'
-  | 'space.400'
-  | 'space.500'
-  | 'space.600'
-  | 'space.800'
-  | 'space.1000';
-export type PaddingBlockEnd =
-  | 'space.0'
-  | 'space.025'
-  | 'space.050'
-  | 'space.075'
-  | 'space.100'
-  | 'space.150'
-  | 'space.200'
-  | 'space.250'
-  | 'space.300'
-  | 'space.400'
-  | 'space.500'
-  | 'space.600'
-  | 'space.800'
-  | 'space.1000';
-export type PaddingBlockStart =
-  | 'space.0'
-  | 'space.025'
-  | 'space.050'
-  | 'space.075'
-  | 'space.100'
-  | 'space.150'
-  | 'space.200'
-  | 'space.250'
-  | 'space.300'
-  | 'space.400'
-  | 'space.500'
-  | 'space.600'
-  | 'space.800'
-  | 'space.1000';
-export type PaddingBottom =
-  | 'space.0'
-  | 'space.025'
-  | 'space.050'
-  | 'space.075'
-  | 'space.100'
-  | 'space.150'
-  | 'space.200'
-  | 'space.250'
-  | 'space.300'
-  | 'space.400'
-  | 'space.500'
-  | 'space.600'
-  | 'space.800'
-  | 'space.1000';
-export type PaddingInline =
-  | 'space.0'
-  | 'space.025'
-  | 'space.050'
-  | 'space.075'
-  | 'space.100'
-  | 'space.150'
-  | 'space.200'
-  | 'space.250'
-  | 'space.300'
-  | 'space.400'
-  | 'space.500'
-  | 'space.600'
-  | 'space.800'
-  | 'space.1000';
-export type PaddingInlineEnd =
-  | 'space.0'
-  | 'space.025'
-  | 'space.050'
-  | 'space.075'
-  | 'space.100'
-  | 'space.150'
-  | 'space.200'
-  | 'space.250'
-  | 'space.300'
-  | 'space.400'
-  | 'space.500'
-  | 'space.600'
-  | 'space.800'
-  | 'space.1000';
-export type PaddingInlineStart =
-  | 'space.0'
-  | 'space.025'
-  | 'space.050'
-  | 'space.075'
-  | 'space.100'
-  | 'space.150'
-  | 'space.200'
-  | 'space.250'
-  | 'space.300'
-  | 'space.400'
-  | 'space.500'
-  | 'space.600'
-  | 'space.800'
-  | 'space.1000';
-export type PaddingLeft =
-  | 'space.0'
-  | 'space.025'
-  | 'space.050'
-  | 'space.075'
-  | 'space.100'
-  | 'space.150'
-  | 'space.200'
-  | 'space.250'
-  | 'space.300'
-  | 'space.400'
-  | 'space.500'
-  | 'space.600'
-  | 'space.800'
-  | 'space.1000';
-export type PaddingRight =
-  | 'space.0'
-  | 'space.025'
-  | 'space.050'
-  | 'space.075'
-  | 'space.100'
-  | 'space.150'
-  | 'space.200'
-  | 'space.250'
-  | 'space.300'
-  | 'space.400'
-  | 'space.500'
-  | 'space.600'
-  | 'space.800'
-  | 'space.1000';
-export type PaddingTop =
-  | 'space.0'
-  | 'space.025'
-  | 'space.050'
-  | 'space.075'
-  | 'space.100'
-  | 'space.150'
-  | 'space.200'
-  | 'space.250'
-  | 'space.300'
-  | 'space.400'
-  | 'space.500'
-  | 'space.600'
-  | 'space.800'
-  | 'space.1000';
-
 export const spaceMap = {
   'space.0': token('space.0', '0px'),
   'space.025': token('space.025', '2px'),
@@ -247,174 +65,8 @@ export const spaceMap = {
   'space.600': token('space.600', '48px'),
   'space.800': token('space.800', '64px'),
   'space.1000': token('space.1000', '80px'),
-} as const;
-export type Gap =
-  | 'space.0'
-  | 'space.025'
-  | 'space.050'
-  | 'space.075'
-  | 'space.100'
-  | 'space.150'
-  | 'space.200'
-  | 'space.250'
-  | 'space.300'
-  | 'space.400'
-  | 'space.500'
-  | 'space.600'
-  | 'space.800'
-  | 'space.1000';
-export type RowGap =
-  | 'space.0'
-  | 'space.025'
-  | 'space.050'
-  | 'space.075'
-  | 'space.100'
-  | 'space.150'
-  | 'space.200'
-  | 'space.250'
-  | 'space.300'
-  | 'space.400'
-  | 'space.500'
-  | 'space.600'
-  | 'space.800'
-  | 'space.1000';
-export type ColumnGap =
-  | 'space.0'
-  | 'space.025'
-  | 'space.050'
-  | 'space.075'
-  | 'space.100'
-  | 'space.150'
-  | 'space.200'
-  | 'space.250'
-  | 'space.300'
-  | 'space.400'
-  | 'space.500'
-  | 'space.600'
-  | 'space.800'
-  | 'space.1000';
-
-export const insetMap = {
-  'space.0': token('space.0', '0px'),
-  'space.025': token('space.025', '2px'),
-  'space.050': token('space.050', '4px'),
-  'space.075': token('space.075', '6px'),
-  'space.100': token('space.100', '8px'),
-  'space.150': token('space.150', '12px'),
-  'space.200': token('space.200', '16px'),
-  'space.250': token('space.250', '20px'),
-  'space.300': token('space.300', '24px'),
-  'space.400': token('space.400', '32px'),
-  'space.500': token('space.500', '40px'),
-  'space.600': token('space.600', '48px'),
-  'space.800': token('space.800', '64px'),
-  'space.1000': token('space.1000', '80px'),
-} as const;
-export type Inset =
-  | 'space.0'
-  | 'space.025'
-  | 'space.050'
-  | 'space.075'
-  | 'space.100'
-  | 'space.150'
-  | 'space.200'
-  | 'space.250'
-  | 'space.300'
-  | 'space.400'
-  | 'space.500'
-  | 'space.600'
-  | 'space.800'
-  | 'space.1000';
-export type InsetBlock =
-  | 'space.0'
-  | 'space.025'
-  | 'space.050'
-  | 'space.075'
-  | 'space.100'
-  | 'space.150'
-  | 'space.200'
-  | 'space.250'
-  | 'space.300'
-  | 'space.400'
-  | 'space.500'
-  | 'space.600'
-  | 'space.800'
-  | 'space.1000';
-export type InsetBlockEnd =
-  | 'space.0'
-  | 'space.025'
-  | 'space.050'
-  | 'space.075'
-  | 'space.100'
-  | 'space.150'
-  | 'space.200'
-  | 'space.250'
-  | 'space.300'
-  | 'space.400'
-  | 'space.500'
-  | 'space.600'
-  | 'space.800'
-  | 'space.1000';
-export type InsetBlockStart =
-  | 'space.0'
-  | 'space.025'
-  | 'space.050'
-  | 'space.075'
-  | 'space.100'
-  | 'space.150'
-  | 'space.200'
-  | 'space.250'
-  | 'space.300'
-  | 'space.400'
-  | 'space.500'
-  | 'space.600'
-  | 'space.800'
-  | 'space.1000';
-export type InsetInline =
-  | 'space.0'
-  | 'space.025'
-  | 'space.050'
-  | 'space.075'
-  | 'space.100'
-  | 'space.150'
-  | 'space.200'
-  | 'space.250'
-  | 'space.300'
-  | 'space.400'
-  | 'space.500'
-  | 'space.600'
-  | 'space.800'
-  | 'space.1000';
-export type InsetInlineEnd =
-  | 'space.0'
-  | 'space.025'
-  | 'space.050'
-  | 'space.075'
-  | 'space.100'
-  | 'space.150'
-  | 'space.200'
-  | 'space.250'
-  | 'space.300'
-  | 'space.400'
-  | 'space.500'
-  | 'space.600'
-  | 'space.800'
-  | 'space.1000';
-export type InsetInlineStart =
-  | 'space.0'
-  | 'space.025'
-  | 'space.050'
-  | 'space.075'
-  | 'space.100'
-  | 'space.150'
-  | 'space.200'
-  | 'space.250'
-  | 'space.300'
-  | 'space.400'
-  | 'space.500'
-  | 'space.600'
-  | 'space.800'
-  | 'space.1000';
+};
+export type Space = keyof typeof spaceMap;
 
 /**
  * @codegenEnd
@@ -781,13 +433,13 @@ export type TextColor = keyof typeof textColorMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8838ca696c1fa533db0eb127be15d81e>>
+ * @codegen <<SignedSource::64f7b08cdbce710fba3157594ea695a8>>
  * @codegenId misc
  * @codegenCommand yarn codegen-styles
  * @codegenParams ["align-self", "border-style", "display", "flex-direction", "flex-grow", "flex-shrink", "flex", "layer", "overflow", "position"]
  * @codegenDependency ../../scripts/codegen-file-templates/align-self.tsx <<SignedSource::074079802534462de54bf882bb2073e5>>
  * @codegenDependency ../../scripts/codegen-file-templates/border-style.tsx <<SignedSource::87e7e289ffeaac901997c4af98084a5f>>
- * @codegenDependency ../../scripts/codegen-file-templates/dimensions.tsx <<SignedSource::9e8ad113b10e9429c514c69bd362f479>>
+ * @codegenDependency ../../scripts/codegen-file-templates/dimensions.tsx <<SignedSource::dbad5eb9ef292d4ec59f90459a81e1d6>>
  * @codegenDependency ../../scripts/codegen-file-templates/display.tsx <<SignedSource::04ea30fcb3c02f2545af7fdc0206e645>>
  * @codegenDependency ../../scripts/codegen-file-templates/flex-direction.tsx <<SignedSource::19809ba11675679c188b0d98fb651dc1>>
  * @codegenDependency ../../scripts/codegen-file-templates/flex-grow.tsx <<SignedSource::b8a06b122cb609170f1f42778a6c270e>>
@@ -941,22 +593,22 @@ export type TokenisedProps = {
   bottom?: Bottom;
   boxShadow?: Shadow;
   color?: TextColor;
-  columnGap?: ColumnGap;
+  columnGap?: Space;
   display?: Display;
   flex?: Flex;
   flexDirection?: FlexDirection;
   flexGrow?: FlexGrow;
   flexShrink?: FlexShrink;
-  gap?: Gap;
+  gap?: Space;
   height?: Height;
   inlineSize?: InlineSize;
-  inset?: Inset;
-  insetBlock?: InsetBlock;
-  insetBlockEnd?: InsetBlockEnd;
-  insetBlockStart?: InsetBlockStart;
-  insetInline?: InsetInline;
-  insetInlineEnd?: InsetInlineEnd;
-  insetInlineStart?: InsetInlineStart;
+  inset?: Space;
+  insetBlock?: Space;
+  insetBlockEnd?: Space;
+  insetBlockStart?: Space;
+  insetInline?: Space;
+  insetInlineEnd?: Space;
+  insetInlineStart?: Space;
   left?: Left;
   maxBlockSize?: MaxBlockSize;
   maxHeight?: MaxHeight;
@@ -967,27 +619,29 @@ export type TokenisedProps = {
   minInlineSize?: MinInlineSize;
   minWidth?: MinWidth;
   outlineColor?: BorderColor;
-  outlineOffset?: Padding;
+  outlineOffset?: Space;
   outlineWidth?: BorderWidth;
   overflow?: Overflow;
   overflowBlock?: OverflowBlock;
   overflowInline?: OverflowInline;
-  padding?: Padding;
-  paddingBlock?: PaddingBlock;
-  paddingBlockEnd?: PaddingBlockEnd;
-  paddingBlockStart?: PaddingBlockStart;
-  paddingInline?: PaddingInline;
-  paddingInlineEnd?: PaddingInlineEnd;
-  paddingInlineStart?: PaddingInlineStart;
+  padding?: Space;
+  paddingBlock?: Space;
+  paddingBlockEnd?: Space;
+  paddingBlockStart?: Space;
+  paddingInline?: Space;
+  paddingInlineEnd?: Space;
+  paddingInlineStart?: Space;
   position?: Position;
   right?: Right;
-  rowGap?: RowGap;
+  rowGap?: Space;
   top?: Top;
   width?: Width;
   zIndex?: Layer;
 };
 
+// Generate maps for Box props. backgroundColor, padding, etc
 const spacingProperties = [
+  // Used by Box
   'padding',
   'paddingBlock',
   'paddingBlockStart',
@@ -995,6 +649,7 @@ const spacingProperties = [
   'paddingInline',
   'paddingInlineStart',
   'paddingInlineEnd',
+  // Used by Inline and Stack
   'gap',
   'rowGap',
   'columnGap',
@@ -1018,7 +673,7 @@ const getSerializedStylesMap = (
     return emotionSpacingMap;
   }, {} as SerializedStylesMap);
 };
-type SpacingToken = keyof typeof paddingMap;
+type SpacingToken = keyof typeof spaceMap;
 type BackgroundColorToken = keyof typeof backgroundColorMap;
 type SpacingStyleMap = Record<
   SpacingProperty,
@@ -1030,7 +685,7 @@ export const paddingStylesMap: SpacingStyleMap = spacingProperties.reduce(
   (styleMap, spacingProperty: SpacingProperty) => {
     styleMap[spacingProperty] = getSerializedStylesMap(
       spacingProperty,
-      paddingMap,
+      spaceMap,
     );
 
     return styleMap;

@@ -116,7 +116,7 @@
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@atlassian/codegen": "^0.1.0",
-    "@atlassian/gemini-visual-regression": "^0.0.9",
+    "@atlassian/gemini-visual-regression": "^0.0.11",
     "@testing-library/react": "^12.1.5",
     "csstype": "^3.1.0",
     "prettier": "^2.8.0",

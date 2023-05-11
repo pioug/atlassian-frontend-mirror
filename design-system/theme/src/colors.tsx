@@ -207,10 +207,10 @@ export const subtleText = themed({
 });
 /**
  * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-386 Internal documentation for deprecation (no external access)}
- * @deprecated use `token('color.text.subtlest')` instead.
+ * @deprecated use token('color.text.subtlest', N200) instead. Use DN200 as the fallback color for dark mode.
  */
 export const placeholderText = themed({
-  light: token('color.text.subtlest', N100),
+  light: token('color.text.subtlest', N200),
   dark: token('color.text.subtlest', DN200),
 });
 /**

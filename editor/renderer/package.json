@@ -72,7 +72,7 @@
     "@atlaskit/css-reset": "^6.5.0",
     "@atlaskit/docs": "*",
     "@atlaskit/editor-core": "^183.0.0",
-    "@atlaskit/editor-test-helpers": "^18.2.0",
+    "@atlaskit/editor-test-helpers": "^18.3.0",
     "@atlaskit/link-provider": "^1.6.0",
     "@atlaskit/logo": "^13.14.0",
     "@atlaskit/media-core": "^34.1.0",

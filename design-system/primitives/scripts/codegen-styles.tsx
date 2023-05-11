@@ -29,7 +29,7 @@ const targetPath = join(
   __dirname,
   '../',
   'src',
-  'internal',
+  'xcss',
   'style-maps.partial.tsx',
 );
 
@@ -48,7 +48,7 @@ const sourceFns = [
   // padding*, gap*, inset*
   () =>
     createPartialSignedArtifact(
-      options => options.map(createSpacingStylesFromTemplate).join('\n'),
+      createSpacingStylesFromTemplate,
       'yarn codegen-styles',
       {
         id: 'spacing',

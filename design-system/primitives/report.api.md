@@ -202,13 +202,13 @@ type BaseBoxPropsFoundation<T extends ElementType = 'div'> = {
   className?: string;
   children?: ReactNode;
   backgroundColor?: BackgroundColor;
-  padding?: Padding;
-  paddingBlock?: PaddingBlock;
-  paddingBlockStart?: PaddingBlockStart;
-  paddingBlockEnd?: PaddingBlockEnd;
-  paddingInline?: PaddingInline;
-  paddingInlineStart?: PaddingInlineStart;
-  paddingInlineEnd?: PaddingInlineEnd;
+  padding?: Space;
+  paddingBlock?: Space;
+  paddingBlockStart?: Space;
+  paddingBlockEnd?: Space;
+  paddingInline?: Space;
+  paddingInlineStart?: Space;
+  paddingInlineEnd?: Space;
   ref?: React.ComponentPropsWithRef<T>['ref'];
 };
 
@@ -219,7 +219,7 @@ type BasePrimitiveProps = {
 };
 
 // @public (undocumented)
-type BlockSize = keyof typeof dimensionMap;
+type BlockSize = Dimension;
 
 // @public (undocumented)
 type BorderColor = keyof typeof borderColorMap;
@@ -283,7 +283,7 @@ const borderWidthMap: {
 };
 
 // @public (undocumented)
-type Bottom = keyof typeof dimensionMap;
+type Bottom = Dimension;
 
 // @public
 export const Box: BoxComponent;
@@ -317,26 +317,12 @@ type BoxXCSS = {
 };
 
 // @public (undocumented)
-type ColumnGap =
-  | 'space.0'
-  | 'space.025'
-  | 'space.050'
-  | 'space.075'
-  | 'space.100'
-  | 'space.1000'
-  | 'space.150'
-  | 'space.200'
-  | 'space.250'
-  | 'space.300'
-  | 'space.400'
-  | 'space.500'
-  | 'space.600'
-  | 'space.800';
-
-// @public (undocumented)
 type CSSPseudos = {
   [Pseudo in CSS_2.Pseudos]?: SafeCSSObject;
 };
+
+// @public (undocumented)
+type Dimension = keyof typeof dimensionMap;
 
 // @public
 const dimensionMap: {
@@ -398,30 +384,13 @@ const flexShrinkMap: {
 };
 
 // @public (undocumented)
-type Gap =
-  | 'space.0'
-  | 'space.025'
-  | 'space.050'
-  | 'space.075'
-  | 'space.100'
-  | 'space.1000'
-  | 'space.150'
-  | 'space.200'
-  | 'space.250'
-  | 'space.300'
-  | 'space.400'
-  | 'space.500'
-  | 'space.600'
-  | 'space.800';
-
-// @public (undocumented)
 type Grow = 'fill' | 'hug';
 
 // @public (undocumented)
 type Grow_2 = 'fill' | 'hug';
 
 // @public (undocumented)
-type Height = keyof typeof dimensionMap;
+type Height = Dimension;
 
 // @public
 export const Inline: MemoExoticComponent<
@@ -452,16 +421,16 @@ export interface InlineProps<T extends ElementType = 'div'> {
   children: ReactNode;
   grow?: Grow;
   ref?: React.ComponentPropsWithRef<T>['ref'];
-  rowSpace?: RowGap;
+  rowSpace?: Space;
   separator?: string;
   shouldWrap?: boolean;
-  space?: Gap;
+  space?: Space;
   spread?: Spread;
   testId?: string;
 }
 
 // @public (undocumented)
-type InlineSize = keyof typeof dimensionMap;
+type InlineSize = Dimension;
 
 // @public (undocumented)
 type InlineStyles = SerializedStyles & {
@@ -470,125 +439,6 @@ type InlineStyles = SerializedStyles & {
 
 // @public (undocumented)
 const inlineTag: unique symbol;
-
-// @public (undocumented)
-type Inset =
-  | 'space.0'
-  | 'space.025'
-  | 'space.050'
-  | 'space.075'
-  | 'space.100'
-  | 'space.1000'
-  | 'space.150'
-  | 'space.200'
-  | 'space.250'
-  | 'space.300'
-  | 'space.400'
-  | 'space.500'
-  | 'space.600'
-  | 'space.800';
-
-// @public (undocumented)
-type InsetBlock =
-  | 'space.0'
-  | 'space.025'
-  | 'space.050'
-  | 'space.075'
-  | 'space.100'
-  | 'space.1000'
-  | 'space.150'
-  | 'space.200'
-  | 'space.250'
-  | 'space.300'
-  | 'space.400'
-  | 'space.500'
-  | 'space.600'
-  | 'space.800';
-
-// @public (undocumented)
-type InsetBlockEnd =
-  | 'space.0'
-  | 'space.025'
-  | 'space.050'
-  | 'space.075'
-  | 'space.100'
-  | 'space.1000'
-  | 'space.150'
-  | 'space.200'
-  | 'space.250'
-  | 'space.300'
-  | 'space.400'
-  | 'space.500'
-  | 'space.600'
-  | 'space.800';
-
-// @public (undocumented)
-type InsetBlockStart =
-  | 'space.0'
-  | 'space.025'
-  | 'space.050'
-  | 'space.075'
-  | 'space.100'
-  | 'space.1000'
-  | 'space.150'
-  | 'space.200'
-  | 'space.250'
-  | 'space.300'
-  | 'space.400'
-  | 'space.500'
-  | 'space.600'
-  | 'space.800';
-
-// @public (undocumented)
-type InsetInline =
-  | 'space.0'
-  | 'space.025'
-  | 'space.050'
-  | 'space.075'
-  | 'space.100'
-  | 'space.1000'
-  | 'space.150'
-  | 'space.200'
-  | 'space.250'
-  | 'space.300'
-  | 'space.400'
-  | 'space.500'
-  | 'space.600'
-  | 'space.800';
-
-// @public (undocumented)
-type InsetInlineEnd =
-  | 'space.0'
-  | 'space.025'
-  | 'space.050'
-  | 'space.075'
-  | 'space.100'
-  | 'space.1000'
-  | 'space.150'
-  | 'space.200'
-  | 'space.250'
-  | 'space.300'
-  | 'space.400'
-  | 'space.500'
-  | 'space.600'
-  | 'space.800';
-
-// @public (undocumented)
-type InsetInlineStart =
-  | 'space.0'
-  | 'space.025'
-  | 'space.050'
-  | 'space.075'
-  | 'space.100'
-  | 'space.1000'
-  | 'space.150'
-  | 'space.200'
-  | 'space.250'
-  | 'space.300'
-  | 'space.400'
-  | 'space.500'
-  | 'space.600'
-  | 'space.800';
 
 // @public (undocumented)
 type Layer = keyof typeof layerMap;
@@ -607,31 +457,31 @@ const layerMap: {
 };
 
 // @public (undocumented)
-type Left = keyof typeof dimensionMap;
+type Left = Dimension;
 
 // @public (undocumented)
-type MaxBlockSize = keyof typeof dimensionMap;
+type MaxBlockSize = Dimension;
 
 // @public (undocumented)
-type MaxHeight = keyof typeof dimensionMap;
+type MaxHeight = Dimension;
 
 // @public (undocumented)
-type MaxInlineSize = keyof typeof dimensionMap;
+type MaxInlineSize = Dimension;
 
 // @public (undocumented)
-type MaxWidth = keyof typeof dimensionMap;
+type MaxWidth = Dimension;
 
 // @public (undocumented)
-type MinBlockSize = keyof typeof dimensionMap;
+type MinBlockSize = Dimension;
 
 // @public (undocumented)
-type MinHeight = keyof typeof dimensionMap;
+type MinHeight = Dimension;
 
 // @public (undocumented)
-type MinInlineSize = keyof typeof dimensionMap;
+type MinInlineSize = Dimension;
 
 // @public (undocumented)
-type MinWidth = keyof typeof dimensionMap;
+type MinWidth = Dimension;
 
 // @public (undocumented)
 type Overflow = keyof typeof overflowMap;
@@ -661,125 +511,6 @@ const overflowMap: {
 };
 
 // @public (undocumented)
-type Padding =
-  | 'space.0'
-  | 'space.025'
-  | 'space.050'
-  | 'space.075'
-  | 'space.100'
-  | 'space.1000'
-  | 'space.150'
-  | 'space.200'
-  | 'space.250'
-  | 'space.300'
-  | 'space.400'
-  | 'space.500'
-  | 'space.600'
-  | 'space.800';
-
-// @public (undocumented)
-type PaddingBlock =
-  | 'space.0'
-  | 'space.025'
-  | 'space.050'
-  | 'space.075'
-  | 'space.100'
-  | 'space.1000'
-  | 'space.150'
-  | 'space.200'
-  | 'space.250'
-  | 'space.300'
-  | 'space.400'
-  | 'space.500'
-  | 'space.600'
-  | 'space.800';
-
-// @public (undocumented)
-type PaddingBlockEnd =
-  | 'space.0'
-  | 'space.025'
-  | 'space.050'
-  | 'space.075'
-  | 'space.100'
-  | 'space.1000'
-  | 'space.150'
-  | 'space.200'
-  | 'space.250'
-  | 'space.300'
-  | 'space.400'
-  | 'space.500'
-  | 'space.600'
-  | 'space.800';
-
-// @public (undocumented)
-type PaddingBlockStart =
-  | 'space.0'
-  | 'space.025'
-  | 'space.050'
-  | 'space.075'
-  | 'space.100'
-  | 'space.1000'
-  | 'space.150'
-  | 'space.200'
-  | 'space.250'
-  | 'space.300'
-  | 'space.400'
-  | 'space.500'
-  | 'space.600'
-  | 'space.800';
-
-// @public (undocumented)
-type PaddingInline =
-  | 'space.0'
-  | 'space.025'
-  | 'space.050'
-  | 'space.075'
-  | 'space.100'
-  | 'space.1000'
-  | 'space.150'
-  | 'space.200'
-  | 'space.250'
-  | 'space.300'
-  | 'space.400'
-  | 'space.500'
-  | 'space.600'
-  | 'space.800';
-
-// @public (undocumented)
-type PaddingInlineEnd =
-  | 'space.0'
-  | 'space.025'
-  | 'space.050'
-  | 'space.075'
-  | 'space.100'
-  | 'space.1000'
-  | 'space.150'
-  | 'space.200'
-  | 'space.250'
-  | 'space.300'
-  | 'space.400'
-  | 'space.500'
-  | 'space.600'
-  | 'space.800';
-
-// @public (undocumented)
-type PaddingInlineStart =
-  | 'space.0'
-  | 'space.025'
-  | 'space.050'
-  | 'space.075'
-  | 'space.100'
-  | 'space.1000'
-  | 'space.150'
-  | 'space.200'
-  | 'space.250'
-  | 'space.300'
-  | 'space.400'
-  | 'space.500'
-  | 'space.600'
-  | 'space.800';
-
-// @public (undocumented)
 type Position = keyof typeof positionMap;
 
 // @public (undocumented)
@@ -796,24 +527,7 @@ type PublicBoxPropsBase = {
 };
 
 // @public (undocumented)
-type Right = keyof typeof dimensionMap;
-
-// @public (undocumented)
-type RowGap =
-  | 'space.0'
-  | 'space.025'
-  | 'space.050'
-  | 'space.075'
-  | 'space.100'
-  | 'space.1000'
-  | 'space.150'
-  | 'space.200'
-  | 'space.250'
-  | 'space.300'
-  | 'space.400'
-  | 'space.500'
-  | 'space.600'
-  | 'space.800';
+type Right = Dimension;
 
 // @public (undocumented)
 type SafeCSSObject = CSSPseudos &
@@ -836,6 +550,27 @@ const shadowMap: {
   readonly 'overflow.spread': 'var(--ds-shadow-overflow-spread)';
   readonly overlay: 'var(--ds-shadow-overlay)';
   readonly raised: 'var(--ds-shadow-raised)';
+};
+
+// @public (undocumented)
+type Space = keyof typeof spaceMap;
+
+// @public
+const spaceMap: {
+  'space.0': 'var(--ds-space-0)';
+  'space.025': 'var(--ds-space-025)';
+  'space.050': 'var(--ds-space-050)';
+  'space.075': 'var(--ds-space-075)';
+  'space.100': 'var(--ds-space-100)';
+  'space.150': 'var(--ds-space-150)';
+  'space.200': 'var(--ds-space-200)';
+  'space.250': 'var(--ds-space-250)';
+  'space.300': 'var(--ds-space-300)';
+  'space.400': 'var(--ds-space-400)';
+  'space.500': 'var(--ds-space-500)';
+  'space.600': 'var(--ds-space-600)';
+  'space.800': 'var(--ds-space-800)';
+  'space.1000': 'var(--ds-space-1000)';
 };
 
 // @public (undocumented)
@@ -870,7 +605,7 @@ export interface StackProps<T extends ElementType = 'div'> {
   children: ReactNode;
   grow?: Grow_2;
   ref?: React.ComponentPropsWithRef<T>['ref'];
-  space?: Gap;
+  space?: Space;
   spread?: Spread_2;
   testId?: string;
 }
@@ -925,22 +660,22 @@ type TokenisedProps = {
   bottom?: Bottom;
   boxShadow?: Shadow;
   color?: TextColor;
-  columnGap?: ColumnGap;
+  columnGap?: Space;
   display?: Display;
   flex?: Flex;
   flexDirection?: FlexDirection;
   flexGrow?: FlexGrow;
   flexShrink?: FlexShrink;
-  gap?: Gap;
+  gap?: Space;
   height?: Height;
   inlineSize?: InlineSize;
-  inset?: Inset;
-  insetBlock?: InsetBlock;
-  insetBlockEnd?: InsetBlockEnd;
-  insetBlockStart?: InsetBlockStart;
-  insetInline?: InsetInline;
-  insetInlineEnd?: InsetInlineEnd;
-  insetInlineStart?: InsetInlineStart;
+  inset?: Space;
+  insetBlock?: Space;
+  insetBlockEnd?: Space;
+  insetBlockStart?: Space;
+  insetInline?: Space;
+  insetInlineEnd?: Space;
+  insetInlineStart?: Space;
   left?: Left;
   maxBlockSize?: MaxBlockSize;
   maxHeight?: MaxHeight;
@@ -951,34 +686,34 @@ type TokenisedProps = {
   minInlineSize?: MinInlineSize;
   minWidth?: MinWidth;
   outlineColor?: BorderColor;
-  outlineOffset?: Padding;
+  outlineOffset?: Space;
   outlineWidth?: BorderWidth;
   overflow?: Overflow;
   overflowBlock?: OverflowBlock;
   overflowInline?: OverflowInline;
-  padding?: Padding;
-  paddingBlock?: PaddingBlock;
-  paddingBlockEnd?: PaddingBlockEnd;
-  paddingBlockStart?: PaddingBlockStart;
-  paddingInline?: PaddingInline;
-  paddingInlineEnd?: PaddingInlineEnd;
-  paddingInlineStart?: PaddingInlineStart;
+  padding?: Space;
+  paddingBlock?: Space;
+  paddingBlockEnd?: Space;
+  paddingBlockStart?: Space;
+  paddingInline?: Space;
+  paddingInlineEnd?: Space;
+  paddingInlineStart?: Space;
   position?: Position;
   right?: Right;
-  rowGap?: RowGap;
+  rowGap?: Space;
   top?: Top;
   width?: Width;
   zIndex?: Layer;
 };
 
 // @public (undocumented)
-type Top = keyof typeof dimensionMap;
+type Top = Dimension;
 
 // @public (undocumented)
 const uniqueSymbol: unique symbol;
 
 // @public (undocumented)
-type Width = keyof typeof dimensionMap;
+type Width = Dimension;
 
 // @public
 export function xcss<Primitive extends typeof Box | typeof Inline = typeof Box>(

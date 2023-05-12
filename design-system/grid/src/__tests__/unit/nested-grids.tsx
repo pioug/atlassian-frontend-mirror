@@ -29,7 +29,7 @@ describe('Nested Grids', () => {
       ),
     ).toThrow(
       new Error(
-        'Invariant failed: @atlaskit/grid: Nesting grids are not supported at this time, please only use a top-level grid.',
+        'Invariant failed: @atlaskit/grid: Nesting grids are not supported at this time, please only use a top-level grid or leverage GridContainer.',
       ),
     );
 
@@ -45,7 +45,7 @@ describe('Nested Grids', () => {
       ),
     ).toThrow(
       new Error(
-        'Invariant failed: @atlaskit/grid: Nesting grids are not supported at this time, please only use a top-level grid.',
+        'Invariant failed: @atlaskit/grid: Nesting grids are not supported at this time, please only use a top-level grid or leverage GridContainer.',
       ),
     );
   });

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/right-side-panel",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "A cross-product right-side-panel component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -57,7 +57,8 @@
   "techstack": {
     "@repo/internal": {
       "design-tokens": [
-        "color"
+        "color",
+        "spacing"
       ]
     }
   }

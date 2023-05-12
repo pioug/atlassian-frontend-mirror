@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/help-layout",
-  "version": "4.2.0",
+  "version": "4.2.1",
   "description": "Layout for the atlaskit/help component.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -62,7 +62,8 @@
   "techstack": {
     "@repo/internal": {
       "design-tokens": [
-        "color"
+        "color",
+        "spacing"
       ]
     }
   }

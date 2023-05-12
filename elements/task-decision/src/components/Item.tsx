@@ -5,7 +5,7 @@ import { css, jsx } from '@emotion/react';
 import { Appearance, ContentRef, TaskType, DecisionType } from '../types';
 import { themed } from '@atlaskit/theme/components';
 import { token } from '@atlaskit/tokens';
-import { DN50, N100, N20A } from '@atlaskit/theme/colors';
+import { DN50, N200, N20A } from '@atlaskit/theme/colors';
 import { borderRadius, gridSize } from '@atlaskit/theme/constants';
 import type { Theme } from '@atlaskit/theme/types';
 
@@ -46,7 +46,7 @@ const placeHolderStyles = (offset: number) =>
   css({
     margin: `0 0 0 ${offset}px`,
     position: 'absolute',
-    color: token('color.text.subtlest', N100),
+    color: token('color.text.subtlest', N200),
     pointerEvents: 'none',
     textOverflow: 'ellipsis',
     overflow: 'hidden',

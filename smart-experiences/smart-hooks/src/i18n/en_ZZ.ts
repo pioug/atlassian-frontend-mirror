@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -6,22 +7,15 @@
  */
 //
 export default {
-  'smart-experiences.smart-hooks.external.sourced.from':
-    '⁣⁢Found in:⁠⁪⁡⁯⁠⁠؜⁫‌‍⁬⁬⁡⁬⁭⁬⁬⁫؜⁪‌⁬⁬⁠⁭⁣⁤',
-  'smart-experiences.smart-hooks.github.provider':
-    '⁣⁢GitHub⁠⁭‍‍⁮⁭⁬⁡⁡⁪‌⁭‌‌⁫‌⁭؜⁣⁤',
-  'smart-experiences.smart-hooks.google.provider':
-    '⁣⁢Google⁯⁮⁡⁪‌⁠⁮⁭⁪⁪⁪⁠‌⁮⁯⁮⁮⁫⁮؜⁯‌⁯‍؜⁯⁣⁤',
-  'smart-experiences.smart-hooks.guest.lozenge.text':
-    '⁣⁢GUEST‍⁠‌⁮⁡؜؜‍⁭⁮⁠؜⁫‍⁪⁯⁫⁪⁬⁭⁡⁯⁣⁤',
+  'smart-experiences.smart-hooks.external.sourced.from': '⁣⁢Found in:⁠⁪⁡⁯⁠⁠؜⁫‌‍⁬⁬⁡⁬⁭⁬⁬⁫؜⁪‌⁬⁬⁠⁭⁣⁤',
+  'smart-experiences.smart-hooks.github.provider': '⁣⁢GitHub⁠⁭‍‍⁮⁭⁬⁡⁡⁪‌⁭‌‌⁫‌⁭؜⁣⁤',
+  'smart-experiences.smart-hooks.google.provider': '⁣⁢Google⁯⁮⁡⁪‌⁠⁮⁭⁪⁪⁪⁠‌⁮⁯⁮⁮⁫⁮؜⁯‌⁯‍؜⁯⁣⁤',
+  'smart-experiences.smart-hooks.guest.lozenge.text': '⁣⁢GUEST‍⁠‌⁮⁡؜؜‍⁭⁮⁠؜⁫‍⁪⁯⁫⁪⁬⁭⁡⁯⁣⁤',
   'smart-experiences.smart-hooks.guest.lozenge.tooltip.group':
     '⁣⁢Guest groups can only access certain spaces and have limited access to user info.⁯⁬⁮⁫‍‌⁯⁡⁪⁫؜⁬⁬‌⁫‍⁬⁬؜⁭‌⁣⁤',
   'smart-experiences.smart-hooks.guest.lozenge.tooltip.user':
     '⁣⁢Guests can only access certain spaces and have limited access to user info.⁬⁬⁮⁮⁯⁫⁭⁯⁬⁭⁭⁪؜⁠‍⁮⁫⁠⁣⁤',
-  'smart-experiences.smart-hooks.member.lozenge.text':
-    '⁣⁢MEMBER‌⁫⁮⁠‌‍⁫⁯‌⁡⁠⁭⁪⁠⁭⁡⁬⁠⁪⁮⁣⁤',
-  'smart-experiences.smart-hooks.microsoft.provider':
-    '⁣⁢Microsoft؜⁯⁭؜⁠‌⁭⁫⁯⁮⁭⁪‍‌‌⁡‍‍⁬⁯⁪‍⁪⁣⁤',
-  'smart-experiences.smart-hooks.slack.provider':
-    '⁣⁢Slack؜⁯‌⁭⁭⁭⁪⁮⁯⁫⁭⁮⁪⁡⁯⁠⁭؜⁮⁫⁭⁬⁪‌⁣⁤',
+  'smart-experiences.smart-hooks.member.lozenge.text': '⁣⁢MEMBER‌⁫⁮⁠‌‍⁫⁯‌⁡⁠⁭⁪⁠⁭⁡⁬⁠⁪⁮⁣⁤',
+  'smart-experiences.smart-hooks.microsoft.provider': '⁣⁢Microsoft؜⁯⁭؜⁠‌⁭⁫⁯⁮⁭⁪‍‌‌⁡‍‍⁬⁯⁪‍⁪⁣⁤',
+  'smart-experiences.smart-hooks.slack.provider': '⁣⁢Slack؜⁯‌⁭⁭⁭⁪⁮⁯⁫⁭⁮⁪⁡⁯⁠⁭؜⁮⁫⁭⁬⁪‌⁣⁤',
 };

@@ -1,5 +1,11 @@
 # @atlaskit/task-decision
 
+## 17.6.1
+
+### Patch Changes
+
+- [`98c74fa6f26`](https://bitbucket.org/atlassian/atlassian-frontend/commits/98c74fa6f26) - [ux] fix placeholder fallback
+
 ## 17.6.0
 
 ### Minor Changes

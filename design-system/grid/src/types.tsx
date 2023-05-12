@@ -59,3 +59,27 @@ export type GridItemProps = {
    */
   span?: SpanOptions | SpanObject;
 };
+
+export type BaseGridProps = {
+  /**
+   * A test id for automated testing
+   */
+  testId?: string;
+  /**
+   * If set, will restrict the max-width of the Grid to pre-defined values.
+   *
+   * `'narrow'` = 744px
+   * `'wide'` = 1128px
+   */
+  maxWidth?: 'narrow' | 'wide';
+  /**
+   * The grid items.
+   */
+  children: ReactNode;
+  /**
+   * Remove inline padding from grid.
+   *
+   * @default true
+   */
+  hasInlinePadding?: boolean;
+};

@@ -1,5 +1,11 @@
 # @atlaskit/checkbox
 
+## 12.6.0
+
+### Minor Changes
+
+- [`8d0fd2d3f6c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d0fd2d3f6c) - [ux] reduce stroke width from 2px to 1px with new color to meet contrast requirement
+
 ## 12.5.0
 
 ### Minor Changes

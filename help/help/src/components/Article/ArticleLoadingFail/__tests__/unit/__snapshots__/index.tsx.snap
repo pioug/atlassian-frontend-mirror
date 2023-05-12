@@ -2,7 +2,7 @@
 
 exports[`ArticleLoadingFail Should match snapshot 1`] = `
 .emotion-2 {
-  padding-top: 24px;
+  padding-top: var(--ds-space-300,24px);
   text-align: center;
 }
 

@@ -5,6 +5,22 @@ import LozengeActionError from '../index';
 import * as useResolve from '../../../../../../../state/hooks/use-resolve';
 import { LozengeActionErrorMessages, LozengeActionErrorProps } from '../types';
 
+const mockSmartLinkLozengeOpenPreviewClickedEvent = jest.fn();
+
+jest.mock('../../../../../../../state/flexible-ui-context', () => ({
+  useFlexibleUiAnalyticsContext: () => ({
+    ui: {
+      smartLinkLozengeActionErrorOpenPreviewClickedEvent:
+        mockSmartLinkLozengeOpenPreviewClickedEvent,
+      modalClosedEvent: jest.fn(),
+      renderSuccessEvent: jest.fn(),
+    },
+    screen: {
+      modalViewedEvent: jest.fn(),
+    },
+  }),
+}));
+
 describe('LozengeActionError', () => {
   const testId = 'test-smart-element-lozenge-dropdown';
   const TEXT_ERROR_MESSAGE =
@@ -172,5 +188,34 @@ describe('LozengeActionError', () => {
       queryByTestId('smart-embed-preview-modal'),
     );
     expect(mockReload).toHaveBeenCalledWith(url, true);
+  });
+
+  it('fires button clicked event with smartLinkStatusOpenPreview subject id when an embed preview is open', async () => {
+    const { findByTestId } = renderComponent({
+      errorMessage: TEXT_ERROR_MESSAGE,
+      previewData,
+      url,
+    });
+
+    // make sure an error link is present
+    const link = await findByTestId(`${testId}-open-embed`);
+    expect(link).toBeDefined();
+    expect(link.textContent).toBe('Open issue in Jira');
+
+    link.click();
+
+    // make sure the preview modal is present
+    const previewModal = await findByTestId('smart-embed-preview-modal');
+    expect(previewModal).toBeDefined();
+
+    const closeButton = await findByTestId(
+      'smart-embed-preview-modal-close-button',
+    );
+    expect(closeButton).toBeDefined();
+    closeButton.click();
+
+    expect(mockSmartLinkLozengeOpenPreviewClickedEvent).toHaveBeenCalledTimes(
+      1,
+    );
   });
 });

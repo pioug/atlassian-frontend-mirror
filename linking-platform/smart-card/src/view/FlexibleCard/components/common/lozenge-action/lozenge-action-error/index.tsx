@@ -43,6 +43,8 @@ const LozengeActionError: FC<LozengeActionErrorProps> = ({
 
   const handlePreviewOpen = useCallback(() => {
     if (isPreviewAvailable) {
+      analytics?.ui.smartLinkLozengeActionErrorOpenPreviewClickedEvent();
+
       return openPreviewModal({
         ...previewData,
         analytics,

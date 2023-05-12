@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/checkbox",
-  "version": "12.5.0",
+  "version": "12.6.0",
   "description": "A checkbox is an input control that allows a user to select one or more options from a number of choices.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -29,6 +29,7 @@
     "@atlaskit/analytics-next": "^9.1.0",
     "@atlaskit/ds-lib": "^2.2.0",
     "@atlaskit/icon": "^21.12.0",
+    "@atlaskit/platform-feature-flags": "^0.2.0",
     "@atlaskit/theme": "^12.5.0",
     "@atlaskit/tokens": "^1.3.0",
     "@babel/runtime": "^7.0.0",
@@ -47,6 +48,7 @@
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
+    "@atlassian/feature-flags-test-utils": "*",
     "@testing-library/react": "^12.1.5",
     "jscodeshift": "^0.13.0",
     "react-dom": "^16.8.0",
@@ -77,6 +79,11 @@
         "emotion",
         "static"
       ]
+    }
+  },
+  "platform-feature-flags": {
+    "platform.design-system-team.update-border-input_ff9l1": {
+      "type": "boolean"
     }
   },
   "homepage": "https://atlassian.design/components/checkbox/",

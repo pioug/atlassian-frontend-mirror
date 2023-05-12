@@ -4,6 +4,7 @@ import { bindAll, Binding } from 'bind-event-listener';
 import type { Direction, DraggableLocation } from 'react-beautiful-dnd';
 
 import { useCleanupFn } from '../../hooks/use-cleanup-fn';
+import type { CleanupFn } from '../../internal-types';
 import {
   attributes,
   customAttributes,
@@ -285,12 +286,23 @@ export function useKeyboardControls({
   dragController,
   droppableRegistry,
   contextId,
+  setKeyboardCleanupFn,
 }: {
   dragController: DragController;
   droppableRegistry: DroppableRegistry;
   contextId: string;
+  /**
+   * Sets the cleanup function that should run whenever:
+   * - A user drops
+   * - A user cancels a drag
+   * - There is an error, cancelling a drag
+   *
+   * Because this hook has no visibility of when a drag is cancelled due to
+   * an error, the cleanup is handled at the level above.
+   */
+  setKeyboardCleanupFn: (cleanupFn: CleanupFn) => void;
 }): { startKeyboardDrag: StartKeyboardDrag } {
-  const { setCleanupFn, runCleanupFn } = useCleanupFn();
+  const rafCleanup = useCleanupFn();
 
   const startKeyboardDrag: StartKeyboardDrag = useCallback(
     ({
@@ -328,7 +340,6 @@ export function useKeyboardControls({
 
       function cancelDrag() {
         dragController.stopDrag({ reason: 'CANCEL' });
-        runCleanupFn();
       }
 
       /**
@@ -360,20 +371,18 @@ export function useKeyboardControls({
             listener(event: KeyboardEvent) {
               const { isDragging } = dragController.getDragState();
               if (!isDragging) {
-                runCleanupFn();
                 return;
               }
 
               if (event.key === ' ') {
                 event.preventDefault();
                 dragController.stopDrag({ reason: 'DROP' });
-                runCleanupFn();
                 return;
               }
 
               if (event.key === 'Escape') {
                 event.preventDefault();
-                cancelDrag();
+                dragController.stopDrag({ reason: 'CANCEL' });
                 return;
               }
 
@@ -387,14 +396,20 @@ export function useKeyboardControls({
           ...cancelBindings,
         ]);
 
-        setCleanupFn(cleanupFn);
+        setKeyboardCleanupFn(cleanupFn);
       });
 
-      setCleanupFn(() => {
+      rafCleanup.setCleanupFn(() => {
         cancelAnimationFrame(id);
       });
     },
-    [contextId, dragController, droppableRegistry, runCleanupFn, setCleanupFn],
+    [
+      contextId,
+      dragController,
+      droppableRegistry,
+      rafCleanup,
+      setKeyboardCleanupFn,
+    ],
   );
 
   return { startKeyboardDrag };

@@ -162,7 +162,10 @@ export const getCellDomAttrs = (node: PmNode): CellDomAttrs => {
     if (ignored) {
       attrs.style = '';
     } else {
-      const color = isRgb(background) ? rgbToHex(background) : background;
+      const color =
+        isRgb(background) && rgbToHex(background)
+          ? rgbToHex(background)
+          : background;
       const tokenName = hexToEditorBackgroundPaletteColorTokenName(color);
       // eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
       const tokenColor = tokenName ? getTokenValue(tokenName) : color;

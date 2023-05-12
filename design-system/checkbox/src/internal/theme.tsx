@@ -1,3 +1,4 @@
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import {
   B100,
   B200,
@@ -11,6 +12,7 @@ import {
   DN80,
   DN90,
   N10,
+  N100,
   N20,
   N30,
   N40,
@@ -22,8 +24,18 @@ import { token } from '@atlaskit/tokens';
 const theme = {
   light: {
     borderColor: {
-      rest: token('color.border.input', N40),
-      hovered: token('color.border.input', N40),
+      rest: token(
+        'color.border.input',
+        getBooleanFF('platform.design-system-team.update-border-input_ff9l1')
+          ? N100
+          : N40,
+      ),
+      hovered: token(
+        'color.border.input',
+        getBooleanFF('platform.design-system-team.update-border-input_ff9l1')
+          ? N100
+          : N40,
+      ),
       disabled: token('color.background.disabled', N20),
       checked: token('color.background.selected.bold', B400),
       active: token('color.border', B50),
@@ -48,7 +60,12 @@ const theme = {
   },
   dark: {
     borderColor: {
-      rest: token('color.border.input', DN80),
+      rest: token(
+        'color.border.input',
+        getBooleanFF('platform.design-system-team.update-border-input_ff9l1')
+          ? DN200
+          : DN80,
+      ),
       hovered: token('color.border.input', DN200),
       disabled: token('color.background.disabled', DN10),
       checked: token('color.background.selected.bold', B400),

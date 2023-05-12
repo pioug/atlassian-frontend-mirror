@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 26.1.2
+
+### Patch Changes
+
+- [`f50bead1f15`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f50bead1f15) - Added firing an analytics event on action lozenge error modal opening
+
 ## 26.1.1
 
 ### Patch Changes

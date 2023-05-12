@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "183.0.0",
+  "version": "183.0.6",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -37,7 +37,7 @@
     "@atlaskit/avatar-group": "^9.3.0",
     "@atlaskit/button": "^16.7.0",
     "@atlaskit/calendar": "^13.1.0",
-    "@atlaskit/checkbox": "^12.5.0",
+    "@atlaskit/checkbox": "^12.6.0",
     "@atlaskit/code": "^14.6.0",
     "@atlaskit/date": "^0.10.0",
     "@atlaskit/datetime-picker": "^12.5.0",

@@ -1,5 +1,11 @@
 # @atlaskit/adf-schema
 
+## 25.6.1
+
+### Patch Changes
+
+- [`0233170f43a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0233170f43a) - ED-17810 Handled malformed RGB table cell background color.
+
 ## 25.6.0
 
 ### Minor Changes

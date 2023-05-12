@@ -1,5 +1,11 @@
 # @atlaskit/tree
 
+## 8.8.2
+
+### Patch Changes
+
+- [`a1935b9b9bc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a1935b9b9bc) - Upgrading @atlaskit/tokens dependency to version 1.3.2
+
 ## 8.8.1
 
 ### Patch Changes

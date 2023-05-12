@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 183.0.6
+
+### Patch Changes
+
+- [`98c74fa6f26`](https://bitbucket.org/atlassian/atlassian-frontend/commits/98c74fa6f26) - [ux] fix placeholder fallback
+
 ## 183.0.0
 
 ### Minor Changes

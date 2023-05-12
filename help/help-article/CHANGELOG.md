@@ -1,5 +1,11 @@
 # @atlaskit/help-article
 
+## 4.1.1
+
+### Patch Changes
+
+- [`7e051bad115`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7e051bad115) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
+
 ## 4.1.0
 
 ### Minor Changes

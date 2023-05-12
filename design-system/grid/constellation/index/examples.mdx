@@ -6,6 +6,7 @@ import Grid from '../../examples/constellation/grid-default';
 import GridNarrow from '../../examples/constellation/grid-narrow';
 import GridWide from '../../examples/constellation/grid-wide';
 import GridInlinePadding from '../../examples/constellation/grid-inline-padding';
+import GridContainer from '../../examples/constellation/grid-container';
 import ItemSpan from '../../examples/constellation/item-span';
 import ItemHidden from '../../examples/constellation/item-hidden';
 import ItemStart from '../../examples/constellation/item-start';
@@ -98,3 +99,15 @@ This is because whenever a column is unavailable on the same row subsequently fr
 ## Nested grids
 
 We do not support nested Grids at this stage; doing so will throw an error.  Further guidance may be provided in the future.
+
+## Grid container
+
+`GridContainer` allows the stacking of independent grids on top of each other.
+
+Functionaly, it is a grid that has a single fluid column with the same responsive gutter as `Grid`. This allows the stacking of multiple independent grids whilst keeping the vertical rhythm enforced by Grid's responsive gap values.
+
+When within `GridContainer` all `Grid` instances are configured to fill their `GridContainer's` width, whilst also disabling inline padding.
+
+In that case, the `hasInlinePadding` and `maxWidth` props should be set in the `GridContainer` instead, ignoring them in `Grid`.
+
+<Example Component={GridContainer} packageName="@atlaskit/grid" />

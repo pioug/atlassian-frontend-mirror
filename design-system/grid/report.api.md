@@ -16,12 +16,26 @@
 
 ```ts
 import { FC } from 'react';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import type { ResponsiveObject } from '@atlaskit/primitives/responsive';
+
+// @public (undocumented)
+type BaseGridProps = {
+  testId?: string;
+  maxWidth?: 'narrow' | 'wide';
+  children: ReactNode;
+  hasInlinePadding?: boolean;
+};
 
 // @public
 const Grid: FC<GridProps>;
 export default Grid;
+
+// @public
+export const GridContainer: FC<GridContainerProps>;
+
+// @public (undocumented)
+type GridContainerProps = BaseGridProps;
 
 // @public
 export const GridItem: FC<GridItemProps>;
@@ -35,12 +49,7 @@ export type GridItemProps = {
 };
 
 // @public (undocumented)
-export type GridProps = {
-  testId?: string;
-  maxWidth?: 'narrow' | 'wide';
-  children: ReactNode;
-  hasInlinePadding?: boolean;
-};
+export type GridProps = BaseGridProps;
 
 // @public (undocumented)
 type SpanObject = ResponsiveObject<SpanOptions>;

@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import styled from '@emotion/styled';
-import { gridSize } from '@atlaskit/theme/constants';
 import * as colors from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -16,21 +15,23 @@ export const SearchResultsContainer = styled.div`
   overflow-x: hidden;
   overflow-y: auto;
   z-index: 10;
-  padding: 0 ${2 * gridSize()}px;
+  padding: 0 ${token('space.200', '16px')};
 `;
 
 export const SearchResultsList = styled.div`
-  padding-top: ${3 * gridSize()}px;
+  padding-top: ${token('space.300', '24px')};
   position: relative;
 `;
 
 export const SearchResultEmptyMessageImage = styled.div`
-  padding: ${3 * gridSize()}px ${3 * gridSize()}px 0 ${3 * gridSize()}px;
+  padding: ${token('space.300', '24px')} ${token('space.300', '24px')} 0
+    ${token('space.300', '24px')};
   text-align: center;
 `;
 
 export const SearchResultEmptyMessageText = styled.div`
-  padding: ${3 * gridSize()}px ${3 * gridSize()}px 0 ${3 * gridSize()}px;
+  padding: ${token('space.300', '24px')} ${token('space.300', '24px')} 0
+    ${token('space.300', '24px')};
   text-align: center;
 
   p {
@@ -39,7 +40,7 @@ export const SearchResultEmptyMessageText = styled.div`
 `;
 
 export const SearchResultSearchExternalSiteContainer = styled.div`
-  padding: ${3 * gridSize()}px;
+  padding: ${token('space.300', '24px')};
   text-align: center;
 
   p {

@@ -1,5 +1,11 @@
 # @atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration
 
+## 0.4.1
+
+### Patch Changes
+
+- [`be8246510ed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/be8246510ed) - Ensures that keyboard drag event bindings are properly cleaned up when a drag is cancelled because of an unhandled error on the window.
+
 ## 0.4.0
 
 ### Minor Changes

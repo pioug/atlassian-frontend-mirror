@@ -2,7 +2,7 @@
 
 exports[`WhatsNewResultsError Should match snapshot 1`] = `
 .emotion-0 {
-  padding: 24px 24px 0 24px;
+  padding: var(--ds-space-300,24px) var(--ds-space-300,24px) 0 var(--ds-space-300,24px);
   text-align: center;
 }
 

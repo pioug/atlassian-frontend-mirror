@@ -5,6 +5,7 @@ import { css, jsx } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { ButtonGroup } from '@atlaskit/button';
 import LoadingButton from '@atlaskit/button/loading-button';
 import Button from '@atlaskit/button/standard-button';
 import Form, { FormFooter, FormSection } from '@atlaskit/form';
@@ -98,22 +99,23 @@ export const CreateForm = <FormData extends Record<string, any> = {}>({
                 {formErrorMessage}
               </div>
             )}
-
-            <Button
-              appearance="subtle"
-              onClick={handleCancel}
-              testId={'cancel-button'}
-            >
-              {intl.formatMessage(messages.cancel)}
-            </Button>
-            <LoadingButton
-              appearance="primary"
-              type="submit"
-              isLoading={submitting}
-              testId={'create-button'}
-            >
-              {intl.formatMessage(messages.create)}
-            </LoadingButton>
+            <ButtonGroup>
+              <Button
+                appearance="subtle"
+                onClick={handleCancel}
+                testId={'cancel-button'}
+              >
+                {intl.formatMessage(messages.cancel)}
+              </Button>
+              <LoadingButton
+                appearance="primary"
+                type="submit"
+                isLoading={submitting}
+                testId={'create-button'}
+              >
+                {intl.formatMessage(messages.create)}
+              </LoadingButton>
+            </ButtonGroup>
           </FormFooter>
         </form>
       )}

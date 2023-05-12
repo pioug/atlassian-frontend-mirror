@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@atlaskit/button": "^16.7.0",
-    "@atlaskit/checkbox": "^12.5.0",
+    "@atlaskit/checkbox": "^12.6.0",
     "@atlaskit/flag": "^15.2.0",
     "@atlaskit/form": "^8.11.0",
     "@atlaskit/icon": "^21.12.0",

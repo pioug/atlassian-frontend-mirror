@@ -1,0 +1,31 @@
+---
+title: Stack
+description: A Stack is a primitive component that is responsible for the vertical layout of its child elements.
+order: 2
+---
+
+Primitive components are designed to act as building blocks for composing a user experience. A `Stack` primitive should be used when you want to layout UI elements vertically, and make use of the built-in design guidance from the Atlassian Design System. 
+
+`Stack` primitives work by aligning content vertically on a page or layout, as a container that decides the vertical layout of its children. `Stack` components also decide the specifics of how the children are displayed, for example, where they are aligned or how much space is between child elements. `Stack` should be used purely for visual alignment, and should have no opinions about the functionality of its children.  
+
+In its simplest form, `Stack` operates like a flexbox column, however adds the built in design token support and guidance.
+
+```jsx
+<Stack space="space.100" alignInline="center" alignBlock="start">
+  ...
+</Stack>
+```
+
+## Use `Stack`
+The purpose of a `Stack` is primarily as a container element controlling how content is displayed and aligned vertically. `Stack` should be used any time you wish to layout elements or components vertically. 
+
+The various `Stack` props can then be used to customize the spacing and styling on any child elements. These include:
+- `alignBlock`
+- `alignInline`
+- `spread`
+- `grow`
+- `space`
+
+## Related
+- [Learn more about the Box primitive](/primitives/box/usage)
+- [Learn more about the Stack primitive](/primitives/box/usage)

@@ -1,5 +1,11 @@
 # @atlaskit/grid
 
+## 0.10.0
+
+### Minor Changes
+
+- [`b699bbebf6b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b699bbebf6b) - [ux] Add GridContainer, a component that allows the vertical stacking of independent Grid components while keeping the standard grid gap between grids
+
 ## 0.9.0
 
 ### Minor Changes

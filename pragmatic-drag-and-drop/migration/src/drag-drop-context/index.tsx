@@ -22,6 +22,7 @@ import type {
 import { announce } from '@atlaskit/pragmatic-drag-and-drop-live-region';
 
 import { getDraggableDimensions } from '../hooks/use-captured-dimensions';
+import { useCleanupFn } from '../hooks/use-cleanup-fn';
 import { attributes, getAttribute } from '../utils/attributes';
 import { findDragHandle } from '../utils/find-drag-handle';
 
@@ -133,7 +134,15 @@ export function DragDropContext({
       targetLocation: DraggableLocation | null;
       isImmediate?: boolean;
     }) => {
-      rbdInvariant(dragStateRef.current.isDragging);
+      if (!dragStateRef.current.isDragging) {
+        /**
+         * If there is no ongoing drag, then don't do anything.
+         *
+         * This should never occur, but treating it as a noop is more
+         * reasonable than an invariant.
+         */
+        return;
+      }
 
       const { prevDestination, draggableId, type, sourceLocation } =
         dragStateRef.current;
@@ -211,6 +220,16 @@ export function DragDropContext({
       sourceElement: HTMLElement;
       mode: MovementMode;
     }) => {
+      if (dragStateRef.current.isDragging) {
+        /**
+         * If there is already an ongoing drag, then don't do anything.
+         *
+         * This should never occur, but treating it as a noop is more
+         * reasonable than an invariant.
+         */
+        return;
+      }
+
       const before: BeforeCapture = {
         draggableId,
         mode,
@@ -332,9 +351,21 @@ export function DragDropContext({
     ],
   );
 
+  const keyboardCleanupManager = useCleanupFn();
+
   const stopDrag: DragController['stopDrag'] = useCallback(
     ({ reason }) => {
-      rbdInvariant(dragStateRef.current.isDragging);
+      if (!dragStateRef.current.isDragging) {
+        /**
+         * If there is no ongoing drag, then don't do anything.
+         *
+         * This should never occur, but treating it as a noop is more
+         * reasonable than an invariant.
+         */
+        return;
+      }
+
+      keyboardCleanupManager.runCleanupFn();
 
       /**
        * If this is a cancel, then an update to a null
@@ -406,7 +437,14 @@ export function DragDropContext({
         });
       }
     },
-    [contextId, flush, lifecycle, onDragEnd, updateDrag],
+    [
+      contextId,
+      flush,
+      keyboardCleanupManager,
+      lifecycle,
+      onDragEnd,
+      updateDrag,
+    ],
   );
 
   const dragController: DragController = useMemo(() => {
@@ -424,6 +462,7 @@ export function DragDropContext({
     dragController,
     droppableRegistry,
     contextId,
+    setKeyboardCleanupFn: keyboardCleanupManager.setCleanupFn,
   });
 
   /**

@@ -1,14 +1,14 @@
 /** @jsx jsx */
 import styled from '@emotion/styled';
-import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 export const ArticleContentInner = styled.div`
-  padding-bottom: ${2 * gridSize()}px;
+  padding-bottom: ${token('space.200', '16px')};
   position: relative;
 `;
 
 export const ArticleContentTitle = styled.div`
-  padding-bottom: ${2 * gridSize()}px;
+  padding-bottom: ${token('space.200', '16px')};
 `;
 
 export const ArticleContentTitleLink = styled.a`

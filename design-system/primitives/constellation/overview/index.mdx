@@ -1,0 +1,66 @@
+---
+title: Primitives
+description: Primitives are composable components that solve common layout problems.
+
+order: 1
+---
+
+import SectionMessage from '@atlaskit/section-message';
+import Image from '@atlaskit/image';
+
+import boxUsageExample from './images/box-usage-example.png';
+import inlineUsageExample from './images/inline-usage-example.png';
+import stackUsageExample from './images/stack-usage-example.png';
+
+<SectionMessage title="This is a preview of our new primitive components." appearance="warning">
+Expect frequent changes as we iterate over the coming months. For early access and release updates for Atlassian employees, see details.
+</SectionMessage>
+
+Primitive components are a new type of component for layouts and placement of elements. They act as building blocks to compose different parts of the user experience, from the smallest design decisions (for example, the spacing around an icon) to larger layout decisions (for example, how a page is structured). 
+
+Primitives are designed to work hand in hand with design tokens, to provide opinionated solutions for common low-level design decisions that engineers often have to make. They are designed to reduce cognitive overhead for engineers by providing guardrails around what is recommended within our design system. 
+
+A primitive component is a pre-built solution in that they will only accept values that are valid in the Atlassian Design System, and help to implement common layout patterns. This reduces the need to look up documentation and write custom CSS. 
+
+## Available Primitives
+
+Each primitive is designed to have a single responsibility, and it should be immediately clear where each primitive should be used. However, they are also flexible enough that they should be able to be used to compose complex designs not otherwise covered in the Design Systems. 
+
+Currently, three primitive components are available for use in Closed Beta they are Box, Inline and Stack. These were chosen because a large amount of layout problems can be reduced to laying out content:
+- in a container (see [box](/components/primitives/box))
+- horizontally (see [inline](/components/primitives/inline))
+- vertically (see [stack](/components/primitives/stack))
+
+## Installation
+
+To install primitive components, add @atlaskit/primitives as a dependency on your project:
+```bash
+$ yarn add @atlaskit/primitives
+```
+
+## Using Primitives
+
+Use primitives for general layout styles for components. Primitives are not currently available in Figma, so the first step in implementing primitive components is identifying where they might fit in a given design. This involves breaking down a design into its core layout components to as granular level as is useful.
+
+<SectionMessage appearance="warning">
+Primitives could be skipped where absolute DOM control is required or very specific styling values are needed, however, this approach is more likely to produce visual elements that fail to adhere to the guidelines of the Atlassian Design System.
+</SectionMessage>
+
+You might like to think first about breaking down a page into Box containers, identifying larger pieces of a design that function in a similar manner or fulfill a singular purpose in a layout and grouping them together under a Box. 
+
+<Image src={boxUsageExample} />
+
+The behavior within and around these boxes can then be broken down into their horizontal Inline and vertical Stack components. 
+
+<SectionMessage>
+The ESLint rule use-primitives offers suggestions for possible primitives in a layout.
+</SectionMessage>
+
+<Image src={inlineUsageExample} />
+<Image src={stackUsageExample} />
+
+## Related
+
+- [Learn more about the Box primitive](/components/primitives/box/usage)
+- [Learn more about the Inline primitive](/components/primitives/inline/usage)
+- [Learn more about the Stack primitive](/components/primitives/stack/usage)

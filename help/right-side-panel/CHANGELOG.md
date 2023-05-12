@@ -1,5 +1,11 @@
 # @atlaskit/right-side-panel
 
+## 1.2.1
+
+### Patch Changes
+
+- [`7e051bad115`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7e051bad115) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
+
 ## 1.2.0
 
 ### Minor Changes

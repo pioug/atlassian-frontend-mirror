@@ -1,52 +1,19 @@
 /* eslint-disable @repo/internal/react/consistent-css-prop-usage */
 /** @jsx jsx */
-import { createContext, FC, ReactNode, useContext } from 'react';
+import { createContext, FC, useContext } from 'react';
 
 import { css, jsx } from '@emotion/react';
 import invariant from 'tiny-invariant';
 
-import {
-  UNSAFE_BREAKPOINTS_CONFIG,
-  UNSAFE_buildAboveMediaQueryCSS,
-} from '@atlaskit/primitives/responsive';
-
 import { GRID_COLUMNS } from './config';
+import { GridContainerContext } from './grid-container';
+import {
+  gapMediaQueries,
+  inlinePaddingMediaQueries,
+} from './grid-media-querys';
+import type { BaseGridProps } from './types';
 
-export type GridProps = {
-  /**
-   * A test id for automated testing
-   */
-  testId?: string;
-  /**
-   * If set, will restrict the max-width of the Grid to pre-defined values.
-   *
-   * `'narrow'` = 744px
-   * `'wide'` = 1128px
-   */
-  maxWidth?: 'narrow' | 'wide';
-  /**
-   * The grid items.
-   */
-  children: ReactNode;
-  /**
-   * Remove inline padding from grid.
-   *
-   * @default true
-   */
-  hasInlinePadding?: boolean;
-};
-
-const gapMediaQueries = Object.values(
-  UNSAFE_buildAboveMediaQueryCSS((breakpoint) => ({
-    gap: UNSAFE_BREAKPOINTS_CONFIG[breakpoint].gridItemGutter,
-  })),
-);
-
-const inlinePaddingMediaQueries = Object.values(
-  UNSAFE_buildAboveMediaQueryCSS((breakpoint) => ({
-    paddingInline: UNSAFE_BREAKPOINTS_CONFIG[breakpoint].gridMargin,
-  })),
-);
+export type GridProps = BaseGridProps;
 
 const baseStyles = css({
   display: 'grid',
@@ -88,13 +55,16 @@ export const Grid: FC<GridProps> = ({
   testId,
   children,
   maxWidth,
-  hasInlinePadding = true,
+  hasInlinePadding,
 }) => {
   const isNested = useContext(GridContext);
+  const isWithinContainer = useContext(GridContainerContext);
+  // while not within a GridContainer hasInlinePadding either undefined or true means setting the padding on by default
+  const showInlinePadding = hasInlinePadding !== false;
 
   invariant(
     !isNested,
-    '@atlaskit/grid: Nesting grids are not supported at this time, please only use a top-level grid.',
+    '@atlaskit/grid: Nesting grids are not supported at this time, please only use a top-level grid or leverage GridContainer.',
   );
 
   return (
@@ -103,8 +73,8 @@ export const Grid: FC<GridProps> = ({
       css={[
         baseStyles,
         gapMediaQueries,
-        maxWidth && gridMaxWidthMap[maxWidth],
-        hasInlinePadding && inlinePaddingMediaQueries,
+        !isWithinContainer && maxWidth && gridMaxWidthMap[maxWidth],
+        !isWithinContainer && showInlinePadding && inlinePaddingMediaQueries,
       ]}
     >
       <GridContext.Provider value={true}>{children}</GridContext.Provider>

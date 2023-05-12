@@ -1,5 +1,11 @@
 # @atlaskit/link-create
 
+## 0.4.2
+
+### Patch Changes
+
+- [`93af54caca2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/93af54caca2) - EDM-6553: no functionality change, just updating UI so that there is padding between the cancel and create button for link-create. Also updated the dropdown error message.
+
 ## 0.4.1
 
 ### Patch Changes

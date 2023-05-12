@@ -1,3 +1,3 @@
-import type { GridProps } from '../src/grid';
+import type { GridProps as MainGridProps } from '../src/grid';
 
-export default function Grid(_: GridProps) {}
+export default function Grid(_: MainGridProps) {}

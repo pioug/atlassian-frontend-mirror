@@ -79,4 +79,19 @@ describe('Grid', () => {
     const image = await takeElementScreenShot(page, `[id="examples"]`);
     expect(image).toMatchProdImageSnapshot();
   });
+
+  it('grid-container example should match snapshot', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'grid',
+      'grid-container',
+      global.__BASEURL__,
+    );
+    const { page } = global;
+
+    await loadPage(page, url);
+
+    const image = await takeElementScreenShot(page, `[id="examples"]`);
+    expect(image).toMatchProdImageSnapshot();
+  });
 });

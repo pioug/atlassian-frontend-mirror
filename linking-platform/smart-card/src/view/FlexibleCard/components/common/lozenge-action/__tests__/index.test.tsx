@@ -21,6 +21,7 @@ import { CardDetails } from '../../../../../../state/hooks/use-invoke/types';
 
 const mockSmartLinkLozengeActionClickedEvent = jest.fn();
 const mockSmartLinkLozengeActionListItemClickedEvent = jest.fn();
+const mockSmartLinkLozengeOpenPreviewClickedEvent = jest.fn();
 const mocksmartLinkQuickActionStarted = jest.fn();
 const mocksmartLinkQuickActionSuccess = jest.fn();
 const mocksmartLinkQuickActionFailed = jest.fn();
@@ -32,6 +33,8 @@ jest.mock('../../../../../../state/flexible-ui-context', () => ({
         mockSmartLinkLozengeActionClickedEvent,
       smartLinkLozengeActionListItemClickedEvent:
         mockSmartLinkLozengeActionListItemClickedEvent,
+      smartLinkLozengeActionErrorOpenPreviewClickedEvent:
+        mockSmartLinkLozengeOpenPreviewClickedEvent,
       renderSuccessEvent: jest.fn(),
       modalClosedEvent: jest.fn(),
     },
@@ -810,6 +813,46 @@ describe('LozengeAction', () => {
       expect(
         mockSmartLinkLozengeActionListItemClickedEvent,
       ).toHaveBeenCalledTimes(1);
+    });
+
+    it('fires button clicked event with smartLinkStatusOpenPreview subject id when an embed preview is open', async () => {
+      const mockInvoke = jest
+        .fn()
+        .mockResolvedValueOnce([{ id: '1', text: 'Done' }])
+        .mockImplementationOnce(() => {
+          throw new Error();
+        });
+
+      const { findByTestId } = renderComponent(
+        {
+          action: getAction({
+            url,
+            id,
+            previewData,
+          }),
+        },
+        mockInvoke,
+      );
+
+      const element = await findByTestId(triggerTestId);
+      act(() => {
+        fireEvent.click(element);
+      });
+      const item = await findByTestId(`${testId}-item-0`);
+      act(() => {
+        fireEvent.click(item);
+      });
+
+      // making sure error link is present
+      const link = await findByTestId(`${testId}-open-embed`);
+      expect(link).toBeDefined();
+
+      // making sure the preview opens on click
+      link.click();
+
+      expect(mockSmartLinkLozengeOpenPreviewClickedEvent).toHaveBeenCalledTimes(
+        1,
+      );
     });
   });
 });

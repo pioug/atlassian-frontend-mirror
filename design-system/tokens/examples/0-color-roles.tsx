@@ -36,6 +36,24 @@ const variantStyles = {
       iconColor: token('color.icon.information'),
     },
   },
+  input: {
+    default: {
+      color: token('color.text'),
+      backgroundColor: token('color.background.input'),
+      border: `1px solid ${token('color.border.input')}`,
+      hoverBackgroundColor: token('color.background.input.hovered'),
+      activeBackgroundColor: token('color.background.input.pressed'),
+      iconColor: token('color.icon'),
+    },
+    placeholder: {
+      color: token('color.text.subtlest'),
+      backgroundColor: token('color.background.input'),
+      border: `1px solid ${token('color.border.input')}`,
+      hoverBackgroundColor: token('color.background.input.hovered'),
+      activeBackgroundColor: token('color.background.input.pressed'),
+      iconColor: token('color.icon'),
+    },
+  },
   neutral: {
     bold: {
       color: token('color.text.inverse'),

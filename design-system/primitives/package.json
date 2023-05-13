@@ -26,7 +26,7 @@
           "folder": "overview",
           "slug": "primitives/overview",
           "status": {
-            "type": "alpha"
+            "type": "closed-beta"
           }
         },
         {
@@ -35,7 +35,7 @@
           "slug": "primitives/box",
           "id": "@atlaskit/primitives/box",
           "status": {
-            "type": "alpha"
+            "type": "closed-beta"
           }
         },
         {
@@ -44,7 +44,7 @@
           "slug": "primitives/inline",
           "id": "@atlaskit/primitives/inline",
           "status": {
-            "type": "alpha"
+            "type": "closed-beta"
           }
         },
         {
@@ -53,7 +53,7 @@
           "slug": "primitives/stack",
           "id": "@atlaskit/primitives/stack",
           "status": {
-            "type": "alpha"
+            "type": "closed-beta"
           }
         },
         {
@@ -62,7 +62,7 @@
           "slug": "primitives/xcss",
           "id": "@atlaskit/primitives/xcss",
           "status": {
-            "type": "alpha"
+            "type": "closed-beta"
           }
         }
       ]
@@ -86,7 +86,7 @@
   },
   "dependencies": {
     "@atlaskit/ds-lib": "^2.2.0",
-    "@atlaskit/tokens": "^1.3.0",
+    "@atlaskit/tokens": "^1.4.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "@emotion/serialize": "^1.1.0"

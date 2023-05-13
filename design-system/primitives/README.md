@@ -4,6 +4,10 @@ Primitives are token-backed low-level building blocks.
 
 ## Usage
 
-`import Primitives from '@atlaskit/primitives';`
+Detailed docs and example usage can be found at:
 
-Detailed docs and example usage can be found [here](https://atlaskit.atlassian.com/packages/design-system/primitives).
+- [Overview](https://staging.atlassian.design/components/primitives/overview)
+- [Box](https://staging.atlassian.design/components/primitives/box)
+- [Inline](https://staging.atlassian.design/components/primitives/inline)
+- [Stack](https://staging.atlassian.design/components/primitives/stack)
+- [xCSS](https://staging.atlassian.design/components/primitives/xcss)

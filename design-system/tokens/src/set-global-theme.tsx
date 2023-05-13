@@ -61,6 +61,14 @@ const getThemePreferences = (themeState: ThemeState): ThemeIds[] => {
     }
   });
 
+  if (getBooleanFF('platform.design-system-team.update-border-input_ff9l1')) {
+    themePreferences.push(
+      `${
+        themePreferences.includes('dark') ? 'dark' : 'light'
+      }-new-input-border` as ThemeIds,
+    );
+  }
+
   return [...new Set(themePreferences)];
 };
 

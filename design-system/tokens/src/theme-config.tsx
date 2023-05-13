@@ -17,7 +17,10 @@ export type Themes =
   | 'atlassian-typography';
 export type ThemeFileNames = Themes;
 
-export type ThemeOverrides = 'atlassian-dark-iteration';
+export type ThemeOverrides =
+  | 'atlassian-dark-iteration'
+  | 'atlassian-light-new-input-border'
+  | 'atlassian-dark-new-input-border';
 
 /**
  * Theme kinds: The type of theme.
@@ -53,7 +56,10 @@ export const themeIds = [
 ] as const;
 export type ThemeIds = (typeof themeIds)[number];
 
-export type ThemeOverrideIds = 'dark-iteration';
+export type ThemeOverrideIds =
+  | 'dark-iteration'
+  | 'light-new-input-border'
+  | 'dark-new-input-border';
 
 /**
  * Theme to use a base. This will create the theme as
@@ -163,6 +169,26 @@ export const themeOverrideConfig = {
   'atlassian-dark-iteration': {
     id: 'dark-iteration',
     displayName: 'Dark Theme Iteration',
+    palette: 'defaultPalette',
+    overrideTheme: 'dark',
+    attributes: {
+      type: 'color',
+      mode: 'dark',
+    },
+  },
+  'atlassian-light-new-input-border': {
+    id: 'light-new-input-border',
+    displayName: 'Light Theme New Input Border',
+    palette: 'defaultPalette',
+    overrideTheme: 'light',
+    attributes: {
+      type: 'color',
+      mode: 'light',
+    },
+  },
+  'atlassian-dark-new-input-border': {
+    id: 'dark-new-input-border',
+    displayName: 'Dark Theme New Input Border',
     palette: 'defaultPalette',
     overrideTheme: 'dark',
     attributes: {

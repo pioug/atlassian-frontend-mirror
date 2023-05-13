@@ -31,7 +31,7 @@
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@atlassian/notification-common": "^5.0.0",
-    "@atlassian/people-menu": "^52.1.0",
+    "@atlassian/people-menu": "^53.0.0",
     "@atlassian/recent-work": "^2.6.0",
     "@testing-library/react": "^12.1.5",
     "cypress": "^7.7.0",

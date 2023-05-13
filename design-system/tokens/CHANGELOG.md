@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 1.4.0
+
+### Minor Changes
+
+- [`36158b8bcb9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/36158b8bcb9) - [ux] update color.border.input to meet 3:1 contrast
+
 ## 1.3.2
 
 ### Patch Changes

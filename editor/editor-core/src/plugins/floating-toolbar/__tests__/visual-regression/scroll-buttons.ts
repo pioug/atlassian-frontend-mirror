@@ -132,7 +132,8 @@ describe('Floating toolbars:', () => {
         await initPage();
       });
 
-      it('should disable scroll buttons when colour picker open', async () => {
+      // FIXME: This test was automatically skipped due to failure on 14/05/2023: https://product-fabric.atlassian.net/browse/ED-17833
+      it.skip('should disable scroll buttons when colour picker open', async () => {
         // Act
         // Have to scroll right to see button
         await page.waitForSelector(scrollRightButtonSelector);

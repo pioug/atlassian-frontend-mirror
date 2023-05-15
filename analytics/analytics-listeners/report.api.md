@@ -35,7 +35,13 @@ class FabricAnalyticsListeners extends React_2.Component<Props> {
   // (undocumented)
   logger: Logger;
   // (undocumented)
-  render(): React_2.ReactNode;
+  render():
+    | React_2.ReactChild
+    | React_2.ReactFragment
+    | React_2.ReactPortal
+    | boolean
+    | null
+    | undefined;
 }
 export default FabricAnalyticsListeners;
 

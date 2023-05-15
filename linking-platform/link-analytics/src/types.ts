@@ -19,8 +19,6 @@ export interface LinkDetails {
    * The display category of the link.
    * This is optional and should be set to `link` if the link in question is not
    * being displayed as a smart link, but instead as some other type of "link" (eg. a blue link in editor).
-   * If set to `link` then there will be no attempt to fetch "resolved" attributes
-   * if they aren't already available in the SmartCardProvider store.
    */
   displayCategory?: 'smartLink' | 'link';
   /**

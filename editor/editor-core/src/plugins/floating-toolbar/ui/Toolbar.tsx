@@ -399,7 +399,7 @@ function makeSameType<T>(_a: T, _b: any): _b is T {
   return true;
 }
 
-const compareItemWithKeys = <T, U extends keyof T>(
+const compareItemWithKeys = <T extends {}, U extends keyof T>(
   leftItem: T,
   rightItem: T,
   excludedKeys: Array<U> = [],
@@ -408,7 +408,7 @@ const compareItemWithKeys = <T, U extends keyof T>(
     .filter((key) => excludedKeys.indexOf(key) === -1)
     .every((key) =>
       leftItem[key] instanceof Object
-        ? shallowEqual(leftItem[key], rightItem[key])
+        ? shallowEqual(leftItem[key]!, rightItem[key]!)
         : leftItem[key] === rightItem[key],
     );
 
@@ -461,7 +461,9 @@ export const isSameItem = (leftItem: Item, rightItem: Item): boolean => {
         makeSameType(leftItem, rightItem) &&
         Array.isArray(leftItem.options) &&
         Array.isArray(rightItem.options) &&
+        // @ts-expect-error TS2345: Argument of type 'DropdownOptionT<Function>[]' is not assignable to parameter of type 'any[][]'
         !compareArrays(leftItem.options, rightItem.options, (left, right) =>
+          // @ts-expect-error  TS2322: Type '"onClick"' is not assignable to type 'keyof any[]'
           compareItemWithKeys(left, right, ['onClick']),
         )
       ) {

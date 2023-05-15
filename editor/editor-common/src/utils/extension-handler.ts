@@ -1,6 +1,6 @@
-import { Extension, ExtensionHandler } from '../extensions/types';
+import { Extension, ExtensionHandler, Parameters } from '../extensions/types';
 
-export function getExtensionRenderer<T>(
+export function getExtensionRenderer<T extends Parameters>(
   extensionHandler: Extension<T> | ExtensionHandler<T>,
 ): ExtensionHandler<T> {
   if (typeof extensionHandler === 'object') {

@@ -37,7 +37,7 @@ const authProvider: AuthProvider = () => Promise.resolve(auth);
 
 const createMediaClient = (initialAuth?: Auth) => {
   const mediaClient = new MediaClient({ authProvider, initialAuth });
-  const { MediaStore: MockMediaStore } = jest.genMockFromModule(
+  const { MediaStore: MockMediaStore } = jest.genMockFromModule<any>(
     '@atlaskit/media-client',
   );
   const fakeStore = new MockMediaStore() as jest.Mocked<MediaStore>;

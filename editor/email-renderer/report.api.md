@@ -54,7 +54,7 @@ class EmailSerializer implements SerializerWithImages<string> {
   // (undocumented)
   serializeFragmentWithImages: (
     fragment: Fragment,
-    context?: MetaDataContext | undefined,
+    context?: MetaDataContext,
   ) => SerializeFragmentWithAttachmentsResult;
 }
 export { EmailSerializer };

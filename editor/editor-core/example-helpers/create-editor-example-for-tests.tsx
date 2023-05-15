@@ -45,7 +45,7 @@ const mediaMockServer = createEditorMediaMock();
 /**
  * Creates an example editor for VR or Integration tests.
  */
-export function createEditorExampleForTests<T>(
+export function createEditorExampleForTests<T extends EditorProps>(
   render: EditorExampleRenderFunction<T>,
   { clipboard = true },
 ) {
@@ -58,7 +58,7 @@ export function createEditorExampleForTests<T>(
   );
 }
 
-function createEditorWindowBindings<T>(
+function createEditorWindowBindings<T extends EditorProps>(
   win: WindowWithExtensionsForTesting,
   render: EditorExampleRenderFunction<T>,
 ) {

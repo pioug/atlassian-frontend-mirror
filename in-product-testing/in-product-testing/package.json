@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/in-product-testing",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -19,6 +19,14 @@
   "module": "dist/esm/index.js",
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
+  "typesVersions": {
+    ">=4.5 <4.9": {
+      "*": [
+        "dist/types-ts4.5/*",
+        "dist/types-ts4.5/index.d.ts"
+      ]
+    }
+  },
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
   "af:exports": {
@@ -34,7 +42,7 @@
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "cypress": "^7.7.0",
-    "typescript": "4.5.5",
+    "typescript": "~4.9.5",
     "wait-for-expect": "^1.2.0"
   },
   "techstack": {

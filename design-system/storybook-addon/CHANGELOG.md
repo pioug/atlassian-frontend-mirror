@@ -1,5 +1,15 @@
 # @atlaskit/storybook-addon-design-system
 
+## 0.5.0
+
+### Minor Changes
+
+- [`389ab86b2a3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/389ab86b2a3) - Adding spacing tokens to storybook addon so that users spacing tokens appear in storybook
+
+### Patch Changes
+
+- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+
 ## 0.4.0
 
 ### Minor Changes

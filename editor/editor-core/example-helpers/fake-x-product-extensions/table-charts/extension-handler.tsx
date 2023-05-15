@@ -1,7 +1,10 @@
 import React from 'react';
-import { ExtensionComponentProps } from '@atlaskit/editor-common/extensions';
+import {
+  ExtensionComponentProps,
+  Parameters,
+} from '@atlaskit/editor-common/extensions';
 
-type ChartParams = {
+interface ChartParams extends Parameters {
   chartType?: string;
   lineChartColor?: string;
   lineChartSmooth?: boolean;
@@ -10,7 +13,7 @@ type ChartParams = {
   barChartDate?: string;
   mapChartSecret?: string;
   mapChartSecretToggle?: boolean;
-};
+}
 
 export default ({ node }: ExtensionComponentProps<ChartParams>) => {
   const { parameters, extensionKey } = node;

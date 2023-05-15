@@ -96,7 +96,7 @@ export default class DummyBridge implements NativeBridge {
     event: keyof Required<EditorBridges>[T],
     ...args: any[]
   ) {
-    this.log(`call(${bridge}, ${event}, ${(args || []).join(', ')})`);
+    this.log(`call(${bridge}, ${String(event)}, ${(args || []).join(', ')})`);
     sendToBridge(bridge, event, ...args);
   }
 

@@ -87,7 +87,6 @@ function createLifecycleManager(): LifecycleManager {
   const registry = createRegistry();
 
   const addResponder: AddResponder = (event, responder) => {
-    // @ts-expect-error - type narrowing issues
     registry[event].push(responder);
 
     return () => {
@@ -98,7 +97,6 @@ function createLifecycleManager(): LifecycleManager {
 
   const dispatch: Dispatch = (event, data) => {
     for (const responder of registry[event]) {
-      // @ts-expect-error - type narrowing issues
       responder(data);
     }
   };

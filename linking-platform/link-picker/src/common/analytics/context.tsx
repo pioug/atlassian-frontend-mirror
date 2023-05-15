@@ -37,6 +37,11 @@ interface AnalyticsContextType {
   getAttributes: () => LinkPickerAnalyticsContextType;
 }
 
+type LinkPickerAnalyticsProps = Pick<
+  LinkPickerProps,
+  'url' | 'displayText' | 'plugins'
+>;
+
 const DEFAULT_CONTEXT_ATTRIBUTES: LinkPickerAnalyticsContextType = {
   linkState: 'newLink',
   linkFieldContent: null,
@@ -115,7 +120,7 @@ export const useLinkPickerAnalytics = () =>
 /**
  * Wrap component in "attributes" context store and initialise the initial context attributes from props.
  */
-function withLinkPickerAnalytics<P>(
+function withLinkPickerAnalytics<P extends LinkPickerAnalyticsProps>(
   WrappedComponent: React.ComponentType<P>,
 ): React.ComponentType<P> {
   return (props: P) => {
@@ -134,9 +139,9 @@ function withLinkPickerAnalytics<P>(
  * Wraps a component with the analytics context + listener to update events with contextual-level attributes.
  * Should be implemented once at the root of the link picker.
  */
-export function withLinkPickerAnalyticsContext<P>(
-  WrappedComponent: React.ComponentType<P>,
-): React.ComponentType<P> {
+export function withLinkPickerAnalyticsContext<
+  P extends LinkPickerAnalyticsProps,
+>(WrappedComponent: React.ComponentType<P>): React.ComponentType<P> {
   return withLinkPickerAnalytics((props: P) => {
     const { getAttributes } = useLinkPickerAnalytics();
 

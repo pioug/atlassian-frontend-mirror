@@ -190,7 +190,7 @@ describe('combine-extension-providers', () => {
   });
 
   describe('should deal with failures', () => {
-    let providers: DefaultExtensionProvider[];
+    let providers: DefaultExtensionProvider<{}>[];
 
     beforeEach(() => {
       providers = [

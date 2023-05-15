@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-bitbucket-transformer",
-  "version": "8.1.0",
+  "version": "8.1.1",
   "description": "Editor Bitbucket transformer",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -12,6 +12,14 @@
   "module": "dist/esm/index.js",
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
+  "typesVersions": {
+    ">=4.5 <4.9": {
+      "*": [
+        "dist/types-ts4.5/*",
+        "dist/types-ts4.5/index.d.ts"
+      ]
+    }
+  },
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
   "atlassian": {
@@ -46,7 +54,7 @@
     "@emotion/react": "^11.7.1",
     "prosemirror-view": "1.23.2",
     "react-intl-next": "npm:react-intl@^5.18.1",
-    "typescript": "4.5.5"
+    "typescript": "~4.9.5"
   },
   "techstack": {
     "@repo/internal": {

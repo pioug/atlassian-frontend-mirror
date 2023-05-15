@@ -112,7 +112,7 @@ function hasIsOpen(props: any): props is HasIsOpen {
   return 'isOpen' in props;
 }
 
-export default function withReactEditorViewOuterListeners<P>(
+export default function withReactEditorViewOuterListeners<P extends {}>(
   Component: ComponentClass<P> | StatelessComponent<P>,
 ): React.FC<P & WithOutsideClickProps> {
   return ({

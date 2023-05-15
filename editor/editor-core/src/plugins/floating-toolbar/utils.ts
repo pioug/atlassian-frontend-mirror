@@ -31,7 +31,7 @@ export const shallowEqual = (objA?: Object, objB?: Object) => {
 
   return true;
 };
-export const compareArrays = <T>(
+export const compareArrays = <T extends Array<any>>(
   left: Array<T>,
   right: Array<T>,
   compareFn: (left: T, right: T) => boolean = shallowEqual,

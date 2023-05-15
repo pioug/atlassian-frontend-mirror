@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/linking-types",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "Schema and Types for frontend and backend parts of linking platform",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -20,6 +20,14 @@
   "module": "dist/esm/index.js",
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
+  "typesVersions": {
+    ">=4.5 <4.9": {
+      "*": [
+        "dist/types-ts4.5/*",
+        "dist/types-ts4.5/index.d.ts"
+      ]
+    }
+  },
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
   "af:exports": {
@@ -34,7 +42,7 @@
     "@atlaskit/docs": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "react-dom": "^16.8.0",
-    "typescript": "4.5.5",
+    "typescript": "~4.9.5",
     "wait-for-expect": "^1.2.0"
   },
   "techstack": {

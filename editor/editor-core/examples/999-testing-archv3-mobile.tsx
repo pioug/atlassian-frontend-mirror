@@ -8,10 +8,10 @@ import { EditorPresetMobile, MobilePresetProps } from '../src/labs-next';
 import { Mobile } from '../src/labs/next/mobile';
 import { EditorProps } from '../src/labs/next/Editor';
 
-type ExampleProps = {
+interface ExampleProps extends EditorProps {
   preset: MobilePresetProps;
   editor: EditorProps;
-};
+}
 
 export default function EditorExampleForIntegrationTests() {
   return createEditorExampleForTests<ExampleProps>(

@@ -39,7 +39,7 @@ const IntlProviderWrapper: React.FC<Props> = (props) => {
   );
 };
 
-export function withIntlProvider<T>(
+export function withIntlProvider<T extends {}>(
   WrappedComponent: React.ComponentType<T>,
   geti18NMessages: geti18NMessagesType,
 ): React.FC<Omit<T & WithIntlProviderProps, 'intl'>> {

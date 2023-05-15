@@ -11,10 +11,10 @@ import {
 import { FullPage } from '../src/labs/next/full-page';
 import { EditorProps } from '../src/labs/next/Editor';
 
-type ExampleProps = {
+interface ExampleProps extends EditorProps {
   preset: EditorPresetCXHTMLProps;
   editor: EditorProps;
-};
+}
 
 export default function EditorExampleForIntegrationTests() {
   return createEditorExampleForTests<ExampleProps>(

@@ -23,7 +23,7 @@ export const renderProp = <P, S>(
     const Wrapper = () => prop(...args);
     return shallow(<Wrapper />);
   }
-  throw new Error(`renderProp ${renderProp} is not a function`);
+  throw new Error(`renderProp ${String(renderProp)} is not a function`);
 };
 
 export const createMockEvent: any = (

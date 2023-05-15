@@ -1,5 +1,18 @@
 # @atlaskit/link-analytics
 
+## 8.0.2
+
+### Patch Changes
+
+- [`65392e23be5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/65392e23be5) - Fetch for resolved attributes regardless of displayCategory (i.e. when it is 'link')
+
+## 8.0.1
+
+### Patch Changes
+
+- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- Updated dependencies
+
 ## 8.0.0
 
 ### Minor Changes

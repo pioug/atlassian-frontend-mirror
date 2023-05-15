@@ -84,7 +84,7 @@ export type ContainerResultProps = CommonResultProps & {
   subText?: React_2.ReactNode;
 };
 
-// @public (undocumented)
+// @public
 const _default: React_2.ComponentClass<Props_3, any>;
 export { _default as AkQuickSearch };
 export { _default as QuickSearch };

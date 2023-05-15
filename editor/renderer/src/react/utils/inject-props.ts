@@ -17,7 +17,7 @@ export function recursivelyInjectProps(
     if (child.props.children) {
       child = React.cloneElement(child, {
         children: recursivelyInjectProps(child.props.children, propsToInject),
-      });
+      } as JSX.ElementChildrenAttribute);
     }
     // Add props to react child node
     return React.cloneElement(child as ReactElement, propsToInject);

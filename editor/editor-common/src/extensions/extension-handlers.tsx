@@ -8,6 +8,7 @@ import {
   ExtensionParams,
   ExtensionProvider,
   ExtensionType,
+  Parameters,
 } from './types';
 import { ReferenceEntity } from './types/extension-handler';
 
@@ -77,7 +78,7 @@ function ExtensionLoading(props: LoadingComponentProps) {
   }
 }
 
-export function getNodeRenderer<T>(
+export function getNodeRenderer<T extends Parameters>(
   extensionProvider: ExtensionProvider,
   extensionType: ExtensionType,
   extensionKey: ExtensionKey,

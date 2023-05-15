@@ -2,9 +2,10 @@
 // If changes are made to this file, please make the same update in the linked file.
 
 import MarkdownIt from 'markdown-it';
-import linkify from './linkify-md-plugin';
-import newline from './newline-md-plugin';
-import paragraph from './paragraph-md-plugin';
+import linkify from './md-plugins/linkify-md-plugin';
+import newline from './md-plugins/newline-md-plugin';
+import paragraph from './md-plugins/paragraph-md-plugin';
+import ignoreListHeading from './md-plugins/ignore-list-heading-md-plugin';
 
 export const md = MarkdownIt('zero', { html: false });
 
@@ -24,3 +25,5 @@ md.use(paragraph);
 md.use(linkify);
 
 md.use(newline);
+
+md.use(ignoreListHeading);

@@ -27,7 +27,7 @@ const props = {
   },
   mediaClientConfig: mediaClient.config,
   identifier,
-  featureFlags: { someFlag: true },
+  featureFlags: { captions: true },
 };
 
 describe('Async Card Loader', () => {
@@ -88,7 +88,6 @@ describe('Async Card Loader', () => {
       const wrapper = mount(<CardLoader {...props} />);
 
       await nextTick();
-      await mockCardModule;
       await nextTick();
       wrapper.update();
       expect(
@@ -117,7 +116,6 @@ describe('Async Card Loader', () => {
       const wrapper = mount(<CardLoader {...props} />);
 
       await nextTick();
-      await mockCardModule;
       wrapper.update();
       expect(wrapper.find(CardLoading)).toHaveLength(1);
     });
@@ -127,20 +125,20 @@ describe('Async Card Loader', () => {
     it('passes featureFlags to CardWithMediaClient', () => {
       const wrapper = mount(<CardLoader {...props} />);
       expect(wrapper.find('CardWithMediaClient').prop('featureFlags')).toEqual({
-        someFlag: true,
+        captions: true,
       });
     });
 
     it('it should call useMemoizeFeatureFlags when props get updated', () => {
       const wrapper = mount(<CardLoader {...props} />);
-      wrapper.setProps({ featureFlags: { someFlag: false } });
+      wrapper.setProps({ featureFlags: { captions: false } });
 
       expect(useMemoizeFeatureFlags).toHaveBeenCalledTimes(2);
       expect(useMemoizeFeatureFlags).toHaveBeenNthCalledWith(1, {
-        someFlag: true,
+        captions: true,
       });
       expect(useMemoizeFeatureFlags).toHaveBeenNthCalledWith(2, {
-        someFlag: false,
+        captions: false,
       });
     });
   });

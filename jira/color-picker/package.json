@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/color-picker",
-  "version": "3.1.1",
+  "version": "3.1.2",
   "description": "Jira Color Picker Component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -12,6 +12,14 @@
   "module": "dist/esm/index.js",
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
+  "typesVersions": {
+    ">=4.5 <4.9": {
+      "*": [
+        "dist/types-ts4.5/*",
+        "dist/types-ts4.5/index.d.ts"
+      ]
+    }
+  },
   "atlaskit:src": "src/index.ts",
   "atlassian": {
     "team": "Jira Software: Roadmaps",
@@ -42,7 +50,7 @@
     "enzyme-adapter-react-16": "^1.15.1",
     "jscodeshift": "^0.13.0",
     "react": "^16.8.0",
-    "typescript": "4.5.5"
+    "typescript": "~4.9.5"
   },
   "keywords": [
     "ui",

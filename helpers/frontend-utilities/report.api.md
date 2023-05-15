@@ -93,11 +93,7 @@ export class StorageClient {
   // (undocumented)
   removeItem: (key: string) => void;
   // (undocumented)
-  setItemWithExpiry: (
-    key: string,
-    value: any,
-    expireInMS?: number | undefined,
-  ) => void;
+  setItemWithExpiry: (key: string, value: any, expireInMS?: number) => void;
 }
 
 // @public (undocumented)

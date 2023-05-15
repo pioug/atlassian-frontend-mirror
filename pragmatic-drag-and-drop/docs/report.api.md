@@ -15,7 +15,7 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
-// @public (undocumented)
+// @public
 const _default: {};
 export default _default;
 

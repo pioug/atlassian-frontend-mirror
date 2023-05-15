@@ -418,7 +418,7 @@ export class TableContainer extends React.Component<
       if (idx === 0 && React.isValidElement(child)) {
         return React.cloneElement(child, {
           innerRef: this.stickyHeaderRef,
-        });
+        } as React.Attributes);
       }
 
       return child;

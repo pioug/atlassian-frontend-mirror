@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/table",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "A table is used to display data.",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -25,6 +25,14 @@
   "module": "dist/esm/index.js",
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
+  "typesVersions": {
+    ">=4.5 <4.9": {
+      "*": [
+        "dist/types-ts4.5/*",
+        "dist/types-ts4.5/index.d.ts"
+      ]
+    }
+  },
   "sideEffects": false,
   "atlaskit:src": "src/index.tsx",
   "af:exports": {
@@ -67,7 +75,7 @@
     "jest-axe": "^4.0.0",
     "react-dom": "^16.8.0",
     "storybook-addon-designs": "^6.3.1",
-    "typescript": "4.5.5",
+    "typescript": "~4.9.5",
     "wait-for-expect": "^1.2.0"
   },
   "techstack": {

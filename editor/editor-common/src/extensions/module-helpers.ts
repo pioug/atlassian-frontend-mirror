@@ -9,6 +9,7 @@ import {
   ExtensionProvider,
   ExtensionToolbarButton,
   MenuItem,
+  Parameters,
 } from './types';
 import {
   ContextualToolbar,
@@ -28,7 +29,7 @@ export const groupBy = <T>(
     return acc;
   }, {});
 
-export function buildMenuItem<T>(
+export function buildMenuItem<T extends Parameters>(
   manifest: ExtensionManifest<T>,
   extensionModule: ExtensionModule<T>,
 ): MenuItem {
@@ -53,8 +54,8 @@ export function buildMenuItem<T>(
   };
 }
 
-export const getQuickInsertItemsFromModule = <T>(
-  extensions: ExtensionManifest[],
+export const getQuickInsertItemsFromModule = <T extends Parameters>(
+  extensions: ExtensionManifest<T>[],
   transformFunction: (value: MenuItem, index: number) => T,
 ): T[] => {
   const items = extensions.map((manifest) => {
@@ -70,7 +71,7 @@ export const getQuickInsertItemsFromModule = <T>(
   return flatItems.map(transformFunction);
 };
 
-export async function getAutoConvertPatternsFromModule<T>(
+export async function getAutoConvertPatternsFromModule<T extends Parameters>(
   extensions: ExtensionManifest<T>[],
 ): Promise<ExtensionAutoConvertHandler[]> {
   const items = await Promise.all(

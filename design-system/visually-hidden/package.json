@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/visually-hidden",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "A utility that hides content from the screen while retaining readability by screen readers for accessibility.",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -21,6 +21,14 @@
   "module": "dist/esm/index.js",
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
+  "typesVersions": {
+    ">=4.5 <4.9": {
+      "*": [
+        "dist/types-ts4.5/*",
+        "dist/types-ts4.5/index.d.ts"
+      ]
+    }
+  },
   "sideEffects": false,
   "atlaskit:src": "src/index.tsx",
   "af:exports": {
@@ -46,7 +54,7 @@
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react": "^12.1.5",
     "react-dom": "^16.8.0",
-    "typescript": "4.5.5",
+    "typescript": "~4.9.5",
     "wait-for-expect": "^1.2.0"
   },
   "techstack": {

@@ -1,5 +1,18 @@
 # @atlaskit/editor-core
 
+## 183.0.9
+
+### Patch Changes
+
+- [`333fa827c25`](https://bitbucket.org/atlassian/atlassian-frontend/commits/333fa827c25) - ED-15646: Fix paste behaviour for markdown which contains headings inside list items. List items with headings will now be retained.
+
+## 183.0.8
+
+### Patch Changes
+
+- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- Updated dependencies
+
 ## 183.0.6
 
 ### Patch Changes

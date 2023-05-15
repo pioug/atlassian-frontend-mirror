@@ -110,7 +110,7 @@ export const createDataAction = <P extends {}>(
   return (overrides: P) => {
     const context = useContext(FlexibleUiContext);
     const data = getActionData(name, contextKey, context);
-    return data ? (
+    return data && typeof data === 'object' ? (
       <BaseAction {...props} {...data} {...overrides} url={context?.url} />
     ) : null;
   };

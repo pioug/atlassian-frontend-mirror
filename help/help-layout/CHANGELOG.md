@@ -1,5 +1,11 @@
 # @atlaskit/help-layout
 
+## 4.2.2
+
+### Patch Changes
+
+- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+
 ## 4.2.1
 
 ### Patch Changes

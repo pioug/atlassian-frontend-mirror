@@ -89,8 +89,8 @@ describe('module-helpers', () => {
   });
 
   describe('getQuickInsertItemsFromModule', () => {
-    test('should return all quick insert items', async () => {
-      const quickInsertItems = getQuickInsertItemsFromModule(
+    test('should return all quick insert items', () => {
+      const quickInsertItems = getQuickInsertItemsFromModule<{}>(
         [confluenceAwesomeMacro, forgeAmazingMacro],
         (item) => item.key,
       );

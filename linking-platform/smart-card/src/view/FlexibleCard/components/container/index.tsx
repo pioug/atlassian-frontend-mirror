@@ -170,6 +170,7 @@ const renderChildren = (
       const size = blockSize || containerSize;
       if (isFlexibleUiTitleBlock(child)) {
         return React.cloneElement(child, {
+          // @ts-expect-error
           onClick,
           retry,
           size,
@@ -178,11 +179,13 @@ const renderChildren = (
         });
       } else if (onActionMenuOpenChange && isFlexibleUiFooterBlock(child)) {
         return React.cloneElement(child, {
+          // @ts-expect-error
           size,
           status,
           onActionMenuOpenChange,
         });
       }
+      // @ts-expect-error
       return React.cloneElement(child, { size, status });
     }
   });

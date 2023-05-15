@@ -7,12 +7,12 @@ export const LINK_TEXT_REGEXP =
   /^((?:(?:https?|ftps?):\/\/)|irc:\/\/|mailto:)([\w?!~^\/\\#$%&'()*+,\-.\/:;<=@]*[\w~^\/\\#$%&'()*+,\-\/:;<=@])/i;
 
 export const linkText: TokenParser = ({ input, position, schema }) => {
-  let match = input.substring(position).match(LINK_TEXT_REGEXP);
-  if (!match) {
+  let matches = input.substring(position).match(LINK_TEXT_REGEXP);
+  if (!matches) {
     return fallback(input, position);
   }
 
-  match = trimBadEndChar(match);
+  const match = trimBadEndChar(matches);
 
   // Remove mailto:
   const textRepresentation = match[1] === 'mailto:' ? match[2] : match[0];

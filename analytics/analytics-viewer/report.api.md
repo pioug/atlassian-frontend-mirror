@@ -34,10 +34,7 @@ export class AnalyticsViewerContainer extends React_2.Component<
     channel: string;
   };
   // (undocumented)
-  handleOnEvent: (
-    event: UIAnalyticsEvent,
-    channel?: string | undefined,
-  ) => void;
+  handleOnEvent: (event: UIAnalyticsEvent, channel?: string) => void;
   // (undocumented)
   render(): JSX.Element;
 }

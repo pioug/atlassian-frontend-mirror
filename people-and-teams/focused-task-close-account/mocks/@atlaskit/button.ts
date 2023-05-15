@@ -1,5 +1,6 @@
-module.exports = {
-  __esModule: true,
-  default: 'Button',
-  ButtonGroup: 'ButtonGroup',
-};
+const Button = 'Button';
+const ButtonGroup = 'ButtonGroup';
+
+export default Button;
+
+export { ButtonGroup };

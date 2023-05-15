@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/page-layout",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "description": "A collection of components which let you compose an application's page layout.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -12,6 +12,14 @@
   "module": "dist/esm/index.js",
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
+  "typesVersions": {
+    ">=4.5 <4.9": {
+      "*": [
+        "dist/types-ts4.5/*",
+        "dist/types-ts4.5/index.d.ts"
+      ]
+    }
+  },
   "sideEffects": false,
   "atlaskit:src": "src/index.tsx",
   "atlassian": {
@@ -66,7 +74,7 @@
     "jest-emotion": "^10.0.32",
     "raf-stub": "^2.0.1",
     "storybook-addon-performance": "^0.16.0",
-    "typescript": "4.5.5"
+    "typescript": "~4.9.5"
   },
   "keywords": [
     "atlaskit",

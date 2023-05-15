@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/renderer",
-  "version": "108.0.0",
+  "version": "108.0.1",
   "description": "Renderer component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -12,6 +12,14 @@
   "module": "dist/esm/index.js",
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
+  "typesVersions": {
+    ">=4.5 <4.9": {
+      "*": [
+        "dist/types-ts4.5/*",
+        "dist/types-ts4.5/index.d.ts"
+      ]
+    }
+  },
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
   "atlassian": {
@@ -33,7 +41,7 @@
     "@atlaskit/code": "^14.6.0",
     "@atlaskit/editor-common": "^74.0.0",
     "@atlaskit/editor-json-transformer": "^8.9.0",
-    "@atlaskit/editor-palette": "1.4.0",
+    "@atlaskit/editor-palette": "1.4.1",
     "@atlaskit/editor-shared-styles": "^2.4.0",
     "@atlaskit/emoji": "^67.4.0",
     "@atlaskit/icon": "^21.12.0",
@@ -61,8 +69,8 @@
     "uuid": "^3.1.0"
   },
   "peerDependencies": {
-    "@atlaskit/link-provider": "^1.6.0",
-    "@atlaskit/media-core": "^34.1.0",
+    "@atlaskit/link-provider": "^1.6.1",
+    "@atlaskit/media-core": "^34.1.1",
     "react": "^16.8.0",
     "react-dom": "^16.8.0"
   },
@@ -104,7 +112,7 @@
     "react-test-renderer": "^16.8.0",
     "rxjs": "^5.5.0",
     "sinon": "^2.2.0",
-    "typescript": "4.5.5",
+    "typescript": "~4.9.5",
     "worker-plugin": "^4.0.2"
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",

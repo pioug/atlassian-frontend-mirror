@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-card-provider",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Contains the EditorCardProvider, for determining smart card behaviour in the editor.",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -20,6 +20,14 @@
   "module": "dist/esm/index.js",
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
+  "typesVersions": {
+    ">=4.5 <4.9": {
+      "*": [
+        "dist/types-ts4.5/*",
+        "dist/types-ts4.5/index.d.ts"
+      ]
+    }
+  },
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
   "af:exports": {
@@ -33,12 +41,12 @@
     "setimmediate": "^1.0.5"
   },
   "peerDependencies": {
-    "@atlaskit/link-provider": "^1.6.0",
+    "@atlaskit/link-provider": "^1.6.1",
     "react": "^16.8.0"
   },
   "devDependencies": {
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
-    "typescript": "4.5.5"
+    "typescript": "~4.9.5"
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

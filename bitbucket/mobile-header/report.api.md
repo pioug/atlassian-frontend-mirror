@@ -43,7 +43,7 @@ class MobileHeader extends PureComponent<MobileHeaderProps, MobileHeaderState> {
       | undefined,
     side: string,
     renderFn?: ((isOpen: boolean) => ReactNode) | undefined,
-    topOffset?: number | undefined,
+    topOffset?: number,
   ) => JSX.Element;
   // (undocumented)
   state: {

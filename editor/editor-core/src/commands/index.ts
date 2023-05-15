@@ -231,7 +231,7 @@ export const changeImageAlignment =
   };
 
 export const createToggleBlockMarkOnRange =
-  <T = object>(
+  <T extends {} = object>(
     markType: MarkType,
     getAttrs: (prevAttrs?: T, node?: PMNode) => T | undefined | false,
     allowedBlocks?:
@@ -284,7 +284,7 @@ export const createToggleBlockMarkOnRange =
  * return an `object` to update the mark.
  */
 export const toggleBlockMark =
-  <T = object>(
+  <T extends {} = object>(
     markType: MarkType,
     getAttrs: (prevAttrs?: T, node?: PMNode) => T | undefined | false,
     allowedBlocks?:

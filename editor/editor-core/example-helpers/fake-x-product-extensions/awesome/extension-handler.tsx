@@ -1,11 +1,14 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React from 'react';
-import { ExtensionComponentProps } from '@atlaskit/editor-common/extensions';
+import {
+  ExtensionComponentProps,
+  Parameters,
+} from '@atlaskit/editor-common/extensions';
 
-export type AwesomeParams = {
+export interface AwesomeParams extends Parameters {
   item?: string;
   items?: string[];
-};
+}
 
 export default ({ node }: ExtensionComponentProps<AwesomeParams>) => {
   const { parameters, extensionKey } = node;

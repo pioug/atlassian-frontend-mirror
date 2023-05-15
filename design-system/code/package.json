@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/code",
-  "version": "14.6.0",
+  "version": "14.6.1",
   "description": "Code highlights short strings of code snippets inline with body text.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -12,6 +12,14 @@
   "module": "dist/esm/index.js",
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
+  "typesVersions": {
+    ">=4.5 <4.9": {
+      "*": [
+        "dist/types-ts4.5/*",
+        "dist/types-ts4.5/index.d.ts"
+      ]
+    }
+  },
   "sideEffects": false,
   "atlaskit:src": "src/index.tsx",
   "atlassian": {
@@ -58,7 +66,7 @@
     "jscodeshift": "^0.13.0",
     "prismjs": "^1.25.0",
     "react-dom": "^16.8.0",
-    "typescript": "4.5.5"
+    "typescript": "~4.9.5"
   },
   "keywords": [
     "atlaskit",

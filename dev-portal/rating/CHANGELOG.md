@@ -1,5 +1,12 @@
 # @atlaskit/rating
 
+## 0.3.4
+
+### Patch Changes
+
+- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- Updated dependencies
+
 ## 0.3.3
 
 ### Patch Changes

@@ -72,9 +72,9 @@ describe('defaultColors', () => {
             expect(lineNumberContrastResult).toBe(true);
           });
 
-          Object.values(foregroundColors).forEach((foregroundColor: string) => {
+          Object.values(foregroundColors).forEach((foregroundColor) => {
             // extra color code only
-            foregroundColor = extraColorCode(foregroundColor);
+            foregroundColor = extraColorCode(String(foregroundColor));
             // normal
             it(`${foregroundColor} foreground color is accessible with ${backgroundColorCode} background color`, () => {
               const foregroundColorContrastResult = contrastCheck.isLevelAA(

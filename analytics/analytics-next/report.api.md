@@ -135,7 +135,7 @@ type Context = Record<string, any>[];
 
 // @public (undocumented)
 export const createAndFireEvent: (
-  channel?: string | undefined,
+  channel?: string,
 ) => (
   payload: AnalyticsEventPayload,
 ) => (createAnalyticsEvent: CreateUIAnalyticsEvent) => UIAnalyticsEvent;
@@ -165,7 +165,7 @@ export class UIAnalyticsEvent extends AnalyticsEvent {
   // (undocumented)
   context: Context;
   // (undocumented)
-  fire: (channel?: string | undefined) => void;
+  fire: (channel?: string) => void;
   // (undocumented)
   handlers: UIAnalyticsEventHandler[];
   // (undocumented)

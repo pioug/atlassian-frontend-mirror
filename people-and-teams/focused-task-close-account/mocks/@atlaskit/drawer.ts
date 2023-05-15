@@ -1,4 +1,3 @@
-module.exports = {
-  __esModule: true,
-  default: 'Drawer',
-};
+const Drawer = 'Drawer';
+
+export default Drawer;

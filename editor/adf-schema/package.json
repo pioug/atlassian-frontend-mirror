@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/adf-schema",
-  "version": "25.6.1",
+  "version": "25.6.2",
   "description": "Shared package that contains the ADF-schema (json) and ProseMirror node/mark specs",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -12,6 +12,14 @@
   "module": "dist/esm/index.js",
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
+  "typesVersions": {
+    ">=4.5 <4.9": {
+      "*": [
+        "dist/types-ts4.5/*",
+        "dist/types-ts4.5/index.d.ts"
+      ]
+    }
+  },
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
   "atlassian": {
@@ -40,7 +48,7 @@
   },
   "dependencies": {
     "@atlaskit/codemod-utils": "^4.2.0",
-    "@atlaskit/editor-palette": "1.4.0",
+    "@atlaskit/editor-palette": "1.4.1",
     "@atlaskit/editor-tables": "^2.3.0",
     "@atlaskit/tokens": "^1.4.0",
     "@babel/runtime": "^7.0.0",
@@ -66,7 +74,7 @@
     "json-schema-diff-validator": "^0.4.1",
     "prosemirror-history": "^1.1.3",
     "prosemirror-state": "1.3.4",
-    "typescript": "4.5.5"
+    "typescript": "~4.9.5"
   },
   "techstack": {
     "@atlassian/frontend": {

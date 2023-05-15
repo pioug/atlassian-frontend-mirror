@@ -14,12 +14,12 @@ import type { PaletteColor } from '../ui-color/ColorPalette/Palettes/type';
 import type { Command } from './command';
 import type { MarkOptions, NodeOptions } from './copy-button';
 
-export interface RenderOptionsPropsT<T> {
+export interface RenderOptionsPropsT<T extends {}> {
   hide: () => void;
   dispatchCommand: (command: T) => void;
 }
 
-export interface DropdownOptionT<T> {
+export interface DropdownOptionT<T extends {}> {
   id?: string;
   title: string;
   onClick: T;
@@ -38,7 +38,7 @@ export interface DropdownOptionT<T> {
   elemAfter?: React.ReactNode;
 }
 
-export type DropdownOptions<T> =
+export type DropdownOptions<T extends {}> =
   | Array<DropdownOptionT<T>>
   | {
       render: (props: RenderOptionsPropsT<T>) => React.ReactElement<any> | null;
@@ -46,7 +46,7 @@ export type DropdownOptions<T> =
       width: number;
     };
 
-export interface SelectOption<T = unknown> {
+export interface SelectOption<T extends {} = {}> {
   value: string;
   label: string;
   selected?: boolean;
@@ -104,7 +104,7 @@ export type FloatingToolbarCopyButton = {
   hidden?: boolean;
 };
 
-export type FloatingToolbarButton<T> = {
+export type FloatingToolbarButton<T extends {}> = {
   id?: string;
   type: 'button';
   title: string;
@@ -140,7 +140,7 @@ export type FloatingToolbarButton<T> = {
   focusEditoronEnter?: boolean; //To focus the editor when button is pressed default value - false
 };
 
-export type FloatingToolbarInput<T> = {
+export type FloatingToolbarInput<T extends {}> = {
   id: string;
   type: 'input';
   title?: string;
@@ -152,7 +152,7 @@ export type FloatingToolbarInput<T> = {
   hidden?: boolean;
 };
 
-export type FloatingToolbarCustom<T> = {
+export type FloatingToolbarCustom<T extends {}> = {
   type: 'custom';
   /**
    * By default -- the floating toolbar supports navigating between
@@ -175,7 +175,7 @@ export type FloatingToolbarCustom<T> = {
   hidden?: boolean;
 };
 
-type FloatingToolbarSelectBase<T, V = SelectOption> = {
+type FloatingToolbarSelectBase<T extends {}, V = SelectOption> = {
   id: string;
   type: 'select';
   selectType: 'list' | 'emoji' | 'date' | 'color';
@@ -189,27 +189,24 @@ type FloatingToolbarSelectBase<T, V = SelectOption> = {
   filterOption?: ((option: V, rawInput: string) => boolean) | null;
 };
 
-export type FloatingToolbarListPicker<T> = FloatingToolbarSelectBase<T> & {
-  selectType: 'list';
-};
+export type FloatingToolbarListPicker<T extends {}> =
+  FloatingToolbarSelectBase<T> & {
+    selectType: 'list';
+  };
 
-export type FloatingToolbarColorPicker<T> = FloatingToolbarSelectBase<
-  T,
-  PaletteColor
-> & {
-  selectType: 'color';
-};
+export type FloatingToolbarColorPicker<T extends {}> =
+  FloatingToolbarSelectBase<T, PaletteColor> & {
+    selectType: 'color';
+  };
 
-export type FloatingToolbarEmojiPicker<T> = FloatingToolbarSelectBase<
-  T,
-  EmojiId
-> & {
-  selectType: 'emoji';
-  selected?: boolean;
-  options: never[];
-};
+export type FloatingToolbarEmojiPicker<T extends {}> =
+  FloatingToolbarSelectBase<T, EmojiId> & {
+    selectType: 'emoji';
+    selected?: boolean;
+    options: never[];
+  };
 
-export type FloatingToolbarDatePicker<T> = FloatingToolbarSelectBase<
+export type FloatingToolbarDatePicker<T extends {}> = FloatingToolbarSelectBase<
   T,
   number
 > & {
@@ -217,7 +214,7 @@ export type FloatingToolbarDatePicker<T> = FloatingToolbarSelectBase<
   options: never[];
 };
 
-export type FloatingToolbarSelect<T> =
+export type FloatingToolbarSelect<T extends {}> =
   | FloatingToolbarEmojiPicker<T>
   | FloatingToolbarColorPicker<T>
   | FloatingToolbarListPicker<T>
@@ -228,7 +225,7 @@ export type FloatingToolbarSeparator = {
   hidden?: boolean;
 };
 
-export type FloatingToolbarDropdown<T> = {
+export type FloatingToolbarDropdown<T extends {}> = {
   testId?: string;
   id?: string;
   type: 'dropdown';
@@ -258,7 +255,7 @@ type FloatingToolbarExtensionsPlaceholder = {
  * This type is restricted with the items that can be used for fallback.
  * Make sure that this type is not a FloatingToolbarCustom type.
  */
-export type FloatingToolbarFallbackItem<T> =
+export type FloatingToolbarFallbackItem<T extends {}> =
   | FloatingToolbarButton<T>
   | FloatingToolbarCopyButton
   | FloatingToolbarDropdown<T>
@@ -266,7 +263,7 @@ export type FloatingToolbarFallbackItem<T> =
   | FloatingToolbarInput<T>
   | FloatingToolbarSeparator;
 
-export type FloatingToolbarItem<T> =
+export type FloatingToolbarItem<T extends {}> =
   | FloatingToolbarButton<T>
   | FloatingToolbarCopyButton
   | FloatingToolbarDropdown<T>

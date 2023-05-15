@@ -37,7 +37,7 @@ export abstract class AbstractResource<Q, R, E, I, O>
 
 // @public (undocumented)
 export const buildCredentials: (
-  secOptions?: SecurityOptions | undefined,
+  secOptions?: SecurityOptions,
 ) => 'include' | 'omit';
 
 // @public (undocumented)
@@ -72,7 +72,7 @@ export interface RefreshSecurityProvider {
 // @public (undocumented)
 const requestService: <T>(
   serviceConfig: ServiceConfig,
-  options?: RequestServiceOptions | undefined,
+  options?: RequestServiceOptions,
 ) => Promise<T>;
 
 // @public (undocumented)

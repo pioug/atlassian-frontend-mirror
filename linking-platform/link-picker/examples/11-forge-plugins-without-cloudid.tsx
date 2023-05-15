@@ -3,7 +3,10 @@ import React, { SyntheticEvent, useState } from 'react';
 import { useSmartLinkLifecycleAnalytics } from '@atlaskit/link-analytics';
 import { SmartCardProvider, CardClient } from '@atlaskit/link-provider';
 
-import { useLinkPickerPlugins } from '@atlassian/link-picker-plugins';
+import {
+  LinkPickerPluginsConfiguration,
+  useLinkPickerPlugins,
+} from '@atlassian/link-picker-plugins';
 
 import { LinkPicker, LinkPickerProps } from '../src';
 import { PageHeader, PageWrapper } from '../example-helpers/common';
@@ -15,8 +18,8 @@ const smartCardClient = new CardClient('staging');
 // mockPluginEndpoints();
 // mockRecentsEndPoints(undefined, undefined, mockRecentData);
 
-const LINK_PICKER_PLUGINS_CONFIG = {
-  product: 'Confluence',
+const LINK_PICKER_PLUGINS_CONFIG: LinkPickerPluginsConfiguration = {
+  product: 'confluence',
   activityClientEndpoint: 'https://start.stg.atlassian.com/gateway/api/graphql',
   aggregatorUrl: 'https://pug.jira-dev.com/gateway/api/xpsearch-aggregator',
 };

@@ -20,7 +20,7 @@ function updateRootItems<T extends any>(
     const rootItemKey = rootItem[key];
     if (rootItemKey === undefined) {
       throw new Error(
-        `[ERROR] Property '${key}' not found in rootItem[${index}]`,
+        `[ERROR] Property '${String(key)}' not found in rootItem[${index}]`,
       );
     } else {
       newKeysCache[rootItem[key]] = index + startIndexWith;
@@ -47,7 +47,9 @@ function updateChildItems<T extends any>(
   const parentCacheKey = itemParent[key];
 
   if (parentCacheKey === undefined) {
-    throw new Error(`[Table Tree] Property '${key}' not found in parent item`);
+    throw new Error(
+      `[Table Tree] Property '${String(key)}' not found in parent item`,
+    );
   }
   const parentLocation = newKeysCache[parentCacheKey];
   const allItemsCopy = [...allTableItems];

@@ -43,20 +43,12 @@ export default class SidebarContainer extends React.Component {
   }
 }
 
-export function withSidebarContainer<T>(
+export function withSidebarContainer<T extends {}>(
   Component: React.ComponentType<T>,
 ): React.ComponentType<T> {
   return (props) => (
     <SidebarContainer>
-      {/**
-       * The type assertion on the following line is to work around an limitation with how
-       * the emotion types interact with the react types.
-       * The work around was take from the following issue
-       * https://github.com/emotion-js/emotion/issues/2169
-       */}
-      <Component
-        {...(props as JSX.LibraryManagedAttributes<typeof Component, T>)}
-      />
+      <Component {...props} />
     </SidebarContainer>
   );
 }

@@ -18,10 +18,14 @@ import { getOrderFromOrderedListNode } from '@atlaskit/editor-common/utils';
 const generateOuterBacktickChain: (text: string, minLength?: number) => string =
   (() => {
     function getMaxLength(text: String): number {
-      return (text.match(/`+/g) || []).reduce(
-        (prev, val) => (val.length > prev.length ? val : prev),
-        '',
-      ).length;
+      const matches = text.match(/`+/g);
+      if (matches) {
+        return matches.reduce(
+          (prev, val) => (val.length > prev.length ? val : prev),
+          '',
+        ).length;
+      }
+      return 0;
     }
 
     return function (text: string, minLength = 1): string {

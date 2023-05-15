@@ -10,6 +10,7 @@ import {
   Module,
 } from './types/extension-manifest';
 import { ESModule } from './types/extension-manifest-common';
+import { Parameters } from './types/extension-parameters';
 
 export const FORGE_EXTENSION_TYPE = 'com.atlassian.ecosystem';
 
@@ -39,7 +40,7 @@ export const buildExtensionKeyAndNodeKey = (
   return `${extensionKey}:${nodeKey}`;
 };
 
-export function buildAction<T>(
+export function buildAction<T extends Parameters>(
   action: ExtensionModuleAction<T>,
   manifest: ExtensionManifest<T>,
 ) {
@@ -52,7 +53,9 @@ export function buildAction<T>(
   }
 }
 
-export const resolveImport = async <T>(importPromise: Module<T>) => {
+export const resolveImport = async <T extends Parameters>(
+  importPromise: Module<T>,
+) => {
   const importedModule = await importPromise;
 
   return importedModule && (importedModule as ESModule<T>).__esModule
@@ -60,7 +63,7 @@ export const resolveImport = async <T>(importPromise: Module<T>) => {
     : (importedModule as T);
 };
 
-export function buildNode<T>(
+export function buildNode<T extends Parameters>(
   action: ExtensionModuleActionObject<T>,
   manifest: ExtensionManifest<T>,
 ): ADFEntity | undefined {

@@ -8,7 +8,7 @@ import {
   Parameters,
 } from './types';
 
-export default class DefaultExtensionProvider<T = Parameters>
+export default class DefaultExtensionProvider<T extends Parameters>
   implements ExtensionProvider<T>
 {
   private manifestsPromise: Promise<ExtensionManifest<T>[]>;

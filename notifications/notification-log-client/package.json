@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/notification-log-client",
-  "version": "6.1.0",
+  "version": "6.1.1",
   "description": "Client APIs for notification-log service",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -11,6 +11,14 @@
   "module": "dist/esm/index.js",
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
+  "typesVersions": {
+    ">=4.5 <4.9": {
+      "*": [
+        "dist/types-ts4.5/*",
+        "dist/types-ts4.5/index.d.ts"
+      ]
+    }
+  },
   "atlaskit:src": "src/index.ts",
   "atlassian": {
     "team": "Work Platform: Incoming Work",
@@ -32,7 +40,7 @@
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "fetch-mock": "^8.0.0",
     "react": "^16.8.0",
-    "typescript": "4.5.5"
+    "typescript": "~4.9.5"
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

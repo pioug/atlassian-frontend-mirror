@@ -14,17 +14,14 @@ const hasType = (err: unknown): err is { type: unknown } => {
 };
 
 const getLinkData = async (
-  { url, displayCategory }: LinkDetails,
+  { url }: LinkDetails,
   client: CardClient,
   store: CardStore,
 ): Promise<[CardState['details']?, CardState['status']?]> => {
   const cachedDetails = store.getState()[url]?.details;
 
-  /**
-   * If `displayCategory` is not 'link' then we assume we are displaying
-   * as a smart link, so we can fetch data if its not already available in the store
-   */
-  if (!cachedDetails && displayCategory !== 'link') {
+  // fetch data if it's not already available in the store
+  if (!cachedDetails) {
     try {
       const data = await client.fetchData(url);
       return [data];

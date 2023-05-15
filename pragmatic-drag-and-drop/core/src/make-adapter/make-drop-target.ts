@@ -198,9 +198,6 @@ export function makeDropTarget<DragType extends AllDragTypes>({
   function dispatchEvent<EventName extends keyof EventPayloadMap<DragType>>(
     args: DispatchEventArgs<EventName>,
   ): void {
-    // This line does not work in TS 4.2
-    // It does work in TS 4.7
-    // @ts-expect-error
     actions[args.eventName](args);
   }
 

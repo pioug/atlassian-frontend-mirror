@@ -43,7 +43,7 @@ export enum EntityType {
 // @public (undocumented)
 export const fetchUserRecommendations: (
   request: UserSearchRequest,
-  signal?: AbortSignal | undefined,
+  signal?: AbortSignal,
 ) => Promise<UserSearchItem[]>;
 
 // @public (undocumented)

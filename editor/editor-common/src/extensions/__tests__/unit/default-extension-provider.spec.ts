@@ -19,7 +19,7 @@ describe('default-extension-provider', () => {
     extensionKey: 'amazing',
   });
 
-  let extensionProvider: DefaultExtensionProvider;
+  let extensionProvider: DefaultExtensionProvider<{}>;
 
   beforeEach(() => {
     extensionProvider = new DefaultExtensionProvider([

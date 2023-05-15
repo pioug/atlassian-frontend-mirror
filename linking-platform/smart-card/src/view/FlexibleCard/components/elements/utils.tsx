@@ -150,7 +150,7 @@ const getData = (
     case ElementName.Title:
       return toLinkProps(context.title, context.url);
     default:
-      return data;
+      return typeof data === 'object' ? data : undefined;
   }
 };
 

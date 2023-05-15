@@ -7,6 +7,8 @@ import {
   Database,
   DataRecord,
 } from 'kakapo';
+import { DatabaseSchema } from 'kakapo/dist/Database';
+
 import uuid from 'uuid/v4';
 
 import {
@@ -37,7 +39,7 @@ import {
 import { mapDataUriToBlob } from '../../utils';
 
 class RouterWithLogging<
-  MediaDatabaseSchema,
+  MediaDatabaseSchema extends DatabaseSchema,
 > extends Router<MediaDatabaseSchema> {
   register(
     method: string,

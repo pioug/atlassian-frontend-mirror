@@ -57,7 +57,7 @@ export const useSmartLinkClientExtension: (cardClient: CardClient) => {
 
 ```json
 {
-  "@atlaskit/link-provider": "^1.6.0",
+  "@atlaskit/link-provider": "^1.6.1",
   "react": "^16.8.0"
 }
 ```

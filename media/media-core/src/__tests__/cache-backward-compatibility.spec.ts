@@ -1,3 +1,5 @@
+export {};
+
 /**
  *  This test is a safety net that should prevent us from making any forward and backward breaking
  *  changes in ANYTHING inside FileState interface. This interface is what being stored in media-core

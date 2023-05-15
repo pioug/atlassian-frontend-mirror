@@ -191,8 +191,8 @@ export type ErrorType = 'UnexpectedError' | ServerErrorType;
 // @public (undocumented)
 export const extractPreview: (
   jsonLd: JsonLd.Data.BaseData,
-  platform?: JsonLd.Primitives.Platforms | undefined,
-  iframeUrlType?: EmbedIframeUrlType | undefined,
+  platform?: CardPlatform,
+  iframeUrlType?: EmbedIframeUrlType,
 ) => LinkPreview_2 | undefined;
 
 // @public (undocumented)
@@ -201,30 +201,12 @@ export const extractUrlFromLinkJsonLd: (
 ) => string | undefined;
 
 // @public (undocumented)
-export const getBaseUrl: (
-  envKey?:
-    | 'dev'
-    | 'development'
-    | 'prd'
-    | 'prod'
-    | 'production'
-    | 'staging'
-    | 'stg'
-    | undefined,
-) => string;
+export const getBaseUrl: (envKey?: keyof typeof BaseUrls) => string;
 
 // @public (undocumented)
 export const getResolverUrl: (
-  envKey?:
-    | 'dev'
-    | 'development'
-    | 'prd'
-    | 'prod'
-    | 'production'
-    | 'staging'
-    | 'stg'
-    | undefined,
-  baseUrlOverride?: string | undefined,
+  envKey?: EnvironmentsKeys,
+  baseUrlOverride?: string,
 ) => string;
 
 // @public (undocumented)

@@ -26,7 +26,7 @@ export const fakeMediaClient = (
       FileFetcherImpl,
       MediaStore: MockMediaStore,
       StargateClient,
-    } = jest.genMockFromModule('@atlaskit/media-client');
+    } = jest.genMockFromModule<any>('@atlaskit/media-client');
     const mediaClient = new MockMediaClient();
 
     const fileFetcher = new FileFetcherImpl();

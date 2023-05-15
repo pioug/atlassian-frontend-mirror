@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/ds-explorations",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "An experimental package for exploration and validation of spacing / typography foundations.",
   "license": "Apache-2.0",
   "atlassian": {
@@ -22,9 +22,10 @@
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
   "typesVersions": {
-    ">=4.0 <4.5": {
+    ">=4.5 <4.9": {
       "*": [
-        "dist/types-ts4.0/*"
+        "dist/types-ts4.5/*",
+        "dist/types-ts4.5/index.d.ts"
       ]
     }
   },
@@ -69,7 +70,7 @@
     "prettier": "^2.8.0",
     "react-dom": "^16.8.0",
     "ts-node": "^10.9.1",
-    "typescript": "4.5.5",
+    "typescript": "~4.9.5",
     "wait-for-expect": "^1.2.0"
   },
   "techstack": {

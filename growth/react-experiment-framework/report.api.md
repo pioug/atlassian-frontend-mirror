@@ -44,7 +44,7 @@ export function asExperiment(
     };
     onReceiveContext: (
       experiments: Experiments,
-      options?: ExperimentEnrollmentOptions | undefined,
+      options?: ExperimentEnrollmentOptions,
     ) => JSX.Element | null;
     componentDidCatch(err: Error): void;
     renderFallback: () => JSX.Element;
@@ -113,7 +113,7 @@ export function asExperiment(
     };
     onReceiveContext: (
       experiments: Experiments,
-      options?: ExperimentEnrollmentOptions | undefined,
+      options?: ExperimentEnrollmentOptions,
     ) => JSX.Element | null;
     componentDidCatch(err: Error): void;
     renderFallback: () => JSX.Element;

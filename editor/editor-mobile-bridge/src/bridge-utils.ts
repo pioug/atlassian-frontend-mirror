@@ -46,9 +46,9 @@ export function sendToBridge<
       } catch (err) {
         // eslint-disable-next-line no-console
         console.error(
-          `Could not call ${bridgeName}.${eventName}() with args: ${JSON.stringify(
-            args,
-          )}`,
+          `Could not call ${bridgeName}.${String(
+            eventName,
+          )}() with args: ${JSON.stringify(args)}`,
         );
       }
     }
@@ -60,7 +60,7 @@ export function sendToBridge<
     // - getBridgeOutput
     const logs = window.logBridge;
     if (logs) {
-      const logName = `${bridgeName}:${eventName}`;
+      const logName = `${bridgeName}:${String(eventName)}`;
       logs[logName] = logs[logName] || [];
       logs[logName] = logs[logName].concat(props);
     }

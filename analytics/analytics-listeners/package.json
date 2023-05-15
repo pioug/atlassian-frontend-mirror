@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/analytics-listeners",
-  "version": "8.7.0",
+  "version": "8.7.1",
   "description": "Fabric analytics listeners to be used by the products",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -12,6 +12,14 @@
   "module": "dist/esm/index.js",
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
+  "typesVersions": {
+    ">=4.5 <4.9": {
+      "*": [
+        "dist/types-ts4.5/*",
+        "dist/types-ts4.5/index.d.ts"
+      ]
+    }
+  },
   "atlaskit:src": "src/index.ts",
   "atlassian": {
     "team": "UIP Frontend Observability",
@@ -38,7 +46,7 @@
     "enzyme": "^3.10.0",
     "jest-in-case": "^1.0.2",
     "react": "^16.8.0",
-    "typescript": "4.5.5"
+    "typescript": "~4.9.5"
   },
   "keywords": [
     "fabric",

@@ -42,12 +42,16 @@ const withDesignTokens = makeDecorator({
           case 'light':
           case 'dark':
           case 'auto':
-            await setGlobalTheme({ colorMode: theme });
+            await setGlobalTheme({
+              colorMode: theme,
+              spacing: 'spacing',
+            });
             break;
           case 'split':
           case 'stack':
             await setGlobalTheme({
               colorMode: 'light',
+              spacing: 'spacing',
             });
 
             document.documentElement

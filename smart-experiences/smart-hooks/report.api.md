@@ -39,7 +39,7 @@ export const useUserRecommendations: (props: UseUserRecommendationsProps) => {
         entityType: EntityType;
         avatarUrl: string;
       }[];
-  triggerSearchFactory: MemoizedFn<() => (query?: string | undefined) => void>;
+  triggerSearchFactory: MemoizedFn<() => (query?: string) => void>;
   selectUserFactory: MemoizedFn<() => (userId: string) => void>;
   isLoading: boolean;
   error: any;

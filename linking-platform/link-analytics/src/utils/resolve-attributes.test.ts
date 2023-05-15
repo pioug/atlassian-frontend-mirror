@@ -129,26 +129,27 @@ describe('resolveAttributes', () => {
       });
     });
 
-    it('should NOT try to resolve attributes if they are NOT already data present in the store', async () => {
-      const mockFetch = jest.fn();
+    it('should try to resolve attributes if data is not already present in the store', async () => {
+      const mockFetch = jest.fn(async () => mocks.success);
       const mockClient = new (fakeFactory(mockFetch))();
+
       const resolvedAttributes = await resolveAttributes(
         linkDetails,
         mockClient,
         mockStore,
       );
 
-      expect(mockFetch).not.toHaveBeenCalled();
+      expect(mockFetch).toHaveBeenCalled();
       expect(resolvedAttributes).toEqual({
-        destinationCategory: null,
+        destinationCategory: 'object',
         destinationContainerId: null,
         destinationObjectId: null,
         destinationObjectType: null,
-        destinationProduct: null,
-        destinationSubproduct: null,
-        destinationTenantId: null,
-        extensionKey: null,
-        status: null,
+        destinationProduct: 'jira',
+        destinationSubproduct: 'core',
+        destinationTenantId: 'tenantId',
+        extensionKey: 'object-provider',
+        status: 'resolved',
         displayCategory: 'link',
         urlHash: 'f28318b204791d282d65cc09bba5389e8b9c7406',
       });

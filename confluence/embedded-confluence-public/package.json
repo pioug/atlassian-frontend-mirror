@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/embedded-confluence",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "Public release version of Embeddedable Pages for Confluence",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -10,6 +10,14 @@
   "license": "Apache-2.0",
   "main": "dist/embedded-confluence-bundle.js",
   "types": "dist/types/index.d.ts",
+  "typesVersions": {
+    ">=4.5 <4.9": {
+      "*": [
+        "dist/types-ts4.5/*",
+        "dist/types-ts4.5/index.d.ts"
+      ]
+    }
+  },
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
   "atlassian": {
@@ -42,7 +50,7 @@
     "@testing-library/user-event": "^14.4.3",
     "react-markdown": "^8.0.0",
     "remark-gfm": "^3.0.0",
-    "typescript": "4.5.5",
+    "typescript": "~4.9.5",
     "wait-for-expect": "^1.2.0"
   },
   "optionalDependencies": {

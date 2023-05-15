@@ -39,7 +39,9 @@ export default <P>(providers: (P | Promise<P>)[]) => {
         return method.apply(provider, args);
       }
 
-      throw new Error(`"${methodName}" isn't a function of the provider`);
+      throw new Error(
+        `"${String(methodName)}" isn't a function of the provider`,
+      );
     };
 
   /**

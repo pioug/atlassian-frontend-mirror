@@ -48,7 +48,7 @@ export default class TableRow extends React.Component<Props, State> {
             onSorting: this.props.onSorting,
             sortOrdered,
             isHeaderRow,
-          });
+          } as Props);
         }
       });
     }
@@ -61,7 +61,7 @@ export default class TableRow extends React.Component<Props, State> {
         if (React.isValidElement(child)) {
           return React.cloneElement(child, {
             colGroupWidth: this.state.colGroupWidths[index],
-          });
+          } as Props);
         }
       });
     }

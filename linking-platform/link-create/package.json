@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/link-create",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "The driver component of meta creation flow",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -20,6 +20,14 @@
   "module": "dist/esm/index.js",
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
+  "typesVersions": {
+    ">=4.5 <4.9": {
+      "*": [
+        "dist/types-ts4.5/*",
+        "dist/types-ts4.5/index.d.ts"
+      ]
+    }
+  },
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
   "af:exports": {
@@ -54,15 +62,15 @@
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@atlassian/link-create-confluence": "^5.0.0",
     "@atlassian/link-create-presets": "^3.0.0",
-    "@atlassian/link-picker-atlassian-plugin": "^30.0.0",
-    "@atlassian/link-picker-plugins": "^20.0.0",
+    "@atlassian/link-picker-atlassian-plugin": "^30.1.0",
+    "@atlassian/link-picker-plugins": "^20.1.0",
     "@atlassian/recent-work-client": "^1.8.0",
-    "@atlassian/search-client": "^0.8.0",
+    "@atlassian/search-client": "^0.9.0",
     "@testing-library/react": "^12.1.5",
     "@testing-library/user-event": "^14.4.3",
     "fetch-mock": "^8.0.0",
     "react-dom": "^16.8.0",
-    "typescript": "4.5.5",
+    "typescript": "~4.9.5",
     "wait-for-expect": "^1.2.0"
   },
   "scripts": {

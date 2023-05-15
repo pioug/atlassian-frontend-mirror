@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/icon-object",
-  "version": "6.3.0",
+  "version": "6.3.1",
   "description": "An object icon is used to represent an Atlassian-specific content type.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -14,6 +14,14 @@
   "module": "dist/esm/index.js",
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
+  "typesVersions": {
+    ">=4.5 <4.9": {
+      "*": [
+        "dist/types-ts4.5/*",
+        "dist/types-ts4.5/index.d.ts"
+      ]
+    }
+  },
   "sideEffects": false,
   "atlassian": {
     "team": "Design System Team",
@@ -40,7 +48,7 @@
   },
   "devDependencies": {
     "@af/icon-build-process": "^0.3.0",
-    "@af/icon-explorer": "^0.0.23",
+    "@af/icon-explorer": "^0.0.24",
     "@atlaskit/button": "^16.7.0",
     "@atlaskit/docs": "*",
     "@atlaskit/modal-dialog": "^12.5.0",

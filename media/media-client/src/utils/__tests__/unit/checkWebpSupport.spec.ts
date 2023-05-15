@@ -1,3 +1,7 @@
+// Force file to be considered an ES Module since it deliberately
+// inlines require statements instead of using a global import.
+export default {};
+
 describe('checkWebpSupport util', () => {
   let imageObjects: any[];
 

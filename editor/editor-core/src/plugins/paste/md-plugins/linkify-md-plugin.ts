@@ -3,7 +3,7 @@
 
 import { Match, linkifyMatch } from '@atlaskit/adf-schema';
 import LinkifyIt from 'linkify-it';
-import { findFilepaths, isLinkInMatches } from '../hyperlink/utils';
+import { findFilepaths, isLinkInMatches } from '../../hyperlink/utils';
 
 // modified version of the original Linkify plugin
 // https://github.com/markdown-it/markdown-it/blob/master/lib/rules_core/linkify.js

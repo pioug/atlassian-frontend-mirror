@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/stylelint-design-system",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Stylelint plugin for use with the Atlassian Design System.",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -23,6 +23,14 @@
   "module": "dist/esm/index.js",
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
+  "typesVersions": {
+    ">=4.5 <4.9": {
+      "*": [
+        "dist/types-ts4.5/*",
+        "dist/types-ts4.5/index.d.ts"
+      ]
+    }
+  },
   "sideEffects": false,
   "atlaskit:src": "src/index.tsx",
   "af:exports": {
@@ -41,7 +49,7 @@
     "@atlaskit/docs": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "jest-preset-stylelint": "^5.0.1",
-    "typescript": "4.5.5",
+    "typescript": "~4.9.5",
     "wait-for-expect": "^1.2.0"
   },
   "techstack": {

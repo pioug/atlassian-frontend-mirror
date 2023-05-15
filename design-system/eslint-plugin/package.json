@@ -1,7 +1,7 @@
 {
   "name": "@atlaskit/eslint-plugin-design-system",
   "description": "The essential plugin for use with the Atlassian Design System.",
-  "version": "5.3.0",
+  "version": "5.3.1",
   "author": "Atlassian Pty Ltd",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -20,9 +20,10 @@
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
   "typesVersions": {
-    ">=4.0 <4.5": {
+    ">=4.5 <4.9": {
       "*": [
-        "dist/types-ts4.0/*"
+        "dist/types-ts4.5/*",
+        "dist/types-ts4.5/index.d.ts"
       ]
     }
   },
@@ -54,7 +55,7 @@
     "react": "^16.8.0",
     "ts-node": "^10.9.1",
     "tsconfig-paths": "^3.9.0",
-    "typescript": "4.5.5"
+    "typescript": "~4.9.5"
   },
   "scripts": {
     "ak-postbuild": "cp -r configs dist",

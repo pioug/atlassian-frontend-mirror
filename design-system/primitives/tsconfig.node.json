@@ -1,0 +1,7 @@
+{
+  "extends": "../../../tsconfig.node.json",
+  "ts-node": {
+    // TODO: Remove this line when/if ../../../tsconfig.node.json adds it instead: https://atlassian.slack.com/archives/C048B3HSFB9/p1684121217771909
+    "require": ["tsconfig-paths/register"]
+  }
+}

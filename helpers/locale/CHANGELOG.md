@@ -1,5 +1,11 @@
 # @atlaskit/locale
 
+## 2.5.0
+
+### Minor Changes
+
+- [`13d26e2043a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/13d26e2043a) - Add getDaysLong function to get non-truncated weekday names.
+
 ## 2.4.1
 
 ### Patch Changes

@@ -143,8 +143,7 @@ describe('Analytics key events', () => {
       providerFactory: ProviderFactory,
     ) => EditorProps;
   }) => {
-    const spy = jest.fn();
-    const createAnalyticsEvent = jest.fn();
+    const analyticsSpy = jest.fn();
     const providerFactory = new ProviderFactory();
     const editorActions = new EditorActions();
 
@@ -172,7 +171,6 @@ describe('Analytics key events', () => {
         },
         providerFactory,
       ),
-      createAnalyticsEvent,
       providerFactory,
       editorRender: ({ editor, eventDispatcher, view, config }) => (
         <EditorContext editorActions={editorActions}>
@@ -205,7 +203,7 @@ describe('Analytics key events', () => {
       ),
       renderOpts: {
         wrapper: ({ children }) => (
-          <AnalyticsListener onEvent={spy} channel={'media'}>
+          <AnalyticsListener onEvent={analyticsSpy} channel={'*'}>
             <SmartCardProvider
               storeOptions={{
                 initialState: {
@@ -237,12 +235,11 @@ describe('Analytics key events', () => {
     return {
       refs,
       sel,
-      spy,
+      analyticsSpy,
       editor,
       editorView,
       undo,
       redo,
-      createAnalyticsEvent,
     };
   };
 
@@ -265,6 +262,102 @@ describe('Analytics key events', () => {
       deleted: expect.any(Function),
     });
     expect(useSmartLinkLifecycleAnalytics).toHaveBeenCalledTimes(1);
+  });
+
+  describe('document inserted smartLink', () => {
+    it('should fire `document inserted smartLink` when pasting a smart link', async () => {
+      const { editorView, analyticsSpy } = await setup({
+        doc: doc(p('{<>}')),
+        editorProps: (props, providerFactory) => {
+          const macroProvider = Promise.resolve(new MockMacroProvider({}));
+          providerFactory.setProvider('macroProvider', macroProvider);
+
+          const providerWithAutoConvertHandler = new DefaultExtensionProvider(
+            [
+              createFakeExtensionManifest({
+                title: 'Jira issue',
+                type: 'confluence.macro',
+                extensionKey: 'jira',
+              }),
+            ],
+            [
+              (text: string) => {
+                if (text && text.startsWith(`https://jdog`)) {
+                  return {
+                    type: 'inlineExtension',
+                    attrs: {
+                      extensionType: 'confluence.macro',
+                      extensionKey: 'jira',
+                      parameters: {
+                        macroParams: {
+                          url: text,
+                        },
+                      },
+                    },
+                  };
+                }
+              },
+            ],
+          );
+
+          const extensionProvider = Promise.resolve(
+            combineExtensionProviders([providerWithAutoConvertHandler]),
+          );
+
+          providerFactory.setProvider('extensionProvider', extensionProvider);
+
+          return {
+            ...props,
+            allowExtension: true,
+            extensionHandlers,
+            extensionProviders: [extensionProvider],
+            linking: {
+              ...props.linking,
+              smartLinks: {
+                ...props.linking?.smartLinks,
+                resolveBeforeMacros: ['jira'],
+              },
+            },
+          };
+        },
+      });
+
+      const url = 'https://jdog.jira-dev.com/browse/BENTO-3677';
+
+      dispatchPasteEvent(editorView, {
+        html: `<meta charset="utf-8"><a href="${url}">${url}</a>`,
+        plain: url,
+      });
+
+      /**
+       * Should not have fired a created event as link is queued for upgrade
+       */
+      raf.flush();
+      await flushPromises();
+
+      raf.flush();
+      await flushPromises();
+
+      /**
+       * At this point we will have resolved and upgraded our link into an inline link
+       */
+      expect(mockLinkCreated).toHaveBeenCalledTimes(1);
+
+      expect(analyticsSpy).toBeFiredWithAnalyticEventOnce({
+        payload: {
+          action: 'inserted',
+          actionSubject: 'document',
+          actionSubjectId: 'smartLink',
+          eventType: 'track',
+          attributes: {
+            actionSubjectId: 'smartLink',
+          },
+          nonPrivacySafeAttributes: {
+            domainName: 'jdog.jira-dev.com',
+          },
+        },
+      });
+    });
   });
 
   describe('link created', () => {
@@ -1895,7 +1988,7 @@ describe('Analytics key events', () => {
           location: 'editor_fixedWidth',
         },
       ];
-      const { editorView, undo, spy } = await setup({
+      const { editorView, undo, analyticsSpy } = await setup({
         doc: doc(p('{<>}')),
         editorProps: (props, providerFactory) => {
           const macroProvider = Promise.resolve(new MockMacroProvider({}));
@@ -1986,7 +2079,7 @@ describe('Analytics key events', () => {
       expect(mockLinkCreated).toHaveBeenCalledTimes(1);
       expect(mockLinkUpdated).toHaveBeenCalledTimes(0);
       expect(mockLinkDeleted).toHaveBeenCalledTimes(0);
-      expect(spy).toBeFiredWithAnalyticEventOnce({
+      expect(analyticsSpy).toBeFiredWithAnalyticEventOnce({
         payload: {
           action: 'created',
           actionSubject: 'link',
@@ -2003,7 +2096,7 @@ describe('Analytics key events', () => {
       expect(mockLinkCreated).toHaveBeenCalledTimes(0);
       expect(mockLinkUpdated).toHaveBeenCalledTimes(1);
       expect(mockLinkDeleted).toHaveBeenCalledTimes(0);
-      expect(spy).toBeFiredWithAnalyticEventOnce({
+      expect(analyticsSpy).toBeFiredWithAnalyticEventOnce({
         payload: {
           action: 'updated',
           actionSubject: 'link',
@@ -2021,7 +2114,7 @@ describe('Analytics key events', () => {
       expect(mockLinkCreated).toHaveBeenCalledTimes(0);
       expect(mockLinkUpdated).toHaveBeenCalledTimes(0);
       expect(mockLinkDeleted).toHaveBeenCalledTimes(1);
-      expect(spy).toBeFiredWithAnalyticEventOnce({
+      expect(analyticsSpy).toBeFiredWithAnalyticEventOnce({
         payload: {
           action: 'deleted',
           actionSubject: 'link',

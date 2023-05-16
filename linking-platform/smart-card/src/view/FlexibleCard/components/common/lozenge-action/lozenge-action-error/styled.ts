@@ -32,10 +32,9 @@ export const contentStyles = css`
 
   > span,
   > div {
-    &[data-smart-element-text] {
-      font-size: 0.875rem;
-      color: ${token('color.text', N800)};
-    }
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    color: ${token('color.text', N800)};
   }
 `;
 

@@ -50,7 +50,7 @@ const LinkCreate = withFormContext(
     }
 
     const handleCreate = useCallback(
-      result => {
+      (result: { url: string; objectId: string; objectType: string }) => {
         // Reset the form error message
         setFormErrorMessage(undefined);
         onCreate && onCreate(result.url);

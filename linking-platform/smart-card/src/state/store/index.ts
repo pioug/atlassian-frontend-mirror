@@ -1,24 +1,23 @@
-import { useEffect, useState } from 'react';
+import { useSyncExternalStoreWithSelector } from 'use-sync-external-store/shim/with-selector';
+
 import { useSmartLinkContext } from '@atlaskit/link-provider';
-import { CardState, getUrl } from '@atlaskit/linking-common';
+import { CardState } from '@atlaskit/linking-common';
 
 export type { CardType } from '@atlaskit/linking-common';
 
+const PENDING_STATE = {
+  status: 'pending',
+};
+
 export function useSmartCardState(url: string): CardState {
   const { store } = useSmartLinkContext();
-  // Initially, card state should be pending and 'empty'.
-  const newCardState = getUrl(store, url);
-  const [, setCardState] = useState<CardState>(newCardState);
-  // Selector for initial and subsequent states.
-  useEffect(() => {
-    const unsubscribe = store.subscribe(() => {
-      // forcing re-renders when the store changes
-      setCardState(getUrl(store, url));
-    });
 
-    return () => unsubscribe();
-  }, [url, store]);
+  const cardState = useSyncExternalStoreWithSelector(
+    store.subscribe,
+    store.getState,
+    store.getState,
+    (state) => state[url],
+  );
 
-  // Returning fresh state for use in view components. Added as a part of the fix in EDM-4422.
-  return newCardState;
+  return cardState ?? PENDING_STATE;
 }

@@ -7,6 +7,12 @@ import {
 import { toFormattedParts } from '../toFormattedParts';
 import { createDateParser } from '../../date-parser';
 
+type getDaysCase = [
+  string,
+  Parameters<LocalizationProvider['getDaysShort']>[0],
+  Array<string>,
+];
+
 expect.extend({
   // @ts-expect-error
   toBeDateWithYear: (received: Date, year: number) => {
@@ -72,9 +78,7 @@ describe('LocalizationProvider', () => {
     expect(result).toBe(expectedResult);
   });
 
-  it.each<
-    [string, Parameters<LocalizationProvider['getDaysShort']>[0], Array<string>]
-  >([
+  it.each([
     ['en-AU', , ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']],
     ['en-AU', 0, ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']],
     ['en-AU', 1, ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']],
@@ -85,11 +89,87 @@ describe('LocalizationProvider', () => {
     // More Info: https://nodejs.org/api/intl.html
     // ['ko-KR', undefined, ['토', '일', '월', '화', '수', '목', '금']],
     // ['nl-NL', undefined, ['za', 'zo', 'ma', 'di', 'wo', 'do', 'vr']],
-  ])(
+  ] as getDaysCase[])(
     'returns all weekdays in short format',
     (locale, weekStartDay, expected) => {
       const provider = createLocalizationProvider(locale);
       const result = provider.getDaysShort(weekStartDay);
+
+      expect(result).toEqual(expected);
+    },
+  );
+
+  it.each([
+    [
+      'en-AU',
+      ,
+      [
+        'Sunday',
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday',
+      ],
+    ],
+    [
+      'en-AU',
+      0,
+      [
+        'Sunday',
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday',
+      ],
+    ],
+    [
+      'en-AU',
+      1,
+      [
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday',
+        'Sunday',
+      ],
+    ],
+    [
+      'en-AU',
+      2,
+      [
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday',
+        'Sunday',
+        'Monday',
+      ],
+    ],
+    [
+      'en-AU',
+      6,
+      [
+        'Saturday',
+        'Sunday',
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+      ],
+    ],
+  ] as getDaysCase[])(
+    'returns all weekdays in long format',
+    (locale, weekStartDay, expected) => {
+      const provider = createLocalizationProvider(locale);
+      const result = provider.getDaysLong(weekStartDay);
 
       expect(result).toEqual(expected);
     },

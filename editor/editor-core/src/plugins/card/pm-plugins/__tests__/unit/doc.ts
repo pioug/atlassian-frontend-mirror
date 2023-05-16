@@ -60,7 +60,7 @@ import {
   setSelectedCardAppearance,
   convertHyperlinkToSmartCard,
 } from '../../doc';
-import { ACTION, INPUT_METHOD } from '../../../../analytics';
+import { INPUT_METHOD } from '../../../../analytics';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import {
   createCardRequest,
@@ -176,12 +176,7 @@ describe('card', () => {
         );
 
         editorView.dispatch(
-          queueCardsFromChangedTr(
-            editorView.state,
-            tr,
-            INPUT_METHOD.CLIPBOARD,
-            ACTION.PASTED,
-          ),
+          queueCardsFromChangedTr(editorView.state, tr, INPUT_METHOD.CLIPBOARD),
         );
 
         expect(pluginKey.getState(editorView.state)).toEqual({
@@ -193,7 +188,6 @@ describe('card', () => {
               appearance: 'inline',
               compareLinkText: true,
               source: 'clipboard',
-              analyticsAction: 'pasted',
             },
           ],
           provider: null,

@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 2.10.0
+
+### Minor Changes
+
+- [`607d908eefa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/607d908eefa) - Add new hooks useAvailableSites and useCloudIdToUrl
+
 ## 2.9.1
 
 ### Patch Changes

@@ -8,6 +8,7 @@ type WeekDay = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 
 export interface LocalizationProvider {
   getDaysShort: (weekStartDay?: WeekDay) => Array<string>;
+  getDaysLong: (weekStartDay?: WeekDay) => Array<string>;
   getMonthsLong: () => Array<string>;
   formatDate: DateFormatter;
   formatTime: DateFormatter;
@@ -33,9 +34,9 @@ export const createLocalizationProvider = (
       minute: 'numeric',
     }).format(date);
 
-  const getDaysShort = (weekStartDay: WeekDay = 0) => {
+  const getDays = (weekStartDay: WeekDay = 0, length: 'long' | 'short') => {
     const dayFormatter = Intl.DateTimeFormat(normalizedLocale, {
-      weekday: 'short',
+      weekday: length,
     });
 
     // Right now there is no way to find out first day of the week based on Intl (locale)
@@ -47,16 +48,30 @@ export const createLocalizationProvider = (
         ? [...weekdays.slice(weekStartDay), ...weekdays.slice(0, weekStartDay)]
         : weekdays;
 
-    return rotatedWeekdays.map((day) =>
+    return rotatedWeekdays.map((day) => {
       // Some short days are longer than 3 characters but are unique if the first
       // three non-white characters are used.
-      dayFormatter
+      const result = dayFormatter
         // Date range chosen which has a Sun-Sat range so we can extract the names
         .format(new Date(2000, 9, day + 1, 12))
         // \u200E matches on the Left-to-Right Mark character in IE/Edge
-        .replace(/[\s\u200E]/g, '')
-        .substring(0, 3),
-    );
+        .replace(/[\s\u200E]/g, '');
+
+      // If short days, only return first three characters. Else return whole thing
+      if (length === 'short') {
+        return result.substring(0, 3);
+      } else {
+        return result;
+      }
+    });
+  };
+
+  const getDaysShort = (weekStartDay: WeekDay = 0) => {
+    return getDays(weekStartDay, 'short');
+  };
+
+  const getDaysLong = (weekStartDay: WeekDay = 0) => {
+    return getDays(weekStartDay, 'long');
   };
 
   const getMonthsLong = () => {
@@ -107,6 +122,7 @@ export const createLocalizationProvider = (
 
   return {
     getDaysShort,
+    getDaysLong,
     getMonthsLong,
     formatDate,
     formatTime,

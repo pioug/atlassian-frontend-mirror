@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 26.1.5
+
+### Patch Changes
+
+- [`6fa208a0d81`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6fa208a0d81) - Fixes internal useSmartCardState to internally use useSyncExternalStore to fix bugs relating to syncronous updates to the store in the same phase that the store is subscribed to.
+
+## 26.1.4
+
+### Patch Changes
+
+- [`cee3699d4a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cee3699d4a8) - [ux] Minor style updates for a Smart Link Error Lozenge
+
 ## 26.1.3
 
 ### Patch Changes

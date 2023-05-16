@@ -198,7 +198,7 @@ export const queueCardsFromChangedTr = (
   state: EditorState,
   tr: Transaction,
   source: CardReplacementInputMethod,
-  analyticsAction: ACTION,
+  analyticsAction?: ACTION,
   normalizeLinkText: boolean = true,
   sourceEvent: UIAnalyticsEvent | null | undefined = undefined,
 ): Transaction => {
@@ -233,9 +233,11 @@ export const queueCardsFromChangedTr = (
     return false;
   });
 
-  addLinkMetadata(state.selection, tr, {
-    action: analyticsAction,
-  });
+  if (analyticsAction) {
+    addLinkMetadata(state.selection, tr, {
+      action: analyticsAction,
+    });
+  }
 
   return queueCards(requests)(tr);
 };

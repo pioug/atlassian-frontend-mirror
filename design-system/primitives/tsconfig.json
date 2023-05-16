@@ -8,7 +8,8 @@
     "examples/**/*.ts",
     "examples/**/*.tsx",
     "src/**/*.ts",
-    "src/**/*.tsx"
+    "src/**/*.tsx",
+    "scripts"
   ],
   "compilerOptions": {
     "baseUrl": ""

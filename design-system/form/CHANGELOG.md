@@ -1,5 +1,17 @@
 # @atlaskit/form
 
+## 8.11.3
+
+### Patch Changes
+
+- [`e8dbb0a281b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e8dbb0a281b) - add a11y support for alert messages
+
+## 8.11.2
+
+### Patch Changes
+
+- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+
 ## 8.11.1
 
 ### Patch Changes

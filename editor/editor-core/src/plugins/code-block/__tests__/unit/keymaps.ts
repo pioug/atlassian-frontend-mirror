@@ -28,6 +28,8 @@ import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import breakoutPlugin from '../../../breakout';
 import listPlugin from '../../../list';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 describe('codeBlock - keymaps', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -37,6 +39,8 @@ describe('codeBlock - keymaps', () => {
       doc,
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
+        .add([analyticsPlugin, {}])
+        .add(contentInsertionPlugin)
         .add([codeBlockPlugin, { appearance: 'full-page' }])
         .add(layoutPlugin)
         .add(blockTypePlugin)

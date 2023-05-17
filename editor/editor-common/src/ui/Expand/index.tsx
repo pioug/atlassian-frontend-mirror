@@ -12,6 +12,7 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import * as colors from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { fontSize, gridSize } from '@atlaskit/theme/constants';
 import { ThemeProps } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
@@ -39,7 +40,7 @@ export const messages = defineMessages({
   },
 });
 
-const BORDER_RADIUS = gridSize() / 2;
+const BORDER_RADIUS = token('border.radius.100', '4px');
 
 const EXPAND_COLLAPSED_BACKGROUND = token(
   'color.background.neutral.subtle',
@@ -88,7 +89,7 @@ const expandIconWrapperStyle = (props: ThemeProps) => css`
     light: token('color.icon', colors.N90),
     dark: token('color.icon', '#d9dde3'),
   })(props)};
-  border-radius: ${gridSize() / 2}px;
+  border-radius: ${token('border.radius.100', '4px')};
   width: 24px;
   height: 24px;
 
@@ -111,8 +112,8 @@ const expandIconWrapperExpandedStyle = css`
 `;
 
 export const expandLayoutWrapperStyle = css`
-  width: ${gridSize() * 3}px;
-  height: ${gridSize() * 3}px;
+  width: ${token('space.300', '24px')};
+  height: ${token('space.300', '24px')};
 `;
 
 export const ExpandLayoutWrapperWithRef = forwardRef(
@@ -128,6 +129,8 @@ export const ExpandLayoutWrapperWithRef = forwardRef(
 
 const containerStyles = (styleProps: StyleProps) => {
   const { expanded, focused } = styleProps;
+  // TODO: Migrate away from gridSize
+  // Recommendation: Verify if this is intentional: 8 / 4 / 14 rem = 4.57px?
   const marginTop = `${gridSize() / 2 / fontSize()}rem`;
   const marginBottom = 0;
   // Only only these margins if the expand isn't editable
@@ -146,7 +149,7 @@ const containerStyles = (styleProps: StyleProps) => {
       : expanded
       ? EXPAND_EXPANDED_BORDER_COLOR(themeProps)
       : EXPAND_COLLAPSED_BORDER_COLOR};
-    border-radius: ${BORDER_RADIUS}px;
+    border-radius: ${BORDER_RADIUS};
     min-height: 25px;
     background: ${!expanded
       ? EXPAND_COLLAPSED_BACKGROUND
@@ -155,7 +158,7 @@ const containerStyles = (styleProps: StyleProps) => {
 
     transition: background 0.3s ${akEditorSwoopCubicBezier},
       border-color 0.3s ${akEditorSwoopCubicBezier};
-    padding: ${gridSize()}px;
+    padding: ${token('space.100', '8px')};
 
     &:hover {
       // TODO: Remove the border styles below once design tokens have been enabled and fallbacks are no longer triggered.
@@ -178,8 +181,12 @@ const containerStyles = (styleProps: StyleProps) => {
 
 const contentStyles = (styleProps: StyleProps) => (themeProps: ThemeProps) =>
   css`
-    padding-top: ${styleProps.expanded ? gridSize() : 0}px;
-    padding-right: ${gridSize()}px;
+    padding-top: ${styleProps.expanded
+      ? token('space.100', '8px')
+      : token('space.0', '0px')};
+    padding-right: ${token('space.100', '8px')};
+    // TODO: Migrate away from gridSize
+    // Recommendation: Replace gridSize with 8 if important to highlight 8*4 - 8/2, or directly replace with 28px
     padding-left: ${gridSize() * 4 - gridSize() / 2}px;
     display: flow-root;
 
@@ -220,7 +227,7 @@ const titleInputStyles = (props: ThemeProps) => css`
   background: transparent;
   display: flex;
   flex: 1;
-  padding: 0 0 0 ${gridSize() / 2}px;
+  padding: 0 0 0 ${token('space.050', '4px')};
   width: 100%;
 
   &::placeholder {

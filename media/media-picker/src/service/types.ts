@@ -5,6 +5,7 @@ import {
   UploadPreviewUpdateEventPayload,
   UploadsStartEventPayload,
   UploadParams,
+  UploadRejectionData,
 } from '../types';
 
 export type UploadServiceEventPayloadTypes = {
@@ -42,14 +43,8 @@ export interface UploadService {
     event: E,
     listener: UploadServiceEventListener<E>,
   ): void;
-  onFileRejection(handler: (rejectionData: RejectionData) => void): void;
+  onFileRejection(handler: (rejectionData: UploadRejectionData) => void): void;
 }
-
-export type RejectionData = {
-  reason: 'fileSizeLimitExceeded';
-  file: File;
-  limit: number;
-};
 
 export enum LocalFileSource {
   PastedFile = 'pastedFile',

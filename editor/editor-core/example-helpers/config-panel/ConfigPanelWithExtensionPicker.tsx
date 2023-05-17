@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react';
 import { IntlProvider } from 'react-intl-next';
 import { css, jsx } from '@emotion/react';
 
-import { gridSize } from '@atlaskit/theme/constants';
 import * as colors from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 import TextArea from '@atlaskit/textarea';
 import { CodeBlock } from '@atlaskit/code';
 
@@ -31,16 +31,16 @@ const exampleWrapper = css`
 
 const column = (width: number | string) => css`
   width: ${width}px;
-  margin: ${gridSize() * 2}px;
+  margin: ${token('space.200', '16px')};
 
   h3 {
     border-bottom: 1px solid ${colors.N50};
-    margin-bottom: ${gridSize() * 2}px;
+    margin-bottom: ${token('space.200', '16px')};
   }
 `;
 
 const codeWrapper = css`
-  margin-top: ${gridSize() * 2}px;
+  margin-top: ${token('space.200', '16px')};
 `;
 
 function ExtensionConfigPanel({

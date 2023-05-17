@@ -17,9 +17,8 @@ import { EventEmitter2 } from 'eventemitter2';
 import { MediaFile, UploadParams } from '../types';
 
 import { getPreviewFromImage } from '../util/getPreviewFromImage';
-import { MediaErrorName } from '../types';
+import { MediaErrorName, UploadRejectionData } from '../types';
 import {
-  RejectionData,
   UploadService,
   UploadServiceEventListener,
   UploadServiceEventPayloadTypes,
@@ -43,7 +42,7 @@ export class UploadServiceImpl implements UploadService {
   private readonly userMediaClient?: MediaClient;
   private readonly emitter: EventEmitter2;
   private cancellableFilesUploads: { [key: string]: CancellableFileUpload };
-  private fileRejectionHandler?: (rejectionData: RejectionData) => void;
+  private fileRejectionHandler?: (rejectionData: UploadRejectionData) => void;
 
   constructor(
     private readonly tenantMediaClient: MediaClient,
@@ -147,7 +146,7 @@ export class UploadServiceImpl implements UploadService {
           if (this.fileRejectionHandler) {
             this.fileRejectionHandler({
               reason: 'fileSizeLimitExceeded',
-              file,
+              fileName: file.name,
               limit: rejectedFile.error.limit,
             });
           }
@@ -160,10 +159,8 @@ export class UploadServiceImpl implements UploadService {
 
         let deferredUploadId: Promise<string>;
         const isIdConflictError =
-          caughtError &&
           caughtError instanceof RequestError &&
-          caughtError.metadata &&
-          caughtError.metadata.statusCode === 409;
+          caughtError.metadata?.statusCode === 409;
         if (touchedFile) {
           deferredUploadId = Promise.resolve(touchedFile.uploadId);
         } else if (isIdConflictError) {
@@ -399,7 +396,7 @@ export class UploadServiceImpl implements UploadService {
     });
   };
 
-  onFileRejection(handler: (rejectionData: RejectionData) => void) {
+  onFileRejection(handler: (rejectionData: UploadRejectionData) => void) {
     this.fileRejectionHandler = handler;
   }
 }

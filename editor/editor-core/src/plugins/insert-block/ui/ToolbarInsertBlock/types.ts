@@ -3,6 +3,7 @@ import { EditorView } from 'prosemirror-view';
 import {
   EditorActionsOptions as EditorActions,
   FeatureFlags,
+  ExtractInjectionAPI,
 } from '@atlaskit/editor-common/types';
 import { Command } from '../../../../types/command';
 import { EmojiProvider } from '@atlaskit/emoji';
@@ -12,7 +13,7 @@ import { MenuItem } from '../../../../ui/DropdownMenu/types';
 import { Node as PMNode } from 'prosemirror-model';
 import { DispatchAnalyticsEvent } from '../../../analytics';
 import { BlockMenuItem } from './create-items';
-import type { InsertNodeAPI } from '../../../../insert-api/types';
+import type insertBlockPlugin from '../../index';
 
 export interface Props {
   buttons: number;
@@ -57,8 +58,8 @@ export interface Props {
     isEditing?: boolean,
   ) => (view: EditorView) => void;
   dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
-  insertNodeAPI?: InsertNodeAPI | undefined | null;
   featureFlags: FeatureFlags;
+  pluginInjectionApi?: ExtractInjectionAPI<typeof insertBlockPlugin>;
 }
 
 export interface State {

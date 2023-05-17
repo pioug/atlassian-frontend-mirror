@@ -33,7 +33,8 @@ import {
   canLinkBeCreatedInRange,
 } from '../../pm-plugins/main';
 import { pluginKey as cardPluginKey } from '../../../card/pm-plugins/main';
-import analyticsPlugin, { INPUT_METHOD } from '../../../analytics';
+import deprecatedAnalyticsPlugin, { INPUT_METHOD } from '../../../analytics';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
@@ -43,6 +44,9 @@ import emojiPlugin from '../../../emoji';
 import hyperlinkPlugin from '../../index';
 import textFormattingPlugin from '../../../text-formatting';
 import codeBlockPlugin from '../../../code-block';
+import widthPlugin from '../../../width';
+import gridPlugin from '../../../grid';
+import basePlugin from '../../../base';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 const googleUrl = 'https://google.com';
@@ -70,10 +74,14 @@ describe('hyperlink commands', () => {
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
         .add([analyticsPlugin, { createAnalyticsEvent }])
+        .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
+        .add(basePlugin)
         .add(hyperlinkPlugin)
         .add(textFormattingPlugin)
         .add(emojiPlugin)
         .add([codeBlockPlugin, { appearance: 'full-page' }])
+        .add(widthPlugin)
+        .add(gridPlugin)
         .add([
           cardPlugin,
           { provider: Promise.resolve(cardProvider), platform: 'web' },

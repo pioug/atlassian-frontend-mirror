@@ -1,5 +1,21 @@
 # @atlaskit/dropdown-menu
 
+## 11.9.1
+
+### Patch Changes
+
+- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+
+## 11.9.0
+
+### Minor Changes
+
+- [`d518f0e34b9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d518f0e34b9) - [ux] We are testing a selected indicator change to menu, dropdown-menu, and side-navigation packages behind an internal feature flag. If successful this will be released in a later minor release.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.8.1
 
 ### Patch Changes

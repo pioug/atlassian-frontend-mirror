@@ -22,6 +22,7 @@ import {
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 describe('Paste plugin', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -32,6 +33,7 @@ describe('Paste plugin', () => {
       doc,
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
+        .add([analyticsPlugin, {}])
         .add([pastePlugin, {}])
         .add(blockTypePlugin)
         .add(hyperlinkPlugin)

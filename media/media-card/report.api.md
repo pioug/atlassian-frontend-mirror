@@ -26,7 +26,6 @@ import { Identifier } from '@atlaskit/media-client';
 import { ImageResizeMode } from '@atlaskit/media-client';
 import { MediaClient } from '@atlaskit/media-client';
 import { MediaFeatureFlags } from '@atlaskit/media-common';
-import { MediaViewerDataSource } from '@atlaskit/media-viewer';
 import { MouseEvent as MouseEvent_2 } from 'react';
 import { NumericalCardDimensions } from '@atlaskit/media-common';
 import { default as React_2 } from 'react';
@@ -148,8 +147,6 @@ export interface CardProps extends SharedCardProps, CardEventProps {
   readonly isLazy?: boolean;
   // (undocumented)
   readonly mediaClient: MediaClient;
-  // @deprecated
-  readonly mediaViewerDataSource?: MediaViewerDataSource;
   // (undocumented)
   readonly mediaViewerItems?: Identifier[];
   // (undocumented)
@@ -329,8 +326,6 @@ interface MediaInlineCardProps {
   isSelected?: boolean;
   // (undocumented)
   mediaClient: MediaClient;
-  // @deprecated
-  mediaViewerDataSource?: MediaViewerDataSource;
   // (undocumented)
   mediaViewerItems?: Identifier[];
   // (undocumented)

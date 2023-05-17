@@ -9,7 +9,7 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { N20, DN50 } from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
-import { fontSize, gridSize } from '@atlaskit/theme/constants';
+import { fontSize } from '@atlaskit/theme/constants';
 import type { ThemeProps } from '@atlaskit/theme/types';
 import { CodeBlockSharedCssClassName } from '@atlaskit/editor-common/styles';
 
@@ -44,7 +44,7 @@ const codeBlockStyleOverrides = (props?: ThemeProps) =>
           light: token('color.background.neutral', N20),
           dark: token('color.background.neutral', DN50),
         })(props),
-        leftCoverWidth: `${gridSize() * 3}px`,
+        leftCoverWidth: token('space.300', '24px'),
       })};
       background-attachment: local, local, local, local, scroll, scroll, scroll,
         scroll;

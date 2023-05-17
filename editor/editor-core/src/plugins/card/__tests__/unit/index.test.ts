@@ -33,7 +33,7 @@ describe('cardPlugin', () => {
       const editorPlugin = cardPlugin(options);
       editorPlugin.pmPlugins!();
 
-      expect(spy).toHaveBeenCalledWith(options);
+      expect(spy).toHaveBeenCalledWith(options, undefined);
     });
 
     it('invokes createPlugin with default plugin options', () => {
@@ -41,14 +41,17 @@ describe('cardPlugin', () => {
       const editorPlugin = cardPlugin({ platform: 'web' });
       editorPlugin.pmPlugins!();
 
-      expect(spy).toHaveBeenCalledWith({
-        platform: 'web',
-        allowBlockCards: true,
-        allowResizing: true,
-        allowWrapping: true,
-        allowAlignment: true,
-        useAlternativePreloader: true,
-      });
+      expect(spy).toHaveBeenCalledWith(
+        {
+          platform: 'web',
+          allowBlockCards: true,
+          allowResizing: true,
+          allowWrapping: true,
+          allowAlignment: true,
+          useAlternativePreloader: true,
+        },
+        undefined,
+      );
     });
   });
 });

@@ -20,6 +20,7 @@ import React from 'react';
 import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { MediaNodeUpdater } from '../mediaNodeUpdater';
+import { MediaInlineCard } from '@atlaskit/media-card';
 
 const mockSchema = getSchemaBasedOnStage('stage0');
 jest.mock('../mediaNodeUpdater.ts');
@@ -152,17 +153,12 @@ describe('MediaInline ReactNodeView', () => {
     });
   });
 
-  test('returns loading view with message when mediaClientConfig is present', async () => {
+  test('renders MediaInlineCard when mediaClientConfig is present', async () => {
     const wrapper = mountWithIntl(<MediaInline {...mediaInlineProps} />);
     await flushPromises();
     wrapper.update();
-    const mediaInlineLoadingView = wrapper
-      .findWhere((el) => el.name() === 'MediaInlineCardLoadingView')
-      .instance();
-    expect(mediaInlineLoadingView.props).toEqual({
-      message: 'Loading file...',
-      isSelected: true,
-    });
+    const mediaInlineLoadingView = wrapper.find(MediaInlineCard).instance();
+    expect(mediaInlineLoadingView).toBeDefined();
   });
 
   it('copied node adds a promise to pending tasks', async () => {

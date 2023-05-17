@@ -12,7 +12,8 @@ import {
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 
-import analyticsPlugin from '../../../analytics';
+import deprecatedAnalyticsPlugin from '../../../analytics';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import tasksAndDecisionsPlugin from '../../../tasks-and-decisions';
 import floatingToolbarPlugin, {
   pluginKey as floatingToolbarPluginKey,
@@ -43,6 +44,7 @@ describe('hyperlink', () => {
           { floatingToolbarLinkSettingsButton: 'false' },
         ])
         .add([analyticsPlugin, { createAnalyticsEvent }])
+        .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
         .add(floatingToolbarPlugin)
         .add(blockTypePlugin)
         .add(typeAheadPlugin)

@@ -1,10 +1,23 @@
 import React from 'react';
 import { mount, ReactWrapper } from 'enzyme';
+import { render } from '@testing-library/react';
+import '@atlaskit/link-test-helpers/jest';
+import { asMock } from '@atlaskit/link-test-helpers/jest';
 
 import { Card, Provider, Client } from '@atlaskit/smart-card';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
 
 import InlineCard from '../../../../react/nodes/inlineCard';
+import { AnalyticsListener } from '@atlaskit/analytics-next';
+import { MockCardComponent } from './card.mock';
+
+jest.mock('@atlaskit/smart-card', () => {
+  const originalModule = jest.requireActual('@atlaskit/smart-card');
+  return {
+    ...originalModule,
+    Card: jest.fn((props) => <originalModule.Card {...props} />),
+  };
+});
 
 describe('Renderer - React/Nodes/InlineCard', () => {
   const url =
@@ -23,6 +36,7 @@ describe('Renderer - React/Nodes/InlineCard', () => {
   };
 
   let node: ReactWrapper;
+
   afterEach(() => {
     node.unmount();
   });
@@ -112,6 +126,39 @@ describe('Renderer - React/Nodes/InlineCard', () => {
       appearance: 'inline',
       showAuthTooltip: true,
       showServerActions: true,
+    });
+  });
+});
+
+describe('Renderer - React/Nodes/InlineCard - analytics context', () => {
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
+  it('should fire renderer location attribute when rendered', async () => {
+    asMock(Card).mockImplementation(MockCardComponent);
+    const analyticsSpy = jest.fn();
+    const expectedContext = [
+      {
+        attributes: {
+          location: 'renderer',
+        },
+        location: 'renderer',
+      },
+    ];
+
+    render(
+      <AnalyticsListener onEvent={analyticsSpy} channel={'atlaskit'}>
+        <InlineCard url="https://atlassian.com" />
+      </AnalyticsListener>,
+    );
+
+    expect(analyticsSpy).toBeFiredWithAnalyticEventOnce({
+      payload: {
+        action: 'rendered',
+        actionSubject: 'link',
+      },
+      context: expectedContext,
     });
   });
 });

@@ -16,7 +16,8 @@ import {
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { HyperlinkState, InsertStatus, stateKey } from '../../pm-plugins/main';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import analyticsPlugin from '../../../analytics';
+import deprecatedAnalyticsPlugin from '../../../analytics';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import hyperlinkPlugin from '../../index';
 import textFormattingPlugin from '../../../text-formatting';
 import blockTypePlugin from '../../../block-type';
@@ -37,6 +38,7 @@ describe('hyperlink - keymap with no card provider', () => {
       preset: preset
         .add([featureFlagsPlugin, {}])
         .add([analyticsPlugin, { createAnalyticsEvent }])
+        .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
         .add(hyperlinkPlugin)
         .add(blockTypePlugin)
         .add(textFormattingPlugin),
@@ -367,6 +369,7 @@ describe('hyperlink - keymap with card provider', () => {
       preset: preset
         .add([featureFlagsPlugin, {}])
         .add([analyticsPlugin, { createAnalyticsEvent }])
+        .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
         .add([hyperlinkPlugin, mockHyperlinkOptions])
         .add(blockTypePlugin)
         .add(textFormattingPlugin),

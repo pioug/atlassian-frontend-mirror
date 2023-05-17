@@ -19,6 +19,9 @@ import { CornerControls } from '../../../plugins/table/ui/TableFloatingControls/
 import { getPluginState } from '../../../plugins/table/pm-plugins/plugin-factory';
 import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
 import tablePlugin from '../../../plugins/table-plugin';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 describe('CornerControls', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -26,7 +29,11 @@ describe('CornerControls', () => {
   const editor = (doc: DocBuilder) =>
     createEditor({
       doc,
-      preset: new Preset<LightEditorPlugin>().add(tablePlugin),
+      preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
+        .add([analyticsPlugin, {}])
+        .add(contentInsertionPlugin)
+        .add(tablePlugin),
       pluginKey,
     });
 

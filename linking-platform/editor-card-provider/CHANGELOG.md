@@ -1,5 +1,12 @@
 # @atlaskit/editor-card-provider
 
+## 3.0.2
+
+### Patch Changes
+
+- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- Updated dependencies
+
 ## 3.0.1
 
 ### Patch Changes

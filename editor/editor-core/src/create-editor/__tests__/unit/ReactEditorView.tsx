@@ -255,6 +255,21 @@ describe('@atlaskit/editor-core', () => {
       wrapper.unmount();
     });
 
+    it('should NOT trigger editor started analytics event if startedTracking is disabled in performanceTracking flag', () => {
+      const wrapper = mountWithIntl(
+        <ReactEditorView
+          {...requiredProps()}
+          {...analyticsProps()}
+          editorProps={{
+            performanceTracking: { startedTracking: { enabled: false } },
+          }}
+        />,
+      );
+
+      expect(mockFire).toHaveBeenCalledTimes(0);
+      wrapper.unmount();
+    });
+
     it('triggers ACTION.UFO_SESSION_COMPLETE analytics with predefined interval when ufo enabled', () => {
       jest.useFakeTimers();
       const wrapper = mountWithIntl(
@@ -470,6 +485,7 @@ describe('@atlaskit/editor-core', () => {
         let wrapper: ReactWrapper;
         const setupEditor = (
           trackValidTransactions: EditorProps['trackValidTransactions'],
+          additionalProps: EditorProps = {},
         ) => {
           let validTr;
           wrapper = mountWithIntl(
@@ -480,6 +496,7 @@ describe('@atlaskit/editor-core', () => {
                 allowDate: true,
                 ...analyticsProps(),
                 ...(trackValidTransactions && { trackValidTransactions }),
+                ...additionalProps,
               }}
             />,
           );
@@ -550,6 +567,17 @@ describe('@atlaskit/editor-core', () => {
           dispatchValidTransactionNthTimes(120);
           expect(mockFire).toHaveBeenCalledTimes(0);
         });
+        it('does not send V3 analytics event on valid transactions if transaction tracking is explicitly disabled on performanceTracking flag', () => {
+          const trackValidTransactions = true;
+          const { dispatchValidTransactionNthTimes } = setupEditor(
+            trackValidTransactions,
+            {
+              performanceTracking: { transactionTracking: { enabled: false } },
+            },
+          );
+          dispatchValidTransactionNthTimes(120);
+          expect(mockFire).toHaveBeenCalledTimes(0);
+        });
       });
     });
 
@@ -573,10 +601,11 @@ describe('@atlaskit/editor-core', () => {
       let editor: any;
       let invalidTr;
 
-      beforeEach(() => {
+      const setupEditor = (additionalProps: EditorProps = {}) => {
         const editorProps = {
           allowDate: true,
           ...analyticsProps(),
+          ...additionalProps,
         };
         wrapper = mountWithIntl(
           <ReactEditorView
@@ -587,13 +616,15 @@ describe('@atlaskit/editor-core', () => {
           />,
         );
         editor = wrapper.instance() as ReactEditorView;
-      });
+      };
 
       it('should not throw error', () => {
+        setupEditor();
         expect(() => dispatchInvalidTransaction()).not.toThrowError();
       });
 
       it('sends V3 analytics event with info on failed transaction', () => {
+        setupEditor();
         const analyticsEventPayload: AnalyticsEventPayload = {
           action: ACTION.CLICKED,
           actionSubject: ACTION_SUBJECT.BUTTON,
@@ -631,7 +662,34 @@ describe('@atlaskit/editor-core', () => {
         });
       });
 
+      it('does not send V3 analytics event if transaction tracking is explicitly disabled on performanceTracking flag', () => {
+        setupEditor({
+          performanceTracking: { transactionTracking: { enabled: false } },
+        });
+        const analyticsEventPayload: AnalyticsEventPayload = {
+          action: ACTION.CLICKED,
+          actionSubject: ACTION_SUBJECT.BUTTON,
+          actionSubjectId: ACTION_SUBJECT_ID.BUTTON_HELP,
+          attributes: { inputMethod: INPUT_METHOD.SHORTCUT },
+          eventType: EVENT_TYPE.UI,
+        };
+
+        // @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
+        //See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff
+        mockFire.mockClear();
+        dispatchInvalidTransaction(
+          // add v3 analytics meta to transaction as we want to check this info is sent on
+          addAnalytics(
+            editor.view.state,
+            editor.view.state.tr,
+            analyticsEventPayload,
+          ),
+        );
+        expect(mockFire).toHaveBeenCalledTimes(0);
+      });
+
       it('does not apply the transaction', () => {
+        setupEditor();
         const originalState = editor.editorState;
         dispatchInvalidTransaction();
         expect(editor.editorState).toEqual(originalState);

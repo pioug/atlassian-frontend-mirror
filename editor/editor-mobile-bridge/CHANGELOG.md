@@ -1,5 +1,29 @@
 # @atlaskit/editor-mobile-bridge
 
+## 183.1.1
+
+### Patch Changes
+
+- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- Updated dependencies
+
+## 183.1.0
+
+### Minor Changes
+
+- [`6bc52e5a406`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6bc52e5a406) - [ED-17687] Capture errors caught in error boundaries in Sentry
+
+### Patch Changes
+
+- [`a142ba1aa28`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a142ba1aa28) - [ED17172] Bump prosemirror-model to 1.16.0 and prosemirror-view to 1.23.7 and removed work-arounds for fixed issues
+- Updated dependencies
+
+## 183.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 183.0.11
 
 ### Patch Changes

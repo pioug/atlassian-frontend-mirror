@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { Component } from 'react';
 import { css, jsx } from '@emotion/react';
-import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 import Button from '@atlaskit/button/standard-button';
 import DropdownMenu, {
   DropdownItemGroup,
@@ -11,7 +11,7 @@ import WorldIcon from '@atlaskit/icon/glyph/world';
 import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
 
 const dropdownContainer = css`
-  margin-right: ${gridSize()}px;
+  margin-right: ${token('space.100', '8px')};
   min-width: 200px;
 `;
 
@@ -31,7 +31,7 @@ export default class LanguagePicker extends Component<Props> {
             <Button
               {...providedProps}
               ref={triggerRef}
-              iconBefore={<WorldIcon label="Language Picker" />}
+              iconBefore={<WorldIcon label="" />}
               iconAfter={<ChevronDownIcon label="" />}
               shouldFitContainer
             >

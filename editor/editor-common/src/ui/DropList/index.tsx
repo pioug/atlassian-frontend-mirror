@@ -11,6 +11,7 @@ import {
 } from '@atlaskit/analytics-next';
 import { DN50, DN600, N0, N50A, N60A, N900 } from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { borderRadius, gridSize } from '@atlaskit/theme/constants';
 import { ThemeProps } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
@@ -21,6 +22,8 @@ const packageName = process.env._PACKAGE_NAME_;
 const packageVersion = process.env._PACKAGE_VERSION_;
 
 const halfFocusRing = 1;
+// TODO: Migrate away from gridSize
+// Recommendation: Replace gridSize with token('space.100', '8px') after verfiying Popper can accept this
 const dropOffset = `0, ${gridSize()}px`;
 
 interface Props extends WithAnalyticsEventsProps {
@@ -76,11 +79,12 @@ class DropList extends Component<Props> {
         dark: token('elevation.surface.overlay', DN50),
       })(theme)};
       border-radius: ${borderRadius()}px;
-      box-shadow: 0 ${gridSize() / 2}px ${gridSize()}px -${gridSize() / 4}px ${N50A},
+      box-shadow: 0 ${token('space.050', '4px')} ${token('space.100', '8px')}
+          calc(-1 * ${token('space.025', '2px')}) ${N50A},
         0 0 1px ${N60A};
       box-sizing: border-box;
       overflow: auto;
-      padding: ${gridSize() / 2}px 0;
+      padding: ${token('space.050', '4px')} 0;
       max-height: 90vh;
     `;
   };

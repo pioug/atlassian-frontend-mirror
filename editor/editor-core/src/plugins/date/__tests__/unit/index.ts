@@ -29,7 +29,8 @@ import {
 } from '../../actions';
 
 // Editor plugins
-import analyticsPlugin, { INPUT_METHOD } from '../../../analytics';
+import deprecatedAnalyticsPlugin, { INPUT_METHOD } from '../../../analytics';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import datePlugin from '../../index';
 import quickInsertPlugin from '../../../quick-insert';
 import typeAheadPlugin from '../../../type-ahead';
@@ -41,6 +42,7 @@ import { parseDateType } from '../../utils/formatParse';
 import { DatePluginState } from '../../pm-plugins/types';
 import { DateType } from '../../types';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 describe('date plugin', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -52,9 +54,11 @@ describe('date plugin', () => {
       doc,
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
+        .add([analyticsPlugin, { createAnalyticsEvent }])
+        .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
+        .add(contentInsertionPlugin)
         .add(editorDisabledPlugin)
         .add(datePlugin)
-        .add([analyticsPlugin, { createAnalyticsEvent }])
         .add(typeAheadPlugin)
         .add(quickInsertPlugin)
         .add([codeBlockPlugin, { appearance: 'full-page' }])

@@ -349,6 +349,34 @@ const displayMap: {
 };
 
 // @public (undocumented)
+type Fill = keyof typeof fillMap;
+
+// @public (undocumented)
+const fillMap: {
+  readonly 'color.icon': 'var(--ds-icon)';
+  readonly 'accent.red': 'var(--ds-icon-accent-red)';
+  readonly 'accent.orange': 'var(--ds-icon-accent-orange)';
+  readonly 'accent.yellow': 'var(--ds-icon-accent-yellow)';
+  readonly 'accent.green': 'var(--ds-icon-accent-green)';
+  readonly 'accent.teal': 'var(--ds-icon-accent-teal)';
+  readonly 'accent.blue': 'var(--ds-icon-accent-blue)';
+  readonly 'accent.purple': 'var(--ds-icon-accent-purple)';
+  readonly 'accent.magenta': 'var(--ds-icon-accent-magenta)';
+  readonly 'accent.gray': 'var(--ds-icon-accent-gray)';
+  readonly disabled: 'var(--ds-icon-disabled)';
+  readonly inverse: 'var(--ds-icon-inverse)';
+  readonly selected: 'var(--ds-icon-selected)';
+  readonly brand: 'var(--ds-icon-brand)';
+  readonly danger: 'var(--ds-icon-danger)';
+  readonly warning: 'var(--ds-icon-warning)';
+  readonly 'warning.inverse': 'var(--ds-icon-warning-inverse)';
+  readonly success: 'var(--ds-icon-success)';
+  readonly discovery: 'var(--ds-icon-discovery)';
+  readonly information: 'var(--ds-icon-information)';
+  readonly subtle: 'var(--ds-icon-subtle)';
+};
+
+// @public (undocumented)
 type Flex = keyof typeof flexMap;
 
 // @public (undocumented)
@@ -662,6 +690,7 @@ type TokenisedProps = {
   color?: TextColor;
   columnGap?: Space;
   display?: Display;
+  fill?: Fill;
   flex?: Flex;
   flexDirection?: FlexDirection;
   flexGrow?: FlexGrow;

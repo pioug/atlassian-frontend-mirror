@@ -48,7 +48,7 @@ const GoBackItem = forwardRef<HTMLElement, ButtonItemProps>(
 
     return (
       <ButtonItem
-        isSelected={isSelected || isInteracted}
+        isSelected={isSelected}
         // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
         cssFn={cssFn}
         iconBefore={iconBefore}

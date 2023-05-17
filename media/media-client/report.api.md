@@ -469,7 +469,7 @@ export interface GetFileOptions {
 // @public (undocumented)
 export const getMediaClient: (
   mediaClientConfig: MediaClientConfig,
-  featureFlags?: MediaFeatureFlags | undefined,
+  featureFlags?: MediaFeatureFlags,
 ) => MediaClient;
 
 // @public (undocumented)
@@ -528,7 +528,7 @@ export type ImageResizeMode = 'crop' | 'fit' | 'full-fit' | 'stretchy-fit';
 
 // @public (undocumented)
 export const imageResizeModeToFileImageMode: (
-  resizeMode?: ImageResizeMode | undefined,
+  resizeMode?: ImageResizeMode,
 ) => MediaStoreGetFileImageParams['mode'];
 
 // @public (undocumented)
@@ -620,7 +620,7 @@ export const isPreviewableFileState: (
 // @public (undocumented)
 export const isPreviewableType: (
   type: MediaType,
-  featureFlags?: MediaFeatureFlags | undefined,
+  featureFlags?: MediaFeatureFlags,
 ) => boolean;
 
 // @public (undocumented)
@@ -989,7 +989,7 @@ export class MediaStore {
     controller?: AbortController,
   ): Promise<Response>;
   // (undocumented)
-  resolveAuth: (authContext?: AuthContext | undefined) => Promise<Auth>;
+  resolveAuth: (authContext?: AuthContext) => Promise<Auth>;
   // (undocumented)
   resolveInitialAuth: () => Auth;
   // (undocumented)
@@ -1589,8 +1589,8 @@ export const uploadFile: (
   file: UploadableFile,
   store: MediaStore,
   uploadableFileUpfrontIds: UploadableFileUpfrontIds,
-  callbacks?: UploadFileCallbacks | undefined,
-  traceContext?: MediaTraceContext | undefined,
+  callbacks?: UploadFileCallbacks,
+  traceContext?: MediaTraceContext,
 ) => UploadFileResult;
 
 // @public (undocumented)
@@ -1670,7 +1670,7 @@ export type WithMediaClientFunction = <P extends WithMediaClient>(
 
 ```json
 {
-  "@atlaskit/media-core": "^34.0.2",
+  "@atlaskit/media-core": "^34.1.1",
   "@emotion/react": "^11.7.1",
   "react": "^16.8.0"
 }

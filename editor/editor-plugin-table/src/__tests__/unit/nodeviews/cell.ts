@@ -31,6 +31,9 @@ import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import * as domHelpers from '../../../plugins/table/pm-plugins/sticky-headers/nodeviews/dom';
 import tablePlugin from '../../../plugins/table-plugin';
 import undoRedoPlugin from '@atlaskit/editor-core/src/plugins/undo-redo';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 jest.mock('@atlaskit/editor-common/utils', () => ({
   ...jest.requireActual<Object>('@atlaskit/editor-common/utils'),
@@ -62,6 +65,9 @@ describe('table -> nodeviews -> tableCell.tsx', () => {
       doc,
       attachTo: document.body,
       preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
+        .add([analyticsPlugin, {}])
+        .add(contentInsertionPlugin)
         .add([tablePlugin, { tableOptions: { advanced: true, ...props } }])
         .add(undoRedoPlugin),
       pluginKey,

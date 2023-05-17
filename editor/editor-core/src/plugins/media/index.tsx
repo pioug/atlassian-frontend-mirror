@@ -42,6 +42,7 @@ import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
 import { ReactMediaNode } from './nodeviews/mediaNodeView';
 import { ReactMediaInlineNode } from './nodeviews/mediaInline';
 import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import type gridPlugin from '../grid';
 
 export type { MediaState, MediaProvider, CustomMediaPicker };
 export { insertMediaSingleNode } from './utils/media-single';
@@ -50,7 +51,7 @@ const mediaPlugin: NextEditorPlugin<
   'media',
   {
     pluginConfiguration: MediaOptions | undefined;
-    dependencies: [typeof featureFlagsPlugin];
+    dependencies: [typeof featureFlagsPlugin, typeof gridPlugin];
   }
 > = (options = {}, api) => {
   const featureFlags =
@@ -127,6 +128,7 @@ const mediaPlugin: NextEditorPlugin<
                     providerFactory,
                     dispatchAnalyticsEvent,
                     options,
+                    api,
                   ),
                   media: ReactMediaNode(
                     portalProviderAPI,

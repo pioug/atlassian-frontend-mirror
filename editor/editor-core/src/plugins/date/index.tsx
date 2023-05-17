@@ -16,22 +16,23 @@ import {
 import createDatePlugin from './pm-plugins/main';
 import keymap from './pm-plugins/keymap';
 
-import editorDisabledPlugin from '../editor-disabled';
+import type editorDisabledPlugin from '../editor-disabled';
 import { IconDate } from '../quick-insert/assets';
+
 import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
-  addAnalytics,
   EVENT_TYPE,
   INPUT_METHOD,
-} from '../analytics';
+} from '@atlaskit/editor-common/analytics';
 import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
 import { DateType } from './types';
 import { pluginKey as datePluginKey } from './pm-plugins/plugin-key';
 import type { Props as DatePickerProps } from './ui/DatePicker';
 import { UiComponentFactoryParams } from '@atlaskit/editor-common/types';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 const DatePicker = Loadable({
   loader: () =>
@@ -125,7 +126,7 @@ function ContentComponent({
 const datePlugin: NextEditorPlugin<
   'date',
   {
-    dependencies: [typeof editorDisabledPlugin];
+    dependencies: [typeof analyticsPlugin, typeof editorDisabledPlugin];
     sharedState: {
       showDatePickerAt?: number | null;
       isNew: boolean;
@@ -207,13 +208,14 @@ const datePlugin: NextEditorPlugin<
         action(insert, state) {
           const tr = createDate(true)(insert, state);
 
-          addAnalytics(state, tr, {
+          api?.dependencies?.analytics?.actions?.attachAnalyticsEvent?.({
             action: ACTION.INSERTED,
             actionSubject: ACTION_SUBJECT.DOCUMENT,
             actionSubjectId: ACTION_SUBJECT_ID.DATE,
             eventType: EVENT_TYPE.TRACK,
             attributes: { inputMethod: INPUT_METHOD.QUICK_INSERT },
-          });
+          })(tr);
+
           return tr;
         },
       },

@@ -31,19 +31,13 @@ import { Blanket, SidebarWrapper } from './styleWrappers';
 import { start } from 'perf-marks';
 import { MediaViewerExtensions } from './components/types';
 import { mediaViewerPopupClass } from './classnames';
-import ErrorMessage from './errorMessage';
-import { MediaViewerError } from './errors';
 
 export type Props = {
   onClose?: () => void;
   selectedItem?: Identifier;
   featureFlags?: MediaFeatureFlags;
   mediaClient: MediaClient;
-  /**
-   * TODO: https://product-fabric.atlassian.net/browse/MEX-2207
-   * property should be mandatory
-   */
-  items?: Identifier[];
+  items: Identifier[];
   extensions?: MediaViewerExtensions;
   contextId?: string;
 } & WithAnalyticsEventsProps;
@@ -97,7 +91,7 @@ export class MediaViewerComponent extends React.Component<
   private get defaultSelectedItem(): Identifier | undefined {
     const { items, selectedItem } = this.props;
 
-    const firstItem = items?.[0];
+    const firstItem = items[0];
 
     return selectedItem || firstItem;
   }
@@ -124,26 +118,6 @@ export class MediaViewerComponent extends React.Component<
     }
   };
 
-  /**
-   * TODO: https://product-fabric.atlassian.net/browse/MEX-2207
-   * This error message is simulating the current error thrown by the backend when consumer provides a collection as datasource.
-   * This is displayed at this level when no items are provided from the parent component.
-   * This error message should be removed when the deprecated API is removed.
-   */
-  renderError() {
-    return (
-      <ErrorMessage
-        fileId={'undefined'}
-        error={
-          new MediaViewerError(
-            'collection-fetch-metadata',
-            new Error('collection as datasource is no longer supported'),
-          )
-        }
-      />
-    );
-  }
-
   render() {
     const { mediaClient, onClose, items, extensions, contextId, featureFlags } =
       this.props;
@@ -158,22 +132,18 @@ export class MediaViewerComponent extends React.Component<
           isSidebarVisible={isSidebarVisible}
           onClose={this.onContentClose}
         >
-          {!items ? (
-            this.renderError()
-          ) : (
-            <List
-              defaultSelectedItem={this.defaultSelectedItem || items[0]}
-              items={items}
-              mediaClient={mediaClient}
-              onClose={onClose}
-              extensions={extensions}
-              onNavigationChange={this.onNavigationChange}
-              onSidebarButtonClick={this.toggleSidebar}
-              isSidebarVisible={isSidebarVisible}
-              contextId={contextId}
-              featureFlags={featureFlags}
-            />
-          )}
+          <List
+            defaultSelectedItem={this.defaultSelectedItem || items[0]}
+            items={items}
+            mediaClient={mediaClient}
+            onClose={onClose}
+            extensions={extensions}
+            onNavigationChange={this.onNavigationChange}
+            onSidebarButtonClick={this.toggleSidebar}
+            isSidebarVisible={isSidebarVisible}
+            contextId={contextId}
+            featureFlags={featureFlags}
+          />
         </Content>
         {this.renderSidebar()}
       </Blanket>

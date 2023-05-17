@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { withAnalyticsEvents } from '@atlaskit/analytics-next';
 import {
   ANALYTICS_MEDIA_CHANNEL,
@@ -23,8 +25,8 @@ import {
 import {
   DropzoneDragEnterEventPayload,
   DropzoneDragLeaveEventPayload,
-  DropzoneUploadEventPayloadMap,
 } from '../types';
+import UploadRejectionFlagGroup from '../uploadRejectionFlagGroup/UploadRejectionFlagGroup';
 
 export type DropzoneProps = LocalUploadComponentBaseProps & {
   //config
@@ -49,10 +51,7 @@ function dragContainsFiles(event: DragEvent): boolean {
 
 const COMPONENT_NAME = 'dropzone';
 
-export class DropzoneBase extends LocalUploadComponentReact<
-  DropzoneProps,
-  DropzoneUploadEventPayloadMap
-> {
+export class DropzoneBase extends LocalUploadComponentReact<DropzoneProps> {
   private uiActive: boolean = false;
 
   constructor(props: DropzoneProps) {
@@ -317,7 +316,12 @@ export class DropzoneBase extends LocalUploadComponentReact<
   }
 
   render() {
-    return null;
+    return (
+      <UploadRejectionFlagGroup
+        flagData={this.state.uploadRejectionFlags}
+        onFlagDismissed={this.dismissUploadRejectionFlag}
+      />
+    );
   }
 }
 export default DropzoneBase;

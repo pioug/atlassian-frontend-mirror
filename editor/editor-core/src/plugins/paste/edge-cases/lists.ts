@@ -2,7 +2,7 @@ import { Fragment, Node as PMNode, Slice } from 'prosemirror-model';
 import { TextSelection, NodeSelection, Transaction } from 'prosemirror-state';
 import { Transform } from 'prosemirror-transform';
 
-import { isEmptyParagraph } from '../../../utils';
+import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
 
 export function insertSliceIntoEmptyNode({
   tr,

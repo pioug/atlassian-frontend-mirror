@@ -19,6 +19,9 @@ import {
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import tablePlugin from '../../plugins/table-plugin';
 import widthPlugin from '@atlaskit/editor-core/src/plugins/width';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 
@@ -36,6 +39,9 @@ describe('Tables with Collab editing', () => {
     return createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
+        .add([analyticsPlugin, {}])
+        .add(contentInsertionPlugin)
         .add([tablePlugin, { tableOptions }])
         .add(widthPlugin),
       pluginKey: tablePluginKey,

@@ -22,6 +22,9 @@ import { deleteRows } from '../../../plugins/table/transforms';
 import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
 import { PluginKey } from 'prosemirror-state';
 import tablePlugin from '../../../plugins/table-plugin';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 const rowsToRect = (rows: Array<number>, noOfColumns: number): Rect => ({
   left: 0,
@@ -41,7 +44,11 @@ describe('table plugin -> transforms -> delete rows', () => {
     uuid.setStatic(false);
   });
   const createEditor = createProsemirrorEditorFactory();
-  const preset = new Preset<LightEditorPlugin>().add(tablePlugin);
+  const preset = new Preset<LightEditorPlugin>()
+    .add([featureFlagsPlugin, {}])
+    .add([analyticsPlugin, {}])
+    .add(contentInsertionPlugin)
+    .add(tablePlugin);
 
   const editor = (doc: DocBuilder) =>
     createEditor<TablePluginState, PluginKey>({

@@ -23,7 +23,8 @@ import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-re
 import { EditorState } from 'prosemirror-state';
 
 // Editor Plugins
-import analyticsPlugin from '../../../analytics';
+import deprecatedAnalyticsPlugin from '../../../analytics';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import emojiPlugin from '../../';
 import basePlugin from '../../../base';
 import blockTypePlugin from '../../../block-type';
@@ -46,6 +47,7 @@ describe('ascii emojis - input rules', () => {
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
         .add([analyticsPlugin, { createAnalyticsEvent }])
+        .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
         .add(emojiPlugin)
         .add(blockTypePlugin)
         .add([codeBlockPlugin, { appearance: 'full-page' }])

@@ -29,6 +29,8 @@ import type {
   GetEditorFeatureFlags,
 } from '@atlaskit/editor-common/types';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 const formatMessage: (t: { id: string }) => string = (message) =>
   `${message.id}`;
@@ -75,6 +77,8 @@ describe('getToolbarConfig', () => {
       attachTo: document.body,
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
+        .add([analyticsPlugin, {}])
+        .add(contentInsertionPlugin)
         .add(dataConsumerPlugin)
         .add(extensionPlugin)
         .add(tablePlugin),

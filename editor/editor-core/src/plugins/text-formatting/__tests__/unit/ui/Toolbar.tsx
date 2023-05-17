@@ -26,9 +26,10 @@ import { ToolbarSize } from '@atlaskit/editor-common/types';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 import codeBlockPlugin from '../../../../../plugins/code-block';
-import analyticsPlugin, {
+import deprecatedAnalyticsPlugin, {
   ACTION_SUBJECT_ID,
 } from '../../../../../plugins/analytics';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import Toolbar from '../../../ui/Toolbar';
 import ReactEditorViewContext from '../../../../../create-editor/ReactEditorViewContext';
 
@@ -141,7 +142,8 @@ describe('@atlaskit/editor-core/ui/Toolbar', () => {
           .add([featureFlagsPlugin, {}])
           .add(textFormattingPlugin)
           .add([codeBlockPlugin, { appearance: 'full-page' }])
-          .add([analyticsPlugin, { createAnalyticsEvent }]),
+          .add([analyticsPlugin, { createAnalyticsEvent }])
+          .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }]),
       });
 
     beforeEach(() => {

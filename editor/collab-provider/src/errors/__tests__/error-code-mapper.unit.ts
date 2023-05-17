@@ -344,7 +344,7 @@ describe('Error code mapper', () => {
       {
         code: 'INTERNAL_SERVICE_ERROR',
         message: 'Collab Provider experienced an unrecoverable error',
-        recoverable: false,
+        recoverable: true,
         reason: 'CATCHUP_FAILED',
         status: 500,
       },

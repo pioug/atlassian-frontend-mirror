@@ -13,23 +13,14 @@ import {
   FloatingToolbarHandler,
   FloatingToolbarItem,
 } from '../floating-toolbar/types';
-import {
-  ACTION,
-  ACTION_SUBJECT,
-  INPUT_METHOD,
-  EVENT_TYPE,
-  addAnalytics,
-  AnalyticsEventPayload,
-  ACTION_SUBJECT_ID,
-} from '../analytics';
 import { linkToolbarMessages, linkMessages } from '../../messages';
 import commonMessages from '../../messages';
 
 import { Node } from 'prosemirror-model';
-import { hoverDecoration } from '../base/pm-plugins/decoration';
 import { changeSelectedCardToText } from './pm-plugins/doc';
 import { CardPluginState } from './types';
 import { CardOptions, commandWithMetadata } from '@atlaskit/editor-common/card';
+import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { pluginKey } from './pm-plugins/main';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { richMediaClassName } from '@atlaskit/editor-common/styles';
@@ -56,93 +47,118 @@ import {
 import { LinkPickerOptions } from '../hyperlink/types';
 import { FLOATING_TOOLBAR_LINKPICKER_CLASSNAME } from './styles';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
+import type {
+  AnalyticsEventPayload,
+  ACTION_SUBJECT_ID,
+  EditorAnalyticsAPI,
+} from '@atlaskit/editor-common/analytics';
+import {
+  ACTION,
+  ACTION_SUBJECT,
+  INPUT_METHOD,
+  EVENT_TYPE,
+} from '@atlaskit/editor-common/analytics';
+import type cardPlugin from './index';
 
-export const removeCard: Command = commandWithMetadata(
+export const removeCard = (
+  editorAnalyticsApi: EditorAnalyticsAPI | undefined,
+): Command =>
+  commandWithMetadata(
+    (state, dispatch) => {
+      if (!(state.selection instanceof NodeSelection)) {
+        return false;
+      }
+
+      const type = state.selection.node.type.name;
+      const payload: AnalyticsEventPayload = {
+        action: ACTION.DELETED,
+        actionSubject: ACTION_SUBJECT.SMART_LINK,
+        actionSubjectId: type as
+          | ACTION_SUBJECT_ID.CARD_INLINE
+          | ACTION_SUBJECT_ID.CARD_BLOCK,
+        attributes: {
+          inputMethod: INPUT_METHOD.TOOLBAR,
+          displayMode: type as
+            | ACTION_SUBJECT_ID.CARD_INLINE
+            | ACTION_SUBJECT_ID.CARD_BLOCK,
+        },
+        eventType: EVENT_TYPE.TRACK,
+      };
+      if (dispatch) {
+        const { tr } = state;
+        removeSelectedNode(tr);
+        editorAnalyticsApi?.attachAnalyticsEvent(payload)(tr);
+        dispatch(tr);
+      }
+      return true;
+    },
+    { action: ACTION.DELETED },
+  );
+
+export const visitCardLink =
+  (editorAnalyticsApi: EditorAnalyticsAPI | undefined): Command =>
   (state, dispatch) => {
     if (!(state.selection instanceof NodeSelection)) {
       return false;
     }
 
-    const type = state.selection.node.type.name;
-    const payload: AnalyticsEventPayload = {
-      action: ACTION.DELETED,
-      actionSubject: ACTION_SUBJECT.SMART_LINK,
-      actionSubjectId: type as
-        | ACTION_SUBJECT_ID.CARD_INLINE
-        | ACTION_SUBJECT_ID.CARD_BLOCK,
-      attributes: {
-        inputMethod: INPUT_METHOD.TOOLBAR,
-        displayMode: type as
-          | ACTION_SUBJECT_ID.CARD_INLINE
-          | ACTION_SUBJECT_ID.CARD_BLOCK,
-      },
-      eventType: EVENT_TYPE.TRACK,
-    };
+    const { type } = state.selection.node;
+    const { url } = titleUrlPairFromNode(state.selection.node);
+
+    // All card links should open in the same tab per https://product-fabric.atlassian.net/browse/MS-1583.
+    // We are in edit mode here, open the smart card URL in a new window.
+    window.open(url);
+
     if (dispatch) {
-      dispatch(addAnalytics(state, removeSelectedNode(state.tr), payload));
-    }
-    return true;
-  },
-  { action: ACTION.DELETED },
-);
-
-export const visitCardLink: Command = (state, dispatch) => {
-  if (!(state.selection instanceof NodeSelection)) {
-    return false;
-  }
-
-  const { type } = state.selection.node;
-  const { url } = titleUrlPairFromNode(state.selection.node);
-
-  // All card links should open in the same tab per https://product-fabric.atlassian.net/browse/MS-1583.
-  // We are in edit mode here, open the smart card URL in a new window.
-  window.open(url);
-
-  if (dispatch) {
-    dispatch(
-      addAnalytics(
-        state,
-        state.tr,
+      const { tr } = state;
+      editorAnalyticsApi?.attachAnalyticsEvent(
         buildVisitedLinkPayload(
           type.name as
             | ACTION_SUBJECT_ID.CARD_INLINE
             | ACTION_SUBJECT_ID.CARD_BLOCK
             | ACTION_SUBJECT_ID.EMBEDS,
         ),
-      ),
-    );
-  }
-  return true;
-};
+      )(tr);
 
-export const openLinkSettings: Command = (state, dispatch) => {
-  if (!(state.selection instanceof NodeSelection)) {
-    return false;
-  }
-  window.open('https://id.atlassian.com/manage-profile/link-preferences');
-  if (dispatch) {
-    const { type } = state.selection.node;
-    dispatch(
-      addAnalytics(
-        state,
-        state.tr,
+      dispatch(tr);
+    }
+    return true;
+  };
+
+export const openLinkSettings =
+  (editorAnalyticsApi: EditorAnalyticsAPI | undefined): Command =>
+  (state, dispatch) => {
+    if (!(state.selection instanceof NodeSelection)) {
+      return false;
+    }
+    window.open('https://id.atlassian.com/manage-profile/link-preferences');
+    if (dispatch) {
+      const {
+        tr,
+        selection: {
+          node: { type },
+        },
+      } = state;
+
+      editorAnalyticsApi?.attachAnalyticsEvent(
         buildOpenedSettingsPayload(
           type.name as
             | ACTION_SUBJECT_ID.CARD_INLINE
             | ACTION_SUBJECT_ID.CARD_BLOCK
             | ACTION_SUBJECT_ID.EMBEDS,
         ),
-      ),
-    );
-  }
-  return true;
-};
+      )(tr);
+      dispatch(tr);
+    }
+    return true;
+  };
 
 export const floatingToolbar = (
   cardOptions: CardOptions,
   featureFlags: FeatureFlags,
   platform?: CardPlatform,
   linkPickerOptions?: LinkPickerOptions,
+  pluginInjectionApi?: ExtractInjectionAPI<typeof cardPlugin>,
 ): FloatingToolbarHandler => {
   return (state, intl, providerFactory) => {
     const { inlineCard, blockCard, embedCard } = state.schema.nodes;
@@ -208,6 +224,7 @@ export const floatingToolbar = (
         cardOptions,
         platform,
         linkPickerOptions,
+        pluginInjectionApi,
       ),
       scrollable: pluginState.showLinkingToolbar ? false : true,
       focusTrap: shouldEnableFocusTrap && pluginState.showLinkingToolbar,
@@ -219,13 +236,20 @@ export const floatingToolbar = (
   };
 };
 
-const unlinkCard = (node: Node, state: EditorState): Command => {
+const unlinkCard = (
+  node: Node,
+  state: EditorState,
+  editorAnalyticsApi: EditorAnalyticsAPI | undefined,
+): Command => {
   const displayInfo = displayInfoForCard(node, findCardInfo(state));
   const text = displayInfo.title || displayInfo.url;
   if (text) {
-    return commandWithMetadata(changeSelectedCardToText(text), {
-      action: ACTION.UNLINK,
-    });
+    return commandWithMetadata(
+      changeSelectedCardToText(text, editorAnalyticsApi),
+      {
+        action: ACTION.UNLINK,
+      },
+    );
   }
 
   return () => false;
@@ -261,9 +285,12 @@ const generateToolbarItems =
     cardOptions: CardOptions,
     platform?: CardPlatform,
     linkPicker?: LinkPickerOptions,
+    pluginInjectionApi?: ExtractInjectionAPI<typeof cardPlugin>,
   ) =>
   (node: Node): Array<FloatingToolbarItem<Command>> => {
     const { url } = titleUrlPairFromNode(node);
+    const { actions: editorAnalyticsApi } =
+      pluginInjectionApi?.dependencies?.analytics ?? {};
     let metadata = {};
     if (url && !isSafeUrl(url)) {
       return [];
@@ -278,6 +305,8 @@ const generateToolbarItems =
     const pluginState: CardPluginState = pluginKey.getState(state);
 
     const currentAppearance = appearanceForNodeType(node.type);
+    const hoverDecoration =
+      pluginInjectionApi?.dependencies?.base?.actions.hoverDecoration;
 
     /* mobile builds toolbar natively using toolbarItems */
     if (pluginState.showLinkingToolbar && platform !== 'mobile') {
@@ -287,6 +316,7 @@ const generateToolbarItems =
           linkPicker,
           node,
           featureFlags,
+          editorAnalyticsApi,
         }),
       ];
     } else {
@@ -300,7 +330,7 @@ const generateToolbarItems =
           title: intl.formatMessage(linkToolbarMessages.editLink),
           showTitle: true,
           testId: 'link-toolbar-edit-link-button',
-          onClick: editLink,
+          onClick: editLink(editorAnalyticsApi),
         },
         { type: 'separator' },
         {
@@ -310,10 +340,16 @@ const generateToolbarItems =
           metadata: metadata,
           className: 'hyperlink-open-link',
           title: intl.formatMessage(linkMessages.openLink),
-          onClick: visitCardLink,
+          onClick: visitCardLink(editorAnalyticsApi),
         },
         { type: 'separator' },
-        ...getUnlinkButtonGroup(state, intl, node, inlineCard),
+        ...getUnlinkButtonGroup(
+          state,
+          intl,
+          node,
+          inlineCard,
+          editorAnalyticsApi,
+        ),
         {
           type: 'copy-button',
           items: [
@@ -325,19 +361,24 @@ const generateToolbarItems =
             { type: 'separator' },
           ],
         },
-        ...getSettingsButtonGroup(state, featureFlags, intl),
+        ...getSettingsButtonGroup(
+          state,
+          featureFlags,
+          intl,
+          editorAnalyticsApi,
+        ),
         {
           id: 'editor.link.delete',
           focusEditoronEnter: true,
           type: 'button',
           appearance: 'danger',
           icon: RemoveIcon,
-          onMouseEnter: hoverDecoration(node.type, true),
-          onMouseLeave: hoverDecoration(node.type, false),
-          onFocus: hoverDecoration(node.type, true),
-          onBlur: hoverDecoration(node.type, false),
+          onMouseEnter: hoverDecoration?.(node.type, true),
+          onMouseLeave: hoverDecoration?.(node.type, false),
+          onFocus: hoverDecoration?.(node.type, true),
+          onBlur: hoverDecoration?.(node.type, false),
           title: intl.formatMessage(commonMessages.remove),
-          onClick: withToolbarMetadata(removeCard),
+          onClick: withToolbarMetadata(removeCard(editorAnalyticsApi)),
         },
       ];
 
@@ -374,6 +415,7 @@ const generateToolbarItems =
                 allowEmbeds={allowEmbeds}
                 allowBlockCards={allowBlockCards}
                 platform={platform}
+                editorAnalyticsApi={editorAnalyticsApi}
               />
             ),
           },
@@ -392,6 +434,7 @@ const getUnlinkButtonGroup = (
   intl: IntlShape,
   node: Node<any>,
   inlineCard: any,
+  editorAnalyticsApi: EditorAnalyticsAPI | undefined,
 ) => {
   return node.type === inlineCard
     ? ([
@@ -401,7 +444,9 @@ const getUnlinkButtonGroup = (
           type: 'button',
           title: intl.formatMessage(linkToolbarMessages.unlink),
           icon: UnlinkIcon,
-          onClick: withToolbarMetadata(unlinkCard(node, state)),
+          onClick: withToolbarMetadata(
+            unlinkCard(node, state, editorAnalyticsApi),
+          ),
         },
         { type: 'separator' },
       ] as Array<FloatingToolbarItem<Command>>)
@@ -412,6 +457,7 @@ const getSettingsButtonGroup = (
   state: EditorState<any>,
   featureFlags: FeatureFlags,
   intl: IntlShape,
+  editorAnalyticsApi: EditorAnalyticsAPI | undefined,
 ): FloatingToolbarItem<Command>[] => {
   const { floatingToolbarLinkSettingsButton } = featureFlags;
   return floatingToolbarLinkSettingsButton === 'true'
@@ -421,7 +467,7 @@ const getSettingsButtonGroup = (
           type: 'button',
           icon: CogIcon,
           title: intl.formatMessage(linkToolbarMessages.settingsLink),
-          onClick: openLinkSettings,
+          onClick: openLinkSettings(editorAnalyticsApi),
         },
         { type: 'separator' },
       ]

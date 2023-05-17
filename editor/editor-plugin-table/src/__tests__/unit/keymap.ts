@@ -36,12 +36,14 @@ import {
 import { uuid } from '@atlaskit/adf-schema';
 import { uuid as tablesUuid } from '@atlaskit/editor-tables';
 
+import gridPlugin from '@atlaskit/editor-core/src/plugins/grid';
 import panelPlugin from '@atlaskit/editor-core/src/plugins/panel';
 import expandPlugin from '@atlaskit/editor-core/src/plugins/expand';
 import tasksDecisionsPlugin from '@atlaskit/editor-core/src/plugins/tasks-and-decisions';
 import selectionPlugin from '@atlaskit/editor-core/src/plugins/selection';
 import mediaPlugin from '@atlaskit/editor-core/src/plugins/media';
-import analyticsPlugin from '@atlaskit/editor-core/src/plugins/analytics';
+import deprecatedAnalyticsPlugin from '@atlaskit/editor-core/src/plugins/analytics';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import listPlugin from '@atlaskit/editor-core/src/plugins/list';
 import blockTypePlugin from '@atlaskit/editor-core/src/plugins/block-type';
 import codeBlockPlugin from '@atlaskit/editor-core/src/plugins/code-block';
@@ -59,6 +61,7 @@ import { pluginKey } from '../../plugins/table/pm-plugins/plugin-key';
 import widthPlugin from '@atlaskit/editor-core/src/plugins/width';
 import editorDisabledPlugin from '@atlaskit/editor-core/src/plugins/editor-disabled';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 
@@ -83,6 +86,11 @@ describe('table keymap', () => {
   const createEditor = createProsemirrorEditorFactory();
   const preset = new Preset<LightEditorPlugin>()
     .add([featureFlagsPlugin, {}])
+    .add([analyticsPlugin, { createAnalyticsEvent }])
+    .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
+    .add(contentInsertionPlugin)
+    .add(widthPlugin)
+    .add(gridPlugin)
     .add(selectionPlugin)
     .add([
       tablePlugin,
@@ -103,9 +111,7 @@ describe('table keymap', () => {
     .add(datePlugin)
     .add(layoutPlugin)
     .add([statusPlugin, { menuDisabled: false }])
-    .add([mediaPlugin, { allowMediaSingle: true }])
-    .add([analyticsPlugin, { createAnalyticsEvent }])
-    .add(widthPlugin);
+    .add([mediaPlugin, { allowMediaSingle: true }]);
 
   const editor = (doc: DocBuilder) =>
     createEditor<TablePluginState, PluginKey>({

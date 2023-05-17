@@ -67,7 +67,7 @@ export const categorySelector = css({
 });
 
 export const categorySelectorTablist = css({
-  padding: '6px 8px',
+  padding: `${token('space.075', '6px')} ${token('space.100', '8px')}`,
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-around',
@@ -95,20 +95,20 @@ export const categoryStyles = css({
   borderRadius: token('border.radius.100', '3px'),
   color: token('color.text.subtlest', N100A),
   cursor: 'pointer',
-  padding: 0,
+  padding: token('space.0', '0px'),
   transition: 'color 0.2s ease',
 
   /* Firefox */
   ['&::-moz-focus-inner']: {
     border: '0 none',
-    padding: 0,
+    padding: token('space.0', '0px'),
   },
 
   ['&:hover']: {
     color: token('color.text.selected', B200),
   },
 
-  '&:focus': {
+  '&:focus-visible': {
     boxShadow: `0 0 0 2px ${token('color.border.focused', B100)}`,
     transitionDuration: '0s, 0.2s',
     outline: 'none',
@@ -132,7 +132,7 @@ export const virtualList = css({
   '&:focus': {
     outline: 'none',
   },
-  paddingBottom: '8px',
+  paddingBottom: token('space.100', '8px'),
 });
 
 //// Search
@@ -147,7 +147,10 @@ export const input = css({
   cursor: 'inherit',
   fontSize: '14px',
   outline: 'none',
-  padding: '1px 0 2px 6px',
+  padding: `1px ${token('space.0', '0px')} ${token('space.025', '2px')} ${token(
+    'space.075',
+    '6px',
+  )}`,
   width: '100%',
   ['&:invalid']: {
     boxShadow: 'none',
@@ -179,14 +182,14 @@ export const emojiPickerSpinner = css({
 //// Category/Result
 
 export const emojiPickerRow = css({
-  marginLeft: '8px',
+  marginLeft: token('space.100', '8px'),
 });
 
 export const emojiCategoryTitle = css({
   boxSizing: 'border-box',
   color: token('color.text', N900),
   fontSize: '14px',
-  padding: '5px 8px',
+  padding: `5px ${token('space.100', '8px')}`,
   textTransform: 'lowercase',
   '&:first-letter': {
     textTransform: 'uppercase',
@@ -200,19 +203,19 @@ export const emojiItem = css({
 
   [`& .${emojiNodeStyles}`]: {
     cursor: 'pointer',
-    padding: '8px',
+    padding: token('space.100', '8px'),
     borderRadius: '5px',
     width: '24px',
     height: '24px',
   },
   [`& .${placeholder}`]: {
-    padding: '0',
+    padding: token('space.0', '0px'),
     margin: '7px',
     minWidth: '24px',
     maxWidth: '24px',
   },
   [`& .${emojiNodeStyles} .${placeholder}`]: {
-    margin: '0',
+    margin: token('space.0', '0px'),
   },
   // Fit non-square emoji to square
   [`& .${emojiNodeStyles} > img`]: {

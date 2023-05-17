@@ -13,19 +13,11 @@ import {
   DEFAULT_EMBED_CARD_WIDTH,
 } from '@atlaskit/editor-shared-styles';
 
-import { calcPxFromPct } from './grid';
+import { calcPxFromPct, wrappedLayouts } from './grid';
 import { MediaSingleDimensionHelper, MediaWrapper } from './styled';
 
 export const DEFAULT_IMAGE_WIDTH = 250;
 export const DEFAULT_IMAGE_HEIGHT = 200;
-
-export const wrappedLayouts: RichMediaLayout[] = [
-  'wrap-left',
-  'wrap-right',
-  'align-end',
-  'align-start',
-];
-
 export interface Props {
   children: React.ReactNode;
   layout: MediaSingleLayout;

@@ -14,7 +14,9 @@ import {
   status,
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import {
+  commitStatusPicker,
   updateStatus,
   setStatusPickerAt,
 } from '../../../../plugins/status/actions';
@@ -182,6 +184,161 @@ describe('status plugin: plugin', () => {
         eventType: 'track',
         attributes: expect.objectContaining({ inputMethod: 'quickInsert' }),
       });
+    });
+  });
+
+  describe('undo redo', () => {
+    const doNTimes = (fn: Function, n: number) =>
+      Array(n)
+        .fill(null)
+        .forEach(() => fn());
+
+    it('should able to redo multiple statuses', async () => {
+      /**
+       * Undo/Redo stack depends on how quickly actions are happening.
+       * We use prosemirror history plugin (from prosemirror-history)
+       *  and default time to group all the actions are 500ms.
+       * That means if we will create just one undo command for all actions happened within 500ms.
+       * So if you type test very quickly then only one command to remove whole test word will be added.
+       * But if you type test slowly one character by character, we will have 4 undo commands.
+       *
+       * Why we need to mock Date.now here.
+       * In jest environment, we will fire transactions to create/update
+       *  status very quickly.
+       * So we end up with just one undo command for one status.
+       * But in real world, user don't create status within 500ms.
+       * So multiple undo commands for empty status, for status with few characters and then last for final status.
+       * And command for empty status is causing redo not working for status issue.
+       *
+       * So mocking Date.now, and, returning time apart by 600ms.
+       */
+      let lastTime = 1683779625988;
+      jest.spyOn(global.Date, 'now').mockImplementation(() => {
+        lastTime = lastTime + 600;
+        return lastTime;
+      });
+
+      const { editorView } = createEditor({
+        doc: doc(
+          p(
+            ' ',
+            status({
+              text: 'In progress',
+              color: 'blue',
+              localId: '1',
+            }),
+            ' ',
+            '{<>}',
+          ),
+        ),
+        editorProps: {
+          allowStatus: {
+            menuDisabled: false,
+          },
+          allowAnalyticsGASV3: true,
+          allowUndoRedoButtons: true,
+        },
+        createAnalyticsEvent,
+      });
+      const undo = () => sendKeyToPm(editorView, 'Ctrl-z');
+      const redo = () => sendKeyToPm(editorView, 'Ctrl-y');
+
+      updateStatus({
+        color: 'green',
+        text: '',
+        localId: '2',
+      })(editorView.state, editorView.dispatch);
+      updateStatus({
+        color: 'green',
+        text: 'Done',
+        localId: '2',
+      })(editorView.state, editorView.dispatch);
+      commitStatusPicker()(editorView);
+
+      updateStatus({
+        color: 'green',
+        text: '',
+        localId: '3',
+      })(editorView.state, editorView.dispatch);
+      updateStatus({
+        color: 'green',
+        text: 'Test',
+        localId: '3',
+      })(editorView.state, editorView.dispatch);
+      commitStatusPicker()(editorView);
+
+      // First check if two statuses are created properly.
+      expect(editorView.state).toEqualDocumentAndSelection(
+        doc(
+          p(
+            ' ',
+            status({
+              text: 'In progress',
+              color: 'blue',
+              localId: '1',
+            }),
+            ' ',
+            status({
+              color: 'green',
+              text: 'Done',
+              localId: '2',
+            }),
+            ' ',
+            status({
+              color: 'green',
+              text: 'Test',
+              localId: '3',
+            }),
+            ' ',
+          ),
+        ),
+      );
+
+      doNTimes(undo, 4);
+
+      // There should be only one status left after undoing.
+      expect(editorView.state).toEqualDocumentAndSelection(
+        doc(
+          p(
+            ' ',
+            status({
+              text: 'In progress',
+              color: 'blue',
+              localId: '1',
+            }),
+            ' ',
+          ),
+        ),
+      );
+
+      doNTimes(redo, 4);
+
+      // Redoing should be working and all three statuses should be there.
+      expect(editorView.state).toEqualDocumentAndSelection(
+        doc(
+          p(
+            ' ',
+            status({
+              text: 'In progress',
+              color: 'blue',
+              localId: '1',
+            }),
+            ' ',
+            status({
+              color: 'green',
+              text: 'Done',
+              localId: '2',
+            }),
+            ' ',
+            status({
+              color: 'green',
+              text: 'Test',
+              localId: '3',
+            }),
+            ' ',
+          ),
+        ),
+      );
     });
   });
 });

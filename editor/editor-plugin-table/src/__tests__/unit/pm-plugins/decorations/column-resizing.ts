@@ -32,6 +32,9 @@ import {
   TableDecorations,
   TablePluginState,
 } from '../../../../plugins/table/types';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 describe('tables: column resizing decorations', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -39,10 +42,17 @@ describe('tables: column resizing decorations', () => {
   const editor = (doc: DocBuilder) =>
     createEditor<TablePluginState, PluginKey>({
       doc,
-      preset: new Preset<LightEditorPlugin>().add([
-        tablePlugin,
-        { tableOptions: { allowColumnResizing: true }, getEditorFeatureFlags },
-      ]),
+      preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
+        .add([analyticsPlugin, {}])
+        .add(contentInsertionPlugin)
+        .add([
+          tablePlugin,
+          {
+            tableOptions: { allowColumnResizing: true },
+            getEditorFeatureFlags,
+          },
+        ]),
       pluginKey,
     });
 

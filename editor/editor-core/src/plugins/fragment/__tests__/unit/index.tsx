@@ -24,6 +24,7 @@ import {
   BuilderContent,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 import { pluginKey as fragmentMarkPluginKey } from '../../plugin-key';
 import fragmentMarkPlugin from '../../index';
@@ -32,6 +33,7 @@ import extensionPlugin from '../../../extension';
 import layoutPlugin from '../../../layout';
 import expandPlugin from '../../../expand';
 import panelPlugin from '../../../panel';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 function mockExtension(localId?: string) {
   return extension({
@@ -85,6 +87,8 @@ describe('fragment plugin', () => {
   const editor = (doc: DocBuilder) => {
     const preset = new Preset<LightEditorPlugin>()
       .add([featureFlagsPlugin, {}])
+      .add([analyticsPlugin, {}])
+      .add(contentInsertionPlugin)
       .add(fragmentMarkPlugin)
       .add([tablesPlugin, { tableOptions: {} }])
       .add(extensionPlugin)

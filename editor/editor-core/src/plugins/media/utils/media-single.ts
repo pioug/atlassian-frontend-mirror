@@ -5,31 +5,27 @@ import {
   hasParentNodeOfType,
 } from 'prosemirror-utils';
 import { EditorState, Selection, Transaction } from 'prosemirror-state';
-import { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
-import { calcPxFromPct, wrappedLayouts } from '@atlaskit/editor-common/ui';
-import {
-  akEditorBreakoutPadding,
-  breakoutWideScaleRatio,
-} from '@atlaskit/editor-shared-styles';
-import { checkNodeDown, isEmptyParagraph } from '../../../utils';
+import { checkNodeDown } from '../../../utils';
+import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
+
 import { copyOptionalAttrsFromMediaState } from '../utils/media-common';
 import { MediaState } from '../types';
 import { Command } from '../../../types';
 import { mapSlice } from '../../../utils/slice';
-import { WidthPluginState } from '../../width';
+import { addAnalytics } from '../../analytics';
 import {
-  addAnalytics,
   ACTION,
   ACTION_SUBJECT,
   EVENT_TYPE,
   ACTION_SUBJECT_ID,
   InputMethodInsertMedia,
   InsertEventPayload,
-} from '../../analytics';
+} from '@atlaskit/editor-common/analytics';
 import {
   safeInsert,
   shouldSplitSelectedNodeOnNodeInsertion,
-} from '../../../utils/insert';
+} from '@atlaskit/editor-common/insert';
+
 import { isImage } from './is-image';
 import { atTheBeginningOfBlock } from '../../../utils/prosemirror/position';
 import { getRandomHex } from '@atlaskit/media-common';
@@ -291,89 +287,6 @@ export function transformSliceForMedia(slice: Slice, schema: Schema) {
     return newSlice;
   };
 }
-
-export const calcMediaPxWidth = (opts: {
-  origWidth: number;
-  origHeight: number;
-  state: EditorState;
-  containerWidth: WidthPluginState;
-  layout?: MediaSingleLayout;
-  pctWidth?: number;
-  pos?: number;
-  resizedPctWidth?: number;
-  isFullWidthModeEnabled?: boolean;
-}): number => {
-  const {
-    origWidth,
-    origHeight,
-    layout,
-    pctWidth,
-    containerWidth,
-    resizedPctWidth,
-  } = opts;
-  const { width, lineLength } = containerWidth;
-  const calculatedPctWidth = calcPctWidth(
-    containerWidth,
-    pctWidth,
-    origWidth,
-    origHeight,
-  );
-  const calculatedResizedPctWidth = calcPctWidth(
-    containerWidth,
-    resizedPctWidth,
-    origWidth,
-    origHeight,
-  );
-
-  if (layout === 'wide') {
-    if (lineLength) {
-      const wideWidth = Math.ceil(lineLength * breakoutWideScaleRatio);
-      return wideWidth > width ? lineLength : wideWidth;
-    }
-  } else if (layout === 'full-width') {
-    return width - akEditorBreakoutPadding;
-  } else if (calculatedPctWidth) {
-    if (wrappedLayouts.indexOf(layout!) > -1) {
-      if (calculatedResizedPctWidth) {
-        if (resizedPctWidth! < 50) {
-          return calculatedResizedPctWidth;
-        }
-        return calculatedPctWidth;
-      }
-      return Math.min(calculatedPctWidth, origWidth);
-    }
-    if (calculatedResizedPctWidth) {
-      return calculatedResizedPctWidth;
-    }
-    return calculatedPctWidth;
-  } else if (layout === 'center') {
-    if (calculatedResizedPctWidth) {
-      return calculatedResizedPctWidth;
-    }
-    return Math.min(origWidth, lineLength || width);
-  } else if (layout && wrappedLayouts.indexOf(layout) !== -1) {
-    const halfLineLength = Math.ceil((lineLength || width) / 2);
-    return origWidth <= halfLineLength ? origWidth : halfLineLength;
-  }
-
-  return origWidth;
-};
-
-const calcPctWidth = (
-  containerWidth: WidthPluginState,
-  pctWidth?: number,
-  origWidth?: number,
-  origHeight?: number,
-): number | undefined =>
-  pctWidth &&
-  origWidth &&
-  origHeight &&
-  Math.ceil(
-    calcPxFromPct(
-      pctWidth / 100,
-      containerWidth.lineLength || containerWidth.width,
-    ),
-  );
 
 export function isCaptionNode(editorView: EditorView) {
   const { $from } = editorView.state.selection;

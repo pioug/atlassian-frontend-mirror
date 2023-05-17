@@ -8,6 +8,7 @@ import { Request } from '../../types';
 import { setProvider } from '../actions';
 import { replaceQueuedUrlWithCard, handleFallbackWithAnalytics } from '../doc';
 import { CardOptions } from '@atlaskit/editor-common/card';
+import { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 // ============================================================================ //
 // ============================== PROVIDER UTILS ============================== //
@@ -19,6 +20,7 @@ export const resolveWithProvider = (
   provider: CardProvider,
   request: Request,
   options: CardOptions,
+  editorAnalyticsApi: EditorAnalyticsAPI | undefined,
 ) => {
   // When user manually changes appearance from blue link to smart link, we should respect that,
   let shouldForceAppearance =
@@ -29,8 +31,8 @@ export const resolveWithProvider = (
   const handleResolve = provider
     .resolve(request.url, request.appearance, shouldForceAppearance)
     .then(
-      handleResolved(view, request, options),
-      handleRejected(view, request),
+      handleResolved(view, request, editorAnalyticsApi, options),
+      handleRejected(view, request, editorAnalyticsApi),
     );
 
   return handleResolve;
@@ -50,20 +52,35 @@ const updateCardType = (resolvedCard: CardAdf, options: CardOptions) => {
 };
 
 const handleResolved =
-  (view: EditorView, request: Request, options: CardOptions) =>
+  (
+    view: EditorView,
+    request: Request,
+    editorAnalyticsApi: EditorAnalyticsAPI | undefined,
+    options: CardOptions,
+  ) =>
   (resolvedCard: CardAdf) => {
     updateCardType(resolvedCard, options);
     replaceQueuedUrlWithCard(
       request.url,
       resolvedCard,
       request.analyticsAction,
+      editorAnalyticsApi,
     )(view.state, view.dispatch);
     return resolvedCard;
   };
 
-const handleRejected = (view: EditorView, request: Request) => () => {
-  handleFallbackWithAnalytics(request)(view.state, view.dispatch);
-};
+const handleRejected =
+  (
+    view: EditorView,
+    request: Request,
+    editorAnalyticsApi: EditorAnalyticsAPI | undefined,
+  ) =>
+  () => {
+    handleFallbackWithAnalytics(request, editorAnalyticsApi)(
+      view.state,
+      view.dispatch,
+    );
+  };
 
 // listen for card provider changes
 export const handleProvider = (

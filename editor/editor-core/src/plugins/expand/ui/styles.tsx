@@ -1,6 +1,5 @@
 import { css } from '@emotion/react';
 import { themed } from '@atlaskit/theme/components';
-import { gridSize } from '@atlaskit/theme/constants';
 import {
   R50,
   R300,
@@ -133,7 +132,7 @@ export const expandStyles = (props: ThemeProps) => css`
     })(props)};
 
     .${expandClassNames.content} {
-      padding-top: ${gridSize()}px;
+      padding-top: ${token('space.100', '8px')};
     }
   }
 

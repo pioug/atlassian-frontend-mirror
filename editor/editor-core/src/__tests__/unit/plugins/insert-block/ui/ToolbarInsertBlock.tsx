@@ -33,7 +33,8 @@ import rulePlugin from '../../../../../plugins/rule';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import statusPlugin from '../../../../../plugins/status';
 import expandPlugin from '../../../../../plugins/expand';
-import analyticsPlugin from '../../../../../plugins/analytics';
+import deprecatedAnalyticsPlugin from '../../../../../plugins/analytics';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import typeAheadPlugin from '../../../../../plugins/type-ahead';
 import quickInsertPlugin from '../../../../../plugins/quick-insert';
 import taskDecisionPlugin from '../../../../../plugins/tasks-and-decisions';
@@ -70,8 +71,8 @@ import { openElementBrowserModal } from '../../../../../plugins/quick-insert/com
 import InsertMenu from '../../../../../ui/ElementBrowser/InsertMenu';
 
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
-import { createInsertNodeAPI } from '../../../../../insert-api/api';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 import ReactEditorViewContext from '../../../../../create-editor/ReactEditorViewContext';
 
@@ -170,6 +171,8 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
         .add([featureFlagsPlugin, { newInsertionBehaviour: true }])
         .add(blockTypePlugin)
         .add([analyticsPlugin, { createAnalyticsEvent }])
+        .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
+        .add(contentInsertionPlugin)
         .add(layoutPlugin)
         .add(panelPlugin)
         .add(rulePlugin)
@@ -185,16 +188,11 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
   };
 
   const buildToolbar = (props: Partial<ToolbarInsertBlockProps> = {}) => {
-    const insertNodeAPI = createInsertNodeAPI({
-      getEditorView: () => editorView,
-      getEditorPlugins: () => [],
-    });
     let defaultProps = {
       editorView,
       isReducedSpacing: false,
       buttons: 0,
       dispatchAnalyticsEvent: dispatchAnalyticsSpy as any,
-      insertNodeAPI,
     };
     const editorRef = {
       current: document.createElement('div'),
@@ -757,14 +755,25 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
       });
 
       describe('click table option', () => {
+        const insertTable = jest.fn().mockImplementation(() => () => {});
+        const pluginInjectionApi: any = {
+          dependencies: {
+            table: {
+              actions: {
+                insertTable,
+              },
+            },
+          },
+        };
+
         beforeEach(() => {
           ({ editorView } = editor(doc(p('text'))));
-          buildToolbarForMenu({ tableSupported: true });
+          buildToolbarForMenu({ tableSupported: true, pluginInjectionApi });
           menu.clickButton(messages.table.defaultMessage, toolbarOption);
         });
 
         it('should fire v3 analytics event', () => {
-          expect(createAnalyticsEvent).toBeCalledWith({
+          expect(insertTable).toBeCalledWith({
             action: 'inserted',
             actionSubject: 'document',
             actionSubjectId: 'table',

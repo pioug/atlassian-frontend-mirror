@@ -19,7 +19,8 @@ import { ResolvedPos } from 'prosemirror-model';
 import { Transaction } from 'prosemirror-state';
 import { findParentNodeOfType } from 'prosemirror-utils';
 import { CommandDispatch } from '../../../types';
-import { isListNode, isParagraphNode } from '../utils/node';
+import { isListNode, isParagraphNode } from '@atlaskit/editor-common/utils';
+
 import { isPosInsideList, isPosInsideParagraph } from '../utils/selection';
 
 type BackspaceCommand = (

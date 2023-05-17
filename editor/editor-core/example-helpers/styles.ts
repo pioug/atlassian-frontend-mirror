@@ -4,8 +4,8 @@ import { css } from '@emotion/react';
 // prettier-ignore
 import { HTMLAttributes, ClassAttributes, ComponentClass } from 'react';
 
-import { gridSize } from '@atlaskit/theme/constants';
 import { N800 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 
 export const content = css`
@@ -39,6 +39,6 @@ export const buttonGroup = css`
   display: flex;
 
   & > button {
-    margin-left: ${gridSize() / 2}px;
+    margin-left: ${token('space.050', '4px')};
   }
 `;

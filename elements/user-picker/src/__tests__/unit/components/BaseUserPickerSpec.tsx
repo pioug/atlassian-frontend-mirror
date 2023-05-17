@@ -1,6 +1,6 @@
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import Select from '@atlaskit/select';
-import { render, fireEvent, waitFor } from '@testing-library/react';
+import { render, fireEvent, waitFor, screen } from '@testing-library/react';
 import selectEvent from 'react-select-event';
 import { ConcurrentExperience, UFOExperience, ufologger } from '@atlaskit/ufo';
 import { mount, shallow, ReactWrapper } from 'enzyme';
@@ -2134,6 +2134,20 @@ describe('BaseUserPicker', () => {
         // Blurred
         'ABORTED',
       ]);
+    });
+  });
+
+  describe('ariaProps getter', () => {
+    it('should extract aria attributes from props ', () => {
+      const props = {
+        'aria-labelledby': 'aria-labeledby-test',
+        'test-aria-false-property': 'false-property',
+      } as Partial<BaseUserPickerProps>;
+
+      render(getBasePickerWithoutAnalytics({ ...props }));
+      const input = screen.getByRole('combobox');
+      expect(input).toHaveAttribute('aria-labelledby');
+      expect(input).not.toHaveAttribute('test-aria-false-property');
     });
   });
 });

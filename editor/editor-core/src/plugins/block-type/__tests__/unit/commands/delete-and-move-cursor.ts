@@ -24,7 +24,11 @@ import codeBlockPlugin from '../../../../code-block';
 import layoutPlugin from '../../../../layout';
 import mediaPlugin from '../../../../media';
 import panelPlugin from '../../../../panel';
+import gridPlugin from '../../../../grid';
+import widthPlugin from '../../../../width';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 describe('delete behaviour - cursor position after delete', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -32,9 +36,13 @@ describe('delete behaviour - cursor position after delete', () => {
   const editor = (doc: DocBuilder) => {
     const preset = new Preset<LightEditorPlugin>()
       .add([featureFlagsPlugin, {}])
+      .add([analyticsPlugin, {}])
+      .add(contentInsertionPlugin)
       .add(listPlugin)
       .add([codeBlockPlugin, { appearance: 'full-page' }])
       .add(layoutPlugin)
+      .add(widthPlugin)
+      .add(gridPlugin)
       .add([mediaPlugin, { allowMediaSingle: true }])
       .add(tablesPlugin)
       .add(panelPlugin);

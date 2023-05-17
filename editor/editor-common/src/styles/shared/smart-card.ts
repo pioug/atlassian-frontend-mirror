@@ -1,4 +1,5 @@
 import { blockNodesVerticalMargin } from '@atlaskit/editor-shared-styles';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize } from '@atlaskit/theme/constants';
 
 export const SmartCardSharedCssClassName = {
@@ -8,6 +9,8 @@ export const SmartCardSharedCssClassName = {
   LOADER_WRAPPER: 'loader-wrapper',
 };
 
+// TODO: Migrate away from gridSize
+// Recommendation: Replace gridSize with 8
 export const smartCardSharedStyles = `
   .${SmartCardSharedCssClassName.BLOCK_CARD_CONTAINER} {
     display: block;

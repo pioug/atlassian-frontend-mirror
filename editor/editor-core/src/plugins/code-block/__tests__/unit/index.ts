@@ -32,9 +32,11 @@ import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import basePlugin from '../../../base';
 import typeAheadPlugin from '../../../type-ahead';
 import quickInsertPlugin from '../../../quick-insert';
-import analyticsPlugin from '../../../analytics';
+import deprecatedAnalyticsPlugin from '../../../analytics';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { getToolbarConfig } from '../../toolbar';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 jest.mock('../../../../utils/clipboard');
 
@@ -49,12 +51,14 @@ describe('code-block', () => {
       doc,
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
+        .add([analyticsPlugin, { createAnalyticsEvent }])
+        .add(contentInsertionPlugin)
         .add([codeBlockPlugin, { appearance: 'full-page' }])
         .add(tablesPlugin)
         .add(basePlugin)
         .add(typeAheadPlugin)
         .add(quickInsertPlugin)
-        .add([analyticsPlugin, { createAnalyticsEvent }]),
+        .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }]),
       pluginKey: codeBlockPluginKey,
     });
   };

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/reduced-ui-pack",
-  "version": "18.0.1",
+  "version": "18.0.2",
   "description": "CSS classes which provide styling for a reduced number of Atlaskit components.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -36,7 +36,7 @@
     "fbjs": "^3.0.0"
   },
   "peerDependencies": {
-    "@atlaskit/css-reset": "^6.5.1"
+    "@atlaskit/css-reset": "^6.5.2"
   },
   "devDependencies": {
     "@atlaskit/docs": "*",

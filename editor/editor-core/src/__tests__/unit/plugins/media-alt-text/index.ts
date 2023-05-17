@@ -26,7 +26,8 @@ import {
   Side,
   GapCursorSelection,
 } from '../../../../plugins/selection/gap-cursor-selection';
-import { pmHistoryPluginKey } from '../../../../plugins/history/pm-history-types';
+import { pmHistoryPluginKey } from '@atlaskit/editor-common/utils';
+
 import { PluginKey } from 'prosemirror-state';
 
 describe('media alt text', () => {

@@ -24,6 +24,8 @@ import { DateNodeView } from '../../nodeviews/date';
 import editorDisabledPlugin from '../../../editor-disabled';
 import datePlugin from '../../index';
 import tasksAndDecisionsPlugin from '../../../tasks-and-decisions';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 const getDatePosition = (state: EditorState): number => {
   let datePos: number | undefined;
@@ -58,6 +60,8 @@ describe('date plugin', () => {
     return createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
+        .add([analyticsPlugin, {}])
         .add(editorDisabledPlugin)
         .add(datePlugin)
         .add(tasksAndDecisionsPlugin),

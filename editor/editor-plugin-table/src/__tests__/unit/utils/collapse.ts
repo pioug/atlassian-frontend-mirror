@@ -19,6 +19,8 @@ import {
   collapseSelectedTable,
 } from '../../../plugins/table/utils/collapse';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 describe('collapse', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -26,6 +28,8 @@ describe('collapse', () => {
   const editor = (doc: DocBuilder, expandInPlugins?: boolean) => {
     const preset = new Preset<LightEditorPlugin>()
       .add([featureFlagsPlugin, {}])
+      .add([analyticsPlugin, {}])
+      .add(contentInsertionPlugin)
       .add(tablePlugin);
 
     const finalPreset = expandInPlugins ? preset.add(expandPlugin) : preset;

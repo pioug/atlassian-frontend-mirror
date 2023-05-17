@@ -7,6 +7,12 @@ import type { EditorContainerWidth } from '@atlaskit/editor-common/types';
 
 export type WidthPluginState = EditorContainerWidth;
 
+/**
+ * @private
+ * @deprecated
+ *
+ * Do not use this plugin key directly. Please use the `sharedState` of this plugin instead.
+ */
 export const pluginKey = new PluginKey<WidthPluginState>('widthPlugin');
 
 export function createPlugin(
@@ -47,7 +53,10 @@ export function createPlugin(
   });
 }
 
-const widthPlugin: NextEditorPlugin<'width'> = () => ({
+const widthPlugin: NextEditorPlugin<
+  'width',
+  { sharedState: EditorContainerWidth | undefined }
+> = () => ({
   name: 'width',
 
   pmPlugins: () => [
@@ -56,6 +65,13 @@ const widthPlugin: NextEditorPlugin<'width'> = () => ({
       plugin: ({ dispatch }) => createPlugin(dispatch),
     },
   ],
+
+  getSharedState: (editorState) => {
+    if (!editorState) {
+      return undefined;
+    }
+    return pluginKey.getState(editorState);
+  },
 
   // do this early here, otherwise we have to wait for WidthEmitter to debounce
   // which causes anything dependent on lineLength to jump around

@@ -10,14 +10,15 @@ import type { ExtensionProvider } from '@atlaskit/editor-common/extensions';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette';
 import { themed } from '@atlaskit/theme/components';
-import { borderRadius, gridSize } from '@atlaskit/theme/constants';
+import { borderRadius } from '@atlaskit/theme/constants';
 import { DN70 } from '@atlaskit/theme/colors';
 
 import { DispatchAnalyticsEvent } from '../../analytics';
 import { FloatingToolbarItem } from '../types';
 import { compareArrays, shallowEqual } from '../utils';
 import { showConfirmDialog } from '../pm-plugins/toolbar-data/commands';
-import Button from './Button';
+import { FloatingToolbarButton as Button } from '@atlaskit/editor-common/ui';
+
 import Dropdown from './Dropdown';
 import Select, { SelectOption } from './Select';
 import Separator from './Separator';
@@ -43,8 +44,6 @@ import {
   forceFocusSelector,
 } from '../pm-plugins/force-focus';
 import { FeatureFlags } from '@atlaskit/editor-common/types';
-
-const akGridSize = gridSize();
 
 export type Item = FloatingToolbarItem<Function>;
 
@@ -218,6 +217,7 @@ const ToolbarItems = React.memo(
                 if (item.selectType === 'color') {
                   return (
                     <ColorPickerButton
+                      skipFocusButtonAfterPick
                       key={idx}
                       title={item.title}
                       onChange={(selected) => {
@@ -350,10 +350,10 @@ const toolbarContainer = (
         overflow: hidden;
       `
     : css`
-        padding: ${akGridSize / 2}px ${akGridSize}px;
+        padding: ${token('space.050', '4px')} ${token('space.100', '8px')};
         ${firstElementIsSelect &&
         css`
-          padding-left: ${akGridSize / 2}px;
+          padding-left: ${token('space.050', '4px')};
         `}
       `}
 `;
@@ -374,19 +374,19 @@ const toolbarOverflow = (
               overflow-y: hidden;
             `}
         -webkit-overflow-scrolling: touch;
-        padding: ${akGridSize / 2}px 0 50px;
+        padding: ${token('space.050', '4px')} 0 50px;
         > div {
           > div:first-child {
             ${firstElementIsSelect
               ? css`
-                  margin-left: ${akGridSize / 2}px;
+                  margin-left: ${token('space.050', '4px')};
                 `
               : css`
-                  margin-left: ${akGridSize}px;
+                  margin-left: ${token('space.100', '8px')};
                 `}
           }
           > div:last-child {
-            margin-right: ${akGridSize}px;
+            margin-right: ${token('space.100', '8px')};
           }
         }
       `

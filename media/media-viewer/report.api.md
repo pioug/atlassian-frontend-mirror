@@ -57,14 +57,6 @@ type MediaViewerAnalyticsErrorBoundaryProps = {
 };
 
 // @public (undocumented)
-export interface MediaViewerDataSource {
-  // (undocumented)
-  collectionName?: string;
-  // (undocumented)
-  list?: Array<Identifier>;
-}
-
-// @public (undocumented)
 type MediaViewerErrorBoundaryComponent =
   React_2.ComponentType<MediaViewerAnalyticsErrorBoundaryProps>;
 
@@ -92,20 +84,16 @@ export interface MediaViewerProps {
   readonly collectionName: string;
   // (undocumented)
   readonly contextId?: string;
-  // @deprecated
-  readonly dataSource?: MediaViewerDataSource;
   // (undocumented)
   readonly extensions?: MediaViewerExtensions;
   // (undocumented)
   readonly featureFlags?: MediaFeatureFlags;
   // (undocumented)
-  readonly items?: Array<Identifier>;
+  readonly items: Array<Identifier>;
   // (undocumented)
   readonly mediaClient: MediaClient;
   // (undocumented)
   readonly onClose?: () => void;
-  // @deprecated
-  readonly pageSize?: number;
   // (undocumented)
   readonly selectedItem: Identifier;
 }

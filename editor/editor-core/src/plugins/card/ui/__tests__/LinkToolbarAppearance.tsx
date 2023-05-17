@@ -69,6 +69,7 @@ describe('LinkToolbarAppearance', () => {
           editorView={editorView}
           currentAppearance="inline"
           url="some-url"
+          editorAnalyticsApi={undefined}
           {...props}
         />
       </MockCardContextAdapter>,

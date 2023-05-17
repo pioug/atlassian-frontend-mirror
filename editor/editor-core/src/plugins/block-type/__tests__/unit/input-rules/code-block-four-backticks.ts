@@ -28,6 +28,8 @@ import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import listPlugin from '../../../../list';
 import panelPlugin from '../../../../panel';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 interface InputOutput {
   initial: DocBuilder;
@@ -165,6 +167,8 @@ describe('inputrules', () => {
       doc,
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
+        .add([analyticsPlugin, {}])
+        .add(contentInsertionPlugin)
         .add(blockTypePlugin)
         .add(indentationPlugin)
         .add(quickInsertPlugin)

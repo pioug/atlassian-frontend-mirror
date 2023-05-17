@@ -1,10 +1,11 @@
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import {
   EditorState,
   NodeSelection,
   TextSelection,
   Transaction,
 } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { pmHistoryPluginKey } from '@atlaskit/editor-common/utils';
 import { getInlineNodeViewProducer } from '../../nodeviews/getInlineNodeViewProducer';
 
 import type { PMPluginFactoryParams } from '../../types';
@@ -113,8 +114,17 @@ const createPlugin = (
       let changed = false;
       let tr = newEditorState.tr;
 
-      // user leaves the StatusPicker with empty text and selects a new node
-      if (transactions.find((tr) => tr.selectionSet)) {
+      /**
+       * When user start creating status, and, when users navigates away
+       *  while empty, then we want to remove empty ("set a status") status.
+       * But when transaction to add empty status happens from undo/redo
+       *  we don't want to remove it.
+       */
+      if (
+        transactions.find(
+          (tr) => tr.selectionSet && !tr.getMeta(pmHistoryPluginKey),
+        )
+      ) {
         let oldStatus = mayGetStatusAtSelection(oldEditorState.selection);
         let newStatus = mayGetStatusAtSelection(newEditorState.selection);
         if (

@@ -146,8 +146,26 @@ export type {
   CreatePluginDependenciesAPI,
   NextEditorPluginMetadata,
   ExtractInjectionAPI,
+  ExtractPluginActions,
 } from './next-editor-plugin';
 
 export type IconProps = {
   label?: string;
 };
+
+export type {
+  TTITracking,
+  TransactionTracking,
+  UITracking,
+  CatchAllTracking,
+  NodeViewTracking,
+  BrowserFreezetracking,
+  ProseMirrorRenderedTracking,
+  InputTracking,
+  ContentRetrievalTracking,
+  OnChangeCallbackTracking,
+  OnEditorReadyCallbackTracking,
+  PasteTracking,
+  RenderTracking,
+  PerformanceTracking,
+} from './performance-tracking';

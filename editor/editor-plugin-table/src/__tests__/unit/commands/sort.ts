@@ -26,6 +26,8 @@ import editorDisabledPlugin from '@atlaskit/editor-core/src/plugins/editor-disab
 import hyperlinkPlugin from '@atlaskit/editor-core/src/plugins/hyperlink';
 import datePlugin from '@atlaskit/editor-core/src/plugins/date';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 
@@ -41,10 +43,11 @@ describe('Sort Table', () => {
   const createEditor = createProsemirrorEditorFactory();
   it('should test a basic table with heading', () => {
     const { editorView } = createEditor({
-      preset: new Preset<LightEditorPlugin>().add([
-        tablePlugin,
-        { tableOptions: { allowHeaderRow: true } },
-      ]),
+      preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
+        .add([analyticsPlugin, {}])
+        .add(contentInsertionPlugin)
+        .add([tablePlugin, { tableOptions: { allowHeaderRow: true } }]),
       doc: doc(
         table()(
           tr(th({})(p('Number{<>}'))),
@@ -70,10 +73,11 @@ describe('Sort Table', () => {
 
   it('should test a basic table descending', () => {
     const { editorView } = createEditor({
-      preset: new Preset<LightEditorPlugin>().add([
-        tablePlugin,
-        { tableOptions: { allowHeaderRow: true } },
-      ]),
+      preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
+        .add([analyticsPlugin, {}])
+        .add(contentInsertionPlugin)
+        .add([tablePlugin, { tableOptions: { allowHeaderRow: true } }]),
       doc: doc(
         table()(tr(td({})(p('2{<>}'))), tr(td({})(p('5'))), tr(td({})(p('4')))),
       ),
@@ -93,10 +97,11 @@ describe('Sort Table', () => {
 
   it('should test a basic table ascending', () => {
     const { editorView } = createEditor({
-      preset: new Preset<LightEditorPlugin>().add([
-        tablePlugin,
-        { tableOptions: { allowHeaderRow: true } },
-      ]),
+      preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
+        .add([analyticsPlugin, {}])
+        .add(contentInsertionPlugin)
+        .add([tablePlugin, { tableOptions: { allowHeaderRow: true } }]),
       doc: doc(
         table()(tr(td({})(p('2{<>}'))), tr(td({})(p('5'))), tr(td({})(p('4')))),
       ),
@@ -121,6 +126,8 @@ describe('Sort Table', () => {
       ({ editorView } = createEditor({
         preset: new Preset<LightEditorPlugin>()
           .add([featureFlagsPlugin, {}])
+          .add([analyticsPlugin, {}])
+          .add(contentInsertionPlugin)
           .add(editorDisabledPlugin)
           .add([tablePlugin, { tableOptions: { allowHeaderRow: true } }])
           .add([statusPlugin, { menuDisabled: false }])

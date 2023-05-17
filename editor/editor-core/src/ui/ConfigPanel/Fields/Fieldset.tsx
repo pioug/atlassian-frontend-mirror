@@ -25,14 +25,13 @@ type OptionType = {
   value: string;
 };
 
-import { gridSize } from '@atlaskit/theme/constants';
 import { N40A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 const actionsWrapper = css`
   border-top: 1px solid ${token('color.border', N40A)};
-  margin-top: ${gridSize() * 2}px;
-  padding-top: ${gridSize() * 2}px;
+  margin-top: ${token('space.200', '16px')};
+  padding-top: ${token('space.200', '16px')};
 `;
 
 const populateFromParameters = (

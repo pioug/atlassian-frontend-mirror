@@ -35,14 +35,22 @@ import { pluginKey } from '../../plugins/table/pm-plugins/plugin-key';
 import { TableCssClassName as ClassName } from '../../plugins/table/types';
 import tablePlugin from '../../plugins/table-plugin';
 import mediaPlugin from '@atlaskit/editor-core/src/plugins/media';
+import widthPlugin from '@atlaskit/editor-core/src/plugins/width';
+import gridPlugin from '@atlaskit/editor-core/src/plugins/grid';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 describe('table plugin: decorations', () => {
   const createEditor = createProsemirrorEditorFactory();
   const editor = (doc: DocBuilder) =>
     createEditor({
       doc,
-      preset: new Preset<LightEditorPlugin>().add(tablePlugin),
+      preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
+        .add([analyticsPlugin, {}])
+        .add(contentInsertionPlugin)
+        .add(tablePlugin),
       pluginKey,
     });
 
@@ -156,6 +164,10 @@ describe('table event handlers', () => {
       attachTo: document.body,
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
+        .add([analyticsPlugin, {}])
+        .add(contentInsertionPlugin)
+        .add(widthPlugin)
+        .add(gridPlugin)
         .add(tablePlugin)
         .add([
           mediaPlugin,

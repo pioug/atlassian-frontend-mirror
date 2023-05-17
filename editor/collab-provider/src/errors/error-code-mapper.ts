@@ -93,11 +93,18 @@ export const errorCodeMapper = (
     case NCS_ERROR_CODE.NAMESPACE_NOT_FOUND:
     case NCS_ERROR_CODE.ERROR_MAPPING_ERROR:
     case NCS_ERROR_CODE.EMPTY_BROADCAST:
-    case INTERNAL_ERROR_CODE.CATCHUP_FAILED:
       return {
         code: PROVIDER_ERROR_CODE.INTERNAL_SERVICE_ERROR,
         message: 'Collab Provider experienced an unrecoverable error',
         recoverable: false,
+        reason: error.data?.code,
+        status: 500,
+      };
+    case INTERNAL_ERROR_CODE.CATCHUP_FAILED:
+      return {
+        code: PROVIDER_ERROR_CODE.INTERNAL_SERVICE_ERROR,
+        message: 'Collab Provider experienced an unrecoverable error',
+        recoverable: true,
         reason: error.data?.code,
         status: 500,
       };

@@ -32,9 +32,13 @@ import codeBlockPlugin from '../../../code-block';
 import blockTypePlugin from '../../../block-type';
 import { AlignmentPluginState } from '../../pm-plugins/types';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 const alignmentPreset = new Preset<LightEditorPlugin>()
   .add([featureFlagsPlugin, {}])
+  .add([analyticsPlugin, {}])
+  .add(contentInsertionPlugin)
   .add(alignmentPlugin)
   .add(tablesPlugin)
   .add(listPlugin)

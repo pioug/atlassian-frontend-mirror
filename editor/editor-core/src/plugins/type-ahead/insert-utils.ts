@@ -1,7 +1,9 @@
 import { Transaction, TextSelection, NodeSelection } from 'prosemirror-state';
 import { Node as PMNode, Slice, Fragment } from 'prosemirror-model';
-import { normaliseNestedLayout } from '../../utils/selection';
-import { safeInsert } from '../../utils/insert';
+import {
+  safeInsert,
+  normaliseNestedLayout,
+} from '@atlaskit/editor-common/insert';
 
 function findInsertPoint(
   doc: PMNode,

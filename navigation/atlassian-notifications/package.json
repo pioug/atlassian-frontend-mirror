@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/atlassian-notifications",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Notifications for Atlassian products",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

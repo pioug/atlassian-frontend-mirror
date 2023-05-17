@@ -6,7 +6,7 @@ import {
   WrappedComponentProps,
   injectIntl,
 } from 'react-intl-next';
-import { DispatchAnalyticsEvent } from '../../../analytics';
+import { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { DateType } from '../../types';
 import {
   findDateSegmentByPosition,

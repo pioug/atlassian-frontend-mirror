@@ -1,5 +1,27 @@
 # @atlaskit/renderer
 
+## 108.1.1
+
+### Patch Changes
+
+- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- Updated dependencies
+
+## 108.1.0
+
+### Minor Changes
+
+- [`6bc52e5a406`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6bc52e5a406) - [ED-17687] Capture errors caught in error boundaries in Sentry
+- [`7faffcf8450`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7faffcf8450) - Add location attribute to smard link related componentes in renderer (link, inlinecard, embedcard, blockcard)
+
+### Patch Changes
+
+- [`dc1ca0331ae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dc1ca0331ae) - [ux] Changed code-block to display: block to fix issue with list alignment
+- [`9220da2225b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9220da2225b) - ED-16320: Add checks to certain SLO related events to see if they are explicitly disabled, in preparation for disabling them for synthetic tenants in prod
+- [`a142ba1aa28`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a142ba1aa28) - [ED17172] Bump prosemirror-model to 1.16.0 and prosemirror-view to 1.23.7 and removed work-arounds for fixed issues
+- [`9369cc38a68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9369cc38a68) - Migrated use of `gridSize` to space tokens where possible. There is no expected visual or behaviour change.
+- Updated dependencies
+
 ## 108.0.1
 
 ### Patch Changes

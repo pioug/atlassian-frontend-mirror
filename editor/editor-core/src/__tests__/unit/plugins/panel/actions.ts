@@ -18,7 +18,8 @@ import {
 } from '../../../../plugins/panel/actions';
 import panelPlugin from '../../../../plugins/panel';
 import emojiPlugin from '../../../../plugins/emoji';
-import analyticsPlugin from '../../../../plugins/analytics';
+import deprecatedAnalyticsPlugin from '../../../../plugins/analytics';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { selectNode } from '../../../../utils/commands';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
@@ -36,7 +37,8 @@ describe('panel actions', () => {
       .add([featureFlagsPlugin, {}])
       .add([panelPlugin, { allowCustomPanel, allowCustomPanelEdit }])
       .add(emojiPlugin)
-      .add([analyticsPlugin, { createAnalyticsEvent }]);
+      .add([analyticsPlugin, { createAnalyticsEvent }])
+      .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }]);
 
     return createEditor({ doc, preset });
   };

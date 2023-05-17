@@ -8,7 +8,6 @@ import { token } from '@atlaskit/tokens';
 import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
 import ChevronRightIcon from '@atlaskit/icon/glyph/chevron-right';
 import Button from '@atlaskit/button';
-import { gridSize } from '@atlaskit/theme/constants';
 import { FieldDefinition } from '@atlaskit/editor-common/extensions';
 import { messages } from '../messages';
 
@@ -18,9 +17,9 @@ export const expandContainer = css`
 
 export const expandControl = css`
   display: flex;
-  height: ${gridSize() * 6}px;
+  height: ${token('space.600', '48px')};
   justify-content: center;
-  padding-right: ${gridSize()}px;
+  padding-right: ${token('space.100', '8px')};
 `;
 
 const chevronContainer = css`
@@ -28,8 +27,8 @@ const chevronContainer = css`
   align-items: center;
 
   & > button {
-    width: ${gridSize() * 3}px;
-    height: ${gridSize() * 3}px;
+    width: ${token('space.300', '24px')};
+    height: ${token('space.300', '24px')};
   }
 `;
 
@@ -42,7 +41,7 @@ const labelContainer = css`
 
 const expandContentContainer = (isHidden: boolean) => css`
   display: ${isHidden ? 'none' : 'block'};
-  margin-top: -${gridSize()}px;
+  margin-top: calc(-1 * ${token('space.100', '8px')});
 `;
 
 type Props = {

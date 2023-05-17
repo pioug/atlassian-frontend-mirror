@@ -381,10 +381,8 @@ export const renderDocument: <T>(
   adfStage?: ADFStage,
   useSpecBasedValidator?: boolean,
   rendererId?: string,
-  dispatchAnalyticsEvent?: DispatchAnalyticsEvent | undefined,
-  unsupportedContentLevelsTracking?:
-    | UnsupportedContentLevelsTracking
-    | undefined,
+  dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
+  unsupportedContentLevelsTracking?: UnsupportedContentLevelsTracking,
   appearance?: RendererAppearance,
 ) => RenderOutput<T | null>;
 
@@ -759,8 +757,8 @@ type VisitMediaLinkAEP = AEP<
 
 ```json
 {
-  "@atlaskit/link-provider": "^1.5.3",
-  "@atlaskit/media-core": "^34.0.2",
+  "@atlaskit/link-provider": "^1.6.1",
+  "@atlaskit/media-core": "^34.1.1",
   "react": "^16.8.0",
   "react-dom": "^16.8.0"
 }

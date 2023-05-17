@@ -10,11 +10,9 @@ export type EnabledHandles = { left?: boolean; right?: boolean };
 
 export type Props = MediaSingleProps & {
   updateSize: (width: number | null, layout: RichMediaLayout) => void;
-  displayGrid: (
-    show: boolean,
-    type: GridType,
-    highlight?: number[] | string[],
-  ) => void;
+  displayGrid:
+    | ((show: boolean, type: GridType, highlight: number[] | string[]) => void)
+    | undefined;
   getPos: getPosHandler;
   view: EditorView;
   lineLength: number;

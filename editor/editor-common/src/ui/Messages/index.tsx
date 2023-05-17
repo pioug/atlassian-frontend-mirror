@@ -6,7 +6,6 @@ import { css, jsx } from '@emotion/react';
 import SuccessIcon from '@atlaskit/icon/glyph/editor/success';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
 import { G400, N200, R400 } from '@atlaskit/theme/colors';
-import { gridSize } from '@atlaskit/theme/constants';
 import { ThemeProps } from '@atlaskit/theme/types';
 import { h200 } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
@@ -22,14 +21,14 @@ const validColor = css`
 const messageStyle = (props: ThemeProps) => css`
   ${h200(props)} font-weight: normal;
   color: ${token('color.text.subtlest', N200)};
-  margin-top: ${gridSize() / 2}px;
+  margin-top: ${token('space.050', '4px')};
   display: flex;
   justify-content: baseline;
 `;
 
 const iconWrapperStyle = css`
   display: flex;
-  margin-right: 4px;
+  margin-right: ${token('space.050', '4px')};
 `;
 
 interface Props {

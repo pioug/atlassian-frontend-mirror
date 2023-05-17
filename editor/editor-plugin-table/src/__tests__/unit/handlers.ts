@@ -18,6 +18,9 @@ import { handleDocOrSelectionChanged } from '../../plugins/table/handlers';
 import { pluginKey } from '../../plugins/table/pm-plugins/plugin-key';
 import { defaultTableSelection } from '../../plugins/table/pm-plugins/default-table-selection';
 import tablePlugin from '../../plugins/table-plugin';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 describe('table action handlers', () => {
   let editor: any;
@@ -25,7 +28,11 @@ describe('table action handlers', () => {
 
   beforeEach(() => {
     const createEditor = createProsemirrorEditorFactory();
-    const preset = new Preset<LightEditorPlugin>().add(tablePlugin);
+    const preset = new Preset<LightEditorPlugin>()
+      .add([featureFlagsPlugin, {}])
+      .add([analyticsPlugin, {}])
+      .add(contentInsertionPlugin)
+      .add(tablePlugin);
 
     editor = (doc: DocBuilder) =>
       createEditor<TablePluginState, PluginKey>({

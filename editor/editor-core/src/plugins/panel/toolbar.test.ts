@@ -24,7 +24,8 @@ import {
   panel,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { PanelType } from '@atlaskit/adf-schema';
-import analyticsPlugin from '../analytics';
+import deprecatedAnalyticsPlugin from '../analytics';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -351,7 +352,8 @@ describe('getToolbarItems', () => {
         ),
         preset: panelPreset
           .add([featureFlagsPlugin, {}])
-          .add([analyticsPlugin, { createAnalyticsEvent }]),
+          .add([analyticsPlugin, { createAnalyticsEvent }])
+          .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }]),
         providerFactory,
         pluginKey: emojiPluginKey,
       }));

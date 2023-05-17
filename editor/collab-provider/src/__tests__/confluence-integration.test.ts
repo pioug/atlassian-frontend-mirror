@@ -285,9 +285,8 @@ describe('Collab Provider Integration Tests - Confluence', () => {
         timestamp: 0,
       };
       // @ts-ignore accessing private method for testing purposes
-      await provider.participantsService.updateParticipant(
+      await provider.participantsService.onParticipantUpdated(
         fakePresencePayload,
-        getUserMock,
       );
       expect(getUserMock).toHaveBeenCalledTimes(1);
       expect(getUserMock).toHaveBeenCalledWith(fakePresencePayload.userId);
@@ -295,10 +294,11 @@ describe('Collab Provider Integration Tests - Confluence', () => {
 
     it('should call the permissionTokenRefresh call-back on establishing the connection', () => {
       provider.initialize(getStateMock);
+      expect(permissionTokenRefreshMock).toBeCalledTimes(1);
       // Socket IO connects automatically but the mock doesn't
       // @ts-expect-error mocking Socket IO client behaviour
       provider.channel.getSocket().connect();
-      expect(permissionTokenRefreshMock).toBeCalledTimes(1);
+      expect(permissionTokenRefreshMock).toBeCalledTimes(2);
     });
   });
 

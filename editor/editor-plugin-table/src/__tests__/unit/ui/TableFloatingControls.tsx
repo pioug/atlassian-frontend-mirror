@@ -24,11 +24,18 @@ import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
 import { getDecorations } from '../../../plugins/table/pm-plugins/decorations/plugin';
 import tablePlugin from '../../../plugins/table-plugin';
 import { PluginKey } from 'prosemirror-state';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 describe('TableFloatingControls', () => {
   const createEditor = createProsemirrorEditorFactory();
   const fakeGetEditorFeatureFlags = () => ({});
-  const preset = new Preset<LightEditorPlugin>().add(tablePlugin);
+  const preset = new Preset<LightEditorPlugin>()
+    .add([featureFlagsPlugin, {}])
+    .add([analyticsPlugin, {}])
+    .add(contentInsertionPlugin)
+    .add(tablePlugin);
 
   const editor = (doc: DocBuilder) =>
     createEditor<TablePluginState, PluginKey>({

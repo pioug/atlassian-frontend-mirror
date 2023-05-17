@@ -23,13 +23,20 @@ import FloatingContextualButton, {
   Props as FloatingContextualButtonProps,
 } from '../../../plugins/table/ui/FloatingContextualButton';
 import tablePlugin from '../../../plugins/table-plugin';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 const createEditor = createProsemirrorEditorFactory();
 let createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
 const editor = (doc: DocBuilder) =>
   createEditor({
     doc,
-    preset: new Preset<LightEditorPlugin>().add(tablePlugin),
+    preset: new Preset<LightEditorPlugin>()
+      .add([featureFlagsPlugin, {}])
+      .add([analyticsPlugin, {}])
+      .add(contentInsertionPlugin)
+      .add(tablePlugin),
   });
 
 describe('Floating Contextual Button', () => {

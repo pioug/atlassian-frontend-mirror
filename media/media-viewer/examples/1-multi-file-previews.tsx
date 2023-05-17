@@ -181,7 +181,6 @@ export default class Example extends React.Component<{}, State> {
               items={selected.items}
               collectionName={defaultCollectionName}
               onClose={this.onClose}
-              pageSize={5}
             />
           )}
         </MainWrapper>

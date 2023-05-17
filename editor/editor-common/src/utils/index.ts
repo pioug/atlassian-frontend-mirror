@@ -27,6 +27,7 @@ export {
   stepHasSlice,
   extractSliceFromStep,
   isValidPosition,
+  isEmptyParagraph,
 } from './editor-core-utils';
 export { withImageLoader } from './imageLoader';
 export type {
@@ -156,10 +157,28 @@ export {
   getNodeName,
 } from './referentiality';
 
-export { sendLogs } from './sendLogs';
-
 export {
   getItemCounterDigitsSize,
   getOrderFromOrderedListNode,
   resolveOrder,
+  isListNode,
+  isParagraphNode,
+  isListItemNode,
+  isBulletList,
 } from './list';
+
+export {
+  isFromCurrentDomain,
+  LinkMatcher,
+  normalizeUrl,
+  linkifyContent,
+  getLinkDomain,
+  findFilepaths,
+  isLinkInMatches,
+  FILEPATH_REGEXP,
+  DONTLINKIFY_REGEXP,
+  getLinkCreationAnalyticsEvent,
+} from './hyperlink';
+
+// prosemirror-history does not export its plugin key
+export const pmHistoryPluginKey = 'history$';

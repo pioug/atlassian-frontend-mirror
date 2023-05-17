@@ -1,3 +1,5 @@
+jest.mock('../../../service/uploadServiceImpl');
+
 import {
   LocalUploadComponentReact,
   LocalUploadComponentBaseProps,
@@ -11,10 +13,9 @@ import {
   UploadEndEventPayload,
   UploadPreviewUpdateEventPayload,
   UploadsStartEventPayload,
+  UploadRejectionData,
 } from '../../../types';
-
-jest.mock('../../../service/uploadServiceImpl');
-
+import { UploadService } from '../../../service/types';
 import { SCALE_FACTOR_DEFAULT } from '../../../util/getPreviewFromImage';
 import * as ufoWrapper from '../../../util/ufoExperiences';
 import { UploadComponent } from '../../component';
@@ -26,6 +27,17 @@ const imageFile: MediaFile = {
   size: 12345,
   creationDate: Date.now(),
   type: 'image/jpg',
+};
+
+const rejectionData1: UploadRejectionData = {
+  reason: 'fileSizeLimitExceeded',
+  fileName: 'file-name-1.png',
+  limit: 10_000,
+};
+const rejectionData2: UploadRejectionData = {
+  reason: 'fileSizeLimitExceeded',
+  fileName: 'file-name-2.png',
+  limit: 10_000,
 };
 
 class DummyLocalUploadComponent extends LocalUploadComponentReact<LocalUploadComponentBaseProps> {
@@ -45,7 +57,9 @@ describe('LocalUploadReact', () => {
   const onPreviewUpdate = jest.fn();
   const onEnd = jest.fn();
   const onError = jest.fn();
+  const onFileRejection = jest.fn();
   let uploadComponent: UploadComponent<UploadEventPayloadMap>;
+  let uploadService: UploadService;
 
   const mediaClient = fakeMediaClient();
 
@@ -77,12 +91,14 @@ describe('LocalUploadReact', () => {
         onPreviewUpdate={onPreviewUpdate}
         onEnd={onEnd}
         onError={onError}
+        onFileRejection={onFileRejection}
       />,
     );
 
     localUploadComponentInstance =
       localUploadComponent.instance() as DummyLocalUploadComponent;
     uploadComponent = (localUploadComponentInstance as any).uploadComponent;
+    uploadService = (localUploadComponentInstance as any).uploadService;
   });
 
   afterEach(() => {
@@ -181,6 +197,84 @@ describe('LocalUploadReact', () => {
         fileId: imageFile.id,
       },
       uploadDurationMsec: -1,
+    });
+  });
+
+  it('should set the onFileRejection callback for UploadService correctly', () => {
+    const onFileRejectionInUploadService = jest.spyOn(
+      uploadService,
+      'onFileRejection',
+    );
+    expect(onFileRejectionInUploadService).toBeCalledWith(onFileRejection);
+  });
+
+  it('should set the onFileRejection callback for UploadService to the default implementation when the callback is undefined', () => {
+    const localUploadWithoutOnFileRejection = mount(
+      <DummyLocalUploadComponent
+        mediaClient={mediaClient}
+        config={config}
+        onUploadsStart={onUploadsStart}
+        onPreviewUpdate={onPreviewUpdate}
+        onEnd={onEnd}
+        onError={onError}
+      />,
+    );
+
+    const withoutOnFileRejectionInstance =
+      localUploadWithoutOnFileRejection.instance() as any;
+    const uploadService = withoutOnFileRejectionInstance.uploadService;
+    const addFlag = withoutOnFileRejectionInstance.addUploadRejectionFlag;
+
+    const onFileRejectionInUploadService = jest.spyOn(
+      uploadService,
+      'onFileRejection',
+    );
+    expect(onFileRejectionInUploadService).not.toBeCalledWith(onFileRejection);
+    expect(onFileRejectionInUploadService).toBeCalledWith(addFlag);
+  });
+
+  describe('addUploadRejectionFlag', () => {
+    it('should correctly update the state to add a new flag', () => {
+      (localUploadComponentInstance as any).addUploadRejectionFlag(
+        rejectionData1,
+      );
+      expect((localUploadComponentInstance as any).state).toEqual({
+        uploadRejectionFlags: [rejectionData1],
+      });
+    });
+
+    it('should correctly update the state to add multiple new flags', () => {
+      (localUploadComponentInstance as any).addUploadRejectionFlag(
+        rejectionData1,
+      );
+      (localUploadComponentInstance as any).addUploadRejectionFlag(
+        rejectionData2,
+      );
+      expect((localUploadComponentInstance as any).state).toEqual({
+        uploadRejectionFlags: [rejectionData1, rejectionData2],
+      });
+    });
+  });
+
+  describe('dismissUploadRejectionFlag', () => {
+    it('should correctly update the state to remove the first flag', () => {
+      (localUploadComponentInstance as any).addUploadRejectionFlag(
+        rejectionData1,
+      );
+      (localUploadComponentInstance as any).addUploadRejectionFlag(
+        rejectionData2,
+      );
+      (localUploadComponentInstance as any).dismissUploadRejectionFlag();
+      expect((localUploadComponentInstance as any).state).toEqual({
+        uploadRejectionFlags: [rejectionData2],
+      });
+    });
+
+    it('should not change the state when there are no flags to remove', () => {
+      (localUploadComponentInstance as any).dismissUploadRejectionFlag();
+      expect((localUploadComponentInstance as any).state).toEqual({
+        uploadRejectionFlags: [],
+      });
     });
   });
 });

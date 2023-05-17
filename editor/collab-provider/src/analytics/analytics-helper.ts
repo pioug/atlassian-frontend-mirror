@@ -45,21 +45,33 @@ const triggerAnalyticsEvent = (
 
   if (analyticsEvent.eventAction === EVENT_ACTION.ERROR) {
     payload.nonPrivacySafeAttributes = analyticsEvent.nonPrivacySafeAttributes;
-  }
-
-  // Let the browser figure out
-  // when it should send those events
-  try {
-    const requestIdleCallbackFunction = (window as any).requestIdleCallback;
-    const runItLater =
-      typeof requestIdleCallbackFunction === 'function'
-        ? requestIdleCallbackFunction
-        : window.requestAnimationFrame;
-    runItLater(() => {
-      analyticsClient.sendOperationalEvent(payload);
-    });
-  } catch (error) {
-    // silently fail for now https://product-fabric.atlassian.net/browse/ESS-3112
+    try {
+      const requestIdleCallbackFunction = (window as any).requestIdleCallback;
+      const runItLater =
+        typeof requestIdleCallbackFunction === 'function'
+          ? requestIdleCallbackFunction
+          : window.requestAnimationFrame;
+      runItLater(() => {
+        analyticsClient.sendTrackEvent(payload);
+      });
+    } catch (error) {
+      // silently fail for now https://product-fabric.atlassian.net/browse/ESS-3112
+    }
+  } else {
+    // Let the browser figure out
+    // when it should send those events
+    try {
+      const requestIdleCallbackFunction = (window as any).requestIdleCallback;
+      const runItLater =
+        typeof requestIdleCallbackFunction === 'function'
+          ? requestIdleCallbackFunction
+          : window.requestAnimationFrame;
+      runItLater(() => {
+        analyticsClient.sendOperationalEvent(payload);
+      });
+    } catch (error) {
+      // silently fail for now https://product-fabric.atlassian.net/browse/ESS-3112
+    }
   }
 };
 

@@ -10,6 +10,7 @@ import { IntlShape } from 'react-intl-next';
 import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { CardPlatform } from '@atlaskit/smart-card';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 export interface HyperlinkToolbarAppearanceProps {
   intl: IntlShape;
@@ -19,6 +20,7 @@ export interface HyperlinkToolbarAppearanceProps {
   editorView?: EditorView;
   platform?: CardPlatform;
   cardOptions?: CardOptions;
+  editorAnalyticsApi: EditorAnalyticsAPI | undefined;
 }
 
 export interface HyperlinkToolbarAppearanceState {
@@ -81,8 +83,15 @@ export class HyperlinkToolbarAppearance extends Component<
   }
 
   render() {
-    const { url, intl, editorView, editorState, cardOptions, platform } =
-      this.props;
+    const {
+      url,
+      intl,
+      editorView,
+      editorState,
+      cardOptions,
+      platform,
+      editorAnalyticsApi,
+    } = this.props;
     const { supportedUrlsMap } = this.state;
 
     if (!supportedUrlsMap.get(url)) {
@@ -98,6 +107,7 @@ export class HyperlinkToolbarAppearance extends Component<
         allowEmbeds={cardOptions?.allowEmbeds}
         allowBlockCards={cardOptions?.allowBlockCards}
         platform={platform}
+        editorAnalyticsApi={editorAnalyticsApi}
       />
     );
   }

@@ -16,7 +16,9 @@ import { inlineCommentPluginKey, getPluginState } from '../../utils';
 import { inlineCommentProvider } from '../_utils';
 import annotationPlugin, { AnnotationUpdateEmitter } from '../..';
 import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
-import analyticsPlugin from '../../../analytics/plugin';
+import deprecatedAnalyticsPlugin from '../../../analytics/plugin';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import {
   ACTION,
@@ -35,7 +37,8 @@ describe('annotation emitter', () => {
       annotationPlugin,
       { inlineComment: { ...inlineCommentProvider, updateSubscriber } },
     ])
-    .add([analyticsPlugin, { createAnalyticsEvent: createAnalyticsEvent }]);
+    .add([analyticsPlugin, { createAnalyticsEvent }])
+    .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }]);
 
   const createEditor = createProsemirrorEditorFactory();
   let editorView: EditorView;

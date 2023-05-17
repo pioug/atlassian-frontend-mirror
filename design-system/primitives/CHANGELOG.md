@@ -1,5 +1,12 @@
 # @atlaskit/primitives
 
+## 0.9.3
+
+### Patch Changes
+
+- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [`e06d56c5a3d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e06d56c5a3d) - Adds type hinting for `fill` CSS property.
+
 ## 0.9.2
 
 ### Patch Changes

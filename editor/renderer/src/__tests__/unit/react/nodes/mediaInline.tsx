@@ -75,27 +75,23 @@ describe('MediaInline', () => {
     await flushPromises();
     wrapper.update();
     const mediaInlineLoadingView = wrapper
-      .findWhere((el) => el.name() === 'MediaInlineCardLoadingView')
-      .instance();
-    expect(mediaInlineLoadingView.props).toEqual({
+      .find('MediaInlineCardLoadingView')
+      .first();
+    expect(mediaInlineLoadingView.props()).toEqual({
       message: '',
       isSelected: false,
     });
   });
 
-  it('should return loading view with message when mediaClientConfig is present', async () => {
+  it('renders MediaInlineCard when mediaClientConfig is present', async () => {
     const wrapper = mountMediaInline({
       providers: providerFactory,
       ...mockFile,
     });
     await flushPromises();
     wrapper.update();
-    const mediaInlineLoadingView = wrapper
-      .findWhere((el) => el.name() === 'MediaInlineCardLoadingView')
-      .instance();
-    expect(mediaInlineLoadingView.props).toEqual({
-      message: 'Loading file...',
-    });
+    const mediaInlineLoadingView = wrapper.find(MediaInlineCard).instance();
+    expect(mediaInlineLoadingView).toBeDefined();
   });
 
   it('should render with shouldOpenMediaViewer set to true when appearance is not mobile', async () => {

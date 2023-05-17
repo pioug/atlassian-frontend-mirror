@@ -1,5 +1,15 @@
 # @atlaskit/linking-types
 
+## 1.6.0
+
+### Minor Changes
+
+- [`d04dbae5a15`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d04dbae5a15) - Remove uneeded type that was accidentally added in
+
+### Patch Changes
+
+- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+
 ## 1.5.1
 
 ### Patch Changes

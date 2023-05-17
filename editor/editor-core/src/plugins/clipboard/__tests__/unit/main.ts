@@ -34,6 +34,8 @@ import { __serializeForClipboard } from 'prosemirror-view';
 import { selectRow } from '@atlaskit/editor-tables/src/utils';
 import { TableAttributes } from '@atlaskit/adf-schema';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 
@@ -42,6 +44,8 @@ describe('clipboard plugin', () => {
   const preset = new Preset<LightEditorPlugin>()
     .add(clipboardPlugin)
     .add([featureFlagsPlugin, {}])
+    .add([analyticsPlugin, {}])
+    .add(contentInsertionPlugin)
     .add(rulePlugin)
     .add(layoutPlugin)
     .add([

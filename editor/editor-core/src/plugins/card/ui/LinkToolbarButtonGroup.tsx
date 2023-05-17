@@ -4,7 +4,7 @@ import { css, jsx } from '@emotion/react';
 
 import type { GlyphProps } from '@atlaskit/icon/types';
 import { ButtonGroup } from '@atlaskit/button';
-import Button from '../../floating-toolbar/ui/Button';
+import { FloatingToolbarButton as Button } from '@atlaskit/editor-common/ui';
 
 /**
  * Applying `pointer-events: none;` when disabled allows the Tooltip to be displayed

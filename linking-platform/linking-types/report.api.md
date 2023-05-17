@@ -33,8 +33,6 @@ export interface DatasourceDataRequest {
   pageSize: number;
   // (undocumented)
   parameters: DatasourceParameters;
-  // (undocumented)
-  totalIssues?: number;
 }
 
 // @public (undocumented)

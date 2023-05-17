@@ -3,7 +3,7 @@ import { PluginKey } from 'prosemirror-state';
 import { PMPluginFactoryParams } from '../../../../types';
 import { pluginFactory } from '../../../../utils/plugin-state-factory';
 import reducer from './reducer';
-import { pmHistoryPluginKey } from '../../../history/pm-history-types';
+import { pmHistoryPluginKey } from '@atlaskit/editor-common/utils';
 
 export const pluginKey = new PluginKey('mediaAltTextPlugin');
 

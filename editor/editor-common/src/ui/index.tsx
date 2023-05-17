@@ -3,7 +3,6 @@ export {
   default as MediaSingle,
   DEFAULT_IMAGE_WIDTH,
   DEFAULT_IMAGE_HEIGHT,
-  wrappedLayouts,
   shouldAddDefaultWrappedWidth,
 } from './MediaSingle';
 export type { Props as MediaSingleProps } from './MediaSingle';
@@ -18,6 +17,8 @@ export {
   calcPxFromPct,
   calcColumnsFromPx,
   snapToGrid,
+  calcMediaPxWidth,
+  wrappedLayouts,
 } from './MediaSingle/grid';
 
 export { mediaLinkStyle } from './MediaSingle/link';
@@ -79,3 +80,5 @@ export {
   REACT_INTL_ERROR_MESSAGE,
 } from './IntlErrorBoundary';
 export { default as IntlProviderIfMissingWrapper } from './IntlProviderIfMissingWrapper';
+
+export { default as FloatingToolbarButton } from './FloatingToolbar/Button';

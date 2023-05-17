@@ -22,7 +22,8 @@ import {
   insertLayoutColumnsWithAnalytics,
 } from '../../actions';
 import { layouts, buildLayoutForWidths } from './_utils';
-import analyticsPlugin, { INPUT_METHOD } from '../../../analytics';
+import deprecatedAnalyticsPlugin, { INPUT_METHOD } from '../../../analytics';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { PresetLayout } from '../../types';
 import layoutPlugin from '../..';
 import { TextSelection, NodeSelection } from 'prosemirror-state';
@@ -39,7 +40,8 @@ describe('layout actions', () => {
     const preset = new Preset<LightEditorPlugin>()
       .add([featureFlagsPlugin, {}])
       .add(layoutPlugin)
-      .add([analyticsPlugin, { createAnalyticsEvent }]);
+      .add([analyticsPlugin, { createAnalyticsEvent }])
+      .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }]);
 
     return createEditor({
       doc,

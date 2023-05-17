@@ -36,7 +36,8 @@ import {
 import { EditorView } from 'prosemirror-view';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import blockTypePlugin from '../../';
-import analyticsPlugin from '../../../analytics';
+import deprecatedAnalyticsPlugin from '../../../analytics';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import typeAheadPlugin from '../../../type-ahead';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import mentionsPlugin from '../../../mentions';
@@ -45,6 +46,7 @@ import codeBlockPlugin from '../../../code-block';
 import listPlugin from '../../../list';
 import panelPlugin from '../../../panel';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 const codeBlockGASV3Payload = {
   action: 'formatted',
@@ -73,8 +75,10 @@ describe('keymaps', () => {
       doc,
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
-        .add(blockTypePlugin)
         .add([analyticsPlugin, { createAnalyticsEvent }])
+        .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
+        .add(contentInsertionPlugin)
+        .add(blockTypePlugin)
         .add(tablesPlugin)
         .add(rulePlugin)
         .add(mentionsPlugin)

@@ -31,6 +31,9 @@ import tablePlugin from '../../plugins/table';
 import { pluginKey } from '../../plugins/table/pm-plugins/plugin-key';
 import { getMergedCellsPositions } from '../../plugins/table/utils';
 import { getNewResizeStateFromSelectedColumns } from '../../plugins/table/pm-plugins/table-resizing/utils/resize-state';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 jest.mock('@atlaskit/editor-tables/utils');
 jest.mock('../../plugins/table/transforms');
@@ -151,16 +154,20 @@ describe('getToolbarMenuConfig', () => {
 describe('getToolbarCellOptionsConfig', () => {
   const createEditor = createProsemirrorEditorFactory();
   const props = {
-    preset: new Preset<LightEditorPlugin>().add([
-      tablePlugin,
-      {
-        tableOptions: {
-          allowDistributeColumns: true,
-          allowColumnResizing: true,
-          allowColumnSorting: true,
+    preset: new Preset<LightEditorPlugin>()
+      .add([featureFlagsPlugin, {}])
+      .add([analyticsPlugin, {}])
+      .add(contentInsertionPlugin)
+      .add([
+        tablePlugin,
+        {
+          tableOptions: {
+            allowDistributeColumns: true,
+            allowColumnResizing: true,
+            allowColumnSorting: true,
+          },
         },
-      },
-    ]),
+      ]),
     pluginKey,
   };
   const { editorView } = createEditor({

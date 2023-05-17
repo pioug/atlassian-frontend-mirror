@@ -56,7 +56,6 @@ import * as Telepointer from '../../participants/telepointers-helper';
 import { catchup } from '../../document/catchup';
 import AnalyticsHelper from '../../analytics/analytics-helper';
 import { Channel } from '../../channel';
-import { StepJson } from '../../types';
 import { MAX_STEP_REJECTED_ERROR } from '../';
 import { throttledCommitStep } from '../commit-step';
 import { ACK_MAX_TRY } from '../../helpers/const';
@@ -64,7 +63,6 @@ import { Node } from 'prosemirror-model';
 import type { Provider } from '../';
 // @ts-ignore only used for mock
 import ProseMirrorCollab from '@atlaskit/prosemirror-collab';
-import { ProviderParticipant } from '../../participants/participants-helper';
 import {
   InternalError,
   NCS_ERROR_CODE,
@@ -156,6 +154,153 @@ describe('Provider', () => {
         value: true,
       });
     });
+
+    describe('when initializing provider earlier with initial draft', () => {
+      const testProviderConfigWithDraft = {
+        initialDraft: {
+          document: 'test-document' as any,
+          version: 1,
+          metadata: { title: 'random-title' },
+        },
+        ...testProviderConfig,
+      };
+      it('should successfully initialize provider if channel connects before editor state is defined', async (done) => {
+        expect.assertions(3);
+        const sid = 'expected-sid-123';
+        const provider = createSocketIOCollabProvider(
+          testProviderConfigWithDraft,
+        );
+        provider.setup({ getState: undefined });
+        expect((provider as any).isPreinitializing).toEqual(true);
+        provider.on('connected', ({ sid }) => {
+          expect(sid).toBe('expected-sid-123');
+        });
+        provider.on('init', async (data) => {
+          expect(data).toEqual({
+            doc: 'test-document',
+            version: 1,
+            metadata: { title: 'random-title' },
+          });
+          done();
+        });
+        channel.emit('connected', { sid, initialized: true });
+        provider.setup({ getState: () => editorState });
+      });
+
+      it('should successfully initialize provider if channel connects after editor state is defined', async (done) => {
+        expect.assertions(3);
+        const sid = 'expected-sid-123';
+        const provider = createSocketIOCollabProvider(
+          testProviderConfigWithDraft,
+        );
+        provider.setup({ getState: undefined });
+        expect((provider as any).isPreinitializing).toEqual(true);
+        provider.on('connected', ({ sid }) => {
+          expect(sid).toBe('expected-sid-123');
+        });
+        provider.on('init', (data) => {
+          expect(data).toEqual({
+            doc: 'test-document',
+            version: 1,
+            metadata: { title: 'random-title' },
+          });
+        });
+        provider.setup({ getState: () => editorState });
+        channel.emit('connected', { sid, initialized: true });
+        done();
+      });
+
+      it('should start document setup and channel connection when editor state is defined', (done) => {
+        expect.assertions(4);
+        const provider = createSocketIOCollabProvider(
+          testProviderConfigWithDraft,
+        );
+        const mockEditorState = jest.fn(() => editorState);
+        const documentSetupSpy = jest.spyOn(
+          // @ts-ignore
+          provider.documentService as any,
+          'setup',
+        );
+        const initializeChannelSpy = jest.spyOn(
+          provider as any,
+          'initializeChannel',
+        );
+        const getStatePromiseResolveSpy = jest.spyOn(
+          provider as any,
+          'getStatePromiseResolve',
+        );
+        provider.setup({ getState: mockEditorState });
+        expect(documentSetupSpy).toHaveBeenCalledTimes(1);
+        expect(documentSetupSpy).toHaveBeenCalledWith({
+          getState: mockEditorState,
+          clientId: 'some-random-prosemirror-client-Id',
+          onSyncUpError: undefined,
+        });
+        expect(initializeChannelSpy).toHaveBeenCalledTimes(1);
+        expect(getStatePromiseResolveSpy).toHaveBeenCalledTimes(0);
+        done();
+      });
+
+      it('should start channel connection if editor state is initially undefined', (done) => {
+        expect.assertions(3);
+        const provider = createSocketIOCollabProvider(
+          testProviderConfigWithDraft,
+        );
+        const documentSetupSpy = jest.spyOn(
+          // @ts-ignore
+          provider.documentService as any,
+          'setup',
+        );
+        const initializeChannelSpy = jest.spyOn(
+          provider as any,
+          'initializeChannel',
+        );
+        const getStatePromiseResolveSpy = jest.spyOn(
+          provider as any,
+          'getStatePromiseResolve',
+        );
+        provider.setup({
+          getState: undefined,
+        });
+        expect(documentSetupSpy).toHaveBeenCalledTimes(0);
+        expect(initializeChannelSpy).toHaveBeenCalledTimes(1);
+        expect(getStatePromiseResolveSpy).toHaveBeenCalledTimes(0);
+        done();
+      });
+
+      it('should not restart channel connection once editor state becomes defined', (done) => {
+        expect.assertions(3);
+        const provider = createSocketIOCollabProvider(
+          testProviderConfigWithDraft,
+        );
+        const documentSetupSpy = jest.spyOn(
+          // @ts-ignore
+          provider.documentService as any,
+          'setup',
+        );
+        const initializeChannelSpy = jest.spyOn(
+          provider as any,
+          'initializeChannel',
+        );
+        const getStatePromiseResolveSpy = jest.spyOn(
+          provider as any,
+          'getStatePromiseResolve',
+        );
+
+        // early set up
+        provider.setup({
+          getState: undefined,
+        });
+        // setup via Editor
+        provider.setup({
+          getState: () => editorState,
+        });
+        expect(documentSetupSpy).toHaveBeenCalledTimes(1);
+        expect(initializeChannelSpy).toHaveBeenCalledTimes(1);
+        expect(getStatePromiseResolveSpy).toHaveBeenCalledTimes(1);
+        done();
+      });
+    });
   });
 
   describe('initialisation', () => {
@@ -173,18 +318,16 @@ describe('Provider', () => {
       expect(initializeChannelSpy).toHaveBeenCalledTimes(1);
     });
 
-    it('It should start the participant inactive remover when the channel is connect', () => {
+    it('It should start the participant inactive remover when the channel is connected', () => {
       const provider = createSocketIOCollabProvider(testProviderConfig);
       // @ts-ignore - Spy on private member for test
       const participantsService = provider.participantsService;
-      jest.spyOn(participantsService, 'removeInactiveParticipants');
+      jest.spyOn(participantsService, 'startInactiveRemover');
 
       provider.initialize(() => editorState);
       channel.emit('connected', { sid: 'sid-123' });
-      expect(participantsService.removeInactiveParticipants).toBeCalledWith(
+      expect(participantsService.startInactiveRemover).toBeCalledWith(
         'sid-123',
-        // @ts-ignore
-        provider.emitCallback,
       );
     });
 
@@ -680,7 +823,7 @@ describe('Provider', () => {
           code: 'INTERNAL_SERVICE_ERROR',
           message: 'Collab Provider experienced an unrecoverable error',
           reason: 'CATCHUP_FAILED',
-          recoverable: false,
+          recoverable: true,
           status: 500,
         });
         done();
@@ -945,62 +1088,6 @@ describe('Provider', () => {
       provider = createSocketIOCollabProvider(testProviderConfig);
     });
 
-    it('when emitting telepointers from steps', () => {
-      const fakeSteps: StepJson[] = [
-        {
-          stepType: 'replace',
-          from: 123,
-          to: 123,
-          slice: {
-            content: [
-              {
-                type: 'text',
-                text: 'J',
-                attrs: { something: 'something' },
-                content: [],
-                marks: [],
-              },
-            ],
-            openStart: 123,
-            openEnd: 123,
-          },
-          clientId: 2827051402,
-          userId: '70121:8fce2c13-5f60-40be-a9f2-956c6f041fbe',
-        },
-      ];
-      const fakeEmit = jest.fn().mockImplementationOnce(() => {
-        throw fakeError;
-      });
-
-      const participant = {
-        name: 'Joni Vanderheijden',
-        avatar:
-          'https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/70121:8fce2c13-5f60-40be-a9f2-956c6f041fbe/5955acd3-cc59-4220-b886-e9d4c33ed8e6/128',
-        sessionId: 'kxPWnuWui2kx-qUDB5LU',
-        lastActive: 1676954400001,
-        userId: '70121:8fce2c13-5f60-40be-a9f2-956c6f041fbe',
-        clientId: 2827051402,
-      } as ProviderParticipant;
-
-      // @ts-ignore You're not my mom, I call private methods in a negative test
-      provider.participantsService.participantsState.setBySessionId(
-        participant.sessionId,
-        participant,
-      );
-
-      // @ts-ignore You're not my mom, I call private methods in a negative test
-      provider.participantsService.emitTelepointersFromSteps(
-        fakeSteps,
-        fakeEmit,
-      );
-
-      expect(sendErrorEventSpy).toHaveBeenCalledTimes(1);
-      expect(sendErrorEventSpy).toHaveBeenCalledWith(
-        fakeError,
-        'Error while emitting telepointers from steps',
-      );
-    });
-
     it('when the consumer sends a telepointer message', () => {
       jest
         .spyOn(Telepointer, 'telepointerCallback')
@@ -1017,129 +1104,6 @@ describe('Provider', () => {
       expect(sendErrorEventSpy).toHaveBeenCalledWith(
         fakeError,
         'Error while sending message - telepointer',
-      );
-    });
-
-    it('when sending presence', () => {
-      jest.spyOn(window, 'setTimeout').mockImplementationOnce(() => {
-        throw fakeError;
-      });
-      // @ts-ignore You're not my mom, I call private methods in a negative test
-      provider.sendPresence();
-
-      expect(sendErrorEventSpy).toHaveBeenCalledTimes(1);
-      expect(sendErrorEventSpy).toHaveBeenCalledWith(
-        fakeError,
-        'Error while sending presence',
-      );
-    });
-
-    it('when joining presence', () => {
-      // @ts-ignore don't care about type issues for a mock
-      jest.spyOn(provider, 'sendPresence').mockImplementationOnce(() => {
-        throw fakeError;
-      });
-      // @ts-ignore You're not my mom, I call private methods in a negative test
-      provider.onPresenceJoined({ sessionId: 'cAA0xTLkAZj-r79VBzG0' });
-
-      expect(sendErrorEventSpy).toHaveBeenCalledTimes(1);
-      expect(sendErrorEventSpy).toHaveBeenCalledWith(
-        fakeError,
-        'Error while joining presence',
-      );
-    });
-
-    it('when receiving presence', () => {
-      // @ts-ignore don't care about type issues for a mock
-      jest.spyOn(provider, 'sendPresence').mockImplementationOnce(() => {
-        throw fakeError;
-      });
-      // @ts-ignore You're not my mom, I call private methods in a negative test
-      provider.onPresence({
-        userId: '70121:8fce2c13-5f60-40be-a9f2-956c6f041fbe',
-      });
-
-      expect(sendErrorEventSpy).toHaveBeenCalledTimes(1);
-      expect(sendErrorEventSpy).toHaveBeenCalledWith(
-        fakeError,
-        'Error while receiving presence',
-      );
-    });
-
-    it('when participant leaves', () => {
-      // @ts-ignore don't care about type issues for a mock
-      jest.spyOn(provider, 'emit').mockImplementationOnce(() => {
-        throw fakeError;
-      });
-      // @ts-ignore You're not my mom, I call private methods in a negative test
-      provider.onParticipantLeft({
-        sessionId: 'cAA0xTLkAZj-r79VBzG0',
-      });
-
-      expect(sendErrorEventSpy).toHaveBeenCalledTimes(1);
-      expect(sendErrorEventSpy).toHaveBeenCalledWith(
-        fakeError,
-        'Error while participant leaving',
-      );
-    });
-
-    it('when handling participant updated event', async () => {
-      // @ts-ignore don't care about type issues for a mock
-      jest.spyOn(provider, 'emit').mockImplementationOnce(() => {
-        throw fakeError;
-      });
-      // @ts-ignore You're not my mom, I call private methods in a negative test
-      await provider.onParticipantUpdated({
-        timestamp: Date.now(),
-        sessionId: 'vXrOwZ7OIyXq17jdB2jh',
-        userId: '70121:8fce2c13-5f60-40be-a9f2-956c6f041fbe',
-        clientId: 328374441,
-      });
-
-      expect(sendErrorEventSpy).toHaveBeenCalledTimes(1);
-      expect(sendErrorEventSpy).toHaveBeenCalledWith(
-        fakeError,
-        'Error while handling participant updated event',
-      );
-    });
-
-    it('when handling participant telepointer updated event', () => {
-      // @ts-ignore don't care about type issues for a mock
-      jest.spyOn(provider, 'emit').mockImplementationOnce(() => {
-        throw fakeError;
-      });
-      // @ts-ignore You're not my mom, I call private methods in a negative test
-      provider.onParticipantTelepointer({
-        userId: '70121:8fce2c13-5f60-40be-a9f2-956c6f041fbe',
-        sessionId: 'vXrOwZ7OIyXq17jdB2jh',
-        clientId: 328374441,
-        selection: { type: 'textSelection', anchor: 1, head: 1 },
-      });
-
-      expect(sendErrorEventSpy).toHaveBeenCalledTimes(1);
-      expect(sendErrorEventSpy).toHaveBeenCalledWith(
-        fakeError,
-        'Error while handling participant telepointer event',
-      );
-    });
-
-    it('when updating participant and emit doesnt work', async () => {
-      // @ts-ignore don't care about type issues for a mock
-      jest.spyOn(provider, 'emit').mockImplementationOnce(() => {
-        throw fakeError;
-      });
-      // @ts-ignore You're not my mom, I call private methods in a negative test
-      await provider.onParticipantUpdated({
-        sessionId: 'vXrOwZ7OIyXq17jdB2jh',
-        timestamp: Date.now(),
-        userId: '70121:8fce2c13-5f60-40be-a9f2-956c6f041fbe',
-        clientId: 328374441,
-      });
-
-      expect(sendErrorEventSpy).toHaveBeenCalledTimes(1);
-      expect(sendErrorEventSpy).toHaveBeenCalledWith(
-        fakeError,
-        'Error while handling participant updated event',
       );
     });
   });

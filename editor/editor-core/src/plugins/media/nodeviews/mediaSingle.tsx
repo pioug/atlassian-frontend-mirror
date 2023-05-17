@@ -13,6 +13,7 @@ import {
   ProviderFactory,
 } from '@atlaskit/editor-common/provider-factory';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import {
   MediaSingle,
   DEFAULT_IMAGE_HEIGHT,
@@ -32,7 +33,6 @@ import WithPluginState from '../../../ui/WithPluginState';
 import { pluginKey as widthPluginKey } from '../../width';
 import { setNodeSelection, setTextSelection } from '../../../utils';
 import ResizableMediaSingle from '../ui/ResizableMediaSingle';
-import { createDisplayGrid } from '../../../plugins/grid';
 import { EventDispatcher } from '../../../event-dispatcher';
 import { PortalProviderAPI } from '../../../ui/PortalProvider';
 import { MediaOptions } from '../types';
@@ -57,6 +57,8 @@ import ReactNodeView from '../../../nodeviews/ReactNodeView';
 import CaptionPlaceholder from '../ui/CaptionPlaceholder';
 import { NodeSelection } from 'prosemirror-state';
 import { insertAndSelectCaptionFromMediaSinglePos } from '../commands/captions';
+import type mediaPlugin from '../index';
+import type { GridType, Highlights } from '../../grid/types';
 
 export interface MediaSingleNodeState {
   width?: number;
@@ -346,7 +348,7 @@ export default class MediaSingleNode extends Component<
         view={this.props.view}
         getPos={getPos}
         updateSize={this.updateSize}
-        displayGrid={createDisplayGrid(this.props.eventDispatcher)}
+        displayGrid={this.displayGrid}
         gridSize={12}
         viewMediaClientConfig={this.state.viewMediaClientConfig}
         allowBreakoutSnapPoints={
@@ -361,6 +363,20 @@ export default class MediaSingleNode extends Component<
       <MediaSingle {...mediaSingleProps}>{MediaChildren}</MediaSingle>
     );
   }
+
+  private displayGrid = (
+    visible: boolean,
+    gridType: GridType,
+    highlight: number[] | string[],
+  ) => {
+    const { pluginInjectionApi, view } = this.props;
+
+    pluginInjectionApi?.dependencies?.grid?.actions.displayGrid(view)({
+      visible,
+      gridType,
+      highlight: highlight as Highlights,
+    });
+  };
 
   private clickPlaceholder = () => {
     const { view, getPos, node } = this.props;
@@ -490,6 +506,7 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
       providerFactory,
       mediaOptions,
       dispatchAnalyticsEvent,
+      pluginInjectionApi,
     } = this.reactComponentProps;
 
     // getPos is a boolean for marks, since this is a node we know it must be a function
@@ -524,6 +541,7 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
                     mediaPluginState={mediaPluginState}
                     dispatchAnalyticsEvent={dispatchAnalyticsEvent}
                     forwardRef={forwardRef}
+                    pluginInjectionApi={pluginInjectionApi}
                   />
                 );
               }}
@@ -558,6 +576,7 @@ export const ReactMediaSingleNode =
     providerFactory: ProviderFactory,
     dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
     mediaOptions: MediaOptions = {},
+    pluginInjectionApi?: ExtractInjectionAPI<typeof mediaPlugin>,
   ) =>
   (node: PMNode, view: EditorView, getPos: getPosHandler) => {
     const hasIntlContext = true;
@@ -574,6 +593,7 @@ export const ReactMediaSingleNode =
         mediaOptions,
         dispatchAnalyticsEvent,
         isCopyPasteEnabled: mediaOptions.isCopyPasteEnabled,
+        pluginInjectionApi,
       },
       undefined,
       undefined,

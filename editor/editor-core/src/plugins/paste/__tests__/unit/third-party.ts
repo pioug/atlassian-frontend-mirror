@@ -30,6 +30,8 @@ import { textFormattingPlugin } from '../../../index';
 import listPlugin from '../../../list';
 import codeBlockPlugin from '../../../code-block';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 describe('paste plugin: third-party', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -39,6 +41,8 @@ describe('paste plugin: third-party', () => {
       doc,
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
+        .add([analyticsPlugin, {}])
+        .add(contentInsertionPlugin)
         .add([pastePlugin, {}])
         .add(textColorPlugin)
         .add(blockTypePlugin)

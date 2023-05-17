@@ -1,5 +1,31 @@
 # @atlaskit/editor-common
 
+## 74.1.1
+
+### Patch Changes
+
+- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- Updated dependencies
+
+## 74.1.0
+
+### Minor Changes
+
+- [`6bc52e5a406`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6bc52e5a406) - [ED-17687] Capture errors caught in error boundaries in Sentry
+- [`8a391616ecc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8a391616ecc) - Moving insert node API to a new editor plugin to allow it to be more extensible. Also exposing a new editor plugin action for tables to allow for consistent insertion.
+- [`5cc449dac8d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5cc449dac8d) - Decouple card plugin so that it uses new NextEditorPlugin for any injected dependencies.
+- [`be561d3491c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/be561d3491c) - [ED-17622] Adds new Resizer component
+
+### Patch Changes
+
+- [`9220da2225b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9220da2225b) - ED-16320: Add checks to certain SLO related events to see if they are explicitly disabled, in preparation for disabling them for synthetic tenants in prod
+- [`b804d3ad561`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b804d3ad561) - Remove unused code related to GASv2 table analytics from editor-plugin table, editor-core and editor-common
+- [`e20cca743c4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e20cca743c4) - Moving editor analytics plugin to new package.
+- [`f621ae6490a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f621ae6490a) - Adding type dependency on analytics plugin to tables plugin.
+- [`a142ba1aa28`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a142ba1aa28) - [ED17172] Bump prosemirror-model to 1.16.0 and prosemirror-view to 1.23.7 and removed work-arounds for fixed issues
+- [`9369cc38a68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9369cc38a68) - Migrated use of `gridSize` to space tokens where possible. There is no expected visual or behaviour change.
+- Updated dependencies
+
 ## 74.0.1
 
 ### Patch Changes

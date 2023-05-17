@@ -19,7 +19,7 @@ import {
   messages,
 } from '@atlaskit/media-ui';
 import { MimeTypeIcon } from '@atlaskit/media-ui/mime-type-icon';
-import { MediaViewer, MediaViewerDataSource } from '@atlaskit/media-viewer';
+import { MediaViewer } from '@atlaskit/media-viewer';
 import Tooltip from '@atlaskit/tooltip';
 import { formatDate } from '@atlaskit/media-ui/formatDate';
 import { InlineCardEvent, InlineCardOnClickCallback } from '../types';
@@ -31,13 +31,6 @@ export interface MediaInlineCardProps {
   shouldDisplayToolTip?: boolean; // undefined is default to true
   isSelected?: boolean;
   onClick?: InlineCardOnClickCallback;
-  /**
-   * Includes data source like collection name,
-   * media file list.
-   * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-149 Internal documentation for deprecation (no external access)}}
-   * Use mediaViewerItems instead
-   */
-  mediaViewerDataSource?: MediaViewerDataSource;
   mediaViewerItems?: Identifier[];
 }
 
@@ -51,7 +44,6 @@ export const MediaInlineCardInternal: FC<
   shouldDisplayToolTip,
   isSelected,
   onClick,
-  mediaViewerDataSource,
   mediaViewerItems,
   intl,
 }) => {
@@ -77,14 +69,10 @@ export const MediaInlineCardInternal: FC<
   const onMediaViewerClose = () => setMediaViewerVisible(false);
   const renderMediaViewer = () => {
     if (isMediaViewerVisible) {
-      const dataSource: MediaViewerDataSource = mediaViewerDataSource || {
-        list: [],
-      };
       return ReactDOM.createPortal(
         <MediaViewer
           collectionName={identifier.collectionName || ''}
-          dataSource={dataSource}
-          items={mediaViewerItems}
+          items={mediaViewerItems || []}
           mediaClientConfig={mediaClient.mediaClientConfig}
           selectedItem={identifier}
           onClose={onMediaViewerClose}
@@ -123,48 +111,45 @@ export const MediaInlineCardInternal: FC<
     };
   }, [identifier.collectionName, identifier.id, mediaClient.file]);
 
+  if (isErrored && fileState?.status === 'uploading') {
+    return (
+      <MediaInlineCardErroredView
+        message={(intl || defaultIntl).formatMessage(messages.failed_to_upload)}
+        isSelected={isSelected}
+      />
+    );
+  }
+
+  if (
+    isErrored ||
+    fileState?.status === 'error' ||
+    fileState?.status === 'failed-processing' ||
+    // Empty file handling
+    (fileState && !fileState.name)
+  ) {
+    return (
+      <MediaInlineCardErroredView
+        message={(intl || defaultIntl).formatMessage(
+          messages.couldnt_load_file,
+        )}
+        isSelected={isSelected}
+      />
+    );
+  }
+
+  if (fileState?.status === 'uploading') {
+    return (
+      <MediaInlineCardLoadingView
+        message={fileState.name}
+        isSelected={isSelected}
+      />
+    );
+  }
+
   if (!fileState) {
     return (
       <MediaInlineCardLoadingView
         message={(intl || defaultIntl).formatMessage(messages.loading_file)}
-        isSelected={isSelected}
-      />
-    );
-  }
-  if (isErrored) {
-    return (
-      <MediaInlineCardErroredView
-        message={(intl || defaultIntl).formatMessage(
-          messages.couldnt_load_file,
-        )}
-        isSelected={isSelected}
-      />
-    );
-  }
-  if (fileState.status === 'error') {
-    return (
-      <MediaInlineCardErroredView
-        message={fileState.message || ''}
-        isSelected={isSelected}
-      />
-    );
-  }
-
-  if (fileState.status === 'failed-processing') {
-    return (
-      <MediaInlineCardErroredView
-        message={(intl || defaultIntl).formatMessage(
-          messages.couldnt_load_file,
-        )}
-        isSelected={isSelected}
-      />
-    );
-  }
-
-  if (fileState.status === 'uploading') {
-    return (
-      <MediaInlineCardLoadingView
-        message={fileState.name}
         isSelected={isSelected}
       />
     );

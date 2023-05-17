@@ -16,6 +16,8 @@ import { changeSelectedCardToLinkFallback } from '../pm-plugins/doc';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import { getPluginState } from '../pm-plugins/util/state';
 import { getAnalyticsEditorAppearance } from '@atlaskit/editor-common/utils';
+import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type cardPlugin from '../index';
 
 export type EditorContext<T> = React.Context<T> & { value: T };
 
@@ -37,6 +39,7 @@ export interface CardProps extends CardNodeViewProps {
   fullWidthMode?: boolean;
   useAlternativePreloader?: boolean;
   showServerActions?: boolean;
+  pluginInjectionApi?: ExtractInjectionAPI<typeof cardPlugin>;
 }
 
 export interface SmartCardProps extends CardProps {
@@ -114,7 +117,7 @@ export function Card(
 
       if (maybeAPIError.kind && maybeAPIError.kind === 'fatal') {
         this.setState({ isError: true });
-        const { view, node, getPos } = this.props;
+        const { view, node, getPos, pluginInjectionApi } = this.props;
         const { url } = titleUrlPairFromNode(node);
         if (!getPos || typeof getPos === 'boolean') {
           return;
@@ -125,6 +128,7 @@ export function Card(
           true,
           node,
           getPos(),
+          pluginInjectionApi?.dependencies.analytics.actions,
         )(view.state, view.dispatch);
         return null;
       } else {

@@ -11,14 +11,13 @@ import {
   UploadErrorEventPayload,
   UploadPreviewUpdateEventPayload,
   UploadsStartEventPayload,
-  UploadEventPayloadMap,
   UploadParams,
 } from '../types';
 import { UploadComponent } from './component';
 import { UploadServiceImpl } from '../service/uploadServiceImpl';
 import { LocalUploadConfig } from './types';
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-import { AnalyticsEventPayload } from '../types';
+import { AnalyticsEventPayload, UploadRejectionData } from '../types';
 import { ComponentName, getRequestMetadata } from '../util/analytics';
 import {
   startMediaUploadUfoExperience,
@@ -37,15 +36,24 @@ export type LocalUploadComponentBaseProps = {
   onEnd?: (payload: UploadEndEventPayload) => void;
   //This event is fired when errors occur during upload
   onError?: (payload: UploadErrorEventPayload) => void;
+  //This event is fired when a file is rejected from being uploaded e.g. exceeds file size limit
+  onFileRejection?: (rejectionData: UploadRejectionData) => void;
   featureFlags?: MediaFeatureFlags;
 } & WithAnalyticsEventsProps;
 
+export type LocalUploadComponentBaseState = {
+  uploadRejectionFlags: UploadRejectionData[];
+};
+
 export class LocalUploadComponentReact<
   Props extends LocalUploadComponentBaseProps,
-  M extends UploadEventPayloadMap = UploadEventPayloadMap,
-> extends Component<Props, {}> {
+> extends Component<Props, LocalUploadComponentBaseState> {
   protected readonly uploadService: UploadService;
   protected uploadComponent = new UploadComponent();
+
+  state: LocalUploadComponentBaseState = {
+    uploadRejectionFlags: [],
+  };
 
   constructor(props: Props, protected readonly componentName: ComponentName) {
     super(props);
@@ -57,6 +65,7 @@ export class LocalUploadComponentReact<
       onPreviewUpdate,
       onEnd,
       onError,
+      onFileRejection,
     } = this.props;
     const tenantUploadParams = config.uploadParams;
     const { shouldCopyFileToRecents = true } = config;
@@ -86,7 +95,24 @@ export class LocalUploadComponentReact<
     this.uploadService.on('file-preview-update', this.onFilePreviewUpdate);
     this.uploadService.on('file-converting', this.onFileConverting);
     this.uploadService.on('file-upload-error', this.onUploadError);
+    if (onFileRejection) {
+      this.uploadService.onFileRejection(onFileRejection);
+    } else {
+      this.uploadService.onFileRejection(this.addUploadRejectionFlag);
+    }
   }
+
+  private addUploadRejectionFlag = (rejectionData: UploadRejectionData) => {
+    this.setState({
+      uploadRejectionFlags: [...this.state.uploadRejectionFlags, rejectionData],
+    });
+  };
+
+  protected dismissUploadRejectionFlag = () => {
+    this.setState({
+      uploadRejectionFlags: this.state.uploadRejectionFlags.slice(1),
+    });
+  };
 
   private fireCommencedEvent = (payload: UploadsStartEventPayload) => {
     const { files, traceContext } = payload;

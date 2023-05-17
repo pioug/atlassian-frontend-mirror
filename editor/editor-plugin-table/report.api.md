@@ -15,11 +15,18 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
+import { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
+import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { Command } from '@atlaskit/editor-common/types';
+import type { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type { EditorSelectionAPI } from '@atlaskit/editor-common/selection';
 import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { TableLayout } from '@atlaskit/adf-schema';
+
+// @public (undocumented)
+type InsertTableAction = (analyticsPayload: AnalyticsEventPayload) => Command;
 
 // @public (undocumented)
 type PermittedLayoutsDescriptor = 'all' | TableLayout[];
@@ -97,6 +104,10 @@ export const tablesPlugin: NextEditorPlugin<
   'table',
   {
     pluginConfiguration: TablePluginOptions | undefined;
+    actions: {
+      insertTable: InsertTableAction;
+    };
+    dependencies: [typeof analyticsPlugin, typeof contentInsertionPlugin];
   }
 >;
 

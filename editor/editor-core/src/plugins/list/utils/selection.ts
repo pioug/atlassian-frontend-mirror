@@ -18,7 +18,11 @@ import {
   hasParentNodeOfType,
 } from 'prosemirror-utils';
 import { GapCursorSelection } from '../../selection/gap-cursor-selection';
-import { isListItemNode, isListNode, isParagraphNode } from './node';
+import {
+  isListItemNode,
+  isListNode,
+  isParagraphNode,
+} from '@atlaskit/editor-common/utils';
 
 export const isPosInsideParagraph = ($pos: ResolvedPos) => {
   return $pos.parent.type.name === 'paragraph';

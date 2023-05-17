@@ -1,15 +1,12 @@
-import { gridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
-
-const akGridSize = gridSize() + 'px';
 
 // TODO: https://product-fabric.atlassian.net/browse/DSP-4494
 export const scrollbarStyles = `
   -ms-overflow-style: -ms-autohiding-scrollbar;
 
   &::-webkit-scrollbar {
-    height: ${akGridSize};
-    width: ${akGridSize};
+    height: ${token('space.100', '8px')};
+    width: ${token('space.100', '8px')};
   }
 
   &::-webkit-scrollbar-corner {
@@ -28,7 +25,7 @@ export const scrollbarStyles = `
       'color.background.neutral.bold',
       'rgba(0, 0, 0, 0.2)',
     )};
-    border-radius: ${akGridSize};
+    border-radius: 8px;
   }
 
   &::-webkit-scrollbar-thumb:hover {

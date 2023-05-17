@@ -9,7 +9,9 @@ import { PaletteColor } from '../../../ui/ColorPalette/Palettes';
 import { DEFAULT_BORDER_COLOR } from '../../../ui/ColorPalette/Palettes/common';
 import { OnFieldChange } from '../types';
 import { validate } from '../utils';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 import { requiredIndicator } from './common/RequiredIndicator';
 import { headingSizes } from '@atlaskit/theme/typography';
 import FieldMessages from '../FieldMessages';
@@ -105,8 +107,8 @@ const colorPickerWrapper = css`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: ${4 * gridSize()}px;
-  padding-right: ${gridSize()}px;
+  height: ${token('space.400', '32px')};
+  padding-right: ${token('space.100', '8px')};
 `;
 
 const colorPickerLabel = css`
@@ -165,6 +167,8 @@ const ColorPicker = (props: Props) => {
       cols={EXPANDED_COLOR_PICKER_COLUMNS}
       alignX="right"
       placement="ConfigPanel"
+      // TODO: Migrate away from gridSize
+      // Recommendation: Update types of size object to accept string width/height and then replace gridSize with tokens
       size={{ width: 3 * gridSize(), height: 3 * gridSize() }}
     />
   ) : (

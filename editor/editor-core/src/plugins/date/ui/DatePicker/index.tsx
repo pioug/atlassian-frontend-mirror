@@ -17,7 +17,7 @@ import { DateType } from '../../types';
 
 const PopupWithListeners = withOuterListeners(Popup);
 import { INPUT_METHOD } from '../../../analytics/types/enums';
-import { DispatchAnalyticsEvent } from '../../../analytics';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import DatePickerInput from './date-picker-input';
 

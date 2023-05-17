@@ -8,6 +8,7 @@ import {
   LocalUploadComponentBaseProps,
 } from '../localUploadReact';
 import { getPackageAttributes } from '../../util/analytics';
+import UploadRejectionFlagGroup from '../uploadRejectionFlagGroup/UploadRejectionFlagGroup';
 
 export interface BrowserOwnProps {
   config: BrowserConfig;
@@ -158,6 +159,10 @@ export class BrowserBase extends LocalUploadComponentReact<BrowserProps> {
           onChange={this.onFilePicked}
         />
         {children ? children(this.browse) : null}
+        <UploadRejectionFlagGroup
+          flagData={this.state.uploadRejectionFlags}
+          onFlagDismissed={this.dismissUploadRejectionFlag}
+        />
       </>
     );
   }

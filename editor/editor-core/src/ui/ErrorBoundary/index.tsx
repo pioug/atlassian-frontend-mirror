@@ -1,4 +1,6 @@
 import React from 'react';
+import { logException } from '@atlaskit/editor-common/monitoring';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { DispatchAnalyticsEvent } from '../../plugins/analytics/types';
 import { ACTION, EVENT_TYPE, ErrorEventPayload } from '../../plugins/analytics';
 
@@ -45,6 +47,9 @@ export class ErrorBoundary extends React.Component<
           errorRethrown: !this.hasFallback(),
         },
       });
+    }
+    if (getBooleanFF('platform.editor.sentry-error-monitoring_6bksu')) {
+      logException(error, { location: 'editor-core/ui' });
     }
 
     if (this.hasFallback()) {

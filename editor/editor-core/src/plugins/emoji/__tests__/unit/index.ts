@@ -24,7 +24,8 @@ import {
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import emojiPlugin, { emojiPluginKey } from '../../';
 import { insertEmoji } from '../../commands/insert-emoji';
-import analyticsPlugin, { INPUT_METHOD } from '../../../analytics';
+import deprecatedAnalyticsPlugin, { INPUT_METHOD } from '../../../analytics';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import typeAheadPlugin from '../../../type-ahead';
 import quickInsertPlugin from '../../../quick-insert';
 import blockTypePlugin from '../../../block-type';
@@ -61,6 +62,7 @@ describe('emojis', () => {
         .add([featureFlagsPlugin, {}])
         .add(emojiPlugin)
         .add([analyticsPlugin, { createAnalyticsEvent }])
+        .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
         .add(blockTypePlugin)
         .add(listPlugin)
         .add(typeAheadPlugin)

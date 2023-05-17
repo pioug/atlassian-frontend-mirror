@@ -43,6 +43,8 @@ import rulePlugin from '../../../rule';
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
 import { uuid } from '@atlaskit/adf-schema';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 // Starting docs
 const docWithEndOfListItemSelection = doc(
@@ -1489,6 +1491,8 @@ describe('pasting into an ordered list when restartNumberedLists FF is true', ()
   const editor = (doc: any) => {
     const preset = new Preset<LightEditorPlugin>()
       .add([featureFlagsPlugin, { restartNumberedLists: true }])
+      .add([analyticsPlugin, {}])
+      .add(contentInsertionPlugin)
       .add([pastePlugin, {}])
       .add([listPlugin, { restartNumberedLists: true }])
       .add(panelPlugin)

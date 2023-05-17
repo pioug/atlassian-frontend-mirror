@@ -1,14 +1,13 @@
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { EditorView } from 'prosemirror-view';
 import {
-  Transaction,
   EditorState,
   NodeSelection,
   TextSelection,
   AllSelection,
   Selection,
 } from 'prosemirror-state';
-import { Mark, Node } from 'prosemirror-model';
+import { Node } from 'prosemirror-model';
 import { GapCursorSelection, Side } from '@atlaskit/editor-common/selection';
 
 export {
@@ -43,34 +42,6 @@ export function setCellSelection(
     state.tr.setSelection(CellSelection.create(state.doc, anchor, head) as any),
   );
 }
-
-export const normaliseNestedLayout = (
-  { selection, doc }: EditorState | Transaction,
-  node: Node,
-) => {
-  if (selection.$from.depth > 1) {
-    if (node.attrs.layout && node.attrs.layout !== 'default') {
-      return node.type.createChecked(
-        {
-          ...node.attrs,
-          layout: 'default',
-        },
-        node.content,
-        node.marks,
-      );
-    }
-
-    // If its a breakout layout, we can remove the mark
-    // Since default isn't a valid breakout mode.
-    const breakoutMark: Mark = doc.type.schema.marks.breakout;
-    if (breakoutMark && breakoutMark.isInSet(node.marks)) {
-      const newMarks = breakoutMark.removeFromSet(node.marks);
-      return node.type.createChecked(node.attrs, node.content, newMarks);
-    }
-  }
-
-  return node;
-};
 
 // checks if the given position is within the ProseMirror document
 export const isValidPosition = (pos: number, state: EditorState): boolean => {

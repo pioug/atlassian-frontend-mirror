@@ -12,7 +12,7 @@ import {
   HeadingLevelsAndNormalText,
 } from '../types';
 import { removeBlockMarks } from '../../../utils/mark';
-import { shouldSplitSelectedNodeOnNodeInsertion } from '../../../utils/insert';
+import { shouldSplitSelectedNodeOnNodeInsertion } from '@atlaskit/editor-common/insert';
 import {
   withAnalytics,
   ACTION,

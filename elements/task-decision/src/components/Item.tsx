@@ -6,6 +6,7 @@ import { Appearance, ContentRef, TaskType, DecisionType } from '../types';
 import { themed } from '@atlaskit/theme/components';
 import { token } from '@atlaskit/tokens';
 import { DN50, N200, N20A } from '@atlaskit/theme/colors';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { borderRadius, gridSize } from '@atlaskit/theme/constants';
 import type { Theme } from '@atlaskit/theme/types';
 
@@ -27,9 +28,9 @@ const decisionStyles = (theme: Theme) =>
   css({
     display: 'flex',
     flexDirection: 'row',
-    margin: `${gridSize()}px 0 0 0`,
-    padding: `${gridSize()}px`,
-    paddingLeft: `${gridSize() * 1.5}px`,
+    margin: `${token('space.100', '8px')} 0 0 0`,
+    padding: token('space.100', '8px'),
+    paddingLeft: `${token('space.150', '12px')}`,
     borderRadius: `${borderRadius()}px`,
     backgroundColor: themed({
       light: token('color.background.neutral', N20A),
@@ -78,6 +79,8 @@ export default class Item extends PureComponent<Props, {}> {
       return null;
     }
 
+    // TODO: Migrate away from gridSize
+    // Recommendation: Replace gridSize with 8
     const offset = gridSize() * (itemType === 'TASK' ? 3 : 3.5);
     return (
       <span

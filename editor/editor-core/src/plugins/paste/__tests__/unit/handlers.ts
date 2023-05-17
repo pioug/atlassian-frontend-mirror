@@ -63,10 +63,15 @@ import emojiPlugin from '../../../emoji';
 import blockTypePlugin from '../../../block-type';
 import captionPlugin from '../../../caption';
 import mediaPlugin from '../../../media';
+import widthPlugin from '../../../width';
+import gridPlugin from '../../../grid';
 import listPlugin from '../../../list';
 import extensionPlugin from '../../../extension';
 import rulePlugin from '../../../rule';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import deprecatedAnalyticsPlugin from '../../../analytics';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 describe('handleParagraphBlockMarks', () => {
   let slice: Slice;
@@ -242,6 +247,8 @@ describe('handleRichText', () => {
     const editor = (doc: any) => {
       const preset = new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
+        .add([analyticsPlugin, {}])
+        .add(contentInsertionPlugin)
         .add([pastePlugin, {}])
         .add(panelPlugin)
         .add(blockTypePlugin)
@@ -744,6 +751,63 @@ describe('handleRichText', () => {
         editorView.state.tr.doc.check();
       }).not.toThrow();
     });
+
+    it.each([
+      ['empty panel', p('{<>}'), p('')],
+      ['panel', p('Destination {<>}Panel'), p('Destination Panel')],
+    ])(
+      'should paste taskList after %s',
+      (_description, destination, expected) => {
+        const destinationDocument = doc(
+          panel({ panelType: 'info' })(destination),
+        );
+
+        const pasteContent = doc(
+          taskList({ localId: 'test1' })(
+            taskItem({ localId: 'test2' })('Task Item A'),
+            taskItem({ localId: 'test3' })('Task Item B{<>}'),
+          ),
+        );
+
+        const expectedDocument = doc(
+          panel({ panelType: 'info' })(expected),
+          taskList({ localId: 'test1' })(
+            taskItem({ localId: 'test2' })('{<>}Task Item A'),
+            taskItem({ localId: 'test3' })('Task Item B'),
+          ),
+        );
+
+        const createEditor = createProsemirrorEditorFactory();
+        const editor = (doc: any) => {
+          const preset = new Preset<LightEditorPlugin>()
+            .add([featureFlagsPlugin, {}])
+            .add([pastePlugin, {}])
+            .add(tasksAndDecisionsPlugin)
+            .add(panelPlugin);
+
+          return createEditor({
+            doc,
+            preset,
+          });
+        };
+
+        const { editorView } = editor(destinationDocument);
+        const pasteSlice = new Slice(
+          pasteContent(editorView.state.schema).content,
+          0,
+          0,
+        );
+
+        /**
+         * use handleRichText because pasting tasklist into panel
+         */
+        handleRichText(pasteSlice)(editorView.state, editorView.dispatch);
+        expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
+        expect(() => {
+          editorView.state.tr.doc.check();
+        }).not.toThrow();
+      },
+    );
   });
 
   describe('pasting from an extension', () => {
@@ -752,6 +816,8 @@ describe('handleRichText', () => {
     const editor = (doc: any) => {
       const preset = new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
+        .add([analyticsPlugin, {}])
+        .add(contentInsertionPlugin)
         .add([pastePlugin, {}])
         .add(tablesPlugin)
         .add(listPlugin)
@@ -933,6 +999,7 @@ describe('handlePasteLinkOnSelectedText', () => {
       doc: stateDocument,
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
+        .add([analyticsPlugin, {}])
         .add([pastePlugin, pasteOptions])
         .add(hyperlinkPlugin)
         .add(textFormattingPlugin),
@@ -1231,6 +1298,8 @@ describe('handlePasteIntoTaskOrDecisionOrPanel', () => {
         const editor = (doc: any) => {
           const preset = new Preset<LightEditorPlugin>()
             .add([featureFlagsPlugin, {}])
+            .add([analyticsPlugin, {}])
+            .add(contentInsertionPlugin)
             .add([pastePlugin, {}])
             .add(hyperlinkPlugin)
             .add(tasksAndDecisionsPlugin)
@@ -1279,6 +1348,7 @@ describe('handlePastePanelOrDecisionContentIntoList', () => {
   const editor = (doc: any) => {
     const preset = new Preset<LightEditorPlugin>()
       .add([featureFlagsPlugin, {}])
+      .add([analyticsPlugin, {}])
       .add([pastePlugin, {}])
       .add(listPlugin)
       .add(panelPlugin)
@@ -1553,6 +1623,8 @@ describe('handleExpand', () => {
         const editor = (doc: any) => {
           const preset = new Preset<LightEditorPlugin>()
             .add([featureFlagsPlugin, {}])
+            .add([analyticsPlugin, {}])
+            .add(contentInsertionPlugin)
             .add([pastePlugin, {}])
             .add(tablesPlugin)
             .add(expandPlugin)
@@ -1606,10 +1678,14 @@ describe('handlePasteIntoCaption', () => {
     const editor = (doc: any) => {
       const preset = new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
+        .add([analyticsPlugin, {}])
+        .add([deprecatedAnalyticsPlugin, {}])
         .add([pastePlugin, {}])
         .add(panelPlugin)
         .add(blockTypePlugin)
         .add(captionPlugin)
+        .add(widthPlugin)
+        .add(gridPlugin)
         .add([
           mediaPlugin,
           { allowMediaSingle: true, featureFlags: { captions: true } },
@@ -1641,6 +1717,7 @@ describe('handlePasteIntoTaskOrDecisionOrPanel', () => {
   const editor = (doc: any) => {
     const preset = new Preset<LightEditorPlugin>()
       .add([featureFlagsPlugin, {}])
+      .add([analyticsPlugin, {}])
       .add([pastePlugin, {}])
       .add(hyperlinkPlugin)
       .add(tasksAndDecisionsPlugin)
@@ -2110,9 +2187,7 @@ describe('handlePasteIntoTaskOrDecisionOrPanel', () => {
           editorView.state,
           editorView.dispatch,
         );
-        const expectedDocument = doc(
-          panel()(p('Destination Contents of an ActionPanel')),
-        );
+        const expectedDocument = doc(panel()(p('Destination Panel')));
         expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
         expect(() => {
           editorView.state.tr.doc.check();
@@ -2330,6 +2405,8 @@ describe('handleMarkdown', () => {
       const editor = (doc: any) => {
         const preset = new Preset<LightEditorPlugin>()
           .add([featureFlagsPlugin, {}])
+          .add([analyticsPlugin, {}])
+          .add(contentInsertionPlugin)
           .add([pastePlugin, {}])
           .add(tablesPlugin)
           .add(listPlugin);

@@ -453,8 +453,7 @@ describe('document-service', () => {
       });
 
       it('Emits telepointers on a new step ', () => {
-        const { service, providerEmitCallbackMock, participantsServiceMock } =
-          createMockService();
+        const { service, participantsServiceMock } = createMockService();
         const steps = [{ clientId: 'client', userId: 'test' }];
         // @ts-ignore - Testing private method
         service.processSteps({
@@ -463,7 +462,7 @@ describe('document-service', () => {
         });
         expect(
           participantsServiceMock.emitTelepointersFromSteps,
-        ).toBeCalledWith(steps, providerEmitCallbackMock);
+        ).toBeCalledWith(steps);
       });
 
       it('If no steps originate from (i.e. no confirmations on steps we added), try to save our steps again', () => {

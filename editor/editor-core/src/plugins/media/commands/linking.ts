@@ -5,7 +5,7 @@ import {
   mediaLinkingPluginKey,
 } from '../pm-plugins/linking';
 import { Node, MarkType } from 'prosemirror-model';
-import { normalizeUrl } from '../../hyperlink/utils';
+import { normalizeUrl } from '@atlaskit/editor-common/utils';
 import { CommandDispatch } from '../../../types/command';
 import { createToggleBlockMarkOnRange } from '../../../commands';
 import { LinkAttributes } from '@atlaskit/adf-schema';

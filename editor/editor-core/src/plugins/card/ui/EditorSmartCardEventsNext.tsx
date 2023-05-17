@@ -123,34 +123,43 @@ export const EventsBinding = ({ editorView }: AnalyticsBindingsProps) => {
 
   const events: SmartLinkEventsNext = useMemo(() => {
     return {
-      created: ({ url, display, ...metadata }) => {
+      created: ({ url, display, nodeContext, ...metadata }) => {
         linkCreated(
           { url, displayCategory: displayCategoryFromDisplay(display) },
           getSourceEventFromMetadata(metadata),
           {
             display,
+            nodeContext,
             creationMethod: getMethod(metadata),
           },
         );
       },
-      updated: ({ url, display, previousDisplay, ...metadata }) => {
+      updated: ({
+        url,
+        display,
+        previousDisplay,
+        nodeContext,
+        ...metadata
+      }) => {
         linkUpdated(
           { url, displayCategory: displayCategoryFromDisplay(display) },
           getSourceEventFromMetadata(metadata),
           {
             display,
             previousDisplay,
+            nodeContext,
             updateMethod: getMethod(metadata),
             updateType: getUpdateType(metadata),
           },
         );
       },
-      deleted: ({ url, display, ...metadata }) => {
+      deleted: ({ url, display, nodeContext, ...metadata }) => {
         linkDeleted(
           { url, displayCategory: displayCategoryFromDisplay(display) },
           getSourceEventFromMetadata(metadata),
           {
             display,
+            nodeContext,
             deleteMethod: getMethod(metadata),
             deleteType: getDeleteType(metadata),
           },

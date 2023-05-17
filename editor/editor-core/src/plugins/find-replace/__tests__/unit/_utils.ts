@@ -11,7 +11,8 @@ import findReplacePlugin from '../../index';
 import { getPluginState } from '../../plugin';
 import { findReplacePluginKey } from '../../types';
 import { selectedSearchMatchClass } from '../../styles';
-import analyticsPlugin from '../../../analytics/plugin';
+import deprecatedAnalyticsPlugin from '../../../analytics/plugin';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { textFormattingPlugin } from '../../../index';
 import { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
@@ -28,7 +29,9 @@ export const getFindReplacePreset = (
       { takeFullWidth: false, twoLineEditorToolbar: false },
     ]);
   if (createAnalyticsEvent) {
-    preset = preset.add([analyticsPlugin, { createAnalyticsEvent }]);
+    preset = preset
+      .add([analyticsPlugin, { createAnalyticsEvent }])
+      .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }]);
   }
   return preset.add(textFormattingPlugin);
 };

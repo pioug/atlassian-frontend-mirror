@@ -1,5 +1,11 @@
 # @atlaskit/media-core
 
+## 34.1.2
+
+### Patch Changes
+
+- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+
 ## 34.1.1
 
 ### Patch Changes

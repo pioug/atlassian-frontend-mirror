@@ -9,7 +9,6 @@ import {
   WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
 import { createAndFireEventInElementsChannel } from '../analytics';
-import { gridSize } from '@atlaskit/theme/constants';
 import { themed, useGlobalTheme } from '@atlaskit/theme/components';
 import { token } from '@atlaskit/tokens';
 import { B300, B75, DN100, DN200, N0, N30, N90 } from '@atlaskit/theme/colors';
@@ -39,7 +38,7 @@ const checkboxStyles = (isRenderer: boolean | undefined) => (theme: Theme) =>
     height: 16px;
     position: relative;
     align-self: start;
-    margin: 4px ${gridSize()}px 0 0;
+    margin: ${token('space.050', '4px')} ${token('space.100', '8px')} 0 0;
 
     & > input[type='checkbox'] {
       width: 16px;

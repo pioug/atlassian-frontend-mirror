@@ -50,6 +50,13 @@ const tokenStyles = {
     filterFn: <T extends Token>(t: T) =>
       t.token.startsWith(tokenStyles.shadow.prefix),
   },
+  fill: {
+    objectName: 'fill',
+    prefix: 'color.icon.',
+    cssProperty: 'fill',
+    filterFn: <T extends Token>(t: T) =>
+      t.token.startsWith(tokenStyles.fill.prefix),
+  },
 } as const;
 
 const bothTokens = tokens.map((t, i) => [t, legacyTokens[i]]);

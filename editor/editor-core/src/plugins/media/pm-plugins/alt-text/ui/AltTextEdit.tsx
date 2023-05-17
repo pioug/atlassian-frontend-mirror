@@ -7,7 +7,8 @@ import ChevronLeftLargeIcon from '@atlaskit/icon/glyph/chevron-left-large';
 import CrossCircleIcon from '@atlaskit/icon/glyph/cross-circle';
 import { messages } from '../messages';
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
-import Button from '../../../../floating-toolbar/ui/Button';
+import { FloatingToolbarButton as Button } from '@atlaskit/editor-common/ui';
+
 import PanelTextInput from '../../../../../ui/PanelTextInput';
 import * as keymaps from '../../../../../keymaps';
 import { ToolTipContent } from '../../../../../keymaps';

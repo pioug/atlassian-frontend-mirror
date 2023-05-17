@@ -14,11 +14,18 @@ import {
   LightEditorPlugin,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 const editorFactory = (doc: DocBuilder) => {
   const editor = createProsemirrorEditorFactory()({
     doc,
-    preset: new Preset<LightEditorPlugin>().add(tablesPlugin),
+    preset: new Preset<LightEditorPlugin>()
+      .add([featureFlagsPlugin, {}])
+      .add([analyticsPlugin, {}])
+      .add(contentInsertionPlugin)
+      .add(tablesPlugin),
   });
   const { state } = editor.editorView;
   const pos = state.doc.resolve(editor.refs['<>']);

@@ -11,6 +11,7 @@ import {
 } from '@atlaskit/adf-schema/schema-default';
 import { EditorState, NodeSelection } from 'prosemirror-state';
 import {
+  currentMediaNode,
   currentMediaNodeWithPos,
   currentMediaNodeBorderMark,
 } from '../../../utils/current-media-node';
@@ -38,6 +39,30 @@ const mediaNodeWithBorder = mediaSingle({ layout: 'center' })(
 const stage0MediaDoc = doc(mediaNodeWithBorder)(
   getSchemaBasedOnStage('stage0'),
 );
+
+describe('currentMediaNode', () => {
+  it('returns media node when mediaSingle node is selected', async () => {
+    const node = currentMediaNode(
+      EditorState.create({
+        doc: defaultMediaDoc,
+        selection: NodeSelection.create(defaultMediaDoc, 0),
+      }),
+    );
+
+    expect(node?.type.name).toEqual('media');
+    expect(node?.attrs.id).toEqual('test-id');
+  });
+
+  it('returns undefined when current selection is not mediaSingle', async () => {
+    const node = currentMediaNode(
+      EditorState.create({
+        doc: doc(p('hello<> world'), mediaNode)(defaultSchema),
+      }),
+    );
+
+    expect(node).toBeUndefined();
+  });
+});
 
 describe('currentMediaNodeWithPos', () => {
   it('returns media node with pos when mediaSingle node is selected', async () => {
@@ -75,5 +100,16 @@ describe('currentMediaNodeBorderMark', () => {
 
     expect(borderMark?.color).toEqual('#091e4224');
     expect(borderMark?.size).toEqual(1);
+  });
+
+  it('returns undefined when a mediaSingle node without a border mark is selected', async () => {
+    const borderMark = currentMediaNodeBorderMark(
+      EditorState.create({
+        doc: defaultMediaDoc,
+        selection: NodeSelection.create(defaultMediaDoc, 0),
+      }),
+    );
+
+    expect(borderMark).toBeUndefined();
   });
 });

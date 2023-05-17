@@ -5,15 +5,20 @@ export const mockIo = {
 
     // Mocking auth callback invocation
     // WARNING this is a very vague implementation of how the actual socket.io-client does this
+    const authCb = jest.fn();
     const auth = opt.auth;
     if (typeof auth === 'function') {
-      const authCb = jest.fn();
       auth(authCb);
     }
 
     return {
+      _authCb: authCb,
       id: 'mock-socket.io-client',
       connect: jest.fn().mockImplementation(() => {
+        // Mock calling auth callback on connect.
+        if (typeof auth === 'function') {
+          auth(authCb);
+        }
         // Connect event, triggered by SocketIO Client
         events?.get('connect')?.();
         // Fake response to imitate NCS actions on connection

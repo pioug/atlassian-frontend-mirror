@@ -10,6 +10,7 @@ import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { pluginKey } from '../../../../plugins/card/pm-plugins/main';
 import hyperlinkPlugin from '../../../hyperlink';
 import tasksAndDecisionsPlugin from '../..';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 const pasteContent = {
   action: `<meta http-equiv="content-type" content="text/html; charset=utf-8" /><div
@@ -105,6 +106,7 @@ describe('Tasks and decisions', () => {
       pluginKey,
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
+        .add([analyticsPlugin, {}])
         .add(tasksAndDecisionsPlugin)
         .add(hyperlinkPlugin),
     });

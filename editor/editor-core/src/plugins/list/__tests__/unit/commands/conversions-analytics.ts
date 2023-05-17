@@ -15,13 +15,14 @@ import {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
-import analyticsPlugin, {
+import deprecatedAnalyticsPlugin, {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
   INPUT_METHOD,
 } from '../../../../analytics';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { toggleOrderedList, toggleBulletList } from '../../../commands/index';
 import listPlugin from '../../..';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
@@ -38,7 +39,8 @@ describe('list-conversion', () => {
     const preset = new Preset<LightEditorPlugin>()
       .add([featureFlagsPlugin, {}])
       .add(listPlugin)
-      .add([analyticsPlugin, { createAnalyticsEvent }]);
+      .add([analyticsPlugin, { createAnalyticsEvent }])
+      .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }]);
 
     return createEditor({
       doc,

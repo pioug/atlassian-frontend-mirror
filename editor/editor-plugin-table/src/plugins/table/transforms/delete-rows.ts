@@ -6,7 +6,6 @@ import { findTable } from '@atlaskit/editor-tables/utils';
 import { CellAttributes } from '@atlaskit/adf-schema';
 
 import { mergeEmptyColumns } from './merge';
-import { setMeta } from './metadata';
 
 export const deleteRows =
   (rect: Rect, isHeaderRowRequired: boolean = false) =>
@@ -117,7 +116,7 @@ export const deleteRows =
     }
 
     if (!rows.length) {
-      return setMeta({ type: 'DELETE_ROWS', problem: 'EMPTY_TABLE' })(tr);
+      return tr;
     }
 
     const newTable = table.node.type.createChecked(
@@ -127,17 +126,15 @@ export const deleteRows =
     );
     const fixedTable = mergeEmptyColumns(newTable);
     if (fixedTable === null) {
-      return setMeta({ type: 'DELETE_ROWS', problem: 'REMOVE_EMPTY_COLUMNS' })(
-        tr,
-      );
+      return tr;
     }
     const cursorPos = getNextCursorPos(newTable, rowsToDelete);
 
-    return setMeta({ type: 'DELETE_ROWS' })(
+    return (
       tr
         .replaceWith(table.pos, table.pos + table.node.nodeSize, fixedTable)
         // move cursor before the deleted rows if possible, otherwise - to the first row
-        .setSelection(Selection.near(tr.doc.resolve(table.pos + cursorPos))),
+        .setSelection(Selection.near(tr.doc.resolve(table.pos + cursorPos)))
     );
   };
 

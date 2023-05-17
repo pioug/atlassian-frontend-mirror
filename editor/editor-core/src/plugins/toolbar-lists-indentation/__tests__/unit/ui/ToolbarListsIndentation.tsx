@@ -18,7 +18,8 @@ import { messages as indentationMessages } from '../../../../indentation/message
 import ToolbarButton from '../../../../../ui/ToolbarButton';
 import DropdownMenu from '../../../../../ui/DropdownMenu';
 import basePlugin from '../../../../base';
-import analyticsPlugin from '../../../../analytics';
+import deprecatedAnalyticsPlugin from '../../../../analytics';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import toolbarListsIndentationPlugin from '../../../';
 import indentationPlugin from '../../../../indentation';
 import blockTypePlugin from '../../../../block-type';
@@ -67,6 +68,7 @@ describe('ToolbarListsIndentation', () => {
         .add([featureFlagsPlugin, {}])
         .add(basePlugin)
         .add([analyticsPlugin, { createAnalyticsEvent }])
+        .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
         .add(textFormattingPlugin)
         .add(listPlugin)
         .add(blockTypePlugin)

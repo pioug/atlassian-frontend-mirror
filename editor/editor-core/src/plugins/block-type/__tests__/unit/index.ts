@@ -39,7 +39,7 @@ import {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
-import analyticsPlugin, {
+import deprecatedAnalyticsPlugin, {
   AnalyticsEventPayload,
   ACTION,
   ACTION_SUBJECT,
@@ -47,6 +47,8 @@ import analyticsPlugin, {
   ACTION_SUBJECT_ID,
   INPUT_METHOD,
 } from '../../../analytics';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+
 import { PluginKey } from 'prosemirror-state';
 import blockTypePlugin from '../../';
 import panelPlugin from '../../../panel';
@@ -54,6 +56,7 @@ import codeBlockPlugin from '../../../code-block';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import { CellSelection } from '@atlaskit/editor-tables';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 describe('block-type', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -70,10 +73,12 @@ describe('block-type', () => {
       doc,
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
+        .add([analyticsPlugin, { createAnalyticsEvent }])
+        .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
+        .add(contentInsertionPlugin)
         .add(blockTypePlugin)
         .add(panelPlugin)
         .add([codeBlockPlugin, { appearance: 'full-page' }])
-        .add([analyticsPlugin, { createAnalyticsEvent }])
         .add(tablesPlugin),
       pluginKey: blockTypePluginKey,
     });

@@ -10,9 +10,10 @@ import {
   isLinkInMatches,
   LinkMatcher,
   normalizeUrl,
-} from '../utils';
-import { INPUT_METHOD, addAnalytics } from '../../analytics';
-import { getLinkCreationAnalyticsEvent } from '../analytics';
+  getLinkCreationAnalyticsEvent,
+} from '@atlaskit/editor-common/utils';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { addAnalytics } from '../../analytics';
 import { FeatureFlags } from '../../../types/feature-flags';
 
 export function createLinkInputRule(

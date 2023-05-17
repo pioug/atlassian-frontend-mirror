@@ -2,6 +2,7 @@
 import { useState, useCallback, useEffect, createRef } from 'react';
 import { css, jsx } from '@emotion/react';
 import { Component } from 'react';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize } from '@atlaskit/theme/constants';
 import { B400 } from '@atlaskit/theme/colors';
 import { ButtonItem, ButtonItemProps } from '@atlaskit/menu';
@@ -29,11 +30,11 @@ const menuContainer = css`
 
   // temporary solution to retain spacing defined by @atlaskit/Item
   & button {
-    min-height: ${gridSize() * 4}px;
+    min-height: ${token('space.400', '32px')};
     padding: 8px 8px 7px;
 
     & > [data-item-elem-before] {
-      margin-right: ${gridSize() / 2}px;
+      margin-right: ${token('space.050', '4px')};
     }
   }
 `;
@@ -43,6 +44,8 @@ const label = css`
   width: 100%;
 `;
 
+// TODO: Migrate away from gridSize
+// Recommendation: Replace with 4 as itemSpacing is used in calculations expecting a number
 export const itemSpacing = gridSize() / 2;
 export interface Props {
   hide: Function;

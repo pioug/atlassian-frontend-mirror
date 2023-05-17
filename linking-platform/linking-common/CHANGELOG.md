@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 2.10.1
+
+### Patch Changes
+
+- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+
 ## 2.10.0
 
 ### Minor Changes

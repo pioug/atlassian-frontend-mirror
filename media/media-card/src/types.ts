@@ -17,7 +17,6 @@ import {
   SSR,
 } from '@atlaskit/media-common';
 import { CardAction } from './card/actions';
-import { MediaViewerDataSource } from '@atlaskit/media-viewer';
 import { MediaCardError } from './errors';
 
 export type CardStatus =
@@ -146,13 +145,6 @@ export interface CardProps extends SharedCardProps, CardEventProps {
   readonly useInlinePlayer?: boolean;
   // Uses media MediaViewer to preview the media file.
   readonly shouldOpenMediaViewer?: boolean;
-  /**
-   * Includes data source like collection name,
-   * media file list.
-   * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-149 Internal documentation for deprecation (no external access)}}
-   * Use mediaViewerItems instead
-   */
-  readonly mediaViewerDataSource?: MediaViewerDataSource;
   // Media file list to display in Media Viewer.
   readonly mediaViewerItems?: Identifier[];
   // Retrieve auth based on a given context.

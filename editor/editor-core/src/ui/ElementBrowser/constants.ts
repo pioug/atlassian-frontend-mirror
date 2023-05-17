@@ -1,4 +1,7 @@
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize } from '@atlaskit/theme/constants';
+// TODO: Migrate away from gridSize
+// Recommendation: Replace gridSize with 8
 export const GRID_SIZE = gridSize();
 
 export const DEVICE_BREAKPOINT_NUMBERS = {

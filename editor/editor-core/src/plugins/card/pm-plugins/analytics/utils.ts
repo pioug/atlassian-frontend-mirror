@@ -58,13 +58,20 @@ export const isLink = (schema: Schema, node: Node) => {
  * @param fragment Fragment to search
  * @returns Array of nodes and marks found in the fragment that are "links"
  */
-export function findLinksInNode(schema: Schema, node: Node, offset: number) {
+export function findLinksInNode(
+  doc: Node,
+  schema: Schema,
+  node: Node,
+  offset: number,
+) {
   const links: Link[] = [];
 
   node.descendants((node, pos) => {
+    const nodeContext = getLinkNodeContext(doc, pos);
+
     // Nodes
     if (isLinkNode(node)) {
-      links.push({ type: 'node', pos: pos + offset, node });
+      links.push({ type: 'node', pos: pos + offset, node, nodeContext });
     }
 
     // Marks
@@ -73,7 +80,7 @@ export function findLinksInNode(schema: Schema, node: Node, offset: number) {
         const mark = node.marks[i];
 
         if (isLinkMark(mark, schema)) {
-          links.push({ type: 'mark', pos: pos + offset, mark });
+          links.push({ type: 'mark', pos: pos + offset, mark, nodeContext });
         }
       }
     }
@@ -89,13 +96,30 @@ export function getLinkUrl(link: Link): string | undefined {
   return link.mark.attrs?.href;
 }
 
+export const getLinkNodeContext = (doc: Node, pos: number) => {
+  const $pos = doc.resolve(pos);
+
+  const maxDepth = 3;
+  for (let i = 0; i <= maxDepth; i++) {
+    const node = $pos.node($pos.depth - i);
+    if (node && node.type.name !== 'paragraph') {
+      return node.type.name;
+    }
+  }
+
+  return 'unknown';
+};
+
 export const linkObjectFromNode = (
+  doc: Node,
   schema: Schema,
   node: Node,
   pos: number,
 ): Link | undefined => {
+  const nodeContext = getLinkNodeContext(doc, pos);
+
   if (isLinkNode(node)) {
-    return { type: 'node', pos, node };
+    return { type: 'node', pos, node, nodeContext };
   }
 
   if (node.marks) {
@@ -103,7 +127,7 @@ export const linkObjectFromNode = (
       const mark = node.marks[i];
 
       if (isLinkMark(mark, schema)) {
-        return { type: 'mark', pos, mark };
+        return { type: 'mark', pos, mark, nodeContext };
       }
     }
   }
@@ -124,7 +148,7 @@ export const findLinksAtPositions = (
       continue;
     }
 
-    const link = linkObjectFromNode(schema, node, pos);
+    const link = linkObjectFromNode(tr.doc, schema, node, pos);
 
     if (!link) {
       continue;
@@ -134,4 +158,28 @@ export const findLinksAtPositions = (
   }
 
   return links;
+};
+
+/**
+ * Returns whether or not two sets of links appear to likely be the same set of links
+ * That they are in the same order and that both their hrefs and appearances match
+ */
+export const areSameLinks = (linksA: Link[], linksB: Link[]) => {
+  if (linksA.length !== linksB.length) {
+    return false;
+  }
+
+  for (let i = 0; i < linksA.length; i++) {
+    const linkA = linksA[i];
+    const linkB = linksB[i];
+
+    if (
+      getLinkUrl(linkA) !== getLinkUrl(linkB) ||
+      appearanceForLink(linkA) !== appearanceForLink(linkB)
+    ) {
+      return false;
+    }
+  }
+
+  return true;
 };

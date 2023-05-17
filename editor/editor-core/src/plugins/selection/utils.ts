@@ -26,7 +26,7 @@ import {
 } from '@atlaskit/editor-common/selection';
 
 import { selectNode } from '../../utils/commands';
-import { isEmptyParagraph } from '../../utils/document';
+import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
 import {
   AnalyticsEventPayload,
   ACTION,

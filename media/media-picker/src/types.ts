@@ -70,6 +70,12 @@ export type UploadEventPayloadMap = {
   readonly 'upload-error': UploadErrorEventPayload;
 };
 
+export type UploadRejectionData = {
+  reason: 'fileSizeLimitExceeded';
+  fileName: string;
+  limit: number;
+};
+
 export interface BrowserConfig extends LocalUploadConfig {
   readonly multiple?: boolean;
   readonly fileExtensions?: Array<string>;

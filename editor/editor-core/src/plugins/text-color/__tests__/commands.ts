@@ -27,6 +27,8 @@ import {
   pluginKey as textColorPluginKey,
   TextColorPluginState,
 } from '../pm-plugins/main';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 
@@ -38,6 +40,8 @@ describe('text color commands', () => {
       doc,
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
+        .add([analyticsPlugin, {}])
+        .add(contentInsertionPlugin)
         .add(textColorPlugin)
         .add(tablesPlugin)
         .add(blockTypePlugin)

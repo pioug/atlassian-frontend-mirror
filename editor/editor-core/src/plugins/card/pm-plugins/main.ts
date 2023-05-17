@@ -20,11 +20,16 @@ import {
   getPluginStateWithUpdatedPos,
 } from './util/state';
 import { createAnalyticsQueue, eventsFromTransaction } from './analytics';
+import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type cardPlugin from '../index';
 
 export { pluginKey } from './plugin-key';
 
 export const createPlugin =
-  (options: CardPluginOptions) =>
+  (
+    options: CardPluginOptions,
+    pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined,
+  ) =>
   (
     pmPluginFactoryParams: PMPluginFactoryParams,
   ): SafePlugin<CardPluginState> => {
@@ -119,7 +124,13 @@ export const createPlugin =
                  * other tasks as per common implementations of the JavaScript event loop in browsers.
                  */
                 const invoke = rafSchedule(() =>
-                  resolveWithProvider(view, provider, request, options),
+                  resolveWithProvider(
+                    view,
+                    provider,
+                    request,
+                    options,
+                    pluginInjectionApi?.dependencies.analytics?.actions,
+                  ),
                 );
                 rafCancellationCallbacks.push(invoke.cancel);
                 invoke();
@@ -183,6 +194,7 @@ export const createPlugin =
               platform,
               fullWidthMode,
               dispatchAnalyticsEvent,
+              pluginInjectionApi,
             };
             const hasIntlContext = true;
             return new EmbedCard(

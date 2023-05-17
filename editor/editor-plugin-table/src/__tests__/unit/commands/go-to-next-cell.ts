@@ -20,6 +20,9 @@ import tablePlugin from '../../../plugins/table/index';
 import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
 import { TablePluginState } from '../../../plugins/table/types';
 import { goToNextCell } from '../../../plugins/table/commands/go-to-next-cell';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 
@@ -30,7 +33,11 @@ describe('table plugin: goToNextCell', () => {
     attachAnalyticsEvent: jest.fn().mockReturnValue(() => jest.fn()),
   };
   const createEditor = createProsemirrorEditorFactory();
-  const preset = new Preset<LightEditorPlugin>().add(tablePlugin);
+  const preset = new Preset<LightEditorPlugin>()
+    .add([featureFlagsPlugin, {}])
+    .add([analyticsPlugin, {}])
+    .add(contentInsertionPlugin)
+    .add(tablePlugin);
   const editor = (doc: DocBuilder) =>
     createEditor<TablePluginState, PluginKey>({
       doc,

@@ -27,6 +27,7 @@ import { AllEditorPresetPluginTypes } from '@atlaskit/editor-common/types';
 import { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
 import { AnalyticsEventPayload as AnalyticsEventPayload_2 } from '@atlaskit/analytics-next/AnalyticsEvent';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
+import { BrowserFreezetracking } from '@atlaskit/editor-common/types';
 import { CardOptions } from '@atlaskit/editor-common/card';
 import { CardProvider } from '@atlaskit/editor-common/provider-factory';
 import { CollabEditProvider } from '@atlaskit/editor-common/collab';
@@ -47,6 +48,7 @@ import { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { DropdownOptionT } from '@atlaskit/editor-common/types';
 import { EditorActionsOptions } from '@atlaskit/editor-common/types';
 import { EditorAppearance } from '@atlaskit/editor-common/types';
+import type { EditorContainerWidth } from '@atlaskit/editor-common/types';
 import { FeatureFlags as EditorFeatureFlags } from '@atlaskit/editor-common/types';
 import { EditorPlugin } from '@atlaskit/editor-common/types';
 import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
@@ -84,6 +86,7 @@ import { Side as GapCursorSide } from '@atlaskit/editor-common/selection';
 import { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { InputMethodInsertMedia } from '@atlaskit/editor-common/analytics';
+import { InputTracking } from '@atlaskit/editor-common/types';
 import { IntlShape } from 'react-intl-next';
 import { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
 import { jsx } from '@emotion/react';
@@ -109,6 +112,7 @@ import { NodeConfig } from '@atlaskit/editor-common/types';
 import { NodeType } from 'prosemirror-model';
 import { NodeView } from 'prosemirror-view';
 import { PaletteColor } from '@atlaskit/editor-common/ui-color';
+import { PerformanceTracking } from '@atlaskit/editor-common/types';
 import { PluginConfig } from '@atlaskit/editor-plugin-table/types';
 import { PluginKey } from 'prosemirror-state';
 import { PMPlugin } from '@atlaskit/editor-common/types';
@@ -140,6 +144,7 @@ import { TeamMentionResource } from '@atlaskit/mention/team-resource';
 import type { ThemeModes } from '@atlaskit/theme/types';
 import { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types';
 import { Transaction } from 'prosemirror-state';
+import { TransactionTracking } from '@atlaskit/editor-common/types';
 import { Transformer as Transformer_2 } from '@atlaskit/editor-common/types';
 import type { TypeAheadHandler } from '@atlaskit/editor-common/types';
 import type { TypeAheadItem } from '@atlaskit/editor-common/types';
@@ -311,21 +316,7 @@ export type BlockTypeState = {
   availableWrapperBlockTypes: BlockType[];
 };
 
-// @public (undocumented)
-type BrowserFreezetracking = {
-  enabled?: boolean;
-  trackInteractionType?: boolean;
-  trackSeverity?: boolean;
-  severityNormalThreshold?: number;
-  severityDegradedThreshold?: number;
-};
-
 export { CardProvider };
-
-// @public (undocumented)
-type CatchAllTracking = {
-  enabled: boolean;
-};
 
 // @public (undocumented)
 interface CellSelectionData {
@@ -391,10 +382,7 @@ export class CollapsedEditor extends React_2.Component<Props, State> {
   // (undocumented)
   editorComponent?: Editor | EditorMigrationComponent | EditorNext;
   // (undocumented)
-  handleEditorRef: (
-    editorRef?: Editor | undefined,
-    editorRefCallback?: any,
-  ) => void;
+  handleEditorRef: (editorRef?: Editor, editorRefCallback?: any) => void;
   // (undocumented)
   previouslyExpanded?: boolean;
   // (undocumented)
@@ -422,14 +410,6 @@ type ConfigWithNodeInfo = {
 };
 
 // @public (undocumented)
-type ContentRetrievalTracking = {
-  enabled: boolean;
-  successSamplingRate?: number;
-  failureSamplingRate?: number;
-  reportErrorStack?: boolean;
-};
-
-// @public (undocumented)
 type Context = {
   editorActions?: EditorActions;
   intl: IntlShape;
@@ -440,6 +420,9 @@ export class ContextPanel extends React_2.Component<Props_4> {
   // (undocumented)
   render(): jsx.JSX.Element;
 }
+
+// @public (undocumented)
+type CreateDisplayGrid = (view: EditorView) => DisplayGrid;
 
 // @public (undocumented)
 interface CreateEditorStateOptions {
@@ -459,7 +442,7 @@ interface CreateEditorStateOptions {
 export const createQuickInsertTools: (editorView: EditorView) => {
   getItems: (
     query: string,
-    options?: QuickInsertPluginOptions | undefined,
+    options?: QuickInsertPluginOptions,
   ) => QuickInsertItem[];
 };
 
@@ -594,10 +577,15 @@ type DefaultPresetPluginOptions = {
   hyperlinkOptions?: HyperlinkPluginOptions;
   createAnalyticsEvent?: CreateUIAnalyticsEvent;
   typeAhead?: TypeAheadPluginOptions;
+  allowAnalyticsGASV3?: boolean;
+  performanceTracking?: EditorProps['performanceTracking'];
 };
 
 // @public
 export const deleteDate: () => Command;
+
+// @public (undocumented)
+type DisplayGrid = (props: Required_2<GridPluginState>) => boolean;
 
 export { DropdownOptionT };
 
@@ -643,8 +631,8 @@ export class Editor extends React_2.Component<
   ) => ExtensionProvider<any> | undefined;
   // @deprecated (undocumented)
   prepareQuickInsertProvider: (
-    extensionProvider?: ExtensionProvider<any> | undefined,
-    quickInsert?: QuickInsertOptions | undefined,
+    extensionProvider?: ExtensionProvider,
+    quickInsert?: QuickInsertOptions,
   ) => Promise<QuickInsertProvider> | undefined;
   // (undocumented)
   static propTypes: {
@@ -1292,6 +1280,35 @@ type getPosHandler = boolean | getPosHandlerNode;
 // @public (undocumented)
 type getPosHandlerNode = () => number;
 
+// @public (undocumented)
+const gridPlugin: NextEditorPlugin<
+  'grid',
+  {
+    pluginConfiguration: GridPluginOptions | undefined;
+    dependencies: [typeof widthPlugin];
+    sharedState: GridPluginState | null;
+    actions: {
+      displayGrid: CreateDisplayGrid;
+    };
+  }
+>;
+
+// @public (undocumented)
+interface GridPluginOptions {
+  // (undocumented)
+  shouldCalcBreakoutGridLines?: boolean;
+}
+
+// @public (undocumented)
+type GridPluginState = {
+  visible: boolean;
+  gridType?: GridType;
+  highlight: Highlights;
+};
+
+// @public (undocumented)
+type GridType = 'full' | 'wrapped';
+
 // @public
 export function hasVisibleContent(node: Node_2): boolean;
 
@@ -1300,6 +1317,9 @@ type HeadingLevels = 1 | 2 | 3 | 4 | 5 | 6;
 
 // @public (undocumented)
 type HeadingLevelsAndNormalText = HeadingLevels | NormalTextLevel;
+
+// @public (undocumented)
+type Highlights = Array<'full-width' | 'wide' | number>;
 
 // @public
 export const historyPluginKey: PluginKey<HistoryPluginState, any>;
@@ -1394,20 +1414,6 @@ type InputMethod = INPUT_METHOD.KEYBOARD | INPUT_METHOD.TOOLBAR;
 type InputMethod_2 = INPUT_METHOD.KEYBOARD | INPUT_METHOD.TOOLBAR;
 
 // @public (undocumented)
-interface InputTracking {
-  countNodes?: boolean;
-  enabled: boolean;
-  freezeThreshold?: number;
-  samplingRate?: number;
-  severityDegradedThreshold?: number;
-  severityNormalThreshold?: number;
-  slowThreshold?: number;
-  trackRenderingTime?: boolean;
-  trackSeverity?: boolean;
-  trackSingleKeypress?: boolean;
-}
-
-// @public (undocumented)
 export type InsertBlockInputMethodToolbar =
   | INPUT_METHOD.INSERT_MENU
   | INPUT_METHOD.TOOLBAR;
@@ -1423,9 +1429,9 @@ export const insertBlockTypesWithAnalytics: (
 
 // @public (undocumented)
 export const insertDate: (
-  date?: DateType | undefined,
-  inputMethod?: InsertBlockInputMethodToolbar | undefined,
-  commitMethod?: INPUT_METHOD.KEYBOARD | INPUT_METHOD.PICKER | undefined,
+  date?: DateType,
+  inputMethod?: InsertBlockInputMethodToolbar,
+  commitMethod?: INPUT_METHOD.KEYBOARD | INPUT_METHOD.PICKER,
   enterPressed?: boolean,
 ) => Command;
 
@@ -1467,8 +1473,8 @@ export const insertLinkWithAnalytics: (
   from: number,
   to: number,
   href: string,
-  title?: string | undefined,
-  displayText?: string | undefined,
+  title?: string,
+  displayText?: string,
   cardsAvailable?: boolean,
   sourceEvent?: UIAnalyticsEvent | null | undefined,
 ) => Command;
@@ -1479,18 +1485,18 @@ export const insertLinkWithAnalyticsMobileNative: (
   from: number,
   to: number,
   href: string,
-  title?: string | undefined,
-  displayText?: string | undefined,
+  title?: string,
+  displayText?: string,
 ) => Command;
 
 // @public (undocumented)
 export const insertMediaSingleNode: (
   view: EditorView,
   mediaState: MediaState,
-  inputMethod?: InputMethodInsertMedia | undefined,
-  collection?: string | undefined,
-  alignLeftOnInsert?: boolean | undefined,
-  newInsertionBehaviour?: boolean | undefined,
+  inputMethod?: InputMethodInsertMedia,
+  collection?: string,
+  alignLeftOnInsert?: boolean,
+  newInsertionBehaviour?: boolean,
 ) => boolean;
 
 // @public (undocumented)
@@ -1507,9 +1513,9 @@ export const insertTaskDecisionCommand: (
     | INPUT_METHOD.FORMATTING
     | INPUT_METHOD.QUICK_INSERT
     | InsertBlockInputMethodToolbar,
-  addItem?: AddItemTransactionCreator | undefined,
-  listLocalId?: string | undefined,
-  itemLocalId?: string | undefined,
+  addItem?: AddItemTransactionCreator,
+  listLocalId?: string,
+  itemLocalId?: string,
 ) => Command;
 
 // @public (undocumented)
@@ -1688,7 +1694,7 @@ export const mediaPlugin: NextEditorPlugin<
   'media',
   {
     pluginConfiguration: MediaOptions | undefined;
-    dependencies: [typeof featureFlagsPlugin];
+    dependencies: [typeof featureFlagsPlugin, typeof gridPlugin];
   }
 >;
 
@@ -1952,24 +1958,7 @@ interface NodeSelectionData {
 }
 
 // @public (undocumented)
-type NodeViewTracking = {
-  enabled: boolean;
-  samplingRate?: 100;
-  slowThreshold?: number;
-};
-
-// @public (undocumented)
 type NormalTextLevel = 0;
-
-// @public (undocumented)
-type OnChangeCallbackTracking = {
-  enabled: boolean;
-};
-
-// @public (undocumented)
-type OnEditorReadyCallbackTracking = {
-  enabled: boolean;
-};
 
 // @public (undocumented)
 type OnEditorViewStateUpdated = (props: {
@@ -2002,28 +1991,6 @@ interface PanelPluginConfig {
 type PastePluginOptions = {
   cardOptions?: CardOptions;
   sanitizePrivateContent?: boolean;
-};
-
-// @public (undocumented)
-type PasteTracking = {
-  enabled: boolean;
-};
-
-// @public (undocumented)
-type PerformanceTracking = {
-  catchAllTracking?: CatchAllTracking;
-  ttiTracking?: TTITracking;
-  inputTracking?: InputTracking;
-  transactionTracking?: TransactionTracking;
-  uiTracking?: UITracking;
-  nodeViewTracking?: NodeViewTracking;
-  bFreezeTracking?: BrowserFreezetracking;
-  proseMirrorRenderedTracking?: ProseMirrorRenderedTracking;
-  contentRetrievalTracking?: ContentRetrievalTracking;
-  onChangeCallbackTracking?: OnChangeCallbackTracking;
-  onEditorReadyCallbackTracking?: OnEditorReadyCallbackTracking;
-  pasteTracking?: PasteTracking;
-  renderTracking?: RenderTracking;
 };
 
 // @public (undocumented)
@@ -2179,7 +2146,7 @@ type PrimaryToolbarComponents =
 const processItems: (
   items: Array<QuickInsertHandler>,
   intl: IntlShape,
-  extendedActions?: Record<string, Function> | undefined,
+  extendedActions?: Record<string, Function>,
 ) => QuickInsertItem[];
 
 // @public (undocumented)
@@ -2239,14 +2206,6 @@ type Props_5 = {
 
 // @public (undocumented)
 type ProsemirrorGetPosHandler = () => number;
-
-// @public (undocumented)
-type ProseMirrorRenderedTracking = {
-  enabled?: boolean;
-  trackSeverity: boolean;
-  severityNormalThreshold: number;
-  severityDegradedThreshold: number;
-};
 
 // @public (undocumented)
 type ProviderFactoryState = {
@@ -2358,9 +2317,7 @@ class ReactEditorView_2<T = {}> extends React_2.Component<
     appearance: EditorAppearance | undefined,
   ) => FULL_WIDTH_MODE;
   // (undocumented)
-  getDirectEditorProps: (
-    state?: EditorState<any> | undefined,
-  ) => DirectEditorProps;
+  getDirectEditorProps: (state?: EditorState) => DirectEditorProps;
   // (undocumented)
   getEditorState: () => EditorState<any> | undefined;
   // (undocumented)
@@ -2409,15 +2366,8 @@ interface RectData {
 export const removeStatus: (showStatusPickerAt: number) => Command;
 
 // @public (undocumented)
-type RenderTracking = {
-  editor: {
-    enabled: boolean;
-    useShallow?: boolean;
-  };
-  reactEditorView: {
-    enabled: boolean;
-    useShallow?: boolean;
-  };
+type Required_2<T> = {
+  [P in keyof T]-?: T[P];
 };
 
 // @public (undocumented)
@@ -2803,28 +2753,6 @@ class TransactionTracker {
 }
 
 // @public (undocumented)
-type TransactionTracking = {
-  enabled: boolean;
-  usePerformanceMarks?: boolean;
-  samplingRate?: number;
-  slowThreshold?: number;
-  outlierThreshold?: number;
-  outlierFactor?: number;
-};
-
-// @public (undocumented)
-type TTITracking = {
-  enabled: boolean;
-  ttiIdleThreshold?: number;
-  ttiCancelTimeout?: number;
-  trackSeverity?: boolean;
-  ttiSeverityNormalThreshold?: number;
-  ttiSeverityDegradedThreshold?: number;
-  ttiFromInvocationSeverityNormalThreshold?: number;
-  ttiFromInvocationSeverityDegradedThreshold?: number;
-};
-
-// @public (undocumented)
 type TypeAheadInputMethod =
   | INPUT_METHOD.INSERT_MENU
   | INPUT_METHOD.KEYBOARD
@@ -2863,13 +2791,6 @@ interface TypeAheadStatsSerializable extends TypeAheadStats {
 }
 
 // @public (undocumented)
-type UITracking = {
-  enabled: boolean;
-  samplingRate?: number;
-  slowThreshold?: number;
-};
-
-// @public (undocumented)
 export type UpdateEvent = 'create' | 'delete' | 'resolve' | 'unresolve';
 
 // @public (undocumented)
@@ -2881,12 +2802,12 @@ export function updateLink(
 ): Command;
 
 // @public (undocumented)
-export const updateStatus: (status?: StatusType | undefined) => Command;
+export const updateStatus: (status?: StatusType) => Command;
 
 // @public (undocumented)
 export const updateStatusWithAnalytics: (
   inputMethod: InsertBlockInputMethodToolbar,
-  status?: StatusType | undefined,
+  status?: StatusType,
 ) => Command;
 
 // @public (undocumented)
@@ -2902,6 +2823,14 @@ export const version: string;
 
 // @public (undocumented)
 type VisibilityEvent = 'setvisibility';
+
+// @public (undocumented)
+const widthPlugin: NextEditorPlugin<
+  'width',
+  {
+    sharedState: EditorContainerWidth | undefined;
+  }
+>;
 
 // @public (undocumented)
 export class WithEditorActions extends React_2.Component<
@@ -2963,8 +2892,8 @@ export { WithPluginState };
 
 ```json
 {
-  "@atlaskit/link-provider": "^1.5.3",
-  "@atlaskit/media-core": "^34.0.2",
+  "@atlaskit/link-provider": "^1.6.1",
+  "@atlaskit/media-core": "^34.1.1",
   "react": "^16.8.0",
   "react-dom": "^16.8.0",
   "react-intl-next": "npm:react-intl@^5.18.1"

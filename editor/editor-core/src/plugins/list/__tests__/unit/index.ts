@@ -27,6 +27,7 @@ import listPlugin from '../..';
 import blockTypePlugin from '../../../block-type';
 import breakoutPlugin from '../../../breakout';
 import widthPlugin from '../../../width';
+import gridPlugin from '../../../grid';
 import layoutPlugin from '../../../layout';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import mediaPlugin from '../../../media';
@@ -36,6 +37,8 @@ import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { toggleOrderedList, toggleBulletList } from '../../commands';
 import { insertMediaAsMediaSingle } from '../../../media/utils/media-single';
 import { INPUT_METHOD } from '../../../analytics';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 describe('lists', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -43,10 +46,13 @@ describe('lists', () => {
   const editor = (doc: DocBuilder) => {
     const preset = new Preset<LightEditorPlugin>()
       .add([featureFlagsPlugin, {}])
+      .add([analyticsPlugin, {}])
+      .add(contentInsertionPlugin)
       .add(listPlugin)
       .add(blockTypePlugin)
       .add([breakoutPlugin, { allowBreakoutButton: true }])
       .add(widthPlugin)
+      .add(gridPlugin)
       .add([layoutPlugin, { allowBreakout: true }])
       .add(tablesPlugin)
       .add([mediaPlugin, { allowMediaSingle: true }]);

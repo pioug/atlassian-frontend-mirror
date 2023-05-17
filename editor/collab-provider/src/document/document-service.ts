@@ -230,10 +230,7 @@ export class DocumentService {
         });
         // If steps can apply to local editor successfully, no need to accumulate the error counter.
         this.stepRejectCounter = 0;
-        this.participantsService.emitTelepointersFromSteps(
-          steps,
-          this.providerEmitCallback,
-        );
+        this.participantsService.emitTelepointersFromSteps(steps);
 
         // Resend local steps if none of the received steps originated with us!
         if (clientIds.indexOf(this.clientId!) === -1) {

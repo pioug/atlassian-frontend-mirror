@@ -108,7 +108,7 @@ export default class Resizer extends React.Component<
 
     this.setState({ isResizing: true }, () => {
       const newHighlights = highlights(width + innerPadding, snapPoints);
-      displayGrid(
+      displayGrid?.(
         newHighlights.length > 0,
         gridTypeForLayout(layout),
         newHighlights,
@@ -147,7 +147,7 @@ export default class Resizer extends React.Component<
     }
 
     const newHighlights = highlights(newWidth, snapPoints);
-    displayGrid(
+    displayGrid?.(
       newHighlights.length > 0,
       gridTypeForLayout(newSize.layout),
       newHighlights,
@@ -192,7 +192,7 @@ export default class Resizer extends React.Component<
       );
     }
     // show committed grid size
-    displayGrid(
+    displayGrid?.(
       newHighlights.length > 0,
       gridTypeForLayout(newSize.layout),
       newHighlights,
@@ -200,7 +200,7 @@ export default class Resizer extends React.Component<
 
     this.setState({ isResizing: false }, () => {
       updateSize(newSize.width, newSize.layout);
-      displayGrid(false, gridTypeForLayout(layout));
+      displayGrid?.(false, gridTypeForLayout(layout), []);
     });
   };
 

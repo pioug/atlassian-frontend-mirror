@@ -1,6 +1,6 @@
 import { css, Theme } from '@emotion/react';
 import { themed } from '@atlaskit/theme/components';
-import { gridSize, fontFamily, fontSize } from '@atlaskit/theme/constants';
+import { fontFamily, fontSize } from '@atlaskit/theme/constants';
 import * as colors from '@atlaskit/theme/colors';
 import { headingSizes as headingSizesImport } from '@atlaskit/theme/typography';
 import { ThemeProps } from '@atlaskit/theme/types';
@@ -61,6 +61,7 @@ export type RendererWrapperProps = {
   allowNestedHeaderLinks: boolean;
   allowColumnSorting: boolean;
   useFragmentMarkBreakoutWidthStylingFix: boolean;
+  useBlockRenderForCodeBlock: boolean;
 };
 
 type HeadingSizes = keyof typeof headingSizesImport;
@@ -368,6 +369,7 @@ export const rendererStyles =
   (wrapperProps: RendererWrapperProps) => (theme: Theme) => {
     // This is required to be compatible with styled-components prop structure.
     const themeProps = { theme };
+    const { useBlockRenderForCodeBlock } = wrapperProps;
 
     return css`
       font-size: ${editorFontSize(themeProps)}px;
@@ -486,7 +488,7 @@ export const rendererStyles =
       & .renderer-image {
         max-width: 100%;
         display: block;
-        margin: ${gridSize() * 3}px 0;
+        margin: ${token('space.300', '24px')} 0;
       }
 
       .${richMediaClassName}.rich-media-wrapped
@@ -702,12 +704,9 @@ export const rendererStyles =
         max-width: 100%;
         /* -ms- properties are necessary until MS supports the latest version of the grid spec */
         /* stylelint-disable value-no-vendor-prefix, declaration-block-no-duplicate-properties */
-        display: -ms-grid;
-        display: grid;
-        -ms-grid-columns: auto 1fr;
+        display: block;
         /* stylelint-enable */
 
-        grid-template-columns: minmax(0, 1fr);
         position: relative;
         border-radius: ${token('border.radius.100', '3px')};
 
@@ -716,14 +715,6 @@ export const rendererStyles =
      * code block line numbers in Safari / iOS.
      */
         word-wrap: normal;
-
-        & > span {
-          /* stylelint-disable value-no-vendor-prefix */
-          -ms-grid-row: 1;
-          -ms-grid-column: 2;
-          /* stylelint-enable */
-          grid-column: 1;
-        }
       }
 
       & .MediaGroup,
@@ -735,13 +726,15 @@ export const rendererStyles =
         }
       }
 
+      ${useGridRenderForCodeBlock(useBlockRenderForCodeBlock)}
+
       ${getLightWeightCodeBlockStylesForRootRendererStyleSheet()}
 
       ${columnLayoutSharedStyle};
       & [data-layout-section] {
-        margin-top: ${gridSize() * 2.5}px;
+        margin-top: ${token('space.250', '20px')};
         & > div + div {
-          margin-left: ${gridSize() * 4}px;
+          margin-left: ${token('space.400', '32px')};
         }
 
         @media screen and (max-width: ${gridMediumMaxWidth}px) {
@@ -778,3 +771,27 @@ export const rendererStyles =
       }
     `;
   };
+
+const useGridRenderForCodeBlock = (codeBlockRenderAsBlock: boolean) => {
+  if (codeBlockRenderAsBlock) {
+    return '';
+  }
+  return `& .code-block {
+       /* -ms- properties are necessary until MS supports the latest version of the grid spec */
+       /* stylelint-disable value-no-vendor-prefix, declaration-block-no-duplicate-properties */
+       display: -ms-grid;
+       display: grid;
+       -ms-grid-columns: auto 1fr;
+       /* stylelint-enable */
+
+       grid-template-columns: minmax(0, 1fr);
+
+       & > span {
+         /* stylelint-disable value-no-vendor-prefix */
+         -ms-grid-row: 1;
+         -ms-grid-column: 2;
+         /* stylelint-enable */
+         grid-column: 1;
+       }
+     }`;
+};

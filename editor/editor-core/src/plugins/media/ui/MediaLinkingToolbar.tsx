@@ -8,7 +8,8 @@ import EditorUnlinkIcon from '@atlaskit/icon/glyph/editor/unlink';
 // Common Translations will live here
 import { IntlShape, WrappedComponentProps } from 'react-intl-next';
 import PanelTextInput from '../../../ui/PanelTextInput';
-import Button from '../../floating-toolbar/ui/Button';
+import { FloatingToolbarButton as Button } from '@atlaskit/editor-common/ui';
+
 import Separator from '../../floating-toolbar/ui/Separator';
 import {
   container,
@@ -22,7 +23,7 @@ import {
   RecentSearchSubmitOptions,
 } from '../../../ui/LinkSearch/types';
 import { linkToolbarMessages } from '../../../messages';
-import { normalizeUrl } from '../../hyperlink/utils';
+import { normalizeUrl } from '@atlaskit/editor-common/utils';
 import { R400 } from '@atlaskit/theme/colors';
 import { INPUT_METHOD } from '../../analytics/types/enums';
 import { mediaLinkToolbarMessages } from './media-linking-toolbar-messages';

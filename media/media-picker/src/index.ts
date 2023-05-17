@@ -8,6 +8,7 @@ export type {
   UploadPreviewUpdateEventPayload,
   UploadEndEventPayload,
   UploadErrorEventPayload,
+  UploadRejectionData,
   MediaFile,
   Preview,
   NonImagePreview,

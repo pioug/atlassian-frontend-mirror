@@ -24,6 +24,9 @@ import {
 import { pluginKey } from '../../../../plugins/table/pm-plugins/plugin-key';
 import { TableDecorations } from '../../../../plugins/table/types';
 import tablePlugin from '../../../../plugins/table';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 describe('decorations plugin', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -31,7 +34,11 @@ describe('decorations plugin', () => {
     createEditor({
       doc,
       attachTo: document.body,
-      preset: new Preset<LightEditorPlugin>().add(tablePlugin),
+      preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
+        .add([analyticsPlugin, {}])
+        .add(contentInsertionPlugin)
+        .add(tablePlugin),
       pluginKey,
     });
 

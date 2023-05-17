@@ -43,6 +43,7 @@ describe('<HyperlinkToolbarAppearance />', () => {
         url={url}
         platform={platform}
         cardOptions={cardOptions}
+        editorAnalyticsApi={undefined}
       />,
     );
 

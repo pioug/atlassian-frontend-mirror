@@ -18,7 +18,7 @@ import tablePlugin from '../../../../plugins/table';
 import { pluginKey } from '../../../../plugins/table/pm-plugins/plugin-key';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import createStub, { Stub } from 'raf-stub';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+
 jest.mock(
   '../../../../plugins/table/pm-plugins/sticky-headers/commands',
   () => ({
@@ -43,6 +43,9 @@ import {
   stickyRowOffsetTop,
   tableScrollbarOffset,
 } from '../../../../plugins/table/ui/consts';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 describe('TableRowNodeView', () => {
   let tableRowNodeView: TableRowNodeView;
@@ -54,8 +57,10 @@ describe('TableRowNodeView', () => {
     return createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>()
-        .add(tablePlugin)
-        .add([featureFlagsPlugin, featureFlags]),
+        .add([featureFlagsPlugin, {}])
+        .add([analyticsPlugin, {}])
+        .add(contentInsertionPlugin)
+        .add(tablePlugin),
       pluginKey,
       attachTo: document.body,
     });
@@ -82,7 +87,11 @@ describe('TableRowNodeView', () => {
       const editorWithTableSticky = (doc: DocBuilder) =>
         createEditor({
           doc,
-          preset: new Preset<LightEditorPlugin>().add(tablePlugin),
+          preset: new Preset<LightEditorPlugin>()
+            .add([featureFlagsPlugin, {}])
+            .add([analyticsPlugin, {}])
+            .add(contentInsertionPlugin)
+            .add(tablePlugin),
           pluginKey,
         });
       const editorData = editorWithTableSticky(

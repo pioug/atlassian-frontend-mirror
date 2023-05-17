@@ -6,7 +6,7 @@ import { FeatureFlags } from '../../../types/feature-flags';
 
 import { createRule, createPlugin } from '../../../utils/input-rules';
 import { leafNodeReplacementCharacter } from '@atlaskit/prosemirror-input-rules';
-import { safeInsert } from '../../../utils/insert';
+import { safeInsert } from '@atlaskit/editor-common/insert';
 import { hasParentNodeOfType } from 'prosemirror-utils';
 
 import {

@@ -1,8 +1,10 @@
 /** @jsx jsx */
 import React, { useRef, useCallback, useMemo } from 'react';
 import { css, jsx } from '@emotion/react';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize, fontSize } from '@atlaskit/theme/constants';
 import { ThemeProps } from '@atlaskit/theme/types';
+import { token } from '@atlaskit/tokens';
 import ChevronRightIcon from '@atlaskit/icon/glyph/chevron-right';
 import Tooltip from '@atlaskit/tooltip';
 import {
@@ -45,12 +47,14 @@ const titleStyles = css`
   display: flex;
   flex: 1;
   margin: 0;
-  padding: 0 0 0 ${gridSize() / 2}px;
+  padding: 0 0 0 ${token('space.050', '4px')};
   text-align: left;
 `;
 
 const Container: React.FC<StyleProps> = (props) => {
-  const paddingBottom = `${props.expanded ? gridSize() : 0}px`;
+  const paddingBottom = props.expanded
+    ? token('space.100', '8px')
+    : token('space.0', '0px');
   const sharedContainerStyles = sharedExpandStyles.containerStyles(props);
 
   const styles = (themeProps: ThemeProps) => css`
@@ -69,11 +73,13 @@ const Container: React.FC<StyleProps> = (props) => {
 const TitleContainer: React.FC<
   StyleProps & React.ButtonHTMLAttributes<HTMLButtonElement>
 > = (props) => {
-  const paddingBottom = `${!props.expanded ? gridSize() : 0}px`;
+  const paddingBottom = !props.expanded
+    ? token('space.100', '8px')
+    : token('space.0', '0px');
 
   const styles = (themeProps: ThemeProps) => css`
     ${sharedExpandStyles.titleContainerStyles({ theme: themeProps })}
-    padding: ${gridSize()}px;
+    padding: ${token('space.100', '8px')};
     padding-bottom: ${paddingBottom};
   `;
 
@@ -92,7 +98,9 @@ const ContentContainer: React.FC<StyleProps> = (props) => {
 
   const styles = (themeProps: ThemeProps) => css`
     ${sharedContentStyles({ theme: themeProps })};
-    padding-right: ${gridSize() * 2}px;
+    padding-right: ${token('space.200', '16px')};
+    // TODO: Migrate away from gridSize
+    // Recommendation: Replace gridSize with 8, or directly replace with 36px
     padding-left: ${gridSize() * 5 - gridSize() / 2}px;
     visibility: ${visibility};
   `;

@@ -45,9 +45,14 @@ import panelPlugin from '../../../panel';
 import mediaPlugin from '../../../media';
 import captionPlugin from '../../../caption';
 import listPlugin from '../../../list';
+import widthPlugin from '../../../width';
+import gridPlugin from '../../../grid';
 import extensionPlugin from '../../../extension';
 import editorDisabledPlugin from '../../../editor-disabled';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import deprecatedAnalyticsPlugin from '../../../analytics';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 const pasteAndCompare = (
   { editorView }: { editorView: EditorView },
@@ -73,11 +78,16 @@ describe('action paste handler', () => {
       doc,
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
+        .add([analyticsPlugin, {}])
+        .add([deprecatedAnalyticsPlugin, {}])
+        .add(contentInsertionPlugin)
         .add(editorDisabledPlugin)
         .add([pastePlugin, {}])
         .add([tasksAndDecisionsPlugin, {}])
         .add(blockTypePlugin)
         .add(captionPlugin)
+        .add(widthPlugin)
+        .add(gridPlugin)
         .add([
           mediaPlugin,
           { allowMediaSingle: true, featureFlags: { captions: true } },

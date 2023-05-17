@@ -13,6 +13,7 @@ import {
   annotationSharedStyles,
   smartCardSharedStyles,
   textColorStyles,
+  resizerStyles,
 } from '@atlaskit/editor-common/styles';
 import { editorFontSize } from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
@@ -120,6 +121,7 @@ const contentStyles = (props: ContentStylesProps) => css`
   ${dateStyles}
   ${embedCardStyles}
   ${unsupportedStyles}
+  ${resizerStyles}
 
   .panelView-content-wrap {
     box-sizing: border-box;

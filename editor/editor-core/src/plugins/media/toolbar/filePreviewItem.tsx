@@ -4,7 +4,8 @@ import { FileIdentifier } from '@atlaskit/media-client';
 import { MediaViewer } from '@atlaskit/media-viewer';
 import { messages } from '@atlaskit/media-ui';
 import FilePreviewIcon from '@atlaskit/icon/glyph/editor/file-preview';
-import ToolbarButton from '../../floating-toolbar/ui/Button';
+import { FloatingToolbarButton as ToolbarButton } from '@atlaskit/editor-common/ui';
+
 import { MediaPluginState } from '../pm-plugins/types';
 import { getSelectedMediaContainerNodeAttrs } from './utils';
 import { IntlShape } from 'react-intl-next';

@@ -32,7 +32,7 @@ import {
   imageAlignmentMap,
   snapTo,
 } from '../../../ui/Resizer/utils';
-import { calcMediaPxWidth } from '../../../plugins/media/utils/media-single';
+import { calcMediaPxWidth } from '@atlaskit/editor-common/ui';
 import { embedSpacingStyles } from './styled';
 
 type State = {

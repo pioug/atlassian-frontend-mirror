@@ -1,5 +1,11 @@
 # @atlaskit/inline-message
 
+## 11.5.2
+
+### Patch Changes
+
+- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+
 ## 11.5.1
 
 ### Patch Changes

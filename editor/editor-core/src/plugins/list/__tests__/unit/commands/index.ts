@@ -24,13 +24,14 @@ import {
   indentList,
   toggleList,
 } from '../../../commands';
-import analyticsPlugin, {
+import deprecatedAnalyticsPlugin, {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
   INPUT_METHOD,
 } from '../../../../analytics';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
@@ -64,6 +65,7 @@ describe('lists plugin -> commands', () => {
       .add([featureFlagsPlugin, {}])
       .add(listPlugin)
       .add([analyticsPlugin, { createAnalyticsEvent }])
+      .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
       .add(blockTypePlugin)
       .add(editorDisabledPlugin)
       .add(datePlugin)

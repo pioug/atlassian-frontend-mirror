@@ -78,7 +78,13 @@ describe('resolveWithProvider()', () => {
       ),
     );
     const options = { allowBlockCards: true };
-    await resolveWithProvider(editorView, cardProvider, request, options);
+    await resolveWithProvider(
+      editorView,
+      cardProvider,
+      request,
+      options,
+      undefined,
+    );
     expect(cardProvider.resolve).toHaveBeenCalledTimes(1);
     expect(cardProvider.resolve).toBeCalledWith(url, 'block', true);
   });
@@ -104,7 +110,13 @@ describe('resolveWithProvider()', () => {
       ),
     );
     const options = { allowBlockCards: true };
-    await resolveWithProvider(editorView, cardProvider, request, options);
+    await resolveWithProvider(
+      editorView,
+      cardProvider,
+      request,
+      options,
+      undefined,
+    );
     expect(cardProvider.resolve).toHaveBeenCalledTimes(1);
     expect(cardProvider.resolve).toBeCalledWith(url, 'block', false);
   });
@@ -140,6 +152,7 @@ describe('resolveWithProvider()', () => {
           testCardProvider,
           request,
           options,
+          undefined,
         )) as CardAdf;
 
         expect(testCardProvider.resolve).toBeCalledWith(url, appearance, false);

@@ -53,9 +53,12 @@ import {
 } from '../../plugins/table/utils';
 import listPlugin from '@atlaskit/editor-core/src/plugins/list';
 import textFormattingPlugin from '@atlaskit/editor-core/src/plugins/text-formatting';
-import analyticsPlugin from '@atlaskit/editor-core/src/plugins/analytics';
+import deprecatedAnalyticsPlugin from '@atlaskit/editor-core/src/plugins/analytics';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import mediaPlugin from '@atlaskit/editor-core/src/plugins/media';
 import selectionPlugin from '@atlaskit/editor-core/src/plugins/selection';
+import widthPlugin from '@atlaskit/editor-core/src/plugins/width';
+import gridPlugin from '@atlaskit/editor-core/src/plugins/grid';
 import { insertMediaAsMediaSingle } from '@atlaskit/editor-core/src/plugins/media/utils/media-single';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { getPluginState } from '../../plugins/table/pm-plugins/plugin-factory';
@@ -63,6 +66,7 @@ import { pluginKey } from '../../plugins/table/pm-plugins/plugin-key';
 import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
 import tablePlugin from '../../plugins/table-plugin';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 
@@ -93,9 +97,13 @@ describe('table plugin', () => {
 
     const preset = new Preset<LightEditorPlugin>()
       .add([featureFlagsPlugin, {}])
+      .add([analyticsPlugin, {}])
+      .add([deprecatedAnalyticsPlugin, {}])
+      .add(contentInsertionPlugin)
+      .add(widthPlugin)
+      .add(gridPlugin)
       .add([tablePlugin, { tableOptions }])
       .add([mediaPlugin, { allowMediaSingle: true }])
-      .add([analyticsPlugin, {}])
       .add(textFormattingPlugin)
       .add(listPlugin)
       .add(selectionPlugin);

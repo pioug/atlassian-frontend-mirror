@@ -6,7 +6,6 @@ import { findTable } from '@atlaskit/editor-tables/utils';
 import { CellAttributes } from '@atlaskit/adf-schema';
 import { AddColumnStep } from '@atlaskit/adf-schema/steps';
 
-import { setMeta } from './metadata';
 import { splitCellsInColumns } from './split';
 
 const deleteColumnsCustomStep =
@@ -155,7 +154,7 @@ const deleteColumnsLegacy =
     }
 
     if (!rows.length) {
-      return setMeta({ type: 'DELETE_COLUMNS', problem: 'EMPTY_TABLE' })(tr);
+      return tr;
     }
 
     const newTable = table.node.type.createChecked(
@@ -166,16 +165,16 @@ const deleteColumnsLegacy =
 
     const fixedTable = fixRowSpans(newTable);
     if (fixedTable === null) {
-      return setMeta({ type: 'DELETE_COLUMNS', problem: 'FIX_ROWSPANS' })(tr);
+      return tr;
     }
 
     const cursorPos = getNextCursorPos(newTable, columnsToDelete);
 
-    return setMeta({ type: 'DELETE_COLUMNS' })(
+    return (
       tr
         .replaceWith(table.pos, table.pos + table.node.nodeSize, fixedTable)
         // move cursor to the left of the deleted columns if possible, otherwise - to the first column
-        .setSelection(Selection.near(tr.doc.resolve(table.pos + cursorPos))),
+        .setSelection(Selection.near(tr.doc.resolve(table.pos + cursorPos)))
     );
   };
 

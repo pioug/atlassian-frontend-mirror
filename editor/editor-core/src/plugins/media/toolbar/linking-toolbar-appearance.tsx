@@ -11,7 +11,8 @@ import { isSafeUrl } from '@atlaskit/adf-schema';
 import { checkMediaType } from '../utils/check-media-type';
 import { MediaLinkingState } from '../pm-plugins/linking';
 
-import ToolbarButton from '../../floating-toolbar/ui/Button';
+import { FloatingToolbarButton as ToolbarButton } from '@atlaskit/editor-common/ui';
+
 import Separator from '../../floating-toolbar/ui/Separator';
 
 import { linkToolbarMessages, linkMessages } from '../../../messages';

@@ -9,6 +9,7 @@ import { IntlErrorBoundary } from '@atlaskit/editor-common/ui';
 import type { UserBrowserExtensionResults } from '@atlaskit/editor-common/utils';
 import { sniffUserBrowserExtensions } from '@atlaskit/editor-common/utils';
 import type { CustomData } from '@atlaskit/ufo/types';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -21,6 +22,7 @@ import { FeatureFlags } from '../types/feature-flags';
 import { getDocStructure } from '../utils/document-logger';
 import { WithEditorView } from './WithEditorView';
 import { isOutdatedBrowser } from '@atlaskit/editor-common/utils';
+import { logException } from '@atlaskit/editor-common/monitoring';
 
 export type ErrorBoundaryProps = {
   createAnalyticsEvent?: CreateUIAnalyticsEvent;
@@ -29,6 +31,7 @@ export type ErrorBoundaryProps = {
   rethrow?: boolean;
   children: React.ReactNode;
   featureFlags: FeatureFlags;
+  errorTracking?: boolean;
 };
 
 export type ErrorBoundaryState = {
@@ -40,7 +43,7 @@ type AnalyticsErrorBoundaryErrorInfo = {
 };
 
 type AnalyticsErrorBoundaryAttributes = {
-  error: string;
+  error: Error;
   info?: AnalyticsErrorBoundaryErrorInfo;
   [key: string]: any;
 };
@@ -55,6 +58,7 @@ export class ErrorBoundaryWithEditorView extends React.Component<
 
   static defaultProps = {
     rethrow: true,
+    errorTracking: true,
   };
 
   state = {
@@ -82,7 +86,7 @@ export class ErrorBoundaryWithEditorView extends React.Component<
     const attributes: ErrorEventAttributes = {
       product,
       browserInfo,
-      error: error as any as Error,
+      error: error.toString() as any as Error,
       errorInfo,
       errorId: sharedId,
       browserExtensions: this.browserExtensions,
@@ -117,6 +121,13 @@ export class ErrorBoundaryWithEditorView extends React.Component<
         errorStack,
       });
     }
+
+    if (getBooleanFF('platform.editor.sentry-error-monitoring_6bksu')) {
+      logException(error, {
+        location: 'editor-core/create-editor',
+        product,
+      });
+    }
   };
 
   private getProductName = async () => {
@@ -148,11 +159,13 @@ export class ErrorBoundaryWithEditorView extends React.Component<
   });
 
   componentDidCatch(error: Error, errorInfo: AnalyticsErrorBoundaryErrorInfo) {
-    this.sendErrorData({
-      error: error.toString(),
-      errorInfo,
-      errorStack: error.stack,
-    });
+    if (this.props.errorTracking) {
+      this.sendErrorData({
+        error,
+        errorInfo,
+        errorStack: error.stack,
+      });
+    }
 
     // // Update state to allow a re-render to attempt graceful recovery (in the event that
     // // the error was caused by a race condition or is intermittent)

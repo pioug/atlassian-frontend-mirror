@@ -23,7 +23,7 @@ import { commandWithMetadata } from '@atlaskit/editor-common/card';
 import UnlinkIcon from '@atlaskit/icon/glyph/editor/unlink';
 import CogIcon from '@atlaskit/icon/glyph/editor/settings';
 import OpenIcon from '@atlaskit/icon/glyph/shortcut';
-import { normalizeUrl } from './utils';
+import { normalizeUrl } from '@atlaskit/editor-common/utils';
 import { EditorState } from 'prosemirror-state';
 import {
   linkToolbarMessages as linkToolbarCommonMessages,
@@ -52,6 +52,7 @@ import {
 import { HyperlinkPluginOptions } from './types';
 import { IntlShape } from 'react-intl-next';
 import { FeatureFlags } from '@atlaskit/editor-common/types';
+import { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 /* type guard for edit links */
 function isEditLink(
@@ -132,6 +133,7 @@ export const getToolbarConfig =
   (
     options: HyperlinkPluginOptions,
     featureFlags: FeatureFlags,
+    editorAnalyticsApi: EditorAnalyticsAPI | undefined,
   ): FloatingToolbarHandler =>
   (state, intl, providerFactory) => {
     const { formatMessage } = intl;
@@ -206,6 +208,7 @@ export const getToolbarConfig =
                       cardOptions={options?.cardOptions}
                       providerFactory={providerFactory}
                       platform={options?.platform}
+                      editorAnalyticsApi={editorAnalyticsApi}
                     />
                   );
                 },

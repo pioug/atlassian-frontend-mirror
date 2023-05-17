@@ -6,8 +6,6 @@ import { findTable, getSelectionRect } from '@atlaskit/editor-tables/utils';
 
 import { CellAttributes } from '@atlaskit/adf-schema';
 
-import { setMeta } from './metadata';
-
 // re-creates table node with merged cells
 export function mergeCells(tr: Transaction): Transaction {
   const { selection } = tr;
@@ -55,9 +53,7 @@ export function mergeCells(tr: Transaction): Transaction {
         }
         const rowspan = rect.bottom - rect.top;
         if (rowspan < 1) {
-          return setMeta({ type: 'MERGE_CELLS', problem: 'NEGATIVE_ROWSPAN' })(
-            tr,
-          );
+          return tr;
         }
         // update colspan and rowspan of the merged cell to span the selection
         const attrs = addColSpan(
@@ -95,10 +91,7 @@ export function mergeCells(tr: Transaction): Transaction {
           if (rowspan && rowspan + i - 1 >= rows.length) {
             rowChanged = true;
             if (rowspan < 2) {
-              return setMeta({
-                type: 'MERGE_CELLS',
-                problem: 'NEGATIVE_ROWSPAN',
-              })(tr);
+              return tr;
             }
             cells.push(
               cell.type.createChecked(
@@ -123,7 +116,7 @@ export function mergeCells(tr: Transaction): Transaction {
 
   // empty tables? cancel merging like nothing happened
   if (!rows.length) {
-    return setMeta({ type: 'MERGE_CELLS', problem: 'EMPTY_TABLE' })(tr);
+    return tr;
   }
 
   const newTable = table.node.type.createChecked(
@@ -134,18 +127,14 @@ export function mergeCells(tr: Transaction): Transaction {
 
   const fixedTable = mergeEmptyColumns(newTable);
   if (fixedTable === null) {
-    return setMeta({ type: 'MERGE_CELLS', problem: 'REMOVE_EMPTY_COLUMNS' })(
-      tr,
-    );
+    return tr;
   }
 
-  return setMeta({ type: 'MERGE_CELLS' })(
-    tr
-      .replaceWith(table.pos, table.pos + table.node.nodeSize, fixedTable)
-      .setSelection(
-        Selection.near(tr.doc.resolve((mergedCellPos || 0) + table.start)),
-      ),
-  );
+  return tr
+    .replaceWith(table.pos, table.pos + table.node.nodeSize, fixedTable)
+    .setSelection(
+      Selection.near(tr.doc.resolve((mergedCellPos || 0) + table.start)),
+    );
 }
 
 export function canMergeCells(tr: Transaction): boolean {

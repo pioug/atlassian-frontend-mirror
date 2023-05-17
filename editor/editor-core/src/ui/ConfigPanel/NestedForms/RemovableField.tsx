@@ -3,8 +3,6 @@ import React from 'react';
 import { css, jsx } from '@emotion/react';
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 
-import { gridSize } from '@atlaskit/theme/constants';
-
 import CrossCircleIcon from '@atlaskit/icon/glyph/cross-circle';
 import Tooltip from '@atlaskit/tooltip';
 import { N80, R300 } from '@atlaskit/theme/colors';
@@ -18,7 +16,7 @@ const removableFieldWrapper = css`
 `;
 
 const wrapperWithMarginBottom = css`
-  margin-bottom: ${gridSize() * 2}px;
+  margin-bottom: ${token('space.200', '16px')};
 `;
 
 const removeButtonWrapper = css`

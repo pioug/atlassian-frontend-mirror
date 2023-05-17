@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 import Avatar from '@atlaskit/avatar';
-import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import { FormatOptionLabelMeta } from '@atlaskit/select';
 import { Option } from '@atlaskit/editor-common/extensions';
@@ -51,7 +51,7 @@ export const formatOptionLabel = (
           icon
         )}
       </span>
-      <div style={{ paddingLeft: icon ? gridSize() : 0 }}>
+      <div style={{ paddingLeft: icon ? token('space.100', '8px') : 0 }}>
         <p>
           {label}
           {description && context !== 'value' && <small>{description}</small>}

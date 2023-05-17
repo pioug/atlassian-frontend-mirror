@@ -4,13 +4,18 @@ import { useContext } from 'react';
 import { ClassNames, css, jsx } from '@emotion/react';
 
 import FocusRing from '@atlaskit/focus-ring';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import Inline, { InlineProps } from '@atlaskit/primitives/inline';
 import { N20, N200, N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import type { MenuItemPrimitiveProps, RenderFunction } from '../../types';
 
-import { SpacingContext, SpacingMode } from './menu-context';
+import {
+  SELECTION_STYLE_CONTEXT_DO_NOT_USE,
+  SpacingContext,
+  SpacingMode,
+} from './menu-context';
 
 const defaultRender: RenderFunction = (Component, props) => (
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
@@ -55,6 +60,10 @@ const descriptionStyles = css({
 
 const disabledDescriptionStyles = css({
   color: token('color.text.disabled', N200),
+});
+
+const positionRelativeStyles = css({
+  position: 'relative',
 });
 
 const primitiveStyles = css({
@@ -121,6 +130,31 @@ const disabledStyles = css({
   },
 });
 
+const selectedBorderStyles = css({
+  '&::before': {
+    width: 2,
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    background: token('color.border.selected', 'transparent'),
+    content: '""',
+  },
+});
+
+const selectedNotchStyles = css({
+  '&::before': {
+    width: 4,
+    position: 'absolute',
+    top: token('space.150', '12px'),
+    bottom: token('space.150', '12px'),
+    left: 0,
+    background: token('color.border.selected', 'transparent'),
+    borderRadius: '0 4px 4px 0',
+    content: '""',
+  },
+});
+
 const selectedStyles = css({
   backgroundColor: token('color.background.selected', N20),
   // Fallback set as babel plugin inserts one otherwise
@@ -171,6 +205,7 @@ const MenuItemPrimitive = ({
   isSelected = false,
 }: MenuItemPrimitiveProps) => {
   const spacing = useContext(SpacingContext);
+  const selectionStyle = useContext(SELECTION_STYLE_CONTEXT_DO_NOT_USE);
   const renderTitle =
     (overrides && overrides.Title && overrides.Title.render) || defaultRender;
 
@@ -182,10 +217,22 @@ const MenuItemPrimitive = ({
             {children({
               className: cx([
                 cn([
+                  getBooleanFF(
+                    'platform.design-system-team.menu-selected-state-change_0see9',
+                  ) && positionRelativeStyles,
                   primitiveStyles,
                   spacingMapStyles[spacing],
                   !isDisabled && !isSelected && unselectedStyles,
-                  !isDisabled && isSelected && selectedStyles,
+                  !isDisabled &&
+                    isSelected && [
+                      selectedStyles,
+                      getBooleanFF(
+                        'platform.design-system-team.menu-selected-state-change_0see9',
+                      ) &&
+                        (selectionStyle === 'border'
+                          ? selectedBorderStyles
+                          : selectedNotchStyles),
+                    ],
                   isDisabled ? disabledStyles : interactiveStyles,
                 ]),
                 className,

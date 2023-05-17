@@ -13,6 +13,8 @@ import {
   MediaSingle as RichMediaWrapper,
   findOverflowScrollParent,
 } from '@atlaskit/editor-common/ui';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import {
   DEFAULT_EMBED_CARD_HEIGHT,
   DEFAULT_EMBED_CARD_WIDTH,
@@ -21,9 +23,6 @@ import { RichMediaLayout } from '@atlaskit/adf-schema';
 import { SelectionBasedNodeView } from '../../../nodeviews/';
 import { registerCard } from '../pm-plugins/actions';
 import ResizableEmbedCard from '../ui/ResizableEmbedCard';
-import { createDisplayGrid } from '../../../plugins/grid';
-import WithPluginState from '../../../ui/WithPluginState';
-import { pluginKey as widthPluginKey } from '../../width';
 
 import {
   floatingLayouts,
@@ -33,6 +32,133 @@ import { EventDispatcher } from '../../../event-dispatcher';
 import { ColumnResizingPluginState } from '@atlaskit/editor-plugin-table/types';
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
 import { EditorState, PluginKey } from 'prosemirror-state';
+import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import type cardPlugin from '../index';
+import { getPosHandler } from '../../../nodeviews';
+import type { GridType, Highlights } from '../../grid/types';
+
+interface CardProps {
+  layout: any;
+  pctWidth: any;
+  fullWidthMode: any;
+}
+
+interface CardInnerProps {
+  pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined;
+  getPosSafely: () => number | undefined;
+  view: EditorView;
+  getLineLength: (
+    view: EditorView,
+    pos: number | boolean,
+    originalLineLength: number,
+  ) => number;
+  smartCard: React.ReactElement;
+  eventDispatcher: EventDispatcher;
+  updateSize: (
+    pctWidth: number | null,
+    layout: RichMediaLayout,
+  ) => boolean | undefined;
+  getPos: getPosHandler;
+  aspectRatio: number;
+  allowResizing: boolean | undefined;
+  hasPreview: boolean;
+  heightAlone: number;
+  cardProps: CardProps;
+  dispatchAnalyticsEvent: DispatchAnalyticsEvent | undefined;
+}
+
+const CardInner = ({
+  pluginInjectionApi,
+  getPosSafely,
+  getLineLength,
+  view,
+  smartCard,
+  eventDispatcher,
+  updateSize,
+  getPos,
+  aspectRatio,
+  allowResizing,
+  hasPreview,
+  heightAlone,
+  cardProps,
+  dispatchAnalyticsEvent,
+}: CardInnerProps) => {
+  const { widthState } = useSharedPluginState(pluginInjectionApi, ['width']);
+
+  const widthStateLineLength = widthState?.lineLength || 0;
+  const widthStateWidth = widthState?.width || 0;
+
+  const pos = getPosSafely();
+  if (pos === undefined) {
+    return null;
+  }
+  const lineLength = getLineLength(view, pos, widthStateLineLength);
+
+  const containerWidth = isRichMediaInsideOfBlockNode(view, pos)
+    ? lineLength
+    : widthStateWidth;
+
+  if (!allowResizing || !hasPreview) {
+    // There are two ways `width` and `height` can be defined here:
+    // 1) Either as `heightAlone` as height value and no width
+    // 2) or as `1` for height and aspectRation (defined or a default one) as a width
+    // See above for how aspectRation is calculated.
+    const defaultAspectRatio =
+      DEFAULT_EMBED_CARD_WIDTH / DEFAULT_EMBED_CARD_HEIGHT;
+
+    let richMediaWrapperHeight = 1;
+    let richMediaWrapperWidth: number | undefined =
+      aspectRatio || defaultAspectRatio;
+
+    if (heightAlone) {
+      richMediaWrapperHeight = heightAlone;
+      richMediaWrapperWidth = undefined;
+    }
+
+    return (
+      <RichMediaWrapper
+        {...cardProps}
+        height={richMediaWrapperHeight}
+        width={richMediaWrapperWidth}
+        nodeType="embedCard"
+        hasFallbackContainer={hasPreview}
+        lineLength={lineLength}
+        containerWidth={containerWidth}
+      >
+        {smartCard}
+      </RichMediaWrapper>
+    );
+  }
+
+  const displayGrid = (
+    visible: boolean,
+    gridType: GridType,
+    highlight: number[] | string[],
+  ) =>
+    pluginInjectionApi?.dependencies?.grid?.actions.displayGrid(view)({
+      visible,
+      gridType,
+      highlight: highlight as Highlights,
+    });
+
+  return (
+    <ResizableEmbedCard
+      {...cardProps}
+      height={heightAlone}
+      aspectRatio={aspectRatio}
+      view={view}
+      getPos={getPos}
+      lineLength={lineLength}
+      gridSize={12}
+      containerWidth={containerWidth}
+      displayGrid={displayGrid}
+      updateSize={updateSize}
+      dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+    >
+      {smartCard}
+    </ResizableEmbedCard>
+  );
+};
 
 export type EmbedCardState = {
   hasPreview: boolean;
@@ -240,6 +366,7 @@ export class EmbedCardComponent extends React.PureComponent<
       view,
       dispatchAnalyticsEvent,
       getPos,
+      pluginInjectionApi,
     } = this.props;
 
     let {
@@ -270,102 +397,42 @@ export class EmbedCardComponent extends React.PureComponent<
       fullWidthMode,
     };
 
+    const smartCard = (
+      <SmartCard
+        key={url}
+        url={url}
+        appearance="embed"
+        onClick={this.onClick}
+        onResolve={this.onResolve}
+        showActions={platform === 'web'}
+        isFrameVisible
+        inheritDimensions={true}
+        platform={platform}
+        container={this.scrollContainer}
+        embedIframeRef={this.embedIframeRef}
+      />
+    );
+
     const cardInner = (
       <EmbedResizeMessageListener
         embedIframeRef={this.embedIframeRef}
         onHeightUpdate={this.onHeightUpdate}
       >
-        <WithPluginState
-          editorView={view}
-          plugins={{
-            widthState: widthPluginKey,
-          }}
-          render={({ widthState }) => {
-            const widthStateLineLength = widthState?.lineLength || 0;
-            const widthStateWidth = widthState?.width || 0;
-
-            const pos = this.getPosSafely();
-            if (pos === undefined) {
-              return null;
-            }
-            const lineLength = this.getLineLength(
-              view,
-              pos,
-              widthStateLineLength,
-            );
-
-            const containerWidth = isRichMediaInsideOfBlockNode(view, pos)
-              ? lineLength
-              : widthStateWidth;
-
-            const smartCard = (
-              <SmartCard
-                key={url}
-                url={url}
-                appearance="embed"
-                onClick={this.onClick}
-                onResolve={this.onResolve}
-                showActions={platform === 'web'}
-                isFrameVisible
-                inheritDimensions={true}
-                platform={platform}
-                container={this.scrollContainer}
-                embedIframeRef={this.embedIframeRef}
-              />
-            );
-
-            if (!allowResizing || !hasPreview) {
-              // There are two ways `width` and `height` can be defined here:
-              // 1) Either as `heightAlone` as height value and no width
-              // 2) or as `1` for height and aspectRation (defined or a default one) as a width
-              // See above for how aspectRation is calculated.
-              const defaultAspectRatio =
-                DEFAULT_EMBED_CARD_WIDTH / DEFAULT_EMBED_CARD_HEIGHT;
-
-              let richMediaWrapperHeight = 1;
-              let richMediaWrapperWidth: number | undefined =
-                aspectRatio || defaultAspectRatio;
-
-              if (heightAlone) {
-                richMediaWrapperHeight = heightAlone;
-                richMediaWrapperWidth = undefined;
-              }
-
-              return (
-                <RichMediaWrapper
-                  {...cardProps}
-                  height={richMediaWrapperHeight}
-                  width={richMediaWrapperWidth}
-                  nodeType="embedCard"
-                  hasFallbackContainer={hasPreview}
-                  lineLength={lineLength}
-                  containerWidth={containerWidth}
-                >
-                  {smartCard}
-                </RichMediaWrapper>
-              );
-            }
-
-            return (
-              <ResizableEmbedCard
-                {...cardProps}
-                height={heightAlone}
-                aspectRatio={aspectRatio}
-                view={this.props.view}
-                getPos={getPos}
-                lineLength={lineLength}
-                gridSize={12}
-                containerWidth={containerWidth}
-                displayGrid={createDisplayGrid(
-                  this.props.eventDispatcher as EventDispatcher,
-                )}
-                updateSize={this.updateSize}
-                dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-              >
-                {smartCard}
-              </ResizableEmbedCard>
-            );
-          }}
+        <CardInner
+          pluginInjectionApi={pluginInjectionApi}
+          smartCard={smartCard}
+          hasPreview={hasPreview}
+          getPosSafely={this.getPosSafely}
+          view={view}
+          getLineLength={this.getLineLength}
+          eventDispatcher={this.props.eventDispatcher as EventDispatcher}
+          updateSize={this.updateSize}
+          getPos={getPos}
+          aspectRatio={aspectRatio}
+          allowResizing={allowResizing}
+          heightAlone={heightAlone}
+          cardProps={cardProps}
+          dispatchAnalyticsEvent={dispatchAnalyticsEvent}
         />
       </EmbedResizeMessageListener>
     );
@@ -392,6 +459,7 @@ export type EmbedCardNodeViewProps = Pick<
   | 'platform'
   | 'fullWidthMode'
   | 'dispatchAnalyticsEvent'
+  | 'pluginInjectionApi'
 >;
 
 export class EmbedCard extends SelectionBasedNodeView<EmbedCardNodeViewProps> {
@@ -421,6 +489,7 @@ export class EmbedCard extends SelectionBasedNodeView<EmbedCardNodeViewProps> {
       platform,
       fullWidthMode,
       dispatchAnalyticsEvent,
+      pluginInjectionApi,
     } = this.reactComponentProps;
 
     return (
@@ -433,6 +502,7 @@ export class EmbedCard extends SelectionBasedNodeView<EmbedCardNodeViewProps> {
         platform={platform}
         fullWidthMode={fullWidthMode}
         dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+        pluginInjectionApi={pluginInjectionApi}
       />
     );
   }

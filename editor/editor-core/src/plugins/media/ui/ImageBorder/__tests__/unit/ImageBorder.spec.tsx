@@ -52,7 +52,7 @@ describe('Image border toolbar item', () => {
     expect(props.toggleBorder).toHaveBeenCalled();
   });
 
-  it('should border button label is add border when border mark not enabled', () => {
+  it("should have its border button label as 'add border' when the border mark is not enabled", () => {
     setup();
 
     expect(
@@ -60,7 +60,7 @@ describe('Image border toolbar item', () => {
     ).toBeInTheDocument();
   });
 
-  it('should border button label is remove border when border mark is enabled', () => {
+  it("should have its border button label as 'remove border' when the border mark is enabled", () => {
     setup({
       borderMark: {
         color: '#091e4224',
@@ -85,6 +85,19 @@ describe('Image border toolbar item', () => {
     expect(sizeOption).toBeInTheDocument();
   });
 
+  it('should hide border options when dropdown button is clicked again', () => {
+    setup();
+    const dropdownBtn = screen.getByLabelText(
+      messages.borderOptions.defaultMessage,
+    );
+    fireEvent.click(dropdownBtn);
+    fireEvent.click(dropdownBtn);
+    const colorOption = screen.queryByTestId('dropdown-item__Color');
+    const sizeOption = screen.queryByTestId('dropdown-item__Size');
+    expect(colorOption).not.toBeInTheDocument();
+    expect(sizeOption).not.toBeInTheDocument();
+  });
+
   it('should show color secondary menu when color option is clicked', async () => {
     setup();
     const dropdownBtn = screen.getByLabelText(
@@ -100,6 +113,24 @@ describe('Image border toolbar item', () => {
     expect(subtleGreyColor).toBeInTheDocument();
     expect(greyColor).toBeInTheDocument();
     expect(boldGreyColor).toBeInTheDocument();
+  });
+
+  it('should hide color secondary menu when color option is clicked again', async () => {
+    setup();
+    const dropdownBtn = screen.getByLabelText(
+      messages.borderOptions.defaultMessage,
+    );
+    fireEvent.click(dropdownBtn);
+    const colorOption = await screen.findByTestId('dropdown-item__Color');
+    fireEvent.click(colorOption);
+    fireEvent.click(colorOption);
+    const subtleGreyColor = screen.queryByLabelText('Subtle gray');
+    const greyColor = screen.queryByLabelText('Gray');
+    const boldGreyColor = screen.queryByLabelText('Bold gray');
+
+    expect(subtleGreyColor).not.toBeInTheDocument();
+    expect(greyColor).not.toBeInTheDocument();
+    expect(boldGreyColor).not.toBeInTheDocument();
   });
 
   it('should set border color when color is chosen', async () => {
@@ -130,6 +161,24 @@ describe('Image border toolbar item', () => {
     expect(subtleSize).toBeInTheDocument();
     expect(mediumSize).toBeInTheDocument();
     expect(boldSize).toBeInTheDocument();
+  });
+
+  it('should hide size secondary menu when size option is clicked again', async () => {
+    setup();
+    const dropdownBtn = screen.getByLabelText(
+      messages.borderOptions.defaultMessage,
+    );
+    fireEvent.click(dropdownBtn);
+    const colorOption = await screen.findByTestId('dropdown-item__Size');
+    fireEvent.click(colorOption);
+    fireEvent.click(colorOption);
+    const subtleSize = screen.queryByLabelText('Subtle');
+    const mediumSize = screen.queryByLabelText('Medium');
+    const boldSize = screen.queryByLabelText('Bold');
+
+    expect(subtleSize).not.toBeInTheDocument();
+    expect(mediumSize).not.toBeInTheDocument();
+    expect(boldSize).not.toBeInTheDocument();
   });
 
   it('should set border size when size is chosen', async () => {

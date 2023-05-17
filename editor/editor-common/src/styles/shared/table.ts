@@ -24,7 +24,6 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { DN20 } from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
-import { gridSize } from '@atlaskit/theme/constants';
 import { ThemeProps } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
 
@@ -190,7 +189,7 @@ const tableSharedStyle = (props: ThemeProps) => css`
                   ),
                   dark: token('color.background.neutral', 'rgb(36, 47, 66)'),
                 })(props),
-                leftCoverWidth: `${gridSize() * 3}px`,
+                leftCoverWidth: token('space.300', '24px'),
               })};
 
               background-color: ${themed({
@@ -216,7 +215,7 @@ const tableSharedStyle = (props: ThemeProps) => css`
                   ),
                   dark: token('color.background.neutral', 'rgb(36, 47, 66)'),
                 })(props),
-                leftCoverWidth: `${gridSize() * 3}px`,
+                leftCoverWidth: token('space.300', '24px'),
               })}!important;
 
               background-color: ${themed({

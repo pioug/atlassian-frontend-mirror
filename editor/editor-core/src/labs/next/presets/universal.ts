@@ -24,12 +24,10 @@ import {
   saveOnEnterPlugin,
   tasksAndDecisionsPlugin,
   textColorPlugin,
-  cardPlugin,
   gridPlugin,
   statusPlugin,
   alignmentPlugin,
   indentationPlugin,
-  analyticsPlugin,
   customAutoformatPlugin,
   feedbackDialogPlugin,
   historyPlugin,
@@ -49,7 +47,10 @@ import {
   copyButtonPlugin,
   borderPlugin,
 } from '../../../plugins';
+import cardPlugin from '../../../plugins/card';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+
 import type { EditorAppearance } from '@atlaskit/editor-common/types';
 
 import { isFullPage as fullPageCheck } from '../../../utils/is-full-page';
@@ -98,19 +99,15 @@ export default function createUniversalPreset(
   const isMobile = appearance === 'mobile';
   const isComment = appearance === 'comment';
   const isFullPage = fullPageCheck(appearance);
-  const defaultPreset = createDefaultPreset(props);
 
   const getEditorFeatureFlags = () => featureFlags;
   const stubs = createStubInternalApis();
-  const {
-    editorSelectionAPI,
-    insertNodeAPI,
-    editorAnalyticsAPI,
-    stubInternalApisPlugin,
-  } = stubs;
+  const { editorSelectionAPI, stubInternalApisPlugin } = stubs;
   const createAnalyticsEvent = maybeCreateAnalyticsEvent
     ? maybeCreateAnalyticsEvent
     : stubs.createAnalyticsEvent;
+
+  const defaultPreset = createDefaultPreset({ ...props, createAnalyticsEvent });
 
   const statusMenuDisabled = !props.allowStatus
     ? true
@@ -130,21 +127,7 @@ export default function createUniversalPreset(
   const finalPreset = defaultPreset
     .add(stubInternalApisPlugin)
     .add(dataConsumerMarkPlugin)
-    .maybeAdd(analyticsPlugin, (plugin, builder) => {
-      if (props.allowAnalyticsGASV3) {
-        const { performanceTracking } = props;
-
-        return builder.add([
-          plugin,
-          {
-            createAnalyticsEvent,
-            performanceTracking,
-          },
-        ]);
-      }
-
-      return builder;
-    })
+    .add(contentInsertionPlugin)
     .maybeAdd(breakoutPlugin, (plugin, builder) => {
       if (props.allowBreakout && isFullPage) {
         return builder.add([
@@ -301,7 +284,6 @@ export default function createUniversalPreset(
             fullWidthEnabled: appearance === 'full-width',
             wasFullWidthEnabled:
               prevAppearance && prevAppearance === 'full-width',
-            editorAnalyticsAPI,
             editorSelectionAPI,
             getEditorFeatureFlags,
           },
@@ -593,7 +575,6 @@ export default function createUniversalPreset(
         replacePlusMenuWithElementBrowser:
           (props.elementBrowser && props.elementBrowser.replacePlusMenu) ||
           false,
-        insertNodeAPI,
       },
     ])
     .maybeAdd(beforePrimaryToolbarPlugin, (plugin, builder) => {

@@ -16,7 +16,8 @@ import {
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { indentList } from '../../../commands/indent-list';
-import analyticsPlugin, { INPUT_METHOD } from '../../../../analytics';
+import deprecatedAnalyticsPlugin, { INPUT_METHOD } from '../../../../analytics';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import listPlugin from '../../..';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
@@ -32,7 +33,8 @@ describe('lists plugin -> commands -> outdentList', () => {
     const preset = new Preset<LightEditorPlugin>()
       .add([featureFlagsPlugin, {}])
       .add(listPlugin)
-      .add([analyticsPlugin, { createAnalyticsEvent }]);
+      .add([analyticsPlugin, { createAnalyticsEvent }])
+      .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }]);
 
     return createProseMirrorEditor({
       doc,

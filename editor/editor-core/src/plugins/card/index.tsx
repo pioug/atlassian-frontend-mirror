@@ -7,13 +7,23 @@ import { EditorSmartCardEvents } from './ui/EditorSmartCardEvents';
 import { cardKeymap } from './pm-plugins/keymap';
 import { CardPluginOptions } from './types';
 import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type widthPlugin from '../width';
+import type basePlugin from '../base';
+import type gridPlugin from '../grid';
 import { EditorSmartCardEventsNext } from './ui/EditorSmartCardEventsNext';
 
 const cardPlugin: NextEditorPlugin<
   'card',
   {
     pluginConfiguration: CardPluginOptions;
-    dependencies: [typeof featureFlagsPlugin];
+    dependencies: [
+      typeof featureFlagsPlugin,
+      typeof analyticsPlugin,
+      typeof widthPlugin,
+      typeof basePlugin,
+      typeof gridPlugin,
+    ];
   }
 > = (options, api) => {
   const featureFlags =
@@ -48,14 +58,17 @@ const cardPlugin: NextEditorPlugin<
       const plugins = [
         {
           name: 'card',
-          plugin: createPlugin({
-            ...options,
-            allowBlockCards,
-            allowResizing,
-            useAlternativePreloader,
-            allowWrapping,
-            allowAlignment,
-          }),
+          plugin: createPlugin(
+            {
+              ...options,
+              allowBlockCards,
+              allowResizing,
+              useAlternativePreloader,
+              allowWrapping,
+              allowAlignment,
+            },
+            api,
+          ),
         },
       ];
 
@@ -87,6 +100,7 @@ const cardPlugin: NextEditorPlugin<
         featureFlags,
         options.platform,
         options.linkPicker,
+        api,
       ),
     },
   };

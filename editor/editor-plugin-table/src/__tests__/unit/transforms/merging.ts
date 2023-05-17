@@ -18,6 +18,9 @@ import { mergeCells } from '../../../plugins/table/transforms';
 import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
 import tablePlugin from '../../../plugins/table-plugin';
 import { PluginKey } from 'prosemirror-state';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 
@@ -31,7 +34,11 @@ describe('table plugin -> transforms -> merge cells', () => {
   });
 
   const createEditor = createProsemirrorEditorFactory();
-  const preset = new Preset<LightEditorPlugin>().add(tablePlugin);
+  const preset = new Preset<LightEditorPlugin>()
+    .add([featureFlagsPlugin, {}])
+    .add([analyticsPlugin, {}])
+    .add(contentInsertionPlugin)
+    .add(tablePlugin);
 
   const editor = (doc: DocBuilder) =>
     createEditor<TablePluginState, PluginKey>({

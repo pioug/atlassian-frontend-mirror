@@ -1,5 +1,17 @@
 # @atlaskit/media-ui
 
+## 23.0.1
+
+### Patch Changes
+
+- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+
+## 23.0.0
+
+### Major Changes
+
+- [`780e634b885`](https://bitbucket.org/atlassian/atlassian-frontend/commits/780e634b885) - Removed fadeIn styles - Removed emotion/react dependency
+
 ## 22.4.1
 
 ### Patch Changes

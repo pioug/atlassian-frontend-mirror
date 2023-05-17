@@ -30,6 +30,9 @@ import {
   akEditorFullPageMaxWidth,
   akEditorDefaultLayoutWidth,
 } from '@atlaskit/editor-shared-styles/consts';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 describe('table-resizing/event-handlers', () => {
   const editorAnalyticsAPIFake: EditorAnalyticsAPI = {
@@ -43,6 +46,9 @@ describe('table-resizing/event-handlers', () => {
         doc,
         attachTo: document.body,
         preset: new Preset<LightEditorPlugin>()
+          .add([featureFlagsPlugin, {}])
+          .add([analyticsPlugin, {}])
+          .add(contentInsertionPlugin)
           .add([
             tablePlugin,
             {

@@ -24,6 +24,7 @@ import {
 import {
   codeFontFamily,
   fontSize as defaultFontSize,
+  // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
   gridSize,
   layers,
 } from '@atlaskit/theme/constants';

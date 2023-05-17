@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/smart-card",
-  "version": "26.1.5",
+  "version": "26.1.6",
   "description": "Smart card component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -35,7 +35,7 @@
     "@atlaskit/avatar": "^21.3.0",
     "@atlaskit/avatar-group": "^9.3.0",
     "@atlaskit/button": "^16.7.0",
-    "@atlaskit/dropdown-menu": "^11.8.0",
+    "@atlaskit/dropdown-menu": "^11.9.0",
     "@atlaskit/icon": "^21.12.0",
     "@atlaskit/icon-file-type": "^6.4.0",
     "@atlaskit/icon-object": "^6.3.0",
@@ -43,7 +43,7 @@
     "@atlaskit/in-product-testing": "^0.2.0",
     "@atlaskit/link-client-extension": "^1.1.0",
     "@atlaskit/linking-common": "^2.10.0",
-    "@atlaskit/linking-types": "^1.5.0",
+    "@atlaskit/linking-types": "^1.6.0",
     "@atlaskit/logo": "^13.14.0",
     "@atlaskit/lozenge": "^11.4.0",
     "@atlaskit/media-common": "^4.1.0",
@@ -69,7 +69,7 @@
     "uuid": "^3.1.0"
   },
   "peerDependencies": {
-    "@atlaskit/link-provider": "^1.6.1",
+    "@atlaskit/link-provider": "^1.6.2",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "react-intl-next": "npm:react-intl@^5.18.1"

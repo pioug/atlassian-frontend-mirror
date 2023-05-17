@@ -139,13 +139,18 @@ describe('commands', () => {
   });
 
   describe('toggleBorderMark', () => {
-    it('should add border mark', async () => {
-      const addAnalyticsSpy = jest.spyOn(analyticsUtils, 'addAnalytics');
+    it('should add border mark with default color and size', async () => {
       const { editorView } = await setup(createMediaNodeDoc());
       toggleBorderMark(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(
         doc(mediaNodeWithBorder),
       );
+    });
+
+    it('should trigger add border mark analytic event', async () => {
+      const addAnalyticsSpy = jest.spyOn(analyticsUtils, 'addAnalytics');
+      const { editorView } = await setup(createMediaNodeDoc());
+      toggleBorderMark(editorView.state, editorView.dispatch);
       expect(addAnalyticsSpy).toBeCalled();
       expect(addAnalyticsSpy.mock.calls[0][2]).toMatchObject({
         action: 'added',
@@ -160,10 +165,15 @@ describe('commands', () => {
     });
 
     it('should remove border mark', async () => {
-      const addAnalyticsSpy = jest.spyOn(analyticsUtils, 'addAnalytics');
       const { editorView } = await setup(createMediaNodeWithBorderDoc());
       toggleBorderMark(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(doc(mediaNode));
+    });
+
+    it('should trigger remove border mark analytic event', async () => {
+      const addAnalyticsSpy = jest.spyOn(analyticsUtils, 'addAnalytics');
+      const { editorView } = await setup(createMediaNodeWithBorderDoc());
+      toggleBorderMark(editorView.state, editorView.dispatch);
       expect(addAnalyticsSpy).toBeCalled();
       expect(addAnalyticsSpy.mock.calls[0][2]).toMatchObject({
         action: 'deleted',
@@ -176,11 +186,24 @@ describe('commands', () => {
         },
       });
     });
+
+    it('should have no effect when there is no media node', async () => {
+      const { editorView } = await setup(doc(p('hello<> world')));
+      toggleBorderMark(editorView.state, editorView.dispatch);
+      expect(editorView.state).toEqualDocumentAndSelection(
+        doc(p('hello<> world')),
+      );
+    });
+
+    it('should return false when there is no media node', async () => {
+      const { editorView } = await setup(doc(p('hello<> world')));
+      const result = toggleBorderMark(editorView.state, editorView.dispatch);
+      expect(result).toEqual(false);
+    });
   });
 
   describe('setBorderMark', () => {
-    it('should set border mark with selected color and default width', async () => {
-      const addAnalyticsSpy = jest.spyOn(analyticsUtils, 'addAnalytics');
+    it('should set border mark with the selected color', async () => {
       const { editorView } = await setup(createMediaNodeDoc());
       setBorderMark({ color: '#758195' })(
         editorView.state,
@@ -194,6 +217,15 @@ describe('commands', () => {
             ),
           ),
         ),
+      );
+    });
+
+    it('should trigger updated analytics event when updating the border color', async () => {
+      const addAnalyticsSpy = jest.spyOn(analyticsUtils, 'addAnalytics');
+      const { editorView } = await setup(createMediaNodeDoc());
+      setBorderMark({ color: '#758195' })(
+        editorView.state,
+        editorView.dispatch,
       );
       expect(addAnalyticsSpy).toBeCalled();
       expect(addAnalyticsSpy.mock.calls[0][2]).toMatchObject({
@@ -210,8 +242,7 @@ describe('commands', () => {
       });
     });
 
-    it('should set border mark with selected width and default color', async () => {
-      const addAnalyticsSpy = jest.spyOn(analyticsUtils, 'addAnalytics');
+    it('should set border mark with the selected width', async () => {
       const { editorView } = await setup(createMediaNodeDoc());
       setBorderMark({ size: 1 })(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(
@@ -223,7 +254,12 @@ describe('commands', () => {
           ),
         ),
       );
+    });
 
+    it('should trigger updated analytics event when updating the border width', async () => {
+      const addAnalyticsSpy = jest.spyOn(analyticsUtils, 'addAnalytics');
+      const { editorView } = await setup(createMediaNodeDoc());
+      setBorderMark({ size: 1 })(editorView.state, editorView.dispatch);
       expect(addAnalyticsSpy).toBeCalled();
       expect(addAnalyticsSpy.mock.calls[0][2]).toMatchObject({
         action: 'updated',
@@ -239,8 +275,7 @@ describe('commands', () => {
       });
     });
 
-    it('should set border mark with selected width and selected color', async () => {
-      const addAnalyticsSpy = jest.spyOn(analyticsUtils, 'addAnalytics');
+    it('should set border mark with the selected width and selected color', async () => {
       const { editorView } = await setup(createMediaNodeDoc());
       setBorderMark({ color: '#758195', size: 1 })(
         editorView.state,
@@ -253,8 +288,15 @@ describe('commands', () => {
           ),
         ),
       );
+    });
 
-      expect(addAnalyticsSpy).toBeCalled();
+    it('should trigger updated analytics event when updating the border width and color', async () => {
+      const addAnalyticsSpy = jest.spyOn(analyticsUtils, 'addAnalytics');
+      const { editorView } = await setup(createMediaNodeDoc());
+      setBorderMark({ color: '#758195', size: 1 })(
+        editorView.state,
+        editorView.dispatch,
+      );
       expect(addAnalyticsSpy.mock.calls[0][2]).toMatchObject({
         action: 'updated',
         actionSubject: 'media',
@@ -267,6 +309,26 @@ describe('commands', () => {
           newSize: 1,
         },
       });
+    });
+
+    it('should have no effect when there is no media node', async () => {
+      const { editorView } = await setup(doc(p('hello<> world')));
+      setBorderMark({ color: '#758195', size: 1 })(
+        editorView.state,
+        editorView.dispatch,
+      );
+      expect(editorView.state).toEqualDocumentAndSelection(
+        doc(p('hello<> world')),
+      );
+    });
+
+    it('should return false when there is no media node', async () => {
+      const { editorView } = await setup(doc(p('hello<> world')));
+      const result = setBorderMark({ color: '#758195', size: 1 })(
+        editorView.state,
+        editorView.dispatch,
+      );
+      expect(result).toEqual(false);
     });
   });
 });

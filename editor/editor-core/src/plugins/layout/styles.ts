@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize } from '@atlaskit/theme/constants';
 import { N40A, N50A, DN70, DN80 } from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
@@ -30,6 +31,8 @@ export { LAYOUT_COLUMN_PADDING, LAYOUT_SECTION_MARGIN };
 export const layoutStyles = (props: ThemeProps) => css`
   .ProseMirror {
     ${columnLayoutSharedStyle} [data-layout-section] {
+      // TODO: Migrate away from gridSize
+      // Recommendation: Replace directly with 7px
       margin: ${gridSize() - 1}px -${akLayoutGutterOffset}px 0;
       transition: border-color 0.3s ${akEditorSwoopCubicBezier};
       cursor: pointer;

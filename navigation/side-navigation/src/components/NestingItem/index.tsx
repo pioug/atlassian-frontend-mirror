@@ -258,7 +258,7 @@ const NestingItem = <TCustomComponentProps extends CustomItemComponentProps>(
       </Fragment>
     ),
     onClick: onClickHandler,
-    isSelected: isSelected || isInteracted,
+    isSelected: isSelected,
     testId: testId && `${testId}--item`,
     ...rest,
     children: title,

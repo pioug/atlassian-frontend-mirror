@@ -21,7 +21,8 @@ import {
   MacroAttributes,
 } from '@atlaskit/editor-common/provider-factory';
 
-import { normaliseNestedLayout } from '../../utils';
+import { normaliseNestedLayout } from '@atlaskit/editor-common/insert';
+
 import { getPluginState as getExtensionPluginState } from '../extension/plugin-factory';
 import {
   ACTION,

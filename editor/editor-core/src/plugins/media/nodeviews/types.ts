@@ -5,11 +5,13 @@ import type {
   ContextIdentifierProvider,
   MediaProvider,
 } from '@atlaskit/editor-common/provider-factory';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ProsemirrorGetPosHandler, ForwardRef } from '../../../nodeviews';
 import { EventDispatcher } from '../../../event-dispatcher';
 import { MediaOptions } from '../types';
 import { DispatchAnalyticsEvent } from '../../analytics';
 import { MediaPluginState } from '../pm-plugins/types';
+import type mediaPlugin from '../index';
 
 export interface MediaSingleNodeProps {
   view: EditorView;
@@ -27,6 +29,7 @@ export interface MediaSingleNodeProps {
   dispatchAnalyticsEvent: DispatchAnalyticsEvent;
   isCopyPasteEnabled?: boolean;
   forwardRef: ForwardRef;
+  pluginInjectionApi: ExtractInjectionAPI<typeof mediaPlugin>;
 }
 
 export interface MediaSingleNodeViewProps {
@@ -36,6 +39,7 @@ export interface MediaSingleNodeViewProps {
   fullWidthMode?: boolean;
   dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
   isCopyPasteEnabled?: boolean;
+  pluginInjectionApi: ExtractInjectionAPI<typeof mediaPlugin> | undefined;
 }
 
 export interface MediaNodeViewProps {

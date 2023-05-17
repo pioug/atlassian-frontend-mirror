@@ -1,9 +1,22 @@
 import React from 'react';
+import { render } from '@testing-library/react';
+import '@atlaskit/link-test-helpers/jest';
 import { mount, ReactWrapper } from 'enzyme';
 
 import { Card, Provider, Client } from '@atlaskit/smart-card';
 
 import BlockCard from '../../../../react/nodes/blockCard';
+import { AnalyticsListener } from '@atlaskit/analytics-next';
+import { asMock } from '@atlaskit/link-test-helpers/jest';
+import { MockCardComponent } from './card.mock';
+
+jest.mock('@atlaskit/smart-card', () => {
+  const originalModule = jest.requireActual('@atlaskit/smart-card');
+  return {
+    ...originalModule,
+    Card: jest.fn((props) => <originalModule.Card {...props} />),
+  };
+});
 
 describe('Renderer - React/Nodes/BlockCard', () => {
   const url =
@@ -81,5 +94,38 @@ describe('Renderer - React/Nodes/BlockCard', () => {
       </Provider>,
     );
     expect(node.find(Card).prop('showServerActions')).toEqual(true);
+  });
+});
+
+describe('Renderer - React/Nodes/BlockCard - analytics context', () => {
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
+  it('should fire renderer location attribute when rendered', async () => {
+    asMock(Card).mockImplementation(MockCardComponent);
+    const analyticsSpy = jest.fn();
+    const expectedContext = [
+      {
+        attributes: {
+          location: 'renderer',
+        },
+        location: 'renderer',
+      },
+    ];
+
+    render(
+      <AnalyticsListener onEvent={analyticsSpy} channel={'atlaskit'}>
+        <BlockCard url="https://atlassian.com" />
+      </AnalyticsListener>,
+    );
+
+    expect(analyticsSpy).toBeFiredWithAnalyticEventOnce({
+      payload: {
+        action: 'rendered',
+        actionSubject: 'link',
+      },
+      context: expectedContext,
+    });
   });
 });

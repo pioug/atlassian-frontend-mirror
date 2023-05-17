@@ -127,6 +127,7 @@ export class ValidatingKitchenSinkEditor extends React.Component<
             replacePlusMenu: true,
           }}
           appearance={appearance}
+          allowAnalyticsGASV3
           quickInsert={{
             provider: this.quickInsertProviderPromise,
           }}

@@ -6,12 +6,18 @@ import { addGlobalEventEmitterListeners } from '@atlaskit/media-test-helpers/glo
 import { KitchenSink } from '../example-helpers/kitchen-sink/kitchen-sink';
 import { DevTools } from '../example-helpers/DevTools';
 import enMessages from '../src/i18n/en';
+import usePlatformFeatureFlag from '../example-helpers/use-platform-feature-flag';
 
 addGlobalEventEmitterListeners();
 
 export default function KitchenSinkExample() {
   const [locale, setLocale] = React.useState<string>('en');
   const [messages, setMessages] = React.useState<any>(enMessages);
+  const platformFlags = {
+    'platform.editor.custom-table-width': true,
+  };
+
+  usePlatformFeatureFlag(platformFlags);
 
   return (
     <IntlProvider locale={locale} messages={messages}>

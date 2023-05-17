@@ -1,8 +1,5 @@
-import type {
-  CollabEventPresenceData,
-  CollabParticipant,
-} from '@atlaskit/editor-common/collab';
-import type { CollabEventTelepointerData, PresencePayload } from '../types';
+import type { CollabParticipant } from '@atlaskit/editor-common/collab';
+import type { PresencePayload } from '../types';
 
 export const PARTICIPANT_UPDATE_INTERVAL = 300 * 1000; // 300 seconds
 
@@ -13,16 +10,7 @@ export type ProviderParticipant = CollabParticipant & {
 
 export type ParticipantsMap = Map<string, ProviderParticipant>;
 
-export type PresenceEmit = (
-  evt: 'presence',
-  data: CollabEventPresenceData,
-) => void;
-
-export type TelepointerEmit = (
-  evt: 'telepointer',
-  data: CollabEventTelepointerData,
-) => void;
-
+// Names are hard
 export type GetUserType =
   | ((
       userId: string,

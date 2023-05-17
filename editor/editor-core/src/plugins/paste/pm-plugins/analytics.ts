@@ -36,7 +36,7 @@ import { Command } from '../../../types';
 import { Transaction, Selection } from 'prosemirror-state';
 import { findParentNode } from 'prosemirror-utils';
 import { mapSlice } from '../../../utils/slice';
-import { getLinkDomain } from '../../hyperlink/utils';
+import { getLinkDomain } from '@atlaskit/editor-common/utils';
 
 type PasteContext = {
   type: PasteType;

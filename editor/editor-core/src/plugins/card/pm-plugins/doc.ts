@@ -17,19 +17,21 @@ import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
-  addAnalytics,
-  AnalyticsEventPayload,
   EVENT_TYPE,
   INPUT_METHOD,
-} from '../../../plugins/analytics';
+  AnalyticsEventPayload,
+  EditorAnalyticsAPI,
+} from '@atlaskit/editor-common/analytics';
 import { UnlinkToolbarAEP } from '../../../plugins/analytics/types/link-tool-bar-events';
 import { SMART_LINK_TYPE } from '../../../plugins/analytics/types/node-events';
-import { getLinkCreationAnalyticsEvent } from '../../../plugins/hyperlink/analytics';
 import { Command } from '../../../types';
 import { nodesBetweenChanged, processRawValue } from '../../../utils';
 import { unlinkPayload } from '../../../utils/linking-utils';
 import { SmartLinkNodeContext } from '../../analytics/types/smart-links';
-import { isFromCurrentDomain } from '../../hyperlink/utils';
+import {
+  isFromCurrentDomain,
+  getLinkCreationAnalyticsEvent,
+} from '@atlaskit/editor-common/utils';
 import { CardPluginState, CardReplacementInputMethod, Request } from '../types';
 import { appearanceForNodeType, selectedCardAppearance } from '../utils';
 import { queueCards, resolveCard } from './actions';
@@ -80,7 +82,12 @@ function replaceLinksToCards(
 }
 
 export const replaceQueuedUrlWithCard =
-  (url: string, cardData: CardAdf, analyticsAction?: ACTION): Command =>
+  (
+    url: string,
+    cardData: CardAdf,
+    analyticsAction?: ACTION,
+    editorAnalyticsApi?: EditorAnalyticsAPI,
+  ): Command =>
   (editorState, dispatch) => {
     const state = pluginKey.getState(editorState) as
       | CardPluginState
@@ -133,7 +140,7 @@ export const replaceQueuedUrlWithCard =
         const inputMethod = requests[0].source;
         const sourceEvent = requests[0].sourceEvent;
 
-        addAnalytics(editorState, tr, {
+        editorAnalyticsApi?.attachAnalyticsEvent({
           action: (analyticsAction as any) || ACTION.INSERTED,
           actionSubject: ACTION_SUBJECT.DOCUMENT,
           actionSubjectId: ACTION_SUBJECT_ID.SMART_LINK,
@@ -147,7 +154,7 @@ export const replaceQueuedUrlWithCard =
           nonPrivacySafeAttributes: {
             domainName,
           },
-        });
+        })(tr);
 
         addLinkMetadata(editorState.selection, tr, {
           action: analyticsAction,
@@ -165,7 +172,10 @@ export const replaceQueuedUrlWithCard =
   };
 
 export const handleFallbackWithAnalytics =
-  (request: Request): Command =>
+  (
+    request: Request,
+    editorAnalyticsApi: EditorAnalyticsAPI | undefined,
+  ): Command =>
   (state, dispatch) => {
     const cardState = pluginKey.getState(state) as CardPluginState | undefined;
 
@@ -176,11 +186,9 @@ export const handleFallbackWithAnalytics =
     const tr = state.tr;
 
     if (request.source !== INPUT_METHOD.FLOATING_TB) {
-      addAnalytics(
-        state,
-        tr,
+      editorAnalyticsApi?.attachAnalyticsEvent(
         getLinkCreationAnalyticsEvent(request.source, request.url),
-      );
+      )(tr);
     }
 
     addLinkMetadata(state.selection, tr, {
@@ -334,6 +342,7 @@ export const changeSelectedCardToLink =
     sendAnalytics?: boolean,
     node?: Node,
     pos?: number,
+    editorAnalyticsApi?: EditorAnalyticsAPI,
   ): Command =>
   (state, dispatch) => {
     let tr;
@@ -347,7 +356,7 @@ export const changeSelectedCardToLink =
 
     if (sendAnalytics) {
       if (selectedNode) {
-        addAnalytics(state, tr, {
+        editorAnalyticsApi?.attachAnalyticsEvent({
           action: ACTION.CHANGED_TYPE,
           actionSubject: ACTION_SUBJECT.SMART_LINK,
           eventType: EVENT_TYPE.TRACK,
@@ -355,7 +364,7 @@ export const changeSelectedCardToLink =
             newType: SMART_LINK_TYPE.URL,
             previousType: appearanceForNodeType(selectedNode.type),
           },
-        } as AnalyticsEventPayload);
+        } as AnalyticsEventPayload)(tr);
       }
     }
 
@@ -373,6 +382,7 @@ export const changeSelectedCardToLinkFallback =
     sendAnalytics?: boolean,
     node?: Node,
     pos?: number,
+    editorAnalyticsApi?: EditorAnalyticsAPI,
   ): Command =>
   (state, dispatch) => {
     let tr;
@@ -382,14 +392,14 @@ export const changeSelectedCardToLinkFallback =
       tr = cardToLinkWithTransaction(state, text, href);
     }
     if (sendAnalytics) {
-      addAnalytics(state, tr, {
+      editorAnalyticsApi?.attachAnalyticsEvent({
         action: ACTION.ERRORED,
         actionSubject: ACTION_SUBJECT.SMART_LINK,
         eventType: EVENT_TYPE.OPERATIONAL,
         attributes: {
           error: 'Smart card falling back to link.',
         },
-      } as AnalyticsEventPayload);
+      } as AnalyticsEventPayload)(tr);
     }
 
     if (dispatch) {
@@ -465,7 +475,7 @@ function cardNodeToLinkWithTransaction(
 }
 
 export const changeSelectedCardToText =
-  (text: string): Command =>
+  (text: string, editorAnalyticsApi: EditorAnalyticsAPI | undefined): Command =>
   (state, dispatch) => {
     const selectedNode =
       state.selection instanceof NodeSelection && state.selection.node;
@@ -479,11 +489,10 @@ export const changeSelectedCardToText =
       addLinkMetadata(state.selection, tr, {
         action: ACTION.UNLINK,
       });
-      addAnalytics(
-        state,
-        tr.scrollIntoView(),
+      tr.scrollIntoView();
+      editorAnalyticsApi?.attachAnalyticsEvent(
         unlinkPayload(ACTION_SUBJECT_ID.CARD_INLINE) as UnlinkToolbarAEP,
-      );
+      )(tr);
       dispatch(tr);
     }
 
@@ -492,7 +501,8 @@ export const changeSelectedCardToText =
 
 export const setSelectedCardAppearance: (
   appearance: CardAppearance,
-) => Command = (appearance) => (state, dispatch) => {
+  editorAnalyticsApi: EditorAnalyticsAPI | undefined,
+) => Command = (appearance, editorAnalyticsApi) => (state, dispatch) => {
   const selectedNode =
     state.selection instanceof NodeSelection && state.selection.node;
 
@@ -540,7 +550,7 @@ export const setSelectedCardAppearance: (
     tr.delete(previousNodePos, from);
   }
 
-  addAnalytics(state, tr, {
+  editorAnalyticsApi?.attachAnalyticsEvent({
     action: ACTION.CHANGED_TYPE,
     actionSubject: ACTION_SUBJECT.SMART_LINK,
     eventType: EVENT_TYPE.TRACK,
@@ -548,7 +558,7 @@ export const setSelectedCardAppearance: (
       newType: appearance,
       previousType: appearanceForNodeType(selectedNode.type),
     },
-  } as AnalyticsEventPayload);
+  } as AnalyticsEventPayload)(tr);
 
   addLinkMetadata(state.selection, tr, {
     action: ACTION.CHANGED_TYPE,

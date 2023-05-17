@@ -34,7 +34,8 @@ import typeAheadPlugin from '../..';
 import { EditorPlugin } from '../../../../types/editor-plugin';
 import { getPluginState } from '../../utils';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import analyticsPlugin from '../../../analytics';
+import deprecatedAnalyticsPlugin from '../../../analytics';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import tasksAndDecisionsPlugin from '../../../tasks-and-decisions';
 import panelPlugin from '../../../panel';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
@@ -49,6 +50,7 @@ import type {
 } from '../../types';
 import { insertTypeAheadItem } from '../../commands/insert-type-ahead-item';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 let _queueMicrotask: any;
 beforeAll(() => {
@@ -155,6 +157,8 @@ describe('type-ahead', () => {
     const preset = new Preset<LightEditorPlugin>()
       .add([featureFlagsPlugin, {}])
       .add([analyticsPlugin, { createAnalyticsEvent }])
+      .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
+      .add(contentInsertionPlugin)
       .add([typeAheadPlugin, { createAnalyticsEvent }])
       .add(fakeQuickInsertPlugin)
       .add(tasksAndDecisionsPlugin)

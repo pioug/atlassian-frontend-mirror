@@ -1,5 +1,5 @@
 import { EditorState, Transaction } from 'prosemirror-state';
-import { isListNode, isListItemNode } from './node';
+import { isListItemNode, isListNode } from '@atlaskit/editor-common/utils';
 import { getListItemAttributes } from './selection';
 import {
   RestartListsAttributesForListOutdented,

@@ -6,7 +6,7 @@ import {
   findParentNodeClosestToPos,
 } from 'prosemirror-utils';
 import { isListNode, joinSiblingLists } from '../utils/node';
-import { isEmptyParagraph } from '../../../utils';
+import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
 import { findFirstParentListNode } from '../utils/find';
 import { GapCursorSelection } from '../../selection/gap-cursor-selection';
 

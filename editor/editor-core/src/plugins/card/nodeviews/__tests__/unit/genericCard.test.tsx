@@ -92,6 +92,7 @@ describe('<GenericCard/>', () => {
       true,
       mockInlinePmNode,
       0,
+      undefined,
     ]);
     expectFunctionToHaveBeenCalledWith(commandMock, [
       mockEditorView.state,

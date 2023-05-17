@@ -3,6 +3,7 @@ import { forwardRef } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
+import { SELECTION_STYLE_CONTEXT_DO_NOT_USE } from '@atlaskit/menu';
 import { N10, N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -62,7 +63,9 @@ const SideNavigation = forwardRef<HTMLElement, SideNavigationProps>(
         aria-label={label}
         css={sideNavStyles}
       >
-        {children}
+        <SELECTION_STYLE_CONTEXT_DO_NOT_USE.Provider value="notch">
+          {children}
+        </SELECTION_STYLE_CONTEXT_DO_NOT_USE.Provider>
       </nav>
     );
   },

@@ -1,5 +1,17 @@
 # @atlaskit/task-decision
 
+## 17.6.4
+
+### Patch Changes
+
+- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+
+## 17.6.3
+
+### Patch Changes
+
+- [`9369cc38a68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9369cc38a68) - Migrated use of `gridSize` to space tokens where possible. There is no expected visual or behaviour change.
+
 ## 17.6.2
 
 ### Patch Changes

@@ -26,12 +26,13 @@ import {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
-import analyticsPlugin, {
+import deprecatedAnalyticsPlugin, {
   ACTION,
   ACTION_SUBJECT,
   EVENT_TYPE,
   INPUT_METHOD,
 } from '../../../analytics';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { StatsModifier } from '../../stats-modifier';
 import type {
   TypeAheadStatsModifier,
@@ -120,6 +121,7 @@ describe('type-ahead', () => {
     const preset = new Preset<LightEditorPlugin>()
       .add([featureFlagsPlugin, {}])
       .add([analyticsPlugin, { createAnalyticsEvent }])
+      .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
       .add(fakePlugin)
       .add(panelPlugin)
       .add([typeAheadPlugin, { createAnalyticsEvent }]);

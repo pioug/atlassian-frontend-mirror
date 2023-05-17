@@ -12,7 +12,7 @@ import { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import { Section, ButtonItem } from '@atlaskit/menu';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
-import { borderRadius, gridSize } from '@atlaskit/theme';
+import { borderRadius } from '@atlaskit/theme';
 import { ThemeProps } from '@atlaskit/theme/types';
 import { themed } from '@atlaskit/theme/components';
 import { DN50, N0, N30A, N60A } from '@atlaskit/theme/colors';
@@ -211,7 +211,7 @@ const itemBefore = css`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: ${gridSize() / 2}px;
+  margin-right: ${token('space.050', '4px')};
 `;
 
 const flexWrapperStyles = css`

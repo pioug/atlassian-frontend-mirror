@@ -44,7 +44,7 @@ import { InputMethodInsertMedia, INPUT_METHOD } from '../analytics';
 import { queueCardsFromChangedTr } from '../card/pm-plugins/doc';
 import { CardOptions } from '@atlaskit/editor-common/card';
 import { GapCursorSelection, Side } from '../selection/gap-cursor-selection';
-import { linkifyContent } from '../hyperlink/utils';
+import { linkifyContent } from '@atlaskit/editor-common/utils';
 import { runMacroAutoConvert } from '../macro';
 import { insertMediaAsMediaSingle } from '../media/utils/media-single';
 import {
@@ -57,7 +57,7 @@ import {
   applyTextMarksToSlice,
   hasOnlyNodesOfType,
 } from './util';
-import { isListNode, isListItemNode } from '../list/utils/node';
+import { isListItemNode, isListNode } from '@atlaskit/editor-common/utils';
 import { canLinkBeCreatedInRange } from '../hyperlink/pm-plugins/main';
 
 import { insertSliceForLists } from './edge-cases';
@@ -100,6 +100,7 @@ export function handlePasteIntoTaskOrDecisionOrPanel(slice: Slice): Command {
         panel,
         bulletList,
         orderedList,
+        taskList,
         listItem,
         expand,
         heading,
@@ -129,6 +130,10 @@ export function handlePasteIntoTaskOrDecisionOrPanel(slice: Slice): Command {
         node.type === heading ||
         node.type === listItem
       ) {
+        sliceIsInvalid = true;
+      }
+
+      if (selectionIsPanel && node.type === taskList) {
         sliceIsInvalid = true;
       }
     });
@@ -1074,6 +1079,12 @@ export function handleRichText(slice: Slice): Command {
     const isLastChildListNode = isListNode(lastChildOfSlice);
     const isSliceContentListNodes = isFirstChildListNode || isLastChildListNode;
 
+    const isFirstChildTaskListNode =
+      firstChildOfSlice?.type?.name === 'taskList';
+    const isLastChildTaskListNode = lastChildOfSlice?.type?.name === 'taskList';
+    const isSliceContentTaskListNodes =
+      isFirstChildTaskListNode || isLastChildTaskListNode;
+
     // We want to use safeInsert to insert invalid content, as it inserts at the closest non schema violating position
     // rather than spliting the selection parent node in half (which is what replaceSelection does)
     // Exception is paragraph and heading nodes, these should be split, provided their parent supports the pasted content
@@ -1090,7 +1101,10 @@ export function handleRichText(slice: Slice): Command {
       panelParentOverCurrentSelection &&
       panelParentOverCurrentSelection.node?.content.size === 2;
 
-    if (isSliceContentListNodes || isTargetPanelEmpty) {
+    if (
+      !isSliceContentTaskListNodes &&
+      (isSliceContentListNodes || isTargetPanelEmpty)
+    ) {
       insertSliceForLists({ tr, slice, schema });
     } else if (noNeedForSafeInsert) {
       tr.replaceSelection(slice);

@@ -224,8 +224,8 @@ export const createUploadMediaClient: () => MediaClient;
 
 // @public (undocumented)
 export const createUploadMediaClientConfig: (
-  stargateBaseUrl?: string | undefined,
-  env?: MediaEnv | undefined,
+  stargateBaseUrl?: string,
+  env?: MediaEnv,
 ) => MediaClientConfig;
 
 // @public (undocumented)
@@ -359,17 +359,14 @@ export class FileStateFactory {
   // (undocumented)
   createFileState: (
     status: FileStateStatus,
-    options?: CreateFileStateOptions | undefined,
+    options?: CreateFileStateOptions,
   ) => FileState;
   // (undocumented)
   error: (error: Error) => void;
   // (undocumented)
   mediaClient: MediaClientMock;
   // (undocumented)
-  next: (
-    status: FileStateStatus,
-    options?: CreateFileStateOptions | undefined,
-  ) => void;
+  next: (status: FileStateStatus, options?: CreateFileStateOptions) => void;
   // (undocumented)
   subscription: {
     next: (fileState: FileState) => void;
@@ -378,7 +375,7 @@ export class FileStateFactory {
   // (undocumented)
   updateIdentifier: (
     identifier: FileIdentifier,
-    fileDetails?: Partial<FileDetails> | undefined,
+    fileDetails?: Partial<FileDetails>,
   ) => void;
 }
 
@@ -587,8 +584,8 @@ export const mediaMockQueryOptInFlag = 'mediaMock=true';
 // @public (undocumented)
 export const mediaPickerAuthProvider: (
   authEnvironment?: string,
-  env?: MediaEnv | undefined,
-) => (context?: AuthContext | undefined) => Promise<Auth>;
+  env?: MediaEnv,
+) => (context?: AuthContext) => Promise<Auth>;
 
 // @public (undocumented)
 export function mockCanvas(
@@ -1040,7 +1037,7 @@ export const useRunSimulation: (
     | {
         status: string;
       };
-  updateIdentifier: (newMediaType?: MediaType | undefined) => void;
+  updateIdentifier: (newMediaType?: MediaType) => void;
 };
 
 // @public (undocumented)
@@ -1129,7 +1126,7 @@ export const zipJiraArchiveFileId: FileIdentifier;
 
 ```json
 {
-  "@atlaskit/media-core": "^34.0.2",
+  "@atlaskit/media-core": "^34.1.1",
   "react": "^16.8.0"
 }
 ```

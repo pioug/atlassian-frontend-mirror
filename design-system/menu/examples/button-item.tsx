@@ -17,7 +17,7 @@ const ImgIcon = ({ src, alt }: { src: string; alt: string }) => (
 
 export default () => (
   <div data-testid="button-items">
-    <ButtonItem isSelected>Activate</ButtonItem>
+    <ButtonItem>Activate</ButtonItem>
     <ButtonItem isDisabled>Activate</ButtonItem>
     <ButtonItem>Activate</ButtonItem>
     <ButtonItem description="Next-gen software project">Activate</ButtonItem>
@@ -31,7 +31,6 @@ export default () => (
       Activate
     </ButtonItem>
     <ButtonItem
-      isSelected
       // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
       cssFn={styleOverrides}
       description="Style overrides via cssFn"

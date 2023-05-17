@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import React, { RefObject, useEffect, useState } from 'react';
 import { css, jsx } from '@emotion/react';
-import { gridSize } from '@atlaskit/theme/constants';
 import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import {
@@ -15,7 +14,7 @@ export const TableControlsPadding = 20;
 const mainToolbarWrapperStyle = css`
   position: relative;
   align-items: center;
-  padding: ${gridSize()}px ${gridSize()}px 0;
+  padding: ${token('space.100', '8px')} ${token('space.100', '8px')} 0;
   display: flex;
   height: auto;
   background-color: ${token('elevation.surface', 'white')};
@@ -39,7 +38,7 @@ const stickyToolbarWrapperStyle = css`
   position: relative;
   position: sticky;
   /* stylelint-enable declaration-block-no-duplicate-properties */
-  padding-bottom: ${gridSize()}px;
+  padding-bottom: ${token('space.100', '8px')};
   z-index: ${akEditorMenuZIndex};
   transition: box-shadow ease-in-out 0.2s;
   &.show-keyline {

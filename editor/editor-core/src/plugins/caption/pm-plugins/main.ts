@@ -7,24 +7,24 @@ import { PortalProviderAPI } from '../../../ui/PortalProvider';
 import { Dispatch, EventDispatcher } from '../../../event-dispatcher';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import {
-  addAnalytics,
+  EditorAnalyticsAPI,
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
-} from '../../analytics';
+} from '@atlaskit/editor-common/analytics';
 
-const fireAnalytic = (
-  state: EditorState,
+const fireAnalytics = (
   tr: Transaction,
   action: ACTION.DELETED | ACTION.EDITED,
+  analyticsApi: EditorAnalyticsAPI | undefined,
 ) => {
-  addAnalytics(state, tr, {
+  analyticsApi?.attachAnalyticsEvent({
     action,
     eventType: EVENT_TYPE.TRACK,
     actionSubject: ACTION_SUBJECT.MEDIA_SINGLE,
     actionSubjectId: ACTION_SUBJECT_ID.CAPTION,
-  });
+  })(tr);
 };
 
 export default (
@@ -32,6 +32,7 @@ export default (
   eventDispatcher: EventDispatcher,
   providerFactory: ProviderFactory,
   dispatch: Dispatch,
+  analyticsApi: EditorAnalyticsAPI | undefined,
 ) => {
   return new SafePlugin({
     appendTransaction(
@@ -55,10 +56,11 @@ export default (
         if (oldSelectionCaption.node.childCount === 0) {
           tr.delete(oldSelectionCaption.start - 1, oldSelectionCaption.start);
           tr.setMeta('scrollIntoView', false);
-          fireAnalytic(newState, tr, ACTION.DELETED);
+          fireAnalytics(tr, ACTION.DELETED, analyticsApi);
           return tr;
         } else {
-          fireAnalytic(newState, tr, ACTION.EDITED);
+          fireAnalytics(tr, ACTION.EDITED, analyticsApi);
+          return tr;
         }
       }
     },

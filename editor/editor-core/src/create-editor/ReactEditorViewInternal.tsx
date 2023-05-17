@@ -217,6 +217,16 @@ export class ReactEditorView<T = {}> extends React.Component<
     return countNodes(this.editorState);
   }
 
+  private isTransactionTrackingExplicitlyDisabled() {
+    // ED-16320: Check for explicit disable so that by default
+    // it will still be enabled as it currently is. Then we can
+    // progressively opt out synthetic tenants.
+    return (
+      this.props.editorProps?.performanceTracking?.transactionTracking
+        ?.enabled === false
+    );
+  }
+
   constructor(
     props: EditorViewProps & WrappedComponentProps & T,
     context: EditorReactContext,
@@ -271,15 +281,24 @@ export class ReactEditorView<T = {}> extends React.Component<
       selectionAtStart: isFullPage(props.editorProps.appearance),
     });
 
-    this.dispatchAnalyticsEvent({
-      action: ACTION.STARTED,
-      actionSubject: ACTION_SUBJECT.EDITOR,
-      attributes: {
-        platform: PLATFORMS.WEB,
-        featureFlags: featureFlagsEnabled,
-      },
-      eventType: EVENT_TYPE.UI,
-    });
+    // ED-16320: Check for explicit disable so that by default
+    // it will still be enabled as it currently is. Then we can
+    // progressively opt out synthetic tenants.
+    const isEditorStartedExplicitlyDisabled =
+      props.editorProps?.performanceTracking?.startedTracking?.enabled ===
+      false;
+
+    if (!isEditorStartedExplicitlyDisabled) {
+      this.dispatchAnalyticsEvent({
+        action: ACTION.STARTED,
+        actionSubject: ACTION_SUBJECT.EDITOR,
+        attributes: {
+          platform: PLATFORMS.WEB,
+          featureFlags: featureFlagsEnabled,
+        },
+        eventType: EVENT_TYPE.UI,
+      });
+    }
   }
 
   getEditorState = () => this.view?.state;
@@ -617,7 +636,11 @@ export class ReactEditorView<T = {}> extends React.Component<
 
   private trackValidTransactions = () => {
     const { editorProps } = this.props;
-    if (editorProps?.trackValidTransactions) {
+
+    if (
+      !this.isTransactionTrackingExplicitlyDisabled() &&
+      editorProps?.trackValidTransactions
+    ) {
       this.validTransactionCount++;
       const samplingRate =
         (typeof editorProps.trackValidTransactions === 'object' &&
@@ -766,16 +789,19 @@ export class ReactEditorView<T = {}> extends React.Component<
           getDocStructure(node, { compact: true }),
         );
 
-      this.dispatchAnalyticsEvent({
-        action: ACTION.DISPATCHED_INVALID_TRANSACTION,
-        actionSubject: ACTION_SUBJECT.EDITOR,
-        eventType: EVENT_TYPE.OPERATIONAL,
-        attributes: {
-          analyticsEventPayloads:
-            getAnalyticsEventsFromTransaction(transaction),
-          invalidNodes,
-        },
-      });
+      if (!this.isTransactionTrackingExplicitlyDisabled()) {
+        this.dispatchAnalyticsEvent({
+          action: ACTION.DISPATCHED_INVALID_TRANSACTION,
+          actionSubject: ACTION_SUBJECT.EDITOR,
+          eventType: EVENT_TYPE.OPERATIONAL,
+          attributes: {
+            analyticsEventPayloads:
+              getAnalyticsEventsFromTransaction(transaction),
+            invalidNodes,
+          },
+        });
+      }
+
       this.experienceStore?.fail(EditorExperience.interaction, {
         reason: 'invalid transaction',
         invalidNodes: invalidNodes.toString(),

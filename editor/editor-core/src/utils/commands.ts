@@ -16,7 +16,7 @@ import {
 import { transformSmartCharsMentionsAndEmojis } from '../plugins/text-formatting/commands/transform-to-code';
 import { GapCursorSelection } from '../plugins/selection/gap-cursor-selection';
 import { Command, HigherOrderCommand } from '../types/command';
-import { isEmptyParagraph } from './document';
+import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
 
 type Predicate = (state: EditorState, view?: EditorView) => boolean;
 

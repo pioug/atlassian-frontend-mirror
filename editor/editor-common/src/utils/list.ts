@@ -42,3 +42,21 @@ export const getItemCounterDigitsSize = (
 
   return String(largestCounter)?.split('.')?.[0]?.length;
 };
+
+export function isListNode(node: Node | null | undefined) {
+  return Boolean(
+    node && node.type && ['orderedList', 'bulletList'].includes(node.type.name),
+  );
+}
+
+export function isParagraphNode(node: Node | null | undefined) {
+  return Boolean(node && node.type && 'paragraph' === node.type.name);
+}
+
+export function isListItemNode(node: Node | null | undefined) {
+  return Boolean(node && node.type && 'listItem' === node.type.name);
+}
+
+export function isBulletList(node: Node | null | undefined) {
+  return Boolean(node && node.type && 'bulletList' === node.type.name);
+}

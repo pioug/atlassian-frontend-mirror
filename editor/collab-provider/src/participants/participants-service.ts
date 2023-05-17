@@ -7,6 +7,7 @@ import AnalyticsHelper from '../analytics/analytics-helper';
 import { EVENT_ACTION, EVENT_STATUS } from '../helpers/const';
 import { telepointerFromStep } from './telepointers-helper';
 import type {
+  ChannelEvent,
   CollabEventTelepointerData,
   PresencePayload,
   StepJson,
@@ -16,36 +17,52 @@ import {
   createParticipantFromPayload as enrichParticipant,
   GetUserType,
   PARTICIPANT_UPDATE_INTERVAL,
-  TelepointerEmit,
 } from './participants-helper';
-import type { PresenceEmit } from './participants-helper';
 import { ParticipantsState } from './participants-state';
+import { createLogger } from '../helpers/utils';
 
+const logger = createLogger('PresenceService', 'pink');
+
+const SEND_PRESENCE_INTERVAL = 150 * 1000; // 150 seconds
+
+/**
+ * This service is responsible for handling presence and participant events, as well as sending them on to the editor or NCS.
+ * @param analyticsHelper Analytics helper instance
+ * @param participantsState Starts with no participants, only add this when testing
+ * @param emit Emit from the Provider class (to the editor)
+ * @param getUser Callback to get user data from the editor
+ * @param channelBroadcast Broadcast from the Channel class (to NCS)
+ * @param sendPresenceJoined Callback to Channel class
+ */
 export class ParticipantsService {
-  private participantsState: ParticipantsState;
   private participantUpdateTimeout: number | undefined;
-  private analyticsHelper: AnalyticsHelper | undefined;
+  private presenceUpdateTimeout: number | undefined;
 
   constructor(
-    analyticsHelper: AnalyticsHelper | undefined,
-    participantsState: ParticipantsState = new ParticipantsState(),
-  ) {
-    this.participantsState = participantsState;
-    this.analyticsHelper = analyticsHelper;
-  }
+    private analyticsHelper: AnalyticsHelper | undefined,
+    private participantsState: ParticipantsState = new ParticipantsState(),
+    private emit: (
+      evt: 'presence' | 'telepointer' | 'disconnected',
+      data:
+        | CollabEventPresenceData
+        | CollabEventTelepointerData
+        | CollabEventDisconnectedData,
+    ) => void,
+    private getUser: GetUserType,
+    private channelBroadcast: <K extends keyof ChannelEvent>(
+      type: K,
+      data: Omit<ChannelEvent[K], 'timestamp'>,
+      callback?: Function,
+    ) => void,
+    private sendPresenceJoined: () => void,
+  ) {}
 
   /**
    * Carries out 3 things: 1) enriches the participant with user data, 2) updates the participantsState, 3) emits the presence event
    * @param payload Payload from incoming socket event
-   * @param getUser Function to get user data from confluence
-   * @param emit Function to execute emit from provider socket
    * @returns Awaitable Promise, due to getUser
    */
-  updateParticipant = async (
-    payload: PresencePayload,
-    getUser: GetUserType,
-    emit: PresenceEmit,
-  ): Promise<void> => {
+  onParticipantUpdated = async (payload: PresencePayload): Promise<void> => {
     const { userId } = payload;
 
     // If userId does not exist, does nothing here to prevent duplication.
@@ -59,11 +76,14 @@ export class ParticipantsService {
       participant = await enrichParticipant(
         // userId _must_ be defined, this lets the compiler know
         { ...payload, userId },
-        getUser,
+        this.getUser,
       );
     } catch (error) {
       // We don't want to throw errors for Presence features as they tend to self-restore
-      this.analyticsHelper?.sendErrorEvent(error, 'enriching participant');
+      this.analyticsHelper?.sendErrorEvent(
+        error,
+        'Error while enriching participant',
+      );
     }
 
     if (!participant) {
@@ -81,36 +101,24 @@ export class ParticipantsService {
 
     this.emitPresence(
       { joined: [participant] },
-      emit,
       'handling participant updated event',
     );
   };
 
   /**
    * Called when a participant leaves the session.
-   *
    * We emit the `presence` event to update the active avatars in the editor.
    */
-  participantLeft = (
-    { sessionId }: PresencePayload,
-    emit: PresenceEmit,
-  ): void => {
+  onParticipantLeft = ({ sessionId }: PresencePayload): void => {
     this.participantsState.removeBySessionId(sessionId);
-    this.emitPresence({ left: [{ sessionId }] }, emit, 'participant leaving');
+    this.emitPresence({ left: [{ sessionId }] }, 'participant leaving');
   };
 
-  disconnect = (
-    reason: string,
-    sessionId: string | undefined,
-    emit: (
-      evt: 'presence' | 'disconnected',
-      data: CollabEventPresenceData | CollabEventDisconnectedData,
-    ) => void,
-  ) => {
+  disconnect = (reason: string, sessionId: string | undefined) => {
     const left = this.participantsState.getParticipants();
     this.participantsState.clear();
     try {
-      emit('disconnected', {
+      this.emit('disconnected', {
         reason: disconnectedReasonMapper(reason),
         sid: sessionId!,
       });
@@ -120,11 +128,7 @@ export class ParticipantsService {
     }
 
     if (left.length) {
-      this.emitPresence(
-        { left },
-        emit,
-        'emitting presence update on disconnect',
-      );
+      this.emitPresence({ left }, 'emitting presence update on disconnect');
     }
   };
 
@@ -138,16 +142,15 @@ export class ParticipantsService {
   /**
    * Called on receiving steps, emits each step's telepointer
    * @param steps Steps to extract telepointers from
-   * @param emit Provider emit function
    */
-  emitTelepointersFromSteps(steps: StepJson[], emit: TelepointerEmit) {
+  emitTelepointersFromSteps(steps: StepJson[]) {
     steps.forEach((step) => {
       const event = telepointerFromStep(
         this.participantsState.getParticipants(),
         step,
       );
       if (event) {
-        this.emitTelepointer(event, emit, 'emitting telepointers from steps');
+        this.emitTelepointer(event, 'emitting telepointers from steps');
       }
     });
   }
@@ -156,14 +159,9 @@ export class ParticipantsService {
    * Called when we receive a telepointer update from another
    * participant.
    */
-  participantTelepointer = (
+  onParticipantTelepointer = (
     payload: TelepointerPayload,
     thisSessionId: string | undefined,
-    getUser: GetUserType,
-    emit: (
-      evt: 'telepointer' | 'presence',
-      data: CollabEventTelepointerData | CollabEventPresenceData,
-    ) => void,
   ): void => {
     const { sessionId, selection, timestamp } = payload;
     const participant = this.participantsState.getBySessionId(sessionId);
@@ -186,7 +184,6 @@ export class ParticipantsService {
         selection,
         sessionId,
       },
-      emit,
       'handling participant telepointer event',
     );
   };
@@ -195,16 +192,12 @@ export class ParticipantsService {
    * Every 5 minutes (PARTICIPANT_UPDATE_INTERVAL), removes inactive participants and emits the update to other participants.
    * Needs to be kicked off in the Provider.
    * @param sessionId SessionId from provider's connection
-   * @param emit Function to execute emit from provider socket
    */
-  removeInactiveParticipants = (
-    sessionId: string | undefined,
-    emit: PresenceEmit,
-  ) => {
+  startInactiveRemover = (sessionId: string | undefined) => {
     clearTimeout(this.participantUpdateTimeout);
 
     try {
-      this.filterInactive(sessionId, emit);
+      this.filterInactive(sessionId);
     } catch (err) {
       this.analyticsHelper?.sendErrorEvent(
         err,
@@ -213,7 +206,7 @@ export class ParticipantsService {
     }
 
     this.participantUpdateTimeout = window.setTimeout(
-      () => this.removeInactiveParticipants(sessionId, emit),
+      () => this.startInactiveRemover(sessionId),
       PARTICIPANT_UPDATE_INTERVAL,
     );
   };
@@ -221,10 +214,7 @@ export class ParticipantsService {
   /**
    * Keep list of participants up to date. Filter out inactive users etc.
    */
-  private filterInactive = (
-    sessionId: string | undefined,
-    emit: PresenceEmit,
-  ): void => {
+  private filterInactive = (sessionId: string | undefined): void => {
     const now: number = Date.now();
 
     const left = this.participantsState
@@ -238,7 +228,7 @@ export class ParticipantsService {
     left.forEach((p) => this.participantsState.removeBySessionId(p.sessionId));
 
     left.length &&
-      this.emitPresence({ left }, emit, 'filtering inactive participants');
+      this.emitPresence({ left }, 'filtering inactive participants');
   };
 
   /**
@@ -248,11 +238,10 @@ export class ParticipantsService {
    */
   private emitPresence = (
     data: CollabEventPresenceData,
-    emit: PresenceEmit,
     errorMessage: string,
   ): void => {
     try {
-      emit('presence', data);
+      this.emit('presence', data);
       this.analyticsHelper?.sendActionEvent(
         EVENT_ACTION.UPDATE_PARTICIPANTS,
         EVENT_STATUS.SUCCESS,
@@ -274,11 +263,10 @@ export class ParticipantsService {
    */
   private emitTelepointer = (
     data: CollabEventTelepointerData,
-    emit: TelepointerEmit,
     errorMessage: string,
   ): void => {
     try {
-      emit('telepointer', data);
+      this.emit('telepointer', data);
     } catch (error) {
       // We don't want to throw errors for Presence features as they tend to self-restore
       this.analyticsHelper?.sendErrorEvent(
@@ -293,5 +281,65 @@ export class ParticipantsService {
    */
   clearTimers = () => {
     clearTimeout(this.participantUpdateTimeout);
+  };
+
+  private sendPresence = (payload: PresencePayload) => {
+    try {
+      clearTimeout(this.presenceUpdateTimeout);
+
+      this.channelBroadcast('participant:updated', payload);
+
+      this.presenceUpdateTimeout = window.setTimeout(
+        () => this.sendPresence(payload),
+        SEND_PRESENCE_INTERVAL,
+      );
+    } catch (error) {
+      // We don't want to throw errors for Presence features as they tend to self-restore
+      this.analyticsHelper?.sendErrorEvent(
+        error,
+        'Error while sending presence',
+      );
+    }
+  };
+
+  /**
+   * Called when a participant joins the session.
+   *
+   * We keep track of participants internally, and emit the `presence` event to update
+   * the active avatars in the editor.
+   * This method will be triggered from backend to notify all participants to exchange presence
+   */
+  onPresenceJoined = (payload: PresencePayload) => {
+    try {
+      logger('Participant joined with session: ', payload.sessionId);
+      // This expose existing users to the newly joined user
+      this.sendPresence(payload);
+    } catch (error) {
+      // We don't want to throw errors for Presence features as they tend to self-restore
+      this.analyticsHelper?.sendErrorEvent(
+        error,
+        'Error while joining presence',
+      );
+    }
+  };
+
+  /**
+   * Called when the current user joins the session.
+   *
+   * This will send both a 'presence' event and a 'participant:updated' event.
+   * This updates both the avatars and the participants list.
+   */
+  onPresence = (payload: PresencePayload) => {
+    try {
+      logger('onPresence userId: ', payload.userId);
+      this.sendPresence(payload);
+      this.sendPresenceJoined();
+    } catch (error) {
+      // We don't want to throw errors for Presence features as they tend to self-restore
+      this.analyticsHelper?.sendErrorEvent(
+        error,
+        'Error while receiving presence',
+      );
+    }
   };
 }

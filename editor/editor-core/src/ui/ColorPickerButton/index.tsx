@@ -73,6 +73,12 @@ type Props = WithAnalyticsEventsProps & {
   hexToPaletteColor?: (hexColor: string) => string | undefined;
   showSomewhatSemanticTooltips?: boolean;
   paletteColorTooltipMessages?: PaletteTooltipMessages;
+
+  /**
+   * After picking the color the default behaviour is to focus the color picker button.
+   * To prevent this use skipFocusButtonAfterPick.
+   */
+  skipFocusButtonAfterPick?: boolean;
 };
 
 const ColorPickerButton = (props: Props) => {
@@ -99,6 +105,7 @@ const ColorPickerButton = (props: Props) => {
   const focusButton = () => {
     buttonRef.current?.focus();
   };
+
   const handleEsc = React.useCallback(() => {
     setIsOpenedByKeyboard(false);
     setIsPopupPositioned(false);
@@ -113,34 +120,53 @@ const ColorPickerButton = (props: Props) => {
 
   const ColorPaletteWithListeners = withOuterListeners(ColorPalette);
 
-  const onColorSelected = (color: string, label: string) => {
-    setIsOpenedByKeyboard(false);
-    setIsPopupOpen(false);
-    setIsPopupPositioned(false);
-    if (props.onChange) {
-      if (props.createAnalyticsEvent) {
-        // fire analytics
-        const payload: ColorPickerAEP = {
-          action: ACTION.UPDATED,
-          actionSubject: ACTION_SUBJECT.PICKER,
-          actionSubjectId: ACTION_SUBJECT_ID.PICKER_COLOR,
-          attributes: {
-            color,
-            label,
-            placement: props.placement,
-          },
-          eventType: EVENT_TYPE.TRACK,
-        };
-        props.createAnalyticsEvent(payload).fire(editorAnalyticsChannel);
-      }
+  const {
+    onChange,
+    createAnalyticsEvent,
+    colorPalette,
+    placement,
+    skipFocusButtonAfterPick,
+  } = props;
 
-      const newPalette = props.colorPalette.find(
-        (colorPalette) => colorPalette.value === color,
-      );
-      newPalette && props.onChange(newPalette);
-    }
-    focusButton();
-  };
+  const onColorSelected = React.useCallback(
+    (color: string, label: string) => {
+      setIsOpenedByKeyboard(false);
+      setIsPopupOpen(false);
+      setIsPopupPositioned(false);
+      if (onChange) {
+        if (createAnalyticsEvent) {
+          // fire analytics
+          const payload: ColorPickerAEP = {
+            action: ACTION.UPDATED,
+            actionSubject: ACTION_SUBJECT.PICKER,
+            actionSubjectId: ACTION_SUBJECT_ID.PICKER_COLOR,
+            attributes: {
+              color,
+              label,
+              placement: placement,
+            },
+            eventType: EVENT_TYPE.TRACK,
+          };
+          createAnalyticsEvent(payload).fire(editorAnalyticsChannel);
+        }
+
+        const newPalette = colorPalette.find(
+          (colorPalette) => colorPalette.value === color,
+        );
+        newPalette && onChange(newPalette);
+      }
+      if (!skipFocusButtonAfterPick) {
+        focusButton();
+      }
+    },
+    [
+      colorPalette,
+      onChange,
+      createAnalyticsEvent,
+      placement,
+      skipFocusButtonAfterPick,
+    ],
+  );
 
   const renderPopup = () => {
     if (!isPopupOpen || !buttonRef.current) {

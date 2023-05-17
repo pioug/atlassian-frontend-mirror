@@ -122,13 +122,14 @@ export interface DatasourceDataResponseItem {
 export interface DatasourceParameters {
   [key: string]: any;
 }
+
 export interface DatasourceDataRequest {
   fields?: string[];
   parameters: DatasourceParameters;
   pageSize: number;
   pageCursor?: string;
-  totalIssues?: number;
 }
+
 export interface DatasourceResponseParameter {
   key: string;
   type: DatasourceType['type'];
@@ -146,6 +147,7 @@ export interface DatasourceResponse {
     defaultProperties: string[];
   };
 }
+
 export interface DatasourceDataResponse {
   data: DatasourceDataResponseItem[];
   nextPageCursor?: string;

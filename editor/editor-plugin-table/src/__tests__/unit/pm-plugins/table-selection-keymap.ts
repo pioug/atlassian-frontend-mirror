@@ -28,6 +28,9 @@ import { TablePluginState } from '../../../plugins/table/types';
 import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
 import { createEditorSelectionAPI } from '@atlaskit/editor-core/src/selection-api/api';
 import type { EditorSelectionAPI } from '@atlaskit/editor-common/selection';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 describe('table selection keymap', () => {
@@ -42,6 +45,9 @@ describe('table selection keymap', () => {
 
   const createEditor = createProsemirrorEditorFactory();
   const preset = new Preset<LightEditorPlugin>()
+    .add([featureFlagsPlugin, {}])
+    .add([analyticsPlugin, {}])
+    .add(contentInsertionPlugin)
     .add(selectionPlugin)
     .add([tablePlugin, { tableOptions: {}, editorSelectionAPI }])
     .add(panelPlugin)

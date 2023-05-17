@@ -59,8 +59,12 @@ import panelPlugin from '@atlaskit/editor-core/src/plugins/panel';
 import expandPlugin from '@atlaskit/editor-core/src/plugins/expand';
 import extensionPlugin from '@atlaskit/editor-core/src/plugins/extension';
 import mediaPlugin from '@atlaskit/editor-core/src/plugins/media';
+import widthPlugin from '@atlaskit/editor-core/src/plugins/width';
+import gridPlugin from '@atlaskit/editor-core/src/plugins/grid';
 import textFormattingPlugin from '@atlaskit/editor-core/src/plugins/text-formatting';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 
@@ -80,6 +84,10 @@ describe('table plugin: actions', () => {
       attachTo: document.body,
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
+        .add([analyticsPlugin, {}])
+        .add(contentInsertionPlugin)
+        .add(widthPlugin)
+        .add(gridPlugin)
         .add(tablePlugin)
         .add(panelPlugin)
         .add(textFormattingPlugin)
@@ -341,12 +349,12 @@ describe('table plugin: actions', () => {
         editorView.state,
         dispatch,
       );
-      expect(editorView.state.doc).toEqualDocument(
+      expect(editorView.state).toEqualDocumentAndSelection(
         doc(
           p('text'),
           table({ localId: TABLE_LOCAL_ID })(
             tr(tdEmpty, tdEmpty, tdEmpty),
-            tr(td({ colspan: 2 })(panelNote(p('text'))), tdEmpty),
+            tr(td({ colspan: 2 })(panelNote(p('te{<>}xt'))), tdEmpty),
           ),
         ),
       );

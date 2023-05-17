@@ -1,7 +1,6 @@
 import { css } from '@emotion/react';
 import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-import { gridSize } from '@atlaskit/theme/constants';
 import {
   akEditorMenuZIndex,
   akEditorSwoopCubicBezier,
@@ -58,9 +57,9 @@ export const mainToolbarStyle = (
 ];
 
 export const mainToolbarIconBeforeStyle = css`
-  margin: ${gridSize() * 2}px;
-  height: ${gridSize() * 4}px;
-  width: ${gridSize() * 4}px;
+  margin: ${token('space.200', '16px')};
+  height: ${token('space.400', '32px')};
+  width: ${token('space.400', '32px')};
   @media (max-width: ${akEditorMobileMaxWidth}px) {
     grid-column: 1;
     grid-row: 1;

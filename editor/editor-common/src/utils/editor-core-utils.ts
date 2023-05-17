@@ -10,6 +10,13 @@ import { EditorView } from 'prosemirror-view';
 
 import { closest } from './dom';
 
+/**
+ * Checks if node is an empty paragraph.
+ */
+export function isEmptyParagraph(node?: Node | null): boolean {
+  return !!node && node.type.name === 'paragraph' && !node.childCount;
+}
+
 export const stepHasSlice = (
   step: Step,
 ): step is Step & { from: number; to: number; slice: Slice } =>

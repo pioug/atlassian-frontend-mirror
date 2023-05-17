@@ -4,7 +4,8 @@ import { css, jsx } from '@emotion/react';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 
 import UiDropdown, { OpenChangedEvent } from '../../../ui/Dropdown';
-import Button from './Button';
+import { FloatingToolbarButton as Button } from '@atlaskit/editor-common/ui';
+
 import DropdownMenu, { itemSpacing, menuItemDimensions } from './DropdownMenu';
 import { DropdownOptions, DropdownOptionT } from './types';
 import { EditorView } from 'prosemirror-view';

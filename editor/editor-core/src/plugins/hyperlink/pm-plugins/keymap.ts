@@ -7,8 +7,11 @@ import { HyperlinkState, stateKey } from '../pm-plugins/main';
 import { showLinkToolbar, hideLinkToolbar } from '../commands';
 import { Command } from '../../../types';
 import { INPUT_METHOD, addAnalytics } from '../../analytics';
-import { getLinkCreationAnalyticsEvent } from '../analytics';
-import { findFilepaths, isLinkInMatches } from '../utils';
+import {
+  findFilepaths,
+  isLinkInMatches,
+  getLinkCreationAnalyticsEvent,
+} from '@atlaskit/editor-common/utils';
 
 export function createKeymapPlugin(
   skipAnalytics: boolean = false,

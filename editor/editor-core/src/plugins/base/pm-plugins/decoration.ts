@@ -13,6 +13,14 @@ export enum ACTIONS {
   DECORATION_REMOVE,
 }
 
+/**
+ *
+ * @private
+ * @deprecated
+ *
+ * Please use the actions of the base plugin rather than this function
+ * directly
+ */
 export const hoverDecoration =
   (
     nodeType: NodeType | Array<NodeType>,

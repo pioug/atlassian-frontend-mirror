@@ -124,10 +124,8 @@ describe('Analytics helper function', () => {
       'Meaningful Context-Aware Error Message',
     );
 
-    expect(fakeAnalyticsWebClient.sendOperationalEvent).toHaveBeenCalledTimes(
-      1,
-    );
-    expect(fakeAnalyticsWebClient.sendOperationalEvent).toBeCalledWith({
+    expect(fakeAnalyticsWebClient.sendTrackEvent).toHaveBeenCalledTimes(1);
+    expect(fakeAnalyticsWebClient.sendTrackEvent).toBeCalledWith({
       action: 'error',
       actionSubject: 'collab',
       attributes: {
@@ -213,10 +211,8 @@ describe('Analytics helper function', () => {
 
     await nextTick();
 
-    expect(fakeAnalyticsWebClient.sendOperationalEvent).toHaveBeenCalledTimes(
-      1,
-    );
-    expect(fakeAnalyticsWebClient.sendOperationalEvent).toBeCalledWith({
+    expect(fakeAnalyticsWebClient.sendTrackEvent).toHaveBeenCalledTimes(1);
+    expect(fakeAnalyticsWebClient.sendTrackEvent).toBeCalledWith({
       action: 'error',
       actionSubject: 'collab',
       attributes: {

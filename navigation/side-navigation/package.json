@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/side-navigation",
-  "version": "1.7.1",
+  "version": "1.8.1",
   "description": "A highly composable side navigation component that supports nested views.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -35,7 +35,7 @@
     "@atlaskit/ds-explorations": "^2.1.0",
     "@atlaskit/ds-lib": "^2.2.0",
     "@atlaskit/icon": "^21.12.0",
-    "@atlaskit/menu": "^1.6.0",
+    "@atlaskit/menu": "^1.7.0",
     "@atlaskit/motion": "^1.4.0",
     "@atlaskit/primitives": "^0.9.0",
     "@atlaskit/theme": "^12.5.0",
@@ -57,6 +57,7 @@
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
+    "@atlassian/feature-flags-test-utils": "*",
     "@testing-library/react": "^12.1.5",
     "@types/jest-axe": "^3.5.0",
     "ast-types": "^0.13.3",
@@ -83,6 +84,11 @@
       ],
       "analytics": "analytics-next",
       "deprecation": "no-deprecated-imports"
+    }
+  },
+  "platform-feature-flags": {
+    "platform.design-system-team.menu-selected-state-change_0see9": {
+      "type": "boolean"
     }
   },
   "homepage": "https://atlassian.design/components/side-navigation/",

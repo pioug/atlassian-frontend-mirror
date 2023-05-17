@@ -1,5 +1,17 @@
 # @atlaskit/status
 
+## 1.3.3
+
+### Patch Changes
+
+- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+
+## 1.3.2
+
+### Patch Changes
+
+- [`9369cc38a68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9369cc38a68) - Migrated use of `gridSize` to space tokens where possible. There is no expected visual or behaviour change.
+
 ## 1.3.1
 
 ### Patch Changes

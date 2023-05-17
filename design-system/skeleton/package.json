@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/skeleton",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "A skeleton acts as a placeholder for content, usually while the content loads.",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",

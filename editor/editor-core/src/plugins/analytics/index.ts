@@ -57,14 +57,7 @@ export type {
   FireAnalyticsCallback,
   FireAnalyticsEvent,
 } from '@atlaskit/editor-common/analytics';
-export {
-  withAnalytics,
-  addAnalytics,
-  findInsertLocation,
-  getSelectionType,
-  getStateContext,
-  mapActionSubjectIdToAttributes,
-} from './utils';
+export { withAnalytics, addAnalytics } from './utils';
 
 export const analyticsPluginKey = pluginKey;
 export default analyticsPlugin;

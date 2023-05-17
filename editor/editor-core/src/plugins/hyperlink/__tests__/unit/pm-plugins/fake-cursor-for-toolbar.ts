@@ -17,6 +17,7 @@ import { PluginSpec, EditorState } from 'prosemirror-state';
 import { showLinkToolbar } from '../../../commands';
 import hyperlinkPlugin from '../../../index';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 const init = (fakeCursorForToolbarPlugin.spec as PluginSpec).state!.init;
 const getDecorations = (state: EditorState) =>
@@ -32,7 +33,7 @@ describe('hyperlink', () => {
       doc,
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
-
+        .add([analyticsPlugin, {}])
         .add(hyperlinkPlugin),
     });
   };

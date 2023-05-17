@@ -19,7 +19,7 @@ import {
   N800,
 } from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
-import { borderRadius, fontSize, gridSize } from '@atlaskit/theme/constants';
+import { borderRadius, fontSize } from '@atlaskit/theme/constants';
 import { ThemeProps } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
 
@@ -80,15 +80,16 @@ export const codeBlockSharedStyles = (props: ThemeProps) => css`
           light: token('color.background.neutral', N20),
           dark: token('color.background.neutral', DN50),
         })(props),
-        leftCoverWidth: `${gridSize() * 3}px`,
+        leftCoverWidth: token('space.300', '24px'),
       })};
 
       background-repeat: no-repeat;
       background-attachment: local, local, local, local, scroll, scroll, scroll,
         scroll;
-      background-size: ${gridSize() * 3}px 100%, ${gridSize() * 3}px 100%,
-        ${gridSize()}px 100%, ${gridSize()}px 100%, ${gridSize()}px 100%,
-        1px 100%, ${gridSize()}px 100%, 1px 100%;
+      background-size: ${token('space.300', '24px')} 100%,
+        ${token('space.300', '24px')} 100%, ${token('space.100', '8px')} 100%,
+        ${token('space.100', '8px')} 100%, ${token('space.100', '8px')} 100%,
+        1px 100%, ${token('space.100', '8px')} 100%, 1px 100%;
       background-position: 0 0, 0 0, 100% 0, 100% 0, 100% 0, 100% 0, 0 0, 0 0;
 
       /* Be careful if refactoring this; it is needed to keep arrow key navigation in Firefox consistent with other browsers. */
@@ -102,7 +103,7 @@ export const codeBlockSharedStyles = (props: ThemeProps) => css`
         light: token('color.background.neutral', N30),
         dark: token('color.background.neutral', DN20),
       })(props)};
-      padding: ${gridSize()}px;
+      padding: ${token('space.100', '8px')};
       position: relative;
 
       span {
@@ -137,7 +138,7 @@ export const codeBlockSharedStyles = (props: ThemeProps) => css`
           dark: token('color.text', DN800),
         })(props)};
         border-radius: ${borderRadius()}px;
-        margin: ${gridSize()}px;
+        margin: ${token('space.100', '8px')};
         white-space: pre;
         font-size: ${relativeFontSizeToBase16(fontSize())};
         line-height: 1.5rem;

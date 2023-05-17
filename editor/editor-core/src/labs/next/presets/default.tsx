@@ -15,8 +15,11 @@ import fakeTextCursorPlugin from '../../../plugins/fake-text-cursor';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import floatingToolbarPlugin from '../../../plugins/floating-toolbar';
 import { EditorProps } from '../Editor';
+import { EditorProps as AllEditorProps } from '../../../types/editor-props';
 import { EditorPresetProps } from './types';
 import clipboardPlugin from '../../../plugins/clipboard';
+import { analyticsPlugin as deprecatedAnalyticsPlugin } from '../../../plugins';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { BlockTypePluginOptions } from '../../../plugins/block-type/types';
 import placeholderPlugin, {
   PlaceholderPluginOptions,
@@ -54,6 +57,8 @@ export type DefaultPresetPluginOptions = {
   hyperlinkOptions?: HyperlinkPluginOptions;
   createAnalyticsEvent?: CreateUIAnalyticsEvent;
   typeAhead?: TypeAheadPluginOptions;
+  allowAnalyticsGASV3?: boolean;
+  performanceTracking?: AllEditorProps['performanceTracking'];
 };
 
 /**
@@ -65,6 +70,36 @@ export function createDefaultPreset(
 ) {
   const preset = new EditorPresetBuilder()
     .add([featureFlagsPlugin, options.featureFlags || {}])
+    .maybeAdd(analyticsPlugin, (plugin, builder) => {
+      if (options.allowAnalyticsGASV3) {
+        const { performanceTracking, createAnalyticsEvent } = options;
+
+        return builder.add([
+          plugin,
+          {
+            createAnalyticsEvent,
+            performanceTracking,
+          },
+        ]);
+      }
+
+      return builder;
+    })
+    .maybeAdd(deprecatedAnalyticsPlugin, (plugin, builder) => {
+      if (options.allowAnalyticsGASV3) {
+        const { performanceTracking, createAnalyticsEvent } = options;
+
+        return builder.add([
+          plugin,
+          {
+            createAnalyticsEvent,
+            performanceTracking,
+          },
+        ]);
+      }
+
+      return builder;
+    })
     .add([pastePlugin, options.paste])
     .add(clipboardPlugin)
     .add([basePlugin, options.base])

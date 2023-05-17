@@ -275,8 +275,10 @@ export class EditorPluginInjectionAPI implements PluginInjectionAPIDefinition {
 
         const plugin = getPluginByName(prop);
         if (!plugin) {
-          // eslint-disable-next-line
-          console.error(`Plugin: ${prop} does not exist`);
+          if (process.env.NODE_ENV === 'development') {
+            // eslint-disable-next-line
+            console.warn(`Plugin: ${prop} does not exist`);
+          }
           return undefined;
         }
         const sharedState = sharedStateAPI.createAPI(plugin);

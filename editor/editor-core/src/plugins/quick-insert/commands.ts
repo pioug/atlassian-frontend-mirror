@@ -4,7 +4,8 @@ import { Fragment, Node } from 'prosemirror-model';
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { QuickInsertItem } from '@atlaskit/editor-common/src/provider-factory/quick-insert-provider';
 
-import { insertSelectedItem } from '../../utils/insert';
+import { insertSelectedItem } from '@atlaskit/editor-common/insert';
+
 import { Command } from '../../types';
 import { pluginKey } from './plugin-key';
 

@@ -7,11 +7,10 @@ import { AddMarkStep, RemoveMarkStep } from 'prosemirror-transform';
 import { Mark, Schema, Node } from 'prosemirror-model';
 
 import { ACTION } from '@atlaskit/editor-common/analytics';
-import { isLinkMark } from '@atlaskit/editor-common/utils';
+import { isLinkMark, pmHistoryPluginKey } from '@atlaskit/editor-common/utils';
 import { getLinkMetadataFromTransaction } from '@atlaskit/editor-common/card';
 import { LinkMetaStep } from '@atlaskit/adf-schema/steps';
 
-import { pmHistoryPluginKey } from '../../../history/pm-history-types';
 import { getPluginState } from '../util/state';
 import { pluginKey } from '../plugin-key';
 import { LifecycleEvent } from '../../types';
@@ -21,24 +20,26 @@ import {
   isLink,
   linkObjectFromNode,
   getLinkUrl,
+  getLinkNodeContext,
   appearanceForLink,
   findLinksAtPositions,
+  areSameLinks,
 } from './utils';
 
 const findLinksInNodeRange = (
-  node: Node,
+  doc: Node,
   schema: Schema,
   from: number,
   to: number,
 ) => {
   const links: Link[] = [];
 
-  node.nodesBetween(from, to, (node, pos) => {
+  doc.nodesBetween(from, to, (node, pos) => {
     if (isLink(schema, node)) {
       const entireLinkInRange = pos >= from && pos + node.nodeSize <= to;
 
       if (entireLinkInRange) {
-        const link = linkObjectFromNode(schema, node, pos);
+        const link = linkObjectFromNode(doc, schema, node, pos);
         if (link) {
           links.push(link);
         }
@@ -76,6 +77,8 @@ export const findChangedLinks = (
     const stepMap = step.getMap();
     const removedInStep: Link[] = [];
     const insertedInStep: Link[] = [];
+    const before = tr.docs[i] ?? tr.before;
+    const after = tr.docs[i + 1] ?? tr.doc;
 
     /**
      * AddMarkStep and RemoveMarkSteps don't produce stepMap ranges
@@ -96,6 +99,7 @@ export const findChangedLinks = (
           type: 'mark',
           pos: addMarkStep.from,
           mark: addMarkStep.mark,
+          nodeContext: getLinkNodeContext(after, addMarkStep.from),
         });
       }
     }
@@ -107,13 +111,11 @@ export const findChangedLinks = (
       };
 
       if (isLinkMark(removeMarkStep.mark, schema)) {
-        /**
-         * For url text pasted on plain text
-         */
         removedInStep.push({
           type: 'mark',
           pos: removeMarkStep.from,
           mark: removeMarkStep.mark,
+          nodeContext: getLinkNodeContext(before, removeMarkStep.from),
         });
       }
     }
@@ -171,6 +173,19 @@ export const findChangedLinks = (
   }
 
   if (!isUpdate) {
+    const { inputMethod } = getLinkMetadataFromTransaction(tr);
+    /**
+     * If there is no identifiable input method, and the links inserted and removed appear to be the same,
+     * then this transaction likely is not intended to be consided to be the insertion and removal of links
+     */
+    if (!inputMethod && areSameLinks(removed, inserted)) {
+      return {
+        removed: [],
+        inserted: [],
+        updated,
+      };
+    }
+
     return {
       removed,
       inserted,
@@ -350,7 +365,7 @@ export function eventsFromTransaction(
 
     const { removed, inserted, updated } = findChangedLinks(tr, state);
 
-    const MAX_LINK_EVENTS = 10;
+    const MAX_LINK_EVENTS = 50;
     if (
       [removed, inserted, updated].some((arr) => arr.length > MAX_LINK_EVENTS)
     ) {
@@ -376,6 +391,7 @@ export function eventsFromTransaction(
             url,
             display,
             previousDisplay,
+            nodeContext: link.nodeContext,
           },
         });
       }
@@ -394,6 +410,7 @@ export function eventsFromTransaction(
               ...contextualData,
               url,
               display,
+              nodeContext: link.nodeContext,
             },
           });
         }

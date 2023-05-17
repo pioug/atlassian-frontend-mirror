@@ -1,5 +1,26 @@
 # @atlaskit/collab-provider
 
+## 8.9.1
+
+### Patch Changes
+
+- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+
+## 8.9.0
+
+### Minor Changes
+
+- [`220cf63d92b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/220cf63d92b) - ESS-3525 change catchup failed to recoverable true
+- [`a6bdc7cbd60`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a6bdc7cbd60) - adding functionality for early collab provider setup with initial draft
+
+### Patch Changes
+
+- [`a41f38996bd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a41f38996bd) - Add namespace service, refactor presence into participants service. No external API changes.
+- [`5e005df7946`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5e005df7946) - Refactor presence, no API changes
+- [`02c8dd052d5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/02c8dd052d5) - ESS-3553 Fix tokens not being unset when permissionTokenRefresh returns null. Fix error handler not emitting errors
+- [`a142ba1aa28`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a142ba1aa28) - [ED17172] Bump prosemirror-model to 1.16.0 and prosemirror-view to 1.23.7 and removed work-arounds for fixed issues
+- Updated dependencies
+
 ## 8.8.2
 
 ### Patch Changes

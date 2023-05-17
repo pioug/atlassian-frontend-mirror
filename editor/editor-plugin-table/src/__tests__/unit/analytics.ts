@@ -43,6 +43,9 @@ import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import tablePlugin from '../../plugins/table-plugin';
 import typeAheadPlugin from '@atlaskit/editor-core/src/plugins/type-ahead';
 import quickInsertPlugin from '@atlaskit/editor-core/src/plugins/quick-insert';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 const defaultTableDoc = doc(
   table()(
@@ -78,7 +81,10 @@ describe('Table analytic events', () => {
     const _editor = createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
+        .add([analyticsPlugin, {}])
         .add(typeAheadPlugin)
+        .add(contentInsertionPlugin)
         .add(quickInsertPlugin)
         .add([
           tablePlugin,

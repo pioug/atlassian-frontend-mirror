@@ -3,7 +3,7 @@ import {
   ContentNodeWithPos,
 } from 'prosemirror-utils';
 import { ResolvedPos, Node as PMNode } from 'prosemirror-model';
-import { isListNode, isListItemNode } from './node';
+import { isListItemNode, isListNode } from '@atlaskit/editor-common/utils';
 
 export function findFirstParentListNode($pos: ResolvedPos): {
   pos: number;

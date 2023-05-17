@@ -27,6 +27,7 @@ import {
 } from '../../../../plugins/card/toolbar';
 import { EditorView } from 'prosemirror-view';
 import { createCardRequest } from './_helpers';
+import { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 const atlassianUrl = 'http://www.atlassian.com/';
 
@@ -192,6 +193,12 @@ describe('card', () => {
       describe(`Toolbar ${name}`, () => {
         let editorView: EditorView;
         let refs: Refs;
+        const attachAnalyticsEvent = jest
+          .fn()
+          .mockImplementation(() => () => {});
+        const mockEditorAnalyticsAPI: EditorAnalyticsAPI = {
+          attachAnalyticsEvent,
+        };
 
         beforeEach(() => {
           ({ editorView, refs } = editor(doc(element)));
@@ -200,15 +207,19 @@ describe('card', () => {
           } else {
             setNodeSelection(editorView, refs['<']);
           }
+          attachAnalyticsEvent.mockClear();
         });
 
         describe('delete command', () => {
           beforeEach(() => {
-            removeCard(editorView.state, editorView.dispatch);
+            removeCard(mockEditorAnalyticsAPI)(
+              editorView.state,
+              editorView.dispatch,
+            );
           });
 
           it('should create analytics V3 event', () => {
-            expect(createAnalyticsEvent).toHaveBeenCalledWith({
+            expect(attachAnalyticsEvent).toHaveBeenCalledWith({
               action: 'deleted',
               actionSubject: 'smartLink',
               actionSubjectId: name,
@@ -227,7 +238,10 @@ describe('card', () => {
             windowSpy = jest
               .spyOn(window, 'open')
               .mockImplementation(() => null);
-            visitCardLink(editorView.state, editorView.dispatch);
+            visitCardLink(mockEditorAnalyticsAPI)(
+              editorView.state,
+              editorView.dispatch,
+            );
           });
 
           afterEach(() => {
@@ -235,7 +249,7 @@ describe('card', () => {
           });
 
           it('should create analytics V3 event', () => {
-            expect(createAnalyticsEvent).toHaveBeenCalledWith({
+            expect(attachAnalyticsEvent).toHaveBeenCalledWith({
               action: 'visited',
               actionSubject: 'smartLink',
               actionSubjectId: name,
@@ -255,7 +269,10 @@ describe('card', () => {
             windowSpy = jest
               .spyOn(window, 'open')
               .mockImplementation(() => null);
-            openLinkSettings(editorView.state, editorView.dispatch);
+            openLinkSettings(mockEditorAnalyticsAPI)(
+              editorView.state,
+              editorView.dispatch,
+            );
           });
 
           afterEach(() => {
@@ -263,7 +280,7 @@ describe('card', () => {
           });
 
           it('should create analytics V3 event', () => {
-            expect(createAnalyticsEvent).toHaveBeenCalledWith({
+            expect(attachAnalyticsEvent).toHaveBeenCalledWith({
               action: 'clicked',
               actionSubject: 'button',
               actionSubjectId: 'goToSmartLinkSettings',

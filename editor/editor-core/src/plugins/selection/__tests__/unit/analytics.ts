@@ -32,12 +32,16 @@ import {
   setCellSelection,
 } from '../../../../utils/selection';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 describe('selection analytics', () => {
   const createEditor = createProsemirrorEditorFactory();
   const preset = new Preset<LightEditorPlugin>()
-    .add(selectionPlugin)
     .add([featureFlagsPlugin, {}])
+    .add([analyticsPlugin, {}])
+    .add(selectionPlugin)
+    .add(contentInsertionPlugin)
     .add(rulePlugin)
     .add(layoutPlugin)
     .add(tablesPlugin);

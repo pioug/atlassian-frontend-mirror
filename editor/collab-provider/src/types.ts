@@ -316,7 +316,7 @@ export interface CollabEditProvider<
   initialize(getState: () => any, createStep: (json: object) => Step): this; // TO-DO: depecrate this
 
   setup(props: {
-    getState: () => EditorState;
+    getState?: () => EditorState;
     onSyncUpError?: SyncUpErrorFunction;
   }): this;
 

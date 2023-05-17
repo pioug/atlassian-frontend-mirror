@@ -21,7 +21,8 @@ import { insertTypeAheadItem } from '../../commands/insert-type-ahead-item';
 import type { TypeAheadHandler } from '../../types';
 import { getPluginState } from '../../utils';
 import typeAheadPlugin from '../..';
-import analyticsPlugin from '../../../analytics';
+import deprecatedAnalyticsPlugin from '../../../analytics';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import quickInsert from '../../../quick-insert';
 import mentionsPlugin from '../../../mentions';
 import emojiPlugin from '../../../emoji';
@@ -54,6 +55,7 @@ describe('type-ahead: multiple plugins', () => {
     const preset = new Preset<LightEditorPlugin>()
       .add([featureFlagsPlugin, {}])
       .add([analyticsPlugin, { createAnalyticsEvent }])
+      .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
       .add(mentionsPlugin)
       .add(emojiPlugin)
       .add(quickInsert)

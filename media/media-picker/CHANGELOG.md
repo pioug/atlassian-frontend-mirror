@@ -1,5 +1,23 @@
 # @atlaskit/media-picker
 
+## 65.1.1
+
+### Patch Changes
+
+- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- Updated dependencies
+
+## 65.1.0
+
+### Minor Changes
+
+- [`4a6a812a4d2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4a6a812a4d2) - [ux] Add a user friendly error message when uploading a file that is over the file size limit
+
+### Patch Changes
+
+- [`1bd483e036d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1bd483e036d) - fix missing fallback IntlProvider for UploadRejectionFlagGroup
+- Updated dependencies
+
 ## 65.0.1
 
 ### Patch Changes

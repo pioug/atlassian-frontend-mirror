@@ -9,7 +9,8 @@ import { Dispatch } from '../../../event-dispatcher';
 import { pluginFactory } from '../../../utils/plugin-state-factory';
 import { ListState } from '../types';
 import { setGapCursorSelection } from '../../../utils';
-import { Side } from '../../selection/gap-cursor-selection';
+import { Side } from '@atlaskit/editor-common/selection';
+
 import {
   listItemCounterPadding,
   CodeBlockSharedCssClassName,

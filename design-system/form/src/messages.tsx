@@ -116,6 +116,7 @@ const Message: React.FC<InternalMessageProps> = ({
       ]}
       data-testid={testId}
       id={fieldId}
+      role="alert"
     >
       {icon && <IconWrapper>{icon}</IconWrapper>}
       {content}

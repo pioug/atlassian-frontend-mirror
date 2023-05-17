@@ -9,6 +9,7 @@ import { rbdInvariant } from '../../drag-drop-context/rbd-invariant';
 import { attributes } from '../../utils/attributes';
 import { findClosestScrollContainer } from '../../utils/find-closest-scroll-container';
 import { getElement } from '../../utils/find-element';
+import { findPlaceholder } from '../../utils/find-placeholder';
 import { getElementByDraggableLocation } from '../../utils/get-element-by-draggable-location';
 import { getGapOffset } from '../gap';
 
@@ -91,6 +92,40 @@ function measureDraggable({
   };
 }
 
+/**
+ * This will return an indicator size and offset corresponding to a line
+ * through the middle of the placeholder.
+ *
+ * The reason this is a special case, instead of just falling back to the
+ * standard positioning logic, is to avoid measuring the drag preview.
+ */
+function measurePlaceholder({
+  element,
+  mode,
+  direction,
+}: {
+  element: HTMLElement;
+  mode: DroppableMode;
+  direction: Direction;
+}) {
+  const { mainAxis, crossAxis } = directionMapping[direction];
+
+  const offsetElement = getOffsetElement({ element, mode });
+
+  const baseOffset = offsetElement[mainAxis.offset] - lineOffset;
+  const mainAxisOffset = baseOffset + element[mainAxis.length] / 2;
+
+  return {
+    mainAxis: {
+      offset: mainAxisOffset,
+    },
+    crossAxis: {
+      offset: offsetElement[crossAxis.offset],
+      length: offsetElement[crossAxis.length],
+    },
+  };
+}
+
 function getDroppableOffset({
   element,
   direction,
@@ -146,15 +181,49 @@ function measureDroppable({
 
 export function getIndicatorSizeAndOffset({
   targetLocation,
+  isInHomeLocation,
   direction,
   mode,
   contextId,
 }: {
   targetLocation: DraggableLocation;
+  isInHomeLocation: boolean;
   direction: Direction;
   mode: DroppableMode;
   contextId: string;
 }): IndicatorSizeAndOffset | null {
+  if (isInHomeLocation) {
+    /**
+     * If we are in the home location (source === destination) then the
+     * indicator is centered in the placeholder.
+     *
+     * It isn't visible, but is used to scroll to.
+     *
+     * This is a special case, because the standard logic will not work
+     * correctly when measuring the drag preview,
+     * which occurs when in the home location.
+     *
+     * This is because the drag preview:
+     *
+     * 1. Has `position: fixed; top: 0; left: 0;` so its `offsetTop` and `offsetLeft`
+     *    will always be `0`, which result in the indicator being at the start of the list.
+     * 2. Is in the wrong location anyway.
+     *
+     * `measurePlaceholder()` is specifically designed for this case.
+     */
+
+    const element = findPlaceholder(contextId);
+    if (!element) {
+      return null;
+    }
+
+    return measurePlaceholder({
+      element,
+      mode,
+      direction,
+    });
+  }
+
   if (targetLocation.index === 0) {
     /**
      * If the target is the 0th index, there are two situations:

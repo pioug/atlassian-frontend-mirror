@@ -74,10 +74,10 @@ export type Space = keyof typeof spaceMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::4da498214befc7e312ff00d4f9f5379f>>
+ * @codegen <<SignedSource::aa1cfa3cd24f141a85ac1e0b70dbd8a8>>
  * @codegenId colors
  * @codegenCommand yarn codegen-styles
- * @codegenParams ["border", "background", "shadow", "text"]
+ * @codegenParams ["border", "background", "shadow", "text", "fill"]
  * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::10aa7e87eca39e4d6594a764e78e0698>>
  */
 export const borderColorMap = {
@@ -427,6 +427,32 @@ export const textColorMap = {
 
 export type TextColor = keyof typeof textColorMap;
 
+export const fillMap = {
+  'color.icon': token('color.icon', '#505F79'),
+  'accent.red': token('color.icon.accent.red', '#FF5630'),
+  'accent.orange': token('color.icon.accent.orange', '#D94008'),
+  'accent.yellow': token('color.icon.accent.yellow', '#FFAB00'),
+  'accent.green': token('color.icon.accent.green', '#36B37E'),
+  'accent.teal': token('color.icon.accent.teal', '#00B8D9'),
+  'accent.blue': token('color.icon.accent.blue', '#0065FF'),
+  'accent.purple': token('color.icon.accent.purple', '#6554C0'),
+  'accent.magenta': token('color.icon.accent.magenta', '#CD519D'),
+  'accent.gray': token('color.icon.accent.gray', '#5E6C84'),
+  disabled: token('color.icon.disabled', '#8993A4'),
+  inverse: token('color.icon.inverse', '#FFFFFF'),
+  selected: token('color.icon.selected', '#0052CC'),
+  brand: token('color.icon.brand', '#0065FF'),
+  danger: token('color.icon.danger', '#DE350B'),
+  warning: token('color.icon.warning', '#FFC400'),
+  'warning.inverse': token('color.icon.warning.inverse', '#253858'),
+  success: token('color.icon.success', '#00875A'),
+  discovery: token('color.icon.discovery', '#8777D9'),
+  information: token('color.icon.information', '#0747A6'),
+  subtle: token('color.icon.subtle', '#6B778C'),
+} as const;
+
+export type Fill = keyof typeof fillMap;
+
 /**
  * @codegenEnd
  */
@@ -595,6 +621,7 @@ export type TokenisedProps = {
   color?: TextColor;
   columnGap?: Space;
   display?: Display;
+  fill?: Fill;
   flex?: Flex;
   flexDirection?: FlexDirection;
   flexGrow?: FlexGrow;

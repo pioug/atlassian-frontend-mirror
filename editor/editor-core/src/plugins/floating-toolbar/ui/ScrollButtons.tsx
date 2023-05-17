@@ -5,20 +5,18 @@ import { Node } from 'prosemirror-model';
 import { IntlShape } from 'react-intl-next';
 import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-import { gridSize } from '@atlaskit/theme/constants';
 import ChevronLeftLargeIcon from '@atlaskit/icon/glyph/chevron-left-large';
 import ChevronRightLargeIcon from '@atlaskit/icon/glyph/chevron-right-large';
-import Button from './Button';
+import { FloatingToolbarButton as Button } from '@atlaskit/editor-common/ui';
+
 import messages from './messages';
 import rafSchedule from 'raf-schd';
-
-const akGridSize = gridSize();
 
 const toolbarScrollButtons = css`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-gap: ${akGridSize / 2}px;
-  padding: ${akGridSize / 2}px ${akGridSize}px;
+  grid-gap: ${token('space.050', '4px')};
+  padding: ${token('space.050', '4px')} ${token('space.100', '8px')};
   border-left: solid ${token('color.border', N30)} 1px;
   flex-shrink: 0;
   align-items: center;

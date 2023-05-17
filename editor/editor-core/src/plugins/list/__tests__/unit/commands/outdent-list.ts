@@ -22,12 +22,14 @@ import {
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { outdentList } from '../../../commands/outdent-list';
-import analyticsPlugin, { INPUT_METHOD } from '../../../../analytics';
+import deprecatedAnalyticsPlugin, { INPUT_METHOD } from '../../../../analytics';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import listPlugin from '../../..';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import { setTextSelection } from '../../../../../utils';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 describe('lists plugin -> commands -> outdentList', () => {
   const createProseMirrorEditor = createProsemirrorEditorFactory();
@@ -40,9 +42,11 @@ describe('lists plugin -> commands -> outdentList', () => {
   const editor = (doc: DocBuilder, featureFlags: FeatureFlags = {}) => {
     const preset = new Preset<LightEditorPlugin>()
       .add([featureFlagsPlugin, featureFlags])
+      .add([analyticsPlugin, { createAnalyticsEvent }])
+      .add(contentInsertionPlugin)
       .add([listPlugin, featureFlags])
       .add(tablesPlugin)
-      .add([analyticsPlugin, { createAnalyticsEvent }]);
+      .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }]);
 
     return createProseMirrorEditor({
       doc,

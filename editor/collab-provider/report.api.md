@@ -85,7 +85,7 @@ export interface CollabEditProvider<
   ): void;
   // (undocumented)
   setup(props: {
-    getState: () => EditorState;
+    getState?: () => EditorState;
     onSyncUpError?: SyncUpErrorFunction;
   }): this;
   // (undocumented)
@@ -386,6 +386,8 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
   getFinalAcknowledgedState: () => Promise<ResolvedEditorState>;
   getMetadata: () => Metadata_2;
   // (undocumented)
+  getStatePromiseResolve: (value: PromiseLike<void> | void) => void;
+  // (undocumented)
   getUnconfirmedSteps: () => readonly Step[] | undefined;
   // @deprecated
   initialize(getState: () => EditorState): this;
@@ -404,7 +406,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
     getState,
     onSyncUpError,
   }: {
-    getState: () => EditorState;
+    getState?: () => EditorState;
     onSyncUpError?: SyncUpErrorFunction;
   }): this;
   // @deprecated

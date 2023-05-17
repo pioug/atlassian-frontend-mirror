@@ -25,6 +25,7 @@ import { CardErrorBoundary } from './fallback';
 import { RendererAppearance } from '../../ui/Renderer/types';
 import { FullPagePadding } from '../../ui/Renderer/style';
 import { getCardClickHandler } from '../utils/getCardClickHandler';
+import { AnalyticsContext } from '@atlaskit/analytics-next';
 
 const embedCardWrapperStyles = css`
   width: 100%;
@@ -135,76 +136,86 @@ export default function EmbedCard(props: {
     setAspectRatio(resolvedAspectRatio);
   };
 
+  const analyticsData = {
+    attributes: {
+      location: 'renderer',
+    },
+    // Below is added for the future implementation of Linking Platform namespaced analytic context
+    location: 'renderer',
+  };
+
   return (
-    <WidthConsumer>
-      {({ width: containerWidth, breakpoint }) => {
-        let nonFullWidthSize = containerWidth;
-        const isFullWidth = rendererAppearance === 'full-width';
-        if (!isInsideOfBlockNode && rendererAppearance !== 'comment') {
-          const isContainerSizeGreaterThanMaxFullPageWidth =
-            containerWidth - padding >= akEditorDefaultLayoutWidth;
+    <AnalyticsContext data={analyticsData}>
+      <WidthConsumer>
+        {({ width: containerWidth, breakpoint }) => {
+          let nonFullWidthSize = containerWidth;
+          const isFullWidth = rendererAppearance === 'full-width';
+          if (!isInsideOfBlockNode && rendererAppearance !== 'comment') {
+            const isContainerSizeGreaterThanMaxFullPageWidth =
+              containerWidth - padding >= akEditorDefaultLayoutWidth;
 
-          if (isContainerSizeGreaterThanMaxFullPageWidth) {
-            nonFullWidthSize = akEditorDefaultLayoutWidth;
-          } else {
-            nonFullWidthSize = containerWidth - padding;
+            if (isContainerSizeGreaterThanMaxFullPageWidth) {
+              nonFullWidthSize = akEditorDefaultLayoutWidth;
+            } else {
+              nonFullWidthSize = containerWidth - padding;
+            }
           }
-        }
 
-        const lineLength = isFullWidth
-          ? Math.min(akEditorFullWidthLayoutWidth, containerWidth - padding)
-          : nonFullWidthSize;
+          const lineLength = isFullWidth
+            ? Math.min(akEditorFullWidthLayoutWidth, containerWidth - padding)
+            : nonFullWidthSize;
 
-        const uiMediaSingleStyles =
-          layout === 'full-width' || layout === 'wide'
-            ? uIMediaSingleLayoutStyles
-            : '';
+          const uiMediaSingleStyles =
+            layout === 'full-width' || layout === 'wide'
+              ? uIMediaSingleLayoutStyles
+              : '';
 
-        return (
-          <CardErrorBoundary
-            unsupportedComponent={UnsupportedBlock}
-            {...cardProps}
-          >
-            <EmbedResizeMessageListener
-              embedIframeRef={embedIframeRef}
-              onHeightUpdate={setLiveHeight}
+          return (
+            <CardErrorBoundary
+              unsupportedComponent={UnsupportedBlock}
+              {...cardProps}
             >
-              <UIMediaSingle
-                css={uiMediaSingleStyles}
-                layout={layout}
-                width={originalWidth}
-                containerWidth={containerWidth}
-                pctWidth={width}
-                height={originalHeight}
-                fullWidthMode={isFullWidth}
-                nodeType="embedCard"
-                lineLength={isInsideOfBlockNode ? containerWidth : lineLength}
-                hasFallbackContainer={hasPreview}
+              <EmbedResizeMessageListener
+                embedIframeRef={embedIframeRef}
+                onHeightUpdate={setLiveHeight}
               >
-                <div css={embedCardWrapperStyles}>
-                  <div
-                    className="embedCardView-content-wrap"
-                    data-embed-card
-                    data-layout={layout}
-                    data-width={width}
-                    data-card-data={data ? JSON.stringify(data) : undefined}
-                    data-card-url={url}
-                    data-card-original-height={originalHeight}
-                  >
-                    <Card
-                      appearance="embed"
-                      {...cardProps}
-                      onResolve={onResolve}
-                      inheritDimensions={true}
-                      embedIframeRef={embedIframeRef}
-                    />
+                <UIMediaSingle
+                  css={uiMediaSingleStyles}
+                  layout={layout}
+                  width={originalWidth}
+                  containerWidth={containerWidth}
+                  pctWidth={width}
+                  height={originalHeight}
+                  fullWidthMode={isFullWidth}
+                  nodeType="embedCard"
+                  lineLength={isInsideOfBlockNode ? containerWidth : lineLength}
+                  hasFallbackContainer={hasPreview}
+                >
+                  <div css={embedCardWrapperStyles}>
+                    <div
+                      className="embedCardView-content-wrap"
+                      data-embed-card
+                      data-layout={layout}
+                      data-width={width}
+                      data-card-data={data ? JSON.stringify(data) : undefined}
+                      data-card-url={url}
+                      data-card-original-height={originalHeight}
+                    >
+                      <Card
+                        appearance="embed"
+                        {...cardProps}
+                        onResolve={onResolve}
+                        inheritDimensions={true}
+                        embedIframeRef={embedIframeRef}
+                      />
+                    </div>
                   </div>
-                </div>
-              </UIMediaSingle>
-            </EmbedResizeMessageListener>
-          </CardErrorBoundary>
-        );
-      }}
-    </WidthConsumer>
+                </UIMediaSingle>
+              </EmbedResizeMessageListener>
+            </CardErrorBoundary>
+          );
+        }}
+      </WidthConsumer>
+    </AnalyticsContext>
   );
 }

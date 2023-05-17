@@ -1,5 +1,4 @@
-import type { CollabEventTelepointerData } from '@atlaskit/editor-common/collab';
-import type { PresencePayload, StepJson } from '../../types';
+import type { PresencePayload } from '../../types';
 import type {
   ParticipantsMap,
   ProviderParticipant,
@@ -7,47 +6,66 @@ import type {
 import { ParticipantsService } from '../participants-service';
 import { ParticipantsState } from '../participants-state';
 import { PARTICIPANT_UPDATE_INTERVAL } from '../participants-helper';
+import AnalyticsHelper from '../../analytics/analytics-helper';
+import { EVENT_ACTION, EVENT_STATUS } from '../../helpers/const';
 
 const baseTime = 1676863793756;
 
-const sessionId = '69';
+const sessionId = 'vXrOwZ7OIyXq17jdB2jh';
 
 const activeUser: ProviderParticipant = {
-  userId: '420',
-  clientId: 'unused1',
+  userId: '70121:8fce2c13-5f60-40be-a9f2-956c6f041fbe',
+  clientId: '328374441',
   sessionId: sessionId,
   lastActive: baseTime,
   name: 'Mr Kafei',
   avatar: 'www.jamescameron.com/image.png',
 };
 
-describe('updateParticipant', () => {
-  const payload: PresencePayload = {
-    sessionId: activeUser.sessionId,
-    userId: activeUser.userId,
-    clientId: activeUser.clientId,
-    timestamp: baseTime,
-  };
+const payload: PresencePayload = {
+  sessionId: activeUser.sessionId,
+  userId: activeUser.userId,
+  clientId: activeUser.clientId,
+  timestamp: baseTime,
+};
 
-  const getUser = jest.fn().mockReturnValue({
-    name: activeUser.name,
-    avatar: activeUser.avatar,
-  });
+const participantsServiceConstructor = (deps: {
+  analyticsHelper?: AnalyticsHelper;
+  participants?: ParticipantsState;
+  emit?: any;
+  getUser?: any;
+  broadcast?: any;
+  sendPresenceJoined?: any;
+}): ParticipantsService =>
+  new ParticipantsService(
+    deps.analyticsHelper,
+    deps.participants,
+    deps.emit || jest.fn(),
+    deps.getUser || jest.fn(),
+    deps.broadcast || jest.fn(),
+    deps.sendPresenceJoined || jest.fn(),
+  );
 
-  const emit = jest.fn();
-
-  beforeEach(() => jest.clearAllMocks());
-
-  describe('when participant is new', () => {
-    const participantsService = new ParticipantsService(undefined);
-
-    it('should call emit with participant', async () => {
-      await participantsService.updateParticipant(payload, getUser, emit);
-      expect(emit).toBeCalledWith('presence', { joined: [activeUser] });
+describe('removeInactiveParticipants', () => {
+  it('Should not throw when filterInactive throws an error', () => {
+    const participantsService = participantsServiceConstructor({});
+    jest.useFakeTimers();
+    expect(setTimeout).not.toBeCalled();
+    // @ts-ignore
+    participantsService.filterInactive = jest.fn().mockImplementation(() => {
+      throw new Error('Mock Error');
     });
+    participantsService.startInactiveRemover(undefined);
+    expect(setTimeout).toBeCalledWith(
+      expect.any(Function),
+      PARTICIPANT_UPDATE_INTERVAL,
+    );
   });
+});
 
-  describe('when participant already exists', () => {
+describe('onParticipantLeft', () => {
+  describe('on success', () => {
+    const emit = jest.fn();
     const participantsMap: ParticipantsMap = new Map().set(
       activeUser.sessionId,
       activeUser,
@@ -55,100 +73,82 @@ describe('updateParticipant', () => {
     const participants: ParticipantsState = new ParticipantsState(
       participantsMap,
     );
-    const participantsService = new ParticipantsService(
-      undefined,
+    const analyticsHelper = new AnalyticsHelper('fakeDocumentAri');
+    const sendActionEvent = jest.spyOn(analyticsHelper, 'sendActionEvent');
+
+    const participantsService = participantsServiceConstructor({
+      analyticsHelper,
       participants,
-    );
-
-    it('should not call emit', async () => {
-      await participantsService.updateParticipant(payload, getUser, emit);
-      expect(emit).not.toBeCalled();
+      emit,
     });
-  });
 
-  describe('when no userId provided', () => {
-    const payloadWithNoId = { ...payload, userId: undefined };
-    const participantsService = new ParticipantsService(undefined);
+    // @ts-expect-error expect type error
+    const emitPresenceSpy = jest.spyOn(participantsService, 'emitPresence');
 
-    it('should not call emit', async () => {
-      await participantsService.updateParticipant(
-        payloadWithNoId,
-        getUser,
-        emit,
+    participantsService.onParticipantLeft(payload);
+
+    it('should remove participant', () => {
+      // @ts-expect-error accessing private property
+      expect(participantsService.participantsState.getParticipants()).toEqual(
+        [],
       );
-      expect(emit).not.toBeCalled();
     });
-  });
 
-  describe('removeInactiveParticipants', () => {
-    it('Should not throw when filterInactive throws an error', () => {
-      const participantsService = new ParticipantsService(undefined);
-      jest.useFakeTimers();
-      expect(setTimeout).not.toBeCalled();
-      // @ts-ignore
-      participantsService.filterInactive = jest.fn().mockImplementation(() => {
-        throw new Error('Mock Error');
+    it('should call emitPresence', () => {
+      expect(emitPresenceSpy).toBeCalledTimes(1);
+      expect(emitPresenceSpy).toBeCalledWith(
+        { left: [{ sessionId: activeUser.sessionId }] },
+        'participant leaving',
+      );
+    });
+
+    it('should call emit with participant', () => {
+      expect(emit).toBeCalledTimes(1);
+      expect(emit).toBeCalledWith('presence', {
+        left: [{ sessionId: activeUser.sessionId }],
       });
-      participantsService.removeInactiveParticipants(undefined, jest.fn());
-      expect(setTimeout).toBeCalledWith(
-        expect.any(Function),
-        PARTICIPANT_UPDATE_INTERVAL,
+    });
+
+    it('should send analytics', () => {
+      expect(sendActionEvent).toHaveBeenCalledTimes(1);
+      expect(sendActionEvent).toHaveBeenCalledWith(
+        EVENT_ACTION.UPDATE_PARTICIPANTS,
+        EVENT_STATUS.SUCCESS,
+        { participants: 0 },
       );
     });
   });
-});
 
-describe('emitTelepointersFromSteps', () => {
-  const emit = jest.fn();
-  const participantsMap: ParticipantsMap = new Map().set(
-    activeUser.sessionId,
-    activeUser,
-  );
-  const participants: ParticipantsState = new ParticipantsState(
-    participantsMap,
-  );
-  const participantsService = new ParticipantsService(undefined, participants);
-  const fakeSteps: StepJson[] = [
-    {
-      stepType: 'replace',
-      from: 123,
-      to: 123,
-      slice: {
-        content: [
-          {
-            type: 'text',
-            text: 'J',
-            attrs: { something: 'something' },
-            content: [],
-            marks: [],
-          },
-        ],
-        openStart: 123,
-        openEnd: 123,
-      },
-      clientId: activeUser.clientId,
-      userId: activeUser.userId,
-    },
-  ];
-  const expectedData: CollabEventTelepointerData = {
-    sessionId: activeUser.sessionId,
-    selection: {
-      type: 'textSelection',
-      anchor: 123 + 1,
-      head: 123 + 1,
-    },
-    type: 'telepointer',
-  };
+  describe('on failure', () => {
+    const fakeError = new Error('fake error');
 
-  beforeEach(() => jest.clearAllMocks());
+    const emit = jest.fn().mockImplementationOnce(() => {
+      throw fakeError;
+    });
 
-  it('should call emit with telepointer', () => {
-    participantsService.emitTelepointersFromSteps(fakeSteps, emit);
-    expect(emit).toBeCalledWith('telepointer', expectedData);
-  });
+    const analyticsHelper = new AnalyticsHelper('fakeDocumentAri');
+    const sendErrorEventSpy = jest.spyOn(analyticsHelper, 'sendErrorEvent');
+    const participantsMap: ParticipantsMap = new Map().set(
+      activeUser.sessionId,
+      activeUser,
+    );
+    const participants: ParticipantsState = new ParticipantsState(
+      participantsMap,
+    );
+    const participantsService = participantsServiceConstructor({
+      analyticsHelper,
+      participants,
+      emit,
+    });
 
-  it('should not emit when a telepointer can not be created from a step', () => {
-    participantsService.emitTelepointersFromSteps([{} as any], emit);
-    expect(emit).not.toBeCalled();
+    participantsService.onParticipantLeft(payload);
+
+    it('should send analytics', () => {
+      expect(sendErrorEventSpy).toHaveBeenCalledTimes(1);
+      expect(sendErrorEventSpy).toHaveBeenCalledWith(
+        fakeError,
+        'Error while participant leaving',
+      );
+    });
   });
 });

@@ -21,6 +21,9 @@ import { getSelectionRect } from '@atlaskit/editor-tables/utils';
 import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
 import { PluginKey } from 'prosemirror-state';
 import tablePlugin from '../../../plugins/table-plugin';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 const colsToRect = (cols: Array<number>, noOfRows: number): Rect => ({
   left: Math.min(...cols),
@@ -41,7 +44,11 @@ describe('table plugin -> transforms -> delete columns', () => {
   });
 
   const createEditor = createProsemirrorEditorFactory();
-  const preset = new Preset<LightEditorPlugin>().add(tablePlugin);
+  const preset = new Preset<LightEditorPlugin>()
+    .add([featureFlagsPlugin, {}])
+    .add([analyticsPlugin, {}])
+    .add(contentInsertionPlugin)
+    .add(tablePlugin);
 
   const editor = (doc: DocBuilder) =>
     createEditor<TablePluginState, PluginKey>({

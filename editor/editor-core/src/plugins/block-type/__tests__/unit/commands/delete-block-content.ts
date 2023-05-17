@@ -19,9 +19,14 @@ import layoutPlugin from '../../../../layout';
 import mediaPlugin from '../../../../media';
 import panelPlugin from '../../../../panel';
 import cardPlugin from '../../../../card';
+import widthPlugin from '../../../../width';
+import gridPlugin from '../../../../grid';
+import basePLugin from '../../../../base';
 import { deleteBlockContent } from '../../../commands';
 import { isNodeAWrappingBlockNode } from '../../../utils';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 describe('delete block content', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -29,9 +34,14 @@ describe('delete block content', () => {
   const editor = (doc: DocBuilder) => {
     const preset = new Preset<LightEditorPlugin>()
       .add([featureFlagsPlugin, {}])
+      .add([analyticsPlugin, {}])
+      .add(contentInsertionPlugin)
+      .add(basePLugin)
       .add(listPlugin)
       .add([codeBlockPlugin, { appearance: 'full-page' }])
       .add(layoutPlugin)
+      .add(widthPlugin)
+      .add(gridPlugin)
       .add([cardPlugin, { platform: 'web' }])
       .add([mediaPlugin, { allowMediaSingle: true }])
       .add(tablesPlugin)

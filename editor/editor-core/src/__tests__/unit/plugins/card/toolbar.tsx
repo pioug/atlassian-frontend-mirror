@@ -42,6 +42,26 @@ import {
   mockCardContextState,
   mockPreview,
 } from '../../../../plugins/card/ui/__tests__/_utils/mock-card-context';
+import { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+
+const attachAnalyticsEvent = jest.fn().mockImplementation(() => () => {});
+
+const mockEditorAnalyticsApi: EditorAnalyticsAPI = {
+  attachAnalyticsEvent,
+};
+
+const mockPluginInjectionApi: any = {
+  dependencies: {
+    base: {
+      actions: {
+        hoverDecoration: () => () => {},
+      },
+    },
+    analytics: {
+      actions: mockEditorAnalyticsApi,
+    },
+  },
+};
 
 describe('card', () => {
   const createEditor = createEditorFactory();
@@ -145,6 +165,9 @@ describe('card', () => {
               allowResizing: true,
             },
             featureFlagsMock,
+            undefined,
+            undefined,
+            mockPluginInjectionApi,
           )(editorView.state, intl, providerFactory);
           const toolbarItems = getToolbarItems(toolbar!, editorView);
           expect(toolbar).toBeDefined();
@@ -177,6 +200,8 @@ describe('card', () => {
             },
             featureFlagsMock,
             'mobile',
+            undefined,
+            mockPluginInjectionApi,
           )(editorView.state, intl, providerFactory);
           const toolbarItems = getToolbarItems(toolbar!, editorView);
           expect(toolbarItems[2].type).not.toBe('custom');
@@ -207,6 +232,9 @@ describe('card', () => {
               allowResizing: true,
             },
             featureFlagsMock,
+            undefined,
+            undefined,
+            mockPluginInjectionApi,
           )(editorView.state, intl, providerFactory);
           const toolbarItems = getToolbarItems(toolbar!, editorView);
           expect(toolbar).toBeDefined();
@@ -237,6 +265,9 @@ describe('card', () => {
               allowResizing: true,
             },
             featureFlagsMock,
+            undefined,
+            undefined,
+            mockPluginInjectionApi,
           )(editorView.state, intl, providerFactory);
           const toolbarItems = getToolbarItems(toolbar!, editorView);
           expect(toolbar).toBeDefined();
@@ -269,6 +300,9 @@ describe('card', () => {
               allowResizing: true,
             },
             featureFlagsMock,
+            undefined,
+            undefined,
+            mockPluginInjectionApi,
           )(editorView.state, intl, providerFactory);
           const toolbarItems = getToolbarItems(toolbar!, editorView);
           expect(toolbar).toBeDefined();
@@ -360,6 +394,8 @@ describe('card', () => {
             toolbarConfig,
             featureFlagsMock,
             'web',
+            undefined,
+            mockPluginInjectionApi,
           )(editorView.state, intl, providerFactory);
 
           const toolbarItems = getToolbarItems(toolbar!, editorView);
@@ -409,6 +445,8 @@ describe('card', () => {
             toolbarConfig,
             featureFlagsMock,
             'web',
+            undefined,
+            mockPluginInjectionApi,
           )(editorView.state, intl, providerFactory);
           const toolbarItems = getToolbarItems(toolbar!, editorView);
           expect(toolbar).toBeDefined();
@@ -475,11 +513,13 @@ describe('card', () => {
         ),
       );
 
-      const toolbar = floatingToolbar({}, featureFlagsMock)(
-        editorView.state,
-        intl,
-        providerFactory,
-      );
+      const toolbar = floatingToolbar(
+        {},
+        featureFlagsMock,
+        undefined,
+        undefined,
+        mockPluginInjectionApi,
+      )(editorView.state, intl, providerFactory);
       expect(getToolbarItems(toolbar!, editorView).length).toEqual(0);
     });
 
@@ -495,11 +535,13 @@ describe('card', () => {
         ),
       );
 
-      const toolbar = floatingToolbar({}, featureFlagsMock)(
-        editorView.state,
-        intl,
-        providerFactory,
-      );
+      const toolbar = floatingToolbar(
+        {},
+        featureFlagsMock,
+        undefined,
+        undefined,
+        mockPluginInjectionApi,
+      )(editorView.state, intl, providerFactory);
       expect(getToolbarItems(toolbar!, editorView).length).toEqual(0);
     });
 
@@ -521,11 +563,13 @@ describe('card', () => {
           ),
         );
 
-        const toolbar = floatingToolbar({}, featureFlags)(
-          editorView.state,
-          intl,
-          providerFactory,
-        );
+        const toolbar = floatingToolbar(
+          {},
+          featureFlags,
+          undefined,
+          undefined,
+          mockPluginInjectionApi,
+        )(editorView.state, intl, providerFactory);
         const items = getToolbarItems(toolbar!, editorView);
         const editButton = items.find(
           (item) => 'id' in item && item.id === 'editor.link.edit',
@@ -566,6 +610,9 @@ describe('card', () => {
           allowResizing: true,
         },
         featureFlagsMock,
+        undefined,
+        undefined,
+        mockPluginInjectionApi,
       )(editorView.state, intl, providerFactory);
       const toolbarItems = getToolbarItems(toolbar!, editorView);
       expect(toolbar).toBeDefined();
@@ -704,18 +751,20 @@ describe('card', () => {
         ),
       );
 
-      const toolbar = floatingToolbar({}, featureFlagsMock)(
-        editorView.state,
-        intl,
-        providerFactory,
-      );
+      const toolbar = floatingToolbar(
+        {},
+        featureFlagsMock,
+        undefined,
+        undefined,
+        mockPluginInjectionApi,
+      )(editorView.state, intl, providerFactory);
 
       const visitButton = getToolbarItems(toolbar!, editorView).find(
         (item) => item.type === 'button' && item.title === visitTitle,
       ) as FloatingToolbarButton<Command>;
 
       visitButton.onClick(editorView.state, editorView.dispatch);
-      expect(createAnalyticsEvent).toBeCalledWith({
+      expect(attachAnalyticsEvent).toBeCalledWith({
         action: 'visited',
         actionSubject: 'smartLink',
         actionSubjectId: 'inlineCard',
@@ -799,17 +848,19 @@ describe('card', () => {
         ),
       );
 
-      const toolbar = floatingToolbar({}, featureFlagsMock)(
-        editorView.state,
-        intl,
-        providerFactory,
-      );
+      const toolbar = floatingToolbar(
+        {},
+        featureFlagsMock,
+        undefined,
+        undefined,
+        mockPluginInjectionApi,
+      )(editorView.state, intl, providerFactory);
       const unlinkButton = getToolbarItems(toolbar!, editorView).find(
         (item) => item.type === 'button' && item.title === unlinkTitle,
       ) as FloatingToolbarButton<Command>;
 
       unlinkButton.onClick(editorView.state, editorView.dispatch);
-      expect(createAnalyticsEvent).toBeCalledWith({
+      expect(attachAnalyticsEvent).toBeCalledWith({
         action: 'unlinked',
         actionSubject: 'smartLink',
         actionSubjectId: 'inlineCard',
@@ -836,11 +887,13 @@ describe('card', () => {
         ),
       );
 
-      const toolbar = floatingToolbar({}, featureFlagsMock)(
-        editorView.state,
-        intl,
-        providerFactory,
-      );
+      const toolbar = floatingToolbar(
+        {},
+        featureFlagsMock,
+        undefined,
+        undefined,
+        mockPluginInjectionApi,
+      )(editorView.state, intl, providerFactory);
       const removeButton = getToolbarItems(toolbar!, editorView).find(
         (item) => item.type === 'button' && item.title === removeTitle,
       ) as FloatingToolbarButton<Command>;

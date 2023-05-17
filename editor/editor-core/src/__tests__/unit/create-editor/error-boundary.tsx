@@ -201,6 +201,31 @@ describe('create-editor/error-boundary', () => {
     );
   });
 
+  it('should not dispatch an analytics event when an error is caught if errorTracking is explicitly disabled', async () => {
+    wrapper = shallow(
+      <EditorErrorBoundary
+        rethrow={false}
+        createAnalyticsEvent={createAnalyticsEvent}
+        contextIdentifierProvider={contextIdentifierProvider}
+        featureFlags={{}}
+        errorTracking={false}
+      >
+        <Foo />
+      </EditorErrorBoundary>,
+    );
+    const error = new Error('Triggered error boundary');
+    wrapper.find(Foo).simulateError(error);
+    expect(spy.componentDidCatch).toHaveBeenCalledTimes(1);
+    const resolved = await expect(contextIdentifierProvider).resolves;
+    resolved.toMatchObject(mockCtxIdentifierProvider);
+
+    // Error boundary has a async operation to get the productName,
+    // I need to wait until that promise resolve
+    await flushPromises();
+
+    expect(createAnalyticsEvent).toHaveBeenCalledTimes(0);
+  });
+
   it('should fail all active UFO experiences when an error is caught and ufo is enabled', async () => {
     const { editorView } = createEditor({
       preset: new Preset<LightEditorPlugin>().add([featureFlagsPlugin, {}]),

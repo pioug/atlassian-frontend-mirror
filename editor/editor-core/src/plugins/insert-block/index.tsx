@@ -1,5 +1,8 @@
 import React from 'react';
-import { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import {
+  NextEditorPlugin,
+  OptionalPlugin,
+} from '@atlaskit/editor-common/types';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
 import type { Providers } from '@atlaskit/editor-common/provider-factory';
 import { pluginKey as blockTypeStateKey } from '../block-type/pm-plugins/main';
@@ -22,8 +25,8 @@ import { pluginKey as dateStateKey } from '../date/pm-plugins/plugin-key';
 import { pluginKey as placeholderTextStateKey } from '../placeholder-text/plugin-key';
 import { pluginKey as macroStateKey } from '../macro/plugin-key';
 import { ToolbarSize } from '../../ui/Toolbar/types';
-import type { InsertNodeAPI } from '../../insert-api/types';
 import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 
 const toolbarSizeToButtons = (toolbarSize: ToolbarSize) => {
   switch (toolbarSize) {
@@ -49,7 +52,6 @@ export interface InsertBlockOptions {
   nativeStatusSupported?: boolean;
   replacePlusMenuWithElementBrowser?: boolean;
   showElementBrowserLink?: boolean;
-  insertNodeAPI?: InsertNodeAPI;
 }
 
 /**
@@ -64,7 +66,10 @@ const insertBlockPlugin: NextEditorPlugin<
   'insertBlock',
   {
     pluginConfiguration: InsertBlockOptions | undefined;
-    dependencies: [typeof featureFlagsPlugin];
+    dependencies: [
+      typeof featureFlagsPlugin,
+      OptionalPlugin<typeof tablesPlugin>,
+    ];
   }
 > = (options = {}, api) => {
   const featureFlags =
@@ -115,7 +120,7 @@ const insertBlockPlugin: NextEditorPlugin<
               layoutState,
             }) => (
               <ToolbarInsertBlock
-                insertNodeAPI={options.insertNodeAPI}
+                pluginInjectionApi={api}
                 buttons={buttons}
                 isReducedSpacing={isToolbarReducedSpacing}
                 isDisabled={disabled}

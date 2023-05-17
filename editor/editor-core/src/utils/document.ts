@@ -20,6 +20,7 @@ import { ContentNodeWithPos } from 'prosemirror-utils';
 import { sanitizeNodeForPrivacy } from '../utils/filter/privacy-filter';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import {
+  isEmptyParagraph,
   validateADFEntity,
   findAndTrackUnsupportedContentNodes,
 } from '@atlaskit/editor-common/utils';
@@ -33,13 +34,6 @@ import {
   ACTION_SUBJECT,
   EVENT_TYPE,
 } from '../plugins/analytics/types/enums';
-
-/**
- * Checks if node is an empty paragraph.
- */
-export function isEmptyParagraph(node?: Node | null): boolean {
-  return !!node && node.type.name === 'paragraph' && !node.childCount;
-}
 
 /**
  * Returns false if node contains only empty inline nodes and hardBreaks.

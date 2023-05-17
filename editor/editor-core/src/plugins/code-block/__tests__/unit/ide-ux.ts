@@ -13,7 +13,7 @@ import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
 import { AllSelection } from 'prosemirror-state';
-import analyticsPlugin, {
+import deprecatedAnalyticsPlugin, {
   AnalyticsEventPayload,
   ACTION,
   ACTION_SUBJECT,
@@ -23,6 +23,7 @@ import analyticsPlugin, {
   INDENT_DIRECTION,
   INDENT_TYPE,
 } from '../../../analytics';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import basePlugin from '../../../base';
 import codeBlockPlugin from '../../';
@@ -51,7 +52,8 @@ describe('IDE UX plugin', () => {
         .add([featureFlagsPlugin, {}])
         .add(basePlugin)
         .add([codeBlockPlugin, { appearance: 'full-page' }])
-        .add([analyticsPlugin, { createAnalyticsEvent }]),
+        .add([analyticsPlugin, { createAnalyticsEvent }])
+        .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }]),
     });
   };
 

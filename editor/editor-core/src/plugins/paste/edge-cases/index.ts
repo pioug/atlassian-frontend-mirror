@@ -7,7 +7,8 @@ import {
   insertSliceAtNodeEdge,
   insertSliceIntoEmptyNode,
 } from './lists';
-import { isListNode } from '../../list/utils/node';
+import { isListNode } from '@atlaskit/editor-common/utils';
+
 import {
   isSelectionInsidePanel,
   isEmptyNode,

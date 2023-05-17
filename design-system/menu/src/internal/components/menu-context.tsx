@@ -10,3 +10,14 @@ export type SpacingMode = 'compact' | 'cozy';
  * @internal Do not use directly.
  */
 export const SpacingContext = createContext<SpacingMode>('cozy');
+
+/**
+ * __Selection context__
+ *
+ * The selection context is used to set what selection mode the menu items display as.
+ *
+ * @internal Do not use directly.
+ */
+export const SELECTION_STYLE_CONTEXT_DO_NOT_USE = createContext<
+  'notch' | 'border'
+>('border');

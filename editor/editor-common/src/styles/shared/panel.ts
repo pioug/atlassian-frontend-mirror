@@ -11,6 +11,7 @@ import { akEditorCustomIconSize } from '@atlaskit/editor-shared-styles/consts';
 import { emojiImage, emojiSprite } from '@atlaskit/emoji';
 import * as colors from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { borderRadius, gridSize } from '@atlaskit/theme/constants';
 import { ThemeProps } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
@@ -128,6 +129,8 @@ const tokenDarkPanelColors = {
   error: token('color.background.danger', darkPanelColors['error']),
 };
 
+// TODO: Migrate away from gridSize
+// Recommendation: Replace gridSize with 8
 // New custom icons are a little smaller than predefined icons.
 // To fix alignment issues with custom icons, vertical alignment is updated.
 const panelEmojiSpriteVerticalAlignment =
@@ -263,7 +266,7 @@ const mainDynamicStyles =
 export const panelSharedStylesWithoutPrefix = (props: ThemeProps) => css`
   border-radius: ${borderRadius()}px;
   margin: ${blockNodesVerticalMargin} 0 0;
-  padding: ${gridSize()}px;
+  padding: ${token('space.100', '8px')};
   min-width: ${akEditorTableCellMinWidth}px;
   display: flex;
   position: relative;
@@ -274,10 +277,10 @@ export const panelSharedStylesWithoutPrefix = (props: ThemeProps) => css`
 
   .${PanelSharedCssClassName.icon} {
     flex-shrink: 0;
-    height: ${gridSize() * 3}px;
-    width: ${gridSize() * 3}px;
+    height: ${token('space.300', '24px')};
+    width: ${token('space.300', '24px')};
     box-sizing: content-box;
-    padding-right: ${gridSize()}px;
+    padding-right: ${token('space.100', '8px')};
     text-align: center;
     user-select: none;
     -moz-user-select: none;

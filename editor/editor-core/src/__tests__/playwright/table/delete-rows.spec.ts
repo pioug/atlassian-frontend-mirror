@@ -103,7 +103,8 @@ test.describe('when table is nested inside bodied extension', () => {
   test('Should delete a row ', async ({ editor }) => {
     const nodes = EditorNodeContainerModel.from(editor);
     const tableModel = EditorTableModel.from(nodes.table);
-    await tableModel.deleteRow({ index: 1 });
+    const row = await tableModel.rowControls({ index: 1 });
+    await row.delete();
 
     await expect(editor).toMatchDocument(
       // prettier-ignore

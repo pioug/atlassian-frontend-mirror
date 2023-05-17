@@ -10,15 +10,13 @@ import { analyticsPluginKey } from './plugin-key';
 import {
   fireAnalyticsEvent,
   getAnalyticsEventsFromTransaction,
+  EditorAnalyticsAPI,
 } from '@atlaskit/editor-common/analytics';
-import {
-  AnalyticsStep,
-  AnalyticsWithChannel,
-} from '@atlaskit/adf-schema/steps';
+
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
 import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
-import { generateUndoRedoInputSoucePayload } from '../undo-redo/undo-redo-input-source';
 import { PerformanceTracking } from '../../types/performance-tracking';
+import type { analyticsPlugin as newAnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 interface AnalyticsPluginOptions {
   createAnalyticsEvent?: CreateUIAnalyticsEvent;
@@ -28,6 +26,7 @@ interface AnalyticsPluginOptions {
 function createPlugin(
   options: AnalyticsPluginOptions,
   featureFlags: FeatureFlags,
+  editorAnalyticsApi: EditorAnalyticsAPI | undefined,
 ) {
   if (!options || !options.createAnalyticsEvent) {
     return;
@@ -42,6 +41,7 @@ function createPlugin(
         return {
           ...options,
           fireAnalytics: fireAnalyticsEvent(options.createAnalyticsEvent),
+          editorAnalyticsApi,
         };
       },
       apply: (tr, pluginState, _, state) => {
@@ -93,71 +93,37 @@ function createPlugin(
   });
 }
 
+/**
+ * @private
+ * @deprecated
+ * Do not use this analytics plugin.
+ * This will be deprecated soon.
+ */
 const analyticsPlugin: NextEditorPlugin<
-  'analytics',
+  'deprecatedAnalytics',
   {
     pluginConfiguration: AnalyticsPluginOptions;
-    dependencies: [typeof featureFlagsPlugin];
+    dependencies: [typeof featureFlagsPlugin, typeof newAnalyticsPlugin];
   }
 > = (options, api) => {
   const featureFlags =
     api?.dependencies.featureFlags?.sharedState.currentState() || {};
 
   return {
-    name: 'analytics',
+    name: 'deprecatedAnalytics',
 
     pmPlugins() {
       return [
         {
           name: 'analyticsPlugin',
-          plugin: () => createPlugin(options, featureFlags),
+          plugin: () =>
+            createPlugin(
+              options,
+              featureFlags,
+              api?.dependencies?.analytics?.actions,
+            ),
         },
       ];
-    },
-
-    onEditorViewStateUpdated({
-      originalTransaction,
-      transactions,
-      newEditorState,
-    }) {
-      const pluginState = analyticsPluginKey.getState(newEditorState);
-
-      if (!pluginState || !pluginState.createAnalyticsEvent) {
-        return;
-      }
-
-      const steps = transactions.reduce<AnalyticsWithChannel<any>[]>(
-        (acc, tr) => {
-          const payloads: AnalyticsWithChannel<any>[] = tr.steps
-            .filter(
-              (step): step is AnalyticsStep<any> =>
-                step instanceof AnalyticsStep,
-            )
-            .map((x) => x.analyticsEvents)
-            .reduce((acc, val) => acc.concat(val), []);
-
-          acc.push(...payloads);
-
-          return acc;
-        },
-        [],
-      );
-
-      if (steps.length === 0) {
-        return;
-      }
-
-      const { createAnalyticsEvent } = pluginState;
-      const undoAnaltyicsEventTransformer =
-        generateUndoRedoInputSoucePayload(originalTransaction);
-      steps.forEach(({ payload, channel }) => {
-        const nextPayload = undoAnaltyicsEventTransformer(payload);
-
-        fireAnalyticsEvent(createAnalyticsEvent)({
-          payload: nextPayload,
-          channel,
-        });
-      });
     },
   };
 };

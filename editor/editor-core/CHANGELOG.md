@@ -1,5 +1,46 @@
 # @atlaskit/editor-core
 
+## 183.1.1
+
+### Patch Changes
+
+- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- Updated dependencies
+
+## 183.1.0
+
+### Minor Changes
+
+- [`6bc52e5a406`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6bc52e5a406) - [ED-17687] Capture errors caught in error boundaries in Sentry
+- [`5cc449dac8d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5cc449dac8d) - Decouple card plugin so that it uses new NextEditorPlugin for any injected dependencies.
+- [`4dcb7845a4d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4dcb7845a4d) - COLLAB-2425 Fixed mediasingle resize issue.
+
+### Patch Changes
+
+- [`2ce80b34bff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2ce80b34bff) - Add platform feature flag in editor example page
+- [`8a391616ecc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8a391616ecc) - Moving insert node API to a new editor plugin to allow it to be more extensible. Also exposing a new editor plugin action for tables to allow for consistent insertion.
+- [`9220da2225b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9220da2225b) - ED-16320: Add checks to certain SLO related events to see if they are explicitly disabled, in preparation for disabling them for synthetic tenants in prod
+- [`e6e4b524824`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e6e4b524824) - Minor refactor to toolbar insert block props.
+- [`06ec9abd06e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/06ec9abd06e) - Add nodeContext attribute to link analytics
+- [`b804d3ad561`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b804d3ad561) - Remove unused code related to GASv2 table analytics from editor-plugin table, editor-core and editor-common
+- [`6550d08f5af`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6550d08f5af) - [ux] Color picker button should not be focused after selecting color.
+- [`9ddf10cda28`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9ddf10cda28) - Bumps maximum number of link analytics callbacks for any given transaction.
+- [`017e02e34db`](https://bitbucket.org/atlassian/atlassian-frontend/commits/017e02e34db) - ED-17539 Redo for multiple statues are working now.
+- [`8d4d36690ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4d36690ec) - Updates lpAnalyticsEventsNext feature flag link events to ignore transactions where inserted and deleted links appear to be identical.
+- [`e20cca743c4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e20cca743c4) - Moving editor analytics plugin to new package.
+- [`f621ae6490a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f621ae6490a) - Adding type dependency on analytics plugin to tables plugin.
+- [`a142ba1aa28`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a142ba1aa28) - [ED17172] Bump prosemirror-model to 1.16.0 and prosemirror-view to 1.23.7 and removed work-arounds for fixed issues
+- [`be561d3491c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/be561d3491c) - [ED-17622] Adds styles and creates an example for the new Resizer component
+- [`9369cc38a68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9369cc38a68) - Migrated use of `gridSize` to space tokens where possible. There is no expected visual or behaviour change.
+- [`acaceaa764e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/acaceaa764e) - [ux] ED-17308 fix paste action item in panel. It should paste below panel (or decision)
+- Updated dependencies
+
+## 183.0.12
+
+### Patch Changes
+
+- [`7a87ea4b905`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7a87ea4b905) - Fixes document inserted smartLink instead firing document pasted smartLink
+
 ## 183.0.9
 
 ### Patch Changes

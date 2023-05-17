@@ -15,7 +15,7 @@ import rafSchedule from 'raf-schd';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
 import { findOverflowScrollParent, Popup } from '@atlaskit/editor-common/ui';
 import type { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
-import { borderRadius, gridSize } from '@atlaskit/theme/constants';
+import { borderRadius } from '@atlaskit/theme/constants';
 import { N0, N60A, N50A } from '@atlaskit/theme/colors';
 import {
   ACTION,
@@ -43,7 +43,7 @@ const typeAheadContent = css`
     'elevation.shadow.overlay',
     `0 0 1px ${N60A}, 0 4px 8px -2px ${N50A}`,
   )};
-  padding: ${gridSize() / 2}px 0;
+  padding: ${token('space.050', '4px')} 0;
   width: 320px;
   max-height: 380px; /* ~5.5 visibile items */
   overflow-y: auto;

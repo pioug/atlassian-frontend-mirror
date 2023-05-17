@@ -6,23 +6,23 @@ import {
 } from '@atlaskit/media-client';
 import { getType } from 'mime';
 
+export const isSameIdentifier = (id1: Identifier, id2: Identifier) => {
+  if (isFileIdentifier(id1) && isFileIdentifier(id2)) {
+    return id1.id === id2.id;
+  }
+  if (!isFileIdentifier(id1) && !isFileIdentifier(id2)) {
+    return id1.dataURI === id2.dataURI;
+  }
+  return false;
+};
+
 // TODO MS-1752 - current implementation makes viewer navigation to misbehave
 // if passed a file with the same id (with different occurrenceKeys) or with the same dataURI twice
 export const getSelectedIndex = (
   items: Identifier[],
   selectedItem: Identifier,
 ) => {
-  return items.findIndex((item) => {
-    if (isFileIdentifier(item) && isFileIdentifier(selectedItem)) {
-      return item.id === selectedItem.id;
-    }
-
-    if (!isFileIdentifier(item) && !isFileIdentifier(selectedItem)) {
-      return item.dataURI === selectedItem.dataURI;
-    }
-
-    return false;
-  });
+  return items.findIndex((item) => isSameIdentifier(item, selectedItem));
 };
 
 export const getMediaTypeFromFilename = (filename: string): MediaType => {

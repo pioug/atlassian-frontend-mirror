@@ -15,8 +15,6 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
-/// <reference types="react" />
-
 import { MediaClient } from '@atlaskit/media-client';
 import { MediaFeatureFlags } from '@atlaskit/media-common/mediaFeatureFlags';
 import { MediaFeatureFlags as MediaFeatureFlags_2 } from '@atlaskit/media-common';
@@ -204,6 +202,7 @@ type LocalUploadComponentBaseProps = {
   onPreviewUpdate?: (payload: UploadPreviewUpdateEventPayload) => void;
   onEnd?: (payload: UploadEndEventPayload) => void;
   onError?: (payload: UploadErrorEventPayload) => void;
+  onFileRejection?: (rejectionData: UploadRejectionData) => void;
   featureFlags?: MediaFeatureFlags_2;
 } & WithAnalyticsEventsProps;
 
@@ -313,6 +312,13 @@ export type UploadPreviewUpdateEventPayload = {
 };
 
 // @public (undocumented)
+export type UploadRejectionData = {
+  reason: 'fileSizeLimitExceeded';
+  fileName: string;
+  limit: number;
+};
+
+// @public (undocumented)
 export type UploadsStartEventPayload = {
   readonly files: MediaFile[];
   readonly traceContext?: MediaTraceContext;
@@ -329,7 +335,7 @@ export type UploadsStartEventPayload = {
 
 ```json
 {
-  "@atlaskit/media-core": "^34.0.2",
+  "@atlaskit/media-core": "^34.1.1",
   "react": "^16.8.0",
   "react-dom": "^16.8.0",
   "react-intl-next": "npm:react-intl@^5.18.1"

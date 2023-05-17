@@ -193,7 +193,10 @@ export type ExtractPluginSharedState<Plugin> = Plugin extends NextEditorPlugin<
     : never
   : never;
 
-type ExtractPluginActions<Plugin> = Plugin extends NextEditorPlugin<any, any>
+export type ExtractPluginActions<Plugin> = Plugin extends NextEditorPlugin<
+  any,
+  any
+>
   ? Plugin extends (
       config: any,
       api: any,

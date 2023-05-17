@@ -1,5 +1,4 @@
 import { css } from '@emotion/react';
-import { gridSize } from '@atlaskit/theme/constants';
 import { N20 } from '@atlaskit/theme/colors';
 import {
   akEditorSmallZIndex,
@@ -10,12 +9,12 @@ import { token } from '@atlaskit/tokens';
 export const inviteTeamWrapper = css`
   background: ${token('color.background.neutral', N20)};
   border-radius: 50%;
-  min-width: ${gridSize() * 4}px;
-  margin-left: -${gridSize() / 2}px;
+  min-width: ${token('space.400', '32px')};
+  margin-left: calc(-1 * ${token('space.050', '4px')});
 `;
 
 export const avatarContainer = css`
-  margin-right: ${gridSize()}px;
+  margin-right: ${token('space.100', '8px')};
   display: flex;
   align-items: center;
 

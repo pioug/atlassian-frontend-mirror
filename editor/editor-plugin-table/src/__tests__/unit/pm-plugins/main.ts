@@ -28,6 +28,9 @@ import {
   toggleHeaderRow,
   toggleNumberColumn,
 } from '../../../plugins/table/commands';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 describe('tables: main plugin', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -35,6 +38,9 @@ describe('tables: main plugin', () => {
     createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
+        .add([analyticsPlugin, {}])
+        .add(contentInsertionPlugin)
         .add(tablePlugin)
         .add(textFormattingPlugin),
       pluginKey,

@@ -1,4 +1,12 @@
+import { EditorState } from 'prosemirror-state';
+
 import { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
+import {
+  akEditorBreakoutPadding,
+  breakoutWideScaleRatio,
+} from '@atlaskit/editor-shared-styles';
+
+import { EditorContainerWidth } from '../../types';
 
 const handleMargin = 12;
 const gutterSize = handleMargin * 2;
@@ -41,6 +49,96 @@ export function calcPctFromPx(width: number, lineLength: number): number {
   const maxWidth = lineLength + gutterSize;
   return (width + gutterSize) / maxWidth;
 }
+
+export const wrappedLayouts: MediaSingleLayout[] = [
+  'wrap-left',
+  'wrap-right',
+  'align-end',
+  'align-start',
+];
+
+const calcPctWidth = (
+  containerWidth: EditorContainerWidth,
+  pctWidth?: number,
+  origWidth?: number,
+  origHeight?: number,
+): number | undefined =>
+  pctWidth &&
+  origWidth &&
+  origHeight &&
+  Math.ceil(
+    calcPxFromPct(
+      pctWidth / 100,
+      containerWidth.lineLength || containerWidth.width,
+    ),
+  );
+
+export const calcMediaPxWidth = (opts: {
+  origWidth: number;
+  origHeight: number;
+  state: EditorState;
+  containerWidth: EditorContainerWidth;
+  layout?: MediaSingleLayout;
+  pctWidth?: number;
+  pos?: number;
+  resizedPctWidth?: number;
+  isFullWidthModeEnabled?: boolean;
+}): number => {
+  const {
+    origWidth,
+    origHeight,
+    layout,
+    pctWidth,
+    containerWidth,
+    resizedPctWidth,
+  } = opts;
+  const { width, lineLength } = containerWidth;
+  const calculatedPctWidth = calcPctWidth(
+    containerWidth,
+    pctWidth,
+    origWidth,
+    origHeight,
+  );
+  const calculatedResizedPctWidth = calcPctWidth(
+    containerWidth,
+    resizedPctWidth,
+    origWidth,
+    origHeight,
+  );
+
+  if (layout === 'wide') {
+    if (lineLength) {
+      const wideWidth = Math.ceil(lineLength * breakoutWideScaleRatio);
+      return wideWidth > width ? lineLength : wideWidth;
+    }
+  } else if (layout === 'full-width') {
+    return width - akEditorBreakoutPadding;
+  } else if (calculatedPctWidth) {
+    if (wrappedLayouts.indexOf(layout!) > -1) {
+      if (calculatedResizedPctWidth) {
+        if (resizedPctWidth! < 50) {
+          return calculatedResizedPctWidth;
+        }
+        return calculatedPctWidth;
+      }
+      return Math.min(calculatedPctWidth, origWidth);
+    }
+    if (calculatedResizedPctWidth) {
+      return calculatedResizedPctWidth;
+    }
+    return calculatedPctWidth;
+  } else if (layout === 'center') {
+    if (calculatedResizedPctWidth) {
+      return calculatedResizedPctWidth;
+    }
+    return Math.min(origWidth, lineLength || width);
+  } else if (layout && wrappedLayouts.indexOf(layout) !== -1) {
+    const halfLineLength = Math.ceil((lineLength || width) / 2);
+    return origWidth <= halfLineLength ? origWidth : halfLineLength;
+  }
+
+  return origWidth;
+};
 
 export const snapToGrid = (
   gridWidth: number,

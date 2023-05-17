@@ -225,9 +225,6 @@ export const ExifOrientation: {
 };
 
 // @public (undocumented)
-export const fadeIn: string;
-
-// @public (undocumented)
 export type FileInfo = {
   file: File;
   src: string;

@@ -172,28 +172,37 @@ export class Renderer extends PureComponent<RendererProps> {
               )
             : undefined;
 
-        this.fireAnalyticsEvent({
-          action: ACTION.RENDERED,
-          actionSubject: ACTION_SUBJECT.RENDERER,
-          attributes: {
-            platform: PLATFORM.WEB,
-            duration,
-            distortedDuration:
-              this.renderedMeasurementDistortedDurationMonitor!
-                .distortedDuration,
-            ttfb: getResponseEndTime(),
-            nodes: reduce<Record<string, number>>(
-              this.props.document,
-              (acc, node) => {
-                acc[node.type] = (acc[node.type] || 0) + 1;
-                return acc;
-              },
-              {},
-            ),
-            severity,
-          },
-          eventType: EVENT_TYPE.OPERATIONAL,
-        });
+        // ED-16320: Check for explicit disable so that by default
+        // it will still be enabled as it currently is. Then we can
+        // progressively opt out synthetic tenants.
+        const isTTRTrackingExplicitlyDisabled =
+          this.props?.analyticsEventSeverityTracking?.enabled === false;
+
+        if (!isTTRTrackingExplicitlyDisabled) {
+          this.fireAnalyticsEvent({
+            action: ACTION.RENDERED,
+            actionSubject: ACTION_SUBJECT.RENDERER,
+            attributes: {
+              platform: PLATFORM.WEB,
+              duration,
+              distortedDuration:
+                this.renderedMeasurementDistortedDurationMonitor!
+                  .distortedDuration,
+              ttfb: getResponseEndTime(),
+              nodes: reduce<Record<string, number>>(
+                this.props.document,
+                (acc, node) => {
+                  acc[node.type] = (acc[node.type] || 0) + 1;
+                  return acc;
+                },
+                {},
+              ),
+              severity,
+            },
+            eventType: EVENT_TYPE.OPERATIONAL,
+          });
+        }
+
         this.renderedMeasurementDistortedDurationMonitor!.cleanup();
         delete this.renderedMeasurementDistortedDurationMonitor;
       });
@@ -486,6 +495,9 @@ export class Renderer extends PureComponent<RendererProps> {
                     featureFlags.featureFlags
                       .useFragmentMarkBreakoutWidthStylingFix ?? true
                   }
+                  useBlockRenderForCodeBlock={
+                    featureFlags.featureFlags.useBlockRenderForCodeBlock ?? true
+                  }
                   innerRef={this.editorRef}
                   onClick={handleWrapperOnClick}
                   onMouseDown={this.onMouseDownEditView}
@@ -547,6 +559,9 @@ export class Renderer extends PureComponent<RendererProps> {
           useFragmentMarkBreakoutWidthStylingFix={
             featureFlags.featureFlags.useFragmentMarkBreakoutWidthStylingFix ??
             true
+          }
+          useBlockRenderForCodeBlock={
+            featureFlags.featureFlags.useBlockRenderForCodeBlock ?? true
           }
           onClick={handleWrapperOnClick}
         >
@@ -614,6 +629,7 @@ type RendererWrapperProps = {
   allowCustomPanels?: boolean;
   allowNestedHeaderLinks: boolean;
   useFragmentMarkBreakoutWidthStylingFix: boolean;
+  useBlockRenderForCodeBlock: boolean;
   onClick?: (event: React.MouseEvent) => void;
   onMouseDown?: (event: React.MouseEvent) => void;
 } & { children?: React.ReactNode };
@@ -628,6 +644,7 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
     onClick,
     onMouseDown,
     useFragmentMarkBreakoutWidthStylingFix,
+    useBlockRenderForCodeBlock,
   } = props;
 
   return (
@@ -648,6 +665,7 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
             allowNestedHeaderLinks,
             allowColumnSorting: !!allowColumnSorting,
             useFragmentMarkBreakoutWidthStylingFix,
+            useBlockRenderForCodeBlock,
           })}
         >
           {children}

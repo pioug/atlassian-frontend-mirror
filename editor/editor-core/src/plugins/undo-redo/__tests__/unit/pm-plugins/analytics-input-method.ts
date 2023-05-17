@@ -17,12 +17,13 @@ import {
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import undoPlugin from '../../..';
 import panelPlugin from '../../../../panel';
-import analyticsPlugin, {
+import deprecatedAnalyticsPlugin, {
   ACTION,
   ACTION_SUBJECT,
   INPUT_METHOD,
   EVENT_TYPE,
 } from '../../../../analytics';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import listPlugin from '../../../../list';
 import { pluginKey as undoPluginKey } from '../../../pm-plugins/plugin-key';
 import { attachInputMeta } from '../../../attach-input-meta';
@@ -41,6 +42,7 @@ describe('change input method from undo/redo events', () => {
         .add(listPlugin)
         .add(panelPlugin)
         .add([analyticsPlugin, { createAnalyticsEvent }])
+        .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
         .add(undoPlugin),
       pluginKey: undoPluginKey,
     });

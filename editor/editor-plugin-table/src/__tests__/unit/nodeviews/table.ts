@@ -21,6 +21,9 @@ import TableView from '../../../plugins/table/nodeviews/table';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import { EditorView } from 'prosemirror-view';
 import { hoverRows } from '../../../plugins/table/commands';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 describe('table -> nodeviews -> table.tsx', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -34,15 +37,19 @@ describe('table -> nodeviews -> table.tsx', () => {
       const editor = (doc: DocBuilder) =>
         createEditor({
           doc,
-          preset: new Preset<LightEditorPlugin>().add([
-            tablePlugin,
-            {
-              tableOptions: {},
-              getEditorFeatureFlags: () => ({
-                tableRenderOptimization: true,
-              }),
-            },
-          ]),
+          preset: new Preset<LightEditorPlugin>()
+            .add([featureFlagsPlugin, {}])
+            .add([analyticsPlugin, {}])
+            .add(contentInsertionPlugin)
+            .add([
+              tablePlugin,
+              {
+                tableOptions: {},
+                getEditorFeatureFlags: () => ({
+                  tableRenderOptimization: true,
+                }),
+              },
+            ]),
           pluginKey,
         });
 

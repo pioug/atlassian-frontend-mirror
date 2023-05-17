@@ -43,6 +43,9 @@ import { transformSliceToRemoveOpenExpand } from '@atlaskit/editor-common/transf
 import { Schema } from 'prosemirror-model';
 import tablePlugin from '../../plugins/table-plugin';
 import undoRedoPlugin from '@atlaskit/editor-core/src/plugins/undo-redo';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 const array = (...args: any): Node[] => args.map((i: any) => i(defaultSchema));
@@ -101,6 +104,9 @@ describe('table plugin', () => {
   } as PluginConfig;
 
   const preset = new Preset<LightEditorPlugin>()
+    .add([featureFlagsPlugin, {}])
+    .add([analyticsPlugin, {}])
+    .add(contentInsertionPlugin)
     .add([tablePlugin, { tableOptions }])
     .add(undoRedoPlugin);
 

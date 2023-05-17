@@ -3,7 +3,9 @@ import { Node as PmNode, ResolvedPos } from 'prosemirror-model';
 
 import { GapCursorSelection, Side } from './gap-cursor-selection';
 import { isIgnored as isIgnoredByGapCursor } from '../selection/gap-cursor/utils/is-ignored';
-import { isNodeEmpty, isEmptyParagraph } from '../../utils/document';
+import { isNodeEmpty } from '../../utils/document';
+import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
+
 import { Command } from '../../types';
 
 import { SelectionActionTypes } from './actions';

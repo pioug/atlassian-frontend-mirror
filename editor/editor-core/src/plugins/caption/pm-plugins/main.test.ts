@@ -4,6 +4,8 @@ import {
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import mediaPlugin from '../../media';
+import gridPlugin from '../../grid';
+import widthPlugin from '../../width';
 import captionPlugin from '../';
 import {
   caption,
@@ -15,17 +17,24 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { pluginKey } from './plugin-key';
 import { setTextSelection } from '../../../utils/selection';
-import * as analyticsUtils from '../../analytics/utils';
+import deprecatedAnalyticsPlugin from '../../analytics';
+
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 describe('Caption plugin', () => {
   const createEditor = createProsemirrorEditorFactory();
+  const createAnalyticsEvent = jest.fn();
   const editor = (doc: DocBuilder) =>
     createEditor({
       doc,
       pluginKey: pluginKey,
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
+        .add([analyticsPlugin, { createAnalyticsEvent }])
+        .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
+        .add(widthPlugin)
+        .add(gridPlugin)
         .add([
           mediaPlugin,
           { allowMediaSingle: true, featureFlags: { captions: true } },
@@ -145,11 +154,8 @@ describe('Caption plugin', () => {
   });
 
   describe('analytics', () => {
-    const addAnalyticsSpy = jest.spyOn(analyticsUtils, 'addAnalytics');
-    const FIRST_CALL = 0;
-    const PAYLOAD_ARGUMENT = 2;
     beforeEach(() => {
-      addAnalyticsSpy.mockReset();
+      createAnalyticsEvent.mockReset();
     });
     it('should fire deleted analytic when removing caption', () => {
       const {
@@ -169,8 +175,8 @@ describe('Caption plugin', () => {
         ),
       );
       setTextSelection(editorView, movePos);
-      expect(addAnalyticsSpy).toBeCalled();
-      expect(addAnalyticsSpy.mock.calls[FIRST_CALL][PAYLOAD_ARGUMENT]).toEqual({
+      expect(createAnalyticsEvent).toBeCalledTimes(1);
+      expect(createAnalyticsEvent).toBeCalledWith({
         action: 'deleted',
         actionSubject: 'mediaSingle',
         actionSubjectId: 'caption',
@@ -195,8 +201,8 @@ describe('Caption plugin', () => {
         ),
       );
       setTextSelection(editorView, movePos);
-      expect(addAnalyticsSpy).toBeCalled();
-      expect(addAnalyticsSpy.mock.calls[FIRST_CALL][PAYLOAD_ARGUMENT]).toEqual({
+      expect(createAnalyticsEvent).toBeCalledTimes(1);
+      expect(createAnalyticsEvent).toHaveBeenCalledWith({
         action: 'edited',
         actionSubject: 'mediaSingle',
         actionSubjectId: 'caption',

@@ -22,7 +22,7 @@ import {
   handleSides,
   imageAlignmentMap,
 } from '../../../../ui/Resizer/utils';
-import { calcMediaPxWidth } from '../../utils/media-single';
+import { calcMediaPxWidth } from '@atlaskit/editor-common/ui';
 import { calculateSnapPoints } from '../../../../utils/rich-media-utils';
 
 type State = {
@@ -47,7 +47,7 @@ export default class ResizableMediaSingle extends React.Component<
     isVideoFile: true,
   };
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps: Props) {
     const offsetLeft = calcOffsetLeft(
       this.insideInlineLike,
       this.insideLayout,
@@ -56,6 +56,12 @@ export default class ResizableMediaSingle extends React.Component<
     );
     if (offsetLeft !== this.state.offsetLeft && offsetLeft >= 0) {
       this.setState({ offsetLeft });
+    }
+
+    // Handle undo, when the actual pctWidth changed,
+    // we sync up with the internal state.
+    if (prevProps.pctWidth !== this.props.pctWidth) {
+      this.setState({ resizedPctWidth: this.props.pctWidth });
     }
 
     return true;
@@ -223,6 +229,7 @@ export default class ResizableMediaSingle extends React.Component<
       getPos,
       view: { state },
     } = this.props;
+    const { resizedPctWidth } = this.state;
     const pos = typeof getPos === 'function' ? getPos() : undefined;
 
     return calcMediaPxWidth({
@@ -234,6 +241,7 @@ export default class ResizableMediaSingle extends React.Component<
       isFullWidthModeEnabled: fullWidthMode,
       layout: useLayout || layout,
       pos,
+      resizedPctWidth,
     });
   };
 

@@ -1,6 +1,6 @@
 // #region Imports
 import { Node as PMNode, Schema, Slice } from 'prosemirror-model';
-import { Selection, TextSelection, Transaction } from 'prosemirror-state';
+import { TextSelection, Transaction } from 'prosemirror-state';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import {
@@ -352,10 +352,8 @@ export const setMultipleCellAttrs =
     }
 
     if (tr.docChanged && cursorPos !== undefined) {
-      const $pos = tr.doc.resolve(tr.mapping.map(cursorPos!));
-
       if (dispatch) {
-        dispatch(tr.setSelection(Selection.near($pos)));
+        dispatch(tr);
       }
       return true;
     }

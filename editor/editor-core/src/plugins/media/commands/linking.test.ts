@@ -17,6 +17,8 @@ import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 
 import hyperlinkPlugin from '../../hyperlink';
+import widthPlugin from '../../width';
+import gridPlugin from '../../grid';
 import mediaPlugin from '../';
 import { MediaLinkingActionsTypes } from '../pm-plugins/linking/actions';
 import { checkMediaType } from '../utils/check-media-type';
@@ -26,6 +28,7 @@ import { INPUT_METHOD } from '../../analytics/types';
 import * as analyticUtils from '../../analytics/utils';
 import * as commands from '../../../commands';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 const { setUrlToMedia, showLinkingToolbarWithMediaTypeCheck, unlink } = linking;
 
@@ -48,6 +51,9 @@ describe('image linking', () => {
       doc,
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
+        .add([analyticsPlugin, {}])
+        .add(widthPlugin)
+        .add(gridPlugin)
         .add([mediaPlugin, { allowMediaSingle: true, allowLinking: true }])
         .add(hyperlinkPlugin),
       providerFactory,

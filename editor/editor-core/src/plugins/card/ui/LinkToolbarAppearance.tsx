@@ -1,5 +1,9 @@
 import { CardAppearance } from '@atlaskit/editor-common/provider-factory';
-import { ACTION, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import {
+  ACTION,
+  EditorAnalyticsAPI,
+  INPUT_METHOD,
+} from '@atlaskit/editor-common/analytics';
 import { CardContext } from '@atlaskit/link-provider';
 import { CardPlatform } from '@atlaskit/smart-card';
 import PropTypes from 'prop-types';
@@ -22,6 +26,7 @@ import { OptionConfig } from './types';
 
 export interface LinkToolbarAppearanceProps {
   intl: IntlShape;
+  editorAnalyticsApi: EditorAnalyticsAPI | undefined;
   currentAppearance?: CardAppearance;
   editorState: EditorState;
   editorView?: EditorView;
@@ -47,6 +52,7 @@ export class LinkToolbarAppearance extends React.Component<
       allowEmbeds,
       allowBlockCards = true,
       platform,
+      editorAnalyticsApi,
     } = this.props;
     const preview =
       allowEmbeds &&
@@ -81,7 +87,7 @@ export class LinkToolbarAppearance extends React.Component<
       preview && {
         appearance: 'embed' as const,
         title: intl.formatMessage(messages.embed),
-        onClick: setSelectedCardAppearance('embed'),
+        onClick: setSelectedCardAppearance('embed', editorAnalyticsApi),
         selected: currentAppearance === 'embed',
         hidden: false,
         testId: 'embed-appearance',
@@ -94,7 +100,7 @@ export class LinkToolbarAppearance extends React.Component<
     const blockCardOption = allowBlockCards && {
       appearance: 'block' as const,
       title: intl.formatMessage(messages.block),
-      onClick: setSelectedCardAppearance('block'),
+      onClick: setSelectedCardAppearance('block', editorAnalyticsApi),
       selected: currentAppearance === 'block',
       testId: 'block-appearance',
       disabled: !isBlockCardLinkSupportedInParent,
@@ -106,16 +112,26 @@ export class LinkToolbarAppearance extends React.Component<
     const options: OptionConfig[] = [
       {
         title: intl.formatMessage(messages.url),
-        onClick: commandWithMetadata(changeSelectedCardToLink(url, url, true), {
-          action: ACTION.CHANGED_TYPE,
-        }),
+        onClick: commandWithMetadata(
+          changeSelectedCardToLink(
+            url,
+            url,
+            true,
+            undefined,
+            undefined,
+            editorAnalyticsApi,
+          ),
+          {
+            action: ACTION.CHANGED_TYPE,
+          },
+        ),
         selected: !currentAppearance,
         testId: 'url-appearance',
       },
       {
         appearance: 'inline',
         title: intl.formatMessage(messages.inline),
-        onClick: setSelectedCardAppearance('inline'),
+        onClick: setSelectedCardAppearance('inline', editorAnalyticsApi),
         selected: currentAppearance === 'inline',
         testId: 'inline-appearance',
       },

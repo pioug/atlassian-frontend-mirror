@@ -658,12 +658,12 @@ describe('UploadService', () => {
       await filesAddedPromise;
       expect(rejectionCallback).toHaveBeenNthCalledWith(1, {
         reason: 'fileSizeLimitExceeded',
-        file,
+        fileName: 'some-filename',
         limit: 500,
       });
       expect(rejectionCallback).toHaveBeenNthCalledWith(2, {
         reason: 'fileSizeLimitExceeded',
-        file,
+        fileName: 'some-filename',
         limit: 500,
       });
     });

@@ -1,7 +1,7 @@
 import { ResolvedPos } from 'prosemirror-model';
 import { Transaction } from 'prosemirror-state';
 import { numberNestedLists } from './selection';
-import { isListItemNode, isListNode } from './node';
+import { isListItemNode, isListNode } from '@atlaskit/editor-common/utils';
 
 // This will return (depth - 1) for root list parent of a list.
 export const getListLiftTarget = (resPos: ResolvedPos): number => {

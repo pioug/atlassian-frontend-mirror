@@ -20,7 +20,8 @@ import {
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import listTypePlugin from '../..';
-import analyticsPlugin from '../../../analytics';
+import deprecatedAnalyticsPlugin from '../../../analytics';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import basePlugins from '../../../base';
 import blockType from '../../../block-type';
 import codeBlockTypePlugin from '../../../code-block';
@@ -43,7 +44,8 @@ describe('inputrules', () => {
         .add(basePlugins)
         .add(blockType)
         .add([codeBlockTypePlugin, { appearance: 'full-page' }])
-        .add([analyticsPlugin, { createAnalyticsEvent }]),
+        .add([analyticsPlugin, { createAnalyticsEvent }])
+        .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }]),
       featureFlags,
     });
 

@@ -4,7 +4,9 @@ import {
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 
-import analyticsPlugin from '../../../analytics';
+import deprecatedAnalyticsPlugin from '../../../analytics';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+
 import { addSynchronyErrorAnalytics } from '../../analytics';
 import {
   ACTION,
@@ -22,6 +24,12 @@ describe('Collab Edit Analytics', () => {
         .add([featureFlagsPlugin, {}])
         .add([
           analyticsPlugin,
+          {
+            createAnalyticsEvent: createAnalyticsEventMock(),
+          },
+        ])
+        .add([
+          deprecatedAnalyticsPlugin,
           {
             createAnalyticsEvent: createAnalyticsEventMock(),
           },
@@ -51,6 +59,12 @@ describe('Collab Edit Analytics', () => {
         .add([featureFlagsPlugin, { synchronyErrorDocStructure: false }])
         .add([
           analyticsPlugin,
+          {
+            createAnalyticsEvent: createAnalyticsEventMock(),
+          },
+        ])
+        .add([
+          deprecatedAnalyticsPlugin,
           {
             createAnalyticsEvent: createAnalyticsEventMock(),
           },

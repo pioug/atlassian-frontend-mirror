@@ -20,7 +20,7 @@ import {
 
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 
-import { safeInsert } from '../../../utils/insert';
+import { safeInsert } from '@atlaskit/editor-common/insert';
 import { insertMediaSingleNode } from '../../../plugins/media/utils/media-single';
 import { INPUT_METHOD } from '../../../plugins/analytics';
 import {

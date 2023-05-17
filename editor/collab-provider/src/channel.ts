@@ -116,10 +116,13 @@ export class Channel extends Emitter<ChannelEvent> {
               // save token locally
               this.setToken(token);
               authData.token = token;
+            } else {
+              this.unsetToken();
+              authData.token = undefined;
             }
 
             cb(authData);
-          } catch (error: unknown) {
+          } catch (error) {
             // Pass the error back to the consumers so they can deal with exceptional cases themselves (eg. no permissions because the page was deleted)
             const authenticationError: TokenPermissionError = {
               message: 'Insufficient editing permissions',
@@ -128,8 +131,7 @@ export class Channel extends Emitter<ChannelEvent> {
                 code: INTERNAL_ERROR_CODE.TOKEN_PERMISSION_ERROR,
                 meta: {
                   originalError: error,
-                  // @ts-expect-error we know the error structure passed in this hack
-                  reason: err?.data?.meta?.reason, // Should always be 'RESOURCE_DELETED' Temporary, until Confluence Cloud removes their hack
+                  reason: (error as any)?.data?.meta?.reason, // Should always be 'RESOURCE_DELETED' Temporary, until Confluence Cloud removes their hack
                   // https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/browse/next/packages/native-collab/src/fetchCollabPermissionToken.ts#37
                 },
               },
@@ -344,7 +346,6 @@ export class Channel extends Emitter<ChannelEvent> {
         usedCachedToken: this.token ? true : false,
       },
     );
-
     this.emit('connected', {
       sid: this.socket!.id,
       initialized: this.initialized,

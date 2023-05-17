@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/visually-hidden",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "A utility that hides content from the screen while retaining readability by screen readers for accessibility.",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",

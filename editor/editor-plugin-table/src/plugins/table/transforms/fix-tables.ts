@@ -9,8 +9,6 @@ import {
   akEditorWideLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
 
-import { sendLogs } from '@atlaskit/editor-common/utils';
-
 import {
   calculateColumnWidth,
   contentWidth,
@@ -18,20 +16,6 @@ import {
   getLayoutSize,
 } from '../pm-plugins/table-resizing/utils';
 import { ReportInvalidNodeAttrs } from '../types';
-
-export const fireAnalytics = (properties = {}) =>
-  sendLogs({
-    events: [
-      {
-        name: 'atlaskit.fabric.editor.fixtable',
-        product: 'atlaskit',
-        properties,
-        serverTime: new Date().getTime(),
-        server: 'local',
-        user: '-',
-      },
-    ],
-  });
 
 const validateTableCellNodeAttrs = (
   {
@@ -104,7 +88,6 @@ export const removeExtraneousColumnWidths = (
   });
 
   if (hasProblems) {
-    fireAnalytics({ message: 'removeExtraneousColumnWidths' });
     return true;
   }
 

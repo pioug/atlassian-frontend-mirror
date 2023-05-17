@@ -3,7 +3,12 @@ import classnames from 'classnames';
 import { withTheme } from '@emotion/react';
 
 import { PluginKey } from 'prosemirror-state';
-import { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import { EditorView } from 'prosemirror-view';
+import {
+  NextEditorPlugin,
+  ExtractInjectionAPI,
+} from '@atlaskit/editor-common/types';
+import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
 import {
   breakoutWideScaleRatio,
@@ -11,29 +16,29 @@ import {
   akEditorBreakoutPadding,
 } from '@atlaskit/editor-shared-styles';
 
-import { GridPluginState, GridType } from './types';
-import { pluginKey as widthPlugin } from '../width/index';
-import WithPluginState from '../../ui/WithPluginState';
-import { EventDispatcher, createDispatch } from '../../event-dispatcher';
+import type { GridPluginState, GridType, Highlights } from './types';
+import type widthPlugin from '../width';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 
-export const stateKey = new PluginKey<GridPluginState>('gridPlugin');
 export const GRID_SIZE = 12;
 
-export type Highlights = Array<'wide' | 'full-width' | number>;
+const key = new PluginKey<GridPluginState>('gridPlugin');
 
-export const createDisplayGrid = (eventDispatcher: EventDispatcher) => {
-  const dispatch = createDispatch(eventDispatcher);
-  return (
-    show: boolean,
-    type: GridType,
-    highlight: number[] | string[] = [],
-  ) => {
-    return dispatch(stateKey, {
-      visible: show,
-      gridType: type,
-      highlight: highlight,
-    } as GridPluginState);
-  };
+type Required<T> = {
+  [P in keyof T]-?: T[P];
+};
+
+type DisplayGrid = (props: Required<GridPluginState>) => boolean;
+type CreateDisplayGrid = (view: EditorView) => DisplayGrid;
+
+const createDisplayGrid: CreateDisplayGrid = (view) => (props) => {
+  const { dispatch, state } = view;
+
+  const tr = state.tr.setMeta(key, props);
+
+  dispatch(tr);
+
+  return true;
 };
 
 export const gridTypeForLayout = (layout: MediaSingleLayout): GridType =>
@@ -150,7 +155,7 @@ type Props = {
 
   visible: boolean;
   gridType: GridType;
-  highlight: number[];
+  highlight: Highlights;
 };
 
 class Grid extends React.Component<Props> {
@@ -194,48 +199,104 @@ class Grid extends React.Component<Props> {
 
 const ThemedGrid = withTheme(Grid);
 
-interface GridPluginOptions {
+export interface GridPluginOptions {
   shouldCalcBreakoutGridLines?: boolean;
 }
+
+interface ContentComponentProps {
+  api: ExtractInjectionAPI<typeof gridPlugin> | undefined;
+  editorView: EditorView;
+  options: GridPluginOptions | undefined;
+}
+
+const ContentComponent = ({
+  api,
+  editorView,
+  options,
+}: ContentComponentProps) => {
+  const { widthState, gridState } = useSharedPluginState(api, [
+    'width',
+    'grid',
+  ]);
+
+  if (!gridState) {
+    return null;
+  }
+
+  return (
+    <ThemedGrid
+      shouldCalcBreakoutGridLines={
+        options && options.shouldCalcBreakoutGridLines
+      }
+      editorWidth={widthState?.width ?? akEditorFullPageMaxWidth}
+      containerElement={editorView.dom as HTMLElement}
+      visible={gridState.visible}
+      gridType={gridState.gridType ?? 'full'}
+      highlight={gridState.highlight}
+    />
+  );
+};
+
+const EMPTY_STATE: GridPluginState = {
+  visible: false,
+  highlight: [],
+};
+const gridPMPlugin = new SafePlugin<GridPluginState>({
+  key,
+  state: {
+    init() {
+      return EMPTY_STATE;
+    },
+    apply(tr, currentPluginState) {
+      const nextPluginState = tr.getMeta(key);
+      if (nextPluginState) {
+        return nextPluginState as GridPluginState;
+      }
+
+      return currentPluginState;
+    },
+  },
+});
 
 const gridPlugin: NextEditorPlugin<
   'grid',
   {
     pluginConfiguration: GridPluginOptions | undefined;
+    dependencies: [typeof widthPlugin];
+    sharedState: GridPluginState | null;
+    actions: {
+      displayGrid: CreateDisplayGrid;
+    };
   }
-> = (options?) => ({
-  name: 'grid',
+> = (options?, api?) => {
+  return {
+    name: 'grid',
 
-  contentComponent: ({ editorView }) => {
-    return (
-      <WithPluginState
-        plugins={{
-          grid: stateKey,
-          widthState: widthPlugin,
-        }}
-        render={({
-          grid,
-          widthState = { width: akEditorFullPageMaxWidth },
-        }) => {
-          if (!grid) {
-            return null;
-          }
+    getSharedState(editorState) {
+      if (!editorState) {
+        return null;
+      }
+      return key.getState(editorState);
+    },
 
-          return (
-            <ThemedGrid
-              shouldCalcBreakoutGridLines={
-                options && options.shouldCalcBreakoutGridLines
-              }
-              editorWidth={widthState.width}
-              containerElement={editorView.dom as HTMLElement}
-              {...grid}
-            />
-          );
-        }}
-      />
-    );
-  },
-});
+    actions: {
+      displayGrid: createDisplayGrid,
+    },
+
+    pmPlugins() {
+      return [
+        {
+          name: 'grid',
+          plugin: () => gridPMPlugin,
+        },
+      ];
+    },
+
+    contentComponent: ({ editorView }) => (
+      <ContentComponent editorView={editorView} options={options} api={api} />
+    ),
+  };
+};
 
 export default gridPlugin;
 export { GRID_GUTTER } from './styles';

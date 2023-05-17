@@ -2,8 +2,12 @@ import { caption } from '@atlaskit/adf-schema';
 import { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { default as createCaptionPlugin } from './pm-plugins/main';
 import { captionKeymap } from './pm-plugins/keymap';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
-const captionPlugin: NextEditorPlugin<'caption'> = () => {
+const captionPlugin: NextEditorPlugin<
+  'caption',
+  { dependencies: [typeof analyticsPlugin] }
+> = (_, api) => {
   return {
     name: 'caption',
 
@@ -20,14 +24,14 @@ const captionPlugin: NextEditorPlugin<'caption'> = () => {
             providerFactory,
             eventDispatcher,
             dispatch,
-          }) => {
-            return createCaptionPlugin(
+          }) =>
+            createCaptionPlugin(
               portalProviderAPI,
               eventDispatcher,
               providerFactory,
               dispatch,
-            );
-          },
+              api?.dependencies.analytics?.actions,
+            ),
         },
         {
           name: 'captionKeymap',

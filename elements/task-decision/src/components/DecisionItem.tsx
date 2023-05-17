@@ -9,7 +9,6 @@ import { Appearance, ContentRef } from '../types';
 import { token } from '@atlaskit/tokens';
 import { G200, G400, N100 } from '@atlaskit/theme/colors';
 import { themed, useGlobalTheme } from '@atlaskit/theme/components';
-import { gridSize } from '@atlaskit/theme/constants';
 import type { Theme } from '@atlaskit/theme/types';
 
 const iconStyles = (showPlaceholder: boolean | undefined) => (theme: Theme) => {
@@ -17,7 +16,7 @@ const iconStyles = (showPlaceholder: boolean | undefined) => (theme: Theme) => {
     flex: '0 0 16px',
     height: '16px',
     width: '16px',
-    margin: `4px ${gridSize() * 1.5}px 0 0`,
+    margin: `${token('space.050', '4px')} ${token('space.150', '12px')} 0 0`,
     color: showPlaceholder
       ? token('color.icon.subtle', N100)
       : themed({

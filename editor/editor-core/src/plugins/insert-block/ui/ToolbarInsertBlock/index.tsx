@@ -354,25 +354,19 @@ export class ToolbarInsertBlock extends React.PureComponent<
   };
 
   private insertTable = (inputMethod: TOOLBAR_MENU_TYPE): boolean => {
-    const { insertNodeAPI } = this.props;
+    const { pluginInjectionApi, editorView } = this.props;
 
-    if (!insertNodeAPI) {
-      return false;
-    }
+    const { state, dispatch } = editorView;
 
-    return insertNodeAPI.insert({
-      node: 'table',
-      options: {
-        selectNodeInserted: false,
-        analyticsPayload: {
-          action: ACTION.INSERTED,
-          actionSubject: ACTION_SUBJECT.DOCUMENT,
-          actionSubjectId: ACTION_SUBJECT_ID.TABLE,
-          attributes: { inputMethod },
-          eventType: EVENT_TYPE.TRACK,
-        },
-      },
-    });
+    return (
+      pluginInjectionApi?.dependencies.table?.actions.insertTable?.({
+        action: ACTION.INSERTED,
+        actionSubject: ACTION_SUBJECT.DOCUMENT,
+        actionSubjectId: ACTION_SUBJECT_ID.TABLE,
+        attributes: { inputMethod },
+        eventType: EVENT_TYPE.TRACK,
+      })(state, dispatch) ?? false
+    );
   };
 
   private createDate = (inputMethod: TOOLBAR_MENU_TYPE): boolean => {

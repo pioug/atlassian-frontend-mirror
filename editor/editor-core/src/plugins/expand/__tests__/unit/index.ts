@@ -22,11 +22,13 @@ import {
 import { ExpandNodeView } from '../../nodeviews';
 import { findExpand } from '../../utils';
 import expandPlugin from '../../index';
-import analyticsPlugin from '../../../analytics';
+import deprecatedAnalyticsPlugin from '../../../analytics';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import typeAheadPlugin from '../../../type-ahead';
 import quickInsertPlugin from '../../../quick-insert';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 describe('expand actions', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -38,8 +40,10 @@ describe('expand actions', () => {
       doc,
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
-        .add([expandPlugin, { allowInsertion: true }])
         .add([analyticsPlugin, { createAnalyticsEvent }])
+        .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
+        .add(contentInsertionPlugin)
+        .add([expandPlugin, { allowInsertion: true }])
         .add(typeAheadPlugin)
         .add(quickInsertPlugin)
         .add(tablesPlugin),

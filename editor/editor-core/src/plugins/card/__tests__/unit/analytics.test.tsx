@@ -381,6 +381,7 @@ describe('Analytics key events', () => {
         {
           creationMethod: 'editor_type',
           display: 'url',
+          nodeContext: 'doc',
         },
       );
 
@@ -400,6 +401,7 @@ describe('Analytics key events', () => {
           deleteType: 'undo',
           deleteMethod: 'undo',
           display: 'url',
+          nodeContext: 'doc',
         },
       );
 
@@ -418,6 +420,7 @@ describe('Analytics key events', () => {
         {
           creationMethod: 'redo',
           display: 'url',
+          nodeContext: 'doc',
         },
       );
     });
@@ -441,6 +444,7 @@ describe('Analytics key events', () => {
         {
           creationMethod: 'editor_type',
           display: 'url',
+          nodeContext: 'doc',
         },
       );
 
@@ -460,6 +464,7 @@ describe('Analytics key events', () => {
           deleteType: 'undo',
           deleteMethod: 'undo',
           display: 'url',
+          nodeContext: 'doc',
         },
       );
 
@@ -478,6 +483,7 @@ describe('Analytics key events', () => {
         {
           creationMethod: 'redo',
           display: 'url',
+          nodeContext: 'doc',
         },
       );
     });
@@ -510,6 +516,7 @@ describe('Analytics key events', () => {
         expect.any(UIAnalyticsEvent),
         {
           display: 'inline',
+          nodeContext: 'doc',
         },
       );
 
@@ -527,6 +534,7 @@ describe('Analytics key events', () => {
           updateMethod: 'undo',
           display: 'url',
           previousDisplay: 'inline',
+          nodeContext: 'doc',
         },
       );
 
@@ -541,6 +549,7 @@ describe('Analytics key events', () => {
         updateMethod: 'redo',
         display: 'inline',
         previousDisplay: 'url',
+        nodeContext: 'doc',
       });
     });
 
@@ -575,6 +584,7 @@ describe('Analytics key events', () => {
         {
           creationMethod: 'unknown',
           display: 'url',
+          nodeContext: 'doc',
         },
       );
 
@@ -594,6 +604,7 @@ describe('Analytics key events', () => {
           deleteType: 'undo',
           deleteMethod: 'undo',
           display: 'url',
+          nodeContext: 'doc',
         },
       );
 
@@ -609,6 +620,7 @@ describe('Analytics key events', () => {
         {
           creationMethod: 'redo',
           display: 'url',
+          nodeContext: 'doc',
         },
       );
     });
@@ -637,6 +649,7 @@ describe('Analytics key events', () => {
           {
             creationMethod: 'editor_paste',
             display: 'url',
+            nodeContext: 'doc',
           },
         );
 
@@ -656,6 +669,7 @@ describe('Analytics key events', () => {
             display: 'url',
             deleteMethod: 'undo',
             deleteType: 'undo',
+            nodeContext: 'doc',
           },
         );
 
@@ -674,6 +688,7 @@ describe('Analytics key events', () => {
           {
             display: 'url',
             creationMethod: 'redo',
+            nodeContext: 'doc',
           },
         );
       });
@@ -777,6 +792,7 @@ describe('Analytics key events', () => {
           {
             creationMethod: 'editor_paste',
             display: 'inline',
+            nodeContext: 'doc',
           },
         );
 
@@ -800,6 +816,7 @@ describe('Analytics key events', () => {
             updateMethod: 'undo',
             display: 'url',
             previousDisplay: 'inline',
+            nodeContext: 'doc',
           },
         );
 
@@ -823,6 +840,7 @@ describe('Analytics key events', () => {
             deleteType: 'undo',
             deleteMethod: 'undo',
             display: 'url',
+            nodeContext: 'doc',
           },
         );
 
@@ -845,6 +863,7 @@ describe('Analytics key events', () => {
           {
             creationMethod: 'redo',
             display: 'url',
+            nodeContext: 'doc',
           },
         );
 
@@ -867,6 +886,7 @@ describe('Analytics key events', () => {
             updateMethod: 'redo',
             display: 'inline',
             previousDisplay: 'url',
+            nodeContext: 'doc',
           },
         );
       });
@@ -900,6 +920,7 @@ describe('Analytics key events', () => {
           {
             creationMethod: 'editor_paste',
             display: 'inline',
+            nodeContext: 'doc',
           },
         );
 
@@ -920,6 +941,7 @@ describe('Analytics key events', () => {
             updateMethod: 'undo',
             previousDisplay: 'inline',
             display: 'url',
+            nodeContext: 'doc',
           },
         );
 
@@ -939,6 +961,7 @@ describe('Analytics key events', () => {
             deleteType: 'undo',
             deleteMethod: 'undo',
             display: 'url',
+            nodeContext: 'doc',
           },
         );
 
@@ -957,6 +980,7 @@ describe('Analytics key events', () => {
           {
             creationMethod: 'redo',
             display: 'url',
+            nodeContext: 'doc',
           },
         );
       });
@@ -981,6 +1005,7 @@ describe('Analytics key events', () => {
           {
             creationMethod: 'editor_paste',
             display: 'url',
+            nodeContext: 'doc',
           },
         );
 
@@ -1000,6 +1025,7 @@ describe('Analytics key events', () => {
             deleteType: 'undo',
             deleteMethod: 'undo',
             display: 'url',
+            nodeContext: 'doc',
           },
         );
 
@@ -1018,6 +1044,7 @@ describe('Analytics key events', () => {
           {
             creationMethod: 'redo',
             display: 'url',
+            nodeContext: 'doc',
           },
         );
       });
@@ -1047,6 +1074,7 @@ describe('Analytics key events', () => {
           {
             creationMethod: 'editor_paste',
             display: 'url',
+            nodeContext: 'doc',
           },
         );
 
@@ -1072,6 +1100,7 @@ describe('Analytics key events', () => {
           {
             creationMethod: 'editor_paste',
             display: 'inline',
+            nodeContext: 'doc',
           },
         );
       });
@@ -1101,6 +1130,7 @@ describe('Analytics key events', () => {
           {
             creationMethod: 'editor_paste',
             display: 'url',
+            nodeContext: 'doc',
           },
         );
 
@@ -1121,6 +1151,7 @@ describe('Analytics key events', () => {
             deleteMethod: 'undo',
             deleteType: 'undo',
             display: 'url',
+            nodeContext: 'doc',
           },
         );
 
@@ -1140,6 +1171,7 @@ describe('Analytics key events', () => {
           {
             creationMethod: 'redo',
             display: 'url',
+            nodeContext: 'doc',
           },
         );
       });
@@ -1204,6 +1236,7 @@ describe('Analytics key events', () => {
             updateMethod: 'editor_floatingToolbar',
             display,
             previousDisplay,
+            nodeContext: 'doc',
           },
         );
 
@@ -1224,6 +1257,7 @@ describe('Analytics key events', () => {
             updateMethod: 'undo',
             display: previousDisplay,
             previousDisplay: display,
+            nodeContext: 'doc',
           },
         );
 
@@ -1244,6 +1278,7 @@ describe('Analytics key events', () => {
             updateMethod: 'redo',
             display,
             previousDisplay,
+            nodeContext: 'doc',
           },
         );
       },
@@ -1300,6 +1335,7 @@ describe('Analytics key events', () => {
             updateMethod: 'editor_floatingToolbar',
             display,
             previousDisplay,
+            nodeContext: 'doc',
           },
         );
 
@@ -1320,6 +1356,7 @@ describe('Analytics key events', () => {
             updateMethod: 'undo',
             display: previousDisplay,
             previousDisplay: display,
+            nodeContext: 'doc',
           },
         );
 
@@ -1340,6 +1377,7 @@ describe('Analytics key events', () => {
             updateMethod: 'redo',
             display,
             previousDisplay,
+            nodeContext: 'doc',
           },
         );
       },
@@ -1394,6 +1432,7 @@ describe('Analytics key events', () => {
           updateType: undefined,
           display: 'inline',
           previousDisplay: 'inline',
+          nodeContext: 'doc',
         },
       );
 
@@ -1411,6 +1450,7 @@ describe('Analytics key events', () => {
           updateMethod: 'undo',
           display: 'url',
           previousDisplay: 'inline',
+          nodeContext: 'doc',
         },
       );
 
@@ -1428,6 +1468,7 @@ describe('Analytics key events', () => {
           updateMethod: 'undo',
           display: 'inline',
           previousDisplay: 'url',
+          nodeContext: 'doc',
         },
       );
 
@@ -1445,6 +1486,7 @@ describe('Analytics key events', () => {
           updateMethod: 'redo',
           display: 'url',
           previousDisplay: 'inline',
+          nodeContext: 'doc',
         },
       );
 
@@ -1459,6 +1501,7 @@ describe('Analytics key events', () => {
         updateMethod: 'redo',
         display: 'inline',
         previousDisplay: 'url',
+        nodeContext: 'doc',
       });
     });
 
@@ -1517,6 +1560,7 @@ describe('Analytics key events', () => {
           updateType: undefined,
           display: 'url',
           previousDisplay: 'inline',
+          nodeContext: 'doc',
         },
       );
 
@@ -1531,6 +1575,7 @@ describe('Analytics key events', () => {
         updateMethod: 'undo',
         display: 'inline',
         previousDisplay: 'url',
+        nodeContext: 'doc',
       });
 
       jest.clearAllMocks();
@@ -1547,6 +1592,7 @@ describe('Analytics key events', () => {
           updateMethod: 'redo',
           display: 'url',
           previousDisplay: 'inline',
+          nodeContext: 'doc',
         },
       );
     });
@@ -1603,6 +1649,7 @@ describe('Analytics key events', () => {
           updateMethod: 'unknown',
           display: 'url',
           previousDisplay: 'inline',
+          nodeContext: 'doc',
         },
       );
 
@@ -1619,6 +1666,7 @@ describe('Analytics key events', () => {
         updateMethod: 'undo',
         display: 'inline',
         previousDisplay: 'url',
+        nodeContext: 'doc',
       });
 
       jest.clearAllMocks();
@@ -1635,6 +1683,7 @@ describe('Analytics key events', () => {
           updateMethod: 'redo',
           display: 'url',
           previousDisplay: 'inline',
+          nodeContext: 'doc',
         },
       );
     });
@@ -1674,6 +1723,7 @@ describe('Analytics key events', () => {
           updateType: undefined,
           display: 'url',
           previousDisplay: 'url',
+          nodeContext: 'doc',
         },
       );
 
@@ -1691,6 +1741,7 @@ describe('Analytics key events', () => {
           updateMethod: 'undo',
           display: 'url',
           previousDisplay: 'url',
+          nodeContext: 'doc',
         },
       );
 
@@ -1708,6 +1759,7 @@ describe('Analytics key events', () => {
           updateMethod: 'redo',
           display: 'url',
           previousDisplay: 'url',
+          nodeContext: 'doc',
         },
       );
     });
@@ -1741,22 +1793,26 @@ describe('Analytics key events', () => {
           deleteType: 'delete',
           deleteMethod: 'unknown',
           display: 'url',
+          nodeContext: 'doc',
         },
       );
       expect(mockLinkDeleted).toHaveBeenCalledWith(url2Details, null, {
         deleteType: 'delete',
         deleteMethod: 'unknown',
         display: 'inline',
+        nodeContext: 'doc',
       });
       expect(mockLinkDeleted).toHaveBeenCalledWith(url2Details, null, {
         deleteType: 'delete',
         deleteMethod: 'unknown',
         display: 'block',
+        nodeContext: 'doc',
       });
       expect(mockLinkDeleted).toHaveBeenCalledWith(url2Details, null, {
         deleteType: 'delete',
         deleteMethod: 'unknown',
         display: 'embed',
+        nodeContext: 'doc',
       });
 
       jest.clearAllMocks();
@@ -1771,19 +1827,23 @@ describe('Analytics key events', () => {
         {
           creationMethod: 'undo',
           display: 'url',
+          nodeContext: 'doc',
         },
       );
       expect(mockLinkCreated).toHaveBeenCalledWith(url2Details, null, {
         creationMethod: 'undo',
         display: 'inline',
+        nodeContext: 'doc',
       });
       expect(mockLinkCreated).toHaveBeenCalledWith(url2Details, null, {
         creationMethod: 'undo',
         display: 'block',
+        nodeContext: 'doc',
       });
       expect(mockLinkCreated).toHaveBeenCalledWith(url2Details, null, {
         creationMethod: 'undo',
         display: 'embed',
+        nodeContext: 'doc',
       });
 
       jest.clearAllMocks();
@@ -1801,22 +1861,26 @@ describe('Analytics key events', () => {
           deleteType: 'redo',
           deleteMethod: 'redo',
           display: 'url',
+          nodeContext: 'doc',
         },
       );
       expect(mockLinkDeleted).toHaveBeenCalledWith(url2Details, null, {
         deleteType: 'redo',
         deleteMethod: 'redo',
         display: 'inline',
+        nodeContext: 'doc',
       });
       expect(mockLinkDeleted).toHaveBeenCalledWith(url2Details, null, {
         deleteType: 'redo',
         deleteMethod: 'redo',
         display: 'block',
+        nodeContext: 'doc',
       });
       expect(mockLinkDeleted).toHaveBeenCalledWith(url2Details, null, {
         deleteType: 'redo',
         deleteMethod: 'redo',
         display: 'embed',
+        nodeContext: 'doc',
       });
     });
 
@@ -1843,6 +1907,7 @@ describe('Analytics key events', () => {
         deleteType: 'delete',
         deleteMethod: 'editor_floatingToolbar',
         display: 'inline',
+        nodeContext: 'doc',
       });
 
       jest.clearAllMocks();
@@ -1854,6 +1919,7 @@ describe('Analytics key events', () => {
       expect(mockLinkCreated).toHaveBeenCalledWith(linkDetails, null, {
         creationMethod: 'undo',
         display: 'inline',
+        nodeContext: 'doc',
       });
 
       jest.clearAllMocks();
@@ -1866,6 +1932,7 @@ describe('Analytics key events', () => {
         deleteType: 'redo',
         deleteMethod: 'redo',
         display: 'inline',
+        nodeContext: 'doc',
       });
     });
 
@@ -1892,6 +1959,7 @@ describe('Analytics key events', () => {
         deleteType: 'unlink',
         deleteMethod: 'editor_floatingToolbar',
         display: 'inline',
+        nodeContext: 'doc',
       });
 
       jest.clearAllMocks();
@@ -1903,6 +1971,7 @@ describe('Analytics key events', () => {
       expect(mockLinkCreated).toHaveBeenCalledWith(linkDetails, null, {
         creationMethod: 'undo',
         display: 'inline',
+        nodeContext: 'doc',
       });
 
       jest.clearAllMocks();
@@ -1915,6 +1984,7 @@ describe('Analytics key events', () => {
         deleteType: 'redo',
         deleteMethod: 'redo',
         display: 'inline',
+        nodeContext: 'doc',
       });
     });
   });

@@ -116,21 +116,8 @@ export default class EditorActions<T = any> implements EditorActionsOptions<T> {
       return false;
     }
 
-    // If we focus on componentDidMount the editor can crash due to a prosemirror error.
-    // This is fixed in prosemirror-view@1.23.7
-    // See: https:github.com/ProseMirror/prosemirror-view/commit/735b88107d1cbe7575a188edb85f05c22fb56e35
-    //
-    // We don't want this error to crash the editor in the case we can't
-    // focus correctly.
-    // Revert workaround in: https://product-fabric.atlassian.net/browse/ED-17172
-    try {
-      this.editorView.focus();
-    } catch (err) {
-      if (process.env.NODE_ENV !== 'production') {
-        // eslint-disable-next-line no-console
-        console.error('EditorView focus failed with an error', err);
-      }
-    }
+    this.editorView.focus();
+
     this.editorView.dispatch(this.editorView.state.tr.scrollIntoView());
 
     return true;

@@ -1,0 +1,1 @@
+export { logException } from './error';

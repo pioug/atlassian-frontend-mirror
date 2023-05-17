@@ -26,7 +26,11 @@ import blockTypePlugin from '../../../block-type';
 import codeBlockTypePlugin from '../../../code-block';
 import emojiPlugin, { emojiPluginKey } from '../../../emoji';
 import panelPlugin from '../../../panel';
-import analyticsPlugin from '../../../analytics';
+import widthPlugin from '../../../width';
+import gridPlugin from '../../../grid';
+
+import deprecatedAnalyticsPlugin from '../../../analytics';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import mediaPlugin from '../../../media';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
@@ -57,12 +61,15 @@ describe('lists plugin -> keymap', () => {
     createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
     const preset = new Preset<LightEditorPlugin>()
       .add([featureFlagsPlugin, { restartNumberedLists: true }])
+      .add([analyticsPlugin, { createAnalyticsEvent }])
+      .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
       .add([listPlugin, { restartNumberedLists: true }])
       .add(blockTypePlugin)
       .add(emojiPlugin)
       .add([codeBlockTypePlugin, { appearance: 'full-page' }])
       .add(panelPlugin)
-      .add([analyticsPlugin, { createAnalyticsEvent }])
+      .add(widthPlugin)
+      .add(gridPlugin)
       .add([mediaPlugin, { allowMediaSingle: true }]);
 
     return createEditor({

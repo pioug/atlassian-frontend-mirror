@@ -14,7 +14,7 @@ export type Props = MediaSingleProps & {
   displayGrid: (
     show: boolean,
     type: GridType,
-    highlight?: number[] | string[],
+    highlight: number[] | string[],
   ) => void;
   getPos: getPosHandler;
   view: EditorView;

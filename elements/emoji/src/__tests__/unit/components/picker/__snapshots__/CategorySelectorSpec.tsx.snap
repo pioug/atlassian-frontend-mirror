@@ -38,7 +38,7 @@ exports[`<CategorySelector /> active category highlighted 1`] = `
   border-radius: var(--ds-radius-100, 3px);
   color: var(--ds-text-subtlest, rgba(9, 30, 66, 0.54));
   cursor: pointer;
-  padding: 0;
+  padding: var(--ds-space-0, 0px);
   -webkit-transition: color 0.2s ease;
   transition: color 0.2s ease;
   color: var(--ds-text-selected, #0065FF);
@@ -46,14 +46,14 @@ exports[`<CategorySelector /> active category highlighted 1`] = `
 
 .emotion-1::-moz-focus-inner {
   border: 0 none;
-  padding: 0;
+  padding: var(--ds-space-0, 0px);
 }
 
 .emotion-1:hover {
   color: var(--ds-text-selected, #2684FF);
 }
 
-.emotion-1:focus {
+.emotion-1:focus-visible {
   box-shadow: 0 0 0 2px var(--ds-border-focused, #4C9AFF);
   transition-duration: 0s,0.2s;
   outline: none;

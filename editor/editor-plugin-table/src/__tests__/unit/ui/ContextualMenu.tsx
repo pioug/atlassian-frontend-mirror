@@ -17,6 +17,9 @@ import {
   tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import tablePlugin from '../../../plugins/table-plugin';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 import { ContextualMenu } from '../../../plugins/table/ui/FloatingContextualMenu/ContextualMenu';
 
@@ -29,10 +32,11 @@ describe('ContextualMenu', () => {
     beforeEach(() => {
       ({ editorView } = createEditor({
         doc: doc(table()(tr(th()(p('')), th()(p(''))), tr(tdCursor, tdEmpty))),
-        preset: new Preset<LightEditorPlugin>().add([
-          tablePlugin,
-          { tableOptions: { advanced: true } },
-        ]),
+        preset: new Preset<LightEditorPlugin>()
+          .add([featureFlagsPlugin, {}])
+          .add([analyticsPlugin, {}])
+          .add(contentInsertionPlugin)
+          .add([tablePlugin, { tableOptions: { advanced: true } }]),
       }));
     });
 

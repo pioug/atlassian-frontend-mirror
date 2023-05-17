@@ -74,7 +74,10 @@ import { uuid, AnnotationTypes } from '@atlaskit/adf-schema';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import macroPlugin, { setMacroProvider } from '../../../macro';
 import { EditorView } from 'prosemirror-view';
-import analyticsPlugin, { ACTION_SUBJECT_ID } from '../../../analytics';
+import deprecatedAnalyticsPlugin, {
+  ACTION_SUBJECT_ID,
+} from '../../../analytics';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { PastePluginOptions } from '../../index';
 
 import {
@@ -214,6 +217,17 @@ describe('paste plugins', () => {
         .add([pastePlugin, pasteOptions])
         .add([
           analyticsPlugin,
+          {
+            createAnalyticsEvent: createAnalyticsEvent as any,
+            performanceTracking: {
+              pasteTracking: {
+                enabled: true,
+              },
+            },
+          },
+        ])
+        .add([
+          deprecatedAnalyticsPlugin,
           {
             createAnalyticsEvent: createAnalyticsEvent as any,
             performanceTracking: {

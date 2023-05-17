@@ -34,7 +34,7 @@ import {
   MediaSubscription,
   MediaClient,
 } from '@atlaskit/media-client';
-import { MediaViewer, MediaViewerDataSource } from '@atlaskit/media-viewer';
+import { MediaViewer } from '@atlaskit/media-viewer';
 import {
   injectIntl,
   IntlProvider,
@@ -952,7 +952,6 @@ export class CardBase extends Component<CardBaseProps, CardState> {
     const {
       mediaClient,
       identifier,
-      mediaViewerDataSource,
       mediaViewerItems,
       contextId,
       featureFlags,
@@ -964,15 +963,11 @@ export class CardBase extends Component<CardBaseProps, CardState> {
     const collectionName = isFileIdentifier(identifier)
       ? identifier.collectionName || ''
       : '';
-    const dataSource: MediaViewerDataSource = mediaViewerDataSource || {
-      list: [],
-    };
 
     return ReactDOM.createPortal(
       <MediaViewer
         collectionName={collectionName}
-        dataSource={dataSource}
-        items={mediaViewerItems}
+        items={mediaViewerItems || []}
         mediaClientConfig={mediaClient.config}
         selectedItem={mediaViewerSelectedItem}
         onClose={this.onMediaViewerClose}

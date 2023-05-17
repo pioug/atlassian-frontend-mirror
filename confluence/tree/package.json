@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/tree",
-  "version": "8.8.3",
+  "version": "8.8.4",
   "description": "A React Component for displaying expandable and sortable tree hierarchies",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

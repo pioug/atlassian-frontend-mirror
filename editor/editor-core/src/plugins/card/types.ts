@@ -81,6 +81,7 @@ type Metadata<T = {}> = {
   action?: string;
   inputMethod?: string;
   sourceEvent?: unknown;
+  nodeContext?: string;
 } & T;
 
 type UpdateMetadata = {

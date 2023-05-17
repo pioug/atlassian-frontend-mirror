@@ -111,22 +111,6 @@ function getDynamicStyles({
   };
 }
 
-/**
- * Determines if the drop indicator should be hidden.
- *
- * This is desired when the current drop target would not change the position
- * of the draggable.
- */
-function shouldHide({
-  source,
-  destination = null,
-}: {
-  source: DraggableLocation;
-  destination?: DraggableLocation | null;
-}): boolean {
-  return isSameLocation(source, destination);
-}
-
 const dropIndicatorData = {
   [customAttributes.dropIndicator]: '',
 };
@@ -157,11 +141,20 @@ export const DropIndicator = ({ direction, mode }: DropIndicatorProps) => {
         return setDimensions(null);
       }
 
-      setIsHidden(shouldHide({ source, destination }));
+      const isInHomeLocation = isSameLocation(source, destination);
+
+      /**
+       * Determines if the drop indicator should be hidden.
+       *
+       * This is desired when the current drop target would not change the position
+       * of the draggable.
+       */
+      setIsHidden(isInHomeLocation);
 
       return setDimensions(
         getIndicatorSizeAndOffset({
           targetLocation,
+          isInHomeLocation,
           direction,
           mode,
           contextId,

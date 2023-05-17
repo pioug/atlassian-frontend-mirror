@@ -1,5 +1,6 @@
 import { Plugin, EditorState } from 'prosemirror-state';
-import { pmHistoryPluginKey, PmHistoryPluginState } from './pm-history-types';
+import { PmHistoryPluginState } from './pm-history-types';
+import { pmHistoryPluginKey } from '@atlaskit/editor-common/utils';
 
 export const getPmHistoryPlugin = (state: EditorState): Plugin | undefined => {
   return state.plugins.find(

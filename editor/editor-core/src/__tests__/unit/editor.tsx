@@ -116,8 +116,9 @@ describe.each(featureFlagOptions)(packageName, (flags) => {
     describe('errors', () => {
       it('should not have any unknown console errors on mount', () => {
         const knownErrors = ['The pseudo class ":first-child" is potentially'];
+        jest.clearAllMocks();
         const consoleErrorSpy = jest.spyOn(console, 'error');
-        render(<Editor />);
+        render(<Editor allowAnalyticsGASV3 />);
         const calls = consoleErrorSpy.mock.calls
           .map((call) => call[0])
           .filter(

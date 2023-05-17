@@ -29,7 +29,7 @@ import {
   htmlHasInvalidLinkTags,
   removeDuplicateInvalidLinks,
 } from '../util';
-import { linkifyContent } from '../../hyperlink/utils';
+import { linkifyContent } from '@atlaskit/editor-common/utils';
 import { transformSliceNestedExpandToExpand } from '../../expand/utils';
 import {
   handleMacroAutoConvert,
@@ -72,7 +72,7 @@ import {
   unwrapNestedMediaElements,
 } from '../../media/utils/media-common';
 import { upgradeTextToLists, splitParagraphs } from '../../list/transforms';
-import { md } from '../md';
+import { md } from '@atlaskit/editor-common/paste';
 import { transformUnsupportedBlockCardToInline } from '../../card/utils';
 import { transformSliceToDecisionList } from '../../tasks-and-decisions/utils';
 import {
@@ -91,7 +91,6 @@ import { extractSliceFromStep } from '../../../utils/step';
 
 import { pluginKey as stateKey, createPluginState } from './plugin-factory';
 export { pluginKey as stateKey } from './plugin-factory';
-export { md } from '../md';
 import type { Dispatch } from '../../../event-dispatcher';
 import { FeatureFlags } from '@atlaskit/editor-common/types';
 

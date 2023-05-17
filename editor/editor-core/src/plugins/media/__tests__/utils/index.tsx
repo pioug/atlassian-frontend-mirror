@@ -176,7 +176,7 @@ describe('Media plugin', () => {
       const contentComponent = plugin.contentComponent!({
         editorView,
       } as any);
-      return mount(contentComponent!);
+      return mountWithIntl(contentComponent!);
     };
 
     let dropzoneContainer: HTMLElement | undefined;

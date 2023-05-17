@@ -1,6 +1,8 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import Link from '../../../../react/marks/link';
+import { AnalyticsListener } from '@atlaskit/analytics-next';
+import '@atlaskit/link-test-helpers/jest';
 
 describe('Renderer - React/Marks/Link', () => {
   const createLink = () =>
@@ -107,15 +109,27 @@ describe('Renderer - React/Marks/Link', () => {
   describe('analytics', () => {
     it('fires on click', () => {
       const fireAnalyticsEvent = jest.fn();
+      const analyticsSpy = jest.fn();
+      const expectedContext = [
+        {
+          attributes: {
+            location: 'renderer',
+          },
+          location: 'renderer',
+        },
+      ];
       const linkAroundText = mount(
-        <Link
-          dataAttributes={{ 'data-renderer-mark': true }}
-          href="https://www.atlassian.com"
-          target="_top"
-          fireAnalyticsEvent={fireAnalyticsEvent}
-        >
-          Sail ho shrouds spirits.
-        </Link>,
+        <AnalyticsListener onEvent={analyticsSpy} channel={'media'}>
+          <Link
+            dataAttributes={{ 'data-renderer-mark': true }}
+            href="https://www.atlassian.com"
+            target="_top"
+            fireAnalyticsEvent={fireAnalyticsEvent}
+          >
+            Sail ho shrouds spirits.
+          </Link>
+          ,
+        </AnalyticsListener>,
       );
 
       fireAnalyticsEvent.mockClear();
@@ -129,6 +143,13 @@ describe('Renderer - React/Marks/Link', () => {
           mode: 'renderer',
         },
         eventType: 'track',
+      });
+      expect(analyticsSpy).toBeFiredWithAnalyticEventOnce({
+        payload: {
+          action: 'clicked',
+          actionSubject: 'link',
+        },
+        context: expectedContext,
       });
     });
   });

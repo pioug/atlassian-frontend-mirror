@@ -1,4 +1,3 @@
-import { keyframes } from '@emotion/react';
 import { borderRadius as akBorderRadius } from '@atlaskit/theme/constants';
 
 export const ellipsis = (maxWidth: string | number = '100%') => {
@@ -43,17 +42,3 @@ export const borderRadiusBottom = `
 `;
 
 export const easeInOutCubic = 'cubic-bezier(0.645, 0.045, 0.355, 1)';
-
-const fadeInKeyframe = keyframes`
-  0%{
-    opacity: 0;
-  }
-
-  100%{
-    opacity: 1;
-  }
-`;
-
-export const fadeIn = `
-  animation: ${fadeInKeyframe} .3s ${easeInOutCubic};
-`;

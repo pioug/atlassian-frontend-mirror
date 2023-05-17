@@ -1,12 +1,11 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import { css } from '@emotion/react';
 
-import { gridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 export const overflowShadow = ({
   background,
-  width = `${gridSize()}px`,
+  width = token('space.100', '8px'),
   leftCoverWidth,
   rightCoverWidth,
 }: {

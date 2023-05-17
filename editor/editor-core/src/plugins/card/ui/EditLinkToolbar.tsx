@@ -17,12 +17,13 @@ import {
   FloatingToolbarItem,
   FloatingToolbarConfig,
 } from '../../floating-toolbar/types';
+
 import {
-  addAnalytics,
   ACTION_SUBJECT_ID,
   INPUT_METHOD,
   ACTION,
-} from '../../analytics';
+  EditorAnalyticsAPI,
+} from '@atlaskit/editor-common/analytics';
 
 import {
   LINKPICKER_HEIGHT_IN_PX,
@@ -113,40 +114,44 @@ export class EditLinkToolbar extends React.Component<EditLinkToolbarProps> {
   }
 }
 
-export const editLink: Command = (state, dispatch) => {
-  let type = 'hyperlink';
-  if (state.selection instanceof NodeSelection) {
-    type = state.selection.node.type.name;
-  }
-  if (dispatch) {
-    dispatch(
-      addAnalytics(
-        state,
-        showLinkToolbar(state.tr),
+export const editLink =
+  (editorAnalyticsApi: EditorAnalyticsAPI | undefined): Command =>
+  (state, dispatch) => {
+    let type = 'hyperlink';
+    if (state.selection instanceof NodeSelection) {
+      type = state.selection.node.type.name;
+    }
+
+    if (dispatch) {
+      const { tr } = state;
+      showLinkToolbar(tr);
+      editorAnalyticsApi?.attachAnalyticsEvent(
         buildEditLinkPayload(
           type as
             | ACTION_SUBJECT_ID.CARD_INLINE
             | ACTION_SUBJECT_ID.CARD_BLOCK
             | ACTION_SUBJECT_ID.EMBEDS,
         ),
-      ),
-    );
-    return true;
-  }
+      )(tr);
+      dispatch(tr);
+      return true;
+    }
 
-  return false;
-};
+    return false;
+  };
 
 export const buildEditLinkToolbar = ({
   providerFactory,
   node,
   linkPicker,
   featureFlags,
+  editorAnalyticsApi,
 }: {
   providerFactory: ProviderFactory;
   node: Node;
   linkPicker?: LinkPickerOptions;
   featureFlags: FeatureFlags;
+  editorAnalyticsApi: EditorAnalyticsAPI | undefined;
 }): FloatingToolbarItem<Command> => {
   return {
     type: 'custom',
@@ -177,7 +182,14 @@ export const buildEditLinkToolbar = ({
             // (even if the url was also changed) - we don't want to lose the custom title.
             if (titleChanged) {
               return commandWithMetadata(
-                changeSelectedCardToLink(newText, newHref),
+                changeSelectedCardToLink(
+                  newText,
+                  newHref,
+                  undefined,
+                  undefined,
+                  undefined,
+                  editorAnalyticsApi,
+                ),
                 {
                   action: ACTION.UPDATED,
                   sourceEvent: analytic,

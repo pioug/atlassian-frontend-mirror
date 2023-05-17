@@ -83,10 +83,8 @@ describe('#sendData', () => {
       steps: 'hot garbarge', // even the spelling is garbage, nice
     });
 
-    expect(fakeAnalyticsWebClient.sendOperationalEvent).toHaveBeenCalledTimes(
-      1,
-    );
-    expect(fakeAnalyticsWebClient.sendOperationalEvent).toBeCalledWith({
+    expect(fakeAnalyticsWebClient.sendTrackEvent).toHaveBeenCalledTimes(1);
+    expect(fakeAnalyticsWebClient.sendTrackEvent).toBeCalledWith({
       action: 'error',
       actionSubject: 'collab',
       attributes: {
@@ -209,12 +207,14 @@ describe('#sendData', () => {
             });
             // @ts-ignore just spying on a private method, nothing to see here
             expect(provider.emit).not.toHaveBeenCalled();
+            expect(fakeAnalyticsWebClient.sendTrackEvent).toHaveBeenCalledTimes(
+              1,
+            );
+
             expect(
               fakeAnalyticsWebClient.sendOperationalEvent,
-            ).toHaveBeenCalledTimes(2);
-            expect(
-              fakeAnalyticsWebClient.sendOperationalEvent,
-            ).toHaveBeenNthCalledWith(1, {
+            ).toHaveBeenCalledTimes(1);
+            expect(fakeAnalyticsWebClient.sendOperationalEvent).toBeCalledWith({
               action: 'addSteps',
               actionSubject: 'collab',
               attributes: {
@@ -232,9 +232,7 @@ describe('#sendData', () => {
               tags: ['editor'],
               source: 'unknown',
             });
-            expect(
-              fakeAnalyticsWebClient.sendOperationalEvent,
-            ).toHaveBeenNthCalledWith(2, {
+            expect(fakeAnalyticsWebClient.sendTrackEvent).toBeCalledWith({
               action: 'error',
               actionSubject: 'collab',
               attributes: {
@@ -267,12 +265,13 @@ describe('#sendData', () => {
             });
             // @ts-ignore just spying on a private method, nothing to see here
             expect(provider.emit).not.toHaveBeenCalled();
+            expect(fakeAnalyticsWebClient.sendTrackEvent).toHaveBeenCalledTimes(
+              1,
+            );
             expect(
               fakeAnalyticsWebClient.sendOperationalEvent,
-            ).toHaveBeenCalledTimes(2);
-            expect(
-              fakeAnalyticsWebClient.sendOperationalEvent,
-            ).toHaveBeenNthCalledWith(1, {
+            ).toHaveBeenCalledTimes(1);
+            expect(fakeAnalyticsWebClient.sendOperationalEvent).toBeCalledWith({
               action: 'addSteps',
               actionSubject: 'collab',
               attributes: {
@@ -290,9 +289,7 @@ describe('#sendData', () => {
               tags: ['editor'],
               source: 'unknown',
             });
-            expect(
-              fakeAnalyticsWebClient.sendOperationalEvent,
-            ).toHaveBeenNthCalledWith(2, {
+            expect(fakeAnalyticsWebClient.sendTrackEvent).toBeCalledWith({
               action: 'error',
               actionSubject: 'collab',
               attributes: {
@@ -361,38 +358,41 @@ describe('#sendData', () => {
           //   message: 'Collab service has experienced an internal server error',
           //   status: 500,
           // });
+          expect(fakeAnalyticsWebClient.sendTrackEvent).toHaveBeenCalledTimes(
+            2,
+          );
+
           expect(
             fakeAnalyticsWebClient.sendOperationalEvent,
-          ).toHaveBeenCalledTimes(3);
-          expect(
-            fakeAnalyticsWebClient.sendOperationalEvent,
-          ).toHaveBeenNthCalledWith(1, {
-            action: 'error',
-            actionSubject: 'collab',
-            attributes: {
-              packageName: '@atlaskit/fabric',
-              packageVersion: '0.0.0',
-              collabService: 'ncs',
-              network: {
-                status: 'ONLINE',
+          ).toHaveBeenCalledTimes(1);
+          expect(fakeAnalyticsWebClient.sendTrackEvent).toHaveBeenNthCalledWith(
+            1,
+            {
+              action: 'error',
+              actionSubject: 'collab',
+              attributes: {
+                packageName: '@atlaskit/fabric',
+                packageVersion: '0.0.0',
+                collabService: 'ncs',
+                network: {
+                  status: 'ONLINE',
+                },
+                documentAri: 'ari:cloud:confluence:ABC:page/testpage',
+                errorMessage: 'Error handled',
+                errorName: undefined,
               },
-              documentAri: 'ari:cloud:confluence:ABC:page/testpage',
-              errorMessage: 'Error handled',
-              errorName: undefined,
-            },
-            nonPrivacySafeAttributes: {
-              error: {
-                data: {
-                  code: 'SOME_TECHNICAL_ERROR',
+              nonPrivacySafeAttributes: {
+                error: {
+                  data: {
+                    code: 'SOME_TECHNICAL_ERROR',
+                  },
                 },
               },
+              tags: ['editor'],
+              source: 'unknown',
             },
-            tags: ['editor'],
-            source: 'unknown',
-          });
-          expect(
-            fakeAnalyticsWebClient.sendOperationalEvent,
-          ).toHaveBeenNthCalledWith(2, {
+          );
+          expect(fakeAnalyticsWebClient.sendOperationalEvent).toBeCalledWith({
             action: 'addSteps',
             actionSubject: 'collab',
             attributes: {
@@ -410,43 +410,43 @@ describe('#sendData', () => {
             tags: ['editor'],
             source: 'unknown',
           });
-          expect(
-            fakeAnalyticsWebClient.sendOperationalEvent,
-          ).toHaveBeenNthCalledWith(3, {
-            action: 'error',
-            actionSubject: 'collab',
-            attributes: {
-              packageName: '@atlaskit/fabric',
-              packageVersion: '0.0.0',
-              collabService: 'ncs',
-              network: {
-                status: 'ONLINE',
+          expect(fakeAnalyticsWebClient.sendTrackEvent).toHaveBeenNthCalledWith(
+            2,
+            {
+              action: 'error',
+              actionSubject: 'collab',
+              attributes: {
+                packageName: '@atlaskit/fabric',
+                packageVersion: '0.0.0',
+                collabService: 'ncs',
+                network: {
+                  status: 'ONLINE',
+                },
+                documentAri: 'ari:cloud:confluence:ABC:page/testpage',
+                errorMessage:
+                  'Error while adding steps - Acknowledgement Error',
               },
-              documentAri: 'ari:cloud:confluence:ABC:page/testpage',
-              errorMessage: 'Error while adding steps - Acknowledgement Error',
-            },
-            nonPrivacySafeAttributes: {
-              error: {
-                data: {
-                  code: 'SOME_TECHNICAL_ERROR',
+              nonPrivacySafeAttributes: {
+                error: {
+                  data: {
+                    code: 'SOME_TECHNICAL_ERROR',
+                  },
                 },
               },
+              tags: ['editor'],
+              source: 'unknown',
             },
-            tags: ['editor'],
-            source: 'unknown',
-          });
+          );
         });
 
         it('should call emit analytics event on invalid acknowledgement', () => {
           ackCallback({ wat: true });
           // @ts-ignore just spying on a private method, nothing to see here
           expect(provider.emit).not.toHaveBeenCalled();
-          expect(
-            fakeAnalyticsWebClient.sendOperationalEvent,
-          ).toHaveBeenCalledTimes(1);
-          expect(
-            fakeAnalyticsWebClient.sendOperationalEvent,
-          ).toHaveBeenCalledWith({
+          expect(fakeAnalyticsWebClient.sendTrackEvent).toHaveBeenCalledTimes(
+            1,
+          );
+          expect(fakeAnalyticsWebClient.sendTrackEvent).toBeCalledWith({
             action: 'error',
             actionSubject: 'collab',
             attributes: {

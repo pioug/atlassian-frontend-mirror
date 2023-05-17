@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import TextField from '@atlaskit/textfield';
-import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 import React, { FormEvent, PureComponent } from 'react';
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import { css, jsx } from '@emotion/react';
@@ -11,7 +11,7 @@ import { messages } from './i18n';
 export type ColorType = Color;
 
 const fieldTextWrapperStyles = css`
-  margin: 0 ${gridSize()}px;
+  margin: 0 ${token('space.100', '8px')};
 `;
 
 export interface Props {

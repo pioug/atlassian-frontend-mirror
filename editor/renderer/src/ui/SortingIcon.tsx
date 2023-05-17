@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 import Tooltip from '@atlaskit/tooltip';
-import { gridSize } from '@atlaskit/theme/constants';
 import { N20, N30 } from '@atlaskit/theme/colors';
 import { SortOrder } from '@atlaskit/editor-common/types';
 import { sortingIconMessages } from '../messages';
@@ -25,7 +24,7 @@ const buttonStyles = css`
   right: 0;
   top: 0;
   border: 2px solid ${token('color.border', '#fff')};
-  border-radius: ${gridSize() / 2}px;
+  border-radius: ${token('border.radius.100', '4px')};
   background-color: ${token('elevation.surface.overlay', N20)};
   justify-content: center;
   align-items: center;

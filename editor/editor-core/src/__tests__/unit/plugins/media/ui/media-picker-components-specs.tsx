@@ -10,6 +10,7 @@ jest.mock('../../../../../ui/WithPluginState', () => ({
     return render({ focus: true });
   },
 }));
+
 import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
 import { mount, ReactWrapper } from 'enzyme';
 import React from 'react';

@@ -20,6 +20,7 @@ import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import blockTypePlugin from '../../../block-type';
 import basePlugin from '../../../base';
 import { microsoftWordDesktopPasteOutput } from './__fixtures__/paste-word-desktop';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 const pasteAndCompare = (
   { editorView }: { editorView: EditorView },
@@ -40,6 +41,7 @@ describe('paste of lists with restartNumberedLists enabled', () => {
       doc,
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, { restartNumberedLists: true }])
+        .add([analyticsPlugin, {}])
         .add([pastePlugin, {}])
         .add(hyperlinkPlugin)
         .add([listPlugin, { restartNumberedLists: true }])

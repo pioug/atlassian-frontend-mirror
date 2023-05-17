@@ -12,7 +12,7 @@ import {
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 
 // Editor Plugins
-import analyticsPlugin from '../../../analytics';
+import deprecatedAnalyticsPlugin from '../../../analytics';
 import pastePlugin from '../../';
 import basePlugin from '../../../base';
 import blockTypePlugin from '../../../block-type';
@@ -21,6 +21,7 @@ import textFormattingPlugin from '../../../text-formatting';
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
 import hyperlinkPlugin from '../../../hyperlink/index';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 const emojiProvider = getTestEmojiResource();
 const providerFactory = ProviderFactory.create({ emojiProvider });
@@ -35,8 +36,9 @@ describe('#createPasteAnalyticsPayload()', () => {
       doc,
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
-        .add(hyperlinkPlugin)
         .add([analyticsPlugin, { createAnalyticsEvent }])
+        .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
+        .add(hyperlinkPlugin)
         .add([pastePlugin, {}])
         .add(blockTypePlugin)
         .add(textFormattingPlugin)

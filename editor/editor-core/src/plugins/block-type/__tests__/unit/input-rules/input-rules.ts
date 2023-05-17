@@ -31,7 +31,9 @@ import {
 import { HeadingLevels } from '../../../types';
 import { EditorView } from 'prosemirror-view';
 import blockTypePlugin from '../../..';
-import analyticsPlugin from '../../../../analytics';
+import deprecatedAnalyticsPlugin from '../../../../analytics';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+
 import indentationPlugin from '../../../../indentation';
 import quickInsertPlugin from '../../../../quick-insert';
 import typeAheadPlugin from '../../../../type-ahead';
@@ -40,6 +42,7 @@ import hyperlinkPlugin from '../../../../hyperlink';
 import textFormattingPlugin from '../../../../text-formatting';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 describe('inputrules', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -53,9 +56,11 @@ describe('inputrules', () => {
       doc,
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
+        .add([analyticsPlugin, { createAnalyticsEvent }])
+        .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
+        .add(contentInsertionPlugin)
         // TODO: Maybe it's worth to split this file to test each input rule for each different plugins
         .add(blockTypePlugin)
-        .add([analyticsPlugin, { createAnalyticsEvent }])
         .add(indentationPlugin)
         .add(quickInsertPlugin)
         .add([codeBlockPlugin, { appearance: 'full-page' }])

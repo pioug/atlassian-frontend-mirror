@@ -21,6 +21,9 @@ import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
 import { TablePluginState } from '../../../plugins/table/types';
 import { addColumnAt } from '../../../plugins/table/commands/insert';
 import widthPlugin from '@atlaskit/editor-core/src/plugins/width';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 
@@ -38,6 +41,9 @@ describe('table plugin: insert', () => {
     const createEditor = createProsemirrorEditorFactory();
 
     const preset = new Preset<LightEditorPlugin>()
+      .add([featureFlagsPlugin, {}])
+      .add([analyticsPlugin, {}])
+      .add(contentInsertionPlugin)
       .add([
         tablePlugin,
         {

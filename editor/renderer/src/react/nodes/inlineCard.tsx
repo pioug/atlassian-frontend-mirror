@@ -12,6 +12,7 @@ import {
 import { getCardClickHandler } from '../utils/getCardClickHandler';
 import { SmartLinksOptions } from '../../types/smartLinksOptions';
 import { useFeatureFlags } from '../../use-feature-flags';
+import { AnalyticsContext } from '@atlaskit/analytics-next';
 
 export interface InlineCardProps {
   url?: string;
@@ -29,44 +30,55 @@ const InlineCard: React.FunctionComponent<
   const cardProps = { url, data, onClick, container: portal };
   const featureFlags = useFeatureFlags();
   const { showAuthTooltip, showServerActions, ssr } = smartLinks || {};
+  const analyticsData = {
+    attributes: {
+      location: 'renderer',
+    },
+    // Below is added for the future implementation of Linking Platform namespaced analytic context
+    location: 'renderer',
+  };
 
   if (ssr && url) {
     return (
-      <CardSSR
-        appearance="inline"
-        url={url}
-        showAuthTooltip={showAuthTooltip}
-        showServerActions={showServerActions}
-      />
+      <AnalyticsContext data={analyticsData}>
+        <CardSSR
+          appearance="inline"
+          url={url}
+          showAuthTooltip={showAuthTooltip}
+          showServerActions={showServerActions}
+        />
+      </AnalyticsContext>
     );
   }
 
   return (
-    <span
-      data-inline-card
-      data-card-data={data ? JSON.stringify(data) : undefined}
-      data-card-url={url}
-    >
-      <CardErrorBoundary
-        unsupportedComponent={UnsupportedInline}
-        {...cardProps}
+    <AnalyticsContext data={analyticsData}>
+      <span
+        data-inline-card
+        data-card-data={data ? JSON.stringify(data) : undefined}
+        data-card-url={url}
       >
-        <Card
-          appearance="inline"
-          showHoverPreview={featureFlags?.showHoverPreview}
-          showAuthTooltip={showAuthTooltip}
-          showServerActions={showServerActions}
+        <CardErrorBoundary
+          unsupportedComponent={UnsupportedInline}
           {...cardProps}
-          onResolve={(data) => {
-            if (!data.url || !data.title) {
-              return;
-            }
+        >
+          <Card
+            appearance="inline"
+            showHoverPreview={featureFlags?.showHoverPreview}
+            showAuthTooltip={showAuthTooltip}
+            showServerActions={showServerActions}
+            {...cardProps}
+            onResolve={(data) => {
+              if (!data.url || !data.title) {
+                return;
+              }
 
-            props.smartCardStorage.set(data.url, data.title);
-          }}
-        />
-      </CardErrorBoundary>
-    </span>
+              props.smartCardStorage.set(data.url, data.title);
+            }}
+          />
+        </CardErrorBoundary>
+      </span>
+    </AnalyticsContext>
   );
 };
 

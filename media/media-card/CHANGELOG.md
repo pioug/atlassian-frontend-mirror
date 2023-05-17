@@ -1,5 +1,23 @@
 # @atlaskit/media-card
 
+## 75.0.1
+
+### Patch Changes
+
+- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+
+## 75.0.0
+
+### Major Changes
+
+- [`8c6a6cf4bc4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8c6a6cf4bc4) - Media Card now only accepts a list of items for Media Viewer, no longer collection name
+
+### Patch Changes
+
+- [`6fd9d7aeaec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6fd9d7aeaec) - Fixed Inline Card file state handling
+- [`eb4991f04b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eb4991f04b4) - Removed unused util
+- Updated dependencies
+
 ## 74.8.1
 
 ### Patch Changes

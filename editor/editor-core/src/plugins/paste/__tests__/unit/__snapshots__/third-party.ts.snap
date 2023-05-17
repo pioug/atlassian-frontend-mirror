@@ -2138,6 +2138,9 @@ Object {
       ],
       "type": "table",
     },
+    Object {
+      "type": "paragraph",
+    },
   ],
   "type": "doc",
   "version": 1,

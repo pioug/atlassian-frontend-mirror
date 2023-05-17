@@ -13,7 +13,7 @@ import newlinePreserveMarksPlugin from './pm-plugins/newline-preserve-marks';
 import inlineCursorTargetPlugin from './pm-plugins/inline-cursor-target';
 import betterTypeHistoryPlugin from './pm-plugins/better-type-history';
 import { plugin as reactNodeView } from './pm-plugins/react-nodeview';
-import decorationPlugin from './pm-plugins/decoration';
+import decorationPlugin, { hoverDecoration } from './pm-plugins/decoration';
 import scrollGutter, {
   ScrollGutterPluginOptions,
 } from './pm-plugins/scroll-gutter';
@@ -43,6 +43,9 @@ const basePlugin: NextEditorPlugin<
   {
     pluginConfiguration: BasePluginOptions | undefined;
     dependencies: [typeof featureFlagsPlugin];
+    actions: {
+      hoverDecoration: typeof hoverDecoration;
+    };
   }
 > = (options, api) => {
   const featureFlags =
@@ -154,6 +157,10 @@ const basePlugin: NextEditorPlugin<
         { name: 'paragraph', node: paragraph },
         { name: 'text', node: text },
       ];
+    },
+
+    actions: {
+      hoverDecoration,
     },
   };
 };

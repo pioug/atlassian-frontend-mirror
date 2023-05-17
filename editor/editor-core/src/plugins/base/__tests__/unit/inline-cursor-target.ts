@@ -25,6 +25,8 @@ import basePlugin from '../../';
 import emojiPlugin from '../../../emoji';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 const emojiProvider = getTestEmojiResource();
 const providerFactory = ProviderFactory.create({ emojiProvider });
@@ -47,6 +49,8 @@ describe('Inline cursor target', () => {
       pluginKey: inlineCursorTargetStateKey,
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
+        .add([analyticsPlugin, {}])
+        .add(contentInsertionPlugin)
         .add([basePlugin, { allowInlineCursorTarget: true }])
         .add(emojiPlugin)
         .add(tablesPlugin),

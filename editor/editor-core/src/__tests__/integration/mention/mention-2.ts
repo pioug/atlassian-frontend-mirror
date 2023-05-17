@@ -124,7 +124,7 @@ BrowserTestCase(
 
     await page.type(editable, '@');
     await page.waitForSelector(typeAheadPicker);
-    await page.click(selectors.lastEditorChildParagraph);
+    await page.click(selectors.editor);
     await page.waitForSelector(typeAheadPicker, undefined, true);
 
     expect(await page.isExisting(typeAheadPicker)).toBe(false);

@@ -4,6 +4,7 @@ import {
   navigateToUrl,
   takeElementScreenShot,
 } from '@atlaskit/visual-regression/helper';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 // Css-selectors
 const sideNavigation = "[data-testid='side-navigation']";
@@ -246,6 +247,30 @@ describe('<SideNavigation /> integration tests', () => {
       await takeElementScreenShot(global.page, dropboxButton),
     ).toMatchProdImageSnapshot();
   });
+
+  ffTest(
+    'platform.design-system-team.menu-selected-state-change_0see9',
+    async () => {
+      const url = getExampleUrl(
+        'navigation',
+        'side-navigation',
+        'nested-side-navigation',
+        undefined,
+        'light',
+      );
+
+      const { page } = global;
+
+      await navigateToUrl(page, url, false);
+
+      expect(
+        await takeElementScreenShot(
+          global.page,
+          '[data-testid="selected--item"]',
+        ),
+      ).toMatchProdImageSnapshot();
+    },
+  );
 
   it('should match the active states', async () => {
     const settingsButton = "[data-testid='settings-nesting-item--item']";

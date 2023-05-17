@@ -48,6 +48,8 @@ import Resizer, {
 } from '../../../../../../ui/Resizer';
 import layoutPlugin from '../../../../../../plugins/layout';
 import mediaPlugin from '../../../../../../plugins/media';
+import widthPlugin from '../../../../../../plugins/width';
+import gridPlugin from '../../../../../../plugins/grid';
 import { MediaClientConfig } from '@atlaskit/media-core';
 
 describe('<ResizableMediaSingle />', () => {
@@ -76,6 +78,8 @@ describe('<ResizableMediaSingle />', () => {
 
     const preset = new Preset<LightEditorPlugin>()
       .add([featureFlagsPlugin, {}])
+      .add(widthPlugin)
+      .add(gridPlugin)
       .add([mediaPlugin, { allowMediaSingle: true }])
       .add(layoutPlugin);
 
@@ -176,17 +180,16 @@ describe('<ResizableMediaSingle />', () => {
     expect(resizerProps.ratio).toBe('80.000');
   });
 
-  it('should pass correct width to Resizer', () => {
+  it('should update correct resizedPctWidth state when pctWidth changes', () => {
     const { resizableMediaSingle } = setup(
       getMediaClient().mediaClient.mediaClientConfig,
     );
 
     expect(resizableMediaSingle.state('resizedPctWidth')).toBeUndefined();
     expect(resizableMediaSingle.find(Resizer).prop('width')).toBe(362);
-    resizableMediaSingle.find(Resizer).prop('calcNewSize')(100, false);
-    // check that resizedPctWidth didn't affect width
-    expect(resizableMediaSingle.state('resizedPctWidth')).not.toBeUndefined();
-    expect(resizableMediaSingle.find(Resizer).prop('width')).toBe(362);
+    resizableMediaSingle.setProps({ pctWidth: 100 });
+    resizableMediaSingle.update();
+    expect(resizableMediaSingle.state('resizedPctWidth')).toBe(100);
   });
 });
 

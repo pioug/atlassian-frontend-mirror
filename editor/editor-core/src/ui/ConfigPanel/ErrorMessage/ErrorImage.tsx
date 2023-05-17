@@ -3,10 +3,10 @@
 /** @jsx jsx */
 import React from 'react';
 import { css, jsx } from '@emotion/react';
-import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 const imageContainer = css`
-  margin: 0 auto ${gridSize() * 3}px;
+  margin: 0 auto ${token('space.300', '24px')};
   height: 80px;
 `;
 

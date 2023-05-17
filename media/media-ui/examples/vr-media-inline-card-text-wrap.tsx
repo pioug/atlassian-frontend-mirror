@@ -1,5 +1,4 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/react';
+import React from 'react';
 import { smallImage } from '@atlaskit/media-test-helpers';
 
 import { MediaInlineCardLoadedView } from '../src/MediaInlineCard/LoadedView';

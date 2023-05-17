@@ -11,7 +11,6 @@ import {
   ResizeState,
 } from '../pm-plugins/table-resizing/utils';
 
-import { setMeta } from './metadata';
 import { ContentNodeWithPos } from 'prosemirror-utils';
 import { EditorView } from 'prosemirror-view';
 import {
@@ -43,11 +42,6 @@ export const updateColumnWidths =
         const colspan = attrs.colspan || 1;
 
         if (attrs.colwidth && attrs.colwidth.length > colspan) {
-          tr = setMeta({
-            type: 'UPDATE_COLUMN_WIDTHS',
-            problem: 'COLWIDTHS_BEFORE_UPDATE',
-            data: { colwidths: attrs.colwidth, colspan },
-          })(tr);
           attrs.colwidth = attrs.colwidth.slice(0, colspan);
         }
 
@@ -67,11 +61,6 @@ export const updateColumnWidths =
 
         colwidths[colspanIndex] = width;
         if (colwidths.length > colspan) {
-          tr = setMeta({
-            type: 'UPDATE_COLUMN_WIDTHS',
-            problem: 'COLWIDTHS_AFTER_UPDATE',
-            data: { colwidths, colspan },
-          })(tr);
           colwidths = colwidths.slice(0, colspan);
         }
         updatedCellsAttrs[cellPos] = {

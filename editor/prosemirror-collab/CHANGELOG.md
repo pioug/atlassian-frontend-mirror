@@ -1,5 +1,17 @@
 ## 1.3.0 (2022-05-30)
 
+## 0.2.3
+
+### Patch Changes
+
+- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+
+## 0.2.2
+
+### Patch Changes
+
+- [`a142ba1aa28`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a142ba1aa28) - [ED17172] Bump prosemirror-model to 1.16.0 and prosemirror-view to 1.23.7 and removed work-arounds for fixed issues
+
 ## 0.2.1
 
 ### Patch Changes

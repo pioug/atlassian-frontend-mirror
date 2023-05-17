@@ -1,5 +1,11 @@
 # @atlaskit/logo
 
+## 13.14.2
+
+### Patch Changes
+
+- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+
 ## 13.14.1
 
 ### Patch Changes

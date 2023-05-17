@@ -8,7 +8,8 @@ import {
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { PrivateCollabEditOptions } from '../../../types';
 import collabEditPlugin from '../../../index';
-import analyticsPlugin from '../../../../analytics';
+import deprecatedAnalyticsPlugin from '../../../../analytics';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
@@ -41,7 +42,8 @@ describe('collab-edit: utils', () => {
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
         .add([collabEditPlugin, collabEditOptions as PrivateCollabEditOptions])
-        .add([analyticsPlugin, { createAnalyticsEvent }]),
+        .add([analyticsPlugin, { createAnalyticsEvent }])
+        .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }]),
     });
   };
 

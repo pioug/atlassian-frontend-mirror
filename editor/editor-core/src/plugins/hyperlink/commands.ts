@@ -3,23 +3,24 @@ import { LinkAttributes } from '@atlaskit/adf-schema';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 import { Command } from '../../types';
-import { normalizeUrl } from './utils';
+import {
+  normalizeUrl,
+  getLinkCreationAnalyticsEvent,
+} from '@atlaskit/editor-common/utils';
 import { stateKey, LinkAction } from './pm-plugins/main';
 import { EditorState, Selection } from 'prosemirror-state';
 import { filter, Predicate } from '../../utils/commands';
 import { Mark, Node, ResolvedPos } from 'prosemirror-model';
+import { addAnalytics, withAnalytics } from '../analytics';
 import {
-  addAnalytics,
   ACTION,
   ACTION_SUBJECT,
   INPUT_METHOD,
   EVENT_TYPE,
   ACTION_SUBJECT_ID,
-  withAnalytics,
-} from '../analytics';
+} from '@atlaskit/editor-common/analytics';
 import { queueCardsFromChangedTr } from '../card/pm-plugins/doc';
 import { LinkInputType } from './types';
-import { getLinkCreationAnalyticsEvent } from './analytics';
 import { buildEditLinkPayload, unlinkPayload } from '../../utils/linking-utils';
 import { UnlinkToolbarAEP } from '../analytics/types/link-tool-bar-events';
 

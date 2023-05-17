@@ -11,7 +11,8 @@ import {
 import { TypeAheadItem } from '../../../../type-ahead/types';
 import emojiPlugin, { emojiToTypeaheadItem, memoize } from '../../../';
 import typeAheadPlugin from '../../../../type-ahead';
-import analyticsPlugin from '../../../../analytics';
+import deprecatedAnalyticsPlugin from '../../../../analytics';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { EmojiPluginOptions } from '../../../types';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
@@ -62,6 +63,10 @@ describe('EmojiTypeAhead', () => {
           ])
           .add([
             analyticsPlugin,
+            { createAnalyticsEvent: dispatchAnalyticsEvent },
+          ])
+          .add([
+            deprecatedAnalyticsPlugin,
             { createAnalyticsEvent: dispatchAnalyticsEvent },
           ])
           .add(typeAheadPlugin),

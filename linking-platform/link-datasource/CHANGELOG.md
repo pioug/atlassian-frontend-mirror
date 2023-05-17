@@ -1,0 +1,227 @@
+# @atlaskit/link-datasource
+
+## 0.14.3
+
+### Patch Changes
+
+- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- Updated dependencies
+
+## 0.14.2
+
+### Patch Changes
+
+- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- Updated dependencies
+
+## 0.14.1
+
+### Patch Changes
+
+- [`07020547a93`](https://bitbucket.org/atlassian/atlassian-frontend/commits/07020547a93) - Safe direct migraiton to design token API. This change is not visible for those who aren't using design tokens
+- Updated dependencies
+
+## 0.14.0
+
+### Minor Changes
+
+- [`5968b8a8210`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5968b8a8210) - [ux] added view mode toggle to config modal
+
+## 0.13.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.13.2
+
+### Patch Changes
+
+- [`1540a29f7f4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1540a29f7f4) - [ux] change logic in footer to show total issues fetched and not current number of issues in table
+- Updated dependencies
+
+## 0.13.1
+
+### Patch Changes
+
+- [`aa7eb05066d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aa7eb05066d) - Internal dependency of `@atlaskit/drag-and-drop*` has been renamed to `@atlaskit/pragmatic-drag-and-drop*`
+- Updated dependencies
+
+## 0.13.0
+
+### Minor Changes
+
+- [`cd179e6f433`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cd179e6f433) - Added logic to render as `SmartCard` when result has only one row
+
+## 0.12.0
+
+### Minor Changes
+
+- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.11.0
+
+### Minor Changes
+
+- [`ab383434b1c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ab383434b1c) - Ability to generate Datasource ADF on insertion
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.10.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.10.0
+
+### Minor Changes
+
+- [`1a044d5345a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1a044d5345a) - [ux] Adds issue count and refresh button component
+
+## 0.9.1
+
+### Patch Changes
+
+- [`a003bc719cb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a003bc719cb) - Refactoring mode-switcher
+
+## 0.9.0
+
+### Minor Changes
+
+- [`5abf8a31abb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5abf8a31abb) - Refactor IssueLikeTable. Move it's state outside into hook useDatasourceTableState
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.8.0
+
+### Minor Changes
+
+- [`afd7233d088`](https://bitbucket.org/atlassian/atlassian-frontend/commits/afd7233d088) - [ux] added basic search and search mode toggle
+
+## 0.7.1
+
+### Patch Changes
+
+- [`0624df1ffe1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0624df1ffe1) - Bump json-ld-types dependency
+- Updated dependencies
+
+## 0.7.0
+
+### Minor Changes
+
+- [`428c7270422`](https://bitbucket.org/atlassian/atlassian-frontend/commits/428c7270422) - Updated `Date` render type to `DateTime` render type to support date, time and datetime
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.6.0
+
+### Minor Changes
+
+- [`127d16e0933`](https://bitbucket.org/atlassian/atlassian-frontend/commits/127d16e0933) - Add generic render type components for each data source types
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.5.0
+
+### Minor Changes
+
+- [`52a64257016`](https://bitbucket.org/atlassian/atlassian-frontend/commits/52a64257016) - [ux] added jql editor input to config modal
+
+## 0.4.3
+
+### Patch Changes
+
+- [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
+
+## 0.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.4.0
+
+### Minor Changes
+
+- [`9a83e52fd54`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a83e52fd54) - added jira site selector to list of links config modal
+
+## 0.3.4
+
+### Patch Changes
+
+- [`a66fd9d6f9d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a66fd9d6f9d) - Introduce column picker into issue like table component
+
+## 0.3.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.3.0
+
+### Minor Changes
+
+- [`c6017ad803e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c6017ad803e) - [ux] add empty table state for datasources
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.2.1
+
+### Patch Changes
+
+- [`e066b00c060`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e066b00c060) - Add ability to drag and drop columns to reorder them to `IssueLikeDataTableView`
+
+## 0.2.0
+
+### Minor Changes
+
+- [`82ce247716c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/82ce247716c) - Adds a new link datasource component `JiraIssuesTableView` (still under development) is added
+
+### Patch Changes
+
+- Updated dependencies

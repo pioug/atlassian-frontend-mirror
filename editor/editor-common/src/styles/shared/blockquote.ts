@@ -4,13 +4,12 @@ import {
   akEditorBlockquoteBorderColor,
   blockNodesVerticalMargin,
 } from '@atlaskit/editor-shared-styles';
-import { gridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 export const blockquoteSharedStyles = css`
   & blockquote {
     box-sizing: border-box;
-    padding-left: ${gridSize() * 2}px;
+    padding-left: ${token('space.200', '16px')};
     border-left: 2px solid
       ${token('color.border', akEditorBlockquoteBorderColor)};
     margin: ${blockNodesVerticalMargin} 0 0 0;
@@ -18,7 +17,7 @@ export const blockquoteSharedStyles = css`
 
     [dir='rtl'] & {
       padding-left: 0;
-      padding-right: ${gridSize() * 2}px;
+      padding-right: ${token('space.200', '16px')};
     }
 
     &:first-child {

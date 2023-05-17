@@ -1,6 +1,5 @@
 import React from 'react';
 
-import type { Schema } from 'prosemirror-model';
 import type { EditorView } from 'prosemirror-view';
 
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
@@ -12,12 +11,13 @@ import { table, tableCell, tableHeader, tableRow } from '@atlaskit/adf-schema';
 
 import { toggleTable, tooltip } from '@atlaskit/editor-common/keymaps';
 
-import type { EditorPlugin } from '@atlaskit/editor-common/types';
+import type { EditorPlugin, Command } from '@atlaskit/editor-common/types';
 import { WithPluginState } from '@atlaskit/editor-common/with-plugin-state';
 import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
+  AnalyticsEventPayload,
   EVENT_TYPE,
   INPUT_METHOD,
   TABLE_ACTION,
@@ -31,7 +31,6 @@ import type { EditorSelectionAPI } from '@atlaskit/editor-common/selection';
 
 import { pluginConfig } from './create-plugin-config';
 import { createPlugin as createTableLocalIdPlugin } from './pm-plugins/table-local-id';
-import { createPlugin as createTableSafariDelayedDomSelectionSyncingWorkaroundPlugin } from './pm-plugins/safari-delayed-dom-selection-syncing-workaround';
 import { createPlugin as createTableSafariDeleteCompositionTextIssueWorkaroundPlugin } from './pm-plugins/safari-delete-composition-text-issue-workaround';
 import { createPlugin as createDecorationsPlugin } from './pm-plugins/decorations/plugin';
 import { keymapPlugin } from './pm-plugins/keymap';
@@ -62,6 +61,8 @@ import type {
   NextEditorPlugin,
 } from '@atlaskit/editor-common/types';
 import { EditorState, Transaction } from 'prosemirror-state';
+import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 interface TablePluginOptions {
   tableOptions: PluginConfig;
@@ -75,14 +76,20 @@ interface TablePluginOptions {
   getEditorFeatureFlags?: GetEditorFeatureFlags;
 }
 
+type InsertTableAction = (analyticsPayload: AnalyticsEventPayload) => Command;
+
 const defaultGetEditorFeatureFlags = () => ({});
 
 const tablesPlugin: NextEditorPlugin<
   'table',
   {
     pluginConfiguration: TablePluginOptions | undefined;
+    actions: {
+      insertTable: InsertTableAction;
+    };
+    dependencies: [typeof analyticsPlugin, typeof contentInsertionPlugin];
   }
-> = (options?: TablePluginOptions) => {
+> = (options?: TablePluginOptions, api?) => {
   const editorViewRef: Record<'current', EditorView | null> = { current: null };
   const defaultGetEditorContainerWidth: GetEditorContainerWidth = () => {
     if (!editorViewRef.current) {
@@ -103,6 +110,29 @@ const tablesPlugin: NextEditorPlugin<
 
   return {
     name: 'table',
+
+    actions: {
+      insertTable:
+        (analyticsPayload): Command =>
+        (state, dispatch) => {
+          const node = createTable({
+            schema: state.schema,
+          });
+
+          return (
+            api?.dependencies?.contentInsertion?.actions?.insert({
+              state,
+              dispatch,
+              node,
+
+              options: {
+                selectNodeInserted: false,
+                analyticsPayload,
+              },
+            }) ?? false
+          );
+        },
+    },
 
     nodes() {
       return [
@@ -130,7 +160,11 @@ const tablesPlugin: NextEditorPlugin<
               tableOptions,
               editorAnalyticsAPI,
               getEditorFeatureFlags,
-            } = options || ({} as TablePluginOptions);
+            } =
+              options ||
+              ({
+                editorAnalyticsAPI: api?.dependencies.analytics.actions,
+              } as TablePluginOptions);
             return createPlugin(
               dispatchAnalyticsEvent,
               dispatch,
@@ -245,21 +279,6 @@ const tablesPlugin: NextEditorPlugin<
           },
         },
       ];
-
-      // workaround for prosemirrors delayed dom selection syncing during pointer drag
-      // causing issues with table selections in Safari
-      // https://github.com/ProseMirror/prosemirror-view/commit/885258b80551ac87b81601d3ed25f552aeb22293
-
-      // NOTE: this workaround can be removed when next upgrading prosemirror as the issue will be fixed
-      // https://github.com/ProseMirror/prosemirror-view/pull/116
-      if (browser.safari) {
-        plugins.push({
-          name: 'tableSafariDelayedDomSelectionSyncingWorkaround',
-          plugin: () => {
-            return createTableSafariDelayedDomSelectionSyncingWorkaroundPlugin();
-          },
-        });
-      }
 
       // Workaround for table element breaking issue caused by composition event with an inputType of deleteCompositionText.
       // https://github.com/ProseMirror/prosemirror/issues/934
@@ -418,26 +437,6 @@ const tablesPlugin: NextEditorPlugin<
     },
 
     pluginsOptions: {
-      // TODO: ED-14676 This is not the final API design
-      // For now, we are using this on (insert-api/api.ts) but we may create a proper place for it
-      createNodeHandler: ({
-        nodeName,
-        schema,
-      }: {
-        nodeName: string;
-        schema: Schema;
-      }) => {
-        // An EditorPlugin may manage more than one node.
-        if (nodeName !== 'table') {
-          return null;
-        }
-
-        const table = createTable({
-          schema,
-        });
-
-        return table;
-      },
       quickInsert: ({ formatMessage }) => [
         {
           id: 'table',

@@ -16,9 +16,13 @@ import {
 import listPlugin from '../../../plugins/list';
 import basePlugin from '../../../plugins/base';
 import mediaPlugin from '../../../plugins/media';
+import widthPlugin from '../../../plugins/width';
+import gridPlugin from '../../../plugins/grid';
+
 import hyperlinkPlugin from '../../../plugins/hyperlink';
 import alignmentPlugin from '../../../plugins/alignment';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 import { createWrappingJoinRule } from '../../input-rules';
 
@@ -29,10 +33,13 @@ describe('createWrappingJoinRule()', () => {
       doc,
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
+        .add([analyticsPlugin, {}])
         .add(basePlugin)
         .add(listPlugin)
         .add(hyperlinkPlugin)
         .add(alignmentPlugin)
+        .add(widthPlugin)
+        .add(gridPlugin)
         .add([mediaPlugin, { allowMediaSingle: true }]),
     });
     return editorTemp;

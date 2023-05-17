@@ -22,7 +22,6 @@ export {
   center,
   easeInOutCubic,
   ellipsis,
-  fadeIn,
   size,
 } from './mixins';
 export { Bounds, Camera, Rectangle, Vector2 } from './camera';

@@ -50,6 +50,7 @@ import { hideLinkToolbar as cardHideLinkToolbar } from '../../../../card/pm-plug
 import * as Commands from '../../../commands';
 import PanelTextInput from '../../../../../ui/PanelTextInput';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 interface SetupArgumentObject {
   recentItemsPromise?: ReturnType<ActivityProvider['getRecentItems']>;
@@ -146,6 +147,7 @@ describe('HyperlinkLinkAddToolbar', () => {
         doc,
         preset: new Preset<LightEditorPlugin>()
           .add([featureFlagsPlugin, {}])
+          .add([analyticsPlugin, {}])
           .add(hyperlinkPlugin),
       });
     };

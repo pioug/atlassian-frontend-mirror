@@ -20,6 +20,9 @@ import {
 import { getPluginState } from '../../../plugins/table/pm-plugins/plugin-factory';
 import FloatingContextualMenu from '../../../plugins/table/ui/FloatingContextualMenu';
 import tablePlugin from '../../../plugins/table-plugin';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 describe('FloatingContextualMenu', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -28,7 +31,11 @@ describe('FloatingContextualMenu', () => {
     beforeEach(() => {
       ({ editorView } = createEditor({
         doc: doc(table()(tr(th()(p('')), th()(p(''))), tr(tdCursor, tdEmpty))),
-        preset: new Preset<LightEditorPlugin>().add(tablePlugin),
+        preset: new Preset<LightEditorPlugin>()
+          .add([featureFlagsPlugin, {}])
+          .add([analyticsPlugin, {}])
+          .add(contentInsertionPlugin)
+          .add(tablePlugin),
       }));
     });
 

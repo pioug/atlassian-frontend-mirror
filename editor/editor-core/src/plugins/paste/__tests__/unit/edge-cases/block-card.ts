@@ -20,7 +20,11 @@ import hyperlinkPlugin from '../../../../hyperlink';
 import layoutPlugin from '../../../../layout';
 import panelPlugin from '../../../../panel';
 import cardPlugin from '../../../../card';
+import widthPlugin from '../../../../width';
+import gridPlugin from '../../../../grid';
+import basePlugin from '../../../../base';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 describe('paste paragraph edge cases', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -31,6 +35,10 @@ describe('paste paragraph edge cases', () => {
       doc,
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
+        .add([analyticsPlugin, {}])
+        .add(basePlugin)
+        .add(widthPlugin)
+        .add(gridPlugin)
         .add(hyperlinkPlugin)
         .add(blockTypePlugin)
         .add(layoutPlugin)

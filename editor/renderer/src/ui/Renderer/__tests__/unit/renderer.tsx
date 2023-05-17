@@ -831,4 +831,31 @@ describe('severity', () => {
       );
     },
   );
+
+  it('should NOT fire event when analyticsEventSeverityTracking is explicitly disabled', () => {
+    act(() => {
+      (stopMeasure as any).mockImplementation((name: any, callback: any) => {
+        callback && callback(NORMAL_SEVERITY_THRESHOLD, 1);
+      });
+
+      shallow(
+        <Renderer
+          document={doc}
+          analyticsEventSeverityTracking={{
+            enabled: false,
+            severityNormalThreshold: NORMAL_SEVERITY_THRESHOLD,
+            severityDegradedThreshold: DEGRADED_SEVERITY_THRESHOLD,
+          }}
+          createAnalyticsEvent={createAnalyticsEvent}
+        />,
+      );
+    });
+
+    expect(createAnalyticsEvent).not.toHaveBeenCalledWith(
+      expect.objectContaining({
+        action: 'rendered',
+        actionSubject: 'renderer',
+      }),
+    );
+  });
 });

@@ -519,6 +519,14 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
   private getAppearance = (): Appearance =>
     this.props.appearance ? this.props.appearance : 'normal';
 
+  get ariaProps() {
+    const ariaLabels = Object.keys(this.props).filter((key) =>
+      key.startsWith('aria-'),
+    );
+    const props: { [key: string]: any } = { ...this.props };
+    return ariaLabels.reduce((obj, key) => ({ ...obj, [key]: props[key] }), {});
+  }
+
   render() {
     const {
       isMulti,
@@ -612,6 +620,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
         onKeyDown={this.handleKeyDown}
         maxPickerHeight={maxPickerHeight}
         textFieldBackgroundColor={textFieldBackgroundColor}
+        {...this.ariaProps}
         {...pickerProps}
       />
     );

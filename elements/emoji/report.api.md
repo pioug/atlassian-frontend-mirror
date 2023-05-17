@@ -1101,22 +1101,14 @@ interface QueueOptions {
 }
 
 // @public (undocumented)
-export const recordSelectionFailedSli: (
-  options?:
-    | undefined
-    | {
-        createAnalyticsEvent?: CreateUIAnalyticsEvent | undefined;
-      },
-) => (err: Error) => Promise<never>;
+export const recordSelectionFailedSli: (options?: {
+  createAnalyticsEvent?: CreateUIAnalyticsEvent;
+}) => (err: Error) => Promise<never>;
 
 // @public (undocumented)
-export const recordSelectionSucceededSli: (
-  options?:
-    | undefined
-    | {
-        createAnalyticsEvent?: CreateUIAnalyticsEvent | undefined;
-      },
-) => () => void;
+export const recordSelectionSucceededSli: (options?: {
+  createAnalyticsEvent?: CreateUIAnalyticsEvent;
+}) => () => void;
 
 // @public (undocumented)
 export type RelativePosition = 'above' | 'auto' | 'below';

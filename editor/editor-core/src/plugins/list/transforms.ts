@@ -15,7 +15,8 @@ import {
 } from 'prosemirror-state';
 import { liftTarget, ReplaceAroundStep } from 'prosemirror-transform';
 import { autoJoin } from 'prosemirror-commands';
-import { isListNode } from './utils/node';
+import { isListNode } from '@atlaskit/editor-common/utils';
+
 import { mapSlice, mapChildren } from '../../utils/slice';
 import { getListLiftTarget } from './utils/indentation';
 

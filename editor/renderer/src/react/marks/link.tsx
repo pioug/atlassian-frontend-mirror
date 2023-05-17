@@ -15,6 +15,7 @@ import { MarkProps } from '../types';
 
 import { token } from '@atlaskit/tokens';
 import LinkUrl from '@atlaskit/smart-card/link-url';
+import { AnalyticsContext } from '@atlaskit/analytics-next';
 
 const anchorStyles = css`
   color: ${token('color.link', B400)};
@@ -60,30 +61,40 @@ export default function Link(props: MarkProps<LinkProps>) {
     return <Fragment>{props.children}</Fragment>;
   }
 
-  return (
-    <LinkUrl
-      css={anchorStyles}
-      onClick={(e) => {
-        if (fireAnalyticsEvent) {
-          fireAnalyticsEvent({
-            action: ACTION.VISITED,
-            actionSubject: ACTION_SUBJECT.LINK,
-            eventType: EVENT_TYPE.TRACK,
-            attributes: {
-              platform: PLATFORM.WEB,
-              mode: MODE.RENDERER,
-            },
-          });
-        }
+  const analyticsData = {
+    attributes: {
+      location: 'renderer',
+    },
+    // Below is added for the future implementation of Linking Platform namespaced analytic context
+    location: 'renderer',
+  };
 
-        if (handler) {
-          handler(e, href);
-        }
-      }}
-      {...anchorProps}
-      {...dataAttributes}
-    >
-      {props.children}
-    </LinkUrl>
+  return (
+    <AnalyticsContext data={analyticsData}>
+      <LinkUrl
+        css={anchorStyles}
+        onClick={(e) => {
+          if (fireAnalyticsEvent) {
+            fireAnalyticsEvent({
+              action: ACTION.VISITED,
+              actionSubject: ACTION_SUBJECT.LINK,
+              eventType: EVENT_TYPE.TRACK,
+              attributes: {
+                platform: PLATFORM.WEB,
+                mode: MODE.RENDERER,
+              },
+            });
+          }
+
+          if (handler) {
+            handler(e, href);
+          }
+        }}
+        {...anchorProps}
+        {...dataAttributes}
+      >
+        {props.children}
+      </LinkUrl>
+    </AnalyticsContext>
   );
 }

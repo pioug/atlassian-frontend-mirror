@@ -24,6 +24,8 @@ import { Side as GapCursorSide } from '../../../plugins/selection/gap-cursor-sel
 import rulePlugin from '../../../plugins/rule';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 
@@ -31,6 +33,8 @@ describe('toEqualDocumentAndSelection matches', () => {
   const createEditor = createProsemirrorEditorFactory();
   const preset = new Preset<LightEditorPlugin>()
     .add([featureFlagsPlugin, {}])
+    .add([analyticsPlugin, {}])
+    .add(contentInsertionPlugin)
     .add(rulePlugin)
     .add(tablesPlugin);
 

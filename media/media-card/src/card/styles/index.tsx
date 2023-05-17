@@ -1,7 +1,6 @@
 import { css } from '@emotion/react';
 
 import { fontFamily } from '@atlaskit/theme/constants';
-import { fadeIn } from '@atlaskit/media-ui';
 import { token } from '@atlaskit/tokens';
 
 export { defaultTransitionDuration } from './config';
@@ -37,10 +36,6 @@ export const cardShadow = `
     'elevation.shadow.raised',
     '0 1px 1px rgba(9, 30, 66, 0.2), 0 0 1px 0 rgba(9, 30, 66, 0.24)',
   )};
-`;
-
-export const fadeinImageStyles = () => css`
-  ${fadeIn};
 `;
 
 export default rootStyles;

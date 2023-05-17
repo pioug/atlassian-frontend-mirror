@@ -43,7 +43,7 @@ import {
   EVENT_TYPE,
   CreateLinkInlineDialogEventPayload,
 } from '@atlaskit/editor-common/analytics';
-import { normalizeUrl } from '../../utils';
+import { normalizeUrl } from '@atlaskit/editor-common/utils';
 import { filterUniqueItems } from '../../../../utils/array';
 import { LinkSearchListItemData } from '../../../../ui/LinkSearch/types';
 import debounce from 'lodash/debounce';

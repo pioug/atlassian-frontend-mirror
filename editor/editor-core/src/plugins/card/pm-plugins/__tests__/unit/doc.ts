@@ -13,6 +13,7 @@ import {
   createEditorFactory,
   EditorInstanceWithPlugin,
 } from '@atlaskit/editor-test-helpers/create-editor';
+import { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 import {
   a,
@@ -684,7 +685,10 @@ describe('card', () => {
         );
         const dispatch = jest.fn();
 
-        setSelectedCardAppearance('block')(editorView.state, dispatch);
+        setSelectedCardAppearance('block', undefined)(
+          editorView.state,
+          dispatch,
+        );
         expect(
           dispatch.mock.calls[0][0].doc.content.content[1].type.name,
         ).toEqual('blockCard');
@@ -696,7 +700,10 @@ describe('card', () => {
         );
         const dispatch = jest.fn();
 
-        setSelectedCardAppearance('block')(editorView.state, dispatch);
+        setSelectedCardAppearance('block', undefined)(
+          editorView.state,
+          dispatch,
+        );
 
         expect(dispatch.mock.calls[0][0].steps[0]).toEqual(
           expect.objectContaining({ from: 7, to: 9 }),
@@ -709,7 +716,7 @@ describe('card', () => {
         );
 
         // Change the card from "inline" to "block"
-        setSelectedCardAppearance('block')(
+        setSelectedCardAppearance('block', undefined)(
           editorView.state,
           editorView.dispatch,
         );
@@ -739,7 +746,7 @@ describe('card', () => {
         );
 
         // Change the card from "block" to "inline"
-        setSelectedCardAppearance('inline')(
+        setSelectedCardAppearance('inline', undefined)(
           editorView.state,
           editorView.dispatch,
         );
@@ -766,7 +773,7 @@ describe('card', () => {
           doc(p('hello ', '{<node>}', inlineCard(getCardAdfAttrs())())),
         );
 
-        setSelectedCardAppearance('block')(
+        setSelectedCardAppearance('block', undefined)(
           editorView.state,
           editorView.dispatch,
         );
@@ -787,7 +794,7 @@ describe('card', () => {
           ),
         );
 
-        setSelectedCardAppearance('block')(
+        setSelectedCardAppearance('block', undefined)(
           editorView.state,
           editorView.dispatch,
         );
@@ -810,7 +817,7 @@ describe('card', () => {
           doc('{<node>}', blockCard(getCardAdfAttrs())()),
         );
 
-        setSelectedCardAppearance('embed')(
+        setSelectedCardAppearance('embed', undefined)(
           editorView.state,
           editorView.dispatch,
         );
@@ -1165,26 +1172,32 @@ describe('card', () => {
           ),
         );
 
+        const attachAnalyticsEvent = jest
+          .fn()
+          .mockImplementation(() => () => {});
+
+        const mockEditorAnalyticsApi: EditorAnalyticsAPI = {
+          attachAnalyticsEvent,
+        };
         const { state, dispatch } = editorView;
-        handleFallbackWithAnalytics({
-          pos: 0,
-          url: atlassianUrl,
-          compareLinkText: true,
-          appearance: 'inline',
-          source: INPUT_METHOD.MANUAL,
-        })(state, dispatch);
-        expect(createAnalyticsEvent).toBeCalled();
-        expect(createAnalyticsEvent).toBeCalledWith({
+        handleFallbackWithAnalytics(
+          {
+            pos: 0,
+            url: atlassianUrl,
+            compareLinkText: true,
+            appearance: 'inline',
+            source: INPUT_METHOD.MANUAL,
+          },
+          mockEditorAnalyticsApi,
+        )(state, dispatch);
+        expect(attachAnalyticsEvent).toBeCalled();
+        expect(attachAnalyticsEvent).toBeCalledWith({
           action: 'inserted',
           actionSubject: 'document',
           actionSubjectId: 'link',
           attributes: {
             fromCurrentDomain: false,
             inputMethod: 'manual',
-            insertLocation: 'doc',
-            selectionPosition: 'middle',
-            selectionType: 'cursor',
-            actionSubjectId: 'link',
           },
           eventType: 'track',
           nonPrivacySafeAttributes: {
@@ -1200,12 +1213,20 @@ describe('card', () => {
           doc(p('hello ', '{<node>}', inlineCard(getCardAdfAttrs())())),
         );
 
-        setSelectedCardAppearance('block')(
+        const attachAnalyticsEvent = jest
+          .fn()
+          .mockImplementation(() => () => {});
+
+        const mockEditorAnalyticsApi: EditorAnalyticsAPI = {
+          attachAnalyticsEvent,
+        };
+
+        setSelectedCardAppearance('block', mockEditorAnalyticsApi)(
           editorView.state,
           editorView.dispatch,
         );
 
-        expect(createAnalyticsEvent).toBeCalledWith(
+        expect(attachAnalyticsEvent).toBeCalledWith(
           expect.objectContaining({
             action: 'changedType',
           }),

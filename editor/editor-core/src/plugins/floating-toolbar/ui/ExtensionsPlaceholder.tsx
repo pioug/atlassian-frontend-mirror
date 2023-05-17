@@ -13,7 +13,8 @@ import ButtonGroup from '@atlaskit/button/button-group';
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import { nodeToJSON } from '../../../utils';
 import { createExtensionAPI } from '../../extension/extension-api';
-import Button from './Button';
+import { FloatingToolbarButton as Button } from '@atlaskit/editor-common/ui';
+
 import Separator from './Separator';
 
 interface Props {

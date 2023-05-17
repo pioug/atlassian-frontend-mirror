@@ -27,15 +27,23 @@ import {
   TablePluginState,
 } from '../../../plugins/table/types';
 import tablePlugin from '../../../plugins/table';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 describe('table plugin: commands', () => {
   const createEditor = createProsemirrorEditorFactory();
-  const preset = new Preset<LightEditorPlugin>().add(panelPlugin).add([
-    tablePlugin,
-    {
-      tableOptions: { allowHeaderColumn: true },
-    },
-  ]);
+  const preset = new Preset<LightEditorPlugin>()
+    .add([featureFlagsPlugin, {}])
+    .add([analyticsPlugin, {}])
+    .add(panelPlugin)
+    .add(contentInsertionPlugin)
+    .add([
+      tablePlugin,
+      {
+        tableOptions: { allowHeaderColumn: true },
+      },
+    ]);
   const editor = (doc: DocBuilder) =>
     createEditor<TablePluginState, PluginKey>({
       doc,

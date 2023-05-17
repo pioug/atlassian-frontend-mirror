@@ -960,12 +960,13 @@ describe('Card', () => {
       expect(MV.props()).toEqual(
         expect.objectContaining({
           collectionName: 'some-collection-name',
+          items: [],
           selectedItem: identifier,
         }),
       );
     });
 
-    it('should pass dataSource to MV', () => {
+    it('should pass items list to MediaViewer', () => {
       const { component } = setup(undefined, {
         shouldOpenMediaViewer: true,
         mediaViewerItems: [identifier, identifier],

@@ -6,6 +6,7 @@ jest.mock('../../../plugins/code-block');
 jest.mock('../../../plugins/fake-text-cursor');
 jest.mock('../../../plugins/submit-editor');
 jest.mock('../../../plugins/quick-insert');
+jest.mock('../../../plugins/card');
 jest.mock('@atlaskit/editor-plugin-table');
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 
@@ -16,7 +17,6 @@ import {
   feedbackDialogPlugin,
   placeholderTextPlugin,
   layoutPlugin,
-  cardPlugin,
   statusPlugin,
   historyPlugin,
   scrollIntoViewPlugin,
@@ -26,6 +26,7 @@ import {
   helpDialogPlugin,
 } from '../../../plugins';
 
+import cardPlugin from '../../../plugins/card';
 import hyperlinkPlugin from '../../../plugins/hyperlink';
 import placeholderPlugin from '../../../plugins/placeholder';
 import selectionPlugin from '../../../plugins/selection';
@@ -386,7 +387,6 @@ describe('createPluginsList', () => {
       nativeStatusSupported: false,
       replacePlusMenuWithElementBrowser: false,
       showElementBrowserLink: false,
-      insertNodeAPI: expect.any(Object),
     };
 
     createPluginsList(props);

@@ -1,5 +1,4 @@
 /** @jsx jsx */
-import { gridSize } from '@atlaskit/theme/constants';
 import * as colors from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import React, { useEffect, useRef, useCallback } from 'react';
@@ -52,7 +51,8 @@ const palette: [
 ];
 
 const colorPaletteWrapperStyles = css`
-  margin: ${gridSize()}px ${gridSize()}px 0 ${gridSize()}px;
+  margin: ${token('space.100', '8px')} ${token('space.100', '8px')} 0
+    ${token('space.100', '8px')};
   /* Firefox bug fix: https://product-fabric.atlassian.net/browse/ED-1789 */
   display: flex;
   flex-wrap: wrap;

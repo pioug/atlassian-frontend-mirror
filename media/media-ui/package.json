@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-ui",
-  "version": "22.4.1",
+  "version": "23.0.1",
   "description": "Includes common components and utilities used by other media packages",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -61,7 +61,6 @@
     "@atlaskit/tooltip": "^17.8.0",
     "@atlaskit/width-detector": "^4.1.0",
     "@babel/runtime": "^7.0.0",
-    "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.0.0",
     "blueimp-load-image": "2.19.0",
     "bytes": "^3.1.0",

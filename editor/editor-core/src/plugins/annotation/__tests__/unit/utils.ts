@@ -48,6 +48,8 @@ import { inlineCommentProvider } from '../_utils';
 import mediaPlugin from '../../../media';
 import codeBlockPlugin from '../../../code-block';
 import blockTypePlugin from '../../../block-type';
+import widthPlugin from '../../../width';
+import gridPlugin from '../../../grid';
 import panelPlugin from '../../../panel';
 import {
   InlineCommentMap,
@@ -68,6 +70,8 @@ const annotationPreset = new Preset<LightEditorPlugin>()
   .add(panelPlugin)
   .add([codeBlockPlugin, { appearance: 'full-page' }])
   .add(blockTypePlugin)
+  .add(widthPlugin)
+  .add(gridPlugin)
   .add([
     mediaPlugin,
     {

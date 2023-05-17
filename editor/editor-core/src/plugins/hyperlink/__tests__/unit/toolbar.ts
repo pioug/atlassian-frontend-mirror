@@ -20,7 +20,8 @@ import {
   FloatingToolbarItem,
 } from '../../../../plugins/floating-toolbar/types';
 import { Command } from '../../../../types';
-import analyticsPlugin from '../../../../plugins/analytics';
+import deprecatedAnalyticsPlugin from '../../../../plugins/analytics';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
@@ -35,6 +36,7 @@ describe('linking', () => {
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
         .add([analyticsPlugin, { createAnalyticsEvent }])
+        .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
         .add(hyperlinkPlugin),
     });
   };
@@ -73,7 +75,7 @@ describe('linking', () => {
         ),
       );
 
-      const toolbarConfig = getToolbarConfig({}, {})(
+      const toolbarConfig = getToolbarConfig({}, {}, undefined)(
         editorView.state,
         intl,
         providerFactory,
@@ -101,7 +103,7 @@ describe('linking', () => {
         ),
       );
 
-      const toolbarConfig = getToolbarConfig({}, featureFlagsMock)(
+      const toolbarConfig = getToolbarConfig({}, featureFlagsMock, undefined)(
         editorView.state,
         intl,
         providerFactory,
@@ -132,7 +134,7 @@ describe('linking', () => {
         ),
       );
 
-      const toolbarConfig = getToolbarConfig({}, featureFlagsMock)(
+      const toolbarConfig = getToolbarConfig({}, featureFlagsMock, undefined)(
         editorView.state,
         intl,
         providerFactory,
@@ -179,7 +181,7 @@ describe('linking', () => {
         ),
       );
 
-      const toolbarConfig = getToolbarConfig({}, featureFlagsMock)(
+      const toolbarConfig = getToolbarConfig({}, featureFlagsMock, undefined)(
         editorView.state,
         intl,
         providerFactory,
@@ -219,7 +221,7 @@ describe('linking', () => {
         ),
       );
 
-      const toolbarConfig = getToolbarConfig({}, featureFlagsMock)(
+      const toolbarConfig = getToolbarConfig({}, featureFlagsMock, undefined)(
         editorView.state,
         intl,
         providerFactory,
@@ -249,7 +251,7 @@ describe('linking', () => {
         ),
       );
 
-      const toolbarConfig = getToolbarConfig({}, featureFlagsMock)(
+      const toolbarConfig = getToolbarConfig({}, featureFlagsMock, undefined)(
         editorView.state,
         intl,
         providerFactory,
@@ -283,6 +285,7 @@ describe('linking', () => {
           platform: 'web',
         },
         featureFlagsMock,
+        undefined,
       )(editorView.state, intl, providerFactory);
 
       const items = (toolbarConfig && toolbarConfig.items) || [];
@@ -325,7 +328,7 @@ describe('linking', () => {
           ),
         );
 
-        const toolbarConfig = getToolbarConfig({}, featureFlagsMock)(
+        const toolbarConfig = getToolbarConfig({}, featureFlagsMock, undefined)(
           editorView.state,
           intl,
           providerFactory,
@@ -336,7 +339,7 @@ describe('linking', () => {
           (item) => 'id' in item && item.id === 'editor.link.edit',
         )!;
         editButton.onClick(editorView.state, editorView.dispatch);
-        const editToolbar = getToolbarConfig({}, featureFlagsMock)(
+        const editToolbar = getToolbarConfig({}, featureFlagsMock, undefined)(
           editorView.state,
           intl,
           providerFactory,

@@ -64,6 +64,7 @@ const createPlugin = (dispatch: Dispatch) =>
 
 const historyPlugin: NextEditorPlugin<'history'> = () => ({
   name: 'history',
+
   pmPlugins() {
     return [
       {

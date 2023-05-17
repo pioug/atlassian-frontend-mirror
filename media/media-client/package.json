@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-client",
-  "version": "22.0.1",
+  "version": "22.0.2",
   "description": "Media API Web Client Library",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -50,14 +50,14 @@
     "xstate": "4.20.0"
   },
   "peerDependencies": {
-    "@atlaskit/media-core": "^34.1.1",
+    "@atlaskit/media-core": "^34.1.2",
     "@emotion/react": "^11.7.1",
     "react": "^16.8.0"
   },
   "devDependencies": {
     "@atlaskit/button": "^16.7.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/media-card": "^74.8.0",
+    "@atlaskit/media-card": "^75.0.0",
     "@atlaskit/media-core": "^34.1.0",
     "@atlaskit/media-test-helpers": "^33.0.0",
     "@atlaskit/ssr": "*",

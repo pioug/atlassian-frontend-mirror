@@ -7,6 +7,7 @@ import {
   akLayoutGutterOffset,
   gridMediumMaxWidth,
 } from '@atlaskit/editor-shared-styles';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize } from '@atlaskit/theme/constants';
 
 import { BODIED_EXT_PADDING } from '../styles/shared/extension';
@@ -76,6 +77,8 @@ export const getParentNodeWidth = (
       parentWidth -= BODIED_EXT_PADDING * 2;
       break;
 
+    // TODO: Migrate away from gridSize
+    // Recommendation: Replace gridSize with 8
     case schema.nodes.expand:
       // padding
       parentWidth -= gridSize() * 2;

@@ -31,7 +31,8 @@ import {
   EVENT_TYPE,
   INPUT_METHOD,
 } from '../../../analytics/types/enums';
-import analyticsPlugin from '../../../analytics/plugin';
+import deprecatedAnalyticsPlugin from '../../../analytics/plugin';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import textFormatting from '../../../text-formatting';
 import * as pluginFactory from '../../pm-plugins/plugin-factory';
 import { inlineCommentProvider } from '../_utils';
@@ -48,7 +49,8 @@ describe('commands', () => {
   const createEditor = createProsemirrorEditorFactory();
   const annotationPreset = new Preset<LightEditorPlugin>()
     .add([featureFlagsPlugin, {}])
-    .add([analyticsPlugin, { createAnalyticsEvent: createAnalyticsEvent }])
+    .add([analyticsPlugin, { createAnalyticsEvent }])
+    .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
     .add(textFormatting)
     .add([annotationPlugin, { inlineComment: { ...inlineCommentProvider } }]);
 

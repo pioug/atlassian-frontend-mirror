@@ -659,10 +659,11 @@ describe('Channel unit tests', () => {
   });
 
   describe('Token validity handling', () => {
-    let permissionTokenRefresh: any;
+    let permissionTokenRefresh: jest.Mock;
     let configuration: Config;
     let channel: Channel;
-    const BEFORE_EACH_ASSERTION_COUNT = 2 + GET_CHANNEL_ASSERTION_COUNT;
+    const BEFORE_EACH_ASSERTION_COUNT = 3 + GET_CHANNEL_ASSERTION_COUNT;
+
     beforeEach(async () => {
       permissionTokenRefresh = jest.fn().mockResolvedValue('token');
       configuration = {
@@ -675,6 +676,11 @@ describe('Channel unit tests', () => {
       expect(permissionTokenRefresh).toBeCalledTimes(1);
       //wait for permissionTokenRefresh promise to resolve to set the token in channel
       await new Promise(process.nextTick);
+      expect((channel.getSocket() as any)?._authCb).toHaveBeenCalledWith({
+        initialized: false,
+        need404: undefined,
+        token: 'token',
+      });
       //making sure channel cached token sucessfully after connecting
       expect(channel.getToken()).toEqual('token');
     });
@@ -691,7 +697,7 @@ describe('Channel unit tests', () => {
     });
 
     it('Token is cached after successfully connecting', () => {
-      // Already being checked in the beforeEach hook. redundent?
+      // Already being checked in the beforeEach hook. redundant?
       expect(channel.getToken()).toBeDefined();
     });
 
@@ -781,6 +787,83 @@ describe('Channel unit tests', () => {
       channel.disconnect();
       expect(channel.getToken()).toBeUndefined();
     });
+
+    it('Expires token on permissionTokenRefresh returning null, after a token has been emitted', async () => {
+      // Setup channel with cacheToken disabled, the channel in the before each has cacheToken enabled.
+      permissionTokenRefresh = jest.fn().mockResolvedValue('token');
+      configuration = {
+        ...testChannelConfig,
+        permissionTokenRefresh,
+        cacheToken: false, // Disable cacheToken
+      };
+      channel = getChannel(configuration);
+      expect(permissionTokenRefresh).toBeCalledTimes(1);
+      // wait for permissionTokenRefresh promise to resolve to set the token in channel
+      await new Promise(process.nextTick);
+      // making sure channel did not cache the token since cacheToken is disabled
+      expect(channel.getToken()).toBeUndefined();
+
+      (channel.getSocket() as any)?._authCb.mockClear();
+      permissionTokenRefresh.mockClear();
+      permissionTokenRefresh.mockResolvedValue(null);
+
+      // Force a reconnect
+      channel.getSocket()?.close();
+      channel.getSocket()?.connect();
+      // wait for permissionTokenRefresh promise to resolve to set the token in channel
+      await new Promise(process.nextTick);
+      expect(permissionTokenRefresh).toBeCalledTimes(1);
+      expect((channel.getSocket() as any)?._authCb).toHaveBeenCalledWith({
+        initialized: false,
+        need404: undefined,
+        token: undefined, // Token is not re-used from previous connect.
+      });
+
+      // When re-connecting, the token is cleared
+      expect(channel.getToken()).toBeUndefined();
+    });
+
+    it('Handles errors thrown from permissionTokenRefresh', (done) => {
+      channel.on('error', (e) => {
+        try {
+          expect(e).toMatchInlineSnapshot(`
+            Object {
+              "data": Object {
+                "code": "TOKEN_PERMISSION_ERROR",
+                "meta": Object {
+                  "originalError": Object {
+                    "data": Object {
+                      "meta": Object {
+                        "reason": "test",
+                      },
+                    },
+                  },
+                  "reason": "test",
+                },
+                "status": 403,
+              },
+              "message": "Insufficient editing permissions",
+            }
+          `);
+        } catch (e) {
+          done(e);
+        }
+        done();
+      });
+      // Ensure no token is  cached
+      channel
+        .getSocket()!
+        .emit('permission:invalidateToken', { reason: 'test' });
+      expect(channel.getToken()).toBeUndefined();
+      permissionTokenRefresh.mockClear();
+      permissionTokenRefresh.mockRejectedValue({
+        data: { meta: { reason: 'test' } },
+      });
+
+      // Force a reconnect
+      channel.getSocket()?.close();
+      channel.getSocket()?.connect();
+    }, 2000);
 
     it('Uses cached token on fetchup call', async () => {
       const spy = jest.spyOn(utils, 'requestService').mockResolvedValue({

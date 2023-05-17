@@ -36,12 +36,16 @@ import pastePlugin from '../../../index';
 import blockTypePlugin from '../../../../block-type';
 import hyperlinkPlugin from '../../../../hyperlink';
 import listPlugin from '../../../../list';
+import widthPlugin from '../../../../width';
+import gridPlugin from '../../../../grid';
 import tasksAndDecisionsPlugin from '../../../../tasks-and-decisions';
 import { default as textFormattingPlugin } from '../../../../text-formatting';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import layoutPlugin from '../../../../layout';
 import panelPlugin from '../../../../panel';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 describe('paste paragraph edge cases', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -52,6 +56,8 @@ describe('paste paragraph edge cases', () => {
       doc,
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
+        .add([analyticsPlugin, {}])
+        .add(contentInsertionPlugin)
         .add([pastePlugin, {}])
         .add(hyperlinkPlugin)
         .add(blockTypePlugin)
@@ -60,6 +66,8 @@ describe('paste paragraph edge cases', () => {
         .add(textFormattingPlugin)
         .add(tablesPlugin)
         .add(layoutPlugin)
+        .add(widthPlugin)
+        .add(gridPlugin)
         .add([codeBlockPlugin, { appearance: 'full-page' }])
         .add([mediaPlugin, { allowMediaSingle: true }])
         .add(panelPlugin),

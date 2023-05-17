@@ -28,7 +28,7 @@ import codeBlockTypePlugin from '../../../../code-block';
 import statusInlineBlockTypePlugin from '../../../../status';
 import panelBlockTypePlugin from '../../../../panel';
 import textFormattingPlugin from '../../../../text-formatting';
-import analyticsPlugin, {
+import deprecatedAnalyticsPlugin, {
   LIST_TEXT_SCENARIOS,
   ACTION,
   ACTION_SUBJECT,
@@ -37,6 +37,7 @@ import analyticsPlugin, {
   INPUT_METHOD,
   DELETE_DIRECTION,
 } from '../../../../analytics';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 describe('join-list-item-forward', () => {
@@ -57,7 +58,8 @@ describe('join-list-item-forward', () => {
       .add(panelBlockTypePlugin)
       .add([statusInlineBlockTypePlugin, { menuDisabled: false }])
       .add(textFormattingPlugin)
-      .add([analyticsPlugin, { createAnalyticsEvent }]);
+      .add([analyticsPlugin, { createAnalyticsEvent }])
+      .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }]);
 
     return createEditor({
       doc,

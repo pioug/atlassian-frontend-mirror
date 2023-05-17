@@ -91,6 +91,7 @@ const BasicExample = () => {
             </NestingItem>
             <NestingItem
               id="1"
+              testId="selected"
               isSelected
               title="Queues view"
               iconBefore={<QueueIcon label="" />}

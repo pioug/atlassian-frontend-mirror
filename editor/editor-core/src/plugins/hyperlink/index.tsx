@@ -1,32 +1,38 @@
 import React from 'react';
 import { link } from '@atlaskit/adf-schema';
 
-import { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import {
+  NextEditorPlugin,
+  OptionalPlugin,
+} from '@atlaskit/editor-common/types';
 import { createInputRulePlugin } from './pm-plugins/input-rule';
 
 import { createKeymapPlugin } from './pm-plugins/keymap';
 import { plugin, stateKey, LinkAction } from './pm-plugins/main';
 import fakeCursorToolbarPlugin from './pm-plugins/fake-cursor-for-toolbar';
 import {
-  addAnalytics,
   ACTION,
   ACTION_SUBJECT,
   INPUT_METHOD,
   EVENT_TYPE,
   ACTION_SUBJECT_ID,
-} from '../analytics';
+} from '@atlaskit/editor-common/analytics';
 import { getToolbarConfig } from './Toolbar';
 import { tooltip, addLink } from '../../keymaps';
 import { IconLink } from '../quick-insert/assets';
 import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
 import { HyperlinkPluginOptions } from './types';
 import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 const hyperlinkPlugin: NextEditorPlugin<
   'hyperlink',
   {
     pluginConfiguration: HyperlinkPluginOptions | undefined;
-    dependencies: [typeof featureFlagsPlugin];
+    dependencies: [
+      typeof featureFlagsPlugin,
+      OptionalPlugin<typeof analyticsPlugin>,
+    ];
   }
 > = (options = {}, api) => {
   const featureFlags =
@@ -81,17 +87,24 @@ const hyperlinkPlugin: NextEditorPlugin<
               inputMethod: INPUT_METHOD.QUICK_INSERT,
             });
 
-            return addAnalytics(state, tr, {
-              action: ACTION.INVOKED,
-              actionSubject: ACTION_SUBJECT.TYPEAHEAD,
-              actionSubjectId: ACTION_SUBJECT_ID.TYPEAHEAD_LINK,
-              attributes: { inputMethod: INPUT_METHOD.QUICK_INSERT },
-              eventType: EVENT_TYPE.UI,
-            });
+            const analyticsAttached =
+              api?.dependencies?.analytics?.actions?.attachAnalyticsEvent?.({
+                action: ACTION.INVOKED,
+                actionSubject: ACTION_SUBJECT.TYPEAHEAD,
+                actionSubjectId: ACTION_SUBJECT_ID.TYPEAHEAD_LINK,
+                attributes: { inputMethod: INPUT_METHOD.QUICK_INSERT },
+                eventType: EVENT_TYPE.UI,
+              })(tr);
+
+            return analyticsAttached !== false ? tr : false;
           },
         },
       ],
-      floatingToolbar: getToolbarConfig(options, featureFlags),
+      floatingToolbar: getToolbarConfig(
+        options,
+        featureFlags,
+        api?.dependencies.analytics?.actions,
+      ),
     },
   };
 };

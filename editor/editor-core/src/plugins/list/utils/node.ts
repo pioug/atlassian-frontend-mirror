@@ -1,23 +1,12 @@
 import { Node as PMNode, NodeType, Fragment } from 'prosemirror-model';
 import { Transaction } from 'prosemirror-state';
-
-export function isListNode(node: PMNode | null | undefined) {
-  return Boolean(
-    node && node.type && ['orderedList', 'bulletList'].includes(node.type.name),
-  );
-}
-
-export function isParagraphNode(node: PMNode | null | undefined) {
-  return Boolean(node && node.type && 'paragraph' === node.type.name);
-}
-
-export function isListItemNode(node: PMNode | null | undefined) {
-  return Boolean(node && node.type && 'listItem' === node.type.name);
-}
-
-export function isBulletList(node: PMNode | null | undefined) {
-  return Boolean(node && node.type && 'bulletList' === node.type.name);
-}
+export {
+  isListNode,
+  isListItemNode,
+  isBulletList,
+  isParagraphNode,
+} from '@atlaskit/editor-common/utils';
+import { isListNode, isListItemNode } from '@atlaskit/editor-common/utils';
 
 function isListNodeValidContent(node: PMNode) {
   const { bulletList } = node.type.schema.nodes;

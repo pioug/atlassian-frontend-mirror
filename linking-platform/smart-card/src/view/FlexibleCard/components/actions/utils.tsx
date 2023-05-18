@@ -45,10 +45,11 @@ const actionMappings: Record<
     props: {
       testId: 'smart-action-preview-action',
       content: <FormattedMessage {...messages.preview} />,
-      icon: <VidFullScreenOnIcon label="Full screen view" />,
+      icon: <VidFullScreenOnIcon label="Open preview" />,
       tooltipMessage: <FormattedMessage {...messages.preview} />,
     },
   },
+
   [ActionName.ViewAction]: {
     component: ViewAction,
     props: {

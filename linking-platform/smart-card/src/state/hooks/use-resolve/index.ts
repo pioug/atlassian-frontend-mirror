@@ -1,4 +1,5 @@
 import { useCallback } from 'react';
+import { unstable_batchedUpdates } from 'react-dom';
 import { JsonLd } from 'json-ld-types';
 import { addMetadataToExperience } from '../../analytics';
 import { getStatus } from '../../helpers';
@@ -13,6 +14,7 @@ import {
   CardState,
   MetadataStatus,
 } from '@atlaskit/linking-common';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import {
   ERROR_MESSAGE_FATAL,
   ERROR_MESSAGE_METADATA,
@@ -95,6 +97,34 @@ const useResolve = () => {
     [getState, setMetadataStatus, dispatch],
   );
 
+  const handleResolvedLinkSuccess = useCallback(
+    (
+      resourceUrl: string,
+      response: JsonLd.Response,
+      isReloading: boolean,
+      isMetadataRequest?: boolean,
+    ) => {
+      //if a link resolves normally, metadata will also always be resolved
+      setMetadataStatus(resourceUrl, 'resolved');
+      // Dispatch Analytics and resolved card action - including unauthorized states.
+      if (isReloading) {
+        dispatch(cardAction(ACTION_RELOADING, { url: resourceUrl }, response));
+      } else {
+        dispatch(
+          cardAction(
+            ACTION_RESOLVED,
+            { url: resourceUrl },
+            response,
+            undefined,
+            undefined,
+            isMetadataRequest,
+          ),
+        );
+      }
+    },
+    [setMetadataStatus, dispatch],
+  );
+
   const handleResolvedLinkResponse = useCallback(
     (
       resourceUrl: string,
@@ -142,30 +172,35 @@ const useResolve = () => {
         return;
       }
 
-      //if a link resolves normally, metadata will also always be resolved
-      setMetadataStatus(resourceUrl, 'resolved');
-      // Dispatch Analytics and resolved card action - including unauthorized states.
-      if (isReloading) {
-        dispatch(cardAction(ACTION_RELOADING, { url: resourceUrl }, response));
-      } else {
-        dispatch(
-          cardAction(
-            ACTION_RESOLVED,
-            { url: resourceUrl },
+      if (
+        getBooleanFF(
+          'platform.linking-platform.smart-card.enable-analytics-context',
+        )
+      ) {
+        /**
+         * Using unstable_batchedUpdates because this store update happens async and trigers a rerender
+         * more info:
+         * https://github.com/facebook/react/blob/v18.2.0/packages/use-sync-external-store/src/useSyncExternalStoreShimClient.js#L113
+         * https://react-redux.js.org/api/batch
+         */
+        unstable_batchedUpdates(() => {
+          handleResolvedLinkSuccess(
+            resourceUrl,
             response,
-            undefined,
-            undefined,
+            isReloading,
             isMetadataRequest,
-          ),
+          );
+        });
+      } else {
+        handleResolvedLinkSuccess(
+          resourceUrl,
+          response,
+          isReloading,
+          isMetadataRequest,
         );
       }
     },
-    [
-      dispatch,
-      handleResolvedLinkError,
-      hasAuthFlowSupported,
-      setMetadataStatus,
-    ],
+    [handleResolvedLinkError, handleResolvedLinkSuccess, hasAuthFlowSupported],
   );
 
   return useCallback(

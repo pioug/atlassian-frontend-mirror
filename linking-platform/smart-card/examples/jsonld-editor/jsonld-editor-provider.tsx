@@ -7,6 +7,7 @@ import JsonldEditorClient from './jsonld-editor-client';
 
 const featureFlags = {
   enableFlexibleBlockCard: true,
+  enableImprovedPreviewAction: true,
 };
 
 type Props = {

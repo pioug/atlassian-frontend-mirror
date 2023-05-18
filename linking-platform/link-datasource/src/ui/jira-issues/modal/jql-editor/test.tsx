@@ -10,10 +10,11 @@ import { render } from '@testing-library/react';
 import fetchMock from 'fetch-mock/cjs/client';
 import { IntlProvider } from 'react-intl-next';
 
+import {
+  mockAutoCompleteData,
+  mockSuggestionData,
+} from '@atlaskit/link-test-helpers/datasource';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
-
-import { mockAutoCompleteData } from '../../../../../examples-helpers/mockAutocompleteData';
-import { mockSuggestionData } from '../../../../../examples-helpers/mockSuggestionData';
 
 import { JiraJQLEditor, JiraJQLEditorProps } from './index';
 

@@ -61,6 +61,7 @@ export const extractBlockActions = (
   opts?: ExtractBlockOpts,
   platform?: CardPlatform,
   meta?: JsonLd.Meta.BaseMeta,
+  enableImprovedPreviewAction?: boolean,
 ): ActionProps[] => {
   if (opts) {
     const { handleInvoke } = opts;
@@ -71,6 +72,7 @@ export const extractBlockActions = (
       jsonLd,
       platform,
       meta,
+      enableImprovedPreviewAction,
     });
 
     // The previewAction should always be the last action
@@ -112,6 +114,7 @@ export const extractBlockProps = (
   opts?: ExtractBlockOpts,
   renderers?: CardProviderRenderers,
   platform?: CardPlatform,
+  enableImprovedPreviewAction?: boolean,
 ): BlockCardResolvedViewProps => {
   const props = {
     link: extractLink(jsonLd),
@@ -129,6 +132,13 @@ export const extractBlockProps = (
   };
   return {
     ...props,
-    actions: extractBlockActions(props, jsonLd, opts, platform, meta),
+    actions: extractBlockActions(
+      props,
+      jsonLd,
+      opts,
+      platform,
+      meta,
+      enableImprovedPreviewAction,
+    ),
   };
 };

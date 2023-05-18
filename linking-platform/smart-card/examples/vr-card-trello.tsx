@@ -64,7 +64,10 @@ export default () => (
   <VRTestWrapper title="Trello Links">
     <Provider
       client={new CustomClient('staging')}
-      featureFlags={{ enableFlexibleBlockCard: true }}
+      featureFlags={{
+        enableFlexibleBlockCard: true,
+        enableImprovedPreviewAction: true,
+      }}
     >
       {renderLink('Card', TrelloCard.data.url, 'card', 430)}
       {renderLink('Board', TrelloBoard.data.url, 'board', 430)}

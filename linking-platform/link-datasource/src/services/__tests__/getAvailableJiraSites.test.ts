@@ -1,6 +1,7 @@
 import fetchMock from 'fetch-mock/cjs/client';
 
-import { mockSiteData } from '../../../examples-helpers/mockJiraAvailableSites';
+import { mockSiteData } from '@atlaskit/link-test-helpers/datasource';
+
 import { getAvailableJiraSites } from '../getAvailableJiraSites';
 
 describe('getAvailableJiraSites', () => {

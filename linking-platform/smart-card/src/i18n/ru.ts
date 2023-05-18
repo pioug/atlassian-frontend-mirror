@@ -55,6 +55,7 @@ export default {
   'fabric.linking.not_found_description':
     'Не удалось найти ссылку. Проверьте URL-адрес и попробуйте изменить или вставить еще раз.',
   'fabric.linking.not_found_title': 'К сожалению, не удалось найти эту ссылку.',
+  'fabric.linking.open_issue_in_jira': 'Открыть задачу в Jira',
   'fabric.linking.open_link_in_a_new_tab': 'Открыть ссылку в новой вкладке',
   'fabric.linking.owned_by': 'Владелец: {context}',
   'fabric.linking.pending_request': 'Ваш запрос на доступ ожидает рассмотрения',
@@ -86,6 +87,9 @@ export default {
   'fabric.linking.save': 'Сохранить',
   'fabric.linking.srclink': 'Просмотреть в',
   'fabric.linking.srclinkunknown': 'Просмотреть оригинал',
+  'fabric.linking.status_change_load_error': 'Не удалось загрузить статусы и переходы',
+  'fabric.linking.status_change_permission_error': 'У вас нет права на изменение статуса этой задачи.',
+  'fabric.linking.status_change_update_error': 'Не удалось обновить статус',
   'fabric.linking.try_again': 'Повторить попытку',
   'fabric.linking.try_another_account': 'Попробуйте использовать другой аккаунт',
   'fabric.linking.unlink_account': 'Отменить связь с аккаунтом',

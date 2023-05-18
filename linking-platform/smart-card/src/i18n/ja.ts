@@ -53,6 +53,7 @@ export default {
   'fabric.linking.not_found_description':
     'リンクが見つかりませんでした。URL を確認して編集するか、もう一度貼り付けてください。',
   'fabric.linking.not_found_title': '申し訳ありません。リンクが見つかりません。',
+  'fabric.linking.open_issue_in_jira': 'Jira で課題を開く',
   'fabric.linking.open_link_in_a_new_tab': 'リンクを新しいタブで開く',
   'fabric.linking.owned_by': '所有者: {context}',
   'fabric.linking.pending_request': 'アクセス リクエストは保留中です。',
@@ -85,6 +86,9 @@ export default {
   'fabric.linking.save': '保存',
   'fabric.linking.srclink': '次で表示',
   'fabric.linking.srclinkunknown': 'リンク元を表示',
+  'fabric.linking.status_change_load_error': 'ステータスとトランジションを読み込めませんでした。',
+  'fabric.linking.status_change_permission_error': 'この課題をトランジションする権限がありません。',
+  'fabric.linking.status_change_update_error': 'ステータスを更新できませんでした。',
   'fabric.linking.try_again': '再試行',
   'fabric.linking.try_another_account': '別のアカウントでお試しください',
   'fabric.linking.unlink_account': 'アカウントのリンクを解除',

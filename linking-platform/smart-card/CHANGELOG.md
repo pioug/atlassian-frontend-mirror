@@ -1,5 +1,29 @@
 # @atlaskit/smart-card
 
+## 26.2.2
+
+### Patch Changes
+
+- [`374da8b159a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/374da8b159a) - Include additional attributes (urlHash, display, id) and resolved attributes for link clicked analytics events (Originally introduced in 25.8.0, reverted in 25.9.1 due to regression)
+- [`c6d962997a7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c6d962997a7) - [ux] Changed the text of the button from 'Full screen view' to 'Open preview' and also changed the color of a button in the hover cards
+- Updated dependencies
+
+## 26.2.1
+
+### Patch Changes
+
+- [`f27eb952289`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f27eb952289) - [ux] This fixes a bug which is caused when some text including a newline is linked and clicked, which incorrectly triggers a warning.
+
+## 26.2.0
+
+### Minor Changes
+
+- [`877b4f8f7fc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/877b4f8f7fc) - Remove iframe dwell tracking feature flag. Smart card embedded iframes will always track dwell events.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 26.1.6
 
 ### Patch Changes

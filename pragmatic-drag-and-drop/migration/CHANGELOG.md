@@ -1,5 +1,11 @@
 # @atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration
 
+## 0.6.0
+
+### Minor Changes
+
+- [`b560a09202a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b560a09202a) - Fixes a memoization issue, significantly improving rerender performance.
+
 ## 0.5.0
 
 ### Minor Changes

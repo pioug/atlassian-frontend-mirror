@@ -1,24 +1,33 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useEffect, useState } from 'react';
 
 import type { CleanupFn } from '../internal-types';
 
 const noop = () => {};
 
-export function useCleanupFn() {
-  const cleanupFnRef = useRef(noop);
+function createCleanupManager() {
+  let cleanupFn = noop;
 
-  const setCleanupFn = useCallback((cleanupFn: CleanupFn) => {
-    cleanupFnRef.current = cleanupFn;
-  }, []);
+  const setCleanupFn = (newCleanupFn: CleanupFn) => {
+    cleanupFn = newCleanupFn;
+  };
 
-  const runCleanupFn = useCallback(() => {
-    cleanupFnRef.current();
-    setCleanupFn(noop);
-  }, [setCleanupFn]);
-
-  useEffect(() => {
-    return runCleanupFn;
-  }, [runCleanupFn]);
+  const runCleanupFn = () => {
+    cleanupFn();
+    cleanupFn = noop;
+  };
 
   return { setCleanupFn, runCleanupFn };
+}
+
+export function useCleanupFn() {
+  const [cleanupManager] = useState(createCleanupManager);
+
+  /**
+   * Run the cleanup function on unmount.
+   */
+  useEffect(() => {
+    return cleanupManager.runCleanupFn;
+  }, [cleanupManager.runCleanupFn]);
+
+  return cleanupManager;
 }

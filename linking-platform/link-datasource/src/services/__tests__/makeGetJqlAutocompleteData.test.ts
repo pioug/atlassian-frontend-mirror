@@ -1,6 +1,7 @@
 import fetchMock from 'fetch-mock/cjs/client';
 
-import { mockAutoCompleteData } from '../../../examples-helpers/mockAutocompleteData';
+import { mockAutoCompleteData } from '@atlaskit/link-test-helpers/datasource';
+
 import { makeGetJqlAutocompleteData } from '../makeGetJqlAutocompleteData';
 
 describe('getAvailableJiraSites', () => {

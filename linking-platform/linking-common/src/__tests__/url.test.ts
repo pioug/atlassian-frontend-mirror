@@ -139,6 +139,18 @@ describe('normalizeUrl', () => {
       input: 'jamfselfservice://content?entity=policy&id=551&action=view ',
       expected: 'jamfselfservice://content?entity=policy&id=551&action=view',
     },
+    // Text with URL on newline
+    {
+      input: `Link\n
+        https://hello.atlassian.com`,
+      expected: null,
+    },
+    // Text with invalid URL on newline
+    {
+      input: `Link\n
+        https://hello.atlas...`,
+      expected: null,
+    },
   ])('correctly handles normalizeUrl case for `%o`', testData => {
     // If testdata is string only, expected value is the input value
     if (typeof testData === 'string') {

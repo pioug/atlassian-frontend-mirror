@@ -20,6 +20,7 @@ import { ValidatorMap } from '../../common/types';
 import createEventPayload from '../../common/utils/analytics/analytics.codegen';
 import { useFormContext } from '../../controllers/form-context';
 
+import { CreateFormLoader } from './form-loader';
 import { messages } from './messages';
 import { validateFormData } from './utils';
 
@@ -38,19 +39,23 @@ const errorStyles = css({
 export interface CreateFormProps<FormData> {
   children: ReactNode;
   testId?: string;
-  onCancel?: () => void;
   onSubmit: (data: FormData) => void;
+  onCancel?: () => void;
+  isLoading?: boolean;
+  hideFooter?: boolean;
 }
 
 export const CreateForm = <FormData extends Record<string, any> = {}>({
   children,
   testId,
-  onCancel,
   onSubmit,
+  onCancel,
+  isLoading,
+  hideFooter,
 }: CreateFormProps<FormData>) => {
+  const intl = useIntl();
   const { createAnalyticsEvent } = useAnalyticsEvents();
   const { getValidators, formErrorMessage } = useFormContext();
-  const intl = useIntl();
 
   const handleSubmit = useCallback(
     async (data: FormData) => {
@@ -76,9 +81,13 @@ export const CreateForm = <FormData extends Record<string, any> = {}>({
     onCancel && onCancel();
   }, [createAnalyticsEvent, onCancel]);
 
+  if (isLoading) {
+    return <CreateFormLoader />;
+  }
+
   return (
     <Form<FormData> onSubmit={handleSubmit}>
-      {({ submitting, formProps }) => (
+      {({ formProps, submitting }) => (
         <form
           {...formProps}
           name="confluence-creation-form"
@@ -86,37 +95,37 @@ export const CreateForm = <FormData extends Record<string, any> = {}>({
           css={formStyles}
         >
           <FormSection>{children}</FormSection>
-          <FormFooter>
-            {formErrorMessage && (
-              <div
-                css={errorStyles}
-                data-testid="link-create-confluence-form-error"
-              >
-                <ErrorIcon
-                  label={formErrorMessage}
-                  primaryColor={token('color.icon.danger', '#E34935')}
-                />
-                {formErrorMessage}
-              </div>
-            )}
-            <ButtonGroup>
-              <Button
-                appearance="subtle"
-                onClick={handleCancel}
-                testId={'cancel-button'}
-              >
-                {intl.formatMessage(messages.cancel)}
-              </Button>
-              <LoadingButton
-                appearance="primary"
-                type="submit"
-                isLoading={submitting}
-                testId={'create-button'}
-              >
-                {intl.formatMessage(messages.create)}
-              </LoadingButton>
-            </ButtonGroup>
-          </FormFooter>
+          {!hideFooter && (
+            <FormFooter>
+              {formErrorMessage && (
+                <div css={errorStyles} data-testid="link-create-form-error">
+                  <ErrorIcon
+                    label={formErrorMessage}
+                    primaryColor={token('color.icon.danger', '#E34935')}
+                  />
+                  {formErrorMessage}
+                </div>
+              )}
+              <ButtonGroup>
+                <Button
+                  type="button"
+                  appearance="subtle"
+                  onClick={handleCancel}
+                  testId={'cancel-button'}
+                >
+                  {intl.formatMessage(messages.cancel)}
+                </Button>
+                <LoadingButton
+                  appearance="primary"
+                  type="submit"
+                  isLoading={submitting}
+                  testId={'create-button'}
+                >
+                  {intl.formatMessage(messages.create)}
+                </LoadingButton>
+              </ButtonGroup>
+            </FormFooter>
+          )}
         </form>
       )}
     </Form>

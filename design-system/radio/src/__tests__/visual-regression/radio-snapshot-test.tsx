@@ -1,6 +1,20 @@
 import { getExampleUrl, loadPage } from '@atlaskit/visual-regression/helper';
-
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 describe('Snapshot Test', () => {
+  ffTest('platform.design-system-team.update-border-input_ff9l1', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'radio',
+      'radio-default',
+      global.__BASEURL__,
+    );
+    const { page } = global;
+    await loadPage(page, url);
+    await page.waitForSelector('input[name="color"]');
+    const image = await page.screenshot();
+    expect(image).toMatchProdImageSnapshot();
+  });
+
   it(`Basic usage example should match prod`, async () => {
     const url = getExampleUrl(
       'design-system',

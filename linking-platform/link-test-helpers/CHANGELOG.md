@@ -1,5 +1,18 @@
 # @atlaskit/link-test-helpers
 
+## 2.4.0
+
+### Minor Changes
+
+- [`9434c1e3f40`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9434c1e3f40) - Introduce entry point /datasource where exported members are:
+
+  - `mockAutoCompleteData`
+  - `mockJiraData`
+  - `mockSiteData`
+  - `mockSuggestionData`
+  - `mockDatasourceFetchRequests`
+    Where `mockDatasourceFetchRequests` will mock some of the calls requested via native `fetch` to support examples where datasources are used
+
 ## 2.3.2
 
 ### Patch Changes

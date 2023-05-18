@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/radio",
-  "version": "5.5.2",
+  "version": "5.6.0",
   "description": "A radio input allows users to select only one option from a number of choices. Radio is generally displayed in a radio group.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -39,6 +39,7 @@
   "dependencies": {
     "@atlaskit/analytics-next": "^9.1.0",
     "@atlaskit/ds-lib": "^2.2.0",
+    "@atlaskit/platform-feature-flags": "^0.2.0",
     "@atlaskit/theme": "^12.5.0",
     "@atlaskit/tokens": "^1.4.0",
     "@babel/runtime": "^7.0.0",
@@ -57,6 +58,7 @@
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
+    "@atlassian/feature-flags-test-utils": "*",
     "@testing-library/react": "^12.1.5",
     "react-dom": "^16.8.0",
     "storybook-addon-performance": "^0.16.0",
@@ -84,6 +86,11 @@
         "color"
       ],
       "deprecation": "no-deprecated-imports"
+    }
+  },
+  "platform-feature-flags": {
+    "platform.design-system-team.update-border-input_ff9l1": {
+      "type": "boolean"
     }
   },
   "homepage": "https://atlassian.design/components/radio/",

@@ -1,9 +1,11 @@
 import React, { useMemo, useState } from 'react';
 
+import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
+
 import { JiraIssuesTableView } from '../src/ui/jira-issues/tableView';
 import { JiraIssueDatasourceParameters } from '../src/ui/jira-issues/types';
 
-import { MOCK_DATASOURCE_ID } from './setupDatasourcesMocks';
+mockDatasourceFetchRequests();
 
 export const ExampleJiraIssuesTableView = () => {
   const cloudId = 'some-cloud-id';
@@ -22,7 +24,7 @@ export const ExampleJiraIssuesTableView = () => {
 
   return (
     <JiraIssuesTableView
-      datasourceId={MOCK_DATASOURCE_ID}
+      datasourceId={'some-datasource-id'}
       parameters={parameters}
       visibleColumnKeys={visibleColumnKeys}
       onVisibleColumnKeysChange={setVisibleColumnKeys}

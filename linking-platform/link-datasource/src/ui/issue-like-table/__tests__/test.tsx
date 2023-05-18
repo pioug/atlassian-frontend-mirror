@@ -2,6 +2,7 @@ import React from 'react';
 
 import { findByTestId, screen } from '@testing-library/dom';
 import { act, fireEvent, render, waitFor } from '@testing-library/react';
+import { IntlProvider } from 'react-intl-next';
 
 import {
   MockIntersectionObserverFactory,
@@ -740,6 +741,206 @@ describe('IssueLikeDataTableView', () => {
 
     it('should have column titles in table header', async () => {
       await assertColumnTitles(undefined);
+    });
+  });
+
+  describe('when column widths are applied', () => {
+    const onNextPage = async () => {};
+
+    const summary: DatasourceResponseSchemaProperty = {
+      key: 'summary',
+      title: 'Summary',
+      type: 'string',
+      isList: true,
+    };
+
+    const key: DatasourceResponseSchemaProperty = {
+      key: 'key',
+      title: 'Key',
+      type: 'string',
+      isList: true,
+    };
+
+    const name: DatasourceResponseSchemaProperty = {
+      key: 'name',
+      title: 'Name',
+      type: 'string',
+      isList: true,
+    };
+
+    const dob: DatasourceResponseSchemaProperty = {
+      key: 'dob',
+      title: 'DoB',
+      type: 'date',
+      isList: true,
+    };
+
+    const hobby: DatasourceResponseSchemaProperty = {
+      key: 'hobby',
+      title: 'Hobby',
+      type: 'tag',
+      isList: true,
+    };
+
+    it('should render the header and cells with width from the configured fields', () => {
+      const items: DatasourceDataResponseItem[] = [
+        { summary: 'summary', key: 'KEY-123' },
+      ];
+
+      const { queryByTestId } = render(
+        <IntlProvider locale="en">
+          <IssueLikeDataTableView
+            testId="sometable"
+            status={'resolved'}
+            items={items}
+            onNextPage={onNextPage}
+            hasNextPage={false}
+            columns={[summary, key]}
+            visibleColumnKeys={['summary', 'key']}
+          />
+        </IntlProvider>,
+      );
+
+      expect(queryByTestId('summary-column-heading')).toHaveStyle({
+        'max-width': '360px',
+      });
+      expect(queryByTestId('sometable--cell-0')).toHaveStyle({
+        'max-width': '360px',
+      });
+
+      expect(queryByTestId('key-column-heading')).toHaveStyle({
+        'max-width': '80px',
+      });
+      expect(queryByTestId('sometable--cell-1')).toHaveStyle({
+        'max-width': '80px',
+      });
+    });
+
+    it('should render the header and cells with width from the configured types', () => {
+      const items: DatasourceDataResponseItem[] = [
+        { name: 'key1', dob: '12/12/2023' },
+      ];
+
+      const { queryByTestId } = render(
+        <IntlProvider locale="en">
+          <IssueLikeDataTableView
+            testId="sometable"
+            status={'resolved'}
+            items={items}
+            onNextPage={onNextPage}
+            hasNextPage={false}
+            columns={[name, dob]}
+            visibleColumnKeys={['name', 'dob']}
+          />
+        </IntlProvider>,
+      );
+
+      expect(queryByTestId('name-column-heading')).toHaveStyle({
+        'max-width': '176px',
+      });
+      expect(queryByTestId('sometable--cell-0')).toHaveStyle({
+        'max-width': '176px',
+      });
+
+      expect(queryByTestId('dob-column-heading')).toHaveStyle({
+        'max-width': '112px',
+      });
+      expect(queryByTestId('sometable--cell-1')).toHaveStyle({
+        'max-width': '112px',
+      });
+    });
+
+    it('should not render the header and cells with width if not configured', () => {
+      const items: DatasourceDataResponseItem[] = [
+        {
+          summary: 'summary',
+          key: 'KEY-123',
+          name: 'Bob',
+          dob: '12/12/2023',
+          hobby: 'Coding',
+        },
+      ];
+
+      const { queryByTestId } = render(
+        <IntlProvider locale="en">
+          <IssueLikeDataTableView
+            testId="sometable"
+            status={'resolved'}
+            items={items}
+            onNextPage={onNextPage}
+            hasNextPage={false}
+            columns={[summary, key, name, dob, hobby]}
+            visibleColumnKeys={['summary', 'key', 'name', 'dob', 'hobby']}
+          />
+        </IntlProvider>,
+      );
+
+      const hobbyHeader = queryByTestId('hobby-column-heading');
+      const hobbyCell = queryByTestId('sometable--cell-4');
+
+      expect(hobbyHeader).toBeInTheDocument();
+      expect(hobbyCell).toBeInTheDocument();
+      expect(hobbyHeader).not.toHaveAttribute('style');
+      expect(hobbyCell).not.toHaveAttribute('style');
+    });
+
+    it('should render the header and cells with width in draggable mode', () => {
+      const items: DatasourceDataResponseItem[] = [
+        { summary: 'summary', key: 'KEY-123' },
+      ];
+
+      const { queryByTestId } = render(
+        <IntlProvider locale="en">
+          <IssueLikeDataTableView
+            testId="sometable"
+            status={'resolved'}
+            items={items}
+            onNextPage={onNextPage}
+            hasNextPage={false}
+            columns={[summary, key]}
+            visibleColumnKeys={['summary', 'key']}
+            onVisibleColumnKeysChange={() => {}}
+          />
+        </IntlProvider>,
+      );
+
+      expect(queryByTestId('summary-column-heading')).toHaveStyle({
+        'max-width': '360px',
+      });
+      expect(queryByTestId('sometable--cell-0')).toHaveStyle({
+        'max-width': '360px',
+      });
+
+      expect(queryByTestId('key-column-heading')).toHaveStyle({
+        'max-width': '80px',
+      });
+      expect(queryByTestId('sometable--cell-1')).toHaveStyle({
+        'max-width': '80px',
+      });
+    });
+
+    it('should render the header and cells with truncate css properties', () => {
+      const items: DatasourceDataResponseItem[] = [
+        { summary: 'summary', key: 'KEY-123' },
+      ];
+
+      const { queryByTestId } = render(
+        <IntlProvider locale="en">
+          <IssueLikeDataTableView
+            testId="sometable"
+            status={'resolved'}
+            items={items}
+            onNextPage={onNextPage}
+            hasNextPage={false}
+            columns={[summary, key]}
+            visibleColumnKeys={['summary', 'key']}
+          />
+        </IntlProvider>,
+      );
+
+      const tableCell = queryByTestId('sometable--cell-0');
+      const styles = getComputedStyle(tableCell!);
+      expect(styles.textOverflow).toBe('ellipsis');
     });
   });
 });

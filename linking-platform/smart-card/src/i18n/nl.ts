@@ -54,6 +54,7 @@ export default {
   'fabric.linking.not_found_description':
     'We konden de link niet vinden. Controleer de URL en probeer nogmaals te bewerken of plakken.',
   'fabric.linking.not_found_title': 'Oh-oh. We kunnen deze link niet vinden.',
+  'fabric.linking.open_issue_in_jira': 'Open issue in Jira',
   'fabric.linking.open_link_in_a_new_tab': 'Open de link in een nieuw tabblad',
   'fabric.linking.owned_by': 'Eigendom van {context}',
   'fabric.linking.pending_request': 'Je toegangsaanvraag wordt behandeld.',
@@ -85,6 +86,9 @@ export default {
   'fabric.linking.save': 'Opslaan',
   'fabric.linking.srclink': 'Bekijken in',
   'fabric.linking.srclinkunknown': 'Bekijk Origineel',
+  'fabric.linking.status_change_load_error': 'We konden de statussen en transities niet laden',
+  'fabric.linking.status_change_permission_error': 'Je hebt geen rechten om deze issue over te zetten.',
+  'fabric.linking.status_change_update_error': 'We konden de status niet bijwerken',
   'fabric.linking.try_again': 'Opnieuw proberen',
   'fabric.linking.try_another_account': 'Gebruik een ander account',
   'fabric.linking.unlink_account': 'Verbinding met account verwijderen',

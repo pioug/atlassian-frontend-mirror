@@ -1,5 +1,11 @@
 # @atlaskit/toggle
 
+## 12.6.3
+
+### Patch Changes
+
+- [`10cd6daef6d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/10cd6daef6d) - [ux] update fallback of hover color to meet contrast requirement
+
 ## 12.6.2
 
 ### Patch Changes

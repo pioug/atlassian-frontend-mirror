@@ -16,7 +16,6 @@ jest.mock('@atlaskit/link-provider', () => ({
   useSmartLinkContext: () => ({
     store: { getState: () => ({ 'test-url': mocks.analytics }) },
   }),
-  useFeatureFlag: () => false,
 }));
 
 let mockOnClick: React.MouseEventHandler = jest.fn();

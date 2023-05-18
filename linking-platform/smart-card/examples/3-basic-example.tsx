@@ -86,7 +86,9 @@ class Example extends React.Component<{}, ExampleState> {
       <IntlProvider locale="en">
         <Provider
           client={new SmartCardClient('staging')}
-          featureFlags={{ trackIframeDwellEvents: true }}
+          featureFlags={{
+            enableImprovedPreviewAction: true,
+          }}
         >
           <Page>
             <Grid>

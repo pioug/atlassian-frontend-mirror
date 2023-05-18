@@ -5,6 +5,7 @@ import { css, jsx } from '@emotion/react';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 import __noop from '@atlaskit/ds-lib/noop';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { DN600, N80, N900 } from '@atlaskit/theme/colors';
 import GlobalTheme from '@atlaskit/theme/components';
 import { fontFamily as getFontFamily } from '@atlaskit/theme/constants';
@@ -52,6 +53,7 @@ const darkLabelStyles = css({
 
 const radioStyles = css({
   display: 'flex',
+  // TODO https://product-fabric.atlassian.net/browse/DSP-10507 revisit and remove the scale of 14/24
   /*
     The circle should be 14px * 14px centred in a 24px * 24px box.
     This is inclusive of a 2px border and inner circle with 2px radius.
@@ -67,8 +69,13 @@ const radioStyles = css({
   justifyContent: 'center',
   flexShrink: 0,
   backgroundColor: 'var(--radio-background-color)',
-  /* Border should be 2px, multiply by 24/14 to offset scale */
-  border: 'calc(2px * 12 / 7) solid var(--radio-border-color)',
+  /* Border should multiply by 24/14 to offset scale, a scale of 12 / 7 is to fix a Chrome bug that makes the circle become an oval and the
+    inner circle not be centred at various zoom levels */
+  border: `${
+    getBooleanFF('platform.design-system-team.update-border-input_ff9l1')
+      ? '1px'
+      : 'calc(2px * 12 / 7)'
+  } solid var(--radio-border-color)`,
   borderRadius: '50%',
   MozAppearance: 'none',
   outline: 'none',

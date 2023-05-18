@@ -55,6 +55,7 @@ export default {
   'fabric.linking.not_found_description':
     "Lien introuvable. Cliquez sur l'URL et essayez de la modifier, ou collez-la de nouveau.",
   'fabric.linking.not_found_title': 'Oups, ce lien est introuvable !',
+  'fabric.linking.open_issue_in_jira': 'Ouvrir le ticket dans Jira',
   'fabric.linking.open_link_in_a_new_tab': 'Ouvrir le lien dans un nouvel onglet',
   'fabric.linking.owned_by': 'Propriétaire : {context}',
   'fabric.linking.pending_request': "Votre demande d'accès est en attente",
@@ -86,6 +87,9 @@ export default {
   'fabric.linking.save': 'Enregistrer',
   'fabric.linking.srclink': 'Afficher dans',
   'fabric.linking.srclinkunknown': "Afficher l'original",
+  'fabric.linking.status_change_load_error': 'Impossible de charger les états et les transitions',
+  'fabric.linking.status_change_permission_error': "Vous n'avez pas l'autorisation de transitionner ce ticket.",
+  'fabric.linking.status_change_update_error': "Impossible de mettre à jour l'état",
   'fabric.linking.try_again': 'Réessayez',
   'fabric.linking.try_another_account': 'Essayez un autre compte',
   'fabric.linking.unlink_account': 'Dissocier le compte',

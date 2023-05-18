@@ -1,5 +1,23 @@
 # @atlaskit/link-datasource
 
+## 0.15.1
+
+### Patch Changes
+
+- [`3d4e152483b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3d4e152483b) - Move all the mocking outside into link-test-helpers and use it.
+
+## 0.15.0
+
+### Minor Changes
+
+- [`9b52f1c40fa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9b52f1c40fa) - Added a default column width to specific fields and types
+
+## 0.14.4
+
+### Patch Changes
+
+- [`e63f4d2d305`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e63f4d2d305) - Changed the package scope to public @atlaskit and made `onVisibleColumnKeysChange` optional to allow read only tables.
+
 ## 0.14.3
 
 ### Patch Changes

@@ -144,7 +144,7 @@ export default {
   'fabric.editor.hyperlink.searchLinkAriaDescription':
     'Các đề xuất sẽ xuất hiện bên dưới khi bạn nhập thông tin vào trường',
   'fabric.editor.hyperlink.searchLinkResults':
-    '{count, plural, =0 {không tìm thấy kết quả nào} other {Đã tìm thấy {count,number} kết quả}}',
+    '{count, plural, =0 {không tìm thấy kết quả} other {Đã tìm thấy {count,number} kết quả}}',
   'fabric.editor.hyperlinkToolbarPlaceholder': 'Dán hoặc tìm kiếm liên kết',
   'fabric.editor.imageBorderBold': 'In đậm',
   'fabric.editor.imageBorderColor': 'Màu sắc',
@@ -164,7 +164,7 @@ export default {
   'fabric.editor.invalidDateError': 'Nhập ngày hợp lệ',
   'fabric.editor.invalidLink': 'Vui lòng nhập một liên kết hợp lệ.',
   'fabric.editor.inviteItem.title':
-    '{userRole, select, admin {Mời đồng nghiệp cùng nhóm vào {productName}} trusted {Mời đồng nghiệp cùng nhóm vào {productName}} other {Thêm đồng nghiệp cùng nhóm vào {productName}}}',
+    '{userRole, select, admin {Mời thành viên cùng nhóm vào {productName}} trusted {Mời thành viên cùng nhóm vào {productName}} other {Thêm thành viên cùng nhóm vào {productName}}}',
   'fabric.editor.italic': 'In nghiêng',
   'fabric.editor.keyboardShortcuts': 'Phím tắt bàn phím',
   'fabric.editor.leftSidebar': 'Thanh bên trái',

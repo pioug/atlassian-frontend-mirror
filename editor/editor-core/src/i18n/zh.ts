@@ -143,7 +143,7 @@ export default {
   'fabric.editor.hyperlink.searchLinkAriaDescription': '在字段中输入内容时，下方会显示建议内容',
   'fabric.editor.hyperlink.searchLinkResults': '{count, plural, =0 {未找到结果} other {找到 {count,number} 个结果}}',
   'fabric.editor.hyperlinkToolbarPlaceholder': '粘贴或搜索链接',
-  'fabric.editor.imageBorderBold': '粗体',
+  'fabric.editor.imageBorderBold': '加粗',
   'fabric.editor.imageBorderColor': '颜色',
   'fabric.editor.imageBorderMedium': '中等',
   'fabric.editor.imageBorderOptions': '边框选项',

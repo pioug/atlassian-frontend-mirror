@@ -128,10 +128,7 @@ class Example extends React.Component<{}, ExampleState> {
 
     return (
       <IntlProvider locale="en">
-        <Provider
-          client={new SmartCardClient('staging')}
-          featureFlags={{ trackIframeDwellEvents: true }}
-        >
+        <Provider client={new SmartCardClient('staging')}>
           <Page>
             <Grid>
               <GridColumn medium={12} key={url}>

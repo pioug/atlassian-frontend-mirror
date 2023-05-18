@@ -1,3 +1,4 @@
+/* prettier-ignore */
 /**
  * NOTE:
  *
@@ -7,16 +8,14 @@
 //
 export default {
   'focused-task-close-account.cancel': '⁣⁢Cancel⁪⁫⁬⁭⁫؜⁬⁮⁬⁪‍⁡؜⁡⁭⁭⁯⁫‍‌⁣⁤',
-  'focused-task-close-account.deactivate-account':
-    '⁣⁢Deactivate account⁬⁪؜⁬⁪⁫⁫⁮‍⁬⁬⁪⁭⁯⁪⁭؜⁮⁠⁡⁡‍⁣⁤',
+  'focused-task-close-account.deactivate-account': '⁣⁢Deactivate account⁬⁪؜⁬⁪⁫⁫⁮‍⁬⁬⁪⁭⁯⁪⁭؜⁮⁠⁡⁡‍⁣⁤',
   'focused-task-close-account.deactivate-account.overview.first.line.admin':
     "⁣⁢You're about to deactivate the user account of:⁯⁪⁡⁪⁭‍⁭⁯‌؜⁫⁠⁫⁠⁭⁠⁫⁭؜⁫⁬⁣⁤",
   'focused-task-close-account.deactivate-account.overview.first.line.self':
     "⁣⁢You're about to deactivate the user account of:⁯⁭؜⁡⁭⁫⁪⁪⁡⁬⁠‌⁫‌⁯⁡⁠⁠⁣⁤",
   'focused-task-close-account.deactivate-account.overview.heading.admin':
     '⁣⁢Deactivate account‍‍⁪‌‍؜‌؜⁫‍⁯‍⁯⁠⁪⁯⁠⁫⁯⁮⁫‌⁯⁡⁣⁤',
-  'focused-task-close-account.deactivate-account.overview.heading.self':
-    '⁣⁢Deactivate account‌⁠⁠⁬⁪⁫⁮⁬⁮⁭‍‍⁪⁠⁪⁠⁯⁫⁣⁤',
+  'focused-task-close-account.deactivate-account.overview.heading.self': '⁣⁢Deactivate account‌⁠⁠⁬⁪⁫⁮⁬⁮⁭‍‍⁪⁠⁪⁠⁯⁫⁣⁤',
   'focused-task-close-account.deactivate-account.overview.last.line.admin':
     '⁣⁢You can reactivate the account at any time.⁪⁫⁡⁯؜‍‍‍⁮⁪⁭⁪‍⁮⁯‌⁮⁭⁪⁣⁤',
   'focused-task-close-account.deactivate-account.overview.last.line.self':
@@ -43,14 +42,12 @@ export default {
     "⁣⁢Their personal data, such as their full name and email address, and content they've created will remain in Atlassian account services.؜؜⁫⁯⁪⁠⁫⁯⁬‌⁫⁠⁮‍⁮⁮⁬⁣⁤",
   'focused-task-close-account.deactivate-account.overview.paragraph.personal-data.self':
     "⁣⁢Their personal data, such as their full name and email address, and content they've created will remain in Atlassian account services.‍⁯⁪⁮⁯‌⁫⁠⁮⁠؜⁭⁪⁡⁡‍⁮‌؜⁣⁤",
-  'focused-task-close-account.delete-account':
-    '⁣⁢Delete account⁡⁡⁬⁮؜⁠⁡⁭⁯⁯⁪⁯‍؜⁮⁯⁪⁮⁫⁡⁡⁡⁪⁣⁤',
+  'focused-task-close-account.delete-account': '⁣⁢Delete account⁡⁡⁬⁮؜⁠⁡⁭⁯⁯⁪⁯‍؜⁮⁯⁪⁮⁫⁡⁡⁡⁪⁣⁤',
   'focused-task-close-account.delete-account.content-preview.footnote.admin':
     '⁣⁢Note: Answering this survey will help us make a better experience for all users. The user will still appear as “Former user” after you delete their account.‍؜⁭⁮؜⁬⁪⁯⁪‍‍‌‍⁠؜⁡⁫⁫⁬⁮⁪⁭⁫‍⁡⁣⁤',
   'focused-task-close-account.delete-account.content-preview.footnote.self':
     '⁣⁢Note: Answering this survey will help us make a better experience for all users, including those deleting their accounts. You’ll still appear as “Former user” after you delete your account.⁭⁭⁬⁡⁡⁫⁠⁫⁠‍⁫‍⁫⁮‍⁡؜⁯‌‍⁠؜⁣⁤',
-  'focused-task-close-account.delete-account.content-preview.formerUser':
-    '⁣⁢Former user⁡⁬⁭‍‍⁬⁯⁡⁭⁫⁪⁭⁮⁭‍⁭⁮⁭؜‍⁣⁤',
+  'focused-task-close-account.delete-account.content-preview.formerUser': '⁣⁢Former user⁡⁬⁭‍‍⁬⁯⁡⁭⁫⁪⁭⁮⁭‍⁭⁮⁭؜‍⁣⁤',
   'focused-task-close-account.delete-account.content-preview.heading.admin':
     '⁣⁢How would you prefer the deleted user to appear?⁮⁫⁡⁠⁫⁡⁬؜‍‌‍⁡⁫⁡‌⁫‌⁬‍‍⁮⁣⁤',
   'focused-task-close-account.delete-account.content-preview.heading.self':
@@ -63,18 +60,14 @@ export default {
     '⁣⁢After the user’s account is deleted, they’ll appear as “Former user” to other users. Please take a moment to answer our survey question.؜⁬⁫⁪⁯⁯⁫⁠‌⁪⁡⁯⁭⁮⁪⁫⁮⁪⁡⁭⁯⁣⁤',
   'focused-task-close-account.delete-account.content-preview.paragraph.survey.self':
     '⁣⁢After your account is deleted, you’ll appear as “Former user” to other users. Please take a moment to answer our survey question.؜⁫⁭⁪⁭‌⁮⁪⁡⁡‌‌⁭؜⁬⁯⁬⁮؜⁡⁯⁫⁣⁤',
-  'focused-task-close-account.delete-account.drop-down-collapse-button':
-    '⁣⁢Show less⁫⁪⁬⁫‍⁮‍⁡‍⁮؜‍⁫‍⁭؜⁠⁭⁭⁡⁡⁭؜⁣⁤',
-  'focused-task-close-account.delete-account.drop-down-expand-button':
-    '⁣⁢{num} more⁫⁡‌⁮‌⁠⁭⁬⁠⁭⁫‌⁠‍⁯⁯‌⁫⁫⁠⁡‌⁪⁣⁤',
+  'focused-task-close-account.delete-account.drop-down-collapse-button': '⁣⁢Show less⁫⁪⁬⁫‍⁮‍⁡‍⁮؜‍⁫‍⁭؜⁠⁭⁭⁡⁡⁭؜⁣⁤',
+  'focused-task-close-account.delete-account.drop-down-expand-button': '⁣⁢{num} more⁫⁡‌⁮‌⁠⁭⁬⁠⁭⁫‌⁠‍⁯⁯‌⁫⁫⁠⁡‌⁪⁣⁤',
   'focused-task-close-account.delete-account.overview.first.line.admin':
     "⁣⁢You're about to delete the account of:⁮؜⁮‍⁪‌⁮⁬⁡؜⁡‍⁪⁠⁮⁭⁮‌⁠⁯⁯⁠⁠‍⁣⁤",
   'focused-task-close-account.delete-account.overview.first.line.self':
     "⁣⁢You're about to delete your account:⁬⁪⁡⁡⁬⁪‍⁬⁫؜⁬‌⁮⁡⁡؜⁡؜⁫‍⁣⁤",
-  'focused-task-close-account.delete-account.overview.heading.admin':
-    '⁣⁢Delete account⁫⁬⁫⁯⁭⁯⁠⁬‍؜⁯‍⁫⁡⁪؜⁪⁭⁣⁤',
-  'focused-task-close-account.delete-account.overview.heading.self':
-    '⁣⁢Delete your account⁭‌⁪⁮؜؜⁡⁫⁯⁯⁡⁫⁬⁬⁮⁪⁯⁪⁠⁣⁤',
+  'focused-task-close-account.delete-account.overview.heading.admin': '⁣⁢Delete account⁫⁬⁫⁯⁭⁯⁠⁬‍؜⁯‍⁫⁡⁪؜⁪⁭⁣⁤',
+  'focused-task-close-account.delete-account.overview.heading.self': '⁣⁢Delete your account⁭‌⁪⁮؜؜⁡⁫⁯⁯⁡⁫⁬⁬⁮⁪⁯⁪⁠⁣⁤',
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.admin':
     "⁣⁢For example, pages, issues, and comments they've created in products.⁬⁯⁮⁫⁬‌⁠⁠‍⁭⁪⁬⁪⁡⁯⁠⁭⁡⁠⁬⁮⁯⁡‌⁪⁣⁤",
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.self':

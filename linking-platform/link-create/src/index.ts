@@ -2,7 +2,13 @@ export type { Option } from './ui/types';
 export type { CreateFormProps } from './ui/index';
 export type { LinkCreateProps, LinkCreatePlugin } from './common/types';
 
-export { default, TextField, CreateForm, AsyncSelect } from './ui/index';
+export {
+  default,
+  TextField,
+  CreateForm,
+  AsyncSelect,
+  CreateFormLoader,
+} from './ui/index';
 
 export {
   useLinkCreateCallback,

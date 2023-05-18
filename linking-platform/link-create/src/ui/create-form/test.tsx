@@ -8,7 +8,7 @@ import { Validator } from '../../common/types';
 import { FormContextProvider } from '../../controllers/form-context';
 
 import { AsyncSelect } from './async-select';
-import { CreateForm } from './main';
+import { CreateForm, CreateFormProps } from './main';
 import { TextField } from './textfield';
 
 describe('<CreateForm />', () => {
@@ -30,7 +30,12 @@ describe('<CreateForm />', () => {
     jest.clearAllMocks();
   });
 
-  const setUpCreateForm = (children?: React.ReactNode) => {
+  const setUpCreateForm = (
+    children?: React.ReactNode,
+    createFormProps?: Partial<
+      Omit<CreateFormProps<{}>, 'testId' | 'onSubmit' | 'onCancel'>
+    >,
+  ) => {
     return render(
       <IntlProvider locale="en">
         <FormContextProvider>
@@ -38,6 +43,7 @@ describe('<CreateForm />', () => {
             onSubmit={handleSubmitMock}
             onCancel={handleCancelMock}
             testId={testId}
+            {...createFormProps}
           >
             {children}
           </CreateForm>
@@ -63,6 +69,20 @@ describe('<CreateForm />', () => {
 
     await userEvent.click(getByTestId('cancel-button'));
     expect(handleCancelMock).toBeCalled();
+  });
+
+  it('should hide the footer buttons when the prop is passed', async () => {
+    const { queryByTestId } = setUpCreateForm(undefined, { hideFooter: true });
+    expect(queryByTestId('cancel-button')).toBeNull();
+    expect(queryByTestId('create-button')).toBeNull();
+  });
+
+  it('should display a form loader when isLoading props is provided', async () => {
+    const { getByTestId, queryByTestId } = setUpCreateForm(undefined, {
+      isLoading: true,
+    });
+    expect(getByTestId('link-create-form-loader')).toBeTruthy();
+    expect(queryByTestId('link-create-form')).toBeNull();
   });
 
   describe('TextField', () => {

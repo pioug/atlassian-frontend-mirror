@@ -54,6 +54,7 @@ export default {
   'fabric.linking.not_found_description':
     'Vi finner ikke koblingen. Sjekk URL-en og prøv å redigere den, eller lim inn på nytt.',
   'fabric.linking.not_found_title': 'Oi sann. VI finner ikke denne koblingen.',
+  'fabric.linking.open_issue_in_jira': 'Åpne saken i Jira',
   'fabric.linking.open_link_in_a_new_tab': 'Åpne kobling i en ny fane',
   'fabric.linking.owned_by': 'Eid av {context}',
   'fabric.linking.pending_request': 'Avventer svar på forespørselen din om tilgang',
@@ -85,6 +86,9 @@ export default {
   'fabric.linking.save': 'Lagre',
   'fabric.linking.srclink': 'Se i',
   'fabric.linking.srclinkunknown': 'Vis original',
+  'fabric.linking.status_change_load_error': 'Vi kan ikke laste inn statuser og overføringer',
+  'fabric.linking.status_change_permission_error': 'Du har ikke tillatelse til å overføre denne saken.',
+  'fabric.linking.status_change_update_error': 'Vi kan ikke oppdatere statusen',
   'fabric.linking.try_again': 'Prøv på nytt',
   'fabric.linking.try_another_account': 'Prøv en annen konto',
   'fabric.linking.unlink_account': 'Fjern kobling fra konto',

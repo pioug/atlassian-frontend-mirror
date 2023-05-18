@@ -8,7 +8,7 @@
 //Dutch (Netherlands)
 export default {
   'fabric.editor.addAltText': 'Alt-tekst',
-  'fabric.editor.addImageBorder': 'Rand toevoegen',
+  'fabric.editor.addImageBorder': 'Kader toevoegen',
   'fabric.editor.alignCenter': 'Midden uitgelijnd',
   'fabric.editor.alignLeft': 'Links uitlijnen',
   'fabric.editor.alignRight': 'Rechts uitgelijnd',
@@ -148,7 +148,7 @@ export default {
   'fabric.editor.imageBorderBold': 'Vet',
   'fabric.editor.imageBorderColor': 'Kleur',
   'fabric.editor.imageBorderMedium': 'Medium',
-  'fabric.editor.imageBorderOptions': 'Randopties',
+  'fabric.editor.imageBorderOptions': 'Kaderopties',
   'fabric.editor.imageBorderSize': 'Grootte',
   'fabric.editor.imageBorderSubtle': 'Subtiel',
   'fabric.editor.improvement': 'Verbetering',
@@ -163,7 +163,7 @@ export default {
   'fabric.editor.invalidDateError': 'Voer een geldige datum in',
   'fabric.editor.invalidLink': 'Voer een geldige link in.',
   'fabric.editor.inviteItem.title':
-    '{userRole, select, admin {Nodig teamgenoot uit voor {productName}} trusted {Nodig teamgenoot uit voor {productName}} other {Voeg teamgenoot toe aan {productName}}}',
+    '{userRole, select, admin {Nodig teamgenoten uit voor {productName}} trusted {Nodig teamgenoten uit voor {productName}} other {Voeg teamgenoten toe aan {productName}}}',
   'fabric.editor.italic': 'Cursief',
   'fabric.editor.keyboardShortcuts': 'Sneltoetsen',
   'fabric.editor.leftSidebar': 'Zijbalk aan linkerkant',
@@ -200,7 +200,7 @@ export default {
   'fabric.editor.placeholderTextPlaceholder': 'Voeg plaatsaanduidingstekst toe',
   'fabric.editor.quickInsert': 'Snel invoegen',
   'fabric.editor.redo': 'Pas opnieuw toe',
-  'fabric.editor.removeImageBorder': 'Rand verwijderen',
+  'fabric.editor.removeImageBorder': 'Kader verwijderen',
   'fabric.editor.replace': 'Vervangen',
   'fabric.editor.replaceAll': 'Alles vervangen',
   'fabric.editor.replaceWith': 'Vervangen met',

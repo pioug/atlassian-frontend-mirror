@@ -64,6 +64,8 @@ export interface ResolvedViewProps {
   isTrusted?: boolean;
   /** It determines whether a link source supports different design theme modes */
   isSupportTheming?: boolean;
+  /** Determines whether a preview action's text should display 'Open preview' or 'Full screen view' */
+  enableImprovedPreviewAction?: boolean;
 }
 
 export const blockCardResolvedViewClassName = 'block-card-resolved-view';

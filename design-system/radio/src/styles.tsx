@@ -1,3 +1,4 @@
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import {
   B100,
   B200,
@@ -11,6 +12,7 @@ import {
   DN80,
   DN90,
   N10,
+  N100,
   N20,
   N30,
   N40,
@@ -34,8 +36,18 @@ const radioThemeColors = {
     dotDisabled: token('color.icon.disabled', N70),
     dotActive: token('color.icon.inverse', B400),
 
-    border: token('color.border.input', N40),
-    borderHover: token('color.border.input', N40),
+    border: token(
+      'color.border.input',
+      getBooleanFF('platform.design-system-team.update-border-input_ff9l1')
+        ? N100
+        : N40,
+    ),
+    borderHover: token(
+      'color.border.input',
+      getBooleanFF('platform.design-system-team.update-border-input_ff9l1')
+        ? N100
+        : N40,
+    ),
     borderDisabled: token('color.border.disabled', N20),
     borderFocus: token('color.border.focused', B100),
   },
@@ -52,7 +64,12 @@ const radioThemeColors = {
     dotDisabled: token('color.icon.disabled', DN90),
     dotActive: token('color.icon.inverse', DN10),
 
-    border: token('color.border.input', DN80),
+    border: token(
+      'color.border.input',
+      getBooleanFF('platform.design-system-team.update-border-input_ff9l1')
+        ? DN200
+        : DN80,
+    ),
     borderHover: token('color.border.input', DN200),
     borderDisabled: token('color.border.disabled', DN10),
     borderFocus: token('color.border.focused', B75),

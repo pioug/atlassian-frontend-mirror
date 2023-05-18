@@ -5,14 +5,15 @@ import { IntlProvider } from 'react-intl-next';
 import Button from '@atlaskit/button/standard-button';
 import { CodeBlock } from '@atlaskit/code';
 import { SmartCardProvider } from '@atlaskit/link-provider';
+import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
 import { InlineCardAdf } from '@atlaskit/linking-common';
 import { DatasourceAdf } from '@atlaskit/linking-common/types';
 
-import { MOCK_DATASOURCE_ID } from '../examples-helpers/setupDatasourcesMocks';
-import '../examples-helpers/setupModalExampleMocks';
 import SmartLinkClient from '../examples-helpers/smartLinkCustomClient';
 import { JiraIssuesConfigModal } from '../src';
 import { JiraIssueDatasourceParameters } from '../src/ui/jira-issues/types';
+
+mockDatasourceFetchRequests();
 
 export default () => {
   const [generatedAdf, setGeneratedAdf] = useState<string>('');
@@ -58,7 +59,7 @@ export default () => {
         ) : null}
         {showModal && (
           <JiraIssuesConfigModal
-            datasourceId={MOCK_DATASOURCE_ID}
+            datasourceId={'some-datasource-id'}
             visibleColumnKeys={visibleColumnKeys}
             parameters={parameters}
             onVisibleColumnKeysChange={setVisibleColumnKeys}

@@ -14,7 +14,10 @@ export default () => (
   <VRTestWrapper title="Unauthorised Hover Card (Tooltip)">
     <Provider
       client={new CustomClient('staging')}
-      featureFlags={{ showAuthTooltip: 'experiment' }}
+      featureFlags={{
+        showAuthTooltip: 'experiment',
+        enableImprovedPreviewAction: true,
+      }}
     >
       <Card
         url={'https://www.mockurl.com'}

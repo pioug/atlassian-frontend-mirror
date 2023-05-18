@@ -25,6 +25,7 @@ import FlexibleForbiddenView from './views/flexible/FlexibleForbiddenView';
 import { tokens } from '../../utils/token';
 import { css, jsx } from '@emotion/react';
 import { handleClickCommon } from './utils/handlers';
+import { useFeatureFlag } from '@atlaskit/link-provider';
 
 export { default as PreviewAction } from './actions/PreviewAction';
 export type { ResolvedViewProps as BlockCardResolvedViewProps } from './views/ResolvedView';
@@ -77,6 +78,10 @@ export const BlockCard: FC<BlockCardProps> = ({
     handleInvoke,
     extensionKey,
   };
+
+  const enableImprovedPreviewAction = Boolean(
+    useFeatureFlag('enableImprovedPreviewAction'),
+  );
 
   if (enableFlexibleBlockCard) {
     const ui = { hideElevation: true };
@@ -178,6 +183,7 @@ export const BlockCard: FC<BlockCardProps> = ({
         extractorOpts,
         renderers,
         platform,
+        enableImprovedPreviewAction,
       );
       if (onResolve) {
         onResolve({

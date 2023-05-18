@@ -239,8 +239,8 @@ describe('Jira: IssuesTableView', () => {
     );
 
     await page.setViewport({
-      width: 1000,
-      height: 1000,
+      width: 1350,
+      height: 800,
     });
 
     await loadPage(page, url);

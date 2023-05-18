@@ -1,5 +1,23 @@
 # @atlaskit/linking-common
 
+## 2.12.0
+
+### Minor Changes
+
+- [`c6d962997a7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c6d962997a7) - [ux] Changed the text of the button from 'Full screen view' to 'Open preview' and also changed the color of a button in the hover cards
+
+## 2.11.1
+
+### Patch Changes
+
+- [`f27eb952289`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f27eb952289) - [ux] This fixes a bug which is caused when some text including a newline is linked and clicked, which incorrectly triggers a warning.
+
+## 2.11.0
+
+### Minor Changes
+
+- [`877b4f8f7fc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/877b4f8f7fc) - Remove iframe dwell tracking feature flag. Smart card embedded iframes will always track dwell events.
+
 ## 2.10.1
 
 ### Patch Changes

@@ -54,6 +54,7 @@ export default {
   'fabric.linking.not_found_description':
     "Bağlantıyı bulamadık. URL'yi kontrol edin ve düzenlemeyi veya yeniden yapıştırmayı deneyin.",
   'fabric.linking.not_found_title': 'Hay aksi! Bu bağlantıyı bulamadık!',
+  'fabric.linking.open_issue_in_jira': "Konuyu Jira'da aç",
   'fabric.linking.open_link_in_a_new_tab': 'Bağlantıyı yeni sekmede aç',
   'fabric.linking.owned_by': 'Sahibi: {context}',
   'fabric.linking.pending_request': 'Erişim talebiniz beklemede',
@@ -85,6 +86,9 @@ export default {
   'fabric.linking.save': 'Kaydet',
   'fabric.linking.srclink': 'Şurada görüntüleyin:',
   'fabric.linking.srclinkunknown': 'Orijinalini Görüntüleyin',
+  'fabric.linking.status_change_load_error': 'Durumlar ve durum değişiklikleri yüklenemedi',
+  'fabric.linking.status_change_permission_error': 'Bu konunun durumunu değiştirme izniniz yok.',
+  'fabric.linking.status_change_update_error': 'Durum güncellenemedi',
   'fabric.linking.try_again': 'Yeniden dene',
   'fabric.linking.try_another_account': 'Başka bir hesapla deneyin',
   'fabric.linking.unlink_account': 'Hesabın Bağlantısını Kaldır',

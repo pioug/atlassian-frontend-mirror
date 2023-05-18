@@ -165,7 +165,7 @@ export default {
   'fabric.editor.invalidDateError': 'Informe uma data válida',
   'fabric.editor.invalidLink': 'Insira um link válido.',
   'fabric.editor.inviteItem.title':
-    '{userRole, select, admin {Convidar colega de equipe para {productName}} trusted {Convidar colega de equipe para {productName}} other {Adicionar colega de equipe ao {productName}}}',
+    '{userRole, select, admin {Convidar colega de equipe para {productName}} trusted {Convidar colega de equipe para {productName}} other {Adicionar colega de equipe para {productName}}}',
   'fabric.editor.italic': 'Itálico',
   'fabric.editor.keyboardShortcuts': 'Atalhos de teclado',
   'fabric.editor.leftSidebar': 'Barra lateral esquerda',

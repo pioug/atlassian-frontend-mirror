@@ -6,13 +6,15 @@ import styled from '@emotion/styled';
 import { IntlProvider } from 'react-intl-next';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
+import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
 
 import { useDatasourceTableState } from '../src/hooks/useDatasourceTableState';
 import { IssueLikeDataTableView } from '../src/ui/issue-like-table';
 import { JiraIssueDatasourceParameters } from '../src/ui/jira-issues/types';
 
-import { MOCK_DATASOURCE_ID } from './setupDatasourcesMocks';
 import SmartLinkClient from './smartLinkCustomClient';
+
+mockDatasourceFetchRequests();
 
 interface Props {
   isReadonly?: boolean;
@@ -43,7 +45,7 @@ const ExampleBody = ({ isReadonly }: Props) => {
     hasNextPage,
     defaultVisibleColumnKeys,
     columns,
-  } = useDatasourceTableState(MOCK_DATASOURCE_ID, parameters);
+  } = useDatasourceTableState('some-datasource-id', parameters);
 
   const [visibleColumnKeys, setVisibleColumnKeys] = useState<string[]>(
     defaultVisibleColumnKeys,

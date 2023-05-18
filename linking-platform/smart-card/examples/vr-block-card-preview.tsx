@@ -18,7 +18,7 @@ export default () => (
         actions={[
           {
             id: '',
-            text: 'Preview',
+            text: 'Open preview',
             promise: () => Promise.resolve(),
           },
         ]}

@@ -82,19 +82,30 @@ type PreviewInfo = {
   analytics: AnalyticsFacade;
   origin?: AnalyticsOrigin;
   isSupportTheming?: boolean;
+  enableImprovedPreviewAction?: boolean;
 };
 
-export default ({ details, ...rest }: PreviewInfo): ActionProps => ({
-  id: 'preview-content',
-  text: <FormattedMessage {...messages.preview} />,
-  promise: (props) =>
-    previewFunction({
-      popupMountPointId: 'twp-editor-preview-iframe',
-      providerName: 'Preview',
-      showModal: true,
-      iframeName: 'twp-editor-preview-iframe',
-      onClose: () => {},
-      ...props,
-      ...rest,
-    }),
-});
+export default ({
+  details,
+  enableImprovedPreviewAction,
+  ...rest
+}: PreviewInfo): ActionProps => {
+  const previewText = enableImprovedPreviewAction
+    ? messages.preview_improved
+    : messages.preview;
+
+  return {
+    id: 'preview-content',
+    text: <FormattedMessage {...previewText} />,
+    promise: (props) =>
+      previewFunction({
+        popupMountPointId: 'twp-editor-preview-iframe',
+        providerName: 'Preview',
+        showModal: true,
+        iframeName: 'twp-editor-preview-iframe',
+        onClose: () => {},
+        ...props,
+        ...rest,
+      }),
+  };
+};

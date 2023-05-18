@@ -55,6 +55,7 @@ export default {
   'fabric.linking.not_found_description':
     'Nem találtuk meg a linket. Ellenőrizd az URL-címet, és próbáld meg módosítani, vagy másold be újra.',
   'fabric.linking.not_found_title': 'Hoppá. Nem találjuk ezt a linket!',
+  'fabric.linking.open_issue_in_jira': 'Ügy megnyitása a Jirában',
   'fabric.linking.open_link_in_a_new_tab': 'Link megnyitása új lapon',
   'fabric.linking.owned_by': 'Tulajdonos: {context}',
   'fabric.linking.pending_request': 'A hozzáférési kérelmed függőben van',
@@ -87,6 +88,9 @@ export default {
   'fabric.linking.save': 'Mentés',
   'fabric.linking.srclink': 'Megtekintés módja:',
   'fabric.linking.srclinkunknown': 'Eredeti megtekintése',
+  'fabric.linking.status_change_load_error': 'Nem sikerült betölteni az állapotokat és az átviteleket',
+  'fabric.linking.status_change_permission_error': 'Nem vagy jogosult végrehajtani az átvitelt ennél az ügynél.',
+  'fabric.linking.status_change_update_error': 'Nem sikerült frissíteni az állapotot',
   'fabric.linking.try_again': 'Próbáld újra',
   'fabric.linking.try_another_account': 'Próbálkozz másik fiókkal',
   'fabric.linking.unlink_account': 'Fiók leválasztása',

@@ -10,7 +10,7 @@ export default () => {
   const actionsList: Array<ActionProps> = [
     {
       id: 'Preview',
-      text: 'Preview',
+      text: 'Open preview',
       promise: () => Promise.resolve(),
     },
     {

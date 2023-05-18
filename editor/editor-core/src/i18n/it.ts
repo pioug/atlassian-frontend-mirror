@@ -168,7 +168,7 @@ export default {
   'fabric.editor.invalidDateError': 'Inserisci una data valida',
   'fabric.editor.invalidLink': 'Inserisci un link valido.',
   'fabric.editor.inviteItem.title':
-    '{userRole, select, admin {Invita un collega in {productName}} trusted {Invita un collega in {productName}} other {Aggiungi un collega a {productName}}}',
+    '{userRole, select, admin {Invita un collega in {productName}} trusted {Invita un collega in {productName}} other {Aggiunti un collega a {productName}}}',
   'fabric.editor.italic': 'Corsivo',
   'fabric.editor.keyboardShortcuts': 'Scelte rapide da tastiera',
   'fabric.editor.leftSidebar': 'Barra laterale sinistra',

@@ -79,10 +79,7 @@ describe('smart-card: success analytics', () => {
         const mockUrl = 'https://this.is.the.sixth.url';
         const { findByTestId } = render(
           <IntlProvider locale="en">
-            <Provider
-              client={mockClient}
-              featureFlags={{ trackIframeDwellEvents: true }}
-            >
+            <Provider client={mockClient}>
               <Card appearance="embed" url={mockUrl} />
             </Provider>
           </IntlProvider>,

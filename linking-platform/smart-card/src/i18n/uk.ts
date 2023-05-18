@@ -55,6 +55,7 @@ export default {
   'fabric.linking.not_found_description':
     'Не вдалося знайти посилання. Перевірте URL-адресу й спробуйте її відредагувати або вставити знову.',
   'fabric.linking.not_found_title': 'Ой! Не вдається знайти це посилання.',
+  'fabric.linking.open_issue_in_jira': 'Відкрити завдання в Jira',
   'fabric.linking.open_link_in_a_new_tab': 'Відкрити посилання в новій вкладці',
   'fabric.linking.owned_by': 'Власник: {context}',
   'fabric.linking.pending_request': 'Запит на надання доступу в очікуванні',
@@ -87,6 +88,9 @@ export default {
   'fabric.linking.save': 'Зберегти',
   'fabric.linking.srclink': 'Переглянути в',
   'fabric.linking.srclinkunknown': 'Переглянути оригінал',
+  'fabric.linking.status_change_load_error': 'Не вдалося завантажити стани і їх зміни',
+  'fabric.linking.status_change_permission_error': 'У вас немає дозволу на зміну стану цього завдання.',
+  'fabric.linking.status_change_update_error': 'Не вдалось оновити стан',
   'fabric.linking.try_again': 'Повторити спробу',
   'fabric.linking.try_another_account': 'Увійти з іншим обліковим запитом',
   'fabric.linking.unlink_account': 'Від’єднати обліковий запис',

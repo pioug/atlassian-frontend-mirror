@@ -144,7 +144,7 @@ export default {
   'fabric.editor.hyperlink.searchLinkResults':
     '{count, plural, =0 {ไม่พบผลลัพธ์} other {พบผลลัพธ์ {count,number} รายการ}}',
   'fabric.editor.hyperlinkToolbarPlaceholder': 'วางหรือค้นหาลิงก์',
-  'fabric.editor.imageBorderBold': 'เข้ม',
+  'fabric.editor.imageBorderBold': 'ตัวหนา',
   'fabric.editor.imageBorderColor': 'สี',
   'fabric.editor.imageBorderMedium': 'ปานกลาง',
   'fabric.editor.imageBorderOptions': 'ตัวเลือกขอบ',
@@ -162,7 +162,7 @@ export default {
   'fabric.editor.invalidDateError': 'ป้อนวันที่ที่ถูกต้อง',
   'fabric.editor.invalidLink': 'โปรดป้อนลิงก์ที่ถูกต้อง',
   'fabric.editor.inviteItem.title':
-    '{userRole, select, admin {เชิญเพื่อนร่วมทีมไปยัง {productName}} trusted {เชิญเพื่อนร่วมทีมไปยัง {productName}} other {เพิ่มเพื่อนร่วมทีมไปยัง {productName}}}',
+    '{userRole, select, admin {เชิญเพื่อนร่วมทีมให้ไปยัง {productName}} trusted {เชิญเพื่อนร่วมทีมให้ไปยัง {productName}} other {เพิ่มเพื่อนร่วมทีมไปยัง {productName}}}',
   'fabric.editor.italic': 'ตัวเอียง',
   'fabric.editor.keyboardShortcuts': 'ปุ่มลัด',
   'fabric.editor.leftSidebar': 'แถบด้านซ้าย',

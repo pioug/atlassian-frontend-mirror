@@ -45,6 +45,7 @@ export type MessageKey =
   | 'open_issue_in_jira'
   | 'open_link_in_a_new_tab'
   | 'owned_by'
+  | 'preview_improved'
   | 'preview'
   | 'preview_close'
   | 'preview_max_size'
@@ -329,6 +330,13 @@ export const messages: Messages = defineMessages({
     defaultMessage: 'Owned by {context}',
     description:
       'Indicates the person or entity that owns or maintains the resource.',
+  },
+  // Move this to preview once FF has been merged
+  preview_improved: {
+    id: 'fabric.linking.preview_improved',
+    defaultMessage: 'Open preview',
+    description:
+      'Click to view a richer view of your content, without needing to navigate to it.',
   },
   preview: {
     id: 'fabric.linking.preview',

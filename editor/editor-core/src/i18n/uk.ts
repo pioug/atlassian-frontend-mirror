@@ -145,7 +145,7 @@ export default {
   'fabric.editor.hyperlink.searchLinkAriaDescription':
     'Коли ви будете набирати у полі текст, нижче з’явиться список варіантів',
   'fabric.editor.hyperlink.searchLinkResults':
-    '{count, plural, =0 {Немає результатів} one {{count,number} результат} few {{count,number} результати} many {{count,number} результатів} other {{count,number} результатів}}',
+    '{count, plural, =0 {нічого не знайдено} one {{count,number} результат} few {{count,number} результати} many {{count,number} результатів} other {{count,number} результатів}}',
   'fabric.editor.hyperlinkToolbarPlaceholder': 'Вставте або знайдіть посилання',
   'fabric.editor.imageBorderBold': 'Жирна',
   'fabric.editor.imageBorderColor': 'Колір',

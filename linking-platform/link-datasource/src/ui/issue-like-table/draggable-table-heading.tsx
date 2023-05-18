@@ -70,6 +70,7 @@ export const DraggableTableHeading = ({
   index,
   tableId,
   dndPreviewHeight,
+  maxWidth,
   onDragPreviewStart,
   onDragPreviewEnd,
 }: {
@@ -78,6 +79,7 @@ export const DraggableTableHeading = ({
   index: number;
   tableId: Symbol;
   dndPreviewHeight: number;
+  maxWidth?: number;
   onDragPreviewStart: () => void;
   onDragPreviewEnd: () => void;
 }) => {
@@ -179,6 +181,9 @@ export const DraggableTableHeading = ({
       ref={ref}
       css={[tableHeadingStyles, tableHeadingStatusStyles[status]]}
       data-testid={`${id}-column-heading`}
+      style={{
+        maxWidth,
+      }}
     >
       <div
         ref={dropTargetRef}

@@ -54,6 +54,7 @@ export default {
   'fabric.linking.not_found_description':
     'Vi kunne ikke finde linket. Kontrollér og rediger URL-adressen, eller indsæt den igen.',
   'fabric.linking.not_found_title': 'Ups. Vi kan ikke finde dette link!',
+  'fabric.linking.open_issue_in_jira': 'Åbn sag i Jira',
   'fabric.linking.open_link_in_a_new_tab': 'Åbn link i en ny fane',
   'fabric.linking.owned_by': 'Ejet af {context}',
   'fabric.linking.pending_request': 'Din anmodning om adgang afventer behandling',
@@ -85,6 +86,9 @@ export default {
   'fabric.linking.save': 'Gem',
   'fabric.linking.srclink': 'Vis i',
   'fabric.linking.srclinkunknown': 'Vis original',
+  'fabric.linking.status_change_load_error': 'Vi kunne ikke indlæse statusser og overførsler',
+  'fabric.linking.status_change_permission_error': 'Du har ikke tilladelse til at overføre denne sag.',
+  'fabric.linking.status_change_update_error': 'Vi kunne ikke opdatere statussen',
   'fabric.linking.try_again': 'Prøv igen',
   'fabric.linking.try_another_account': 'Prøv en anden konto',
   'fabric.linking.unlink_account': 'Fjern link til konto',

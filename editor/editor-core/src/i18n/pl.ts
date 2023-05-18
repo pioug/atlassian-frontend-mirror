@@ -144,7 +144,7 @@ export default {
   'fabric.editor.hyperlink.searchLinkAriaDescription':
     'Sugestie będą pojawiały się poniżej w miarę wpisywania tekstu w polu',
   'fabric.editor.hyperlink.searchLinkResults':
-    '{count, plural, =0 {Nie znaleziono wyników} one {znaleziono {count,number} wynik} few {znaleziono {count,number} wyniki} many {znaleziono {count,number} wyników} other {znaleziono {count,number} wyniku}}',
+    '{count, plural, =0 {nie znaleziono wyników} one {znaleziono {count,number} wynik} few {znaleziono {count,number} wyniki} many {znaleziono {count,number} wyników} other {znaleziono {count,number} wyniku}}',
   'fabric.editor.hyperlinkToolbarPlaceholder': 'Wklej lub wyszukaj łącze',
   'fabric.editor.imageBorderBold': 'Pogrubiony',
   'fabric.editor.imageBorderColor': 'Kolor',

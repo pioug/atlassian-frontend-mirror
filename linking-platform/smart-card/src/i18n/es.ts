@@ -53,6 +53,7 @@ export default {
   'fabric.linking.not_found_description':
     'No hemos encontrado el enlace. Comprueba la URL y prueba a editarla, o pégala de nuevo.',
   'fabric.linking.not_found_title': '¡Vaya! No encontramos este enlace',
+  'fabric.linking.open_issue_in_jira': 'Abrir incidencia en Jira',
   'fabric.linking.open_link_in_a_new_tab': 'Abrir enlace en una nueva pestaña',
   'fabric.linking.owned_by': 'Propiedad de {context}',
   'fabric.linking.pending_request': 'Tu solicitud de acceso está pendiente',
@@ -84,6 +85,9 @@ export default {
   'fabric.linking.save': 'Guardar',
   'fabric.linking.srclink': 'Ver en',
   'fabric.linking.srclinkunknown': 'Ver original',
+  'fabric.linking.status_change_load_error': 'No hemos podido cargar los estados ni las transiciones',
+  'fabric.linking.status_change_permission_error': 'No tienes permiso para realizar la transición de esta incidencia.',
+  'fabric.linking.status_change_update_error': 'No hemos podido actualizar el estado',
   'fabric.linking.try_again': 'Volver a intentarlo',
   'fabric.linking.try_another_account': 'Probar otra cuenta',
   'fabric.linking.unlink_account': 'Desvincular cuenta',

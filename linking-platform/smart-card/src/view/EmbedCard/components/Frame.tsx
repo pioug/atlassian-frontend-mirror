@@ -10,7 +10,6 @@ import React, {
 } from 'react';
 import { getIframeSandboxAttribute } from '../../../utils';
 import { IframeDwellTracker } from './IframeDwellTracker';
-import { useFeatureFlag } from '@atlaskit/link-provider';
 
 export interface FrameProps {
   url?: string;
@@ -51,7 +50,6 @@ export const Frame = React.forwardRef<HTMLIFrameElement, FrameProps>(
       iframeRef,
       ref as RefObject<HTMLIFrameElement>,
     ]);
-    const trackIframeDwellEvents = useFeatureFlag('trackIframeDwellEvents');
 
     const [percentVisible, setPercentVisible] = useState(0);
 
@@ -62,9 +60,6 @@ export const Frame = React.forwardRef<HTMLIFrameElement, FrameProps>(
      */
     const [threshold] = useState([0.75, 0.8, 0.85, 0.9, 0.95, 1]);
     useEffect(() => {
-      if (!trackIframeDwellEvents) {
-        return;
-      }
       if (!ref || !ref.current) {
         return;
       }
@@ -83,13 +78,9 @@ export const Frame = React.forwardRef<HTMLIFrameElement, FrameProps>(
       return () => {
         observer.disconnect();
       };
-    }, [trackIframeDwellEvents, threshold, mergedRef]);
+    }, [threshold, mergedRef]);
 
     useEffect(() => {
-      if (!trackIframeDwellEvents) {
-        return;
-      }
-
       const onBlur = () => {
         setWindowFocused(false);
         if (document.activeElement === ref.current) {
@@ -107,7 +98,7 @@ export const Frame = React.forwardRef<HTMLIFrameElement, FrameProps>(
         window.removeEventListener('blur', onBlur);
         window.removeEventListener('focus', onFocus);
       };
-    }, [trackIframeDwellEvents, ref, onIframeFocus]);
+    }, [ref, onIframeFocus]);
 
     if (!url) {
       return null;
@@ -115,15 +106,13 @@ export const Frame = React.forwardRef<HTMLIFrameElement, FrameProps>(
 
     return (
       <React.Fragment>
-        {trackIframeDwellEvents ? (
-          <IframeDwellTracker
-            isIframeLoaded={isIframeLoaded}
-            isMouseOver={isMouseOver}
-            isWindowFocused={isWindowFocused}
-            iframePercentVisible={percentVisible}
-            onIframeDwell={onIframeDwell}
-          />
-        ) : null}
+        <IframeDwellTracker
+          isIframeLoaded={isIframeLoaded}
+          isMouseOver={isMouseOver}
+          isWindowFocused={isWindowFocused}
+          iframePercentVisible={percentVisible}
+          onIframeDwell={onIframeDwell}
+        />
         <iframe
           ref={mergedRef}
           src={url}
@@ -139,12 +128,8 @@ export const Frame = React.forwardRef<HTMLIFrameElement, FrameProps>(
             overflow: 'hidden',
             borderRadius: '3px',
           }}
-          onMouseEnter={
-            trackIframeDwellEvents ? () => setMouseOver(true) : undefined
-          }
-          onMouseLeave={
-            trackIframeDwellEvents ? () => setMouseOver(false) : undefined
-          }
+          onMouseEnter={() => setMouseOver(true)}
+          onMouseLeave={() => setMouseOver(false)}
           allowFullScreen
           scrolling="yes"
           allow="autoplay; encrypted-media; clipboard-write"

@@ -1,5 +1,11 @@
 # @atlaskit/reactions
 
+## 22.3.3
+
+### Patch Changes
+
+- [`82f7f9600a9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/82f7f9600a9) - Migrated to declarative entry points internally for emoji and reactions. Public API is unchanged.
+
 ## 22.3.2
 
 ### Patch Changes

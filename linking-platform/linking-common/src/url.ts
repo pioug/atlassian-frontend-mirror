@@ -143,9 +143,11 @@ export function normalizeUrl(url?: string | null): string | null {
     return '';
   }
 
-  if (isSafeUrl(url)) {
-    return url.trim();
+  const urlWithoutNewlines = url.replace(/[\r\n]+/g, '');
+
+  if (isSafeUrl(urlWithoutNewlines)) {
+    return urlWithoutNewlines.trim();
   }
 
-  return normaliseLinkHref(url);
+  return normaliseLinkHref(urlWithoutNewlines);
 }

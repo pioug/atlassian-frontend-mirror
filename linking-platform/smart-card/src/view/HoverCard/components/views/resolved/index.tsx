@@ -26,26 +26,50 @@ import { CustomActionItem } from '../../../../FlexibleCard/components/blocks/typ
 import SnippetOrPreview from '../../SnippetOrPreview';
 import { extractMetadata } from '../../../../../extractors/hover/extractMetadata';
 import { HoverCardResolvedProps } from './types';
+import { messages } from '../../../../../messages';
+import { FormattedMessage } from 'react-intl-next';
 
 export const toFooterActions = (
   cardActions: LinkAction[],
   onActionClick?: (actionId: string) => void,
-): ActionItem[] =>
-  cardActions.map(
-    (action: LinkAction) =>
-      ({
-        content: action.text,
+  enableImprovedPreviewAction?: boolean,
+): ActionItem[] => {
+  const appearance = enableImprovedPreviewAction
+    ? { appearance: 'primary' }
+    : undefined;
+  const previewText = enableImprovedPreviewAction
+    ? messages.preview_improved
+    : messages.preview;
+
+  return cardActions.map((action: LinkAction) => {
+    if (action.id === 'preview-content') {
+      return {
+        content: <FormattedMessage {...previewText} />,
         name: ActionName.CustomAction,
         onClick: () => {
           if (onActionClick) {
             onActionClick(action.id);
           }
-
           return action.invoke();
         },
         testId: action.id,
-      } as CustomActionItem),
-  );
+        ...appearance,
+      } as CustomActionItem;
+    }
+
+    return {
+      content: action.text,
+      name: ActionName.CustomAction,
+      onClick: () => {
+        if (onActionClick) {
+          onActionClick(action.id);
+        }
+        return action.invoke();
+      },
+      testId: action.id,
+    } as CustomActionItem;
+  });
+};
 
 const HoverCardResolvedView: React.FC<HoverCardResolvedProps> = ({
   flexibleCardProps,
@@ -59,6 +83,9 @@ const HoverCardResolvedView: React.FC<HoverCardResolvedProps> = ({
   extensionKey,
 }) => {
   const showActionableElement = useFeatureFlag('enableActionableElement');
+  const enableImprovedPreviewAction = useFeatureFlag(
+    'enableImprovedPreviewAction',
+  );
 
   useEffect(() => {
     // Since this hover view is only rendered on resolved status,
@@ -70,8 +97,13 @@ const HoverCardResolvedView: React.FC<HoverCardResolvedProps> = ({
   }, [analytics.ui, cardState.status]);
 
   const footerActions = useMemo(
-    () => toFooterActions(cardActions, onActionClick),
-    [cardActions, onActionClick],
+    () =>
+      toFooterActions(
+        cardActions,
+        onActionClick,
+        Boolean(enableImprovedPreviewAction),
+      ),
+    [cardActions, onActionClick, enableImprovedPreviewAction],
   );
 
   const data = cardState.details?.data as JsonLd.Data.BaseData;

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/reactions",
-  "version": "22.3.2",
+  "version": "22.3.3",
   "description": "Reactions component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -23,7 +23,6 @@
   "atlaskit:src": "src/index.ts",
   "atlassian": {
     "team": "Foundational Elements",
-    "deprecatedAutoEntryPoints": true,
     "releaseModel": "scheduled",
     "website": {
       "name": "Reactions"
@@ -89,6 +88,11 @@
     "fabric",
     "ui"
   ],
+  "af:exports": {
+    ".": "./src/index.ts",
+    "./MockReactionsClient": "./src/MockReactionsClient.ts"
+  },
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
   "techstack": {
     "@repo/internal": {
       "design-tokens": [
@@ -99,7 +103,6 @@
       "tree-shaking": []
     }
   },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
   "scripts": {
     "setup-first-time": "yarn run setup-local-config; yarn run setup-env",
     "setup-local-config": "cp -nv local-config-template.ts local-config.ts",

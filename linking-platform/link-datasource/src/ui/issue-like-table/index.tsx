@@ -20,7 +20,7 @@ import { ColumnPicker } from './column-picker';
 import { DraggableTableHeading } from './draggable-table-heading';
 import TableEmptyState from './empty-state';
 import { fallbackRenderType } from './render-type';
-import { TableHeading } from './styled';
+import { Table, TableHeading } from './styled';
 import { IssueLikeDataTableViewProps } from './types';
 import { useIsOnScreen } from './useIsOnScreen';
 
@@ -32,6 +32,12 @@ const tableHeadStyles = css({
 const columnPickerHeaderStyles = css({
   width: '40px', // TODO use some variable for that?
   paddingBlock: token('space.100', '8px'),
+});
+
+const truncatedCellStyles = css({
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap',
 });
 
 const tableDragPreviewStyles = css({
@@ -51,6 +57,7 @@ export interface RowType {
 export interface RowCellType {
   key: string;
   content?: React.ReactNode | string;
+  maxWidth?: number;
 }
 
 function extractIndex(data: Record<string, unknown>) {
@@ -80,6 +87,37 @@ const orderColumns = (
 
   return [...columns];
 };
+
+const BASE_WIDTH = 8;
+function getColumnWidth(
+  key: string,
+  type: DatasourceType['type'],
+): number | undefined {
+  const keyBasedWidth: Record<string, number> = {
+    assignee: BASE_WIDTH * 22,
+    key: BASE_WIDTH * 10,
+    labels: BASE_WIDTH * 22,
+    priority: BASE_WIDTH * 8,
+    status: BASE_WIDTH * 18,
+    summary: BASE_WIDTH * 45,
+    type: BASE_WIDTH * 8,
+  };
+
+  if (keyBasedWidth[key]) {
+    return keyBasedWidth[key];
+  }
+
+  switch (type) {
+    case 'date':
+      return BASE_WIDTH * 14;
+
+    case 'string':
+      return BASE_WIDTH * 22;
+
+    default:
+      undefined;
+  }
+}
 
 export const IssueLikeDataTableView = ({
   testId,
@@ -141,12 +179,14 @@ export const IssueLikeDataTableView = ({
     [visibleSortedColumns],
   );
 
-  const headColumns: Array<RowCellType> = visibleSortedColumns.map(column => ({
-    key: column.key,
-    content: column.title,
-    // width: TODO Find out how we going to retrieve column width
-    shouldTruncate: true,
-  }));
+  const headColumns: Array<RowCellType> = visibleSortedColumns.map(
+    ({ key, title, type }) => ({
+      key,
+      content: title,
+      shouldTruncate: true,
+      maxWidth: getColumnWidth(key, type),
+    }),
+  );
 
   useEffect(() => {
     if (
@@ -248,6 +288,7 @@ export const IssueLikeDataTableView = ({
           return {
             key,
             content,
+            maxWidth: getColumnWidth(key, type),
           };
         }),
         ref:
@@ -281,13 +322,16 @@ export const IssueLikeDataTableView = ({
       ref={containerRef}
       css={isDragPreview ? containerDragPreviewStyles : null}
     >
-      <table
+      <Table
         css={isDragPreview ? tableDragPreviewStyles : null}
         data-testid={testId}
       >
         <thead data-testid={testId && `${testId}--head`} css={tableHeadStyles}>
           <tr>
-            {headColumns.map(({ key, content }, cellIndex) => {
+            {headColumns.map(({ key, content, maxWidth }, cellIndex) => {
+              const TruncatedContent = () => (
+                <div css={truncatedCellStyles}>{content}</div>
+              );
               if (onVisibleColumnKeysChange) {
                 return (
                   <DraggableTableHeading
@@ -295,17 +339,24 @@ export const IssueLikeDataTableView = ({
                     key={key}
                     id={key}
                     index={cellIndex}
+                    maxWidth={maxWidth}
                     dndPreviewHeight={dndPreviewHeight}
                     onDragPreviewStart={setIsDragPreviewOn}
                     onDragPreviewEnd={setIsDragPreviewOff}
                   >
-                    {content}
+                    <TruncatedContent />
                   </DraggableTableHeading>
                 );
               } else {
                 return (
-                  <TableHeading key={key} data-testid={`${key}-column-heading`}>
-                    {content}
+                  <TableHeading
+                    key={key}
+                    data-testid={`${key}-column-heading`}
+                    style={{
+                      maxWidth,
+                    }}
+                  >
+                    <TruncatedContent />
                   </TableHeading>
                 );
               }
@@ -328,11 +379,15 @@ export const IssueLikeDataTableView = ({
               data-testid={testId && `${testId}--row-${key}`}
               ref={ref}
             >
-              {cells.map(({ key, content }, cellIndex) => (
+              {cells.map(({ key, content, maxWidth }, cellIndex) => (
                 <td
                   key={key}
                   data-testid={testId && `${testId}--cell-${cellIndex}`}
                   colSpan={cellIndex + 1 === cells.length ? 2 : undefined}
+                  css={truncatedCellStyles}
+                  style={{
+                    maxWidth,
+                  }}
                 >
                   {content}
                 </td>
@@ -340,7 +395,7 @@ export const IssueLikeDataTableView = ({
             </tr>
           ))}
         </tbody>
-      </table>
+      </Table>
     </div>
   );
 };

@@ -54,6 +54,7 @@ export default {
   'fabric.linking.not_found_description':
     "Non è stato possibile trovare il link. Controlla l'URL e prova a modificarlo o a incollarlo di nuovo.",
   'fabric.linking.not_found_title': 'Errore. Impossibile trovare questo link.',
+  'fabric.linking.open_issue_in_jira': 'Apri il ticket in Jira',
   'fabric.linking.open_link_in_a_new_tab': 'Apri link in una nuova scheda',
   'fabric.linking.owned_by': 'Di proprietà di {context}',
   'fabric.linking.pending_request': 'La tua richiesta di accesso è in sospeso',
@@ -85,6 +86,10 @@ export default {
   'fabric.linking.save': 'Salva',
   'fabric.linking.srclink': 'Visualizza in',
   'fabric.linking.srclinkunknown': 'Mostra originale',
+  'fabric.linking.status_change_load_error': 'Impossibile caricare stati e transizioni',
+  'fabric.linking.status_change_permission_error':
+    "Non disponi dell'autorizzazione per eseguire la transizione di questo ticket.",
+  'fabric.linking.status_change_update_error': 'Impossibile aggiornare lo stato',
   'fabric.linking.try_again': 'Riprova',
   'fabric.linking.try_another_account': 'Prova con un altro account',
   'fabric.linking.unlink_account': 'Scollega account',

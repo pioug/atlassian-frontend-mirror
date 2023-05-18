@@ -54,6 +54,7 @@ export default {
   'fabric.linking.not_found_description':
     'Chúng tôi không thể tìm thấy đường liên kết này. Hãy kiểm tra url và thử chỉnh sửa hoặc dán lại.',
   'fabric.linking.not_found_title': 'Ôi! Chúng tôi không thể tìm thấy liên kết này!',
+  'fabric.linking.open_issue_in_jira': 'Mở vấn đề trong Jira',
   'fabric.linking.open_link_in_a_new_tab': 'Mở liên kết trong tab mới',
   'fabric.linking.owned_by': 'Sở hữu bởi {context}',
   'fabric.linking.pending_request': 'Đang chờ xử lý yêu cầu quyền truy cập của bạn',
@@ -85,6 +86,9 @@ export default {
   'fabric.linking.save': 'Lưu',
   'fabric.linking.srclink': 'Xem trong',
   'fabric.linking.srclinkunknown': 'Xem bản gốc',
+  'fabric.linking.status_change_load_error': 'Chúng tôi không thể tải trạng thái và quy trình chuyển đổi',
+  'fabric.linking.status_change_permission_error': 'Bạn không có quyền chuyển đổi vấn đề này.',
+  'fabric.linking.status_change_update_error': 'Chúng tôi không thể cập nhật trạng thái',
   'fabric.linking.try_again': 'Thử lại',
   'fabric.linking.try_another_account': 'Thử một tài khoản khác',
   'fabric.linking.unlink_account': 'Hủy liên kết tài khoản',

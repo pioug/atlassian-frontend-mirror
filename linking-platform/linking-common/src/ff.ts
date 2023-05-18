@@ -1,6 +1,5 @@
 export interface LinkingPlatformFeatureFlags {
   showHoverPreview?: boolean;
-  trackIframeDwellEvents?: boolean;
   useLinkPickerScrollingTabs?: boolean;
   /**
    * Enable an experiment on clickable State element on Hover Preview for Jira issue link.
@@ -35,4 +34,9 @@ export interface LinkingPlatformFeatureFlags {
    * See https://team.atlassian.com/project/ATLAS-13099
    */
   useLozengeAction?: string;
+  /**
+   * This determines whether preview buttons should use the 'primary' appearance and differing text 'open preview'
+   * See https://product-fabric.atlassian.net/browse/EDM-6632
+   */
+  enableImprovedPreviewAction?: boolean;
 }

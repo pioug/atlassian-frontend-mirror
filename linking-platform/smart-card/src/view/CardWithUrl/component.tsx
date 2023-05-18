@@ -3,6 +3,7 @@ import { MouseEvent } from 'react';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 
 import { useFeatureFlag } from '@atlaskit/link-provider';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { CardWithUrlContentProps } from './types';
 import { isSpecialEvent } from '../../utils';
 import * as measure from '../../utils/performance';
@@ -25,8 +26,9 @@ import { isFlexibleUiCard } from '../../utils/flexible';
 import FlexibleCard from '../FlexibleCard';
 import { CardDisplay } from '../../constants';
 import { fireLinkClickedEvent } from '../../utils/analytics/click';
+import { SmartLinkAnalyticsContext } from '../../utils/analytics/SmartLinkAnalyticsContext';
 
-export function CardWithUrlContent({
+function Component({
   id,
   url,
   isSelected,
@@ -360,3 +362,18 @@ export function CardWithUrlContent({
       );
   }
 }
+
+export const CardWithUrlContent = (props: CardWithUrlContentProps) =>
+  getBooleanFF(
+    'platform.linking-platform.smart-card.enable-analytics-context',
+  ) ? (
+    <SmartLinkAnalyticsContext
+      url={props.url}
+      appearance={props.appearance}
+      id={props.id}
+    >
+      <Component {...props} />
+    </SmartLinkAnalyticsContext>
+  ) : (
+    <Component {...props} />
+  );

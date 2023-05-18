@@ -72,7 +72,7 @@ interface JiraIssuesTableViewProps {
   // (undocumented)
   fields?: string[];
   // (undocumented)
-  onVisibleColumnKeysChange: (visibleColumnKeys: string[]) => void;
+  onVisibleColumnKeysChange?: (visibleColumnKeys: string[]) => void;
   // (undocumented)
   parameters: JiraIssueDatasourceParameters;
   // (undocumented)

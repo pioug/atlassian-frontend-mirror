@@ -23,7 +23,7 @@ describe('Editable Issue Like Table', () => {
 
     await page.setViewport({
       width: 1000,
-      height: 1000,
+      height: 800,
     });
 
     await loadPage(page, url);
@@ -56,6 +56,10 @@ describe('Editable Issue Like Table', () => {
   it('should able to drag column', async () => {
     // Allowing capturing of drag events
     // https://pub.dev/documentation/puppeteer/latest/puppeteer/Page/setDragInterception.html
+    await page.setViewport({
+      width: 1300,
+      height: 800,
+    });
     await page.setDragInterception(true);
 
     await page.waitForSelector('[data-testid="type-column-heading"]', {
@@ -92,7 +96,7 @@ describe('Readonly Issue Like Table', () => {
 
     await page.setViewport({
       width: 1000,
-      height: 1000,
+      height: 800,
     });
 
     await loadPage(page, url);

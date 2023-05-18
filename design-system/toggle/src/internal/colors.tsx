@@ -3,15 +3,17 @@ import {
   B75,
   DN0,
   DN30,
-  DN60,
+  DN400,
   DN600,
   DN70,
   G200,
   G300,
   G400,
+  G500,
   N0,
   N20,
   N200,
+  N400,
   N70,
 } from '@atlaskit/theme/colors';
 import { ThemeModes } from '@atlaskit/theme/types';
@@ -42,14 +44,14 @@ const colorMap = {
     backgroundColorChecked: token('color.background.success.bold', G400),
     backgroundColorCheckedHover: token(
       'color.background.success.bold.hovered',
-      G300,
+      G500,
     ),
     backgroundColorCheckedDisabled: token('color.background.disabled', N20),
 
     backgroundColorUnchecked: token('color.background.neutral.bold', N200),
     backgroundColorUncheckedHover: token(
       'color.background.neutral.bold.hovered',
-      N70,
+      N400,
     ),
     backgroundColorUncheckedDisabled: token('color.background.disabled', N20),
 
@@ -74,7 +76,7 @@ const colorMap = {
     backgroundColorUnchecked: token('color.background.neutral.bold', DN70),
     backgroundColorUncheckedHover: token(
       'color.background.neutral.bold.hovered',
-      DN60,
+      DN400,
     ),
     backgroundColorUncheckedDisabled: token('color.background.disabled', DN70),
 

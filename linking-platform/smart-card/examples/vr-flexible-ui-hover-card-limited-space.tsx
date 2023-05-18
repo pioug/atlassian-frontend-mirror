@@ -16,7 +16,10 @@ class MaximumResolvedCustomClient extends CardClient {
 export default () => (
   <VRTestWrapper title="Flexible UI: Hover card with limited space">
     <div css={{ height: '260px' }}></div>
-    <Provider client={new MaximumResolvedCustomClient()}>
+    <Provider
+      client={new MaximumResolvedCustomClient()}
+      featureFlags={{ enableImprovedPreviewAction: true }}
+    >
       <Card
         appearance="block"
         url="https://product-fabric.atlassian.net/wiki/spaces/EM"

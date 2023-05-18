@@ -5,10 +5,10 @@ import { IntlProvider } from 'react-intl-next';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
+import { mockSiteData } from '@atlaskit/link-test-helpers/datasource';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 import { DatasourceAdf, InlineCardAdf } from '@atlaskit/linking-common/types';
 
-import { mockSiteData } from '../../../../examples-helpers/mockJiraAvailableSites';
 import SmartLinkClient from '../../../../examples-helpers/smartLinkCustomClient';
 import {
   DatasourceTableState,

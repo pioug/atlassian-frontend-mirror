@@ -3,8 +3,8 @@ import React, { createContext, useCallback, useContext, useState } from 'react';
 import { Validator, ValidatorMap } from '../../common/types';
 
 interface FormContextType {
-  assignValidator: (name: string, validators: Validator[]) => void;
   getValidators: () => ValidatorMap;
+  assignValidator: (name: string, validators: Validator[]) => void;
   setFormErrorMessage: (errorMessage?: string) => void;
   formErrorMessage?: string;
 }
@@ -19,7 +19,7 @@ const FormContextProvider: React.FC<{}> = ({ children }) => {
   const [error, setError] = useState<string | undefined>();
   const [validators, setValidators] = useState<Record<string, Validator[]>>({});
 
-  // Use useCallback to prevent infinite useEffect calls
+  // Add validators to the form
   const assignValidator = useCallback(
     (name: string, fieldValidators: Validator[]) => {
       setValidators(prevValidators => ({
@@ -30,12 +30,12 @@ const FormContextProvider: React.FC<{}> = ({ children }) => {
     [],
   );
 
-  // Use useCallback to prevent infinite useEffect calls
+  // Returns a validator function array
   const getValidators = useCallback(() => {
     return validators;
   }, [validators]);
 
-  // Callback to reset error state
+  // Sets the form footer error message
   const setFormErrorMessage = useCallback(
     (errorMessage?: string) => {
       return setError(errorMessage);

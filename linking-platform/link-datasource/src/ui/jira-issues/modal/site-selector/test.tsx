@@ -3,7 +3,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
-import { mockSiteData } from '../../../../../examples-helpers/mockJiraAvailableSites';
+import { mockSiteData } from '@atlaskit/link-test-helpers/datasource';
 
 import { JiraSiteSelector, JiraSiteSelectorProps } from './index';
 

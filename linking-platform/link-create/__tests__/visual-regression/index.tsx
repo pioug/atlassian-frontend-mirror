@@ -86,9 +86,9 @@ describe('link-create', () => {
     // Wait for Modal
     await page.waitForSelector('[data-testid="link-create"]');
     // Wait for Modal
-    await page.waitForSelector(
-      '[data-testid="link-create-confluence-form-error"]',
-    );
+    await page.waitForSelector('[data-testid="link-create-form-error"]');
+    // remove auto focus
+    await page.click('[data-testid="link-create"]');
 
     const image = await takeElementScreenShot(
       page,

@@ -30,9 +30,16 @@ const LinkPickerCreate = () => {
   const [link, setLink] = useState<string | null>(null);
   const [showPicker, setShowPicker] = useState(true);
   const [showCreateModal, setShowCreateModal] = useState(false);
-  const [entityKey, setEntityKey] = useState('confluence-page');
 
-  const createPlugins = [createConfluencePageLinkCreatePlugin(CLOUD_ID)];
+  const confluenceForm = createConfluencePageLinkCreatePlugin(
+    CLOUD_ID,
+    undefined,
+    'current',
+  );
+
+  const [entityKey, setEntityKey] = useState(confluenceForm.key);
+
+  const createPlugins = [confluenceForm];
   const pickerPlugins = useAtlassianPlugins([
     {
       cloudId: CLOUD_ID,
@@ -45,7 +52,7 @@ const LinkPickerCreate = () => {
       action: {
         label: 'Create New',
         callback: () => {
-          setEntityKey('confluence-page');
+          setEntityKey(confluenceForm.key);
           setShowCreateModal(true);
         },
       },

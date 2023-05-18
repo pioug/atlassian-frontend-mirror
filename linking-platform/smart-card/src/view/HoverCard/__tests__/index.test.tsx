@@ -21,20 +21,14 @@ jest.mock('@atlaskit/analytics-next', () => ({
 }));
 
 import '@atlaskit/link-test-helpers/jest';
-
 import {
   MockIntersectionObserverFactory,
   MockIntersectionObserverOpts,
 } from '@atlaskit/link-test-helpers';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import React, { ReactElement } from 'react';
-import {
-  act,
-  cleanup,
-  fireEvent,
-  render,
-  waitFor,
-} from '@testing-library/react';
+import { act, fireEvent, render, waitFor } from '@testing-library/react';
 import {
   AnalyticsListener,
   withAnalyticsContext,
@@ -60,10 +54,12 @@ import { HoverCard } from '../../../hoverCard';
 import { PROVIDER_KEYS_WITH_THEMING } from '../../../extractors/constants';
 import { setGlobalTheme } from '@atlaskit/tokens';
 
+const mockUrl = 'https://some.url';
+const mockUrlHash = '4e2a79a1652f58e31c27f0ae8531050beb5d25ca';
+
 describe('HoverCard', () => {
   let mockClient: CardClient;
   let mockFetch: jest.Mock;
-  let mockUrl: string;
   let mockGetEntries: jest.Mock;
   let mockIntersectionObserverOpts: MockIntersectionObserverOpts;
 
@@ -82,7 +78,6 @@ describe('HoverCard', () => {
   } = {}) => {
     mockFetch = jest.fn(() => Promise.resolve(mock));
     mockClient = new (fakeFactory(mockFetch))();
-    mockUrl = 'https://some.url';
     const analyticsSpy = jest.fn();
     setGlobalTheme({ colorMode: 'dark' });
 
@@ -196,7 +191,6 @@ describe('HoverCard', () => {
   afterEach(() => {
     jest.useRealTimers();
     jest.restoreAllMocks();
-    cleanup();
   });
 
   describe('smart-card', () => {
@@ -237,6 +231,27 @@ describe('HoverCard', () => {
       expect(snippetBlock.textContent).toBe('Here is your serving of cheese');
       expect(footerBlock.textContent?.trim()).toBe(
         'ConfluenceCommentFull screen view',
+      );
+    });
+
+    it('renders hover card blocks with new preview action', async () => {
+      const { findByTestId } = await setup({
+        featureFlags: { enableImprovedPreviewAction: true },
+      });
+      jest.runAllTimers();
+      const titleBlock = await findByTestId('smart-block-title-resolved-view');
+      await findByTestId('smart-block-metadata-resolved-view');
+      const snippetBlock = await findByTestId(
+        'smart-block-snippet-resolved-view',
+      );
+      const footerBlock = await findByTestId(
+        'smart-footer-block-resolved-view',
+      );
+      //trim because the icons are causing new lines in the textContent
+      expect(titleBlock.textContent?.trim()).toBe('I love cheese');
+      expect(snippetBlock.textContent).toBe('Here is your serving of cheese');
+      expect(footerBlock.textContent?.trim()).toBe(
+        'ConfluenceCommentOpen preview',
       );
     });
 
@@ -420,6 +435,18 @@ describe('HoverCard', () => {
       expect(previewButton.textContent).toBe('Full screen view');
     });
 
+    it('should render smartlink actions with improved preview action feature flag', async () => {
+      const { findByTestId } = await setup({
+        featureFlags: { enableImprovedPreviewAction: true },
+      });
+      jest.runAllTimers();
+      const commentButton = await findByTestId('comment');
+      const previewButton = await findByTestId('preview-content');
+
+      expect(commentButton.textContent).toBe('Comment');
+      expect(previewButton.textContent).toBe('Open preview');
+    });
+
     it('should still render the full screen view action on inline link hover when disabled via flexui prop', async () => {
       const { findByTestId } = await setup({
         extraCardProps: { ui: { hideHoverCardPreviewButton: true } },
@@ -427,6 +454,18 @@ describe('HoverCard', () => {
       jest.runAllTimers();
       const previewButton = await findByTestId('preview-content');
       expect(previewButton.textContent).toBe('Full screen view');
+    });
+
+    it('should still render the full screen view action on inline link hover when disabled via flexui prop with improved preview action feature flag', async () => {
+      const { findByTestId } = await setup({
+        featureFlags: { enableImprovedPreviewAction: true },
+        extraCardProps: {
+          ui: { hideHoverCardPreviewButton: true },
+        },
+      });
+      jest.runAllTimers();
+      const previewButton = await findByTestId('preview-content');
+      expect(previewButton.textContent).toBe('Open preview');
     });
 
     it('should open preview modal after clicking preview button', async () => {
@@ -693,6 +732,80 @@ describe('HoverCard', () => {
         );
       });
 
+      describe('should fire link clicked event with attributes from SmartLinkAnalyticsContext if link is resolved', () => {
+        ffTest(
+          'platform.linking-platform.smart-card.enable-analytics-context',
+          async () => {
+            const { findByTestId, analyticsSpy } = await setup({
+              extraCardProps: { id: 'some-id' },
+            });
+            jest.runAllTimers();
+
+            await findByTestId('smart-block-title-resolved-view');
+            const link = await findByTestId('smart-element-link');
+
+            fireEvent.click(link);
+
+            expect(analyticsSpy).toBeFiredWithAnalyticEventOnce(
+              {
+                payload: {
+                  action: 'clicked',
+                  actionSubject: 'link',
+                },
+                context: [
+                  {
+                    attributes: {
+                      status: 'resolved',
+                      urlHash: mockUrlHash,
+                      display: 'hoverCardPreview',
+                      id: 'some-id',
+                    },
+                  },
+                ],
+              },
+              analytics.ANALYTICS_CHANNEL,
+            );
+          },
+          async () => {
+            const { findByTestId, analyticsSpy } = await setup({
+              extraCardProps: { id: 'some-id' },
+            });
+            jest.runAllTimers();
+
+            await findByTestId('smart-block-title-resolved-view');
+            const link = await findByTestId('smart-element-link');
+
+            fireEvent.click(link);
+
+            expect(analyticsSpy).toBeFiredWithAnalyticEventOnce(
+              {
+                payload: {
+                  action: 'clicked',
+                  actionSubject: 'link',
+                },
+              },
+              analytics.ANALYTICS_CHANNEL,
+            );
+            expect(analyticsSpy).not.toBeFiredWithAnalyticEventOnce(
+              {
+                payload: {
+                  action: 'clicked',
+                  actionSubject: 'link',
+                },
+                context: [
+                  {
+                    attributes: {
+                      status: 'resolved',
+                    },
+                  },
+                ],
+              },
+              analytics.ANALYTICS_CHANNEL,
+            );
+          },
+        );
+      });
+
       it('should fire clicked event when open button is clicked', async () => {
         const spy = jest.spyOn(analytics, 'uiHoverCardOpenLinkClickedEvent');
 
@@ -845,7 +958,6 @@ describe('HoverCard', () => {
       const setupWithFF = async (providerFF?: boolean, cardFF?: boolean) => {
         mockFetch = jest.fn(() => Promise.resolve(mockConfluenceResponse));
         mockClient = new (fakeFactory(mockFetch))();
-        mockUrl = 'https://some.url';
 
         const { queryByTestId, findByTestId } = render(
           <Provider
@@ -899,7 +1011,6 @@ describe('HoverCard', () => {
       ) => {
         mockFetch = jest.fn(() => Promise.resolve(mockUnauthorisedResponse));
         mockClient = new (fakeFactory(mockFetch))();
-        mockUrl = 'https://some.url';
 
         const { queryByTestId, findByTestId } = render(
           <Provider
@@ -1036,7 +1147,6 @@ describe('HoverCard', () => {
         });
         mockFetch = jest.fn(() => mockPromise);
         mockClient = new (fakeFactory(mockFetch))();
-        mockUrl = 'https://some.url';
         const storeOptions: any = {
           initialState: {
             [mockUrl]: {
@@ -1200,6 +1310,90 @@ describe('HoverCard', () => {
           },
           eventType: 'ui',
         });
+      });
+
+      describe('should fire link clicked event when resolved hover card is clicked', () => {
+        ffTest(
+          'platform.linking-platform.smart-card.enable-analytics-context',
+          async () => {
+            const testId = 'hover-test-div';
+            const hoverCardComponent = (
+              <HoverCard url={mockUrl} id="some-id">
+                <div data-testid={testId}>Hover on me</div>
+              </HoverCard>
+            );
+            const { findByTestId, analyticsSpy } = await setup({
+              testId,
+              component: hoverCardComponent,
+            });
+            await findByTestId('smart-block-metadata-resolved-view');
+            const link = await findByTestId('smart-element-link');
+
+            fireEvent.click(link);
+
+            expect(analyticsSpy).toBeFiredWithAnalyticEventOnce(
+              {
+                payload: {
+                  action: 'clicked',
+                  actionSubject: 'link',
+                },
+                context: [
+                  {
+                    attributes: {
+                      status: 'resolved',
+                      urlHash: mockUrlHash,
+                      display: 'hoverCardPreview',
+                      id: 'some-id',
+                    },
+                  },
+                ],
+              },
+              analytics.ANALYTICS_CHANNEL,
+            );
+          },
+          async () => {
+            const testId = 'hover-test-div';
+            const hoverCardComponent = (
+              <HoverCard url={mockUrl} id="some-id">
+                <div data-testid={testId}>Hover on me</div>
+              </HoverCard>
+            );
+            const { findByTestId, analyticsSpy } = await setup({
+              testId,
+              component: hoverCardComponent,
+            });
+            await findByTestId('smart-block-metadata-resolved-view');
+            const link = await findByTestId('smart-element-link');
+
+            fireEvent.click(link);
+
+            expect(analyticsSpy).toBeFiredWithAnalyticEventOnce(
+              {
+                payload: {
+                  action: 'clicked',
+                  actionSubject: 'link',
+                },
+              },
+              analytics.ANALYTICS_CHANNEL,
+            );
+            expect(analyticsSpy).not.toBeFiredWithAnalyticEventOnce(
+              {
+                payload: {
+                  action: 'clicked',
+                  actionSubject: 'link',
+                },
+                context: [
+                  {
+                    attributes: {
+                      status: 'resolved',
+                    },
+                  },
+                ],
+              },
+              analytics.ANALYTICS_CHANNEL,
+            );
+          },
+        );
       });
     });
 

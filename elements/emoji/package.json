@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/emoji",
-  "version": "67.4.3",
+  "version": "67.4.4",
   "description": "Fabric emoji React components",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -24,7 +24,6 @@
   "atlaskit:src": "src/index.ts",
   "atlassian": {
     "team": "Foundational Elements",
-    "deprecatedAutoEntryPoints": true,
     "releaseModel": "scheduled",
     "website": {
       "name": "Emoji"
@@ -101,6 +100,16 @@
     "fabric",
     "ui"
   ],
+  "af:exports": {
+    ".": "./src/index.ts",
+    "./admin": "./src/admin.ts",
+    "./element": "./src/element.ts",
+    "./picker": "./src/picker.ts",
+    "./resource": "./src/resource.ts",
+    "./typeahead": "./src/typeahead.ts",
+    "./types": "./src/types.ts",
+    "./utils": "./src/utils.ts"
+  },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
   "techstack": {
     "@repo/internal": {

@@ -53,6 +53,7 @@ export default {
   'fabric.linking.not_found_description':
     'Nie udało się znaleźć łącza. Sprawdź adres url i spróbuj go edytować lub wkleić ponownie.',
   'fabric.linking.not_found_title': 'Niestety. Nie można znaleźć tego łącza!',
+  'fabric.linking.open_issue_in_jira': 'Otwórz zgłoszenie w systemie Jira',
   'fabric.linking.open_link_in_a_new_tab': 'Otwórz łącze na nowej karcie',
   'fabric.linking.owned_by': 'Właściciel: {context}',
   'fabric.linking.pending_request': 'Twój wniosek o dostęp oczekuje na rozpatrzenie',
@@ -84,6 +85,9 @@ export default {
   'fabric.linking.save': 'Zapisz',
   'fabric.linking.srclink': 'Wyświetl w',
   'fabric.linking.srclinkunknown': 'Wyświetl oryginał',
+  'fabric.linking.status_change_load_error': 'Nie można załadować statusów ani zmian statusów',
+  'fabric.linking.status_change_permission_error': 'Nie masz uprawnień do zmiany statusu tego zgłoszenia.',
+  'fabric.linking.status_change_update_error': 'Nie można zaktualizować statusu',
   'fabric.linking.try_again': 'Spróbuj ponownie',
   'fabric.linking.try_another_account': 'Spróbuj użyć innego konta',
   'fabric.linking.unlink_account': 'Odłącz konto',

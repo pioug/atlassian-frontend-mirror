@@ -40,6 +40,22 @@ export default () => {
             https://www.atlassian.com/solutions/devops
           </LinkUrl>
         </li>
+        <li>
+          Link is a multi-line URL.
+          <br />
+          <LinkUrl href="https://www.atlassian.com/solutions/devops">
+            <p>Help</p>
+            <a>https://www.atlassian.com/solutions/devops</a>
+          </LinkUrl>
+        </li>
+        <li>
+          Link is a multi-line URL.
+          <br />
+          <LinkUrl href="https://hello.atlassian.com/wiki">
+            <div>Help</div>
+            <span>https://hello.atlas...</span>
+          </LinkUrl>
+        </li>
       </ul>
     </div>
   );

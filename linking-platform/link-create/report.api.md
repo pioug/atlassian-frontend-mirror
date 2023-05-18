@@ -23,6 +23,7 @@ import { MemoExoticComponent } from 'react';
 import { OptionType } from '@atlaskit/select';
 import { default as React_2 } from 'react';
 import { ReactNode } from 'react';
+import { SpinnerProps } from '@atlaskit/spinner';
 import { TextFieldProps as TextFieldProps_2 } from '@atlaskit/textfield';
 
 // @public
@@ -56,14 +57,25 @@ export default ComposedLinkCreate;
 export const CreateForm: <FormData_1 extends Record<string, any> = {}>({
   children,
   testId,
-  onCancel,
   onSubmit,
+  onCancel,
+  isLoading,
+  hideFooter,
 }: CreateFormProps<FormData_1>) => jsx.JSX.Element;
+
+// @public (undocumented)
+export function CreateFormLoader({
+  size,
+}: Partial<SpinnerProps>): jsx.JSX.Element;
 
 // @public (undocumented)
 export interface CreateFormProps<FormData> {
   // (undocumented)
   children: ReactNode;
+  // (undocumented)
+  hideFooter?: boolean;
+  // (undocumented)
+  isLoading?: boolean;
   // (undocumented)
   onCancel?: () => void;
   // (undocumented)

@@ -247,13 +247,12 @@ export interface InvokePayload<T> {
 export interface LinkingPlatformFeatureFlags {
   enableActionableElement?: boolean;
   enableFlexibleBlockCard?: boolean;
+  enableImprovedPreviewAction?: boolean;
   enableLinkPickerForgeTabs?: boolean;
   enableResolveMetadataForLinkAnalytics?: boolean;
   showAuthTooltip?: string;
   // (undocumented)
   showHoverPreview?: boolean;
-  // (undocumented)
-  trackIframeDwellEvents?: boolean;
   useLinkPickerAtlassianTabs?: boolean;
   // (undocumented)
   useLinkPickerScrollingTabs?: boolean;

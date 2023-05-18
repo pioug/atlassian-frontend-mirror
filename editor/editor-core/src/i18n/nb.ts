@@ -144,11 +144,11 @@ export default {
   'fabric.editor.hyperlink.linkAriaLabel': 'Koblingsetikett',
   'fabric.editor.hyperlink.searchLinkAriaDescription': 'Forslag vises nedenfor etter hvert som du skriver inn i feltet',
   'fabric.editor.hyperlink.searchLinkResults':
-    '{count, plural, =0 {finner ingen resultater} one {fant {count,number} resultat} other {fant {count,number} resultater}}',
+    '{count, plural, =0 {fant ingen resultater} one {fant {count,number} resultat} other {fant {count,number} resultater}}',
   'fabric.editor.hyperlinkToolbarPlaceholder': 'Lim inn eller søk etter kobling',
   'fabric.editor.imageBorderBold': 'Fet',
   'fabric.editor.imageBorderColor': 'Farge',
-  'fabric.editor.imageBorderMedium': 'Medium',
+  'fabric.editor.imageBorderMedium': 'Middels',
   'fabric.editor.imageBorderOptions': 'Alternativer for kantlinje',
   'fabric.editor.imageBorderSize': 'Størrelse',
   'fabric.editor.imageBorderSubtle': 'Diskret',
@@ -164,7 +164,7 @@ export default {
   'fabric.editor.invalidDateError': 'Oppgi en gyldig dato',
   'fabric.editor.invalidLink': 'Skriv inn en gyldig kobling.',
   'fabric.editor.inviteItem.title':
-    '{userRole, select, admin {Inviter teammedlem til {productName}} trusted {Inviter teammedlem til {productName}} other {Legg til teammedlem i {productName}}}',
+    '{userRole, select, admin {Inviter teammedlemmer til {productName}} trusted {Inviter teammedlemmer til {productName}} other {Legg til teammedlem i {productName}}}',
   'fabric.editor.italic': 'Kursiv',
   'fabric.editor.keyboardShortcuts': 'Tastatursnarveier',
   'fabric.editor.leftSidebar': 'Sidelinje til venstre',

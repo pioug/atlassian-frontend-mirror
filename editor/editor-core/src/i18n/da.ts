@@ -164,7 +164,7 @@ export default {
   'fabric.editor.invalidDateError': 'Indtast en gyldig dato',
   'fabric.editor.invalidLink': 'Indtast et gyldigt link.',
   'fabric.editor.inviteItem.title':
-    '{userRole, select, admin {Inviter teammedlem til {productName}} trusted {Inviter teammedlem til {productName}} other {Tilføj teammedlem til {productName}}}',
+    '{userRole, select, admin {Inviter teammedlemmer til {productName}} trusted {Inviter teammedlemmer til {productName}} other {Tilføj teammedlem til {productName}}}',
   'fabric.editor.italic': 'Kursiv',
   'fabric.editor.keyboardShortcuts': 'Tastaturgenveje',
   'fabric.editor.leftSidebar': 'Venstre sidebjælke',

@@ -54,6 +54,7 @@ export default {
   'fabric.linking.not_found_description':
     'Odkaz se nepodařilo najít. Zkontrolujte adresu URL a zkuste ji upravit nebo vložit znovu.',
   'fabric.linking.not_found_title': 'Jejda. Tento odkaz se nepodařilo najít.',
+  'fabric.linking.open_issue_in_jira': 'Otevřít požadavek v Jira',
   'fabric.linking.open_link_in_a_new_tab': 'Otevřít odkaz na nové kartě',
   'fabric.linking.owned_by': 'Vlastník: {context}',
   'fabric.linking.pending_request': 'Vaše žádost o přístup čeká na vyřízení.',
@@ -87,6 +88,9 @@ export default {
   'fabric.linking.save': 'Uložit',
   'fabric.linking.srclink': 'Zobrazit v',
   'fabric.linking.srclinkunknown': 'Zobrazit originál',
+  'fabric.linking.status_change_load_error': 'Načtení stavů a přechodů se nezdařilo',
+  'fabric.linking.status_change_permission_error': 'K provedení přechodu tohoto požadavku nemáte oprávnění.',
+  'fabric.linking.status_change_update_error': 'Aktualizace stavu se nezdařila',
   'fabric.linking.try_again': 'Zkusit znovu',
   'fabric.linking.try_another_account': 'Zkuste jiný účet',
   'fabric.linking.unlink_account': 'Odpojit účet',

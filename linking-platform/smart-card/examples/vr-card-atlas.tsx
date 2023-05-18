@@ -71,7 +71,10 @@ const renderLink = (
 
 export default () => (
   <VRTestWrapper title="Atlas Links">
-    <Provider client={new CustomClient('staging')}>
+    <Provider
+      client={new CustomClient('staging')}
+      featureFlags={{ enableImprovedPreviewAction: true }}
+    >
       {renderLink('Goal', AtlasGoal.data.url, 'goal')}
       {renderLink('Project', AtlasProject.data.url, 'project')}
     </Provider>

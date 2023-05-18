@@ -147,7 +147,7 @@ export default {
   'fabric.editor.hyperlink.linkAriaLabel': 'Метка для ссылки',
   'fabric.editor.hyperlink.searchLinkAriaDescription': 'Предложения будут появляться по мере ввода текста в поле',
   'fabric.editor.hyperlink.searchLinkResults':
-    '{count, plural, =0 {ничего не найдено} one {найден {count,number} результат} few {найдено {count,number} результата} many {найдено {count,number} результатов} other {найдено {count,number} результата}}',
+    '{count, plural, =0 {нет результатов} one {найден {count,number} результат} few {найдено {count,number} результата} many {найдено {count,number} результатов} other {найдено {count,number} результата}}',
   'fabric.editor.hyperlinkToolbarPlaceholder': 'Вставить или искать ссылку',
   'fabric.editor.imageBorderBold': 'Широкая',
   'fabric.editor.imageBorderColor': 'Цвет',

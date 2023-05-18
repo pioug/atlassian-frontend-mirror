@@ -14,7 +14,10 @@ class CustomClient extends Client {
 
 export default () => (
   <VRTestWrapper title="Hover Card">
-    <Provider client={new CustomClient('staging')}>
+    <Provider
+      client={new CustomClient('staging')}
+      featureFlags={{ enableImprovedPreviewAction: true }}
+    >
       <div style={{ marginTop: 250 }}>
         <Card
           url={'https://www.mockurl.com'}

@@ -54,6 +54,7 @@ export default {
   'fabric.linking.not_found_description':
     'Der Link konnte nicht gefunden werden. Überprüfen Sie die URL und versuchen Sie die Bearbeitung oder das Einfügen erneut.',
   'fabric.linking.not_found_title': 'Oh! Diese Verknüpfung konnte nicht gefunden werden!',
+  'fabric.linking.open_issue_in_jira': 'Vorgang in Jira öffnen',
   'fabric.linking.open_link_in_a_new_tab': 'Link in neuer Registerkarte öffnen',
   'fabric.linking.owned_by': 'Besitzer: {context}',
   'fabric.linking.pending_request': 'Ihre Zugriffsanfrage ist ausstehend.',
@@ -86,6 +87,9 @@ export default {
   'fabric.linking.save': 'Speichern',
   'fabric.linking.srclink': 'Anzeigen in',
   'fabric.linking.srclinkunknown': 'Original anzeigen',
+  'fabric.linking.status_change_load_error': 'Status und Übergänge konnten nicht geladen werden',
+  'fabric.linking.status_change_permission_error': 'Sie sind nicht berechtigt, diesen Vorgang weiterzugeben.',
+  'fabric.linking.status_change_update_error': 'Der Status konnte nicht aktualisiert werden',
   'fabric.linking.try_again': 'Versuchen Sie es erneut.',
   'fabric.linking.try_another_account': 'Versuchen Sie es mit einem anderen Konto erneut.',
   'fabric.linking.unlink_account': 'Kontoverknüpfung löschen',

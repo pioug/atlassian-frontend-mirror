@@ -31,53 +31,49 @@ import {
 import { ErrorBoundary } from './error-boundary';
 import { messages } from './messages';
 
-const withFormContext =
-  (Component: React.FC<LinkCreateProps>) => (props: LinkCreateProps) =>
-    (
-      <FormContextProvider>
-        <Component {...props} />
-      </FormContextProvider>
-    );
+const LinkCreate = ({
+  plugins,
+  entityKey,
+  onCreate,
+  onFailure,
+  onCancel,
+}: LinkCreateProps) => {
+  const chosenOne = plugins.find(plugin => plugin.key === entityKey);
 
-const LinkCreate = withFormContext(
-  ({ plugins, entityKey, onCreate, onFailure, onCancel }: LinkCreateProps) => {
-    const chosenOne = plugins.find(plugin => plugin.key === entityKey);
+  const { setFormErrorMessage } = useFormContext();
 
-    const { setFormErrorMessage } = useFormContext();
+  if (!chosenOne) {
+    throw new Error('Make sure you specified a valid entityKey');
+  }
 
-    if (!chosenOne) {
-      throw new Error('Make sure you specified a valid entityKey');
-    }
+  const handleCreate = useCallback(
+    result => {
+      // Reset the form error message
+      setFormErrorMessage(undefined);
+      onCreate && onCreate(result.url);
+    },
+    [onCreate, setFormErrorMessage],
+  );
 
-    const handleCreate = useCallback(
-      (result: { url: string; objectId: string; objectType: string }) => {
-        // Reset the form error message
-        setFormErrorMessage(undefined);
-        onCreate && onCreate(result.url);
-      },
-      [onCreate, setFormErrorMessage],
-    );
+  const handleFailure = useCallback(
+    (errorMessage: string) => {
+      // Set the form error message
+      setFormErrorMessage(errorMessage);
+      onFailure && onFailure(errorMessage);
+    },
+    [onFailure, setFormErrorMessage],
+  );
 
-    const handleFailure = useCallback(
-      (errorMessage: string) => {
-        // Set the form error message
-        setFormErrorMessage(errorMessage);
-        onFailure && onFailure(errorMessage);
-      },
-      [onFailure, setFormErrorMessage],
-    );
-
-    return (
-      <LinkCreateCallbackProvider
-        onCreate={handleCreate}
-        onFailure={handleFailure}
-        onCancel={onCancel}
-      >
-        {chosenOne.form}
-      </LinkCreateCallbackProvider>
-    );
-  },
-);
+  return (
+    <LinkCreateCallbackProvider
+      onCreate={handleCreate}
+      onFailure={handleFailure}
+      onCancel={onCancel}
+    >
+      {chosenOne.form}
+    </LinkCreateCallbackProvider>
+  );
+};
 
 const LinkCreateWithModal = (props: LinkCreateProps) => {
   const { testId, onCancel, active } = props;

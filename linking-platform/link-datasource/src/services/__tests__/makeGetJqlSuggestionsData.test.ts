@@ -1,6 +1,7 @@
 import fetchMock from 'fetch-mock/cjs/client';
 
-import { mockSuggestionData } from '../../../examples-helpers/mockSuggestionData';
+import { mockSuggestionData } from '@atlaskit/link-test-helpers/datasource';
+
 import { makeGetJqlSuggestionsData } from '../makeGetJqlSuggestionsData';
 
 describe('makeGetJqlSuggestionsData', () => {

@@ -1,5 +1,11 @@
 # @atlaskit/radio
 
+## 5.6.0
+
+### Minor Changes
+
+- [`b257978b66a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b257978b66a) - [ux] reduce the border from 2px to 1px
+
 ## 5.5.2
 
 ### Patch Changes

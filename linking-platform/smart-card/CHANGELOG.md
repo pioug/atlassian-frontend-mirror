@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 26.3.0
+
+### Minor Changes
+
+- [`8406b471923`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8406b471923) - [ux] Update analytics tracking events for lozenge action
+
 ## 26.2.2
 
 ### Patch Changes

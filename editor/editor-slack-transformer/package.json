@@ -46,7 +46,7 @@
     "@atlaskit/editor-core": "^183.1.0",
     "@atlaskit/editor-test-helpers": "^18.4.0",
     "@atlaskit/emoji": "^67.4.0",
-    "@atlaskit/smart-card": "^26.2.0",
+    "@atlaskit/smart-card": "^26.3.0",
     "@atlaskit/theme": "^12.5.0",
     "@atlaskit/util-data-test": "^17.8.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",

@@ -268,7 +268,7 @@ for (const overflowShadowsOptimisation of [true, false]) {
 test.describe('when table has no custom column width defined', () => {
   test.describe('and when multiple columns are selected', () => {
     const tableForBulkResize = doc(
-      table()(
+      table({ localId: 'localId' })(
         tr(th().any, th().any, th().any, th().any, th().any),
         tr(td().any, td().any, td().any, td().any, td().any),
         tr(td().any, td().any, td().any, td().any, td().any),

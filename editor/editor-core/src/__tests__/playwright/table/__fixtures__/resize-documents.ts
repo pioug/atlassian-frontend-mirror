@@ -1682,5 +1682,5 @@ export const createSquareTable = ({
     return tr(...tableRowContent);
   });
 
-  return doc(table()(...tableContent));
+  return doc(table({ localId: 'localId' })(...tableContent));
 };

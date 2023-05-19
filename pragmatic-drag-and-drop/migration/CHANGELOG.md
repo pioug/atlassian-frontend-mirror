@@ -1,5 +1,11 @@
 # @atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration
 
+## 0.7.0
+
+### Minor Changes
+
+- [`a12da51e227`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a12da51e227) - Makes `react-dom` a peer dependency instead of a direct dependency.
+
 ## 0.6.0
 
 ### Minor Changes

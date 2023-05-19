@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 183.1.6
+
+### Patch Changes
+
+- [`42fa291e96f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/42fa291e96f) - Updated color hovering styles for image borders toolbar
+
 ## 183.1.1
 
 ### Patch Changes

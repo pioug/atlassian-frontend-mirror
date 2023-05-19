@@ -21,6 +21,13 @@ import { LozengeActionErrorMessages } from './lozenge-action-error/types';
 import { InvokeError } from '@atlaskit/linking-types/smart-link-actions';
 import { useFlexibleUiAnalyticsContext } from '../../../../../state/flexible-ui-context';
 import type { LozengeActionTriggerProps } from './lozenge-action-trigger/type';
+import { TrackQuickActionType } from '../../../../../utils/analytics/analytics';
+import {
+  permissionLoadErrorAnalyticsPayload,
+  unknownLoadErrorAnalyticsPayload,
+  unknownUpdateErrorAnalyticsPayload,
+  validationUpdateErrorAnalyticsPayload,
+} from './lozenge-action-analytics';
 
 const validateItems = (
   items: LozengeItem[] = [],
@@ -53,11 +60,7 @@ const LozengeAction: FC<LozengeActionProps> = ({
   const reload = useResolve();
   //TODO EDM-6583 Replace usage of useFlexibleUiAnalyticsContext with linking platform analytics context from find team.
   const analytics = useFlexibleUiAnalyticsContext();
-  const invoke = useInvoke({
-    started: analytics?.track.smartLinkQuickActionStarted,
-    success: analytics?.track.smartLinkQuickActionSuccess,
-    failed: analytics?.track.smartLinkQuickActionFailed,
-  });
+  const invoke = useInvoke();
   useEffect(() => {
     setSelected({ text, appearance });
   }, [text, appearance]);
@@ -69,6 +72,10 @@ const LozengeAction: FC<LozengeActionProps> = ({
       setIsOpen(args.isOpen);
       if (args.isOpen) {
         analytics?.ui.smartLinkLozengeActionClickedEvent();
+        analytics?.track.smartLinkQuickActionStarted({
+          smartLinkActionType: TrackQuickActionType.StatusUpdate,
+        });
+
         if (!isLoaded && action?.read) {
           try {
             setIsLoading(true);
@@ -85,12 +92,20 @@ const LozengeAction: FC<LozengeActionProps> = ({
             setIsLoaded(true);
 
             if (validItems?.length === 0) {
+              analytics?.track.smartLinkQuickActionFailed(
+                permissionLoadErrorAnalyticsPayload,
+              );
+
               setErrorMessage(LozengeActionErrorMessages.noData);
               setIsLoaded(false);
             }
           } catch (err) {
             setErrorMessage(LozengeActionErrorMessages.unknown);
             setIsLoaded(false);
+
+            analytics?.track.smartLinkQuickActionFailed(
+              unknownLoadErrorAnalyticsPayload,
+            );
           } finally {
             setIsLoading(false);
           }
@@ -133,6 +148,10 @@ const LozengeAction: FC<LozengeActionProps> = ({
           setIsOpen(false);
           setItems([]);
 
+          analytics?.track.smartLinkQuickActionSuccess({
+            smartLinkActionType: TrackQuickActionType.StatusUpdate,
+          });
+
           if (url) {
             await reload(url, true, undefined, linkId);
           }
@@ -142,12 +161,18 @@ const LozengeAction: FC<LozengeActionProps> = ({
 
         if (isInvokeCustomError(err)) {
           setErrorMessage(err.message);
+          analytics?.track.smartLinkQuickActionFailed(
+            validationUpdateErrorAnalyticsPayload,
+          );
         } else {
           setErrorMessage(LozengeActionErrorMessages.updateFailed);
+          analytics?.track.smartLinkQuickActionFailed(
+            unknownUpdateErrorAnalyticsPayload,
+          );
         }
       }
     },
-    [action?.update, analytics?.ui, invoke, linkId, reload, url],
+    [action?.update, analytics, invoke, linkId, reload, url],
   );
 
   const dropdownItemGroup = useMemo(() => {

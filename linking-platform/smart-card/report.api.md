@@ -895,6 +895,22 @@ type TitleBlockProps = {
 type TrackAppAccountConnectedProps = CommonEventProps;
 
 // @public (undocumented)
+enum TrackQuickActionFailureReason {
+  // (undocumented)
+  PermissionError = 'PermissionError',
+  // (undocumented)
+  UnknownError = 'UnknownError',
+  // (undocumented)
+  ValidationError = 'ValidationError',
+}
+
+// @public (undocumented)
+enum TrackQuickActionType {
+  // (undocumented)
+  StatusUpdate = 'StatusUpdate',
+}
+
+// @public (undocumented)
 type UiActionClickedEventProps = CommonEventProps & {
   id: string;
   display: CardInnerAppearance;
@@ -1214,13 +1230,15 @@ export const useSmartLinkAnalytics: (
       },
     ) => void;
     smartLinkQuickActionStarted: (props: {
-      smartLinkActionType: SmartLinkActionType;
+      smartLinkActionType: SmartLinkActionType | TrackQuickActionType;
     }) => void;
     smartLinkQuickActionSuccess: (props: {
-      smartLinkActionType: SmartLinkActionType;
+      smartLinkActionType: SmartLinkActionType | TrackQuickActionType;
     }) => void;
     smartLinkQuickActionFailed: (props: {
-      smartLinkActionType: SmartLinkActionType;
+      smartLinkActionType: SmartLinkActionType | TrackQuickActionType;
+      reason?: TrackQuickActionFailureReason;
+      step?: string;
     }) => void;
   };
   screen: {

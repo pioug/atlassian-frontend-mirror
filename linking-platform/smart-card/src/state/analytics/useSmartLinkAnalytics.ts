@@ -69,6 +69,8 @@ import {
 import { useSmartLinkContext } from '@atlaskit/link-provider';
 import {
   trackLinkUpdated,
+  TrackQuickActionFailureReason,
+  TrackQuickActionType,
   trackSmartLinkQuickActionFailed,
   trackSmartLinkQuickActionStarted,
   trackSmartLinkQuickActionSuccess,
@@ -1008,7 +1010,7 @@ export const useSmartLinkAnalytics = (
        * This fires a tracking event before an action invoke api call is made
        */
       smartLinkQuickActionStarted: (props: {
-        smartLinkActionType: SmartLinkActionType;
+        smartLinkActionType: SmartLinkActionType | TrackQuickActionType;
       }) =>
         dispatchAnalytics(
           applyCommonAttributes(
@@ -1021,7 +1023,7 @@ export const useSmartLinkAnalytics = (
        * This fires a tracking event after an action invoke api call is successful
        */
       smartLinkQuickActionSuccess: (props: {
-        smartLinkActionType: SmartLinkActionType;
+        smartLinkActionType: SmartLinkActionType | TrackQuickActionType;
       }) =>
         dispatchAnalytics(
           applyCommonAttributes(
@@ -1034,7 +1036,9 @@ export const useSmartLinkAnalytics = (
        * This fires a tracking event after an action invoke api call has failed
        */
       smartLinkQuickActionFailed: (props: {
-        smartLinkActionType: SmartLinkActionType;
+        smartLinkActionType: SmartLinkActionType | TrackQuickActionType;
+        reason?: TrackQuickActionFailureReason;
+        step?: string;
       }) =>
         dispatchAnalytics(
           applyCommonAttributes(

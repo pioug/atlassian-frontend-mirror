@@ -1,5 +1,11 @@
 # @atlaskit/media-picker
 
+## 65.1.2
+
+### Patch Changes
+
+- [`4ed8a9b7d81`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ed8a9b7d81) - Added numeric-seperator babel preset to media picker
+
 ## 65.1.1
 
 ### Patch Changes

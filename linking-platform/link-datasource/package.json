@@ -44,7 +44,7 @@
     "@atlaskit/pragmatic-drag-and-drop-hitbox": "^0.11.0",
     "@atlaskit/pragmatic-drag-and-drop-react-indicator": "^0.14.0",
     "@atlaskit/select": "^16.2.0",
-    "@atlaskit/smart-card": "^26.2.0",
+    "@atlaskit/smart-card": "^26.3.0",
     "@atlaskit/spinner": "^15.5.0",
     "@atlaskit/tag": "^11.5.0",
     "@atlaskit/textfield": "5.4.2",

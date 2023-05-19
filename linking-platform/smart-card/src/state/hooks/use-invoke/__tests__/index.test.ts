@@ -1,8 +1,8 @@
 import { renderHook } from '@testing-library/react-hooks';
 import { mocked } from 'ts-jest/utils';
 import { useSmartLinkClientExtension } from '@atlaskit/link-client-extension';
-import { SmartLinkActionType } from '@atlaskit/linking-types/smart-link-actions';
 import type { InvokeRequest } from '@atlaskit/linking-types/smart-link-actions';
+import { SmartLinkActionType } from '@atlaskit/linking-types/smart-link-actions';
 import 'jest-extended';
 
 import useInvoke from '../index';
@@ -65,80 +65,5 @@ describe('useInvoke', () => {
     const response = await result.current(request, callback);
 
     expect(response).toBe(expectedResponse);
-  });
-
-  describe('trackers', () => {
-    const mockStarted = jest.fn();
-    const mockSuccess = jest.fn();
-    const mockFailed = jest.fn();
-    const tracker = {
-      started: mockStarted,
-      success: mockSuccess,
-      failed: mockFailed,
-    };
-    afterEach(() => {
-      jest.clearAllMocks();
-    });
-    it.each([
-      SmartLinkActionType.GetStatusTransitionsAction,
-      SmartLinkActionType.StatusUpdateAction,
-      'some-new-actin-type',
-    ])(
-      'calls started and success tracker on invoke success for %s',
-      async (actionType) => {
-        const mockInvoke = jest.fn();
-        mocked(useSmartLinkClientExtension).mockReturnValue({
-          invoke: mockInvoke,
-        });
-
-        const { result } = renderHook(() => useInvoke(tracker));
-        const req = {
-          ...request,
-          action: {
-            ...request.action,
-            actionType: actionType as SmartLinkActionType,
-          },
-        };
-        await result.current(req);
-
-        expect(mockStarted).toHaveBeenCalledTimes(1);
-        expect(mockStarted).toHaveBeenCalledWith({
-          smartLinkActionType: actionType,
-        });
-        expect(mockStarted).toHaveBeenCalledBefore(mockSuccess);
-        expect(mockInvoke).toHaveBeenCalledWith(req);
-        expect(mockSuccess).toHaveBeenCalledTimes(1);
-        expect(mockSuccess).toHaveBeenCalledWith({
-          smartLinkActionType: actionType,
-        });
-        expect(mockInvoke).toHaveBeenCalledBefore(mockSuccess);
-        expect(mockFailed).toHaveBeenCalledTimes(0);
-      },
-    );
-
-    it('calls started and failed tracker on invoke failure', async () => {
-      const mockInvoke = jest.fn();
-      mockInvoke.mockRejectedValue(new Error(''));
-      mocked(useSmartLinkClientExtension).mockReturnValue({
-        invoke: mockInvoke,
-      });
-
-      const { result } = renderHook(() => useInvoke(tracker));
-
-      await expect(result.current(request)).toReject();
-
-      expect(mockStarted).toHaveBeenCalledTimes(1);
-      expect(mockStarted).toHaveBeenCalledWith({
-        smartLinkActionType: request.action.actionType,
-      });
-      expect(mockStarted).toHaveBeenCalledBefore(mockFailed);
-      expect(mockInvoke).toHaveBeenCalledWith(request);
-      expect(mockFailed).toHaveBeenCalledTimes(1);
-      expect(mockFailed).toHaveBeenCalledWith({
-        smartLinkActionType: request.action.actionType,
-      });
-      expect(mockInvoke).toHaveBeenCalledBefore(mockFailed);
-      expect(mockSuccess).toHaveBeenCalledTimes(0);
-    });
   });
 });

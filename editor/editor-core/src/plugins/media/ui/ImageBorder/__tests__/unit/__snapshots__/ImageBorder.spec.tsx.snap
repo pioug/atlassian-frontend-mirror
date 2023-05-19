@@ -32,14 +32,20 @@ Object {
   margin: 0;
 }
 
-
-
 .emotion-8:hover .image-border-toolbar-btn {
-  background: var(--ds-background-neutral-subtle-hovered, rgba(9, 30, 66, 0.08));
+  background: var(--ds-background-neutral-subtle-hovered, rgba(9, 30, 66, 0.04));
+}
+
+.emotion-8:hover .image-border-toolbar-btn:hover {
+  background: var(--ds-background-neutral-hovered, rgba(9, 30, 66, 0.08));
 }
 
 .emotion-8:hover .image-border-toolbar-dropdown {
-  background: var(--ds-background-neutral-subtle-hovered, rgba(9, 30, 66, 0.08));
+  background: var(--ds-background-neutral-subtle-hovered, rgba(9, 30, 66, 0.04));
+}
+
+.emotion-8:hover .image-border-toolbar-dropdown:hover {
+  background: var(--ds-background-neutral-hovered, rgba(9, 30, 66, 0.08));
 }
 
 .emotion-3 {
@@ -339,14 +345,20 @@ Object {
   margin: 0;
 }
 
-
-
 .emotion-8:hover .image-border-toolbar-btn {
-  background: var(--ds-background-neutral-subtle-hovered, rgba(9, 30, 66, 0.08));
+  background: var(--ds-background-neutral-subtle-hovered, rgba(9, 30, 66, 0.04));
+}
+
+.emotion-8:hover .image-border-toolbar-btn:hover {
+  background: var(--ds-background-neutral-hovered, rgba(9, 30, 66, 0.08));
 }
 
 .emotion-8:hover .image-border-toolbar-dropdown {
-  background: var(--ds-background-neutral-subtle-hovered, rgba(9, 30, 66, 0.08));
+  background: var(--ds-background-neutral-subtle-hovered, rgba(9, 30, 66, 0.04));
+}
+
+.emotion-8:hover .image-border-toolbar-dropdown:hover {
+  background: var(--ds-background-neutral-hovered, rgba(9, 30, 66, 0.08));
 }
 
 .emotion-3 {

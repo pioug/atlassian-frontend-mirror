@@ -9,6 +9,7 @@ import { useSmartLinkAnalytics } from '../useSmartLinkAnalytics';
 import { mocks } from '../../../utils/mocks';
 import { ANALYTICS_CHANNEL } from '../../../utils/analytics';
 import { CardDisplay } from '../../../constants';
+import { TrackQuickActionType } from '../../../utils/analytics/analytics';
 
 jest.mock('@atlaskit/link-provider', () => ({
   useSmartLinkContext: () => ({
@@ -106,51 +107,16 @@ describe('useSmartLinkAnalytics', () => {
   );
 
   it.each([
-    [
-      'smartLinkQuickActionStarted',
-      'track',
-      'smartLinkQuickAction',
-      'started',
-      'StatusUpdateAction',
-    ],
-    [
-      'smartLinkQuickActionSuccess',
-      'track',
-      'smartLinkQuickAction',
-      'success',
-      'StatusUpdateAction',
-    ],
-    [
-      'smartLinkQuickActionFailed',
-      'track',
-      'smartLinkQuickAction',
-      'failed',
-      'StatusUpdateAction',
-    ],
-    [
-      'smartLinkQuickActionStarted',
-      'track',
-      'smartLinkQuickAction',
-      'started',
-      'GetStatusTransitionsAction',
-    ],
-    [
-      'smartLinkQuickActionSuccess',
-      'track',
-      'smartLinkQuickAction',
-      'success',
-      'GetStatusTransitionsAction',
-    ],
-    [
-      'smartLinkQuickActionFailed',
-      'track',
-      'smartLinkQuickAction',
-      'failed',
-      'GetStatusTransitionsAction',
-    ],
+    ['smartLinkQuickActionStarted', 'track', 'smartLinkQuickAction', 'started'],
+    ['smartLinkQuickActionSuccess', 'track', 'smartLinkQuickAction', 'success'],
+    ['smartLinkQuickActionFailed', 'track', 'smartLinkQuickAction', 'failed'],
+    ['smartLinkQuickActionStarted', 'track', 'smartLinkQuickAction', 'started'],
+    ['smartLinkQuickActionSuccess', 'track', 'smartLinkQuickAction', 'success'],
+    ['smartLinkQuickActionFailed', 'track', 'smartLinkQuickAction', 'failed'],
   ])(
     'action track event %s fires with expected payload',
-    (eventName, eventType, actionSubject, action, smartLinkActionType) => {
+    (eventName, eventType, actionSubject, action) => {
+      const smartLinkActionType = TrackQuickActionType.StatusUpdate;
       const mockedAnalyticsHandler = jest.fn();
       const { result } = renderHook(() =>
         useSmartLinkAnalytics(url, mockedAnalyticsHandler),

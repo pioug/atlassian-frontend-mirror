@@ -368,7 +368,8 @@ export { Viewport };
 
 ```json
 {
-  "react": "^16.8.0"
+  "react": "^16.8.0",
+  "react-dom": "^16.8.0"
 }
 ```
 

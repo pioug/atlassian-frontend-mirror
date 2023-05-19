@@ -39,6 +39,16 @@ export const context = {
   packageVersion,
 };
 
+export enum TrackQuickActionType {
+  StatusUpdate = 'StatusUpdate',
+}
+
+export enum TrackQuickActionFailureReason {
+  PermissionError = 'PermissionError',
+  ValidationError = 'ValidationError',
+  UnknownError = 'UnknownError',
+}
+
 const uiActionSubjectIds: Record<string, string> = {
   DownloadAction: 'downloadDocument',
   PreviewAction: 'invokePreviewScreen',
@@ -279,7 +289,7 @@ export const trackSmartLinkQuickActionStarted = ({
   smartLinkActionType,
   ...attributes
 }: CommonEventProps & {
-  smartLinkActionType: SmartLinkActionType;
+  smartLinkActionType: SmartLinkActionType | TrackQuickActionType;
 }): AnalyticsPayload => ({
   action: 'started',
   actionSubject: 'smartLinkQuickAction',
@@ -295,7 +305,7 @@ export const trackSmartLinkQuickActionSuccess = ({
   smartLinkActionType,
   ...attributes
 }: CommonEventProps & {
-  smartLinkActionType: SmartLinkActionType;
+  smartLinkActionType: SmartLinkActionType | TrackQuickActionType;
 }): AnalyticsPayload => ({
   action: 'success',
   actionSubject: 'smartLinkQuickAction',
@@ -311,7 +321,7 @@ export const trackSmartLinkQuickActionFailed = ({
   smartLinkActionType,
   ...attributes
 }: CommonEventProps & {
-  smartLinkActionType: SmartLinkActionType;
+  smartLinkActionType: SmartLinkActionType | TrackQuickActionType;
 }): AnalyticsPayload => ({
   action: 'failed',
   actionSubject: 'smartLinkQuickAction',

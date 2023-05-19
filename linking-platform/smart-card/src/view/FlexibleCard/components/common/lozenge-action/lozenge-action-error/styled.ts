@@ -41,6 +41,7 @@ export const contentStyles = css`
 export const linkStyles = css`
   ${sharedBlockStyles};
 
+  cursor: pointer;
   font-size: 0.875rem;
   margin-top: 10px;
   margin-left: ${token('space.400', '32px')};

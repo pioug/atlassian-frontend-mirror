@@ -18,13 +18,17 @@ import { LozengeActionProps } from '../types';
 import extractLozengeActionItems from '../../../../../../extractors/action/extract-lozenge-action-items';
 import { LozengeActionErrorMessages } from '../lozenge-action-error/types';
 import { CardDetails } from '../../../../../../state/hooks/use-invoke/types';
+import {
+  TrackQuickActionFailureReason,
+  TrackQuickActionType,
+} from '../../../../../../utils/analytics/analytics';
 
 const mockSmartLinkLozengeActionClickedEvent = jest.fn();
 const mockSmartLinkLozengeActionListItemClickedEvent = jest.fn();
 const mockSmartLinkLozengeOpenPreviewClickedEvent = jest.fn();
-const mocksmartLinkQuickActionStarted = jest.fn();
-const mocksmartLinkQuickActionSuccess = jest.fn();
-const mocksmartLinkQuickActionFailed = jest.fn();
+const mockSmartLinkQuickActionStarted = jest.fn();
+const mockSmartLinkQuickActionSuccess = jest.fn();
+const mockSmartLinkQuickActionFailed = jest.fn();
 
 jest.mock('../../../../../../state/flexible-ui-context', () => ({
   useFlexibleUiAnalyticsContext: () => ({
@@ -39,9 +43,9 @@ jest.mock('../../../../../../state/flexible-ui-context', () => ({
       modalClosedEvent: jest.fn(),
     },
     track: {
-      smartLinkQuickActionStarted: mocksmartLinkQuickActionStarted,
-      smartLinkQuickActionSuccess: mocksmartLinkQuickActionSuccess,
-      smartLinkQuickActionFailed: mocksmartLinkQuickActionFailed,
+      smartLinkQuickActionStarted: mockSmartLinkQuickActionStarted,
+      smartLinkQuickActionSuccess: mockSmartLinkQuickActionSuccess,
+      smartLinkQuickActionFailed: mockSmartLinkQuickActionFailed,
     },
     screen: {
       modalViewedEvent: jest.fn(),
@@ -853,6 +857,160 @@ describe('LozengeAction', () => {
       expect(mockSmartLinkLozengeOpenPreviewClickedEvent).toHaveBeenCalledTimes(
         1,
       );
+    });
+
+    it('fires smartLinkQuickAction started event when action is initiated', async () => {
+      const { findByTestId } = renderComponent({ action: getAction() });
+
+      const element = await findByTestId(triggerTestId);
+      act(() => {
+        fireEvent.click(element);
+      });
+
+      expect(mockSmartLinkQuickActionStarted).toHaveBeenCalledTimes(1);
+      expect(mockSmartLinkQuickActionStarted).toHaveBeenCalledWith({
+        smartLinkActionType: TrackQuickActionType.StatusUpdate,
+      });
+    });
+
+    it('fires smartLinkQuickAction success event when action has completed successfully', async () => {
+      const mockInvoke = jest
+        .fn()
+        .mockResolvedValueOnce([
+          { id: '1', text: 'Done' },
+          { id: '2', text: 'Moved' },
+        ])
+        .mockResolvedValueOnce(undefined);
+
+      const { findByTestId } = renderComponent(
+        { action: getAction() },
+        mockInvoke,
+      );
+
+      const element = await findByTestId(triggerTestId);
+      act(() => {
+        fireEvent.click(element);
+      });
+      const item = await findByTestId(`${testId}-item-0`);
+      act(() => {
+        fireEvent.click(item);
+      });
+      await flushPromises();
+
+      expect(mockSmartLinkQuickActionSuccess).toHaveBeenCalledTimes(1);
+      expect(mockSmartLinkQuickActionSuccess).toHaveBeenCalledWith({
+        smartLinkActionType: TrackQuickActionType.StatusUpdate,
+      });
+    });
+
+    it('fires smartLinkQuickAction failed event when read action fails', async () => {
+      const mockInvoke = jest.fn().mockImplementationOnce(() => {
+        throw new Error();
+      });
+
+      const { findByTestId } = renderComponent(
+        { action: getAction({ url, id }) },
+        mockInvoke,
+      );
+
+      const element = await findByTestId(triggerTestId);
+      act(() => {
+        fireEvent.click(element);
+      });
+
+      expect(mockSmartLinkQuickActionFailed).toHaveBeenCalledTimes(1);
+      expect(mockSmartLinkQuickActionFailed).toHaveBeenCalledWith({
+        smartLinkActionType: TrackQuickActionType.StatusUpdate,
+        reason: TrackQuickActionFailureReason.UnknownError,
+        step: 'load',
+      });
+    });
+
+    it('fires smartLinkQuickAction failed event when read action returns no data', async () => {
+      const mockInvoke = jest
+        .fn()
+        .mockResolvedValueOnce([
+          { id: '1', text: 'In Progress', appearance: 'inprogress' },
+        ]);
+
+      const { findByTestId } = renderComponent(
+        { action: getAction({ url, id }) },
+        mockInvoke,
+      );
+
+      const element = await findByTestId(triggerTestId);
+      act(() => {
+        fireEvent.click(element);
+      });
+
+      await flushPromises();
+
+      expect(mockSmartLinkQuickActionFailed).toHaveBeenCalledTimes(1);
+      expect(mockSmartLinkQuickActionFailed).toHaveBeenCalledWith({
+        smartLinkActionType: TrackQuickActionType.StatusUpdate,
+        reason: TrackQuickActionFailureReason.PermissionError,
+        step: 'load',
+      });
+    });
+
+    it('fires smartLinkQuickAction failed event with "UnknowError" reason when update action fails', async () => {
+      const mockInvoke = jest
+        .fn()
+        .mockResolvedValueOnce([{ id: '1', text: 'Done' }])
+        .mockImplementationOnce(() => {
+          throw new Error();
+        });
+
+      const { findByTestId } = renderComponent(
+        { action: getAction({ url, id }) },
+        mockInvoke,
+      );
+
+      const element = await findByTestId(triggerTestId);
+      act(() => {
+        fireEvent.click(element);
+      });
+      const item = await findByTestId(`${testId}-item-0`);
+      act(() => {
+        fireEvent.click(item);
+      });
+
+      expect(mockSmartLinkQuickActionFailed).toHaveBeenCalledTimes(1);
+      expect(mockSmartLinkQuickActionFailed).toHaveBeenCalledWith({
+        smartLinkActionType: TrackQuickActionType.StatusUpdate,
+        reason: TrackQuickActionFailureReason.UnknownError,
+        step: 'update',
+      });
+    });
+
+    it('fires smartLinkQuickAction failed event with "ValidationError" reason when update action fails', async () => {
+      const mockInvoke = jest
+        .fn()
+        .mockResolvedValueOnce([{ id: '1', text: 'Done' }])
+        .mockImplementationOnce(() => {
+          throw new InvokeError('Field labels is required', 400);
+        });
+
+      const { findByTestId } = renderComponent(
+        { action: getAction({ url, id }) },
+        mockInvoke,
+      );
+
+      const element = await findByTestId(triggerTestId);
+      act(() => {
+        fireEvent.click(element);
+      });
+      const item = await findByTestId(`${testId}-item-0`);
+      act(() => {
+        fireEvent.click(item);
+      });
+
+      expect(mockSmartLinkQuickActionFailed).toHaveBeenCalledTimes(1);
+      expect(mockSmartLinkQuickActionFailed).toHaveBeenCalledWith({
+        smartLinkActionType: TrackQuickActionType.StatusUpdate,
+        reason: TrackQuickActionFailureReason.ValidationError,
+        step: 'update',
+      });
     });
   });
 });

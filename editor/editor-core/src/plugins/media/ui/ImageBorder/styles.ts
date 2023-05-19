@@ -106,6 +106,18 @@ export const line = (size: number, selected: boolean) => css`
   }
 `;
 
+const getHoverStyles = (selector: string) =>
+  `&:hover ${selector} {
+    background: ${token(
+      'color.background.neutral.subtle.hovered',
+      colors.N20A,
+    )};
+
+    &:hover {
+      background: ${token('color.background.neutral.hovered', colors.N30A)};
+    } 
+  }`;
+
 export const toolbarButtonWrapper = ({
   enabled,
   isOpen,
@@ -133,22 +145,6 @@ export const toolbarButtonWrapper = ({
     margin-left: 1px;
   }
 
-  &:hover {
-    .image-border-toolbar-btn {
-      ${!enabled &&
-      ` background: ${token(
-        'color.background.neutral.subtle.hovered',
-        colors.N30A,
-      )};`}
-    }
-
-    .image-border-toolbar-dropdown {
-      ${!isOpen &&
-      !enabled &&
-      `background: ${token(
-        'color.background.neutral.subtle.hovered',
-        colors.N30A,
-      )};`}
-    }
-  }
+  ${!enabled && getHoverStyles('.image-border-toolbar-btn')}
+  ${!isOpen && !enabled && getHoverStyles('.image-border-toolbar-dropdown')}
 `;

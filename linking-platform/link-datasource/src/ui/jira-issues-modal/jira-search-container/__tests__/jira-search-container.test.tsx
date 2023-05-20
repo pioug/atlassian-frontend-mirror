@@ -6,7 +6,7 @@ import { IntlProvider } from 'react-intl-next';
 
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 
-import { JiraIssueDatasourceParameters } from '../../../types';
+import { JiraIssueDatasourceParameters } from '../../types';
 import { JiraSearchContainer, SearchContainerProps } from '../index';
 
 jest.mock('@atlassianlabs/jql-editor-autocomplete-rest', () => ({
@@ -24,8 +24,7 @@ jest.mock('@atlassianlabs/jql-editor', () => ({
 describe('JiraSearchContainer', () => {
   const initialParameters: JiraIssueDatasourceParameters = {
     cloudId: '12345',
-    value: '',
-    type: 'jql',
+    jql: '',
   };
 
   const setup = (propsOverride: Partial<SearchContainerProps> = {}) => {
@@ -61,8 +60,7 @@ describe('JiraSearchContainer', () => {
     const { getByTestId, queryByPlaceholderText } = setup({
       parameters: {
         cloudId: 'some-cloud-id',
-        type: 'jql',
-        value: 'some-jql',
+        jql: 'some-jql',
       },
     });
 
@@ -86,7 +84,7 @@ describe('JiraSearchContainer', () => {
     const { getByTestId } = setup({
       parameters: {
         ...initialParameters,
-        value: 'status = "0. On Hold"',
+        jql: 'status = "0. On Hold"',
       },
     });
 
@@ -124,8 +122,7 @@ describe('JiraSearchContainer', () => {
     });
 
     expect(mockOnSearch).toHaveBeenCalledWith({
-      value: 'some-query',
-      type: 'jql',
+      jql: 'some-query',
     });
   });
 
@@ -140,9 +137,7 @@ describe('JiraSearchContainer', () => {
     );
 
     expect(mockOnSearch).toHaveBeenCalledWith({
-      value:
-        '(text ~ "testing*" OR summary ~ "testing*") order by created DESC',
-      type: 'jql',
+      jql: '(text ~ "testing*" OR summary ~ "testing*") order by created DESC',
     });
   });
 

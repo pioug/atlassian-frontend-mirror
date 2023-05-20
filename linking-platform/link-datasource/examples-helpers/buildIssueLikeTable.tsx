@@ -10,7 +10,7 @@ import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasou
 
 import { useDatasourceTableState } from '../src/hooks/useDatasourceTableState';
 import { IssueLikeDataTableView } from '../src/ui/issue-like-table';
-import { JiraIssueDatasourceParameters } from '../src/ui/jira-issues/types';
+import { JiraIssueDatasourceParameters } from '../src/ui/jira-issues-modal/types';
 
 import SmartLinkClient from './smartLinkCustomClient';
 
@@ -32,8 +32,7 @@ const ExampleBody = ({ isReadonly }: Props) => {
   const parameters = useMemo<JiraIssueDatasourceParameters>(
     () => ({
       cloudId: 'some-cloud-id',
-      type: 'jql',
-      value: 'some-jql',
+      jql: 'some-jql',
     }),
     [],
   );

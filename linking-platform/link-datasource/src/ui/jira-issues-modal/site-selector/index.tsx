@@ -9,7 +9,7 @@ import DropdownMenu, {
 } from '@atlaskit/dropdown-menu';
 import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
 
-import { Site } from '../../../../services/getAvailableJiraSites';
+import { Site } from '../../../services/getAvailableJiraSites';
 
 import { siteSelectorMessages } from './messages';
 

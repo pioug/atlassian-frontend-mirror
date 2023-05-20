@@ -15,7 +15,7 @@ const emptyStateTable =
 const jiraModal = '[data-testid="jira-jql-datasource-modal"]';
 const jiraModalSiteSelector =
   '[data-testid="jira-jql-datasource-modal--site-selector--trigger"]';
-const jiraIssuesTableView = '[data-testid="jira-issues-table-view"]';
+const datasourceTableView = '[data-testid="datasource-table-view"]';
 const jqlOptionSelector = '[data-testid="mode-toggle-jql"]';
 const jqlEditorInputSelector = '[data-testid="jql-editor-input"]';
 const jqlEditorBasicInputSelector =
@@ -244,7 +244,7 @@ describe('Jira: IssuesTableView', () => {
     });
 
     await loadPage(page, url);
-    await page.waitForSelector(jiraIssuesTableView);
+    await page.waitForSelector(datasourceTableView);
   });
 
   it('should match the snapshot after loading data', async () => {

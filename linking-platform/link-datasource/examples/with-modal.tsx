@@ -11,7 +11,7 @@ import { DatasourceAdf } from '@atlaskit/linking-common/types';
 
 import SmartLinkClient from '../examples-helpers/smartLinkCustomClient';
 import { JiraIssuesConfigModal } from '../src';
-import { JiraIssueDatasourceParameters } from '../src/ui/jira-issues/types';
+import { JiraIssueDatasourceParameters } from '../src/ui/jira-issues-modal/types';
 
 mockDatasourceFetchRequests();
 
@@ -28,11 +28,22 @@ export default () => {
   const closeModal = () => setShowModal(false);
 
   const onUpdateParameters = useCallback(
-    (someParameters: Partial<JiraIssueDatasourceParameters>) => {
+    (newParameterParts: Partial<JiraIssueDatasourceParameters>) => {
       const newParameters: JiraIssueDatasourceParameters = {
-        ...(parameters || { cloudId: '', type: 'jql', value: '' }),
-        ...someParameters,
+        ...(parameters || {
+          cloudId: '',
+          jql: '',
+        }),
       };
+      if (newParameterParts.cloudId) {
+        newParameters.cloudId = newParameterParts.cloudId;
+      }
+      if (newParameterParts.jql) {
+        newParameters.jql = newParameterParts.jql;
+      }
+      if (newParameterParts.filter) {
+        newParameters.filter = newParameterParts.filter;
+      }
       setParameters(newParameters);
     },
     [parameters],

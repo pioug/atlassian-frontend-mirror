@@ -6,11 +6,18 @@ import { css, jsx } from '@emotion/react';
 import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
 
-import { useDatasourceTableState } from '../../hooks/useDatasourceTableState';
-import { IssueLikeDataTableView } from '../issue-like-table';
+import { useDatasourceTableState } from '../hooks/useDatasourceTableState';
 
+import { IssueLikeDataTableView } from './issue-like-table';
 import { TableFooter } from './table-footer';
-import { JiraIssuesTableViewProps } from './types';
+
+export interface DatasourceTableViewProps {
+  datasourceId: string;
+  parameters: object;
+  fields?: string[];
+  onVisibleColumnKeysChange?: (visibleColumnKeys: string[]) => void;
+  visibleColumnKeys?: string[];
+}
 
 const TableViewWrapperStyles = css({
   display: 'flex',
@@ -23,12 +30,12 @@ const TableViewWrapperStyles = css({
   boxSizing: 'border-box',
 });
 
-export const JiraIssuesTableView = ({
+export const DatasourceTableView = ({
   datasourceId,
   parameters,
   visibleColumnKeys,
   onVisibleColumnKeysChange,
-}: JiraIssuesTableViewProps) => {
+}: DatasourceTableViewProps) => {
   const {
     reset,
     status,
@@ -53,7 +60,7 @@ export const JiraIssuesTableView = ({
   return columns.length > 0 ? (
     <div css={TableViewWrapperStyles}>
       <IssueLikeDataTableView
-        testId={'jira-issues-table-view'}
+        testId={'datasource-table-view'}
         hasNextPage={hasNextPage}
         items={responseItems}
         onNextPage={onNextPage}
@@ -69,6 +76,6 @@ export const JiraIssuesTableView = ({
       />
     </div>
   ) : (
-    <Spinner testId={'jira-issues-table-view-spinner'} />
+    <Spinner testId={'datasource-table-view-spinner'} />
   );
 };

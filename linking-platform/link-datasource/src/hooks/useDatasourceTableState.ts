@@ -7,8 +7,6 @@ import {
   DatasourceTableStatusType,
 } from '@atlaskit/linking-types';
 
-import { JiraIssueDatasourceParameters } from '../ui/jira-issues/types';
-
 export interface DatasourceTableState {
   status: DatasourceTableStatusType;
   onNextPage: () => void;
@@ -23,7 +21,7 @@ export interface DatasourceTableState {
 
 export const useDatasourceTableState = (
   datasourceId: string,
-  parameters?: JiraIssueDatasourceParameters,
+  parameters?: object,
   fields?: string[],
 ): DatasourceTableState => {
   const [defaultVisibleColumnKeys, setDefaultVisibleColumnKeys] = useState<
@@ -44,15 +42,8 @@ export const useDatasourceTableState = (
     useDatasourceClientExtension();
 
   const loadDatasourceDetails = useCallback(
-    async ({
-      cloudId,
-      value: parameterValue,
-      type: parameterType,
-    }: JiraIssueDatasourceParameters) => {
-      const result = await getDatasourceDetails(datasourceId, {
-        [parameterType]: parameterValue,
-        cloudId,
-      });
+    async (parameters: object) => {
+      const result = await getDatasourceDetails(datasourceId, parameters);
       setColumns(result.schema.properties);
       setDefaultVisibleColumnKeys(result.schema.defaultProperties);
     },
@@ -69,13 +60,12 @@ export const useDatasourceTableState = (
     if (!parameters) {
       return;
     }
-    const { cloudId, value: parameterValue, type: parameterType } = parameters;
     setStatus('loading');
 
     const { data, nextPageCursor, totalIssues } = await getDatasourceData(
       datasourceId,
       {
-        parameters: { cloudId, [parameterType]: parameterValue },
+        parameters,
         pageSize: 10,
         pageCursor: nextCursor,
         fields,

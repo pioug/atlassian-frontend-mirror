@@ -17,19 +17,23 @@ import Modal, {
 import { B400, N0 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import { useDatasourceTableState } from '../../../hooks/useDatasourceTableState';
+import { useDatasourceTableState } from '../../hooks/useDatasourceTableState';
 import {
   getAvailableJiraSites,
   Site,
-} from '../../../services/getAvailableJiraSites';
-import { EmptyState, IssueLikeDataTableView } from '../../issue-like-table';
-import LinkRenderType from '../../issue-like-table/render-type/link';
-import { JiraIssueDatasourceParameters, JiraIssueViewModes } from '../types';
+} from '../../services/getAvailableJiraSites';
+import { EmptyState, IssueLikeDataTableView } from '../issue-like-table';
+import LinkRenderType from '../issue-like-table/render-type/link';
 
 import { JiraSearchContainer } from './jira-search-container';
 import { modalMessages } from './messages';
 import { ModeSwitcher } from './mode-switcher';
 import { JiraSiteSelector } from './site-selector';
+import {
+  JiraIssueDatasourceParameters,
+  JiraIssueDatasourceParametersQuery,
+  JiraIssueViewModes,
+} from './types';
 
 const dropdownContainerStyles = css({
   display: 'flex',
@@ -81,10 +85,10 @@ export const JiraIssuesConfigModal = (props: JiraIssuesConfigModalProps) => {
   } = props;
   const isParametersSet = !!(
     parameters &&
-    parameters.value &&
+    parameters.jql &&
     parameters.cloudId
   );
-  const { cloudId, value: jql } = parameters || {};
+  const { cloudId, jql } = parameters || {};
 
   const {
     reset,
@@ -107,7 +111,7 @@ export const JiraIssuesConfigModal = (props: JiraIssuesConfigModalProps) => {
   }, []);
 
   const onSearch = useCallback(
-    (parameters: Omit<JiraIssueDatasourceParameters, 'cloudId'>) => {
+    (parameters: JiraIssueDatasourceParametersQuery) => {
       onUpdateParameters(parameters);
       reset();
     },

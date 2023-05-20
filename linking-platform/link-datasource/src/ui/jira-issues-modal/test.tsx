@@ -9,25 +9,25 @@ import { mockSiteData } from '@atlaskit/link-test-helpers/datasource';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 import { DatasourceAdf, InlineCardAdf } from '@atlaskit/linking-common/types';
 
-import SmartLinkClient from '../../../../examples-helpers/smartLinkCustomClient';
+import SmartLinkClient from '../../../examples-helpers/smartLinkCustomClient';
 import {
   DatasourceTableState,
   useDatasourceTableState,
-} from '../../../hooks/useDatasourceTableState';
-import { getAvailableJiraSites } from '../../../services/getAvailableJiraSites';
-import { LINK_TYPE_TEST_ID } from '../..//issue-like-table/render-type/link';
-import { IssueLikeDataTableView } from '../../issue-like-table';
-import { IssueLikeDataTableViewProps } from '../../issue-like-table/types';
-import { JiraIssueDatasourceParameters } from '../types';
+} from '../../hooks/useDatasourceTableState';
+import { getAvailableJiraSites } from '../../services/getAvailableJiraSites';
+import { IssueLikeDataTableView } from '../issue-like-table';
+import { LINK_TYPE_TEST_ID } from '../issue-like-table/render-type/link';
+import { IssueLikeDataTableViewProps } from '../issue-like-table/types';
 
 import {
   JiraSearchContainer,
   SearchContainerProps,
 } from './jira-search-container';
+import { JiraIssueDatasourceParameters } from './types';
 
 import { JiraIssuesConfigModal, JiraIssuesConfigModalProps } from './index';
 
-jest.mock('./../../../services/getAvailableJiraSites', () => ({
+jest.mock('./../../services/getAvailableJiraSites', () => ({
   getAvailableJiraSites: jest.fn(),
 }));
 
@@ -35,10 +35,10 @@ jest.mock('./jira-search-container', () => ({
   JiraSearchContainer: jest.fn(() => null),
 }));
 
-jest.mock('../../../hooks/useDatasourceTableState');
+jest.mock('../../hooks/useDatasourceTableState');
 
-jest.mock('../../issue-like-table', () => ({
-  ...jest.requireActual('../../issue-like-table'),
+jest.mock('../issue-like-table', () => ({
+  ...jest.requireActual('../issue-like-table'),
   IssueLikeDataTableView: jest.fn(() => null),
 }));
 
@@ -47,8 +47,7 @@ mockSimpleIntersectionObserver(); // for smart link rendering
 describe('JiraIssuesConfigModal', () => {
   const getDefaultParameters: () => JiraIssueDatasourceParameters = () => ({
     cloudId: '67899',
-    type: 'jql',
-    value: 'some-query',
+    jql: 'some-query',
   });
 
   const getDefaultHookState: () => DatasourceTableState = () => ({
@@ -244,8 +243,7 @@ describe('JiraIssuesConfigModal', () => {
           datasourceId={'some-jira-jql-datasource-id'}
           parameters={{
             cloudId: '12345',
-            type: 'jql',
-            value: 'some-query',
+            jql: 'some-query',
           }}
           onUpdateParameters={jest.fn()}
           onCancel={jest.fn()}
@@ -273,8 +271,7 @@ describe('JiraIssuesConfigModal', () => {
       {
         parameters: {
           cloudId: '67899',
-          type: 'jql',
-          value: 'some-query',
+          jql: 'some-query',
         },
         onSearch: expect.any(Function),
       } as SearchContainerProps,
@@ -284,7 +281,7 @@ describe('JiraIssuesConfigModal', () => {
 
   it('should display a placeholder smart link if there is no jql', async () => {
     const { getByLabelText, getByText } = await setup({
-      parameters: { value: '', cloudId: '67899', type: 'jql' },
+      parameters: { cloudId: '67899', jql: '' },
     });
 
     getByLabelText('Count view').click();
@@ -299,13 +296,11 @@ describe('JiraIssuesConfigModal', () => {
       const { onSearch } = getLatestJiraSearchContainerProps();
       act(() => {
         onSearch({
-          type: 'jql',
-          value: 'different-query',
+          jql: 'different-query',
         });
       });
       expect(onUpdateParameters).toHaveBeenCalledWith({
-        type: 'jql',
-        value: 'different-query',
+        jql: 'different-query',
       } as Parameters<JiraIssuesConfigModalProps['onUpdateParameters']>[0]);
     });
 
@@ -317,8 +312,7 @@ describe('JiraIssuesConfigModal', () => {
       const { onSearch } = getLatestJiraSearchContainerProps();
       act(() => {
         onSearch({
-          type: 'jql',
-          value: 'different-query',
+          jql: 'different-query',
         });
       });
 
@@ -335,8 +329,7 @@ describe('JiraIssuesConfigModal', () => {
       const { onSearch } = getLatestJiraSearchContainerProps();
       act(() => {
         onSearch({
-          type: 'jql',
-          value: 'different-query',
+          jql: 'different-query',
         });
       });
 
@@ -373,7 +366,7 @@ describe('JiraIssuesConfigModal', () => {
     it('should disable insert button', async () => {
       const { getByRole } = await setup({
         visibleColumnKeys: undefined,
-        parameters: { cloudId: '', type: 'jql', value: '' },
+        parameters: { cloudId: '', jql: '' },
         hookState: getEmptyHookState(),
       });
       const button = getByRole('button', { name: 'Insert issues' });
@@ -384,7 +377,7 @@ describe('JiraIssuesConfigModal', () => {
       const hookState = getEmptyHookState();
       await setup({
         visibleColumnKeys: undefined,
-        parameters: { cloudId: '', type: 'jql', value: '' },
+        parameters: { cloudId: '', jql: '' },
         hookState,
       });
 
@@ -399,8 +392,7 @@ describe('JiraIssuesConfigModal', () => {
         visibleColumnKeys: undefined,
         parameters: {
           cloudId: 'some-cloud-id',
-          type: 'jql',
-          value: 'some-jql',
+          jql: 'some-jql',
         },
         hookState,
       });

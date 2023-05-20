@@ -8,11 +8,11 @@ import { asMock } from '@atlaskit/link-test-helpers/jest';
 import {
   DatasourceTableState,
   useDatasourceTableState,
-} from '../../../hooks/useDatasourceTableState';
-import { JiraIssuesTableView } from '../tableView';
-import { JiraIssueDatasourceParameters } from '../types';
+} from '../hooks/useDatasourceTableState';
 
-jest.mock('../../../hooks/useDatasourceTableState');
+import { DatasourceTableView } from './datasourceTableView';
+
+jest.mock('../hooks/useDatasourceTableState');
 
 describe('JiraIssuesTableView', () => {
   const setup = (overrides: Partial<DatasourceTableState> = {}) => {
@@ -40,7 +40,7 @@ describe('JiraIssuesTableView', () => {
   } = {}) =>
     render(
       <IntlProvider locale="en">
-        <JiraIssuesTableView
+        <DatasourceTableView
           datasourceId={'some-datasource-id'}
           parameters={{
             cloudId: 'some-cloud-id',
@@ -61,7 +61,7 @@ describe('JiraIssuesTableView', () => {
       cloudId: 'some-cloud-id',
       type: 'jql',
       value: 'some-jql-query',
-    } as JiraIssueDatasourceParameters);
+    });
   });
 
   it('should call IssueLikeDataTableView with right props', () => {
@@ -74,7 +74,7 @@ describe('JiraIssuesTableView', () => {
       'My Column',
     );
     expect(
-      getByTestId('jira-issues-table-view--row-some-id1'),
+      getByTestId('datasource-table-view--row-some-id1'),
     ).toHaveTextContent('some-value');
   });
 
@@ -83,7 +83,7 @@ describe('JiraIssuesTableView', () => {
     const onVisibleColumnKeysChange = jest.fn();
     const { getByTestId } = render(
       <IntlProvider locale="en">
-        <JiraIssuesTableView
+        <DatasourceTableView
           datasourceId={'some-datasource-id'}
           parameters={{
             cloudId: 'some-cloud-id',
@@ -133,8 +133,8 @@ describe('JiraIssuesTableView', () => {
       visibleColumnKeys: ['myColumn'],
     });
 
-    expect(queryByTestId('jira-issues-table-view')).toBe(null);
-    expect(queryByTestId('jira-issues-table-view-spinner')).toBeInTheDocument();
+    expect(queryByTestId('datasource-table-view')).toBe(null);
+    expect(queryByTestId('datasource-table-view-spinner')).toBeInTheDocument();
   });
 
   it('should render table footer', () => {

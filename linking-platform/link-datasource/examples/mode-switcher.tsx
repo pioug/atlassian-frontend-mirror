@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import { ModeSwitcher } from '../src/ui/jira-issues/modal/mode-switcher';
+import { ModeSwitcher } from '../src/ui/jira-issues-modal/mode-switcher';
 
 const exampleModes = [
   { value: 'basic', label: 'Basic' },

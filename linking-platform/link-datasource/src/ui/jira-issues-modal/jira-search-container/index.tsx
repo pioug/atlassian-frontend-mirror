@@ -6,10 +6,13 @@ import { useIntl } from 'react-intl-next';
 
 import { token } from '@atlaskit/tokens';
 
-import { JiraIssueDatasourceParameters } from '../../types';
 import { BasicSearchInput } from '../basic-search-input';
 import { JiraJQLEditor } from '../jql-editor';
 import { ModeSwitcher } from '../mode-switcher';
+import {
+  JiraIssueDatasourceParameters,
+  JiraIssueDatasourceParametersQuery,
+} from '../types';
 
 import { buildJQL } from './buildJQL';
 import { modeSwitcherMessages } from './messages';
@@ -22,13 +25,13 @@ const inputContainerStyles = css({
 });
 
 export interface SearchContainerProps {
-  onSearch: (query: Omit<JiraIssueDatasourceParameters, 'cloudId'>) => void;
+  onSearch: (query: JiraIssueDatasourceParametersQuery) => void;
   parameters?: JiraIssueDatasourceParameters;
 }
 
 export const JiraSearchContainer = (props: SearchContainerProps) => {
   const { parameters, onSearch } = props;
-  const { cloudId, value: initialJql } = parameters || {};
+  const { cloudId, jql: initialJql } = parameters || {};
 
   const { formatMessage } = useIntl();
 
@@ -75,7 +78,7 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
   };
 
   const handleSearch = () => {
-    onSearch({ value: jql, type: 'jql' });
+    onSearch({ jql });
   };
 
   return (

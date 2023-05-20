@@ -18,7 +18,6 @@ import { asMock } from '@atlaskit/link-test-helpers/jest';
 import { useDatasourceTableState } from '../useDatasourceTableState';
 
 const [mockDatasourceId]: string = '12e74246-a3f1-46c1-9fd9-8d952aa9f12f';
-const mockParameterType: 'jql' | 'textQuery' | 'filter' = 'jql';
 const mockParameterValue: string = 'project=EDM';
 const mockCloudId = 'DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b';
 
@@ -48,8 +47,7 @@ describe('useDatasourceTableState', () => {
       () =>
         useDatasourceTableState(mockDatasourceId, {
           cloudId: mockCloudId,
-          type: mockParameterType,
-          value: mockParameterValue,
+          jql: mockParameterValue,
         }),
       { wrapper },
     );
@@ -176,7 +174,7 @@ describe('useDatasourceTableState', () => {
       expect(getDatasourceData).toHaveBeenCalledWith(mockDatasourceId, {
         parameters: {
           cloudId: mockCloudId,
-          [mockParameterType]: mockParameterValue,
+          jql: mockParameterValue,
         },
         pageSize: 10,
         pageCursor: undefined,
@@ -219,7 +217,7 @@ describe('useDatasourceTableState', () => {
       expect(getDatasourceData).toHaveBeenCalledWith(mockDatasourceId, {
         parameters: {
           cloudId: mockCloudId,
-          [mockParameterType]: mockParameterValue,
+          jql: mockParameterValue,
         },
         pageSize: 10,
         pageCursor: undefined,
@@ -234,7 +232,7 @@ describe('useDatasourceTableState', () => {
       expect(getDatasourceData).toHaveBeenCalledWith(mockDatasourceId, {
         parameters: {
           cloudId: mockCloudId,
-          [mockParameterType]: mockParameterValue,
+          jql: mockParameterValue,
         },
         pageSize: 10,
         pageCursor: mockDatasourceDataResponse.nextPageCursor,

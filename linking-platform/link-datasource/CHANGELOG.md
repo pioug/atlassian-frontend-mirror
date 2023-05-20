@@ -1,5 +1,11 @@
 # @atlaskit/link-datasource
 
+## 0.16.0
+
+### Minor Changes
+
+- [`a68bac355b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a68bac355b0) - Renaming `JiraIssuesTableView` into `DatasourceTableView` and changing its `parameters` property to be an `object`
+
 ## 0.15.1
 
 ### Patch Changes

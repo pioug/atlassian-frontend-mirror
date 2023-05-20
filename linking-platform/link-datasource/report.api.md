@@ -20,17 +20,41 @@ import { InlineCardAdf } from '@atlaskit/linking-common/types';
 import { jsx } from '@emotion/react';
 
 // @public (undocumented)
-interface JiraIssueDatasourceParameters {
+export const DatasourceTableView: ({
+  datasourceId,
+  parameters,
+  visibleColumnKeys,
+  onVisibleColumnKeysChange,
+}: DatasourceTableViewProps) => jsx.JSX.Element;
+
+// @public (undocumented)
+interface DatasourceTableViewProps {
   // (undocumented)
-  cloudId: string;
+  datasourceId: string;
   // (undocumented)
-  type: JiraIssueDatasourceParameterType;
+  fields?: string[];
   // (undocumented)
-  value: string;
+  onVisibleColumnKeysChange?: (visibleColumnKeys: string[]) => void;
+  // (undocumented)
+  parameters: object;
+  // (undocumented)
+  visibleColumnKeys?: string[];
 }
 
 // @public (undocumented)
-type JiraIssueDatasourceParameterType = 'filter' | 'jql' | 'textQuery';
+type JiraIssueDatasourceParameters = {
+  cloudId: string;
+} & JiraIssueDatasourceParametersQuery;
+
+// @public (undocumented)
+type JiraIssueDatasourceParametersQuery = XOR<
+  {
+    jql: string;
+  },
+  {
+    filter: string;
+  }
+>;
 
 // @public (undocumented)
 export const JiraIssuesConfigModal: (
@@ -58,26 +82,13 @@ interface JiraIssuesConfigModalProps {
 }
 
 // @public (undocumented)
-export const JiraIssuesTableView: ({
-  datasourceId,
-  parameters,
-  visibleColumnKeys,
-  onVisibleColumnKeysChange,
-}: JiraIssuesTableViewProps) => jsx.JSX.Element;
-
-// @public (undocumented)
-interface JiraIssuesTableViewProps {
-  // (undocumented)
-  datasourceId: string;
-  // (undocumented)
-  fields?: string[];
-  // (undocumented)
-  onVisibleColumnKeysChange?: (visibleColumnKeys: string[]) => void;
-  // (undocumented)
-  parameters: JiraIssueDatasourceParameters;
-  // (undocumented)
-  visibleColumnKeys?: string[];
-}
+type XOR<T1, T2> =
+  | (T1 & {
+      [k in Exclude<keyof T2, keyof T1>]?: never;
+    })
+  | (T2 & {
+      [k in Exclude<keyof T1, keyof T2>]?: never;
+    });
 
 // (No @packageDocumentation comment for this package)
 ```

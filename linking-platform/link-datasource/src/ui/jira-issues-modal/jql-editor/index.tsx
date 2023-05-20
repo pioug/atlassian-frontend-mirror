@@ -3,8 +3,8 @@ import React, { useEffect, useRef } from 'react';
 import { JQLEditor } from '@atlassianlabs/jql-editor';
 import { useAutocompleteProvider } from '@atlassianlabs/jql-editor-autocomplete-rest';
 
-import { makeGetJqlAutocompleteData } from '../../../../services/makeGetJqlAutocompleteData';
-import { makeGetJqlSuggestionsData } from '../../../../services/makeGetJqlSuggestionsData';
+import { makeGetJqlAutocompleteData } from '../../../services/makeGetJqlAutocompleteData';
+import { makeGetJqlSuggestionsData } from '../../../services/makeGetJqlSuggestionsData';
 
 export interface JiraJQLEditorProps {
   cloudId: string;

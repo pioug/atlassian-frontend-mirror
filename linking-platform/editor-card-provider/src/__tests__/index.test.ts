@@ -44,7 +44,7 @@ const getMockProvidersResponse = ({
         },
         {
           source:
-            '^https:\\/\\/.*?\\.jira-dev\\.com\\/jira\\/software\\/(c\\/)?projects\\/([^\\/]+?)\\/boards\\/(\\d+)\\/roadmap\\/?',
+            '^https:\\/\\/.*?\\.jira-dev\\.com\\/jira\\/software\\/(c\\/)?projects\\/([^\\/]+?)\\/boards\\/(\\d+)\\/(timeline|roadmap)\\/?',
         },
         {
           source:
@@ -355,6 +355,18 @@ describe('providers > editor', () => {
     [
       'classic roadmap embed',
       'https://jdog.jira-dev.com/jira/software/c/projects/DL39857/boards/3186/roadmap',
+    ],
+    [
+      'timeline embed',
+      'https://jdog.jira-dev.com/jira/software/projects/DL39857/boards/3186/timeline',
+    ],
+    [
+      'timeline embed with query parameter',
+      'https://jdog.jira-dev.com/jira/software/projects/DL39857/boards/3186/timeline?shared=&atlOrigin=eyJpIjoiYmFlNzRlMzAyYjAyNDlkZTgxZDc5ZTIzYmNlZmI5MjAiLCJwIjoiaiJ9',
+    ],
+    [
+      'classic timeline embed',
+      'https://jdog.jira-dev.com/jira/software/c/projects/DL39857/boards/3186/timeline',
     ],
     [
       'Polaris view link',

@@ -8,6 +8,7 @@ import { Skeleton } from '@atlaskit/linking-common';
 import {
   DatasourceResponseSchemaProperty,
   DatasourceType,
+  StringType,
 } from '@atlaskit/linking-types/datasource';
 import { autoScroller } from '@atlaskit/pragmatic-drag-and-drop-autoscroll';
 import { extractClosestEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/addon/closest-edge';
@@ -276,7 +277,10 @@ export const IssueLikeDataTableView = ({
     () =>
       items.map<RowType>((newRowData, rowIndex) => ({
         key: `${
-          (identityColumnKey && newRowData[identityColumnKey]) || rowIndex
+          (identityColumnKey &&
+            newRowData[identityColumnKey] &&
+            (newRowData[identityColumnKey] as StringType).value) ||
+          rowIndex
         }`,
         cells: visibleSortedColumns.map<RowCellType>(({ key, type }) => {
           const value = newRowData[key];

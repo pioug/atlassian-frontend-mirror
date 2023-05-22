@@ -1,5 +1,12 @@
 # @atlaskit/link-client-extension
 
+## 1.1.3
+
+### Patch Changes
+
+- [`e9ad7ee17bb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e9ad7ee17bb) - Updated mock response to the new `DatasourceType` value format
+- Updated dependencies
+
 ## 1.1.2
 
 ### Patch Changes

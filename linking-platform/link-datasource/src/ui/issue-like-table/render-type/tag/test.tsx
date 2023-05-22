@@ -6,7 +6,7 @@ import Tag, { TAG_TYPE_TEST_ID } from './index';
 
 describe('Tag Type', () => {
   const setup = ({ text = '', ...props }) => {
-    return render(<Tag text={text} {...props} />);
+    return render(<Tag text={{ value: text }} {...props} />);
   };
 
   it('renders when text is passed', async () => {

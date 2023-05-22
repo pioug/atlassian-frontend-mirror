@@ -36,27 +36,72 @@ interface Item {
 const items: Item[] = [
   {
     type: 'number',
-    variations: [123, 123.456, -98, -98.777],
+    variations: [
+      {
+        value: 123,
+      },
+      {
+        value: 123.456,
+      },
+      {
+        value: -98,
+      },
+      {
+        value: -98.777,
+      },
+    ],
   },
   {
     type: 'date',
-    variations: ['11/11/2023', '2023-04-20T23:00:00.000Z'],
+    variations: [
+      {
+        value: '11/11/2023',
+      },
+      {
+        value: '2023-04-20T23:00:00.000Z',
+      },
+    ],
   },
   {
     type: 'time',
-    variations: ['11/11/2023', '2023-04-20T23:00:00.000Z'],
+    variations: [
+      {
+        value: '11/11/2023',
+      },
+      {
+        value: '2023-04-20T23:00:00.000Z',
+      },
+    ],
   },
   {
     type: 'datetime',
-    variations: ['11/11/2023', '2023-04-20T23:00:00.000Z'],
+    variations: [
+      {
+        value: '11/11/2023',
+      },
+      {
+        value: '2023-04-20T23:00:00.000Z',
+      },
+    ],
   },
   {
     type: 'string',
-    variations: ['Hello World'],
+    variations: [
+      {
+        value: 'Hello World',
+      },
+    ],
   },
   {
     type: 'boolean',
-    variations: [true, false],
+    variations: [
+      {
+        value: true,
+      },
+      {
+        value: false,
+      },
+    ],
   },
   {
     type: 'status',
@@ -117,7 +162,11 @@ const items: Item[] = [
   },
   {
     type: 'tag',
-    variations: ['Simple Tag'],
+    variations: [
+      {
+        value: 'Simple Tag',
+      },
+    ],
   },
 ];
 

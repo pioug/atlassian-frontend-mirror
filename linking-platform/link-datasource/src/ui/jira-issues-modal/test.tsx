@@ -57,14 +57,14 @@ describe('JiraIssuesConfigModal', () => {
     hasNextPage: false,
     responseItems: [
       {
-        myColumn: 'some-value',
-        otherColumn: 'other-column-value',
-        myId: 'some-id1',
+        myColumn: { value: 'some-value' },
+        otherColumn: { value: 'other-column-value' },
+        myId: { value: 'some-id1' },
       },
       {
-        myColumn: 'other-value',
-        otherColumn: 'other-column-other-value',
-        myId: 'some-id2',
+        myColumn: { value: 'other-value' },
+        otherColumn: { value: 'other-column-other-value' },
+        myId: { value: 'some-id2' },
       },
     ],
     columns: [
@@ -552,14 +552,14 @@ describe('JiraIssuesConfigModal', () => {
           hasNextPage: false,
           items: [
             {
-              myColumn: 'some-value',
-              otherColumn: 'other-column-value',
-              myId: 'some-id1',
+              myColumn: { value: 'some-value' },
+              otherColumn: { value: 'other-column-value' },
+              myId: { value: 'some-id1' },
             },
             {
-              myColumn: 'other-value',
-              otherColumn: 'other-column-other-value',
-              myId: 'some-id2',
+              myColumn: { value: 'other-value' },
+              otherColumn: { value: 'other-column-other-value' },
+              myId: { value: 'some-id2' },
             },
           ],
           visibleColumnKeys: ['myColumn'],

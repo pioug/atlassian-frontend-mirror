@@ -9,6 +9,7 @@ import ConfluenceSpace from '../../../__fixtures__/confluence-space';
 import ConfluenceTemplate from '../../../__fixtures__/confluence-template';
 import Figma from '../../../__fixtures__/figma';
 import JiraRoadMap from '../../../__fixtures__/jira-roadmap';
+import JiraTimeline from '../../../__fixtures__/jira-timeline';
 import JiraTask from '../../../__fixtures__/jira-task';
 import YouTubeVideo from '../../../__fixtures__/youtube-video';
 
@@ -195,6 +196,31 @@ describe('extractFlexibleUiContext', () => {
         src: 'https://preview-url',
         title: 'Linking Platform',
         url: 'https://jira-url/projects/project-id/boards/board-id/roadmap',
+      },
+    });
+  });
+
+  it('returns flexible ui context for jira timeline', () => {
+    const data = extractFlexibleUiContext({
+      response: JiraTimeline as JsonLd.Response,
+    });
+
+    expect(data).toEqual({
+      linkIcon: { label: 'Linking Platform', url: 'https://icon-url' },
+      title: 'Linking Platform',
+      url: 'https://jira-url/projects/project-id/boards/board-id/timeline',
+      provider: expectedJiraProvider,
+      previewAction: {
+        download: undefined,
+        linkIcon: {
+          label: 'Linking Platform',
+          url: 'https://icon-url',
+        },
+        providerName: 'Jira',
+        isSupportTheming: true,
+        src: 'https://preview-url',
+        title: 'Linking Platform',
+        url: 'https://jira-url/projects/project-id/boards/board-id/timeline',
       },
     });
   });

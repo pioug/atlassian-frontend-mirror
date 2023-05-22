@@ -9,6 +9,10 @@ describe('enforce-feature-flag-usage-structure tests', () => {
         code: `if(getBooleanFF('test-flag')) { }`,
       },
       {
+        // negated IfStatement
+        code: `if(!getBooleanFF('test-flag')) { }`,
+      },
+      {
         // ConditionalExpression
         code: `const val = getBooleanFF('test-flag') ? 'yay' : 'no';`,
       },
@@ -38,7 +42,14 @@ describe('enforce-feature-flag-usage-structure tests', () => {
         ],
       },
       {
-        code: `if((getBooleanFF('test-flag') || 1 == true) && getBooleanFF('test-flag')) { }`,
+        code: `if(!getBooleanFF('test-flag') && !getBooleanFF('test-flag')) { }`,
+        errors: [
+          { messageId: 'multipleFlagCheckInExpression' },
+          { messageId: 'multipleFlagCheckInExpression' },
+        ],
+      },
+      {
+        code: `if((!getBooleanFF('test-flag') || 1 == true) && getBooleanFF('test-flag')) { }`,
         errors: [
           { messageId: 'multipleFlagCheckInExpression' },
           { messageId: 'multipleFlagCheckInExpression' },

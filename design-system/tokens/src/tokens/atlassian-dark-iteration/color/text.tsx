@@ -14,24 +14,10 @@ const color: ExtendedValueSchema<TextColorTokenSchema<BaseToken>> = {
       inverse: {
         value: 'DarkNeutral100',
       },
-      selected: {
-        // @ts-ignore Blue350 not currently available
-        value: '#6EAAFF',
-      },
       warning: {
         inverse: {
           value: 'DarkNeutral100',
         },
-      },
-    },
-    link: {
-      '[default]': {
-        // @ts-ignore Blue350 not currently available
-        value: '#6EAAFF',
-      },
-      pressed: {
-        // @ts-ignore Blue250 not currently available
-        value: '#A8CCFF',
       },
     },
   },

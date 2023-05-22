@@ -24,9 +24,11 @@ import * as api from './api';
 
 const BATCH_WAIT_TIME = 50;
 
-const isJiraRoadMap = (url: string) =>
+// Check if it is matching a Jira Roadmaps or Jira Timeline url
+// NOT to be confused with JSM timeline
+const isJiraRoadmapOrTimeline = (url: string) =>
   url.match(
-    /^https:\/\/.*?\/jira\/software\/(c\/)?projects\/[^\/]+?\/boards\/.*?\/roadmap\/?/,
+    /^https:\/\/.*?\/jira\/software\/(c\/)?projects\/[^\/]+?\/boards\/.*?\/(timeline|roadmap)\/?/,
   );
 
 const isPolarisView = (url: string) =>
@@ -188,7 +190,7 @@ export class EditorCardProvider implements CardProvider {
 
   private getHardCodedAppearance(url: string): CardAppearance | undefined {
     if (
-      isJiraRoadMap(url) ||
+      isJiraRoadmapOrTimeline(url) ||
       isPolarisView(url) ||
       isJwmView(url) ||
       isGiphyMedia(url) ||
@@ -259,7 +261,7 @@ export class EditorCardProvider implements CardProvider {
               // if user's default choice is NOT "inline" (so, block or embed at this point, url was dealt with above)
               (userPreference as CardAppearance) ||
               // If user's default choice is "inline" or user hasn't specified preferences at all,
-              // we check whatever one of the hardcoded providers match url (jira roadmap, polaris, etc)
+              // we check whatever one of the hardcoded providers match url (jira /timeline, polaris, etc)
               hardCodedAppearance ||
               // If non match, we see if this provider has default appearance for this particular regexp
               providerDefaultAppearance ||

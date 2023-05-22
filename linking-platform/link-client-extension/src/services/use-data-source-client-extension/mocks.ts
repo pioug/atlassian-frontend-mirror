@@ -7,9 +7,9 @@ export const mockDatasourceDataResponse: DatasourceDataResponse = {
   totalIssues: 1234,
   data: [
     {
-      id: 'EDM-12',
-      description: 'Design datasource feature',
-      createdAt: '2023-01-22T01:30:00.000-05:00',
+      id: { value: 'EDM-12' },
+      description: { value: 'Design datasource feature' },
+      createdAt: { value: '2023-01-22T01:30:00.000-05:00' },
       assigned: {
         displayName: 'Sasha',
       },
@@ -19,9 +19,9 @@ export const mockDatasourceDataResponse: DatasourceDataResponse = {
       },
     },
     {
-      id: 'EDM-14',
-      description: 'Implement datasource feature',
-      createdAt: '2023-03-01T01:30:00.000-05:00',
+      id: { value: 'EDM-14' },
+      description: { value: 'Implement datasource feature' },
+      createdAt: { value: '2023-03-01T01:30:00.000-05:00' },
       assigned: {
         displayName: 'Hana',
       },
@@ -31,9 +31,9 @@ export const mockDatasourceDataResponse: DatasourceDataResponse = {
       },
     },
     {
-      id: 'EDM-15',
-      description: 'Add Jira Provider',
-      createdAt: '2023-03-31T01:30:00.000-05:00',
+      id: { value: 'EDM-15' },
+      description: { value: 'Add Jira Provider' },
+      createdAt: { value: '2023-03-31T01:30:00.000-05:00' },
       assigned: {
         displayName: 'Princey',
       },
@@ -43,9 +43,9 @@ export const mockDatasourceDataResponse: DatasourceDataResponse = {
       },
     },
     {
-      id: 'EDM-16',
-      description: 'Plan team party',
-      createdAt: '2023-05-01T01:30:00.000-05:00',
+      id: { value: 'EDM-16' },
+      description: { value: 'Plan team party' },
+      createdAt: { value: '2023-05-01T01:30:00.000-05:00' },
       assigned: {
         displayName: 'Nidhin',
       },

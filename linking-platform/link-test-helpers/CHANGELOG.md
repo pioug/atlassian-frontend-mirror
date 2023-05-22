@@ -1,5 +1,15 @@
 # @atlaskit/link-test-helpers
 
+## 3.0.0
+
+### Major Changes
+
+- [`111d5e59c3a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/111d5e59c3a) - Updated mock response to the new `DatasourceType` value format
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.4.0
 
 ### Minor Changes

@@ -20,7 +20,7 @@ export interface BooleanType {
   // (undocumented)
   type: 'boolean';
   // (undocumented)
-  value: boolean;
+  value: TypeValueInjector<boolean>;
 }
 
 // @public (undocumented)
@@ -128,7 +128,7 @@ export interface DateTimeType {
   // (undocumented)
   type: 'datetime';
   // (undocumented)
-  value: string;
+  value: TypeValueInjector<string>;
 }
 
 // @public (undocumented)
@@ -136,7 +136,7 @@ export interface DateType {
   // (undocumented)
   type: 'date';
   // (undocumented)
-  value: string;
+  value: TypeValueInjector<string>;
 }
 
 // @public
@@ -216,7 +216,7 @@ export interface NumberType {
   // (undocumented)
   type: 'number';
   // (undocumented)
-  value: number;
+  value: TypeValueInjector<number>;
 }
 
 // @public
@@ -258,7 +258,7 @@ export interface StringType {
   // (undocumented)
   type: 'string';
   // (undocumented)
-  value: string;
+  value: TypeValueInjector<string>;
 }
 
 // @public (undocumented)
@@ -266,7 +266,7 @@ export interface TagType {
   // (undocumented)
   type: 'tag';
   // (undocumented)
-  value: string;
+  value: TypeValueInjector<string>;
 }
 
 // @public (undocumented)
@@ -274,7 +274,13 @@ export interface TimeType {
   // (undocumented)
   type: 'time';
   // (undocumented)
-  value: string;
+  value: TypeValueInjector<string>;
+}
+
+// @public (undocumented)
+interface TypeValueInjector<TValue> {
+  // (undocumented)
+  value: TValue;
 }
 
 // @public (undocumented)

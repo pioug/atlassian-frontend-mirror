@@ -29,10 +29,12 @@ const DateTimeRenderType = ({
   testId = DATETIME_TYPE_TEST_ID,
   display = 'datetime',
 }: DateProps) => {
-  const date = new Date(value);
+  const dateString = value?.value;
+
+  const date = new Date(dateString);
   const intl = useIntl();
 
-  if (!value || isNaN(date.getTime())) {
+  if (!dateString || isNaN(date.getTime())) {
     return <></>;
   }
 

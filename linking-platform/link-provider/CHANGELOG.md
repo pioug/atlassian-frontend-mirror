@@ -1,5 +1,11 @@
 # @atlaskit/link-provider
 
+## 1.6.3
+
+### Patch Changes
+
+- [`f10ed88032c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f10ed88032c) - With the renaming of Jira Roadmaps to Timeline, we are updating the regex rules to match timeline in conjunction to roadmaps
+
 ## 1.6.2
 
 ### Patch Changes

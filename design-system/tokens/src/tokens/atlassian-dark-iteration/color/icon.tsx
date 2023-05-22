@@ -11,10 +11,6 @@ const color: ExtendedValueSchema<IconColorTokenSchema<BaseToken>> = {
       inverse: {
         value: 'DarkNeutral100',
       },
-      selected: {
-        // @ts-ignore Blue350 not currently available
-        value: '#6EAAFF',
-      },
       warning: {
         inverse: {
           value: 'DarkNeutral100',

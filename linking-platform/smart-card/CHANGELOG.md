@@ -1,5 +1,18 @@
 # @atlaskit/smart-card
 
+## 26.3.2
+
+### Patch Changes
+
+- [`f10ed88032c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f10ed88032c) - With the renaming of Jira Roadmaps to Timeline, we are updating the regex rules to match timeline in conjunction to roadmaps
+- Updated dependencies
+
+## 26.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 26.3.0
 
 ### Minor Changes

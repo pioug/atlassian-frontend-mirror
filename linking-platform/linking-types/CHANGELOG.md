@@ -1,5 +1,11 @@
 # @atlaskit/linking-types
 
+## 2.0.0
+
+### Major Changes
+
+- [`c3219284ef0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c3219284ef0) - Added meta wrapper to primitive types
+
 ## 1.6.0
 
 ### Minor Changes

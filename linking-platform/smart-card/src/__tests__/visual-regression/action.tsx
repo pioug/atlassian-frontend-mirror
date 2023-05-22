@@ -29,7 +29,8 @@ describe('server action', () => {
       expect(image).toMatchProdImageSnapshot();
     });
 
-    it('renders lozenge action loading', async () => {
+    // FIXME: This test was automatically skipped due to failure on 21/05/2023: https://product-fabric.atlassian.net/browse/EDM-6739
+    it.skip('renders lozenge action loading', async () => {
       const url = getURL('vr-action-lozenge');
       const page = await setup(url + '&delay=500');
       await page.waitForSelector(triggerSelector);

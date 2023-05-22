@@ -10,49 +10,49 @@ const color: ExtendedValueSchema<AccentColorTokenSchema<BaseToken>> = {
       accent: {
         blue: {
           subtlest: {
-            // @ts-ignore Blue950 not currently available
+            // @ts-ignore new value for Blue1000
             value: '#092957',
           },
         },
         red: {
           subtlest: {
-            // @ts-ignore Red950 not currently available
+            // @ts-ignore new value for Red1000
             value: '#4F1C16',
           },
         },
         orange: {
           subtlest: {
-            // @ts-ignore Orange950 not currently available
-            value: '#513010',
+            // @ts-ignore new value for Orange1000
+            value: '#4A2B0F',
           },
         },
         yellow: {
           subtlest: {
-            // @ts-ignore Yellow950 not currently available
-            value: '#473602',
+            // @ts-ignore new value for Yellow1000
+            value: '#3F3102',
           },
         },
         green: {
           subtlest: {
-            // @ts-ignore Green950 not currently available
-            value: '#143E2C',
+            // @ts-ignore new value for Green1000
+            value: '#143C2B',
           },
         },
         purple: {
           subtlest: {
-            // @ts-ignore Purple950 not currently available
+            // @ts-ignore new value for Purple1000
             value: '#2B2451',
           },
         },
         teal: {
           subtlest: {
-            // @ts-ignore Teal950 not currently available
-            value: '#193E42',
+            // @ts-ignore new value for Teal1000
+            value: '#15373B',
           },
         },
         magenta: {
           subtlest: {
-            // @ts-ignore Magenta950 not currently available
+            // @ts-ignore new value for Magenta1000
             value: '#421F34',
           },
         },

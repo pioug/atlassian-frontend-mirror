@@ -52,7 +52,17 @@ describe('IssueLikeDataTableView', () => {
 
   async function assertColumnTitles(onColumnChange?: () => void) {
     const items = [
-      { id: 'id0', someKey: 'someData', someOtherKey: 'someOtherValue' },
+      {
+        id: {
+          value: 'id0',
+        },
+        someKey: {
+          value: 'someData',
+        },
+        someOtherKey: {
+          value: 'someOtherValue',
+        },
+      },
     ];
     const status: IssueLikeDataTableViewProps['status'] = 'resolved';
 
@@ -79,8 +89,6 @@ describe('IssueLikeDataTableView', () => {
 
     const selectedColumnKeys: string[] = ['id', 'someOtherKey'];
 
-    const renderItem: TableViewPropsRenderType = item => item.value;
-
     const onNextPage = async () => {};
 
     const { getByTestId } = render(
@@ -91,7 +99,6 @@ describe('IssueLikeDataTableView', () => {
         hasNextPage={false}
         onNextPage={onNextPage}
         columns={columns}
-        renderItem={renderItem}
         visibleColumnKeys={selectedColumnKeys}
         onVisibleColumnKeysChange={onColumnChange}
       />,
@@ -105,10 +112,18 @@ describe('IssueLikeDataTableView', () => {
 
   it('should display X rows in correct order given the data', async () => {
     const items: DatasourceDataResponseItem[] = [
-      { id: 'id0' },
+      { id: { value: 'id0' } },
       {},
-      { id: 'id2' },
-      { id: 'id3' },
+      {
+        id: {
+          value: 'id2',
+        },
+      },
+      {
+        id: {
+          value: 'id3',
+        },
+      },
     ];
     const onNextPage = async () => {};
 
@@ -121,8 +136,6 @@ describe('IssueLikeDataTableView', () => {
       },
     ];
 
-    const renderItem: TableViewPropsRenderType = item => item.value;
-
     render(
       <IssueLikeDataTableView
         testId="sometable"
@@ -131,7 +144,6 @@ describe('IssueLikeDataTableView', () => {
         onNextPage={onNextPage}
         hasNextPage={false}
         columns={columns}
-        renderItem={renderItem}
         visibleColumnKeys={['id']}
         onVisibleColumnKeysChange={() => {}}
       />,
@@ -151,7 +163,17 @@ describe('IssueLikeDataTableView', () => {
 
   it('should display only selected columns', async () => {
     const items: DatasourceDataResponseItem[] = [
-      { id: 'id0', someKey: 'someData', someOtherKey: 'someOtherValue' },
+      {
+        id: {
+          value: 'id0',
+        },
+        someKey: {
+          value: 'someData',
+        },
+        someOtherKey: {
+          value: 'someOtherValue',
+        },
+      },
     ];
     const onNextPage = async () => {};
 
@@ -178,8 +200,6 @@ describe('IssueLikeDataTableView', () => {
 
     const selectedColumnKeys: string[] = ['id', 'someOtherKey'];
 
-    const renderItem: TableViewPropsRenderType = item => item.value;
-
     render(
       <IssueLikeDataTableView
         testId="sometable"
@@ -188,7 +208,6 @@ describe('IssueLikeDataTableView', () => {
         onNextPage={onNextPage}
         hasNextPage={false}
         columns={columns}
-        renderItem={renderItem}
         visibleColumnKeys={selectedColumnKeys}
         onVisibleColumnKeysChange={() => {}}
       />,
@@ -214,7 +233,16 @@ describe('IssueLikeDataTableView', () => {
 
   it('should render list type', async () => {
     const items: DatasourceDataResponseItem[] = [
-      { listProp: ['item1', 'item2'] },
+      {
+        listProp: [
+          {
+            value: 'item1',
+          },
+          {
+            value: 'item2',
+          },
+        ],
+      },
     ];
     const onNextPage = async () => {};
 
@@ -227,8 +255,6 @@ describe('IssueLikeDataTableView', () => {
       },
     ];
 
-    const renderItem: TableViewPropsRenderType = item => item.value;
-
     render(
       <IssueLikeDataTableView
         testId="sometable"
@@ -237,7 +263,6 @@ describe('IssueLikeDataTableView', () => {
         onNextPage={onNextPage}
         hasNextPage={false}
         columns={columns}
-        renderItem={renderItem}
         visibleColumnKeys={['listProp']}
         onVisibleColumnKeysChange={() => {}}
       />,
@@ -250,7 +275,7 @@ describe('IssueLikeDataTableView', () => {
 
   it('should use provided renderer to transform data by type', async () => {
     const items: DatasourceDataResponseItem[] = [
-      { someNumber: 40, someString: 'abc' },
+      { someNumber: { value: 40 }, someString: { value: 'abc' } },
     ];
     const onNextPage = async () => {};
 
@@ -272,9 +297,9 @@ describe('IssueLikeDataTableView', () => {
     const renderItem: TableViewPropsRenderType = item => {
       switch (item.type) {
         case 'number':
-          return item.value + 2;
+          return item.value.value + 2;
         case 'string':
-          return item.value + '-blah';
+          return item.value.value + '-blah';
       }
     };
 
@@ -306,9 +331,21 @@ describe('IssueLikeDataTableView', () => {
     let counter = 0;
 
     const items: DatasourceDataResponseItem[] = [
-      { id: `id${counter++}` },
-      { id: `id${counter++}` },
-      { id: `id${counter++}` },
+      {
+        id: {
+          value: `id${counter++}`,
+        },
+      },
+      {
+        id: {
+          value: `id${counter++}`,
+        },
+      },
+      {
+        id: {
+          value: `id${counter++}`,
+        },
+      },
     ];
     const onNextPage = jest.fn(async () => {});
 
@@ -321,7 +358,6 @@ describe('IssueLikeDataTableView', () => {
       },
     ];
 
-    const renderItem: TableViewPropsRenderType = item => item.value;
     render(
       <IssueLikeDataTableView
         testId="sometable"
@@ -330,7 +366,6 @@ describe('IssueLikeDataTableView', () => {
         onNextPage={onNextPage}
         hasNextPage={true}
         columns={columns}
-        renderItem={renderItem}
         visibleColumnKeys={['id']}
         onVisibleColumnKeysChange={() => {}}
       />,
@@ -353,9 +388,21 @@ describe('IssueLikeDataTableView', () => {
     let counter = 0;
 
     const items: DatasourceDataResponseItem[] = [
-      { id: `id${counter++}` },
-      { id: `id${counter++}` },
-      { id: `id${counter++}` },
+      {
+        id: {
+          value: `id${counter++}`,
+        },
+      },
+      {
+        id: {
+          value: `id${counter++}`,
+        },
+      },
+      {
+        id: {
+          value: `id${counter++}`,
+        },
+      },
     ];
     const onNextPage = jest.fn(async () => {});
 
@@ -368,7 +415,6 @@ describe('IssueLikeDataTableView', () => {
       },
     ];
 
-    const renderItem: TableViewPropsRenderType = item => item.value;
     render(
       <IssueLikeDataTableView
         testId="sometable"
@@ -377,7 +423,6 @@ describe('IssueLikeDataTableView', () => {
         onNextPage={onNextPage}
         hasNextPage={false}
         columns={columns}
-        renderItem={renderItem}
         visibleColumnKeys={['id']}
         onVisibleColumnKeysChange={() => {}}
       />,
@@ -397,9 +442,21 @@ describe('IssueLikeDataTableView', () => {
 
     let counter = 0;
     const items: DatasourceDataResponseItem[] = [
-      { id: `id${counter++}` },
-      { id: `id${counter++}` },
-      { id: `id${counter++}` },
+      {
+        id: {
+          value: `id${counter++}`,
+        },
+      },
+      {
+        id: {
+          value: `id${counter++}`,
+        },
+      },
+      {
+        id: {
+          value: `id${counter++}`,
+        },
+      },
     ];
     const onNextPage = jest.fn(async () => {});
 
@@ -411,7 +468,6 @@ describe('IssueLikeDataTableView', () => {
         isIdentity: true,
       },
     ];
-    const renderItem: TableViewPropsRenderType = item => item.value;
     render(
       <IssueLikeDataTableView
         testId="sometable"
@@ -420,7 +476,6 @@ describe('IssueLikeDataTableView', () => {
         onNextPage={onNextPage}
         hasNextPage={true}
         columns={columns}
-        renderItem={renderItem}
         visibleColumnKeys={['id']}
         onVisibleColumnKeysChange={() => {}}
       />,
@@ -456,9 +511,21 @@ describe('IssueLikeDataTableView', () => {
     jest.useFakeTimers();
     let counter = 0;
     const items: DatasourceDataResponseItem[] = [
-      { id: `id${counter++}` },
-      { id: `id${counter++}` },
-      { id: `id${counter++}` },
+      {
+        id: {
+          value: `id${counter++}`,
+        },
+      },
+      {
+        id: {
+          value: `id${counter++}`,
+        },
+      },
+      {
+        id: {
+          value: `id${counter++}`,
+        },
+      },
     ];
     const onNextPage = jest.fn(async () => {});
 
@@ -470,7 +537,6 @@ describe('IssueLikeDataTableView', () => {
         isIdentity: true,
       },
     ];
-    const renderItem: TableViewPropsRenderType = item => item.value;
 
     const { getByTestId } = render(
       <IssueLikeDataTableView
@@ -480,7 +546,6 @@ describe('IssueLikeDataTableView', () => {
         onNextPage={onNextPage}
         hasNextPage={true}
         columns={columns}
-        renderItem={renderItem}
         visibleColumnKeys={['id']}
         onVisibleColumnKeysChange={() => {}}
       />,
@@ -501,9 +566,21 @@ describe('IssueLikeDataTableView', () => {
     jest.useFakeTimers();
     let counter = 0;
     const items: DatasourceDataResponseItem[] = [
-      { id: `id${counter++}` },
-      { id: `id${counter++}` },
-      { id: `id${counter++}` },
+      {
+        id: {
+          value: `id${counter++}`,
+        },
+      },
+      {
+        id: {
+          value: `id${counter++}`,
+        },
+      },
+      {
+        id: {
+          value: `id${counter++}`,
+        },
+      },
     ];
     const onNextPage = jest.fn(async () => {});
 
@@ -515,7 +592,6 @@ describe('IssueLikeDataTableView', () => {
         isIdentity: true,
       },
     ];
-    const renderItem: TableViewPropsRenderType = item => item.value;
 
     render(
       <IssueLikeDataTableView
@@ -526,7 +602,6 @@ describe('IssueLikeDataTableView', () => {
         hasNextPage={true}
         columns={columns}
         visibleColumnKeys={['id']}
-        renderItem={renderItem}
       />,
     );
 
@@ -539,9 +614,21 @@ describe('IssueLikeDataTableView', () => {
     jest.useFakeTimers();
     let counter = 0;
     const items: DatasourceDataResponseItem[] = [
-      { id: `id${counter++}` },
-      { id: `id${counter++}` },
-      { id: `id${counter++}` },
+      {
+        id: {
+          value: `id${counter++}`,
+        },
+      },
+      {
+        id: {
+          value: `id${counter++}`,
+        },
+      },
+      {
+        id: {
+          value: `id${counter++}`,
+        },
+      },
     ];
     const onNextPage = jest.fn(async () => {});
 
@@ -553,7 +640,6 @@ describe('IssueLikeDataTableView', () => {
         isIdentity: true,
       },
     ];
-    const renderItem: TableViewPropsRenderType = item => item.value;
 
     render(
       <IssueLikeDataTableView
@@ -563,7 +649,6 @@ describe('IssueLikeDataTableView', () => {
         onNextPage={onNextPage}
         hasNextPage={true}
         columns={columns}
-        renderItem={renderItem}
         visibleColumnKeys={['id']}
         onVisibleColumnKeysChange={() => {}}
       />,
@@ -578,9 +663,23 @@ describe('IssueLikeDataTableView', () => {
     const onColumnsChange = jest.fn();
     const onNextPage = jest.fn();
     const items: DatasourceDataResponseItem[] = [
-      { id: `id1`, task: 'TASK-1', emoji: ':D' },
-      { id: `id2`, task: 'TASK-2', emoji: ':)' },
-      { id: `id3`, task: 'TASK-3', emoji: ':(' },
+      {
+        id: { value: `id1` },
+        task: {
+          value: 'TASK-1',
+        },
+        emoji: { value: ':D' },
+      },
+      {
+        id: { value: `id2` },
+        task: { value: 'TASK-2' },
+        emoji: { value: ':)' },
+      },
+      {
+        id: { value: `id3` },
+        task: { value: 'TASK-3' },
+        emoji: { value: ':(' },
+      },
     ];
 
     const columns: DatasourceResponseSchemaProperty[] = [
@@ -606,27 +705,18 @@ describe('IssueLikeDataTableView', () => {
 
     const selectedColumnKeys: string[] = ['id', 'task', 'emoji'];
 
-    const renderItem: TableViewPropsRenderType = item => item.value;
-
     return {
       onNextPage,
       items,
       columns,
-      renderItem,
       selectedColumnKeys,
       onColumnsChange,
     };
   };
 
   it('should have correct column order after a drag and drop reorder', async () => {
-    const {
-      onColumnsChange,
-      columns,
-      renderItem,
-      onNextPage,
-      items,
-      selectedColumnKeys,
-    } = makeDragAndDropTableProps();
+    const { onColumnsChange, columns, onNextPage, items, selectedColumnKeys } =
+      makeDragAndDropTableProps();
 
     const { getByTestId, getByLabelText } = render(
       <IssueLikeDataTableView
@@ -636,7 +726,6 @@ describe('IssueLikeDataTableView', () => {
         items={items}
         hasNextPage={false}
         columns={columns}
-        renderItem={renderItem}
         visibleColumnKeys={selectedColumnKeys}
         onVisibleColumnKeysChange={onColumnsChange}
       />,
@@ -659,7 +748,6 @@ describe('IssueLikeDataTableView', () => {
     const {
       onColumnsChange: onColumnsChange1,
       columns: columns1,
-      renderItem: renderItem1,
       onNextPage: onNextPage1,
       items: items1,
       selectedColumnKeys,
@@ -667,7 +755,6 @@ describe('IssueLikeDataTableView', () => {
     const {
       onColumnsChange: onColumnsChange2,
       columns: columns2,
-      renderItem: renderItem2,
       onNextPage: onNextPage2,
       items: items2,
     } = makeDragAndDropTableProps();
@@ -681,7 +768,6 @@ describe('IssueLikeDataTableView', () => {
           onNextPage={onNextPage1}
           hasNextPage={false}
           columns={columns1}
-          renderItem={renderItem1}
           visibleColumnKeys={selectedColumnKeys}
           onVisibleColumnKeysChange={onColumnsChange1}
         />
@@ -692,7 +778,6 @@ describe('IssueLikeDataTableView', () => {
           onNextPage={onNextPage2}
           hasNextPage={false}
           columns={columns2}
-          renderItem={renderItem2}
           visibleColumnKeys={selectedColumnKeys}
           onVisibleColumnKeysChange={onColumnsChange2}
         />
@@ -719,7 +804,7 @@ describe('IssueLikeDataTableView', () => {
 
   describe('when no onColumnsChange provided', () => {
     it('should not show drag and drop features', async () => {
-      const { columns, renderItem, onNextPage, items, selectedColumnKeys } =
+      const { columns, onNextPage, items, selectedColumnKeys } =
         makeDragAndDropTableProps();
       const { queryByTestId, queryByLabelText } = render(
         <IssueLikeDataTableView
@@ -729,7 +814,6 @@ describe('IssueLikeDataTableView', () => {
           onNextPage={onNextPage}
           hasNextPage={false}
           columns={columns}
-          renderItem={renderItem}
           visibleColumnKeys={selectedColumnKeys}
           onVisibleColumnKeysChange={undefined}
         />,
@@ -784,7 +868,7 @@ describe('IssueLikeDataTableView', () => {
 
     it('should render the header and cells with width from the configured fields', () => {
       const items: DatasourceDataResponseItem[] = [
-        { summary: 'summary', key: 'KEY-123' },
+        { summary: { value: 'summary' }, key: { value: 'KEY-123' } },
       ];
 
       const { queryByTestId } = render(
@@ -818,7 +902,7 @@ describe('IssueLikeDataTableView', () => {
 
     it('should render the header and cells with width from the configured types', () => {
       const items: DatasourceDataResponseItem[] = [
-        { name: 'key1', dob: '12/12/2023' },
+        { name: { value: 'key1' }, dob: { value: '12/12/2023' } },
       ];
 
       const { queryByTestId } = render(
@@ -853,11 +937,11 @@ describe('IssueLikeDataTableView', () => {
     it('should not render the header and cells with width if not configured', () => {
       const items: DatasourceDataResponseItem[] = [
         {
-          summary: 'summary',
-          key: 'KEY-123',
-          name: 'Bob',
-          dob: '12/12/2023',
-          hobby: 'Coding',
+          summary: { value: 'summary' },
+          key: { value: 'KEY-123' },
+          name: { value: 'Bob' },
+          dob: { value: '12/12/2023' },
+          hobby: { value: 'Coding' },
         },
       ];
 
@@ -886,7 +970,7 @@ describe('IssueLikeDataTableView', () => {
 
     it('should render the header and cells with width in draggable mode', () => {
       const items: DatasourceDataResponseItem[] = [
-        { summary: 'summary', key: 'KEY-123' },
+        { summary: { value: 'summary' }, key: { value: 'KEY-123' } },
       ];
 
       const { queryByTestId } = render(
@@ -921,7 +1005,12 @@ describe('IssueLikeDataTableView', () => {
 
     it('should render the header and cells with truncate css properties', () => {
       const items: DatasourceDataResponseItem[] = [
-        { summary: 'summary', key: 'KEY-123' },
+        {
+          summary: {
+            value: 'summary',
+          },
+          key: { value: 'KEY-123' },
+        },
       ];
 
       const { queryByTestId } = render(

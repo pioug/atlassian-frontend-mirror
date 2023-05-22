@@ -1,6 +1,6 @@
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 
-import { snapshot, initRendererWithADF } from './_utils';
+import { snapshot, initRendererWithADF, animationFrame } from './_utils';
 import * as adf from '../__fixtures__/code-block.adf.json';
 import * as adfCodeBlockOutsideViewport from '../__fixtures__/code-block-outside-viewport.adf.json';
 import * as adfTrailingNewline from '../__fixtures__/code-block-trailing-newline.adf.json';
@@ -23,14 +23,19 @@ describe('Snapshot Test: CodeBlock', () => {
       await snapshot(page, undefined, selectors.codeBlock);
     });
 
-    // FIXME: This test was automatically skipped due to failure on 07/05/2023: https://product-fabric.atlassian.net/browse/ED-17778
-    test.skip('should render copy-to-clipboard button correctly on hover when enabled', async () => {
+    test('should render copy-to-clipboard button correctly on hover when enabled', async () => {
       await initRendererWithADF(page, {
         appearance: 'full-page',
         rendererProps: { allowCopyToClipboard: true },
         adf,
       });
       await page.waitForSelector(selectors.codeBlock);
+      // Syntax highlighting is dependent on external libraries which are loaded asynchronously.
+      // We were not waiting for these libraries explicitly, so sometime when these libraries are not loaded, tests were failing.
+      // So, we have added waitForNetworkIdle , to wait till network becomes ideal.
+      //Also added waitForTimeout(50) to wait for 50ms in order to wait till syntax highlighting is done after libs are loaded.
+      await page.waitForNetworkIdle();
+      await page.waitForTimeout(50);
       await page.hover(selectors.codeBlock);
       await page.waitForSelector(
         `${selectors.codeBlock} ${selectors.copyToClipboardButton}`,
@@ -48,25 +53,33 @@ describe('Snapshot Test: CodeBlock', () => {
             .Tooltip { display: none; }
           `,
       });
+      await animationFrame(page);
+      await animationFrame(page);
     });
 
-    // FIXME: This test was automatically skipped due to failure on 13/04/2023: https://product-fabric.atlassian.net/browse/ED-17492
-    test.skip('should render wrap button correctly on hover when enabled', async () => {
+    test('should render wrap button correctly on hover when enabled', async () => {
       await initRendererWithADF(page, {
         appearance: 'full-page',
         rendererProps: { allowWrapCodeBlock: true },
         adf,
       });
       await page.waitForSelector(selectors.codeBlock);
+      // Syntax highlighting is dependent on external libraries which are loaded asynchronously.
+      // We were not waiting for these libraries explicitly, so sometime when these libraries are not loaded, tests were failing.
+      // So, we have added waitForNetworkIdle , to wait till network becomes ideal.
+      //Also added waitForTimeout(50) to wait for 50ms in order to wait till syntax highlighting is done after libs are loaded.
+      await page.waitForNetworkIdle();
+      await page.waitForTimeout(50);
       await page.hover(selectors.codeBlock);
       await page.waitForSelector(
         `${selectors.codeBlock} ${selectors.wrapButton}`,
       );
       await page.hover(`${selectors.codeBlock} ${selectors.wrapButton}`);
+      await animationFrame(page);
+      await animationFrame(page);
     });
 
-    // FIXME: This test was automatically skipped due to failure on 24/04/2023: https://product-fabric.atlassian.net/browse/ED-17592
-    test.skip('should render wrap and copy-to-clipboard buttons correctly on hover when both are enabled', async () => {
+    test('should render wrap and copy-to-clipboard buttons correctly on hover when both are enabled', async () => {
       await initRendererWithADF(page, {
         appearance: 'full-page',
         rendererProps: { allowWrapCodeBlock: true, allowCopyToClipboard: true },
@@ -74,10 +87,17 @@ describe('Snapshot Test: CodeBlock', () => {
       });
       await page.waitForSelector(selectors.codeBlock);
       await page.hover(selectors.codeBlock);
+      // Syntax highlighting is dependent on external libraries which are loaded asynchronously.
+      // We were not waiting for these libraries explicitly, so sometime when these libraries are not loaded, tests were failing.
+      // So, we have added waitForNetworkIdle , to wait till network becomes ideal.
+      //Also added waitForTimeout(50) to wait for 50ms in order to wait till syntax highlighting is done after libs are loaded.
+      await page.waitForNetworkIdle();
+      await page.waitForTimeout(50);
+      await animationFrame(page);
+      await animationFrame(page);
     });
 
-    // FIXME: This test was automatically skipped due to failure on 11/04/2023: https://product-fabric.atlassian.net/browse/ED-17437
-    test.skip('should render wrap and copy-to-clipboard buttons correctly inside a layout', async () => {
+    test('should render wrap and copy-to-clipboard buttons correctly inside a layout', async () => {
       await initRendererWithADF(page, {
         appearance: 'full-page',
         rendererProps: { allowWrapCodeBlock: true, allowCopyToClipboard: true },
@@ -85,6 +105,13 @@ describe('Snapshot Test: CodeBlock', () => {
       });
       await page.waitForSelector(selectors.codeBlock);
       await page.hover(selectors.codeBlock);
+      // Syntax highlighting is dependent on external libraries which are loaded asynchronously.
+      // We were not waiting for these libraries explicitly, so sometime when these libraries are not loaded, tests were failing.
+      // So, we have added waitForNetworkIdle , to wait till network becomes ideal.
+      //Also added waitForTimeout(50) to wait for 50ms in order to wait till syntax highlighting is done after libs are loaded.
+      await page.waitForNetworkIdle();
+      await page.waitForTimeout(50);
+      await animationFrame(page);
     });
 
     test('should render trailing newline', async () => {

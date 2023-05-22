@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a20e68096a0eef4d5a08c6e0481d36f0>>
+ * @codegen <<SignedSource::a498573f615e2204226c395c985e600f>>
  * @codegenCommand yarn build tokens
  */
 export default `
@@ -9,20 +9,16 @@ html[data-color-mode="dark"][data-theme~="dark:dark"] {
   color-scheme: dark;
   --ds-text: #B6C2CF;
   --ds-text-inverse: #1D2125;
-  --ds-text-selected: #6EAAFF;
   --ds-text-warning-inverse: #1D2125;
   --ds-text-subtlest: #8C9BAB;
-  --ds-link: #6EAAFF;
-  --ds-link-pressed: #A8CCFF;
   --ds-icon-inverse: #1D2125;
-  --ds-icon-selected: #6EAAFF;
   --ds-icon-warning-inverse: #1D2125;
   --ds-icon-subtle: #8C9BAB;
   --ds-background-accent-red-subtlest: #4F1C16;
-  --ds-background-accent-orange-subtlest: #513010;
-  --ds-background-accent-yellow-subtlest: #473602;
-  --ds-background-accent-green-subtlest: #143E2C;
-  --ds-background-accent-teal-subtlest: #193E42;
+  --ds-background-accent-orange-subtlest: #4A2B0F;
+  --ds-background-accent-yellow-subtlest: #3F3102;
+  --ds-background-accent-green-subtlest: #143C2B;
+  --ds-background-accent-teal-subtlest: #15373B;
   --ds-background-accent-blue-subtlest: #092957;
   --ds-background-accent-purple-subtlest: #2B2451;
   --ds-background-accent-magenta-subtlest: #421F34;
@@ -31,17 +27,11 @@ html[data-color-mode="dark"][data-theme~="dark:dark"] {
   --ds-background-input-hovered: #282E33;
   --ds-background-input-pressed: #22272B;
   --ds-background-selected: #092957;
-  --ds-background-selected-pressed: #073A83;
   --ds-background-danger: #4F1C16;
-  --ds-background-danger-pressed: #872518;
-  --ds-background-warning: #473602;
-  --ds-background-warning-pressed: #6B5103;
-  --ds-background-success: #143E2C;
-  --ds-background-success-pressed: #1B5A40;
+  --ds-background-warning: #3F3102;
+  --ds-background-success: #143C2B;
   --ds-background-discovery: #2B2451;
-  --ds-background-discovery-pressed: #4A3D8A;
   --ds-background-information: #092957;
-  --ds-background-information-pressed: #073A83;
   --ds-blanket: #10121499;
   --ds-chart-neutral-hovered: #8C9BAB;
   --ds-chart-gray-bold-hovered: #8C9BAB;

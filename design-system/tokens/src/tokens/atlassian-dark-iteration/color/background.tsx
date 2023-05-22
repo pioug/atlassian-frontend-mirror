@@ -22,72 +22,48 @@ const color: ExtendedValueSchema<BackgroundColorTokenSchema<BaseToken>> = {
       selected: {
         '[default]': {
           '[default]': {
-            // @ts-ignore Blue950 not currently available
+            // @ts-ignore new value for Blue1000
             value: '#092957',
-          },
-          pressed: {
-            // @ts-ignore Blue850 not currently available
-            value: '#073A83',
           },
         },
       },
       danger: {
         '[default]': {
           '[default]': {
-            // @ts-ignore Red950 not currently available
+            // @ts-ignore new value for Red1000
             value: '#4F1C16',
-          },
-          pressed: {
-            // @ts-ignore Red850 not currently available
-            value: '#872518',
           },
         },
       },
       warning: {
         '[default]': {
           '[default]': {
-            // @ts-ignore Yellow950 not currently available
-            value: '#473602',
-          },
-          pressed: {
-            // @ts-ignore Yellow850 not currently available
-            value: '#6B5103',
+            // @ts-ignore new value for Yellow1000
+            value: '#3F3102',
           },
         },
       },
       success: {
         '[default]': {
           '[default]': {
-            // @ts-ignore Green950 not currently available
-            value: '#143E2C',
-          },
-          pressed: {
-            // @ts-ignore Green850 not currently available
-            value: '#1B5A40',
+            // @ts-ignore new value for Green1000
+            value: '#143C2B',
           },
         },
       },
       discovery: {
         '[default]': {
           '[default]': {
-            // @ts-ignore Purple950 not currently available
+            // @ts-ignore new value for Purple1000
             value: '#2B2451',
-          },
-          pressed: {
-            // @ts-ignore Purple850 not currently available
-            value: '#4A3D8A',
           },
         },
       },
       information: {
         '[default]': {
           '[default]': {
-            // @ts-ignore Blue950 not currently available
+            // @ts-ignore new value for Blue1000
             value: '#092957',
-          },
-          pressed: {
-            // @ts-ignore Blue850 not currently available
-            value: '#073A83',
           },
         },
       },

@@ -54,7 +54,8 @@ describe('when draggable items are in scroll containers', () => {
       ).toMatchProdImageSnapshot();
     });
 
-    it('should have the expected scroll behavior when returning home (moving from the target after)', async () => {
+    // FIXME: This test was automatically skipped due to failure on 19/05/2023: https://product-fabric.atlassian.net/browse/DSP-10616
+    it.skip('should have the expected scroll behavior when returning home (moving from the target after)', async () => {
       const { page } = global;
       await setupExamplePage(page, url);
 

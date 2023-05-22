@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 1.4.3
+
+### Patch Changes
+
+- [`32e364bed0b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/32e364bed0b) - We are testing color tweaks to the dark theme behind a feature flag.
+
 ## 1.4.2
 
 ### Patch Changes

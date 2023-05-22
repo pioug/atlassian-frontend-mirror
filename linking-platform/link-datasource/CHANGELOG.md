@@ -1,5 +1,12 @@
 # @atlaskit/link-datasource
 
+## 0.16.1
+
+### Patch Changes
+
+- [`d9be88498a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d9be88498a8) - Updated components to use the new `DatasourceType` value format
+- Updated dependencies
+
 ## 0.16.0
 
 ### Minor Changes

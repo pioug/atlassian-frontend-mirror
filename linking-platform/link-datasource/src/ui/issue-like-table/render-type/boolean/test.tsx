@@ -9,7 +9,7 @@ describe('Boolean Type', () => {
   const setup = ({ value = false, ...props }: { value: any }) => {
     return render(
       <IntlProvider locale="en">
-        <Boolean value={value} {...props} />,
+        <Boolean value={{ value }} {...props} />,
       </IntlProvider>,
     );
   };

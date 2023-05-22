@@ -1,40 +1,43 @@
+interface TypeValueInjector<TValue> {
+  value: TValue;
+}
+
 /*
  Basic types
 */
-
 export interface BooleanType {
   type: 'boolean';
-  value: boolean;
+  value: TypeValueInjector<boolean>;
 }
 
 export interface NumberType {
   type: 'number';
-  value: number;
+  value: TypeValueInjector<number>;
 }
 
 export interface StringType {
   type: 'string';
-  value: string;
+  value: TypeValueInjector<string>;
 }
 
 export interface DateType {
   type: 'date';
-  value: string; // ISO Format like 2023-03-16T14:04:02.200+0000
+  value: TypeValueInjector<string>; // ISO Format like 2023-03-16T14:04:02.200+0000
 }
 
 export interface TimeType {
   type: 'time';
-  value: string; // ISO Format like 2023-03-16T14:04:02.200+0000
+  value: TypeValueInjector<string>; // ISO Format like 2023-03-16T14:04:02.200+0000
 }
 
 export interface DateTimeType {
   type: 'datetime';
-  value: string; // ISO Format like 2023-03-16T14:04:02.200+0000
+  value: TypeValueInjector<string>; // ISO Format like 2023-03-16T14:04:02.200+0000
 }
 
 export interface TagType {
   type: 'tag';
-  value: string;
+  value: TypeValueInjector<string>;
 }
 
 /*

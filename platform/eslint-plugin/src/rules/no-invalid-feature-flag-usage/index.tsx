@@ -1,17 +1,17 @@
 import type { Rule } from 'eslint';
+import type { Node, Expression } from 'estree';
 
 const FF_GETTER_BOOLEAN_IDENTIFIER = 'getBooleanFF' as const;
 
 const __isOnlyOneFlagCheckInExpression = (
-  root: Rule.Node,
-  ignoredNode: Rule.Node,
+  root: Node | Expression,
+  ignoredNode: Node,
 ): boolean => {
   switch (root.type) {
     case 'IfStatement':
-      return __isOnlyOneFlagCheckInExpression(
-        root.test as Rule.Node,
-        ignoredNode,
-      );
+      return __isOnlyOneFlagCheckInExpression(root.test, ignoredNode);
+    case 'UnaryExpression':
+      return __isOnlyOneFlagCheckInExpression(root.argument, ignoredNode);
 
     case 'CallExpression':
       if (root === ignoredNode) {
@@ -29,8 +29,8 @@ const __isOnlyOneFlagCheckInExpression = (
     case 'BinaryExpression':
     case 'LogicalExpression':
       return (
-        __isOnlyOneFlagCheckInExpression(root.left as Rule.Node, ignoredNode) &&
-        __isOnlyOneFlagCheckInExpression(root.right as Rule.Node, ignoredNode)
+        __isOnlyOneFlagCheckInExpression(root.left, ignoredNode) &&
+        __isOnlyOneFlagCheckInExpression(root.right, ignoredNode)
       );
 
     default:
@@ -41,7 +41,8 @@ const __isOnlyOneFlagCheckInExpression = (
 const isOnlyOneFlagCheckInExpression = (node: Rule.Node): boolean => {
   let root = node.parent;
   // find the root node of the expression
-  while (root.type === 'LogicalExpression') {
+  // NOTE: This is not an exhaustive check for all ESTree.Expression types but is good enough
+  while (root.type.endsWith('Expression')) {
     root = root.parent;
   }
 
@@ -83,6 +84,7 @@ const rule: Rule.RuleModule = {
             case 'IfStatement':
             case 'ConditionalExpression':
               break;
+            case 'UnaryExpression':
             case 'LogicalExpression':
               if (!isOnlyOneFlagCheckInExpression(node)) {
                 context.report({

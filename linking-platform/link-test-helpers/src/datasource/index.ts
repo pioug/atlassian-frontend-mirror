@@ -3,12 +3,7 @@ import fetchMock from 'fetch-mock/cjs/client';
 import {
   DatasourceDataResponseItem,
   DatasourceResponseSchemaProperty,
-  IconType,
-  LinkType,
   StatusType,
-  StringType,
-  TagType,
-  UserType,
 } from '@atlaskit/linking-types';
 
 import {
@@ -136,37 +131,45 @@ const generateDataResponse = (
     .slice(0, maxItems)
     .map((item): DatasourceDataResponseItem => {
       return {
-        // Fake identifier attribute that needs to be flat primitive value.
+        // Fake identifier attribute that is a primitive value.
         // Adding number of pages to make all issueNumbers unique
-        id: (item.issueNumber + numberOfLoads) as StringType['value'],
+        id: {
+          value: item.issueNumber + numberOfLoads,
+        },
         type: {
           source: item.type.source,
           label: item.type.label,
-        } as IconType['value'],
+        },
         key: {
           url: item.link,
           text: item.issueNumber + numberOfLoads,
           linkType: 'key',
-        } as LinkType['value'],
+        },
         summary: {
           url: item.link,
           text: `[${cloudId}] ${item.summary}`,
-        } as LinkType['value'],
+        },
         assignee: {
           displayName: item.assignee?.displayName,
           avatarSource: item.assignee?.source,
-        } as UserType['value'],
+        },
         priority: {
           source: item.priority.source,
           label: item.priority.label,
-        } as IconType['value'],
+        },
         status: {
           text: item.status.text,
-          status: item.status.status,
-        } as StatusType['value'],
-        created: item.created as StringType['value'],
-        due: item.due as StringType['value'],
-        labels: item.labels as TagType['value'][],
+          status: item.status.status as StatusType['value']['status'],
+        },
+        created: {
+          value: item.created,
+        },
+        due: {
+          value: item.due,
+        },
+        ...(item.labels?.length && {
+          labels: item.labels?.map(label => ({ value: label })),
+        }),
       };
     }),
   totalIssues: mockJiraData.totalIssues,

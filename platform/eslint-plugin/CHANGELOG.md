@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-platform
 
+## 0.2.3
+
+### Patch Changes
+
+- [`0bf64fb3dd0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0bf64fb3dd0) - Update to support unary expressions like negation
+
 ## 0.2.2
 
 ### Patch Changes

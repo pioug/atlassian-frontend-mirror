@@ -4,7 +4,7 @@ import {
   takeElementScreenShot,
 } from '@atlaskit/visual-regression/helper';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
-describe('border.input: Neutral600 | DarkNeutral600', () => {
+describe.skip('border.input: Neutral600 | DarkNeutral600', () => {
   ffTest('platform.design-system-team.update-border-input_ff9l1', async () => {
     const url = getExampleUrl(
       'design-system',

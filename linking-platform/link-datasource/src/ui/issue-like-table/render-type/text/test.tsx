@@ -6,7 +6,7 @@ import Text, { TEXT_TYPE_TEST_ID } from './index';
 
 describe('Text Type', () => {
   const setup = ({ text = '', ...props }) => {
-    return render(<Text text={text} {...props} />);
+    return render(<Text text={{ value: text }} {...props} />);
   };
 
   it('renders when text is passed', async () => {

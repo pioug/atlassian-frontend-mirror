@@ -21,7 +21,16 @@ describe('JiraIssuesTableView', () => {
       status: 'resolved',
       onNextPage: jest.fn(),
       hasNextPage: false,
-      responseItems: [{ myColumn: 'some-value', myId: 'some-id1' }],
+      responseItems: [
+        {
+          myColumn: {
+            value: 'some-value',
+          },
+          myId: {
+            value: 'some-id1',
+          },
+        },
+      ],
       columns: [
         { key: 'myColumn', title: 'My Column', type: 'string' },
         { key: 'myId', isIdentity: true },

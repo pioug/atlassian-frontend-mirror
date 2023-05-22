@@ -46,7 +46,7 @@
   },
   "devDependencies": {
     "@atlaskit/docs": "*",
-    "@atlaskit/link-test-helpers": "^2.4.0",
+    "@atlaskit/link-test-helpers": "^3.0.0",
     "@atlaskit/media-test-helpers": "^33.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",

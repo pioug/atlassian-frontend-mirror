@@ -10,16 +10,19 @@ export const STATUS_TYPE_TEST_ID = 'link-datasource-render-type--status';
 
 const StatusRenderType = ({
   text,
-  status,
-  testId = STATUS_TYPE_TEST_ID,
   style,
+  testId = STATUS_TYPE_TEST_ID,
 }: StatusProps) => {
-  if (!text) {
+  if (!(text && typeof text === 'string')) {
     return <></>;
   }
 
   return (
-    <Lozenge appearance={status} testId={testId} style={style}>
+    <Lozenge
+      appearance={style?.appearance}
+      isBold={style?.isBold}
+      testId={testId}
+    >
       {text}
     </Lozenge>
   );

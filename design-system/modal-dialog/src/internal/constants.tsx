@@ -1,6 +1,7 @@
 import { N30, R400, text, Y400 } from '@atlaskit/theme/colors';
 import {
   borderRadius as getBorderRadius,
+  // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
   gridSize as getGridSize,
 } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';

@@ -1,48 +1,50 @@
-interface TypeValueInjector<TValue> {
-  value: TValue;
-}
-
 /*
  Basic types
 */
 export interface BooleanType {
   type: 'boolean';
-  value: TypeValueInjector<boolean>;
+  value: boolean;
 }
 
 export interface NumberType {
   type: 'number';
-  value: TypeValueInjector<number>;
+  value: number;
 }
 
 export interface StringType {
   type: 'string';
-  value: TypeValueInjector<string>;
+  value: string;
 }
 
 export interface DateType {
   type: 'date';
-  value: TypeValueInjector<string>; // ISO Format like 2023-03-16T14:04:02.200+0000
+  value: string; // ISO Format like 2023-03-16T14:04:02.200+0000
 }
 
 export interface TimeType {
   type: 'time';
-  value: TypeValueInjector<string>; // ISO Format like 2023-03-16T14:04:02.200+0000
+  value: string; // ISO Format like 2023-03-16T14:04:02.200+0000
 }
 
 export interface DateTimeType {
   type: 'datetime';
-  value: TypeValueInjector<string>; // ISO Format like 2023-03-16T14:04:02.200+0000
-}
-
-export interface TagType {
-  type: 'tag';
-  value: TypeValueInjector<string>;
+  value: string; // ISO Format like 2023-03-16T14:04:02.200+0000
 }
 
 /*
  Complex object types
  */
+
+export interface Tag {
+  id?: string;
+  text: string;
+}
+
+export interface TagType {
+  type: 'tag';
+  value: Tag;
+}
+
 export interface User {
   atlassianUserId?: string;
   displayName?: string;
@@ -56,12 +58,18 @@ export interface UserType {
 }
 
 export interface Status {
+  id?: string;
   text: string;
   // based on https://atlassian.design/components/lozenge/code#Lozenge-appearance to enable FE to map to the right UI configuration
-  status: 'default' | 'inprogress' | 'moved' | 'new' | 'removed' | 'success';
   style?: {
-    color: string;
-    backgroundColor: string;
+    appearance?:
+      | 'default'
+      | 'inprogress'
+      | 'moved'
+      | 'new'
+      | 'removed'
+      | 'success';
+    isBold?: boolean;
   };
 }
 
@@ -75,7 +83,9 @@ export interface Link {
   text?: string;
   // There are different ways we want to represent a link.
   // This will control those specific variations. Like `key` will show bold/gray link.
-  linkType?: 'key';
+  style?: {
+    appearance?: 'default' | 'key';
+  };
 }
 
 export interface LinkType {
@@ -97,27 +107,27 @@ export type DatasourceType =
   | BooleanType
   | NumberType
   | StringType
-  | TagType
   | IconType
-  | UserType
   | StatusType
-  | LinkType
   | DateType
   | TimeType
-  | DateTimeType;
+  | DateTimeType
+  | TagType
+  | UserType
+  | LinkType;
 
 export interface DatasourceResponseSchemaProperty {
   key: string;
   title: string;
   type: DatasourceType['type'];
   isList?: boolean;
-  isDefault?: boolean;
-  isIdentity?: boolean;
 }
 
 export interface DatasourceDataResponseItem {
-  // Property key: Any value type from any type OR array of such types
-  [key: string]: DatasourceType['value'] | DatasourceType['value'][];
+  // Property key.data: Any value type from any type OR array of values from collection type
+  [key: string]: {
+    data: DatasourceType['value'] | DatasourceType['value'][];
+  };
 }
 
 // TODO Uncomment and refine these when EDM-5980 or EDM-5885 being worked on.
@@ -137,6 +147,7 @@ export interface DatasourceResponseParameter {
   key: string;
   type: DatasourceType['type'];
   description: string;
+  isRequired?: boolean;
 }
 
 export interface DatasourceResponse {

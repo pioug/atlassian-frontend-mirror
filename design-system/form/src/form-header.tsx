@@ -4,13 +4,10 @@ import { ReactNode } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { useGlobalTheme } from '@atlaskit/theme/components';
-import {
-  fontFamily as getFontFamily,
-  gridSize as getGridSize,
-} from '@atlaskit/theme/constants';
+import { fontFamily as getFontFamily } from '@atlaskit/theme/constants';
 import { h700 } from '@atlaskit/theme/typography';
+import { token } from '@atlaskit/tokens';
 
-const gridSize = getGridSize();
 const fontFamily = getFontFamily();
 
 export interface FormHeaderProps {
@@ -30,17 +27,17 @@ export interface FormHeaderProps {
 
 const formHeaderContentStyles = css({
   minWidth: '100%',
-  marginTop: `${gridSize}px`,
+  marginTop: token('space.100', '8px'),
 });
 
 const formHeaderDescriptionStyles = css({
-  marginTop: `${gridSize}px`,
+  marginTop: token('space.100', '8px'),
 });
 
 const formHeaderTitleStyles = css({
   marginTop: 0,
-  marginRight: `${gridSize * 4}px`,
-  lineHeight: `${gridSize * 4}px`,
+  marginRight: token('space.400', '32px'),
+  lineHeight: token('font.lineHeight.500', '32px'),
   overflow: 'hidden',
   textOverflow: 'ellipsis',
   whiteSpace: 'nowrap',

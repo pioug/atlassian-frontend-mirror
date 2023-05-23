@@ -12,7 +12,7 @@ describe('Number Type', () => {
     number: number;
     [key: string]: any;
   }) => {
-    return render(<NumberType number={{ value: number }} {...props} />);
+    return render(<NumberType number={number} {...props} />);
   };
 
   it('renders when a positive integer is passed', async () => {
@@ -73,7 +73,7 @@ describe('Number Type', () => {
   it('it does not render number type when a non-number type is passed', async () => {
     const number: any = '12';
 
-    const { queryByTestId } = render(<NumberType number={{ value: number }} />);
+    const { queryByTestId } = render(<NumberType number={number} />);
 
     const el = queryByTestId(NUMBER_TYPE_TEST_ID);
 

@@ -4,21 +4,26 @@ import { TagType } from '@atlaskit/linking-types';
 import { SimpleTag as Tag } from '@atlaskit/tag';
 
 interface TagProps {
-  text: TagType['value'];
+  tag: TagType['value'];
   testId?: string;
 }
 
 export const TAG_TYPE_TEST_ID = 'link-datasource-render-type--tag';
 
-const TagRenderType = ({ text, testId = TAG_TYPE_TEST_ID }: TagProps) => {
-  const tag = text?.value;
+const TagRenderType = ({ tag, testId = TAG_TYPE_TEST_ID }: TagProps) => {
+  const text = tag?.text;
 
-  if (!tag) {
+  if (!(text && typeof text === 'string')) {
     return <></>;
   }
 
   return (
-    <Tag text={tag} testId={testId} appearance={'default'} color={'standard'} />
+    <Tag
+      text={text}
+      testId={testId}
+      appearance={'default'}
+      color={'standard'}
+    />
   );
 };
 

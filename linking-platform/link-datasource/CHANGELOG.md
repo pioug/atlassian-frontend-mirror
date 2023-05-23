@@ -1,5 +1,18 @@
 # @atlaskit/link-datasource
 
+## 0.17.1
+
+### Patch Changes
+
+- [`4c56014f328`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4c56014f328) - Updated components to use the new `DatasourceDataResponseItem` format
+- Updated dependencies
+
+## 0.17.0
+
+### Minor Changes
+
+- [`85866be02b9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/85866be02b9) - Add new exported member `JIRA_LIST_OF_LINKS_DATASOURCE_ID`; Also fix bug where next cursor is not reset when new search query starts and fix up format of the body that we send to /details endpoint
+
 ## 0.16.1
 
 ### Patch Changes

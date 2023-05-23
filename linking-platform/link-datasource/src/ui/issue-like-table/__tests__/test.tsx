@@ -54,13 +54,13 @@ describe('IssueLikeDataTableView', () => {
     const items = [
       {
         id: {
-          value: 'id0',
+          data: 'id0',
         },
         someKey: {
-          value: 'someData',
+          data: 'someData',
         },
         someOtherKey: {
-          value: 'someOtherValue',
+          data: 'someOtherValue',
         },
       },
     ];
@@ -71,19 +71,16 @@ describe('IssueLikeDataTableView', () => {
         key: 'id',
         title: 'ID',
         type: 'string',
-        isIdentity: true,
       },
       {
         key: 'someKey',
         title: 'Some key',
         type: 'string',
-        isIdentity: false,
       },
       {
         key: 'someOtherKey',
         title: 'Some Other key',
         type: 'string',
-        isIdentity: false,
       },
     ];
 
@@ -112,16 +109,16 @@ describe('IssueLikeDataTableView', () => {
 
   it('should display X rows in correct order given the data', async () => {
     const items: DatasourceDataResponseItem[] = [
-      { id: { value: 'id0' } },
+      { id: { data: 'id0' } },
       {},
       {
         id: {
-          value: 'id2',
+          data: 'id2',
         },
       },
       {
         id: {
-          value: 'id3',
+          data: 'id3',
         },
       },
     ];
@@ -132,7 +129,6 @@ describe('IssueLikeDataTableView', () => {
         key: 'id',
         title: 'ID',
         type: 'string',
-        isIdentity: true,
       },
     ];
 
@@ -165,13 +161,13 @@ describe('IssueLikeDataTableView', () => {
     const items: DatasourceDataResponseItem[] = [
       {
         id: {
-          value: 'id0',
+          data: 'id0',
         },
         someKey: {
-          value: 'someData',
+          data: 'someData',
         },
         someOtherKey: {
-          value: 'someOtherValue',
+          data: 'someOtherValue',
         },
       },
     ];
@@ -182,19 +178,16 @@ describe('IssueLikeDataTableView', () => {
         key: 'id',
         title: 'ID',
         type: 'string',
-        isIdentity: true,
       },
       {
         key: 'someKey',
         title: 'Some key',
         type: 'string',
-        isIdentity: false,
       },
       {
         key: 'someOtherKey',
         title: 'Some Other key',
         type: 'string',
-        isIdentity: false,
       },
     ];
 
@@ -234,14 +227,16 @@ describe('IssueLikeDataTableView', () => {
   it('should render list type', async () => {
     const items: DatasourceDataResponseItem[] = [
       {
-        listProp: [
-          {
-            value: 'item1',
-          },
-          {
-            value: 'item2',
-          },
-        ],
+        listProp: {
+          data: [
+            {
+              text: 'item1',
+            },
+            {
+              text: 'item2',
+            },
+          ],
+        },
       },
     ];
     const onNextPage = async () => {};
@@ -273,9 +268,71 @@ describe('IssueLikeDataTableView', () => {
     );
   });
 
+  it('should be backward compatible and render with the old response format', async () => {
+    const items: any[] = [
+      {
+        listProp: [
+          {
+            text: 'item1',
+          },
+          {
+            text: 'item2',
+          },
+        ],
+        name: 'test-name',
+        anotherName: {
+          data: 'another-test-name',
+        },
+      },
+    ];
+
+    const onNextPage = async () => {};
+
+    const columns: DatasourceResponseSchemaProperty[] = [
+      {
+        key: 'listProp',
+        title: 'List',
+        type: 'tag',
+      },
+      {
+        key: 'name',
+        title: 'Name',
+        type: 'string',
+      },
+      {
+        key: 'anotherName',
+        title: 'Name',
+        type: 'string',
+      },
+    ];
+
+    render(
+      <IssueLikeDataTableView
+        testId="sometable"
+        status={'resolved'}
+        items={items}
+        onNextPage={onNextPage}
+        hasNextPage={false}
+        columns={columns}
+        visibleColumnKeys={['listProp', 'name', 'anotherName']}
+        onVisibleColumnKeysChange={() => {}}
+      />,
+    );
+
+    expect(await screen.findByTestId('sometable--cell-0')).toHaveTextContent(
+      'item1item2',
+    );
+    expect(await screen.findByTestId('sometable--cell-1')).toHaveTextContent(
+      'test-name',
+    );
+    expect(await screen.findByTestId('sometable--cell-2')).toHaveTextContent(
+      'another-test-name',
+    );
+  });
+
   it('should use provided renderer to transform data by type', async () => {
     const items: DatasourceDataResponseItem[] = [
-      { someNumber: { value: 40 }, someString: { value: 'abc' } },
+      { someNumber: { data: 40 }, someString: { data: 'abc' } },
     ];
     const onNextPage = async () => {};
 
@@ -297,9 +354,9 @@ describe('IssueLikeDataTableView', () => {
     const renderItem: TableViewPropsRenderType = item => {
       switch (item.type) {
         case 'number':
-          return item.value.value + 2;
+          return item.value + 2;
         case 'string':
-          return item.value.value + '-blah';
+          return item.value + '-blah';
       }
     };
 
@@ -333,17 +390,17 @@ describe('IssueLikeDataTableView', () => {
     const items: DatasourceDataResponseItem[] = [
       {
         id: {
-          value: `id${counter++}`,
+          data: `id${counter++}`,
         },
       },
       {
         id: {
-          value: `id${counter++}`,
+          data: `id${counter++}`,
         },
       },
       {
         id: {
-          value: `id${counter++}`,
+          data: `id${counter++}`,
         },
       },
     ];
@@ -354,7 +411,6 @@ describe('IssueLikeDataTableView', () => {
         key: 'id',
         title: 'ID',
         type: 'string',
-        isIdentity: true,
       },
     ];
 
@@ -390,17 +446,17 @@ describe('IssueLikeDataTableView', () => {
     const items: DatasourceDataResponseItem[] = [
       {
         id: {
-          value: `id${counter++}`,
+          data: `id${counter++}`,
         },
       },
       {
         id: {
-          value: `id${counter++}`,
+          data: `id${counter++}`,
         },
       },
       {
         id: {
-          value: `id${counter++}`,
+          data: `id${counter++}`,
         },
       },
     ];
@@ -411,7 +467,6 @@ describe('IssueLikeDataTableView', () => {
         key: 'id',
         title: 'ID',
         type: 'string',
-        isIdentity: true,
       },
     ];
 
@@ -444,17 +499,17 @@ describe('IssueLikeDataTableView', () => {
     const items: DatasourceDataResponseItem[] = [
       {
         id: {
-          value: `id${counter++}`,
+          data: `id${counter++}`,
         },
       },
       {
         id: {
-          value: `id${counter++}`,
+          data: `id${counter++}`,
         },
       },
       {
         id: {
-          value: `id${counter++}`,
+          data: `id${counter++}`,
         },
       },
     ];
@@ -465,7 +520,6 @@ describe('IssueLikeDataTableView', () => {
         key: 'id',
         title: 'ID',
         type: 'string',
-        isIdentity: true,
       },
     ];
     render(
@@ -513,17 +567,17 @@ describe('IssueLikeDataTableView', () => {
     const items: DatasourceDataResponseItem[] = [
       {
         id: {
-          value: `id${counter++}`,
+          data: `id${counter++}`,
         },
       },
       {
         id: {
-          value: `id${counter++}`,
+          data: `id${counter++}`,
         },
       },
       {
         id: {
-          value: `id${counter++}`,
+          data: `id${counter++}`,
         },
       },
     ];
@@ -534,7 +588,6 @@ describe('IssueLikeDataTableView', () => {
         key: 'id',
         title: 'ID',
         type: 'string',
-        isIdentity: true,
       },
     ];
 
@@ -568,17 +621,17 @@ describe('IssueLikeDataTableView', () => {
     const items: DatasourceDataResponseItem[] = [
       {
         id: {
-          value: `id${counter++}`,
+          data: `id${counter++}`,
         },
       },
       {
         id: {
-          value: `id${counter++}`,
+          data: `id${counter++}`,
         },
       },
       {
         id: {
-          value: `id${counter++}`,
+          data: `id${counter++}`,
         },
       },
     ];
@@ -589,7 +642,6 @@ describe('IssueLikeDataTableView', () => {
         key: 'id',
         title: 'ID',
         type: 'string',
-        isIdentity: true,
       },
     ];
 
@@ -616,17 +668,17 @@ describe('IssueLikeDataTableView', () => {
     const items: DatasourceDataResponseItem[] = [
       {
         id: {
-          value: `id${counter++}`,
+          data: `id${counter++}`,
         },
       },
       {
         id: {
-          value: `id${counter++}`,
+          data: `id${counter++}`,
         },
       },
       {
         id: {
-          value: `id${counter++}`,
+          data: `id${counter++}`,
         },
       },
     ];
@@ -637,7 +689,6 @@ describe('IssueLikeDataTableView', () => {
         key: 'id',
         title: 'ID',
         type: 'string',
-        isIdentity: true,
       },
     ];
 
@@ -664,21 +715,21 @@ describe('IssueLikeDataTableView', () => {
     const onNextPage = jest.fn();
     const items: DatasourceDataResponseItem[] = [
       {
-        id: { value: `id1` },
+        id: { data: `id1` },
         task: {
-          value: 'TASK-1',
+          data: 'TASK-1',
         },
-        emoji: { value: ':D' },
+        emoji: { data: ':D' },
       },
       {
-        id: { value: `id2` },
-        task: { value: 'TASK-2' },
-        emoji: { value: ':)' },
+        id: { data: `id2` },
+        task: { data: 'TASK-2' },
+        emoji: { data: ':)' },
       },
       {
-        id: { value: `id3` },
-        task: { value: 'TASK-3' },
-        emoji: { value: ':(' },
+        id: { data: `id3` },
+        task: { data: 'TASK-3' },
+        emoji: { data: ':(' },
       },
     ];
 
@@ -687,19 +738,16 @@ describe('IssueLikeDataTableView', () => {
         key: 'id',
         title: 'id',
         type: 'string',
-        isIdentity: true,
       },
       {
         key: 'task',
         title: 'task',
         type: 'string',
-        isIdentity: false,
       },
       {
         key: 'emoji',
         title: 'emoji',
         type: 'string',
-        isIdentity: false,
       },
     ];
 
@@ -868,7 +916,7 @@ describe('IssueLikeDataTableView', () => {
 
     it('should render the header and cells with width from the configured fields', () => {
       const items: DatasourceDataResponseItem[] = [
-        { summary: { value: 'summary' }, key: { value: 'KEY-123' } },
+        { summary: { data: 'summary' }, key: { data: 'KEY-123' } },
       ];
 
       const { queryByTestId } = render(
@@ -902,7 +950,7 @@ describe('IssueLikeDataTableView', () => {
 
     it('should render the header and cells with width from the configured types', () => {
       const items: DatasourceDataResponseItem[] = [
-        { name: { value: 'key1' }, dob: { value: '12/12/2023' } },
+        { name: { data: 'key1' }, dob: { data: '12/12/2023' } },
       ];
 
       const { queryByTestId } = render(
@@ -937,11 +985,11 @@ describe('IssueLikeDataTableView', () => {
     it('should not render the header and cells with width if not configured', () => {
       const items: DatasourceDataResponseItem[] = [
         {
-          summary: { value: 'summary' },
-          key: { value: 'KEY-123' },
-          name: { value: 'Bob' },
-          dob: { value: '12/12/2023' },
-          hobby: { value: 'Coding' },
+          summary: { data: 'summary' },
+          key: { data: 'KEY-123' },
+          name: { data: 'Bob' },
+          dob: { data: '12/12/2023' },
+          hobby: { data: 'Coding' },
         },
       ];
 
@@ -970,7 +1018,7 @@ describe('IssueLikeDataTableView', () => {
 
     it('should render the header and cells with width in draggable mode', () => {
       const items: DatasourceDataResponseItem[] = [
-        { summary: { value: 'summary' }, key: { value: 'KEY-123' } },
+        { summary: { data: 'summary' }, key: { data: 'KEY-123' } },
       ];
 
       const { queryByTestId } = render(
@@ -1007,9 +1055,9 @@ describe('IssueLikeDataTableView', () => {
       const items: DatasourceDataResponseItem[] = [
         {
           summary: {
-            value: 'summary',
+            data: 'summary',
           },
-          key: { value: 'KEY-123' },
+          key: { data: 'KEY-123' },
         },
       ];
 

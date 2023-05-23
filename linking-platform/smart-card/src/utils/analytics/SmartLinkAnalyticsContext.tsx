@@ -13,6 +13,7 @@ type SmartLinkAnalyticsContextProps = {
   url: string;
   appearance: CardInnerAppearance;
   id: string | undefined;
+  source?: string;
 };
 
 export const SmartLinkAnalyticsContext: FC<SmartLinkAnalyticsContextProps> = ({
@@ -20,6 +21,7 @@ export const SmartLinkAnalyticsContext: FC<SmartLinkAnalyticsContextProps> = ({
   url,
   appearance,
   id,
+  source,
 }) => {
   const { details, status } = useSmartLinkState(url);
   const resolvedAttributes = getResolvedAttributes({ url }, details, status);
@@ -31,6 +33,7 @@ export const SmartLinkAnalyticsContext: FC<SmartLinkAnalyticsContextProps> = ({
   return (
     <AnalyticsContext
       data={{
+        source,
         attributes: {
           ...resolvedAttributes,
           urlHash,

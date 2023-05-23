@@ -8,10 +8,7 @@ import SuccessIcon from '@atlaskit/icon/glyph/editor/success';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
 import { N200 } from '@atlaskit/theme/colors';
 import { useGlobalTheme } from '@atlaskit/theme/components';
-import {
-  fontFamily as getFontFamily,
-  gridSize as getGridSize,
-} from '@atlaskit/theme/constants';
+import { fontFamily as getFontFamily } from '@atlaskit/theme/constants';
 import { h200 } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
@@ -45,7 +42,6 @@ interface InternalMessageProps {
  */
 type MessageProps = Pick<InternalMessageProps, 'children' | 'testId'>;
 
-const gridSize = getGridSize();
 const fontFamily = getFontFamily();
 
 // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
@@ -55,7 +51,7 @@ const darkH200Styles = css(h200({ theme: { mode: 'dark' } }));
 
 const messageStyles = css({
   display: 'flex',
-  marginTop: `${gridSize * 0.5}px`,
+  marginTop: token('space.050', '4px'),
   justifyContent: 'baseline',
   fontFamily: `${fontFamily}`,
   fontWeight: 'normal',

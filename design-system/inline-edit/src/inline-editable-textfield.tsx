@@ -8,7 +8,7 @@ import { R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import InlineEdit from './inline-edit';
-import { fontSize, gridSize } from './internal/constants';
+import { fontSize } from './internal/constants';
 import { InlineEditableTextfieldProps } from './types';
 
 const errorIconContainerStyles = css({
@@ -19,10 +19,10 @@ const errorIconContainerStyles = css({
 const readViewForTextFieldStyles = css({
   display: 'flex',
   maxWidth: '100%',
-  minHeight: `${(gridSize * 2.5) / fontSize}em`,
+  minHeight: `${(8 * 2.5) / fontSize}em`,
   padding: `${token('space.100', '8px')} ${token('space.075', '6px')}`,
   fontSize: fontSize,
-  lineHeight: (gridSize * 2.5) / fontSize,
+  lineHeight: (8 * 2.5) / fontSize,
   wordBreak: 'break-word',
 });
 

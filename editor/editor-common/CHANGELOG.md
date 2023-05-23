@@ -1,5 +1,11 @@
 # @atlaskit/editor-common
 
+## 74.1.2
+
+### Patch Changes
+
+- [`f3bd38c3f31`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f3bd38c3f31) - Removes spacing tokens from shadows in favour of shadow tokens
+
 ## 74.1.1
 
 ### Patch Changes

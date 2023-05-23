@@ -6,6 +6,7 @@ import {
 import { jsx } from '@emotion/react';
 import { FC, useCallback } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { AnalyticsPayload } from '../../../src/utils/types';
 import { useSmartLinkAnalytics } from '../../state/analytics';
 import { fireSmartLinkEvent } from '../../utils/analytics';
@@ -21,7 +22,19 @@ const HoverCardWithErrorBoundary: FC<HoverCardProps> = (props) => {
     },
     [createAnalyticsEvent],
   );
-  const analytics = useSmartLinkAnalytics(url, analyticsHandler, id);
+
+  /**
+   * Feature flag disables prop drilling of analytics handlers
+   */
+  const analytics = useSmartLinkAnalytics(
+    url,
+    getBooleanFF(
+      'platform.linking-platform.smart-card.refactor-hover-card-analytics',
+    )
+      ? undefined
+      : analyticsHandler,
+    id,
+  );
 
   const onError = useCallback(
     (error, info) => {
@@ -35,22 +48,45 @@ const HoverCardWithErrorBoundary: FC<HoverCardProps> = (props) => {
     [analytics.ui, id],
   );
 
+  /**
+   * Feature flag disables the prop drilling of analytics handlers to hover card component
+   */
+  const analyticsProps = getBooleanFF(
+    'platform.linking-platform.smart-card.refactor-hover-card-analytics',
+  )
+    ? {}
+    : {
+        analyticsHandler,
+        analytics,
+      };
+
   return (
     <ErrorBoundary fallback={children} onError={onError}>
-      <HoverCardComponent
-        {...props}
-        analyticsHandler={analyticsHandler}
-        analytics={analytics}
-      >
+      <HoverCardComponent {...props} {...analyticsProps}>
         {children}
       </HoverCardComponent>
     </ErrorBoundary>
   );
 };
 
-export const HoverCard = withAnalyticsContext({
+const HoverCardWithAnalyticsContext = withAnalyticsContext({
   source: 'smartLinkPreviewHoverCard',
   attributes: {
     display: CardDisplay.HoverCardPreview,
   },
 })(withAnalyticsEvents()(HoverCardWithErrorBoundary));
+
+const HoverCardWithoutAnalyticsContext = withAnalyticsEvents()(
+  HoverCardWithErrorBoundary,
+);
+
+export const HoverCard = (props: HoverCardProps) => {
+  if (
+    getBooleanFF(
+      'platform.linking-platform.smart-card.refactor-hover-card-analytics',
+    )
+  ) {
+    return <HoverCardWithoutAnalyticsContext {...props} />;
+  }
+  return <HoverCardWithAnalyticsContext {...props} />;
+};

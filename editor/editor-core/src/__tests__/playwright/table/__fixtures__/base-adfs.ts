@@ -652,3 +652,644 @@ export const nestedInLayout = {
     },
   ],
 };
+
+export const simpleTableAfterParagraph = {
+  version: 1,
+  type: 'doc',
+  content: [
+    {
+      type: 'paragraph',
+      content: [
+        {
+          type: 'text',
+          text: 'content',
+        },
+      ],
+    },
+    {
+      type: 'table',
+      attrs: {
+        isNumberColumnEnabled: false,
+        layout: 'default',
+        localId: '114ea369-b416-4e08-9be4-f262d2b0d797',
+      },
+      content: [
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableHeader',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableHeader',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableHeader',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  ],
+};
+
+export const simpleTableWithOneParagraphAfter = {
+  version: 1,
+  type: 'doc',
+  content: [
+    {
+      type: 'table',
+      attrs: {
+        isNumberColumnEnabled: false,
+        layout: 'default',
+        localId: 'localId',
+      },
+      content: [
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableHeader',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableHeader',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableHeader',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: 'paragraph',
+      content: [],
+    },
+  ],
+};
+export const simpleTableWithTwoParagraphAfter = {
+  version: 1,
+  type: 'doc',
+  content: [
+    {
+      type: 'table',
+      attrs: {
+        isNumberColumnEnabled: false,
+        layout: 'default',
+        localId: 'localId',
+      },
+      content: [
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableHeader',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableHeader',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableHeader',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: 'paragraph',
+      content: [],
+    },
+    {
+      type: 'paragraph',
+      content: [],
+    },
+  ],
+};
+
+export const simpleTable = {
+  version: 1,
+  type: 'doc',
+  content: [
+    {
+      type: 'table',
+      attrs: {
+        isNumberColumnEnabled: false,
+        layout: 'default',
+        localId: 'localId',
+      },
+      content: [
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableHeader',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableHeader',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableHeader',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  ],
+};
+
+export const tableWithActionItemInTheLastRow = {
+  version: 1,
+  type: 'doc',
+  content: [
+    {
+      type: 'table',
+      attrs: {
+        isNumberColumnEnabled: false,
+        layout: 'default',
+        localId: 'localId',
+      },
+      content: [
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableHeader',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableHeader',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableHeader',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'taskList',
+                  attrs: {
+                    localId: 'd4367ae3-5f11-4ff6-9a1d-e019f0c58218',
+                  },
+                  content: [
+                    {
+                      type: 'taskItem',
+                      attrs: {
+                        localId: '9ff03d47-b975-474e-8370-d3624cd5cce1',
+                        state: 'TODO',
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  ],
+};

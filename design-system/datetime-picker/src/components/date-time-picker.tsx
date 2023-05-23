@@ -16,7 +16,7 @@ import {
 import SelectClearIcon from '@atlaskit/icon/glyph/select-clear';
 import { mergeStyles, SelectProps, StylesConfig } from '@atlaskit/select';
 import { B100, N0, N20, N30, N500, N70, R400 } from '@atlaskit/theme/colors';
-import { borderRadius, gridSize } from '@atlaskit/theme/constants';
+import { borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import { defaultTimes, formatDateTimeZoneIntoIso } from '../internal';
@@ -237,9 +237,9 @@ const ICON_PADDING = 2;
 
 const iconContainerStyles = css({
   display: 'flex',
-  paddingTop: `6px`,
-  paddingRight: `${gridSize()}px`,
-  paddingBottom: `6px`,
+  paddingTop: token('space.075', '6px'),
+  paddingRight: token('space.100', '8px'),
+  paddingBottom: token('space.075', '6px'),
   paddingLeft: `${ICON_PADDING * 2}px`,
   alignItems: 'center',
   flexBasis: 'inherit',

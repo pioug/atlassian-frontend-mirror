@@ -8,7 +8,6 @@ import {
   goToEditorTestingWDExample,
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
-import { emptyParagraphUnderneathTable } from '../../../../__tests__/integration/table/__fixtures__/empty-paragraph-underneath-table';
 import { selectors } from '@atlaskit/editor-test-helpers/page-objects/editor';
 import {
   tableSelectors,
@@ -17,6 +16,136 @@ import {
 } from '@atlaskit/editor-test-helpers/page-objects/table';
 
 type ClientType = Parameters<typeof goToEditorTestingWDExample>[0];
+
+const emptyParagraphUnderneathTable = {
+  version: 1,
+  type: 'doc',
+  content: [
+    {
+      type: 'table',
+      attrs: {
+        isNumberColumnEnabled: false,
+        layout: 'default',
+        localId: '2b7ca746-3f15-476d-a6bc-c754b8c14b71',
+      },
+      content: [
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableHeader',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableHeader',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableHeader',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: 'paragraph',
+      content: [],
+    },
+    {
+      type: 'paragraph',
+      content: [],
+    },
+  ],
+};
 
 BrowserTestCase(
   'copying table row preserves original table attributes',

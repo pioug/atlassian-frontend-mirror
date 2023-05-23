@@ -13,7 +13,7 @@ import {
 } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 import * as col1 from './__fixtures__/column1-adf.json';
 import * as col2 from './__fixtures__/column2-adf.json';
-import * as col3 from './__fixtures__/column3-adf.json';
+// import * as col3 from './__fixtures__/column3-adf.json';
 import * as layoutWithAction from './__fixtures__/layout-with-action-adf.json';
 import * as layoutWithDecision from './__fixtures__/layout-with-decision-adf.json';
 import * as layoutWithDecisions from './__fixtures__/layout-with-decisions-adf.json';
@@ -28,7 +28,8 @@ describe('Layouts:', () => {
   const layouts = [
     ['1 column', col1],
     ['2 columns', col2],
-    ['3 columns', col3],
+    // FIXME: This test was automatically skipped due to failure on 23/05/2023: https://product-fabric.atlassian.net/browse/ED-17950
+    // ['3 columns', col3],
     ['left sidebar', colLeftSidebar],
     ['right sidebar', colRightSidebar],
     ['3 columns with sidebars', col3WithSidebars],

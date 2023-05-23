@@ -6,6 +6,7 @@ import ErrorIcon from '@atlaskit/icon/glyph/error';
 import InlineDialog from '@atlaskit/inline-dialog';
 import TextField from '@atlaskit/textfield';
 import { R400 } from '@atlaskit/theme/colors';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { fontSize, gridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
@@ -66,7 +67,12 @@ const InlineEditExample = () => {
   };
 
   return (
-    <div style={{ padding: `${gridSize()}px ${gridSize()}px`, width: '50%' }}>
+    <div
+      style={{
+        padding: `${token('space.100', '8px')} ${token('space.100', '8px')}`,
+        width: '50%',
+      }}
+    >
       <button data-testid="clear-button" onClick={clearInlineEditContent}>
         Click to clear
       </button>
@@ -86,7 +92,7 @@ const InlineEditExample = () => {
                 fieldProps.isInvalid && (
                   <div
                     style={{
-                      paddingRight: `${gridSize() - 2}px`,
+                      paddingRight: token('space.075', '6px'),
                       lineHeight: '100%',
                     }}
                   >

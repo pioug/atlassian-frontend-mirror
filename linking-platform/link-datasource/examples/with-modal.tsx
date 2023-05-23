@@ -10,7 +10,10 @@ import { InlineCardAdf } from '@atlaskit/linking-common';
 import { DatasourceAdf } from '@atlaskit/linking-common/types';
 
 import SmartLinkClient from '../examples-helpers/smartLinkCustomClient';
-import { JiraIssuesConfigModal } from '../src';
+import {
+  JIRA_LIST_OF_LINKS_DATASOURCE_ID,
+  JiraIssuesConfigModal,
+} from '../src';
 import { JiraIssueDatasourceParameters } from '../src/ui/jira-issues-modal/types';
 
 mockDatasourceFetchRequests();
@@ -70,7 +73,7 @@ export default () => {
         ) : null}
         {showModal && (
           <JiraIssuesConfigModal
-            datasourceId={'some-datasource-id'}
+            datasourceId={JIRA_LIST_OF_LINKS_DATASOURCE_ID}
             visibleColumnKeys={visibleColumnKeys}
             parameters={parameters}
             onVisibleColumnKeysChange={setVisibleColumnKeys}

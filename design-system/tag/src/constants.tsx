@@ -1,3 +1,4 @@
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { borderRadius, fontSize, gridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 

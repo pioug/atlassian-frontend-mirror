@@ -5,15 +5,11 @@ import { css, jsx } from '@emotion/react';
 
 import { subtleHeading } from '@atlaskit/theme/colors';
 import { useGlobalTheme } from '@atlaskit/theme/components';
-import {
-  fontFamily as getFontFamily,
-  gridSize as getGridSize,
-} from '@atlaskit/theme/constants';
+import { fontFamily as getFontFamily } from '@atlaskit/theme/constants';
 import { h200 } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
 const fontFamily = getFontFamily();
-const gridSize = getGridSize();
 
 export interface LabelProps {
   id?: string;
@@ -25,7 +21,7 @@ export interface LabelProps {
 const labelStyles = css({
   display: 'inline-block',
   marginTop: 0,
-  marginBottom: gridSize / 2,
+  marginBottom: token('space.050', '4px'),
   fontFamily: fontFamily,
 });
 

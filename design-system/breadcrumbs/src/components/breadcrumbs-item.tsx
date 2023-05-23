@@ -6,6 +6,7 @@ import { css, jsx } from '@emotion/react';
 import { lazyForPaint, LazySuspense } from 'react-loosely-lazy';
 
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { fontSize, gridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 import Tooltip, { type TooltipProps } from '@atlaskit/tooltip';

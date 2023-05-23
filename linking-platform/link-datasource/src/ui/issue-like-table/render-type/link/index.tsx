@@ -19,27 +19,28 @@ const linkStyles = {
     color: token('color.text.subtlest', N300),
     fontWeight: 600,
   },
+  default: {},
 };
 
 export const LINK_TYPE_TEST_ID = 'link-datasource-render-type--link';
 
 const LinkRenderType = ({
-  linkType,
+  style,
   url,
   text,
   testId = LINK_TYPE_TEST_ID,
 }: LinkProps) => {
-  const style: React.CSSProperties = useMemo(() => {
-    return (linkType && linkStyles[linkType]) || {};
-  }, [linkType]);
+  const linkStyle: React.CSSProperties = useMemo(() => {
+    return (style?.appearance && linkStyles[style.appearance]) || {};
+  }, [style]);
 
   const anchor = useMemo(
     () => (
-      <LinkUrl href={url} style={style} data-testid={testId}>
+      <LinkUrl href={url} style={linkStyle} data-testid={testId}>
         {text || url}
       </LinkUrl>
     ),
-    [style, url, text, testId],
+    [linkStyle, url, text, testId],
   );
 
   const SmartCard = () => (

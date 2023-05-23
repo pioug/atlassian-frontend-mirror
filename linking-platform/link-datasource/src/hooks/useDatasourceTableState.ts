@@ -43,7 +43,7 @@ export const useDatasourceTableState = (
 
   const loadDatasourceDetails = useCallback(
     async (parameters: object) => {
-      const result = await getDatasourceDetails(datasourceId, parameters);
+      const result = await getDatasourceDetails(datasourceId, { parameters });
       setColumns(result.schema.properties);
       setDefaultVisibleColumnKeys(result.schema.defaultProperties);
     },
@@ -86,6 +86,7 @@ export const useDatasourceTableState = (
     setStatus('empty');
     setResponseItems([]);
     setHasNextPage(true);
+    setNextCursor(undefined);
     setTotalIssueCount(undefined);
   }, []);
 

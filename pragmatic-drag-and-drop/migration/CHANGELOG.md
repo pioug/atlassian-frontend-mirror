@@ -1,5 +1,11 @@
 # @atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration
 
+## 0.8.0
+
+### Minor Changes
+
+- [`1af8b676f81`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1af8b676f81) - When starting a keyboard drag, key bindings are now added synchronously. Previously, they were added in a `requestAnimationFrame()` callback.
+
 ## 0.7.0
 
 ### Minor Changes

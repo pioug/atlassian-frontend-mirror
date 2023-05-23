@@ -1,5 +1,12 @@
 # @atlaskit/link-client-extension
 
+## 1.1.4
+
+### Patch Changes
+
+- [`43ad059dcc5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/43ad059dcc5) - Updated mock response to the new `DatasourceDataResponseItem` format
+- Updated dependencies
+
 ## 1.1.3
 
 ### Patch Changes

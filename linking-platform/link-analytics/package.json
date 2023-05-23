@@ -50,7 +50,7 @@
     "@atlaskit/button": "^16.7.0",
     "@atlaskit/docs": "*",
     "@atlaskit/link-picker": "^1.20.0",
-    "@atlaskit/link-test-helpers": "^3.0.0",
+    "@atlaskit/link-test-helpers": "^4.0.0",
     "@atlaskit/popup": "^1.6.0",
     "@atlaskit/smart-card": "^26.3.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",

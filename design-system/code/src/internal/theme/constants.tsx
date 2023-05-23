@@ -1,3 +1,4 @@
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize } from '@atlaskit/theme/constants';
 
 export const CODE_FONT_SIZE = 12;

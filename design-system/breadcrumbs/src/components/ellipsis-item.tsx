@@ -6,6 +6,7 @@ import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/standard-button';
 import __noop from '@atlaskit/ds-lib/noop';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { fontSize, gridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
@@ -13,8 +14,6 @@ import { EllipsisItemProps } from '../types';
 
 const height = (gridSize() * 3) / fontSize();
 const noop = __noop;
-
-const gridSizeUnit = gridSize();
 
 const itemWrapperStyles = css({
   display: 'flex',
@@ -26,7 +25,7 @@ const itemWrapperStyles = css({
   flexDirection: 'row',
   lineHeight: `${height}em`,
   '&:not(:last-child)::after': {
-    width: `${gridSizeUnit}px`,
+    width: token('space.100', '8px'),
     padding: `${token('space.0', '0px')} ${token('space.100', '8px')}`,
     flexShrink: 0,
     content: '"/"',

@@ -8,7 +8,6 @@ import { Skeleton } from '@atlaskit/linking-common';
 import {
   DatasourceResponseSchemaProperty,
   DatasourceType,
-  StringType,
 } from '@atlaskit/linking-types/datasource';
 import { autoScroller } from '@atlaskit/pragmatic-drag-and-drop-autoscroll';
 import { extractClosestEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/addon/closest-edge';
@@ -156,9 +155,7 @@ export const IssueLikeDataTableView = ({
   // If data comes first, then columns and then visibleColumnKeys it blows up,
   // or some other combination.
 
-  const identityColumnKey = orderedColumns.find(
-    column => column.isIdentity,
-  )?.key;
+  const identityColumnKey = 'id';
 
   const loadingRow: RowType = useMemo(
     () => ({
@@ -279,11 +276,11 @@ export const IssueLikeDataTableView = ({
         key: `${
           (identityColumnKey &&
             newRowData[identityColumnKey] &&
-            (newRowData[identityColumnKey] as StringType).value) ||
+            newRowData[identityColumnKey].data) ||
           rowIndex
         }`,
         cells: visibleSortedColumns.map<RowCellType>(({ key, type }) => {
-          const value = newRowData[key];
+          const value = newRowData[key]?.data || newRowData[key];
           const values = Array.isArray(value) ? value : [value];
           const content = values.map(value =>
             renderItem({ type, value } as DatasourceType),

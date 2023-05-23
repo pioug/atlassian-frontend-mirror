@@ -1,12 +1,13 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
 import CopyIcon from '@atlaskit/icon/glyph/copy';
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 
 import { CardState } from '../../../state/types';
 import { JsonLd } from 'json-ld-types';
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import {
   ActionName,
   CardDisplay,
@@ -14,7 +15,10 @@ import {
   SmartLinkSize,
 } from '../../../constants';
 import { extractMetadata } from '../../../extractors/hover/extractMetadata';
-import { AnalyticsFacade } from '../../../state/analytics';
+import {
+  AnalyticsFacade,
+  useSmartLinkAnalytics,
+} from '../../../state/analytics';
 import { getExtensionKey } from '../../../state/helpers';
 import { isSpecialEvent } from '../../../utils';
 import { TitleBlockProps } from '../../FlexibleCard/components/blocks/title-block/types';
@@ -37,6 +41,7 @@ import { FormattedMessage } from 'react-intl-next';
 import { messages } from '../../../messages';
 import { useSmartCardActions } from '../../../state/actions';
 import { fireLinkClickedEvent } from '../../../utils/analytics/click';
+import { useSmartCardState } from '../../../state/store';
 
 export const hoverCardClassName = 'smart-links-hover-preview';
 
@@ -72,7 +77,7 @@ export const getCopyAction = (url: string): ActionItem =>
 
 const HoverCardContent: React.FC<HoverCardContentProps> = ({
   id = '',
-  analytics,
+  analytics: _analytics,
   cardActions = [],
   cardState,
   onActionClick,
@@ -84,16 +89,64 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
   showServerActions,
 }) => {
   const { createAnalyticsEvent } = useAnalyticsEvents();
-
+  const defaultAnalytics = useSmartLinkAnalytics(url, undefined, id);
+  const analytics = _analytics ?? defaultAnalytics;
   const extensionKey = useMemo(
     () => getExtensionKey(cardState.details),
     [cardState.details],
   );
   const actions = useSmartCardActions(id, url, analytics);
+  const linkState = useSmartCardState(url);
+  const linkStatus = linkState.status;
+
+  const statusRef = useRef(linkStatus);
+  const analyticsRef = useRef(analytics);
 
   useEffect(() => {
     actions.loadMetadata();
   }, [actions]);
+
+  useEffect(() => {
+    /**
+     * Must access current analytics object value via ref because its not stable
+     * and it can trigger useEffect to re-run below
+     */
+    if (analyticsRef.current !== analytics) {
+      analyticsRef.current = analytics;
+    }
+    if (statusRef.current !== linkStatus) {
+      statusRef.current = linkStatus;
+    }
+  }, [analytics, linkStatus]);
+
+  useEffect(() => {
+    if (
+      getBooleanFF(
+        'platform.linking-platform.smart-card.refactor-hover-card-analytics',
+      )
+    ) {
+      const previewDisplay = 'card';
+      const previewInvokeMethod = 'mouse_hover';
+      const cardOpenTime = Date.now();
+
+      analyticsRef.current.ui.hoverCardViewedEvent({
+        previewDisplay,
+        previewInvokeMethod,
+        status: statusRef.current,
+      });
+
+      return () => {
+        const hoverTime = Date.now() - cardOpenTime;
+
+        analyticsRef.current.ui.hoverCardDismissedEvent({
+          previewDisplay,
+          previewInvokeMethod,
+          hoverTime,
+          status: statusRef.current,
+        });
+      };
+    }
+  }, []);
 
   const onClick = useCallback(
     (event: React.MouseEvent) => {

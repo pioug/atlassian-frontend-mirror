@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/link-datasource",
-  "version": "0.16.1",
+  "version": "0.17.1",
   "description": "UI Components to support linking platform dataset feature",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -36,7 +36,7 @@
     "@atlaskit/image": "^1.1.0",
     "@atlaskit/link-client-extension": "^1.1.0",
     "@atlaskit/linking-common": "^2.12.0",
-    "@atlaskit/linking-types": "^2.0.0",
+    "@atlaskit/linking-types": "^3.0.0",
     "@atlaskit/lozenge": "^11.4.0",
     "@atlaskit/modal-dialog": "^12.5.0",
     "@atlaskit/pragmatic-drag-and-drop": "^0.18.0",
@@ -47,7 +47,7 @@
     "@atlaskit/smart-card": "^26.3.0",
     "@atlaskit/spinner": "^15.5.0",
     "@atlaskit/tag": "^11.5.0",
-    "@atlaskit/textfield": "5.4.2",
+    "@atlaskit/textfield": "5.4.3",
     "@atlaskit/theme": "^12.5.0",
     "@atlaskit/tokens": "^1.4.0",
     "@atlassianlabs/jql-editor": "^1.2.0",
@@ -66,7 +66,7 @@
     "@atlaskit/code": "^14.6.0",
     "@atlaskit/docs": "*",
     "@atlaskit/link-provider": "^1.6.0",
-    "@atlaskit/link-test-helpers": "^3.0.0",
+    "@atlaskit/link-test-helpers": "^4.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",

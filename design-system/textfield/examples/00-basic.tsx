@@ -2,8 +2,9 @@
 import React from 'react';
 
 import { subtleHeading } from '@atlaskit/theme/colors';
-import { fontSize, gridSize } from '@atlaskit/theme/constants';
+import { fontSize } from '@atlaskit/theme/constants';
 import { headingSizes } from '@atlaskit/theme/typography';
+import { token } from '@atlaskit/tokens';
 
 import Textfield from '../src';
 
@@ -20,7 +21,7 @@ export default function BasicExample() {
           }`,
           color: `${subtleHeading()}`,
           fontWeight: 600,
-          marginTop: `${gridSize() * 2}px`,
+          marginTop: token('space.200', '16px'),
         }}
       >
         Basic text field

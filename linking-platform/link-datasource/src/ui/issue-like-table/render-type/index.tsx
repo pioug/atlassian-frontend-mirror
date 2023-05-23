@@ -31,7 +31,7 @@ export const fallbackRenderType: TableViewPropsRenderType = item => {
     case 'string':
       return <StringRenderType text={item.value} />;
     case 'tag':
-      return <TagRenderType text={item.value} />;
+      return <TagRenderType tag={item.value} />;
     case 'time':
       return <DateTimeRenderType value={item.value} display="time" />;
     case 'user':

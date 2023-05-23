@@ -18,7 +18,6 @@ import {
 import { themed, useGlobalTheme } from '@atlaskit/theme/components';
 import {
   borderRadius as getBorderRadius,
-  gridSize as getGridSize,
   layers,
 } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
@@ -45,7 +44,6 @@ const themedBoxShadow = themed({
 });
 
 const borderRadius = getBorderRadius();
-const gridSize = getGridSize();
 
 const CSS_THEME_BACKGROUND = '--theme-background';
 const CSS_THEME_COLOR = '--theme-color';
@@ -53,8 +51,8 @@ const CSS_THEME_BOX_SHADOW = '--theme-box-shadow';
 
 const containerStyles = css({
   boxSizing: 'content-box',
-  maxWidth: `${gridSize * 56}px`,
-  maxHeight: `${gridSize * 56}px`,
+  maxWidth: `${8 * 56}px`,
+  maxHeight: `${8 * 56}px`,
   padding: `${token('space.200', '16px')} ${token('space.300', '24px')}`,
   zIndex: layers.dialog(),
   background: `var(${CSS_THEME_BACKGROUND})`,

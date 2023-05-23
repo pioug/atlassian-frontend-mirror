@@ -20,7 +20,7 @@ export interface BooleanType {
   // (undocumented)
   type: 'boolean';
   // (undocumented)
-  value: TypeValueInjector<boolean>;
+  value: boolean;
 }
 
 // @public (undocumented)
@@ -48,7 +48,9 @@ export interface DatasourceDataResponse {
 // @public (undocumented)
 export interface DatasourceDataResponseItem {
   // (undocumented)
-  [key: string]: DatasourceType['value'] | DatasourceType['value'][];
+  [key: string]: {
+    data: DatasourceType['value'] | DatasourceType['value'][];
+  };
 }
 
 // @public (undocumented)
@@ -81,6 +83,8 @@ export interface DatasourceResponseParameter {
   // (undocumented)
   description: string;
   // (undocumented)
+  isRequired?: boolean;
+  // (undocumented)
   key: string;
   // (undocumented)
   type: DatasourceType['type'];
@@ -88,10 +92,6 @@ export interface DatasourceResponseParameter {
 
 // @public (undocumented)
 export interface DatasourceResponseSchemaProperty {
-  // (undocumented)
-  isDefault?: boolean;
-  // (undocumented)
-  isIdentity?: boolean;
   // (undocumented)
   isList?: boolean;
   // (undocumented)
@@ -128,7 +128,7 @@ export interface DateTimeType {
   // (undocumented)
   type: 'datetime';
   // (undocumented)
-  value: TypeValueInjector<string>;
+  value: string;
 }
 
 // @public (undocumented)
@@ -136,7 +136,7 @@ export interface DateType {
   // (undocumented)
   type: 'date';
   // (undocumented)
-  value: TypeValueInjector<string>;
+  value: string;
 }
 
 // @public
@@ -196,7 +196,9 @@ export type InvokeResponse = {};
 // @public (undocumented)
 export interface Link {
   // (undocumented)
-  linkType?: 'key';
+  style?: {
+    appearance?: 'default' | 'key';
+  };
   // (undocumented)
   text?: string;
   // (undocumented)
@@ -216,7 +218,7 @@ export interface NumberType {
   // (undocumented)
   type: 'number';
   // (undocumented)
-  value: TypeValueInjector<number>;
+  value: number;
 }
 
 // @public
@@ -230,11 +232,17 @@ export enum SmartLinkActionType {
 // @public (undocumented)
 export interface Status {
   // (undocumented)
-  status: 'default' | 'inprogress' | 'moved' | 'new' | 'removed' | 'success';
+  id?: string;
   // (undocumented)
   style?: {
-    color: string;
-    backgroundColor: string;
+    appearance?:
+      | 'default'
+      | 'inprogress'
+      | 'moved'
+      | 'new'
+      | 'removed'
+      | 'success';
+    isBold?: boolean;
   };
   // (undocumented)
   text: string;
@@ -258,7 +266,15 @@ export interface StringType {
   // (undocumented)
   type: 'string';
   // (undocumented)
-  value: TypeValueInjector<string>;
+  value: string;
+}
+
+// @public (undocumented)
+interface Tag {
+  // (undocumented)
+  id?: string;
+  // (undocumented)
+  text: string;
 }
 
 // @public (undocumented)
@@ -266,7 +282,7 @@ export interface TagType {
   // (undocumented)
   type: 'tag';
   // (undocumented)
-  value: TypeValueInjector<string>;
+  value: Tag;
 }
 
 // @public (undocumented)
@@ -274,13 +290,7 @@ export interface TimeType {
   // (undocumented)
   type: 'time';
   // (undocumented)
-  value: TypeValueInjector<string>;
-}
-
-// @public (undocumented)
-interface TypeValueInjector<TValue> {
-  // (undocumented)
-  value: TValue;
+  value: string;
 }
 
 // @public (undocumented)

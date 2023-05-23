@@ -8,6 +8,7 @@ import Tag from '@atlaskit/tag';
 import Group from '@atlaskit/tag-group';
 import {
   fontSize as getFontSize,
+  // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
   gridSize as getGridSize,
 } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';

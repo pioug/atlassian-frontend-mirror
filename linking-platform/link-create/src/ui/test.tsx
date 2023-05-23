@@ -37,8 +37,8 @@ const CreatePluginForm = () => {
       >
         Trigger an error
       </Button>
-      <Button testId="cancel-button" appearance="primary" onClick={onCancel}>
-        Cancel
+      <Button testId="close-button" appearance="primary" onClick={onCancel}>
+        Close
       </Button>
     </div>
   );
@@ -47,14 +47,14 @@ const CreatePluginForm = () => {
 describe('<LinkCreate />', () => {
   let onCreateMock: jest.Mock;
   let onFailureMock: jest.Mock;
-  let onCancelMock: jest.Mock;
+  let onCloseMock: jest.Mock;
 
   const testId = 'link-create';
 
   beforeEach(() => {
     onCreateMock = jest.fn();
     onFailureMock = jest.fn();
-    onCancelMock = jest.fn();
+    onCloseMock = jest.fn();
   });
 
   afterAll(() => {
@@ -88,7 +88,7 @@ describe('<LinkCreate />', () => {
           active={props?.active ?? true}
           onCreate={onCreateMock}
           onFailure={onFailureMock}
-          onCancel={onCancelMock}
+          onCancel={onCloseMock}
         />
       </IntlProvider>,
     );
@@ -116,9 +116,9 @@ describe('<LinkCreate />', () => {
     expect(onFailureMock).toBeCalled();
   });
 
-  it('should trigger the callback onCancel when it cancels the form', async () => {
+  it('should trigger the callback onCancel when it close the form', async () => {
     const { getByTestId } = setUpLinkCreate();
-    getByTestId('cancel-button').click();
-    expect(onCancelMock).toBeCalled();
+    getByTestId('close-button').click();
+    expect(onCloseMock).toBeCalled();
   });
 });

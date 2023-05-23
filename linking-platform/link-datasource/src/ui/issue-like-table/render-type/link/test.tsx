@@ -56,7 +56,9 @@ describe('Link Type', () => {
     const { queryByRole } = setup({
       url: 'https://www.atlassian.com/',
       text: 'Atlassian Website',
-      linkType: 'key',
+      style: {
+        appearance: 'key',
+      },
     });
 
     const anchor = queryByRole('link');

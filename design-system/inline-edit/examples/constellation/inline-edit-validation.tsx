@@ -9,6 +9,7 @@ import TextField from '@atlaskit/textfield';
 import { R400 } from '@atlaskit/theme/colors';
 import {
   fontSize as getFontSize,
+  // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
   gridSize as getGridSize,
 } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
@@ -69,7 +70,12 @@ const InlineEditValidationExample = () => {
   };
 
   return (
-    <div style={{ padding: `${gridSize}px ${gridSize}px`, width: '50%' }}>
+    <div
+      style={{
+        padding: `${token('space.100', '8px')} ${token('space.100', '8px')}`,
+        width: '50%',
+      }}
+    >
       <button data-testid="clear-button" onClick={clearInlineEditContent}>
         Click to clear
       </button>
@@ -89,7 +95,7 @@ const InlineEditValidationExample = () => {
                 fieldProps.isInvalid && (
                   <div
                     style={{
-                      paddingRight: `${gridSize - 2}px`,
+                      paddingRight: token('space.075', '6px'),
                       lineHeight: '100%',
                     }}
                   >

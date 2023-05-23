@@ -24,16 +24,16 @@ describe('JiraIssuesTableView', () => {
       responseItems: [
         {
           myColumn: {
-            value: 'some-value',
+            data: 'some-value',
           },
-          myId: {
-            value: 'some-id1',
+          id: {
+            data: 'some-id1',
           },
         },
       ],
       columns: [
         { key: 'myColumn', title: 'My Column', type: 'string' },
-        { key: 'myId', isIdentity: true },
+        { key: 'id' },
       ],
       defaultVisibleColumnKeys: ['myColumn'],
       ...overrides,

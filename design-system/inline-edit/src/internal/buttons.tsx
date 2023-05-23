@@ -21,7 +21,7 @@ import {
 import { ThemeModes } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
 
-import { fontSize, gridSize } from './constants';
+import { fontSize } from './constants';
 
 const buttonsContainerStyles = css({
   display: 'flex',
@@ -81,10 +81,10 @@ const buttonWrapperElevationLightStyles = css({
 
 const buttonWrapperBaseStyles = css({
   boxSizing: 'border-box',
-  width: gridSize * 4,
+  width: token('space.400', '32px'),
   zIndex: 200,
   backgroundColor: token('elevation.surface.overlay', N0),
-  borderRadius: gridSize / 2 - 1,
+  borderRadius: '3px',
   fontSize: fontSize,
   '&:last-child': {
     marginLeft: token('space.050', '4px'),

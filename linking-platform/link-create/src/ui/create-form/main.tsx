@@ -111,9 +111,9 @@ export const CreateForm = <FormData extends Record<string, any> = {}>({
                   type="button"
                   appearance="subtle"
                   onClick={handleCancel}
-                  testId={'cancel-button'}
+                  testId={'close-button'}
                 >
-                  {intl.formatMessage(messages.cancel)}
+                  {intl.formatMessage(messages.close)}
                 </Button>
                 <LoadingButton
                   appearance="primary"

@@ -1,5 +1,11 @@
 # @atlaskit/inline-edit
 
+## 12.3.3
+
+### Patch Changes
+
+- [`49b08bfdf5f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/49b08bfdf5f) - Migrated use of `gridSize` to space tokens where possible. There is no expected visual or behaviour change.
+
 ## 12.3.2
 
 ### Patch Changes

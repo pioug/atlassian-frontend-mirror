@@ -67,7 +67,7 @@ describe('<CreateForm />', () => {
   it('should cancel the form the form when Create button is clicked', async () => {
     const { getByTestId } = setUpCreateForm();
 
-    await userEvent.click(getByTestId('cancel-button'));
+    await userEvent.click(getByTestId('close-button'));
     expect(handleCancelMock).toBeCalled();
   });
 

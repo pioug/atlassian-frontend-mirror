@@ -6,6 +6,7 @@ import { css, jsx } from '@emotion/react';
 import TextArea from '@atlaskit/textarea';
 import {
   fontSize as getFontSize,
+  // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
   gridSize as getGridSize,
 } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
@@ -30,7 +31,10 @@ const InlineEditCustomTextareaExample = () => {
   return (
     <div
       style={{
-        padding: `${gridSize}px ${gridSize}px ${gridSize * 6}px`,
+        padding: `${token('space.100', '8px')} ${token(
+          'space.100',
+          '8px',
+        )} ${token('space.600', '48px')}`,
         width: '70%',
       }}
     >

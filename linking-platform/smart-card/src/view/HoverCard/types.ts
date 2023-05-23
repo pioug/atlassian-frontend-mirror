@@ -3,8 +3,8 @@ import { ElementItem } from '../FlexibleCard/components/blocks/types';
 import { AnalyticsFacade } from '../../state/analytics';
 import { LinkAction } from '../../state/hooks-external/useSmartLinkActions';
 import { CardState } from '@atlaskit/linking-common';
-import { CardProviderRenderers } from '@atlaskit/link-provider';
 import { AnalyticsHandler } from '../../utils/types';
+import { CardProviderRenderers } from '@atlaskit/link-provider';
 import { ReactElement, MouseEventHandler } from 'react';
 import { JsonLd } from 'json-ld-types';
 
@@ -53,8 +53,8 @@ export interface HoverCardProps extends WithAnalyticsEventsProps {
 }
 
 export interface HoverCardComponentProps extends HoverCardProps {
-  analyticsHandler: AnalyticsHandler;
-  analytics: AnalyticsFacade;
+  analyticsHandler?: AnalyticsHandler;
+  analytics?: AnalyticsFacade;
   canOpen?: boolean;
   closeOnChildClick?: boolean;
 }
@@ -70,7 +70,7 @@ export interface MetadataOptions {
 
 export type HoverCardContentProps = {
   id?: string;
-  analytics: AnalyticsFacade;
+  analytics?: AnalyticsFacade;
   cardActions?: LinkAction[];
   cardState: CardState;
   renderers?: CardProviderRenderers;

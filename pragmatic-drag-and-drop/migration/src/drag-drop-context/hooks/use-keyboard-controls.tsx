@@ -1,9 +1,8 @@
 import { useCallback } from 'react';
 
 import { bindAll, Binding } from 'bind-event-listener';
-import type { Direction, DraggableLocation } from 'react-beautiful-dnd';
+import type { Direction } from 'react-beautiful-dnd';
 
-import { useCleanupFn } from '../../hooks/use-cleanup-fn';
 import type { CleanupFn } from '../../internal-types';
 import {
   attributes,
@@ -18,7 +17,7 @@ import { isSameLocation } from '../draggable-location';
 import type { DroppableRegistry } from '../droppable-registry';
 import { getActualDestination } from '../get-destination';
 import { rbdInvariant } from '../rbd-invariant';
-import type { DragController } from '../types';
+import type { DragController, StartKeyboardDrag } from '../types';
 
 type KeyHandlerData = {
   dragController: DragController;
@@ -275,13 +274,6 @@ const keyHandlers: Record<Direction, Record<string, KeyHandler>> = {
   },
 };
 
-export type StartKeyboardDrag = (args: {
-  draggableId: string;
-  type: string;
-  getSourceLocation(): DraggableLocation;
-  sourceElement: HTMLElement;
-}) => void;
-
 export function useKeyboardControls({
   dragController,
   droppableRegistry,
@@ -302,19 +294,13 @@ export function useKeyboardControls({
    */
   setKeyboardCleanupFn: (cleanupFn: CleanupFn) => void;
 }): { startKeyboardDrag: StartKeyboardDrag } {
-  const rafCleanup = useCleanupFn();
-
   const startKeyboardDrag: StartKeyboardDrag = useCallback(
     ({
+      event: startEvent,
       draggableId,
       type,
       getSourceLocation,
       sourceElement,
-    }: {
-      draggableId: string;
-      type: string;
-      getSourceLocation(): DraggableLocation;
-      sourceElement: HTMLElement;
     }) => {
       dragController.startDrag({
         draggableId,
@@ -359,57 +345,49 @@ export function useKeyboardControls({
         return { type, listener: cancelDrag };
       });
 
-      /**
-       * Key bindings are added asynchronously, to avoid the same keydown event
-       * from trigging a dragstart and drop.
-       */
-      const id = requestAnimationFrame(() => {
-        const cleanupFn = bindAll(window, [
-          {
-            type: 'keydown',
-            // @ts-expect-error - the type inference is broken
-            listener(event: KeyboardEvent) {
-              const { isDragging } = dragController.getDragState();
-              if (!isDragging) {
-                return;
-              }
+      const cleanupFn = bindAll(window, [
+        {
+          type: 'keydown',
+          // @ts-expect-error - the type inference is broken
+          listener(event: KeyboardEvent) {
+            /**
+             * Ignores the keydown event which triggered the drag start,
+             * so it doesn't trigger an immediate drop.
+             */
+            if (event === startEvent) {
+              return;
+            }
 
-              if (event.key === ' ') {
-                event.preventDefault();
-                dragController.stopDrag({ reason: 'DROP' });
-                return;
-              }
+            const { isDragging } = dragController.getDragState();
+            if (!isDragging) {
+              return;
+            }
 
-              if (event.key === 'Escape') {
-                event.preventDefault();
-                dragController.stopDrag({ reason: 'CANCEL' });
-                return;
-              }
+            if (event.key === ' ') {
+              event.preventDefault();
+              dragController.stopDrag({ reason: 'DROP' });
+              return;
+            }
 
-              keyHandlers[direction][event.key]?.(event, {
-                dragController,
-                droppableRegistry,
-                contextId,
-              });
-            },
+            if (event.key === 'Escape') {
+              event.preventDefault();
+              dragController.stopDrag({ reason: 'CANCEL' });
+              return;
+            }
+
+            keyHandlers[direction][event.key]?.(event, {
+              dragController,
+              droppableRegistry,
+              contextId,
+            });
           },
-          ...cancelBindings,
-        ]);
+        },
+        ...cancelBindings,
+      ]);
 
-        setKeyboardCleanupFn(cleanupFn);
-      });
-
-      rafCleanup.setCleanupFn(() => {
-        cancelAnimationFrame(id);
-      });
+      setKeyboardCleanupFn(cleanupFn);
     },
-    [
-      contextId,
-      dragController,
-      droppableRegistry,
-      rafCleanup,
-      setKeyboardCleanupFn,
-    ],
+    [contextId, dragController, droppableRegistry, setKeyboardCleanupFn],
   );
 
   return { startKeyboardDrag };

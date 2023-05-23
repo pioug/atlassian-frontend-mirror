@@ -57,14 +57,14 @@ describe('JiraIssuesConfigModal', () => {
     hasNextPage: false,
     responseItems: [
       {
-        myColumn: { value: 'some-value' },
-        otherColumn: { value: 'other-column-value' },
-        myId: { value: 'some-id1' },
+        myColumn: { data: 'some-value' },
+        otherColumn: { data: 'other-column-value' },
+        myId: { data: 'some-id1' },
       },
       {
-        myColumn: { value: 'other-value' },
-        otherColumn: { value: 'other-column-other-value' },
-        myId: { value: 'some-id2' },
+        myColumn: { data: 'other-value' },
+        otherColumn: { data: 'other-column-other-value' },
+        myId: { data: 'some-id2' },
       },
     ],
     columns: [
@@ -80,7 +80,7 @@ describe('JiraIssuesConfigModal', () => {
     responseItems: [
       {
         key: {
-          url: 'https://product-fabric.atlassian.net/browse/EDM-5941',
+          data: { url: 'https://product-fabric.atlassian.net/browse/EDM-5941' },
         },
       },
     ],
@@ -441,7 +441,9 @@ describe('JiraIssuesConfigModal', () => {
       const hookState = getSingleIssueHookState();
       hookState.responseItems = [
         {
-          key: {},
+          key: {
+            data: '',
+          },
         },
       ];
       const { queryByTestId } = await setup({
@@ -499,7 +501,9 @@ describe('JiraIssuesConfigModal', () => {
       const hookState = getSingleIssueHookState();
       hookState.responseItems = [
         {
-          key: {},
+          key: {
+            data: '',
+          },
         },
       ];
       const { onInsert, getByRole } = await setup({
@@ -552,14 +556,14 @@ describe('JiraIssuesConfigModal', () => {
           hasNextPage: false,
           items: [
             {
-              myColumn: { value: 'some-value' },
-              otherColumn: { value: 'other-column-value' },
-              myId: { value: 'some-id1' },
+              myColumn: { data: 'some-value' },
+              otherColumn: { data: 'other-column-value' },
+              myId: { data: 'some-id1' },
             },
             {
-              myColumn: { value: 'other-value' },
-              otherColumn: { value: 'other-column-other-value' },
-              myId: { value: 'some-id2' },
+              myColumn: { data: 'other-value' },
+              otherColumn: { data: 'other-column-other-value' },
+              myId: { data: 'some-id2' },
             },
           ],
           visibleColumnKeys: ['myColumn'],

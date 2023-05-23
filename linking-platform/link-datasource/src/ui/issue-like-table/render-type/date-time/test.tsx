@@ -11,13 +11,13 @@ describe('DateTime Type', () => {
     display = 'date',
     ...props
   }: {
-    value: DateProps['value']['value'];
+    value: DateProps['value'];
     display?: DateProps['display'];
     [key: string]: any;
   }) => {
     return render(
       <IntlProvider locale="en" timeZone="Australia/Sydney">
-        <DateTimeType value={{ value }} {...props} display={display} />
+        <DateTimeType value={value} {...props} display={display} />
       </IntlProvider>,
     );
   };

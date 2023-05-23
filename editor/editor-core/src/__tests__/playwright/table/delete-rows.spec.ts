@@ -8,6 +8,7 @@ import {
 import {
   nestedInExtension,
   documentWithMergedCells,
+  simpleTable,
 } from './__fixtures__/base-adfs';
 
 import {
@@ -15,6 +16,8 @@ import {
   table,
   tr,
   td,
+  tdEmpty,
+  thEmpty,
   bodiedExtension,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
@@ -131,6 +134,36 @@ test.describe('when table is nested inside bodied extension', () => {
             tr.any,
             tr.any,
           )
+        ),
+      ),
+    );
+  });
+});
+
+test.describe('when editor is full-width', () => {
+  test.use({
+    editorProps: {
+      appearance: 'full-width',
+      allowTables: {
+        advanced: true,
+      },
+    },
+    adf: simpleTable,
+  });
+
+  test('should delete the last row', async ({ editor }) => {
+    const nodes = EditorNodeContainerModel.from(editor);
+    const tableModel = EditorTableModel.from(nodes.table);
+
+    const rowControls = await tableModel.rowControls({ index: 2 });
+
+    await rowControls.delete();
+
+    await expect(editor).toHaveDocument(
+      doc(
+        table({ localId: 'localId' })(
+          tr(thEmpty, thEmpty, thEmpty),
+          tr(tdEmpty, tdEmpty, tdEmpty),
         ),
       ),
     );

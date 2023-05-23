@@ -5,10 +5,7 @@ import { css, jsx } from '@emotion/react';
 
 import { subtleHeading } from '@atlaskit/theme/colors';
 import { useGlobalTheme } from '@atlaskit/theme/components';
-import {
-  fontFamily as getFontFamily,
-  gridSize as getGridSize,
-} from '@atlaskit/theme/constants';
+import { fontFamily as getFontFamily } from '@atlaskit/theme/constants';
 import { h200 } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
@@ -24,7 +21,6 @@ export interface FieldsetProps {
 }
 
 const fontFamily = getFontFamily();
-const gridSize = getGridSize();
 
 const fieldsetLabelStyles = css({
   display: 'inline-block',
@@ -34,7 +30,7 @@ const fieldsetLabelStyles = css({
 });
 
 const fieldSetStyles = css({
-  marginTop: `${gridSize}px`,
+  marginTop: token('space.100', '8px'),
 });
 
 /**

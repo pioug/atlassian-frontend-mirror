@@ -1,5 +1,11 @@
 # @atlaskit/linking-types
 
+## 3.0.0
+
+### Major Changes
+
+- [`3f4a6031a0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3f4a6031a0e) - Removed the meta wrapper for primitive types and added `data` prop for `DatasourceDataResponseItem`
+
 ## 2.0.0
 
 ### Major Changes

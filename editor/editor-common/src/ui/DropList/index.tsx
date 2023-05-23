@@ -79,9 +79,10 @@ class DropList extends Component<Props> {
         dark: token('elevation.surface.overlay', DN50),
       })(theme)};
       border-radius: ${borderRadius()}px;
-      box-shadow: 0 ${token('space.050', '4px')} ${token('space.100', '8px')}
-          calc(-1 * ${token('space.025', '2px')}) ${N50A},
-        0 0 1px ${N60A};
+      box-shadow: ${token(
+        'elevation.shadow.overlay',
+        `0 4px 8px calc(-1 * 2px) ${N50A}, 0 0 1px ${N60A}`,
+      )};
       box-sizing: border-box;
       overflow: auto;
       padding: ${token('space.050', '4px')} 0;

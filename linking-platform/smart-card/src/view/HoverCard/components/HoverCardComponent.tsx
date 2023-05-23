@@ -12,6 +12,8 @@ import { HoverCardComponentProps } from '../types';
 import { CardDisplay } from '../../../constants';
 import { SmartLinkAnalyticsContext } from '../../../utils/analytics/SmartLinkAnalyticsContext';
 
+const HOVER_CARD_SOURCE = 'smartLinkPreviewHoverCard';
+
 export const HoverCardComponent: FC<HoverCardComponentProps> = ({
   children,
   url,
@@ -25,8 +27,8 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
 }) => {
   const delay = 300;
   const [isOpen, setIsOpen] = React.useState(false);
-  const fadeOutTimeoutId = useRef<NodeJS.Timeout>();
-  const fadeInTimeoutId = useRef<NodeJS.Timeout>();
+  const fadeOutTimeoutId = useRef<ReturnType<typeof setTimeout>>();
+  const fadeInTimeoutId = useRef<ReturnType<typeof setTimeout>>();
   const cardOpenTime = useRef<number>();
   const mousePos = useRef<{ x: number; y: number }>();
   const popupOffset = useRef<[number, number]>();
@@ -49,18 +51,28 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
   );
 
   const hideCard = useCallback(() => {
-    //Check its previously open to avoid firing events when moving between the child and hover card components
-    if (isOpen === true && cardOpenTime.current) {
-      const hoverTime = Date.now() - cardOpenTime.current;
-      analytics.ui.hoverCardDismissedEvent({
-        previewDisplay: 'card',
-        hoverTime,
-        previewInvokeMethod: 'mouse_hover',
-        status: linkStatus,
-      });
+    if (
+      getBooleanFF(
+        'platform.linking-platform.smart-card.refactor-hover-card-analytics',
+      )
+    ) {
+      /**
+       * Defer to inner HoverCardContent to fire this event
+       */
+    } else {
+      //Check its previously open to avoid firing events when moving between the child and hover card components
+      if (isOpen === true && cardOpenTime.current) {
+        const hoverTime = Date.now() - cardOpenTime.current;
+        analytics?.ui.hoverCardDismissedEvent({
+          previewDisplay: 'card',
+          hoverTime,
+          previewInvokeMethod: 'mouse_hover',
+          status: linkStatus,
+        });
+      }
     }
     setIsOpen(false);
-  }, [analytics.ui, isOpen, linkStatus]);
+  }, [analytics, isOpen, linkStatus]);
 
   const initHideCard = useCallback(() => {
     if (fadeInTimeoutId.current) {
@@ -77,14 +89,24 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
       //Set mouse position in the case it's not already set by onMouseMove, as in the case of scrolling
       setMousePosition(event);
       fadeInTimeoutId.current = setTimeout(() => {
-        //Check if its previously closed to avoid firing events when moving between the child and hover card components
-        if (isOpen === false) {
-          cardOpenTime.current = Date.now();
-          analytics.ui.hoverCardViewedEvent({
-            previewDisplay: hoverDisplay,
-            previewInvokeMethod: invokeMethod,
-            status: linkStatus,
-          });
+        if (
+          getBooleanFF(
+            'platform.linking-platform.smart-card.refactor-hover-card-analytics',
+          )
+        ) {
+          /**
+           * Defer to inner HoverCardContent to fire this event
+           */
+        } else {
+          //Check if its previously closed to avoid firing events when moving between the child and hover card components
+          if (isOpen === false) {
+            cardOpenTime.current = Date.now();
+            analytics?.ui.hoverCardViewedEvent({
+              previewDisplay: hoverDisplay,
+              previewInvokeMethod: invokeMethod,
+              status: linkStatus,
+            });
+          }
         }
         //If these are undefined then popupOffset is undefined and we fallback to default bottom-start placement
         if (parentSpan.current && mousePos.current) {
@@ -97,14 +119,14 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
         setIsOpen(true);
       }, delay);
     },
-    [isOpen, setMousePosition, analytics.ui, linkStatus],
+    [isOpen, setMousePosition, analytics, linkStatus],
   );
 
   const linkActions = useSmartLinkActions({
     url,
     appearance: CardDisplay.HoverCardPreview,
     analyticsHandler,
-    origin: 'smartLinkPreviewHoverCard',
+    origin: HOVER_CARD_SOURCE,
   });
 
   const filteredActions = useMemo(() => {
@@ -135,43 +157,40 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
   );
 
   const content = useCallback(
-    ({ update }) =>
-      getBooleanFF(
+    ({ update }) => {
+      const hoverCardContentProps = {
+        onMouseEnter: initShowCard,
+        onMouseLeave: initHideCard,
+        cardActions: filteredActions,
+        cardState: linkState,
+        onActionClick,
+        onResolve: update,
+        renderers,
+        showServerActions,
+        url,
+        id,
+        ...(getBooleanFF(
+          'platform.linking-platform.smart-card.refactor-hover-card-analytics',
+        )
+          ? {}
+          : { analytics }),
+      };
+
+      return getBooleanFF(
         'platform.linking-platform.smart-card.enable-analytics-context',
       ) ? (
         <SmartLinkAnalyticsContext
           url={url}
           appearance={CardDisplay.HoverCardPreview}
           id={id}
+          source={HOVER_CARD_SOURCE}
         >
-          <HoverCardContent
-            onMouseEnter={initShowCard}
-            onMouseLeave={initHideCard}
-            analytics={analytics}
-            cardActions={filteredActions}
-            cardState={linkState}
-            onActionClick={onActionClick}
-            onResolve={update}
-            renderers={renderers}
-            showServerActions={showServerActions}
-            url={url}
-            id={id}
-          />
+          <HoverCardContent {...hoverCardContentProps} />
         </SmartLinkAnalyticsContext>
       ) : (
-        <HoverCardContent
-          onMouseEnter={initShowCard}
-          onMouseLeave={initHideCard}
-          analytics={analytics}
-          cardActions={filteredActions}
-          cardState={linkState}
-          onActionClick={onActionClick}
-          onResolve={update}
-          renderers={renderers}
-          showServerActions={showServerActions}
-          url={url}
-        />
-      ),
+        <HoverCardContent {...hoverCardContentProps} />
+      );
+    },
     [
       analytics,
       initHideCard,

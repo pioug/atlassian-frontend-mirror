@@ -13,15 +13,13 @@ const NumberRenderType = ({
   number,
   testId = NUMBER_TYPE_TEST_ID,
 }: NumberProps) => {
-  const numberValue = number?.value;
-
-  if (typeof numberValue !== 'number') {
+  if (typeof number !== 'number') {
     return <></>;
   }
 
-  const formattedNumber = Number.isInteger(numberValue)
-    ? numberValue
-    : `${numberValue.toFixed(2)}`;
+  const formattedNumber = Number.isInteger(number)
+    ? number
+    : `${number.toFixed(2)}`;
 
   return <span data-testid={testId}>{formattedNumber}</span>;
 };

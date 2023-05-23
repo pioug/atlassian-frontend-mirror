@@ -1,10 +1,10 @@
 import { defineMessages } from 'react-intl-next';
 
 export const messages = defineMessages({
-  cancel: {
-    id: 'linkCreate.createForm.button.cancel',
-    defaultMessage: 'Cancel',
-    description: 'Button to cancel and dismiss link create',
+  close: {
+    id: 'linkCreate.createForm.button.close',
+    defaultMessage: 'Close',
+    description: 'Button to close and dismiss link create',
   },
   create: {
     id: 'linkCreate.createForm.button.create',

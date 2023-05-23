@@ -2,10 +2,8 @@
 import React from 'react';
 
 import { B400, B50, N10, N30, N500 } from '@atlaskit/theme/colors';
-import {
-  borderRadius as borderRadiusFn,
-  gridSize as gridSizeFn,
-} from '@atlaskit/theme/constants';
+import { borderRadius as borderRadiusFn } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import { ButtonItem, CSSFn, ItemState } from '../src';
 
@@ -58,10 +56,9 @@ export default () => (
 
 // Mimics overrides in side-navigation
 const borderRadius = borderRadiusFn();
-const gridSize = gridSizeFn();
 const styleOverrides: CSSFn = ({ isSelected, isDisabled }: ItemState) => {
   return {
-    padding: `${gridSize}px ${gridSize * 3}px`,
+    padding: `${token('space.100', '8px')} ${token('space.300', '24px')}`,
     borderRadius,
     backgroundColor: N10,
     color: N500,
@@ -77,11 +74,11 @@ const styleOverrides: CSSFn = ({ isSelected, isDisabled }: ItemState) => {
     },
     ['& [data-item-elem-before]']: {
       display: 'flex',
-      height: gridSize * 1.25,
-      width: gridSize * 1.25,
+      height: 8 * 1.25,
+      width: 8 * 1.25,
       alignItems: 'center',
       justifyContent: 'center',
-      marginRight: gridSize * 2,
+      marginRight: token('space.200', '16px'),
     },
     ...(isSelected && {
       backgroundColor: N30,

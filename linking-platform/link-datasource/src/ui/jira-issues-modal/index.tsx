@@ -54,6 +54,9 @@ const placeholderSmartLinkStyles = css({
   padding: '0px 2px',
 });
 
+export const JIRA_LIST_OF_LINKS_DATASOURCE_ID =
+  'd8b75300-dfda-4519-b6cd-e49abbd50401';
+
 export interface JiraIssuesConfigModalProps {
   datasourceId: string;
   onVisibleColumnKeysChange: (visibleColumnKeys: string[]) => void;
@@ -153,7 +156,7 @@ export const JiraIssuesConfigModal = (props: JiraIssuesConfigModalProps) => {
   const retrieveUrlForSmartCardRender = useCallback(() => {
     const [data] = responseItems;
     // agrement with BE that we will use `key` for rendering smartlink
-    return (data?.key as Link)?.url;
+    return (data?.key?.data as Link)?.url;
   }, [responseItems]);
 
   const onInsertPressed = useCallback(() => {

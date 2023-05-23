@@ -101,7 +101,19 @@ export function App() {
   }, []);
 
   return (
-    <div id="scroll-container" style={{ height: 400, overflow: 'auto' }}>
+    <div
+      id="scroll-container"
+      style={{
+        height: 400,
+        /**
+         * Using `hidden` for `overflow-x` to avoid a horizontal scrollbar.
+         *
+         * When using `auto` one would appear initially, but would disappear
+         * after starting a drag. This caused a layout shift, and broke things.
+         */
+        overflow: 'hidden auto',
+      }}
+    >
       <DragDropContext onDragEnd={onDragEnd}>
         <List items={items} />
       </DragDropContext>

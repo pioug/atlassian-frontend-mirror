@@ -1,5 +1,12 @@
 # @atlaskit/smart-card
 
+## 26.3.3
+
+### Patch Changes
+
+- [`6d9a4d28d94`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6d9a4d28d94) - Fixes HoverCard component providing hover card analytics context to the wrapped trigger component.
+- Updated dependencies
+
 ## 26.3.2
 
 ### Patch Changes

@@ -42,6 +42,10 @@ export type DragController = {
 };
 
 export type StartKeyboardDrag = (args: {
+  /**
+   * The event that caused `startKeyboardDrag()` to be called.
+   */
+  event: KeyboardEvent;
   draggableId: string;
   type: string;
   getSourceLocation(): DraggableLocation;

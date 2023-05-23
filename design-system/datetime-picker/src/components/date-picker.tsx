@@ -27,6 +27,7 @@ import Select, {
   ValueType,
 } from '@atlaskit/select';
 import { N0, N50A, N60A } from '@atlaskit/theme/colors';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { borderRadius, gridSize, layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 

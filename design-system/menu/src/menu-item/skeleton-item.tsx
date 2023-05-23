@@ -7,6 +7,7 @@ import noop from '@atlaskit/ds-lib/noop';
 import { N20A } from '@atlaskit/theme/colors';
 import {
   borderRadius as borderRadiusFn,
+  // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
   gridSize as gridSizeFn,
 } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';

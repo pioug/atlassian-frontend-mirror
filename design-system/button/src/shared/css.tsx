@@ -3,6 +3,7 @@ import { css, CSSObject } from '@emotion/react';
 import {
   borderRadius as getBorderRadius,
   fontSize as getFontSize,
+  // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
   gridSize as getGridSize,
 } from '@atlaskit/theme/constants';
 import { ThemeModes } from '@atlaskit/theme/types';

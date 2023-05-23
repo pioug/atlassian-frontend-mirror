@@ -29,7 +29,6 @@ const columns: DatasourceResponseSchemaProperty[] = [
     key: 'id',
     title: '',
     type: 'string',
-    isIdentity: true,
   },
   {
     key: 'key',
@@ -134,41 +133,50 @@ const generateDataResponse = (
         // Fake identifier attribute that is a primitive value.
         // Adding number of pages to make all issueNumbers unique
         id: {
-          value: item.issueNumber + numberOfLoads,
+          data: item.issueNumber + numberOfLoads,
         },
         type: {
-          source: item.type.source,
-          label: item.type.label,
+          data: { source: item.type.source, label: item.type.label },
         },
         key: {
-          url: item.link,
-          text: item.issueNumber + numberOfLoads,
-          linkType: 'key',
+          data: {
+            url: item.link,
+            text: item.issueNumber + numberOfLoads,
+            style: {
+              appearance: 'key',
+            },
+          },
         },
         summary: {
-          url: item.link,
-          text: `[${cloudId}] ${item.summary}`,
+          data: { url: item.link, text: `[${cloudId}] ${item.summary}` },
         },
         assignee: {
-          displayName: item.assignee?.displayName,
-          avatarSource: item.assignee?.source,
+          data: {
+            displayName: item.assignee?.displayName,
+            avatarSource: item.assignee?.source,
+          },
         },
         priority: {
-          source: item.priority.source,
-          label: item.priority.label,
+          data: { source: item.priority.source, label: item.priority.label },
         },
         status: {
-          text: item.status.text,
-          status: item.status.status as StatusType['value']['status'],
+          data: {
+            text: item.status.text,
+            style: {
+              appearance: item?.status?.status,
+            },
+          } as StatusType['value'],
         },
         created: {
-          value: item.created,
+          data: item.created,
         },
         due: {
-          value: item.due,
+          data: item.due,
         },
         ...(item.labels?.length && {
-          labels: item.labels?.map(label => ({ value: label })),
+          labels: {
+            data: item.labels.map(label => ({ text: label })),
+          },
         }),
       };
     }),
@@ -243,4 +251,9 @@ export const mockDatasourceFetchRequests = (datasourceId?: string | null) => {
       });
     },
   );
+};
+
+export const forceBaseUrl = (baseUrl: string) => {
+  fetchMock.post(/^\//, ((url, init) =>
+    fetch(`${baseUrl}${url}`, init)) as typeof fetch);
 };

@@ -159,6 +159,7 @@ export function Draggable({
             event.preventDefault();
 
             startKeyboardDrag({
+              event,
               draggableId,
               type,
               getSourceLocation() {

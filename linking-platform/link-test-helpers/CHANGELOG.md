@@ -1,5 +1,21 @@
 # @atlaskit/link-test-helpers
 
+## 4.0.0
+
+### Major Changes
+
+- [`0b0226e2ff4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0b0226e2ff4) - Updated mock response to the new `DatasourceDataResponseItem` format
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.1.0
+
+### Minor Changes
+
+- [`79588abed5b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79588abed5b) - Add `forceBaseUrl` member under /datasource entrypoint.
+
 ## 3.0.0
 
 ### Major Changes

@@ -6,6 +6,7 @@ import { css, jsx } from '@emotion/react';
 import Textfield from '@atlaskit/textfield';
 import {
   fontSize as getFontSize,
+  // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
   gridSize as getGridSize,
 } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';

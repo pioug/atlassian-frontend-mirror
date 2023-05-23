@@ -36,82 +36,41 @@ interface Item {
 const items: Item[] = [
   {
     type: 'number',
-    variations: [
-      {
-        value: 123,
-      },
-      {
-        value: 123.456,
-      },
-      {
-        value: -98,
-      },
-      {
-        value: -98.777,
-      },
-    ],
+    variations: [123, 123.456, -98, -98.777],
   },
   {
     type: 'date',
-    variations: [
-      {
-        value: '11/11/2023',
-      },
-      {
-        value: '2023-04-20T23:00:00.000Z',
-      },
-    ],
+    variations: ['11/11/2023', '2023-04-20T23:00:00.000Z'],
   },
   {
     type: 'time',
-    variations: [
-      {
-        value: '11/11/2023',
-      },
-      {
-        value: '2023-04-20T23:00:00.000Z',
-      },
-    ],
+    variations: ['11/11/2023', '2023-04-20T23:00:00.000Z'],
   },
   {
     type: 'datetime',
-    variations: [
-      {
-        value: '11/11/2023',
-      },
-      {
-        value: '2023-04-20T23:00:00.000Z',
-      },
-    ],
+    variations: ['11/11/2023', '2023-04-20T23:00:00.000Z'],
   },
   {
     type: 'string',
-    variations: [
-      {
-        value: 'Hello World',
-      },
-    ],
+    variations: ['Hello World'],
   },
   {
     type: 'boolean',
-    variations: [
-      {
-        value: true,
-      },
-      {
-        value: false,
-      },
-    ],
+    variations: [true, false],
   },
   {
     type: 'status',
     variations: [
       {
-        status: 'default',
+        style: {
+          appearance: 'default',
+        },
         text: 'Default',
       },
       {
-        status: 'inprogress',
+        style: {
+          appearance: 'inprogress',
+        },
         text: 'In Progress',
       },
     ],
@@ -129,7 +88,9 @@ const items: Item[] = [
       {
         text: 'EDM-5941',
         url: '#',
-        linkType: 'key',
+        style: {
+          appearance: 'key',
+        },
       },
       {
         url: 'https://product-fabric.atlassian.net/browse/EDM-5941',
@@ -164,7 +125,7 @@ const items: Item[] = [
     type: 'tag',
     variations: [
       {
-        value: 'Simple Tag',
+        text: 'Simple Tag',
       },
     ],
   },

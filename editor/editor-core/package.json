@@ -144,7 +144,7 @@
   "devDependencies": {
     "@af/integration-testing": "*",
     "@atlaskit/atlassian-navigation": "^2.5.0",
-    "@atlaskit/breadcrumbs": "11.10.2",
+    "@atlaskit/breadcrumbs": "11.10.3",
     "@atlaskit/code": "^14.6.0",
     "@atlaskit/collab-provider": "8.9.1",
     "@atlaskit/docs": "*",
@@ -158,7 +158,7 @@
     "@atlaskit/flag": "^15.2.0",
     "@atlaskit/inline-dialog": "^13.6.0",
     "@atlaskit/link-provider": "^1.6.0",
-    "@atlaskit/link-test-helpers": "^3.0.0",
+    "@atlaskit/link-test-helpers": "^4.0.0",
     "@atlaskit/lozenge": "^11.4.0",
     "@atlaskit/media-core": "^34.1.0",
     "@atlaskit/media-integration-test-helpers": "^2.6.0",

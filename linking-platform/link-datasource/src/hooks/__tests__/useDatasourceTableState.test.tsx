@@ -124,8 +124,10 @@ describe('useDatasourceTableState', () => {
       const { waitForNextUpdate } = setup();
 
       expect(getDatasourceDetails).toHaveBeenCalledWith(mockDatasourceId, {
-        cloudId: mockCloudId,
-        jql: mockParameterValue,
+        parameters: {
+          cloudId: mockCloudId,
+          jql: mockParameterValue,
+        },
       });
       await waitForNextUpdate();
     });
@@ -151,6 +153,7 @@ describe('useDatasourceTableState', () => {
       act(() => {
         result.current.onNextPage();
       });
+      await waitForNextUpdate();
 
       expect(result.current.status).toBe('loading');
     });
@@ -285,33 +288,113 @@ describe('useDatasourceTableState', () => {
       await waitForNextUpdate();
 
       act(() => {
-        result.current.reset();
+        result.current.onNextPage();
       });
-      return result;
+      await waitForNextUpdate();
+
+      return { result, waitForNextUpdate };
     };
 
-    it('should set status to "empty" when reset() called', async () => {
-      const result = await customSetup();
+    it("should set status to 'empty' when reset() called", async () => {
+      const { result, waitForNextUpdate } = await customSetup();
+
+      expect(result.current.status).toBe('resolved');
+
+      act(() => {
+        result.current.reset();
+      });
+      await waitForNextUpdate();
 
       expect(result.current.status).toBe('empty');
     });
 
     it('should set response items to empty array [] when reset() called', async () => {
-      const result = await customSetup();
+      const { result, waitForNextUpdate } = await customSetup();
+
+      expect(result.current.responseItems).toEqual(
+        mockDatasourceDataResponse.data,
+      );
+
+      act(() => {
+        result.current.reset();
+      });
+      await waitForNextUpdate();
 
       expect(result.current.responseItems).toEqual([]);
     });
 
     it('should set hasNextPage to true when reset() called', async () => {
-      const result = await customSetup();
+      getDatasourceData = jest.fn().mockResolvedValue({
+        ...mockDatasourceDataResponse,
+        nextPageCursor: undefined,
+      });
+      const { result, waitForNextUpdate } = setup();
+
+      act(() => {
+        result.current.onNextPage();
+      });
+      await waitForNextUpdate();
+
+      expect(result.current.hasNextPage).toBe(false);
+
+      act(() => {
+        result.current.reset();
+      });
+      await waitForNextUpdate();
 
       expect(result.current.hasNextPage).toBe(true);
     });
 
     it('should set totalIssueCount to undefined when reset() called', async () => {
-      const result = await customSetup();
+      const { result, waitForNextUpdate } = await customSetup();
+
+      expect(result.current.totalIssueCount).toEqual(1234);
+
+      act(() => {
+        result.current.reset();
+      });
+      await waitForNextUpdate();
 
       expect(result.current.totalIssueCount).toBe(undefined);
+    });
+
+    it('should set nextCursor to undefined when reset() called', async () => {
+      const { result, waitForNextUpdate } = setup();
+      await waitForNextUpdate();
+
+      act(() => {
+        result.current.onNextPage();
+      });
+      await waitForNextUpdate();
+
+      act(() => {
+        result.current.onNextPage();
+      });
+      await waitForNextUpdate();
+
+      expect(getDatasourceData).toHaveBeenLastCalledWith(
+        mockDatasourceId,
+        expect.objectContaining({
+          pageCursor: mockDatasourceDataResponse.nextPageCursor,
+        }),
+      );
+
+      act(() => {
+        result.current.reset();
+      });
+      await waitForNextUpdate();
+
+      act(() => {
+        result.current.onNextPage();
+      });
+      await waitForNextUpdate();
+
+      expect(getDatasourceData).toHaveBeenLastCalledWith(
+        mockDatasourceId,
+        expect.objectContaining({
+          pageCursor: undefined,
+        }),
+      );
     });
   });
 });

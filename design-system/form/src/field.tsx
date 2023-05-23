@@ -16,16 +16,14 @@ import { FieldState } from 'final-form';
 import { uid } from 'react-uid';
 import invariant from 'tiny-invariant';
 
-import { gridSize as getGridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import { FormContext, IsDisabledContext } from './form';
 import Label from './label';
 import RequiredAsterisk from './required-asterisk';
 
-const gridSize = getGridSize();
-
 const fieldWrapperStyles = css({
-  marginTop: gridSize,
+  marginTop: token('space.100', '8px'),
 });
 
 function isEvent(event: any): event is FormEvent<SupportedElements> {

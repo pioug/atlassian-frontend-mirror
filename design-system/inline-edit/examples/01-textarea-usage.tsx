@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import styled from '@emotion/styled';
 
 import TextArea from '@atlaskit/textarea';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { fontSize, gridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
@@ -25,7 +26,10 @@ const InlineEditExample = () => {
   return (
     <div
       style={{
-        padding: `${gridSize()}px ${gridSize()}px ${gridSize() * 6}px`,
+        padding: `${token('space.100', '8px')} ${token(
+          'space.100',
+          '8px',
+        )} ${token('space.600', '48px')}`,
         width: '70%',
       }}
     >

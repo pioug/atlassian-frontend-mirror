@@ -7,51 +7,70 @@ export const mockDatasourceDataResponse: DatasourceDataResponse = {
   totalIssues: 1234,
   data: [
     {
-      id: { value: 'EDM-12' },
-      description: { value: 'Design datasource feature' },
-      createdAt: { value: '2023-01-22T01:30:00.000-05:00' },
+      id: { data: 'EDM-12' },
+      description: { data: 'Design datasource feature' },
+      createdAt: { data: '2023-01-22T01:30:00.000-05:00' },
       assigned: {
-        displayName: 'Sasha',
+        data: { displayName: 'Sasha' },
       },
       status: {
-        text: 'In Progress',
-        status: 'inprogress',
+        data: {
+          text: 'In Progress',
+          style: {
+            appearance: 'inprogress',
+          },
+        },
       },
     },
     {
-      id: { value: 'EDM-14' },
-      description: { value: 'Implement datasource feature' },
-      createdAt: { value: '2023-03-01T01:30:00.000-05:00' },
+      id: { data: 'EDM-14' },
+      description: { data: 'Implement datasource feature' },
+      createdAt: { data: '2023-03-01T01:30:00.000-05:00' },
       assigned: {
-        displayName: 'Hana',
+        data: {
+          displayName: 'Hana',
+        },
       },
       status: {
-        text: 'To Do',
-        status: 'new',
+        data: {
+          text: 'To Do',
+          style: {
+            appearance: 'new',
+          },
+        },
       },
     },
     {
-      id: { value: 'EDM-15' },
-      description: { value: 'Add Jira Provider' },
-      createdAt: { value: '2023-03-31T01:30:00.000-05:00' },
+      id: { data: 'EDM-15' },
+      description: { data: 'Add Jira Provider' },
+      createdAt: { data: '2023-03-31T01:30:00.000-05:00' },
       assigned: {
-        displayName: 'Princey',
+        data: {
+          displayName: 'Princey',
+        },
       },
       status: {
-        text: 'To Do',
-        status: 'default',
+        data: {
+          text: 'To Do',
+        },
       },
     },
     {
-      id: { value: 'EDM-16' },
-      description: { value: 'Plan team party' },
-      createdAt: { value: '2023-05-01T01:30:00.000-05:00' },
+      id: { data: 'EDM-16' },
+      description: { data: 'Plan team party' },
+      createdAt: { data: '2023-05-01T01:30:00.000-05:00' },
       assigned: {
-        displayName: 'Nidhin',
+        data: {
+          displayName: 'Nidhin',
+        },
       },
       status: {
-        text: 'Done',
-        status: 'success',
+        data: {
+          text: 'Done',
+          style: {
+            appearance: 'success',
+          },
+        },
       },
     },
   ],
@@ -81,7 +100,6 @@ export const mockDatasourceResponse: DatasourceResponse = {
         key: 'id',
         title: '',
         type: 'string',
-        isIdentity: true,
       },
       {
         key: 'issue',

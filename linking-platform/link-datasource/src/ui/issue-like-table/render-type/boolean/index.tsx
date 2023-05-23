@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 
 import { useIntl } from 'react-intl-next';
 
@@ -20,23 +20,19 @@ const BooleanRenderType = ({
   testId = BOOLEAN_TYPE_TEST_ID,
 }: BooleanProps) => {
   const intl = useIntl();
-  const booleanValue = value?.value;
+
+  if (typeof value !== 'boolean') {
+    return <></>;
+  }
 
   const TRUTHY_TEXT = intl.formatMessage(
     booleanTypeMessages.booleanTruthyValue,
   );
   const FALSY_TEXT = intl.formatMessage(booleanTypeMessages.booleanFalsyValue);
 
-  const displayTextObject = useMemo(
-    () => ({ value: booleanValue ? TRUTHY_TEXT : FALSY_TEXT }),
-    [booleanValue, TRUTHY_TEXT, FALSY_TEXT],
+  return (
+    <TextRenderType text={value ? TRUTHY_TEXT : FALSY_TEXT} testId={testId} />
   );
-
-  if (typeof booleanValue !== 'boolean') {
-    return <></>;
-  }
-
-  return <TextRenderType text={displayTextObject} testId={testId} />;
 };
 
 export default BooleanRenderType;

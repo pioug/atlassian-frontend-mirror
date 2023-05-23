@@ -1,5 +1,11 @@
 # @atlaskit/link-create
 
+## 0.5.1
+
+### Patch Changes
+
+- [`2d812255401`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2d812255401) - EDM-6561: add an autofocus on title field in create modal and change cancel button labeling to close
+
 ## 0.5.0
 
 ### Minor Changes

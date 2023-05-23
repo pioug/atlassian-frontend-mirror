@@ -5,6 +5,7 @@ import {
   codeFontFamily as getCodeFontFamily,
   fontFamily as getFontFamily,
   fontSize as getFontSize,
+  // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
   gridSize,
 } from '@atlaskit/theme/constants';
 
@@ -164,7 +165,7 @@ const staticStyles = css({
   fontSize: fontSize,
   outline: 'none',
   overflow: 'auto',
-  transition: `background-color ${transitionDuration} ease-in-out, 
+  transition: `background-color ${transitionDuration} ease-in-out,
                border-color ${transitionDuration} ease-in-out`,
   wordWrap: 'break-word',
   '&:disabled': {

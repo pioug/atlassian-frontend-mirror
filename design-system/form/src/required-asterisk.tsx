@@ -2,17 +2,13 @@
 import { css, jsx } from '@emotion/react';
 
 import { R400 } from '@atlaskit/theme/colors';
-import {
-  fontFamily as getFontFamily,
-  gridSize as getGridSize,
-} from '@atlaskit/theme/constants';
+import { fontFamily as getFontFamily } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
-const gridSize = getGridSize();
 const fontFamily = getFontFamily();
 
 const requiredIndicatorStyles = css({
-  paddingLeft: `${gridSize / 4}px`,
+  paddingLeft: token('space.025', '2px'),
   color: token('color.text.danger', R400),
   fontFamily,
 });

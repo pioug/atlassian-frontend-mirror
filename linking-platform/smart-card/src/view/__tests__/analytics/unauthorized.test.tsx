@@ -14,6 +14,7 @@ import * as ufoWrapper from '../../../state/analytics/ufoExperiences';
 import 'jest-extended';
 import uuid from 'uuid';
 import { IntlProvider } from 'react-intl-next';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 mockSimpleIntersectionObserver();
 
@@ -368,70 +369,130 @@ describe('smart-card: unauthorized analytics', () => {
       });
     });
 
-    it('should fire connectSucceeded event when auth succeeds', async () => {
-      const mockUrl = 'https://https://this.is.a.url';
-      mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
-      const { getByTestId, container } = render(
-        <IntlProvider locale="en">
-          <Provider client={mockClient}>
-            <Card
-              testId="unauthorizedCard1"
-              appearance="inline"
-              url={mockUrl}
-            />
-          </Provider>
-        </IntlProvider>,
-      );
-      const unauthorizedLink = await waitFor(
-        () => getByTestId('unauthorizedCard1-unauthorized-view'),
-        { timeout: 10000 },
-      );
-      const unauthorizedLinkButton = container.querySelector('[type="button"]');
-      expect(unauthorizedLink).toBeTruthy();
-      expect(unauthorizedLinkButton).toBeTruthy();
-      expect(unauthorizedLinkButton!.innerHTML).toContain('Connect');
-      // Mock out auth flow, & click connect.
-      asMockFunction(auth).mockImplementationOnce(async () => {});
-      fireEvent.click(unauthorizedLinkButton!);
+    describe('should fire connectSucceeded event when auth succeeds', () => {
+      ffTest(
+        'platform.linking-platform.smart-card.remove-dispatch-analytics-as-prop',
+        async () => {
+          const mockUrl = 'https://https://this.is.a.url';
+          mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
+          const { getByTestId, container } = render(
+            <IntlProvider locale="en">
+              <Provider client={mockClient}>
+                <Card
+                  testId="unauthorizedCard1"
+                  appearance="inline"
+                  url={mockUrl}
+                />
+              </Provider>
+            </IntlProvider>,
+          );
+          const unauthorizedLink = await waitFor(
+            () => getByTestId('unauthorizedCard1-unauthorized-view'),
+            { timeout: 10000 },
+          );
+          const unauthorizedLinkButton =
+            container.querySelector('[type="button"]');
+          expect(unauthorizedLink).toBeTruthy();
+          expect(unauthorizedLinkButton).toBeTruthy();
+          expect(unauthorizedLinkButton!.innerHTML).toContain('Connect');
+          // Mock out auth flow, & click connect.
+          asMockFunction(auth).mockImplementationOnce(async () => {});
+          fireEvent.click(unauthorizedLinkButton!);
 
-      mockFetch.mockImplementationOnce(async () => mocks.success);
-      const resolvedView = await waitFor(() =>
-        getByTestId('unauthorizedCard1-resolved-view'),
-      );
-      expect(resolvedView).toBeTruthy();
-      expect(analytics.unresolvedEvent).toHaveBeenCalledTimes(1);
-      expect(analytics.uiAuthEvent).toHaveBeenCalledTimes(1);
-      expect(analytics.screenAuthPopupEvent).toHaveBeenCalledTimes(1);
-      expect(analytics.trackAppAccountConnected).toHaveBeenCalledTimes(1);
-      expect(analytics.connectSucceededEvent).toHaveBeenCalledTimes(1);
-      expect(analytics.fireSmartLinkEvent).toBeCalledWith(
-        {
-          action: 'unresolved',
-          attributes: {
-            componentName: 'smart-cards',
-            display: 'inline',
-            id: expect.any(String),
-            extensionKey: 'object-provider',
-            definitionId: 'd1',
-          },
-        },
-        expect.any(Function),
-      );
-      expect(mockStartUfoExperience).toBeCalledWith(
-        'smart-link-authenticated',
-        'some-uuid-1',
-        { extensionKey: 'object-provider', status: 'success' },
-      );
+          mockFetch.mockImplementationOnce(async () => mocks.success);
+          const resolvedView = await waitFor(() =>
+            getByTestId('unauthorizedCard1-resolved-view'),
+          );
+          expect(resolvedView).toBeTruthy();
+          expect(analytics.unresolvedEvent).toHaveBeenCalledTimes(1);
+          expect(analytics.uiAuthEvent).toHaveBeenCalledTimes(1);
+          expect(analytics.screenAuthPopupEvent).toHaveBeenCalledTimes(1);
+          expect(analytics.trackAppAccountConnected).toHaveBeenCalledTimes(1);
+          expect(analytics.connectSucceededEvent).toHaveBeenCalledTimes(1);
+          expect(mockStartUfoExperience).toBeCalledWith(
+            'smart-link-authenticated',
+            'some-uuid-1',
+            { extensionKey: 'object-provider', status: 'success' },
+          );
 
-      expect(mockSucceedUfoExperience).toBeCalledWith(
-        'smart-link-authenticated',
-        'some-uuid-1',
-        {
-          display: 'inline',
+          expect(mockSucceedUfoExperience).toBeCalledWith(
+            'smart-link-authenticated',
+            'some-uuid-1',
+            {
+              display: 'inline',
+            },
+          );
+          expect(mockStartUfoExperience).toHaveBeenCalledBefore(
+            mockSucceedUfoExperience as jest.Mock,
+          );
         },
-      );
-      expect(mockStartUfoExperience).toHaveBeenCalledBefore(
-        mockSucceedUfoExperience as jest.Mock,
+        async () => {
+          const mockUrl = 'https://https://this.is.a.url';
+          mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
+          const { getByTestId, container } = render(
+            <IntlProvider locale="en">
+              <Provider client={mockClient}>
+                <Card
+                  testId="unauthorizedCard1"
+                  appearance="inline"
+                  url={mockUrl}
+                />
+              </Provider>
+            </IntlProvider>,
+          );
+          const unauthorizedLink = await waitFor(
+            () => getByTestId('unauthorizedCard1-unauthorized-view'),
+            { timeout: 10000 },
+          );
+          const unauthorizedLinkButton =
+            container.querySelector('[type="button"]');
+          expect(unauthorizedLink).toBeTruthy();
+          expect(unauthorizedLinkButton).toBeTruthy();
+          expect(unauthorizedLinkButton!.innerHTML).toContain('Connect');
+          // Mock out auth flow, & click connect.
+          asMockFunction(auth).mockImplementationOnce(async () => {});
+          fireEvent.click(unauthorizedLinkButton!);
+
+          mockFetch.mockImplementationOnce(async () => mocks.success);
+          const resolvedView = await waitFor(() =>
+            getByTestId('unauthorizedCard1-resolved-view'),
+          );
+          expect(resolvedView).toBeTruthy();
+          expect(analytics.unresolvedEvent).toHaveBeenCalledTimes(1);
+          expect(analytics.uiAuthEvent).toHaveBeenCalledTimes(1);
+          expect(analytics.screenAuthPopupEvent).toHaveBeenCalledTimes(1);
+          expect(analytics.trackAppAccountConnected).toHaveBeenCalledTimes(1);
+          expect(analytics.connectSucceededEvent).toHaveBeenCalledTimes(1);
+          expect(analytics.fireSmartLinkEvent).toBeCalledWith(
+            {
+              action: 'unresolved',
+              attributes: {
+                componentName: 'smart-cards',
+                display: 'inline',
+                id: expect.any(String),
+                extensionKey: 'object-provider',
+                definitionId: 'd1',
+              },
+            },
+            expect.any(Function),
+          );
+          expect(mockStartUfoExperience).toBeCalledWith(
+            'smart-link-authenticated',
+            'some-uuid-1',
+            { extensionKey: 'object-provider', status: 'success' },
+          );
+
+          expect(mockSucceedUfoExperience).toBeCalledWith(
+            'smart-link-authenticated',
+            'some-uuid-1',
+            {
+              display: 'inline',
+            },
+          );
+          expect(mockStartUfoExperience).toHaveBeenCalledBefore(
+            mockSucceedUfoExperience as jest.Mock,
+          );
+        },
       );
     });
 

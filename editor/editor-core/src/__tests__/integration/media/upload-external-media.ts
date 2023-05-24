@@ -32,12 +32,9 @@ const removeFuzzyMediaAttrs = (doc: { [key: string]: any }) => {
   return copy;
 };
 
-// FIXME: This test was automatically skipped due to failure on 19/12/2022: https://product-fabric.atlassian.net/browse/ED-16407
 BrowserTestCase(
   'upload-external-media.ts: Uploads external media when pasted',
-  {
-    skip: ['*'],
-  },
+  {},
   async (client: ConstructorParameters<typeof Page>[0], testCase: string) => {
     const sample = new Page(client);
     await copyToClipboard(

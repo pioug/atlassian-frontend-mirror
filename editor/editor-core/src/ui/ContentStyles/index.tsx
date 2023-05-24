@@ -14,6 +14,7 @@ import {
   smartCardSharedStyles,
   textColorStyles,
   resizerStyles,
+  gridStyles,
 } from '@atlaskit/editor-common/styles';
 import { editorFontSize } from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
@@ -35,7 +36,6 @@ import { mentionsStyles } from '../../plugins/mentions/styles';
 import { emojiStyles } from '../../plugins/emoji/styles';
 import { textFormattingStyles } from '../../plugins/text-formatting/styles';
 import { placeholderTextStyles } from '../../plugins/placeholder-text/styles';
-import { gridStyles } from '../../plugins/grid/styles';
 import { linkStyles } from '../../plugins/hyperlink/styles';
 import { extensionStyles } from '../../plugins/extension/ui/styles';
 import { expandStyles } from '../../plugins/expand/ui/styles';

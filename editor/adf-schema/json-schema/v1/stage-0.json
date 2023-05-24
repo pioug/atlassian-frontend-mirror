@@ -2045,6 +2045,9 @@
             "localId": {
               "type": "string",
               "minLength": 1
+            },
+            "width": {
+              "type": "number"
             }
           },
           "additionalProperties": false

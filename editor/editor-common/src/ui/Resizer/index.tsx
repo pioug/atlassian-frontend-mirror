@@ -6,12 +6,18 @@ import { HandleComponent, Resizable, ResizeDirection } from 're-resizable';
 import {
   resizerHandleLeftClassName,
   resizerHandlePadding,
+  resizerHandlerClassName,
   resizerHandleRightClassName,
   resizerHandleZIndex,
   resizerItemClassName,
 } from '../../styles/shared/resizer';
 
-import { EnabledHandles, HandleResize, HandleStyles } from './types';
+import {
+  EnabledHandles,
+  HandleResize,
+  HandlerHeightSizeType,
+  HandleStyles,
+} from './types';
 import { handleSides } from './utils';
 
 export interface ResizableNumberSize {
@@ -52,14 +58,20 @@ export type ResizerProps = {
   // But we can remove them until it's clear how we want to use them.
   handleWrapperStyle?: React.CSSProperties;
   handleComponent?: HandleComponent;
+
+  handlerHeightSize?: HandlerHeightSizeType;
 };
 
 export default function ResizerNext(
   props: PropsWithChildren<ResizerProps>,
 ): JSX.Element {
   const resizable: RefObject<Resizable> = React.useRef(null);
-  const { handleResize, handleResizeStart, handleResizeStop } = props;
-
+  const {
+    handleResize,
+    handleResizeStart,
+    handleResizeStop,
+    handlerHeightSize = 'medium',
+  } = props;
   const onResizeStart = React.useCallback(
     (
       event:
@@ -133,6 +145,14 @@ export default function ResizerNext(
       right: resizerHandleRightClassName,
     };
   }
+
+  // add handler height size classname to handleClasses
+  Object.keys(handles).forEach((key) => {
+    handles[key] = classnames(
+      handles[key],
+      resizerHandlerClassName[handlerHeightSize],
+    );
+  });
 
   const innerPadding = props.innerPadding || resizerHandlePadding;
   const handleStyles: HandleStyles = {

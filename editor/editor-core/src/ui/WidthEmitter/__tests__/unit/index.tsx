@@ -1,9 +1,13 @@
-import { render } from '@testing-library/react';
 import React from 'react';
-import { WidthProvider } from '@atlaskit/editor-common/ui';
+
+import { render } from '@testing-library/react';
+
+import {
+  ContextPanelProvider,
+  WidthProvider,
+} from '@atlaskit/editor-common/ui';
+
 import WidthEmitter from '../../index';
-import { pluginKey as widthPluginKey } from '../../../../plugins/width';
-import { ContextPanelProvider } from '../../../ContextPanel/context';
 
 describe('WidthEmiter', () => {
   describe('when there is no providers', () => {
@@ -60,11 +64,14 @@ describe('WidthEmiter', () => {
         </WidthProvider>,
       );
 
-      expect(tr.setMeta).toHaveBeenCalledWith(widthPluginKey, {
-        width: fakeContainerWidth,
-        containerWidth: fakeContainerWidth,
-        lineLength: editorView.dom.clientWidth,
-      });
+      expect(tr.setMeta).toHaveBeenCalledWith(
+        expect.objectContaining({ key: 'widthPlugin$' }),
+        {
+          containerWidth: fakeContainerWidth,
+          width: fakeContainerWidth,
+          lineLength: editorView.dom.clientWidth,
+        },
+      );
     });
 
     it('should call the dispatch function with the transaction', () => {
@@ -124,22 +131,6 @@ describe('WidthEmiter', () => {
         );
 
         expect(editorView.dispatch).not.toHaveBeenCalledWith(tr);
-      });
-    });
-
-    it('should set the meta information in the transaction', () => {
-      render(
-        <WidthProvider>
-          <ContextPanelProvider value={{ ...defaultContextPanelProviderProps }}>
-            <WidthEmitter editorView={editorView} />
-          </ContextPanelProvider>
-        </WidthProvider>,
-      );
-
-      expect(tr.setMeta).toHaveBeenCalledWith(widthPluginKey, {
-        width: fakeContainerWidth - contextPanelWidth,
-        containerWidth: fakeContainerWidth,
-        lineLength: editorView.dom.clientWidth,
       });
     });
 

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Label } from '@atlaskit/form';
 import { Checkbox } from '@atlaskit/checkbox';
 import { AsyncCreatableSelect as AsyncCreatable, OptionsType } from '../../src';
 
@@ -58,9 +59,9 @@ export default class AsyncCreatableExample extends Component<{}, State> {
     const { allowCreateWhileLoading } = this.state;
     return (
       <>
-        <label htmlFor="async-createable-select-example">
+        <Label htmlFor="async-createable-select-example">
           What city do you live in?
-        </label>
+        </Label>
         <AsyncCreatable
           inputId="async-createable-select-example"
           loadOptions={this.loadOptions}

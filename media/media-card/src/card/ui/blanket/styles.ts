@@ -1,6 +1,6 @@
 import { token } from '@atlaskit/tokens';
 import { css } from '@emotion/react';
-import { transition } from '../../styles';
+import { transition } from '../styles';
 import { N90A } from '@atlaskit/theme/colors';
 
 export const blanketClassName = 'media-card-blanket';

@@ -63,8 +63,8 @@ import emojiPlugin from '../../../emoji';
 import blockTypePlugin from '../../../block-type';
 import captionPlugin from '../../../caption';
 import mediaPlugin from '../../../media';
-import widthPlugin from '../../../width';
-import gridPlugin from '../../../grid';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import listPlugin from '../../../list';
 import extensionPlugin from '../../../extension';
 import rulePlugin from '../../../rule';
@@ -818,6 +818,7 @@ describe('handleRichText', () => {
         .add([featureFlagsPlugin, {}])
         .add([analyticsPlugin, {}])
         .add(contentInsertionPlugin)
+        .add(widthPlugin)
         .add([pastePlugin, {}])
         .add(tablesPlugin)
         .add(listPlugin)

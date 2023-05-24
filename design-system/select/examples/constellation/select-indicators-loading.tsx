@@ -1,4 +1,5 @@
 import React from 'react';
+import { Label } from '@atlaskit/form';
 import Spinner from '@atlaskit/spinner';
 import Tooltip from '@atlaskit/tooltip';
 import { cities } from '../common/data';
@@ -27,11 +28,15 @@ const promiseOptions = (inputValue: string) =>
 
 export default () => {
   return (
-    <AsyncSelect
-      cacheOptions
-      defaultOptions
-      loadOptions={promiseOptions}
-      components={{ LoadingIndicator }}
-    />
+    <>
+      <Label htmlFor="indicators-loading">What city do you live in?</Label>
+      <AsyncSelect
+        inputId="indicators-loading"
+        cacheOptions
+        defaultOptions
+        loadOptions={promiseOptions}
+        components={{ LoadingIndicator }}
+      />
+    </>
   );
 };

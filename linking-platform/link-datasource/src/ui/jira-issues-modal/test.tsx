@@ -349,7 +349,7 @@ describe('JiraIssuesConfigModal', () => {
     await setup();
     expect(useDatasourceTableState).toHaveBeenCalledWith<
       Parameters<typeof useDatasourceTableState>
-    >('some-jira-jql-datasource-id', getDefaultParameters(), ['key']);
+    >('some-jira-jql-datasource-id', getDefaultParameters());
   });
 
   describe('when there is no parameters yet', () => {

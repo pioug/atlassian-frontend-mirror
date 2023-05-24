@@ -27,8 +27,6 @@ export const areEqualFeatureFlags = (
     observedWidth: ffA.observedWidth === ffB.observedWidth,
     timestampOnVideo: ffA.timestampOnVideo === ffB.timestampOnVideo,
     memoryCacheLogging: ffA.memoryCacheLogging === ffB.memoryCacheLogging,
-    fetchFileStateAfterUpload:
-      ffA.fetchFileStateAfterUpload === ffB.fetchFileStateAfterUpload,
   };
   return Object.values(results).every((result) => result);
 };
@@ -80,7 +78,6 @@ export const defaultMediaFeatureFlags: Required<MediaFeatureFlags> = {
   observedWidth: false,
   timestampOnVideo: false,
   memoryCacheLogging: false,
-  fetchFileStateAfterUpload: false,
 };
 
 /**

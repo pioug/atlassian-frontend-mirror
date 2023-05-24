@@ -2,6 +2,7 @@
 import { FC } from 'react';
 import { BlockCardProps } from './types';
 import { JsonLd } from 'json-ld-types';
+import { token } from '@atlaskit/tokens';
 import { getExtensionKey } from '../../state/helpers';
 import { extractBlockProps } from '../../extractors/block';
 import { getEmptyJsonLd, getForbiddenJsonLd } from '../../utils/jsonld';
@@ -44,7 +45,7 @@ export {
 const flexibleBlockCardElevationStyle = css`
   border-radius: 1.5px;
   box-shadow: ${tokens.elevation};
-  margin: 2px;
+  margin: ${token('space.025', '2px')};
 `;
 
 export const BlockCard: FC<BlockCardProps> = ({

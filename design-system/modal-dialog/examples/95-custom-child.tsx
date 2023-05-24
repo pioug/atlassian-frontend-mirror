@@ -83,7 +83,7 @@ export default function ModalWithCustomChild() {
       </Field>
 
       <br />
-      <Button onClick={open} testId="modal-trigger">
+      <Button appearance="primary" onClick={open} testId="modal-trigger">
         Open Modal
       </Button>
 

@@ -3,7 +3,6 @@ import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { Dispatch } from '../../event-dispatcher';
 import { initialize } from './events/initialize';
 import { PrivateCollabEditOptions, ProviderCallback } from './types';
-import { CollabEditProvider } from './provider';
 import { PluginState } from './plugin-state';
 import { pluginKey } from './plugin-key';
 import { addSynchronyErrorAnalytics } from './analytics';
@@ -13,13 +12,10 @@ import {
   ACTION_SUBJECT,
   EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
-import {
-  FeatureFlags,
-  SyncUpErrorFunction,
-} from '@atlaskit/editor-common/types';
+import { FeatureFlags } from '@atlaskit/editor-common/types';
+import type { SyncUpErrorFunction } from '@atlaskit/collab-provider/types';
 
 export { PluginState, pluginKey };
-export type { CollabEditProvider };
 
 export const createPlugin = (
   dispatch: Dispatch,

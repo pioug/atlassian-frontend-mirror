@@ -137,6 +137,7 @@ export {
   strong,
   subsup,
   table,
+  tableWithCustomWidth,
   tableBackgroundBorderColor,
   tableBackgroundColorNames,
   tableBackgroundColorPalette,

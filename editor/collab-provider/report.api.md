@@ -16,18 +16,10 @@
 
 ```ts
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
-import type { CollabEventConnectingData } from '@atlaskit/editor-common/collab';
-import type { CollabEventConnectionData } from '@atlaskit/editor-common/collab';
-import type { CollabEventInitData } from '@atlaskit/editor-common/collab';
-import type { CollabEventPresenceData } from '@atlaskit/editor-common/collab';
-import type { CollabEventRemoteData } from '@atlaskit/editor-common/collab';
-import type { CollabParticipant } from '@atlaskit/editor-common/collab';
 import type { EditorState } from 'prosemirror-state';
 import { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import type { Manager } from 'socket.io-client';
-import type { ResolvedEditorState } from '@atlaskit/editor-common/collab';
 import type { Step } from 'prosemirror-transform';
-import type { SyncUpErrorFunction } from '@atlaskit/editor-common/types';
 import type { Transaction } from 'prosemirror-state';
 
 // @public (undocumented)
@@ -92,8 +84,73 @@ export interface CollabEditProvider<
   unsubscribeAll(evt: keyof Events): this;
 }
 
-// @public @deprecated (undocumented)
-export type CollabErrorPayload = ProviderError;
+// @public (undocumented)
+export interface CollabEventConnectingData {
+  // (undocumented)
+  initial: boolean;
+}
+
+// @public (undocumented)
+export interface CollabEventConnectionData {
+  // (undocumented)
+  initial: boolean;
+  // (undocumented)
+  sid: string;
+}
+
+// @public (undocumented)
+export interface CollabEventDisconnectedData {
+  // (undocumented)
+  reason:
+    | 'CLIENT_DISCONNECT'
+    | 'SERVER_DISCONNECT'
+    | 'SOCKET_CLOSED'
+    | 'SOCKET_ERROR'
+    | 'SOCKET_TIMEOUT'
+    | 'UNKNOWN_DISCONNECT';
+  // (undocumented)
+  sid: string;
+}
+
+// @public (undocumented)
+export interface CollabEventInitData {
+  // (undocumented)
+  doc?: any;
+  // (undocumented)
+  json?: any;
+  // (undocumented)
+  reserveCursor?: boolean;
+  // (undocumented)
+  sid?: string;
+  // (undocumented)
+  version?: number;
+}
+
+// @public (undocumented)
+export interface CollabEventLocalStepData {
+  // (undocumented)
+  steps: Array<Step>;
+}
+
+// @public (undocumented)
+export interface CollabEventPresenceData {
+  // (undocumented)
+  joined?: CollabParticipant[];
+  // (undocumented)
+  left?: {
+    sessionId: string;
+  }[];
+}
+
+// @public (undocumented)
+export interface CollabEventRemoteData {
+  // (undocumented)
+  json?: any;
+  // (undocumented)
+  newState?: EditorState;
+  // (undocumented)
+  userIds?: (number | string)[];
+}
 
 // @public (undocumented)
 export interface CollabEvents {
@@ -112,7 +169,7 @@ export interface CollabEvents {
   // (undocumented)
   entity: any;
   // (undocumented)
-  error: CollabErrorPayload;
+  error: ProviderError;
   // (undocumented)
   init: CollabInitPayload;
   // (undocumented)
@@ -122,7 +179,7 @@ export interface CollabEvents {
 }
 
 // @public (undocumented)
-interface CollabEventTelepointerData {
+export interface CollabEventTelepointerData {
   // (undocumented)
   selection: CollabSendableSelection;
   // (undocumented)
@@ -150,6 +207,20 @@ export type CollabLocalStepsPayload = {
 
 // @public (undocumented)
 export type CollabMetadataPayload = Metadata_2;
+
+// @public (undocumented)
+export interface CollabParticipant {
+  // (undocumented)
+  avatar: string;
+  // (undocumented)
+  cursorPos?: number;
+  // (undocumented)
+  lastActive: number;
+  // (undocumented)
+  name: string;
+  // (undocumented)
+  sessionId: string;
+}
 
 // @public (undocumented)
 export type CollabPresencePayload = CollabEventPresenceData;
@@ -360,6 +431,15 @@ type NetworkIssue = {
 };
 
 // @public (undocumented)
+export type NewCollabSyncUpErrorAttributes = {
+  lengthOfUnconfirmedSteps?: number;
+  tries: number;
+  maxRetries: number;
+  clientId?: number | string;
+  version: number;
+};
+
+// @public (undocumented)
 type NodeJson = {
   type: string;
   attrs: {
@@ -396,7 +476,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
     _oldState: EditorState | null,
     newState: EditorState,
   ): void;
-  sendMessage(data: CollabEventTelepointerData): void;
+  sendMessage(data: CollabTelepointerPayload): void;
   // @deprecated
   setEditorWidth(editorWidth: string, broadcast?: boolean): void;
   setMetadata(metadata: Metadata_2): void;
@@ -457,6 +537,13 @@ type ProviderParticipant = CollabParticipant & {
 };
 
 // @public (undocumented)
+export type ResolvedEditorState<T = any> = {
+  content: JSONDocNode | T;
+  title: null | string;
+  stepVersion: number;
+};
+
+// @public (undocumented)
 interface SimpleEventEmitter {
   // (undocumented)
   on(event: string, fn: Function): SimpleEventEmitter;
@@ -504,6 +591,11 @@ interface Storage_2 {
   // (undocumented)
   set(key: string, value: string): Promise<void>;
 }
+
+// @public (undocumented)
+export type SyncUpErrorFunction = (
+  attributes: NewCollabSyncUpErrorAttributes,
+) => void;
 
 // (No @packageDocumentation comment for this package)
 ```

@@ -34,6 +34,7 @@ const backgroundStyles = css`
   }
 `;
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 const toggleStyles = css`
   .AKExampleWrapper {
     padding-top: 23px;

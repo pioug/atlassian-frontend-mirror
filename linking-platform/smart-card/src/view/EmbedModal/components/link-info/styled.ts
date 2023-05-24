@@ -1,14 +1,17 @@
 import { css } from '@emotion/react';
+import { token } from '@atlaskit/tokens';
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 export const containerStyles = css`
   align-items: center;
   display: flex;
-  gap: 8px;
+  gap: ${token('space.100', '8px')};
   justify-content: space-between;
   // AK ModalBody has 2px padding top and bottom.
   // Using 14px here to create 16px gap between
   // link info and iframe
-  padding: 24px 24px 14px 24px;
+  padding: ${token('space.300', '24px')} ${token('space.300', '24px')} 14px
+    ${token('space.300', '24px')};
 `;
 
 const iconSize = '24px';
@@ -52,7 +55,7 @@ export const titleCss = css`
 export const actionCss = css`
   display: flex;
   flex: 0 0 auto;
-  gap: 4px;
+  gap: ${token('space.050', '4px')};
   line-height: ${height};
   span {
     line-height: ${height};

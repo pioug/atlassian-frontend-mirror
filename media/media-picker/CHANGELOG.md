@@ -1,5 +1,14 @@
 # @atlaskit/media-picker
 
+## 65.1.3
+
+### Patch Changes
+
+- [`cc299ebb3b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cc299ebb3b4) - Added unhandled file statuses to the upload event emitter
+- [`9425ed86eb7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9425ed86eb7) - File size limit is now verified in the backend, no longer the frontend
+- [`e725edbb0d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e725edbb0d9) - Removed fetchFileStateAfterUpload Feature Flag integration
+- Updated dependencies
+
 ## 65.1.2
 
 ### Patch Changes

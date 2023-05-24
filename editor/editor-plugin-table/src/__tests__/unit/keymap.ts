@@ -36,7 +36,7 @@ import {
 import { uuid } from '@atlaskit/adf-schema';
 import { uuid as tablesUuid } from '@atlaskit/editor-tables';
 
-import gridPlugin from '@atlaskit/editor-core/src/plugins/grid';
+import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import panelPlugin from '@atlaskit/editor-core/src/plugins/panel';
 import expandPlugin from '@atlaskit/editor-core/src/plugins/expand';
 import tasksDecisionsPlugin from '@atlaskit/editor-core/src/plugins/tasks-and-decisions';
@@ -58,7 +58,7 @@ import statusPlugin from '@atlaskit/editor-core/src/plugins/status';
 import tablePlugin from '../../plugins/table';
 import { TablePluginState } from '../../plugins/table/types';
 import { pluginKey } from '../../plugins/table/pm-plugins/plugin-key';
-import widthPlugin from '@atlaskit/editor-core/src/plugins/width';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import editorDisabledPlugin from '@atlaskit/editor-core/src/plugins/editor-disabled';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';

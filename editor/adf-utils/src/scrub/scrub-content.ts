@@ -17,7 +17,7 @@ const BYPASS_ATTR_LIST: { [key: string]: Array<string> } = {
   orderedList: ['order'],
   panel: ['panelType'],
   status: ['color', 'style'],
-  table: ['isNumberColumnEnabled', 'layout'],
+  table: ['isNumberColumnEnabled', 'layout', 'width'],
   tableCell: ['background', 'colspan', 'colwidth', 'defaultMarks', 'rowspan'],
   tableHeader: ['background', 'colspan', 'colwidth', 'defaultMarks', 'rowspan'],
   tableRow: ['defaultMarks'],

@@ -1,7 +1,7 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { PluginKey, EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
-import type { CollabEditProvider } from '@atlaskit/editor-common/collab';
+import type { CollabEditProvider } from '@atlaskit/collab-provider';
 
 const nativeCollabProviderPluginKey = new PluginKey(
   'nativeCollabProviderPlugin',

@@ -6,9 +6,11 @@ import { css, Global, jsx } from '@emotion/react';
 import Page from '@atlaskit/page';
 import SectionMessage from '@atlaskit/section-message';
 import { SmartLinkActionType } from '@atlaskit/linking-types';
+import { token } from '@atlaskit/tokens';
 import { exampleTokens } from './flexible-ui';
 import { overrideEmbedContent } from './common';
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 const horizontalWrapperStyles = css`
   display: flex;
   flex-wrap: wrap;
@@ -16,6 +18,7 @@ const horizontalWrapperStyles = css`
   padding: 5px;
 `;
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 const testWrapperStyles = css`
   padding: 30px;
   background-color: ${exampleTokens.backgroundColor};
@@ -51,9 +54,10 @@ export const VRTestWrapper = ({ title, children }: VRTestWrapperOptions) => (
         </SectionMessage>
 
         <h6
+          // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
           css={css`
             margin-top: 28px;
-            margin-bottom: 8px;
+            margin-bottom: ${token('space.100', '8px')};
           `}
         >
           {title}

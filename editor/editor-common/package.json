@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-common",
-  "version": "74.1.2",
+  "version": "74.2.0",
   "description": "A package that contains common classes and components for editor and renderer",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -28,7 +28,6 @@
     "releaseModel": "scheduled"
   },
   "af:exports": {
-    "./collab": "./src/collab.ts",
     "./event-dispatcher": "./src/event-dispatcher/index.ts",
     "./extensions": "./src/extensions.ts",
     "./normalize-feature-flags": "./src/normalize-feature-flags.ts",
@@ -71,7 +70,7 @@
   },
   "dependencies": {
     "@atlaskit/activity-provider": "^2.4.0",
-    "@atlaskit/adf-schema": "^25.6.0",
+    "@atlaskit/adf-schema": "^25.7.0",
     "@atlaskit/adf-utils": "^18.2.0",
     "@atlaskit/analytics-listeners": "^8.7.0",
     "@atlaskit/analytics-namespaced-context": "^6.7.0",
@@ -80,19 +79,20 @@
     "@atlaskit/button": "^16.7.0",
     "@atlaskit/code": "^14.6.0",
     "@atlaskit/codemod-utils": "^4.2.0",
+    "@atlaskit/collab-provider": "^9.0.0",
     "@atlaskit/editor-json-transformer": "^8.9.0",
     "@atlaskit/editor-palette": "1.4.2",
     "@atlaskit/editor-shared-styles": "^2.4.0",
     "@atlaskit/emoji": "^67.4.0",
     "@atlaskit/icon": "^21.12.0",
     "@atlaskit/in-product-testing": "^0.2.0",
-    "@atlaskit/media-card": "^75.0.0",
+    "@atlaskit/media-card": "^76.0.0",
     "@atlaskit/media-client": "^22.0.0",
     "@atlaskit/media-picker": "^65.1.0",
     "@atlaskit/mention": "^22.1.0",
     "@atlaskit/menu": "^1.7.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",
-    "@atlaskit/profilecard": "^19.3.0",
+    "@atlaskit/profilecard": "^19.4.0",
     "@atlaskit/smart-card": "^26.3.0",
     "@atlaskit/smart-user-picker": "^6.1.0",
     "@atlaskit/task-decision": "^17.6.0",
@@ -135,12 +135,14 @@
     "react-intl-next": "npm:react-intl@^5.18.1"
   },
   "devDependencies": {
-    "@atlaskit/editor-core": "^183.1.0",
+    "@atlaskit/editor-core": "^184.0.0",
     "@atlaskit/editor-json-transformer": "^8.9.0",
     "@atlaskit/editor-plugin-analytics": "^0.0.1",
     "@atlaskit/editor-plugin-content-insertion": "^0.0.1",
     "@atlaskit/editor-plugin-feature-flags": "^0.1.0",
-    "@atlaskit/editor-plugin-table": "^1.4.0",
+    "@atlaskit/editor-plugin-grid": "^0.1.0",
+    "@atlaskit/editor-plugin-table": "^1.5.0",
+    "@atlaskit/editor-plugin-width": "^0.0.1",
     "@atlaskit/editor-test-helpers": "^18.4.0",
     "@atlaskit/media-core": "^34.1.0",
     "@atlaskit/util-data-test": "^17.8.0",

@@ -183,7 +183,6 @@ export default (options: LayoutPluginOptions) =>
 
         if (tr.docChanged) {
           tr.setSelection(Selection.fromJSON(tr.doc, selection));
-          tr.setMeta('addToHistory', false);
           return tr;
         }
       }

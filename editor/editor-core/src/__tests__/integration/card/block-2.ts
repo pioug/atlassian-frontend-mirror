@@ -15,10 +15,9 @@ import { linkPickerSelectors } from '@atlaskit/editor-test-helpers/page-objects/
 
 type ClientType = Parameters<typeof goToEditorTestingWDExample>[0];
 
-// TODO: Restore skipped test https://product-fabric.atlassian.net/browse/ED-16704
 BrowserTestCase(
   'card: changing the link URL of a block link to an unsupported link should convert it to a "dumb" link',
-  { skip: ['*'] },
+  {},
   async (client: ClientType, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -53,10 +52,9 @@ BrowserTestCase(
 );
 
 describe('with feature flag: lp-link-picker', () => {
-  // TODO: Restore skipped test https://product-fabric.atlassian.net/browse/ED-16704
   BrowserTestCase(
     'card: changing the link URL of a block link to an unsupported link should convert it to a "dumb" link',
-    { skip: ['*'] },
+    {},
     async (client: ClientType, testName: string) => {
       const page = await goToEditorTestingWDExample(client);
 

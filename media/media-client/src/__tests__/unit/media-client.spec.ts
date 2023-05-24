@@ -5,6 +5,7 @@ import { AuthProvider, Auth } from '@atlaskit/media-core';
 import {
   asMockFunction,
   asMockFunctionResolvedValue,
+  flushPromises,
 } from '@atlaskit/media-test-helpers';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -17,7 +18,6 @@ import {
   FileFetcherImpl,
   FileState,
   UploadingFileState,
-  ProcessingFileState,
   isErrorFileState,
   UploadableFileUpfrontIds,
   UploadableFile,
@@ -262,7 +262,7 @@ describe('MediaClient', () => {
       );
     });
 
-    it('should return file state regardless of the state', (done) => {
+    it('should return file state regardless of the state', async (done) => {
       const {
         controller,
         id,
@@ -272,16 +272,23 @@ describe('MediaClient', () => {
         mockUploadFile,
       } = setup();
 
-      asMockFunctionResolvedValue(mediaClient.mediaStore.getFile, {
+      asMockFunctionResolvedValue(mediaClient.mediaStore.getItems, {
         data: {
-          processingStatus: 'succeeded',
-          id,
-          name: 'file-one',
-          size: 1,
-          mediaType: 'image',
-          mimeType: 'image/png',
-          artifacts: {},
-          representations: { image: {} },
+          items: [
+            {
+              id,
+              type: 'file',
+              details: {
+                mediaType: 'image',
+                mimeType: 'image/jpeg',
+                name: 'file-one',
+                size: 14,
+                processingStatus: 'succeeded',
+                artifacts: {},
+                representations: {},
+              },
+            },
+          ],
         },
       });
 
@@ -299,26 +306,27 @@ describe('MediaClient', () => {
 
       mediaClient.file
         .upload(file, controller, uploadableFileUpfrontIds)
-        .subscribe({
-          next,
-          complete() {
-            expect(next).toHaveBeenCalledTimes(1);
-            const expectedState: ProcessingFileState = {
-              id,
-              status: 'processing',
-              mediaType: 'image',
-              mimeType: 'image/jpeg',
-              name: '',
-              size: 14,
-              occurrenceKey,
-              representations: {},
-            };
-            expect(next.mock.calls[0][0]).toEqual(
-              expect.objectContaining(expectedState),
-            );
-            done();
-          },
-        });
+        .subscribe({ next });
+
+      await flushPromises();
+
+      expect(next).toHaveBeenCalledTimes(1);
+      const expectedState = {
+        id,
+        status: 'processed',
+        mediaType: 'image',
+        mimeType: 'image/jpeg',
+        name: 'file-one',
+        size: 14,
+        occurrenceKey,
+        representations: {},
+      };
+
+      expect(next.mock.calls[0][0]).toEqual(
+        expect.objectContaining(expectedState),
+      );
+
+      done();
     });
   });
 

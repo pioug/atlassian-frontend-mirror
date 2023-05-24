@@ -102,9 +102,14 @@ describe('floatingToolbar()', () => {
 
       // manually override type to pass mediaGroup node checking
       editorView.state.schema.nodes.mediaGroup = 'mediaGroup';
-      const toolbar = floatingToolbar(editorView.state, intl, {
-        allowMediaInline,
-      });
+      const toolbar = floatingToolbar(
+        editorView.state,
+        intl,
+        {
+          allowMediaInline,
+        },
+        undefined,
+      );
       const items = getToolbarItems(toolbar!, editorView);
       const mediaPluginState: MediaPluginState | undefined = stateKey.getState(
         editorView.state,
@@ -177,9 +182,14 @@ describe('floatingToolbar()', () => {
       });
       await pluginState.setMediaProvider(getFreshMediaProvider());
 
-      const toolbar = floatingToolbar(editorView.state, intl, {
-        allowMediaInline: true,
-      });
+      const toolbar = floatingToolbar(
+        editorView.state,
+        intl,
+        {
+          allowMediaInline: true,
+        },
+        undefined,
+      );
       const items = getToolbarItems(toolbar!, editorView);
       const mediaPluginState: MediaPluginState | undefined = stateKey.getState(
         editorView.state,
@@ -245,10 +255,15 @@ describe('floatingToolbar()', () => {
       const { editorView, pluginState } = editor(document, {}, allowBorder);
       await pluginState.setMediaProvider(getFreshMediaProvider());
 
-      const toolbar = floatingToolbar(editorView.state, intl, {
-        allowLinking: true,
-        allowAdvancedToolBarOptions: true,
-      });
+      const toolbar = floatingToolbar(
+        editorView.state,
+        intl,
+        {
+          allowLinking: true,
+          allowAdvancedToolBarOptions: true,
+        },
+        undefined,
+      );
       const items = getToolbarItems(toolbar!, editorView);
       const mediaPluginState: MediaPluginState | undefined = stateKey.getState(
         editorView.state,

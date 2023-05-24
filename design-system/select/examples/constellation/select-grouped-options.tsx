@@ -1,9 +1,10 @@
 import React from 'react';
+import { Label } from '@atlaskit/form';
 import Select from '../../src';
 
 const SelectGroupedOptionsExample = () => (
   <>
-    <label htmlFor="grouped-options-example">What city do you live in?</label>
+    <Label htmlFor="grouped-options-example">What city do you live in?</Label>
     <Select
       inputId="grouped-options-example"
       className="single-select"

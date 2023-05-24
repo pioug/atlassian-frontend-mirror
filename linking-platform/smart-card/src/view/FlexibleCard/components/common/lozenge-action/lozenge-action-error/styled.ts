@@ -38,6 +38,7 @@ export const contentStyles = css`
   }
 `;
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 export const linkStyles = css`
   ${sharedBlockStyles};
 

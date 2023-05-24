@@ -1,6 +1,6 @@
 import { collab } from '@atlaskit/prosemirror-collab';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { CollabEditProvider } from '@atlaskit/editor-common/collab';
+import type { CollabEditProvider } from '@atlaskit/collab-provider';
 import { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { createPlugin, pluginKey } from './plugin';
 import {
@@ -9,7 +9,6 @@ import {
   ProviderCallback,
   PrivateCollabEditOptions,
 } from './types';
-export type { CollabEditProvider } from './provider';
 import { sendTransaction } from './events/send-transaction';
 import { addSynchronyErrorAnalytics } from './analytics';
 import { nativeCollabProviderPlugin } from './native-collab-provider-plugin';

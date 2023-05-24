@@ -13,7 +13,10 @@ import {
   ProviderFactory,
 } from '@atlaskit/editor-common/provider-factory';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type {
+  ExtractInjectionAPI,
+  GridType,
+} from '@atlaskit/editor-common/types';
 import {
   MediaSingle,
   DEFAULT_IMAGE_HEIGHT,
@@ -29,20 +32,15 @@ import {
   getPosHandlerNode,
   ForwardRef,
 } from '../../../nodeviews/';
-import WithPluginState from '../../../ui/WithPluginState';
-import { pluginKey as widthPluginKey } from '../../width';
 import { setNodeSelection, setTextSelection } from '../../../utils';
 import ResizableMediaSingle from '../ui/ResizableMediaSingle';
 import { EventDispatcher } from '../../../event-dispatcher';
 import { PortalProviderAPI } from '../../../ui/PortalProvider';
 import { MediaOptions } from '../types';
-import {
-  stateKey as mediaPluginKey,
-  MEDIA_CONTENT_WRAP_CLASS_NAME,
-} from '../pm-plugins/main';
+import { MEDIA_CONTENT_WRAP_CLASS_NAME } from '../pm-plugins/main';
 import { MediaSingleNodeProps, MediaSingleNodeViewProps } from './types';
 import { MediaNodeUpdater } from './mediaNodeUpdater';
-import { DispatchAnalyticsEvent } from '../../analytics';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { findParentNodeOfTypeClosestToPos } from 'prosemirror-utils';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { figureWrapper, MediaSingleNodeSelector } from './styles';
@@ -58,7 +56,8 @@ import CaptionPlaceholder from '../ui/CaptionPlaceholder';
 import { NodeSelection } from 'prosemirror-state';
 import { insertAndSelectCaptionFromMediaSinglePos } from '../commands/captions';
 import type mediaPlugin from '../index';
-import type { GridType, Highlights } from '../../grid/types';
+import type { Highlights } from '@atlaskit/editor-plugin-grid';
+import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 
 export interface MediaSingleNodeState {
   width?: number;
@@ -371,7 +370,7 @@ export default class MediaSingleNode extends Component<
   ) => {
     const { pluginInjectionApi, view } = this.props;
 
-    pluginInjectionApi?.dependencies?.grid?.actions.displayGrid(view)({
+    pluginInjectionApi?.dependencies?.grid?.actions?.displayGrid(view)({
       visible,
       gridType,
       highlight: highlight as Highlights,
@@ -413,6 +412,45 @@ export default class MediaSingleNode extends Component<
     return null;
   };
 }
+
+const MediaSingleNodeWrapper = ({
+  pluginInjectionApi,
+  mediaProvider,
+  contextIdentifierProvider,
+  node,
+  getPos,
+  mediaOptions,
+  view,
+  fullWidthMode,
+  selected,
+  eventDispatcher,
+  dispatchAnalyticsEvent,
+  forwardRef,
+}: Omit<MediaSingleNodeProps, 'width' | 'lineLength' | 'mediaPluginState'>) => {
+  const { widthState, mediaState } = useSharedPluginState(pluginInjectionApi, [
+    'width',
+    'media',
+  ]);
+  return (
+    <MediaSingleNode
+      width={widthState!.width}
+      lineLength={widthState!.lineLength}
+      node={node}
+      getPos={getPos}
+      mediaProvider={mediaProvider}
+      contextIdentifierProvider={contextIdentifierProvider}
+      mediaOptions={mediaOptions}
+      view={view}
+      fullWidthMode={fullWidthMode}
+      selected={selected}
+      eventDispatcher={eventDispatcher}
+      mediaPluginState={mediaState ?? undefined}
+      dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+      forwardRef={forwardRef}
+      pluginInjectionApi={pluginInjectionApi}
+    />
+  );
+};
 
 class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
   lastOffsetLeft = 0;
@@ -518,33 +556,19 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
         providerFactory={providerFactory}
         renderNode={({ mediaProvider, contextIdentifierProvider }) => {
           return (
-            <WithPluginState
-              editorView={this.view}
-              plugins={{
-                width: widthPluginKey,
-                mediaPluginState: mediaPluginKey,
-              }}
-              render={({ width, mediaPluginState }) => {
-                return (
-                  <MediaSingleNode
-                    width={width!.width}
-                    lineLength={width!.lineLength}
-                    node={this.node}
-                    getPos={getPos}
-                    mediaProvider={mediaProvider}
-                    contextIdentifierProvider={contextIdentifierProvider}
-                    mediaOptions={mediaOptions}
-                    view={this.view}
-                    fullWidthMode={fullWidthMode}
-                    selected={this.isNodeSelected}
-                    eventDispatcher={eventDispatcher}
-                    mediaPluginState={mediaPluginState}
-                    dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-                    forwardRef={forwardRef}
-                    pluginInjectionApi={pluginInjectionApi}
-                  />
-                );
-              }}
+            <MediaSingleNodeWrapper
+              pluginInjectionApi={pluginInjectionApi}
+              mediaProvider={mediaProvider}
+              contextIdentifierProvider={contextIdentifierProvider}
+              node={this.node}
+              getPos={getPos}
+              mediaOptions={mediaOptions}
+              view={this.view}
+              fullWidthMode={fullWidthMode}
+              selected={this.isNodeSelected}
+              eventDispatcher={eventDispatcher}
+              dispatchAnalyticsEvent={dispatchAnalyticsEvent!}
+              forwardRef={forwardRef!}
             />
           );
         }}

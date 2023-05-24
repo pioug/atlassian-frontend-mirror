@@ -48,6 +48,12 @@ import {
 import ImageBorderItem from '../ui/ImageBorder';
 import { currentMediaNodeBorderMark } from '../utils/current-media-node';
 import { shouldShowImageBorder } from './imageBorder';
+import type mediaPlugin from '../index';
+import {
+  ExtractInjectionAPI,
+  PluginDependenciesAPI,
+} from '@atlaskit/editor-common/types';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 
 const remove: Command = (state, dispatch) => {
   if (dispatch) {
@@ -250,6 +256,9 @@ const generateMediaSingleFloatingToolbar = (
   options: MediaFloatingToolbarOptions,
   pluginState: MediaPluginState,
   mediaLinkingState: MediaLinkingState,
+  widthPluginDependencyApi:
+    | PluginDependenciesAPI<typeof widthPlugin>
+    | undefined,
   getEditorFeatureFlags?: GetEditorFeatureFlags,
 ) => {
   const { mediaSingle } = state.schema.nodes;
@@ -300,6 +309,7 @@ const generateMediaSingleFloatingToolbar = (
         state,
         intl,
         state.schema.nodes.mediaSingle,
+        widthPluginDependencyApi,
         allowResizing,
         allowResizingInTables,
       ),
@@ -395,6 +405,7 @@ export const floatingToolbar = (
   state: EditorState,
   intl: IntlShape,
   options: MediaFloatingToolbarOptions = {},
+  pluginInjectionApi: ExtractInjectionAPI<typeof mediaPlugin> | undefined,
 ): FloatingToolbarConfig | undefined => {
   const { media, mediaInline, mediaSingle, mediaGroup } = state.schema.nodes;
   const {
@@ -488,6 +499,7 @@ export const floatingToolbar = (
       options,
       mediaPluginState,
       mediaLinkingState,
+      pluginInjectionApi?.dependencies.width,
       getEditorFeatureFlags,
     );
   }

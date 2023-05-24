@@ -58,7 +58,11 @@ export default function NestedDemo() {
       </Field>
 
       <ButtonGroup>
-        <Button testId="large" onClick={() => open('large')}>
+        <Button
+          appearance="primary"
+          testId="large"
+          onClick={() => open('large')}
+        >
           Open
         </Button>
       </ButtonGroup>

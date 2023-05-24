@@ -1,0 +1,41 @@
+{
+    "version": 1,
+    "type": "doc",
+    "content": [
+        {
+            "type": "paragraph",
+            "content": []
+        },
+        {
+            "type": "extension",
+            "attrs": {
+                "extensionType": "com.atlassian.forge",
+                "extensionKey": "awesome:list",
+                "parameters": {
+                    "items": [
+                        "a",
+                        "b",
+                        "c",
+                        "d"
+                    ]
+                },
+                "layout": "default",
+                "localId": "38a03027-ea55-4036-b5a2-de6f5e97fbaa"
+            },
+            "marks": [
+                {
+                    "type": "dataConsumer",
+                    "attrs": {
+                        "sources": [
+                            "b428785e-94bc-4334-b142-a1dc475ad608"
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": []
+        }
+    ]
+}

@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 
 import { Skeleton } from '@atlaskit/linking-common';
+import { token } from '@atlaskit/tokens';
 import React from 'react';
 
 // TODO: Figure out a more scalable/responsive solution
@@ -11,7 +12,7 @@ import React from 'react';
 export const Icon = styled.img`
   height: 14px;
   width: 14px;
-  margin-right: 4px;
+  margin-right: ${token('space.050', '4px')};
   border-radius: 2px;
   user-select: none;
   position: absolute;
@@ -24,7 +25,7 @@ export const Icon = styled.img`
 // are less than that in height/width.
 // TODO: Replace this override with proper AtlasKit solution.
 export const AKIconWrapper = styled.span`
-  margin-right: -2px;
+  margin-right: calc(-1 * ${token('space.025', '2px')});
 `;
 
 export const Shimmer = ({ testId }: { testId: string }) => {

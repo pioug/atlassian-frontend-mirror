@@ -21,12 +21,15 @@ import {
   EditorPresetBuilder,
   type EditorPluginInjectionAPI,
 } from '@atlaskit/editor-common/preset';
-import type { AllEditorPresetPluginTypes } from '@atlaskit/editor-common/types';
-
+import type {
+  AllEditorPresetPluginTypes,
+  UIComponentFactory,
+} from '@atlaskit/editor-common/types';
 export interface LightEditorConfig {
   nodes: NodeConfig[];
   marks: MarkConfig[];
   plugins: Array<LightPMPlugin>;
+  contentComponents: UIComponentFactory[];
   onEditorViewStateUpdatedCallbacks: Array<OnEditorViewStateUpdated>;
 }
 
@@ -71,6 +74,9 @@ function lightProcessPluginsList(
       if (editorPlugin.nodes) {
         acc.nodes.push(...editorPlugin.nodes());
       }
+      if (editorPlugin.contentComponent) {
+        acc.contentComponents.push(editorPlugin.contentComponent);
+      }
       if (editorPlugin.onEditorViewStateUpdated) {
         acc.onEditorViewStateUpdatedCallbacks.push(
           editorPlugin.onEditorViewStateUpdated,
@@ -82,6 +88,7 @@ function lightProcessPluginsList(
       nodes: [],
       marks: [],
       plugins: [],
+      contentComponents: [],
       onEditorViewStateUpdatedCallbacks: [],
     } as LightEditorConfig,
   );
@@ -91,6 +98,7 @@ type PluginData = {
   plugins: Plugin[];
   schema: Schema;
   onEditorViewStateUpdatedCallbacks: Array<OnEditorViewStateUpdated>;
+  editorConfig: LightEditorConfig;
 };
 export const createPMSchemaAndPlugins =
   (
@@ -128,6 +136,7 @@ export const createPMSchemaAndPlugins =
       schema,
       onEditorViewStateUpdatedCallbacks:
         editorConfig.onEditorViewStateUpdatedCallbacks,
+      editorConfig,
     };
   };
 

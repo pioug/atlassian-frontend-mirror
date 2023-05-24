@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Label } from '@atlaskit/form';
 import { CreatableSelect, OptionType, ValueType } from '../../src';
 
 const defaultOptions = [
@@ -59,9 +60,9 @@ export default class CreatableAdvanced extends Component<{}, State> {
     const { isLoading, options, value } = this.state;
     return (
       <>
-        <label htmlFor="createable-select-example">
+        <Label htmlFor="createable-select-example">
           What city do you live in?
-        </label>
+        </Label>
         <CreatableSelect
           inputId="createable-select-example"
           isClearable

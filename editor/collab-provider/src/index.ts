@@ -1,8 +1,17 @@
 export { Provider } from './provider';
 export type {
+  CollabParticipant,
+  CollabEventInitData,
+  CollabEventRemoteData,
+  CollabEventConnectionData,
+  CollabEventConnectingData,
+  CollabEventDisconnectedData,
+  CollabEventPresenceData,
+  CollabEventTelepointerData,
+  CollabEventLocalStepData,
+  ResolvedEditorState,
   CollabConnectedPayload,
   CollabDisconnectedPayload,
-  CollabErrorPayload,
   CollabInitPayload,
   CollabDataPayload,
   CollabTelepointerPayload,
@@ -12,6 +21,8 @@ export type {
   CollabEvents,
   CollabSendableSelection,
   CollabEditProvider,
+  SyncUpErrorFunction,
+  NewCollabSyncUpErrorAttributes,
   Socket,
 } from './types';
 export type { ProviderError } from './errors/error-types';

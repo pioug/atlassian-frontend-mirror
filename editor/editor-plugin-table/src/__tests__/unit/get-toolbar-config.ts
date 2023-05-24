@@ -31,6 +31,7 @@ import type {
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 
 const formatMessage: (t: { id: string }) => string = (message) =>
   `${message.id}`;
@@ -79,6 +80,7 @@ describe('getToolbarConfig', () => {
         .add([featureFlagsPlugin, {}])
         .add([analyticsPlugin, {}])
         .add(contentInsertionPlugin)
+        .add(widthPlugin)
         .add(dataConsumerPlugin)
         .add(extensionPlugin)
         .add(tablePlugin),

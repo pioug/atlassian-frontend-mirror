@@ -10,6 +10,7 @@ export default {
           optional: true,
         },
         localId: { type: 'string', minLength: 1, optional: true },
+        width: { type: 'number', optional: true },
       },
       optional: true,
     },

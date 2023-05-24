@@ -58,12 +58,9 @@ BrowserTestCase(
   },
 );
 
-// FIXME: This test was automatically skipped due to failure on 15/03/2023: https://product-fabric.atlassian.net/browse/ED-17191
 BrowserTestCase(
   'can edit hyperlink text with toolbar',
-  {
-    skip: ['*'],
-  },
+  {},
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
@@ -214,12 +211,9 @@ BrowserTestCase(
 );
 
 describe('with feature flag: lp-link-picker', () => {
-  // FIXME: This test was automatically skipped due to failure on 15/03/2023: https://product-fabric.atlassian.net/browse/ED-17191
   BrowserTestCase(
     'can edit hyperlink text with toolbar',
-    {
-      skip: ['*'],
-    },
+    {},
     async (client: any, testName: string) => {
       const page = await goToEditorTestingWDExample(client);
       await mountEditor(
@@ -481,15 +475,11 @@ describe('with feature flag: lp-link-picker', () => {
   describe.each([true, false])(
     'when ff lp-link-picker-focus-trap is %p',
     (featureFlag: boolean) => {
-      // FIXME: This test was automatically skipped due to failure on 30/03/2023: https://product-fabric.atlassian.net/browse/ED-17344
       BrowserTestCase(
         `ff lp-link-picker-focus-trap is ${featureFlag}: when editing a link mark, focus ${
           featureFlag ? 'IS' : 'IS NOT'
         } trapped within the link picker`,
-        {
-          // skip: ['safari'],
-          skip: ['*'],
-        },
+        {},
         async (client: any) => {
           const page = await goToEditorTestingWDExample(client);
           await mountEditor(

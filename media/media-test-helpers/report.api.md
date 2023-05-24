@@ -1126,7 +1126,7 @@ export const zipJiraArchiveFileId: FileIdentifier;
 
 ```json
 {
-  "@atlaskit/media-core": "^34.1.1",
+  "@atlaskit/media-core": "^34.1.2",
   "react": "^16.8.0"
 }
 ```

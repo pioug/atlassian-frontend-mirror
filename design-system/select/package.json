@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/select",
-  "version": "16.2.3",
+  "version": "16.3.0",
   "description": "Select allows users to make a single selection or multiple selections from a list of options.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -40,6 +40,7 @@
   "dependencies": {
     "@atlaskit/analytics-next": "^9.1.0",
     "@atlaskit/icon": "^21.12.0",
+    "@atlaskit/platform-feature-flags": "^0.2.0",
     "@atlaskit/spinner": "^15.5.0",
     "@atlaskit/theme": "^12.5.0",
     "@atlaskit/tokens": "^1.4.0",
@@ -76,6 +77,7 @@
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
+    "@atlassian/feature-flags-test-utils": "*",
     "@emotion/styled": "^11.0.0",
     "@testing-library/react": "^12.1.5",
     "@testing-library/user-event": "^14.4.3",
@@ -97,6 +99,11 @@
       "styling": [
         "emotion"
       ]
+    }
+  },
+  "platform-feature-flags": {
+    "platform.design-system-team.update-border-input_ff9l1": {
+      "type": "boolean"
     }
   },
   "homepage": "https://atlassian.design/components/select/",

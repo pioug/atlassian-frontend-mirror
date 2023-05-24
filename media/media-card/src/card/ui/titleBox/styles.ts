@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 import { responsiveSettings, getTitleBoxHeight, Breakpoint } from '../common';
 import { N0, N800 } from '@atlaskit/theme/colors';
-import { rgba } from '../../styles/mixins';
+import { rgba } from '../styles';
 import {
   TitleBoxFooterProps,
   TitleBoxHeaderProps,

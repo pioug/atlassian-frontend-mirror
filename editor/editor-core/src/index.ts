@@ -19,7 +19,6 @@ export type {
   CustomMediaPicker,
 } from './plugins/media';
 export type { MediaOptions } from './plugins/media/types';
-export type { CollabEditProvider } from './plugins/collab-edit';
 export {
   AbstractMentionResource,
   MentionResource,

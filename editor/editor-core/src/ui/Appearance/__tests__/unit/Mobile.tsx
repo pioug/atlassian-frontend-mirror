@@ -14,20 +14,24 @@ import {
   createWidthContext,
   WidthContext,
 } from '@atlaskit/editor-common/src/ui/WidthProvider';
+import {
+  NextEditorPlugin,
+  PluginDependenciesAPI,
+} from '@atlaskit/editor-common/types';
 import { render } from '@testing-library/react';
-import widthPlugin, {
-  pluginKey as widthPluginKey,
-  WidthPluginState,
-} from '../../../../plugins/width/index';
+import { LightEditorConfig } from '../../../../test-utils';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 
 interface ExternalWidthUpdateProps {
   editorView: EditorView;
   width: number;
+  contentComponents: LightEditorConfig['contentComponents'];
 }
 
 const MobileWithExternalWidth: React.FC<ExternalWidthUpdateProps> = ({
   editorView,
   width,
+  contentComponents,
 }) => {
   return (
     <WidthContext.Provider value={createWidthContext(width)}>
@@ -36,6 +40,7 @@ const MobileWithExternalWidth: React.FC<ExternalWidthUpdateProps> = ({
         editorDOMElement={<span>Editor Slot</span>}
         providerFactory={{} as ProviderFactory}
         featureFlags={{}}
+        contentComponents={contentComponents}
       />
     </WidthContext.Provider>
   );
@@ -44,23 +49,42 @@ const MobileWithExternalWidth: React.FC<ExternalWidthUpdateProps> = ({
 describe('mobile editor', () => {
   const createEditor = createProsemirrorEditorFactory();
 
+  const widthStateRef: {
+    current: PluginDependenciesAPI<typeof widthPlugin> | null;
+  } = { current: null };
+
+  const stateCheckerPlugin: NextEditorPlugin<
+    'test',
+    { dependencies: [typeof widthPlugin] }
+  > = (_, api) => {
+    widthStateRef.current = api?.dependencies.width ?? null;
+    return { name: 'test' };
+  };
+
   const editor = (doc: DocBuilder) =>
     createEditor({
       doc,
-      preset: new Preset<LightEditorPlugin>().add(widthPlugin),
+      preset: new Preset<LightEditorPlugin>()
+        .add(widthPlugin)
+        .add(stateCheckerPlugin),
     });
   it('should emit the initial width to width plugin', () => {
     const initialWidth = 500;
-    const { editorView } = editor(doc(p('Hello world'), p('Hello world')));
+    const {
+      editorView,
+      editorConfig: { contentComponents },
+    } = editor(doc(p('Hello world'), p('Hello world')));
 
     render(
-      <MobileWithExternalWidth editorView={editorView} width={initialWidth} />,
+      <MobileWithExternalWidth
+        editorView={editorView}
+        width={initialWidth}
+        contentComponents={contentComponents}
+      />,
     );
 
-    const widthState = widthPluginKey.getState(
-      editorView.state,
-    ) as WidthPluginState;
+    const widthState = widthStateRef.current?.sharedState.currentState();
 
-    expect(widthState.width).toEqual(initialWidth);
+    expect(widthState?.width).toEqual(initialWidth);
   });
 });

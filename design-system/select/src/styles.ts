@@ -1,11 +1,13 @@
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize, fontFamily } from '@atlaskit/theme/constants';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import {
   B100,
   B400,
   B50,
   G400,
   N0,
+  N100,
   N20,
   N200,
   N30,
@@ -46,7 +48,14 @@ export default function baseStyles<Option, IsMulti extends boolean>(
     control: (css, { isFocused, isDisabled }) => {
       let borderColor: string = isFocused
         ? token('color.border.focused', B100)
-        : token('color.border.input', N20);
+        : token(
+            'color.border.input',
+            getBooleanFF(
+              'platform.design-system-team.update-border-input_ff9l1',
+            )
+              ? N100
+              : N20,
+          );
       let backgroundColor: string = isFocused
         ? token('color.background.input.pressed', N0)
         : token('color.background.input', N20);
@@ -67,7 +76,14 @@ export default function baseStyles<Option, IsMulti extends boolean>(
 
       let borderColorHover: string = isFocused
         ? token('color.border.focused', B100)
-        : token('color.border.input', N30);
+        : token(
+            'color.border.input',
+            getBooleanFF(
+              'platform.design-system-team.update-border-input_ff9l1',
+            )
+              ? N100
+              : N30,
+          );
 
       if (validationState === 'error') {
         borderColorHover = token('color.border.danger', R400);
@@ -104,8 +120,19 @@ export default function baseStyles<Option, IsMulti extends boolean>(
         borderColor,
         borderStyle: 'solid',
         borderRadius: token('border.radius.100', '3px'),
-        borderWidth: token('border.width.100', '2px'),
+        borderWidth: getBooleanFF(
+          'platform.design-system-team.update-border-input_ff9l1',
+        )
+          ? token('border.width.050', '1px')
+          : token('border.width.100', '2px'),
         boxShadow: 'none',
+        ...(getBooleanFF(
+          'platform.design-system-team.update-border-input_ff9l1',
+        ) && {
+          '&:focus-within': {
+            boxShadow: `inset 0 0 0 1px ${borderColor}`,
+          },
+        }),
         minHeight: isCompact ? gridSize() * 4 : gridSize() * 5,
         padding: 0,
         transition: `background-color ${transitionDuration} ease-in-out,

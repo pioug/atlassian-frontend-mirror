@@ -79,7 +79,6 @@ export class BrowserBase extends LocalUploadComponentReact<BrowserProps> {
     }
 
     const { replaceFileId } = this.props.config;
-    const { featureFlags } = this.props;
     const filesArray = [].slice.call(event.target.files);
 
     // refreshes uploadParams as only set once in parent constructor
@@ -87,9 +86,9 @@ export class BrowserBase extends LocalUploadComponentReact<BrowserProps> {
 
     try {
       if (replaceFileId) {
-        this.uploadService.addFile(filesArray[0], replaceFileId, featureFlags);
+        this.uploadService.addFile(filesArray[0], replaceFileId);
       } else {
-        this.uploadService.addFiles(filesArray, featureFlags);
+        this.uploadService.addFiles(filesArray);
       }
     } finally {
       if (this.browserRef.current) {

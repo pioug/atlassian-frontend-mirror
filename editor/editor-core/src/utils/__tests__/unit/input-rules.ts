@@ -16,8 +16,8 @@ import {
 import listPlugin from '../../../plugins/list';
 import basePlugin from '../../../plugins/base';
 import mediaPlugin from '../../../plugins/media';
-import widthPlugin from '../../../plugins/width';
-import gridPlugin from '../../../plugins/grid';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 
 import hyperlinkPlugin from '../../../plugins/hyperlink';
 import alignmentPlugin from '../../../plugins/alignment';

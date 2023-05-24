@@ -1,10 +1,3 @@
-jest.mock('../../../../utils/getErrorMessage', () => {
-  const original = jest.requireActual('../../../../utils/getErrorMessage');
-  return {
-    ...original,
-    getErrorMessage: jest.fn(original.getErrorMessage),
-  };
-});
 import React from 'react';
 import { shallow } from 'enzyme';
 import { FailedTitleBox } from '../failedTitleBox';

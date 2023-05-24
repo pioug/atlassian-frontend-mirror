@@ -1,8 +1,5 @@
 import React from 'react';
-import {
-  MediaFeatureFlags,
-  withMediaAnalyticsContext,
-} from '@atlaskit/media-common';
+import { MediaFeatureFlags } from '@atlaskit/media-common';
 import {
   withAnalyticsEvents,
   WithAnalyticsEventsProps,
@@ -138,16 +135,8 @@ class WrappedMediaInlineAnalyticsErrorBoundary extends React.Component<
   }
 }
 
-const packageName = process.env._PACKAGE_NAME_ as string;
-const packageVersion = process.env._PACKAGE_VERSION_ as string;
-
 const MediaInlineAnalyticsErrorBoundary: React.ComponentType<
   MediaInlineAnalyticsErrorBoundaryProps & WithAnalyticsEventsProps
-> = withMediaAnalyticsContext({
-  packageVersion,
-  packageName,
-  componentName: 'mediaInlineCard',
-  component: 'mediaInlineCard',
-})(withAnalyticsEvents()(WrappedMediaInlineAnalyticsErrorBoundary));
+> = withAnalyticsEvents()(WrappedMediaInlineAnalyticsErrorBoundary);
 
 export default MediaInlineAnalyticsErrorBoundary;

@@ -44,8 +44,7 @@ describe('Media Toolbar:', () => {
     });
   });
 
-  // FIXME: This test was automatically skipped due to failure on 04/04/2023: https://product-fabric.atlassian.net/browse/ED-17398
-  it.skip('should display buttons in the correct order', async () => {
+  it('should display buttons in the correct order', async () => {
     await page.waitForSelector('[aria-label="Media floating controls"]');
   });
 

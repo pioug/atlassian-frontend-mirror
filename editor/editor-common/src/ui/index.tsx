@@ -82,3 +82,10 @@ export {
 export { default as IntlProviderIfMissingWrapper } from './IntlProviderIfMissingWrapper';
 
 export { default as FloatingToolbarButton } from './FloatingToolbar/Button';
+
+export {
+  ContextPanelProvider,
+  ContextPanelWidthProvider,
+  ContextPanelConsumer,
+  ContextPanel,
+} from './ContextPanel/context';

@@ -41,7 +41,9 @@ async function loadAndRetrieveDocument(
 
 BrowserTestCase(
   'Doesnt scale past default',
-  { skip: ['*'] },
+  {
+    skip: ['*'],
+  },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(
       client,
@@ -54,7 +56,9 @@ BrowserTestCase(
 
 BrowserTestCase(
   'Scales to wide',
-  { skip: ['*'] },
+  {
+    skip: ['*'],
+  },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(
       client,

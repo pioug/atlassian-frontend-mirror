@@ -5,6 +5,7 @@ export interface MacroComponentProps {
   contentId: number;
   baseUrl: string;
   renderingStrategy?: string;
+  defaultRenderingStrategy: string;
   createPromise: Function;
   eventDispatcher: any;
   onLinkClick: Function;

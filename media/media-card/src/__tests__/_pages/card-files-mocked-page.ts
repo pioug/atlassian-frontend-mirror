@@ -18,7 +18,7 @@ export class CardFilesMockedPage {
   constructor(private readonly page: Page) {}
 
   async isCardLoadedSuccessful(selector: string): Promise<boolean> {
-    const imgSelector = `${selector} .img-wrapper img`;
+    const imgSelector = `${selector} img`;
     await this.page.waitForSelector(imgSelector);
     const innerImg = await this.page.$(imgSelector);
 
@@ -46,7 +46,7 @@ export class CardFilesMockedPage {
   }
 
   async isShowingLoadingIcon(selector: string): Promise<boolean> {
-    const iconSelector = `${selector} .img-wrapper [data-testid="media-card-loading"]`;
+    const iconSelector = `${selector} [data-testid="media-card-loading"]`;
     return this.page.isExisting(iconSelector);
   }
 

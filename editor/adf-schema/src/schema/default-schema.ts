@@ -1,4 +1,4 @@
-import { layoutSectionWithSingleColumn } from './nodes';
+import { layoutSectionWithSingleColumn, tableWithCustomWidth } from './nodes';
 import { border } from './marks';
 import { createSchema, SchemaConfig } from './create-schema';
 
@@ -162,6 +162,7 @@ export const getSchemaBasedOnStage = (stage = 'final') => {
   if (stage === 'stage0') {
     defaultSchemaConfig.customNodeSpecs = {
       layoutSection: layoutSectionWithSingleColumn,
+      table: tableWithCustomWidth,
     };
 
     defaultSchemaConfig.customMarkSpecs = {

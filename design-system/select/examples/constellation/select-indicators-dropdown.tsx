@@ -1,4 +1,5 @@
 import React from 'react';
+import { Label } from '@atlaskit/form';
 import EmojiIcon from '@atlaskit/icon/glyph/emoji';
 import { cities } from '../common/data';
 import Select, { components } from '../../src';
@@ -13,11 +14,15 @@ const DropdownIndicator = (props: DropdownIndicatorProps<OptionType, true>) => {
 };
 
 export default () => (
-  <Select
-    closeMenuOnSelect={false}
-    components={{ DropdownIndicator }}
-    defaultValue={[cities[4], cities[5]]}
-    isMulti
-    options={cities}
-  />
+  <>
+    <Label htmlFor="indicators-dropdown">What city do you live in?</Label>
+    <Select
+      inputId="indicators-dropdown"
+      closeMenuOnSelect={false}
+      components={{ DropdownIndicator }}
+      defaultValue={[cities[4], cities[5]]}
+      isMulti
+      options={cities}
+    />
+  </>
 );

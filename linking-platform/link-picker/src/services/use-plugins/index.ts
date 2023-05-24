@@ -15,6 +15,7 @@ import createEventPayload from '../../analytics.codegen';
 import { ANALYTICS_CHANNEL } from '../../common/constants';
 import { CancellationError, resolvePluginUpdates } from './utils';
 import { usePluginReducer } from './reducer';
+import { useLinkPickerAnalytics } from '../../common/analytics';
 
 export interface LinkPickerPluginsService {
   items: LinkSearchListItemData[] | null;
@@ -36,8 +37,10 @@ export function usePlugins(
   const { createAnalyticsEvent } = useAnalyticsEvents();
   const [retries, setRetries] = useState(0);
   const [pluginState, dispatch] = usePluginReducer();
+  const { trackAttribute } = useLinkPickerAnalytics();
 
   const activePlugin = plugins?.[activeTab];
+  trackAttribute('tab', activePlugin?.tabKey ?? null);
 
   // This useEffect block must be called before any other to ensure onActivation is fired at before resolve
   useEffect(() => {

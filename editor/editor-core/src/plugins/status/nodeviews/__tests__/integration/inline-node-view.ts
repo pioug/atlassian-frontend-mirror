@@ -13,7 +13,7 @@ runInlineNodeViewTestSuite({
     },
   },
   multiLineNode: false,
-  // Tests sometimes flaking but work when tested manually in the browser
+  // FIXME: This test was automatically skipped due to failure on Tests sometimes flaking but work when tested manually in the browser
   skipTests: {
     'No trailing spaces: Can move the selection down one line using down arrow key when in between [target] nodes':
       ['firefox'],

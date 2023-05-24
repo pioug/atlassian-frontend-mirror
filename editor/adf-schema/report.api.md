@@ -1561,6 +1561,8 @@ export interface TableAttributes {
   layout?: TableLayout;
   // (undocumented)
   localId?: string;
+  // (undocumented)
+  width?: number;
 }
 
 // @public (undocumented)
@@ -1667,6 +1669,9 @@ export const tableToJSON: (node: Node_2) => {
     [key: string]: any;
   };
 };
+
+// @public (undocumented)
+export const tableWithCustomWidth: NodeSpec;
 
 // @public (undocumented)
 export const taskItem: NodeSpec;

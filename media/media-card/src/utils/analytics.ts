@@ -125,6 +125,24 @@ export type AnalyticsErrorBoundaryInlinePayload = OperationalEventPayload<
   'mediaInlineRender'
 >;
 
+export type RenderInlineCardSucceededEventPayload = OperationalEventPayload<
+  WithFileAttributes & WithPerformanceAttributes & SuccessAttributes,
+  'succeeded',
+  'mediaInlineRender'
+>;
+
+export type RenderInlineCardFailedEventPayload = OperationalEventPayload<
+  WithFileAttributes &
+    WithPerformanceAttributes &
+    FailureAttributes & {
+      failReason: FailedErrorFailReason | 'failed-processing';
+      error?: MediaClientErrorReason | 'nativeError';
+      request?: RequestMetadata;
+    },
+  'failed',
+  'mediaInlineRender'
+>;
+
 export type RenderSucceededEventPayload = OperationalEventPayload<
   WithFileAttributes &
     WithPerformanceAttributes &
@@ -182,7 +200,9 @@ export type MediaCardAnalyticsEventPayload =
   | RemoteSuccessEventPayload
   | ErrorEventPayload
   | AnalyticsErrorBoundaryCardPayload
-  | AnalyticsErrorBoundaryInlinePayload;
+  | AnalyticsErrorBoundaryInlinePayload
+  | RenderInlineCardFailedEventPayload
+  | RenderInlineCardSucceededEventPayload;
 
 export const getFileAttributes = (
   metadata: FileDetails,

@@ -13,7 +13,10 @@ import {
   MediaSingle as RichMediaWrapper,
   findOverflowScrollParent,
 } from '@atlaskit/editor-common/ui';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type {
+  ExtractInjectionAPI,
+  GridType,
+} from '@atlaskit/editor-common/types';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import {
   DEFAULT_EMBED_CARD_HEIGHT,
@@ -35,7 +38,7 @@ import { EditorState, PluginKey } from 'prosemirror-state';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type cardPlugin from '../index';
 import { getPosHandler } from '../../../nodeviews';
-import type { GridType, Highlights } from '../../grid/types';
+import type { Highlights } from '@atlaskit/editor-plugin-grid';
 
 interface CardProps {
   layout: any;

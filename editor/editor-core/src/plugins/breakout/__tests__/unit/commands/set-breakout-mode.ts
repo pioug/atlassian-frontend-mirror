@@ -13,7 +13,7 @@ import { setBreakoutMode } from '../../../commands/set-breakout-mode';
 
 // Editor plugins
 import breakoutPlugin from '../../../';
-import widthPlugin from '../../../../width';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import codeBlockPlugin from '../../../../code-block';
 
 describe('Breakout Commands: set-breakout-mode', () => {
@@ -23,9 +23,9 @@ describe('Breakout Commands: set-breakout-mode', () => {
     const { editorView } = createEditor({
       doc: doc(code_block()('Hel{<>}lo')),
       preset: new Preset<LightEditorPlugin>()
+        .add(widthPlugin)
         .add([codeBlockPlugin, { appearance: 'full-page' }])
-        .add([breakoutPlugin, { allowBreakoutButton: true }])
-        .add(widthPlugin),
+        .add([breakoutPlugin, { allowBreakoutButton: true }]),
     });
 
     setBreakoutMode('wide')(editorView.state, editorView.dispatch);
@@ -38,9 +38,9 @@ describe('Breakout Commands: set-breakout-mode', () => {
     const { editorView } = createEditor({
       doc: doc('{<node>}', code_block()('Hello')),
       preset: new Preset<LightEditorPlugin>()
+        .add(widthPlugin)
         .add([codeBlockPlugin, { appearance: 'full-page' }])
-        .add([breakoutPlugin, { allowBreakoutButton: true }])
-        .add(widthPlugin),
+        .add([breakoutPlugin, { allowBreakoutButton: true }]),
     });
 
     setBreakoutMode('wide')(editorView.state, editorView.dispatch);
@@ -54,8 +54,8 @@ describe('Breakout Commands: set-breakout-mode', () => {
     const { editorView } = createEditor({
       doc: doc(p('Hel{<>}lo')),
       preset: new Preset<LightEditorPlugin>()
-        .add([breakoutPlugin, { allowBreakoutButton: true }])
-        .add(widthPlugin),
+        .add(widthPlugin)
+        .add([breakoutPlugin, { allowBreakoutButton: true }]),
     });
 
     setBreakoutMode('wide')(editorView.state, editorView.dispatch);
@@ -67,9 +67,9 @@ describe('Breakout Commands: set-breakout-mode', () => {
     const { editorView } = createEditor({
       doc: doc(breakout({ mode: 'wide' })(code_block()('Hel{<>}lo'))),
       preset: new Preset<LightEditorPlugin>()
+        .add(widthPlugin)
         .add([breakoutPlugin, { allowBreakoutButton: true }])
-        .add([codeBlockPlugin, { appearance: 'full-page' }])
-        .add(widthPlugin),
+        .add([codeBlockPlugin, { appearance: 'full-page' }]),
     });
 
     setBreakoutMode('full-width')(editorView.state, editorView.dispatch);

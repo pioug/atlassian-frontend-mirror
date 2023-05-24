@@ -80,6 +80,8 @@ export class InstrumentedPlugin<
       };
     }
 
+    const { samplingRate: uiTrackingSamplingRate = 100 } = uiTracking;
+
     if (uiTracking.enabled && spec.view) {
       const originalView = spec.view.bind(spec);
 
@@ -88,13 +90,33 @@ export class InstrumentedPlugin<
         const measure = `🦉${self.key}::view::update`;
 
         const view = originalView(editorView);
+        let uiTrackingSamplingCounter = 0;
 
         if (view.update) {
           const originalUpdate = view.update;
+
           view.update = (view, state) => {
-            startMeasure(measure);
+            const shouldTrack =
+              uiTrackingSamplingRate && uiTrackingSamplingCounter === 0;
+
+            if (shouldTrack) {
+              startMeasure(measure);
+            }
+
             originalUpdate(view, state);
-            stopMeasure(measure, () => {});
+
+            if (shouldTrack) {
+              stopMeasure(measure, () => {});
+            }
+
+            uiTrackingSamplingCounter++;
+
+            if (
+              uiTrackingSamplingRate &&
+              uiTrackingSamplingCounter >= uiTrackingSamplingRate
+            ) {
+              uiTrackingSamplingCounter = 0;
+            }
           };
         }
 

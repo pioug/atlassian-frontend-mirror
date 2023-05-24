@@ -12,6 +12,7 @@ import keymapPlugin from './pm-plugins/keymap';
 import { createPlugin as createUniqueIdPlugin } from './pm-plugins/unique-id';
 import { getToolbarConfig } from './toolbar';
 import { getContextPanel } from './context-panel';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 
 interface ExtensionPluginOptions extends LongPressSelectionPluginOptions {
   allowAutoSave?: boolean;
@@ -24,7 +25,7 @@ const extensionPlugin: NextEditorPlugin<
   'extension',
   {
     pluginConfiguration: ExtensionPluginOptions | undefined;
-    dependencies: [typeof featureFlagsPlugin];
+    dependencies: [typeof featureFlagsPlugin, typeof widthPlugin];
   }
 > = (options = {}, api) => {
   const featureFlags =
@@ -68,6 +69,7 @@ const extensionPlugin: NextEditorPlugin<
               extensionHandlers,
               portalProviderAPI,
               eventDispatcher,
+              api,
               options.useLongPressSelection,
               {
                 appearance: options.appearance,

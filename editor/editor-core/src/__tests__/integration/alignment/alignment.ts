@@ -50,7 +50,9 @@ BrowserTestCase(
 // TODO: https://product-fabric.atlassian.net/browse/ED-13150
 BrowserTestCase(
   'alignment: should be able to add alignment to headings',
-  { skip: ['*'] },
+  {
+    skip: ['*'],
+  },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 

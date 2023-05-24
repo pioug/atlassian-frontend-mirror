@@ -10,6 +10,7 @@ import {
   MediaClient,
   UploadableFile,
   createMediaSubject,
+  FileState,
 } from '@atlaskit/media-client';
 import {
   TouchedFiles,
@@ -365,30 +366,67 @@ describe('UploadService', () => {
       );
     });
 
-    it.skip('should emit file-converting when uploadFile resolves', async () => {
+    it.each(['processing', 'processed', 'failed-processing'])(
+      'should emit once file-converting when uploadFile resolves with status %s',
+      async (status) => {
+        const mediaClient = getMediaClient();
+        const { uploadService, fileStateObservable } = setup(mediaClient, {
+          collection: 'some-collection',
+        });
+        const fileConvertingCallback = jest.fn();
+        uploadService.on('file-converting', fileConvertingCallback);
+        uploadService.addFiles([file]);
+        await flushPromises();
+
+        fileStateObservable.next({
+          status: status,
+          id: 'public-file-id',
+        } as FileState);
+
+        // Second file state should not trigger a new event
+        fileStateObservable.next({
+          status: status,
+          id: 'public-file-id',
+        } as FileState);
+
+        expect(fileConvertingCallback).toHaveBeenCalledTimes(1);
+        expect(fileConvertingCallback).toHaveBeenCalledWith({
+          file: {
+            id: expect.any(String),
+            creationDate: expect.any(Number),
+            name: 'some-filename',
+            size: 100,
+            type: 'video/mp4',
+            occurrenceKey: expect.any(String),
+          },
+          traceContext: expect.any(Object),
+        });
+      },
+    );
+
+    it('should emit file-upload-error when uploadFile resolves with status error', async () => {
       const mediaClient = getMediaClient();
       const { uploadService, fileStateObservable } = setup(mediaClient, {
         collection: 'some-collection',
       });
       const fileConvertingCallback = jest.fn();
-      uploadService.on('file-converting', fileConvertingCallback);
+      uploadService.on('file-upload-error', fileConvertingCallback);
       uploadService.addFiles([file]);
       await flushPromises();
 
       fileStateObservable.next({
-        status: 'processing',
+        status: 'error',
+        message: 'some error',
         id: 'public-file-id',
-      } as ProcessingFileState);
+      } as FileState);
 
       expect(fileConvertingCallback).toHaveBeenCalledTimes(1);
       expect(fileConvertingCallback).toHaveBeenCalledWith({
-        file: {
-          id: expect.any(String),
-          creationDate: expect.any(Number),
-          name: 'some-filename',
-          size: 100,
-          type: 'video/mp4',
-          occurrenceKey: expect.any(String),
+        fileId: 'uuid1',
+        error: {
+          fileId: 'uuid1',
+          name: 'upload_fail',
+          description: 'some error',
         },
         traceContext: expect.any(Object),
       });

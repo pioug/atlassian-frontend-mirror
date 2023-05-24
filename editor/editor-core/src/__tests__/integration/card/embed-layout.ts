@@ -15,11 +15,10 @@ import {
   { type: 'wrap left', value: 'button[aria-label="Wrap left"]' },
   { type: 'wrap right', value: 'button[aria-label="Wrap right"]' },
 ].forEach((layout) => {
-  // FIXME: This test was automatically skipped due to failure on 9/7/2021: https://product-fabric.atlassian.net/browse/ED-13716
+  // FIXME: This test was automatically skipped due to failure on 9/7/2021: https://product-fabric.atlassian.net/browse/EDM-2458
   BrowserTestCase(
     `embed-layout.ts: Layout ${layout.type} selector for embed Card`,
     {
-      // skip: ['safari', 'firefox'],
       skip: ['*'],
     },
     async (

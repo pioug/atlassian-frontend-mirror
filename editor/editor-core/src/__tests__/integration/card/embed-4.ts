@@ -13,10 +13,9 @@ import * as embedCardAdf from './_fixtures_/embed-card.adf.fallback.json';
 
 type ClientType = Parameters<typeof goToEditorTestingWDExample>[0];
 
-// TODO: Restore skipped test https://product-fabric.atlassian.net/browse/ED-16705
 BrowserTestCase(
   'card: embed card should render as block card if preview missing',
-  { skip: ['*'] },
+  {},
   async (client: ClientType, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 

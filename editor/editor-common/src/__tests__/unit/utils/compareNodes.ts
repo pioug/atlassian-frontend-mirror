@@ -5,15 +5,15 @@ import basePlugin from '@atlaskit/editor-core/src/plugins/base';
 import cardPlugin from '@atlaskit/editor-core/src/plugins/card';
 import datePlugin from '@atlaskit/editor-core/src/plugins/date';
 import editorDisabledPlugin from '@atlaskit/editor-core/src/plugins/editor-disabled';
-import gridPlugin from '@atlaskit/editor-core/src/plugins/grid';
 import hyperlinkPlugin from '@atlaskit/editor-core/src/plugins/hyperlink';
 import mentionsPlugin from '@atlaskit/editor-core/src/plugins/mentions';
 import statusPlugin from '@atlaskit/editor-core/src/plugins/status';
-import widthPlugin from '@atlaskit/editor-core/src/plugins/width';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 import {
   createProsemirrorEditorFactory,

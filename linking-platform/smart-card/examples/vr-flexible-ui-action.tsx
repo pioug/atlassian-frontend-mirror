@@ -8,6 +8,7 @@ import { exampleTokens, getContext } from './utils/flexible-ui';
 import { DeleteAction } from '../src/view/FlexibleCard/components/actions';
 import TrashIcon from '@atlaskit/icon/glyph/trash';
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 const containerStyles = css`
   display: flex;
   flex-wrap: wrap;

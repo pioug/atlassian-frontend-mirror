@@ -24,6 +24,7 @@ import extensionPlugin from '@atlaskit/editor-core/src/plugins/extension';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 
 describe('tables: main plugin with allowCollapse: true', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -34,6 +35,7 @@ describe('tables: main plugin with allowCollapse: true', () => {
         .add([featureFlagsPlugin, {}])
         .add([analyticsPlugin, {}])
         .add(contentInsertionPlugin)
+        .add(widthPlugin)
         .add(tablePlugin)
         .add(expandPlugin)
         .add(extensionPlugin),

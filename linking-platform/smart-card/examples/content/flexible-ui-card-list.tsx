@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 import { JsonLd } from 'json-ld-types';
+import { token } from '@atlaskit/tokens';
 import {
   Card,
   Client,
@@ -18,7 +19,7 @@ const styles = css`
   display: flex;
   align-items: stretch;
   justify-content: center;
-  gap: 8px;
+  gap: ${token('space.100', '8px')};
   > li {
     margin: 0;
     width: 190px;

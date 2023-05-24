@@ -26,11 +26,11 @@ import { ActivityProvider } from '@atlaskit/activity-provider';
 import { AllEditorPresetPluginTypes } from '@atlaskit/editor-common/types';
 import { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
 import { AnalyticsEventPayload as AnalyticsEventPayload_2 } from '@atlaskit/analytics-next/AnalyticsEvent';
+import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
 import { BrowserFreezetracking } from '@atlaskit/editor-common/types';
 import { CardOptions } from '@atlaskit/editor-common/card';
 import { CardProvider } from '@atlaskit/editor-common/provider-factory';
-import { CollabEditProvider } from '@atlaskit/editor-common/collab';
 import { Color } from '@atlaskit/status/element';
 import { Command as Command_2 } from '@atlaskit/editor-common/types';
 import { ComponentType } from 'react';
@@ -48,7 +48,6 @@ import { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { DropdownOptionT } from '@atlaskit/editor-common/types';
 import { EditorActionsOptions } from '@atlaskit/editor-common/types';
 import { EditorAppearance } from '@atlaskit/editor-common/types';
-import type { EditorContainerWidth } from '@atlaskit/editor-common/types';
 import { FeatureFlags as EditorFeatureFlags } from '@atlaskit/editor-common/types';
 import { EditorPlugin } from '@atlaskit/editor-common/types';
 import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
@@ -84,6 +83,7 @@ import { FULL_WIDTH_MODE } from '@atlaskit/editor-common/analytics';
 import { GapCursorSelection } from '@atlaskit/editor-common/selection';
 import { Side as GapCursorSide } from '@atlaskit/editor-common/selection';
 import { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
+import type { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { InputMethodInsertMedia } from '@atlaskit/editor-common/analytics';
 import { InputTracking } from '@atlaskit/editor-common/types';
@@ -111,6 +111,7 @@ import { Node as Node_2 } from 'prosemirror-model';
 import { NodeConfig } from '@atlaskit/editor-common/types';
 import { NodeType } from 'prosemirror-model';
 import { NodeView } from 'prosemirror-view';
+import { OptionalPlugin } from '@atlaskit/editor-common/types';
 import { PaletteColor } from '@atlaskit/editor-common/ui-color';
 import { PerformanceTracking } from '@atlaskit/editor-common/types';
 import { PluginConfig } from '@atlaskit/editor-plugin-table/types';
@@ -131,7 +132,7 @@ import { default as React_2 } from 'react';
 import { ReactElement } from 'react';
 import { RefObject } from 'react';
 import { ReplaceRawValue } from '@atlaskit/editor-common/types';
-import { ResolvedEditorState } from '@atlaskit/editor-common/collab';
+import type { ResolvedEditorState } from '@atlaskit/collab-provider';
 import { RichMediaLayout } from '@atlaskit/adf-schema';
 import { Schema } from 'prosemirror-model';
 import type { SearchProvider } from '@atlaskit/editor-common/provider-factory';
@@ -156,6 +157,7 @@ import { UploadEndEventPayload } from '@atlaskit/media-picker/types';
 import { UploadErrorEventPayload } from '@atlaskit/media-picker/types';
 import { UploadParams } from '@atlaskit/media-picker/types';
 import { UploadPreviewUpdateEventPayload } from '@atlaskit/media-picker/types';
+import type { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { WithIntlProps } from 'react-intl-next';
 import { WithPluginState } from '@atlaskit/editor-common/with-plugin-state';
 import { WrappedComponentProps } from 'react-intl-next';
@@ -363,8 +365,6 @@ type CollabEditOptions = {
 } & CollabInviteToEditProps &
   CollabAnalyticsProps;
 
-export { CollabEditProvider };
-
 // @public (undocumented)
 interface CollabInviteToEditProps {
   // (undocumented)
@@ -416,13 +416,7 @@ type Context = {
 };
 
 // @public (undocumented)
-export class ContextPanel extends React_2.Component<Props_4> {
-  // (undocumented)
-  render(): jsx.JSX.Element;
-}
-
-// @public (undocumented)
-type CreateDisplayGrid = (view: EditorView) => DisplayGrid;
+export function ContextPanel(props: Props_4): jsx.JSX.Element;
 
 // @public (undocumented)
 interface CreateEditorStateOptions {
@@ -583,9 +577,6 @@ type DefaultPresetPluginOptions = {
 
 // @public
 export const deleteDate: () => Command;
-
-// @public (undocumented)
-type DisplayGrid = (props: Required_2<GridPluginState>) => boolean;
 
 export { DropdownOptionT };
 
@@ -1280,35 +1271,6 @@ type getPosHandler = boolean | getPosHandlerNode;
 // @public (undocumented)
 type getPosHandlerNode = () => number;
 
-// @public (undocumented)
-const gridPlugin: NextEditorPlugin<
-  'grid',
-  {
-    pluginConfiguration: GridPluginOptions | undefined;
-    dependencies: [typeof widthPlugin];
-    sharedState: GridPluginState | null;
-    actions: {
-      displayGrid: CreateDisplayGrid;
-    };
-  }
->;
-
-// @public (undocumented)
-interface GridPluginOptions {
-  // (undocumented)
-  shouldCalcBreakoutGridLines?: boolean;
-}
-
-// @public (undocumented)
-type GridPluginState = {
-  visible: boolean;
-  gridType?: GridType;
-  highlight: Highlights;
-};
-
-// @public (undocumented)
-type GridType = 'full' | 'wrapped';
-
 // @public
 export function hasVisibleContent(node: Node_2): boolean;
 
@@ -1317,9 +1279,6 @@ type HeadingLevels = 1 | 2 | 3 | 4 | 5 | 6;
 
 // @public (undocumented)
 type HeadingLevelsAndNormalText = HeadingLevels | NormalTextLevel;
-
-// @public (undocumented)
-type Highlights = Array<'full-width' | 'wide' | number>;
 
 // @public
 export const historyPluginKey: PluginKey<HistoryPluginState, any>;
@@ -1694,7 +1653,13 @@ export const mediaPlugin: NextEditorPlugin<
   'media',
   {
     pluginConfiguration: MediaOptions | undefined;
-    dependencies: [typeof featureFlagsPlugin, typeof gridPlugin];
+    dependencies: [
+      typeof featureFlagsPlugin,
+      OptionalPlugin<typeof analyticsPlugin>,
+      typeof gridPlugin,
+      typeof widthPlugin,
+    ];
+    sharedState: MediaPluginState | null;
   }
 >;
 
@@ -2366,11 +2331,6 @@ interface RectData {
 export const removeStatus: (showStatusPickerAt: number) => Command;
 
 // @public (undocumented)
-type Required_2<T> = {
-  [P in keyof T]-?: T[P];
-};
-
-// @public (undocumented)
 type ScrollGutterPluginOptions = {
   getScrollElement?: (view: EditorView) => HTMLElement | null;
   allowCustomScrollHandler?: boolean;
@@ -2825,14 +2785,6 @@ export const version: string;
 type VisibilityEvent = 'setvisibility';
 
 // @public (undocumented)
-const widthPlugin: NextEditorPlugin<
-  'width',
-  {
-    sharedState: EditorContainerWidth | undefined;
-  }
->;
-
-// @public (undocumented)
 export class WithEditorActions extends React_2.Component<
   WithEditorActionsProps,
   any
@@ -2892,8 +2844,8 @@ export { WithPluginState };
 
 ```json
 {
-  "@atlaskit/link-provider": "^1.6.1",
-  "@atlaskit/media-core": "^34.1.1",
+  "@atlaskit/link-provider": "^1.6.2",
+  "@atlaskit/media-core": "^34.1.2",
   "react": "^16.8.0",
   "react-dom": "^16.8.0",
   "react-intl-next": "npm:react-intl@^5.18.1"

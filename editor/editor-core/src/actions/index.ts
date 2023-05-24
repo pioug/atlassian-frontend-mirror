@@ -7,7 +7,7 @@ import {
 } from '@atlaskit/editor-common/types';
 
 import { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
-import { ResolvedEditorState } from '@atlaskit/editor-common/collab';
+import type { ResolvedEditorState } from '@atlaskit/collab-provider';
 import type { FeatureFlags, Transformer } from '@atlaskit/editor-common/types';
 import { analyticsEventKey } from '@atlaskit/editor-common/utils';
 import { NodeSelection, TextSelection } from 'prosemirror-state';

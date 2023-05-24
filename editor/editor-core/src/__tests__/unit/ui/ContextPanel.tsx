@@ -19,7 +19,7 @@ import contextPanelPlugin from '../../../plugins/context-panel';
 import {
   ContextPanelConsumer,
   ContextPanelWidthProvider,
-} from '../../../ui/ContextPanel/context';
+} from '@atlaskit/editor-common/ui';
 
 import {
   isPushingEditorContent,
@@ -381,5 +381,39 @@ describe('ContextPanel', () => {
     expect(contentArea.prop('pluginContent')).toBeDefined();
     expect(wrapper.text().indexOf('yoshi bongo')).toEqual(-1);
     expect(wrapper.text().indexOf('mario saxaphone')).toBeGreaterThan(-1);
+  });
+
+  it('should focus editor on ESC from the sidebar config panel', async () => {
+    const { editorView } = editorFactory({
+      editorPlugins: [contextPanelPlugin()],
+      doc: doc(p('hello')),
+    });
+    const editorActions = new EditorActions();
+    const eventDispatcher = new EventDispatcher();
+
+    editorActions._privateRegisterEditor(editorView, eventDispatcher);
+
+    const mountContextPanelWithContext = (actions?: EditorActions) =>
+      mount(
+        React.createElement(
+          (props) => (
+            <EditorContext editorActions={actions}>
+              <ContextPanel {...props}>
+                <div>yoshi bongo</div>
+              </ContextPanel>
+            </EditorContext>
+          ),
+          { visible: true },
+        ),
+      );
+    const wrapper = mountContextPanelWithContext(editorActions);
+
+    const editorFocusSpy = jest.spyOn(editorView, 'focus');
+
+    await wrapper.setProps({ visible: false });
+
+    wrapper.update();
+
+    await expect(editorFocusSpy).toHaveBeenCalled();
   });
 });

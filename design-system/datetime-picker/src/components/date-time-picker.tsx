@@ -14,8 +14,18 @@ import {
   WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
 import SelectClearIcon from '@atlaskit/icon/glyph/select-clear';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { mergeStyles, SelectProps, StylesConfig } from '@atlaskit/select';
-import { B100, N0, N20, N30, N500, N70, R400 } from '@atlaskit/theme/colors';
+import {
+  B100,
+  N0,
+  N100,
+  N20,
+  N30,
+  N500,
+  N70,
+  R400,
+} from '@atlaskit/theme/colors';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
@@ -191,7 +201,12 @@ const noBgStyles = css({
 const hoverStyles = css({
   '&:hover': {
     backgroundColor: token('color.background.input.hovered', N30),
-    borderColor: token('color.border.input', N30),
+    borderColor: token(
+      'color.border.input',
+      getBooleanFF('platform.design-system-team.update-border-input_ff9l1')
+        ? N100
+        : N30,
+    ),
   },
 });
 
@@ -211,7 +226,9 @@ const isDisabledStyles = css({
 const baseContainerStyles = css({
   display: 'flex',
   backgroundColor: token('color.background.input', N20),
-  border: `2px solid ${token('color.border.input', N20)}`,
+  border: getBooleanFF('platform.design-system-team.update-border-input_ff9l1')
+    ? `1px solid ${token('color.border.input', N100)}`
+    : `2px solid ${token('color.border.input', N20)}`,
   borderRadius: `${borderRadius()}px`,
   transition:
     'background-color 200ms ease-in-out, border-color 200ms ease-in-out',

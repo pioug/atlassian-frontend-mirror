@@ -7,7 +7,7 @@ const pmSelector = '.ProseMirror';
 BrowserTestCase(
   'Should focus the editor when shouldFocus is true and disabled changes to false',
   // Skipped because this test isn't appropriate for pipelines
-  { skip: ['*'] },
+  {},
   async (client: any) => {
     const page = new WebdriverPage(client);
     const searchParams = new URLSearchParams();

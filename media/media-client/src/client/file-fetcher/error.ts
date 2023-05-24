@@ -3,7 +3,8 @@ import { BaseMediaClientError } from '../../models/errors';
 export type FileFetcherErrorReason =
   | 'invalidFileId'
   | 'emptyItems'
-  | 'zeroVersionFile';
+  | 'zeroVersionFile'
+  | 'emptyFileName';
 
 export type FileFetcherErrorAttributes = {
   readonly reason: FileFetcherErrorReason;

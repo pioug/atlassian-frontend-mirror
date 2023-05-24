@@ -58,7 +58,7 @@ export default () => (
       // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
       cssFn={cssFn}
     >
-      Navigation System
+      CustomItem
     </CustomItem>
     <CustomItem
       href="/navigation-system-1"
@@ -67,7 +67,7 @@ export default () => (
       // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
       cssFn={cssFn}
     >
-      Navigation System
+      isSelected CustomItem
     </CustomItem>
     <CustomItem
       href="/navigation-system-2"
@@ -76,7 +76,7 @@ export default () => (
       // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
       cssFn={cssFn}
     >
-      Navigation System
+      isDisabled CustomItem
     </CustomItem>
     <CustomItem
       href="/navigation-system-3"
@@ -85,7 +85,7 @@ export default () => (
       // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
       cssFn={cssFn}
     >
-      Navigation System
+      iconBefore CustomItem
     </CustomItem>
     <CustomItem
       href="/navigation-system-4"
@@ -95,7 +95,7 @@ export default () => (
       // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
       cssFn={cssFn}
     >
-      Navigation System
+      iconBefore and description CustomItem
     </CustomItem>
   </div>
 );

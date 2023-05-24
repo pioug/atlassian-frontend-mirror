@@ -26,8 +26,8 @@ import blockTypePlugin from '../../../block-type';
 import codeBlockTypePlugin from '../../../code-block';
 import emojiPlugin, { emojiPluginKey } from '../../../emoji';
 import panelPlugin from '../../../panel';
-import widthPlugin from '../../../width';
-import gridPlugin from '../../../grid';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 
 import deprecatedAnalyticsPlugin from '../../../analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';

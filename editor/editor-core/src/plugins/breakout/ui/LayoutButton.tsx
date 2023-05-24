@@ -35,7 +35,7 @@ const toolbarButtonWrapper = css`
   }
 `;
 
-interface Props {
+export interface Props {
   editorView: EditorView;
   mountPoint?: HTMLElement;
   node: PMNode | null;

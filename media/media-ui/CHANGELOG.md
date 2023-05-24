@@ -1,5 +1,12 @@
 # @atlaskit/media-ui
 
+## 23.0.2
+
+### Patch Changes
+
+- [`1f14ade848b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1f14ade848b) - [MEX-2401] Duplicated title when copy-paste of media inline
+- Updated dependencies
+
 ## 23.0.1
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # @atlaskit/legacy-mobile-macros
 
+## 2.4.7
+
+### Patch Changes
+
+- [`47c9600680b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47c9600680b) - [ux] Adds support for a mobile macro treatment that sends the user to the system browser
+- Updated dependencies
+
 ## 2.4.6
 
 ### Patch Changes

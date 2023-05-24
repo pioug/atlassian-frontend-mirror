@@ -14,6 +14,7 @@ runInlineNodeViewTestSuite({
     },
   },
   multiLineNode: true,
+  // FIXME: This test was automatically skipped due to failure on
   skipTests: {
     'Can click and drag to extend a selection to the start of the current line from the current position':
       ['safari', 'chrome', 'firefox'],

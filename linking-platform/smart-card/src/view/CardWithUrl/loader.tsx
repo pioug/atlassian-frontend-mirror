@@ -5,8 +5,11 @@ import React, {
   useState,
   Suspense,
   useCallback,
+  useMemo,
 } from 'react';
 import uuid from 'uuid';
+
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { CardProps } from '../Card/types';
 import { fireSmartLinkEvent } from '../../utils/analytics';
@@ -66,8 +69,25 @@ export function CardWithURLRenderer(props: CardProps) {
   } = props;
 
   // Wrapper around analytics.
-  const dispatchAnalytics = useCallback(
-    (analyticsPayload: AnalyticsPayload) => {
+  const dispatchAnalytics = useMemo(() => {
+    /**
+     * If feature flag is on, return `undefined` for dispatch, which will be passed down
+     * to the components as undefined and the fallback method will be used instead to dispatch
+     * analytics events:
+     * packages/linking-platform/smart-card/src/state/analytics/useDispatchAnalytics.ts
+     *
+     * For FF cleanup, we should be able to remove the prop from all the places where this is
+     * being passed down to.
+     */
+    if (
+      getBooleanFF(
+        'platform.linking-platform.smart-card.remove-dispatch-analytics-as-prop',
+      )
+    ) {
+      return undefined;
+    }
+
+    return (analyticsPayload: AnalyticsPayload) => {
       if (analyticsPayload && analyticsPayload.attributes) {
         // Update if we haven't already set the display - possible
         // in the case of `preview` which is rendered differently.
@@ -76,9 +96,8 @@ export function CardWithURLRenderer(props: CardProps) {
         }
       }
       fireSmartLinkEvent(analyticsPayload, createAnalyticsEvent);
-    },
-    [appearance, createAnalyticsEvent],
-  );
+    };
+  }, [appearance, createAnalyticsEvent]);
 
   const analytics = useSmartLinkAnalytics(url ?? '', dispatchAnalytics, id);
 

@@ -3,6 +3,7 @@ import {
   loadPage,
   takeElementScreenShot,
 } from '@atlaskit/visual-regression/helper';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 const openModalBtn = "[type='button']";
 const modalDialog = "[role='dialog']";
@@ -146,6 +147,22 @@ describe('Snapshot Test', () => {
   });
 
   it('Appearances example should match production example', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'select',
+      'appearance',
+      global.__BASEURL__,
+    );
+    const { page } = global;
+
+    await loadPage(page, url);
+    await page.waitForSelector('.single-select');
+
+    const image = await page.screenshot();
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  ffTest('platform.design-system-team.update-border-input_ff9l1', async () => {
     const url = getExampleUrl(
       'design-system',
       'select',

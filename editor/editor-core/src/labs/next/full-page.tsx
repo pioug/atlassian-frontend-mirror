@@ -14,7 +14,6 @@ import {
   akEditorToolbarKeylineHeight,
 } from '@atlaskit/editor-shared-styles';
 import ContentStyles from '../../ui/ContentStyles';
-import WidthEmitter from '../../ui/WidthEmitter';
 
 import { ClickAreaBlock } from '../../ui/Addon';
 import { scrollbarStyles } from '../../ui/styles';
@@ -26,7 +25,7 @@ import { Editor, EditorContent, useEditorSharedConfig } from './Editor';
 import { Toolbar } from './Toolbar';
 import { ContentComponents } from './ContentComponents';
 import { useCreateAnalyticsHandler } from './internal/hooks/use-analytics';
-import { ContextPanelWidthProvider } from '../../ui/ContextPanel/context';
+import { ContextPanelWidthProvider } from '@atlaskit/editor-common/ui';
 import { ThemeProps } from '@atlaskit/theme/types';
 
 const fullPageEditorWrapper = css`
@@ -234,7 +233,6 @@ function FullPage(props: FullPageProps) {
                 </ClickAreaBlock>
               </ContentStyles>
               {contextPanel && <div css={sidebarArea}>{contextPanel}</div>}
-              <WidthEmitter editorView={config?.editorView} />
             </div>
           </div>
         </BaseTheme>

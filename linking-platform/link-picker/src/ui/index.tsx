@@ -13,6 +13,9 @@ import { LinkPickerProps } from './link-picker';
 import { LoaderFallback } from './loader-fallback';
 import { LinkPickerSessionProvider } from '../controllers/session-provider';
 
+export const testIds = {
+  linkPickerRoot: 'link-picker-root',
+};
 export const PACKAGE_DATA: PackageMetaDataType = {
   packageName,
   packageVersion,
@@ -28,22 +31,35 @@ const LazyLinkPicker = lazyForPaint(
     ),
 );
 
-export const ComposedLinkPicker = memo((props: LinkPickerProps) => (
-  <AnalyticsContext data={PACKAGE_DATA}>
-    <LinkPickerSessionProvider>
-      <ErrorBoundary>
-        <LazySuspense
-          fallback={
-            <LoaderFallback
-              hideDisplayText={props.hideDisplayText}
-            ></LoaderFallback>
-          }
-        >
-          <LazyLinkPicker {...props} />
-        </LazySuspense>
-      </ErrorBoundary>
-    </LinkPickerSessionProvider>
-  </AnalyticsContext>
-));
+const DefaultRootComponent = ({
+  children,
+}: Omit<React.HTMLAttributes<HTMLDivElement>, 'onSubmit'> &
+  LinkPickerProps) => {
+  return <div data-testid={testIds.linkPickerRoot}>{children}</div>;
+};
+
+export const ComposedLinkPicker = memo((props: LinkPickerProps) => {
+  const { component } = props;
+  const RootComponent = component ?? DefaultRootComponent;
+  return (
+    <AnalyticsContext data={PACKAGE_DATA}>
+      <LinkPickerSessionProvider>
+        <ErrorBoundary>
+          <LazySuspense
+            fallback={
+              <LoaderFallback
+                hideDisplayText={props.hideDisplayText}
+              ></LoaderFallback>
+            }
+          >
+            <RootComponent {...props} data-testid={testIds.linkPickerRoot}>
+              <LazyLinkPicker {...props} />
+            </RootComponent>
+          </LazySuspense>
+        </ErrorBoundary>
+      </LinkPickerSessionProvider>
+    </AnalyticsContext>
+  );
+});
 
 export default ComposedLinkPicker;

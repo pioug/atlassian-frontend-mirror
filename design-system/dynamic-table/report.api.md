@@ -39,14 +39,11 @@ class DynamicTable extends React_2.Component<StatefulProps, State> {
   // (undocumented)
   onRankEndIfExistsHandler: (params: RankEnd) => void;
   // (undocumented)
-  onSetPageHandler: (
-    page: number,
-    analyticsEvent?: UIAnalyticsEvent | undefined,
-  ) => void;
+  onSetPageHandler: (page: number, analyticsEvent?: UIAnalyticsEvent) => void;
   // (undocumented)
   onSortHandler: (
     { key, item, sortOrder }: any,
-    analyticsEvent?: UIAnalyticsEvent | undefined,
+    analyticsEvent?: UIAnalyticsEvent,
   ) => void;
   // (undocumented)
   render(): JSX.Element;

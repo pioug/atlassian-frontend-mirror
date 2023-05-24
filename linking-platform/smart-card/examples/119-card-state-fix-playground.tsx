@@ -1,6 +1,7 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React from 'react';
 import styled from '@emotion/styled';
+import { token } from '@atlaskit/tokens';
 
 import { useState } from 'react';
 import { Provider, Card, Client } from '../src';
@@ -10,7 +11,7 @@ const client = new Client('stg');
 const Button = styled.button`
   width: 150px;
   height: 60px;
-  margin: 20px;
+  margin: ${token('space.250', '20px')};
   font-size: 16px;
   background-color: token('color.background.neutral.subtle.hovered', n20a);
   border: 2px solid transparent;

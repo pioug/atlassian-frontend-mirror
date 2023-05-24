@@ -1,4 +1,5 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
+import { Label } from '@atlaskit/form';
 import { cities } from '../common/data';
 import { AsyncSelect, OptionsType } from '../../src';
 
@@ -30,15 +31,15 @@ export default class WithPromises extends Component<{}, State> {
 
   render() {
     return (
-      <Fragment>
-        <label htmlFor="async-select-example">What city do you live in?</label>
+      <>
+        <Label htmlFor="async-select-example">What city do you live in?</Label>
         <AsyncSelect
           inputId="async-select-example"
           cacheOptions
           defaultOptions
           loadOptions={promiseOptions}
         />
-      </Fragment>
+      </>
     );
   }
 }

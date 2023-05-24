@@ -115,7 +115,7 @@ describe('media', () => {
     it('has a remove button', () => {
       const { editorView } = editor(docWithMediaSingle);
 
-      const toolbar = floatingToolbar(editorView.state, intl);
+      const toolbar = floatingToolbar(editorView.state, intl, {}, undefined);
       expect(toolbar).toBeDefined();
       const removeButton = findToolbarBtn(
         getToolbarItems(toolbar!, editorView),
@@ -137,9 +137,14 @@ describe('media', () => {
 
       const altTextTitle = intl.formatMessage(altTextMessages.altText);
 
-      const toolbar = floatingToolbar(editorView.state, intl, {
-        allowAltTextOnImages: true,
-      });
+      const toolbar = floatingToolbar(
+        editorView.state,
+        intl,
+        {
+          allowAltTextOnImages: true,
+        },
+        undefined,
+      );
 
       const button = findToolbarBtn(
         getToolbarItems(toolbar!, editorView),
@@ -152,9 +157,14 @@ describe('media', () => {
     it('should render alignment, wrapping and breakout buttons in full page without resizing enabled', () => {
       const { editorView } = editor(docWithMediaSingle);
 
-      const toolbar = floatingToolbar(editorView.state, intl, {
-        allowAdvancedToolBarOptions: true,
-      });
+      const toolbar = floatingToolbar(
+        editorView.state,
+        intl,
+        {
+          allowAdvancedToolBarOptions: true,
+        },
+        undefined,
+      );
       expect(toolbar).toBeDefined();
       expect(getToolbarItems(toolbar!, editorView).length).toEqual(11);
     });
@@ -162,10 +172,15 @@ describe('media', () => {
     it('should only render alignment and wrapping buttons in full page when resizing is enabled', () => {
       const { editorView } = editor(docWithMediaSingle);
 
-      const toolbar = floatingToolbar(editorView.state, intl, {
-        allowResizing: true,
-        allowAdvancedToolBarOptions: true,
-      });
+      const toolbar = floatingToolbar(
+        editorView.state,
+        intl,
+        {
+          allowResizing: true,
+          allowAdvancedToolBarOptions: true,
+        },
+        undefined,
+      );
       expect(toolbar).toBeDefined();
       expect(getToolbarItems(toolbar!, editorView).length).toEqual(8);
     });
@@ -173,10 +188,15 @@ describe('media', () => {
     it('should not render any layout buttons when in comment', () => {
       const { editorView } = editor(docWithMediaSingle);
 
-      const toolbar = floatingToolbar(editorView.state, intl, {
-        allowResizing: true,
-        allowAdvancedToolBarOptions: false,
-      });
+      const toolbar = floatingToolbar(
+        editorView.state,
+        intl,
+        {
+          allowResizing: true,
+          allowAdvancedToolBarOptions: false,
+        },
+        undefined,
+      );
       expect(toolbar).toBeDefined();
       expect(getToolbarItems(toolbar!, editorView).length).toEqual(1);
     });
@@ -191,10 +211,15 @@ describe('media', () => {
         ),
       );
 
-      const toolbar = floatingToolbar(editorView.state, intl, {
-        allowResizing: true,
-        allowAdvancedToolBarOptions: true,
-      });
+      const toolbar = floatingToolbar(
+        editorView.state,
+        intl,
+        {
+          allowResizing: true,
+          allowAdvancedToolBarOptions: true,
+        },
+        undefined,
+      );
       expect(toolbar).toBeDefined();
       expect(getToolbarItems(toolbar!, editorView).length).toEqual(1);
     });
@@ -209,10 +234,15 @@ describe('media', () => {
         ),
       );
 
-      const toolbar = floatingToolbar(editorView.state, intl, {
-        allowResizing: true,
-        allowAdvancedToolBarOptions: true,
-      });
+      const toolbar = floatingToolbar(
+        editorView.state,
+        intl,
+        {
+          allowResizing: true,
+          allowAdvancedToolBarOptions: true,
+        },
+        undefined,
+      );
       const findToolbarBtnByName = findToolbarBtn.bind(
         null,
         toolbar!.items as Array<FloatingToolbarItem<Command>>,
@@ -238,10 +268,15 @@ describe('media', () => {
     it('should not render any layout buttons when inside a list item', () => {
       const { editorView } = editor(doc(ul(li(temporaryMediaSingle))));
 
-      const toolbar = floatingToolbar(editorView.state, intl, {
-        allowResizing: true,
-        allowAdvancedToolBarOptions: true,
-      });
+      const toolbar = floatingToolbar(
+        editorView.state,
+        intl,
+        {
+          allowResizing: true,
+          allowAdvancedToolBarOptions: true,
+        },
+        undefined,
+      );
       expect(toolbar).toBeDefined();
       expect(getToolbarItems(toolbar!, editorView).length).toEqual(1);
     });
@@ -255,11 +290,16 @@ describe('media', () => {
         },
       );
 
-      const toolbar = floatingToolbar(editorView.state, intl, {
-        allowResizing: true,
-        allowAdvancedToolBarOptions: true,
-        allowResizingInTables: true,
-      });
+      const toolbar = floatingToolbar(
+        editorView.state,
+        intl,
+        {
+          allowResizing: true,
+          allowAdvancedToolBarOptions: true,
+          allowResizingInTables: true,
+        },
+        undefined,
+      );
       expect(toolbar).toBeDefined();
       expect(getToolbarItems(toolbar!, editorView).length).toEqual(8);
     });
@@ -269,10 +309,15 @@ describe('media', () => {
         doc(table()(tr(td()(temporaryMediaSingle)))),
       );
 
-      const toolbar = floatingToolbar(editorView.state, intl, {
-        allowResizing: true,
-        allowAdvancedToolBarOptions: true,
-      });
+      const toolbar = floatingToolbar(
+        editorView.state,
+        intl,
+        {
+          allowResizing: true,
+          allowAdvancedToolBarOptions: true,
+        },
+        undefined,
+      );
       expect(toolbar).toBeDefined();
       expect(getToolbarItems(toolbar!, editorView).length).toEqual(1);
     });
@@ -281,7 +326,12 @@ describe('media', () => {
       const { editorView } = editor(docWithMediaSingle);
       setNodeSelection(editorView, 0);
 
-      const toolbar = floatingToolbar(editorView.state, intl);
+      const toolbar = floatingToolbar(
+        editorView.state,
+        intl,
+        undefined,
+        undefined,
+      );
       const removeButton = findToolbarBtn(
         getToolbarItems(toolbar!, editorView),
         removeTitle,
@@ -294,13 +344,33 @@ describe('media', () => {
     it('aligns a media single to the left', () => {
       const { editorView } = editor(docWithMediaSingle);
       setNodeSelection(editorView, 0);
+
       const analyticsFn = jest.spyOn(analytics, 'addAnalytics');
+      const mockPluginInjectionApi: any = {
+        dependencies: {
+          width: {
+            sharedState: {
+              currentState() {
+                return {
+                  lineLength: null,
+                };
+              },
+            },
+          },
+        },
+      };
+
       const alignLeftTitle = intl.formatMessage(commonMessages.alignImageLeft);
 
-      const toolbar = floatingToolbar(editorView.state, intl, {
-        allowResizing: true,
-        allowAdvancedToolBarOptions: true,
-      });
+      const toolbar = floatingToolbar(
+        editorView.state,
+        intl,
+        {
+          allowResizing: true,
+          allowAdvancedToolBarOptions: true,
+        },
+        mockPluginInjectionApi,
+      );
 
       const button = findToolbarBtn(
         getToolbarItems(toolbar!, editorView),

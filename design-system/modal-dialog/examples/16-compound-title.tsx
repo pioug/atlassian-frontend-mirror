@@ -3,6 +3,7 @@ import React, { useCallback, useState } from 'react';
 import Lorem from 'react-lorem-component';
 
 import Button from '@atlaskit/button/standard-button';
+import Heading from '@atlaskit/heading';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
 import { R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -35,9 +36,11 @@ const CustomHeader = () => {
 
   return (
     <div style={headerStyles}>
-      <h3 id={titleId} style={titleStyles}>
-        A customised header
-      </h3>
+      <div style={titleStyles}>
+        <Heading id={titleId} level="h600" as="h1">
+          A customised header
+        </Heading>
+      </div>
       <span style={{ position: 'absolute', right: 0, top: 4 }}>
         <Button onClick={onClose} appearance="link">
           <CrossIcon
@@ -64,7 +67,9 @@ export default function CompoundTitleModal() {
 
   return (
     <div>
-      <Button onClick={open}>Open Modal</Button>
+      <Button appearance="primary" onClick={open}>
+        Open Modal
+      </Button>
 
       <ModalTransition>
         {isOpen && (

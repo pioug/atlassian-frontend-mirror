@@ -4,7 +4,7 @@ import { Component } from 'react';
 import {
   defaultCollectionName,
   defaultMediaPickerCollectionName,
-  defaultMediaPickerAuthProvider,
+  mediaPickerAuthProvider,
 } from '@atlaskit/media-test-helpers';
 
 import Button from '@atlaskit/button/standard-button';
@@ -67,7 +67,7 @@ class BrowserWrapper extends Component<{}, BrowserWrapperState> {
 
   componentDidMount() {
     const mediaClientConfig: MediaClientConfig = {
-      authProvider: defaultMediaPickerAuthProvider(),
+      authProvider: mediaPickerAuthProvider(),
     };
     const uploadParams: UploadParams = {
       collection: defaultMediaPickerCollectionName,

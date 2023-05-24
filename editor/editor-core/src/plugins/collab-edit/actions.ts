@@ -8,15 +8,16 @@ import {
 } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 
-import {
+import type {
   CollabEventInitData,
   CollabEventRemoteData,
   CollabEventConnectionData,
   CollabEventPresenceData,
-  CollabEventTelepointerData,
+  CollabTelepointerPayload,
   CollabSendableSelection,
-  PrivateCollabEditOptions,
-} from './types';
+} from '@atlaskit/collab-provider';
+
+import { PrivateCollabEditOptions } from './types';
 
 import { replaceDocument } from './utils';
 
@@ -123,7 +124,7 @@ export const applyRemoteSteps = (
 };
 
 export const handleTelePointer = (
-  telepointerData: CollabEventTelepointerData,
+  telepointerData: CollabTelepointerPayload,
   view: EditorView,
 ) => {
   const {

@@ -150,6 +150,7 @@ export const LinkWrapper = styled.div`
   }
 `;
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 export const Wrapper = styled.div<WrapperProps>`
   ${(props) => wrapperStyles(props)};
   margin-top: 10px;
@@ -278,7 +279,8 @@ export const ContentWrapper = styled.div`
   display: flex;
   flex-direction: row;
   box-sizing: border-box;
-  padding: 8px 12px 12px 12px;
+  padding: ${token('space.100', '8px')} ${token('space.150', '12px')}
+    ${token('space.150', '12px')} ${token('space.150', '12px')};
 `;
 
 export const Title = styled.div`
@@ -291,7 +293,7 @@ export const Title = styled.div`
 `;
 
 export const Byline = styled.div`
-  margin-top: 4px;
+  margin-top: ${token('space.050', '4px')};
   color: ${token('color.text.subtlest', colors.N300)};
   font-size: 12px;
   font-weight: normal;
@@ -299,6 +301,7 @@ export const Byline = styled.div`
   ${ellipsis('100%')};
 `;
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 export const Description = styled.div`
   margin-top: 7px;
   color: ${token('color.text', colors.N800)};
@@ -310,7 +313,7 @@ export const Description = styled.div`
 `;
 
 export const ResolvedViewIconWrapper = styled.div`
-  margin-top: 4px;
+  margin-top: ${token('space.050', '4px')};
 `;
 
 export interface ThumbnailProps {
@@ -321,26 +324,27 @@ export const Thumbnail = styled.div`
   ${borderRadius}
   ${csssize(48)}
   float: right;
-  margin: 4px 0 12px 12px;
+  margin: ${token('space.050', '4px')} 0 ${token('space.150', '12px')}
+    ${token('space.150', '12px')};
   background-color: ${token('color.skeleton', colors.N30)};
   background-image: url(${({ src }: ThumbnailProps) => src});
   background-size: cover;
 `;
 
 export const UsersWrapper = styled.div`
-  margin-top: 8px;
+  margin-top: ${token('space.100', '8px')};
 `;
 
 export const ActionsWrapper = styled.div`
-  margin-top: 8px;
+  margin-top: ${token('space.100', '8px')};
   text-align: right;
 
   > * {
-    margin-top: 4px;
+    margin-top: ${token('space.050', '4px')};
   }
 
   > * + * {
-    margin-left: 4px;
+    margin-left: ${token('space.050', '4px')};
   }
 `;
 

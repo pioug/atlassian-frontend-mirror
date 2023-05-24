@@ -1,5 +1,8 @@
 import React from 'react';
+
+import { Label } from '@atlaskit/form';
 import { AtlassianIcon } from '@atlaskit/logo';
+
 import Select, { OptionType, FormatOptionLabelMeta } from '../src';
 
 const formatOptionLabel = (
@@ -29,19 +32,23 @@ const formatOptionLabel = (
   return option.label;
 };
 const ElementBeforeExample = () => (
-  <Select
-    formatOptionLabel={formatOptionLabel}
-    options={[
-      { label: 'Adelaide', value: 'adelaide' },
-      { label: 'Brisbane', value: 'brisbane' },
-      { label: 'Canberra', value: 'canberra' },
-      { label: 'Darwin', value: 'darwin' },
-      { label: 'Hobart', value: 'hobart' },
-      { label: 'Melbourne', value: 'melbourne' },
-      { label: 'Perth', value: 'perth' },
-      { label: 'Sydney', value: 'sydney' },
-    ]}
-  />
+  <>
+    <Label htmlFor="element-before-example">Which city do you live in?</Label>
+    <Select
+      inputId="element-before-example"
+      formatOptionLabel={formatOptionLabel}
+      options={[
+        { label: 'Adelaide', value: 'adelaide' },
+        { label: 'Brisbane', value: 'brisbane' },
+        { label: 'Canberra', value: 'canberra' },
+        { label: 'Darwin', value: 'darwin' },
+        { label: 'Hobart', value: 'hobart' },
+        { label: 'Melbourne', value: 'melbourne' },
+        { label: 'Perth', value: 'perth' },
+        { label: 'Sydney', value: 'sydney' },
+      ]}
+    />
+  </>
 );
 
 export default ElementBeforeExample;

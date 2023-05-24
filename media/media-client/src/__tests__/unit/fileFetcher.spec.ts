@@ -170,7 +170,7 @@ describe('FileFetcher', () => {
       touchFiles,
     } as jest.Mocked<MediaStore>;
 
-    const fileFetcher = new FileFetcherImpl(mediaStore, featureFlags);
+    const fileFetcher = new FileFetcherImpl(mediaStore);
 
     (fileFetcher as any).generateUploadableFileUpfrontIds = jest
       .fn()
@@ -724,7 +724,7 @@ describe('FileFetcher', () => {
       });
     });
 
-    it('should not populate cache when copied file "processingStatus" is pending', async () => {
+    it('should populate cache when copied file "processingStatus" is pending', async () => {
       const { items, fileFetcher, mockAuthProvider } = setup();
       const copiedFile: MediaFile = {
         id: 'copied-file-id',
@@ -1045,7 +1045,7 @@ describe('FileFetcher', () => {
       expect(mediaStore.getItems).toHaveBeenCalledTimes(0);
     });
 
-    it('should not fetch remote processing states for files not supported by server', async () => {
+    it('should fetch remote processing states for files not supported by server', async () => {
       const { items, fileFetcher, mediaStore, mockAuthProvider } = setup();
       const copiedFile: MediaFile = {
         id: 'copied-file-id',
@@ -1220,11 +1220,10 @@ describe('FileFetcher', () => {
     });
   });
 
-  describe.each([true, false])('upload()', (fetchFileStateAfterUpload) => {
+  describe('upload()', () => {
     it('should populate cache before upload finishes', async () => {
-      const { fileFetcher, createUploadableFile, uploadFileUpfrontIds } = setup(
-        { fetchFileStateAfterUpload },
-      );
+      const { fileFetcher, createUploadableFile, uploadFileUpfrontIds } =
+        setup();
 
       fileFetcher.upload(
         createUploadableFile('logo.png', 'image/png'),
@@ -1252,9 +1251,8 @@ describe('FileFetcher', () => {
     });
 
     it('should be abortable', async () => {
-      const { fileFetcher, createUploadableFile, uploadFileUpfrontIds } = setup(
-        { fetchFileStateAfterUpload },
-      );
+      const { fileFetcher, createUploadableFile, uploadFileUpfrontIds } =
+        setup();
 
       const uploadController = new UploadController();
 
@@ -1309,9 +1307,8 @@ describe('FileFetcher', () => {
     });
 
     it('should set preview on cache for that file', async () => {
-      const { fileFetcher, createUploadableFile, uploadFileUpfrontIds } = setup(
-        { fetchFileStateAfterUpload },
-      );
+      const { fileFetcher, createUploadableFile, uploadFileUpfrontIds } =
+        setup();
 
       fileFetcher.upload(
         createUploadableFile('logo.png', 'image/png'),
@@ -1338,9 +1335,8 @@ describe('FileFetcher', () => {
     });
 
     it('should set the right mediaType', async () => {
-      const { fileFetcher, createUploadableFile, uploadFileUpfrontIds } = setup(
-        { fetchFileStateAfterUpload },
-      );
+      const { fileFetcher, createUploadableFile, uploadFileUpfrontIds } =
+        setup();
 
       fileFetcher.upload(
         createUploadableFile('logo.png', 'image/png'),
@@ -1362,9 +1358,8 @@ describe('FileFetcher', () => {
     });
 
     it('should emit @atlaskit/chunkinator errors through ReplaySubject', async () => {
-      const { fileFetcher, createUploadableFile, uploadFileUpfrontIds } = setup(
-        { fetchFileStateAfterUpload },
-      );
+      const { fileFetcher, createUploadableFile, uploadFileUpfrontIds } =
+        setup();
 
       const error = new Error('chunkinator any kind of error');
 
@@ -1411,7 +1406,7 @@ describe('FileFetcher', () => {
         fileFetcher,
         createUploadableFile,
         uploadFileUpfrontIds,
-      } = setup({ fetchFileStateAfterUpload });
+      } = setup();
 
       fileFetcher.upload(
         createUploadableFile('image.heic', 'image/heic'), // requires remote preview
@@ -1425,15 +1420,13 @@ describe('FileFetcher', () => {
       });
     });
 
-    it(`should ${
-      fetchFileStateAfterUpload ? '' : 'not '
-    }fetch remote processing states for files not requiring remote preview when FF is ${fetchFileStateAfterUpload}`, (done) => {
+    it(`should fetch remote processing states for files not requiring remote preview`, (done) => {
       const {
         mediaStore,
         fileFetcher,
         createUploadableFile,
         uploadFileUpfrontIds,
-      } = setup({ fetchFileStateAfterUpload });
+      } = setup();
 
       fileFetcher.upload(
         createUploadableFile('image.jpg', 'image/jpeg'), // doesn't require remote preview
@@ -1442,22 +1435,18 @@ describe('FileFetcher', () => {
       );
 
       setImmediate(() => {
-        expect(mediaStore.getItems).toHaveBeenCalledTimes(
-          fetchFileStateAfterUpload ? 1 : 0,
-        );
+        expect(mediaStore.getItems).toHaveBeenCalledTimes(1);
         done();
       });
     });
 
-    it(`should ${
-      fetchFileStateAfterUpload ? '' : 'not '
-    }fetch remote processing states for files not supported by server when FF is ${fetchFileStateAfterUpload}`, (done) => {
+    it(`should fetch remote processing states for files not supported by server`, (done) => {
       const {
         mediaStore,
         fileFetcher,
         createUploadableFile,
         uploadFileUpfrontIds,
-      } = setup({ fetchFileStateAfterUpload });
+      } = setup();
 
       fileFetcher.upload(
         createUploadableFile('archive.zip', 'application/zip'), // not supported by server
@@ -1468,17 +1457,13 @@ describe('FileFetcher', () => {
       expect(isMimeTypeSupportedByServer('application/zip')).toEqual(false);
 
       setImmediate(() => {
-        expect(mediaStore.getItems).toHaveBeenCalledTimes(
-          fetchFileStateAfterUpload ? 1 : 0,
-        );
+        expect(mediaStore.getItems).toHaveBeenCalledTimes(1);
         done();
       });
     });
 
     it('should pass trace context to generateUploadableFileUpfrontIds and uploadFile', async () => {
-      const { fileFetcher, createUploadableFile } = setup({
-        fetchFileStateAfterUpload,
-      });
+      const { fileFetcher, createUploadableFile } = setup();
       asMock(uploadFile).mockClear();
       const collection = 'destination-collection';
 

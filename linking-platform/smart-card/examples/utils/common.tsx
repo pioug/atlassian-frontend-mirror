@@ -3,6 +3,7 @@ import { jsx, css } from '@emotion/react';
 import { IntlProvider } from 'react-intl-next';
 import { JsonLd } from 'json-ld-types';
 import Page from '@atlaskit/page';
+import { token } from '@atlaskit/tokens';
 import { iconGoogleDrive } from '../images';
 
 interface VRTestCaseOpts {
@@ -10,9 +11,10 @@ interface VRTestCaseOpts {
   children: () => JSX.Element;
 }
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 const subHeaderCSS = css`
   margin-top: 28px;
-  margin-bottom: 8px;
+  margin-bottom: ${token('space.100', '8px')};
 `;
 
 export const VRTestCase = ({ title, children }: VRTestCaseOpts) => {

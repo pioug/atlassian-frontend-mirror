@@ -13,12 +13,9 @@ import * as blockCardCopyAdf from './_fixtures_/block-card-copy.adf.json';
 
 type ClientType = Parameters<typeof goToEditorTestingWDExample>[0];
 
-// FIXME: This test was automatically skipped due to failure on 15/03/2023: https://product-fabric.atlassian.net/browse/ED-17192
 BrowserTestCase(
   'card: copy paste multiple block card should work as expected in editor',
-  {
-    skip: ['*'],
-  },
+  {},
   async (client: ClientType, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 

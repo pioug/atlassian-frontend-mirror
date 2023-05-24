@@ -27,7 +27,7 @@ import { CollabEditOptions } from '../../../plugins/collab-edit';
 import { DispatchAnalyticsEvent } from '../../../plugins/analytics';
 import { EventDispatcher } from '../../../event-dispatcher';
 import { EditorActions } from '../../..';
-import { ContextPanelConsumer } from '../../ContextPanel/context';
+import { ContextPanelConsumer } from '@atlaskit/editor-common/ui';
 import { FeatureFlags } from '../../../types/feature-flags';
 import messages from './messages';
 import { ToolbarArrowKeyNavigationProvider } from '../../ToolbarArrowKeyNavigationProvider';

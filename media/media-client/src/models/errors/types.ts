@@ -22,6 +22,7 @@ export type MediaClientErrorReason =
   | 'invalidFileId'
   | 'emptyItems'
   | 'zeroVersionFile'
+  | 'emptyFileName'
   // PollingErrorReason ----------------------------
   | 'pollingMaxAttemptsExceeded'
   //UploaderErrorReason ----------------------------

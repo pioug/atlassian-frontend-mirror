@@ -757,8 +757,8 @@ type VisitMediaLinkAEP = AEP<
 
 ```json
 {
-  "@atlaskit/link-provider": "^1.6.1",
-  "@atlaskit/media-core": "^34.1.1",
+  "@atlaskit/link-provider": "^1.6.2",
+  "@atlaskit/media-core": "^34.1.2",
   "react": "^16.8.0",
   "react-dom": "^16.8.0"
 }

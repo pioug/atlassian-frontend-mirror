@@ -2,6 +2,9 @@ import { ProductKeys } from './types';
 
 const productKeys: ProductKeys = {
   confluence: {
+    /**
+     * Note: Confluence Flags must be prefixed with "confluence.frontend" in order to integrate properly with the product
+     */
     newCardExperience: 'confluence.frontend.media.cards.new.experience',
     captions: 'confluence.frontend.fabric.editor.media.captions',
     mediaInline: 'confluence.frontend.fabric.editor.media.inline',
@@ -10,8 +13,6 @@ const productKeys: ProductKeys = {
     observedWidth: '',
     timestampOnVideo: 'confluence.frontend.media.timestamp.on.video',
     memoryCacheLogging: 'confluence-frontend-media-card-memory-cache-logging',
-    fetchFileStateAfterUpload:
-      'confluence-frontend-media-client-fetch-file-state-after-upload',
   },
   jira: {
     newCardExperience: 'issue.details.media-cards-new-experience',
@@ -23,8 +24,6 @@ const productKeys: ProductKeys = {
     observedWidth: '',
     timestampOnVideo: 'issue.details.media-cards-timestamp-on-video',
     memoryCacheLogging: 'jira-frontend-media-card-memory-cache-logging',
-    fetchFileStateAfterUpload:
-      'jira-frontend-media-client-fetch-file-state-after-upload',
   },
 };
 

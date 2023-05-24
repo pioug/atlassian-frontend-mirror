@@ -1,7 +1,9 @@
-import type { CollabEditProvider } from '@atlaskit/editor-common/collab';
+import type {
+  CollabEditProvider,
+  CollabTelepointerPayload,
+} from '@atlaskit/collab-provider';
 import { Transaction, EditorState } from 'prosemirror-state';
 import { getSendableSelection } from '../actions';
-import { CollabEventTelepointerData } from '../types';
 import { pluginKey } from '../plugin-key';
 
 type Props = {
@@ -56,7 +58,7 @@ export const sendTransaction =
       (sessionId && participantsChanged)
     ) {
       const selection = getSendableSelection(newEditorState.selection);
-      const message: CollabEventTelepointerData = {
+      const message: CollabTelepointerPayload = {
         type: 'telepointer',
         selection,
         sessionId,

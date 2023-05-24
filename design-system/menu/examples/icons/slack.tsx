@@ -12,18 +12,6 @@ export default (props: CustomGlyphProps) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <mask
-      id="mask0"
-      mask-type="alpha"
-      maskUnits="userSpaceOnUse"
-      x="0"
-      y="0"
-      width="24"
-      height="24"
-    >
-      <rect width="24" height="24" rx="4" fill="white" />
-    </mask>
-    <g mask="url(#mask0)"></g>
     <path
       d="M5.67114 13.88C5.67114 15.1422 4.64003 16.1734 3.37781 16.1734C2.11558 16.1734 1.08447 15.1422 1.08447 13.88C1.08447 12.6178 2.11558 11.5867 3.37781 11.5867C4.64438 11.5867 5.67114 12.6134 5.67114 13.88Z"
       fill="#E01E5A"

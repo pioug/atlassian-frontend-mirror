@@ -6,6 +6,7 @@ import { Appearance } from '@atlaskit/button/types';
 import Page from '@atlaskit/page';
 import AttachmentIcon from '@atlaskit/icon/glyph/attachment';
 import CommentIcon from '@atlaskit/icon/glyph/comment';
+import { token } from '@atlaskit/tokens';
 
 import { Frame } from '../src/view/BlockCard/components/Frame';
 import { Thumbnail } from '../src/view/BlockCard/components/Thumbnail';
@@ -29,13 +30,15 @@ import {
 import { CollaboratorListProps } from '../src/view/BlockCard/components/CollaboratorList';
 import { mockAnalytics } from '../src/utils/mocks';
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 const headerCSS = css`
   margin-top: 28px;
-  margin-bottom: 16px;
+  margin-bottom: ${token('space.200', '16px')};
 `;
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 const subHeaderCSS = css`
   margin-top: 28px;
-  margin-bottom: 8px;
+  margin-bottom: ${token('space.100', '8px')};
 `;
 
 const resolvedViewDetails = [

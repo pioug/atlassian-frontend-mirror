@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 
-import { transition } from '../../styles';
+import { transition } from '../styles';
 
 export const actionsBarClassName = 'media-card-actions-bar';
 

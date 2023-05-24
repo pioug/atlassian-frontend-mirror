@@ -2,11 +2,15 @@ import { Command, CommandDispatch } from '../../types';
 import { copyButtonPluginKey } from './pm-plugins/plugin-key';
 import { MarkType, NodeType } from 'prosemirror-model';
 import { hoverDecoration } from '../base/pm-plugins/decoration';
-import { EditorState, Transaction } from 'prosemirror-state';
-import { copyHTMLToClipboard } from '../../utils/clipboard';
+import { EditorState, Transaction, NodeSelection } from 'prosemirror-state';
+import {
+  copyHTMLToClipboard,
+  copyHTMLToClipboardPolyfill,
+} from '../../utils/clipboard';
 import { getSelectedNodeOrNodeParentByNodeType, toDOM } from './utils';
 import { addAnalytics, ACTION, INPUT_METHOD } from '../analytics';
 import { getAnalyticsPayload } from '../clipboard/pm-plugins/main';
+import { browser } from '@atlaskit/editor-common/utils';
 
 export function createToolbarCopyCommandForMark(markType: MarkType): Command {
   function command(state: EditorState, dispatch: CommandDispatch | undefined) {
@@ -150,7 +154,16 @@ export const createToolbarCopyCommandForNode =
             '0 0 []',
           );
         }
-        copyHTMLToClipboard(div);
+        // ED-17083 safari seems have bugs for extension copy because exntension do not have a child text(innerText) and it will not recognized as html in clipboard, this could be merge into one if this extension fixed children issue or safari fix the copy bug
+        if (
+          browser.safari &&
+          state.selection instanceof NodeSelection &&
+          state.selection.node.type === state.schema.nodes.extension
+        ) {
+          copyHTMLToClipboardPolyfill(div);
+        } else {
+          copyHTMLToClipboard(div);
+        }
       }
       copyToClipboardTr.setMeta('scrollIntoView', false);
       dispatch(copyToClipboardTr);

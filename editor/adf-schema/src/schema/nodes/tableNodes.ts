@@ -250,6 +250,10 @@ export interface TableAttributes {
    * @minLength 1
    */
   localId?: string;
+  /**
+   * @stage 0
+   */
+  width?: number;
 }
 
 /**
@@ -318,16 +322,23 @@ export interface TableHeader {
 }
 
 // TODO: Fix any, potential issue. ED-5048
-const createTableSpec = (): NodeSpec => {
+const createTableSpec = (allowCustomWidth: boolean = false): NodeSpec => {
   const attrs = {
     isNumberColumnEnabled: { default: false },
     layout: { default: 'default' },
     __autoSize: { default: false },
     localId: { default: '' },
   };
+  const finalAttrs = allowCustomWidth
+    ? {
+        ...attrs,
+        width: { default: null },
+      }
+    : attrs;
+
   const tableNodeSpec: NodeSpec = {
     content: 'tableRow+',
-    attrs: attrs,
+    attrs: finalAttrs,
     marks: 'unsupportedMark unsupportedNodeAttribute',
     tableRole: 'table',
     isolating: true,
@@ -342,16 +353,16 @@ const createTableSpec = (): NodeSpec => {
 
           return {
             isNumberColumnEnabled:
-              dom.getAttribute('data-number-column') === 'true' ? true : false,
+              dom.getAttribute('data-number-column') === 'true',
             layout:
               // copying from editor
               dom.getAttribute('data-layout') ||
               // copying from renderer
               breakoutWrapper?.getAttribute('data-layout') ||
               'default',
-            __autoSize:
-              dom.getAttribute('data-autosize') === 'true' ? true : false,
+            __autoSize: dom.getAttribute('data-autosize') === 'true',
             localId: dom.getAttribute('data-table-local-id') || uuid.generate(),
+            width: Number(dom.getAttribute('data-table-width')) || null,
           };
         },
       },
@@ -362,6 +373,7 @@ const createTableSpec = (): NodeSpec => {
         'data-layout': node.attrs.layout,
         'data-autosize': node.attrs.__autoSize,
         'data-table-local-id': node.attrs.localId,
+        'data-table-width': node.attrs.width,
       };
       return ['table', attrs, ['tbody', 0]];
     },
@@ -369,7 +381,9 @@ const createTableSpec = (): NodeSpec => {
   return tableNodeSpec;
 };
 
-export const table = createTableSpec();
+export const table = createTableSpec(false);
+export const tableWithCustomWidth = createTableSpec(true);
+
 const shouldIncludeAttribute = (key: string, value?: string) =>
   !key.startsWith('__') && (key !== 'localId' || !!value);
 

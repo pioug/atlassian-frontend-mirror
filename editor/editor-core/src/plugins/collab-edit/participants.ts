@@ -1,4 +1,4 @@
-import { CollabParticipant } from './types';
+import { CollabParticipant } from '@atlaskit/collab-provider';
 
 export interface ReadOnlyParticipants {
   get(sessionId: string): CollabParticipant | undefined;

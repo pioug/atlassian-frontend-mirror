@@ -17,8 +17,8 @@ export const scrollingContainerStyles: SerializedStyles = css({
     margin: 0,
     position: 'absolute',
     width: 'inherit',
-    left: 8,
-    right: 8,
+    left: token('space.100', '8px'),
+    right: token('space.100', '8px'),
     height: 2,
     backgroundColor: token('color.border', N30),
   },
@@ -40,7 +40,7 @@ export const containerStyles: SerializedStyles = css({
 
 export const buttonContainerStyles: SerializedStyles = css({
   position: 'absolute',
-  top: 4,
+  top: token('space.050', '4px'),
   zIndex: 999,
   backgroundColor: token('elevation.surface', N0),
 });

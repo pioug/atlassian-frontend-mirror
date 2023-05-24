@@ -18,47 +18,33 @@ const defaultOptions: FilePreviewStatus = {
   isPreviewable: true,
 };
 
-describe.each([true, false])('getCardStatus()', (fetchFileStateAfterUpload) => {
+describe('getCardStatus()', () => {
   it.each([`processing`, `error`, `failed-processing`, `uploading`] as const)(
-    `should return the file status based on fileState if is %s when FF is ${fetchFileStateAfterUpload}`,
+    `should return the file status based on fileState if is %s`,
     (status) => {
-      expect(
-        getCardStatus(status, defaultOptions, { fetchFileStateAfterUpload }),
-      ).toEqual(status);
+      expect(getCardStatus(status, defaultOptions)).toEqual(status);
     },
   );
 
-  it(`should return 'complete' if the file status is 'processed' and file is not previewable when FF is ${fetchFileStateAfterUpload}`, () => {
+  it(`should return 'complete' if the file status is 'processed' and file is not previewable`, () => {
     expect(
-      getCardStatus(
-        'processed',
-        { ...defaultOptions, isPreviewable: false },
-        { fetchFileStateAfterUpload },
-      ),
+      getCardStatus('processed', { ...defaultOptions, isPreviewable: false }),
     ).toEqual('complete');
   });
 
-  it(`should return "complete" if the file status is "processed" and file has no preview when FF is ${fetchFileStateAfterUpload}`, () => {
+  it(`should return "complete" if the file status is "processed" and file has no preview`, () => {
     expect(
-      getCardStatus(
-        'processed',
-        { ...defaultOptions, hasPreview: false },
-        { fetchFileStateAfterUpload },
-      ),
+      getCardStatus('processed', { ...defaultOptions, hasPreview: false }),
     ).toEqual('complete');
   });
 
-  it(`should return "loading-preview" if the file status is "processed" and file is previewable with preview when FF is ${fetchFileStateAfterUpload}`, () => {
+  it(`should return "loading-preview" if the file status is "processed" and file is previewable with preview`, () => {
     expect(
-      getCardStatus(
-        'processed',
-        { ...defaultOptions, hasPreview: true },
-        { fetchFileStateAfterUpload },
-      ),
+      getCardStatus('processed', { ...defaultOptions, hasPreview: true }),
     ).toEqual('loading-preview');
   });
 
-  it(`should return loading by default when FF is ${fetchFileStateAfterUpload}`, () => {
+  it(`should return loading by default`, () => {
     // forcing types to ensure the internal logic does not rely on
     // a known file status or the options object
     expect(
@@ -67,47 +53,6 @@ describe.each([true, false])('getCardStatus()', (fetchFileStateAfterUpload) => {
         {} as FilePreviewStatus,
       ),
     ).toEqual('loading');
-  });
-});
-
-describe('getCardStatus() FF Off', () => {
-  const featureFlags = { fetchFileStateAfterUpload: false };
-  it('should return `complete` if the non-empty file status is `processing` and preview is disabled', () => {
-    expect(
-      getCardStatus(
-        'processing',
-        {
-          isPreviewable: false,
-          hasFilesize: true,
-        } as FilePreviewStatus,
-        featureFlags,
-      ),
-    ).toEqual('complete');
-  });
-
-  it('should return `complete` if the non-empty file status is `processing` and file state has preview', () => {
-    expect(
-      getCardStatus(
-        'processing',
-        {
-          hasPreview: true,
-          hasFilesize: true,
-        } as FilePreviewStatus,
-        featureFlags,
-      ),
-    ).toEqual('complete');
-  });
-
-  it('should return `processing` if the empty file status is `processing`', () => {
-    expect(
-      getCardStatus(
-        'processing',
-        {
-          hasFilesize: false,
-        } as FilePreviewStatus,
-        featureFlags,
-      ),
-    ).toEqual('processing');
   });
 });
 

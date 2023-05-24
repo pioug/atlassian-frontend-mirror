@@ -17,7 +17,11 @@ export default function KitchenSinkExample() {
     'platform.editor.custom-table-width': true,
   };
 
-  usePlatformFeatureFlag(platformFlags);
+  const isReady = usePlatformFeatureFlag(platformFlags);
+
+  if (!isReady) {
+    return null;
+  }
 
   return (
     <IntlProvider locale={locale} messages={messages}>

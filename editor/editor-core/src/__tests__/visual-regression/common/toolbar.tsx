@@ -238,10 +238,7 @@ describe.skip('Toolbar: Comment', () => {
     await snapshot(page, undefined, editorSelector);
   });
 
-  // FIXME: Skipped because of flakiness
-  // https://product-fabric.atlassian.net/browse/ED-16626
-  // FIXME: This test was automatically skipped due to failure on 12/02/2023: https://product-fabric.atlassian.net/browse/ED-16859
-  it.skip('should display text color menu correctly at small viewport', async () => {
+  it('should display text color menu correctly at small viewport', async () => {
     await page.setViewport(deviceViewPorts[Device.iPhonePlus]);
     await clickToolbarMenu(page, ToolbarMenuItem.textColor);
   });
@@ -269,23 +266,16 @@ describe.skip('Toolbar: IconBefore', () => {
       });
     });
 
-    // FIXME: Skipped because of flakiness
-    // https://product-fabric.atlassian.net/browse/ED-16626
-    // FIXME: This test was automatically skipped due to failure on 12/02/2023: https://product-fabric.atlassian.net/browse/ED-16861
-    it.skip('should show the icon', async () => {
+    it('should show the icon', async () => {
       await page.mouse.move(-30, -30);
     });
 
-    // FIXME: Skipped because of flakiness
-    // https://product-fabric.atlassian.net/browse/ED-16626
-    // FIXME: This test was automatically skipped due to failure on 12/02/2023: https://product-fabric.atlassian.net/browse/ED-16863
-    it.skip('should show the icon in narrow view', async () => {
+    it('should show the icon in narrow view', async () => {
       await page.setViewport({ width: 400, height: 350 });
     });
   });
 
-  // TODO: Restore skipped test https://product-fabric.atlassian.net/browse/ED-16794
-  it.skip('should allow primary toolbar to span entire width when not specified', async () => {
+  it('should allow primary toolbar to span entire width when not specified', async () => {
     page = global.page;
     await initEditorWithAdf(page, {
       appearance: Appearance.fullPage,
@@ -308,8 +298,7 @@ describe('Toolbar: IconBefore enabled', () => {
     });
   });
 
-  // FIXME: This test was automatically skipped due to failure on 13/04/2023: https://product-fabric.atlassian.net/browse/ED-17490
-  it.skip('should carry the keyline across', async () => {
+  it('should carry the keyline across', async () => {
     await page.setViewport({ width: 1000, height: 150 });
 
     const keylineBoxShadowBefore = await getElementComputedStyle(

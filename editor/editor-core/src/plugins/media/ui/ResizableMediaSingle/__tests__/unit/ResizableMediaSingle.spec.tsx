@@ -48,8 +48,8 @@ import Resizer, {
 } from '../../../../../../ui/Resizer';
 import layoutPlugin from '../../../../../../plugins/layout';
 import mediaPlugin from '../../../../../../plugins/media';
-import widthPlugin from '../../../../../../plugins/width';
-import gridPlugin from '../../../../../../plugins/grid';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import { MediaClientConfig } from '@atlaskit/media-core';
 
 describe('<ResizableMediaSingle />', () => {

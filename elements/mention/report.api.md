@@ -362,9 +362,9 @@ export class MentionList extends React_2.PureComponent<Props_2, State> {
   // (undocumented)
   render(): JSX.Element;
   // (undocumented)
-  selectId: (id: string, callback?: (() => any) | undefined) => void;
+  selectId: (id: string, callback?: () => any) => void;
   // (undocumented)
-  selectIndex: (index: number, callback?: (() => any) | undefined) => void;
+  selectIndex: (index: number, callback?: () => any) => void;
   // (undocumented)
   selectNext: () => void;
   // (undocumented)
@@ -440,9 +440,9 @@ class MentionPicker_2 extends React_2.PureComponent<
   // (undocumented)
   render(): JSX.Element;
   // (undocumented)
-  selectId: (id: string, callback?: (() => any) | undefined) => void;
+  selectId: (id: string, callback?: () => any) => void;
   // (undocumented)
-  selectIndex: (index: number, callback?: (() => any) | undefined) => void;
+  selectIndex: (index: number, callback?: () => any) => void;
   // (undocumented)
   selectNext: () => void;
   // (undocumented)
@@ -857,9 +857,9 @@ class ResourcedMentionListWithoutAnalytics extends React_2.PureComponent<
   // (undocumented)
   render(): JSX.Element;
   // (undocumented)
-  selectId: (id: string, callback?: (() => any) | undefined) => void;
+  selectId: (id: string, callback?: () => any) => void;
   // (undocumented)
-  selectIndex: (index: number, callback?: (() => any) | undefined) => void;
+  selectIndex: (index: number, callback?: () => any) => void;
   // (undocumented)
   selectNext: () => void;
   // (undocumented)

@@ -4,8 +4,8 @@ import {
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import mediaPlugin from '../../media';
-import gridPlugin from '../../grid';
-import widthPlugin from '../../width';
+import { gridPlugin } from '@atlaskit/editor-plugin-grid';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import captionPlugin from '../';
 import {
   caption,

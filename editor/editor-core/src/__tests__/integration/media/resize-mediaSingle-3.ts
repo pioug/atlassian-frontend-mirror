@@ -15,12 +15,9 @@ import {
 } from './_utils';
 import tableWithOneCellAdfAndMedia from './_fixtures_/tableWithOneCellAdfAndMedia';
 
-// FIXME: This test was automatically skipped due to failure on 30/01/2023: https://product-fabric.atlassian.net/browse/ED-16686
 BrowserTestCase(
   'resize-mediaSingle.ts: Image is resized in 1x1 table with different layouts',
-  {
-    skip: [],
-  },
+  {},
   async (browserObject: BrowserObject) => {
     let page: Page = await goToEditorTestingWDExample(browserObject);
     await page.setWindowSize(1980, 1200);

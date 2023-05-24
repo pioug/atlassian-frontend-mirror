@@ -7,7 +7,7 @@ import EditIcon from '@atlaskit/icon/glyph/edit';
 import { CardAction } from '../../../actions';
 
 import { ActionsBar } from '../actionsBar';
-import { CardActionsView } from '../../../../utils/cardActions';
+import { CardActionsView } from '../cardActions';
 import { ActionsBarWrapper } from '../actionsBarWrapper';
 
 describe('ActionsBar', () => {

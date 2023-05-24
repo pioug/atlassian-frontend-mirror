@@ -1,5 +1,17 @@
 # @atlaskit/link-picker
 
+## 1.21.0
+
+### Minor Changes
+
+- [`63a3923d4cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/63a3923d4cd) - Fix tab attribute analytics to display correct product on initial load
+
+## 1.20.3
+
+### Patch Changes
+
+- [`d86bc75af82`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d86bc75af82) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
+
 ## 1.20.2
 
 ### Patch Changes

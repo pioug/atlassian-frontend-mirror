@@ -5,7 +5,7 @@ import blockTypePlugin from '../../../plugins/block-type';
 import clearMarksOnChangeToEmptyDocumentPlugin from '../../../plugins/clear-marks-on-change-to-empty-document';
 import hyperlinkPlugin from '../../../plugins/hyperlink';
 import textFormattingPlugin from '../../../plugins/text-formatting';
-import widthPlugin from '../../../plugins/width';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import unsupportedContentPlugin from '../../../plugins/unsupported-content';
 import basePlugin, { BasePluginOptions } from '../../../plugins/base';
 import editorDisabledPlugin from '../../../plugins/editor-disabled';

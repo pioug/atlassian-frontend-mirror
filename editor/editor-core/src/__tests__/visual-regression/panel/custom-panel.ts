@@ -25,8 +25,7 @@ describe('Custom panel looks correct for fullpage:', () => {
     await snapshot(page);
   });
 
-  // FIXME: This test was automatically skipped due to failure on 05/02/2023: https://product-fabric.atlassian.net/browse/ED-16785
-  it.skip('default custom panel light mode', async () => {
+  it('default custom panel light mode', async () => {
     await initFullPageEditorWithAdf(
       page,
       adf,

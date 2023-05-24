@@ -1,9 +1,6 @@
 import React from 'react';
 
-import {
-  CardActionIconButtonVariant,
-  CardActionsView,
-} from '../../../utils/cardActions';
+import { CardActionIconButtonVariant, CardActionsView } from './cardActions';
 import { ActionsBarWrapper } from './actionsBarWrapper';
 import { ActionsBarProps } from './types';
 

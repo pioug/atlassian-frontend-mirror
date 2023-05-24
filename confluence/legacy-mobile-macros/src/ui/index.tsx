@@ -79,6 +79,9 @@ function getConfluenceMobileMacroManifests<
       );
       const hasLinkHandler = !!onLinkClick;
       const useRenderingStrategyMap = hasSuperbatch && hasLinkHandler;
+      const defaultRenderingStrategy = useRenderingStrategyMap
+        ? resultObj.renderingStrategyMap?.['default']?.['default']
+        : 'fallback';
 
       let macroManifests = resultObj.legacyMacroManifests.macros.map(
         (macro: any) => {
@@ -98,16 +101,19 @@ function getConfluenceMobileMacroManifests<
                     contentIdDeferred.promise.then(
                       (latestContentId) =>
                         ({ node }: { node: any }) => {
-                          const renderingStrategy = useRenderingStrategyMap
+                          const foundRenderingStrategy = useRenderingStrategyMap
                             ? resultObj.renderingStrategyMap?.[
                                 node.extensionType
                               ]?.[node.extensionKey]
-                            : 'fallback';
+                            : null;
+                          const renderingStrategy =
+                            foundRenderingStrategy || defaultRenderingStrategy;
                           return renderMacro(
                             node,
                             latestContentId,
                             baseUrl,
                             renderingStrategy,
+                            defaultRenderingStrategy,
                             createPromise,
                             eventDispatcher,
                             handleAnalyticsEvent,
@@ -134,6 +140,7 @@ function getConfluenceMobileMacroManifests<
           getChartFallbackManifest(
             contentId,
             chartRenderingStrategy,
+            defaultRenderingStrategy,
             createPromise,
             eventDispatcher,
             handleAnalyticsEvent,
@@ -172,6 +179,7 @@ function renderMacro<createPromiseType extends Function, eventDispatcherType>(
   contentId: number,
   baseUrl: string,
   renderingStrategy: string,
+  defaultRenderingStrategy: string,
   createPromise: createPromiseType,
   eventDispatcher: eventDispatcherType,
   handleAnalyticsEvent: (event: GasPurePayload) => void,
@@ -192,6 +200,7 @@ function renderMacro<createPromiseType extends Function, eventDispatcherType>(
         contentId={contentId}
         baseUrl={baseUrl}
         renderingStrategy={renderingStrategy}
+        defaultRenderingStrategy={defaultRenderingStrategy}
         createPromise={createPromise}
         eventDispatcher={eventDispatcher}
         onLinkClick={onLinkClick || unhandledLinkClick}
@@ -230,6 +239,7 @@ function getChartFallbackManifest<
 >(
   contentId: number,
   baseUrl: string,
+  defaultRenderingStrategy: string,
   createPromise: createPromiseType,
   eventDispatcher: eventDispatcherType,
   handleAnalyticsEvent: (event: GasPurePayload) => void,
@@ -254,7 +264,8 @@ function getChartFallbackManifest<
                 node,
                 contentId,
                 baseUrl,
-                'fallback',
+                defaultRenderingStrategy,
+                defaultRenderingStrategy,
                 createPromise,
                 eventDispatcher,
                 handleAnalyticsEvent,

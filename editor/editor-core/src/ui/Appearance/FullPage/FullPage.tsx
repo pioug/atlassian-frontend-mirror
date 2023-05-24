@@ -7,7 +7,7 @@ import { akEditorToolbarKeylineHeight } from '@atlaskit/editor-shared-styles';
 
 import { EditorAppearanceComponentProps } from '../../../types';
 import { fullPageEditorWrapper } from './StyledComponents';
-import { ContextPanelWidthProvider } from '../../ContextPanel/context';
+import { ContextPanelWidthProvider } from '@atlaskit/editor-common/ui';
 import { FullPageContentArea } from './FullPageContentArea';
 import { FullPageToolbar } from './FullPageToolbar';
 import { FeatureFlags } from '@atlaskit/editor-common/types';

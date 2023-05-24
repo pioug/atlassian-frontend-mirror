@@ -4,13 +4,13 @@ import React, { useCallback, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 import Lorem from 'react-lorem-component';
 
-import Avatar from '@atlaskit/avatar';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
-import InlineDialog from '@atlaskit/inline-dialog';
-import { N30, R400, subtleText } from '@atlaskit/theme/colors';
+import { Inline } from '@atlaskit/primitives';
+import { N30, R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
+import Tooltip from '@atlaskit/tooltip';
 
 import ModalDialog, {
   ModalBody,
@@ -30,19 +30,6 @@ const containerStyles = css({
 
 const titleStyles = css({
   marginBottom: token('space.200', '16px'),
-});
-
-const hintStyles = css({
-  display: 'flex',
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
-  marginRight: 'auto',
-  alignItems: 'center',
-  color: token('color.text.subtlest', subtleText()),
-  cursor: 'help',
-});
-
-const hintTextStyles = css({
-  marginLeft: token('space.200', '16px'),
 });
 
 const headerStyles: React.CSSProperties = {
@@ -89,28 +76,18 @@ const CustomBody = React.forwardRef<
 ));
 
 const CustomFooter = () => {
-  const [isHintOpen, setIsHintOpen] = useState(false);
-  const openHint = useCallback(() => setIsHintOpen(true), []);
-  const closeHint = useCallback(() => setIsHintOpen(false), []);
-
   const { onClose } = useModal();
 
   return (
     <ModalFooter>
-      <InlineDialog
-        content="Some hint text?"
-        isOpen={isHintOpen}
-        placement="top-start"
-      >
-        {/* eslint-disable-next-line styled-components-a11y/no-static-element-interactions */}
-        <span css={hintStyles} onMouseEnter={openHint} onMouseLeave={closeHint}>
-          <Avatar size="small" />
-          <span css={hintTextStyles}>Hover Me!</span>
-        </span>
-      </InlineDialog>
-      <Button appearance="primary" onClick={onClose}>
-        Close
-      </Button>
+      <Inline grow="fill" alignBlock="center" spread="space-between">
+        <Tooltip content="Some hint text?">
+          <Button>Hover Me!</Button>
+        </Tooltip>
+        <Button appearance="primary" onClick={onClose}>
+          Close
+        </Button>
+      </Inline>
     </ModalFooter>
   );
 };

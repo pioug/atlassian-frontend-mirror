@@ -1,4 +1,5 @@
 import React, { CSSProperties, FunctionComponent } from 'react';
+import { Label } from '@atlaskit/form';
 import { token } from '@atlaskit/tokens';
 import { cities } from '../common/data';
 import Select from '../../src';
@@ -34,12 +35,16 @@ const ClearIndicatorStyles = (
 });
 
 export default () => (
-  <Select
-    closeMenuOnSelect={false}
-    components={{ ClearIndicator }}
-    styles={{ clearIndicator: ClearIndicatorStyles }}
-    defaultValue={[cities[4], cities[5]]}
-    isMulti
-    options={cities}
-  />
+  <>
+    <Label htmlFor="indicators-clear">What city do you live in?</Label>
+    <Select
+      inputId="indicators-clear"
+      closeMenuOnSelect={false}
+      components={{ ClearIndicator }}
+      styles={{ clearIndicator: ClearIndicatorStyles }}
+      defaultValue={[cities[4], cities[5]]}
+      isMulti
+      options={cities}
+    />
+  </>
 );

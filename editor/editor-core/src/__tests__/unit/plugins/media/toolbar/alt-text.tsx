@@ -105,9 +105,14 @@ describe('media', () => {
 
     setNodeSelection(editorView, 0);
 
-    const toolbar = floatingToolbar(editorView.state, intl, {
-      allowAltTextOnImages,
-    });
+    const toolbar = floatingToolbar(
+      editorView.state,
+      intl,
+      {
+        allowAltTextOnImages,
+      },
+      undefined,
+    );
     const items = getToolbarItems(toolbar!, editorView);
 
     return {

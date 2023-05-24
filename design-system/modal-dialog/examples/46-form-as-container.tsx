@@ -26,7 +26,7 @@ export default function FormAsContainer() {
 
   return (
     <div>
-      <Button onClick={open} testId="modal-trigger">
+      <Button appearance="primary" onClick={open} testId="modal-trigger">
         Open Modal
       </Button>
 

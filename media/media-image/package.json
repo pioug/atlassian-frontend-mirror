@@ -49,9 +49,9 @@
   },
   "devDependencies": {
     "@atlaskit/docs": "^9.1.0",
-    "@atlaskit/media-common": "^4.1.0",
+    "@atlaskit/media-common": "^5.0.0",
     "@atlaskit/media-test-helpers": "^33.0.0",
-    "@atlaskit/select": "^16.2.0",
+    "@atlaskit/select": "^16.3.0",
     "@atlaskit/spinner": "^15.5.0",
     "@atlaskit/textfield": "^5.4.0",
     "@atlaskit/theme": "^12.5.0",

@@ -9,26 +9,18 @@ import {
   WithAnalyticsEventsProps,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
-import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import { MimeTypeIcon } from '@atlaskit/media-ui/mime-type-icon';
 import SpinnerIcon from '@atlaskit/spinner';
 import Tooltip from '@atlaskit/tooltip';
-import { toHumanReadableMediaSize, messages } from '@atlaskit/media-ui';
+import { messages } from '@atlaskit/media-ui';
 import { isRateLimitedError, isPollingError } from '@atlaskit/media-client';
 
-import { SharedCardProps, CardStatus, CardDimensionValue } from '../types';
-import { FileCardImageView } from './cardImageView';
-import { breakpointSize } from '../utils/breakpoint';
-import {
-  defaultImageCardDimensions,
-  getDefaultCardDimensions,
-} from '../utils/cardDimensions';
+import { SharedCardProps, CardStatus } from '../types';
+import { defaultImageCardDimensions } from '../utils/cardDimensions';
 import { isValidPercentageUnit } from '../utils/isValidPercentageUnit';
-import { getCSSUnitValue } from '../utils/getCSSUnitValue';
 import { getElementDimension } from '../utils/getElementDimension';
 import { createAndFireMediaCardEvent } from '../utils/analytics';
 import { attachDetailsToActions } from './actions';
-import { getErrorMessage } from '../utils/getErrorMessage';
 import { cardImageContainerStyles, calcBreakpointSize } from './ui/styles';
 import { ImageRenderer } from './ui/imageRenderer/imageRenderer';
 import { TitleBox } from './ui/titleBox/titleBox';
@@ -50,8 +42,8 @@ import {
 import { isUploadError, MediaCardError } from '../errors';
 import { CardPreview } from '../types';
 import { MediaCardCursor } from '../types';
-import { NewFileExperienceWrapper } from './ui/newFileExperience/newFileExperienceWrapper';
-import { Wrapper } from './cardImageView/cardViewWrapper';
+import { Wrapper } from './ui/wrapper';
+import { fileCardImageViewSelector } from './classnames';
 
 export interface CardViewOwnProps extends SharedCardProps {
   readonly status: CardStatus;
@@ -156,22 +148,6 @@ export class CardViewBase extends React.Component<
     this.setState({ didImageRender: false });
     onImageError && onImageError(cardPreview);
   };
-  // This width is only used to calculate breakpoints, dimensions are passed down as
-  // integrator pass it to the root component
-  private get width(): CardDimensionValue {
-    const { elementWidth } = this.state;
-    if (elementWidth) {
-      return elementWidth;
-    }
-
-    const { width } = this.props.dimensions || { width: undefined };
-
-    if (!width) {
-      return defaultImageCardDimensions.width;
-    }
-
-    return getCSSUnitValue(width);
-  }
 
   private get breakpoint(): Breakpoint {
     const width =
@@ -184,7 +160,7 @@ export class CardViewBase extends React.Component<
 
   // If the dimensions.width is a percentage, we need to transform it
   // into a pixel value in order to get the right breakpoints applied.
-  saveElementWidth = () => {
+  private saveElementWidth = () => {
     const { dimensions } = this.props;
     if (!dimensions) {
       return;
@@ -198,39 +174,10 @@ export class CardViewBase extends React.Component<
     }
   };
 
-  render() {
-    const { featureFlags } = this.props;
-
-    if (getMediaFeatureFlag('newCardExperience', featureFlags)) {
-      return this.renderFileNewExperience();
-    }
-
-    const { dimensions, appearance, onClick, onMouseEnter, testId } =
-      this.props;
-
-    const wrapperDimensions = dimensions
-      ? dimensions
-      : getDefaultCardDimensions(appearance);
-
-    return (
-      <Wrapper
-        testId={testId || 'media-card-view'}
-        shouldUsePointerCursor={true}
-        breakpointSize={breakpointSize(this.width)}
-        dimensions={wrapperDimensions}
-        onClick={onClick}
-        onMouseEnter={onMouseEnter}
-        innerRef={this.divRef}
-      >
-        {this.renderFile()}
-      </Wrapper>
-    );
-  }
-
   private renderSpinner(hasTitleBox: boolean) {
     return (
       <IconWrapper breakpoint={this.breakpoint} hasTitleBox={hasTitleBox}>
-        <SpinnerIcon />
+        <SpinnerIcon testId={'media-card-loading'} />
       </IconWrapper>
     );
   }
@@ -360,7 +307,7 @@ export class CardViewBase extends React.Component<
     return <ActionsBar actions={actionsWithDetails} />;
   }
 
-  private renderFileNewExperience = () => {
+  render() {
     const {
       dimensions,
       appearance,
@@ -390,7 +337,7 @@ export class CardViewBase extends React.Component<
     const shouldDisplayTooltip = !disableOverlay;
 
     return (
-      <NewFileExperienceWrapper
+      <Wrapper
         testId={testId || 'media-card-view'}
         dimensions={dimensions}
         appearance={appearance}
@@ -408,65 +355,14 @@ export class CardViewBase extends React.Component<
       >
         {shouldDisplayTooltip ? (
           <Tooltip content={name} position="bottom" tag={'div'}>
-            {this.renderNewExperienceCard()}
+            {this.renderContents()}
           </Tooltip>
         ) : (
-          this.renderNewExperienceCard()
+          this.renderContents()
         )}
-      </NewFileExperienceWrapper>
+      </Wrapper>
     );
-  };
-
-  private renderFile = () => {
-    const {
-      cardPreview,
-      status,
-      mediaItemType,
-      metadata,
-      progress,
-      resizeMode,
-      dimensions,
-      selectable,
-      selected,
-      disableOverlay,
-      alt,
-      onDisplayImage,
-      actions,
-    } = this.props;
-    const { dataURI, orientation } = cardPreview || {};
-
-    const { name, mediaType, mimeType, size } = metadata || {};
-    const actionsWithDetails =
-      metadata && actions ? attachDetailsToActions(actions, metadata) : [];
-    const errorMessage = getErrorMessage(status);
-    const fileSize = !size ? '' : toHumanReadableMediaSize(size);
-
-    return (
-      <FileCardImageView
-        error={errorMessage}
-        dimensions={dimensions}
-        selectable={selectable}
-        selected={selected}
-        dataURI={dataURI}
-        mediaName={name}
-        mediaType={mediaType}
-        mimeType={mimeType}
-        fileSize={fileSize}
-        status={status}
-        mediaItemType={mediaItemType}
-        progress={progress}
-        resizeMode={resizeMode}
-        onDisplayImage={onDisplayImage}
-        actions={actionsWithDetails}
-        disableOverlay={disableOverlay}
-        previewOrientation={orientation}
-        alt={alt}
-        onImageLoad={this.onImageLoad}
-        onImageError={this.onImageError}
-        cardPreview={cardPreview}
-      />
-    );
-  };
+  }
 
   private getRenderConfigByStatus = (): RenderConfigByStatus => {
     const {
@@ -563,7 +459,7 @@ export class CardViewBase extends React.Component<
     }
   };
 
-  private renderNewExperienceCard = () => {
+  private renderContents = () => {
     const {
       renderTypeIcon,
       iconMessage,
@@ -587,8 +483,8 @@ export class CardViewBase extends React.Component<
       <React.Fragment>
         <div
           css={cardImageContainerStyles}
-          className="media-file-card-view"
-          data-testid="media-file-card-view"
+          className={fileCardImageViewSelector}
+          data-testid={fileCardImageViewSelector}
           data-test-media-name={name}
           data-test-status={status}
           data-test-progress={progress}

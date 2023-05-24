@@ -117,18 +117,14 @@ describe('MediaInline', () => {
   });
 
   it('should add media attrs for copy and paste', async () => {
-    const mediaInlineCard = mountMediaInline({
+    const node = mountMediaInline({
       providers: providerFactory,
       ...mockFile,
     });
-
-    mediaInlineCard.update();
-    expect(mediaInlineCard.find('[data-node-type="mediaInline"]')).toHaveLength(
-      1,
-    );
-    expect(
-      mediaInlineCard.find('[data-node-type="mediaInline"]').props(),
-    ).toEqual(
+    await flushPromises();
+    node.update();
+    expect(node.find('[data-node-type="mediaInline"]')).toHaveLength(1);
+    expect(node.find('[data-node-type="mediaInline"]').props()).toEqual(
       expect.objectContaining({
         'data-context-id': undefined,
         'data-type': 'file',

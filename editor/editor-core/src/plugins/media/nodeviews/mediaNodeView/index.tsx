@@ -23,13 +23,28 @@ import {
   SelectionBasedNodeView,
 } from '../../../../nodeviews';
 import { PortalProviderAPI } from '../../../../ui/PortalProvider';
-import WithPluginState from '../../../../ui/WithPluginState';
-import { pluginKey as widthPluginKey, WidthPluginState } from '../../../width';
+import type { WidthPluginState } from '@atlaskit/editor-plugin-width';
 import { MediaOptions } from '../../types';
 import { MediaNodeViewProps } from '../types';
 import MediaNode from './media';
 import { getAttrsFromUrl } from '@atlaskit/media-client';
 import { isMediaBlobUrlFromAttrs } from '../../utils/media-common';
+import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type mediaPlugin from '../../index';
+
+interface MediaNodeWithProvidersProps {
+  pluginInjectionApi: ExtractInjectionAPI<typeof mediaPlugin> | undefined;
+  innerComponent: (props: { width?: WidthPluginState }) => React.ReactElement;
+}
+
+const MediaNodeWithProviders = ({
+  pluginInjectionApi,
+  innerComponent,
+}: MediaNodeWithProvidersProps) => {
+  const { widthState } = useSharedPluginState(pluginInjectionApi, ['width']);
+  return innerComponent({ width: widthState });
+};
 
 class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
   createDomRef(): HTMLElement {
@@ -133,13 +148,12 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
     mediaProvider,
     contextIdentifierProvider,
   }: Providers) => {
+    const { pluginInjectionApi } = this.reactComponentProps;
+
     return (
-      <WithPluginState
-        editorView={this.view}
-        plugins={{
-          width: widthPluginKey,
-        }}
-        render={this.renderMediaNodeWithState(
+      <MediaNodeWithProviders
+        pluginInjectionApi={pluginInjectionApi}
+        innerComponent={this.renderMediaNodeWithState(
           mediaProvider,
           contextIdentifierProvider,
         )}
@@ -166,6 +180,7 @@ export const ReactMediaNode =
     eventDispatcher: EventDispatcher,
     providerFactory: ProviderFactory,
     mediaOptions: MediaOptions = {},
+    pluginInjectionApi: ExtractInjectionAPI<typeof mediaPlugin> | undefined,
   ) =>
   (node: PMNode, view: EditorView, getPos: getPosHandler) => {
     const hasIntlContext = true;
@@ -179,6 +194,7 @@ export const ReactMediaNode =
         eventDispatcher,
         providerFactory,
         mediaOptions,
+        pluginInjectionApi,
       },
       undefined,
       undefined,

@@ -28,8 +28,12 @@ export const createStubInternalApis = () => {
     // That means, there is no createAnalyticsEvent available at all.
     // This should not happen, but if it does, we will send a mock function to avoid
     // regression on SmartLinks (they are the only one using this function directly)
-    // eslint-disable-next-line no-console
-    console.error('This should never be called, if it does we have a problem');
+    if (process.env.NODE_ENV === 'development') {
+      // eslint-disable-next-line no-console
+      console.error(
+        'This should never be called, if it does we have a problem',
+      );
+    }
     return { fire: () => {} };
   };
 

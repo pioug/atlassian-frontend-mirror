@@ -12,7 +12,7 @@ import { removeBreakout } from '../../../commands/remove-breakout';
 
 // Editor plugins
 import breakoutPlugin from '../../../';
-import widthPlugin from '../../../../width';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import codeBlockPlugin from '../../../../code-block';
 
 describe('Breakout Commands: remove-breakout', () => {
@@ -22,9 +22,9 @@ describe('Breakout Commands: remove-breakout', () => {
     const { editorView } = createEditor({
       doc: doc(breakout({ mode: 'wide' })(code_block()('Hel{<>}lo'))),
       preset: new Preset<LightEditorPlugin>()
+        .add(widthPlugin)
         .add([breakoutPlugin, { allowBreakoutButton: true }])
-        .add([codeBlockPlugin, { appearance: 'full-page' }])
-        .add(widthPlugin),
+        .add([codeBlockPlugin, { appearance: 'full-page' }]),
     });
 
     removeBreakout()(editorView.state, editorView.dispatch);
@@ -37,9 +37,9 @@ describe('Breakout Commands: remove-breakout', () => {
     const { editorView } = createEditor({
       doc: doc('{<node>}', breakout({ mode: 'wide' })(code_block()('Hello'))),
       preset: new Preset<LightEditorPlugin>()
+        .add(widthPlugin)
         .add([breakoutPlugin, { allowBreakoutButton: true }])
-        .add([codeBlockPlugin, { appearance: 'full-page' }])
-        .add(widthPlugin),
+        .add([codeBlockPlugin, { appearance: 'full-page' }]),
     });
 
     removeBreakout()(editorView.state, editorView.dispatch);

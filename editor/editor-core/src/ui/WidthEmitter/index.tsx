@@ -1,8 +1,19 @@
-import React, { useEffect, useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+
 import { EditorView } from 'prosemirror-view';
-import { pluginKey as widthPluginKey } from '../../plugins/width';
-import { WidthContext } from '@atlaskit/editor-common/ui';
-import { ContextPanel } from '../ContextPanel/context';
+
+import { ContextPanel, WidthContext } from '@atlaskit/editor-common/ui';
+
+import { PluginKey, EditorState } from 'prosemirror-state';
+
+// TODO: ED-17870 This workaround will be removed here.
+// @ts-ignore
+const widthPluginKey = {
+  key: 'widthPlugin$',
+  getState: (state: EditorState) => {
+    return (state as any)['widthPlugin$'];
+  },
+} as PluginKey;
 
 export interface Props {
   editorView?: EditorView;
@@ -47,7 +58,6 @@ const WidthEmitter = ({ editorView }: Props) => {
     });
 
     dispatch(tr);
-
     return () => {};
   }, [editorView, contextPanelWidth, containerWidth]);
 

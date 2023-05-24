@@ -1,14 +1,12 @@
-import type {
-  CollabEventPresenceData,
-  CollabEventDisconnectedData,
-} from '@atlaskit/editor-common/collab';
 import { disconnectedReasonMapper } from '../disconnected-reason-mapper';
 import AnalyticsHelper from '../analytics/analytics-helper';
 import { EVENT_ACTION, EVENT_STATUS } from '../helpers/const';
 import { telepointerFromStep } from './telepointers-helper';
 import type {
+  CollabEventDisconnectedData,
+  CollabEventPresenceData,
+  CollabTelepointerPayload,
   ChannelEvent,
-  CollabEventTelepointerData,
   PresencePayload,
   StepJson,
   TelepointerPayload,
@@ -45,7 +43,7 @@ export class ParticipantsService {
       evt: 'presence' | 'telepointer' | 'disconnected',
       data:
         | CollabEventPresenceData
-        | CollabEventTelepointerData
+        | CollabTelepointerPayload
         | CollabEventDisconnectedData,
     ) => void,
     private getUser: GetUserType,
@@ -262,7 +260,7 @@ export class ParticipantsService {
    * @param emit Emit function from Provider
    */
   private emitTelepointer = (
-    data: CollabEventTelepointerData,
+    data: CollabTelepointerPayload,
     errorMessage: string,
   ): void => {
     try {

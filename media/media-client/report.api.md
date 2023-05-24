@@ -272,7 +272,6 @@ export interface FileFetcher {
     controller?: UploadController,
     uploadableFileUpfrontIds?: UploadableFileUpfrontIds,
     traceContext?: MediaTraceContext,
-    featureFlags?: MediaFeatureFlags,
   ): MediaSubscribable;
   // (undocumented)
   uploadExternal(
@@ -326,16 +325,14 @@ export type FileFetcherErrorAttributes = {
 
 // @public (undocumented)
 export type FileFetcherErrorReason =
+  | 'emptyFileName'
   | 'emptyItems'
   | 'invalidFileId'
   | 'zeroVersionFile';
 
 // @public (undocumented)
 export class FileFetcherImpl implements FileFetcher {
-  constructor(
-    mediaStore: MediaStore,
-    featureFlags?: MediaFeatureFlags | undefined,
-  );
+  constructor(mediaStore: MediaStore);
   // (undocumented)
   copyFile(
     source: CopySourceFile,
@@ -373,7 +370,6 @@ export class FileFetcherImpl implements FileFetcher {
     controller?: UploadController,
     uploadableFileUpfrontIds?: UploadableFileUpfrontIds,
     traceContext?: MediaTraceContext,
-    featureFlags?: MediaFeatureFlags,
   ): MediaSubscribable;
   // (undocumented)
   uploadExternal(
@@ -803,6 +799,7 @@ export type MediaClientErrorReason =
   | 'clientTimeoutRequest'
   | 'deprecatedEndpoint'
   | 'emptyAuth'
+  | 'emptyFileName'
   | 'emptyItems'
   | 'failedAuthProvider'
   | 'fileSizeExceedsLimit'
@@ -1115,7 +1112,6 @@ export type MediaStoreRequestOptions = RequestMetadata & {
   readonly body?: any;
   readonly clientOptions?: ClientOptions;
   readonly traceContext?: MediaTraceContext;
-  readonly resolvedAuth?: Auth;
 };
 
 // @public (undocumented)
@@ -1533,7 +1529,7 @@ export class StargateClient {
 // @public (undocumented)
 export type TouchedFiles = {
   created: CreatedTouchedFile[];
-  rejected: RejectedTouchFile[];
+  rejected?: RejectedTouchFile[];
 };
 
 // @public (undocumented)
@@ -1670,7 +1666,7 @@ export type WithMediaClientFunction = <P extends WithMediaClient>(
 
 ```json
 {
-  "@atlaskit/media-core": "^34.1.1",
+  "@atlaskit/media-core": "^34.1.2",
   "@emotion/react": "^11.7.1",
   "react": "^16.8.0"
 }

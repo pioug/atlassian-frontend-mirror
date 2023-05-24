@@ -2,7 +2,10 @@ import React from 'react';
 import { keymap } from 'prosemirror-keymap';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { EditorState, ReadonlyTransaction } from 'prosemirror-state';
-import { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import {
+  NextEditorPlugin,
+  OptionalPlugin,
+} from '@atlaskit/editor-common/types';
 import * as keymaps from '../../keymaps';
 import { openHelp, tooltip } from '../../keymaps';
 import WithPluginState from '../../ui/WithPluginState';
@@ -12,10 +15,11 @@ import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
-  addAnalytics,
   EVENT_TYPE,
   INPUT_METHOD,
-} from '../../plugins/analytics';
+} from '@atlaskit/editor-common/analytics';
+import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import QuestionCircleIcon from '@atlaskit/icon/glyph/question-circle';
 
 import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
@@ -46,9 +50,10 @@ export function createPlugin(dispatch: Function, imageEnabled: boolean) {
 const helpDialog: NextEditorPlugin<
   'helpDialog',
   {
+    dependencies: [OptionalPlugin<typeof analyticsPlugin>];
     pluginConfiguration: boolean;
   }
-> = (imageUploadProviderExists = false) => ({
+> = (imageUploadProviderExists = false, api) => ({
   name: 'helpDialog',
 
   pmPlugins() {
@@ -60,7 +65,7 @@ const helpDialog: NextEditorPlugin<
       },
       {
         name: 'helpDialogKeymap',
-        plugin: () => keymapPlugin(),
+        plugin: () => keymapPlugin(api?.dependencies.analytics?.actions),
       },
     ];
   },
@@ -75,16 +80,17 @@ const helpDialog: NextEditorPlugin<
         priority: 4000,
         keyshortcut: tooltip(openHelp),
         icon: () => <QuestionCircleIcon label="" />,
-        action(insert, state) {
+        action(insert) {
           const tr = insert('');
           openHelpCommand(tr);
-          return addAnalytics(state, tr, {
+          api?.dependencies.analytics?.actions.attachAnalyticsEvent({
             action: ACTION.HELP_OPENED,
             actionSubject: ACTION_SUBJECT.HELP,
             actionSubjectId: ACTION_SUBJECT_ID.HELP_QUICK_INSERT,
             attributes: { inputMethod: INPUT_METHOD.QUICK_INSERT },
             eventType: EVENT_TYPE.UI,
-          });
+          })(tr);
+          return tr;
         },
       },
     ],
@@ -110,7 +116,9 @@ const helpDialog: NextEditorPlugin<
   },
 });
 
-const keymapPlugin = (): SafePlugin => {
+const keymapPlugin = (
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+): SafePlugin => {
   const list = {};
   keymaps.bindKeymapWithCommand(
     keymaps.openHelp.common!,
@@ -118,13 +126,13 @@ const keymapPlugin = (): SafePlugin => {
       let { tr } = state;
       const isVisible = tr.getMeta(pluginKey);
       if (!isVisible) {
-        tr = addAnalytics(state, tr, {
+        editorAnalyticsAPI?.attachAnalyticsEvent({
           action: ACTION.CLICKED,
           actionSubject: ACTION_SUBJECT.BUTTON,
           actionSubjectId: ACTION_SUBJECT_ID.BUTTON_HELP,
           attributes: { inputMethod: INPUT_METHOD.SHORTCUT },
           eventType: EVENT_TYPE.UI,
-        });
+        })(tr);
         openHelpCommand(tr, dispatch);
       }
       return true;

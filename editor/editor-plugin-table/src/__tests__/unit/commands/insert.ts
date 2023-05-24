@@ -20,7 +20,7 @@ import tablePlugin from '../../../plugins/table/index';
 import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
 import { TablePluginState } from '../../../plugins/table/types';
 import { addColumnAt } from '../../../plugins/table/commands/insert';
-import widthPlugin from '@atlaskit/editor-core/src/plugins/width';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';

@@ -24,7 +24,6 @@ import {
   saveOnEnterPlugin,
   tasksAndDecisionsPlugin,
   textColorPlugin,
-  gridPlugin,
   statusPlugin,
   alignmentPlugin,
   indentationPlugin,
@@ -47,6 +46,7 @@ import {
   copyButtonPlugin,
   borderPlugin,
 } from '../../../plugins';
+import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import cardPlugin from '../../../plugins/card';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';

@@ -52,6 +52,7 @@ export {
   getCellDomAttrs,
   status,
   table,
+  tableWithCustomWidth,
   tableBackgroundBorderColor,
   tableBackgroundColorNames,
   tableBackgroundColorPalette,

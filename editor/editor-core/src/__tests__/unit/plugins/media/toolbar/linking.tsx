@@ -196,7 +196,7 @@ describe('media', () => {
 
     setNodeSelection(editorView, pos);
 
-    const toolbar = floatingToolbar(editorView.state, intl, options);
+    const toolbar = floatingToolbar(editorView.state, intl, options, undefined);
 
     let linkToolbarAppearance: ReactElement<LinkingToolbarProps> | undefined;
 
@@ -242,13 +242,18 @@ describe('media', () => {
       action(mouseEvent as any);
     }
 
-    const toolbar = floatingToolbar(editorView.state, intl, {
-      allowLinking: true,
-      allowAdvancedToolBarOptions: true,
-      providerFactory: ProviderFactory.create({
-        activityProvider: activityProviderFactory(items),
-      }),
-    });
+    const toolbar = floatingToolbar(
+      editorView.state,
+      intl,
+      {
+        allowLinking: true,
+        allowAdvancedToolBarOptions: true,
+        providerFactory: ProviderFactory.create({
+          activityProvider: activityProviderFactory(items),
+        }),
+      },
+      undefined,
+    );
 
     const linkingToolbarComponent = getToolbarItems(toolbar!, editorView).find(
       (item) => item.type === 'custom',

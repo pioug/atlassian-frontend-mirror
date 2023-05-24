@@ -43,8 +43,8 @@ import {
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import mediaPlugin from '../../../media';
-import widthPlugin from '../../../width';
-import gridPlugin from '../../../grid';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import selectionPlugin from '../../../selection';
 import { hideCaretModifier } from '../../gap-cursor/styles';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';

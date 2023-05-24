@@ -7,6 +7,7 @@ import styled from '@emotion/styled';
 import DownloadIcon from '@atlaskit/icon/glyph/download';
 import PreviewIcon from '@atlaskit/icon/glyph/open';
 import Tooltip from '@atlaskit/tooltip';
+import { token } from '@atlaskit/tokens';
 
 import { Provider, Client, Card } from '../src';
 import { useSmartLinkActions } from '../src/hooks';
@@ -31,14 +32,14 @@ const ExampleWrapper = styled.div`
 const ExampleToolbarWrapper = styled.div`
   box-shadow: 0 0 16px 0 #ccc;
   border-radius: 4px;
-  margin-bottom: 12px;
+  margin-bottom: ${token('space.150', '12px')};
   border-right: 1px solid #ccc;
   display: flex;
-  margin: 16px 0px;
+  margin: ${token('space.200', '16px')} 0px;
 `;
 
 const ExampleToolbarItem = styled.div`
-  padding: 8px 12px;
+  padding: ${token('space.100', '8px')} ${token('space.150', '12px')};
   text-align: center;
   text-transform: uppercase;
   font-size: 10px;

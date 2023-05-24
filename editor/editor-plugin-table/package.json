@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-table",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "description": "Table plugin for the @atlaskit/editor",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -26,14 +26,15 @@
     "releaseModel": "scheduled"
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^25.6.0",
-    "@atlaskit/editor-common": "^74.1.0",
+    "@atlaskit/adf-schema": "^25.7.0",
+    "@atlaskit/editor-common": "^74.2.0",
     "@atlaskit/editor-palette": "1.4.2",
     "@atlaskit/editor-plugin-analytics": "^0.0.1",
     "@atlaskit/editor-plugin-content-insertion": "^0.0.1",
     "@atlaskit/editor-shared-styles": "^2.4.0",
     "@atlaskit/editor-tables": "^2.3.0",
     "@atlaskit/icon": "^21.12.0",
+    "@atlaskit/platform-feature-flags": "^0.2.1",
     "@atlaskit/theme": "^12.5.0",
     "@atlaskit/tokens": "^1.4.0",
     "@atlaskit/tooltip": "^17.8.0",
@@ -62,8 +63,10 @@
   "devDependencies": {
     "@atlaskit/analytics-next": "^9.1.0",
     "@atlaskit/button": "^16.7.0",
-    "@atlaskit/editor-core": "^183.1.0",
+    "@atlaskit/editor-core": "^184.0.0",
     "@atlaskit/editor-plugin-feature-flags": "^0.1.0",
+    "@atlaskit/editor-plugin-grid": "^0.1.0",
+    "@atlaskit/editor-plugin-width": "^0.0.1",
     "@atlaskit/editor-test-helpers": "^18.4.0",
     "@atlaskit/link-provider": "^1.6.0",
     "@atlaskit/logo": "^13.14.0",
@@ -97,6 +100,11 @@
       "styling": [
         "emotion"
       ]
+    }
+  },
+  "platform-feature-flags": {
+    "platform.editor.custom-table-width": {
+      "type": "boolean"
     }
   }
 }

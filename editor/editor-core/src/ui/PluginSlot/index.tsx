@@ -18,7 +18,7 @@ const pluginsComponentsWrapper = css`
 `;
 
 export interface Props {
-  items?: Array<UIComponentFactory>;
+  items?: UIComponentFactory[];
   editorView?: EditorView;
   editorActions?: EditorActions;
   eventDispatcher?: EventDispatcher;

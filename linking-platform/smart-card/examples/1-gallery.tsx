@@ -67,6 +67,7 @@ type ExampleState = {
   authFlow: CardContext['config']['authFlow'];
 };
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 const divWithMarginStyles = css`
   margin: 10px 0;
 `;

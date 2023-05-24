@@ -1,4 +1,4 @@
-import { CollabEventTelepointerData, Config, PresencePayload } from '../types';
+import { CollabTelepointerPayload, Config, PresencePayload } from '../types';
 import { createSocketIOCollabProvider } from '../socket-io-provider';
 import { collab } from '@atlaskit/prosemirror-collab';
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
@@ -446,7 +446,7 @@ describe('Collab Provider Integration Tests - Confluence', () => {
     it('should send a message (sendMessage)', () => {
       provider.initialize(getStateMock);
 
-      const telepointerData: CollabEventTelepointerData = {
+      const telepointerData: CollabTelepointerPayload = {
         type: 'telepointer',
         selection: {
           type: 'textSelection',
@@ -462,7 +462,7 @@ describe('Collab Provider Integration Tests - Confluence', () => {
     });
 
     it('should not throw an error when sendMessage fails to broadcast', () => {
-      const telepointerData: CollabEventTelepointerData = {
+      const telepointerData: CollabTelepointerPayload = {
         type: 'telepointer',
         selection: {
           type: 'textSelection',

@@ -1,5 +1,11 @@
 # @atlaskit/modal-dialog
 
+## 12.5.4
+
+### Patch Changes
+
+- [`e3eff9117fe`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e3eff9117fe) - Update examples to use CTAs with sufficient contrast.
+
 ## 12.5.3
 
 ### Patch Changes

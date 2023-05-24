@@ -26,8 +26,8 @@ import {
 import listPlugin from '../..';
 import blockTypePlugin from '../../../block-type';
 import breakoutPlugin from '../../../breakout';
-import widthPlugin from '../../../width';
-import gridPlugin from '../../../grid';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import layoutPlugin from '../../../layout';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import mediaPlugin from '../../../media';
@@ -48,10 +48,10 @@ describe('lists', () => {
       .add([featureFlagsPlugin, {}])
       .add([analyticsPlugin, {}])
       .add(contentInsertionPlugin)
+      .add(widthPlugin)
       .add(listPlugin)
       .add(blockTypePlugin)
       .add([breakoutPlugin, { allowBreakoutButton: true }])
-      .add(widthPlugin)
       .add(gridPlugin)
       .add([layoutPlugin, { allowBreakout: true }])
       .add(tablesPlugin)

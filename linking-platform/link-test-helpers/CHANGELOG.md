@@ -1,5 +1,11 @@
 # @atlaskit/link-test-helpers
 
+## 4.0.1
+
+### Patch Changes
+
+- [`d86bc75af82`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d86bc75af82) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
+
 ## 4.0.0
 
 ### Major Changes

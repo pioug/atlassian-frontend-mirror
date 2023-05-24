@@ -58,12 +58,13 @@ async function checkScrollTo(
   };
 }
 
-// These tests are flakey and they should be fixed under this ticket -> https://product-fabric.atlassian.net/browse/ED-10026
+// All tests Permanently skipped the fix ticket was marked as Won't Do -> https://product-fabric.atlassian.net/browse/ED-10026
 // Tests for `scrollToContentNode`:
-
 BrowserTestCase(
   `scroll-to.ts: call scrollToContentNode() for a Mention on renderer bridge.`,
-  { skip: ['*'] },
+  {
+    skip: ['*'],
+  },
   async function (client: any, testName: string) {
     const browser = await loadExampleDocument(client);
     const mentionId = '0'; // matches @Carolyn
@@ -85,7 +86,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   `scroll-to.ts: call scrollToContentNode() for an Action on renderer bridge.`,
-  { skip: ['*'] },
+  {},
   async function (client: any, testName: string) {
     const browser = await loadExampleDocument(client);
     const { initialScrollY, finalScrollY } = await checkScrollTo(
@@ -106,7 +107,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   `scroll-to.ts: call scrollToContentNode() for a Decision on renderer bridge.`,
-  { skip: ['*'] },
+  {},
   async function (client: any, testName: string) {
     const browser = await loadExampleDocument(client);
     const { initialScrollY, finalScrollY } = await checkScrollTo(
@@ -127,7 +128,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   `scroll-to.ts: call scrollToContentNode() for a Heading on renderer bridge.`,
-  { skip: ['*'] },
+  {},
   async function (client: any, testName: string) {
     const browser = await loadExampleDocument(client);
     const { initialScrollY, finalScrollY } = await checkScrollTo(
@@ -148,7 +149,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   `scroll-to.ts: call scrollToContentNode() for a nested Heading inside expand on renderer bridge.`,
-  { skip: ['*'] },
+  {},
   async function (client: any, testName: string) {
     const browser = await loadExampleDocument(client);
     const { initialScrollY, finalScrollY } = await checkScrollTo(
@@ -176,7 +177,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   `scroll-to.ts: call scrollToContentNode() multiple times on same nested heading inside expand on renderer bridge.`,
-  { skip: ['*'] },
+  {},
   async function (client: any, testName: string) {
     const browser = await loadExampleDocument(client);
     await checkScrollTo(browser, async () => {
@@ -220,7 +221,6 @@ BrowserTestCase(
 );
 
 // Tests for `getContentNodeScrollOffset`:
-
 BrowserTestCase(
   `scroll-to.ts: call getContentNodeScrollOffset() for a Mention on renderer bridge.`,
   { skip: ['*'] },
@@ -371,10 +371,11 @@ BrowserTestCase(
 );
 
 // Tests for `getContentNodeScrollOffsetY`:
-
 BrowserTestCase(
   `scroll-to.ts: call getContentNodeScrollOffsetY() for a Mention on renderer bridge.`,
-  { skip: ['*'] },
+  {
+    skip: ['*'],
+  },
   async function (client: any, testName: string) {
     const browser = await loadExampleDocument(client);
     const mentionId = '0'; // matches @Carolyn
@@ -407,7 +408,9 @@ BrowserTestCase(
 
 BrowserTestCase(
   `scroll-to.ts: call getContentNodeScrollOffsetY() for a Decision on renderer bridge.`,
-  { skip: ['*'] },
+  {
+    skip: ['*'],
+  },
   async function (client: any, testName: string) {
     const browser = await loadExampleDocument(client);
     const localId = '695d2be8-528a-4ec0-9eb7-351763af6f94';

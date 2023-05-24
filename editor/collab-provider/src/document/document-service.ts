@@ -5,6 +5,7 @@ import {
   ChannelEvent,
   CollabEvents,
   CollabInitPayload,
+  ResolvedEditorState,
   StepJson,
   StepsPayload,
 } from '../types';
@@ -12,12 +13,11 @@ import type { Step as ProseMirrorStep } from 'prosemirror-transform';
 import type { MetadataService } from '../metadata/metadata-service';
 
 import { getVersion, sendableSteps } from '@atlaskit/prosemirror-collab';
-import { SyncUpErrorFunction } from '@atlaskit/editor-common/types';
+import { SyncUpErrorFunction } from '../types';
 import type { EditorState, Transaction } from 'prosemirror-state';
 import { createLogger, sleep } from '../helpers/utils';
 import throttle from 'lodash/throttle';
 import { throttledCommitStep } from '../provider/commit-step';
-import { ResolvedEditorState } from '@atlaskit/editor-common/collab';
 import {
   MEASURE_NAME,
   startMeasure,

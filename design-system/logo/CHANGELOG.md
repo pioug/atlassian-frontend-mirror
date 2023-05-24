@@ -1,5 +1,11 @@
 # @atlaskit/logo
 
+## 13.14.3
+
+### Patch Changes
+
+- [`77766ad157d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/77766ad157d) - Enrol packages to push-model consumption in Jira.
+
 ## 13.14.2
 
 ### Patch Changes

@@ -223,10 +223,6 @@ interface ErrorCardProps extends StaticCardProps {
 }
 
 // @public (undocumented)
-export const fileCardImageViewSelectedSelector =
-  'media-file-card-view-selected';
-
-// @public (undocumented)
 export const fileCardImageViewSelector = 'media-file-card-view';
 
 // @public (undocumented)
@@ -301,9 +297,9 @@ export class MediaInlineCard extends React_2.PureComponent<
   // (undocumented)
   static ErrorBoundary?: ErrorBoundaryComponent;
   // (undocumented)
-  isMounted: boolean;
-  // (undocumented)
   static MediaInlineCard?: MediaInlineCardWithMediaClientConfigComponent;
+  // (undocumented)
+  mounted: boolean;
   // (undocumented)
   render(): JSX.Element;
   // (undocumented)

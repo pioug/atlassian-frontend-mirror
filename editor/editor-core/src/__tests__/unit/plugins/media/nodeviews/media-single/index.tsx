@@ -535,11 +535,11 @@ describe('nodeviews/mediaSingle', () => {
       )(node, testView, getPos);
       const mediaSingleNodeSelectedProp = shallow(
         nodeView.render({} as MediaSingleNodeViewProps, () => {}),
-      )
-        .props()
-        .render({ width: 20, mediaPluginState: {} }).props.selected;
+      ).props();
 
-      expect(mediaSingleNodeSelectedProp).toEqual(nodeView.isNodeSelected);
+      expect(mediaSingleNodeSelectedProp.selected).toEqual(
+        nodeView.isNodeSelected,
+      );
     });
   });
 });

@@ -137,14 +137,9 @@ BrowserTestCase(
   },
 );
 
-// FIXME: This test was automatically skipped due to failure on 25/02/2023: https://product-fabric.atlassian.net/browse/ED-16995
 BrowserTestCase(
   'should render panel with icon using fallback text when icon short name is incorrect when allowCustomPanelEdit is true',
-  // TODO: Skipped safari, need to unskip again after fixing: https://product-fabric.atlassian.net/browse/ED-16306
-  {
-    // skip: ['safari'],
-    skip: ['*'],
-  },
+  {},
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {

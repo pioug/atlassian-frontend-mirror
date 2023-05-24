@@ -1,5 +1,11 @@
 # @atlaskit/banner
 
+## 12.1.3
+
+### Patch Changes
+
+- [`b95cc173965`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b95cc173965) - Moves banner to continuous releases and push model consumption - no code changes
+
 ## 12.1.2
 
 ### Patch Changes

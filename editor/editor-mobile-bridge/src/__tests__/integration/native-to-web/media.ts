@@ -37,8 +37,7 @@ const mobileUploadEndPayload = (publicId: string, collectionName: string) => ({
 
 BrowserTestCase(
   `media.ts: Collection + Dimensions => uploading`,
-  // TODO: https://product-fabric.atlassian.net/browse/MEX-1842
-  { skip: ['*'] },
+  {},
   async (client: any, testName: string) => {
     const browser = new Page(client);
 
@@ -65,7 +64,9 @@ BrowserTestCase(
 BrowserTestCase(
   `media.ts: Collection + Dimensions => complete`,
   // TODO: https://product-fabric.atlassian.net/browse/MEX-1842
-  { skip: ['*'] },
+  {
+    skip: ['*'],
+  },
   async (client: any, testName: string) => {
     const browser = new Page(client);
 
@@ -104,7 +105,9 @@ BrowserTestCase(
 BrowserTestCase(
   `media.ts: Collection + No dimension => uploading`,
   // TODO: https://product-fabric.atlassian.net/browse/MEX-1842
-  { skip: ['*'] },
+  {
+    skip: ['*'],
+  },
   async (client: any, testName: string) => {
     const browser = new Page(client);
 
@@ -126,7 +129,9 @@ BrowserTestCase(
 BrowserTestCase(
   `media.ts: Collection + No dimension => complete`,
   // TODO: https://product-fabric.atlassian.net/browse/MEX-1842
-  { skip: ['*'] },
+  {
+    skip: ['*'],
+  },
   async (client: any, testName: string) => {
     const browser = new Page(client);
 
@@ -159,8 +164,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   `media.ts: Empty collection + Dimensions => uploading`,
-  // TODO: https://product-fabric.atlassian.net/browse/MEX-1842
-  { skip: ['*'] },
+  {},
   async (client: any, testName: string) => {
     const browser = new Page(client);
 
@@ -187,7 +191,9 @@ BrowserTestCase(
 BrowserTestCase(
   `media.ts: Empty collection + Dimensions => complete`,
   // TODO: https://product-fabric.atlassian.net/browse/MEX-1842
-  { skip: ['*'] },
+  {
+    skip: ['*'],
+  },
   async (client: any, testName: string) => {
     const browser = new Page(client);
 
@@ -223,7 +229,9 @@ BrowserTestCase(
 BrowserTestCase(
   `media.ts: Empty collection + No dimension => uploading`,
   // TODO: https://product-fabric.atlassian.net/browse/MEX-1842
-  { skip: ['*'] },
+  {
+    skip: ['*'],
+  },
   async (client: any, testName: string) => {
     const browser = new Page(client);
 
@@ -245,7 +253,9 @@ BrowserTestCase(
 BrowserTestCase(
   `media.ts: Empty collection + No dimension => complete`,
   // TODO: https://product-fabric.atlassian.net/browse/MEX-1842
-  { skip: ['*'] },
+  {
+    skip: ['*'],
+  },
   async (client: any, testName: string) => {
     const browser = new Page(client);
 

@@ -3,14 +3,14 @@ import { Step } from 'prosemirror-transform';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import memoizeOne from 'memoize-one';
 
-import { CollabEditProvider } from '../provider';
+import type {
+  CollabEditProvider,
+  SyncUpErrorFunction,
+} from '@atlaskit/collab-provider';
 import { PrivateCollabEditOptions } from '../types';
 import { subscribe, Cleanup } from './handlers';
 import { pluginKey } from '../plugin-key';
-import {
-  FeatureFlags,
-  SyncUpErrorFunction,
-} from '@atlaskit/editor-common/types';
+import { FeatureFlags } from '@atlaskit/editor-common/types';
 
 const initCollab = (
   collabEditProvider: CollabEditProvider,

@@ -65,7 +65,6 @@ BrowserTestCase(
   },
 );
 
-// FIXME: This test was automatically skipped due to failure on 24/01/2023: https://product-fabric.atlassian.net/browse/ED-16637
 BrowserTestCase(
   'match-case.ts: find with Match Case button toggled on should find results that exactly match case',
   {},

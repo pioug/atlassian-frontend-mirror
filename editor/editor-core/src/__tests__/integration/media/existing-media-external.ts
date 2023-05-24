@@ -9,6 +9,7 @@ import {
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
 import { sleep } from '@atlaskit/media-test-helpers';
+import { mediaImageSelector } from '@atlaskit/editor-test-helpers/page-objects/media';
 
 const baseADF = {
   version: 1,
@@ -52,7 +53,7 @@ BrowserTestCase(
       },
     });
 
-    await page.waitForSelector('.ProseMirror .wrapper');
+    await page.waitForSelector(mediaImageSelector);
     await sleep(0);
     const doc = await page.$eval(editable, getDocFromElement);
     expect(doc).toMatchCustomDocSnapshot(testCase);

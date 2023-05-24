@@ -4,6 +4,7 @@ import {
   ERROR_LOADING_TEXT,
   FINAL_ERROR_LOADING_TEXT,
   TAP_TO_LOAD_TEXT,
+  TAP_TO_OPEN_BROWSER_TEXT,
   TAP_TO_REFRESH_PAGE_TEXT,
   TAP_TO_RETRY_TEXT,
   TAP_TO_VIEW_TEXT,
@@ -18,6 +19,11 @@ export const legacyMobileMacrosMessages = defineMessages({
   tapToViewMacro: {
     id: 'fabric.editor.confluence.legacyMobileMacros.tapToViewMacroMacro',
     defaultMessage: TAP_TO_VIEW_TEXT,
+    description: 'Tap block to view macro',
+  },
+  tapToOpenBrowser: {
+    id: 'fabric.editor.confluence.legacyMobileMacros.tapToOpenBrowser',
+    defaultMessage: TAP_TO_OPEN_BROWSER_TEXT,
     description: 'Tap block to view macro',
   },
   tapToRetryLoadingMacro: {

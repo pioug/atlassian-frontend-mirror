@@ -39,11 +39,6 @@ export type {
   TypeAheadHandler,
 } from './type-ahead';
 
-export type {
-  NewCollabSyncUpErrorAttributes,
-  SyncUpErrorFunction,
-} from './collab';
-
 export type { CommandDispatch, Command, HigherOrderCommand } from './command';
 export type {
   FeatureFlags,
@@ -147,6 +142,7 @@ export type {
   NextEditorPluginMetadata,
   ExtractInjectionAPI,
   ExtractPluginActions,
+  PluginInjectionAPIWithDependency,
 } from './next-editor-plugin';
 
 export type IconProps = {
@@ -169,3 +165,5 @@ export type {
   RenderTracking,
   PerformanceTracking,
 } from './performance-tracking';
+
+export type { GridType } from './grid';

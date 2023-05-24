@@ -546,7 +546,7 @@ function LinkPicker({
                   tabList
                 )}
               </Tabs>
-              <TrackTabViewed activeTab={activeTab} />
+              <TrackTabViewed activePlugin={activePlugin} />
             </div>
           )}
           <div css={flexColumnStyles} {...fixListHeightProps}>
@@ -582,20 +582,4 @@ function LinkPicker({
   );
 }
 
-const DefaultRootComponent = ({
-  children,
-}: Omit<React.HTMLAttributes<HTMLDivElement>, 'onSubmit'> &
-  LinkPickerProps) => {
-  return <div data-testid={testIds.linkPickerRoot}>{children}</div>;
-};
-
-export default withLinkPickerAnalyticsContext(
-  memo(({ component, ...props }: LinkPickerProps) => {
-    const RootComponent = component ?? DefaultRootComponent;
-    return (
-      <RootComponent {...props} data-testid={testIds.linkPickerRoot}>
-        <LinkPicker {...props} />
-      </RootComponent>
-    );
-  }),
-);
+export default withLinkPickerAnalyticsContext(memo(LinkPicker));

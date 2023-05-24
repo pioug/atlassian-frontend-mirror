@@ -1,5 +1,11 @@
 # @atlaskit/media-common
 
+## 5.0.0
+
+### Major Changes
+
+- [`e725edbb0d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e725edbb0d9) - Removed feature flag fetchFileStateAfterUpload
+
 ## 4.1.2
 
 ### Patch Changes

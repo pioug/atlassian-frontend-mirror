@@ -4,7 +4,7 @@ import { InlinePlayerWrapperProps } from './types';
 import {
   inlinePlayerWrapperStyles,
   inlinePlayerClassName,
-} from './styles/styles';
+} from './inlinePlayerWrapperStyles';
 
 export const InlinePlayerWrapper = (props: InlinePlayerWrapperProps) => {
   const { testId, selected, dimensions, onClick, innerRef } = props;

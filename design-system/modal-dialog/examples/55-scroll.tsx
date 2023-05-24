@@ -74,7 +74,7 @@ export default function ExampleScroll() {
       </Field>
 
       <br />
-      <Button onClick={open} testId="modal-trigger">
+      <Button appearance="primary" onClick={open} testId="modal-trigger">
         Open modal
       </Button>
 

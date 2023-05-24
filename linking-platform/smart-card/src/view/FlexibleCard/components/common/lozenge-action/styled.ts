@@ -16,7 +16,7 @@ export const triggerButtonStyles = css`
   text-transform: unset;
 
   border: 2px solid transparent;
-  margin: 2px;
+  margin: ${token('space.025', '2px')};
 
   &:focus-visible,
   &:focus-within,
@@ -27,12 +27,15 @@ export const triggerButtonStyles = css`
   }
 `;
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 export const triggerLozengeStyles = css`
   align-items: center;
   display: flex;
 
   span[role='img'] {
-    margin: -4px -8px -4px -1px;
+    margin: calc(-1 * ${token('space.050', '4px')})
+      calc(-1 * ${token('space.100', '8px')})
+      calc(-1 * ${token('space.050', '4px')}) -1px;
   }
 `;
 
@@ -41,7 +44,7 @@ export const dropdownItemGroupStyles = css`
   overflow-y: auto;
 
   button {
-    padding: 6px 12px;
+    padding: ${token('space.075', '6px')} ${token('space.150', '12px')};
     min-height: 28px;
     width: 220px;
 

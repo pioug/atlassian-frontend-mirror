@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+
+import { Label } from '@atlaskit/form';
+
 import { cities } from './common/data';
 import { AsyncSelect, OptionsType } from '../src';
 
@@ -30,7 +33,15 @@ export default class WithPromises extends Component<{}, State> {
 
   render() {
     return (
-      <AsyncSelect cacheOptions defaultOptions loadOptions={promiseOptions} />
+      <>
+        <Label htmlFor="async-example">Which country do you live in?</Label>
+        <AsyncSelect
+          inputId="async-example"
+          cacheOptions
+          defaultOptions
+          loadOptions={promiseOptions}
+        />
+      </>
     );
   }
 }

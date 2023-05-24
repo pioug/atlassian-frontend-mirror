@@ -8,9 +8,9 @@ import { cardKeymap } from './pm-plugins/keymap';
 import { CardPluginOptions } from './types';
 import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type widthPlugin from '../width';
+import type { widthPlugin } from '@atlaskit/editor-plugin-width';
 import type basePlugin from '../base';
-import type gridPlugin from '../grid';
+import type { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import { EditorSmartCardEventsNext } from './ui/EditorSmartCardEventsNext';
 
 const cardPlugin: NextEditorPlugin<

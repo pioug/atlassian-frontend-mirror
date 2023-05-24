@@ -13,7 +13,9 @@ import {
   ACTION_SUBJECT,
 } from '../analytics/types';
 
-import { CollabEditOptions, CollabParticipant } from './types';
+import type { CollabParticipant } from '@atlaskit/collab-provider';
+
+import { CollabEditOptions } from './types';
 
 export interface Color {
   solid: string;

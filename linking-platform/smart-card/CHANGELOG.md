@@ -1,5 +1,23 @@
 # @atlaskit/smart-card
 
+## 26.3.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.3.5
+
+### Patch Changes
+
+- [`36b440f8c7f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/36b440f8c7f) - Disable prop-drilling of analytics dispatch function
+
+## 26.3.4
+
+### Patch Changes
+
+- [`d86bc75af82`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d86bc75af82) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
+
 ## 26.3.3
 
 ### Patch Changes

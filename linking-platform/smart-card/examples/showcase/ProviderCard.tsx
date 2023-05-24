@@ -17,8 +17,8 @@ import { ProviderCardExampleList } from './ProviderCardExampleList';
 
 const getWrapperStyles = ({ disabled }: { disabled: boolean }) => {
   const base = css`
-    padding: 24px;
-    margin-bottom: 24px;
+    padding: ${token('space.300', '24px')};
+    margin-bottom: ${token('space.300', '24px')};
     box-shadow: ${token(
       'elevation.shadow.raised',
       `0 1px 1px ${N50A}, 0 0 1px 1px ${N40A}`,
@@ -53,7 +53,7 @@ const headerStyles = css`
 `;
 const lozengeWrapperStyles = css`
   margin: 0;
-  margin-left: 8px;
+  margin-left: ${token('space.100', '8px')};
   display: flex;
   align-items: center;
 `;

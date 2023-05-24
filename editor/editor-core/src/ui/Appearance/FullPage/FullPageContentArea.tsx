@@ -2,7 +2,7 @@
 import { jsx, useTheme } from '@emotion/react';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { WidthConsumer } from '@atlaskit/editor-common/ui';
-import { ContextPanelConsumer } from '../../ContextPanel/context';
+import { ContextPanelConsumer } from '@atlaskit/editor-common/ui';
 import { EditorView } from 'prosemirror-view';
 import React, { ReactElement } from 'react';
 import { WrappedComponentProps, injectIntl } from 'react-intl-next';

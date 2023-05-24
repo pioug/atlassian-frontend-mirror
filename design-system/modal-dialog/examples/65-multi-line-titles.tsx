@@ -48,7 +48,7 @@ export default function MultiLineTitles() {
 
   return (
     <div style={{ padding: 16 }}>
-      <Button testId="modal-trigger" onClick={open}>
+      <Button appearance="primary" testId="modal-trigger" onClick={open}>
         Open modal
       </Button>
 

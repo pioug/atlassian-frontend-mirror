@@ -51,12 +51,9 @@ BrowserTestCase(
 );
 
 describe('with feature flag: lp-link-picker', () => {
-  // FIXME: This test was automatically skipped due to failure on 27/03/2023: https://product-fabric.atlassian.net/browse/ED-17304
   BrowserTestCase(
     `card: selecting a link from CMD + K menu should create an inline card with click`,
-    {
-      skip: ['*'],
-    },
+    {},
     async (client: ConstructorParameters<typeof Page>[0], testName: string) => {
       const page = await goToEditorTestingWDExample(client);
       await mountEditor(

@@ -4,7 +4,7 @@ import { Component } from 'react';
 import {
   defaultCollectionName,
   defaultMediaPickerCollectionName,
-  defaultMediaPickerAuthProvider,
+  mediaPickerAuthProvider,
 } from '@atlaskit/media-test-helpers';
 import Button from '@atlaskit/button/standard-button';
 import DropdownMenu, { DropdownItem } from '@atlaskit/dropdown-menu';
@@ -38,7 +38,7 @@ class BrowserWrapper extends Component<{}, BrowserWrapperState> {
 
   componentDidMount() {
     const mediaClientConfig: MediaClientConfig = {
-      authProvider: defaultMediaPickerAuthProvider(),
+      authProvider: mediaPickerAuthProvider(),
     };
     const uploadParams: UploadParams = {
       collection: this.state.collectionName,

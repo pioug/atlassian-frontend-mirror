@@ -1,5 +1,20 @@
 # @atlaskit/editor-common
 
+## 74.2.0
+
+### Minor Changes
+
+- [`1549c2e6dda`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1549c2e6dda) - Extract width plugin from `editor-core` to separate `editor-plugin-width` package.
+- [`f055b886032`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f055b886032) - Extract the grid plugin to a separate package.
+
+### Patch Changes
+
+- [`6b56797b868`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6b56797b868) - Dummy changeset to trigger a pre-release of editor-common
+- [`10ddf00db40`](https://bitbucket.org/atlassian/atlassian-frontend/commits/10ddf00db40) - [ux] add a handler size option and relevant style and demo page
+- [`94561f309f3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/94561f309f3) - New stage-0 change: custom "width" attribute on Tables nodes
+- [`b7086232a7c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b7086232a7c) - ESS-3135: move collab provider types into @atlaskit/collab-provider
+- Updated dependencies
+
 ## 74.1.2
 
 ### Patch Changes

@@ -16,14 +16,10 @@ export default function DefaultModal() {
   const [isOpen, setIsOpen] = useState(false);
   const open = useCallback(() => setIsOpen(true), []);
   const close = useCallback(() => setIsOpen(false), []);
-  const secondaryAction = useCallback(
-    () => alert('Secondary button has been clicked!'),
-    [],
-  );
 
   return (
     <div>
-      <Button onClick={open} testId="modal-trigger">
+      <Button appearance="primary" onClick={open} testId="modal-trigger">
         Open Modal
       </Button>
 
@@ -37,11 +33,7 @@ export default function DefaultModal() {
               <Lorem count={2} />
             </ModalBody>
             <ModalFooter>
-              <Button
-                testId="secondary"
-                appearance="subtle"
-                onClick={secondaryAction}
-              >
+              <Button testId="secondary" appearance="subtle" onClick={close}>
                 Secondary Action
               </Button>
               <Button

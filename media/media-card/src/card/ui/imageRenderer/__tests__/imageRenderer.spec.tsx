@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { ImageRenderer } from '../imageRenderer';
-import { resizeModeToMediaImageProps } from '../../../../utils/resizeModeToMediaImageProps';
+import { resizeModeToMediaImageProps } from '../resizeModeToMediaImageProps';
 import { MediaType } from '@atlaskit/media-client';
 import { MediaImage } from '@atlaskit/media-ui';
 

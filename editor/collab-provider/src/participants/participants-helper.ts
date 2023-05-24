@@ -1,5 +1,4 @@
-import type { CollabParticipant } from '@atlaskit/editor-common/collab';
-import type { PresencePayload } from '../types';
+import type { CollabParticipant, PresencePayload } from '../types';
 
 export const PARTICIPANT_UPDATE_INTERVAL = 300 * 1000; // 300 seconds
 

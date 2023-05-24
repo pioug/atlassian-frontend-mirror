@@ -14,6 +14,8 @@ import type { Providers } from '@atlaskit/editor-common/provider-factory';
 import { ProsemirrorGetPosHandler } from '../../../../nodeviews/types';
 import { EditorAppearance } from '../../../../types/editor-appearance';
 import ExtensionComponent from './ExtensionComponent';
+import type { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { PluginInjectionAPIWithDependency } from '@atlaskit/editor-common/types';
 
 export interface Props {
   editorView: EditorView;
@@ -24,6 +26,9 @@ export interface Props {
   extensionHandlers: ExtensionHandlers;
   references?: ReferenceEntity[];
   editorAppearance?: EditorAppearance;
+  pluginInjectionApi:
+    | PluginInjectionAPIWithDependency<typeof widthPlugin>
+    | undefined;
 }
 
 export default class Extension extends Component<Props, any> {
@@ -53,6 +58,7 @@ export default class Extension extends Component<Props, any> {
       extensionHandlers,
       references,
       editorAppearance,
+      pluginInjectionApi,
     } = this.props;
 
     return (
@@ -65,6 +71,7 @@ export default class Extension extends Component<Props, any> {
         handleContentDOMRef={handleContentDOMRef}
         extensionHandlers={extensionHandlers}
         editorAppearance={editorAppearance}
+        pluginInjectionApi={pluginInjectionApi}
       />
     );
   };

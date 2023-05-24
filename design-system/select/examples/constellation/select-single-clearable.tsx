@@ -1,9 +1,10 @@
 import React from 'react';
+import { Label } from '@atlaskit/form';
 import Select from '../../src';
 
 const SelectSingleClearable = () => (
   <>
-    <label htmlFor="single-select-example">What city do you live in?</label>
+    <Label htmlFor="single-select-example">What city do you live in?</Label>
     <Select
       inputId="single-select-example"
       className="single-select"

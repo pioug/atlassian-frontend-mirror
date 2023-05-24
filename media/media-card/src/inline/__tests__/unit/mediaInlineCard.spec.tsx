@@ -6,6 +6,7 @@ import {
   FileState,
   createMediaSubject,
   ErrorFileState,
+  fromObservable,
 } from '@atlaskit/media-client';
 import {
   fakeMediaClient,
@@ -14,6 +15,7 @@ import {
 } from '@atlaskit/media-test-helpers';
 import { MediaInlineCardLoadingView } from '@atlaskit/media-ui';
 import { render, waitFor } from '@testing-library/react';
+import * as analyticsModule from '../../../utils/analytics';
 
 describe('<MediaInlineCard />', () => {
   const identifier: FileIdentifier = {
@@ -29,11 +31,19 @@ describe('<MediaInlineCard />', () => {
     mediaType: 'image',
     mimeType: 'image/png',
   };
+  let observable = createMediaSubject();
+  const fireOperationalEvent = jest.spyOn(
+    analyticsModule,
+    'fireMediaCardEvent',
+  );
 
   beforeEach(() => {
+    jest.clearAllMocks();
+    observable = createMediaSubject();
     asMock(mediaClient.file.getFileState).mockReturnValue(
-      createMediaSubject(mockFileState),
+      fromObservable(observable),
     );
+    observable.next(mockFileState);
   });
 
   it('should render loading view while loading media file', () => {
@@ -164,5 +174,175 @@ describe('<MediaInlineCard />', () => {
     );
 
     expect(erroredView).toBeTruthy();
+  });
+
+  describe('Analytics', () => {
+    it('should send succeeded event once if file is processed and rendered', () => {
+      mount(
+        <MediaInlineCard
+          intl={fakeIntl}
+          identifier={identifier}
+          mediaClient={mediaClient}
+        />,
+      );
+      expect(fireOperationalEvent).toBeCalledTimes(0);
+
+      observable.next({ ...mockFileState, status: 'processed', artifacts: {} });
+      expect(fireOperationalEvent).toBeCalledTimes(1);
+      expect(fireOperationalEvent).toBeCalledWith(
+        {
+          eventType: 'operational',
+          action: 'succeeded',
+          actionSubject: 'mediaInlineRender',
+          attributes: {
+            status: 'success',
+            fileAttributes: {
+              fileId: mockFileState.id,
+              fileSize: mockFileState.size,
+              fileMediatype: mockFileState.mediaType,
+              fileMimetype: mockFileState.mimeType,
+              fileStatus: 'processed',
+            },
+          },
+        },
+        expect.any(Function),
+      );
+    });
+
+    it('should send failed event once if file processing is failed', () => {
+      mount(
+        <MediaInlineCard
+          intl={fakeIntl}
+          identifier={identifier}
+          mediaClient={mediaClient}
+        />,
+      );
+      expect(fireOperationalEvent).toBeCalledTimes(0);
+
+      observable.next({
+        ...mockFileState,
+        status: 'failed-processing',
+        artifacts: {},
+      });
+      expect(fireOperationalEvent).toBeCalledTimes(1);
+      expect(fireOperationalEvent).toBeCalledWith(
+        {
+          eventType: 'operational',
+          action: 'failed',
+          actionSubject: 'mediaInlineRender',
+          attributes: {
+            status: 'fail',
+            fileAttributes: {
+              fileId: mockFileState.id,
+              fileStatus: 'failed-processing',
+            },
+            failReason: 'failed-processing',
+          },
+        },
+        expect.any(Function),
+      );
+    });
+
+    it('should send failed event once if file subscription errored', () => {
+      mount(
+        <MediaInlineCard
+          intl={fakeIntl}
+          identifier={identifier}
+          mediaClient={mediaClient}
+        />,
+      );
+      expect(fireOperationalEvent).toBeCalledTimes(0);
+      observable.error(new Error('test'));
+      expect(fireOperationalEvent).toBeCalledTimes(1);
+      expect(fireOperationalEvent).toBeCalledWith(
+        {
+          eventType: 'operational',
+          action: 'failed',
+          actionSubject: 'mediaInlineRender',
+          attributes: {
+            status: 'fail',
+            fileAttributes: {
+              fileId: mockFileState.id,
+              fileStatus: 'processing',
+            },
+            error: 'nativeError',
+            errorDetail: 'test',
+            failReason: 'metadata-fetch',
+          },
+        },
+        expect.any(Function),
+      );
+    });
+
+    it('should send failed event once if file state is error', () => {
+      mount(
+        <MediaInlineCard
+          intl={fakeIntl}
+          identifier={identifier}
+          mediaClient={mediaClient}
+        />,
+      );
+      expect(fireOperationalEvent).toBeCalledTimes(0);
+
+      observable.next({
+        ...mockFileState,
+        status: 'error',
+        message: 'serverForbidden',
+      });
+      expect(fireOperationalEvent).toBeCalledTimes(1);
+      expect(fireOperationalEvent).toBeCalledWith(
+        {
+          eventType: 'operational',
+          action: 'failed',
+          actionSubject: 'mediaInlineRender',
+          attributes: {
+            status: 'fail',
+            fileAttributes: {
+              fileId: mockFileState.id,
+              fileStatus: 'error',
+            },
+            error: 'nativeError',
+            errorDetail: 'serverForbidden',
+            failReason: 'error-file-state',
+          },
+        },
+        expect.any(Function),
+      );
+    });
+
+    it('should send failed event once if file state has no filename)', () => {
+      mount(
+        <MediaInlineCard
+          intl={fakeIntl}
+          identifier={identifier}
+          mediaClient={mediaClient}
+        />,
+      );
+      expect(fireOperationalEvent).toBeCalledTimes(0);
+
+      observable.next({
+        status: 'processing',
+        id: '1234',
+      } as any);
+      expect(fireOperationalEvent).toBeCalledTimes(1);
+      expect(fireOperationalEvent).toBeCalledWith(
+        {
+          eventType: 'operational',
+          action: 'failed',
+          actionSubject: 'mediaInlineRender',
+          attributes: {
+            status: 'fail',
+            fileAttributes: {
+              fileId: mockFileState.id,
+              fileStatus: 'processing',
+            },
+            error: 'emptyFileName',
+            errorDetail: 'emptyFileName',
+            failReason: 'metadata-fetch',
+          },
+        },
+        expect.any(Function),
+      );
+    });
   });
 });

@@ -14,7 +14,9 @@ type ClientType = Parameters<typeof goToEditorTestingWDExample>[0];
 // Tests is timing out and skipped for now: https://product-fabric.atlassian.net/browse/MEX-1287
 BrowserTestCase(
   'media-card: should lazy render media cards after scrolling down',
-  { skip: ['*'] },
+  {
+    skip: ['*'],
+  },
   async (client: ClientType, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     const lazySelector = '[data-testid="media-card-loading"]';

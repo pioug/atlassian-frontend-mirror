@@ -25,11 +25,7 @@ import {
 } from './types';
 import { LocalFileSource, LocalFileWithSource } from '../service/types';
 import { getPreviewFromBlob } from '../util/getPreviewFromBlob';
-import {
-  getRandomHex,
-  MediaFeatureFlags,
-  MediaTraceContext,
-} from '@atlaskit/media-common';
+import { getRandomHex, MediaTraceContext } from '@atlaskit/media-common';
 
 export interface CancellableFileUpload {
   mediaFile: MediaFile;
@@ -62,13 +58,12 @@ export class UploadServiceImpl implements UploadService {
     return new UploadController();
   }
 
-  addFiles(files: File[], featureFlags?: MediaFeatureFlags): void {
+  addFiles(files: File[]): void {
     this.addFilesWithSource(
       files.map((file: File) => ({
         file,
         source: LocalFileSource.LocalUpload,
       })),
-      featureFlags,
     );
   }
 
@@ -78,10 +73,7 @@ export class UploadServiceImpl implements UploadService {
     ]);
   }
 
-  async addFilesWithSource(
-    files: LocalFileWithSource[],
-    featureFlags?: MediaFeatureFlags,
-  ): Promise<void> {
+  async addFilesWithSource(files: LocalFileWithSource[]): Promise<void> {
     if (files.length === 0) {
       return;
     }
@@ -139,7 +131,7 @@ export class UploadServiceImpl implements UploadService {
         const { fileId: id, occurrenceKey } = touchFileDescriptors[i];
 
         // exclude rejected files from being uploaded
-        const rejectedFile = touchedFiles?.rejected.find(
+        const rejectedFile = touchedFiles?.rejected?.find(
           ({ fileId: rejectedFileId }) => rejectedFileId === id,
         );
         if (rejectedFile) {
@@ -197,7 +189,6 @@ export class UploadServiceImpl implements UploadService {
           controller,
           uploadableUpfrontIds,
           traceContext,
-          featureFlags,
         );
 
         const mediaFile: MediaFile = {
@@ -221,13 +212,25 @@ export class UploadServiceImpl implements UploadService {
 
         const { unsubscribe } = sourceFileObservable.subscribe({
           next: (state) => {
-            if (state.status === 'processing') {
+            if (
+              state.status === 'processing' ||
+              state.status === 'processed' ||
+              state.status === 'failed-processing'
+            ) {
               unsubscribe();
               if (shouldCopyFileToRecents) {
                 mediaClient.emit('file-added', state);
                 globalMediaEventEmitter.emit('file-added', state);
               }
               this.onFileSuccess(cancellableFileUpload, id, traceContext);
+            }
+            if (state.status === 'error') {
+              this.onFileError(
+                mediaFile,
+                'upload_fail',
+                state.message || 'no-message',
+                traceContext,
+              );
             }
           },
           error: (error) => {

@@ -85,8 +85,7 @@ class ClipboardImpl {
   }
 
   public onFilesPasted(files: LocalFileWithSource[]) {
-    const { featureFlags } = this;
-    this.uploadService.addFilesWithSource(files, featureFlags);
+    this.uploadService.addFilesWithSource(files);
     this.fireAnalyticsEvent(files);
   }
 

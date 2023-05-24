@@ -48,8 +48,8 @@ import { inlineCommentProvider } from '../_utils';
 import mediaPlugin from '../../../media';
 import codeBlockPlugin from '../../../code-block';
 import blockTypePlugin from '../../../block-type';
-import widthPlugin from '../../../width';
-import gridPlugin from '../../../grid';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import panelPlugin from '../../../panel';
 import {
   InlineCommentMap,

@@ -8,7 +8,7 @@ import type { CustomData } from '@atlaskit/ufo';
 import type {
   AcknowledgementErrorPayload,
   AcknowledgementPayload,
-  CollabEventTelepointerData,
+  CollabTelepointerPayload,
   StepJson,
 } from '../types';
 import { AcknowledgementResponseTypes } from '../types';
@@ -19,7 +19,7 @@ const logger = createLogger('Telepointer', 'green');
 export const telepointerFromStep = (
   participants: ProviderParticipant[],
   step: StepJson,
-): CollabEventTelepointerData | undefined => {
+): CollabTelepointerPayload | undefined => {
   const [participant] = participants.filter(
     (p) => p.clientId === step.clientId,
   );

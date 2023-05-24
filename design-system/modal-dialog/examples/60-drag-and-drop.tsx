@@ -288,7 +288,7 @@ export default function Example() {
 
   return (
     <div>
-      <Button testId={'open-modal'} onClick={open}>
+      <Button appearance="primary" testId={'open-modal'} onClick={open}>
         Open Modal
       </Button>
       <p>

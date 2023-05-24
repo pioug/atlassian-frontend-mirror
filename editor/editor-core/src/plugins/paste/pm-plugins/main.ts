@@ -93,6 +93,7 @@ import { pluginKey as stateKey, createPluginState } from './plugin-factory';
 export { pluginKey as stateKey } from './plugin-factory';
 import type { Dispatch } from '../../../event-dispatcher';
 import { FeatureFlags } from '@atlaskit/editor-common/types';
+import { hasParentNodeOfType } from 'prosemirror-utils';
 
 export function createPlugin(
   schema: Schema,
@@ -254,6 +255,13 @@ export function createPlugin(
             state.doc.resolve(state.selection.$anchor.pos).nodeAfter?.type ===
             placeholder;
 
+          // Don't add closeHistory if we're pasting over layout columns, as we will appendTransaction
+          // to cleanup the layout's structure and we want to keep the paste and re-structuring as
+          // one event.
+          const isPastingOverLayoutColumns = hasParentNodeOfType(
+            state.schema.nodes.layoutColumn,
+          )(state.selection);
+
           // don't add closeHistory call if we're pasting a table, as some tables may involve additional
           // appendedTransactions to repair them (if they're partial or incomplete) and we don't want
           // to split those repairing transactions in prosemirror-history when they're being added to the
@@ -271,7 +279,11 @@ export function createPlugin(
             return tableExists;
           });
 
-          if (!isPastingTextInsidePlaceholderText && !isPastingTable) {
+          if (
+            !isPastingTextInsidePlaceholderText &&
+            !isPastingTable &&
+            !isPastingOverLayoutColumns
+          ) {
             tr.setMeta(betterTypePluginKey, true);
           }
 

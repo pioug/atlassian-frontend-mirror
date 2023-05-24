@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-table
 
+## 1.5.0
+
+### Minor Changes
+
+- [`20809d41658`](https://bitbucket.org/atlassian/atlassian-frontend/commits/20809d41658) - Added feature flag `platform.editor.custom-table-width` which toggles the new table experience
+
+### Patch Changes
+
+- [`1549c2e6dda`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1549c2e6dda) - Extract width plugin from `editor-core` to separate `editor-plugin-width` package.
+- Updated dependencies
+
 ## 1.4.1
 
 ### Patch Changes

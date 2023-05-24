@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 19.4.0
+
+### Minor Changes
+
+- [`17fe8f92030`](https://bitbucket.org/atlassian/atlassian-frontend/commits/17fe8f92030) - Correctly export i18n messages from profilecard!
+
 ## 19.3.2
 
 ### Patch Changes

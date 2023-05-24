@@ -73,7 +73,7 @@ export default () => {
       </Field>
 
       <Break />
-      <Button onClick={open} testId="open-modal">
+      <Button appearance="primary" onClick={open} testId="open-modal">
         Open modal
       </Button>
 

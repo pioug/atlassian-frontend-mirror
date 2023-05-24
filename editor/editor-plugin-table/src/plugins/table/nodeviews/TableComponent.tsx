@@ -5,6 +5,7 @@ import { isTableSelected } from '@atlaskit/editor-tables/utils';
 import { EditorView } from 'prosemirror-view';
 import rafSchedule from 'raf-schd';
 import { findTable } from '@atlaskit/editor-tables/utils';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import {
   calcTableWidth,
@@ -392,6 +393,11 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
             ({ visibility: visible ? 'visible' : 'hidden' } as CSSProperties),
         )
       : NOOP;
+
+    if (getBooleanFF('platform.editor.custom-table-width')) {
+      // new table experience code goes here
+      // return <Resizer>...
+    }
 
     return (
       <div

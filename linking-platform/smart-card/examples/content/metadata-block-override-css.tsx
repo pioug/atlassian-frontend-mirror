@@ -10,7 +10,7 @@ const styles = css`
     '#E9F2FF',
   )};
   border-radius: 24px;
-  padding: 8px;
+  padding: ${token('space.100', '8px')};
 `;
 
 export default () => (

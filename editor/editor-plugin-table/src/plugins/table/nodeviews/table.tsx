@@ -38,6 +38,7 @@ const tableAttributes = (node: PmNode) => {
     'data-layout': node.attrs.layout,
     'data-autosize': node.attrs.__autoSize,
     'data-table-local-id': node.attrs.localId || '',
+    'data-table-width': node.attrs.width,
   };
 };
 

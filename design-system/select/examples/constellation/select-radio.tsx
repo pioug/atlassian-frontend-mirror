@@ -1,10 +1,11 @@
 import React from 'react';
+import { Label } from '@atlaskit/form';
 import { RadioSelect } from '../../src';
 import { cities } from '../common/data';
 
 const SelectRadioExample = () => (
   <>
-    <label htmlFor="radio-select-example">What city do you live in?</label>
+    <Label htmlFor="radio-select-example">What city do you live in?</Label>
     <RadioSelect
       inputId="radio-select-example"
       className="radio-select"

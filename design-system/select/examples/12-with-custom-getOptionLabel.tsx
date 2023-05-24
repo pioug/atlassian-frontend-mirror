@@ -1,5 +1,8 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
+
 import { Checkbox } from '@atlaskit/checkbox';
+import { Label } from '@atlaskit/form';
+
 import { CheckboxSelect, OptionType } from '../src';
 
 const customGetOptionLabel = (option: OptionType) => {
@@ -26,9 +29,13 @@ export default class WithCustomGetOptionLabel extends Component<{}, State> {
 
   render() {
     return (
-      <Fragment>
+      <>
+        <Label htmlFor="custom-opt-label-example">
+          Which city do you live in?
+        </Label>
         {this.state.useCustomOptionLabel ? (
           <CheckboxSelect
+            inputId="custom-opt-label-example"
             options={[
               {
                 label:
@@ -41,6 +48,7 @@ export default class WithCustomGetOptionLabel extends Component<{}, State> {
           />
         ) : (
           <CheckboxSelect
+            inputId="custom-opt-label-example"
             options={[
               {
                 label:
@@ -58,7 +66,7 @@ export default class WithCustomGetOptionLabel extends Component<{}, State> {
           name="defineCustomGetOptionLabel"
           onChange={this.toggleValue}
         />
-      </Fragment>
+      </>
     );
   }
 }

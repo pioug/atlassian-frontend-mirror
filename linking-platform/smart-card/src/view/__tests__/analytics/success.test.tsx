@@ -21,6 +21,7 @@ import { isSpecialEvent } from '../../../utils';
 import * as cardWithUrlContent from '../../CardWithUrl/component';
 import { TestErrorBoundary } from '../_boundary';
 import { act } from '@testing-library/react';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 mockSimpleIntersectionObserver();
 
@@ -120,55 +121,110 @@ describe('smart-card: success analytics', () => {
       });
     });
 
-    it('should fire the resolved analytics event when the url was resolved', async () => {
-      const mockUrl = 'https://this.is.the.sixth.url';
-      const { findByTestId, getByRole } = render(
-        <IntlProvider locale="en">
-          <Provider client={mockClient}>
-            <Card testId="resolvedCard1" appearance="inline" url={mockUrl} />
-          </Provider>
-        </IntlProvider>,
-      );
-      const resolvedView = await findByTestId('resolvedCard1-resolved-view');
-      const resolvedCard = getByRole('button');
-      expect(resolvedView).toBeTruthy();
-      expect(resolvedCard).toBeTruthy();
-      expect(analytics.resolvedEvent).toHaveBeenCalledTimes(1);
-      expect(analytics.fireSmartLinkEvent).toBeCalledWith(
-        {
-          action: 'resolved',
-          attributes: {
-            componentName: 'smart-cards',
+    describe('should fire the resolved analytics event when the url was resolved', () => {
+      ffTest(
+        'platform.linking-platform.smart-card.remove-dispatch-analytics-as-prop',
+        async () => {
+          const mockUrl = 'https://this.is.the.sixth.url';
+          const { findByTestId, getByRole } = render(
+            <IntlProvider locale="en">
+              <Provider client={mockClient}>
+                <Card
+                  testId="resolvedCard1"
+                  appearance="inline"
+                  url={mockUrl}
+                />
+              </Provider>
+            </IntlProvider>,
+          );
+          const resolvedView = await findByTestId(
+            'resolvedCard1-resolved-view',
+          );
+          const resolvedCard = getByRole('button');
+          expect(resolvedView).toBeTruthy();
+          expect(resolvedCard).toBeTruthy();
+          expect(analytics.resolvedEvent).toHaveBeenCalledTimes(1);
+          expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledTimes(1);
+          expect(analytics.uiRenderSuccessEvent).toBeCalledWith({
             display: 'inline',
-            id: expect.any(String),
-            extensionKey: 'object-provider',
+            status: 'resolved',
             definitionId: 'd1',
-          },
-        },
-        expect.any(Function),
-      );
-      expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledTimes(1);
-      expect(analytics.uiRenderSuccessEvent).toBeCalledWith({
-        display: 'inline',
-        status: 'resolved',
-        definitionId: 'd1',
-        extensionKey: 'object-provider',
-      });
+            extensionKey: 'object-provider',
+          });
 
-      expect(mockStartUfoExperience).toBeCalledWith(
-        'smart-link-rendered',
-        'some-uuid-1',
-      );
-      expect(mockSucceedUfoExperience).toBeCalledWith(
-        'smart-link-rendered',
-        'some-uuid-1',
-        {
-          display: 'inline',
-          extensionKey: 'object-provider',
+          expect(mockStartUfoExperience).toBeCalledWith(
+            'smart-link-rendered',
+            'some-uuid-1',
+          );
+          expect(mockSucceedUfoExperience).toBeCalledWith(
+            'smart-link-rendered',
+            'some-uuid-1',
+            {
+              display: 'inline',
+              extensionKey: 'object-provider',
+            },
+          );
+          expect(mockSucceedUfoExperience).toHaveBeenCalledAfter(
+            mockStartUfoExperience as jest.Mock,
+          );
         },
-      );
-      expect(mockSucceedUfoExperience).toHaveBeenCalledAfter(
-        mockStartUfoExperience as jest.Mock,
+        async () => {
+          const mockUrl = 'https://this.is.the.sixth.url';
+          const { findByTestId, getByRole } = render(
+            <IntlProvider locale="en">
+              <Provider client={mockClient}>
+                <Card
+                  testId="resolvedCard1"
+                  appearance="inline"
+                  url={mockUrl}
+                />
+              </Provider>
+            </IntlProvider>,
+          );
+          const resolvedView = await findByTestId(
+            'resolvedCard1-resolved-view',
+          );
+          const resolvedCard = getByRole('button');
+          expect(resolvedView).toBeTruthy();
+          expect(resolvedCard).toBeTruthy();
+          expect(analytics.resolvedEvent).toHaveBeenCalledTimes(1);
+          expect(analytics.fireSmartLinkEvent).toBeCalledWith(
+            {
+              action: 'resolved',
+              attributes: {
+                componentName: 'smart-cards',
+                display: 'inline',
+                id: expect.any(String),
+                extensionKey: 'object-provider',
+                definitionId: 'd1',
+              },
+            },
+            expect.any(Function),
+          );
+          expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledTimes(1);
+          expect(analytics.uiRenderSuccessEvent).toBeCalledWith({
+            display: 'inline',
+            status: 'resolved',
+            definitionId: 'd1',
+            extensionKey: 'object-provider',
+          });
+
+          expect(mockStartUfoExperience).toBeCalledWith(
+            'smart-link-rendered',
+            'some-uuid-1',
+          );
+          expect(mockSucceedUfoExperience).toBeCalledWith(
+            'smart-link-rendered',
+            'some-uuid-1',
+            {
+              display: 'inline',
+              extensionKey: 'object-provider',
+            },
+          );
+          expect(mockSucceedUfoExperience).toHaveBeenCalledAfter(
+            mockStartUfoExperience as jest.Mock,
+          );
+        },
       );
     });
 
@@ -389,13 +445,11 @@ describe('smart-card: success analytics', () => {
       expect(onError).toHaveBeenCalledTimes(1);
 
       await waitFor(
-        () => expect(analytics.fireSmartLinkEvent).toBeCalledTimes(1),
+        () => expect(analytics.uiRenderFailedEvent).toBeCalledTimes(1),
         {
           timeout: 5000,
         },
       );
-
-      expect(analytics.uiRenderFailedEvent).toBeCalledTimes(1);
 
       expect(mockStartUfoExperience).toBeCalledWith(
         'smart-link-rendered',

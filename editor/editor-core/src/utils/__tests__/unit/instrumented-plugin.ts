@@ -5,6 +5,7 @@ import { createSchema } from '@atlaskit/adf-schema';
 import { defaultSchemaConfig } from '@atlaskit/adf-schema/schema-default';
 import { InstrumentedPlugin } from '../../performance/instrumented-plugin';
 import { TransactionTracker } from '../../performance/track-transactions';
+import type { EditorView } from 'prosemirror-view';
 
 beforeEach(() => {
   performance.measure = jest.fn();
@@ -100,6 +101,73 @@ describe('InstrumentedPlugin.prototype.apply', () => {
       expect(mark.mock.calls).toEqual([
         [`🦉${key}::apply::start`],
         [`🦉${key}::apply::end`],
+      ]);
+    });
+  });
+
+  describe('uiTracking performance', () => {
+    it('should call performance.mark twice when view.update is called once', () => {
+      const apply = jest.fn();
+      const update = (view: EditorView, state: EditorState) => jest.fn();
+      const mark = performance.mark as jest.Mock;
+      const thing = {} as any;
+
+      const plugin = new InstrumentedPlugin(
+        {
+          key: new PluginKey('test-key'),
+          state: { init: jest.fn(), apply },
+          view: (view: EditorView) => ({
+            update,
+          }),
+        },
+        {
+          uiTracking: { enabled: true },
+        },
+      );
+      const key = (plugin as any).key;
+      const view = plugin.spec.view!(thing);
+      new Array<number>(1).fill(0).forEach(() => {
+        view.update!(thing, thing);
+      });
+      // performance.mark is called in startMeasure and stopMeasure
+      // check that it's been called twice (once in each startMeasure and stopMeasure)
+      expect(performance.mark).toHaveBeenCalledTimes(2);
+      expect(mark.mock.calls).toEqual([
+        [`🦉${key}::view::update::start`],
+        [`🦉${key}::view::update::end`],
+      ]);
+    });
+    it('should call performance.mark four times if view.update was called 101 times', () => {
+      const apply = jest.fn();
+      const update = (view: EditorView, state: EditorState) => jest.fn();
+      const mark = performance.mark as jest.Mock;
+      const thing = {} as any;
+
+      const plugin = new InstrumentedPlugin(
+        {
+          key: new PluginKey('test-key'),
+          state: { init: jest.fn(), apply },
+          view: (view: EditorView) => ({
+            update,
+          }),
+        },
+        {
+          uiTracking: { enabled: true },
+        },
+      );
+      const key = (plugin as any).key;
+      const view = plugin.spec.view!(thing);
+      new Array<number>(101).fill(0).forEach(() => {
+        view.update!(thing, thing);
+      });
+      // performance.mark is called in startMeasure and stopMeasure
+      // check that it's been called four times (twice in each startMeasure and stopMeasure)
+      expect(performance.mark).toHaveBeenCalledTimes(4);
+      expect(mark.mock.calls).toEqual([
+        [`🦉${key}::view::update::start`],
+        [`🦉${key}::view::update::end`],
+        [`🦉${key}::view::update::start`],
+        [`🦉${key}::view::update::end`],
       ]);
     });
   });

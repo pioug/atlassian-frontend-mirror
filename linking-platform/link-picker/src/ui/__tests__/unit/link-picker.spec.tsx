@@ -1480,134 +1480,81 @@ describe('<LinkPicker />', () => {
     });
   });
 
-  describe('with root component', () => {
-    it('should render the default root component if nothing was specified', async () => {
-      const { testIds } = setupLinkPicker();
-
-      expect(screen.getByTestId(testIds.linkPickerRoot)).toBeInTheDocument();
+  it('should use scrolling tabs if feature flag is specified', () => {
+    setupLinkPicker({
+      scrollingTabs: true,
+      plugins: [
+        new MockLinkPickerPromisePlugin({
+          tabKey: 'tab1',
+          tabTitle: 'Confluence',
+        }),
+        new MockLinkPickerPromisePlugin({
+          tabKey: 'tab2',
+          tabTitle: 'Bitbucket',
+        }),
+        new MockLinkPickerPromisePlugin({
+          tabKey: 'tab3',
+          tabTitle: 'Jira',
+        }),
+        new MockLinkPickerPromisePlugin({
+          tabKey: 'tab4',
+          tabTitle: 'Github',
+        }),
+        new MockLinkPickerPromisePlugin({
+          tabKey: 'tab5',
+          tabTitle: 'Drive',
+        }),
+        new MockLinkPickerPromisePlugin({
+          tabKey: 'tab6',
+          tabTitle: 'Tab long name 3',
+        }),
+        new MockLinkPickerPromisePlugin({
+          tabKey: 'tab7',
+          tabTitle: 'Tab long name 4',
+        }),
+        new MockLinkPickerPromisePlugin({
+          tabKey: 'tab8',
+          tabTitle: 'Tab long name 5',
+        }),
+        new MockLinkPickerPromisePlugin({
+          tabKey: 'tab9',
+          tabTitle: 'Tab long name 6',
+        }),
+        new MockLinkPickerPromisePlugin({
+          tabKey: 'tab10',
+          tabTitle: 'Tab long name 7',
+        }),
+        new MockLinkPickerPromisePlugin({
+          tabKey: 'tab3',
+          tabTitle: 'tab3',
+        }),
+      ],
     });
+    expect(screen.getByTestId('scrolling-tabs')).toBeInTheDocument();
+  });
 
-    it('should render a customized root component', async () => {
-      const CustomRootComponent: React.ComponentType<
-        Partial<LinkPickerProps>
-      > = ({ children }) => {
-        return <div data-testid="custom-test-id">{children}</div>;
-      };
-      setupLinkPicker({
-        component: CustomRootComponent,
-      });
-
-      expect(screen.getByTestId('custom-test-id')).toBeInTheDocument();
-    });
-
-    it('should allow the customized root component to overwrite the plugins prop', async () => {
-      const plugin1 = new MockLinkPickerPromisePlugin({
-        tabKey: 'tab1',
-        tabTitle: 'tab1',
-      });
-      const plugin2 = new MockLinkPickerPromisePlugin({
-        tabKey: 'tab2',
-        tabTitle: 'tab2',
-      });
-      const CustomRootComponent: React.ComponentType<
-        Partial<LinkPickerProps> & { children: React.ReactElement }
-      > = ({ children }) => {
-        return React.cloneElement(children, {
-          plugins: [plugin1, plugin2],
-        });
-      };
-
-      setupLinkPicker({
-        component: CustomRootComponent,
-        plugins: [plugin1],
-      });
-
-      expect(screen.getByTestId(testIds.tabList)).toBeInTheDocument();
-      const tabItems = screen.getAllByTestId(testIds.tabItem);
-      expect(tabItems).toHaveLength(2);
-    });
-
-    it('should default to no scrolling tabs', () => {
-      setupLinkPicker();
-      expect(screen.queryByTestId('scrolling-tabs')).not.toBeInTheDocument();
-    });
-
-    it('should use scrolling tabs if feature flag is specified', () => {
-      setupLinkPicker({
-        scrollingTabs: true,
-        plugins: [
-          new MockLinkPickerPromisePlugin({
-            tabKey: 'tab1',
-            tabTitle: 'Confluence',
-          }),
-          new MockLinkPickerPromisePlugin({
-            tabKey: 'tab2',
-            tabTitle: 'Bitbucket',
-          }),
-          new MockLinkPickerPromisePlugin({
-            tabKey: 'tab3',
-            tabTitle: 'Jira',
-          }),
-          new MockLinkPickerPromisePlugin({
-            tabKey: 'tab4',
-            tabTitle: 'Github',
-          }),
-          new MockLinkPickerPromisePlugin({
-            tabKey: 'tab5',
-            tabTitle: 'Drive',
-          }),
-          new MockLinkPickerPromisePlugin({
-            tabKey: 'tab6',
-            tabTitle: 'Tab long name 3',
-          }),
-          new MockLinkPickerPromisePlugin({
-            tabKey: 'tab7',
-            tabTitle: 'Tab long name 4',
-          }),
-          new MockLinkPickerPromisePlugin({
-            tabKey: 'tab8',
-            tabTitle: 'Tab long name 5',
-          }),
-          new MockLinkPickerPromisePlugin({
-            tabKey: 'tab9',
-            tabTitle: 'Tab long name 6',
-          }),
-          new MockLinkPickerPromisePlugin({
-            tabKey: 'tab10',
-            tabTitle: 'Tab long name 7',
-          }),
-          new MockLinkPickerPromisePlugin({
-            tabKey: 'tab3',
-            tabTitle: 'tab3',
-          }),
-        ],
-      });
-      expect(screen.getByTestId('scrolling-tabs')).toBeInTheDocument();
-    });
-
-    it('should fire action callback when action button is clicked', async () => {
-      const mockActionCallback = jest.fn();
-      const plugin = new MockLinkPickerPromisePlugin({
-        tabKey: 'tab1',
-        tabTitle: 'Action',
-        action: {
-          label: {
-            id: 'test',
-            defaultMessage: 'Action',
-            description: 'test action',
-          },
-          callback: mockActionCallback,
+  it('should fire action callback when action button is clicked', async () => {
+    const mockActionCallback = jest.fn();
+    const plugin = new MockLinkPickerPromisePlugin({
+      tabKey: 'tab1',
+      tabTitle: 'Action',
+      action: {
+        label: {
+          id: 'test',
+          defaultMessage: 'Action',
+          description: 'test action',
         },
-      });
-
-      const { testIds } = setupLinkPicker({ plugins: [plugin] });
-      const actionButton = await screen.findByTestId(testIds.actionButton);
-
-      expect(actionButton).toBeInTheDocument();
-
-      await user.click(actionButton);
-
-      expect(mockActionCallback).toHaveBeenCalledTimes(1);
+        callback: mockActionCallback,
+      },
     });
+
+    const { testIds } = setupLinkPicker({ plugins: [plugin] });
+    const actionButton = await screen.findByTestId(testIds.actionButton);
+
+    expect(actionButton).toBeInTheDocument();
+
+    await user.click(actionButton);
+
+    expect(mockActionCallback).toHaveBeenCalledTimes(1);
   });
 });

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import Modal, {
   ModalTransition,
   ModalBody,
@@ -7,6 +8,8 @@ import Modal, {
   ModalFooter,
 } from '@atlaskit/modal-dialog';
 import Button from '@atlaskit/button/standard-button';
+import { Label } from '@atlaskit/form';
+
 import Select from '../src';
 
 interface State {
@@ -45,7 +48,11 @@ export default class SelectInModal extends Component<{}, State> {
                 <ModalTitle>Modal Title</ModalTitle>
               </ModalHeader>
               <ModalBody>
+                <Label htmlFor="modal-select-example">
+                  Which city do you live in?
+                </Label>
                 <Select
+                  inputId="modal-select-example"
                   defaultValue={options.slice(3)}
                   isMulti
                   options={options}

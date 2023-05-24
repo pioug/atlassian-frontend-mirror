@@ -1,6 +1,3 @@
-import { Observable } from 'rxjs/Observable';
-import { from } from 'rxjs/observable/from';
-
 import { FilePreview } from '../models/file-state';
 import { MediaType } from '../models/media';
 import {
@@ -52,12 +49,4 @@ export async function shouldFetchRemoteFileStates(
   }
 
   return false;
-}
-
-export function shouldFetchRemoteFileStatesObservable(
-  mediaType: MediaType,
-  mimeType: string,
-  preview?: FilePreview | Promise<FilePreview>,
-): Observable<boolean> {
-  return from(shouldFetchRemoteFileStates(mediaType, mimeType, preview));
 }

@@ -1,5 +1,21 @@
 # @atlaskit/media-card
 
+## 76.0.0
+
+### Major Changes
+
+- [`9fe30b8ca24`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9fe30b8ca24) - Removed classic experience
+- [`3247424b653`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3247424b653) - Removed the classname 'fileCardImageViewSelectedSelector' since it is no longer being used
+
+### Minor Changes
+
+- [`3239a550cb6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3239a550cb6) - Add analytics succeeded and failed render event for mediaInlineCard.
+
+### Patch Changes
+
+- [`e725edbb0d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e725edbb0d9) - Card goes to ‘processing’ status instead of ‘completed’ when a file is in processing and it is identified as non previewable (removed feature flag to make it a permanent change)
+- Updated dependencies
+
 ## 75.0.1
 
 ### Patch Changes

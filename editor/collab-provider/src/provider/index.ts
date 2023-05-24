@@ -2,20 +2,20 @@ import type { EditorState, Transaction } from 'prosemirror-state';
 import type { Step as ProseMirrorStep } from 'prosemirror-transform';
 import { Emitter } from '../emitter';
 import { Channel } from '../channel';
-import type { ResolvedEditorState } from '@atlaskit/editor-common/collab';
 import type {
   CollabEditProvider,
   CollabEvents,
-  CollabEventTelepointerData,
+  CollabTelepointerPayload,
   Config,
   Metadata,
+  ResolvedEditorState,
   InitialDraft,
 } from '../types';
 
 import { createLogger } from '../helpers/utils';
 import AnalyticsHelper from '../analytics/analytics-helper';
 
-import type { SyncUpErrorFunction } from '@atlaskit/editor-common/types';
+import type { SyncUpErrorFunction } from '../types';
 
 import { telepointerCallback } from '../participants/telepointers-helper';
 import {
@@ -357,12 +357,12 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
   /**
    * Send messages, such as telepointers, to NCS and other participants. Only used for telepointer data (text and node selections) in the editor and JWM. JWM does some weird serialisation stuff on the node selections.
    * Silently fails if an error occurs, since Presence isn't a critical functionality and self-restores over time.
-   * @param {CollabEventTelepointerData} data Data you want to send to NCS / the other participants
+   * @param {CollabTelepointerPayload} data Data you want to send to NCS / the other participants
    * @param {string} data.type Can only be 'telepointer' for now, we don't support anything else yet
    * @param {CollabSendableSelection} data.selection Object representing the selected element
    * @param {string} data.sessionId Identifier identifying the session
    */
-  sendMessage(data: CollabEventTelepointerData) {
+  sendMessage(data: CollabTelepointerPayload) {
     try {
       if (data?.type === 'telepointer') {
         const payload = {

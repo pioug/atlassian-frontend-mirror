@@ -1,18 +1,10 @@
 import { ReactElement } from 'react';
 import { Providers } from '@atlaskit/editor-common/provider-factory';
-import type { CollabEditProvider } from '@atlaskit/editor-common/collab';
+import type {
+  CollabEditProvider,
+  SyncUpErrorFunction,
+} from '@atlaskit/collab-provider';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
-import { SyncUpErrorFunction } from '@atlaskit/editor-common/types';
-
-export type {
-  CollabParticipant,
-  CollabEventInitData,
-  CollabEventRemoteData,
-  CollabEventConnectionData,
-  CollabEventPresenceData,
-  CollabEventTelepointerData,
-  CollabSendableSelection,
-} from '@atlaskit/editor-common/collab';
 
 export type InviteToEditComponentProps = {
   children: ReactElement<InviteToEditButtonProps>;

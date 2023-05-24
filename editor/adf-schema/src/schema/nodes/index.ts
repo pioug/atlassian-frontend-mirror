@@ -89,6 +89,7 @@ export {
 export type { MediaSingleDefinition } from './media-single';
 export {
   table,
+  tableWithCustomWidth,
   tableToJSON,
   tableCell,
   toJSONTableCell,

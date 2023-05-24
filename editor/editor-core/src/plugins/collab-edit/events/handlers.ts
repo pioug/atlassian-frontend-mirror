@@ -4,11 +4,11 @@ import type {
   CollabEventInitData,
   CollabEventConnectionData,
   CollabEventPresenceData,
-  CollabEventTelepointerData,
+  CollabTelepointerPayload,
   CollabEventRemoteData,
   CollabEventLocalStepData,
   CollabEditProvider,
-} from '@atlaskit/editor-common/collab';
+} from '@atlaskit/collab-provider';
 
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 
@@ -35,7 +35,7 @@ export interface CollabHandlers {
   connectedHandler: (data: CollabEventConnectionData) => void;
   dataHandler: (data: CollabEventRemoteData) => void;
   presenceHandler: (data: CollabEventPresenceData) => void;
-  telepointerHandler: (data: CollabEventTelepointerData) => void;
+  telepointerHandler: (data: CollabTelepointerPayload) => void;
   localStepsHandler: (data: CollabEventLocalStepData) => void;
   errorHandler: (error: any) => void;
   entityHandler: ({ entity }: { entity: SynchronyEntity }) => void;

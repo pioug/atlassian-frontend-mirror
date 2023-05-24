@@ -9,3 +9,5 @@ export type HandleStyles = {
   right?: React.CSSProperties;
   left?: React.CSSProperties;
 };
+
+export type HandlerHeightSizeType = 'small' | 'medium' | 'large';

@@ -46,7 +46,10 @@ import {
 } from '../../utils/linking-utils';
 import { LinkPickerOptions } from '../hyperlink/types';
 import { FLOATING_TOOLBAR_LINKPICKER_CLASSNAME } from './styles';
-import type { FeatureFlags } from '@atlaskit/editor-common/types';
+import type {
+  FeatureFlags,
+  PluginDependenciesAPI,
+} from '@atlaskit/editor-common/types';
 import type {
   AnalyticsEventPayload,
   ACTION_SUBJECT_ID,
@@ -59,6 +62,7 @@ import {
   EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
 import type cardPlugin from './index';
+import type { widthPlugin } from '@atlaskit/editor-plugin-width';
 
 export const removeCard = (
   editorAnalyticsApi: EditorAnalyticsAPI | undefined,
@@ -258,12 +262,16 @@ const unlinkCard = (
 const buildAlignmentOptions = (
   state: EditorState,
   intl: IntlShape,
+  widthPluginDependencyApi:
+    | PluginDependenciesAPI<typeof widthPlugin>
+    | undefined,
   cardOptions?: CardOptions,
 ): FloatingToolbarItem<Command>[] => {
   return buildLayoutButtons(
     state,
     intl,
     state.schema.nodes.embedCard,
+    widthPluginDependencyApi,
     true,
     true,
     cardOptions?.allowWrapping,
@@ -386,6 +394,7 @@ const generateToolbarItems =
         const alignmentOptions = buildAlignmentOptions(
           state,
           intl,
+          pluginInjectionApi?.dependencies?.width,
           cardOptions,
         );
         if (alignmentOptions.length) {

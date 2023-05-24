@@ -1,5 +1,12 @@
 # @atlaskit/adf-utils
 
+## 18.2.3
+
+### Patch Changes
+
+- [`94561f309f3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/94561f309f3) - New stage-0 change: custom "width" attribute on Tables nodes
+- Updated dependencies
+
 ## 18.2.2
 
 ### Patch Changes

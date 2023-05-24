@@ -44,12 +44,9 @@ BrowserTestCase(
   },
 );
 
-// FIXME: This test was automatically skipped due to failure on 30/03/2023: https://product-fabric.atlassian.net/browse/ED-17345
 BrowserTestCase(
   'can insert hyperlink with URL and text using toolbar',
-  {
-    skip: ['*'],
-  },
+  {},
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {

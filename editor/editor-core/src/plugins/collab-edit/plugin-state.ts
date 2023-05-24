@@ -3,12 +3,13 @@ import { Decoration, DecorationSet } from 'prosemirror-view';
 import { Step, ReplaceStep } from 'prosemirror-transform';
 import { browser } from '@atlaskit/editor-common/utils';
 
-import {
+import type {
   CollabParticipant,
   CollabEventConnectionData,
   CollabEventPresenceData,
-  CollabEventTelepointerData,
-} from './types';
+  CollabTelepointerPayload,
+} from '@atlaskit/collab-provider';
+
 import { Participants, ReadOnlyParticipants } from './participants';
 import {
   findPointers,
@@ -83,7 +84,7 @@ export class PluginState {
     const presenceData = tr.getMeta('presence') as CollabEventPresenceData;
     const telepointerData = tr.getMeta(
       'telepointer',
-    ) as CollabEventTelepointerData;
+    ) as CollabTelepointerPayload;
     const sessionIdData = tr.getMeta('sessionId') as CollabEventConnectionData;
     let collabInitialised = tr.getMeta('collabInitialised');
 
@@ -129,7 +130,8 @@ export class PluginState {
         }
 
         const endOfDocPos = tr.doc.nodeSize - 2;
-        const { anchor, head } = telepointerData.selection;
+        const anchor = telepointerData.selection.anchor as number;
+        const head = telepointerData.selection.head as number;
         let rawFrom = anchor < head ? anchor : head;
         let rawTo = anchor >= head ? anchor : head;
 

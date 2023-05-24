@@ -263,7 +263,7 @@ describe('Expand: Media', () => {
     await initFullPageEditorWithAdf(page, mediaInExpandADF, Device.LaptopMDPI);
     await page.waitForSelector(selectors.expand);
     await waitForMediaToBeLoaded(page);
-    await page.click('[data-testid="media-file-card-view"] .img-wrapper');
+    await page.click('[data-testid="media-file-card-view"]');
     await resizeMediaInPositionWithSnapshot(page, 0, 50);
   });
 
@@ -275,7 +275,7 @@ describe('Expand: Media', () => {
     );
     await page.waitForSelector(selectors.nestedExpand);
     await waitForMediaToBeLoaded(page);
-    await page.click('[data-testid="media-file-card-view"] .img-wrapper');
+    await page.click('[data-testid="media-file-card-view"]');
     await resizeMediaInPositionWithSnapshot(page, 0, 50);
   });
 });

@@ -3,6 +3,7 @@
 import { IntlProvider } from 'react-intl-next';
 import { JsonLd } from 'json-ld-types';
 import { css, jsx } from '@emotion/react';
+import { token } from '@atlaskit/tokens';
 import { VRTestWrapper } from './utils/vr-test';
 import {
   FooterBlock,
@@ -32,13 +33,15 @@ import {
   response4,
 } from './content/example-responses';
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 const listStyles = css`
   list-style: none;
   margin-top: 0;
   max-width: 300px;
   padding-left: 0;
   li {
-    padding: 4px 10px 4px 8px;
+    padding: ${token('space.050', '4px')} 10px ${token('space.050', '4px')}
+      ${token('space.100', '8px')};
     &:hover {
       background-color: ${exampleTokens.backgroundColor};
       border-radius: 3px;
@@ -46,6 +49,7 @@ const listStyles = css`
   }
 `;
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 const previewStyles = css`
   display: flex;
   flex-wrap: wrap;

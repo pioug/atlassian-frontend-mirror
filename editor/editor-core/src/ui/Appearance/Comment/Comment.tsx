@@ -26,7 +26,7 @@ import WithFlash from '../../WithFlash';
 import { WidthConsumer } from '@atlaskit/editor-common/ui';
 import { akEditorMobileBreakoutPoint } from '@atlaskit/editor-shared-styles';
 import WidthEmitter from '../../WidthEmitter';
-import { GRID_GUTTER } from '../../../plugins/grid';
+import { GRID_GUTTER } from '@atlaskit/editor-common/styles';
 import classnames from 'classnames';
 import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 import messages from '../../../messages';

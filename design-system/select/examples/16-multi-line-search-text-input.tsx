@@ -1,4 +1,7 @@
 import React, { Component, KeyboardEvent } from 'react';
+
+import { Label } from '@atlaskit/form';
+
 import { CreatableSelect } from '../src';
 import { OptionsType } from '../src/types';
 
@@ -60,18 +63,24 @@ export default class MultiLineSearchInput extends Component<{}, State> {
     const { inputValue, value } = this.state;
 
     return (
-      <CreatableSelect
-        components={components}
-        inputValue={inputValue}
-        isClearable
-        isMulti
-        menuIsOpen={false}
-        onChange={this.handleChange}
-        onInputChange={this.handleInputChange}
-        onKeyDown={this.handleKeyDown}
-        placeholder="Type something and press enter..."
-        value={value}
-      />
+      <>
+        <Label htmlFor="multi-line-search-example">
+          Which city do you live in?
+        </Label>
+        <CreatableSelect
+          inputId="multi-line-search-example"
+          components={components}
+          inputValue={inputValue}
+          isClearable
+          isMulti
+          menuIsOpen={false}
+          onChange={this.handleChange}
+          onInputChange={this.handleInputChange}
+          onKeyDown={this.handleKeyDown}
+          placeholder="Type something and press enter..."
+          value={value}
+        />
+      </>
     );
   }
 }

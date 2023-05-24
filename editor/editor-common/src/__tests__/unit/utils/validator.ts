@@ -1101,6 +1101,63 @@ describe('Renderer - Validator', () => {
         }
         expect(content).toStrictEqual(tableContent);
       });
+
+      it.each<
+        [
+          string,
+          {
+            provideAttributes: boolean;
+            providedWidth?: number;
+          },
+        ]
+      >([
+        [
+          'stage0: SHUOLD generate custom width for table if attr is missing',
+          { provideAttributes: false },
+        ],
+        [
+          'stage0: SHUOLD generate custom width for table if attr does not have width',
+          { provideAttributes: true },
+        ],
+        [
+          'stage0: should not override a provided width attr',
+          {
+            provideAttributes: true,
+            providedWidth: 456,
+          },
+        ],
+      ])('%s', (_, { provideAttributes, providedWidth }) => {
+        const attrsToValidate = {
+          width: providedWidth,
+        };
+        const { type, attrs, content } = getValidNode(
+          {
+            type: 'table',
+            content: tableContent,
+            attrs: provideAttributes && attrsToValidate,
+          },
+          schema,
+          'stage0',
+        );
+
+        expect(type).toBe('table');
+        if (provideAttributes) {
+          expect(attrs).not.toEqual(undefined);
+          if (providedWidth) {
+            // If we provided a width, it should equal that
+            expect(attrs.width).toEqual(providedWidth);
+          } else {
+            // If we didn't give a width, it should be generated for us
+            expect(attrs.width).not.toEqual(undefined);
+          }
+        } else {
+          // Otherwise an attributes object should exist & have a width
+          // generated for us
+          expect(attrs).not.toEqual(undefined);
+          expect(attrs.width).not.toEqual(undefined);
+        }
+        expect(content).toStrictEqual(tableContent);
+      });
     });
 
     ['tableCell', 'tableHeader'].forEach((nodeName) => {

@@ -1,5 +1,5 @@
 import { css } from '@emotion/react';
-import { transition } from '../../styles';
+import { transition } from '../styles';
 import { B200, N0, N100 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 

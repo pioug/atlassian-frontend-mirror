@@ -165,13 +165,13 @@ export class DropzoneBase extends LocalUploadComponentReact<DropzoneProps> {
       );
 
       this.onDropFolders(flattenedDirectoryFiles.length);
-      this.uploadService.addFiles(flattenedDirectoryFiles, featureFlags);
+      this.uploadService.addFiles(flattenedDirectoryFiles);
     } else {
       this.onDrop(dragEvent);
 
       const files = Array.from(dragEvent.dataTransfer.files);
 
-      this.uploadService.addFiles(files, featureFlags);
+      this.uploadService.addFiles(files);
     }
   };
 

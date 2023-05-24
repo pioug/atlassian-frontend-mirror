@@ -21,6 +21,38 @@
 type Appearance = 'brand' | 'inverse' | 'neutral';
 
 // @public
+export const AtlasIcon: ({
+  appearance,
+  label,
+  size,
+  testId,
+}: LogoPropsAppearanceRequired) => JSX.Element;
+
+// @public
+export const AtlasLogo: ({
+  appearance,
+  label,
+  size,
+  testId,
+}: LogoPropsAppearanceRequired) => JSX.Element;
+
+// @public
+export const AtlassianAnalyticsIcon: ({
+  appearance,
+  label,
+  size,
+  testId,
+}: LogoPropsAppearanceRequired) => JSX.Element;
+
+// @public
+export const AtlassianAnalyticsLogo: ({
+  appearance,
+  label,
+  size,
+  testId,
+}: LogoPropsAppearanceRequired) => JSX.Element;
+
+// @public
 export const AtlassianIcon: ({
   appearance,
   label,
@@ -320,6 +352,30 @@ export const JiraLogo: ({
   textColor,
 }: LogoProps) => JSX.Element;
 
+// @public
+export const JiraProductDiscoveryIcon: ({
+  appearance,
+  label,
+  size,
+  testId,
+  iconColor,
+  iconGradientStart,
+  iconGradientStop,
+  textColor,
+}: LogoProps) => JSX.Element;
+
+// @public
+export const JiraProductDiscoveryLogo: ({
+  appearance,
+  label,
+  size,
+  testId,
+  iconColor,
+  iconGradientStart,
+  iconGradientStop,
+  textColor,
+}: LogoProps) => JSX.Element;
+
 // @public @deprecated (undocumented)
 export const JiraServiceDeskIcon: ({
   iconColor,
@@ -478,6 +534,12 @@ export type LogoProps = {
   label?: string;
   testId?: string;
 };
+
+// @public (undocumented)
+type LogoPropsAppearanceRequired = Omit<
+  WithRequiredProperty<LogoProps, 'appearance'>,
+  'iconColor' | 'iconGradientStart' | 'iconGradientStop' | 'textColor'
+>;
 
 // @public @deprecated (undocumented)
 export const OpsGenieIcon: ({
@@ -648,6 +710,11 @@ export const TrelloWordmark: ({
   iconGradientStop,
   textColor,
 }: LogoProps) => JSX.Element;
+
+// @public
+type WithRequiredProperty<Type, Key extends keyof Type> = Type & {
+  [Property in Key]-?: Type[Property];
+};
 
 // (No @packageDocumentation comment for this package)
 ```

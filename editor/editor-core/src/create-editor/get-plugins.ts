@@ -8,6 +8,7 @@ import { MarkConfig, NodeConfig } from '../types/pm-config';
 import { EditorReactContext } from '../types/editor-react-context';
 import { FeatureFlags } from '../types/feature-flags';
 import { IntlShape } from 'react-intl-next';
+import { UIComponentFactory } from '@atlaskit/editor-common/types';
 
 export type LightPMPluginFactoryParams = {
   // We can type this safe, we already remove the real code from this types
@@ -44,6 +45,7 @@ export interface LightEditorPlugin {
   marks?: () => MarkConfig[];
   nodes?: () => NodeConfig[];
   pmPlugins?: (pluginOptions?: any) => Array<LightPMPlugin>;
+  contentComponent?: UIComponentFactory;
   pluginsOptions?: Record<string, any>;
   onEditorViewStateUpdated?: OnEditorViewStateUpdated;
 }

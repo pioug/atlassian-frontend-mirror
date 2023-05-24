@@ -46,7 +46,11 @@ export default function ExampleScroll() {
         </p>
 
         <br />
-        <Button onClick={scrollTriggerIntoView} testId="scroll-into-view">
+        <Button
+          appearance="primary"
+          onClick={scrollTriggerIntoView}
+          testId="scroll-into-view"
+        >
           Scroll trigger into view
         </Button>
       </div>

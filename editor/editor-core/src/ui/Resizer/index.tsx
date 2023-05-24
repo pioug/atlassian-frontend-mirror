@@ -3,7 +3,7 @@ import { RefObject } from 'react';
 import classnames from 'classnames';
 import { HandleComponent, Resizable, ResizeDirection } from 're-resizable';
 import { RichMediaLayout } from '@atlaskit/adf-schema';
-import { gridTypeForLayout } from '../../plugins/grid';
+import { gridTypeForLayout } from '@atlaskit/editor-common/utils';
 import { snapTo, handleSides } from './utils';
 import { Props as ResizableMediaSingleProps, EnabledHandles } from './types';
 import { richMediaClassName } from '@atlaskit/editor-common/styles';

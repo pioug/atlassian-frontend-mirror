@@ -39,10 +39,10 @@ const menuWrapperStyles = css`
   display: flex;
   flex-direction: column;
   width: 240px;
-  margin-right: 24px;
+  margin-right: ${token('space.300', '24px')};
 `;
 const menuTitleStyles = css`
-  margin-bottom: 8px;
+  margin-bottom: ${token('space.100', '8px')};
   color: ${token('color.text.subtlest', N200)};
 `;
 

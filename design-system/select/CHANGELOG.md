@@ -1,5 +1,11 @@
 # @atlaskit/select
 
+## 16.3.0
+
+### Minor Changes
+
+- [`6e51e0d5358`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6e51e0d5358) - [ux] update border width from 2px to 1px and add 1px box-shadow when focus or error
+
 ## 16.2.3
 
 ### Patch Changes

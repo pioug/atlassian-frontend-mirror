@@ -1,5 +1,28 @@
 # @atlaskit/editor-core
 
+## 184.0.0
+
+### Major Changes
+
+- [`b7086232a7c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b7086232a7c) - ESS-3135: move collab provider types into @atlaskit/collab-provider
+
+### Minor Changes
+
+- [`1549c2e6dda`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1549c2e6dda) - Extract width plugin from `editor-core` to separate `editor-plugin-width` package.
+
+### Patch Changes
+
+- [`10ddf00db40`](https://bitbucket.org/atlassian/atlassian-frontend/commits/10ddf00db40) - [ux] add a handler size option and relevant style and demo page
+- [`6d2cb452718`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6d2cb452718) - converted the analytics events within help-dialog to use the new Analytics API
+- [`18fc85285dc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/18fc85285dc) - Fix extensions in Confluence.
+- [`3247424b653`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3247424b653) - Removed unused styling for the recently removed fileCardImageViewSelectedSelector classname
+- [`d2ebe077406`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2ebe077406) - [ux] ED-17083 Fix copy button for extension
+- [`8c54caf3c01`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8c54caf3c01) - Focus editor when closing extension sidebar config
+- [`19389328bfd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19389328bfd) - [ED-16813] Fix uiTracking logic so it honours the sampling rate set in performance feature flags
+- [`1a167533ab8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1a167533ab8) - [ux] ED-17834 - Pasting over layout columns is able to be undone
+- [`f055b886032`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f055b886032) - Extract the grid plugin to a separate package.
+- Updated dependencies
+
 ## 183.1.6
 
 ### Patch Changes

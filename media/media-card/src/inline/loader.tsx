@@ -2,6 +2,7 @@ import React from 'react';
 import { WithMediaClientConfigProps } from '@atlaskit/media-client';
 import { MediaInlineCardLoadingView } from '@atlaskit/media-ui';
 import { MediaInlineCardProps } from './mediaInlineCard';
+import { AnalyticsContext } from '@atlaskit/analytics-next';
 
 export type MediaInlineCardWithMediaClientConfigProps =
   WithMediaClientConfigProps<MediaInlineCardProps>;
@@ -26,7 +27,7 @@ export default class MediaInlineCardLoader extends React.PureComponent<
   static displayName = 'MediaInlineCardLoader';
   static MediaInlineCard?: MediaInlineCardWithMediaClientConfigComponent;
   static ErrorBoundary?: ErrorBoundaryComponent;
-  isMounted = false;
+  mounted = false;
 
   state: MediaInlineCardLoaderState = {
     MediaInlineCard: MediaInlineCardLoader.MediaInlineCard,
@@ -34,7 +35,7 @@ export default class MediaInlineCardLoader extends React.PureComponent<
   };
 
   async componentDidMount() {
-    this.isMounted = true;
+    this.mounted = true;
     if (!this.state.MediaInlineCard) {
       try {
         const [mediaClient, cardModule, mediaInlineErrorBoundaryModule] =
@@ -56,7 +57,7 @@ export default class MediaInlineCardLoader extends React.PureComponent<
         MediaInlineCardLoader.ErrorBoundary =
           mediaInlineErrorBoundaryModule.default;
 
-        if (this.isMounted) {
+        if (this.mounted) {
           this.setState({
             MediaInlineCard: MediaInlineCardLoader.MediaInlineCard,
             ErrorBoundary: MediaInlineCardLoader.ErrorBoundary,
@@ -67,20 +68,28 @@ export default class MediaInlineCardLoader extends React.PureComponent<
   }
 
   async componentWillUnmount() {
-    this.isMounted = false;
+    this.mounted = false;
   }
 
   render() {
     const { MediaInlineCard, ErrorBoundary } = this.state;
+    const analyticsContext = {
+      packageVersion: process.env._PACKAGE_NAME_ as string,
+      packageName: process.env._PACKAGE_VERSION_ as string,
+      componentName: 'mediaInlineCard',
+      component: 'mediaInlineCard',
+    };
 
     if (!MediaInlineCard || !ErrorBoundary) {
       return <MediaInlineCardLoadingView message="" />;
     }
 
     return (
-      <ErrorBoundary isSelected={this.props.isSelected}>
-        <MediaInlineCard {...this.props} />
-      </ErrorBoundary>
+      <AnalyticsContext data={analyticsContext}>
+        <ErrorBoundary isSelected={this.props.isSelected}>
+          <MediaInlineCard {...this.props} />
+        </ErrorBoundary>
+      </AnalyticsContext>
     );
   }
 }

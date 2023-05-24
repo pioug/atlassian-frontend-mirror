@@ -57,19 +57,27 @@ export const copyHTMLToClipboard = async (
           type: 'text/html',
         }),
       });
-
       // @ts-ignore
       await navigator.clipboard.write([data]);
     } catch (error) {
       throw new Error('Clipboard api is not supported');
     }
   } else {
-    // At the time of development, Firefox doesn't support ClipboardItem API
+    // ED-17083 extension copy seems have issue with ClipboardItem API
     // Hence of use of this polyfill
-    const Clipboard: typeof ClipboardPolyfill = clipboard as any;
-    const dt = new Clipboard.DT();
-    dt.setData('text/plain', plainTextToCopy || elementToCopy.innerText);
-    dt.setData('text/html', elementToCopy.innerHTML);
-    Clipboard.write(dt);
+    copyHTMLToClipboardPolyfill(elementToCopy, plainTextToCopy);
   }
+};
+
+// At the time of development, Firefox doesn't support ClipboardItem API
+// Hence of use of this polyfill
+export const copyHTMLToClipboardPolyfill = (
+  elementToCopy: HTMLElement,
+  plainTextToCopy?: string,
+) => {
+  const Clipboard: typeof ClipboardPolyfill = clipboard as any;
+  const dt = new Clipboard.DT();
+  dt.setData('text/plain', plainTextToCopy || elementToCopy.innerText);
+  dt.setData('text/html', elementToCopy.innerHTML);
+  Clipboard.write(dt);
 };

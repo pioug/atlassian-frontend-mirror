@@ -10,6 +10,7 @@ import {
   mediaInline,
 } from '@atlaskit/adf-schema';
 import { NextEditorPlugin, PMPlugin, PMPluginFactoryParams } from '../../types';
+import { OptionalPlugin } from '@atlaskit/editor-common/types';
 import {
   stateKey as pluginKey,
   createPlugin,
@@ -27,14 +28,14 @@ import { ReactMediaGroupNode } from './nodeviews/mediaGroup';
 import { ReactMediaSingleNode } from './nodeviews/mediaSingle';
 import { CustomMediaPicker, MediaOptions } from './types';
 import { floatingToolbar } from './toolbar';
+import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import {
-  addAnalytics,
   ACTION,
   ACTION_SUBJECT,
   INPUT_METHOD,
   EVENT_TYPE,
   ACTION_SUBJECT_ID,
-} from '../analytics';
+} from '@atlaskit/editor-common/analytics';
 import { IconImages } from '../quick-insert/assets';
 import WithPluginState from '../../ui/WithPluginState';
 import { MediaPickerComponents } from './ui/MediaPicker';
@@ -42,7 +43,10 @@ import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
 import { ReactMediaNode } from './nodeviews/mediaNodeView';
 import { ReactMediaInlineNode } from './nodeviews/mediaInline';
 import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
-import type gridPlugin from '../grid';
+import type { gridPlugin } from '@atlaskit/editor-plugin-grid';
+import type { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { MediaPluginState } from './pm-plugins/types';
+import { stateKey } from './pm-plugins/plugin-key';
 
 export type { MediaState, MediaProvider, CustomMediaPicker };
 export { insertMediaSingleNode } from './utils/media-single';
@@ -51,7 +55,13 @@ const mediaPlugin: NextEditorPlugin<
   'media',
   {
     pluginConfiguration: MediaOptions | undefined;
-    dependencies: [typeof featureFlagsPlugin, typeof gridPlugin];
+    dependencies: [
+      typeof featureFlagsPlugin,
+      OptionalPlugin<typeof analyticsPlugin>,
+      typeof gridPlugin,
+      typeof widthPlugin,
+    ];
+    sharedState: MediaPluginState | null;
   }
 > = (options = {}, api) => {
   const featureFlags =
@@ -59,6 +69,13 @@ const mediaPlugin: NextEditorPlugin<
 
   return {
     name: 'media',
+
+    getSharedState(editorState) {
+      if (!editorState) {
+        return null;
+      }
+      return stateKey.getState(editorState);
+    },
 
     nodes() {
       const {
@@ -135,6 +152,7 @@ const mediaPlugin: NextEditorPlugin<
                     eventDispatcher,
                     providerFactory,
                     options,
+                    api,
                   ),
                   mediaInline: ReactMediaInlineNode(
                     portalProviderAPI,
@@ -274,30 +292,39 @@ const mediaPlugin: NextEditorPlugin<
           action(insert, state) {
             const pluginState = pluginKey.getState(state);
             pluginState.showMediaPicker();
-            return addAnalytics(state, insert(''), {
+            const tr = insert('');
+            api?.dependencies.analytics?.actions.attachAnalyticsEvent({
               action: ACTION.OPENED,
               actionSubject: ACTION_SUBJECT.PICKER,
               actionSubjectId: ACTION_SUBJECT_ID.PICKER_CLOUD,
               attributes: { inputMethod: INPUT_METHOD.QUICK_INSERT },
               eventType: EVENT_TYPE.UI,
-            });
+            })(tr);
+
+            return tr;
           },
         },
       ],
 
       floatingToolbar: (state, intl, providerFactory) =>
-        floatingToolbar(state, intl, {
-          providerFactory,
-          allowMediaInline:
-            options && getMediaFeatureFlag('mediaInline', options.featureFlags),
-          allowResizing: options && options.allowResizing,
-          allowResizingInTables: options && options.allowResizingInTables,
-          allowLinking: options && options.allowLinking,
-          allowAdvancedToolBarOptions:
-            options && options.allowAdvancedToolBarOptions,
-          allowAltTextOnImages: options && options.allowAltTextOnImages,
-          altTextValidator: options && options.altTextValidator,
-        }),
+        floatingToolbar(
+          state,
+          intl,
+          {
+            providerFactory,
+            allowMediaInline:
+              options &&
+              getMediaFeatureFlag('mediaInline', options.featureFlags),
+            allowResizing: options && options.allowResizing,
+            allowResizingInTables: options && options.allowResizingInTables,
+            allowLinking: options && options.allowLinking,
+            allowAdvancedToolBarOptions:
+              options && options.allowAdvancedToolBarOptions,
+            allowAltTextOnImages: options && options.allowAltTextOnImages,
+            altTextValidator: options && options.altTextValidator,
+          },
+          api,
+        ),
     },
   };
 };

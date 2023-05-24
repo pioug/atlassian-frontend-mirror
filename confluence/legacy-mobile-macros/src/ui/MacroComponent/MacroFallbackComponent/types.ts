@@ -6,6 +6,7 @@ export type CreateMacro = {
   onClick?: ((...args: any[]) => void) | null;
   errorMessage?: string;
   secondaryAction: any;
+  testId: string;
 };
 
 export type ActionProps = {
@@ -16,4 +17,5 @@ export interface MacroFallbackComponentProps {
   extension: ExtensionParams<any>;
   createPromise: Function;
   eventDispatcher: any;
+  openInBrowser: boolean;
 }

@@ -17,8 +17,9 @@ import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 
 import hyperlinkPlugin from '../../hyperlink';
-import widthPlugin from '../../width';
-import gridPlugin from '../../grid';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
+
+import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import mediaPlugin from '../';
 import { MediaLinkingActionsTypes } from '../pm-plugins/linking/actions';
 import { checkMediaType } from '../utils/check-media-type';

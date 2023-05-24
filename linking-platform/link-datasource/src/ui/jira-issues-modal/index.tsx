@@ -101,7 +101,7 @@ export const JiraIssuesConfigModal = (props: JiraIssuesConfigModalProps) => {
     hasNextPage,
     columns,
     defaultVisibleColumnKeys,
-  } = useDatasourceTableState(datasourceId, parameters, ['key']);
+  } = useDatasourceTableState(datasourceId, parameters);
   const { formatMessage } = useIntl();
 
   useEffect(() => {

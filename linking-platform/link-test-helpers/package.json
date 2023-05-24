@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/link-test-helpers",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "Collection of test helpers used in linking platform examples and specs",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -34,7 +34,7 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/link-picker": "^1.20.0",
+    "@atlaskit/link-picker": "^1.21.0",
     "@atlaskit/linking-types": "^3.0.0",
     "@babel/runtime": "^7.0.0",
     "@jest/globals": "^26.4.2",
@@ -67,7 +67,8 @@
         "analytics-next"
       ],
       "design-tokens": [
-        "color"
+        "color",
+        "spacing"
       ],
       "theming": [
         "react-context"

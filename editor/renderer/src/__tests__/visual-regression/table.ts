@@ -353,8 +353,7 @@ describe('Snapshot Test: triple click selection', () => {
       expectedSelectionDescription,
       beforeClickTargetClick,
     }) => {
-      // FIXME: This test was automatically skipped due to failure on 25/02/2023: https://product-fabric.atlassian.net/browse/ED-16993
-      it.skip(`on triple-clicking ${clickTargetDescription} in table ${fixtureTableCellType} (row:${fixtureTableCellRow},col:${fixtureTableCellCol}), it should select ${expectedSelectionDescription} inside table cell`, async () => {
+      it(`on triple-clicking ${clickTargetDescription} in table ${fixtureTableCellType} (row:${fixtureTableCellRow},col:${fixtureTableCellCol}), it should select ${expectedSelectionDescription} inside table cell`, async () => {
         await initRenderer(
           page,
           tableComplexSelectionsAdf,
@@ -468,8 +467,7 @@ describe('Snapshot Test: triple click selection', () => {
    * The problem is the "last code line" is a text node and cannot be queried via selectors; and the 'expectedSelectionEndSelector' query
    * returns the same node (span line 2) regardless of whether it floats or not.
    */
-  // FIXME: This test was automatically skipped due to failure on 01/03/2023: https://product-fabric.atlassian.net/browse/ED-17036
-  it.skip(`on triple-clicking first line in codeblock in table cell (row: 4, col: 1), it should select from line of codeblock to next line number of codeblock inside table cell`, async () => {
+  it(`on triple-clicking first line in codeblock in table cell (row: 4, col: 1), it should select from line of codeblock to next line number of codeblock inside table cell`, async () => {
     await initRenderer(
       page,
       tableComplexSelectionsAdf,

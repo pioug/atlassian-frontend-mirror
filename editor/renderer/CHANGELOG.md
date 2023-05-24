@@ -1,5 +1,12 @@
 # @atlaskit/renderer
 
+## 108.1.2
+
+### Patch Changes
+
+- [`f0b51f8f06c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f0b51f8f06c) - Fix copy paste file state for Inline Files
+- Updated dependencies
+
 ## 108.1.1
 
 ### Patch Changes

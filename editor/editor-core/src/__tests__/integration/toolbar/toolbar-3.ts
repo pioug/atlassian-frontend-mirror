@@ -62,12 +62,9 @@ const clear = `span=${toolbarMessages.clearFormatting.defaultMessage}`;
 });
 
 [comment, fullpage].forEach((editor) => {
-  // FIXME: This test was automatically skipped due to failure on 24/01/2023: https://product-fabric.atlassian.net/browse/ED-16635
   BrowserTestCase(
     `toolbar-3.ts: should be able to select Clear Formatting on toolbar for ${editor.name} editor for node-based formatting`,
-    {
-      skip: [],
-    },
+    {},
     async (client: any, testName: string) => {
       const page = await goToEditorTestingWDExample(client);
       await mountEditor(page, {

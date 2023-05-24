@@ -24,7 +24,7 @@ import { pluginKey } from '../../../../plugins/table/pm-plugins/plugin-key';
 import { TextSelection, NodeSelection, EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import panelPlugin from '@atlaskit/editor-core/src/plugins/panel';
-import widthPlugin from '@atlaskit/editor-core/src/plugins/width';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
   akEditorFullPageMaxWidth,

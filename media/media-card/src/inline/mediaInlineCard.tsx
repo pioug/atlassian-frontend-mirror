@@ -5,6 +5,7 @@ import {
   FileState,
   Identifier,
   MediaClient,
+  FileFetcherError,
 } from '@atlaskit/media-client';
 import {
   WrappedComponentProps,
@@ -23,6 +24,14 @@ import { MediaViewer } from '@atlaskit/media-viewer';
 import Tooltip from '@atlaskit/tooltip';
 import { formatDate } from '@atlaskit/media-ui/formatDate';
 import { InlineCardEvent, InlineCardOnClickCallback } from '../types';
+import { fireMediaCardEvent } from '../utils/analytics';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { MediaCardError } from '../errors';
+import {
+  getErrorStatusPayload,
+  getFailedProcessingStatusPayload,
+  getSucceededStatusPayload,
+} from './mediaInlineCardAnalytics';
 
 export interface MediaInlineCardProps {
   identifier: FileIdentifier;
@@ -48,8 +57,28 @@ export const MediaInlineCardInternal: FC<
   intl,
 }) => {
   const [fileState, setFileState] = useState<FileState | undefined>();
-  const [isErrored, setIsErrored] = useState(false);
+  const [subscribeError, setSubscribeError] = useState<Error>();
+  const [isSucceededEventSent, setIsSucceededEventSent] = useState(false);
+  const [isFailedEventSent, setIsFailedEventSent] = useState(false);
   const [isMediaViewerVisible, setMediaViewerVisible] = useState(false);
+  const { createAnalyticsEvent } = useAnalyticsEvents();
+
+  const fireFailedOperationalEvent = (
+    error: MediaCardError = new MediaCardError('missing-error-data'),
+    failReason?: 'failed-processing',
+  ) => {
+    const payload = failReason
+      ? getFailedProcessingStatusPayload(fileState)
+      : getErrorStatusPayload(error, fileState);
+    setIsFailedEventSent(true);
+    fireMediaCardEvent(payload, createAnalyticsEvent);
+  };
+  const fireSucceededOperationalEvent = () => {
+    const payload = getSucceededStatusPayload(fileState);
+    setIsSucceededEventSent(true);
+    fireMediaCardEvent(payload, createAnalyticsEvent);
+  };
+
   const onMediaInlineCardClick = (
     event: React.MouseEvent<HTMLElement> | React.KeyboardEvent,
   ) => {
@@ -100,10 +129,9 @@ export const MediaInlineCardInternal: FC<
       .subscribe({
         next: (fileState) => {
           setFileState(fileState);
-          setIsErrored(false);
         },
-        error: () => {
-          setIsErrored(true);
+        error: (e) => {
+          setSubscribeError(e);
         },
       });
     return () => {
@@ -111,22 +139,62 @@ export const MediaInlineCardInternal: FC<
     };
   }, [identifier.collectionName, identifier.id, mediaClient.file]);
 
-  if (isErrored && fileState?.status === 'uploading') {
+  if (subscribeError) {
+    const errorMessage =
+      fileState?.status === 'uploading'
+        ? messages.failed_to_upload
+        : messages.couldnt_load_file;
+    const errorReason =
+      fileState?.status === 'uploading' ? 'upload' : 'metadata-fetch';
+    !isFailedEventSent &&
+      fireFailedOperationalEvent(
+        new MediaCardError(errorReason, subscribeError),
+      );
+
     return (
       <MediaInlineCardErroredView
-        message={(intl || defaultIntl).formatMessage(messages.failed_to_upload)}
+        message={(intl || defaultIntl).formatMessage(errorMessage)}
         isSelected={isSelected}
       />
     );
   }
 
-  if (
-    isErrored ||
-    fileState?.status === 'error' ||
-    fileState?.status === 'failed-processing' ||
-    // Empty file handling
-    (fileState && !fileState.name)
-  ) {
+  if (fileState?.status === 'error') {
+    const error = new MediaCardError(
+      'error-file-state',
+      new Error(fileState.message),
+    );
+    !isFailedEventSent && fireFailedOperationalEvent(error);
+    return (
+      <MediaInlineCardErroredView
+        message={(intl || defaultIntl).formatMessage(
+          messages.couldnt_load_file,
+        )}
+        isSelected={isSelected}
+      />
+    );
+  }
+
+  if (fileState?.status === 'failed-processing') {
+    !isFailedEventSent &&
+      fireFailedOperationalEvent(undefined, 'failed-processing');
+    return (
+      <MediaInlineCardErroredView
+        message={(intl || defaultIntl).formatMessage(
+          messages.couldnt_load_file,
+        )}
+        isSelected={isSelected}
+      />
+    );
+  }
+
+  // Empty file handling
+  if (fileState && !fileState.name) {
+    const error = new MediaCardError(
+      'metadata-fetch',
+      new FileFetcherError('emptyFileName', fileState.id),
+    );
+    !isFailedEventSent && fireFailedOperationalEvent(error);
     return (
       <MediaInlineCardErroredView
         message={(intl || defaultIntl).formatMessage(
@@ -171,6 +239,10 @@ export const MediaInlineCardInternal: FC<
   if (fileState.createdAt) {
     const { locale = 'en' } = intl || { locale: 'en' };
     formattedDate = formatDate(fileState.createdAt, locale);
+  }
+
+  if (fileState.status === 'processed' && !isSucceededEventSent) {
+    fireSucceededOperationalEvent();
   }
 
   if (shouldDisplayToolTip === undefined || shouldDisplayToolTip === true) {

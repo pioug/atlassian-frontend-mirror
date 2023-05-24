@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 import { borderRadius } from '@atlaskit/media-ui';
-import { rgba } from '../../styles/mixins';
+import { rgba } from '../styles';
 import { N0 } from '@atlaskit/theme/colors';
 import { Breakpoint, getTitleBoxHeight, responsiveSettings } from '../common';
 import { StyledBarProps } from './types';

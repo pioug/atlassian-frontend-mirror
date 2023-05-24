@@ -10,9 +10,9 @@ import {
   mountEditor,
   goToEditorTestingWDExample,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
+import { mediaImageSelector } from '@atlaskit/editor-test-helpers/page-objects/media';
 
 [comment].forEach((editor) => {
-  // FIXME: This test was automatically skipped due to failure on 06/11/2022: https://product-fabric.atlassian.net/browse/ED-16069
   BrowserTestCase(
     `type-over-mediaGroup.ts: Typeover the selected media item in a media group`,
     {},
@@ -40,7 +40,7 @@ import {
 
       await page.type(editable, 'replace first file card');
 
-      expect(await page.isVisible('.wrapper')).toBe(true);
+      expect(await page.isVisible(mediaImageSelector)).toBe(true);
 
       const doc = await page.$eval(editable, getDocFromElement);
       expect(doc).toMatchCustomDocSnapshot(testName);

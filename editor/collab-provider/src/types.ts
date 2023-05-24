@@ -1,21 +1,73 @@
 import type { Step } from 'prosemirror-transform';
 import type { EditorState, Transaction } from 'prosemirror-state';
-import type {
-  CollabEventConnectionData,
-  CollabEventInitData,
-  CollabEventRemoteData,
-  CollabEventPresenceData,
-  CollabEventConnectingData,
-  ResolvedEditorState,
-} from '@atlaskit/editor-common/collab';
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import type { Manager } from 'socket.io-client';
 import type { DisconnectReason } from './disconnected-reason-mapper';
 import type { InternalError } from './errors/error-types';
 import type { ProviderError } from './errors/error-types';
-import type { SyncUpErrorFunction } from '@atlaskit/editor-common/types';
 import { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { ProviderParticipant } from './participants/participants-helper';
+
+// types from editor common
+
+export interface CollabParticipant {
+  lastActive: number;
+  sessionId: string;
+  avatar: string;
+  name: string;
+  cursorPos?: number;
+}
+
+export interface CollabEventInitData {
+  doc?: any;
+  json?: any;
+  version?: number;
+  sid?: string;
+  reserveCursor?: boolean;
+}
+
+export interface CollabEventRemoteData {
+  json?: any;
+  newState?: EditorState;
+  userIds?: (number | string)[];
+}
+
+export interface CollabEventConnectionData {
+  sid: string;
+  initial: boolean;
+}
+
+export interface CollabEventConnectingData {
+  initial: boolean;
+}
+
+export interface CollabEventDisconnectedData {
+  sid: string;
+  reason:
+    | 'CLIENT_DISCONNECT'
+    | 'SERVER_DISCONNECT'
+    | 'SOCKET_CLOSED'
+    | 'SOCKET_ERROR'
+    | 'SOCKET_TIMEOUT'
+    | 'UNKNOWN_DISCONNECT';
+}
+
+export interface CollabEventPresenceData {
+  joined?: CollabParticipant[];
+  left?: { sessionId: string }[];
+}
+
+export interface CollabEventLocalStepData {
+  steps: Array<Step>;
+}
+
+export type ResolvedEditorState<T = any> = {
+  content: JSONDocNode | T;
+  title: string | null;
+  stepVersion: number;
+};
+
+// types from editor common end
 
 export interface Storage {
   get(key: string): Promise<string>;
@@ -103,11 +155,6 @@ export interface CollabDisconnectedPayload {
   sid: string;
 }
 
-/**
- * @deprecated Use ProviderError type instead
- */
-export type CollabErrorPayload = ProviderError;
-
 export interface CollabInitPayload extends CollabEventInitData {
   doc: any;
   version: number;
@@ -137,7 +184,7 @@ export interface CollabEvents {
   telepointer: CollabTelepointerPayload;
   presence: CollabPresencePayload;
   'local-steps': CollabLocalStepsPayload;
-  error: CollabErrorPayload;
+  error: ProviderError;
   entity: any;
   connecting: CollabConnectingPayload;
 }
@@ -332,3 +379,15 @@ export interface CollabEditProvider<
 
   getFinalAcknowledgedState(): Promise<ResolvedEditorState>;
 }
+
+export type NewCollabSyncUpErrorAttributes = {
+  lengthOfUnconfirmedSteps?: number;
+  tries: number;
+  maxRetries: number;
+  clientId?: number | string;
+  version: number;
+};
+
+export type SyncUpErrorFunction = (
+  attributes: NewCollabSyncUpErrorAttributes,
+) => void;

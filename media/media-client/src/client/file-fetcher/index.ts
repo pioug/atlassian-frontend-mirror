@@ -1,8 +1,6 @@
 import { Subscription } from 'rxjs/Subscription';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
-import { of } from 'rxjs/observable/of';
 import { map } from 'rxjs/operators/map';
-import { concatMap } from 'rxjs/operators/concatMap';
 import uuid from 'uuid/v4';
 // import setimmediate to temporary fix dataloader 2.0.0 bug
 // @see https://github.com/graphql/dataloader/issues/249
@@ -63,17 +61,10 @@ import {
   isMimeTypeSupportedByBrowser,
   getMediaTypeFromMimeType,
 } from '@atlaskit/media-common/mediaTypeUtils';
-import {
-  shouldFetchRemoteFileStates,
-  shouldFetchRemoteFileStatesObservable,
-} from '../../utils/shouldFetchRemoteFileStates';
+import { shouldFetchRemoteFileStates } from '../../utils/shouldFetchRemoteFileStates';
 import { PollingFunction } from '../../utils/polling';
 import { isEmptyFile } from '../../utils/detectEmptyFile';
-import {
-  getMediaFeatureFlag,
-  MediaFeatureFlags,
-  MediaTraceContext,
-} from '@atlaskit/media-common';
+import { MediaTraceContext } from '@atlaskit/media-common';
 
 export type {
   FileFetcherErrorAttributes,
@@ -119,7 +110,6 @@ export interface FileFetcher {
     controller?: UploadController,
     uploadableFileUpfrontIds?: UploadableFileUpfrontIds,
     traceContext?: MediaTraceContext,
-    featureFlags?: MediaFeatureFlags,
   ): MediaSubscribable;
   uploadExternal(
     url: string,
@@ -144,10 +134,7 @@ export interface FileFetcher {
 export class FileFetcherImpl implements FileFetcher {
   private readonly dataloader: Dataloader<DataloaderKey, DataloaderResult>;
 
-  constructor(
-    private readonly mediaStore: MediaStore,
-    private readonly featureFlags?: MediaFeatureFlags,
-  ) {
+  constructor(private readonly mediaStore: MediaStore) {
     this.dataloader = createFileDataloader(mediaStore);
   }
 
@@ -395,8 +382,7 @@ export class FileFetcherImpl implements FileFetcher {
     };
   };
 
-  // TODO: make this the public upload method when the FF is removed
-  private uploadAwlaysPullFileStates(
+  public upload(
     file: UploadableFile,
     controller?: UploadController,
     uploadableFileUpfrontIds?: UploadableFileUpfrontIds,
@@ -468,162 +454,6 @@ export class FileFetcherImpl implements FileFetcher {
     setTimeout(onProgress, 0, 0);
 
     return fromObservable(subject);
-  }
-
-  private uploadConditionallyPullFileStates(
-    file: UploadableFile,
-    controller?: UploadController,
-    uploadableFileUpfrontIds?: UploadableFileUpfrontIds,
-    traceContext?: MediaTraceContext,
-  ): MediaSubscribable {
-    if (typeof file.content === 'string') {
-      file.content = convertBase64ToBlob(file.content);
-    }
-
-    const {
-      content,
-      name = '', // name property is not available in base64 image
-      collection,
-    } = file;
-
-    if (!uploadableFileUpfrontIds) {
-      uploadableFileUpfrontIds = this.generateUploadableFileUpfrontIds(
-        collection,
-        traceContext,
-      );
-    }
-
-    const id = uploadableFileUpfrontIds.id;
-    const occurrenceKey = uploadableFileUpfrontIds.occurrenceKey;
-
-    let mimeType = '';
-    let size = 0;
-    let preview: FilePreview | undefined;
-    // TODO [MSW-796]: get file size for base64
-    const mediaType = getMediaTypeFromUploadableFile(file);
-    const subject = createMediaSubject<FileState>();
-    const processingSubscription = new Subscription();
-
-    if (content instanceof Blob) {
-      size = content.size;
-      mimeType = content.type;
-
-      if (isMimeTypeSupportedByBrowser(content.type)) {
-        preview = {
-          value: content,
-          origin: 'local',
-        };
-      }
-    }
-
-    const stateBase = {
-      id,
-      occurrenceKey,
-      name,
-      size,
-      mediaType,
-      mimeType,
-      preview,
-    };
-
-    const onProgress = (progress: number) => {
-      subject.next({
-        status: 'uploading',
-        ...stateBase,
-        progress,
-      });
-    };
-
-    const onUploadFinish = (error?: any) => {
-      if (error) {
-        return subject.error(error);
-      }
-
-      processingSubscription.add(
-        shouldFetchRemoteFileStatesObservable(mediaType, mimeType, preview)
-          .pipe(
-            concatMap((shouldFetchRemoteFileStates) => {
-              if (shouldFetchRemoteFileStates) {
-                return this.createDownloadFileStream(
-                  id,
-                  collection,
-                  occurrenceKey,
-                ).pipe(
-                  map((remoteFileState) => ({
-                    // merges base state with remote state
-                    ...stateBase,
-                    ...remoteFileState,
-                    ...overrideMediaTypeIfUnknown(remoteFileState, mediaType),
-                  })),
-                );
-              }
-
-              return of({
-                status: 'processing',
-                representations: {},
-                ...stateBase,
-              } as FileState);
-            }),
-          )
-          .subscribe(subject),
-      );
-    };
-
-    const { cancel } = uploadFile(
-      file,
-      this.mediaStore,
-      uploadableFileUpfrontIds,
-      {
-        onUploadFinish,
-        onProgress,
-      },
-      traceContext,
-    );
-
-    getFileStreamsCache().set(id, subject);
-
-    // We should report progress asynchronously, since this is what consumer expects
-    // (otherwise in newUploadService file-converting event will be emitted before files-added)
-    setTimeout(() => {
-      onProgress(0);
-    }, 0);
-
-    if (controller) {
-      controller.setAbort(() => {
-        cancel();
-        processingSubscription.unsubscribe();
-      });
-    }
-
-    return fromObservable(subject);
-  }
-
-  public upload(
-    file: UploadableFile,
-    controller?: UploadController,
-    uploadableFileUpfrontIds?: UploadableFileUpfrontIds,
-    traceContext?: MediaTraceContext,
-    featureFlags?: MediaFeatureFlags,
-  ): MediaSubscribable {
-    const shouldAlwaysFetchFileState = getMediaFeatureFlag(
-      'fetchFileStateAfterUpload',
-      featureFlags || this.featureFlags,
-    );
-
-    if (shouldAlwaysFetchFileState) {
-      return this.uploadAwlaysPullFileStates(
-        file,
-        controller,
-        uploadableFileUpfrontIds,
-        traceContext,
-      );
-    }
-    return this.uploadConditionallyPullFileStates(
-      file,
-      controller,
-      uploadableFileUpfrontIds,
-      traceContext,
-    );
   }
 
   // TODO: ----- ADD TICKET

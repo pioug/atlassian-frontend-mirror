@@ -17,6 +17,7 @@ import { screen, waitForElementToBeRemoved } from '@testing-library/dom';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom/extend-expect';
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { IntlProvider } from 'react-intl-next';
 
 import { LinkPicker, LinkPickerProps } from '../../..';
 import { ANALYTICS_CHANNEL } from '../../../common/constants';
@@ -47,6 +48,11 @@ jest.mock('use-debounce', () => ({
   useDebounce: <T extends unknown>(val: T) => [val],
 }));
 
+interface LinkPickerTestProps extends Partial<LinkPickerProps> {
+  spy: jest.Mock<any, any>;
+  onSubmit: jest.Mock<any, any>;
+}
+
 describe('LinkPicker analytics', () => {
   let user: ReturnType<typeof userEvent.setup>;
   beforeEach(() => {
@@ -63,12 +69,16 @@ describe('LinkPicker analytics', () => {
   const setupLinkPicker = ({
     url = '',
     plugins,
-    ...props
   }: Partial<LinkPickerProps> = {}) => {
     const spy = jest.fn();
     const onSubmit = jest.fn();
 
-    const wrappedLinkPicker = render(
+    const linkPickerDom = ({
+      url,
+      plugins,
+      spy,
+      onSubmit,
+    }: LinkPickerTestProps) => (
       <AnalyticsListener channel={ANALYTICS_CHANNEL} onEvent={spy}>
         <LinkPicker
           url={url}
@@ -76,16 +86,33 @@ describe('LinkPicker analytics', () => {
           plugins={plugins ?? []}
           onCancel={jest.fn()}
           onContentResize={jest.fn()}
-          {...props}
         />
-      </AnalyticsListener>,
+      </AnalyticsListener>
     );
+
+    const wrappedLinkPicker = render(
+      linkPickerDom({ url, plugins, spy, onSubmit }),
+    );
+
+    const rerenderLinkPicker = ({
+      url,
+      plugins,
+      spy,
+      onSubmit,
+    }: LinkPickerTestProps) => {
+      wrappedLinkPicker.rerender(
+        <IntlProvider locale="en">
+          {linkPickerDom({ url, plugins, spy, onSubmit })}
+        </IntlProvider>,
+      );
+    };
 
     return {
       spy,
       onSubmit,
       testIds,
       wrappedLinkPicker,
+      rerenderLinkPicker,
       urlField: () => screen.findByTestId(testIds.urlInputField),
     };
   };
@@ -750,6 +777,122 @@ describe('LinkPicker analytics', () => {
             actionSubject: 'tab',
             attributes: {
               tab: 'tabB',
+            },
+          },
+        });
+      });
+
+      it('correctly fires an empty tab attribute when no plugin is specified', async () => {
+        const { spy } = setupWithPlugins();
+
+        // Mounted event should have context attribute
+        expect(spy).toBeFiredWithAnalyticEventOnce({
+          payload: {
+            action: 'viewed',
+            eventType: 'ui',
+            actionSubject: 'inlineDialog',
+            actionSubjectId: 'linkPicker',
+            attributes: {
+              tab: null,
+            },
+          },
+        });
+      });
+
+      it('correctly fires tab attribute when plugins are changed', async () => {
+        const { rerenderLinkPicker, onSubmit, spy, urlField } =
+          setupWithPlugins();
+
+        await urlField();
+
+        expect(spy).toBeFiredWithAnalyticEventOnce({
+          payload: {
+            action: 'viewed',
+            eventType: 'ui',
+            actionSubject: 'inlineDialog',
+            actionSubjectId: 'linkPicker',
+            attributes: {
+              tab: null,
+            },
+          },
+        });
+
+        const pluginsSetA = [
+          {
+            tabKey: 'tabA',
+            tabTitle: 'Tab A',
+            resolve: async () => ({
+              data: [],
+            }),
+          },
+          {
+            tabKey: 'tabB',
+            tabTitle: 'Tab B',
+            resolve: async () => ({
+              data: [],
+            }),
+          },
+        ];
+
+        rerenderLinkPicker({
+          url: '',
+          onSubmit,
+          plugins: pluginsSetA,
+          spy,
+        });
+
+        expect(
+          await screen.findByRole('tab', { name: 'Tab A' }),
+        ).toBeInTheDocument();
+
+        // Mounted event should have tab attribute wtih tab A
+        expect(spy).toBeFiredWithAnalyticEventOnce({
+          payload: {
+            action: 'viewed',
+            eventType: 'ui',
+            actionSubject: 'tab',
+            attributes: {
+              tab: 'tabA',
+            },
+          },
+        });
+
+        const pluginsSetB = [
+          {
+            tabKey: 'tabC',
+            tabTitle: 'Tab C',
+            resolve: async () => ({
+              data: [],
+            }),
+          },
+          {
+            tabKey: 'tabD',
+            tabTitle: 'Tab D',
+            resolve: async () => ({
+              data: [],
+            }),
+          },
+        ];
+
+        rerenderLinkPicker({
+          url: '',
+          onSubmit,
+          plugins: pluginsSetB,
+          spy,
+        });
+
+        expect(
+          await screen.findByRole('tab', { name: 'Tab C' }),
+        ).toBeInTheDocument();
+
+        // Mounted event should have tab attribute with Tab C
+        expect(spy).toBeFiredWithAnalyticEventOnce({
+          payload: {
+            action: 'viewed',
+            eventType: 'ui',
+            actionSubject: 'tab',
+            attributes: {
+              tab: 'tabC',
             },
           },
         });

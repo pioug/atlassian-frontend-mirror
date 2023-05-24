@@ -356,6 +356,15 @@ export class MediaCardInternal extends Component<MediaCardProps, State> {
   }
 }
 
+export type ClipboardAttrs = {
+  id: string;
+  alt?: string;
+  collection?: string;
+  contextIdentifierProvider?: ContextIdentifierProvider;
+  originalDimensions?: NumericalCardDimensions;
+  fileState?: FileState;
+};
+
 // Needed for copy & paste
 export const getClipboardAttrs = ({
   id,
@@ -364,14 +373,7 @@ export const getClipboardAttrs = ({
   contextIdentifierProvider,
   originalDimensions,
   fileState,
-}: {
-  id: string;
-  alt?: string;
-  collection?: string;
-  contextIdentifierProvider?: ContextIdentifierProvider;
-  originalDimensions?: NumericalCardDimensions;
-  fileState?: FileState;
-}): { [key: string]: string | number | undefined } => {
+}: ClipboardAttrs): { [key: string]: string | number | undefined } => {
   const contextId =
     contextIdentifierProvider && contextIdentifierProvider.objectId;
   const width = originalDimensions && originalDimensions.width;

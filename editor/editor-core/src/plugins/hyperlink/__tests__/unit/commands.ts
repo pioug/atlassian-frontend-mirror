@@ -44,8 +44,8 @@ import emojiPlugin from '../../../emoji';
 import hyperlinkPlugin from '../../index';
 import textFormattingPlugin from '../../../text-formatting';
 import codeBlockPlugin from '../../../code-block';
-import widthPlugin from '../../../width';
-import gridPlugin from '../../../grid';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import basePlugin from '../../../base';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 

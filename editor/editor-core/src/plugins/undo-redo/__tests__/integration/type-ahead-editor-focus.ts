@@ -99,12 +99,9 @@ describe('typeahead: undo redo', () => {
   });
 
   describe('when the undo button is click when typeahead is opened', () => {
-    // FIXME: This test was automatically skipped due to failure on 24/04/2023: https://product-fabric.atlassian.net/browse/ED-17591
     BrowserTestCase(
       'it should undo and close the typeahead without adding the rawtext into the document',
-      {
-        skip: ['*'],
-      },
+      {},
       async (client: any, testName: string) => {
         const page = await startEditor(client, spaceAtEnd);
 

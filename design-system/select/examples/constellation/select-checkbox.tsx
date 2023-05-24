@@ -1,12 +1,13 @@
 import React from 'react';
+import { Label } from '@atlaskit/form';
 import { CheckboxSelect } from '../../src';
 import { cities } from '../common/data';
 
 const SelectCheckboxExample = () => (
   <>
-    <label htmlFor="checkbox-select-example">
+    <Label htmlFor="checkbox-select-example">
       What cities have you lived in?
-    </label>
+    </Label>
     <CheckboxSelect
       inputId="checkbox-select-example"
       className="checkbox-select"

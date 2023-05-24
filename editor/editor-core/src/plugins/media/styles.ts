@@ -15,7 +15,6 @@ import {
 import { N60, B200 } from '@atlaskit/theme/colors';
 import {
   fileCardImageViewSelector,
-  fileCardImageViewSelectedSelector,
   inlinePlayerClassName,
   newFileExperienceClassName,
 } from '@atlaskit/media-card';
@@ -140,12 +139,6 @@ export const mediaStyles = css`
     box-shadow: 0px 0px 0px ${akEditorSelectedBorderBoldSize}px
       ${token('color.border.danger', akEditorDeleteBorder)};
     transition: background-color 0s, box-shadow 0s;
-  }
-  .mediaGroupView-content-wrap.danger {
-    /* Media inline */
-    .${fileCardImageViewSelectedSelector}::after {
-      border: 1px solid ${token('color.border.danger', akEditorDeleteIconColor)};
-    }
   }
   /* Danger when nested node or common */
   .danger {

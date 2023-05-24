@@ -38,6 +38,7 @@ import { PluginKey } from 'prosemirror-state';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 
 describe('table toolbar', () => {
   const tableOptions = {
@@ -52,6 +53,7 @@ describe('table toolbar', () => {
     .add([featureFlagsPlugin, {}])
     .add([analyticsPlugin, {}])
     .add(contentInsertionPlugin)
+    .add(widthPlugin)
     .add([tablePlugin, { tableOptions }])
     .add(expandPlugin)
     .add(extensionPlugin)

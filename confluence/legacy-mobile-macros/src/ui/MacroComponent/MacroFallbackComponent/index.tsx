@@ -13,7 +13,10 @@ import { useMacroViewedAnalyticsEvent } from '../../../common/utils';
 import { legacyMobileMacrosMessages } from '../../../messages';
 
 import {
+  FALLBACK_TEST_ID,
+  OPEN_IN_BROWSER_TEST_ID,
   TAP_TO_LOAD_PROMISE,
+  TAP_TO_OPEN_IN_BROWSER_PROMISE,
   TAP_TO_REFRESH_EVENT,
   TAP_TO_REFRESH_PAGE_PROMISE,
   TAP_TO_VIEW_PROMISE,
@@ -57,7 +60,7 @@ const cardStyles = (componentType: ComponentType<any>) => {
 export const MacroFallbackComponent: FC<MacroFallbackComponentProps> = (
   props,
 ) => {
-  const { createPromise, eventDispatcher, extension } = props;
+  const { createPromise, eventDispatcher, extension, openInBrowser } = props;
   const { extensionKey, parameters, localId } = extension;
 
   const [loading, setLoading] = useState(false);
@@ -72,6 +75,7 @@ export const MacroFallbackComponent: FC<MacroFallbackComponentProps> = (
     action: <></>,
     onClick: null,
     secondaryAction: <></>,
+    testId: FALLBACK_TEST_ID,
   };
 
   const getMacroId = () => {
@@ -111,6 +115,7 @@ export const MacroFallbackComponent: FC<MacroFallbackComponentProps> = (
     onClick,
     isDisabled,
     secondaryAction,
+    testId,
   }: CreateMacro) => {
     // fallback to the extensionkey while the changes soak for the title to be f
     // title might not be a string??
@@ -120,7 +125,7 @@ export const MacroFallbackComponent: FC<MacroFallbackComponentProps> = (
     const CardButton = cardStyles(Button.type);
 
     return (
-      <div data-testid="macro-fallback" data-macro-id={getMacroId()}>
+      <div data-testid={testId} data-macro-id={getMacroId()}>
         <CardButton
           onClick={onClick || noop}
           isDisabled={isDisabled}
@@ -178,6 +183,7 @@ export const MacroFallbackComponent: FC<MacroFallbackComponentProps> = (
       TAP_TO_LOAD_PROMISE.name,
       JSON.stringify({
         macroId: getMacroId(),
+        extensionKey,
         retryCount,
       }),
     )
@@ -199,7 +205,24 @@ export const MacroFallbackComponent: FC<MacroFallbackComponentProps> = (
     // do not set state to loading
     createPromise(
       TAP_TO_VIEW_PROMISE.name,
-      JSON.stringify({ macroId: getMacroId() }),
+      JSON.stringify({
+        macroId: getMacroId(),
+        extensionKey,
+      }),
+    )
+      .submit()
+      .catch(() => {
+        setErrorUnableToLoadState();
+      });
+  };
+
+  const tapToOpenBrowser = () => {
+    createPromise(
+      TAP_TO_OPEN_IN_BROWSER_PROMISE.name,
+      JSON.stringify({
+        macroId: getMacroId(),
+        extensionKey,
+      }),
     )
       .submit()
       .catch(() => {
@@ -214,6 +237,7 @@ export const MacroFallbackComponent: FC<MacroFallbackComponentProps> = (
       TAP_TO_LOAD_PROMISE.name,
       JSON.stringify({
         macroId: getMacroId(),
+        extensionKey,
         retryCount,
       }),
     )
@@ -290,6 +314,23 @@ export const MacroFallbackComponent: FC<MacroFallbackComponentProps> = (
     return { ...cardProps, ...newProps };
   };
 
+  const getTapToOpenBrowserCardProps = (
+    cardProps: CreateMacro,
+  ): CreateMacro => {
+    const newProps = {
+      action: (
+        <Action callToAction>
+          {formatMessage(legacyMobileMacrosMessages.tapToOpenBrowser)}
+        </Action>
+      ),
+      isDisabled: false,
+      onClick: tapToOpenBrowser,
+      testId: OPEN_IN_BROWSER_TEST_ID,
+    };
+
+    return { ...cardProps, ...newProps };
+  };
+
   const getTapToRetryCardProps = (cardProps: CreateMacro): CreateMacro => {
     const newProps = {
       action: (
@@ -344,7 +385,9 @@ export const MacroFallbackComponent: FC<MacroFallbackComponentProps> = (
     fireMacroViewedAnalyticsEvent(extensionKey, 'fallback');
   }, [extensionKey, fireMacroViewedAnalyticsEvent]);
 
-  if (!loaded && !loading && !errorMessage) {
+  if (openInBrowser) {
+    return createCard(getTapToOpenBrowserCardProps(cardProps));
+  } else if (!loaded && !loading && !errorMessage) {
     // show tap to load
     return createCard(getTapToLoadCardProps(cardProps));
   } else if (loaded && !loading && !errorMessage) {

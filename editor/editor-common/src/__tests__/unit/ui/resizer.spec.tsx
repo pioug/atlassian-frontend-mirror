@@ -4,6 +4,7 @@ import { fireEvent, render } from '@testing-library/react';
 
 import {
   resizerHandleLeftClassName,
+  resizerHandlerClassName,
   resizerHandleRightClassName,
   resizerItemClassName,
 } from '../../../styles/shared/resizer';
@@ -208,5 +209,73 @@ describe('Resizer', () => {
     expect(rightHandle?.getAttribute('style')).toContain(
       `right: -${customInnerPadding}px;`,
     );
+  });
+
+  it('should have both handler class name default as "medium"', () => {
+    const { container } = render(
+      <ResizerNext
+        enable={{ right: true, left: true }}
+        handleResizeStart={mockHandleResizeStart}
+        handleResize={mockHandleResize}
+        handleResizeStop={mockHandleResizeStop}
+        width={initialWidth}
+        className={customResizableClassName}
+        handleClassName={customHandleClassName}
+      >
+        <div>resizable div</div>
+      </ResizerNext>,
+    );
+    expect(
+      container.querySelector(`.${resizerHandlerClassName.medium}`),
+    ).toBeInTheDocument();
+    expect(
+      container.querySelectorAll(`.${resizerHandlerClassName.medium}`).length,
+    ).toBe(2);
+  });
+
+  it('should have both handler class name "large"', () => {
+    const { container } = render(
+      <ResizerNext
+        enable={{ right: true, left: true }}
+        handleResizeStart={mockHandleResizeStart}
+        handleResize={mockHandleResize}
+        handleResizeStop={mockHandleResizeStop}
+        width={initialWidth}
+        handlerHeightSize={'large'}
+        className={customResizableClassName}
+        handleClassName={customHandleClassName}
+      >
+        <div>resizable div</div>
+      </ResizerNext>,
+    );
+    expect(
+      container.querySelector(`.${resizerHandlerClassName.large}`),
+    ).toBeInTheDocument();
+    expect(
+      container.querySelectorAll(`.${resizerHandlerClassName.large}`).length,
+    ).toBe(2);
+  });
+
+  it('should have one handler class name "small" ', () => {
+    const { container } = render(
+      <ResizerNext
+        enable={{ right: true, left: false }}
+        handleResizeStart={mockHandleResizeStart}
+        handleResize={mockHandleResize}
+        handleResizeStop={mockHandleResizeStop}
+        width={initialWidth}
+        handlerHeightSize={'small'}
+        className={customResizableClassName}
+        handleClassName={customHandleClassName}
+      >
+        <div>resizable div</div>
+      </ResizerNext>,
+    );
+    expect(
+      container.querySelector(`.${resizerHandlerClassName.small}`),
+    ).toBeInTheDocument();
+    expect(
+      container.querySelectorAll(`.${resizerHandlerClassName.small}`).length,
+    ).toBe(1);
   });
 });

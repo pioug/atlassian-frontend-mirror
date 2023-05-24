@@ -49,7 +49,7 @@ import panelPlugin from '../../../../panel';
 import indentationPlugin from '../../../../indentation';
 import alignmentPlugin from '../../../../alignment';
 import breakoutPlugin from '../../../../breakout';
-import widthPlugin from '../../../../width';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import expandPlugin from '../../../../expand';
 import layoutPlugin from '../../../../layout';
 import textFormattingPlugin from '../../../../text-formatting';
@@ -66,6 +66,7 @@ describe('lists plugin -> commands', () => {
       .add(listPlugin)
       .add([analyticsPlugin, { createAnalyticsEvent }])
       .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
+      .add(widthPlugin)
       .add(blockTypePlugin)
       .add(editorDisabledPlugin)
       .add(datePlugin)
@@ -74,7 +75,6 @@ describe('lists plugin -> commands', () => {
       .add(indentationPlugin)
       .add(alignmentPlugin)
       .add(breakoutPlugin)
-      .add(widthPlugin)
       .add(expandPlugin)
       .add([layoutPlugin, { allowBreakout: true }])
       .add(textFormattingPlugin);

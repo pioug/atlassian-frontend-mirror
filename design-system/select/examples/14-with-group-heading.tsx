@@ -1,4 +1,7 @@
 import React from 'react';
+
+import { Label } from '@atlaskit/form';
+
 import Select from '../src';
 
 const GROUP_OPTIONS = [
@@ -19,7 +22,14 @@ const GROUP_OPTIONS = [
 ];
 
 const SingleExample = () => (
-  <Select options={GROUP_OPTIONS} placeholder="Choose a City" />
+  <>
+    <Label htmlFor="group-example">Which city do you live in?</Label>
+    <Select
+      inputId="group-example"
+      options={GROUP_OPTIONS}
+      placeholder="Choose a City"
+    />
+  </>
 );
 
 export default SingleExample;

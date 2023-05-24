@@ -11,7 +11,7 @@ import {
 
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
-
+import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { EditorAppearance } from '../../../types/editor-appearance';
 import { Dispatch, EventDispatcher } from '../../../event-dispatcher';
 import { PortalProviderAPI } from '../../../ui/PortalProvider';
@@ -26,6 +26,7 @@ import {
 } from '../plugin-factory';
 import { pluginKey } from '../plugin-key';
 import { updateEditButton } from './utils';
+import type extensionPlugin from '../index';
 
 const shouldShowEditButton = (
   extensionHandler?: Extension | ExtensionHandler,
@@ -195,6 +196,7 @@ const createPlugin = (
   extensionHandlers: ExtensionHandlers,
   portalProviderAPI: PortalProviderAPI,
   eventDispatcher: EventDispatcher,
+  pluginInjectionApi: ExtractInjectionAPI<typeof extensionPlugin> | undefined,
   useLongPressSelection: boolean = false,
   options: {
     appearance?: EditorAppearance;
@@ -250,6 +252,7 @@ const createPlugin = (
           providerFactory,
           extensionHandlers,
           extensionNodeViewOptions,
+          pluginInjectionApi,
         ),
         // WARNING: referentiality-plugin also creates these nodeviews
         bodiedExtension: ExtensionNodeView(
@@ -258,6 +261,7 @@ const createPlugin = (
           providerFactory,
           extensionHandlers,
           extensionNodeViewOptions,
+          pluginInjectionApi,
         ),
         // WARNING: referentiality-plugin also creates these nodeviews
         inlineExtension: ExtensionNodeView(
@@ -266,6 +270,7 @@ const createPlugin = (
           providerFactory,
           extensionHandlers,
           extensionNodeViewOptions,
+          pluginInjectionApi,
         ),
       },
       handleClickOn: createSelectionClickHandler(

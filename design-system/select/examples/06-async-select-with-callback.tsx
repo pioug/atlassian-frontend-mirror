@@ -1,4 +1,7 @@
 import React from 'react';
+
+import { Label } from '@atlaskit/form';
+
 import { AsyncSelect } from '../src';
 import { OptionsType } from '../src/types';
 
@@ -21,14 +24,20 @@ const loadOptions = (
 };
 
 const AsyncExample = () => (
-  <AsyncSelect
-    className="async-select-with-callback"
-    classNamePrefix="react-select"
-    defaultOptions
-    loadOptions={loadOptions}
-    options={cities}
-    placeholder="Choose a City"
-  />
+  <>
+    <Label htmlFor="async-select-with-callback-example">
+      Which country do you live in?
+    </Label>
+    <AsyncSelect
+      inputId="async-select-with-callback-example"
+      className="async-select-with-callback"
+      classNamePrefix="react-select"
+      defaultOptions
+      loadOptions={loadOptions}
+      options={cities}
+      placeholder="Choose a City"
+    />
+  </>
 );
 
 export default AsyncExample;

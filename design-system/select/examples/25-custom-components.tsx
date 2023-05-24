@@ -1,6 +1,8 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React, { useState } from 'react';
 
+import { Label } from '@atlaskit/form';
+
 import Select, { components } from '../src';
 import type {
   OptionProps,
@@ -78,6 +80,7 @@ export default () => {
         flexDirection: 'column',
       }}
     >
+      <Label htmlFor="colors-example">Custom components</Label>
       <Select<OptionType>
         value={value}
         onChange={(val) => setValue(val)}

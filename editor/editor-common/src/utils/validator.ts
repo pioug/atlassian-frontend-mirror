@@ -704,6 +704,7 @@ export const getValidNode = (
               attrs: {
                 ...attrs,
                 localId: attrs?.localId || uuid(),
+                width: attrs?.width || null,
               },
             };
           }

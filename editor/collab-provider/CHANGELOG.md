@@ -1,5 +1,11 @@
 # @atlaskit/collab-provider
 
+## 9.0.0
+
+### Major Changes
+
+- [`b7086232a7c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b7086232a7c) - ESS-3135: move collab provider types into @atlaskit/collab-provider
+
 ## 8.9.1
 
 ### Patch Changes

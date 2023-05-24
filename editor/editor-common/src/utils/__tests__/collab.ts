@@ -1,6 +1,6 @@
 import { uuid } from '@atlaskit/adf-schema';
+import type { CollabParticipant } from '@atlaskit/collab-provider';
 import { Participants } from '@atlaskit/editor-core/src/plugins/collab-edit/participants';
-import { CollabParticipant } from '@atlaskit/editor-core/src/plugins/collab-edit/types';
 
 import { getParticipantsCount } from '../collab';
 

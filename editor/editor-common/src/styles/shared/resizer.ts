@@ -18,6 +18,16 @@ const akEditorSelectedNodeClassName = 'ak-editor-selected-node';
 export const resizerHandlePadding = 13;
 export const resizerHandleZIndex = 99;
 
+export const resizerHandlerSmallClassName = 'resizer-handler-small';
+export const resizerHandlerMediumClassName = 'resizer-handler-medium';
+export const resizerHandlerLargeClassName = 'resizer-handler-large';
+
+export const resizerHandlerClassName = {
+  small: resizerHandlerSmallClassName,
+  medium: resizerHandlerMediumClassName,
+  large: resizerHandlerLargeClassName,
+};
+
 export const resizerStyles = css`
   .${resizerItemClassName} {
     background: ${token('color.border.focused', B200)};
@@ -73,5 +83,20 @@ export const resizerStyles = css`
     .${resizerItemClassName}.is-resizing
     .${resizerHandleLeftClassName}::after {
     background: ${token('color.border.focused', B200)};
+  }
+
+  .${resizerHandleRightClassName}.${resizerHandlerClassName.medium}::after,
+    .${resizerHandleLeftClassName}.${resizerHandlerClassName.medium}::after {
+    height: 64px;
+  }
+
+  .${resizerHandleRightClassName}.${resizerHandlerClassName.small}::after,
+    .${resizerHandleLeftClassName}.${resizerHandlerClassName.small}::after {
+    height: 43px;
+  }
+
+  .${resizerHandleRightClassName}.${resizerHandlerClassName.large}::after,
+    .${resizerHandleLeftClassName}.${resizerHandlerClassName.large}::after {
+    height: 96px;
   }
 `;

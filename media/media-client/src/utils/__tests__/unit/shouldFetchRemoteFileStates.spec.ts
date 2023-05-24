@@ -1,9 +1,6 @@
 import { asMockFunction } from '@atlaskit/media-test-helpers';
 
-import {
-  shouldFetchRemoteFileStates,
-  shouldFetchRemoteFileStatesObservable,
-} from '../../shouldFetchRemoteFileStates';
+import { shouldFetchRemoteFileStates } from '../../shouldFetchRemoteFileStates';
 
 import { getVideoDimensionsFromBlob } from '../../getVideoDimensionsFromBlob';
 import { FilePreview } from '../../../models/file-state';
@@ -136,27 +133,5 @@ describe('shouldFetchRemoteFileStates()', () => {
         defaultFilePreview,
       ),
     ).toBeTruthy();
-  });
-});
-
-describe('shouldFetchRemoteFileStatesObservable()', () => {
-  it('should resolve result as an Observable', (done) => {
-    const { defaultFilePreview, next } = setup({
-      mimeType: 'video/x-matroska',
-    });
-
-    expect.assertions(2);
-    shouldFetchRemoteFileStatesObservable(
-      'video',
-      'video/x-matroska',
-      defaultFilePreview,
-    ).subscribe({
-      next,
-      complete() {
-        expect(next).toHaveBeenCalledTimes(1);
-        expect(next.mock.calls[0][0]).toBeTruthy();
-        done();
-      },
-    });
   });
 });

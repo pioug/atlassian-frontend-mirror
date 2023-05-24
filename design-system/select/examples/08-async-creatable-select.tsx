@@ -1,7 +1,9 @@
-import React, { Component, Fragment } from 'react';
-import { Checkbox } from '@atlaskit/checkbox';
-import { AsyncCreatableSelect as AsyncCreatable, OptionsType } from '../src';
+import React, { Component } from 'react';
 
+import { Label } from '@atlaskit/form';
+import { Checkbox } from '@atlaskit/checkbox';
+
+import { AsyncCreatableSelect as AsyncCreatable, OptionsType } from '../src';
 import { cities } from './common/data';
 
 interface State {
@@ -57,8 +59,12 @@ export default class AsyncCreatableExample extends Component<{}, State> {
   render() {
     const { allowCreateWhileLoading } = this.state;
     return (
-      <Fragment>
+      <>
+        <Label htmlFor="async-creatable-example">
+          Which city do you live in?
+        </Label>
         <AsyncCreatable
+          inputId="async-creatable-example"
           loadOptions={this.loadOptions}
           allowCreateWhileLoading={allowCreateWhileLoading}
           onCreateOption={this.handleCreateOption}
@@ -70,7 +76,7 @@ export default class AsyncCreatableExample extends Component<{}, State> {
           name="allowCreateWhileLoading"
           onChange={this.toggleValue}
         />
-      </Fragment>
+      </>
     );
   }
 }

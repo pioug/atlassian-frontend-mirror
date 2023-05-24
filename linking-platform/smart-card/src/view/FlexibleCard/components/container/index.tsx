@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import React, { useContext, useState, useCallback } from 'react';
 import { css, jsx, SerializedStyles } from '@emotion/react';
+import { token } from '@atlaskit/tokens';
 
 import {
   MediaPlacement,
@@ -29,7 +30,7 @@ const elevationStyles: SerializedStyles = css`
   border: 1px solid transparent;
   border-radius: 1.5px;
   box-shadow: ${tokens.elevation};
-  margin: 2px;
+  margin: ${token('space.025', '2px')};
 `;
 
 const getGap = (size?: SmartLinkSize): string => {

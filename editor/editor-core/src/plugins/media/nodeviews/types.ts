@@ -29,7 +29,7 @@ export interface MediaSingleNodeProps {
   dispatchAnalyticsEvent: DispatchAnalyticsEvent;
   isCopyPasteEnabled?: boolean;
   forwardRef: ForwardRef;
-  pluginInjectionApi: ExtractInjectionAPI<typeof mediaPlugin>;
+  pluginInjectionApi: ExtractInjectionAPI<typeof mediaPlugin> | undefined;
 }
 
 export interface MediaSingleNodeViewProps {
@@ -46,4 +46,5 @@ export interface MediaNodeViewProps {
   eventDispatcher: EventDispatcher;
   providerFactory: ProviderFactory;
   mediaOptions: MediaOptions;
+  pluginInjectionApi: ExtractInjectionAPI<typeof mediaPlugin> | undefined;
 }

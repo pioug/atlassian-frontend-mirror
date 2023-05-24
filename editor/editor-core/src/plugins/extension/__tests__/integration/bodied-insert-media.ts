@@ -9,13 +9,9 @@ import {
   setupMediaMocksProviders,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
 
-// FIXME: This test was automatically skipped due to failure on 01/03/2023: https://product-fabric.atlassian.net/browse/ED-17035
 BrowserTestCase(
   `bodied-insert-media.ts: Bodied Extension: Insert Media`,
-  {
-    // skip: ['safari'],
-    skip: ['*'],
-  },
+  {},
   async (client: any, testName: string) => {
     const page = new Page(client);
     await page.goto(fullpage.path);

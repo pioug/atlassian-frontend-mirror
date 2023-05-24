@@ -6,17 +6,20 @@ import { breakout, BreakoutMarkAttrs } from '@atlaskit/adf-schema';
 import { calcBreakoutWidthPx } from '@atlaskit/editor-common/utils';
 import {
   NextEditorPlugin,
+  ExtractInjectionAPI,
   PMPluginFactoryParams,
 } from '@atlaskit/editor-common/types';
-import WithPluginState from '../../ui/WithPluginState';
-import { pluginKey as widthPluginKey, WidthPluginState } from '../width';
-import LayoutButton from './ui/LayoutButton';
+import type {
+  WidthPluginState,
+  widthPlugin,
+} from '@atlaskit/editor-plugin-width';
+import LayoutButton, { Props as LayoutButtonProps } from './ui/LayoutButton';
 import { BreakoutCssClassName } from './constants';
-import { EventDispatcher } from '../../';
 import { pluginKey } from './plugin-key';
 import { findSupportedNodeForBreakout } from './utils/find-breakout-node';
 import { BreakoutPluginState } from './types';
 import { akEditorSwoopCubicBezier } from '@atlaskit/editor-shared-styles';
+import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 
 type BreakoutPMMark = Omit<PMMark, 'attrs'> & { attrs: BreakoutMarkAttrs };
 
@@ -25,7 +28,7 @@ class BreakoutView {
   contentDOM: HTMLElement;
   view: EditorView;
   mark: BreakoutPMMark;
-  eventDispatcher: EventDispatcher;
+  unsubscribe: (() => void) | undefined;
 
   constructor(
     /**
@@ -35,7 +38,7 @@ class BreakoutView {
      */
     mark: PMNode,
     view: EditorView,
-    eventDispatcher: EventDispatcher,
+    pluginInjectionApi: ExtractInjectionAPI<typeof breakoutPlugin> | undefined,
   ) {
     const contentDOM = document.createElement('div');
     contentDOM.className = BreakoutCssClassName.BREAKOUT_MARK_DOM;
@@ -49,17 +52,20 @@ class BreakoutView {
     this.mark = mark as any as BreakoutPMMark;
     this.view = view;
     this.contentDOM = contentDOM;
-    this.eventDispatcher = eventDispatcher;
-
-    eventDispatcher.on((widthPluginKey as any).key, this.updateWidth);
-    this.updateWidth(widthPluginKey.getState(this.view.state));
+    this.unsubscribe =
+      pluginInjectionApi?.dependencies.width.sharedState.onChange(
+        ({ nextSharedState }) => this.updateWidth(nextSharedState),
+      );
+    this.updateWidth(
+      pluginInjectionApi?.dependencies.width.sharedState.currentState(),
+    );
   }
 
-  private updateWidth = (widthState: WidthPluginState) => {
+  private updateWidth = (widthState: WidthPluginState | undefined) => {
     // we skip updating the width of breakout nodes if the editorView dom
     // element was hidden (to avoid breakout width and button thrashing
     // when an editor is hidden, re-rendered and unhidden).
-    if (widthState.width === 0) {
+    if (widthState === undefined || widthState.width === 0) {
       return;
     }
 
@@ -118,7 +124,7 @@ class BreakoutView {
   // NOTE: Lifecycle events doesn't work for mark NodeView. So currently this is a no-op.
   // @see https://github.com/ProseMirror/prosemirror/issues/1082
   destroy() {
-    this.eventDispatcher.off((widthPluginKey as any).key, this.updateWidth);
+    this.unsubscribe?.();
   }
 }
 
@@ -132,7 +138,10 @@ function shouldPluginStateUpdate(
   return newBreakoutNode || currentBreakoutNode ? true : false;
 }
 
-function createPlugin({ dispatch, eventDispatcher }: PMPluginFactoryParams) {
+function createPlugin(
+  pluginInjectionApi: ExtractInjectionAPI<typeof breakoutPlugin> | undefined,
+  { dispatch }: PMPluginFactoryParams,
+) {
   return new SafePlugin({
     state: {
       init() {
@@ -163,12 +172,37 @@ function createPlugin({ dispatch, eventDispatcher }: PMPluginFactoryParams) {
         // See the following link for more details:
         // https://prosemirror.net/docs/ref/#view.EditorProps.nodeViews.
         breakout: (mark, view) => {
-          return new BreakoutView(mark, view, eventDispatcher);
+          return new BreakoutView(mark, view, pluginInjectionApi);
         },
       },
     },
   });
 }
+
+interface LayoutButtonWrapperProps extends Omit<LayoutButtonProps, 'node'> {
+  api: ExtractInjectionAPI<typeof breakoutPlugin> | undefined;
+}
+
+const LayoutButtonWrapper = ({
+  api,
+  editorView,
+  boundariesElement,
+  scrollableElement,
+  mountPoint,
+}: LayoutButtonWrapperProps) => {
+  // Re-render with `width` (but don't use state) due to https://bitbucket.org/atlassian/%7Bc8e2f021-38d2-46d0-9b7a-b3f7b428f724%7D/pull-requests/24272
+  const { breakoutState } = useSharedPluginState(api, ['width', 'breakout']);
+
+  return (
+    <LayoutButton
+      editorView={editorView}
+      mountPoint={mountPoint}
+      boundariesElement={boundariesElement}
+      scrollableElement={scrollableElement}
+      node={breakoutState?.breakoutNode ?? null}
+    />
+  );
+};
 
 interface BreakoutPluginOptions {
   allowBreakoutButton?: boolean;
@@ -178,20 +212,31 @@ const breakoutPlugin: NextEditorPlugin<
   'breakout',
   {
     pluginConfiguration: BreakoutPluginOptions | undefined;
+    dependencies: [typeof widthPlugin];
+    sharedState: Partial<BreakoutPluginState>;
   }
-> = (options) => ({
+> = (options, api) => ({
   name: 'breakout',
 
   pmPlugins() {
     return [
       {
         name: 'breakout',
-        plugin: createPlugin,
+        plugin: (props) => createPlugin(api, props),
       },
     ];
   },
   marks() {
     return [{ name: 'breakout', mark: breakout }];
+  },
+
+  getSharedState(editorState) {
+    if (!editorState) {
+      return {
+        breakoutNode: undefined,
+      };
+    }
+    return pluginKey.getState(editorState);
   },
 
   contentComponent({
@@ -206,20 +251,12 @@ const breakoutPlugin: NextEditorPlugin<
     }
 
     return (
-      <WithPluginState
-        plugins={{
-          breakoutPluginState: pluginKey,
-          widthPluginState: widthPluginKey,
-        }}
-        render={({ breakoutPluginState }) => (
-          <LayoutButton
-            editorView={editorView}
-            mountPoint={popupsMountPoint}
-            boundariesElement={popupsBoundariesElement}
-            scrollableElement={popupsScrollableElement}
-            node={breakoutPluginState?.breakoutNode ?? null}
-          />
-        )}
+      <LayoutButtonWrapper
+        api={api}
+        mountPoint={popupsMountPoint}
+        editorView={editorView}
+        boundariesElement={popupsBoundariesElement}
+        scrollableElement={popupsScrollableElement}
       />
     );
   },

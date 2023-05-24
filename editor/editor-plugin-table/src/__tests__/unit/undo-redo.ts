@@ -24,7 +24,7 @@ import { colsToRect } from '../../plugins/table/utils/table';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import clone from 'lodash/clone';
 import tablePlugin from '../../plugins/table';
-import widthPlugin from '@atlaskit/editor-core/src/plugins/width';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';

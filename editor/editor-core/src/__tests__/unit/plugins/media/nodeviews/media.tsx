@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount, ReactWrapper, shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import { NumericalCardDimensions } from '@atlaskit/media-card';
 import { EditorView } from 'prosemirror-view';
 import { media, border } from '@atlaskit/editor-test-helpers/doc-builder';
@@ -10,14 +10,10 @@ import {
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { browser } from '@atlaskit/editor-common/utils';
 import { MediaFeatureFlags } from '@atlaskit/media-common';
-import { Card } from '@atlaskit/media-card';
-import Media, {
-  MediaNodeProps,
-} from '../../../../../plugins/media/nodeviews/mediaNodeView/media';
+import Media from '../../../../../plugins/media/nodeviews/mediaNodeView/media';
 import { stateKey as mediaStateKey } from '../../../../../plugins/media/pm-plugins/main';
 import { MediaPluginState } from '../../../../../plugins/media/pm-plugins/types';
 import { fakeMediaProvider } from '@atlaskit/editor-test-helpers/media-provider';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import { ProsemirrorGetPosHandler } from '../../../../../nodeviews/types';
 import { ReactMediaNode } from '../../../../../plugins/media/nodeviews/mediaNodeView';
@@ -25,12 +21,25 @@ import { stateKey as SelectionChangePluginKey } from '../../../../../plugins/bas
 import { PortalProviderAPI } from '../../../../../ui/PortalProvider';
 import { MediaOptions } from '../../../../../plugins/media/types';
 import { EventDispatcher } from '../../../../../event-dispatcher';
-import { MediaCardWrapper } from '../../../../../plugins/media/nodeviews/styles';
+
+const getMockWidthInjectionApi: any = (width: number) => ({
+  dependencies: {
+    width: {
+      sharedState: {
+        currentState() {
+          return { width };
+        },
+        onChange() {
+          return () => {};
+        },
+      },
+    },
+  },
+});
 
 describe('nodeviews/media', () => {
   let providerFactory = {} as ProviderFactory;
   let mediaProvider: Promise<MediaProvider>;
-  let wrapper: ReactWrapper<MediaNodeProps>;
   let pluginState: MediaPluginState;
   let view: EditorView;
   let getPos: ProsemirrorGetPosHandler;
@@ -78,35 +87,14 @@ describe('nodeviews/media', () => {
     pluginState.handleMediaNodeMount = jest.fn();
     pluginState.handleMediaNodeUnmount = jest.fn();
     pluginState.updateElement = jest.fn();
-
-    wrapper = mount(
-      <Media
-        node={mediaNode()(defaultSchema)}
-        getPos={getPos}
-        view={view}
-        originalDimensions={cardDimensions}
-        maxDimensions={cardDimensions}
-        selected={false}
-        onExternalImageLoaded={jest.fn()}
-      />,
-    );
   });
 
   afterEach(() => {
-    wrapper.unmount();
     jest.resetAllMocks();
   });
 
-  it('should render Media', () => {
-    expect(wrapper.length).toBe(1);
-  });
-
-  it('sets "onExternalImageLoaded" for external images', () => {
-    expect(wrapper.props().onExternalImageLoaded).toBeDefined();
-  });
-
   it('passes url prop for external images', async () => {
-    wrapper = mount(
+    const { findByTestId } = render(
       <Media
         node={externalMediaNode()(defaultSchema)}
         getPos={getPos}
@@ -117,7 +105,10 @@ describe('nodeviews/media', () => {
         onExternalImageLoaded={jest.fn()}
       />,
     );
-    expect(wrapper.props().node.attrs.url).toEqual(
+
+    const card = await findByTestId('media-image');
+
+    expect((card as HTMLImageElement).src).toEqual(
       'http://example.com/1920x1080.jpg',
     );
   });
@@ -128,7 +119,7 @@ describe('nodeviews/media', () => {
       featureFlags,
     };
 
-    wrapper = mountWithIntl(
+    const { findByTestId } = render(
       <Media
         view={view}
         node={externalMediaNode()(defaultSchema)}
@@ -139,14 +130,15 @@ describe('nodeviews/media', () => {
         maxDimensions={cardDimensions}
         mediaOptions={mediaOptions}
       />,
-    ) as unknown as ReactWrapper<MediaNodeProps>;
+    );
 
-    expect(wrapper.find(Card).props().featureFlags).toEqual(featureFlags);
+    const card = await findByTestId('media-card-view');
+    expect(card.id).toBe('newFileExperienceWrapper');
   });
 
   describe('border marks', () => {
-    it('Media node should render border marks with right size', (done) => {
-      wrapper = mount(
+    it('Media node should render border marks with right size', async () => {
+      const { findByTestId } = render(
         <Media
           node={mediaNodeWithBorder[0]}
           getPos={getPos}
@@ -159,20 +151,12 @@ describe('nodeviews/media', () => {
         />,
       );
 
-      setImmediate(() => {
-        wrapper.update();
+      const image = await findByTestId('media-card-wrapper');
 
-        let mediaCardWrapper = wrapper.find(MediaCardWrapper);
-        expect(mediaCardWrapper).toHaveLength(1);
+      const containerStyle = window.getComputedStyle(image);
 
-        let containerStyle = mediaCardWrapper
-          .find('[data-testid="media-card-wrapper"]')
-          .prop('style');
-        expect(containerStyle).toHaveProperty('borderWidth', '3px');
-        expect(containerStyle).toHaveProperty('borderRadius', '6px');
-
-        done();
-      });
+      expect(containerStyle).toHaveProperty('borderWidth', '3px');
+      expect(containerStyle).toHaveProperty('borderRadius', '6px');
     });
   });
 
@@ -203,7 +187,7 @@ describe('nodeviews/media', () => {
     const eventDispatcher = {} as EventDispatcher;
 
     describe('media node', () => {
-      it('correctly sets maxDimensions', () => {
+      it('correctly sets maxDimensions', async () => {
         const getPos = () => 12;
         const node = mediaNode()(defaultSchema);
         const testView = createView(0, 0);
@@ -212,18 +196,17 @@ describe('nodeviews/media', () => {
           eventDispatcher,
           providerFactory,
           mediaOptions,
+          getMockWidthInjectionApi(640),
         )(node, testView, getPos);
 
-        const { width, height } = shallow(nodeView.render())
-          .props()
-          .render({
-            width: { width: 640 },
-          }).props.maxDimensions;
+        const { findByTestId } = render(nodeView.render());
+
+        const image = await findByTestId('media-card-view');
 
         // editorWidth.width
-        expect(width).toBe('640px');
+        expect(window.getComputedStyle(image).width).toBe('640px');
         // (height / width) * editorWidth.width is the current formula
-        expect(height).toBe('480px');
+        expect(window.getComputedStyle(image).height).toBe('480px');
       });
 
       it('correctly sets contenteditable', () => {
@@ -236,6 +219,7 @@ describe('nodeviews/media', () => {
           eventDispatcher,
           providerFactory,
           mediaOptions,
+          undefined,
         )(node, testView, getPos);
 
         const elem = nodeView.createDomRef();
@@ -253,14 +237,17 @@ describe('nodeviews/media', () => {
           eventDispatcher,
           providerFactory,
           mediaOptions,
+          getMockWidthInjectionApi(640),
         )(node, testView, getPos);
 
-        const { width, height } = shallow(nodeView.render())
-          .props()
-          .render({ width: { width: 640 } }).props.originalDimensions;
+        const { findByTestId } = render(nodeView.render());
 
-        expect(width).toBe(680);
-        expect(height).toBe(382);
+        const image = await findByTestId('media-card-view');
+
+        expect(window.getComputedStyle(image).width).toBe('640px');
+        expect(window.getComputedStyle(image).height).toBe(
+          '359.52941176470586px',
+        );
       });
     });
   });

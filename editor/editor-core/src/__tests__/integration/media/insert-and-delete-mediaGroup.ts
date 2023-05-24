@@ -8,6 +8,7 @@ import {
   mountEditor,
   goToEditorTestingWDExample,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
+import { mediaImageSelector } from '@atlaskit/editor-test-helpers/page-objects/media';
 
 [comment].forEach((editor) => {
   BrowserTestCase(
@@ -29,23 +30,23 @@ import {
       await insertMedia(page, ['one.jpg', 'one.jpg']);
 
       // wait for the nodeview to appear
-      await page.waitForSelector('.wrapper .image');
-      expect(await page.count('.wrapper .image')).toBe(2);
+      await page.waitForSelector(mediaImageSelector);
+      expect(await page.count(mediaImageSelector)).toBe(2);
 
       // TODO: check ADF
 
       // okay, delete the first
-      await page.click('.wrapper .image');
-      await page.click('.image [aria-label="delete"]');
+      await page.click(mediaImageSelector);
+      await page.click('[aria-label="delete"]');
 
-      expect(await page.count('.wrapper .image')).toBe(1);
+      expect(await page.count(mediaImageSelector)).toBe(1);
 
       // TODO: check ADF
 
-      await page.click('.wrapper .image');
-      await page.click('.image [aria-label="delete"]');
+      await page.click(mediaImageSelector);
+      await page.click('[aria-label="delete"]');
 
-      expect(await page.count('.wrapper .image')).toBe(0);
+      expect(await page.count(mediaImageSelector)).toBe(0);
 
       // TODO: check ADF
     },

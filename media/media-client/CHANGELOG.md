@@ -1,5 +1,14 @@
 # @atlaskit/media-client
 
+## 22.0.3
+
+### Patch Changes
+
+- [`b098a252236`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b098a252236) - Add emptyFileName as a reason to FileFetcherError.
+- [`e725edbb0d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e725edbb0d9) - Media Client now fetch remote file state regardless of file browser support (removed feature flag, permanent change)
+- [`9425ed86eb7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9425ed86eb7) - File size limit is now verified in the backend, no longer the frontend
+- Updated dependencies
+
 ## 22.0.2
 
 ### Patch Changes

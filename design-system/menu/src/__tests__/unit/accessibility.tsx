@@ -3,7 +3,9 @@ import React from 'react';
 import { cleanup, render } from '@testing-library/react';
 import { axe, JestAxeConfigureOptions, toHaveNoViolations } from 'jest-axe';
 
+import ComposedMenuGroupExample from '../../../examples/05-menu-group';
 import ButtonItem from '../../../examples/button-item';
+import CustomItem from '../../../examples/custom-item';
 import HeadingItem from '../../../examples/heading-item';
 import LinkItem from '../../../examples/link-item';
 import LoadingSkeletonMenu from '../../../examples/loading-skeleton';
@@ -20,6 +22,10 @@ const axeRules: JestAxeConfigureOptions = {
   resultTypes: ['violations', 'incomplete'],
 };
 
+afterEach(() => {
+  cleanup();
+});
+
 it('button item pattern should not fail an aXe audit', async () => {
   const { container } = render(<ButtonItem />);
   const results = await axe(container, axeRules);
@@ -28,7 +34,6 @@ it('button item pattern should not fail an aXe audit', async () => {
 
   // Only tests we explicitly skip can be incomplete
   expect(results.incomplete).toHaveLength(0);
-  cleanup();
 });
 
 it('link item should not fail an aXe audit', async () => {
@@ -39,7 +44,6 @@ it('link item should not fail an aXe audit', async () => {
 
   // Only tests we explicitly skip can be incomplete
   expect(results.incomplete).toHaveLength(0);
-  cleanup();
 });
 
 it('heading item should not fail an aXe audit', async () => {
@@ -50,7 +54,16 @@ it('heading item should not fail an aXe audit', async () => {
 
   // Only tests we explicitly skip can be incomplete
   expect(results.incomplete).toHaveLength(0);
-  cleanup();
+});
+
+it('custom item should not fail an aXe audit', async () => {
+  const { container } = render(<CustomItem />);
+  const results = await axe(container, axeRules);
+
+  expect(results).toHaveNoViolations();
+
+  // Only tests we explicitly skip can be incomplete
+  expect(results.incomplete).toHaveLength(0);
 });
 
 it('Complex menu should not fail an aXe audit', async () => {
@@ -61,7 +74,6 @@ it('Complex menu should not fail an aXe audit', async () => {
 
   // Only tests we explicitly skip can be incomplete
   expect(results.incomplete).toHaveLength(0);
-  cleanup();
 });
 
 it('Loading Skeleton should not fail an aXe audit', async () => {
@@ -72,5 +84,14 @@ it('Loading Skeleton should not fail an aXe audit', async () => {
 
   // Only tests we explicitly skip can be incomplete
   expect(results.incomplete).toHaveLength(0);
-  cleanup();
+});
+
+it('Composed Menu Group examples should not fail an aXe audit', async () => {
+  const { container } = render(<ComposedMenuGroupExample />);
+  const results = await axe(container, axeRules);
+
+  expect(results).toHaveNoViolations();
+
+  // Only tests we explicitly skip can be incomplete
+  expect(results.incomplete).toHaveLength(0);
 });

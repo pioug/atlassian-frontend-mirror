@@ -49,6 +49,7 @@ describe('@atlaskit/editor-core/ui/Extension', () => {
         providerFactory={providerFactory}
         handleContentDOMRef={noop}
         extensionHandlers={{}}
+        pluginInjectionApi={undefined}
       />,
     );
     const component = extension.find(ExtensionComponent);
@@ -86,6 +87,7 @@ describe('@atlaskit/editor-core/ui/Extension', () => {
         providerFactory={providerFactory}
         handleContentDOMRef={noop}
         extensionHandlers={extensionHandlers}
+        pluginInjectionApi={undefined}
       />,
     );
 
@@ -123,6 +125,7 @@ describe('@atlaskit/editor-core/ui/Extension', () => {
         providerFactory={providerFactory}
         handleContentDOMRef={noop}
         extensionHandlers={extensionHandlers}
+        pluginInjectionApi={undefined}
       />,
     );
 
@@ -168,6 +171,7 @@ describe('@atlaskit/editor-core/ui/Extension', () => {
         providerFactory={providerFactory}
         handleContentDOMRef={noop}
         extensionHandlers={extensionHandlers}
+        pluginInjectionApi={undefined}
       />,
     );
 
@@ -215,6 +219,7 @@ describe('@atlaskit/editor-core/ui/Extension', () => {
         providerFactory={providerFactory}
         handleContentDOMRef={noop}
         extensionHandlers={extensionHandlers}
+        pluginInjectionApi={undefined}
       />,
     );
 
@@ -263,6 +268,7 @@ describe('@atlaskit/editor-core/ui/Extension', () => {
           getPos={mockGetPos}
           handleContentDOMRef={noop}
           extensionHandlers={{}}
+          pluginInjectionApi={undefined}
         />,
       );
 
@@ -302,6 +308,7 @@ describe('@atlaskit/editor-core/ui/Extension', () => {
           getPos={mockGetPos}
           handleContentDOMRef={noop}
           extensionHandlers={extensionHandlers}
+          pluginInjectionApi={undefined}
         />,
       );
 
@@ -325,6 +332,7 @@ describe('@atlaskit/editor-core/ui/Extension', () => {
           getPos={mockGetPos}
           handleContentDOMRef={noop}
           extensionHandlers={extensionHandlers}
+          pluginInjectionApi={undefined}
         />,
       );
 

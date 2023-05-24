@@ -3,6 +3,7 @@ import { EditorView, NodeView } from 'prosemirror-view';
 import { Node as PmNode } from 'prosemirror-model';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { PluginInjectionAPIWithDependency } from '@atlaskit/editor-common/types';
 import { EditorAppearance } from '../../../types/editor-appearance';
 import {
   ForwardRef,
@@ -14,6 +15,7 @@ import Extension from '../ui/Extension';
 import ExtensionNodeWrapper from '../ui/Extension/ExtensionNodeWrapper';
 import { PortalProviderAPI } from '../../../ui/PortalProvider';
 import { EventDispatcher } from '../../../event-dispatcher';
+import type { widthPlugin } from '@atlaskit/editor-plugin-width';
 
 interface ExtensionNodeViewOptions {
   appearance?: EditorAppearance;
@@ -55,6 +57,9 @@ export class ExtensionNode extends ReactNodeView {
       extensionHandlers: ExtensionHandlers;
       // referentiality plugin won't utilise appearance just yet
       extensionNodeViewOptions?: ExtensionNodeViewOptions;
+      pluginInjectionApi:
+        | PluginInjectionAPIWithDependency<typeof widthPlugin>
+        | undefined;
     },
     forwardRef: ForwardRef,
   ) {
@@ -74,6 +79,7 @@ export class ExtensionNode extends ReactNodeView {
           handleContentDOMRef={forwardRef}
           extensionHandlers={props.extensionHandlers}
           editorAppearance={props.extensionNodeViewOptions?.appearance}
+          pluginInjectionApi={props.pluginInjectionApi}
         />
       </ExtensionNodeWrapper>
     );
@@ -86,6 +92,9 @@ export default function ExtensionNodeView(
   providerFactory: ProviderFactory,
   extensionHandlers: ExtensionHandlers,
   extensionNodeViewOptions: ExtensionNodeViewOptions,
+  pluginInjectionApi:
+    | PluginInjectionAPIWithDependency<typeof widthPlugin>
+    | undefined,
 ) {
   return (node: PmNode, view: EditorView, getPos: getPosHandler): NodeView => {
     const hasIntlContext = true;
@@ -99,6 +108,7 @@ export default function ExtensionNodeView(
         providerFactory,
         extensionHandlers,
         extensionNodeViewOptions,
+        pluginInjectionApi,
       },
       undefined,
       undefined,

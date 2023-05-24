@@ -42,6 +42,7 @@ import panelPlugin from '../../../../panel';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 
 replaceRaf();
 
@@ -63,6 +64,7 @@ describe('fragment mark consistency plugin', () => {
       .add([featureFlagsPlugin, {}])
       .add([analyticsPlugin, {}])
       .add(contentInsertionPlugin)
+      .add(widthPlugin)
       .add(fragmentMarkPlugin)
       .add([tablesPlugin, { tableOptions: {} }])
       .add(extensionPlugin)

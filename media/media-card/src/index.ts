@@ -27,9 +27,6 @@ export { MediaInlineCard } from './inline';
 export { CardLoading } from './utils/lightCards/cardLoading';
 export { CardError } from './utils/lightCards/cardError';
 export { defaultImageCardDimensions } from './utils/cardDimensions';
-export {
-  fileCardImageViewSelector,
-  fileCardImageViewSelectedSelector,
-} from './card/cardImageView/classnames';
-export { inlinePlayerClassName } from './card/styles/styles';
+export { fileCardImageViewSelector } from './card/classnames';
+export { inlinePlayerClassName } from './card/inlinePlayerWrapperStyles';
 export { newFileExperienceClassName } from './card/cardConstants';

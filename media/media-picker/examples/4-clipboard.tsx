@@ -2,7 +2,7 @@
 import React from 'react';
 import { Component } from 'react';
 import {
-  defaultMediaPickerAuthProvider,
+  mediaPickerAuthProvider,
   defaultMediaPickerCollectionName,
 } from '@atlaskit/media-test-helpers';
 import Button from '@atlaskit/button/standard-button';
@@ -160,7 +160,7 @@ class ClipboardWrapper extends Component<{}, ClipboardWrapperState> {
   private renderClipboard() {
     const { isActive } = this.state;
     const mediaClientConfig = {
-      authProvider: defaultMediaPickerAuthProvider(),
+      authProvider: mediaPickerAuthProvider(),
     };
     const config = {
       uploadParams: {

@@ -19,16 +19,29 @@ import { MacroComponentProps } from './types';
 const BaseMacroComponent: FC<MacroComponentProps & WrappedComponentProps> = (
   props,
 ) => {
-  const { extension, renderingStrategy } = props;
+  const { extension, renderingStrategy, defaultRenderingStrategy } = props;
 
-  const renderFallback = () => <MacroFallbackComponent {...props} />;
+  const renderDefault = () => (
+    <BaseMacroComponent
+      {...props}
+      renderingStrategy={defaultRenderingStrategy}
+    />
+  );
+
+  const renderFallback = () => (
+    <MacroFallbackComponent openInBrowser={false} {...props} />
+  );
+
+  const renderOpenInBrowser = () => (
+    <MacroFallbackComponent openInBrowser={true} {...props} />
+  );
 
   const renderInline = () => <InlineMacroComponent {...props} />;
 
   const renderInlineStatic = () => (
     <InlineSSRMacroComponent
       outputDeviceType="MOBILE"
-      renderFallback={renderFallback}
+      renderFallback={renderDefault}
       {...props}
     />
   );
@@ -36,7 +49,7 @@ const BaseMacroComponent: FC<MacroComponentProps & WrappedComponentProps> = (
   const renderInlineDynamic = () => (
     <InlineSSRMacroComponent
       outputDeviceType="DESKTOP"
-      renderFallback={renderFallback}
+      renderFallback={renderDefault}
       {...props}
     />
   );
@@ -53,7 +66,7 @@ const BaseMacroComponent: FC<MacroComponentProps & WrappedComponentProps> = (
     case 'inline':
       return hasInlineImplementation(extension.extensionKey)
         ? renderInline()
-        : renderFallback();
+        : renderDefault();
 
     case 'inlineStatic':
       return renderInlineStatic();
@@ -62,12 +75,17 @@ const BaseMacroComponent: FC<MacroComponentProps & WrappedComponentProps> = (
       return renderInlineDynamic();
 
     case 'placeholderUrlImplementation':
-      return (
-        <PlaceholderComponent renderFallback={renderFallback} {...props} />
-      );
+      return <PlaceholderComponent renderFallback={renderDefault} {...props} />;
+
+    case 'openInBrowser':
+      return renderOpenInBrowser();
 
     default:
-      return renderFallback();
+      if (renderingStrategy !== defaultRenderingStrategy) {
+        return renderDefault();
+      } else {
+        return renderFallback();
+      }
   }
 };
 

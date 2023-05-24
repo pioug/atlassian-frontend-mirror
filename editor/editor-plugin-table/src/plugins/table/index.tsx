@@ -7,7 +7,13 @@ import { browser } from '@atlaskit/editor-common/utils';
 import { tableEditing } from '@atlaskit/editor-tables/pm-plugins';
 import { createTable } from '@atlaskit/editor-tables/utils';
 
-import { table, tableCell, tableHeader, tableRow } from '@atlaskit/adf-schema';
+import {
+  table,
+  tableCell,
+  tableHeader,
+  tableRow,
+  tableWithCustomWidth,
+} from '@atlaskit/adf-schema';
 
 import { toggleTable, tooltip } from '@atlaskit/editor-common/keymaps';
 
@@ -63,6 +69,7 @@ import type {
 import { EditorState, Transaction } from 'prosemirror-state';
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 interface TablePluginOptions {
   tableOptions: PluginConfig;
@@ -135,8 +142,12 @@ const tablesPlugin: NextEditorPlugin<
     },
 
     nodes() {
+      const tableNode = getBooleanFF('platform.editor.custom-table-width')
+        ? tableWithCustomWidth
+        : table;
+
       return [
-        { name: 'table', node: table },
+        { name: 'table', node: tableNode },
         { name: 'tableHeader', node: tableHeader },
         { name: 'tableRow', node: tableRow },
         { name: 'tableCell', node: tableCell },

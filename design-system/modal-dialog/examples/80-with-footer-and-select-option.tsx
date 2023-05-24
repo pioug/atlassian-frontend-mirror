@@ -40,7 +40,11 @@ export default function DefaultModal() {
   const Footer = () => {
     return (
       <ModalFooter>
-        <Button style={{ marginRight: 'auto' }} onClick={close}>
+        <Button
+          appearance="primary"
+          style={{ marginRight: 'auto' }}
+          onClick={close}
+        >
           test button
         </Button>
       </ModalFooter>
@@ -49,7 +53,7 @@ export default function DefaultModal() {
 
   return (
     <div>
-      <Button onClick={open} testId="modal-trigger">
+      <Button appearance="primary" onClick={open} testId="modal-trigger">
         Open Modal
       </Button>
       <ModalTransition>

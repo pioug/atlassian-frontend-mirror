@@ -23,8 +23,8 @@ export const ANALYTICS_MEDIA_CHANNEL = 'media';
 
 // @public (undocumented)
 export const areEqualFeatureFlags: (
-  ffA?: MediaFeatureFlags | undefined,
-  ffB?: MediaFeatureFlags | undefined,
+  ffA?: MediaFeatureFlags,
+  ffB?: MediaFeatureFlags,
 ) => boolean;
 
 // @public (undocumented)
@@ -54,10 +54,7 @@ export const debounce: (
 export const defaultMediaFeatureFlags: Required<MediaFeatureFlags>;
 
 // @public (undocumented)
-export const downloadUrl: (
-  url: string,
-  options?: DownloadUrlOptions | undefined,
-) => void;
+export const downloadUrl: (url: string, options?: DownloadUrlOptions) => void;
 
 // @public (undocumented)
 interface DownloadUrlOptions {
@@ -154,8 +151,6 @@ export interface MediaFeatureFlags {
   // (undocumented)
   captions?: boolean;
   // (undocumented)
-  fetchFileStateAfterUpload?: boolean;
-  // (undocumented)
   folderUploads?: boolean;
   // (undocumented)
   mediaInline?: boolean;
@@ -242,7 +237,7 @@ export type PerformanceAttributes = {
 
 // @public (undocumented)
 export const pick: (
-  obj?: Object | undefined,
+  obj?: Object,
   keys?: Array<String>,
 ) => {
   [k: string]: any;
@@ -318,7 +313,7 @@ export type UIEventPayload<
 
 // @public (undocumented)
 export const useMemoizeFeatureFlags: (
-  featureFlags?: MediaFeatureFlags | undefined,
+  featureFlags?: MediaFeatureFlags,
 ) => MediaFeatureFlags | undefined;
 
 // @public (undocumented)

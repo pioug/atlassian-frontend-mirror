@@ -1,5 +1,11 @@
 # @atlaskit/button
 
+## 16.7.5
+
+### Patch Changes
+
+- [`3a14ab26d19`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3a14ab26d19) - Workaround for product intgegrator
+
 ## 16.7.4
 
 ### Patch Changes

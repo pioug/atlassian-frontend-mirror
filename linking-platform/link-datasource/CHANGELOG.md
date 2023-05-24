@@ -1,5 +1,11 @@
 # @atlaskit/link-datasource
 
+## 0.17.2
+
+### Patch Changes
+
+- [`b23bb695309`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b23bb695309) - Remove hard-coded column from modal
+
 ## 0.17.1
 
 ### Patch Changes

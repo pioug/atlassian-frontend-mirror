@@ -57,8 +57,8 @@ import deprecatedAnalyticsPlugin from '@atlaskit/editor-core/src/plugins/analyti
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import mediaPlugin from '@atlaskit/editor-core/src/plugins/media';
 import selectionPlugin from '@atlaskit/editor-core/src/plugins/selection';
-import widthPlugin from '@atlaskit/editor-core/src/plugins/width';
-import gridPlugin from '@atlaskit/editor-core/src/plugins/grid';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import { insertMediaAsMediaSingle } from '@atlaskit/editor-core/src/plugins/media/utils/media-single';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { getPluginState } from '../../plugins/table/pm-plugins/plugin-factory';

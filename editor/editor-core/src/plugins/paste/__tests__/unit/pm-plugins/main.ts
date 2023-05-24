@@ -12,6 +12,8 @@ import {
   annotation,
   p,
   DocBuilder,
+  layoutSection,
+  layoutColumn,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import {
@@ -27,11 +29,13 @@ import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import pastePlugin from '../../../index';
 import blockTypePlugin from '../../../../block-type';
 import textFormattingPlugin from '../../../../text-formatting';
+import layoutPlugin from '../../../../layout';
 import { InlineCommentAnnotationProvider } from '../../../../annotation/types';
 import annotationPlugin from '../../../../annotation';
 import { inlineCommentPluginKey } from '../../../../annotation/utils';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { undo, redo } from 'prosemirror-history';
 
 describe('paste: handlePaste', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -84,7 +88,8 @@ describe('paste: handlePaste', () => {
         .add([
           annotationPlugin,
           { inlineComment: { ...inlineCommentProvider } },
-        ]),
+        ])
+        .add(layoutPlugin),
     });
 
     createAnalyticsEvent.mockClear();
@@ -157,6 +162,71 @@ describe('paste: handlePaste', () => {
       );
 
       expect(editorView.state.doc).toEqualDocument(expectedDocument);
+    });
+  });
+
+  describe('when paste over layout columns', () => {
+    // Original doc has layout with text in two columns
+    // Selection is over first and second column
+    let originalDoc = doc(
+      layoutSection(
+        layoutColumn({ width: 50 })(p('First {<}--- Replace me')),
+        layoutColumn({ width: 50 })(p('and me! ---{>} Last')),
+      ),
+    );
+
+    // Document with content replaced and merged into first column
+    // Layout section has two columns with the second being empty
+    const updatedDocWithPastedContent = doc(
+      layoutSection(
+        layoutColumn({ width: 50 })(p('First TEXT THAT REPLACES OTHERS Last')),
+        layoutColumn({ width: 50 })(p('')),
+      ),
+    );
+
+    it('should merge the paragraphs together in the first layout column', () => {
+      // Setup
+      const { editorView } = editor(originalDoc);
+
+      // Paste
+      const textToPaste = `TEXT THAT REPLACES OTHERS`;
+      dispatchPasteEvent(editorView, { plain: textToPaste });
+
+      // Expect paste to succeed and not change layout structure
+      expect(editorView.state.doc).toEqualDocument(updatedDocWithPastedContent);
+    });
+
+    it('should be able to undo paste', () => {
+      // Setup
+      const { editorView } = editor(originalDoc);
+
+      // Paste
+      const textToPaste = `TEXT THAT REPLACES OTHERS`;
+      dispatchPasteEvent(editorView, { plain: textToPaste });
+
+      // Undo
+      undo(editorView.state, editorView.dispatch);
+
+      // Expect undo paste correctly
+      expect(editorView.state.doc).toEqualDocument(originalDoc);
+    });
+
+    it('should be able to redo undone paste', () => {
+      // Setup
+      const { editorView } = editor(originalDoc);
+
+      // Paste
+      const textToPaste = `TEXT THAT REPLACES OTHERS`;
+      dispatchPasteEvent(editorView, { plain: textToPaste });
+
+      // Undo
+      undo(editorView.state, editorView.dispatch);
+
+      // Redo
+      redo(editorView.state, editorView.dispatch);
+
+      // Expect redo paste correctly
+      expect(editorView.state.doc).toEqualDocument(updatedDocWithPastedContent);
     });
   });
 });

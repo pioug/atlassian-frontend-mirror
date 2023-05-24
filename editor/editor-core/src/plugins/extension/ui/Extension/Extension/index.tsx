@@ -19,14 +19,13 @@ import {
 } from './styles';
 import { overlay } from '../styles';
 import ExtensionLozenge from '../Lozenge';
-import {
-  pluginKey as widthPluginKey,
-  WidthPluginState,
-} from '../../../../width';
+import type { WidthPluginState } from '@atlaskit/editor-plugin-width';
 import { ProsemirrorGetPosHandler } from '../../../../../nodeviews';
 import { EditorAppearance } from '../../../../../types/editor-appearance';
-import WithPluginState from '../../../../../ui/WithPluginState';
 import classnames from 'classnames';
+import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import type { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { PluginInjectionAPIWithDependency } from '@atlaskit/editor-common/types';
 
 export interface Props {
   node: PmNode;
@@ -38,6 +37,9 @@ export interface Props {
   references?: ReferenceEntity[];
   hideFrame?: boolean;
   editorAppearance?: EditorAppearance;
+  pluginInjectionApi:
+    | PluginInjectionAPIWithDependency<typeof widthPlugin>
+    | undefined;
 }
 
 type WidthStateProps = { widthState?: WidthPluginState };
@@ -145,6 +147,38 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 }
 
 const Extension = (props: Props & OverflowShadowProps) => {
+  // TODO: ED-17836 This code is here because confluence injects
+  // the `editor-referentiality` plugin via `dangerouslyAppendPlugins`
+  // which cannot access the `pluginInjectionApi`. When we move
+  // Confluence to using presets we can remove this workaround.
+  const { pluginInjectionApi } = props;
+  return pluginInjectionApi === undefined ? (
+    <ExtensionDeprecated {...props} />
+  ) : (
+    <ExtensionWithSharedState {...props} />
+  );
+};
+
+const ExtensionWithSharedState = (props: Props & OverflowShadowProps) => {
+  const { pluginInjectionApi } = props;
+  const { widthState } = useSharedPluginState(pluginInjectionApi, ['width']);
+  return <ExtensionWithPluginState widthState={widthState} {...props} />;
+};
+
+import { WithPluginState } from '@atlaskit/editor-common/with-plugin-state';
+import { PluginKey, EditorState } from 'prosemirror-state';
+// TODO: ED-17836 This code is here because Confluence injects
+// the `editor-referentiality` plugin via `dangerouslyAppendPlugins`
+// which cannot access the `pluginInjectionApi`. When we move
+// Confluence to using presets we can remove this workaround.
+// @ts-ignore
+const widthPluginKey = {
+  key: 'widthPlugin$',
+  getState: (state: EditorState) => {
+    return (state as any)['widthPlugin$'];
+  },
+} as PluginKey;
+const ExtensionDeprecated = (props: Props & OverflowShadowProps) => {
   return (
     <WithPluginState
       editorView={props.view}
@@ -157,6 +191,9 @@ const Extension = (props: Props & OverflowShadowProps) => {
     />
   );
 };
+/**
+ * End workaround
+ */
 
 export default overflowShadow(Extension, {
   overflowSelector: '.extension-overflow-wrapper',

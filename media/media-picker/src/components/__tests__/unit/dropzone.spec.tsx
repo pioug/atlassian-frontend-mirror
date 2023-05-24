@@ -228,10 +228,7 @@ const container = document.createElement('div');
       expectedContainer.dispatchEvent(createDropEvent());
 
       expect(componentInstance.uploadService.addFiles).toHaveBeenCalledTimes(1);
-      expect(componentInstance.uploadService.addFiles).toBeCalledWith(
-        files,
-        undefined,
-      );
+      expect(componentInstance.uploadService.addFiles).toBeCalledWith(files);
     });
 
     it('should ensure non-supported browser fallback works (in the context of folder uploads)', async () => {
@@ -253,10 +250,7 @@ const container = document.createElement('div');
       //non-supported browser or feature flag off option calls onDrop function
       expect(componentInstance.onDrop).toHaveBeenCalledTimes(1);
       expect(componentInstance.uploadService.addFiles).toHaveBeenCalledTimes(1);
-      expect(componentInstance.uploadService.addFiles).toBeCalledWith(
-        files,
-        featureFlags,
-      );
+      expect(componentInstance.uploadService.addFiles).toBeCalledWith(files);
     });
 
     it('should filter files uploaded against a blocked list (when folder uploading is enabled)', async () => {
@@ -284,10 +278,7 @@ const container = document.createElement('div');
       await asyncUpdateComponentTick(component);
 
       expect(componentInstance.uploadService.addFiles).toHaveBeenCalledTimes(1);
-      expect(componentInstance.uploadService.addFiles).toBeCalledWith(
-        files,
-        featureFlags,
-      );
+      expect(componentInstance.uploadService.addFiles).toBeCalledWith(files);
     });
 
     it('should ensure fallback works if the feature flag for folders is not enabled', async () => {
@@ -309,10 +300,7 @@ const container = document.createElement('div');
       //non-supported browser or feature flag off option calls onDrop function
       expect(componentInstance.onDrop).toHaveBeenCalledTimes(1);
       expect(componentInstance.uploadService.addFiles).toHaveBeenCalledTimes(1);
-      expect(componentInstance.uploadService.addFiles).toBeCalledWith(
-        files,
-        featureFlags,
-      );
+      expect(componentInstance.uploadService.addFiles).toBeCalledWith(files);
     });
 
     it('should provide a function to onCancelFn callback property and call uploadService.cancel', () => {

@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 26.3.7
+
+### Patch Changes
+
+- [`b270cd7542b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b270cd7542b) - Updates internal analytics for link clicked events in Smart Card and adds more attributes to link clicked event fired by LinkUrl (blue links) that are rendered in editor.
+
 ## 26.3.6
 
 ### Patch Changes

@@ -75,6 +75,19 @@ describe('<ModalTitle />', () => {
     expect(element.tagName).toBe('H1');
   });
 
+  it('should add an icon if the appearance prop is provided', () => {
+    const { getByRole } = render(
+      <ModalDialog testId="test" onClose={noop}>
+        <ModalHeader>
+          <ModalTitle appearance="danger">Title</ModalTitle>
+        </ModalHeader>
+      </ModalDialog>,
+    );
+
+    const icon = getByRole('img');
+    expect(icon).toHaveAccessibleName('danger');
+  });
+
   it('should throw an error if modal context not available', () => {
     /* eslint-disable no-console */
     const err = console.error;

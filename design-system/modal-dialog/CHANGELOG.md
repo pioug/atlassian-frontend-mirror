@@ -1,5 +1,11 @@
 # @atlaskit/modal-dialog
 
+## 12.5.5
+
+### Patch Changes
+
+- [`ba48a3a0fec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ba48a3a0fec) - Remove redundant language from default icon labels for ModalTitle.
+
 ## 12.5.4
 
 ### Patch Changes

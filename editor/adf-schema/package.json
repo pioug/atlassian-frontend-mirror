@@ -64,7 +64,7 @@
   "devDependencies": {
     "@atlaskit/adf-utils": "^18.2.0",
     "@atlaskit/editor-json-transformer": "^8.9.0",
-    "@atlaskit/editor-test-helpers": "^18.4.0",
+    "@atlaskit/editor-test-helpers": "^18.5.0",
     "@atlaskit/json-schema-generator": "^3.3.0",
     "@atlassian/adf-sample": "^1.1.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",

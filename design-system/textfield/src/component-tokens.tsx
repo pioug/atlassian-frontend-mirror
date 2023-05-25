@@ -1,3 +1,4 @@
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import {
   B100,
   B75,
@@ -9,6 +10,7 @@ import {
   DN90,
   N0,
   N10,
+  N100,
   N200,
   N30,
   N40,
@@ -38,8 +40,18 @@ export const defaultBackgroundColorHover = {
 };
 
 export const defaultBorderColor = {
-  light: token('color.border.input', N40),
-  dark: token('color.border.input', DN40),
+  light: token(
+    'color.border.input',
+    getBooleanFF('platform.design-system-team.update-border-input_ff9l1')
+      ? N100
+      : N40,
+  ),
+  dark: token(
+    'color.border.input',
+    getBooleanFF('platform.design-system-team.update-border-input_ff9l1')
+      ? DN200
+      : DN40,
+  ),
 };
 
 export const defaultBorderColorFocus = {

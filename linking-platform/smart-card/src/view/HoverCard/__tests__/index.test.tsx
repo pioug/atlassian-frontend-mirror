@@ -219,20 +219,32 @@ describe('HoverCard', () => {
                 },
                 context: [
                   {
+                    componentName: 'smart-cards',
+                  },
+                  {
                     attributes: {
-                      extensionKey: 'confluence-object-provider',
                       display: 'inline',
-                      status: 'resolved',
+                      urlHash: '4e2a79a1652f58e31c27f0ae8531050beb5d25ca',
                     },
-                    source: undefined,
                   },
                   {
                     attributes: {
                       extensionKey: 'confluence-object-provider',
-                      display: 'hoverCardPreview',
                       status: 'resolved',
                     },
+                  },
+                  {
+                    attributes: {
+                      urlHash: '4e2a79a1652f58e31c27f0ae8531050beb5d25ca',
+                      display: 'hoverCardPreview',
+                    },
                     source: 'smartLinkPreviewHoverCard',
+                  },
+                  {
+                    attributes: {
+                      extensionKey: 'confluence-object-provider',
+                      status: 'resolved',
+                    },
                   },
                 ],
               });
@@ -254,11 +266,18 @@ describe('HoverCard', () => {
                 },
                 context: [
                   {
+                    componentName: 'smart-cards',
+                  },
+                  {
+                    attributes: {
+                      display: 'inline',
+                      urlHash: '4e2a79a1652f58e31c27f0ae8531050beb5d25ca',
+                    },
+                  },
+                  {
                     attributes: {
                       extensionKey: 'confluence-object-provider',
-                      display: 'inline',
                     },
-                    source: undefined,
                   },
                   {
                     attributes: {
@@ -845,10 +864,14 @@ describe('HoverCard', () => {
                 context: [
                   {
                     attributes: {
-                      status: 'resolved',
                       urlHash: mockUrlHash,
                       display: 'hoverCardPreview',
                       id: 'some-id',
+                    },
+                  },
+                  {
+                    attributes: {
+                      status: 'resolved',
                     },
                   },
                 ],
@@ -1430,10 +1453,15 @@ describe('HoverCard', () => {
                 context: [
                   {
                     attributes: {
-                      status: 'resolved',
                       urlHash: mockUrlHash,
                       display: 'hoverCardPreview',
                       id: 'some-id',
+                    },
+                  },
+                  {
+                    attributes: {
+                      displayCategory: 'smartLink',
+                      status: 'resolved',
                     },
                   },
                 ],
@@ -1624,10 +1652,14 @@ describe('HoverCard', () => {
                   context: [
                     {
                       attributes: {
-                        status: 'resolved',
                         urlHash: mockUrlHash,
                         display: 'hoverCardPreview',
                         id: 'some-id',
+                      },
+                    },
+                    {
+                      attributes: {
+                        status: 'resolved',
                       },
                     },
                   ],
@@ -1643,10 +1675,15 @@ describe('HoverCard', () => {
                   context: [
                     {
                       attributes: {
-                        status: 'resolved',
                         urlHash: mockUrlHash,
                         display: 'hoverCardPreview',
                         id: 'some-id',
+                      },
+                      source: 'smartLinkPreviewHoverCard',
+                    },
+                    {
+                      attributes: {
+                        status: 'resolved',
                       },
                     },
                   ],
@@ -1698,10 +1735,14 @@ describe('HoverCard', () => {
                   context: [
                     {
                       attributes: {
-                        status: 'resolved',
                         urlHash: mockUrlHash,
                         display: 'hoverCardPreview',
                         id: 'some-id',
+                      },
+                    },
+                    {
+                      attributes: {
+                        status: 'resolved',
                       },
                     },
                   ],

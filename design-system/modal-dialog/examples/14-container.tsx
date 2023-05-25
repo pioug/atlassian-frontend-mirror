@@ -57,12 +57,7 @@ export default function DefaultModal() {
                 >
                   Secondary Action
                 </Button>
-                <Button
-                  autoFocus
-                  testId="primary"
-                  appearance="primary"
-                  onClick={close}
-                >
+                <Button testId="primary" appearance="primary" onClick={close}>
                   Close
                 </Button>
               </ModalFooter>

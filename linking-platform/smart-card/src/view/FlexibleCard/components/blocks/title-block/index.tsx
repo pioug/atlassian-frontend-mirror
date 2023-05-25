@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { css, SerializedStyles } from '@emotion/react';
 
 import { TitleBlockProps } from './types';
-import useMouseDownEvent from '../../../../../state/analytics/useMouseDownEvent';
+import { useMouseDownEvent } from '../../../../../state/analytics/useLinkClicked';
 import { SmartLinkStatus } from '../../../../../constants';
 import TitleBlockResolvedView from './resolved';
 import TitleBlockErroredView from './errored';

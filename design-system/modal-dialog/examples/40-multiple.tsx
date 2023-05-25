@@ -102,7 +102,6 @@ export default function NestedDemo() {
                   </Button>
                   {nextModal && (
                     <Button
-                      autoFocus
                       appearance="primary"
                       onClick={() => open(nextModal)}
                     >

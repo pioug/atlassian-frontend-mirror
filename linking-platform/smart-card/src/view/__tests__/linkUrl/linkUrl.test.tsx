@@ -283,6 +283,16 @@ describe('LinkUrl', () => {
             keysHeld: [],
           },
         },
+        context: [
+          {
+            componentName: 'linkUrl',
+          },
+          {
+            attributes: {
+              display: 'url',
+            },
+          },
+        ],
       });
     });
 
@@ -307,6 +317,16 @@ describe('LinkUrl', () => {
             keysHeld: [],
           },
         },
+        context: [
+          {
+            componentName: 'linkUrl',
+          },
+          {
+            attributes: {
+              display: 'url',
+            },
+          },
+        ],
       });
     });
 
@@ -326,6 +346,16 @@ describe('LinkUrl', () => {
             keysHeld: [],
           },
         },
+        context: [
+          {
+            componentName: 'linkUrl',
+          },
+          {
+            attributes: {
+              display: 'url',
+            },
+          },
+        ],
       });
     });
 
@@ -349,6 +379,16 @@ describe('LinkUrl', () => {
             keysHeld: [],
           },
         },
+        context: [
+          {
+            componentName: 'linkUrl',
+          },
+          {
+            attributes: {
+              display: 'url',
+            },
+          },
+        ],
       });
     });
 
@@ -369,6 +409,16 @@ describe('LinkUrl', () => {
             keysHeld: [],
           },
         },
+        context: [
+          {
+            componentName: 'linkUrl',
+          },
+          {
+            attributes: {
+              display: 'url',
+            },
+          },
+        ],
       });
     });
   });

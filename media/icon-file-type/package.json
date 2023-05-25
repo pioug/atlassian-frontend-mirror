@@ -52,7 +52,7 @@
     "@atlaskit/media-test-helpers": "^33.0.0",
     "@atlaskit/modal-dialog": "^12.5.0",
     "@atlaskit/ssr": "*",
-    "@atlaskit/textfield": "^5.4.0",
+    "@atlaskit/textfield": "^5.5.0",
     "@atlaskit/theme": "^12.5.0",
     "@atlaskit/tokens": "^1.4.0",
     "@atlaskit/tooltip": "^17.8.0",

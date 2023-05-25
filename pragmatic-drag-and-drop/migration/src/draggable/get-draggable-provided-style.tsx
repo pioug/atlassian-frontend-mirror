@@ -17,7 +17,11 @@ const baseDraggingStyle = {
   boxSizing: 'border-box',
   transition: 'none',
   zIndex: zIndex.dragging,
-  opacity: 1,
+  /**
+   * This transparency is intended to allow for better visibility of
+   * drop indicators.
+   */
+  opacity: 0.75,
   pointerEvents: 'none',
 } as const;
 

@@ -51,7 +51,6 @@ export default function ExampleAppearance() {
                 Secondary Action
               </Button>
               <Button
-                autoFocus
                 testId={appearance}
                 appearance={appearance}
                 onClick={close}

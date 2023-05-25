@@ -53,7 +53,7 @@
     "@atlaskit/docs": "*",
     "@atlaskit/media-test-helpers": "^33.0.0",
     "@atlaskit/ssr": "*",
-    "@atlaskit/textfield": "^5.4.0",
+    "@atlaskit/textfield": "^5.5.0",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",

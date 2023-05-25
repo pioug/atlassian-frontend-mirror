@@ -38,7 +38,7 @@
     "@atlaskit/icon": "^21.12.0",
     "@atlaskit/media-client": "^22.0.0",
     "@atlaskit/spinner": "^15.5.0",
-    "@atlaskit/textfield": "^5.4.0",
+    "@atlaskit/textfield": "^5.5.0",
     "@atlaskit/theme": "^12.5.0",
     "@atlaskit/tokens": "^1.4.0",
     "@atlaskit/tooltip": "^17.8.0",
@@ -63,7 +63,7 @@
   },
   "devDependencies": {
     "@atlaskit/docs": "*",
-    "@atlaskit/editor-test-helpers": "^18.4.0",
+    "@atlaskit/editor-test-helpers": "^18.5.0",
     "@atlaskit/elements-test-helpers": "^0.7.0",
     "@atlaskit/media-core": "^34.1.0",
     "@atlaskit/popup": "^1.6.0",

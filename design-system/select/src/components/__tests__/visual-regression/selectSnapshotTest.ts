@@ -12,6 +12,8 @@ const selectCheckboxMenu = '.select__menu';
 const selectMenuItem = '.select__option:nth-child(4)';
 const singleSelectMenuItem = '.react-select__option:nth-child(4)';
 const selectValidation = 'label';
+const popupTriggerSelector = "[data-testid='popup-trigger']";
+const popupMenuSelector = "[id$='-popup-select']";
 
 describe('Snapshot Test', () => {
   it('Default select example should match production example', async () => {
@@ -177,4 +179,46 @@ describe('Snapshot Test', () => {
     const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
+
+  ffTest(
+    'platform.design-system-team.popup-select-render-perf_i0s6m',
+    async () => {
+      const url = getExampleUrl(
+        'design-system',
+        'select',
+        'popup-select-minimal',
+        global.__BASEURL__,
+      );
+      const { page } = global;
+
+      await loadPage(page, url);
+
+      await page.waitForSelector(popupTriggerSelector);
+      await page.click(popupTriggerSelector);
+
+      await page.waitForSelector(popupMenuSelector);
+
+      const image = await page.screenshot();
+      expect(image).toMatchProdImageSnapshot();
+    },
+    async () => {
+      const url = getExampleUrl(
+        'design-system',
+        'select',
+        'popup-select-minimal',
+        global.__BASEURL__,
+      );
+      const { page } = global;
+
+      await loadPage(page, url);
+
+      await page.waitForSelector(popupTriggerSelector);
+      await page.click(popupTriggerSelector);
+
+      await page.waitForSelector(popupMenuSelector);
+
+      const image = await page.screenshot();
+      expect(image).toMatchProdImageSnapshot();
+    },
+  );
 });

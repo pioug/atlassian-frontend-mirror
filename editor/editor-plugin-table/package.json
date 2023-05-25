@@ -67,7 +67,7 @@
     "@atlaskit/editor-plugin-feature-flags": "^0.1.0",
     "@atlaskit/editor-plugin-grid": "^0.1.0",
     "@atlaskit/editor-plugin-width": "^0.0.1",
-    "@atlaskit/editor-test-helpers": "^18.4.0",
+    "@atlaskit/editor-test-helpers": "^18.5.0",
     "@atlaskit/link-provider": "^1.6.0",
     "@atlaskit/logo": "^13.14.0",
     "@atlaskit/media-integration-test-helpers": "^2.6.0",

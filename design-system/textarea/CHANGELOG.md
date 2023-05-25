@@ -1,5 +1,11 @@
 # @atlaskit/textarea
 
+## 4.7.0
+
+### Minor Changes
+
+- [`5f37caad726`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f37caad726) - [ux] reduce border width to 1px and update fallback color of border
+
 ## 4.6.3
 
 ### Patch Changes

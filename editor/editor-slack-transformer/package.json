@@ -44,7 +44,7 @@
     "@atlaskit/docs": "*",
     "@atlaskit/editor-common": "^74.2.0",
     "@atlaskit/editor-core": "^184.0.0",
-    "@atlaskit/editor-test-helpers": "^18.4.0",
+    "@atlaskit/editor-test-helpers": "^18.5.0",
     "@atlaskit/emoji": "^67.4.0",
     "@atlaskit/smart-card": "^26.3.0",
     "@atlaskit/theme": "^12.5.0",

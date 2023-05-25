@@ -1,3 +1,4 @@
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { R400 } from '@atlaskit/theme/colors';
 import {
   codeFontFamily,
@@ -102,6 +103,11 @@ const getContainerTextBgAndBorderColor = (
   '&:focus-within:not([data-disabled])': {
     backgroundColor: backgroundColorFocus[appearance][mode],
     borderColor: borderColorFocus[appearance][mode],
+    boxShadow: getBooleanFF(
+      'platform.design-system-team.update-border-input_ff9l1',
+    )
+      ? `inset 0 0 0 1px ${borderColorFocus[appearance][mode]}`
+      : undefined,
   },
   '&[data-disabled]': {
     color: disabledRules[mode].textColor,
@@ -115,10 +121,20 @@ const getContainerTextBgAndBorderColor = (
   },
   '&[data-invalid], &[data-invalid]:hover': {
     borderColor: invalidRules[mode].borderColor,
+    boxShadow: getBooleanFF(
+      'platform.design-system-team.update-border-input_ff9l1',
+    )
+      ? `inset 0 0 0 1px ${invalidRules[mode].borderColor}`
+      : undefined,
   },
   '&[data-invalid]:focus-within': {
     backgroundColor: invalidRules[mode].backgroundColorFocus,
     borderColor: invalidRules[mode].borderColorFocus,
+    boxShadow: getBooleanFF(
+      'platform.design-system-team.update-border-input_ff9l1',
+    )
+      ? `inset 0 0 0 1px ${invalidRules[mode].borderColorFocus}`
+      : undefined,
   },
   '@media screen and (-ms-high-contrast: active)': {
     '&[data-invalid]:focus-within': {
@@ -153,7 +169,16 @@ export const containerStyles = (
     alignItems: 'center',
     ...getContainerTextBgAndBorderColor(appearance, mode),
     borderRadius: 3,
-    borderWidth: 2,
+    borderWidth: getBooleanFF(
+      'platform.design-system-team.update-border-input_ff9l1',
+    )
+      ? 1
+      : 2,
+    // add 1px padding on both top and bottom to keep the same overall height after border reduced from 2px to 1px under feature flag
+    ...(getBooleanFF('platform.design-system-team.update-border-input_ff9l1') &&
+    appearance !== 'none'
+      ? { padding: '1px 0' }
+      : {}),
     borderStyle: appearance === 'none' ? 'none' : 'solid',
     boxSizing: 'border-box',
     display: 'flex',

@@ -9,7 +9,7 @@ import {
   Content,
 } from './styled';
 import { handleClickCommon } from '../../BlockCard/utils/handlers';
-import useMouseDownEvent from '../../../state/analytics/useMouseDownEvent';
+import { useMouseDownEvent } from '../../../state/analytics/useLinkClicked';
 import { FrameStyle } from '../types';
 
 export interface ExpandedFrameProps {

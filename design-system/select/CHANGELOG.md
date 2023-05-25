@@ -1,5 +1,17 @@
 # @atlaskit/select
 
+## 16.4.0
+
+### Minor Changes
+
+- [`45bcfb68efb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/45bcfb68efb) - Testing behind a feature flag: reduce re-renders in `<PopupSelect>` by using an available renderProps to both disable and block scrolling at the right time as well as avoid rendering the `<Select>` to a portal not visible to the user.
+
+## 16.3.1
+
+### Patch Changes
+
+- [`1cd0d824b3c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1cd0d824b3c) - NO-ISSUE Add basic memoization on CheckboxSelect and RadioSelect to avoid unnecessary re-renders with otherwise static references.
+
 ## 16.3.0
 
 ### Minor Changes

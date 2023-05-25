@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   AnalyticsEventPayload,
   UIAnalyticsEvent,
@@ -8,6 +9,10 @@ import { browser } from '@atlaskit/linking-common/user-agent';
 import { ClickOutcome, ClickType, UiLinkClickedEventProps } from './types';
 import { ANALYTICS_CHANNEL } from './analytics';
 import { AnalyticsPayload } from '../types';
+import {
+  useLinkClicked,
+  useMouseDownEvent,
+} from '../../state/analytics/useLinkClicked';
 
 export const buttonMap = new Map<
   number | undefined,
@@ -163,3 +168,36 @@ export const fireLinkClickedEvent =
       }).fire(ANALYTICS_CHANNEL);
     }
   };
+
+const getDisplayName = (
+  WrappedComponent: React.ElementType<any> | string,
+): string => {
+  if (typeof WrappedComponent === 'string') {
+    return WrappedComponent;
+  }
+  return WrappedComponent.displayName || WrappedComponent.name || 'Component';
+};
+
+export function withLinkClickedEvent<
+  Component extends React.ElementType<{
+    onClick?: React.MouseEventHandler<HTMLAnchorElement>;
+    onMouseDown?: React.MouseEventHandler<HTMLAnchorElement>;
+  }>,
+>(WrappedComponent: Component) {
+  const Component = (props: React.ComponentProps<Component>) => {
+    const onClick = useLinkClicked(props.onClick);
+    const onMouseDown = useMouseDownEvent(props.onMouseDown);
+
+    return React.createElement(WrappedComponent, {
+      ...props,
+      onClick,
+      onMouseDown,
+    });
+  };
+
+  Component.displayName = `withLinkClickedEvent(${getDisplayName(
+    WrappedComponent,
+  )})`;
+
+  return Component;
+}

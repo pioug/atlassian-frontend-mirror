@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import useMouseDownEvent from '../../../state/analytics/useMouseDownEvent';
+import { useMouseDownEvent } from '../../../state/analytics/useLinkClicked';
 
 export interface ContentHeaderProps {
   onClick: React.MouseEventHandler;

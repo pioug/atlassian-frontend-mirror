@@ -12,7 +12,7 @@ const secondaryBtn = "[data-testid='secondary']";
 const modalTitle = "[data-testid='modal--title']";
 
 BrowserTestCase(
-  'Modal should have first focus on primary action, and be closed',
+  'Modal should move focus based on reading order, and be closed',
   {},
   async (client: BrowserObject) => {
     const url = getExampleUrl('design-system', 'modal-dialog', 'default-modal');
@@ -26,26 +26,26 @@ BrowserTestCase(
     expect(await modalTest.isVisible(modalDialog)).toBe(true);
 
     await modalTest.waitUntil(
-      () => modalTest.hasFocus(primaryBtn),
-      'Primary button does not have initial focus.',
-    );
-    expect(await modalTest.hasFocus(primaryBtn)).toBe(true);
-
-    modalTest.keys('Tab', true);
-    await modalTest.waitUntil(
       () => modalTest.hasFocus(secondaryBtn),
-      'Secondary button does not have focus after tab.',
+      'Secondary button does not have initial focus.',
     );
     expect(await modalTest.hasFocus(secondaryBtn)).toBe(true);
 
-    // Focus should go back to primary action, not content body,
-    // because this modal is not scrollable.
     modalTest.keys('Tab', true);
     await modalTest.waitUntil(
       () => modalTest.hasFocus(primaryBtn),
-      'Focus is not back on primary button.',
+      'Primary button does not have focus after tab.',
     );
     expect(await modalTest.hasFocus(primaryBtn)).toBe(true);
+
+    // Focus should go back to secondary action, not content body,
+    // because this modal is not scrollable.
+    modalTest.keys('Tab', true);
+    await modalTest.waitUntil(
+      () => modalTest.hasFocus(secondaryBtn),
+      'Focus is not back on secondary button.',
+    );
+    expect(await modalTest.hasFocus(secondaryBtn)).toBe(true);
 
     // Close the modal dialog
     await modalTest.click(primaryBtn);

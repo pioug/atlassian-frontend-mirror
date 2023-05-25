@@ -1,17 +1,12 @@
 import React from 'react';
 import { Label } from '@atlaskit/form';
 import Spinner from '@atlaskit/spinner';
-import Tooltip from '@atlaskit/tooltip';
 import { cities } from '../common/data';
 import { AsyncSelect } from '../../src';
 import { OptionType, LoadingIndicatorProps } from '../../src/types';
 
 const LoadingIndicator = (props: LoadingIndicatorProps<OptionType>) => {
-  return (
-    <Tooltip content={'Custom Loader'}>
-      <Spinner {...props} />
-    </Tooltip>
-  );
+  return <Spinner {...props} />;
 };
 
 const filterCities = (inputValue: string) =>

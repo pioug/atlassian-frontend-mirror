@@ -1,5 +1,11 @@
 # @atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration
 
+## 0.9.0
+
+### Minor Changes
+
+- [`541c0511010`](https://bitbucket.org/atlassian/atlassian-frontend/commits/541c0511010) - [ux] Dragging elements are now slightly transparent, to allow better visibility of drop indicators. This also better aligns with native browser drag previews.
+
 ## 0.8.0
 
 ### Minor Changes

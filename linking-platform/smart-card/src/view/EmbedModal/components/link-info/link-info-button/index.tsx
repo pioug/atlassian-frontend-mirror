@@ -1,7 +1,7 @@
 import React from 'react';
 import Tooltip from '@atlaskit/tooltip';
 import Button from '@atlaskit/button/custom-theme-button';
-import useMouseDownEvent from '../../../../../state/analytics/useMouseDownEvent';
+import { useMouseDownEvent } from '../../../../../state/analytics/useLinkClicked';
 import { LinkInfoButtonProps } from './types';
 
 const LinkInfoButton: React.FC<LinkInfoButtonProps> = ({

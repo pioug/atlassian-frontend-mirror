@@ -9,24 +9,20 @@ const popupButton = '#examples button';
 const popupSelect = '#react-select-2-input';
 
 BrowserTestCase(
-  `Popup Select should close when Escape key is pressed in IE and Edge`,
-  { skip: ['*'] }, // the issue was only occurring in IE and Edge - AK-5319
+  `Popup Select should open and close when interacted with`,
+  {},
   async (client: any) => {
     const popupSelectTest = new Page(client);
     await popupSelectTest.goto(urlPopupSelect);
     await popupSelectTest.waitForSelector(popupButton);
+    expect(await popupSelectTest.isExisting(popupSelect)).toBe(false);
+
     await popupSelectTest.click(popupButton);
     expect(await popupSelectTest.isVisible(popupSelect)).toBe(true);
 
     await popupSelectTest.keys(['Escape']);
-    // in IE11 and Edge, after hitting escape, the element disappears from the DOM and can't be queried.
-    try {
-      await popupSelectTest.isExisting(popupSelect);
-    } catch (err: any) {
-      expect(err.toString()).toContain(
-        `Error: Unable to find element with css selector == ${popupSelect}`,
-      );
-    }
+    expect(await popupSelectTest.isExisting(popupSelect)).toBe(false);
+
     await popupSelectTest.checkConsoleErrors();
   },
 );

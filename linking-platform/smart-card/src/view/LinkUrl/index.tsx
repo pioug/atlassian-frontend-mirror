@@ -1,17 +1,15 @@
 import React from 'react';
-import { useLinkWarningModal } from './LinkWarningModal/hooks/use-link-warning-modal';
-import LinkWarningModal from './LinkWarningModal';
-import { LinkUrlProps, PackageDataType } from './types';
-import {
-  useAnalyticsEvents,
-  withAnalyticsContext,
-} from '@atlaskit/analytics-next';
+import { withAnalyticsContext } from '@atlaskit/analytics-next';
+
 import {
   name as packageName,
   version as packageVersion,
 } from '../../version.json';
-import { fireLinkClickedEvent } from '../../utils/analytics/click';
-import useMouseDownEvent from '../../state/analytics/useMouseDownEvent';
+import { withLinkClickedEvent } from '../../utils/analytics/click';
+import { LinkAnalyticsContext } from '../../utils/analytics/LinkAnalyticsContext';
+import { useLinkWarningModal } from './LinkWarningModal/hooks/use-link-warning-modal';
+import LinkWarningModal from './LinkWarningModal';
+import { LinkUrlProps, PackageDataType } from './types';
 
 const PACKAGE_DATA: PackageDataType = {
   packageName,
@@ -19,38 +17,33 @@ const PACKAGE_DATA: PackageDataType = {
   componentName: 'linkUrl',
 };
 
+const Link = withLinkClickedEvent('a');
+
 const LinkUrl: React.FC<LinkUrlProps> = ({
   href,
   children,
   checkSafety = true,
   onClick,
-  onMouseDown,
   testId = 'link-with-safety',
   ...props
 }) => {
   const { checkLinkSafety, ...linkWarningModalProps } = useLinkWarningModal();
 
-  const { createAnalyticsEvent } = useAnalyticsEvents();
-  const handleMouseDown = useMouseDownEvent();
-
   return (
     <>
-      <a
-        data-testid={testId}
-        href={href}
-        onClick={(e) => {
-          checkSafety && checkLinkSafety(e, href);
-          onClick && onClick(e);
-          fireLinkClickedEvent(createAnalyticsEvent)(e);
-        }}
-        onMouseDown={(e) => {
-          onMouseDown && onMouseDown(e);
-          handleMouseDown(e); // add analytics
-        }}
-        {...props}
-      >
-        {children}
-      </a>
+      <LinkAnalyticsContext url={href} display="url">
+        <Link
+          data-testid={testId}
+          href={href}
+          onClick={(e) => {
+            checkSafety && checkLinkSafety(e, href);
+            onClick && onClick(e);
+          }}
+          {...props}
+        >
+          {children}
+        </Link>
+      </LinkAnalyticsContext>
       {checkSafety && <LinkWarningModal {...linkWarningModalProps} />}
     </>
   );

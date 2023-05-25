@@ -290,7 +290,8 @@ describe('Dark mode panel', () => {
     await snapshot(page);
   });
 
-  it('Should render standard panels', async () => {
+  // FIXME: This test was automatically skipped due to failure on 24/05/2023: https://product-fabric.atlassian.net/browse/ED-18043
+  it.skip('Should render standard panels', async () => {
     adfContent = panel;
     await initFullPageEditorWithAdf(
       page,

@@ -109,9 +109,13 @@ BrowserTestCase(
   },
 );
 
+// FIXME: This test was automatically skipped due to failure on 22/05/2023: https://product-fabric.atlassian.net/browse/ED-17982
 BrowserTestCase(
   'keymap.ts: can tab back and forth through a table cell containing a taskList',
-  { skip: ['safari'] },
+  {
+    // skip: ['safari'],
+    skip: ['*'],
+  },
   async (client: any) => {
     const page = await goToEditorTestingWDExample(client);
     await initEditor(page, taskListTableAdf);

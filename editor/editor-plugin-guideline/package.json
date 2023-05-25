@@ -34,7 +34,7 @@
   "devDependencies": {
     "@atlaskit/docs": "*",
     "@atlaskit/editor-core": "^184.0.0",
-    "@atlaskit/editor-test-helpers": "^18.2.0",
+    "@atlaskit/editor-test-helpers": "^18.5.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",

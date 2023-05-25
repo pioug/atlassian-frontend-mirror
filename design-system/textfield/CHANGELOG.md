@@ -1,5 +1,11 @@
 # @atlaskit/textfield
 
+## 5.5.0
+
+### Minor Changes
+
+- [`c9c3a3f43af`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c9c3a3f43af) - [ux] reduce border width to 1px and update fallback color of border
+
 ## 5.4.3
 
 ### Patch Changes

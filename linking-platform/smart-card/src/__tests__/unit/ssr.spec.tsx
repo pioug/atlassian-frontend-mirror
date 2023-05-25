@@ -31,7 +31,6 @@ describe('<SSRCard />', () => {
         <Provider storeOptions={storeOptions} client={new Client('stg')}>
           <CardSSR {...cardProps} {...props} />
         </Provider>
-        ,
       </AnalyticsListener>,
     );
 
@@ -120,11 +119,18 @@ describe('<SSRCard />', () => {
               },
               context: [
                 {
+                  componentName: 'smart-cards',
+                },
+                {
                   attributes: {
-                    status: 'resolved',
                     urlHash: 'f9b6063741fa59d8303585718d18adf9a4b3a56c',
                     display: 'inline',
                     id: 'some-id',
+                  },
+                },
+                {
+                  attributes: {
+                    status: 'resolved',
                   },
                 },
               ],

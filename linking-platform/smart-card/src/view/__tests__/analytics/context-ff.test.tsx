@@ -74,13 +74,17 @@ describe('smartLink renderSuccess event with `enable context` and `remove dispat
                 {
                   componentName: 'smart-cards',
                 },
-                // additional context from <SmartLinkAnalyticsContext /> wrapper
                 {
                   attributes: {
                     display: 'inline',
-                    id: 'some-id',
-                    status: 'resolved',
                     urlHash: mockUrlHash,
+                    id: 'some-id',
+                  },
+                },
+                // additional context from <SmartLinkAnalyticsContext /> wrapper
+                {
+                  attributes: {
+                    status: 'resolved',
                   },
                 },
               ],

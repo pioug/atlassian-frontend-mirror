@@ -4,12 +4,28 @@ import {
   PuppeteerPage,
   takeElementScreenShot,
 } from '@atlaskit/visual-regression/helper';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 describe('Snapshot Test', () => {
   let page: PuppeteerPage;
 
   beforeEach(async () => {
     page = global.page;
+  });
+  ffTest('platform.design-system-team.update-border-input_ff9l1', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'textfield',
+      'variations',
+      global.__BASEURL__,
+    );
+
+    await loadPage(page, url);
+
+    await page.waitForSelector('input[disabled]');
+    await page.waitForSelector('input[required]');
+    const image = await takeElementScreenShot(page, '#variations');
+    expect(image).toMatchProdImageSnapshot();
   });
 
   it('Textfield variations should match production example', async () => {

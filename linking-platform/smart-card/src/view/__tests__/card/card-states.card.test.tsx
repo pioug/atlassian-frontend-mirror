@@ -384,11 +384,18 @@ describe('smart-card: card states, block', () => {
               },
               context: [
                 {
+                  componentName: 'smart-cards',
+                },
+                {
                   attributes: {
-                    status: 'resolved',
-                    urlHash: mockUrlHash,
                     display: 'block',
                     id: 'some-id',
+                    urlHash: mockUrlHash,
+                  },
+                },
+                {
+                  attributes: {
+                    status: 'resolved',
                   },
                 },
               ],

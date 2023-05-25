@@ -47,7 +47,7 @@
     "@atlaskit/linking-common": "^2.12.0",
     "@atlaskit/spinner": "^15.5.0",
     "@atlaskit/tabs": "^13.4.0",
-    "@atlaskit/textfield": "^5.4.0",
+    "@atlaskit/textfield": "^5.5.0",
     "@atlaskit/theme": "^12.5.0",
     "@atlaskit/tokens": "^1.4.0",
     "@atlaskit/tooltip": "^17.8.0",

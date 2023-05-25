@@ -74,7 +74,7 @@
     "@atlaskit/radio": "^5.6.0",
     "@atlaskit/range": "^7.1.0",
     "@atlaskit/section-message": "^6.4.0",
-    "@atlaskit/select": "^16.3.0",
+    "@atlaskit/select": "^16.4.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/toggle": "^12.6.0",
     "@atlaskit/visual-regression": "*",

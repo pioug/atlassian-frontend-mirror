@@ -1,7 +1,7 @@
 import React, { MouseEvent, useCallback } from 'react';
 import { useGlobalTheme } from '@atlaskit/theme/components';
 import { WrapperAnchor, WrapperSpan } from './styled';
-import useMouseDownEvent from '../../../state/analytics/useMouseDownEvent';
+import { useMouseDownEvent } from '../../../state/analytics/useLinkClicked';
 
 export interface FrameViewProps {
   /** A flag that determines whether the card is selected in edit mode. */

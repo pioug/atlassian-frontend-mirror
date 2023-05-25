@@ -63,6 +63,7 @@
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@atlassian/feature-flags-test-utils": "*",
     "@testing-library/react": "^12.1.5",
+    "jest-axe": "^4.0.0",
     "react-dom": "^16.8.0",
     "storybook-addon-performance": "^0.16.0",
     "typescript": "~4.9.5"

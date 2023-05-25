@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { css, CSSObject } from '@emotion/react';
 
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import {
   codeFontFamily as getCodeFontFamily,
   fontFamily as getFontFamily,
@@ -60,6 +61,11 @@ const bgAndBorderColorStyles = (
     '&:focus': {
       backgroundColor: props.backgroundColorFocus,
       borderColor: props.borderColorFocus,
+      boxShadow: getBooleanFF(
+        'platform.design-system-team.update-border-input_ff9l1',
+      )
+        ? `inset 0 0 0 1px ${props.borderColorFocus}`
+        : undefined,
     },
     '&:not(:focus)': {
       backgroundColor: props.backgroundColor,
@@ -69,11 +75,21 @@ const bgAndBorderColorStyles = (
     '&[data-invalid]:focus': {
       backgroundColor: props.invalidRules.backgroundColorFocus,
       borderColor: props.invalidRules.borderColorFocus,
+      boxShadow: getBooleanFF(
+        'platform.design-system-team.update-border-input_ff9l1',
+      )
+        ? `inset 0 0 0 1px ${props.invalidRules.borderColorFocus}`
+        : undefined,
     },
     // eslint-disable-next-line @repo/internal/styles/no-nested-styles
     '&[data-invalid]:not(:focus)': {
       backgroundColor: props.invalidRules.backgroundColor,
       borderColor: props.invalidRules.borderColor,
+      boxShadow: getBooleanFF(
+        'platform.design-system-team.update-border-input_ff9l1',
+      )
+        ? `inset 0 0 0 1px ${props.invalidRules.borderColor}`
+        : undefined,
     },
     // Disabled background and border styles should not be applied to components that
     // have either no background or transparent background to begin with
@@ -109,6 +125,12 @@ const hoverBackgroundAndBorderStyles = (props: ThemeTokens) =>
       // eslint-disable-next-line @repo/internal/styles/no-nested-styles
       '&[data-invalid]': {
         backgroundColor: props.invalidRules.backgroundColorHover,
+        borderColor: props.invalidRules.borderColor,
+        boxShadow: getBooleanFF(
+          'platform.design-system-team.update-border-input_ff9l1',
+        )
+          ? `inset 0 0 0 1px ${props.invalidRules.borderColor}`
+          : undefined,
       },
     },
   });
@@ -133,7 +155,15 @@ const fontFamilyStyle = (isMonospaced: boolean | undefined) =>
     fontFamily: isMonospaced ? codeFontFamily : fontFamily,
   });
 
-const borderPaddingAndHeightStyles = (minimumRows = 1) => {
+const borderPaddingAndHeightStyles = (
+  minimumRows = 1,
+  appearance: string | undefined,
+) => {
+  const borderWidth =
+    getBooleanFF('platform.design-system-team.update-border-input_ff9l1') &&
+    appearance !== 'none'
+      ? 1
+      : 2;
   const horizontalPaddingWithoutBorderWidth = horizontalPadding - borderWidth;
   const borderHeight = borderWidth;
   return css({
@@ -161,7 +191,11 @@ const staticStyles = css({
   position: 'relative',
   flex: '1 1 100%',
   borderRadius: borderRadius,
-  borderWidth: borderWidth,
+  borderWidth: getBooleanFF(
+    'platform.design-system-team.update-border-input_ff9l1',
+  )
+    ? 1
+    : borderWidth,
   fontSize: fontSize,
   outline: 'none',
   overflow: 'auto',
@@ -190,7 +224,7 @@ export const getBaseStyles = ({
   // eslint-disable-next-line @repo/internal/styles/no-exported-styles
   css([
     staticStyles,
-    borderPaddingAndHeightStyles(minimumRows),
+    borderPaddingAndHeightStyles(minimumRows, appearance),
     resizeStyle(resize),
     borderStyle(appearance),
     fontFamilyStyle(isMonospaced),

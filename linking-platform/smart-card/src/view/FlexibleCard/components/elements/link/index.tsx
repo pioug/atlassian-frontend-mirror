@@ -18,7 +18,7 @@ import {
   hasWhiteSpace,
 } from '../../utils';
 import { tokens } from '../../../../../utils/token';
-import useMouseDownEvent from '../../../../../state/analytics/useMouseDownEvent';
+import { useMouseDownEvent } from '../../../../../state/analytics/useLinkClicked';
 import { token } from '@atlaskit/tokens';
 
 const DEFAULT_MAX_LINES = 2;

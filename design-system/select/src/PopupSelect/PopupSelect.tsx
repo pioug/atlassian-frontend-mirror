@@ -21,6 +21,7 @@ import shallowEqualObjects from 'shallow-equal/objects';
 
 import { N80 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { MenuDialog, DummyControl, defaultComponents } from './components';
 import baseStyles from '../styles';
@@ -33,6 +34,7 @@ import {
   ValidationState,
 } from '../types';
 import { bind, UnbindFn } from 'bind-event-listener';
+import memoizeOne from 'memoize-one';
 
 type SelectComponents = typeof RSComponents;
 
@@ -142,9 +144,14 @@ export interface PopupSelectProps<
 }
 
 interface State<Modifiers = string> {
-  focusLockEnabled: boolean;
+  /**
+   * TODO: This type should be cleaned up with `platform.design-system-team.popup-select-render-perf_i0s6m`.
+   *  - If discarded, revert to `focusLockEnabled: boolean`
+   *  - If kept, delete this type.
+   */
+  focusLockEnabled?: boolean;
   isOpen: boolean;
-  mergedComponents: Object;
+  mergedComponents: Object; // This really should be `SelectComponentsConfig<…>`, but generics aren't compatible across all Selects as structured
   mergedPopperProps: PopperPropsNoChildren<defaultModifiers | Modifiers>;
 }
 
@@ -204,14 +211,24 @@ export default class PopupSelect<
     ? this.props.isOpen
     : this.props.defaultIsOpen;
 
-  state = {
-    focusLockEnabled: false,
-    isOpen: this.defaultOpenState ?? false,
-    mergedComponents: defaultComponents,
-    mergedPopperProps: defaultPopperProps as PopperPropsNoChildren<
-      defaultModifiers | string
-    >,
-  };
+  state = getBooleanFF(
+    'platform.design-system-team.popup-select-render-perf_i0s6m',
+  )
+    ? {
+        isOpen: this.defaultOpenState ?? false,
+        mergedComponents: defaultComponents,
+        mergedPopperProps: defaultPopperProps as PopperPropsNoChildren<
+          defaultModifiers | string
+        >,
+      }
+    : {
+        focusLockEnabled: false,
+        isOpen: this.defaultOpenState ?? false,
+        mergedComponents: defaultComponents,
+        mergedPopperProps: defaultPopperProps as PopperPropsNoChildren<
+          defaultModifiers | string
+        >,
+      };
 
   popperWrapperId = `${uid({ options: this.props.options })}-popup-select`;
 
@@ -398,7 +415,13 @@ export default class PopupSelect<
     }
 
     this.setState({ isOpen: false });
-    this.setState({ focusLockEnabled: false });
+    if (
+      getBooleanFF('platform.design-system-team.popup-select-render-perf_i0s6m')
+    ) {
+      // Do nothing… (the pff eslint just doesn't like `!getBooleanFF(…)`)
+    } else {
+      this.setState({ focusLockEnabled: false });
+    }
 
     if (this.targetRef != null) {
       this.targetRef.focus();
@@ -447,6 +470,34 @@ export default class PopupSelect<
   // Utils
   // ==============================
 
+  // Get a memoized merge of the default styles and the prop's in styles
+  getSelectStyles = memoizeOne(
+    (
+      defaultStyles: StylesConfig<Option, IsMulti>,
+      propStyles: StylesConfig<Option, IsMulti> | undefined,
+    ) => {
+      return mergeStyles(defaultStyles, propStyles || {});
+    },
+  );
+
+  // Get a memoized override of our `<Select components={…}>` overrides.
+  getSelectComponents = memoizeOne(
+    (
+      mergedComponents: typeof defaultComponents,
+      showSearchControl: boolean | undefined,
+    ) => {
+      if (!showSearchControl) {
+        // When we have no search control, we use a dummy override to hide it visually.
+        return {
+          ...mergedComponents,
+          Control: DummyControl,
+        } as Partial<SelectComponents>;
+      }
+
+      return mergedComponents as Partial<SelectComponents>;
+    },
+  );
+
   // account for groups when counting options
   // this may need to be recursive, right now it just counts one level
   getItemCount = () => {
@@ -493,27 +544,61 @@ export default class PopupSelect<
 
   renderSelect = () => {
     const { footer, maxMenuWidth, minMenuWidth, target, ...props } = this.props;
+    // TODO: If `platform.design-system-team.popup-select-render-perf_i0s6m` is kept, `focusLockEnabled` should be fully removed as we're preferring `isReferenceHidden`
     const { focusLockEnabled, isOpen, mergedComponents, mergedPopperProps } =
       this.state;
     const showSearchControl = this.showSearchControl();
     const portalDestination = canUseDOM() ? document.body : null;
-    const components = {
-      ...mergedComponents,
-      Control: showSearchControl ? mergedComponents.Control : DummyControl,
-    };
 
     if (!portalDestination || !isOpen) {
       return null;
     }
+
+    // Memoized merge of defaultStyles and props.styles
+    const selectStyles = getBooleanFF(
+      'platform.design-system-team.popup-select-render-perf_i0s6m',
+    )
+      ? this.getSelectStyles(this.defaultStyles, props.styles)
+      : mergeStyles(this.defaultStyles, props.styles || {});
+
+    // Memoized variance of the default select components
+    const selectComponents = getBooleanFF(
+      'platform.design-system-team.popup-select-render-perf_i0s6m',
+    )
+      ? this.getSelectComponents(mergedComponents, showSearchControl)
+      : ({
+          ...mergedComponents,
+          Control: showSearchControl ? mergedComponents.Control : DummyControl,
+        } as Partial<SelectComponents>);
+
     const popper = (
       <Popper
         {...mergedPopperProps}
-        onFirstUpdate={(state) => {
-          this.handleFirstPopperUpdate();
-          mergedPopperProps.onFirstUpdate?.(state);
-        }}
+        {
+          // TODO: When cleaning up `platform.design-system-team.popup-select-render-perf_i0s6m`, if kept, the spread above covers this implicitly.
+          ...(getBooleanFF(
+            'platform.design-system-team.popup-select-render-perf_i0s6m',
+          )
+            ? undefined
+            : {
+                onFirstUpdate: (state) => {
+                  this.handleFirstPopperUpdate();
+                  mergedPopperProps.onFirstUpdate?.(state);
+                },
+              })
+        }
       >
-        {({ placement, ref, style }) => {
+        {({ placement, ref, style, isReferenceHidden }) => {
+          /**
+           * The reference is not available yet, so the Popper and Portal is either being rendered at `0,0` (scrolled to the top)
+           * or not at all.  There's no reason to render the Select or lock scrolling at the top of the page yet.
+           */
+          const readyToRenderSelect = getBooleanFF(
+            'platform.design-system-team.popup-select-render-perf_i0s6m',
+          )
+            ? isReferenceHidden !== null
+            : true;
+
           return (
             <NodeResolver innerRef={this.resolveMenuRef(ref)}>
               <MenuDialog
@@ -523,21 +608,40 @@ export default class PopupSelect<
                 maxWidth={maxMenuWidth}
                 id={this.popperWrapperId}
               >
-                <FocusLock disabled={!focusLockEnabled} returnFocus>
-                  <Select<Option, IsMulti>
-                    backspaceRemovesValue={false}
-                    controlShouldRenderValue={false}
-                    isClearable={false}
-                    tabSelectsValue={false}
-                    menuIsOpen
-                    ref={this.getSelectRef}
-                    {...props}
-                    isSearchable={showSearchControl}
-                    styles={mergeStyles(this.defaultStyles, props.styles || {})}
-                    maxMenuHeight={this.getMaxHeight()}
-                    components={components as Partial<SelectComponents>}
-                    onChange={this.handleSelectChange}
-                  />
+                <FocusLock
+                  /*
+                   * NOTE: We intentionally want the FocusLock to be disabled until the refs are populated in Popper.
+                   * Until then, the portal the Popper creates is at `0,0`, meaning the FocusLock forces the page to scroll to `0,0`.
+                   * We do not want the user to scroll to the top of the page when they open their PopupSelect, so we disable it.
+                   *
+                   *  WARNING: This causes additional renders, eg. ±5ms in our example, but unless
+                   * FocusLock has a better way to avoid scrolling, this is necessary.
+                   */
+                  disabled={
+                    getBooleanFF(
+                      'platform.design-system-team.popup-select-render-perf_i0s6m',
+                    )
+                      ? !readyToRenderSelect
+                      : !focusLockEnabled
+                  }
+                  returnFocus
+                >
+                  {readyToRenderSelect && (
+                    <Select<Option, IsMulti>
+                      backspaceRemovesValue={false}
+                      controlShouldRenderValue={false}
+                      isClearable={false}
+                      tabSelectsValue={false}
+                      menuIsOpen
+                      ref={this.getSelectRef}
+                      {...props}
+                      isSearchable={showSearchControl}
+                      styles={selectStyles}
+                      maxMenuHeight={this.getMaxHeight()}
+                      components={selectComponents}
+                      onChange={this.handleSelectChange}
+                    />
+                  )}
                   {footer}
                 </FocusLock>
               </MenuDialog>

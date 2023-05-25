@@ -81,7 +81,7 @@ const TitleIcon = ({
 
   return (
     <span css={[iconStyles, !isMultiline && truncatedTextIconStyles]}>
-      <Icon label={`${appearance} icon`} primaryColor={iconColor[appearance]} />
+      <Icon label={appearance} primaryColor={iconColor[appearance]} />
     </span>
   );
 };

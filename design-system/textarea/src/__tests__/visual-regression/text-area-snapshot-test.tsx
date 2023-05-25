@@ -4,12 +4,28 @@ import {
   PuppeteerPage,
   takeElementScreenShot,
 } from '@atlaskit/visual-regression/helper';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { docsText } from '../../../examples/common';
 
 describe('TextArea', () => {
   let page: PuppeteerPage;
   let url: string;
+
+  ffTest('platform.design-system-team.update-border-input_ff9l1', async () => {
+    page = global.page;
+    url = getExampleUrl(
+      'design-system',
+      'textarea',
+      'basic',
+      global.__BASEURL__,
+    );
+    await loadPage(page, url);
+    await page.waitForSelector('#smart textarea');
+    const image = await page.screenshot();
+    expect(image).toMatchProdImageSnapshot();
+  });
+
   describe('Basic', () => {
     beforeAll(async () => {
       page = global.page;

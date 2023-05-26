@@ -3,6 +3,7 @@ import { Fragment, MouseEvent } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { PRODUCT_HOME_BREAKPOINT } from '../../common/constants';
@@ -101,6 +102,17 @@ const siteTitleStyles = css({
   alignItems: 'center',
 });
 
+// eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
+const featureFlaggedHideSiteTitleStyles = getBooleanFF(
+  'platform.design-system-team.navigation-v2-no-jank_5yhbd',
+)
+  ? css({
+      // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+      [`@media (max-width: ${PRODUCT_HOME_BREAKPOINT - 0.1}px)`]: {
+        display: 'none',
+      },
+    })
+  : null;
 /**
  * __Custom product home__
  *
@@ -185,7 +197,7 @@ const CustomProductHome = (props: CustomProductHomeProps) => {
               borderRight: theme.mode.productHome.borderRight,
             } as React.CSSProperties
           }
-          css={siteTitleStyles}
+          css={[siteTitleStyles, featureFlaggedHideSiteTitleStyles]}
           data-testid={testId && `${testId}-site-title`}
         >
           {siteTitle}

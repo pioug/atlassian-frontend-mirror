@@ -65,7 +65,7 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/atlassian-navigation": "^2.5.0",
+    "@atlaskit/atlassian-navigation": "^2.6.0",
     "@atlaskit/button": "^16.7.0",
     "@atlaskit/code": "^14.6.0",
     "@atlaskit/docs": "*",

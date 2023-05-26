@@ -2,12 +2,14 @@
 import { css, jsx } from '@emotion/react';
 
 import { NavigationAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { N30A, N40A, N900 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { HORIZONTAL_GLOBAL_NAV_HEIGHT } from '../../common/constants';
 import { defaultTheme, hexToRGBA, ThemeProvider } from '../../theme';
 import { PrimaryItemsContainer } from '../PrimaryItemsContainer';
+import { PrimaryItemsContainer as PrimaryItemsContainerV2 } from '../PrimaryItemsContainerV2';
 
 import { AtlassianNavigationProps } from './types';
 
@@ -114,14 +116,27 @@ export const AtlassianNavigation = (props: AtlassianNavigationProps) => {
           <nav css={leftStyles} aria-label={label}>
             {AppSwitcher && <AppSwitcher />}
             {ProductHome && <ProductHome />}
-            <PrimaryItemsContainer
-              testId={testId}
-              moreLabel={moreLabel}
-              items={primaryItems}
-              create={create}
-              // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
-              theme={theme}
-            />
+            {getBooleanFF(
+              'platform.design-system-team.navigation-v2-no-jank_5yhbd',
+            ) ? (
+              <PrimaryItemsContainerV2
+                testId={testId}
+                moreLabel={moreLabel}
+                items={primaryItems}
+                create={create}
+                // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
+                theme={theme}
+              />
+            ) : (
+              <PrimaryItemsContainer
+                testId={testId}
+                moreLabel={moreLabel}
+                items={primaryItems}
+                create={create}
+                // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
+                theme={theme}
+              />
+            )}
           </nav>
 
           <div

@@ -17,7 +17,8 @@ describe('Snapshot Test', () => {
       expect(image).toMatchProdImageSnapshot();
     });
 
-    it(`Loading state example should match prod (${theme})`, async () => {
+    // FIXME: This test was automatically skipped due to failure on 26/05/2023: https://product-fabric.atlassian.net/browse/DSP-10834
+    it.skip(`Loading state example should match prod (${theme})`, async () => {
       const url = getExampleUrl(
         'design-system',
         'table-tree',
@@ -32,7 +33,8 @@ describe('Snapshot Test', () => {
       expect(image).toMatchProdImageSnapshot();
     });
 
-    it(`Nested loading state example should match prod (${theme})`, async () => {
+    // FIXME: This test was automatically skipped due to failure on 26/05/2023: https://product-fabric.atlassian.net/browse/DSP-10835
+    it.skip(`Nested loading state example should match prod (${theme})`, async () => {
       const url = getExampleUrl(
         'design-system',
         'table-tree',

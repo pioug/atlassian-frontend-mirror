@@ -210,6 +210,9 @@ interface SectionProps {
 export { SectionProps as SectionBaseProps };
 export { SectionProps };
 
+// @internal
+export const SELECTION_STYLE_CONTEXT_DO_NOT_USE: Context<'border' | 'notch'>;
+
 // @public
 export const SkeletonHeadingItem: ({
   isShimmering,

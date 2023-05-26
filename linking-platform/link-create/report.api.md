@@ -34,6 +34,7 @@ export function AsyncSelect<T = OptionType>({
   isRequired,
   testId,
   validators,
+  defaultValue,
   ...rest
 }: AsyncSelectProps<T>): jsx.JSX.Element;
 
@@ -156,6 +157,7 @@ export function TextField({
   name,
   validationHelpText,
   validators,
+  defaultValue,
   ...restProps
 }: TextFieldProps): jsx.JSX.Element;
 

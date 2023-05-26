@@ -14,21 +14,26 @@ import Tooltip from '@atlaskit/tooltip';
 import Textfield, { TextFieldProps } from '@atlaskit/textfield';
 import Selectclear from '@atlaskit/icon/glyph/select-clear';
 
+import {
+  ConditionalSpotlightTargetWrapper,
+  ConditionalSpotlightTargetWrapperProps,
+} from '../conditional-spotlight-target-wrapper';
 import { isRedoEvent, isUndoEvent } from '../utils';
 import { clearTextButtonStyles, fieldStyles } from './styled';
 
-export type TextInputProps = Omit<TextFieldProps, 'name' | 'value'> & {
-  name: string;
-  value: string;
-  label?: string;
-  // overrides default browser undo behaviour (cmd/ctrl + z) with that function
-  onUndo?: Function;
-  // overrides default browser redo behaviour (cm + shift + z / ctrl + y) with that function
-  onRedo?: Function;
-  onClear?: (name: string) => void;
-  clearLabel?: string;
-  error?: string | null;
-};
+export type TextInputProps = Omit<TextFieldProps, 'name' | 'value'> &
+  Pick<ConditionalSpotlightTargetWrapperProps, 'spotlightTargetName'> & {
+    name: string;
+    value: string;
+    label?: string;
+    // overrides default browser undo behaviour (cmd/ctrl + z) with that function
+    onUndo?: Function;
+    // overrides default browser redo behaviour (cm + shift + z / ctrl + y) with that function
+    onRedo?: Function;
+    onClear?: (name: string) => void;
+    clearLabel?: string;
+    error?: string | null;
+  };
 
 export const testIds = {
   urlError: 'link-error',
@@ -45,6 +50,7 @@ const TextInput = ({
   onClear,
   clearLabel,
   error,
+  spotlightTargetName,
   ...restProps
 }: TextInputProps) => {
   const inputRef: MutableRefObject<HTMLInputElement | null> =
@@ -108,19 +114,23 @@ const TextInput = ({
       <Field label={label} name={name}>
         {({ fieldProps }) => {
           return (
-            <Fragment>
-              <Textfield
-                {...fieldProps}
-                {...restProps}
-                onKeyDown={handleKeydown}
-                ref={handleRef}
-                elemAfterInput={clearText}
-                isInvalid={!!error}
-              />
-              {error && (
-                <ErrorMessage testId={testIds.urlError}>{error}</ErrorMessage>
-              )}
-            </Fragment>
+            <ConditionalSpotlightTargetWrapper
+              spotlightTargetName={spotlightTargetName}
+            >
+              <Fragment>
+                <Textfield
+                  {...fieldProps}
+                  {...restProps}
+                  onKeyDown={handleKeydown}
+                  ref={handleRef}
+                  elemAfterInput={clearText}
+                  isInvalid={!!error}
+                />
+                {error && (
+                  <ErrorMessage testId={testIds.urlError}>{error}</ErrorMessage>
+                )}
+              </Fragment>
+            </ConditionalSpotlightTargetWrapper>
           );
         }}
       </Field>

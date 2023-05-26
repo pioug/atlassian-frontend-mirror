@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 2.13.0
+
+### Minor Changes
+
+- [`7734ef0bdb4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7734ef0bdb4) - allowing default values in confluence creation form.
+
 ## 2.12.0
 
 ### Minor Changes

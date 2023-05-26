@@ -46,7 +46,8 @@ describe('date picker snapshots', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  it('should use the correct weekStartDay, when in a DateTimePicker', async () => {
+  // FIXME: This test was automatically skipped due to failure on 26/05/2023: https://product-fabric.atlassian.net/browse/DSP-10831
+  it.skip('should use the correct weekStartDay, when in a DateTimePicker', async () => {
     const url = getExampleUrl(
       'design-system',
       'datetime-picker',

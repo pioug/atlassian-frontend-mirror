@@ -512,6 +512,7 @@ function LinkPicker({
         aria-activedescendant={ariaActiveDescendant}
         aria-describedby={screenReaderDescriptionId}
         error={invalidUrl ? intl.formatMessage(formMessages.linkInvalid) : null}
+        spotlightTargetName="link-picker-search-field-spotlight-target"
         onClear={handleUrlClear}
         onKeyDown={handleKeyDown}
         onChange={handleChangeUrl}

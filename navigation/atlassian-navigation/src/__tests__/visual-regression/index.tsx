@@ -1,96 +1,176 @@
-import {
-  getExampleUrl,
-  loadPage,
-  takeElementScreenShot,
-} from '@atlaskit/visual-regression/helper';
+import React from 'react';
 
-const menuTrigger = "[data-testid='overflow-menu-trigger']";
-const menuPopup = "[data-testid='overflow-menu-popup']";
-const dashboardsButton = "[data-testid='Dashboards']";
-const projectsTrigger = "[data-testid='Projects-popup-trigger']";
-const projectsPopup = "[data-testid='Projects-popup']";
-const itServicesButton = "[data-testid='it-services']";
-const createIconButton = "[data-testid='create-cta-icon-button']";
-const createButton = "[data-testid='create-cta-button']";
-const notificationsButton = "[data-testid='notifications-popup-trigger'";
+import { render } from '@testing-library/react';
 
-describe('<AtlassianNavigation />', () => {
-  const url = getExampleUrl(
-    'navigation',
-    'atlassian-navigation',
-    'jira-integration-example',
-    global.__BASEURL__,
+import { getExampleUrl, loadPage } from '@atlaskit/visual-regression/helper';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+
+import NavExampleForNoopTest from '../../../examples/10-authenticated-example';
+
+describe('Feature flag - authenticated nav example', () => {
+  ffTest(
+    'platform.design-system-team.navigation-v2-no-jank_5yhbd',
+    async () => {
+      const url = getExampleUrl(
+        'navigation',
+        'atlassian-navigation',
+        'authenticated-example',
+        global.__BASEURL__,
+      );
+
+      await page.setViewport({
+        height: 200,
+        width: 1440,
+      });
+      await loadPage(global.page, url);
+
+      const largeScreenImage = await page.screenshot();
+      expect(largeScreenImage).toMatchProdImageSnapshot();
+
+      await page.setViewport({
+        height: 200,
+        width: 800,
+      });
+
+      const mediumScreenImage = await page.screenshot();
+      expect(mediumScreenImage).toMatchProdImageSnapshot();
+
+      await page.setViewport({
+        height: 200,
+        width: 480,
+      });
+
+      const smallScreenImage = await page.screenshot();
+      expect(smallScreenImage).toMatchProdImageSnapshot();
+    },
+    // The nav as it is currently is unfortunately flakey; tests had been skipped
+    // before they were converted to Gemini. Here we are essentially no-oping
+    // the 'false' case of the feature flag, as we are covering the 'false' case
+    // in our Gemini tests already.
+    //
+    // The important part of this test is that we are testing the 'true' case of
+    // the feature flag, which we are doing above. Ideally these ffTest blocks
+    // will be short-lived as we roll out the flag and just use Gemini tests moving
+    // forward.
+    //
+    // This is the minimal 'no-op' for ffTest, as the test throws if the flag
+    // is not present somehow in the test, so we need to render the nav. RTL is
+    // going to be faster than spinning up a puppeteer page, so I did that.
+    async () => {
+      render(<NavExampleForNoopTest />);
+    },
   );
+});
 
-  const openExamplesAndWaitFor = async (selector: string) => {
-    const { page } = global;
-    await page.setViewport({
-      height: 800,
-      width: 800,
-    });
-    await loadPage(page, url);
-    await page.waitForSelector(selector);
-  };
+describe('Feature flag - server side rendering example', () => {
+  ffTest(
+    'platform.design-system-team.navigation-v2-no-jank_5yhbd',
+    async () => {
+      const url = getExampleUrl(
+        'navigation',
+        'atlassian-navigation',
+        'server-side-rendering',
+        global.__BASEURL__,
+      );
 
-  // Investigate why the tests fail on CI
-  it.skip('should match the open menu on dropdown item click in a regular menu', async () => {
-    const { page } = global;
-    await openExamplesAndWaitFor(menuTrigger);
-    await page.click(projectsTrigger);
-    await page.waitForSelector(projectsPopup);
-    await page.click(itServicesButton);
+      await page.setViewport({
+        height: 400,
+        width: 1440,
+      });
+      await loadPage(global.page, url);
 
-    const image = await page.screenshot();
-    expect(image).toMatchProdImageSnapshot();
-  });
+      const largeScreenImage = await page.screenshot();
+      expect(largeScreenImage).toMatchProdImageSnapshot();
 
-  // Investigate why the tests fail on CI
-  it.skip('should match the closed overflow menu on dropdown item click snapshot', async () => {
-    const { page } = global;
-    await openExamplesAndWaitFor(menuTrigger);
-    await page.click(menuTrigger);
-    await page.waitForSelector(menuPopup);
-    await page.click(dashboardsButton);
+      await page.setViewport({
+        height: 400,
+        width: 800,
+      });
 
-    const image = await page.screenshot();
-    expect(image).toMatchProdImageSnapshot();
-  });
+      const mediumScreenImage = await page.screenshot();
+      expect(mediumScreenImage).toMatchProdImageSnapshot();
 
-  it('should match the large screen create icon without overflow menu with production example', async () => {
-    const { page } = global;
+      await page.setViewport({
+        height: 400,
+        width: 480,
+      });
 
-    await page.setViewport({
-      height: 800,
-      width: 1400,
-    });
-    await loadPage(page, url);
-    await page.waitForSelector(createButton);
+      const smallScreenImage = await page.screenshot();
+      expect(smallScreenImage).toMatchProdImageSnapshot();
+    },
+    // Essentially a no-op: see comment in first ffTest block
+    async () => {
+      render(<NavExampleForNoopTest />);
+    },
+  );
+});
 
-    const image = await takeElementScreenShot(page, createButton);
-    expect(image).toMatchProdImageSnapshot();
-  });
+describe('Feature flag - different languages example', () => {
+  ffTest(
+    'platform.design-system-team.navigation-v2-no-jank_5yhbd',
+    async () => {
+      const url = getExampleUrl(
+        'navigation',
+        'atlassian-navigation',
+        'different-languages',
+        global.__BASEURL__,
+      );
 
-  it('should match the small screen create icon with production example', async () => {
-    const { page } = global;
-    await openExamplesAndWaitFor(createIconButton);
+      await page.setViewport({
+        height: 400,
+        width: 1440,
+      });
+      await loadPage(global.page, url);
 
-    const image = await takeElementScreenShot(page, createIconButton);
-    expect(image).toMatchProdImageSnapshot();
-  });
+      const largeScreenImage = await page.screenshot();
+      expect(largeScreenImage).toMatchProdImageSnapshot();
 
-  it('should match overflow menu with production example', async () => {
-    const { page } = global;
-    await openExamplesAndWaitFor(menuTrigger);
-    await page.click(menuTrigger);
-    const image = await page.screenshot();
-    expect(image).toMatchProdImageSnapshot();
-  });
+      await page.setViewport({
+        height: 400,
+        width: 800,
+      });
 
-  it('should match iconButton overflow menu with production example', async () => {
-    const { page } = global;
-    await openExamplesAndWaitFor(notificationsButton);
-    await page.click(notificationsButton);
-    const image = await page.screenshot();
-    expect(image).toMatchProdImageSnapshot();
-  });
+      const mediumScreenImage = await page.screenshot();
+      expect(mediumScreenImage).toMatchProdImageSnapshot();
+
+      await page.setViewport({
+        height: 400,
+        width: 480,
+      });
+
+      const smallScreenImage = await page.screenshot();
+      expect(smallScreenImage).toMatchProdImageSnapshot();
+    },
+    // Essentially a no-op: see comment in first ffTest block
+    async () => {
+      render(<NavExampleForNoopTest />);
+    },
+  );
+});
+
+describe('Feature flag - falsy nav items example', () => {
+  ffTest(
+    'platform.design-system-team.navigation-v2-no-jank_5yhbd',
+    async () => {
+      const url = getExampleUrl(
+        'navigation',
+        'atlassian-navigation',
+        'falsy-items',
+        global.__BASEURL__,
+      );
+
+      await page.setViewport({
+        height: 400,
+        width: 1440,
+      });
+      await loadPage(global.page, url);
+
+      const image = await page.screenshot();
+      expect(image).toMatchProdImageSnapshot();
+    },
+    // Essentially a no-op: see comment in first ffTest block
+    async () => {
+      render(<NavExampleForNoopTest />);
+    },
+  );
 });

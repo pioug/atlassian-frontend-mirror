@@ -54,6 +54,12 @@ export interface DatasourceDataResponseItem {
 }
 
 // @public (undocumented)
+export type DatasourceDetailsRequest = {
+  parameters: DatasourceParameters;
+  isFullSchema?: boolean;
+};
+
+// @public (undocumented)
 export interface DatasourceParameters {
   // (undocumented)
   [key: string]: any;
@@ -67,6 +73,8 @@ export interface DatasourceResponse {
   description: string;
   // (undocumented)
   id: string;
+  // (undocumented)
+  isFullSchema: boolean;
   // (undocumented)
   name: string;
   // (undocumented)
@@ -270,7 +278,7 @@ export interface StringType {
 }
 
 // @public (undocumented)
-interface Tag {
+export interface Tag {
   // (undocumented)
   id?: string;
   // (undocumented)

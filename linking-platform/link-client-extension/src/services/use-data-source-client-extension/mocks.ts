@@ -82,6 +82,7 @@ export const mockDatasourceResponse: DatasourceResponse = {
   id: '12e74246-a3f1-46c1-9fd9-8d952aa9f12f',
   name: 'JQL Datasource',
   description: 'Fetches Issues using JQL',
+  isFullSchema: false,
   parameters: [
     {
       key: 'cloudId',

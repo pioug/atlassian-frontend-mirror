@@ -110,6 +110,73 @@ ${(
   )
   `}
 
+  ## Onboarding
+
+  Used with [@atlaskit/onboarding](https://atlassian.design/components/onboarding/examples) to show a spotlight. Useful for onboarding customers to link-picker in a new product.
+  The spotlight will appear wrapping the main search input.
+
+
+  ${code`
+  import { LinkPicker } from '@atlaskit/link-picker';
+  import { Spotlight, SpotlightManager, SpotlightTransition } from '@atlaskit/onboarding';
+  ...
+
+  const [isSpotlightActive, setIsSpotlightActive] = useState(true);
+
+  return (
+    <SpotlightManager>
+      <LinkPicker
+        onSubmit={handleCreateLink}
+        onCancel={handleCancel}
+        onContentResize={}
+        {...}
+      />
+      <SpotlightTransition>
+      {isSpotlightActive &&
+        <Spotlight target="link-picker-search-field-spotlight-target">You can now link Confluence pages directly from Trello!</Spotlight>
+      }
+      </SpotlightTransition>
+    </SpotlightManager>
+  )
+  `}
+
+  Be aware that it can be difficult to properly position the spotlight due to content resize events occurring within Link Picker.
+  If that happens, you can use onContentResize to debounce when the spotlight should appear:
+
+  ${code`
+  ...
+
+  const [isSpotlightActive, setIsSpotlightActive] = useState(true);
+  const [linkPickerResized, setLinkPickerResized] = useState(0);
+  const [linkPickerResizedDebounced] = useDebounce(linkPickerResized, 100);
+  const [isSpotlightActive, setIsSpotlightActive] = useState(false);
+
+  const onContentResize = useCallback(() => {
+    setLinkPickerResized((resizedCount) => ++resizedCount);
+  }, [])
+
+  useEffect(() => {
+    if (
+      linkPickerResizedDebounced > 0 &&
+    ) {
+      setIsSpotlightActive(true);
+    }
+  }, [linkPickerResizedDebounced, isOneTimeMessageDismissed]);
+
+  return (
+    <SpotlightManager>
+      <LinkPicker
+        onContentResize={onContentResize}
+        {...}
+      />
+      <SpotlightTransition>
+      {isSpotlightActive &&
+        <Spotlight target="link-picker-search-field-spotlight-target">You can now link Confluence pages directly from Trello!</Spotlight>
+      }
+      </SpotlightTransition>
+    </SpotlightManager>
+  )
+  `}
 
   ## Complete Example
 

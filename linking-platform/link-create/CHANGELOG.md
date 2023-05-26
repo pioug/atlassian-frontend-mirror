@@ -1,5 +1,11 @@
 # @atlaskit/link-create
 
+## 0.5.2
+
+### Patch Changes
+
+- [`7734ef0bdb4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7734ef0bdb4) - allowing default values in confluence creation form.
+
 ## 0.5.1
 
 ### Patch Changes

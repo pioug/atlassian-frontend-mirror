@@ -23,6 +23,7 @@ export function AsyncSelect<T = OptionType>({
   isRequired,
   testId,
   validators,
+  defaultValue,
   ...rest
 }: AsyncSelectProps<T>) {
   const { assignValidator } = useFormContext();
@@ -39,6 +40,7 @@ export function AsyncSelect<T = OptionType>({
         name={name}
         label={label}
         isRequired={isRequired}
+        defaultValue={defaultValue}
       >
         {({ fieldProps, error }) => (
           <Fragment>

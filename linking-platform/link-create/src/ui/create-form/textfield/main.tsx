@@ -22,6 +22,7 @@ export function TextField({
   name,
   validationHelpText,
   validators,
+  defaultValue,
   ...restProps
 }: TextFieldProps) {
   const { assignValidator } = useFormContext();
@@ -32,14 +33,23 @@ export function TextField({
   }, [name, validators, assignValidator]);
 
   return (
-    <Field name={name} label={label} defaultValue={''}>
-      {({ fieldProps, error }) => (
-        <Fragment>
-          <AkTextfield {...fieldProps} {...restProps} />
-          {!error && <HelperMessage>{validationHelpText}</HelperMessage>}
-          {error && <ErrorMessage>{error}</ErrorMessage>}
-        </Fragment>
-      )}
+    /**
+     * The defaultValue here should be '' when there is nothing passed in from the props.
+     * This is because if we don't give it anything, the `fieldProps` wouldn't have a `value`
+     * prop and make the TextField component uncontrolled. Later when user starts typing, the
+     * `value` will be populated again in `fieldProps` which cause the TextField to be changed
+     * to a controlled component and raise a warning from React.
+     */
+    <Field name={name} label={label} defaultValue={defaultValue ?? ''}>
+      {({ fieldProps, error }) => {
+        return (
+          <Fragment>
+            <AkTextfield {...fieldProps} {...restProps} />
+            {!error && <HelperMessage>{validationHelpText}</HelperMessage>}
+            {error && <ErrorMessage>{error}</ErrorMessage>}
+          </Fragment>
+        );
+      }}
     </Field>
   );
 }

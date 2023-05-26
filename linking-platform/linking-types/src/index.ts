@@ -5,6 +5,7 @@ export type {
   DateType,
   DateTimeType,
   TimeType,
+  Tag,
   TagType,
   User,
   UserType,
@@ -23,6 +24,7 @@ export type {
   DatasourceDataRequest,
   DatasourceParameters,
   DatasourceTableStatusType,
+  DatasourceDetailsRequest,
 } from './datasource-types';
 
 export type {

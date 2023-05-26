@@ -24,7 +24,7 @@ test.describe('hyperlink toolbar', () => {
     });
     await smartLinkModel.isVisibleByText('Hello world!');
 
-    await expect(editor).toMatchDocument(
+    await expect(editor).toHaveDocument(
       doc(p(a({ href: 'http://www.atlassian.com' })('Hello world!'))),
     );
   });
@@ -40,7 +40,7 @@ test.describe('hyperlink toolbar', () => {
     await smartLinkToolbarModel.clickLabel();
     await smartLinkToolbarModel.clickUrl();
 
-    await expect(editor).toMatchDocument(doc(p()));
+    await expect(editor).toHaveDocument(doc(p()));
   });
 
   test("doesn't insert a link via hyperlink toolbar when clicking out of toolbar", async ({
@@ -59,7 +59,7 @@ test.describe('hyperlink toolbar', () => {
     // Click outside the toolbar
     await editor.page.getByText('Click Me').click();
 
-    await expect(editor).toMatchDocument(doc(p('Click Me'), p()));
+    await expect(editor).toHaveDocument(doc(p('Click Me'), p()));
   });
 
   // DTR-1554 Clear button is not selectable on Safari by Tab
@@ -81,7 +81,7 @@ test.describe('hyperlink toolbar', () => {
       const smartLinkModel = EditorLinkModel.from(editor);
       await smartLinkModel.isVisibleByText('Hello world!');
 
-      await expect(editor).toMatchDocument(
+      await expect(editor).toHaveDocument(
         doc(p(a({ href: 'http://www.atlassian.com' })('Hello world!'))),
       );
     },

@@ -1,5 +1,11 @@
 # @atlaskit/linking-types
 
+## 4.0.0
+
+### Major Changes
+
+- [`637822277ce`](https://bitbucket.org/atlassian/atlassian-frontend/commits/637822277ce) - Added an optional parameter for datasource details request and response
+
 ## 3.0.0
 
 ### Major Changes

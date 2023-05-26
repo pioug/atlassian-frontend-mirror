@@ -155,6 +155,7 @@ export interface DatasourceResponse {
   id: string;
   name: string;
   description: string;
+  isFullSchema: boolean;
   parameters: DatasourceResponseParameter[];
   schema: {
     properties: DatasourceResponseSchemaProperty[];
@@ -173,3 +174,8 @@ export type DatasourceTableStatusType =
   | 'loading'
   | 'resolved'
   | 'rejected';
+
+export type DatasourceDetailsRequest = {
+  parameters: DatasourceParameters;
+  isFullSchema?: boolean;
+};

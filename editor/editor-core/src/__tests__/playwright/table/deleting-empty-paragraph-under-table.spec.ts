@@ -3,6 +3,14 @@ import {
   expect,
 } from '@atlaskit/editor-test-helpers/playwright';
 import {
+  doc,
+  p,
+  table,
+  tr,
+  thEmpty,
+  tdEmpty,
+} from '@atlaskit/editor-test-helpers/doc-builder';
+import {
   simpleTableWithTwoParagraphAfter,
   simpleTableWithOneParagraphAfter,
 } from './__fixtures__/base-adfs';
@@ -32,6 +40,17 @@ test.describe('when document has two paragraph after table', () => {
       anchor: 40,
       head: 40,
     });
+
+    await expect(editor).toHaveDocument(
+      doc(
+        table({ localId: 'localId' })(
+          tr(thEmpty, thEmpty, thEmpty),
+          tr(tdEmpty, tdEmpty, tdEmpty),
+          tr(tdEmpty, tdEmpty, tdEmpty),
+        ),
+        p(),
+      ),
+    );
   });
 });
 
@@ -46,14 +65,25 @@ test.describe('when document has one paragraph after table', () => {
     await editor.selection.set({ anchor: 45, head: 45 });
 
     await editor.keyboard.press('Backspace');
+
     await expect(editor).toHaveSelection({
       type: 'text',
       anchor: 40,
       head: 40,
     });
+    await expect(editor).toHaveDocument(
+      doc(
+        table({ localId: 'localId' })(
+          tr(thEmpty, thEmpty, thEmpty),
+          tr(tdEmpty, tdEmpty, tdEmpty),
+          tr(tdEmpty, tdEmpty, tdEmpty),
+        ),
+        p(),
+      ),
+    );
   });
 
-  test('backspace for an filled paragraph not at the end of the document should place cursor inside last cell of table', async ({
+  test('backspace for a filled paragraph not at the end of the document should place cursor inside last cell of table', async ({
     editor,
   }) => {
     await editor.selection.set({ anchor: 45, head: 45 });
@@ -63,10 +93,21 @@ test.describe('when document has one paragraph after table', () => {
     await editor.selection.set({ anchor: 45, head: 45 });
 
     await editor.keyboard.press('Backspace');
+
     await expect(editor).toHaveSelection({
       type: 'text',
       anchor: 40,
       head: 40,
     });
+    await expect(editor).toHaveDocument(
+      doc(
+        table({ localId: 'localId' })(
+          tr(thEmpty, thEmpty, thEmpty),
+          tr(tdEmpty, tdEmpty, tdEmpty),
+          tr(tdEmpty, tdEmpty, tdEmpty),
+        ),
+        p('Some random text'),
+      ),
+    );
   });
 });

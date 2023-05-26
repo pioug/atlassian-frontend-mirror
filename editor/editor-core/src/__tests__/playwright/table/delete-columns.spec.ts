@@ -12,6 +12,7 @@ import {
   table,
   tr,
   td,
+  thEmpty,
   tdEmpty,
   p,
 } from '@atlaskit/editor-test-helpers/doc-builder';
@@ -23,6 +24,47 @@ test.use({
       advanced: true,
     },
   },
+});
+
+test.describe('when in full-width mode', () => {
+  const simpleTable = doc(
+    table({ localId: 'localId' })(
+      tr(thEmpty, thEmpty, thEmpty),
+      tr(tdEmpty, tdEmpty, tdEmpty),
+      tr(tdEmpty, tdEmpty, tdEmpty),
+    ),
+  );
+  test.use({
+    adf: simpleTable(sampleSchema).toJSON(),
+  });
+
+  test('should delete the last column through the contextual menu', async ({
+    editor,
+  }) => {
+    const nodes = EditorNodeContainerModel.from(editor);
+    const tableModel = EditorTableModel.from(nodes.table);
+
+    // Switch table to full-width mode
+    const tableLayoutModel = await tableModel.layout(editor);
+    await tableLayoutModel.toWide();
+    await tableLayoutModel.toFullWidth();
+
+    // Select last cell of the first row
+    const cell = await tableModel.cell(2);
+    await cell.click();
+    const cellOptions = await cell.options(EditorPopupModel.from(editor));
+    await cellOptions.deleteColumn();
+
+    await expect(editor).toHaveDocument(
+      doc(
+        table({ localId: 'localId', layout: 'full-width' })(
+          tr(thEmpty, thEmpty),
+          tr(tdEmpty, tdEmpty),
+          tr(tdEmpty, tdEmpty),
+        ),
+      ),
+    );
+  });
 });
 
 test.describe('when table has merged cells', () => {
@@ -95,6 +137,33 @@ test.describe('when table has multiple merged cells across other columns', () =>
             tdEmpty,
           ),
           tr(tdEmpty, tdEmpty, tdEmpty),
+        )
+      ),
+    );
+  });
+
+  test('when deleting from a cell outside the merged cells should only remove a single column', async ({
+    editor,
+  }) => {
+    const nodes = EditorNodeContainerModel.from(editor);
+    const tableModel = EditorTableModel.from(nodes.table);
+    const cell = await tableModel.cell(3);
+    await cell.click();
+    const cellOptions = await cell.options(EditorPopupModel.from(editor));
+    await cellOptions.deleteColumn();
+
+    await expect(editor).toHaveDocument(
+      // prettier-ignore
+      doc(
+        table({ localId: 'localId' })(
+          tr(tdEmpty, tdEmpty, tdEmpty, tdEmpty, tdEmpty),
+          tr(tdEmpty, tdEmpty, td({ colspan: 2 })(p('')), tdEmpty),
+          tr(
+            td({ colspan: 3 })(p('')),
+            tdEmpty,
+            tdEmpty,
+          ),
+          tr(tdEmpty, tdEmpty, tdEmpty, tdEmpty, tdEmpty),
         )
       ),
     );

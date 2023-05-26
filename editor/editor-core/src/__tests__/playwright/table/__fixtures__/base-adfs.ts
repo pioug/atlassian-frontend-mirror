@@ -1161,7 +1161,7 @@ export const simpleTable = {
   ],
 };
 
-export const tableWithActionItemInTheLastRow = {
+export const tableWithActionItemInFirstCellOfLastRow = {
   version: 1,
   type: 'doc',
   content: [
@@ -1251,8 +1251,19 @@ export const tableWithActionItemInTheLastRow = {
               attrs: {},
               content: [
                 {
-                  type: 'paragraph',
-                  content: [],
+                  type: 'taskList',
+                  attrs: {
+                    localId: 'd4367ae3-5f11-4ff6-9a1d-e019f0c58218',
+                  },
+                  content: [
+                    {
+                      type: 'taskItem',
+                      attrs: {
+                        localId: '9ff03d47-b975-474e-8370-d3624cd5cce1',
+                        state: 'TODO',
+                      },
+                    },
+                  ],
                 },
               ],
             },
@@ -1268,6 +1279,58 @@ export const tableWithActionItemInTheLastRow = {
             },
             {
               type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  ],
+};
+
+export const tableWithActionItemInTopCellOfLastColumn = {
+  version: 1,
+  type: 'doc',
+  content: [
+    {
+      type: 'table',
+      attrs: {
+        isNumberColumnEnabled: false,
+        layout: 'default',
+        localId: 'localId',
+      },
+      content: [
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableHeader',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableHeader',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableHeader',
               attrs: {},
               content: [
                 {
@@ -1284,6 +1347,76 @@ export const tableWithActionItemInTheLastRow = {
                       },
                     },
                   ],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
                 },
               ],
             },

@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 1.22.0
+
+### Minor Changes
+
+- [`cd623c7a474`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cd623c7a474) - [ux] Wrap search input with conditional spotlight target for better onboarding
+
 ## 1.21.0
 
 ### Minor Changes

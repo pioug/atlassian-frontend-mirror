@@ -8,13 +8,13 @@ module.exports = {
             target: 'packages/editor/editor-core/src/**/*',
             from: `packages/editor/editor-core/src/plugins/*/!(types)*`,
             message:
-              '[ELR101] Avoid importing dependencies from editor plugins. Move shared code to a common location. go/elr101',
+              '[ELR101] Avoid importing dependencies from editor plugins. Type-only imports are an exception. Move shared code to a common location. go/elr101',
           },
           {
             target: 'packages/editor/editor-core/src/**/*',
             from: `packages/editor/editor-core/src/plugins/*/!(types)**/*`,
             message:
-              '[ELR101] Avoid importing dependencies from editor plugins. Move shared code to a common location. go/elr101',
+              '[ELR101] Avoid importing dependencies from editor plugins. Type-only imports are an exception. Move shared code to a common location. go/elr101',
           },
         ],
       },
@@ -23,7 +23,11 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['**/__tests__/**/*.{js,ts,tsx}', 'examples/**/*.{js,ts,tsx}'],
+      files: [
+        '**/__tests__/**/*.{js,ts,tsx}',
+        'examples/**/*.{js,ts,tsx}',
+        '**/*.{test,spec}.{js,ts,tsx}',
+      ],
       rules: {
         'import/no-restricted-paths': ['off'],
         'react/no-danger': 'off',

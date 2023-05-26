@@ -29,3 +29,43 @@ export const DefaultCreate = () => (
     testId="create-cta"
   />
 );
+
+export const GermanCreate = () => (
+  <Create
+    buttonTooltip={<StyledTooltip />}
+    iconButtonTooltip="Create button"
+    onClick={onClick}
+    text="Erstellen"
+    testId="create-cta"
+  />
+);
+
+export const SpanishCreate = () => (
+  <Create
+    buttonTooltip={<StyledTooltip />}
+    iconButtonTooltip="Create button"
+    onClick={onClick}
+    text="Crear"
+    testId="create-cta"
+  />
+);
+
+export const TurkishCreate = () => (
+  <Create
+    buttonTooltip={<StyledTooltip />}
+    iconButtonTooltip="Create button"
+    onClick={onClick}
+    text="Oluştur"
+    testId="create-cta"
+  />
+);
+
+export const JapaneseCreate = () => (
+  <Create
+    buttonTooltip={<StyledTooltip />}
+    iconButtonTooltip="Create button"
+    onClick={onClick}
+    text="作成"
+    testId="create-cta"
+  />
+);

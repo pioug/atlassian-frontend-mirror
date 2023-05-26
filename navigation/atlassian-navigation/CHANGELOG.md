@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-navigation
 
+## 2.6.0
+
+### Minor Changes
+
+- [`e40a555bd64`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e40a555bd64) - [ux] Adds a platform-feature-flagged update to the way the top nav renders primary nav items, moving it from unperformant JS-based calculations to a responsive CSS solution. PFF: "platform.design-system-team.navigation-v2-no-jank_5yhbd"
+
 ## 2.5.2
 
 ### Patch Changes

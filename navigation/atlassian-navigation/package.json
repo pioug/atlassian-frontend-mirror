@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/atlassian-navigation",
-  "version": "2.5.2",
+  "version": "2.6.0",
   "description": "A horizontal navigation component for Atlassian products.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -37,7 +37,9 @@
     "@atlaskit/ds-lib": "^2.2.0",
     "@atlaskit/icon": "^21.12.0",
     "@atlaskit/logo": "*",
+    "@atlaskit/platform-feature-flags": "^0.2.0",
     "@atlaskit/popup": "^1.6.0",
+    "@atlaskit/primitives": "^0.9.2",
     "@atlaskit/theme": "^12.5.0",
     "@atlaskit/tokens": "^1.4.0",
     "@atlaskit/tooltip": "^17.8.0",
@@ -63,6 +65,8 @@
     "@atlaskit/spinner": "*",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
+    "@atlassian/feature-flags-test-utils": "^0.1.1",
+    "@atlassian/gemini-visual-regression": "*",
     "@atlassian/switcher": "*",
     "@atlassian/switcher-test-utils": "*",
     "@testing-library/react": "^12.1.5",
@@ -70,6 +74,7 @@
     "jest-axe": "^4.0.0",
     "jest-emotion": "^10.0.32",
     "react": "^16.8.0",
+    "react-dom": "^16.8.0",
     "react-intl-next": "npm:react-intl@^5.18.1",
     "typescript": "~4.9.5"
   },
@@ -93,5 +98,10 @@
     }
   },
   "homepage": "https://atlassian.design/components/atlassian-navigation/",
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
+  "platform-feature-flags": {
+    "platform.design-system-team.navigation-v2-no-jank_5yhbd": {
+      "type": "boolean"
+    }
+  }
 }

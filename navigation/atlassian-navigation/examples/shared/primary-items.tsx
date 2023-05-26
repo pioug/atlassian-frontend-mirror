@@ -44,6 +44,7 @@ type PrimaryDropdownProps = {
   // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   text: string;
   isHighlighted?: boolean;
+  isOpen?: boolean;
 };
 
 const PrimaryDropdown = (props: PrimaryDropdownProps) => {
@@ -186,6 +187,13 @@ export const confluencePrimaryItems = [
 ];
 
 export const jiraPrimaryItems = [
+  <NavigationButton
+    onClick={(...args: any[]) => {
+      console.log('Your work click', ...args);
+    }}
+  >
+    Your work
+  </NavigationButton>,
   <PrimaryDropdown content={ProjectsContent} text="Projects" />,
   <NavigationButton
     onClick={(...args: any[]) => {
@@ -201,6 +209,27 @@ export const jiraPrimaryItems = [
     }}
   >
     Dashboards
+  </NavigationButton>,
+  <NavigationButton
+    onClick={(...args: any[]) => {
+      console.log('Teams click', ...args);
+    }}
+  >
+    Teams
+  </NavigationButton>,
+  <NavigationButton
+    onClick={(...args: any[]) => {
+      console.log('Plans click', ...args);
+    }}
+  >
+    Plans
+  </NavigationButton>,
+  <NavigationButton
+    onClick={(...args: any[]) => {
+      console.log('Assets click', ...args);
+    }}
+  >
+    Assets
   </NavigationButton>,
   <NavigationButton
     onClick={(...args: any[]) => {
@@ -253,6 +282,222 @@ export const opsGeniePrimaryItems = [
     }}
   >
     Analytics
+  </NavigationButton>,
+];
+
+export const jiraPrimaryItemsGerman = [
+  <NavigationButton
+    onClick={(...args: any[]) => {
+      console.log('Your work click', ...args);
+    }}
+  >
+    Ihre Aufgaben
+  </NavigationButton>,
+  <PrimaryDropdown content={ProjectsContent} text="Projekte" />,
+  <NavigationButton
+    onClick={(...args: any[]) => {
+      console.log('Issues click', ...args);
+    }}
+    isHighlighted
+  >
+    Filter
+  </NavigationButton>,
+  <NavigationButton
+    onClick={(...args: any[]) => {
+      console.log('Dashboards click', ...args);
+    }}
+  >
+    Dashboards
+  </NavigationButton>,
+  <NavigationButton
+    onClick={(...args: any[]) => {
+      console.log('Teams click', ...args);
+    }}
+  >
+    Teams
+  </NavigationButton>,
+  <NavigationButton
+    onClick={(...args: any[]) => {
+      console.log('Plans click', ...args);
+    }}
+  >
+    Pläne
+  </NavigationButton>,
+  <NavigationButton
+    onClick={(...args: any[]) => {
+      console.log('Assets click', ...args);
+    }}
+  >
+    Assets
+  </NavigationButton>,
+  <NavigationButton
+    onClick={(...args: any[]) => {
+      console.log('Apps click', ...args);
+    }}
+  >
+    Apps
+  </NavigationButton>,
+];
+
+export const jiraPrimaryItemsSpanish = [
+  <NavigationButton
+    onClick={(...args: any[]) => {
+      console.log('Your work click', ...args);
+    }}
+  >
+    Tu trabajo
+  </NavigationButton>,
+  <PrimaryDropdown content={ProjectsContent} text="Projects" />,
+  <NavigationButton
+    onClick={(...args: any[]) => {
+      console.log('Issues click', ...args);
+    }}
+    isHighlighted
+  >
+    Filtros
+  </NavigationButton>,
+  <NavigationButton
+    onClick={(...args: any[]) => {
+      console.log('Dashboards click', ...args);
+    }}
+  >
+    Paneles
+  </NavigationButton>,
+  <NavigationButton
+    onClick={(...args: any[]) => {
+      console.log('Teams click', ...args);
+    }}
+  >
+    Equipos
+  </NavigationButton>,
+  <NavigationButton
+    onClick={(...args: any[]) => {
+      console.log('Plans click', ...args);
+    }}
+  >
+    Planes
+  </NavigationButton>,
+  <NavigationButton
+    onClick={(...args: any[]) => {
+      console.log('Assets click', ...args);
+    }}
+  >
+    Activos
+  </NavigationButton>,
+  <NavigationButton
+    onClick={(...args: any[]) => {
+      console.log('Apps click', ...args);
+    }}
+  >
+    Aplicaciones
+  </NavigationButton>,
+];
+
+export const jiraPrimaryItemsTurkish = [
+  <NavigationButton
+    onClick={(...args: any[]) => {
+      console.log('Your work click', ...args);
+    }}
+  >
+    Çalışmalarınız
+  </NavigationButton>,
+  <PrimaryDropdown content={ProjectsContent} text="Projeler" />,
+  <NavigationButton
+    onClick={(...args: any[]) => {
+      console.log('Issues click', ...args);
+    }}
+    isHighlighted
+  >
+    Filtreler
+  </NavigationButton>,
+  <NavigationButton
+    onClick={(...args: any[]) => {
+      console.log('Dashboards click', ...args);
+    }}
+  >
+    Gösterge Panoları
+  </NavigationButton>,
+  <NavigationButton
+    onClick={(...args: any[]) => {
+      console.log('Teams click', ...args);
+    }}
+  >
+    Takımlar
+  </NavigationButton>,
+  <NavigationButton
+    onClick={(...args: any[]) => {
+      console.log('Plans click', ...args);
+    }}
+  >
+    Planlar
+  </NavigationButton>,
+  <NavigationButton
+    onClick={(...args: any[]) => {
+      console.log('Assets click', ...args);
+    }}
+  >
+    Varlıklar
+  </NavigationButton>,
+  <NavigationButton
+    onClick={(...args: any[]) => {
+      console.log('Apps click', ...args);
+    }}
+  >
+    Uygulamalar
+  </NavigationButton>,
+];
+
+export const jiraPrimaryItemsJapanese = [
+  <NavigationButton
+    onClick={(...args: any[]) => {
+      console.log('Your work click', ...args);
+    }}
+  >
+    あなたの作業
+  </NavigationButton>,
+  <PrimaryDropdown content={ProjectsContent} text="プロジェクト" />,
+  <NavigationButton
+    onClick={(...args: any[]) => {
+      console.log('Issues click', ...args);
+    }}
+    isHighlighted
+  >
+    フィルター
+  </NavigationButton>,
+  <NavigationButton
+    onClick={(...args: any[]) => {
+      console.log('Dashboards click', ...args);
+    }}
+  >
+    ダッシュボード
+  </NavigationButton>,
+  <NavigationButton
+    onClick={(...args: any[]) => {
+      console.log('Teams click', ...args);
+    }}
+  >
+    チーム
+  </NavigationButton>,
+  <NavigationButton
+    onClick={(...args: any[]) => {
+      console.log('Plans click', ...args);
+    }}
+  >
+    プラン
+  </NavigationButton>,
+  <NavigationButton
+    onClick={(...args: any[]) => {
+      console.log('Assets click', ...args);
+    }}
+  >
+    アセット
+  </NavigationButton>,
+  <NavigationButton
+    onClick={(...args: any[]) => {
+      console.log('Apps click', ...args);
+    }}
+  >
+    アプリ
   </NavigationButton>,
 ];
 

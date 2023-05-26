@@ -1,5 +1,11 @@
 # @atlaskit/menu
 
+## 1.7.3
+
+### Patch Changes
+
+- [`a1c538cb238`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a1c538cb238) - Enrol @atlaskit/menu on push model consumption in Jira.
+
 ## 1.7.2
 
 ### Patch Changes

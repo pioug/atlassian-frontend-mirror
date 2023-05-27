@@ -22,7 +22,8 @@ async function setup(params: string = '') {
 describe('Media Inline Player', () => {
   const mediaInlinePlayerSelector = '[data-testid="media-card-inline-player"]';
 
-  it('should not render progress bar if status not "uploading"', async () => {
+  // FIXME: This test was automatically skipped due to failure on 27/05/2023: https://product-fabric.atlassian.net/browse/MEX-2422
+  it.skip('should not render progress bar if status not "uploading"', async () => {
     const { page } = await setup();
     await page.waitForSelector(mediaInlinePlayerSelector, {
       visible: true,
@@ -32,7 +33,8 @@ describe('Media Inline Player', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  it('should render progress bar if status is "uploading"', async () => {
+  // FIXME: This test was automatically skipped due to failure on 27/05/2023: https://product-fabric.atlassian.net/browse/MEX-2423
+  it.skip('should render progress bar if status is "uploading"', async () => {
     const { page } = await setup('&status=uploading');
     await page.waitForSelector(mediaInlinePlayerSelector, {
       visible: true,

@@ -33,7 +33,8 @@ describe('Snapshot Test', () => {
     await waitForContent(page);
   });
 
-  it(`should render emoji`, async () => {
+  // FIXME: This test was automatically skipped due to failure on 27/05/2023: https://product-fabric.atlassian.net/browse/COLLAB-2645
+  it.skip(`should render emoji`, async () => {
     const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });

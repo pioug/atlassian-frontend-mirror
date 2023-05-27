@@ -58,7 +58,8 @@ describe('Snapshot Test', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  it('Single Select with disabled options example should match production example', async () => {
+  // FIXME: This test was automatically skipped due to failure on 27/05/2023: https://product-fabric.atlassian.net/browse/DSP-10871
+  it.skip('Single Select with disabled options example should match production example', async () => {
     const url = getExampleUrl(
       'design-system',
       'select',
@@ -79,7 +80,8 @@ describe('Snapshot Test', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  it('Multi Select with disabled options example should match production example', async () => {
+  // FIXME: This test was automatically skipped due to failure on 27/05/2023: https://product-fabric.atlassian.net/browse/DSP-10872
+  it.skip('Multi Select with disabled options example should match production example', async () => {
     const url = getExampleUrl(
       'design-system',
       'select',

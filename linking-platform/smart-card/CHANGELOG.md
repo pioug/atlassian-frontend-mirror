@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 26.3.9
+
+### Patch Changes
+
+- [`d476c6d5223`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d476c6d5223) - Add an optional err?:Error property to OnErrorCallback for upcoming changes
+
 ## 26.3.8
 
 ### Patch Changes

@@ -51,4 +51,5 @@ export type ErrorCardType =
 export type OnErrorCallback = (data: {
   status: Extract<CardType, ErrorCardType>;
   url: string;
+  err?: Error;
 }) => void;

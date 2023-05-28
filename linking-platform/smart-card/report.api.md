@@ -680,6 +680,7 @@ export type OnActionMenuOpenChangeOptions = {
 type OnErrorCallback = (data: {
   status: Extract<CardType, ErrorCardType>;
   url: string;
+  err?: Error;
 }) => void;
 
 // @public (undocumented)

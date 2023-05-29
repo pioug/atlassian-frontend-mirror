@@ -135,5 +135,6 @@ export type ClientOptions = {
   flags?: Flags;
   analyticsHandler?: AnalyticsHandler;
   isAutomaticExposuresEnabled?: boolean;
+  isMissingFlagEventsDisabled?: boolean;
   ignoreTypes?: boolean;
 };

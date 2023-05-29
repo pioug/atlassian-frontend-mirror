@@ -890,6 +890,7 @@ type TitleBlockProps = {
   subtitle?: ElementItem[];
   text?: string;
   theme?: SmartLinkTheme;
+  metadataPosition?: SmartLinkPosition;
 } & BlockProps;
 
 // @public (undocumented)

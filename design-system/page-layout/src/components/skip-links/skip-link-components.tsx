@@ -24,10 +24,13 @@ import { SkipLinkWrapperProps } from './types';
 const prefersReducedMotionStyles = css(prefersReducedMotion());
 
 const skipLinkStyles = css({
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   margin: 10,
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   padding: '0.8rem 1rem',
   position: 'fixed',
   zIndex: -1,
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   left: -999999,
   background: token('elevation.surface.overlay', 'white'),
   border: 'none',
@@ -57,7 +60,7 @@ const skipLinkStyles = css({
 const skipLinkHeadingStyles = css({ fontWeight: 600 });
 
 const skipLinkListStyles = css({
-  marginTop: 4,
+  marginTop: token('space.050', '4px'),
   paddingLeft: 0,
   listStylePosition: 'outside',
   listStyleType: 'none',

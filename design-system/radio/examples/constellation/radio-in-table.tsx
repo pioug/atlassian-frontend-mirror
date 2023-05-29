@@ -53,7 +53,9 @@ const items: Array<RadioOptions> = [
 ];
 
 const tableStyles = css({
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   margin: '1em 0',
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   padding: '0.5em',
   borderColor: '#ccc',
   borderStyle: 'dashed',

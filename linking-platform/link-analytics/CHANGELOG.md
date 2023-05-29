@@ -1,5 +1,11 @@
 # @atlaskit/link-analytics
 
+## 8.0.4
+
+### Patch Changes
+
+- [`438b90799c4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/438b90799c4) - Removes urlHash from linking platform events.
+
 ## 8.0.3
 
 ### Patch Changes

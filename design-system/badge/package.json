@@ -58,6 +58,7 @@
     "@atlassian/gemini-visual-regression": "*",
     "@emotion/react": "^11.7.1",
     "@testing-library/react": "^12.1.5",
+    "jest-axe": "^4.0.0",
     "jscodeshift": "^0.13.0",
     "react-dom": "^16.8.0",
     "react-test-renderer": "^16.8.0",

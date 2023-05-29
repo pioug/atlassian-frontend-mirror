@@ -48,7 +48,7 @@ export default () => (
       <ButtonGroup>
         <Button>Good times</Button>
         <Button iconAfter={<AudioIcon label="" />}>Boogie</Button>
-        <Button iconAfter={<AudioIcon label="" />} />
+        <Button iconAfter={<AudioIcon label="Boogie more" />} />
       </ButtonGroup>
     </ConstrainedRow>
   </Row>

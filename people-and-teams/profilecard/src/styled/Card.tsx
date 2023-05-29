@@ -79,7 +79,7 @@ export const KudosBlobAnimation: React.FC = (props) => (
 );
 
 export const AnimatedKudosButton = styled.div`
-  margin-left: ${gridSize}px;
+  margin-left: ${token('space.100', '8px')};
 
   /* Need babel-plugin-emotion to use component selector */
   /* Previously with styled-components: &:hover {KudosBlobAnimation} { */
@@ -104,7 +104,7 @@ export const ActionButtonGroup = styled.div`
   button,
   a,
   span {
-    margin-left: ${gridSize}px;
+    margin-left: ${token('space.100', '8px')};
 
     &:first-child {
       margin-left: 0;
@@ -116,7 +116,7 @@ export const OverflowActionButtonsWrapper = styled.div`
   display: inline-block;
   width: 32px;
   height: 32px;
-  margin-left: ${gridSize}px;
+  margin-left: ${token('space.100', '8px')};
 `;
 
 export const CardContent = styled.div`
@@ -125,6 +125,7 @@ export const CardContent = styled.div`
   min-height: ${gridSize() * 17}px;
 `;
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 export const DetailsGroup = styled.div`
   display: flex;
   flex-direction: column;
@@ -186,13 +187,13 @@ export const AppTitleLabel = styled.span`
   background: ${appLabelBgColor};
   color: ${appLabelTextColor};
   border-radius: ${borderRadius()};
-  padding: 0 6px;
+  padding: 0 ${token('space.075', '6px')};
   width: fit-content;
   font-weight: bold;
   text-transform: uppercase;
 
   font-size: 12px;
-  margin: 4px 0 ${token('space.150', '12px')} 0;
+  margin: ${token('space.050', '4px')} 0 ${token('space.150', '12px')} 0;
   line-height: ${24 / 14}em;
 `;
 

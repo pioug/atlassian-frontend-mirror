@@ -10,10 +10,10 @@ import Modal, {
   ModalFooter,
 } from '@atlaskit/modal-dialog';
 import Tooltip from '@atlaskit/tooltip';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { gridSize } from '@atlaskit/theme/constants';
 import { N30A } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 const IconExplorerLink = styled.a`
   &,
   &:hover,
@@ -21,7 +21,7 @@ const IconExplorerLink = styled.a`
   &:focus {
     display: block;
     padding: 10px;
-    border-radius: ${gridSize() / 2}px;
+    border-radius: ${token('border.radius.100', '4px')};
     color: inherit;
     cursor: pointer;
     line-height: 0;
@@ -33,7 +33,7 @@ const IconExplorerLink = styled.a`
 
 const IconModalHeader = styled.h3`
   display: flex;
-  padding: 20px;
+  padding: ${token('space.250', '20px')};
   align-items: center;
   justify-content: flex-start;
   flex-direction: row;

@@ -5,12 +5,13 @@ import { ThemeProvider } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import { DateTimePicker } from '@atlaskit/datetime-picker';
+import { token } from '@atlaskit/tokens';
 
-import { colors, gridSize } from '../src';
+import { colors } from '../src';
 
 const Description = styled.p`
-  padding: ${gridSize()}px;
-  margin: ${gridSize() * 5}px 0 ${gridSize()}px;
+  padding: ${token('space.100', '8px')};
+  margin: ${token('space.500', '40px')} 0 ${token('space.100', '8px')};
   background-color: ${(props) => colors.background(props)};
   color: ${(props) => colors.text(props)};
 `;

@@ -12,6 +12,8 @@ import {
 
 import Button from '@atlaskit/button/standard-button';
 import noop from '@atlaskit/ds-lib/noop';
+import InlineMessage from '@atlaskit/inline-message';
+import { Box } from '@atlaskit/primitives';
 import { G300, R200, R75, Y75 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -304,6 +306,29 @@ export default function Example() {
               <ModalTitle>Drag and drop</ModalTitle>
             </ModalHeader>
             <ModalBody>
+              <Box paddingBlockEnd="space.300">
+                <InlineMessage
+                  appearance="info"
+                  title="Keyboard dragging instructions"
+                >
+                  <p>
+                    Navigate through the draggable items using the tab key to
+                    move forward through the tabbable items and shift + tab to
+                    move backwards. When a draggable element has focus press the
+                    spacebar key to start the drag.
+                  </p>
+                  <p>
+                    Once a drag is started, the following keyboard shortcuts can
+                    be used:
+                  </p>
+                  <ul>
+                    <li>Spacebar - drop the element</li>
+                    <li>Escape - cancel the drag</li>
+                    <li>Up arrow - move the element upwards</li>
+                    <li>Down arrow - move the element downwards</li>
+                  </ul>
+                </InlineMessage>
+              </Box>
               <Wrapper />
             </ModalBody>
             <ModalFooter>

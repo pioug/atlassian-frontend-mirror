@@ -30,7 +30,9 @@ const bannerFixedStyles = css({
   position: 'fixed',
   zIndex: 2,
   top: 0,
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   right: RIGHT_PANEL_WIDTH,
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   left: LEFT_PANEL_WIDTH,
 });
 

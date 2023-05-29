@@ -25,6 +25,7 @@ const TitleBlockResolvedView: React.FC<TitleBlockViewProps> = ({
   testId,
   text,
   title,
+  metadataPosition,
   ...blockProps
 }) => {
   const metadataElements = renderElementItems(metadata);
@@ -50,7 +51,7 @@ const TitleBlockResolvedView: React.FC<TitleBlockViewProps> = ({
         <ElementGroup
           direction={SmartLinkDirection.Horizontal}
           align={SmartLinkAlignment.Right}
-          position={SmartLinkPosition.Top}
+          position={metadataPosition ?? SmartLinkPosition.Center}
         >
           {metadataElements}
         </ElementGroup>

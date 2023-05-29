@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/storybook-addon-design-system",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "Design token storybook addon",
   "author": "Atlassian Pty Ltd",
   "publishConfig": {
@@ -56,7 +56,8 @@
       "dom-events": "use-bind-event-listener",
       "design-system": "v1",
       "design-tokens": [
-        "color"
+        "color",
+        "spacing"
       ],
       "deprecation": "no-deprecated-imports",
       "styling": "emotion"

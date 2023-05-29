@@ -11,7 +11,7 @@ import {
   LifecycleAction,
 } from './types';
 import { ANALYTICS_CHANNEL } from './consts';
-import createEventPayload from './analytics.codegen';
+import createEventPayload from './common/utils/analytics/analytics.codegen';
 import { runWhenIdle } from './utils';
 
 /**

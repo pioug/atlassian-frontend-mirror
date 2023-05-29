@@ -2,7 +2,6 @@ import { CardClient } from '@atlaskit/link-provider';
 import { CardState } from '@atlaskit/linking-common';
 
 import { LinkDetails, CardStore } from '../types';
-import { getUrlAttributes } from './get-url-attributes';
 import { getResolvedAttributes } from './get-resolved-attributes';
 
 const hasMessage = (err: unknown): err is { message: unknown } => {
@@ -58,7 +57,6 @@ export const resolveAttributes = async (
   const [linkData, status] = await getLinkData(linkDetails, client, store);
 
   return {
-    ...getUrlAttributes(linkDetails.url),
     ...getResolvedAttributes(linkDetails, linkData, status),
   };
 };

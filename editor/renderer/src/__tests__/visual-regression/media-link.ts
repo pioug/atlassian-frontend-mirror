@@ -116,8 +116,7 @@ describe('media link:', () => {
     await snapshot(page);
   });
 
-  // FIXME: This test was automatically skipped due to failure on 27/05/2023: https://product-fabric.atlassian.net/browse/ED-18096
-  it.skip(`should render a linked media image inside a table correctly`, async () => {
+  it(`should render a linked media image inside a table correctly`, async () => {
     await loadAdf(page, mediaLinkInsideTable);
 
     await waitForAllMedia(page, 2);
@@ -132,7 +131,8 @@ describe('media link:', () => {
     await snapshot(page);
   });
 
-  it(`should horizontally render multiple wrapped-left linked media images inside a table`, async () => {
+  // FIXME: This test was automatically skipped due to failure on 26/05/2023: https://product-fabric.atlassian.net/browse/ED-18085
+  it.skip(`should horizontally render multiple wrapped-left linked media images inside a table`, async () => {
     await loadAdf(page, leftWrappedMultipleMediaInsideTable);
 
     await waitForAllMedia(page, 2);

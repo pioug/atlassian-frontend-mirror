@@ -3,6 +3,7 @@ import React, { useCallback, useState } from 'react';
 import styled from '@emotion/styled';
 
 import Flag, { FlagGroup, FlagProps } from '@atlaskit/flag';
+import { token } from '@atlaskit/tokens';
 
 import ProfileCardResourced, { Team } from '../src';
 import TeamProfilecardTrigger from '../src/components/Team';
@@ -13,11 +14,11 @@ import ExampleWrapper from './helper/example-wrapper';
 import { getMockProfileClient, getMockTeamClient } from './helper/util';
 
 export const Wrap = styled.div`
-  margin-bottom: 20px;
+  margin-bottom: ${token('space.250', '20px')};
 `;
 
 export const MainStage = styled.div`
-  margin: 16px;
+  margin: ${token('space.200', '16px')};
 `;
 
 export default function Example() {

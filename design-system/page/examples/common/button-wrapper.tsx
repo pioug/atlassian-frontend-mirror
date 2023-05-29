@@ -3,10 +3,12 @@ import type { PropsWithChildren } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
+import { token } from '@atlaskit/tokens';
+
 const buttonWrapperStyles = css({
   display: 'flex',
-  padding: 4,
-  gap: 8,
+  padding: token('space.050', '4px'),
+  gap: token('space.100', '8px'),
   flexWrap: 'wrap',
 });
 

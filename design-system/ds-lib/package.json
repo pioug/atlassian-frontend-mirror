@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/ds-lib",
-  "version": "2.2.2",
+  "version": "2.2.3",
   "description": "Reusable utilities and hooks specific to design system.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -81,7 +81,8 @@
         "analytics-next"
       ],
       "design-tokens": [
-        "color"
+        "color",
+        "spacing"
       ],
       "theming": [
         "react-context"

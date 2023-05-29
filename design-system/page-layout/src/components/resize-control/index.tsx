@@ -1,16 +1,18 @@
 /** @jsx jsx */
 import {
   ElementType,
+  Fragment,
   KeyboardEvent as ReactKeyboardEvent,
   MouseEvent as ReactMouseEvent,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useRef,
   useState,
 } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { css, Global, jsx } from '@emotion/react';
 import { bindAll, UnbindFn } from 'bind-event-listener';
 import rafSchd from 'raf-schd';
 
@@ -44,12 +46,40 @@ const resizeControlStyles = css({
   position: 'absolute',
   top: 0,
   bottom: 0,
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   left: '100%',
   outline: 'none',
 });
 
 const showResizeButtonStyles = css({
   '--ds--resize-button--opacity': 1,
+});
+
+// @ts-expect-error adding `!important` to style rules is currently a type error
+const globalResizingStyles = css({
+  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  '*': {
+    // Setting the cursor to be `ew-resize` on all elements so that even if the user
+    // pointer slips off the resize handle, the cursor will still be the resize cursor
+    cursor: 'ew-resize !important',
+
+    // Blocking selection while resizing
+    // Notes:
+    // - This prevents a user selection being caused by resizing
+    // - Safari + Firefox → all good
+    // - Chrome → This will undo the current selection while resizing (not ideal)
+    //   - The current selection will resume after resizing
+    userSelect: 'none !important',
+  },
+  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  iframe: {
+    // Disabling pointer events on iframes when resizing
+    // as iframes will swallower user events when the user is over them
+    pointerEvents: 'none !important',
+  },
+  // Note: We _could_ also disable `pointer-events` on all elements during resizing.
+  // However, to minimize risk we are just disabling `pointer-events` on iframes
+  // as that change is actually needed to fix resizing with iframes
 });
 
 const ResizeControl = ({
@@ -73,6 +103,13 @@ const ResizeControl = ({
   const keyboardEventTimeout = useRef<number>();
   const [isGrabAreaFocused, setIsGrabAreaFocused] = useState(false);
   const unbindEvents = useRef<UnbindFn | null>(null);
+
+  // Used in some cases to ensure function references don't have to change
+  // TODO: more functions could use `stableSidebarState` rather than `leftSidebarState`
+  const stableSidebarState = useRef(leftSidebarState);
+  useEffect(() => {
+    stableSidebarState.current = leftSidebarState;
+  }, [leftSidebarState]);
 
   const toggleSideBar = (
     e?: ReactMouseEvent | ReactKeyboardEvent<HTMLButtonElement>,
@@ -118,7 +155,12 @@ const ResizeControl = ({
       getLeftPanelWidth();
 
     unbindEvents.current = bindAll(window, [
-      { type: 'mousemove', listener: onUpdateResize },
+      {
+        type: 'mousemove',
+        listener: function (event: MouseEvent) {
+          onUpdateResize({ clientX: event.clientX });
+        },
+      },
       { type: 'mouseup', listener: onFinishResizing },
       {
         type: 'mousedown',
@@ -191,44 +233,42 @@ const ResizeControl = ({
     collapseLeftSidebar(undefined, true);
   };
 
-  const onUpdateResize = rafSchd((event: MouseEvent) => {
-    // Allow the sidebar to be 50% of the available page width
-    const maxWidth = Math.round(window.innerWidth / 2);
-    const leftPanelWidth = getLeftPanelWidth();
-    const { leftSidebarWidth } = leftSidebarState;
-    const hasResizedOffLeftOfScreen = event.clientX < 0;
+  // It is important that `onUpdateResize` is a stable function reference, so that:
+  // 1. we ensure we are correctly throttling with `requestAnimationFrame`
+  // 2. that a `onUpdateResize` will cancel the one and only pending frame
+  // To help ensure `onUpdateResize` is stable, we are putting the last state into a ref
+  const [onUpdateResize] = useState(() =>
+    rafSchd(({ clientX }: { clientX: number }) => {
+      // Allow the sidebar to be 50% of the available page width
+      const maxWidth = Math.round(window.innerWidth / 2);
+      const leftPanelWidth = getLeftPanelWidth();
+      const leftSidebarWidth = stableSidebarState.current.leftSidebarWidth;
+      const hasResizedOffLeftOfScreen = clientX < 0;
 
-    if (hasResizedOffLeftOfScreen) {
-      onResizeOffLeftOfScreen();
-      return;
-    }
+      if (hasResizedOffLeftOfScreen) {
+        onResizeOffLeftOfScreen();
+        return;
+      }
 
-    const delta = Math.max(
-      Math.min(
-        event.clientX - leftSidebarWidth - leftPanelWidth,
-        maxWidth - leftSidebarWidth - leftPanelWidth,
-      ),
-      COLLAPSED_LEFT_SIDEBAR_WIDTH - leftSidebarWidth - leftPanelWidth,
-    );
+      const delta = Math.max(
+        Math.min(
+          clientX - leftSidebarWidth - leftPanelWidth,
+          maxWidth - leftSidebarWidth - leftPanelWidth,
+        ),
+        COLLAPSED_LEFT_SIDEBAR_WIDTH - leftSidebarWidth - leftPanelWidth,
+      );
 
-    sidebarWidth.current = Math.max(
-      leftSidebarWidth + delta - offset.current,
-      COLLAPSED_LEFT_SIDEBAR_WIDTH,
-    );
+      sidebarWidth.current = Math.max(
+        leftSidebarWidth + delta - offset.current,
+        COLLAPSED_LEFT_SIDEBAR_WIDTH,
+      );
 
-    document.documentElement.style.setProperty(
-      `--${VAR_LEFT_SIDEBAR_WIDTH}`,
-      `${sidebarWidth.current}px`,
-    );
-  });
-
-  const cleanupAfterResize = () => {
-    sidebarWidth.current = 0;
-    offset.current = 0;
-    unbindEvents.current?.();
-    unbindEvents.current = null;
-  };
-  let updatedLeftSidebarState = {} as LeftSidebarState;
+      document.documentElement.style.setProperty(
+        `--${VAR_LEFT_SIDEBAR_WIDTH}`,
+        `${sidebarWidth.current}px`,
+      );
+    }),
+  );
 
   const onFinishResizing = () => {
     if (isLeftSidebarCollapsed) {
@@ -237,9 +277,14 @@ const ResizeControl = ({
 
     document.documentElement.removeAttribute(IS_SIDEBAR_DRAGGING);
 
+    // TODO: the control flow is pretty strange as the first codepath which calls `collapseLeftSidebar()`
+    // does not return an updated state snapshot.
+    let updatedLeftSidebarState: LeftSidebarState | null = null;
+
     // If it is dragged to below the threshold,
     // collapse the navigation
     if (sidebarWidth.current < MIN_LEFT_SIDEBAR_DRAG_THRESHOLD) {
+      // TODO: for this codepath, `onCollapse` occurs before `onResizeEnd` which seems wrong
       document.documentElement.style.setProperty(
         `--${VAR_LEFT_SIDEBAR_WIDTH}`,
         `${COLLAPSED_LEFT_SIDEBAR_WIDTH}px`,
@@ -275,11 +320,17 @@ const ResizeControl = ({
       setLeftSidebarState(updatedLeftSidebarState);
     }
 
+    unbindEvents.current?.();
+    unbindEvents.current = null;
+    onUpdateResize.cancel();
+    sidebarWidth.current = 0;
+    offset.current = 0;
+
+    // TODO: no idea why this is in an animation frame
     requestAnimationFrame(() => {
-      onUpdateResize.cancel();
       setIsGrabAreaFocused(false);
-      onResizeEnd && onResizeEnd(updatedLeftSidebarState);
-      cleanupAfterResize();
+      // Note: the `collapseSidebar` codepath does not return state, so we need to pull it from the ref
+      onResizeEnd?.(updatedLeftSidebarState ?? stableSidebarState.current);
     });
   };
 
@@ -388,36 +439,42 @@ const ResizeControl = ({
 
   /* eslint-disable jsx-a11y/role-supports-aria-props */
   return (
-    <div
-      {...cssSelector}
-      css={[
-        resizeControlStyles,
-        (isGrabAreaFocused || isLeftSidebarCollapsed) && showResizeButtonStyles,
-      ]}
-    >
-      <Shadow testId={testId && `${testId}-shadow`} />
-      <GrabArea
-        role="separator"
-        aria-label={resizeGrabAreaLabel}
-        aria-valuenow={leftSidebarPercentageExpanded}
-        aria-valuemin={0}
-        aria-valuemax={100}
-        aria-expanded={!isLeftSidebarCollapsed}
-        onKeyDown={onKeyDown}
-        onMouseDown={onMouseDown}
-        onFocus={onFocus}
-        onBlur={onBlur}
-        testId={testId && `${testId}-grab-area`}
-        isLeftSidebarCollapsed={isLeftSidebarCollapsed}
-        disabled={isLeftSidebarCollapsed}
-      />
-      {resizeButton.render(ResizeButton, {
-        isLeftSidebarCollapsed,
-        label: resizeButtonLabel,
-        onClick: toggleSideBar,
-        testId: testId && `${testId}-resize-button`,
-      })}
-    </div>
+    <Fragment>
+      <div
+        {...cssSelector}
+        css={[
+          resizeControlStyles,
+          (isGrabAreaFocused || isLeftSidebarCollapsed) &&
+            showResizeButtonStyles,
+        ]}
+      >
+        <Shadow testId={testId && `${testId}-shadow`} />
+        <GrabArea
+          role="separator"
+          aria-label={resizeGrabAreaLabel}
+          aria-valuenow={leftSidebarPercentageExpanded}
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-expanded={!isLeftSidebarCollapsed}
+          onKeyDown={onKeyDown}
+          onMouseDown={onMouseDown}
+          onFocus={onFocus}
+          onBlur={onBlur}
+          testId={testId && `${testId}-grab-area`}
+          isLeftSidebarCollapsed={isLeftSidebarCollapsed}
+          disabled={isLeftSidebarCollapsed}
+        />
+        {resizeButton.render(ResizeButton, {
+          isLeftSidebarCollapsed,
+          label: resizeButtonLabel,
+          onClick: toggleSideBar,
+          testId: testId && `${testId}-resize-button`,
+        })}
+      </div>
+      {leftSidebarState.isResizing ? (
+        <Global styles={globalResizingStyles} />
+      ) : null}
+    </Fragment>
   );
   /* eslint-enable jsx-a11y/role-supports-aria-props */
 };

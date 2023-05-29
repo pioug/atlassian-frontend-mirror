@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Button from '@atlaskit/button/standard-button';
 import { Checkbox } from '@atlaskit/checkbox';
 import Form, { CheckboxField, Field } from '@atlaskit/form';
+import { Box, Stack } from '@atlaskit/primitives';
 import { RadioGroup } from '@atlaskit/radio';
 import Textfield from '@atlaskit/textfield';
 
@@ -19,7 +20,19 @@ export default function ModalDialogForm() {
   const [isOpen, setIsOpen] = useState(false);
   const open = () => setIsOpen(true);
   const close = () => setIsOpen(false);
-  const onFormSubmit = (data: Object) => alert(JSON.stringify(data, null, 4));
+  const [data, setData]: [
+    {
+      name?: string;
+      email?: string;
+      checkbox?: boolean;
+      radiogroup?: string;
+    },
+    Function,
+  ] = useState({});
+  const onFormSubmit = (data: Object) => {
+    setData(data);
+    close();
+  };
 
   return (
     <div>
@@ -41,11 +54,21 @@ export default function ModalDialogForm() {
                       Enter some text then submit the form to see the response.
                     </p>
 
-                    <Field label="Name" name="my-name" defaultValue="">
+                    <Field
+                      label="Name"
+                      name="name"
+                      defaultValue=""
+                      isRequired={true}
+                    >
                       {({ fieldProps }) => <Textfield {...fieldProps} />}
                     </Field>
 
-                    <Field label="Email" name="my-email" defaultValue="">
+                    <Field
+                      label="Email"
+                      name="email"
+                      defaultValue=""
+                      isRequired={true}
+                    >
                       {({ fieldProps }) => (
                         <Textfield
                           autoComplete="off"
@@ -93,6 +116,14 @@ export default function ModalDialogForm() {
           </ModalDialog>
         )}
       </ModalTransition>
+      <Stack>
+        <Box as="span">{data.name && `Name: ${data.name}`}</Box>
+        <Box as="span">{data.email && `Email: ${data.email}`}</Box>
+        <Box as="span">{data.checkbox && `Checkbox: ${data.checkbox}`}</Box>
+        <Box as="span">
+          {data.radiogroup && `Radio Group: ${data.radiogroup}`}
+        </Box>
+      </Stack>
     </div>
   );
 }

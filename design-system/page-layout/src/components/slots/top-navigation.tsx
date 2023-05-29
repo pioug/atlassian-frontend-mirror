@@ -30,8 +30,11 @@ const topNavigationStyles = css({
 const fixedStyles = css({
   position: 'fixed',
   zIndex: 2,
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   top: BANNER_HEIGHT,
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   right: RIGHT_PANEL_WIDTH,
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   left: LEFT_PANEL_WIDTH,
 });
 

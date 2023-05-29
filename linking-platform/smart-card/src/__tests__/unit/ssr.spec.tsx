@@ -123,7 +123,6 @@ describe('<SSRCard />', () => {
                 },
                 {
                   attributes: {
-                    urlHash: 'f9b6063741fa59d8303585718d18adf9a4b3a56c',
                     display: 'inline',
                     id: 'some-id',
                   },

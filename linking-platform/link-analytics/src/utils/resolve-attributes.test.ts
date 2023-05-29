@@ -59,7 +59,6 @@ describe('resolveAttributes', () => {
       extensionKey: null,
       status: 'not_found',
       displayCategory: 'link',
-      urlHash: 'f28318b204791d282d65cc09bba5389e8b9c7406',
     });
   });
 
@@ -90,7 +89,6 @@ describe('resolveAttributes', () => {
       extensionKey: null,
       status: 'errored',
       displayCategory: 'smartLink',
-      urlHash: 'f28318b204791d282d65cc09bba5389e8b9c7406',
     });
   });
 
@@ -125,7 +123,6 @@ describe('resolveAttributes', () => {
         destinationTenantId: 'tenantId',
         extensionKey: 'object-provider',
         status: 'resolved',
-        urlHash: 'f28318b204791d282d65cc09bba5389e8b9c7406',
       });
     });
 
@@ -151,7 +148,6 @@ describe('resolveAttributes', () => {
         extensionKey: 'object-provider',
         status: 'resolved',
         displayCategory: 'link',
-        urlHash: 'f28318b204791d282d65cc09bba5389e8b9c7406',
       });
     });
   });

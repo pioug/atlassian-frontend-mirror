@@ -92,9 +92,14 @@ const baseStyles: CSSObject = {
 const customTheme = {
   default: {
     background: {
-      default: colors.N30,
-      hover: colors.N40,
-      active: colors.N50,
+      default: '#657982',
+      hover: '#5D717A',
+      active: '#546871',
+    },
+    color: {
+      default: '#FFFFFF',
+      hover: '#FFFFFF',
+      active: '#FFFFFF',
     },
     boxShadow: {
       default: `1px 2px 0 0 ${colors.N40A}`,
@@ -114,13 +119,13 @@ const customTheme = {
   },
   primary: {
     background: {
-      default: '#00AECC',
-      hover: '#0098B7',
-      active: '#0082A0',
+      default: '#0080A4',
+      hover: '#006E8A',
+      active: '#007998',
     },
     boxShadow: {
-      default: `1px 2px 0 0 #0098B7`,
-      hover: `1px 2px 0 0 #0082A0`,
+      default: `1px 2px 0 0 ${colors.N40A}`,
+      hover: `1px 2px 0 0 ${colors.N50A}`,
       active: '0px 0px 0 0',
     },
     transform: {

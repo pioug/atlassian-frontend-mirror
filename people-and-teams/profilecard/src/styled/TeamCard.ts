@@ -64,7 +64,7 @@ export const MemberCount = styled.div`
 
 export const AvatarSection = styled.div`
   margin-top: ${token('space.200', '16px')};
-  margin-left: -2px;
+  margin-left: calc(-1 * ${token('space.025', '2px')});
 `;
 
 export const DescriptionWrapper = styled.div`
@@ -96,11 +96,11 @@ export const ActionButtons = styled.div`
 export const WrappedButton = styled.div`
   flex-basis: 0;
   flex-grow: 1;
-  margin-left: 8px;
+  margin-left: ${token('space.100', '8px')};
 `;
 
 export const MoreButton = styled.div`
-  margin-left: 8px;
+  margin-left: ${token('space.100', '8px')};
 `;
 
 export const LoadingWrapper = styled.div`

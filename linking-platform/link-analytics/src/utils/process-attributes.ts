@@ -5,7 +5,7 @@ import {
   LinkCreatedAttributesType,
   LinkUpdatedAttributesType,
   LinkDeletedAttributesType,
-} from '../analytics.codegen';
+} from '../common/utils/analytics/analytics.codegen';
 import { LifecycleAction, LinkDetails } from '../types';
 
 const getSourceEvent = (payload: Record<string, unknown>): string | null => {

@@ -154,8 +154,7 @@ describe('Snapshot Test', () => {
       expect(image).toMatchProdImageSnapshot();
     });
 
-    // FIXME: This test was automatically skipped due to failure on 27/05/2023: https://product-fabric.atlassian.net/browse/DSP-10879
-    it.skip('appearance on active should match production example', async () => {
+    it('appearance on active should match production example', async () => {
       const url = getExampleUrl(
         'design-system',
         'tag',

@@ -1,9 +1,6 @@
 import {
-  type EditorPageInterface,
   editorTestCase as test,
-  EditorNodeContainerModel,
   EditorUploadMediaModel,
-  EditorMediaSingleModel,
   expect,
 } from '@atlaskit/editor-test-helpers/playwright';
 import {
@@ -13,25 +10,6 @@ import {
   p,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { emptyDocument } from './__fixtures__/adf-documents';
-
-async function testStepUploadImage(editor: EditorPageInterface): Promise<void> {
-  await test.step('upload image', async () => {
-    const nodes = EditorNodeContainerModel.from(editor);
-    const mediaSingleModel = EditorMediaSingleModel.from(nodes.mediaSingle);
-    const uploadModel = EditorUploadMediaModel.from(editor);
-    const relativePathToImage =
-      'packages/editor/editor-core/src/__tests__/playwright/media/__resources__/test-image-9kb.jpg';
-
-    await uploadModel.upload({
-      fileToUpload: relativePathToImage,
-      actionToTriggerUpload: async () => {
-        await editor.typeAhead.searchAndInsert('Image');
-      },
-    });
-
-    await mediaSingleModel.waitForReady();
-  });
-}
 
 test.use({
   editorProps: {
@@ -87,13 +65,23 @@ test.describe('quick-insert', () => {
     await editor.keyboard.press('ArrowLeft');
     await editor.keyboard.press('ArrowLeft');
     await editor.keyboard.press('ArrowLeft');
-    await testStepUploadImage(editor);
+
+    await EditorUploadMediaModel.from(editor).upload({
+      actionToTriggerUpload: async () => {
+        await editor.typeAhead.searchAndInsert('Image');
+      },
+    });
+
     await expect(editor).toMatchDocument(expectedDocument.mediaBeforeParagraph);
   });
 
   test('should insert media after a paragraph', async ({ editor }) => {
     await editor.keyboard.type('Hello ');
-    await testStepUploadImage(editor);
+    await EditorUploadMediaModel.from(editor).upload({
+      actionToTriggerUpload: async () => {
+        await editor.typeAhead.searchAndInsert('Image');
+      },
+    });
     await expect(editor).toMatchDocument(expectedDocument.mediaAfterParagraph);
   });
 
@@ -108,7 +96,13 @@ test.describe('quick-insert', () => {
     await editor.keyboard.press('ArrowLeft');
     await editor.keyboard.press('ArrowLeft');
     await editor.keyboard.press('ArrowLeft');
-    await testStepUploadImage(editor);
+
+    await EditorUploadMediaModel.from(editor).upload({
+      actionToTriggerUpload: async () => {
+        await editor.typeAhead.searchAndInsert('Image');
+      },
+    });
+
     await expect(editor).toMatchDocument(expectedDocument.mediaBeforePanel);
   });
 
@@ -117,7 +111,13 @@ test.describe('quick-insert', () => {
   }) => {
     await editor.typeAhead.searchAndInsert('Panel');
     await editor.keyboard.type('Hello ');
-    await testStepUploadImage(editor);
+
+    await EditorUploadMediaModel.from(editor).upload({
+      actionToTriggerUpload: async () => {
+        await editor.typeAhead.searchAndInsert('Image');
+      },
+    });
+
     await expect(editor).toMatchDocument(expectedDocument.mediaAfterPanel);
   });
 });

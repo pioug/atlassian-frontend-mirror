@@ -3,6 +3,7 @@ import { IntlProvider } from 'react-intl-next';
 import styled from '@emotion/styled';
 import Button from '@atlaskit/button/standard-button';
 import { Checkbox } from '@atlaskit/checkbox';
+import { token } from '@atlaskit/tokens';
 
 import accessibleSites from '../src/mocks/accessibleSites';
 import { catherineHirons } from '../src/mocks/users';
@@ -17,7 +18,7 @@ const Controls = styled.div`
   display: flex;
   align-items: center;
   > {
-    padding-right: 4px;
+    padding-right: ${token('space.050', '4px')};
   }
 `;
 

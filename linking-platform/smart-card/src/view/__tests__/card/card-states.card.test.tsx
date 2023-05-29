@@ -17,7 +17,6 @@ import { fakeFactory, mocks } from '../../../utils/mocks';
 import { IntlProvider } from 'react-intl-next';
 
 const mockUrl = 'https://some.url';
-const mockUrlHash = '4e2a79a1652f58e31c27f0ae8531050beb5d25ca';
 
 mockSimpleIntersectionObserver();
 
@@ -390,7 +389,6 @@ describe('smart-card: card states, block', () => {
                   attributes: {
                     display: 'block',
                     id: 'some-id',
-                    urlHash: mockUrlHash,
                   },
                 },
                 {

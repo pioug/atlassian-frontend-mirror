@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/icon-object",
-  "version": "6.3.2",
+  "version": "6.3.3",
   "description": "An object icon is used to represent an Atlassian-specific content type.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -56,6 +56,7 @@
     "@atlaskit/ssr": "*",
     "@atlaskit/textfield": "^5.5.0",
     "@atlaskit/theme": "^12.5.0",
+    "@atlaskit/tokens": "^1.2.19",
     "@atlaskit/tooltip": "^17.8.0",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
@@ -74,7 +75,8 @@
       "design-system": "v1",
       "dom-events": "use-bind-event-listener",
       "design-tokens": [
-        "color"
+        "color",
+        "spacing"
       ],
       "styling": [
         "emotion"

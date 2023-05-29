@@ -15,8 +15,8 @@ import FocusRing from '../src';
 
 const baseStyles = css({
   display: 'block',
-  margin: '12px 0',
-  padding: 8,
+  margin: `${token('space.150', '12px')} 0`,
+  padding: token('space.100', '8px'),
   border: 'none',
   borderRadius: token('border.radius.100', '3px'),
   font: 'inherit',
@@ -25,8 +25,8 @@ const baseStyles = css({
 const stackStyles = css({
   display: 'flex',
   maxWidth: 300,
-  padding: 8,
-  gap: 8,
+  padding: token('space.100', '8px'),
+  gap: token('space.100', '8px'),
   flexDirection: 'column',
 });
 

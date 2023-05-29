@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 
 import styled from '@emotion/styled';
 
+import { token } from '@atlaskit/tokens';
+
 // Simulating import from '@atlaskit/profilecard/user'
 import ProfileCardTrigger from '../src/components/User';
 
@@ -20,14 +22,14 @@ const mockClientForClosedAccountAndCustomMessage = getMockProfileClient(10, 0, {
 });
 
 export const MainStage = styled.div`
-  margin: 16px;
+  margin: ${token('space.200', '16px')};
 `;
 
 export const Section = styled.div`
-  margin: 16px 0;
+  margin: ${token('space.200', '16px')} 0;
 
   h4 {
-    margin: 8px 0;
+    margin: ${token('space.100', '8px')} 0;
   }
 `;
 

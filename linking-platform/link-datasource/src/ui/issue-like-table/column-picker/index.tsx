@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { useCallback, useMemo } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { jsx } from '@emotion/react';
 
@@ -16,6 +16,8 @@ export const ColumnPicker = ({
   selectedColumnKeys,
   onSelectedColumnKeysChange,
 }: ColumnPickerProps) => {
+  const [allOptions, setAllOptions] = useState<OptionType[]>([]);
+
   const mapColumnToOption: (
     column: DatasourceResponseSchemaProperty,
   ) => OptionType = useCallback(
@@ -27,8 +29,8 @@ export const ColumnPicker = ({
     .filter(({ key }) => selectedColumnKeys.includes(key))
     .map(mapColumnToOption);
 
-  const allOptions = useMemo(() => {
-    return columns.filter(({ title, key }) => title).map(mapColumnToOption);
+  useEffect(() => {
+    setAllOptions(columns.filter(({ title }) => title).map(mapColumnToOption));
   }, [columns, mapColumnToOption]);
 
   const handleChange = useCallback(
@@ -48,6 +50,23 @@ export const ColumnPicker = ({
     [columns, onSelectedColumnKeysChange],
   );
 
+  const onPopupOpen = useCallback(() => {
+    if (!allOptions.length) {
+      return;
+    }
+
+    const nonSelectedOptions = allOptions.filter(
+      option =>
+        !selectedOptions.find(
+          selectedOption => selectedOption.value === option.value,
+        ),
+    );
+
+    const sortedOptions = [...selectedOptions, ...nonSelectedOptions];
+
+    sortedOptions.length > 0 && setAllOptions(sortedOptions);
+  }, [allOptions, selectedOptions]);
+
   return (
     <PopupSelect
       classNamePrefix={'column-picker-popup'}
@@ -55,6 +74,7 @@ export const ColumnPicker = ({
       components={{ Option: CheckboxOption }}
       options={allOptions}
       value={selectedOptions}
+      onOpen={onPopupOpen}
       closeMenuOnSelect={false}
       hideSelectedOptions={false}
       isMulti

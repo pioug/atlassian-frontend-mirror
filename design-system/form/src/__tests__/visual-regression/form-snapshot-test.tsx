@@ -30,8 +30,7 @@ describe('Snapshot Test', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  // FIXME: This test was automatically skipped due to failure on 27/05/2023: https://product-fabric.atlassian.net/browse/DSP-10883
-  it.skip('Signup Form password field validations should match production example', async () => {
+  it('Signup Form password field validations should match production example', async () => {
     const url = getExampleUrl(
       'design-system',
       'form',

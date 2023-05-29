@@ -138,6 +138,7 @@ export interface DatasourceParameters {
 
 export interface DatasourceDataRequest {
   fields?: string[];
+  includeSchema?: boolean;
   parameters: DatasourceParameters;
   pageSize: number;
   pageCursor?: string;
@@ -155,7 +156,6 @@ export interface DatasourceResponse {
   id: string;
   name: string;
   description: string;
-  isFullSchema: boolean;
   parameters: DatasourceResponseParameter[];
   schema: {
     properties: DatasourceResponseSchemaProperty[];
@@ -165,6 +165,9 @@ export interface DatasourceResponse {
 
 export interface DatasourceDataResponse {
   data: DatasourceDataResponseItem[];
+  schema?: {
+    properties: DatasourceResponseSchemaProperty[];
+  };
   nextPageCursor?: string;
   totalIssues?: number;
 }
@@ -177,5 +180,4 @@ export type DatasourceTableStatusType =
 
 export type DatasourceDetailsRequest = {
   parameters: DatasourceParameters;
-  isFullSchema?: boolean;
 };

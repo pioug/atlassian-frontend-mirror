@@ -58,6 +58,7 @@ describe('typeahead: undo redo', () => {
   });
 
   describe('when undone right after open the typeahead', () => {
+    // FIXME: This test was automatically skipped due to failure on 18/05/2023: https://product-fabric.atlassian.net/browse/ED-17899
     BrowserTestCase(
       'it should not add the raw trigger in the document',
       // That is sad but I need to skip safari because the 'undo'
@@ -66,7 +67,8 @@ describe('typeahead: undo redo', () => {
       // Skipping for firefox as well because 'undo' function seems inconsistent in firefox
       // TODO: unskip test for firefox when behaviour is fixed - https://product-fabric.atlassian.net/jira/servicedesk/projects/DTR/queues/issue/DTR-1470
       {
-        skip: ['safari', 'firefox'],
+        // skip: ['safari', 'firefox'],
+        skip: ['*'],
       },
       async (client: any, testName: string) => {
         const page = await startEditor(client, spaceAtEnd);

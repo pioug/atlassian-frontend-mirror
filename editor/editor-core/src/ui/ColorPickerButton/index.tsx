@@ -65,8 +65,8 @@ type Props = WithAnalyticsEventsProps & {
   cols?: number;
   alignX?: 'left' | 'right' | 'center' | 'end';
   size?: {
-    width: number;
-    height: number;
+    width: string;
+    height: string;
   };
   mountPoint?: HTMLElement;
   setDisableParentScroll?: (disable: boolean) => void;
@@ -247,8 +247,8 @@ const ColorPickerButton = (props: Props) => {
       border: 1px solid ${DEFAULT_BORDER_COLOR};
       border-radius: ${borderRadius()}px;
       background-color: ${currentColor || 'transparent'};
-      width: ${props.size?.width || 14}px;
-      height: ${props.size?.height || 14}px;
+      width: ${props.size?.width || '14px'};
+      height: ${props.size?.height || '14px'};
       padding: 0;
     }
   `;

@@ -85,6 +85,7 @@ const FlexibleResolvedView = ({
         ]}
         hideRetry={true}
         subtitle={[{ name: ElementName.Location }]}
+        metadataPosition={SmartLinkPosition.Top}
       />
       <MetadataBlock primary={metadata} maxLines={1} />
 

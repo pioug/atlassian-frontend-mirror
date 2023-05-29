@@ -34,13 +34,11 @@ async function testStepUploadImageAndResize(
     const mediaSingleModel = EditorMediaSingleModel.from(nodes.mediaSingle);
     const toolbarModel = EditorMainToolbarModel.from(editor);
     const uploadModel = EditorUploadMediaModel.from(editor);
-    const testFile = __dirname.concat('/__resources__/test-image-9kb.jpg');
 
     await uploadModel.upload({
       actionToTriggerUpload: async () => {
         await toolbarModel.clickAt('Add image');
       },
-      fileToUpload: testFile,
     });
 
     await mediaSingleModel.waitForReady();

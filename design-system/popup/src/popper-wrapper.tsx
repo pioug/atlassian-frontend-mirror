@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { forwardRef, useMemo, useState } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { css, Global, jsx } from '@emotion/react';
 
 import { Popper } from '@atlaskit/popper';
 import { N0, N50A, N60A } from '@atlaskit/theme/colors';
@@ -29,6 +29,17 @@ const popupStyles = css({
     outline: 'none',
   },
 });
+
+// disables iframe pointer events while popup is open, except if iframe is nested inside popup
+// solves an issue of popup not being closed on iframe click
+// @ts-expect-error adding `!important` to style rules is currently a type error
+const blockPointerEventsOnExternalIframeStyles = css({
+  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  'iframe:not([data-ds--popup] iframe)': {
+    pointerEvents: 'none !important',
+  },
+});
+
 const DefaultPopupComponent = forwardRef<HTMLDivElement, PopupComponentProps>(
   (props, ref) => <div css={popupStyles} {...props} ref={ref} />,
 );
@@ -88,6 +99,7 @@ function PopperWrapper({
             id={id}
             data-placement={placement}
             data-testid={testId}
+            data-ds--popup="true"
             ref={(node: HTMLDivElement) => {
               if (node) {
                 if (typeof ref === 'function') {
@@ -103,6 +115,7 @@ function PopperWrapper({
             // first on the browser address bar when using keyboard
             tabIndex={autoFocus ? 0 : undefined}
           >
+            <Global styles={blockPointerEventsOnExternalIframeStyles} />
             <RepositionOnUpdate update={update}>
               {content({
                 update,

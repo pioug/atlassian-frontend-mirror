@@ -2,6 +2,8 @@ import React from 'react';
 
 import styled from '@emotion/styled';
 
+import { token } from '@atlaskit/tokens';
+
 import { ProfileCard } from '../src';
 import { profiles } from '../src/mocks';
 import { reportingLinesData } from '../src/mocks/reporting-lines-data';
@@ -10,14 +12,14 @@ import { ProfilecardProps, ReportingLinesUser } from '../src/types';
 import ExampleWrapper from './helper/example-wrapper';
 
 export const MainStage = styled.div`
-  margin: 16px;
+  margin: ${token('space.200', '16px')};
 `;
 
 export const Section = styled.div`
-  margin: 16px 0;
+  margin: ${token('space.200', '16px')} 0;
 
   h4 {
-    margin: 8px 0;
+    margin: ${token('space.100', '8px')} 0;
   }
 `;
 

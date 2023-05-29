@@ -4,6 +4,7 @@ import React, { useCallback, useState } from 'react';
 import styled from '@emotion/styled';
 
 import Button from '@atlaskit/button/custom-theme-button';
+import { token } from '@atlaskit/tokens';
 
 import Theme, {
   elevation as AkElevations,
@@ -24,7 +25,7 @@ const Box = styled.div<{ elevation: Elevation; theme: ThemeType }>`
   border-radius: 3px;
   margin-bottom: 2em;
   min-width: 240px;
-  padding: 16px 24px;
+  padding: ${token('space.200', '16px')} ${token('space.300', '24px')};
   text-align: center;
 `;
 

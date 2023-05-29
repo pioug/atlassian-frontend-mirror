@@ -11,6 +11,8 @@ const getIsDragging = () => {
   return document.documentElement.getAttribute(IS_SIDEBAR_DRAGGING) === 'true';
 };
 
+// TODO: I think this should be derived from the sidebar state,
+// and not indirectly from observing an attribute change
 const useIsSidebarDragging = () => {
   const [isDragging, setIsDragging] = useState(getIsDragging);
 

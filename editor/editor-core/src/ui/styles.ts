@@ -14,6 +14,8 @@ export const buttonGroupStyle = css`
   }
 `;
 
+// This style is copied to packages/editor/editor-plugin-ai/src/ui/components/AtlassianIntelligenceToolbarButton/styles.tsx
+// If you make change here, change in above file as well.
 export const separatorStyles = css`
   background: ${token('color.border', N30)};
   width: 1px;
@@ -23,6 +25,8 @@ export const separatorStyles = css`
   user-select: none;
 `;
 
+// This style is copied to packages/editor/editor-plugin-ai/src/ui/components/AtlassianIntelligenceToolbarButton/styles.tsx
+// If you make change here, change in above file as well.
 export const wrapperStyle = css`
   display: flex;
   align-items: center;

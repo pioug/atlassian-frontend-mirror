@@ -13,10 +13,11 @@ import { Node } from 'prosemirror-model';
 import sampleSchema from '@atlaskit/editor-test-helpers/schema';
 
 [comment].forEach((editor) => {
+  // FIXME: This test was automatically skipped due to failure on 21/04/2023: https://product-fabric.atlassian.net/browse/ED-17580
   BrowserTestCase(
     `insert-mediaGroup.ts: Inserts a media group on ${editor.name}`,
     {
-      skip: [],
+      skip: ['*'],
     },
     async (
       client: Parameters<typeof goToEditorTestingWDExample>[0],

@@ -11,8 +11,7 @@ import {
 } from '@atlaskit/analytics-next';
 import { DN50, DN600, N0, N50A, N60A, N900 } from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { borderRadius, gridSize } from '@atlaskit/theme/constants';
+import { borderRadius } from '@atlaskit/theme/constants';
 import { ThemeProps } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
 
@@ -22,9 +21,7 @@ const packageName = process.env._PACKAGE_NAME_;
 const packageVersion = process.env._PACKAGE_VERSION_;
 
 const halfFocusRing = 1;
-// TODO: Migrate away from gridSize
-// Recommendation: Replace gridSize with token('space.100', '8px') after verfiying Popper can accept this
-const dropOffset = `0, ${gridSize()}px`;
+const dropOffset = '0, 8';
 
 interface Props extends WithAnalyticsEventsProps {
   isOpen?: boolean;

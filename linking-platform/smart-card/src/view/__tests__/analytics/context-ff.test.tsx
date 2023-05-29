@@ -34,7 +34,6 @@ describe('smartLink renderSuccess event with `enable context` and `remove dispat
   });
 
   const mockUrl = 'https://some.url';
-  const mockUrlHash = '4e2a79a1652f58e31c27f0ae8531050beb5d25ca';
 
   ffTest(
     'platform.linking-platform.smart-card.enable-analytics-context',
@@ -77,7 +76,6 @@ describe('smartLink renderSuccess event with `enable context` and `remove dispat
                 {
                   attributes: {
                     display: 'inline',
-                    urlHash: mockUrlHash,
                     id: 'some-id',
                   },
                 },

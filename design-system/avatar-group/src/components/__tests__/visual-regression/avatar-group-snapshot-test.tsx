@@ -37,8 +37,7 @@ describe('Snapshot Test', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  // FIXME: This test was automatically skipped due to failure on 26/05/2023: https://product-fabric.atlassian.net/browse/DSP-10832
-  it.skip('More indicator should match with screenshot', async () => {
+  it('More indicator should match with screenshot', async () => {
     const image = await takeElementScreenShot(page, moreIndicator);
     expect(image).toMatchProdImageSnapshot();
   });
@@ -49,8 +48,7 @@ describe('Snapshot Test', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  // FIXME: This test was automatically skipped due to failure on 26/05/2023: https://product-fabric.atlassian.net/browse/DSP-10833
-  it.skip('More indicator should get outline on focus', async () => {
+  it('More indicator should get outline on focus', async () => {
     await page.focus(moreIndicator);
     const image = await takeElementScreenShot(page, moreIndicator);
     expect(image).toMatchProdImageSnapshot();

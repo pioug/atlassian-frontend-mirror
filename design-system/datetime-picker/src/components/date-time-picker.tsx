@@ -250,14 +250,12 @@ const timePickerContainerStyles = css({
   flexGrow: 1,
 });
 
-const ICON_PADDING = 2;
-
 const iconContainerStyles = css({
   display: 'flex',
   paddingTop: token('space.075', '6px'),
   paddingRight: token('space.100', '8px'),
   paddingBottom: token('space.075', '6px'),
-  paddingLeft: `${ICON_PADDING * 2}px`,
+  paddingLeft: token('space.050', '4px'), // ICON_PADDING (2) * 2
   alignItems: 'center',
   flexBasis: 'inherit',
   backgroundColor: 'inherit',

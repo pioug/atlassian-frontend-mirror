@@ -82,11 +82,13 @@ describe('Feature Flag Client', () => {
 
   const createDefaultClient = (
     isAutomaticExposuresEnabled: boolean = true,
+    isMissingFlagEventsDisabled?: boolean,
   ): FeatureFlagClient => {
     return new FeatureFlagClient({
       analyticsHandler,
       flags: defaultFlags,
       isAutomaticExposuresEnabled,
+      isMissingFlagEventsDisabled,
     });
   };
 
@@ -1243,19 +1245,38 @@ describe('Feature Flag Client', () => {
           });
 
           describe('Flag does not exist', () => {
-            test('should send automatic exposure event with errorKind:FLAG_NOT_FOUND if a flag is requested but does not exist', () => {
-              expect(
-                client.getBooleanValue('missing.flag', {
-                  default: true,
-                  shouldTrackExposureEvent: false,
-                }),
-              ).toBe(true);
+            describe('when isMissingFlagEventsDisabled', () => {
+              test('should not send automatic exposure event with errorKind:FLAG_NOT_FOUND when a missing flag is requested', () => {
+                client = createDefaultClient(true, true);
 
-              assertExposureSent(ExposureTriggerReason.AutoExposure, {
-                flagKey: 'missing.flag',
-                reason: 'ERROR',
-                value: true,
-                errorKind: 'FLAG_NOT_FOUND',
+                expect(
+                  client.getBooleanValue('missing.flag', {
+                    default: true,
+                    shouldTrackExposureEvent: false,
+                  }),
+                ).toBe(true);
+
+                assertNoExposures();
+              });
+            });
+
+            describe('when not isMissingFlagEventsDisabled', () => {
+              test('should send automatic exposure event with errorKind:FLAG_NOT_FOUND when a missing flag is requested', () => {
+                client = createDefaultClient(true);
+
+                expect(
+                  client.getBooleanValue('missing.flag', {
+                    default: true,
+                    shouldTrackExposureEvent: false,
+                  }),
+                ).toBe(true);
+
+                assertExposureSent(ExposureTriggerReason.AutoExposure, {
+                  flagKey: 'missing.flag',
+                  reason: 'ERROR',
+                  value: true,
+                  errorKind: 'FLAG_NOT_FOUND',
+                });
               });
             });
           });

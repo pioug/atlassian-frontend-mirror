@@ -28,6 +28,8 @@ export interface DatasourceDataRequest {
   // (undocumented)
   fields?: string[];
   // (undocumented)
+  includeSchema?: boolean;
+  // (undocumented)
   pageCursor?: string;
   // (undocumented)
   pageSize: number;
@@ -41,6 +43,10 @@ export interface DatasourceDataResponse {
   data: DatasourceDataResponseItem[];
   // (undocumented)
   nextPageCursor?: string;
+  // (undocumented)
+  schema?: {
+    properties: DatasourceResponseSchemaProperty[];
+  };
   // (undocumented)
   totalIssues?: number;
 }
@@ -56,7 +62,6 @@ export interface DatasourceDataResponseItem {
 // @public (undocumented)
 export type DatasourceDetailsRequest = {
   parameters: DatasourceParameters;
-  isFullSchema?: boolean;
 };
 
 // @public (undocumented)
@@ -73,8 +78,6 @@ export interface DatasourceResponse {
   description: string;
   // (undocumented)
   id: string;
-  // (undocumented)
-  isFullSchema: boolean;
   // (undocumented)
   name: string;
   // (undocumented)

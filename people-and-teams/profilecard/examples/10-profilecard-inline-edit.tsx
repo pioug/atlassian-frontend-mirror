@@ -23,8 +23,8 @@ const EditViewContainer = styled.div`
 const Container = styled.div`
   border: 1px solid ${token('color.border', '#ccc')};
   border-radius: 3px;
-  margin: 8px;
-  padding: 8px;
+  margin: ${token('space.100', '8px')};
+  padding: ${token('space.100', '8px')};
 `;
 
 const teams: Record<

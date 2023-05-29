@@ -63,6 +63,7 @@
     "@testing-library/react": "^12.1.5",
     "@types/jscodeshift": "^0.11.0",
     "exenv": "^1.2.2",
+    "jest-axe": "^4.0.0",
     "jscodeshift": "^0.13.0",
     "react-dom": "^16.8.0",
     "react-test-renderer": "^16.8.0",

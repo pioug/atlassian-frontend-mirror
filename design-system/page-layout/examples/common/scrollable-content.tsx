@@ -14,6 +14,7 @@ const itemStyles = css({
   boxSizing: 'border-box',
   width: '80%',
   height: '2rem',
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   margin: '2rem auto',
   backgroundColor: token(
     'color.background.accent.orange.subtler',
@@ -24,8 +25,9 @@ const itemStyles = css({
 
 const highlightStyles = css({
   ':nth-of-type(4n)': {
-    padding: 4,
+    padding: token('space.050', '4px'),
     position: 'sticky',
+    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
     top: 65,
     backgroundColor: token(
       'color.background.accent.blue.subtle',

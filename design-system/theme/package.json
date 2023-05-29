@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/theme",
-  "version": "12.5.3",
+  "version": "12.5.4",
   "description": "Theme contains solutions for global theming, colors, typography and other useful mixins.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -94,7 +94,8 @@
       "ui-components": "lite-mode",
       "analytics": "analytics-next",
       "design-tokens": [
-        "color"
+        "color",
+        "spacing"
       ],
       "theming": [
         "react-context"

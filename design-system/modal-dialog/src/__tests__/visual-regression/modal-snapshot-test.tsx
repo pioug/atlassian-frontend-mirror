@@ -295,6 +295,30 @@ describe('Snapshot test', () => {
     await page.waitForTimeout(1000);
     const image3 = await page.screenshot();
     expect(image3).toMatchProdImageSnapshot();
+
+    //close third stacked modal
+    await page.keyboard.press('Enter');
+    await page.waitForTimeout(1000);
+    const image4 = await page.screenshot();
+    expect(image4).toMatchProdImageSnapshot();
+
+    //close second stacked modal
+    await page.keyboard.down('Shift');
+    await page.keyboard.press('Tab');
+    await page.keyboard.up('Shift');
+    await page.keyboard.press('Enter');
+    await page.waitForTimeout(1000);
+    const image5 = await page.screenshot();
+    expect(image5).toMatchProdImageSnapshot();
+
+    //close modal
+    await page.keyboard.down('Shift');
+    await page.keyboard.press('Tab');
+    await page.keyboard.up('Shift');
+    await page.keyboard.press('Enter');
+    await page.waitForTimeout(1000);
+    const image6 = await page.screenshot();
+    expect(image6).toMatchProdImageSnapshot();
   });
 
   it('Multiple stacked modal viewport scroll example should match production', async () => {

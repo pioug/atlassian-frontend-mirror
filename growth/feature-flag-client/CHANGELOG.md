@@ -1,5 +1,11 @@
 # @atlaskit/feature-flag-client
 
+## 5.3.0
+
+### Minor Changes
+
+- [`7584b4516ac`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7584b4516ac) - Feature flag client now allows an additional param isMissingFlagEventsDisabled which you can disable missing flag exposure events being fired
+
 ## 5.2.2
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 184.0.4
+
+### Patch Changes
+
+- [`42486e5e512`](https://bitbucket.org/atlassian/atlassian-frontend/commits/42486e5e512) - Updated `ColorPickerButton`'s size prop type from number to string for width and height, allowing use of space tokens.
+
 ## 184.0.0
 
 ### Major Changes

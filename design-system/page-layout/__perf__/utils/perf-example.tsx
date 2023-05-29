@@ -18,7 +18,7 @@ import Sidebar from './product-integration/side-navigation';
 const wrapperStyles = css({
   boxSizing: 'border-box',
   height: '100%',
-  padding: 8,
+  padding: token('space.100', '8px'),
   backgroundColor: token('color.background.neutral.subtle', 'white'),
   outlineOffset: -4,
   overflowY: 'auto',

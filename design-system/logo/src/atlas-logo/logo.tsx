@@ -325,7 +325,6 @@ const svg = ({ appearance }: LogoProps) => {
   fill="none"
   height="32"
   viewBox="0 0 97 32"
-  width="97"
   xmlns="http://www.w3.org/2000/svg"
   xmlns:xlink="http://www.w3.org/1999/xlink"
 >

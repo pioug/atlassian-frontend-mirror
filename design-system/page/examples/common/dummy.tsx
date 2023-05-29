@@ -19,7 +19,7 @@ const dummyStyles = {
     background: token('color.background.neutral.hovered', N40A),
   }),
   margin: css({
-    marginBottom: 8,
+    marginBottom: token('space.100', '8px'),
   }),
 };
 

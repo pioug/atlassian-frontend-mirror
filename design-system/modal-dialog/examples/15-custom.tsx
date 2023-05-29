@@ -8,7 +8,7 @@ import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
 import { Inline } from '@atlaskit/primitives';
-import { N30, R400 } from '@atlaskit/theme/colors';
+import { N30, N500, R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -119,9 +119,21 @@ export default function ModalDemo() {
             width={variant === 'custom header' ? 300 : undefined}
           >
             {variant === 'custom header' && <CustomHeader />}
-            {['header', 'both'].includes(variant) && (
+            {variant === 'header' && (
               <ModalHeader>
                 <ModalTitle>Modal: {variant}</ModalTitle>
+              </ModalHeader>
+            )}
+            {['both', 'custom footer', 'footer'].includes(variant) && (
+              <ModalHeader>
+                <ModalTitle>Modal: {variant}</ModalTitle>
+                <Button onClick={close} appearance="link">
+                  <CrossIcon
+                    label="Close Modal"
+                    primaryColor={token('color.text.subtle', N500)}
+                    size="small"
+                  />
+                </Button>
               </ModalHeader>
             )}
 
@@ -139,7 +151,7 @@ export default function ModalDemo() {
             {['footer', 'both'].includes(variant) && (
               <ModalFooter>
                 <Button appearance="subtle">Secondary Action</Button>
-                <Button autoFocus appearance="primary" onClick={close}>
+                <Button appearance="primary" onClick={close}>
                   Close
                 </Button>
               </ModalFooter>

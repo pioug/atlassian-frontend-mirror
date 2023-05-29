@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/form",
-  "version": "8.11.4",
+  "version": "8.11.5",
   "description": "A form allows users to input information.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -106,7 +106,8 @@
       "dom-events": "use-bind-event-listener",
       "analytics": "analytics-next",
       "design-tokens": [
-        "color"
+        "color",
+        "spacing"
       ],
       "theming": [
         "react-context"

@@ -105,6 +105,12 @@ export type TitleBlockProps = {
    * @internal
    */
   theme?: SmartLinkTheme;
+
+  /**
+   * The vertical position of the metadata fields. Internal prop, please DO NOT USE.
+   * @internal
+   */
+  metadataPosition?: SmartLinkPosition;
 } & BlockProps;
 
 export type TitleBlockViewProps = TitleBlockProps & {

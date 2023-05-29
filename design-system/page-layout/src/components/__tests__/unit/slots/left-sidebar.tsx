@@ -911,6 +911,58 @@ describe('Left sidebar', () => {
       expect(getDimension('leftSidebarWidth')).toEqual('552px');
     });
 
+    it('should block pointer events on iframes while resizing', () => {
+      const onResizeStart = jest.fn();
+      const onResizeEnd = jest.fn();
+      const { getByTestId, getByTitle } = render(
+        <PageLayout testId="grid">
+          <Content>
+            <LeftSidebar
+              testId="left-sidebar"
+              width={200}
+              onResizeStart={onResizeStart}
+              onResizeEnd={onResizeEnd}
+            >
+              LeftSidebar
+            </LeftSidebar>
+            <Main testId="content">
+              <iframe src="about:blank" title="test-iframe" />
+            </Main>
+          </Content>
+        </PageLayout>,
+      );
+      const handle: HTMLElement = getByTestId('left-sidebar-grab-area');
+      const iframe = getByTitle('test-iframe');
+
+      // pointer events allowed on the iframe before resizing
+      expect(window.getComputedStyle(iframe).pointerEvents).toBe('');
+
+      expect(onResizeStart).not.toHaveBeenCalled();
+
+      fireEvent.mouseDown(handle, { clientX: 200 });
+      fireEvent.mouseMove(document, {
+        clientX: 570,
+        clientY: 0,
+      });
+      completeAnimations();
+
+      expect(onResizeStart).toHaveBeenCalledTimes(1);
+      expect(onResizeEnd).not.toHaveBeenCalled();
+      onResizeStart.mockClear();
+
+      // pointer events not allowed on the iframe while resizing
+      expect(window.getComputedStyle(iframe).pointerEvents).toBe('none');
+
+      // finish resizing
+      fireEvent.mouseUp(window, { clientX: 200 });
+      completeAnimations();
+
+      expect(onResizeEnd).toHaveBeenCalled();
+
+      // pointer events are allowed again
+      expect(window.getComputedStyle(iframe).pointerEvents).toBe('');
+    });
+
     it('should not allow you to expand more than half the width of the page after a mouse movement', () => {
       const { getByTestId } = render(
         <PageLayout testId="grid">

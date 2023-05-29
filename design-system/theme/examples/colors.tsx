@@ -4,6 +4,8 @@ import { FC, ReactNode } from 'react';
 import { css, jsx } from '@emotion/react';
 import color from 'color';
 
+import { token } from '@atlaskit/tokens';
+
 import { borderRadius, colors, ThemedValue } from '../src';
 
 const emptyColor = (): {
@@ -54,9 +56,9 @@ const colorGroups = Object.entries(colors).reduce(
 const colorPillStyles = css({
   display: 'inline-block',
   width: 'calc(33% - 20px)',
-  marginRight: '4px',
-  marginBottom: '4px',
-  padding: '8px',
+  marginRight: token('space.050', '4px'),
+  marginBottom: token('space.050', '4px'),
+  padding: token('space.100', '8px'),
   borderRadius: `${borderRadius()}px`,
   fontSize: '12px',
   fontWeight: 600,
@@ -90,8 +92,8 @@ const separateWords = (str: string) => {
 };
 
 const headingStyles = css({
-  marginTop: '16px',
-  marginBottom: '4px',
+  marginTop: token('space.200', '16px'),
+  marginBottom: token('space.050', '4px'),
 });
 
 const firstHeadingStyles = css({

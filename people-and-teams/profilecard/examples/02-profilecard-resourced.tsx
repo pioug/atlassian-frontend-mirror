@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import styled from '@emotion/styled';
 
 import Button, { ButtonGroup } from '@atlaskit/button';
+import { token } from '@atlaskit/tokens';
 
 import ProfileCardResourced from '../src';
 
@@ -10,11 +11,11 @@ import ExampleWrapper from './helper/example-wrapper';
 import { getMockProfileClient } from './helper/util';
 
 export const Wrap = styled.div`
-  margin-bottom: 20px;
+  margin-bottom: ${token('space.250', '20px')};
 `;
 
 export const MainStage = styled.div`
-  margin: 16px;
+  margin: ${token('space.200', '16px')};
 `;
 
 const mockClient = getMockProfileClient(10, 0);

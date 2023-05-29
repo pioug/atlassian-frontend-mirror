@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 1.4.4
+
+### Patch Changes
+
+- [`33f10b7eb36`](https://bitbucket.org/atlassian/atlassian-frontend/commits/33f10b7eb36) - Removing unused dependencies and dev dependencies
+
 ## 1.4.3
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @atlaskit/textarea
 
+## 4.7.1
+
+### Patch Changes
+
+- [`b1bdec7cce2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b1bdec7cce2) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
+
 ## 4.7.0
 
 ### Minor Changes

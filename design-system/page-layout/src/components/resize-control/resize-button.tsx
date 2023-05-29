@@ -15,10 +15,10 @@ import { ResizeButtonProps } from './types';
 
 const increaseHitAreaStyles = css({
   position: 'absolute',
-  top: -8,
-  right: -12,
-  bottom: -8,
-  left: -8,
+  top: `calc(-1 * ${token('space.100', '8px')})`,
+  right: `calc(-1 * ${token('space.150', '12px')})`,
+  bottom: `calc(-1 * ${token('space.100', '8px')})`,
+  left: `calc(-1 * ${token('space.100', '8px')})`,
 });
 
 const resizeIconButtonStyles = css({
@@ -26,7 +26,7 @@ const resizeIconButtonStyles = css({
   height: 24,
   padding: 0,
   position: 'absolute',
-  top: 32,
+  top: token('space.400', '32px'),
   left: 0,
   backgroundColor: token('elevation.surface.overlay', N0),
   border: 0,

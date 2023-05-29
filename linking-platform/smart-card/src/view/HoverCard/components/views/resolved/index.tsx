@@ -6,6 +6,7 @@ import { ActionItem } from '../../../../FlexibleCard/components/blocks/types';
 import {
   ActionName,
   CardDisplay,
+  SmartLinkPosition,
   SmartLinkSize,
 } from '../../../../../constants';
 import {
@@ -144,7 +145,10 @@ const HoverCardResolvedView: React.FC<HoverCardResolvedProps> = ({
 
   return (
     <FlexibleCard {...flexibleCardProps}>
-      <TitleBlock {...titleBlockProps} />
+      <TitleBlock
+        {...titleBlockProps}
+        metadataPosition={SmartLinkPosition.Top}
+      />
       <MetadataBlock
         primary={primary}
         secondary={secondary}

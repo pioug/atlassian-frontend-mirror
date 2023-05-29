@@ -14,7 +14,7 @@ const LabelElement = styled.label`
   color: ${token('color.text.subtle', N200)};
   font-weight: 600;
   display: inline-block;
-  margin-bottom: 4px;
+  margin-bottom: ${token('space.050', '4px')};
   margin-top: 0;
 `;
 

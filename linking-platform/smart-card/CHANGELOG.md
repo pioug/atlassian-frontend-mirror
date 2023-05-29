@@ -1,5 +1,24 @@
 # @atlaskit/smart-card
 
+## 26.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.4.0
+
+### Minor Changes
+
+- [`2b7f0f3b158`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2b7f0f3b158) - [ux] Fix issue with metadata alignment of Title Block component in Confluence Web links.
+
+## 26.3.10
+
+### Patch Changes
+
+- [`d8263ae659f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d8263ae659f) - [ux] Small css fix for avatar alignment in smart links
+- [`438b90799c4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/438b90799c4) - Removes urlHash from linking platform events.
+
 ## 26.3.9
 
 ### Patch Changes

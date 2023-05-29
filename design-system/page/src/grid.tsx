@@ -16,6 +16,7 @@ import type { GridProps } from './types';
 const gridStyles = css({
   display: 'flex',
   margin: '0 auto',
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   padding: `0 calc(var(${varGridSpacing}) / 2)`,
   position: 'relative',
   alignItems: 'flex-start',
@@ -32,6 +33,7 @@ const gridLayoutStyles = {
 };
 
 const nestedGridStyles = css({
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   margin: `0 calc(-1 * var(${varGridSpacing}))`,
 });
 

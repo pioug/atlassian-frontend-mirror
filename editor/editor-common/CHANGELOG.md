@@ -1,5 +1,11 @@
 # @atlaskit/editor-common
 
+## 74.2.1
+
+### Patch Changes
+
+- [`01bb98b52ee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/01bb98b52ee) - Internal change to replace gridSize with space tokens.
+
 ## 74.2.0
 
 ### Minor Changes

@@ -2,13 +2,14 @@
 import { css, jsx } from '@emotion/react';
 
 import Tag, { SimpleTag } from '@atlaskit/tag';
+import { token } from '@atlaskit/tokens';
 
 import TagGroup from '../../src';
 
 const layoutStyles = css({
   display: 'flex',
-  padding: '24px 0',
-  gap: 24,
+  padding: `${token('space.300', '24px')} 0`,
+  gap: token('space.300', '24px'),
   flexDirection: 'column',
 });
 

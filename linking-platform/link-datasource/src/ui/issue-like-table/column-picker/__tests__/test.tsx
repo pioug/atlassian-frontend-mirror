@@ -10,6 +10,7 @@ import { ColumnPicker } from '../index';
 
 const CSS_PREFIX = 'column-picker-popup';
 const OPTION_CLASS = `.${CSS_PREFIX}__option`;
+const OPTION_LIST_CLASS = `.${CSS_PREFIX}__menu-list`;
 const OPTION_SELECTED_CLASS = `${OPTION_CLASS}--is-selected`;
 
 describe('Column picker', () => {
@@ -82,5 +83,48 @@ describe('Column picker', () => {
     expect(mockOnChange).toBeCalledTimes(1);
 
     expect(mockOnChange).toBeCalledWith(['type', 'blah']);
+  });
+
+  it('should bring all selected options to the top when opening the popup', async () => {
+    const mockOnChange = jest.fn();
+    const columns: DatasourceResponseSchemaProperty[] = [
+      {
+        key: 'matt',
+        type: 'icon',
+        title: 'Matt',
+      },
+      {
+        key: 'tom',
+        type: 'string',
+        title: 'Tom',
+      },
+      {
+        key: 'bob',
+        type: 'string',
+        title: 'Bob',
+      },
+      {
+        key: 'john',
+        type: 'string',
+        title: 'John',
+      },
+    ];
+
+    const selectedColumnKeys: string[] = ['tom', 'john'];
+
+    const { getByText, getByTestId } = render(
+      <ColumnPicker
+        columns={columns}
+        onSelectedColumnKeysChange={mockOnChange}
+        selectedColumnKeys={selectedColumnKeys}
+      />,
+    );
+
+    // open popup
+    const triggerButton = getByTestId('column-picker-trigger-button');
+    fireEvent.click(triggerButton);
+
+    const popupList = getByText('Matt').closest(OPTION_LIST_CLASS);
+    expect(popupList).toHaveTextContent('TomJohnMattBob');
   });
 });

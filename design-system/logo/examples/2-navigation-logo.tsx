@@ -5,6 +5,7 @@ import React, { Fragment, ReactNode } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { B500, DN10, N40, P300, Y300 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import {
   BitbucketIcon,
@@ -52,7 +53,7 @@ const wrapperDivStyles = css({
   display: 'flex',
   width: '40px',
   height: '40px',
-  marginRight: '20px',
+  marginRight: token('space.250', '20px'),
   alignItems: 'center',
   justifyContent: 'center',
   background: 'var(--background)',

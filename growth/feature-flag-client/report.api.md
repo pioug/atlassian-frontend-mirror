@@ -26,6 +26,7 @@ type ClientOptions = {
   flags?: Flags_2;
   analyticsHandler?: AnalyticsHandler;
   isAutomaticExposuresEnabled?: boolean;
+  isMissingFlagEventsDisabled?: boolean;
   ignoreTypes?: boolean;
 };
 

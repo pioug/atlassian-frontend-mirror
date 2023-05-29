@@ -1,6 +1,7 @@
 /** @jsx jsx */
-
 import { css, jsx } from '@emotion/react';
+
+import { token } from '@atlaskit/tokens';
 
 import { ConfluenceIcon, JiraIcon } from '../src';
 
@@ -16,7 +17,7 @@ const ancestorStyles = css({
 const inlineStyles = css({
   display: 'flex',
   alignItems: 'center',
-  gap: 4,
+  gap: token('space.050', '4px'),
 });
 
 export default () => (

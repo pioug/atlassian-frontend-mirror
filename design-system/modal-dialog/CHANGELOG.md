@@ -1,5 +1,11 @@
 # @atlaskit/modal-dialog
 
+## 12.5.6
+
+### Patch Changes
+
+- [`fd5c7f6ca6a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd5c7f6ca6a) - Fixes an issue where the focus moved inappropriately when closing a modal with multiple modals open.
+
 ## 12.5.5
 
 ### Patch Changes

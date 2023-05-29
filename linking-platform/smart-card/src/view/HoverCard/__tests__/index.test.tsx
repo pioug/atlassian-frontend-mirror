@@ -49,7 +49,6 @@ import { PROVIDER_KEYS_WITH_THEMING } from '../../../extractors/constants';
 import { setGlobalTheme } from '@atlaskit/tokens';
 
 const mockUrl = 'https://some.url';
-const mockUrlHash = '4e2a79a1652f58e31c27f0ae8531050beb5d25ca';
 
 describe('HoverCard', () => {
   let mockClient: CardClient;
@@ -224,7 +223,6 @@ describe('HoverCard', () => {
                   {
                     attributes: {
                       display: 'inline',
-                      urlHash: '4e2a79a1652f58e31c27f0ae8531050beb5d25ca',
                     },
                   },
                   {
@@ -235,7 +233,6 @@ describe('HoverCard', () => {
                   },
                   {
                     attributes: {
-                      urlHash: '4e2a79a1652f58e31c27f0ae8531050beb5d25ca',
                       display: 'hoverCardPreview',
                     },
                     source: 'smartLinkPreviewHoverCard',
@@ -271,7 +268,6 @@ describe('HoverCard', () => {
                   {
                     attributes: {
                       display: 'inline',
-                      urlHash: '4e2a79a1652f58e31c27f0ae8531050beb5d25ca',
                     },
                   },
                   {
@@ -864,7 +860,6 @@ describe('HoverCard', () => {
                 context: [
                   {
                     attributes: {
-                      urlHash: mockUrlHash,
                       display: 'hoverCardPreview',
                       id: 'some-id',
                     },
@@ -1453,7 +1448,6 @@ describe('HoverCard', () => {
                 context: [
                   {
                     attributes: {
-                      urlHash: mockUrlHash,
                       display: 'hoverCardPreview',
                       id: 'some-id',
                     },
@@ -1652,7 +1646,6 @@ describe('HoverCard', () => {
                   context: [
                     {
                       attributes: {
-                        urlHash: mockUrlHash,
                         display: 'hoverCardPreview',
                         id: 'some-id',
                       },
@@ -1675,7 +1668,6 @@ describe('HoverCard', () => {
                   context: [
                     {
                       attributes: {
-                        urlHash: mockUrlHash,
                         display: 'hoverCardPreview',
                         id: 'some-id',
                       },
@@ -1735,7 +1727,6 @@ describe('HoverCard', () => {
                   context: [
                     {
                       attributes: {
-                        urlHash: mockUrlHash,
                         display: 'hoverCardPreview',
                         id: 'some-id',
                       },

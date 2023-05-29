@@ -1,5 +1,17 @@
 # @atlaskit/link-datasource
 
+## 0.17.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.17.5
+
+### Patch Changes
+
+- [`d417c0728a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d417c0728a8) - Added logic to show selected options at the top of the column picker
+
 ## 0.17.4
 
 ### Patch Changes

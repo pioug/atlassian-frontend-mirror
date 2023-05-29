@@ -13,12 +13,6 @@ context:
       type: ['flexible', 'inline', 'url', 'card', 'embed']
       description: In what format is the link shown as?
 
-  URLAttributes: &URLAttributes
-    urlHash:
-      type: string
-      description: |
-        Cryptographic hash of the link in question
-
   ResolvedAttributes: &ResolvedAttributes
     status:
       type: ['pending', 'resolving', 'resolved', 'errored', 'fallback', 'unauthorized', 'forbidden', 'not_found']
@@ -90,7 +84,7 @@ events:
           type: string
           description: |
             The inputMethod that caused the link to be created.
-        <<: [*ExternalContext, *ResolvedAttributes, *URLAttributes, *LifecycleEventAttributes]
+        <<: [*ExternalContext, *ResolvedAttributes, *LifecycleEventAttributes]
 
   - link updated:
       type: track
@@ -100,7 +94,7 @@ events:
           type: string
           description: |
             The inputMethod that caused the link to be updated.
-        <<: [*ExternalContext, *ResolvedAttributes, *URLAttributes, *LifecycleEventAttributes]
+        <<: [*ExternalContext, *ResolvedAttributes, *LifecycleEventAttributes]
 
   - link deleted:
       type: track
@@ -110,7 +104,7 @@ events:
           type: string
           description: |
             The inputMethod that caused the link to be deleted.
-        <<: [*ExternalContext, *ResolvedAttributes, *URLAttributes, *LifecycleEventAttributes]
+        <<: [*ExternalContext, *ResolvedAttributes, *LifecycleEventAttributes]
 
   - fireAnalyticEvent commenced:
       type: operational

@@ -170,11 +170,13 @@ const borderPaddingAndHeightStyles = (
     // eslint-disable-next-line @repo/internal/styles/no-nested-styles
     '&[data-compact]': {
       minHeight: borderBoxMinHeightCompact(minimumRows, borderHeight),
+      // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
       padding: `${compactVerticalPadding}px ${horizontalPaddingWithoutBorderWidth}px`,
       lineHeight: lineHeightCompact / fontSize,
     },
     '&:not([data-compact])': {
       minHeight: borderBoxMinHeight(minimumRows, borderHeight),
+      // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
       padding: `${verticalPadding}px ${horizontalPaddingWithoutBorderWidth}px`,
       lineHeight: lineHeightBase / fontSize,
     },

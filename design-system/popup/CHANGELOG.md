@@ -1,5 +1,11 @@
 # @atlaskit/popup
 
+## 1.6.3
+
+### Patch Changes
+
+- [`c394dbc632f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c394dbc632f) - Addresses the problem where the popup fails to close upon clicking on the iframe
+
 ## 1.6.2
 
 ### Patch Changes

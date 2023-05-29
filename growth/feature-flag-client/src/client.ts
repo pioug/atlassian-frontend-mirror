@@ -32,6 +32,7 @@ export default class FeatureFlagClient {
   private analyticsHandler?: AnalyticsHandler;
 
   private isAutomaticExposuresEnabled: boolean;
+  private isMissingFlagEventsDisabled: boolean;
 
   private readonly trackedFlags: Set<string>;
   private readonly customAttributesExposuresCache: Set<string>;
@@ -43,6 +44,7 @@ export default class FeatureFlagClient {
       flags,
       analyticsHandler,
       isAutomaticExposuresEnabled,
+      isMissingFlagEventsDisabled,
       ignoreTypes,
     } = options;
 
@@ -51,6 +53,7 @@ export default class FeatureFlagClient {
     this.customAttributesExposuresCache = new Set();
     this.trackedFlags = new Set();
     this.isAutomaticExposuresEnabled = isAutomaticExposuresEnabled || false;
+    this.isMissingFlagEventsDisabled = isMissingFlagEventsDisabled ?? false;
     this.ignoreTypes = ignoreTypes || false;
 
     this.setFlags(flags || {});
@@ -109,7 +112,12 @@ export default class FeatureFlagClient {
         this.ignoreTypes,
       );
     } else {
-      wrapper = new MissingFlag(flagKey, this.sendAutomaticExposure.bind(this));
+      wrapper = new MissingFlag(
+        flagKey,
+        this.isMissingFlagEventsDisabled
+          ? null
+          : this.sendAutomaticExposure.bind(this),
+      );
     }
 
     this.flagWrapperCache.set(flagKey, wrapper);

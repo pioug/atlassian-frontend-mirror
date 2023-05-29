@@ -1,5 +1,31 @@
 # @atlaskit/page-layout
 
+## 1.6.4
+
+### Patch Changes
+
+- [`b1bdec7cce2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b1bdec7cce2) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
+
+## 1.6.3
+
+### Patch Changes
+
+- [`4bbc131de00`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4bbc131de00) - #### Fix: Resizing pages with `<iframe>`s
+
+  Pages that contain `<iframe>` elements will now have a smoother resizing experience. `<iframe>` elements consume user events (eg `mousemove`) when the user is over the top of them. This is problematic for resizing as we need to have the latest user pointer movements to resize the sidebar. Now, while a resize is happening, `pointer-events` are blocked on `<iframe>` elements to prevent the `<iframe>` consuming user events.
+
+  #### Fix: User cursor while resizing
+
+  While resizing the users cursor will now always be `ew-resize`. Previously the cursor could change depending on what element the users pointer was over
+
+  #### Fix: Resizing will no longer change user selection
+
+  A user can select parts of a page (eg select a paragraph of text). Previously, in some cases, a user's selection could change due to a resizing operation. This has been fixed so that a resizing operation will no longer change a user's selection
+
+  #### Fix: `onResizeEnd`
+
+  `onResizeEnd` will no longer incorrectly get an empty object `{}` if the user resized into the collapsed state
+
 ## 1.6.2
 
 ### Patch Changes

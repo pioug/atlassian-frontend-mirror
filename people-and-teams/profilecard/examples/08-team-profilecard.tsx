@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import sample from 'lodash/sample';
 
+import { token } from '@atlaskit/tokens';
+
 import TeamProfileCard from '../src/components/Team/TeamProfileCard';
 import teamData from '../src/mocks/team-data';
 import { TeamProfileCardErrorType } from '../src/types';
@@ -12,7 +14,7 @@ import ExampleWrapper from './helper/example-wrapper';
 import { CardWrapper } from './helper/wrapper';
 
 export const MainStage = styled.div`
-  margin: 16px;
+  margin: ${token('space.200', '16px')};
 `;
 
 const props = {

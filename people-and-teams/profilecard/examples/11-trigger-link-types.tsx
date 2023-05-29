@@ -33,7 +33,7 @@ const Text = styled.p`
 
 const TriggerText = styled.span`
   border-radius: 3px;
-  padding: 4px;
+  padding: ${token('space.050', '4px')};
 `;
 
 const team = teamData({});

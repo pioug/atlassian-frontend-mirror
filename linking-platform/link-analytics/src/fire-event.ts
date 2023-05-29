@@ -10,7 +10,7 @@ import { getDomainFromUrl, mergeAttributes } from './utils';
 import { name as packageName, version as packageVersion } from './version.json';
 import { resolveAttributes } from './utils';
 import { ANALYTICS_CHANNEL } from './consts';
-import createEventPayload from './analytics.codegen';
+import createEventPayload from './common/utils/analytics/analytics.codegen';
 
 const PACKAGE_DATA = {
   packageName,

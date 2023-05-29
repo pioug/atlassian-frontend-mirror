@@ -33,8 +33,10 @@ const prefersReducedMotionStyles = css(prefersReducedMotion());
 const fixedInnerStyles = css({
   width: `${LEFT_SIDEBAR_WIDTH}`,
   position: 'fixed',
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   top: `calc(${BANNER_HEIGHT} + ${TOP_NAVIGATION_HEIGHT})`,
   bottom: 0,
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   left: `${LEFT_PANEL_WIDTH}`,
   transition: `width ${TRANSITION_DURATION}ms ${easeOut} 0s`,
 });

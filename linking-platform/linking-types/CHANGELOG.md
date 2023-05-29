@@ -1,5 +1,11 @@
 # @atlaskit/linking-types
 
+## 5.0.0
+
+### Major Changes
+
+- [`df4d3388fb9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/df4d3388fb9) - Added schema to data response. Removed isFullSchema from datasource details request and response
+
 ## 4.0.0
 
 ### Major Changes

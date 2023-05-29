@@ -5,6 +5,7 @@ import { css, jsx } from '@emotion/react';
 
 import CodeBlock from '@atlaskit/code/block';
 import Select, { ValueType } from '@atlaskit/select';
+import { token } from '@atlaskit/tokens';
 
 import * as Logos from '../src';
 import type { LogoProps as ConstantProps } from '../src/types';
@@ -42,7 +43,7 @@ const files: File[] = [
 const selectWrapperStyles = css({
   display: 'inline-block',
   width: '200px',
-  padding: '20px',
+  padding: token('space.250', '20px'),
 });
 
 const SelectWrapper: React.FC<{ children: ReactNode }> = ({ children }) => {

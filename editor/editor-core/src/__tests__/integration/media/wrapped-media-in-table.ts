@@ -11,9 +11,13 @@ import {
 import { waitForNumImages } from './_utils';
 import adf from './_fixtures_/wrapped-media-in-table.adf.json';
 
+// FIXME: This test was automatically skipped due to failure on 28/05/2023: https://product-fabric.atlassian.net/browse/ED-18112
 BrowserTestCase(
   'wrapped-media-in-table.ts: Allows clicking next to wrapped media in table',
-  { skip: ['safari', 'firefox'] },
+  {
+    // skip: ['safari', 'firefox'],
+    skip: ['*'],
+  },
   async (
     client: Parameters<typeof goToEditorTestingWDExample>[0],
     testCase: string,

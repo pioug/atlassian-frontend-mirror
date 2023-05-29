@@ -125,8 +125,7 @@ describe('Snapshot Test: Media', () => {
 
   describe('resize', () => {
     devices.forEach((device) => {
-      // FIXME: This test was automatically skipped due to failure on 24/05/2023: https://product-fabric.atlassian.net/browse/ED-18033
-      it.skip(`should correctly render for ${device}`, async () => {
+      it(`should correctly render for ${device}`, async () => {
         await initRenderer(page, resizeAdf, device);
         await waitForAllMedia(page, 17, { visible: true, timeout: 8000 });
         await snapshotRenderer();

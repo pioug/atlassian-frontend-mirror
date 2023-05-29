@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 19.4.1
+
+### Patch Changes
+
+- [`2eb438477ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2eb438477ab) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
+
 ## 19.4.0
 
 ### Minor Changes

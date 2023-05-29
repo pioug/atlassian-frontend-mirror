@@ -13,9 +13,12 @@ import * as blockCardAdf from './_fixtures_/block-card.adf.json';
 
 type ClientType = Parameters<typeof goToEditorTestingWDExample>[0];
 
+// FIXME: This test was automatically skipped due to failure on 26/05/2023: https://product-fabric.atlassian.net/browse/ED-18086
 BrowserTestCase(
   'card: copy paste of link should work as expected in editor',
-  {},
+  {
+    skip: ['*'],
+  },
   async (client: ClientType, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 

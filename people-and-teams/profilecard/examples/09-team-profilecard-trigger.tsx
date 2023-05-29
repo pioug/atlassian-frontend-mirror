@@ -52,14 +52,14 @@ const profileClient = new ProfileCardClient(clientArgs, {
 });
 
 export const MainStage = styled.div`
-  margin: 16px;
+  margin: ${token('space.200', '16px')};
 `;
 
 export const Section = styled.div`
-  margin: 16px 0;
+  margin: ${token('space.200', '16px')} 0;
 
   h4 {
-    margin: 8px 0;
+    margin: ${token('space.100', '8px')} 0;
   }
 `;
 
@@ -70,8 +70,8 @@ export const BlankSpace = styled.div`
 const Container = styled.div`
   border: 1px solid ${token('color.border', '#ccc')};
   border-radius: 3px;
-  margin: 8px;
-  padding: 8px;
+  margin: ${token('space.100', '8px')};
+  padding: ${token('space.100', '8px')};
   strong {
     color: ${token('color.text', 'black')};
   }

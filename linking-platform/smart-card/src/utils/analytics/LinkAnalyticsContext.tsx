@@ -1,6 +1,5 @@
 import React from 'react';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
-import { getUrlAttributes } from '@atlaskit/link-analytics/resolved-attributes';
 
 type LinkAnalyticsContextProps = {
   url?: string;
@@ -24,7 +23,6 @@ export const LinkAnalyticsContext = ({
   children,
   source,
 }: LinkAnalyticsContextProps) => {
-  const { urlHash } = getUrlAttributes(url);
   const displayCategory = display === 'url' ? 'link' : undefined;
 
   return (
@@ -33,7 +31,6 @@ export const LinkAnalyticsContext = ({
         source,
         attributes: {
           displayCategory,
-          urlHash,
           display,
           id,
         },

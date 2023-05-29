@@ -1,5 +1,23 @@
 # @atlaskit/logo
 
+## 13.14.6
+
+### Patch Changes
+
+- [`33f10b7eb36`](https://bitbucket.org/atlassian/atlassian-frontend/commits/33f10b7eb36) - Removing unused dependencies and dev dependencies
+
+## 13.14.5
+
+### Patch Changes
+
+- [`b1bdec7cce2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b1bdec7cce2) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
+
+## 13.14.4
+
+### Patch Changes
+
+- [`0ee3115921e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ee3115921e) - [ux] removed width property in svg tag fro atlas logo
+
 ## 13.14.3
 
 ### Patch Changes

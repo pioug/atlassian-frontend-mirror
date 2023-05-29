@@ -18,6 +18,7 @@ import { N30A } from '@atlaskit/theme/colors';
 const iconExplorerLinkStyles = css({
   '&,&:hover,&:active,&:focus': {
     display: 'block',
+    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
     padding: 10,
     borderRadius: gridSize() / 2,
     color: 'inherit',

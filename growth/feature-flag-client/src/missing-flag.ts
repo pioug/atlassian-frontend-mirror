@@ -20,11 +20,11 @@ export default class MissingFlag implements FlagWrapper {
   public evaluationCount: number;
 
   private readonly flagKey: string;
-  private readonly sendAutomaticExposure: AutomaticExposureHandler;
+  private readonly sendAutomaticExposure: AutomaticExposureHandler | null;
 
   constructor(
     flagKey: string,
-    sendAutomaticExposure: AutomaticExposureHandler,
+    sendAutomaticExposure: AutomaticExposureHandler | null,
   ) {
     this.flagKey = flagKey;
     this.sendAutomaticExposure = sendAutomaticExposure;
@@ -32,11 +32,12 @@ export default class MissingFlag implements FlagWrapper {
   }
 
   private evaluate<T = FlagValue>(defaultValue: T) {
-    this.sendAutomaticExposure(
-      this.flagKey,
-      defaultValue as unknown as FlagValue,
-      MISSING_FLAG_EXPLANATION,
-    );
+    this.sendAutomaticExposure != null &&
+      this.sendAutomaticExposure(
+        this.flagKey,
+        defaultValue as unknown as FlagValue,
+        MISSING_FLAG_EXPLANATION,
+      );
     this.evaluationCount++;
     return defaultValue;
   }

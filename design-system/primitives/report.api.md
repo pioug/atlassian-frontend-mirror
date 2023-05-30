@@ -327,13 +327,13 @@ type Dimension = keyof typeof dimensionMap;
 // @public
 const dimensionMap: {
   readonly '100%': '100%';
-  readonly 'size.100': '16px';
-  readonly 'size.200': '24px';
-  readonly 'size.300': '32px';
-  readonly 'size.400': '40px';
-  readonly 'size.500': '48px';
-  readonly 'size.600': '96px';
-  readonly 'size.1000': '192px';
+  readonly 'size.100': '1rem';
+  readonly 'size.200': '1.5rem';
+  readonly 'size.300': '2rem';
+  readonly 'size.400': '2.5rem';
+  readonly 'size.500': '3rem';
+  readonly 'size.600': '6rem';
+  readonly 'size.1000': '12rem';
 };
 
 // @public (undocumented)

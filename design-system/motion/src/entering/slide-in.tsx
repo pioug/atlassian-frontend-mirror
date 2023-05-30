@@ -83,7 +83,7 @@ export interface SlideInProps extends KeyframesMotionProps {
  *
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/motion/docs/entering-motions)
  */
-const SlideIn: React.FC<SlideInProps> = ({
+const SlideIn = ({
   children,
   enterFrom,
   exitTo,

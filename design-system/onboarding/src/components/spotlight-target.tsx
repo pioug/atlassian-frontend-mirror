@@ -24,10 +24,7 @@ interface SpotlightTargetProps {
  * - [Code](https://atlassian.design/components/onboarding/code)
  * - [Usage](https://atlassian.design/components/onboarding/usage)
  */
-const SpotlightTarget: React.FC<SpotlightTargetProps> = ({
-  children,
-  name,
-}) => (
+const SpotlightTarget = ({ children, name }: SpotlightTargetProps) => (
   <TargetConsumer>
     {(targetRef) =>
       targetRef ? (

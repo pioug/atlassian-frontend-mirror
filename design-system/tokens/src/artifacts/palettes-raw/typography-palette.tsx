@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::15f0ab59b776fd0726847c173399dd26>>
+ * @codegen <<SignedSource::62a42989e49ca7f7856827fb9ea059d6>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -52,7 +52,7 @@ const tokens = [
     "filePath": "src/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "11px",
+      "value": 11,
       "attributes": {
         "group": "typography"
       }
@@ -72,7 +72,7 @@ const tokens = [
     "filePath": "src/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "12px",
+      "value": 12,
       "attributes": {
         "group": "typography"
       }
@@ -92,7 +92,7 @@ const tokens = [
     "filePath": "src/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "14px",
+      "value": 14,
       "attributes": {
         "group": "typography"
       }
@@ -112,7 +112,7 @@ const tokens = [
     "filePath": "src/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "16px",
+      "value": 16,
       "attributes": {
         "group": "typography"
       }
@@ -132,7 +132,7 @@ const tokens = [
     "filePath": "src/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "20px",
+      "value": 20,
       "attributes": {
         "group": "typography"
       }
@@ -152,7 +152,7 @@ const tokens = [
     "filePath": "src/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "24px",
+      "value": 24,
       "attributes": {
         "group": "typography"
       }
@@ -172,7 +172,7 @@ const tokens = [
     "filePath": "src/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "29px",
+      "value": 29,
       "attributes": {
         "group": "typography"
       }
@@ -192,7 +192,7 @@ const tokens = [
     "filePath": "src/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "35px",
+      "value": 35,
       "attributes": {
         "group": "typography"
       }
@@ -292,7 +292,7 @@ const tokens = [
     "filePath": "src/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "16px",
+      "value": 16,
       "attributes": {
         "group": "typography"
       }
@@ -312,7 +312,7 @@ const tokens = [
     "filePath": "src/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "20px",
+      "value": 20,
       "attributes": {
         "group": "typography"
       }
@@ -332,7 +332,7 @@ const tokens = [
     "filePath": "src/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "24px",
+      "value": 24,
       "attributes": {
         "group": "typography"
       }
@@ -352,7 +352,7 @@ const tokens = [
     "filePath": "src/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "28px",
+      "value": 28,
       "attributes": {
         "group": "typography"
       }
@@ -372,7 +372,7 @@ const tokens = [
     "filePath": "src/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "32px",
+      "value": 32,
       "attributes": {
         "group": "typography"
       }
@@ -392,7 +392,7 @@ const tokens = [
     "filePath": "src/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "40px",
+      "value": 40,
       "attributes": {
         "group": "typography"
       }

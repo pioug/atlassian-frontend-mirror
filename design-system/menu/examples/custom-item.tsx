@@ -8,11 +8,15 @@ import { CSSFn, CustomItem, CustomItemComponentProps } from '../src';
 
 import Slack from './icons/slack';
 
-const CustomComponent: React.FC<
-  CustomItemComponentProps & {
-    href: string;
-  }
-> = ({ children, href, ...props }) => {
+type CustomComponentWithHrefProps = CustomItemComponentProps & {
+  href: string;
+};
+
+const CustomComponent = ({
+  children,
+  href,
+  ...props
+}: CustomComponentWithHrefProps) => {
   return (
     // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
     <a href={href} {...props}>

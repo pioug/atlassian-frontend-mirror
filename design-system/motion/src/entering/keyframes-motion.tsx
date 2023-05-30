@@ -57,7 +57,7 @@ const EXITING_MOTION_MULTIPLIER = 0.5;
  * This does not need Javascript to execute on the client so it will run immediately
  * for any SSR rendered React apps before the JS has executed.
  */
-const EnteringMotion: React.FC<InternalKeyframesMotionProps> = ({
+const EnteringMotion = ({
   children,
   animationTimingFunction,
   enteringAnimation,

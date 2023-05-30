@@ -45,7 +45,7 @@ export default {
   'fabric.elements.share.main.tab.text.confluence': 'Pagina delen',
   'fabric.elements.share.main.tab.text.jira': 'Issue delen',
   'fabric.elements.share.success.message':
-    '{object, select,blogpost {blogpost gedeeld}board {bord gedeeld}calendar {agenda gedeeld}draft {concept gedeeld}filter {filter gedeeld}issue {issue gedeeld}summary {samenvatting gedeeld}list {lijst gedeeld}timeline {tijdlijn gedeeld}form {formulier gedeeld}media {media gedeeld}page {pagina gedeeld}project {project gedeeld}pullrequest {pull-request gedeeld}question {vraag gedeeld}report {rapport gedeeld}repository {repository gedeeld}request {aanvraag gedeeld}roadmap {roadmap gedeeld}site {site gedeeld}space {space gedeeld}other {link gedeeld}}',
+    '{object, select,blogpost {blogpost gedeeld}board {bord gedeeld}calendar {agenda gedeeld}draft {concept gedeeld}filter {filter gedeeld}issue {issue gedeeld}summary {samenvatting gedeeld}list {lijst gedeeld}timeline {tijdlijn gedeeld}form {formulier gedeeld}media {media gedeeld}page {pagina gedeeld}project {project gedeeld}pullrequest {pull request gedeeld}question {vraag gedeeld}report {rapport gedeeld}repository {repository gedeeld}request {aanvraag gedeeld}roadmap {roadmap gedeeld}site {site gedeeld}space {space gedeeld}other {link gedeeld}}',
   'fabric.elements.share.to.integration.button': 'Delen met {integrationName}',
   'fabric.elements.share.trigger.button.icon.label': "Pictogram 'Delen'",
   'fabric.elements.share.trigger.button.invite.text': 'Uitnodigen',

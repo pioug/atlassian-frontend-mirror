@@ -29,7 +29,7 @@ export default {
   'fabric.emoji.choose.file.title': 'Vælg fil',
   'fabric.emoji.delete.description': 'Alle eksisterende forekomster af denne emoji erstattes med  {emojiShortName}',
   'fabric.emoji.delete.label': 'Fjern',
-  'fabric.emoji.delete.screenreader.tooltip': "Tryk på Backspace for at slette {shortName}-emoji'en",
+  'fabric.emoji.delete.screenreader.tooltip': "Tryk på Tilbage for at slette {shortName}-emoji'en",
   'fabric.emoji.delete.title': 'Fjern emoji',
   'fabric.emoji.delete.tooltip': 'Slet',
   'fabric.emoji.emojipicker.emoi.roledescription': 'emojiknap',

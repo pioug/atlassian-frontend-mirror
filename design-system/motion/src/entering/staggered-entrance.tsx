@@ -56,7 +56,7 @@ export const useStaggeredEntrance = () => {
  * Will dynamically add delay to each child entering component.
  * Unfortunately all entering components _NEED_ to be a direct descendant.
  */
-const StaggeredEntrance: React.FC<StaggeredEntranceProps> = ({
+const StaggeredEntrance = ({
   children,
   column,
   columns = 'responsive',

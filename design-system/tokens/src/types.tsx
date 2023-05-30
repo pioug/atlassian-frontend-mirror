@@ -78,8 +78,6 @@ export interface DesignToken<TValue, Group extends Groups>
         group: Group;
         description: string;
         introduced: string;
-        // specific to spacing values
-        pixelValue?: Group extends 'spacing' ? string : never;
         suggest?: string[]; // optionally provide values that you want ESLint to suggest replacing
       }
     | {
@@ -192,9 +190,9 @@ export interface PaletteColorTokenSchema<PaletteValues extends string> {
   };
 }
 
-type SpacingSchemaValue = BaseToken<string, 'spacing'>;
-type TypographySchemaValue = BaseToken<string, 'typography'>;
-type ShapeSchemaValue = BaseToken<string, 'shape'>;
+type SpacingSchemaValue = BaseToken<number, 'spacing'>;
+type TypographySchemaValue = BaseToken<number | string, 'typography'>;
+type ShapeSchemaValue = BaseToken<number | string, 'shape'>;
 export interface SpacingScaleTokenSchema<ScaleValues extends string> {
   space: Record<ScaleValues, SpacingSchemaValue>;
 }

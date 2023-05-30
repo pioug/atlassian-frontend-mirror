@@ -40,7 +40,7 @@ export default {
   'fabric.emoji.image.requirements': 'JPG, PNG หรือ GIF ขนาดไฟล์ใหญ่สุด 1 MB',
   'fabric.emoji.name.ariaLabel': 'ป้อนชื่อสำหรับเอโมจิใหม่',
   'fabric.emoji.picker': 'ตัวเลือกเอโมจิ',
-  'fabric.emoji.pickerlist.grid': '{showSearchResults, select, true {ผลลัพธ์การค้นหา} other {เอโมจิ}}',
+  'fabric.emoji.pickerlist.grid': '{showSearchResults, select, true {ค้นหาผลลัพธ์} other {เอโมจิ}}',
   'fabric.emoji.pickerlist.tabpanel': 'แผงแสดงการดำเนินการและรายการเอโมจิ',
   'fabric.emoji.placeholder': 'เช่น สวัสดี',
   'fabric.emoji.preview': 'เอโมจิใหม่ {emoji} ของคุณดูดีมาก',

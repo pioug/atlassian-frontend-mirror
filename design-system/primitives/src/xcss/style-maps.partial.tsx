@@ -4,21 +4,21 @@ import { token } from '@atlaskit/tokens';
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7d4a8604dc454e30c0fec5c1330ea7c5>>
+ * @codegen <<SignedSource::2c35cc3f884146ac8ccdf053bf413481>>
  * @codegenId dimensions
  * @codegenCommand yarn codegen-styles
  * @codegenParams ["dimensions"]
- * @codegenDependency ../../scripts/codegen-file-templates/dimensions.tsx <<SignedSource::dbad5eb9ef292d4ec59f90459a81e1d6>>
+ * @codegenDependency ../../scripts/codegen-file-templates/dimensions.tsx <<SignedSource::01143ff41135244db1d8ec2efe4339d6>>
  */
 export const dimensionMap = {
   '100%': '100%',
-  'size.100': '16px',
-  'size.200': '24px',
-  'size.300': '32px',
-  'size.400': '40px',
-  'size.500': '48px',
-  'size.600': '96px',
-  'size.1000': '192px',
+  'size.100': '1rem',
+  'size.200': '1.5rem',
+  'size.300': '2rem',
+  'size.400': '2.5rem',
+  'size.500': '3rem',
+  'size.600': '6rem',
+  'size.1000': '12rem',
 } as const;
 type Dimension = keyof typeof dimensionMap;
 
@@ -45,10 +45,10 @@ export type MinInlineSize = Dimension;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9fbc4dfcd8f43f52bff6b3bb666397fe>>
+ * @codegen <<SignedSource::c32ec2103b151d3533775390e92f0f03>>
  * @codegenId spacing
  * @codegenCommand yarn codegen-styles
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-spacing.tsx <<SignedSource::167d3b69b159ae33e74d4ea5ab7eade6>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-spacing.tsx <<SignedSource::86e173b0e020fe5d091fdf4bff023711>>
  */
 export const spaceMap = {
   'space.0': token('space.0', '0px'),
@@ -459,13 +459,13 @@ export type Fill = keyof typeof fillMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::64f7b08cdbce710fba3157594ea695a8>>
+ * @codegen <<SignedSource::e63fc5ff12523b2d49dc72925e1648e6>>
  * @codegenId misc
  * @codegenCommand yarn codegen-styles
  * @codegenParams ["align-self", "border-style", "display", "flex-direction", "flex-grow", "flex-shrink", "flex", "layer", "overflow", "position"]
  * @codegenDependency ../../scripts/codegen-file-templates/align-self.tsx <<SignedSource::074079802534462de54bf882bb2073e5>>
  * @codegenDependency ../../scripts/codegen-file-templates/border-style.tsx <<SignedSource::87e7e289ffeaac901997c4af98084a5f>>
- * @codegenDependency ../../scripts/codegen-file-templates/dimensions.tsx <<SignedSource::dbad5eb9ef292d4ec59f90459a81e1d6>>
+ * @codegenDependency ../../scripts/codegen-file-templates/dimensions.tsx <<SignedSource::01143ff41135244db1d8ec2efe4339d6>>
  * @codegenDependency ../../scripts/codegen-file-templates/display.tsx <<SignedSource::04ea30fcb3c02f2545af7fdc0206e645>>
  * @codegenDependency ../../scripts/codegen-file-templates/flex-direction.tsx <<SignedSource::19809ba11675679c188b0d98fb651dc1>>
  * @codegenDependency ../../scripts/codegen-file-templates/flex-grow.tsx <<SignedSource::b8a06b122cb609170f1f42778a6c270e>>
@@ -579,26 +579,26 @@ export type Position = keyof typeof positionMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e3e1d54f37a0f8c524ccc5c8e22ad5bf>>
+ * @codegen <<SignedSource::80ae367205568f9ca76d35f0cbc9d127>>
  * @codegenId border
  * @codegenCommand yarn codegen-styles
  * @codegenParams ["width", "radius"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-shape.tsx <<SignedSource::a4f70bd83edd3dd448c6eccda60abdf7>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-shape.tsx <<SignedSource::81055547b21306c07a3e8a3c734a2f1c>>
  */
 export const borderWidthMap = {
-  'width.0': token('border.width.0', '0'),
-  'width.050': token('border.width.050', '0.0625rem'),
-  'width.100': token('border.width.100', '0.125rem'),
+  'width.0': token('border.width.0', '0px'),
+  'width.050': token('border.width.050', '1px'),
+  'width.100': token('border.width.100', '2px'),
 } as const;
 
 export type BorderWidth = keyof typeof borderWidthMap;
 
 export const borderRadiusMap = {
-  'radius.050': token('border.radius.050', '0.125rem'),
-  'radius.100': token('border.radius.100', '0.25rem'),
-  'radius.200': token('border.radius.200', '0.5rem'),
-  'radius.300': token('border.radius.300', '0.75rem'),
-  'radius.400': token('border.radius.400', '1rem'),
+  'radius.050': token('border.radius.050', '2px'),
+  'radius.100': token('border.radius.100', '4px'),
+  'radius.200': token('border.radius.200', '8px'),
+  'radius.300': token('border.radius.300', '12px'),
+  'radius.400': token('border.radius.400', '16px'),
   'radius.round': token('border.radius.round', '50%'),
 } as const;
 

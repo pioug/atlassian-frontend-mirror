@@ -42,7 +42,7 @@ export default {
   'fabric.emoji.image.requirements': 'JPG, PNG hoặc GIF. Kích thước tối đa 1 MB.',
   'fabric.emoji.name.ariaLabel': 'Nhập tên cho biểu tượng cảm xúc mới này',
   'fabric.emoji.picker': 'Trình chọn biểu tượng cảm xúc',
-  'fabric.emoji.pickerlist.grid': '{showSearchResults, select, true {Kết quả tìm kiếm} other {Biểu tượng cảm xúc}}',
+  'fabric.emoji.pickerlist.grid': '{showSearchResults, select, true {Tìm kiếm kết quả} other {Biểu tượng cảm xúc}}',
   'fabric.emoji.pickerlist.tabpanel': 'Bảng danh sách và thao tác biểu tượng cảm xúc',
   'fabric.emoji.placeholder': 'ví dụ: xin chào',
   'fabric.emoji.preview': 'Biểu tượng cảm xúc mới của bạn {emoji} trông rất tuyệt',

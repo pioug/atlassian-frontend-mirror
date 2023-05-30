@@ -1,10 +1,5 @@
 import React from 'react';
-import { Input } from './Input';
-
-export type Props = {
-  selectProps: { disableInput?: boolean };
-  innerRef: (ref: React.Ref<HTMLInputElement>) => void;
-};
+import { Input, type Props } from './Input';
 
 export class PopupInput extends React.Component<Props> {
   private ref: React.Ref<HTMLInputElement> = null;

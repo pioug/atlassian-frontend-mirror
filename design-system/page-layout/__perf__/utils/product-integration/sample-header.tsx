@@ -1,13 +1,11 @@
 /** @jsx jsx */
-import React from 'react';
-
 import { jsx } from '@emotion/react';
 
 import Icon from '@atlaskit/icon';
 import { CustomItemComponentProps } from '@atlaskit/menu';
 import { Header } from '@atlaskit/side-navigation';
 
-const Container: React.FC<CustomItemComponentProps> = (props) => {
+const Container = (props: CustomItemComponentProps) => {
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
   return <div {...props} />;
 };

@@ -14,7 +14,6 @@ import Form from '@atlaskit/form';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
 import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
 import { R400 } from '@atlaskit/theme/colors';
-import { gridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -47,7 +46,7 @@ const centerAlignedIconWrapperStyles = css`
 `;
 
 export const formWrapperStyles = css`
-  margin-top: ${gridSize()}px;
+  margin-top: ${token('space.100', '8px')};
   width: 100%;
 
   /* jira has a class override font settings on h1 in gh-custom-field-pickers.css */

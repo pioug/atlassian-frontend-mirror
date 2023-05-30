@@ -1,5 +1,13 @@
 # @atlaskit/primitives
 
+## 0.9.4
+
+### Patch Changes
+
+- [`b19d5c53b64`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b19d5c53b64) - Internal changest to the primitives package related to token generated styles.
+- [`4c4dcc3d571`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4c4dcc3d571) - Updates primitives internal style map.
+- Updated dependencies
+
 ## 0.9.3
 
 ### Patch Changes

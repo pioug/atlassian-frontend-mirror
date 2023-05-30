@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { Fragment } from 'react';
+import { Fragment } from 'react';
 
 import { jsx } from '@emotion/react';
 
@@ -11,10 +11,10 @@ import { Footer } from '../../src';
 
 import SampleIcon from './next-gen-project-icon';
 
-export const CustomItemFooter: React.FC<CustomItemComponentProps> = ({
+export const CustomItemFooter = ({
   children,
   ...props
-}) => {
+}: CustomItemComponentProps) => {
   const Component = props.onClick ? 'a' : 'div';
   return (
     <Component

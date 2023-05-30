@@ -39,7 +39,7 @@
   "dependencies": {
     "@atlaskit/interaction-context": "^2.1.0",
     "@atlaskit/theme": "^12.5.0",
-    "@atlaskit/tokens": "^1.4.0",
+    "@atlaskit/tokens": "^1.5.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"
   },
@@ -56,7 +56,7 @@
     "@atlaskit/lozenge": "^11.4.0",
     "@atlaskit/motion": "^1.4.0",
     "@atlaskit/section-message": "^6.4.0",
-    "@atlaskit/select": "^16.4.0",
+    "@atlaskit/select": "^16.5.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",

@@ -112,14 +112,14 @@ export interface SpotlightProps {
  * - [Code](https://atlassian.design/components/onboarding/code)
  * - [Usage](https://atlassian.design/components/onboarding/usage)
  */
-const Spotlight: React.FC<SpotlightProps> = ({
+const Spotlight = ({
   dialogWidth = 400,
   pulse = true,
   testId = 'spotlight',
   targetNode,
   target,
   ...rest
-}) => (
+}: SpotlightProps) => (
   <SpotlightConsumer>
     {({ opened, closed, targets }) => {
       // use the targetNode prop or try get the target from context targets using name

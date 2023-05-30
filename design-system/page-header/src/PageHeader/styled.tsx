@@ -74,9 +74,7 @@ const bottomBarStyles = css({
  * the BottomBar and its Breadcrumbs.
  *
  */
-export const OuterWrapper: React.FC<{ children: ReactNode }> = ({
-  children,
-}) => {
+export const OuterWrapper = ({ children }: { children: ReactNode }) => {
   return <div css={outerStyles}>{children}</div>;
 };
 
@@ -122,10 +120,7 @@ interface TitleProps {
  * A title wrapper is a wrapper around the title and the actions.
  *
  */
-export const TitleWrapper: React.FC<TitleProps> = ({
-  children,
-  truncateTitle,
-}) => {
+export const TitleWrapper = ({ children, truncateTitle }: TitleProps) => {
   return (
     <div
       css={[titleWrapperStyles, truncateTitle && titleWrapperTruncateStyles]}
@@ -141,10 +136,7 @@ export const TitleWrapper: React.FC<TitleProps> = ({
  * A title container is a container that wraps around the title and its styles (if applied).
  *
  */
-export const TitleContainer: React.FC<TitleProps> = ({
-  children,
-  truncateTitle,
-}) => {
+export const TitleContainer = ({ children, truncateTitle }: TitleProps) => {
   return (
     <div
       css={[
@@ -163,9 +155,7 @@ export const TitleContainer: React.FC<TitleProps> = ({
  * An actions wrapper is a wrapper for the actions, which appear on the top right of the PageHeader component.
  *
  */
-export const ActionsWrapper: React.FC<{ children: ReactNode }> = ({
-  children,
-}) => {
+export const ActionsWrapper = ({ children }: { children: ReactNode }) => {
   return <div css={actionStyles}>{children}</div>;
 };
 
@@ -175,8 +165,6 @@ export const ActionsWrapper: React.FC<{ children: ReactNode }> = ({
  * A bottom bar wrapper is a wrapper for the bottom bar, which appears at the bottom of the PageHeader component.
  *
  */
-export const BottomBarWrapper: React.FC<{ children: ReactNode }> = ({
-  children,
-}) => {
+export const BottomBarWrapper = ({ children }: { children: ReactNode }) => {
   return <div css={bottomBarStyles}>{children}</div>;
 };

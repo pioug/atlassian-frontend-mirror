@@ -26,7 +26,7 @@ const wrapperStyles = css({
  * This example shows the use of onboarding without <SpotlightPulse />. It also displays how it looks
  * when pulse={false}. Note that the pulse prop here is different to the one in <SpotlightPulse />.
  */
-const SpotlightWithoutPulseExample: React.FC<{}> = () => {
+const SpotlightWithoutPulseExample = () => {
   const [isSpotlightVisible, setIsSpotlightVisible] = useState(false);
 
   const toggleIsSpotlightVisible = useCallback(() => {

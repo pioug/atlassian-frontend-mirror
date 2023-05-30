@@ -7,7 +7,9 @@ import { FormattedMessage } from 'react-intl-next';
 
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import type { LoadOptions } from '@atlaskit/smart-user-picker';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import { messages } from '../../i18n';
 import type {
@@ -123,9 +125,13 @@ function LazyShareForm(props: LazyShareFormProps) {
       {customFooter && selectedIntegration === null && (
         <div
           css={{
-            margin: `0 ${-gridSize() * 3}px ${-gridSize() * 2}px ${
-              -gridSize() * 3
-            }px`,
+            margin: `0 calc(-1 * ${token(
+              'space.300',
+              '24px',
+            )}) calc(-1 * ${token('space.200', '16px')}) calc(-1 * ${token(
+              'space.300',
+              '24px',
+            )})`,
           }}
         >
           {customFooter}

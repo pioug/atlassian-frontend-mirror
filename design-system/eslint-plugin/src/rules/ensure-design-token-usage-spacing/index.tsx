@@ -27,14 +27,11 @@ import {
   isAuto,
   isCalc,
   isTokenValueString,
-  isTypographyProperty,
   isValidSpacingValue,
   isZero,
   processCssNode,
   shouldAnalyzeProperty,
-  spacingValueToToken,
   splitShorthandValues,
-  typographyValueToToken,
 } from './utils';
 
 type Addon = 'spacing' | 'typography' | 'shape';
@@ -45,7 +42,7 @@ type RuleConfig = {
 
 const rule = createRule<
   [RuleConfig],
-  'noRawSpacingValues' | 'autofixesPossible'
+  'noRawSpacingValues' | 'autofixesPossible' | 'noRawRadiusValues'
 >({
   defaultOptions: [{ addons: ['spacing'], applyImport: true }],
   name: 'ensure-design-token-usage-spacing',
@@ -75,6 +72,8 @@ const rule = createRule<
       recommended: false,
     },
     messages: {
+      noRawRadiusValues:
+        'The use of shape tokens is preferred over the direct application of border properties.\n\n@meta <<{{payload}}>>',
       noRawSpacingValues:
         'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<{{payload}}>>',
       autofixesPossible:
@@ -164,8 +163,9 @@ const rule = createRule<
             ) {
               return;
             }
+
             if (
-              node.value.type === 'Literal' &&
+              isNodeOfType(node.value, 'Literal') &&
               !isValidSpacingValue(node.value.value, fontSize)
             ) {
               context.report({
@@ -179,7 +179,10 @@ const rule = createRule<
             }
 
             // Don't report on CSS calc function
-            if (node.value.type === 'Literal' && isCalc(node.value.value)) {
+            if (
+              isNodeOfType(node.value, 'Literal') &&
+              isCalc(node.value.value)
+            ) {
               return;
             }
 
@@ -226,24 +229,14 @@ const rule = createRule<
                     return null;
                   }
 
-                  const pixelValueString = `${pixelValue}px`;
+                  const replacementNode = getTokenReplacement(
+                    propertyName,
+                    pixelValue,
+                  );
 
-                  const lookupValue = /fontWeight|fontFamily/.test(propertyName)
-                    ? pixelValue
-                    : pixelValueString;
-
-                  const tokenName = isTypographyProperty(propertyName)
-                    ? typographyValueToToken[propertyName][lookupValue]
-                    : spacingValueToToken[lookupValue];
-
-                  if (!tokenName) {
+                  if (!replacementNode) {
                     return null;
                   }
-
-                  const replacementValue = getTokenNodeForValue(
-                    propertyName,
-                    lookupValue,
-                  );
 
                   return (
                     !tokenNode && ruleConfig.applyImport
@@ -260,7 +253,7 @@ const rule = createRule<
                       node,
                       property({
                         ...node,
-                        value: replacementValue,
+                        value: replacementNode,
                       }).toString(),
                     ),
                   ]);
@@ -275,7 +268,7 @@ const rule = createRule<
              * @example
              * { padding: '8px 0px' }
              */
-            values.forEach((val, index) => {
+            values.forEach((val) => {
               const pixelValue = emToPixels(val, fontSize);
 
               // Do not report or suggest a token to replace 0 or auto
@@ -372,7 +365,7 @@ const rule = createRule<
       // const styledTemplateLiteral = styled.p`color: red; padding: 8px`;
       'TaggedTemplateExpression[tag.name="css"],TaggedTemplateExpression[tag.object.name="styled"],TaggedTemplateExpression[tag.callee.name="styled"]':
         (node: Rule.Node) => {
-          if (node.type !== 'TaggedTemplateExpression') {
+          if (!isNodeOfType(node, 'TaggedTemplateExpression')) {
             return;
           }
 
@@ -449,13 +442,17 @@ const rule = createRule<
                   });
 
                   // from here on we know value is numeric or a font family, so it might or might not have a token equivalent
-                  const replacementToken = getTokenReplacement(
+                  const replacementTokenNode = getTokenReplacement(
                     propertyName,
                     numericOrNanValue,
                   );
-                  if (!replacementToken) {
+
+                  if (!replacementTokenNode) {
                     return originalValue;
                   }
+
+                  const replacementToken =
+                    '${' + replacementTokenNode.toString() + '}';
 
                   replacedValuesPerProperty.push(
                     isFontFamily ? numericOrNanValue.trim() : pxValue,

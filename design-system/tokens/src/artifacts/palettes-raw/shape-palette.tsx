@@ -1,18 +1,18 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d9adf6612a4bc5957b7824e1f32a76b2>>
+ * @codegen <<SignedSource::a2e59b8e1421ca4ad026a5b2161824b2>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
   {
-    "value": "0.125rem",
+    "value": "2px",
     "attributes": {
       "group": "shape"
     },
     "filePath": "src/palettes/shape-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "0.125rem",
+      "value": 2,
       "attributes": {
         "group": "shape"
       }
@@ -25,14 +25,14 @@ const tokens = [
     ]
   },
   {
-    "value": "0.25rem",
+    "value": "4px",
     "attributes": {
       "group": "shape"
     },
     "filePath": "src/palettes/shape-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "0.25rem",
+      "value": 4,
       "attributes": {
         "group": "shape"
       }
@@ -45,14 +45,14 @@ const tokens = [
     ]
   },
   {
-    "value": "0.5rem",
+    "value": "8px",
     "attributes": {
       "group": "shape"
     },
     "filePath": "src/palettes/shape-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "0.5rem",
+      "value": 8,
       "attributes": {
         "group": "shape"
       }
@@ -65,14 +65,14 @@ const tokens = [
     ]
   },
   {
-    "value": "0.75rem",
+    "value": "12px",
     "attributes": {
       "group": "shape"
     },
     "filePath": "src/palettes/shape-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "0.75rem",
+      "value": 12,
       "attributes": {
         "group": "shape"
       }
@@ -85,14 +85,14 @@ const tokens = [
     ]
   },
   {
-    "value": "1rem",
+    "value": "16px",
     "attributes": {
       "group": "shape"
     },
     "filePath": "src/palettes/shape-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "1rem",
+      "value": 16,
       "attributes": {
         "group": "shape"
       }
@@ -125,14 +125,14 @@ const tokens = [
     ]
   },
   {
-    "value": "0",
+    "value": "0px",
     "attributes": {
       "group": "shape"
     },
     "filePath": "src/palettes/shape-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "0",
+      "value": 0,
       "attributes": {
         "group": "shape"
       }
@@ -145,14 +145,14 @@ const tokens = [
     ]
   },
   {
-    "value": "0.0625rem",
+    "value": "1px",
     "attributes": {
       "group": "shape"
     },
     "filePath": "src/palettes/shape-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "0.0625rem",
+      "value": 1,
       "attributes": {
         "group": "shape"
       }
@@ -165,14 +165,14 @@ const tokens = [
     ]
   },
   {
-    "value": "0.125rem",
+    "value": "2px",
     "attributes": {
       "group": "shape"
     },
     "filePath": "src/palettes/shape-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "0.125rem",
+      "value": 2,
       "attributes": {
         "group": "shape"
       }

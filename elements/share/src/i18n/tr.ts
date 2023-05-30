@@ -45,7 +45,7 @@ export default {
   'fabric.elements.share.main.tab.text.confluence': 'Sayfayı paylaşın',
   'fabric.elements.share.main.tab.text.jira': 'Konuyu paylaşın',
   'fabric.elements.share.success.message':
-    '{object, select,blogpost {Blog gönderisi paylaşıldı}board {Pano paylaşıldı}calendar {Takvim paylaşıldı}draft {Taslak paylaşıldı}filter {Filtre paylaşıldı}issue {Konu paylaşıldı}summary {Özet paylaşıldı}list {Liste paylaşıldı}timeline {Zaman Çizelgesi paylaşıldı}form {Form paylaşıldı}media {Medya paylaşıldı}page {Sayfa paylaşıldı}project {Proje paylaşıldı}pullrequest {Çekme İsteği paylaşıldı}question {Soru paylaşıldı}report {Rapor paylaşıldı}repository {Depo paylaşıldı}request {Talep paylaşıldı}roadmap {Yol haritası paylaşıldı}site {Site paylaşıldı}space {Alan paylaşıldı}other {Bağlantı paylaşıldı}}',
+    '{object, select,blogpost {Blog gönderisi paylaşıldı}board {Pano paylaşıldı}calendar {Takvim paylaşıldı}draft {Taslak paylaşıldı}filter {Filtre paylaşıldı}issue {Konu paylaşıldı}summary {Özet paylaşıldı}list {Liste paylaşıldı}timeline {Zaman Çizelgesi paylaşıldı}form {Form paylaşıldı}media {Medya paylaşıldı}page {Sayfa paylaşıldı}project {Proje paylaşıldı}pullrequest {Çekme İsteği paylaşıldı}question {Soru paylaşıldı}report {Rapor paylaşıldı}repository {Depo paylaşıldı}request {Talep paylaşıldı}roadmap {Yol haritası paylaşıldı}site {Site paylaşıldı}space {Alan paylaşıldı}other {Bağlantı Paylaşıldı}}',
   'fabric.elements.share.to.integration.button': '{integrationName} üzerinden paylaş',
   'fabric.elements.share.trigger.button.icon.label': 'Paylaşma simgesi',
   'fabric.elements.share.trigger.button.invite.text': 'Davet Et',

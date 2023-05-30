@@ -8,9 +8,7 @@ import Stack from '@atlaskit/primitives/stack';
 
 import { ProgressIndicator } from '../src';
 
-const SpreadInlineLayout: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
+const SpreadInlineLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <Inline space="space.100" spread="space-between" alignBlock="center">
       {children}

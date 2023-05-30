@@ -9,19 +9,19 @@ export type BaseRadiusToken = keyof typeof baseRadiusTokens;
 
 const baseSizeTokens = {
   Size0: {
-    value: '0',
+    value: 0,
     attributes: {
       group: 'shape',
     },
   },
   Size050: {
-    value: '0.0625rem',
+    value: 1,
     attributes: {
       group: 'shape',
     },
   },
   Size100: {
-    value: '0.125rem',
+    value: 2,
     attributes: {
       group: 'shape',
     },
@@ -30,31 +30,31 @@ const baseSizeTokens = {
 
 const baseRadiusTokens = {
   Radius050: {
-    value: '0.125rem',
+    value: 2,
     attributes: {
       group: 'shape',
     },
   },
   Radius100: {
-    value: '0.25rem',
+    value: 4,
     attributes: {
       group: 'shape',
     },
   },
   Radius200: {
-    value: '0.5rem',
+    value: 8,
     attributes: {
       group: 'shape',
     },
   },
   Radius300: {
-    value: '0.75rem',
+    value: 12,
     attributes: {
       group: 'shape',
     },
   },
   Radius400: {
-    value: '1rem',
+    value: 16,
     attributes: {
       group: 'shape',
     },

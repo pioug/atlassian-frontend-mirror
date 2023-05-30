@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React from 'react';
+import { ReactNode } from 'react';
 
 import { jsx } from '@emotion/react';
 import ReactDOMServer from 'react-dom/server';
@@ -22,7 +22,7 @@ ReactDOM.render(
   mountNode
 );`;
 
-const Layout: React.FC<{ children: React.ReactNode }> = (props) => (
+const Layout = (props: { children: ReactNode }) => (
   <div
     css={{
       padding: 8,
@@ -35,7 +35,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = (props) => (
   </div>
 );
 
-const H2: React.FC<{ children: React.ReactNode }> = (props) => (
+const H2 = (props: { children: ReactNode }) => (
   // eslint-disable-next-line jsx-a11y/heading-has-content
   <h2
     css={{

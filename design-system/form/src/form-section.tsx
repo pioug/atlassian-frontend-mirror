@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -44,13 +44,11 @@ const lightH600Styles = css(h600({ theme: { mode: 'light' } }));
 // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
 const darkH600Styles = css(h600({ theme: { mode: 'dark' } }));
 
-const FormSectionWrapper: React.FC<{ children?: ReactNode }> = ({
-  children,
-}) => {
+const FormSectionWrapper = ({ children }: { children?: ReactNode }) => {
   return <div css={formSectionWrapperStyles}>{children}</div>;
 };
 
-const FormSectionTitle: React.FC<{ children: ReactNode }> = ({ children }) => {
+const FormSectionTitle = ({ children }: { children: ReactNode }) => {
   const { mode } = useGlobalTheme();
   return (
     <h3
@@ -64,9 +62,7 @@ const FormSectionTitle: React.FC<{ children: ReactNode }> = ({ children }) => {
   );
 };
 
-const FormSectionDescription: React.FC<{ children: ReactNode }> = ({
-  children,
-}) => {
+const FormSectionDescription = ({ children }: { children: ReactNode }) => {
   return <div css={formSectionDescriptionStyles}>{children}</div>;
 };
 
@@ -80,11 +76,7 @@ const FormSectionDescription: React.FC<{ children: ReactNode }> = ({
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/form/docs/layout)
  * - [Usage](https://atlaskit.atlassian.com/packages/design-system/form/docs/layout)
  */
-const FormSection: React.FC<FormSectionProps> = ({
-  children,
-  description,
-  title,
-}) => {
+const FormSection = ({ children, description, title }: FormSectionProps) => {
   return (
     <FormSectionWrapper>
       {title && <FormSectionTitle>{title}</FormSectionTitle>}

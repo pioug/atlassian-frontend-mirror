@@ -9,31 +9,31 @@ describe('media-helper', () => {
       expect(UNSAFE_buildAboveMediaQueryCSS({ display: 'none' })).toEqual({
         xxs: expect.objectContaining({
           name: expect.any(String),
-          styles: '@media (min-width: 0px){display:none;}',
+          styles: '@media (min-width: 0rem){display:none;}',
         }),
         xs: expect.objectContaining({
           name: expect.any(String),
-          styles: '@media (min-width: 480px){display:none;}',
+          styles: '@media (min-width: 30rem){display:none;}',
         }),
         sm: expect.objectContaining({
           name: expect.any(String),
-          styles: '@media (min-width: 768px){display:none;}',
+          styles: '@media (min-width: 48rem){display:none;}',
         }),
         md: expect.objectContaining({
           name: expect.any(String),
-          styles: '@media (min-width: 1024px){display:none;}',
+          styles: '@media (min-width: 64rem){display:none;}',
         }),
         lg: expect.objectContaining({
           name: expect.any(String),
-          styles: '@media (min-width: 1440px){display:none;}',
+          styles: '@media (min-width: 90rem){display:none;}',
         }),
         xl: expect.objectContaining({
           name: expect.any(String),
-          styles: '@media (min-width: 1768px){display:none;}',
+          styles: '@media (min-width: 110rem){display:none;}',
         }),
         xxl: expect.objectContaining({
           name: expect.any(String),
-          styles: '@media (min-width: 2160px){display:none;}',
+          styles: '@media (min-width: 135rem){display:none;}',
         }),
       });
     });
@@ -47,14 +47,14 @@ describe('media-helper', () => {
       expect(output.xs).toEqual(
         expect.objectContaining({
           name: expect.any(String),
-          styles: '@media (min-width: 480px){content:"xs";}',
+          styles: '@media (min-width: 30rem){content:"xs";}',
         }),
       );
 
       expect(output.xl).toEqual(
         expect.objectContaining({
           name: expect.any(String),
-          styles: '@media (min-width: 1768px){content:"xl";}',
+          styles: '@media (min-width: 110rem){content:"xl";}',
         }),
       );
     });
@@ -65,27 +65,27 @@ describe('media-helper', () => {
       expect(UNSAFE_buildBelowMediaQueryCSS({ display: 'none' })).toEqual({
         xs: expect.objectContaining({
           name: expect.any(String),
-          styles: '@media (max-width: 479.98px){display:none;}',
+          styles: '@media (max-width: 29.998rem){display:none;}',
         }),
         sm: expect.objectContaining({
           name: expect.any(String),
-          styles: '@media (max-width: 767.98px){display:none;}',
+          styles: '@media (max-width: 47.998rem){display:none;}',
         }),
         md: expect.objectContaining({
           name: expect.any(String),
-          styles: '@media (max-width: 1023.98px){display:none;}',
+          styles: '@media (max-width: 63.998rem){display:none;}',
         }),
         lg: expect.objectContaining({
           name: expect.any(String),
-          styles: '@media (max-width: 1439.98px){display:none;}',
+          styles: '@media (max-width: 89.998rem){display:none;}',
         }),
         xl: expect.objectContaining({
           name: expect.any(String),
-          styles: '@media (max-width: 1767.98px){display:none;}',
+          styles: '@media (max-width: 109.998rem){display:none;}',
         }),
         xxl: expect.objectContaining({
           name: expect.any(String),
-          styles: '@media (max-width: 2159.98px){display:none;}',
+          styles: '@media (max-width: 134.998rem){display:none;}',
         }),
       });
     });
@@ -99,14 +99,14 @@ describe('media-helper', () => {
       expect(output.xs).toEqual(
         expect.objectContaining({
           name: expect.any(String),
-          styles: '@media (max-width: 479.98px){content:"xs";}',
+          styles: '@media (max-width: 29.998rem){content:"xs";}',
         }),
       );
 
       expect(output.xl).toEqual(
         expect.objectContaining({
           name: expect.any(String),
-          styles: '@media (max-width: 1767.98px){content:"xl";}',
+          styles: '@media (max-width: 109.998rem){content:"xl";}',
         }),
       );
     });

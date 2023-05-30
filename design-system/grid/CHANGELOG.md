@@ -1,5 +1,11 @@
 # @atlaskit/grid
 
+## 0.11.0
+
+### Minor Changes
+
+- [`5c00a3ac8bb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5c00a3ac8bb) - Grid now applies rem based breakpoints.
+
 ## 0.10.2
 
 ### Patch Changes

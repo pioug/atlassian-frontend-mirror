@@ -51,7 +51,7 @@ const TokensLineChartCodeBlock = `
   };
 `;
 
-const Chart: React.FC = () => {
+const Chart = () => {
   useThemeObserver();
 
   const chartOptions = {

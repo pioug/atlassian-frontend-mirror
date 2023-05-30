@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::cfa1d518948d5dc23821d17cab0cb52a>>
+ * @codegen <<SignedSource::c89f0dcd1df97245a694a1a77741bb39>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -9,10 +9,9 @@ const tokens = [
       "group": "spacing",
       "state": "active",
       "introduced": "0.12.0",
-      "pixelValue": "0px",
       "description": "Equates to `0`. Can be used for resetting default spacing styles."
     },
-    "value": "0",
+    "value": "0px",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -20,7 +19,6 @@ const tokens = [
         "group": "spacing",
         "state": "active",
         "introduced": "0.12.0",
-        "pixelValue": "0px",
         "description": "Equates to `0`. Can be used for resetting default spacing styles."
       },
       "value": "Space0"
@@ -41,10 +39,9 @@ const tokens = [
         "3px"
       ],
       "introduced": "0.12.0",
-      "pixelValue": "2px",
       "description": "Use for spacing in compact scenarios. The smallest value in our scale."
     },
-    "value": "0.125rem",
+    "value": "2px",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -56,7 +53,6 @@ const tokens = [
           "3px"
         ],
         "introduced": "0.12.0",
-        "pixelValue": "2px",
         "description": "Use for spacing in compact scenarios. The smallest value in our scale."
       },
       "value": "Space025"
@@ -77,10 +73,9 @@ const tokens = [
         "5px"
       ],
       "introduced": "0.12.0",
-      "pixelValue": "4px",
       "description": "Use for spacing in compact scenarios."
     },
-    "value": "0.25rem",
+    "value": "4px",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -92,7 +87,6 @@ const tokens = [
           "5px"
         ],
         "introduced": "0.12.0",
-        "pixelValue": "4px",
         "description": "Use for spacing in compact scenarios."
       },
       "value": "Space050"
@@ -113,10 +107,9 @@ const tokens = [
         "7px"
       ],
       "introduced": "0.12.0",
-      "pixelValue": "6px",
       "description": "Use for spacing in compact scenarios."
     },
-    "value": "0.375rem",
+    "value": "6px",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -128,7 +121,6 @@ const tokens = [
           "7px"
         ],
         "introduced": "0.12.0",
-        "pixelValue": "6px",
         "description": "Use for spacing in compact scenarios."
       },
       "value": "Space075"
@@ -149,10 +141,9 @@ const tokens = [
         "9px"
       ],
       "introduced": "0.12.0",
-      "pixelValue": "8px",
       "description": "Use for gutter spacing."
     },
-    "value": "0.5rem",
+    "value": "8px",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -164,7 +155,6 @@ const tokens = [
           "9px"
         ],
         "introduced": "0.12.0",
-        "pixelValue": "8px",
         "description": "Use for gutter spacing."
       },
       "value": "Space100"
@@ -187,10 +177,9 @@ const tokens = [
         "14px"
       ],
       "introduced": "0.12.0",
-      "pixelValue": "12px",
       "description": "Helpful guidance goes here"
     },
-    "value": "0.75rem",
+    "value": "12px",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -204,7 +193,6 @@ const tokens = [
           "14px"
         ],
         "introduced": "0.12.0",
-        "pixelValue": "12px",
         "description": "Helpful guidance goes here"
       },
       "value": "Space150"
@@ -227,10 +215,9 @@ const tokens = [
         "18px"
       ],
       "introduced": "0.12.0",
-      "pixelValue": "16px",
       "description": "Use for gutter spacing."
     },
-    "value": "1rem",
+    "value": "16px",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -244,7 +231,6 @@ const tokens = [
           "18px"
         ],
         "introduced": "0.12.0",
-        "pixelValue": "16px",
         "description": "Use for gutter spacing."
       },
       "value": "Space200"
@@ -267,10 +253,9 @@ const tokens = [
         "23px"
       ],
       "introduced": "0.12.0",
-      "pixelValue": "20px",
       "description": "Use for gutter spacing."
     },
-    "value": "1.25rem",
+    "value": "20px",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -284,7 +269,6 @@ const tokens = [
           "23px"
         ],
         "introduced": "0.12.0",
-        "pixelValue": "20px",
         "description": "Use for gutter spacing."
       },
       "value": "Space250"
@@ -308,10 +292,9 @@ const tokens = [
         "28px"
       ],
       "introduced": "0.12.0",
-      "pixelValue": "24px",
       "description": "Use for gutter spacing."
     },
-    "value": "1.5rem",
+    "value": "24px",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -326,7 +309,6 @@ const tokens = [
           "28px"
         ],
         "introduced": "0.12.0",
-        "pixelValue": "24px",
         "description": "Use for gutter spacing."
       },
       "value": "Space300"
@@ -352,10 +334,9 @@ const tokens = [
         "35px"
       ],
       "introduced": "0.12.0",
-      "pixelValue": "32px",
       "description": "Use for gutter spacing."
     },
-    "value": "2rem",
+    "value": "32px",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -372,7 +353,6 @@ const tokens = [
           "35px"
         ],
         "introduced": "0.12.0",
-        "pixelValue": "32px",
         "description": "Use for gutter spacing."
       },
       "value": "Space400"
@@ -389,10 +369,9 @@ const tokens = [
       "group": "spacing",
       "state": "active",
       "introduced": "0.12.0",
-      "pixelValue": "40px",
       "description": "Use for larger layout-specific spacing."
     },
-    "value": "2.5rem",
+    "value": "40px",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -400,7 +379,6 @@ const tokens = [
         "group": "spacing",
         "state": "active",
         "introduced": "0.12.0",
-        "pixelValue": "40px",
         "description": "Use for larger layout-specific spacing."
       },
       "value": "Space500"
@@ -417,10 +395,9 @@ const tokens = [
       "group": "spacing",
       "state": "active",
       "introduced": "0.12.0",
-      "pixelValue": "48px",
       "description": "Use for larger layout-specific spacing."
     },
-    "value": "3rem",
+    "value": "48px",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -428,7 +405,6 @@ const tokens = [
         "group": "spacing",
         "state": "active",
         "introduced": "0.12.0",
-        "pixelValue": "48px",
         "description": "Use for larger layout-specific spacing."
       },
       "value": "Space600"
@@ -445,10 +421,9 @@ const tokens = [
       "group": "spacing",
       "state": "active",
       "introduced": "0.12.0",
-      "pixelValue": "64px",
       "description": "Use for larger layout-specific spacing."
     },
-    "value": "4rem",
+    "value": "64px",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -456,7 +431,6 @@ const tokens = [
         "group": "spacing",
         "state": "active",
         "introduced": "0.12.0",
-        "pixelValue": "64px",
         "description": "Use for larger layout-specific spacing."
       },
       "value": "Space800"
@@ -473,10 +447,9 @@ const tokens = [
       "group": "spacing",
       "state": "active",
       "introduced": "0.12.0",
-      "pixelValue": "80px",
       "description": "Use for larger layout-specific spacing."
     },
-    "value": "5rem",
+    "value": "80px",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -484,7 +457,6 @@ const tokens = [
         "group": "spacing",
         "state": "active",
         "introduced": "0.12.0",
-        "pixelValue": "80px",
         "description": "Use for larger layout-specific spacing."
       },
       "value": "Space1000"

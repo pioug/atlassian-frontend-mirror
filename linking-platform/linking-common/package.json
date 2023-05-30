@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/linking-common",
-  "version": "2.13.0",
+  "version": "2.13.1",
   "description": "Contains utils and interfaces shared across different LP components",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -30,10 +30,13 @@
       "name": "LinkingCommon"
     }
   },
+  "scripts": {
+    "ak-postbuild": "ls -d dist/* | xargs -n 1 copyfiles -u 1 -V src/**/*.json"
+  },
   "dependencies": {
     "@atlaskit/logo": "^13.14.0",
     "@atlaskit/theme": "^12.5.0",
-    "@atlaskit/tokens": "^1.4.0",
+    "@atlaskit/tokens": "^1.5.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.0.0",

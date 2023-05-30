@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { ReactNode } from 'react';
+import { ImgHTMLAttributes, ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -29,10 +29,13 @@ const actionItemStyles = css({
  *
  * @internal
  */
-export const DialogImage: React.FC<
-  React.ImgHTMLAttributes<HTMLImageElement>
+export const DialogImage = ({
+  alt,
+  ...props
+}: ImgHTMLAttributes<HTMLImageElement>) => (
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-> = ({ alt, ...props }) => <img css={imageStyles} alt={alt} {...props} />;
+  <img css={imageStyles} alt={alt} {...props} />
+);
 
 /**
  * __Dialog action item container__
@@ -41,8 +44,10 @@ export const DialogImage: React.FC<
  *
  * @internal
  */
-export const DialogActionItemContainer: React.FC<{ children: ReactNode }> = ({
+export const DialogActionItemContainer = ({
   children,
+}: {
+  children: ReactNode;
 }) => <div css={actionItemContainerStyles}>{children}</div>;
 
 /**
@@ -52,6 +57,6 @@ export const DialogActionItemContainer: React.FC<{ children: ReactNode }> = ({
  *
  * @internal
  */
-export const DialogActionItem: React.FC<{ children: ReactNode }> = ({
-  children,
-}) => <div css={actionItemStyles}>{children}</div>;
+export const DialogActionItem = ({ children }: { children: ReactNode }) => (
+  <div css={actionItemStyles}>{children}</div>
+);

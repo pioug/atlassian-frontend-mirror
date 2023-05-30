@@ -11,17 +11,17 @@ import {
   TaggedTemplateExpression,
 } from 'eslint-codemod-utils';
 
-import {
-  spacing as spacingScale,
-  typography as typographyTokens,
-} from '@atlaskit/tokens/tokens-raw';
+import { spacing as spacingScale } from '@atlaskit/tokens/tokens-raw';
 
-const typographyProperties = [
-  'fontSize',
-  'fontWeight',
-  'fontFamily',
-  'lineHeight',
-];
+import { isBorderRadius, isShapeProperty, radiusValueToToken } from './shape';
+import {
+  isCodeFontFamily,
+  isFontFamily,
+  isFontSize,
+  isFontSizeSmall,
+  isTypographyProperty,
+  typographyValueToToken,
+} from './typography';
 
 const properties = [
   'padding',
@@ -67,38 +67,8 @@ const properties = [
 export type ProcessedCSSLines = [string, string][];
 export type TargetOptions = ('spacing' | 'typography' | 'shape')[];
 
-/**
- * Currently we have a wide range of experimental spacing tokens that we are testing.
- * We only want transforms to apply to the stable scale values, not the rest.
- * This could be removed in the future.
- */
-export const onlyScaleTokens = spacingScale.filter((token) =>
-  token.name.startsWith('space.'),
-);
-
-export const spacingValueToToken = Object.fromEntries(
-  onlyScaleTokens.map((token) => [token.attributes['pixelValue'], token.name]),
-);
-
-export const typographyValueToToken = Object.fromEntries(
-  typographyTokens.map((currentToken) => {
-    // Group tokens by property name (e.g. fontSize, fontFamily, lineHeight)
-    // This allows us to look up values specific to a property
-    // (so as not to mix tokens with overlapping values e.g. font size and line height both have tokens for 16px)
-    const tokenGroup = currentToken.attributes.group;
-    return [
-      tokenGroup,
-      Object.fromEntries(
-        typographyTokens
-          .map((token) =>
-            token.attributes.group === tokenGroup
-              ? [token.value.replaceAll(`"`, `'`), token.name]
-              : [],
-          )
-          .filter((token) => token.length),
-      ),
-    ];
-  }),
+const spacingValueToToken = Object.fromEntries(
+  spacingScale.map((token) => [token.value, token.name]),
 );
 
 export function findIdentifierInParentScope({
@@ -136,10 +106,6 @@ export const isSpacingProperty = (propertyName: string) => {
   return properties.includes(propertyName);
 };
 
-export const isTypographyProperty = (propertyName: string) => {
-  return typographyProperties.includes(propertyName);
-};
-
 /**
  * Accomplishes split str by whitespace but preserves expressions in between ${...}
  * even if they might have whitepaces or nested brackets
@@ -171,27 +137,6 @@ const isGridSize = (node: EslintNode): node is CallExpression =>
   isNodeOfType(node, 'CallExpression') &&
   isNodeOfType(node.callee, 'Identifier') &&
   (node.callee.name === 'gridSize' || node.callee.name === 'getGridSize');
-
-const isFontSize = (node: EslintNode): node is CallExpression =>
-  isNodeOfType(node, 'CallExpression') &&
-  isNodeOfType(node.callee, 'Identifier') &&
-  (node.callee.name === 'fontSize' || node.callee.name === 'getFontSize');
-
-const isFontSizeSmall = (node: EslintNode): node is CallExpression =>
-  isNodeOfType(node, 'CallExpression') &&
-  isNodeOfType(node.callee, 'Identifier') &&
-  node.callee.name === 'fontSizeSmall';
-
-const isFontFamily = (node: EslintNode): node is CallExpression =>
-  isNodeOfType(node, 'CallExpression') &&
-  isNodeOfType(node.callee, 'Identifier') &&
-  (node.callee.name === 'fontFamily' || node.callee.name === 'getFontFamily');
-
-const isCodeFontFamily = (node: EslintNode): node is CallExpression =>
-  isNodeOfType(node, 'CallExpression') &&
-  isNodeOfType(node.callee, 'Identifier') &&
-  (node.callee.name === 'codeFontFamily' ||
-    node.callee.name === 'getCodeFontFamily');
 
 const isToken = (node: EslintNode): node is CallExpression =>
   isNodeOfType(node, 'CallExpression') &&
@@ -231,6 +176,10 @@ const getValueFromCallExpression = (
 
   if (isGridSize(node)) {
     return 8;
+  }
+
+  if (isBorderRadius(node)) {
+    return 3;
   }
 
   if (isFontSize(node)) {
@@ -566,6 +515,11 @@ export function shouldAnalyzeProperty(
   if (isSpacingProperty(propertyName) && targetOptions.includes('spacing')) {
     return true;
   }
+
+  if (isShapeProperty(propertyName) && targetOptions.includes('shape')) {
+    return true;
+  }
+
   if (
     isTypographyProperty(propertyName) &&
     targetOptions.includes('typography')
@@ -643,9 +597,7 @@ export function processCssNode(
  * ```
  */
 export function getTokenNodeForValue(propertyName: string, value: string) {
-  const token = isTypographyProperty(propertyName)
-    ? typographyValueToToken[propertyName][value]
-    : spacingValueToToken[value];
+  const token = findTokenNameByPropertyValue(propertyName, value);
   const fallbackValue =
     propertyName === 'fontFamily'
       ? { value: `${value}`, raw: `\`${value}\`` }
@@ -714,17 +666,36 @@ export function isTokenValueString(originalValue: string): boolean {
   return originalValue.startsWith('${token(') && originalValue.endsWith('}');
 }
 
+/**
+ * Translate a raw value into the same value format for further parsing:
+ *
+ * -> for pixels this '8px'
+ * -> for weights     '400'
+ * -> for family      'Arial'
+ *
+ * @internal
+ */
+export function normaliseValue(propertyName: string, value: string) {
+  const isFontWeightOrFamily = /fontWeight|fontFamily/.test(propertyName);
+  const propertyValue = typeof value === 'string' ? value.trim() : value;
+
+  const lookupValue = isFontWeightOrFamily
+    ? propertyValue
+    : typeof propertyValue === 'string'
+    ? propertyValue
+    : `${propertyValue}px`;
+
+  return lookupValue;
+}
+
 export function findTokenNameByPropertyValue(
   propertyName: string,
   value: string,
 ): string | undefined {
-  const isFontWeightOrFamily = /fontWeight|fontFamily/.test(propertyName);
-  const propertyValue = typeof value === 'string' ? value.trim() : value;
-  const pixelValue = propertyValue;
-  const pixelValueString = `${propertyValue}px`;
-
-  const lookupValue = isFontWeightOrFamily ? pixelValue : pixelValueString;
-  const tokenName = isTypographyProperty(propertyName)
+  const lookupValue = normaliseValue(propertyName, value);
+  const tokenName = isShapeProperty(propertyName)
+    ? radiusValueToToken[lookupValue]
+    : isTypographyProperty(propertyName)
     ? typographyValueToToken[propertyName][lookupValue]
     : spacingValueToToken[lookupValue];
 
@@ -736,30 +707,19 @@ export function findTokenNameByPropertyValue(
 }
 
 /**
- * Returns a string with token expression corresponding to input parameters
+ * Returns a stringifiable node with the token expression corresponding to its matching token.
  * if no token found for the pair the function returns undefined
  * @param propertyName string camelCased css property
  * @param value the computed value e.g '8px' -> '8'
  */
-export function getTokenReplacement(
-  propertyName: string,
-  value: string,
-): string | undefined {
-  const isFontWeightOrFamily = /fontWeight|fontFamily/.test(propertyName);
-  const propertyValue = typeof value === 'string' ? value.trim() : value;
-  const pixelValue = propertyValue;
-  const pixelValueString = `${propertyValue}px`;
-  const lookupValue = isFontWeightOrFamily ? pixelValue : pixelValueString;
-
+export function getTokenReplacement(propertyName: string, value: string) {
   const tokenName = findTokenNameByPropertyValue(propertyName, value);
 
   if (!tokenName) {
     return undefined;
   }
 
-  const replacementTokenValue = getTokenNodeForValue(propertyName, lookupValue);
+  const fallbackValue = normaliseValue(propertyName, value);
 
-  // ${token('...', '...')}
-  const replacementSubValue = '${' + replacementTokenValue.toString() + '}';
-  return replacementSubValue;
+  return getTokenNodeForValue(propertyName, fallbackValue);
 }

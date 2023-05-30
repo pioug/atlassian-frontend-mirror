@@ -46,7 +46,7 @@ const options = {
 
 `;
 
-const Chart: React.FC = () => {
+const Chart = () => {
   const theme = useThemeObserver();
   const [chartOptions, setChartOptions] = useState({});
   useEffect(() => {

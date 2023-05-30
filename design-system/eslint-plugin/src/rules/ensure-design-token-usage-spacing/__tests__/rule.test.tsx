@@ -33,6 +33,14 @@ const tests: Tests = {
     },
     {
       options: [{ applyImport: false }],
+      code: `const styles = css({ borderRadius: token('border.radius.100', '3px') })`,
+    },
+    {
+      options: [{ applyImport: false }],
+      code: `const styles = css({ borderWidth: token('border.width.100', '2px') })`,
+    },
+    {
+      options: [{ applyImport: false }],
       code: `const styles = css({ gap: token('space.100', '8px') })`,
     },
     {
@@ -238,6 +246,42 @@ const tests: Tests = {
         { messageId: 'noRawSpacingValues' },
         { messageId: 'noRawSpacingValues' },
       ],
+    },
+    // numbers border radius
+    {
+      options: [{ applyImport: false, addons: ['shape'] }],
+      code: `const styles = css({
+            borderRadius: 3,
+          })`,
+      output: `const styles = css({
+            // TODO Delete this comment after verifying spacing token -> previous value \`3\`
+            borderRadius: token('border.radius.100', '3px'),
+          })`,
+      errors: [{ messageId: 'noRawSpacingValues' }],
+    },
+    // numbers border radius
+    {
+      options: [{ applyImport: false, addons: ['shape'] }],
+      code: `const styles = css({
+                borderRadius: borderRadius(),
+              })`,
+      output: `const styles = css({
+                // TODO Delete this comment after verifying spacing token -> previous value \`borderRadius()\`
+                borderRadius: token('border.radius.100', '3px'),
+              })`,
+      errors: [{ messageId: 'noRawSpacingValues' }],
+    },
+    // numbers border radius in interpolations
+    {
+      options: [{ applyImport: false, addons: ['shape'] }],
+      code: `const styles = css({
+                borderRadius: \`\${borderRadius()}px\`,
+              })`,
+      output: `const styles = css({
+                // TODO Delete this comment after verifying spacing token -> previous value \`\`\${borderRadius()}px\`\`
+                borderRadius: token('border.radius.100', '3px'),
+              })`,
+      errors: [{ messageId: 'noRawSpacingValues' }],
     },
     // numbers and strings with styled
     {

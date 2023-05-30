@@ -19,7 +19,7 @@ export interface ShrinkOutProps extends MotionProps<{ ref: React.Ref<any> }> {}
  *
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/motion/docs/entering-motions)
  */
-const ShrinkOut: React.FC<ShrinkOutProps> = ({
+const ShrinkOut = ({
   children,
   duration = smallDurationMs,
   onFinish,

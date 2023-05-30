@@ -28,7 +28,7 @@ const styles = {
   },
 };
 
-const ToggleIcons: React.FC = () => {
+const ToggleIcons = () => {
   const [isColorToggled, setIsColorToggled] = useState(false);
   const [isFillToggled, setIsFillToggled] = useState(false);
 

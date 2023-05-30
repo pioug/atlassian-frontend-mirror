@@ -27,7 +27,9 @@ import formatterFigma from './formatters/figma';
 import formatterRaw from './formatters/raw';
 import boxShadowTransform from './transformers/box-shadow';
 import dotSyntax from './transformers/dot-syntax';
+import numberPixelTransform from './transformers/number-pixel';
 import paletteTransform from './transformers/palette';
+import pixelRemTransform from './transformers/pixel-rem';
 
 const getPalette = (paletteId: Palettes) => {
   switch (paletteId) {
@@ -87,6 +89,8 @@ const createThemeConfig = (
       'name/dot': dotSyntax,
       'color/palette': paletteTransform(palette),
       'box-shadow/figma': boxShadowTransform(palette),
+      'pixel/rem': pixelRemTransform,
+      'raw/pixel': numberPixelTransform,
     },
     source: [path.join(THEME_INPUT_DIR, themeName, '**', '*.tsx')],
     include: [
@@ -115,7 +119,7 @@ const createThemeConfig = (
         ],
       },
       raw: {
-        transforms: ['name/dot', 'color/palette'],
+        transforms: ['name/dot', 'color/palette', 'raw/pixel'],
         buildPath: path.join(ARTIFACT_OUTPUT_DIR, 'tokens-raw/'),
         options: {
           themeName,
@@ -131,7 +135,12 @@ const createThemeConfig = (
         ],
       },
       cssAsModule: {
-        transforms: ['name/dot', 'color/palette', 'box-shadow/figma'],
+        transforms: [
+          'name/dot',
+          'color/palette',
+          'pixel/rem',
+          'box-shadow/figma',
+        ],
         buildPath: path.join(ARTIFACT_OUTPUT_DIR, 'themes/'),
         options: {
           themeName,

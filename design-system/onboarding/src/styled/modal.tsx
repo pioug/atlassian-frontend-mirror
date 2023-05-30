@@ -8,6 +8,13 @@ import { borderRadius as getBorderRadius } from '@atlaskit/theme/constants';
 import { h600 } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
+type ModalImageProps = { alt: string; src?: string };
+
+type ModalActionContainerProps = {
+  shouldReverseButtonOrder: boolean;
+  children: ReactNode;
+};
+
 const borderRadius = getBorderRadius();
 
 // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
@@ -60,7 +67,7 @@ const modalActionItemStyles = css({
  *
  * @internal
  */
-export const ModalBody: React.FC<{ children: ReactNode }> = ({ children }) => (
+export const ModalBody = ({ children }: { children: ReactNode }) => (
   <div css={modalBodyStyles}>{children}</div>
 );
 
@@ -69,7 +76,7 @@ export const ModalBody: React.FC<{ children: ReactNode }> = ({ children }) => (
  *
  * @internal
  */
-export const ModalHeading: React.FC<{ children: string }> = ({ children }) => {
+export const ModalHeading = ({ children }: { children: ReactNode }) => {
   const { mode } = useGlobalTheme();
   return (
     <h4
@@ -88,20 +95,19 @@ export const ModalHeading: React.FC<{ children: string }> = ({ children }) => {
  *
  * @internal
  */
-export const ModalImage: React.FC<{ alt: string; src?: string }> = ({
-  alt,
-  src,
-}) => <img css={modalImageStyles} alt={alt} src={src} />;
+export const ModalImage = ({ alt, src }: ModalImageProps) => (
+  <img css={modalImageStyles} alt={alt} src={src} />
+);
 
 /**
  * __Modal action container__
  *
  * @internal
  */
-export const ModalActionContainer: React.FC<{
-  shouldReverseButtonOrder: boolean;
-  children: ReactNode;
-}> = ({ children, shouldReverseButtonOrder }) => (
+export const ModalActionContainer = ({
+  children,
+  shouldReverseButtonOrder,
+}: ModalActionContainerProps) => (
   <div
     css={[
       modalActionContainerStyles,
@@ -117,6 +123,6 @@ export const ModalActionContainer: React.FC<{
  *
  * @internal
  */
-export const ModalActionItem: React.FC<{ children: ReactNode }> = ({
-  children,
-}) => <div css={modalActionItemStyles}>{children}</div>;
+export const ModalActionItem = ({ children }: { children: ReactNode }) => (
+  <div css={modalActionItemStyles}>{children}</div>
+);

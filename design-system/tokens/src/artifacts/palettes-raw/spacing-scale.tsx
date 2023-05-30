@@ -1,18 +1,18 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1599e85262f34ecc7fbda0662bc858cb>>
+ * @codegen <<SignedSource::4cad6a8b4b676f9379fa2d4fca019b0e>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
   {
-    "value": "0",
+    "value": "0px",
     "attributes": {
       "group": "spacing"
     },
     "filePath": "src/palettes/spacing-scale.tsx",
     "isSource": true,
     "original": {
-      "value": "0",
+      "value": 0,
       "attributes": {
         "group": "spacing"
       }
@@ -24,14 +24,14 @@ const tokens = [
     ]
   },
   {
-    "value": "0.125rem",
+    "value": "2px",
     "attributes": {
       "group": "spacing"
     },
     "filePath": "src/palettes/spacing-scale.tsx",
     "isSource": true,
     "original": {
-      "value": "0.125rem",
+      "value": 2,
       "attributes": {
         "group": "spacing"
       }
@@ -43,14 +43,14 @@ const tokens = [
     ]
   },
   {
-    "value": "0.25rem",
+    "value": "4px",
     "attributes": {
       "group": "spacing"
     },
     "filePath": "src/palettes/spacing-scale.tsx",
     "isSource": true,
     "original": {
-      "value": "0.25rem",
+      "value": 4,
       "attributes": {
         "group": "spacing"
       }
@@ -62,14 +62,14 @@ const tokens = [
     ]
   },
   {
-    "value": "0.375rem",
+    "value": "6px",
     "attributes": {
       "group": "spacing"
     },
     "filePath": "src/palettes/spacing-scale.tsx",
     "isSource": true,
     "original": {
-      "value": "0.375rem",
+      "value": 6,
       "attributes": {
         "group": "spacing"
       }
@@ -81,14 +81,14 @@ const tokens = [
     ]
   },
   {
-    "value": "0.5rem",
+    "value": "8px",
     "attributes": {
       "group": "spacing"
     },
     "filePath": "src/palettes/spacing-scale.tsx",
     "isSource": true,
     "original": {
-      "value": "0.5rem",
+      "value": 8,
       "attributes": {
         "group": "spacing"
       }
@@ -100,19 +100,17 @@ const tokens = [
     ]
   },
   {
-    "value": "5rem",
+    "value": "80px",
     "attributes": {
       "group": "spacing"
     },
-    "pixelValue": "80px",
     "filePath": "src/palettes/spacing-scale.tsx",
     "isSource": true,
     "original": {
-      "value": "5rem",
+      "value": 80,
       "attributes": {
         "group": "spacing"
-      },
-      "pixelValue": "80px"
+      }
     },
     "name": "space.Space1000",
     "path": [
@@ -121,14 +119,14 @@ const tokens = [
     ]
   },
   {
-    "value": "0.75rem",
+    "value": "12px",
     "attributes": {
       "group": "spacing"
     },
     "filePath": "src/palettes/spacing-scale.tsx",
     "isSource": true,
     "original": {
-      "value": "0.75rem",
+      "value": 12,
       "attributes": {
         "group": "spacing"
       }
@@ -140,14 +138,14 @@ const tokens = [
     ]
   },
   {
-    "value": "1rem",
+    "value": "16px",
     "attributes": {
       "group": "spacing"
     },
     "filePath": "src/palettes/spacing-scale.tsx",
     "isSource": true,
     "original": {
-      "value": "1rem",
+      "value": 16,
       "attributes": {
         "group": "spacing"
       }
@@ -159,14 +157,14 @@ const tokens = [
     ]
   },
   {
-    "value": "1.25rem",
+    "value": "20px",
     "attributes": {
       "group": "spacing"
     },
     "filePath": "src/palettes/spacing-scale.tsx",
     "isSource": true,
     "original": {
-      "value": "1.25rem",
+      "value": 20,
       "attributes": {
         "group": "spacing"
       }
@@ -178,14 +176,14 @@ const tokens = [
     ]
   },
   {
-    "value": "1.5rem",
+    "value": "24px",
     "attributes": {
       "group": "spacing"
     },
     "filePath": "src/palettes/spacing-scale.tsx",
     "isSource": true,
     "original": {
-      "value": "1.5rem",
+      "value": 24,
       "attributes": {
         "group": "spacing"
       }
@@ -197,14 +195,14 @@ const tokens = [
     ]
   },
   {
-    "value": "2rem",
+    "value": "32px",
     "attributes": {
       "group": "spacing"
     },
     "filePath": "src/palettes/spacing-scale.tsx",
     "isSource": true,
     "original": {
-      "value": "2rem",
+      "value": 32,
       "attributes": {
         "group": "spacing"
       }
@@ -216,14 +214,14 @@ const tokens = [
     ]
   },
   {
-    "value": "2.5rem",
+    "value": "40px",
     "attributes": {
       "group": "spacing"
     },
     "filePath": "src/palettes/spacing-scale.tsx",
     "isSource": true,
     "original": {
-      "value": "2.5rem",
+      "value": 40,
       "attributes": {
         "group": "spacing"
       }
@@ -235,14 +233,14 @@ const tokens = [
     ]
   },
   {
-    "value": "3rem",
+    "value": "48px",
     "attributes": {
       "group": "spacing"
     },
     "filePath": "src/palettes/spacing-scale.tsx",
     "isSource": true,
     "original": {
-      "value": "3rem",
+      "value": 48,
       "attributes": {
         "group": "spacing"
       }
@@ -254,19 +252,17 @@ const tokens = [
     ]
   },
   {
-    "value": "4rem",
+    "value": "64px",
     "attributes": {
       "group": "spacing"
     },
-    "pixelValue": "64px",
     "filePath": "src/palettes/spacing-scale.tsx",
     "isSource": true,
     "original": {
-      "value": "4rem",
+      "value": 64,
       "attributes": {
         "group": "spacing"
-      },
-      "pixelValue": "64px"
+      }
     },
     "name": "space.Space800",
     "path": [

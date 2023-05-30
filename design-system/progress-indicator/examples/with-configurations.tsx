@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { ChangeEvent, FC, ReactNode, useState } from 'react';
+import React, { ChangeEvent, ReactNode, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 import Lorem from 'react-lorem-component';
@@ -33,7 +33,7 @@ const invertedFooterStyles = css({
   backgroundColor: token('color.text', N900),
 });
 
-const Footer: FC<FooterProps> = ({ appearance, children }) => (
+const Footer = ({ appearance, children }: FooterProps) => (
   <Box
     as="footer"
     display="block"
@@ -54,9 +54,7 @@ const pageStyles = css({
   marginInline: 'auto',
 });
 
-const SpreadInlineLayout: React.FC<{ children: ReactNode }> = ({
-  children,
-}) => {
+const SpreadInlineLayout = ({ children }: { children: ReactNode }) => {
   return (
     <Inline space="space.100" spread="space-between" alignBlock="center">
       {children}
@@ -64,7 +62,7 @@ const SpreadInlineLayout: React.FC<{ children: ReactNode }> = ({
   );
 };
 
-const ProgressIndicatorDots: FC<{}> = () => {
+const ProgressIndicatorDots = () => {
   const [isInteractive, setIsInteractive] = useState(true);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [selectedAppearance, setSelectedAppearance] =
@@ -74,7 +72,6 @@ const ProgressIndicatorDots: FC<{}> = () => {
     useState<Spacing>('comfortable');
 
   const handleSelect = ({
-    event,
     index: selectedIndex,
   }: {
     event: React.MouseEvent<HTMLButtonElement>;

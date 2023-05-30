@@ -5,10 +5,7 @@ import { CustomItemComponentProps } from '@atlaskit/menu';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../src';
 
-const CustomComponent: React.FC<CustomItemComponentProps> = ({
-  children,
-  ...props
-}) => {
+const CustomComponent = ({ children, ...props }: CustomItemComponentProps) => {
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
   return <a {...props}>{children}</a>;
 };

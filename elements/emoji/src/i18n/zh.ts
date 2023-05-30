@@ -50,5 +50,5 @@ export default {
   'fabric.emoji.search.placeholder': '搜索',
   'fabric.emoji.search.status': '查看所有表情',
   'fabric.emoji.select.skin.list.ariaLabel': '肤色选择器',
-  'fabric.emoji.select.skin.tone.ariaLabel': '选择您的肤色，已选 {selectedTone}',
+  'fabric.emoji.select.skin.tone.ariaLabel': '选择您的肤色，已选：{selectedTone}',
 };

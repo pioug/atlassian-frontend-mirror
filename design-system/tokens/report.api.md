@@ -352,90 +352,88 @@ type ActiveTokenState = 'active';
 // @public (undocumented)
 const baseSpacingTokens: {
   readonly Space0: {
-    readonly value: '0';
+    readonly value: 0;
     readonly attributes: {
       readonly group: 'spacing';
     };
   };
   readonly Space025: {
-    readonly value: '0.125rem';
+    readonly value: 2;
     readonly attributes: {
       readonly group: 'spacing';
     };
   };
   readonly Space050: {
-    readonly value: '0.25rem';
+    readonly value: 4;
     readonly attributes: {
       readonly group: 'spacing';
     };
   };
   readonly Space075: {
-    readonly value: '0.375rem';
+    readonly value: 6;
     readonly attributes: {
       readonly group: 'spacing';
     };
   };
   readonly Space100: {
-    readonly value: '0.5rem';
+    readonly value: 8;
     readonly attributes: {
       readonly group: 'spacing';
     };
   };
   readonly Space150: {
-    readonly value: '0.75rem';
+    readonly value: 12;
     readonly attributes: {
       readonly group: 'spacing';
     };
   };
   readonly Space200: {
-    readonly value: '1rem';
+    readonly value: 16;
     readonly attributes: {
       readonly group: 'spacing';
     };
   };
   readonly Space250: {
-    readonly value: '1.25rem';
+    readonly value: 20;
     readonly attributes: {
       readonly group: 'spacing';
     };
   };
   readonly Space300: {
-    readonly value: '1.5rem';
+    readonly value: 24;
     readonly attributes: {
       readonly group: 'spacing';
     };
   };
   readonly Space400: {
-    readonly value: '2rem';
+    readonly value: 32;
     readonly attributes: {
       readonly group: 'spacing';
     };
   };
   readonly Space500: {
-    readonly value: '2.5rem';
+    readonly value: 40;
     readonly attributes: {
       readonly group: 'spacing';
     };
   };
   readonly Space600: {
-    readonly value: '3rem';
+    readonly value: 48;
     readonly attributes: {
       readonly group: 'spacing';
     };
   };
   readonly Space800: {
-    readonly value: '4rem';
+    readonly value: 64;
     readonly attributes: {
       readonly group: 'spacing';
     };
-    readonly pixelValue: '64px';
   };
   readonly Space1000: {
-    readonly value: '5rem';
+    readonly value: 80;
     readonly attributes: {
       readonly group: 'spacing';
     };
-    readonly pixelValue: '80px';
   };
 };
 
@@ -794,7 +792,6 @@ interface DesignToken<TValue, Group extends Groups>
         group: Group;
         description: string;
         introduced: string;
-        pixelValue?: Group extends 'spacing' ? string : never;
         suggest?: string[];
       }
     | {

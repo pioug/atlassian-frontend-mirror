@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f4523de23a205d43950d1b24f656f952>>
+ * @codegen <<SignedSource::7cdaa82f55e6537ca0b68d196db9e1d6>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -11,7 +11,7 @@ const tokens = [
       "introduced": "1.1.0",
       "description": "Experimental, description needs to be amended"
     },
-    "value": "0.125rem",
+    "value": "2px",
     "filePath": "src/tokens/atlassian-shape/shape.tsx",
     "isSource": true,
     "original": {
@@ -38,7 +38,7 @@ const tokens = [
       "introduced": "1.1.0",
       "description": "Experimental, description needs to be amended"
     },
-    "value": "0.25rem",
+    "value": "4px",
     "filePath": "src/tokens/atlassian-shape/shape.tsx",
     "isSource": true,
     "original": {
@@ -65,7 +65,7 @@ const tokens = [
       "introduced": "1.1.0",
       "description": "Experimental, description needs to be amended"
     },
-    "value": "0.5rem",
+    "value": "8px",
     "filePath": "src/tokens/atlassian-shape/shape.tsx",
     "isSource": true,
     "original": {
@@ -92,7 +92,7 @@ const tokens = [
       "introduced": "1.1.0",
       "description": "Experimental, description needs to be amended"
     },
-    "value": "0.75rem",
+    "value": "12px",
     "filePath": "src/tokens/atlassian-shape/shape.tsx",
     "isSource": true,
     "original": {
@@ -119,7 +119,7 @@ const tokens = [
       "introduced": "1.1.0",
       "description": "Experimental, description needs to be amended"
     },
-    "value": "1rem",
+    "value": "16px",
     "filePath": "src/tokens/atlassian-shape/shape.tsx",
     "isSource": true,
     "original": {
@@ -173,7 +173,7 @@ const tokens = [
       "introduced": "1.2.1",
       "description": "Experimental, description needs to be amended"
     },
-    "value": "0",
+    "value": "0px",
     "filePath": "src/tokens/atlassian-shape/shape.tsx",
     "isSource": true,
     "original": {
@@ -200,7 +200,7 @@ const tokens = [
       "introduced": "1.1.0",
       "description": "Experimental, description needs to be amended"
     },
-    "value": "0.0625rem",
+    "value": "1px",
     "filePath": "src/tokens/atlassian-shape/shape.tsx",
     "isSource": true,
     "original": {
@@ -227,7 +227,7 @@ const tokens = [
       "introduced": "1.1.0",
       "description": "Experimental, description needs to be amended"
     },
-    "value": "0.125rem",
+    "value": "2px",
     "filePath": "src/tokens/atlassian-shape/shape.tsx",
     "isSource": true,
     "original": {

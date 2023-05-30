@@ -41,7 +41,7 @@ export default {
   'fabric.emoji.image.requirements': 'JPG, PNG eller GIF. Max. storlek 1 MB.',
   'fabric.emoji.name.ariaLabel': 'Ange ett namn på den nya emojin',
   'fabric.emoji.picker': 'Emojiväljare',
-  'fabric.emoji.pickerlist.grid': '{showSearchResults, select, true {Sökresultat} other {Emojis}}',
+  'fabric.emoji.pickerlist.grid': '{showSearchResults, select, true {Sökresultat} other {Emojier}}',
   'fabric.emoji.pickerlist.tabpanel': 'Panel för emoji-åtgärder och -listor',
   'fabric.emoji.placeholder': 't.ex. hej',
   'fabric.emoji.preview': 'Din nya emoji {emoji} ser jättebra ut',

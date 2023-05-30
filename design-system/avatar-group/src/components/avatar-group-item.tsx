@@ -27,10 +27,10 @@ const AvatarGroupItem: FC<AvatarGroupItemProps> = ({
 }) => {
   const { href, onClick, ...rest } = avatar;
 
-  const CustomComponent: React.FC<CustomItemComponentProps> = ({
+  const CustomComponent = ({
     children,
     ...props
-  }) => {
+  }: CustomItemComponentProps) => {
     // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
     return <span {...props}>{children}</span>;
   };

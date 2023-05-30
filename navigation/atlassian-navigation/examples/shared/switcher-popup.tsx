@@ -19,7 +19,11 @@ const spinnerStyles = css({
   justifyContent: 'center',
 });
 
-const SwitcherData: React.FC<{ update: () => void }> = ({ update }) => {
+type SwitcherDataProps = {
+  update: () => void;
+};
+
+const SwitcherData = ({ update }: SwitcherDataProps) => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {

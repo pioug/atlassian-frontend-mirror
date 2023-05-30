@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { ComponentType, forwardRef, ReactNode, Ref } from 'react';
+import { ComponentType, forwardRef, ReactNode, Ref } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -30,7 +30,7 @@ const defaultHeaderStyles = css({
   justifyContent: 'space-between',
 });
 
-const DefaultHeader: React.FC<{ children: ReactNode }> = ({ children }) => (
+const DefaultHeader = ({ children }: { children: ReactNode }) => (
   <div css={defaultHeaderStyles}>{children}</div>
 );
 
@@ -41,7 +41,7 @@ const defaultFooterStyles = css({
   justifyContent: 'space-between',
 });
 
-const DefaultFooter: React.FC<{ children: ReactNode }> = ({ children }) => (
+const DefaultFooter = ({ children }: { children: ReactNode }) => (
   <div css={defaultFooterStyles}>{children}</div>
 );
 

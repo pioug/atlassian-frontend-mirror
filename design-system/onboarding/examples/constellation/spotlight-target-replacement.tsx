@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { useState } from 'react';
+import { ImgHTMLAttributes, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -30,10 +30,9 @@ const imageStyles = css({
   height: '128px',
 });
 
-const Image: React.FC<React.ImgHTMLAttributes<HTMLImageElement>> = ({
-  alt,
-  src,
-}) => <img src={src} alt={alt} css={imageStyles} />;
+const Image = ({ alt, src }: ImgHTMLAttributes<HTMLImageElement>) => (
+  <img src={src} alt={alt} css={imageStyles} />
+);
 
 const SpotlightTargetReplacementExample = () => {
   const [isSpotlightActive, setIsSpotlightActive] = useState(false);

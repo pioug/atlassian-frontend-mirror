@@ -208,6 +208,8 @@ describe('BaseUserPicker', () => {
 
   const userOptions: Option[] = optionToSelectableOptions(options);
 
+  const labelText = 'Enter people or teams...';
+
   beforeEach(() => {
     mockSessionId('random-session-id');
   });
@@ -325,7 +327,7 @@ describe('BaseUserPicker', () => {
       getBasePickerWithForm({ onChange, options }),
     );
 
-    await selectEvent.select(getByLabelText('Test'), options[0].name);
+    await selectEvent.select(getByLabelText(labelText), options[0].name);
 
     expect(onChange).toHaveBeenCalledWith(options[0], 'select-option');
   });
@@ -336,7 +338,7 @@ describe('BaseUserPicker', () => {
       getBasePickerWithForm({ onSelection, options }),
     );
 
-    await selectEvent.select(getByLabelText('Test'), options[0].name);
+    await selectEvent.select(getByLabelText(labelText), options[0].name);
 
     expect(onSelection).toHaveBeenCalledWith(options[0], 'random-session-id');
   });

@@ -62,7 +62,7 @@
         "introduced": "0.10.33",
         "description": "Helpful guidance goes here"
       },
-      "value": "16px"
+      "value": 16
     },
     "Typography/font.lineHeight.200": {
       "attributes": {
@@ -71,7 +71,7 @@
         "introduced": "0.10.33",
         "description": "Helpful guidance goes here"
       },
-      "value": "20px"
+      "value": 20
     },
     "Typography/font.lineHeight.300": {
       "attributes": {
@@ -80,7 +80,7 @@
         "introduced": "0.10.33",
         "description": "Helpful guidance goes here"
       },
-      "value": "24px"
+      "value": 24
     },
     "Typography/font.lineHeight.400": {
       "attributes": {
@@ -89,7 +89,7 @@
         "introduced": "0.10.33",
         "description": "Helpful guidance goes here"
       },
-      "value": "28px"
+      "value": 28
     },
     "Typography/font.lineHeight.500": {
       "attributes": {
@@ -98,7 +98,7 @@
         "introduced": "0.10.33",
         "description": "Helpful guidance goes here"
       },
-      "value": "32px"
+      "value": 32
     },
     "Typography/font.lineHeight.600": {
       "attributes": {
@@ -107,7 +107,7 @@
         "introduced": "0.10.33",
         "description": "Helpful guidance goes here"
       },
-      "value": "40px"
+      "value": 40
     }
   },
   "renameMap": {}

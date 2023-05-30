@@ -36,7 +36,7 @@ type BlanketProps = {
  *
  * @internal
  */
-const Blanket: React.FC<BlanketProps> = (props) => {
+const Blanket = (props: BlanketProps) => {
   const theme = useGlobalTheme();
   return (
     <div

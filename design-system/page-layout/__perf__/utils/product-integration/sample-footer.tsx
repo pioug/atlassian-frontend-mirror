@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { Fragment } from 'react';
+import { Fragment } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -8,7 +8,7 @@ import { Footer } from '@atlaskit/side-navigation';
 import { B400, N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-const Container: React.FC<CustomItemComponentProps> = (props) => {
+const Container = (props: CustomItemComponentProps) => {
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
   return <div {...props} />;
 };

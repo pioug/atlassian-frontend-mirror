@@ -1,5 +1,11 @@
 # @atlaskit/onboarding
 
+## 10.8.3
+
+### Patch Changes
+
+- [`e7ea6832ad2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7ea6832ad2) - Bans the use of React.FC/React.FunctionComponent type in ADS components as part of the React 18 migration work. The change is internal only and should not introduce any changes for the component consumers.
+
 ## 10.8.2
 
 ### Patch Changes

@@ -4,6 +4,8 @@ import BaseSelect from 'react-select/base';
 import memoizeOne from 'memoize-one';
 import isEqual from 'react-fast-compare';
 
+import VisuallyHidden from '@atlaskit/visually-hidden';
+
 import {
   SelectProps,
   SelectComponentsConfig,
@@ -106,6 +108,22 @@ export default function createSelect(WrappedComponent: ComponentType<any>) {
             ),
             styles!,
           )}
+          placeholder={
+            <>
+              {isMulti && (
+                // NOTE: This has been added because react-select does not announce to screen readers that multiple options can be selected.
+                // Here we hijack the placeholder to include more info.
+                // The placeholder is used as the `aria-describedby` for the input, and gets rendered in a div rather than a native input placeholder.
+                // Ideally react-select should make use of the aria-multiselectable attribute.
+                <VisuallyHidden>
+                  Multiple options can be selected.
+                </VisuallyHidden>
+              )}
+              {props.placeholder !== undefined
+                ? props.placeholder
+                : 'Select...'}
+            </>
+          }
         />
       );
     }

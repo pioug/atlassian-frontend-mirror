@@ -25,7 +25,7 @@ const wrapperStyles = css({
   flexDirection: 'column',
 });
 
-const NewFeature: React.FC<{}> = () => {
+const NewFeature = () => {
   const [isSpotlightVisible, setIsSpotlightVisible] = useState(false);
 
   const toggleIsSpotlightVisible = useCallback(() => {

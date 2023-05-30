@@ -30,7 +30,7 @@ const optionStyles = css({
   padding: token('space.050', '4px'),
 });
 
-const Option: React.FC<{ children: ReactNode }> = ({ children }) => (
+const Option = ({ children }: { children: ReactNode }) => (
   <div css={optionStyles}>{children}</div>
 );
 

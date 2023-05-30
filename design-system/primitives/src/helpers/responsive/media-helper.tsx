@@ -1,12 +1,6 @@
 import { UNSAFE_BREAKPOINTS_CONFIG } from './constants';
 
 /**
- * To ensure min-width and max-width do both target at the same time, we subtract a value.
- * We use a fractional value here as used in other libraries and described in @link https://www.w3.org/TR/mediaqueries-4/#mq-min-max: "…possibility of fractional viewport sizes which can occur as a result of non-integer pixel densities…"
- */
-const BELOW_PRECISION = 0.02;
-
-/**
  * This is the full internal version.  The import has been separated to only expose as-needed.
  */
 const internalMedia = {
@@ -20,49 +14,37 @@ const internalMedia = {
      *
      * Eg. this is `@media (min-width: 0px)`
      */
-    xxs: `@media (min-width: ${UNSAFE_BREAKPOINTS_CONFIG.xxs.min}px)`,
-    xs: `@media (min-width: ${UNSAFE_BREAKPOINTS_CONFIG.xs.min}px)`,
-    sm: `@media (min-width: ${UNSAFE_BREAKPOINTS_CONFIG.sm.min}px)`,
-    md: `@media (min-width: ${UNSAFE_BREAKPOINTS_CONFIG.md.min}px)`,
-    lg: `@media (min-width: ${UNSAFE_BREAKPOINTS_CONFIG.lg.min}px)`,
-    xl: `@media (min-width: ${UNSAFE_BREAKPOINTS_CONFIG.xl.min}px)`,
-    xxl: `@media (min-width: ${UNSAFE_BREAKPOINTS_CONFIG.xxl.min}px)`,
+    xxs: `@media (min-width: ${UNSAFE_BREAKPOINTS_CONFIG.xxs.min})`,
+    xs: `@media (min-width: ${UNSAFE_BREAKPOINTS_CONFIG.xs.min})`,
+    sm: `@media (min-width: ${UNSAFE_BREAKPOINTS_CONFIG.sm.min})`,
+    md: `@media (min-width: ${UNSAFE_BREAKPOINTS_CONFIG.md.min})`,
+    lg: `@media (min-width: ${UNSAFE_BREAKPOINTS_CONFIG.lg.min})`,
+    xl: `@media (min-width: ${UNSAFE_BREAKPOINTS_CONFIG.xl.min})`,
+    xxl: `@media (min-width: ${UNSAFE_BREAKPOINTS_CONFIG.xxl.min})`,
   } as const,
   below: {
     /**
      * A media query to target viewports below the min width of a given breakpoint.
-     * Note that `media.below.xxs` is intentionally omitted as this would be `@media (max-width: 0px)`
+     * Note that `media.below.xxs` is intentionally omitted as this would be `@media (max-width: 0rem)`
      */
-    xs: `@media (max-width: ${
-      UNSAFE_BREAKPOINTS_CONFIG.xs.min - BELOW_PRECISION
-    }px)`,
-    sm: `@media (max-width: ${
-      UNSAFE_BREAKPOINTS_CONFIG.sm.min - BELOW_PRECISION
-    }px)`,
-    md: `@media (max-width: ${
-      UNSAFE_BREAKPOINTS_CONFIG.md.min - BELOW_PRECISION
-    }px)`,
-    lg: `@media (max-width: ${
-      UNSAFE_BREAKPOINTS_CONFIG.lg.min - BELOW_PRECISION
-    }px)`,
-    xl: `@media (max-width: ${
-      UNSAFE_BREAKPOINTS_CONFIG.xl.min - BELOW_PRECISION
-    }px)`,
-    xxl: `@media (max-width: ${
-      UNSAFE_BREAKPOINTS_CONFIG.xxl.min - BELOW_PRECISION
-    }px)`,
+    xs: `@media (max-width: ${UNSAFE_BREAKPOINTS_CONFIG.xs.below})`,
+    sm: `@media (max-width: ${UNSAFE_BREAKPOINTS_CONFIG.sm.below})`,
+    md: `@media (max-width: ${UNSAFE_BREAKPOINTS_CONFIG.md.below})`,
+    lg: `@media (max-width: ${UNSAFE_BREAKPOINTS_CONFIG.lg.below})`,
+    xl: `@media (max-width: ${UNSAFE_BREAKPOINTS_CONFIG.xl.below})`,
+    xxl: `@media (max-width: ${UNSAFE_BREAKPOINTS_CONFIG.xxl.below})`,
   } as const,
   /**
    * A media query to target viewports exactly between the min and max of a given breakpoint.
    */
   only: {
-    xxs: `@media (min-width: ${UNSAFE_BREAKPOINTS_CONFIG.xxs.min}px) and (max-width: ${UNSAFE_BREAKPOINTS_CONFIG.xxs.max}px)`,
-    xs: `@media (min-width: ${UNSAFE_BREAKPOINTS_CONFIG.xs.min}px) and (max-width: ${UNSAFE_BREAKPOINTS_CONFIG.xs.max}px)`,
-    sm: `@media (min-width: ${UNSAFE_BREAKPOINTS_CONFIG.sm.min}px) and (max-width: ${UNSAFE_BREAKPOINTS_CONFIG.sm.max}px)`,
-    md: `@media (min-width: ${UNSAFE_BREAKPOINTS_CONFIG.md.min}px) and (max-width: ${UNSAFE_BREAKPOINTS_CONFIG.md.max}px)`,
-    lg: `@media (min-width: ${UNSAFE_BREAKPOINTS_CONFIG.lg.min}px) and (max-width: ${UNSAFE_BREAKPOINTS_CONFIG.lg.max}px)`,
-    xl: `@media (min-width: ${UNSAFE_BREAKPOINTS_CONFIG.xl.min}px) and (max-width: ${UNSAFE_BREAKPOINTS_CONFIG.xl.max}px)`,
-    xxl: `@media (min-width: ${UNSAFE_BREAKPOINTS_CONFIG.xxl.min}px) and (max-width: ${UNSAFE_BREAKPOINTS_CONFIG.xxl.max}px)`,
+    xxs: `@media (min-width: ${UNSAFE_BREAKPOINTS_CONFIG.xxs.min}) and (max-width: ${UNSAFE_BREAKPOINTS_CONFIG.xxs.max})`,
+    xs: `@media (min-width: ${UNSAFE_BREAKPOINTS_CONFIG.xs.min}) and (max-width: ${UNSAFE_BREAKPOINTS_CONFIG.xs.max})`,
+    sm: `@media (min-width: ${UNSAFE_BREAKPOINTS_CONFIG.sm.min}) and (max-width: ${UNSAFE_BREAKPOINTS_CONFIG.sm.max})`,
+    md: `@media (min-width: ${UNSAFE_BREAKPOINTS_CONFIG.md.min}) and (max-width: ${UNSAFE_BREAKPOINTS_CONFIG.md.max})`,
+    lg: `@media (min-width: ${UNSAFE_BREAKPOINTS_CONFIG.lg.min}) and (max-width: ${UNSAFE_BREAKPOINTS_CONFIG.lg.max})`,
+    xl: `@media (min-width: ${UNSAFE_BREAKPOINTS_CONFIG.xl.min}) and (max-width: ${UNSAFE_BREAKPOINTS_CONFIG.xl.max})`,
+    xxl: `@media (min-width: ${UNSAFE_BREAKPOINTS_CONFIG.xxl.min}) and (max-width: ${UNSAFE_BREAKPOINTS_CONFIG.xxl.max})`,
   } as const,
 };
 

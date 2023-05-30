@@ -1,12 +1,12 @@
 export const dimensionMap = {
   '100%': '100%',
-  'size.100': '16px',
-  'size.200': '24px',
-  'size.300': '32px',
-  'size.400': '40px',
-  'size.500': '48px',
-  'size.600': '96px',
-  'size.1000': '192px',
+  'size.100': '1rem',
+  'size.200': '1.5rem',
+  'size.300': '2rem',
+  'size.400': '2.5rem',
+  'size.500': '3rem',
+  'size.600': '6rem',
+  'size.1000': '12rem',
 } as const;
 type Dimension = keyof typeof dimensionMap;
 

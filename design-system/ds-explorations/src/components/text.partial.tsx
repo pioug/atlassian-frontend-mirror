@@ -189,7 +189,7 @@ export default Text;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9f746e797b8b5262d58b40dfecb39e6d>>
+ * @codegen <<SignedSource::c5cbba9e889615c5824ee237fd52ad2e>>
  * @codegenId typography
  * @codegenCommand yarn codegen-styles
  * @codegenParams ["fontSize", "fontWeight", "fontFamily", "lineHeight"]
@@ -215,10 +215,10 @@ const fontSizeMap = {
     fontSize: token('font.size.400', '24px'),
   }),
   'size.500': css({
-    fontSize: token('font.size.500', '29px'),
+    fontSize: token('font.size.500', '28px'),
   }),
   'size.600': css({
-    fontSize: token('font.size.600', '35px'),
+    fontSize: token('font.size.600', '36px'),
   }),
 };
 

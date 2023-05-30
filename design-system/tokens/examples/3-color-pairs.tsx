@@ -401,8 +401,7 @@ const boxStyles = css({
   margin: '0.5em',
   padding: '1em',
   border: 'none',
-  // eslint-disable-next-line
-  borderRadius: token('border.radius.100', '3px'),
+  borderRadius: token('border.radius.100'),
   fontSize: 'inherit',
   textAlign: 'left',
 });

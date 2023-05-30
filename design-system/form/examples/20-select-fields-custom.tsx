@@ -14,6 +14,7 @@ interface Option {
   label: string;
   value: string;
 }
+
 interface Category {
   colors?: ValueType<Option>;
   icecream?: ValueType<Option[]>;
@@ -92,10 +93,10 @@ type ColorOption = (typeof colors)[number];
  * NOTE this is not declared inline with the Select
  * If you declare inline you'll have issues with refs
  */
-const CustomColorOption: React.FC<OptionProps<ColorOption>> = ({
+const CustomColorOption = ({
   children,
   ...props
-}) => (
+}: OptionProps<ColorOption>) => (
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
   <components.Option {...props}>
     <ColorBox color={children as string} /> {children}
@@ -106,10 +107,10 @@ const CustomColorOption: React.FC<OptionProps<ColorOption>> = ({
  * NOTE this is not declared inline with the Select
  * If you declare inline you'll have issues with refs
  */
-const CustomValueOption: React.FC<SingleValueProps<ColorOption>> = ({
+const CustomValueOption = ({
   children,
   ...props
-}) => (
+}: SingleValueProps<Option, false>) => (
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
   <components.SingleValue {...props}>
     <ColorBox color={children as string} /> {children}

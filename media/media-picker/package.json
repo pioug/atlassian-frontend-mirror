@@ -41,7 +41,7 @@
     "@atlaskit/media-common": "^5.0.0",
     "@atlaskit/media-ui": "^23.0.0",
     "@atlaskit/theme": "^12.4.0",
-    "@atlaskit/tokens": "^1.2.0",
+    "@atlaskit/tokens": "^1.5.0",
     "@atlaskit/ufo": "^0.2.0",
     "@babel/runtime": "^7.0.0",
     "eventemitter2": "^4.1.0",

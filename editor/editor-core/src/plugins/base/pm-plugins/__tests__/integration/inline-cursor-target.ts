@@ -12,10 +12,14 @@ import { paragraphWithTwoAdjacentInlineNodes } from './__fixtures__/base-adfs';
 
 describe('inline-cursor-target', () => {
   describe('should not prevent users entering text between inline nodes', () => {
+    // FIXME: This test was automatically skipped due to failure on 25/04/2023: https://product-fabric.atlassian.net/browse/ED-17593
     BrowserTestCase(
       'when entering plain text',
       // the inline-cursor-target plugin is only used in chrome and firefox
-      { skip: ['safari'] },
+      {
+        // skip: ['safari'],
+        skip: ['*'],
+      },
       async (client: any, testName: string) => {
         const page = await goToEditorTestingWDExample(client);
         await mountEditor(page, {

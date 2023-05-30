@@ -10,7 +10,7 @@ const spaceTokens = tokens
   .filter(token => token.name.startsWith(spacingTokenPrefix))
   .map(t => ({
     name: t.name,
-    fallback: t.attributes.pixelValue!,
+    fallback: t.value,
   }));
 
 export const createSpacingStylesFromTemplate = () => {

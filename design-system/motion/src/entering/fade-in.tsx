@@ -94,7 +94,7 @@ export interface FadeKeyframesMotionProps extends KeyframesMotionProps {
  *
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/motion/docs/entering-motions)
  */
-const FadeIn: React.FC<FadeKeyframesMotionProps> = ({
+const FadeIn = ({
   children,
   duration = largeDurationMs,
   entranceDirection,

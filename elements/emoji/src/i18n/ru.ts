@@ -42,7 +42,7 @@ export default {
   'fabric.emoji.image.requirements': 'JPG, PNG или GIF. Макс. размер: 1 МБ.',
   'fabric.emoji.name.ariaLabel': 'Введите название для нового эмодзи',
   'fabric.emoji.picker': 'Средство выбора эмодзи',
-  'fabric.emoji.pickerlist.grid': '{showSearchResults, select, true {Результаты поиска} other {Эмодзи}}',
+  'fabric.emoji.pickerlist.grid': '{showSearchResults, select, true {Поиск результатов} other {Эмодзи}}',
   'fabric.emoji.pickerlist.tabpanel': 'Панель с действиями и списком эмодзи',
   'fabric.emoji.placeholder': 'Например, «привет»',
   'fabric.emoji.preview': 'Новый эмодзи {emoji} очень классный!',

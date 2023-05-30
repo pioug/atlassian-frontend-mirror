@@ -23,19 +23,13 @@ const dummyStyles = {
   }),
 };
 
-export const Dummy: React.FC<DummyProps> = ({
-  children,
-  hasMargin = false,
-}) => (
+export const Dummy = ({ children, hasMargin = false }: DummyProps) => (
   <div css={[dummyStyles.base, hasMargin && dummyStyles.margin]}>
     {children}
   </div>
 );
 
-export const DummyNested: React.FC<DummyProps> = ({
-  children,
-  hasMargin = false,
-}) => (
+export const DummyNested = ({ children, hasMargin = false }: DummyProps) => (
   <div css={[dummyStyles.nested, hasMargin && dummyStyles.margin]}>
     {children}
   </div>

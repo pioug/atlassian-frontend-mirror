@@ -1,5 +1,17 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 5.4.0
+
+### Minor Changes
+
+- [`eb75c962cfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eb75c962cfb) - `gridSize` imports from `@atlaskit/theme` are now deprecated in favor of applying space tokens via `@atlaskit/tokens`.
+
+### Patch Changes
+
+- [`019af32072d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/019af32072d) - Add shape token handling to the `ensure-design-token-usage-spacing` rule.
+- [`7b017c0be76`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7b017c0be76) - Internal tweaks to spacing rule fixers.
+- Updated dependencies
+
 ## 5.3.2
 
 ### Patch Changes

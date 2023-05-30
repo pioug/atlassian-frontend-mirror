@@ -175,7 +175,7 @@ const hasAnyExitingChildMountedAgain = (
  *
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/motion/docs/entering-motions)
  */
-const ExitingPersistence: React.FC<ExitingPersistenceProps> = memo(
+const ExitingPersistence = memo(
   ({
     appear: appearFromProp = false,
     children: childs,

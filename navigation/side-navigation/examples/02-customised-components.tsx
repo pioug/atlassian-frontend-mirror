@@ -18,7 +18,7 @@ import {
 import AppFrame from './common/app-frame';
 import SampleHeader from './common/sample-header';
 
-const CustomComponent: React.FC<CustomItemComponentProps> = (props) => {
+const CustomComponent = (props: CustomItemComponentProps) => {
   const { children, ...rest } = props;
   return (
     <div

@@ -44,9 +44,14 @@ export type BreakpointConfig = {
   /**
    * The min-width used in media queries
    */
-  min: number;
+  min: `${number}rem`;
   /**
    * The max-width used in media queries
    */
-  max: number;
+  max: `${number}rem`;
+  /**
+   * To ensure min-width and max-width do both target at the same time, we subtract a value.
+   * We use a fractional value here as used in other libraries and described in @link https://www.w3.org/TR/mediaqueries-4/#mq-min-max: "…possibility of fractional viewport sizes which can occur as a result of non-integer pixel densities…"
+   */
+  below: `${number}rem`;
 };

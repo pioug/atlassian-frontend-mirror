@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { Component } from 'react';
+import { Component, ImgHTMLAttributes } from 'react';
 
 import { css, jsx } from '@emotion/react';
 import Lorem from 'react-lorem-component';
@@ -36,10 +36,9 @@ const imageStyles = css({
   borderRadius: `${borderRadius}px`,
 });
 
-const Image: React.FC<React.ImgHTMLAttributes<HTMLImageElement>> = ({
-  alt,
-  src,
-}) => <img src={src} alt={alt} css={imageStyles} />;
+const Image = ({ alt, src }: ImgHTMLAttributes<HTMLImageElement>) => (
+  <img src={src} alt={alt} css={imageStyles} />
+);
 
 interface State {
   active: boolean;

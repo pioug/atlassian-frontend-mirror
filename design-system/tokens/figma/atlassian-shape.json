@@ -8,7 +8,7 @@
         "introduced": "1.1.0",
         "description": "Experimental, description needs to be amended"
       },
-      "value": "0.125rem"
+      "value": 2
     },
     "Shape/border.radius.100": {
       "attributes": {
@@ -17,7 +17,7 @@
         "introduced": "1.1.0",
         "description": "Experimental, description needs to be amended"
       },
-      "value": "0.25rem"
+      "value": 4
     },
     "Shape/border.radius.200": {
       "attributes": {
@@ -26,7 +26,7 @@
         "introduced": "1.1.0",
         "description": "Experimental, description needs to be amended"
       },
-      "value": "0.5rem"
+      "value": 8
     },
     "Shape/border.radius.300": {
       "attributes": {
@@ -35,7 +35,7 @@
         "introduced": "1.1.0",
         "description": "Experimental, description needs to be amended"
       },
-      "value": "0.75rem"
+      "value": 12
     },
     "Shape/border.radius.400": {
       "attributes": {
@@ -44,7 +44,7 @@
         "introduced": "1.1.0",
         "description": "Experimental, description needs to be amended"
       },
-      "value": "1rem"
+      "value": 16
     },
     "Shape/border.radius.round": {
       "attributes": {
@@ -62,7 +62,7 @@
         "introduced": "1.2.1",
         "description": "Experimental, description needs to be amended"
       },
-      "value": "0"
+      "value": 0
     },
     "Shape/border.width.050": {
       "attributes": {
@@ -71,7 +71,7 @@
         "introduced": "1.1.0",
         "description": "Experimental, description needs to be amended"
       },
-      "value": "0.0625rem"
+      "value": 1
     },
     "Shape/border.width.100": {
       "attributes": {
@@ -80,7 +80,7 @@
         "introduced": "1.1.0",
         "description": "Experimental, description needs to be amended"
       },
-      "value": "0.125rem"
+      "value": 2
     }
   },
   "renameMap": {}

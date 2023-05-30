@@ -7,90 +7,88 @@ export type SpacingPaletteToken = keyof typeof baseSpacingTokens;
 
 const baseSpacingTokens = {
   Space0: {
-    value: '0',
+    value: 0,
     attributes: {
       group: 'spacing',
     },
   },
   Space025: {
-    value: '0.125rem',
+    value: 2,
     attributes: {
       group: 'spacing',
     },
   },
   Space050: {
-    value: '0.25rem',
+    value: 4,
     attributes: {
       group: 'spacing',
     },
   },
   Space075: {
-    value: '0.375rem',
+    value: 6,
     attributes: {
       group: 'spacing',
     },
   },
   Space100: {
-    value: '0.5rem',
+    value: 8,
     attributes: {
       group: 'spacing',
     },
   },
   Space150: {
-    value: '0.75rem',
+    value: 12,
     attributes: {
       group: 'spacing',
     },
   },
   Space200: {
-    value: '1rem',
+    value: 16,
     attributes: {
       group: 'spacing',
     },
   },
   Space250: {
-    value: '1.25rem',
+    value: 20,
     attributes: {
       group: 'spacing',
     },
   },
   Space300: {
-    value: '1.5rem',
+    value: 24,
     attributes: {
       group: 'spacing',
     },
   },
   Space400: {
-    value: '2rem',
+    value: 32,
     attributes: {
       group: 'spacing',
     },
   },
   Space500: {
-    value: '2.5rem',
+    value: 40,
     attributes: {
       group: 'spacing',
     },
   },
   Space600: {
-    value: '3rem',
+    value: 48,
     attributes: {
       group: 'spacing',
     },
   },
   Space800: {
-    value: '4rem',
+    value: 64,
     attributes: {
       group: 'spacing',
     },
-    pixelValue: '64px',
   },
   Space1000: {
-    value: '5rem',
+    value: 80,
     attributes: {
       group: 'spacing',
     },
-    pixelValue: '80px',
   },
 } as const;
 

@@ -27,8 +27,8 @@ const gridMaxWidthMap: Record<
   NonNullable<GridProps['maxWidth']>,
   ReturnType<typeof css>
 > = {
-  wide: css({ maxWidth: 1128 }),
-  narrow: css({ maxWidth: 744 }),
+  wide: css({ maxWidth: '70.5rem' }),
+  narrow: css({ maxWidth: '46.5rem' }),
 } as const;
 
 const GridContext = createContext(false);

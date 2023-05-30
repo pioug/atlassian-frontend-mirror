@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { ReactNode } from 'react';
+import { HTMLAttributes, ReactNode } from 'react';
 
 import { css, jsx, keyframes } from '@emotion/react';
 
@@ -48,14 +48,14 @@ const baseStyles = css({
   zIndex: layers.spotlight() + 1,
 });
 
-const Base: React.FC<BaseProps> = ({
+const Base = ({
   children,
   bgColor,
   radius,
   style,
   testId,
   ...props
-}) => (
+}: BaseProps) => (
   <div
     css={baseStyles}
     data-testid={testId}
@@ -80,11 +80,7 @@ const Base: React.FC<BaseProps> = ({
  *
  * @internal
  */
-export const TargetInner: React.FC<TargetProps> = ({
-  children,
-  pulse,
-  ...props
-}) => (
+export const TargetInner = ({ children, pulse, ...props }: TargetProps) => (
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
   <Base {...props} css={[pulse && animationStyles]}>
     {children}
@@ -109,9 +105,7 @@ const targetOverlayStyles = css({
  *
  * @internal
  */
-export const TargetOverlay: React.FC<React.HTMLAttributes<HTMLDivElement>> = (
-  props,
-) => (
+export const TargetOverlay = (props: HTMLAttributes<HTMLDivElement>) => (
   <div
     // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
     {...props}
@@ -133,12 +127,12 @@ export const TargetOverlay: React.FC<React.HTMLAttributes<HTMLDivElement>> = (
  * - [Code](https://atlassian.design/components/onboarding/code)
  * - [Usage](https://atlassian.design/components/onboarding/usage)
  */
-export const Pulse: React.FC<TargetProps> = ({
+export const Pulse = ({
   children,
   pulse = true,
   testId,
   ...props
-}) => (
+}: TargetProps) => (
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
   <Base {...props} css={[pulse && animationStyles]} testId={testId}>
     {children}

@@ -6,6 +6,7 @@ import { Config, Core } from 'style-dictionary';
 import { ARTIFACT_OUTPUT_DIR } from './constants';
 import formatterRaw from './formatters/raw';
 import dotSyntax from './transformers/dot-syntax';
+import rawPixel from './transformers/number-pixel';
 
 const PALETTE_INPUT_DIR = './src/palettes/';
 
@@ -21,13 +22,14 @@ const createPaletteConfig = (paletteFileName: string): Config => ({
   ],
   transform: {
     'name/dot': dotSyntax,
+    'raw/pixel': rawPixel,
   },
   format: {
     raw: formatterRaw as any,
   },
   platforms: {
     rawPalette: {
-      transforms: ['name/dot'],
+      transforms: ['name/dot', 'raw/pixel'],
       buildPath: ARTIFACT_OUTPUT_DIR,
       options: {
         groups: ['palette'],

@@ -5,21 +5,21 @@ describe('media-helper', () => {
     expect(UNSAFE_media).toMatchInlineSnapshot(`
       Object {
         "above": Object {
-          "lg": "@media (min-width: 1440px)",
-          "md": "@media (min-width: 1024px)",
-          "sm": "@media (min-width: 768px)",
-          "xl": "@media (min-width: 1768px)",
-          "xs": "@media (min-width: 480px)",
-          "xxl": "@media (min-width: 2160px)",
-          "xxs": "@media (min-width: 0px)",
+          "lg": "@media (min-width: 90rem)",
+          "md": "@media (min-width: 64rem)",
+          "sm": "@media (min-width: 48rem)",
+          "xl": "@media (min-width: 110rem)",
+          "xs": "@media (min-width: 30rem)",
+          "xxl": "@media (min-width: 135rem)",
+          "xxs": "@media (min-width: 0rem)",
         },
         "below": Object {
-          "lg": "@media (max-width: 1439.98px)",
-          "md": "@media (max-width: 1023.98px)",
-          "sm": "@media (max-width: 767.98px)",
-          "xl": "@media (max-width: 1767.98px)",
-          "xs": "@media (max-width: 479.98px)",
-          "xxl": "@media (max-width: 2159.98px)",
+          "lg": "@media (max-width: 89.998rem)",
+          "md": "@media (max-width: 63.998rem)",
+          "sm": "@media (max-width: 47.998rem)",
+          "xl": "@media (max-width: 109.998rem)",
+          "xs": "@media (max-width: 29.998rem)",
+          "xxl": "@media (max-width: 134.998rem)",
         },
       }
     `);

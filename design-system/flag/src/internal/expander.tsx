@@ -10,11 +10,7 @@ type ExpanderProps = {
   children: React.ReactNode;
 };
 
-const Expander: React.FC<ExpanderProps> = ({
-  children,
-  isExpanded,
-  testId,
-}) => {
+const Expander = ({ children, isExpanded, testId }: ExpanderProps) => {
   // Need to always render the ExpanderInternal otherwise the
   // reveal transition doesn't happen. We can't use CSS animation for
   // the the reveal because we don't know the height of the content.

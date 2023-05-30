@@ -52,17 +52,15 @@ const darkH700Styles = css(h700({ theme: { mode: 'dark' } }));
 // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
 const lightH700Styles = css(h700({ theme: { mode: 'light' } }));
 
-const FormHeaderContent: React.FC<{ children: ReactNode }> = ({ children }) => {
+const FormHeaderContent = ({ children }: { children: ReactNode }) => {
   return <div css={formHeaderContentStyles}>{children}</div>;
 };
 
-const FormHeaderDescription: React.FC<{ children: ReactNode }> = ({
-  children,
-}) => {
+const FormHeaderDescription = ({ children }: { children: ReactNode }) => {
   return <div css={formHeaderDescriptionStyles}>{children}</div>;
 };
 
-const FormHeaderTitle: React.FC<{ children: ReactNode }> = ({ children }) => {
+const FormHeaderTitle = ({ children }: { children: ReactNode }) => {
   const { mode } = useGlobalTheme();
 
   return (
@@ -77,9 +75,7 @@ const FormHeaderTitle: React.FC<{ children: ReactNode }> = ({ children }) => {
   );
 };
 
-const FormHeaderWrapper: React.FC<{ children?: ReactNode }> = ({
-  children,
-}) => {
+const FormHeaderWrapper = ({ children }: { children?: ReactNode }) => {
   return <div css={formHeaderWrapperStyles}>{children}</div>;
 };
 
@@ -93,11 +89,7 @@ const FormHeaderWrapper: React.FC<{ children?: ReactNode }> = ({
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/form/docs/layout)
  * - [Usage](https://atlaskit.atlassian.com/packages/design-system/form/docs/layout)
  */
-const FormHeader: React.FC<FormHeaderProps> = ({
-  children,
-  description,
-  title,
-}: FormHeaderProps) => {
+const FormHeader = ({ children, description, title }: FormHeaderProps) => {
   return (
     <FormHeaderWrapper>
       {title && <FormHeaderTitle>{title}</FormHeaderTitle>}

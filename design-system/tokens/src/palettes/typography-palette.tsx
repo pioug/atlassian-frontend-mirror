@@ -45,37 +45,37 @@ export type LineHeightBaseToken =
 const lineHeightScale: LineHeightScaleTokenSchema<LineHeightScaleValues> = {
   lineHeight: {
     LineHeight100: {
-      value: '16px',
+      value: 16,
       attributes: {
         group: 'typography',
       },
     },
     LineHeight200: {
-      value: '20px',
+      value: 20,
       attributes: {
         group: 'typography',
       },
     },
     LineHeight300: {
-      value: '24px',
+      value: 24,
       attributes: {
         group: 'typography',
       },
     },
     LineHeight400: {
-      value: '28px',
+      value: 28,
       attributes: {
         group: 'typography',
       },
     },
     LineHeight500: {
-      value: '32px',
+      value: 32,
       attributes: {
         group: 'typography',
       },
     },
     LineHeight600: {
-      value: '40px',
+      value: 40,
       attributes: {
         group: 'typography',
       },
@@ -142,49 +142,49 @@ export type FontSizeBaseToken =
 const fontSizeScale: FontSizeScaleTokenSchema<FontSizeScaleValues> = {
   fontSize: {
     FontSize050: {
-      value: '11px',
+      value: 11,
       attributes: {
         group: 'typography',
       },
     },
     FontSize075: {
-      value: '12px',
+      value: 12,
       attributes: {
         group: 'typography',
       },
     },
     FontSize100: {
-      value: '14px',
+      value: 14,
       attributes: {
         group: 'typography',
       },
     },
     FontSize200: {
-      value: '16px',
+      value: 16,
       attributes: {
         group: 'typography',
       },
     },
     FontSize300: {
-      value: '20px',
+      value: 20,
       attributes: {
         group: 'typography',
       },
     },
     FontSize400: {
-      value: '24px',
+      value: 24,
       attributes: {
         group: 'typography',
       },
     },
     FontSize500: {
-      value: '29px',
+      value: 29,
       attributes: {
         group: 'typography',
       },
     },
     FontSize600: {
-      value: '35px',
+      value: 35,
       attributes: {
         group: 'typography',
       },

@@ -41,7 +41,7 @@ export default {
   'fabric.emoji.image.requirements': 'JPG、PNG、GIF。最大サイズ 1 MB。',
   'fabric.emoji.name.ariaLabel': '新しい絵文字の名前を入力する',
   'fabric.emoji.picker': '絵文字ピッカー',
-  'fabric.emoji.pickerlist.grid': '{showSearchResults, select, true {検索結果} other {絵文字}}',
+  'fabric.emoji.pickerlist.grid': '{showSearchResults, select, true {結果を検索} other {絵文字}}',
   'fabric.emoji.pickerlist.tabpanel': '絵文字アクションとリスト パネル',
   'fabric.emoji.placeholder': '例: こんにちは',
   'fabric.emoji.preview': '新しい絵文字{emoji}は素敵ですね',

@@ -10,11 +10,11 @@ import {
   SELECTION_STYLE_CONTEXT_DO_NOT_USE,
 } from '../src';
 
-const Link: React.FC<
-  CustomItemComponentProps & {
-    href: string;
-  }
-> = ({ children, href, className, onClick, tabIndex }) => {
+type LinkProps = CustomItemComponentProps & {
+  href: string;
+};
+
+const Link = ({ children, href, className, onClick, tabIndex }: LinkProps) => {
   return (
     <a href={href} className={className} onClick={onClick} tabIndex={tabIndex}>
       {children}

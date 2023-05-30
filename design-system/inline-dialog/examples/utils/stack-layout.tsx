@@ -53,12 +53,12 @@ interface StackLayoutProps {
  * A stack layout makes it easy to stack UI components together for VR tests.
  *
  */
-const StackLayout: React.FC<StackLayoutProps> = ({
+const StackLayout = ({
   children,
   direction = 'VERTICAL',
   size = 'MEDIUM',
   testId,
-}) => {
+}: StackLayoutProps) => {
   return (
     <div
       css={[

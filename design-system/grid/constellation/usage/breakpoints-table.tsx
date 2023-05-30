@@ -2,31 +2,30 @@
 import { jsx } from '@emotion/react';
 
 import { UNSAFE_BREAKPOINTS_CONFIG } from '@atlaskit/primitives/responsive';
+import { Table, TBody, TD, TH, THead, TR } from '@atlaskit/table/primitives';
 
 // TODO: This needs a new home.  We may want to show this here, but where does this live?
 export const BreakpointsTable = () => (
-  <table>
-    <thead>
-      <tr>
-        <th>Breakpoint</th>
-        <th>Min width</th>
-        <th>Max width</th>
-        <th># of columns</th>
-      </tr>
-    </thead>
-    <tbody>
+  <Table>
+    <THead>
+      <TR isBodyRow={false}>
+        <TH>Breakpoint</TH>
+        <TH align="number">Min width</TH>
+        <TH align="number">Max width</TH>
+        <TH align="number" width="12ch">
+          # of columns
+        </TH>
+      </TR>
+    </THead>
+    <TBody>
       {Object.entries(UNSAFE_BREAKPOINTS_CONFIG).map(([breakpoint, config]) => (
-        <tr key={breakpoint}>
-          <td>{breakpoint}</td>
-          <td>{config.min}px</td>
-          <td>
-            {config.max === Number.MAX_SAFE_INTEGER
-              ? 'Infinity'
-              : `${config.max}px`}
-          </td>
-          <td>12</td>
-        </tr>
+        <TR key={breakpoint}>
+          <TD>{breakpoint}</TD>
+          <TD align="number">{config.min}</TD>
+          <TD align="number">{config.max}</TD>
+          <TD align="number">12</TD>
+        </TR>
       ))}
-    </tbody>
-  </table>
+    </TBody>
+  </Table>
 );

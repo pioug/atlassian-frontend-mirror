@@ -47,11 +47,11 @@ const nestedGridStyles = css({
  *
  * @internal
  */
-export const Grid: React.FC<GridProps> = ({
+export const Grid = ({
   layout = defaultLayout,
   testId,
   children,
-}) => {
+}: GridProps) => {
   const { isNested, columns, spacing } = useContext(GridContext);
 
   return (

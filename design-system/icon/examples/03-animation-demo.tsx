@@ -27,7 +27,7 @@ const RandomIcon = () => {
   return <Icon label="Random icon" />;
 };
 
-const AnimationDemo: React.FC = () => {
+const AnimationDemo = () => {
   const [timerId, setTimerId] = useState<number>();
   const [, setUpdateCount] = useState(0);
   const checkboxRef = useRef<HTMLInputElement>(null);

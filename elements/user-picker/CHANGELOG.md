@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 10.2.4
+
+### Patch Changes
+
+- [`17aec239f54`](https://bitbucket.org/atlassian/atlassian-frontend/commits/17aec239f54) - [ux] aria-describedby and aria-labelledby proper association in between input and placeholder
+
 ## 10.2.3
 
 ### Patch Changes

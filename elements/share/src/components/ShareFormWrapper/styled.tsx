@@ -4,12 +4,12 @@ import React from 'react';
 
 import { jsx } from '@emotion/react';
 
-import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 export const InlineDialogFormWrapper: React.FC = ({ children }) => (
   <div
     css={{
-      width: `${gridSize() * 44}px`,
+      width: `${8 * 44}px`,
     }}
   >
     {children}
@@ -25,7 +25,7 @@ export const InlineDialogFormWrapper: React.FC = ({ children }) => (
 export const InlineDialogContentWrapper: React.FC = ({ children }) => (
   <div
     css={{
-      padding: `${gridSize() * 2}px ${gridSize() * 3}px`,
+      padding: `${token('space.200', '16px')} ${token('space.300', '24px')}`,
     }}
   >
     {children}

@@ -45,7 +45,7 @@ export default {
   'fabric.elements.share.main.tab.text.confluence': 'Del side',
   'fabric.elements.share.main.tab.text.jira': 'Del sag',
   'fabric.elements.share.success.message':
-    '{object, select,blogpost {Blogindlæg delt}board {Tavle delt}calendar {Kalender delt}draft {Udkast delt}filter {Filter delt}issue {Sag delt}summary {Oversigt delt}list {Liste delt}timeline {Tidslinje delt}form {Formular delt}media {Medier delt}page {Side delt}project {Projekt delt}pullrequest {Pullanmodning delt}question {Spørgsmål delt}report {Rapport delt}repository {Lager delt}request {Anmodning delt}roadmap {Køreplan delt}site {Websted delt}space {Område delt}other {Link delt}}',
+    '{object, select,blogpost {Blogindlæg delt}board {Tavle delt}calendar {Kalender delt}draft {Udkast delt}filter {Filter delt}issue {Sag delt}summary {Oversigt delt}list {Liste delt}timeline {Tidslinje delt}form {Formular delt}media {Medier delt}page {Side delt}project {Projekt delt}pullrequest {Pull-anmodning delt}question {Spørgsmål delt}report {Rapport delt}repository {Lager delt}request {Anmodning delt}roadmap {Køreplan delt}site {Websted delt}space {Område delt}other {Link delt}}',
   'fabric.elements.share.to.integration.button': 'Del med {integrationName}',
   'fabric.elements.share.trigger.button.icon.label': 'Del ikon',
   'fabric.elements.share.trigger.button.invite.text': 'Invitér',

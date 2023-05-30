@@ -43,6 +43,11 @@
             {
                 "moduleSpecifier": "@atlaskit/logo"
             }
+        ],
+        "enableRemoteAdminLinks": [
+            {
+                "moduleSpecifier": "@atlassian/switcher"
+            }
         ]
     },
     "imports": {
@@ -101,6 +106,10 @@
                 {
                     "importName": "focusRing",
                     "message": "The focusRing mixin is deprecated. Please use `@atlaskit/focus-ring` instead."
+                },
+                {
+                    "importName": "gridSize",
+                    "message": "The gridSize mixin is deprecated. Please use space tokens via `@atlaskit/tokens` instead."
                 }
             ]
         },
@@ -117,6 +126,10 @@
                 {
                     "importName": "focusRing",
                     "message": "The focusRing mixin is deprecated. Please use `@atlaskit/focus-ring` instead."
+                },
+                {
+                    "importName": "gridSize",
+                    "message": "The gridSize mixin is deprecated. Please use space tokens via `@atlaskit/tokens` instead."
                 }
             ]
         },

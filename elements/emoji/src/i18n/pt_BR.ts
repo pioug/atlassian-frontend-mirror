@@ -44,7 +44,7 @@ export default {
   'fabric.emoji.picker': 'Seletor de emoji',
   'fabric.emoji.pickerlist.grid': '{showSearchResults, select, true {Resultados da pesquisa} other {Emojis}}',
   'fabric.emoji.pickerlist.tabpanel': 'Painel de ações e lista de emojis',
-  'fabric.emoji.placeholder': 'por exemplo, olá',
+  'fabric.emoji.placeholder': 'por exemplo: olá',
   'fabric.emoji.preview': 'Seu novo emoji ({emoji}) ficou ótimo',
   'fabric.emoji.preview.title': 'Pré-visualizar',
   'fabric.emoji.retry.label': 'Tentar novamente',

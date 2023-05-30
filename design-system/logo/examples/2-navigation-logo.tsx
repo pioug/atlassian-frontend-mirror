@@ -61,11 +61,7 @@ const wrapperDivStyles = css({
   color: 'var(--color)',
 });
 
-const WrapperDiv: React.FC<WrapperDivProps> = ({
-  color,
-  background,
-  children,
-}) => {
+const WrapperDiv = ({ color, background, children }: WrapperDivProps) => {
   return (
     <div
       css={wrapperDivStyles}
@@ -78,7 +74,7 @@ const WrapperDiv: React.FC<WrapperDivProps> = ({
   );
 };
 
-const Wrapper: React.FC<WrapperDivProps> = (props) => (
+const Wrapper = (props: WrapperDivProps) => (
   <Fragment>
     <WrapperDiv color={props.color} background={props.background}>
       {props.children}

@@ -4,7 +4,7 @@
  * Token names mapped to their value in the default Atlassian themes ('light').
  * These default values are used by the Babel plugin to optionally provide automatic fallbacks.
  *
- * @codegen <<SignedSource::9c962af7a2afdab3160e3f3a2b285a8a>>
+ * @codegen <<SignedSource::856ff062171d44deb03158a6fa7d7bd1>>
  * @codegenCommand yarn build tokens
  */
 const defaultTokenValues = {
@@ -14,7 +14,7 @@ const defaultTokenValues = {
   'border.radius.300': '0.75rem',
   'border.radius.400': '1rem',
   'border.radius.round': '50%',
-  'border.width.0': '0',
+  'border.width.0': '0rem',
   'border.width.050': '0.0625rem',
   'border.width.100': '0.125rem',
   'color.text': '#172B4D',
@@ -303,7 +303,7 @@ const defaultTokenValues = {
   'opacity.disabled': '0.4',
   'opacity.loading': '0.2',
   'utility.UNSAFE.transparent': 'transparent',
-  'space.0': '0',
+  'space.0': '0rem',
   'space.025': '0.125rem',
   'space.050': '0.25rem',
   'space.075': '0.375rem',
@@ -321,24 +321,24 @@ const defaultTokenValues = {
     '"SFMono-Medium", "SF Mono", "Segoe UI Mono", "Roboto Mono", "Ubuntu Mono", Menlo, Consolas, Courier, monospace',
   'font.family.sans':
     '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif',
-  'font.size.050': '11px',
-  'font.size.075': '12px',
-  'font.size.100': '14px',
-  'font.size.200': '16px',
-  'font.size.300': '20px',
-  'font.size.400': '24px',
-  'font.size.500': '29px',
-  'font.size.600': '35px',
+  'font.size.050': '0.6875rem',
+  'font.size.075': '0.75rem',
+  'font.size.100': '0.875rem',
+  'font.size.200': '1rem',
+  'font.size.300': '1.25rem',
+  'font.size.400': '1.5rem',
+  'font.size.500': '1.8125rem',
+  'font.size.600': '2.1875rem',
   'font.weight.bold': '700',
   'font.weight.medium': '500',
   'font.weight.regular': '400',
   'font.weight.semibold': '600',
-  'font.lineHeight.100': '16px',
-  'font.lineHeight.200': '20px',
-  'font.lineHeight.300': '24px',
-  'font.lineHeight.400': '28px',
-  'font.lineHeight.500': '32px',
-  'font.lineHeight.600': '40px',
+  'font.lineHeight.100': '1rem',
+  'font.lineHeight.200': '1.25rem',
+  'font.lineHeight.300': '1.5rem',
+  'font.lineHeight.400': '1.75rem',
+  'font.lineHeight.500': '2rem',
+  'font.lineHeight.600': '2.5rem',
 } as const;
 
 export default defaultTokenValues;

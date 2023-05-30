@@ -1,6 +1,6 @@
 /** @jsx jsx */
 
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 
 import { css, jsx, SerializedStyles } from '@emotion/react';
 
@@ -73,7 +73,7 @@ const iconWrapperStyles = css({
   display: 'flex',
 });
 
-const IconWrapper: React.FC<{ children: ReactNode }> = ({ children }) => {
+const IconWrapper = ({ children }: { children: ReactNode }) => {
   return <span css={iconWrapperStyles}>{children}</span>;
 };
 
@@ -82,12 +82,12 @@ const messageIcons: Partial<Record<MessageAppearance, JSX.Element>> = {
   valid: <SuccessIcon size="small" label="success" />,
 };
 
-const Message: React.FC<InternalMessageProps> = ({
+const Message = ({
   children,
   appearance = 'default',
   fieldId,
   testId,
-}) => {
+}: InternalMessageProps) => {
   const { mode } = useGlobalTheme();
 
   const icon = messageIcons[appearance];
@@ -127,10 +127,7 @@ const Message: React.FC<InternalMessageProps> = ({
  * 'Password should be more than 4 characters'
  *
  */
-export const HelperMessage: React.FC<MessageProps> = ({
-  children,
-  testId,
-}: MessageProps) => (
+export const HelperMessage = ({ children, testId }: MessageProps) => (
   <FieldId.Consumer>
     {(fieldId) => (
       <Message
@@ -150,10 +147,7 @@ export const HelperMessage: React.FC<MessageProps> = ({
  * 'Invalid username, needs to be more than 4 characters'.
  *
  */
-export const ErrorMessage: React.FC<MessageProps> = ({
-  children,
-  testId,
-}: MessageProps) => (
+export const ErrorMessage = ({ children, testId }: MessageProps) => (
   <FieldId.Consumer>
     {(fieldId) => (
       <Message
@@ -174,10 +168,7 @@ export const ErrorMessage: React.FC<MessageProps> = ({
  * a helper message could be 'Nice one, this username is available'.
  *
  */
-export const ValidMessage: React.FC<MessageProps> = ({
-  children,
-  testId,
-}: MessageProps) => (
+export const ValidMessage = ({ children, testId }: MessageProps) => (
   <FieldId.Consumer>
     {(fieldId) => (
       <Message

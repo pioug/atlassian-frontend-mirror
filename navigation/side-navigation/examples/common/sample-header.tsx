@@ -1,6 +1,4 @@
 /** @jsx jsx */
-import React from 'react';
-
 import { jsx } from '@emotion/react';
 
 import Box, { BoxProps } from '@atlaskit/ds-explorations/box';
@@ -11,10 +9,7 @@ import { Header } from '../../src';
 
 import SampleIcon from './sample-logo';
 
-const Container: React.FC<CustomItemComponentProps> = ({
-  children,
-  ...props
-}) => {
+const Container = ({ children, ...props }: CustomItemComponentProps) => {
   return (
     <Box
       // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

@@ -47,10 +47,10 @@ type ColorOption = (typeof colors)[number];
  * NOTE this is not declared inline with the Select
  * If you declare inline you'll have issues with refs
  */
-const CustomColorOption: React.FC<OptionProps<ColorOption>> = ({
+const CustomColorOption = ({
   children,
   ...props
-}) => (
+}: OptionProps<ColorOption>) => (
   <components.Option {...props}>
     <ColorBox color={children as string} /> {children}
   </components.Option>
@@ -60,10 +60,10 @@ const CustomColorOption: React.FC<OptionProps<ColorOption>> = ({
  * NOTE this is not declared inline with the Select
  * If you declare inline you'll have issues with refs
  */
-const CustomValueOption: React.FC<SingleValueProps<ColorOption>> = ({
+const CustomValueOption = ({
   children,
   ...props
-}) => (
+}: SingleValueProps<ColorOption, false>) => (
   <components.SingleValue {...props}>
     <ColorBox color={children as string} /> {children}
   </components.SingleValue>

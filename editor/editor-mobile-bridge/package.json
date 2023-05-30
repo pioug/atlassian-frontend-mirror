@@ -80,7 +80,7 @@
     "@atlaskit/media-core": "^34.1.0",
     "@atlaskit/media-integration-test-helpers": "^2.6.0",
     "@atlaskit/media-test-helpers": "^33.0.0",
-    "@atlaskit/select": "^16.4.0",
+    "@atlaskit/select": "^16.5.0",
     "@atlaskit/textarea": "^4.7.0",
     "@atlaskit/textfield": "^5.5.0",
     "@atlaskit/util-data-test": "^17.8.0",

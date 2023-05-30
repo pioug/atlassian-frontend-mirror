@@ -1,4 +1,4 @@
-import type { DesignToken, Format } from 'style-dictionary';
+import type { Format } from 'style-dictionary';
 
 import { createSignedArtifact } from '@atlassian/codegen';
 
@@ -25,7 +25,6 @@ export const cssVariableFormatter: Format['formatter'] = ({
   const theme =
     themeOverrideConfig[options.themeName as ThemeOverrides] ||
     themeConfig[options.themeName as Themes];
-  const tokens: DesignToken[] = [];
   const colorModes = ['light', 'dark'] as const;
 
   if (!theme.id) {
@@ -38,13 +37,13 @@ export const cssVariableFormatter: Format['formatter'] = ({
     );
   }
 
-  sortTokens(
+  const tokens = sortTokens(
     dictionary.allTokens.filter(
       (token) => token.attributes && token.attributes.group !== 'palette',
     ),
-  ).forEach((token) => {
+  ).map((token) => {
     const tokenName = getCSSCustomProperty(token.path);
-    tokens.push({ ...token, name: tokenName });
+    return { ...token, name: tokenName };
   });
 
   let output = '';

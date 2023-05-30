@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { type AriaAttributes, ReactNode } from 'react';
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { Placement } from '@atlaskit/popper';
 
@@ -175,6 +175,10 @@ export type PopupUserPickerProps = UserPickerProps & {
    */
   shouldFlip?: boolean;
 };
+
+export type AriaAttributesType =
+  | AriaAttributes['aria-labelledby']
+  | AriaAttributes['aria-describedby'];
 
 export type BoundariesElement =
   | 'scrollParent'

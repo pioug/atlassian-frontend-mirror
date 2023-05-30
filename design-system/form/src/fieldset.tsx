@@ -51,7 +51,7 @@ const lightH200Styles = getFieldsetLabelDynamicStyles('light');
 // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
 const darkH200Styles = getFieldsetLabelDynamicStyles('dark');
 
-const FieldsetLabel: React.FC<{ children: ReactNode }> = ({ children }) => {
+const FieldsetLabel = ({ children }: { children: ReactNode }) => {
   const { mode } = useGlobalTheme();
   return (
     <label

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, {
+import {
   useState,
   SyntheticEvent,
   ComponentType,
@@ -162,7 +162,7 @@ const filterIcons = (icons: IconsList, query: string) => {
 
 const allIconsPromise = getAllIcons();
 
-const IconAllExample: React.FC = () => {
+const IconAllExample = () => {
   const [allIcons, setAllIcons] = useState<IconsList>();
   const [query, setQuery] = useState('');
   const [areIconsShowing, setIconsShowing] = useState(false);

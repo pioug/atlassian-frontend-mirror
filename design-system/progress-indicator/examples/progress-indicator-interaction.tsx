@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { ReactNode, useState } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
 import Box from '@atlaskit/ds-explorations/box';
@@ -6,9 +6,7 @@ import Inline from '@atlaskit/primitives/inline';
 
 import { ProgressIndicator } from '../src';
 
-const SpreadInlineLayout: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
+const SpreadInlineLayout = ({ children }: { children: ReactNode }) => {
   return (
     <Inline space="space.100" spread="space-between" alignBlock="center">
       {children}
@@ -21,11 +19,10 @@ interface ExampleProps {
   values: string[];
 }
 
-const Example: FC<ExampleProps> = ({ values = ['one', 'two', 'three'] }) => {
+const Example = ({ values = ['one', 'two', 'three'] }: ExampleProps) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   const handleSelect = ({
-    event,
     index: selectedIndex,
   }: {
     event: React.MouseEvent<HTMLButtonElement>;

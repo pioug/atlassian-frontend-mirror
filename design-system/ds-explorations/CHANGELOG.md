@@ -1,5 +1,15 @@
 # @atlaskit/ds-explorations
 
+## 2.2.0
+
+### Minor Changes
+
+- [`78a3f27cc3a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/78a3f27cc3a) - Regenerate style maps based on token updates.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.1.2
 
 ### Patch Changes

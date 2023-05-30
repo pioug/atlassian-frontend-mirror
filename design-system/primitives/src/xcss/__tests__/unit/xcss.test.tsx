@@ -91,11 +91,11 @@ describe('xcss()', () => {
       Object {
         Symbol(UNSAFE_INTERNAL_styles): Object {
           ":hover": Object {
-            "borderWidth": "var(--ds-width-100, 0.125rem)",
+            "borderWidth": "var(--ds-width-100, 2px)",
             "display": "flex",
           },
           ":visited": Object {
-            "borderWidth": "var(--ds-width-050, 0.0625rem)",
+            "borderWidth": "var(--ds-width-050, 1px)",
           },
         },
       }

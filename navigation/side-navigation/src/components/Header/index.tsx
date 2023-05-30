@@ -14,10 +14,7 @@ import { CustomItem } from '../Item';
  *
  * A container for Header and Footer that safely handles props to the child component
  */
-export const Container: React.FC<CustomItemComponentProps> = ({
-  children,
-  ...props
-}) => {
+export const Container = ({ children, ...props }: CustomItemComponentProps) => {
   // https://stackoverflow.com/a/39333479
   const safeProps = (({
     className,

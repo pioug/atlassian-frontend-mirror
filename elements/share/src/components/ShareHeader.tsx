@@ -4,8 +4,8 @@ import React from 'react';
 import { css, jsx, Theme, useTheme } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
 
-import { gridSize } from '@atlaskit/theme/constants';
 import { h500 } from '@atlaskit/theme/typography';
+import { token } from '@atlaskit/tokens';
 
 import { messages } from '../i18n';
 
@@ -19,9 +19,9 @@ const headerWrapperStyles = css`
 
 export const getFormHeaderTitleStyles = (theme: Theme) => css`
   ${h500(theme)}
-  line-height: ${gridSize() * 4}px;
-  margin-right: ${gridSize() * 4}px;
-  margin-top: ${gridSize() * 4}px;
+  line-height: ${token('font.lineHeight.500', '32px')};
+  margin-right: ${token('space.400', '32px')};
+  margin-top: ${token('space.400', '32px')};
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

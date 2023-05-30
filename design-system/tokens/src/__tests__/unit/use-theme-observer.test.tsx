@@ -17,6 +17,11 @@ const SET_DARK_COLOR_MODE = 'set-dark-color-mode';
 const SET_LIGHT_THEME = 'set-light-theme';
 const SET_DARK_THEME = 'set-dark-theme';
 
+type HookWrapperProps = {
+  isAuto?: boolean;
+  children: ReactNode;
+};
+
 const ThemedComponent = () => {
   const isFirstRender = useRef(true);
 
@@ -65,10 +70,7 @@ const ThemedComponent = () => {
   );
 };
 
-const HookWrapper: React.FC<{ isAuto?: boolean; children: ReactNode }> = ({
-  isAuto,
-  children,
-}) => {
+const HookWrapper = ({ isAuto, children }: HookWrapperProps) => {
   setGlobalTheme({ colorMode: isAuto ? 'auto' : 'dark' });
   return <>{children}</>;
 };

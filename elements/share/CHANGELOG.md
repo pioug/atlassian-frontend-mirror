@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 4.2.3
+
+### Patch Changes
+
+- [`d6d8c718bd8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6d8c718bd8) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
+
 ## 4.2.2
 
 ### Patch Changes

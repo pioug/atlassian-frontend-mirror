@@ -46,7 +46,7 @@ const selectWrapperStyles = css({
   padding: token('space.250', '20px'),
 });
 
-const SelectWrapper: React.FC<{ children: ReactNode }> = ({ children }) => {
+const SelectWrapper = ({ children }: { children: ReactNode }) => {
   return <div css={selectWrapperStyles}>{children}</div>;
 };
 

@@ -1,5 +1,12 @@
 # @atlaskit/linking-common
 
+## 2.13.1
+
+### Patch Changes
+
+- [`037331dd044`](https://bitbucket.org/atlassian/atlassian-frontend/commits/037331dd044) - Copy json files postBuild
+- Updated dependencies
+
 ## 2.13.0
 
 ### Minor Changes

@@ -6,10 +6,9 @@
         "group": "spacing",
         "state": "active",
         "introduced": "0.12.0",
-        "pixelValue": "0px",
         "description": "Equates to `0`. Can be used for resetting default spacing styles."
       },
-      "value": "0"
+      "value": 0
     },
     "Spacing/space.025": {
       "attributes": {
@@ -20,10 +19,9 @@
           "3px"
         ],
         "introduced": "0.12.0",
-        "pixelValue": "2px",
         "description": "Use for spacing in compact scenarios. The smallest value in our scale."
       },
-      "value": "0.125rem"
+      "value": 2
     },
     "Spacing/space.050": {
       "attributes": {
@@ -34,10 +32,9 @@
           "5px"
         ],
         "introduced": "0.12.0",
-        "pixelValue": "4px",
         "description": "Use for spacing in compact scenarios."
       },
-      "value": "0.25rem"
+      "value": 4
     },
     "Spacing/space.075": {
       "attributes": {
@@ -48,10 +45,9 @@
           "7px"
         ],
         "introduced": "0.12.0",
-        "pixelValue": "6px",
         "description": "Use for spacing in compact scenarios."
       },
-      "value": "0.375rem"
+      "value": 6
     },
     "Spacing/space.100": {
       "attributes": {
@@ -62,10 +58,9 @@
           "9px"
         ],
         "introduced": "0.12.0",
-        "pixelValue": "8px",
         "description": "Use for gutter spacing."
       },
-      "value": "0.5rem"
+      "value": 8
     },
     "Spacing/space.150": {
       "attributes": {
@@ -78,10 +73,9 @@
           "14px"
         ],
         "introduced": "0.12.0",
-        "pixelValue": "12px",
         "description": "Helpful guidance goes here"
       },
-      "value": "0.75rem"
+      "value": 12
     },
     "Spacing/space.200": {
       "attributes": {
@@ -94,10 +88,9 @@
           "18px"
         ],
         "introduced": "0.12.0",
-        "pixelValue": "16px",
         "description": "Use for gutter spacing."
       },
-      "value": "1rem"
+      "value": 16
     },
     "Spacing/space.250": {
       "attributes": {
@@ -110,10 +103,9 @@
           "23px"
         ],
         "introduced": "0.12.0",
-        "pixelValue": "20px",
         "description": "Use for gutter spacing."
       },
-      "value": "1.25rem"
+      "value": 20
     },
     "Spacing/space.300": {
       "attributes": {
@@ -127,10 +119,9 @@
           "28px"
         ],
         "introduced": "0.12.0",
-        "pixelValue": "24px",
         "description": "Use for gutter spacing."
       },
-      "value": "1.5rem"
+      "value": 24
     },
     "Spacing/space.400": {
       "attributes": {
@@ -146,50 +137,45 @@
           "35px"
         ],
         "introduced": "0.12.0",
-        "pixelValue": "32px",
         "description": "Use for gutter spacing."
       },
-      "value": "2rem"
+      "value": 32
     },
     "Spacing/space.500": {
       "attributes": {
         "group": "spacing",
         "state": "active",
         "introduced": "0.12.0",
-        "pixelValue": "40px",
         "description": "Use for larger layout-specific spacing."
       },
-      "value": "2.5rem"
+      "value": 40
     },
     "Spacing/space.600": {
       "attributes": {
         "group": "spacing",
         "state": "active",
         "introduced": "0.12.0",
-        "pixelValue": "48px",
         "description": "Use for larger layout-specific spacing."
       },
-      "value": "3rem"
+      "value": 48
     },
     "Spacing/space.800": {
       "attributes": {
         "group": "spacing",
         "state": "active",
         "introduced": "0.12.0",
-        "pixelValue": "64px",
         "description": "Use for larger layout-specific spacing."
       },
-      "value": "4rem"
+      "value": 64
     },
     "Spacing/space.1000": {
       "attributes": {
         "group": "spacing",
         "state": "active",
         "introduced": "0.12.0",
-        "pixelValue": "80px",
         "description": "Use for larger layout-specific spacing."
       },
-      "value": "5rem"
+      "value": 80
     }
   },
   "renameMap": {}

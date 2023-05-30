@@ -1,5 +1,21 @@
 # @atlaskit/tokens
 
+## 1.5.1
+
+### Patch Changes
+
+- [`e7ea6832ad2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7ea6832ad2) - Bans the use of React.FC/React.FunctionComponent type in ADS components as part of the React 18 migration work. The change is internal only and should not introduce any changes for the component consumers.
+
+## 1.5.0
+
+### Minor Changes
+
+- [`43d186af89c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/43d186af89c) - [ux] Updates spacing, typography metadata to apply rems or pixels depending on the target platform.
+
+### Patch Changes
+
+- [`019af32072d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/019af32072d) - Add shape token handling to the `ensure-design-token-usage-spacing` rule.
+
 ## 1.4.4
 
 ### Patch Changes

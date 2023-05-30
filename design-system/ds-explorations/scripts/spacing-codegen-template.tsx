@@ -32,7 +32,7 @@ const onlySpaceTokens = tokens.filter((token) =>
 
 const activeTokens = onlySpaceTokens.map((t) => ({
   name: t.name,
-  fallback: t.attributes.pixelValue!,
+  fallback: t.value,
 }));
 
 export const createSpacingStylesFromTemplate = (
